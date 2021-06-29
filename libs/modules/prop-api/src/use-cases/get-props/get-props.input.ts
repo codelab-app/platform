@@ -2,8 +2,8 @@ import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class PropsByPageElementFilter {
-  @Field()
-  declare pageElementId: string
+  @Field(() => [String])
+  declare pageElementIds: Array<string>
 
   @Field({ nullable: true, defaultValue: null })
   declare fieldId?: string

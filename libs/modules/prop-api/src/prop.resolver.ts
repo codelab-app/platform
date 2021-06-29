@@ -16,10 +16,11 @@ import {
 } from '@nestjs/graphql'
 import { Prop, PropAggregate } from './models'
 import {
-  CreatePropInput,
-  CreatePropService,
   GetPropAggregatesService,
   GetPropsInput,
+  UpsertPropsInput,
+  UpsertPropsResponse,
+  UpsertPropsService,
 } from './use-cases'
 
 @Resolver(() => Prop)
@@ -28,29 +29,23 @@ export class PropResolver {
   constructor(
     private getPropAggregatesService: GetPropAggregatesService,
     private getFieldService: GetFieldService,
-    private createPropService: CreatePropService,
+    private upsertPropService: UpsertPropsService,
   ) {}
 
-  @Query(() => PropAggregate)
-  @UseGuards(GqlAuthGuard)
-  getProp() {
-    return null!
-  }
-
-  //by atomId
   @Query(() => [PropAggregate])
   @UseGuards(GqlAuthGuard)
   getProps(@Args('input') input: GetPropsInput) {
     return this.getPropAggregatesService.execute(input)
   }
 
-  @Mutation(() => Prop)
+  @Mutation(() => UpsertPropsResponse)
   @UseGuards(GqlAuthGuard)
-  createProp(
-    @Args('input') input: CreatePropInput,
+  upsertProp(
+    @Args('input', { type: () => [UpsertPropsInput] })
+    input: Array<UpsertPropsInput>,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.createPropService.execute({ input, currentUser })
+    return this.upsertPropService.execute({ input, currentUser })
   }
 
   @UseGuards(GqlAuthGuard)

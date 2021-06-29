@@ -15,7 +15,7 @@ export class GetPropsQueryBuilder extends DgraphQueryBuilder {
     super()
     this.withBaseFields()
       .withRecurse()
-      .withModelFields(
+      .withModelsFields(
         DgraphProp,
         DgraphField,
         DgraphStringValue,

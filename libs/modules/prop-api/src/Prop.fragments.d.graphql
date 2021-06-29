@@ -23,6 +23,7 @@ fragment DgraphStringValue on StringValue {
     stringValue
 }
 
+
 fragment DgraphIntValue on IntValue {
     id
     intValue

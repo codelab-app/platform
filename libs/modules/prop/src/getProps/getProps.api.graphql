@@ -1,5 +1,0 @@
-query GetProps($input: GetPropsInput!) {
-  props: getProps(input: $input) {
-    ...__PropAggregate
-  }
-}

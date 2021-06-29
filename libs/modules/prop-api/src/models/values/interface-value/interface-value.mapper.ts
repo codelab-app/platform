@@ -4,7 +4,6 @@ import {
   DgraphArrayMapper,
   IDgraphMapper,
 } from '@codelab/backend'
-import { DgraphInterface } from '@codelab/modules/type-api'
 import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { DgraphProp, Prop, PropMapper, PropMappingContext } from '../../prop'
 import {
@@ -34,19 +33,19 @@ export class InterfaceValueMapper
     input: DeepPartial<DgraphInterfaceValue>,
     context: PropMappingContext,
   ) {
-    if (context && context.interfaceIteration > 20) {
+    if (context && context.interfaceIteration > 100) {
       throw new Error('Interface value too nested')
     }
 
     const dgraphValue = DgraphInterfaceValue.Schema.parse(input)
+    const id = dgraphValue[BaseDgraphFields.uid]
 
-    const value = new InterfaceValue(
-      dgraphValue[BaseDgraphFields.uid],
-      await this.propArrayMapper.map(
-        dgraphValue[DgraphInterfaceValueFields.props],
-        { ...context, interfaceIteration: context.interfaceIteration + 1 },
-      ),
+    const props = await this.propArrayMapper.map(
+      dgraphValue[DgraphInterfaceValueFields.props],
+      { ...context, interfaceIteration: context.interfaceIteration + 1 },
     )
+
+    const value = new InterfaceValue(id, props)
 
     InterfaceValue.Schema.parse(value)
 

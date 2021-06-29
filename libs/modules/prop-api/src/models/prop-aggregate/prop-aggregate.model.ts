@@ -4,7 +4,7 @@ import { Prop } from '../prop'
 import { PropValue, propValueSchema } from '../values'
 
 @ObjectType({
-  description: 'The aggregate prop and value descendants of a single root prop',
+  description: 'Contains all nested props and values from the whole prop tree',
 })
 export class PropAggregate {
   @GraphqlField(() => Prop)

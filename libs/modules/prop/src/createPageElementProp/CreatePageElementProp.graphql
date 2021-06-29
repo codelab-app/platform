@@ -1,5 +1,0 @@
-mutation CreatePageElementProp($propInput: prop_insert_input!) {
-  insert_prop_one(object: $propInput) {
-    ...PropCollection__Prop
-  }
-}

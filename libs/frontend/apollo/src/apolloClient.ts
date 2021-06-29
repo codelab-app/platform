@@ -38,17 +38,19 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
     // https://www.apollographql.com/docs/react/data/fragments/#generating-possibletypes-automatically
     cache: new InMemoryCache({
       possibleTypes: {
-        Type: [
-          'SimpleType',
-          'ArrayType',
-          'EnumType',
-          'UnitType',
-          'InterfaceType',
-        ],
+        Type: ['SimpleType', 'ArrayType', 'EnumType', 'Interface'],
         Decorator: [
           'ArrayLengthValidator',
           'MinMaxValidator',
           'RequiredValidator',
+        ],
+        PropValue: [
+          'ArrayValue',
+          'BooleanValue',
+          'FloatValue',
+          'InterfaceValue',
+          'IntValue',
+          'StringValue',
         ],
       },
     }),

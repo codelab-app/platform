@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
-import { InterfaceValue, PropValue } from './models'
+import { InterfaceValue, Prop } from './models'
 import { GetPropsService } from './use-cases'
 
 @Resolver(() => InterfaceValue)
@@ -8,7 +8,7 @@ import { GetPropsService } from './use-cases'
 export class InterfaceValueResolver {
   constructor(private getPropsService: GetPropsService) {}
 
-  @ResolveField('values', () => [PropValue])
+  @ResolveField('props', () => [Prop])
   resolveValues(@Parent() parent: InterfaceValue) {
     return this.getPropsService.execute({
       byInterfaceValue: {

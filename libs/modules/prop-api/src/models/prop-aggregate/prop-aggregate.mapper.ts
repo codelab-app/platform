@@ -7,10 +7,11 @@ import { PropAggregate } from './prop-aggregate.model'
 @Injectable()
 export class PropAggregateMapper implements IDgraphMapper<Prop, PropAggregate> {
   async map(input: DeepPartial<Prop>) {
-    const prop = Prop.Schema.parse(input)
+    Prop.Schema.parse(input)
+
     const aggregate = new PropAggregate()
 
-    aggregate.rootProp = prop
+    aggregate.rootProp = input as Prop
     aggregate.props = []
     aggregate.values = []
 
@@ -29,6 +30,8 @@ export class PropAggregateMapper implements IDgraphMapper<Prop, PropAggregate> {
       aggregate.values.push(visitingValue)
       visitedValueIds.add(visitingValue.id)
 
+      // Get all the inner values and props from interface and array values
+      // that way we have everything we need inside the prop aggregate to construct the whole prop tree
       if (visitingValue instanceof ArrayValue) {
         visitingValue.values?.forEach((arrayValue) =>
           visitValue(arrayValue, iteration + 1),
@@ -57,6 +60,9 @@ export class PropAggregateMapper implements IDgraphMapper<Prop, PropAggregate> {
 
       visitedPropIds.add(visitingProp.id)
     }
+
+    // Visit all nested and recursive props and values of the rootProp
+    visitProp(aggregate.rootProp)
 
     PropAggregate.Schema.parse(aggregate)
 

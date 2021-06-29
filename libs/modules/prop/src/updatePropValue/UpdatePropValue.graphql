@@ -1,5 +1,0 @@
-mutation UpdatePropValue($propValueId: uuid!, $input: prop_value_set_input!) {
-  update_prop_value_by_pk(pk_columns: { id: $propValueId }, _set: $input) {
-    ...Prop__PropValue
-  }
-}

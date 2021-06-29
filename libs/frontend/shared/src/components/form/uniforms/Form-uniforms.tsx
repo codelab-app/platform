@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { callbackWithParams } from '../../../utils'
@@ -14,14 +14,18 @@ export const FormUniforms = <TData extends any>({
   children,
   ...props
 }: React.PropsWithChildren<FormUniformsProps<TData>>): ReactElement => {
-  const bridgeRef = useRef(
+  const [bridge, setBridge] = useState(
     schema instanceof Bridge ? schema : createBridge(schema),
   )
+
+  useEffect(() => {
+    setBridge(schema instanceof Bridge ? schema : createBridge(schema))
+  }, [schema])
 
   return (
     <AutoForm<TData>
       ref={connectUniformSubmitRef(submitRef)}
-      schema={bridgeRef.current}
+      schema={bridge}
       onSubmit={(formData: TData) => {
         const result = onSubmit(formData)
 

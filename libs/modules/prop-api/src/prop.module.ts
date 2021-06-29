@@ -1,8 +1,8 @@
-import { PageElementModule } from '@codelab/modules/page-element-api'
+import { AtomModule } from '@codelab/modules/atom-api'
 import { TypeModule } from '@codelab/modules/type-api'
 import { Module } from '@nestjs/common'
 import { ArrayValueResolver } from './array-value.resolver'
-import { InterfaceValueResolver } from './interface-value.model'
+import { InterfaceValueResolver } from './interface-value.resolver'
 import {
   ArrayValueMapper,
   BooleanValueMapper,
@@ -16,10 +16,10 @@ import {
 } from './models'
 import { PropResolver } from './prop.resolver'
 import {
-  CreatePropService,
   GetArrayValuesService,
   GetPropAggregatesService,
   GetPropsService,
+  UpsertPropsService,
 } from './use-cases'
 
 const mappers = [
@@ -38,14 +38,14 @@ const services = [
   ...mappers,
   GetArrayValuesService,
   GetPropsService,
-  CreatePropService,
+  UpsertPropsService,
   GetPropAggregatesService,
 ]
 
 const resolvers = [PropResolver, ArrayValueResolver, InterfaceValueResolver]
 
 @Module({
-  imports: [TypeModule, PageElementModule],
+  imports: [TypeModule, AtomModule],
   providers: [...services, ...resolvers],
   exports: [...services],
 })

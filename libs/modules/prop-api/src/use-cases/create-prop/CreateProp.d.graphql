@@ -1,8 +1,0 @@
-mutation CreateProp($input: [AddPropInput!]!){
-    addProp(input: $input){
-        numUids
-        prop {
-            ...DgraphProp
-        }
-    }
-}

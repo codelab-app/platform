@@ -1,5 +1,4 @@
 import { __AtomFragment } from '@codelab/codegen/graphql'
-import { PropCollectionFragment } from '@codelab/codegen/hasura'
 import { AtomType } from './Hasura'
 
 export enum NodeType {
@@ -30,9 +29,9 @@ export interface ComponentElementNode extends NodeBase {
 
 export interface PageElementNode extends NodeBase {
   nodeType: NodeType.PageElement
-  props?: PropCollectionFragment | null
   atom?: __AtomFragment | null
   children?: Array<PageElementNode>
+  props: Record<string, any>
 }
 
 export interface NodeI {

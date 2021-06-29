@@ -26,18 +26,18 @@ export class BoleanValueInput {
 
 @InputType()
 export class ArrayValueInput {
-  @Field(() => [CreateValueInput])
-  declare values: Array<CreateValueInput>
+  @Field(() => [UpsertValueInput])
+  declare values: Array<UpsertValueInput>
 }
 
 @InputType()
 export class InterfaceValueInput {
-  @Field(() => [CreatePropInput])
-  declare props: Array<CreatePropInput>
+  @Field(() => [UpsertPropsInput])
+  declare props: Array<UpsertPropsInput>
 }
 
 @InputType()
-export class CreateValueInput {
+export class UpsertValueInput {
   @Field(() => StringValueInput, { nullable: true })
   declare stringValue?: StringValueInput | null
 
@@ -58,13 +58,17 @@ export class CreateValueInput {
 }
 
 @InputType()
-export class CreatePropInput {
+export class UpsertPropsInput {
+  @Field(() => String, { nullable: true })
+  declare propId?: string | null
+
   @Field()
   declare fieldId: string
 
+  // Nullable, because later one we might want to create prop for a component or something else
   @Field(() => String, { nullable: true })
   declare pageElementId?: string | null
 
-  @Field(() => CreateValueInput, { nullable: true })
-  declare value?: CreateValueInput | null
+  @Field(() => UpsertValueInput, { nullable: true })
+  declare value?: UpsertValueInput | null
 }

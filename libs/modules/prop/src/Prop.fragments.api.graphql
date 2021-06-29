@@ -1,16 +1,51 @@
 fragment __PropAggregate on PropAggregate {
   props {
-    id
+    ...__Prop
   }
   values {
-    __typename
+    ...__PropValue
   }
   rootProp {
-    id
+    ...__Prop
   }
+}
+
+fragment __PropShallow on Prop {
+  id
+  value { ...__PropValueShallow}
+  field {...__Field }
 }
 
 fragment __Prop on Prop {
   id
-
+  value {   ...__PropValueShallow }
+  field {   ...__Field }
 }
+
+fragment __PropValue on PropValue {
+  __typename
+  ...__PropValueShallow
+  ...on InterfaceValue { ...__InterfaceValue }
+  ...on ArrayValue { ...__ArrayValue }
+}
+
+# Same as PropValue, but without the recursion. Recursive values (Array and interface)
+# are retrieved with id only
+fragment __PropValueShallow on PropValue {
+  __typename
+  ...on StringValue { ...__StringValue }
+  ...on IntValue { ...__IntValue }
+  ...on FloatValue { ...__FloatValue }
+  ...on BooleanValue { ...__BooleanValue }
+  ...on ArrayValue { id }
+  ...on InterfaceValue { id  }
+}
+
+
+fragment __StringValue on StringValue { id stringValue }
+fragment __IntValue on IntValue { id intValue }
+fragment __FloatValue on FloatValue { id floatValue }
+fragment __BooleanValue on BooleanValue { id booleanValue }
+fragment __ArrayValue on ArrayValue { id values { ...__PropValueShallow } }
+fragment __ArrayValueShallow on ArrayValue { id values { ...__PropValueShallow } }
+fragment __InterfaceValue on InterfaceValue { id props {...__PropShallow } }
