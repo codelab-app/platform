@@ -19,7 +19,12 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
         "canTrackAnalytics": false,
         "showUsageWarnings": true
       }
@@ -89,7 +94,6 @@
     "modules-component-element": {
       "tags": []
     },
-    "frontend-dgraph": {
     "modules-lambda": {
       "tags": []
     },
@@ -137,11 +141,15 @@
     },
     "web": {
       "tags": [],
-      "implicitDependencies": ["api"]
+      "implicitDependencies": [
+        "api"
+      ]
     },
     "web-e2e": {
       "tags": [],
-      "implicitDependencies": ["web"]
+      "implicitDependencies": [
+        "web"
+      ]
     }
   },
   "targetDependencies": {

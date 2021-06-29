@@ -38,7 +38,7 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
       throw new Error('Missing DgraphConfig')
     }
 
-    const clientStub = new DgraphClientStub(dgraphConfig?.endpoint)
+    const clientStub = new DgraphClientStub(dgraphConfig?.grpcEndpoint)
     const dgraphClient = new DgraphClient(clientStub)
 
     return {
@@ -51,8 +51,8 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
       //
       resetDb: async () => {
         const op = new Operation()
-        //op.setDropOp(Operation.DropOp.DATA)
-        op.setDropOp(Operation.DropOp.All)
+        // op.setDropOp(Operation.DropOp.DATA) <- deletes just the data
+        op.setDropOp(Operation.DropOp.ALL) // <- deletes schema and data
 
         await dgraphClient.alter(op)
 

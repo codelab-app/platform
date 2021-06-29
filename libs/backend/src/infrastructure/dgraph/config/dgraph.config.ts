@@ -4,6 +4,7 @@ import path from 'path'
 import { DgraphTokens } from './dgraph.tokens'
 
 export interface DgraphConfig {
+  grpcEndpoint: string
   endpoint: string
   /**
    * This is the user maintained schema file
@@ -25,6 +26,7 @@ export const dgraphConfig = registerAs<() => DgraphConfig>(
       process.cwd(),
       'dgraph/schema.generated.graphql',
     ),
-    endpoint: get('CODELAB_DGRAPH_ENDPOINT').required().asString(),
+    grpcEndpoint: get('CODELAB_DGRAPH_GRPC_ENDPOINT').required().asString(),
+    endpoint: get('CODELAB_DGRAPH_ENDPOINT').required().asUrlString(),
   }),
 )
