@@ -1,8 +1,11 @@
-mutation DeletePage($filter: PageFilter!) {
-  deletePage(filter: $filter) {
+mutation DeletePage($filter: PageFilter!, $pageElementFilter: PageElementFilter!, $propsFilter: PropFilter! ){
+  deletePage(filter: $filter){
     numUids
-    page {
-      ...Dgraph__Page
-    }
+  }
+  deletePageElement(filter: $pageElementFilter) {
+    numUids
+  }
+  deleteProp(filter: $propsFilter){
+    numUids
   }
 }

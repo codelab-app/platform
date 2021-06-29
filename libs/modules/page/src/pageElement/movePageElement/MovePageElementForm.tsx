@@ -20,7 +20,7 @@ import {
 
 type MovePageElementFormProps =
   UniFormUseCaseProps<MovePageElementSchemaType> & {
-    pageElement: PageElementFragment
+    pageElement: Pick<PageElementFragment, 'id' | 'name' | 'atom'>
   }
 
 /** Not intended to be used in a modal */
@@ -74,6 +74,7 @@ export const MovePageElementForm = ({
   return (
     <>
       <FormUniforms<MovePageElementSchemaType>
+        key={pageElement.id}
         autosave={true}
         autosaveDelay={500}
         schema={movePageElementSchema}

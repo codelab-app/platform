@@ -17,7 +17,7 @@ import { PageContext } from '../../providers'
 import { updatePageElementSchema } from './updatePageElementSchema'
 
 type UpdatePageElementFormProps = UniFormUseCaseProps<UpdatePageElementData> & {
-  pageElement: PageElementFragment
+  pageElement: Pick<PageElementFragment, 'id' | 'name' | 'atom'>
 }
 
 /** Not intended to be used in a modal */
@@ -53,6 +53,7 @@ export const UpdatePageElementForm = ({
   return (
     <>
       <FormUniforms<UpdatePageElementData>
+        key={pageElement.id}
         autosave={true}
         autosaveDelay={500}
         schema={updatePageElementSchema}
