@@ -41,7 +41,7 @@ export class InterfaceValueMapper
     const id = dgraphValue[BaseDgraphFields.uid]
 
     const props = await this.propArrayMapper.map(
-      dgraphValue[DgraphInterfaceValueFields.props],
+      dgraphValue[DgraphInterfaceValueFields.props] as any,
       { ...context, interfaceIteration: context.interfaceIteration + 1 },
     )
 

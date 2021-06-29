@@ -1,9 +1,6 @@
 import { DeleteResponse } from '@codelab/backend'
-import {
-  CurrentUser,
-  GqlAuthGuard,
-  JwtPayload,
-} from '@codelab/modules/auth-api'
+import { JwtPayload } from '@codelab/backend/adapters'
+import { CurrentUser, GqlAuthGuard } from '@codelab/modules/auth-api'
 import { Field, GetFieldService } from '@codelab/modules/type-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
