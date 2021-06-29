@@ -11,7 +11,7 @@ export const allDgraphTypes = [
   DgraphInterface,
 ]
 
-export const dgraphTypeUnionSchema = z.union([
+export const dgraphTypeUnionSchema: z.ZodSchema<DgraphTypeUnion> = z.union([
   DgraphSimpleType.Schema,
   DgraphArrayType.Schema,
   DgraphEnumType.Schema,

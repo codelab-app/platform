@@ -176,7 +176,7 @@ export type CreateAppInput = {
 }
 
 export type CreateArrayTypeInput = {
-  type: CreateTypeInput
+  itemTypeId: Scalars['String']
 }
 
 export type CreateAtomInput = {
@@ -185,7 +185,13 @@ export type CreateAtomInput = {
 }
 
 export type CreateEnumTypeInput = {
-  allowedValues: Array<Scalars['String']>
+  value: Scalars['String']
+  allowedValues: Array<CreateEnumTypeValueInput>
+}
+
+export type CreateEnumTypeValueInput = {
+  name?: Maybe<Scalars['String']>
+  value: Scalars['String']
 }
 
 export type CreateFieldInput = {
@@ -193,15 +199,11 @@ export type CreateFieldInput = {
   name: Scalars['String']
   description?: Maybe<Scalars['String']>
   interfaceId: Scalars['String']
-  type: CreateTypeInput
+  type: TypeRef
 }
 
 export type CreateInterfaceInput = {
   name: Scalars['String']
-}
-
-export type CreateInterfaceTypeInput = {
-  interfaceId: Scalars['String']
 }
 
 export type CreatePageElementInput = {
@@ -223,8 +225,8 @@ export type CreateSimpleTypeInput = {
 
 /** Provide one of the properties */
 export type CreateTypeInput = {
+  name: Scalars['String']
   simpleType?: Maybe<CreateSimpleTypeInput>
-  interfaceType?: Maybe<CreateInterfaceTypeInput>
   arrayType?: Maybe<CreateArrayTypeInput>
   enumType?: Maybe<CreateEnumTypeInput>
 }
@@ -690,6 +692,11 @@ export type Type = {
   name: Scalars['String']
 }
 
+export type TypeRef = {
+  existingTypeId?: Maybe<Scalars['String']>
+  newType?: Maybe<CreateTypeInput>
+}
+
 export type UpdateAppData = {
   name: Scalars['String']
 }
@@ -709,7 +716,7 @@ export type UpdateFieldData = {
   name: Scalars['String']
   description?: Maybe<Scalars['String']>
   interfaceId: Scalars['String']
-  type: CreateTypeInput
+  type: TypeRef
 }
 
 export type UpdateFieldInput = {

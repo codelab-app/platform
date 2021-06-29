@@ -1,0 +1,7 @@
+mutation UpdateEnumType($input: UpdateEnumTypeInput!){
+  updateEnumType(input: $input){
+    enumType {
+      ...Dgraph__Type
+    }
+  }
+}

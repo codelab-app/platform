@@ -82,7 +82,7 @@ type ArrayType implements Type {
     id: ID!
     name: String!
     # that's the type of the array item, e.g. type: (SimpleType) String, would be string[]
-    type: TypeUnion!
+    type: Type!
 }
 
 type EnumTypeValue {
@@ -134,7 +134,7 @@ type ArrayLengthValidator {
 union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator #add more decorators here if we need to extend the functionality
 type Field {
     id: ID!
-    type: Type!
+    type: Type! # Having TypeUnion instead of Type here makes it easier to make inserts
     key: String! @search(by: [hash, fulltext])
     name: String!
     description: String

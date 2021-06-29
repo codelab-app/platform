@@ -303,8 +303,8 @@ describe('type', () => {
           key: 'anInterface',
           interfaceId,
           type: {
-            interfaceType: {
-              interfaceId: interface2.id,
+            existingType: {
+              typeId: interface2.id,
             },
           },
         }

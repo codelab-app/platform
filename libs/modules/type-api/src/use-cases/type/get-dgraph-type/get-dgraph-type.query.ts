@@ -12,16 +12,16 @@ import {
   DgraphTypeFields,
 } from '../../../models'
 
-export class GetInterfaceQueryBuilder extends DgraphQueryBuilder {
+export class GetDgraphTypeQueryBuilder extends DgraphQueryBuilder {
   constructor() {
     super()
 
     this.withRecurse()
       .withBaseFields()
+      .withFields('Atom.label')
       .withModelsFields(
         DgraphInterface,
         DgraphField,
-
         DgraphEnumTypeValue,
         DgraphArrayLengthValidator,
         DgraphMinMaxValidator,
@@ -33,7 +33,7 @@ export class GetInterfaceQueryBuilder extends DgraphQueryBuilder {
   }
 }
 
-export type GetInterfaceQueryResult =
+export type GetDgraphTypeQueryResult =
   | DgraphInterface
   | DgraphField
   | DgraphSimpleType

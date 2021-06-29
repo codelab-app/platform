@@ -12,6 +12,7 @@ import { GetInterfaceRequest } from '../get-interface'
 type GqlVariablesType = GetInterfaceQueryVariables
 type GqlOperationType = GetInterfaceQuery
 
+// I'm not sure if we need that, I created it before making GetTypeService
 @Injectable()
 export class GetInterfaceService extends QueryUseCase<
   GetInterfaceRequest,

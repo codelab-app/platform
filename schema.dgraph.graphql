@@ -73,7 +73,7 @@ type AddArrayLengthValidatorPayload {
 
 input AddArrayTypeInput {
   name: String!
-  type: TypeUnionRef!
+  type: TypeRef!
 }
 
 type AddArrayTypePayload {
@@ -480,7 +480,7 @@ input ArrayLengthValidatorRef {
 type ArrayType implements Type {
   id: ID!
   name: String!
-  type(filter: TypeUnionFilter): TypeUnion!
+  type(filter: TypeFilter): Type!
 }
 
 type ArrayTypeAggregateResult {
@@ -514,13 +514,13 @@ enum ArrayTypeOrderable {
 
 input ArrayTypePatch {
   name: String
-  type: TypeUnionRef
+  type: TypeRef
 }
 
 input ArrayTypeRef {
   id: ID
   name: String
-  type: TypeUnionRef
+  type: TypeRef
 }
 
 type ArrayValue {

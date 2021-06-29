@@ -1,5 +1,6 @@
 import { BaseDgraphFields, DeepPartial, IDgraphMapper } from '@codelab/backend'
 import { forwardRef, Inject, Injectable } from '@nestjs/common'
+import { MAX_TYPE_DEPTH } from '../../constants'
 import { DgraphField, FieldDgraphFields } from '../dgraph-field.model'
 import {
   DgraphInterface,
@@ -7,6 +8,7 @@ import {
 } from '../dgraph-interface.model'
 import { FieldMapper } from '../field.mapper'
 import { FieldCollection, Interface, interfaceSchema } from '../interface.model'
+import { DgraphTypeUnion } from './allDgraphTypes'
 import {
   ArrayTypeDgraphFields,
   ArrayTypeMapper,
@@ -38,7 +40,7 @@ export class InterfaceMapper<TTypeMapper extends TypeMapper = TypeMapper>
     input: DeepPartial<DgraphInterface>,
     context?: TypeMapperContext,
   ): Promise<Interface> {
-    if (context && context.iteration && context.iteration > 100) {
+    if (context && context.iteration && context.iteration > MAX_TYPE_DEPTH) {
       throw new Error('Type too nested')
     }
 
@@ -50,7 +52,7 @@ export class InterfaceMapper<TTypeMapper extends TypeMapper = TypeMapper>
       fields: Array<DgraphField> | null | undefined,
       iteration = 0,
     ): Promise<FieldCollection | undefined> => {
-      if (iteration > 100) {
+      if (iteration > MAX_TYPE_DEPTH) {
         throw new Error('Type too nested')
       }
 
@@ -128,7 +130,7 @@ export class InterfaceMapper<TTypeMapper extends TypeMapper = TypeMapper>
 
 @Injectable()
 export class TypeMapper
-  implements IDgraphMapper<DgraphType, Type, TypeMapperContext>
+  implements IDgraphMapper<DgraphTypeUnion, Type, TypeMapperContext>
 {
   constructor(
     private simpleTypeMapper: SimpleTypeMapper,

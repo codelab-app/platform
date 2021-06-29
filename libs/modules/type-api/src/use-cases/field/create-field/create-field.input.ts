@@ -1,50 +1,13 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { PrimitiveType } from '../../../models'
-
-// It would be nice if we could do union input types, but graphql doesn't support it right now
-// there's an RFC though https://github.com/graphql/graphql-spec/blob/main/rfcs/InputUnion.md maybe we'll see it soon
-
-//
-// Type inputs
-//
-@InputType()
-export class CreateSimpleTypeInput {
-  @Field(() => PrimitiveType)
-  declare primitiveType: PrimitiveType
-}
+import { CreateTypeInput } from '../../type'
 
 @InputType()
-export class CreateInterfaceTypeInput {
-  @Field()
-  declare interfaceId: string
-}
+export class TypeRef {
+  @Field(() => String, { nullable: true })
+  declare existingTypeId?: string | null
 
-@InputType()
-export class CreateEnumTypeInput {
-  @Field(() => [String])
-  declare allowedValues: Array<string>
-}
-
-@InputType({ description: 'Provide one of the properties' })
-// The generic is a quick workaround for a circular reference to CreateArrayTypeInput
-export class CreateTypeInput<T = CreateArrayTypeInput> {
-  @Field(() => CreateSimpleTypeInput, { nullable: true })
-  declare simpleType?: CreateSimpleTypeInput
-
-  @Field(() => CreateInterfaceTypeInput, { nullable: true })
-  declare interfaceType?: CreateInterfaceTypeInput
-
-  @Field(() => CreateArrayTypeInput, { nullable: true })
-  declare arrayType?: T
-
-  @Field(() => CreateEnumTypeInput, { nullable: true })
-  declare enumType?: CreateEnumTypeInput
-}
-
-@InputType()
-export class CreateArrayTypeInput {
-  @Field()
-  declare type: CreateTypeInput
+  @Field(() => CreateTypeInput, { nullable: true })
+  declare newType?: CreateTypeInput | null
 }
 
 @InputType()
@@ -61,9 +24,9 @@ export class CreateFieldInput {
   @Field()
   declare interfaceId: string
 
-  @Field(() => CreateTypeInput)
-  declare type: CreateTypeInput
+  @Field(() => TypeRef)
+  declare type: TypeRef
 
-  // @Field(() => [CreateDecoratorInput])  TODO Field Decorators
+  // @Field(() => [CreateDecoratorInput])
   // declare decorators: Array<CreateDecoratorInput>
 }

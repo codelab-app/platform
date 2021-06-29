@@ -11,14 +11,13 @@ import {
 } from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { Field, fieldSchema } from '../../../models'
+import { CreateTypeService } from '../../type'
+import { TypeRef } from './create-field.input'
 import { CreateFieldRequest } from './create-field.request'
 import { FieldMutationValidator } from './field-mutation-validator.service'
-import { TypeRefMapper } from './type-ref.mapper'
 
 type GqlVariablesType = CreateFieldMutationVariables
 type GqlOperationType = CreateFieldMutation
-
-export const MAX_ARRAY_DEPTH = 20
 
 @Injectable()
 export class CreateFieldService extends MutationUseCase<
@@ -31,6 +30,7 @@ export class CreateFieldService extends MutationUseCase<
     @Inject(ApolloClientTokens.ApolloClientProvider)
     protected apolloClient: ApolloClient<NormalizedCacheObject>,
     private fieldValidationService: FieldMutationValidator,
+    private createTypeService: CreateTypeService,
   ) {
     super(apolloClient)
   }
@@ -52,15 +52,17 @@ export class CreateFieldService extends MutationUseCase<
     })
   }
 
-  protected mapVariables({
+  protected async mapVariables({
     input: { type, key, interfaceId, name, description },
-  }: CreateFieldRequest): GqlVariablesType {
-    const typeRefMapper = new TypeRefMapper()
+  }: CreateFieldRequest): Promise<GqlVariablesType> {
+    const typeId = await this.getTypeId(type)
 
     return {
       input: [
         {
-          type: typeRefMapper.map(type),
+          type: {
+            id: typeId,
+          },
           key,
           interface: { id: interfaceId },
           name,
@@ -68,6 +70,22 @@ export class CreateFieldService extends MutationUseCase<
         },
       ],
     }
+  }
+
+  private async getTypeId(type: TypeRef) {
+    let typeId = type.existingTypeId
+
+    // Check if we specify an existing type, if not - create a new one and get its ID
+    if (!typeId) {
+      if (!type.newType) {
+        throw new Error('Either newType or existingTypeId must be provided')
+      }
+
+      const createdType = await this.createTypeService.execute(type.newType)
+      typeId = createdType.id
+    }
+
+    return typeId
   }
 
   protected async validate({ input }: CreateFieldRequest): Promise<void> {

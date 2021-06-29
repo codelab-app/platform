@@ -13,9 +13,9 @@ import {
   TypeMapperContext,
 } from '../../../models'
 import {
-  GetTypeQueryBuilder,
-  GetTypeQueryResult,
-} from '../get-type/get-type.query'
+  GetDgraphTypeQueryBuilder,
+  GetDgraphTypeQueryResult,
+} from '../get-dgraph-type'
 import { GetTypesInput } from './get-types.input'
 
 @Injectable()
@@ -40,14 +40,14 @@ export class GetTypesService extends DgraphUseCase<GetTypesInput, Array<Type>> {
     txn: Txn,
   ): Promise<Array<Type>> {
     if (request.byIds) {
-      const query = new GetTypeQueryBuilder()
+      const query = new GetDgraphTypeQueryBuilder()
         .withUidsFunc(request.byIds.typeIds)
         .build()
 
       const response = await txn.query(query)
-      const result = response.getJson().query as Array<GetTypeQueryResult>
+      const result = response.getJson().query as Array<GetDgraphTypeQueryResult>
 
-      return this.typeArrayMapper.map(result)
+      return this.typeArrayMapper.map(result as any)
     }
 
     throw new Error('Bad request')

@@ -1,5 +1,8 @@
-mutation DeleteArrayType($filter: ArrayTypeFilter!){
-  deleteArrayType(filter: $filter){
+mutation DeleteType($filter: TypeFilter!, $fieldFilter: FieldFilter!){
+  deleteType(filter: $filter){
+    numUids
+  }
+  deleteField(filter: $fieldFilter) {
     numUids
   }
 }

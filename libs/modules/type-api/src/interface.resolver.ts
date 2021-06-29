@@ -1,4 +1,3 @@
-import { DeleteResponse } from '@codelab/backend'
 import { GqlAuthGuard } from '@codelab/modules/auth-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
@@ -10,6 +9,7 @@ import {
   Resolver,
 } from '@nestjs/graphql'
 import {
+  DgraphInterface,
   FieldCollection,
   fieldCollectionSchema,
   Interface,
@@ -18,12 +18,10 @@ import {
 import {
   CreateInterfaceInput,
   CreateInterfaceService,
-  DeleteInterfaceInput,
-  DeleteInterfaceService,
+  GetDgraphTypeService,
   GetInterfaceInput,
   GetInterfaceService,
   GetInterfacesService,
-  GetRecursiveInterfaceService,
   UpdateInterfaceInput,
   UpdateInterfaceService,
 } from './use-cases'
@@ -35,10 +33,9 @@ export class InterfaceResolver {
     private getInterfaceService: GetInterfaceService,
     private getInterfacesService: GetInterfacesService,
     private interfaceMapper: InterfaceMapper,
-    private getRecursiveInterfaceService: GetRecursiveInterfaceService,
+    private getDgraphTypeService: GetDgraphTypeService,
     private createInterfaceService: CreateInterfaceService,
     private updateInterfaceService: UpdateInterfaceService,
-    private deleteInterfaceService: DeleteInterfaceService,
   ) {}
 
   @Query(() => Interface, { nullable: true })
@@ -71,24 +68,20 @@ export class InterfaceResolver {
     })
   }
 
-  @Mutation(() => DeleteResponse)
-  @UseGuards(GqlAuthGuard)
-  deleteInterface(@Args('input') input: DeleteInterfaceInput) {
-    return this.deleteInterfaceService.execute({ input })
-  }
-
   @ResolveField('fieldCollection', () => FieldCollection)
   @UseGuards(GqlAuthGuard)
   async resolveFieldCollection(@Parent() parentInterface: Interface) {
-    const recursiveInterface = await this.getRecursiveInterfaceService.execute({
-      input: { interfaceId: parentInterface.id },
+    const recursiveInterface = await this.getDgraphTypeService.execute({
+      typeId: parentInterface.id,
     })
 
     if (!recursiveInterface) {
       throw new Error('Interface not found')
     }
 
-    const mapped = await this.interfaceMapper.map(recursiveInterface)
+    const mapped = await this.interfaceMapper.map(
+      recursiveInterface as DgraphInterface,
+    )
 
     fieldCollectionSchema.parse(mapped.fieldCollection) // do not return the parsed response, because it doesn't preserve the classes
 

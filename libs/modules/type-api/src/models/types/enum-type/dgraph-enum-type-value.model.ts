@@ -11,7 +11,7 @@ export enum EnumTypeValueDgraphFields {
 }
 
 export class DgraphEnumTypeValue extends DgraphModel<'EnumTypeValue'> {
-  [EnumTypeValueDgraphFields.name]: string | undefined | null;
+  [EnumTypeValueDgraphFields.name]?: string | null;
 
   [EnumTypeValueDgraphFields.value]: string
 

@@ -1,4 +1,8 @@
-import { DgraphModelMetadata } from '@codelab/backend'
+import {
+  baseFieldsZodShape,
+  DgraphModel,
+  DgraphModelMetadata,
+} from '@codelab/backend'
 import { z } from 'zod'
 import { DgraphField } from './dgraph-field.model'
 import { dgraphFieldSchema } from './dgraph-field-schema'
@@ -10,10 +14,13 @@ import {
 
 export enum InterfaceDgraphFields {
   Fields = 'Interface.fields',
+  Atom = 'Interface.atom',
 }
 
 export class DgraphInterface extends DgraphType<'Interface'> {
-  [InterfaceDgraphFields.Fields]?: Array<DgraphField> | null
+  [InterfaceDgraphFields.Fields]?: Array<DgraphField> | null;
+
+  [InterfaceDgraphFields.Atom]?: DgraphModel | null
 
   static Metadata = baseDgraphTypeMetadata.extend(
     new DgraphModelMetadata('Interface', InterfaceDgraphFields),
@@ -21,6 +28,12 @@ export class DgraphInterface extends DgraphType<'Interface'> {
 
   static Schema: z.ZodSchema<DgraphInterface> = z.lazy(() =>
     baseDgraphTypeSchema('Interface').extend({
+      [InterfaceDgraphFields.Atom]: z
+        .object({
+          ...baseFieldsZodShape('Atom'),
+        })
+        .optional()
+        .nullable(),
       [InterfaceDgraphFields.Fields]: dgraphFieldSchema
         .array()
         .optional()

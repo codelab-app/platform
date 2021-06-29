@@ -1,3 +1,7 @@
+export * from './create-type'
 export * from './delete-type'
+export * from './get-dgraph-type'
 export * from './get-type'
 export * from './get-types'
+export * from './update-enum-type'
+export * from './update-type'

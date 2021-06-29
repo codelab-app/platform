@@ -18,19 +18,24 @@ import { TypeResolver } from './type.resolver'
 import {
   CreateFieldService,
   CreateInterfaceService,
-  DeleteInterfaceService,
+  CreateTypeService,
+  CreateTypeValidator,
+  DeleteFieldService,
+  DeleteTypeService,
   FieldMutationValidator,
   GetDgraphFieldService,
+  GetDgraphTypeService,
   GetFieldService,
   GetInterfaceService,
   GetInterfacesService,
   GetInterfaceWithAtomService,
-  GetRecursiveInterfaceService,
   GetTypeService,
+  GetTypesService,
+  UpdateEnumTypeService,
   UpdateFieldService,
   UpdateInterfaceService,
+  UpdateTypeService,
 } from './use-cases'
-import { DeleteFieldService } from './use-cases/field/delete-field'
 
 const mappers = [
   InterfaceMapper,
@@ -48,20 +53,32 @@ const mappers = [
 
 const services = [
   ...mappers,
+  //
+  // Interfaces
   CreateInterfaceService,
+  GetInterfaceService,
   GetInterfaceWithAtomService,
   GetInterfacesService,
-  GetRecursiveInterfaceService,
-  GetInterfaceService,
+  GetDgraphTypeService,
   UpdateInterfaceService,
-  DeleteInterfaceService,
+  //
+  // Fields
   CreateFieldService,
+  DeleteFieldService,
   GetFieldService,
+  GetDgraphFieldService,
   UpdateFieldService,
   FieldMutationValidator,
+  //
+  // Types
+  CreateTypeService,
+  DeleteTypeService,
+  GetDgraphTypeService,
   GetTypeService,
-  DeleteFieldService,
-  GetDgraphFieldService,
+  GetTypesService,
+  UpdateEnumTypeService,
+  UpdateTypeService,
+  CreateTypeValidator,
 ]
 
 @Module({

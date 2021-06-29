@@ -338,6 +338,7 @@ type Query {
   getInterfaces: [Interface!]!
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
+  getTypes(input: GetTypesInput!): [Type!]!
   getProps(input: GetPropsInput!): [PropAggregate!]!
 }
 
@@ -402,6 +403,14 @@ input GetTypeInput {
   typeId: String!
 }
 
+input GetTypesInput {
+  byIds: TypesByIdsFilter!
+}
+
+input TypesByIdsFilter {
+  typeIds: [String!]!
+}
+
 input GetPropsInput {
   byPageElement: PropsByPageElementFilter
   byIds: PropsByIdsFilter
@@ -441,10 +450,12 @@ type Mutation {
   updateAtom(input: UpdateAtomInput!): Atom!
   createInterface(input: CreateInterfaceInput!): Interface!
   updateInterface(input: UpdateInterfaceInput!): Interface!
-  deleteInterface(input: DeleteInterfaceInput!): DeleteResponse!
   createField(input: CreateFieldInput!): Field!
   updateField(input: UpdateFieldInput!): Field!
   deleteField(input: DeleteFieldInput!): DeleteResponse!
+  createType(input: CreateTypeInput!): Type!
+  updateEnumType(input: UpdateEnumTypeInput!): EnumType!
+  updateType(input: UpdateTypeInput!): Type!
   upsertProp(input: [UpsertPropsInput!]!): UpsertPropsResponse!
   deleteProp: DeleteResponse!
 }
@@ -567,22 +578,23 @@ input UpdateInterfaceData {
   name: String!
 }
 
-input DeleteInterfaceInput {
-  interfaceId: String!
-}
-
 input CreateFieldInput {
   key: String!
   name: String!
   description: String
   interfaceId: String!
-  type: CreateTypeInput!
+  type: TypeRef!
+}
+
+input TypeRef {
+  existingTypeId: String
+  newType: CreateTypeInput
 }
 
 """Provide one of the properties"""
 input CreateTypeInput {
+  name: String!
   simpleType: CreateSimpleTypeInput
-  interfaceType: CreateInterfaceTypeInput
   arrayType: CreateArrayTypeInput
   enumType: CreateEnumTypeInput
 }
@@ -591,16 +603,18 @@ input CreateSimpleTypeInput {
   primitiveType: PrimitiveType!
 }
 
-input CreateInterfaceTypeInput {
-  interfaceId: String!
-}
-
 input CreateArrayTypeInput {
-  type: CreateTypeInput!
+  itemTypeId: String!
 }
 
 input CreateEnumTypeInput {
-  allowedValues: [String!]!
+  value: String!
+  allowedValues: [CreateEnumTypeValueInput!]!
+}
+
+input CreateEnumTypeValueInput {
+  name: String
+  value: String!
 }
 
 input UpdateFieldInput {
@@ -613,11 +627,37 @@ input UpdateFieldData {
   name: String!
   description: String
   interfaceId: String!
-  type: CreateTypeInput!
+  type: TypeRef!
 }
 
 input DeleteFieldInput {
   fieldId: String!
+}
+
+input UpdateEnumTypeInput {
+  typeId: String!
+  updateData: UpdateEnumTypeData!
+}
+
+input UpdateEnumTypeData {
+  values: [String!]!
+  allowedValues: [UpdateEnumTypeValueData!]!
+  name: String!
+}
+
+input UpdateEnumTypeValueData {
+  name: String
+  value: String!
+}
+
+input UpdateTypeInput {
+  updateData: UpdateTypeData!
+  typeId: String!
+}
+
+input UpdateTypeData {
+  name: String!
+  allowedValues: [UpdateEnumTypeValueData!]!
 }
 
 input UpsertPropsInput {

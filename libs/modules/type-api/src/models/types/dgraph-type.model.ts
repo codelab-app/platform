@@ -10,11 +10,11 @@ export enum DgraphTypeFields {
   name = 'Type.name',
 }
 
-export type DgraphTypeModel =
+export type DgraphTypeName =
   typeof allDgraphTypes[number]['Metadata']['modelName']
 
 export abstract class DgraphType<
-  TType extends DgraphTypeModel = DgraphTypeModel,
+  TType extends DgraphTypeName = DgraphTypeName,
 > extends DgraphModel<TType> {
   [DgraphTypeFields.name]: string
 }
@@ -24,7 +24,11 @@ export const baseDgraphTypeMetadata = new DgraphModelMetadata(
   DgraphTypeFields,
 )
 
-export const baseDgraphTypeSchema = (modelName: DgraphTypeModel | undefined) =>
+export const baseDgraphTypeSchema = <
+  TType extends DgraphTypeName = DgraphTypeName,
+>(
+  modelName: TType | undefined,
+) =>
   z.object({
     ...baseFieldsZodShape(modelName),
     [DgraphTypeFields.name]: z.string(),

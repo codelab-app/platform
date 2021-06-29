@@ -28,6 +28,8 @@ fragment Dgraph__Field on Field {
 }
 
 fragment Dgraph__Type on Type {
+    id
+    name
     ...on Interface {
         id
     }
@@ -58,6 +60,7 @@ fragment Dgraph__Type on Type {
         allowedValues {
             id
             name
+            value
         }
     }
     ...on SimpleType {

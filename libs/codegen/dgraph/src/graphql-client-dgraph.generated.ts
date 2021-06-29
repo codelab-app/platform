@@ -65,7 +65,7 @@ export type AddArrayLengthValidatorPayloadArrayLengthValidatorArgs = {
 
 export type AddArrayTypeInput = {
   name: Scalars['String']
-  type: TypeUnionRef
+  type: TypeRef
 }
 
 export type AddArrayTypePayload = {
@@ -548,11 +548,11 @@ export type ArrayLengthValidatorRef = {
 export type ArrayType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
-  type: TypeUnion
+  type: Type
 }
 
 export type ArrayTypeTypeArgs = {
-  filter?: Maybe<TypeUnionFilter>
+  filter?: Maybe<TypeFilter>
 }
 
 export type ArrayTypeAggregateResult = {
@@ -586,13 +586,13 @@ export enum ArrayTypeOrderable {
 
 export type ArrayTypePatch = {
   name?: Maybe<Scalars['String']>
-  type?: Maybe<TypeUnionRef>
+  type?: Maybe<TypeRef>
 }
 
 export type ArrayTypeRef = {
   id?: Maybe<Scalars['ID']>
   name?: Maybe<Scalars['String']>
-  type?: Maybe<TypeUnionRef>
+  type?: Maybe<TypeRef>
 }
 
 export type ArrayValue = {
@@ -4113,23 +4113,26 @@ export type Dgraph__FieldFragment = Pick<
   interface: Dgraph__InterfaceWithoutFieldsFragment
 }
 
-type Dgraph__Type_ArrayType_Fragment = Pick<ArrayType, 'id'> & {
+type Dgraph__Type_ArrayType_Fragment = Pick<ArrayType, 'id' | 'name'> & {
   type:
-    | Pick<Interface, 'id'>
+    | Pick<ArrayType, 'id'>
     | (Pick<EnumType, 'id'> & {
         allowedValues: Array<Pick<EnumTypeValue, 'id' | 'name'>>
       })
-    | Pick<ArrayType, 'id'>
+    | Pick<Interface, 'id'>
     | Pick<SimpleType, 'id' | 'primitiveType'>
 }
 
-type Dgraph__Type_EnumType_Fragment = Pick<EnumType, 'id'> & {
-  allowedValues: Array<Pick<EnumTypeValue, 'id' | 'name'>>
+type Dgraph__Type_EnumType_Fragment = Pick<EnumType, 'id' | 'name'> & {
+  allowedValues: Array<Pick<EnumTypeValue, 'id' | 'name' | 'value'>>
 }
 
-type Dgraph__Type_Interface_Fragment = Pick<Interface, 'id'>
+type Dgraph__Type_Interface_Fragment = Pick<Interface, 'id' | 'name'>
 
-type Dgraph__Type_SimpleType_Fragment = Pick<SimpleType, 'id' | 'primitiveType'>
+type Dgraph__Type_SimpleType_Fragment = Pick<
+  SimpleType,
+  'id' | 'primitiveType' | 'name'
+>
 
 export type Dgraph__TypeFragment =
   | Dgraph__Type_ArrayType_Fragment
@@ -4207,16 +4210,6 @@ export type CreateInterfaceMutation = {
   }>
 }
 
-export type DeleteInterfaceAndFieldsMutationVariables = Exact<{
-  filter: InterfaceFilter
-  fieldFilter: FieldFilter
-}>
-
-export type DeleteInterfaceAndFieldsMutation = {
-  deleteInterface?: Maybe<Pick<DeleteInterfacePayload, 'numUids'>>
-  deleteField?: Maybe<Pick<DeleteFieldPayload, 'numUids'>>
-}
-
 export type Dgraph__InterfaceWithAtomFragment = {
   atom?: Maybe<DGraph__AtomFragment>
 } & Dgraph__InterfaceWithoutFieldsFragment
@@ -4256,12 +4249,73 @@ export type UpdateInterfaceMutation = {
   updateInterface?: Maybe<Pick<UpdateInterfacePayload, 'numUids'>>
 }
 
-export type DeleteArrayTypeMutationVariables = Exact<{
-  filter: ArrayTypeFilter
+export type CreateArrayTypeMutationVariables = Exact<{
+  input: Array<AddArrayTypeInput> | AddArrayTypeInput
 }>
 
-export type DeleteArrayTypeMutation = {
-  deleteArrayType?: Maybe<Pick<DeleteArrayTypePayload, 'numUids'>>
+export type CreateArrayTypeMutation = {
+  addArrayType?: Maybe<{
+    arrayType?: Maybe<Array<Maybe<Pick<ArrayType, 'id'>>>>
+  }>
+}
+
+export type CreateSimpleTypeMutationVariables = Exact<{
+  input: Array<AddSimpleTypeInput> | AddSimpleTypeInput
+}>
+
+export type CreateSimpleTypeMutation = {
+  addSimpleType?: Maybe<{
+    simpleType?: Maybe<Array<Maybe<Dgraph__Type_SimpleType_Fragment>>>
+  }>
+}
+
+export type CreateEnumTypeMutationVariables = Exact<{
+  input: Array<AddEnumTypeInput> | AddEnumTypeInput
+}>
+
+export type CreateEnumTypeMutation = {
+  addEnumType?: Maybe<{
+    enumType?: Maybe<Array<Maybe<Dgraph__Type_EnumType_Fragment>>>
+  }>
+}
+
+export type DeleteTypeMutationVariables = Exact<{
+  filter: TypeFilter
+  fieldFilter: FieldFilter
+}>
+
+export type DeleteTypeMutation = {
+  deleteType?: Maybe<Pick<DeleteTypePayload, 'numUids'>>
+  deleteField?: Maybe<Pick<DeleteFieldPayload, 'numUids'>>
+}
+
+export type UpdateEnumTypeMutationVariables = Exact<{
+  input: UpdateEnumTypeInput
+}>
+
+export type UpdateEnumTypeMutation = {
+  updateEnumType?: Maybe<{
+    enumType?: Maybe<Array<Maybe<Dgraph__Type_EnumType_Fragment>>>
+  }>
+}
+
+export type UpdateTypeMutationVariables = Exact<{
+  input: UpdateTypeInput
+}>
+
+export type UpdateTypeMutation = {
+  updateType?: Maybe<{
+    type?: Maybe<
+      Array<
+        Maybe<
+          | Pick<ArrayType, 'id' | 'name'>
+          | Pick<EnumType, 'id' | 'name'>
+          | Pick<Interface, 'id' | 'name'>
+          | Pick<SimpleType, 'id' | 'name'>
+        >
+      >
+    >
+  }>
 }
 
 export const __ComponentFragmentDoc = gql`
@@ -4348,6 +4402,8 @@ export const Dgraph__DecoratorFragmentDoc = gql`
 `
 export const Dgraph__TypeFragmentDoc = gql`
   fragment Dgraph__Type on Type {
+    id
+    name
     ... on Interface {
       id
     }
@@ -4378,6 +4434,7 @@ export const Dgraph__TypeFragmentDoc = gql`
       allowedValues {
         id
         name
+        value
       }
     }
     ... on SimpleType {
@@ -6526,64 +6583,6 @@ export type CreateInterfaceMutationOptions = Apollo.BaseMutationOptions<
   CreateInterfaceMutation,
   CreateInterfaceMutationVariables
 >
-export const DeleteInterfaceAndFieldsGql = gql`
-  mutation DeleteInterfaceAndFields(
-    $filter: InterfaceFilter!
-    $fieldFilter: FieldFilter!
-  ) {
-    deleteInterface(filter: $filter) {
-      numUids
-    }
-    deleteField(filter: $fieldFilter) {
-      numUids
-    }
-  }
-`
-export type DeleteInterfaceAndFieldsMutationFn = Apollo.MutationFunction<
-  DeleteInterfaceAndFieldsMutation,
-  DeleteInterfaceAndFieldsMutationVariables
->
-
-/**
- * __useDeleteInterfaceAndFieldsMutation__
- *
- * To run a mutation, you first call `useDeleteInterfaceAndFieldsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteInterfaceAndFieldsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteInterfaceAndFieldsMutation, { data, loading, error }] = useDeleteInterfaceAndFieldsMutation({
- *   variables: {
- *      filter: // value for 'filter'
- *      fieldFilter: // value for 'fieldFilter'
- *   },
- * });
- */
-export function useDeleteInterfaceAndFieldsMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    DeleteInterfaceAndFieldsMutation,
-    DeleteInterfaceAndFieldsMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    DeleteInterfaceAndFieldsMutation,
-    DeleteInterfaceAndFieldsMutationVariables
-  >(DeleteInterfaceAndFieldsGql, options)
-}
-export type DeleteInterfaceAndFieldsMutationHookResult = ReturnType<
-  typeof useDeleteInterfaceAndFieldsMutation
->
-export type DeleteInterfaceAndFieldsMutationResult =
-  Apollo.MutationResult<DeleteInterfaceAndFieldsMutation>
-export type DeleteInterfaceAndFieldsMutationOptions =
-  Apollo.BaseMutationOptions<
-    DeleteInterfaceAndFieldsMutation,
-    DeleteInterfaceAndFieldsMutationVariables
-  >
 export const GetInterfaceWithAtomGql = gql`
   query GetInterfaceWithAtom($interfaceId: ID!) {
     getInterface(id: $interfaceId) {
@@ -6839,55 +6838,321 @@ export type UpdateInterfaceMutationOptions = Apollo.BaseMutationOptions<
   UpdateInterfaceMutation,
   UpdateInterfaceMutationVariables
 >
-export const DeleteArrayTypeGql = gql`
-  mutation DeleteArrayType($filter: ArrayTypeFilter!) {
-    deleteArrayType(filter: $filter) {
-      numUids
+export const CreateArrayTypeGql = gql`
+  mutation CreateArrayType($input: [AddArrayTypeInput!]!) {
+    addArrayType(input: $input) {
+      arrayType {
+        id
+      }
     }
   }
 `
-export type DeleteArrayTypeMutationFn = Apollo.MutationFunction<
-  DeleteArrayTypeMutation,
-  DeleteArrayTypeMutationVariables
+export type CreateArrayTypeMutationFn = Apollo.MutationFunction<
+  CreateArrayTypeMutation,
+  CreateArrayTypeMutationVariables
 >
 
 /**
- * __useDeleteArrayTypeMutation__
+ * __useCreateArrayTypeMutation__
  *
- * To run a mutation, you first call `useDeleteArrayTypeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteArrayTypeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreateArrayTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateArrayTypeMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [deleteArrayTypeMutation, { data, loading, error }] = useDeleteArrayTypeMutation({
+ * const [createArrayTypeMutation, { data, loading, error }] = useCreateArrayTypeMutation({
  *   variables: {
- *      filter: // value for 'filter'
+ *      input: // value for 'input'
  *   },
  * });
  */
-export function useDeleteArrayTypeMutation(
+export function useCreateArrayTypeMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    DeleteArrayTypeMutation,
-    DeleteArrayTypeMutationVariables
+    CreateArrayTypeMutation,
+    CreateArrayTypeMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useMutation<
-    DeleteArrayTypeMutation,
-    DeleteArrayTypeMutationVariables
-  >(DeleteArrayTypeGql, options)
+    CreateArrayTypeMutation,
+    CreateArrayTypeMutationVariables
+  >(CreateArrayTypeGql, options)
 }
-export type DeleteArrayTypeMutationHookResult = ReturnType<
-  typeof useDeleteArrayTypeMutation
+export type CreateArrayTypeMutationHookResult = ReturnType<
+  typeof useCreateArrayTypeMutation
 >
-export type DeleteArrayTypeMutationResult =
-  Apollo.MutationResult<DeleteArrayTypeMutation>
-export type DeleteArrayTypeMutationOptions = Apollo.BaseMutationOptions<
-  DeleteArrayTypeMutation,
-  DeleteArrayTypeMutationVariables
+export type CreateArrayTypeMutationResult =
+  Apollo.MutationResult<CreateArrayTypeMutation>
+export type CreateArrayTypeMutationOptions = Apollo.BaseMutationOptions<
+  CreateArrayTypeMutation,
+  CreateArrayTypeMutationVariables
+>
+export const CreateSimpleTypeGql = gql`
+  mutation CreateSimpleType($input: [AddSimpleTypeInput!]!) {
+    addSimpleType(input: $input) {
+      simpleType {
+        ...Dgraph__Type
+      }
+    }
+  }
+  ${Dgraph__TypeFragmentDoc}
+`
+export type CreateSimpleTypeMutationFn = Apollo.MutationFunction<
+  CreateSimpleTypeMutation,
+  CreateSimpleTypeMutationVariables
+>
+
+/**
+ * __useCreateSimpleTypeMutation__
+ *
+ * To run a mutation, you first call `useCreateSimpleTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSimpleTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSimpleTypeMutation, { data, loading, error }] = useCreateSimpleTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateSimpleTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateSimpleTypeMutation,
+    CreateSimpleTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateSimpleTypeMutation,
+    CreateSimpleTypeMutationVariables
+  >(CreateSimpleTypeGql, options)
+}
+export type CreateSimpleTypeMutationHookResult = ReturnType<
+  typeof useCreateSimpleTypeMutation
+>
+export type CreateSimpleTypeMutationResult =
+  Apollo.MutationResult<CreateSimpleTypeMutation>
+export type CreateSimpleTypeMutationOptions = Apollo.BaseMutationOptions<
+  CreateSimpleTypeMutation,
+  CreateSimpleTypeMutationVariables
+>
+export const CreateEnumTypeGql = gql`
+  mutation CreateEnumType($input: [AddEnumTypeInput!]!) {
+    addEnumType(input: $input) {
+      enumType {
+        ...Dgraph__Type
+      }
+    }
+  }
+  ${Dgraph__TypeFragmentDoc}
+`
+export type CreateEnumTypeMutationFn = Apollo.MutationFunction<
+  CreateEnumTypeMutation,
+  CreateEnumTypeMutationVariables
+>
+
+/**
+ * __useCreateEnumTypeMutation__
+ *
+ * To run a mutation, you first call `useCreateEnumTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateEnumTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createEnumTypeMutation, { data, loading, error }] = useCreateEnumTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateEnumTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateEnumTypeMutation,
+    CreateEnumTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateEnumTypeMutation,
+    CreateEnumTypeMutationVariables
+  >(CreateEnumTypeGql, options)
+}
+export type CreateEnumTypeMutationHookResult = ReturnType<
+  typeof useCreateEnumTypeMutation
+>
+export type CreateEnumTypeMutationResult =
+  Apollo.MutationResult<CreateEnumTypeMutation>
+export type CreateEnumTypeMutationOptions = Apollo.BaseMutationOptions<
+  CreateEnumTypeMutation,
+  CreateEnumTypeMutationVariables
+>
+export const DeleteTypeGql = gql`
+  mutation DeleteType($filter: TypeFilter!, $fieldFilter: FieldFilter!) {
+    deleteType(filter: $filter) {
+      numUids
+    }
+    deleteField(filter: $fieldFilter) {
+      numUids
+    }
+  }
+`
+export type DeleteTypeMutationFn = Apollo.MutationFunction<
+  DeleteTypeMutation,
+  DeleteTypeMutationVariables
+>
+
+/**
+ * __useDeleteTypeMutation__
+ *
+ * To run a mutation, you first call `useDeleteTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTypeMutation, { data, loading, error }] = useDeleteTypeMutation({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *      fieldFilter: // value for 'fieldFilter'
+ *   },
+ * });
+ */
+export function useDeleteTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteTypeMutation,
+    DeleteTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteTypeMutation, DeleteTypeMutationVariables>(
+    DeleteTypeGql,
+    options,
+  )
+}
+export type DeleteTypeMutationHookResult = ReturnType<
+  typeof useDeleteTypeMutation
+>
+export type DeleteTypeMutationResult = Apollo.MutationResult<DeleteTypeMutation>
+export type DeleteTypeMutationOptions = Apollo.BaseMutationOptions<
+  DeleteTypeMutation,
+  DeleteTypeMutationVariables
+>
+export const UpdateEnumTypeGql = gql`
+  mutation UpdateEnumType($input: UpdateEnumTypeInput!) {
+    updateEnumType(input: $input) {
+      enumType {
+        ...Dgraph__Type
+      }
+    }
+  }
+  ${Dgraph__TypeFragmentDoc}
+`
+export type UpdateEnumTypeMutationFn = Apollo.MutationFunction<
+  UpdateEnumTypeMutation,
+  UpdateEnumTypeMutationVariables
+>
+
+/**
+ * __useUpdateEnumTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateEnumTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEnumTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEnumTypeMutation, { data, loading, error }] = useUpdateEnumTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateEnumTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateEnumTypeMutation,
+    UpdateEnumTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateEnumTypeMutation,
+    UpdateEnumTypeMutationVariables
+  >(UpdateEnumTypeGql, options)
+}
+export type UpdateEnumTypeMutationHookResult = ReturnType<
+  typeof useUpdateEnumTypeMutation
+>
+export type UpdateEnumTypeMutationResult =
+  Apollo.MutationResult<UpdateEnumTypeMutation>
+export type UpdateEnumTypeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateEnumTypeMutation,
+  UpdateEnumTypeMutationVariables
+>
+export const UpdateTypeGql = gql`
+  mutation UpdateType($input: UpdateTypeInput!) {
+    updateType(input: $input) {
+      type {
+        id
+        name
+      }
+    }
+  }
+`
+export type UpdateTypeMutationFn = Apollo.MutationFunction<
+  UpdateTypeMutation,
+  UpdateTypeMutationVariables
+>
+
+/**
+ * __useUpdateTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTypeMutation, { data, loading, error }] = useUpdateTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateTypeMutation,
+    UpdateTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateTypeMutation, UpdateTypeMutationVariables>(
+    UpdateTypeGql,
+    options,
+  )
+}
+export type UpdateTypeMutationHookResult = ReturnType<
+  typeof useUpdateTypeMutation
+>
+export type UpdateTypeMutationResult = Apollo.MutationResult<UpdateTypeMutation>
+export type UpdateTypeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateTypeMutation,
+  UpdateTypeMutationVariables
 >
 export const __Component = gql`
   fragment __Component on Component {
@@ -6973,6 +7238,8 @@ export const Dgraph__Decorator = gql`
 `
 export const Dgraph__Type = gql`
   fragment Dgraph__Type on Type {
+    id
+    name
     ... on Interface {
       id
     }
@@ -7003,6 +7270,7 @@ export const Dgraph__Type = gql`
       allowedValues {
         id
         name
+        value
       }
     }
     ... on SimpleType {
@@ -7548,19 +7816,6 @@ export const CreateInterface = gql`
   }
   ${Dgraph__Interface}
 `
-export const DeleteInterfaceAndFields = gql`
-  mutation DeleteInterfaceAndFields(
-    $filter: InterfaceFilter!
-    $fieldFilter: FieldFilter!
-  ) {
-    deleteInterface(filter: $filter) {
-      numUids
-    }
-    deleteField(filter: $fieldFilter) {
-      numUids
-    }
-  }
-`
 export const GetInterfaceWithAtom = gql`
   query GetInterfaceWithAtom($interfaceId: ID!) {
     getInterface(id: $interfaceId) {
@@ -7602,10 +7857,62 @@ export const UpdateInterface = gql`
     }
   }
 `
-export const DeleteArrayType = gql`
-  mutation DeleteArrayType($filter: ArrayTypeFilter!) {
-    deleteArrayType(filter: $filter) {
+export const CreateArrayType = gql`
+  mutation CreateArrayType($input: [AddArrayTypeInput!]!) {
+    addArrayType(input: $input) {
+      arrayType {
+        id
+      }
+    }
+  }
+`
+export const CreateSimpleType = gql`
+  mutation CreateSimpleType($input: [AddSimpleTypeInput!]!) {
+    addSimpleType(input: $input) {
+      simpleType {
+        ...Dgraph__Type
+      }
+    }
+  }
+  ${Dgraph__Type}
+`
+export const CreateEnumType = gql`
+  mutation CreateEnumType($input: [AddEnumTypeInput!]!) {
+    addEnumType(input: $input) {
+      enumType {
+        ...Dgraph__Type
+      }
+    }
+  }
+  ${Dgraph__Type}
+`
+export const DeleteType = gql`
+  mutation DeleteType($filter: TypeFilter!, $fieldFilter: FieldFilter!) {
+    deleteType(filter: $filter) {
       numUids
+    }
+    deleteField(filter: $fieldFilter) {
+      numUids
+    }
+  }
+`
+export const UpdateEnumType = gql`
+  mutation UpdateEnumType($input: UpdateEnumTypeInput!) {
+    updateEnumType(input: $input) {
+      enumType {
+        ...Dgraph__Type
+      }
+    }
+  }
+  ${Dgraph__Type}
+`
+export const UpdateType = gql`
+  mutation UpdateType($input: UpdateTypeInput!) {
+    updateType(input: $input) {
+      type {
+        id
+        name
+      }
     }
   }
 `
