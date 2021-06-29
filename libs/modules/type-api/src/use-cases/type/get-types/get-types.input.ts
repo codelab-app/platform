@@ -8,6 +8,6 @@ export class TypesByIdsFilter {
 
 @InputType()
 export class GetTypesInput {
-  @Field(() => TypesByIdsFilter)
-  declare byIds: TypesByIdsFilter
+  @Field(() => TypesByIdsFilter, { nullable: true })
+  declare byIds?: TypesByIdsFilter
 }

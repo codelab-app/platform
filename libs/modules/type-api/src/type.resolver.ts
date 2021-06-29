@@ -36,8 +36,8 @@ export class TypeResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(() => [Type])
-  getTypes(@Args('input') input: GetTypesInput) {
-    return this.getTypesService.execute(input)
+  getTypes(@Args('input', { nullable: true }) input: GetTypesInput) {
+    return this.getTypesService.execute(input || {})
   }
 
   @UseGuards(GqlAuthGuard)

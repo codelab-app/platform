@@ -39,23 +39,16 @@ export class GetTypesService extends DgraphUseCase<GetTypesInput, Array<Type>> {
     request: GetTypesInput,
     txn: Txn,
   ): Promise<Array<Type>> {
+    const qb = new GetDgraphTypeQueryBuilder()
+
     if (request.byIds) {
-      const query = new GetDgraphTypeQueryBuilder()
-        .withUidsFunc(request.byIds.typeIds)
-        .build()
-
-      const response = await txn.query(query)
-      const result = response.getJson().query as Array<GetDgraphTypeQueryResult>
-
-      return this.typeArrayMapper.map(result as any)
+      qb.withUidsFunc(request.byIds.typeIds)
     }
 
-    throw new Error('Bad request')
-  }
+    const query = qb.build()
+    const response = await txn.query(query)
+    const result = response.getJson().query as Array<GetDgraphTypeQueryResult>
 
-  protected async validate(request: GetTypesInput): Promise<void> {
-    if (!request.byIds) {
-      throw new Error('Provide exactly one GetTypes filter')
-    }
+    return this.typeArrayMapper.map(result as any)
   }
 }
