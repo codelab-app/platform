@@ -155,6 +155,7 @@ export class DgraphQueryBuilder implements IQueryBuilder {
       this._fields.map((f) => (typeof f === 'string' ? f : f.name)),
     )
 
+    // Check if there are duplicate fields, otherwise it's very hard to track down the error dgraph gives you if there are duplicate fields
     if (Array.from(fieldsSet).length !== this.fields.length) {
       throw new Error('Duplicate field in query')
     }

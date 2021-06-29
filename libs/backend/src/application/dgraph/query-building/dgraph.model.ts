@@ -69,3 +69,12 @@ export const baseFieldsZodShape = <TType extends string>(
       : (z.array(z.string()) as any),
   }
 }
+
+export const instanceOfDgraphModel = (
+  object: DgraphModel,
+  modelName: string,
+) => {
+  return (object[BaseDgraphFields.DgraphType] as Array<string>).find(
+    (t: string) => t === modelName,
+  )
+}
