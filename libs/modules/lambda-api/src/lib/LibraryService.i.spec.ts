@@ -1,3 +1,4 @@
+import { InfrastructureModule } from '@codelab/backend'
 import { Test } from '@nestjs/testing'
 import { ILambda } from './interfaces/IEventTrigger'
 import { LambdaService } from './LambdaService'
@@ -9,7 +10,7 @@ describe('LibraryService', () => {
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
-      // imports: [InfrastructureModule],
+      imports: [InfrastructureModule],
       providers: [LambdaService],
     }).compile()
 
