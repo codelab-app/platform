@@ -1,0 +1,7 @@
+query GetAtomByPageElement($pageElementId: ID!){
+  getPageElement(id: $pageElementId){
+    atom {
+      ...DGraph__Atom
+    }
+  }
+}

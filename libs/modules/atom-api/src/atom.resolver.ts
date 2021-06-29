@@ -16,6 +16,8 @@ import {
   CreateAtomService,
   DeleteAtomInput,
   DeleteAtomService,
+  GetAtomByInput,
+  GetAtomByService,
   GetAtomService,
   GetAtomsService,
   UpdateAtomInput,
@@ -29,6 +31,7 @@ export class AtomResolver {
   constructor(
     private createService: CreateAtomService,
     private getAtomService: GetAtomService,
+    private getAtomByService: GetAtomByService,
     private getAtomsService: GetAtomsService,
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
@@ -57,6 +60,12 @@ export class AtomResolver {
   @UseGuards(GqlAuthGuard)
   getAtom(@Args('input') input: GetAtomInput) {
     return this.getAtomService.execute(input)
+  }
+
+  @Query(() => Atom, { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  getAtomBy(@Args('input') input: GetAtomByInput) {
+    return this.getAtomByService.execute(input)
   }
 
   @Mutation(() => Atom)

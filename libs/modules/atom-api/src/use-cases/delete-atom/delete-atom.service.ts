@@ -45,8 +45,8 @@ export class DeleteAtomService extends MutationUseCase<
   protected extractDataFromResult(
     result: FetchResult<DeleteAtomAndInterfaceMutation>,
   ) {
-    //returning the atom caused an error, because we delete the propTypes, so they are null
-    //removing it, since we never use the deleted atom
+    // returning the atom caused an error, because we delete the propTypes, so they are null
+    // removing it, since we never use the deleted atom
     const affected =
       (result?.data?.deleteAtom?.numUids || 0) +
       (result?.data?.deleteInterface?.numUids || 0)

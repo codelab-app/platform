@@ -4,6 +4,7 @@ import { AtomResolver } from './atom.resolver'
 import {
   CreateAtomService,
   DeleteAtomService,
+  GetAtomByService,
   GetAtomService,
   GetAtomsService,
   UpdateAtomService,
@@ -15,6 +16,7 @@ const services = [
   DeleteAtomService,
   GetAtomService,
   UpdateAtomService,
+  GetAtomByService,
 ]
 
 @Module({
