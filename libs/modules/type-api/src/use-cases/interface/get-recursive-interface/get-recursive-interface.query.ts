@@ -9,7 +9,7 @@ import {
   DgraphMinMaxValidator,
   DgraphRequiredValidator,
   DgraphSimpleType,
-  DgraphUnitType,
+  DgraphTypeFields,
 } from '../../../models'
 
 export class GetInterfaceQueryBuilder extends DgraphQueryBuilder {
@@ -18,18 +18,18 @@ export class GetInterfaceQueryBuilder extends DgraphQueryBuilder {
 
     this.withRecurse()
       .withBaseFields()
-      .withModelFields(
+      .withModelsFields(
         DgraphInterface,
         DgraphField,
-        DgraphSimpleType,
-        DgraphArrayType,
-        DgraphEnumType,
+
         DgraphEnumTypeValue,
-        DgraphUnitType,
         DgraphArrayLengthValidator,
         DgraphMinMaxValidator,
         DgraphRequiredValidator,
       )
+      .withModelFields(DgraphSimpleType, { omit: [DgraphTypeFields.name] })
+      .withModelFields(DgraphArrayType, { omit: [DgraphTypeFields.name] })
+      .withModelFields(DgraphEnumType, { omit: [DgraphTypeFields.name] })
   }
 }
 
@@ -40,7 +40,6 @@ export type GetInterfaceQueryResult =
   | DgraphArrayType
   | DgraphEnumType
   | DgraphEnumTypeValue
-  | DgraphUnitType
   | DgraphArrayLengthValidator
   | DgraphMinMaxValidator
   | DgraphRequiredValidator

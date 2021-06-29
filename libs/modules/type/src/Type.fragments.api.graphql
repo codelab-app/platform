@@ -1,3 +1,6 @@
+#
+# Decorators
+#
 fragment __ArrayLengthValidator on ArrayLengthValidator {
   id
   maxLength
@@ -17,7 +20,7 @@ fragment __RequiredValidator on RequiredValidator {
 
 fragment __Decorator on Decorator {
   __typename
-  ... on ArrayLengthValidator {
+  ... on ArrayLengthValidator{
     ...__ArrayLengthValidator
   }
   ... on MinMaxValidator {
@@ -28,19 +31,23 @@ fragment __Decorator on Decorator {
   }
 }
 
+#
+# Fields and Types
+#
 fragment __Field on Field {
   id
   key
   name
   typeId
   description
-  decorators {
-    ...__Decorator
-  }
+#  decorators {
+#    ...__Decorator
+#  }
 }
 
 fragment __ArrayType on ArrayType {
   id
+  name
   typeId
 }
 
@@ -51,59 +58,75 @@ fragment __EnumTypeValue on EnumTypeValue {
 
 fragment __EnumType on EnumType {
   id
+  name
   allowedValues {
     ...__EnumTypeValue
   }
 }
 
-fragment __InterfaceType on InterfaceType {
-  interfaceId
-  interfaceName
-}
 
 fragment __SimpleType on SimpleType {
   id
+  name
   primitiveType
 }
 
-fragment __UnitType on UnitType {
-  id
-  allowedUnits
-}
 
 fragment __Type on Type {
   __typename
-  ... on ArrayType {
-    ...__ArrayType
-  }
-  ... on EnumType {
-    ...__EnumType
-  }
-  ... on InterfaceType {
-    ...__InterfaceType
-  }
-  ... on SimpleType {
-    ...__SimpleType
-  }
-  ... on UnitType {
-    ...__UnitType
-  }
+  id
+  name
+  ... on ArrayType { ...__ArrayType }
+  ... on EnumType { ...__EnumType }
+  # Do not get the full interface fragment, because it will cause a recursion
+  # The types are available in the root typeCollection.types, we can get it from there by id
+  ... on Interface { ...__InterfaceWithoutTypes }
+  ... on SimpleType { ...__SimpleType }
 }
 
+# Type, but without the recursion
+fragment __TypeShallow on Type {
+  __typename
+  ... on ArrayType { id }
+  ... on EnumType { ...__EnumType }
+  ... on Interface { id }
+  ... on SimpleType { ...__SimpleType }
+}
+
+
+#
+# Interface
+#
 fragment __InterfaceWithoutFields on Interface {
   id
   name
 }
 
-fragment __FieldCollection on FieldCollection {
+fragment __InterfaceWithoutTypes on Interface {
+  ...__InterfaceWithoutFields
+  fieldCollection {
+    ...__FieldCollectionWithoutTypes
+    types {
+      ...__TypeShallow
+    }
+  }
+}
+
+
+fragment __FieldCollectionWithoutTypes on FieldCollection {
   fields {
     ...__Field
   }
+}
+
+fragment __FieldCollection on FieldCollection {
+  ...__FieldCollectionWithoutTypes
   types {
     ...__Type
   }
 }
 
+# Full Interface
 fragment __Interface on Interface {
   ...__InterfaceWithoutFields
   fieldCollection {

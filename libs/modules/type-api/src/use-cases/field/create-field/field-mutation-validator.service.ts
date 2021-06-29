@@ -37,13 +37,7 @@ export class FieldMutationValidator {
   }
 
   async validateType(
-    {
-      arrayType,
-      enumType,
-      unitType,
-      simpleType,
-      interfaceType,
-    }: CreateTypeInput,
+    { arrayType, enumType, simpleType, interfaceType }: CreateTypeInput,
     interfaceId: string,
     iteration = 0,
   ) {
@@ -56,7 +50,6 @@ export class FieldMutationValidator {
       interfaceType,
       arrayType,
       enumType,
-      unitType,
       simpleType,
     ].filter((t) => !!t).length
 

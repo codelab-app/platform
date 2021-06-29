@@ -9,12 +9,10 @@ import {
   EnumTypeValueMapper,
   FieldMapper,
   InterfaceMapper,
-  InterfaceTypeMapper,
   MinMaxValidatorMapper,
   RequiredValidatorMapper,
   SimpleTypeMapper,
   TypeMapper,
-  UnitTypeMapper,
 } from './models'
 import { TypeResolver } from './type.resolver'
 import {
@@ -38,9 +36,7 @@ const mappers = [
   InterfaceMapper,
   FieldMapper,
   TypeMapper,
-  UnitTypeMapper,
   SimpleTypeMapper,
-  InterfaceTypeMapper,
   EnumTypeMapper,
   EnumTypeValueMapper,
   ArrayTypeMapper,

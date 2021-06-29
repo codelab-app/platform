@@ -1,9 +1,9 @@
+import { DgraphModelMetadata } from '@codelab/backend'
 import {
-  baseFieldsZodShape,
-  DgraphModel,
-  DgraphModelMetadata,
-} from '@codelab/backend'
-import { z } from 'zod'
+  baseDgraphTypeMetadata,
+  baseDgraphTypeSchema,
+  DgraphType,
+} from '../dgraph-type.model'
 import {
   PrimitiveType as PrimitiveTypeEnum,
   primitiveTypeSchema,
@@ -13,16 +13,14 @@ export enum SimpleTypeDgraphFields {
   PrimitiveType = 'SimpleType.primitiveType',
 }
 
-export class DgraphSimpleType extends DgraphModel<'SimpleType'> {
+export class DgraphSimpleType extends DgraphType<'SimpleType'> {
   [SimpleTypeDgraphFields.PrimitiveType]: PrimitiveTypeEnum
 
-  static Metadata = new DgraphModelMetadata(
-    'SimpleType',
-    SimpleTypeDgraphFields,
+  static Metadata = baseDgraphTypeMetadata.extend(
+    new DgraphModelMetadata('SimpleType', SimpleTypeDgraphFields),
   )
 
-  static Schema = z.object({
-    ...baseFieldsZodShape('SimpleType'),
+  static Schema = baseDgraphTypeSchema('SimpleType').extend({
     [SimpleTypeDgraphFields.PrimitiveType]: primitiveTypeSchema,
   })
 }

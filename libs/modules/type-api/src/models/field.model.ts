@@ -66,14 +66,18 @@ export class Field {
 
     return field
   }
+
+  static Schema: z.ZodSchema<Field> = z.lazy(() =>
+    z.object({
+      id: z.string(),
+      key: z.string(),
+      name: z.string(),
+      description: z.string().nullable(),
+      typeId: z.string(),
+      decorators: decoratorSchema.array(),
+      interface: interfaceSchema.or(z.object({ id: z.string() })),
+    }),
+  )
 }
 
-export const fieldSchema: z.ZodSchema<Field> = z.object({
-  id: z.string(),
-  key: z.string(),
-  name: z.string(),
-  description: z.string().nullable(),
-  typeId: z.string(),
-  decorators: decoratorSchema.array(),
-  interface: interfaceSchema.or(z.object({ id: z.string() })),
-})
+export const fieldSchema = Field.Schema

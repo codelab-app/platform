@@ -1,7 +1,7 @@
 import { BaseDgraphFields, DgraphUseCase } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
-import { DgraphInterface } from '../../../models'
+import { Txn } from 'dgraph-js'
+import { DgraphInterface, InterfaceDgraphFields } from '../../../models'
 import { GetInterfaceRequest } from '../get-interface'
 import { GetInterfaceQueryBuilder } from './get-recursive-interface.query'
 
@@ -20,12 +20,18 @@ export class GetRecursiveInterfaceService extends DgraphUseCase<
       .build()
 
     const result = await txn.query(query)
-    const dataArray = (result?.data as any)?.query || null
+    const dataArray = (result?.getJson() as any)?.query || null
 
-    if (!dataArray[0][BaseDgraphFields.DgraphType]) {
+    if (!dataArray[0] || !dataArray[0][BaseDgraphFields.DgraphType]) {
       return null
     }
 
-    return DgraphInterface.Schema.nullable().parse(dataArray[0] || null)
+    return DgraphInterface.Schema.nullable().parse({
+      ...dataArray[0],
+      // Default to returning an empty array, because otherwise
+      // it will go through the field resolver again or get stuck in some zod validation
+      [InterfaceDgraphFields.Fields]:
+        dataArray[0][InterfaceDgraphFields.Fields] || [],
+    })
   }
 }

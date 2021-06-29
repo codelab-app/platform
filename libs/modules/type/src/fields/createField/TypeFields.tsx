@@ -1,4 +1,4 @@
-import { PrimitiveType, Unit as UnitEnum } from '@codelab/codegen/graphql'
+import { PrimitiveType } from '@codelab/codegen/graphql'
 import { DisplayIfField } from '@codelab/frontend/shared'
 import React from 'react'
 import { Context } from 'uniforms'
@@ -14,11 +14,6 @@ export interface TypeFieldsProps {
     context: Context<CreateFieldSchemaObject>,
   ) => TypeVariant | PrimitiveType
 }
-
-export const unitSelectOptions = Object.values(UnitEnum).map((u) => ({
-  value: u,
-  label: u,
-}))
 
 export const TypeFields = ({
   interfacesOptions,
@@ -45,20 +40,6 @@ export const TypeFields = ({
       <SelectField
         name={`${namePrefix || ''}interfaceId`}
         options={interfacesOptions}
-      />
-    </DisplayIfField>
-
-    <DisplayIfField<CreateFieldSchemaObject>
-      condition={(context) =>
-        extractTypeFromContext(context) === TypeVariant.Unit
-      }
-    >
-      <SelectField
-        name={`${namePrefix || ''}allowedUnits`}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        multiple={true}
-        options={unitSelectOptions}
       />
     </DisplayIfField>
   </>

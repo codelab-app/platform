@@ -1,50 +1,59 @@
 import {
-  BaseDgraphFields,
-  DgraphModel,
   DgraphQueryBuilder,
   DgraphQueryField,
+  EqFilter,
+  IDgraphQueryFilter,
 } from '@codelab/backend'
 import {
-  DecoratorDgraphTypes,
+  allDgraphDecorators,
+  allDgraphTypes,
+  DgraphDecorator,
+  DgraphEnumType,
+  DgraphEnumTypeValue,
   DgraphField,
-  FieldDgraphFields,
+  DgraphInterface,
+  DgraphType,
   InterfaceDgraphFields,
 } from '../../../models'
-import {
-  GetTypeQueryBuilder,
-  GetTypeQueryResult,
-} from '../../type/get-type/get-type.query'
 
 export class GetFieldQueryBuilder extends DgraphQueryBuilder {
-  constructor() {
+  constructor(key?: string, otherFieldFilters: Array<IDgraphQueryFilter> = []) {
     super()
 
-    const typeQueryBuilder = new GetTypeQueryBuilder()
+    this.withBaseFields()
+      .withRecurse()
+      .withModelsFields(
+        DgraphField,
+        ...allDgraphTypes.filter((t) => t !== DgraphInterface),
+        ...allDgraphDecorators,
+        DgraphEnumTypeValue,
+      )
 
-    this.withBaseFields().withFields(
-      FieldDgraphFields.Name,
-      FieldDgraphFields.Description,
-      FieldDgraphFields.Key,
-      new DgraphQueryField(FieldDgraphFields.Type).withInnerFields(
-        ...typeQueryBuilder.fields,
-      ),
-      new DgraphQueryField(FieldDgraphFields.Decorators).withBaseInnerFields(),
-      new DgraphQueryField(FieldDgraphFields.Interface)
-        .withBaseInnerFields()
-        .withInnerFields(InterfaceDgraphFields.Name),
-    )
+    if (key || otherFieldFilters) {
+      this.withModelFields(DgraphInterface, {
+        omit: [InterfaceDgraphFields.Fields],
+      })
+
+      const fieldsField = new DgraphQueryField(InterfaceDgraphFields.Fields)
+
+      if (key) {
+        fieldsField.withFilters(new EqFilter(DgraphField.Fields.Key, key))
+      }
+
+      if (otherFieldFilters) {
+        fieldsField.withFilters(...otherFieldFilters)
+      }
+
+      this.withFields(fieldsField)
+    } else {
+      this.withModelFields(DgraphInterface)
+    }
   }
 }
 
-export type GetFieldQueryResult = Pick<
-  DgraphField,
-  | FieldDgraphFields.Name
-  | BaseDgraphFields.uid
-  | BaseDgraphFields.DgraphType
-  | FieldDgraphFields.Description
-  | FieldDgraphFields.Key
-> & {
-  [FieldDgraphFields.Type]: GetTypeQueryResult
-} & {
-  [FieldDgraphFields.Decorators]: DgraphModel<DecoratorDgraphTypes>
-}
+export type GetFieldQueryResult =
+  | DgraphField
+  | DgraphInterface
+  | DgraphType
+  | DgraphDecorator
+  | DgraphEnumType

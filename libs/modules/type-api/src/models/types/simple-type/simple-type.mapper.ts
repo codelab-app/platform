@@ -1,10 +1,11 @@
 import { BaseDgraphFields, IDgraphMapper } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
+import { DgraphTypeFields } from '../dgraph-type.model'
 import {
   DgraphSimpleType,
   SimpleTypeDgraphFields,
 } from './dgraph-simple-type.model'
-import { SimpleType, simpleTypeSchema } from './simple-type.model'
+import { SimpleType } from './simple-type.model'
 
 @Injectable()
 export class SimpleTypeMapper
@@ -12,13 +13,12 @@ export class SimpleTypeMapper
 {
   map(input: DgraphSimpleType): SimpleType | Promise<SimpleType> {
     const dgraphSimpleType = DgraphSimpleType.Schema.parse(input)
-    const simpleType = new SimpleType()
+    const id = dgraphSimpleType[BaseDgraphFields.uid]
+    const primitiveType = dgraphSimpleType[SimpleTypeDgraphFields.PrimitiveType]
+    const name = dgraphSimpleType[DgraphTypeFields.name]
+    const simpleType = new SimpleType(id, name, primitiveType)
 
-    simpleType.id = dgraphSimpleType[BaseDgraphFields.uid]
-    simpleType.primitiveType =
-      dgraphSimpleType[SimpleTypeDgraphFields.PrimitiveType]
-
-    simpleTypeSchema.parse(simpleType)
+    SimpleType.Schema.parse(simpleType)
 
     return simpleType
   }

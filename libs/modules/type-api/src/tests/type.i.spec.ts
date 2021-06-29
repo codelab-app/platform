@@ -9,10 +9,9 @@ import {
   __ArrayTypeFragment,
   __EnumTypeFragment,
   __FieldFragment,
-  __InterfaceTypeFragment,
+  __InterfaceFragment,
   __SimpleTypeFragment,
   __TypeFragment,
-  __UnitTypeFragment,
   ArrayType,
   DeleteFieldInput,
   DeleteInterfaceInput,
@@ -51,6 +50,7 @@ import {
   UpdateFieldInput,
   UpdateInterfaceInput,
 } from '@codelab/codegen/graphql'
+import { Auth0Service } from '@codelab/modules/auth-api'
 import { INestApplication } from '@nestjs/common'
 import { PrimitiveType } from '../models'
 import { TypeModule } from '../type.module'
@@ -62,9 +62,13 @@ import {
 
 describe('type', () => {
   let app: INestApplication
+  let accessToken = ''
 
   beforeAll(async () => {
     app = await setupTestModule(app, TypeModule)
+
+    const auth0Service = app.get(Auth0Service)
+    accessToken = await auth0Service.getAccessToken()
   })
 
   afterAll(async () => {
@@ -310,32 +314,8 @@ describe('type', () => {
 
         const type = await getType(field.typeId)
 
-        expect(type?.__typename).toBe('InterfaceType')
-        expect((type as __InterfaceTypeFragment).interfaceId).toBe(
-          interface2.id,
-        )
-      })
-
-      it('should create unit type field', async () => {
-        const input: CreateFieldInput = {
-          name: 'Unit type field',
-          key: 'unitType',
-          interfaceId,
-          type: {
-            unitType: {
-              allowedUnits: null,
-            },
-          },
-        }
-
-        const field = await createField(input)
-        checkField(field, input)
-
-        const type = await getType(field.typeId)
-
-        expect(type?.__typename).toBe('UnitType')
-        expect((type as __UnitTypeFragment).allowedUnits).toBeTruthy()
-        expect((type as __UnitTypeFragment).allowedUnits.length).toBeTruthy()
+        expect(type?.__typename).toBe('Interface')
+        expect((type as __InterfaceFragment).id).toBe(interface2.id)
       })
 
       it('should fail to create a field with duplicate key', async () => {
@@ -356,7 +336,7 @@ describe('type', () => {
           app,
           TestCreateField,
           { input },
-          { expectNoErrors: false },
+          { accessToken, expectNoErrors: false },
         )
 
         expect(response.body.errors[0].message).toContain(input.key)
@@ -469,7 +449,7 @@ describe('type', () => {
           app,
           TestUpdateFieldGql,
           { input: updateInput },
-          { expectNoErrors: false },
+          { accessToken, expectNoErrors: false },
         )
 
         expect(response.body.errors[0].message).toContain(duplicateFieldKey)
@@ -509,6 +489,7 @@ describe('type', () => {
       app,
       TestCreateInterfaceGql,
       { input },
+      { accessToken },
     )
 
     return (response.body.data as TestCreateInterfaceMutation).createInterface
@@ -519,6 +500,7 @@ describe('type', () => {
       app,
       TestUpdateInterfaceGql,
       { input },
+      { accessToken },
     )
 
     return (response.body.data as TestUpdateInterfaceMutation).updateInterface
@@ -529,6 +511,7 @@ describe('type', () => {
       app,
       TestDeleteInterfaceGql,
       { input },
+      { accessToken },
     )
 
     return (response.body.data as TestDeleteInterfaceMutation).deleteInterface
@@ -543,6 +526,7 @@ describe('type', () => {
       app,
       TestGetInterfaceGql,
       { input },
+      { accessToken },
     )
 
     return (response.body.data as TestGetInterfaceQuery).getInterface
@@ -553,6 +537,7 @@ describe('type', () => {
       app,
       TestGetInterfacesGql,
       {},
+      { accessToken },
     )
 
     return (response.body.data as TestGetInterfacesQuery).getInterfaces
@@ -566,7 +551,7 @@ describe('type', () => {
       app,
       TestCreateFieldGql,
       { input },
-      options,
+      { accessToken, ...options },
     )
 
     return (response.body.data as TestCreateFieldMutation).createField
@@ -577,6 +562,7 @@ describe('type', () => {
       app,
       TestUpdateFieldGql,
       { input },
+      { accessToken },
     )
 
     return (response.body.data as TestUpdateFieldMutation).updateField
@@ -587,6 +573,7 @@ describe('type', () => {
       app,
       TestDeleteFieldGql,
       { input },
+      { accessToken },
     )
 
     return (response.body.data as TestDeleteFieldMutation).deleteField
@@ -597,6 +584,7 @@ describe('type', () => {
       app,
       TestGetFieldGql,
       { input },
+      { accessToken },
     )
 
     return (response.body.data as TestGetFieldQuery).getField
@@ -607,6 +595,7 @@ describe('type', () => {
       app,
       TestGetTypeGql,
       { input: { typeId } },
+      { accessToken },
     )
 
     return (response.body.data as TestGetTypeQuery).getType

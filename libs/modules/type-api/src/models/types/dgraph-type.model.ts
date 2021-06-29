@@ -1,23 +1,31 @@
+import {
+  baseFieldsZodShape,
+  DgraphModel,
+  DgraphModelMetadata,
+} from '@codelab/backend'
 import { z } from 'zod'
-import { DgraphInterface } from '../dgraph-interface.model'
-import { DgraphArrayType } from './array-type'
-import { DgraphEnumType } from './enum-type'
-import { DgraphSimpleType } from './simple-type'
-import { DgraphUnitType } from './unit-type'
+import { allDgraphTypes } from './allDgraphTypes'
 
-export type DgraphType =
-  | DgraphSimpleType
-  | DgraphArrayType
-  | DgraphEnumType
-  | DgraphUnitType
-  | DgraphInterface
+export enum DgraphTypeFields {
+  name = 'Type.name',
+}
 
-export const dgraphTypeSchema: z.ZodSchema<DgraphType> = z.lazy(() =>
-  z.union([
-    DgraphSimpleType.Schema,
-    DgraphArrayType.Schema,
-    DgraphEnumType.Schema,
-    DgraphUnitType.Schema,
-    DgraphInterface.Schema,
-  ]),
+export type DgraphTypeModel =
+  typeof allDgraphTypes[number]['Metadata']['modelName']
+
+export abstract class DgraphType<
+  TType extends DgraphTypeModel = DgraphTypeModel,
+> extends DgraphModel<TType> {
+  [DgraphTypeFields.name]: string
+}
+
+export const baseDgraphTypeMetadata = new DgraphModelMetadata(
+  '',
+  DgraphTypeFields,
 )
+
+export const baseDgraphTypeSchema = (modelName: DgraphTypeModel | undefined) =>
+  z.object({
+    ...baseFieldsZodShape(modelName),
+    [DgraphTypeFields.name]: z.string(),
+  })

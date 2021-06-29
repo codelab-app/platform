@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { PrimitiveType, Unit } from '../../../models'
+import { PrimitiveType } from '../../../models'
 
 // It would be nice if we could do union input types, but graphql doesn't support it right now
 // there's an RFC though https://github.com/graphql/graphql-spec/blob/main/rfcs/InputUnion.md maybe we'll see it soon
@@ -25,15 +25,6 @@ export class CreateEnumTypeInput {
   declare allowedValues: Array<string>
 }
 
-@InputType()
-export class CreateUnitTypeInput {
-  @Field(() => [Unit], {
-    nullable: true,
-    description: 'Pass null to allow all',
-  })
-  declare allowedUnits?: Array<Unit> | null
-}
-
 @InputType({ description: 'Provide one of the properties' })
 // The generic is a quick workaround for a circular reference to CreateArrayTypeInput
 export class CreateTypeInput<T = CreateArrayTypeInput> {
@@ -48,9 +39,6 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
 
   @Field(() => CreateEnumTypeInput, { nullable: true })
   declare enumType?: CreateEnumTypeInput
-
-  @Field(() => CreateUnitTypeInput, { nullable: true })
-  declare unitType?: CreateUnitTypeInput
 }
 
 @InputType()

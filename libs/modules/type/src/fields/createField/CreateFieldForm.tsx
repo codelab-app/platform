@@ -2,7 +2,6 @@ import {
   CreateFieldMutation,
   CreateFieldMutationVariables,
   refetchGetInterfaceQuery,
-  Unit as UnitEnum,
   useCreateFieldMutation,
   useGetInterfacesQuery,
 } from '@codelab/codegen/graphql'
@@ -24,8 +23,6 @@ import {
 } from './createFieldSchema'
 import { mapFormDataToInput } from './mapFormDataToInput'
 import { TypeFields } from './TypeFields'
-
-const defaultUnitOptions = Object.values(UnitEnum)
 
 export const CreateFieldForm = (
   props: UniFormUseCaseProps<CreateFieldSchemaObject>,
@@ -67,13 +64,6 @@ export const CreateFieldForm = (
       onSubmitError={createNotificationHandler({
         title: 'Error while creating fields',
       })}
-      model={{
-        // Default to all units
-        allowedUnits: defaultUnitOptions,
-        arrayType: {
-          allowedUnits: defaultUnitOptions,
-        },
-      }}
       onSubmitSuccess={() => reset()}
       {...props}
     >

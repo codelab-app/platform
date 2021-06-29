@@ -34,8 +34,6 @@ export const mapTypeInput = (
       }
     case TypeVariant.Interface:
       return { interfaceType: { interfaceId: typeData.interfaceId as string } }
-    case TypeVariant.Unit:
-      return { unitType: { allowedUnits: typeData.allowedUnits || [] } }
     case TypeVariant.Enum:
       return { enumType: { allowedValues: typeData.allowedValues || [] } }
     case PrimitiveType.String:

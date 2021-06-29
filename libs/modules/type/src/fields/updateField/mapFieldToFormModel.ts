@@ -41,10 +41,10 @@ export const mapFieldToFormModel = (
     }
 
     switch (type.__typename) {
-      case 'InterfaceType':
+      case 'Interface':
         return {
           type: TypeVariant.Interface,
-          interfaceId: type.interfaceId,
+          interfaceId: type.id,
         }
       case 'SimpleType':
         return {
@@ -64,11 +64,6 @@ export const mapFieldToFormModel = (
         return {
           type: TypeVariant.Enum,
           allowedValues: type.allowedValues.map((v) => v.name),
-        }
-      case 'UnitType':
-        return {
-          type: TypeVariant.Unit,
-          allowedUnits: type.allowedUnits,
         }
       default:
         throw new Error(`Type ${(type as any).__typename} not recognized`)

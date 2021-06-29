@@ -1,4 +1,4 @@
-import { TypeRef, Unit } from '@codelab/codegen/dgraph'
+import { TypeUnionRef } from '@codelab/codegen/dgraph'
 import { CreateFieldInput } from './create-field.input'
 import { MAX_ARRAY_DEPTH } from './create-field.service'
 
@@ -7,12 +7,11 @@ export class TypeRefMapper {
     {
       enumType,
       arrayType,
-      unitType,
       simpleType,
       interfaceType,
     }: CreateFieldInput['type'],
     iteration = 0,
-  ): TypeRef {
+  ): TypeUnionRef {
     if (iteration > MAX_ARRAY_DEPTH) {
       throw new Error('Type too nested')
     }
@@ -28,13 +27,6 @@ export class TypeRefMapper {
         : undefined,
       enumTypeRef: enumType
         ? { allowedValues: enumType.allowedValues.map((v) => ({ name: v })) }
-        : undefined,
-      unitTypeRef: unitType
-        ? {
-            allowedUnits: unitType.allowedUnits
-              ? unitType.allowedUnits
-              : Object.values(Unit),
-          }
         : undefined,
       interfaceRef: interfaceType
         ? { id: interfaceType.interfaceId }

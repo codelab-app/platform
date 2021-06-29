@@ -1,33 +1,30 @@
-import {
-  baseFieldsZodShape,
-  DgraphModel,
-  DgraphModelMetadata,
-} from '@codelab/backend'
+import { DgraphModelMetadata } from '@codelab/backend'
 import { z } from 'zod'
 import { DgraphField } from './dgraph-field.model'
+import { dgraphFieldSchema } from './dgraph-field-schema'
+import {
+  baseDgraphTypeMetadata,
+  baseDgraphTypeSchema,
+  DgraphType,
+} from './types/dgraph-type.model' // do not shorten
 
 export enum InterfaceDgraphFields {
-  Name = 'Interface.name',
   Fields = 'Interface.fields',
 }
 
-export class DgraphInterface extends DgraphModel<'Interface'> {
-  [InterfaceDgraphFields.Name]: string;
-
+export class DgraphInterface extends DgraphType<'Interface'> {
   [InterfaceDgraphFields.Fields]?: Array<DgraphField> | null
 
-  static Fields = InterfaceDgraphFields
-
-  static Metadata = new DgraphModelMetadata('Interface', InterfaceDgraphFields)
+  static Metadata = baseDgraphTypeMetadata.extend(
+    new DgraphModelMetadata('Interface', InterfaceDgraphFields),
+  )
 
   static Schema: z.ZodSchema<DgraphInterface> = z.lazy(() =>
-    z.object({
-      ...baseFieldsZodShape('Interface'),
-      [InterfaceDgraphFields.Name]: z.string(),
-      [InterfaceDgraphFields.Fields]: z
-        .array(DgraphField.Schema)
+    baseDgraphTypeSchema('Interface').extend({
+      [InterfaceDgraphFields.Fields]: dgraphFieldSchema
+        .array()
         .optional()
         .nullable(),
     }),
-  )
+  ) as z.ZodSchema<DgraphInterface>
 }

@@ -6,18 +6,20 @@ import {
   UidFilter,
 } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
-import { DgraphField, FieldDgraphFields, FieldMapper } from '../../../models'
+import { Txn } from 'dgraph-js'
+import {
+  DgraphField,
+  dgraphFieldSchema,
+  DgraphInterface,
+  FieldDgraphFields,
+  InterfaceDgraphFields,
+} from '../../../models'
 import { GetFieldQueryBuilder, GetFieldQueryResult } from './get-field.query'
 import { GetFieldRequest } from './get-field.request'
-import {
-  GetInterfaceFieldByKeyQueryBuilder,
-  GetInterfaceFieldByKeyResult,
-} from './get-interface-field-by-key.query'
 
 @Injectable()
-//Using a dgraph query, because we already have the infrastructure to
-//deserialize dgraph models, might as well use it instead of replicating it with a graphql response
+// Using a dgraph query, because we already have the infrastructure to
+// deserialize dgraph models, might as well use it instead of replicating it with a graphql response
 export class GetDgraphFieldService extends DgraphUseCase<
   GetFieldRequest,
   DgraphField | null
@@ -25,7 +27,6 @@ export class GetDgraphFieldService extends DgraphUseCase<
   constructor(
     @Inject(DgraphTokens.DgraphProvider)
     dgraphProvider: DgraphProvider,
-    private fieldMapper: FieldMapper,
   ) {
     super(dgraphProvider)
   }
@@ -35,21 +36,21 @@ export class GetDgraphFieldService extends DgraphUseCase<
     txn: Txn,
   ): Promise<DgraphField | null> {
     if (byInterface) {
-      const query = new GetInterfaceFieldByKeyQueryBuilder(
+      const query = new GetFieldQueryBuilder(
         byInterface.fieldKey,
         byId ? [new UidFilter(byId.fieldId)] : [],
       )
         .withUidFunc(byInterface.interfaceId)
         .build()
 
-      const response = ((await txn.query(query)).data as any)
-        .query[0] as GetInterfaceFieldByKeyResult
+      const response = ((await txn.query(query)).getJson() as any)
+        .query[0] as DgraphInterface
 
       if (!response || !response[BaseDgraphFields.DgraphType]) {
         return null
       }
 
-      const fields = response['Interface.fields']
+      const fields = response[InterfaceDgraphFields.Fields]
 
       if (
         !fields ||
@@ -60,21 +61,27 @@ export class GetDgraphFieldService extends DgraphUseCase<
         return null
       }
 
-      return DgraphField.Schema.parse(fields[0])
+      dgraphFieldSchema.parse(fields[0])
+
+      return fields[0]
     } else if (byId) {
       const query = new GetFieldQueryBuilder().withUidFunc(byId.fieldId).build()
 
-      const response = ((await txn.query(query)).data as any)
-        .query[0] as GetFieldQueryResult
+      const response = ((await txn.query(query)).getJson() as any)
+        .query[0] as DgraphField
 
       if (!response || !response[BaseDgraphFields.DgraphType]) {
         return null
       }
 
-      return DgraphField.Schema.parse({
+      const data = {
         ...response,
-        [FieldDgraphFields.Decorators]: [], //need to add those when adding decorator support
-      })
+        [FieldDgraphFields.Decorators]: [], // need to add those when adding decorator support
+      }
+
+      dgraphFieldSchema.parse(data)
+
+      return data
     } else {
       throw new Error('Either byInterface or byId must be provided')
     }

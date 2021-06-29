@@ -33,10 +33,8 @@ export const FieldsTable = ({ fields, typesById }: FieldsTableProps) => {
         return `${getTypeName(type.typeId, iteration + 1)} Array`
       case 'EnumType':
         return `Enum (${type.allowedValues.map((v) => v.name).join(',')})`
-      case 'InterfaceType':
-        return `Object (${type.interfaceName})`
-      case 'UnitType':
-        return `Unit (${type.allowedUnits.join(',')})`
+      case 'Interface':
+        return `Object (${type.name})`
     }
 
     return ''

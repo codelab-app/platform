@@ -1,19 +1,28 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
 import { z } from 'zod'
+import { Type } from '../type.model'
 
 /**
  * Represents an array type. The type field clarifies the type of items in the array
  */
-@ObjectType()
-export class ArrayType {
-  @Field(() => ID)
+@ObjectType({
+  implements: () => [Type],
+})
+export class ArrayType implements Type {
   declare id: string
+
+  declare name: string
 
   @Field()
   declare typeId: string
-}
 
-export const arrayTypeSchema: z.ZodSchema<ArrayType> = z.object({
-  id: z.string(),
-  typeId: z.string(),
-})
+  constructor(id: string, name: string, typeId: string) {
+    this.id = id
+    this.name = name
+    this.typeId = typeId
+  }
+
+  static Schema: z.ZodSchema<ArrayType> = Type.Schema.extend({
+    typeId: z.string(),
+  })
+}

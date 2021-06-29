@@ -1,20 +1,14 @@
-import {
-  CreateFieldInput,
-  PrimitiveType,
-  Unit as UnitEnum,
-} from '@codelab/codegen/graphql'
+import { CreateFieldInput, PrimitiveType } from '@codelab/codegen/graphql'
 
 export enum TypeVariant {
   Array = 'Array',
   Interface = 'Object',
-  Unit = 'Unit',
   Enum = 'Enum',
 }
 
 export interface CreateFieldTypeObject {
   type: TypeVariant | PrimitiveType
   allowedValues?: Array<string>
-  allowedUnits?: Array<UnitEnum>
   interfaceId?: string
 }
 
@@ -50,13 +44,6 @@ const typePropertiesWithoutArray = (
   interfaceId: {
     label: 'Interface',
     type: 'string',
-  },
-  allowedUnits: {
-    type: 'array',
-    items: {
-      type: 'string',
-      enum: Object.values(UnitEnum),
-    },
   },
 })
 

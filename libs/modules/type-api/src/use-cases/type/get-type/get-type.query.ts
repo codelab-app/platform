@@ -10,9 +10,8 @@ import {
   DgraphEnumTypeValue,
   DgraphInterface,
   DgraphSimpleType,
-  DgraphUnitType,
+  DgraphTypeFields,
   EnumTypeDgraphFields,
-  InterfaceDgraphFields,
 } from '../../../models'
 
 export class GetTypeQueryBuilder extends DgraphQueryBuilder {
@@ -20,20 +19,18 @@ export class GetTypeQueryBuilder extends DgraphQueryBuilder {
     super()
 
     this.withBaseFields()
-      .withModelFields(DgraphSimpleType, DgraphUnitType)
+      .withModelsFields(DgraphSimpleType)
       .withFields(
         new DgraphQueryField(ArrayTypeDgraphFields.Type).withBaseInnerFields(),
         new DgraphQueryField(EnumTypeDgraphFields.AllowedValues)
           .withBaseInnerFields()
           .withInnerFields(...DgraphEnumTypeValue.Metadata.queryFields()),
-        new DgraphQueryField(InterfaceDgraphFields.Name),
       )
   }
 }
 
 export type GetTypeQueryResult =
   | DgraphSimpleType
-  | DgraphUnitType
   | Pick<DgraphArrayType, BaseDgraphFields.uid>
   | DgraphEnumType
-  | Pick<DgraphInterface, BaseDgraphFields.uid | InterfaceDgraphFields.Name>
+  | Pick<DgraphInterface, BaseDgraphFields.uid | DgraphTypeFields.name>

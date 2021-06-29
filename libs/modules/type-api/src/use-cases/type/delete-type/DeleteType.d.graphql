@@ -1,0 +1,5 @@
+mutation DeleteArrayType($filter: ArrayTypeFilter!){
+  deleteArrayType(filter: $filter){
+    numUids
+  }
+}

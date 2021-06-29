@@ -1,94 +1,87 @@
 fragment Dgraph__InterfaceWithoutFields on Interface {
-  id
-  name
+    id
+    name
 }
 
+
 fragment Dgraph__Interface on Interface {
-  ...Dgraph__InterfaceWithoutFields
-  fields {
-    ...Dgraph__Field
-  }
+    ...Dgraph__InterfaceWithoutFields
+    fields {
+        ...Dgraph__Field
+    }
 }
 
 fragment Dgraph__Field on Field {
-  id
-  key
-  name
-  description
-  decorators {
-    ...Dgraph__Decorator
-  }
-  type {
-    ...Dgraph__Type
-  }
-  interface {
-      ...Dgraph__InterfaceWithoutFields
-  }
+    id
+    key
+    name
+    description
+    decorators {
+        ...Dgraph__Decorator
+    }
+    type {
+        ...Dgraph__Type
+    }
+    interface {
+        ...Dgraph__InterfaceWithoutFields
+    }
 }
 
 fragment Dgraph__Type on Type {
-  ... on Interface {
-    id
-  }
-  ... on ArrayType {
-    id
-    type {
-      ... on ArrayType {
+    ...on Interface {
         id
-      }
-      ... on Interface {
+    }
+    ...on ArrayType {
         id
-      }
-      ... on EnumType {
+        type {
+            ...on ArrayType {
+                id
+            }
+            ...on Interface {
+                id
+            }
+            ...on EnumType {
+                id
+                allowedValues {
+                    id
+                    name
+                }
+            }
+            ...on SimpleType {
+                id
+                primitiveType
+            }
+        }
+    }
+    ...on EnumType {
         id
         allowedValues {
-          id
-          name
+            id
+            name
         }
-      }
-      ... on SimpleType {
+    }
+    ...on SimpleType {
         id
         primitiveType
-      }
-      ... on UnitType {
-        id
-        allowedUnits
-      }
     }
-  }
-  ... on EnumType {
-    id
-    allowedValues {
-      id
-      name
-    }
-  }
-  ... on SimpleType {
-    id
-    primitiveType
-  }
-  ... on UnitType {
-    id
-    allowedUnits
-  }
 }
 
 fragment Dgraph__Decorator on Decorator {
-  __typename
-  ... on MinMaxValidator {
-    ...Dgraph__MinMaxValidator
-  }
-  ... on RequiredValidator {
-    ...Dgraph__RequiredValidator
-  }
-  ...on ArrayLengthValidator {
-      ... Dgraph__ArrayLengthValidator
-  }
+    __typename
+    ...on MinMaxValidator {
+        ...Dgraph__MinMaxValidator
+    }
+    ...on RequiredValidator {
+        ...Dgraph__RequiredValidator
+    }
+    ...on ArrayLengthValidator {
+        ... Dgraph__ArrayLengthValidator
+    }
 }
 
 fragment Dgraph__RequiredValidator on RequiredValidator {
-  id
-  isRequired
+    id
+    isRequired
 }
 
 
@@ -99,7 +92,7 @@ fragment Dgraph__ArrayLengthValidator on ArrayLengthValidator {
 }
 
 fragment Dgraph__MinMaxValidator on MinMaxValidator {
-  id
-  max
-  min
+    id
+    max
+    min
 }
