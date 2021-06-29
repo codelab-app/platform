@@ -1,7 +1,7 @@
 import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { AppGuardService } from '@codelab/modules/app-api'
 import { Inject, Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Mutation, Txn } from 'dgraph-js'
 import { Page } from '../../page.model'
 import { GetPageService } from '../get-page'
 import { CreatePageRequest } from './create-page.request'
@@ -25,8 +25,9 @@ export class CreatePageService extends DgraphUseCase<
     { input: { name, appId }, currentUser }: CreatePageRequest,
     txn: Txn,
   ) {
-    const mutationResult = await txn.mutate({
-      setNquads: `
+    const mu = new Mutation()
+    mu.setSetNquads(
+      `
         _:page <dgraph.type> "Page" .
         _:page <Page.name> "${name}" .
         _:page <Page.app> <${appId}> .
@@ -38,11 +39,13 @@ export class CreatePageService extends DgraphUseCase<
         _:rootElement <PageElement.page> _:page .
         _:rootElement <PageElement.name> "Page Root" .
       `,
-    })
+    )
+
+    const mutationResult = await txn.mutate(mu)
 
     await txn.commit()
 
-    const uid = mutationResult.data.uids.page
+    const uid = mutationResult.getUidsMap().get('page')
 
     if (!uid) {
       throw new Error('Error while creating page')

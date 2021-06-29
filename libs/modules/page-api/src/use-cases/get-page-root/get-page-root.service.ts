@@ -4,7 +4,7 @@ import {
   PageElementRoot,
 } from '@codelab/modules/page-element-api'
 import { Inject, Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Txn } from 'dgraph-js'
 import { PageGuardService } from '../../auth/page-guard/page-guard.service'
 import { GetPageRootRequest } from './get-page-root.request'
 import { GetPageRootQueryBuilder } from './get-page-root-query-builder'
@@ -29,15 +29,15 @@ export class GetPageRootService extends DgraphUseCase<
     txn: Txn,
   ) {
     const queryBuilder = new GetPageRootQueryBuilder().withUidFunc(pageId)
-    const schema = queryBuilder.getZodSchema()
-    const queryResult = await txn.query(queryBuilder.build())
-    const parsedResult = schema.parse(queryResult.data).query
+    const query = queryBuilder.build()
+    const response = await txn.query(query)
+    const result = response.getJson().query
 
-    if (!parsedResult || !parsedResult.length || !parsedResult[0]) {
+    if (!result || !result.length || !result[0]) {
       return null
     }
 
-    const pageRoot = parsedResult[0]
+    const pageRoot = result[0]
 
     if (!pageRoot) {
       return null

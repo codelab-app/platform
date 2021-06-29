@@ -1,12 +1,12 @@
 import { Inject } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Txn } from 'dgraph-js'
 import { DgraphProvider, DgraphTokens } from '../../infrastructure'
 import { UseCase } from '../use-case'
 
 export abstract class DgraphUseCase<
   TUseCaseRequestPort,
   TUseCaseDtoResponse,
-  TValidationContext = Record<string, unknown>,
+  TValidationContext = void,
 > implements UseCase<TUseCaseRequestPort, TUseCaseDtoResponse>
 {
   constructor(

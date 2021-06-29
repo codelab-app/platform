@@ -1,6 +1,6 @@
 import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Txn } from 'dgraph-js'
 // shortened import causes circular reference and some weird shit happen
 import { PageElementGuardService } from '../../auth/page-element-guard/page-element-guard.service'
 import { PageElementRoot } from '../../models'
@@ -31,16 +31,15 @@ export class GetPageElementRootService extends DgraphUseCase<
       pageElementId,
     )
 
-    const schema = queryBuilder.getZodSchema()
     const query = queryBuilder.build()
-    const queryResult = await txn.query(query)
-    const parsedResult = schema.parse(queryResult.data).query
+    const response = await txn.query(query)
+    const result = response.getJson().query
 
-    if (!parsedResult || !parsedResult.length || !parsedResult[0]) {
+    if (!result || !result.length || !result[0]) {
       return null
     }
 
-    const root = parsedResult[0]
+    const root = result[0]
 
     const { descendants, links, rootAtom } =
       await this.flattenPageElementTreeService.execute({ root })

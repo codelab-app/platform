@@ -1,7 +1,7 @@
 import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { Dgraph_PageElementFragment } from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Mutation, Txn } from 'dgraph-js'
 import { PageElementGuardService } from '../../auth'
 import { PageElement } from '../../models'
 import { GetPageElementService } from '../get-page-element'
@@ -35,13 +35,13 @@ export class MovePageElementService extends DgraphUseCase<
     { existingParent }: ValidationContext,
   ) {
     // Delete the old parent-child edge and create a new one
-    await txn.mutate({
-      setNquads: MovePageElementService.createSetMutation(input),
-      deleteNquads: MovePageElementService.createDeleteMutation(
-        input,
-        existingParent.id,
-      ),
-    })
+    const mu = new Mutation()
+    mu.setSetNquads(MovePageElementService.createSetMutation(input))
+    mu.setDelNquads(
+      MovePageElementService.createDeleteMutation(input, existingParent.id),
+    )
+
+    await txn.mutate(mu)
 
     await txn.commit()
 

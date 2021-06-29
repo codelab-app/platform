@@ -23,9 +23,9 @@ export abstract class MutationUseCase<
     return true
   }
 
-  protected abstract getGql():
-    | DocumentNode
-    | TypedDocumentNode<TMutation, TMutationVariables>
+  protected abstract getGql(
+    request: TUseCaseRequestPort,
+  ): DocumentNode | TypedDocumentNode<TMutation, TMutationVariables>
 
   protected abstract mapVariables(
     request: TUseCaseRequestPort,

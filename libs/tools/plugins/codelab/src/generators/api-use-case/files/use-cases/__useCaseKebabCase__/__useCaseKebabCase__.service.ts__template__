@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { <%= modelNamePascalCase %> } from '../../<%= modelName %>.model'
 import { <%= useCaseNamePascalCase %>Input } from './<%= useCaseKebabCase %>.input'
 <% if(useCaseType === "dgraph") { %>
-  import { Txn } from 'dgraph-js-http'
+  import { Txn } from 'dgraph-js'
   import { <%= useCaseBaseClass %> } from '@codelab/backend'
 <% } else if(useCaseType === "mutation" || useCaseType === "query"){ %>
   import { <%= useCaseBaseClass %> } from '@codelab/backend'

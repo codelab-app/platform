@@ -25,6 +25,6 @@ export const dgraphConfig = registerAs<() => DgraphConfig>(
       process.cwd(),
       'dgraph/schema.generated.graphql',
     ),
-    endpoint: get('CODELAB_DGRAPH_ENDPOINT').required().asUrlString(),
+    endpoint: get('CODELAB_DGRAPH_ENDPOINT').required().asString(),
   }),
 )

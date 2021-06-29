@@ -6,10 +6,12 @@ import { request } from './request'
 export interface GraphqlRequestOptions {
   /** defaults to true */
   expectNoErrors?: boolean
+  accessToken?: string
 }
 
 const defaultGraphqlRequestOptions: GraphqlRequestOptions = {
   expectNoErrors: true,
+  accessToken: undefined,
 }
 
 export const graphqlRequest = async <TOperationVariables>(
@@ -19,8 +21,13 @@ export const graphqlRequest = async <TOperationVariables>(
   options: GraphqlRequestOptions = {},
 ) => {
   const o = { ...defaultGraphqlRequestOptions, ...options }
-
   let promise = request(app.getHttpServer())
+
+  if (o.accessToken) {
+    promise = promise.set('Authorization', `Bearer ${o.accessToken}`)
+  }
+
+  promise = promise
     .send({
       query: print(gql),
       variables,

@@ -33,13 +33,13 @@ export abstract class GraphqlUseCase<
 
     if (this.isMutation()) {
       result = await this.apolloClient.mutate<TOperation, TOperationVariables>({
-        mutation: this.getGql(),
+        mutation: this.getGql(request),
         variables,
         ...options,
       })
     } else {
       result = await this.apolloClient.query<TOperation, TOperationVariables>({
-        query: this.getGql(),
+        query: this.getGql(request),
         variables,
         ...options,
       })
@@ -50,9 +50,9 @@ export abstract class GraphqlUseCase<
 
   protected abstract isMutation(): IsMutation
 
-  protected abstract getGql():
-    | DocumentNode
-    | TypedDocumentNode<TOperation, TOperationVariables>
+  protected abstract getGql(
+    request: TUseCaseRequestPort,
+  ): DocumentNode | TypedDocumentNode<TOperation, TOperationVariables>
 
   protected getOptions(
     request: TUseCaseRequestPort,

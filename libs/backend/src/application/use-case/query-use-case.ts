@@ -23,9 +23,9 @@ export abstract class QueryUseCase<
     return false
   }
 
-  protected abstract getGql():
-    | DocumentNode
-    | TypedDocumentNode<TQuery, TQueryVariables>
+  protected abstract getGql(
+    request: TUseCaseRequestPort,
+  ): DocumentNode | TypedDocumentNode<TQuery, TQueryVariables>
 
   protected abstract mapVariables(
     request: TUseCaseRequestPort,

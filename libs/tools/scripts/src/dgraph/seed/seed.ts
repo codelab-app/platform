@@ -5,7 +5,7 @@ import { mutation } from './seedMutation'
 config()
 
 const clientStub = new DgraphClientStub(
-  process.env.CODELAB_DGRAPH_GRAPHQL_ENDPOINT?.replace('/graphql', ''),
+  process.env.CODELAB_DGRAPH_ENDPOINT?.replace('/graphql', ''),
 )
 
 const dgraphClient = new DgraphClient(clientStub)
