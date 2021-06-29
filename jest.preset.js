@@ -7,7 +7,7 @@ module.exports = {
     // `${__dirname}/.jest/jest.setup.js`,
     '@testing-library/jest-dom',
   ],
-  testTimeout: 60000,
+  testTimeout: 30000,
   // testPathIgnorePatterns: ['i.spec.ts'],
   // testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
   // transform: {

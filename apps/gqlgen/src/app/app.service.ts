@@ -115,12 +115,12 @@ export class AppService {
   }
 
   public async codegen({ watch }: Options) {
-    /**
-     * (1) Start GraphQL server
-     */
-    await this.serverService.maybeStartApiServer()
-
     try {
+      /**
+       * (1) Start GraphQL server
+       */
+      await this.serverService.maybeStartApiServer()
+
       /**
        * (2) Wait for server
        */

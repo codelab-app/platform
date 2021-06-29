@@ -23,7 +23,9 @@ export const setupTestModule = async (
   }).compile()
 
   app = testModule.createNestApplication()
-  app.init()
+  await app.init()
+
+  console.log('after init')
 
   await getDgraphProviderFromTestModule(app).resetDb()
 
