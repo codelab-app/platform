@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { baseFields } from './base-dgraph-fields'
 import { DgraphModelMetadata } from './dgraph.model'
 import { DgraphQueryField } from './dgraph-query-field'
@@ -102,17 +103,34 @@ export class DgraphQueryBuilder implements IQueryBuilder {
   }
 
   /** Appends the fields of a model (or models) to the field selection */
-  withModelFields(
+  withModelsFields(
     ...modelClasses: Array<{ Metadata: DgraphModelMetadata<string> }>
   ) {
-    //That's an ugly version of flatMap
     return this.withFields(
-      ...modelClasses.reduce((prev: Array<DgraphQueryField>, modelClass) => {
-        prev.push(...modelClass.Metadata.queryFields())
-
-        return prev
-      }, []),
+      ..._.flatMap(modelClasses, (modelClass) =>
+        modelClass.Metadata.queryFields(),
+      ),
     )
+  }
+
+  withModelFields<
+    TModel,
+    TModelClass extends {
+      Metadata: DgraphModelMetadata<string>
+      new (): TModel
+    },
+  >(
+    modelClass: TModelClass,
+    options?: { omit?: Array<keyof InstanceType<typeof modelClass>> },
+  ) {
+    let fields = modelClass.Metadata.queryFields()
+
+    if (options?.omit && options.omit.length) {
+      const omitSet = new Set<string>((options?.omit as Array<string>) || [])
+      fields = fields.filter((f) => f.name && !omitSet.has(f.name))
+    }
+
+    return this.withFields(...fields)
   }
 
   /** Appends @see{@link BaseDgraphFields} to the current field selection */
@@ -133,7 +151,21 @@ export class DgraphQueryBuilder implements IQueryBuilder {
       throw new Error('Fields must be provided')
     }
 
+    const fieldsSet = new Set(
+      this._fields.map((f) => (typeof f === 'string' ? f : f.name)),
+    )
+
+    if (Array.from(fieldsSet).length !== this.fields.length) {
+      throw new Error('Duplicate field in query')
+    }
+
     const fieldsString = compileMultiple(this._fields)
+
+    // Remove the connection prefix from the first filter
+    if (this._func.length > 0 && this._func[0] instanceof DgraphFilter) {
+      ;(this._func[0] as DgraphFilter).withConnectionPrefix(undefined)
+    }
+
     const funcString = compileMultiple(this._func)
 
     return `

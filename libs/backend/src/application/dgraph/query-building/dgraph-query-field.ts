@@ -95,7 +95,7 @@ export class DgraphQueryField implements IBuildable {
   withModelInnerFields(
     ...modelClasses: Array<{ Metadata: DgraphModelMetadata<string> }>
   ) {
-    //That's an ugly version of flatMap
+    // That's an ugly version of flatMap
     return this.withInnerFields(
       ...modelClasses.reduce((prev: Array<DgraphQueryField>, modelClass) => {
         prev.push(...modelClass.Metadata.queryFields())
@@ -114,9 +114,20 @@ export class DgraphQueryField implements IBuildable {
       throw new Error("Can't build dgraph field, no field name provided")
     }
 
-    const innerFieldsString = compileMultiple(this._innerFields, '{', '}')
-    const filtersString = compileMultiple(this._filters, '@filter(', ')')
-    const facetsString = compileMultiple(this._facets, '@facets(', ')')
+    const innerFieldsString = compileMultiple(this._innerFields, {
+      prefix: '{',
+      postfix: '}',
+    })
+
+    const filtersString = compileMultiple(this._filters, {
+      prefix: '@filter(',
+      postfix: ')',
+    })
+
+    const facetsString = compileMultiple(this._facets, {
+      prefix: '@facets(',
+      postfix: ')',
+    })
 
     this._compiledField = `${this._fieldName} ${filtersString} ${facetsString} ${innerFieldsString}`
     this._isDirty = false

@@ -12,8 +12,10 @@ export class DgraphFilter implements IDgraphQueryFilter {
   }
 
   /** https://dgraph.io/docs/query-language/connecting-filters/ */
-  withConnectionPrefix(connectionPrefix: FilterConnection) {
+  withConnectionPrefix(connectionPrefix: FilterConnection | undefined) {
     this._connectionPrefix = connectionPrefix
+
+    return this
   }
 
   build(): string {
