@@ -15,10 +15,8 @@ export const graphqlServerConfig = registerAs<() => GraphqlServerConfig>(
     return {
       endpoint: get('CODELAB_API_GRAPHQL_ENDPOINT').required().asUrlString(),
       autoSchemaFile:
-        get('NODE_ENV')
-          .required()
-          .asEnum(['test', 'development', 'production']) === 'test'
-          ? false
+        get('NODE_ENV').asEnum(['test', 'development', 'production']) === 'test'
+          ? true
           : graphqlSchemaConfig().apiGraphqlSchemaFile,
     }
   },

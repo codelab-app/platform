@@ -1,7 +1,10 @@
-const { config } = require('dotenv')
+const { config } = require('dotenv-flow')
 const { get } = require('env-var')
 
-config({ path: './.env' })
+config({ path: '.env.test' })
+
+console.log(get('NODE_ENV'))
+console.log(get('CODELAB_DGRAPH_ENDPOINT'))
 
 // Set env vars here
 const { configure } = require('enzyme')

@@ -5,9 +5,8 @@ import {
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3'
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ILambda } from '@codelab/modules/lambda-api'
 import AdmZip from 'adm-zip'
+import { ILambda } from './aws-lambda.service'
 
 export class AwsS3Service extends S3Client {
   bucketPrefix = 'codelab-lambda'

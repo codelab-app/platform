@@ -1,3 +1,5 @@
+import { DgraphProvider, DgraphTokens } from '@codelab/backend'
+import { InfrastructureModule } from '@codelab/framework/nestjs'
 import {
   DynamicModule,
   ForwardReference,
@@ -5,11 +7,6 @@ import {
   Type,
 } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
-import {
-  DgraphProvider,
-  DgraphTokens,
-  InfrastructureModule,
-} from '../infrastructure'
 
 type NestModule =
   | Type<any>

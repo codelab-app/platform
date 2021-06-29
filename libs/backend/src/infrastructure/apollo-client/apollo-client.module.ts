@@ -4,11 +4,12 @@ import { apolloClientProvider } from './apollo-client.provider'
 import { ApolloClientConfig } from './config/apollo-client.config'
 import { ApolloClientTokens } from './config/apollo-client.tokens'
 
-@Global()
+// @Global()
 @Module({})
 export class ApolloClientModule {
   static register(config: ConfigFactory<ApolloClientConfig>): DynamicModule {
     return {
+      global: true,
       imports: [ConfigModule.forFeature(config)],
       module: ApolloClientModule,
       providers: [apolloClientProvider(config)],

@@ -1,32 +1,7 @@
-import { InfrastructureModule } from '@codelab/backend'
-import { AppModule as AppApiModule } from '@codelab/modules/app-api'
-import { AtomModule } from '@codelab/modules/atom-api'
-import { LambdaApiModule } from '@codelab/modules/lambda-api'
-import { PageModule } from '@codelab/modules/page-api'
-import { PageElementModule } from '@codelab/modules/page-element-api'
-import { PropModule } from '@codelab/modules/prop-api'
-import { TypeModule } from '@codelab/modules/type-api'
-import { UserModule } from '@codelab/modules/user-api'
-import { ValueTypeModule } from '@codelab/modules/value-type-api'
+import { DomainModule, InfrastructureModule } from '@codelab/framework/nestjs'
 import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
 
 @Module({
-  imports: [
-    InfrastructureModule,
-    // Modules
-    AppApiModule,
-    LambdaApiModule,
-    UserModule,
-    PageModule,
-    PageElementModule,
-    AtomModule,
-    ValueTypeModule,
-    PropModule,
-    TypeModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [InfrastructureModule, DomainModule],
 })
 export class AppModule {}

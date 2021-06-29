@@ -10,8 +10,9 @@ import {
   UpdateFunctionCodeCommand,
   UpdateFunctionCodeRequest,
 } from '@aws-sdk/client-lambda'
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ILambda } from '@codelab/modules/lambda-api'
+
+// TODO: fix type without breaking circular dep
+export type ILambda = any
 
 interface LambdaPayload {
   [key: string]: any

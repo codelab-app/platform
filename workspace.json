@@ -188,6 +188,19 @@
         }
       }
     },
+    "framework-nestjs": {
+      "root": "libs/framework/nestjs",
+      "sourceRoot": "libs/framework/nestjs/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/framework/nestjs/**/*.ts"]
+          }
+        }
+      }
+    },
     "frontend-apollo": {
       "root": "libs/frontend/apollo",
       "sourceRoot": "libs/frontend/apollo/src",
@@ -674,10 +687,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              // "libs/modules/type-api/**/*.ts",
-              "libs/modules/type-api/**/*.graphql"
-            ]
+            "lintFilePatterns": ["libs/modules/type-api/**/*.graphql"]
           }
         },
         "test": {

@@ -41,6 +41,9 @@
     "codegen-hasura": {
       "tags": []
     },
+    "framework-nestjs": {
+      "tags": []
+    },
     "frontend-apollo": {
       "tags": []
     },
@@ -151,5 +154,13 @@
       "tags": [],
       "implicitDependencies": ["web"]
     }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
