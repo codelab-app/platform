@@ -6,8 +6,12 @@ import path from 'path'
 
 interface BaseCodegenConfig {
   watch?: boolean
-  schema: string
+  schema: Types.Config['schema']
   outputPath: string
+}
+
+interface DgraphCodegenConfig extends BaseCodegenConfig {
+  outputSchemaPath: string
 }
 
 interface ApolloCodegenConfig extends BaseCodegenConfig {
@@ -37,8 +41,9 @@ export class GraphqlCodegenService {
   public async generateDgraph({
     schema,
     outputPath,
+    outputSchemaPath,
     watch = false,
-  }: BaseCodegenConfig) {
+  }: DgraphCodegenConfig) {
     return await generate(
       merge(
         this.baseGraphqlConfig(watch),
@@ -48,8 +53,9 @@ export class GraphqlCodegenService {
           extension: 'd',
         }),
         this.schemaGenerateConfig({
-          schema,
+          outputSchemaPath,
           outputPath,
+          schema,
         }),
       ),
       true,
@@ -113,10 +119,13 @@ export class GraphqlCodegenService {
     }
   }
 
-  private schemaGenerateConfig({ schema }: BaseCodegenConfig): Types.Config {
+  private schemaGenerateConfig({
+    outputSchemaPath,
+    schema,
+  }: DgraphCodegenConfig): Types.Config {
     return {
       generates: {
-        [path.resolve(process.cwd(), schema)]: {
+        [path.resolve(process.cwd(), outputSchemaPath)]: {
           schema,
           plugins: ['schema-ast'],
         },

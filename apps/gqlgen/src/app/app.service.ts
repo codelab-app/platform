@@ -133,10 +133,12 @@ export class AppService {
        * (3) Generate merged schema & update Dgraph server
        */
 
-      const generateAndUpdateDgraphSchema = async () => {
+      const generateAndUpdateDgraphSchema = () => {
         this.saveMergedSchema(this.dgraphConfig.schemaGeneratedFile)
-        await this.dgraphProvider.updateDgraphSchema()
+        this.dgraphProvider.updateDgraphSchema()
       }
+
+      generateAndUpdateDgraphSchema()
 
       if (watch) {
         chokidar
@@ -146,16 +148,14 @@ export class AppService {
           ])
           .on('all', async (event, _path) => {
             console.log(event, _path)
-            await generateAndUpdateDgraphSchema()
+            generateAndUpdateDgraphSchema()
           })
-      } else {
-        await generateAndUpdateDgraphSchema()
       }
 
       /**
        * (4) Graphql codegen for API
        */
-      await this.graphqlCodegenService.generateApi({
+      const apiPromise = this.graphqlCodegenService.generateApi({
         watch,
         schema: this.graphqlSchemaConfig.apiGraphqlSchemaFile,
         outputPath: this.graphqlSchemaConfig.apiCodegenOutputFile,
@@ -164,11 +164,16 @@ export class AppService {
       /**
        * (5) Graphql codegen for Dgraph
        */
-      await this.graphqlCodegenService.generateDgraph({
+      const dgraphPromise = this.graphqlCodegenService.generateDgraph({
         watch,
-        schema: this.graphqlSchemaConfig.dgraphGraphqlSchemaFile,
+        schema: {
+          [this.dgraphConfig.graphqlEndpoint]: {},
+        },
         outputPath: this.graphqlSchemaConfig.dgraphCodegenOutputFile,
+        outputSchemaPath: this.graphqlSchemaConfig.dgraphGraphqlSchemaFile,
       })
+
+      await Promise.all([apiPromise, dgraphPromise])
 
       shell.echo('Codegen process completed! You may Ctrl + C the terminal.')
 
