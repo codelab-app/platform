@@ -165,42 +165,43 @@ enum PrimitiveType {
   Boolean
 }
 
-type SimpleType {
+type SimpleType implements Type {
   id: ID!
+  name: String!
   primitiveType: PrimitiveType!
 }
 
-type ArrayType {
+type ArrayType implements Type {
   id: ID!
-  type: Type!
+  name: String!
+  type: TypeUnion!
 }
 
 type EnumTypeValue {
   id: ID!
-  name: String!
+  name: String
+  value: String!
 }
 
-type EnumType {
+type EnumType implements Type {
   id: ID!
+  name: String!
   allowedValues: [EnumTypeValue!]!
 }
 
-enum Unit {
-  PX
-  PT
-  EM
-  REM
-  PERCENT
-  VW
-  VH
-}
-
-type UnitType {
+type Interface implements Type {
   id: ID!
-  allowedUnits: [Unit!]!
+  name: String!
+  atom: Atom
+  fields: [Field] @hasInverse(field: interface)
 }
 
-union Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+interface Type {
+  id: ID!
+  name: String!
+}
+
+union TypeUnion = Interface | EnumType | ArrayType | SimpleType
 
 type RequiredValidator {
   id: ID!
@@ -229,13 +230,6 @@ type Field {
   description: String
   decorators: [Decorator]
   interface: Interface!
-}
-
-type Interface {
-  id: ID!
-  atom: Atom
-  name: String!
-  fields: [Field] @hasInverse(field: interface)
 }
 
 type StringValue {

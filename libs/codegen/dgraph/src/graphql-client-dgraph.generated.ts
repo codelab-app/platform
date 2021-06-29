@@ -64,7 +64,8 @@ export type AddArrayLengthValidatorPayloadArrayLengthValidatorArgs = {
 }
 
 export type AddArrayTypeInput = {
-  type: TypeRef
+  name: Scalars['String']
+  type: TypeUnionRef
 }
 
 export type AddArrayTypePayload = {
@@ -74,6 +75,7 @@ export type AddArrayTypePayload = {
 
 export type AddArrayTypePayloadArrayTypeArgs = {
   filter?: Maybe<ArrayTypeFilter>
+  order?: Maybe<ArrayTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -148,6 +150,7 @@ export type AddComponentPayloadComponentArgs = {
 }
 
 export type AddEnumTypeInput = {
+  name: Scalars['String']
   allowedValues: Array<EnumTypeValueRef>
 }
 
@@ -158,12 +161,14 @@ export type AddEnumTypePayload = {
 
 export type AddEnumTypePayloadEnumTypeArgs = {
   filter?: Maybe<EnumTypeFilter>
+  order?: Maybe<EnumTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
 
 export type AddEnumTypeValueInput = {
-  name: Scalars['String']
+  name?: Maybe<Scalars['String']>
+  value: Scalars['String']
 }
 
 export type AddEnumTypeValuePayload = {
@@ -232,8 +237,8 @@ export type AddIntValuePayloadIntValueArgs = {
 }
 
 export type AddInterfaceInput = {
-  atom?: Maybe<AtomRef>
   name: Scalars['String']
+  atom?: Maybe<AtomRef>
   fields?: Maybe<Array<Maybe<FieldRef>>>
 }
 
@@ -373,6 +378,7 @@ export type AddRequiredValidatorPayloadRequiredValidatorArgs = {
 }
 
 export type AddSimpleTypeInput = {
+  name: Scalars['String']
   primitiveType: PrimitiveType
 }
 
@@ -383,6 +389,7 @@ export type AddSimpleTypePayload = {
 
 export type AddSimpleTypePayloadSimpleTypeArgs = {
   filter?: Maybe<SimpleTypeFilter>
+  order?: Maybe<SimpleTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -415,21 +422,6 @@ export type AddTagPayload = {
 export type AddTagPayloadTagArgs = {
   filter?: Maybe<TagFilter>
   order?: Maybe<TagOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type AddUnitTypeInput = {
-  allowedUnits: Array<Unit>
-}
-
-export type AddUnitTypePayload = {
-  unitType?: Maybe<Array<Maybe<UnitType>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type AddUnitTypePayloadUnitTypeArgs = {
-  filter?: Maybe<UnitTypeFilter>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -553,17 +545,20 @@ export type ArrayLengthValidatorRef = {
   max?: Maybe<Scalars['Int']>
 }
 
-export type ArrayType = {
+export type ArrayType = Type & {
   id: Scalars['ID']
-  type: Type
+  name: Scalars['String']
+  type: TypeUnion
 }
 
 export type ArrayTypeTypeArgs = {
-  filter?: Maybe<TypeFilter>
+  filter?: Maybe<TypeUnionFilter>
 }
 
 export type ArrayTypeAggregateResult = {
   count?: Maybe<Scalars['Int']>
+  nameMin?: Maybe<Scalars['String']>
+  nameMax?: Maybe<Scalars['String']>
 }
 
 export type ArrayTypeFilter = {
@@ -575,16 +570,29 @@ export type ArrayTypeFilter = {
 }
 
 export enum ArrayTypeHasFilter {
+  Name = 'name',
   Type = 'type',
 }
 
+export type ArrayTypeOrder = {
+  asc?: Maybe<ArrayTypeOrderable>
+  desc?: Maybe<ArrayTypeOrderable>
+  then?: Maybe<ArrayTypeOrder>
+}
+
+export enum ArrayTypeOrderable {
+  Name = 'name',
+}
+
 export type ArrayTypePatch = {
-  type?: Maybe<TypeRef>
+  name?: Maybe<Scalars['String']>
+  type?: Maybe<TypeUnionRef>
 }
 
 export type ArrayTypeRef = {
   id?: Maybe<Scalars['ID']>
-  type?: Maybe<TypeRef>
+  name?: Maybe<Scalars['String']>
+  type?: Maybe<TypeUnionRef>
 }
 
 export type ArrayValue = {
@@ -1008,6 +1016,7 @@ export type DeleteArrayTypePayload = {
 
 export type DeleteArrayTypePayloadArrayTypeArgs = {
   filter?: Maybe<ArrayTypeFilter>
+  order?: Maybe<ArrayTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -1070,6 +1079,7 @@ export type DeleteEnumTypePayload = {
 
 export type DeleteEnumTypePayloadEnumTypeArgs = {
   filter?: Maybe<EnumTypeFilter>
+  order?: Maybe<EnumTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -1235,6 +1245,7 @@ export type DeleteSimpleTypePayload = {
 
 export type DeleteSimpleTypePayloadSimpleTypeArgs = {
   filter?: Maybe<SimpleTypeFilter>
+  order?: Maybe<SimpleTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -1265,14 +1276,15 @@ export type DeleteTagPayloadTagArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type DeleteUnitTypePayload = {
-  unitType?: Maybe<Array<Maybe<UnitType>>>
+export type DeleteTypePayload = {
+  type?: Maybe<Array<Maybe<Type>>>
   msg?: Maybe<Scalars['String']>
   numUids?: Maybe<Scalars['Int']>
 }
 
-export type DeleteUnitTypePayloadUnitTypeArgs = {
-  filter?: Maybe<UnitTypeFilter>
+export type DeleteTypePayloadTypeArgs = {
+  filter?: Maybe<TypeFilter>
+  order?: Maybe<TypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -1295,8 +1307,9 @@ export enum DgraphIndex {
   Geo = 'geo',
 }
 
-export type EnumType = {
+export type EnumType = Type & {
   id: Scalars['ID']
+  name: Scalars['String']
   allowedValues: Array<EnumTypeValue>
   allowedValuesAggregate?: Maybe<EnumTypeValueAggregateResult>
 }
@@ -1314,6 +1327,8 @@ export type EnumTypeAllowedValuesAggregateArgs = {
 
 export type EnumTypeAggregateResult = {
   count?: Maybe<Scalars['Int']>
+  nameMin?: Maybe<Scalars['String']>
+  nameMax?: Maybe<Scalars['String']>
 }
 
 export type EnumTypeFilter = {
@@ -1325,27 +1340,43 @@ export type EnumTypeFilter = {
 }
 
 export enum EnumTypeHasFilter {
+  Name = 'name',
   AllowedValues = 'allowedValues',
 }
 
+export type EnumTypeOrder = {
+  asc?: Maybe<EnumTypeOrderable>
+  desc?: Maybe<EnumTypeOrderable>
+  then?: Maybe<EnumTypeOrder>
+}
+
+export enum EnumTypeOrderable {
+  Name = 'name',
+}
+
 export type EnumTypePatch = {
+  name?: Maybe<Scalars['String']>
   allowedValues?: Maybe<Array<EnumTypeValueRef>>
 }
 
 export type EnumTypeRef = {
   id?: Maybe<Scalars['ID']>
+  name?: Maybe<Scalars['String']>
   allowedValues?: Maybe<Array<EnumTypeValueRef>>
 }
 
 export type EnumTypeValue = {
   id: Scalars['ID']
-  name: Scalars['String']
+  name?: Maybe<Scalars['String']>
+  value: Scalars['String']
 }
 
 export type EnumTypeValueAggregateResult = {
   count?: Maybe<Scalars['Int']>
   nameMin?: Maybe<Scalars['String']>
   nameMax?: Maybe<Scalars['String']>
+  valueMin?: Maybe<Scalars['String']>
+  valueMax?: Maybe<Scalars['String']>
 }
 
 export type EnumTypeValueFilter = {
@@ -1358,6 +1389,7 @@ export type EnumTypeValueFilter = {
 
 export enum EnumTypeValueHasFilter {
   Name = 'name',
+  Value = 'value',
 }
 
 export type EnumTypeValueOrder = {
@@ -1368,15 +1400,18 @@ export type EnumTypeValueOrder = {
 
 export enum EnumTypeValueOrderable {
   Name = 'name',
+  Value = 'value',
 }
 
 export type EnumTypeValuePatch = {
   name?: Maybe<Scalars['String']>
+  value?: Maybe<Scalars['String']>
 }
 
 export type EnumTypeValueRef = {
   id?: Maybe<Scalars['ID']>
   name?: Maybe<Scalars['String']>
+  value?: Maybe<Scalars['String']>
 }
 
 export type Field = {
@@ -1616,10 +1651,10 @@ export type IntValueRef = {
   intValue?: Maybe<Scalars['Int']>
 }
 
-export type Interface = {
+export type Interface = Type & {
   id: Scalars['ID']
-  atom?: Maybe<Atom>
   name: Scalars['String']
+  atom?: Maybe<Atom>
   fields?: Maybe<Array<Maybe<Field>>>
   fieldsAggregate?: Maybe<FieldAggregateResult>
 }
@@ -1654,8 +1689,8 @@ export type InterfaceFilter = {
 }
 
 export enum InterfaceHasFilter {
-  Atom = 'atom',
   Name = 'name',
+  Atom = 'atom',
   Fields = 'fields',
 }
 
@@ -1670,15 +1705,15 @@ export enum InterfaceOrderable {
 }
 
 export type InterfacePatch = {
-  atom?: Maybe<AtomRef>
   name?: Maybe<Scalars['String']>
+  atom?: Maybe<AtomRef>
   fields?: Maybe<Array<Maybe<FieldRef>>>
 }
 
 export type InterfaceRef = {
   id?: Maybe<Scalars['ID']>
-  atom?: Maybe<AtomRef>
   name?: Maybe<Scalars['String']>
+  atom?: Maybe<AtomRef>
   fields?: Maybe<Array<Maybe<FieldRef>>>
 }
 
@@ -1909,9 +1944,11 @@ export type Mutation = {
   addEnumType?: Maybe<AddEnumTypePayload>
   updateEnumType?: Maybe<UpdateEnumTypePayload>
   deleteEnumType?: Maybe<DeleteEnumTypePayload>
-  addUnitType?: Maybe<AddUnitTypePayload>
-  updateUnitType?: Maybe<UpdateUnitTypePayload>
-  deleteUnitType?: Maybe<DeleteUnitTypePayload>
+  addInterface?: Maybe<AddInterfacePayload>
+  updateInterface?: Maybe<UpdateInterfacePayload>
+  deleteInterface?: Maybe<DeleteInterfacePayload>
+  updateType?: Maybe<UpdateTypePayload>
+  deleteType?: Maybe<DeleteTypePayload>
   addRequiredValidator?: Maybe<AddRequiredValidatorPayload>
   updateRequiredValidator?: Maybe<UpdateRequiredValidatorPayload>
   deleteRequiredValidator?: Maybe<DeleteRequiredValidatorPayload>
@@ -1924,9 +1961,6 @@ export type Mutation = {
   addField?: Maybe<AddFieldPayload>
   updateField?: Maybe<UpdateFieldPayload>
   deleteField?: Maybe<DeleteFieldPayload>
-  addInterface?: Maybe<AddInterfacePayload>
-  updateInterface?: Maybe<UpdateInterfacePayload>
-  deleteInterface?: Maybe<DeleteInterfacePayload>
   addStringValue?: Maybe<AddStringValuePayload>
   updateStringValue?: Maybe<UpdateStringValuePayload>
   deleteStringValue?: Maybe<DeleteStringValuePayload>
@@ -2082,16 +2116,24 @@ export type MutationDeleteEnumTypeArgs = {
   filter: EnumTypeFilter
 }
 
-export type MutationAddUnitTypeArgs = {
-  input: Array<AddUnitTypeInput>
+export type MutationAddInterfaceArgs = {
+  input: Array<AddInterfaceInput>
 }
 
-export type MutationUpdateUnitTypeArgs = {
-  input: UpdateUnitTypeInput
+export type MutationUpdateInterfaceArgs = {
+  input: UpdateInterfaceInput
 }
 
-export type MutationDeleteUnitTypeArgs = {
-  filter: UnitTypeFilter
+export type MutationDeleteInterfaceArgs = {
+  filter: InterfaceFilter
+}
+
+export type MutationUpdateTypeArgs = {
+  input: UpdateTypeInput
+}
+
+export type MutationDeleteTypeArgs = {
+  filter: TypeFilter
 }
 
 export type MutationAddRequiredValidatorArgs = {
@@ -2140,18 +2182,6 @@ export type MutationUpdateFieldArgs = {
 
 export type MutationDeleteFieldArgs = {
   filter: FieldFilter
-}
-
-export type MutationAddInterfaceArgs = {
-  input: Array<AddInterfaceInput>
-}
-
-export type MutationUpdateInterfaceArgs = {
-  input: UpdateInterfaceInput
-}
-
-export type MutationDeleteInterfaceArgs = {
-  filter: InterfaceFilter
 }
 
 export type MutationAddStringValueArgs = {
@@ -2572,9 +2602,12 @@ export type Query = {
   getEnumType?: Maybe<EnumType>
   queryEnumType?: Maybe<Array<Maybe<EnumType>>>
   aggregateEnumType?: Maybe<EnumTypeAggregateResult>
-  getUnitType?: Maybe<UnitType>
-  queryUnitType?: Maybe<Array<Maybe<UnitType>>>
-  aggregateUnitType?: Maybe<UnitTypeAggregateResult>
+  getInterface?: Maybe<Interface>
+  queryInterface?: Maybe<Array<Maybe<Interface>>>
+  aggregateInterface?: Maybe<InterfaceAggregateResult>
+  getType?: Maybe<Type>
+  queryType?: Maybe<Array<Maybe<Type>>>
+  aggregateType?: Maybe<TypeAggregateResult>
   getRequiredValidator?: Maybe<RequiredValidator>
   queryRequiredValidator?: Maybe<Array<Maybe<RequiredValidator>>>
   aggregateRequiredValidator?: Maybe<RequiredValidatorAggregateResult>
@@ -2587,9 +2620,6 @@ export type Query = {
   getField?: Maybe<Field>
   queryField?: Maybe<Array<Maybe<Field>>>
   aggregateField?: Maybe<FieldAggregateResult>
-  getInterface?: Maybe<Interface>
-  queryInterface?: Maybe<Array<Maybe<Interface>>>
-  aggregateInterface?: Maybe<InterfaceAggregateResult>
   getStringValue?: Maybe<StringValue>
   queryStringValue?: Maybe<Array<Maybe<StringValue>>>
   aggregateStringValue?: Maybe<StringValueAggregateResult>
@@ -2720,6 +2750,7 @@ export type QueryGetSimpleTypeArgs = {
 
 export type QueryQuerySimpleTypeArgs = {
   filter?: Maybe<SimpleTypeFilter>
+  order?: Maybe<SimpleTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -2734,6 +2765,7 @@ export type QueryGetArrayTypeArgs = {
 
 export type QueryQueryArrayTypeArgs = {
   filter?: Maybe<ArrayTypeFilter>
+  order?: Maybe<ArrayTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -2763,6 +2795,7 @@ export type QueryGetEnumTypeArgs = {
 
 export type QueryQueryEnumTypeArgs = {
   filter?: Maybe<EnumTypeFilter>
+  order?: Maybe<EnumTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -2771,18 +2804,34 @@ export type QueryAggregateEnumTypeArgs = {
   filter?: Maybe<EnumTypeFilter>
 }
 
-export type QueryGetUnitTypeArgs = {
+export type QueryGetInterfaceArgs = {
   id: Scalars['ID']
 }
 
-export type QueryQueryUnitTypeArgs = {
-  filter?: Maybe<UnitTypeFilter>
+export type QueryQueryInterfaceArgs = {
+  filter?: Maybe<InterfaceFilter>
+  order?: Maybe<InterfaceOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
 
-export type QueryAggregateUnitTypeArgs = {
-  filter?: Maybe<UnitTypeFilter>
+export type QueryAggregateInterfaceArgs = {
+  filter?: Maybe<InterfaceFilter>
+}
+
+export type QueryGetTypeArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryTypeArgs = {
+  filter?: Maybe<TypeFilter>
+  order?: Maybe<TypeOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateTypeArgs = {
+  filter?: Maybe<TypeFilter>
 }
 
 export type QueryGetRequiredValidatorArgs = {
@@ -2842,21 +2891,6 @@ export type QueryQueryFieldArgs = {
 
 export type QueryAggregateFieldArgs = {
   filter?: Maybe<FieldFilter>
-}
-
-export type QueryGetInterfaceArgs = {
-  id: Scalars['ID']
-}
-
-export type QueryQueryInterfaceArgs = {
-  filter?: Maybe<InterfaceFilter>
-  order?: Maybe<InterfaceOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type QueryAggregateInterfaceArgs = {
-  filter?: Maybe<InterfaceFilter>
 }
 
 export type QueryGetStringValueArgs = {
@@ -2990,13 +3024,16 @@ export type RequiredValidatorRef = {
   isRequired?: Maybe<Scalars['Boolean']>
 }
 
-export type SimpleType = {
+export type SimpleType = Type & {
   id: Scalars['ID']
+  name: Scalars['String']
   primitiveType: PrimitiveType
 }
 
 export type SimpleTypeAggregateResult = {
   count?: Maybe<Scalars['Int']>
+  nameMin?: Maybe<Scalars['String']>
+  nameMax?: Maybe<Scalars['String']>
 }
 
 export type SimpleTypeFilter = {
@@ -3008,15 +3045,28 @@ export type SimpleTypeFilter = {
 }
 
 export enum SimpleTypeHasFilter {
+  Name = 'name',
   PrimitiveType = 'primitiveType',
 }
 
+export type SimpleTypeOrder = {
+  asc?: Maybe<SimpleTypeOrderable>
+  desc?: Maybe<SimpleTypeOrderable>
+  then?: Maybe<SimpleTypeOrder>
+}
+
+export enum SimpleTypeOrderable {
+  Name = 'name',
+}
+
 export type SimpleTypePatch = {
+  name?: Maybe<Scalars['String']>
   primitiveType?: Maybe<PrimitiveType>
 }
 
 export type SimpleTypeRef = {
   id?: Maybe<Scalars['ID']>
+  name?: Maybe<Scalars['String']>
   primitiveType?: Maybe<PrimitiveType>
 }
 
@@ -3149,71 +3199,69 @@ export type TagRef = {
   label?: Maybe<Scalars['String']>
 }
 
-export type Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+export type Type = {
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
+export type TypeAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  nameMin?: Maybe<Scalars['String']>
+  nameMax?: Maybe<Scalars['String']>
+}
 
 export type TypeFilter = {
-  memberTypes?: Maybe<Array<TypeType>>
-  simpleTypeFilter?: Maybe<SimpleTypeFilter>
-  interfaceFilter?: Maybe<InterfaceFilter>
-  arrayTypeFilter?: Maybe<ArrayTypeFilter>
-  enumTypeFilter?: Maybe<EnumTypeFilter>
-  unitTypeFilter?: Maybe<UnitTypeFilter>
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<TypeHasFilter>>>
+  and?: Maybe<Array<Maybe<TypeFilter>>>
+  or?: Maybe<Array<Maybe<TypeFilter>>>
+  not?: Maybe<TypeFilter>
+}
+
+export enum TypeHasFilter {
+  Name = 'name',
+}
+
+export type TypeOrder = {
+  asc?: Maybe<TypeOrderable>
+  desc?: Maybe<TypeOrderable>
+  then?: Maybe<TypeOrder>
+}
+
+export enum TypeOrderable {
+  Name = 'name',
+}
+
+export type TypePatch = {
+  name?: Maybe<Scalars['String']>
 }
 
 export type TypeRef = {
-  simpleTypeRef?: Maybe<SimpleTypeRef>
-  interfaceRef?: Maybe<InterfaceRef>
-  arrayTypeRef?: Maybe<ArrayTypeRef>
-  enumTypeRef?: Maybe<EnumTypeRef>
-  unitTypeRef?: Maybe<UnitTypeRef>
-}
-
-export enum TypeType {
-  SimpleType = 'SimpleType',
-  Interface = 'Interface',
-  ArrayType = 'ArrayType',
-  EnumType = 'EnumType',
-  UnitType = 'UnitType',
-}
-
-export enum Unit {
-  Px = 'PX',
-  Pt = 'PT',
-  Em = 'EM',
-  Rem = 'REM',
-  Percent = 'PERCENT',
-  Vw = 'VW',
-  Vh = 'VH',
-}
-
-export type UnitType = {
   id: Scalars['ID']
-  allowedUnits: Array<Unit>
 }
 
-export type UnitTypeAggregateResult = {
-  count?: Maybe<Scalars['Int']>
+export type TypeUnion = Interface | EnumType | ArrayType | SimpleType
+
+export type TypeUnionFilter = {
+  memberTypes?: Maybe<Array<TypeUnionType>>
+  interfaceFilter?: Maybe<InterfaceFilter>
+  enumTypeFilter?: Maybe<EnumTypeFilter>
+  arrayTypeFilter?: Maybe<ArrayTypeFilter>
+  simpleTypeFilter?: Maybe<SimpleTypeFilter>
 }
 
-export type UnitTypeFilter = {
-  id?: Maybe<Array<Scalars['ID']>>
-  has?: Maybe<Array<Maybe<UnitTypeHasFilter>>>
-  and?: Maybe<Array<Maybe<UnitTypeFilter>>>
-  or?: Maybe<Array<Maybe<UnitTypeFilter>>>
-  not?: Maybe<UnitTypeFilter>
+export type TypeUnionRef = {
+  interfaceRef?: Maybe<InterfaceRef>
+  enumTypeRef?: Maybe<EnumTypeRef>
+  arrayTypeRef?: Maybe<ArrayTypeRef>
+  simpleTypeRef?: Maybe<SimpleTypeRef>
 }
 
-export enum UnitTypeHasFilter {
-  AllowedUnits = 'allowedUnits',
-}
-
-export type UnitTypePatch = {
-  allowedUnits?: Maybe<Array<Unit>>
-}
-
-export type UnitTypeRef = {
-  id?: Maybe<Scalars['ID']>
-  allowedUnits?: Maybe<Array<Unit>>
+export enum TypeUnionType {
+  Interface = 'Interface',
+  EnumType = 'EnumType',
+  ArrayType = 'ArrayType',
+  SimpleType = 'SimpleType',
 }
 
 export type UpdateAppInput = {
@@ -3265,6 +3313,7 @@ export type UpdateArrayTypePayload = {
 
 export type UpdateArrayTypePayloadArrayTypeArgs = {
   filter?: Maybe<ArrayTypeFilter>
+  order?: Maybe<ArrayTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -3352,6 +3401,7 @@ export type UpdateEnumTypePayload = {
 
 export type UpdateEnumTypePayloadEnumTypeArgs = {
   filter?: Maybe<EnumTypeFilter>
+  order?: Maybe<EnumTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -3582,6 +3632,7 @@ export type UpdateSimpleTypePayload = {
 
 export type UpdateSimpleTypePayloadSimpleTypeArgs = {
   filter?: Maybe<SimpleTypeFilter>
+  order?: Maybe<SimpleTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -3622,19 +3673,20 @@ export type UpdateTagPayloadTagArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type UpdateUnitTypeInput = {
-  filter: UnitTypeFilter
-  set?: Maybe<UnitTypePatch>
-  remove?: Maybe<UnitTypePatch>
+export type UpdateTypeInput = {
+  filter: TypeFilter
+  set?: Maybe<TypePatch>
+  remove?: Maybe<TypePatch>
 }
 
-export type UpdateUnitTypePayload = {
-  unitType?: Maybe<Array<Maybe<UnitType>>>
+export type UpdateTypePayload = {
+  type?: Maybe<Array<Maybe<Type>>>
   numUids?: Maybe<Scalars['Int']>
 }
 
-export type UpdateUnitTypePayloadUnitTypeArgs = {
-  filter?: Maybe<UnitTypeFilter>
+export type UpdateTypePayloadTypeArgs = {
+  filter?: Maybe<TypeFilter>
+  order?: Maybe<TypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -3712,6 +3764,14 @@ export type DeleteAtomAndInterfaceMutationVariables = Exact<{
 export type DeleteAtomAndInterfaceMutation = {
   deleteAtom?: Maybe<Pick<DeleteAtomPayload, 'numUids'>>
   deleteInterface?: Maybe<Pick<DeleteInterfacePayload, 'numUids'>>
+}
+
+export type GetAtomByPageElementQueryVariables = Exact<{
+  pageElementId: Scalars['ID']
+}>
+
+export type GetAtomByPageElementQuery = {
+  getPageElement?: Maybe<{ atom?: Maybe<DGraph__AtomFragment> }>
 }
 
 export type GetAtomQueryVariables = Exact<{
@@ -3811,14 +3871,14 @@ export type CreatePageMutation = {
 
 export type DeletePageMutationVariables = Exact<{
   filter: PageFilter
+  pageElementFilter: PageElementFilter
+  propsFilter: PropFilter
 }>
 
 export type DeletePageMutation = {
-  deletePage?: Maybe<
-    Pick<DeletePagePayload, 'numUids'> & {
-      page?: Maybe<Array<Maybe<Dgraph__PageFragment>>>
-    }
-  >
+  deletePage?: Maybe<Pick<DeletePagePayload, 'numUids'>>
+  deletePageElement?: Maybe<Pick<DeletePageElementPayload, 'numUids'>>
+  deleteProp?: Maybe<Pick<DeletePropPayload, 'numUids'>>
 }
 
 export type GetPageOwnerQueryVariables = Exact<{
@@ -4015,18 +4075,6 @@ export type DgraphInterfaceValueFragment = Pick<InterfaceValue, 'id'> & {
   props: Array<Pick<Prop, 'id'>>
 }
 
-export type CreatePropMutationVariables = Exact<{
-  input: Array<AddPropInput> | AddPropInput
-}>
-
-export type CreatePropMutation = {
-  addProp?: Maybe<
-    Pick<AddPropPayload, 'numUids'> & {
-      prop?: Maybe<Array<Maybe<DgraphPropFragment>>>
-    }
-  >
-}
-
 export type GetArrayValuesQueryVariables = Exact<{
   arrayValueId: Scalars['ID']
 }>
@@ -4058,41 +4106,36 @@ export type Dgraph__FieldFragment = Pick<
     >
   >
   type:
-    | Dgraph__Type_SimpleType_Fragment
-    | Dgraph__Type_Interface_Fragment
     | Dgraph__Type_ArrayType_Fragment
     | Dgraph__Type_EnumType_Fragment
-    | Dgraph__Type_UnitType_Fragment
+    | Dgraph__Type_Interface_Fragment
+    | Dgraph__Type_SimpleType_Fragment
   interface: Dgraph__InterfaceWithoutFieldsFragment
 }
 
-type Dgraph__Type_SimpleType_Fragment = Pick<SimpleType, 'id' | 'primitiveType'>
-
-type Dgraph__Type_Interface_Fragment = Pick<Interface, 'id'>
-
 type Dgraph__Type_ArrayType_Fragment = Pick<ArrayType, 'id'> & {
   type:
-    | Pick<SimpleType, 'id' | 'primitiveType'>
     | Pick<Interface, 'id'>
-    | Pick<ArrayType, 'id'>
     | (Pick<EnumType, 'id'> & {
         allowedValues: Array<Pick<EnumTypeValue, 'id' | 'name'>>
       })
-    | Pick<UnitType, 'id' | 'allowedUnits'>
+    | Pick<ArrayType, 'id'>
+    | Pick<SimpleType, 'id' | 'primitiveType'>
 }
 
 type Dgraph__Type_EnumType_Fragment = Pick<EnumType, 'id'> & {
   allowedValues: Array<Pick<EnumTypeValue, 'id' | 'name'>>
 }
 
-type Dgraph__Type_UnitType_Fragment = Pick<UnitType, 'id' | 'allowedUnits'>
+type Dgraph__Type_Interface_Fragment = Pick<Interface, 'id'>
+
+type Dgraph__Type_SimpleType_Fragment = Pick<SimpleType, 'id' | 'primitiveType'>
 
 export type Dgraph__TypeFragment =
-  | Dgraph__Type_SimpleType_Fragment
-  | Dgraph__Type_Interface_Fragment
   | Dgraph__Type_ArrayType_Fragment
   | Dgraph__Type_EnumType_Fragment
-  | Dgraph__Type_UnitType_Fragment
+  | Dgraph__Type_Interface_Fragment
+  | Dgraph__Type_SimpleType_Fragment
 
 type Dgraph__Decorator_MinMaxValidator_Fragment = {
   __typename: 'MinMaxValidator'
@@ -4213,6 +4256,14 @@ export type UpdateInterfaceMutation = {
   updateInterface?: Maybe<Pick<UpdateInterfacePayload, 'numUids'>>
 }
 
+export type DeleteArrayTypeMutationVariables = Exact<{
+  filter: ArrayTypeFilter
+}>
+
+export type DeleteArrayTypeMutation = {
+  deleteArrayType?: Maybe<Pick<DeleteArrayTypePayload, 'numUids'>>
+}
+
 export const __ComponentFragmentDoc = gql`
   fragment __Component on Component {
     id
@@ -4320,10 +4371,6 @@ export const Dgraph__TypeFragmentDoc = gql`
           id
           primitiveType
         }
-        ... on UnitType {
-          id
-          allowedUnits
-        }
       }
     }
     ... on EnumType {
@@ -4336,10 +4383,6 @@ export const Dgraph__TypeFragmentDoc = gql`
     ... on SimpleType {
       id
       primitiveType
-    }
-    ... on UnitType {
-      id
-      allowedUnits
     }
   }
 `
@@ -4970,6 +5013,72 @@ export type DeleteAtomAndInterfaceMutationOptions = Apollo.BaseMutationOptions<
   DeleteAtomAndInterfaceMutation,
   DeleteAtomAndInterfaceMutationVariables
 >
+export const GetAtomByPageElementGql = gql`
+  query GetAtomByPageElement($pageElementId: ID!) {
+    getPageElement(id: $pageElementId) {
+      atom {
+        ...DGraph__Atom
+      }
+    }
+  }
+  ${DGraph__AtomFragmentDoc}
+`
+
+/**
+ * __useGetAtomByPageElementQuery__
+ *
+ * To run a query within a React component, call `useGetAtomByPageElementQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAtomByPageElementQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAtomByPageElementQuery({
+ *   variables: {
+ *      pageElementId: // value for 'pageElementId'
+ *   },
+ * });
+ */
+export function useGetAtomByPageElementQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetAtomByPageElementQuery,
+    GetAtomByPageElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetAtomByPageElementQuery,
+    GetAtomByPageElementQueryVariables
+  >(GetAtomByPageElementGql, options)
+}
+export function useGetAtomByPageElementLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomByPageElementQuery,
+    GetAtomByPageElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetAtomByPageElementQuery,
+    GetAtomByPageElementQueryVariables
+  >(GetAtomByPageElementGql, options)
+}
+export type GetAtomByPageElementQueryHookResult = ReturnType<
+  typeof useGetAtomByPageElementQuery
+>
+export type GetAtomByPageElementLazyQueryHookResult = ReturnType<
+  typeof useGetAtomByPageElementLazyQuery
+>
+export type GetAtomByPageElementQueryResult = Apollo.QueryResult<
+  GetAtomByPageElementQuery,
+  GetAtomByPageElementQueryVariables
+>
+export function refetchGetAtomByPageElementQuery(
+  variables?: GetAtomByPageElementQueryVariables,
+) {
+  return { query: GetAtomByPageElementGql, variables: variables }
+}
 export const GetAtomGql = gql`
   query GetAtom($id: ID!) {
     atom: getAtom(id: $id) {
@@ -5536,15 +5645,21 @@ export type CreatePageMutationOptions = Apollo.BaseMutationOptions<
   CreatePageMutationVariables
 >
 export const DeletePageGql = gql`
-  mutation DeletePage($filter: PageFilter!) {
+  mutation DeletePage(
+    $filter: PageFilter!
+    $pageElementFilter: PageElementFilter!
+    $propsFilter: PropFilter!
+  ) {
     deletePage(filter: $filter) {
       numUids
-      page {
-        ...Dgraph__Page
-      }
+    }
+    deletePageElement(filter: $pageElementFilter) {
+      numUids
+    }
+    deleteProp(filter: $propsFilter) {
+      numUids
     }
   }
-  ${Dgraph__PageFragmentDoc}
 `
 export type DeletePageMutationFn = Apollo.MutationFunction<
   DeletePageMutation,
@@ -5565,6 +5680,8 @@ export type DeletePageMutationFn = Apollo.MutationFunction<
  * const [deletePageMutation, { data, loading, error }] = useDeletePageMutation({
  *   variables: {
  *      filter: // value for 'filter'
+ *      pageElementFilter: // value for 'pageElementFilter'
+ *      propsFilter: // value for 'propsFilter'
  *   },
  * });
  */
@@ -6134,59 +6251,6 @@ export type UpdatePageElementMutationResult =
 export type UpdatePageElementMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageElementMutation,
   UpdatePageElementMutationVariables
->
-export const CreatePropGql = gql`
-  mutation CreateProp($input: [AddPropInput!]!) {
-    addProp(input: $input) {
-      numUids
-      prop {
-        ...DgraphProp
-      }
-    }
-  }
-  ${DgraphPropFragmentDoc}
-`
-export type CreatePropMutationFn = Apollo.MutationFunction<
-  CreatePropMutation,
-  CreatePropMutationVariables
->
-
-/**
- * __useCreatePropMutation__
- *
- * To run a mutation, you first call `useCreatePropMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePropMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createPropMutation, { data, loading, error }] = useCreatePropMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreatePropMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreatePropMutation,
-    CreatePropMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<CreatePropMutation, CreatePropMutationVariables>(
-    CreatePropGql,
-    options,
-  )
-}
-export type CreatePropMutationHookResult = ReturnType<
-  typeof useCreatePropMutation
->
-export type CreatePropMutationResult = Apollo.MutationResult<CreatePropMutation>
-export type CreatePropMutationOptions = Apollo.BaseMutationOptions<
-  CreatePropMutation,
-  CreatePropMutationVariables
 >
 export const GetArrayValuesGql = gql`
   query GetArrayValues($arrayValueId: ID!) {
@@ -6775,6 +6839,56 @@ export type UpdateInterfaceMutationOptions = Apollo.BaseMutationOptions<
   UpdateInterfaceMutation,
   UpdateInterfaceMutationVariables
 >
+export const DeleteArrayTypeGql = gql`
+  mutation DeleteArrayType($filter: ArrayTypeFilter!) {
+    deleteArrayType(filter: $filter) {
+      numUids
+    }
+  }
+`
+export type DeleteArrayTypeMutationFn = Apollo.MutationFunction<
+  DeleteArrayTypeMutation,
+  DeleteArrayTypeMutationVariables
+>
+
+/**
+ * __useDeleteArrayTypeMutation__
+ *
+ * To run a mutation, you first call `useDeleteArrayTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteArrayTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteArrayTypeMutation, { data, loading, error }] = useDeleteArrayTypeMutation({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useDeleteArrayTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteArrayTypeMutation,
+    DeleteArrayTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteArrayTypeMutation,
+    DeleteArrayTypeMutationVariables
+  >(DeleteArrayTypeGql, options)
+}
+export type DeleteArrayTypeMutationHookResult = ReturnType<
+  typeof useDeleteArrayTypeMutation
+>
+export type DeleteArrayTypeMutationResult =
+  Apollo.MutationResult<DeleteArrayTypeMutation>
+export type DeleteArrayTypeMutationOptions = Apollo.BaseMutationOptions<
+  DeleteArrayTypeMutation,
+  DeleteArrayTypeMutationVariables
+>
 export const __Component = gql`
   fragment __Component on Component {
     id
@@ -6882,10 +6996,6 @@ export const Dgraph__Type = gql`
           id
           primitiveType
         }
-        ... on UnitType {
-          id
-          allowedUnits
-        }
       }
     }
     ... on EnumType {
@@ -6898,10 +7008,6 @@ export const Dgraph__Type = gql`
     ... on SimpleType {
       id
       primitiveType
-    }
-    ... on UnitType {
-      id
-      allowedUnits
     }
   }
 `
@@ -7186,6 +7292,16 @@ export const DeleteAtomAndInterface = gql`
     }
   }
 `
+export const GetAtomByPageElement = gql`
+  query GetAtomByPageElement($pageElementId: ID!) {
+    getPageElement(id: $pageElementId) {
+      atom {
+        ...DGraph__Atom
+      }
+    }
+  }
+  ${DGraph__Atom}
+`
 export const GetAtom = gql`
   query GetAtom($id: ID!) {
     atom: getAtom(id: $id) {
@@ -7275,15 +7391,21 @@ export const CreatePage = gql`
   ${Dgraph__Page}
 `
 export const DeletePage = gql`
-  mutation DeletePage($filter: PageFilter!) {
+  mutation DeletePage(
+    $filter: PageFilter!
+    $pageElementFilter: PageElementFilter!
+    $propsFilter: PropFilter!
+  ) {
     deletePage(filter: $filter) {
       numUids
-      page {
-        ...Dgraph__Page
-      }
+    }
+    deletePageElement(filter: $pageElementFilter) {
+      numUids
+    }
+    deleteProp(filter: $propsFilter) {
+      numUids
     }
   }
-  ${Dgraph__Page}
 `
 export const GetPageOwner = gql`
   query GetPageOwner($pageId: ID!) {
@@ -7379,17 +7501,6 @@ export const UpdatePageElement = gql`
     }
   }
   ${Dgraph_PageElement}
-`
-export const CreateProp = gql`
-  mutation CreateProp($input: [AddPropInput!]!) {
-    addProp(input: $input) {
-      numUids
-      prop {
-        ...DgraphProp
-      }
-    }
-  }
-  ${DgraphProp}
 `
 export const GetArrayValues = gql`
   query GetArrayValues($arrayValueId: ID!) {
@@ -7487,6 +7598,13 @@ export const GetInterfaces = gql`
 export const UpdateInterface = gql`
   mutation UpdateInterface($input: UpdateInterfaceInput!) {
     updateInterface(input: $input) {
+      numUids
+    }
+  }
+`
+export const DeleteArrayType = gql`
+  mutation DeleteArrayType($filter: ArrayTypeFilter!) {
+    deleteArrayType(filter: $filter) {
       numUids
     }
   }

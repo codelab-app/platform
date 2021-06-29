@@ -30,8 +30,9 @@ export type ArrayLengthValidator = {
   maxLength?: Maybe<Scalars['Int']>
 }
 
-export type ArrayType = {
+export type ArrayType = Type & {
   id: Scalars['ID']
+  name: Scalars['String']
   typeId: Scalars['String']
 }
 
@@ -41,7 +42,7 @@ export type ArrayValue = {
 }
 
 export type ArrayValueInput = {
-  values: Array<CreateValueInput>
+  values: Array<UpsertValueInput>
 }
 
 export type Atom = {
@@ -49,6 +50,10 @@ export type Atom = {
   type: AtomType
   label: Scalars['String']
   propTypes: Interface
+}
+
+export type AtomByPageElementFilter = {
+  pageElementId: Scalars['String']
 }
 
 export enum AtomType {
@@ -212,12 +217,6 @@ export type CreatePageInput = {
   appId: Scalars['String']
 }
 
-export type CreatePropInput = {
-  fieldId: Scalars['String']
-  pageElementId?: Maybe<Scalars['String']>
-  value?: Maybe<CreateValueInput>
-}
-
 export type CreateSimpleTypeInput = {
   primitiveType: PrimitiveType
 }
@@ -228,21 +227,6 @@ export type CreateTypeInput = {
   interfaceType?: Maybe<CreateInterfaceTypeInput>
   arrayType?: Maybe<CreateArrayTypeInput>
   enumType?: Maybe<CreateEnumTypeInput>
-  unitType?: Maybe<CreateUnitTypeInput>
-}
-
-export type CreateUnitTypeInput = {
-  /** Pass null to allow all */
-  allowedUnits?: Maybe<Array<Unit>>
-}
-
-export type CreateValueInput = {
-  stringValue?: Maybe<StringValueInput>
-  intValue?: Maybe<IntValueInput>
-  floatValue?: Maybe<FloatValueInput>
-  booleanValue?: Maybe<BoleanValueInput>
-  arrayValue?: Maybe<ArrayValueInput>
-  interfaceValue?: Maybe<InterfaceValueInput>
 }
 
 export type Decorator =
@@ -282,14 +266,16 @@ export type DeleteUserInput = {
   userId: Scalars['String']
 }
 
-export type EnumType = {
+export type EnumType = Type & {
   id: Scalars['ID']
+  name: Scalars['String']
   allowedValues: Array<EnumTypeValue>
 }
 
 export type EnumTypeValue = {
   id: Scalars['ID']
-  name: Scalars['String']
+  name?: Maybe<Scalars['String']>
+  value: Scalars['String']
 }
 
 export type Field = {
@@ -328,6 +314,10 @@ export type FloatValueInput = {
 
 export type GetAppInput = {
   appId: Scalars['String']
+}
+
+export type GetAtomByInput = {
+  byPageElement?: Maybe<AtomByPageElementFilter>
 }
 
 export type GetAtomInput = {
@@ -385,25 +375,19 @@ export type IntValueInput = {
   value: Scalars['Int']
 }
 
-export type Interface = {
+export type Interface = Type & {
   id: Scalars['ID']
   name: Scalars['String']
   fieldCollection: FieldCollection
 }
 
-export type InterfaceType = {
-  interfaceId: Scalars['String']
-  interfaceName: Scalars['String']
-}
-
 export type InterfaceValue = {
   id: Scalars['ID']
   props: Array<Prop>
-  values: Array<PropValue>
 }
 
 export type InterfaceValueInput = {
-  props: Array<CreatePropInput>
+  props: Array<UpsertPropsInput>
 }
 
 export type MinMaxValidator = {
@@ -429,7 +413,7 @@ export type Mutation = {
   updateUser: User
   deleteUser: Scalars['Boolean']
   createPage: Page
-  deletePage: Page
+  deletePage: DeleteResponse
   updatePage: Page
   createPageElement: PageElement
   updatePageElement: PageElement
@@ -445,7 +429,7 @@ export type Mutation = {
   createField: Field
   updateField: Field
   deleteField: DeleteResponse
-  createProp: Prop
+  upsertProp: UpsertPropsResponse
   deleteProp: DeleteResponse
 }
 
@@ -533,8 +517,8 @@ export type MutationDeleteFieldArgs = {
   input: DeleteFieldInput
 }
 
-export type MutationCreatePropArgs = {
-  input: CreatePropInput
+export type MutationUpsertPropArgs = {
+  input: Array<UpsertPropsInput>
 }
 
 export type Page = {
@@ -548,6 +532,7 @@ export type PageElement = {
   id: Scalars['ID']
   name: Scalars['String']
   atom?: Maybe<Atom>
+  props: Array<PropAggregate>
 }
 
 export type PageElementLink = {
@@ -562,6 +547,7 @@ export type PageElementRoot = {
   id: Scalars['ID']
   name: Scalars['String']
   atom?: Maybe<Atom>
+  props: Array<PropAggregate>
   /** All descendant PageElements that are under this root, at any level */
   descendants: Array<PageElement>
   /** All the links connecting the descendant page elements */
@@ -581,7 +567,7 @@ export type Prop = {
   value?: Maybe<PropValue>
 }
 
-/** The aggregate prop and value descendants of a single root prop */
+/** Contains all nested props and values from the whole prop tree */
 export type PropAggregate = {
   rootProp: Prop
   /** All props that are descendant of this Prop, normalized to an array, including the root prop */
@@ -607,7 +593,8 @@ export type PropsByInterfaceValueId = {
 }
 
 export type PropsByPageElementFilter = {
-  pageElementId: Scalars['String']
+  pageElementIds: Array<Scalars['String']>
+  fieldId?: Maybe<Scalars['String']>
 }
 
 export type Query = {
@@ -622,11 +609,11 @@ export type Query = {
   getPageElementRoot?: Maybe<PageElementRoot>
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
+  getAtomBy?: Maybe<Atom>
   getInterface?: Maybe<Interface>
   getInterfaces: Array<Interface>
   getField?: Maybe<Field>
   getType?: Maybe<Type>
-  getProp: PropAggregate
   getProps: Array<PropAggregate>
 }
 
@@ -658,6 +645,10 @@ export type QueryGetAtomArgs = {
   input: GetAtomInput
 }
 
+export type QueryGetAtomByArgs = {
+  input: GetAtomByInput
+}
+
 export type QueryGetInterfaceArgs = {
   input: GetInterfaceInput
 }
@@ -679,8 +670,9 @@ export type RequiredValidator = {
   isRequired: Scalars['Boolean']
 }
 
-export type SimpleType = {
+export type SimpleType = Type & {
   id: Scalars['ID']
+  name: Scalars['String']
   primitiveType: PrimitiveType
 }
 
@@ -693,21 +685,9 @@ export type StringValueInput = {
   value: Scalars['String']
 }
 
-export type Type = SimpleType | ArrayType | EnumType | UnitType | InterfaceType
-
-export enum Unit {
-  Px = 'Px',
-  Pt = 'Pt',
-  Em = 'Em',
-  Rem = 'Rem',
-  Percent = 'Percent',
-  Vw = 'Vw',
-  Vh = 'Vh',
-}
-
-export type UnitType = {
+export type Type = {
   id: Scalars['ID']
-  allowedUnits: Array<Unit>
+  name: Scalars['String']
 }
 
 export type UpdateAppData = {
@@ -780,6 +760,26 @@ export type UpdateUserData = {
 export type UpdateUserInput = {
   userId: Scalars['String']
   updateData: UpdateUserData
+}
+
+export type UpsertPropsInput = {
+  propId?: Maybe<Scalars['String']>
+  fieldId: Scalars['String']
+  pageElementId?: Maybe<Scalars['String']>
+  value?: Maybe<UpsertValueInput>
+}
+
+export type UpsertPropsResponse = {
+  ok: Scalars['Boolean']
+}
+
+export type UpsertValueInput = {
+  stringValue?: Maybe<StringValueInput>
+  intValue?: Maybe<IntValueInput>
+  floatValue?: Maybe<FloatValueInput>
+  booleanValue?: Maybe<BoleanValueInput>
+  arrayValue?: Maybe<ArrayValueInput>
+  interfaceValue?: Maybe<InterfaceValueInput>
 }
 
 export type User = {
@@ -878,6 +878,7 @@ export type PageFullFragment = {
 
 export type PageElementFragment = Pick<PageElement, 'id' | 'name'> & {
   atom?: Maybe<__AtomFragment>
+  props: Array<__PropAggregateFragment>
 }
 
 export type PageElementRootFragment = Pick<PageElementRoot, 'id' | 'name'> & {
@@ -901,7 +902,9 @@ export type DeletePageMutationVariables = Exact<{
   input: DeletePageInput
 }>
 
-export type DeletePageMutation = { deletePage: Pick<Page, 'id'> }
+export type DeletePageMutation = {
+  deletePage: Pick<DeleteResponse, 'affected'>
+}
 
 export type GetPageQueryVariables = Exact<{
   input: GetPageInput
@@ -968,25 +971,155 @@ export type UpdatePageMutationVariables = Exact<{
 export type UpdatePageMutation = { updatePage: PageBaseFragment }
 
 export type __PropAggregateFragment = {
-  props: Array<Pick<Prop, 'id'>>
+  props: Array<__PropFragment>
   values: Array<
-    | { __typename: 'StringValue' }
-    | { __typename: 'IntValue' }
-    | { __typename: 'FloatValue' }
-    | { __typename: 'BooleanValue' }
-    | { __typename: 'ArrayValue' }
-    | { __typename: 'InterfaceValue' }
+    | __PropValue_StringValue_Fragment
+    | __PropValue_IntValue_Fragment
+    | __PropValue_FloatValue_Fragment
+    | __PropValue_BooleanValue_Fragment
+    | __PropValue_ArrayValue_Fragment
+    | __PropValue_InterfaceValue_Fragment
   >
-  rootProp: Pick<Prop, 'id'>
+  rootProp: __PropFragment
 }
 
-export type __PropFragment = Pick<Prop, 'id'>
+export type __PropShallowFragment = Pick<Prop, 'id'> & {
+  value?: Maybe<
+    | __PropValueShallow_StringValue_Fragment
+    | __PropValueShallow_IntValue_Fragment
+    | __PropValueShallow_FloatValue_Fragment
+    | __PropValueShallow_BooleanValue_Fragment
+    | __PropValueShallow_ArrayValue_Fragment
+    | __PropValueShallow_InterfaceValue_Fragment
+  >
+  field: __FieldFragment
+}
+
+export type __PropFragment = Pick<Prop, 'id'> & {
+  value?: Maybe<
+    | __PropValueShallow_StringValue_Fragment
+    | __PropValueShallow_IntValue_Fragment
+    | __PropValueShallow_FloatValue_Fragment
+    | __PropValueShallow_BooleanValue_Fragment
+    | __PropValueShallow_ArrayValue_Fragment
+    | __PropValueShallow_InterfaceValue_Fragment
+  >
+  field: __FieldFragment
+}
+
+type __PropValue_StringValue_Fragment = {
+  __typename: 'StringValue'
+} & __PropValueShallow_StringValue_Fragment
+
+type __PropValue_IntValue_Fragment = {
+  __typename: 'IntValue'
+} & __PropValueShallow_IntValue_Fragment
+
+type __PropValue_FloatValue_Fragment = {
+  __typename: 'FloatValue'
+} & __PropValueShallow_FloatValue_Fragment
+
+type __PropValue_BooleanValue_Fragment = {
+  __typename: 'BooleanValue'
+} & __PropValueShallow_BooleanValue_Fragment
+
+type __PropValue_ArrayValue_Fragment = {
+  __typename: 'ArrayValue'
+} & __ArrayValueFragment &
+  __PropValueShallow_ArrayValue_Fragment
+
+type __PropValue_InterfaceValue_Fragment = {
+  __typename: 'InterfaceValue'
+} & __InterfaceValueFragment &
+  __PropValueShallow_InterfaceValue_Fragment
+
+export type __PropValueFragment =
+  | __PropValue_StringValue_Fragment
+  | __PropValue_IntValue_Fragment
+  | __PropValue_FloatValue_Fragment
+  | __PropValue_BooleanValue_Fragment
+  | __PropValue_ArrayValue_Fragment
+  | __PropValue_InterfaceValue_Fragment
+
+type __PropValueShallow_StringValue_Fragment = {
+  __typename: 'StringValue'
+} & __StringValueFragment
+
+type __PropValueShallow_IntValue_Fragment = {
+  __typename: 'IntValue'
+} & __IntValueFragment
+
+type __PropValueShallow_FloatValue_Fragment = {
+  __typename: 'FloatValue'
+} & __FloatValueFragment
+
+type __PropValueShallow_BooleanValue_Fragment = {
+  __typename: 'BooleanValue'
+} & __BooleanValueFragment
+
+type __PropValueShallow_ArrayValue_Fragment = {
+  __typename: 'ArrayValue'
+} & Pick<ArrayValue, 'id'>
+
+type __PropValueShallow_InterfaceValue_Fragment = {
+  __typename: 'InterfaceValue'
+} & Pick<InterfaceValue, 'id'>
+
+export type __PropValueShallowFragment =
+  | __PropValueShallow_StringValue_Fragment
+  | __PropValueShallow_IntValue_Fragment
+  | __PropValueShallow_FloatValue_Fragment
+  | __PropValueShallow_BooleanValue_Fragment
+  | __PropValueShallow_ArrayValue_Fragment
+  | __PropValueShallow_InterfaceValue_Fragment
+
+export type __StringValueFragment = Pick<StringValue, 'id' | 'stringValue'>
+
+export type __IntValueFragment = Pick<IntValue, 'id' | 'intValue'>
+
+export type __FloatValueFragment = Pick<FloatValue, 'id' | 'floatValue'>
+
+export type __BooleanValueFragment = Pick<BooleanValue, 'id' | 'booleanValue'>
+
+export type __ArrayValueFragment = Pick<ArrayValue, 'id'> & {
+  values: Array<
+    | __PropValueShallow_StringValue_Fragment
+    | __PropValueShallow_IntValue_Fragment
+    | __PropValueShallow_FloatValue_Fragment
+    | __PropValueShallow_BooleanValue_Fragment
+    | __PropValueShallow_ArrayValue_Fragment
+    | __PropValueShallow_InterfaceValue_Fragment
+  >
+}
+
+export type __ArrayValueShallowFragment = Pick<ArrayValue, 'id'> & {
+  values: Array<
+    | __PropValueShallow_StringValue_Fragment
+    | __PropValueShallow_IntValue_Fragment
+    | __PropValueShallow_FloatValue_Fragment
+    | __PropValueShallow_BooleanValue_Fragment
+    | __PropValueShallow_ArrayValue_Fragment
+    | __PropValueShallow_InterfaceValue_Fragment
+  >
+}
+
+export type __InterfaceValueFragment = Pick<InterfaceValue, 'id'> & {
+  props: Array<__PropShallowFragment>
+}
 
 export type GetPropsQueryVariables = Exact<{
   input: GetPropsInput
 }>
 
-export type GetPropsQuery = { props: Array<__PropAggregateFragment> }
+export type GetPropsQuery = { getProps: Array<__PropAggregateFragment> }
+
+export type UpsertPropsMutationVariables = Exact<{
+  input: Array<UpsertPropsInput> | UpsertPropsInput
+}>
+
+export type UpsertPropsMutation = {
+  upsertProp: Pick<UpsertPropsResponse, 'ok'>
+}
 
 export type TestCreateFieldMutationVariables = Exact<{
   input: CreateFieldInput
@@ -1044,11 +1177,10 @@ export type TestGetTypeQueryVariables = Exact<{
 
 export type TestGetTypeQuery = {
   getType?: Maybe<
-    | __Type_SimpleType_Fragment
     | __Type_ArrayType_Fragment
     | __Type_EnumType_Fragment
-    | __Type_UnitType_Fragment
-    | __Type_InterfaceType_Fragment
+    | __Type_Interface_Fragment
+    | __Type_SimpleType_Fragment
   >
 }
 
@@ -1101,66 +1233,100 @@ export type __DecoratorFragment =
 export type __FieldFragment = Pick<
   Field,
   'id' | 'key' | 'name' | 'typeId' | 'description'
-> & {
-  decorators: Array<
-    | __Decorator_ArrayLengthValidator_Fragment
-    | __Decorator_MinMaxValidator_Fragment
-    | __Decorator_RequiredValidator_Fragment
-  >
-}
+>
 
-export type __ArrayTypeFragment = Pick<ArrayType, 'id' | 'typeId'>
+export type __ArrayTypeFragment = Pick<ArrayType, 'id' | 'name' | 'typeId'>
 
 export type __EnumTypeValueFragment = Pick<EnumTypeValue, 'id' | 'name'>
 
-export type __EnumTypeFragment = Pick<EnumType, 'id'> & {
+export type __EnumTypeFragment = Pick<EnumType, 'id' | 'name'> & {
   allowedValues: Array<__EnumTypeValueFragment>
 }
 
-export type __InterfaceTypeFragment = Pick<
-  InterfaceType,
-  'interfaceId' | 'interfaceName'
+export type __SimpleTypeFragment = Pick<
+  SimpleType,
+  'id' | 'name' | 'primitiveType'
 >
 
-export type __SimpleTypeFragment = Pick<SimpleType, 'id' | 'primitiveType'>
+type __Type_ArrayType_Fragment = { __typename: 'ArrayType' } & Pick<
+  ArrayType,
+  'id' | 'name'
+> &
+  __ArrayTypeFragment
 
-export type __UnitTypeFragment = Pick<UnitType, 'id' | 'allowedUnits'>
+type __Type_EnumType_Fragment = { __typename: 'EnumType' } & Pick<
+  EnumType,
+  'id' | 'name'
+> &
+  __EnumTypeFragment
 
-type __Type_SimpleType_Fragment = {
+type __Type_Interface_Fragment = { __typename: 'Interface' } & Pick<
+  Interface,
+  'id' | 'name'
+> &
+  __InterfaceWithoutTypesFragment
+
+type __Type_SimpleType_Fragment = { __typename: 'SimpleType' } & Pick<
+  SimpleType,
+  'id' | 'name'
+> &
+  __SimpleTypeFragment
+
+export type __TypeFragment =
+  | __Type_ArrayType_Fragment
+  | __Type_EnumType_Fragment
+  | __Type_Interface_Fragment
+  | __Type_SimpleType_Fragment
+
+type __TypeShallow_ArrayType_Fragment = { __typename: 'ArrayType' } & Pick<
+  ArrayType,
+  'id'
+>
+
+type __TypeShallow_EnumType_Fragment = {
+  __typename: 'EnumType'
+} & __EnumTypeFragment
+
+type __TypeShallow_Interface_Fragment = { __typename: 'Interface' } & Pick<
+  Interface,
+  'id'
+>
+
+type __TypeShallow_SimpleType_Fragment = {
   __typename: 'SimpleType'
 } & __SimpleTypeFragment
 
-type __Type_ArrayType_Fragment = {
-  __typename: 'ArrayType'
-} & __ArrayTypeFragment
-
-type __Type_EnumType_Fragment = { __typename: 'EnumType' } & __EnumTypeFragment
-
-type __Type_UnitType_Fragment = { __typename: 'UnitType' } & __UnitTypeFragment
-
-type __Type_InterfaceType_Fragment = {
-  __typename: 'InterfaceType'
-} & __InterfaceTypeFragment
-
-export type __TypeFragment =
-  | __Type_SimpleType_Fragment
-  | __Type_ArrayType_Fragment
-  | __Type_EnumType_Fragment
-  | __Type_UnitType_Fragment
-  | __Type_InterfaceType_Fragment
+export type __TypeShallowFragment =
+  | __TypeShallow_ArrayType_Fragment
+  | __TypeShallow_EnumType_Fragment
+  | __TypeShallow_Interface_Fragment
+  | __TypeShallow_SimpleType_Fragment
 
 export type __InterfaceWithoutFieldsFragment = Pick<Interface, 'id' | 'name'>
 
-export type __FieldCollectionFragment = {
+export type __InterfaceWithoutTypesFragment = {
+  fieldCollection: {
+    types: Array<
+      | __TypeShallow_ArrayType_Fragment
+      | __TypeShallow_EnumType_Fragment
+      | __TypeShallow_Interface_Fragment
+      | __TypeShallow_SimpleType_Fragment
+    >
+  } & __FieldCollectionWithoutTypesFragment
+} & __InterfaceWithoutFieldsFragment
+
+export type __FieldCollectionWithoutTypesFragment = {
   fields: Array<__FieldFragment>
+}
+
+export type __FieldCollectionFragment = {
   types: Array<
-    | __Type_SimpleType_Fragment
     | __Type_ArrayType_Fragment
     | __Type_EnumType_Fragment
-    | __Type_UnitType_Fragment
-    | __Type_InterfaceType_Fragment
+    | __Type_Interface_Fragment
+    | __Type_SimpleType_Fragment
   >
-}
+} & __FieldCollectionWithoutTypesFragment
 
 export type __InterfaceFragment = {
   fieldCollection: __FieldCollectionFragment
@@ -1270,6 +1436,140 @@ export const __AtomFragmentDoc = gql`
   }
   ${__InterfaceWithoutFieldsFragmentDoc}
 `
+export const __StringValueFragmentDoc = gql`
+  fragment __StringValue on StringValue {
+    id
+    stringValue
+  }
+`
+export const __IntValueFragmentDoc = gql`
+  fragment __IntValue on IntValue {
+    id
+    intValue
+  }
+`
+export const __FloatValueFragmentDoc = gql`
+  fragment __FloatValue on FloatValue {
+    id
+    floatValue
+  }
+`
+export const __BooleanValueFragmentDoc = gql`
+  fragment __BooleanValue on BooleanValue {
+    id
+    booleanValue
+  }
+`
+export const __PropValueShallowFragmentDoc = gql`
+  fragment __PropValueShallow on PropValue {
+    __typename
+    ... on StringValue {
+      ...__StringValue
+    }
+    ... on IntValue {
+      ...__IntValue
+    }
+    ... on FloatValue {
+      ...__FloatValue
+    }
+    ... on BooleanValue {
+      ...__BooleanValue
+    }
+    ... on ArrayValue {
+      id
+    }
+    ... on InterfaceValue {
+      id
+    }
+  }
+  ${__StringValueFragmentDoc}
+  ${__IntValueFragmentDoc}
+  ${__FloatValueFragmentDoc}
+  ${__BooleanValueFragmentDoc}
+`
+export const __FieldFragmentDoc = gql`
+  fragment __Field on Field {
+    id
+    key
+    name
+    typeId
+    description
+  }
+`
+export const __PropFragmentDoc = gql`
+  fragment __Prop on Prop {
+    id
+    value {
+      ...__PropValueShallow
+    }
+    field {
+      ...__Field
+    }
+  }
+  ${__PropValueShallowFragmentDoc}
+  ${__FieldFragmentDoc}
+`
+export const __PropShallowFragmentDoc = gql`
+  fragment __PropShallow on Prop {
+    id
+    value {
+      ...__PropValueShallow
+    }
+    field {
+      ...__Field
+    }
+  }
+  ${__PropValueShallowFragmentDoc}
+  ${__FieldFragmentDoc}
+`
+export const __InterfaceValueFragmentDoc = gql`
+  fragment __InterfaceValue on InterfaceValue {
+    id
+    props {
+      ...__PropShallow
+    }
+  }
+  ${__PropShallowFragmentDoc}
+`
+export const __ArrayValueFragmentDoc = gql`
+  fragment __ArrayValue on ArrayValue {
+    id
+    values {
+      ...__PropValueShallow
+    }
+  }
+  ${__PropValueShallowFragmentDoc}
+`
+export const __PropValueFragmentDoc = gql`
+  fragment __PropValue on PropValue {
+    __typename
+    ...__PropValueShallow
+    ... on InterfaceValue {
+      ...__InterfaceValue
+    }
+    ... on ArrayValue {
+      ...__ArrayValue
+    }
+  }
+  ${__PropValueShallowFragmentDoc}
+  ${__InterfaceValueFragmentDoc}
+  ${__ArrayValueFragmentDoc}
+`
+export const __PropAggregateFragmentDoc = gql`
+  fragment __PropAggregate on PropAggregate {
+    props {
+      ...__Prop
+    }
+    values {
+      ...__PropValue
+    }
+    rootProp {
+      ...__Prop
+    }
+  }
+  ${__PropFragmentDoc}
+  ${__PropValueFragmentDoc}
+`
 export const PageElementFragmentDoc = gql`
   fragment PageElement on PageElement {
     id
@@ -1277,8 +1577,12 @@ export const PageElementFragmentDoc = gql`
     atom {
       ...__Atom
     }
+    props {
+      ...__PropAggregate
+    }
   }
   ${__AtomFragmentDoc}
+  ${__PropAggregateFragmentDoc}
 `
 export const PageElementLinkFragmentDoc = gql`
   fragment PageElementLink on PageElementLink {
@@ -1315,23 +1619,14 @@ export const PageFullFragmentDoc = gql`
   ${PageBaseFragmentDoc}
   ${PageElementRootFragmentDoc}
 `
-export const __PropAggregateFragmentDoc = gql`
-  fragment __PropAggregate on PropAggregate {
-    props {
-      id
-    }
-    values {
-      __typename
-    }
-    rootProp {
-      id
-    }
-  }
-`
-export const __PropFragmentDoc = gql`
-  fragment __Prop on Prop {
+export const __ArrayValueShallowFragmentDoc = gql`
+  fragment __ArrayValueShallow on ArrayValue {
     id
+    values {
+      ...__PropValueShallow
+    }
   }
+  ${__PropValueShallowFragmentDoc}
 `
 export const __ArrayLengthValidatorFragmentDoc = gql`
   fragment __ArrayLengthValidator on ArrayLengthValidator {
@@ -1370,22 +1665,18 @@ export const __DecoratorFragmentDoc = gql`
   ${__MinMaxValidatorFragmentDoc}
   ${__RequiredValidatorFragmentDoc}
 `
-export const __FieldFragmentDoc = gql`
-  fragment __Field on Field {
-    id
-    key
-    name
-    typeId
-    description
-    decorators {
-      ...__Decorator
+export const __FieldCollectionWithoutTypesFragmentDoc = gql`
+  fragment __FieldCollectionWithoutTypes on FieldCollection {
+    fields {
+      ...__Field
     }
   }
-  ${__DecoratorFragmentDoc}
+  ${__FieldFragmentDoc}
 `
 export const __ArrayTypeFragmentDoc = gql`
   fragment __ArrayType on ArrayType {
     id
+    name
     typeId
   }
 `
@@ -1398,65 +1689,84 @@ export const __EnumTypeValueFragmentDoc = gql`
 export const __EnumTypeFragmentDoc = gql`
   fragment __EnumType on EnumType {
     id
+    name
     allowedValues {
       ...__EnumTypeValue
     }
   }
   ${__EnumTypeValueFragmentDoc}
 `
-export const __InterfaceTypeFragmentDoc = gql`
-  fragment __InterfaceType on InterfaceType {
-    interfaceId
-    interfaceName
-  }
-`
 export const __SimpleTypeFragmentDoc = gql`
   fragment __SimpleType on SimpleType {
     id
+    name
     primitiveType
   }
 `
-export const __UnitTypeFragmentDoc = gql`
-  fragment __UnitType on UnitType {
-    id
-    allowedUnits
+export const __TypeShallowFragmentDoc = gql`
+  fragment __TypeShallow on Type {
+    __typename
+    ... on ArrayType {
+      id
+    }
+    ... on EnumType {
+      ...__EnumType
+    }
+    ... on Interface {
+      id
+    }
+    ... on SimpleType {
+      ...__SimpleType
+    }
   }
+  ${__EnumTypeFragmentDoc}
+  ${__SimpleTypeFragmentDoc}
+`
+export const __InterfaceWithoutTypesFragmentDoc = gql`
+  fragment __InterfaceWithoutTypes on Interface {
+    ...__InterfaceWithoutFields
+    fieldCollection {
+      ...__FieldCollectionWithoutTypes
+      types {
+        ...__TypeShallow
+      }
+    }
+  }
+  ${__InterfaceWithoutFieldsFragmentDoc}
+  ${__FieldCollectionWithoutTypesFragmentDoc}
+  ${__TypeShallowFragmentDoc}
 `
 export const __TypeFragmentDoc = gql`
   fragment __Type on Type {
     __typename
+    id
+    name
     ... on ArrayType {
       ...__ArrayType
     }
     ... on EnumType {
       ...__EnumType
     }
-    ... on InterfaceType {
-      ...__InterfaceType
+    ... on Interface {
+      ...__InterfaceWithoutTypes
     }
     ... on SimpleType {
       ...__SimpleType
     }
-    ... on UnitType {
-      ...__UnitType
-    }
   }
   ${__ArrayTypeFragmentDoc}
   ${__EnumTypeFragmentDoc}
-  ${__InterfaceTypeFragmentDoc}
+  ${__InterfaceWithoutTypesFragmentDoc}
   ${__SimpleTypeFragmentDoc}
-  ${__UnitTypeFragmentDoc}
 `
 export const __FieldCollectionFragmentDoc = gql`
   fragment __FieldCollection on FieldCollection {
-    fields {
-      ...__Field
-    }
+    ...__FieldCollectionWithoutTypes
     types {
       ...__Type
     }
   }
-  ${__FieldFragmentDoc}
+  ${__FieldCollectionWithoutTypesFragmentDoc}
   ${__TypeFragmentDoc}
 `
 export const __InterfaceFragmentDoc = gql`
@@ -2041,7 +2351,7 @@ export type CreatePageMutationOptions = Apollo.BaseMutationOptions<
 export const DeletePageGql = gql`
   mutation DeletePage($input: DeletePageInput!) {
     deletePage(input: $input) {
-      id
+      affected
     }
   }
 `
@@ -2582,7 +2892,7 @@ export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
 >
 export const GetPropsGql = gql`
   query GetProps($input: GetPropsInput!) {
-    props: getProps(input: $input) {
+    getProps(input: $input) {
       ...__PropAggregate
     }
   }
@@ -2637,6 +2947,56 @@ export type GetPropsQueryResult = Apollo.QueryResult<
 export function refetchGetPropsQuery(variables?: GetPropsQueryVariables) {
   return { query: GetPropsGql, variables: variables }
 }
+export const UpsertPropsGql = gql`
+  mutation UpsertProps($input: [UpsertPropsInput!]!) {
+    upsertProp(input: $input) {
+      ok
+    }
+  }
+`
+export type UpsertPropsMutationFn = Apollo.MutationFunction<
+  UpsertPropsMutation,
+  UpsertPropsMutationVariables
+>
+
+/**
+ * __useUpsertPropsMutation__
+ *
+ * To run a mutation, you first call `useUpsertPropsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertPropsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertPropsMutation, { data, loading, error }] = useUpsertPropsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpsertPropsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpsertPropsMutation,
+    UpsertPropsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpsertPropsMutation, UpsertPropsMutationVariables>(
+    UpsertPropsGql,
+    options,
+  )
+}
+export type UpsertPropsMutationHookResult = ReturnType<
+  typeof useUpsertPropsMutation
+>
+export type UpsertPropsMutationResult =
+  Apollo.MutationResult<UpsertPropsMutation>
+export type UpsertPropsMutationOptions = Apollo.BaseMutationOptions<
+  UpsertPropsMutation,
+  UpsertPropsMutationVariables
+>
 export const TestCreateFieldGql = gql`
   mutation TestCreateField($input: CreateFieldInput!) {
     createField(input: $input) {
@@ -3767,6 +4127,140 @@ export const __Atom = gql`
   }
   ${__InterfaceWithoutFields}
 `
+export const __StringValue = gql`
+  fragment __StringValue on StringValue {
+    id
+    stringValue
+  }
+`
+export const __IntValue = gql`
+  fragment __IntValue on IntValue {
+    id
+    intValue
+  }
+`
+export const __FloatValue = gql`
+  fragment __FloatValue on FloatValue {
+    id
+    floatValue
+  }
+`
+export const __BooleanValue = gql`
+  fragment __BooleanValue on BooleanValue {
+    id
+    booleanValue
+  }
+`
+export const __PropValueShallow = gql`
+  fragment __PropValueShallow on PropValue {
+    __typename
+    ... on StringValue {
+      ...__StringValue
+    }
+    ... on IntValue {
+      ...__IntValue
+    }
+    ... on FloatValue {
+      ...__FloatValue
+    }
+    ... on BooleanValue {
+      ...__BooleanValue
+    }
+    ... on ArrayValue {
+      id
+    }
+    ... on InterfaceValue {
+      id
+    }
+  }
+  ${__StringValue}
+  ${__IntValue}
+  ${__FloatValue}
+  ${__BooleanValue}
+`
+export const __Field = gql`
+  fragment __Field on Field {
+    id
+    key
+    name
+    typeId
+    description
+  }
+`
+export const __Prop = gql`
+  fragment __Prop on Prop {
+    id
+    value {
+      ...__PropValueShallow
+    }
+    field {
+      ...__Field
+    }
+  }
+  ${__PropValueShallow}
+  ${__Field}
+`
+export const __PropShallow = gql`
+  fragment __PropShallow on Prop {
+    id
+    value {
+      ...__PropValueShallow
+    }
+    field {
+      ...__Field
+    }
+  }
+  ${__PropValueShallow}
+  ${__Field}
+`
+export const __InterfaceValue = gql`
+  fragment __InterfaceValue on InterfaceValue {
+    id
+    props {
+      ...__PropShallow
+    }
+  }
+  ${__PropShallow}
+`
+export const __ArrayValue = gql`
+  fragment __ArrayValue on ArrayValue {
+    id
+    values {
+      ...__PropValueShallow
+    }
+  }
+  ${__PropValueShallow}
+`
+export const __PropValue = gql`
+  fragment __PropValue on PropValue {
+    __typename
+    ...__PropValueShallow
+    ... on InterfaceValue {
+      ...__InterfaceValue
+    }
+    ... on ArrayValue {
+      ...__ArrayValue
+    }
+  }
+  ${__PropValueShallow}
+  ${__InterfaceValue}
+  ${__ArrayValue}
+`
+export const __PropAggregate = gql`
+  fragment __PropAggregate on PropAggregate {
+    props {
+      ...__Prop
+    }
+    values {
+      ...__PropValue
+    }
+    rootProp {
+      ...__Prop
+    }
+  }
+  ${__Prop}
+  ${__PropValue}
+`
 export const PageElement = gql`
   fragment PageElement on PageElement {
     id
@@ -3774,8 +4268,12 @@ export const PageElement = gql`
     atom {
       ...__Atom
     }
+    props {
+      ...__PropAggregate
+    }
   }
   ${__Atom}
+  ${__PropAggregate}
 `
 export const PageElementLink = gql`
   fragment PageElementLink on PageElementLink {
@@ -3812,23 +4310,14 @@ export const PageFull = gql`
   ${PageBase}
   ${PageElementRoot}
 `
-export const __PropAggregate = gql`
-  fragment __PropAggregate on PropAggregate {
-    props {
-      id
-    }
-    values {
-      __typename
-    }
-    rootProp {
-      id
-    }
-  }
-`
-export const __Prop = gql`
-  fragment __Prop on Prop {
+export const __ArrayValueShallow = gql`
+  fragment __ArrayValueShallow on ArrayValue {
     id
+    values {
+      ...__PropValueShallow
+    }
   }
+  ${__PropValueShallow}
 `
 export const __ArrayLengthValidator = gql`
   fragment __ArrayLengthValidator on ArrayLengthValidator {
@@ -3867,22 +4356,18 @@ export const __Decorator = gql`
   ${__MinMaxValidator}
   ${__RequiredValidator}
 `
-export const __Field = gql`
-  fragment __Field on Field {
-    id
-    key
-    name
-    typeId
-    description
-    decorators {
-      ...__Decorator
+export const __FieldCollectionWithoutTypes = gql`
+  fragment __FieldCollectionWithoutTypes on FieldCollection {
+    fields {
+      ...__Field
     }
   }
-  ${__Decorator}
+  ${__Field}
 `
 export const __ArrayType = gql`
   fragment __ArrayType on ArrayType {
     id
+    name
     typeId
   }
 `
@@ -3895,65 +4380,84 @@ export const __EnumTypeValue = gql`
 export const __EnumType = gql`
   fragment __EnumType on EnumType {
     id
+    name
     allowedValues {
       ...__EnumTypeValue
     }
   }
   ${__EnumTypeValue}
 `
-export const __InterfaceType = gql`
-  fragment __InterfaceType on InterfaceType {
-    interfaceId
-    interfaceName
-  }
-`
 export const __SimpleType = gql`
   fragment __SimpleType on SimpleType {
     id
+    name
     primitiveType
   }
 `
-export const __UnitType = gql`
-  fragment __UnitType on UnitType {
-    id
-    allowedUnits
+export const __TypeShallow = gql`
+  fragment __TypeShallow on Type {
+    __typename
+    ... on ArrayType {
+      id
+    }
+    ... on EnumType {
+      ...__EnumType
+    }
+    ... on Interface {
+      id
+    }
+    ... on SimpleType {
+      ...__SimpleType
+    }
   }
+  ${__EnumType}
+  ${__SimpleType}
+`
+export const __InterfaceWithoutTypes = gql`
+  fragment __InterfaceWithoutTypes on Interface {
+    ...__InterfaceWithoutFields
+    fieldCollection {
+      ...__FieldCollectionWithoutTypes
+      types {
+        ...__TypeShallow
+      }
+    }
+  }
+  ${__InterfaceWithoutFields}
+  ${__FieldCollectionWithoutTypes}
+  ${__TypeShallow}
 `
 export const __Type = gql`
   fragment __Type on Type {
     __typename
+    id
+    name
     ... on ArrayType {
       ...__ArrayType
     }
     ... on EnumType {
       ...__EnumType
     }
-    ... on InterfaceType {
-      ...__InterfaceType
+    ... on Interface {
+      ...__InterfaceWithoutTypes
     }
     ... on SimpleType {
       ...__SimpleType
     }
-    ... on UnitType {
-      ...__UnitType
-    }
   }
   ${__ArrayType}
   ${__EnumType}
-  ${__InterfaceType}
+  ${__InterfaceWithoutTypes}
   ${__SimpleType}
-  ${__UnitType}
 `
 export const __FieldCollection = gql`
   fragment __FieldCollection on FieldCollection {
-    fields {
-      ...__Field
-    }
+    ...__FieldCollectionWithoutTypes
     types {
       ...__Type
     }
   }
-  ${__Field}
+  ${__FieldCollectionWithoutTypes}
   ${__Type}
 `
 export const __Interface = gql`
@@ -4062,7 +4566,7 @@ export const CreatePage = gql`
 export const DeletePage = gql`
   mutation DeletePage($input: DeletePageInput!) {
     deletePage(input: $input) {
-      id
+      affected
     }
   }
 `
@@ -4139,11 +4643,18 @@ export const UpdatePage = gql`
 `
 export const GetProps = gql`
   query GetProps($input: GetPropsInput!) {
-    props: getProps(input: $input) {
+    getProps(input: $input) {
       ...__PropAggregate
     }
   }
   ${__PropAggregate}
+`
+export const UpsertProps = gql`
+  mutation UpsertProps($input: [UpsertPropsInput!]!) {
+    upsertProp(input: $input) {
+      ok
+    }
+  }
 `
 export const TestCreateField = gql`
   mutation TestCreateField($input: CreateFieldInput!) {

@@ -72,11 +72,17 @@ type AddArrayLengthValidatorPayload {
 }
 
 input AddArrayTypeInput {
-  type: TypeRef!
+  name: String!
+  type: TypeUnionRef!
 }
 
 type AddArrayTypePayload {
-  arrayType(filter: ArrayTypeFilter, first: Int, offset: Int): [ArrayType]
+  arrayType(
+    filter: ArrayTypeFilter
+    order: ArrayTypeOrder
+    first: Int
+    offset: Int
+  ): [ArrayType]
   numUids: Int
 }
 
@@ -133,16 +139,23 @@ type AddComponentPayload {
 }
 
 input AddEnumTypeInput {
+  name: String!
   allowedValues: [EnumTypeValueRef!]!
 }
 
 type AddEnumTypePayload {
-  enumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
+  enumType(
+    filter: EnumTypeFilter
+    order: EnumTypeOrder
+    first: Int
+    offset: Int
+  ): [EnumType]
   numUids: Int
 }
 
 input AddEnumTypeValueInput {
-  name: String!
+  name: String
+  value: String!
 }
 
 type AddEnumTypeValuePayload {
@@ -203,8 +216,8 @@ type AddIntValuePayload {
 }
 
 input AddInterfaceInput {
-  atom: AtomRef
   name: String!
+  atom: AtomRef
   fields: [FieldRef]
 }
 
@@ -319,11 +332,17 @@ type AddRequiredValidatorPayload {
 }
 
 input AddSimpleTypeInput {
+  name: String!
   primitiveType: PrimitiveType!
 }
 
 type AddSimpleTypePayload {
-  simpleType(filter: SimpleTypeFilter, first: Int, offset: Int): [SimpleType]
+  simpleType(
+    filter: SimpleTypeFilter
+    order: SimpleTypeOrder
+    first: Int
+    offset: Int
+  ): [SimpleType]
   numUids: Int
 }
 
@@ -347,15 +366,6 @@ input AddTagInput {
 
 type AddTagPayload {
   tag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
-  numUids: Int
-}
-
-input AddUnitTypeInput {
-  allowedUnits: [Unit!]!
-}
-
-type AddUnitTypePayload {
-  unitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
   numUids: Int
 }
 
@@ -467,13 +477,16 @@ input ArrayLengthValidatorRef {
   max: Int
 }
 
-type ArrayType {
+type ArrayType implements Type {
   id: ID!
-  type(filter: TypeFilter): Type!
+  name: String!
+  type(filter: TypeUnionFilter): TypeUnion!
 }
 
 type ArrayTypeAggregateResult {
   count: Int
+  nameMin: String
+  nameMax: String
 }
 
 input ArrayTypeFilter {
@@ -485,16 +498,29 @@ input ArrayTypeFilter {
 }
 
 enum ArrayTypeHasFilter {
+  name
   type
 }
 
+input ArrayTypeOrder {
+  asc: ArrayTypeOrderable
+  desc: ArrayTypeOrderable
+  then: ArrayTypeOrder
+}
+
+enum ArrayTypeOrderable {
+  name
+}
+
 input ArrayTypePatch {
-  type: TypeRef
+  name: String
+  type: TypeUnionRef
 }
 
 input ArrayTypeRef {
   id: ID
-  type: TypeRef
+  name: String
+  type: TypeUnionRef
 }
 
 type ArrayValue {
@@ -866,7 +892,12 @@ type DeleteArrayLengthValidatorPayload {
 }
 
 type DeleteArrayTypePayload {
-  arrayType(filter: ArrayTypeFilter, first: Int, offset: Int): [ArrayType]
+  arrayType(
+    filter: ArrayTypeFilter
+    order: ArrayTypeOrder
+    first: Int
+    offset: Int
+  ): [ArrayType]
   msg: String
   numUids: Int
 }
@@ -905,7 +936,12 @@ type DeleteComponentPayload {
 }
 
 type DeleteEnumTypePayload {
-  enumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
+  enumType(
+    filter: EnumTypeFilter
+    order: EnumTypeOrder
+    first: Int
+    offset: Int
+  ): [EnumType]
   msg: String
   numUids: Int
 }
@@ -1031,7 +1067,12 @@ type DeleteRequiredValidatorPayload {
 }
 
 type DeleteSimpleTypePayload {
-  simpleType(filter: SimpleTypeFilter, first: Int, offset: Int): [SimpleType]
+  simpleType(
+    filter: SimpleTypeFilter
+    order: SimpleTypeOrder
+    first: Int
+    offset: Int
+  ): [SimpleType]
   msg: String
   numUids: Int
 }
@@ -1053,8 +1094,8 @@ type DeleteTagPayload {
   numUids: Int
 }
 
-type DeleteUnitTypePayload {
-  unitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
+type DeleteTypePayload {
+  type(filter: TypeFilter, order: TypeOrder, first: Int, offset: Int): [Type]
   msg: String
   numUids: Int
 }
@@ -1077,8 +1118,9 @@ enum DgraphIndex {
   geo
 }
 
-type EnumType {
+type EnumType implements Type {
   id: ID!
+  name: String!
   allowedValues(
     filter: EnumTypeValueFilter
     order: EnumTypeValueOrder
@@ -1092,6 +1134,8 @@ type EnumType {
 
 type EnumTypeAggregateResult {
   count: Int
+  nameMin: String
+  nameMax: String
 }
 
 input EnumTypeFilter {
@@ -1103,27 +1147,43 @@ input EnumTypeFilter {
 }
 
 enum EnumTypeHasFilter {
+  name
   allowedValues
 }
 
+input EnumTypeOrder {
+  asc: EnumTypeOrderable
+  desc: EnumTypeOrderable
+  then: EnumTypeOrder
+}
+
+enum EnumTypeOrderable {
+  name
+}
+
 input EnumTypePatch {
+  name: String
   allowedValues: [EnumTypeValueRef!]
 }
 
 input EnumTypeRef {
   id: ID
+  name: String
   allowedValues: [EnumTypeValueRef!]
 }
 
 type EnumTypeValue {
   id: ID!
-  name: String!
+  name: String
+  value: String!
 }
 
 type EnumTypeValueAggregateResult {
   count: Int
   nameMin: String
   nameMax: String
+  valueMin: String
+  valueMax: String
 }
 
 input EnumTypeValueFilter {
@@ -1136,6 +1196,7 @@ input EnumTypeValueFilter {
 
 enum EnumTypeValueHasFilter {
   name
+  value
 }
 
 input EnumTypeValueOrder {
@@ -1146,15 +1207,18 @@ input EnumTypeValueOrder {
 
 enum EnumTypeValueOrderable {
   name
+  value
 }
 
 input EnumTypeValuePatch {
   name: String
+  value: String
 }
 
 input EnumTypeValueRef {
   id: ID
   name: String
+  value: String
 }
 
 type Field {
@@ -1386,10 +1450,10 @@ input IntValueRef {
   intValue: Int
 }
 
-type Interface {
+type Interface implements Type {
   id: ID!
-  atom(filter: AtomFilter): Atom
   name: String!
+  atom(filter: AtomFilter): Atom
   fields(
     filter: FieldFilter
     order: FieldOrder
@@ -1414,8 +1478,8 @@ input InterfaceFilter {
 }
 
 enum InterfaceHasFilter {
-  atom
   name
+  atom
   fields
 }
 
@@ -1430,15 +1494,15 @@ enum InterfaceOrderable {
 }
 
 input InterfacePatch {
-  atom: AtomRef
   name: String
+  atom: AtomRef
   fields: [FieldRef]
 }
 
 input InterfaceRef {
   id: ID
-  atom: AtomRef
   name: String
+  atom: AtomRef
   fields: [FieldRef]
 }
 
@@ -1644,9 +1708,11 @@ type Mutation {
   addEnumType(input: [AddEnumTypeInput!]!): AddEnumTypePayload
   updateEnumType(input: UpdateEnumTypeInput!): UpdateEnumTypePayload
   deleteEnumType(filter: EnumTypeFilter!): DeleteEnumTypePayload
-  addUnitType(input: [AddUnitTypeInput!]!): AddUnitTypePayload
-  updateUnitType(input: UpdateUnitTypeInput!): UpdateUnitTypePayload
-  deleteUnitType(filter: UnitTypeFilter!): DeleteUnitTypePayload
+  addInterface(input: [AddInterfaceInput!]!): AddInterfacePayload
+  updateInterface(input: UpdateInterfaceInput!): UpdateInterfacePayload
+  deleteInterface(filter: InterfaceFilter!): DeleteInterfacePayload
+  updateType(input: UpdateTypeInput!): UpdateTypePayload
+  deleteType(filter: TypeFilter!): DeleteTypePayload
   addRequiredValidator(
     input: [AddRequiredValidatorInput!]!
   ): AddRequiredValidatorPayload
@@ -1677,9 +1743,6 @@ type Mutation {
   addField(input: [AddFieldInput!]!): AddFieldPayload
   updateField(input: UpdateFieldInput!): UpdateFieldPayload
   deleteField(filter: FieldFilter!): DeleteFieldPayload
-  addInterface(input: [AddInterfaceInput!]!): AddInterfacePayload
-  updateInterface(input: UpdateInterfaceInput!): UpdateInterfacePayload
-  deleteInterface(filter: InterfaceFilter!): DeleteInterfacePayload
   addStringValue(input: [AddStringValueInput!]!): AddStringValuePayload
   updateStringValue(input: UpdateStringValueInput!): UpdateStringValuePayload
   deleteStringValue(filter: StringValueFilter!): DeleteStringValuePayload
@@ -2005,12 +2068,18 @@ type Query {
   getSimpleType(id: ID!): SimpleType
   querySimpleType(
     filter: SimpleTypeFilter
+    order: SimpleTypeOrder
     first: Int
     offset: Int
   ): [SimpleType]
   aggregateSimpleType(filter: SimpleTypeFilter): SimpleTypeAggregateResult
   getArrayType(id: ID!): ArrayType
-  queryArrayType(filter: ArrayTypeFilter, first: Int, offset: Int): [ArrayType]
+  queryArrayType(
+    filter: ArrayTypeFilter
+    order: ArrayTypeOrder
+    first: Int
+    offset: Int
+  ): [ArrayType]
   aggregateArrayType(filter: ArrayTypeFilter): ArrayTypeAggregateResult
   getEnumTypeValue(id: ID!): EnumTypeValue
   queryEnumTypeValue(
@@ -2023,11 +2092,29 @@ type Query {
     filter: EnumTypeValueFilter
   ): EnumTypeValueAggregateResult
   getEnumType(id: ID!): EnumType
-  queryEnumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
+  queryEnumType(
+    filter: EnumTypeFilter
+    order: EnumTypeOrder
+    first: Int
+    offset: Int
+  ): [EnumType]
   aggregateEnumType(filter: EnumTypeFilter): EnumTypeAggregateResult
-  getUnitType(id: ID!): UnitType
-  queryUnitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
-  aggregateUnitType(filter: UnitTypeFilter): UnitTypeAggregateResult
+  getInterface(id: ID!): Interface
+  queryInterface(
+    filter: InterfaceFilter
+    order: InterfaceOrder
+    first: Int
+    offset: Int
+  ): [Interface]
+  aggregateInterface(filter: InterfaceFilter): InterfaceAggregateResult
+  getType(id: ID!): Type
+  queryType(
+    filter: TypeFilter
+    order: TypeOrder
+    first: Int
+    offset: Int
+  ): [Type]
+  aggregateType(filter: TypeFilter): TypeAggregateResult
   getRequiredValidator(id: ID!): RequiredValidator
   queryRequiredValidator(
     filter: RequiredValidatorFilter
@@ -2065,14 +2152,6 @@ type Query {
     offset: Int
   ): [Field]
   aggregateField(filter: FieldFilter): FieldAggregateResult
-  getInterface(id: ID!): Interface
-  queryInterface(
-    filter: InterfaceFilter
-    order: InterfaceOrder
-    first: Int
-    offset: Int
-  ): [Interface]
-  aggregateInterface(filter: InterfaceFilter): InterfaceAggregateResult
   getStringValue(id: ID!): StringValue
   queryStringValue(
     filter: StringValueFilter
@@ -2155,13 +2234,16 @@ input RequiredValidatorRef {
   isRequired: Boolean
 }
 
-type SimpleType {
+type SimpleType implements Type {
   id: ID!
+  name: String!
   primitiveType: PrimitiveType!
 }
 
 type SimpleTypeAggregateResult {
   count: Int
+  nameMin: String
+  nameMax: String
 }
 
 input SimpleTypeFilter {
@@ -2173,15 +2255,28 @@ input SimpleTypeFilter {
 }
 
 enum SimpleTypeHasFilter {
+  name
   primitiveType
 }
 
+input SimpleTypeOrder {
+  asc: SimpleTypeOrderable
+  desc: SimpleTypeOrderable
+  then: SimpleTypeOrder
+}
+
+enum SimpleTypeOrderable {
+  name
+}
+
 input SimpleTypePatch {
+  name: String
   primitiveType: PrimitiveType
 }
 
 input SimpleTypeRef {
   id: ID
+  name: String
   primitiveType: PrimitiveType
 }
 
@@ -2314,71 +2409,69 @@ input TagRef {
   label: String
 }
 
-union Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+interface Type {
+  id: ID!
+  name: String!
+}
+
+type TypeAggregateResult {
+  count: Int
+  nameMin: String
+  nameMax: String
+}
 
 input TypeFilter {
-  memberTypes: [TypeType!]
-  simpleTypeFilter: SimpleTypeFilter
-  interfaceFilter: InterfaceFilter
-  arrayTypeFilter: ArrayTypeFilter
-  enumTypeFilter: EnumTypeFilter
-  unitTypeFilter: UnitTypeFilter
+  id: [ID!]
+  has: [TypeHasFilter]
+  and: [TypeFilter]
+  or: [TypeFilter]
+  not: TypeFilter
+}
+
+enum TypeHasFilter {
+  name
+}
+
+input TypeOrder {
+  asc: TypeOrderable
+  desc: TypeOrderable
+  then: TypeOrder
+}
+
+enum TypeOrderable {
+  name
+}
+
+input TypePatch {
+  name: String
 }
 
 input TypeRef {
-  simpleTypeRef: SimpleTypeRef
-  interfaceRef: InterfaceRef
-  arrayTypeRef: ArrayTypeRef
-  enumTypeRef: EnumTypeRef
-  unitTypeRef: UnitTypeRef
-}
-
-enum TypeType {
-  SimpleType
-  Interface
-  ArrayType
-  EnumType
-  UnitType
-}
-
-enum Unit {
-  PX
-  PT
-  EM
-  REM
-  PERCENT
-  VW
-  VH
-}
-
-type UnitType {
   id: ID!
-  allowedUnits: [Unit!]!
 }
 
-type UnitTypeAggregateResult {
-  count: Int
+union TypeUnion = Interface | EnumType | ArrayType | SimpleType
+
+input TypeUnionFilter {
+  memberTypes: [TypeUnionType!]
+  interfaceFilter: InterfaceFilter
+  enumTypeFilter: EnumTypeFilter
+  arrayTypeFilter: ArrayTypeFilter
+  simpleTypeFilter: SimpleTypeFilter
 }
 
-input UnitTypeFilter {
-  id: [ID!]
-  has: [UnitTypeHasFilter]
-  and: [UnitTypeFilter]
-  or: [UnitTypeFilter]
-  not: UnitTypeFilter
+input TypeUnionRef {
+  interfaceRef: InterfaceRef
+  enumTypeRef: EnumTypeRef
+  arrayTypeRef: ArrayTypeRef
+  simpleTypeRef: SimpleTypeRef
 }
 
-enum UnitTypeHasFilter {
-  allowedUnits
-}
-
-input UnitTypePatch {
-  allowedUnits: [Unit!]
-}
-
-input UnitTypeRef {
-  id: ID
-  allowedUnits: [Unit!]
+enum TypeUnionType {
+  Interface
+  EnumType
+  ArrayType
+  SimpleType
 }
 
 input UpdateAppInput {
@@ -2415,7 +2508,12 @@ input UpdateArrayTypeInput {
 }
 
 type UpdateArrayTypePayload {
-  arrayType(filter: ArrayTypeFilter, first: Int, offset: Int): [ArrayType]
+  arrayType(
+    filter: ArrayTypeFilter
+    order: ArrayTypeOrder
+    first: Int
+    offset: Int
+  ): [ArrayType]
   numUids: Int
 }
 
@@ -2479,7 +2577,12 @@ input UpdateEnumTypeInput {
 }
 
 type UpdateEnumTypePayload {
-  enumType(filter: EnumTypeFilter, first: Int, offset: Int): [EnumType]
+  enumType(
+    filter: EnumTypeFilter
+    order: EnumTypeOrder
+    first: Int
+    offset: Int
+  ): [EnumType]
   numUids: Int
 }
 
@@ -2670,7 +2773,12 @@ input UpdateSimpleTypeInput {
 }
 
 type UpdateSimpleTypePayload {
-  simpleType(filter: SimpleTypeFilter, first: Int, offset: Int): [SimpleType]
+  simpleType(
+    filter: SimpleTypeFilter
+    order: SimpleTypeOrder
+    first: Int
+    offset: Int
+  ): [SimpleType]
   numUids: Int
 }
 
@@ -2701,14 +2809,14 @@ type UpdateTagPayload {
   numUids: Int
 }
 
-input UpdateUnitTypeInput {
-  filter: UnitTypeFilter!
-  set: UnitTypePatch
-  remove: UnitTypePatch
+input UpdateTypeInput {
+  filter: TypeFilter!
+  set: TypePatch
+  remove: TypePatch
 }
 
-type UpdateUnitTypePayload {
-  unitType(filter: UnitTypeFilter, first: Int, offset: Int): [UnitType]
+type UpdateTypePayload {
+  type(filter: TypeFilter, order: TypeOrder, first: Int, offset: Int): [Type]
   numUids: Int
 }
 

@@ -72,47 +72,47 @@ enum PrimitiveType {
   Boolean
 }
 
-type SimpleType {
+type SimpleType implements Type {
     id: ID!
+    name: String!
     primitiveType: PrimitiveType!
 }
 
-type ArrayType {
+type ArrayType implements Type {
     id: ID!
+    name: String!
     # that's the type of the array item, e.g. type: (SimpleType) String, would be string[]
-    type: Type!
+    type: TypeUnion!
 }
 
 type EnumTypeValue {
     id: ID!
-    name: String!
+    name: String
+    value: String!
 }
 
-type EnumType {
+type EnumType implements Type {
     id: ID!
+    name: String!
     allowedValues: [EnumTypeValue!]!
 }
 
-enum Unit {
-  PX
-  PT
-  EM
-  REM
-  PERCENT
-  VW
-  VH
-  #... add all units here, this is just an example
+type Interface implements Type {
+  id: ID!
+  name: String!
+  atom: Atom
+  fields: [Field] @hasInverse(field: interface)
 }
 
-type UnitType {
+
+# This can be expanded to add UnionType and IntersectionType
+interface Type {
     id: ID!
-    allowedUnits: [Unit!]!
+    name: String!
 }
 
-# This is very expandable - want to add Colors? Just create a ColorType with red, green and blue fields
-# Want to handle different units, like px, pt, rem? Create an UnitType
-# We can add as many types as we need without breaking or even touching existing ones
-union Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+# Creating an Union too, because that will make Dgraph generate some nice mutations, like addType
+union TypeUnion = Interface | EnumType | ArrayType | SimpleType
 
 type RequiredValidator {
   id: ID!
@@ -140,13 +140,6 @@ type Field {
     description: String
     decorators: [Decorator]
     interface: Interface!
-}
-
-type Interface {
-    id: ID!
-    atom: Atom
-    name: String!
-    fields: [Field] @hasInverse(field: interface)
 }
 
 

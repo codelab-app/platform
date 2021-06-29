@@ -2,9 +2,8 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type App {
+interface Type {
   id: ID!
-  ownerId: String!
   name: String!
 }
 
@@ -12,22 +11,27 @@ type DeleteResponse {
   affected: Int!
 }
 
-type EnumTypeValue {
+type ArrayType implements Type {
   id: ID!
   name: String!
+  typeId: String!
 }
 
-type FieldCollection {
-  fields: [Field!]!
-
-  """Flattened array of all types that are used inside this interface"""
-  types: [Type!]!
-}
-
-union Type = SimpleType | ArrayType | EnumType | UnitType | InterfaceType
-
-type SimpleType {
+type EnumTypeValue {
   id: ID!
+  name: String
+  value: String!
+}
+
+type EnumType implements Type {
+  id: ID!
+  name: String!
+  allowedValues: [EnumTypeValue!]!
+}
+
+type SimpleType implements Type {
+  id: ID!
+  name: String!
   primitiveType: PrimitiveType!
 }
 
@@ -38,40 +42,17 @@ enum PrimitiveType {
   Boolean
 }
 
-type ArrayType {
-  id: ID!
-  typeId: String!
-}
-
-type EnumType {
-  id: ID!
-  allowedValues: [EnumTypeValue!]!
-}
-
-type UnitType {
-  id: ID!
-  allowedUnits: [Unit!]!
-}
-
-enum Unit {
-  Px
-  Pt
-  Em
-  Rem
-  Percent
-  Vw
-  Vh
-}
-
-type InterfaceType {
-  interfaceId: String!
-  interfaceName: String!
-}
-
-type Interface {
+type Interface implements Type {
   id: ID!
   name: String!
   fieldCollection: FieldCollection!
+}
+
+type FieldCollection {
+  fields: [Field!]!
+
+  """Flattened array of all types that are used inside this interface"""
+  types: [Type!]!
 }
 
 type Field {
@@ -103,281 +84,11 @@ type RequiredValidator {
   isRequired: Boolean!
 }
 
-type Atom {
-  id: ID!
-  type: AtomType!
-  label: String!
-  propTypes: Interface!
-}
-
-enum AtomType {
-  AntDesignAffix
-  AntDesignAlert
-  AntDesignAnchor
-  AntDesignAnchorLink
-  AntDesignAutoComplete
-  AntDesignAvatar
-  AntDesignBackTop
-  AntDesignBadge
-  AntDesignBreadcrumb
-  AntDesignBreadcrumbItem
-  AntDesignButton
-  AntDesignCalendar
-  AntDesignCard
-  AntDesignCardGrid
-  AntDesignCardMeta
-  AntDesignCarousel
-  AntDesignCascader
-  AntDesignCheckbox
-  AntDesignCollapse
-  AntDesignCollapsePanel
-  AntDesignComment
-  AntDesignConfigProvider
-  AntDesignDatePicker
-  AntDesignDescriptions
-  AntDesignDescriptionsItem
-  AntDesignDivider
-  AntDesignDrawer
-  AntDesignDropdown
-  AntDesignEmpty
-  AntDesignForm
-  AntDesignFormItem
-  AntDesignFormItemHook
-  AntDesignFormList
-  AntDesignGridCol
-  AntDesignGridRow
-  AntDesignIcon
-  AntDesignInput
-  AntDesignInputNumber
-  AntDesignLayout
-  AntDesignLayoutContent
-  AntDesignLayoutFooter
-  AntDesignLayoutHeader
-  AntDesignLayoutSider
-  AntDesignList
-  AntDesignListItem
-  AntDesignListItemMeta
-  AntDesignMapper
-  AntDesignMentions
-  AntDesignMentionsOption
-  AntDesignMenu
-  AntDesignMenuItem
-  AntDesignMenuItemGroup
-  AntDesignMenuSubMenu
-  AntDesignModal
-  AntDesignPageHeader
-  AntDesignPageContainer
-  AntDesignPagination
-  AntDesignPopconfirm
-  AntDesignPopover
-  AntDesignProgress
-  AntDesignProvider
-  AntDesignRglContainer
-  AntDesignRglItem
-  AntDesignRglResponsiveContainer
-  AntDesignRadio
-  AntDesignRadioGroup
-  AntDesignRate
-  AntDesignRenderComponent
-  AntDesignRenderContainer
-  AntDesignResult
-  AntDesignSelect
-  AntDesignSelectOption
-  AntDesignSkeleton
-  AntDesignSlider
-  AntDesignSpace
-  AntDesignSpin
-  AntDesignStatistic
-  AntDesignSteps
-  AntDesignStepsStep
-  AntDesignSwitch
-  AntDesignTable
-  AntDesignTabs
-  AntDesignTabsTabPane
-  AntDesignTag
-  AntDesignTimePicker
-  AntDesignTimeline
-  AntDesignTimelineItem
-  AntDesignTooltip
-  AntDesignTransfer
-  AntDesignTree
-  AntDesignTreeNode
-  AntDesignTreeSelect
-  AntDesignTypography
-  AntDesignTypographyParagraph
-  AntDesignTypographyText
-  AntDesignTypographyTitle
-  AntDesignUpload
-  ReactFragment
-  HtmlA
-  HtmlDiv
-  HtmlP
-  HtmlSpan
-  HtmlText
-}
-
-type PageElement {
-  id: ID!
-  name: String!
-  atom: Atom
-}
-
-type PageElementLink {
-  """The id of the source PageElement"""
-  from: String!
-
-  """The id of the target PageElement"""
-  to: String!
-  order: Int!
-}
-
-type PageElementRoot {
-  id: ID!
-  name: String!
-  atom: Atom
-
-  """All descendant PageElements that are under this root, at any level"""
-  descendants: [PageElement!]!
-
-  """All the links connecting the descendant page elements"""
-  links: [PageElementLink!]!
-}
-
-type Page {
-  id: ID!
-  name: String!
-  app: App!
-  rootElement: PageElementRoot!
-}
-
-type Prop {
-  id: ID!
-  field: Field!
-  value: PropValue
-}
-
-union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue
-
-type StringValue {
-  id: ID!
-  stringValue: String!
-}
-
-type IntValue {
-  id: ID!
-  intValue: Int!
-}
-
-type FloatValue {
-  id: ID!
-  floatValue: Float!
-}
-
-type BooleanValue {
-  id: ID!
-  booleanValue: Boolean!
-}
-
-type ArrayValue {
-  id: ID!
-  values: [PropValue!]!
-}
-
-type InterfaceValue {
-  id: ID!
-  props: [Prop!]!
-  values: [PropValue!]!
-}
-
-"""The aggregate prop and value descendants of a single root prop"""
-type PropAggregate {
-  rootProp: Prop!
-
-  """
-  All props that are descendant of this Prop, normalized to an array, including the root prop
-  """
-  props: [Prop!]!
-
-  """
-  All values that are descendant of this Prop, normalized to an array, including the root prop's value
-  """
-  values: [PropValue!]!
-}
-
-type User {
-  blocked: Boolean
-  created_at: String
-  email: String
-  email_verified: Boolean
-  family_name: String
-  given_name: String
-  last_ip: String
-  last_login: String
-  last_password_reset: String
-  logins_count: Float
-  multifactor: [String!]
-  name: String
-  nickname: String
-  phone_number: String
-  phone_verified: Boolean
-  picture: String
-  updated_at: String
-  user_id: String
-  username: String
-}
-
 type Query {
-  getApp(input: GetAppInput!): App
-  getApps: [App!]!
-  getMe: User!
-  getUsers(input: GetUsersInput): [User!]!
-  getPages(input: GetPagesInput!): [Page!]!
-  getPage(input: GetPageInput!): Page
-  getPageElement(input: GetPageElementInput!): PageElement
-
-  """
-  Aggregates the requested page element and all of its descendant elements (infinitely deep) in the form of array of PageElement and array of PageElementLink
-  """
-  getPageElementRoot(input: GetPageElementRootInput!): PageElementRoot
-  getAtoms: [Atom!]!
-  getAtom(input: GetAtomInput!): Atom
   getInterface(input: GetInterfaceInput!): Interface
   getInterfaces: [Interface!]!
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
-  getProp: PropAggregate!
-  getProps(input: GetPropsInput!): [PropAggregate!]!
-}
-
-input GetAppInput {
-  appId: String!
-}
-
-input GetUsersInput {
-  page: Int!
-  perPage: Int!
-  query: String!
-  sort: String!
-}
-
-input GetPagesInput {
-  appId: String!
-}
-
-input GetPageInput {
-  pageId: String!
-}
-
-input GetPageElementInput {
-  pageElementId: String!
-}
-
-input GetPageElementRootInput {
-  pageElementId: String!
-}
-
-input GetAtomInput {
-  atomId: String!
 }
 
 input GetInterfaceInput {
@@ -402,156 +113,13 @@ input GetTypeInput {
   typeId: String!
 }
 
-input GetPropsInput {
-  byPageElement: PropsByPageElementFilter
-  byIds: PropsByIdsFilter
-  byInterfaceValue: PropsByInterfaceValueId
-}
-
-input PropsByPageElementFilter {
-  pageElementId: String!
-  fieldId: String = null
-}
-
-input PropsByIdsFilter {
-  propIds: [String!]!
-}
-
-input PropsByInterfaceValueId {
-  interfaceValueId: String!
-}
-
 type Mutation {
-  createApp(input: CreateAppInput!): App!
-  updateApp(input: UpdateAppInput!): App!
-  deleteApp(input: DeleteAppInput!): App!
-  updateUser(input: UpdateUserInput!): User!
-  deleteUser(input: DeleteUserInput!): Boolean!
-  createPage(input: CreatePageInput!): Page!
-  deletePage(input: DeletePageInput!): Page!
-  updatePage(input: UpdatePageInput!): Page!
-  createPageElement(input: CreatePageElementInput!): PageElement!
-  updatePageElement(input: UpdatePageElementInput!): PageElement!
-  movePageElement(input: MovePageElementInput!): PageElement!
-
-  """Deletes a page element and all the descending page elements"""
-  deletePageElement(input: DeletePageElementInput!): DeleteResponse!
-  createAtom(input: CreateAtomInput!): Atom!
-  deleteAtom(input: DeleteAtomInput!): DeleteResponse!
-  updateAtom(input: UpdateAtomInput!): Atom!
   createInterface(input: CreateInterfaceInput!): Interface!
   updateInterface(input: UpdateInterfaceInput!): Interface!
   deleteInterface(input: DeleteInterfaceInput!): DeleteResponse!
   createField(input: CreateFieldInput!): Field!
   updateField(input: UpdateFieldInput!): Field!
   deleteField(input: DeleteFieldInput!): DeleteResponse!
-  createProp(input: CreatePropInput!): Prop!
-  deleteProp: DeleteResponse!
-}
-
-input CreateAppInput {
-  name: String!
-}
-
-input UpdateAppInput {
-  id: String!
-  data: UpdateAppData!
-}
-
-input UpdateAppData {
-  name: String!
-}
-
-input DeleteAppInput {
-  appId: String!
-}
-
-input UpdateUserInput {
-  userId: String!
-  updateData: UpdateUserData!
-}
-
-input UpdateUserData {
-  family_name: String
-  given_name: String
-  name: String
-  nickname: String
-  phone_number: String
-  picture: String
-  username: String
-}
-
-input DeleteUserInput {
-  userId: String!
-}
-
-input CreatePageInput {
-  name: String!
-  appId: String!
-}
-
-input DeletePageInput {
-  pageId: String!
-}
-
-input UpdatePageInput {
-  pageId: String!
-  updateData: UpdatePageData!
-}
-
-input UpdatePageData {
-  name: String!
-  appId: String!
-}
-
-input CreatePageElementInput {
-  name: String!
-  atomId: String
-  parentPageElementId: String!
-
-  """
-  Leave it out to automatically set it as the last order of all the children
-  """
-  order: Int
-}
-
-input UpdatePageElementInput {
-  updateData: UpdatePageElementData!
-  pageElementId: String!
-}
-
-input UpdatePageElementData {
-  name: String!
-  atomId: String
-  propIds: [String!]!
-}
-
-input MovePageElementInput {
-  pageElementId: String!
-  moveData: MoveData!
-}
-
-input MoveData {
-  order: Int!
-  parentElementId: String!
-}
-
-input DeletePageElementInput {
-  pageElementId: String!
-}
-
-input CreateAtomInput {
-  label: String!
-  type: AtomType!
-}
-
-input DeleteAtomInput {
-  atomId: String!
-}
-
-input UpdateAtomInput {
-  id: String!
-  data: CreateAtomInput!
 }
 
 input CreateInterfaceInput {
@@ -585,7 +153,6 @@ input CreateTypeInput {
   interfaceType: CreateInterfaceTypeInput
   arrayType: CreateArrayTypeInput
   enumType: CreateEnumTypeInput
-  unitType: CreateUnitTypeInput
 }
 
 input CreateSimpleTypeInput {
@@ -604,11 +171,6 @@ input CreateEnumTypeInput {
   allowedValues: [String!]!
 }
 
-input CreateUnitTypeInput {
-  """Pass null to allow all"""
-  allowedUnits: [Unit!]
-}
-
 input UpdateFieldInput {
   fieldId: String!
   updateData: UpdateFieldData!
@@ -624,43 +186,4 @@ input UpdateFieldData {
 
 input DeleteFieldInput {
   fieldId: String!
-}
-
-input CreatePropInput {
-  fieldId: String!
-  pageElementId: String
-  value: CreateValueInput
-}
-
-input CreateValueInput {
-  stringValue: StringValueInput
-  intValue: IntValueInput
-  floatValue: FloatValueInput
-  booleanValue: BoleanValueInput
-  arrayValue: ArrayValueInput
-  interfaceValue: InterfaceValueInput
-}
-
-input StringValueInput {
-  value: String!
-}
-
-input IntValueInput {
-  value: Int!
-}
-
-input FloatValueInput {
-  value: Float!
-}
-
-input BoleanValueInput {
-  value: Boolean!
-}
-
-input ArrayValueInput {
-  values: [CreateValueInput!]!
-}
-
-input InterfaceValueInput {
-  props: [CreatePropInput!]!
 }
