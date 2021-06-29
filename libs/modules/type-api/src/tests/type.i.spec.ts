@@ -1,4 +1,5 @@
 import {
+  Auth0Service,
   getDgraphProviderFromTestModule,
   graphqlRequest,
   GraphqlRequestOptions,
@@ -14,7 +15,6 @@ import {
   __TypeFragment,
   ArrayType,
   DeleteFieldInput,
-  DeleteInterfaceInput,
   GetFieldInput,
   TestCreateField,
   TestCreateFieldGql,
@@ -26,9 +26,6 @@ import {
   TestDeleteFieldGql,
   TestDeleteFieldMutation,
   TestDeleteFieldMutationVariables,
-  TestDeleteInterfaceGql,
-  TestDeleteInterfaceMutation,
-  TestDeleteInterfaceMutationVariables,
   TestGetFieldGql,
   TestGetFieldQuery,
   TestGetFieldQueryVariables,
@@ -50,7 +47,6 @@ import {
   UpdateFieldInput,
   UpdateInterfaceInput,
 } from '@codelab/codegen/graphql'
-import { Auth0Service } from '@codelab/modules/auth-api'
 import { INestApplication } from '@nestjs/common'
 import { PrimitiveType } from '../models'
 import { TypeModule } from '../type.module'
@@ -107,7 +103,14 @@ describe('type', () => {
 
         const field1 = await createField({
           name: 'Field',
-          type: { simpleType: { primitiveType: PrimitiveType.String } },
+          type: {
+            newType: {
+              name: 'string',
+              simpleType: {
+                primitiveType: PrimitiveType.String,
+              },
+            },
+          },
           interfaceId: newInterface.id,
           key: 'field1',
         })
@@ -115,8 +118,11 @@ describe('type', () => {
         const field2 = await createField({
           name: 'Field 2',
           type: {
-            arrayType: {
-              type: { simpleType: { primitiveType: PrimitiveType.Boolean } },
+            newType: {
+              name: 'array',
+              arrayType: {
+                itemTypeId: field1.typeId,
+              },
             },
           },
           interfaceId: newInterface.id,
@@ -188,21 +194,22 @@ describe('type', () => {
       })
     })
 
-    describe('Delete interface', () => {
-      it('should delete interface and all its fields', async () => {
-        const newInterface = await createInterface()
-
-        const { affected } = await deleteInterface({
-          interfaceId: newInterface.id,
-        })
-
-        expect(affected).toBe(1)
-
-        const retrievedInterface = await getInterface(newInterface.id)
-
-        expect(retrievedInterface).toBeFalsy()
-      })
-    })
+    // TODO replace this with deleteType and test the other type resolvers
+    // describe('Delete interface', () => {
+    //   it('should delete interface and all its fields', async () => {
+    //     const newInterface = await createInterface()
+    //
+    //     const { affected } = await deleteInterface({
+    //       interfaceId: newInterface.id,
+    //     })
+    //
+    //     expect(affected).toBe(1)
+    //
+    //     const retrievedInterface = await getInterface(newInterface.id)
+    //
+    //     expect(retrievedInterface).toBeFalsy()
+    //   })
+    // })
   })
 
   describe('Field', () => {
@@ -221,8 +228,11 @@ describe('type', () => {
             interfaceId,
             key: `fieldKey${primitiveType}`,
             type: {
-              simpleType: {
-                primitiveType,
+              newType: {
+                name: primitiveType,
+                simpleType: {
+                  primitiveType,
+                },
               },
             },
           }
@@ -240,10 +250,27 @@ describe('type', () => {
       it('should create array type field with simple type array item', async () => {
         const primitiveType = PrimitiveType.String
 
+        const field1 = await createField({
+          name: 'Field',
+          type: {
+            newType: {
+              name: 'string',
+              simpleType: {
+                primitiveType: PrimitiveType.String,
+              },
+            },
+          },
+          interfaceId,
+          key: 'fieldStringItem',
+        })
+
         const input: CreateFieldInput = {
           type: {
-            arrayType: {
-              type: { simpleType: { primitiveType } },
+            newType: {
+              name: 'String array',
+              arrayType: {
+                itemTypeId: field1.typeId,
+              },
             },
           },
           name: 'String Array',
@@ -266,15 +293,23 @@ describe('type', () => {
       })
 
       it('should create enum type field', async () => {
-        const allowedValues = ['block', 'inline', 'flex', 'grid']
+        const allowedValues = [
+          { value: 'block' },
+          { value: 'inline' },
+          { value: 'flex' },
+          { value: 'grid' },
+        ]
 
         const input: CreateFieldInput = {
           name: 'Display',
           key: 'display',
           interfaceId,
           type: {
-            enumType: {
-              allowedValues,
+            newType: {
+              name: 'enum type',
+              enumType: {
+                allowedValues,
+              },
             },
           },
         }
@@ -290,7 +325,7 @@ describe('type', () => {
         // and that the array length matches
         expect(
           (type as __EnumTypeFragment).allowedValues.filter((allowedValue) =>
-            allowedValues.find((v) => v === allowedValue.name),
+            allowedValues.find((v) => v.value === allowedValue.value),
           ).length === allowedValues.length,
         )
       })
@@ -303,9 +338,7 @@ describe('type', () => {
           key: 'anInterface',
           interfaceId,
           type: {
-            existingType: {
-              typeId: interface2.id,
-            },
+            existingTypeId: interface2.id,
           },
         }
 
@@ -324,8 +357,11 @@ describe('type', () => {
           interfaceId,
           key: 'duplicatedFieldKey',
           type: {
-            simpleType: {
-              primitiveType: PrimitiveType.String,
+            newType: {
+              name: 'simple type',
+              simpleType: {
+                primitiveType: PrimitiveType.String,
+              },
             },
           },
         }
@@ -350,8 +386,11 @@ describe('type', () => {
         name: `A simple field`,
         key: 'fieldKey',
         type: {
-          simpleType: {
-            primitiveType: PrimitiveType.String,
+          newType: {
+            name: 'simple type',
+            simpleType: {
+              primitiveType: PrimitiveType.String,
+            },
           },
         },
       }
@@ -385,7 +424,12 @@ describe('type', () => {
           name: 'field',
           key: 'updateMe',
           interfaceId,
-          type: { simpleType: { primitiveType: PrimitiveType.String } },
+          type: {
+            newType: {
+              name: 'simple type',
+              simpleType: { primitiveType: PrimitiveType.String },
+            },
+          },
           description: 'hello',
         })
 
@@ -396,8 +440,11 @@ describe('type', () => {
             interfaceId,
             description: 'hello 2',
             type: {
-              arrayType: {
-                type: { simpleType: { primitiveType: PrimitiveType.String } },
+              newType: {
+                name: 'Array',
+                arrayType: {
+                  itemTypeId: field.typeId,
+                },
               },
             },
           },
@@ -418,15 +465,25 @@ describe('type', () => {
           name: 'field',
           key: 'aLegitKey',
           interfaceId,
-          type: { simpleType: { primitiveType: PrimitiveType.String } },
+          type: {
+            newType: {
+              name: 'Simple type',
+              simpleType: { primitiveType: PrimitiveType.String },
+            },
+          },
           description: 'hello',
         })
 
-        await createField({
+        const field1 = await createField({
           name: 'field',
           key: duplicateFieldKey,
           interfaceId,
-          type: { simpleType: { primitiveType: PrimitiveType.String } },
+          type: {
+            newType: {
+              name: 'Simple type',
+              simpleType: { primitiveType: PrimitiveType.String },
+            },
+          },
           description: 'hello',
         })
 
@@ -437,8 +494,11 @@ describe('type', () => {
             interfaceId,
             description: 'hello 2',
             type: {
-              arrayType: {
-                type: { simpleType: { primitiveType: PrimitiveType.String } },
+              newType: {
+                name: 'array',
+                arrayType: {
+                  itemTypeId: field1.typeId,
+                },
               },
             },
           },
@@ -460,7 +520,12 @@ describe('type', () => {
       it('should delete field', async () => {
         const field = await createField({
           name: 'asd',
-          type: { simpleType: { primitiveType: PrimitiveType.String } },
+          type: {
+            newType: {
+              name: 'type',
+              simpleType: { primitiveType: PrimitiveType.String },
+            },
+          },
           key: 'deleteMe',
           interfaceId,
         })
@@ -504,17 +569,6 @@ describe('type', () => {
     )
 
     return (response.body.data as TestUpdateInterfaceMutation).updateInterface
-  }
-
-  const deleteInterface = async (input: DeleteInterfaceInput) => {
-    const response = await graphqlRequest<TestDeleteInterfaceMutationVariables>(
-      app,
-      TestDeleteInterfaceGql,
-      { input },
-      { accessToken },
-    )
-
-    return (response.body.data as TestDeleteInterfaceMutation).deleteInterface
   }
 
   const getInterface = async (interfaceId: string) => {

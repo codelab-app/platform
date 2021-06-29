@@ -21,9 +21,6 @@ export class CreateEnumTypeValueInput {
 
 @InputType()
 export class CreateEnumTypeInput {
-  @Field()
-  declare value: string
-
   @Field(() => [CreateEnumTypeValueInput])
   declare allowedValues: Array<CreateEnumTypeValueInput>
 }
