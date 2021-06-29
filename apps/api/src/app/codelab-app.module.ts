@@ -1,4 +1,4 @@
-import { DomainModule, InfrastructureModule } from '@codelab/framework/nestjs'
+import { InfrastructureModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app-api'
 import { AtomModule } from '@codelab/modules/atom-api'
 import { LambdaApiModule } from '@codelab/modules/lambda-api'
