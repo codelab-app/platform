@@ -1,3 +1,4 @@
+import { DomainModule, InfrastructureModule } from '@codelab/framework/nestjs'
 import { AppModule } from '@codelab/modules/app-api'
 import { AtomModule } from '@codelab/modules/atom-api'
 import { LambdaApiModule } from '@codelab/modules/lambda-api'
@@ -11,6 +12,8 @@ import { Module } from '@nestjs/common'
 
 @Module({
   imports: [
+    InfrastructureModule,
+    // Domain
     AppModule,
     LambdaApiModule,
     UserModule,
@@ -22,4 +25,4 @@ import { Module } from '@nestjs/common'
     TypeModule,
   ],
 })
-export class DomainModule {}
+export class CodelabAppModule {}

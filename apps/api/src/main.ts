@@ -6,10 +6,10 @@
 import { Logger, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { get } from 'env-var'
-import { AppModule } from './app/app.module'
+import { CodelabAppModule } from './app/codelab-app.module'
 
 const bootstrap = async () => {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(CodelabAppModule)
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)

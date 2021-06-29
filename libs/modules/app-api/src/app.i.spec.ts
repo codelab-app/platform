@@ -31,7 +31,7 @@ describe('AppModule', () => {
   let accessToken = ''
 
   beforeAll(async () => {
-    app = await setupTestModule(app)
+    app = await setupTestModule(app, AppModule)
 
     const auth0Service = app.get(Auth0Service)
     accessToken = await auth0Service.getAccessToken()

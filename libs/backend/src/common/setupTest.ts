@@ -1,5 +1,3 @@
-import { DgraphProvider, DgraphTokens } from '@codelab/backend'
-import { InfrastructureModule } from '@codelab/framework/nestjs'
 import {
   DynamicModule,
   ForwardReference,
@@ -7,6 +5,8 @@ import {
   Type,
 } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
+import { InfrastructureModule } from '../infrastructure'
+import { DgraphProvider, DgraphTokens } from '../infrastructure/dgraph'
 
 type NestModule =
   | Type<any>
@@ -24,8 +24,6 @@ export const setupTestModule = async (
 
   app = testModule.createNestApplication()
   await app.init()
-
-  console.log('after init')
 
   await getDgraphProviderFromTestModule(app).resetDb()
 

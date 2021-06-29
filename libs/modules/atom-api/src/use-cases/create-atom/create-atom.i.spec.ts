@@ -2,6 +2,7 @@ import { ApolloQueryResult } from '@apollo/client'
 import {
   ApiResponse,
   Auth0Service,
+  InfrastructureModule,
   request,
   setupTestModule,
   teardownTestModule,

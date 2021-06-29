@@ -188,19 +188,6 @@
         }
       }
     },
-    "framework-nestjs": {
-      "root": "libs/framework/nestjs",
-      "sourceRoot": "libs/framework/nestjs/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/framework/nestjs/**/*.ts"]
-          }
-        }
-      }
-    },
     "frontend-apollo": {
       "root": "libs/frontend/apollo",
       "sourceRoot": "libs/frontend/apollo/src",
