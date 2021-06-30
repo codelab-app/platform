@@ -1,4 +1,5 @@
 import {
+  BaseDgraphFields,
   baseFieldsZodShape,
   DgraphModel,
   DgraphModelMetadata,
@@ -22,7 +23,10 @@ export class DgraphProp extends DgraphModel<'Prop'> {
 
   static Schema = z.object({
     ...baseFieldsZodShape('Prop'),
-    [DgraphPropFields.field]: dgraphFieldSchema,
+    [DgraphPropFields.field]: z.union([
+      dgraphFieldSchema,
+      z.object({ [BaseDgraphFields.uid]: z.string() }),
+    ]),
     [DgraphPropFields.value]: z
       .lazy(() => dgraphPropValueSchema)
       .optional()

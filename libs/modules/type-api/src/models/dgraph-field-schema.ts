@@ -12,7 +12,10 @@ export const dgraphFieldSchema = z.lazy(() =>
     [FieldDgraphFields.Name]: z.string(),
     [FieldDgraphFields.Description]: z.string().optional().nullable(),
     [FieldDgraphFields.Key]: z.string(),
-    [FieldDgraphFields.Type]: dgraphTypeUnionSchema,
+    [FieldDgraphFields.Type]: z.union([
+      dgraphTypeUnionSchema,
+      z.object({ [BaseDgraphFields.uid]: z.string() }),
+    ]),
     [FieldDgraphFields.Interface]: DgraphInterface.Schema.or(
       z.object({ [BaseDgraphFields.uid]: z.string() }),
     ),

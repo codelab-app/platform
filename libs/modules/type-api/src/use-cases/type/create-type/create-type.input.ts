@@ -45,4 +45,7 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
 
   @Field(() => CreateEnumTypeInput, { nullable: true })
   declare enumType?: CreateEnumTypeInput
+
+  @Field(() => Boolean, { nullable: true })
+  declare interfaceType?: boolean
 }

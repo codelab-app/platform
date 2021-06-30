@@ -34,8 +34,10 @@ import {
   UpdateEnumTypeService,
   UpdateFieldService,
   UpdateInterfaceService,
+  UpdateSimpleTypeService,
   UpdateTypeService,
 } from './use-cases'
+import { GetFieldsByTypeService } from './use-cases/type/get-fields-by-type'
 
 const mappers = [
   InterfaceMapper,
@@ -78,7 +80,9 @@ const services = [
   GetTypesService,
   UpdateEnumTypeService,
   UpdateTypeService,
+  UpdateSimpleTypeService,
   CreateTypeValidator,
+  GetFieldsByTypeService,
 ]
 
 @Module({

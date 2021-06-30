@@ -16,9 +16,16 @@ fragment DgraphPropValue on PropValue {
     ... on InterfaceValue { ...DgraphInterfaceValue }
     ... on IntValue { ...DgraphIntValue }
     ... on StringValue { ...DgraphStringValue }
+    ... on EnumTypeValue { ...DgrapEnumTypeValue }
 }
 
 fragment DgraphStringValue on StringValue {
+    id
+    stringValue
+}
+
+
+fragment DgraphEnumTypeValue on StringValue {
     id
     stringValue
 }

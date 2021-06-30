@@ -57,8 +57,6 @@ export const UpdatePropsForm = <TData extends any>({
 
     const input = adaptor.convert(model as any, intface.fieldCollection.fields)
 
-    console.log(input)
-
     return upsertProps({
       variables: { input: input.map((i) => ({ ...extraInput, ...i })) },
     })
@@ -71,7 +69,7 @@ export const UpdatePropsForm = <TData extends any>({
       disabled={loading}
       model={
         initialProps
-          ? (PropsJsonModelAdaptor.propsToModel(initialProps) as any)
+          ? (PropsJsonModelAdaptor.propsToModel(initialProps, false) as any)
           : ({} as any)
       }
       onSubmitError={props.onSubmitError || createNotificationHandler()}

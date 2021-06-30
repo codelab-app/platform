@@ -6,6 +6,7 @@ import {
   DgraphTriple,
   UidFilter,
 } from '@codelab/backend'
+import { DgraphEnumTypeValue, MAX_TYPE_DEPTH } from '@codelab/modules/type-api'
 import { Mutation, Request } from 'dgraph-js'
 import * as _ from 'lodash'
 import {
@@ -95,7 +96,13 @@ export class UpsertPropMutationBuilder extends DgraphMutationBuilder {
           valueSub,
           this.getDgraphTypeForValue(upsertPropInput.value),
         )
-          .withTriple(new DgraphTriple(propSub, Fields.value, valueSub))
+          .withTriple(
+            new DgraphTriple(
+              propSub,
+              Fields.value,
+              upsertPropInput.value?.enumValueId || valueSub,
+            ),
+          )
           .withTriple(
             ...this.getTriplesForValue(
               valueSub,
@@ -127,6 +134,8 @@ export class UpsertPropMutationBuilder extends DgraphMutationBuilder {
       return DgraphBooleanValue
     } else if (value.interfaceValue) {
       return DgraphInterfaceValue
+    } else if (value.enumValueId) {
+      return DgraphEnumTypeValue
     }
 
     throw new Error('Invalid UpsertValueInput')
@@ -137,7 +146,7 @@ export class UpsertPropMutationBuilder extends DgraphMutationBuilder {
     value: UpsertValueInput,
     iteration = 0,
   ): Array<DgraphTriple> => {
-    if (iteration > 100) {
+    if (iteration > MAX_TYPE_DEPTH) {
       throw new Error('Value too nested')
     }
 
@@ -233,6 +242,11 @@ export class UpsertPropMutationBuilder extends DgraphMutationBuilder {
       )
 
       return innerTriples.concat(connectionTriples)
+    }
+
+    if (value.enumValueId) {
+      // The enum value should exists already, no need to set it to anything, just reference it
+      return []
     }
 
     throw new Error('Invalid UpsertValueInput')

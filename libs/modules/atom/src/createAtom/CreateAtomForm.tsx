@@ -1,7 +1,7 @@
 import {
   AtomType,
   refetchGetAtomsQuery,
-  refetchGetInterfacesQuery,
+  refetchGetTypesQuery,
   useCreateAtomMutation,
 } from '@codelab/codegen/graphql'
 import {
@@ -23,7 +23,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   // Only Editors can modify Atoms (dgraph permissions?)
   const [mutate, { loading: creating }] = useCreateAtomMutation({
     awaitRefetchQueries: true,
-    refetchQueries: [refetchGetAtomsQuery(), refetchGetInterfacesQuery()],
+    refetchQueries: [refetchGetAtomsQuery(), refetchGetTypesQuery()],
   })
 
   useEffect(() => {

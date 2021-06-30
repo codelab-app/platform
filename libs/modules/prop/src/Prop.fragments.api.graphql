@@ -37,6 +37,7 @@ fragment __PropValueShallow on PropValue {
   ...on IntValue { ...__IntValue }
   ...on FloatValue { ...__FloatValue }
   ...on BooleanValue { ...__BooleanValue }
+  ...on EnumTypeValue { ...__EnumTypeValue }
   ...on ArrayValue { id }
   ...on InterfaceValue { id  }
 }

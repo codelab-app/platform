@@ -30,43 +30,35 @@ fragment Dgraph__Field on Field {
 fragment Dgraph__Type on Type {
     id
     name
-    ...on Interface {
-        id
-    }
     ...on ArrayType {
-        id
         type {
-            ...on ArrayType {
-                id
-            }
-            ...on Interface {
-                id
-            }
-            ...on EnumType {
-                id
-                allowedValues {
-                    id
-                    name
-                }
-            }
-            ...on SimpleType {
-                id
-                primitiveType
-            }
+          id
+          name
+          ...on EnumType {
+              allowedValues {
+                  id
+                  name
+              }
+          }
+          ...on SimpleType {
+              primitiveType
+          }
         }
     }
     ...on EnumType {
-        id
         allowedValues {
-            id
-            name
-            value
+            ...DgrapEnumTypeValue
         }
     }
     ...on SimpleType {
-        id
         primitiveType
     }
+}
+
+fragment DgrapEnumTypeValue on EnumTypeValue {
+  id
+  name
+  value
 }
 
 fragment Dgraph__Decorator on Decorator {

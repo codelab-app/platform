@@ -2540,6 +2540,7 @@ export type PropValue =
   | BooleanValue
   | ArrayValue
   | InterfaceValue
+  | EnumTypeValue
 
 export type PropValueFilter = {
   memberTypes?: Maybe<Array<PropValueType>>
@@ -2549,6 +2550,7 @@ export type PropValueFilter = {
   booleanValueFilter?: Maybe<BooleanValueFilter>
   arrayValueFilter?: Maybe<ArrayValueFilter>
   interfaceValueFilter?: Maybe<InterfaceValueFilter>
+  enumTypeValueFilter?: Maybe<EnumTypeValueFilter>
 }
 
 export type PropValueRef = {
@@ -2558,6 +2560,7 @@ export type PropValueRef = {
   booleanValueRef?: Maybe<BooleanValueRef>
   arrayValueRef?: Maybe<ArrayValueRef>
   interfaceValueRef?: Maybe<InterfaceValueRef>
+  enumTypeValueRef?: Maybe<EnumTypeValueRef>
 }
 
 export enum PropValueType {
@@ -2567,6 +2570,7 @@ export enum PropValueType {
   BooleanValue = 'BooleanValue',
   ArrayValue = 'ArrayValue',
   InterfaceValue = 'InterfaceValue',
+  EnumTypeValue = 'EnumTypeValue',
 }
 
 export type Query = {
@@ -3982,6 +3986,7 @@ export type DgraphPropFragment = Pick<Prop, 'id'> & {
     | DgraphPropValue_BooleanValue_Fragment
     | DgraphPropValue_ArrayValue_Fragment
     | DgraphPropValue_InterfaceValue_Fragment
+    | DgraphPropValue_EnumTypeValue_Fragment
   >
 }
 
@@ -4009,6 +4014,10 @@ type DgraphPropValue_InterfaceValue_Fragment = {
   __typename: 'InterfaceValue'
 } & DgraphInterfaceValueFragment
 
+type DgraphPropValue_EnumTypeValue_Fragment = {
+  __typename: 'EnumTypeValue'
+} & DgrapEnumTypeValueFragment
+
 export type DgraphPropValueFragment =
   | DgraphPropValue_StringValue_Fragment
   | DgraphPropValue_IntValue_Fragment
@@ -4016,8 +4025,14 @@ export type DgraphPropValueFragment =
   | DgraphPropValue_BooleanValue_Fragment
   | DgraphPropValue_ArrayValue_Fragment
   | DgraphPropValue_InterfaceValue_Fragment
+  | DgraphPropValue_EnumTypeValue_Fragment
 
 export type DgraphStringValueFragment = Pick<StringValue, 'id' | 'stringValue'>
+
+export type DgraphEnumTypeValueFragment = Pick<
+  StringValue,
+  'id' | 'stringValue'
+>
 
 export type DgraphIntValueFragment = Pick<IntValue, 'id' | 'intValue'>
 
@@ -4047,6 +4062,10 @@ type DgraphArrayInnerValue_InterfaceValue_Fragment = {
   __typename: 'InterfaceValue'
 } & Pick<InterfaceValue, 'id'>
 
+type DgraphArrayInnerValue_EnumTypeValue_Fragment = {
+  __typename: 'EnumTypeValue'
+}
+
 export type DgraphArrayInnerValueFragment =
   | DgraphArrayInnerValue_StringValue_Fragment
   | DgraphArrayInnerValue_IntValue_Fragment
@@ -4054,6 +4073,7 @@ export type DgraphArrayInnerValueFragment =
   | DgraphArrayInnerValue_BooleanValue_Fragment
   | DgraphArrayInnerValue_ArrayValue_Fragment
   | DgraphArrayInnerValue_InterfaceValue_Fragment
+  | DgraphArrayInnerValue_EnumTypeValue_Fragment
 
 export type DgraphArrayValueFragment = Pick<ArrayValue, 'id'> & {
   values: Array<
@@ -4063,6 +4083,7 @@ export type DgraphArrayValueFragment = Pick<ArrayValue, 'id'> & {
     | DgraphArrayInnerValue_BooleanValue_Fragment
     | DgraphArrayInnerValue_ArrayValue_Fragment
     | DgraphArrayInnerValue_InterfaceValue_Fragment
+    | DgraphArrayInnerValue_EnumTypeValue_Fragment
   >
 }
 
@@ -4115,23 +4136,23 @@ export type Dgraph__FieldFragment = Pick<
 
 type Dgraph__Type_ArrayType_Fragment = Pick<ArrayType, 'id' | 'name'> & {
   type:
-    | Pick<ArrayType, 'id'>
-    | (Pick<EnumType, 'id'> & {
+    | Pick<ArrayType, 'id' | 'name'>
+    | (Pick<EnumType, 'id' | 'name'> & {
         allowedValues: Array<Pick<EnumTypeValue, 'id' | 'name'>>
       })
-    | Pick<Interface, 'id'>
-    | Pick<SimpleType, 'id' | 'primitiveType'>
+    | Pick<Interface, 'id' | 'name'>
+    | Pick<SimpleType, 'primitiveType' | 'id' | 'name'>
 }
 
 type Dgraph__Type_EnumType_Fragment = Pick<EnumType, 'id' | 'name'> & {
-  allowedValues: Array<Pick<EnumTypeValue, 'id' | 'name' | 'value'>>
+  allowedValues: Array<DgrapEnumTypeValueFragment>
 }
 
 type Dgraph__Type_Interface_Fragment = Pick<Interface, 'id' | 'name'>
 
 type Dgraph__Type_SimpleType_Fragment = Pick<
   SimpleType,
-  'id' | 'primitiveType' | 'name'
+  'primitiveType' | 'id' | 'name'
 >
 
 export type Dgraph__TypeFragment =
@@ -4139,6 +4160,11 @@ export type Dgraph__TypeFragment =
   | Dgraph__Type_EnumType_Fragment
   | Dgraph__Type_Interface_Fragment
   | Dgraph__Type_SimpleType_Fragment
+
+export type DgrapEnumTypeValueFragment = Pick<
+  EnumTypeValue,
+  'id' | 'name' | 'value'
+>
 
 type Dgraph__Decorator_MinMaxValidator_Fragment = {
   __typename: 'MinMaxValidator'
@@ -4289,6 +4315,26 @@ export type DeleteTypeMutation = {
   deleteField?: Maybe<Pick<DeleteFieldPayload, 'numUids'>>
 }
 
+export type GetFieldsByTypeQueryVariables = Exact<{
+  typeId: Scalars['ID']
+}>
+
+export type GetFieldsByTypeQuery = {
+  queryField?: Maybe<
+    Array<
+      Maybe<
+        Pick<Field, 'id' | 'name'> & {
+          type:
+            | Pick<ArrayType, 'id'>
+            | Pick<EnumType, 'id'>
+            | Pick<Interface, 'id'>
+            | Pick<SimpleType, 'id'>
+        }
+      >
+    >
+  >
+}
+
 export type UpdateEnumTypeMutationVariables = Exact<{
   input: UpdateEnumTypeInput
 }>
@@ -4296,6 +4342,16 @@ export type UpdateEnumTypeMutationVariables = Exact<{
 export type UpdateEnumTypeMutation = {
   updateEnumType?: Maybe<{
     enumType?: Maybe<Array<Maybe<Dgraph__Type_EnumType_Fragment>>>
+  }>
+}
+
+export type UpdateSimpleTypeMutationVariables = Exact<{
+  input: UpdateSimpleTypeInput
+}>
+
+export type UpdateSimpleTypeMutation = {
+  updateSimpleType?: Maybe<{
+    simpleType?: Maybe<Array<Maybe<Dgraph__Type_SimpleType_Fragment>>>
   }>
 }
 
@@ -4400,48 +4456,42 @@ export const Dgraph__DecoratorFragmentDoc = gql`
   ${Dgraph__RequiredValidatorFragmentDoc}
   ${Dgraph__ArrayLengthValidatorFragmentDoc}
 `
+export const DgrapEnumTypeValueFragmentDoc = gql`
+  fragment DgrapEnumTypeValue on EnumTypeValue {
+    id
+    name
+    value
+  }
+`
 export const Dgraph__TypeFragmentDoc = gql`
   fragment Dgraph__Type on Type {
     id
     name
-    ... on Interface {
-      id
-    }
     ... on ArrayType {
-      id
       type {
-        ... on ArrayType {
-          id
-        }
-        ... on Interface {
-          id
-        }
+        id
+        name
         ... on EnumType {
-          id
           allowedValues {
             id
             name
           }
         }
         ... on SimpleType {
-          id
           primitiveType
         }
       }
     }
     ... on EnumType {
-      id
       allowedValues {
-        id
-        name
-        value
+        ...DgrapEnumTypeValue
       }
     }
     ... on SimpleType {
-      id
       primitiveType
     }
   }
+  ${DgrapEnumTypeValueFragmentDoc}
 `
 export const Dgraph__FieldFragmentDoc = gql`
   fragment Dgraph__Field on Field {
@@ -4607,6 +4657,9 @@ export const DgraphPropValueFragmentDoc = gql`
     ... on StringValue {
       ...DgraphStringValue
     }
+    ... on EnumTypeValue {
+      ...DgrapEnumTypeValue
+    }
   }
   ${DgraphArrayValueFragmentDoc}
   ${DgraphBooleanValueFragmentDoc}
@@ -4614,6 +4667,7 @@ export const DgraphPropValueFragmentDoc = gql`
   ${DgraphInterfaceValueFragmentDoc}
   ${DgraphIntValueFragmentDoc}
   ${DgraphStringValueFragmentDoc}
+  ${DgrapEnumTypeValueFragmentDoc}
 `
 export const DgraphPropFragmentDoc = gql`
   fragment DgraphProp on Prop {
@@ -4627,6 +4681,12 @@ export const DgraphPropFragmentDoc = gql`
   }
   ${Dgraph__FieldFragmentDoc}
   ${DgraphPropValueFragmentDoc}
+`
+export const DgraphEnumTypeValueFragmentDoc = gql`
+  fragment DgraphEnumTypeValue on StringValue {
+    id
+    stringValue
+  }
 `
 export const Dgraph__InterfaceWithAtomFragmentDoc = gql`
   fragment Dgraph__InterfaceWithAtom on Interface {
@@ -7049,6 +7109,73 @@ export type DeleteTypeMutationOptions = Apollo.BaseMutationOptions<
   DeleteTypeMutation,
   DeleteTypeMutationVariables
 >
+export const GetFieldsByTypeGql = gql`
+  query GetFieldsByType($typeId: ID!) {
+    queryField {
+      id
+      name
+      type(filter: { id: [$typeId] }) {
+        id
+      }
+    }
+  }
+`
+
+/**
+ * __useGetFieldsByTypeQuery__
+ *
+ * To run a query within a React component, call `useGetFieldsByTypeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFieldsByTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFieldsByTypeQuery({
+ *   variables: {
+ *      typeId: // value for 'typeId'
+ *   },
+ * });
+ */
+export function useGetFieldsByTypeQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetFieldsByTypeQuery,
+    GetFieldsByTypeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetFieldsByTypeQuery, GetFieldsByTypeQueryVariables>(
+    GetFieldsByTypeGql,
+    options,
+  )
+}
+export function useGetFieldsByTypeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetFieldsByTypeQuery,
+    GetFieldsByTypeQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetFieldsByTypeQuery,
+    GetFieldsByTypeQueryVariables
+  >(GetFieldsByTypeGql, options)
+}
+export type GetFieldsByTypeQueryHookResult = ReturnType<
+  typeof useGetFieldsByTypeQuery
+>
+export type GetFieldsByTypeLazyQueryHookResult = ReturnType<
+  typeof useGetFieldsByTypeLazyQuery
+>
+export type GetFieldsByTypeQueryResult = Apollo.QueryResult<
+  GetFieldsByTypeQuery,
+  GetFieldsByTypeQueryVariables
+>
+export function refetchGetFieldsByTypeQuery(
+  variables?: GetFieldsByTypeQueryVariables,
+) {
+  return { query: GetFieldsByTypeGql, variables: variables }
+}
 export const UpdateEnumTypeGql = gql`
   mutation UpdateEnumType($input: UpdateEnumTypeInput!) {
     updateEnumType(input: $input) {
@@ -7101,6 +7228,59 @@ export type UpdateEnumTypeMutationResult =
 export type UpdateEnumTypeMutationOptions = Apollo.BaseMutationOptions<
   UpdateEnumTypeMutation,
   UpdateEnumTypeMutationVariables
+>
+export const UpdateSimpleTypeGql = gql`
+  mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
+    updateSimpleType(input: $input) {
+      simpleType {
+        ...Dgraph__Type
+      }
+    }
+  }
+  ${Dgraph__TypeFragmentDoc}
+`
+export type UpdateSimpleTypeMutationFn = Apollo.MutationFunction<
+  UpdateSimpleTypeMutation,
+  UpdateSimpleTypeMutationVariables
+>
+
+/**
+ * __useUpdateSimpleTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateSimpleTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSimpleTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSimpleTypeMutation, { data, loading, error }] = useUpdateSimpleTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateSimpleTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateSimpleTypeMutation,
+    UpdateSimpleTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateSimpleTypeMutation,
+    UpdateSimpleTypeMutationVariables
+  >(UpdateSimpleTypeGql, options)
+}
+export type UpdateSimpleTypeMutationHookResult = ReturnType<
+  typeof useUpdateSimpleTypeMutation
+>
+export type UpdateSimpleTypeMutationResult =
+  Apollo.MutationResult<UpdateSimpleTypeMutation>
+export type UpdateSimpleTypeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateSimpleTypeMutation,
+  UpdateSimpleTypeMutationVariables
 >
 export const UpdateTypeGql = gql`
   mutation UpdateType($input: UpdateTypeInput!) {
@@ -7236,48 +7416,42 @@ export const Dgraph__Decorator = gql`
   ${Dgraph__RequiredValidator}
   ${Dgraph__ArrayLengthValidator}
 `
+export const DgrapEnumTypeValue = gql`
+  fragment DgrapEnumTypeValue on EnumTypeValue {
+    id
+    name
+    value
+  }
+`
 export const Dgraph__Type = gql`
   fragment Dgraph__Type on Type {
     id
     name
-    ... on Interface {
-      id
-    }
     ... on ArrayType {
-      id
       type {
-        ... on ArrayType {
-          id
-        }
-        ... on Interface {
-          id
-        }
+        id
+        name
         ... on EnumType {
-          id
           allowedValues {
             id
             name
           }
         }
         ... on SimpleType {
-          id
           primitiveType
         }
       }
     }
     ... on EnumType {
-      id
       allowedValues {
-        id
-        name
-        value
+        ...DgrapEnumTypeValue
       }
     }
     ... on SimpleType {
-      id
       primitiveType
     }
   }
+  ${DgrapEnumTypeValue}
 `
 export const Dgraph__Field = gql`
   fragment Dgraph__Field on Field {
@@ -7443,6 +7617,9 @@ export const DgraphPropValue = gql`
     ... on StringValue {
       ...DgraphStringValue
     }
+    ... on EnumTypeValue {
+      ...DgrapEnumTypeValue
+    }
   }
   ${DgraphArrayValue}
   ${DgraphBooleanValue}
@@ -7450,6 +7627,7 @@ export const DgraphPropValue = gql`
   ${DgraphInterfaceValue}
   ${DgraphIntValue}
   ${DgraphStringValue}
+  ${DgrapEnumTypeValue}
 `
 export const DgraphProp = gql`
   fragment DgraphProp on Prop {
@@ -7463,6 +7641,12 @@ export const DgraphProp = gql`
   }
   ${Dgraph__Field}
   ${DgraphPropValue}
+`
+export const DgraphEnumTypeValue = gql`
+  fragment DgraphEnumTypeValue on StringValue {
+    id
+    stringValue
+  }
 `
 export const Dgraph__InterfaceWithAtom = gql`
   fragment Dgraph__InterfaceWithAtom on Interface {
@@ -7896,10 +8080,31 @@ export const DeleteType = gql`
     }
   }
 `
+export const GetFieldsByType = gql`
+  query GetFieldsByType($typeId: ID!) {
+    queryField {
+      id
+      name
+      type(filter: { id: [$typeId] }) {
+        id
+      }
+    }
+  }
+`
 export const UpdateEnumType = gql`
   mutation UpdateEnumType($input: UpdateEnumTypeInput!) {
     updateEnumType(input: $input) {
       enumType {
+        ...Dgraph__Type
+      }
+    }
+  }
+  ${Dgraph__Type}
+`
+export const UpdateSimpleType = gql`
+  mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
+    updateSimpleType(input: $input) {
+      simpleType {
         ...Dgraph__Type
       }
     }

@@ -147,7 +147,7 @@ export class TypeMapper
       throw new Error("Can't map dgraph type without the field dgraph.type")
     }
 
-    const dgraphType = dgraphTypeArray[0]
+    const dgraphType = dgraphTypeArray.find((dt) => (dt as string) !== 'Type')
 
     switch (dgraphType) {
       case 'ArrayType':

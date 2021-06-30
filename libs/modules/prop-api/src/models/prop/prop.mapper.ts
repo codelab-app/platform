@@ -4,7 +4,7 @@ import {
   DeepPartial,
   IDgraphMapper,
 } from '@codelab/backend'
-import { FieldMapper } from '@codelab/modules/type-api'
+import { DgraphField, FieldMapper } from '@codelab/modules/type-api'
 import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
 import {
@@ -18,6 +18,13 @@ import { Prop } from './prop.model'
 export interface PropMappingContext {
   arrayIteration: number
   interfaceIteration: number
+  fieldContext?: Map<string, DeepPartial<DgraphField>>
+}
+
+const defaultContext = {
+  arrayIteration: 0,
+  interfaceIteration: 0,
+  fieldContext: new Map(),
 }
 
 @Injectable()
@@ -37,7 +44,10 @@ export class PropMapper
       [DgraphPropFields.field]: true,
       [DgraphPropFields.value]: true,
     }).extend({
-      [DgraphPropFields.field]: FieldMapper.inputSchema,
+      [DgraphPropFields.field]: z.union([
+        FieldMapper.inputSchema,
+        z.object({ [BaseDgraphFields.uid]: z.string() }),
+      ]),
       [DgraphPropFields.value]: z
         .lazy(() =>
           dgraphPropValueSchema.or(PropMapper.MappingInterfaceValueSchema),
@@ -53,18 +63,35 @@ export class PropMapper
   ) {}
 
   async map(input: DeepPartial<DgraphProp>, context?: PropMappingContext) {
+    context = { ...defaultContext, ...context }
+
     const dgraphProp = PropMapper.InputSchema.parse(input)
     const dgraphValue = dgraphProp[DgraphPropFields.value]
     const id = dgraphProp[BaseDgraphFields.uid]
 
+    let dField: DeepPartial<DgraphField> | undefined =
+      dgraphProp[DgraphPropFields.field]
+
+    if (!(dField as any)[BaseDgraphFields.DgraphType]) {
+      if (context?.fieldContext) {
+        dField = context?.fieldContext.get(
+          dField[BaseDgraphFields.uid] as string,
+        )
+      }
+    }
+
+    if (dField) {
+      context?.fieldContext?.set(dField[BaseDgraphFields.uid] as string, dField)
+    }
+
+    const field = await this.fieldMapper.map(dField as any)
+
     const value = dgraphValue
       ? await this.propValueMapper.map(dgraphValue, {
-          arrayIteration: context?.arrayIteration || 0,
-          interfaceIteration: context?.interfaceIteration || 0,
+          ...context,
         })
       : null
 
-    const field = await this.fieldMapper.map(dgraphProp[DgraphPropFields.field])
     const prop = new Prop({ id, field, value })
 
     Prop.Schema.parse(prop)

@@ -1,5 +1,5 @@
 import { DgraphQueryBuilder } from '@codelab/backend'
-import { DgraphField } from '@codelab/modules/type-api'
+import { DgraphEnumTypeValue, DgraphField } from '@codelab/modules/type-api'
 import {
   DgraphArrayValue,
   DgraphBooleanValue,
@@ -24,6 +24,7 @@ export class GetPropsQueryBuilder extends DgraphQueryBuilder {
         DgraphBooleanValue,
         DgraphArrayValue,
         DgraphInterfaceValue,
+        DgraphEnumTypeValue,
       )
   }
 }
@@ -35,4 +36,5 @@ export type GetPropsQueryResult = DgraphProp &
   DgraphFloatValue &
   DgraphBooleanValue &
   DgraphArrayValue &
-  DgraphInterfaceValue
+  DgraphInterfaceValue &
+  DgraphEnumTypeValue

@@ -54,6 +54,7 @@ fragment __ArrayType on ArrayType {
 fragment __EnumTypeValue on EnumTypeValue {
   id
   name
+  value
 }
 
 fragment __EnumType on EnumType {
@@ -83,6 +84,7 @@ fragment __Type on Type {
   ... on Interface { ...__InterfaceWithoutTypes }
   ... on SimpleType { ...__SimpleType }
 }
+
 
 # Type, but without the recursion
 fragment __TypeShallow on Type {

@@ -3,11 +3,9 @@ import {
   CreateFieldMutationVariables,
   refetchGetInterfaceQuery,
   useCreateFieldMutation,
-  useGetInterfacesQuery,
 } from '@codelab/codegen/graphql'
 import {
   createNotificationHandler,
-  DisplayIfField,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
@@ -15,14 +13,9 @@ import {
 } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { InterfaceContext } from '../../interfaces'
-import {
-  createFieldSchema,
-  CreateFieldSchemaObject,
-  TypeVariant,
-} from './createFieldSchema'
-import { mapFormDataToInput } from './mapFormDataToInput'
-import { TypeFields } from './TypeFields'
+import { TypeSelect } from '../../shared'
+import { InterfaceContext } from '../../types'
+import { createFieldSchema, CreateFieldSchemaObject } from './createFieldSchema'
 
 export const CreateFieldForm = (
   props: UniFormUseCaseProps<CreateFieldSchemaObject>,
@@ -30,8 +23,6 @@ export const CreateFieldForm = (
   const {
     interface: { id: interfaceId },
   } = useContext(InterfaceContext)
-
-  const { data: allInterfaces } = useGetInterfacesQuery()
 
   const {
     handleSubmit,
@@ -46,44 +37,32 @@ export const CreateFieldForm = (
     },
     useMutationFunction: useCreateFieldMutation,
     mapVariables: (formData) => ({
-      input: mapFormDataToInput(formData, interfaceId),
+      input: {
+        interfaceId,
+        type: {
+          existingTypeId: formData.typeId,
+        },
+        name: formData.name,
+        key: formData.key,
+        description: formData.description,
+      },
     }),
     entityType: EntityType.Field,
   })
 
-  const interfacesOptions =
-    allInterfaces?.getInterfaces?.map((i) => ({
-      label: i.name,
-      value: i.id,
-    })) || []
-
   return (
     <FormUniforms<CreateFieldSchemaObject>
       onSubmit={handleSubmit}
-      schema={createFieldSchema as any}
+      schema={createFieldSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while creating fields',
       })}
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields fields={['key', 'name', 'description']} />
-      {/* AutoFields doesn't work well here for some reason, it always displays the nested arrayType.* fields, even if omitted */}
-      <TypeFields
-        interfacesOptions={interfacesOptions}
-        extractTypeFromContext={(c) => c.model.type as any}
-      />
+      <AutoFields omitFields={['typeId']} />
 
-      <DisplayIfField
-        condition={(c) => (c.model as any).type === TypeVariant.Array}
-      >
-        <TypeFields
-          typeFieldProps={{ label: 'Array item type' }}
-          interfacesOptions={interfacesOptions}
-          namePrefix="arrayType."
-          extractTypeFromContext={(c) => c.model.arrayType?.type as any}
-        />
-      </DisplayIfField>
+      <TypeSelect name="typeId" label={'Type'} />
     </FormUniforms>
   )
 }

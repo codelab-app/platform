@@ -1,68 +1,21 @@
-import { CreateFieldInput, PrimitiveType } from '@codelab/codegen/graphql'
-
-export enum TypeVariant {
-  Array = 'Array',
-  Interface = 'Object',
-  Enum = 'Enum',
-}
-
-export interface CreateFieldTypeObject {
-  type: TypeVariant | PrimitiveType
-  allowedValues?: Array<string>
-  interfaceId?: string
-}
-
-export type CreateFieldArrayTypeObject = {
-  arrayType: CreateFieldTypeObject
-}
+import { CreateFieldInput } from '@codelab/codegen/graphql'
+import { JSONSchemaType } from 'ajv'
 
 export type CreateFieldSchemaObject = Pick<
   CreateFieldInput,
   'key' | 'name' | 'description'
-> &
-  CreateFieldTypeObject &
-  CreateFieldArrayTypeObject
+> & {
+  typeId: 'string'
+}
 
-let allTypeOptions: Array<PrimitiveType | TypeVariant> =
-  Object.values(PrimitiveType)
-
-allTypeOptions = [...allTypeOptions, ...Object.values(TypeVariant)]
-
-const typePropertiesWithoutArray = (
-  typeOptions: Array<PrimitiveType | TypeVariant>,
-) => ({
-  type: {
-    type: 'string',
-    enum: typeOptions,
-  },
-  allowedValues: {
-    type: 'array',
-    items: {
-      type: 'string',
-    },
-  },
-  interfaceId: {
-    label: 'Interface',
-    type: 'string',
-  },
-})
-
-export const createFieldSchema = {
+export const createFieldSchema: JSONSchemaType<CreateFieldSchemaObject> = {
   title: 'Create Field Input',
   type: 'object',
   properties: {
     key: { type: 'string' },
     name: { type: 'string' },
     description: { type: 'string', nullable: true },
-    ...typePropertiesWithoutArray(allTypeOptions),
-    arrayType: {
-      type: 'object',
-      properties: {
-        ...typePropertiesWithoutArray(
-          allTypeOptions.filter((o) => o !== TypeVariant.Array),
-        ),
-      },
-    },
+    typeId: { type: 'string' },
   },
-  required: ['type', 'key', 'name'],
+  required: ['key', 'name', 'typeId'],
 }

@@ -84,8 +84,6 @@ const renderPageElement: NodeRendererType<PageElementNode> = (
       return children
     }
 
-    console.log('props', children, node)
-
     return (
       <RootComponent {...props} {...node.props} key={node.id}>
         {React.Children.count(children) ? children : node.props.children}

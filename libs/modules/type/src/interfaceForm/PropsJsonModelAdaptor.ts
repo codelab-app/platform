@@ -26,8 +26,13 @@ interface PropKeyValuePair {
 
 /** Converts a list of PropAggregates to a simple json object with primitive key-values */
 export class PropsJsonModelAdaptor {
-  static propsToModel(props: Array<__PropAggregateFragment>): PropModel {
-    const kvps = props.map((prop) => PropsJsonModelAdaptor.propToKeyValue(prop))
+  static propsToModel(
+    props: Array<__PropAggregateFragment>,
+    forRendering: boolean,
+  ): PropModel {
+    const kvps = props.map((prop) =>
+      PropsJsonModelAdaptor.propToKeyValue(prop, forRendering),
+    )
 
     return PropsJsonModelAdaptor.propKeyValuePairsToModel(kvps)
   }
@@ -40,7 +45,10 @@ export class PropsJsonModelAdaptor {
     }, {})
   }
 
-  static propToKeyValue(prop: __PropAggregateFragment): PropKeyValuePair {
+  static propToKeyValue(
+    prop: __PropAggregateFragment,
+    forRendering: boolean,
+  ): PropKeyValuePair {
     const valuesById = _.keyBy(prop.values, (v) => v.id)
     const propsById = _.keyBy(prop.props, (p) => p.id)
     const rootProp = propsById[prop.rootProp.id]
@@ -49,6 +57,7 @@ export class PropsJsonModelAdaptor {
     const value = PropsJsonModelAdaptor.propValueToModelValue(
       rootProp.value,
       (valueId) => valuesById[valueId],
+      forRendering,
     )
 
     return { key, value }
@@ -57,6 +66,7 @@ export class PropsJsonModelAdaptor {
   static shallowPropToKeyValue(
     prop: __PropShallowFragment,
     getValue: (valueId: string) => __PropValueFragment,
+    forRendering: boolean,
     iteration = 0,
   ): PropKeyValuePair {
     const key = prop.field.key
@@ -64,6 +74,7 @@ export class PropsJsonModelAdaptor {
     const value = PropsJsonModelAdaptor.propValueToModelValue(
       prop.value ? getValue(prop.value.id) : null,
       getValue,
+      forRendering,
       iteration,
     )
 
@@ -73,6 +84,7 @@ export class PropsJsonModelAdaptor {
   private static propValueToModelValue(
     value: __PropValueFragment | __PropValueShallowFragment | null | undefined,
     getValue: (valueId: string) => __PropValueFragment,
+    forRendering: boolean,
     iteration = 0,
   ): PrimitivePropValue {
     if (iteration > 100) {
@@ -90,6 +102,8 @@ export class PropsJsonModelAdaptor {
         return value.intValue
       case 'FloatValue':
         return value.floatValue
+      case 'EnumTypeValue':
+        return forRendering ? value.value : value.id // If we're rendering the props, we want the value, if we're submitting - the id
       case 'BooleanValue':
         return value.booleanValue
 
@@ -104,6 +118,7 @@ export class PropsJsonModelAdaptor {
           PropsJsonModelAdaptor.propValueToModelValue(
             valueItem,
             getValue,
+            forRendering,
             iteration + 1,
           ),
         )
@@ -125,6 +140,7 @@ export class PropsJsonModelAdaptor {
           PropsJsonModelAdaptor.shallowPropToKeyValue(
             innerProp,
             getValue,
+            forRendering,
             iteration + 1,
           ),
         )

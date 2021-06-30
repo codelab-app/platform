@@ -1,0 +1,9 @@
+query GetFieldsByType($typeId: ID!) {
+  queryField {
+    id
+    name
+    type(filter: {id: [$typeId]}){
+      id
+    }
+  }
+}

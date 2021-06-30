@@ -11,12 +11,22 @@ import {
   CreateEnumTypeGql,
   CreateEnumTypeMutation,
   CreateEnumTypeMutationVariables,
+  CreateInterfaceGql,
+  CreateInterfaceMutation,
+  CreateInterfaceMutationVariables,
   CreateSimpleTypeGql,
   CreateSimpleTypeMutation,
   CreateSimpleTypeMutationVariables,
 } from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
-import { EnumType, EnumTypeValue, SimpleType, Type } from '../../../models'
+import {
+  EnumType,
+  EnumTypeValue,
+  FieldCollection,
+  Interface,
+  SimpleType,
+  Type,
+} from '../../../models'
 import { GetTypeService } from '../get-type'
 import { CreateTypeInput } from './create-type.input'
 import { CreateTypeValidator } from './create-type.validator'
@@ -25,10 +35,12 @@ type GqlVariablesType =
   | CreateArrayTypeMutationVariables
   | CreateEnumTypeMutationVariables
   | CreateSimpleTypeMutationVariables
+  | CreateInterfaceMutationVariables
 type GqlOperationType =
   | CreateArrayTypeMutation
   | CreateEnumTypeMutation
   | CreateSimpleTypeMutation
+  | CreateInterfaceMutation
 
 @Injectable()
 export class CreateTypeService extends MutationUseCase<
@@ -57,6 +69,10 @@ export class CreateTypeService extends MutationUseCase<
 
     if (req.simpleType) {
       return CreateSimpleTypeGql
+    }
+
+    if (req.interfaceType) {
+      return CreateInterfaceGql
     }
 
     throw new Error('Error while creating type')
@@ -120,6 +136,23 @@ export class CreateTypeService extends MutationUseCase<
       )
     }
 
+    const interfaceResult = (result.data as CreateInterfaceMutation)
+      .addInterface
+
+    if (interfaceResult) {
+      if (!interfaceResult.interface || !interfaceResult.interface[0]) {
+        throw new Error('Error while creating type')
+      }
+
+      const createdSimpleType = interfaceResult.interface[0]
+
+      return new Interface(
+        createdSimpleType.id,
+        createdSimpleType.name,
+        new FieldCollection([], []),
+      )
+    }
+
     throw new Error('Error while creating type')
   }
 
@@ -127,6 +160,7 @@ export class CreateTypeService extends MutationUseCase<
     enumType,
     simpleType,
     arrayType,
+    interfaceType,
     name,
   }: CreateTypeInput): GqlVariablesType {
     const baseInput = { name }
@@ -146,6 +180,12 @@ export class CreateTypeService extends MutationUseCase<
     if (enumType) {
       return {
         input: { ...baseInput, allowedValues: enumType.allowedValues },
+      }
+    }
+
+    if (interfaceType) {
+      return {
+        input: { ...baseInput },
       }
     }
 

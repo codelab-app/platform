@@ -1,3 +1,4 @@
+import { EnumTypeValue } from '@codelab/modules/type-api'
 import { createUnionType } from '@nestjs/graphql'
 import { z } from 'zod'
 import { ArrayValue } from '../array-value'
@@ -16,6 +17,7 @@ export const PropValue = createUnionType({
     BooleanValue,
     ArrayValue,
     InterfaceValue,
+    EnumTypeValue,
   ],
 })
 
@@ -29,5 +31,6 @@ export const propValueSchema: z.ZodSchema<PropValue> = z.lazy(() =>
     BooleanValue.Schema,
     ArrayValue.Schema,
     InterfaceValue.Schema,
+    EnumTypeValue.Schema,
   ]),
 )

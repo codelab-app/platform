@@ -1,4 +1,8 @@
 import { BaseDgraphFields, DeepPartial, IDgraphMapper } from '@codelab/backend'
+import {
+  DgraphEnumTypeValue,
+  EnumTypeValueMapper,
+} from '@codelab/modules/type-api'
 import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { PropMappingContext } from '../../prop'
 import { ArrayValueMapper, DgraphArrayValue } from '../array-value'
@@ -22,6 +26,7 @@ export class PropValueMapper
     private intValueMapper: IntValueMapper,
     private interfaceValueMapper: InterfaceValueMapper,
     private stringValueMapper: StringValueMapper,
+    private enumTypeValueMapper: EnumTypeValueMapper,
   ) {}
 
   async map(input: DeepPartial<DgraphPropValue>, context: PropMappingContext) {
@@ -51,6 +56,8 @@ export class PropValueMapper
         )
       case 'StringValue':
         return this.stringValueMapper.map(input as DgraphStringValue)
+      case 'EnumTypeValue':
+        return this.enumTypeValueMapper.map(input as DgraphEnumTypeValue)
       default:
         throw new Error(
           `Can't map prop value, dgraph type ${type} not recognized`,

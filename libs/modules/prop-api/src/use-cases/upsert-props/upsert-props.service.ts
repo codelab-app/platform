@@ -4,7 +4,6 @@ import {
   DgraphTokens,
   DgraphUseCase,
 } from '@codelab/backend'
-import { PropValueRef } from '@codelab/codegen/dgraph'
 import { Atom, GetAtomByService } from '@codelab/modules/atom-api'
 import {
   DgraphSimpleType,
@@ -17,7 +16,6 @@ import {
 import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js'
 import { UpsertPropMutationBuilder } from './upert-props.mutation'
-import { UpsertValueInput } from './upsert-props.input'
 import { UpsertPropsRequest } from './upsert-props.request'
 import { UpsertPropsResponse } from './upsert-props.response'
 
@@ -48,47 +46,6 @@ export class UpsertPropsService extends DgraphUseCase<
     }
 
     return { ok: false }
-  }
-
-  protected valueInputToDgraphValueRef(
-    value: UpsertValueInput,
-    iteration = 0,
-  ): PropValueRef {
-    if (iteration > 100) {
-      throw new Error('Value too nested')
-    }
-
-    if (value.intValue) {
-      return { intValueRef: { intValue: value.intValue.value } }
-    } else if (value.floatValue) {
-      return { floatValueRef: { floatValue: value.floatValue.value } }
-    } else if (value.arrayValue) {
-      return {
-        arrayValueRef: {
-          values: value.arrayValue.values.map((av) =>
-            this.valueInputToDgraphValueRef(av, iteration + 1),
-          ),
-        },
-      }
-    } else if (value.stringValue) {
-      return { stringValueRef: { stringValue: value.stringValue.value } }
-    } else if (value.booleanValue) {
-      return { booleanValueRef: { booleanValue: value.booleanValue.value } }
-    } else if (value.interfaceValue) {
-      return {
-        interfaceValueRef: {
-          props: value.interfaceValue.props.map((prop) => ({
-            field: { id: prop.fieldId },
-            pageElement: { id: prop.pageElementId },
-            value: prop.value
-              ? this.valueInputToDgraphValueRef(prop.value, iteration + 1)
-              : null,
-          })),
-        },
-      }
-    }
-
-    throw new Error('No value input found')
   }
 
   protected async validate({ input }: UpsertPropsRequest) {
@@ -122,6 +79,7 @@ export class UpsertPropsService extends DgraphUseCase<
           value.interfaceValue,
           value.booleanValue,
           value.stringValue,
+          value.enumValueId,
         ].filter((vi) => !!vi)
 
         if (valueInputs.length > 1 || valueInputs.length < 1) {
@@ -195,8 +153,8 @@ export class UpsertPropsService extends DgraphUseCase<
               'An integer value must be provided for an integer field',
             )
           }
-        } else if (fieldType === 'EnumType' && !value.stringValue) {
-          throw new Error('An string value must be provided for an enum field')
+        } else if (fieldType === 'EnumType' && !value.enumValueId) {
+          throw new Error('An enum value id must be provided for an enum field')
         }
       }
     }

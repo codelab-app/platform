@@ -30,7 +30,7 @@ export enum EntityType {
   LinkedComponentElement = 'LinkedComponentElement',
   PropTypeC = 'PropTypeC',
   Prop = 'Prop',
-  Interface = 'Interface',
+  Type = 'Type',
   Field = 'Field',
 }
 
@@ -148,9 +148,20 @@ export interface UseMutationCrudFormOptions<
     MutationFunctionOptions<TMutation, TMutationVariables>,
     'variables'
   >
-  useMutationFunction: (
-    baseOptions?: Apollo.MutationHookOptions<TMutation, TMutationVariables>,
-  ) => MutationTuple<TMutation, TMutationVariables>
+  useMutationFunction:
+    | ((
+        baseOptions?: Apollo.MutationHookOptions<TMutation, TMutationVariables>,
+      ) => MutationTuple<TMutation, TMutationVariables>)
+    | {
+        provider: (
+          state: CRUDModalState,
+        ) => (
+          baseOptions?: Apollo.MutationHookOptions<
+            TMutation,
+            TMutationVariables
+          >,
+        ) => MutationTuple<TMutation, TMutationVariables>
+      }
   mapVariables: (
     formData: TSubmitData,
     crudModalState: CRUDModalState,
@@ -189,7 +200,13 @@ export const useMutationCrudForm = <
 > => {
   const crudModal = useCRUDModalForm(entityType)
   const { setLoading } = crudModal
-  const [mutate, mutationData] = useMutationFunction(mutationOptions)
+
+  const mutationFn =
+    typeof useMutationFunction === 'function'
+      ? useMutationFunction
+      : useMutationFunction.provider(crudModal.state)
+
+  const [mutate, mutationData] = mutationFn(mutationOptions)
   const { loading } = mutationData
 
   useEffect(() => {

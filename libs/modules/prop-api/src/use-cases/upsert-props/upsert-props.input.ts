@@ -55,6 +55,9 @@ export class UpsertValueInput {
 
   @Field(() => InterfaceValueInput, { nullable: true })
   declare interfaceValue?: InterfaceValueInput | null
+
+  @Field(() => String, { nullable: true })
+  declare enumValueId?: string | null
 }
 
 @InputType()

@@ -13,7 +13,7 @@ import {
 } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { InterfaceContext } from '../../interfaces'
+import { InterfaceContext } from '../../types'
 
 type DeleteFieldFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 

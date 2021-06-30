@@ -177,7 +177,7 @@ type InterfaceValue {
     props: [Prop!]!
 }
 
-union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue
+union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue | EnumTypeValue
 
 type Prop {
     id: ID!

@@ -1,3 +1,4 @@
+import { DgraphEnumTypeValue } from '@codelab/modules/type-api'
 import { z, ZodSchema } from 'zod'
 import { DgraphArrayValue } from '../array-value'
 import { DgraphBooleanValue } from '../boolean-value'
@@ -13,6 +14,7 @@ export type DgraphPropValue =
   | DgraphBooleanValue
   | DgraphArrayValue
   | DgraphInterfaceValue
+  | DgraphEnumTypeValue
 
 export const dgraphPropValueSchema: ZodSchema<DgraphPropValue> = z.lazy(() =>
   z.union([
@@ -22,5 +24,6 @@ export const dgraphPropValueSchema: ZodSchema<DgraphPropValue> = z.lazy(() =>
     DgraphBooleanValue.Schema,
     DgraphArrayValue.Schema,
     DgraphInterfaceValue.Schema,
+    DgraphEnumTypeValue.Schema,
   ]),
-)
+) as any

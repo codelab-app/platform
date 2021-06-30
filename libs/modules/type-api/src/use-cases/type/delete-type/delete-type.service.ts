@@ -18,6 +18,7 @@ import {
 import { Inject, Injectable } from '@nestjs/common'
 import { DgraphInterface, InterfaceDgraphFields } from '../../../models'
 import { GetDgraphTypeService } from '../get-dgraph-type'
+import { GetFieldsByTypeService } from '../get-fields-by-type'
 import { DeleteTypeInput } from './delete-type.input'
 
 type GqlVariablesType = DeleteTypeMutationVariables
@@ -39,6 +40,7 @@ export class DeleteTypeService extends MutationUseCase<
     @Inject(ApolloClientTokens.ApolloClientProvider)
     protected apolloClient: ApolloClient<NormalizedCacheObject>,
     private getDgraphTypeService: GetDgraphTypeService,
+    private getFieldsByTypeService: GetFieldsByTypeService,
   ) {
     super(apolloClient)
   }
@@ -54,7 +56,7 @@ export class DeleteTypeService extends MutationUseCase<
   }
 
   protected mapVariables(
-    { id }: DeleteTypeInput,
+    { typeId }: DeleteTypeInput,
     { foundInterface }: ValidationContext,
   ): GqlVariablesType {
     const fieldIds =
@@ -65,7 +67,7 @@ export class DeleteTypeService extends MutationUseCase<
         : []
 
     return {
-      filter: { id: [id] },
+      filter: { id: [typeId] },
       fieldFilter: {
         id: fieldIds,
       },
@@ -76,7 +78,7 @@ export class DeleteTypeService extends MutationUseCase<
     request: DeleteTypeInput,
   ): Promise<ValidationContext> {
     const type = await this.getDgraphTypeService.execute({
-      typeId: request.id,
+      typeId: request.typeId,
     })
 
     if (!type) {
@@ -95,6 +97,18 @@ export class DeleteTypeService extends MutationUseCase<
       }
 
       return { foundInterface: type as DgraphInterface }
+    }
+
+    const fields = await this.getFieldsByTypeService.execute({
+      typeId: request.typeId,
+    })
+
+    if (fields && fields.length) {
+      throw new Error(
+        'Cannot delete type, the field(s) ' +
+          fields.map((f) => f.name).join(',') +
+          ' depend on it',
+      )
     }
 
     return {}

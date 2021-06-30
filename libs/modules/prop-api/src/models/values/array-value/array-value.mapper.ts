@@ -4,6 +4,7 @@ import {
   DgraphArrayMapper,
   IDgraphMapper,
 } from '@codelab/backend'
+import { MAX_TYPE_DEPTH } from '@codelab/modules/type-api'
 import { Injectable } from '@nestjs/common'
 import { PropMappingContext } from '../../prop'
 import { DgraphPropValue, PropValue, PropValueMapper } from '../prop-value'
@@ -28,7 +29,7 @@ export class ArrayValueMapper
   }
 
   async map(input: DeepPartial<DgraphArrayValue>, context: PropMappingContext) {
-    if (context?.arrayIteration || 0 > 20) {
+    if (context?.arrayIteration || 0 > MAX_TYPE_DEPTH) {
       throw new Error('Arrays too nested in value')
     }
 

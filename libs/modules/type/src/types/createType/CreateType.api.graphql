@@ -1,0 +1,5 @@
+mutation CreateType($input: CreateTypeInput!) {
+  createType(input: $input) {
+    ...__Type
+  }
+}

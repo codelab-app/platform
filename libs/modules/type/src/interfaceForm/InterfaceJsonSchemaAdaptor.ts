@@ -53,7 +53,13 @@ export class InterfaceJsonSchemaAdaptor {
         return {
           type: 'string',
           // nullable: true,
-          enum: type.allowedValues.map((v) => v.name),
+          enum: type.allowedValues.map((v) => v.id),
+          uniforms: {
+            options: type.allowedValues.map((v) => ({
+              value: v.id,
+              label: v.name,
+            })),
+          },
         }
       case 'Interface':
         return {

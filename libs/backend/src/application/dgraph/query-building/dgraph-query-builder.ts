@@ -81,6 +81,10 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     return this.withFilterFuncString(`uid(${uid})`)
   }
 
+  withTypeFunc(type: string) {
+    return this.withFilterFuncString(`type(${type})`)
+  }
+
   withUidsFunc(uids: Array<string>) {
     return this.withFilterFuncString(`uid(${uids.join(',')})`)
   }
@@ -140,15 +144,15 @@ export class DgraphQueryBuilder implements IQueryBuilder {
 
   build(): string {
     if (!this._queryName) {
-      throw new Error('Query name must be provided')
+      throw new Error('Query name must be provided to query builder')
     }
 
     if (!this._func) {
-      throw new Error('Func must be provided')
+      throw new Error('Func must be provided to query builder')
     }
 
     if (!this._fields || !this._fields.length) {
-      throw new Error('Fields must be provided')
+      throw new Error('Fields must be provided to query builder')
     }
 
     const fieldsSet = new Set(
@@ -163,7 +167,11 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     const fieldsString = compileMultiple(this._fields)
 
     // Remove the connection prefix from the first filter
-    if (this._func.length > 0 && this._func[0] instanceof DgraphFilter) {
+    if (
+      this._func &&
+      this._func.length > 0 &&
+      this._func[0] instanceof DgraphFilter
+    ) {
       ;(this._func[0] as DgraphFilter).withConnectionPrefix(undefined)
     }
 

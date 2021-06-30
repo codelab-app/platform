@@ -209,7 +209,7 @@ type Prop {
   value: PropValue
 }
 
-union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue
+union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue | EnumTypeValue
 
 type StringValue {
   id: ID!
@@ -338,7 +338,7 @@ type Query {
   getInterfaces: [Interface!]!
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
-  getTypes(input: GetTypesInput!): [Type!]!
+  getTypes(input: GetTypesInput): [Type!]!
   getProps(input: GetPropsInput!): [PropAggregate!]!
 }
 
@@ -404,7 +404,7 @@ input GetTypeInput {
 }
 
 input GetTypesInput {
-  byIds: TypesByIdsFilter!
+  byIds: TypesByIdsFilter
 }
 
 input TypesByIdsFilter {
@@ -455,7 +455,9 @@ type Mutation {
   deleteField(input: DeleteFieldInput!): DeleteResponse!
   createType(input: CreateTypeInput!): Type!
   updateEnumType(input: UpdateEnumTypeInput!): EnumType!
+  updateSimpleType(input: UpdateSimpleTypeInput!): SimpleType!
   updateType(input: UpdateTypeInput!): Type!
+  deleteType(input: DeleteTypeInput!): DeleteResponse!
   upsertProp(input: [UpsertPropsInput!]!): UpsertPropsResponse!
   deleteProp: DeleteResponse!
 }
@@ -534,7 +536,6 @@ input UpdatePageElementInput {
 input UpdatePageElementData {
   name: String!
   atomId: String
-  propIds: [String!]!
 }
 
 input MovePageElementInput {
@@ -597,6 +598,7 @@ input CreateTypeInput {
   simpleType: CreateSimpleTypeInput
   arrayType: CreateArrayTypeInput
   enumType: CreateEnumTypeInput
+  interfaceType: Boolean
 }
 
 input CreateSimpleTypeInput {
@@ -608,7 +610,6 @@ input CreateArrayTypeInput {
 }
 
 input CreateEnumTypeInput {
-  value: String!
   allowedValues: [CreateEnumTypeValueInput!]!
 }
 
@@ -640,7 +641,6 @@ input UpdateEnumTypeInput {
 }
 
 input UpdateEnumTypeData {
-  values: [String!]!
   allowedValues: [UpdateEnumTypeValueData!]!
   name: String!
 }
@@ -650,6 +650,16 @@ input UpdateEnumTypeValueData {
   value: String!
 }
 
+input UpdateSimpleTypeInput {
+  typeId: String!
+  updateData: UpdateSimpleTypeData!
+}
+
+input UpdateSimpleTypeData {
+  primitiveType: PrimitiveType!
+  name: String!
+}
+
 input UpdateTypeInput {
   updateData: UpdateTypeData!
   typeId: String!
@@ -657,7 +667,10 @@ input UpdateTypeInput {
 
 input UpdateTypeData {
   name: String!
-  allowedValues: [UpdateEnumTypeValueData!]!
+}
+
+input DeleteTypeInput {
+  typeId: String!
 }
 
 input UpsertPropsInput {
@@ -674,6 +687,7 @@ input UpsertValueInput {
   booleanValue: BoleanValueInput
   arrayValue: ArrayValueInput
   interfaceValue: InterfaceValueInput
+  enumValueId: String
 }
 
 input StringValueInput {

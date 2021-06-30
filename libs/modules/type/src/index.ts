@@ -1,3 +1,4 @@
 export * from './fields'
 export * from './interfaceForm'
-export * from './interfaces'
+export * from './shared'
+export * from './types'

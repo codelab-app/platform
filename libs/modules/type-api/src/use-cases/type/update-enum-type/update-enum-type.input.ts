@@ -1,11 +1,16 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { UpdateEnumTypeValueData } from '../update-type'
+
+@InputType()
+export class UpdateEnumTypeValueData {
+  @Field(() => String, { nullable: true })
+  declare name: string | null
+
+  @Field()
+  declare value: string
+}
 
 @InputType()
 export class UpdateEnumTypeData {
-  @Field(() => [String])
-  declare values: Array<string>
-
   @Field(() => [UpdateEnumTypeValueData])
   declare allowedValues: Array<UpdateEnumTypeValueData>
 

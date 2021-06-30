@@ -1990,6 +1990,7 @@ union PropValue =
   | BooleanValue
   | ArrayValue
   | InterfaceValue
+  | EnumTypeValue
 
 input PropValueFilter {
   memberTypes: [PropValueType!]
@@ -1999,6 +2000,7 @@ input PropValueFilter {
   booleanValueFilter: BooleanValueFilter
   arrayValueFilter: ArrayValueFilter
   interfaceValueFilter: InterfaceValueFilter
+  enumTypeValueFilter: EnumTypeValueFilter
 }
 
 input PropValueRef {
@@ -2008,6 +2010,7 @@ input PropValueRef {
   booleanValueRef: BooleanValueRef
   arrayValueRef: ArrayValueRef
   interfaceValueRef: InterfaceValueRef
+  enumTypeValueRef: EnumTypeValueRef
 }
 
 enum PropValueType {
@@ -2017,6 +2020,7 @@ enum PropValueType {
   BooleanValue
   ArrayValue
   InterfaceValue
+  EnumTypeValue
 }
 
 type Query {

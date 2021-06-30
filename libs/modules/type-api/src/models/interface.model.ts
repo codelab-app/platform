@@ -53,6 +53,11 @@ export class FieldCollection {
       'Flattened array of all types that are used inside this interface',
   })
   declare types: Array<Type>
+
+  constructor(fields: Array<Field>, types: Array<Type>) {
+    this.fields = fields
+    this.types = types
+  }
 }
 
 export const fieldCollectionSchema: z.ZodSchema<FieldCollection> = z.lazy(() =>

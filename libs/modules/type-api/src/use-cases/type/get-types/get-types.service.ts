@@ -43,6 +43,8 @@ export class GetTypesService extends DgraphUseCase<GetTypesInput, Array<Type>> {
 
     if (request.byIds) {
       qb.withUidsFunc(request.byIds.typeIds)
+    } else {
+      qb.withTypeFunc('Type')
     }
 
     const query = qb.build()

@@ -1,5 +1,0 @@
-query GetInterfaces {
-  getInterfaces {
-    ...__InterfaceWithoutFields
-  }
-}

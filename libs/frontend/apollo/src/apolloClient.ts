@@ -51,6 +51,7 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
           'InterfaceValue',
           'IntValue',
           'StringValue',
+          'EnumTypeValue',
         ],
       },
     }),

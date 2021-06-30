@@ -1,0 +1,5 @@
+export * from './createType'
+export * from './deleteType'
+export * from './getTypes'
+export * from './interfaceProvider'
+export * from './updateType'

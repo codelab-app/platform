@@ -39,11 +39,8 @@ export const AppListSidebarNavigation = () => {
       >
         <Link href={PageType.Atom}>Atoms</Link>
       </Menu.Item>
-      <Menu.Item
-        key={PageType.Interface}
-        icon={<BlockOutlined title="Interfaces" />}
-      >
-        <Link href={PageType.Interface}>Interfaces</Link>
+      <Menu.Item key={PageType.Type} icon={<BlockOutlined title="Types" />}>
+        <Link href={PageType.Type}>Types</Link>
       </Menu.Item>
       {/* <Menu.Item
         key={PageType.AppList}

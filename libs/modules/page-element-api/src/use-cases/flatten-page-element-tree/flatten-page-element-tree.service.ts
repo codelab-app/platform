@@ -36,6 +36,9 @@ export class FlattenPageElementTreeService
     const descendants: Array<PageElement> = []
     const links: Array<PageElementLink> = []
     const visitedIds = new Set()
+    // Keep the atoms in a context, because if there are duplicate atoms anywhere in the tree
+    // dgraph will return only the ID of the atom after the first time
+    const atomContext = new Map<string, Atom | null | undefined>()
 
     const visit = async (parent: FlattenRequestItem) => {
       for (const child of parent['PageElement.children'] || []) {
@@ -50,7 +53,7 @@ export class FlattenPageElementTreeService
           childOrder = 0 // this shouldn't be happening, we always assign order, but just in case
         }
 
-        const atom = this.createAtomFromQueryResult(child)
+        const atom = this.createAtomFromQueryResult(child, atomContext)
         const props = await this.arrayPropMapper.map(child['PageElement.props'])
         const propAggregates = await this.arrayPropAggregateMapper.map(props)
 
@@ -72,19 +75,26 @@ export class FlattenPageElementTreeService
 
     await visit(root)
 
-    const rootAtom = this.createAtomFromQueryResult(root)
+    const rootAtom = this.createAtomFromQueryResult(root, atomContext)
 
     return { descendants, links, rootAtom }
   }
 
-  public createAtomFromQueryResult(item: FlattenRequestItem) {
+  public createAtomFromQueryResult(
+    item: FlattenRequestItem,
+    atomContext: Map<string, Atom | null | undefined>,
+  ) {
     const childAtom = item['PageElement.atom']
 
     if (!childAtom) {
       return null
     }
 
-    return new Atom({
+    if (atomContext.has(childAtom.uid)) {
+      return atomContext.get(childAtom.uid)
+    }
+
+    const atom = new Atom({
       id: childAtom['uid'],
       type: childAtom['Atom.type'] as any,
       label: childAtom['Atom.label'] as string,
@@ -94,5 +104,9 @@ export class FlattenPageElementTreeService
           : '',
       },
     })
+
+    atomContext.set(atom.id, atom)
+
+    return atom
   }
 }

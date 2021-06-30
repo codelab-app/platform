@@ -72,8 +72,13 @@ export class CytoscapeService {
               nodeType: NodeType.PageElement,
               name: pageElement.name,
               atom: pageElement.atom,
-              props: PropsJsonModelAdaptor.propsToModel(pageElement.props),
+              props: PropsJsonModelAdaptor.propsToModel(
+                pageElement.props,
+                true,
+              ),
             }
+
+            console.log(pageElement.props)
 
             return { data }
           }),

@@ -135,7 +135,7 @@ export class JsonModelUpsertValueAdaptor {
         }
       case 'EnumType':
         return {
-          stringValue: { value: jsonValue?.toString() || '' },
+          enumValueId: jsonValue.toString(),
         }
 
       case 'Interface': {

@@ -1,12 +1,17 @@
-import { FetchResult } from '@apollo/client'
-import { MutationUseCase } from '@codelab/backend'
+import {
+  ApolloClient,
+  FetchResult,
+  NormalizedCacheObject,
+} from '@apollo/client'
+import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
 import {
   UpdateTypeGql,
   UpdateTypeMutation,
   UpdateTypeMutationVariables,
 } from '@codelab/codegen/dgraph'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Type } from '../../../models'
+import { GetTypeService } from '../get-type'
 import { UpdateTypeInput } from './update-type.input'
 
 type GqlVariablesType = UpdateTypeMutationVariables
@@ -19,11 +24,21 @@ export class UpdateTypeService extends MutationUseCase<
   GqlOperationType,
   GqlVariablesType
 > {
+  constructor(
+    @Inject(ApolloClientTokens.ApolloClientProvider)
+    protected apolloClient: ApolloClient<NormalizedCacheObject>,
+    private getTypeService: GetTypeService,
+  ) {
+    super(apolloClient)
+  }
+
   protected getGql() {
     return UpdateTypeGql
   }
 
-  protected extractDataFromResult({ data }: FetchResult<GqlOperationType>) {
+  protected async extractDataFromResult({
+    data,
+  }: FetchResult<GqlOperationType>) {
     const dataArray = data?.updateType?.type
     const item = (dataArray || [])[0]
 
@@ -31,10 +46,15 @@ export class UpdateTypeService extends MutationUseCase<
       throw new Error('Error while updating type')
     }
 
-    return {
-      id: item.id,
-      name: item.name,
+    const result = await this.getTypeService.execute({
+      input: { typeId: item.id },
+    })
+
+    if (!result) {
+      throw new Error('Error while updating type')
     }
+
+    return result
   }
 
   protected mapVariables({
