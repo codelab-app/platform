@@ -8,6 +8,12 @@ export type DgraphDecorator =
   | DgraphMinMaxValidator
   | DgraphRequiredValidator
 
+export const allDgraphDecorators = [
+  DgraphArrayLengthValidator,
+  DgraphMinMaxValidator,
+  DgraphRequiredValidator,
+]
+
 export const dgraphDecoratorSchema = z.union([
   DgraphArrayLengthValidator.Schema,
   DgraphMinMaxValidator.Schema,

@@ -23,7 +23,7 @@ export const _AppProvider = ({
     if (appId) {
       load({ variables: { input: { appId } } })
     }
-  }, [appId])
+  }, [appId, load])
 
   if (!app) {
     return null

@@ -1,0 +1,5 @@
+mutation CreateField($input: CreateFieldInput!){
+    createField(input: $input){
+        ...__Field
+    }
+}

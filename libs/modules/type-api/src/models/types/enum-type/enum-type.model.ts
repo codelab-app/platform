@@ -1,20 +1,29 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
 import { z } from 'zod'
-import { EnumTypeValue, enumTypeValueSchema } from './enum-type-value.model'
+import { Type } from '../type.model'
+import { EnumTypeValue } from './enum-type-value.model'
 
 /**
  * Allows only a set of values
  */
-@ObjectType()
-export class EnumType {
-  @Field(() => ID)
+@ObjectType({
+  implements: () => [Type],
+})
+export class EnumType implements Type {
   declare id: string
+
+  declare name: string
 
   @Field(() => [EnumTypeValue])
   declare allowedValues: Array<EnumTypeValue>
-}
 
-export const enumTypeSchema: z.ZodSchema<EnumType> = z.object({
-  id: z.string(),
-  allowedValues: enumTypeValueSchema.array(),
-})
+  constructor(id: string, name: string, allowedValues: Array<EnumTypeValue>) {
+    this.id = id
+    this.name = name
+    this.allowedValues = allowedValues
+  }
+
+  static Schema: z.ZodSchema<EnumType> = Type.Schema.extend({
+    allowedValues: EnumTypeValue.Schema.array(),
+  })
+}

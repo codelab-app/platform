@@ -1,77 +1,66 @@
 # Dgraph DB schema
 
 type App {
-  id: ID!
-  ownerId: String! @search(by: [hash])
-  pages: [Page] @hasInverse(field: "app")
-  name: String!
+    id: ID!
+    ownerId: String! @search(by: [hash])
+    pages: [Page] @hasInverse(field: app)
+    name: String!
 }
 
 type Page {
-  id: ID!
-  name: String! @search(by: [term, fulltext])
-  app: App!
-  rootElement: PageElement!
+    id: ID!
+    name: String! @search(by: [term, fulltext])
+    app: App!
+    rootElement: PageElement!
 }
 
 #Note that this PageElement is not the same as the one served in Nest's API, because we transform it to avoid recursion
 type PageElement {
-  id: ID!
-  name: String! @search(by: [term, fulltext])
-  page: Page!
-  # Only the root page element won't have a parent
-  parent: PageElement
-  # A PageElement has 1 of 3 ways to be rendered:
-  #   1. Atom, with or without children, without component -> render container with children
-  #   2. Children, no atom, no component -> render children without container
-  #   3. Component, no children, no atom -> render the component itself in place of the element
-  # We can add component + children later
-  children: [PageElement] @hasInverse(field: "parent")
-  atom: Atom
-  component: Component
+    id: ID!
+    name: String! @search(by: [term, fulltext])
+    page: Page!
+    # Only the root page element won't have a parent
+    parent: PageElement
+    # A PageElement has 1 of 3 ways to be rendered:
+    #   1. Atom, with or without children, without component -> render container with children
+    #   2. Children, no atom, no component -> render children without container
+    #   3. Component, no children, no atom -> render the component itself in place of the element
+    # We can add component + children later
+    children: [PageElement] @hasInverse(field: parent)
+    atom: Atom
+    component: Component
+    props: [Prop!]! @hasInverse(field: pageElement)
 }
 
 type Library {
-  id: ID!
-  ownerId: String!
-  name: String!
-  atoms: [Atom] @hasInverse(field: "library")
-  components: [Component] @hasInverse(field: "library")
+    id: ID!
+    ownerId: String!
+    name: String!
+    atoms: [Atom] @hasInverse(field: "library")
+    components: [Component] @hasInverse(field: library)
 }
 
 type Component {
-  id: ID!
-  library: Library!
-  atom: Atom!
-  label: String!
-  children: [Component]
-  tags: [Tag]
+    id: ID!
+    library: Library!
+    atom: Atom!
+    label: String!
+    children: [Component]
+    tags: [Tag]
 }
 
 type Atom {
-  id: ID!
-  type: AtomType!
-  label: String!
-  library: Library
-  propTypes: Interface!
+    id: ID!
+    type: AtomType!
+    label: String!
+    library: Library
+    propTypes: Interface! @hasInverse(field: atom)
 }
 
 type Tag {
-  label: String!
+    label: String!
 }
 
-type Prop {
-  id: ID!
-  description: String
-  type: ValueType!
-  props: [Prop]
-}
-
-type ValueType {
-  id: ID!
-  label: String!
-  type: String!
-}
 
 #
 # Typing system:
@@ -83,47 +72,47 @@ enum PrimitiveType {
   Boolean
 }
 
-type SimpleType {
-  id: ID!
-  primitiveType: PrimitiveType!
+type SimpleType implements Type {
+    id: ID!
+    name: String!
+    primitiveType: PrimitiveType!
 }
 
-type ArrayType {
-  id: ID!
-  # that's the type of the array item, e.g. type: (SimpleType) String, would be string[]
-  type: Type!
+type ArrayType implements Type {
+    id: ID!
+    name: String!
+    # that's the type of the array item, e.g. type: (SimpleType) String, would be string[]
+    type: Type!
 }
 
 type EnumTypeValue {
+    id: ID!
+    name: String
+    value: String!
+}
+
+type EnumType implements Type {
+    id: ID!
+    name: String!
+    allowedValues: [EnumTypeValue!]!
+}
+
+type Interface implements Type {
   id: ID!
   name: String!
+  atom: Atom
+  fields: [Field] @hasInverse(field: interface)
 }
 
-type EnumType {
-  id: ID!
-  allowedValues: [EnumTypeValue!]!
+
+# This can be expanded to add UnionType and IntersectionType
+interface Type {
+    id: ID!
+    name: String!
 }
 
-enum Unit {
-  PX
-  PT
-  EM
-  REM
-  PERCENT
-  VW
-  VH
-  #... add all units here, this is just an example
-}
-
-type UnitType {
-  id: ID!
-  allowedUnits: [Unit!]!
-}
-
-# This is very expandable - want to add Colors? Just create a ColorType with red, green and blue fields
-# Want to handle different units, like px, pt, rem? Create an UnitType
-# We can add as many types as we need without breaking or even touching existing ones
-union Type = SimpleType | Interface | ArrayType | EnumType | UnitType
+# Creating an Union too, because that will make Dgraph generate some nice mutations, like addType
+union TypeUnion = Interface | EnumType | ArrayType | SimpleType
 
 type RequiredValidator {
   id: ID!
@@ -131,30 +120,68 @@ type RequiredValidator {
 }
 
 type MinMaxValidator {
-  id: ID!
-  min: Int
-  max: Int
+    id: ID!
+    min: Int
+    max: Int
 }
 
 type ArrayLengthValidator {
-  id: ID!
-  min: Int
-  max: Int
+    id: ID!
+    min: Int
+    max: Int
 }
 
 union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator #add more decorators here if we need to extend the functionality
 type Field {
-  id: ID!
-  type: Type!
-  key: String! @search(by: [hash, fulltext])
-  name: String!
-  description: String
-  decorators: [Decorator]
-  interface: Interface!
+    id: ID!
+    type: Type! # Having TypeUnion instead of Type here makes it easier to make inserts
+    key: String! @search(by: [hash, fulltext])
+    name: String!
+    description: String
+    decorators: [Decorator]
+    interface: Interface!
 }
 
-type Interface {
-  id: ID!
-  name: String!
-  fields: [Field] @hasInverse(field: "interface")
+
+#
+# Props
+#
+
+type StringValue {
+    id: ID!
+    stringValue: String!
+}
+
+type IntValue {
+    id: ID!
+    intValue: Int!
+}
+
+type FloatValue {
+    id: ID!
+    floatValue: Float!
+}
+
+type BooleanValue {
+    id: ID!
+    booleanValue: Boolean!
+}
+
+type ArrayValue {
+    id: ID!
+    values: [PropValue!]!
+}
+
+type InterfaceValue {
+    id: ID!
+    props: [Prop!]!
+}
+
+union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue | EnumTypeValue
+
+type Prop {
+    id: ID!
+    field: Field!
+    value: PropValue
+    pageElement: PageElement
 }

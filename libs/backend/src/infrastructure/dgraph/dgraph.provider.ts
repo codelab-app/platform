@@ -1,6 +1,6 @@
 import { Provider } from '@nestjs/common'
 import { ConfigType } from '@nestjs/config'
-import { DgraphClient, DgraphClientStub } from 'dgraph-js-http'
+import { DgraphClient, DgraphClientStub, Operation } from 'dgraph-js'
 import shell from 'shelljs'
 import { DgraphConfig } from './config/dgraph.config'
 import { DgraphTokens } from './config/dgraph.tokens'
@@ -38,7 +38,7 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
       throw new Error('Missing DgraphConfig')
     }
 
-    const clientStub = new DgraphClientStub(dgraphConfig?.endpoint)
+    const clientStub = new DgraphClientStub(dgraphConfig?.grpcEndpoint)
     const dgraphClient = new DgraphClient(clientStub)
 
     return {
@@ -50,10 +50,11 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
         }),
       //
       resetDb: async () => {
-        await dgraphClient.alter({
-          dropAll: true,
-          // schema: '{"drop_op": "DATA"}',
-        })
+        const op = new Operation()
+        // op.setDropOp(Operation.DropOp.DATA) <- deletes just the data
+        op.setDropOp(Operation.DropOp.ALL) // <- deletes schema and data
+
+        await dgraphClient.alter(op)
 
         return updateSchema({
           endpoint: dgraphConfig?.endpoint,

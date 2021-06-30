@@ -1,3 +1,4 @@
+import { DeleteResponse } from '@codelab/backend'
 import { GqlAuthGuard } from '@codelab/modules/auth-api'
 import { GetInterfaceService, Interface } from '@codelab/modules/type-api'
 import { Injectable, UseGuards } from '@nestjs/common'
@@ -15,6 +16,8 @@ import {
   CreateAtomService,
   DeleteAtomInput,
   DeleteAtomService,
+  GetAtomByInput,
+  GetAtomByService,
   GetAtomService,
   GetAtomsService,
   UpdateAtomInput,
@@ -28,6 +31,7 @@ export class AtomResolver {
   constructor(
     private createService: CreateAtomService,
     private getAtomService: GetAtomService,
+    private getAtomByService: GetAtomByService,
     private getAtomsService: GetAtomsService,
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
@@ -40,7 +44,7 @@ export class AtomResolver {
     return this.createService.execute(input)
   }
 
-  @Mutation(() => Atom)
+  @Mutation(() => DeleteResponse)
   @UseGuards(GqlAuthGuard)
   deleteAtom(@Args('input') input: DeleteAtomInput) {
     return this.deleteAtomService.execute(input)
@@ -56,6 +60,12 @@ export class AtomResolver {
   @UseGuards(GqlAuthGuard)
   getAtom(@Args('input') input: GetAtomInput) {
     return this.getAtomService.execute(input)
+  }
+
+  @Query(() => Atom, { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  getAtomBy(@Args('input') input: GetAtomByInput) {
+    return this.getAtomByService.execute(input)
   }
 
   @Mutation(() => Atom)

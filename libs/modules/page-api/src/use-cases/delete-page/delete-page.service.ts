@@ -3,15 +3,20 @@ import {
   FetchResult,
   NormalizedCacheObject,
 } from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
+import {
+  ApolloClientTokens,
+  DeleteResponse,
+  MutationUseCase,
+} from '@codelab/backend'
 import {
   DeletePageGql,
   DeletePageMutation,
   DeletePageMutationVariables,
 } from '@codelab/codegen/dgraph'
+import { GetPropsService } from '@codelab/modules/prop-api'
 import { Inject, Injectable } from '@nestjs/common'
 import { PageGuardService } from '../../auth'
-import { Page, pageSchema } from '../../page.model'
+import { GetPageRootService } from '../get-page-root'
 import { DeletePageRequest } from './delete-page.request'
 
 type GqlVariablesType = DeletePageMutationVariables
@@ -20,13 +25,15 @@ type GqlOperationType = DeletePageMutation
 @Injectable()
 export class DeletePageService extends MutationUseCase<
   DeletePageRequest,
-  Partial<Page>,
+  DeleteResponse,
   GqlOperationType,
   GqlVariablesType
 > {
   constructor(
     @Inject(ApolloClientTokens.ApolloClientProvider)
     protected apolloClient: ApolloClient<NormalizedCacheObject>,
+    private getPageRootService: GetPageRootService,
+    private getPropsService: GetPropsService,
     private pageGuardService: PageGuardService,
   ) {
     super(apolloClient)
@@ -37,19 +44,39 @@ export class DeletePageService extends MutationUseCase<
   }
 
   protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    return pageSchema
-      .array()
-      .nonempty()
-      .parse(result?.data?.deletePage?.page)[0]
+    return {
+      affected: result?.data?.deletePage?.numUids || 0,
+    }
   }
 
-  protected mapVariables(request: DeletePageRequest): GqlVariablesType {
-    const { pageId } = request.input
+  protected async mapVariables({
+    input: { pageId },
+    currentUser,
+  }: DeletePageRequest): Promise<GqlVariablesType> {
+    // We need to delete related page elements and props too,
+    // otherwise they will become inaccessible garbage
+
+    const pageRoot = await this.getPageRootService.execute({
+      input: { pageId },
+      currentUser,
+    })
+
+    if (!pageRoot) {
+      throw new Error('Page not found')
+    }
+
+    const pageElementIds = pageRoot.descendants.map((d) => d.id)
+
+    const props = await this.getPropsService.execute({
+      byPageElement: { pageElementIds },
+    })
+
+    const propIds = props.map((p) => p.id)
 
     return {
-      filter: {
-        id: [pageId],
-      },
+      filter: { id: [pageId] },
+      pageElementFilter: { id: pageElementIds },
+      propsFilter: { id: propIds },
     }
   }
 

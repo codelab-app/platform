@@ -11,7 +11,7 @@ generates:
     plugins:
       - schema-ast
 
-  libs/dgraph/src/graphql-client-dgraph.generated.ts:
+  libs/codegen/dgraph/src/graphql-client-dgraph.generated.ts:
     # preset: import-types
     # presetConfig:
     #   typesPath: types.ts
@@ -43,7 +43,7 @@ generates:
         Int64: number
         _Any: any
 
-  libs/graphql/src/graphql-client-api.generated.ts:
+  libs/codegen/graphql/src/graphql-client-api.generated.ts:
     schema:
       - ${CODELAB_API_ENDPOINT}/graphql:
     documents:

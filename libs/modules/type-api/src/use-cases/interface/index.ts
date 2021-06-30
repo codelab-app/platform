@@ -1,6 +1,5 @@
 export * from './create-interface'
-export * from './delete-interface'
 export * from './get-interface'
+export * from './get-interface-with-atom'
 export * from './get-interfaces'
-export * from './get-recursive-interface'
 export * from './update-interface'

@@ -1,8 +1,19 @@
 import { DeleteResponse } from '@codelab/backend'
 import { JwtPayload } from '@codelab/backend/adapters'
 import { CurrentUser, GqlAuthGuard } from '@codelab/modules/auth-api'
+import {
+  GetPropAggregatesService,
+  PropAggregate,
+} from '@codelab/modules/prop-api'
 import { Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 import { PageElement, PageElementRoot } from './models'
 import {
   CreatePageElementInput,
@@ -29,6 +40,7 @@ export class PageElementResolver {
     private deletePageElementService: DeletePageElementService,
     private updatePageElementService: UpdatePageElementService,
     private movePageElementService: MovePageElementService,
+    private getPropAggregatesService: GetPropAggregatesService,
   ) {}
 
   @Mutation(() => PageElement)
@@ -89,5 +101,12 @@ export class PageElementResolver {
     @CurrentUser() currentUser: JwtPayload,
   ) {
     return this.deletePageElementService.execute({ input, currentUser })
+  }
+
+  @ResolveField('props', () => [PropAggregate])
+  resolveProps(@Parent() pageElement: PageElement) {
+    return this.getPropAggregatesService.execute({
+      byPageElement: { pageElementIds: [pageElement.id] },
+    })
   }
 }

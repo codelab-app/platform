@@ -14,6 +14,12 @@ export class ArrayLengthValidator {
 
   @Field(() => Int, { nullable: true })
   declare maxLength?: number | null
+
+  constructor(id: string, minLength: number | null, maxLength: number | null) {
+    this.id = id
+    this.minLength = minLength
+    this.maxLength = maxLength
+  }
 }
 
 export const arrayLengthValidatorSchema: z.ZodSchema<ArrayLengthValidator> =

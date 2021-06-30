@@ -1,6 +1,6 @@
 import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Txn } from 'dgraph-js'
 import { GetLastOrderChildInput } from './get-last-order-child.input'
 import { GetLastOrderChildResponse } from './get-last-order-child.response'
 
@@ -36,7 +36,7 @@ export class GetLastOrderChildService extends DgraphUseCase<
     `
 
     const result = await txn.query(query)
-    const queryData = (result.data as any).query
+    const queryData = (result.getJson() as any).query
 
     if (queryData && queryData[0]) {
       const children = queryData[0]['PageElement.children']

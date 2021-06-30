@@ -1,7 +1,12 @@
 import { DgraphFilter } from './dgraph-filter'
 
+// This can also be used when building upsert blocks
 export class UidFilter extends DgraphFilter {
-  private _uid?: string
+  private readonly _uid?: string
+
+  public get uid() {
+    return this._uid
+  }
 
   constructor(uid: string) {
     super()

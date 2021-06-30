@@ -1,7 +1,8 @@
 import { BaseDgraphFields, DeepPartial, IDgraphMapper } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
-import { ArrayType, arrayTypeSchema } from './array-type.model'
+import { baseDgraphTypeSchema, DgraphTypeFields } from '../dgraph-type.model'
+import { ArrayType } from './array-type.model'
 import {
   ArrayTypeDgraphFields,
   DgraphArrayType,
@@ -11,11 +12,11 @@ import {
 export class ArrayTypeMapper
   implements IDgraphMapper<DgraphArrayType, ArrayType>
 {
-  static InputSchema = z.intersection(
-    DgraphArrayType.Schema.pick({ [BaseDgraphFields.uid]: true }),
-    z.object({
+  static InputSchema = z.lazy(() =>
+    baseDgraphTypeSchema('ArrayType').extend({
       [ArrayTypeDgraphFields.Type]: z.object({
         [BaseDgraphFields.uid]: z.string(),
+        [DgraphTypeFields.name]: z.string(),
       }),
     }),
   )
@@ -24,12 +25,12 @@ export class ArrayTypeMapper
     // We don't need all the DgraphArrayType properties, so no need to use DgraphArrayType.Schema
     // just map the properties we need in the input schema, so we don't have to query the whole DgraphArrayType every time
     const dgraphArrayType = ArrayTypeMapper.InputSchema.parse(input)
-    const arrayType = new ArrayType()
+    const id = dgraphArrayType[BaseDgraphFields.uid]
+    const typeId = dgraphArrayType[ArrayTypeDgraphFields.Type].uid
+    const name = dgraphArrayType[DgraphTypeFields.name]
+    const arrayType = new ArrayType(id, name, typeId)
 
-    arrayType.id = dgraphArrayType[BaseDgraphFields.uid]
-    arrayType.typeId = dgraphArrayType[ArrayTypeDgraphFields.Type].uid
-
-    arrayTypeSchema.parse(arrayType)
+    ArrayType.Schema.parse(arrayType)
 
     return arrayType
   }

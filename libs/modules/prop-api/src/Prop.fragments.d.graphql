@@ -1,0 +1,71 @@
+fragment DgraphProp on Prop {
+    id
+    field {
+        ...Dgraph__Field
+    }
+    value {
+        ...DgraphPropValue
+    }
+}
+
+fragment DgraphPropValue on PropValue {
+    __typename
+    ... on ArrayValue {  ...DgraphArrayValue }
+    ... on BooleanValue { ...DgraphBooleanValue }
+    ... on FloatValue { ...DgraphFloatValue }
+    ... on InterfaceValue { ...DgraphInterfaceValue }
+    ... on IntValue { ...DgraphIntValue }
+    ... on StringValue { ...DgraphStringValue }
+    ... on EnumTypeValue { ...DgrapEnumTypeValue }
+}
+
+fragment DgraphStringValue on StringValue {
+    id
+    stringValue
+}
+
+
+fragment DgraphEnumTypeValue on StringValue {
+    id
+    stringValue
+}
+
+
+fragment DgraphIntValue on IntValue {
+    id
+    intValue
+}
+
+fragment DgraphFloatValue on FloatValue {
+    id
+    floatValue
+}
+
+fragment DgraphArrayInnerValue on PropValue {
+    __typename
+    ... on ArrayValue { id }
+    ... on BooleanValue { ...DgraphBooleanValue }
+    ... on FloatValue { ...DgraphFloatValue  }
+    ... on InterfaceValue { id  }
+    ... on IntValue { ...DgraphIntValue  }
+    ... on StringValue { ...DgraphStringValue }
+}
+
+fragment DgraphArrayValue on ArrayValue {
+    id
+    values {
+        ...DgraphArrayInnerValue
+    }
+}
+
+fragment DgraphBooleanValue on BooleanValue {
+    id
+    booleanValue
+}
+
+fragment DgraphInterfaceValue on InterfaceValue {
+    id
+    props {
+        id
+    }
+}

@@ -34,7 +34,7 @@ const codegen = () => {
 const updateSchema = () => {
   if (
     shell.exec(
-      `ts-node libs/tools/scripts/src/dgraph/generateSchema.ts --port=${argv.port}`,
+      `ts-node -P libs/tools/scripts/tsconfig.lib.json  libs/tools/scripts/src/dgraph/generateSchema.ts --port=${argv.port}`,
     ).code !== 0
   ) {
     shell.echo('Failed to generate Dgraph schema')
@@ -43,7 +43,7 @@ const updateSchema = () => {
 
   if (
     shell.exec(
-      `ts-node libs/tools/scripts/src/dgraph/updateSchema.ts --port=${argv.port}`,
+      `ts-node -P libs/tools/scripts/tsconfig.lib.json  libs/tools/scripts/src/dgraph/updateSchema.ts --port=${argv.port}`,
     ).code !== 0
   ) {
     shell.echo('Failed to update Dgraph schema')

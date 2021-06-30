@@ -9,36 +9,41 @@ import {
   EnumTypeValueMapper,
   FieldMapper,
   InterfaceMapper,
-  InterfaceTypeMapper,
   MinMaxValidatorMapper,
   RequiredValidatorMapper,
   SimpleTypeMapper,
   TypeMapper,
-  UnitTypeMapper,
 } from './models'
 import { TypeResolver } from './type.resolver'
 import {
   CreateFieldService,
   CreateInterfaceService,
-  DeleteInterfaceService,
+  CreateTypeService,
+  CreateTypeValidator,
+  DeleteFieldService,
+  DeleteTypeService,
   FieldMutationValidator,
+  GetDgraphFieldService,
+  GetDgraphTypeService,
   GetFieldService,
   GetInterfaceService,
   GetInterfacesService,
-  GetRecursiveInterfaceService,
+  GetInterfaceWithAtomService,
   GetTypeService,
+  GetTypesService,
+  UpdateEnumTypeService,
   UpdateFieldService,
   UpdateInterfaceService,
+  UpdateSimpleTypeService,
+  UpdateTypeService,
 } from './use-cases'
-import { DeleteFieldService } from './use-cases/field/delete-field'
+import { GetFieldsByTypeService } from './use-cases/type/get-fields-by-type'
 
 const mappers = [
   InterfaceMapper,
   FieldMapper,
   TypeMapper,
-  UnitTypeMapper,
   SimpleTypeMapper,
-  InterfaceTypeMapper,
   EnumTypeMapper,
   EnumTypeValueMapper,
   ArrayTypeMapper,
@@ -50,18 +55,34 @@ const mappers = [
 
 const services = [
   ...mappers,
+  //
+  // Interfaces
   CreateInterfaceService,
-  GetInterfacesService,
-  GetRecursiveInterfaceService,
   GetInterfaceService,
+  GetInterfaceWithAtomService,
+  GetInterfacesService,
+  GetDgraphTypeService,
   UpdateInterfaceService,
-  DeleteInterfaceService,
+  //
+  // Fields
   CreateFieldService,
+  DeleteFieldService,
   GetFieldService,
+  GetDgraphFieldService,
   UpdateFieldService,
   FieldMutationValidator,
+  //
+  // Types
+  CreateTypeService,
+  DeleteTypeService,
+  GetDgraphTypeService,
   GetTypeService,
-  DeleteFieldService,
+  GetTypesService,
+  UpdateEnumTypeService,
+  UpdateTypeService,
+  UpdateSimpleTypeService,
+  CreateTypeValidator,
+  GetFieldsByTypeService,
 ]
 
 @Module({

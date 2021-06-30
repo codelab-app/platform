@@ -1,4 +1,5 @@
 import { Atom, atomSchema } from '@codelab/modules/atom-api'
+import { PropAggregate } from '@codelab/modules/prop-api'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { z } from 'zod'
 
@@ -27,10 +28,15 @@ export class PageElement {
   // @Field(() => Component) //need to add this when component-api is done
   // declare  component: Component
 
-  constructor({ id, name, atom }: PageElement) {
+  @Field(() => [PropAggregate])
+  // Optional, because the fields resolver can get it
+  declare props?: Array<PropAggregate>
+
+  constructor({ id, name, atom, props }: PageElement) {
     this.id = id
     this.name = name
     this.atom = atom
+    this.props = props
   }
 }
 
@@ -38,4 +44,5 @@ export const pageElementSchema = z.object({
   id: z.string(),
   name: z.string(),
   atom: atomSchema.optional().nullable(),
+  props: PropAggregate.Schema.array().optional(),
 })

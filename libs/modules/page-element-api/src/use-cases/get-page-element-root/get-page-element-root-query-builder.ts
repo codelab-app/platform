@@ -1,10 +1,5 @@
-import {
-  baseFieldsZodShape,
-  DgraphQueryBuilder,
-  DgraphQueryField,
-} from '@codelab/backend'
-import { DgraphInterface } from '@codelab/modules/type-api'
-import { z } from 'zod'
+import { DgraphQueryBuilder, DgraphQueryField } from '@codelab/backend'
+import { GetPropsQueryBuilder } from '@codelab/modules/prop-api'
 import { FlattenRequestItem } from '../flatten-page-element-tree'
 
 export type GetPageElementQueryType = FlattenRequestItem
@@ -12,43 +7,22 @@ export type GetPageElementQueryType = FlattenRequestItem
 export class GetPageElementRootQueryBuilder extends DgraphQueryBuilder {
   constructor() {
     super()
+
+    const getPropsQueryBuilder = new GetPropsQueryBuilder()
+
     this.withRecurse()
       .withQueryName('query')
-      .withBaseFields()
+      .withFields(...getPropsQueryBuilder.fields)
       .withFields(
         new DgraphQueryField().withName('PageElement.name'),
         new DgraphQueryField().withName('PageElement.atom'),
+        new DgraphQueryField().withName('PageElement.props'),
         new DgraphQueryField().withName('Atom.label'),
         new DgraphQueryField().withName('Atom.type'),
-        new DgraphQueryField().withName('Atom.propTypes').withBaseInnerFields(),
+        new DgraphQueryField().withName('Atom.propTypes'),
         new DgraphQueryField()
-          .withName(' PageElement.children')
+          .withName('PageElement.children')
           .withFacet('order'),
       )
-  }
-
-  public getZodSchema() {
-    const root: z.ZodSchema<GetPageElementQueryType> = z.lazy(() =>
-      z.object({
-        uid: z.string(),
-        'dgraph.type': z.array(z.string()),
-        'PageElement.name': z.string().optional(),
-        'PageElement.atom': root.optional(),
-        'PageElement.children': z.array(root).optional(),
-        'PageElement.children|order': z
-          .number()
-          .or(z.record(z.number()))
-          .optional(), // in recursive reverse edges, this will be object
-        'Atom.label': z.string().optional(),
-        'Atom.type': z.string().optional(),
-        'Atom.propTypes': z.object({
-          ...baseFieldsZodShape(DgraphInterface.Metadata.modelName),
-        }),
-      }),
-    )
-
-    return z.object({
-      query: z.array(root),
-    })
   }
 }

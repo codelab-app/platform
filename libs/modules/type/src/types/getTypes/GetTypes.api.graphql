@@ -1,0 +1,6 @@
+query GetTypes {
+  getTypes {
+    __typename
+    ...__Type
+  }
+}

@@ -47,8 +47,10 @@ export class CreateAtomService extends MutationUseCase<
         // flatten down the interface, we can just pass empty arrays as fields and types,
         // because we just created the array, and we're sure there are no fields and types
         ...atom.propTypes,
-        fields: [],
-        types: [],
+        fieldCollection: {
+          fields: [],
+          types: [],
+        },
       },
     })
   }

@@ -1,4 +1,4 @@
-import { z, ZodArray, ZodString } from 'zod'
+import { z, ZodArray, ZodLiteral, ZodString } from 'zod'
 import { ZodStringDef, ZodType } from 'zod/lib/types'
 import { BaseDgraphFields, baseFieldEnums } from './base-dgraph-fields'
 import { DgraphQueryBuilder } from './dgraph-query-builder'
@@ -19,34 +19,39 @@ export abstract class DgraphModel<TDType extends string = string> {
 }
 
 export class DgraphModelMetadata<TDType extends string> {
-  private readonly _queryFields: Array<DgraphQueryField>
-
   constructor(
     public readonly modelName: TDType,
     public readonly fieldsEnum: Record<string, string>,
-  ) {
-    this._queryFields = DgraphQueryBuilder.fieldsFromEnum(fieldsEnum)
-  }
+  ) {}
 
   /**
    * Returns the fields in a format for dql
    * @param withBaseFields weather to include uid and dgraph.type
    */
   queryFields(withBaseFields = false): Array<DgraphQueryField> {
-    return withBaseFields
-      ? baseFieldEnums.concat(this._queryFields)
-      : this._queryFields
+    // Create the fields dynamically, because otherwise all queries can modify the base model fields
+    const fields = DgraphQueryBuilder.fieldsFromEnum(this.fieldsEnum)
+
+    return withBaseFields ? baseFieldEnums.concat(fields) : fields
+  }
+
+  /** Creates a new Metadata instance with the modelName of the other and the combined fields of this and the other */
+  extend<TOtherType extends string>(other: DgraphModelMetadata<TOtherType>) {
+    return new DgraphModelMetadata(other.modelName, {
+      ...this.fieldsEnum,
+      ...other.fieldsEnum,
+    })
   }
 }
 
-//That's a small, but ugly type, which however allows us to type dgraph.type with a concrete string, instead of just 'string'
+// That's a small, but ugly type, which however allows us to type dgraph.type with a concrete string, instead of just 'string'
 type DgraphArrayType<T> = T extends string
   ? ZodType<Array<T>, ZodStringDef>
   : ZodArray<ZodString>
 
 /** A zod shape for matching uid and dgraph.type. Pass in a dgraphType, to validate if the dgraph.type matches it */
 export const baseFieldsZodShape = <TType extends string>(
-  dgraphType: TType | RegExp | undefined,
+  dgraphType: TType | undefined,
 ): {
   [BaseDgraphFields.uid]: ZodString
   [BaseDgraphFields.DgraphType]: DgraphArrayType<TType>
@@ -54,7 +59,22 @@ export const baseFieldsZodShape = <TType extends string>(
   return {
     [BaseDgraphFields.uid]: z.string(),
     [BaseDgraphFields.DgraphType]: dgraphType
-      ? z.array(z.string().regex(new RegExp(dgraphType)))
+      ? (z
+          .string()
+          .array()
+          .nonempty()
+          .refine((arg) => {
+            return !!arg.find((t) => t === dgraphType)
+          }) as any as ZodLiteral<TType>)
       : (z.array(z.string()) as any),
   }
+}
+
+export const instanceOfDgraphModel = (
+  object: DgraphModel,
+  modelName: string,
+) => {
+  return (object[BaseDgraphFields.DgraphType] as Array<string>).find(
+    (t: string) => t === modelName,
+  )
 }

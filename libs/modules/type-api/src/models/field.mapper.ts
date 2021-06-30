@@ -8,16 +8,22 @@ import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
 import { DecoratorMapper } from './decorators'
 import { DgraphField, FieldDgraphFields } from './dgraph-field.model'
+import { dgraphFieldSchema } from './dgraph-field-schema'
 import { Field, fieldSchema } from './field.model'
 
 @Injectable()
 export class FieldMapper implements IDgraphMapper<DgraphField, Field> {
+  // We don't need the whole type and interface object, just their ids
   static inputSchema = z.intersection(
-    DgraphField.Schema.omit({
+    dgraphFieldSchema.schema.omit({
       [FieldDgraphFields.Type]: true,
+      [FieldDgraphFields.Interface]: true,
     }),
     z.object({
       [FieldDgraphFields.Type]: z.object({
+        [BaseDgraphFields.uid]: z.string(),
+      }),
+      [FieldDgraphFields.Interface]: z.object({
         [BaseDgraphFields.uid]: z.string(),
       }),
     }),
@@ -37,6 +43,9 @@ export class FieldMapper implements IDgraphMapper<DgraphField, Field> {
     field.decorators = await new DgraphArrayMapper(this.decoratorMapper).map(
       dgraphField[FieldDgraphFields.Decorators],
     )
+    field.interface = {
+      id: dgraphField[FieldDgraphFields.Interface][BaseDgraphFields.uid],
+    }
 
     fieldSchema.parse(field)
 

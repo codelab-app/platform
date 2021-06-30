@@ -11,8 +11,8 @@ import {
 } from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import { Field } from '../../../models'
-import { FieldMutationValidator } from '../create-field'
-import { TypeRefMapper } from '../create-field/type-ref.mapper'
+import { CreateTypeService } from '../../type'
+import { FieldMutationValidator, TypeRef } from '../create-field'
 import { GetFieldService } from '../get-field'
 import { UpdateFieldRequest } from './update-field.request'
 
@@ -31,6 +31,7 @@ export class UpdateFieldService extends MutationUseCase<
     protected apolloClient: ApolloClient<NormalizedCacheObject>,
     private getFieldService: GetFieldService,
     private fieldValidationService: FieldMutationValidator,
+    private createTypeService: CreateTypeService,
   ) {
     super(apolloClient)
   }
@@ -49,14 +50,13 @@ export class UpdateFieldService extends MutationUseCase<
     }) as Promise<Field>
   }
 
-  protected mapVariables({
+  protected async mapVariables({
     input: {
       fieldId,
       updateData: { interfaceId, name, description, type, key },
     },
-  }: UpdateFieldRequest): GqlVariablesType {
-    const typeRefMapper = new TypeRefMapper()
-    const typeRef = typeRefMapper.map(type)
+  }: UpdateFieldRequest): Promise<GqlVariablesType> {
+    const typeId = await this.getTypeId(type)
 
     return {
       input: {
@@ -67,11 +67,27 @@ export class UpdateFieldService extends MutationUseCase<
           interface: { id: interfaceId },
           name,
           description,
-          type: typeRef,
+          type: { id: typeId },
           key,
         },
       },
     }
+  }
+
+  private async getTypeId(type: TypeRef) {
+    let typeId = type.existingTypeId
+
+    // Check if we specify an existing type, if not - create a new one and get its ID
+    if (!typeId) {
+      if (!type.newType) {
+        throw new Error('Either newType or existingTypeId must be provided')
+      }
+
+      const createdType = await this.createTypeService.execute(type.newType)
+      typeId = createdType.id
+    }
+
+    return typeId
   }
 
   protected async validate({

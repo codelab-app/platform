@@ -1,5 +1,0 @@
-mutation TestDeleteInterface($input: DeleteInterfaceInput!) {
-  deleteInterface(input: $input) {
-    affected
-  }
-}

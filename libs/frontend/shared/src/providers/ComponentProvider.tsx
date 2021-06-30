@@ -33,7 +33,7 @@ const _ComponentProvider = ({
         },
       })
     }
-  }, [componentId])
+  }, [componentId, load])
 
   if (!component) {
     return null

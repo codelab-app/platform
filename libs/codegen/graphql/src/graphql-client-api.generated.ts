@@ -30,9 +30,19 @@ export type ArrayLengthValidator = {
   maxLength?: Maybe<Scalars['Int']>
 }
 
-export type ArrayType = {
+export type ArrayType = Type & {
   id: Scalars['ID']
+  name: Scalars['String']
   typeId: Scalars['String']
+}
+
+export type ArrayValue = {
+  id: Scalars['ID']
+  values: Array<PropValue>
+}
+
+export type ArrayValueInput = {
+  values: Array<UpsertValueInput>
 }
 
 export type Atom = {
@@ -40,6 +50,10 @@ export type Atom = {
   type: AtomType
   label: Scalars['String']
   propTypes: Interface
+}
+
+export type AtomByPageElementFilter = {
+  pageElementId: Scalars['String']
 }
 
 export enum AtomType {
@@ -148,12 +162,21 @@ export enum AtomType {
   HtmlText = 'HtmlText',
 }
 
+export type BoleanValueInput = {
+  value: Scalars['Boolean']
+}
+
+export type BooleanValue = {
+  id: Scalars['ID']
+  booleanValue: Scalars['Boolean']
+}
+
 export type CreateAppInput = {
   name: Scalars['String']
 }
 
 export type CreateArrayTypeInput = {
-  type: CreateTypeInput
+  itemTypeId: Scalars['String']
 }
 
 export type CreateAtomInput = {
@@ -162,7 +185,12 @@ export type CreateAtomInput = {
 }
 
 export type CreateEnumTypeInput = {
-  allowedValues: Array<Scalars['String']>
+  allowedValues: Array<CreateEnumTypeValueInput>
+}
+
+export type CreateEnumTypeValueInput = {
+  name?: Maybe<Scalars['String']>
+  value: Scalars['String']
 }
 
 export type CreateFieldInput = {
@@ -170,15 +198,11 @@ export type CreateFieldInput = {
   name: Scalars['String']
   description?: Maybe<Scalars['String']>
   interfaceId: Scalars['String']
-  type: CreateTypeInput
+  type: TypeRef
 }
 
 export type CreateInterfaceInput = {
   name: Scalars['String']
-}
-
-export type CreateInterfaceTypeInput = {
-  interfaceId: Scalars['String']
 }
 
 export type CreatePageElementInput = {
@@ -200,16 +224,11 @@ export type CreateSimpleTypeInput = {
 
 /** Provide one of the properties */
 export type CreateTypeInput = {
+  name: Scalars['String']
   simpleType?: Maybe<CreateSimpleTypeInput>
-  interfaceType?: Maybe<CreateInterfaceTypeInput>
   arrayType?: Maybe<CreateArrayTypeInput>
   enumType?: Maybe<CreateEnumTypeInput>
-  unitType?: Maybe<CreateUnitTypeInput>
-}
-
-export type CreateUnitTypeInput = {
-  /** Pass null to allow all */
-  allowedUnits?: Maybe<Array<Unit>>
+  interfaceType?: Maybe<Scalars['Boolean']>
 }
 
 export type Decorator =
@@ -229,10 +248,6 @@ export type DeleteFieldInput = {
   fieldId: Scalars['String']
 }
 
-export type DeleteInterfaceInput = {
-  interfaceId: Scalars['String']
-}
-
 export type DeletePageElementInput = {
   pageElementId: Scalars['String']
 }
@@ -245,18 +260,24 @@ export type DeleteResponse = {
   affected: Scalars['Int']
 }
 
+export type DeleteTypeInput = {
+  typeId: Scalars['String']
+}
+
 export type DeleteUserInput = {
   userId: Scalars['String']
 }
 
-export type EnumType = {
+export type EnumType = Type & {
   id: Scalars['ID']
+  name: Scalars['String']
   allowedValues: Array<EnumTypeValue>
 }
 
 export type EnumTypeValue = {
   id: Scalars['ID']
-  name: Scalars['String']
+  name?: Maybe<Scalars['String']>
+  value: Scalars['String']
 }
 
 export type Field = {
@@ -266,6 +287,7 @@ export type Field = {
   description?: Maybe<Scalars['String']>
   typeId: Scalars['String']
   decorators: Array<Decorator>
+  interface: Interface
 }
 
 export type FieldByIdFilter = {
@@ -283,8 +305,21 @@ export type FieldCollection = {
   types: Array<Type>
 }
 
+export type FloatValue = {
+  id: Scalars['ID']
+  floatValue: Scalars['Float']
+}
+
+export type FloatValueInput = {
+  value: Scalars['Float']
+}
+
 export type GetAppInput = {
   appId: Scalars['String']
+}
+
+export type GetAtomByInput = {
+  byPageElement?: Maybe<AtomByPageElementFilter>
 }
 
 export type GetAtomInput = {
@@ -316,8 +351,18 @@ export type GetPagesInput = {
   appId: Scalars['String']
 }
 
+export type GetPropsInput = {
+  byPageElement?: Maybe<PropsByPageElementFilter>
+  byIds?: Maybe<PropsByIdsFilter>
+  byInterfaceValue?: Maybe<PropsByInterfaceValueId>
+}
+
 export type GetTypeInput = {
   typeId: Scalars['String']
+}
+
+export type GetTypesInput = {
+  byIds?: Maybe<TypesByIdsFilter>
 }
 
 export type GetUsersInput = {
@@ -327,14 +372,28 @@ export type GetUsersInput = {
   sort: Scalars['String']
 }
 
-export type Interface = {
+export type IntValue = {
+  id: Scalars['ID']
+  intValue: Scalars['Int']
+}
+
+export type IntValueInput = {
+  value: Scalars['Int']
+}
+
+export type Interface = Type & {
   id: Scalars['ID']
   name: Scalars['String']
   fieldCollection: FieldCollection
 }
 
-export type InterfaceType = {
-  interfaceId: Scalars['String']
+export type InterfaceValue = {
+  id: Scalars['ID']
+  props: Array<Prop>
+}
+
+export type InterfaceValueInput = {
+  props: Array<UpsertPropsInput>
 }
 
 export type MinMaxValidator = {
@@ -360,7 +419,7 @@ export type Mutation = {
   updateUser: User
   deleteUser: Scalars['Boolean']
   createPage: Page
-  deletePage: Page
+  deletePage: DeleteResponse
   updatePage: Page
   createPageElement: PageElement
   updatePageElement: PageElement
@@ -368,14 +427,20 @@ export type Mutation = {
   /** Deletes a page element and all the descending page elements */
   deletePageElement: DeleteResponse
   createAtom: Atom
-  deleteAtom: Atom
+  deleteAtom: DeleteResponse
   updateAtom: Atom
   createInterface: Interface
   updateInterface: Interface
-  deleteInterface: DeleteResponse
   createField: Field
   updateField: Field
   deleteField: DeleteResponse
+  createType: Type
+  updateEnumType: EnumType
+  updateSimpleType: SimpleType
+  updateType: Type
+  deleteType: DeleteResponse
+  upsertProp: UpsertPropsResponse
+  deleteProp: DeleteResponse
 }
 
 export type MutationCreateAppArgs = {
@@ -446,10 +511,6 @@ export type MutationUpdateInterfaceArgs = {
   input: UpdateInterfaceInput
 }
 
-export type MutationDeleteInterfaceArgs = {
-  input: DeleteInterfaceInput
-}
-
 export type MutationCreateFieldArgs = {
   input: CreateFieldInput
 }
@@ -460,6 +521,30 @@ export type MutationUpdateFieldArgs = {
 
 export type MutationDeleteFieldArgs = {
   input: DeleteFieldInput
+}
+
+export type MutationCreateTypeArgs = {
+  input: CreateTypeInput
+}
+
+export type MutationUpdateEnumTypeArgs = {
+  input: UpdateEnumTypeInput
+}
+
+export type MutationUpdateSimpleTypeArgs = {
+  input: UpdateSimpleTypeInput
+}
+
+export type MutationUpdateTypeArgs = {
+  input: UpdateTypeInput
+}
+
+export type MutationDeleteTypeArgs = {
+  input: DeleteTypeInput
+}
+
+export type MutationUpsertPropArgs = {
+  input: Array<UpsertPropsInput>
 }
 
 export type Page = {
@@ -473,6 +558,7 @@ export type PageElement = {
   id: Scalars['ID']
   name: Scalars['String']
   atom?: Maybe<Atom>
+  props: Array<PropAggregate>
 }
 
 export type PageElementLink = {
@@ -487,6 +573,7 @@ export type PageElementRoot = {
   id: Scalars['ID']
   name: Scalars['String']
   atom?: Maybe<Atom>
+  props: Array<PropAggregate>
   /** All descendant PageElements that are under this root, at any level */
   descendants: Array<PageElement>
   /** All the links connecting the descendant page elements */
@@ -502,10 +589,39 @@ export enum PrimitiveType {
 
 export type Prop = {
   id: Scalars['ID']
-  key?: Maybe<Scalars['String']>
-  type: ValueType
-  description?: Maybe<Scalars['String']>
-  props?: Maybe<Array<Prop>>
+  field: Field
+  value?: Maybe<PropValue>
+}
+
+/** Contains all nested props and values from the whole prop tree */
+export type PropAggregate = {
+  rootProp: Prop
+  /** All props that are descendant of this Prop, normalized to an array, including the root prop */
+  props: Array<Prop>
+  /** All values that are descendant of this Prop, normalized to an array, including the root prop's value */
+  values: Array<PropValue>
+}
+
+export type PropValue =
+  | StringValue
+  | IntValue
+  | FloatValue
+  | BooleanValue
+  | ArrayValue
+  | InterfaceValue
+  | EnumTypeValue
+
+export type PropsByIdsFilter = {
+  propIds: Array<Scalars['String']>
+}
+
+export type PropsByInterfaceValueId = {
+  interfaceValueId: Scalars['String']
+}
+
+export type PropsByPageElementFilter = {
+  pageElementIds: Array<Scalars['String']>
+  fieldId?: Maybe<Scalars['String']>
 }
 
 export type Query = {
@@ -520,12 +636,13 @@ export type Query = {
   getPageElementRoot?: Maybe<PageElementRoot>
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
+  getAtomBy?: Maybe<Atom>
   getInterface?: Maybe<Interface>
   getInterfaces: Array<Interface>
   getField?: Maybe<Field>
   getType?: Maybe<Type>
-  getValueTypes: Array<ValueType>
-  getProps: Array<Prop>
+  getTypes: Array<Type>
+  getProps: Array<PropAggregate>
 }
 
 export type QueryGetAppArgs = {
@@ -556,6 +673,10 @@ export type QueryGetAtomArgs = {
   input: GetAtomInput
 }
 
+export type QueryGetAtomByArgs = {
+  input: GetAtomByInput
+}
+
 export type QueryGetInterfaceArgs = {
   input: GetInterfaceInput
 }
@@ -568,31 +689,46 @@ export type QueryGetTypeArgs = {
   input: GetTypeInput
 }
 
+export type QueryGetTypesArgs = {
+  input?: Maybe<GetTypesInput>
+}
+
+export type QueryGetPropsArgs = {
+  input: GetPropsInput
+}
+
 export type RequiredValidator = {
   id: Scalars['ID']
   isRequired: Scalars['Boolean']
 }
 
-export type SimpleType = {
+export type SimpleType = Type & {
   id: Scalars['ID']
+  name: Scalars['String']
   primitiveType: PrimitiveType
 }
 
-export type Type = SimpleType | ArrayType | EnumType | UnitType | InterfaceType
-
-export enum Unit {
-  Px = 'Px',
-  Pt = 'Pt',
-  Em = 'Em',
-  Rem = 'Rem',
-  Percent = 'Percent',
-  Vw = 'Vw',
-  Vh = 'Vh',
+export type StringValue = {
+  id: Scalars['ID']
+  stringValue: Scalars['String']
 }
 
-export type UnitType = {
+export type StringValueInput = {
+  value: Scalars['String']
+}
+
+export type Type = {
   id: Scalars['ID']
-  allowedUnits: Array<Unit>
+  name: Scalars['String']
+}
+
+export type TypeRef = {
+  existingTypeId?: Maybe<Scalars['String']>
+  newType?: Maybe<CreateTypeInput>
+}
+
+export type TypesByIdsFilter = {
+  typeIds: Array<Scalars['String']>
 }
 
 export type UpdateAppData = {
@@ -609,12 +745,27 @@ export type UpdateAtomInput = {
   data: CreateAtomInput
 }
 
+export type UpdateEnumTypeData = {
+  allowedValues: Array<UpdateEnumTypeValueData>
+  name: Scalars['String']
+}
+
+export type UpdateEnumTypeInput = {
+  typeId: Scalars['String']
+  updateData: UpdateEnumTypeData
+}
+
+export type UpdateEnumTypeValueData = {
+  name?: Maybe<Scalars['String']>
+  value: Scalars['String']
+}
+
 export type UpdateFieldData = {
   key: Scalars['String']
   name: Scalars['String']
   description?: Maybe<Scalars['String']>
   interfaceId: Scalars['String']
-  type: CreateTypeInput
+  type: TypeRef
 }
 
 export type UpdateFieldInput = {
@@ -651,6 +802,25 @@ export type UpdatePageInput = {
   updateData: UpdatePageData
 }
 
+export type UpdateSimpleTypeData = {
+  primitiveType: PrimitiveType
+  name: Scalars['String']
+}
+
+export type UpdateSimpleTypeInput = {
+  typeId: Scalars['String']
+  updateData: UpdateSimpleTypeData
+}
+
+export type UpdateTypeData = {
+  name: Scalars['String']
+}
+
+export type UpdateTypeInput = {
+  updateData: UpdateTypeData
+  typeId: Scalars['String']
+}
+
 export type UpdateUserData = {
   family_name?: Maybe<Scalars['String']>
   given_name?: Maybe<Scalars['String']>
@@ -664,6 +834,27 @@ export type UpdateUserData = {
 export type UpdateUserInput = {
   userId: Scalars['String']
   updateData: UpdateUserData
+}
+
+export type UpsertPropsInput = {
+  propId?: Maybe<Scalars['String']>
+  fieldId: Scalars['String']
+  pageElementId?: Maybe<Scalars['String']>
+  value?: Maybe<UpsertValueInput>
+}
+
+export type UpsertPropsResponse = {
+  ok: Scalars['Boolean']
+}
+
+export type UpsertValueInput = {
+  stringValue?: Maybe<StringValueInput>
+  intValue?: Maybe<IntValueInput>
+  floatValue?: Maybe<FloatValueInput>
+  booleanValue?: Maybe<BoleanValueInput>
+  arrayValue?: Maybe<ArrayValueInput>
+  interfaceValue?: Maybe<InterfaceValueInput>
+  enumValueId?: Maybe<Scalars['String']>
 }
 
 export type User = {
@@ -686,12 +877,6 @@ export type User = {
   updated_at?: Maybe<Scalars['String']>
   user_id?: Maybe<Scalars['String']>
   username?: Maybe<Scalars['String']>
-}
-
-export type ValueType = {
-  id: Scalars['ID']
-  label: Scalars['String']
-  type: Scalars['String']
 }
 
 export type CreateAppMutationVariables = Exact<{
@@ -738,7 +923,9 @@ export type DeleteAtomMutationVariables = Exact<{
   input: DeleteAtomInput
 }>
 
-export type DeleteAtomMutation = { deleteAtom: __AtomFragment }
+export type DeleteAtomMutation = {
+  deleteAtom: Pick<DeleteResponse, 'affected'>
+}
 
 export type GetAtomQueryVariables = Exact<{
   input: GetAtomInput
@@ -766,6 +953,7 @@ export type PageFullFragment = {
 
 export type PageElementFragment = Pick<PageElement, 'id' | 'name'> & {
   atom?: Maybe<__AtomFragment>
+  props: Array<__PropAggregateFragment>
 }
 
 export type PageElementRootFragment = Pick<PageElementRoot, 'id' | 'name'> & {
@@ -789,7 +977,9 @@ export type DeletePageMutationVariables = Exact<{
   input: DeletePageInput
 }>
 
-export type DeletePageMutation = { deletePage: Pick<Page, 'id'> }
+export type DeletePageMutation = {
+  deletePage: Pick<DeleteResponse, 'affected'>
+}
 
 export type GetPageQueryVariables = Exact<{
   input: GetPageInput
@@ -855,20 +1045,171 @@ export type UpdatePageMutationVariables = Exact<{
 
 export type UpdatePageMutation = { updatePage: PageBaseFragment }
 
-export type __PropFragment = Pick<Prop, 'description' | 'id' | 'key'> & {
-  type: Pick<ValueType, 'id' | 'type' | 'label'>
-  props?: Maybe<
-    Array<
-      Pick<Prop, 'description' | 'id' | 'key'> & {
-        type: Pick<ValueType, 'id' | 'type' | 'label'>
-      }
-    >
+export type __PropAggregateFragment = {
+  props: Array<__PropFragment>
+  values: Array<
+    | __PropValue_StringValue_Fragment
+    | __PropValue_IntValue_Fragment
+    | __PropValue_FloatValue_Fragment
+    | __PropValue_BooleanValue_Fragment
+    | __PropValue_ArrayValue_Fragment
+    | __PropValue_InterfaceValue_Fragment
+    | __PropValue_EnumTypeValue_Fragment
+  >
+  rootProp: __PropFragment
+}
+
+export type __PropShallowFragment = Pick<Prop, 'id'> & {
+  value?: Maybe<
+    | __PropValueShallow_StringValue_Fragment
+    | __PropValueShallow_IntValue_Fragment
+    | __PropValueShallow_FloatValue_Fragment
+    | __PropValueShallow_BooleanValue_Fragment
+    | __PropValueShallow_ArrayValue_Fragment
+    | __PropValueShallow_InterfaceValue_Fragment
+    | __PropValueShallow_EnumTypeValue_Fragment
+  >
+  field: __FieldFragment
+}
+
+export type __PropFragment = Pick<Prop, 'id'> & {
+  value?: Maybe<
+    | __PropValueShallow_StringValue_Fragment
+    | __PropValueShallow_IntValue_Fragment
+    | __PropValueShallow_FloatValue_Fragment
+    | __PropValueShallow_BooleanValue_Fragment
+    | __PropValueShallow_ArrayValue_Fragment
+    | __PropValueShallow_InterfaceValue_Fragment
+    | __PropValueShallow_EnumTypeValue_Fragment
+  >
+  field: __FieldFragment
+}
+
+type __PropValue_StringValue_Fragment = {
+  __typename: 'StringValue'
+} & __PropValueShallow_StringValue_Fragment
+
+type __PropValue_IntValue_Fragment = {
+  __typename: 'IntValue'
+} & __PropValueShallow_IntValue_Fragment
+
+type __PropValue_FloatValue_Fragment = {
+  __typename: 'FloatValue'
+} & __PropValueShallow_FloatValue_Fragment
+
+type __PropValue_BooleanValue_Fragment = {
+  __typename: 'BooleanValue'
+} & __PropValueShallow_BooleanValue_Fragment
+
+type __PropValue_ArrayValue_Fragment = {
+  __typename: 'ArrayValue'
+} & __ArrayValueFragment &
+  __PropValueShallow_ArrayValue_Fragment
+
+type __PropValue_InterfaceValue_Fragment = {
+  __typename: 'InterfaceValue'
+} & __InterfaceValueFragment &
+  __PropValueShallow_InterfaceValue_Fragment
+
+type __PropValue_EnumTypeValue_Fragment = {
+  __typename: 'EnumTypeValue'
+} & __PropValueShallow_EnumTypeValue_Fragment
+
+export type __PropValueFragment =
+  | __PropValue_StringValue_Fragment
+  | __PropValue_IntValue_Fragment
+  | __PropValue_FloatValue_Fragment
+  | __PropValue_BooleanValue_Fragment
+  | __PropValue_ArrayValue_Fragment
+  | __PropValue_InterfaceValue_Fragment
+  | __PropValue_EnumTypeValue_Fragment
+
+type __PropValueShallow_StringValue_Fragment = {
+  __typename: 'StringValue'
+} & __StringValueFragment
+
+type __PropValueShallow_IntValue_Fragment = {
+  __typename: 'IntValue'
+} & __IntValueFragment
+
+type __PropValueShallow_FloatValue_Fragment = {
+  __typename: 'FloatValue'
+} & __FloatValueFragment
+
+type __PropValueShallow_BooleanValue_Fragment = {
+  __typename: 'BooleanValue'
+} & __BooleanValueFragment
+
+type __PropValueShallow_ArrayValue_Fragment = {
+  __typename: 'ArrayValue'
+} & Pick<ArrayValue, 'id'>
+
+type __PropValueShallow_InterfaceValue_Fragment = {
+  __typename: 'InterfaceValue'
+} & Pick<InterfaceValue, 'id'>
+
+type __PropValueShallow_EnumTypeValue_Fragment = {
+  __typename: 'EnumTypeValue'
+} & __EnumTypeValueFragment
+
+export type __PropValueShallowFragment =
+  | __PropValueShallow_StringValue_Fragment
+  | __PropValueShallow_IntValue_Fragment
+  | __PropValueShallow_FloatValue_Fragment
+  | __PropValueShallow_BooleanValue_Fragment
+  | __PropValueShallow_ArrayValue_Fragment
+  | __PropValueShallow_InterfaceValue_Fragment
+  | __PropValueShallow_EnumTypeValue_Fragment
+
+export type __StringValueFragment = Pick<StringValue, 'id' | 'stringValue'>
+
+export type __IntValueFragment = Pick<IntValue, 'id' | 'intValue'>
+
+export type __FloatValueFragment = Pick<FloatValue, 'id' | 'floatValue'>
+
+export type __BooleanValueFragment = Pick<BooleanValue, 'id' | 'booleanValue'>
+
+export type __ArrayValueFragment = Pick<ArrayValue, 'id'> & {
+  values: Array<
+    | __PropValueShallow_StringValue_Fragment
+    | __PropValueShallow_IntValue_Fragment
+    | __PropValueShallow_FloatValue_Fragment
+    | __PropValueShallow_BooleanValue_Fragment
+    | __PropValueShallow_ArrayValue_Fragment
+    | __PropValueShallow_InterfaceValue_Fragment
+    | __PropValueShallow_EnumTypeValue_Fragment
   >
 }
 
-export type GetPropsQueryVariables = Exact<{ [key: string]: never }>
+export type __ArrayValueShallowFragment = Pick<ArrayValue, 'id'> & {
+  values: Array<
+    | __PropValueShallow_StringValue_Fragment
+    | __PropValueShallow_IntValue_Fragment
+    | __PropValueShallow_FloatValue_Fragment
+    | __PropValueShallow_BooleanValue_Fragment
+    | __PropValueShallow_ArrayValue_Fragment
+    | __PropValueShallow_InterfaceValue_Fragment
+    | __PropValueShallow_EnumTypeValue_Fragment
+  >
+}
 
-export type GetPropsQuery = { props: Array<__PropFragment> }
+export type __InterfaceValueFragment = Pick<InterfaceValue, 'id'> & {
+  props: Array<__PropShallowFragment>
+}
+
+export type GetPropsQueryVariables = Exact<{
+  input: GetPropsInput
+}>
+
+export type GetPropsQuery = { getProps: Array<__PropAggregateFragment> }
+
+export type UpsertPropsMutationVariables = Exact<{
+  input: Array<UpsertPropsInput> | UpsertPropsInput
+}>
+
+export type UpsertPropsMutation = {
+  upsertProp: Pick<UpsertPropsResponse, 'ok'>
+}
 
 export type TestCreateFieldMutationVariables = Exact<{
   input: CreateFieldInput
@@ -890,14 +1231,6 @@ export type TestDeleteFieldMutationVariables = Exact<{
 
 export type TestDeleteFieldMutation = {
   deleteField: Pick<DeleteResponse, 'affected'>
-}
-
-export type TestDeleteInterfaceMutationVariables = Exact<{
-  input: DeleteInterfaceInput
-}>
-
-export type TestDeleteInterfaceMutation = {
-  deleteInterface: Pick<DeleteResponse, 'affected'>
 }
 
 export type TestGetFieldQueryVariables = Exact<{
@@ -926,11 +1259,10 @@ export type TestGetTypeQueryVariables = Exact<{
 
 export type TestGetTypeQuery = {
   getType?: Maybe<
-    | __Type_SimpleType_Fragment
     | __Type_ArrayType_Fragment
     | __Type_EnumType_Fragment
-    | __Type_UnitType_Fragment
-    | __Type_InterfaceType_Fragment
+    | __Type_Interface_Fragment
+    | __Type_SimpleType_Fragment
   >
 }
 
@@ -983,87 +1315,196 @@ export type __DecoratorFragment =
 export type __FieldFragment = Pick<
   Field,
   'id' | 'key' | 'name' | 'typeId' | 'description'
-> & {
-  decorators: Array<
-    | __Decorator_ArrayLengthValidator_Fragment
-    | __Decorator_MinMaxValidator_Fragment
-    | __Decorator_RequiredValidator_Fragment
-  >
-}
+>
 
-export type __ArrayTypeFragment = Pick<ArrayType, 'id' | 'typeId'>
+export type __ArrayTypeFragment = Pick<ArrayType, 'id' | 'name' | 'typeId'>
 
-export type __EnumTypeValueFragment = Pick<EnumTypeValue, 'id' | 'name'>
+export type __EnumTypeValueFragment = Pick<
+  EnumTypeValue,
+  'id' | 'name' | 'value'
+>
 
-export type __EnumTypeFragment = Pick<EnumType, 'id'> & {
+export type __EnumTypeFragment = Pick<EnumType, 'id' | 'name'> & {
   allowedValues: Array<__EnumTypeValueFragment>
 }
 
-export type __InterfaceTypeFragment = Pick<InterfaceType, 'interfaceId'>
+export type __SimpleTypeFragment = Pick<
+  SimpleType,
+  'id' | 'name' | 'primitiveType'
+>
 
-export type __SimpleTypeFragment = Pick<SimpleType, 'id' | 'primitiveType'>
+type __Type_ArrayType_Fragment = { __typename: 'ArrayType' } & Pick<
+  ArrayType,
+  'id' | 'name'
+> &
+  __ArrayTypeFragment
 
-export type __UnitTypeFragment = Pick<UnitType, 'id' | 'allowedUnits'>
+type __Type_EnumType_Fragment = { __typename: 'EnumType' } & Pick<
+  EnumType,
+  'id' | 'name'
+> &
+  __EnumTypeFragment
 
-type __Type_SimpleType_Fragment = {
+type __Type_Interface_Fragment = { __typename: 'Interface' } & Pick<
+  Interface,
+  'id' | 'name'
+> &
+  __InterfaceWithoutTypesFragment
+
+type __Type_SimpleType_Fragment = { __typename: 'SimpleType' } & Pick<
+  SimpleType,
+  'id' | 'name'
+> &
+  __SimpleTypeFragment
+
+export type __TypeFragment =
+  | __Type_ArrayType_Fragment
+  | __Type_EnumType_Fragment
+  | __Type_Interface_Fragment
+  | __Type_SimpleType_Fragment
+
+type __TypeShallow_ArrayType_Fragment = { __typename: 'ArrayType' } & Pick<
+  ArrayType,
+  'id'
+>
+
+type __TypeShallow_EnumType_Fragment = {
+  __typename: 'EnumType'
+} & __EnumTypeFragment
+
+type __TypeShallow_Interface_Fragment = { __typename: 'Interface' } & Pick<
+  Interface,
+  'id'
+>
+
+type __TypeShallow_SimpleType_Fragment = {
   __typename: 'SimpleType'
 } & __SimpleTypeFragment
 
-type __Type_ArrayType_Fragment = {
-  __typename: 'ArrayType'
-} & __ArrayTypeFragment
-
-type __Type_EnumType_Fragment = { __typename: 'EnumType' } & __EnumTypeFragment
-
-type __Type_UnitType_Fragment = { __typename: 'UnitType' } & __UnitTypeFragment
-
-type __Type_InterfaceType_Fragment = {
-  __typename: 'InterfaceType'
-} & __InterfaceTypeFragment
-
-export type __TypeFragment =
-  | __Type_SimpleType_Fragment
-  | __Type_ArrayType_Fragment
-  | __Type_EnumType_Fragment
-  | __Type_UnitType_Fragment
-  | __Type_InterfaceType_Fragment
+export type __TypeShallowFragment =
+  | __TypeShallow_ArrayType_Fragment
+  | __TypeShallow_EnumType_Fragment
+  | __TypeShallow_Interface_Fragment
+  | __TypeShallow_SimpleType_Fragment
 
 export type __InterfaceWithoutFieldsFragment = Pick<Interface, 'id' | 'name'>
 
-export type __FieldCollectionFragment = {
+export type __InterfaceWithoutTypesFragment = {
+  fieldCollection: {
+    types: Array<
+      | __TypeShallow_ArrayType_Fragment
+      | __TypeShallow_EnumType_Fragment
+      | __TypeShallow_Interface_Fragment
+      | __TypeShallow_SimpleType_Fragment
+    >
+  } & __FieldCollectionWithoutTypesFragment
+} & __InterfaceWithoutFieldsFragment
+
+export type __FieldCollectionWithoutTypesFragment = {
   fields: Array<__FieldFragment>
+}
+
+export type __FieldCollectionFragment = {
   types: Array<
-    | __Type_SimpleType_Fragment
     | __Type_ArrayType_Fragment
     | __Type_EnumType_Fragment
-    | __Type_UnitType_Fragment
-    | __Type_InterfaceType_Fragment
+    | __Type_Interface_Fragment
+    | __Type_SimpleType_Fragment
   >
-}
+} & __FieldCollectionWithoutTypesFragment
 
 export type __InterfaceFragment = {
   fieldCollection: __FieldCollectionFragment
 } & __InterfaceWithoutFieldsFragment
 
-export type CreateInterfaceMutationVariables = Exact<{
-  input: CreateInterfaceInput
+export type CreateFieldMutationVariables = Exact<{
+  input: CreateFieldInput
 }>
 
-export type CreateInterfaceMutation = {
-  createInterface: __InterfaceWithoutFieldsFragment
-}
+export type CreateFieldMutation = { createField: __FieldFragment }
 
-export type DeleteInterfaceMutationVariables = Exact<{
-  input: DeleteInterfaceInput
+export type DeleteFieldMutationVariables = Exact<{
+  input: DeleteFieldInput
 }>
 
-export type DeleteInterfaceMutation = {
-  deleteInterface: Pick<DeleteResponse, 'affected'>
+export type DeleteFieldMutation = {
+  deleteField: Pick<DeleteResponse, 'affected'>
 }
 
-export type GetInterfacesQueryVariables = Exact<{ [key: string]: never }>
+export type GetFieldQueryVariables = Exact<{
+  input: GetFieldInput
+}>
 
-export type GetInterfacesQuery = { getInterfaces: Array<__InterfaceFragment> }
+export type GetFieldQuery = { getField?: Maybe<__FieldFragment> }
+
+export type UpdateFieldMutationVariables = Exact<{
+  input: UpdateFieldInput
+}>
+
+export type UpdateFieldMutation = { updateField: __FieldFragment }
+
+export type CreateTypeMutationVariables = Exact<{
+  input: CreateTypeInput
+}>
+
+export type CreateTypeMutation = {
+  createType:
+    | __Type_ArrayType_Fragment
+    | __Type_EnumType_Fragment
+    | __Type_Interface_Fragment
+    | __Type_SimpleType_Fragment
+}
+
+export type DeleteTypeMutationVariables = Exact<{
+  input: DeleteTypeInput
+}>
+
+export type DeleteTypeMutation = {
+  deleteType: Pick<DeleteResponse, 'affected'>
+}
+
+export type GetInterfaceQueryVariables = Exact<{
+  input: GetInterfaceInput
+}>
+
+export type GetInterfaceQuery = { getInterface?: Maybe<__InterfaceFragment> }
+
+export type GetTypesQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetTypesQuery = {
+  getTypes: Array<
+    | ({ __typename: 'ArrayType' } & __Type_ArrayType_Fragment)
+    | ({ __typename: 'EnumType' } & __Type_EnumType_Fragment)
+    | ({ __typename: 'Interface' } & __Type_Interface_Fragment)
+    | ({ __typename: 'SimpleType' } & __Type_SimpleType_Fragment)
+  >
+}
+
+export type UpdateEnumTypeMutationVariables = Exact<{
+  input: UpdateEnumTypeInput
+}>
+
+export type UpdateEnumTypeMutation = { updateEnumType: __EnumTypeFragment }
+
+export type UpdateTypeMutationVariables = Exact<{
+  input: UpdateTypeInput
+}>
+
+export type UpdateTypeMutation = {
+  updateType:
+    | __Type_ArrayType_Fragment
+    | __Type_EnumType_Fragment
+    | __Type_Interface_Fragment
+    | __Type_SimpleType_Fragment
+}
+
+export type UpdateSimpleTypeMutationVariables = Exact<{
+  input: UpdateSimpleTypeInput
+}>
+
+export type UpdateSimpleTypeMutation = {
+  updateSimpleType: __SimpleTypeFragment
+}
 
 export type __UserFragment = Pick<User, 'email' | 'name'> & {
   id: User['user_id']
@@ -1080,12 +1521,6 @@ export type GetUsersQueryVariables = Exact<{
 }>
 
 export type GetUsersQuery = { users: Array<__UserFragment> }
-
-export type GetValueTypesQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetValueTypesQuery = { valueTypes: Array<__ValueTypeFragment> }
-
-export type __ValueTypeFragment = Pick<ValueType, 'id' | 'type' | 'label'>
 
 export const __AppFragmentDoc = gql`
   fragment __App on App {
@@ -1121,6 +1556,151 @@ export const __AtomFragmentDoc = gql`
   }
   ${__InterfaceWithoutFieldsFragmentDoc}
 `
+export const __StringValueFragmentDoc = gql`
+  fragment __StringValue on StringValue {
+    id
+    stringValue
+  }
+`
+export const __IntValueFragmentDoc = gql`
+  fragment __IntValue on IntValue {
+    id
+    intValue
+  }
+`
+export const __FloatValueFragmentDoc = gql`
+  fragment __FloatValue on FloatValue {
+    id
+    floatValue
+  }
+`
+export const __BooleanValueFragmentDoc = gql`
+  fragment __BooleanValue on BooleanValue {
+    id
+    booleanValue
+  }
+`
+export const __EnumTypeValueFragmentDoc = gql`
+  fragment __EnumTypeValue on EnumTypeValue {
+    id
+    name
+    value
+  }
+`
+export const __PropValueShallowFragmentDoc = gql`
+  fragment __PropValueShallow on PropValue {
+    __typename
+    ... on StringValue {
+      ...__StringValue
+    }
+    ... on IntValue {
+      ...__IntValue
+    }
+    ... on FloatValue {
+      ...__FloatValue
+    }
+    ... on BooleanValue {
+      ...__BooleanValue
+    }
+    ... on EnumTypeValue {
+      ...__EnumTypeValue
+    }
+    ... on ArrayValue {
+      id
+    }
+    ... on InterfaceValue {
+      id
+    }
+  }
+  ${__StringValueFragmentDoc}
+  ${__IntValueFragmentDoc}
+  ${__FloatValueFragmentDoc}
+  ${__BooleanValueFragmentDoc}
+  ${__EnumTypeValueFragmentDoc}
+`
+export const __FieldFragmentDoc = gql`
+  fragment __Field on Field {
+    id
+    key
+    name
+    typeId
+    description
+  }
+`
+export const __PropFragmentDoc = gql`
+  fragment __Prop on Prop {
+    id
+    value {
+      ...__PropValueShallow
+    }
+    field {
+      ...__Field
+    }
+  }
+  ${__PropValueShallowFragmentDoc}
+  ${__FieldFragmentDoc}
+`
+export const __PropShallowFragmentDoc = gql`
+  fragment __PropShallow on Prop {
+    id
+    value {
+      ...__PropValueShallow
+    }
+    field {
+      ...__Field
+    }
+  }
+  ${__PropValueShallowFragmentDoc}
+  ${__FieldFragmentDoc}
+`
+export const __InterfaceValueFragmentDoc = gql`
+  fragment __InterfaceValue on InterfaceValue {
+    id
+    props {
+      ...__PropShallow
+    }
+  }
+  ${__PropShallowFragmentDoc}
+`
+export const __ArrayValueFragmentDoc = gql`
+  fragment __ArrayValue on ArrayValue {
+    id
+    values {
+      ...__PropValueShallow
+    }
+  }
+  ${__PropValueShallowFragmentDoc}
+`
+export const __PropValueFragmentDoc = gql`
+  fragment __PropValue on PropValue {
+    __typename
+    ...__PropValueShallow
+    ... on InterfaceValue {
+      ...__InterfaceValue
+    }
+    ... on ArrayValue {
+      ...__ArrayValue
+    }
+  }
+  ${__PropValueShallowFragmentDoc}
+  ${__InterfaceValueFragmentDoc}
+  ${__ArrayValueFragmentDoc}
+`
+export const __PropAggregateFragmentDoc = gql`
+  fragment __PropAggregate on PropAggregate {
+    props {
+      ...__Prop
+    }
+    values {
+      ...__PropValue
+    }
+    rootProp {
+      ...__Prop
+    }
+  }
+  ${__PropFragmentDoc}
+  ${__PropValueFragmentDoc}
+`
 export const PageElementFragmentDoc = gql`
   fragment PageElement on PageElement {
     id
@@ -1128,8 +1708,12 @@ export const PageElementFragmentDoc = gql`
     atom {
       ...__Atom
     }
+    props {
+      ...__PropAggregate
+    }
   }
   ${__AtomFragmentDoc}
+  ${__PropAggregateFragmentDoc}
 `
 export const PageElementLinkFragmentDoc = gql`
   fragment PageElementLink on PageElementLink {
@@ -1166,27 +1750,14 @@ export const PageFullFragmentDoc = gql`
   ${PageBaseFragmentDoc}
   ${PageElementRootFragmentDoc}
 `
-export const __PropFragmentDoc = gql`
-  fragment __Prop on Prop {
-    description
+export const __ArrayValueShallowFragmentDoc = gql`
+  fragment __ArrayValueShallow on ArrayValue {
     id
-    key
-    type {
-      id
-      type
-      label
-    }
-    props {
-      description
-      id
-      key
-      type {
-        id
-        type
-        label
-      }
+    values {
+      ...__PropValueShallow
     }
   }
+  ${__PropValueShallowFragmentDoc}
 `
 export const __ArrayLengthValidatorFragmentDoc = gql`
   fragment __ArrayLengthValidator on ArrayLengthValidator {
@@ -1225,92 +1796,102 @@ export const __DecoratorFragmentDoc = gql`
   ${__MinMaxValidatorFragmentDoc}
   ${__RequiredValidatorFragmentDoc}
 `
-export const __FieldFragmentDoc = gql`
-  fragment __Field on Field {
-    id
-    key
-    name
-    typeId
-    description
-    decorators {
-      ...__Decorator
+export const __FieldCollectionWithoutTypesFragmentDoc = gql`
+  fragment __FieldCollectionWithoutTypes on FieldCollection {
+    fields {
+      ...__Field
     }
   }
-  ${__DecoratorFragmentDoc}
+  ${__FieldFragmentDoc}
 `
 export const __ArrayTypeFragmentDoc = gql`
   fragment __ArrayType on ArrayType {
     id
-    typeId
-  }
-`
-export const __EnumTypeValueFragmentDoc = gql`
-  fragment __EnumTypeValue on EnumTypeValue {
-    id
     name
+    typeId
   }
 `
 export const __EnumTypeFragmentDoc = gql`
   fragment __EnumType on EnumType {
     id
+    name
     allowedValues {
       ...__EnumTypeValue
     }
   }
   ${__EnumTypeValueFragmentDoc}
 `
-export const __InterfaceTypeFragmentDoc = gql`
-  fragment __InterfaceType on InterfaceType {
-    interfaceId
-  }
-`
 export const __SimpleTypeFragmentDoc = gql`
   fragment __SimpleType on SimpleType {
     id
+    name
     primitiveType
   }
 `
-export const __UnitTypeFragmentDoc = gql`
-  fragment __UnitType on UnitType {
-    id
-    allowedUnits
+export const __TypeShallowFragmentDoc = gql`
+  fragment __TypeShallow on Type {
+    __typename
+    ... on ArrayType {
+      id
+    }
+    ... on EnumType {
+      ...__EnumType
+    }
+    ... on Interface {
+      id
+    }
+    ... on SimpleType {
+      ...__SimpleType
+    }
   }
+  ${__EnumTypeFragmentDoc}
+  ${__SimpleTypeFragmentDoc}
+`
+export const __InterfaceWithoutTypesFragmentDoc = gql`
+  fragment __InterfaceWithoutTypes on Interface {
+    ...__InterfaceWithoutFields
+    fieldCollection {
+      ...__FieldCollectionWithoutTypes
+      types {
+        ...__TypeShallow
+      }
+    }
+  }
+  ${__InterfaceWithoutFieldsFragmentDoc}
+  ${__FieldCollectionWithoutTypesFragmentDoc}
+  ${__TypeShallowFragmentDoc}
 `
 export const __TypeFragmentDoc = gql`
   fragment __Type on Type {
     __typename
+    id
+    name
     ... on ArrayType {
       ...__ArrayType
     }
     ... on EnumType {
       ...__EnumType
     }
-    ... on InterfaceType {
-      ...__InterfaceType
+    ... on Interface {
+      ...__InterfaceWithoutTypes
     }
     ... on SimpleType {
       ...__SimpleType
     }
-    ... on UnitType {
-      ...__UnitType
-    }
   }
   ${__ArrayTypeFragmentDoc}
   ${__EnumTypeFragmentDoc}
-  ${__InterfaceTypeFragmentDoc}
+  ${__InterfaceWithoutTypesFragmentDoc}
   ${__SimpleTypeFragmentDoc}
-  ${__UnitTypeFragmentDoc}
 `
 export const __FieldCollectionFragmentDoc = gql`
   fragment __FieldCollection on FieldCollection {
-    fields {
-      ...__Field
-    }
+    ...__FieldCollectionWithoutTypes
     types {
       ...__Type
     }
   }
-  ${__FieldFragmentDoc}
+  ${__FieldCollectionWithoutTypesFragmentDoc}
   ${__TypeFragmentDoc}
 `
 export const __InterfaceFragmentDoc = gql`
@@ -1328,13 +1909,6 @@ export const __UserFragmentDoc = gql`
     id: user_id
     email
     name
-  }
-`
-export const __ValueTypeFragmentDoc = gql`
-  fragment __ValueType on ValueType {
-    id
-    type
-    label
   }
 `
 export const CreateAppGql = gql`
@@ -1642,10 +2216,9 @@ export type CreateAtomMutationOptions = Apollo.BaseMutationOptions<
 export const DeleteAtomGql = gql`
   mutation DeleteAtom($input: DeleteAtomInput!) {
     deleteAtom(input: $input) {
-      ...__Atom
+      affected
     }
   }
-  ${__AtomFragmentDoc}
 `
 export type DeleteAtomMutationFn = Apollo.MutationFunction<
   DeleteAtomMutation,
@@ -1903,7 +2476,7 @@ export type CreatePageMutationOptions = Apollo.BaseMutationOptions<
 export const DeletePageGql = gql`
   mutation DeletePage($input: DeletePageInput!) {
     deletePage(input: $input) {
-      id
+      affected
     }
   }
 `
@@ -2443,12 +3016,12 @@ export type UpdatePageMutationOptions = Apollo.BaseMutationOptions<
   UpdatePageMutationVariables
 >
 export const GetPropsGql = gql`
-  query GetProps {
-    props: getProps {
-      ...__Prop
+  query GetProps($input: GetPropsInput!) {
+    getProps(input: $input) {
+      ...__PropAggregate
     }
   }
-  ${__PropFragmentDoc}
+  ${__PropAggregateFragmentDoc}
 `
 
 /**
@@ -2463,11 +3036,12 @@ export const GetPropsGql = gql`
  * @example
  * const { data, loading, error } = useGetPropsQuery({
  *   variables: {
+ *      input: // value for 'input'
  *   },
  * });
  */
 export function useGetPropsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetPropsQuery, GetPropsQueryVariables>,
+  baseOptions: Apollo.QueryHookOptions<GetPropsQuery, GetPropsQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<GetPropsQuery, GetPropsQueryVariables>(
@@ -2498,6 +3072,56 @@ export type GetPropsQueryResult = Apollo.QueryResult<
 export function refetchGetPropsQuery(variables?: GetPropsQueryVariables) {
   return { query: GetPropsGql, variables: variables }
 }
+export const UpsertPropsGql = gql`
+  mutation UpsertProps($input: [UpsertPropsInput!]!) {
+    upsertProp(input: $input) {
+      ok
+    }
+  }
+`
+export type UpsertPropsMutationFn = Apollo.MutationFunction<
+  UpsertPropsMutation,
+  UpsertPropsMutationVariables
+>
+
+/**
+ * __useUpsertPropsMutation__
+ *
+ * To run a mutation, you first call `useUpsertPropsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertPropsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertPropsMutation, { data, loading, error }] = useUpsertPropsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpsertPropsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpsertPropsMutation,
+    UpsertPropsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpsertPropsMutation, UpsertPropsMutationVariables>(
+    UpsertPropsGql,
+    options,
+  )
+}
+export type UpsertPropsMutationHookResult = ReturnType<
+  typeof useUpsertPropsMutation
+>
+export type UpsertPropsMutationResult =
+  Apollo.MutationResult<UpsertPropsMutation>
+export type UpsertPropsMutationOptions = Apollo.BaseMutationOptions<
+  UpsertPropsMutation,
+  UpsertPropsMutationVariables
+>
 export const TestCreateFieldGql = gql`
   mutation TestCreateField($input: CreateFieldInput!) {
     createField(input: $input) {
@@ -2649,56 +3273,6 @@ export type TestDeleteFieldMutationResult =
 export type TestDeleteFieldMutationOptions = Apollo.BaseMutationOptions<
   TestDeleteFieldMutation,
   TestDeleteFieldMutationVariables
->
-export const TestDeleteInterfaceGql = gql`
-  mutation TestDeleteInterface($input: DeleteInterfaceInput!) {
-    deleteInterface(input: $input) {
-      affected
-    }
-  }
-`
-export type TestDeleteInterfaceMutationFn = Apollo.MutationFunction<
-  TestDeleteInterfaceMutation,
-  TestDeleteInterfaceMutationVariables
->
-
-/**
- * __useTestDeleteInterfaceMutation__
- *
- * To run a mutation, you first call `useTestDeleteInterfaceMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTestDeleteInterfaceMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [testDeleteInterfaceMutation, { data, loading, error }] = useTestDeleteInterfaceMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestDeleteInterfaceMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    TestDeleteInterfaceMutation,
-    TestDeleteInterfaceMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    TestDeleteInterfaceMutation,
-    TestDeleteInterfaceMutationVariables
-  >(TestDeleteInterfaceGql, options)
-}
-export type TestDeleteInterfaceMutationHookResult = ReturnType<
-  typeof useTestDeleteInterfaceMutation
->
-export type TestDeleteInterfaceMutationResult =
-  Apollo.MutationResult<TestDeleteInterfaceMutation>
-export type TestDeleteInterfaceMutationOptions = Apollo.BaseMutationOptions<
-  TestDeleteInterfaceMutation,
-  TestDeleteInterfaceMutationVariables
 >
 export const TestGetFieldGql = gql`
   query TestGetField($input: GetFieldInput!) {
@@ -3053,110 +3627,317 @@ export type TestUpdateInterfaceMutationOptions = Apollo.BaseMutationOptions<
   TestUpdateInterfaceMutation,
   TestUpdateInterfaceMutationVariables
 >
-export const CreateInterfaceGql = gql`
-  mutation CreateInterface($input: CreateInterfaceInput!) {
-    createInterface(input: $input) {
-      ...__InterfaceWithoutFields
+export const CreateFieldGql = gql`
+  mutation CreateField($input: CreateFieldInput!) {
+    createField(input: $input) {
+      ...__Field
     }
   }
-  ${__InterfaceWithoutFieldsFragmentDoc}
+  ${__FieldFragmentDoc}
 `
-export type CreateInterfaceMutationFn = Apollo.MutationFunction<
-  CreateInterfaceMutation,
-  CreateInterfaceMutationVariables
+export type CreateFieldMutationFn = Apollo.MutationFunction<
+  CreateFieldMutation,
+  CreateFieldMutationVariables
 >
 
 /**
- * __useCreateInterfaceMutation__
+ * __useCreateFieldMutation__
  *
- * To run a mutation, you first call `useCreateInterfaceMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateInterfaceMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreateFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateFieldMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createInterfaceMutation, { data, loading, error }] = useCreateInterfaceMutation({
+ * const [createFieldMutation, { data, loading, error }] = useCreateFieldMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useCreateInterfaceMutation(
+export function useCreateFieldMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    CreateInterfaceMutation,
-    CreateInterfaceMutationVariables
+    CreateFieldMutation,
+    CreateFieldMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    CreateInterfaceMutation,
-    CreateInterfaceMutationVariables
-  >(CreateInterfaceGql, options)
+  return Apollo.useMutation<CreateFieldMutation, CreateFieldMutationVariables>(
+    CreateFieldGql,
+    options,
+  )
 }
-export type CreateInterfaceMutationHookResult = ReturnType<
-  typeof useCreateInterfaceMutation
+export type CreateFieldMutationHookResult = ReturnType<
+  typeof useCreateFieldMutation
 >
-export type CreateInterfaceMutationResult =
-  Apollo.MutationResult<CreateInterfaceMutation>
-export type CreateInterfaceMutationOptions = Apollo.BaseMutationOptions<
-  CreateInterfaceMutation,
-  CreateInterfaceMutationVariables
+export type CreateFieldMutationResult =
+  Apollo.MutationResult<CreateFieldMutation>
+export type CreateFieldMutationOptions = Apollo.BaseMutationOptions<
+  CreateFieldMutation,
+  CreateFieldMutationVariables
 >
-export const DeleteInterfaceGql = gql`
-  mutation DeleteInterface($input: DeleteInterfaceInput!) {
-    deleteInterface(input: $input) {
+export const DeleteFieldGql = gql`
+  mutation DeleteField($input: DeleteFieldInput!) {
+    deleteField(input: $input) {
       affected
     }
   }
 `
-export type DeleteInterfaceMutationFn = Apollo.MutationFunction<
-  DeleteInterfaceMutation,
-  DeleteInterfaceMutationVariables
+export type DeleteFieldMutationFn = Apollo.MutationFunction<
+  DeleteFieldMutation,
+  DeleteFieldMutationVariables
 >
 
 /**
- * __useDeleteInterfaceMutation__
+ * __useDeleteFieldMutation__
  *
- * To run a mutation, you first call `useDeleteInterfaceMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteInterfaceMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useDeleteFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteFieldMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [deleteInterfaceMutation, { data, loading, error }] = useDeleteInterfaceMutation({
+ * const [deleteFieldMutation, { data, loading, error }] = useDeleteFieldMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useDeleteInterfaceMutation(
+export function useDeleteFieldMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    DeleteInterfaceMutation,
-    DeleteInterfaceMutationVariables
+    DeleteFieldMutation,
+    DeleteFieldMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    DeleteInterfaceMutation,
-    DeleteInterfaceMutationVariables
-  >(DeleteInterfaceGql, options)
+  return Apollo.useMutation<DeleteFieldMutation, DeleteFieldMutationVariables>(
+    DeleteFieldGql,
+    options,
+  )
 }
-export type DeleteInterfaceMutationHookResult = ReturnType<
-  typeof useDeleteInterfaceMutation
+export type DeleteFieldMutationHookResult = ReturnType<
+  typeof useDeleteFieldMutation
 >
-export type DeleteInterfaceMutationResult =
-  Apollo.MutationResult<DeleteInterfaceMutation>
-export type DeleteInterfaceMutationOptions = Apollo.BaseMutationOptions<
-  DeleteInterfaceMutation,
-  DeleteInterfaceMutationVariables
+export type DeleteFieldMutationResult =
+  Apollo.MutationResult<DeleteFieldMutation>
+export type DeleteFieldMutationOptions = Apollo.BaseMutationOptions<
+  DeleteFieldMutation,
+  DeleteFieldMutationVariables
 >
-export const GetInterfacesGql = gql`
-  query GetInterfaces {
-    getInterfaces {
+export const GetFieldGql = gql`
+  query GetField($input: GetFieldInput!) {
+    getField(input: $input) {
+      ...__Field
+    }
+  }
+  ${__FieldFragmentDoc}
+`
+
+/**
+ * __useGetFieldQuery__
+ *
+ * To run a query within a React component, call `useGetFieldQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFieldQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFieldQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetFieldQuery(
+  baseOptions: Apollo.QueryHookOptions<GetFieldQuery, GetFieldQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetFieldQuery, GetFieldQueryVariables>(
+    GetFieldGql,
+    options,
+  )
+}
+export function useGetFieldLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetFieldQuery,
+    GetFieldQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetFieldQuery, GetFieldQueryVariables>(
+    GetFieldGql,
+    options,
+  )
+}
+export type GetFieldQueryHookResult = ReturnType<typeof useGetFieldQuery>
+export type GetFieldLazyQueryHookResult = ReturnType<
+  typeof useGetFieldLazyQuery
+>
+export type GetFieldQueryResult = Apollo.QueryResult<
+  GetFieldQuery,
+  GetFieldQueryVariables
+>
+export function refetchGetFieldQuery(variables?: GetFieldQueryVariables) {
+  return { query: GetFieldGql, variables: variables }
+}
+export const UpdateFieldGql = gql`
+  mutation UpdateField($input: UpdateFieldInput!) {
+    updateField(input: $input) {
+      ...__Field
+    }
+  }
+  ${__FieldFragmentDoc}
+`
+export type UpdateFieldMutationFn = Apollo.MutationFunction<
+  UpdateFieldMutation,
+  UpdateFieldMutationVariables
+>
+
+/**
+ * __useUpdateFieldMutation__
+ *
+ * To run a mutation, you first call `useUpdateFieldMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFieldMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFieldMutation, { data, loading, error }] = useUpdateFieldMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateFieldMutation,
+    UpdateFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateFieldMutation, UpdateFieldMutationVariables>(
+    UpdateFieldGql,
+    options,
+  )
+}
+export type UpdateFieldMutationHookResult = ReturnType<
+  typeof useUpdateFieldMutation
+>
+export type UpdateFieldMutationResult =
+  Apollo.MutationResult<UpdateFieldMutation>
+export type UpdateFieldMutationOptions = Apollo.BaseMutationOptions<
+  UpdateFieldMutation,
+  UpdateFieldMutationVariables
+>
+export const CreateTypeGql = gql`
+  mutation CreateType($input: CreateTypeInput!) {
+    createType(input: $input) {
+      ...__Type
+    }
+  }
+  ${__TypeFragmentDoc}
+`
+export type CreateTypeMutationFn = Apollo.MutationFunction<
+  CreateTypeMutation,
+  CreateTypeMutationVariables
+>
+
+/**
+ * __useCreateTypeMutation__
+ *
+ * To run a mutation, you first call `useCreateTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTypeMutation, { data, loading, error }] = useCreateTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateTypeMutation,
+    CreateTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateTypeMutation, CreateTypeMutationVariables>(
+    CreateTypeGql,
+    options,
+  )
+}
+export type CreateTypeMutationHookResult = ReturnType<
+  typeof useCreateTypeMutation
+>
+export type CreateTypeMutationResult = Apollo.MutationResult<CreateTypeMutation>
+export type CreateTypeMutationOptions = Apollo.BaseMutationOptions<
+  CreateTypeMutation,
+  CreateTypeMutationVariables
+>
+export const DeleteTypeGql = gql`
+  mutation DeleteType($input: DeleteTypeInput!) {
+    deleteType(input: $input) {
+      affected
+    }
+  }
+`
+export type DeleteTypeMutationFn = Apollo.MutationFunction<
+  DeleteTypeMutation,
+  DeleteTypeMutationVariables
+>
+
+/**
+ * __useDeleteTypeMutation__
+ *
+ * To run a mutation, you first call `useDeleteTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTypeMutation, { data, loading, error }] = useDeleteTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteTypeMutation,
+    DeleteTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteTypeMutation, DeleteTypeMutationVariables>(
+    DeleteTypeGql,
+    options,
+  )
+}
+export type DeleteTypeMutationHookResult = ReturnType<
+  typeof useDeleteTypeMutation
+>
+export type DeleteTypeMutationResult = Apollo.MutationResult<DeleteTypeMutation>
+export type DeleteTypeMutationOptions = Apollo.BaseMutationOptions<
+  DeleteTypeMutation,
+  DeleteTypeMutationVariables
+>
+export const GetInterfaceGql = gql`
+  query GetInterface($input: GetInterfaceInput!) {
+    getInterface(input: $input) {
       ...__Interface
     }
   }
@@ -3164,59 +3945,269 @@ export const GetInterfacesGql = gql`
 `
 
 /**
- * __useGetInterfacesQuery__
+ * __useGetInterfaceQuery__
  *
- * To run a query within a React component, call `useGetInterfacesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetInterfacesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetInterfaceQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetInterfaceQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetInterfacesQuery({
+ * const { data, loading, error } = useGetInterfaceQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetInterfaceQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetInterfaceQuery,
+    GetInterfaceQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetInterfaceQuery, GetInterfaceQueryVariables>(
+    GetInterfaceGql,
+    options,
+  )
+}
+export function useGetInterfaceLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetInterfaceQuery,
+    GetInterfaceQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetInterfaceQuery, GetInterfaceQueryVariables>(
+    GetInterfaceGql,
+    options,
+  )
+}
+export type GetInterfaceQueryHookResult = ReturnType<
+  typeof useGetInterfaceQuery
+>
+export type GetInterfaceLazyQueryHookResult = ReturnType<
+  typeof useGetInterfaceLazyQuery
+>
+export type GetInterfaceQueryResult = Apollo.QueryResult<
+  GetInterfaceQuery,
+  GetInterfaceQueryVariables
+>
+export function refetchGetInterfaceQuery(
+  variables?: GetInterfaceQueryVariables,
+) {
+  return { query: GetInterfaceGql, variables: variables }
+}
+export const GetTypesGql = gql`
+  query GetTypes {
+    getTypes {
+      __typename
+      ...__Type
+    }
+  }
+  ${__TypeFragmentDoc}
+`
+
+/**
+ * __useGetTypesQuery__
+ *
+ * To run a query within a React component, call `useGetTypesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTypesQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetInterfacesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetInterfacesQuery,
-    GetInterfacesQueryVariables
-  >,
+export function useGetTypesQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetTypesQuery, GetTypesQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetInterfacesQuery, GetInterfacesQueryVariables>(
-    GetInterfacesGql,
+  return Apollo.useQuery<GetTypesQuery, GetTypesQueryVariables>(
+    GetTypesGql,
     options,
   )
 }
-export function useGetInterfacesLazyQuery(
+export function useGetTypesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetInterfacesQuery,
-    GetInterfacesQueryVariables
+    GetTypesQuery,
+    GetTypesQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetInterfacesQuery, GetInterfacesQueryVariables>(
-    GetInterfacesGql,
+  return Apollo.useLazyQuery<GetTypesQuery, GetTypesQueryVariables>(
+    GetTypesGql,
     options,
   )
 }
-export type GetInterfacesQueryHookResult = ReturnType<
-  typeof useGetInterfacesQuery
+export type GetTypesQueryHookResult = ReturnType<typeof useGetTypesQuery>
+export type GetTypesLazyQueryHookResult = ReturnType<
+  typeof useGetTypesLazyQuery
 >
-export type GetInterfacesLazyQueryHookResult = ReturnType<
-  typeof useGetInterfacesLazyQuery
+export type GetTypesQueryResult = Apollo.QueryResult<
+  GetTypesQuery,
+  GetTypesQueryVariables
 >
-export type GetInterfacesQueryResult = Apollo.QueryResult<
-  GetInterfacesQuery,
-  GetInterfacesQueryVariables
->
-export function refetchGetInterfacesQuery(
-  variables?: GetInterfacesQueryVariables,
-) {
-  return { query: GetInterfacesGql, variables: variables }
+export function refetchGetTypesQuery(variables?: GetTypesQueryVariables) {
+  return { query: GetTypesGql, variables: variables }
 }
+export const UpdateEnumTypeGql = gql`
+  mutation UpdateEnumType($input: UpdateEnumTypeInput!) {
+    updateEnumType(input: $input) {
+      ...__EnumType
+    }
+  }
+  ${__EnumTypeFragmentDoc}
+`
+export type UpdateEnumTypeMutationFn = Apollo.MutationFunction<
+  UpdateEnumTypeMutation,
+  UpdateEnumTypeMutationVariables
+>
+
+/**
+ * __useUpdateEnumTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateEnumTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEnumTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEnumTypeMutation, { data, loading, error }] = useUpdateEnumTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateEnumTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateEnumTypeMutation,
+    UpdateEnumTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateEnumTypeMutation,
+    UpdateEnumTypeMutationVariables
+  >(UpdateEnumTypeGql, options)
+}
+export type UpdateEnumTypeMutationHookResult = ReturnType<
+  typeof useUpdateEnumTypeMutation
+>
+export type UpdateEnumTypeMutationResult =
+  Apollo.MutationResult<UpdateEnumTypeMutation>
+export type UpdateEnumTypeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateEnumTypeMutation,
+  UpdateEnumTypeMutationVariables
+>
+export const UpdateTypeGql = gql`
+  mutation UpdateType($input: UpdateTypeInput!) {
+    updateType(input: $input) {
+      ...__Type
+    }
+  }
+  ${__TypeFragmentDoc}
+`
+export type UpdateTypeMutationFn = Apollo.MutationFunction<
+  UpdateTypeMutation,
+  UpdateTypeMutationVariables
+>
+
+/**
+ * __useUpdateTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTypeMutation, { data, loading, error }] = useUpdateTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateTypeMutation,
+    UpdateTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateTypeMutation, UpdateTypeMutationVariables>(
+    UpdateTypeGql,
+    options,
+  )
+}
+export type UpdateTypeMutationHookResult = ReturnType<
+  typeof useUpdateTypeMutation
+>
+export type UpdateTypeMutationResult = Apollo.MutationResult<UpdateTypeMutation>
+export type UpdateTypeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateTypeMutation,
+  UpdateTypeMutationVariables
+>
+export const UpdateSimpleTypeGql = gql`
+  mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
+    updateSimpleType(input: $input) {
+      ...__SimpleType
+    }
+  }
+  ${__SimpleTypeFragmentDoc}
+`
+export type UpdateSimpleTypeMutationFn = Apollo.MutationFunction<
+  UpdateSimpleTypeMutation,
+  UpdateSimpleTypeMutationVariables
+>
+
+/**
+ * __useUpdateSimpleTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateSimpleTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSimpleTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSimpleTypeMutation, { data, loading, error }] = useUpdateSimpleTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateSimpleTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateSimpleTypeMutation,
+    UpdateSimpleTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateSimpleTypeMutation,
+    UpdateSimpleTypeMutationVariables
+  >(UpdateSimpleTypeGql, options)
+}
+export type UpdateSimpleTypeMutationHookResult = ReturnType<
+  typeof useUpdateSimpleTypeMutation
+>
+export type UpdateSimpleTypeMutationResult =
+  Apollo.MutationResult<UpdateSimpleTypeMutation>
+export type UpdateSimpleTypeMutationOptions = Apollo.BaseMutationOptions<
+  UpdateSimpleTypeMutation,
+  UpdateSimpleTypeMutationVariables
+>
 export const DeleteUserGql = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
     deleteUser(input: $input)
@@ -3321,69 +4312,6 @@ export type GetUsersQueryResult = Apollo.QueryResult<
 export function refetchGetUsersQuery(variables?: GetUsersQueryVariables) {
   return { query: GetUsersGql, variables: variables }
 }
-export const GetValueTypesGql = gql`
-  query GetValueTypes {
-    valueTypes: getValueTypes {
-      ...__ValueType
-    }
-  }
-  ${__ValueTypeFragmentDoc}
-`
-
-/**
- * __useGetValueTypesQuery__
- *
- * To run a query within a React component, call `useGetValueTypesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetValueTypesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetValueTypesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetValueTypesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetValueTypesQuery,
-    GetValueTypesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetValueTypesQuery, GetValueTypesQueryVariables>(
-    GetValueTypesGql,
-    options,
-  )
-}
-export function useGetValueTypesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetValueTypesQuery,
-    GetValueTypesQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetValueTypesQuery, GetValueTypesQueryVariables>(
-    GetValueTypesGql,
-    options,
-  )
-}
-export type GetValueTypesQueryHookResult = ReturnType<
-  typeof useGetValueTypesQuery
->
-export type GetValueTypesLazyQueryHookResult = ReturnType<
-  typeof useGetValueTypesLazyQuery
->
-export type GetValueTypesQueryResult = Apollo.QueryResult<
-  GetValueTypesQuery,
-  GetValueTypesQueryVariables
->
-export function refetchGetValueTypesQuery(
-  variables?: GetValueTypesQueryVariables,
-) {
-  return { query: GetValueTypesGql, variables: variables }
-}
 export const __App = gql`
   fragment __App on App {
     id
@@ -3418,6 +4346,151 @@ export const __Atom = gql`
   }
   ${__InterfaceWithoutFields}
 `
+export const __StringValue = gql`
+  fragment __StringValue on StringValue {
+    id
+    stringValue
+  }
+`
+export const __IntValue = gql`
+  fragment __IntValue on IntValue {
+    id
+    intValue
+  }
+`
+export const __FloatValue = gql`
+  fragment __FloatValue on FloatValue {
+    id
+    floatValue
+  }
+`
+export const __BooleanValue = gql`
+  fragment __BooleanValue on BooleanValue {
+    id
+    booleanValue
+  }
+`
+export const __EnumTypeValue = gql`
+  fragment __EnumTypeValue on EnumTypeValue {
+    id
+    name
+    value
+  }
+`
+export const __PropValueShallow = gql`
+  fragment __PropValueShallow on PropValue {
+    __typename
+    ... on StringValue {
+      ...__StringValue
+    }
+    ... on IntValue {
+      ...__IntValue
+    }
+    ... on FloatValue {
+      ...__FloatValue
+    }
+    ... on BooleanValue {
+      ...__BooleanValue
+    }
+    ... on EnumTypeValue {
+      ...__EnumTypeValue
+    }
+    ... on ArrayValue {
+      id
+    }
+    ... on InterfaceValue {
+      id
+    }
+  }
+  ${__StringValue}
+  ${__IntValue}
+  ${__FloatValue}
+  ${__BooleanValue}
+  ${__EnumTypeValue}
+`
+export const __Field = gql`
+  fragment __Field on Field {
+    id
+    key
+    name
+    typeId
+    description
+  }
+`
+export const __Prop = gql`
+  fragment __Prop on Prop {
+    id
+    value {
+      ...__PropValueShallow
+    }
+    field {
+      ...__Field
+    }
+  }
+  ${__PropValueShallow}
+  ${__Field}
+`
+export const __PropShallow = gql`
+  fragment __PropShallow on Prop {
+    id
+    value {
+      ...__PropValueShallow
+    }
+    field {
+      ...__Field
+    }
+  }
+  ${__PropValueShallow}
+  ${__Field}
+`
+export const __InterfaceValue = gql`
+  fragment __InterfaceValue on InterfaceValue {
+    id
+    props {
+      ...__PropShallow
+    }
+  }
+  ${__PropShallow}
+`
+export const __ArrayValue = gql`
+  fragment __ArrayValue on ArrayValue {
+    id
+    values {
+      ...__PropValueShallow
+    }
+  }
+  ${__PropValueShallow}
+`
+export const __PropValue = gql`
+  fragment __PropValue on PropValue {
+    __typename
+    ...__PropValueShallow
+    ... on InterfaceValue {
+      ...__InterfaceValue
+    }
+    ... on ArrayValue {
+      ...__ArrayValue
+    }
+  }
+  ${__PropValueShallow}
+  ${__InterfaceValue}
+  ${__ArrayValue}
+`
+export const __PropAggregate = gql`
+  fragment __PropAggregate on PropAggregate {
+    props {
+      ...__Prop
+    }
+    values {
+      ...__PropValue
+    }
+    rootProp {
+      ...__Prop
+    }
+  }
+  ${__Prop}
+  ${__PropValue}
+`
 export const PageElement = gql`
   fragment PageElement on PageElement {
     id
@@ -3425,8 +4498,12 @@ export const PageElement = gql`
     atom {
       ...__Atom
     }
+    props {
+      ...__PropAggregate
+    }
   }
   ${__Atom}
+  ${__PropAggregate}
 `
 export const PageElementLink = gql`
   fragment PageElementLink on PageElementLink {
@@ -3463,27 +4540,14 @@ export const PageFull = gql`
   ${PageBase}
   ${PageElementRoot}
 `
-export const __Prop = gql`
-  fragment __Prop on Prop {
-    description
+export const __ArrayValueShallow = gql`
+  fragment __ArrayValueShallow on ArrayValue {
     id
-    key
-    type {
-      id
-      type
-      label
-    }
-    props {
-      description
-      id
-      key
-      type {
-        id
-        type
-        label
-      }
+    values {
+      ...__PropValueShallow
     }
   }
+  ${__PropValueShallow}
 `
 export const __ArrayLengthValidator = gql`
   fragment __ArrayLengthValidator on ArrayLengthValidator {
@@ -3522,92 +4586,102 @@ export const __Decorator = gql`
   ${__MinMaxValidator}
   ${__RequiredValidator}
 `
-export const __Field = gql`
-  fragment __Field on Field {
-    id
-    key
-    name
-    typeId
-    description
-    decorators {
-      ...__Decorator
+export const __FieldCollectionWithoutTypes = gql`
+  fragment __FieldCollectionWithoutTypes on FieldCollection {
+    fields {
+      ...__Field
     }
   }
-  ${__Decorator}
+  ${__Field}
 `
 export const __ArrayType = gql`
   fragment __ArrayType on ArrayType {
     id
-    typeId
-  }
-`
-export const __EnumTypeValue = gql`
-  fragment __EnumTypeValue on EnumTypeValue {
-    id
     name
+    typeId
   }
 `
 export const __EnumType = gql`
   fragment __EnumType on EnumType {
     id
+    name
     allowedValues {
       ...__EnumTypeValue
     }
   }
   ${__EnumTypeValue}
 `
-export const __InterfaceType = gql`
-  fragment __InterfaceType on InterfaceType {
-    interfaceId
-  }
-`
 export const __SimpleType = gql`
   fragment __SimpleType on SimpleType {
     id
+    name
     primitiveType
   }
 `
-export const __UnitType = gql`
-  fragment __UnitType on UnitType {
-    id
-    allowedUnits
+export const __TypeShallow = gql`
+  fragment __TypeShallow on Type {
+    __typename
+    ... on ArrayType {
+      id
+    }
+    ... on EnumType {
+      ...__EnumType
+    }
+    ... on Interface {
+      id
+    }
+    ... on SimpleType {
+      ...__SimpleType
+    }
   }
+  ${__EnumType}
+  ${__SimpleType}
+`
+export const __InterfaceWithoutTypes = gql`
+  fragment __InterfaceWithoutTypes on Interface {
+    ...__InterfaceWithoutFields
+    fieldCollection {
+      ...__FieldCollectionWithoutTypes
+      types {
+        ...__TypeShallow
+      }
+    }
+  }
+  ${__InterfaceWithoutFields}
+  ${__FieldCollectionWithoutTypes}
+  ${__TypeShallow}
 `
 export const __Type = gql`
   fragment __Type on Type {
     __typename
+    id
+    name
     ... on ArrayType {
       ...__ArrayType
     }
     ... on EnumType {
       ...__EnumType
     }
-    ... on InterfaceType {
-      ...__InterfaceType
+    ... on Interface {
+      ...__InterfaceWithoutTypes
     }
     ... on SimpleType {
       ...__SimpleType
     }
-    ... on UnitType {
-      ...__UnitType
-    }
   }
   ${__ArrayType}
   ${__EnumType}
-  ${__InterfaceType}
+  ${__InterfaceWithoutTypes}
   ${__SimpleType}
-  ${__UnitType}
 `
 export const __FieldCollection = gql`
   fragment __FieldCollection on FieldCollection {
-    fields {
-      ...__Field
-    }
+    ...__FieldCollectionWithoutTypes
     types {
       ...__Type
     }
   }
-  ${__Field}
+  ${__FieldCollectionWithoutTypes}
   ${__Type}
 `
 export const __Interface = gql`
@@ -3625,13 +4699,6 @@ export const __User = gql`
     id: user_id
     email
     name
-  }
-`
-export const __ValueType = gql`
-  fragment __ValueType on ValueType {
-    id
-    type
-    label
   }
 `
 export const CreateApp = gql`
@@ -3684,10 +4751,9 @@ export const CreateAtom = gql`
 export const DeleteAtom = gql`
   mutation DeleteAtom($input: DeleteAtomInput!) {
     deleteAtom(input: $input) {
-      ...__Atom
+      affected
     }
   }
-  ${__Atom}
 `
 export const GetAtom = gql`
   query GetAtom($input: GetAtomInput!) {
@@ -3724,7 +4790,7 @@ export const CreatePage = gql`
 export const DeletePage = gql`
   mutation DeletePage($input: DeletePageInput!) {
     deletePage(input: $input) {
-      id
+      affected
     }
   }
 `
@@ -3800,12 +4866,19 @@ export const UpdatePage = gql`
   ${PageBase}
 `
 export const GetProps = gql`
-  query GetProps {
-    props: getProps {
-      ...__Prop
+  query GetProps($input: GetPropsInput!) {
+    getProps(input: $input) {
+      ...__PropAggregate
     }
   }
-  ${__Prop}
+  ${__PropAggregate}
+`
+export const UpsertProps = gql`
+  mutation UpsertProps($input: [UpsertPropsInput!]!) {
+    upsertProp(input: $input) {
+      ok
+    }
+  }
 `
 export const TestCreateField = gql`
   mutation TestCreateField($input: CreateFieldInput!) {
@@ -3826,13 +4899,6 @@ export const TestCreateInterface = gql`
 export const TestDeleteField = gql`
   mutation TestDeleteField($input: DeleteFieldInput!) {
     deleteField(input: $input) {
-      affected
-    }
-  }
-`
-export const TestDeleteInterface = gql`
-  mutation TestDeleteInterface($input: DeleteInterfaceInput!) {
-    deleteInterface(input: $input) {
       affected
     }
   }
@@ -3885,28 +4951,92 @@ export const TestUpdateInterface = gql`
   }
   ${__Interface}
 `
-export const CreateInterface = gql`
-  mutation CreateInterface($input: CreateInterfaceInput!) {
-    createInterface(input: $input) {
-      ...__InterfaceWithoutFields
+export const CreateField = gql`
+  mutation CreateField($input: CreateFieldInput!) {
+    createField(input: $input) {
+      ...__Field
     }
   }
-  ${__InterfaceWithoutFields}
+  ${__Field}
 `
-export const DeleteInterface = gql`
-  mutation DeleteInterface($input: DeleteInterfaceInput!) {
-    deleteInterface(input: $input) {
+export const DeleteField = gql`
+  mutation DeleteField($input: DeleteFieldInput!) {
+    deleteField(input: $input) {
       affected
     }
   }
 `
-export const GetInterfaces = gql`
-  query GetInterfaces {
-    getInterfaces {
+export const GetField = gql`
+  query GetField($input: GetFieldInput!) {
+    getField(input: $input) {
+      ...__Field
+    }
+  }
+  ${__Field}
+`
+export const UpdateField = gql`
+  mutation UpdateField($input: UpdateFieldInput!) {
+    updateField(input: $input) {
+      ...__Field
+    }
+  }
+  ${__Field}
+`
+export const CreateType = gql`
+  mutation CreateType($input: CreateTypeInput!) {
+    createType(input: $input) {
+      ...__Type
+    }
+  }
+  ${__Type}
+`
+export const DeleteType = gql`
+  mutation DeleteType($input: DeleteTypeInput!) {
+    deleteType(input: $input) {
+      affected
+    }
+  }
+`
+export const GetInterface = gql`
+  query GetInterface($input: GetInterfaceInput!) {
+    getInterface(input: $input) {
       ...__Interface
     }
   }
   ${__Interface}
+`
+export const GetTypes = gql`
+  query GetTypes {
+    getTypes {
+      __typename
+      ...__Type
+    }
+  }
+  ${__Type}
+`
+export const UpdateEnumType = gql`
+  mutation UpdateEnumType($input: UpdateEnumTypeInput!) {
+    updateEnumType(input: $input) {
+      ...__EnumType
+    }
+  }
+  ${__EnumType}
+`
+export const UpdateType = gql`
+  mutation UpdateType($input: UpdateTypeInput!) {
+    updateType(input: $input) {
+      ...__Type
+    }
+  }
+  ${__Type}
+`
+export const UpdateSimpleType = gql`
+  mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
+    updateSimpleType(input: $input) {
+      ...__SimpleType
+    }
+  }
+  ${__SimpleType}
 `
 export const DeleteUser = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
@@ -3920,12 +5050,4 @@ export const GetUsers = gql`
     }
   }
   ${__User}
-`
-export const GetValueTypes = gql`
-  query GetValueTypes {
-    valueTypes: getValueTypes {
-      ...__ValueType
-    }
-  }
-  ${__ValueType}
 `

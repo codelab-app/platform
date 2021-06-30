@@ -6,6 +6,7 @@ import {
 } from '@apollo/client'
 import { Provider } from '@nestjs/common'
 import { ConfigFactory } from '@nestjs/config'
+import { fetch } from 'cross-fetch'
 import { ApolloClientConfig } from './config/apollo-client.config'
 import { ApolloClientTokens } from './config/apollo-client.tokens'
 

@@ -1,0 +1,5 @@
+query GetArrayValues($arrayValueId: ID!){
+    getArrayValue(id: $arrayValueId){
+        ...DgraphArrayValue
+    }
+}

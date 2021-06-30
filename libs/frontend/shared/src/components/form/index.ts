@@ -1,3 +1,4 @@
+export * from './uniforms/DisplayIfField'
 export * from './uniforms/emptyJsonSchema'
 export * from './uniforms/Form-uniforms'
 export * from './uniforms/Form-uniforms--modal'

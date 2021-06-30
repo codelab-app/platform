@@ -6,11 +6,14 @@ import {
 import { z } from 'zod'
 
 export enum EnumTypeValueDgraphFields {
-  Name = 'EnumTypeValue.name',
+  name = 'EnumTypeValue.name',
+  value = 'EnumTypeValue.value',
 }
 
 export class DgraphEnumTypeValue extends DgraphModel<'EnumTypeValue'> {
-  [EnumTypeValueDgraphFields.Name]: string
+  [EnumTypeValueDgraphFields.name]?: string | null;
+
+  [EnumTypeValueDgraphFields.value]: string
 
   static Metadata = new DgraphModelMetadata(
     'EnumTypeValue',
@@ -19,6 +22,7 @@ export class DgraphEnumTypeValue extends DgraphModel<'EnumTypeValue'> {
 
   static Schema = z.object({
     ...baseFieldsZodShape('EnumTypeValue'),
-    [EnumTypeValueDgraphFields.Name]: z.string(),
+    [EnumTypeValueDgraphFields.name]: z.string().optional().nullable(),
+    [EnumTypeValueDgraphFields.value]: z.string(),
   })
 }

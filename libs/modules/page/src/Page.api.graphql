@@ -22,6 +22,9 @@ fragment PageElement on PageElement {
   atom {
     ...__Atom
   }
+  props {
+    ...__PropAggregate
+  }
 }
 
 fragment PageElementRoot on PageElementRoot {

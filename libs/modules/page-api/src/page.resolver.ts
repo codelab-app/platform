@@ -1,3 +1,4 @@
+import { DeleteResponse } from '@codelab/backend'
 import { JwtPayload } from '@codelab/backend/adapters'
 import { CurrentUser, GqlAuthGuard } from '@codelab/modules/auth-api'
 import { PageElementRoot } from '@codelab/modules/page-element-api'
@@ -64,7 +65,7 @@ export class PageResolver {
     return this.createPageService.execute({ input, currentUser })
   }
 
-  @Mutation(() => Page)
+  @Mutation(() => DeleteResponse)
   @UseGuards(GqlAuthGuard)
   deletePage(
     @Args('input') input: DeletePageInput,
@@ -83,7 +84,10 @@ export class PageResolver {
   }
 
   @ResolveField('rootElement', () => PageElementRoot)
-  getRootElement(@Parent() page: Page, @CurrentUser() currentUser: JwtPayload) {
+  resolveRootElement(
+    @Parent() page: Page,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
     return this.getPageRootService.execute({
       input: {
         pageId: page.id,

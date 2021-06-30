@@ -1,7 +1,8 @@
 import 'twin.macro'
+import { UpdatePageElementPropsForm } from '@codelab/modules/prop'
 import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'
-import React, { useContext } from 'react'
+import React from 'react'
 import { usePageBuilderState } from '../../builder'
 import {
   DeletePageElementButton,
@@ -34,6 +35,7 @@ export const MetaPanePageDetail = () => {
     id: selectedPageElement.id,
     atom: selectedPageElement.atom,
     name: selectedPageElement.name,
+    props: selectedPageElement.props,
   }
 
   return (
@@ -45,16 +47,22 @@ export const MetaPanePageDetail = () => {
         height: 320,
       }}
     >
-      <Tabs defaultActiveKey="1">
+      <Tabs defaultActiveKey={pageElement.id + '_tab1'}>
         <Tabs.TabPane
           tw="px-4 py-2 overflow-y-auto"
           tab="Page element"
-          key={selectedPageElement.id}
+          key={pageElement.id + '_tab1'}
         >
           <FormsGrid>
-            <UpdatePageElementForm pageElement={pageElement} />
+            <UpdatePageElementForm
+              key={pageElement.id}
+              pageElement={pageElement}
+            />
 
-            <MovePageElementForm pageElement={pageElement} />
+            <MovePageElementForm
+              key={pageElement.id}
+              pageElement={pageElement}
+            />
 
             <div>
               <DeletePageElementButton
@@ -67,6 +75,22 @@ export const MetaPanePageDetail = () => {
           <DeletePageElementModal
             formProps={{ onSubmitSuccess: () => reset() }}
           />
+        </Tabs.TabPane>
+
+        <Tabs.TabPane
+          tw="px-4 py-2 overflow-y-auto max-h-48"
+          tab="Props"
+          key={pageElement.id + '_tab2'}
+        >
+          {pageElement.atom ? (
+            <UpdatePageElementPropsForm
+              key={pageElement.id}
+              pageElementId={pageElement.id}
+              atom={pageElement.atom}
+            />
+          ) : (
+            'Add an atom to this page element to edit its props'
+          )}
         </Tabs.TabPane>
       </Tabs>
     </Resizable>

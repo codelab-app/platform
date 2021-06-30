@@ -2,9 +2,8 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type App {
+interface Type {
   id: ID!
-  ownerId: String!
   name: String!
 }
 
@@ -12,9 +11,54 @@ type DeleteResponse {
   affected: Int!
 }
 
-type EnumTypeValue {
+type App {
+  id: ID!
+  ownerId: String!
+  name: String!
+}
+
+type ArrayType implements Type {
   id: ID!
   name: String!
+  typeId: String!
+}
+
+type EnumTypeValue {
+  id: ID!
+  name: String
+  value: String!
+}
+
+type EnumType implements Type {
+  id: ID!
+  name: String!
+  allowedValues: [EnumTypeValue!]!
+}
+
+type SimpleType implements Type {
+  id: ID!
+  name: String!
+  primitiveType: PrimitiveType!
+}
+
+enum PrimitiveType {
+  String
+  Integer
+  Float
+  Boolean
+}
+
+type Interface implements Type {
+  id: ID!
+  name: String!
+  fieldCollection: FieldCollection!
+}
+
+type FieldCollection {
+  fields: [Field!]!
+
+  """Flattened array of all types that are used inside this interface"""
+  types: [Type!]!
 }
 
 type Field {
@@ -24,6 +68,7 @@ type Field {
   description: String
   typeId: String!
   decorators: [Decorator!]!
+  interface: Interface!
 }
 
 union Decorator = ArrayLengthValidator | MinMaxValidator | RequiredValidator
@@ -43,62 +88,6 @@ type MinMaxValidator {
 type RequiredValidator {
   id: ID!
   isRequired: Boolean!
-}
-
-type FieldCollection {
-  fields: [Field!]!
-
-  """Flattened array of all types that are used inside this interface"""
-  types: [Type!]!
-}
-
-union Type = SimpleType | ArrayType | EnumType | UnitType | InterfaceType
-
-type SimpleType {
-  id: ID!
-  primitiveType: PrimitiveType!
-}
-
-enum PrimitiveType {
-  String
-  Integer
-  Float
-  Boolean
-}
-
-type ArrayType {
-  id: ID!
-  typeId: String!
-}
-
-type EnumType {
-  id: ID!
-  allowedValues: [EnumTypeValue!]!
-}
-
-type UnitType {
-  id: ID!
-  allowedUnits: [Unit!]!
-}
-
-enum Unit {
-  Px
-  Pt
-  Em
-  Rem
-  Percent
-  Vw
-  Vh
-}
-
-type InterfaceType {
-  interfaceId: String!
-}
-
-type Interface {
-  id: ID!
-  name: String!
-  fieldCollection: FieldCollection!
 }
 
 type Atom {
@@ -214,10 +203,68 @@ enum AtomType {
   HtmlText
 }
 
+type Prop {
+  id: ID!
+  field: Field!
+  value: PropValue
+}
+
+union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue | EnumTypeValue
+
+type StringValue {
+  id: ID!
+  stringValue: String!
+}
+
+type IntValue {
+  id: ID!
+  intValue: Int!
+}
+
+type FloatValue {
+  id: ID!
+  floatValue: Float!
+}
+
+type BooleanValue {
+  id: ID!
+  booleanValue: Boolean!
+}
+
+type ArrayValue {
+  id: ID!
+  values: [PropValue!]!
+}
+
+type InterfaceValue {
+  id: ID!
+  props: [Prop!]!
+}
+
+"""Contains all nested props and values from the whole prop tree"""
+type PropAggregate {
+  rootProp: Prop!
+
+  """
+  All props that are descendant of this Prop, normalized to an array, including the root prop
+  """
+  props: [Prop!]!
+
+  """
+  All values that are descendant of this Prop, normalized to an array, including the root prop's value
+  """
+  values: [PropValue!]!
+}
+
+type UpsertPropsResponse {
+  ok: Boolean!
+}
+
 type PageElement {
   id: ID!
   name: String!
   atom: Atom
+  props: [PropAggregate!]!
 }
 
 type PageElementLink {
@@ -233,6 +280,7 @@ type PageElementRoot {
   id: ID!
   name: String!
   atom: Atom
+  props: [PropAggregate!]!
 
   """All descendant PageElements that are under this root, at any level"""
   descendants: [PageElement!]!
@@ -246,20 +294,6 @@ type Page {
   name: String!
   app: App!
   rootElement: PageElementRoot!
-}
-
-type ValueType {
-  id: ID!
-  label: String!
-  type: String!
-}
-
-type Prop {
-  id: ID!
-  key: String
-  type: ValueType!
-  description: String
-  props: [Prop!]
 }
 
 type User {
@@ -299,12 +333,13 @@ type Query {
   getPageElementRoot(input: GetPageElementRootInput!): PageElementRoot
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
+  getAtomBy(input: GetAtomByInput!): Atom
   getInterface(input: GetInterfaceInput!): Interface
   getInterfaces: [Interface!]!
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
-  getValueTypes: [ValueType!]!
-  getProps: [Prop!]!
+  getTypes(input: GetTypesInput): [Type!]!
+  getProps(input: GetPropsInput!): [PropAggregate!]!
 }
 
 input GetAppInput {
@@ -338,6 +373,14 @@ input GetAtomInput {
   atomId: String!
 }
 
+input GetAtomByInput {
+  byPageElement: AtomByPageElementFilter
+}
+
+input AtomByPageElementFilter {
+  pageElementId: String!
+}
+
 input GetInterfaceInput {
   interfaceId: String!
 }
@@ -360,6 +403,33 @@ input GetTypeInput {
   typeId: String!
 }
 
+input GetTypesInput {
+  byIds: TypesByIdsFilter
+}
+
+input TypesByIdsFilter {
+  typeIds: [String!]!
+}
+
+input GetPropsInput {
+  byPageElement: PropsByPageElementFilter
+  byIds: PropsByIdsFilter
+  byInterfaceValue: PropsByInterfaceValueId
+}
+
+input PropsByPageElementFilter {
+  pageElementIds: [String!]!
+  fieldId: String = null
+}
+
+input PropsByIdsFilter {
+  propIds: [String!]!
+}
+
+input PropsByInterfaceValueId {
+  interfaceValueId: String!
+}
+
 type Mutation {
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App!
@@ -367,7 +437,7 @@ type Mutation {
   updateUser(input: UpdateUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
   createPage(input: CreatePageInput!): Page!
-  deletePage(input: DeletePageInput!): Page!
+  deletePage(input: DeletePageInput!): DeleteResponse!
   updatePage(input: UpdatePageInput!): Page!
   createPageElement(input: CreatePageElementInput!): PageElement!
   updatePageElement(input: UpdatePageElementInput!): PageElement!
@@ -376,14 +446,20 @@ type Mutation {
   """Deletes a page element and all the descending page elements"""
   deletePageElement(input: DeletePageElementInput!): DeleteResponse!
   createAtom(input: CreateAtomInput!): Atom!
-  deleteAtom(input: DeleteAtomInput!): Atom!
+  deleteAtom(input: DeleteAtomInput!): DeleteResponse!
   updateAtom(input: UpdateAtomInput!): Atom!
   createInterface(input: CreateInterfaceInput!): Interface!
   updateInterface(input: UpdateInterfaceInput!): Interface!
-  deleteInterface(input: DeleteInterfaceInput!): DeleteResponse!
   createField(input: CreateFieldInput!): Field!
   updateField(input: UpdateFieldInput!): Field!
   deleteField(input: DeleteFieldInput!): DeleteResponse!
+  createType(input: CreateTypeInput!): Type!
+  updateEnumType(input: UpdateEnumTypeInput!): EnumType!
+  updateSimpleType(input: UpdateSimpleTypeInput!): SimpleType!
+  updateType(input: UpdateTypeInput!): Type!
+  deleteType(input: DeleteTypeInput!): DeleteResponse!
+  upsertProp(input: [UpsertPropsInput!]!): UpsertPropsResponse!
+  deleteProp: DeleteResponse!
 }
 
 input CreateAppInput {
@@ -503,46 +579,43 @@ input UpdateInterfaceData {
   name: String!
 }
 
-input DeleteInterfaceInput {
-  interfaceId: String!
-}
-
 input CreateFieldInput {
   key: String!
   name: String!
   description: String
   interfaceId: String!
-  type: CreateTypeInput!
+  type: TypeRef!
+}
+
+input TypeRef {
+  existingTypeId: String
+  newType: CreateTypeInput
 }
 
 """Provide one of the properties"""
 input CreateTypeInput {
+  name: String!
   simpleType: CreateSimpleTypeInput
-  interfaceType: CreateInterfaceTypeInput
   arrayType: CreateArrayTypeInput
   enumType: CreateEnumTypeInput
-  unitType: CreateUnitTypeInput
+  interfaceType: Boolean
 }
 
 input CreateSimpleTypeInput {
   primitiveType: PrimitiveType!
 }
 
-input CreateInterfaceTypeInput {
-  interfaceId: String!
-}
-
 input CreateArrayTypeInput {
-  type: CreateTypeInput!
+  itemTypeId: String!
 }
 
 input CreateEnumTypeInput {
-  allowedValues: [String!]!
+  allowedValues: [CreateEnumTypeValueInput!]!
 }
 
-input CreateUnitTypeInput {
-  """Pass null to allow all"""
-  allowedUnits: [Unit!]
+input CreateEnumTypeValueInput {
+  name: String
+  value: String!
 }
 
 input UpdateFieldInput {
@@ -555,9 +628,88 @@ input UpdateFieldData {
   name: String!
   description: String
   interfaceId: String!
-  type: CreateTypeInput!
+  type: TypeRef!
 }
 
 input DeleteFieldInput {
   fieldId: String!
+}
+
+input UpdateEnumTypeInput {
+  typeId: String!
+  updateData: UpdateEnumTypeData!
+}
+
+input UpdateEnumTypeData {
+  allowedValues: [UpdateEnumTypeValueData!]!
+  name: String!
+}
+
+input UpdateEnumTypeValueData {
+  name: String
+  value: String!
+}
+
+input UpdateSimpleTypeInput {
+  typeId: String!
+  updateData: UpdateSimpleTypeData!
+}
+
+input UpdateSimpleTypeData {
+  primitiveType: PrimitiveType!
+  name: String!
+}
+
+input UpdateTypeInput {
+  updateData: UpdateTypeData!
+  typeId: String!
+}
+
+input UpdateTypeData {
+  name: String!
+}
+
+input DeleteTypeInput {
+  typeId: String!
+}
+
+input UpsertPropsInput {
+  propId: String
+  fieldId: String!
+  pageElementId: String
+  value: UpsertValueInput
+}
+
+input UpsertValueInput {
+  stringValue: StringValueInput
+  intValue: IntValueInput
+  floatValue: FloatValueInput
+  booleanValue: BoleanValueInput
+  arrayValue: ArrayValueInput
+  interfaceValue: InterfaceValueInput
+  enumValueId: String
+}
+
+input StringValueInput {
+  value: String!
+}
+
+input IntValueInput {
+  value: Int!
+}
+
+input FloatValueInput {
+  value: Float!
+}
+
+input BoleanValueInput {
+  value: Boolean!
+}
+
+input ArrayValueInput {
+  values: [UpsertValueInput!]!
+}
+
+input InterfaceValueInput {
+  props: [UpsertPropsInput!]!
 }

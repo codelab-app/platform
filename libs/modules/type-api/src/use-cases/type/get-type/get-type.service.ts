@@ -1,36 +1,23 @@
-import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
-import { Inject, Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { UseCase } from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
 import { Type, TypeMapper } from '../../../models'
-import { GetTypeQueryBuilder, GetTypeQueryResult } from './get-type.query'
+import { GetDgraphTypeService } from '../get-dgraph-type'
 import { GetTypeRequest } from './get-type.request'
 
 @Injectable()
-export class GetTypeService extends DgraphUseCase<GetTypeRequest, Type | null> {
+export class GetTypeService implements UseCase<GetTypeRequest, Type | null> {
   constructor(
-    @Inject(DgraphTokens.DgraphProvider)
-    dgraphProvider: DgraphProvider,
     private typeMapper: TypeMapper,
-  ) {
-    super(dgraphProvider)
-  }
+    private getDgraphTypeService: GetDgraphTypeService,
+  ) {}
 
-  protected async executeTransaction(
-    { input: { typeId } }: GetTypeRequest,
-    txn: Txn,
-  ): Promise<Type | null> {
-    const query = new GetTypeQueryBuilder().withUid(typeId).build()
-    const response = await txn.query(query)
+  async execute({ input: { typeId } }: GetTypeRequest): Promise<Type | null> {
+    const dgraphType = await this.getDgraphTypeService.execute({ typeId })
 
-    const queryArray = (response.data as any)
-      ?.query as Array<GetTypeQueryResult>
-
-    if (!queryArray || !queryArray[0]) {
+    if (!dgraphType) {
       return null
     }
 
-    const dqlType = queryArray[0]
-
-    return this.typeMapper.map(dqlType)
+    return this.typeMapper.map(dgraphType)
   }
 }

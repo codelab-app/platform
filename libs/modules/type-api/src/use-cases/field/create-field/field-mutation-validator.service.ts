@@ -1,29 +1,76 @@
+import { BaseDgraphFields } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Interface } from '../../../models'
-import { GetInterfaceService } from '../../interface'
+import { DgraphTypeUnion } from '../../../models'
+import { checkForRecursion } from '../../../recursion-check'
+import { GetDgraphTypeService } from '../../type'
 import { GetFieldService } from '../get-field'
-import { CreateFieldInput, CreateTypeInput } from './create-field.input'
-import { MAX_ARRAY_DEPTH } from './create-field.service'
+import { CreateFieldInput } from './create-field.input'
 
 export interface FieldMutationValidationContext {
-  foundInterface?: Interface
+  existingType?: DgraphTypeUnion
 }
 
+type Input = Pick<CreateFieldInput, 'type' | 'key' | 'interfaceId'>
+
+// Separate service, because we can reuse the validation logic  on update and create
 @Injectable()
 export class FieldMutationValidator {
   constructor(
     private getFieldService: GetFieldService,
-    private getInterfaceService: GetInterfaceService,
+    private getDgraphType: GetDgraphTypeService,
   ) {}
 
+  /**
+   * Validates that:
+   * - There is no other field with that key in the same interface
+   * - The specified existingTypeId exists and will not create a recursive type
+   */
   async validate(
-    {
-      type,
-      key,
-      interfaceId,
-    }: Pick<CreateFieldInput, 'type' | 'key' | 'interfaceId'>,
+    { type: { existingTypeId, newType }, key, interfaceId }: Input,
     existingFieldId?: string,
   ): Promise<FieldMutationValidationContext> {
+    await this.validateNoDuplicateKey(interfaceId, key, existingFieldId)
+
+    if ((!existingTypeId && !newType) || (existingTypeId && newType)) {
+      throw new Error(
+        'Either existingTypeId or newType must be provided to create a field',
+      )
+    }
+
+    // If we specify an existing type, check if it exists
+    if (existingTypeId) {
+      const existingType = await this.getDgraphType.execute({
+        typeId: existingTypeId,
+      })
+
+      if (!existingType) {
+        throw new Error('Type not found')
+      }
+
+      if (interfaceId === existingType[BaseDgraphFields.uid]) {
+        throw new Error(
+          "Can't add a field of type interface to the same interface",
+        )
+      }
+
+      checkForRecursion(interfaceId, existingType)
+
+      return { existingType }
+    }
+
+    // There is not need to validate newType, because it goes through the createTypeService, which validates it either way
+
+    return { existingType: undefined }
+  }
+
+  /**
+   * Checks if there is no field with the same key in that interface
+   */
+  private async validateNoDuplicateKey(
+    interfaceId: string,
+    key: string,
+    existingFieldId: string | undefined,
+  ) {
     // Check if we have a duplicate key
     const foundDuplicate = await this.getFieldService.execute({
       input: { byInterface: { interfaceId, fieldKey: key } },
@@ -32,61 +79,5 @@ export class FieldMutationValidator {
     if (foundDuplicate && foundDuplicate.id !== existingFieldId) {
       throw new Error(`Field with key ${key} already exists`)
     }
-
-    return await this.validateType(type, interfaceId)
-  }
-
-  async validateType(
-    {
-      arrayType,
-      enumType,
-      unitType,
-      simpleType,
-      interfaceType,
-    }: CreateTypeInput,
-    interfaceId: string,
-    iteration = 0,
-  ) {
-    if (iteration > MAX_ARRAY_DEPTH) {
-      throw new Error('Type too nested')
-    }
-
-    // Accept only one and no more type
-    const numberOfTypeFields = [
-      interfaceType,
-      arrayType,
-      enumType,
-      unitType,
-      simpleType,
-    ].filter((t) => !!t).length
-
-    if (numberOfTypeFields < 1) {
-      throw new Error('At least one type input must be provided')
-    } else if (numberOfTypeFields > 1) {
-      throw new Error('No more than one type input must be provided')
-    }
-
-    if (interfaceType) {
-      if (interfaceId === interfaceType.interfaceId) {
-        throw new Error(
-          "Can't add a field of type interface to the same interface",
-        )
-      }
-
-      // Check if the interface exists
-      const foundInterface = await this.getInterfaceService.execute({
-        input: { interfaceId: interfaceType.interfaceId },
-      })
-
-      if (!foundInterface) {
-        throw new Error("Interface doesn't exist")
-      }
-
-      return { foundInterface }
-    } else if (arrayType) {
-      await this.validateType(arrayType.type, interfaceId, iteration + 1)
-    }
-
-    return {}
   }
 }

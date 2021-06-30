@@ -1,5 +1,6 @@
 import { AppModule } from '@codelab/modules/app-api'
 import { PageElementModule } from '@codelab/modules/page-element-api'
+import { PropModule } from '@codelab/modules/prop-api'
 import { Module } from '@nestjs/common'
 import { PageGuardService } from './auth'
 import { PageResolver } from './page.resolver'
@@ -25,7 +26,7 @@ const services = [
 ]
 
 @Module({
-  imports: [AppModule, PageElementModule],
+  imports: [AppModule, PageElementModule, PropModule],
   providers: [PageResolver, ...services],
   exports: [...services],
 })

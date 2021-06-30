@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { baseFields } from './base-dgraph-fields'
 import { DgraphModelMetadata } from './dgraph.model'
 import { DgraphQueryField } from './dgraph-query-field'
@@ -21,6 +22,12 @@ export class DgraphQueryBuilder implements IQueryBuilder {
 
   constructor() {
     this._fields = []
+  }
+
+  public getField(name: string): DgraphQueryField | undefined {
+    return this._fields.find(
+      (f): f is DgraphQueryField => typeof f === 'object' && f.name == name,
+    )
   }
 
   public get fields() {
@@ -70,8 +77,16 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     return this
   }
 
-  withUid(uid: string) {
-    return this.withFunc(`uid(${uid})`)
+  withUidFunc(uid: string) {
+    return this.withFilterFuncString(`uid(${uid})`)
+  }
+
+  withTypeFunc(type: string) {
+    return this.withFilterFuncString(`type(${type})`)
+  }
+
+  withUidsFunc(uids: Array<string>) {
+    return this.withFilterFuncString(`uid(${uids.join(',')})`)
   }
 
   withRecurse() {
@@ -92,17 +107,34 @@ export class DgraphQueryBuilder implements IQueryBuilder {
   }
 
   /** Appends the fields of a model (or models) to the field selection */
-  withModelFields(
+  withModelsFields(
     ...modelClasses: Array<{ Metadata: DgraphModelMetadata<string> }>
   ) {
-    //That's an ugly version of flatMap
     return this.withFields(
-      ...modelClasses.reduce((prev: Array<DgraphQueryField>, modelClass) => {
-        prev.push(...modelClass.Metadata.queryFields())
-
-        return prev
-      }, []),
+      ..._.flatMap(modelClasses, (modelClass) =>
+        modelClass.Metadata.queryFields(),
+      ),
     )
+  }
+
+  withModelFields<
+    TModel,
+    TModelClass extends {
+      Metadata: DgraphModelMetadata<string>
+      new (): TModel
+    },
+  >(
+    modelClass: TModelClass,
+    options?: { omit?: Array<keyof InstanceType<typeof modelClass>> },
+  ) {
+    let fields = modelClass.Metadata.queryFields()
+
+    if (options?.omit && options.omit.length) {
+      const omitSet = new Set<string>((options?.omit as Array<string>) || [])
+      fields = fields.filter((f) => f.name && !omitSet.has(f.name))
+    }
+
+    return this.withFields(...fields)
   }
 
   /** Appends @see{@link BaseDgraphFields} to the current field selection */
@@ -112,18 +144,37 @@ export class DgraphQueryBuilder implements IQueryBuilder {
 
   build(): string {
     if (!this._queryName) {
-      throw new Error('Query name must be provided')
+      throw new Error('Query name must be provided to query builder')
     }
 
     if (!this._func) {
-      throw new Error('Func must be provided')
+      throw new Error('Func must be provided to query builder')
     }
 
     if (!this._fields || !this._fields.length) {
-      throw new Error('Fields must be provided')
+      throw new Error('Fields must be provided to query builder')
+    }
+
+    const fieldsSet = new Set(
+      this._fields.map((f) => (typeof f === 'string' ? f : f.name)),
+    )
+
+    // Check if there are duplicate fields, otherwise it's very hard to track down the error dgraph gives you if there are duplicate fields
+    if (Array.from(fieldsSet).length !== this.fields.length) {
+      throw new Error('Duplicate field in query')
     }
 
     const fieldsString = compileMultiple(this._fields)
+
+    // Remove the connection prefix from the first filter
+    if (
+      this._func &&
+      this._func.length > 0 &&
+      this._func[0] instanceof DgraphFilter
+    ) {
+      ;(this._func[0] as DgraphFilter).withConnectionPrefix(undefined)
+    }
+
     const funcString = compileMultiple(this._func)
 
     return `

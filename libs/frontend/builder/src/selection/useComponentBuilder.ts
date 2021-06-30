@@ -31,15 +31,18 @@ export const useComponentBuilder = () => {
         selectedComponentId,
       }))
     },
-    [],
+    [setSelectionState],
   )
 
-  const setSelected = useCallback((selectedComponent: __ComponentFragment) => {
-    return setSelectionState((s) => ({
-      ...s,
-      selectedComponent,
-    }))
-  }, [])
+  const setSelected = useCallback(
+    (selectedComponent: __ComponentFragment) => {
+      return setSelectionState((s) => ({
+        ...s,
+        selectedComponent,
+      }))
+    },
+    [setSelectionState],
+  )
 
   const setHovering = useCallback(
     (hoveringComponent: __ComponentFragment | undefined) => {
@@ -48,7 +51,7 @@ export const useComponentBuilder = () => {
         hoveringComponent,
       }))
     },
-    [],
+    [setSelectionState],
   )
 
   const resetHovering = useCallback(() => {
@@ -56,14 +59,14 @@ export const useComponentBuilder = () => {
       ...s,
       hoveringComponent: undefined,
     }))
-  }, [])
+  }, [setSelectionState])
 
   const resetSelected = useCallback(() => {
     setSelectionState((s) => ({
       ...s,
       selectedComponent: undefined,
     }))
-  }, [])
+  }, [setSelectionState])
 
   const reset = useCallback(() => {
     setSelectionState((s) => ({
@@ -71,7 +74,7 @@ export const useComponentBuilder = () => {
       hoveringComponent: undefined,
       selectedComponent: undefined,
     }))
-  }, [])
+  }, [setSelectionState])
 
   return {
     setSelected,

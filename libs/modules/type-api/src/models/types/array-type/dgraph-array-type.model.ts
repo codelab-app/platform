@@ -1,22 +1,27 @@
-import {
-  baseFieldsZodShape,
-  DgraphModel,
-  DgraphModelMetadata,
-} from '@codelab/backend'
+import { DgraphModelMetadata } from '@codelab/backend'
 import { z } from 'zod'
-import { DgraphType, dgraphTypeSchema } from '../dgraph-type.model'
+import { DgraphTypeUnion, dgraphTypeUnionSchema } from '../allDgraphTypes'
+import {
+  baseDgraphTypeMetadata,
+  baseDgraphTypeSchema,
+  DgraphType,
+} from '../dgraph-type.model'
 
 export enum ArrayTypeDgraphFields {
   Type = 'ArrayType.type',
 }
 
-export class DgraphArrayType extends DgraphModel<'ArrayType'> {
-  [ArrayTypeDgraphFields.Type]: DgraphType
+export class DgraphArrayType extends DgraphType<'ArrayType'> {
+  [ArrayTypeDgraphFields.Type]: DgraphTypeUnion
 
-  static Metadata = new DgraphModelMetadata('ArrayType', ArrayTypeDgraphFields)
+  static Metadata = baseDgraphTypeMetadata.extend(
+    new DgraphModelMetadata('ArrayType', ArrayTypeDgraphFields),
+  )
 
-  static Schema = z.object({
-    ...baseFieldsZodShape('ArrayType'),
-    [ArrayTypeDgraphFields.Type]: dgraphTypeSchema,
-  })
+  static Schema: z.ZodLazy<z.ZodSchema<DgraphArrayType>> = z.lazy(
+    () =>
+      baseDgraphTypeSchema('ArrayType').extend({
+        [ArrayTypeDgraphFields.Type]: dgraphTypeUnionSchema,
+      }) as any,
+  )
 }

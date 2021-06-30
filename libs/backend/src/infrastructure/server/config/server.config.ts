@@ -1,6 +1,5 @@
 import { registerAs } from '@nestjs/config'
 import { get } from 'env-var'
-import path from 'path'
 import { ServerTokens } from './server.tokens'
 
 export interface ServerConfig {

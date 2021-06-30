@@ -1,5 +1,0 @@
-query GetProps {
-  props: getProps {
-    ...__Prop
-  }
-}

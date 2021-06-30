@@ -12,11 +12,13 @@ export class EnumTypeValueMapper
 {
   map(input: DeepPartial<DgraphEnumTypeValue>) {
     const dgraphValue = DgraphEnumTypeValue.Schema.parse(input)
-    const value = new EnumTypeValue()
+    const id = dgraphValue[BaseDgraphFields.uid]
+    const name = dgraphValue[EnumTypeValueDgraphFields.name]
+    const value = dgraphValue[EnumTypeValueDgraphFields.value]
+    const enumTypeValue = new EnumTypeValue(id, name || null, value)
 
-    value.id = dgraphValue[BaseDgraphFields.uid]
-    value.name = dgraphValue[EnumTypeValueDgraphFields.Name]
+    EnumTypeValue.Schema.parse(enumTypeValue)
 
-    return value
+    return enumTypeValue
   }
 }

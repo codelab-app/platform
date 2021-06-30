@@ -11,8 +11,6 @@ module.exports = {
     '<rootDir>/libs/tools/plugins/codelab',
     '<rootDir>/libs/modules/atom-api',
     '<rootDir>/libs/modules/prop-api',
-    '<rootDir>/libs/modules/value-type-api',
-    '<rootDir>/libs/modules/value-type',
     '<rootDir>/libs/modules/auth-api',
     '<rootDir>/libs/modules/type-api',
     '<rootDir>/apps/codegen',
