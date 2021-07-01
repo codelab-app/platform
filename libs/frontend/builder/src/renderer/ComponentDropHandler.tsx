@@ -15,8 +15,7 @@ interface ComponentDropHandlerProps {
 const StyledContainer = styled.div<{ isOver: boolean }>`
   min-height: 80vh;
   transition: border 150ms ease-in-out;
-  border: ${(props) =>
-    props.isOver ? '#55bbdd 1px solid' : 'lightblue 1px solid'};
+  border: ${(props) => (props.isOver ? '#55bbdd 1px solid' : 'sky 1px solid')};
   position: relative;
 `
 
@@ -27,7 +26,7 @@ const CenteredMessage = styled.div<{ isOver: boolean }>`
   right: 0;
   bottom: 0;
   transition: border 150ms ease-in-out;
-  color: ${(props) => (props.isOver ? '#55bbdd' : 'lightblue')};
+  color: ${(props) => (props.isOver ? '#55bbdd' : 'sky')};
   display: flex;
   justify-content: center;
   align-items: center;
