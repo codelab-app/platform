@@ -98,10 +98,69 @@ enum AtomType {
   AntDesignUpload
   ReactFragment
   HtmlA
-  HtmlDiv
   HtmlP
+  HtmlVideo
+  HtmlUList
+  HtmlTrack
+  HtmlTitle
+  HtmlTime
+  HtmlTextarea
+  HtmlTemplate
+  HtmlTableRow
+  HtmlTable
+  HtmlTableCol
+  HtmlTableCell
+  HtmlTableCaption
+  HtmlStyle
   HtmlSpan
-  HtmlText
+  HtmlSource
+  HtmlSelect
+  HtmlQuote
+  HtmlProgress
+  HtmlPre
+  HtmlPicture
+  HtmlParam
+  HtmlOutput
+  HtmlOption
+  HtmlOptgroup
+  HtmlObject
+  HtmlOList
+  HtmlMeter
+  HtmlMeta
+  HtmlMap
+  HtmlLink
+  HtmlLegend
+  HtmlLabel
+  HtmlLi
+  HtmlInput
+  HtmlImage
+  HtmlIframe
+  HtmlH1
+  HtmlH2
+  HtmlH3
+  HtmlH4
+  HtmlH5
+  HtmlH6
+  HtmlHead
+  HtmlHr
+  HtmlFrameset
+  HtmlFrame
+  HtmlForm
+  HtmlFont
+  HtmlFieldset
+  HtmlEmbed
+  HtmlDiv
+  HtmlDialog
+  HtmlDetails
+  HtmlDatalist
+  HtmlData
+  HtmlDList
+  HtmlCanvas
+  HtmlButton
+  HtmlBase
+  HtmlBr
+  HtmlAudio
+  HtmlArea
 }
 
 type App {
