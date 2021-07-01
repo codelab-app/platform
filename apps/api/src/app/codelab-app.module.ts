@@ -8,6 +8,7 @@ import { PropModule } from '@codelab/modules/prop-api'
 import { TypeModule } from '@codelab/modules/type-api'
 import { UserModule } from '@codelab/modules/user-api'
 import { Module } from '@nestjs/common'
+import { AppController } from './app.controller'
 
 @Module({
   imports: [
@@ -22,5 +23,6 @@ import { Module } from '@nestjs/common'
     PropModule,
     TypeModule,
   ],
+  controllers: [AppController],
 })
 export class CodelabAppModule {}
