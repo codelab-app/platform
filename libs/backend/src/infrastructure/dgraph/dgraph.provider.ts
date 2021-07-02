@@ -18,14 +18,14 @@ type UpdateDgraphSchemaConfig = {
 }
 
 const updateSchema = ({ endpoint, schemaFile }: UpdateDgraphSchemaConfig) => {
-  if (
-    !shell.exec(
-      `curl -X POST ${new URL(
-        'admin/schema',
-        endpoint,
-      ).toString()} --data-binary '@${schemaFile}'`,
-    )
-  ) {
+  const cmd = `curl -X POST ${new URL(
+    'admin/schema',
+    endpoint,
+  ).toString()} --data-binary '@${schemaFile}'`
+
+  console.log(cmd)
+
+  if (!shell.exec(cmd)) {
     shell.echo('Codegen failed')
     shell.exit(1)
   }
@@ -48,18 +48,18 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
           endpoint: dgraphConfig?.endpoint,
           schemaFile: dgraphConfig?.schemaGeneratedFile,
         }),
-      //
       resetDb: async () => {
         const op = new Operation()
+
         // op.setDropOp(Operation.DropOp.DATA) <- deletes just the data
-        op.setDropOp(Operation.DropOp.ALL) // <- deletes schema and data
+        // op.setDropOp(Operation.DropOp.ALL) // <- deletes schema and data
 
-        await dgraphClient.alter(op)
+        // await dgraphClient.alter(op)
 
-        return updateSchema({
-          endpoint: dgraphConfig?.endpoint,
-          schemaFile: dgraphConfig?.schemaGeneratedFile,
-        })
+        // return updateSchema({
+        //   endpoint: dgraphConfig?.endpoint,
+        //   schemaFile: dgraphConfig?.schemaGeneratedFile,
+        // })
       },
     }
   },

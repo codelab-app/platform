@@ -58,6 +58,8 @@ describe('AppModule', () => {
         })
         .expect(200)
         .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
+          console.log(res)
+
           expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
         })
     })

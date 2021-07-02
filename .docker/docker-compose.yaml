@@ -9,7 +9,7 @@ version: '3.8'
 services:
   zero:
     container_name: codelab-dgraph-zero
-    image: dgraph/dgraph:v21.03.0
+    image: dgraph/dgraph:v21.03.1
     volumes:
       - dgraph:/dgraph
     ports:
@@ -22,11 +22,11 @@ services:
     container_name: codelab-dgraph-alpha
     depends_on:
       - zero
-    image: dgraph/dgraph:v21.03.0
+    image: dgraph/dgraph:v21.03.1
     volumes:
       - dgraph:/dgraph
     ports:
-      - 8081:8080
+      - 8080:8080
       - 9080:9080
     restart: on-failure
     command: dgraph alpha --my=alpha:7080 --zero=zero:5080 --security whitelist=0.0.0.0/0
@@ -34,12 +34,12 @@ services:
   # E2E
   zero-test:
     container_name: codelab-dgraph-zero-test
-    image: dgraph/dgraph:v21.03.0
+    image: dgraph/dgraph:v21.03.1
     volumes:
       - dgraph-test:/dgraph
     ports:
-      - 5082:5080
-      - 6082:6080
+      - 5081:5080
+      - 6081:6080
     restart: on-failure
     command: dgraph zero --my=zero-test:5080
 
@@ -47,14 +47,14 @@ services:
     container_name: codelab-dgraph-alpha-test
     depends_on:
       - zero-test
-    image: dgraph/dgraph:v21.03.0
+    image: dgraph/dgraph:v21.03.1
     volumes:
       - dgraph-test:/dgraph
     ports:
-      - 8082:8080
-      - 9082:9080
+      - 8081:8080
+      - 9081:9080
     restart: on-failure
-    command: dgraph alpha --my=alpha:7080 --zero=zero:5080 --security whitelist=0.0.0.0/0
+    command: dgraph alpha --my=alpha-test:7080 --zero=zero-test:5080 --security whitelist=0.0.0.0/0
 
 volumes:
   dgraph:

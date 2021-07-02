@@ -4,9 +4,6 @@ const { config } = require('dotenv')
 // config({ path: '.env.test' })
 config()
 
-// console.log(get('NODE_ENV').asString())
-// console.log(get('CODELAB_DGRAPH_ENDPOINT').asString())
-
 // Set env vars here
 const { configure } = require('enzyme')
 const Adapter = require('enzyme-adapter-react-16')

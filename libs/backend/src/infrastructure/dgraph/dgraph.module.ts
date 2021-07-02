@@ -8,6 +8,8 @@ import { dgraphClientProvider } from './dgraph.provider'
 @Module({})
 export class DgraphModule {
   static register(config: ConfigFactory<DgraphConfig>): DynamicModule {
+    console.log(config())
+
     return {
       module: DgraphModule,
       providers: [

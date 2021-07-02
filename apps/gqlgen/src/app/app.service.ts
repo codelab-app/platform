@@ -126,7 +126,7 @@ export class AppService {
        */
       await waitOn({
         resources: [this.serverConfig.endpoint],
-        timeout: 10000,
+        timeout: 20000,
       })
 
       /**

@@ -1,3 +1,4 @@
+import { cLog } from '@codelab/backend'
 import { generate } from '@graphql-codegen/cli'
 import { Types } from '@graphql-codegen/plugin-helpers'
 import { Injectable } from '@nestjs/common'
@@ -25,17 +26,16 @@ export class GraphqlCodegenService {
     outputPath,
     watch = false,
   }: BaseCodegenConfig) {
-    return await generate(
-      merge(
-        this.baseGraphqlConfig(watch),
-        this.apolloGenerateConfig({
-          schema,
-          outputPath,
-          extension: 'api',
-        }),
-      ),
-      true,
+    const config = merge(
+      this.baseGraphqlConfig(watch),
+      this.apolloGenerateConfig({
+        schema,
+        outputPath,
+        extension: 'api',
+      }),
     )
+
+    return await generate(config, true)
   }
 
   public async generateDgraph({
