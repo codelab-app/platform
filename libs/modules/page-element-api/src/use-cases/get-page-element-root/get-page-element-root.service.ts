@@ -50,6 +50,7 @@ export class GetPageElementRootService extends DgraphUseCase<
       atom: rootAtom,
       descendants,
       links,
+      css: root['PageElement.css'],
     })
   }
 

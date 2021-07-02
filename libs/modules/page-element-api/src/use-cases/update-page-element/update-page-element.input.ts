@@ -5,6 +5,9 @@ export class UpdatePageElementData {
   @Field()
   declare name: string
 
+  @Field(() => String, { nullable: true })
+  declare css: string | null
+
   @Field({ nullable: true })
   declare atomId?: string
 }

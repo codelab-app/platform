@@ -21,6 +21,10 @@ export class PageElement {
   @Field()
   declare name: string
 
+  @Field(() => String, { nullable: true })
+  /** The CSS string that gets passed down to emotion */
+  declare css?: string | null
+
   // We allow null atoms, because then we won't render a container element, just the children
   @Field(() => Atom, { nullable: true })
   declare atom?: Atom | null
@@ -32,10 +36,11 @@ export class PageElement {
   // Optional, because the fields resolver can get it
   declare props?: Array<PropAggregate>
 
-  constructor({ id, name, atom, props }: PageElement) {
+  constructor({ id, name, atom, props, css }: PageElement) {
     this.id = id
     this.name = name
     this.atom = atom
+    this.css = css
     this.props = props
   }
 }
@@ -43,6 +48,7 @@ export class PageElement {
 export const pageElementSchema = z.object({
   id: z.string(),
   name: z.string(),
+  css: z.string().optional().nullable(),
   atom: atomSchema.optional().nullable(),
   props: PropAggregate.Schema.array().optional(),
 })

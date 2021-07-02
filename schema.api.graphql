@@ -322,6 +322,7 @@ type UpsertPropsResponse {
 type PageElement {
   id: ID!
   name: String!
+  css: String
   atom: Atom
   props: [PropAggregate!]!
 }
@@ -338,6 +339,7 @@ type PageElementLink {
 type PageElementRoot {
   id: ID!
   name: String!
+  css: String
   atom: Atom
   props: [PropAggregate!]!
 
@@ -594,6 +596,7 @@ input UpdatePageElementInput {
 
 input UpdatePageElementData {
   name: String!
+  css: String
   atomId: String
 }
 

@@ -63,6 +63,7 @@ export class FlattenPageElementTreeService
             name: childName,
             atom: atom as any,
             props: propAggregates,
+            css: child['PageElement.css'],
           }),
         )
 

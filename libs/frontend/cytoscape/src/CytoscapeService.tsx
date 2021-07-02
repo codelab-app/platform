@@ -58,6 +58,7 @@ export class CytoscapeService {
       atom: root.atom,
       name: root.name,
       nodeType: NodeType.PageElement,
+      css: root.css,
       props: {},
     }
 
@@ -72,13 +73,12 @@ export class CytoscapeService {
               nodeType: NodeType.PageElement,
               name: pageElement.name,
               atom: pageElement.atom,
+              css: pageElement.css,
               props: PropsJsonModelAdaptor.propsToModel(
                 pageElement.props,
                 true,
               ),
             }
-
-            console.log(pageElement.props)
 
             return { data }
           }),

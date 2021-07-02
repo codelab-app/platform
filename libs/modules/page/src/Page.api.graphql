@@ -19,6 +19,7 @@ fragment PageFull on Page {
 fragment PageElement on PageElement {
   id
   name
+  css
   atom {
     ...__Atom
   }
@@ -30,6 +31,7 @@ fragment PageElement on PageElement {
 fragment PageElementRoot on PageElementRoot {
   id
   name
+  css
   atom {
     ...__Atom
   }

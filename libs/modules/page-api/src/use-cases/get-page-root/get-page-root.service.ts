@@ -58,6 +58,7 @@ export class GetPageRootService extends DgraphUseCase<
       id: rootElement.uid,
       name: rootElement['PageElement.name'] as string,
       atom: rootAtom,
+      css: rootElement['PageElement.css'],
       descendants,
       links,
     })

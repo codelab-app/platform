@@ -186,6 +186,7 @@ type PageElement {
   atom: Atom
   component: Component
   props: [Prop!]! @hasInverse(field: pageElement)
+  css: String
 }
 
 type Library {

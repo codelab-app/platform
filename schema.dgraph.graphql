@@ -284,6 +284,7 @@ input AddPageElementInput {
   atom: AtomRef
   component: ComponentRef
   props: [PropRef!]!
+  css: String
 }
 
 type AddPageElementPayload {
@@ -1861,6 +1862,7 @@ type PageElement {
   atom(filter: AtomFilter): Atom
   component(filter: ComponentFilter): Component
   props(filter: PropFilter, first: Int, offset: Int): [Prop!]!
+  css: String
   childrenAggregate(filter: PageElementFilter): PageElementAggregateResult
   propsAggregate(filter: PropFilter): PropAggregateResult
 }
@@ -1869,6 +1871,8 @@ type PageElementAggregateResult {
   count: Int
   nameMin: String
   nameMax: String
+  cssMin: String
+  cssMax: String
 }
 
 input PageElementFilter {
@@ -1888,6 +1892,7 @@ enum PageElementHasFilter {
   atom
   component
   props
+  css
 }
 
 input PageElementOrder {
@@ -1898,6 +1903,7 @@ input PageElementOrder {
 
 enum PageElementOrderable {
   name
+  css
 }
 
 input PageElementPatch {
@@ -1908,6 +1914,7 @@ input PageElementPatch {
   atom: AtomRef
   component: ComponentRef
   props: [PropRef!]
+  css: String
 }
 
 input PageElementRef {
@@ -1919,6 +1926,7 @@ input PageElementRef {
   atom: AtomRef
   component: ComponentRef
   props: [PropRef!]
+  css: String
 }
 
 input PageFilter {

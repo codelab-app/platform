@@ -616,6 +616,7 @@ export type Page = {
 export type PageElement = {
   id: Scalars['ID']
   name: Scalars['String']
+  css?: Maybe<Scalars['String']>
   atom?: Maybe<Atom>
   props: Array<PropAggregate>
 }
@@ -631,6 +632,7 @@ export type PageElementLink = {
 export type PageElementRoot = {
   id: Scalars['ID']
   name: Scalars['String']
+  css?: Maybe<Scalars['String']>
   atom?: Maybe<Atom>
   props: Array<PropAggregate>
   /** All descendant PageElements that are under this root, at any level */
@@ -848,6 +850,7 @@ export type UpdatePageData = {
 
 export type UpdatePageElementData = {
   name: Scalars['String']
+  css?: Maybe<Scalars['String']>
   atomId?: Maybe<Scalars['String']>
 }
 
@@ -1010,12 +1013,15 @@ export type PageFullFragment = {
   rootElement: PageElementRootFragment
 } & PageBaseFragment
 
-export type PageElementFragment = Pick<PageElement, 'id' | 'name'> & {
+export type PageElementFragment = Pick<PageElement, 'id' | 'name' | 'css'> & {
   atom?: Maybe<__AtomFragment>
   props: Array<__PropAggregateFragment>
 }
 
-export type PageElementRootFragment = Pick<PageElementRoot, 'id' | 'name'> & {
+export type PageElementRootFragment = Pick<
+  PageElementRoot,
+  'id' | 'name' | 'css'
+> & {
   atom?: Maybe<__AtomFragment>
   descendants: Array<PageElementFragment>
   links: Array<PageElementLinkFragment>
@@ -1764,6 +1770,7 @@ export const PageElementFragmentDoc = gql`
   fragment PageElement on PageElement {
     id
     name
+    css
     atom {
       ...__Atom
     }
@@ -1785,6 +1792,7 @@ export const PageElementRootFragmentDoc = gql`
   fragment PageElementRoot on PageElementRoot {
     id
     name
+    css
     atom {
       ...__Atom
     }
@@ -4554,6 +4562,7 @@ export const PageElement = gql`
   fragment PageElement on PageElement {
     id
     name
+    css
     atom {
       ...__Atom
     }
@@ -4575,6 +4584,7 @@ export const PageElementRoot = gql`
   fragment PageElementRoot on PageElementRoot {
     id
     name
+    css
     atom {
       ...__Atom
     }

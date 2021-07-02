@@ -30,6 +30,7 @@ type PageElement {
   atom: Atom
   component: Component
   props: [Prop!]! @hasInverse(field: pageElement)
+  css: String # The css string that gets passed down to emotion
 }
 
 type Library {

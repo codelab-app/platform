@@ -30,6 +30,7 @@ export interface ComponentElementNode extends NodeBase {
 export interface PageElementNode extends NodeBase {
   nodeType: NodeType.PageElement
   atom?: __AtomFragment | null
+  css?: string | null
   children?: Array<PageElementNode>
   props: Record<string, any>
 }

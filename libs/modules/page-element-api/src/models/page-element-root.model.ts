@@ -19,8 +19,8 @@ export class PageElementRoot extends PageElement {
   })
   declare links: Array<PageElementLink>
 
-  constructor({ id, name, atom, descendants, links }: PageElementRoot) {
-    super({ id, name, atom })
+  constructor({ id, name, atom, descendants, links, css }: PageElementRoot) {
+    super({ id, name, atom, css })
     this.descendants = descendants
     this.links = links
   }

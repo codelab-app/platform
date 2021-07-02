@@ -17,6 +17,7 @@ export class GetPageElementRootQueryBuilder extends DgraphQueryBuilder {
         new DgraphQueryField().withName('PageElement.name'),
         new DgraphQueryField().withName('PageElement.atom'),
         new DgraphQueryField().withName('PageElement.props'),
+        new DgraphQueryField().withName('PageElement.css'),
         new DgraphQueryField().withName('Atom.label'),
         new DgraphQueryField().withName('Atom.type'),
         new DgraphQueryField().withName('Atom.propTypes'),
