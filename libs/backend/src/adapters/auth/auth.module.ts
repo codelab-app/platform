@@ -1,4 +1,4 @@
-import { DynamicModule, Global, Module } from '@nestjs/common'
+import { DynamicModule, Global, Logger, Module } from '@nestjs/common'
 import { ConfigFactory } from '@nestjs/config'
 import { PassportModule } from '@nestjs/passport'
 import {
@@ -13,6 +13,14 @@ import { JwtStrategy } from './strategy/jwt.strategy'
 @Module({})
 export class AuthModule {
   static register(config: ConfigFactory<Auth0Config>): DynamicModule {
+    Logger.log(
+      `${Auth0Tokens.Auth0Config.toString()} \n${JSON.stringify(
+        config(),
+        null,
+        '  ',
+      )}`,
+    )
+
     return {
       imports: [
         PassportModule.register({ defaultStrategy: 'jwt' }),

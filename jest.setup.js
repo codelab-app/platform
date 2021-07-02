@@ -1,10 +1,3 @@
-const { config } = require('dotenv')
-// const { get } = require('env-var')
-
-// config({ path: '.env.test' })
-config()
-
-// Set env vars here
 const { configure } = require('enzyme')
 const Adapter = require('enzyme-adapter-react-16')
 

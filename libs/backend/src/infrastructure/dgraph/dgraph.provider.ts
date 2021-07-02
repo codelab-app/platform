@@ -51,15 +51,15 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
       resetDb: async () => {
         const op = new Operation()
 
-        // op.setDropOp(Operation.DropOp.DATA) <- deletes just the data
-        // op.setDropOp(Operation.DropOp.ALL) // <- deletes schema and data
+        // op.setDropOp(Operation.DropOp.DATA) // <- deletes just the data
+        op.setDropOp(Operation.DropOp.ALL) // <- deletes schema and data
 
-        // await dgraphClient.alter(op)
+        await dgraphClient.alter(op)
 
-        // return updateSchema({
-        //   endpoint: dgraphConfig?.endpoint,
-        //   schemaFile: dgraphConfig?.schemaGeneratedFile,
-        // })
+        return updateSchema({
+          endpoint: dgraphConfig?.endpoint,
+          schemaFile: dgraphConfig?.schemaGeneratedFile,
+        })
       },
     }
   },

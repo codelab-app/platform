@@ -13,7 +13,6 @@ module.exports = {
     '<rootDir>/libs/modules/prop-api',
     '<rootDir>/libs/modules/auth-api',
     '<rootDir>/libs/modules/type-api',
-    '<rootDir>/apps/codegen',
     '<rootDir>/apps/gqlgen',
   ],
 }

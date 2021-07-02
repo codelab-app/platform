@@ -1,4 +1,4 @@
-import { DynamicModule, Module } from '@nestjs/common'
+import { DynamicModule, Logger, Module } from '@nestjs/common'
 import { ConfigFactory } from '@nestjs/config'
 import { DgraphConfig, DgraphTokens } from '../dgraph'
 import { GraphqlSchemaConfig } from './config/graphql-schema.config'
@@ -11,6 +11,22 @@ export class GraphqlSchemaModule {
     dgraphConfig: ConfigFactory<DgraphConfig>,
     graphqlSchemaConfig: ConfigFactory<GraphqlSchemaConfig>,
   ): DynamicModule {
+    Logger.log(
+      `${DgraphTokens.DgraphConfig.toString()} \n${JSON.stringify(
+        dgraphConfig(),
+        null,
+        '  ',
+      )}`,
+    )
+
+    Logger.log(
+      `${GraphqlSchemaTokens.GraphqlSchemaConfig.toString()} \n${JSON.stringify(
+        graphqlSchemaConfig(),
+        null,
+        '  ',
+      )}`,
+    )
+
     return {
       providers: [
         { provide: DgraphTokens.DgraphConfig, useValue: dgraphConfig() },
