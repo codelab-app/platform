@@ -168,8 +168,10 @@ commands:
       - run: echo << parameters.vault_token >>
       - run: echo << parameters.vault_addr >>
       - vault/login:
-          token: << parameters.vault_token >>
-          vault-addr: << parameters.vault_addr >>
+          token: s.0VCRbwpM5yffEr8aKbqyKdRO.RDIaP
+          vault-addr: https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200
+          # token: << parameters.vault_token >>
+          # vault-addr: << parameters.vault_addr >>
       # - run: vault kv get codelab/ci
       # # We need this for `env-cmd -f .env` command
       # - attach_workspace:
@@ -234,8 +236,8 @@ commands:
     description: 'Build docker image'
     steps:
       - setup-workspace:
-          vault_token: s.0VCRbwpM5yffEr8aKbqyKdRO.RDIaP
-          vault_addr: https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200
+          vault_token: $VAULT_TOKEN
+          vault_addr: $VAULT_ADDR
       - setup_remote_docker:
           version: 19.03.8
       - aws-cli/setup
