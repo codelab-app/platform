@@ -1,17 +1,17 @@
-mutation UpdateEnumType($input: UpdateEnumTypeInput!){
-  updateEnumType(input: $input){
+mutation UpdateEnumType($input: UpdateEnumTypeInput!) {
+  updateEnumType(input: $input) {
     ...__EnumType
   }
 }
 
-mutation UpdateType($input: UpdateTypeInput!){
-  updateType(input: $input){
+mutation UpdateType($input: UpdateTypeInput!) {
+  updateType(input: $input) {
     ...__Type
   }
 }
 
-mutation UpdateSimpleType($input: UpdateSimpleTypeInput!){
-  updateSimpleType(input: $input){
+mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
+  updateSimpleType(input: $input) {
     ...__SimpleType
   }
 }

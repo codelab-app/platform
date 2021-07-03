@@ -80,6 +80,7 @@ orbs:
   node: circleci/node@4.1.0
   aws-cli: circleci/aws-cli@2.0.2
   aws-ecs: circleci/aws-ecs@2.2.1
+  vault: jmingtan/hashicorp-vault@0.2.0
 
 executors:
   machine-ubuntu:
@@ -148,17 +149,34 @@ commands:
             # finally import bash env
             source $BASH_ENV
       - run:
-          name: 'Set node version'
+          name: 'Set Node version'
           command: |
             nvm install 14.16.0
             nvm alias default 14.16.0
             node -v
+      # Take note of newline characters when copying GPG_KEY
+      #
+      # https://discuss.circleci.com/t/gpg-keys-as-environment-variables/28641/2
+      - run:
+          name: 'Import GPG key'
+          command: echo -e "$GPG_KEY" | gpg --import
 
   setup-workspace:
+    # parameters:
+    #   vault_token:
+    #     type: string
+    #     default: $VAULT_TOKEN
+    #   vault_addr:
+    #     type: string
+    #     default: $VAULT_ADDR
     description: 'Setup workspace'
     steps:
       - checkout
       - setup-env
+      # - vault/install
+      # - vault/login:
+      #     token: $VAULT_TOKEN
+      #     vault-addr: $VAULT_ADDR
       # # We need this for `env-cmd -f .env` command
       # - attach_workspace:
       #     at: ..
@@ -181,6 +199,7 @@ commands:
       # - run:
       #     name: 'Remove NPM .cache'
       #     command: rm -rf ~/app/node_modules/.cache
+
   yarn-install-prod:
     description: 'Install prod dependencies'
     steps:
@@ -545,7 +564,6 @@ workflows:
           context: CI
           requires:
             - build-docker-prod
-
       - notify-success:
           <<: *filters-prod
           e: docker-node

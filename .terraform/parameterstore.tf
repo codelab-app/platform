@@ -94,7 +94,6 @@ resource "aws_ssm_parameter" "auth0_api_client_secret" {
 resource "aws_iam_role_policy" "secret_policy_parameterstore" {
   name        = "policy-parameterstore"
   role        = aws_iam_role.ecs_task_execution_role.id
-
   policy      = <<-EOF
   {
     "Version": "2012-10-17",

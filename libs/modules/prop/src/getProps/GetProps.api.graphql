@@ -1,5 +1,5 @@
-query GetProps($input: GetPropsInput!){
-  getProps(input: $input){
+query GetProps($input: GetPropsInput!) {
+  getProps(input: $input) {
     ...__PropAggregate
   }
 }
