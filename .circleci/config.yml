@@ -170,8 +170,7 @@ commands:
       - vault/login:
           token: $VAULT_TOKEN
           vault-addr: $VAULT_ADDR
-      - run: vault kv get codelab/ci
-
+      # - run: vault kv get codelab/ci
       # # We need this for `env-cmd -f .env` command
       # - attach_workspace:
       #     at: ..
