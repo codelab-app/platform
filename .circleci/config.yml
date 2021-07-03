@@ -166,7 +166,7 @@ commands:
       - vault/install:
           verify: false
       - run: echo << parameters.vault_token >>
-      - run: echo << parameters.vault_addrs >>
+      - run: echo << parameters.vault_addr >>
       - vault/login:
           token: << parameters.vault_token >>
           vault-addr: << parameters.vault_addr >>
