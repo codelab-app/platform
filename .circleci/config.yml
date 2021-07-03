@@ -166,8 +166,8 @@ commands:
       - vault/install:
           verify: false
       - vault/login:
-          token: $VAULT_TOKEN
-          vault-addr: $VAULT_ADDR
+          token: '${VAULT_TOKEN}'
+          vault-addr: '${VAULT_ADDR}'
           # token: << parameters.vault_token >>
           # vault-addr: << parameters.vault_addr >>
       # - run: vault kv get codelab/ci
