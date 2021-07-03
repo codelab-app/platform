@@ -165,6 +165,8 @@ commands:
           command: echo -e "$GPG_KEY" | gpg --import
       - vault/install:
           verify: false
+      - run: echo << parameters.vault_token >>
+      - run: echo << parameters.vault_addrs >>
       - vault/login:
           token: << parameters.vault_token >>
           vault-addr: << parameters.vault_addr >>
