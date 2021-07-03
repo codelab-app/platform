@@ -1,9 +1,8 @@
-import { ApiResponse, request, setupTestModule, teardownTestModule } from '@codelab/backend';
-import { Auth0Service } from '@codelab/modules/auth-api';
+import { ApiResponse, Auth0Service, request, setupTestModule, teardownTestModule } from '@codelab/backend';
 import { INestApplication } from '@nestjs/common';
 import { AppModule } from '../../app.module';
 import { print } from 'graphql';
-import { CreateAppGql, CreateAppMutation, CreateAppMutationVariables } from '@codelab/codegen/graphql';
+import { __AppFragment, CreateAppGql, CreateAppMutation, CreateAppMutationVariables } from '@codelab/codegen/graphql';
 import { ApolloQueryResult } from '@apollo/client';
 
 export const createApp = async (accessToken: string,
@@ -31,10 +30,10 @@ describe('CreateApp', () => {
   let accessToken = ''
 
   beforeAll(async () => {
-    app = await setupTestModule(app, AppModule)
+    app = await setupTestModule(true, AppModule)
 
-    const auth0Service = app.get(Auth0Service)
-    accessToken = await auth0Service.getAccessToken()
+    // const auth0Service = app.get(Auth0Service)
+    // accessToken = await auth0Service.getAccessToken()
   })
 
   afterAll(async () => {
@@ -60,7 +59,7 @@ describe('CreateApp', () => {
   })
 
   it('should create app', async () => {
-    const result: any = await createApp(accessToken, app)
+    const result: __AppFragment = await createApp(accessToken, app)
     expect(result.name).toEqual('Test App')
   })
 })

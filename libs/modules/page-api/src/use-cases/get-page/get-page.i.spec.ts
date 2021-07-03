@@ -1,36 +1,42 @@
 import { INestApplication } from '@nestjs/common';
+import {
+  __AppFragment,
+  GetPageQueryResult,
+  GetPageGql,
+  PageBaseFragment,
+  GetPageQuery
+} from '@codelab/codegen/graphql';
 import { ApiResponse, request, setupTestModule, teardownTestModule } from '@codelab/backend';
-import { AppModule } from '@codelab/modules/app-api';
+import { PageModule } from '@codelab/modules/page-api';
 import { Auth0Service } from '@codelab/modules/auth-api';
-import { createApp } from '../create-app/create-app.i.spec';
+import { createPage } from '../create-page/create-page.i.spec';
 import { print } from 'graphql';
-import { GetAppGql, GetAppQuery, GetAppQueryResult } from '@codelab/codegen/graphql';
 import { ApolloQueryResult } from '@apollo/client';
 
-describe('GetApp', () => {
+describe('GetPage', () => {
   let nestApplication: INestApplication
   let accessToken = ''
-  let app: any
+  let page: { app: __AppFragment, page: PageBaseFragment }
 
   beforeAll(async () => {
-    nestApplication = await setupTestModule(nestApplication, AppModule)
+    nestApplication = await setupTestModule(nestApplication, PageModule)
 
     const auth0Service = nestApplication.get(Auth0Service)
     accessToken = await auth0Service.getAccessToken()
-    app = await createApp(accessToken, nestApplication)
+    page = await createPage(accessToken, nestApplication)
   })
 
   afterAll(async () => {
-    await teardownTestModule(app)
+    await teardownTestModule(nestApplication)
   })
 
-  it('should not get app for a guest', async () => {
+  it('should not get page for a guest', async () => {
     await request(nestApplication.getHttpServer())
       .send({
-        query: print(GetAppGql),
+        query: print(GetPageGql),
         variables: {
           input: {
-            appId: app.id,
+            pageId: page.page.id,
           },
         },
       })
@@ -39,23 +45,24 @@ describe('GetApp', () => {
         expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
       })
   })
-  it('should get app for authorized user', async () => {
+  it('should get page for authorized user', async () => {
     await request(nestApplication.getHttpServer())
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-        query: print(GetAppGql),
+        query: print(GetPageGql),
         variables: {
           input: {
-            appId: app.id,
+            pageId: page.page.id,
           },
         },
       })
       .expect(200)
-      .expect((res: ApiResponse<GetAppQueryResult>) => {
-        const responseApp = (res.body.data as GetAppQuery)?.app
-        expect(responseApp).toMatchObject({
-          id: app.id,
-          name: 'Test App'
+      .expect((res: ApiResponse<GetPageQueryResult>) => {
+        const responsePage = (res.body.data as GetPageQuery)?.page
+        expect(responsePage).toMatchObject({
+          id: page.page.id,
+          name: page.page.name,
+          app: page.app
         })
       })
   })
