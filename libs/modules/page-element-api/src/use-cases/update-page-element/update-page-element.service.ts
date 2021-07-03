@@ -59,6 +59,7 @@ export class UpdatePageElementService extends MutationUseCase<
         },
         set: {
           name: updateData.name,
+          css: updateData.css,
           atom: updateData.atomId
             ? {
                 id: updateData.atomId,

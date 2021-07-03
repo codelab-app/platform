@@ -3,6 +3,7 @@ import { GetPropsQueryResult } from '@codelab/modules/prop-api'
 export interface FlattenRequestItem extends GetPropsQueryResult {
   uid: string
   'PageElement.name'?: string
+  'PageElement.css'?: string
   'PageElement.atom'?: FlattenRequestItem
   'PageElement.children'?: Array<FlattenRequestItem>
   'PageElement.props'?: Array<FlattenRequestItem>

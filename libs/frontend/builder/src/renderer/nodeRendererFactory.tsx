@@ -5,6 +5,7 @@ import {
   NodeType,
   PageElementNode,
 } from '@codelab/frontend/shared'
+import { css } from '@emotion/react'
 import React from 'react'
 import { atomElementFactory } from './elementFactory'
 import { ComponentHandlers } from './useComponentHandlers'
@@ -85,7 +86,12 @@ const renderPageElement: NodeRendererType<PageElementNode> = (
     }
 
     return (
-      <RootComponent {...props} {...node.props} key={node.id}>
+      <RootComponent
+        {...props}
+        {...node.props}
+        css={node.css ? css(node.css) : undefined}
+        key={node.id}
+      >
         {React.Children.count(children) ? children : node.props.children}
       </RootComponent>
     )

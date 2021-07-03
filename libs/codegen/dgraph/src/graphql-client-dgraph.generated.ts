@@ -313,6 +313,7 @@ export type AddPageElementInput = {
   atom?: Maybe<AtomRef>
   component?: Maybe<ComponentRef>
   props: Array<PropRef>
+  css?: Maybe<Scalars['String']>
 }
 
 export type AddPageElementPayload = {
@@ -2362,6 +2363,7 @@ export type PageElement = {
   atom?: Maybe<Atom>
   component?: Maybe<Component>
   props: Array<Prop>
+  css?: Maybe<Scalars['String']>
   childrenAggregate?: Maybe<PageElementAggregateResult>
   propsAggregate?: Maybe<PropAggregateResult>
 }
@@ -2407,6 +2409,8 @@ export type PageElementAggregateResult = {
   count?: Maybe<Scalars['Int']>
   nameMin?: Maybe<Scalars['String']>
   nameMax?: Maybe<Scalars['String']>
+  cssMin?: Maybe<Scalars['String']>
+  cssMax?: Maybe<Scalars['String']>
 }
 
 export type PageElementFilter = {
@@ -2426,6 +2430,7 @@ export enum PageElementHasFilter {
   Atom = 'atom',
   Component = 'component',
   Props = 'props',
+  Css = 'css',
 }
 
 export type PageElementOrder = {
@@ -2436,6 +2441,7 @@ export type PageElementOrder = {
 
 export enum PageElementOrderable {
   Name = 'name',
+  Css = 'css',
 }
 
 export type PageElementPatch = {
@@ -2446,6 +2452,7 @@ export type PageElementPatch = {
   atom?: Maybe<AtomRef>
   component?: Maybe<ComponentRef>
   props?: Maybe<Array<PropRef>>
+  css?: Maybe<Scalars['String']>
 }
 
 export type PageElementRef = {
@@ -2457,6 +2464,7 @@ export type PageElementRef = {
   atom?: Maybe<AtomRef>
   component?: Maybe<ComponentRef>
   props?: Maybe<Array<PropRef>>
+  css?: Maybe<Scalars['String']>
 }
 
 export type PageFilter = {
@@ -3982,7 +3990,10 @@ export type UpdatePageMutation = {
   >
 }
 
-export type Dgraph_PageElementFragment = Pick<PageElement, 'id' | 'name'> & {
+export type Dgraph_PageElementFragment = Pick<
+  PageElement,
+  'id' | 'name' | 'css'
+> & {
   atom?: Maybe<DGraph__AtomFragment>
   parent?: Maybe<Pick<PageElement, 'id'>>
   page: Dgraph__PageFragment
@@ -4614,6 +4625,7 @@ export const Dgraph_PageElementFragmentDoc = gql`
   fragment Dgraph_PageElement on PageElement {
     id
     name
+    css
     atom {
       ...DGraph__Atom
     }
@@ -7574,6 +7586,7 @@ export const Dgraph_PageElement = gql`
   fragment Dgraph_PageElement on PageElement {
     id
     name
+    css
     atom {
       ...DGraph__Atom
     }

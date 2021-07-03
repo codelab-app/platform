@@ -1,8 +1,9 @@
-import 'twin.macro'
 import { UpdatePageElementPropsForm } from '@codelab/modules/prop'
+import styled from '@emotion/styled'
 import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'
 import React from 'react'
+import tw from 'twin.macro'
 import { usePageBuilderState } from '../../builder'
 import {
   DeletePageElementButton,
@@ -10,6 +11,7 @@ import {
   UpdatePageElementForm,
 } from '../../pageElement'
 import { MovePageElementForm } from '../../pageElement/movePageElement'
+import { PageElementStyleEditor } from '../../pageElement/styling/PageElementStyleEditor'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
@@ -19,6 +21,27 @@ const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
     {children}
   </div>
 )
+
+const TabContainer = styled.div`
+  height: 100%;
+  display: flex;
+
+  .ant-layout-sider-children,
+  .ant-tabs,
+  .ant-tabs-content,
+  .ant-tabs-content-holder,
+  .ant-tabs-tabpane,
+  .tab-panel {
+    ${tw`flex flex-col flex-grow min-h-0 overflow-visible`}
+  }
+
+  .tab-panel {
+    ${tw`px-4 py-2 `}
+  }
+  .tab-panel {
+    ${tw`overflow-auto`}
+  }
+`
 
 export const MetaPanePageDetail = () => {
   const {
@@ -47,52 +70,57 @@ export const MetaPanePageDetail = () => {
         height: 320,
       }}
     >
-      <Tabs defaultActiveKey={pageElement.id + '_tab1'}>
-        <Tabs.TabPane
-          tw="px-4 py-2 overflow-y-auto"
-          tab="Page element"
-          key={pageElement.id + '_tab1'}
-        >
-          <FormsGrid>
-            <UpdatePageElementForm
-              key={pageElement.id}
-              pageElement={pageElement}
-            />
-
-            <MovePageElementForm
-              key={pageElement.id}
-              pageElement={pageElement}
-            />
-
-            <div>
-              <DeletePageElementButton
-                danger={true}
-                pageElementId={selectedPageElement.id}
+      <TabContainer>
+        <Tabs defaultActiveKey={pageElement.id + '_tab1'}>
+          <Tabs.TabPane tab="Page element" key={pageElement.id + '_tab1'}>
+            <FormsGrid>
+              <UpdatePageElementForm
+                key={pageElement.id}
+                pageElement={pageElement}
               />
-            </div>
-          </FormsGrid>
 
-          <DeletePageElementModal
-            formProps={{ onSubmitSuccess: () => reset() }}
-          />
-        </Tabs.TabPane>
+              <MovePageElementForm
+                key={pageElement.id}
+                pageElement={pageElement}
+              />
 
-        <Tabs.TabPane
-          tw="px-4 py-2 overflow-y-auto max-h-48"
-          tab="Props"
-          key={pageElement.id + '_tab2'}
-        >
-          {pageElement.atom ? (
-            <UpdatePageElementPropsForm
-              key={pageElement.id}
-              pageElementId={pageElement.id}
-              atom={pageElement.atom}
+              <div>
+                <DeletePageElementButton
+                  danger={true}
+                  pageElementId={selectedPageElement.id}
+                />
+              </div>
+            </FormsGrid>
+
+            <DeletePageElementModal
+              formProps={{ onSubmitSuccess: () => reset() }}
             />
-          ) : (
-            'Add an atom to this page element to edit its props'
-          )}
-        </Tabs.TabPane>
-      </Tabs>
+          </Tabs.TabPane>
+
+          <Tabs.TabPane tab="Props" key={pageElement.id + '_tab2'}>
+            {pageElement.atom ? (
+              <UpdatePageElementPropsForm
+                key={pageElement.id}
+                pageElementId={pageElement.id}
+                atom={pageElement.atom}
+              />
+            ) : (
+              'Add an atom to this page element to edit its props'
+            )}
+          </Tabs.TabPane>
+
+          <Tabs.TabPane
+            style={{ overflow: 'visible' }}
+            tab="CSS"
+            key={pageElement.id + '_tab3'}
+          >
+            <PageElementStyleEditor
+              key={pageElement.id}
+              pageElement={selectedPageElement}
+            />
+          </Tabs.TabPane>
+        </Tabs>
+      </TabContainer>
     </Resizable>
   )
 }
