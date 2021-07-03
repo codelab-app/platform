@@ -107,14 +107,17 @@ executors:
   #   resource_class: small
 
 commands:
-  setup-env:
-    description: 'Setup env'
+  setup-workspace:
+    parameters:
+      vault_token:
+        type: string
+      vault_addr:
+        type: string
+    description: 'Setup workspace'
     steps:
+      - checkout
       - attach_workspace:
           at: ..
-      # - run:
-      #     name: 'Inject vault env to bash env'
-      #     command: "cat ~/.env >> $BASH_ENV"
       - run:
           name: 'Install NVM'
           command: |
@@ -157,15 +160,6 @@ commands:
       # Take note of newline characters when copying GPG_KEY
       #
       # https://discuss.circleci.com/t/gpg-keys-as-environment-variables/28641/2
-
-  setup-vault:
-    parameters:
-      vault_token:
-        type: string
-      vault_addr:
-        type: string
-    description: 'Setup Vault'
-    steps:
       - run:
           name: 'Import GPG key'
           command: echo -e "$GPG_KEY" | gpg --import
@@ -174,12 +168,6 @@ commands:
       - vault/login:
           token: << parameters.vault_token >>
           vault-addr: << parameters.vault_addr >>
-
-  setup-workspace:
-    description: 'Setup workspace'
-    steps:
-      - checkout
-      - setup-env
       # - run: vault kv get codelab/ci
       # # We need this for `env-cmd -f .env` command
       # - attach_workspace:
@@ -243,7 +231,9 @@ commands:
   build-docker-image:
     description: 'Build docker image'
     steps:
-      - setup-workspace
+      - setup-workspace:
+          vault_token: $VAULT_TOKEN
+          vault_addr: $VAULT_ADDR
       - setup_remote_docker:
           version: 19.03.8
       - aws-cli/setup
@@ -329,7 +319,9 @@ jobs:
   install-and-build-workspace:
     <<: *executor-params
     steps:
-      - setup-workspace
+      - setup-workspace:
+          vault_token: $VAULT_TOKEN
+          vault_addr: $VAULT_ADDR
       - yarn-install-dev
       - run:
           name: 'Build CI'
@@ -362,7 +354,9 @@ jobs:
     environment:
       CIRCLE_BASE_REVISION: <<pipeline.git.base_revision>>
     steps:
-      - setup-workspace
+      - setup-workspace:
+          vault_token: $VAULT_TOKEN
+          vault_addr: $VAULT_ADDR
       - run: make lint-eslint
       - run: make lint-commit-ci
       - notify-failure
@@ -370,29 +364,36 @@ jobs:
   unit:
     <<: *executor-params
     steps:
-      - setup-workspace
+      - setup-workspace:
+          vault_token: $VAULT_TOKEN
+          vault_addr: $VAULT_ADDR
       - run: make unit-ci
       - notify-failure
 
   integration:
     <<: *executor-params
     steps:
-      - setup-workspace
+      - setup-workspace:
+          vault_token: $VAULT_TOKEN
+          vault_addr: $VAULT_ADDR
       - run: make integration-ci
       - notify-failure
 
   e2e:
     <<: *executor-params
     steps:
-      - setup-workspace
+      - setup-workspace:
+          vault_token: $VAULT_TOKEN
+          vault_addr: $VAULT_ADDR
       # - run: make e2e-ci
       - notify-failure
 
   notify-success:
     <<: *executor-params
     steps:
-      - setup-workspace
-      # - setup-env
+      - setup-workspace:
+          vault_token: $VAULT_TOKEN
+          vault_addr: $VAULT_ADDR
       - slack/notify:
           event: pass
           channel: $SLACK_CHANNEL_UPDATE
@@ -429,30 +430,22 @@ workflows:
       - install-and-build-workspace:
           <<: *filters-staging-pr
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
       - lint:
           <<: *filters-staging-pr
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - install-and-build-workspace
       - unit:
           <<: *filters-staging-pr
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - install-and-build-workspace
       - integration:
           <<: *filters-staging-pr
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - install-and-build-workspace
@@ -507,22 +500,16 @@ workflows:
       - install-and-build-workspace:
           <<: *filters-staging-merge
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
       - build-docker-staging:
           <<: *filters-staging-merge
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - install-and-build-workspace
       - deploy-to-staging:
           <<: *filters-staging-merge
           e: docker-python
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - build-docker-staging
@@ -538,38 +525,28 @@ workflows:
       - install-and-build-workspace:
           <<: *filters-prod
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
       - lint:
           <<: *filters-prod
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - install-and-build-workspace
       - unit:
           <<: *filters-prod
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - install-and-build-workspace
       - integration:
           <<: *filters-prod
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - install-and-build-workspace
       - e2e:
           <<: *filters-prod
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - install-and-build-workspace
@@ -580,8 +557,6 @@ workflows:
       - build-docker-prod:
           <<: *filters-prod
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - lint
@@ -591,15 +566,11 @@ workflows:
       - deploy-to-prod:
           <<: *filters-prod
           e: docker-python
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           context: CI
           requires:
             - build-docker-prod
       - notify-success:
           <<: *filters-prod
           e: docker-node
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
           requires:
             - deploy-to-prod
