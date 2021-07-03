@@ -157,15 +157,15 @@ commands:
       # Take note of newline characters when copying GPG_KEY
       #
       # https://discuss.circleci.com/t/gpg-keys-as-environment-variables/28641/2
-      - run:
-          name: 'Import GPG key'
-          command: echo -e "$GPG_KEY" | gpg --import
 
   setup-workspace:
     description: 'Setup workspace'
     steps:
       - checkout
       - setup-env
+      - run:
+          name: 'Import GPG key'
+          command: echo -e "$GPG_KEY" | gpg --import
       - vault/install
       - vault/login:
           token: $VAULT_TOKEN
