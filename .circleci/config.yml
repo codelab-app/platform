@@ -165,11 +165,9 @@ commands:
           command: echo -e "$GPG_KEY" | gpg --import
       - vault/install:
           verify: false
-      - run: echo << parameters.vault_token >>
-      - run: echo << parameters.vault_addr >>
+      - run: echo $(eval << parameters.vault_token >>)
+      - run: echo $(eval << parameters.vault_addr >>)
       - vault/login:
-          # token: s.0VCRbwpM5yffEr8aKbqyKdRO.RDIaP
-          # vault-addr: https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200
           token: << parameters.vault_token >>
           vault-addr: << parameters.vault_addr >>
       # - run: vault kv get codelab/ci
@@ -324,8 +322,8 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace:
-          # It seems to me that context is processed before environment variables. So should use parameters instead of env var
-          # https://discuss.circleci.com/t/how-to-use-a-bash-env-variable-as-a-parameter-to-a-command-or-when-condition/29186
+          # The config is processed at compile time, so environment variables are not processed.
+          # https://discuss.circleci.com/t/use-environment-variables-in-parameters/26314/2
           #
           # vault_token: s.0VCRbwpM5yffEr8aKbqyKdRO.RDIaP
           # vault_addr: https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200
