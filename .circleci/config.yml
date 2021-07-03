@@ -42,7 +42,7 @@ filters-prod: &filters-prod
 # filters-master-branch-only: &filters-master-branch-only
 #   when:
 #     and:
-#       - equal: [master, <<pipeline.git.branch>>]
+#       - equal: [master, << pipeline.git.branch >>]
 
 executor-params: &executor-params
   parameters:
@@ -325,11 +325,12 @@ jobs:
     steps:
       - setup-workspace:
           # It seems to me that context is processed before environment variables. So should use parameters instead of env var
+          # https://discuss.circleci.com/t/how-to-use-a-bash-env-variable-as-a-parameter-to-a-command-or-when-condition/29186
           #
           # vault_token: s.0VCRbwpM5yffEr8aKbqyKdRO.RDIaP
           # vault_addr: https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200
-          vault_token: ${VAULT_TOKEN}
-          vault_addr: ${VAULT_ADDR}
+          vault_token: '${VAULT_TOKEN}'
+          vault_addr: '${VAULT_ADDR}'
       - yarn-install-dev
       - run:
           name: 'Build CI'
@@ -360,7 +361,7 @@ jobs:
   lint:
     <<: *executor-params
     environment:
-      CIRCLE_BASE_REVISION: <<pipeline.git.base_revision>>
+      CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
     steps:
       - setup-workspace:
           vault_token: $VAULT_TOKEN
