@@ -162,21 +162,16 @@ commands:
           command: echo -e "$GPG_KEY" | gpg --import
 
   setup-workspace:
-    # parameters:
-    #   vault_token:
-    #     type: string
-    #     default: $VAULT_TOKEN
-    #   vault_addr:
-    #     type: string
-    #     default: $VAULT_ADDR
     description: 'Setup workspace'
     steps:
       - checkout
       - setup-env
-      # - vault/install
-      # - vault/login:
-      #     token: $VAULT_TOKEN
-      #     vault-addr: $VAULT_ADDR
+      - vault/install
+      - vault/login:
+          token: $VAULT_TOKEN
+          vault-addr: $VAULT_ADDR
+      - run: vault kv get codelab/ci
+
       # # We need this for `env-cmd -f .env` command
       # - attach_workspace:
       #     at: ..
