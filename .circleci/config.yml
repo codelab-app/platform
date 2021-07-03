@@ -234,8 +234,8 @@ commands:
     description: 'Build docker image'
     steps:
       - setup-workspace:
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
+          vault_token: s.0VCRbwpM5yffEr8aKbqyKdRO.RDIaP
+          vault_addr: https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200
       - setup_remote_docker:
           version: 19.03.8
       - aws-cli/setup
