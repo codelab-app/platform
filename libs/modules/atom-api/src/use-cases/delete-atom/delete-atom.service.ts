@@ -5,6 +5,7 @@ import {
 } from '@apollo/client'
 import {
   ApolloClientTokens,
+  BaseDgraphFields,
   DeleteResponse,
   MutationUseCase,
 } from '@codelab/backend'
@@ -13,6 +14,11 @@ import {
   DeleteAtomAndInterfaceMutation,
   DeleteAtomAndInterfaceMutationVariables,
 } from '@codelab/codegen/dgraph'
+import {
+  DgraphInterface,
+  GetDgraphTypeService,
+  InterfaceDgraphFields,
+} from '@codelab/modules/type-api'
 import { Inject, Injectable } from '@nestjs/common'
 import { Atom } from '../../atom.model'
 import { GetAtomService } from '../get-atom'
@@ -33,6 +39,7 @@ export class DeleteAtomService extends MutationUseCase<
   constructor(
     @Inject(ApolloClientTokens.ApolloClientProvider)
     protected apolloClient: ApolloClient<NormalizedCacheObject>,
+    private getDgraphTypeService: GetDgraphTypeService,
     private getAtomService: GetAtomService,
   ) {
     super(apolloClient)
@@ -56,16 +63,32 @@ export class DeleteAtomService extends MutationUseCase<
     }
   }
 
-  protected mapVariables(
+  protected async mapVariables(
     request: DeleteAtomInput,
     { atom }: ValidationContext,
-  ): DeleteAtomAndInterfaceMutationVariables {
+  ): Promise<DeleteAtomAndInterfaceMutationVariables> {
+    // Delete the interface fields too. We can just call DeleteTypeService, but what if
+    // one of the calls - either DeleteType.execute, or DeleteAtom.execute fails?
+    const type = (await this.getDgraphTypeService.execute({
+      typeId: atom.propTypes.id,
+    })) as DgraphInterface
+
+    const fieldIds =
+      type && type[InterfaceDgraphFields.Fields]
+        ? type[InterfaceDgraphFields.Fields]?.map(
+            (f) => f[BaseDgraphFields.uid],
+          ) || []
+        : []
+
     return {
       filter: {
         id: [request.atomId],
       },
       interfaceFilter: {
         id: [atom.propTypes.id],
+      },
+      fieldFilter: {
+        id: fieldIds,
       },
     }
   }

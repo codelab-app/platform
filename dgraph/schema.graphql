@@ -131,9 +131,10 @@ type ArrayLengthValidator {
 }
 
 union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator #add more decorators here if we need to extend the functionality
+
 type Field {
   id: ID!
-  type: Type! # Having TypeUnion instead of Type here makes it easier to make inserts
+  type: Type!
   key: String! @search(by: [hash, fulltext])
   name: String!
   description: String

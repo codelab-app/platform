@@ -3,7 +3,11 @@ import { baseFields } from './base-dgraph-fields'
 import { DgraphModelMetadata } from './dgraph.model'
 import { DgraphQueryField } from './dgraph-query-field'
 import { DgraphFilter } from './filters'
-import { IDgraphQueryFilter, IQueryBuilder } from './i-query-builder'
+import {
+  IBuildable,
+  IDgraphQueryFilter,
+  IQueryBuilder,
+} from './i-query-builder'
 import { compileMultiple } from './utils'
 
 // Right now there are a lot of moving parts here
@@ -16,7 +20,7 @@ export class DgraphQueryBuilder implements IQueryBuilder {
 
   protected _func?: Array<IDgraphQueryFilter>
 
-  protected _directive?: string
+  protected _directive?: string | IBuildable
 
   protected _fields: Array<DgraphQueryField | string>
 
@@ -71,7 +75,7 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     return this
   }
 
-  withDirective(directive: string) {
+  withDirective(directive: string | IBuildable) {
     this._directive = directive
 
     return this
@@ -177,9 +181,14 @@ export class DgraphQueryBuilder implements IQueryBuilder {
 
     const funcString = compileMultiple(this._func)
 
+    const directiveString =
+      typeof this._directive === 'string' || !this._directive
+        ? this._directive
+        : this._directive.build()
+
     return `
        {
-          ${this._queryName}(func: ${funcString}) ${this._directive || ''} {
+          ${this._queryName}(func: ${funcString}) ${directiveString || ''} {
               ${fieldsString}
           }
        }

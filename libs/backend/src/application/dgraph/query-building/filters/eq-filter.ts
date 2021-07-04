@@ -2,9 +2,9 @@ import { DgraphFilter } from './dgraph-filter'
 
 /** https://dgraph.io/docs/query-language/functions/#inequality */
 export class EqFilter extends DgraphFilter {
-  private _predicate?: string
+  private readonly _predicate?: string
 
-  private _value?: string
+  private readonly _value?: string
 
   constructor(predicate: string, value: string) {
     super()
