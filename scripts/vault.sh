@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-vault login $VAULT_TOKEN
+# vault login $VAULT_TOKEN
+vault login -method=userpass username=$VAULT_USERNAME password=$VAULT_PASSWORD
 
 data="$(vault kv get codelab/ci)"
 
