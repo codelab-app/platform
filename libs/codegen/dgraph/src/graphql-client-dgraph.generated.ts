@@ -857,6 +857,20 @@ export enum AtomType {
   HtmlBr = 'HtmlBr',
   HtmlAudio = 'HtmlAudio',
   HtmlArea = 'HtmlArea',
+  HtmlFooter = 'HtmlFooter',
+  HtmlAside = 'HtmlAside',
+  HtmlHeader = 'HtmlHeader',
+  HtmlMain = 'HtmlMain',
+  HtmlNav = 'HtmlNav',
+  HtmlSection = 'HtmlSection',
+  HtmlCode = 'HtmlCode',
+  HtmlEm = 'HtmlEm',
+  HtmlI = 'HtmlI',
+  HtmlS = 'HtmlS',
+  HtmlSmall = 'HtmlSmall',
+  HtmlStrong = 'HtmlStrong',
+  HtmlSub = 'HtmlSub',
+  HtmlSup = 'HtmlSup',
 }
 
 export type AuthRule = {

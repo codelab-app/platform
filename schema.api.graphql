@@ -260,6 +260,20 @@ enum AtomType {
   HtmlBr
   HtmlAudio
   HtmlArea
+  HtmlFooter
+  HtmlAside
+  HtmlHeader
+  HtmlMain
+  HtmlNav
+  HtmlSection
+  HtmlCode
+  HtmlEm
+  HtmlI
+  HtmlS
+  HtmlSmall
+  HtmlStrong
+  HtmlSub
+  HtmlSup
 }
 
 type Prop {

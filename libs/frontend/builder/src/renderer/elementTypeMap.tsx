@@ -86,6 +86,21 @@ export const elementTypeMap: Record<
   [AtomType.HtmlBr]: 'br',
   [AtomType.HtmlAudio]: 'audio',
   [AtomType.HtmlArea]: 'area',
+  [AtomType.HtmlFooter]: 'footer',
+  [AtomType.HtmlHeader]: 'header',
+  [AtomType.HtmlAside]: 'aside',
+  [AtomType.HtmlMain]: 'main',
+  [AtomType.HtmlNav]: 'nav',
+  [AtomType.HtmlSection]: 'section',
+  [AtomType.HtmlCode]: 'code',
+  [AtomType.HtmlEm]: 'em',
+  [AtomType.HtmlI]: 'i',
+  [AtomType.HtmlS]: 's',
+  [AtomType.HtmlSmall]: 'small',
+  [AtomType.HtmlStrong]: 'strong',
+  [AtomType.HtmlSub]: 'sub',
+  [AtomType.HtmlSup]: 'sup',
+
   //
   // Antd:
   [AtomType.AntDesignIcon]: Icon,
