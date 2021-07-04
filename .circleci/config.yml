@@ -70,6 +70,12 @@ executor-config: &executor-config
     COLOR_FAILURE: '#ffccc7'
     NODE_OPTIONS: --max_old_space_size=16384
     NODE_ENV: production
+    # VAULT
+    VAULT_FORMAT: json
+    VAULT_ADDR: https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200
+    VAULT_NAMESPACE: admin
+    # Add this to CircleCI dashboard
+    # VAULT_TOKEN:
   working_directory: ~/project
 
 version: 2.1
@@ -100,11 +106,6 @@ executors:
     docker:
       - image: circleci/python:3.7
     resource_class: medium
-  # vault-img:
-  #   <<: *executor-config
-  #   docker:
-  #     - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
-  #   resource_class: small
 
 commands:
   setup-workspace:
@@ -158,11 +159,14 @@ commands:
       - run:
           name: 'Import GPG key'
           command: echo -e "$GPG_KEY" | gpg --import
-      # Set `VAULT_ADDR`, `VAULT_NAMESPACE`, `VAULT_TOKEN` first
+      # Set `VAULT_ADDR`, `VAULT_NAMESPACE`, `VAULT_TOKEN`, `VAULT_FORMAT` first
       - vault/install:
           verify: false
-      - run: vault login $VAULT_TOKEN
-      - run: vault kv get codelab/ci
+      - run: ./scripts/vault.sh
+      - run: echo $MY_TEST_TOKEN
+      - run: echo $MY_TEST_TOKEN_2
+      # - run: vault login $VAULT_TOKEN
+      # - run: vault kv get codelab/ci
       # # We need this for `env-cmd -f .env` command
       # - attach_workspace:
       #     at: ..
@@ -292,34 +296,10 @@ commands:
       - run: echo 'export APP_PREFIX="${APP_PROD_PREFIX}"' >> $BASH_ENV
 
 jobs:
-  # setup-vault-env:
-  #   <<: *executor-params
-  #   description: 'Pull .env from vault server'
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: 'Fetch .env'
-  #         command: |
-  #           echo $CI_VAULT_ROLE_ID > /tmp/role-id
-  #           echo $CI_VAULT_SECRET_ID > /tmp/secret-id
-  #           vault agent -address=$VAULT_ADDR -config=.vault/agent.hcl
-  #     - persist_to_workspace:
-  #         root: .
-  #         paths:
-  #           - .env
-
   install-and-build-workspace:
     <<: *executor-params
     steps:
       - setup-workspace
-        # The config is processed at compile time, so environment variables are not processed.
-        # https://discuss.circleci.com/t/use-environment-variables-in-parameters/26314/2
-        #
-        # vault_token: s.0VCRbwpM5yffEr8aKbqyKdRO.RDIaP
-        # vault_addr: https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200
-        # TODO: Replace with Context environment variables
-        # vault_token: $VAULT_TOKEN
-        # vault_addr: $VAULT_ADDR
       - yarn-install-dev
       - run:
           name: 'Build CI'
