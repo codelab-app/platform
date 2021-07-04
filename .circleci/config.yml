@@ -108,11 +108,6 @@ executors:
 
 commands:
   setup-workspace:
-    parameters:
-      vault_token:
-        type: string
-      vault_addr:
-        type: string
     description: 'Setup workspace'
     steps:
       - checkout
@@ -165,11 +160,10 @@ commands:
           command: echo -e "$GPG_KEY" | gpg --import
       - vault/install:
           verify: false
+      - run: echo $VAULT_ADDRESS
       - vault/login:
-          token: '${VAULT_TOKEN}'
-          vault-addr: '${VAULT_ADDR}'
-          # token: << parameters.vault_token >>
-          # vault-addr: << parameters.vault_addr >>
+          token: << parameters.vault_token >>
+          vault-addr: << parameters.vault_addr >>
       # - run: vault kv get codelab/ci
       # # We need this for `env-cmd -f .env` command
       # - attach_workspace:
@@ -234,8 +228,6 @@ commands:
     description: 'Build docker image'
     steps:
       - setup-workspace:
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
       - setup_remote_docker:
           version: 19.03.8
       - aws-cli/setup
@@ -321,14 +313,17 @@ jobs:
   install-and-build-workspace:
     <<: *executor-params
     steps:
+      - run: echo 'export VAULT_TOKEN="${VAULT_TOKEN}"' >> $BASH_ENV
+      - run: echo 'export VAULT_ADDRESS="${VAULT_ADDR}"' >> $BASH_ENV
       - setup-workspace:
           # The config is processed at compile time, so environment variables are not processed.
           # https://discuss.circleci.com/t/use-environment-variables-in-parameters/26314/2
           #
           # vault_token: s.0VCRbwpM5yffEr8aKbqyKdRO.RDIaP
           # vault_addr: https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
+          # TODO: Replace with Context environment variables
+          # vault_token: $VAULT_TOKEN
+          # vault_addr: $VAULT_ADDR
       - yarn-install-dev
       - run:
           name: 'Build CI'
@@ -362,8 +357,6 @@ jobs:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
     steps:
       - setup-workspace:
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
       - run: make lint-eslint
       - run: make lint-commit-ci
       - notify-failure
@@ -372,8 +365,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace:
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
       - run: make unit-ci
       - notify-failure
 
@@ -381,8 +372,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace:
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
       - run: make integration-ci
       - notify-failure
 
@@ -390,8 +379,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace:
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
       # - run: make e2e-ci
       - notify-failure
 
@@ -399,8 +386,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace:
-          vault_token: $VAULT_TOKEN
-          vault_addr: $VAULT_ADDR
       - slack/notify:
           event: pass
           channel: $SLACK_CHANNEL_UPDATE
@@ -476,22 +461,6 @@ workflows:
           # start: make e2e-ci-start
           command: yarn console e2e --ci
           # command: npx nx run web-e2e:e2e:ci
-      # - e2e:
-      #     <<: *filters-staging-pr
-      #     e: docker-node
-      #     context: CI
-      #     requires:
-      #       - sync-hasura
-      #       # - install-and-build-workspace
-      # - deploy-to-ebs-staging:
-      #     <<: *filters-staging-merge
-      #     e: docker-python
-      #     context: CI
-      #     requires:
-      #       - lint
-      #       - unit
-      #       - integration
-      #       - e2e
       - notify-success:
           <<: *filters-staging-pr
           context: CI
