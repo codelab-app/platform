@@ -160,11 +160,11 @@ commands:
           command: echo -e "$GPG_KEY" | gpg --import
       - vault/install:
           verify: false
-      - run: echo $VAULT_TOKEN
-      - run: echo $VAULT_ADDR
+      - run: echo $MY_VAULT_TOKEN
+      - run: echo $MY_VAULT_ADDR
       - vault/login:
-          token: $VAULT_TOKEN
-          vault-addr: $VAULT_ADDR
+          token: $MY_VAULT_TOKEN
+          vault-addr: $MY_VAULT_ADDR
       # - run: vault kv get codelab/ci
       # # We need this for `env-cmd -f .env` command
       # - attach_workspace:
@@ -314,8 +314,8 @@ jobs:
   install-and-build-workspace:
     <<: *executor-params
     steps:
-      - run: echo 'export VAULT_TOKEN="s.0VCRbwpM5yffEr8aKbqyKdRO.RDIaP"' >> $BASH_ENV
-      - run: echo 'export VAULT_ADDR="https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200"' >> $BASH_ENV
+      - run: echo 'export MY_VAULT_TOKEN="s.0VCRbwpM5yffEr8aKbqyKdRO.RDIaP"' >> $BASH_ENV
+      - run: echo 'export MY_VAULT_ADDR="https://codelab-vault-cluster.vault.d7140273-4bc8-45f5-83a0-dee3232ea07c.aws.hashicorp.cloud:8200"' >> $BASH_ENV
       - setup-workspace
         # The config is processed at compile time, so environment variables are not processed.
         # https://discuss.circleci.com/t/use-environment-variables-in-parameters/26314/2
