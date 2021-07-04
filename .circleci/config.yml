@@ -162,8 +162,8 @@ commands:
           verify: false
       - run: echo $VAULT_ADDRESS
       - vault/login:
-          token: << parameters.vault_token >>
-          vault-addr: << parameters.vault_addr >>
+          token: $VAULT_TOKEN
+          vault-addr: $VAULT_ADDRESS
       # - run: vault kv get codelab/ci
       # # We need this for `env-cmd -f .env` command
       # - attach_workspace:
