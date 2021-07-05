@@ -3,20 +3,20 @@ import {
   useUpdatePageElementMutation,
 } from '@codelab/codegen/graphql'
 import {
+  ElementNode,
   EmotionCssEditor,
-  PageElementNode,
   useDebouncedState,
 } from '@codelab/frontend/shared'
 import React, { useEffect, useState } from 'react'
 
 export interface PageElementStyleEditorProps {
-  pageElement: PageElementNode
+  pageElement: ElementNode
 }
 
 export const PageElementStyleEditor = ({
   pageElement,
 }: PageElementStyleEditorProps) => {
-  const [mutate, { loading: updating, error }] = useUpdatePageElementMutation({
+  const [mutate] = useUpdatePageElementMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
       refetchGetPageElementQuery({

@@ -1,15 +1,19 @@
 import { __AtomFragment, AtomType } from '@codelab/codegen/graphql'
 import { CytoscapeNode, NodeBase, notify } from '@codelab/frontend/shared'
 import React from 'react'
-import ReactTestUtils from 'react-dom/test-utils'
-import { elementTypeMap } from './elementTypeMap'
-import { ComponentHandlers } from './useComponentHandlers'
+import { atomTypeElementFactory } from './atomTypeElementFactory'
 
-interface ElementParameterFactoryInput<TNode extends NodeBase = CytoscapeNode> {
+export interface RenderHandlers {
+  handleMouseEnter: (id: string) => any
+  handleMouseLeave: (id: string) => any
+  handleClick: (id: string) => any
+}
+
+interface AtomElementFactoryProps<TNode extends NodeBase = CytoscapeNode> {
   atom: __AtomFragment
   node: TNode
   // Function hooks injected to pass to handlers
-  handlers: ComponentHandlers
+  handlers: RenderHandlers
 }
 
 /**
@@ -18,7 +22,7 @@ interface ElementParameterFactoryInput<TNode extends NodeBase = CytoscapeNode> {
  */
 export const elementsPropTransformers: {
   [K in AtomType]?: (
-    input: ElementParameterFactoryInput & { props: Record<string, any> },
+    input: AtomElementFactoryProps & { props: Record<string, any> },
   ) => any
 } = {
   [AtomType.AntDesignRglItem]: ({ node, props }) => {
@@ -33,7 +37,7 @@ export const elementsPropTransformers: {
       'data-id': node.id,
     }
   },
-  [AtomType.AntDesignRglResponsiveContainer]: ({ handlers, props }) => ({
+  [AtomType.AntDesignRglResponsiveContainer]: ({ props }) => ({
     ...props,
     // onResizeStop: onResizeStop(handlers),
     style: {
@@ -44,10 +48,10 @@ export const elementsPropTransformers: {
   [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), // Do not pass in any props for fragments, except key, because it creates an error
 }
 
-const commonProps = (node: CytoscapeNode, handlers: ComponentHandlers) => ({
-  // Add vertexType to attribute
-  // 'data-vertex-type': node.type,
+const commonProps = (node: CytoscapeNode, handlers: RenderHandlers) => ({
   'data-id': node.id,
+  'data-node-type': node.nodeType,
+  key: node.id,
   // https://stackoverflow.com/questions/41645325/mouseover-and-mouseout-trigger-multiple-times
   //
   // Use `onMouseEnter` instead of `onMouseOver`
@@ -55,57 +59,38 @@ const commonProps = (node: CytoscapeNode, handlers: ComponentHandlers) => ({
   //
   // Enter is only triggered once when we enter the box
   // Otherwise `onMouseOver` will fire endless as it toggles between current & children element
-  onMouseEnter: (e: MouseEvent) => {
-    // console.log('mouseEnter', e)
-    // TODO mouse enter
-    //
-    // return handlers?.showHoverOverlay({
-    //   pageElementId: node.pageElementId,
-    //   componentElementId: node.componentElementId,
-    //   nodeId: node.id,
-    // })
+  onMouseEnter: () => {
+    return handlers?.handleMouseEnter(node.id)
   },
   // We want to manually re-trigger the `onMouseEnter` of the parent
   onMouseLeave: (e: MouseEvent) => {
-    // console.log('mouseLeave', e)
-    // https://stackoverflow.com/questions/28900077/why-is-event-target-not-element-in-typescript
-    const currentTarget = e.currentTarget as HTMLElement
-    const parentNode = currentTarget.parentNode as HTMLElement
-
-    // https://stackoverflow.com/questions/39065010/why-react-event-handler-is-not-called-on-dispatchevent
-
-    // console.log(parentNode, parentNode.dataset['vertex-type'])
-
-    /**
-     * This checks that we're hovering over a builder component
-     */
-    if (parentNode && parentNode.dataset.vertexType) {
-      return ReactTestUtils.Simulate.mouseEnter(parentNode as Element)
-    }
-
-    return handlers?.resetHoverOverlay()
+    return handlers?.handleMouseLeave(node.id)
   },
   onClick: (e: MouseEvent) => {
-    // We want to show overlay for current node
-    e.stopPropagation()
+    if (handlers?.handleClick) {
+      if (e.stopPropagation) {
+        e.stopPropagation()
+      }
 
-    // TODO onclick
-    //
-    // Open inspector and the click overview
-    // handlers?.selectPageElement({
-    //   pageElementId: node.pageElementId,
-    //   componentElementId: node.componentElementId,
-    //   nodeId: node.id,
-    // })
+      if (e.stopImmediatePropagation) {
+        e.stopImmediatePropagation()
+      }
+
+      return handlers.handleClick(node.id)
+    }
   },
   className: 'Builder-none',
 })
 
-export const atomElementFactory = <TNode extends CytoscapeNode>({
+/**
+ * Creates a Element and props out of a node and an atom
+ * Pass in handlers to modify the behavior of the rendered HTML element
+ */
+export const elementFactory = <TNode extends CytoscapeNode>({
   atom,
   node,
   handlers,
-}: ElementParameterFactoryInput<TNode>): [
+}: AtomElementFactoryProps<TNode>): [
   React.ComponentType<any> | string | null,
   Record<string, any>,
 ] => {
@@ -114,7 +99,7 @@ export const atomElementFactory = <TNode extends CytoscapeNode>({
   }
 
   const type = atom.type
-  const component = elementTypeMap[type]
+  const component = atomTypeElementFactory(type)
 
   if (!component) {
     notify({
@@ -125,10 +110,7 @@ export const atomElementFactory = <TNode extends CytoscapeNode>({
     return [null, {}]
   }
 
-  let props = {
-    ...commonProps(node, handlers),
-  }
-
+  let props = commonProps(node, handlers)
   const propsTransformer = elementsPropTransformers[type]
 
   if (propsTransformer) {

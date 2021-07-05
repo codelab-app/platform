@@ -59,6 +59,7 @@ export class DeleteTypeService extends MutationUseCase<
     { typeId }: DeleteTypeInput,
     { foundInterface }: ValidationContext,
   ): GqlVariablesType {
+    // If the type is an interface, delete its fields too, they're useless without an interface
     const fieldIds =
       foundInterface && foundInterface[InterfaceDgraphFields.Fields]
         ? foundInterface[InterfaceDgraphFields.Fields]?.map(
@@ -77,6 +78,7 @@ export class DeleteTypeService extends MutationUseCase<
   protected async validate(
     request: DeleteTypeInput,
   ): Promise<ValidationContext> {
+    // Check if the deleted type exists
     const type = await this.getDgraphTypeService.execute({
       typeId: request.typeId,
     })
@@ -85,6 +87,8 @@ export class DeleteTypeService extends MutationUseCase<
       throw new Error('Type not found')
     }
 
+    // If the deleted type is the propTypes of an atom, return an Error
+    // the user needs to delete the atom first, otherwise our data will be corrupt (propTypes is a required field of Atom)
     if (instanceOfDgraphModel(type, DgraphInterface.Metadata.modelName)) {
       const atom = (type as DgraphInterface)[InterfaceDgraphFields.Atom] as any
 
@@ -96,9 +100,13 @@ export class DeleteTypeService extends MutationUseCase<
         )
       }
 
+      // The type is an interface, but it doesn't belong to an atom. We can safely delete it
+      // Return the foundInterface as context in case we need it
       return { foundInterface: type as DgraphInterface }
     }
 
+    // The type is not an interface
+    // Check if any fields reference it. If there are any - prevent deleting it
     const fields = await this.getFieldsByTypeService.execute({
       typeId: request.typeId,
     })
@@ -106,7 +114,7 @@ export class DeleteTypeService extends MutationUseCase<
     if (fields && fields.length) {
       throw new Error(
         'Cannot delete type, the field(s) ' +
-          fields.map((f) => f.name).join(',') +
+          fields.map((f) => `${f.interface.name}.${f.name}`).join(',') +
           ' depend on it',
       )
     }

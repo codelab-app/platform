@@ -93,10 +93,9 @@ export class DgraphTriple implements IBuildable {
 
   private getValueString(): string {
     switch (typeof this._value) {
+      case 'number':
       case 'boolean':
         return `"${this._value.toString()}"`
-      case 'number':
-        return this._value.toString()
       case 'object':
         return this._value.build()
       default:

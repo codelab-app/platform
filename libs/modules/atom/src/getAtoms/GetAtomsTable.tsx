@@ -1,7 +1,12 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
-import { useGetAtomsQuery } from '@codelab/codegen/graphql'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { __AtomFragment, useGetAtomsQuery } from '@codelab/codegen/graphql'
+import {
+  EntityType,
+  PageType,
+  useCRUDModalForm,
+} from '@codelab/frontend/shared'
 import { Button, Space, Spin, Table, TableColumnProps, Tag } from 'antd'
+import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
 import { useColumnSearchProps } from './useColumnSearchProps'
@@ -14,11 +19,11 @@ export const GetAtomsTable = () => {
     style: tw`font-semibold text-gray-900`,
   })
 
-  const columns: Array<TableColumnProps<any>> = [
+  const columns: Array<TableColumnProps<__AtomFragment>> = [
     {
       title: 'Name',
       dataIndex: 'label',
-      key: 'type',
+      key: 'name',
       onHeaderCell: headerCellProps,
       ...columnSearchProps,
     },
@@ -37,7 +42,10 @@ export const GetAtomsTable = () => {
           value: 'Orange',
         },
       ],
-      onFilter: (value, record) => record.name.indexOf(value) === 0,
+      onFilter: (value, record) =>
+        record.label.toLowerCase().indexOf(value.toString().toLowerCase()) ===
+          0 ||
+        record.type.toLowerCase().indexOf(value.toString().toLowerCase()) === 0,
       render: (library = 'Ant Design') => {
         const color = library === 'Ant Design' ? 'geekblue' : 'orange'
 
@@ -54,7 +62,18 @@ export const GetAtomsTable = () => {
       key: 'props',
       width: 100,
       onHeaderCell: headerCellProps,
-      render: () => <a css={tw`text-blue-700`}>View</a>,
+      render: (_, record) => (
+        <Link
+          href={PageType.InterfaceDetail.replace(
+            '[interfaceId]',
+            // eslint-disable-next-line react/forbid-foreign-prop-types
+            record.propTypes.id,
+          )}
+        >
+          {/*  eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a css={tw`text-blue-700`}>View</a>
+        </Link>
+      ),
     },
     {
       title: 'Action',
@@ -66,7 +85,7 @@ export const GetAtomsTable = () => {
           <Button
             size="small"
             type="primary"
-            css={tw`flex justify-center items-center`}
+            css={tw`flex items-center justify-center`}
             icon={<EditFilled />}
             onClick={() => openUpdateModal(record.id, record)}
           />
@@ -74,7 +93,7 @@ export const GetAtomsTable = () => {
             size="small"
             type="primary"
             danger
-            css={tw`flex justify-center items-center`}
+            css={tw`flex items-center justify-center`}
             icon={<DeleteFilled />}
             onClick={() => openDeleteModal([record.id], record)}
           />

@@ -5,6 +5,9 @@ export class DgraphFilter implements IDgraphQueryFilter {
 
   private _filter?: string
 
+  /**
+   * @param filter e.g. "@filter(uid(x))"
+   */
   withFilter(filter: string) {
     this._filter = filter
 
@@ -20,7 +23,7 @@ export class DgraphFilter implements IDgraphQueryFilter {
 
   build(): string {
     if (!this._filter) {
-      throw new Error("Can't build Filter, filter stirng not provided")
+      throw new Error("Can't build Filter, filter string not provided")
     }
 
     return `${this._connectionPrefix || ''} ${this._filter}`

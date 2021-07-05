@@ -857,6 +857,20 @@ export enum AtomType {
   HtmlBr = 'HtmlBr',
   HtmlAudio = 'HtmlAudio',
   HtmlArea = 'HtmlArea',
+  HtmlFooter = 'HtmlFooter',
+  HtmlAside = 'HtmlAside',
+  HtmlHeader = 'HtmlHeader',
+  HtmlMain = 'HtmlMain',
+  HtmlNav = 'HtmlNav',
+  HtmlSection = 'HtmlSection',
+  HtmlCode = 'HtmlCode',
+  HtmlEm = 'HtmlEm',
+  HtmlI = 'HtmlI',
+  HtmlS = 'HtmlS',
+  HtmlSmall = 'HtmlSmall',
+  HtmlStrong = 'HtmlStrong',
+  HtmlSub = 'HtmlSub',
+  HtmlSup = 'HtmlSup',
 }
 
 export type AuthRule = {
@@ -3830,11 +3844,13 @@ export type CreateAtomMutation = {
 export type DeleteAtomAndInterfaceMutationVariables = Exact<{
   filter: AtomFilter
   interfaceFilter: InterfaceFilter
+  fieldFilter: FieldFilter
 }>
 
 export type DeleteAtomAndInterfaceMutation = {
   deleteAtom?: Maybe<Pick<DeleteAtomPayload, 'numUids'>>
   deleteInterface?: Maybe<Pick<DeleteInterfacePayload, 'numUids'>>
+  deleteField?: Maybe<Pick<DeleteFieldPayload, 'numUids'>>
 }
 
 export type GetAtomByPageElementQueryVariables = Exact<{
@@ -5148,11 +5164,15 @@ export const DeleteAtomAndInterfaceGql = gql`
   mutation DeleteAtomAndInterface(
     $filter: AtomFilter!
     $interfaceFilter: InterfaceFilter!
+    $fieldFilter: FieldFilter!
   ) {
     deleteAtom(filter: $filter) {
       numUids
     }
     deleteInterface(filter: $interfaceFilter) {
+      numUids
+    }
+    deleteField(filter: $fieldFilter) {
       numUids
     }
   }
@@ -5177,6 +5197,7 @@ export type DeleteAtomAndInterfaceMutationFn = Apollo.MutationFunction<
  *   variables: {
  *      filter: // value for 'filter'
  *      interfaceFilter: // value for 'interfaceFilter'
+ *      fieldFilter: // value for 'fieldFilter'
  *   },
  * });
  */
@@ -7807,11 +7828,15 @@ export const DeleteAtomAndInterface = gql`
   mutation DeleteAtomAndInterface(
     $filter: AtomFilter!
     $interfaceFilter: InterfaceFilter!
+    $fieldFilter: FieldFilter!
   ) {
     deleteAtom(filter: $filter) {
       numUids
     }
     deleteInterface(filter: $interfaceFilter) {
+      numUids
+    }
+    deleteField(filter: $fieldFilter) {
       numUids
     }
   }
