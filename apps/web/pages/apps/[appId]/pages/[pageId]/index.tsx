@@ -2,13 +2,14 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   MainPanePageDetail,
   MetaPanePageDetail,
+  PageBuilder,
   PageContext,
-  PageRenderer,
   withPageQueryProvider,
 } from '@codelab/modules/page'
 import { Empty } from 'antd'
 import { LayoutPageDetail } from 'apps/web/src/templates/Layout--pageDetail'
 import React, { useContext } from 'react'
+import tw from 'twin.macro'
 import { NextPageLayout } from '../../../../../src/templates/Layout.d'
 
 const PageDetail: NextPageLayout<'builder'> = () => {
@@ -23,8 +24,8 @@ const PageDetail: NextPageLayout<'builder'> = () => {
   }
 
   return (
-    <div id="Builder" style={{ position: 'relative' }}>
-      <PageRenderer cy={cytoscapeRoot} />
+    <div id="Builder" css={tw`relative w-full h-full`}>
+      <PageBuilder cy={cytoscapeRoot} />
     </div>
   )
 }

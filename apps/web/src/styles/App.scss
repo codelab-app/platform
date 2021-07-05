@@ -1,26 +1,2 @@
-@import '../../../.storybook/grid.scss';
+//@import '../../../.storybook/grid.scss';
 
-.click-overlay-toolbar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
-  & > *:not(:last-child) {
-    margin-right: 0.3rem;
-  }
-
-  .click-overlay-toolbar--button-group {
-    display: flex;
-    flex-direction: row;
-
-    & > *:not(:last-child) {
-      margin-right: 0.2rem;
-    }
-  }
-}
-
-
-.Builder-node {
-  position: relative;
-}

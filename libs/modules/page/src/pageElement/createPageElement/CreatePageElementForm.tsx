@@ -11,19 +11,24 @@ import {
   UniFormUseCaseProps,
   useCRUDModalForm,
 } from '@codelab/frontend/shared'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { PageContext } from '../../providers'
 import { createPageElementSchema } from './createPageElementSchema'
 
-type CreatePageElementFormProps = UniFormUseCaseProps<CreatePageElementInput>
+interface CreatePageElementFormProps
+  extends UniFormUseCaseProps<CreatePageElementInput> {
+  initialParentElementId?: string
+}
 
 export const CreatePageElementForm = ({
+  initialParentElementId,
   ...props
 }: CreatePageElementFormProps) => {
   const { reset, setLoading } = useCRUDModalForm(EntityType.PageElement)
   const { pageId, page } = useContext(PageContext)
   const { data: atoms } = useGetAtomsQuery()
+  const initialParentElementIdRef = useRef(initialParentElementId)
 
   if (!page) {
     return null
@@ -63,6 +68,7 @@ export const CreatePageElementForm = ({
       })}
       onSubmit={onSubmit}
       onSubmitSuccess={() => reset()}
+      model={{ parentPageElementId: initialParentElementIdRef.current }}
       {...props}
     >
       <AutoFields omitFields={['parentPageElementId', 'atomId']} />
@@ -75,7 +81,7 @@ export const CreatePageElementForm = ({
         showSearch={true}
         optionFilterProp="label"
         options={atoms?.atoms.map((atom) => ({
-          label: atom.type,
+          label: atom.label,
           value: atom.id,
         }))}
       />

@@ -2,7 +2,7 @@ import { __AtomFragment } from '@codelab/codegen/graphql'
 import { AtomType } from './Hasura'
 
 export enum NodeType {
-  PageElement = 'PageElement',
+  Element = 'Element',
   Component = 'Component',
   ComponentElement = 'ComponentElement',
 }
@@ -27,11 +27,11 @@ export interface ComponentElementNode extends NodeBase {
   props?: Record<string, any>
 }
 
-export interface PageElementNode extends NodeBase {
-  nodeType: NodeType.PageElement
+export interface ElementNode extends NodeBase {
+  nodeType: NodeType.Element
   atom?: __AtomFragment | null
   css?: string | null
-  children?: Array<PageElementNode>
+  children?: Array<ElementNode>
   props: Record<string, any>
 }
 
@@ -42,7 +42,5 @@ export interface NodeI {
   children?: Array<NodeI>
 }
 
-export type CytoscapeNode =
-  | PageElementNode
-  | ComponentElementNode
-  | ComponentNode
+export type CytoscapeNode = NodeBase &
+  (ElementNode | ComponentElementNode | ComponentNode)

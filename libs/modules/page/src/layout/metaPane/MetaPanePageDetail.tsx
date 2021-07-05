@@ -8,10 +8,10 @@ import { usePageBuilderState } from '../../builder'
 import {
   DeletePageElementButton,
   DeletePageElementModal,
+  MovePageElementForm,
+  PageElementStyleEditor,
   UpdatePageElementForm,
 } from '../../pageElement'
-import { MovePageElementForm } from '../../pageElement/movePageElement'
-import { PageElementStyleEditor } from '../../pageElement/styling/PageElementStyleEditor'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
@@ -75,12 +75,12 @@ export const MetaPanePageDetail = () => {
           <Tabs.TabPane tab="Page element" key={pageElement.id + '_tab1'}>
             <FormsGrid>
               <UpdatePageElementForm
-                key={pageElement.id}
+                key={pageElement.id + '_update_form'}
                 pageElement={pageElement}
               />
 
               <MovePageElementForm
-                key={pageElement.id}
+                key={pageElement.id + '_move_form'}
                 pageElement={pageElement}
               />
 

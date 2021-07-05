@@ -1,8 +1,6 @@
-import { UserOutlined } from '@ant-design/icons'
-import { useBuilderSelection } from '@codelab/frontend/builder'
 import { AppProvider } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
-import { Layout, Menu } from 'antd'
+import { Layout } from 'antd'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
@@ -26,7 +24,6 @@ export const LayoutBuilder = ({
   MetaPane,
 }: PropsWithChildren<WithMainPane & WithMetaPane>) => {
   const router = useRouter()
-  const { reset: resetSelection } = useBuilderSelection()
 
   return (
     <AppProvider appId={router.query.appId as string}>
@@ -39,6 +36,7 @@ export const LayoutBuilder = ({
         >
           <BuilderSidebarNavigation />
         </Sider>
+
         <Layout>
           <Layout>
             <Sider
@@ -56,9 +54,6 @@ export const LayoutBuilder = ({
             </Sider>
             <Content
               css={tw`relative`}
-              onClick={() => {
-                resetSelection()
-              }}
               style={{
                 minHeight: 'initial',
               }}

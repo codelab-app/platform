@@ -7,8 +7,8 @@ import { __ComponentFragment } from '@codelab/codegen/hasura'
 import {
   AtomType,
   CytoscapeNode,
+  ElementNode,
   NodeType,
-  PageElementNode,
 } from '@codelab/frontend/shared'
 import { PropsJsonModelAdaptor } from '@codelab/modules/type'
 import { DataNode } from 'antd/lib/tree'
@@ -53,11 +53,11 @@ export class CytoscapeService {
   static fromPage(root: PageElementRootFragment): Core {
     const { descendants, links } = root
 
-    const rootNodeData: PageElementNode = {
+    const rootNodeData: ElementNode = {
       id: root.id,
       atom: root.atom,
       name: root.name,
-      nodeType: NodeType.PageElement,
+      nodeType: NodeType.Element,
       css: root.css,
       props: {},
     }
@@ -68,9 +68,9 @@ export class CytoscapeService {
         nodes: [
           { data: rootNodeData },
           ...descendants.map((pageElement) => {
-            const data: PageElementNode = {
+            const data: ElementNode = {
               id: pageElement.id,
-              nodeType: NodeType.PageElement,
+              nodeType: NodeType.Element,
               name: pageElement.name,
               atom: pageElement.atom,
               css: pageElement.css,
