@@ -14,6 +14,13 @@ resource "aws_ssm_parameter" "dgraph_endpoint" {
   value       = var.dgraph_endpoint
 }
 
+resource "aws_ssm_parameter" "dgraph_grpc_endpoint" {
+  name        = "/${var.app_name}/dgraph/grpc_endpoint"
+  description = "CODELAB_DGRAPH_GRPC_ENDPOINT"
+  type        = "String"
+  value       = var.dgraph_grpc_endpoint
+}
+
 resource "aws_ssm_parameter" "aws_access_key" {
   name        = "/${var.app_name}/aws/access_key"
   description = "AWS_ACCESS_KEY_ID"
@@ -89,6 +96,34 @@ resource "aws_ssm_parameter" "auth0_api_client_secret" {
   description = "AUTH0_API_CLIENT_SECRET"
   type        = "SecureString"
   value       = var.auth0_api_client_secret
+}
+
+resource "aws_ssm_parameter" "auth0_m2m_token" {
+  name        = "/${var.app_name}/auth0/m2m_token"
+  description = "AUTH0_M2M_TOKEN"
+  type        = "SecureString"
+  value       = var.auth0_m2m_token
+}
+
+resource "aws_ssm_parameter" "cypress_auth0_user" {
+  name        = "/${var.app_name}/cypress/auth0/user"
+  description = "CYPRESS_AUTH0_USER"
+  type        = "SecureString"
+  value       = var.cypress_auth0_user
+}
+
+resource "aws_ssm_parameter" "cypress_auth0_password" {
+  name        = "/${var.app_name}/cypress/auth0/password"
+  description = "CYPRESS_AUTH0_PASSWORD"
+  type        = "SecureString"
+  value       = var.cypress_auth0_password
+}
+
+resource "aws_ssm_parameter" "nx_cloud_auth_token" {
+  name        = "/${var.app_name}/nxcloud/auth_token"
+  description = "NX_CLOUD_AUTH_TOKEN"
+  type        = "SecureString"
+  value       = var.nx_cloud_auth_token
 }
 
 resource "aws_iam_role_policy" "secret_policy_parameterstore" {
