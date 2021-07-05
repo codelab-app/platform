@@ -64,6 +64,11 @@ variable "app_domain" {
   default     = "codelab.ai"
 }
 
+variable "app_count" {
+  description = "Count of app instances"
+  default     = 1
+}
+
 variable "dgraph_count" {
   description = "Count of dgraph instances"
   default     = 1
@@ -76,11 +81,15 @@ variable "dgraph_port" {
 
 # container env values
 variable "dgraph_graphql_endpoint" {
-  default     = "http://127.0.0.1:8081/graphql"
+  default     = "http://127.0.0.1:8080/graphql"
 }
 
 variable "dgraph_endpoint" {
-  default     = "http://127.0.0.1:8081"   
+  default     = "http://127.0.0.1:8080"   
+}
+
+variable "dgraph_grpc_endpoint" {
+  default     = "127.0.0.1:9080"
 }
 
 variable "aws_access_key" {
@@ -116,7 +125,7 @@ variable "auth0_client_secret" {
 }
 
 variable "auth0_audience" {
-  default     = "https://api.codelab.ai"
+  default     = "https://codelab-ai.us.auth0.com/api/v2/"
 }
 
 variable "auth0_api_client_id" {
@@ -124,5 +133,21 @@ variable "auth0_api_client_id" {
 }
 
 variable "auth0_api_client_secret" {
+  default     = "cant-be-empty"
+}
+
+variable "auth0_m2m_token" {
+  default     = "cant-be-empty"
+}
+
+variable "cypress_auth0_user" {
+  default     = "cant-be-empty"
+}
+
+variable "cypress_auth0_password" {
+  default     = "cant-be-empty"
+}
+
+variable "nx_cloud_auth_token" {
   default     = "cant-be-empty"
 }

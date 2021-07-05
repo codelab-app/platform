@@ -19,7 +19,7 @@ const bootstrap = async () => {
   app.useGlobalPipes(new ValidationPipe())
 
   const apiEndpoint = get('CODELAB_API_ENDPOINT').required().asUrlObject()
-  const port = apiEndpoint?.port
+  const port = get('CODELAB_API_PORT').asString() ?? '3333'
 
   await app.listen(port, () => {
     Logger.log(`Listening at ${apiEndpoint.toJSON()}${globalPrefix}`)

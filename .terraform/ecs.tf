@@ -15,8 +15,12 @@ data "template_file" "cb_app" {
     fargate_cpu    = var.fargate_cpu
     fargate_memory = var.fargate_memory
     aws_region     = var.aws_region,
+    public_origin           = "https://${var.app_domain}"
+    api_endpoint            = "https://staging.api.${var.app_domain}"
+    api_graphql_endpoint    = "https://staging.api.${var.app_domain}/graphql"
     dgraph_graphql_endpoint = aws_ssm_parameter.dgraph_graphql_endpoint.arn,
     dgraph_endpoint         = aws_ssm_parameter.dgraph_endpoint.arn,
+    dgraph_grpc_endpoint    = aws_ssm_parameter.dgraph_grpc_endpoint.arn,
     aws_access_key          = aws_ssm_parameter.aws_access_key.arn,
     aws_secret_key          = aws_ssm_parameter.aws_secret_key.arn,
     aws_bucket              = aws_ssm_parameter.aws_bucket.arn,
@@ -27,7 +31,11 @@ data "template_file" "cb_app" {
     auth0_client_secret     = aws_ssm_parameter.auth0_client_secret.arn,
     auth0_audience          = aws_ssm_parameter.auth0_audience.arn,
     auth0_api_client_id     = aws_ssm_parameter.auth0_api_client_id.arn,
-    auth0_api_client_secret = aws_ssm_parameter.auth0_api_client_secret.arn
+    auth0_api_client_secret = aws_ssm_parameter.auth0_api_client_secret.arn,
+    auth0_m2m_token         = aws_ssm_parameter.auth0_m2m_token.arn,
+    cypress_auth0_user      = aws_ssm_parameter.cypress_auth0_user.arn,
+    cypress_auth0_password  = aws_ssm_parameter.cypress_auth0_password.arn,
+    nx_cloud_auth_token     = aws_ssm_parameter.nx_cloud_auth_token.arn
   }
 }
 
@@ -45,8 +53,13 @@ resource "aws_ecs_service" "main" {
   name            = "${var.app_name}-service"
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.app.arn
-  desired_count   = var.az_count
+  desired_count   = var.app_count
   launch_type     = "FARGATE"
+  
+  deployment_circuit_breaker {
+    enable        = true
+    rollback      = true
+  }
 
   network_configuration {
     security_groups  = [aws_security_group.ecs_tasks.id]

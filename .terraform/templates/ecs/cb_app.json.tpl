@@ -23,13 +23,29 @@
       {
         "name": "AWS_REGION",
         "value": "${aws_region}"
+      },
+      {
+        "name": "NEXT_PUBLIC_API_ORIGIN",
+        "value": "${public_origin}"
+      },
+      {
+        "name": "CODELAB_API_ENDPOINT",
+        "value": "${api_endpoint}"
+      },
+      {
+        "name": "CODELAB_API_GRAPHQL_ENDPOINT",
+        "value": "${api_graphql_endpoint}"
+      },
+      {
+        "name": "CODELAB_API_PORT",
+        "value": "${app_port}"
       }
     ],
     "entryPoint": [
       "sh",
       "scripts/startup.sh"
     ],
-    "secrets": [
+    "secrets": [   
       {
         "name": "CODELAB_DGRAPH_GRAPHQL_ENDPOINT",
         "valueFrom": "${dgraph_graphql_endpoint}"
@@ -37,6 +53,10 @@
       {
         "name": "CODELAB_DGRAPH_ENDPOINT",
         "valueFrom": "${dgraph_endpoint}"
+      },
+      {
+        "name": "CODELAB_DGRAPH_GRPC_ENDPOINT",
+        "valueFrom": "${dgraph_grpc_endpoint}"
       },
       {
         "name": "AWS_ACCESS_KEY_ID",
@@ -81,6 +101,22 @@
       {
         "name": "AUTH0_API_CLIENT_SECRET",
         "valueFrom": "${auth0_api_client_secret}"
+      },
+      {
+        "name": "AUTH0_M2M_TOKEN",
+        "valueFrom": "${auth0_m2m_token}"
+      },
+      {
+        "name": "CYPRESS_AUTH0_USER",
+        "valueFrom": "${cypress_auth0_user}"
+      },
+      {
+        "name": "CYPRESS_AUTH0_PASSWORD",
+        "valueFrom": "${cypress_auth0_password}"
+      },
+      {
+        "name": "NX_CLOUD_AUTH_TOKEN",
+        "valueFrom": "${nx_cloud_auth_token}"
       }
     ]
   }
