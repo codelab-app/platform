@@ -21127,10 +21127,10 @@ moment-timezone@^0.5.x:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
 
-monaco-css-in-js@^3.5.6:
-  version "3.5.6"
-  resolved "https://registry.yarnpkg.com/monaco-css-in-js/-/monaco-css-in-js-3.5.6.tgz#06a27bd237d67081a293e79ffb88a073259de840"
-  integrity sha512-mhXvOG9hCGR4+AqTsRL/DKBiPYnQj2E4kwNSf1kbn09Uxu7NonQ0+Y3gvs4C+p106FgmcfuCVKcoBXnhIDc9+w==
+monaco-css-in-js@^3.5.8:
+  version "3.5.8"
+  resolved "https://registry.yarnpkg.com/monaco-css-in-js/-/monaco-css-in-js-3.5.8.tgz#33004cdb678b8997ba99d21b9e9f47c4ba579980"
+  integrity sha512-OBm/BqH2o9aDXB84ajZDXOCuHwsR6NIQrapau2NkNKlabkEkKl2B6t7CRoMsPtoe9NpuuJg+4WXrjP4/wyHF7Q==
 
 monaco-editor@^0.25.2:
   version "0.25.2"
