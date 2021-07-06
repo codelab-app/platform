@@ -5,6 +5,30 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "gqlgen",
+      "type": "node",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+      "protocol": "inspector",
+      "runtimeArgs": [
+        "--project",
+        "${workspaceRoot}/apps/gqlgen/tsconfig.app.json",
+        "-r",
+        "tsconfig-paths/register",
+        "-r",
+        "dotenv/config"
+      ],
+      "env": {
+        "NODE_PATH": "${workspaceRoot}",
+        "TS_NODE_PROJECT": "${workspaceRoot}/apps/gqlgen/tsconfig.app.json"
+      },
+      "args": ["apps/gqlgen/src/main.ts", "codegen"],
+      "cwd": "${workspaceRoot}",
+      "restart": true
+    },
+    {
       "name": "Generator",
       "type": "node",
       "console": "integratedTerminal",
@@ -24,8 +48,6 @@
       },
       "args": ["libs/tools/generators/json-schema/src/main.ts"],
       "cwd": "${workspaceRoot}",
-      // "internalConsoleOptions": "openOnSessionStart",
-      // "skipFiles": ["<node_internals>/**", "node_modules/**"],
       "restart": true
     }
   ],

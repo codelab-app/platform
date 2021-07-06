@@ -342,7 +342,9 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "gqlgen:build"
+            "buildTarget": "gqlgen:build",
+            "inspect": true,
+            "port": 9229
           }
         },
         "lint": {
