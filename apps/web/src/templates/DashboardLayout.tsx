@@ -52,7 +52,7 @@ export const DashboardLayout: LayoutComponent<
             </Sider>
           ) : null}
           <Content
-            css={tw`relative`}
+            css={tw`relative p-2`}
             style={{
               minHeight: 'initial',
             }}

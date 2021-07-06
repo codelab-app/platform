@@ -5,7 +5,7 @@ import { DashboardLayout } from 'apps/web/src/templates/DashboardLayout'
 import React from 'react'
 import { NextPageLayout } from '../../../../src/templates/Layout.d'
 
-const Pages: NextPageLayout<'dashboard'> = () => <>Hi</>
+const Pages: NextPageLayout<'dashboard'> = () => <></>
 
 Pages.Layout = withAppQueryProvider(DashboardLayout)
 Pages.MainPane = MainPanePage

@@ -4,11 +4,7 @@ import React from 'react'
 import { NextPageLayout } from '../../../../../../src/templates/Layout.d'
 
 const PropTypeCDetail: NextPageLayout<'dashboard'> = () => {
-  return (
-    <div id="Builder" style={{ position: 'relative' }}>
-      Hi
-    </div>
-  )
+  return <div id="Builder" style={{ position: 'relative' }}></div>
 }
 
 export const getServerSideProps = withPageAuthRequired()
