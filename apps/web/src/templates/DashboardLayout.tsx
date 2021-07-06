@@ -15,6 +15,7 @@ const MetaPaneSection = styled('div')`
   bottom: 0;
   width: 100%;
   background-color: white;
+  ${tw`p-4`}
 `
 
 export const DashboardLayout: LayoutComponent<
@@ -51,7 +52,7 @@ export const DashboardLayout: LayoutComponent<
             </Sider>
           ) : null}
           <Content
-            css={tw`relative p-2`}
+            css={tw`relative`}
             style={{
               minHeight: 'initial',
             }}
