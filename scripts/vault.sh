@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# vault login $VAULT_TOKEN
-vault login -method=userpass username=$VAULT_USERNAME password=$VAULT_PASSWORD
+vault login $VAULT_TOKEN
+# vault login -method=userpass username=$VAULT_USERNAME password=$VAULT_PASSWORD
 
 data="$(vault kv get codelab/ci)"
 
@@ -19,6 +19,7 @@ do
   #
   # dynamic export, call `. ./scripts/vault.sh`
   exp="${key}=${val}"
+  echo "${exp}"
   export "${exp}"
 # https://stackoverflow.com/questions/13122441/how-do-i-read-a-variable-on-a-while-loop
 #
