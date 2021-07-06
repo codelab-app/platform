@@ -1,5 +1,5 @@
 import { useGetComponentElementQuery } from '@codelab/codegen/hasura'
-import { useBuilderSelection } from '@codelab/frontend/builder'
+import { useComponentBuilder } from '@codelab/frontend/builder'
 import {
   ActionType,
   CrudModal,
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const PaneConfigComponentElement = ({ componentElementId }: Props) => {
-  const { resetSelected } = useBuilderSelection()
+  const { resetSelected } = useComponentBuilder()
   const { reset } = useCRUDModalForm(EntityType.ComponentElement)
 
   const { data, loading } = useGetComponentElementQuery({

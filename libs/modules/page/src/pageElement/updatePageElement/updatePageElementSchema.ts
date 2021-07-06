@@ -9,6 +9,10 @@ export const updatePageElementSchema: JSONSchemaType<UpdatePageElementData> = {
       type: 'string',
       nullable: true,
     },
+    css: {
+      type: 'string',
+      nullable: true,
+    },
     name: {
       type: 'string',
     },

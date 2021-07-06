@@ -1,4 +1,3 @@
-import { useBuilderSelection } from '@codelab/frontend/builder'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
 import React from 'react'
@@ -21,13 +20,13 @@ export const TabsLayout = ({ children }: React.PropsWithChildren<unknown>) => (
 )
 
 export const LayoutPane = React.memo(() => {
-  const {
-    selectionState: { selectedElement },
-  } = useBuilderSelection()
+  // const {
+  //   selectionState: { selectedElement },
+  // } = useBuilderSelection()
 
-  if (!selectedElement) {
-    return null
-  }
+  // if (!selectedElement) {
+  //   return null
+  // }
 
   // if (pathname === PageType.ComponentDetail) {
   //   return (
