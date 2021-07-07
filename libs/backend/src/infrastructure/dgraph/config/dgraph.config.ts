@@ -6,6 +6,7 @@ import { DgraphTokens } from './dgraph.tokens'
 export interface DgraphConfig {
   grpcEndpoint: string
   endpoint: string
+  apiKey?: string
   /**
    * This is the user maintained schema file
    */
@@ -32,5 +33,6 @@ export const dgraphConfig = registerAs<() => DgraphConfig>(
     graphqlEndpoint: get('CODELAB_DGRAPH_GRAPHQL_ENDPOINT')
       .required()
       .asUrlString(),
+    apiKey: get('CODELAB_DGRAPH_API_KEY').asString(),
   }),
 )
