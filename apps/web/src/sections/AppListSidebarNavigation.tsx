@@ -15,14 +15,14 @@ export const AppListSidebarNavigation = () => {
 
   console.log(router.pathname)
 
-  const paths = router.pathname
-    .split('/')
-    .filter((x) => x)
-    .reduce((x, acc) => {
-      console.log(x)
-    })
+  // const paths = router.pathname
+  //   .split('/')
+  //   .filter((x) => x)
+  //   .reduce((x, acc) => {
+  //     console.log(x)
+  //   })
 
-  console.log(paths)
+  // console.log(paths)
 
   return (
     <Menu

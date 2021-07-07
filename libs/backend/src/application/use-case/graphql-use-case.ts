@@ -29,21 +29,18 @@ export abstract class GraphqlUseCase<
     const validationContext = await this.validate(request)
     const variables = await this.mapVariables(request, validationContext)
     const options = this.getOptions(request, validationContext) || {}
-    let result: FetchResult<TOperation>
 
-    if (this.isMutation()) {
-      result = await this.apolloClient.mutate<TOperation, TOperationVariables>({
-        mutation: this.getGql(request),
-        variables,
-        ...options,
-      })
-    } else {
-      result = await this.apolloClient.query<TOperation, TOperationVariables>({
-        query: this.getGql(request),
-        variables,
-        ...options,
-      })
-    }
+    const result = this.isMutation()
+      ? await this.apolloClient.mutate<TOperation, TOperationVariables>({
+          mutation: this.getGql(request),
+          variables,
+          ...options,
+        })
+      : await this.apolloClient.query<TOperation, TOperationVariables>({
+          query: this.getGql(request),
+          variables,
+          ...options,
+        })
 
     return this.extractDataFromResult(result, validationContext, request)
   }
@@ -59,13 +56,14 @@ export abstract class GraphqlUseCase<
     validationContext: TValidationContext,
   ):
     | (IsMutation extends true
-        ? Omit<
-            QueryOptions<TOperationVariables, TOperation>,
-            'query' | 'variables'
+        ? // fetchPolicy causing type error
+          Omit<
+            MutationOptions<TOperation, TOperationVariables>,
+            'mutation' | 'variables' | 'fetchPolicy'
           >
         : Omit<
-            MutationOptions<TOperation, TOperationVariables>,
-            'mutation' | 'variables'
+            QueryOptions<TOperationVariables, TOperation>,
+            'query' | 'variables' | 'fetchPolicy'
           >)
     | undefined {
     return undefined
