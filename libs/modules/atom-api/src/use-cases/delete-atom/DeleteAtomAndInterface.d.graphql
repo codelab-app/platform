@@ -1,11 +1,15 @@
-mutation DeleteAtomAndInterface($filter: AtomFilter!, $interfaceFilter: InterfaceFilter!, $fieldFilter: FieldFilter!) {
+mutation DeleteAtomAndInterface(
+  $filter: AtomFilter!
+  $interfaceFilter: InterfaceFilter!
+  $fieldFilter: FieldFilter!
+) {
   deleteAtom(filter: $filter) {
     numUids
   }
-  deleteInterface(filter: $interfaceFilter){
+  deleteInterface(filter: $interfaceFilter) {
     numUids
   }
-  deleteField(filter: $fieldFilter){
+  deleteField(filter: $fieldFilter) {
     numUids
   }
 }

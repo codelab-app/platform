@@ -1,13 +1,12 @@
 fragment Dgraph__InterfaceWithAtom on Interface {
-    ...Dgraph__InterfaceWithoutFields
-    atom {
-        ...DGraph__Atom
-    }
+  ...Dgraph__InterfaceWithoutFields
+  atom {
+    ...DGraph__Atom
+  }
 }
 
-query GetInterfaceWithAtom($interfaceId: ID!){
-    getInterface(id: $interfaceId){
-        ...Dgraph__InterfaceWithAtom
-    }
+query GetInterfaceWithAtom($interfaceId: ID!) {
+  getInterface(id: $interfaceId) {
+    ...Dgraph__InterfaceWithAtom
+  }
 }
-

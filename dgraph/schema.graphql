@@ -131,7 +131,6 @@ type ArrayLengthValidator {
 }
 
 union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator #add more decorators here if we need to extend the functionality
-
 type Field {
   id: ID!
   type: Type!

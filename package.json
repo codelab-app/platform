@@ -20,7 +20,7 @@
     "nx": "nx",
     "start": "nx serve",
     "build": "nx run-many --all --target=build",
-    "test": "nx run-many --all --target=test",
+    "test": "nx run-many --all --target=test --testPathPattern=[^i].spec.ts --parallel && nx run-many --all --target=test --testPathPattern=i.spec.ts --runInBand",
     "lint": "nx workspace-lint && nx run-many --all --target=lint",
     "lint:graphql": "prettier --write '**/*.{graphql,yaml}'",
     "affected:apps": "nx affected:apps",

@@ -54,26 +54,6 @@ build-prod:
     --skip-nx-cache
 
 #
-# GENERATE
-#
-
-generate-ci:
-	npx nx run-many \
-    --target=build \
-		--projects=tools-generators-graphql,tools-generators-json-schema \
-    --parallel \
-		--verbose \
-		--maxWorkers=8 \
-		--memoryLimit=8192 \
-		--skip-nx-cache
-
-generate-graphql:
-	npx graphql-codegen --config .graphqlconfig.yaml
-
-generate-graphql-watch:
-	npx graphql-codegen --config .graphqlconfig.yaml --watch "apps/api/graph/src/assets/**/*.graphql"
-
-#
 # LINT
 #
 

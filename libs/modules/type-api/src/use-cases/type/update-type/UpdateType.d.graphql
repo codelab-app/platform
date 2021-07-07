@@ -1,5 +1,5 @@
-mutation UpdateType($input: UpdateTypeInput!){
-  updateType(input: $input){
+mutation UpdateType($input: UpdateTypeInput!) {
+  updateType(input: $input) {
     type {
       id
       name
