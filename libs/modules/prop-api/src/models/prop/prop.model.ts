@@ -9,7 +9,7 @@ export class Prop {
   declare id: string
 
   @GraphqlField(() => Field)
-  // The field resolver will get it if we return just  the ID
+  // The field resolver will get it if we return just the ID
   declare field: Field | Pick<Field, 'id'>
 
   @GraphqlField(() => PropValue, { nullable: true })
@@ -27,5 +27,3 @@ export class Prop {
     this.value = value
   }
 }
-
-
