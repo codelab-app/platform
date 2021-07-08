@@ -444,7 +444,7 @@ workflows:
           # start: make e2e-ci-start
           # wait-on: 'http://localhost:3001 http://localhost:4001'
           wait-on: '-c .circleci/wait-on-config.json'
-          start: npx nx run-many --target=serve --projects=web,api
+          start: npx nx run-many --target=serve --projects=web,api --parallel
           # command: yarn console e2e --ci
           command: npx nx run web-e2e:e2e:ci
           # command: npx nx serve gqlgen --args=e2e
