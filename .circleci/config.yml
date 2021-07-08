@@ -441,11 +441,16 @@ workflows:
           # working_directory: ~/app
           pre-steps:
             - checkout
-          # wait-on: 'http://localhost:3001 http://localhost:4001'
           # start: make e2e-ci-start
+          # wait-on: 'http://localhost:3001 http://localhost:4001'
+          wait-on:
+            resources:
+              - http://localhost:3000
+              - http://localhost:3333
+          start: npx nx run-many --target=serve --projects=web,api
           # command: yarn console e2e --ci
-          # command: npx nx run web-e2e:e2e:ci
-          command: npx nx serve gqlgen --args=e2e
+          command: npx nx run web-e2e:e2e:ci
+          # command: npx nx serve gqlgen --args=e2e
       # - e2e:
       #     <<: *filters-staging-pr
       #     e: docker-node

@@ -51,8 +51,7 @@ module.exports = {
     },
     {
       value: 'refactor',
-      name:
-        '5) refactor: A code change that neither fixes a bug nor adds a feature	',
+      name: '5) refactor: A code change that neither fixes a bug nor adds a feature	',
     },
     {
       value: 'lint',
@@ -64,8 +63,7 @@ module.exports = {
     },
     {
       value: 'build',
-      name:
-        '8) build:    Changes that affect the build system or external dependencies',
+      name: '8) build:    Changes that affect the build system or external dependencies',
     },
     {
       value: 'ci',
@@ -111,8 +109,7 @@ module.exports = {
     // used if allowCustomScopes is true
     customScope: 'Denote the SCOPE of this change:',
     subject: 'Write a SHORT, IMPERATIVE tense description of the change:\n',
-    body:
-      'Provide a LONGER description of the change (optional). Use "|" to break new line:\n',
+    body: 'Provide a LONGER description of the change (optional). Use "|" to break new line:\n',
     breaking: 'List any BREAKING CHANGES (optional):\n',
     footer:
       'This commit CLOSES any issues if specified (optional). E.g.: #31, #34:\n',
