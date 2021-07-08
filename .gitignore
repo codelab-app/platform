@@ -9,6 +9,10 @@ dist/
 tmp/
 out-tsc/
 
+# Cypress
+apps/web-e2e/src/videos
+apps/web-e2e/src/screenshots
+
 ecs-cli.asc
 
 # dependencies

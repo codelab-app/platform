@@ -1,11 +1,6 @@
 import { DeleteUserAppsGql } from '@codelab/codegen/dgraph'
 import { print } from 'graphql'
 
-const createApp = (appName: string) =>
-  cy.createApp({
-    name: appName,
-  })
-
 describe('Apps CRUD', () => {
   before(() => {
     // cy.clearCookies()
@@ -31,6 +26,7 @@ describe('Apps CRUD', () => {
   })
 
   const appName = 'new app'
+  const updatedAppName = 'updated app'
 
   describe('create', () => {
     it('should be able to create app', () => {
@@ -50,8 +46,6 @@ describe('Apps CRUD', () => {
   })
 
   describe('update', () => {
-    const updatedAppName = 'updated app'
-
     it('should be able to update app name', () => {
       cy.findSettingsButtonByAppName(appName).click()
       cy.getOpenedDropdownMenu().findByText('Edit').click()
@@ -70,7 +64,7 @@ describe('Apps CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete app', () => {
-      cy.findSettingsButtonByAppName(appName).click()
+      cy.findSettingsButtonByAppName(updatedAppName).click()
       cy.getOpenedDropdownMenu().findByText('Delete').click()
 
       cy.getSpinner().should('not.exist')
