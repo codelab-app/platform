@@ -362,28 +362,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - cypress/run:
-          <<: *filters-staging-pr
-          executor: cypress/base-14
-          # e: docker-node
-          context: CI
-          yarn: true
-          requires:
-            - install-and-build-workspace
-          # record: true # record results on Cypress Dashboard
-          # parallel: true # split all specs across machines
-          # parallelism: 4 # use 4 CircleCI machines to finish quickly
-          # group: 'all tests' # name this group "all tests" on the dashboard
-          attach-workspace: true
-          # working_directory: ~/app
-          pre-steps:
-            - checkout
-          # start: make e2e-ci-start
-          # wait-on: 'http://localhost:3001 http://localhost:4001'
-          wait-on: '-c .circleci/wait-on-config.json'
-          start: npx nx run-many --target=serve --projects=web,api --parallel
-          # command: yarn console e2e --ci
-          command: npx nx run web-e2e:e2e:c
       - notify-failure
 
   notify-success:
@@ -445,12 +423,30 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-      - e2e:
+      - cypress/run:
           <<: *filters-staging-pr
+          executor: cypress/base-14
           # e: docker-node
           context: CI
+          yarn: true
           requires:
             - install-and-build-workspace
+          # record: true # record results on Cypress Dashboard
+          # parallel: true # split all specs across machines
+          # parallelism: 4 # use 4 CircleCI machines to finish quickly
+          # group: 'all tests' # name this group "all tests" on the dashboard
+          attach-workspace: true
+          # working_directory: ~/app
+          pre-steps:
+            # - checkout
+            - setup-workspace
+          # start: make e2e-ci-start
+          # wait-on: 'http://localhost:3001 http://localhost:4001'
+          wait-on: '-c .circleci/wait-on-config.json'
+          start: npx nx run-many --target=serve --projects=web,api --parallel
+          # command: yarn console e2e --ci
+          command: npx nx run web-e2e:e2e:ci
+          # command: npx nx serve gqlgen --args=e2e
       - notify-success:
           <<: *filters-staging-pr
           context: CI
