@@ -40,7 +40,7 @@ build-ci:
 	npx nx run-many \
     --target=build \
 		--projects=api,web,gqlgen \
-    --prod
+    --prod \
     --parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192
