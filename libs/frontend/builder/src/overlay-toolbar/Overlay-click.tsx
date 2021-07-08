@@ -1,5 +1,4 @@
 import React from 'react'
-import { useOnClickOutside } from '../../../shared/src'
 import { querySelectorRenderedElement } from '../renderer'
 import { OverlayToolbar } from './OverlayToolbar'
 

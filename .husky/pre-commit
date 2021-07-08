@@ -3,10 +3,6 @@
 
 yarn lint:graphql
 
-# nx generate @codelab/schematics:graphql-codegen
-
-# yarn codegen --port 8081
-
 # terraform fmt -recursive .terraform
 
 yarn cross-env TIMING=1 lint-staged --verbose

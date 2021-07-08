@@ -62,7 +62,8 @@ lint-commit-ci:
 	npx commitlint --from="${CIRCLE_BASE_REVISION}" "$@"
 
 lint-eslint:
-	yarn affected:lint
+	yarn affected:lint && npx prettier --check '**/*.{graphql,yaml}'
+
 
 #
 # E2E
