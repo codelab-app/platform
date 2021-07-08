@@ -426,7 +426,6 @@ workflows:
       - cypress/run:
           <<: *filters-staging-pr
           executor: cypress/base-14
-          e: docker-node
           context: CI
           yarn: true
           requires:
