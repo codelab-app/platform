@@ -443,10 +443,7 @@ workflows:
             - checkout
           # start: make e2e-ci-start
           # wait-on: 'http://localhost:3001 http://localhost:4001'
-          wait-on:
-            resources:
-              - http://localhost:3000
-              - http://localhost:3333
+          wait-on: '-c .circleci/wait-on-config.json'
           start: npx nx run-many --target=serve --projects=web,api
           # command: yarn console e2e --ci
           command: npx nx run web-e2e:e2e:ci
