@@ -443,8 +443,9 @@ workflows:
             - checkout
           # wait-on: 'http://localhost:3001 http://localhost:4001'
           # start: make e2e-ci-start
-          command: yarn console e2e --ci
+          # command: yarn console e2e --ci
           # command: npx nx run web-e2e:e2e:ci
+          command: npx nx serve gqlgen --args=e2e
       # - e2e:
       #     <<: *filters-staging-pr
       #     e: docker-node

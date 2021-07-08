@@ -73,7 +73,7 @@
     "@slack/web-api": "6.2.3",
     "adm-zip": "0.5.5",
     "ajv": "8.5.0",
-    "antd": "4.16.1",
+    "antd": "4.16.6",
     "apollo-link": "1.2.14",
     "apollo-link-context": "1.0.20",
     "apollo-link-http": "1.5.17",
