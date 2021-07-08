@@ -1,11 +1,10 @@
 describe('UserUseCase', () => {
   beforeEach(() => {
-    cy.clearCookies()
+    cy.visit('/')
     cy.logout()
   })
 
   it('shows a signup and login button', () => {
-    cy.visit('/')
     cy.findElementByText('Register', 'a').should('exist')
     cy.findElementByText('Login', 'a').should('exist')
   })
@@ -13,7 +12,6 @@ describe('UserUseCase', () => {
   it('logs in shows email and signs out', () => {
     cy.login().then(() => {
       cy.visit('/')
-
       cy.request('/api/auth/me').then((r) => {
         const email = r.body.email
         cy.findByLabelText('user').click() // the icon has a user label

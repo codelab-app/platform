@@ -20,7 +20,7 @@ fragment __RequiredValidator on RequiredValidator {
 
 fragment __Decorator on Decorator {
   __typename
-  ... on ArrayLengthValidator{
+  ... on ArrayLengthValidator {
     ...__ArrayLengthValidator
   }
   ... on MinMaxValidator {
@@ -40,9 +40,9 @@ fragment __Field on Field {
   name
   typeId
   description
-#  decorators {
-#    ...__Decorator
-#  }
+  #  decorators {
+  #    ...__Decorator
+  #  }
 }
 
 fragment __ArrayType on ArrayType {
@@ -65,36 +65,48 @@ fragment __EnumType on EnumType {
   }
 }
 
-
 fragment __SimpleType on SimpleType {
   id
   name
   primitiveType
 }
 
-
 fragment __Type on Type {
   __typename
   id
   name
-  ... on ArrayType { ...__ArrayType }
-  ... on EnumType { ...__EnumType }
+  ... on ArrayType {
+    ...__ArrayType
+  }
+  ... on EnumType {
+    ...__EnumType
+  }
   # Do not get the full interface fragment, because it will cause a recursion
   # The types are available in the root typeCollection.types, we can get it from there by id
-  ... on Interface { ...__InterfaceWithoutTypes }
-  ... on SimpleType { ...__SimpleType }
+  ... on Interface {
+    ...__InterfaceWithoutTypes
+  }
+  ... on SimpleType {
+    ...__SimpleType
+  }
 }
-
 
 # Type, but without the recursion
 fragment __TypeShallow on Type {
   __typename
-  ... on ArrayType { id }
-  ... on EnumType { ...__EnumType }
-  ... on Interface { id }
-  ... on SimpleType { ...__SimpleType }
+  ... on ArrayType {
+    id
+  }
+  ... on EnumType {
+    ...__EnumType
+  }
+  ... on Interface {
+    id
+  }
+  ... on SimpleType {
+    ...__SimpleType
+  }
 }
-
 
 #
 # Interface
@@ -113,7 +125,6 @@ fragment __InterfaceWithoutTypes on Interface {
     }
   }
 }
-
 
 fragment __FieldCollectionWithoutTypes on FieldCollection {
   fields {

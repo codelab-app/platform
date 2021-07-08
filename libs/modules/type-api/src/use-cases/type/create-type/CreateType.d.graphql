@@ -1,21 +1,21 @@
-mutation CreateArrayType($input: [AddArrayTypeInput!]!){
-  addArrayType(input: $input){
+mutation CreateArrayType($input: [AddArrayTypeInput!]!) {
+  addArrayType(input: $input) {
     arrayType {
       id
     }
   }
 }
 
-mutation CreateSimpleType($input: [AddSimpleTypeInput!]!){
-  addSimpleType(input: $input){
+mutation CreateSimpleType($input: [AddSimpleTypeInput!]!) {
+  addSimpleType(input: $input) {
     simpleType {
       ...Dgraph__Type
     }
   }
 }
 
-mutation CreateEnumType($input: [AddEnumTypeInput!]!){
-  addEnumType(input: $input){
+mutation CreateEnumType($input: [AddEnumTypeInput!]!) {
+  addEnumType(input: $input) {
     enumType {
       ...Dgraph__Type
     }

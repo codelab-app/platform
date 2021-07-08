@@ -40,6 +40,7 @@ build-ci:
 	npx nx run-many \
     --target=build \
 		--projects=api,web,gqlgen \
+    --prod \
     --parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192
@@ -54,26 +55,6 @@ build-prod:
     --skip-nx-cache
 
 #
-# GENERATE
-#
-
-generate-ci:
-	npx nx run-many \
-    --target=build \
-		--projects=tools-generators-graphql,tools-generators-json-schema \
-    --parallel \
-		--verbose \
-		--maxWorkers=8 \
-		--memoryLimit=8192 \
-		--skip-nx-cache
-
-generate-graphql:
-	npx graphql-codegen --config .graphqlconfig.yaml
-
-generate-graphql-watch:
-	npx graphql-codegen --config .graphqlconfig.yaml --watch "apps/api/graph/src/assets/**/*.graphql"
-
-#
 # LINT
 #
 
@@ -82,11 +63,18 @@ lint-commit-ci:
 	npx commitlint --from="${CIRCLE_BASE_REVISION}" "$@"
 
 lint-eslint:
-	yarn affected:lint
+	yarn affected:lint && npx prettier --check '**/*.{graphql,yaml}'
+
 
 #
 # E2E
 #
+
+start-ci:
+	npx concurrently \
+		--names=web,api \
+			"npx next start -p 3000 dist/apps/web" \
+			"node dist/apps/api/main.js"
 
 e2e-ci:
 	npx concurrently \

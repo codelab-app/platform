@@ -1,5 +1,5 @@
-mutation UpsertProps($input: [UpsertPropsInput!]!){
-  upsertProp(input: $input){
+mutation UpsertProps($input: [UpsertPropsInput!]!) {
+  upsertProp(input: $input) {
     ok
   }
 }

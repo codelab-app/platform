@@ -1,11 +1,15 @@
-mutation DeletePage($filter: PageFilter!, $pageElementFilter: PageElementFilter!, $propsFilter: PropFilter! ){
-  deletePage(filter: $filter){
+mutation DeletePage(
+  $filter: PageFilter!
+  $pageElementFilter: PageElementFilter!
+  $propsFilter: PropFilter!
+) {
+  deletePage(filter: $filter) {
     numUids
   }
   deletePageElement(filter: $pageElementFilter) {
     numUids
   }
-  deleteProp(filter: $propsFilter){
+  deleteProp(filter: $propsFilter) {
     numUids
   }
 }

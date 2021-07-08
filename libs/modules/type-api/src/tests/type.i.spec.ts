@@ -135,8 +135,16 @@ describe('type', () => {
         expect(retrievedInterface?.name).toBe(name)
 
         expect(retrievedInterface?.fieldCollection.fields).toHaveLength(2)
-        // We should have 3 types: 1. field1's SimpleType 2. field2's ArrayType 3. field2's generic SimpleType
-        expect(retrievedInterface?.fieldCollection.types).toHaveLength(3)
+
+        console.log(retrievedInterface?.fieldCollection)
+
+        /**
+         * We should have 2 types:
+         *
+         * 1. field1's SimpleType
+         * 2. field2's ArrayType
+         */
+        expect(retrievedInterface?.fieldCollection.types).toHaveLength(2)
 
         let foundField1Type = false
         let foundField2Type = false
@@ -164,12 +172,14 @@ describe('type', () => {
       })
 
       it('should get interfaces', async () => {
-        getDgraphProviderFromTestModule(app).resetDb()
+        await getDgraphProviderFromTestModule(app).resetDb()
 
         await createInterface()
         await createInterface()
 
         const interfaces = await getInterfaces()
+
+        console.log(interfaces)
 
         expect(interfaces).toHaveLength(2)
       })

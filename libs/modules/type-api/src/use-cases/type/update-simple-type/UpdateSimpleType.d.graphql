@@ -1,5 +1,5 @@
-mutation UpdateSimpleType($input: UpdateSimpleTypeInput!){
-  updateSimpleType(input: $input){
+mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
+  updateSimpleType(input: $input) {
     simpleType {
       ...Dgraph__Type
     }

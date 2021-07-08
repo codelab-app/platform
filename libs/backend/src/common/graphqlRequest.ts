@@ -21,13 +21,14 @@ export const graphqlRequest = async <TOperationVariables>(
   options: GraphqlRequestOptions = {},
 ) => {
   const o = { ...defaultGraphqlRequestOptions, ...options }
-  let promise = request(app.getHttpServer())
+  let httpRequest = request(app.getHttpServer())
+  let results
 
   if (o.accessToken) {
-    promise = promise.set('Authorization', `Bearer ${o.accessToken}`)
+    httpRequest = httpRequest.set('Authorization', `Bearer ${o.accessToken}`)
   }
 
-  promise = promise
+  results = httpRequest
     .send({
       query: print(gql),
       variables,
@@ -35,7 +36,7 @@ export const graphqlRequest = async <TOperationVariables>(
     .expect(200)
 
   if (o.expectNoErrors) {
-    promise = promise.expect((res) => {
+    results = httpRequest.expect((res) => {
       const errors = res.body.errors
 
       if (errors && !!errors.length) {
@@ -46,5 +47,5 @@ export const graphqlRequest = async <TOperationVariables>(
     })
   }
 
-  return promise
+  return results
 }

@@ -1,5 +1,5 @@
-query GetInterface($input: GetInterfaceInput!){
-    getInterface(input: $input){
-        ...__Interface
-    }
+query GetInterface($input: GetInterfaceInput!) {
+  getInterface(input: $input) {
+    ...__Interface
+  }
 }

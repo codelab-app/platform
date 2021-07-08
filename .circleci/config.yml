@@ -362,14 +362,12 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      # - run: make e2e-ci
       - notify-failure
 
   notify-success:
     <<: *executor-params
     steps:
       - setup-workspace
-      # - setup-env
       - slack/notify:
           event: pass
           channel: $SLACK_CHANNEL_UPDATE
@@ -428,7 +426,6 @@ workflows:
       - cypress/run:
           <<: *filters-staging-pr
           executor: cypress/base-14
-          # e: docker-node
           context: CI
           yarn: true
           requires:
@@ -440,27 +437,16 @@ workflows:
           attach-workspace: true
           # working_directory: ~/app
           pre-steps:
-            - checkout
-          # wait-on: 'http://localhost:3001 http://localhost:4001'
+            # - checkout
+            - setup-workspace
           # start: make e2e-ci-start
+          # wait-on: 'http://localhost:3001 http://localhost:4001'
+          # wait-on: '-c .circleci/wait-on-config.json'
+          # start: make start-ci
+          # start: npx nx run-many --target=serve --projects=web,api --parallel
           command: yarn console e2e --ci
           # command: npx nx run web-e2e:e2e:ci
-      # - e2e:
-      #     <<: *filters-staging-pr
-      #     e: docker-node
-      #     context: CI
-      #     requires:
-      #       - sync-hasura
-      #       # - install-and-build-workspace
-      # - deploy-to-ebs-staging:
-      #     <<: *filters-staging-merge
-      #     e: docker-python
-      #     context: CI
-      #     requires:
-      #       - lint
-      #       - unit
-      #       - integration
-      #       - e2e
+          # command: npx nx serve gqlgen --args=e2e
       - notify-success:
           <<: *filters-staging-pr
           context: CI
