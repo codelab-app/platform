@@ -62,7 +62,7 @@ export class CreateAtomService extends MutationUseCase<
       input: {
         ...request,
         propTypes: {
-          name: request.label + ' Props',
+          name: request.label + ' API',
         },
       },
     }

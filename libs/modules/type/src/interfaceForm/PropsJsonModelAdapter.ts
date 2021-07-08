@@ -25,16 +25,16 @@ interface PropKeyValuePair {
 }
 
 /** Converts a list of PropAggregates to a simple json object with primitive key-values */
-export class PropsJsonModelAdaptor {
+export class PropsJsonModelAdapter {
   static propsToModel(
     props: Array<__PropAggregateFragment>,
     forRendering: boolean,
   ): PropModel {
     const kvps = props.map((prop) =>
-      PropsJsonModelAdaptor.propToKeyValue(prop, forRendering),
+      PropsJsonModelAdapter.propToKeyValue(prop, forRendering),
     )
 
-    return PropsJsonModelAdaptor.propKeyValuePairsToModel(kvps)
+    return PropsJsonModelAdapter.propKeyValuePairsToModel(kvps)
   }
 
   static propKeyValuePairsToModel(kvps: Array<PropKeyValuePair>): PropModel {
@@ -54,7 +54,7 @@ export class PropsJsonModelAdaptor {
     const rootProp = propsById[prop.rootProp.id]
     const key = rootProp.field.key
 
-    const value = PropsJsonModelAdaptor.propValueToModelValue(
+    const value = PropsJsonModelAdapter.propValueToModelValue(
       rootProp.value,
       (valueId) => valuesById[valueId],
       forRendering,
@@ -71,7 +71,7 @@ export class PropsJsonModelAdaptor {
   ): PropKeyValuePair {
     const key = prop.field.key
 
-    const value = PropsJsonModelAdaptor.propValueToModelValue(
+    const value = PropsJsonModelAdapter.propValueToModelValue(
       prop.value ? getValue(prop.value.id) : null,
       getValue,
       forRendering,
@@ -115,7 +115,7 @@ export class PropsJsonModelAdaptor {
         }
 
         return arrayValue.values.map((valueItem) =>
-          PropsJsonModelAdaptor.propValueToModelValue(
+          PropsJsonModelAdapter.propValueToModelValue(
             valueItem,
             getValue,
             forRendering,
@@ -137,7 +137,7 @@ export class PropsJsonModelAdaptor {
         }))
 
         const innerKvps = innerProps.map((innerProp) =>
-          PropsJsonModelAdaptor.shallowPropToKeyValue(
+          PropsJsonModelAdapter.shallowPropToKeyValue(
             innerProp,
             getValue,
             forRendering,
@@ -145,7 +145,7 @@ export class PropsJsonModelAdaptor {
           ),
         )
 
-        return PropsJsonModelAdaptor.propKeyValuePairsToModel(innerKvps)
+        return PropsJsonModelAdapter.propKeyValuePairsToModel(innerKvps)
       }
 
       default:

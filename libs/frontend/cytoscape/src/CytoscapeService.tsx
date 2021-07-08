@@ -8,9 +8,10 @@ import {
   AtomType,
   CytoscapeNode,
   ElementNode,
+  NodeLink,
   NodeType,
 } from '@codelab/frontend/shared'
-import { PropsJsonModelAdaptor } from '@codelab/modules/type'
+import { PropsJsonModelAdapter } from '@codelab/modules/type'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core } from 'cytoscape'
 
@@ -74,7 +75,7 @@ export class CytoscapeService {
               name: pageElement.name,
               atom: pageElement.atom,
               css: pageElement.css,
-              props: PropsJsonModelAdaptor.propsToModel(
+              props: PropsJsonModelAdapter.propsToModel(
                 pageElement.props,
                 true,
               ),
@@ -86,14 +87,16 @@ export class CytoscapeService {
         edges: links
           .slice()
           .sort((a, b) => a.from.localeCompare(b.from) || a.order - b.order)
-          .map((link) => ({
-            data: {
+          .map((link) => {
+            const linkData: NodeLink = {
               id: CytoscapeService.generateLinkId(link),
               source: link.from,
               target: link.to,
               order: link.order,
-            },
-          })),
+            }
+
+            return { data: linkData }
+          }),
       },
     })
   }

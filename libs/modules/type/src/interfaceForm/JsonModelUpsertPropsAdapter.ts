@@ -8,9 +8,10 @@ import {
   UpsertPropsInput,
   UpsertValueInput,
 } from '@codelab/codegen/graphql'
-import { PrimitivePropValue, PropModel } from './PropsJsonModelAdaptor'
+import { TypeModels } from '../types/TypeModels'
+import { PrimitivePropValue, PropModel } from './PropsJsonModelAdapter'
 
-export class JsonModelUpsertValueAdaptor {
+export class JsonModelUpsertValueAdapter {
   private _typesById: Map<string, __TypeFragment>
 
   private _propsById: Map<string, __PropFragment>
@@ -56,13 +57,7 @@ export class JsonModelUpsertValueAdaptor {
     fields: Array<__FieldFragment>,
     iteration = 0,
   ): Array<Pick<UpsertPropsInput, 'value' | 'fieldId' | 'propId'>> {
-    const inputs: Array<
-      Pick<UpsertPropsInput, 'value' | 'fieldId' | 'propId'>
-    > = []
-
-    // Go through each field of the interface
-
-    for (const field of fields) {
+    return fields.map((field) => {
       // Get the value from the jsonModel that matches this key
       const jsonModelValue = jsonModel[field.key]
       const initialProp = this.getPropByFieldId(field.id)
@@ -76,14 +71,12 @@ export class JsonModelUpsertValueAdaptor {
         iteration,
       )
 
-      inputs.push({
+      return {
         fieldId: field.id,
         value: valueInput,
         propId: initialProp?.id,
-      })
-    }
-
-    return inputs
+      }
+    })
   }
 
   jsonValueToValueInput(
@@ -108,12 +101,12 @@ export class JsonModelUpsertValueAdaptor {
     }
 
     switch (type.__typename) {
-      case 'SimpleType':
-        return JsonModelUpsertValueAdaptor.jsonValueToPrimitiveValueInput(
+      case TypeModels.SimpleType:
+        return JsonModelUpsertValueAdapter.jsonValueToPrimitiveValueInput(
           jsonValue,
           type,
         )
-      case 'ArrayType':
+      case TypeModels.ArrayType:
         if (!Array.isArray(jsonValue)) {
           throw new Error('Cannot convert non-array value to an array')
         }
@@ -133,12 +126,12 @@ export class JsonModelUpsertValueAdaptor {
               .filter((v): v is UpsertValueInput => !!v),
           },
         }
-      case 'EnumType':
+      case TypeModels.EnumType:
         return {
           enumValueId: jsonValue.toString(),
         }
 
-      case 'Interface': {
+      case TypeModels.Interface: {
         if (typeof jsonValue !== 'object' || Array.isArray(jsonValue)) {
           throw new Error('Cannot convert value to an interface value')
         }
@@ -154,7 +147,7 @@ export class JsonModelUpsertValueAdaptor {
           .map((p) => this.getProp(p.id))
           .filter((p) => !!p) as Array<__PropFragment>
 
-        const adaptor = new JsonModelUpsertValueAdaptor(
+        const adapter = new JsonModelUpsertValueAdapter(
           this.types,
           this.values,
           props,
@@ -162,7 +155,7 @@ export class JsonModelUpsertValueAdaptor {
 
         return {
           interfaceValue: {
-            props: adaptor.convert(
+            props: adapter.convert(
               jsonValue,
               type.fieldCollection.fields,
               iteration + 1,

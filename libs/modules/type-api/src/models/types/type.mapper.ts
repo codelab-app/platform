@@ -1,7 +1,8 @@
 import { BaseDgraphFields, DeepPartial, IDgraphMapper } from '@codelab/backend'
 import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { MAX_TYPE_DEPTH } from '../../constants'
-import { DgraphField, FieldDgraphFields } from '../dgraph-field.model'
+import { OverlyNestedTypeError } from '../../errors'
+import { DgraphField, DgraphFieldFields } from '../dgraph-field.model'
 import {
   DgraphInterface,
   InterfaceDgraphFields,
@@ -23,8 +24,12 @@ export interface TypeMapperContext {
   iteration?: number
 }
 
-// This should be in its own file, but putting it here was the only
+// InterfaceMapper should be in its own file, but putting it here was the only
 // way that I found to resolve a circular reference webpack error
+
+/**
+ * Converts a {@link DgraphInterface} to an {@link Interface}
+ */
 @Injectable()
 export class InterfaceMapper<TTypeMapper extends TypeMapper = TypeMapper>
   implements IDgraphMapper<DgraphInterface, Interface, TypeMapperContext>
@@ -41,7 +46,7 @@ export class InterfaceMapper<TTypeMapper extends TypeMapper = TypeMapper>
     context?: TypeMapperContext,
   ): Promise<Interface> {
     if (context && context.iteration && context.iteration > MAX_TYPE_DEPTH) {
-      throw new Error('Type too nested')
+      throw new OverlyNestedTypeError()
     }
 
     const dgraphInterface = DgraphInterface.Schema.parse(input)
@@ -53,7 +58,7 @@ export class InterfaceMapper<TTypeMapper extends TypeMapper = TypeMapper>
       iteration = 0,
     ): Promise<FieldCollection | undefined> => {
       if (iteration > MAX_TYPE_DEPTH) {
-        throw new Error('Type too nested')
+        throw new OverlyNestedTypeError()
       }
 
       if (!fields) {
@@ -69,7 +74,7 @@ export class InterfaceMapper<TTypeMapper extends TypeMapper = TypeMapper>
 
       for (const dgraphField of fields) {
         let type: DgraphType | { uid: string } | undefined =
-          dgraphField[FieldDgraphFields.Type]
+          dgraphField[DgraphFieldFields.Type]
 
         if (!(type as DgraphType)[BaseDgraphFields.DgraphType]) {
           type = typesById.get(type.uid)
@@ -128,6 +133,9 @@ export class InterfaceMapper<TTypeMapper extends TypeMapper = TypeMapper>
   }
 }
 
+/**
+ * Converts a {@link DgraphTypeUnion} to a {@link Type}
+ */
 @Injectable()
 export class TypeMapper
   implements IDgraphMapper<DgraphTypeUnion, Type, TypeMapperContext>

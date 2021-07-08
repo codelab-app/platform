@@ -50,7 +50,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <h4>Are you sure you want to delete atom "{metadata?.type?.label}"?</h4>
+      <h4>Are you sure you want to delete atom "{metadata?.label}"?</h4>
       <AutoFields />
     </FormUniforms>
   )

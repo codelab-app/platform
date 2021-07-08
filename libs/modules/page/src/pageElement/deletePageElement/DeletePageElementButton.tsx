@@ -4,11 +4,13 @@ import React, { PropsWithChildren } from 'react'
 
 interface Props extends Omit<ButtonProps, 'onClick'> {
   pageElementId: string
+  metadata?: any
 }
 
 export const DeletePageElementButton = ({
   pageElementId,
   children,
+  metadata,
   ...props
 }: PropsWithChildren<Props>) => {
   const { openDeleteModal } = useCRUDModalForm(EntityType.PageElement)
@@ -16,7 +18,7 @@ export const DeletePageElementButton = ({
   return (
     <Button
       onClick={() => {
-        openDeleteModal([pageElementId])
+        openDeleteModal([pageElementId], metadata)
       }}
       {...props}
     >

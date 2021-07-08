@@ -1,13 +1,7 @@
-import {
-  BaseDgraphFields,
-  DeepPartial,
-  DgraphArrayMapper,
-  IDgraphMapper,
-} from '@codelab/backend'
+import { BaseDgraphFields, DeepPartial, IDgraphMapper } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
-import { DecoratorMapper } from './decorators'
-import { DgraphField, FieldDgraphFields } from './dgraph-field.model'
+import { DgraphField, DgraphFieldFields } from './dgraph-field.model'
 import { dgraphFieldSchema } from './dgraph-field-schema'
 import { Field, fieldSchema } from './field.model'
 
@@ -16,35 +10,30 @@ export class FieldMapper implements IDgraphMapper<DgraphField, Field> {
   // We don't need the whole type and interface object, just their ids
   static inputSchema = z.intersection(
     dgraphFieldSchema.schema.omit({
-      [FieldDgraphFields.Type]: true,
-      [FieldDgraphFields.Interface]: true,
+      [DgraphFieldFields.Type]: true,
+      [DgraphFieldFields.Interface]: true,
     }),
     z.object({
-      [FieldDgraphFields.Type]: z.object({
+      [DgraphFieldFields.Type]: z.object({
         [BaseDgraphFields.uid]: z.string(),
       }),
-      [FieldDgraphFields.Interface]: z.object({
+      [DgraphFieldFields.Interface]: z.object({
         [BaseDgraphFields.uid]: z.string(),
       }),
     }),
   )
-
-  constructor(private decoratorMapper: DecoratorMapper) {}
 
   async map(input: DeepPartial<DgraphField>) {
     const dgraphField = FieldMapper.inputSchema.parse(input)
     const field = new Field()
 
     field.id = dgraphField[BaseDgraphFields.uid]
-    field.key = dgraphField[FieldDgraphFields.Key]
-    field.name = dgraphField[FieldDgraphFields.Name]
-    field.description = dgraphField[FieldDgraphFields.Description] || null
-    field.typeId = dgraphField[FieldDgraphFields.Type]?.uid
-    field.decorators = await new DgraphArrayMapper(this.decoratorMapper).map(
-      dgraphField[FieldDgraphFields.Decorators],
-    )
+    field.key = dgraphField[DgraphFieldFields.Key]
+    field.name = dgraphField[DgraphFieldFields.Name]
+    field.description = dgraphField[DgraphFieldFields.Description] || null
+    field.typeId = dgraphField[DgraphFieldFields.Type]?.uid
     field.interface = {
-      id: dgraphField[FieldDgraphFields.Interface][BaseDgraphFields.uid],
+      id: dgraphField[DgraphFieldFields.Interface][BaseDgraphFields.uid],
     }
 
     fieldSchema.parse(field)

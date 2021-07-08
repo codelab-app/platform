@@ -11,19 +11,16 @@ fragment Dgraph__Interface on Interface {
 }
 
 fragment Dgraph__Field on Field {
-  id
-  key
-  name
-  description
-  decorators {
-    ...Dgraph__Decorator
-  }
-  type {
-    ...Dgraph__Type
-  }
-  interface {
-    ...Dgraph__InterfaceWithoutFields
-  }
+    id
+    key
+    name
+    description
+    type {
+        ...Dgraph__Type
+    }
+    interface {
+        ...Dgraph__InterfaceWithoutFields
+    }
 }
 
 fragment Dgraph__Type on Type {
@@ -58,34 +55,4 @@ fragment DgrapEnumTypeValue on EnumTypeValue {
   id
   name
   value
-}
-
-fragment Dgraph__Decorator on Decorator {
-  __typename
-  ... on MinMaxValidator {
-    ...Dgraph__MinMaxValidator
-  }
-  ... on RequiredValidator {
-    ...Dgraph__RequiredValidator
-  }
-  ... on ArrayLengthValidator {
-    ...Dgraph__ArrayLengthValidator
-  }
-}
-
-fragment Dgraph__RequiredValidator on RequiredValidator {
-  id
-  isRequired
-}
-
-fragment Dgraph__ArrayLengthValidator on ArrayLengthValidator {
-  id
-  max
-  min
-}
-
-fragment Dgraph__MinMaxValidator on MinMaxValidator {
-  id
-  max
-  min
 }

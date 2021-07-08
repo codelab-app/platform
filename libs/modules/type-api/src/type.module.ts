@@ -2,15 +2,11 @@ import { Module } from '@nestjs/common'
 import { FieldResolver } from './field.resolver'
 import { InterfaceResolver } from './interface.resolver'
 import {
-  ArrayLengthValidatorMapper,
   ArrayTypeMapper,
-  DecoratorMapper,
   EnumTypeMapper,
   EnumTypeValueMapper,
   FieldMapper,
   InterfaceMapper,
-  MinMaxValidatorMapper,
-  RequiredValidatorMapper,
   SimpleTypeMapper,
   TypeMapper,
 } from './models'
@@ -47,10 +43,6 @@ const mappers = [
   EnumTypeMapper,
   EnumTypeValueMapper,
   ArrayTypeMapper,
-  DecoratorMapper,
-  RequiredValidatorMapper,
-  MinMaxValidatorMapper,
-  ArrayLengthValidatorMapper,
 ]
 
 const services = [

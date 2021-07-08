@@ -40,41 +40,70 @@ export class FlattenPageElementTreeService
     // dgraph will return only the ID of the atom after the first time
     const atomContext = new Map<string, Atom | null | undefined>()
 
-    const visit = async (parent: FlattenRequestItem) => {
-      for (const child of parent['PageElement.children'] || []) {
-        if (visitedIds.has(child.uid)) {
-          continue
-        }
+    // do a breadth-first traversal
+    const traversalQueue: Array<{
+      element: FlattenRequestItem
+      parentId?: string
+    }> = [{ element: root }]
 
-        const childName = child['PageElement.name'] as string
-        let childOrder = child['PageElement.children|order']
+    while (traversalQueue.length > 0) {
+      const item = traversalQueue.shift()
 
-        if (typeof childOrder !== 'number') {
-          childOrder = 0 // this shouldn't be happening, we always assign order, but just in case
-        }
+      if (!item) {
+        continue
+      }
 
-        const atom = this.createAtomFromQueryResult(child, atomContext)
-        const props = await this.arrayPropMapper.map(child['PageElement.props'])
-        const propAggregates = await this.arrayPropAggregateMapper.map(props)
+      const { element, parentId } = item
 
+      if (visitedIds.has(element.uid)) {
+        continue
+      }
+
+      const elementName = element['PageElement.name'] as string
+      let elementOrder = element['PageElement.children|order']
+
+      if (typeof elementOrder !== 'number') {
+        elementOrder = 1 // this shouldn't be happening, we always assign order, but just in case
+      }
+
+      const atom = this.createAtomFromQueryResult(element, atomContext)
+      const props = await this.arrayPropMapper.map(element['PageElement.props'])
+      const propAggregates = await this.arrayPropAggregateMapper.map(props)
+
+      // We don't want to add the root element to the descendants array
+      if (parentId) {
         descendants.push(
           new PageElement({
-            id: child.uid,
-            name: childName,
+            id: element.uid,
+            name: elementName,
             atom: atom as any,
             props: propAggregates,
-            css: child['PageElement.css'],
+            css: element['PageElement.css'],
           }),
         )
 
-        links.push(new PageElementLink(parent.uid, child.uid, childOrder))
-
-        visitedIds.add(child.uid)
-        await visit(child)
+        links.push(new PageElementLink(parentId, element.uid, elementOrder))
       }
-    }
 
-    await visit(root)
+      visitedIds.add(element.uid)
+
+      const children = element['PageElement.children'] || []
+
+      // Edge case alert:
+      // sort the children by ID, because it seems that that's how dgraph executes the query
+      // but sometimes results don't match that. If we start with a element with a latter id,
+      // and we have elements with the same atom - the atom of the element with the latter ID won't have
+      // propTypes defined, because they are already defined in the element with the prior ID
+      children.sort((a, b) => b.uid.localeCompare(a.uid))
+
+      if (!children || !children.length) {
+        continue
+      }
+
+      traversalQueue.push(
+        ...children.map((c) => ({ element: c, parentId: element.uid })),
+      )
+    }
 
     const rootAtom = this.createAtomFromQueryResult(root, atomContext)
 

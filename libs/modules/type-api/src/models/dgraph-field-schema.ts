@@ -1,7 +1,6 @@
 import { BaseDgraphFields, baseFieldsZodShape } from '@codelab/backend'
 import { z } from 'zod'
-import { dgraphDecoratorSchema } from './decorators'
-import { FieldDgraphFields } from './dgraph-field.model'
+import { DgraphFieldFields } from './dgraph-field.model'
 import { DgraphInterface } from './dgraph-interface.model'
 import { dgraphTypeUnionSchema } from './types/allDgraphTypes' // do not shorten
 
@@ -9,19 +8,15 @@ import { dgraphTypeUnionSchema } from './types/allDgraphTypes' // do not shorten
 export const dgraphFieldSchema = z.lazy(() =>
   z.object({
     ...baseFieldsZodShape('Field'),
-    [FieldDgraphFields.Name]: z.string(),
-    [FieldDgraphFields.Description]: z.string().optional().nullable(),
-    [FieldDgraphFields.Key]: z.string(),
-    [FieldDgraphFields.Type]: z.union([
+    [DgraphFieldFields.Name]: z.string(),
+    [DgraphFieldFields.Description]: z.string().optional().nullable(),
+    [DgraphFieldFields.Key]: z.string(),
+    [DgraphFieldFields.Type]: z.union([
       dgraphTypeUnionSchema,
       z.object({ [BaseDgraphFields.uid]: z.string() }),
     ]),
-    [FieldDgraphFields.Interface]: DgraphInterface.Schema.or(
+    [DgraphFieldFields.Interface]: DgraphInterface.Schema.or(
       z.object({ [BaseDgraphFields.uid]: z.string() }),
     ),
-    [FieldDgraphFields.Decorators]: z
-      .array(dgraphDecoratorSchema)
-      .nullable()
-      .optional(),
   }),
 )

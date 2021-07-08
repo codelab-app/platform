@@ -9,7 +9,6 @@ import {
 import { Empty } from 'antd'
 import { LayoutPageDetail } from 'apps/web/src/templates/Layout--pageDetail'
 import React, { useContext } from 'react'
-import tw from 'twin.macro'
 import { NextPageLayout } from '../../../../../src/templates/Layout.d'
 
 const PageDetail: NextPageLayout<'builder'> = () => {
@@ -23,11 +22,7 @@ const PageDetail: NextPageLayout<'builder'> = () => {
     return <Empty />
   }
 
-  return (
-    <div id="Builder" css={tw`relative w-full h-full`}>
-      <PageBuilder cy={cytoscapeRoot} />
-    </div>
-  )
+  return <PageBuilder cy={cytoscapeRoot} />
 }
 
 export const getServerSideProps = withPageAuthRequired()

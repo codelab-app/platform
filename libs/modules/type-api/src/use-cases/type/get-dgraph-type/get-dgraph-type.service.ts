@@ -37,7 +37,7 @@ export class GetDgraphTypeService extends DgraphUseCase<
     const data = dataArray[0] as GetDgraphTypeQueryResult
 
     if (instanceOfDgraphModel(data, DgraphInterface.Metadata.modelName)) {
-      // Default to returning an empty array for interfaces, because otherwise
+      // Default to returning an empty array for interface fields, because otherwise
       // it will go through the field resolver again or get stuck in some zod validation
       ;(data as DgraphInterface)[InterfaceDgraphFields.Fields] =
         dataArray[0][InterfaceDgraphFields.Fields] || []

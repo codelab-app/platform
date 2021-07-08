@@ -11,10 +11,9 @@ import {
   DgraphField,
   dgraphFieldSchema,
   DgraphInterface,
-  FieldDgraphFields,
   InterfaceDgraphFields,
 } from '../../../models'
-import { GetFieldQueryBuilder, GetFieldQueryResult } from './get-field.query'
+import { GetFieldQueryBuilder } from './get-field.query'
 import { GetFieldRequest } from './get-field.request'
 
 @Injectable()
@@ -67,16 +66,11 @@ export class GetDgraphFieldService extends DgraphUseCase<
     } else if (byId) {
       const query = new GetFieldQueryBuilder().withUidFunc(byId.fieldId).build()
 
-      const response = ((await txn.query(query)).getJson() as any)
+      const data = ((await txn.query(query)).getJson() as any)
         .query[0] as DgraphField
 
-      if (!response || !response[BaseDgraphFields.DgraphType]) {
+      if (!data || !data[BaseDgraphFields.DgraphType]) {
         return null
-      }
-
-      const data = {
-        ...response,
-        [FieldDgraphFields.Decorators]: [], // need to add those when adding decorator support
       }
 
       dgraphFieldSchema.parse(data)

@@ -1,7 +1,6 @@
 import {
   refetchGetPageQuery,
   useDeletePageElementMutation,
-  useGetPageElementQuery,
 } from '@codelab/codegen/graphql'
 import {
   createNotificationHandler,
@@ -10,10 +9,9 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useMutationCrudForm,
 } from '@codelab/frontend/shared'
-import { Spin } from 'antd'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { PageContext } from '../../providers'
 
@@ -25,49 +23,32 @@ export const DeletePageElementForm = ({
   onSubmitSuccess,
   ...props
 }: DeletePageElementFormProps) => {
-  const {
-    reset,
-    setLoading,
-    state: { deleteIds: deletePageElementIds },
-  } = useCRUDModalForm(EntityType.PageElement)
-
   const { pageId } = useContext(PageContext)
 
-  const [mutate, { loading: deleting }] = useDeletePageElementMutation({
-    refetchQueries: [refetchGetPageQuery({ input: { pageId: pageId || '' } })],
-  })
-
-  useEffect(() => {
-    setLoading(deleting)
-  }, [deleting, setLoading])
-
-  const { data, loading } = useGetPageElementQuery({
-    variables: {
-      input: {
-        pageElementId: deletePageElementIds[0],
-      },
+  const {
+    handleSubmit,
+    crudModal: {
+      reset,
+      state: { metadata },
+    },
+  } = useMutationCrudForm({
+    entityType: EntityType.PageElement,
+    useMutationFunction: useDeletePageElementMutation,
+    mapVariables: (_, state) => ({
+      input: { pageElementId: state.deleteIds[0] },
+    }),
+    mutationOptions: {
+      refetchQueries: [
+        refetchGetPageQuery({ input: { pageId: pageId || '' } }),
+      ],
     },
   })
-
-  const element = data?.getPageElement
-
-  if (loading) {
-    return <Spin />
-  }
-
-  const onSubmit = () => {
-    return mutate({
-      variables: {
-        input: { pageElementId: deletePageElementIds[0] },
-      },
-    })
-  }
 
   return (
     <FormUniforms<EmptyJsonSchemaType>
       data-testid="delete-component-element-form"
       id="delete-component-element-form"
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       schema={emptyJsonSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while deleting component element',
@@ -80,7 +61,10 @@ export const DeletePageElementForm = ({
       ]}
       {...props}
     >
-      <h4>Are you sure you want to delete page element "{element?.name}"?</h4>
+      <h4>
+        Are you sure you want to delete{' '}
+        {metadata?.name ? `the element "${metadata?.name}"` : 'that element'}?
+      </h4>
       <AutoFields />
     </FormUniforms>
   )

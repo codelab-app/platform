@@ -8,15 +8,28 @@ import React from 'react'
 
 export interface ElementContextMenuProps {
   node: ElementNode
+  onClick?: () => any
+  onBlur?: () => any
 }
 
-export const ElementContextMenu = ({ node }: ElementContextMenuProps) => {
+export const ElementContextMenu = ({
+  node,
+  onClick,
+  onBlur,
+}: ElementContextMenuProps) => {
   const { openCreateModal, openDeleteModal } = useCRUDModalForm(
     EntityType.PageElement,
   )
 
   return (
-    <Menu>
+    <Menu
+      onBlur={onBlur}
+      onClick={() => {
+        if (onClick) {
+          onClick()
+        }
+      }}
+    >
       <Menu.Item onClick={() => openCreateModal()} key="1">
         Add child
       </Menu.Item>

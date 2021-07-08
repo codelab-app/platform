@@ -1,4 +1,3 @@
-export * from './decorators'
 export * from './dgraph-field.model'
 export * from './dgraph-field-schema'
 export * from './dgraph-interface.model'

@@ -113,38 +113,18 @@ interface Type {
 # Creating an Union too, because that will make Dgraph generate some nice mutations, like addType
 union TypeUnion = Interface | EnumType | ArrayType | SimpleType
 
-type RequiredValidator {
-  id: ID!
-  isRequired: Boolean!
-}
-
-type MinMaxValidator {
-  id: ID!
-  min: Int
-  max: Int
-}
-
-type ArrayLengthValidator {
-  id: ID!
-  min: Int
-  max: Int
-}
-
-union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator #add more decorators here if we need to extend the functionality
 type Field {
   id: ID!
   type: Type!
   key: String! @search(by: [hash, fulltext])
   name: String!
   description: String
-  decorators: [Decorator]
   interface: Interface!
 }
 
 #
 # Props
 #
-
 type StringValue {
   id: ID!
   stringValue: String!

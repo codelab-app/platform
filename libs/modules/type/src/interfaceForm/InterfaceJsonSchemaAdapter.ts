@@ -7,9 +7,10 @@ import {
 import { JSONSchemaType } from 'ajv'
 import { PropertiesSchema } from 'ajv/lib/types/json-schema'
 import _ from 'lodash'
+import { TypeModels } from '../types/TypeModels'
 
 // Maybe we can create a custom bridge to uniforms instead?
-export class InterfaceJsonSchemaAdaptor {
+export class InterfaceJsonSchemaAdapter {
   static getJsonTypeFromPrimitiveType(primitiveType: PrimitiveType) {
     switch (primitiveType) {
       case PrimitiveType.String:
@@ -30,26 +31,26 @@ export class InterfaceJsonSchemaAdaptor {
     getType: (typeId: string) => __TypeFragment,
   ): Record<string, any> {
     switch (type.__typename) {
-      case 'SimpleType':
+      case TypeModels.SimpleType:
         return {
-          type: InterfaceJsonSchemaAdaptor.getJsonTypeFromPrimitiveType(
+          type: InterfaceJsonSchemaAdapter.getJsonTypeFromPrimitiveType(
             type.primitiveType,
           ),
           // nullable: true,
         }
-      case 'ArrayType':
+      case TypeModels.ArrayType:
         return {
           type: 'array',
           // nullable: true,
           // This is a bit confusing, because the variable names are alike
           // but it means basically: get the array item type from the root types array
           // and map it to a json property
-          items: InterfaceJsonSchemaAdaptor.toJsonProperty(
+          items: InterfaceJsonSchemaAdapter.toJsonProperty(
             getType(type.typeId),
             getType,
           ),
         }
-      case 'EnumType':
+      case TypeModels.EnumType:
         return {
           type: 'string',
           // nullable: true,
@@ -61,11 +62,11 @@ export class InterfaceJsonSchemaAdaptor {
             })),
           },
         }
-      case 'Interface':
+      case TypeModels.Interface:
         return {
           type: 'object',
           // nullable: true,
-          properties: InterfaceJsonSchemaAdaptor.toJsonProperties(
+          properties: InterfaceJsonSchemaAdapter.toJsonProperties(
             {
               fields: type.fieldCollection.fields,
               types: type.fieldCollection.types.map((t) => {
@@ -98,7 +99,7 @@ export class InterfaceJsonSchemaAdaptor {
     for (const field of fieldCollection.fields) {
       const type = getType(field.typeId)
       properties[field.key] = {
-        ...(InterfaceJsonSchemaAdaptor.toJsonProperty(type, getType) as any),
+        ...(InterfaceJsonSchemaAdapter.toJsonProperty(type, getType) as any),
         label: field.name,
       }
     }
@@ -117,7 +118,7 @@ export class InterfaceJsonSchemaAdaptor {
 
     return {
       type: 'object',
-      properties: InterfaceJsonSchemaAdaptor.toJsonProperties(
+      properties: InterfaceJsonSchemaAdapter.toJsonProperties(
         int.fieldCollection,
         getType,
       ),
