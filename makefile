@@ -69,6 +69,12 @@ lint-eslint:
 # E2E
 #
 
+start-ci:
+	npx concurrently \
+		--names=web,api \
+			"npx next start -p 3000 dist/apps/web" \
+			"node dist/apps/api/main.js"
+
 e2e-ci:
 	npx concurrently \
   	--kill-others \
