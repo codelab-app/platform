@@ -11,16 +11,16 @@ fragment Dgraph__Interface on Interface {
 }
 
 fragment Dgraph__Field on Field {
-    id
-    key
-    name
-    description
-    type {
-        ...Dgraph__Type
-    }
-    interface {
-        ...Dgraph__InterfaceWithoutFields
-    }
+  id
+  key
+  name
+  description
+  type {
+    ...Dgraph__Type
+  }
+  interface {
+    ...Dgraph__InterfaceWithoutFields
+  }
 }
 
 fragment Dgraph__Type on Type {
