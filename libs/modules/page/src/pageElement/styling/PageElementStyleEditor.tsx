@@ -26,6 +26,8 @@ export const PageElementStyleEditor = ({
   })
 
   const [cssString, setCssString] = useState(pageElement.css || '')
+  // Debounce the autosaving, otherwise it will be too quick
+  // Getting a dgraph  error if this is too fast, like 500ms
   const [cssDebounced, setCssDebounced] = useDebouncedState(1000, cssString)
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export const PageElementStyleEditor = ({
   }
 
   useEffect(() => {
-    if (cssDebounced) {
+    if (typeof cssDebounced === 'string') {
       updateCss(cssDebounced).then()
     }
   }, [cssDebounced])

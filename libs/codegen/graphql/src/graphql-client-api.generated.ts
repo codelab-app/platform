@@ -24,12 +24,6 @@ export type App = {
   name: Scalars['String']
 }
 
-export type ArrayLengthValidator = {
-  id: Scalars['ID']
-  minLength?: Maybe<Scalars['Int']>
-  maxLength?: Maybe<Scalars['Int']>
-}
-
 export type ArrayType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
@@ -304,11 +298,6 @@ export type CreateTypeInput = {
   interfaceType?: Maybe<Scalars['Boolean']>
 }
 
-export type Decorator =
-  | ArrayLengthValidator
-  | MinMaxValidator
-  | RequiredValidator
-
 export type DeleteAppInput = {
   appId: Scalars['String']
 }
@@ -359,7 +348,6 @@ export type Field = {
   name: Scalars['String']
   description?: Maybe<Scalars['String']>
   typeId: Scalars['String']
-  decorators: Array<Decorator>
   interface: Interface
 }
 
@@ -467,12 +455,6 @@ export type InterfaceValue = {
 
 export type InterfaceValueInput = {
   props: Array<UpsertPropsInput>
-}
-
-export type MinMaxValidator = {
-  id: Scalars['ID']
-  min?: Maybe<Scalars['Int']>
-  max?: Maybe<Scalars['Int']>
 }
 
 export type MoveData = {
@@ -770,11 +752,6 @@ export type QueryGetTypesArgs = {
 
 export type QueryGetPropsArgs = {
   input: GetPropsInput
-}
-
-export type RequiredValidator = {
-  id: Scalars['ID']
-  isRequired: Scalars['Boolean']
 }
 
 export type SimpleType = Type & {
@@ -1359,38 +1336,6 @@ export type TestUpdateInterfaceMutation = {
   updateInterface: __InterfaceFragment
 }
 
-export type __ArrayLengthValidatorFragment = Pick<
-  ArrayLengthValidator,
-  'id' | 'maxLength' | 'minLength'
->
-
-export type __MinMaxValidatorFragment = Pick<
-  MinMaxValidator,
-  'id' | 'max' | 'min'
->
-
-export type __RequiredValidatorFragment = Pick<
-  RequiredValidator,
-  'id' | 'isRequired'
->
-
-type __Decorator_ArrayLengthValidator_Fragment = {
-  __typename: 'ArrayLengthValidator'
-} & __ArrayLengthValidatorFragment
-
-type __Decorator_MinMaxValidator_Fragment = {
-  __typename: 'MinMaxValidator'
-} & __MinMaxValidatorFragment
-
-type __Decorator_RequiredValidator_Fragment = {
-  __typename: 'RequiredValidator'
-} & __RequiredValidatorFragment
-
-export type __DecoratorFragment =
-  | __Decorator_ArrayLengthValidator_Fragment
-  | __Decorator_MinMaxValidator_Fragment
-  | __Decorator_RequiredValidator_Fragment
-
 export type __FieldFragment = Pick<
   Field,
   'id' | 'key' | 'name' | 'typeId' | 'description'
@@ -1839,43 +1784,6 @@ export const __ArrayValueShallowFragmentDoc = gql`
     }
   }
   ${__PropValueShallowFragmentDoc}
-`
-export const __ArrayLengthValidatorFragmentDoc = gql`
-  fragment __ArrayLengthValidator on ArrayLengthValidator {
-    id
-    maxLength
-    minLength
-  }
-`
-export const __MinMaxValidatorFragmentDoc = gql`
-  fragment __MinMaxValidator on MinMaxValidator {
-    id
-    max
-    min
-  }
-`
-export const __RequiredValidatorFragmentDoc = gql`
-  fragment __RequiredValidator on RequiredValidator {
-    id
-    isRequired
-  }
-`
-export const __DecoratorFragmentDoc = gql`
-  fragment __Decorator on Decorator {
-    __typename
-    ... on ArrayLengthValidator {
-      ...__ArrayLengthValidator
-    }
-    ... on MinMaxValidator {
-      ...__MinMaxValidator
-    }
-    ... on RequiredValidator {
-      ...__RequiredValidator
-    }
-  }
-  ${__ArrayLengthValidatorFragmentDoc}
-  ${__MinMaxValidatorFragmentDoc}
-  ${__RequiredValidatorFragmentDoc}
 `
 export const __FieldCollectionWithoutTypesFragmentDoc = gql`
   fragment __FieldCollectionWithoutTypes on FieldCollection {
@@ -4631,43 +4539,6 @@ export const __ArrayValueShallow = gql`
     }
   }
   ${__PropValueShallow}
-`
-export const __ArrayLengthValidator = gql`
-  fragment __ArrayLengthValidator on ArrayLengthValidator {
-    id
-    maxLength
-    minLength
-  }
-`
-export const __MinMaxValidator = gql`
-  fragment __MinMaxValidator on MinMaxValidator {
-    id
-    max
-    min
-  }
-`
-export const __RequiredValidator = gql`
-  fragment __RequiredValidator on RequiredValidator {
-    id
-    isRequired
-  }
-`
-export const __Decorator = gql`
-  fragment __Decorator on Decorator {
-    __typename
-    ... on ArrayLengthValidator {
-      ...__ArrayLengthValidator
-    }
-    ... on MinMaxValidator {
-      ...__MinMaxValidator
-    }
-    ... on RequiredValidator {
-      ...__RequiredValidator
-    }
-  }
-  ${__ArrayLengthValidator}
-  ${__MinMaxValidator}
-  ${__RequiredValidator}
 `
 export const __FieldCollectionWithoutTypes = gql`
   fragment __FieldCollectionWithoutTypes on FieldCollection {

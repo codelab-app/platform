@@ -1,29 +1,34 @@
 import { BaseDgraphFields, instanceOfDgraphModel } from '@codelab/backend'
 import { MAX_TYPE_DEPTH } from './constants'
+import { OverlyNestedTypeError } from './errors'
+import { RecursiveTypeError } from './errors/RecursiveTypeError'
 import {
   ArrayTypeDgraphFields,
   DgraphArrayType,
+  DgraphFieldFields,
   DgraphInterface,
   DgraphTypeUnion,
-  FieldDgraphFields,
   InterfaceDgraphFields,
 } from './models'
 
-export const checkForRecursion = (
-  existingTypeId: string,
-  itemType: DgraphTypeUnion,
-) => {
+/**
+ * Checks if the id of type A is referenced anywhere, at any depth, inside type B
+ *
+ * Throws {@link OverlyNestedTypeError} if the type is too nested based on {@link MAX_TYPE_DEPTH}
+ * Throws {@link RecursiveTypeError} if typeAId is referenced inside type B
+ */
+export const checkForRecursion = (typeAId: string, typeB: DgraphTypeUnion) => {
   let itemCheckIteration = 0
 
   const checkItemTypeForRecursion = (innerType: DgraphTypeUnion) => {
     itemCheckIteration++
 
     if (itemCheckIteration > MAX_TYPE_DEPTH) {
-      throw new Error('Type too nested')
+      throw new OverlyNestedTypeError()
     }
 
-    if (innerType[BaseDgraphFields.uid] === existingTypeId) {
-      throw new Error('Cannot create self-referencing type')
+    if (innerType[BaseDgraphFields.uid] === typeAId) {
+      throw new RecursiveTypeError()
     }
 
     if (instanceOfDgraphModel(innerType, DgraphArrayType.Metadata.modelName)) {
@@ -35,11 +40,11 @@ export const checkForRecursion = (
     ) {
       ;(innerType as DgraphInterface)[InterfaceDgraphFields.Fields]?.forEach(
         (field) => {
-          checkItemTypeForRecursion(field[FieldDgraphFields.Type])
+          checkItemTypeForRecursion(field[DgraphFieldFields.Type])
         },
       )
     }
   }
 
-  checkItemTypeForRecursion(itemType)
+  checkItemTypeForRecursion(typeB)
 }

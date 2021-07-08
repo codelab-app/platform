@@ -1,4 +1,4 @@
 export * from './InterfaceForm'
-export * from './InterfaceJsonSchemaAdaptor'
-export * from './JsonModelUpsertPropsAdaptor'
-export * from './PropsJsonModelAdaptor'
+export * from './InterfaceJsonSchemaAdapter'
+export * from './JsonModelUpsertPropsAdapter'
+export * from './PropsJsonModelAdapter'

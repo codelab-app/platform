@@ -1,6 +1,9 @@
-import 'twin.macro'
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { PageFullFragment } from '@codelab/codegen/graphql'
+import {
+  PageFullFragment,
+  refetchGetPageQuery,
+  useMovePageElementMutation,
+} from '@codelab/codegen/graphql'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { MainPaneTemplate } from '@codelab/frontend/layout'
 import {
@@ -9,13 +12,15 @@ import {
   ElementNode,
   EntityType,
   NodeBase,
+  NodeLink,
   PageType,
 } from '@codelab/frontend/shared'
-import { Dropdown, Empty, Menu, Tree } from 'antd'
-import { DataNode } from 'antd/lib/tree'
+import { Dropdown, Empty, Tree } from 'antd'
+import { DataNode, TreeProps } from 'antd/lib/tree'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
-import { usePageBuilderState, useSetPageBuilderState } from '../../builder'
+import tw from 'twin.macro'
+import { usePageBuilderState } from '../../builder'
 import {
   CreatePageElementButton,
   CreatePageElementForm,
@@ -46,9 +51,9 @@ const Title = ({
 }
 
 export const MainPanePageDetail = () => {
-  const { cytoscapeRoot, page, loading } = useContext(PageContext)
+  const { cytoscapeRoot, page, loading, pageId } = useContext(PageContext)
+  // Keeps track of the ids of expanded tree nodes
   const [expanded, setExpanded] = useState<Array<string | number>>([])
-  const { reset } = useSetPageBuilderState()
 
   const {
     selectPageElement,
@@ -56,28 +61,40 @@ export const MainPanePageDetail = () => {
     state: { selectedPageElement },
   } = usePageBuilderState()
 
+  const [contextMenuItemId, setContextMenuNodeId] = useState<string | null>(
+    null,
+  )
+
+  // When we select a element, expand all tree nodes from the root to the selected elements
   useEffect(() => {
     if (!selectedPageElement || !cytoscapeRoot) {
       return
     }
 
+    // Create a set from the current expanded array, so we can check for duplicates
     const expandedSet = new Set(expanded)
 
-    const path = cytoscapeRoot.elements().aStar({
+    // Get the path of nodes from the root to the selected element using a*
+    const pathResult = cytoscapeRoot.elements().aStar({
       root: `#${cytoscapeRoot.elements().roots().first().id()}`,
       directed: true,
       goal: `#${selectedPageElement.id}`,
     })
 
-    if (path.found) {
-      const toAdd: Array<string> = []
-      path.path.forEach((node) => {
+    // If there is a path (there should always be, it's a tree after all), go through each node
+    // of the path and keep track of all nodes that need to get expanded
+    if (pathResult.found) {
+      // Those are the node ids that we need to expand
+      const toExpand: Array<string> = []
+
+      pathResult.path.forEach((node) => {
+        // If the id is already expanded, don't add it again
         if (!expandedSet.has(node.id())) {
-          toAdd.push(node.id())
+          toExpand.push(node.id())
         }
       })
 
-      setExpanded((e) => [...e, ...toAdd])
+      setExpanded((prevState) => [...prevState, ...toExpand])
     }
   }, [selectedPageElement])
 
@@ -90,22 +107,107 @@ export const MainPanePageDetail = () => {
   const getNodeById = (id: string) =>
     cytoscapeRoot?.elements().getElementById(id).first().data()
 
+  const [movePageElement, { loading: movingPageElement }] =
+    useMovePageElementMutation({
+      awaitRefetchQueries: true,
+      refetchQueries: [
+        refetchGetPageQuery({ input: { pageId: pageId as string } }),
+      ],
+    })
+
+  const handleDrop: TreeProps['onDrop'] = (e) => {
+    // This can be optimized to be handled in the API
+    // It is also buggy, because it doesn't handle the case where the two nodes have the same order
+
+    if (!cytoscapeRoot) {
+      return
+    }
+
+    const dragNodeId = (e.dragNode as any as NodeBase).id
+    const dropNodeId = (e.node as any as NodeBase).id
+
+    console.log(e)
+
+    if (e.dropToGap) {
+      // Switch spots with the element next to the drop indicator
+      const dragParentLink = cytoscapeRoot
+        .edges(`[target = "${dragNodeId}"]`)
+        .first()
+        .data() as NodeLink
+
+      const dropParentLink = cytoscapeRoot
+        .edges(`[target = "${dropNodeId}"]`)
+        .first()
+        .data() as NodeLink
+
+      const dropNodeParentId = dropParentLink.source
+      const originalDragElementOrder = dragParentLink?.order
+      movePageElement({
+        variables: {
+          input: {
+            pageElementId: dragNodeId,
+            moveData: {
+              parentElementId: dropNodeParentId,
+              order:
+                dropParentLink.order == originalDragElementOrder
+                  ? dropParentLink.order + 1
+                  : dropParentLink.order,
+            },
+          },
+        },
+      })
+      movePageElement({
+        variables: {
+          input: {
+            pageElementId: dropNodeId,
+            moveData: {
+              parentElementId: dropNodeParentId,
+              order: originalDragElementOrder,
+            },
+          },
+        },
+      })
+    } else {
+      // FIXME
+      // Move the dragged element as a child to the dropped element
+      // This is buggy, since e.dropPosition does not match our ordering system
+      // it causes issues when moving elements up
+      return movePageElement({
+        variables: {
+          input: {
+            pageElementId: dragNodeId,
+            moveData: {
+              parentElementId: dropNodeId,
+              order: e.dropPosition,
+            },
+          },
+        },
+      })
+    }
+  }
+
   return (
     <MainPaneTemplate
       title={<Title page={page} appId={page?.app?.id} />}
-      header={<CreatePageElementButton loading={loading} key={0} />}
-      containerProps={{ onClick: () => reset() }}
+      header={
+        <CreatePageElementButton
+          loading={loading || movingPageElement}
+          key={0}
+        />
+      }
+      containerProps={{ onClick: () => setContextMenuNodeId(null) }}
     >
       {tree ? (
         <Tree
           className="draggable-tree"
-          // defaultExpandedKeys={this.state.expandedKeys}
           blockNode
           expandedKeys={expanded}
+          draggable
           onExpand={(expandedKeys) => setExpanded(expandedKeys)}
+          onDrop={handleDrop}
           selectedKeys={selectedPageElement ? [selectedPageElement.id] : []}
           onMouseEnter={({ node: dataNode }) => {
-            const node = getNodeById((dataNode as any).id.toString())
+            const node = getNodeById((dataNode as any).id?.toString())
 
             if (!node) {
               return
@@ -120,7 +222,7 @@ export const MainPanePageDetail = () => {
           onSelect={([id], { nativeEvent }) => {
             nativeEvent.stopPropagation()
 
-            const node = getNodeById(id.toString())
+            const node = getNodeById(id?.toString())
 
             if (!node) {
               return
@@ -130,15 +232,31 @@ export const MainPanePageDetail = () => {
           }}
           titleRender={(node) => {
             const label = (node as any as NodeBase).name
+            const nodeId = (node as any).id
 
             return (
               <Dropdown
+                onVisibleChange={() => setContextMenuNodeId(nodeId)}
+                visible={contextMenuItemId === nodeId}
                 overlay={
-                  <ElementContextMenu node={node as any as ElementNode} />
+                  <>
+                    <div
+                      css={tw`fixed inset-0`}
+                      onClick={(e) => {
+                        setContextMenuNodeId(null)
+                        e.stopPropagation()
+                      }}
+                    />
+                    <ElementContextMenu
+                      // We need to manually hide the context menu, otherwise it stays open
+                      onClick={() => setContextMenuNodeId(null)}
+                      node={node as any as ElementNode}
+                    />
+                  </>
                 }
                 trigger={['contextMenu']}
               >
-                <span>{label}</span>
+                <div>{label}</div>
               </Dropdown>
             )
           }}

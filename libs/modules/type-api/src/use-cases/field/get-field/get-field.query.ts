@@ -5,9 +5,7 @@ import {
   IDgraphQueryFilter,
 } from '@codelab/backend'
 import {
-  allDgraphDecorators,
   allDgraphTypes,
-  DgraphDecorator,
   DgraphEnumType,
   DgraphEnumTypeValue,
   DgraphField,
@@ -23,11 +21,7 @@ export class GetFieldQueryBuilder extends DgraphQueryBuilder {
 
     this.withBaseFields()
       .withRecurse()
-      .withModelsFields(
-        DgraphField,
-        ...allDgraphDecorators,
-        DgraphEnumTypeValue,
-      )
+      .withModelsFields(DgraphField, DgraphEnumTypeValue)
 
     // Add all the type fields, but omit the name, because we will get duplicate field error
     allDgraphTypes.forEach((dgraphType) => {
@@ -67,5 +61,4 @@ export type GetFieldQueryResult =
   | DgraphField
   | DgraphInterface
   | DgraphType
-  | DgraphDecorator
   | DgraphEnumType

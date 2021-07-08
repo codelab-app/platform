@@ -6,9 +6,9 @@ import {
 } from '@codelab/backend'
 import { Atom, GetAtomByService } from '@codelab/modules/atom-api'
 import {
+  DgraphFieldFields,
   DgraphSimpleType,
   DgraphType,
-  FieldDgraphFields,
   GetDgraphFieldService,
   PrimitiveType,
   SimpleTypeDgraphFields,
@@ -102,7 +102,7 @@ export class UpsertPropsService extends DgraphUseCase<
         if (
           atom &&
           atom.propTypes.id !==
-            field[FieldDgraphFields.Interface][BaseDgraphFields.uid]
+            field[DgraphFieldFields.Interface][BaseDgraphFields.uid]
         ) {
           throw new Error(
             "Can only add prop to the page element ' interface fields",
@@ -113,7 +113,7 @@ export class UpsertPropsService extends DgraphUseCase<
         throw new Error('pageElementId must be provided')
       }
 
-      const fieldType = (field[FieldDgraphFields.Type] as DgraphType)[
+      const fieldType = (field[DgraphFieldFields.Type] as DgraphType)[
         BaseDgraphFields.DgraphType
       ][0]
 
@@ -126,7 +126,7 @@ export class UpsertPropsService extends DgraphUseCase<
           throw new Error('An array value must be provided for an array field')
         } else if (fieldType === 'SimpleType') {
           const primitiveType = (
-            field[FieldDgraphFields.Type] as DgraphSimpleType
+            field[DgraphFieldFields.Type] as DgraphSimpleType
           )[SimpleTypeDgraphFields.PrimitiveType]
 
           if (primitiveType === PrimitiveType.String && !value.stringValue) {

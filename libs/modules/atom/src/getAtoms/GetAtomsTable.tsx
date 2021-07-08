@@ -57,7 +57,7 @@ export const GetAtomsTable = () => {
       },
     },
     {
-      title: 'Props',
+      title: 'Props API',
       dataIndex: 'props',
       key: 'props',
       width: 100,
@@ -71,7 +71,7 @@ export const GetAtomsTable = () => {
           )}
         >
           {/*  eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a css={tw`text-blue-700`}>View</a>
+          <a css={tw`text-blue-700`}>View API</a>
         </Link>
       ),
     },

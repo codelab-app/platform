@@ -7,6 +7,13 @@ export enum NodeType {
   ComponentElement = 'ComponentElement',
 }
 
+export interface NodeLink {
+  id: string
+  source: string
+  target: string
+  order: number
+}
+
 export interface NodeBase {
   id: string
   name: string

@@ -3,35 +3,37 @@ import {
   DgraphModel,
   DgraphModelMetadata,
 } from '@codelab/backend'
-import { DgraphDecorator } from './decorators'
 import { DgraphInterface } from './dgraph-interface.model'
 import { DgraphTypeUnion } from './types/allDgraphTypes'
 
-export enum FieldDgraphFields {
+/**
+ * Dgraph field names for the Field entity
+ */
+export enum DgraphFieldFields {
   Name = 'Field.name',
   Description = 'Field.description',
   Key = 'Field.key',
   Type = 'Field.type',
   Interface = 'Field.interface',
-  Decorators = 'Field.decorators',
 }
 
+/**
+ * The Field entity, as its represented in Dgraph
+ */
 export class DgraphField extends DgraphModel<'Field'> {
-  [FieldDgraphFields.Name]: string;
+  [DgraphFieldFields.Name]: string;
 
-  [FieldDgraphFields.Description]?: string | null;
+  [DgraphFieldFields.Description]?: string | null;
 
-  [FieldDgraphFields.Key]: string;
+  [DgraphFieldFields.Key]: string;
 
-  [FieldDgraphFields.Type]: DgraphTypeUnion;
+  [DgraphFieldFields.Type]: DgraphTypeUnion;
 
-  [FieldDgraphFields.Decorators]?: Array<DgraphDecorator> | null;
-
-  [FieldDgraphFields.Interface]:
+  [DgraphFieldFields.Interface]:
     | DgraphInterface
     | { [BaseDgraphFields.uid]: string }
 
-  static Fields = FieldDgraphFields
+  static Fields = DgraphFieldFields
 
-  static Metadata = new DgraphModelMetadata('Field', FieldDgraphFields)
+  static Metadata = new DgraphModelMetadata('Field', DgraphFieldFields)
 }

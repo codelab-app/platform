@@ -4,16 +4,16 @@ import React from 'react'
 import { atomTypeElementFactory } from './atomTypeElementFactory'
 
 export interface RenderHandlers {
-  handleMouseEnter: (id: string) => any
-  handleMouseLeave: (id: string) => any
-  handleClick: (id: string) => any
+  handleMouseEnter?: (id: string) => any
+  handleMouseLeave?: (id: string) => any
+  handleClick?: (id: string) => any
 }
 
 interface AtomElementFactoryProps<TNode extends NodeBase = CytoscapeNode> {
   atom: __AtomFragment
   node: TNode
   // Function hooks injected to pass to handlers
-  handlers: RenderHandlers
+  handlers?: RenderHandlers
 }
 
 /**
@@ -48,7 +48,7 @@ export const elementsPropTransformers: {
   [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), // Do not pass in any props for fragments, except key, because it creates an error
 }
 
-const commonProps = (node: CytoscapeNode, handlers: RenderHandlers) => ({
+const commonProps = (node: CytoscapeNode, handlers?: RenderHandlers) => ({
   'data-id': node.id,
   'data-node-type': node.nodeType,
   key: node.id,
@@ -60,11 +60,15 @@ const commonProps = (node: CytoscapeNode, handlers: RenderHandlers) => ({
   // Enter is only triggered once when we enter the box
   // Otherwise `onMouseOver` will fire endless as it toggles between current & children element
   onMouseEnter: () => {
-    return handlers?.handleMouseEnter(node.id)
+    if (handlers?.handleMouseEnter) {
+      return handlers?.handleMouseEnter(node.id)
+    }
   },
   // We want to manually re-trigger the `onMouseEnter` of the parent
-  onMouseLeave: (e: MouseEvent) => {
-    return handlers?.handleMouseLeave(node.id)
+  onMouseLeave: (_: MouseEvent) => {
+    if (handlers?.handleMouseLeave) {
+      return handlers?.handleMouseLeave(node.id)
+    }
   },
   onClick: (e: MouseEvent) => {
     if (handlers?.handleClick) {

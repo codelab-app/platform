@@ -1,13 +1,10 @@
 import { DgraphQueryBuilder } from '@codelab/backend'
 import {
-  DgraphArrayLengthValidator,
   DgraphArrayType,
   DgraphEnumType,
   DgraphEnumTypeValue,
   DgraphField,
   DgraphInterface,
-  DgraphMinMaxValidator,
-  DgraphRequiredValidator,
   DgraphSimpleType,
   DgraphTypeFields,
 } from '../../../models'
@@ -19,14 +16,7 @@ export class GetDgraphTypeQueryBuilder extends DgraphQueryBuilder {
     this.withRecurse()
       .withBaseFields()
       .withFields('Atom.label')
-      .withModelsFields(
-        DgraphInterface,
-        DgraphField,
-        DgraphEnumTypeValue,
-        DgraphArrayLengthValidator,
-        DgraphMinMaxValidator,
-        DgraphRequiredValidator,
-      )
+      .withModelsFields(DgraphInterface, DgraphField, DgraphEnumTypeValue)
       .withModelFields(DgraphSimpleType, { omit: [DgraphTypeFields.name] })
       .withModelFields(DgraphArrayType, { omit: [DgraphTypeFields.name] })
       .withModelFields(DgraphEnumType, { omit: [DgraphTypeFields.name] })
@@ -40,6 +30,3 @@ export type GetDgraphTypeQueryResult =
   | DgraphArrayType
   | DgraphEnumType
   | DgraphEnumTypeValue
-  | DgraphArrayLengthValidator
-  | DgraphMinMaxValidator
-  | DgraphRequiredValidator

@@ -105,7 +105,7 @@ export class CreatePageElementService extends DgraphUseCase<
       return lastOrderChild.order + 1
     }
 
-    return 0
+    return 1
   }
 
   protected async validate({

@@ -1,37 +1,4 @@
 #
-# Decorators
-#
-fragment __ArrayLengthValidator on ArrayLengthValidator {
-  id
-  maxLength
-  minLength
-}
-
-fragment __MinMaxValidator on MinMaxValidator {
-  id
-  max
-  min
-}
-
-fragment __RequiredValidator on RequiredValidator {
-  id
-  isRequired
-}
-
-fragment __Decorator on Decorator {
-  __typename
-  ... on ArrayLengthValidator {
-    ...__ArrayLengthValidator
-  }
-  ... on MinMaxValidator {
-    ...__MinMaxValidator
-  }
-  ... on RequiredValidator {
-    ...__RequiredValidator
-  }
-}
-
-#
 # Fields and Types
 #
 fragment __Field on Field {
@@ -40,9 +7,6 @@ fragment __Field on Field {
   name
   typeId
   description
-  #  decorators {
-  #    ...__Decorator
-  #  }
 }
 
 fragment __ArrayType on ArrayType {

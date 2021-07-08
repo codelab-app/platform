@@ -56,21 +56,6 @@ type AddAppPayload {
   numUids: Int
 }
 
-input AddArrayLengthValidatorInput {
-  min: Int
-  max: Int
-}
-
-type AddArrayLengthValidatorPayload {
-  arrayLengthValidator(
-    filter: ArrayLengthValidatorFilter
-    order: ArrayLengthValidatorOrder
-    first: Int
-    offset: Int
-  ): [ArrayLengthValidator]
-  numUids: Int
-}
-
 input AddArrayTypeInput {
   name: String!
   type: TypeRef!
@@ -173,7 +158,6 @@ input AddFieldInput {
   key: String!
   name: String!
   description: String
-  decorators: [DecoratorRef]
   interface: InterfaceRef!
 }
 
@@ -261,21 +245,6 @@ type AddLibraryPayload {
   numUids: Int
 }
 
-input AddMinMaxValidatorInput {
-  min: Int
-  max: Int
-}
-
-type AddMinMaxValidatorPayload {
-  minMaxValidator(
-    filter: MinMaxValidatorFilter
-    order: MinMaxValidatorOrder
-    first: Int
-    offset: Int
-  ): [MinMaxValidator]
-  numUids: Int
-}
-
 input AddPageElementInput {
   name: String!
   page: PageRef!
@@ -316,19 +285,6 @@ input AddPropInput {
 
 type AddPropPayload {
   prop(filter: PropFilter, first: Int, offset: Int): [Prop]
-  numUids: Int
-}
-
-input AddRequiredValidatorInput {
-  isRequired: Boolean!
-}
-
-type AddRequiredValidatorPayload {
-  requiredValidator(
-    filter: RequiredValidatorFilter
-    first: Int
-    offset: Int
-  ): [RequiredValidator]
   numUids: Int
 }
 
@@ -423,59 +379,6 @@ input AppRef {
   ownerId: String
   pages: [PageRef]
   name: String
-}
-
-type ArrayLengthValidator {
-  id: ID!
-  min: Int
-  max: Int
-}
-
-type ArrayLengthValidatorAggregateResult {
-  count: Int
-  minMin: Int
-  minMax: Int
-  minSum: Int
-  minAvg: Float
-  maxMin: Int
-  maxMax: Int
-  maxSum: Int
-  maxAvg: Float
-}
-
-input ArrayLengthValidatorFilter {
-  id: [ID!]
-  has: [ArrayLengthValidatorHasFilter]
-  and: [ArrayLengthValidatorFilter]
-  or: [ArrayLengthValidatorFilter]
-  not: ArrayLengthValidatorFilter
-}
-
-enum ArrayLengthValidatorHasFilter {
-  min
-  max
-}
-
-input ArrayLengthValidatorOrder {
-  asc: ArrayLengthValidatorOrderable
-  desc: ArrayLengthValidatorOrderable
-  then: ArrayLengthValidatorOrder
-}
-
-enum ArrayLengthValidatorOrderable {
-  min
-  max
-}
-
-input ArrayLengthValidatorPatch {
-  min: Int
-  max: Int
-}
-
-input ArrayLengthValidatorRef {
-  id: ID
-  min: Int
-  max: Int
 }
 
 type ArrayType implements Type {
@@ -927,40 +830,8 @@ input DateTimeRange {
   max: DateTime!
 }
 
-union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator
-
-input DecoratorFilter {
-  memberTypes: [DecoratorType!]
-  minMaxValidatorFilter: MinMaxValidatorFilter
-  requiredValidatorFilter: RequiredValidatorFilter
-  arrayLengthValidatorFilter: ArrayLengthValidatorFilter
-}
-
-input DecoratorRef {
-  minMaxValidatorRef: MinMaxValidatorRef
-  requiredValidatorRef: RequiredValidatorRef
-  arrayLengthValidatorRef: ArrayLengthValidatorRef
-}
-
-enum DecoratorType {
-  MinMaxValidator
-  RequiredValidator
-  ArrayLengthValidator
-}
-
 type DeleteAppPayload {
   app(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
-  msg: String
-  numUids: Int
-}
-
-type DeleteArrayLengthValidatorPayload {
-  arrayLengthValidator(
-    filter: ArrayLengthValidatorFilter
-    order: ArrayLengthValidatorOrder
-    first: Int
-    offset: Int
-  ): [ArrayLengthValidator]
   msg: String
   numUids: Int
 }
@@ -1096,17 +967,6 @@ type DeleteLibraryPayload {
   numUids: Int
 }
 
-type DeleteMinMaxValidatorPayload {
-  minMaxValidator(
-    filter: MinMaxValidatorFilter
-    order: MinMaxValidatorOrder
-    first: Int
-    offset: Int
-  ): [MinMaxValidator]
-  msg: String
-  numUids: Int
-}
-
 type DeletePageElementPayload {
   pageElement(
     filter: PageElementFilter
@@ -1126,16 +986,6 @@ type DeletePagePayload {
 
 type DeletePropPayload {
   prop(filter: PropFilter, first: Int, offset: Int): [Prop]
-  msg: String
-  numUids: Int
-}
-
-type DeleteRequiredValidatorPayload {
-  requiredValidator(
-    filter: RequiredValidatorFilter
-    first: Int
-    offset: Int
-  ): [RequiredValidator]
   msg: String
   numUids: Int
 }
@@ -1301,7 +1151,6 @@ type Field {
   key: String!
   name: String!
   description: String
-  decorators(filter: DecoratorFilter, first: Int, offset: Int): [Decorator]
   interface(filter: InterfaceFilter): Interface!
 }
 
@@ -1329,7 +1178,6 @@ enum FieldHasFilter {
   key
   name
   description
-  decorators
   interface
 }
 
@@ -1350,7 +1198,6 @@ input FieldPatch {
   key: String
   name: String
   description: String
-  decorators: [DecoratorRef]
   interface: InterfaceRef
 }
 
@@ -1360,7 +1207,6 @@ input FieldRef {
   key: String
   name: String
   description: String
-  decorators: [DecoratorRef]
   interface: InterfaceRef
 }
 
@@ -1680,59 +1526,6 @@ input LibraryRef {
   components: [ComponentRef]
 }
 
-type MinMaxValidator {
-  id: ID!
-  min: Int
-  max: Int
-}
-
-type MinMaxValidatorAggregateResult {
-  count: Int
-  minMin: Int
-  minMax: Int
-  minSum: Int
-  minAvg: Float
-  maxMin: Int
-  maxMax: Int
-  maxSum: Int
-  maxAvg: Float
-}
-
-input MinMaxValidatorFilter {
-  id: [ID!]
-  has: [MinMaxValidatorHasFilter]
-  and: [MinMaxValidatorFilter]
-  or: [MinMaxValidatorFilter]
-  not: MinMaxValidatorFilter
-}
-
-enum MinMaxValidatorHasFilter {
-  min
-  max
-}
-
-input MinMaxValidatorOrder {
-  asc: MinMaxValidatorOrderable
-  desc: MinMaxValidatorOrderable
-  then: MinMaxValidatorOrder
-}
-
-enum MinMaxValidatorOrderable {
-  min
-  max
-}
-
-input MinMaxValidatorPatch {
-  min: Int
-  max: Int
-}
-
-input MinMaxValidatorRef {
-  id: ID
-  min: Int
-  max: Int
-}
-
 enum Mode {
   BATCH
   SINGLE
@@ -1787,33 +1580,6 @@ type Mutation {
   deleteInterface(filter: InterfaceFilter!): DeleteInterfacePayload
   updateType(input: UpdateTypeInput!): UpdateTypePayload
   deleteType(filter: TypeFilter!): DeleteTypePayload
-  addRequiredValidator(
-    input: [AddRequiredValidatorInput!]!
-  ): AddRequiredValidatorPayload
-  updateRequiredValidator(
-    input: UpdateRequiredValidatorInput!
-  ): UpdateRequiredValidatorPayload
-  deleteRequiredValidator(
-    filter: RequiredValidatorFilter!
-  ): DeleteRequiredValidatorPayload
-  addMinMaxValidator(
-    input: [AddMinMaxValidatorInput!]!
-  ): AddMinMaxValidatorPayload
-  updateMinMaxValidator(
-    input: UpdateMinMaxValidatorInput!
-  ): UpdateMinMaxValidatorPayload
-  deleteMinMaxValidator(
-    filter: MinMaxValidatorFilter!
-  ): DeleteMinMaxValidatorPayload
-  addArrayLengthValidator(
-    input: [AddArrayLengthValidatorInput!]!
-  ): AddArrayLengthValidatorPayload
-  updateArrayLengthValidator(
-    input: UpdateArrayLengthValidatorInput!
-  ): UpdateArrayLengthValidatorPayload
-  deleteArrayLengthValidator(
-    filter: ArrayLengthValidatorFilter!
-  ): DeleteArrayLengthValidatorPayload
   addField(input: [AddFieldInput!]!): AddFieldPayload
   updateField(input: UpdateFieldInput!): UpdateFieldPayload
   deleteField(filter: FieldFilter!): DeleteFieldPayload
@@ -2200,35 +1966,6 @@ type Query {
     offset: Int
   ): [Type]
   aggregateType(filter: TypeFilter): TypeAggregateResult
-  getRequiredValidator(id: ID!): RequiredValidator
-  queryRequiredValidator(
-    filter: RequiredValidatorFilter
-    first: Int
-    offset: Int
-  ): [RequiredValidator]
-  aggregateRequiredValidator(
-    filter: RequiredValidatorFilter
-  ): RequiredValidatorAggregateResult
-  getMinMaxValidator(id: ID!): MinMaxValidator
-  queryMinMaxValidator(
-    filter: MinMaxValidatorFilter
-    order: MinMaxValidatorOrder
-    first: Int
-    offset: Int
-  ): [MinMaxValidator]
-  aggregateMinMaxValidator(
-    filter: MinMaxValidatorFilter
-  ): MinMaxValidatorAggregateResult
-  getArrayLengthValidator(id: ID!): ArrayLengthValidator
-  queryArrayLengthValidator(
-    filter: ArrayLengthValidatorFilter
-    order: ArrayLengthValidatorOrder
-    first: Int
-    offset: Int
-  ): [ArrayLengthValidator]
-  aggregateArrayLengthValidator(
-    filter: ArrayLengthValidatorFilter
-  ): ArrayLengthValidatorAggregateResult
   getField(id: ID!): Field
   queryField(
     filter: FieldFilter
@@ -2287,36 +2024,6 @@ type Query {
   getProp(id: ID!): Prop
   queryProp(filter: PropFilter, first: Int, offset: Int): [Prop]
   aggregateProp(filter: PropFilter): PropAggregateResult
-}
-
-type RequiredValidator {
-  id: ID!
-  isRequired: Boolean!
-}
-
-type RequiredValidatorAggregateResult {
-  count: Int
-}
-
-input RequiredValidatorFilter {
-  id: [ID!]
-  has: [RequiredValidatorHasFilter]
-  and: [RequiredValidatorFilter]
-  or: [RequiredValidatorFilter]
-  not: RequiredValidatorFilter
-}
-
-enum RequiredValidatorHasFilter {
-  isRequired
-}
-
-input RequiredValidatorPatch {
-  isRequired: Boolean
-}
-
-input RequiredValidatorRef {
-  id: ID
-  isRequired: Boolean
 }
 
 type SimpleType implements Type {
@@ -2570,22 +2277,6 @@ type UpdateAppPayload {
   numUids: Int
 }
 
-input UpdateArrayLengthValidatorInput {
-  filter: ArrayLengthValidatorFilter!
-  set: ArrayLengthValidatorPatch
-  remove: ArrayLengthValidatorPatch
-}
-
-type UpdateArrayLengthValidatorPayload {
-  arrayLengthValidator(
-    filter: ArrayLengthValidatorFilter
-    order: ArrayLengthValidatorOrder
-    first: Int
-    offset: Int
-  ): [ArrayLengthValidator]
-  numUids: Int
-}
-
 input UpdateArrayTypeInput {
   filter: ArrayTypeFilter!
   set: ArrayTypePatch
@@ -2782,22 +2473,6 @@ type UpdateLibraryPayload {
   numUids: Int
 }
 
-input UpdateMinMaxValidatorInput {
-  filter: MinMaxValidatorFilter!
-  set: MinMaxValidatorPatch
-  remove: MinMaxValidatorPatch
-}
-
-type UpdateMinMaxValidatorPayload {
-  minMaxValidator(
-    filter: MinMaxValidatorFilter
-    order: MinMaxValidatorOrder
-    first: Int
-    offset: Int
-  ): [MinMaxValidator]
-  numUids: Int
-}
-
 input UpdatePageElementInput {
   filter: PageElementFilter!
   set: PageElementPatch
@@ -2833,21 +2508,6 @@ input UpdatePropInput {
 
 type UpdatePropPayload {
   prop(filter: PropFilter, first: Int, offset: Int): [Prop]
-  numUids: Int
-}
-
-input UpdateRequiredValidatorInput {
-  filter: RequiredValidatorFilter!
-  set: RequiredValidatorPatch
-  remove: RequiredValidatorPatch
-}
-
-type UpdateRequiredValidatorPayload {
-  requiredValidator(
-    filter: RequiredValidatorFilter
-    first: Int
-    offset: Int
-  ): [RequiredValidator]
   numUids: Int
 }
 

@@ -13,16 +13,14 @@ import { Field, Interface } from './models'
 import {
   CreateFieldInput,
   CreateFieldService,
+  DeleteFieldInput,
+  DeleteFieldService,
   GetFieldInput,
   GetFieldService,
   GetInterfaceService,
   UpdateFieldInput,
   UpdateFieldService,
 } from './use-cases'
-import {
-  DeleteFieldInput,
-  DeleteFieldService,
-} from './use-cases/field/delete-field'
 
 @Resolver(() => Field)
 @Injectable()

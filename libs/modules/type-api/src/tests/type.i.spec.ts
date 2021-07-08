@@ -135,6 +135,7 @@ describe('type', () => {
         expect(retrievedInterface?.name).toBe(name)
 
         expect(retrievedInterface?.fieldCollection.fields).toHaveLength(2)
+        expect(retrievedInterface?.fieldCollection.types).toHaveLength(2)
 
         console.log(retrievedInterface?.fieldCollection)
 

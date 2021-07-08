@@ -46,23 +46,6 @@ export type AddAppPayloadAppArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type AddArrayLengthValidatorInput = {
-  min?: Maybe<Scalars['Int']>
-  max?: Maybe<Scalars['Int']>
-}
-
-export type AddArrayLengthValidatorPayload = {
-  arrayLengthValidator?: Maybe<Array<Maybe<ArrayLengthValidator>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type AddArrayLengthValidatorPayloadArrayLengthValidatorArgs = {
-  filter?: Maybe<ArrayLengthValidatorFilter>
-  order?: Maybe<ArrayLengthValidatorOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
 export type AddArrayTypeInput = {
   name: Scalars['String']
   type: TypeRef
@@ -188,7 +171,6 @@ export type AddFieldInput = {
   key: Scalars['String']
   name: Scalars['String']
   description?: Maybe<Scalars['String']>
-  decorators?: Maybe<Array<Maybe<DecoratorRef>>>
   interface: InterfaceRef
 }
 
@@ -288,23 +270,6 @@ export type AddLibraryPayloadLibraryArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type AddMinMaxValidatorInput = {
-  min?: Maybe<Scalars['Int']>
-  max?: Maybe<Scalars['Int']>
-}
-
-export type AddMinMaxValidatorPayload = {
-  minMaxValidator?: Maybe<Array<Maybe<MinMaxValidator>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type AddMinMaxValidatorPayloadMinMaxValidatorArgs = {
-  filter?: Maybe<MinMaxValidatorFilter>
-  order?: Maybe<MinMaxValidatorOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
 export type AddPageElementInput = {
   name: Scalars['String']
   page: PageRef
@@ -359,21 +324,6 @@ export type AddPropPayload = {
 
 export type AddPropPayloadPropArgs = {
   filter?: Maybe<PropFilter>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type AddRequiredValidatorInput = {
-  isRequired: Scalars['Boolean']
-}
-
-export type AddRequiredValidatorPayload = {
-  requiredValidator?: Maybe<Array<Maybe<RequiredValidator>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type AddRequiredValidatorPayloadRequiredValidatorArgs = {
-  filter?: Maybe<RequiredValidatorFilter>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -491,59 +441,6 @@ export type AppRef = {
   ownerId?: Maybe<Scalars['String']>
   pages?: Maybe<Array<Maybe<PageRef>>>
   name?: Maybe<Scalars['String']>
-}
-
-export type ArrayLengthValidator = {
-  id: Scalars['ID']
-  min?: Maybe<Scalars['Int']>
-  max?: Maybe<Scalars['Int']>
-}
-
-export type ArrayLengthValidatorAggregateResult = {
-  count?: Maybe<Scalars['Int']>
-  minMin?: Maybe<Scalars['Int']>
-  minMax?: Maybe<Scalars['Int']>
-  minSum?: Maybe<Scalars['Int']>
-  minAvg?: Maybe<Scalars['Float']>
-  maxMin?: Maybe<Scalars['Int']>
-  maxMax?: Maybe<Scalars['Int']>
-  maxSum?: Maybe<Scalars['Int']>
-  maxAvg?: Maybe<Scalars['Float']>
-}
-
-export type ArrayLengthValidatorFilter = {
-  id?: Maybe<Array<Scalars['ID']>>
-  has?: Maybe<Array<Maybe<ArrayLengthValidatorHasFilter>>>
-  and?: Maybe<Array<Maybe<ArrayLengthValidatorFilter>>>
-  or?: Maybe<Array<Maybe<ArrayLengthValidatorFilter>>>
-  not?: Maybe<ArrayLengthValidatorFilter>
-}
-
-export enum ArrayLengthValidatorHasFilter {
-  Min = 'min',
-  Max = 'max',
-}
-
-export type ArrayLengthValidatorOrder = {
-  asc?: Maybe<ArrayLengthValidatorOrderable>
-  desc?: Maybe<ArrayLengthValidatorOrderable>
-  then?: Maybe<ArrayLengthValidatorOrder>
-}
-
-export enum ArrayLengthValidatorOrderable {
-  Min = 'min',
-  Max = 'max',
-}
-
-export type ArrayLengthValidatorPatch = {
-  min?: Maybe<Scalars['Int']>
-  max?: Maybe<Scalars['Int']>
-}
-
-export type ArrayLengthValidatorRef = {
-  id?: Maybe<Scalars['ID']>
-  min?: Maybe<Scalars['Int']>
-  max?: Maybe<Scalars['Int']>
 }
 
 export type ArrayType = Type & {
@@ -1032,30 +929,6 @@ export type DateTimeRange = {
   max: Scalars['DateTime']
 }
 
-export type Decorator =
-  | MinMaxValidator
-  | RequiredValidator
-  | ArrayLengthValidator
-
-export type DecoratorFilter = {
-  memberTypes?: Maybe<Array<DecoratorType>>
-  minMaxValidatorFilter?: Maybe<MinMaxValidatorFilter>
-  requiredValidatorFilter?: Maybe<RequiredValidatorFilter>
-  arrayLengthValidatorFilter?: Maybe<ArrayLengthValidatorFilter>
-}
-
-export type DecoratorRef = {
-  minMaxValidatorRef?: Maybe<MinMaxValidatorRef>
-  requiredValidatorRef?: Maybe<RequiredValidatorRef>
-  arrayLengthValidatorRef?: Maybe<ArrayLengthValidatorRef>
-}
-
-export enum DecoratorType {
-  MinMaxValidator = 'MinMaxValidator',
-  RequiredValidator = 'RequiredValidator',
-  ArrayLengthValidator = 'ArrayLengthValidator',
-}
-
 export type DeleteAppPayload = {
   app?: Maybe<Array<Maybe<App>>>
   msg?: Maybe<Scalars['String']>
@@ -1065,19 +938,6 @@ export type DeleteAppPayload = {
 export type DeleteAppPayloadAppArgs = {
   filter?: Maybe<AppFilter>
   order?: Maybe<AppOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type DeleteArrayLengthValidatorPayload = {
-  arrayLengthValidator?: Maybe<Array<Maybe<ArrayLengthValidator>>>
-  msg?: Maybe<Scalars['String']>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type DeleteArrayLengthValidatorPayloadArrayLengthValidatorArgs = {
-  filter?: Maybe<ArrayLengthValidatorFilter>
-  order?: Maybe<ArrayLengthValidatorOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -1248,19 +1108,6 @@ export type DeleteLibraryPayloadLibraryArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type DeleteMinMaxValidatorPayload = {
-  minMaxValidator?: Maybe<Array<Maybe<MinMaxValidator>>>
-  msg?: Maybe<Scalars['String']>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type DeleteMinMaxValidatorPayloadMinMaxValidatorArgs = {
-  filter?: Maybe<MinMaxValidatorFilter>
-  order?: Maybe<MinMaxValidatorOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
 export type DeletePageElementPayload = {
   pageElement?: Maybe<Array<Maybe<PageElement>>>
   msg?: Maybe<Scalars['String']>
@@ -1295,18 +1142,6 @@ export type DeletePropPayload = {
 
 export type DeletePropPayloadPropArgs = {
   filter?: Maybe<PropFilter>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type DeleteRequiredValidatorPayload = {
-  requiredValidator?: Maybe<Array<Maybe<RequiredValidator>>>
-  msg?: Maybe<Scalars['String']>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type DeleteRequiredValidatorPayloadRequiredValidatorArgs = {
-  filter?: Maybe<RequiredValidatorFilter>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -1494,18 +1329,11 @@ export type Field = {
   key: Scalars['String']
   name: Scalars['String']
   description?: Maybe<Scalars['String']>
-  decorators?: Maybe<Array<Maybe<Decorator>>>
   interface: Interface
 }
 
 export type FieldTypeArgs = {
   filter?: Maybe<TypeFilter>
-}
-
-export type FieldDecoratorsArgs = {
-  filter?: Maybe<DecoratorFilter>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
 }
 
 export type FieldInterfaceArgs = {
@@ -1536,7 +1364,6 @@ export enum FieldHasFilter {
   Key = 'key',
   Name = 'name',
   Description = 'description',
-  Decorators = 'decorators',
   Interface = 'interface',
 }
 
@@ -1557,7 +1384,6 @@ export type FieldPatch = {
   key?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
-  decorators?: Maybe<Array<Maybe<DecoratorRef>>>
   interface?: Maybe<InterfaceRef>
 }
 
@@ -1567,7 +1393,6 @@ export type FieldRef = {
   key?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
-  decorators?: Maybe<Array<Maybe<DecoratorRef>>>
   interface?: Maybe<InterfaceRef>
 }
 
@@ -1918,59 +1743,6 @@ export type LibraryRef = {
   components?: Maybe<Array<Maybe<ComponentRef>>>
 }
 
-export type MinMaxValidator = {
-  id: Scalars['ID']
-  min?: Maybe<Scalars['Int']>
-  max?: Maybe<Scalars['Int']>
-}
-
-export type MinMaxValidatorAggregateResult = {
-  count?: Maybe<Scalars['Int']>
-  minMin?: Maybe<Scalars['Int']>
-  minMax?: Maybe<Scalars['Int']>
-  minSum?: Maybe<Scalars['Int']>
-  minAvg?: Maybe<Scalars['Float']>
-  maxMin?: Maybe<Scalars['Int']>
-  maxMax?: Maybe<Scalars['Int']>
-  maxSum?: Maybe<Scalars['Int']>
-  maxAvg?: Maybe<Scalars['Float']>
-}
-
-export type MinMaxValidatorFilter = {
-  id?: Maybe<Array<Scalars['ID']>>
-  has?: Maybe<Array<Maybe<MinMaxValidatorHasFilter>>>
-  and?: Maybe<Array<Maybe<MinMaxValidatorFilter>>>
-  or?: Maybe<Array<Maybe<MinMaxValidatorFilter>>>
-  not?: Maybe<MinMaxValidatorFilter>
-}
-
-export enum MinMaxValidatorHasFilter {
-  Min = 'min',
-  Max = 'max',
-}
-
-export type MinMaxValidatorOrder = {
-  asc?: Maybe<MinMaxValidatorOrderable>
-  desc?: Maybe<MinMaxValidatorOrderable>
-  then?: Maybe<MinMaxValidatorOrder>
-}
-
-export enum MinMaxValidatorOrderable {
-  Min = 'min',
-  Max = 'max',
-}
-
-export type MinMaxValidatorPatch = {
-  min?: Maybe<Scalars['Int']>
-  max?: Maybe<Scalars['Int']>
-}
-
-export type MinMaxValidatorRef = {
-  id?: Maybe<Scalars['ID']>
-  min?: Maybe<Scalars['Int']>
-  max?: Maybe<Scalars['Int']>
-}
-
 export enum Mode {
   Batch = 'BATCH',
   Single = 'SINGLE',
@@ -2023,15 +1795,6 @@ export type Mutation = {
   deleteInterface?: Maybe<DeleteInterfacePayload>
   updateType?: Maybe<UpdateTypePayload>
   deleteType?: Maybe<DeleteTypePayload>
-  addRequiredValidator?: Maybe<AddRequiredValidatorPayload>
-  updateRequiredValidator?: Maybe<UpdateRequiredValidatorPayload>
-  deleteRequiredValidator?: Maybe<DeleteRequiredValidatorPayload>
-  addMinMaxValidator?: Maybe<AddMinMaxValidatorPayload>
-  updateMinMaxValidator?: Maybe<UpdateMinMaxValidatorPayload>
-  deleteMinMaxValidator?: Maybe<DeleteMinMaxValidatorPayload>
-  addArrayLengthValidator?: Maybe<AddArrayLengthValidatorPayload>
-  updateArrayLengthValidator?: Maybe<UpdateArrayLengthValidatorPayload>
-  deleteArrayLengthValidator?: Maybe<DeleteArrayLengthValidatorPayload>
   addField?: Maybe<AddFieldPayload>
   updateField?: Maybe<UpdateFieldPayload>
   deleteField?: Maybe<DeleteFieldPayload>
@@ -2208,42 +1971,6 @@ export type MutationUpdateTypeArgs = {
 
 export type MutationDeleteTypeArgs = {
   filter: TypeFilter
-}
-
-export type MutationAddRequiredValidatorArgs = {
-  input: Array<AddRequiredValidatorInput>
-}
-
-export type MutationUpdateRequiredValidatorArgs = {
-  input: UpdateRequiredValidatorInput
-}
-
-export type MutationDeleteRequiredValidatorArgs = {
-  filter: RequiredValidatorFilter
-}
-
-export type MutationAddMinMaxValidatorArgs = {
-  input: Array<AddMinMaxValidatorInput>
-}
-
-export type MutationUpdateMinMaxValidatorArgs = {
-  input: UpdateMinMaxValidatorInput
-}
-
-export type MutationDeleteMinMaxValidatorArgs = {
-  filter: MinMaxValidatorFilter
-}
-
-export type MutationAddArrayLengthValidatorArgs = {
-  input: Array<AddArrayLengthValidatorInput>
-}
-
-export type MutationUpdateArrayLengthValidatorArgs = {
-  input: UpdateArrayLengthValidatorInput
-}
-
-export type MutationDeleteArrayLengthValidatorArgs = {
-  filter: ArrayLengthValidatorFilter
 }
 
 export type MutationAddFieldArgs = {
@@ -2693,15 +2420,6 @@ export type Query = {
   getType?: Maybe<Type>
   queryType?: Maybe<Array<Maybe<Type>>>
   aggregateType?: Maybe<TypeAggregateResult>
-  getRequiredValidator?: Maybe<RequiredValidator>
-  queryRequiredValidator?: Maybe<Array<Maybe<RequiredValidator>>>
-  aggregateRequiredValidator?: Maybe<RequiredValidatorAggregateResult>
-  getMinMaxValidator?: Maybe<MinMaxValidator>
-  queryMinMaxValidator?: Maybe<Array<Maybe<MinMaxValidator>>>
-  aggregateMinMaxValidator?: Maybe<MinMaxValidatorAggregateResult>
-  getArrayLengthValidator?: Maybe<ArrayLengthValidator>
-  queryArrayLengthValidator?: Maybe<Array<Maybe<ArrayLengthValidator>>>
-  aggregateArrayLengthValidator?: Maybe<ArrayLengthValidatorAggregateResult>
   getField?: Maybe<Field>
   queryField?: Maybe<Array<Maybe<Field>>>
   aggregateField?: Maybe<FieldAggregateResult>
@@ -2919,50 +2637,6 @@ export type QueryAggregateTypeArgs = {
   filter?: Maybe<TypeFilter>
 }
 
-export type QueryGetRequiredValidatorArgs = {
-  id: Scalars['ID']
-}
-
-export type QueryQueryRequiredValidatorArgs = {
-  filter?: Maybe<RequiredValidatorFilter>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type QueryAggregateRequiredValidatorArgs = {
-  filter?: Maybe<RequiredValidatorFilter>
-}
-
-export type QueryGetMinMaxValidatorArgs = {
-  id: Scalars['ID']
-}
-
-export type QueryQueryMinMaxValidatorArgs = {
-  filter?: Maybe<MinMaxValidatorFilter>
-  order?: Maybe<MinMaxValidatorOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type QueryAggregateMinMaxValidatorArgs = {
-  filter?: Maybe<MinMaxValidatorFilter>
-}
-
-export type QueryGetArrayLengthValidatorArgs = {
-  id: Scalars['ID']
-}
-
-export type QueryQueryArrayLengthValidatorArgs = {
-  filter?: Maybe<ArrayLengthValidatorFilter>
-  order?: Maybe<ArrayLengthValidatorOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type QueryAggregateArrayLengthValidatorArgs = {
-  filter?: Maybe<ArrayLengthValidatorFilter>
-}
-
 export type QueryGetFieldArgs = {
   id: Scalars['ID']
 }
@@ -3077,36 +2751,6 @@ export type QueryQueryPropArgs = {
 
 export type QueryAggregatePropArgs = {
   filter?: Maybe<PropFilter>
-}
-
-export type RequiredValidator = {
-  id: Scalars['ID']
-  isRequired: Scalars['Boolean']
-}
-
-export type RequiredValidatorAggregateResult = {
-  count?: Maybe<Scalars['Int']>
-}
-
-export type RequiredValidatorFilter = {
-  id?: Maybe<Array<Scalars['ID']>>
-  has?: Maybe<Array<Maybe<RequiredValidatorHasFilter>>>
-  and?: Maybe<Array<Maybe<RequiredValidatorFilter>>>
-  or?: Maybe<Array<Maybe<RequiredValidatorFilter>>>
-  not?: Maybe<RequiredValidatorFilter>
-}
-
-export enum RequiredValidatorHasFilter {
-  IsRequired = 'isRequired',
-}
-
-export type RequiredValidatorPatch = {
-  isRequired?: Maybe<Scalars['Boolean']>
-}
-
-export type RequiredValidatorRef = {
-  id?: Maybe<Scalars['ID']>
-  isRequired?: Maybe<Scalars['Boolean']>
 }
 
 export type SimpleType = Type & {
@@ -3367,24 +3011,6 @@ export type UpdateAppPayloadAppArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type UpdateArrayLengthValidatorInput = {
-  filter: ArrayLengthValidatorFilter
-  set?: Maybe<ArrayLengthValidatorPatch>
-  remove?: Maybe<ArrayLengthValidatorPatch>
-}
-
-export type UpdateArrayLengthValidatorPayload = {
-  arrayLengthValidator?: Maybe<Array<Maybe<ArrayLengthValidator>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type UpdateArrayLengthValidatorPayloadArrayLengthValidatorArgs = {
-  filter?: Maybe<ArrayLengthValidatorFilter>
-  order?: Maybe<ArrayLengthValidatorOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
 export type UpdateArrayTypeInput = {
   filter: ArrayTypeFilter
   set?: Maybe<ArrayTypePatch>
@@ -3616,24 +3242,6 @@ export type UpdateLibraryPayloadLibraryArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
-export type UpdateMinMaxValidatorInput = {
-  filter: MinMaxValidatorFilter
-  set?: Maybe<MinMaxValidatorPatch>
-  remove?: Maybe<MinMaxValidatorPatch>
-}
-
-export type UpdateMinMaxValidatorPayload = {
-  minMaxValidator?: Maybe<Array<Maybe<MinMaxValidator>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type UpdateMinMaxValidatorPayloadMinMaxValidatorArgs = {
-  filter?: Maybe<MinMaxValidatorFilter>
-  order?: Maybe<MinMaxValidatorOrder>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
 export type UpdatePageElementInput = {
   filter: PageElementFilter
   set?: Maybe<PageElementPatch>
@@ -3683,23 +3291,6 @@ export type UpdatePropPayload = {
 
 export type UpdatePropPayloadPropArgs = {
   filter?: Maybe<PropFilter>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type UpdateRequiredValidatorInput = {
-  filter: RequiredValidatorFilter
-  set?: Maybe<RequiredValidatorPatch>
-  remove?: Maybe<RequiredValidatorPatch>
-}
-
-export type UpdateRequiredValidatorPayload = {
-  requiredValidator?: Maybe<Array<Maybe<RequiredValidator>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type UpdateRequiredValidatorPayloadRequiredValidatorArgs = {
-  filter?: Maybe<RequiredValidatorFilter>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -4203,15 +3794,6 @@ export type Dgraph__FieldFragment = Pick<
   Field,
   'id' | 'key' | 'name' | 'description'
 > & {
-  decorators?: Maybe<
-    Array<
-      Maybe<
-        | Dgraph__Decorator_MinMaxValidator_Fragment
-        | Dgraph__Decorator_RequiredValidator_Fragment
-        | Dgraph__Decorator_ArrayLengthValidator_Fragment
-      >
-    >
-  >
   type:
     | Dgraph__Type_ArrayType_Fragment
     | Dgraph__Type_EnumType_Fragment
@@ -4250,38 +3832,6 @@ export type Dgraph__TypeFragment =
 export type DgrapEnumTypeValueFragment = Pick<
   EnumTypeValue,
   'id' | 'name' | 'value'
->
-
-type Dgraph__Decorator_MinMaxValidator_Fragment = {
-  __typename: 'MinMaxValidator'
-} & Dgraph__MinMaxValidatorFragment
-
-type Dgraph__Decorator_RequiredValidator_Fragment = {
-  __typename: 'RequiredValidator'
-} & Dgraph__RequiredValidatorFragment
-
-type Dgraph__Decorator_ArrayLengthValidator_Fragment = {
-  __typename: 'ArrayLengthValidator'
-} & Dgraph__ArrayLengthValidatorFragment
-
-export type Dgraph__DecoratorFragment =
-  | Dgraph__Decorator_MinMaxValidator_Fragment
-  | Dgraph__Decorator_RequiredValidator_Fragment
-  | Dgraph__Decorator_ArrayLengthValidator_Fragment
-
-export type Dgraph__RequiredValidatorFragment = Pick<
-  RequiredValidator,
-  'id' | 'isRequired'
->
-
-export type Dgraph__ArrayLengthValidatorFragment = Pick<
-  ArrayLengthValidator,
-  'id' | 'max' | 'min'
->
-
-export type Dgraph__MinMaxValidatorFragment = Pick<
-  MinMaxValidator,
-  'id' | 'max' | 'min'
 >
 
 export type CreateFieldMutationVariables = Exact<{
@@ -4505,43 +4055,6 @@ export const Dgraph__InterfaceWithoutFieldsFragmentDoc = gql`
     name
   }
 `
-export const Dgraph__MinMaxValidatorFragmentDoc = gql`
-  fragment Dgraph__MinMaxValidator on MinMaxValidator {
-    id
-    max
-    min
-  }
-`
-export const Dgraph__RequiredValidatorFragmentDoc = gql`
-  fragment Dgraph__RequiredValidator on RequiredValidator {
-    id
-    isRequired
-  }
-`
-export const Dgraph__ArrayLengthValidatorFragmentDoc = gql`
-  fragment Dgraph__ArrayLengthValidator on ArrayLengthValidator {
-    id
-    max
-    min
-  }
-`
-export const Dgraph__DecoratorFragmentDoc = gql`
-  fragment Dgraph__Decorator on Decorator {
-    __typename
-    ... on MinMaxValidator {
-      ...Dgraph__MinMaxValidator
-    }
-    ... on RequiredValidator {
-      ...Dgraph__RequiredValidator
-    }
-    ... on ArrayLengthValidator {
-      ...Dgraph__ArrayLengthValidator
-    }
-  }
-  ${Dgraph__MinMaxValidatorFragmentDoc}
-  ${Dgraph__RequiredValidatorFragmentDoc}
-  ${Dgraph__ArrayLengthValidatorFragmentDoc}
-`
 export const DgrapEnumTypeValueFragmentDoc = gql`
   fragment DgrapEnumTypeValue on EnumTypeValue {
     id
@@ -4585,9 +4098,6 @@ export const Dgraph__FieldFragmentDoc = gql`
     key
     name
     description
-    decorators {
-      ...Dgraph__Decorator
-    }
     type {
       ...Dgraph__Type
     }
@@ -4595,7 +4105,6 @@ export const Dgraph__FieldFragmentDoc = gql`
       ...Dgraph__InterfaceWithoutFields
     }
   }
-  ${Dgraph__DecoratorFragmentDoc}
   ${Dgraph__TypeFragmentDoc}
   ${Dgraph__InterfaceWithoutFieldsFragmentDoc}
 `
@@ -7471,43 +6980,6 @@ export const Dgraph__InterfaceWithoutFields = gql`
     name
   }
 `
-export const Dgraph__MinMaxValidator = gql`
-  fragment Dgraph__MinMaxValidator on MinMaxValidator {
-    id
-    max
-    min
-  }
-`
-export const Dgraph__RequiredValidator = gql`
-  fragment Dgraph__RequiredValidator on RequiredValidator {
-    id
-    isRequired
-  }
-`
-export const Dgraph__ArrayLengthValidator = gql`
-  fragment Dgraph__ArrayLengthValidator on ArrayLengthValidator {
-    id
-    max
-    min
-  }
-`
-export const Dgraph__Decorator = gql`
-  fragment Dgraph__Decorator on Decorator {
-    __typename
-    ... on MinMaxValidator {
-      ...Dgraph__MinMaxValidator
-    }
-    ... on RequiredValidator {
-      ...Dgraph__RequiredValidator
-    }
-    ... on ArrayLengthValidator {
-      ...Dgraph__ArrayLengthValidator
-    }
-  }
-  ${Dgraph__MinMaxValidator}
-  ${Dgraph__RequiredValidator}
-  ${Dgraph__ArrayLengthValidator}
-`
 export const DgrapEnumTypeValue = gql`
   fragment DgrapEnumTypeValue on EnumTypeValue {
     id
@@ -7551,9 +7023,6 @@ export const Dgraph__Field = gql`
     key
     name
     description
-    decorators {
-      ...Dgraph__Decorator
-    }
     type {
       ...Dgraph__Type
     }
@@ -7561,7 +7030,6 @@ export const Dgraph__Field = gql`
       ...Dgraph__InterfaceWithoutFields
     }
   }
-  ${Dgraph__Decorator}
   ${Dgraph__Type}
   ${Dgraph__InterfaceWithoutFields}
 `

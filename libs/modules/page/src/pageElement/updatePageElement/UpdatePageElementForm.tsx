@@ -1,7 +1,6 @@
 import {
   PageElementFragment,
   refetchGetPageQuery,
-  UpdatePageElementData,
   useGetAtomsQuery,
   useUpdatePageElementMutation,
 } from '@codelab/codegen/graphql'
@@ -14,11 +13,15 @@ import {
 import React, { useContext, useRef } from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { PageContext } from '../../providers'
-import { updatePageElementSchema } from './updatePageElementSchema'
+import {
+  UpdatePageElementSchema,
+  updatePageElementSchema,
+} from './updatePageElementSchema'
 
-type UpdatePageElementFormProps = UniFormUseCaseProps<UpdatePageElementData> & {
-  pageElement: Pick<PageElementFragment, 'id' | 'name' | 'atom'>
-}
+type UpdatePageElementFormProps =
+  UniFormUseCaseProps<UpdatePageElementSchema> & {
+    pageElement: Pick<PageElementFragment, 'id' | 'name' | 'atom'>
+  }
 
 /** Not intended to be used in a modal */
 export const UpdatePageElementForm = ({
@@ -42,7 +45,7 @@ export const UpdatePageElementForm = ({
     return null
   }
 
-  const onSubmit = (submitData: UpdatePageElementData) => {
+  const onSubmit = (submitData: UpdatePageElementSchema) => {
     return mutate({
       variables: {
         input: { pageElementId: pageElement.id, updateData: { ...submitData } },
@@ -52,7 +55,7 @@ export const UpdatePageElementForm = ({
 
   return (
     <>
-      <FormUniforms<UpdatePageElementData>
+      <FormUniforms<UpdatePageElementSchema>
         key={pageElement.id}
         autosave={true}
         autosaveDelay={500}

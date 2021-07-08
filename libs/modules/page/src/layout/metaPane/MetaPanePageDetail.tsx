@@ -88,6 +88,7 @@ export const MetaPanePageDetail = () => {
                 <DeletePageElementButton
                   danger={true}
                   pageElementId={selectedPageElement.id}
+                  metadata={pageElement}
                 />
               </div>
             </FormsGrid>
@@ -96,7 +97,6 @@ export const MetaPanePageDetail = () => {
               formProps={{ onSubmitSuccess: () => reset() }}
             />
           </Tabs.TabPane>
-
           <Tabs.TabPane tab="Props" key={pageElement.id + '_tab2'}>
             {pageElement.atom ? (
               <UpdatePageElementPropsForm
@@ -108,16 +108,19 @@ export const MetaPanePageDetail = () => {
               'Add an atom to this page element to edit its props'
             )}
           </Tabs.TabPane>
-
           <Tabs.TabPane
             style={{ overflow: 'visible' }}
             tab="CSS"
             key={pageElement.id + '_tab3'}
           >
-            <PageElementStyleEditor
-              key={pageElement.id}
-              pageElement={selectedPageElement}
-            />
+            {pageElement.atom ? (
+              <PageElementStyleEditor
+                key={pageElement.id}
+                pageElement={selectedPageElement}
+              />
+            ) : (
+              'Add an atom to this page element to edit its CSS'
+            )}
           </Tabs.TabPane>
         </Tabs>
       </TabContainer>

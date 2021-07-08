@@ -69,27 +69,7 @@ type Field {
   name: String!
   description: String
   typeId: String!
-  decorators: [Decorator!]!
   interface: Interface!
-}
-
-union Decorator = ArrayLengthValidator | MinMaxValidator | RequiredValidator
-
-type ArrayLengthValidator {
-  id: ID!
-  minLength: Int
-  maxLength: Int
-}
-
-type MinMaxValidator {
-  id: ID!
-  min: Int
-  max: Int
-}
-
-type RequiredValidator {
-  id: ID!
-  isRequired: Boolean!
 }
 
 type Atom {

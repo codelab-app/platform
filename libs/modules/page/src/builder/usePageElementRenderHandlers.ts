@@ -7,7 +7,9 @@ import { useSetPageBuilderState } from '.'
 /**
  * Adapter for RenderHandlers in the context of Page elements
  */
-export const usePageElementRenderHandlers = (cy: Core): RenderHandlers => {
+export const usePageElementRenderHandlers = (
+  cy: Core,
+): Required<RenderHandlers> => {
   // const [addChildVertexMutation] = useAddChildVertexMutation()
   // const updateVertexMutation = useUpdateVertexMutation({
   //   refetchQueries: [
@@ -30,23 +32,28 @@ export const usePageElementRenderHandlers = (cy: Core): RenderHandlers => {
   //     },
   //   })
 
-  // Use setters only, because we don't want to re-render this everytime the hover/selected element is cahanged
+  // Use setters only, because we don't want to re-render this everytime the hover/selected element is changed
   const { selectPageElement, setHoveringPageElement } = useSetPageBuilderState()
 
-  const getNodeById = (id: string) =>
-    cy.getElementById(id).first().data() as ElementNode
+  const getNodeById = useCallback(
+    (id: string) => cy.getElementById(id).first().data() as ElementNode,
+    [cy],
+  )
 
   const handleClick = useCallback(
     (id) => selectPageElement(getNodeById(id)),
-    [],
+    [getNodeById],
   )
 
   const handleMouseEnter = useCallback(
     (id) => setHoveringPageElement(getNodeById(id)),
-    [],
+    [getNodeById],
   )
 
-  const handleMouseLeave = useCallback(() => setHoveringPageElement(null), [])
+  const handleMouseLeave = useCallback(
+    () => setHoveringPageElement(null),
+    [setHoveringPageElement],
+  )
 
   return {
     handleClick,

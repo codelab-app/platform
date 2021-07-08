@@ -277,32 +277,12 @@ interface Type {
 
 union TypeUnion = Interface | EnumType | ArrayType | SimpleType
 
-type RequiredValidator {
-  id: ID!
-  isRequired: Boolean!
-}
-
-type MinMaxValidator {
-  id: ID!
-  min: Int
-  max: Int
-}
-
-type ArrayLengthValidator {
-  id: ID!
-  min: Int
-  max: Int
-}
-
-union Decorator = MinMaxValidator | RequiredValidator | ArrayLengthValidator
-
 type Field {
   id: ID!
   type: Type!
   key: String! @search(by: [hash, fulltext])
   name: String!
   description: String
-  decorators: [Decorator]
   interface: Interface!
 }
 

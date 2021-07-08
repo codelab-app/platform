@@ -1,7 +1,7 @@
 import { __InterfaceFragment } from '@codelab/codegen/graphql'
 import { FormUniforms, FormUniformsProps } from '@codelab/frontend/shared'
 import React, { useEffect, useState } from 'react'
-import { InterfaceJsonSchemaAdaptor } from './InterfaceJsonSchemaAdaptor'
+import { InterfaceJsonSchemaAdapter } from './InterfaceJsonSchemaAdapter'
 
 export interface InterfaceFormProps<TData>
   extends Omit<FormUniformsProps<TData>, 'schema'> {
@@ -17,11 +17,11 @@ export const InterfaceForm = <TData extends any>({
   ...props
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
   const [generatedSchema, setGeneratedSchema] = useState(
-    InterfaceJsonSchemaAdaptor.toJsonSchema<TData>(intface),
+    InterfaceJsonSchemaAdapter.toJsonSchema<TData>(intface),
   )
 
   useEffect(() => {
-    setGeneratedSchema(InterfaceJsonSchemaAdaptor.toJsonSchema<TData>(intface))
+    setGeneratedSchema(InterfaceJsonSchemaAdapter.toJsonSchema<TData>(intface))
   }, [intface])
 
   return (
