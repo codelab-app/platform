@@ -26484,11 +26484,11 @@ should-format@^3.0.3:
   integrity sha1-m/yPdPo5IFxT04w01xcwPidxJPE=
   dependencies:
     should-type "^1.3.0"
-    should-type-adapters "^1.0.1"
+    should-type-adaptors "^1.0.1"
 
-should-type-adapters@^1.0.1:
+should-type-adaptors@^1.0.1:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/should-type-adapters/-/should-type-adapters-1.1.0.tgz#401e7f33b5533033944d5cd8bf2b65027792e27a"
+  resolved "https://registry.yarnpkg.com/should-type-adaptors/-/should-type-adaptors-1.1.0.tgz#401e7f33b5533033944d5cd8bf2b65027792e27a"
   integrity sha512-JA4hdoLnN+kebEp2Vs8eBe9g7uy0zbRo+RMcU0EsNy+R+k049Ki+N5tT5Jagst2g7EAja+euFuoXFCa8vIklfA==
   dependencies:
     should-type "^1.3.0"
@@ -26512,7 +26512,7 @@ should@^13.2.1:
     should-equal "^2.0.0"
     should-format "^3.0.3"
     should-type "^1.4.0"
-    should-type-adapters "^1.0.1"
+    should-type-adaptors "^1.0.1"
     should-util "^1.0.0"
 
 side-channel@^1.0.3, side-channel@^1.0.4:
