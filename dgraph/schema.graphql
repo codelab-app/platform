@@ -105,6 +105,7 @@ type EnumType implements Type {
 type Interface implements Type {
   id: ID!
   name: String!
+  # The inverse of Atom.propTypes. Needed to check if an Interface is used as the propTypes of an atom
   atom: Atom
   fields: [Field] @hasInverse(field: interface)
 }
