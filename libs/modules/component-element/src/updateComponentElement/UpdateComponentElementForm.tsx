@@ -10,7 +10,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useContext } from 'react'
@@ -25,7 +25,7 @@ import {
 export const UpdateComponentElementForm = (
   props: UniFormUseCaseProps<UpdateComponentElementInput>,
 ) => {
-  const { reset, setLoading, state } = useCRUDModalForm(
+  const { reset, setLoading, state } = useCrudModalForm(
     EntityType.ComponentElement,
   )
 

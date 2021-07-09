@@ -8,7 +8,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -17,7 +17,7 @@ import { CreateLibraryInput, createLibrarySchema } from './createLibrarySchema'
 type CreateLibraryFormProps = UniFormUseCaseProps<CreateLibraryInput>
 
 export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
-  const { reset, setLoading } = useCRUDModalForm(EntityType.Library)
+  const { reset, setLoading } = useCrudModalForm(EntityType.Library)
   const { user } = useUser()
 
   const [mutate, { loading: creating }] = useCreateLibraryMutation({

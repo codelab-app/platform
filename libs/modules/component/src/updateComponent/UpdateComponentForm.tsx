@@ -8,7 +8,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -26,7 +26,7 @@ export const UpdateComponentForm = ({ ...props }: UpdateComponentFormProps) => {
     reset,
     setLoading,
     state: { updateId: updateComponentId },
-  } = useCRUDModalForm(EntityType.Component)
+  } = useCrudModalForm(EntityType.Component)
 
   const [mutate, { loading: updating }] = useUpdateComponentMutation({
     awaitRefetchQueries: true,

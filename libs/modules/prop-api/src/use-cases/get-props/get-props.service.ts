@@ -19,9 +19,9 @@ import {
 } from '../../models'
 import {
   GetPropsInput,
+  PropsByElementFilter,
   PropsByIdsFilter,
   PropsByInterfaceValueId,
-  PropsByPageElementFilter,
 } from './get-props.input'
 import { GetPropsQueryBuilder, GetPropsQueryResult } from './get-props.query'
 
@@ -43,24 +43,23 @@ export class GetPropsService extends DgraphUseCase<GetPropsInput, Array<Prop>> {
   }
 
   protected async executeTransaction(
-    { byPageElement, byInterfaceValue, byIds }: GetPropsInput,
+    { byElement, byInterfaceValue, byIds }: GetPropsInput,
     txn: Txn,
   ): Promise<Array<Prop>> {
-    if (
-      [byIds, byPageElement, byInterfaceValue].filter((f) => !!f).length > 1
-    ) {
+    if ([byIds, byElement, byInterfaceValue].filter((f) => !!f).length > 1) {
       throw new Error('Provide exactly 1 filter to getProps')
     }
 
-    if (byPageElement) {
-      if (
-        !byPageElement.pageElementIds ||
-        byPageElement.pageElementIds.length === 0
-      ) {
-        throw new Error('pageElementIds not provided')
+    if (byElement) {
+      if (!byElement.elementIds) {
+        throw new Error('elementIds not provided')
       }
 
-      return await this.getByPageElement(byPageElement, txn)
+      if (byElement.elementIds.length === 0) {
+        return []
+      }
+
+      return await this.getByElement(byElement, txn)
     }
 
     if (byIds) {
@@ -78,53 +77,47 @@ export class GetPropsService extends DgraphUseCase<GetPropsInput, Array<Prop>> {
     throw new Error('At least one filter must be provided to getProps')
   }
 
-  private async getByPageElement(
-    byPageElement: PropsByPageElementFilter,
-    txn: Txn,
-  ) {
+  private async getByElement(byElement: PropsByElementFilter, txn: Txn) {
     const queryBuilder = new GetPropsQueryBuilder()
-      .withFields('PageElement.props')
-      .withUidsFunc(byPageElement.pageElementIds)
+      .withFields('Element.props')
+      .withUidsFunc(byElement.elementIds)
 
-    if (byPageElement.fieldId) {
+    if (byElement.fieldId) {
       queryBuilder
         .getField(DgraphPropFields.field)
-        ?.withFilters(new UidFilter(byPageElement.fieldId))
+        ?.withFilters(new UidFilter(byElement.fieldId))
     }
 
     const query = queryBuilder.build()
     const response = await txn.query(query)
 
-    const allPageElements = (response.getJson() as any).query as Array<
+    const allElements = (response.getJson() as any).query as Array<
       GetPropsQueryResult & {
-        'PageElement.props': Array<GetPropsQueryResult>
+        'Element.props': Array<GetPropsQueryResult>
       }
     >
 
-    if (!allPageElements || !allPageElements[0]) {
+    if (!allElements || !allElements[0]) {
       throw new Error('Error while getting props')
     }
 
-    const mapPageElementProps = async (data: {
-      'PageElement.props': Array<GetPropsQueryResult>
+    const mapElementProps = async (data: {
+      'Element.props': Array<GetPropsQueryResult>
     }): Promise<Array<Prop>> => {
-      if (
-        !data['PageElement.props'] ||
-        data['PageElement.props'].length === 0
-      ) {
+      if (!data['Element.props'] || data['Element.props'].length === 0) {
         return []
       }
 
-      let props = data['PageElement.props']
+      let props = data['Element.props']
 
-      if (byPageElement.fieldId) {
+      if (byElement.fieldId) {
         props = props.filter((p) => !!p[DgraphPropFields.field])
       }
 
       return await this.propArrayMapper.map(props)
     }
 
-    const results = await Promise.all(allPageElements.map(mapPageElementProps))
+    const results = await Promise.all(allElements.map(mapElementProps))
 
     return _.flatMap(results)
   }

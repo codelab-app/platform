@@ -1,100 +1,27 @@
+import { refetchGetPageQuery } from '@codelab/codegen/graphql'
 import {
-  PageElementFragment,
-  refetchGetPageQuery,
-  useGetAtomsQuery,
-  useUpdatePageElementMutation,
-} from '@codelab/codegen/graphql'
-import {
-  createNotificationHandler,
-  FormUniforms,
-  StatelessLoadingIndicator,
-  UniFormUseCaseProps,
-} from '@codelab/frontend/shared'
-import React, { useContext, useRef } from 'react'
-import { AutoFields, SelectField } from 'uniforms-antd'
+  UpdateElementForm,
+  UpdateElementFormProps,
+} from '@codelab/modules/element'
+import React, { useContext } from 'react'
 import { PageContext } from '../../providers'
-import {
-  UpdatePageElementSchema,
-  updatePageElementSchema,
-} from './updatePageElementSchema'
 
-type UpdatePageElementFormProps =
-  UniFormUseCaseProps<UpdatePageElementSchema> & {
-    pageElement: Pick<PageElementFragment, 'id' | 'name' | 'atom'>
-  }
+export type UpdatePageElementFormProps = Omit<
+  UpdateElementFormProps,
+  'refetchQueries'
+>
 
-/** Not intended to be used in a modal */
-export const UpdatePageElementForm = ({
-  pageElement: initialPageElement,
-  ...props
-}: UpdatePageElementFormProps) => {
+/**
+ * Wrapper for {@link UpdateElementForm} in the context of a Page
+ */
+export const UpdatePageElementForm = (props: UpdatePageElementFormProps) => {
   const { pageId } = useContext(PageContext)
-  // Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
-  const { current: pageElement } = useRef(initialPageElement)
-  const { data: atoms } = useGetAtomsQuery()
 
-  const [mutate, { loading: updating, error, data }] =
-    useUpdatePageElementMutation({
-      awaitRefetchQueries: true,
-      refetchQueries: [
-        refetchGetPageQuery({ input: { pageId: pageId as string } }),
-      ],
-    })
+  const refetchQueries = [
+    refetchGetPageQuery({ input: { pageId: pageId as string } }),
+  ]
 
-  if (!pageElement) {
-    return null
-  }
-
-  const onSubmit = (submitData: UpdatePageElementSchema) => {
-    return mutate({
-      variables: {
-        input: { pageElementId: pageElement.id, updateData: { ...submitData } },
-      },
-    })
-  }
-
-  return (
-    <>
-      <FormUniforms<UpdatePageElementSchema>
-        key={pageElement.id}
-        autosave={true}
-        autosaveDelay={500}
-        schema={updatePageElementSchema}
-        model={{
-          atomId: pageElement.atom?.id,
-          name: pageElement.name,
-        }}
-        onSubmitError={createNotificationHandler({
-          title: 'Error while updating page element',
-        })}
-        onSubmit={onSubmit}
-        {...props}
-      >
-        <AutoFields omitFields={['atomId']} />
-
-        <SelectField
-          name="atomId"
-          label="Atom"
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore https://github.com/vazco/uniforms/issues/951
-          showSearch={true}
-          optionFilterProp="label"
-          options={atoms?.atoms.map((atom) => ({
-            label: atom.label,
-            value: atom.id,
-          }))}
-        />
-      </FormUniforms>
-
-      <StatelessLoadingIndicator
-        style={{ display: 'block', margin: '0.5rem' }}
-        state={{
-          isLoading: updating,
-          isErrored: Boolean(
-            error || (data as any)?.errors || (data as any)?.error,
-          ),
-        }}
-      />
-    </>
-  )
+  return <UpdateElementForm refetchQueries={refetchQueries} {...props} />
 }
+
+UpdatePageElementForm.displayName = 'MovePageElementForm'

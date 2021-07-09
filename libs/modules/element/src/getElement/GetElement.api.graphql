@@ -1,0 +1,5 @@
+query GetElement($input: GetElementInput!) {
+  getElement(input: $input) {
+    ...Element
+  }
+}

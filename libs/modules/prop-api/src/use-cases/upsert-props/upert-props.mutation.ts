@@ -81,14 +81,14 @@ export class UpsertPropMutationBuilder extends DgraphMutationBuilder {
         new DgraphTriple(propSub, Fields.field, upsertPropInput.fieldId),
         new DgraphTriple(
           propSub,
-          Fields.pageElement,
-          upsertPropInput.pageElementId || '',
-        ).onlyIf(upsertPropInput.pageElementId),
+          Fields.element,
+          upsertPropInput.elementId || '',
+        ).onlyIf(upsertPropInput.elementId),
         new DgraphTriple(
-          upsertPropInput.pageElementId || '',
-          'PageElement.props',
+          upsertPropInput.elementId || '',
+          'Element.props',
           propSub,
-        ).onlyIf(upsertPropInput.pageElementId),
+        ).onlyIf(upsertPropInput.elementId),
       )
 
       if (upsertPropInput.value) {

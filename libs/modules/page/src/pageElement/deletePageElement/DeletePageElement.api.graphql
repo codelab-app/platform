@@ -1,5 +1,0 @@
-mutation DeletePageElement($input: DeletePageElementInput!) {
-  deletePageElement(input: $input) {
-    affected
-  }
-}

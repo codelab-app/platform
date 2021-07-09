@@ -1,12 +1,12 @@
 mutation DeletePage(
   $filter: PageFilter!
-  $pageElementFilter: PageElementFilter!
+  $elementFilter: ElementFilter!
   $propsFilter: PropFilter!
 ) {
   deletePage(filter: $filter) {
     numUids
   }
-  deletePageElement(filter: $pageElementFilter) {
+  deleteElement(filter: $elementFilter) {
     numUids
   }
   deleteProp(filter: $propsFilter) {

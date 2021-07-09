@@ -1,5 +1,0 @@
-query GetPageElement($input: GetPageElementInput!) {
-  getPageElement(input: $input) {
-    ...PageElement
-  }
-}

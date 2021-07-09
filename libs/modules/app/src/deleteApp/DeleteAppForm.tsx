@@ -7,7 +7,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -16,7 +16,7 @@ import { DeleteAppInput, DeleteAppSchema } from './deleteAppSchema'
 type DeleteAppFormProps = UniFormUseCaseProps<DeleteAppInput>
 
 export const DeleteAppForm = (props: DeleteAppFormProps) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.App)
+  const { reset, setLoading, state } = useCrudModalForm(EntityType.App)
   const { deleteIds: appDeleteIds, metadata } = state
 
   const [mutate, { loading: deleting }] = useDeleteAppMutation({

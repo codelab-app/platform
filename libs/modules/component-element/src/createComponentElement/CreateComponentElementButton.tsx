@@ -1,9 +1,9 @@
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
 
 export const CreateComponentElementButton = () => {
-  const { openCreateModal } = useCRUDModalForm(EntityType.ComponentElement)
+  const { openCreateModal } = useCrudModalForm(EntityType.ComponentElement)
 
   return (
     <Button type="primary" onClick={() => openCreateModal()}>

@@ -6,7 +6,7 @@ import {
   ListItemDeleteButton,
   ListItemSettingsButton,
   PageType,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
@@ -14,7 +14,7 @@ import React, { useContext } from 'react'
 
 export const GetPagesList = () => {
   const { app } = useContext(AppContext)
-  const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Page)
+  const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Page)
 
   const { data, loading } = useGetPagesQuery({
     variables: {

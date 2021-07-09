@@ -11,7 +11,7 @@ import { DgraphPropValue, dgraphPropValueSchema } from '../values'
 export enum DgraphPropFields {
   field = 'Prop.field',
   value = 'Prop.value',
-  pageElement = 'Prop.pageElement',
+  element = 'Prop.element',
 }
 
 export class DgraphProp extends DgraphModel<'Prop'> {

@@ -11,7 +11,7 @@ export enum EntityType {
   User = 'User',
   None = 'None',
   Page = 'Page',
-  PageElement = 'PageElement',
+  Element = 'Element',
   Atom = 'Atom',
   AtomType = 'AtomType',
   App = 'App',

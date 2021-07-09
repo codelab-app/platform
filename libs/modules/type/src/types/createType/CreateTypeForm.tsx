@@ -8,7 +8,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useMutationCrudForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -34,7 +34,7 @@ export const CreateTypeForm = (
   const {
     handleSubmit,
     crudModal: { reset },
-  } = useMutationCrudForm({
+  } = useCrudModalMutationForm({
     mutationOptions: { refetchQueries: [refetchGetTypesQuery()] },
     useMutationFunction: useCreateTypeMutation,
     mapVariables: (submitData: CreateTypeSchema) => ({

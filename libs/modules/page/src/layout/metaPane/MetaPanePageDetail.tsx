@@ -1,17 +1,19 @@
-import { UpdatePageElementPropsForm } from '@codelab/modules/prop'
+import { refetchGetPageQuery } from '@codelab/codegen/graphql'
+import {
+  DeleteElementButton,
+  DeleteElementModal,
+  ElementCssEditor,
+} from '@codelab/modules/element'
+import { UpdateElementPropsForm } from '@codelab/modules/prop'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'
-import React from 'react'
+import React, { useContext } from 'react'
 import tw from 'twin.macro'
 import { usePageBuilderState } from '../../builder'
-import {
-  DeletePageElementButton,
-  DeletePageElementModal,
-  MovePageElementForm,
-  PageElementStyleEditor,
-  UpdatePageElementForm,
-} from '../../pageElement'
+import { MovePageElementForm } from '../../pageElement/movePageElement'
+import { UpdatePageElementForm } from '../../pageElement/updatePageElement'
+import { PageContext } from '../../providers'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
@@ -49,6 +51,12 @@ export const MetaPanePageDetail = () => {
     reset,
   } = usePageBuilderState()
 
+  const { pageId } = useContext(PageContext)
+
+  if (!pageId) {
+    throw new Error('PageContext is needed for MetaPanePageDetail')
+  }
+
   if (!selectedPageElement) {
     return null
   }
@@ -76,32 +84,35 @@ export const MetaPanePageDetail = () => {
             <FormsGrid>
               <UpdatePageElementForm
                 key={pageElement.id + '_update_form'}
-                pageElement={pageElement}
+                initialData={pageElement}
               />
 
               <MovePageElementForm
                 key={pageElement.id + '_move_form'}
-                pageElement={pageElement}
+                elementId={pageElement.id}
               />
 
               <div>
-                <DeletePageElementButton
+                <DeleteElementButton
                   danger={true}
-                  pageElementId={selectedPageElement.id}
+                  elementId={selectedPageElement.id}
                   metadata={pageElement}
                 />
               </div>
             </FormsGrid>
 
-            <DeletePageElementModal
-              formProps={{ onSubmitSuccess: () => reset() }}
+            <DeleteElementModal
+              formProps={{
+                onSubmitSuccess: () => reset(),
+                refetchQueries: [refetchGetPageQuery({ input: { pageId } })],
+              }}
             />
           </Tabs.TabPane>
           <Tabs.TabPane tab="Props" key={pageElement.id + '_tab2'}>
             {pageElement.atom ? (
-              <UpdatePageElementPropsForm
+              <UpdateElementPropsForm
                 key={pageElement.id}
-                pageElementId={pageElement.id}
+                elementId={pageElement.id}
                 atom={pageElement.atom}
               />
             ) : (
@@ -114,9 +125,9 @@ export const MetaPanePageDetail = () => {
             key={pageElement.id + '_tab3'}
           >
             {pageElement.atom ? (
-              <PageElementStyleEditor
+              <ElementCssEditor
                 key={pageElement.id}
-                pageElement={selectedPageElement}
+                element={selectedPageElement}
               />
             ) : (
               'Add an atom to this page element to edit its CSS'

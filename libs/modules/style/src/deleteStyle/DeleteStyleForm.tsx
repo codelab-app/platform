@@ -8,7 +8,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -18,7 +18,7 @@ import { DeleteStyleInput, DeleteStyleSchema } from './deleteStyleSchema'
 type DeleteStyleFormProps = UniFormUseCaseProps<DeleteStyleInput>
 
 export const DeleteStyleForm = (props: DeleteStyleFormProps) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.Style)
+  const { reset, setLoading, state } = useCrudModalForm(EntityType.Style)
   const { deleteIds: deleteStyleIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteStyleMutation({

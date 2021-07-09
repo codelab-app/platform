@@ -1,11 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 
 export const CreateAtomButton = () => {
-  const { openCreateModal } = useCRUDModalForm(EntityType.Atom)
+  const { openCreateModal } = useCrudModalForm(EntityType.Atom)
 
   return (
     <Button
@@ -19,7 +19,7 @@ export const CreateAtomButton = () => {
 }
 
 export const CreateAtomButtonIcon = () => {
-  const { openCreateModal } = useCRUDModalForm(EntityType.Atom)
+  const { openCreateModal } = useCrudModalForm(EntityType.Atom)
 
   return (
     <Button

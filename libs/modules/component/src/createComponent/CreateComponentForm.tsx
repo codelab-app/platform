@@ -10,7 +10,7 @@ import {
   FormUniforms,
   LibraryContext,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useContext, useEffect } from 'react'
 import { AutoField, SelectField } from 'uniforms-antd'
@@ -22,7 +22,7 @@ import {
 type CreateComponentFormProps = UniFormUseCaseProps<CreateComponentInput>
 
 export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
-  const { reset, setLoading } = useCRUDModalForm(EntityType.Component)
+  const { reset, setLoading } = useCrudModalForm(EntityType.Component)
   const { libraries } = useContext(LibraryContext)
 
   const [mutate, { loading: creating }] = useCreateComponentMutation({

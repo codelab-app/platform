@@ -1,0 +1,5 @@
+query GetElementRoot($input: GetElementAggregateInput!) {
+  getElementAggregate(input: $input) {
+    ...ElementAggregate
+  }
+}

@@ -9,7 +9,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useMutationCrudForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
 import React from 'react'
 
@@ -22,7 +22,7 @@ export const DeleteTypeForm = (props: DeleteTypeFormProps) => {
       reset,
       state: { metadata },
     },
-  } = useMutationCrudForm({
+  } = useCrudModalMutationForm({
     entityType: EntityType.Type,
     mapVariables: (_, state) => ({
       input: { typeId: state.deleteIds[0] },

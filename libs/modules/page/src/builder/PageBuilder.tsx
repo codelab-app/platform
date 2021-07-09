@@ -1,10 +1,12 @@
+import { refetchGetPageQuery } from '@codelab/codegen/graphql'
 import { NodeRenderer } from '@codelab/frontend/builder'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
+import { DeleteElementModal } from '@codelab/modules/element'
 import styled from '@emotion/styled'
 import { Core } from 'cytoscape'
-import React, { MouseEventHandler } from 'react'
+import React, { MouseEventHandler, useContext } from 'react'
 import tw from 'twin.macro'
-import { DeletePageElementModal } from '../pageElement'
+import { PageContext } from '../providers'
 import { PageBuilderClickAdapter } from './PageBuilderClickAdapter'
 import { PageBuilderHoverAdapter } from './PageBuilderHoverAdapter'
 import { useSetPageBuilderState } from './pageBuilderState'
@@ -31,6 +33,11 @@ export const PageBuilder = ({ cy }: PageRendererProps) => {
   const root = CytoscapeService.componentTree(cy)
   const { handleClick, ...handlers } = usePageElementRenderHandlers(cy)
   const { reset } = useSetPageBuilderState()
+  const { pageId } = useContext(PageContext)
+
+  if (!pageId) {
+    throw new Error('PageContext is needed for PageBuilder')
+  }
 
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
@@ -72,7 +79,11 @@ export const PageBuilder = ({ cy }: PageRendererProps) => {
       />
       <PageBuilderHoverAdapter />
       <PageBuilderClickAdapter />
-      <DeletePageElementModal />
+      <DeleteElementModal
+        formProps={{
+          refetchQueries: [refetchGetPageQuery({ input: { pageId } })],
+        }}
+      />
     </StyledPageBuilder>
   )
 }

@@ -7,7 +7,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -16,7 +16,7 @@ import { DeleteAtomInput, deleteAtomSchema } from './deleteAtomSchema'
 type DeleteAtomFormProps = UniFormUseCaseProps<DeleteAtomInput>
 
 export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
+  const { reset, setLoading, state } = useCrudModalForm(EntityType.Atom)
   const { deleteIds: atomIds, metadata } = state
 
   const [mutate, { loading: deleting }] = useDeleteAtomMutation({

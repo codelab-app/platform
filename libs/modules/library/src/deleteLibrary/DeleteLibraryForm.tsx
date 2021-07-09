@@ -8,7 +8,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -18,7 +18,7 @@ import { DeleteLibraryInput, DeleteLibrarySchema } from './deleteLibrarySchema'
 type DeleteLibraryFormProps = UniFormUseCaseProps<DeleteLibraryInput>
 
 export const DeleteLibraryForm = (props: DeleteLibraryFormProps) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.Library)
+  const { reset, setLoading, state } = useCrudModalForm(EntityType.Library)
   const { deleteIds: deleteLibraryIds } = state
 
   const [mutate, { loading: deleting }] = useDeleteLibraryMutation({

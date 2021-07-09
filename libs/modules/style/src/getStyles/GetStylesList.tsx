@@ -1,11 +1,11 @@
 import { DeleteOutlined, SettingOutlined } from '@ant-design/icons'
 import { useGetStylesListQuery } from '@codelab/codegen/hasura'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { List, Space } from 'antd'
 import React from 'react'
 
 export const GetStylesList = () => {
-  const { openDeleteModal, openUpdateModal } = useCRUDModalForm(
+  const { openDeleteModal, openUpdateModal } = useCrudModalForm(
     EntityType.Style,
   )
 

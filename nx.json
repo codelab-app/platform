@@ -89,6 +89,12 @@
     "modules-component-element": {
       "tags": []
     },
+    "modules-element": {
+      "tags": []
+    },
+    "modules-element-api": {
+      "tags": []
+    },
     "modules-lambda": {
       "tags": []
     },
@@ -102,9 +108,6 @@
       "tags": []
     },
     "modules-page-api": {
-      "tags": []
-    },
-    "modules-page-element-api": {
       "tags": []
     },
     "modules-prop": {

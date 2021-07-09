@@ -1,11 +1,11 @@
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { Button, ButtonProps } from 'antd'
 import React, { PropsWithChildren } from 'react'
 
 export const CreateComponentLinkButton = ({
   children,
 }: PropsWithChildren<Omit<ButtonProps, 'onClick'>>) => {
-  const { openCreateModal } = useCRUDModalForm(
+  const { openCreateModal } = useCrudModalForm(
     EntityType.LinkedComponentElement,
   )
 

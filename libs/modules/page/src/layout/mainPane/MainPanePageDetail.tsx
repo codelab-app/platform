@@ -2,7 +2,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons'
 import {
   PageFullFragment,
   refetchGetPageQuery,
-  useMovePageElementMutation,
+  useMoveElementMutation,
 } from '@codelab/codegen/graphql'
 import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { MainPaneTemplate } from '@codelab/frontend/layout'
@@ -15,16 +15,14 @@ import {
   NodeLink,
   PageType,
 } from '@codelab/frontend/shared'
+import { CreateElementButton } from '@codelab/modules/element'
 import { Dropdown, Empty, Tree } from 'antd'
 import { DataNode, TreeProps } from 'antd/lib/tree'
 import Link from 'next/link'
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { usePageBuilderState } from '../../builder'
-import {
-  CreatePageElementButton,
-  CreatePageElementForm,
-} from '../../pageElement'
+import { CreatePageElementForm } from '../../pageElement/createPageElement'
 import { PageContext } from '../../providers'
 import { ElementContextMenu } from './ElementContextMenu'
 
@@ -108,7 +106,7 @@ export const MainPanePageDetail = () => {
     cytoscapeRoot?.elements().getElementById(id).first().data()
 
   const [movePageElement, { loading: movingPageElement }] =
-    useMovePageElementMutation({
+    useMoveElementMutation({
       awaitRefetchQueries: true,
       refetchQueries: [
         refetchGetPageQuery({ input: { pageId: pageId as string } }),
@@ -145,7 +143,7 @@ export const MainPanePageDetail = () => {
       movePageElement({
         variables: {
           input: {
-            pageElementId: dragNodeId,
+            elementId: dragNodeId,
             moveData: {
               parentElementId: dropNodeParentId,
               order:
@@ -159,7 +157,7 @@ export const MainPanePageDetail = () => {
       movePageElement({
         variables: {
           input: {
-            pageElementId: dropNodeId,
+            elementId: dropNodeId,
             moveData: {
               parentElementId: dropNodeParentId,
               order: originalDragElementOrder,
@@ -175,7 +173,7 @@ export const MainPanePageDetail = () => {
       return movePageElement({
         variables: {
           input: {
-            pageElementId: dragNodeId,
+            elementId: dragNodeId,
             moveData: {
               parentElementId: dropNodeId,
               order: e.dropPosition,
@@ -190,10 +188,7 @@ export const MainPanePageDetail = () => {
     <MainPaneTemplate
       title={<Title page={page} appId={page?.app?.id} />}
       header={
-        <CreatePageElementButton
-          loading={loading || movingPageElement}
-          key={0}
-        />
+        <CreateElementButton loading={loading || movingPageElement} key={0} />
       }
       containerProps={{ onClick: () => setContextMenuNodeId(null) }}
     >
@@ -267,12 +262,12 @@ export const MainPanePageDetail = () => {
       )}
 
       <CrudModal
-        entityType={EntityType.PageElement}
+        entityType={EntityType.Element}
         actionType={ActionType.Create}
         okText={'Create'}
         renderForm={() => (
           <CreatePageElementForm
-            initialParentElementId={selectedPageElement?.id}
+            initialData={{ parentElementId: selectedPageElement?.id }}
           />
         )}
       />

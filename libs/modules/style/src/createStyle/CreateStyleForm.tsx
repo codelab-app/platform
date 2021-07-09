@@ -7,7 +7,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { useSelectedLibrary } from '@codelab/modules/library'
 import React, { useEffect } from 'react'
@@ -18,7 +18,7 @@ import { CreateStyleInput, createStyleSchema } from './createStyleSchema'
 type CreateStyleFormProps = UniFormUseCaseProps<CreateStyleInput>
 
 export const CreateStyleForm = (props: CreateStyleFormProps) => {
-  const { reset, setLoading } = useCRUDModalForm(EntityType.Style)
+  const { reset, setLoading } = useCrudModalForm(EntityType.Style)
 
   const [mutate, { loading: creating }] = useCreateStyleMutation({
     refetchQueries: [refetchGetStylesListQuery()],

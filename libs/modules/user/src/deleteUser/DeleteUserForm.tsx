@@ -9,14 +9,14 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React from 'react'
 
 export const DeleteUserForm = (
   props: UniFormUseCaseProps<EmptyJsonSchemaType>,
 ) => {
-  const { reset, state } = useCRUDModalForm(EntityType.Atom)
+  const { reset, state } = useCrudModalForm(EntityType.Atom)
 
   const [mutate] = useDeleteUserMutation({
     refetchQueries: [refetchGetUsersQuery()],

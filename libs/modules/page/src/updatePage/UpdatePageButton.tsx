@@ -2,13 +2,13 @@ import { EditOutlined } from '@ant-design/icons'
 import {
   EntityType,
   UpdateButtonProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
 
 export const UpdatePageButton = ({ id, disabled }: UpdateButtonProps) => {
-  const { openUpdateModal } = useCRUDModalForm(EntityType.Page)
+  const { openUpdateModal } = useCrudModalForm(EntityType.Page)
 
   return (
     <Button

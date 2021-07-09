@@ -1,0 +1,14 @@
+query GetElementOwner($elementId: ID!) {
+  getElement(id: $elementId) {
+    ownedBy {
+      __typename
+      ... on Page {
+        app {
+          ownerId
+        }
+        ...Dgraph__Page
+      }
+    }
+    ...Dgraph_Element
+  }
+}

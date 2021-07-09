@@ -1,9 +1,9 @@
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class PropsByPageElementFilter {
+export class PropsByElementFilter {
   @Field(() => [String])
-  declare pageElementIds: Array<string>
+  declare elementIds: Array<string>
 
   @Field({ nullable: true, defaultValue: null })
   declare fieldId?: string
@@ -23,8 +23,8 @@ export class PropsByInterfaceValueId {
 
 @InputType()
 export class GetPropsInput {
-  @Field(() => PropsByPageElementFilter, { nullable: true })
-  declare byPageElement?: PropsByPageElementFilter | null
+  @Field(() => PropsByElementFilter, { nullable: true })
+  declare byElement?: PropsByElementFilter | null
 
   @Field(() => PropsByIdsFilter, { nullable: true })
   declare byIds?: PropsByIdsFilter | null

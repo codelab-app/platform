@@ -1,13 +1,13 @@
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class AtomByPageElementFilter {
+export class AtomByElementFilter {
   @Field()
-  declare pageElementId: string
+  declare elementId: string
 }
 
 @InputType()
 export class GetAtomByInput {
-  @Field(() => AtomByPageElementFilter, { nullable: true })
-  declare byPageElement?: AtomByPageElementFilter | null
+  @Field(() => AtomByElementFilter, { nullable: true })
+  declare byElement?: AtomByElementFilter | null
 }

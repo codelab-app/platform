@@ -1,8 +1,8 @@
 import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import {
-  FlattenPageElementTreeService,
-  PageElementRoot,
-} from '@codelab/modules/page-element-api'
+  ElementAggregate,
+  FlattenElementTreeService,
+} from '@codelab/modules/element-api'
 import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js'
 import { PageGuardService } from '../../auth/page-guard/page-guard.service'
@@ -12,13 +12,13 @@ import { GetPageRootQueryBuilder } from './get-page-root-query-builder'
 @Injectable()
 export class GetPageRootService extends DgraphUseCase<
   GetPageRootRequest,
-  PageElementRoot | null,
+  ElementAggregate | null,
   void
 > {
   constructor(
     @Inject(DgraphTokens.DgraphProvider)
     protected readonly dgraphProvider: DgraphProvider,
-    private flattenPageElementTreeService: FlattenPageElementTreeService,
+    private flattenElementTreeService: FlattenElementTreeService,
     private pageGuardService: PageGuardService,
   ) {
     super(dgraphProvider)
@@ -50,15 +50,15 @@ export class GetPageRootService extends DgraphUseCase<
     }
 
     const { descendants, links, rootAtom } =
-      await this.flattenPageElementTreeService.execute({
+      await this.flattenElementTreeService.execute({
         root: rootElement,
       })
 
-    return new PageElementRoot({
+    return new ElementAggregate({
       id: rootElement.uid,
-      name: rootElement['PageElement.name'] as string,
+      name: rootElement['Element.name'] as string,
       atom: rootAtom,
-      css: rootElement['PageElement.css'],
+      css: rootElement['Element.css'],
       descendants,
       links,
     })

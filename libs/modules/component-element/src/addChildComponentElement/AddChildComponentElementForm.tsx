@@ -8,7 +8,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
@@ -36,7 +36,7 @@ export const AddChildComponentElementForm = ({
   parentComponentElementId,
   ...props
 }: AddChildComponentElementFormProps) => {
-  const { reset, setLoading } = useCRUDModalForm(
+  const { reset, setLoading } = useCrudModalForm(
     EntityType.ChildComponentElement,
   )
 

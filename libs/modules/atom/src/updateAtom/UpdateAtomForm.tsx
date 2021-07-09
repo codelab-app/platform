@@ -8,7 +8,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -16,7 +16,7 @@ import { AutoFields } from 'uniforms-antd'
 import { UpdateAtomInput, updateAtomSchema } from './updateAtomSchema'
 
 export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.Atom)
+  const { reset, setLoading, state } = useCrudModalForm(EntityType.Atom)
   const { updateId: updateAtomId } = state
 
   const [mutate, { loading: updating }] = useUpdateAtomMutation({

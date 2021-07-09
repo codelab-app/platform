@@ -123,6 +123,27 @@ type AddComponentPayload {
   numUids: Int
 }
 
+input AddElementInput {
+  name: String!
+  children: [ElementRef]
+  parent: ElementRef
+  atom: AtomRef
+  ownedBy: ElementOwnerRef!
+  component: ComponentRef
+  props: [PropRef!]!
+  css: String
+}
+
+type AddElementPayload {
+  element(
+    filter: ElementFilter
+    order: ElementOrder
+    first: Int
+    offset: Int
+  ): [Element]
+  numUids: Int
+}
+
 input AddEnumTypeInput {
   name: String!
   allowedValues: [EnumTypeValueRef!]!
@@ -245,31 +266,10 @@ type AddLibraryPayload {
   numUids: Int
 }
 
-input AddPageElementInput {
-  name: String!
-  page: PageRef!
-  parent: PageElementRef
-  children: [PageElementRef]
-  atom: AtomRef
-  component: ComponentRef
-  props: [PropRef!]!
-  css: String
-}
-
-type AddPageElementPayload {
-  pageElement(
-    filter: PageElementFilter
-    order: PageElementOrder
-    first: Int
-    offset: Int
-  ): [PageElement]
-  numUids: Int
-}
-
 input AddPageInput {
   name: String!
   app: AppRef!
-  rootElement: PageElementRef!
+  rootElement: ElementRef!
 }
 
 type AddPagePayload {
@@ -280,7 +280,7 @@ type AddPagePayload {
 input AddPropInput {
   field: FieldRef!
   value: PropValueRef
-  pageElement: PageElementRef
+  element: ElementRef
 }
 
 type AddPropPayload {
@@ -880,6 +880,17 @@ type DeleteComponentPayload {
   numUids: Int
 }
 
+type DeleteElementPayload {
+  element(
+    filter: ElementFilter
+    order: ElementOrder
+    first: Int
+    offset: Int
+  ): [Element]
+  msg: String
+  numUids: Int
+}
+
 type DeleteEnumTypePayload {
   enumType(
     filter: EnumTypeFilter
@@ -967,17 +978,6 @@ type DeleteLibraryPayload {
   numUids: Int
 }
 
-type DeletePageElementPayload {
-  pageElement(
-    filter: PageElementFilter
-    order: PageElementOrder
-    first: Int
-    offset: Int
-  ): [PageElement]
-  msg: String
-  numUids: Int
-}
-
 type DeletePagePayload {
   page(filter: PageFilter, order: PageOrder, first: Int, offset: Int): [Page]
   msg: String
@@ -1040,6 +1040,102 @@ enum DgraphIndex {
   day
   hour
   geo
+}
+
+type Element {
+  id: ID!
+  name: String!
+  children(
+    filter: ElementFilter
+    order: ElementOrder
+    first: Int
+    offset: Int
+  ): [Element]
+  parent(filter: ElementFilter): Element
+  atom(filter: AtomFilter): Atom
+  ownedBy(filter: ElementOwnerFilter): ElementOwner!
+  component(filter: ComponentFilter): Component
+  props(filter: PropFilter, first: Int, offset: Int): [Prop!]!
+  css: String
+  childrenAggregate(filter: ElementFilter): ElementAggregateResult
+  propsAggregate(filter: PropFilter): PropAggregateResult
+}
+
+type ElementAggregateResult {
+  count: Int
+  nameMin: String
+  nameMax: String
+  cssMin: String
+  cssMax: String
+}
+
+input ElementFilter {
+  id: [ID!]
+  name: StringFullTextFilter_StringTermFilter
+  has: [ElementHasFilter]
+  and: [ElementFilter]
+  or: [ElementFilter]
+  not: ElementFilter
+}
+
+enum ElementHasFilter {
+  name
+  children
+  parent
+  atom
+  ownedBy
+  component
+  props
+  css
+}
+
+input ElementOrder {
+  asc: ElementOrderable
+  desc: ElementOrderable
+  then: ElementOrder
+}
+
+enum ElementOrderable {
+  name
+  css
+}
+
+union ElementOwner = Page
+
+input ElementOwnerFilter {
+  memberTypes: [ElementOwnerType!]
+  pageFilter: PageFilter
+}
+
+input ElementOwnerRef {
+  pageRef: PageRef
+}
+
+enum ElementOwnerType {
+  Page
+}
+
+input ElementPatch {
+  name: String
+  children: [ElementRef]
+  parent: ElementRef
+  atom: AtomRef
+  ownedBy: ElementOwnerRef
+  component: ComponentRef
+  props: [PropRef!]
+  css: String
+}
+
+input ElementRef {
+  id: ID
+  name: String
+  children: [ElementRef]
+  parent: ElementRef
+  atom: AtomRef
+  ownedBy: ElementOwnerRef
+  component: ComponentRef
+  props: [PropRef!]
+  css: String
 }
 
 type EnumType implements Type {
@@ -1546,9 +1642,9 @@ type Mutation {
   addPage(input: [AddPageInput!]!): AddPagePayload
   updatePage(input: UpdatePageInput!): UpdatePagePayload
   deletePage(filter: PageFilter!): DeletePagePayload
-  addPageElement(input: [AddPageElementInput!]!): AddPageElementPayload
-  updatePageElement(input: UpdatePageElementInput!): UpdatePageElementPayload
-  deletePageElement(filter: PageElementFilter!): DeletePageElementPayload
+  addElement(input: [AddElementInput!]!): AddElementPayload
+  updateElement(input: UpdateElementInput!): UpdateElementPayload
+  deleteElement(filter: ElementFilter!): DeleteElementPayload
   addLibrary(input: [AddLibraryInput!]!): AddLibraryPayload
   updateLibrary(input: UpdateLibraryInput!): UpdateLibraryPayload
   deleteLibrary(filter: LibraryFilter!): DeleteLibraryPayload
@@ -1619,94 +1715,13 @@ type Page {
   id: ID!
   name: String!
   app(filter: AppFilter): App!
-  rootElement(filter: PageElementFilter): PageElement!
+  rootElement(filter: ElementFilter): Element!
 }
 
 type PageAggregateResult {
   count: Int
   nameMin: String
   nameMax: String
-}
-
-type PageElement {
-  id: ID!
-  name: String!
-  page(filter: PageFilter): Page!
-  parent(filter: PageElementFilter): PageElement
-  children(
-    filter: PageElementFilter
-    order: PageElementOrder
-    first: Int
-    offset: Int
-  ): [PageElement]
-  atom(filter: AtomFilter): Atom
-  component(filter: ComponentFilter): Component
-  props(filter: PropFilter, first: Int, offset: Int): [Prop!]!
-  css: String
-  childrenAggregate(filter: PageElementFilter): PageElementAggregateResult
-  propsAggregate(filter: PropFilter): PropAggregateResult
-}
-
-type PageElementAggregateResult {
-  count: Int
-  nameMin: String
-  nameMax: String
-  cssMin: String
-  cssMax: String
-}
-
-input PageElementFilter {
-  id: [ID!]
-  name: StringFullTextFilter_StringTermFilter
-  has: [PageElementHasFilter]
-  and: [PageElementFilter]
-  or: [PageElementFilter]
-  not: PageElementFilter
-}
-
-enum PageElementHasFilter {
-  name
-  page
-  parent
-  children
-  atom
-  component
-  props
-  css
-}
-
-input PageElementOrder {
-  asc: PageElementOrderable
-  desc: PageElementOrderable
-  then: PageElementOrder
-}
-
-enum PageElementOrderable {
-  name
-  css
-}
-
-input PageElementPatch {
-  name: String
-  page: PageRef
-  parent: PageElementRef
-  children: [PageElementRef]
-  atom: AtomRef
-  component: ComponentRef
-  props: [PropRef!]
-  css: String
-}
-
-input PageElementRef {
-  id: ID
-  name: String
-  page: PageRef
-  parent: PageElementRef
-  children: [PageElementRef]
-  atom: AtomRef
-  component: ComponentRef
-  props: [PropRef!]
-  css: String
 }
 
 input PageFilter {
@@ -1737,14 +1752,14 @@ enum PageOrderable {
 input PagePatch {
   name: String
   app: AppRef
-  rootElement: PageElementRef
+  rootElement: ElementRef
 }
 
 input PageRef {
   id: ID
   name: String
   app: AppRef
-  rootElement: PageElementRef
+  rootElement: ElementRef
 }
 
 type Point {
@@ -1796,7 +1811,7 @@ type Prop {
   id: ID!
   field(filter: FieldFilter): Field!
   value(filter: PropValueFilter): PropValue
-  pageElement(filter: PageElementFilter): PageElement
+  element(filter: ElementFilter): Element
 }
 
 type PropAggregateResult {
@@ -1814,20 +1829,20 @@ input PropFilter {
 enum PropHasFilter {
   field
   value
-  pageElement
+  element
 }
 
 input PropPatch {
   field: FieldRef
   value: PropValueRef
-  pageElement: PageElementRef
+  element: ElementRef
 }
 
 input PropRef {
   id: ID
   field: FieldRef
   value: PropValueRef
-  pageElement: PageElementRef
+  element: ElementRef
 }
 
 union PropValue =
@@ -1882,14 +1897,14 @@ type Query {
     offset: Int
   ): [Page]
   aggregatePage(filter: PageFilter): PageAggregateResult
-  getPageElement(id: ID!): PageElement
-  queryPageElement(
-    filter: PageElementFilter
-    order: PageElementOrder
+  getElement(id: ID!): Element
+  queryElement(
+    filter: ElementFilter
+    order: ElementOrder
     first: Int
     offset: Int
-  ): [PageElement]
-  aggregatePageElement(filter: PageElementFilter): PageElementAggregateResult
+  ): [Element]
+  aggregateElement(filter: ElementFilter): ElementAggregateResult
   getLibrary(id: ID!): Library
   queryLibrary(
     filter: LibraryFilter
@@ -2346,6 +2361,22 @@ type UpdateComponentPayload {
   numUids: Int
 }
 
+input UpdateElementInput {
+  filter: ElementFilter!
+  set: ElementPatch
+  remove: ElementPatch
+}
+
+type UpdateElementPayload {
+  element(
+    filter: ElementFilter
+    order: ElementOrder
+    first: Int
+    offset: Int
+  ): [Element]
+  numUids: Int
+}
+
 input UpdateEnumTypeInput {
   filter: EnumTypeFilter!
   set: EnumTypePatch
@@ -2470,22 +2501,6 @@ type UpdateLibraryPayload {
     first: Int
     offset: Int
   ): [Library]
-  numUids: Int
-}
-
-input UpdatePageElementInput {
-  filter: PageElementFilter!
-  set: PageElementPatch
-  remove: PageElementPatch
-}
-
-type UpdatePageElementPayload {
-  pageElement(
-    filter: PageElementFilter
-    order: PageElementOrder
-    first: Int
-    offset: Int
-  ): [PageElement]
   numUids: Int
 }
 

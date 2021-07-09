@@ -1,7 +1,7 @@
 import { DeleteResponse } from '@codelab/backend'
 import { JwtPayload } from '@codelab/backend/adapters'
 import { CurrentUser, GqlAuthGuard } from '@codelab/modules/auth-api'
-import { PageElementRoot } from '@codelab/modules/page-element-api'
+import { ElementAggregate } from '@codelab/modules/element-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -83,7 +83,7 @@ export class PageResolver {
     return this.updatePageService.execute({ input, currentUser })
   }
 
-  @ResolveField('rootElement', () => PageElementRoot)
+  @ResolveField('rootElement', () => ElementAggregate)
   resolveRootElement(
     @Parent() page: Page,
     @CurrentUser() currentUser: JwtPayload,

@@ -9,7 +9,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
@@ -18,7 +18,7 @@ import { appState } from '../state'
 import { createAppSchema } from './createAppSchema'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
-  const { reset, setLoading } = useCRUDModalForm(EntityType.App)
+  const { reset, setLoading } = useCrudModalForm(EntityType.App)
   const { user } = useUser()
 
   const [mutate, { loading }] = useCreateAppMutation({

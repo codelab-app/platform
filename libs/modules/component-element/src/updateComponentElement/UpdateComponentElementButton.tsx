@@ -2,7 +2,7 @@ import { EditOutlined } from '@ant-design/icons'
 import {
   EntityType,
   UpdateButtonProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
@@ -11,7 +11,7 @@ export const UpdateComponentElementButton = ({
   id,
   disabled,
 }: UpdateButtonProps) => {
-  const { openUpdateModal } = useCRUDModalForm(EntityType.ComponentElement)
+  const { openUpdateModal } = useCrudModalForm(EntityType.ComponentElement)
 
   return (
     <Button

@@ -11,7 +11,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -24,7 +24,7 @@ export const DeleteComponentsForm = (props: DeleteComponentFormProps) => {
     reset,
     setLoading,
     state: { deleteIds: deleteComponentIds },
-  } = useCRUDModalForm(EntityType.Component)
+  } = useCrudModalForm(EntityType.Component)
 
   const [deleteComponents, { loading: deleting }] = useDeleteComponentMutation({
     awaitRefetchQueries: true,

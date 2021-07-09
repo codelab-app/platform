@@ -14,12 +14,14 @@ export class PropAggregate {
     description:
       'All props that are descendant of this Prop, normalized to an array, including the root prop',
   })
+  /** All props that are descendant of this Prop, normalized to an array, including the root prop */
   declare props: Array<Prop>
 
   @GraphqlField(() => [PropValue], {
     description:
       "All values that are descendant of this Prop, normalized to an array, including the root prop's value",
   })
+  /** All values that are descendant of this Prop, normalized to an array, including the root prop's value */
   declare values: Array<typeof PropValue>
 
   static Schema = z.object({

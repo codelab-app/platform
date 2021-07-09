@@ -9,7 +9,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -20,7 +20,7 @@ import { UpdateLibraryInput, UpdateLibrarySchema } from './updateLibrarySchema'
 type UpdateLibraryFormProps = UniFormUseCaseProps<UpdateLibraryInput>
 
 export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.Library)
+  const { reset, setLoading, state } = useCrudModalForm(EntityType.Library)
   const { updateId: updateLibraryId } = state
 
   const [mutate, { loading: updating }] = useUpdateLibraryMutation({

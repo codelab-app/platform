@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import tw from 'twin.macro'
 import { FormUniformsModal } from '../form'
 import { ActionType, EntityType } from './crudModalsState'
-import { useCRUDModalForm } from './useCrudModalState'
+import { useCrudModalForm } from './useCrudModalForm'
 
 export type CrudModalProps = {
   entityType: EntityType
@@ -23,7 +23,7 @@ export const CrudModal = ({
   renderForm,
   modalProps = {},
 }: CrudModalProps) => {
-  const { reset, state } = useCRUDModalForm(entityType)
+  const { reset, state } = useCrudModalForm(entityType)
   const { loading, visibleForm, type } = state
   const { title } = modalProps
 

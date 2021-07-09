@@ -6,7 +6,7 @@ import {
   EntityType,
   PropsWithIds,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
@@ -29,7 +29,7 @@ export const CreateComponentElementForm = ({
   componentId,
   ...props
 }: CreateComponentElementFormProps) => {
-  const { reset, setLoading } = useCRUDModalForm(EntityType.ComponentElement)
+  const { reset, setLoading } = useCrudModalForm(EntityType.ComponentElement)
 
   const [mutate, { loading: creating }] = useCreateComponentElementMutation({
     awaitRefetchQueries: true,

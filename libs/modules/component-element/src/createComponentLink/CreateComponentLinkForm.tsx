@@ -6,7 +6,7 @@ import {
   ComponentContext,
   EntityType,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useContext, useEffect } from 'react'
 import { DeepPartial } from 'uniforms'
@@ -25,7 +25,7 @@ export const CreateComponentLinkForm = ({
   sourceComponentElementId,
   ...props
 }: CreateLinkedComponentElementFormProps) => {
-  const { reset, setLoading } = useCRUDModalForm(EntityType.ComponentElement)
+  const { reset, setLoading } = useCrudModalForm(EntityType.ComponentElement)
   const { component } = useContext(ComponentContext)
 
   const [mutate, { loading: creating }] = useCreateComponentLinkMutation({

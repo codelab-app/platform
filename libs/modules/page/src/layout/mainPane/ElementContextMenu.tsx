@@ -1,7 +1,7 @@
 import {
   ElementNode,
   EntityType,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Menu } from 'antd'
 import React from 'react'
@@ -17,8 +17,8 @@ export const ElementContextMenu = ({
   onClick,
   onBlur,
 }: ElementContextMenuProps) => {
-  const { openCreateModal, openDeleteModal } = useCRUDModalForm(
-    EntityType.PageElement,
+  const { openCreateModal, openDeleteModal } = useCrudModalForm(
+    EntityType.Element,
   )
 
   return (

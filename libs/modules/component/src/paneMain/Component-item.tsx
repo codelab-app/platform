@@ -9,7 +9,7 @@ import {
   DragAndDropTypes,
   EntityType,
   PageType,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
@@ -46,7 +46,7 @@ export const ComponentItem = ({
   const [, setState] = useRecoilState(componentItemState)
   const [, drag] = useDrag({ item, type: DragAndDropTypes.Component }, [item])
 
-  const { openUpdateModal, openDeleteModal } = useCRUDModalForm(
+  const { openUpdateModal, openDeleteModal } = useCrudModalForm(
     EntityType.Component,
   )
 

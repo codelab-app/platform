@@ -9,7 +9,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useMutationCrudForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -28,7 +28,7 @@ export const DeleteFieldForm = (props: DeleteFieldFormProps) => {
       reset,
       state: { metadata },
     },
-  } = useMutationCrudForm({
+  } = useCrudModalMutationForm({
     entityType: EntityType.Field,
     mutationOptions: {
       refetchQueries: [refetchGetInterfaceQuery({ input: { interfaceId } })],
