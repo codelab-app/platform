@@ -21,17 +21,24 @@ export const HomeMenuHeader = () => {
     <>
       <Menu.Item
         key="3"
-        style={{ float: 'right', ...disableMenuHoverEffects }}
+        style={{ order: 6, ...disableMenuHoverEffects }}
         icon={<SignOutUserButton />}
       />
       <Menu.SubMenu
         popupClassName="h-auto"
         key="4"
-        style={{ float: 'right' }}
+        style={{ order: 5 }}
         icon={<UserOutlined />}
       >
         <Menu.Item>Email {user?.email}</Menu.Item>
       </Menu.SubMenu>
+      <Menu.Item
+        key="5"
+        style={{
+          visibility: 'hidden',
+          flexGrow: 1,
+        }}
+      />
     </>
   )
 
@@ -40,15 +47,26 @@ export const HomeMenuHeader = () => {
       <Menu.Item
         key="3"
         style={{
-          float: 'right',
+          order: 6,
           ...disableMenuHoverEffects,
         }}
         icon={<RegisterUserButton />}
       />
       <Menu.Item
         key="4"
-        style={{ float: 'right', ...disableMenuHoverEffects }}
+        style={{
+          order: 5,
+          ...disableMenuHoverEffects,
+        }}
         icon={<LoginUserButton />}
+      />
+      {/* Empty filler */}
+      <Menu.Item
+        key="5"
+        style={{
+          visibility: 'hidden',
+          flexGrow: 1,
+        }}
       />
     </>
   )

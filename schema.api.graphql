@@ -57,9 +57,7 @@ type Interface implements Type {
 type FieldCollection {
   fields: [Field!]!
 
-  """
-  Flattened array of all types that are used inside this interface
-  """
+  """Flattened array of all types that are used inside this interface"""
   types: [Type!]!
 }
 
@@ -264,14 +262,7 @@ type Prop {
   value: PropValue
 }
 
-union PropValue =
-    StringValue
-  | IntValue
-  | FloatValue
-  | BooleanValue
-  | ArrayValue
-  | InterfaceValue
-  | EnumTypeValue
+union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue | EnumTypeValue
 
 type StringValue {
   id: ID!
@@ -303,9 +294,7 @@ type InterfaceValue {
   props: [Prop!]!
 }
 
-"""
-Contains all nested props and values from the whole prop tree
-"""
+"""Contains all nested props and values from the whole prop tree"""
 type PropAggregate {
   rootProp: Prop!
 
@@ -672,9 +661,7 @@ input TypeRef {
   newType: CreateTypeInput
 }
 
-"""
-Provide one of the properties
-"""
+"""Provide one of the properties"""
 input CreateTypeInput {
   name: String!
   simpleType: CreateSimpleTypeInput

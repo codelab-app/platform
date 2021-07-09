@@ -12,6 +12,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "postinstall": "husky install",
     "nx-test": "env-cmd -f .env.test nx test",
     "console:dev": "nx build gqlgen && env-cmd -f .env node dist/apps/gqlgen/main.js",
     "console": "cross-env NODE_ENV=test node -r dotenv-flow/config dist/apps/gqlgen/main.js",
