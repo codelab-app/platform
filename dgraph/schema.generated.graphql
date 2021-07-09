@@ -234,17 +234,17 @@ type Tag {
   label: String!
 }
 
-enum PrimitiveType {
+enum PrimitiveKind {
   String
   Integer
   Float
   Boolean
 }
 
-type SimpleType implements Type {
+type PrimitiveType implements Type {
   id: ID!
   name: String!
-  primitiveType: PrimitiveType!
+  primitiveKind: PrimitiveKind!
 }
 
 type ArrayType implements Type {
@@ -277,7 +277,7 @@ interface Type {
   name: String!
 }
 
-union TypeUnion = Interface | EnumType | ArrayType | SimpleType
+union TypeUnion = Interface | EnumType | ArrayType | PrimitiveType
 
 type Field {
   id: ID!

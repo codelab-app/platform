@@ -55,8 +55,8 @@ export const CreateTypeForm = (
     >
       <AutoFields fields={['name', 'kind']} />
 
-      <DisplayIfKind kind={TypeKind.Simple}>
-        <AutoField name={'primitiveType'} />
+      <DisplayIfKind kind={TypeKind.Primitive}>
+        <AutoField name={'primitiveKind'} />
       </DisplayIfKind>
 
       <DisplayIfKind kind={TypeKind.Enum}>

@@ -70,23 +70,23 @@ type Tag {
 #
 # Typing system:
 #
-enum PrimitiveType {
+enum PrimitiveKind {
   String
   Integer
   Float
   Boolean
 }
 
-type SimpleType implements Type {
+type PrimitiveType implements Type {
   id: ID!
   name: String!
-  primitiveType: PrimitiveType!
+  primitiveKind: PrimitiveKind!
 }
 
 type ArrayType implements Type {
   id: ID!
   name: String!
-  # that's the type of the array item, e.g. type: (SimpleType) String, would be string[]
+  # that's the type of the array item, e.g. type: (PrimitiveType) String, would be string[]
   type: Type!
 }
 
@@ -117,7 +117,7 @@ interface Type {
 }
 
 # Creating an Union too, because that will make Dgraph generate some nice mutations, like addType
-union TypeUnion = Interface | EnumType | ArrayType | SimpleType
+union TypeUnion = Interface | EnumType | ArrayType | PrimitiveType
 
 type Field {
   id: ID!

@@ -4,6 +4,7 @@ import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
+import { TypeModels } from '../../types/TypeModels'
 
 export interface FieldsTableProps {
   fields: Array<__FieldFragment>
@@ -27,13 +28,13 @@ export const FieldsTable = ({ fields, typesById }: FieldsTableProps) => {
     const type = typesById[typeId]
 
     switch (type?.__typename) {
-      case 'SimpleType':
-        return type.primitiveType
-      case 'ArrayType':
+      case TypeModels.PrimitiveType:
+        return type.primitiveKind
+      case TypeModels.ArrayType:
         return `${getTypeName(type.typeId, iteration + 1)} Array`
-      case 'EnumType':
+      case TypeModels.EnumType:
         return `Enum (${type.allowedValues.map((v) => v.name).join(',')})`
-      case 'Interface':
+      case TypeModels.Interface:
         return `Object (${type.name})`
     }
 

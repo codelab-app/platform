@@ -35,13 +35,13 @@ type EnumType implements Type {
   allowedValues: [EnumTypeValue!]!
 }
 
-type SimpleType implements Type {
+type PrimitiveType implements Type {
   id: ID!
   name: String!
-  primitiveType: PrimitiveType!
+  primitiveKind: PrimitiveKind!
 }
 
-enum PrimitiveType {
+enum PrimitiveKind {
   String
   Integer
   Float
@@ -57,7 +57,9 @@ type Interface implements Type {
 type FieldCollection {
   fields: [Field!]!
 
-  """Flattened array of all types that are used inside this interface"""
+  """
+  Flattened array of all types that are used inside this interface
+  """
   types: [Type!]!
 }
 
@@ -262,7 +264,14 @@ type Prop {
   value: PropValue
 }
 
-union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue | EnumTypeValue
+union PropValue =
+    StringValue
+  | IntValue
+  | FloatValue
+  | BooleanValue
+  | ArrayValue
+  | InterfaceValue
+  | EnumTypeValue
 
 type StringValue {
   id: ID!
@@ -294,7 +303,9 @@ type InterfaceValue {
   props: [Prop!]!
 }
 
-"""Contains all nested props and values from the whole prop tree"""
+"""
+Contains all nested props and values from the whole prop tree
+"""
 type PropAggregate {
   rootProp: Prop!
 
@@ -523,7 +534,7 @@ type Mutation {
   deleteField(input: DeleteFieldInput!): DeleteResponse!
   createType(input: CreateTypeInput!): Type!
   updateEnumType(input: UpdateEnumTypeInput!): EnumType!
-  updateSimpleType(input: UpdateSimpleTypeInput!): SimpleType!
+  updatePrimitiveType(input: UpdatePrimitiveTypeInput!): PrimitiveType!
   updateType(input: UpdateTypeInput!): Type!
   deleteType(input: DeleteTypeInput!): DeleteResponse!
   upsertProp(input: [UpsertPropsInput!]!): UpsertPropsResponse!
@@ -661,17 +672,19 @@ input TypeRef {
   newType: CreateTypeInput
 }
 
-"""Provide one of the properties"""
+"""
+Provide one of the properties
+"""
 input CreateTypeInput {
   name: String!
-  simpleType: CreateSimpleTypeInput
+  primitiveType: CreatePrimitiveTypeInput
   arrayType: CreateArrayTypeInput
   enumType: CreateEnumTypeInput
   interfaceType: Boolean
 }
 
-input CreateSimpleTypeInput {
-  primitiveType: PrimitiveType!
+input CreatePrimitiveTypeInput {
+  primitiveKind: PrimitiveKind!
 }
 
 input CreateArrayTypeInput {
@@ -719,13 +732,13 @@ input UpdateEnumTypeValueData {
   value: String!
 }
 
-input UpdateSimpleTypeInput {
+input UpdatePrimitiveTypeInput {
   typeId: String!
-  updateData: UpdateSimpleTypeData!
+  updateData: UpdatePrimitiveKindData!
 }
 
-input UpdateSimpleTypeData {
-  primitiveType: PrimitiveType!
+input UpdatePrimitiveKindData {
+  primitiveKind: PrimitiveKind!
   name: String!
 }
 

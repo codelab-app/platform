@@ -70,11 +70,26 @@ export const baseFieldsZodShape = <TType extends string>(
   }
 }
 
-export const instanceOfDgraphModel = (
-  object: DgraphModel,
-  modelName: string,
-) => {
-  return (object[BaseDgraphFields.DgraphType] as Array<string>).find(
-    (t: string) => t === modelName,
-  )
+/**
+ * Goes through all of the dgraph.type strings and returns true if any of them matches the
+ * provided model name (it's inferred by Metadata.modelName if a model class is provided)
+ */
+export const instanceOfDgraphModel = <
+  TActualModel extends string,
+  TExpectedModel extends string,
+>(
+  object: DgraphModel<TActualModel>,
+  model: TExpectedModel | { Metadata: DgraphModelMetadata<TExpectedModel> },
+): TActualModel extends TExpectedModel ? true : false => {
+  let modelString = ''
+
+  if (typeof model == 'string') {
+    modelString = model
+  } else {
+    modelString = model.Metadata.modelName
+  }
+
+  return !!object[BaseDgraphFields.DgraphType].find(
+    (t: string) => t === modelString,
+  ) as any
 }

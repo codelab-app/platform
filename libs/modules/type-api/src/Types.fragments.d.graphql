@@ -36,8 +36,8 @@ fragment Dgraph__Type on Type {
           name
         }
       }
-      ... on SimpleType {
-        primitiveType
+      ... on PrimitiveType {
+        primitiveKind
       }
     }
   }
@@ -46,8 +46,8 @@ fragment Dgraph__Type on Type {
       ...DgrapEnumTypeValue
     }
   }
-  ... on SimpleType {
-    primitiveType
+  ... on PrimitiveType {
+    primitiveKind
   }
 }
 

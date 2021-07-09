@@ -7,7 +7,7 @@ import {
   EnumTypeValueMapper,
   FieldMapper,
   InterfaceMapper,
-  SimpleTypeMapper,
+  PrimitiveTypeMapper,
   TypeMapper,
 } from './models'
 import { TypeResolver } from './type.resolver'
@@ -30,7 +30,7 @@ import {
   UpdateEnumTypeService,
   UpdateFieldService,
   UpdateInterfaceService,
-  UpdateSimpleTypeService,
+  UpdatePrimitiveTypeService,
   UpdateTypeService,
 } from './use-cases'
 import { GetFieldsByTypeService } from './use-cases/type/get-fields-by-type'
@@ -39,7 +39,7 @@ const mappers = [
   InterfaceMapper,
   FieldMapper,
   TypeMapper,
-  SimpleTypeMapper,
+  PrimitiveTypeMapper,
   EnumTypeMapper,
   EnumTypeValueMapper,
   ArrayTypeMapper,
@@ -72,7 +72,7 @@ const services = [
   GetTypesService,
   UpdateEnumTypeService,
   UpdateTypeService,
-  UpdateSimpleTypeService,
+  UpdatePrimitiveTypeService,
   CreateTypeValidator,
   GetFieldsByTypeService,
 ]

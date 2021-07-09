@@ -2,7 +2,7 @@ import {
   __TypeFragment,
   refetchGetTypesQuery,
   useUpdateEnumTypeMutation,
-  useUpdateSimpleTypeMutation,
+  useUpdatePrimitiveTypeMutation,
   useUpdateTypeMutation,
 } from '@codelab/codegen/graphql'
 import {
@@ -15,17 +15,18 @@ import {
 import React, { useCallback, useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeKind } from '../../shared'
+import { TypeModels } from '../TypeModels'
 import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
 
 const typenameToKind = (typename: string) => {
   switch (typename) {
-    case 'Interface':
+    case TypeModels.Interface:
       return TypeKind.Interface
-    case 'SimpleType':
-      return TypeKind.Simple
-    case 'ArrayType':
+    case TypeModels.PrimitiveType:
+      return TypeKind.Primitive
+    case TypeModels.ArrayType:
       return TypeKind.Array
-    case 'EnumType':
+    case TypeModels.EnumType:
       return TypeKind.Enum
   }
 
@@ -38,8 +39,8 @@ export const UpdateTypeForm = (
   const { setLoading, state, reset } = useCrudModalForm(EntityType.Type)
   const mutationOptions = { refetchQueries: [refetchGetTypesQuery()] }
 
-  const [mutateSimple, simpleMutationData] =
-    useUpdateSimpleTypeMutation(mutationOptions)
+  const [mutatePrimitive, primitiveMutationData] =
+    useUpdatePrimitiveTypeMutation(mutationOptions)
 
   const [mutateEnum, enumMutationData] =
     useUpdateEnumTypeMutation(mutationOptions)
@@ -48,13 +49,13 @@ export const UpdateTypeForm = (
 
   useEffect(() => {
     const loading =
-      simpleMutationData.loading ||
+      primitiveMutationData.loading ||
       enumMutationData.loading ||
       typeMutationData.loading
 
     setLoading(loading)
   }, [
-    simpleMutationData.loading,
+    primitiveMutationData.loading,
     enumMutationData.loading,
     typeMutationData.loading,
     setLoading,
@@ -65,18 +66,18 @@ export const UpdateTypeForm = (
       const kind = typenameToKind(state?.metadata?.__typename)
 
       switch (kind) {
-        case TypeKind.Simple:
-          if (!submitData.primitiveType) {
+        case TypeKind.Primitive:
+          if (!submitData.primitiveKind) {
             throw new Error('Primitive type not set')
           }
 
-          return mutateSimple({
+          return mutatePrimitive({
             variables: {
               input: {
                 typeId: state.updateId,
                 updateData: {
                   name: submitData.name,
-                  primitiveType: submitData.primitiveType,
+                  primitiveKind: submitData.primitiveKind,
                 },
               },
             },
@@ -113,7 +114,7 @@ export const UpdateTypeForm = (
           })
       }
     },
-    [mutateEnum, mutateSimple, mutateType, state],
+    [mutateEnum, mutatePrimitive, mutateType, state],
   )
 
   const kind = state?.metadata?.__typename
@@ -124,10 +125,14 @@ export const UpdateTypeForm = (
 
   const modelRef = useRef({
     name: type?.name,
-    primitiveType:
-      type?.__typename === 'SimpleType' ? type?.primitiveType : undefined,
+    primitiveKind:
+      type?.__typename === TypeModels.PrimitiveType
+        ? type?.primitiveKind
+        : undefined,
     allowedValues:
-      type?.__typename === 'EnumType' ? type?.allowedValues : undefined,
+      type?.__typename === TypeModels.EnumType
+        ? type?.allowedValues
+        : undefined,
   })
 
   if (!type || !state.updateId) {
@@ -147,7 +152,7 @@ export const UpdateTypeForm = (
     >
       <AutoFields fields={['name']} />
 
-      {kind === TypeKind.Simple && <AutoField name={'primitiveType'} />}
+      {kind === TypeKind.Primitive && <AutoField name={'primitiveKind'} />}
       {kind === TypeKind.Enum && <AutoField name={'allowedValues'} />}
     </FormUniforms>
   )

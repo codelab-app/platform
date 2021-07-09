@@ -2,7 +2,7 @@ import {
   __FieldCollectionFragment,
   __InterfaceFragment,
   __TypeFragment,
-  PrimitiveType,
+  PrimitiveKind,
 } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 import { PropertiesSchema } from 'ajv/lib/types/json-schema'
@@ -11,18 +11,18 @@ import { TypeModels } from '../types/TypeModels'
 
 // Maybe we can create a custom bridge to uniforms instead?
 export class InterfaceJsonSchemaAdapter {
-  static getJsonTypeFromPrimitiveType(primitiveType: PrimitiveType) {
-    switch (primitiveType) {
-      case PrimitiveType.String:
+  static getJsonTypeFromPrimitiveKind(primitiveKind: PrimitiveKind) {
+    switch (primitiveKind) {
+      case PrimitiveKind.String:
         return 'string'
-      case PrimitiveType.Integer:
+      case PrimitiveKind.Integer:
         return 'integer'
-      case PrimitiveType.Float:
+      case PrimitiveKind.Float:
         return 'number'
-      case PrimitiveType.Boolean:
+      case PrimitiveKind.Boolean:
         return 'boolean'
       default:
-        throw new Error('Primitive type not recognized ' + primitiveType)
+        throw new Error('Primitive kind not recognized ' + primitiveKind)
     }
   }
 
@@ -31,10 +31,10 @@ export class InterfaceJsonSchemaAdapter {
     getType: (typeId: string) => __TypeFragment,
   ): Record<string, any> {
     switch (type.__typename) {
-      case TypeModels.SimpleType:
+      case TypeModels.PrimitiveType:
         return {
-          type: InterfaceJsonSchemaAdapter.getJsonTypeFromPrimitiveType(
-            type.primitiveType,
+          type: InterfaceJsonSchemaAdapter.getJsonTypeFromPrimitiveKind(
+            type.primitiveKind,
           ),
           // nullable: true,
         }

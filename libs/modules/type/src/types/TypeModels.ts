@@ -1,5 +1,8 @@
 import { __TypeFragment } from '@codelab/codegen/graphql'
 
+/**
+ * Those types make sure this enum matches the type names returned from the API
+ */
 type TypeModelName = __TypeFragment['__typename']
 
 type TypeModelsType = {
@@ -7,7 +10,7 @@ type TypeModelsType = {
 }
 
 export const TypeModels: TypeModelsType = {
-  SimpleType: 'SimpleType',
+  PrimitiveType: 'PrimitiveType',
   EnumType: 'EnumType',
   ArrayType: 'ArrayType',
   Interface: 'Interface',

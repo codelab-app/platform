@@ -1,4 +1,9 @@
-import { BaseDgraphFields, DeepPartial, IDgraphMapper } from '@codelab/backend'
+import {
+  BaseDgraphFields,
+  DeepPartial,
+  IDgraphMapper,
+  instanceOfDgraphModel,
+} from '@codelab/backend'
 import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { MAX_TYPE_DEPTH } from '../../constants'
 import { OverlyNestedTypeError } from '../../errors'
@@ -17,15 +22,17 @@ import {
 } from './array-type'
 import { DgraphType, DgraphTypeFields } from './dgraph-type.model'
 import { DgraphEnumType, EnumTypeMapper } from './enum-type'
-import { DgraphSimpleType, SimpleTypeMapper } from './simple-type'
+import { DgraphPrimitiveType, PrimitiveTypeMapper } from './primitive-type'
 import { Type } from './type.model'
 
 export interface TypeMapperContext {
   iteration?: number
 }
 
-// InterfaceMapper should be in its own file, but putting it here was the only
-// way that I found to resolve a circular reference webpack error
+/**
+  InterfaceMapper should be in its own file, but putting it here was the only
+  way that I found to resolve a circular reference webpack error
+ */
 
 /**
  * Converts a {@link DgraphInterface} to an {@link Interface}
@@ -141,38 +148,36 @@ export class TypeMapper
   implements IDgraphMapper<DgraphTypeUnion, Type, TypeMapperContext>
 {
   constructor(
-    private simpleTypeMapper: SimpleTypeMapper,
+    private primitiveTypeMapper: PrimitiveTypeMapper,
     private arrayTypeMapper: ArrayTypeMapper,
     private enumTypeMapper: EnumTypeMapper,
-    @Inject(forwardRef(() => InterfaceMapper))
+    @Inject(forwardRef(() => InterfaceMapper)) // forwardRef is needed because of circular dependancy
     private interfaceMapper: InterfaceMapper,
   ) {}
 
   async map(input: DeepPartial<DgraphType>, context?: TypeMapperContext) {
-    const dgraphTypeArray = input[BaseDgraphFields.DgraphType]
-
-    if (!dgraphTypeArray || !dgraphTypeArray[0]) {
-      throw new Error("Can't map dgraph type without the field dgraph.type")
+    if (instanceOfDgraphModel(input as any, DgraphArrayType)) {
+      return this.arrayTypeMapper.map(input as DgraphArrayType)
     }
 
-    const dgraphType = dgraphTypeArray.find((dt) => (dt as string) !== 'Type')
-
-    switch (dgraphType) {
-      case 'ArrayType':
-        return this.arrayTypeMapper.map(input as DgraphArrayType)
-      case 'EnumType':
-        return this.enumTypeMapper.map(input as DgraphEnumType)
-      case 'Interface':
-        return this.interfaceMapper.map(
-          input as DgraphInterface,
-          context || { iteration: 0 },
-        )
-      case 'SimpleType':
-        return this.simpleTypeMapper.map(input as DgraphSimpleType)
-      default:
-        throw new Error(
-          "Can't map dgraph type, unrecognized type " + dgraphType,
-        )
+    if (instanceOfDgraphModel(input as any, DgraphEnumType)) {
+      return this.enumTypeMapper.map(input as DgraphEnumType)
     }
+
+    if (instanceOfDgraphModel(input as any, DgraphInterface)) {
+      return this.interfaceMapper.map(
+        input as DgraphInterface,
+        context || { iteration: 0 },
+      )
+    }
+
+    if (instanceOfDgraphModel(input as any, DgraphPrimitiveType)) {
+      return this.primitiveTypeMapper.map(input as DgraphPrimitiveType)
+    }
+
+    throw new Error(
+      "Can't map dgraph type, unrecognized type " +
+        input[BaseDgraphFields.DgraphType],
+    )
   }
 }

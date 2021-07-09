@@ -277,6 +277,21 @@ type AddPagePayload {
   numUids: Int
 }
 
+input AddPrimitiveTypeInput {
+  name: String!
+  primitiveKind: PrimitiveKind!
+}
+
+type AddPrimitiveTypePayload {
+  primitiveType(
+    filter: PrimitiveTypeFilter
+    order: PrimitiveTypeOrder
+    first: Int
+    offset: Int
+  ): [PrimitiveType]
+  numUids: Int
+}
+
 input AddPropInput {
   field: FieldRef!
   value: PropValueRef
@@ -285,21 +300,6 @@ input AddPropInput {
 
 type AddPropPayload {
   prop(filter: PropFilter, first: Int, offset: Int): [Prop]
-  numUids: Int
-}
-
-input AddSimpleTypeInput {
-  name: String!
-  primitiveType: PrimitiveType!
-}
-
-type AddSimpleTypePayload {
-  simpleType(
-    filter: SimpleTypeFilter
-    order: SimpleTypeOrder
-    first: Int
-    offset: Int
-  ): [SimpleType]
   numUids: Int
 }
 
@@ -984,19 +984,19 @@ type DeletePagePayload {
   numUids: Int
 }
 
-type DeletePropPayload {
-  prop(filter: PropFilter, first: Int, offset: Int): [Prop]
+type DeletePrimitiveTypePayload {
+  primitiveType(
+    filter: PrimitiveTypeFilter
+    order: PrimitiveTypeOrder
+    first: Int
+    offset: Int
+  ): [PrimitiveType]
   msg: String
   numUids: Int
 }
 
-type DeleteSimpleTypePayload {
-  simpleType(
-    filter: SimpleTypeFilter
-    order: SimpleTypeOrder
-    first: Int
-    offset: Int
-  ): [SimpleType]
+type DeletePropPayload {
+  prop(filter: PropFilter, first: Int, offset: Int): [Prop]
   msg: String
   numUids: Int
 }
@@ -1657,9 +1657,11 @@ type Mutation {
   addTag(input: [AddTagInput!]!): AddTagPayload
   updateTag(input: UpdateTagInput!): UpdateTagPayload
   deleteTag(filter: TagFilter!): DeleteTagPayload
-  addSimpleType(input: [AddSimpleTypeInput!]!): AddSimpleTypePayload
-  updateSimpleType(input: UpdateSimpleTypeInput!): UpdateSimpleTypePayload
-  deleteSimpleType(filter: SimpleTypeFilter!): DeleteSimpleTypePayload
+  addPrimitiveType(input: [AddPrimitiveTypeInput!]!): AddPrimitiveTypePayload
+  updatePrimitiveType(
+    input: UpdatePrimitiveTypeInput!
+  ): UpdatePrimitiveTypePayload
+  deletePrimitiveType(filter: PrimitiveTypeFilter!): DeletePrimitiveTypePayload
   addArrayType(input: [AddArrayTypeInput!]!): AddArrayTypePayload
   updateArrayType(input: UpdateArrayTypeInput!): UpdateArrayTypePayload
   deleteArrayType(filter: ArrayTypeFilter!): DeleteArrayTypePayload
@@ -1800,11 +1802,57 @@ input PolygonRef {
   coordinates: [PointListRef!]!
 }
 
-enum PrimitiveType {
+enum PrimitiveKind {
   String
   Integer
   Float
   Boolean
+}
+
+type PrimitiveType implements Type {
+  id: ID!
+  name: String!
+  primitiveKind: PrimitiveKind!
+}
+
+type PrimitiveTypeAggregateResult {
+  count: Int
+  nameMin: String
+  nameMax: String
+}
+
+input PrimitiveTypeFilter {
+  id: [ID!]
+  has: [PrimitiveTypeHasFilter]
+  and: [PrimitiveTypeFilter]
+  or: [PrimitiveTypeFilter]
+  not: PrimitiveTypeFilter
+}
+
+enum PrimitiveTypeHasFilter {
+  name
+  primitiveKind
+}
+
+input PrimitiveTypeOrder {
+  asc: PrimitiveTypeOrderable
+  desc: PrimitiveTypeOrderable
+  then: PrimitiveTypeOrder
+}
+
+enum PrimitiveTypeOrderable {
+  name
+}
+
+input PrimitiveTypePatch {
+  name: String
+  primitiveKind: PrimitiveKind
+}
+
+input PrimitiveTypeRef {
+  id: ID
+  name: String
+  primitiveKind: PrimitiveKind
 }
 
 type Prop {
@@ -1931,14 +1979,16 @@ type Query {
   aggregateAtom(filter: AtomFilter): AtomAggregateResult
   queryTag(filter: TagFilter, order: TagOrder, first: Int, offset: Int): [Tag]
   aggregateTag(filter: TagFilter): TagAggregateResult
-  getSimpleType(id: ID!): SimpleType
-  querySimpleType(
-    filter: SimpleTypeFilter
-    order: SimpleTypeOrder
+  getPrimitiveType(id: ID!): PrimitiveType
+  queryPrimitiveType(
+    filter: PrimitiveTypeFilter
+    order: PrimitiveTypeOrder
     first: Int
     offset: Int
-  ): [SimpleType]
-  aggregateSimpleType(filter: SimpleTypeFilter): SimpleTypeAggregateResult
+  ): [PrimitiveType]
+  aggregatePrimitiveType(
+    filter: PrimitiveTypeFilter
+  ): PrimitiveTypeAggregateResult
   getArrayType(id: ID!): ArrayType
   queryArrayType(
     filter: ArrayTypeFilter
@@ -2039,52 +2089,6 @@ type Query {
   getProp(id: ID!): Prop
   queryProp(filter: PropFilter, first: Int, offset: Int): [Prop]
   aggregateProp(filter: PropFilter): PropAggregateResult
-}
-
-type SimpleType implements Type {
-  id: ID!
-  name: String!
-  primitiveType: PrimitiveType!
-}
-
-type SimpleTypeAggregateResult {
-  count: Int
-  nameMin: String
-  nameMax: String
-}
-
-input SimpleTypeFilter {
-  id: [ID!]
-  has: [SimpleTypeHasFilter]
-  and: [SimpleTypeFilter]
-  or: [SimpleTypeFilter]
-  not: SimpleTypeFilter
-}
-
-enum SimpleTypeHasFilter {
-  name
-  primitiveType
-}
-
-input SimpleTypeOrder {
-  asc: SimpleTypeOrderable
-  desc: SimpleTypeOrderable
-  then: SimpleTypeOrder
-}
-
-enum SimpleTypeOrderable {
-  name
-}
-
-input SimpleTypePatch {
-  name: String
-  primitiveType: PrimitiveType
-}
-
-input SimpleTypeRef {
-  id: ID
-  name: String
-  primitiveType: PrimitiveType
 }
 
 input StringExactFilter {
@@ -2257,28 +2261,28 @@ input TypeRef {
   id: ID!
 }
 
-union TypeUnion = Interface | EnumType | ArrayType | SimpleType
+union TypeUnion = Interface | EnumType | ArrayType | PrimitiveType
 
 input TypeUnionFilter {
   memberTypes: [TypeUnionType!]
   interfaceFilter: InterfaceFilter
   enumTypeFilter: EnumTypeFilter
   arrayTypeFilter: ArrayTypeFilter
-  simpleTypeFilter: SimpleTypeFilter
+  primitiveTypeFilter: PrimitiveTypeFilter
 }
 
 input TypeUnionRef {
   interfaceRef: InterfaceRef
   enumTypeRef: EnumTypeRef
   arrayTypeRef: ArrayTypeRef
-  simpleTypeRef: SimpleTypeRef
+  primitiveTypeRef: PrimitiveTypeRef
 }
 
 enum TypeUnionType {
   Interface
   EnumType
   ArrayType
-  SimpleType
+  PrimitiveType
 }
 
 input UpdateAppInput {
@@ -2515,6 +2519,22 @@ type UpdatePagePayload {
   numUids: Int
 }
 
+input UpdatePrimitiveTypeInput {
+  filter: PrimitiveTypeFilter!
+  set: PrimitiveTypePatch
+  remove: PrimitiveTypePatch
+}
+
+type UpdatePrimitiveTypePayload {
+  primitiveType(
+    filter: PrimitiveTypeFilter
+    order: PrimitiveTypeOrder
+    first: Int
+    offset: Int
+  ): [PrimitiveType]
+  numUids: Int
+}
+
 input UpdatePropInput {
   filter: PropFilter!
   set: PropPatch
@@ -2523,22 +2543,6 @@ input UpdatePropInput {
 
 type UpdatePropPayload {
   prop(filter: PropFilter, first: Int, offset: Int): [Prop]
-  numUids: Int
-}
-
-input UpdateSimpleTypeInput {
-  filter: SimpleTypeFilter!
-  set: SimpleTypePatch
-  remove: SimpleTypePatch
-}
-
-type UpdateSimpleTypePayload {
-  simpleType(
-    filter: SimpleTypeFilter
-    order: SimpleTypeOrder
-    first: Int
-    offset: Int
-  ): [SimpleType]
   numUids: Int
 }
 

@@ -14,9 +14,9 @@ import {
   CreateInterfaceGql,
   CreateInterfaceMutation,
   CreateInterfaceMutationVariables,
-  CreateSimpleTypeGql,
-  CreateSimpleTypeMutation,
-  CreateSimpleTypeMutationVariables,
+  CreatePrimitiveTypeGql,
+  CreatePrimitiveTypeMutation,
+  CreatePrimitiveTypeMutationVariables,
 } from '@codelab/codegen/dgraph'
 import { Inject, Injectable } from '@nestjs/common'
 import {
@@ -24,7 +24,7 @@ import {
   EnumTypeValue,
   FieldCollection,
   Interface,
-  SimpleType,
+  PrimitiveType,
   Type,
 } from '../../../models'
 import { GetTypeService } from '../get-type'
@@ -34,12 +34,12 @@ import { CreateTypeValidator } from './create-type.validator'
 type GqlVariablesType =
   | CreateArrayTypeMutationVariables
   | CreateEnumTypeMutationVariables
-  | CreateSimpleTypeMutationVariables
+  | CreatePrimitiveTypeMutationVariables
   | CreateInterfaceMutationVariables
 type GqlOperationType =
   | CreateArrayTypeMutation
   | CreateEnumTypeMutation
-  | CreateSimpleTypeMutation
+  | CreatePrimitiveTypeMutation
   | CreateInterfaceMutation
 
 @Injectable()
@@ -67,8 +67,8 @@ export class CreateTypeService extends MutationUseCase<
       return CreateEnumTypeGql
     }
 
-    if (req.simpleType) {
-      return CreateSimpleTypeGql
+    if (req.primitiveType) {
+      return CreatePrimitiveTypeGql
     }
 
     if (req.interfaceType) {
@@ -119,20 +119,23 @@ export class CreateTypeService extends MutationUseCase<
       )
     }
 
-    const simpleTypeResult = (result.data as CreateSimpleTypeMutation)
-      .addSimpleType
+    const primitiveTypeResult = (result.data as CreatePrimitiveTypeMutation)
+      .addPrimitiveType
 
-    if (simpleTypeResult) {
-      if (!simpleTypeResult.simpleType || !simpleTypeResult.simpleType[0]) {
+    if (primitiveTypeResult) {
+      if (
+        !primitiveTypeResult.primitiveType ||
+        !primitiveTypeResult.primitiveType[0]
+      ) {
         throw new Error('Error while creating type')
       }
 
-      const createdSimpleType = simpleTypeResult.simpleType[0]
+      const createdPrimitiveType = primitiveTypeResult.primitiveType[0]
 
-      return new SimpleType(
-        createdSimpleType.id,
-        createdSimpleType.name,
-        createdSimpleType.primitiveType,
+      return new PrimitiveType(
+        createdPrimitiveType.id,
+        createdPrimitiveType.name,
+        createdPrimitiveType.primitiveKind,
       )
     }
 
@@ -144,11 +147,11 @@ export class CreateTypeService extends MutationUseCase<
         throw new Error('Error while creating type')
       }
 
-      const createdSimpleType = interfaceResult.interface[0]
+      const createdInterfaceType = interfaceResult.interface[0]
 
       return new Interface(
-        createdSimpleType.id,
-        createdSimpleType.name,
+        createdInterfaceType.id,
+        createdInterfaceType.name,
         new FieldCollection([], []),
       )
     }
@@ -158,7 +161,7 @@ export class CreateTypeService extends MutationUseCase<
 
   protected mapVariables({
     enumType,
-    simpleType,
+    primitiveType,
     arrayType,
     interfaceType,
     name,
@@ -171,9 +174,9 @@ export class CreateTypeService extends MutationUseCase<
       }
     }
 
-    if (simpleType) {
+    if (primitiveType) {
       return {
-        input: { ...baseInput, primitiveType: simpleType.primitiveType },
+        input: { ...baseInput, primitiveKind: primitiveType.primitiveKind },
       }
     }
 

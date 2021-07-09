@@ -1,10 +1,10 @@
 import {
   __FieldFragment,
+  __PrimitiveTypeFragment,
   __PropFragment,
   __PropValueFragment,
-  __SimpleTypeFragment,
   __TypeFragment,
-  PrimitiveType,
+  PrimitiveKind,
   UpsertPropsInput,
   UpsertValueInput,
 } from '@codelab/codegen/graphql'
@@ -101,7 +101,7 @@ export class JsonModelUpsertValueAdapter {
     }
 
     switch (type.__typename) {
-      case TypeModels.SimpleType:
+      case TypeModels.PrimitiveType:
         return JsonModelUpsertValueAdapter.jsonValueToPrimitiveValueInput(
           jsonValue,
           type,
@@ -168,17 +168,17 @@ export class JsonModelUpsertValueAdapter {
 
   static jsonValueToPrimitiveValueInput(
     jsonValue: PrimitivePropValue,
-    type: __SimpleTypeFragment,
+    type: __PrimitiveTypeFragment,
   ): UpsertValueInput | null {
     if (typeof jsonValue === 'undefined' || jsonValue == null) {
       return null
     }
 
-    switch (type.primitiveType) {
-      case PrimitiveType.String:
+    switch (type.primitiveKind) {
+      case PrimitiveKind.String:
         return { stringValue: { value: jsonValue.toString() } }
 
-      case PrimitiveType.Integer:
+      case PrimitiveKind.Integer:
         switch (typeof jsonValue) {
           case 'number':
             return { intValue: { value: jsonValue } }
@@ -190,7 +190,7 @@ export class JsonModelUpsertValueAdapter {
             )
         }
 
-      case PrimitiveType.Float:
+      case PrimitiveKind.Float:
         switch (typeof jsonValue) {
           case 'number':
             return { floatValue: { value: jsonValue } }
@@ -202,10 +202,10 @@ export class JsonModelUpsertValueAdapter {
             )
         }
 
-      case PrimitiveType.Boolean:
+      case PrimitiveKind.Boolean:
         return { booleanValue: { value: !!jsonValue } }
       default:
-        throw new Error(`Unrecognized primitive type ${type.primitiveType}`)
+        throw new Error(`Unrecognized primitive kind ${type.primitiveKind}`)
     }
   }
 }
