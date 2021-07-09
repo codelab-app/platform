@@ -1,5 +1,5 @@
-query GetAtomByElement($elementId: ID!){
-  getElement(id: $elementId){
+query GetAtomByElement($elementId: ID!) {
+  getElement(id: $elementId) {
     atom {
       ...DGraph__Atom
     }

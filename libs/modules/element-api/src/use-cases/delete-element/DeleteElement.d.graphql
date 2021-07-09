@@ -3,7 +3,7 @@ mutation DeleteElement($filter: ElementFilter!, $propsFilter: PropFilter!) {
     numUids
   }
 
-  deleteProp(filter: $propsFilter){
+  deleteProp(filter: $propsFilter) {
     numUids
   }
 }
