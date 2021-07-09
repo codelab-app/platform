@@ -24,15 +24,18 @@ export const graphqlSchemaConfig = registerAs<() => GraphqlSchemaConfig>(
     return {
       dgraphGraphqlSchemaFile: path.resolve(
         process.cwd(),
+        // '/home/artonio/DEV/upwork/codelab.ai/',
         'schema.dgraph.graphql',
       ),
       dgraphCodegenOutputFile: path.resolve(
         process.cwd(),
+        // '/home/artonio/DEV/upwork/codelab.ai/',
         'libs/codegen/dgraph/src/graphql-client-dgraph.generated.ts',
       ),
       apiGraphqlSchemaFile,
       apiCodegenOutputFile: path.resolve(
         process.cwd(),
+        // '/home/artonio/DEV/upwork/codelab.ai/',
         'libs/codegen/graphql/src/graphql-client-api.generated.ts',
       ),
     }

@@ -17,29 +17,36 @@ export class SeedDbService {
   }
 
   async seedAtoms() {
-
+    return await this.transactionWrapper(async (txn) => {
+        await this.seedAtomsAndLibraries(txn)
+      }
+    )
   }
 
-  private async seedAtomsAndLibraries() {
+  private async seedAtomsAndLibraries(txn: Txn) {
     const mu = new Mutation()
     const OWNER_ID = 'seed-user-test-id'
     const LIB_UID = '_:root_lib'
-    const d = {
+    const ATOM_UID = '_:atom_id'
+    const INTERFACE_UID = '_:interface_id'
+    const FIELD_UID = '_:field_id'
+    const lib_data = {
       'uid': LIB_UID,
       'Library.name': 'Root Library',
       'Library.ownerId': OWNER_ID,
       'Library.atoms': [
         {
-          'uid': '_:atom_id',
+          'uid': ATOM_UID,
           'Atom.library': {'uid': LIB_UID},
           'Atom.type': 'AntDesignInput',
           'Atom.label': 'Input',
           'Atom.propTypes': {
-            'uid': '_:interface_id',
-            'Interface.atom': {'uid': '_:atom_id'},
+            'uid': INTERFACE_UID,
+            'Interface.atom': {'uid': ATOM_UID},
             'Interface.fields': [
               {
-                'Field.interface': {'uid': '_:interface_id'},
+                'uid': FIELD_UID,
+                'Field.interface': {'uid': INTERFACE_UID},
                 'Field.key': 'block',
                 'Field.label': 'block',
                 'Field.description': 'Option to fit button width to its parent width',
@@ -50,6 +57,19 @@ export class SeedDbService {
 
       ]
     }
+
+    const propType = {
+
+    }
+
+
+    mu.setSetJson(lib_data)
+
+    const mutationResultLib = await txn.mutate(mu)
+
+    const fieldUid = mutationResultLib.getUidsMap().get(FIELD_UID)
+
+    await txn.commit()
   }
 
   private async seedAppWithPage(txn: Txn) {

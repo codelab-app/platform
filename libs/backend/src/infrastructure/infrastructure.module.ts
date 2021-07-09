@@ -26,6 +26,7 @@ export class InfrastructureModule implements OnModuleInit {
   }
 
   async onModuleInit() {
-    await this.seedDbService.seedDB()
+    // await this.seedDbService.seedDB()
+    await this.seedDbService.seedAtoms()
   }
 }
