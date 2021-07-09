@@ -300,7 +300,7 @@ describe('type', () => {
           (type as __ArrayTypeFragment).typeId,
         )
 
-        checkPrimitiveType(primitiveType, primitiveType)
+        checkPrimitiveType(primitiveType, PrimitiveKind.String)
       })
 
       it('should create enum type field', async () => {
@@ -682,10 +682,10 @@ describe('type', () => {
 
   const checkPrimitiveType = (
     type: __TypeFragment | undefined | null,
-    primitiveType: any,
+    primitiveKind: PrimitiveKind,
   ) => {
     expect(type).toBeTruthy()
     expect(type?.__typename).toBe('PrimitiveType')
-    expect((type as __PrimitiveTypeFragment).primitiveKind).toBe(primitiveType)
+    expect((type as __PrimitiveTypeFragment).primitiveKind).toBe(primitiveKind)
   }
 })
