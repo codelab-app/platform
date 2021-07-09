@@ -34,10 +34,9 @@ export class CreatePageService extends DgraphUseCase<
         <${appId}> <App.pages> _:page .
         _:page <Page.rootElement> _:rootElement .
 
-        _:rootElement <dgraph.type> "PageElement" .
-        _:rootElement <PageElement.name> "Page Root" .
-        _:rootElement <PageElement.page> _:page .
-        _:rootElement <PageElement.name> "Page Root" .
+        _:rootElement <dgraph.type> "Element" .
+        _:rootElement <Element.name> "Page Root" .
+        _:rootElement <Element.ownedBy> _:page .
       `,
     )
 

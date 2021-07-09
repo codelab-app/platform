@@ -1,0 +1,9 @@
+mutation DeleteElement($filter: ElementFilter!, $propsFilter: PropFilter!) {
+  deleteElement(filter: $filter) {
+    numUids
+  }
+
+  deleteProp(filter: $propsFilter){
+    numUids
+  }
+}

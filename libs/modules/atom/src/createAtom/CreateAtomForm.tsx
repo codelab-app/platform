@@ -9,7 +9,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useEffect } from 'react'
 import { AutoField, SelectField } from 'uniforms-antd'
@@ -18,7 +18,7 @@ import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
 
 export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
-  const { reset, setLoading } = useCRUDModalForm(EntityType.Atom)
+  const { reset, setLoading } = useCrudModalForm(EntityType.Atom)
 
   // Only Editors can modify Atoms (dgraph permissions?)
   const [mutate, { loading: creating }] = useCreateAtomMutation({

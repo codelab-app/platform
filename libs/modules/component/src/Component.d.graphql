@@ -1,10 +1,4 @@
 fragment __Component on Component {
   id
   label
-  # elements {
-  #   ...__ComponentElement
-  # }
-  # links {
-  #   ...PageElement__ComponentLink
-  # }
 }

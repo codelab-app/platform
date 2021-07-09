@@ -9,7 +9,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -19,7 +19,7 @@ import { appState } from '../state'
 import { updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppData>) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.App)
+  const { reset, setLoading, state } = useCrudModalForm(EntityType.App)
   const { updateId: updateAppId } = state
   const [, setAppState] = useRecoilState(appState)
 

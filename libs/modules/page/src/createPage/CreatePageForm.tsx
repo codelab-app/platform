@@ -8,7 +8,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useContext, useEffect } from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -17,7 +17,7 @@ import { createPageSchema, CreatePageSchemaType } from './createPageSchema'
 type CreatePageFormProps = UniFormUseCaseProps<CreatePageSchemaType>
 
 export const CreatePageForm = (props: CreatePageFormProps) => {
-  const { reset, setLoading } = useCRUDModalForm(EntityType.Page)
+  const { reset, setLoading } = useCrudModalForm(EntityType.Page)
   const { app } = useContext(AppContext)
 
   const [mutate, { loading: creating }] = useCreatePageMutation({

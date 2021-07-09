@@ -4,7 +4,7 @@ import {
   ListItemDeleteButton,
   ListItemSettingsButton,
   PageType,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
@@ -13,7 +13,7 @@ import React from 'react'
 export const LibraryExplorerList = () => {
   const { data, loading } = useLibraryExplorerQuery()
 
-  const { openDeleteModal, openUpdateModal } = useCRUDModalForm(
+  const { openDeleteModal, openUpdateModal } = useCrudModalForm(
     EntityType.Library,
   )
 

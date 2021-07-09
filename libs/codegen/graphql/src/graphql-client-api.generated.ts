@@ -46,8 +46,8 @@ export type Atom = {
   propTypes: Interface
 }
 
-export type AtomByPageElementFilter = {
-  pageElementId: Scalars['String']
+export type AtomByElementFilter = {
+  elementId: Scalars['String']
 }
 
 export enum AtomType {
@@ -251,6 +251,14 @@ export type CreateAtomInput = {
   type: AtomType
 }
 
+export type CreateElementInput = {
+  name: Scalars['String']
+  atomId?: Maybe<Scalars['String']>
+  parentElementId: Scalars['String']
+  /** Leave it out to automatically set it as the last order of all the children */
+  order?: Maybe<Scalars['Int']>
+}
+
 export type CreateEnumTypeInput = {
   allowedValues: Array<CreateEnumTypeValueInput>
 }
@@ -270,14 +278,6 @@ export type CreateFieldInput = {
 
 export type CreateInterfaceInput = {
   name: Scalars['String']
-}
-
-export type CreatePageElementInput = {
-  name: Scalars['String']
-  atomId?: Maybe<Scalars['String']>
-  parentPageElementId: Scalars['String']
-  /** Leave it out to automatically set it as the last order of all the children */
-  order?: Maybe<Scalars['Int']>
 }
 
 export type CreatePageInput = {
@@ -306,12 +306,12 @@ export type DeleteAtomInput = {
   atomId: Scalars['String']
 }
 
-export type DeleteFieldInput = {
-  fieldId: Scalars['String']
+export type DeleteElementInput = {
+  elementId: Scalars['String']
 }
 
-export type DeletePageElementInput = {
-  pageElementId: Scalars['String']
+export type DeleteFieldInput = {
+  fieldId: Scalars['String']
 }
 
 export type DeletePageInput = {
@@ -328,6 +328,35 @@ export type DeleteTypeInput = {
 
 export type DeleteUserInput = {
   userId: Scalars['String']
+}
+
+export type Element = {
+  id: Scalars['ID']
+  name: Scalars['String']
+  css?: Maybe<Scalars['String']>
+  atom?: Maybe<Atom>
+  props: Array<PropAggregate>
+}
+
+export type ElementAggregate = {
+  id: Scalars['ID']
+  name: Scalars['String']
+  css?: Maybe<Scalars['String']>
+  atom?: Maybe<Atom>
+  props: Array<PropAggregate>
+  /** All descendant Elements that are under this root, at any level */
+  descendants: Array<Element>
+  /** All the links connecting the descendant elements */
+  links: Array<ElementLink>
+}
+
+/** An edge between two element nodes */
+export type ElementLink = {
+  /** The id of the source Element */
+  from: Scalars['String']
+  /** The id of the target Element */
+  to: Scalars['String']
+  order: Scalars['Int']
 }
 
 export type EnumType = Type & {
@@ -380,11 +409,19 @@ export type GetAppInput = {
 }
 
 export type GetAtomByInput = {
-  byPageElement?: Maybe<AtomByPageElementFilter>
+  byElement?: Maybe<AtomByElementFilter>
 }
 
 export type GetAtomInput = {
   atomId: Scalars['String']
+}
+
+export type GetElementAggregateInput = {
+  elementId: Scalars['String']
+}
+
+export type GetElementInput = {
+  elementId: Scalars['String']
 }
 
 export type GetFieldInput = {
@@ -396,14 +433,6 @@ export type GetInterfaceInput = {
   interfaceId: Scalars['String']
 }
 
-export type GetPageElementInput = {
-  pageElementId: Scalars['String']
-}
-
-export type GetPageElementRootInput = {
-  pageElementId: Scalars['String']
-}
-
 export type GetPageInput = {
   pageId: Scalars['String']
 }
@@ -413,7 +442,7 @@ export type GetPagesInput = {
 }
 
 export type GetPropsInput = {
-  byPageElement?: Maybe<PropsByPageElementFilter>
+  byElement?: Maybe<PropsByElementFilter>
   byIds?: Maybe<PropsByIdsFilter>
   byInterfaceValue?: Maybe<PropsByInterfaceValueId>
 }
@@ -462,8 +491,8 @@ export type MoveData = {
   parentElementId: Scalars['String']
 }
 
-export type MovePageElementInput = {
-  pageElementId: Scalars['String']
+export type MoveElementInput = {
+  elementId: Scalars['String']
   moveData: MoveData
 }
 
@@ -476,11 +505,11 @@ export type Mutation = {
   createPage: Page
   deletePage: DeleteResponse
   updatePage: Page
-  createPageElement: PageElement
-  updatePageElement: PageElement
-  movePageElement: PageElement
-  /** Deletes a page element and all the descending page elements */
-  deletePageElement: DeleteResponse
+  createElement: Element
+  updateElement: Element
+  moveElement: Element
+  /** Deletes an element and all the descending elements */
+  deleteElement: DeleteResponse
   createAtom: Atom
   deleteAtom: DeleteResponse
   updateAtom: Atom
@@ -530,20 +559,20 @@ export type MutationUpdatePageArgs = {
   input: UpdatePageInput
 }
 
-export type MutationCreatePageElementArgs = {
-  input: CreatePageElementInput
+export type MutationCreateElementArgs = {
+  input: CreateElementInput
 }
 
-export type MutationUpdatePageElementArgs = {
-  input: UpdatePageElementInput
+export type MutationUpdateElementArgs = {
+  input: UpdateElementInput
 }
 
-export type MutationMovePageElementArgs = {
-  input: MovePageElementInput
+export type MutationMoveElementArgs = {
+  input: MoveElementInput
 }
 
-export type MutationDeletePageElementArgs = {
-  input: DeletePageElementInput
+export type MutationDeleteElementArgs = {
+  input: DeleteElementInput
 }
 
 export type MutationCreateAtomArgs = {
@@ -606,35 +635,7 @@ export type Page = {
   id: Scalars['ID']
   name: Scalars['String']
   app: App
-  rootElement: PageElementRoot
-}
-
-export type PageElement = {
-  id: Scalars['ID']
-  name: Scalars['String']
-  css?: Maybe<Scalars['String']>
-  atom?: Maybe<Atom>
-  props: Array<PropAggregate>
-}
-
-export type PageElementLink = {
-  /** The id of the source PageElement */
-  from: Scalars['String']
-  /** The id of the target PageElement */
-  to: Scalars['String']
-  order: Scalars['Int']
-}
-
-export type PageElementRoot = {
-  id: Scalars['ID']
-  name: Scalars['String']
-  css?: Maybe<Scalars['String']>
-  atom?: Maybe<Atom>
-  props: Array<PropAggregate>
-  /** All descendant PageElements that are under this root, at any level */
-  descendants: Array<PageElement>
-  /** All the links connecting the descendant page elements */
-  links: Array<PageElementLink>
+  rootElement: ElementAggregate
 }
 
 export enum PrimitiveType {
@@ -668,17 +669,17 @@ export type PropValue =
   | InterfaceValue
   | EnumTypeValue
 
+export type PropsByElementFilter = {
+  elementIds: Array<Scalars['String']>
+  fieldId?: Maybe<Scalars['String']>
+}
+
 export type PropsByIdsFilter = {
   propIds: Array<Scalars['String']>
 }
 
 export type PropsByInterfaceValueId = {
   interfaceValueId: Scalars['String']
-}
-
-export type PropsByPageElementFilter = {
-  pageElementIds: Array<Scalars['String']>
-  fieldId?: Maybe<Scalars['String']>
 }
 
 export type Query = {
@@ -688,9 +689,9 @@ export type Query = {
   getUsers: Array<User>
   getPages: Array<Page>
   getPage?: Maybe<Page>
-  getPageElement?: Maybe<PageElement>
-  /** Aggregates the requested page element and all of its descendant elements (infinitely deep) in the form of array of PageElement and array of PageElementLink */
-  getPageElementRoot?: Maybe<PageElementRoot>
+  getElement?: Maybe<Element>
+  /** Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of array of Element and array of ElementLink */
+  getElementAggregate?: Maybe<ElementAggregate>
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
   getAtomBy?: Maybe<Atom>
@@ -718,12 +719,12 @@ export type QueryGetPageArgs = {
   input: GetPageInput
 }
 
-export type QueryGetPageElementArgs = {
-  input: GetPageElementInput
+export type QueryGetElementArgs = {
+  input: GetElementInput
 }
 
-export type QueryGetPageElementRootArgs = {
-  input: GetPageElementRootInput
+export type QueryGetElementAggregateArgs = {
+  input: GetElementAggregateInput
 }
 
 export type QueryGetAtomArgs = {
@@ -797,6 +798,17 @@ export type UpdateAtomInput = {
   data: CreateAtomInput
 }
 
+export type UpdateElementData = {
+  name: Scalars['String']
+  css?: Maybe<Scalars['String']>
+  atomId?: Maybe<Scalars['String']>
+}
+
+export type UpdateElementInput = {
+  updateData: UpdateElementData
+  elementId: Scalars['String']
+}
+
 export type UpdateEnumTypeData = {
   allowedValues: Array<UpdateEnumTypeValueData>
   name: Scalars['String']
@@ -837,17 +849,6 @@ export type UpdateInterfaceInput = {
 export type UpdatePageData = {
   name: Scalars['String']
   appId: Scalars['String']
-}
-
-export type UpdatePageElementData = {
-  name: Scalars['String']
-  css?: Maybe<Scalars['String']>
-  atomId?: Maybe<Scalars['String']>
-}
-
-export type UpdatePageElementInput = {
-  updateData: UpdatePageElementData
-  pageElementId: Scalars['String']
 }
 
 export type UpdatePageInput = {
@@ -892,7 +893,7 @@ export type UpdateUserInput = {
 export type UpsertPropsInput = {
   propId?: Maybe<Scalars['String']>
   fieldId: Scalars['String']
-  pageElementId?: Maybe<Scalars['String']>
+  elementId?: Maybe<Scalars['String']>
   value?: Maybe<UpsertValueInput>
 }
 
@@ -996,32 +997,69 @@ export type UpdateAtomMutationVariables = Exact<{
 
 export type UpdateAtomMutation = { atom: __AtomFragment }
 
+export type ElementFragment = Pick<Element, 'id' | 'name' | 'css'> & {
+  atom?: Maybe<__AtomFragment>
+  props: Array<__PropAggregateFragment>
+}
+
+export type ElementAggregateFragment = Pick<
+  ElementAggregate,
+  'id' | 'name' | 'css'
+> & {
+  atom?: Maybe<__AtomFragment>
+  descendants: Array<ElementFragment>
+  links: Array<ElementLinkFragment>
+}
+
+export type ElementLinkFragment = Pick<ElementLink, 'from' | 'order' | 'to'>
+
+export type CreateElementMutationVariables = Exact<{
+  input: CreateElementInput
+}>
+
+export type CreateElementMutation = { createElement: ElementFragment }
+
+export type DeleteElementMutationVariables = Exact<{
+  input: DeleteElementInput
+}>
+
+export type DeleteElementMutation = {
+  deleteElement: Pick<DeleteResponse, 'affected'>
+}
+
+export type GetElementQueryVariables = Exact<{
+  input: GetElementInput
+}>
+
+export type GetElementQuery = { getElement?: Maybe<ElementFragment> }
+
+export type GetElementRootQueryVariables = Exact<{
+  input: GetElementAggregateInput
+}>
+
+export type GetElementRootQuery = {
+  getElementAggregate?: Maybe<ElementAggregateFragment>
+}
+
+export type MoveElementMutationVariables = Exact<{
+  input: MoveElementInput
+}>
+
+export type MoveElementMutation = { moveElement: ElementFragment }
+
+export type UpdateElementMutationVariables = Exact<{
+  input: UpdateElementInput
+}>
+
+export type UpdateElementMutation = { updateElement: ElementFragment }
+
 export type PageBaseFragment = Pick<Page, 'id' | 'name'> & {
   app: Pick<App, 'id' | 'name' | 'ownerId'>
 }
 
 export type PageFullFragment = {
-  rootElement: PageElementRootFragment
+  rootElement: ElementAggregateFragment
 } & PageBaseFragment
-
-export type PageElementFragment = Pick<PageElement, 'id' | 'name' | 'css'> & {
-  atom?: Maybe<__AtomFragment>
-  props: Array<__PropAggregateFragment>
-}
-
-export type PageElementRootFragment = Pick<
-  PageElementRoot,
-  'id' | 'name' | 'css'
-> & {
-  atom?: Maybe<__AtomFragment>
-  descendants: Array<PageElementFragment>
-  links: Array<PageElementLinkFragment>
-}
-
-export type PageElementLinkFragment = Pick<
-  PageElementLink,
-  'from' | 'order' | 'to'
->
 
 export type CreatePageMutationVariables = Exact<{
   input: CreatePageInput
@@ -1048,52 +1086,6 @@ export type GetPagesQueryVariables = Exact<{
 }>
 
 export type GetPagesQuery = { pages: Array<PageBaseFragment> }
-
-export type CreatePageElementMutationVariables = Exact<{
-  input: CreatePageElementInput
-}>
-
-export type CreatePageElementMutation = {
-  createPageElement: PageElementFragment
-}
-
-export type DeletePageElementMutationVariables = Exact<{
-  input: DeletePageElementInput
-}>
-
-export type DeletePageElementMutation = {
-  deletePageElement: Pick<DeleteResponse, 'affected'>
-}
-
-export type GetPageElementQueryVariables = Exact<{
-  input: GetPageElementInput
-}>
-
-export type GetPageElementQuery = {
-  getPageElement?: Maybe<PageElementFragment>
-}
-
-export type GetPageElementRootQueryVariables = Exact<{
-  input: GetPageElementRootInput
-}>
-
-export type GetPageElementRootQuery = {
-  getPageElementRoot?: Maybe<PageElementRootFragment>
-}
-
-export type MovePageElementMutationVariables = Exact<{
-  input: MovePageElementInput
-}>
-
-export type MovePageElementMutation = { movePageElement: PageElementFragment }
-
-export type UpdatePageElementMutationVariables = Exact<{
-  input: UpdatePageElementInput
-}>
-
-export type UpdatePageElementMutation = {
-  updatePageElement: PageElementFragment
-}
 
 export type UpdatePageMutationVariables = Exact<{
   input: UpdatePageInput
@@ -1725,8 +1717,8 @@ export const __PropAggregateFragmentDoc = gql`
   ${__PropFragmentDoc}
   ${__PropValueFragmentDoc}
 `
-export const PageElementFragmentDoc = gql`
-  fragment PageElement on PageElement {
+export const ElementFragmentDoc = gql`
+  fragment Element on Element {
     id
     name
     css
@@ -1740,15 +1732,15 @@ export const PageElementFragmentDoc = gql`
   ${__AtomFragmentDoc}
   ${__PropAggregateFragmentDoc}
 `
-export const PageElementLinkFragmentDoc = gql`
-  fragment PageElementLink on PageElementLink {
+export const ElementLinkFragmentDoc = gql`
+  fragment ElementLink on ElementLink {
     from
     order
     to
   }
 `
-export const PageElementRootFragmentDoc = gql`
-  fragment PageElementRoot on PageElementRoot {
+export const ElementAggregateFragmentDoc = gql`
+  fragment ElementAggregate on ElementAggregate {
     id
     name
     css
@@ -1756,25 +1748,25 @@ export const PageElementRootFragmentDoc = gql`
       ...__Atom
     }
     descendants {
-      ...PageElement
+      ...Element
     }
     links {
-      ...PageElementLink
+      ...ElementLink
     }
   }
   ${__AtomFragmentDoc}
-  ${PageElementFragmentDoc}
-  ${PageElementLinkFragmentDoc}
+  ${ElementFragmentDoc}
+  ${ElementLinkFragmentDoc}
 `
 export const PageFullFragmentDoc = gql`
   fragment PageFull on Page {
     ...PageBase
     rootElement {
-      ...PageElementRoot
+      ...ElementAggregate
     }
   }
   ${PageBaseFragmentDoc}
-  ${PageElementRootFragmentDoc}
+  ${ElementAggregateFragmentDoc}
 `
 export const __ArrayValueShallowFragmentDoc = gql`
   fragment __ArrayValueShallow on ArrayValue {
@@ -2412,6 +2404,333 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 >
+export const CreateElementGql = gql`
+  mutation CreateElement($input: CreateElementInput!) {
+    createElement(input: $input) {
+      ...Element
+    }
+  }
+  ${ElementFragmentDoc}
+`
+export type CreateElementMutationFn = Apollo.MutationFunction<
+  CreateElementMutation,
+  CreateElementMutationVariables
+>
+
+/**
+ * __useCreateElementMutation__
+ *
+ * To run a mutation, you first call `useCreateElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createElementMutation, { data, loading, error }] = useCreateElementMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateElementMutation,
+    CreateElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateElementMutation,
+    CreateElementMutationVariables
+  >(CreateElementGql, options)
+}
+export type CreateElementMutationHookResult = ReturnType<
+  typeof useCreateElementMutation
+>
+export type CreateElementMutationResult =
+  Apollo.MutationResult<CreateElementMutation>
+export type CreateElementMutationOptions = Apollo.BaseMutationOptions<
+  CreateElementMutation,
+  CreateElementMutationVariables
+>
+export const DeleteElementGql = gql`
+  mutation DeleteElement($input: DeleteElementInput!) {
+    deleteElement(input: $input) {
+      affected
+    }
+  }
+`
+export type DeleteElementMutationFn = Apollo.MutationFunction<
+  DeleteElementMutation,
+  DeleteElementMutationVariables
+>
+
+/**
+ * __useDeleteElementMutation__
+ *
+ * To run a mutation, you first call `useDeleteElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteElementMutation, { data, loading, error }] = useDeleteElementMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteElementMutation,
+    DeleteElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteElementMutation,
+    DeleteElementMutationVariables
+  >(DeleteElementGql, options)
+}
+export type DeleteElementMutationHookResult = ReturnType<
+  typeof useDeleteElementMutation
+>
+export type DeleteElementMutationResult =
+  Apollo.MutationResult<DeleteElementMutation>
+export type DeleteElementMutationOptions = Apollo.BaseMutationOptions<
+  DeleteElementMutation,
+  DeleteElementMutationVariables
+>
+export const GetElementGql = gql`
+  query GetElement($input: GetElementInput!) {
+    getElement(input: $input) {
+      ...Element
+    }
+  }
+  ${ElementFragmentDoc}
+`
+
+/**
+ * __useGetElementQuery__
+ *
+ * To run a query within a React component, call `useGetElementQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetElementQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetElementQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetElementQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetElementQuery,
+    GetElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetElementQuery, GetElementQueryVariables>(
+    GetElementGql,
+    options,
+  )
+}
+export function useGetElementLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetElementQuery,
+    GetElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetElementQuery, GetElementQueryVariables>(
+    GetElementGql,
+    options,
+  )
+}
+export type GetElementQueryHookResult = ReturnType<typeof useGetElementQuery>
+export type GetElementLazyQueryHookResult = ReturnType<
+  typeof useGetElementLazyQuery
+>
+export type GetElementQueryResult = Apollo.QueryResult<
+  GetElementQuery,
+  GetElementQueryVariables
+>
+export function refetchGetElementQuery(variables?: GetElementQueryVariables) {
+  return { query: GetElementGql, variables: variables }
+}
+export const GetElementRootGql = gql`
+  query GetElementRoot($input: GetElementAggregateInput!) {
+    getElementAggregate(input: $input) {
+      ...ElementAggregate
+    }
+  }
+  ${ElementAggregateFragmentDoc}
+`
+
+/**
+ * __useGetElementRootQuery__
+ *
+ * To run a query within a React component, call `useGetElementRootQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetElementRootQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetElementRootQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetElementRootQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetElementRootQuery,
+    GetElementRootQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetElementRootQuery, GetElementRootQueryVariables>(
+    GetElementRootGql,
+    options,
+  )
+}
+export function useGetElementRootLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetElementRootQuery,
+    GetElementRootQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetElementRootQuery, GetElementRootQueryVariables>(
+    GetElementRootGql,
+    options,
+  )
+}
+export type GetElementRootQueryHookResult = ReturnType<
+  typeof useGetElementRootQuery
+>
+export type GetElementRootLazyQueryHookResult = ReturnType<
+  typeof useGetElementRootLazyQuery
+>
+export type GetElementRootQueryResult = Apollo.QueryResult<
+  GetElementRootQuery,
+  GetElementRootQueryVariables
+>
+export function refetchGetElementRootQuery(
+  variables?: GetElementRootQueryVariables,
+) {
+  return { query: GetElementRootGql, variables: variables }
+}
+export const MoveElementGql = gql`
+  mutation MoveElement($input: MoveElementInput!) {
+    moveElement(input: $input) {
+      ...Element
+    }
+  }
+  ${ElementFragmentDoc}
+`
+export type MoveElementMutationFn = Apollo.MutationFunction<
+  MoveElementMutation,
+  MoveElementMutationVariables
+>
+
+/**
+ * __useMoveElementMutation__
+ *
+ * To run a mutation, you first call `useMoveElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMoveElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [moveElementMutation, { data, loading, error }] = useMoveElementMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useMoveElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    MoveElementMutation,
+    MoveElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<MoveElementMutation, MoveElementMutationVariables>(
+    MoveElementGql,
+    options,
+  )
+}
+export type MoveElementMutationHookResult = ReturnType<
+  typeof useMoveElementMutation
+>
+export type MoveElementMutationResult =
+  Apollo.MutationResult<MoveElementMutation>
+export type MoveElementMutationOptions = Apollo.BaseMutationOptions<
+  MoveElementMutation,
+  MoveElementMutationVariables
+>
+export const UpdateElementGql = gql`
+  mutation UpdateElement($input: UpdateElementInput!) {
+    updateElement(input: $input) {
+      ...Element
+    }
+  }
+  ${ElementFragmentDoc}
+`
+export type UpdateElementMutationFn = Apollo.MutationFunction<
+  UpdateElementMutation,
+  UpdateElementMutationVariables
+>
+
+/**
+ * __useUpdateElementMutation__
+ *
+ * To run a mutation, you first call `useUpdateElementMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateElementMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateElementMutation, { data, loading, error }] = useUpdateElementMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateElementMutation,
+    UpdateElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateElementMutation,
+    UpdateElementMutationVariables
+  >(UpdateElementGql, options)
+}
+export type UpdateElementMutationHookResult = ReturnType<
+  typeof useUpdateElementMutation
+>
+export type UpdateElementMutationResult =
+  Apollo.MutationResult<UpdateElementMutation>
+export type UpdateElementMutationOptions = Apollo.BaseMutationOptions<
+  UpdateElementMutation,
+  UpdateElementMutationVariables
+>
 export const CreatePageGql = gql`
   mutation CreatePage($input: CreatePageInput!) {
     createPage(input: $input) {
@@ -2623,337 +2942,6 @@ export type GetPagesQueryResult = Apollo.QueryResult<
 export function refetchGetPagesQuery(variables?: GetPagesQueryVariables) {
   return { query: GetPagesGql, variables: variables }
 }
-export const CreatePageElementGql = gql`
-  mutation CreatePageElement($input: CreatePageElementInput!) {
-    createPageElement(input: $input) {
-      ...PageElement
-    }
-  }
-  ${PageElementFragmentDoc}
-`
-export type CreatePageElementMutationFn = Apollo.MutationFunction<
-  CreatePageElementMutation,
-  CreatePageElementMutationVariables
->
-
-/**
- * __useCreatePageElementMutation__
- *
- * To run a mutation, you first call `useCreatePageElementMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreatePageElementMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createPageElementMutation, { data, loading, error }] = useCreatePageElementMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreatePageElementMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    CreatePageElementMutation,
-    CreatePageElementMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    CreatePageElementMutation,
-    CreatePageElementMutationVariables
-  >(CreatePageElementGql, options)
-}
-export type CreatePageElementMutationHookResult = ReturnType<
-  typeof useCreatePageElementMutation
->
-export type CreatePageElementMutationResult =
-  Apollo.MutationResult<CreatePageElementMutation>
-export type CreatePageElementMutationOptions = Apollo.BaseMutationOptions<
-  CreatePageElementMutation,
-  CreatePageElementMutationVariables
->
-export const DeletePageElementGql = gql`
-  mutation DeletePageElement($input: DeletePageElementInput!) {
-    deletePageElement(input: $input) {
-      affected
-    }
-  }
-`
-export type DeletePageElementMutationFn = Apollo.MutationFunction<
-  DeletePageElementMutation,
-  DeletePageElementMutationVariables
->
-
-/**
- * __useDeletePageElementMutation__
- *
- * To run a mutation, you first call `useDeletePageElementMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeletePageElementMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deletePageElementMutation, { data, loading, error }] = useDeletePageElementMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useDeletePageElementMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    DeletePageElementMutation,
-    DeletePageElementMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    DeletePageElementMutation,
-    DeletePageElementMutationVariables
-  >(DeletePageElementGql, options)
-}
-export type DeletePageElementMutationHookResult = ReturnType<
-  typeof useDeletePageElementMutation
->
-export type DeletePageElementMutationResult =
-  Apollo.MutationResult<DeletePageElementMutation>
-export type DeletePageElementMutationOptions = Apollo.BaseMutationOptions<
-  DeletePageElementMutation,
-  DeletePageElementMutationVariables
->
-export const GetPageElementGql = gql`
-  query GetPageElement($input: GetPageElementInput!) {
-    getPageElement(input: $input) {
-      ...PageElement
-    }
-  }
-  ${PageElementFragmentDoc}
-`
-
-/**
- * __useGetPageElementQuery__
- *
- * To run a query within a React component, call `useGetPageElementQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPageElementQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPageElementQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetPageElementQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetPageElementQuery,
-    GetPageElementQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetPageElementQuery, GetPageElementQueryVariables>(
-    GetPageElementGql,
-    options,
-  )
-}
-export function useGetPageElementLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetPageElementQuery,
-    GetPageElementQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetPageElementQuery, GetPageElementQueryVariables>(
-    GetPageElementGql,
-    options,
-  )
-}
-export type GetPageElementQueryHookResult = ReturnType<
-  typeof useGetPageElementQuery
->
-export type GetPageElementLazyQueryHookResult = ReturnType<
-  typeof useGetPageElementLazyQuery
->
-export type GetPageElementQueryResult = Apollo.QueryResult<
-  GetPageElementQuery,
-  GetPageElementQueryVariables
->
-export function refetchGetPageElementQuery(
-  variables?: GetPageElementQueryVariables,
-) {
-  return { query: GetPageElementGql, variables: variables }
-}
-export const GetPageElementRootGql = gql`
-  query GetPageElementRoot($input: GetPageElementRootInput!) {
-    getPageElementRoot(input: $input) {
-      ...PageElementRoot
-    }
-  }
-  ${PageElementRootFragmentDoc}
-`
-
-/**
- * __useGetPageElementRootQuery__
- *
- * To run a query within a React component, call `useGetPageElementRootQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPageElementRootQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPageElementRootQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetPageElementRootQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetPageElementRootQuery,
-    GetPageElementRootQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<
-    GetPageElementRootQuery,
-    GetPageElementRootQueryVariables
-  >(GetPageElementRootGql, options)
-}
-export function useGetPageElementRootLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetPageElementRootQuery,
-    GetPageElementRootQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    GetPageElementRootQuery,
-    GetPageElementRootQueryVariables
-  >(GetPageElementRootGql, options)
-}
-export type GetPageElementRootQueryHookResult = ReturnType<
-  typeof useGetPageElementRootQuery
->
-export type GetPageElementRootLazyQueryHookResult = ReturnType<
-  typeof useGetPageElementRootLazyQuery
->
-export type GetPageElementRootQueryResult = Apollo.QueryResult<
-  GetPageElementRootQuery,
-  GetPageElementRootQueryVariables
->
-export function refetchGetPageElementRootQuery(
-  variables?: GetPageElementRootQueryVariables,
-) {
-  return { query: GetPageElementRootGql, variables: variables }
-}
-export const MovePageElementGql = gql`
-  mutation MovePageElement($input: MovePageElementInput!) {
-    movePageElement(input: $input) {
-      ...PageElement
-    }
-  }
-  ${PageElementFragmentDoc}
-`
-export type MovePageElementMutationFn = Apollo.MutationFunction<
-  MovePageElementMutation,
-  MovePageElementMutationVariables
->
-
-/**
- * __useMovePageElementMutation__
- *
- * To run a mutation, you first call `useMovePageElementMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMovePageElementMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [movePageElementMutation, { data, loading, error }] = useMovePageElementMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useMovePageElementMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    MovePageElementMutation,
-    MovePageElementMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    MovePageElementMutation,
-    MovePageElementMutationVariables
-  >(MovePageElementGql, options)
-}
-export type MovePageElementMutationHookResult = ReturnType<
-  typeof useMovePageElementMutation
->
-export type MovePageElementMutationResult =
-  Apollo.MutationResult<MovePageElementMutation>
-export type MovePageElementMutationOptions = Apollo.BaseMutationOptions<
-  MovePageElementMutation,
-  MovePageElementMutationVariables
->
-export const UpdatePageElementGql = gql`
-  mutation UpdatePageElement($input: UpdatePageElementInput!) {
-    updatePageElement(input: $input) {
-      ...PageElement
-    }
-  }
-  ${PageElementFragmentDoc}
-`
-export type UpdatePageElementMutationFn = Apollo.MutationFunction<
-  UpdatePageElementMutation,
-  UpdatePageElementMutationVariables
->
-
-/**
- * __useUpdatePageElementMutation__
- *
- * To run a mutation, you first call `useUpdatePageElementMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdatePageElementMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updatePageElementMutation, { data, loading, error }] = useUpdatePageElementMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdatePageElementMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    UpdatePageElementMutation,
-    UpdatePageElementMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<
-    UpdatePageElementMutation,
-    UpdatePageElementMutationVariables
-  >(UpdatePageElementGql, options)
-}
-export type UpdatePageElementMutationHookResult = ReturnType<
-  typeof useUpdatePageElementMutation
->
-export type UpdatePageElementMutationResult =
-  Apollo.MutationResult<UpdatePageElementMutation>
-export type UpdatePageElementMutationOptions = Apollo.BaseMutationOptions<
-  UpdatePageElementMutation,
-  UpdatePageElementMutationVariables
->
 export const UpdatePageGql = gql`
   mutation UpdatePage($input: UpdatePageInput!) {
     updatePage(input: $input) {
@@ -4480,8 +4468,8 @@ export const __PropAggregate = gql`
   ${__Prop}
   ${__PropValue}
 `
-export const PageElement = gql`
-  fragment PageElement on PageElement {
+export const Element = gql`
+  fragment Element on Element {
     id
     name
     css
@@ -4495,15 +4483,15 @@ export const PageElement = gql`
   ${__Atom}
   ${__PropAggregate}
 `
-export const PageElementLink = gql`
-  fragment PageElementLink on PageElementLink {
+export const ElementLink = gql`
+  fragment ElementLink on ElementLink {
     from
     order
     to
   }
 `
-export const PageElementRoot = gql`
-  fragment PageElementRoot on PageElementRoot {
+export const ElementAggregate = gql`
+  fragment ElementAggregate on ElementAggregate {
     id
     name
     css
@@ -4511,25 +4499,25 @@ export const PageElementRoot = gql`
       ...__Atom
     }
     descendants {
-      ...PageElement
+      ...Element
     }
     links {
-      ...PageElementLink
+      ...ElementLink
     }
   }
   ${__Atom}
-  ${PageElement}
-  ${PageElementLink}
+  ${Element}
+  ${ElementLink}
 `
 export const PageFull = gql`
   fragment PageFull on Page {
     ...PageBase
     rootElement {
-      ...PageElementRoot
+      ...ElementAggregate
     }
   }
   ${PageBase}
-  ${PageElementRoot}
+  ${ElementAggregate}
 `
 export const __ArrayValueShallow = gql`
   fragment __ArrayValueShallow on ArrayValue {
@@ -4733,6 +4721,53 @@ export const UpdateAtom = gql`
   }
   ${__Atom}
 `
+export const CreateElement = gql`
+  mutation CreateElement($input: CreateElementInput!) {
+    createElement(input: $input) {
+      ...Element
+    }
+  }
+  ${Element}
+`
+export const DeleteElement = gql`
+  mutation DeleteElement($input: DeleteElementInput!) {
+    deleteElement(input: $input) {
+      affected
+    }
+  }
+`
+export const GetElement = gql`
+  query GetElement($input: GetElementInput!) {
+    getElement(input: $input) {
+      ...Element
+    }
+  }
+  ${Element}
+`
+export const GetElementRoot = gql`
+  query GetElementRoot($input: GetElementAggregateInput!) {
+    getElementAggregate(input: $input) {
+      ...ElementAggregate
+    }
+  }
+  ${ElementAggregate}
+`
+export const MoveElement = gql`
+  mutation MoveElement($input: MoveElementInput!) {
+    moveElement(input: $input) {
+      ...Element
+    }
+  }
+  ${Element}
+`
+export const UpdateElement = gql`
+  mutation UpdateElement($input: UpdateElementInput!) {
+    updateElement(input: $input) {
+      ...Element
+    }
+  }
+  ${Element}
+`
 export const CreatePage = gql`
   mutation CreatePage($input: CreatePageInput!) {
     createPage(input: $input) {
@@ -4763,53 +4798,6 @@ export const GetPages = gql`
     }
   }
   ${PageBase}
-`
-export const CreatePageElement = gql`
-  mutation CreatePageElement($input: CreatePageElementInput!) {
-    createPageElement(input: $input) {
-      ...PageElement
-    }
-  }
-  ${PageElement}
-`
-export const DeletePageElement = gql`
-  mutation DeletePageElement($input: DeletePageElementInput!) {
-    deletePageElement(input: $input) {
-      affected
-    }
-  }
-`
-export const GetPageElement = gql`
-  query GetPageElement($input: GetPageElementInput!) {
-    getPageElement(input: $input) {
-      ...PageElement
-    }
-  }
-  ${PageElement}
-`
-export const GetPageElementRoot = gql`
-  query GetPageElementRoot($input: GetPageElementRootInput!) {
-    getPageElementRoot(input: $input) {
-      ...PageElementRoot
-    }
-  }
-  ${PageElementRoot}
-`
-export const MovePageElement = gql`
-  mutation MovePageElement($input: MovePageElementInput!) {
-    movePageElement(input: $input) {
-      ...PageElement
-    }
-  }
-  ${PageElement}
-`
-export const UpdatePageElement = gql`
-  mutation UpdatePageElement($input: UpdatePageElementInput!) {
-    updatePageElement(input: $input) {
-      ...PageElement
-    }
-  }
-  ${PageElement}
 `
 export const UpdatePage = gql`
   mutation UpdatePage($input: UpdatePageInput!) {

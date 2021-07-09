@@ -1,0 +1,32 @@
+fragment Element on Element {
+  id
+  name
+  css
+  atom {
+    ...__Atom
+  }
+  props {
+    ...__PropAggregate
+  }
+}
+
+fragment ElementAggregate on ElementAggregate {
+  id
+  name
+  css
+  atom {
+    ...__Atom
+  }
+  descendants {
+    ...Element
+  }
+  links {
+    ...ElementLink
+  }
+}
+
+fragment ElementLink on ElementLink {
+  from
+  order
+  to
+}

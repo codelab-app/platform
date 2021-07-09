@@ -1,3 +1,3 @@
 export * from './deleteProp'
-export * from './pageElementProps'
+export * from './elementProps'
 export * from './updateProps'

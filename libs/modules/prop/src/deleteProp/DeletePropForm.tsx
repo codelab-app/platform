@@ -3,7 +3,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 /* import {
  *   refetchGetPropsQuery,
@@ -16,7 +16,7 @@ import { DeletePropInput, deletePropSchema } from './deletePropSchema'
 type DeletePropFormProps = UniFormUseCaseProps<DeletePropInput>
 
 export const DeletePropForm = (props: DeletePropFormProps) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.Prop)
+  const { reset, setLoading, state } = useCrudModalForm(EntityType.Prop)
   const { deleteIds: propIds, metadata } = state
 
   /* const [mutate, { loading: deleting }] = useDeletePropMutation({

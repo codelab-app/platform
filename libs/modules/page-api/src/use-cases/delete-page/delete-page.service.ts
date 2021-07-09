@@ -65,17 +65,17 @@ export class DeletePageService extends MutationUseCase<
       throw new Error('Page not found')
     }
 
-    const pageElementIds = pageRoot.descendants.map((d) => d.id)
+    const elementIds = pageRoot.descendants.map((d) => d.id)
 
     const props = await this.getPropsService.execute({
-      byPageElement: { pageElementIds },
+      byElement: { elementIds },
     })
 
     const propIds = props.map((p) => p.id)
 
     return {
       filter: { id: [pageId] },
-      pageElementFilter: { id: pageElementIds },
+      elementFilter: { id: elementIds },
       propsFilter: { id: propIds },
     }
   }

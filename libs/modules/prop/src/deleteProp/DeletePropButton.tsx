@@ -2,13 +2,13 @@ import { DeleteOutlined } from '@ant-design/icons'
 import {
   DeleteButtonProps,
   EntityType,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
 
 export const DeletePropButton = ({ disabled, ids }: DeleteButtonProps) => {
-  const { openDeleteModal } = useCRUDModalForm(EntityType.Prop)
+  const { openDeleteModal } = useCrudModalForm(EntityType.Prop)
 
   return (
     <Button

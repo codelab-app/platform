@@ -1,5 +1,0 @@
-mutation UpdatePageElement($input: UpdatePageElementInput!) {
-  updatePageElement(input: $input) {
-    ...PageElement
-  }
-}

@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
 
@@ -10,7 +10,7 @@ interface AddChildComponentElementButtonProps {
 export const AddChildComponentElementButton = ({
   disabled,
 }: AddChildComponentElementButtonProps) => {
-  const { openCreateModal } = useCRUDModalForm(EntityType.ChildComponentElement)
+  const { openCreateModal } = useCrudModalForm(EntityType.ChildComponentElement)
 
   return (
     <Button

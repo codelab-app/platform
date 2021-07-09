@@ -10,7 +10,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -35,7 +35,7 @@ const typenameToKind = (typename: string) => {
 export const UpdateTypeForm = (
   props: UniFormUseCaseProps<UpdateTypeSchema>,
 ) => {
-  const { setLoading, state, reset } = useCRUDModalForm(EntityType.Type)
+  const { setLoading, state, reset } = useCrudModalForm(EntityType.Type)
   const mutationOptions = { refetchQueries: [refetchGetTypesQuery()] }
 
   const [mutateSimple, simpleMutationData] =

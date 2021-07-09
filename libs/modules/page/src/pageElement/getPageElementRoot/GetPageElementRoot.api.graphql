@@ -1,5 +1,0 @@
-query GetPageElementRoot($input: GetPageElementRootInput!) {
-  getPageElementRoot(input: $input) {
-    ...PageElementRoot
-  }
-}

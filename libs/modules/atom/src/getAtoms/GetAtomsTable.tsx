@@ -3,7 +3,7 @@ import { __AtomFragment, useGetAtomsQuery } from '@codelab/codegen/graphql'
 import {
   EntityType,
   PageType,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Button, Space, Spin, Table, TableColumnProps, Tag } from 'antd'
 import Link from 'next/link'
@@ -12,7 +12,7 @@ import tw from 'twin.macro'
 import { useColumnSearchProps } from './useColumnSearchProps'
 
 export const GetAtomsTable = () => {
-  const { openDeleteModal, openUpdateModal } = useCRUDModalForm(EntityType.Atom)
+  const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Atom)
   const columnSearchProps = useColumnSearchProps('name')
 
   const headerCellProps = () => ({

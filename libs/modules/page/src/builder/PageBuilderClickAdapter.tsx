@@ -1,6 +1,6 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import { ClickOverlay } from '@codelab/frontend/builder'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
 import React from 'react'
@@ -34,8 +34,8 @@ export const PageBuilderClickAdapter = () => {
     state: { selectedPageElement },
   } = usePageBuilderState()
 
-  const { openDeleteModal, openCreateModal } = useCRUDModalForm(
-    EntityType.PageElement,
+  const { openDeleteModal, openCreateModal } = useCrudModalForm(
+    EntityType.Element,
   )
 
   if (!selectedPageElement) {

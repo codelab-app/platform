@@ -4,7 +4,7 @@ import {
   ActionType,
   CrudModal,
   EntityType,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Empty, Spin } from 'antd'
 import React from 'react'
@@ -20,7 +20,7 @@ interface Props {
 
 export const PaneConfigComponentElement = ({ componentElementId }: Props) => {
   const { resetSelected } = useComponentBuilder()
-  const { reset } = useCRUDModalForm(EntityType.ComponentElement)
+  const { reset } = useCrudModalForm(EntityType.ComponentElement)
 
   const { data, loading } = useGetComponentElementQuery({
     variables: {

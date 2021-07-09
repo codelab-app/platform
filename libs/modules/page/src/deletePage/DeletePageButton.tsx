@@ -3,14 +3,14 @@ import {
   AppPageContext,
   DeleteButtonProps,
   EntityType,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React, { useContext } from 'react'
 
 export const DeletePageButton = ({ disabled, ids }: DeleteButtonProps) => {
   const { appId } = useContext(AppPageContext)
-  const { openDeleteModal } = useCRUDModalForm(EntityType.Page)
+  const { openDeleteModal } = useCrudModalForm(EntityType.Page)
 
   return (
     <Button

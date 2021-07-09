@@ -11,7 +11,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useContext, useEffect } from 'react'
@@ -20,7 +20,7 @@ import { AutoFields } from 'uniforms-antd'
 type DeletePageFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 
 export const DeletePageForm = (props: DeletePageFormProps) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.Page)
+  const { reset, setLoading, state } = useCrudModalForm(EntityType.Page)
   const { deleteIds: deletePageIds } = state
   const { app } = useContext(AppContext)
 

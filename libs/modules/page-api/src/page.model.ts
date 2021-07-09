@@ -1,5 +1,5 @@
 import { App, appSchema } from '@codelab/modules/app-api'
-import { PageElementRoot } from '@codelab/modules/page-element-api'
+import { ElementAggregate } from '@codelab/modules/element-api'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { z } from 'zod'
 
@@ -14,8 +14,8 @@ export class Page {
   @Field(() => App)
   declare app: App
 
-  @Field(() => PageElementRoot)
-  declare rootElement: PageElementRoot
+  @Field(() => ElementAggregate)
+  declare rootElement: ElementAggregate
 }
 
 export const pageSchema = z.object({

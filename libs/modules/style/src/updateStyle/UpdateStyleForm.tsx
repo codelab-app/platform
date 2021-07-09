@@ -8,7 +8,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useEffect } from 'react'
@@ -19,7 +19,7 @@ import { UpdateStyleInput, UpdateStyleSchema } from './updateStyleSchema'
 export const UpdateStyleForm = (
   props: UniFormUseCaseProps<UpdateStyleInput>,
 ) => {
-  const { reset, setLoading, state } = useCRUDModalForm(EntityType.Style)
+  const { reset, setLoading, state } = useCrudModalForm(EntityType.Style)
   const { updateId: updateStyleId } = state
 
   const [mutate, { loading: updating }] = useUpdateStyleMutation({

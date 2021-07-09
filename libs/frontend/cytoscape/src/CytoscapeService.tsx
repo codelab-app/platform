@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import {
-  PageElementLinkFragment,
-  PageElementRootFragment,
+  ElementAggregateFragment,
+  ElementLinkFragment,
 } from '@codelab/codegen/graphql'
 import { __ComponentFragment } from '@codelab/codegen/hasura'
 import {
@@ -51,7 +51,7 @@ export class CytoscapeService {
   }
 
   /** Processes a Page to form a tree of page elements with a single page root node at the top */
-  static fromPage(root: PageElementRootFragment): Core {
+  static fromPage(root: ElementAggregateFragment): Core {
     const { descendants, links } = root
 
     const rootNodeData: ElementNode = {
@@ -225,7 +225,7 @@ export class CytoscapeService {
     return tree as unknown as DataNode
   }
 
-  private static generateLinkId(link: PageElementLinkFragment) {
+  private static generateLinkId(link: ElementLinkFragment) {
     return `link-${link.from}-${link.to}`
   }
 }

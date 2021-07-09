@@ -1,6 +1,6 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import { __FieldFragment, __TypeFragment } from '@codelab/codegen/graphql'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
@@ -11,7 +11,7 @@ export interface FieldsTableProps {
 }
 
 export const FieldsTable = ({ fields, typesById }: FieldsTableProps) => {
-  const { openDeleteModal, openUpdateModal } = useCRUDModalForm(
+  const { openDeleteModal, openUpdateModal } = useCrudModalForm(
     EntityType.Field,
   )
 

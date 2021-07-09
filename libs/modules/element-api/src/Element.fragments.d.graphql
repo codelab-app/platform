@@ -1,0 +1,17 @@
+fragment Dgraph_Element on Element {
+  id
+  name
+  css
+  atom {
+    ...DGraph__Atom
+  }
+  parent {
+    id
+  }
+  ownedBy {
+    __typename
+    ... on Page {
+      ...Dgraph__Page
+    }
+  }
+}

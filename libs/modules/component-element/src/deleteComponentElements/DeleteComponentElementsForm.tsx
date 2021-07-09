@@ -12,7 +12,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCRUDModalForm,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Spin } from 'antd'
 import React, { useContext, useEffect } from 'react'
@@ -27,7 +27,7 @@ export const DeleteComponentElementsForm = (
     reset,
     setLoading,
     state: { deleteIds: deleteComponentElementIds },
-  } = useCRUDModalForm(EntityType.ComponentElement)
+  } = useCrudModalForm(EntityType.ComponentElement)
 
   const { component } = useContext(ComponentContext)
 

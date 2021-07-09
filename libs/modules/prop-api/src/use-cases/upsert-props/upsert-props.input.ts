@@ -70,7 +70,7 @@ export class UpsertPropsInput {
 
   // Nullable, because later one we might want to create prop for a component or something else
   @Field(() => String, { nullable: true })
-  declare pageElementId?: string | null
+  declare elementId?: string | null
 
   @Field(() => UpsertValueInput, { nullable: true })
   declare value?: UpsertValueInput | null

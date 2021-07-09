@@ -9,7 +9,7 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useMutationCrudForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -27,7 +27,7 @@ export const CreateFieldForm = (
   const {
     handleSubmit,
     crudModal: { reset },
-  } = useMutationCrudForm<
+  } = useCrudModalMutationForm<
     CreateFieldSchemaObject,
     CreateFieldMutation,
     CreateFieldMutationVariables

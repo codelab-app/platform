@@ -1,40 +1,27 @@
+import { refetchGetPageQuery } from '@codelab/codegen/graphql'
 import {
-  CreatePageElementInput,
-  refetchGetPageQuery,
-  useCreatePageElementMutation,
-  useGetAtomsQuery,
-} from '@codelab/codegen/graphql'
-import {
-  createNotificationHandler,
-  EntityType,
-  FormUniforms,
-  UniFormUseCaseProps,
-  useCRUDModalForm,
-} from '@codelab/frontend/shared'
-import React, { useContext, useEffect, useRef } from 'react'
-import { AutoFields, SelectField } from 'uniforms-antd'
+  CreateElementForm,
+  CreateElementFormProps,
+} from '@codelab/modules/element'
+import React, { useContext } from 'react'
 import { PageContext } from '../../providers'
-import { createPageElementSchema } from './createPageElementSchema'
 
-interface CreatePageElementFormProps
-  extends UniFormUseCaseProps<CreatePageElementInput> {
-  initialParentElementId?: string
-}
+type CreatePageElementFormProps = Omit<
+  CreateElementFormProps,
+  'parentElementOptions' | 'refetchQueries'
+>
 
-export const CreatePageElementForm = ({
-  initialParentElementId,
-  ...props
-}: CreatePageElementFormProps) => {
-  const { reset, setLoading } = useCRUDModalForm(EntityType.PageElement)
+/**
+ * Wrapper for {@link CreateElementForm} in the context of a Page
+ */
+export const CreatePageElementForm = (props: CreatePageElementFormProps) => {
   const { pageId, page } = useContext(PageContext)
-  const { data: atoms } = useGetAtomsQuery()
-  const initialParentElementIdRef = useRef(initialParentElementId)
 
   if (!page) {
     return null
   }
 
-  const pageElementOptions = [
+  const parentElementOptions = [
     { label: page.rootElement.name, value: page.rootElement.id },
     ...page.rootElement.descendants.map((element) => ({
       label: element.name,
@@ -42,59 +29,17 @@ export const CreatePageElementForm = ({
     })),
   ]
 
-  const [mutate, { loading: creating }] = useCreatePageElementMutation({
-    refetchQueries: [refetchGetPageQuery({ input: { pageId: pageId || '' } })],
-  })
-
-  useEffect(() => {
-    setLoading(creating)
-  }, [creating, setLoading])
-
-  const onSubmit = (submitData: CreatePageElementInput) => {
-    return mutate({
-      variables: {
-        input: {
-          ...submitData,
-        },
-      },
-    })
-  }
+  const refetchQueries = [
+    refetchGetPageQuery({ input: { pageId: pageId || '' } }),
+  ]
 
   return (
-    <FormUniforms<CreatePageElementInput>
-      schema={createPageElementSchema}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while creating page element',
-      })}
-      onSubmit={onSubmit}
-      onSubmitSuccess={() => reset()}
-      model={{ parentPageElementId: initialParentElementIdRef.current }}
+    <CreateElementForm
+      parentElementOptions={parentElementOptions}
+      refetchQueries={refetchQueries}
       {...props}
-    >
-      <AutoFields omitFields={['parentPageElementId', 'atomId']} />
-
-      <SelectField
-        name="atomId"
-        label="Atom"
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore https://github.com/vazco/uniforms/issues/951
-        showSearch={true}
-        optionFilterProp="label"
-        options={atoms?.atoms.map((atom) => ({
-          label: atom.label,
-          value: atom.id,
-        }))}
-      />
-
-      <SelectField
-        name="parentPageElementId"
-        label="Parent element"
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore https://github.com/vazco/uniforms/issues/951
-        showSearch={true}
-        optionFilterProp="label"
-        options={pageElementOptions}
-      />
-    </FormUniforms>
+    />
   )
 }
+
+CreatePageElementForm.displayName = 'MovePageElementForm'

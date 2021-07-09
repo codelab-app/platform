@@ -1,7 +1,0 @@
-query GetPageElementParent($pageElementId: ID!) {
-  getPageElement(id: $pageElementId) {
-    parent {
-      ...Dgraph_PageElement
-    }
-  }
-}

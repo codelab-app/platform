@@ -188,18 +188,20 @@ type Page {
   id: ID!
   name: String! @search(by: [term, fulltext])
   app: App!
-  rootElement: PageElement!
+  rootElement: Element!
 }
 
-type PageElement {
+union ElementOwner = Page
+
+type Element {
   id: ID!
   name: String! @search(by: [term, fulltext])
-  page: Page!
-  parent: PageElement
-  children: [PageElement] @hasInverse(field: parent)
+  children: [Element] @hasInverse(field: parent)
+  parent: Element
   atom: Atom
+  ownedBy: ElementOwner!
   component: Component
-  props: [Prop!]! @hasInverse(field: pageElement)
+  props: [Prop!]! @hasInverse(field: element)
   css: String
 }
 
@@ -329,5 +331,5 @@ type Prop {
   id: ID!
   field: Field!
   value: PropValue
-  pageElement: PageElement
+  element: Element
 }

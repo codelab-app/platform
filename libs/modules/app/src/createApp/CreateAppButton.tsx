@@ -1,10 +1,10 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { EntityType, useCRUDModalForm } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
 
 export const CreateAppButton = () => {
-  const { openCreateModal } = useCRUDModalForm(EntityType.App)
+  const { openCreateModal } = useCrudModalForm(EntityType.App)
 
   return (
     <Button
@@ -20,7 +20,7 @@ export const CreateAppButton = () => {
 }
 
 export const CreateAppButtonNow = () => {
-  const { openCreateModal } = useCRUDModalForm(EntityType.App)
+  const { openCreateModal } = useCrudModalForm(EntityType.App)
 
   return (
     <Button onClick={() => openCreateModal()} type="primary">

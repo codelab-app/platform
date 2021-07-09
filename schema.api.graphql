@@ -57,9 +57,7 @@ type Interface implements Type {
 type FieldCollection {
   fields: [Field!]!
 
-  """
-  Flattened array of all types that are used inside this interface
-  """
+  """Flattened array of all types that are used inside this interface"""
   types: [Type!]!
 }
 
@@ -264,14 +262,7 @@ type Prop {
   value: PropValue
 }
 
-union PropValue =
-    StringValue
-  | IntValue
-  | FloatValue
-  | BooleanValue
-  | ArrayValue
-  | InterfaceValue
-  | EnumTypeValue
+union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue | EnumTypeValue
 
 type StringValue {
   id: ID!
@@ -303,9 +294,7 @@ type InterfaceValue {
   props: [Prop!]!
 }
 
-"""
-Contains all nested props and values from the whole prop tree
-"""
+"""Contains all nested props and values from the whole prop tree"""
 type PropAggregate {
   rootProp: Prop!
 
@@ -324,7 +313,7 @@ type UpsertPropsResponse {
   ok: Boolean!
 }
 
-type PageElement {
+type Element {
   id: ID!
   name: String!
   css: String
@@ -332,42 +321,35 @@ type PageElement {
   props: [PropAggregate!]!
 }
 
-type PageElementLink {
-  """
-  The id of the source PageElement
-  """
+"""An edge between two element nodes"""
+type ElementLink {
+  """The id of the source Element"""
   from: String!
 
-  """
-  The id of the target PageElement
-  """
+  """The id of the target Element"""
   to: String!
   order: Int!
 }
 
-type PageElementRoot {
+type ElementAggregate {
   id: ID!
   name: String!
   css: String
   atom: Atom
   props: [PropAggregate!]!
 
-  """
-  All descendant PageElements that are under this root, at any level
-  """
-  descendants: [PageElement!]!
+  """All descendant Elements that are under this root, at any level"""
+  descendants: [Element!]!
 
-  """
-  All the links connecting the descendant page elements
-  """
-  links: [PageElementLink!]!
+  """All the links connecting the descendant elements"""
+  links: [ElementLink!]!
 }
 
 type Page {
   id: ID!
   name: String!
   app: App!
-  rootElement: PageElementRoot!
+  rootElement: ElementAggregate!
 }
 
 type User {
@@ -399,12 +381,12 @@ type Query {
   getUsers(input: GetUsersInput): [User!]!
   getPages(input: GetPagesInput!): [Page!]!
   getPage(input: GetPageInput!): Page
-  getPageElement(input: GetPageElementInput!): PageElement
+  getElement(input: GetElementInput!): Element
 
   """
-  Aggregates the requested page element and all of its descendant elements (infinitely deep) in the form of array of PageElement and array of PageElementLink
+  Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of array of Element and array of ElementLink
   """
-  getPageElementRoot(input: GetPageElementRootInput!): PageElementRoot
+  getElementAggregate(input: GetElementAggregateInput!): ElementAggregate
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
   getAtomBy(input: GetAtomByInput!): Atom
@@ -435,12 +417,12 @@ input GetPageInput {
   pageId: String!
 }
 
-input GetPageElementInput {
-  pageElementId: String!
+input GetElementInput {
+  elementId: String!
 }
 
-input GetPageElementRootInput {
-  pageElementId: String!
+input GetElementAggregateInput {
+  elementId: String!
 }
 
 input GetAtomInput {
@@ -448,11 +430,11 @@ input GetAtomInput {
 }
 
 input GetAtomByInput {
-  byPageElement: AtomByPageElementFilter
+  byElement: AtomByElementFilter
 }
 
-input AtomByPageElementFilter {
-  pageElementId: String!
+input AtomByElementFilter {
+  elementId: String!
 }
 
 input GetInterfaceInput {
@@ -486,13 +468,13 @@ input TypesByIdsFilter {
 }
 
 input GetPropsInput {
-  byPageElement: PropsByPageElementFilter
+  byElement: PropsByElementFilter
   byIds: PropsByIdsFilter
   byInterfaceValue: PropsByInterfaceValueId
 }
 
-input PropsByPageElementFilter {
-  pageElementIds: [String!]!
+input PropsByElementFilter {
+  elementIds: [String!]!
   fieldId: String = null
 }
 
@@ -513,14 +495,12 @@ type Mutation {
   createPage(input: CreatePageInput!): Page!
   deletePage(input: DeletePageInput!): DeleteResponse!
   updatePage(input: UpdatePageInput!): Page!
-  createPageElement(input: CreatePageElementInput!): PageElement!
-  updatePageElement(input: UpdatePageElementInput!): PageElement!
-  movePageElement(input: MovePageElementInput!): PageElement!
+  createElement(input: CreateElementInput!): Element!
+  updateElement(input: UpdateElementInput!): Element!
+  moveElement(input: MoveElementInput!): Element!
 
-  """
-  Deletes a page element and all the descending page elements
-  """
-  deletePageElement(input: DeletePageElementInput!): DeleteResponse!
+  """Deletes an element and all the descending elements"""
+  deleteElement(input: DeleteElementInput!): DeleteResponse!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): DeleteResponse!
   updateAtom(input: UpdateAtomInput!): Atom!
@@ -593,10 +573,10 @@ input UpdatePageData {
   appId: String!
 }
 
-input CreatePageElementInput {
+input CreateElementInput {
   name: String!
   atomId: String
-  parentPageElementId: String!
+  parentElementId: String!
 
   """
   Leave it out to automatically set it as the last order of all the children
@@ -604,19 +584,19 @@ input CreatePageElementInput {
   order: Int
 }
 
-input UpdatePageElementInput {
-  updateData: UpdatePageElementData!
-  pageElementId: String!
+input UpdateElementInput {
+  updateData: UpdateElementData!
+  elementId: String!
 }
 
-input UpdatePageElementData {
+input UpdateElementData {
   name: String!
   css: String
   atomId: String
 }
 
-input MovePageElementInput {
-  pageElementId: String!
+input MoveElementInput {
+  elementId: String!
   moveData: MoveData!
 }
 
@@ -625,8 +605,8 @@ input MoveData {
   parentElementId: String!
 }
 
-input DeletePageElementInput {
-  pageElementId: String!
+input DeleteElementInput {
+  elementId: String!
 }
 
 input CreateAtomInput {
@@ -669,9 +649,7 @@ input TypeRef {
   newType: CreateTypeInput
 }
 
-"""
-Provide one of the properties
-"""
+"""Provide one of the properties"""
 input CreateTypeInput {
   name: String!
   simpleType: CreateSimpleTypeInput
@@ -755,7 +733,7 @@ input DeleteTypeInput {
 input UpsertPropsInput {
   propId: String
   fieldId: String!
-  pageElementId: String
+  elementId: String
   value: UpsertValueInput
 }
 

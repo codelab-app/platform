@@ -49,28 +49,28 @@ export class UpsertPropsService extends DgraphUseCase<
   }
 
   protected async validate({ input }: UpsertPropsRequest) {
-    // It's likely the page element will be the same, cache it
-    const cachedAtomsByPageElement: Map<string, Atom> = new Map<string, Atom>()
+    // It's likely the element will be the same, cache it
+    const cachedAtomsByElementId: Map<string, Atom> = new Map<string, Atom>()
 
-    const getPageElement = async (id: string) => {
-      if (cachedAtomsByPageElement.has(id)) {
-        return cachedAtomsByPageElement.get(id)
+    const getElement = async (id: string) => {
+      if (cachedAtomsByElementId.has(id)) {
+        return cachedAtomsByElementId.get(id)
       }
 
       const atom = await this.getAtomByService.execute({
-        byPageElement: { pageElementId: id },
+        byElement: { elementId: id },
       })
 
       if (!atom) {
-        throw new Error('Page element or its prop types not found')
+        throw new Error('Element or its prop types not found')
       }
 
-      cachedAtomsByPageElement.set(id, atom)
+      cachedAtomsByElementId.set(id, atom)
 
       return atom
     }
 
-    for (const { value, fieldId, pageElementId } of input) {
+    for (const { value, fieldId, elementId } of input) {
       if (value) {
         const valueInputs = [
           value.arrayValue,
@@ -95,22 +95,20 @@ export class UpsertPropsService extends DgraphUseCase<
         throw new Error('Field not found')
       }
 
-      if (pageElementId) {
-        const atom = await getPageElement(pageElementId)
+      if (elementId) {
+        const atom = await getElement(elementId)
 
-        // Check if the field is part of this page element's atom's propTypes
+        // Check if the field is part of this element's atom's propTypes
         if (
           atom &&
           atom.propTypes.id !==
             field[DgraphFieldFields.Interface][BaseDgraphFields.uid]
         ) {
-          throw new Error(
-            "Can only add prop to the page element ' interface fields",
-          )
+          throw new Error("Can only add prop to the element ' interface fields")
         }
       } else {
         // this is here because we can add componentId here too
-        throw new Error('pageElementId must be provided')
+        throw new Error('elementId must be provided')
       }
 
       const fieldType = (field[DgraphFieldFields.Type] as DgraphType)[

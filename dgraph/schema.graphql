@@ -11,26 +11,30 @@ type Page {
   id: ID!
   name: String! @search(by: [term, fulltext])
   app: App!
-  rootElement: PageElement!
+  rootElement: Element!
 }
 
-#Note that this PageElement is not the same as the one served in Nest's API, because we transform it to avoid recursion
-type PageElement {
+union ElementOwner = Page
+
+#Note that this Element is not the same as the one served in Nest's API, because we transform it to avoid recursion
+type Element {
   id: ID!
   name: String! @search(by: [term, fulltext])
-  page: Page!
-  # Only the root page element won't have a parent
-  parent: PageElement
-  # A PageElement has 1 of 3 ways to be rendered:
-  #   1. Atom, with or without children, without component -> render container with children
+  # An Element must have 1 of 3 ways to be rendered:
+  #   1. Atom, with or without children, without component -> render Atom container with children
   #   2. Children, no atom, no component -> render children without container
-  #   3. Component, no children, no atom -> render the component itself in place of the element
+  #   3. Component, no children, no atom -> render the component itself in place of the element - not functional at the moment
   # We can add component + children later
-  children: [PageElement] @hasInverse(field: parent)
+  children: [Element] @hasInverse(field: parent)
+  parent: Element
   atom: Atom
+  # The entity that owns this Element. Right now only Page can own it, but that's expandable in the future
+  ownedBy: ElementOwner!
+  # Not functional at the moment
   component: Component
-  props: [Prop!]! @hasInverse(field: pageElement)
-  css: String # The css string that gets passed down to emotion
+  props: [Prop!]! @hasInverse(field: element)
+  # The css string that gets passed down to emotion
+  css: String
 }
 
 type Library {
@@ -41,6 +45,7 @@ type Library {
   components: [Component] @hasInverse(field: library)
 }
 
+# Not functional at the moment
 type Component {
   id: ID!
   library: Library!
@@ -168,5 +173,5 @@ type Prop {
   id: ID!
   field: Field!
   value: PropValue
-  pageElement: PageElement
+  element: Element
 }

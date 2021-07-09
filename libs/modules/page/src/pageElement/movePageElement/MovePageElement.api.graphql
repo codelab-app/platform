@@ -1,5 +1,0 @@
-mutation MovePageElement($input: MovePageElementInput!) {
-  movePageElement(input: $input) {
-    ...PageElement
-  }
-}
