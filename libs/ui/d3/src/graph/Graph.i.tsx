@@ -4,11 +4,8 @@ export enum NodeType {
   User = 'User',
   App = 'App',
   Page = 'Page',
-  Model = 'Model',
-  Field = 'Field',
-  Data = 'Data',
-  Content = 'Content',
-  Query = 'Query',
+  Component = 'Component',
+  Element = 'Element',
   Default = 'Default',
 }
 

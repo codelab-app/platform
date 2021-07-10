@@ -26,7 +26,7 @@ export const enterLinks = (
     .attr('stroke', 'gray')
     .attr('stroke-width', '1px')
     // .attr('fill', 'none')
-    // .attr('marker-mid', (d: D3Link) => `url(#arrow_${d.id})`)
+    .attr('marker-mid', (d: D3Link) => `url(#arrow_${d.id})`)
     .style('cursor', 'pointer')
 
   /**
@@ -92,6 +92,16 @@ export const updateLinks = (selection: any, links = []) => {
 
     const dx = x2 - x1
     const dy = y2 - y1
+    // const dr = 50
+
+    // if (d.target.id === d.source.id) {
+    //   const xRotation = -45
+    //   const largeArc = 0
+    //   // Change sweep to change orientation of loop.
+    //   const sweep = 1
+
+    //   return `M${x1},${y1} A${dr},${dr} ${xRotation},${largeArc},${sweep} ${x2},${y2}`
+    // }
 
     return `M${x1},${y1} L${x1 + dx / 2},${y1 + dy / 2}  L${x2},${y2}`
   }

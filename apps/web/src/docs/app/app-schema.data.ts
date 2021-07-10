@@ -20,13 +20,13 @@ export const appSchema: D3GraphProps = {
       id: `${NodeType.User}_${NodeType.App}`,
       source: NodeType.User,
       target: NodeType.App,
-      label: '1 - apps - m',
+      label: '1 - m',
     },
     {
       id: `${NodeType.App}_${NodeType.Page}`,
       source: NodeType.App,
       target: NodeType.Page,
-      label: '1 - pages - m',
+      label: '1 - m',
     },
   ],
 }

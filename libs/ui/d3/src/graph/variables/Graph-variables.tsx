@@ -69,10 +69,10 @@ export const g = {
     ...nodeAttributes('blue', 10, 50)(NodeType.User),
     ...nodeAttributes('black', 10, 50)(NodeType.App),
     ...nodeAttributes('grey', 10, 50)(NodeType.Page),
-    ...nodeAttributes('blue', 7, 50)(NodeType.Field),
-    ...nodeAttributes('green', 4, 50)(NodeType.Data),
-    ...nodeAttributes('lightgreen', 4, 50)(NodeType.Query),
-    ...nodeAttributes('purple', 4, 50)(NodeType.Content),
+    ...nodeAttributes('blue', 10, 50)(NodeType.Element),
+    ...nodeAttributes('green', 10, 50)(NodeType.Component),
+    // ...nodeAttributes('lightgreen', 4, 50)(NodeType.Query),
+    // ...nodeAttributes('purple', 4, 50)(NodeType.Content),
     ...nodeAttributes('grey', 10, 50)(NodeType.Default),
   },
 
@@ -96,7 +96,6 @@ export type GetNodeAttribute<GElement extends BaseType, Datum> = (
 
 export const nodeAttribute: GetNodeAttribute<any, any> = (attr) => (d) => {
   const typename = d?.type ?? NodeType.Default
-  console.log(typename)
 
   return g.node[typename][attr]
 }
