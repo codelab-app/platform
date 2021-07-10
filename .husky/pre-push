@@ -1,7 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Your code here
 make build-dev-affected
 make test-dev-affected
 # yarn e2e-dev

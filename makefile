@@ -103,7 +103,6 @@ integration-dev:
 integration-dev-affected:
 	npx nx affected:test \
 	--testPathPattern=i.spec.ts \
-	--maxWorkers=2 \
 	--memoryLimit=4096 \
 	--runInBand
 
@@ -123,10 +122,10 @@ integration-ci:
 #
 test-dev-affected:
 	npx concurrently \
-		--names=unit,int,e2e \
- 		"make unit-dev-affected"
+		--names=unit,int \
+ 		"make unit-dev-affected" \
+  	"make integration-dev-affected"
   	# "make e2e-dev"
-  	# "make integration-dev-affected" \
 
 test-dev:
 	npx concurrently \
