@@ -19,14 +19,14 @@ export class CreateTypeValidator {
    * - Array types won't cause a recursive type
    */
   async validate(
-    { arrayType, enumType, simpleType, interfaceType }: CreateTypeInput,
+    { arrayType, enumType, primitiveType, interfaceType }: CreateTypeInput,
     existingTypeId: string | undefined = undefined,
   ): Promise<CreateTypeValidatorContext> {
     // Accept only one and no more type input
     CreateTypeValidator.validateNumberOfInputs([
       arrayType,
       enumType,
-      simpleType,
+      primitiveType,
       interfaceType,
     ])
 

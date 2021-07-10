@@ -29,10 +29,10 @@ fragment __EnumType on EnumType {
   }
 }
 
-fragment __SimpleType on SimpleType {
+fragment __PrimitiveType on PrimitiveType {
   id
   name
-  primitiveType
+  primitiveKind
 }
 
 fragment __Type on Type {
@@ -50,8 +50,8 @@ fragment __Type on Type {
   ... on Interface {
     ...__InterfaceWithoutTypes
   }
-  ... on SimpleType {
-    ...__SimpleType
+  ... on PrimitiveType {
+    ...__PrimitiveType
   }
 }
 
@@ -67,8 +67,8 @@ fragment __TypeShallow on Type {
   ... on Interface {
     id
   }
-  ... on SimpleType {
-    ...__SimpleType
+  ... on PrimitiveType {
+    ...__PrimitiveType
   }
 }
 

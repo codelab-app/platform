@@ -2,7 +2,7 @@ import { DeleteResponse } from '@codelab/backend'
 import { GqlAuthGuard } from '@codelab/modules/auth-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { EnumType, SimpleType, Type } from './models'
+import { EnumType, PrimitiveType, Type } from './models'
 import {
   CreateTypeInput,
   CreateTypeService,
@@ -14,8 +14,8 @@ import {
   GetTypesService,
   UpdateEnumTypeInput,
   UpdateEnumTypeService,
-  UpdateSimpleTypeInput,
-  UpdateSimpleTypeService,
+  UpdatePrimitiveTypeInput,
+  UpdatePrimitiveTypeService,
   UpdateTypeInput,
   UpdateTypeService,
 } from './use-cases'
@@ -27,7 +27,7 @@ export class TypeResolver {
     private getTypeService: GetTypeService,
     private getTypesService: GetTypesService,
     private updateEnumTypeService: UpdateEnumTypeService,
-    private updateSimpleTypeService: UpdateSimpleTypeService,
+    private updatePrimitiveTypeService: UpdatePrimitiveTypeService,
     private updateTypeService: UpdateTypeService,
     private createTypeService: CreateTypeService,
     private deleteTypeService: DeleteTypeService,
@@ -60,9 +60,9 @@ export class TypeResolver {
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => SimpleType)
-  updateSimpleType(@Args('input') input: UpdateSimpleTypeInput) {
-    return this.updateSimpleTypeService.execute(input)
+  @Mutation(() => PrimitiveType)
+  updatePrimitiveType(@Args('input') input: UpdatePrimitiveTypeInput) {
+    return this.updatePrimitiveTypeService.execute(input)
   }
 
   @UseGuards(GqlAuthGuard)

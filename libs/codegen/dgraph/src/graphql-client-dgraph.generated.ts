@@ -311,6 +311,23 @@ export type AddPagePayloadPageArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddPrimitiveTypeInput = {
+  name: Scalars['String']
+  primitiveKind: PrimitiveKind
+}
+
+export type AddPrimitiveTypePayload = {
+  primitiveType?: Maybe<Array<Maybe<PrimitiveType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddPrimitiveTypePayloadPrimitiveTypeArgs = {
+  filter?: Maybe<PrimitiveTypeFilter>
+  order?: Maybe<PrimitiveTypeOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddPropInput = {
   field: FieldRef
   value?: Maybe<PropValueRef>
@@ -324,23 +341,6 @@ export type AddPropPayload = {
 
 export type AddPropPayloadPropArgs = {
   filter?: Maybe<PropFilter>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type AddSimpleTypeInput = {
-  name: Scalars['String']
-  primitiveType: PrimitiveType
-}
-
-export type AddSimpleTypePayload = {
-  simpleType?: Maybe<Array<Maybe<SimpleType>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type AddSimpleTypePayloadSimpleTypeArgs = {
-  filter?: Maybe<SimpleTypeFilter>
-  order?: Maybe<SimpleTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -1134,6 +1134,19 @@ export type DeletePagePayloadPageArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type DeletePrimitiveTypePayload = {
+  primitiveType?: Maybe<Array<Maybe<PrimitiveType>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeletePrimitiveTypePayloadPrimitiveTypeArgs = {
+  filter?: Maybe<PrimitiveTypeFilter>
+  order?: Maybe<PrimitiveTypeOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type DeletePropPayload = {
   prop?: Maybe<Array<Maybe<Prop>>>
   msg?: Maybe<Scalars['String']>
@@ -1142,19 +1155,6 @@ export type DeletePropPayload = {
 
 export type DeletePropPayloadPropArgs = {
   filter?: Maybe<PropFilter>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type DeleteSimpleTypePayload = {
-  simpleType?: Maybe<Array<Maybe<SimpleType>>>
-  msg?: Maybe<Scalars['String']>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type DeleteSimpleTypePayloadSimpleTypeArgs = {
-  filter?: Maybe<SimpleTypeFilter>
-  order?: Maybe<SimpleTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -1906,9 +1906,9 @@ export type Mutation = {
   addTag?: Maybe<AddTagPayload>
   updateTag?: Maybe<UpdateTagPayload>
   deleteTag?: Maybe<DeleteTagPayload>
-  addSimpleType?: Maybe<AddSimpleTypePayload>
-  updateSimpleType?: Maybe<UpdateSimpleTypePayload>
-  deleteSimpleType?: Maybe<DeleteSimpleTypePayload>
+  addPrimitiveType?: Maybe<AddPrimitiveTypePayload>
+  updatePrimitiveType?: Maybe<UpdatePrimitiveTypePayload>
+  deletePrimitiveType?: Maybe<DeletePrimitiveTypePayload>
   addArrayType?: Maybe<AddArrayTypePayload>
   updateArrayType?: Maybe<UpdateArrayTypePayload>
   deleteArrayType?: Maybe<DeleteArrayTypePayload>
@@ -2033,16 +2033,16 @@ export type MutationDeleteTagArgs = {
   filter: TagFilter
 }
 
-export type MutationAddSimpleTypeArgs = {
-  input: Array<AddSimpleTypeInput>
+export type MutationAddPrimitiveTypeArgs = {
+  input: Array<AddPrimitiveTypeInput>
 }
 
-export type MutationUpdateSimpleTypeArgs = {
-  input: UpdateSimpleTypeInput
+export type MutationUpdatePrimitiveTypeArgs = {
+  input: UpdatePrimitiveTypeInput
 }
 
-export type MutationDeleteSimpleTypeArgs = {
-  filter: SimpleTypeFilter
+export type MutationDeletePrimitiveTypeArgs = {
+  filter: PrimitiveTypeFilter
 }
 
 export type MutationAddArrayTypeArgs = {
@@ -2299,11 +2299,57 @@ export type PolygonRef = {
   coordinates: Array<PointListRef>
 }
 
-export enum PrimitiveType {
+export enum PrimitiveKind {
   String = 'String',
   Integer = 'Integer',
   Float = 'Float',
   Boolean = 'Boolean',
+}
+
+export type PrimitiveType = Type & {
+  id: Scalars['ID']
+  name: Scalars['String']
+  primitiveKind: PrimitiveKind
+}
+
+export type PrimitiveTypeAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  nameMin?: Maybe<Scalars['String']>
+  nameMax?: Maybe<Scalars['String']>
+}
+
+export type PrimitiveTypeFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  has?: Maybe<Array<Maybe<PrimitiveTypeHasFilter>>>
+  and?: Maybe<Array<Maybe<PrimitiveTypeFilter>>>
+  or?: Maybe<Array<Maybe<PrimitiveTypeFilter>>>
+  not?: Maybe<PrimitiveTypeFilter>
+}
+
+export enum PrimitiveTypeHasFilter {
+  Name = 'name',
+  PrimitiveKind = 'primitiveKind',
+}
+
+export type PrimitiveTypeOrder = {
+  asc?: Maybe<PrimitiveTypeOrderable>
+  desc?: Maybe<PrimitiveTypeOrderable>
+  then?: Maybe<PrimitiveTypeOrder>
+}
+
+export enum PrimitiveTypeOrderable {
+  Name = 'name',
+}
+
+export type PrimitiveTypePatch = {
+  name?: Maybe<Scalars['String']>
+  primitiveKind?: Maybe<PrimitiveKind>
+}
+
+export type PrimitiveTypeRef = {
+  id?: Maybe<Scalars['ID']>
+  name?: Maybe<Scalars['String']>
+  primitiveKind?: Maybe<PrimitiveKind>
 }
 
 export type Prop = {
@@ -2417,9 +2463,9 @@ export type Query = {
   aggregateAtom?: Maybe<AtomAggregateResult>
   queryTag?: Maybe<Array<Maybe<Tag>>>
   aggregateTag?: Maybe<TagAggregateResult>
-  getSimpleType?: Maybe<SimpleType>
-  querySimpleType?: Maybe<Array<Maybe<SimpleType>>>
-  aggregateSimpleType?: Maybe<SimpleTypeAggregateResult>
+  getPrimitiveType?: Maybe<PrimitiveType>
+  queryPrimitiveType?: Maybe<Array<Maybe<PrimitiveType>>>
+  aggregatePrimitiveType?: Maybe<PrimitiveTypeAggregateResult>
   getArrayType?: Maybe<ArrayType>
   queryArrayType?: Maybe<Array<Maybe<ArrayType>>>
   aggregateArrayType?: Maybe<ArrayTypeAggregateResult>
@@ -2562,19 +2608,19 @@ export type QueryAggregateTagArgs = {
   filter?: Maybe<TagFilter>
 }
 
-export type QueryGetSimpleTypeArgs = {
+export type QueryGetPrimitiveTypeArgs = {
   id: Scalars['ID']
 }
 
-export type QueryQuerySimpleTypeArgs = {
-  filter?: Maybe<SimpleTypeFilter>
-  order?: Maybe<SimpleTypeOrder>
+export type QueryQueryPrimitiveTypeArgs = {
+  filter?: Maybe<PrimitiveTypeFilter>
+  order?: Maybe<PrimitiveTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
 
-export type QueryAggregateSimpleTypeArgs = {
-  filter?: Maybe<SimpleTypeFilter>
+export type QueryAggregatePrimitiveTypeArgs = {
+  filter?: Maybe<PrimitiveTypeFilter>
 }
 
 export type QueryGetArrayTypeArgs = {
@@ -2768,52 +2814,6 @@ export type QueryAggregatePropArgs = {
   filter?: Maybe<PropFilter>
 }
 
-export type SimpleType = Type & {
-  id: Scalars['ID']
-  name: Scalars['String']
-  primitiveType: PrimitiveType
-}
-
-export type SimpleTypeAggregateResult = {
-  count?: Maybe<Scalars['Int']>
-  nameMin?: Maybe<Scalars['String']>
-  nameMax?: Maybe<Scalars['String']>
-}
-
-export type SimpleTypeFilter = {
-  id?: Maybe<Array<Scalars['ID']>>
-  has?: Maybe<Array<Maybe<SimpleTypeHasFilter>>>
-  and?: Maybe<Array<Maybe<SimpleTypeFilter>>>
-  or?: Maybe<Array<Maybe<SimpleTypeFilter>>>
-  not?: Maybe<SimpleTypeFilter>
-}
-
-export enum SimpleTypeHasFilter {
-  Name = 'name',
-  PrimitiveType = 'primitiveType',
-}
-
-export type SimpleTypeOrder = {
-  asc?: Maybe<SimpleTypeOrderable>
-  desc?: Maybe<SimpleTypeOrderable>
-  then?: Maybe<SimpleTypeOrder>
-}
-
-export enum SimpleTypeOrderable {
-  Name = 'name',
-}
-
-export type SimpleTypePatch = {
-  name?: Maybe<Scalars['String']>
-  primitiveType?: Maybe<PrimitiveType>
-}
-
-export type SimpleTypeRef = {
-  id?: Maybe<Scalars['ID']>
-  name?: Maybe<Scalars['String']>
-  primitiveType?: Maybe<PrimitiveType>
-}
-
 export type StringExactFilter = {
   eq?: Maybe<Scalars['String']>
   in?: Maybe<Array<Maybe<Scalars['String']>>>
@@ -2984,28 +2984,28 @@ export type TypeRef = {
   id: Scalars['ID']
 }
 
-export type TypeUnion = Interface | EnumType | ArrayType | SimpleType
+export type TypeUnion = Interface | EnumType | ArrayType | PrimitiveType
 
 export type TypeUnionFilter = {
   memberTypes?: Maybe<Array<TypeUnionType>>
   interfaceFilter?: Maybe<InterfaceFilter>
   enumTypeFilter?: Maybe<EnumTypeFilter>
   arrayTypeFilter?: Maybe<ArrayTypeFilter>
-  simpleTypeFilter?: Maybe<SimpleTypeFilter>
+  primitiveTypeFilter?: Maybe<PrimitiveTypeFilter>
 }
 
 export type TypeUnionRef = {
   interfaceRef?: Maybe<InterfaceRef>
   enumTypeRef?: Maybe<EnumTypeRef>
   arrayTypeRef?: Maybe<ArrayTypeRef>
-  simpleTypeRef?: Maybe<SimpleTypeRef>
+  primitiveTypeRef?: Maybe<PrimitiveTypeRef>
 }
 
 export enum TypeUnionType {
   Interface = 'Interface',
   EnumType = 'EnumType',
   ArrayType = 'ArrayType',
-  SimpleType = 'SimpleType',
+  PrimitiveType = 'PrimitiveType',
 }
 
 export type UpdateAppInput = {
@@ -3293,6 +3293,24 @@ export type UpdatePagePayloadPageArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type UpdatePrimitiveTypeInput = {
+  filter: PrimitiveTypeFilter
+  set?: Maybe<PrimitiveTypePatch>
+  remove?: Maybe<PrimitiveTypePatch>
+}
+
+export type UpdatePrimitiveTypePayload = {
+  primitiveType?: Maybe<Array<Maybe<PrimitiveType>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdatePrimitiveTypePayloadPrimitiveTypeArgs = {
+  filter?: Maybe<PrimitiveTypeFilter>
+  order?: Maybe<PrimitiveTypeOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type UpdatePropInput = {
   filter: PropFilter
   set?: Maybe<PropPatch>
@@ -3306,24 +3324,6 @@ export type UpdatePropPayload = {
 
 export type UpdatePropPayloadPropArgs = {
   filter?: Maybe<PropFilter>
-  first?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-export type UpdateSimpleTypeInput = {
-  filter: SimpleTypeFilter
-  set?: Maybe<SimpleTypePatch>
-  remove?: Maybe<SimpleTypePatch>
-}
-
-export type UpdateSimpleTypePayload = {
-  simpleType?: Maybe<Array<Maybe<SimpleType>>>
-  numUids?: Maybe<Scalars['Int']>
-}
-
-export type UpdateSimpleTypePayloadSimpleTypeArgs = {
-  filter?: Maybe<SimpleTypeFilter>
-  order?: Maybe<SimpleTypeOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }
@@ -3812,7 +3812,7 @@ export type Dgraph__FieldFragment = Pick<
     | Dgraph__Type_ArrayType_Fragment
     | Dgraph__Type_EnumType_Fragment
     | Dgraph__Type_Interface_Fragment
-    | Dgraph__Type_SimpleType_Fragment
+    | Dgraph__Type_PrimitiveType_Fragment
   interface: Dgraph__InterfaceWithoutFieldsFragment
 }
 
@@ -3823,7 +3823,7 @@ type Dgraph__Type_ArrayType_Fragment = Pick<ArrayType, 'id' | 'name'> & {
         allowedValues: Array<Pick<EnumTypeValue, 'id' | 'name'>>
       })
     | Pick<Interface, 'id' | 'name'>
-    | Pick<SimpleType, 'primitiveType' | 'id' | 'name'>
+    | Pick<PrimitiveType, 'primitiveKind' | 'id' | 'name'>
 }
 
 type Dgraph__Type_EnumType_Fragment = Pick<EnumType, 'id' | 'name'> & {
@@ -3832,16 +3832,16 @@ type Dgraph__Type_EnumType_Fragment = Pick<EnumType, 'id' | 'name'> & {
 
 type Dgraph__Type_Interface_Fragment = Pick<Interface, 'id' | 'name'>
 
-type Dgraph__Type_SimpleType_Fragment = Pick<
-  SimpleType,
-  'primitiveType' | 'id' | 'name'
+type Dgraph__Type_PrimitiveType_Fragment = Pick<
+  PrimitiveType,
+  'primitiveKind' | 'id' | 'name'
 >
 
 export type Dgraph__TypeFragment =
   | Dgraph__Type_ArrayType_Fragment
   | Dgraph__Type_EnumType_Fragment
   | Dgraph__Type_Interface_Fragment
-  | Dgraph__Type_SimpleType_Fragment
+  | Dgraph__Type_PrimitiveType_Fragment
 
 export type DgrapEnumTypeValueFragment = Pick<
   EnumTypeValue,
@@ -3935,13 +3935,13 @@ export type CreateArrayTypeMutation = {
   }>
 }
 
-export type CreateSimpleTypeMutationVariables = Exact<{
-  input: Array<AddSimpleTypeInput> | AddSimpleTypeInput
+export type CreatePrimitiveTypeMutationVariables = Exact<{
+  input: Array<AddPrimitiveTypeInput> | AddPrimitiveTypeInput
 }>
 
-export type CreateSimpleTypeMutation = {
-  addSimpleType?: Maybe<{
-    simpleType?: Maybe<Array<Maybe<Dgraph__Type_SimpleType_Fragment>>>
+export type CreatePrimitiveTypeMutation = {
+  addPrimitiveType?: Maybe<{
+    primitiveType?: Maybe<Array<Maybe<Dgraph__Type_PrimitiveType_Fragment>>>
   }>
 }
 
@@ -3978,7 +3978,7 @@ export type GetFieldsByTypeQuery = {
             | Pick<ArrayType, 'id'>
             | Pick<EnumType, 'id'>
             | Pick<Interface, 'id'>
-            | Pick<SimpleType, 'id'>
+            | Pick<PrimitiveType, 'id'>
         }
       >
     >
@@ -3995,13 +3995,13 @@ export type UpdateEnumTypeMutation = {
   }>
 }
 
-export type UpdateSimpleTypeMutationVariables = Exact<{
-  input: UpdateSimpleTypeInput
+export type UpdatePrimitiveTypeMutationVariables = Exact<{
+  input: UpdatePrimitiveTypeInput
 }>
 
-export type UpdateSimpleTypeMutation = {
-  updateSimpleType?: Maybe<{
-    simpleType?: Maybe<Array<Maybe<Dgraph__Type_SimpleType_Fragment>>>
+export type UpdatePrimitiveTypeMutation = {
+  updatePrimitiveType?: Maybe<{
+    primitiveType?: Maybe<Array<Maybe<Dgraph__Type_PrimitiveType_Fragment>>>
   }>
 }
 
@@ -4017,7 +4017,7 @@ export type UpdateTypeMutation = {
           | Pick<ArrayType, 'id' | 'name'>
           | Pick<EnumType, 'id' | 'name'>
           | Pick<Interface, 'id' | 'name'>
-          | Pick<SimpleType, 'id' | 'name'>
+          | Pick<PrimitiveType, 'id' | 'name'>
         >
       >
     >
@@ -4057,8 +4057,8 @@ export const Dgraph__TypeFragmentDoc = gql`
             name
           }
         }
-        ... on SimpleType {
-          primitiveType
+        ... on PrimitiveType {
+          primitiveKind
         }
       }
     }
@@ -4067,8 +4067,8 @@ export const Dgraph__TypeFragmentDoc = gql`
         ...DgrapEnumTypeValue
       }
     }
-    ... on SimpleType {
-      primitiveType
+    ... on PrimitiveType {
+      primitiveKind
     }
   }
   ${DgrapEnumTypeValueFragmentDoc}
@@ -6571,58 +6571,58 @@ export type CreateArrayTypeMutationOptions = Apollo.BaseMutationOptions<
   CreateArrayTypeMutation,
   CreateArrayTypeMutationVariables
 >
-export const CreateSimpleTypeGql = gql`
-  mutation CreateSimpleType($input: [AddSimpleTypeInput!]!) {
-    addSimpleType(input: $input) {
-      simpleType {
+export const CreatePrimitiveTypeGql = gql`
+  mutation CreatePrimitiveType($input: [AddPrimitiveTypeInput!]!) {
+    addPrimitiveType(input: $input) {
+      primitiveType {
         ...Dgraph__Type
       }
     }
   }
   ${Dgraph__TypeFragmentDoc}
 `
-export type CreateSimpleTypeMutationFn = Apollo.MutationFunction<
-  CreateSimpleTypeMutation,
-  CreateSimpleTypeMutationVariables
+export type CreatePrimitiveTypeMutationFn = Apollo.MutationFunction<
+  CreatePrimitiveTypeMutation,
+  CreatePrimitiveTypeMutationVariables
 >
 
 /**
- * __useCreateSimpleTypeMutation__
+ * __useCreatePrimitiveTypeMutation__
  *
- * To run a mutation, you first call `useCreateSimpleTypeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateSimpleTypeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreatePrimitiveTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePrimitiveTypeMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createSimpleTypeMutation, { data, loading, error }] = useCreateSimpleTypeMutation({
+ * const [createPrimitiveTypeMutation, { data, loading, error }] = useCreatePrimitiveTypeMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useCreateSimpleTypeMutation(
+export function useCreatePrimitiveTypeMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    CreateSimpleTypeMutation,
-    CreateSimpleTypeMutationVariables
+    CreatePrimitiveTypeMutation,
+    CreatePrimitiveTypeMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useMutation<
-    CreateSimpleTypeMutation,
-    CreateSimpleTypeMutationVariables
-  >(CreateSimpleTypeGql, options)
+    CreatePrimitiveTypeMutation,
+    CreatePrimitiveTypeMutationVariables
+  >(CreatePrimitiveTypeGql, options)
 }
-export type CreateSimpleTypeMutationHookResult = ReturnType<
-  typeof useCreateSimpleTypeMutation
+export type CreatePrimitiveTypeMutationHookResult = ReturnType<
+  typeof useCreatePrimitiveTypeMutation
 >
-export type CreateSimpleTypeMutationResult =
-  Apollo.MutationResult<CreateSimpleTypeMutation>
-export type CreateSimpleTypeMutationOptions = Apollo.BaseMutationOptions<
-  CreateSimpleTypeMutation,
-  CreateSimpleTypeMutationVariables
+export type CreatePrimitiveTypeMutationResult =
+  Apollo.MutationResult<CreatePrimitiveTypeMutation>
+export type CreatePrimitiveTypeMutationOptions = Apollo.BaseMutationOptions<
+  CreatePrimitiveTypeMutation,
+  CreatePrimitiveTypeMutationVariables
 >
 export const CreateEnumTypeGql = gql`
   mutation CreateEnumType($input: [AddEnumTypeInput!]!) {
@@ -6850,58 +6850,58 @@ export type UpdateEnumTypeMutationOptions = Apollo.BaseMutationOptions<
   UpdateEnumTypeMutation,
   UpdateEnumTypeMutationVariables
 >
-export const UpdateSimpleTypeGql = gql`
-  mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
-    updateSimpleType(input: $input) {
-      simpleType {
+export const UpdatePrimitiveTypeGql = gql`
+  mutation UpdatePrimitiveType($input: UpdatePrimitiveTypeInput!) {
+    updatePrimitiveType(input: $input) {
+      primitiveType {
         ...Dgraph__Type
       }
     }
   }
   ${Dgraph__TypeFragmentDoc}
 `
-export type UpdateSimpleTypeMutationFn = Apollo.MutationFunction<
-  UpdateSimpleTypeMutation,
-  UpdateSimpleTypeMutationVariables
+export type UpdatePrimitiveTypeMutationFn = Apollo.MutationFunction<
+  UpdatePrimitiveTypeMutation,
+  UpdatePrimitiveTypeMutationVariables
 >
 
 /**
- * __useUpdateSimpleTypeMutation__
+ * __useUpdatePrimitiveTypeMutation__
  *
- * To run a mutation, you first call `useUpdateSimpleTypeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateSimpleTypeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdatePrimitiveTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePrimitiveTypeMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateSimpleTypeMutation, { data, loading, error }] = useUpdateSimpleTypeMutation({
+ * const [updatePrimitiveTypeMutation, { data, loading, error }] = useUpdatePrimitiveTypeMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useUpdateSimpleTypeMutation(
+export function useUpdatePrimitiveTypeMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    UpdateSimpleTypeMutation,
-    UpdateSimpleTypeMutationVariables
+    UpdatePrimitiveTypeMutation,
+    UpdatePrimitiveTypeMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useMutation<
-    UpdateSimpleTypeMutation,
-    UpdateSimpleTypeMutationVariables
-  >(UpdateSimpleTypeGql, options)
+    UpdatePrimitiveTypeMutation,
+    UpdatePrimitiveTypeMutationVariables
+  >(UpdatePrimitiveTypeGql, options)
 }
-export type UpdateSimpleTypeMutationHookResult = ReturnType<
-  typeof useUpdateSimpleTypeMutation
+export type UpdatePrimitiveTypeMutationHookResult = ReturnType<
+  typeof useUpdatePrimitiveTypeMutation
 >
-export type UpdateSimpleTypeMutationResult =
-  Apollo.MutationResult<UpdateSimpleTypeMutation>
-export type UpdateSimpleTypeMutationOptions = Apollo.BaseMutationOptions<
-  UpdateSimpleTypeMutation,
-  UpdateSimpleTypeMutationVariables
+export type UpdatePrimitiveTypeMutationResult =
+  Apollo.MutationResult<UpdatePrimitiveTypeMutation>
+export type UpdatePrimitiveTypeMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePrimitiveTypeMutation,
+  UpdatePrimitiveTypeMutationVariables
 >
 export const UpdateTypeGql = gql`
   mutation UpdateType($input: UpdateTypeInput!) {
@@ -6988,8 +6988,8 @@ export const Dgraph__Type = gql`
             name
           }
         }
-        ... on SimpleType {
-          primitiveType
+        ... on PrimitiveType {
+          primitiveKind
         }
       }
     }
@@ -6998,8 +6998,8 @@ export const Dgraph__Type = gql`
         ...DgrapEnumTypeValue
       }
     }
-    ... on SimpleType {
-      primitiveType
+    ... on PrimitiveType {
+      primitiveKind
     }
   }
   ${DgrapEnumTypeValue}
@@ -7644,10 +7644,10 @@ export const CreateArrayType = gql`
     }
   }
 `
-export const CreateSimpleType = gql`
-  mutation CreateSimpleType($input: [AddSimpleTypeInput!]!) {
-    addSimpleType(input: $input) {
-      simpleType {
+export const CreatePrimitiveType = gql`
+  mutation CreatePrimitiveType($input: [AddPrimitiveTypeInput!]!) {
+    addPrimitiveType(input: $input) {
+      primitiveType {
         ...Dgraph__Type
       }
     }
@@ -7695,10 +7695,10 @@ export const UpdateEnumType = gql`
   }
   ${Dgraph__Type}
 `
-export const UpdateSimpleType = gql`
-  mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
-    updateSimpleType(input: $input) {
-      simpleType {
+export const UpdatePrimitiveType = gql`
+  mutation UpdatePrimitiveType($input: UpdatePrimitiveTypeInput!) {
+    updatePrimitiveType(input: $input) {
+      primitiveType {
         ...Dgraph__Type
       }
     }

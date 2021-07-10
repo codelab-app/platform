@@ -285,14 +285,14 @@ export type CreatePageInput = {
   appId: Scalars['String']
 }
 
-export type CreateSimpleTypeInput = {
-  primitiveType: PrimitiveType
+export type CreatePrimitiveTypeInput = {
+  primitiveKind: PrimitiveKind
 }
 
 /** Provide one of the properties */
 export type CreateTypeInput = {
   name: Scalars['String']
-  simpleType?: Maybe<CreateSimpleTypeInput>
+  primitiveType?: Maybe<CreatePrimitiveTypeInput>
   arrayType?: Maybe<CreateArrayTypeInput>
   enumType?: Maybe<CreateEnumTypeInput>
   interfaceType?: Maybe<Scalars['Boolean']>
@@ -520,7 +520,7 @@ export type Mutation = {
   deleteField: DeleteResponse
   createType: Type
   updateEnumType: EnumType
-  updateSimpleType: SimpleType
+  updatePrimitiveType: PrimitiveType
   updateType: Type
   deleteType: DeleteResponse
   upsertProp: UpsertPropsResponse
@@ -615,8 +615,8 @@ export type MutationUpdateEnumTypeArgs = {
   input: UpdateEnumTypeInput
 }
 
-export type MutationUpdateSimpleTypeArgs = {
-  input: UpdateSimpleTypeInput
+export type MutationUpdatePrimitiveTypeArgs = {
+  input: UpdatePrimitiveTypeInput
 }
 
 export type MutationUpdateTypeArgs = {
@@ -638,11 +638,17 @@ export type Page = {
   rootElement: ElementAggregate
 }
 
-export enum PrimitiveType {
+export enum PrimitiveKind {
   String = 'String',
   Integer = 'Integer',
   Float = 'Float',
   Boolean = 'Boolean',
+}
+
+export type PrimitiveType = Type & {
+  id: Scalars['ID']
+  name: Scalars['String']
+  primitiveKind: PrimitiveKind
 }
 
 export type Prop = {
@@ -755,12 +761,6 @@ export type QueryGetPropsArgs = {
   input: GetPropsInput
 }
 
-export type SimpleType = Type & {
-  id: Scalars['ID']
-  name: Scalars['String']
-  primitiveType: PrimitiveType
-}
-
 export type StringValue = {
   id: Scalars['ID']
   stringValue: Scalars['String']
@@ -856,14 +856,14 @@ export type UpdatePageInput = {
   updateData: UpdatePageData
 }
 
-export type UpdateSimpleTypeData = {
-  primitiveType: PrimitiveType
+export type UpdatePrimitiveKindData = {
+  primitiveKind: PrimitiveKind
   name: Scalars['String']
 }
 
-export type UpdateSimpleTypeInput = {
+export type UpdatePrimitiveTypeInput = {
   typeId: Scalars['String']
-  updateData: UpdateSimpleTypeData
+  updateData: UpdatePrimitiveKindData
 }
 
 export type UpdateTypeData = {
@@ -1310,7 +1310,7 @@ export type TestGetTypeQuery = {
     | __Type_ArrayType_Fragment
     | __Type_EnumType_Fragment
     | __Type_Interface_Fragment
-    | __Type_SimpleType_Fragment
+    | __Type_PrimitiveType_Fragment
   >
 }
 
@@ -1344,9 +1344,9 @@ export type __EnumTypeFragment = Pick<EnumType, 'id' | 'name'> & {
   allowedValues: Array<__EnumTypeValueFragment>
 }
 
-export type __SimpleTypeFragment = Pick<
-  SimpleType,
-  'id' | 'name' | 'primitiveType'
+export type __PrimitiveTypeFragment = Pick<
+  PrimitiveType,
+  'id' | 'name' | 'primitiveKind'
 >
 
 type __Type_ArrayType_Fragment = { __typename: 'ArrayType' } & Pick<
@@ -1367,17 +1367,17 @@ type __Type_Interface_Fragment = { __typename: 'Interface' } & Pick<
 > &
   __InterfaceWithoutTypesFragment
 
-type __Type_SimpleType_Fragment = { __typename: 'SimpleType' } & Pick<
-  SimpleType,
+type __Type_PrimitiveType_Fragment = { __typename: 'PrimitiveType' } & Pick<
+  PrimitiveType,
   'id' | 'name'
 > &
-  __SimpleTypeFragment
+  __PrimitiveTypeFragment
 
 export type __TypeFragment =
   | __Type_ArrayType_Fragment
   | __Type_EnumType_Fragment
   | __Type_Interface_Fragment
-  | __Type_SimpleType_Fragment
+  | __Type_PrimitiveType_Fragment
 
 type __TypeShallow_ArrayType_Fragment = { __typename: 'ArrayType' } & Pick<
   ArrayType,
@@ -1393,15 +1393,15 @@ type __TypeShallow_Interface_Fragment = { __typename: 'Interface' } & Pick<
   'id'
 >
 
-type __TypeShallow_SimpleType_Fragment = {
-  __typename: 'SimpleType'
-} & __SimpleTypeFragment
+type __TypeShallow_PrimitiveType_Fragment = {
+  __typename: 'PrimitiveType'
+} & __PrimitiveTypeFragment
 
 export type __TypeShallowFragment =
   | __TypeShallow_ArrayType_Fragment
   | __TypeShallow_EnumType_Fragment
   | __TypeShallow_Interface_Fragment
-  | __TypeShallow_SimpleType_Fragment
+  | __TypeShallow_PrimitiveType_Fragment
 
 export type __InterfaceWithoutFieldsFragment = Pick<Interface, 'id' | 'name'>
 
@@ -1411,7 +1411,7 @@ export type __InterfaceWithoutTypesFragment = {
       | __TypeShallow_ArrayType_Fragment
       | __TypeShallow_EnumType_Fragment
       | __TypeShallow_Interface_Fragment
-      | __TypeShallow_SimpleType_Fragment
+      | __TypeShallow_PrimitiveType_Fragment
     >
   } & __FieldCollectionWithoutTypesFragment
 } & __InterfaceWithoutFieldsFragment
@@ -1425,7 +1425,7 @@ export type __FieldCollectionFragment = {
     | __Type_ArrayType_Fragment
     | __Type_EnumType_Fragment
     | __Type_Interface_Fragment
-    | __Type_SimpleType_Fragment
+    | __Type_PrimitiveType_Fragment
   >
 } & __FieldCollectionWithoutTypesFragment
 
@@ -1468,7 +1468,7 @@ export type CreateTypeMutation = {
     | __Type_ArrayType_Fragment
     | __Type_EnumType_Fragment
     | __Type_Interface_Fragment
-    | __Type_SimpleType_Fragment
+    | __Type_PrimitiveType_Fragment
 }
 
 export type DeleteTypeMutationVariables = Exact<{
@@ -1492,7 +1492,7 @@ export type GetTypesQuery = {
     | ({ __typename: 'ArrayType' } & __Type_ArrayType_Fragment)
     | ({ __typename: 'EnumType' } & __Type_EnumType_Fragment)
     | ({ __typename: 'Interface' } & __Type_Interface_Fragment)
-    | ({ __typename: 'SimpleType' } & __Type_SimpleType_Fragment)
+    | ({ __typename: 'PrimitiveType' } & __Type_PrimitiveType_Fragment)
   >
 }
 
@@ -1511,15 +1511,15 @@ export type UpdateTypeMutation = {
     | __Type_ArrayType_Fragment
     | __Type_EnumType_Fragment
     | __Type_Interface_Fragment
-    | __Type_SimpleType_Fragment
+    | __Type_PrimitiveType_Fragment
 }
 
-export type UpdateSimpleTypeMutationVariables = Exact<{
-  input: UpdateSimpleTypeInput
+export type UpdatePrimitiveTypeMutationVariables = Exact<{
+  input: UpdatePrimitiveTypeInput
 }>
 
-export type UpdateSimpleTypeMutation = {
-  updateSimpleType: __SimpleTypeFragment
+export type UpdatePrimitiveTypeMutation = {
+  updatePrimitiveType: __PrimitiveTypeFragment
 }
 
 export type __UserFragment = Pick<User, 'email' | 'name'> & {
@@ -1802,11 +1802,11 @@ export const __EnumTypeFragmentDoc = gql`
   }
   ${__EnumTypeValueFragmentDoc}
 `
-export const __SimpleTypeFragmentDoc = gql`
-  fragment __SimpleType on SimpleType {
+export const __PrimitiveTypeFragmentDoc = gql`
+  fragment __PrimitiveType on PrimitiveType {
     id
     name
-    primitiveType
+    primitiveKind
   }
 `
 export const __TypeShallowFragmentDoc = gql`
@@ -1821,12 +1821,12 @@ export const __TypeShallowFragmentDoc = gql`
     ... on Interface {
       id
     }
-    ... on SimpleType {
-      ...__SimpleType
+    ... on PrimitiveType {
+      ...__PrimitiveType
     }
   }
   ${__EnumTypeFragmentDoc}
-  ${__SimpleTypeFragmentDoc}
+  ${__PrimitiveTypeFragmentDoc}
 `
 export const __InterfaceWithoutTypesFragmentDoc = gql`
   fragment __InterfaceWithoutTypes on Interface {
@@ -1856,14 +1856,14 @@ export const __TypeFragmentDoc = gql`
     ... on Interface {
       ...__InterfaceWithoutTypes
     }
-    ... on SimpleType {
-      ...__SimpleType
+    ... on PrimitiveType {
+      ...__PrimitiveType
     }
   }
   ${__ArrayTypeFragmentDoc}
   ${__EnumTypeFragmentDoc}
   ${__InterfaceWithoutTypesFragmentDoc}
-  ${__SimpleTypeFragmentDoc}
+  ${__PrimitiveTypeFragmentDoc}
 `
 export const __FieldCollectionFragmentDoc = gql`
   fragment __FieldCollection on FieldCollection {
@@ -4134,56 +4134,56 @@ export type UpdateTypeMutationOptions = Apollo.BaseMutationOptions<
   UpdateTypeMutation,
   UpdateTypeMutationVariables
 >
-export const UpdateSimpleTypeGql = gql`
-  mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
-    updateSimpleType(input: $input) {
-      ...__SimpleType
+export const UpdatePrimitiveTypeGql = gql`
+  mutation UpdatePrimitiveType($input: UpdatePrimitiveTypeInput!) {
+    updatePrimitiveType(input: $input) {
+      ...__PrimitiveType
     }
   }
-  ${__SimpleTypeFragmentDoc}
+  ${__PrimitiveTypeFragmentDoc}
 `
-export type UpdateSimpleTypeMutationFn = Apollo.MutationFunction<
-  UpdateSimpleTypeMutation,
-  UpdateSimpleTypeMutationVariables
+export type UpdatePrimitiveTypeMutationFn = Apollo.MutationFunction<
+  UpdatePrimitiveTypeMutation,
+  UpdatePrimitiveTypeMutationVariables
 >
 
 /**
- * __useUpdateSimpleTypeMutation__
+ * __useUpdatePrimitiveTypeMutation__
  *
- * To run a mutation, you first call `useUpdateSimpleTypeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateSimpleTypeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdatePrimitiveTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdatePrimitiveTypeMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateSimpleTypeMutation, { data, loading, error }] = useUpdateSimpleTypeMutation({
+ * const [updatePrimitiveTypeMutation, { data, loading, error }] = useUpdatePrimitiveTypeMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useUpdateSimpleTypeMutation(
+export function useUpdatePrimitiveTypeMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    UpdateSimpleTypeMutation,
-    UpdateSimpleTypeMutationVariables
+    UpdatePrimitiveTypeMutation,
+    UpdatePrimitiveTypeMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useMutation<
-    UpdateSimpleTypeMutation,
-    UpdateSimpleTypeMutationVariables
-  >(UpdateSimpleTypeGql, options)
+    UpdatePrimitiveTypeMutation,
+    UpdatePrimitiveTypeMutationVariables
+  >(UpdatePrimitiveTypeGql, options)
 }
-export type UpdateSimpleTypeMutationHookResult = ReturnType<
-  typeof useUpdateSimpleTypeMutation
+export type UpdatePrimitiveTypeMutationHookResult = ReturnType<
+  typeof useUpdatePrimitiveTypeMutation
 >
-export type UpdateSimpleTypeMutationResult =
-  Apollo.MutationResult<UpdateSimpleTypeMutation>
-export type UpdateSimpleTypeMutationOptions = Apollo.BaseMutationOptions<
-  UpdateSimpleTypeMutation,
-  UpdateSimpleTypeMutationVariables
+export type UpdatePrimitiveTypeMutationResult =
+  Apollo.MutationResult<UpdatePrimitiveTypeMutation>
+export type UpdatePrimitiveTypeMutationOptions = Apollo.BaseMutationOptions<
+  UpdatePrimitiveTypeMutation,
+  UpdatePrimitiveTypeMutationVariables
 >
 export const DeleteUserGql = gql`
   mutation DeleteUser($input: DeleteUserInput!) {
@@ -4553,11 +4553,11 @@ export const __EnumType = gql`
   }
   ${__EnumTypeValue}
 `
-export const __SimpleType = gql`
-  fragment __SimpleType on SimpleType {
+export const __PrimitiveType = gql`
+  fragment __PrimitiveType on PrimitiveType {
     id
     name
-    primitiveType
+    primitiveKind
   }
 `
 export const __TypeShallow = gql`
@@ -4572,12 +4572,12 @@ export const __TypeShallow = gql`
     ... on Interface {
       id
     }
-    ... on SimpleType {
-      ...__SimpleType
+    ... on PrimitiveType {
+      ...__PrimitiveType
     }
   }
   ${__EnumType}
-  ${__SimpleType}
+  ${__PrimitiveType}
 `
 export const __InterfaceWithoutTypes = gql`
   fragment __InterfaceWithoutTypes on Interface {
@@ -4607,14 +4607,14 @@ export const __Type = gql`
     ... on Interface {
       ...__InterfaceWithoutTypes
     }
-    ... on SimpleType {
-      ...__SimpleType
+    ... on PrimitiveType {
+      ...__PrimitiveType
     }
   }
   ${__ArrayType}
   ${__EnumType}
   ${__InterfaceWithoutTypes}
-  ${__SimpleType}
+  ${__PrimitiveType}
 `
 export const __FieldCollection = gql`
   fragment __FieldCollection on FieldCollection {
@@ -4972,13 +4972,13 @@ export const UpdateType = gql`
   }
   ${__Type}
 `
-export const UpdateSimpleType = gql`
-  mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
-    updateSimpleType(input: $input) {
-      ...__SimpleType
+export const UpdatePrimitiveType = gql`
+  mutation UpdatePrimitiveType($input: UpdatePrimitiveTypeInput!) {
+    updatePrimitiveType(input: $input) {
+      ...__PrimitiveType
     }
   }
-  ${__SimpleType}
+  ${__PrimitiveType}
 `
 export const DeleteUser = gql`
   mutation DeleteUser($input: DeleteUserInput!) {

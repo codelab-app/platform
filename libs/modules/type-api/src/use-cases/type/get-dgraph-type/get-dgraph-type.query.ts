@@ -5,7 +5,7 @@ import {
   DgraphEnumTypeValue,
   DgraphField,
   DgraphInterface,
-  DgraphSimpleType,
+  DgraphPrimitiveType,
   DgraphTypeFields,
 } from '../../../models'
 
@@ -17,7 +17,7 @@ export class GetDgraphTypeQueryBuilder extends DgraphQueryBuilder {
       .withBaseFields()
       .withFields('Atom.label')
       .withModelsFields(DgraphInterface, DgraphField, DgraphEnumTypeValue)
-      .withModelFields(DgraphSimpleType, { omit: [DgraphTypeFields.name] })
+      .withModelFields(DgraphPrimitiveType, { omit: [DgraphTypeFields.name] })
       .withModelFields(DgraphArrayType, { omit: [DgraphTypeFields.name] })
       .withModelFields(DgraphEnumType, { omit: [DgraphTypeFields.name] })
   }
@@ -26,7 +26,7 @@ export class GetDgraphTypeQueryBuilder extends DgraphQueryBuilder {
 export type GetDgraphTypeQueryResult =
   | DgraphInterface
   | DgraphField
-  | DgraphSimpleType
+  | DgraphPrimitiveType
   | DgraphArrayType
   | DgraphEnumType
   | DgraphEnumTypeValue

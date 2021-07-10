@@ -6,9 +6,9 @@ mutation CreateArrayType($input: [AddArrayTypeInput!]!) {
   }
 }
 
-mutation CreateSimpleType($input: [AddSimpleTypeInput!]!) {
-  addSimpleType(input: $input) {
-    simpleType {
+mutation CreatePrimitiveType($input: [AddPrimitiveTypeInput!]!) {
+  addPrimitiveType(input: $input) {
+    primitiveType {
       ...Dgraph__Type
     }
   }

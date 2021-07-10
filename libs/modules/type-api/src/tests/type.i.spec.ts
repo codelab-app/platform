@@ -11,7 +11,7 @@ import {
   __EnumTypeFragment,
   __FieldFragment,
   __InterfaceFragment,
-  __SimpleTypeFragment,
+  __PrimitiveTypeFragment,
   __TypeFragment,
   ArrayType,
   DeleteFieldInput,
@@ -48,7 +48,7 @@ import {
   UpdateInterfaceInput,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
-import { PrimitiveType } from '../models'
+import { PrimitiveKind } from '../models'
 import { TypeModule } from '../type.module'
 import {
   CreateFieldInput,
@@ -106,8 +106,8 @@ describe('type', () => {
           type: {
             newType: {
               name: 'string',
-              simpleType: {
-                primitiveType: PrimitiveType.String,
+              primitiveType: {
+                primitiveKind: PrimitiveKind.String,
               },
             },
           },
@@ -142,7 +142,7 @@ describe('type', () => {
         /**
          * We should have 2 types:
          *
-         * 1. field1's SimpleType
+         * 1. field1's PrimitiveType
          * 2. field2's ArrayType
          */
         expect(retrievedInterface?.fieldCollection.types).toHaveLength(2)
@@ -231,18 +231,18 @@ describe('type', () => {
     })
 
     describe('Create field', () => {
-      it('should create simple type field', async () => {
-        // Loop all primitive types and create a simple type for each of them
-        for (const primitiveType of Object.values(PrimitiveType)) {
+      it('should create primitive type field', async () => {
+        // Loop all primitive types and create a primitive type for each of them
+        for (const primitiveKind of Object.values(PrimitiveKind)) {
           const input: CreateFieldInput = {
-            name: `A ${primitiveType} field`,
+            name: `A ${primitiveKind} field`,
             interfaceId,
-            key: `fieldKey${primitiveType}`,
+            key: `fieldKey${primitiveKind}`,
             type: {
               newType: {
-                name: primitiveType,
-                simpleType: {
-                  primitiveType,
+                name: primitiveKind,
+                primitiveType: {
+                  primitiveKind: primitiveKind,
                 },
               },
             },
@@ -254,20 +254,18 @@ describe('type', () => {
 
           // assert the type matches too
           const type = await getType(field.typeId)
-          checkSimpleType(type, primitiveType)
+          checkPrimitiveType(type, primitiveKind)
         }
       })
 
-      it('should create array type field with simple type array item', async () => {
-        const primitiveType = PrimitiveType.String
-
+      it('should create array type field with primitive type array item', async () => {
         const field1 = await createField({
           name: 'Field',
           type: {
             newType: {
               name: 'string',
-              simpleType: {
-                primitiveType: PrimitiveType.String,
+              primitiveType: {
+                primitiveKind: PrimitiveKind.String,
               },
             },
           },
@@ -298,9 +296,11 @@ describe('type', () => {
         expect(type).toBeTruthy()
         expect(type?.__typename).toBe('ArrayType')
 
-        const simpleType = await getType((type as __ArrayTypeFragment).typeId)
+        const primitiveType = await getType(
+          (type as __ArrayTypeFragment).typeId,
+        )
 
-        checkSimpleType(simpleType, primitiveType)
+        checkPrimitiveType(primitiveType, PrimitiveKind.String)
       })
 
       it('should create enum type field', async () => {
@@ -364,14 +364,14 @@ describe('type', () => {
 
       it('should fail to create a field with duplicate key', async () => {
         const input: CreateFieldInput = {
-          name: `A simple field`,
+          name: `A primitive typed field`,
           interfaceId,
           key: 'duplicatedFieldKey',
           type: {
             newType: {
-              name: 'simple type',
-              simpleType: {
-                primitiveType: PrimitiveType.String,
+              name: 'primitive type',
+              primitiveType: {
+                primitiveKind: PrimitiveKind.String,
               },
             },
           },
@@ -394,13 +394,13 @@ describe('type', () => {
       let fieldId: string
 
       const createFieldInput: Omit<CreateFieldInput, 'interfaceId'> = {
-        name: `A simple field`,
+        name: `A primitive field`,
         key: 'fieldKey',
         type: {
           newType: {
-            name: 'simple type',
-            simpleType: {
-              primitiveType: PrimitiveType.String,
+            name: 'primitive type',
+            primitiveType: {
+              primitiveKind: PrimitiveKind.String,
             },
           },
         },
@@ -437,8 +437,8 @@ describe('type', () => {
           interfaceId,
           type: {
             newType: {
-              name: 'simple type',
-              simpleType: { primitiveType: PrimitiveType.String },
+              name: 'primitive type',
+              primitiveType: { primitiveKind: PrimitiveKind.String },
             },
           },
           description: 'hello',
@@ -478,8 +478,8 @@ describe('type', () => {
           interfaceId,
           type: {
             newType: {
-              name: 'Simple type',
-              simpleType: { primitiveType: PrimitiveType.String },
+              name: 'Primitive type',
+              primitiveType: { primitiveKind: PrimitiveKind.String },
             },
           },
           description: 'hello',
@@ -491,8 +491,8 @@ describe('type', () => {
           interfaceId,
           type: {
             newType: {
-              name: 'Simple type',
-              simpleType: { primitiveType: PrimitiveType.String },
+              name: 'Primitive type',
+              primitiveType: { primitiveKind: PrimitiveKind.String },
             },
           },
           description: 'hello',
@@ -534,7 +534,7 @@ describe('type', () => {
           type: {
             newType: {
               name: 'type',
-              simpleType: { primitiveType: PrimitiveType.String },
+              primitiveType: { primitiveKind: PrimitiveKind.String },
             },
           },
           key: 'deleteMe',
@@ -680,12 +680,12 @@ describe('type', () => {
     expect(field?.typeId).toBeTruthy()
   }
 
-  const checkSimpleType = (
+  const checkPrimitiveType = (
     type: __TypeFragment | undefined | null,
-    primitiveType: any,
+    primitiveKind: PrimitiveKind,
   ) => {
     expect(type).toBeTruthy()
-    expect(type?.__typename).toBe('SimpleType')
-    expect((type as __SimpleTypeFragment).primitiveType).toBe(primitiveType)
+    expect(type?.__typename).toBe('PrimitiveType')
+    expect((type as __PrimitiveTypeFragment).primitiveKind).toBe(primitiveKind)
   }
 })

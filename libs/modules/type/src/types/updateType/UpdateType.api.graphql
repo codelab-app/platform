@@ -10,8 +10,8 @@ mutation UpdateType($input: UpdateTypeInput!) {
   }
 }
 
-mutation UpdateSimpleType($input: UpdateSimpleTypeInput!) {
-  updateSimpleType(input: $input) {
-    ...__SimpleType
+mutation UpdatePrimitiveType($input: UpdatePrimitiveTypeInput!) {
+  updatePrimitiveType(input: $input) {
+    ...__PrimitiveType
   }
 }

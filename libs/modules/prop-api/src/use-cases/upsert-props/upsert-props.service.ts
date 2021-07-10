@@ -3,15 +3,19 @@ import {
   DgraphProvider,
   DgraphTokens,
   DgraphUseCase,
+  instanceOfDgraphModel,
 } from '@codelab/backend'
 import { Atom, GetAtomByService } from '@codelab/modules/atom-api'
 import {
+  DgraphArrayType,
+  DgraphEnumType,
   DgraphFieldFields,
-  DgraphSimpleType,
+  DgraphInterface,
+  DgraphPrimitiveType,
   DgraphType,
   GetDgraphFieldService,
-  PrimitiveType,
-  SimpleTypeDgraphFields,
+  PrimitiveKind,
+  PrimitiveTypeFields,
 } from '@codelab/modules/type-api'
 import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js'
@@ -116,42 +120,54 @@ export class UpsertPropsService extends DgraphUseCase<
       ][0]
 
       if (value) {
-        if (fieldType === 'Interface' && !value.interfaceValue) {
+        if (
+          instanceOfDgraphModel(field, DgraphInterface) &&
+          !value.interfaceValue
+        ) {
           throw new Error(
             'An interface value must be provided for an interface field',
           )
-        } else if (fieldType === 'ArrayType' && !value.arrayValue) {
-          throw new Error('An array value must be provided for an array field')
-        } else if (fieldType === 'SimpleType') {
-          const primitiveType = (
-            field[DgraphFieldFields.Type] as DgraphSimpleType
-          )[SimpleTypeDgraphFields.PrimitiveType]
+        }
 
-          if (primitiveType === PrimitiveType.String && !value.stringValue) {
+        if (
+          instanceOfDgraphModel(field, DgraphArrayType) &&
+          !value.arrayValue
+        ) {
+          throw new Error('An array value must be provided for an array field')
+        }
+
+        if (instanceOfDgraphModel(field, DgraphPrimitiveType)) {
+          const primitiveKind = (
+            field[DgraphFieldFields.Type] as DgraphPrimitiveType
+          )[PrimitiveTypeFields.Kind]
+
+          if (primitiveKind === PrimitiveKind.String && !value.stringValue) {
             throw new Error(
               'A string value must be provided for an string field',
             )
-          } else if (
-            primitiveType === PrimitiveType.Boolean &&
-            !value.booleanValue
-          ) {
+          }
+
+          if (primitiveKind === PrimitiveKind.Boolean && !value.booleanValue) {
             throw new Error(
               'A boolean value must be provided for an boolean field',
             )
-          } else if (
-            primitiveType === PrimitiveType.Float &&
-            !value.floatValue
-          ) {
+          }
+
+          if (primitiveKind === PrimitiveKind.Float && !value.floatValue) {
             throw new Error('A float value must be provided for an float field')
-          } else if (
-            primitiveType === PrimitiveType.Integer &&
-            !value.intValue
-          ) {
+          }
+
+          if (primitiveKind === PrimitiveKind.Integer && !value.intValue) {
             throw new Error(
               'An integer value must be provided for an integer field',
             )
           }
-        } else if (fieldType === 'EnumType' && !value.enumValueId) {
+        }
+
+        if (
+          instanceOfDgraphModel(field, DgraphEnumType) &&
+          !value.enumValueId
+        ) {
           throw new Error('An enum value id must be provided for an enum field')
         }
       }

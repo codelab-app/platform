@@ -1,15 +1,18 @@
-import { CreateTypeInput, PrimitiveType } from '@codelab/codegen/graphql'
+import { CreateTypeInput, PrimitiveKind } from '@codelab/codegen/graphql'
 
+/**
+ * This is the version of TypeModels that we present to the Ui, for simplicity
+ */
 export enum TypeKind {
   Interface = 'Object',
   Array = 'Array',
   Enum = 'Enum',
-  Simple = 'Primitive',
+  Primitive = 'Primitive',
 }
 
 export interface BaseTypeMutationSchema {
   name: string
-  primitiveType?: PrimitiveType
+  primitiveKind?: PrimitiveKind
   allowedValues?: Array<{ name?: string | null; value: string }>
 }
 
@@ -17,10 +20,10 @@ export const baseTypeMutationSchemaProperties = {
   name: {
     type: 'string',
   },
-  primitiveType: {
+  primitiveKind: {
     type: 'string',
     nullable: true,
-    enum: Object.values(PrimitiveType),
+    enum: Object.values(PrimitiveKind),
   },
   allowedValues: {
     type: 'array',
@@ -54,14 +57,14 @@ export const mapTypeSchemaToTypeInput = (
         ...common,
         enumType: { allowedValues: typeSchema.allowedValues },
       }
-    case TypeKind.Simple:
-      if (!typeSchema.primitiveType) {
+    case TypeKind.Primitive:
+      if (!typeSchema.primitiveKind) {
         throw new Error('Invalid form input')
       }
 
       return {
         ...common,
-        simpleType: { primitiveType: typeSchema.primitiveType },
+        primitiveType: { primitiveKind: typeSchema.primitiveKind },
       }
   }
 

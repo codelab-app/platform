@@ -1,13 +1,13 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { PrimitiveType } from '../../../models/types'
+import { PrimitiveKind } from '../../../models/types'
 
 // It would be nice if we could do union input types, but graphql doesn't support it right now
 // there's an RFC though https://github.com/graphql/graphql-spec/blob/main/rfcs/InputUnion.md maybe we'll see it soon
 
 @InputType()
-export class CreateSimpleTypeInput {
-  @Field(() => PrimitiveType)
-  declare primitiveType: PrimitiveType
+export class CreatePrimitiveTypeInput {
+  @Field(() => PrimitiveKind)
+  declare primitiveKind: PrimitiveKind
 }
 
 @InputType()
@@ -37,8 +37,8 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
   @Field()
   declare name: string
 
-  @Field(() => CreateSimpleTypeInput, { nullable: true })
-  declare simpleType?: CreateSimpleTypeInput
+  @Field(() => CreatePrimitiveTypeInput, { nullable: true })
+  declare primitiveType?: CreatePrimitiveTypeInput
 
   @Field(() => CreateArrayTypeInput, { nullable: true })
   declare arrayType?: T
