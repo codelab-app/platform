@@ -9,4 +9,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../coverage/libs/ui/d3',
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!(d3)/)'],
 }
