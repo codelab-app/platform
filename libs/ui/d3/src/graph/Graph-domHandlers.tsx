@@ -59,7 +59,7 @@ const deactivateAllLinks = () => {
 /**
  * Node handlers
  */
-export const handleClickNode = (node, i, nodes) => {
+export const handleClickNode: (...args: any) => any = (node, i, nodes) => {
   return Promise.all([
     /**
      * if label === '+', then trigger create event

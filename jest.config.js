@@ -14,6 +14,6 @@ module.exports = {
     '<rootDir>/libs/modules/auth-api',
     '<rootDir>/libs/modules/type-api',
     '<rootDir>/apps/gqlgen',
-    '<rootDir>/libs/ui/d',
+    '<rootDir>/libs/ui/d3',
   ],
 }
