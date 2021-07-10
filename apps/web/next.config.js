@@ -20,8 +20,13 @@ const nextConfig = withPlugins([
   withAntdLess({
     modifyVars: {
       // '@primary-color': '#04f'
+      '@menu-item-height': '37px',
+      '@menu-item-padding': '0 10px',
+      '@menu-inline-toplevel-item-height': '36px',
+      '@layout-header-height': '38px',
+      '@layout-header-padding': '0px',
     },
-    lessVarsFilePath: './src/styles/App.less',
+    // lessVarsFilePath: './src/styles/variables.less',
     // lessVarsFilePathAppendToEndOfContent: true,
     // optional https://github.com/webpack-contrib/css-loader#object
     cssLoaderOptions: {},
