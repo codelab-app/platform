@@ -36,7 +36,8 @@ filters-prod: &filters-prod
     tags:
       only: /^prod-.*$/
     branches:
-      ignore: /.*/
+      only:
+        - production
 
 # Workaround for the lack of logical "AND" for filters
 # filters-master-branch-only: &filters-master-branch-only
