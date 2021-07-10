@@ -1,6 +1,9 @@
 import { SimulationLinkDatum, SimulationNodeDatum } from 'd3-force'
 
 export enum NodeType {
+  User = 'User',
+  App = 'App',
+  Page = 'Page',
   Model = 'Model',
   Field = 'Field',
   Data = 'Data',
@@ -22,7 +25,9 @@ export interface D3NodeProp {
 }
 
 export interface D3Node extends D3NodeProp, SimulationNodeDatum {
+  type?: string
   label?: string
+  color?: string
 }
 
 export interface D3LinkProp {
@@ -34,6 +39,8 @@ export interface D3Link extends D3LinkProp, SimulationLinkDatum<D3Node> {
 }
 
 export type D3GraphProps = {
+  width?: number
+  height?: number
   nodes: Array<D3Node>
   links: Array<D3Link>
   onNodeClick?: () => any

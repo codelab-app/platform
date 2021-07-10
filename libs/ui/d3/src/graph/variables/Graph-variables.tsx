@@ -52,8 +52,8 @@ export const g = {
    * Graph
    */
   svg: {},
-  width: 600,
-  height: 600,
+  // width: 600,
+  // height: 600,
   /**
    * Nodes
    */
@@ -66,7 +66,9 @@ export const g = {
   labelOffset: 10,
 
   node: {
-    ...nodeAttributes('grey', 10, 50)(NodeType.Model),
+    ...nodeAttributes('blue', 10, 50)(NodeType.User),
+    ...nodeAttributes('black', 10, 50)(NodeType.App),
+    ...nodeAttributes('grey', 10, 50)(NodeType.Page),
     ...nodeAttributes('blue', 7, 50)(NodeType.Field),
     ...nodeAttributes('green', 4, 50)(NodeType.Data),
     ...nodeAttributes('lightgreen', 4, 50)(NodeType.Query),
@@ -93,7 +95,8 @@ export type GetNodeAttribute<GElement extends BaseType, Datum> = (
 ) => ValueFn<GElement, Datum, string | number | boolean | null>
 
 export const nodeAttribute: GetNodeAttribute<any, any> = (attr) => (d) => {
-  const typename = d?.type?.name || NodeType.Default
+  const typename = d?.type ?? NodeType.Default
+  console.log(typename)
 
   return g.node[typename][attr]
 }
@@ -105,7 +108,7 @@ export type GetLinkAttribute<
 > = (attr: keyof LinkAttribute) => ValueFn<GElement, Datum, Results>
 
 export const linkAttribute: GetLinkAttribute<any, any> = (attr) => (d) => {
-  const typename = d?.type?.name as LinkType
+  const typename = d?.type as LinkType
 
   return g.link[typename]?.[attr] || g.link[LinkType.Default][attr]
 }

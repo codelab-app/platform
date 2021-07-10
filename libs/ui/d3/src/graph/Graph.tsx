@@ -6,7 +6,7 @@ import { IDMatcher } from './Graph-filters'
 import { defineMarkers, ticked } from './Graph-updatePattern'
 import { enterLinks, updateLinks } from './links/Graph-links'
 import { enterNodes, updateNodes } from './nodes/Graph-nodes'
-import { g, linkAttribute } from './variables/Graph-variables'
+import { linkAttribute } from './variables/Graph-variables'
 
 export const useD3Hooks = () => {
   return {
@@ -22,8 +22,11 @@ export const useD3Hooks = () => {
   }
 }
 
-export const D3Graph = (props: D3GraphProps) => {
-  const [width, height] = ['100%', 600]
+export const D3Graph = ({
+  width = 600,
+  height = 600,
+  ...props
+}: D3GraphProps) => {
   const { nodes: nodesProps, links: linksProps } = props
   const d3Container = useRef<SVGSVGElement>(null)
   const ref: any = useRef()
@@ -87,8 +90,8 @@ export const D3Graph = (props: D3GraphProps) => {
           .distance(linkAttribute('distance') as any)
           .id((d: any, i: number) => d.id),
       )
-      .force('x', d3.forceX(g.width / 2))
-      .force('y', d3.forceY(g.height / 2))
+      .force('x', d3.forceX(width / 2))
+      .force('y', d3.forceY(height / 2))
       .restart()
   }, [nodesProps, linksProps, refCurrent, simulation])
 
@@ -122,7 +125,7 @@ export const D3Graph = (props: D3GraphProps) => {
   return (
     <svg
       style={{ border: '1px solid black' }}
-      width={width}
+      width={width ?? '100%'}
       height={height}
       ref={d3Container}
     >
