@@ -137,6 +137,9 @@
     "tools-scripts": {
       "tags": []
     },
+    "ui-d3": {
+      "tags": []
+    },
     "web": {
       "tags": [],
       "implicitDependencies": []
