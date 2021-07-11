@@ -6,35 +6,37 @@ interface NodeHandlers {
   onClick: (...args: any) => any
 }
 
+export type NodeSelection = Selection<SVGGElement, D3Node, any, D3Node>
+
 /**
  * D3 update methods
  */
 export const enterNodes = (
-  selection: Selection<any, any, any, any>,
+  selection: NodeSelection,
   { onClick }: NodeHandlers,
 ) => {
   /**
    * Group
    */
   selection
-    .attr('class', (d: D3Node) => `Node Node--${d.id}`)
+    .attr('class', (d) => `Node Node--${d.id}`)
     .attr('fill', nodeAttribute('color'))
-    .attr('id', (d: D3Node) => `Node--${d.id}`)
+    .attr('id', (d) => `Node--${d.id}`)
   /**
    * Add circle
    */
   selection
     .append('circle')
     .attr('r', nodeAttribute('radius'))
-    .attr('class', (d: D3Node) => `Node-circle Node-circle--${d.id}`)
+    .attr('class', (d) => `Node-circle Node-circle--${d.id}`)
     .style('cursor', 'pointer')
   /**
    * Add text
    */
   selection
     .append('text')
-    .text((d: D3Node) => d.label ?? '')
-    .attr('class', (d: D3Node) => `Node-text Node-text--${d.id}`)
+    .text((d) => d.label ?? '')
+    .attr('class', (d) => `Node-text Node-text--${d.id}`)
   /**
    * Add dom handlers
    */
@@ -54,12 +56,12 @@ export const enterNodes = (
   // )
 }
 
-export const updateNodes = (selection: any) => {
+export const updateNodes = (selection: NodeSelection) => {
   selection
     .select('circle')
     .attr('cx', (d: any) => d.x)
     .attr('cy', (d: any) => d.y)
-    .attr('r', nodeAttribute('radius'))
+  // .attr('r', nodeAttribute('radius'))
 
   selection
     .select('text')

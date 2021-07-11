@@ -47,6 +47,10 @@ const linkAttributes: LinkAttributesMap = (color, distance) => (linkType) => ({
   },
 })
 
+// const nodeAttributes = (type: NodeType) => {
+//   color, radius, distance
+// }
+
 export const g = {
   /**
    * Graph
@@ -96,6 +100,8 @@ export type GetNodeAttribute<GElement extends BaseType, Datum> = (
 
 export const nodeAttribute: GetNodeAttribute<any, any> = (attr) => (d) => {
   const typename = d?.type ?? NodeType.Default
+
+  console.log(d, typename, g.node[typename][attr])
 
   return g.node[typename][attr]
 }

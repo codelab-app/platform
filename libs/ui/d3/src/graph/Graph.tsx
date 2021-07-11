@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
 import { cloneDeep } from 'lodash'
 import React, { useEffect, useRef } from 'react'
-import { D3GraphProps } from './Graph.i'
+import { D3GraphProps, D3Node } from './Graph.i'
 import { IDMatcher } from './Graph-filters'
 import { defineMarkers, ticked } from './Graph-updatePattern'
 import { enterLinks, updateLinks } from './links/Graph-links'
@@ -30,7 +30,7 @@ export const D3Graph = ({
   const { nodes: nodesProps, links: linksProps } = props
   const d3Container = useRef<SVGSVGElement>(null)
   const ref: any = useRef()
-  const simulation = d3.forceSimulation<any>()
+  const simulation = d3.forceSimulation<D3Node>()
   const refCurrent = JSON.stringify([nodesProps, linksProps])
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export const D3Graph = ({
 
     const d3Nodes = svg
       .select('g.nodes')
-      .selectAll('g.Node-group')
+      .selectAll<SVGGElement, any>('g.Node-group')
       .data(nodes, IDMatcher)
       .join(
         (enter) =>
@@ -57,7 +57,7 @@ export const D3Graph = ({
 
     const d3Links = svg
       .select('g.links')
-      .selectAll('g.Link-group')
+      .selectAll<SVGGElement, any>('g.Link-group')
       .data(links, IDMatcher)
       .join(
         (enter) =>
@@ -99,27 +99,27 @@ export const D3Graph = ({
     const svg = d3.select(d3Container.current) as any
     // Draw Temporary dotted link for dragging/drop indicating
 
-    svg
-      .append('svg:marker')
-      .attr('id', 'arrow_temp_link')
-      .attr('viewBox', '0 0 12 16')
-      .attr('refX', 6)
-      .attr('refY', 8)
-      .attr('markerWidth', 10)
-      .attr('markerHeight', 10)
-      .attr('orient', 'auto')
-      .append('svg:path')
-      .attr('d', 'M2,2 L14,8 L2,14 L8,8 L2,2')
-      .attr('fill', 'gray')
-    svg
-      .select('g.nodes')
-      .insert('path', 'g.Node-group')
-      .attr('class', 'temp-link')
-      .attr('stroke', '#ccc')
-      .style('stroke-dasharray', '3, 3')
-      .attr('stroke-width', 2)
-      .attr('marker-mid', 'url(#arrow_temp_link)')
-      .attr('fill', 'none')
+    // svg
+    //   .append('svg:marker')
+    //   .attr('id', 'arrow_temp_link')
+    //   .attr('viewBox', '0 0 12 16')
+    //   .attr('refX', 6)
+    //   .attr('refY', 8)
+    //   .attr('markerWidth', 10)
+    //   .attr('markerHeight', 10)
+    //   .attr('orient', 'auto')
+    //   .append('svg:path')
+    //   .attr('d', 'M2,2 L14,8 L2,14 L8,8 L2,2')
+    //   .attr('fill', 'gray')
+    // svg
+    //   .select('g.nodes')
+    //   .insert('path', 'g.Node-group')
+    //   .attr('class', 'temp-link')
+    //   .attr('stroke', '#ccc')
+    //   .style('stroke-dasharray', '3, 3')
+    //   .attr('stroke-width', 2)
+    //   .attr('marker-mid', 'url(#arrow_temp_link)')
+    //   .attr('fill', 'none')
   }, [])
 
   return (

@@ -1,4 +1,5 @@
 import { SimulationLinkDatum, SimulationNodeDatum } from 'd3-force'
+import { Canvas } from '../Canvas.i'
 
 export enum NodeType {
   User = 'User',
@@ -22,7 +23,7 @@ export interface D3NodeProp {
 }
 
 export interface D3Node extends D3NodeProp, SimulationNodeDatum {
-  type?: string
+  type?: NodeType
   label?: string
   color?: string
 }
@@ -36,10 +37,8 @@ export interface D3Link extends D3LinkProp, SimulationLinkDatum<D3Node> {
 }
 
 export type D3GraphProps = {
-  width?: number
-  height?: number
   nodes: Array<D3Node>
   links: Array<D3Link>
   onNodeClick?: () => any
   onLinkClick?: () => any
-}
+} & Canvas

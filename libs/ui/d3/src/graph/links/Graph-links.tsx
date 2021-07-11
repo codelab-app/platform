@@ -1,10 +1,11 @@
 import { Selection } from 'd3'
-import { D3Link } from '../Graph.i'
+import { D3Link, D3Node } from '../Graph.i'
 
 interface LinkHandlers {
   onClick: (...args: any) => any
 }
 
+// Parent could be any time
 type LinkSelection = Selection<SVGGElement, D3Link, any, D3Link>
 
 export const enterLinks = (
@@ -75,19 +76,26 @@ export const enterLinks = (
   // .on('mouseout', handleMouseoutLink.bind(selection))
 }
 
-export const updateLinks = (selection: any, links = []) => {
-  const addEdge = (d: any) => {
+export const updateLinks = (selection: LinkSelection, links = []) => {
+  const addEdge = (d: D3Link) => {
     // TODO
     // if (!has(d, 'target.id')) return ''
-
-    const divider = d.biDirection ? 1 / 2 : 0
-    const [dX, dY] = [d.target.x - d.source.x, d.target.y - d.source.y]
+    const target = d.target as D3Node
+    const source = d.source as D3Node
+    // const divider = d?.biDirection ? 1 / 2 : 0
+    const targetX = target?.x ?? 0
+    const sourceX = source?.x ?? 0
+    const targetY = target?.y ?? 0
+    const sourceY = source?.y ?? 0
+    const [dX, dY] = [targetX - sourceX, targetY - sourceY]
 
     const [x1, y1, x2, y2] = [
-      d.source.x + dX * divider,
-      d.source.y + dY * divider,
-      d.target.x,
-      d.target.y,
+      sourceX + dX * 0,
+      sourceY + dY * 0,
+      // sourceX + dX * divider,
+      // sourceY + dY * divider,
+      targetX,
+      targetY,
     ]
 
     const dx = x2 - x1
@@ -106,19 +114,17 @@ export const updateLinks = (selection: any, links = []) => {
     return `M${x1},${y1} L${x1 + dx / 2},${y1 + dy / 2}  L${x2},${y2}`
   }
 
-  const updateEdgeLabel = (d: any, i: number, elements: Array<any>) => {
-    if (d?.target?.id) {
-      return ''
-    }
-
-    const { x, y, width, height } = elements[i].getBBox()
-
-    const rotate =
-      d.target.x < d.source.x
-        ? `rotate(180 ${x + width / 2} ${y + height / 2})`
-        : 'rotate(0)'
-
-    return rotate
+  const updateEdgeLabel = (d: D3Link) => {
+    // if (d.target.id) {
+    //   return ''
+    // }
+    // const { x, y, width, height } = elements[i].getBBox()
+    // const rotate =
+    //   d.target.x < d.source.x
+    //     ? `rotate(180 ${x + width / 2} ${y + height / 2})`
+    //     : 'rotate(0)'
+    // return rotate
+    return null
   }
 
   selection.select('path.Link-path').attr('d', addEdge)
