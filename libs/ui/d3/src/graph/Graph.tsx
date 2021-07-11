@@ -1,12 +1,15 @@
 import * as d3 from 'd3'
 import { cloneDeep } from 'lodash'
 import React, { useEffect, useRef } from 'react'
-import { D3GraphProps, D3Node } from './Graph.i'
+import { D3GraphProps, D3Link, D3Node } from './Graph.i'
 import { IDMatcher } from './Graph-filters'
 import { defineMarkers, ticked } from './Graph-updatePattern'
-import { enterLinks, updateLinks } from './links/Graph-links'
-import { enterNodes, updateNodes } from './nodes/Graph-nodes'
-import { linkAttribute } from './variables/Graph-variables'
+import { LinkHandlers } from './links/Graph-links'
+import { enterLinks } from './links/Graph-links--enter'
+import { updateLinks } from './links/Graph-links--update'
+import { NodeHandlers } from './nodes/Graph-nodes'
+import { enterNodes } from './nodes/Graph-nodes--enter'
+import { updateNodes } from './nodes/Graph-nodes--update'
 
 export const useD3Hooks = () => {
   return {
@@ -30,8 +33,10 @@ export const D3Graph = ({
   const { nodes: nodesProps, links: linksProps } = props
   const d3Container = useRef<SVGSVGElement>(null)
   const ref: any = useRef()
-  const simulation = d3.forceSimulation<D3Node>()
+  const simulation = d3.forceSimulation<D3Node, D3Link>()
   const refCurrent = JSON.stringify([nodesProps, linksProps])
+  const nodeCtx: NodeHandlers = { onClick: props.onNodeClick }
+  const linkCtx: LinkHandlers = { onClick: props.onLinkClick }
 
   useEffect(() => {
     if (refCurrent === ref.current) {
@@ -46,49 +51,46 @@ export const D3Graph = ({
 
     const d3Nodes = svg
       .select('g.nodes')
-      .selectAll<SVGGElement, any>('g.Node-group')
+      .selectAll<SVGGElement, D3Node>('g')
       .data(nodes, IDMatcher)
       .join(
-        (enter) =>
-          enter.append('g').call(enterNodes, { onClick: props.onNodeClick }),
+        (enter) => enter.append('g').call(enterNodes, nodeCtx),
         (update) => update.call(updateNodes),
         (exit) => exit.remove(),
       )
 
     const d3Links = svg
       .select('g.links')
-      .selectAll<SVGGElement, any>('g.Link-group')
+      .selectAll<SVGGElement, any>('g')
       .data(links, IDMatcher)
       .join(
-        (enter) =>
-          enter
-            .insert('g', 'g.Node-group')
-            .call(enterLinks, { onClick: props.onLinkClick }),
+        (enter) => enter.insert('g', 'g').call(enterLinks, linkCtx),
         (update) => update.call(updateLinks),
         (exit) => exit.remove(),
       )
 
+    // Link directional arrow
     const d3ArrowDefs = svg
-      .selectAll('marker.arrow')
+      .selectAll<SVGGElement, any>('marker.arrow')
       .data(links, IDMatcher)
       .join(
-        (enter: any) => enter.append('svg:marker').call(defineMarkers),
-        (update: any) => update.call(defineMarkers),
-        (exit: any) => exit.remove(),
+        (enter) => enter.append('svg:marker').call(defineMarkers),
+        (update) => update.call(defineMarkers),
+        (exit) => exit.remove(),
       )
 
     simulation
       .alpha(0.5)
-      .nodes(nodes as any)
-      .on('tick', ticked.bind({ d3Nodes, d3Links } as any))
+      .nodes(nodes)
+      .on('tick', ticked.bind({ d3Nodes, d3Links }))
       .force('charge', d3.forceManyBody().strength(-500))
       .force('collision', d3.forceCollide(50))
       .force(
         'link',
         d3
-          .forceLink<any, any>(links as any)
-          .distance(linkAttribute('distance') as any)
-          .id((d: any, i: number) => d.id),
+          .forceLink<D3Node, D3Link>(links)
+          .distance(50)
+          .id((d) => d.id),
       )
       .force('x', d3.forceX(width / 2))
       .force('y', d3.forceY(height / 2))

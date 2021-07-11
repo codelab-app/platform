@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import React from 'react'
-import { BasicGraph } from '../Graph.stories'
+import { BasicGraph } from '../stories/Graph.stories'
 
 describe('D3 Graph Nodes', () => {
   it('should render a group of links', async () => {

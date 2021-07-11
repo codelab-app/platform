@@ -112,6 +112,7 @@
     "js-cookie": "2.2.1",
     "jwks-rsa": "2.0.3",
     "lodash": "4.17.21",
+    "material-ui-colors": "^1.0.0",
     "monaco-css-in-js": "3.5.8",
     "monaco-editor": "0.25.2",
     "nestjs-console": "5.0.1",

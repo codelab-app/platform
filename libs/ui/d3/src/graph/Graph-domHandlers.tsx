@@ -1,7 +1,13 @@
 import * as d3 from 'd3'
 import { DomHandler, DomHandlerHOC } from './Graph-domHandlers.i'
 import { nonActiveLinks, nonActiveNodes } from './Graph-filters'
-import { g, linkAttribute, nodeAttribute } from './variables/Graph-variables'
+import {
+  activeLinkColor,
+  activeNodeColor,
+  activeState,
+  linkColor,
+  nodeColor,
+} from './variables/Graph-variables'
 
 export const drawingTempLink = (source: any, target: any) => {
   const [x1, y1, x2, y2] = [source.x, source.y, target.x, target.y]
@@ -19,41 +25,32 @@ export const clearTempLink = () => {
 }
 
 const deactivateNodes = (nodes: any) =>
-  d3
-    .selectAll(nodes)
-    .filter(nonActiveNodes)
-    .attr('fill', nodeAttribute('color'))
+  d3.selectAll(nodes).filter(nonActiveNodes).attr('fill', nodeColor)
 
 const deactivateAllNodes = () =>
-  d3.selectAll('g.Node-group').attr('fill', nodeAttribute('color'))
+  d3.selectAll('g.Node-group').attr('fill', nodeColor)
 
 const deactivateLinks = (links: any) => {
   d3.selectAll(links)
     .filter(nonActiveLinks)
     .select('path')
-    .attr('stroke', linkAttribute('color'))
+    .attr('stroke', linkColor)
 
   d3.selectAll(links)
     .filter(nonActiveLinks)
     .select('text')
-    .attr('fill', linkAttribute('color'))
+    .attr('fill', linkColor)
 
   d3.selectAll('.arrow')
     .filter(nonActiveLinks)
     .select('path')
-    .attr('fill', linkAttribute('color'))
+    .attr('fill', linkColor)
 }
 
 const deactivateAllLinks = () => {
-  d3.selectAll('g.Link-group')
-    .select('path')
-    .attr('stroke', linkAttribute('color'))
-
-  d3.selectAll('text.Link-label')
-    .select('text')
-    .attr('fill', linkAttribute('color'))
-
-  d3.selectAll('.arrow').select('path').attr('fill', linkAttribute('color'))
+  d3.selectAll('g.Link-group').select('path').attr('stroke', linkColor)
+  d3.selectAll('text.Link-label').select('text').attr('fill', linkColor)
+  d3.selectAll('.arrow').select('path').attr('fill', linkColor)
 }
 
 /**
@@ -67,15 +64,15 @@ export const handleClickNode: (...args: any) => any = (node, i, nodes) => {
     // setSelectedVertex(modelID),
   ]).then(() => {
     // Fill active node
-    g.activeNode = node
-    d3.select(nodes[i]).attr('fill', g.activeNodeColor)
+    activeState.node = node
+    d3.select(nodes[i]).attr('fill', activeNodeColor)
     deactivateNodes(nodes)
     deactivateAllLinks()
   })
 }
 
 export const handleMouseoverNode: DomHandler<any> = (node, i, nodes) => {
-  d3.select(nodes[i]).attr('fill', g.activeNodeColor)
+  d3.select(nodes[i]).attr('fill', activeNodeColor)
 }
 
 export const handleMouseoutNode: DomHandler<any> = (node, i, nodes) => {
@@ -84,7 +81,7 @@ export const handleMouseoutNode: DomHandler<any> = (node, i, nodes) => {
 
 // Drag & Drop Handlers
 export const handleDragStart: DomHandler<any> = (node, i, nodes) => {
-  g.activeNode = node
+  activeState.node = node
   clearTempLink()
 }
 
@@ -143,8 +140,8 @@ export const handleDragStart: DomHandler<any> = (node, i, nodes) => {
 
 // export const handleMouse
 export const handleMouseoverLink: DomHandler<any> = (link, i, links) => {
-  d3.select(links[i]).select('path').attr('stroke', g.activeLinkColor)
-  d3.select(`#arrow_${link.id}`).select('path').attr('fill', g.activeLinkColor)
+  d3.select(links[i]).select('path').attr('stroke', activeLinkColor)
+  d3.select(`#arrow_${link.id}`).select('path').attr('fill', activeLinkColor)
 }
 
 export const handleMouseoutLink: DomHandler<any> = (link, i, links) => {
@@ -155,11 +152,11 @@ export const handleClickLink: DomHandlerHOC<any, any> =
   ({ notifyMediator, setSelectedEdge }) =>
   (link, i, links) =>
     Promise.all([setSelectedEdge(link.id)]).then(() => {
-      g.activeLink = link
-      d3.select(links[i]).select('path').attr('stroke', g.activeLinkColor)
+      activeState.link = link
+      d3.select(links[i]).select('path').attr('stroke', activeLinkColor)
       d3.select(`#arrow_${link.id}`)
         .select('path')
-        .attr('fill', g.activeLinkColor)
+        .attr('fill', activeLinkColor)
       deactivateLinks(links)
       deactivateAllNodes()
     })

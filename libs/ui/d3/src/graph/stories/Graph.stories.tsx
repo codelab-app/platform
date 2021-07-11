@@ -1,5 +1,5 @@
 import React from 'react'
-import { D3Graph } from './Graph'
+import { D3Graph } from '../Graph'
 import { d3GraphData } from './Graph.data'
 
 export default {

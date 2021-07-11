@@ -1,22 +1,20 @@
-import { nodeAttribute } from '../graph/variables/Graph-variables'
+import { getNodeColor, NodeSelection } from '../graph/nodes/Graph-nodes'
 
-export const updateNode = (selection: any) => {
+export const updateNode = (selection: NodeSelection) => {
   selection
     .append('circle')
-    .attr('fill', (d: any) => {
-      return nodeAttribute('color')[d?.data]
-    })
-    .attr('cx', (d: any) => d.x)
-    .attr('cy', (d: any) => d.y)
+    .attr('fill', getNodeColor)
+    .attr('cx', (d) => d.x ?? 0)
+    .attr('cy', (d) => d.y ?? 0)
     .attr('r', 4)
 
   selection
     .append('text')
-    .attr('dx', (d: any) => {
-      return d.x
+    .attr('dx', (d) => {
+      return d.x ?? 0
     })
-    .attr('dy', (d: any) => {
-      return d.y + 15
+    .attr('dy', (d) => {
+      return (d.y ?? 0) + 15
     })
     .text((d: any) => {
       return d.data.label

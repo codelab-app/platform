@@ -20418,6 +20418,11 @@ matchdep@^2.0.0:
     resolve "^1.4.0"
     stack-trace "0.0.10"
 
+material-ui-colors@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/material-ui-colors/-/material-ui-colors-1.0.0.tgz#b9824ca9c165199c67218b1b5cc5ab89712a8b1c"
+  integrity sha512-3VqwlQrWIs9vP4hsV9Zj9wLGlb1tSBidzX5HCk6EKH/B2dsIYFuTQivmn3QpBvukod/K1vFh+fHxJVsfYM1JgQ==
+
 md5.js@^1.3.4:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/md5.js/-/md5.js-1.3.5.tgz#b5d07b8e3216e3e27cd728d72f70d1e6a342005f"

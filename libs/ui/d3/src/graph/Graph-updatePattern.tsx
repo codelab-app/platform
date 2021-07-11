@@ -1,5 +1,5 @@
-import { updateLinks } from './links/Graph-links'
-import { updateNodes } from './nodes/Graph-nodes'
+import { updateLinks } from './links/Graph-links--update'
+import { updateNodes } from './nodes/Graph-nodes--update'
 
 export const defineMarkers = (selection: any) => {
   selection
@@ -20,7 +20,7 @@ export const defineMarkers = (selection: any) => {
  * Use function for this context, allow func style since this is used
  */
 // eslint-disable-next-line func-style
-export function ticked(this: any): any {
+export function ticked(this: any) {
   updateNodes(this.d3Nodes)
   updateLinks(this.d3Links)
 }

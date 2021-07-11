@@ -1,14 +1,14 @@
-import { g } from './variables/Graph-variables'
+import { activeState } from './variables/Graph-variables'
 
 type GraphFilter<T> = (element: T) => boolean
 
 export const activeNodes: GraphFilter<any> = (node) =>
-  node.id === g.activeNode.id
+  node.id === activeState.node.id
 
 export const nonActiveNodes: GraphFilter<any> = (node) =>
-  node.id !== g.activeNode.id
+  node.id !== activeState.node.id
 
 export const nonActiveLinks: GraphFilter<any> = (link) =>
-  link.id !== g.activeLink.id
+  link.id !== activeState.link.id
 
 export const IDMatcher = (d: any) => d.id

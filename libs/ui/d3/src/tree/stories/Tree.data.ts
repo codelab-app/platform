@@ -1,4 +1,4 @@
-import { D3TreeData } from './Tree'
+import { D3TreeData } from '../Tree'
 
 export const d3TreeData: D3TreeData = {
   label: 'A1',
