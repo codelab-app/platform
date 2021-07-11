@@ -1,4 +1,4 @@
-import { getNodeColor, NodeHandlers, NodeSelection } from './Graph-nodes'
+import { getD3NodeColor, NodeHandlers, NodeSelection } from './Graph-nodes'
 
 /**
  * D3 update methods
@@ -12,7 +12,7 @@ export const enterNodes = (
    */
   selection
     .attr('class', (d) => `Node Node--${d.id}`)
-    .attr('fill', getNodeColor)
+    .attr('fill', getD3NodeColor)
     .attr('id', (d) => `Node--${d.id}`)
 
   /**

@@ -1,9 +1,24 @@
-import { getNodeColor, NodeSelection } from '../graph/nodes/Graph-nodes'
+import { Selection, ValueFn } from 'd3'
+import { getNodeColor } from '../graph/nodes/Graph-nodes'
+import { D3TreeNode } from './Tree'
 
-export const updateNode = (selection: NodeSelection) => {
+export type TreeNodeSelection = Selection<
+  SVGGElement,
+  D3TreeNode,
+  any,
+  D3TreeNode
+>
+
+export const getD3TreeNodeColor: ValueFn<SVGGElement, D3TreeNode, string> = (
+  d: D3TreeNode,
+) => {
+  return getNodeColor(d.data.type)
+}
+
+export const updateNode = (selection: TreeNodeSelection) => {
   selection
     .append('circle')
-    .attr('fill', getNodeColor)
+    .attr('fill', getD3TreeNodeColor)
     .attr('cx', (d) => d.x ?? 0)
     .attr('cy', (d) => d.y ?? 0)
     .attr('r', 4)
@@ -16,7 +31,7 @@ export const updateNode = (selection: NodeSelection) => {
     .attr('dy', (d) => {
       return (d.y ?? 0) + 15
     })
-    .text((d: any) => {
-      return d.data.label
+    .text((d) => {
+      return d.data.label ?? ''
     })
 }

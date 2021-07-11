@@ -14,12 +14,14 @@ export type NodeAttribute = {
   distance: number
 }
 
-export const getNodeColor: ValueFn<SVGGElement, D3Node, string> = (
+export const getD3NodeColor: ValueFn<SVGGElement, D3Node, string> = (
   d: D3Node,
 ) => {
-  console.log(d)
+  return getNodeColor(d.type)
+}
 
-  switch (d.type) {
+export const getNodeColor = (type: NodeType | undefined) => {
+  switch (type) {
     case NodeType.User:
       return color.blue[500]
     case NodeType.App:
