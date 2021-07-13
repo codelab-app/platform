@@ -1,6 +1,8 @@
+import { PageType } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
 import { LayoutProps } from 'antd/lib/layout'
+import { NextRouter, useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 import { LayoutComponent } from './Layout.d'
@@ -18,10 +20,23 @@ const MetaPaneSection = styled('div')`
   ${tw`p-4`}
 `
 
+const isPageDetailRoute = (router: NextRouter) => {
+  return router?.route === PageType.PageDetail
+}
+
+const StyledContent = styled(Content)(({ router }: { router: NextRouter }) => [
+  tw`relative p-2`,
+  isPageDetailRoute(router) ? tw`pt-16` : '',
+  { minHeight: 'initial' },
+])
+
 export const DashboardLayout: LayoutComponent<
   'dashboard',
   { layoutProps?: LayoutProps }
 > = ({ children, layoutProps, MainPane, MetaPane, SidebarNavigation }) => {
+  const router = useRouter()
+  const contentPadding = isPageDetailRoute(router) ? 'pt-12' : ''
+
   return (
     <Layout css={tw`h-full`} {...(layoutProps || {})}>
       <Sider
@@ -51,19 +66,14 @@ export const DashboardLayout: LayoutComponent<
               <MainPane />
             </Sider>
           ) : null}
-          <Content
-            css={tw`relative p-2`}
-            style={{
-              minHeight: 'initial',
-            }}
-          >
+          <StyledContent router={router}>
             {children}
             {MetaPane ? (
               <MetaPaneSection>
                 <MetaPane />
               </MetaPaneSection>
             ) : null}
-          </Content>
+          </StyledContent>
         </Layout>
       </Layout>
     </Layout>
