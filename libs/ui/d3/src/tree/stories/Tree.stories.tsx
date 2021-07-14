@@ -1,5 +1,5 @@
 import React from 'react'
-import { D3Tree } from './Tree'
+import { D3Tree } from '../Tree'
 import { d3TreeData } from './Tree.data'
 
 export default {

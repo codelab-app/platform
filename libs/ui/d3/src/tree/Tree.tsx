@@ -1,29 +1,39 @@
 import './D3.scss'
 import * as d3 from 'd3'
+import { HierarchyPointLink, HierarchyPointNode } from 'd3'
 import React, { useEffect, useRef } from 'react'
+import { Canvas } from '../Canvas.i'
+import { NodeType } from '../graph/Graph.i'
 import { updateNode } from './Tree-node'
 
 export type D3TreeData = {
   label: string
+  type?: NodeType
   value?: string | number
   children?: Array<D3TreeData>
 }
 
-export interface D3TreeProps {
+export type D3TreeProps = {
   data: D3TreeData
-}
+} & Canvas
+
+export type D3TreeNode = HierarchyPointNode<D3TreeData>
+
+export type D3TreeLink = HierarchyPointLink<any>
 
 // https://www.d3indepth.com/layouts/
-export const D3Tree = (props: D3TreeProps) => {
-  const [width, height] = [400, 200]
+export const D3Tree = ({
+  width = 600,
+  height = 600,
+  ...props
+}: D3TreeProps) => {
   const { data } = props
-  const treeLayout = d3.tree().size([width, height])
+  const treeLayout = d3.tree<D3TreeData>().size([360, 60])
   const d3Container = useRef<SVGSVGElement>(null)
-  const root = d3.hierarchy(data)
+  const root = d3.hierarchy<D3TreeData>(data)
   const ref: any = useRef()
   const refCurrent = JSON.stringify(data)
-
-  treeLayout(root)
+  const layoutRoot = treeLayout(root)
 
   useEffect(() => {
     if (refCurrent === ref.current) {
@@ -37,8 +47,8 @@ export const D3Tree = (props: D3TreeProps) => {
     // Nodes
     svg
       .select('g.nodes')
-      .selectAll('circle.node')
-      .data(root.descendants())
+      .selectAll<SVGGElement, D3TreeNode>('circle')
+      .data(layoutRoot.descendants())
       .enter()
       // Add circle
       .append('g')
@@ -48,19 +58,19 @@ export const D3Tree = (props: D3TreeProps) => {
     // Links
     svg
       .select('g.links')
-      .selectAll('line.link')
-      .data(root.links())
+      .selectAll<SVGGElement, D3TreeLink>('line.link')
+      .data(layoutRoot.links())
       .enter()
       .append('line')
       .classed('link', true)
-      .attr('x1', (d: any) => d.source.x)
-      .attr('y1', (d: any) => d.source.y)
-      .attr('x2', (d: any) => d.target.x)
-      .attr('y2', (d: any) => d.target.y)
+      .attr('x1', (d) => d.source.x)
+      .attr('y1', (d) => d.source.y)
+      .attr('x2', (d) => d.target.x)
+      .attr('y2', (d) => d.target.y)
   }, [data, d3Container, ref, refCurrent, root])
 
   return (
-    <svg width={width} height={height + 20} ref={d3Container}>
+    <svg width={width} height={height} ref={d3Container}>
       <g transform="translate(5, 5)">
         <g className="nodes" />
         <g className="links" />

@@ -12,6 +12,7 @@ module.exports = async ({ config, mode }) => {
     configFile: './tsconfig.base.json',
   })
 
+  // eslint-disable-next-line mdx/no-unused-expressions
   config.resolve.plugins
     ? config.resolve.plugins.push(tsPaths)
     : (config.resolve.plugins = [tsPaths])
