@@ -57,15 +57,17 @@ executor-config: &executor-config
     DOCKER_TAG_VERSION: 0.02
     # CircleCI
     GITHUB_LUAN: nutshell113
-    SLACK_LUAN: U01EH265D5E
+    SLACK_LUAN: <@U01EH265D5E>
     GITHUB_ANTON_M: antonmihaylov
-    SLACK_ANTON_M: U01HWRY2USE
+    SLACK_ANTON_M: <@U01HWRY2USE>
     GITHUB_ANTON: artonio
-    SLACK_ANTON: U01DSP39DME
+    SLACK_ANTON: <@U01DSP39DME>
     GITHUB_WEBBER: webberwang
-    SLACK_WEBBER: U0J401GAH
+    SLACK_WEBBER: <@U0J401GAH>
     GITHUB_ALEX: aburtsev
-    SLACK_ALEX: U01APQT5XCH
+    SLACK_ALEX: <@U01APQT5XCH>
+    GITHUB_OLEK: svitalii33
+    SLACK_OLEK: <@U01PD39QWCX>
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
@@ -135,15 +137,17 @@ commands:
 
             # slack settings
             if [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
-              echo 'export SLACK_USER=${SLACK_ANTON}' >> $BASH_ENV
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_ANTON}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_LUAN ]; then
-              echo 'export SLACK_USER=${SLACK_LUAN}' >> $BASH_ENV
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_LUAN}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_ANTON_M ]; then
-              echo 'export SLACK_USER=${SLACK_ANTOM_M}' >> $BASH_ENV
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_ANTOM_M}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_ALEX ]; then
-              echo 'export SLACK_USER=${SLACK_ALEX}' >> $BASH_ENV
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_ALEX}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_OLEK ]; then
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_OLEK}' >> $BASH_ENV
             else
-              echo 'export SLACK_USER=${SLACK_WEBBER}' >> $BASH_ENV
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_WEBBER}' >> $BASH_ENV
             fi
 
             # finally import bash env
@@ -215,7 +219,6 @@ commands:
       - slack/notify:
           event: fail
           channel: $SLACK_CHANNEL_UPDATE
-          mentions: $SLACK_USER
           template: basic_fail_1
 
   build-docker-image:
@@ -372,8 +375,77 @@ jobs:
       - slack/notify:
           event: pass
           channel: $SLACK_CHANNEL_UPDATE
-          mentions: $SLACK_USER
-          template: basic_success_1
+          custom: |
+            {
+            	"text": "CircleCI job succeeded!",
+            	"blocks": [
+            		{
+            			"type": "header",
+            			"text": {
+            				"type": "plain_text",
+            				"text": "Job Succeeded. :white_check_mark:",
+            				"emoji": true
+            			}
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Job*: ${CIRCLE_JOB}"
+            				}
+            			]
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Project*:\n $CIRCLE_PROJECT_REPONAME"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Branch*:\n $CIRCLE_BRANCH"
+                            },
+                            {
+            					"type": "mrkdwn",
+            					"text": "*Commit*:\n $CIRCLE_SHA1"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Author*:\n $CIRCLE_USERNAME"
+            				}
+            			],
+            			"accessory": {
+            				"type": "image",
+            				"image_url": "https://assets.brandfolder.com/otz5mn-bw4j2w-6jzqo8/original/circle-logo-badge-black.png",
+            				"alt_text": "CircleCI logo"
+            			}
+            		},
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Mentions*:\n $SLACK_PARAM_MENTIONS"
+                    }
+                  ]
+                },
+            		{
+            			"type": "actions",
+            			"elements": [
+            				{
+            					"type": "button",
+            					"text": {
+            						"type": "plain_text",
+            						"text": "View Job"
+            					},
+            					"url": "${CIRCLE_BUILD_URL}"
+            				}
+            			]
+            		}
+            	]
+            }
 
   build-docker-staging:
     <<: *executor-params
