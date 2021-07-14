@@ -1,4 +1,4 @@
-import { D3Link, D3Node } from '@codelab/ui/d3'
+import { D3Link, D3Node } from '../Graph.i'
 import {
   LINK_HOVER_CLASS,
   LINK_LABEL_CLASS,

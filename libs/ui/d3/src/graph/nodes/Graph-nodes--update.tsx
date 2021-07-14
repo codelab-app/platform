@@ -1,4 +1,4 @@
-import { D3Node } from '@codelab/ui/d3'
+import { D3Node } from '../Graph.i'
 import { labelOffset, vertexRadius } from '../variables/Graph-variables'
 import { NodeSelection } from './Graph-nodes'
 
