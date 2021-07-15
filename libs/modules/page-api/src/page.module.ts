@@ -1,3 +1,4 @@
+import { CytoscapeModule } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app-api'
 import { ElementModule } from '@codelab/modules/element-api'
 import { PropModule } from '@codelab/modules/prop-api'
@@ -26,7 +27,7 @@ const services = [
 ]
 
 @Module({
-  imports: [AppModule, ElementModule, PropModule],
+  imports: [AppModule, ElementModule, PropModule, CytoscapeModule],
   providers: [PageResolver, ...services],
   exports: [...services],
 })

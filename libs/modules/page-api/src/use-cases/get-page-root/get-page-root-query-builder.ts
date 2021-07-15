@@ -1,11 +1,11 @@
 import { DgraphQueryBuilder } from '@codelab/backend'
-import { GetElementAggregateQueryBuilder } from '@codelab/modules/element-api'
+import { GetElementAggregateQuery } from '@codelab/modules/element-api'
 
 export class GetPageRootQueryBuilder extends DgraphQueryBuilder {
   constructor() {
     super()
 
-    const elementAggregateQuery = new GetElementAggregateQueryBuilder()
+    const elementAggregateQuery = new GetElementAggregateQuery()
 
     this.withRecurse().withFields(...elementAggregateQuery.fields)
   }

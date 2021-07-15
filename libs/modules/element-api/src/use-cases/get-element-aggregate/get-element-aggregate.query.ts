@@ -1,5 +1,5 @@
 import { DgraphQueryBuilder, DgraphQueryField } from '@codelab/backend'
-import { GetPropsQueryBuilder } from '@codelab/modules/prop-api'
+import { GetPropsQuery } from '@codelab/modules/prop-api'
 import { FlattenRequestItem } from '../flatten-element-tree'
 
 export type GetElementQueryType = FlattenRequestItem & {
@@ -8,11 +8,11 @@ export type GetElementQueryType = FlattenRequestItem & {
   'Page.rootElement'?: GetElementQueryType
 }
 
-export class GetElementAggregateQueryBuilder extends DgraphQueryBuilder {
+export class GetElementAggregateQuery extends DgraphQueryBuilder {
   constructor() {
     super()
 
-    const getPropsQueryBuilder = new GetPropsQueryBuilder()
+    const getPropsQueryBuilder = new GetPropsQuery()
 
     this.withRecurse()
       .withQueryName('query')

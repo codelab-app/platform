@@ -10,7 +10,7 @@ import {
   DgraphStringValue,
 } from '../../models'
 
-export class GetPropsQueryBuilder extends DgraphQueryBuilder {
+export class GetPropsQuery extends DgraphQueryBuilder {
   constructor() {
     super()
     this.withBaseFields()
