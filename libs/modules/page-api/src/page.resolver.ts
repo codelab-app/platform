@@ -44,7 +44,10 @@ export class PageResolver {
     @Args('input') input: GetPagesInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.getPagesService.execute({ input, currentUser })
+    const r = this.getPagesService.execute({ input, currentUser })
+    console.log(r)
+
+    return r
   }
 
   @Query(() => Page, { nullable: true })

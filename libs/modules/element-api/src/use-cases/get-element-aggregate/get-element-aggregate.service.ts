@@ -20,6 +20,8 @@ export class GetElementAggregateService
   async execute(request: GetElementAggregateRequest) {
     const root = await this.getDgraphElementAggregateService.execute(request)
 
+    console.log(root)
+
     if (!root) {
       return null
     }

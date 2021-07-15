@@ -4,11 +4,11 @@ import { Txn } from 'dgraph-js'
 // shortened import causes circular reference and some weird shit happen
 import { ElementGuardService } from '../../auth/element-guard/element-guard.service'
 import { FlattenElementTreeService } from '../flatten-element-tree'
-import { GetElementAggregateRequest } from './get-element-aggregate.request'
 import {
-  GetElementAggregateQueryBuilder,
+  GetElementAggregateQuery,
   GetElementQueryType,
-} from './get-element-aggregate-query-builder'
+} from './get-element-aggregate.query'
+import { GetElementAggregateRequest } from './get-element-aggregate.request'
 
 @Injectable()
 /**
@@ -31,10 +31,7 @@ export class GetDgraphElementAggregateService extends DgraphUseCase<
     { input: { elementId } }: GetElementAggregateRequest,
     txn: Txn,
   ) {
-    const queryBuilder = new GetElementAggregateQueryBuilder().withUidFunc(
-      elementId,
-    )
-
+    const queryBuilder = new GetElementAggregateQuery().withUidFunc(elementId)
     const query = queryBuilder.build()
     const response = await txn.query(query)
     const result = response.getJson().query

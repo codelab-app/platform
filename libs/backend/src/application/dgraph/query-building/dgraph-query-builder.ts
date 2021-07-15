@@ -10,11 +10,12 @@ import {
 } from './i-query-builder'
 import { compileMultiple } from './utils'
 
-// Right now there are a lot of moving parts here
-// It's mostly string concatenating, but if it comes to that
-// we can optimize it by pre-compiling the queries and only substituting the filter at
-// runtime. But I don't know if the performance benefit is enough to consider,
-// maybe we can measure it vs just a regular string query if we need
+/**
+ *  Right now there are a lot of moving parts here. It's mostly string concatenating, but if it comes to that we can optimize it by pre-compiling the queries and only substituting the filter at runtime. But I don't know if the performance benefit is enough to consider, maybe we can measure it vs just a regular string query if we need
+ *
+ *
+ */
+
 export class DgraphQueryBuilder implements IQueryBuilder {
   protected _queryName = 'query'
 

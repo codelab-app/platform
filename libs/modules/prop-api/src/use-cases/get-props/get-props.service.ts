@@ -23,7 +23,7 @@ import {
   PropsByIdsFilter,
   PropsByInterfaceValueId,
 } from './get-props.input'
-import { GetPropsQueryBuilder, GetPropsQueryResult } from './get-props.query'
+import { GetPropsQuery, GetPropsQueryResult } from './get-props.query'
 
 @Injectable()
 export class GetPropsService extends DgraphUseCase<GetPropsInput, Array<Prop>> {
@@ -78,7 +78,7 @@ export class GetPropsService extends DgraphUseCase<GetPropsInput, Array<Prop>> {
   }
 
   private async getByElement(byElement: PropsByElementFilter, txn: Txn) {
-    const queryBuilder = new GetPropsQueryBuilder()
+    const queryBuilder = new GetPropsQuery()
       .withFields('Element.props')
       .withUidsFunc(byElement.elementIds)
 
@@ -123,7 +123,7 @@ export class GetPropsService extends DgraphUseCase<GetPropsInput, Array<Prop>> {
   }
 
   private async getByIds(byIds: PropsByIdsFilter, txn: Txn) {
-    const query = new GetPropsQueryBuilder().withUidsFunc(byIds.propIds).build()
+    const query = new GetPropsQuery().withUidsFunc(byIds.propIds).build()
     const response = await txn.query(query)
     const data = (response.getJson() as any).query as Array<GetPropsQueryResult>
 
@@ -134,7 +134,7 @@ export class GetPropsService extends DgraphUseCase<GetPropsInput, Array<Prop>> {
     byInterfaceValue: PropsByInterfaceValueId,
     txn: Txn,
   ) {
-    const query = new GetPropsQueryBuilder()
+    const query = new GetPropsQuery()
       .withUidFunc(byInterfaceValue.interfaceValueId)
       .build()
 
