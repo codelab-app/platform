@@ -1,7 +1,7 @@
 import { DgraphQueryBuilder } from '@codelab/backend'
 import { GetElementAggregateQuery } from '@codelab/modules/element-api'
 
-export class GetPageRootQueryBuilder extends DgraphQueryBuilder {
+export class GetPageRootQuery extends DgraphQueryBuilder {
   constructor() {
     super()
 
