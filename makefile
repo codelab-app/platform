@@ -28,11 +28,13 @@ lambda:
 
 build-dev-affected:
 	npx nx affected:build \
+    --maxWorkers=2 \
 		--parallel
 
 build-dev:
 	npx nx run-many \
 	--target=build \
+  --maxWorkers=2 \
 	--all \
 	--parallel
 
@@ -103,6 +105,7 @@ integration-dev:
 integration-dev-affected:
 	npx nx affected:test \
 	--testPathPattern=i.spec.ts \
+	--maxWorkers=2 \
 	--memoryLimit=4096 \
 	--runInBand
 
