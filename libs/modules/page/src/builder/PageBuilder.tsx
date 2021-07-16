@@ -1,19 +1,17 @@
 import { refetchGetPageQuery } from '@codelab/codegen/graphql'
-import { NodeRenderer } from '@codelab/frontend/builder'
-import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { DeleteElementModal } from '@codelab/modules/element'
+import { Renderer } from '@codelab/frontend/builder'
+import { DeleteElementModal, ElementTree } from '@codelab/modules/element'
 import styled from '@emotion/styled'
-import { Core } from 'cytoscape'
-import React, { MouseEventHandler, useContext } from 'react'
+import React, { MouseEventHandler } from 'react'
 import tw from 'twin.macro'
-import { PageContext } from '../providers'
 import { PageBuilderClickAdapter } from './PageBuilderClickAdapter'
 import { PageBuilderHoverAdapter } from './PageBuilderHoverAdapter'
 import { useSetPageBuilderState } from './pageBuilderState'
 import { usePageElementRenderHandlers } from './usePageElementRenderHandlers'
 
 export interface PageRendererProps {
-  cy: Core
+  tree: ElementTree
+  pageId: string
 }
 
 const StyledPageBuilder = styled.div`
@@ -29,15 +27,9 @@ const StyledPageBuilder = styled.div`
   }
 `
 
-export const PageBuilder = ({ cy }: PageRendererProps) => {
-  const root = CytoscapeService.componentTree(cy)
-  const { handleClick, ...handlers } = usePageElementRenderHandlers(cy)
+export const PageBuilder = ({ tree, pageId }: PageRendererProps) => {
+  const { handleClick, ...handlers } = usePageElementRenderHandlers(tree)
   const { reset } = useSetPageBuilderState()
-  const { pageId } = useContext(PageContext)
-
-  if (!pageId) {
-    throw new Error('PageContext is needed for PageBuilder')
-  }
 
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
@@ -67,13 +59,12 @@ export const PageBuilder = ({ cy }: PageRendererProps) => {
       id="Builder"
       css={tw`relative w-full h-full`}
     >
-      <NodeRenderer
-        node={root}
+      <Renderer
+        tree={tree}
         context={{
-          handlers,
-          // Remove the onClick props from all nodes, since we want to handle onClick with our handler - which will select the element in the builder
-          nodePropsMapper: ({ onClick, ...props }) => {
-            return props
+          extraProps: {
+            onMouseEnter: handlers.handleMouseEnter,
+            onMouseLeave: handlers.handleMouseLeave,
           },
         }}
       />

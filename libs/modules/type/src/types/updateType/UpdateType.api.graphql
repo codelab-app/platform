@@ -1,17 +1,11 @@
 mutation UpdateEnumType($input: UpdateEnumTypeInput!) {
-  updateEnumType(input: $input) {
-    ...__EnumType
-  }
+  updateEnumType(input: $input)
 }
 
 mutation UpdateType($input: UpdateTypeInput!) {
-  updateType(input: $input) {
-    ...__Type
-  }
+  updateType(input: $input)
 }
 
 mutation UpdatePrimitiveType($input: UpdatePrimitiveTypeInput!) {
-  updatePrimitiveType(input: $input) {
-    ...__PrimitiveType
-  }
+  updatePrimitiveType(input: $input)
 }

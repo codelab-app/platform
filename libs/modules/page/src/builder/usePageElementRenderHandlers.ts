@@ -1,15 +1,11 @@
-import { RenderHandlers } from '@codelab/frontend/builder'
-import { ElementNode } from '@codelab/frontend/shared'
-import { Core } from 'cytoscape'
+import { ElementTree } from '@codelab/modules/element'
 import { useCallback } from 'react'
 import { useSetPageBuilderState } from '.'
 
 /**
- * Adapter for RenderHandlers in the context of Page elements
+ * RenderHandlers in the context of Page elements
  */
-export const usePageElementRenderHandlers = (
-  cy: Core,
-): Required<RenderHandlers> => {
+export const usePageElementRenderHandlers = (tree: ElementTree) => {
   // const [addChildVertexMutation] = useAddChildVertexMutation()
   // const updateVertexMutation = useUpdateVertexMutation({
   //   refetchQueries: [
@@ -35,19 +31,14 @@ export const usePageElementRenderHandlers = (
   // Use setters only, because we don't want to re-render this everytime the hover/selected element is changed
   const { selectPageElement, setHoveringPageElement } = useSetPageBuilderState()
 
-  const getNodeById = useCallback(
-    (id: string) => cy.getElementById(id).first().data() as ElementNode,
-    [cy],
-  )
-
   const handleClick = useCallback(
-    (id) => selectPageElement(getNodeById(id)),
-    [getNodeById],
+    (id) => selectPageElement(tree.getElementById(id)),
+    [tree],
   )
 
   const handleMouseEnter = useCallback(
-    (id) => setHoveringPageElement(getNodeById(id)),
-    [getNodeById],
+    (id) => setHoveringPageElement(tree.getElementById(id)),
+    [tree],
   )
 
   const handleMouseLeave = useCallback(

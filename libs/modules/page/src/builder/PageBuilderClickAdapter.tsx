@@ -31,22 +31,22 @@ const StyledOverlayButtonGroup = styled.div`
 
 export const PageBuilderClickAdapter = () => {
   const {
-    state: { selectedPageElement },
+    state: { selectedElement },
   } = usePageBuilderState()
 
   const { openDeleteModal, openCreateModal } = useCrudModalForm(
     EntityType.Element,
   )
 
-  if (!selectedPageElement) {
+  if (!selectedElement) {
     return null
   }
 
   const content = (
     <StyledOverlayContainer className="click-overlay-toolbar">
       <span>
-        {selectedPageElement.name}{' '}
-        {selectedPageElement.atom ? `(${selectedPageElement.atom.label})` : ''}
+        {selectedElement.name}{' '}
+        {selectedElement.atom ? `(${selectedElement.atom.label})` : ''}
       </span>
       <StyledOverlayButtonGroup>
         <Button
@@ -68,17 +68,14 @@ export const PageBuilderClickAdapter = () => {
           onClick={(e) => {
             e.stopPropagation()
 
-            return openDeleteModal(
-              [selectedPageElement.id],
-              selectedPageElement,
-            )
+            return openDeleteModal([selectedElement.id], selectedElement)
           }}
         />
       </StyledOverlayButtonGroup>
     </StyledOverlayContainer>
   )
 
-  return <ClickOverlay nodeId={selectedPageElement.id} content={content} />
+  return <ClickOverlay nodeId={selectedElement.id} content={content} />
 }
 
 PageBuilderClickAdapter.displayName = 'PageBuilderClickAdapter'

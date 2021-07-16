@@ -1,6 +1,5 @@
 import { ApiResponse, request } from '@codelab/backend'
 import {
-  __AppFragment,
   CreateAppGql,
   CreateAppMutationResult,
   CreateAppMutationVariables,
@@ -21,10 +20,15 @@ export const createApp = async (app: INestApplication) => {
       variables,
     })
     .expect(200)
-    .then(
-      (res: ApiResponse<CreateAppMutationResult>) =>
-        res.body.data?.createApp as __AppFragment,
-    )
+    .then((res: ApiResponse<CreateAppMutationResult>) => {
+      const result = res.body.data?.createApp
 
-  return createdApp
+      if (!result) {
+        throw new Error('No createApp field found')
+      }
+
+      return result
+    })
+
+  return createdApp.id
 }

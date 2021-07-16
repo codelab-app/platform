@@ -1,73 +1,67 @@
-import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
-import { AppGuardService } from '@codelab/modules/app-api'
-import { Inject, Injectable } from '@nestjs/common'
+import {
+  CreateResponse,
+  DgraphApp,
+  DgraphCreateMutationJson,
+  DgraphCreateUseCase,
+  DgraphEntityType,
+  DgraphPage,
+  DgraphRepository,
+  DgraphUpdateMutationJson,
+} from '@codelab/backend'
+import { AppValidator } from '@codelab/modules/app-api'
+import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js'
-import { Page } from '../../page.model'
-import { GetPageService } from '../get-page'
 import { CreatePageRequest } from './create-page.request'
 
 @Injectable()
-export class CreatePageService extends DgraphUseCase<
-  CreatePageRequest,
-  Partial<Page>,
-  void
-> {
-  constructor(
-    @Inject(DgraphTokens.DgraphProvider)
-    protected readonly dgraphProvider: DgraphProvider,
-    private appGuardService: AppGuardService,
-    private getPageService: GetPageService,
-  ) {
-    super(dgraphProvider)
+export class CreatePageService extends DgraphCreateUseCase<CreatePageRequest> {
+  constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
+    super(dgraph)
   }
 
   protected async executeTransaction(
-    { input: { name, appId }, currentUser }: CreatePageRequest,
+    request: CreatePageRequest,
     txn: Txn,
-  ) {
-    const mu = new Mutation()
-    mu.setSetNquads(
-      `
-        _:page <dgraph.type> "Page" .
-        _:page <Page.name> "${name}" .
-        _:page <Page.app> <${appId}> .
-        <${appId}> <App.pages> _:page .
-        _:page <Page.rootElement> _:rootElement .
+  ): Promise<CreateResponse> {
+    await this.validate(request)
 
-        _:rootElement <dgraph.type> "Element" .
-        _:rootElement <Element.name> "Page Root" .
-        _:rootElement <Element.ownedBy> _:page .
-      `,
+    return this.dgraph.create(txn, (blankNodeUid) =>
+      this.createMutation(request, blankNodeUid),
     )
+  }
 
-    const mutationResult = await txn.mutate(mu)
+  protected createMutation(
+    { input: { appId, name } }: CreatePageRequest,
+    blankNodeUid: string,
+  ): Mutation {
+    const mu = new Mutation()
 
-    await txn.commit()
-
-    const uid = mutationResult.getUidsMap().get('page')
-
-    if (!uid) {
-      throw new Error('Error while creating page')
-    }
-
-    const page = await this.getPageService.execute({
-      input: {
-        pageId: uid,
+    const createPageJson: DgraphCreateMutationJson<DgraphPage> = {
+      uid: blankNodeUid,
+      'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.Page],
+      name,
+      root: {
+        'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Element],
+        name: 'Root element',
+        children: [],
+        props: '{}',
       },
-      currentUser,
-    })
-
-    if (!page) {
-      throw new Error('Error while creating page')
     }
 
-    return page
+    const updateAppJson: DgraphUpdateMutationJson<DgraphApp> = {
+      uid: appId,
+      pages: { uid: blankNodeUid },
+    }
+
+    mu.setSetJson([createPageJson, updateAppJson])
+
+    return mu
   }
 
   protected async validate({
     currentUser,
     input: { appId },
   }: CreatePageRequest): Promise<void> {
-    await this.appGuardService.validate(appId, currentUser)
+    await this.appValidator.existsAndIsOwnedBy(appId, currentUser)
   }
 }

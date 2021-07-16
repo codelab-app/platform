@@ -1,21 +1,13 @@
-import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
-import { Inject, Injectable } from '@nestjs/common'
+import { DgraphUseCase } from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js'
 import { ExecuteLambdaInput } from './execute-lambda.input'
 
 @Injectable()
 export class ExecuteLambdaService extends DgraphUseCase<
   ExecuteLambdaInput,
-  any,
   any
 > {
-  constructor(
-    @Inject(DgraphTokens.DgraphProvider)
-    protected readonly dgraphProvider: DgraphProvider,
-  ) {
-    super(dgraphProvider)
-  }
-
   async executeTransaction(input: ExecuteLambdaInput, txn: Txn) {
     console.log('execute lambda')
     // const q = `{ getLambda(func: uid("${input.lambdaId}")){

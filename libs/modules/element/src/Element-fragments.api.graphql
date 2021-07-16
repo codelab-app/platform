@@ -1,32 +1,25 @@
 fragment Element on Element {
+  __typename
   id
   name
   css
   atom {
     ...__Atom
   }
-  props {
-    ...__PropAggregate
-  }
+  props
 }
 
-fragment ElementAggregate on ElementAggregate {
-  id
-  name
-  css
-  atom {
-    ...__Atom
-  }
-  descendants {
+fragment ElementGraph on ElementGraph {
+  vertices {
     ...Element
   }
-  links {
-    ...ElementLink
+  edges {
+    ...ElementEdge
   }
 }
 
-fragment ElementLink on ElementLink {
-  from
+fragment ElementEdge on ElementEdge {
   order
-  to
+  source
+  target
 }

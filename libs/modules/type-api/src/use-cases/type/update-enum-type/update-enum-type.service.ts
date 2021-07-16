@@ -1,48 +1,99 @@
-import { FetchResult } from '@apollo/client'
-import { MutationUseCase } from '@codelab/backend'
 import {
-  UpdateEnumTypeGql,
-  UpdateEnumTypeMutation,
-  UpdateEnumTypeMutationVariables,
-} from '@codelab/codegen/dgraph'
+  DgraphEntityType,
+  DgraphEnumType,
+  DgraphRepository,
+  DgraphUpdateMutationJson,
+  DgraphUseCase,
+} from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { EnumType } from '../../../models'
+import { Mutation, Txn } from 'dgraph-js'
+import { TypeValidator } from '../../../type.validator'
 import { UpdateEnumTypeInput } from './update-enum-type.input'
 
-type GqlVariablesType = UpdateEnumTypeMutationVariables
-type GqlOperationType = UpdateEnumTypeMutation
-
 @Injectable()
-export class UpdateEnumTypeService extends MutationUseCase<
-  UpdateEnumTypeInput,
-  EnumType,
-  GqlOperationType,
-  GqlVariablesType
-> {
-  protected getGql() {
-    return UpdateEnumTypeGql
+export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
+  constructor(dgraph: DgraphRepository, private typeValidator: TypeValidator) {
+    super(dgraph)
   }
 
-  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    const dataArray = result.data?.updateEnumType?.enumType
-    const dataItem = (dataArray || [])[0]
+  protected async executeTransaction(request: UpdateEnumTypeInput, txn: Txn) {
+    await this.validate(request)
 
-    if (!dataItem) {
-      throw new Error('Error while updating enum type')
+    const idsToDelete = await this.getOldValuesToDelete(request)
+    await this.dgraph.executeMutation(
+      txn,
+      this.createMutation(request, idsToDelete),
+    )
+  }
+
+  private createMutation(
+    { typeId, updateData: { name, allowedValues } }: UpdateEnumTypeInput,
+    idsToDelete: Array<string>,
+  ) {
+    const mu = new Mutation()
+
+    // Delete all EnumTypeValues that are not in the new array
+    mu.setDelNquads(`
+      ${idsToDelete
+        .map(
+          (id) => `
+                    <${id}> * * .
+                    <${typeId}> <allowedValues> <${id}> .
+            `,
+        )
+        .join(' ')}
+    `)
+
+    // Create or update all other
+    const updateJson: DgraphUpdateMutationJson<DgraphEnumType> = {
+      uid: typeId,
+      name,
+      allowedValues: allowedValues.map((av) => ({
+        uid: av.id,
+        'dgraph.type': [DgraphEntityType.EnumTypeValue],
+        name: av.name ?? undefined,
+        stringValue: av.value,
+      })),
     }
 
-    return new EnumType(dataItem.id, dataItem.name, dataItem.allowedValues)
+    mu.setSetJson(updateJson)
+
+    return mu
   }
 
-  protected mapVariables({
+  private async validate(request: UpdateEnumTypeInput) {
+    await this.typeValidator.typeExists(request.typeId)
+  }
+
+  private async getOldValuesToDelete({
     typeId,
-    updateData: { name, allowedValues },
-  }: UpdateEnumTypeInput): GqlVariablesType {
-    return {
-      input: {
-        filter: { id: [typeId] },
-        set: { name, allowedValues },
-      },
-    }
+    updateData: { allowedValues },
+  }: UpdateEnumTypeInput) {
+    // Fetch all EnumTypeValues that are not in the new array
+    const updatedIds = allowedValues.map((av) => av.id).filter((id) => !!id)
+
+    const result = await this.dgraph.transactionWrapper((txn) =>
+      this.dgraph.getAllNamed<{ idToDelete: string }>(
+        txn,
+        `
+          {
+            query(func: uid(${typeId})) @normalize {
+              allowedValues ${
+                updatedIds && updatedIds.length
+                  ? `@filter(NOT uid(${updatedIds}))`
+                  : ''
+              } {
+                idToDelete: uid
+              }
+            }
+        }
+       `,
+        'query',
+      ),
+    )
+
+    return result
+      .filter((r) => !!r && !!r.idToDelete)
+      .map((r) => r.idToDelete as string)
   }
 }

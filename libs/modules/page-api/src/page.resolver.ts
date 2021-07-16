@@ -1,10 +1,17 @@
 import {
+  ArrayMapper,
+  CreateResponse,
   CurrentUser,
-  DeleteResponse,
+  DgraphPage,
   GqlAuthGuard,
   JwtPayload,
+  Void,
 } from '@codelab/backend'
-import { ElementAggregate } from '@codelab/modules/element-api'
+import {
+  ElementGraph,
+  ElementTreeTransformer,
+  GetElementService,
+} from '@codelab/modules/element-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -14,6 +21,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
+import { PageMapper } from './page.mapper'
 import { Page } from './page.model'
 import {
   CreatePageInput,
@@ -21,7 +29,6 @@ import {
   DeletePageInput,
   DeletePageService,
   GetPageInput,
-  GetPageRootService,
   GetPageService,
   GetPagesInput,
   GetPagesService,
@@ -32,36 +39,22 @@ import {
 @Resolver(() => Page)
 @Injectable()
 export class PageResolver {
+  private readonly pagesMapper: ArrayMapper<DgraphPage, Page>
+
   constructor(
     private createPageService: CreatePageService,
-    private getPageRootService: GetPageRootService,
     private getPagesService: GetPagesService,
     private updatePageService: UpdatePageService,
     private getPageService: GetPageService,
     private deletePageService: DeletePageService,
-  ) {}
-
-  @Query(() => [Page])
-  @UseGuards(GqlAuthGuard)
-  getPages(
-    @Args('input') input: GetPagesInput,
-    @CurrentUser() currentUser: JwtPayload,
+    private pageMapper: PageMapper,
+    private getElementService: GetElementService,
+    private elementTransformer: ElementTreeTransformer,
   ) {
-    const r = this.getPagesService.execute({ input, currentUser })
-
-    return r
+    this.pagesMapper = new ArrayMapper(pageMapper)
   }
 
-  @Query(() => Page, { nullable: true })
-  @UseGuards(GqlAuthGuard)
-  getPage(
-    @Args('input') input: GetPageInput,
-    @CurrentUser() currentUser: JwtPayload,
-  ) {
-    return this.getPageService.execute({ input, currentUser })
-  }
-
-  @Mutation(() => Page)
+  @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
   createPage(
     @Args('input') input: CreatePageInput,
@@ -70,43 +63,63 @@ export class PageResolver {
     return this.createPageService.execute({ input, currentUser })
   }
 
-  @Mutation(() => DeleteResponse)
+  @Query(() => [Page])
   @UseGuards(GqlAuthGuard)
-  deletePage(
+  async getPages(
+    @Args('input') input: GetPagesInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    const pages = await this.getPagesService.execute({ input, currentUser })
+
+    return this.pagesMapper.map(pages)
+  }
+
+  @Query(() => Page)
+  @UseGuards(GqlAuthGuard)
+  async getPage(
+    @Args('input') input: GetPageInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    const page = await this.getPageService.execute({ input, currentUser })
+
+    return this.pageMapper.map(page)
+  }
+
+  @Mutation(() => Void, { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  async deletePage(
     @Args('input') input: DeletePageInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.deletePageService.execute({ input, currentUser })
+    await this.deletePageService.execute({ input, currentUser })
   }
 
-  @Mutation(() => Page)
+  @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  updatePage(
+  async updatePage(
     @Args('input') input: UpdatePageInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.updatePageService.execute({ input, currentUser })
+    await this.updatePageService.execute({ input, currentUser })
   }
 
-  @ResolveField('rootElement', () => ElementAggregate)
-  resolveRootElement(
+  @ResolveField('elements', () => ElementGraph)
+  async resolveElements(
     @Parent() page: Page,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.getPageRootService.execute({
-      input: {
-        pageId: page.id,
-      },
+    const dgraphPage = await this.getPageService.execute({
+      input: { pageId: page.id },
       currentUser,
     })
+
+    const element = await this.getElementService.execute({
+      input: { elementId: dgraphPage.root.uid },
+      currentUser,
+    })
+
+    return this.elementTransformer.transform(element)
   }
 
-  // @Query(() => Page, { nullable: true })
-  // @UseGuards(
-  //   GqlAuthGuard,
-  //   IsAppOwnerAuthGuard(({ input }: { input: GetAppInput }) => input.appId),
-  // )
-  // getApp(@Args('input') input: GetAppInput) {
-  //   return this.getAppService.execute(input)
-  // }
+  // The Page.app resolver is in app-api/../PageAppResolver
 }

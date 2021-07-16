@@ -1,62 +1,56 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, QueryUseCase } from '@codelab/backend'
-import {
-  Dgraph__PageFragment,
-  GetPagesGql,
-  GetPagesQuery,
-  GetPagesQueryVariables,
-} from '@codelab/codegen/dgraph'
-import { AppGuardService } from '@codelab/modules/app-api'
-import { Inject, Injectable } from '@nestjs/common'
-import { Page } from '../../page.model'
+  DgraphApp,
+  DgraphEntityType,
+  DgraphPage,
+  DgraphQueryBuilder,
+  DgraphRepository,
+  DgraphUseCase,
+} from '@codelab/backend'
+import { AppValidator } from '@codelab/modules/app-api'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js'
 import { GetPagesRequest } from './get-pages.request'
 
-type GqlVariablesType = GetPagesQueryVariables
-type GqlOperationType = GetPagesQuery
-
 @Injectable()
-export class GetPagesService extends QueryUseCase<
+export class GetPagesService extends DgraphUseCase<
   GetPagesRequest,
-  Array<Partial<Page>>,
-  GqlOperationType,
-  GqlVariablesType
+  Array<DgraphPage>
 > {
-  constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-    private appGuardService: AppGuardService,
-  ) {
-    super(apolloClient)
+  constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
+    super(dgraph)
   }
 
-  protected getGql() {
-    return GetPagesGql
-  }
+  protected async executeTransaction(
+    request: GetPagesRequest,
+    txn: Txn,
+  ): Promise<Array<DgraphPage>> {
+    const {
+      input: {
+        byApp: { appId },
+      },
+    } = request
 
-  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    return (
-      (result.data?.getApp?.pages?.filter(
-        (p): p is Dgraph__PageFragment => !!p,
-      ) as any) || []
-    )
-  }
+    await this.validate(request)
 
-  protected mapVariables({
-    input: { appId },
-  }: GetPagesRequest): GqlVariablesType {
-    return {
-      appId: appId,
-    }
+    return this.dgraph
+      .getOneOrThrow<DgraphApp>(txn, this.createQuery(appId))
+      .then((app) => app.pages || [])
   }
 
   protected async validate({
-    input: { appId },
+    input: {
+      byApp: { appId },
+    },
     currentUser,
   }: GetPagesRequest): Promise<void> {
-    await this.appGuardService.validate(appId, currentUser)
+    await this.appValidator.existsAndIsOwnedBy(appId, currentUser)
+  }
+
+  private createQuery(appId: string) {
+    return new DgraphQueryBuilder()
+      .addTypeFilterDirective(DgraphEntityType.App)
+      .setUidFunc(appId)
+      .addBaseFields()
+      .addExpandAll((f) => f.addExpandAllRecursive(2))
   }
 }

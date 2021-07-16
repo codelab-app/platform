@@ -1,18 +1,16 @@
-import { DeleteUserAppsGql } from '@codelab/codegen/dgraph'
-import { print } from 'graphql'
-
 describe('Apps CRUD', () => {
   before(() => {
     // cy.clearCookies()
     cy.login().then(() => {
       // delete all apps for current user
       cy.getCurrentUserId().then((userId) => {
-        cy.dGraphGraphqlRequest({
-          query: print(DeleteUserAppsGql),
-          variables: {
-            userId,
-          },
-        })
+        // FIXME
+        // cy.dGraphGraphqlRequest({
+        //   query: print(DeleteUserAppsGql),
+        //   variables: {
+        //     userId,
+        //   },
+        // })
       })
     })
   })

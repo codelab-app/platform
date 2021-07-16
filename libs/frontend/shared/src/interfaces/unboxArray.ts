@@ -1,5 +1,6 @@
-import { Maybe } from '@codelab/codegen/dgraph'
-
-export type UnboxItem<P> = P extends Maybe<Array<Maybe<infer T>>> | undefined
+export type UnboxItem<P> = P extends
+  | Array<infer T | null | undefined>
+  | null
+  | undefined
   ? T
   : unknown

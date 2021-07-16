@@ -1,2 +1,2 @@
 export * from './OverlyNestedTypeError'
-export * from './OverlyNestedTypeError'
+export * from './RecursiveTypeError'

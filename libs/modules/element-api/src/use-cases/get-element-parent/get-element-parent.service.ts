@@ -1,51 +1,41 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, QueryUseCase } from '@codelab/backend'
-import {
-  Dgraph_ElementFragment,
-  GetElementParentGql,
-  GetElementParentQuery,
-  GetElementParentQueryVariables,
-} from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
+  DgraphElement,
+  DgraphEntityType,
+  DgraphQueryBuilder,
+  DgraphQueryField,
+  DgraphUseCase,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js'
 import { GetElementParentInput } from './get-element-parent.input'
-
-type GqlVariablesType = GetElementParentQueryVariables
-type GqlOperationType = GetElementParentQuery
 
 /**
  * Returns the parent of the requested element or null if there is not parent
  */
 @Injectable()
-export class GetElementParentService extends QueryUseCase<
+export class GetElementParentService extends DgraphUseCase<
   GetElementParentInput,
-  Dgraph_ElementFragment | null,
-  GqlOperationType,
-  GqlVariablesType
+  DgraphElement | null
 > {
-  constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-  ) {
-    super(apolloClient)
+  protected executeTransaction(
+    request: GetElementParentInput,
+    txn: Txn,
+  ): Promise<DgraphElement | null> {
+    return this.dgraph.getOne<DgraphElement>(txn, this.createQuery(request))
   }
 
-  protected getGql() {
-    return GetElementParentGql
-  }
-
-  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    return result?.data?.getElement?.parent
-      ? result?.data?.getElement?.parent
-      : null
-  }
-
-  protected mapVariables(request: GetElementParentInput): GqlVariablesType {
-    return {
-      elementId: request.elementId,
-    }
+  private createQuery({ elementId }: GetElementParentInput) {
+    return new DgraphQueryBuilder()
+      .setUidFunc(elementId)
+      .addTypeFilterDirective(DgraphEntityType.Element)
+      .addFields(
+        new DgraphQueryField('~children')
+          .addBaseInnerFields()
+          .addExpandAll((f) =>
+            f
+              .addBaseInnerFields()
+              .addExpandAll((f2) => f2.addBaseInnerFields().addExpandAll()),
+          ),
+      )
   }
 }

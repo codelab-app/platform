@@ -1,60 +1,54 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
-import {
-  UpdateAtomGql,
-  UpdateAtomMutation,
-  UpdateAtomMutationVariables,
-} from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
-import { Atom } from '../../atom.model'
+  DgraphAtom,
+  DgraphRepository,
+  DgraphUseCase,
+  jsonMutation,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js'
+import { GetAtomService } from '../get-atom'
 import { UpdateAtomInput } from './update-atom.input'
 
 @Injectable()
-export class UpdateAtomService extends MutationUseCase<
-  UpdateAtomInput,
-  Atom,
-  UpdateAtomMutation,
-  UpdateAtomMutationVariables
-> {
+export class UpdateAtomService extends DgraphUseCase<UpdateAtomInput> {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
+    dgraph: DgraphRepository,
+    private getAtomService: GetAtomService,
   ) {
-    super(apolloClient)
+    super(dgraph)
   }
 
-  protected getGql() {
-    return UpdateAtomGql
+  protected async executeTransaction(
+    request: UpdateAtomInput,
+    txn: Txn,
+  ): Promise<void> {
+    const { atom } = await this.validate(request)
+
+    await this.dgraph.executeMutation(txn, this.createMutation(request, atom))
   }
 
-  protected extractDataFromResult(result: FetchResult<UpdateAtomMutation>) {
-    // return atomSchema.parse(result.data?.updateAtom)
-    const atoms = result.data?.updateAtom?.atom
-
-    if (!atoms || !atoms.length || !atoms[0]) {
-      throw new Error('Atom not found')
-    }
-
-    return atoms[0] as unknown as Atom
-  }
-
-  protected mapVariables({
-    id,
-    data,
-  }: UpdateAtomInput): UpdateAtomMutationVariables {
-    return {
-      input: {
-        filter: {
-          id: [id],
-        },
-        set: {
-          ...data,
-        },
+  private createMutation(
+    { id, data: { name, type } }: UpdateAtomInput,
+    atom: DgraphAtom,
+  ) {
+    return jsonMutation<DgraphAtom>({
+      uid: id,
+      atomType: type,
+      name,
+      api: {
+        uid: atom.api.uid,
+        name: `${name} API`,
       },
+    })
+  }
+
+  private async validate({ id }: UpdateAtomInput) {
+    const atom = await this.getAtomService.execute({ byId: { atomId: id } })
+
+    if (!atom) {
+      throw new Error("Atom doesn't exist")
     }
+
+    return { atom }
   }
 }

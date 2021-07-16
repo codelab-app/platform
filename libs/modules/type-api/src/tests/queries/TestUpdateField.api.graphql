@@ -1,5 +1,3 @@
 mutation TestUpdateField($input: UpdateFieldInput!) {
-  updateField(input: $input) {
-    ...__Field
-  }
+  updateField(input: $input)
 }

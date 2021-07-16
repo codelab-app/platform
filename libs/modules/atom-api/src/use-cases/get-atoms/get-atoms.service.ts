@@ -1,32 +1,26 @@
-import { FetchResult } from '@apollo/client'
-import { QueryUseCase } from '@codelab/backend'
 import {
-  GetAtomsGql,
-  GetAtomsQuery,
-  GetAtomsQueryVariables,
-} from '@codelab/codegen/dgraph'
+  DgraphAtom,
+  DgraphEntityType,
+  DgraphQueryBuilder,
+  DgraphUseCase,
+} from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Atom, atomsSchema } from '../../atom.model'
+import { Txn } from 'dgraph-js'
 import { GetAtomsInput } from './get-atoms.input'
 
 @Injectable()
-export class GetAtomsService extends QueryUseCase<
+export class GetAtomsService extends DgraphUseCase<
   GetAtomsInput,
-  Array<Atom>,
-  GetAtomsQuery,
-  GetAtomsQueryVariables
+  Array<DgraphAtom>
 > {
-  protected getGql() {
-    return GetAtomsGql
+  protected executeTransaction(request: GetAtomsInput, txn: Txn) {
+    return this.dgraph.getAll<DgraphAtom>(txn, this.createQuery())
   }
 
-  protected extractDataFromResult(
-    result: FetchResult<GetAtomsQuery>,
-  ): Array<Atom> {
-    return atomsSchema.parse(result?.data?.atoms)
-  }
-
-  protected mapVariables(): GetAtomsQueryVariables {
-    return {}
+  private createQuery() {
+    return new DgraphQueryBuilder()
+      .setTypeFunc(DgraphEntityType.Atom)
+      .addBaseFields()
+      .addExpandAll((f) => f.addExpandAllRecursive(2))
   }
 }

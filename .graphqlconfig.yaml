@@ -11,38 +11,6 @@ generates:
     plugins:
       - schema-ast
 
-  libs/codegen/dgraph/src/graphql-client-dgraph.generated.ts:
-    # preset: import-types
-    # presetConfig:
-    #   typesPath: types.ts
-    schema:
-      - ${CODELAB_DGRAPH_GRAPHQL_ENDPOINT}:
-    documents:
-      - libs/modules/**/*.d.graphql
-      - apps/web/**/*.d.graphql
-      - apps/web-e2e/**/*.d.graphql
-    plugins:
-      - typescript
-      - typescript-operations
-      - typescript-react-apollo
-      - typescript-document-nodes
-    config:
-      documentVariableSuffix: 'Gql'
-      gqlImport: '@apollo/client#gql'
-      skipTypename: true
-      strictScalars: true
-      defaultScalarType: unknown
-      withRefetchFn: true
-      # defaultBaseOptions:
-      #   operationName: 'dgraph'
-      scalars:
-        uuid: string
-        json: Record<string, any>
-        jsonb: Record<string, any>
-        DateTime: string
-        Int64: number
-        _Any: any
-
   libs/codegen/graphql/src/graphql-client-api.generated.ts:
     schema:
       - ${CODELAB_API_ENDPOINT}/graphql:
@@ -55,6 +23,8 @@ generates:
       - typescript-operations
       - typescript-react-apollo
       - typescript-document-nodes
+    scalars:
+      Void: void
     config:
       # defaultBaseOptions:
       #   operationName: 'api'

@@ -1,5 +1,3 @@
 mutation DeletePage($input: DeletePageInput!) {
-  deletePage(input: $input) {
-    affected
-  }
+  deletePage(input: $input)
 }

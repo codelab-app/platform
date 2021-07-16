@@ -1,0 +1,3 @@
+mutation UpdateApp($input: UpdateAppInput!) {
+  app: updateApp(input: $input)
+}

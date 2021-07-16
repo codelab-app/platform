@@ -1,4 +1,4 @@
-import { CreateLambdaInput } from '@codelab/codegen/graphql'
+import { CreateLambdaInput } from './create-lambda.input'
 
 export class CreateLambdaRequest {
   declare input: CreateLambdaInput

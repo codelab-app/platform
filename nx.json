@@ -35,9 +35,6 @@
     "cli": {
       "tags": []
     },
-    "codegen-dgraph": {
-      "tags": []
-    },
     "codegen-graphql": {
       "tags": []
     },

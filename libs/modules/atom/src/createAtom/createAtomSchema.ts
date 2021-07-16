@@ -1,16 +1,11 @@
-import { AtomType } from '@codelab/codegen/graphql'
+import { AtomType, CreateAtomInput } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
-
-export type CreateAtomInput = {
-  label: string
-  type: AtomType
-}
 
 export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
   title: 'Create Atom Input',
   type: 'object',
   properties: {
-    label: {
+    name: {
       type: 'string',
     },
     type: {
@@ -18,5 +13,5 @@ export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
       enum: Object.keys(AtomType) as Array<AtomType>,
     },
   },
-  required: ['label', 'type'],
+  required: ['name', 'type'],
 } as const

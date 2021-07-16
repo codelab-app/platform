@@ -1,10 +1,11 @@
+import { Void } from '@codelab/backend'
 import { TypeModule } from '@codelab/modules/type-api'
 import { Module } from '@nestjs/common'
+import { AtomMapper } from './atom.mapper'
 import { AtomResolver } from './atom.resolver'
 import {
   CreateAtomService,
   DeleteAtomService,
-  GetAtomByService,
   GetAtomService,
   GetAtomsService,
   UpdateAtomService,
@@ -16,12 +17,12 @@ const services = [
   DeleteAtomService,
   GetAtomService,
   UpdateAtomService,
-  GetAtomByService,
+  AtomMapper,
 ]
 
 @Module({
   imports: [TypeModule],
-  providers: [AtomResolver, ...services],
+  providers: [AtomResolver, ...services, Void],
   exports: [...services],
 })
 export class AtomModule {}

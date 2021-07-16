@@ -11,7 +11,7 @@ import { print } from 'graphql'
 export const createAtom = async (app: INestApplication) => {
   const variables: CreateAtomMutationVariables = {
     input: {
-      label: 'Button (Ant Design)',
+      name: 'Button (Ant Design)',
       type: AtomType.AntDesignButton,
     },
   }

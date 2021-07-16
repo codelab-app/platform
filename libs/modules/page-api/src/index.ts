@@ -1,4 +1,5 @@
-export * from './auth'
+export * from './app-pages.resolver'
 export * from './page.model'
 export * from './page.module'
+export * from './page.validator'
 export * from './use-cases'

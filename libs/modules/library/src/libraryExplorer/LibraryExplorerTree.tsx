@@ -1,8 +1,4 @@
-import { BookOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
-import {
-  LibraryExplorer__AtomFragment,
-  LibraryExplorer__ComponentFragment,
-} from '@codelab/codegen/dgraph'
+import { BookOutlined } from '@ant-design/icons'
 import { useComponentBuilder } from '@codelab/frontend/builder'
 import { CheckedKeys, LibraryContext, PageType } from '@codelab/frontend/shared'
 import {
@@ -54,15 +50,15 @@ export const LibraryExplorerTree = () => {
       icon: <BookOutlined />,
       selectable: false,
       checkable: false,
-      children: library?.atoms
-        ?.filter((atom): atom is LibraryExplorer__AtomFragment => !!atom)
-        .map((atom) => {
-          return {
-            title: atom?.type,
-            key: atom.id,
-            icon: <DeploymentUnitOutlined />,
-          }
-        }),
+      // children: library?.atoms
+      //   ?.filter((atom): atom is LibraryExplorer__AtomFragment => !!atom)
+      //   .map((atom) => {
+      //     return {
+      //       title: atom?.type,
+      //       key: atom.id,
+      //       icon: <DeploymentUnitOutlined />,
+      //     }
+      //   }),
     }
   })
 
@@ -74,18 +70,18 @@ export const LibraryExplorerTree = () => {
         icon: <BookOutlined />,
         selectable: false,
         checkable: false,
-        children: library?.components
-          ?.filter(
-            (component): component is LibraryExplorer__ComponentFragment =>
-              !!component,
-          )
-          .map((component) => {
-            return {
-              title: component.label,
-              key: component.id,
-              icon: <DeploymentUnitOutlined />,
-            }
-          }),
+        // children: library?.components
+        //   ?.filter(
+        //     (component): component is LibraryExplorer__ComponentFragment =>
+        //       !!component,
+        //   )
+        //   .map((component) => {
+        //     return {
+        //       title: component.label,
+        //       key: component.id,
+        //       icon: <DeploymentUnitOutlined />,
+        //     }
+        //   }),
       }
     },
   )

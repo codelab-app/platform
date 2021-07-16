@@ -1,56 +1,48 @@
-import {
-  DgraphArrayMapper,
-  DgraphProvider,
-  DgraphTokens,
-  DgraphUseCase,
-} from '@codelab/backend'
-import { Inject, Injectable } from '@nestjs/common'
+import { DgraphEntityType, DgraphType, DgraphUseCase } from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js'
-import {
-  DgraphType,
-  Type,
-  TypeMapper,
-  TypeMapperContext,
-} from '../../../models'
-import {
-  GetDgraphTypeQueryBuilder,
-  GetDgraphTypeQueryResult,
-} from '../get-dgraph-type'
-import { GetTypesInput } from './get-types.input'
+import { getTypeQuery } from '../get-type'
+import { GetTypesInput, TypeKind, TypesByKindFilter } from './get-types.input'
 
 @Injectable()
-export class GetTypesService extends DgraphUseCase<GetTypesInput, Array<Type>> {
-  private typeArrayMapper: DgraphArrayMapper<
-    DgraphType,
-    Type,
-    TypeMapperContext
-  >
-
-  constructor(
-    @Inject(DgraphTokens.DgraphProvider)
-    protected readonly dgraphProvider: DgraphProvider,
-    typeMapper: TypeMapper,
-  ) {
-    super(dgraphProvider)
-    this.typeArrayMapper = new DgraphArrayMapper(typeMapper)
+export class GetTypesService extends DgraphUseCase<
+  GetTypesInput,
+  Array<DgraphType<any>>
+> {
+  protected async executeTransaction(request: GetTypesInput, txn: Txn) {
+    return this.dgraph
+      .getAll<DgraphType<any>>(txn, this.createQuery(request))
+      .then((t) => t.sort((a, b) => a.uid.localeCompare(b.uid)))
   }
 
-  protected async executeTransaction(
-    request: GetTypesInput,
-    txn: Txn,
-  ): Promise<Array<Type>> {
-    const qb = new GetDgraphTypeQueryBuilder()
+  private createQuery({ byIds, byKind }: GetTypesInput) {
+    const qb = getTypeQuery(this.getTypeFilter(byKind))
 
-    if (request.byIds) {
-      qb.withUidsFunc(request.byIds.typeIds)
+    if (byIds) {
+      qb.setUidsFunc(byIds.typeIds)
     } else {
-      qb.withTypeFunc('Type')
+      qb.setTypeFunc(this.getTypeFilter(byKind))
     }
 
-    const query = qb.build()
-    const response = await txn.query(query)
-    const result = response.getJson().query as Array<GetDgraphTypeQueryResult>
+    return qb
+  }
 
-    return this.typeArrayMapper.map(result as any)
+  private getTypeFilter(filter?: TypesByKindFilter) {
+    if (!filter) {
+      return DgraphEntityType.Type
+    }
+
+    switch (filter.kind) {
+      case TypeKind.Primitive:
+        return DgraphEntityType.PrimitiveType
+      case TypeKind.Array:
+        return DgraphEntityType.ArrayType
+      case TypeKind.Interface:
+        return DgraphEntityType.InterfaceType
+      case TypeKind.Enum:
+        return DgraphEntityType.EnumType
+      default:
+        throw new Error('Unrecognized type kind option')
+    }
   }
 }

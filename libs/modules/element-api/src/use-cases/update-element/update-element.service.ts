@@ -1,73 +1,43 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
-import {
-  UpdateElementGql,
-  UpdateElementMutation,
-  UpdateElementMutationVariables,
-} from '@codelab/codegen/dgraph'
+  DgraphElement,
+  DgraphRepository,
+  DgraphUseCase,
+  jsonMutation,
+} from '@codelab/backend'
 import { GetAtomService } from '@codelab/modules/atom-api'
-import { Inject, Injectable } from '@nestjs/common'
-import { z } from 'zod'
-import { ElementGuardService } from '../../auth'
-import { Element } from '../../models'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js'
+import { ElementValidator } from '../../element.validator'
 import { UpdateElementRequest } from './update-element.request'
 
-type GqlVariablesType = UpdateElementMutationVariables
-type GqlOperationType = UpdateElementMutation
-
 @Injectable()
-export class UpdateElementService extends MutationUseCase<
-  UpdateElementRequest,
-  Element,
-  GqlOperationType,
-  GqlVariablesType
-> {
+export class UpdateElementService extends DgraphUseCase<UpdateElementRequest> {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
+    dgraph: DgraphRepository,
     private getAtomService: GetAtomService,
-    private elementGuardService: ElementGuardService,
+    private elementValidator: ElementValidator,
   ) {
-    super(apolloClient)
+    super(dgraph)
   }
 
-  protected getGql() {
-    return UpdateElementGql
+  protected async executeTransaction(request: UpdateElementRequest, txn: Txn) {
+    await this.validate(request)
+
+    await this.dgraph.executeMutation(txn, this.createMutation(request))
   }
 
-  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    const elements = result?.data?.updateElement?.element
-
-    if (!elements || !elements.length) {
-      throw new Error('Error while updating element')
-    }
-
-    return z.array(Element.Schema).parse(elements)[0]
-  }
-
-  protected async mapVariables({
-    input: { elementId, updateData },
-  }: UpdateElementRequest): Promise<GqlVariablesType> {
-    return {
-      input: {
-        filter: {
-          id: [elementId],
-        },
-        set: {
-          name: updateData.name,
-          css: updateData.css,
-          atom: updateData.atomId
-            ? {
-                id: updateData.atomId,
-              }
-            : null,
-        },
-      },
-    }
+  protected createMutation({
+    input: {
+      elementId,
+      updateData: { atomId, css, name },
+    },
+  }: UpdateElementRequest) {
+    return jsonMutation<DgraphElement>({
+      uid: elementId,
+      name,
+      atom: atomId ? { uid: atomId } : null,
+      css: css || undefined,
+    })
   }
 
   protected async validate({
@@ -77,10 +47,10 @@ export class UpdateElementService extends MutationUseCase<
     },
     currentUser,
   }: UpdateElementRequest): Promise<void> {
-    await this.elementGuardService.validate(elementId, currentUser)
+    await this.elementValidator.existsAndIsOwnedBy(elementId, currentUser)
 
     if (atomId) {
-      const atom = await this.getAtomService.execute({ atomId })
+      const atom = await this.getAtomService.execute({ byId: { atomId } })
 
       if (!atom) {
         throw new Error('Atom not found')

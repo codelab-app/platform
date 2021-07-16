@@ -1,19 +1,16 @@
-import {
-  ElementNode,
-  EntityType,
-  useCrudModalForm,
-} from '@codelab/frontend/shared'
+import { ElementFragment } from '@codelab/codegen/graphql'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { Menu } from 'antd'
 import React from 'react'
 
 export interface ElementContextMenuProps {
-  node: ElementNode
+  element: ElementFragment
   onClick?: () => any
   onBlur?: () => any
 }
 
 export const ElementContextMenu = ({
-  node,
+  element,
   onClick,
   onBlur,
 }: ElementContextMenuProps) => {
@@ -35,10 +32,10 @@ export const ElementContextMenu = ({
       </Menu.Item>
       <Menu.Item
         danger
-        onClick={() => openDeleteModal([node.id], node)}
+        onClick={() => openDeleteModal([element.id], element)}
         key="2"
       >
-        Delete `{node.name}`
+        Delete `{element.name}`
       </Menu.Item>
     </Menu>
   )

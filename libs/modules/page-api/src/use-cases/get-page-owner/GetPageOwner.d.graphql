@@ -1,7 +1,0 @@
-query GetPageOwner($pageId: ID!) {
-  getPage(id: $pageId) {
-    app {
-      ownerId
-    }
-  }
-}

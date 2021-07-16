@@ -350,7 +350,7 @@ describe('type', () => {
 
         const type = await getType(field.typeId)
 
-        expect(type?.__typename).toBe('Interface')
+        expect(type?.__typename).toBe('InterfaceType')
         expect((type as __InterfaceFragment).id).toBe(interface2.id)
       })
 

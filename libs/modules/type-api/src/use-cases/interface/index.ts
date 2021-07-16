@@ -1,5 +1,0 @@
-export * from './create-interface'
-export * from './get-interface'
-export * from './get-interface-with-atom'
-export * from './get-interfaces'
-export * from './update-interface'

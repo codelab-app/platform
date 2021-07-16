@@ -1,7 +1,10 @@
 import { Entity } from '../entity/entity'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Node<TData> extends Entity {
+export interface NodeLike<TChild extends NodeLike<TChild>> {
+  children: Array<TChild>
+}
+
+export interface Node<TData> extends Entity, NodeLike<Node<TData>> {
   children: Array<Node<TData>>
   data: TData
 }

@@ -1,7 +1,0 @@
-query GetElementParent($elementId: ID!) {
-  getElement(id: $elementId) {
-    parent {
-      ...Dgraph_Element
-    }
-  }
-}

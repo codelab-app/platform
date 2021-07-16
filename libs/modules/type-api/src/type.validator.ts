@@ -1,0 +1,166 @@
+import {
+  DgraphArrayType,
+  DgraphAtom,
+  DgraphEntityType,
+  DgraphField,
+  DgraphInterfaceType,
+  DgraphQueryBuilder,
+  DgraphQueryField,
+  DgraphRepository,
+  DgraphType,
+  instanceOfDgraphModel,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { MAX_TYPE_DEPTH } from './constants'
+import { OverlyNestedTypeError, RecursiveTypeError } from './errors'
+import { TypeIsUsedError } from './errors/TypeIsUsedError'
+import { CreateTypeInput } from './use-cases'
+
+export type QueryResult = DgraphType<any> & {
+  '~api'?: [DgraphAtom]
+  '~type'?: Array<DgraphField>
+}
+
+@Injectable()
+export class TypeValidator {
+  constructor(private dgraph: DgraphRepository) {}
+
+  /**
+   * Throws error
+   * if the type doesn't exist
+   */
+  async typeExists(typeId: string) {
+    return await this.dgraph.transactionWrapper((txn) =>
+      this.dgraph.getOneOrThrow<QueryResult>(
+        txn,
+        this.createGetTypeQuery(typeId),
+        () => {
+          throw new Error('Type does not exist')
+        },
+      ),
+    )
+  }
+
+  /**
+   * Throws {@link TypeIsUsedError} if the type is the api of an atom
+   * @param typeOrTypeId the type id or the result of {@link typeExists}
+   */
+  async typeIsNotApiOfAtom(typeOrTypeId: string | QueryResult) {
+    if (typeof typeOrTypeId === 'string') {
+      typeOrTypeId = await this.typeExists(typeOrTypeId)
+    }
+
+    if (typeOrTypeId['~api']?.length && typeOrTypeId['~api'][0]) {
+      throw new TypeIsUsedError(undefined, typeOrTypeId['~api'][0].name)
+    }
+  }
+
+  /**
+   * Throws {@link TypeIsUsedError} if the type is referenced in any fields
+   * @param typeOrTypeId the type id or the result of {@link typeExists}
+   */
+  async typeIsNotReferencedInFields(typeOrTypeId: string | QueryResult) {
+    if (typeof typeOrTypeId === 'string') {
+      typeOrTypeId = await this.typeExists(typeOrTypeId)
+    }
+
+    if (typeOrTypeId['~type']?.length) {
+      const fields = typeOrTypeId['~type'].filter((f) =>
+        instanceOfDgraphModel(f, DgraphEntityType.Field),
+      )
+
+      if (fields.length) {
+        throw new TypeIsUsedError(fields.map((f) => f.name))
+      }
+    }
+  }
+
+  async validateCreateTypeInput({
+    arrayType,
+    enumType,
+    interfaceType,
+    primitiveType,
+  }: CreateTypeInput) {
+    this.singleInput([enumType, arrayType, interfaceType, primitiveType])
+
+    if (arrayType) {
+      await this.typeExists(arrayType.itemTypeId)
+    }
+  }
+
+  /** Throws error if there are less or more than 1 input in the array */
+  singleInput(inputs: Array<any>) {
+    const numberOfTypeFields = inputs.filter((t) => !!t).length
+
+    if (numberOfTypeFields < 1) {
+      throw new Error('At least one type input must be provided')
+    } else if (numberOfTypeFields > 1) {
+      throw new Error('No more than one type input must be provided')
+    }
+  }
+
+  /**
+   * Checks if the id of type A is referenced anywhere, at any depth, inside type B
+   *
+   * Throws {@link OverlyNestedTypeError} if the type is too nested based on {@link MAX_TYPE_DEPTH}
+   * Throws {@link RecursiveTypeError} if typeAId is referenced inside type B
+   */
+  notRecursive(typeAId: string, typeB: DgraphType<any>) {
+    let itemCheckIteration = 0
+    const queue: Array<DgraphType<any>> = [typeB]
+
+    while (queue.length > 0) {
+      const next = queue.shift()
+
+      if (!next) {
+        continue
+      }
+
+      if (next.uid === typeAId) {
+        throw new RecursiveTypeError()
+      }
+
+      if (instanceOfDgraphModel(next, DgraphEntityType.ArrayType)) {
+        queue.push((next as DgraphArrayType).itemType)
+      } else if (instanceOfDgraphModel(next, DgraphEntityType.InterfaceType)) {
+        queue.push(...(next as DgraphInterfaceType).fields.map((f) => f.type))
+      }
+
+      itemCheckIteration++
+
+      if (itemCheckIteration > MAX_TYPE_DEPTH) {
+        throw new OverlyNestedTypeError()
+      }
+    }
+  }
+
+  private createGetTypeQuery(typeId: string) {
+    /**
+     * 	q(func: uid(typeId)) {
+          uid
+          dgraph.type
+          expand(_all_)
+          ~api {
+            uid
+            dgraph.type
+            expand(_all_)
+          }
+          ~type {
+            uid
+            dgraph.type
+            expand(_all_)
+          }
+        }
+     */
+
+    return new DgraphQueryBuilder()
+      .addTypeFilterDirective(DgraphEntityType.Type)
+      .setUidFunc(typeId)
+      .addBaseFields()
+      .addFields(
+        new DgraphQueryField(`~api`).addBaseInnerFields().addExpandAll(),
+        new DgraphQueryField(`~type`).addBaseInnerFields().addExpandAll(),
+      )
+      .addExpandAll((f) => f.addExpandAllRecursive(2))
+  }
+}

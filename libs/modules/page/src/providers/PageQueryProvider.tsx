@@ -1,21 +1,19 @@
-import { PageFullFragment, useGetPageLazyQuery } from '@codelab/codegen/graphql'
-import { CytoscapeService } from '@codelab/frontend/cytoscape'
-import { Core } from 'cytoscape'
+import { PageFullFragment, useGetPageQuery } from '@codelab/codegen/graphql'
+import { ElementTree, useElementTree } from '@codelab/modules/element'
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
 
 export interface PageContextType {
-  pageId: string | null
-  page: PageFullFragment | null
-  cytoscapeRoot: Core | null
+  pageId: string
+  page: PageFullFragment
+  tree: ElementTree
   loading: boolean
 }
 
 const defaultContext: PageContextType = {
-  pageId: null,
-  cytoscapeRoot: null,
-  page: null,
+  pageId: null!,
+  tree: null!,
+  page: null!,
   loading: false,
 }
 
@@ -26,23 +24,20 @@ export const PageQueryProvider = ({
 }: React.PropsWithChildren<unknown>) => {
   const { query } = useRouter()
   const pageId = query.pageId as string
-  const [getPage, { data, loading }] = useGetPageLazyQuery()
 
-  const [cytoscapeRoot, setCytoscapeRoot] =
-    useState<PageContextType['cytoscapeRoot']>(null)
-
-  useEffect(() => {
-    getPage({ variables: { input: { pageId } } })
-  }, [getPage, pageId])
+  const { data, loading } = useGetPageQuery({
+    variables: { input: { pageId } },
+  })
 
   const page = pageId && data?.page ? data.page : null
+  const tree = useElementTree(page?.elements || { edges: [], vertices: [] })
 
-  useEffect(() => {
-    setCytoscapeRoot(page ? CytoscapeService.fromPage(page.rootElement) : null)
-  }, [page])
+  if (!pageId || !page) {
+    return null
+  }
 
   return (
-    <PageContext.Provider value={{ page, pageId, cytoscapeRoot, loading }}>
+    <PageContext.Provider value={{ page, pageId, tree, loading }}>
       {children}
     </PageContext.Provider>
   )

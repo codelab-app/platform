@@ -1,18 +1,11 @@
-import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
-import { Inject, Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { DgraphUseCase } from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Mutation } from 'dgraph-js'
 import { DeleteLambdaInput } from './delete-lambda.input'
 
 @Injectable()
-export class DeleteLambdaService extends DgraphUseCase<any, any, any> {
-  constructor(
-    @Inject(DgraphTokens.DgraphProvider)
-    protected readonly dgraphProvider: DgraphProvider,
-  ) {
-    super(dgraphProvider)
-  }
-
-  async executeTransaction(input: DeleteLambdaInput, txn: Txn) {
+export class DeleteLambdaService extends DgraphUseCase<any, any> {
+  async executeTransaction(input: DeleteLambdaInput) {
     // Query block
     const q = `{ lambda(func: uid("${input.lambdaId}")) @filter(eq(dgraph.type, Lambda)) {
       id: uid
@@ -21,7 +14,7 @@ export class DeleteLambdaService extends DgraphUseCase<any, any, any> {
       ownerId: Lambda.ownerId
     }}`
 
-    const _txn = this.dgraphProvider.client.newTxn()
+    const _txn = this.dgraph.client.newTxn()
     const results = await _txn.query(q)
     const lambda = results.getJson().lambda[0]
 
@@ -32,6 +25,7 @@ export class DeleteLambdaService extends DgraphUseCase<any, any, any> {
     await _txn.discard()
 
     // Mutation block
+    const txn = this.dgraph.client.newTxn()
     const mu = new Mutation()
     mu.setDeleteJson({ uid: input.lambdaId })
 

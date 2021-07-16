@@ -1,7 +1,7 @@
 import {
+  CreateAppInput,
   refetchGetAppsQuery,
   UpdateAppData,
-  useGetAppQuery,
   useUpdateAppMutation,
 } from '@codelab/codegen/graphql'
 import {
@@ -9,70 +9,37 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
-import { Spin } from 'antd'
-import React, { useEffect } from 'react'
-import { useRecoilState } from 'recoil'
+import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { appState } from '../state'
 import { updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppData>) => {
-  const { reset, setLoading, state } = useCrudModalForm(EntityType.App)
-  const { updateId: updateAppId } = state
-  const [, setAppState] = useRecoilState(appState)
-
-  const [mutate, { loading: updateAppLoading }] = useUpdateAppMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetAppsQuery()],
-  })
-
-  const { data, loading } = useGetAppQuery({
-    variables: {
-      input: {
-        appId: updateAppId,
-      },
+  const {
+    crudModal: {
+      reset,
+      state: { metadata },
     },
+    handleSubmit,
+  } = useCrudModalMutationForm({
+    entityType: EntityType.App,
+    useMutationFunction: useUpdateAppMutation,
+    mutationOptions: { refetchQueries: [refetchGetAppsQuery()] },
+    mapVariables: ({ name }: CreateAppInput, state) => ({
+      input: { data: { name }, id: state.updateId },
+    }),
   })
-
-  useEffect(() => {
-    setLoading(updateAppLoading)
-    setAppState((current) => ({ ...current, updateAppLoading }))
-  }, [updateAppLoading])
-
-  const app = data?.app
-
-  if (loading) {
-    return <Spin />
-  }
-
-  const onSubmit = (submitData: UpdateAppData) => {
-    if (!app?.id) {
-      throw new Error('Missing appId')
-    }
-
-    return mutate({
-      variables: {
-        input: {
-          data: {
-            ...submitData,
-          },
-          id: app.id,
-        },
-      },
-    })
-  }
 
   return (
     <FormUniforms<UpdateAppData>
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       schema={updateAppSchema}
       model={{
-        name: app?.name,
+        name: metadata?.name,
       }}
       onSubmitError={createNotificationHandler({
-        title: `Error while updating app '${app?.name}'`,
+        title: `Error while updating app '${metadata?.name}'`,
       })}
       onSubmitSuccess={() => reset()}
       {...props}

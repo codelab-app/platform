@@ -1,59 +1,49 @@
-import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
 import {
-  DeleteAppGql,
-  DeleteAppMutation,
-  DeleteAppMutationVariables,
-} from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
-import { FetchResult } from 'apollo-link'
-import { App } from '../../app.model'
-import { AppGuardService } from '../../auth'
+  DgraphApp,
+  DgraphElement,
+  DgraphEntityType,
+  DgraphPage,
+  DgraphRepository,
+  DgraphUseCase,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js'
+import { AppValidator } from '../../app.validator'
 import { DeleteAppRequest } from './delete-app.request'
 
 @Injectable()
-export class DeleteAppService extends MutationUseCase<
-  DeleteAppRequest,
-  App,
-  DeleteAppMutation,
-  DeleteAppMutationVariables
-> {
-  constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-    private appGuardService: AppGuardService,
-  ) {
-    super(apolloClient)
+export class DeleteAppService extends DgraphUseCase<DeleteAppRequest> {
+  constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
+    super(dgraph)
   }
 
-  protected extractDataFromResult(result: FetchResult<DeleteAppMutation>): App {
-    const app = result?.data?.deleteApp?.app
+  protected async executeTransaction(
+    request: DeleteAppRequest,
+    txn: Txn,
+  ): Promise<void> {
+    const {
+      input: { appId },
+    } = request
 
-    if (!app || !app.length || !app[0]) {
-      throw new Error('App not found')
-    }
+    await this.validate(request)
 
-    return app[0]
-  }
-
-  protected getGql() {
-    return DeleteAppGql
-  }
-
-  protected mapVariables({
-    input: { appId },
-  }: DeleteAppRequest): DeleteAppMutationVariables {
-    return {
-      filter: {
-        id: [appId],
-      },
-    }
+    await this.dgraph.executeUpsertDeleteAll(txn, (q) =>
+      q
+        .addJsonFields<DgraphApp & DgraphPage & DgraphElement>({
+          pages: true,
+          root: true,
+          children: true,
+          props: true,
+        })
+        .addTypeFilterDirective(DgraphEntityType.App)
+        .setUidFunc(appId),
+    )
   }
 
   protected async validate({
     input: { appId },
     currentUser,
-  }: DeleteAppRequest): Promise<void> {
-    await this.appGuardService.validate(appId, currentUser)
+  }: DeleteAppRequest) {
+    await this.appValidator.existsAndIsOwnedBy(appId, currentUser)
   }
 }

@@ -5,14 +5,12 @@ fragment __Field on Field {
   id
   key
   name
-  typeId
   description
 }
 
 fragment __ArrayType on ArrayType {
   id
   name
-  typeId
 }
 
 fragment __EnumTypeValue on EnumTypeValue {
@@ -39,33 +37,15 @@ fragment __Type on Type {
   __typename
   id
   name
+  __typename
   ... on ArrayType {
     ...__ArrayType
   }
   ... on EnumType {
     ...__EnumType
   }
-  # Do not get the full interface fragment, because it will cause a recursion
-  # The types are available in the root typeCollection.types, we can get it from there by id
-  ... on Interface {
-    ...__InterfaceWithoutTypes
-  }
-  ... on PrimitiveType {
-    ...__PrimitiveType
-  }
-}
-
-# Type, but without the recursion
-fragment __TypeShallow on Type {
-  __typename
-  ... on ArrayType {
-    id
-  }
-  ... on EnumType {
-    ...__EnumType
-  }
-  ... on Interface {
-    id
+  ... on InterfaceType {
+    ...__Interface
   }
   ... on PrimitiveType {
     ...__PrimitiveType
@@ -75,38 +55,25 @@ fragment __TypeShallow on Type {
 #
 # Interface
 #
-fragment __InterfaceWithoutFields on Interface {
+fragment __Interface on InterfaceType {
   id
   name
 }
 
-fragment __InterfaceWithoutTypes on Interface {
-  ...__InterfaceWithoutFields
-  fieldCollection {
-    ...__FieldCollectionWithoutTypes
-    types {
-      ...__TypeShallow
-    }
+fragment __TypeGraph on TypeGraph {
+  edges {
+    ...__TypeEdge
   }
-}
-
-fragment __FieldCollectionWithoutTypes on FieldCollection {
-  fields {
-    ...__Field
-  }
-}
-
-fragment __FieldCollection on FieldCollection {
-  ...__FieldCollectionWithoutTypes
-  types {
+  vertices {
     ...__Type
   }
 }
 
-# Full Interface
-fragment __Interface on Interface {
-  ...__InterfaceWithoutFields
-  fieldCollection {
-    ...__FieldCollection
+fragment __TypeEdge on TypeEdge {
+  source
+  target
+  kind
+  field {
+    ...__Field
   }
 }

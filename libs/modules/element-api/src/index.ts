@@ -1,3 +1,5 @@
+export * from './element.mapper'
 export * from './element.module'
+export * from './element-tree.transformer'
 export * from './models'
 export * from './use-cases'

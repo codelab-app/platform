@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import cytoscape, { EdgeDataDefinition, NodeDataDefinition } from 'cytoscape'
+import cytoscape, {
+  Core,
+  EdgeDataDefinition,
+  NodeDataDefinition,
+} from 'cytoscape'
+import { Edge, Graph, Vertex } from '../graph'
 
 @Injectable()
 export class CytoscapeService {
@@ -8,10 +13,7 @@ export class CytoscapeService {
   /**
    * We're using elements in the cytoscape sense, not our domain sense.
    */
-  static fromElements(
-    nodes: Array<NodeDataDefinition>,
-    edges: Array<EdgeDataDefinition>,
-  ) {
+  fromElements({ nodes, edges }: CytoscapeGraph) {
     return cytoscape({
       headless: true,
       elements: {
@@ -28,4 +30,24 @@ export class CytoscapeService {
       },
     })
   }
+
+  async treeToGraph<TVertex extends Vertex, TEdge extends Edge>(
+    cy: Core,
+    vertexMapper: (nodeData: any) => TVertex | Promise<TVertex>,
+    edgeMapper: (edgeData: any) => TEdge | Promise<TEdge>,
+  ): Promise<Graph<TVertex, TEdge>> {
+    return {
+      vertices: await Promise.all(
+        cy.nodes().map((node) => vertexMapper(node.data())),
+      ),
+      edges: await Promise.all(
+        cy.edges().map((edge) => edgeMapper(edge.data())),
+      ),
+    }
+  }
+}
+
+export interface CytoscapeGraph {
+  nodes: Array<NodeDataDefinition>
+  edges: Array<EdgeDataDefinition>
 }

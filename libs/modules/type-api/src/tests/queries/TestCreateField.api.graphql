@@ -1,5 +1,5 @@
 mutation TestCreateField($input: CreateFieldInput!) {
   createField(input: $input) {
-    ...__Field
+    id
   }
 }

@@ -1,5 +1,3 @@
 mutation DeleteElement($input: DeleteElementInput!) {
-  deleteElement(input: $input) {
-    affected
-  }
+  deleteElement(input: $input)
 }

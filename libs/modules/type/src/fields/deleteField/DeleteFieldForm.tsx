@@ -1,5 +1,5 @@
 import {
-  refetchGetInterfaceQuery,
+  refetchGetTypeGraphQuery,
   useDeleteFieldMutation,
 } from '@codelab/codegen/graphql'
 import {
@@ -31,7 +31,9 @@ export const DeleteFieldForm = (props: DeleteFieldFormProps) => {
   } = useCrudModalMutationForm({
     entityType: EntityType.Field,
     mutationOptions: {
-      refetchQueries: [refetchGetInterfaceQuery({ input: { interfaceId } })],
+      refetchQueries: [
+        refetchGetTypeGraphQuery({ input: { typeId: interfaceId } }),
+      ],
     },
     useMutationFunction: useDeleteFieldMutation,
     mapVariables: (_, crudModalState) => ({

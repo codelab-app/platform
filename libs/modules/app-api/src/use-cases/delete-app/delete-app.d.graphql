@@ -1,7 +1,0 @@
-mutation DeleteApp($filter: AppFilter!) {
-  deleteApp(filter: $filter) {
-    app {
-      ...Dgraph__App
-    }
-  }
-}

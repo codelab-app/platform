@@ -1,57 +1,43 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, QueryUseCase } from '@codelab/backend'
-import {
-  GetPageGql,
-  GetPageQuery,
-  GetPageQueryVariables,
-} from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
-import { PageGuardService } from '../../auth'
-import { Page } from '../../page.model'
+  DgraphEntityType,
+  DgraphPage,
+  DgraphQueryBuilder,
+  DgraphRepository,
+  DgraphUseCase,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js'
+import { PageValidator } from '../../page.validator'
 import { GetPageRequest } from './get-page.request'
 
-type GqlVariablesType = GetPageQueryVariables
-type GqlOperationType = GetPageQuery
-
 @Injectable()
-export class GetPageService extends QueryUseCase<
-  GetPageRequest,
-  Partial<Page> | null,
-  GqlOperationType,
-  GqlVariablesType
-> {
-  constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-    private pageGuardService: PageGuardService,
-  ) {
-    super(apolloClient)
+export class GetPageService extends DgraphUseCase<GetPageRequest, DgraphPage> {
+  constructor(dgraph: DgraphRepository, private pageValidator: PageValidator) {
+    super(dgraph)
   }
 
-  protected getGql() {
-    return GetPageGql
-  }
+  protected async executeTransaction(request: GetPageRequest, txn: Txn) {
+    const {
+      input: { pageId },
+    } = request
 
-  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    return (result.data?.getPage as any) || null
-  }
+    await this.validate(request)
 
-  protected mapVariables({
-    input: { pageId },
-  }: GetPageRequest): GqlVariablesType {
-    return {
-      pageId: pageId,
-    }
+    return this.dgraph.getOneOrThrow<DgraphPage>(txn, this.createQuery(pageId))
   }
 
   protected async validate({
     input: { pageId },
     currentUser,
   }: GetPageRequest): Promise<void> {
-    await this.pageGuardService.validate(pageId, currentUser)
+    await this.pageValidator.existsAndIsOwnedBy(pageId, currentUser)
+  }
+
+  private createQuery(pageId: string) {
+    return new DgraphQueryBuilder()
+      .addTypeFilterDirective(DgraphEntityType.Page)
+      .setUidFunc(pageId)
+      .addBaseFields()
+      .addExpandAll((f) => f.addExpandAllRecursive(2))
   }
 }

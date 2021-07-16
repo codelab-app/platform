@@ -1,14 +1,14 @@
-import { ElementNode } from '@codelab/frontend/shared'
+import { ElementFragment } from '@codelab/codegen/graphql'
 import { useCallback } from 'react'
 import { atom, useRecoilState, useSetRecoilState } from 'recoil'
 
 export interface PageBuilderState {
-  selectedPageElement: ElementNode | null
-  hoveringPageElement: ElementNode | null
+  selectedElement: ElementFragment | null
+  hoveringPageElement: ElementFragment | null
 }
 
 const defaultState: PageBuilderState = {
-  selectedPageElement: null,
+  selectedElement: null,
   hoveringPageElement: null,
 }
 
@@ -21,14 +21,14 @@ export const useSetPageBuilderState = () => {
   const setState = useSetRecoilState(pageBuilderState)
 
   const setSelectedPageElement = useCallback(
-    (pageElement: ElementNode | null) => {
-      setState((s) => ({ ...s, selectedPageElement: pageElement }))
+    (pageElement: ElementFragment | null) => {
+      setState((s) => ({ ...s, selectedElement: pageElement }))
     },
     [],
   )
 
   const setHoveringPageElement = useCallback(
-    (hoveringElement: ElementNode | null) => {
+    (hoveringElement: ElementFragment | null) => {
       setState((s) => ({ ...s, hoveringPageElement: hoveringElement }))
     },
     [],

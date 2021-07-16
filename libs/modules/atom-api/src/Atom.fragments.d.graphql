@@ -1,8 +1,0 @@
-fragment DGraph__Atom on Atom {
-  id
-  label
-  type
-  propTypes {
-    ...Dgraph__Interface
-  }
-}

@@ -8,41 +8,36 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { createPageSchema, CreatePageSchemaType } from './createPageSchema'
 
 type CreatePageFormProps = UniFormUseCaseProps<CreatePageSchemaType>
 
 export const CreatePageForm = (props: CreatePageFormProps) => {
-  const { reset, setLoading } = useCrudModalForm(EntityType.Page)
   const { app } = useContext(AppContext)
 
-  const [mutate, { loading: creating }] = useCreatePageMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetPagesQuery({ input: { appId: app.id } })],
+  const {
+    handleSubmit,
+    crudModal: { reset },
+  } = useCrudModalMutationForm({
+    entityType: EntityType.Page,
+    useMutationFunction: useCreatePageMutation,
+    mutationOptions: {
+      refetchQueries: [
+        refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
+      ],
+    },
+    mapVariables: (submitData: CreatePageSchemaType) => ({
+      input: { ...submitData, appId: app.id },
+    }),
   })
-
-  useEffect(() => {
-    setLoading(creating)
-  }, [creating])
-
-  const onSubmit = (submitData: CreatePageSchemaType) => {
-    return mutate({
-      variables: {
-        input: {
-          ...submitData,
-          appId: app.id,
-        },
-      },
-    })
-  }
 
   return (
     <FormUniforms<CreatePageSchemaType>
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       schema={createPageSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while creating page',

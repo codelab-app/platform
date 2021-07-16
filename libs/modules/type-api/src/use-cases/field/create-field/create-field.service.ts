@@ -1,75 +1,59 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
-import {
-  CreateFieldGql,
-  CreateFieldMutation,
-  CreateFieldMutationVariables,
-} from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
-import { Field, fieldSchema } from '../../../models'
+  DgraphCreateUseCase,
+  DgraphEntityType,
+  DgraphInterfaceType,
+  DgraphRepository,
+  jsonMutation,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js'
+import { FieldValidator } from '../../../field.validator'
+import { TypeValidator } from '../../../type.validator'
 import { CreateTypeService } from '../../type'
 import { TypeRef } from './create-field.input'
 import { CreateFieldRequest } from './create-field.request'
-import { FieldMutationValidator } from './field-mutation-validator.service'
-
-type GqlVariablesType = CreateFieldMutationVariables
-type GqlOperationType = CreateFieldMutation
 
 @Injectable()
-export class CreateFieldService extends MutationUseCase<
-  CreateFieldRequest,
-  Field,
-  GqlOperationType,
-  GqlVariablesType
-> {
+export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-    private fieldValidationService: FieldMutationValidator,
+    dgraph: DgraphRepository,
+    private fieldValidator: FieldValidator,
+    private typeValidator: TypeValidator,
     private createTypeService: CreateTypeService,
   ) {
-    super(apolloClient)
+    super(dgraph)
   }
 
-  protected getGql() {
-    return CreateFieldGql
-  }
+  protected async executeTransaction(request: CreateFieldRequest, txn: Txn) {
+    const {
+      input: { type },
+    } = request
 
-  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    const fields = result.data?.addField?.field
+    await this.validate(request)
 
-    if (!fields || !fields.length || !fields[0]) {
-      throw new Error('Error while creating field')
-    }
-
-    return fieldSchema.parse({
-      ...fields[0],
-      typeId: fields[0].type.id,
-    })
-  }
-
-  protected async mapVariables({
-    input: { type, key, interfaceId, name, description },
-  }: CreateFieldRequest): Promise<GqlVariablesType> {
     const typeId = await this.getTypeId(type)
 
-    return {
-      input: [
-        {
-          type: {
-            id: typeId,
-          },
-          key,
-          interface: { id: interfaceId },
-          name,
-          description,
-        },
-      ],
-    }
+    return this.dgraph.create(txn, (blankNodeUid) =>
+      this.createMutation(request, typeId, blankNodeUid),
+    )
+  }
+
+  private createMutation(
+    { input: { key, interfaceId, name, description } }: CreateFieldRequest,
+    typeId: string,
+    blankNodeUid: string,
+  ) {
+    return jsonMutation<DgraphInterfaceType>({
+      uid: interfaceId,
+      fields: {
+        uid: blankNodeUid,
+        'dgraph.type': [DgraphEntityType.Field],
+        name,
+        key,
+        description: description ?? undefined,
+        type: { uid: typeId },
+      },
+    })
   }
 
   private async getTypeId(type: TypeRef) {
@@ -88,7 +72,31 @@ export class CreateFieldService extends MutationUseCase<
     return typeId
   }
 
-  protected async validate({ input }: CreateFieldRequest): Promise<void> {
-    await this.fieldValidationService.validate(input)
+  /**
+   * Throws Error if:
+   * - There is another field with that key in the same interface
+   * - The specified existingTypeId does not exist
+   * - The specified existingTypeId causes a recursive type reference
+   * - Neither existingTypeId nor newType are provided
+   */
+  protected async validate({
+    input: {
+      interfaceId,
+      key,
+      type: { existingTypeId, newType },
+    },
+  }: CreateFieldRequest): Promise<void> {
+    await this.fieldValidator.keyIsUnique(interfaceId, key)
+
+    if ((!existingTypeId && !newType) || (existingTypeId && newType)) {
+      throw new Error('Either existingTypeId or newType must be provided')
+    }
+
+    // If we specify an existing type, check if it exists
+    if (existingTypeId) {
+      const existingType = await this.typeValidator.typeExists(existingTypeId)
+
+      this.typeValidator.notRecursive(interfaceId, existingType)
+    }
   }
 }

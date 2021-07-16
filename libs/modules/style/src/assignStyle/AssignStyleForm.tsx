@@ -53,7 +53,6 @@ export const AssignStyleForm = ({ vertexId }: { vertexId: string }) => {
         style={{ width: 120 }}
         onChange={(styleId: string) => setSelection(styleId)}
       >
-        {/* TODO: assign styles form*/}
         {/* {styles.map((s) => {*/}
         {/*  return (*/}
         {/*    <Select.Option key={s.id} value={s.id}>*/}

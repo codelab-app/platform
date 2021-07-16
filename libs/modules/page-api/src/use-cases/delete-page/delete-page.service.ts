@@ -1,89 +1,60 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import {
-  ApolloClientTokens,
-  DeleteResponse,
-  MutationUseCase,
+  DgraphElement,
+  DgraphRepository,
+  DgraphTree,
+  DgraphUseCase,
 } from '@codelab/backend'
-import {
-  DeletePageGql,
-  DeletePageMutation,
-  DeletePageMutationVariables,
-} from '@codelab/codegen/dgraph'
-import { GetPropsService } from '@codelab/modules/prop-api'
-import { Inject, Injectable } from '@nestjs/common'
-import { PageGuardService } from '../../auth'
-import { GetPageRootService } from '../get-page-root'
+import { Injectable } from '@nestjs/common'
+import { Mutation, Txn } from 'dgraph-js'
+import { PageValidator } from '../../page.validator'
 import { DeletePageRequest } from './delete-page.request'
 
-type GqlVariablesType = DeletePageMutationVariables
-type GqlOperationType = DeletePageMutation
-
 @Injectable()
-export class DeletePageService extends MutationUseCase<
-  DeletePageRequest,
-  DeleteResponse,
-  GqlOperationType,
-  GqlVariablesType
-> {
+export class DeletePageService extends DgraphUseCase<DeletePageRequest, void> {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-    private getPageRootService: GetPageRootService,
-    private getPropsService: GetPropsService,
-    private pageGuardService: PageGuardService,
+    protected readonly dgraph: DgraphRepository,
+    private pageValidator: PageValidator,
   ) {
-    super(apolloClient)
+    super(dgraph)
   }
 
-  protected getGql() {
-    return DeletePageGql
-  }
+  protected async executeTransaction(
+    request: DeletePageRequest,
+    txn: Txn,
+  ): Promise<void> {
+    const {
+      input: { pageId },
+    } = request
 
-  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    return {
-      affected: result?.data?.deletePage?.numUids || 0,
-    }
-  }
+    const validationContext = await this.validate(request)
+    const deletePageAppMu = new Mutation()
 
-  protected async mapVariables({
-    input: { pageId },
-    currentUser,
-  }: DeletePageRequest): Promise<GqlVariablesType> {
+    deletePageAppMu.setDelNquads(
+      `<${validationContext.appId}> <pages> <${pageId}> .`,
+    )
+
     // We need to delete related page elements and props too,
     // otherwise they will become inaccessible garbage
+    // So perform a Upsert mutation which will query for the ids of the page, all elements and their props and then delete them
 
-    const pageRoot = await this.getPageRootService.execute({
-      input: { pageId },
-      currentUser,
-    })
-
-    if (!pageRoot) {
-      throw new Error('Page not found')
-    }
-
-    const elementIds = pageRoot.descendants.map((d) => d.id)
-
-    const props = await this.getPropsService.execute({
-      byElement: { elementIds },
-    })
-
-    const propIds = props.map((p) => p.id)
-
-    return {
-      filter: { id: [pageId] },
-      elementFilter: { id: elementIds },
-      propsFilter: { id: propIds },
-    }
+    await this.dgraph.executeUpsertDeleteAll(
+      txn,
+      (q) =>
+        q
+          .addJsonFields<DgraphTree<any, any> & DgraphElement>({
+            root: true,
+            children: true,
+            props: true,
+          })
+          .setUidFunc(pageId),
+      [deletePageAppMu],
+    )
   }
 
   protected async validate({
     currentUser,
     input: { pageId },
-  }: DeletePageRequest): Promise<void> {
-    await this.pageGuardService.validate(pageId, currentUser)
+  }: DeletePageRequest) {
+    return await this.pageValidator.existsAndIsOwnedBy(pageId, currentUser)
   }
 }

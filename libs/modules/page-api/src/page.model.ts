@@ -1,7 +1,5 @@
-import { App, appSchema } from '@codelab/modules/app-api'
-import { ElementAggregate } from '@codelab/modules/element-api'
+import { ElementGraph } from '@codelab/modules/element-api'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
-import { z } from 'zod'
 
 @ObjectType()
 export class Page {
@@ -11,17 +9,13 @@ export class Page {
   @Field()
   declare name: string
 
-  @Field(() => App)
-  declare app: App
+  @Field(() => ElementGraph)
+  /** Optional because it can be resolved with a FieldResolver */
+  declare elements?: ElementGraph
 
-  @Field(() => ElementAggregate)
-  declare rootElement: ElementAggregate
+  constructor(id: string, name: string, elements?: ElementGraph) {
+    this.id = id
+    this.name = name
+    this.elements = elements
+  }
 }
-
-export const pageSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  app: appSchema,
-})
-
-export const pagesSchema = z.array(pageSchema)

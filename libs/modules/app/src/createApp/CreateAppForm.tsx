@@ -8,43 +8,26 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
-import React, { useEffect } from 'react'
-import { useRecoilState } from 'recoil'
+import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { appState } from '../state'
 import { createAppSchema } from './createAppSchema'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
-  const { reset, setLoading } = useCrudModalForm(EntityType.App)
-
-  const [mutate, { loading }] = useCreateAppMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetAppsQuery()],
+  const {
+    crudModal: { reset },
+    handleSubmit,
+  } = useCrudModalMutationForm({
+    entityType: EntityType.App,
+    useMutationFunction: useCreateAppMutation,
+    mutationOptions: { refetchQueries: [refetchGetAppsQuery()] },
+    mapVariables: ({ name }: CreateAppInput) => ({ input: { name } }),
   })
-
-  const [, setAppState] = useRecoilState(appState)
-
-  useEffect(() => {
-    // Keep the loading state in recoil, so we can use it other components, like loading buttons, etc.
-    setLoading(loading)
-    setAppState((current) => ({ ...current, loading }))
-  }, [loading, setAppState])
-
-  const onSubmit = (submitData: CreateAppInput) => {
-    return mutate({
-      variables: {
-        input: {
-          ...submitData,
-        },
-      },
-    })
-  }
 
   return (
     <FormUniforms<CreateAppInput>
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       schema={createAppSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while creating app',

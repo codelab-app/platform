@@ -1,5 +1,6 @@
+import { CreateAtomInput } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
-import { CreateAtomInput, createAtomSchema } from '../createAtom'
+import { createAtomSchema } from '../createAtom'
 
 export type UpdateAtomInput = CreateAtomInput
 

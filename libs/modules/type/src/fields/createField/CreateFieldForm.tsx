@@ -1,7 +1,7 @@
 import {
   CreateFieldMutation,
   CreateFieldMutationVariables,
-  refetchGetInterfaceQuery,
+  refetchGetTypeGraphQuery,
   useCreateFieldMutation,
 } from '@codelab/codegen/graphql'
 import {
@@ -33,7 +33,9 @@ export const CreateFieldForm = (
     CreateFieldMutationVariables
   >({
     mutationOptions: {
-      refetchQueries: [refetchGetInterfaceQuery({ input: { interfaceId } })],
+      refetchQueries: [
+        refetchGetTypeGraphQuery({ input: { typeId: interfaceId } }),
+      ],
     },
     useMutationFunction: useCreateFieldMutation,
     mapVariables: (formData) => ({

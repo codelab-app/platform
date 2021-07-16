@@ -67,7 +67,7 @@ export const CreateElementForm = ({
         showSearch={true}
         optionFilterProp="label"
         options={atoms?.atoms.map((atom) => ({
-          label: atom.label,
+          label: atom.name,
           value: atom.id,
         }))}
       />

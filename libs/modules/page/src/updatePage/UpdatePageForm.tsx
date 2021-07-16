@@ -1,6 +1,5 @@
 import {
   refetchGetPagesQuery,
-  useGetPageQuery,
   useUpdatePageMutation,
 } from '@codelab/codegen/graphql'
 import {
@@ -9,53 +8,44 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updatePageSchema, UpdatePageSchemaType } from './updatePageSchema'
 
 type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageSchemaType>
 
 export const UpdatePageForm = (props: UpdatePageFormProps) => {
-  const { reset, setLoading, state } = useCrudModalForm(EntityType.Page)
   const { app } = useContext(AppContext)
-  const { updateId: updatePageId } = state
 
-  const [mutate, { loading: updating }] = useUpdatePageMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetPagesQuery({ input: { appId: app.id } })],
-  })
-
-  useEffect(() => {
-    setLoading(updating)
-  }, [updating])
-
-  const { data } = useGetPageQuery({
-    variables: {
-      input: { pageId: updatePageId },
+  const {
+    handleSubmit,
+    crudModal: {
+      reset,
+      state: { metadata },
     },
-  })
-
-  const onSubmit = (submitData: UpdatePageSchemaType) => {
-    return mutate({
-      variables: {
-        input: {
-          pageId: updatePageId,
-          updateData: {
-            appId: data?.page?.app.id as string,
-            ...submitData,
-          },
-        },
+  } = useCrudModalMutationForm({
+    entityType: EntityType.Page,
+    useMutationFunction: useUpdatePageMutation,
+    mutationOptions: {
+      refetchQueries: [
+        refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
+      ],
+    },
+    mapVariables: (submitData: UpdatePageSchemaType, state) => ({
+      input: {
+        pageId: state.updateId,
+        updateData: { ...submitData, appId: app.id },
       },
-    })
-  }
+    }),
+  })
 
   return (
     <FormUniforms<UpdatePageSchemaType>
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       schema={updatePageSchema}
-      model={{ name: data?.page?.name }}
+      model={{ name: metadata?.name }}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating page',
       })}

@@ -201,19 +201,6 @@
         }
       }
     },
-    "codegen-dgraph": {
-      "root": "libs/codegen/dgraph",
-      "sourceRoot": "libs/codegen/dgraph/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/codegen/dgraph/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
     "codegen-graphql": {
       "root": "libs/codegen/graphql",
       "sourceRoot": "libs/codegen/graphql/src",

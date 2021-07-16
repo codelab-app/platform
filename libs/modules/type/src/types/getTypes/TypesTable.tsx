@@ -48,7 +48,7 @@ export const TypesTable = ({
       width: 100,
       render: (text, record) => (
         <Space size="middle">
-          {record.__typename === 'Interface' ? (
+          {record.__typename === 'InterfaceType' ? (
             <Link
               href={PageType.InterfaceDetail.replace(
                 '[interfaceId]',

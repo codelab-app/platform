@@ -20,7 +20,6 @@
     "baseUrl": ".",
     "paths": {
       "@codelab/backend": ["libs/backend/src/index.ts"],
-      "@codelab/codegen/dgraph": ["libs/codegen/dgraph/src/index.ts"],
       "@codelab/codegen/graphql": ["libs/codegen/graphql/src/index.ts"],
       "@codelab/codegen/hasura": ["libs/codegen/hasura/src/index.ts"],
       "@codelab/demo": ["libs/tools/plugins/demo/src/index.ts"],

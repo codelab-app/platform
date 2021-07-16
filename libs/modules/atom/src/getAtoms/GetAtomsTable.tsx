@@ -22,7 +22,7 @@ export const GetAtomsTable = () => {
   const columns: Array<TableColumnProps<__AtomFragment>> = [
     {
       title: 'Name',
-      dataIndex: 'label',
+      dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
       ...columnSearchProps,
@@ -43,7 +43,7 @@ export const GetAtomsTable = () => {
         },
       ],
       onFilter: (value, record) =>
-        record.label.toLowerCase().indexOf(value.toString().toLowerCase()) ===
+        record.name.toLowerCase().indexOf(value.toString().toLowerCase()) ===
           0 ||
         record.type.toLowerCase().indexOf(value.toString().toLowerCase()) === 0,
       render: (library = 'Ant Design') => {
@@ -67,7 +67,7 @@ export const GetAtomsTable = () => {
           href={PageType.InterfaceDetail.replace(
             '[interfaceId]',
             // eslint-disable-next-line react/forbid-foreign-prop-types
-            record.propTypes.id,
+            record.api.id,
           )}
         >
           {/*  eslint-disable-next-line jsx-a11y/anchor-is-valid */}

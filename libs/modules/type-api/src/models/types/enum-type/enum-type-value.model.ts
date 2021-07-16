@@ -1,5 +1,4 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
-import { z } from 'zod'
 
 @ObjectType()
 export class EnumTypeValue {
@@ -17,10 +16,4 @@ export class EnumTypeValue {
     this.name = name
     this.value = value
   }
-
-  static Schema = z.object({
-    id: z.string(),
-    name: z.string().optional().nullable(),
-    value: z.string(),
-  })
 }

@@ -17,11 +17,11 @@ export const _AppProvider = ({
   children,
 }: PropsWithChildren<AppProviderProps>) => {
   const [load, { data, loading }] = useGetAppLazyQuery()
-  const app = data?.app
+  const app = data?.getApp
 
   useEffect(() => {
     if (appId) {
-      load({ variables: { input: { appId } } })
+      load({ variables: { input: { byId: { appId } } } })
     }
   }, [appId, load])
 

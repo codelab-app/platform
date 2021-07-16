@@ -1,22 +1,19 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js'
-import { DgraphProvider, DgraphTokens } from '../dgraph'
+import { DgraphRepository } from '../dgraph'
 
 @Injectable()
 export class SeedDbService {
-  constructor(
-    @Inject(DgraphTokens.DgraphProvider)
-    protected readonly dgraphProvider: DgraphProvider,
-  ) {}
+  constructor(protected readonly dgraph: DgraphRepository) {}
 
   async seedDB() {
-    return await this.transactionWrapper(async (txn) => {
+    return await this.dgraph.transactionWrapper(async (txn) => {
       await this.seedAtoms(txn)
     })
   }
 
   async seedSampleLib() {
-    return await this.transactionWrapper(async (txn) => {
+    return await this.dgraph.transactionWrapper(async (txn) => {
       await this.seedAtomsAndLibraries(txn)
     })
   }
@@ -28,12 +25,11 @@ export class SeedDbService {
 
     const atoms = {
       uid: ATOM_UID,
-      'Atom.type': 'AntDesignButton',
-      'Atom.label': 'Button',
-      'Atom.propTypes': {
+      atomType: 'AntDesignButton',
+      name: 'Button',
+      api: {
         uid: INTERFACE_UID,
-        'Interface.atom': { uid: ATOM_UID },
-        'Interface.fields': [
+        fields: [
           this.createField(
             '_:' + 'block' + '_id',
             INTERFACE_UID,
@@ -143,12 +139,11 @@ export class SeedDbService {
     type?: string,
   ) {
     return {
-      uid: uid,
-      'Field.interface': { uid: interfaceUid },
-      'Field.key': name,
-      'Field.label': name,
-      'Field.description': description,
-      'Field.type': {
+      uid,
+      key: name,
+      name,
+      description,
+      type: {
         // 'uid': '_:type_id',
         'Type.name': type,
       },
@@ -164,32 +159,27 @@ export class SeedDbService {
 
     const lib_data = {
       uid: LIB_UID,
-      'Library.name': 'Root Library',
-      'Library.ownerId': OWNER_ID,
-      'Library.atoms': [
+      name: 'Root Library',
+      ownerId: OWNER_ID,
+      atoms: [
         {
           uid: ATOM_UID,
-          'Atom.library': { uid: LIB_UID },
-          'Atom.type': 'AntDesignButton',
-          'Atom.label': 'Button',
-          'Atom.propTypes': {
+          atomType: 'AntDesignButton',
+          name: 'Button',
+          api: {
             uid: INTERFACE_UID,
-            'Interface.atom': { uid: ATOM_UID },
-            'Interface.fields': [
+            fields: [
               {
                 uid: '_:block_id',
-                'Field.interface': { uid: INTERFACE_UID },
-                'Field.key': 'block',
-                'Field.label': 'block',
-                'Field.description':
-                  'Option to fit button width to its parent width',
+                key: 'block',
+                name: 'block',
+                description: 'Option to fit button width to its parent width',
               },
               {
                 uid: '_:danger_id',
-                'Field.interface': { uid: INTERFACE_UID },
-                'Field.key': 'danger',
-                'Field.label': 'danger',
-                'Field.description': 'Set the danger status of button',
+                key: 'danger',
+                name: 'danger',
+                description: 'Set the danger status of button',
               },
             ],
           },
@@ -204,9 +194,9 @@ export class SeedDbService {
     const uidMap = mutationResultLib.getUidsMap()
 
     const prop = {
-      'Prop.field': { uid: fieldUid },
-      'Prop.value': {
-        'BooleanValue.booleanValue': 'true',
+      field: { uid: fieldUid },
+      value: {
+        booleanValue: 'true',
       },
     }
 
@@ -222,12 +212,12 @@ export class SeedDbService {
 
     const d = {
       uid: '_:codelab_app',
-      'App.name': 'Codelab Test App',
-      'App.pages': [
+      name: 'Codelab Test App',
+      pages: [
         {
-          'Page.name': 'Page Root',
-          'Page.app': {
-            uid: '_:codelab_app',
+          name: 'Page',
+          root: {
+            name: 'Page Root',
           },
         },
       ],
@@ -240,17 +230,5 @@ export class SeedDbService {
     // const uid = mutationResult.getUidsMap()
 
     await txn.commit()
-  }
-
-  private async transactionWrapper<TResult>(
-    execute: (txn: Txn) => Promise<TResult>,
-  ) {
-    const txn = this.dgraphProvider.client.newTxn()
-
-    try {
-      return await execute(txn)
-    } finally {
-      await txn.discard()
-    }
   }
 }

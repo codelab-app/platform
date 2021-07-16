@@ -3,8 +3,8 @@ import {
   DeleteElementButton,
   DeleteElementModal,
   ElementCssEditor,
+  UpdateElementPropsForm,
 } from '@codelab/modules/element'
-import { UpdateElementPropsForm } from '@codelab/modules/prop'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'
@@ -47,7 +47,7 @@ const TabContainer = styled.div`
 
 export const MetaPanePageDetail = () => {
   const {
-    state: { selectedPageElement },
+    state: { selectedElement },
     reset,
   } = usePageBuilderState()
 
@@ -57,17 +57,11 @@ export const MetaPanePageDetail = () => {
     throw new Error('PageContext is needed for MetaPanePageDetail')
   }
 
-  if (!selectedPageElement) {
+  if (!selectedElement) {
     return null
   }
 
   // Transform it, because we have the node in the state
-  const pageElement = {
-    id: selectedPageElement.id,
-    atom: selectedPageElement.atom,
-    name: selectedPageElement.name,
-    props: selectedPageElement.props,
-  }
 
   return (
     <Resizable
@@ -79,24 +73,24 @@ export const MetaPanePageDetail = () => {
       }}
     >
       <TabContainer>
-        <Tabs defaultActiveKey={pageElement.id + '_tab1'}>
-          <Tabs.TabPane tab="Page element" key={pageElement.id + '_tab1'}>
+        <Tabs defaultActiveKey={selectedElement.id + '_tab1'}>
+          <Tabs.TabPane tab="Page element" key={selectedElement.id + '_tab1'}>
             <FormsGrid>
               <UpdatePageElementForm
-                key={pageElement.id + '_update_form'}
-                initialData={pageElement}
+                key={selectedElement.id + '_update_form'}
+                initialData={selectedElement}
               />
 
               <MovePageElementForm
-                key={pageElement.id + '_move_form'}
-                elementId={pageElement.id}
+                key={selectedElement.id + '_move_form'}
+                elementId={selectedElement.id}
               />
 
               <div>
                 <DeleteElementButton
                   danger={true}
-                  elementId={selectedPageElement.id}
-                  metadata={pageElement}
+                  elementId={selectedElement.id}
+                  metadata={selectedElement}
                 />
               </div>
             </FormsGrid>
@@ -108,26 +102,18 @@ export const MetaPanePageDetail = () => {
               }}
             />
           </Tabs.TabPane>
-          <Tabs.TabPane tab="Props" key={pageElement.id + '_tab2'}>
-            {pageElement.atom ? (
-              <UpdateElementPropsForm
-                key={pageElement.id}
-                elementId={pageElement.id}
-                atom={pageElement.atom}
-              />
-            ) : (
-              'Add an atom to this page element to edit its props'
-            )}
+          <Tabs.TabPane tab="Props" key={selectedElement.id + '_tab2'}>
+            <UpdateElementPropsForm element={selectedElement} />
           </Tabs.TabPane>
           <Tabs.TabPane
             style={{ overflow: 'visible' }}
             tab="CSS"
-            key={pageElement.id + '_tab3'}
+            key={selectedElement.id + '_tab3'}
           >
-            {pageElement.atom ? (
+            {selectedElement.atom ? (
               <ElementCssEditor
-                key={pageElement.id}
-                element={selectedPageElement}
+                key={selectedElement.id}
+                element={selectedElement}
               />
             ) : (
               'Add an atom to this page element to edit its CSS'

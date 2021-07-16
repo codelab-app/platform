@@ -1,17 +1,16 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
-import { __FieldFragment, __TypeFragment } from '@codelab/codegen/graphql'
 import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
-import { TypeModels } from '../../types/TypeModels'
+import { getTypeName } from '../../types'
+import { TypeTree } from '../../typeTree/TypeTree'
 
 export interface FieldsTableProps {
-  fields: Array<__FieldFragment>
-  typesById: Record<string, __TypeFragment>
+  tree: TypeTree
 }
 
-export const FieldsTable = ({ fields, typesById }: FieldsTableProps) => {
+export const FieldsTable = ({ tree }: FieldsTableProps) => {
   const { openDeleteModal, openUpdateModal } = useCrudModalForm(
     EntityType.Field,
   )
@@ -19,27 +18,6 @@ export const FieldsTable = ({ fields, typesById }: FieldsTableProps) => {
   const headerCellProps = () => ({
     style: tw`font-semibold text-gray-900`,
   })
-
-  const getTypeName = (typeId: string, iteration = 0): string => {
-    if (iteration > 10) {
-      return ''
-    }
-
-    const type = typesById[typeId]
-
-    switch (type?.__typename) {
-      case TypeModels.PrimitiveType:
-        return type.primitiveKind
-      case TypeModels.ArrayType:
-        return `${getTypeName(type.typeId, iteration + 1)} Array`
-      case TypeModels.EnumType:
-        return `Enum (${type.allowedValues.map((v) => v.name).join(',')})`
-      case TypeModels.Interface:
-        return `Object (${type.name})`
-    }
-
-    return ''
-  }
 
   const columns: Array<TableColumnProps<any>> = [
     {
@@ -62,10 +40,10 @@ export const FieldsTable = ({ fields, typesById }: FieldsTableProps) => {
     },
     {
       title: 'Type',
-      dataIndex: 'typeId',
-      key: 'typeId',
+      dataIndex: 'id',
+      key: 'id',
       onHeaderCell: headerCellProps,
-      render: (value) => getTypeName(value),
+      render: (id) => getTypeName(tree.getFieldType(id), tree.getArrayItemType),
     },
     {
       title: 'Action',
@@ -79,7 +57,12 @@ export const FieldsTable = ({ fields, typesById }: FieldsTableProps) => {
             type="primary"
             tw="flex justify-center items-center"
             icon={<EditFilled />}
-            onClick={() => openUpdateModal(record.id, record)}
+            onClick={() =>
+              openUpdateModal(record.id, {
+                ...record,
+                typeId: tree.getFieldType(record.id)?.id,
+              })
+            }
           />
           <Button
             size="small"
@@ -87,7 +70,12 @@ export const FieldsTable = ({ fields, typesById }: FieldsTableProps) => {
             danger
             tw="flex justify-center items-center"
             icon={<DeleteFilled />}
-            onClick={() => openDeleteModal([record.id], record)}
+            onClick={() =>
+              openDeleteModal([record.id], {
+                ...record,
+                typeId: tree.getFieldType(record.id)?.id,
+              })
+            }
           />
         </Space>
       ),
@@ -97,7 +85,7 @@ export const FieldsTable = ({ fields, typesById }: FieldsTableProps) => {
   return (
     <Table
       pagination={{ position: ['bottomCenter'] }}
-      dataSource={fields}
+      dataSource={tree.getRootFields()}
       columns={columns}
       rowKey={(atom) => atom.id}
     />

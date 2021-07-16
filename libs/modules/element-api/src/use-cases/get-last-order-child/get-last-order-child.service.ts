@@ -1,53 +1,44 @@
-import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
-import { Inject, Injectable } from '@nestjs/common'
+import {
+  DgraphElement,
+  DgraphEntityType,
+  DgraphQueryBuilder,
+  DgraphQueryField,
+  DgraphRepository,
+  DgraphUseCase,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js'
 import { GetLastOrderChildInput } from './get-last-order-child.input'
 import { GetLastOrderChildResponse } from './get-last-order-child.response'
 
-@Injectable()
 /**
  * Returns a direct child of the requested Element, which has the greatest order number
  * or null if none found
  */
+@Injectable()
 export class GetLastOrderChildService extends DgraphUseCase<
   GetLastOrderChildInput,
   GetLastOrderChildResponse | null
 > {
-  constructor(
-    @Inject(DgraphTokens.DgraphProvider)
-    protected readonly dgraphProvider: DgraphProvider,
-  ) {
-    super(dgraphProvider)
+  constructor(protected readonly dgraph: DgraphRepository) {
+    super(dgraph)
   }
 
   protected async executeTransaction(
     request: GetLastOrderChildInput,
     txn: Txn,
   ) {
-    if (!request.elementId) {
-      return null
-    }
+    const result = await this.dgraph.getOne<DgraphElement>(
+      txn,
+      this.createQuery(request),
+    )
 
-    const query = `
-       {
-         query(func: uid(${request.elementId}))    {
-            uid
-            Element.children @facets(orderdesc: order) (first:1) {
-              uid
-            }
-          }
-      }
-    `
-
-    const result = await txn.query(query)
-    const queryData = (result.getJson() as any).query
-
-    if (queryData && queryData[0]) {
-      const children = queryData[0]['Element.children']
+    if (result) {
+      const children = result.children
 
       if (children && children[0]) {
         const uid = children[0].uid
-        const order = children[0]['Element.children|order']
+        const order = children[0]['children|order']
 
         if (uid && typeof order === 'number') {
           return new GetLastOrderChildResponse(uid, order)
@@ -56,5 +47,27 @@ export class GetLastOrderChildService extends DgraphUseCase<
     }
 
     return null
+  }
+
+  protected createQuery({ elementId }: GetLastOrderChildInput) {
+    /**
+      *{
+         query(func: uid(${request.elementId}))    {
+            uid
+            children @facets(orderdesc: order) (first:1) {
+              uid
+            }
+          }
+        }
+     */
+    return new DgraphQueryBuilder()
+      .addTypeFilterDirective(DgraphEntityType.Element)
+      .setUidFunc(elementId)
+      .addBaseFields()
+      .addFields(
+        new DgraphQueryField(
+          `children @facets(orderdesc: order) (first:1)`,
+        ).addBaseInnerFields(),
+      )
   }
 }

@@ -1,201 +1,90 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
-import {
-  CreateArrayTypeGql,
-  CreateArrayTypeMutation,
-  CreateArrayTypeMutationVariables,
-  CreateEnumTypeGql,
-  CreateEnumTypeMutation,
-  CreateEnumTypeMutationVariables,
-  CreateInterfaceGql,
-  CreateInterfaceMutation,
-  CreateInterfaceMutationVariables,
-  CreatePrimitiveTypeGql,
-  CreatePrimitiveTypeMutation,
-  CreatePrimitiveTypeMutationVariables,
-} from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
-import {
-  EnumType,
-  EnumTypeValue,
-  FieldCollection,
-  Interface,
-  PrimitiveType,
-  Type,
-} from '../../../models'
+  DgraphArrayType,
+  DgraphCreateUseCase,
+  DgraphEntityType,
+  DgraphEnumType,
+  DgraphInterfaceType,
+  DgraphPrimitiveType,
+  DgraphRepository,
+  jsonMutation,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js'
+import { TypeValidator } from '../../../type.validator'
 import { GetTypeService } from '../get-type'
 import { CreateTypeInput } from './create-type.input'
-import { CreateTypeValidator } from './create-type.validator'
-
-type GqlVariablesType =
-  | CreateArrayTypeMutationVariables
-  | CreateEnumTypeMutationVariables
-  | CreatePrimitiveTypeMutationVariables
-  | CreateInterfaceMutationVariables
-type GqlOperationType =
-  | CreateArrayTypeMutation
-  | CreateEnumTypeMutation
-  | CreatePrimitiveTypeMutation
-  | CreateInterfaceMutation
 
 @Injectable()
-export class CreateTypeService extends MutationUseCase<
-  CreateTypeInput,
-  Type,
-  GqlOperationType,
-  GqlVariablesType
-> {
+export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
+    dgraph: DgraphRepository,
     private getTypeService: GetTypeService,
-    private createTypeValidator: CreateTypeValidator,
+    private typeValidator: TypeValidator,
   ) {
-    super(apolloClient)
+    super(dgraph)
   }
 
-  protected getGql(req: CreateTypeInput) {
-    if (req.arrayType) {
-      return CreateArrayTypeGql
-    }
+  protected async executeTransaction(request: CreateTypeInput, txn: Txn) {
+    await this.validate(request)
 
-    if (req.enumType) {
-      return CreateEnumTypeGql
-    }
-
-    if (req.primitiveType) {
-      return CreatePrimitiveTypeGql
-    }
-
-    if (req.interfaceType) {
-      return CreateInterfaceGql
-    }
-
-    throw new Error('Error while creating type')
+    return this.dgraph.create(txn, (blankNodeUid) =>
+      this.createMutation(request, blankNodeUid),
+    )
   }
 
-  protected async extractDataFromResult(
-    result: FetchResult<GqlOperationType>,
-  ): Promise<Type> {
-    const arrayResult = (result.data as CreateArrayTypeMutation).addArrayType
+  private createMutation(request: CreateTypeInput, blankNodeUid: string) {
+    const { arrayType, enumType, primitiveType, name } = request
 
-    if (arrayResult) {
-      if (!arrayResult.arrayType || !arrayResult.arrayType[0]) {
-        throw new Error('Error while creating type')
-      }
-
-      const found = await this.getTypeService.execute({
-        input: {
-          typeId: arrayResult.arrayType[0].id,
-        },
-      })
-
-      if (!found) {
-        throw new Error('Error while creating type')
-      }
-
-      return found
-    }
-
-    const enumResult = (result.data as CreateEnumTypeMutation).addEnumType
-
-    if (enumResult) {
-      if (!enumResult.enumType || !enumResult.enumType[0]) {
-        throw new Error('Error while creating type')
-      }
-
-      const createdEnumType = enumResult.enumType[0]
-
-      return new EnumType(
-        createdEnumType.id,
-        createdEnumType.name,
-        createdEnumType.allowedValues.map(
-          (av) => new EnumTypeValue(av.id, av.name || null, av.value),
-        ),
-      )
-    }
-
-    const primitiveTypeResult = (result.data as CreatePrimitiveTypeMutation)
-      .addPrimitiveType
-
-    if (primitiveTypeResult) {
-      if (
-        !primitiveTypeResult.primitiveType ||
-        !primitiveTypeResult.primitiveType[0]
-      ) {
-        throw new Error('Error while creating type')
-      }
-
-      const createdPrimitiveType = primitiveTypeResult.primitiveType[0]
-
-      return new PrimitiveType(
-        createdPrimitiveType.id,
-        createdPrimitiveType.name,
-        createdPrimitiveType.primitiveKind,
-      )
-    }
-
-    const interfaceResult = (result.data as CreateInterfaceMutation)
-      .addInterface
-
-    if (interfaceResult) {
-      if (!interfaceResult.interface || !interfaceResult.interface[0]) {
-        throw new Error('Error while creating type')
-      }
-
-      const createdInterfaceType = interfaceResult.interface[0]
-
-      return new Interface(
-        createdInterfaceType.id,
-        createdInterfaceType.name,
-        new FieldCollection([], []),
-      )
-    }
-
-    throw new Error('Error while creating type')
-  }
-
-  protected mapVariables({
-    enumType,
-    primitiveType,
-    arrayType,
-    interfaceType,
-    name,
-  }: CreateTypeInput): GqlVariablesType {
-    const baseInput = { name }
-
-    if (arrayType) {
-      return {
-        input: { ...baseInput, type: { id: arrayType.itemTypeId } },
-      }
-    }
-
-    if (primitiveType) {
-      return {
-        input: { ...baseInput, primitiveKind: primitiveType.primitiveKind },
-      }
-    }
-
-    if (enumType) {
-      return {
-        input: { ...baseInput, allowedValues: enumType.allowedValues },
-      }
-    }
-
-    if (interfaceType) {
-      return {
-        input: { ...baseInput },
-      }
-    }
-
-    throw new Error('Error while creating type')
+    return jsonMutation<
+      DgraphArrayType &
+        DgraphEnumType &
+        DgraphPrimitiveType &
+        DgraphInterfaceType
+    >({
+      uid: blankNodeUid,
+      'dgraph.type': [
+        DgraphEntityType.Type,
+        this.getDgraphType(request),
+      ] as any,
+      name,
+      itemType: arrayType ? { uid: arrayType.itemTypeId } : undefined,
+      primitiveKind: primitiveType ? primitiveType.primitiveKind : undefined,
+      allowedValues: enumType
+        ? enumType.allowedValues.map((av) => ({
+            'dgraph.type': [DgraphEntityType.EnumTypeValue],
+            name: av.name,
+            stringValue: av.value,
+          }))
+        : undefined,
+    })
   }
 
   protected async validate(request: CreateTypeInput): Promise<void> {
-    await this.createTypeValidator.validate(request)
+    await this.typeValidator.validateCreateTypeInput(request)
+  }
+
+  private getDgraphType({
+    interfaceType,
+    primitiveType,
+    enumType,
+    arrayType,
+  }: CreateTypeInput) {
+    if (interfaceType) {
+      return DgraphEntityType.InterfaceType
+    }
+
+    if (primitiveType) {
+      return DgraphEntityType.PrimitiveType
+    }
+
+    if (enumType) {
+      return DgraphEntityType.EnumType
+    }
+
+    if (arrayType) {
+      return DgraphEntityType.ArrayType
+    }
+
+    throw new Error("Bad request, can't parse CreateTypeInput")
   }
 }

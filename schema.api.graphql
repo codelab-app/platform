@@ -7,20 +7,46 @@ interface Type {
   name: String!
 }
 
-type DeleteResponse {
-  affected: Int!
+type CreateResponse {
+  id: String!
 }
 
 type App {
   id: ID!
   ownerId: String!
   name: String!
+  pages: App!
+}
+
+type Field {
+  id: ID!
+  key: String!
+  name: String!
+  description: String
+}
+
+"""
+A edge between types. Depending on the kind can mean a couple of things:
+  TypeEdgeKind.Field - it represents a Field object, the field property will contain the metadata;
+  TypeEdgeKind.ArrayItem - it represents the generic array item type of an array type. The field property will be empty
+"""
+type TypeEdge {
+  source: String!
+  target: String!
+  kind: TypeEdgeKind!
+
+  """Empty if kind is not TypeEdgeKind.Field"""
+  field: Field
+}
+
+enum TypeEdgeKind {
+  Field
+  ArrayItem
 }
 
 type ArrayType implements Type {
   id: ID!
   name: String!
-  typeId: String!
 }
 
 type EnumTypeValue {
@@ -33,6 +59,11 @@ type EnumType implements Type {
   id: ID!
   name: String!
   allowedValues: [EnumTypeValue!]!
+}
+
+type InterfaceType implements Type {
+  id: ID!
+  name: String!
 }
 
 type PrimitiveType implements Type {
@@ -48,33 +79,16 @@ enum PrimitiveKind {
   Boolean
 }
 
-type Interface implements Type {
-  id: ID!
-  name: String!
-  fieldCollection: FieldCollection!
-}
-
-type FieldCollection {
-  fields: [Field!]!
-
-  """Flattened array of all types that are used inside this interface"""
-  types: [Type!]!
-}
-
-type Field {
-  id: ID!
-  key: String!
-  name: String!
-  description: String
-  typeId: String!
-  interface: Interface!
+type TypeGraph {
+  vertices: [Type!]!
+  edges: [TypeEdge!]!
 }
 
 type Atom {
   id: ID!
   type: AtomType!
-  label: String!
-  propTypes: Interface!
+  name: String!
+  api: InterfaceType!
 }
 
 enum AtomType {
@@ -256,93 +270,37 @@ enum AtomType {
   HtmlSup
 }
 
-type Prop {
-  id: ID!
-  field: Field!
-  value: PropValue
-}
-
-union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue | EnumTypeValue
-
-type StringValue {
-  id: ID!
-  stringValue: String!
-}
-
-type IntValue {
-  id: ID!
-  intValue: Int!
-}
-
-type FloatValue {
-  id: ID!
-  floatValue: Float!
-}
-
-type BooleanValue {
-  id: ID!
-  booleanValue: Boolean!
-}
-
-type ArrayValue {
-  id: ID!
-  values: [PropValue!]!
-}
-
-type InterfaceValue {
-  id: ID!
-  props: [Prop!]!
-}
-
-"""Contains all nested props and values from the whole prop tree"""
-type PropAggregate {
-  rootProp: Prop!
-
-  """
-  All props that are descendant of this Prop, normalized to an array, including the root prop
-  """
-  props: [Prop!]!
-
-  """
-  All values that are descendant of this Prop, normalized to an array, including the root prop's value
-  """
-  values: [PropValue!]!
-}
-
-type UpsertPropsResponse {
-  ok: Boolean!
-}
-
 type Element {
   id: ID!
   name: String!
   css: String
   atom: Atom
-  props: [PropAggregate!]!
+
+  """
+  Referenced only by id to avoid recursion. Use ElementGraph to get all needed Components
+  """
+  componentId: String
+
+  """Props in a json format"""
+  props: String!
 }
 
 """An edge between two element nodes"""
-type ElementLink {
+type ElementEdge {
   """The id of the source Element"""
-  from: String!
+  source: String!
 
   """The id of the target Element"""
-  to: String!
+  target: String!
   order: Int!
 }
 
-type ElementAggregate {
-  id: ID!
-  name: String!
-  css: String
-  atom: Atom
-  props: [PropAggregate!]!
-
-  """All descendant Elements that are under this root, at any level"""
-  descendants: [Element!]!
+type ElementGraph {
+  """All descendant Elements, at any level"""
+  vertices: [Element!]!
 
   """All the links connecting the descendant elements"""
-  links: [ElementLink!]!
+  edges: [ElementEdge!]!
 }
 
 type Lambda {
@@ -355,8 +313,7 @@ type Lambda {
 type Page {
   id: ID!
   name: String!
-  app: App!
-  rootElement: ElementAggregate!
+  elements: ElementGraph!
 }
 
 type User {
@@ -382,43 +339,40 @@ type User {
 }
 
 type Query {
-  getApp(input: GetAppInput!): App
+  getApp(input: GetAppInput!): App!
   getApps: [App!]!
-  getLambda(input: GetLambdaInput!): Lambda
-  executeLambda(input: ExecuteLambdaInput!): Lambda!
-  getLambdas: [Lambda!]!
   getMe: User!
   getUsers(input: GetUsersInput): [User!]!
   getPages(input: GetPagesInput!): [Page!]!
-  getPage(input: GetPageInput!): Page
+  getPage(input: GetPageInput!): Page!
   getElement(input: GetElementInput!): Element
 
   """
-  Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of array of Element and array of ElementLink
+  Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
   """
-  getElementAggregate(input: GetElementAggregateInput!): ElementAggregate
+  getElementGraph(input: GetElementInput!): ElementGraph
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
-  getAtomBy(input: GetAtomByInput!): Atom
-  getInterface(input: GetInterfaceInput!): Interface
-  getInterfaces: [Interface!]!
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
+  getTypeGraph(input: GetTypeInput!): TypeGraph!
   getTypes(input: GetTypesInput): [Type!]!
-  getProps(input: GetPropsInput!): [PropAggregate!]!
+  getLambda(input: GetLambdaInput!): Lambda
+  executeLambda(input: ExecuteLambdaInput!): Lambda!
+  getLambdas: [Lambda!]!
 }
 
 input GetAppInput {
+  byId: AppByIdFilter
+  byPage: AppByPageFilter
+}
+
+input AppByIdFilter {
   appId: String!
 }
 
-input GetLambdaInput {
-  lambdaId: String!
-}
-
-input ExecuteLambdaInput {
-  lambdaId: String!
-  payload: String
+input AppByPageFilter {
+  pageId: String!
 }
 
 input GetUsersInput {
@@ -429,6 +383,10 @@ input GetUsersInput {
 }
 
 input GetPagesInput {
+  byApp: PageByAppFilter!
+}
+
+input PageByAppFilter {
   appId: String!
 }
 
@@ -440,24 +398,17 @@ input GetElementInput {
   elementId: String!
 }
 
-input GetElementAggregateInput {
-  elementId: String!
-}
-
 input GetAtomInput {
-  atomId: String!
+  byElement: AtomByElement
+  byId: AtomById
 }
 
-input GetAtomByInput {
-  byElement: AtomByElementFilter
-}
-
-input AtomByElementFilter {
+input AtomByElement {
   elementId: String!
 }
 
-input GetInterfaceInput {
-  interfaceId: String!
+input AtomById {
+  atomId: String!
 }
 
 input GetFieldInput {
@@ -478,70 +429,73 @@ input GetTypeInput {
   typeId: String!
 }
 
+"""Filters are optional and you can provide both of them together"""
 input GetTypesInput {
   byIds: TypesByIdsFilter
+  byKind: TypesByKindFilter
 }
 
 input TypesByIdsFilter {
   typeIds: [String!]!
 }
 
-input GetPropsInput {
-  byElement: PropsByElementFilter
-  byIds: PropsByIdsFilter
-  byInterfaceValue: PropsByInterfaceValueId
+input TypesByKindFilter {
+  kind: TypeKindFilter!
 }
 
-input PropsByElementFilter {
-  elementIds: [String!]!
-  fieldId: String = null
+enum TypeKindFilter {
+  Primitive
+  Array
+  Interface
+  Enum
 }
 
-input PropsByIdsFilter {
-  propIds: [String!]!
+input GetLambdaInput {
+  lambdaId: String!
 }
 
-input PropsByInterfaceValueId {
-  interfaceValueId: String!
+input ExecuteLambdaInput {
+  lambdaId: String!
+  payload: String
 }
 
 type Mutation {
-  createApp(input: CreateAppInput!): App!
-  updateApp(input: UpdateAppInput!): App!
-  deleteApp(input: DeleteAppInput!): App!
-  createLambda(input: CreateLambdaInput!): Lambda!
-  deleteLambda(input: DeleteLambdaInput!): Lambda!
+  createApp(input: CreateAppInput!): CreateResponse!
+  updateApp(input: UpdateAppInput!): Void
+  deleteApp(input: DeleteAppInput!): Void
   updateUser(input: UpdateUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
-  createPage(input: CreatePageInput!): Page!
-  deletePage(input: DeletePageInput!): DeleteResponse!
-  updatePage(input: UpdatePageInput!): Page!
-  createElement(input: CreateElementInput!): Element!
-  updateElement(input: UpdateElementInput!): Element!
-  moveElement(input: MoveElementInput!): Element!
+  createPage(input: CreatePageInput!): CreateResponse!
+  deletePage(input: DeletePageInput!): Void
+  updatePage(input: UpdatePageInput!): Void
+  createElement(input: CreateElementInput!): CreateResponse!
+  updateElement(input: UpdateElementInput!): Void
+  moveElement(input: MoveElementInput!): Void
+  updateElementProps(input: UpdateElementPropsInput!): Void
 
   """Deletes an element and all the descending elements"""
-  deleteElement(input: DeleteElementInput!): DeleteResponse!
-  createAtom(input: CreateAtomInput!): Atom!
-  deleteAtom(input: DeleteAtomInput!): DeleteResponse!
-  updateAtom(input: UpdateAtomInput!): Atom!
-  createInterface(input: CreateInterfaceInput!): Interface!
-  updateInterface(input: UpdateInterfaceInput!): Interface!
-  createField(input: CreateFieldInput!): Field!
-  updateField(input: UpdateFieldInput!): Field!
-  deleteField(input: DeleteFieldInput!): DeleteResponse!
-  createType(input: CreateTypeInput!): Type!
-  updateEnumType(input: UpdateEnumTypeInput!): EnumType!
-  updatePrimitiveType(input: UpdatePrimitiveTypeInput!): PrimitiveType!
-  updateType(input: UpdateTypeInput!): Type!
-  deleteType(input: DeleteTypeInput!): DeleteResponse!
-  upsertProp(input: [UpsertPropsInput!]!): UpsertPropsResponse!
-  deleteProp: DeleteResponse!
+  deleteElement(input: DeleteElementInput!): Void
+  createAtom(input: CreateAtomInput!): CreateResponse!
+  deleteAtom(input: DeleteAtomInput!): Void
+  updateAtom(input: UpdateAtomInput!): Void
+  createField(input: CreateFieldInput!): CreateResponse!
+  updateField(input: UpdateFieldInput!): Void
+  deleteField(input: DeleteFieldInput!): Void
+  createType(input: CreateTypeInput!): CreateResponse!
+  updateEnumType(input: UpdateEnumTypeInput!): Void
+  updatePrimitiveType(input: UpdatePrimitiveTypeInput!): Void
+  updateType(input: UpdateTypeInput!): Void
+  deleteType(input: DeleteTypeInput!): Void
+  createLambda(input: CreateLambdaInput!): Lambda!
+  deleteLambda(input: DeleteLambdaInput!): Lambda!
 }
 
 input CreateAppInput {
   name: String!
 }
+
+"""Date custom scalar type"""
+scalar Void
 
 input UpdateAppInput {
   id: String!
@@ -554,18 +508,6 @@ input UpdateAppData {
 
 input DeleteAppInput {
   appId: String!
-}
-
-input CreateLambdaInput {
-  """Name of the Lambda function to be executed"""
-  name: String!
-
-  """Content of the Lambda function"""
-  body: String!
-}
-
-input DeleteLambdaInput {
-  lambdaId: String!
 }
 
 input UpdateUserInput {
@@ -638,12 +580,17 @@ input MoveData {
   parentElementId: String!
 }
 
+input UpdateElementPropsInput {
+  props: String!
+  elementId: String!
+}
+
 input DeleteElementInput {
   elementId: String!
 }
 
 input CreateAtomInput {
-  label: String!
+  name: String!
   type: AtomType!
 }
 
@@ -654,19 +601,6 @@ input DeleteAtomInput {
 input UpdateAtomInput {
   id: String!
   data: CreateAtomInput!
-}
-
-input CreateInterfaceInput {
-  name: String!
-}
-
-input UpdateInterfaceInput {
-  interfaceId: String!
-  updateData: UpdateInterfaceData!
-}
-
-input UpdateInterfaceData {
-  name: String!
 }
 
 input CreateFieldInput {
@@ -717,7 +651,6 @@ input UpdateFieldData {
   key: String!
   name: String!
   description: String
-  interfaceId: String!
   type: TypeRef!
 }
 
@@ -736,6 +669,7 @@ input UpdateEnumTypeData {
 }
 
 input UpdateEnumTypeValueData {
+  id: String
   name: String
   value: String!
 }
@@ -763,43 +697,14 @@ input DeleteTypeInput {
   typeId: String!
 }
 
-input UpsertPropsInput {
-  propId: String
-  fieldId: String!
-  elementId: String
-  value: UpsertValueInput
+input CreateLambdaInput {
+  """Name of the Lambda function to be executed"""
+  name: String!
+
+  """Content of the Lambda function"""
+  body: String!
 }
 
-input UpsertValueInput {
-  stringValue: StringValueInput
-  intValue: IntValueInput
-  floatValue: FloatValueInput
-  booleanValue: BoleanValueInput
-  arrayValue: ArrayValueInput
-  interfaceValue: InterfaceValueInput
-  enumValueId: String
-}
-
-input StringValueInput {
-  value: String!
-}
-
-input IntValueInput {
-  value: Int!
-}
-
-input FloatValueInput {
-  value: Float!
-}
-
-input BoleanValueInput {
-  value: Boolean!
-}
-
-input ArrayValueInput {
-  values: [UpsertValueInput!]!
-}
-
-input InterfaceValueInput {
-  props: [UpsertPropsInput!]!
+input DeleteLambdaInput {
+  lambdaId: String!
 }

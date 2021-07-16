@@ -1,7 +1,7 @@
 import { Edge } from './edge'
 import { Vertex } from './vertex'
 
-export interface Graph {
-  vertices: Array<Vertex>
-  edges: Array<Edge>
+export interface Graph<TVertex extends Vertex, TEdge extends Edge> {
+  vertices: Array<TVertex>
+  edges: Array<TEdge>
 }

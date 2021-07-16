@@ -1,5 +1,0 @@
-mutation UpdateInterface($input: UpdateInterfaceInput!) {
-  updateInterface(input: $input) {
-    numUids
-  }
-}
