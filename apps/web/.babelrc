@@ -4,16 +4,7 @@
     // "@babel/preset-typescript",
     // "@babel/preset-env",
     // Don't use `@nrwl/next/babel`, has preset merging issues
-    // "next/babel"
-    [
-      "@nrwl/next/babel"
-      // {
-      //   "preset-react": {
-      //     "runtime": "automatic",
-      //     "importSource": "@emotion/react"
-      //   }
-      // }
-    ],
+    "next/babel",
     // Need to to use `css` property for tailwind
     "@emotion/babel-preset-css-prop"
     // [
@@ -27,13 +18,6 @@
   "plugins": [
     "@emotion",
     "macros",
-    [
-      "import",
-      {
-        "libraryName": "antd",
-        "style": false
-      }
-    ],
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     "@babel/plugin-proposal-nullish-coalescing-operator"
   ]
