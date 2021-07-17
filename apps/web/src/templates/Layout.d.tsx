@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { NextPage } from 'next'
-import { ComponentType, PropsWithChildren } from 'react'
+import { ComponentType } from 'react'
 
 type LayoutVariant = 'default' | 'builder' | 'component' | 'dashboard'
 
