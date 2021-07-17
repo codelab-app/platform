@@ -28,33 +28,33 @@ lambda:
 
 build-dev-affected:
 	npx nx affected:build \
-    --maxWorkers=2 \
+		--maxWorkers=2 \
 		--parallel
 
 build-dev:
 	npx nx run-many \
 	--target=build \
-  --maxWorkers=2 \
+	--maxWorkers=2 \
 	--all \
 	--parallel
 
 build-ci:
 	npx nx run-many \
-    --target=build \
+		--target=build \
 		--projects=api,web,gqlgen \
-    --prod \
-    --parallel \
+		--prod \
+		--parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192
 		# --skip-nx-cache
 
 build-prod:
 	npx nx run-many \
-    --target=build \
-    --projects=web,api-gateway,api-services-props \
-    --with-deps \
-    --parallel \
-    --skip-nx-cache
+		--target=build \
+		--projects=web,api-gateway,api-services-props \
+		--with-deps \
+		--parallel \
+		--skip-nx-cache
 
 #
 # LINT
@@ -78,17 +78,8 @@ start-ci:
 			"npx next start -p 3000 dist/apps/web" \
 			"node dist/apps/api/main.js"
 
-e2e-ci:
-	npx concurrently \
-  	--kill-others \
-  	--success=first \
-		--names=web-e2e,api,web \
-    	"npx wait-on \
-				http://127.0.0.1:3000 \
-				http://127.0.0.1:3333 && \
-				nx run web-e2e:e2e:ci" \
-			"node dist/apps/api/main.js" \
-			"npx next start -p 3000 dist/apps/web"
+e2e-dev:
+	npx env-cmd -f .env.test yarn gqlgen e2e --ci
 
 #
 # INTEGRATION TESTS
@@ -127,15 +118,14 @@ test-dev-affected:
 	npx concurrently \
 		--names=unit,int \
  		"make unit-dev-affected" \
-  	"make integration-dev-affected"
-  	# "make e2e-dev"
+		"make integration-dev-affected"
 
 test-dev:
 	npx concurrently \
 		--names=unit,int,e2e \
  		"make unit-dev" \
-  	"make integration-dev" \
-  	"make e2e-dev"
+		"make integration-dev" \
+		"make e2e-dev"
 
 #
 # UNIT TEST

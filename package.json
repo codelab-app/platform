@@ -14,8 +14,7 @@
   "scripts": {
     "postinstall": "husky install",
     "nx-env": "env-cmd -f .env.test nx",
-    "console:dev": "nx build gqlgen && env-cmd -f .env node dist/apps/gqlgen/main.js",
-    "console": "cross-env NODE_ENV=test node -r dotenv-flow/config dist/apps/gqlgen/main.js",
+    "gqlgen": "cross-env NODE_ENV=test node -r dotenv-flow/config dist/apps/gqlgen/main.js",
     "tunnel": "ngrok http -region=us -hostname=a8069b052300.ngrok.io http://127.0.0.1:3000",
     "docker:up": "libs/tools/scripts/src/docker/up.sh",
     "nx": "nx",

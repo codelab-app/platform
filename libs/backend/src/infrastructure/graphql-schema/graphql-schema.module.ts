@@ -11,7 +11,7 @@ export class GraphqlSchemaModule {
     dgraphConfig: ConfigFactory<DgraphConfig>,
     graphqlSchemaConfig: ConfigFactory<GraphqlSchemaConfig>,
   ): DynamicModule {
-    Logger.log(
+    Logger.debug(
       `${DgraphTokens.DgraphConfig.toString()} \n${JSON.stringify(
         dgraphConfig(),
         null,
@@ -19,7 +19,7 @@ export class GraphqlSchemaModule {
       )}`,
     )
 
-    Logger.log(
+    Logger.debug(
       `${GraphqlSchemaTokens.GraphqlSchemaConfig.toString()} \n${JSON.stringify(
         graphqlSchemaConfig(),
         null,

@@ -978,15 +978,16 @@
           "builder": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/web-e2e/cypress.json",
-            "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
-            "baseUrl": "http://127.0.0.1:3000"
+            "tsConfig": "apps/web-e2e/tsconfig.e2e.json"
           },
           "configurations": {
             "ci": {
+              "baseUrl": "http://127.0.0.1:3001",
               "headless": true
             },
             "dev": {
               "watch": true,
+              "baseUrl": "http://127.0.0.1:3000",
               "exit": false
             }
           }

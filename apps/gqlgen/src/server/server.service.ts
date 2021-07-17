@@ -12,9 +12,13 @@ export class ServerService {
     private readonly graphqlServerConfig: ConfigType<() => GraphqlServerConfig>,
   ) {}
 
-  private START_API_SERVER_COMMAND = 'node dist/apps/api/main.js'
+  /**
+   * We load `.env.test` locally, if on CI, that file gets ignored
+   */
+  private START_API_SERVER_COMMAND =
+    'npx env-cmd -f .env.test node dist/apps/api/main.js'
 
-  private START_WEB_SERVER_COMMAND = 'nx serve web'
+  private START_WEB_SERVER_COMMAND = 'yarn nx-env run web:serve:ci'
 
   async isPortOpen(port: number | undefined) {
     const nextAvailablePort = await portfinder.getPortPromise({ port })
