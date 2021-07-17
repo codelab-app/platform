@@ -80,7 +80,7 @@ export class PropsToJsonObjectTransformer {
     return { key, value }
   }
 
-  keyValuePairsToJsonObject(kvps: Array<JsonKeyValuePair>) {
+  keyValuePairsToJsonObject = (kvps: Array<JsonKeyValuePair>) => {
     return kvps.reduce<JsonObject>((model, kvp) => {
       model[kvp.key] = kvp.value
 
