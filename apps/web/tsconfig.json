@@ -6,7 +6,6 @@
     "jsxImportSource": "@emotion/react",
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "composite": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "types": ["node", "jest", "xwind"],
