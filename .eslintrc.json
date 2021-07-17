@@ -14,18 +14,8 @@
     "@graphql-eslint",
     "eslint-plugin-graphql"
   ],
-  "extends": ["plugin:prettier/recommended", "plugin:mdx/recommended"],
-  "settings": {
-    "mdx/code-blocks": true,
-    // optional, if you want to disable language mapper, set it to `false`
-    // if you want to override the default language mapper inside, you can provide your own
-    "mdx/language-mapper": {}
-  },
+  "extends": ["plugin:prettier/recommended"],
   "overrides": [
-    {
-      "files": ["*.mdx"],
-      "extends": ["plugin:mdx/overrides"]
-    },
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
@@ -166,22 +156,22 @@
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
-    },
-    // Not working!
-    {
-      "files": ["*.graphql"],
-      "parser": "@graphql-eslint/eslint-plugin",
-      "plugins": ["@graphql-eslint"],
-      // the following is required for `eslint-plugin-prettier@<=3.4.0` temporarily
-      // after https://github.com/prettier/eslint-plugin-prettier/pull/413
-      // been merged and released, it can be deleted safely
-      "rules": {
-        "prettier/prettier": [
-          "error",
-          { "tabWidth": 2, "useTabs": false, "parser": "graphql" }
-        ]
-      }
     }
+    // Not working!
+    // {
+    //   "files": ["*.graphql"],
+    //   "parser": "@graphql-eslint/eslint-plugin",
+    //   "plugins": ["@graphql-eslint"],
+    //   // the following is required for `eslint-plugin-prettier@<=3.4.0` temporarily
+    //   // after https://github.com/prettier/eslint-plugin-prettier/pull/413
+    //   // been merged and released, it can be deleted safely
+    //   "rules": {
+    //     "prettier/prettier": [
+    //       "error",
+    //       { "tabWidth": 2, "useTabs": false, "parser": "graphql" }
+    //     ]
+    //   }
+    // }
     // the following is required for `eslint-plugin-prettier@<=3.4.0` temporarily
     // after https://github.com/prettier/eslint-plugin-prettier/pull/415
     // been merged and released, it can be deleted safely
