@@ -28,7 +28,7 @@ export const D3Tree = ({
   ...props
 }: D3TreeProps) => {
   const { data } = props
-  const treeLayout = d3.tree<D3TreeData>().size([360, 60])
+  const treeLayout = d3.tree<D3TreeData>().size([360, 120])
   const d3Container = useRef<SVGSVGElement>(null)
   const root = d3.hierarchy<D3TreeData>(data)
   const ref: any = useRef()

@@ -103,7 +103,7 @@ integration-dev:
 	--all
 
 integration-dev-affected:
-	npx nx affected:test \
+	yarn nx-env affected:test \
 	--testPathPattern=i.spec.ts \
 	--maxWorkers=2 \
 	--memoryLimit=4096 \

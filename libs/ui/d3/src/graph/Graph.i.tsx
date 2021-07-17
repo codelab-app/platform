@@ -8,6 +8,7 @@ export enum NodeType {
   App = 'App',
   Page = 'Page',
   Component = 'Component',
+  Atom = 'Atom',
   Element = 'Element',
   Default = 'Default',
 }
