@@ -33,7 +33,7 @@ export class InterfaceToJsonSchemaTransformer {
    * Transforms an Interface to a json schema object
    * Throws Error if PrimitiveKinds or if the Type object's __typename are not recognized
    */
-  transform = (intface: __InterfaceFragment) => {
+  transform(intface: __InterfaceFragment) {
     const typesByIdMap = _.keyBy(intface.fieldCollection.types, (i) => i.id)
 
     return this.interfaceToJsonSchema(intface, (typeId) => typesByIdMap[typeId])
