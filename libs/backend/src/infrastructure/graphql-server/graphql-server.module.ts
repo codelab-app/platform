@@ -8,7 +8,7 @@ import { GraphqlServerTokens } from './config/graphql-server.tokens'
 @Module({})
 export class GraphqlServerModule {
   static register(config: ConfigFactory<GraphqlServerConfig>): DynamicModule {
-    Logger.log(
+    Logger.debug(
       `${GraphqlServerTokens.GraphqlServerConfig.toString()} \n${JSON.stringify(
         config(),
         null,

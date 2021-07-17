@@ -8,7 +8,7 @@ import { dgraphClientProvider } from './dgraph.provider'
 @Module({})
 export class DgraphModule {
   static register(config: ConfigFactory<DgraphConfig>): DynamicModule {
-    Logger.log(
+    Logger.debug(
       `${DgraphTokens.DgraphConfig.toString()} \n${JSON.stringify(
         config(),
         null,

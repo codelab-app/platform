@@ -96,13 +96,13 @@ export class AppService {
        */
       await waitOn({
         resources: [this.serverConfig.webEndpoint, this.serverConfig.endpoint],
-        timeout: 120000,
+        timeout: 60000,
       })
 
       /**
        * (3) Run Cypress
        */
-      const cmd = ci ? 'nx run web-e2e:e2e:ci' : 'nx run web-e2e:e2e'
+      const cmd = 'yarn nx-env run web-e2e:e2e:ci'
 
       const code = shell.exec(cmd, {
         cwd: process.cwd(),

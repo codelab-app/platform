@@ -3,4 +3,4 @@
 
 make build-dev-affected
 make test-dev-affected
-# yarn e2e-dev
+make e2e-dev
