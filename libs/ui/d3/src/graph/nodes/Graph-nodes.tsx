@@ -32,6 +32,8 @@ export const getNodeColor = (type: NodeType | undefined) => {
       return color.grey[500]
     case NodeType.Component:
       return color.orange[500]
+    case NodeType.Atom:
+      return color.pink[500]
     default:
       return color.grey[500]
   }

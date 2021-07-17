@@ -2,6 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "emitDecoratorMetadata": true,
+    "composite": true,
     "outDir": ""
   },
   "exclude": [

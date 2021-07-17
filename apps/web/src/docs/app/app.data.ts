@@ -1,6 +1,6 @@
 import { D3TreeData, NodeType } from '@codelab/ui/d3'
 
-export const appDataTree: D3TreeData = {
+export const appData: D3TreeData = {
   label: 'User A',
   type: NodeType.User,
   children: [

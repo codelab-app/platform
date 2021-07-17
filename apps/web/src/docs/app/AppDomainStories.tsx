@@ -1,7 +1,7 @@
 import { D3Graph, D3Tree } from '@codelab/ui/d3'
 import { Col, Layout, Row } from 'antd'
 import React from 'react'
-import { appDataTree } from './app-data-tree.data'
+import { appData } from './app.data'
 import { appSchema } from './app-schema.data'
 
 export const AppDomainStories = () => {
@@ -15,7 +15,7 @@ export const AppDomainStories = () => {
           <D3Graph {...appSchema} width={400} height={400} />
         </Col>
         <Col span={12}>
-          <D3Tree data={appDataTree} />
+          <D3Tree data={appData} />
         </Col>
       </Row>
     </Layout>

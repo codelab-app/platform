@@ -1,7 +1,7 @@
-import { D3Graph } from '@codelab/ui/d3'
+import { D3Graph, D3Tree } from '@codelab/ui/d3'
 import { Col, Layout, Row } from 'antd'
 import React from 'react'
-import { pageData } from './page-data.data'
+import { pageData } from './page.data'
 import { pageSchema } from './page-schema.data'
 
 export const PageDomainStories = () => {
@@ -25,7 +25,12 @@ export const PageDomainStories = () => {
           <D3Graph {...pageSchema} width={400} height={400} />
         </Col>
         <Col span={12}>
-          <D3Graph {...pageData} width={400} height={400} />
+          <p>
+            Imagine each element node points to another Component of the label
+            type (not pictured here to save space) <br />
+            The Component node gives the Element the type
+          </p>
+          <D3Tree data={pageData} width={400} height={400} />
         </Col>
       </Row>
     </Layout>
