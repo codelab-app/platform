@@ -5,6 +5,8 @@ import {
   GraphqlSchemaConfig,
   GraphqlSchemaService,
   GraphqlSchemaTokens,
+  PuppeteerService,
+  SeedDbService,
   ServerConfig,
   ServerTokens,
 } from '@codelab/backend'
@@ -38,6 +40,8 @@ export class AppService {
     private readonly serverConfig: ConfigType<() => ServerConfig>,
     @Inject(DgraphTokens.DgraphConfig)
     private readonly dgraphConfig: ConfigType<() => DgraphConfig>,
+    private readonly seedDbService: SeedDbService,
+    private readonly puppeteerService: PuppeteerService,
   ) {
     const cli = this.consoleService.getCli()
 
@@ -79,6 +83,25 @@ export class AppService {
         description: 'Run Cypress e2e tests',
       },
       this.e2e.bind(this),
+      cli,
+    )
+
+    this.consoleService.createCommand(
+      {
+        command: 'seed',
+        // options: [{}],
+        description: 'Seed project with atoms & props',
+      },
+      this.seedDbService.seedDB.bind(this),
+      cli,
+    )
+
+    this.consoleService.createCommand(
+      {
+        command: 'scrape',
+        description: 'Scrape docs from AntD',
+      },
+      this.puppeteerService.scrape.bind(this),
       cli,
     )
   }

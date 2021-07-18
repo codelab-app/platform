@@ -8,6 +8,8 @@ import {
   graphqlServerConfig,
   GraphqlServerModule,
   GraphqlServerTokens,
+  PuppeteerModule,
+  SeedDbModule,
   serverConfig,
   ServerTokens,
 } from '@codelab/backend'
@@ -25,6 +27,8 @@ import { AppService } from './app.service'
     GraphqlCodegenModule,
     DgraphModule.register(dgraphConfig),
     GraphqlSchemaModule.register(dgraphConfig, graphqlSchemaConfig),
+    SeedDbModule,
+    PuppeteerModule,
   ],
   providers: [
     AppService,

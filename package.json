@@ -14,7 +14,7 @@
   "scripts": {
     "postinstall": "husky install",
     "nx-env": "env-cmd -f .env.test nx",
-    "gqlgen": "cross-env NODE_ENV=test node -r dotenv-flow/config dist/apps/gqlgen/main.js",
+    "gqlgen": "nx build gqlgen && cross-env NODE_ENV=test node -r dotenv-flow/config dist/apps/gqlgen/main.js",
     "tunnel": "ngrok http -region=us -hostname=a8069b052300.ngrok.io http://127.0.0.1:3000",
     "docker:up": "libs/tools/scripts/src/docker/up.sh",
     "nx": "nx",
@@ -107,10 +107,12 @@
     "graphql-type-json": "0.3.2",
     "grpc": "1.24.10",
     "http-proxy-middleware": "2.0.0",
+    "husky": "7.0.1",
     "immutable": "4.0.0-rc.12",
     "joi": "17.4.0",
     "jquery": "3.6.0",
     "js-cookie": "2.2.1",
+    "json2csv": "^5.0.6",
     "jwks-rsa": "2.0.3",
     "lodash": "4.17.21",
     "material-ui-colors": "^1.0.0",
@@ -151,8 +153,7 @@
     "uuid": "8.3.2",
     "voca": "1.4.0",
     "why-is-node-running": "2.2.0",
-    "zod": "3.5.1",
-    "husky": "7.0.1"
+    "zod": "3.5.1"
   },
   "devDependencies": {
     "@angular-devkit/core": "11.0.1",
@@ -236,6 +237,7 @@
     "@types/jquery": "3.5.6",
     "@types/js-cookie": "2.2.7",
     "@types/js-yaml": "4.0.2",
+    "@types/json2csv": "^5.0.3",
     "@types/lodash": "4.14.171",
     "@types/method-override": "0.0.32",
     "@types/node": "16.3.1",
@@ -314,6 +316,7 @@
     "postcss": "7",
     "prettier": "2.3.2",
     "pretty-format": "27.0.2",
+    "puppeteer": "^10.1.0",
     "sass-loader": "^10",
     "sharp": "0.28.3",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
