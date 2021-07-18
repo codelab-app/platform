@@ -552,8 +552,8 @@ workflows:
           <<: *filters-staging-merge
           e: docker-node
           context: CI
-          requires:
-            - deploy-to-staging
+          # requires:
+          #   - deploy-to-staging
 
   app-prod:
     jobs:
