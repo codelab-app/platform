@@ -8,10 +8,29 @@ import {
   UpsertPropsInput,
   UpsertValueInput,
 } from '@codelab/codegen/graphql'
-import { TypeModels } from '../types/TypeModels'
-import { PrimitivePropValue, PropModel } from './PropsJsonModelAdapter'
+import { TypeModels } from '../../types/TypeModels'
+import { JsonObject, JsonValue } from './types'
 
-export class JsonModelUpsertValueAdapter {
+export interface JsonObjectToUpsertValueTransformerOptions {
+  /** All the types that might be needed to construct the UpsertValueInput */
+  types: Array<__TypeFragment>
+
+  /**
+   * All the previous props that might be needed to construct the UpsertValueInput
+   * If omitted, or if a prop is not found - it will be Inserted as a new value. If present - existing props will be Updated
+   */
+  existingProps?: Array<__PropFragment>
+
+  /**
+   * Needed for handling existing props, because in nested props values are referenced by ID, to avoid recursion in graphql
+   */
+  existingValues?: Array<__PropValueFragment>
+
+  /** Max amount of type nesting that's allowed, used to prevent infinite loops. Defaults to 100 */
+  maxNesting?: number
+}
+
+export class JsonObjectToUpsertValueTransformer {
   private _typesById: Map<string, __TypeFragment>
 
   private _propsById: Map<string, __PropFragment>
@@ -19,6 +38,11 @@ export class JsonModelUpsertValueAdapter {
   private _valuesById: Map<string, __PropValueFragment>
 
   private propsByFieldId: Map<string, __PropFragment>
+
+  private readonly maxNesting: number
+
+  /** Keeps track of recursive transformations while transforming nested types */
+  private iteration = 0
 
   private getType(typeId: string) {
     return this._typesById.get(typeId)
@@ -36,28 +60,40 @@ export class JsonModelUpsertValueAdapter {
     return this.propsByFieldId.get(fieldId)
   }
 
-  constructor(
-    private types: Array<__TypeFragment>,
-    private values?: Array<__PropValueFragment>,
-    private props?: Array<__PropFragment>,
-  ) {
-    this._typesById = new Map(types.map((type) => [type.id, type]))
+  constructor(private options: JsonObjectToUpsertValueTransformerOptions) {
+    this._typesById = new Map(options.types.map((type) => [type.id, type]))
     this._propsById = new Map(
-      props?.map((innerProp) => [innerProp.id, innerProp]) || [],
+      options.existingProps?.map((innerProp) => [innerProp.id, innerProp]) ||
+        [],
     )
-    this._valuesById = new Map(values?.map((value) => [value.id, value]) || [])
+    this._valuesById = new Map(
+      options.existingValues?.map((value) => [value.id, value]) || [],
+    )
 
     this.propsByFieldId = new Map(
-      props?.map((innerProp) => [innerProp.field.id, innerProp]) || [],
+      options.existingProps?.map((innerProp) => [
+        innerProp.field.id,
+        innerProp,
+      ]) || [],
     )
+
+    this.maxNesting = options.maxNesting || 100
   }
 
-  convert(
-    jsonModel: PropModel,
+  transform(
+    jsonModel: JsonObject,
     fields: Array<__FieldFragment>,
-    iteration = 0,
   ): Array<Pick<UpsertPropsInput, 'value' | 'fieldId' | 'propId'>> {
-    return fields.map((field) => {
+    if (this.iteration > 0) {
+      // Everything is handles synchronously in this class, so we shouldn't ever get to this point, but just in case this changes in the future
+      throw new Error(
+        "PropsToJsonObjectTransformer can't handle doing more than 1 transformation at a time, create another instance instead",
+      )
+    }
+
+    this.iteration = 0
+
+    const result = fields.map((field) => {
       // Get the value from the jsonModel that matches this key
       const jsonModelValue = jsonModel[field.key]
       const initialProp = this.getPropByFieldId(field.id)
@@ -68,7 +104,6 @@ export class JsonModelUpsertValueAdapter {
         field.typeId,
         field.id,
         initialProp,
-        iteration,
       )
 
       return {
@@ -77,20 +112,25 @@ export class JsonModelUpsertValueAdapter {
         propId: initialProp?.id,
       }
     })
+
+    this.iteration = 0
+
+    return result
   }
 
   jsonValueToValueInput(
-    jsonValue: PrimitivePropValue,
+    jsonValue: JsonValue,
     typeId: string,
     fieldId: string,
     initialProps?: __PropFragment,
-    iteration = 0,
   ): UpsertValueInput | null {
     if (typeof jsonValue === 'undefined' || jsonValue == null) {
       return null
     }
 
-    if (iteration > 100) {
+    this.iteration++
+
+    if (this.iteration > this.maxNesting) {
       throw new Error('Value too nested')
     }
 
@@ -102,10 +142,7 @@ export class JsonModelUpsertValueAdapter {
 
     switch (type.__typename) {
       case TypeModels.PrimitiveType:
-        return JsonModelUpsertValueAdapter.jsonValueToPrimitiveValueInput(
-          jsonValue,
-          type,
-        )
+        return this.jsonValueToPrimitiveValueInput(jsonValue, type)
       case TypeModels.ArrayType:
         if (!Array.isArray(jsonValue)) {
           throw new Error('Cannot convert non-array value to an array')
@@ -120,7 +157,6 @@ export class JsonModelUpsertValueAdapter {
                   type.typeId,
                   fieldId,
                   initialProps,
-                  iteration + 1,
                 ),
               )
               .filter((v): v is UpsertValueInput => !!v),
@@ -147,18 +183,17 @@ export class JsonModelUpsertValueAdapter {
           .map((p) => this.getProp(p.id))
           .filter((p) => !!p) as Array<__PropFragment>
 
-        const adapter = new JsonModelUpsertValueAdapter(
-          this.types,
-          this.values,
-          props,
-        )
+        const innerTransformer = new JsonObjectToUpsertValueTransformer({
+          ...this.options,
+          existingProps: props,
+          maxNesting: this.maxNesting - this.iteration,
+        })
 
         return {
           interfaceValue: {
-            props: adapter.convert(
+            props: innerTransformer.transform(
               jsonValue,
               type.fieldCollection.fields,
-              iteration + 1,
             ),
           },
         }
@@ -166,8 +201,8 @@ export class JsonModelUpsertValueAdapter {
     }
   }
 
-  static jsonValueToPrimitiveValueInput(
-    jsonValue: PrimitivePropValue,
+  jsonValueToPrimitiveValueInput(
+    jsonValue: JsonValue,
     type: __PrimitiveTypeFragment,
   ): UpsertValueInput | null {
     if (typeof jsonValue === 'undefined' || jsonValue == null) {

@@ -11,7 +11,7 @@ import {
   NodeLink,
   NodeType,
 } from '@codelab/frontend/shared'
-import { PropsJsonModelAdapter } from '@codelab/modules/type'
+import { propsToJsonObject } from '@codelab/modules/type'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { Core } from 'cytoscape'
 
@@ -75,10 +75,9 @@ export class CytoscapeService {
               name: pageElement.name,
               atom: pageElement.atom,
               css: pageElement.css,
-              props: PropsJsonModelAdapter.propsToModel(
-                pageElement.props,
-                true,
-              ),
+              props: propsToJsonObject(pageElement.props, {
+                forRendering: true,
+              }),
             }
 
             return { data }

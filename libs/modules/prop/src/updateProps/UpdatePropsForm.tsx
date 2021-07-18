@@ -11,8 +11,8 @@ import { createNotificationHandler } from '@codelab/frontend/shared'
 import {
   InterfaceForm,
   InterfaceFormProps,
-  JsonModelUpsertValueAdapter,
-  PropsJsonModelAdapter,
+  jsonObjectToUpsertValueInput,
+  propsToJsonObject,
 } from '@codelab/modules/type'
 import _ from 'lodash'
 import React from 'react'
@@ -49,13 +49,19 @@ export const UpdatePropsForm = <TData extends any>({
   }
 
   const handleSubmit = (model: TData) => {
-    const adapter = new JsonModelUpsertValueAdapter(
-      intface.fieldCollection.types,
-      initialProps ? _.flatMap(initialProps, (p) => p.values) : undefined,
-      initialProps ? _.flatMap(initialProps, (p) => p.props) : undefined,
+    const input = jsonObjectToUpsertValueInput(
+      model as any,
+      intface.fieldCollection.fields,
+      {
+        types: intface.fieldCollection.types,
+        existingProps: initialProps
+          ? _.flatMap(initialProps, (p) => p.props)
+          : undefined,
+        existingValues: initialProps
+          ? _.flatMap(initialProps, (p) => p.values)
+          : undefined,
+      },
     )
-
-    const input = adapter.convert(model as any, intface.fieldCollection.fields)
 
     return upsertProps({
       variables: { input: input.map((i) => ({ ...extraInput, ...i })) },
@@ -69,7 +75,7 @@ export const UpdatePropsForm = <TData extends any>({
       disabled={loading}
       model={
         initialProps
-          ? (PropsJsonModelAdapter.propsToModel(initialProps, false) as any)
+          ? (propsToJsonObject(initialProps, { forRendering: false }) as any)
           : ({} as any)
       }
       onSubmitError={props.onSubmitError || createNotificationHandler()}
