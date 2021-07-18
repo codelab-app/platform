@@ -102,7 +102,7 @@ export class AppService {
       /**
        * (3) Run Cypress
        */
-      const cmd = 'yarn nx-env run web-e2e:e2e:ci'
+      const cmd = 'yarn nx-env affected --target=e2e --configuration=ci'
 
       const code = shell.exec(cmd, {
         cwd: process.cwd(),
