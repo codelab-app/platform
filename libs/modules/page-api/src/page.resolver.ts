@@ -1,6 +1,9 @@
 import { DeleteResponse } from '@codelab/backend'
-import { JwtPayload } from '@codelab/backend/adapters'
-import { CurrentUser, GqlAuthGuard } from '@codelab/modules/auth-api'
+import {
+  CurrentUser,
+  GqlAuthGuard,
+  JwtPayload,
+} from '@codelab/backend/adapters'
 import { ElementAggregate } from '@codelab/modules/element-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
@@ -45,7 +48,6 @@ export class PageResolver {
     @CurrentUser() currentUser: JwtPayload,
   ) {
     const r = this.getPagesService.execute({ input, currentUser })
-    console.log(r)
 
     return r
   }

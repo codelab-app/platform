@@ -39,8 +39,6 @@ describe('api-use-case generator', () => {
     ]
 
     test.each(expectedFiles)('%p should exist', (file) => {
-      console.log(file)
-
       expect(appTree.exists(file)).toBeTruthy()
     })
   })

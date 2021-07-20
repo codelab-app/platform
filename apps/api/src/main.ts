@@ -9,7 +9,10 @@ import { get } from 'env-var'
 import { CodelabAppModule } from './app/codelab-app.module'
 
 const bootstrap = async () => {
-  const app = await NestFactory.create(CodelabAppModule)
+  const app = await NestFactory.create(CodelabAppModule, {
+    logger: ['log', 'error'],
+  })
+
   const globalPrefix = ''
 
   app.setGlobalPrefix(globalPrefix)

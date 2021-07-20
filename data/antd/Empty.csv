@@ -1,0 +1,4 @@
+"property","description","type","default","version"
+"description","Customize description","ReactNode","-",""
+"image","Customize image. Will treat as image url when string provided","ReactNode","Empty.PRESENTED_IMAGE_DEFAULT",""
+"imageStyle","The style of image","CSSProperties","-",""

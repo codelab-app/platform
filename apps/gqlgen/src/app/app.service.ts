@@ -2,9 +2,12 @@ import {
   DgraphConfig,
   DgraphProvider,
   DgraphTokens,
+  Environment,
   GraphqlSchemaConfig,
   GraphqlSchemaService,
   GraphqlSchemaTokens,
+  PuppeteerService,
+  SeedDbService,
   ServerConfig,
   ServerTokens,
 } from '@codelab/backend'
@@ -18,9 +21,14 @@ import waitOn from 'wait-on'
 import { GraphqlCodegenService } from '../graphql-codegen/graphql-codegen.service'
 import { ServerService } from '../server/server.service'
 
-export interface Options {
-  watch?: boolean
-  ci?: boolean
+export interface E2eOptions {
+  watch: boolean
+  ci: boolean
+}
+
+export interface CodegenOptions {
+  e2e: boolean
+  watch: boolean
 }
 
 @Injectable()
@@ -38,6 +46,8 @@ export class AppService {
     private readonly serverConfig: ConfigType<() => ServerConfig>,
     @Inject(DgraphTokens.DgraphConfig)
     private readonly dgraphConfig: ConfigType<() => DgraphConfig>,
+    private readonly seedDbService: SeedDbService,
+    private readonly puppeteerService: PuppeteerService,
   ) {
     const cli = this.consoleService.getCli()
 
@@ -53,6 +63,8 @@ export class AppService {
             flags: '-e, --e2e',
             required: false,
             defaultValue: false,
+            description:
+              'Run this in end-to-end mode, which loads `.env.test` and uses a different port instead',
           },
           {
             flags: '-w, --watch',
@@ -81,14 +93,35 @@ export class AppService {
       this.e2e.bind(this),
       cli,
     )
+
+    this.consoleService.createCommand(
+      {
+        command: 'seed',
+        // options: [{}],
+        description: 'Seed project with atoms & props',
+      },
+      this.seedDbService.seedDB.bind(this),
+      cli,
+    )
+
+    this.consoleService.createCommand(
+      {
+        command: 'scrape',
+        description: 'Scrape docs from AntD',
+      },
+      this.puppeteerService.scrape.bind(this),
+      cli,
+    )
   }
 
-  public async e2e({ ci }: Options) {
+  public async e2e({ watch, ci }: E2eOptions) {
+    const environment = ci ? Environment.Test : Environment.Dev
+
     /**
      * (1) Start Api & Web server
      */
-    await this.serverService.maybeStartWebServer()
-    await this.serverService.maybeStartApiServer()
+    await this.serverService.maybeStartWebServer(environment)
+    await this.serverService.maybeStartApiServer(environment)
 
     try {
       /**
@@ -114,12 +147,14 @@ export class AppService {
     }
   }
 
-  public async codegen({ watch }: Options) {
+  public async codegen({ watch, e2e }: CodegenOptions) {
+    const environment = e2e ? Environment.Test : Environment.Dev
+
     try {
       /**
        * (1) Start GraphQL server
        */
-      await this.serverService.maybeStartApiServer()
+      await this.serverService.maybeStartApiServer(environment)
 
       /**
        * (2) Wait for server

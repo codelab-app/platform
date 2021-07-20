@@ -1,4 +1,3 @@
-import { cLog } from '@codelab/backend'
 import { generate } from '@graphql-codegen/cli'
 import { Types } from '@graphql-codegen/plugin-helpers'
 import { Injectable } from '@nestjs/common'

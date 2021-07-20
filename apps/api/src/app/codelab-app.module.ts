@@ -7,7 +7,7 @@ import { PageModule } from '@codelab/modules/page-api'
 import { PropModule } from '@codelab/modules/prop-api'
 import { TypeModule } from '@codelab/modules/type-api'
 import { UserModule } from '@codelab/modules/user-api'
-import { Module } from '@nestjs/common'
+import { forwardRef, Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 
 @Module({

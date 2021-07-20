@@ -12,5 +12,6 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "json.format.enable": true
+  "json.format.enable": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -1,5 +1,5 @@
 import { DeleteResponse } from '@codelab/backend'
-import { GqlAuthGuard } from '@codelab/modules/auth-api'
+import { GqlAuthGuard } from '@codelab/backend/adapters'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { EnumType, PrimitiveType, Type } from './models'
