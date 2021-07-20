@@ -133,8 +133,6 @@ describe('type', () => {
         expect(retrievedInterface?.fieldCollection.fields).toHaveLength(2)
         expect(retrievedInterface?.fieldCollection.types).toHaveLength(2)
 
-        console.log(retrievedInterface?.fieldCollection)
-
         /**
          * We should have 2 types:
          *
@@ -175,8 +173,6 @@ describe('type', () => {
         await createInterface()
 
         const interfaces = await getInterfaces()
-
-        console.log(interfaces)
 
         expect(interfaces).toHaveLength(2)
       })
@@ -384,8 +380,6 @@ describe('type', () => {
           })
           .expect(200)
           .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
-            console.log(res)
-
             expect(res?.body?.errors).toMatchObject([
               { message: 'Field with key duplicatedFieldKey already exists' },
             ])

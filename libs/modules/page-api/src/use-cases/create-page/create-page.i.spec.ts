@@ -31,7 +31,6 @@ describe('CreatePage', () => {
       role: Role.USER,
     })
     app = await createApp(userApp)
-    console.log(app)
   })
 
   afterAll(async () => {
@@ -57,8 +56,6 @@ describe('CreatePage', () => {
         })
         .expect(200)
         .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
-          console.log(res.body)
-
           expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
         })
     })
