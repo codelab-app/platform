@@ -56,6 +56,9 @@ build-prod:
 		--parallel \
 		--skip-nx-cache
 
+build-storybook:
+	npx nx build-storybook web
+
 #
 # LINT
 #
