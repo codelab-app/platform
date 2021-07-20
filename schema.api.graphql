@@ -57,7 +57,9 @@ type Interface implements Type {
 type FieldCollection {
   fields: [Field!]!
 
-  """Flattened array of all types that are used inside this interface"""
+  """
+  Flattened array of all types that are used inside this interface
+  """
   types: [Type!]!
 }
 
@@ -262,7 +264,14 @@ type Prop {
   value: PropValue
 }
 
-union PropValue = StringValue | IntValue | FloatValue | BooleanValue | ArrayValue | InterfaceValue | EnumTypeValue
+union PropValue =
+    StringValue
+  | IntValue
+  | FloatValue
+  | BooleanValue
+  | ArrayValue
+  | InterfaceValue
+  | EnumTypeValue
 
 type StringValue {
   id: ID!
@@ -294,7 +303,9 @@ type InterfaceValue {
   props: [Prop!]!
 }
 
-"""Contains all nested props and values from the whole prop tree"""
+"""
+Contains all nested props and values from the whole prop tree
+"""
 type PropAggregate {
   rootProp: Prop!
 
@@ -321,12 +332,18 @@ type Element {
   props: [PropAggregate!]!
 }
 
-"""An edge between two element nodes"""
+"""
+An edge between two element nodes
+"""
 type ElementLink {
-  """The id of the source Element"""
+  """
+  The id of the source Element
+  """
   from: String!
 
-  """The id of the target Element"""
+  """
+  The id of the target Element
+  """
   to: String!
   order: Int!
 }
@@ -338,10 +355,14 @@ type ElementAggregate {
   atom: Atom
   props: [PropAggregate!]!
 
-  """All descendant Elements that are under this root, at any level"""
+  """
+  All descendant Elements that are under this root, at any level
+  """
   descendants: [Element!]!
 
-  """All the links connecting the descendant elements"""
+  """
+  All the links connecting the descendant elements
+  """
   links: [ElementLink!]!
 }
 
@@ -499,7 +520,9 @@ type Mutation {
   updateElement(input: UpdateElementInput!): Element!
   moveElement(input: MoveElementInput!): Element!
 
-  """Deletes an element and all the descending elements"""
+  """
+  Deletes an element and all the descending elements
+  """
   deleteElement(input: DeleteElementInput!): DeleteResponse!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): DeleteResponse!
@@ -649,7 +672,9 @@ input TypeRef {
   newType: CreateTypeInput
 }
 
-"""Provide one of the properties"""
+"""
+Provide one of the properties
+"""
 input CreateTypeInput {
   name: String!
   primitiveType: CreatePrimitiveTypeInput
