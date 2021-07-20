@@ -111,8 +111,8 @@ integration-ci:
 	--runInBand \
 	--verbose \
 	--maxWorkers=8 \
-	--memoryLimit=8192 \
-	--skip-nx-cache
+	--memoryLimit=8192
+# --skip-nx-cache
 
 #
 # TEST (ALL)
