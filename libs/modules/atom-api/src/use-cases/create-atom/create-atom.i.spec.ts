@@ -2,89 +2,69 @@ import { ApolloQueryResult } from '@apollo/client'
 import {
   ApiResponse,
   Auth0Service,
-  InfrastructureModule,
   request,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend'
+import { Role } from '@codelab/backend/adapters'
 import {
   AtomType,
   CreateAtomGql,
-  CreateAtomMutation,
   CreateAtomMutationVariables,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import { AtomModule } from '../../atom.module'
-
-export const createAtom = async (
-  accessToken: string,
-  app: INestApplication,
-) => {
-  const variables: CreateAtomMutationVariables = {
-    input: {
-      label: 'Button (Ant Design)',
-      type: AtomType.AntDesignButton,
-    },
-  }
-
-  const r = await request(app.getHttpServer())
-    .set('Authorization', `Bearer ${accessToken}`)
-    .send({
-      query: print(CreateAtomGql),
-      variables,
-    })
-    .expect(200)
-    .then((res) => (res.body.data as CreateAtomMutation)?.createAtom)
-
-  return r
-}
+import { createAtom } from '../../helpers/create-atom'
 
 describe('CreateAtom', () => {
-  let app: INestApplication
-  let accessToken = ''
+  let guestApp: INestApplication
+  let userApp: INestApplication
 
   beforeAll(async () => {
-    app = await setupTestModule(app, AtomModule)
-
-    const auth0Service = app.get(Auth0Service)
-    accessToken = await auth0Service.getAccessToken()
+    guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
+    userApp = await setupTestModule([AtomModule], { role: Role.USER })
   })
 
   afterAll(async () => {
-    await teardownTestModule(app)
+    await teardownTestModule(guestApp)
+    await teardownTestModule(userApp)
   })
 
-  it('should fail to create atom for guest', async () => {
-    const variables: CreateAtomMutationVariables = {
-      input: {
+  describe('Guest', () => {
+    it('should fail to create an atom', async () => {
+      const variables: CreateAtomMutationVariables = {
+        input: {
+          label: 'Button (Ant Design)',
+          type: AtomType.AntDesignButton,
+        },
+      }
+
+      await request(guestApp.getHttpServer())
+        .send({
+          query: print(CreateAtomGql),
+          variables,
+        })
+        .expect(200)
+        .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
+          expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
+        })
+    })
+  })
+
+  describe('User', () => {
+    it('should create an atom', async () => {
+      const result = await createAtom(userApp)
+
+      expect(result).toMatchObject({
         label: 'Button (Ant Design)',
         type: AtomType.AntDesignButton,
-      },
-    }
-
-    await request(app.getHttpServer())
-      .send({
-        query: print(CreateAtomGql),
-        variables,
       })
-      .expect(200)
-      .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
-        expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
-      })
-  })
 
-  it('should create an atom', async () => {
-    const result: any = await createAtom(accessToken, app)
-
-    expect(result).toMatchObject({
-      label: 'Button (Ant Design)',
-      type: AtomType.AntDesignButton,
+      // check if an propTypes interface is automatically created
+      expect(result.propTypes).toBeTruthy()
+      expect(result.propTypes.name).toBeTruthy()
+      expect(result.propTypes.id).toBeTruthy()
     })
-
-    // check if an propTypes interface is automatically created
-    expect(result.propTypes).toBeTruthy()
-    expect(result.propTypes.name).toBeTruthy()
-    expect(result.propTypes.id).toBeTruthy()
   })
 })

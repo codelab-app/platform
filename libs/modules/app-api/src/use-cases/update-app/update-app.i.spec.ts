@@ -1,47 +1,75 @@
-import { INestApplication } from '@nestjs/common';
-import { ApiResponse, request, setupTestModule, teardownTestModule } from '@codelab/backend';
-import { AppModule } from '../../app.module';
-import { Auth0Service } from '@codelab/modules/auth-api';
-import { createApp } from '../create-app/create-app.i.spec';
-import { print } from 'graphql';
-import { UpdateAppGql } from '@codelab/codegen/graphql';
-import { ApolloQueryResult } from '@apollo/client';
+import {
+  ApiResponse,
+  request,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend'
+import { Role } from '@codelab/backend/adapters'
+import {
+  __AppFragment,
+  UpdateAppGql,
+  UpdateAppMutationResult,
+  UpdateAppMutationVariables,
+} from '@codelab/codegen/graphql'
+import { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
+import { AppModule } from '../../app.module'
+import { createApp } from '../../helpers/create-app'
 
 describe('UpdateApp', () => {
-  let nestApplication: INestApplication
-  let accessToken = ''
-  let app: any
-  let updateVariables: any
+  let userApp: INestApplication
+  let guestApp: INestApplication
+  let app: __AppFragment
+  let updateVariables: UpdateAppMutationVariables
 
   beforeAll(async () => {
-    nestApplication = await setupTestModule(nestApplication, AppModule)
+    userApp = await setupTestModule([AppModule], { role: Role.USER })
+    guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
+    app = await createApp(userApp)
 
-    const auth0Service = nestApplication.get(Auth0Service)
-    accessToken = await auth0Service.getAccessToken()
-    app = await createApp(accessToken, nestApplication)
     updateVariables = {
       input: {
         id: app.id,
         data: {
-          name: 'Test App Updated'
-        }
-      }
+          name: 'Test App Updated',
+        },
+      },
     }
   })
 
   afterAll(async () => {
-    await teardownTestModule(app)
+    await teardownTestModule(userApp)
+    await teardownTestModule(guestApp)
   })
 
-  it('should not update app for a guest', async () => {
-    await request(nestApplication.getHttpServer())
-      .send({
-        query: print(UpdateAppGql),
-        variables: updateVariables,
-      })
-      .expect(200)
-      .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
-        expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
-      })
+  describe('Guest', () => {
+    it('should fail to update an app', async () => {
+      await request(guestApp.getHttpServer())
+        .send({
+          query: print(UpdateAppGql),
+          variables: updateVariables,
+        })
+        .expect(200)
+        .expect((res: ApiResponse<any>) => {
+          expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
+        })
+    })
+  })
+
+  describe('User', () => {
+    it('should update an app', async () => {
+      await request(userApp.getHttpServer())
+        .send({
+          query: print(UpdateAppGql),
+          variables: updateVariables,
+        })
+        .expect(200)
+        .expect((res: ApiResponse<UpdateAppMutationResult>) => {
+          expect(res.body.data?.app).toMatchObject({
+            id: app.id,
+            name: updateVariables.input.data.name,
+          })
+        })
+    })
   })
 })

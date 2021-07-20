@@ -1,63 +1,76 @@
-import { INestApplication } from '@nestjs/common';
-import { ApiResponse, request, setupTestModule, teardownTestModule } from '@codelab/backend';
-import { AppModule } from '@codelab/modules/app-api';
-import { Auth0Service } from '@codelab/modules/auth-api';
-import { createApp } from '../create-app/create-app.i.spec';
-import { print } from 'graphql';
-import { GetAppGql, GetAppQuery, GetAppQueryResult } from '@codelab/codegen/graphql';
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client'
+import {
+  ApiResponse,
+  request,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend'
+import { Role } from '@codelab/backend/adapters'
+import {
+  __AppFragment,
+  GetAppGql,
+  GetAppQuery,
+  GetAppQueryResult,
+} from '@codelab/codegen/graphql'
+import { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
+import { AppModule } from '../../app.module'
+import { createApp } from '../../helpers/create-app'
 
 describe('GetApp', () => {
-  let nestApplication: INestApplication
-  let accessToken = ''
-  let app: any
+  let userApp: INestApplication
+  let guestApp: INestApplication
+  let app: __AppFragment
 
   beforeAll(async () => {
-    nestApplication = await setupTestModule(nestApplication, AppModule)
-
-    const auth0Service = nestApplication.get(Auth0Service)
-    accessToken = await auth0Service.getAccessToken()
-    app = await createApp(accessToken, nestApplication)
+    userApp = await setupTestModule([AppModule], { role: Role.USER })
+    guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
+    app = await createApp(userApp)
   })
 
   afterAll(async () => {
-    await teardownTestModule(app)
+    await teardownTestModule(userApp)
+    await teardownTestModule(guestApp)
   })
 
-  it('should not get app for a guest', async () => {
-    await request(nestApplication.getHttpServer())
-      .send({
-        query: print(GetAppGql),
-        variables: {
-          input: {
-            appId: app.id,
+  describe('Guest', () => {
+    it('should not get an app', async () => {
+      await request(guestApp.getHttpServer())
+        .send({
+          query: print(GetAppGql),
+          variables: {
+            input: {
+              appId: app.id,
+            },
           },
-        },
-      })
-      .expect(200)
-      .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
-        expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
-      })
-  })
-  it('should get app for authorized user', async () => {
-    await request(nestApplication.getHttpServer())
-      .set('Authorization', `Bearer ${accessToken}`)
-      .send({
-        query: print(GetAppGql),
-        variables: {
-          input: {
-            appId: app.id,
-          },
-        },
-      })
-      .expect(200)
-      .expect((res: ApiResponse<GetAppQueryResult>) => {
-        const responseApp = (res.body.data as GetAppQuery)?.app
-        expect(responseApp).toMatchObject({
-          id: app.id,
-          name: 'Test App'
         })
-      })
+        .expect(200)
+        .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
+          expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
+        })
+    })
   })
 
+  describe('User', () => {
+    it('should get an app for', async () => {
+      await request(userApp.getHttpServer())
+        .send({
+          query: print(GetAppGql),
+          variables: {
+            input: {
+              appId: app.id,
+            },
+          },
+        })
+        .expect(200)
+        .expect((res: ApiResponse<GetAppQueryResult>) => {
+          const responseApp = (res.body.data as GetAppQuery)?.app
+
+          expect(responseApp).toMatchObject({
+            id: app.id,
+            name: 'Test App',
+          })
+        })
+    })
+  })
 })

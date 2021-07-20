@@ -5,6 +5,24 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Current File",
+      "program": "${workspaceFolder}/node_modules/.bin/nx",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "test",
+        "`echo $(node ./scripts/get-nx-project.js --fileDirname=${fileDirname})`",
+        "--testPathPattern=${fileBasename}",
+        "--run-in-band",
+        "--skip-nx-cache"
+      ],
+      "console": "integratedTerminal",
+      // "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
+    },
+    {
       "name": "gqlgen",
       "type": "node",
       "console": "integratedTerminal",

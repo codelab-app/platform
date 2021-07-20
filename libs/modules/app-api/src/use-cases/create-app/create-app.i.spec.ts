@@ -1,65 +1,59 @@
-import { ApiResponse, Auth0Service, request, setupTestModule, teardownTestModule } from '@codelab/backend';
-import { INestApplication } from '@nestjs/common';
-import { AppModule } from '../../app.module';
-import { print } from 'graphql';
-import { __AppFragment, CreateAppGql, CreateAppMutation, CreateAppMutationVariables } from '@codelab/codegen/graphql';
-import { ApolloQueryResult } from '@apollo/client';
-
-export const createApp = async (accessToken: string,
-                                 app: INestApplication,) => {
-  const variables: CreateAppMutationVariables = {
-    input: {
-      name: 'Test App'
-    }
-  }
-
-  const r = await request(app.getHttpServer())
-    .set('Authorization', `Bearer ${accessToken}`)
-    .send({
-      query: print(CreateAppGql),
-      variables,
-    })
-    .expect(200)
-    .then((res) => (res.body.data as CreateAppMutation)?.createApp)
-
-  return r
-}
+import { ApolloQueryResult } from '@apollo/client'
+import {
+  ApiResponse,
+  request,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend'
+import { Role } from '@codelab/backend/adapters'
+import {
+  CreateAppGql,
+  CreateAppMutationVariables,
+} from '@codelab/codegen/graphql'
+import { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
+import { AppModule } from '../../app.module'
+import { createApp } from '../../helpers/create-app'
 
 describe('CreateApp', () => {
-  let app: INestApplication
-  let accessToken = ''
+  let guestApp: INestApplication
+  let userApp: INestApplication
 
   beforeAll(async () => {
-    app = await setupTestModule(true, AppModule)
-
-    // const auth0Service = app.get(Auth0Service)
-    // accessToken = await auth0Service.getAccessToken()
+    guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
+    userApp = await setupTestModule([AppModule], { role: Role.USER })
   })
 
   afterAll(async () => {
-    await teardownTestModule(app)
+    await teardownTestModule(guestApp)
+    await teardownTestModule(userApp)
   })
 
-  it('should fail to create app for guest', async () => {
-    const variables: CreateAppMutationVariables = {
-      input: {
-        name: 'Test App'
+  describe('Guest', () => {
+    it('should fail to create an app', async () => {
+      const variables: CreateAppMutationVariables = {
+        input: {
+          name: 'Test App',
+        },
       }
-    }
 
-    await request(app.getHttpServer())
-      .send({
-        query: print(CreateAppGql),
-        variables
-      })
-      .expect(200)
-      .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
-        expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
-      })
+      await request(guestApp.getHttpServer())
+        .send({
+          query: print(CreateAppGql),
+          variables,
+        })
+        .expect(200)
+        .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
+          expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
+        })
+    })
   })
 
-  it('should create app', async () => {
-    const result: __AppFragment = await createApp(accessToken, app)
-    expect(result.name).toEqual('Test App')
+  describe('User', () => {
+    it('should create an app', async () => {
+      const result = await createApp(userApp)
+
+      expect(result).toMatchObject({ name: 'Test App' })
+    })
   })
 })

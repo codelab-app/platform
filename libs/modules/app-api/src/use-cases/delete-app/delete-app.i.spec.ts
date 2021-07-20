@@ -1,63 +1,72 @@
-import { INestApplication } from '@nestjs/common';
-import { ApiResponse, request, setupTestModule, teardownTestModule } from '@codelab/backend';
-import { AppModule } from '@codelab/modules/app-api';
-import { Auth0Service } from '@codelab/modules/auth-api';
-import { createApp } from '../create-app/create-app.i.spec';
-import { print } from 'graphql';
-import { DeleteAppGql, DeleteAppMutation, DeleteAppMutationResult } from '@codelab/codegen/graphql';
-import { ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client'
+import {
+  ApiResponse,
+  request,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend'
+import { Role } from '@codelab/backend/adapters'
+import {
+  __AppFragment,
+  DeleteAppGql,
+  DeleteAppMutationResult,
+} from '@codelab/codegen/graphql'
+import { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
+import { AppModule } from '../../app.module'
+import { createApp } from '../../helpers/create-app'
 
 describe('DeleteApp', () => {
-  let nestApplication: INestApplication
-  let accessToken = ''
-  let app: any
+  let userApp: INestApplication
+  let guestApp: INestApplication
+  let app: __AppFragment
 
   beforeAll(async () => {
-    nestApplication = await setupTestModule(nestApplication, AppModule)
-
-    const auth0Service = nestApplication.get(Auth0Service)
-    accessToken = await auth0Service.getAccessToken()
-    app = await createApp(accessToken, nestApplication)
+    userApp = await setupTestModule([AppModule], { role: Role.USER })
+    guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
+    app = await createApp(userApp)
   })
 
   afterAll(async () => {
-    await teardownTestModule(nestApplication)
+    await teardownTestModule(userApp)
+    await teardownTestModule(guestApp)
   })
 
-  it('should fail to delete app for guest', async () => {
-    await request(nestApplication.getHttpServer())
-      .send({
-        query: print(DeleteAppGql),
-        variables: {
-          input: {
-            appId: app.id,
+  describe('Guest', () => {
+    it('should fail to delete an app', async () => {
+      await request(guestApp.getHttpServer())
+        .send({
+          query: print(DeleteAppGql),
+          variables: {
+            input: {
+              appId: app.id,
+            },
           },
-        },
-      })
-      .expect(200)
-      .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
-        expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
-      })
-  })
-
-  it('should delete app for authorized user', async () => {
-    await request(nestApplication.getHttpServer())
-      .set('Authorization', `Bearer ${accessToken}`)
-      .send({
-        query: print(DeleteAppGql),
-        variables: {
-          input: {
-            appId: app.id,
-          },
-        },
-      })
-      .expect(200)
-      .expect((res: ApiResponse<DeleteAppMutationResult>) => {
-        const deleteAppResult = (res.body.data as DeleteAppMutation)?.deleteApp
-        expect(deleteAppResult).toMatchObject({
-          id: app.id
         })
-      })
+        .expect(200)
+        .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
+          expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
+        })
     })
+  })
 
+  describe('User', () => {
+    it('should delete an app', async () => {
+      await request(userApp.getHttpServer())
+        .send({
+          query: print(DeleteAppGql),
+          variables: {
+            input: {
+              appId: app.id,
+            },
+          },
+        })
+        .expect(200)
+        .expect((res: ApiResponse<DeleteAppMutationResult>) => {
+          expect(res.body.data?.deleteApp).toMatchObject({
+            id: app.id,
+          })
+        })
+    })
+  })
 })

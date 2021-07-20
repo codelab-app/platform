@@ -1,70 +1,82 @@
-import { INestApplication } from '@nestjs/common';
+import { ApolloQueryResult } from '@apollo/client'
+import {
+  ApiResponse,
+  request,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend'
+import { Role } from '@codelab/backend/adapters'
 import {
   __AppFragment,
-  GetPageQueryResult,
   GetPageGql,
+  GetPageQuery,
+  GetPageQueryResult,
   PageBaseFragment,
-  GetPageQuery
-} from '@codelab/codegen/graphql';
-import { ApiResponse, request, setupTestModule, teardownTestModule } from '@codelab/backend';
-import { PageModule } from '@codelab/modules/page-api';
-import { Auth0Service } from '@codelab/modules/auth-api';
-import { createPage } from '../create-page/create-page.i.spec';
-import { print } from 'graphql';
-import { ApolloQueryResult } from '@apollo/client';
+} from '@codelab/codegen/graphql'
+import { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
+import { createPage } from '../../helpers/create-page'
+import { PageModule } from '../../page.module'
 
 describe('GetPage', () => {
-  let nestApplication: INestApplication
-  let accessToken = ''
-  let page: { app: __AppFragment, page: PageBaseFragment }
+  let guestApp: INestApplication
+  let userApp: INestApplication
+  let page: { app: __AppFragment; page: PageBaseFragment }
 
   beforeAll(async () => {
-    nestApplication = await setupTestModule(nestApplication, PageModule)
-
-    const auth0Service = nestApplication.get(Auth0Service)
-    accessToken = await auth0Service.getAccessToken()
-    page = await createPage(accessToken, nestApplication)
+    guestApp = await setupTestModule([PageModule], {
+      role: Role.GUEST,
+    })
+    userApp = await setupTestModule([PageModule], {
+      role: Role.USER,
+    })
+    page = await createPage(userApp)
   })
 
   afterAll(async () => {
-    await teardownTestModule(nestApplication)
+    await teardownTestModule(guestApp)
+    await teardownTestModule(userApp)
   })
 
-  it('should not get page for a guest', async () => {
-    await request(nestApplication.getHttpServer())
-      .send({
-        query: print(GetPageGql),
-        variables: {
-          input: {
-            pageId: page.page.id,
+  describe('Guest', () => {
+    it('should not get a page', async () => {
+      await request(guestApp.getHttpServer())
+        .send({
+          query: print(GetPageGql),
+          variables: {
+            input: {
+              pageId: page.page.id,
+            },
           },
-        },
-      })
-      .expect(200)
-      .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
-        expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
-      })
-  })
-  it('should get page for authorized user', async () => {
-    await request(nestApplication.getHttpServer())
-      .set('Authorization', `Bearer ${accessToken}`)
-      .send({
-        query: print(GetPageGql),
-        variables: {
-          input: {
-            pageId: page.page.id,
-          },
-        },
-      })
-      .expect(200)
-      .expect((res: ApiResponse<GetPageQueryResult>) => {
-        const responsePage = (res.body.data as GetPageQuery)?.page
-        expect(responsePage).toMatchObject({
-          id: page.page.id,
-          name: page.page.name,
-          app: page.app
         })
-      })
+        .expect(200)
+        .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
+          expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
+        })
+    })
   })
 
+  describe('User', () => {
+    it('should get a page', async () => {
+      await request(userApp.getHttpServer())
+        .send({
+          query: print(GetPageGql),
+          variables: {
+            input: {
+              pageId: page.page.id,
+            },
+          },
+        })
+        .expect(200)
+        .expect((res: ApiResponse<GetPageQueryResult>) => {
+          const responsePage = (res.body.data as GetPageQuery)?.page
+
+          expect(responsePage).toMatchObject({
+            id: page.page.id,
+            name: page.page.name,
+            app: page.app,
+          })
+        })
+    })
+  })
 })

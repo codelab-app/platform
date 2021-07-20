@@ -25,7 +25,7 @@ export const dgraphConfig = registerAs<() => DgraphConfig>(
     schemaFile: path.resolve(
       process.cwd(),
       // '/home/artonio/DEV/upwork/codelab.ai/',
-      'dgraph/schema.graphql'
+      'dgraph/schema.graphql',
     ),
     // schemaFile: path.resolve('/home/artonio/DEV/upwork/codelab.ai/dgraph/schema.graphql'),
     // This is the generated schema file with Nest.js GrapphQL server enums appended, this is the acutal file used to update Dgraph

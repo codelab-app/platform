@@ -1,7 +1,6 @@
-import { JwtPayload } from '@codelab/backend/adapters'
 import { createParamDecorator, ExecutionContext } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
-
+import { JwtPayload } from './interfaces/jwt.interface'
 
 /**
  * Can only be called if the GqlAuthGuard is applied

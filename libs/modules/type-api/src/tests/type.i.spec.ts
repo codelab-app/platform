@@ -1,11 +1,12 @@
+import { ApolloQueryResult } from '@apollo/client'
 import {
-  Auth0Service,
+  ApiResponse,
   getDgraphProviderFromTestModule,
-  graphqlRequest,
-  GraphqlRequestOptions,
+  request,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend'
+import { Role } from '@codelab/backend/adapters'
 import {
   __ArrayTypeFragment,
   __EnumTypeFragment,
@@ -19,35 +20,27 @@ import {
   TestCreateField,
   TestCreateFieldGql,
   TestCreateFieldMutation,
-  TestCreateFieldMutationVariables,
   TestCreateInterfaceGql,
   TestCreateInterfaceMutation,
-  TestCreateInterfaceMutationVariables,
   TestDeleteFieldGql,
   TestDeleteFieldMutation,
-  TestDeleteFieldMutationVariables,
   TestGetFieldGql,
   TestGetFieldQuery,
-  TestGetFieldQueryVariables,
   TestGetInterfaceGql,
   TestGetInterfaceQuery,
-  TestGetInterfaceQueryVariables,
   TestGetInterfacesGql,
   TestGetInterfacesQuery,
-  TestGetInterfacesQueryVariables,
   TestGetTypeGql,
   TestGetTypeQuery,
-  TestGetTypeQueryVariables,
   TestUpdateFieldGql,
   TestUpdateFieldMutation,
-  TestUpdateFieldMutationVariables,
   TestUpdateInterfaceGql,
   TestUpdateInterfaceMutation,
-  TestUpdateInterfaceMutationVariables,
   UpdateFieldInput,
   UpdateInterfaceInput,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
+import { print } from 'graphql'
 import { PrimitiveKind } from '../models'
 import { TypeModule } from '../type.module'
 import {
@@ -57,18 +50,21 @@ import {
 } from '../use-cases'
 
 describe('type', () => {
-  let app: INestApplication
-  let accessToken = ''
+  let guestApp: INestApplication
+  let userApp: INestApplication
 
   beforeAll(async () => {
-    app = await setupTestModule(app, TypeModule)
-
-    const auth0Service = app.get(Auth0Service)
-    accessToken = await auth0Service.getAccessToken()
+    guestApp = await setupTestModule([TypeModule], {
+      role: Role.GUEST,
+    })
+    userApp = await setupTestModule([TypeModule], {
+      role: Role.USER,
+    })
   })
 
   afterAll(async () => {
-    await teardownTestModule(app)
+    await teardownTestModule(guestApp)
+    await teardownTestModule(userApp)
   })
 
   describe('Interface', () => {
@@ -173,7 +169,7 @@ describe('type', () => {
       })
 
       it('should get interfaces', async () => {
-        await getDgraphProviderFromTestModule(app).resetDb()
+        await getDgraphProviderFromTestModule(userApp).resetDb()
 
         await createInterface()
         await createInterface()
@@ -379,12 +375,21 @@ describe('type', () => {
 
         await createField(input)
 
-        const response = await graphqlRequest<TestCreateFieldMutationVariables>(
-          app,
-          TestCreateField,
-          { input },
-          { accessToken, expectNoErrors: false },
-        )
+        const response = await request(userApp.getHttpServer())
+          .send({
+            query: print(TestCreateField),
+            variables: {
+              input,
+            },
+          })
+          .expect(200)
+          .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
+            console.log(res)
+
+            expect(res?.body?.errors).toMatchObject([
+              { message: 'Field with key duplicatedFieldKey already exists' },
+            ])
+          })
 
         expect(response.body.errors[0].message).toContain(input.key)
       })
@@ -498,7 +503,7 @@ describe('type', () => {
           description: 'hello',
         })
 
-        const updateInput = {
+        const updateInput: UpdateFieldInput = {
           updateData: {
             name: 'new name',
             key: duplicateFieldKey,
@@ -516,14 +521,17 @@ describe('type', () => {
           fieldId: field.id,
         }
 
-        const response = await graphqlRequest<TestUpdateFieldMutationVariables>(
-          app,
-          TestUpdateFieldGql,
-          { input: updateInput },
-          { accessToken, expectNoErrors: false },
-        )
-
-        expect(response.body.errors[0].message).toContain(duplicateFieldKey)
+        await request(userApp.getHttpServer())
+          .send({
+            query: print(TestUpdateFieldGql),
+            variables: {
+              input: updateInput,
+            },
+          })
+          .expect(200)
+          .expect((res) => {
+            expect(res.body.errors[0].message).toContain(duplicateFieldKey)
+          })
       })
     })
 
@@ -561,23 +569,23 @@ describe('type', () => {
       name,
     }
 
-    const response = await graphqlRequest<TestCreateInterfaceMutationVariables>(
-      app,
-      TestCreateInterfaceGql,
-      { input },
-      { accessToken },
-    )
+    const response = await request(userApp.getHttpServer()).send({
+      query: print(TestCreateInterfaceGql),
+      variables: {
+        input,
+      },
+    })
 
     return (response.body.data as TestCreateInterfaceMutation).createInterface
   }
 
   const updateInterface = async (input: UpdateInterfaceInput) => {
-    const response = await graphqlRequest<TestUpdateInterfaceMutationVariables>(
-      app,
-      TestUpdateInterfaceGql,
-      { input },
-      { accessToken },
-    )
+    const response = await request(userApp.getHttpServer()).send({
+      query: print(TestUpdateInterfaceGql),
+      variables: {
+        input,
+      },
+    })
 
     return (response.body.data as TestUpdateInterfaceMutation).updateInterface
   }
@@ -587,81 +595,77 @@ describe('type', () => {
       interfaceId,
     }
 
-    const response = await graphqlRequest<TestGetInterfaceQueryVariables>(
-      app,
-      TestGetInterfaceGql,
-      { input },
-      { accessToken },
-    )
+    const response = await request(userApp.getHttpServer()).send({
+      query: print(TestGetInterfaceGql),
+      variables: {
+        input,
+      },
+    })
 
     return (response.body.data as TestGetInterfaceQuery).getInterface
   }
 
   const getInterfaces = async () => {
-    const response = await graphqlRequest<TestGetInterfacesQueryVariables>(
-      app,
-      TestGetInterfacesGql,
-      {},
-      { accessToken },
-    )
+    const response = await request(userApp.getHttpServer()).send({
+      query: print(TestGetInterfacesGql),
+    })
 
     return (response.body.data as TestGetInterfacesQuery).getInterfaces
   }
 
-  const createField = async (
-    input: CreateFieldInput,
-    options?: GraphqlRequestOptions,
-  ) => {
-    const response = await graphqlRequest<TestCreateFieldMutationVariables>(
-      app,
-      TestCreateFieldGql,
-      { input },
-      { accessToken, ...options },
-    )
+  const createField = async (input: CreateFieldInput) => {
+    const response = await request(userApp.getHttpServer()).send({
+      query: print(TestCreateFieldGql),
+      variables: {
+        input,
+      },
+    })
 
     return (response.body.data as TestCreateFieldMutation).createField
   }
 
   const updateField = async (input: UpdateFieldInput) => {
-    const response = await graphqlRequest<TestUpdateFieldMutationVariables>(
-      app,
-      TestUpdateFieldGql,
-      { input },
-      { accessToken },
-    )
+    const response = await request(userApp.getHttpServer()).send({
+      query: print(TestUpdateFieldGql),
+      variables: {
+        input,
+      },
+    })
 
     return (response.body.data as TestUpdateFieldMutation).updateField
   }
 
   const deleteField = async (input: DeleteFieldInput) => {
-    const response = await graphqlRequest<TestDeleteFieldMutationVariables>(
-      app,
-      TestDeleteFieldGql,
-      { input },
-      { accessToken },
-    )
+    const response = await request(userApp.getHttpServer()).send({
+      query: print(TestDeleteFieldGql),
+      variables: {
+        input,
+      },
+    })
 
     return (response.body.data as TestDeleteFieldMutation).deleteField
   }
 
   const getField = async (input: GetFieldInput) => {
-    const response = await graphqlRequest<TestGetFieldQueryVariables>(
-      app,
-      TestGetFieldGql,
-      { input },
-      { accessToken },
-    )
+    const response = await request(userApp.getHttpServer()).send({
+      query: print(TestGetFieldGql),
+      variables: {
+        input,
+      },
+    })
 
     return (response.body.data as TestGetFieldQuery).getField
   }
 
   const getType = async (typeId: string) => {
-    const response = await graphqlRequest<TestGetTypeQueryVariables>(
-      app,
-      TestGetTypeGql,
-      { input: { typeId } },
-      { accessToken },
-    )
+    const response = await request(userApp.getHttpServer()).send({
+      query: print(TestGetTypeGql),
+      variables: {
+        input: {
+          typeId,
+        },
+      },
+    })
 
     return (response.body.data as TestGetTypeQuery).getType
   }

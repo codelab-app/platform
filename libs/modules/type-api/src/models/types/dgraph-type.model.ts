@@ -24,7 +24,7 @@ export const baseDgraphTypeMetadata = new DgraphModelMetadata(
   DgraphTypeFields,
 )
 
-export const baseDgraphTypeSchema = <
+export const baseDgraphTypeSchema: any = <
   TType extends DgraphTypeName = DgraphTypeName,
 >(
   modelName: TType | undefined,

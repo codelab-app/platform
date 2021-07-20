@@ -1,4 +1,4 @@
-import { DynamicModule, Global, Logger, Module } from '@nestjs/common'
+import { DynamicModule, Global, Module } from '@nestjs/common'
 import { ConfigFactory } from '@nestjs/config'
 import { DgraphConfig } from './config/dgraph.config'
 import { DgraphTokens } from './config/dgraph.tokens'
@@ -8,13 +8,13 @@ import { dgraphClientProvider } from './dgraph.provider'
 @Module({})
 export class DgraphModule {
   static register(config: ConfigFactory<DgraphConfig>): DynamicModule {
-    Logger.debug(
-      `${DgraphTokens.DgraphConfig.toString()} \n${JSON.stringify(
-        config(),
-        null,
-        '  ',
-      )}`,
-    )
+    // Logger.verbose(
+    //   `${DgraphTokens.DgraphConfig.toString()} \n${JSON.stringify(
+    //     config(),
+    //     null,
+    //     '  ',
+    //   )}`,
+    // )
 
     return {
       module: DgraphModule,

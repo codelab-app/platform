@@ -6,64 +6,68 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend'
+import { Role } from '@codelab/backend/adapters'
 import {
+  __AtomFragment,
   DeleteAtomGql,
   DeleteAtomMutationResult,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import { AtomModule } from '../../atom.module'
-import { createAtom } from '../create-atom/create-atom.i.spec'
+import { createAtom } from '../../helpers/create-atom'
 
 describe('Delete Atom', () => {
-  let app: INestApplication
-  let accessToken = ''
-  let atom: any
+  let guestApp: INestApplication
+  let userApp: INestApplication
+  let atom: __AtomFragment
 
   beforeAll(async () => {
-    app = await setupTestModule(app, AtomModule)
-
-    const auth0Service = app.get(Auth0Service)
-    accessToken = await auth0Service.getAccessToken()
-    atom = await createAtom(accessToken, app)
+    guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
+    userApp = await setupTestModule([AtomModule], { role: Role.USER })
+    atom = await createAtom(userApp)
   })
 
   afterAll(async () => {
-    await teardownTestModule(app)
+    await teardownTestModule(guestApp)
+    await teardownTestModule(userApp)
   })
 
-  it('should fail to delete atom for guest', async () => {
-    await request(app.getHttpServer())
-      .send({
-        query: print(DeleteAtomGql),
-        variables: {
-          input: {
-            atomId: atom.id,
+  describe('Guest', () => {
+    it('should fail to delete atom ', async () => {
+      await request(guestApp.getHttpServer())
+        .send({
+          query: print(DeleteAtomGql),
+          variables: {
+            input: {
+              atomId: atom.id,
+            },
           },
-        },
-      })
-      .expect(200)
-      .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
-        expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
-      })
-  })
-
-  it('should delete an atom for an authorized user', async () => {
-    await request(app.getHttpServer())
-      .set('Authorization', `Bearer ${accessToken}`)
-      .send({
-        query: print(DeleteAtomGql),
-        variables: {
-          input: {
-            atomId: atom.id,
-          },
-        },
-      })
-      .expect(200)
-      .expect((res: ApiResponse<DeleteAtomMutationResult>) => {
-        expect(res.body.data?.deleteAtom).toMatchObject({
-          affected: 2,
         })
-      })
+        .expect(200)
+        .expect((res: ApiResponse<ApolloQueryResult<any>>) => {
+          expect(res?.body?.errors).toMatchObject([{ message: 'Unauthorized' }])
+        })
+    })
+  })
+
+  describe('User', () => {
+    it('should delete an atom for an authorized user', async () => {
+      await request(userApp.getHttpServer())
+        .send({
+          query: print(DeleteAtomGql),
+          variables: {
+            input: {
+              atomId: atom.id,
+            },
+          },
+        })
+        .expect(200)
+        .expect((res: ApiResponse<DeleteAtomMutationResult>) => {
+          expect(res.body.data?.deleteAtom).toMatchObject({
+            affected: 2,
+          })
+        })
+    })
   })
 })

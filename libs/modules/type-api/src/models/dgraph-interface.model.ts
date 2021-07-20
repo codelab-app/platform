@@ -10,7 +10,7 @@ import {
   baseDgraphTypeMetadata,
   baseDgraphTypeSchema,
   DgraphType,
-} from './types/dgraph-type.model' // do not shorten
+} from './types/dgraph-type.model'
 
 export enum InterfaceDgraphFields {
   Fields = 'Interface.fields',

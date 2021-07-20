@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { AuthModule } from '../adapters'
+import { AuthModule, LoggerModule } from '../adapters'
 import { apolloClientConfig, ApolloClientModule } from './apollo-client'
 import { auth0Config } from './auth0'
 import { dgraphConfig, DgraphModule } from './dgraph'
@@ -10,6 +10,7 @@ import { AwsModule } from './persistence/aws'
 @Module({
   imports: [
     AwsModule,
+    LoggerModule,
     ApolloClientModule.register(apolloClientConfig),
     GraphqlSchemaModule.register(dgraphConfig, graphqlSchemaConfig),
     GraphqlServerModule.register(graphqlServerConfig),
@@ -17,9 +18,4 @@ import { AwsModule } from './persistence/aws'
     DgraphModule.register(dgraphConfig),
   ],
 })
-export class InfrastructureModule {
-  // constructor(private seedDbService: SeedDbService) {}
-  // async onModuleInit() {
-  //   await this.seedDbService.seedDB()
-  // }
-}
+export class InfrastructureModule {}
