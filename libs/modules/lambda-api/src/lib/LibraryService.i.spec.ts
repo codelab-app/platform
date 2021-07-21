@@ -1,7 +1,7 @@
 import { InfrastructureModule } from '@codelab/backend'
 import { Test } from '@nestjs/testing'
+import { LambdaService } from '../lambda.service'
 import { ILambda } from './interfaces/IEventTrigger'
-import { LambdaService } from './LambdaService'
 
 describe('LibraryService', () => {
   let service: LambdaService

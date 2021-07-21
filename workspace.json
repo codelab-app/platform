@@ -750,6 +750,11 @@
                 "input": "./libs/tools/plugins/codelab",
                 "glob": "executors.json",
                 "output": "."
+              },
+              {
+                "input": "./libs/tools/plugins/codelab",
+                "glob": "migrations.json",
+                "output": "."
               }
             ]
           }

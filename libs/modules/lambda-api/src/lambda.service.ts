@@ -1,7 +1,7 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { AwsLambdaService, AwsS3Service, AwsTokens } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
-import { ILambda } from './interfaces/IEventTrigger'
+import { ILambda } from './lib/interfaces/IEventTrigger'
 
 @Injectable()
 export class LambdaService {

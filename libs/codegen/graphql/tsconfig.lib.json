@@ -5,7 +5,10 @@
     "outDir": "../../../dist/out-tsc",
     "declaration": true,
     "strict": true,
-    "types": ["node"]
+    "types": ["node"],
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]

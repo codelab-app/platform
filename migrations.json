@@ -23,6 +23,14 @@
       "factory": "./src/migrations/update-12-5-0/install-addon-essentials",
       "package": "@nrwl/storybook",
       "name": "install-addon-essentials"
+    },
+    {
+      "version": "0.0.1",
+      "cli": "nx",
+      "description": "Custom tsconfig.*.json parser to set correct configs",
+      "factory": "./src/migrations/tsconfig-lib/tsconfig-lib",
+      "package": "@codelab/schematics",
+      "name": "tsconfig-lib"
     }
   ]
 }

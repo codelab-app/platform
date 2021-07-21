@@ -1,0 +1,5 @@
+mutation CreateLambda($input: CreateLambdaInput!) {
+  createLambda(input: $input) {
+    ...__Lambda
+  }
+}

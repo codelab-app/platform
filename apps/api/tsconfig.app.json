@@ -6,7 +6,11 @@
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "target": "es2015"
+    "target": "es2015",
+    "esModuleInterop": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]

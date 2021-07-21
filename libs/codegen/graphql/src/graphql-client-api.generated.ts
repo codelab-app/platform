@@ -280,6 +280,10 @@ export type CreateInterfaceInput = {
   name: Scalars['String']
 }
 
+export type CreateLambdaInput = {
+  name: Scalars['String']
+}
+
 export type CreatePageInput = {
   name: Scalars['String']
   appId: Scalars['String']
@@ -486,6 +490,11 @@ export type InterfaceValueInput = {
   props: Array<UpsertPropsInput>
 }
 
+export type Lambda = {
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
 export type MoveData = {
   order: Scalars['Int']
   parentElementId: Scalars['String']
@@ -500,6 +509,7 @@ export type Mutation = {
   createApp: App
   updateApp: App
   deleteApp: App
+  createLambda: Lambda
   updateUser: User
   deleteUser: Scalars['Boolean']
   createPage: Page
@@ -537,6 +547,10 @@ export type MutationUpdateAppArgs = {
 
 export type MutationDeleteAppArgs = {
   input: DeleteAppInput
+}
+
+export type MutationCreateLambdaArgs = {
+  input: CreateLambdaInput
 }
 
 export type MutationUpdateUserArgs = {
@@ -1053,6 +1067,14 @@ export type UpdateElementMutationVariables = Exact<{
 
 export type UpdateElementMutation = { updateElement: ElementFragment }
 
+export type __LambdaFragment = Pick<Lambda, 'id' | 'name'>
+
+export type CreateLambdaMutationVariables = Exact<{
+  input: CreateLambdaInput
+}>
+
+export type CreateLambdaMutation = { createLambda: __LambdaFragment }
+
 export type PageBaseFragment = Pick<Page, 'id' | 'name'> & {
   app: Pick<App, 'id' | 'name' | 'ownerId'>
 }
@@ -1540,6 +1562,12 @@ export type GetUsersQuery = { users: Array<__UserFragment> }
 
 export const __AppFragmentDoc = gql`
   fragment __App on App {
+    id
+    name
+  }
+`
+export const __LambdaFragmentDoc = gql`
+  fragment __Lambda on Lambda {
     id
     name
   }
@@ -2730,6 +2758,57 @@ export type UpdateElementMutationResult =
 export type UpdateElementMutationOptions = Apollo.BaseMutationOptions<
   UpdateElementMutation,
   UpdateElementMutationVariables
+>
+export const CreateLambdaGql = gql`
+  mutation CreateLambda($input: CreateLambdaInput!) {
+    createLambda(input: $input) {
+      ...__Lambda
+    }
+  }
+  ${__LambdaFragmentDoc}
+`
+export type CreateLambdaMutationFn = Apollo.MutationFunction<
+  CreateLambdaMutation,
+  CreateLambdaMutationVariables
+>
+
+/**
+ * __useCreateLambdaMutation__
+ *
+ * To run a mutation, you first call `useCreateLambdaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLambdaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLambdaMutation, { data, loading, error }] = useCreateLambdaMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateLambdaMutation,
+    CreateLambdaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateLambdaMutation,
+    CreateLambdaMutationVariables
+  >(CreateLambdaGql, options)
+}
+export type CreateLambdaMutationHookResult = ReturnType<
+  typeof useCreateLambdaMutation
+>
+export type CreateLambdaMutationResult =
+  Apollo.MutationResult<CreateLambdaMutation>
+export type CreateLambdaMutationOptions = Apollo.BaseMutationOptions<
+  CreateLambdaMutation,
+  CreateLambdaMutationVariables
 >
 export const CreatePageGql = gql`
   mutation CreatePage($input: CreatePageInput!) {
@@ -4295,6 +4374,12 @@ export const __App = gql`
     name
   }
 `
+export const __Lambda = gql`
+  fragment __Lambda on Lambda {
+    id
+    name
+  }
+`
 export const PageBase = gql`
   fragment PageBase on Page {
     id
@@ -4767,6 +4852,14 @@ export const UpdateElement = gql`
     }
   }
   ${Element}
+`
+export const CreateLambda = gql`
+  mutation CreateLambda($input: CreateLambdaInput!) {
+    createLambda(input: $input) {
+      ...__Lambda
+    }
+  }
+  ${__Lambda}
 `
 export const CreatePage = gql`
   mutation CreatePage($input: CreatePageInput!) {
