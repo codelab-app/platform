@@ -9,7 +9,6 @@ import { Role } from '@codelab/backend/adapters'
 import {
   __AppFragment,
   DeletePageGql,
-  DeletePageMutation,
   DeletePageMutationResult,
   DeletePageMutationVariables,
   PageBaseFragment,
@@ -69,10 +68,7 @@ describe('DeletePage', () => {
         })
         .expect(200)
         .expect((res: ApiResponse<DeletePageMutationResult>) => {
-          console.log(res)
-
-          const deletePageResult = (res.body.data as DeletePageMutation)
-            ?.deletePage
+          const deletePageResult = res.body.data?.deletePage
 
           expect(deletePageResult).toMatchObject({
             affected: 1,

@@ -46,15 +46,13 @@ build-ci:
 		--parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192
-		# --skip-nx-cache
 
 build-prod:
 	npx nx run-many \
 		--target=build \
 		--projects=web,api-gateway,api-services-props \
 		--with-deps \
-		--parallel \
-		--skip-nx-cache
+		--parallel
 
 build-storybook:
 	npx nx build-storybook web
@@ -82,7 +80,7 @@ start-ci:
 			"node dist/apps/api/main.js"
 
 e2e-dev:
-	npx env-cmd -f .env.test yarn gqlgen e2e --ci
+	npx env-cmd -f .env.test yarn gqlgen e2e --testPort
 
 #
 # INTEGRATION TESTS
@@ -112,7 +110,6 @@ integration-ci:
 	--verbose \
 	--maxWorkers=8 \
 	--memoryLimit=8192
-# --skip-nx-cache
 
 #
 # TEST (ALL)

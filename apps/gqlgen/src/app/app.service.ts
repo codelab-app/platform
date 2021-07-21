@@ -23,7 +23,7 @@ import { ServerService } from '../server/server.service'
 
 export interface E2eOptions {
   watch: boolean
-  ci: boolean
+  testPort: boolean
 }
 
 export interface CodegenOptions {
@@ -60,7 +60,7 @@ export class AppService {
         command: 'codegen',
         options: [
           {
-            flags: '-e, --e2e',
+            flags: '--testPort',
             required: false,
             defaultValue: false,
             description:
@@ -83,7 +83,7 @@ export class AppService {
         command: 'e2e',
         options: [
           {
-            flags: '-c, --ci',
+            flags: '--testPort',
             required: false,
             defaultValue: false,
           },
@@ -114,8 +114,8 @@ export class AppService {
     )
   }
 
-  public async e2e({ watch, ci }: E2eOptions) {
-    const environment = ci ? Environment.Test : Environment.Dev
+  public async e2e({ watch, testPort }: E2eOptions) {
+    const environment = testPort ? Environment.Test : Environment.Dev
 
     /**
      * (1) Start Api & Web server
@@ -135,7 +135,7 @@ export class AppService {
       /**
        * (3) Run Cypress
        */
-      const cmd = 'yarn nx-env affected --target=e2e --configuration=ci'
+      const cmd = 'yarn nx-env affected --target=e2e --configuration=local'
 
       const code = shell.exec(cmd, {
         cwd: process.cwd(),
