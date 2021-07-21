@@ -532,28 +532,28 @@ workflows:
 
   app-staging:
     jobs:
-      # - install-and-build-workspace:
-      #     <<: *filters-staging-merge
-      #     e: docker-node
-      #     context: CI
-      # - build-docker-staging:
-      #     <<: *filters-staging-merge
-      #     e: docker-node
-      #     context: CI
-      #     requires:
-      #       - install-and-build-workspace
-      # - deploy-to-staging:
-      #     <<: *filters-staging-merge
-      #     e: docker-python
-      #     context: CI
-      #     requires:
-      #       - build-docker-staging
+      - install-and-build-workspace:
+          <<: *filters-staging-merge
+          e: docker-node
+          context: CI
+      - build-docker-staging:
+          <<: *filters-staging-merge
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - deploy-to-staging:
+          <<: *filters-staging-merge
+          e: docker-python
+          context: CI
+          requires:
+            - build-docker-staging
       - notify-success:
           <<: *filters-staging-merge
           e: docker-node
           context: CI
-          # requires:
-          #   - deploy-to-staging
+          requires:
+            - deploy-to-staging
 
   app-prod:
     jobs:

@@ -5,3 +5,4 @@ dist
 yarn-error.log
 yarn.lock
 **/*.tf
+schema.api.graphql
