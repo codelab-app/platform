@@ -1,14 +1,16 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { z } from 'zod'
 
+type Auth0UserId = string
+
 @ObjectType()
 export class App {
   @Field(() => ID)
   declare id: string
 
-  /** The id of the user that owns this App, taken from auth0 */
+  /** Since we don't have Dgraph user model, we store the auth0 user id instead */
   @Field()
-  declare ownerId: string
+  declare ownerId: Auth0UserId
 
   @Field()
   declare name: string

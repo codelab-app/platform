@@ -345,6 +345,11 @@ type ElementAggregate {
   links: [ElementLink!]!
 }
 
+type Lambda {
+  id: ID!
+  name: String!
+}
+
 type Page {
   id: ID!
   name: String!
@@ -377,6 +382,7 @@ type User {
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
+  getLambda: Lambda!
   getMe: User!
   getUsers(input: GetUsersInput): [User!]!
   getPages(input: GetPagesInput!): [Page!]!
@@ -490,6 +496,7 @@ type Mutation {
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App!
   deleteApp(input: DeleteAppInput!): App!
+  createLambda(input: CreateLambdaInput!): Lambda!
   updateUser(input: UpdateUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
   createPage(input: CreatePageInput!): Page!
@@ -533,6 +540,10 @@ input UpdateAppData {
 
 input DeleteAppInput {
   appId: String!
+}
+
+input CreateLambdaInput {
+  name: String!
 }
 
 input UpdateUserInput {

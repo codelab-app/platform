@@ -3,7 +3,10 @@
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
     "strict": true,
-    "types": ["node"]
+    "types": ["node"],
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "files": [
     "../../../node_modules/@nrwl/react/typings/cssmodule.d.ts",

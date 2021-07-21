@@ -1,0 +1,10 @@
+{
+  "generators": {
+    "tsconfig-lib": {
+      "version": "0.0.1",
+      "description": "tsconfig-lib",
+      "cli": "nx",
+      "implementation": "./src/migrations/tsconfig-lib/tsconfig-lib"
+    }
+  }
+}

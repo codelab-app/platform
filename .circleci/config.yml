@@ -56,6 +56,8 @@ executor-config: &executor-config
   environment:
     DOCKER_TAG_VERSION: 0.02
     # CircleCI
+    GITHUB_ANGEL: angelwong0963
+    SLACK_ANGEL: <@U026KV9DEJ2>
     GITHUB_LUAN: nutshell113
     SLACK_LUAN: <@U01EH265D5E>
     GITHUB_ANTON_M: antonmihaylov
@@ -146,6 +148,8 @@ commands:
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_ALEX}' >> $BASH_ENV
             elif [ $CIRCLE_USERNAME == $GITHUB_OLEK ]; then
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_OLEK}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_ANGEL ]; then
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_ANGEL}' >> $BASH_ENV
             else
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_WEBBER}' >> $BASH_ENV
             fi
@@ -517,7 +521,7 @@ workflows:
           # wait-on: '-c .circleci/wait-on-config.json'
           # start: make start-ci
           # start: npx nx run-many --target=serve --projects=web,api --parallel
-          command: yarn gqlgen e2e --ci
+          command: yarn gqlgen:ci e2e --ci
           # command: npx nx run web-e2e:e2e:ci
           # command: npx nx serve gqlgen --args=e2e
       - notify-success:

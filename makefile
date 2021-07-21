@@ -156,7 +156,6 @@ unit-ci:
 	--testPathPattern=[^i].spec.ts \
 	--target=test \
 	--all \
-	--skip-nx-cache \
 	--maxWorkers=8 \
 	--memoryLimit=8192 \
 	--verbose
