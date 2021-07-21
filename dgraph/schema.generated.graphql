@@ -199,7 +199,7 @@ type Element {
   children: [Element] @hasInverse(field: parent)
   parent: Element
   atom: Atom
-  ownedBy: ElementOwner!
+  ownedBy: ElementOwner
   component: Component
   props: [Prop!]! @hasInverse(field: element)
   css: String

@@ -128,7 +128,7 @@ input AddElementInput {
   children: [ElementRef]
   parent: ElementRef
   atom: AtomRef
-  ownedBy: ElementOwnerRef!
+  ownedBy: ElementOwnerRef
   component: ComponentRef
   props: [PropRef!]!
   css: String
@@ -1053,7 +1053,7 @@ type Element {
   ): [Element]
   parent(filter: ElementFilter): Element
   atom(filter: AtomFilter): Atom
-  ownedBy(filter: ElementOwnerFilter): ElementOwner!
+  ownedBy(filter: ElementOwnerFilter): ElementOwner
   component(filter: ComponentFilter): Component
   props(filter: PropFilter, first: Int, offset: Int): [Prop!]!
   css: String

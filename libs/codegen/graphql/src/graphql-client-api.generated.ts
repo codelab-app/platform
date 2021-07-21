@@ -254,7 +254,7 @@ export type CreateAtomInput = {
 export type CreateElementInput = {
   name: Scalars['String']
   atomId?: Maybe<Scalars['String']>
-  parentElementId: Scalars['String']
+  parentElementId?: Maybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */
   order?: Maybe<Scalars['Int']>
 }

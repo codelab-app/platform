@@ -8,8 +8,8 @@ export class CreateElementInput {
   @Field({ nullable: true })
   declare atomId?: string
 
-  @Field()
-  declare parentElementId: string
+  @Field({ nullable: true })
+  declare parentElementId?: string
 
   @Field(() => Int, {
     nullable: true,

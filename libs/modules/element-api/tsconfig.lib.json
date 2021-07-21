@@ -6,6 +6,7 @@
     "declaration": true,
     "types": ["node"],
     "target": "es6",
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,

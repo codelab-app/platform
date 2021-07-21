@@ -29,7 +29,7 @@ type Element {
   parent: Element
   atom: Atom
   # The entity that owns this Element. Right now only Page can own it, but that's expandable in the future
-  ownedBy: ElementOwner!
+  ownedBy: ElementOwner
   # Not functional at the moment
   component: Component
   props: [Prop!]! @hasInverse(field: element)
