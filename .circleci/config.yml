@@ -612,5 +612,6 @@ workflows:
       - notify-success:
           <<: *filters-prod
           e: docker-node
+          context: CI
           requires:
             - deploy-to-prod

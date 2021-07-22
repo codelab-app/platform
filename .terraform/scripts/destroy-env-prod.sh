@@ -1,9 +1,9 @@
 #!/bin/bash
 
-. .env
+. .env.prod
 
 terraform init
 
-terraform workspace select default
+terraform workspace select production
 
 terraform apply -auto-approve -parallelism=3

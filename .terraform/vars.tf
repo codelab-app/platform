@@ -5,6 +5,11 @@ variable "app_name" {
   default     = "clab"
 }
 
+variable "stage" {
+  description = "The stage of the app"
+  default     = "staging"
+}
+
 variable "aws_region" {
   description = "The AWS region things are created in"
   default     = "us-west-1"
@@ -67,16 +72,6 @@ variable "app_domain" {
 variable "app_count" {
   description = "Count of app instances"
   default     = 1
-}
-
-variable "dgraph_count" {
-  description = "Count of dgraph instances"
-  default     = 1
-}
-
-variable "dgraph_port" {
-  description = "Port exposed by the docker image to redirect to dgraph"
-  default     = 8080
 }
 
 # container env values
