@@ -6,7 +6,6 @@ import React from 'react'
 
 const Users = () => {
   const { data } = useGetUsersQuery()
-  console.log('Data', data)
 
   const dataSource = data?.users?.map((user) => ({
     id: user?.id,

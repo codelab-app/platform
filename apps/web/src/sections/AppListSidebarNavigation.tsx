@@ -13,16 +13,12 @@ import tw from 'twin.macro'
 export const AppListSidebarNavigation = () => {
   const router = useRouter()
 
-  console.log(router.pathname)
-
   // const paths = router.pathname
   //   .split('/')
   //   .filter((x) => x)
   //   .reduce((x, acc) => {
   //     console.log(x)
   //   })
-
-  // console.log(paths)
 
   return (
     <Menu

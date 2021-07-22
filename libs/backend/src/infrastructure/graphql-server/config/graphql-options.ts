@@ -29,8 +29,6 @@ export class GraphqlOptions implements GqlOptionsFactory {
       tracing: true,
       playground: true,
       context: ({ req }) => {
-        // console.log(req.headers)
-
         return { req }
       },
       formatError: (err: GraphQLError) => {

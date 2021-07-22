@@ -18,6 +18,7 @@ import fs from 'fs'
 import { merge } from 'lodash'
 import { Command, Console } from 'nestjs-console'
 import path from 'path'
+import prettier from 'prettier'
 import shell from 'shelljs'
 import waitOn from 'wait-on'
 import { envOption } from '../env-helper'
@@ -67,7 +68,7 @@ export class GraphqlCodegenService {
       /**
        * (1) Start GraphQL server
        */
-      await this.serverService.maybeStartApiServer(env)
+      await this.serverService.maybeStartApiServer()
 
       /**
        * (2) Wait for server
@@ -81,12 +82,12 @@ export class GraphqlCodegenService {
        * (3) Generate merged schema & update Dgraph server
        */
 
-      const generateAndUpdateDgraphSchema = () => {
-        this.saveMergedSchema(this.dgraphConfig.schemaGeneratedFile)
+      const generateAndUpdateDgraphSchema = async () => {
+        await this.saveMergedSchema(this.dgraphConfig.schemaGeneratedFile)
         this.dgraphProvider.updateDgraphSchema()
       }
 
-      generateAndUpdateDgraphSchema()
+      await generateAndUpdateDgraphSchema()
 
       if (watch) {
         chokidar
@@ -95,7 +96,6 @@ export class GraphqlCodegenService {
             this.graphqlSchemaConfig.apiGraphqlSchemaFile,
           ])
           .on('all', async (event, _path) => {
-            console.log(event, _path)
             generateAndUpdateDgraphSchema()
           })
       }
@@ -133,10 +133,19 @@ export class GraphqlCodegenService {
     }
   }
 
-  private saveMergedSchema(outputPath: string) {
+  private async saveMergedSchema(outputPath: string) {
     const mergedSchema = this.graphqlSchemaService.getMergedSchema()
+    console.log(outputPath)
 
-    fs.writeFileSync(outputPath, mergedSchema)
+    const prettierOptions = await prettier.resolveConfig(outputPath)
+    console.log(prettierOptions)
+
+    const formattedMergedSchema = prettier.format(mergedSchema, {
+      ...prettierOptions,
+      parser: 'graphql',
+    })
+
+    fs.writeFileSync(outputPath, formattedMergedSchema)
   }
 
   public async generateApi({

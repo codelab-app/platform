@@ -41,7 +41,7 @@ build-dev:
 build-ci:
 	npx nx run-many \
 		--target=build \
-		--projects=api,web,gqlgen \
+		--projects=api,web,cli \
 		--prod \
 		--parallel \
 		--maxWorkers=8 \
@@ -80,13 +80,13 @@ start-ci:
 			"node dist/apps/api/main.js"
 
 e2e-dev:
-	npx env-cmd -f .env.test yarn gqlgen e2e --testPort
+	yarn cli e2e --env local
 
 #
 # INTEGRATION TESTS
 #
 integration-dev:
-	npx nx run-many \
+	npx nx-test-env run-many \
 	--target=test \
 	--maxWorkers=2 \
 	--memoryLimit=4096 \
@@ -95,7 +95,7 @@ integration-dev:
 	--all
 
 integration-dev-affected:
-	yarn nx-env affected:test \
+	yarn nx-test-env affected:test \
 	--testPathPattern=i.spec.ts \
 	--maxWorkers=2 \
 	--memoryLimit=4096 \
