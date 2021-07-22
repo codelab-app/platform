@@ -29,7 +29,7 @@ export class E2eService {
      * (1) Start Api & Web server
      */
     await this.serverService.maybeStartWebServer(env)
-    await this.serverService.maybeStartApiServer()
+    await this.serverService.maybeStartApiServer(env)
 
     try {
       /**
@@ -43,7 +43,10 @@ export class E2eService {
       /**
        * (3) Run Cypress
        */
-      const cmd = `nx affected --target=e2e --configuration=${env.toLowerCase()}`
+      const cmd =
+        env === Environment.Ci
+          ? `yarn nx-env affected --target=e2e --configuration=local`
+          : `yarn nx-env affected --target=e2e --configuration=local`
 
       const code = shell.exec(cmd, {
         cwd: process.cwd(),
