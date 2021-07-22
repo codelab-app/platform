@@ -705,6 +705,7 @@ export type PropsByInterfaceValueId = {
 export type Query = {
   getApp?: Maybe<App>
   getApps: Array<App>
+  getLambda: Lambda
   getMe: User
   getUsers: Array<User>
   getPages: Array<Page>
