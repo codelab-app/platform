@@ -28,7 +28,7 @@ resource "aws_cloudfront_distribution" "webapp" {
 
   price_class = "PriceClass_200"
 
-  aliases = ["staging.api.${var.app_domain}"]
+  aliases = [local.api_domain]
 
   enabled = true
 

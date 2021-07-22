@@ -8,7 +8,7 @@
     "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/${app_name}-dgraph-zero",
+          "awslogs-group": "/ecs/${dgraph_name}-zero",
           "awslogs-region": "${aws_region}",
           "awslogs-stream-prefix": "ecs"
         }
@@ -45,7 +45,7 @@
     "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/${app_name}-dgraph-alpha",
+          "awslogs-group": "/ecs/${dgraph_name}-alpha",
           "awslogs-region": "${aws_region}",
           "awslogs-stream-prefix": "ecs"
         }
