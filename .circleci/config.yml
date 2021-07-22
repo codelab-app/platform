@@ -514,7 +514,6 @@ workflows:
           attach-workspace: true
           # working_directory: ~/app
           pre-steps:
-            # - checkout
             - setup-workspace
           # start: make e2e-ci-start
           # wait-on: 'http://localhost:3001 http://localhost:4001'

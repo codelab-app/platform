@@ -71,7 +71,7 @@ export class ServerService {
 
   private async startApiServer(environment: Environment) {
     const command =
-      environment === Environment.Test
+      environment === Environment.Ci
         ? `npx env-cmd -f .env.test ${this.START_API_SERVER_COMMAND}`
         : `${this.START_API_SERVER_COMMAND}`
 

@@ -6,4 +6,4 @@
 
 yarn cross-env TIMING=1 lint-staged --verbose
 
-./libs/tools/scripts/src/lint/git.sh
+# ./libs/tools/scripts/src/lint/git.sh
