@@ -511,7 +511,7 @@ workflows:
           # parallel: true # split all specs across machines
           # parallelism: 4 # use 4 CircleCI machines to finish quickly
           # group: 'all tests' # name this group "all tests" on the dashboard
-          attach-workspace: true
+          # attach-workspace: true
           # working_directory: ~/app
           pre-steps:
             - setup-workspace

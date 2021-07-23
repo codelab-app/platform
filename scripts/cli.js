@@ -38,7 +38,7 @@ const { _, env, ...props } = yargs(hideBin(process.argv))
 const cmd = _[0]
 
 // We want to build the `cli` app first
-if (shell.exec('yarn nx build cli').code !== 0) {
+if (shell.exec('npx nx build cli').code !== 0) {
   shell.exit(1)
 }
 
