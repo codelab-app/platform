@@ -10,10 +10,12 @@ import { print } from 'graphql'
 export const createTestElement = async (
   nestApplication: INestApplication,
   name = 'Test Element',
+  parentElementId = '',
 ) => {
   const variables: CreateElementMutationVariables = {
     input: {
       name,
+      parentElementId: parentElementId ? parentElementId : undefined,
     },
   }
 
