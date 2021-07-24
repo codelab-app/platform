@@ -16,9 +16,9 @@ export const createLambda = async (
     return res.body.data?.createLambda
   })
 
-  if (!lambda) {
-    throw new Error('Lambda not created')
-  }
+  // if (!lambda) {
+  //   throw new Error('Lambda not created')
+  // }
 
   return lambda
 }
