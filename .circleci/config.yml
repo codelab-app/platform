@@ -4,10 +4,6 @@
 #
 # https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
 
-# Cypress issue
-#
-# https://stackoverflow.com/questions/62319657/how-to-resolve-the-cypress-npm-package-is-installed-but-the-cypress-binary-is
-
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
 # filters-dev: &filters-dev
@@ -81,7 +77,6 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@4.4.2
-  cypress: cypress-io/cypress@1.28.0
   node: circleci/node@4.1.0
   aws-cli: circleci/aws-cli@2.0.2
   aws-ecs: circleci/aws-ecs@2.2.1
@@ -350,6 +345,8 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - run: npx cypress verify
+      - run: yarn cli e2e --env ci
       - notify-failure
 
   notify-success:
@@ -480,25 +477,12 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-      - cypress/run:
+      - e2e:
           <<: *filters-staging-pr
-          executor: cypress-node
-          # executor: cypress/base-14
+          e: docker-node
           context: CI
-          yarn: true
           requires:
             - install-and-build-workspace
-          # This is not working
-          attach-workspace: false
-          no-workspace: true
-          pre-steps:
-            - setup-workspace:
-                # Custom parameter since `cypress/run attach-workspace not working`
-                attach_workspace: false
-          command: |
-            ls dist
-            ls dist/apps
-            yarn cli e2e --env ci
       - notify-success:
           <<: *filters-staging-pr
           context: CI
@@ -507,7 +491,7 @@ workflows:
             - lint
             - unit
             - integration
-            - cypress/run
+            - e2e
 
   app-staging:
     jobs:
@@ -564,10 +548,6 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-        # first get the source code and install npm dependencies
-        # - cypress/install:
-        #     # run a custom app build step
-        #     build: 'npm run build'
       - build-docker-prod:
           <<: *filters-prod
           e: docker-node

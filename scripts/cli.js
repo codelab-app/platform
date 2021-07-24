@@ -38,20 +38,40 @@ const { _, env, ...props } = yargs(hideBin(process.argv))
 const cmd = _[0]
 
 // We want to build the `cli` app first
-if (shell.exec('npx nx build cli --verbose').code !== 0) {
-  shell.exit(1)
+if (!process.env.CI) {
+  if (shell.exec('npx nx build cli --verbose').code !== 0) {
+    shell.exit(1)
+  }
 }
 
-const nestjsCommand = (envFile) =>
-  `npx env-cmd -f ${envFile} node dist/apps/cli/main.js ${cmd} --env ${env}`
-
 // `local` is used for pre-push checks. Only `local` uses different port because a dev server may be running, `ci` & `dev` both use normal port.
-if (env === 'local') {
-  if (shell.exec(`${nestjsCommand('.env.test')}`).code !== 0) {
-    shell.exit(1)
-  }
-} else {
-  if (shell.exec(`${nestjsCommand('.env')}`).code !== 0) {
-    shell.exit(1)
-  }
+switch (env) {
+  case 'local':
+    if (
+      shell.exec(
+        `npx env-cmd -f .env.test node dist/apps/cli/main.js ${cmd} --env ${env}`,
+      ).code !== 0
+    ) {
+      shell.exit(1)
+    }
+    break
+  case 'dev':
+    if (
+      shell.exec(
+        `npx env-cmd -f .env node dist/apps/cli/main.js ${cmd} --env ${env}`,
+      ).code !== 0
+    ) {
+      shell.exit(1)
+    }
+    break
+  case 'ci':
+    if (
+      shell.exec(`node dist/apps/cli/main.js ${cmd} --env ${env}`).code !== 0
+    ) {
+      shell.exit(1)
+    }
+    break
+  default:
+    throw new Error(`${env} is not a valid environment`)
+    break
 }
