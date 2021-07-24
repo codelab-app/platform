@@ -23,7 +23,7 @@
       "disableOptimisticBPs": true
     },
     {
-      "name": "gqlgen",
+      "name": "apps/cli",
       "type": "node",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
@@ -32,7 +32,7 @@
       "protocol": "inspector",
       "runtimeArgs": [
         "--project",
-        "${workspaceRoot}/apps/gqlgen/tsconfig.app.json",
+        "${workspaceRoot}/apps/cli/tsconfig.app.json",
         "-r",
         "tsconfig-paths/register",
         "-r",
@@ -40,9 +40,9 @@
       ],
       "env": {
         "NODE_PATH": "${workspaceRoot}",
-        "TS_NODE_PROJECT": "${workspaceRoot}/apps/gqlgen/tsconfig.app.json"
+        "TS_NODE_PROJECT": "${workspaceRoot}/apps/cli/tsconfig.app.json"
       },
-      "args": ["apps/gqlgen/src/main.ts", "codegen"],
+      "args": ["apps/cli/src/main.ts", "codegen"],
       "cwd": "${workspaceRoot}",
       "restart": true
     },

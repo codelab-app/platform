@@ -4,6 +4,8 @@
 # yarn lint:graphql
 # terraform fmt -recursive .terraform
 
+# yarn cli codegen --env=local
+
 yarn cross-env TIMING=1 lint-staged --verbose
 
-./libs/tools/scripts/src/lint/git.sh
+# ./libs/tools/scripts/src/lint/git.sh

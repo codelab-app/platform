@@ -12,7 +12,7 @@ module.exports = {
     '<rootDir>/libs/modules/atom-api',
     '<rootDir>/libs/modules/prop-api',
     '<rootDir>/libs/modules/type-api',
-    '<rootDir>/apps/gqlgen',
+    '<rootDir>/apps/cli',
     '<rootDir>/libs/ui/d3',
   ],
 }

@@ -12,7 +12,7 @@ import { CreateElementRequest } from './create-element.request'
 
 interface ValidationContext {
   atom: Atom | undefined | null
-  parentElement: Dgraph_ElementFragment
+  parentElement: Dgraph_ElementFragment | undefined | null
 }
 
 @Injectable()
@@ -41,7 +41,7 @@ export class CreateElementService extends DgraphUseCase<
 
     const mu = CreateElementService.createMutation(
       { ...input, order },
-      parentElement.ownedBy.id,
+      parentElement?.ownedBy?.id,
     )
 
     const mutationResult = await txn.mutate(mu)
@@ -70,15 +70,19 @@ export class CreateElementService extends DgraphUseCase<
 
   private static createMutation(
     { parentElementId, order, name, atomId }: CreateElementInput,
-    ownerId: string,
+    ownerId?: string,
   ) {
     const mu = new Mutation()
     mu.setSetNquads(`
       _:element <dgraph.type> "Element" .
       _:element <Element.name> "${name}" .
-      _:element <Element.ownedBy> <${ownerId}> .
-      _:element <Element.parent> <${parentElementId}> .
-      <${parentElementId}> <Element.children> _:element (order=${order}) .
+      ${ownerId ? `_:element <Element.ownedBy> <${ownerId}> .` : ''}
+      ${
+        parentElementId
+          ? `_:element <Element.parent> <${parentElementId}> .
+            <${parentElementId}> <Element.children> _:element (order=${order}) .`
+          : ``
+      }
       ${atomId ? `_:element <Element.atom> <${atomId}> .` : ''}
       `)
 
@@ -112,10 +116,13 @@ export class CreateElementService extends DgraphUseCase<
     input: { parentElementId, atomId },
     currentUser,
   }: CreateElementRequest) {
-    const { element: parentElement } = await this.elementGuardService.validate(
-      parentElementId,
-      currentUser,
-    )
+    let parentElement: Dgraph_ElementFragment | null | undefined
+
+    if (parentElementId) {
+      parentElement = (
+        await this.elementGuardService.validate(parentElementId, currentUser)
+      ).element
+    }
 
     let atom: Atom | null | undefined
 

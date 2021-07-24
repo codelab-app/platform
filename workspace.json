@@ -149,6 +149,58 @@
         }
       }
     },
+    "cli": {
+      "root": "apps/cli",
+      "sourceRoot": "apps/cli/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/cli",
+            "main": "apps/cli/src/main.ts",
+            "tsConfig": "apps/cli/tsconfig.app.json",
+            "assets": ["apps/cli/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/cli/src/environments/environment.ts",
+                  "with": "apps/cli/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "cli:build",
+            "inspect": true,
+            "port": 9229
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/cli/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/cli"],
+          "options": {
+            "jestConfig": "apps/cli/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "codegen-dgraph": {
       "root": "libs/codegen/dgraph",
       "sourceRoot": "libs/codegen/dgraph/src",
@@ -307,58 +359,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/frontend/style/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
-    "gqlgen": {
-      "root": "apps/gqlgen",
-      "sourceRoot": "apps/gqlgen/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/gqlgen",
-            "main": "apps/gqlgen/src/main.ts",
-            "tsConfig": "apps/gqlgen/tsconfig.app.json",
-            "assets": ["apps/gqlgen/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/gqlgen/src/environments/environment.ts",
-                  "with": "apps/gqlgen/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "gqlgen:build",
-            "inspect": true,
-            "port": 9229
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/gqlgen/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/gqlgen"],
-          "options": {
-            "jestConfig": "apps/gqlgen/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -881,9 +881,11 @@
             "memoryLimit": 2048
           },
           "configurations": {
-            "ci": {
+            "ci": {},
+            "local": {
               "port": 3001
             },
+            "dev": {},
             "production": {
               "buildTarget": "web:build-next:production",
               "dev": false
@@ -962,10 +964,15 @@
           "builder": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/web-e2e/cypress.json",
-            "tsConfig": "apps/web-e2e/tsconfig.e2e.json"
+            "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
+            "baseUrl": "http://127.0.0.1:3000"
           },
           "configurations": {
             "ci": {
+              "baseUrl": "http://127.0.0.1:3000",
+              "headless": true
+            },
+            "local": {
               "baseUrl": "http://127.0.0.1:3001",
               "headless": true
             },

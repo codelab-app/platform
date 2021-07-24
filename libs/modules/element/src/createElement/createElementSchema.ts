@@ -14,11 +14,12 @@ export const createElementSchema: JSONSchemaType<CreateElementInput> = {
     },
     parentElementId: {
       type: 'string',
+      nullable: true,
     },
     order: {
       type: 'integer',
       nullable: true,
     },
   },
-  required: ['name', 'parentElementId'],
+  required: ['name'],
 }

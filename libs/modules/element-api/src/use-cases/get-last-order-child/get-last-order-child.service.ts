@@ -24,6 +24,10 @@ export class GetLastOrderChildService extends DgraphUseCase<
     request: GetLastOrderChildInput,
     txn: Txn,
   ) {
+    if (!request.elementId) {
+      return null
+    }
+
     const query = `
        {
          query(func: uid(${request.elementId}))    {

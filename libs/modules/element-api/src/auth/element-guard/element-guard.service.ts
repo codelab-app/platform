@@ -19,11 +19,11 @@ export class ElementGuardService {
       elementId,
     })
 
-    if (!response || !response.element || !response.ownerId) {
+    if (!response || !response.element) {
       throw new Error('Element does not exist')
     }
 
-    if (response.ownerId !== currentUser?.sub) {
+    if (response.ownerId && response.ownerId !== currentUser?.sub) {
       throw new Error("You don't have access to this element")
     }
 

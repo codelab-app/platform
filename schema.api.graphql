@@ -587,7 +587,7 @@ input UpdatePageData {
 input CreateElementInput {
   name: String!
   atomId: String
-  parentElementId: String!
+  parentElementId: String
 
   """
   Leave it out to automatically set it as the last order of all the children

@@ -95,7 +95,7 @@ export class MoveElementService extends DgraphUseCase<
       currentUser,
     )
 
-    if (newParent.ownedBy.id !== existingParent.ownedBy.id) {
+    if (newParent.ownedBy?.id !== existingParent.ownedBy?.id) {
       throw new Error("Can't move page element to a different page")
     }
 

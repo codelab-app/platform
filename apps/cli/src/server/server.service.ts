@@ -17,15 +17,13 @@ export class ServerService {
   ) {}
 
   /**
-   * We load `.env.test` locally, if on CI, that file gets ignored
+   * Port is controlled by env vars, so we don't need env in nrwl command like web server
    */
-  private START_API_SERVER_COMMAND =
-    // 'npx env-cmd -f .env.test node dist/apps/api/main.js'
-    'node dist/apps/api/main.js'
+  private START_API_SERVER_COMMAND = 'node dist/apps/api/main.js'
 
-  private START_WEB_SERVER_COMMAND =
-    // 'yarn nx-env run web:serve:ci'
-    'yarn nx-env run web:serve:ci'
+  private startWebServerCommand(env: Environment) {
+    return `nx run web:serve:${env.toLowerCase()}`
+  }
 
   async isPortOpen(port: number | undefined) {
     const nextAvailablePort = await portfinder.getPortPromise({ port })
@@ -33,7 +31,7 @@ export class ServerService {
     return nextAvailablePort === port
   }
 
-  public async maybeStartApiServer(environment: Environment) {
+  public async maybeStartApiServer() {
     const apiServerPort = parseInt(
       new URL(this.graphqlServerConfig?.endpoint).port,
     )
@@ -43,7 +41,7 @@ export class ServerService {
     if (isApiPortOpen) {
       Logger.log(`${apiServerPort} is open, starting server...`)
 
-      return await this.startApiServer(environment)
+      return await this.startApiServer()
     } else {
       Logger.log(`${apiServerPort} is closed, skipping start server.`)
     }
@@ -51,7 +49,7 @@ export class ServerService {
     return
   }
 
-  public async maybeStartWebServer(environment: Environment) {
+  public async maybeStartWebServer(env: Environment) {
     const webServerPort = parseInt(
       new URL(get('NEXT_PUBLIC_API_ORIGIN').required().asUrlString()).port,
     )
@@ -61,7 +59,7 @@ export class ServerService {
     if (isApiPortOpen) {
       Logger.log(`${webServerPort} is open, starting server...`)
 
-      return await this.startWebServer(environment)
+      return await this.startWebServer(env)
     } else {
       Logger.log(`${webServerPort} is closed, skipping start server.`)
     }
@@ -69,20 +67,15 @@ export class ServerService {
     return
   }
 
-  private async startApiServer(environment: Environment) {
-    const command =
-      environment === Environment.Test
-        ? `npx env-cmd -f .env.test ${this.START_API_SERVER_COMMAND}`
-        : `${this.START_API_SERVER_COMMAND}`
-
-    return shell.exec(command, {
+  private async startApiServer() {
+    return shell.exec(this.START_API_SERVER_COMMAND, {
       async: true,
       cwd: process.cwd(),
     })
   }
 
-  private async startWebServer(environment: Environment) {
-    return shell.exec(this.START_WEB_SERVER_COMMAND, {
+  private async startWebServer(env: Environment) {
+    return shell.exec(this.startWebServerCommand(env), {
       async: true,
       cwd: process.cwd(),
     })

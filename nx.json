@@ -32,6 +32,9 @@
     "backend": {
       "tags": []
     },
+    "cli": {
+      "tags": []
+    },
     "codegen-dgraph": {
       "tags": []
     },
@@ -60,9 +63,6 @@
       "tags": []
     },
     "frontend-style": {
-      "tags": []
-    },
-    "gqlgen": {
       "tags": []
     },
     "modules-app": {

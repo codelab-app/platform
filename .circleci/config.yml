@@ -4,10 +4,6 @@
 #
 # https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
 
-# Cypress issue
-#
-# https://stackoverflow.com/questions/62319657/how-to-resolve-the-cypress-npm-package-is-installed-but-the-cypress-binary-is
-
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
 # filters-dev: &filters-dev
@@ -81,7 +77,6 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@4.4.2
-  cypress: cypress-io/cypress@1.28.0
   node: circleci/node@4.1.0
   aws-cli: circleci/aws-cli@2.0.2
   aws-ecs: circleci/aws-ecs@2.2.1
@@ -99,26 +94,32 @@ executors:
       - image: cimg/node:14.16.0-browsers
     # resource_class: medium
     resource_class: large
+  cypress-node:
+    <<: *executor-config
+    docker:
+      - image: cypress/browsers:chrome69
+    # resource_class: medium
+    resource_class: large
   docker-python:
     <<: *executor-config
     docker:
       - image: circleci/python:3.7
     resource_class: medium
-  # vault-img:
-  #   <<: *executor-config
-  #   docker:
-  #     - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
-  #   resource_class: small
 
 commands:
-  setup-env:
-    description: 'Setup env'
+  setup-workspace:
+    parameters:
+      attach_workspace:
+        default: true
+        type: boolean
+    description: 'Setup workspace'
     steps:
-      - attach_workspace:
-          at: ..
-      # - run:
-      #     name: 'Inject vault env to bash env'
-      #     command: "cat ~/.env >> $BASH_ENV"
+      - checkout
+      - when:
+          condition: << parameters.attach_workspace >>
+          steps:
+            - attach_workspace:
+                at: ..
       - run:
           name: 'Install NVM'
           command: |
@@ -163,16 +164,6 @@ commands:
             nvm alias default 14.16.0
             node -v
 
-  setup-workspace:
-    description: 'Setup workspace'
-    steps:
-      - checkout
-      - setup-env
-      # # We need this for `env-cmd -f .env` command
-      # - attach_workspace:
-      #     at: ..
-      # - run: cp ~/.env .
-
   yarn-install-dev:
     steps:
       - restore_cache:
@@ -190,6 +181,7 @@ commands:
       # - run:
       #     name: 'Remove NPM .cache'
       #     command: rm -rf ~/app/node_modules/.cache
+
   yarn-install-prod:
     description: 'Install prod dependencies'
     steps:
@@ -295,22 +287,6 @@ commands:
       - run: echo 'export APP_PREFIX="${APP_PROD_PREFIX}"' >> $BASH_ENV
 
 jobs:
-  # setup-vault-env:
-  #   <<: *executor-params
-  #   description: 'Pull .env from vault server'
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: 'Fetch .env'
-  #         command: |
-  #           echo $CI_VAULT_ROLE_ID > /tmp/role-id
-  #           echo $CI_VAULT_SECRET_ID > /tmp/secret-id
-  #           vault agent -address=$VAULT_ADDR -config=.vault/agent.hcl
-  #     - persist_to_workspace:
-  #         root: .
-  #         paths:
-  #           - .env
-
   install-and-build-workspace:
     <<: *executor-params
     steps:
@@ -320,7 +296,6 @@ jobs:
           name: 'Build CI'
           command: make build-ci
       # Save cache after checkout & building project
-      - run: ls -al ~/project/apps/web
       - run:
           name: 'Remove Unused Cache'
           command: |
@@ -370,6 +345,8 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - run: npx cypress verify
+      - run: yarn cli e2e --env ci
       - notify-failure
 
   notify-success:
@@ -500,30 +477,12 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-      - cypress/run:
+      - e2e:
           <<: *filters-staging-pr
-          executor: cypress/base-14
+          e: docker-node
           context: CI
-          yarn: true
           requires:
             - install-and-build-workspace
-          # record: true # record results on Cypress Dashboard
-          # parallel: true # split all specs across machines
-          # parallelism: 4 # use 4 CircleCI machines to finish quickly
-          # group: 'all tests' # name this group "all tests" on the dashboard
-          attach-workspace: true
-          # working_directory: ~/app
-          pre-steps:
-            # - checkout
-            - setup-workspace
-          # start: make e2e-ci-start
-          # wait-on: 'http://localhost:3001 http://localhost:4001'
-          # wait-on: '-c .circleci/wait-on-config.json'
-          # start: make start-ci
-          # start: npx nx run-many --target=serve --projects=web,api --parallel
-          command: yarn gqlgen:ci e2e --ci
-          # command: npx nx run web-e2e:e2e:ci
-          # command: npx nx serve gqlgen --args=e2e
       - notify-success:
           <<: *filters-staging-pr
           context: CI
@@ -532,7 +491,7 @@ workflows:
             - lint
             - unit
             - integration
-            - cypress/run
+            - e2e
 
   app-staging:
     jobs:
@@ -589,10 +548,6 @@ workflows:
           context: CI
           requires:
             - install-and-build-workspace
-        # first get the source code and install npm dependencies
-        # - cypress/install:
-        #     # run a custom app build step
-        #     build: 'npm run build'
       - build-docker-prod:
           <<: *filters-prod
           e: docker-node

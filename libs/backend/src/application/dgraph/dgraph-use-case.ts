@@ -28,7 +28,9 @@ export abstract class DgraphUseCase<
     const txn = this.dgraphProvider.client.newTxn()
 
     try {
-      return await execute(txn)
+      const val = await execute(txn)
+
+      return val
     } finally {
       await txn.discard()
     }

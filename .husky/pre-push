@@ -3,5 +3,5 @@
 
 make build-dev-affected
 make test-dev-affected
-make e2e-dev
-make build-storybook
+# make e2e-dev
+# make build-storybook

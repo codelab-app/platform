@@ -45,10 +45,6 @@ export class GetPageRootService extends DgraphUseCase<
 
     const pageRoot = result[0]
 
-    console.log(pageRoot)
-
-    // this.cytoscapeService()
-
     if (!pageRoot) {
       return null
     }

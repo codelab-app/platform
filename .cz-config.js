@@ -38,8 +38,6 @@ const scopes = R.pipe(
   }),
 )(files)
 
-// console.log(scopes)
-
 module.exports = {
   types: [
     { value: 'feat', name: '1) feat:     A new feature' },

@@ -1,6 +1,6 @@
 import { registerAs } from '@nestjs/config'
 import { get } from 'env-var'
-import path from 'path'
+import * as path from 'path'
 import { DgraphTokens } from './dgraph.tokens'
 
 export interface DgraphConfig {

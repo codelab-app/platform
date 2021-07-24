@@ -137,7 +137,7 @@ export type AddElementInput = {
   children?: Maybe<Array<Maybe<ElementRef>>>
   parent?: Maybe<ElementRef>
   atom?: Maybe<AtomRef>
-  ownedBy: ElementOwnerRef
+  ownedBy?: Maybe<ElementOwnerRef>
   component?: Maybe<ComponentRef>
   props: Array<PropRef>
   css?: Maybe<Scalars['String']>
@@ -1222,7 +1222,7 @@ export type Element = {
   children?: Maybe<Array<Maybe<Element>>>
   parent?: Maybe<Element>
   atom?: Maybe<Atom>
-  ownedBy: ElementOwner
+  ownedBy?: Maybe<ElementOwner>
   component?: Maybe<Component>
   props: Array<Prop>
   css?: Maybe<Scalars['String']>
@@ -3530,7 +3530,7 @@ export type GetComponentsQuery = {
 export type Dgraph_ElementFragment = Pick<Element, 'id' | 'name' | 'css'> & {
   atom?: Maybe<DGraph__AtomFragment>
   parent?: Maybe<Pick<Element, 'id'>>
-  ownedBy: { __typename: 'Page' } & Dgraph__PageFragment
+  ownedBy?: Maybe<{ __typename: 'Page' } & Dgraph__PageFragment>
 }
 
 export type DeleteElementMutationVariables = Exact<{
@@ -3550,9 +3550,11 @@ export type GetElementOwnerQueryVariables = Exact<{
 export type GetElementOwnerQuery = {
   getElement?: Maybe<
     {
-      ownedBy: { __typename: 'Page' } & {
-        app: Pick<App, 'ownerId'>
-      } & Dgraph__PageFragment
+      ownedBy?: Maybe<
+        { __typename: 'Page' } & {
+          app: Pick<App, 'ownerId'>
+        } & Dgraph__PageFragment
+      >
     } & Dgraph_ElementFragment
   >
 }
