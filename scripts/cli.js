@@ -38,12 +38,12 @@ const { _, env, ...props } = yargs(hideBin(process.argv))
 const cmd = _[0]
 
 // We want to build the `cli` app first
-if (shell.exec('npx nx build cli').code !== 0) {
+if (shell.exec('npx nx build cli --verbose').code !== 0) {
   shell.exit(1)
 }
 
 const nestjsCommand = (envFile) =>
-  `env-cmd -f ${envFile} node dist/apps/cli/main.js ${cmd} --env ${env}`
+  `npx env-cmd -f ${envFile} node dist/apps/cli/main.js ${cmd} --env ${env}`
 
 // `local` is used for pre-push checks. Only `local` uses different port because a dev server may be running, `ci` & `dev` both use normal port.
 if (env === 'local') {

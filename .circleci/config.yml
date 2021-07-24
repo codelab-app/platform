@@ -99,26 +99,32 @@ executors:
       - image: cimg/node:14.16.0-browsers
     # resource_class: medium
     resource_class: large
+  cypress-node:
+    <<: *executor-config
+    docker:
+      - image: cypress/browsers:chrome69
+    # resource_class: medium
+    resource_class: large
   docker-python:
     <<: *executor-config
     docker:
       - image: circleci/python:3.7
     resource_class: medium
-  # vault-img:
-  #   <<: *executor-config
-  #   docker:
-  #     - image: joatmon08/circleci-gcp-agent:287.0-1.14.72
-  #   resource_class: small
 
 commands:
-  setup-env:
-    description: 'Setup env'
+  setup-workspace:
+    parameters:
+      attach_workspace:
+        default: true
+        type: boolean
+    description: 'Setup workspace'
     steps:
-      - attach_workspace:
-          at: ..
-      # - run:
-      #     name: 'Inject vault env to bash env'
-      #     command: "cat ~/.env >> $BASH_ENV"
+      - checkout
+      - when:
+          condition: << parameters.attach_workspace >>
+          steps:
+            - attach_workspace:
+                at: ..
       - run:
           name: 'Install NVM'
           command: |
@@ -163,16 +169,6 @@ commands:
             nvm alias default 14.16.0
             node -v
 
-  setup-workspace:
-    description: 'Setup workspace'
-    steps:
-      - checkout
-      - setup-env
-      # # We need this for `env-cmd -f .env` command
-      # - attach_workspace:
-      #     at: ..
-      # - run: cp ~/.env .
-
   yarn-install-dev:
     steps:
       - restore_cache:
@@ -190,6 +186,7 @@ commands:
       # - run:
       #     name: 'Remove NPM .cache'
       #     command: rm -rf ~/app/node_modules/.cache
+
   yarn-install-prod:
     description: 'Install prod dependencies'
     steps:
@@ -295,22 +292,6 @@ commands:
       - run: echo 'export APP_PREFIX="${APP_PROD_PREFIX}"' >> $BASH_ENV
 
 jobs:
-  # setup-vault-env:
-  #   <<: *executor-params
-  #   description: 'Pull .env from vault server'
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: 'Fetch .env'
-  #         command: |
-  #           echo $CI_VAULT_ROLE_ID > /tmp/role-id
-  #           echo $CI_VAULT_SECRET_ID > /tmp/secret-id
-  #           vault agent -address=$VAULT_ADDR -config=.vault/agent.hcl
-  #     - persist_to_workspace:
-  #         root: .
-  #         paths:
-  #           - .env
-
   install-and-build-workspace:
     <<: *executor-params
     steps:
@@ -320,7 +301,6 @@ jobs:
           name: 'Build CI'
           command: make build-ci
       # Save cache after checkout & building project
-      - run: ls -al ~/project/apps/web
       - run:
           name: 'Remove Unused Cache'
           command: |
@@ -502,25 +482,23 @@ workflows:
             - install-and-build-workspace
       - cypress/run:
           <<: *filters-staging-pr
-          executor: cypress/base-14
+          executor: cypress-node
+          # executor: cypress/base-14
           context: CI
           yarn: true
           requires:
             - install-and-build-workspace
-          # record: true # record results on Cypress Dashboard
-          # parallel: true # split all specs across machines
-          # parallelism: 4 # use 4 CircleCI machines to finish quickly
-          # group: 'all tests' # name this group "all tests" on the dashboard
-          # attach-workspace: true
-          # working_directory: ~/app
+          # This is not working
+          attach-workspace: false
+          no-workspace: true
           pre-steps:
-            - setup-workspace
-          # wait-on: 'http://localhost:3001 http://localhost:4001'
-          # start: make start-ci
-          # start: npx nx run-many --target=serve --projects=web,api --parallel
-          # command: npx nx run web-e2e:e2e:ci
-          command: yarn cli e2e --env ci
-          # command: npx nx serve gqlgen --args=e2e
+            - setup-workspace:
+                # Custom parameter since `cypress/run attach-workspace not working`
+                attach_workspace: false
+          command: |
+            ls dist
+            ls dist/apps
+            yarn cli e2e --env ci
       - notify-success:
           <<: *filters-staging-pr
           context: CI
