@@ -1,0 +1,1 @@
+"property;description;type;default\nsteps;The total step count;number;-\nstrokeColor;The color of progress bar, render linear-gradient when passing an object;string | { from: string; to: string; direction: string };-\nstrokeWidth;To set the width of the progress bar, unit: px;number;10"
