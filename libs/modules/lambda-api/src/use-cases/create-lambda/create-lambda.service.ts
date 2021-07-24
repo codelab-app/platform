@@ -44,9 +44,9 @@ export class CreateLambdaService extends DgraphUseCase<
     }`
 
     const results = await _txn.query(q)
+    await _txn.discard()
 
     console.log(results.getJson())
-    await _txn.discard()
 
     // await this.transactionWrapper(async (_txn) => {
     //   const q = `{

@@ -35,18 +35,12 @@ export class GetElementOwnerService extends QueryUseCase<
   }
 
   protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    const ownerId = result?.data?.getElement?.ownedBy?.app?.ownerId
-
-    if (!ownerId) {
-      throw new Error('Missing ownerId')
-    }
-
     // For now just return the owner of the app that this element is part off
     // later if element is used somewhere else, put ownership logic here
     // for example - if we add element as children to component - check
     // getElement.component.library.ownerId
     return {
-      ownerId,
+      ownerId: result?.data?.getElement?.ownedBy?.app?.ownerId,
       element: result?.data?.getElement || undefined,
     }
   }
