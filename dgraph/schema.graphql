@@ -7,6 +7,12 @@ type App {
   name: String!
 }
 
+type Lambda {
+  id: ID!
+  ownerId: String! @search(by: [hash])
+  name: String!
+}
+
 type Page {
   id: ID!
   name: String! @search(by: [term, fulltext])

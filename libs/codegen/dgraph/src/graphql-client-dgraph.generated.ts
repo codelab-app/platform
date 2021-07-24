@@ -274,6 +274,23 @@ export type AddInterfaceValuePayloadInterfaceValueArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type AddLambdaInput = {
+  ownerId: Scalars['String']
+  name: Scalars['String']
+}
+
+export type AddLambdaPayload = {
+  lambda?: Maybe<Array<Maybe<Lambda>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type AddLambdaPayloadLambdaArgs = {
+  filter?: Maybe<LambdaFilter>
+  order?: Maybe<LambdaOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type AddLibraryInput = {
   ownerId: Scalars['String']
   name: Scalars['String']
@@ -1108,6 +1125,19 @@ export type DeleteInterfaceValuePayloadInterfaceValueArgs = {
   offset?: Maybe<Scalars['Int']>
 }
 
+export type DeleteLambdaPayload = {
+  lambda?: Maybe<Array<Maybe<Lambda>>>
+  msg?: Maybe<Scalars['String']>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type DeleteLambdaPayloadLambdaArgs = {
+  filter?: Maybe<LambdaFilter>
+  order?: Maybe<LambdaOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
 export type DeleteLibraryPayload = {
   library?: Maybe<Array<Maybe<Library>>>
   msg?: Maybe<Scalars['String']>
@@ -1790,6 +1820,56 @@ export type IntersectsFilter = {
   multiPolygon?: Maybe<MultiPolygonRef>
 }
 
+export type Lambda = {
+  id: Scalars['ID']
+  ownerId: Scalars['String']
+  name: Scalars['String']
+}
+
+export type LambdaAggregateResult = {
+  count?: Maybe<Scalars['Int']>
+  ownerIdMin?: Maybe<Scalars['String']>
+  ownerIdMax?: Maybe<Scalars['String']>
+  nameMin?: Maybe<Scalars['String']>
+  nameMax?: Maybe<Scalars['String']>
+}
+
+export type LambdaFilter = {
+  id?: Maybe<Array<Scalars['ID']>>
+  ownerId?: Maybe<StringHashFilter>
+  has?: Maybe<Array<Maybe<LambdaHasFilter>>>
+  and?: Maybe<Array<Maybe<LambdaFilter>>>
+  or?: Maybe<Array<Maybe<LambdaFilter>>>
+  not?: Maybe<LambdaFilter>
+}
+
+export enum LambdaHasFilter {
+  OwnerId = 'ownerId',
+  Name = 'name',
+}
+
+export type LambdaOrder = {
+  asc?: Maybe<LambdaOrderable>
+  desc?: Maybe<LambdaOrderable>
+  then?: Maybe<LambdaOrder>
+}
+
+export enum LambdaOrderable {
+  OwnerId = 'ownerId',
+  Name = 'name',
+}
+
+export type LambdaPatch = {
+  ownerId?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+}
+
+export type LambdaRef = {
+  id?: Maybe<Scalars['ID']>
+  ownerId?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+}
+
 export type Library = {
   id: Scalars['ID']
   ownerId: Scalars['String']
@@ -1888,6 +1968,9 @@ export type Mutation = {
   addApp?: Maybe<AddAppPayload>
   updateApp?: Maybe<UpdateAppPayload>
   deleteApp?: Maybe<DeleteAppPayload>
+  addLambda?: Maybe<AddLambdaPayload>
+  updateLambda?: Maybe<UpdateLambdaPayload>
+  deleteLambda?: Maybe<DeleteLambdaPayload>
   addPage?: Maybe<AddPagePayload>
   updatePage?: Maybe<UpdatePagePayload>
   deletePage?: Maybe<DeletePagePayload>
@@ -1959,6 +2042,18 @@ export type MutationUpdateAppArgs = {
 
 export type MutationDeleteAppArgs = {
   filter: AppFilter
+}
+
+export type MutationAddLambdaArgs = {
+  input: Array<AddLambdaInput>
+}
+
+export type MutationUpdateLambdaArgs = {
+  input: UpdateLambdaInput
+}
+
+export type MutationDeleteLambdaArgs = {
+  filter: LambdaFilter
 }
 
 export type MutationAddPageArgs = {
@@ -2446,6 +2541,9 @@ export type Query = {
   getApp?: Maybe<App>
   queryApp?: Maybe<Array<Maybe<App>>>
   aggregateApp?: Maybe<AppAggregateResult>
+  getLambda?: Maybe<Lambda>
+  queryLambda?: Maybe<Array<Maybe<Lambda>>>
+  aggregateLambda?: Maybe<LambdaAggregateResult>
   getPage?: Maybe<Page>
   queryPage?: Maybe<Array<Maybe<Page>>>
   aggregatePage?: Maybe<PageAggregateResult>
@@ -2520,6 +2618,21 @@ export type QueryQueryAppArgs = {
 
 export type QueryAggregateAppArgs = {
   filter?: Maybe<AppFilter>
+}
+
+export type QueryGetLambdaArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryQueryLambdaArgs = {
+  filter?: Maybe<LambdaFilter>
+  order?: Maybe<LambdaOrder>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type QueryAggregateLambdaArgs = {
+  filter?: Maybe<LambdaFilter>
 }
 
 export type QueryGetPageArgs = {
@@ -3253,6 +3366,24 @@ export type UpdateInterfaceValuePayload = {
 
 export type UpdateInterfaceValuePayloadInterfaceValueArgs = {
   filter?: Maybe<InterfaceValueFilter>
+  first?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+export type UpdateLambdaInput = {
+  filter: LambdaFilter
+  set?: Maybe<LambdaPatch>
+  remove?: Maybe<LambdaPatch>
+}
+
+export type UpdateLambdaPayload = {
+  lambda?: Maybe<Array<Maybe<Lambda>>>
+  numUids?: Maybe<Scalars['Int']>
+}
+
+export type UpdateLambdaPayloadLambdaArgs = {
+  filter?: Maybe<LambdaFilter>
+  order?: Maybe<LambdaOrder>
   first?: Maybe<Scalars['Int']>
   offset?: Maybe<Scalars['Int']>
 }

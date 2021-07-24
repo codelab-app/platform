@@ -249,6 +249,21 @@ type AddInterfaceValuePayload {
   numUids: Int
 }
 
+input AddLambdaInput {
+  ownerId: String!
+  name: String!
+}
+
+type AddLambdaPayload {
+  lambda(
+    filter: LambdaFilter
+    order: LambdaOrder
+    first: Int
+    offset: Int
+  ): [Lambda]
+  numUids: Int
+}
+
 input AddLibraryInput {
   ownerId: String!
   name: String!
@@ -967,6 +982,17 @@ type DeleteInterfaceValuePayload {
   numUids: Int
 }
 
+type DeleteLambdaPayload {
+  lambda(
+    filter: LambdaFilter
+    order: LambdaOrder
+    first: Int
+    offset: Int
+  ): [Lambda]
+  msg: String
+  numUids: Int
+}
+
 type DeleteLibraryPayload {
   library(
     filter: LibraryFilter
@@ -1558,6 +1584,56 @@ input IntersectsFilter {
   multiPolygon: MultiPolygonRef
 }
 
+type Lambda {
+  id: ID!
+  ownerId: String!
+  name: String!
+}
+
+type LambdaAggregateResult {
+  count: Int
+  ownerIdMin: String
+  ownerIdMax: String
+  nameMin: String
+  nameMax: String
+}
+
+input LambdaFilter {
+  id: [ID!]
+  ownerId: StringHashFilter
+  has: [LambdaHasFilter]
+  and: [LambdaFilter]
+  or: [LambdaFilter]
+  not: LambdaFilter
+}
+
+enum LambdaHasFilter {
+  ownerId
+  name
+}
+
+input LambdaOrder {
+  asc: LambdaOrderable
+  desc: LambdaOrderable
+  then: LambdaOrder
+}
+
+enum LambdaOrderable {
+  ownerId
+  name
+}
+
+input LambdaPatch {
+  ownerId: String
+  name: String
+}
+
+input LambdaRef {
+  id: ID
+  ownerId: String
+  name: String
+}
+
 type Library {
   id: ID!
   ownerId: String!
@@ -1639,6 +1715,9 @@ type Mutation {
   addApp(input: [AddAppInput!]!): AddAppPayload
   updateApp(input: UpdateAppInput!): UpdateAppPayload
   deleteApp(filter: AppFilter!): DeleteAppPayload
+  addLambda(input: [AddLambdaInput!]!): AddLambdaPayload
+  updateLambda(input: UpdateLambdaInput!): UpdateLambdaPayload
+  deleteLambda(filter: LambdaFilter!): DeleteLambdaPayload
   addPage(input: [AddPageInput!]!): AddPagePayload
   updatePage(input: UpdatePageInput!): UpdatePagePayload
   deletePage(filter: PageFilter!): DeletePagePayload
@@ -1937,6 +2016,14 @@ type Query {
   getApp(id: ID!): App
   queryApp(filter: AppFilter, order: AppOrder, first: Int, offset: Int): [App]
   aggregateApp(filter: AppFilter): AppAggregateResult
+  getLambda(id: ID!): Lambda
+  queryLambda(
+    filter: LambdaFilter
+    order: LambdaOrder
+    first: Int
+    offset: Int
+  ): [Lambda]
+  aggregateLambda(filter: LambdaFilter): LambdaAggregateResult
   getPage(id: ID!): Page
   queryPage(
     filter: PageFilter
@@ -2489,6 +2576,22 @@ type UpdateInterfaceValuePayload {
     first: Int
     offset: Int
   ): [InterfaceValue]
+  numUids: Int
+}
+
+input UpdateLambdaInput {
+  filter: LambdaFilter!
+  set: LambdaPatch
+  remove: LambdaPatch
+}
+
+type UpdateLambdaPayload {
+  lambda(
+    filter: LambdaFilter
+    order: LambdaOrder
+    first: Int
+    offset: Int
+  ): [Lambda]
   numUids: Int
 }
 

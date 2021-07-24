@@ -22,8 +22,11 @@ export abstract class DgraphUseCase<
     )
   }
 
+  /**
+   * Builds the txn object and passes into our custom executeTransaction function
+   */
   protected async transactionWrapper<TResult>(
-    execute: (txn: Txn) => Promise<TResult>,
+    execute: (_txn: Txn) => Promise<TResult>,
   ) {
     const txn = this.dgraphProvider.client.newTxn()
 
