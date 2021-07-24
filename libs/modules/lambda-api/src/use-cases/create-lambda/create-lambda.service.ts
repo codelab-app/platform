@@ -1,6 +1,6 @@
 import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Mutation } from 'dgraph-js'
 import { CreateLambdaRequest } from './create-lambda.request'
 
 @Injectable()
@@ -16,7 +16,9 @@ export class CreateLambdaService extends DgraphUseCase<
     super(dgraphProvider)
   }
 
-  async executeTransaction(request: CreateLambdaRequest, txn: Txn) {
+  async executeTransaction(request: CreateLambdaRequest) {
+    // Mutation block
+    const txn = this.dgraphProvider.client.newTxn()
     const mu = new Mutation()
     mu.setSetJson({
       uid: '_:lambda_id',
@@ -26,6 +28,7 @@ export class CreateLambdaService extends DgraphUseCase<
 
     const mutationResult = await txn.mutate(mu)
     await txn.commit()
+    await txn.discard()
 
     // const lambdaId = mutationResult.getUidsMap().get('lambda_id')
 
