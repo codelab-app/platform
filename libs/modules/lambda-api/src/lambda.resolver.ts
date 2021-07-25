@@ -1,4 +1,8 @@
-import { GqlAuthGuard } from '@codelab/backend/adapters'
+import {
+  CurrentUser,
+  GqlAuthGuard,
+  JwtPayload,
+} from '@codelab/backend/adapters'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Lambda } from './lambda.model'
@@ -12,8 +16,11 @@ export class LambdaResolver {
 
   @Mutation(() => Lambda)
   @UseGuards(GqlAuthGuard)
-  async createLambda(@Args('input') input: CreateLambdaInput) {
-    return await this.createLambdaService.execute(input)
+  async createLambda(
+    @Args('input') input: CreateLambdaInput,
+    @CurrentUser() user: JwtPayload,
+  ) {
+    return await this.createLambdaService.execute({ input, ownerId: user.sub })
   }
 
   @Query(() => Lambda)

@@ -13,6 +13,7 @@ import {
 import { INestApplication } from '@nestjs/common'
 import { print } from 'graphql'
 import { LambdaModule } from '../../lambda.module'
+import { createLambda } from './create-lambda'
 
 describe('CreateLambda', () => {
   let guestApp: INestApplication
@@ -48,9 +49,13 @@ describe('CreateLambda', () => {
     })
   })
 
-  // describe('User', () => {
-  //   it('should create a lambda', () => {
-  //     const result = await createLambda(userApp)
-  //   })
-  // })
+  describe('User', () => {
+    it('should create a lambda', async () => {
+      const input = { name: 'Test Lambda Module' }
+      const result = await createLambda(userApp, input)
+
+      // expect(result).toMatchObject({ name: input.name })
+      expect(true).toBeTruthy()
+    })
+  })
 })
