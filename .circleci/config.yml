@@ -25,7 +25,7 @@ filters-staging-merge: &filters-staging-merge
       only: /^staging-.*$/
     branches:
       only:
-        - master
+        - staging
 
 filters-prod: &filters-prod
   filters:
