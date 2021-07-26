@@ -1,29 +1,28 @@
-import { useGetLambdasByLibraryIdQuery } from '@codelab/codegen/hasura'
-import { AppPageContext } from '@codelab/frontend/shared'
+import { useGetLambdasQuery } from '@codelab/codegen/graphql'
 import { Space, Table } from 'antd'
-import React, { useContext } from 'react'
+import React from 'react'
 import { DeleteLambdaButton } from '../deleteLambda'
 import { ExecuteLambdaButton } from '../executeLambda'
 import { UpdateLambdaButton } from '../updateLambda/UpdateLambdaButton'
 import { LambdaRecord } from './LambdaRecord'
 
-const mapDataSource = (lambdas: Array<LambdaRecord>) => {
-  return lambdas?.map((lambda: LambdaRecord) => ({
+const mapDataSource = (lambdas: Array<LambdaRecord>) =>
+  lambdas?.map((lambda: LambdaRecord) => ({
     id: lambda.id,
     key: lambda.id,
     name: lambda.name,
     body: lambda.body,
   }))
-}
 
 export const GetLambdasTable = () => {
-  const { app, appId } = useContext(AppPageContext)
+  // const { app, appId } = useContext(AppPageContext)
 
-  const { loading, data } = useGetLambdasByLibraryIdQuery({
-    variables: {
-      libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
-    },
-  })
+  // const { loading, data } = useGetLambdasByLibraryIdQuery({
+  //   variables: {
+  //     libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
+  //   },
+  // })
+  const { loading, data } = useGetLambdasQuery()
 
   const columns = [
     {
@@ -53,7 +52,7 @@ export const GetLambdasTable = () => {
     <></>
   ) : (
     <Table
-      dataSource={mapDataSource(data?.lambda as Array<LambdaRecord>)}
+      dataSource={mapDataSource(data?.getLambdas as Array<LambdaRecord>)}
       columns={columns}
     />
   )

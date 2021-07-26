@@ -384,7 +384,8 @@ type User {
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
-  getLambda: Lambda!
+  getLambda(input: GetLambdaInput!): Lambda!
+  getLambdas: [Lambda!]!
   getMe: User!
   getUsers(input: GetUsersInput): [User!]!
   getPages(input: GetPagesInput!): [Page!]!
@@ -408,6 +409,10 @@ type Query {
 
 input GetAppInput {
   appId: String!
+}
+
+input GetLambdaInput {
+  lambdaId: String!
 }
 
 input GetUsersInput {

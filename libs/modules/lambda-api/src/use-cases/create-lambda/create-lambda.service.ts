@@ -37,6 +37,7 @@ export class CreateLambdaService extends DgraphUseCase<
     // Query block
     const q = `{ lambda(func: uid(${lambdaId})){
       id: uid
+      ownerId: Lambda.ownerId
       name: Lambda.name
       body: Lambda.body
     }}`

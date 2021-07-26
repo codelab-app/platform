@@ -43,7 +43,10 @@ describe('CreateLambda', () => {
       >(userApp, CreateLambdaGql, createLambdaInput)
 
       expect(results.createLambda.id).toBeDefined()
-      expect(results.createLambda).toMatchObject(createLambdaInput)
+      expect(results.createLambda).toMatchObject({
+        ...createLambdaInput,
+        ownerId: 'codelab-test-user-id',
+      })
     })
   })
 })

@@ -58,7 +58,7 @@ export const domainRequest = async <TInput extends any, TResults extends any>(
   })
 
   if (expectedError) {
-    await response.expect((res: ApiResponse<ApolloQueryResult<any>>) => {
+    response.expect((res: ApiResponse<ApolloQueryResult<any>>) => {
       expect(res?.body?.errors).toMatchObject([
         { message: expectedError.message },
       ])
