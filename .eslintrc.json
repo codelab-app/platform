@@ -3,7 +3,7 @@
   "ignorePatterns": ["**/*"],
   "plugins": [
     "@nrwl/nx",
-    // "import",
+    "import",
     "unused-imports",
     "react-hooks",
     "graphql",
