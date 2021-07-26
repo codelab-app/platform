@@ -873,7 +873,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/next/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
           }
         },
         "test": {
