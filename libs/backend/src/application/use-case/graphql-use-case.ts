@@ -7,7 +7,7 @@ import { FetchResult } from '@apollo/client/link/core'
 import { TypedDocumentNode } from '@graphql-typed-document-node/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { DocumentNode } from 'graphql'
-import { ApolloClientTokens } from '../../infrastructure'
+import { ApolloClientTokens } from '../../infrastructure/ports'
 import { UseCase } from '../index'
 
 @Injectable()

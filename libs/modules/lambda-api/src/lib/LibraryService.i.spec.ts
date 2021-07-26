@@ -1,11 +1,11 @@
 import { InfrastructureModule } from '@codelab/backend'
 import { Test } from '@nestjs/testing'
+import { Lambda } from '../lambda.model'
 import { LambdaService } from '../lambda.service'
-import { ILambda } from './interfaces/IEventTrigger'
 
 describe('LibraryService', () => {
   let service: LambdaService
-  let lambda: ILambda
+  let lambda: Lambda
   let payload: any
 
   beforeAll(async () => {
@@ -16,7 +16,7 @@ describe('LibraryService', () => {
 
     lambda = {
       id: 'test-lambda-id',
-      library_id: 'test-lib-id',
+      ownerId: 'test-owner-id',
       name: 'lambda-name-test',
       body: `exports.handler = (event, context, callback) => {
 			  callback(null, event)

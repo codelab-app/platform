@@ -1,11 +1,11 @@
 import React from 'react'
-import { HomeClients } from '../src/pages/home/Home-clients'
-import { HomeFeatures } from '../src/pages/home/Home-features'
-import { HomeJumbo } from '../src/pages/home/Home-jumbo'
-import { NextPageLayout } from '../src/templates/Layout.d'
-import { LayoutHome } from '../src/templates/Layout--home'
+import { HomeClients } from '../src/sections/home/Home-clients'
+import { HomeFeatures } from '../src/sections/home/Home-features'
+import { HomeJumbo } from '../src/sections/home/Home-jumbo'
+import { HomeTemplate } from '../src/templates/HomeTemplate'
+import { NextPageTemplate } from '../src/templates/Layout.interface'
 
-const HomePage: NextPageLayout = () => {
+const HomePage: NextPageTemplate = () => {
   return (
     <>
       <HomeJumbo />
@@ -15,6 +15,6 @@ const HomePage: NextPageLayout = () => {
   )
 }
 
-HomePage.Layout = LayoutHome
+HomePage.Template = HomeTemplate
 
 export default HomePage

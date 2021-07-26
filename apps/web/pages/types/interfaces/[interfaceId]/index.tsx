@@ -10,7 +10,7 @@ import {
   withInterfaceQueryProvider,
 } from '@codelab/modules/type'
 import { PageHeader } from 'antd'
-import { AppListLayout } from 'apps/web/src/layout/AppListLayout'
+import { MainDashboardTemplate } from 'apps/web/src/templates/MainDashboardTemplate'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 
@@ -44,7 +44,7 @@ const InterfaceDetailPage = () => {
   )
 }
 
-InterfaceDetailPage.Layout = withInterfaceQueryProvider(AppListLayout)
+InterfaceDetailPage.Layout = withInterfaceQueryProvider(MainDashboardTemplate)
 // AppsPage.MainPane = () => <></>
 // AppsPage.MetaPane = () => <></>
 InterfaceDetailPage.SidebarNavigation = () => <></>

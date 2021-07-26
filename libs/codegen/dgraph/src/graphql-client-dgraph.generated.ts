@@ -277,6 +277,7 @@ export type AddInterfaceValuePayloadInterfaceValueArgs = {
 export type AddLambdaInput = {
   ownerId: Scalars['String']
   name: Scalars['String']
+  body: Scalars['String']
 }
 
 export type AddLambdaPayload = {
@@ -1824,6 +1825,7 @@ export type Lambda = {
   id: Scalars['ID']
   ownerId: Scalars['String']
   name: Scalars['String']
+  body: Scalars['String']
 }
 
 export type LambdaAggregateResult = {
@@ -1832,6 +1834,8 @@ export type LambdaAggregateResult = {
   ownerIdMax?: Maybe<Scalars['String']>
   nameMin?: Maybe<Scalars['String']>
   nameMax?: Maybe<Scalars['String']>
+  bodyMin?: Maybe<Scalars['String']>
+  bodyMax?: Maybe<Scalars['String']>
 }
 
 export type LambdaFilter = {
@@ -1846,6 +1850,7 @@ export type LambdaFilter = {
 export enum LambdaHasFilter {
   OwnerId = 'ownerId',
   Name = 'name',
+  Body = 'body',
 }
 
 export type LambdaOrder = {
@@ -1857,17 +1862,20 @@ export type LambdaOrder = {
 export enum LambdaOrderable {
   OwnerId = 'ownerId',
   Name = 'name',
+  Body = 'body',
 }
 
 export type LambdaPatch = {
   ownerId?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
+  body?: Maybe<Scalars['String']>
 }
 
 export type LambdaRef = {
   id?: Maybe<Scalars['ID']>
   ownerId?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
+  body?: Maybe<Scalars['String']>
 }
 
 export type Library = {

@@ -1,11 +1,11 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { DashboardLayout } from 'apps/web/src/templates/DashboardLayout'
+import { DashboardLayout } from 'apps/web/src/layout/DashboardLayout'
 import React from 'react'
-import { NextPageLayout } from '../../src/templates/Layout.d'
+import { NextPageTemplate } from '../../src/templates/Layout.interface'
 
-const Tag: NextPageLayout<'dashboard'> = () => <></>
+const Tag: NextPageTemplate<'dashboard'> = () => <></>
 
-Tag.Layout = DashboardLayout
+Tag.Template = DashboardLayout
 Tag.MainPane = () => <></>
 
 export const getServerSideProps = withPageAuthRequired()

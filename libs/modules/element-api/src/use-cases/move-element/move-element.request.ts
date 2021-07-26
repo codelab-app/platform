@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/backend/adapters'
+import { JwtPayload } from '@codelab/backend'
 import { MoveElementInput } from './move-element.input'
 
 export class MoveElementRequest {

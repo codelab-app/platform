@@ -1,4 +1,4 @@
-import { GqlAuthGuard } from '@codelab/backend/adapters'
+import { GqlAuthGuard } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,

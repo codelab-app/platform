@@ -1,8 +1,11 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { AwsLambdaService, AwsS3Service, AwsTokens } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
-import { ILambda } from './lib/interfaces/IEventTrigger'
+import { Lambda } from './lambda.model'
 
+/**
+ * This is a wrapper around AWS S3 & Lambda services, to easily help us create functions
+ */
 @Injectable()
 export class LambdaService {
   constructor(
@@ -11,8 +14,8 @@ export class LambdaService {
     private readonly awsLambdaService: AwsLambdaService,
   ) {}
 
-  async createLambda(lambda: ILambda) {
-    await this.awsS3Service.createBucket(lambda.library_id)
+  async createLambda(lambda: Lambda) {
+    await this.awsS3Service.createBucket(lambda.ownerId)
     await this.awsS3Service.uploadObject(lambda)
 
     const createFunctionResults = await this.awsLambdaService.createFunction(
@@ -22,27 +25,27 @@ export class LambdaService {
     return createFunctionResults
   }
 
-  async getLambda(lambda: ILambda) {
+  async getLambda(lambda: Lambda) {
     return await this.awsLambdaService.getFunction(lambda)
   }
 
-  async deleteLambda(lambda: ILambda) {
+  async deleteLambda(lambda: Lambda) {
     await this.awsS3Service.removeObject(lambda)
 
     return await this.awsLambdaService.removeFunction(lambda)
   }
 
-  async updateLambda(lambda: ILambda) {
+  async updateLambda(lambda: Lambda) {
     await this.awsS3Service.uploadObject(lambda)
 
     return await this.awsLambdaService.updateFunction(lambda)
   }
 
-  async executeLambda(lambda: ILambda, payload: any) {
+  async executeLambda(lambda: Lambda, payload: any) {
     return await this.awsLambdaService.executeFunction(lambda, payload)
   }
 
-  async deleteBucket(lambda: ILambda) {
-    return await this.awsS3Service.deleteBucket(lambda.library_id)
+  async deleteBucket(lambda: Lambda) {
+    return await this.awsS3Service.deleteBucket(lambda.ownerId)
   }
 }

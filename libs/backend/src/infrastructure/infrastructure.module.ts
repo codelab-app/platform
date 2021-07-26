@@ -1,11 +1,17 @@
 import { Module } from '@nestjs/common'
-import { AuthModule, LoggerModule } from '../adapters'
-import { apolloClientConfig, ApolloClientModule } from './apollo-client'
-import { auth0Config } from './auth0'
-import { dgraphConfig, DgraphModule } from './dgraph'
-import { graphqlSchemaConfig, GraphqlSchemaModule } from './graphql-schema'
-import { graphqlServerConfig, GraphqlServerModule } from './graphql-server'
-import { AwsModule } from './persistence/aws'
+import { AuthModule, LoggerModule } from './adapters'
+import { apolloClientConfig, ApolloClientModule } from './ports/apollo-client'
+import { auth0Config } from './ports/auth0'
+import { dgraphConfig, DgraphModule } from './ports/dgraph'
+import {
+  graphqlSchemaConfig,
+  GraphqlSchemaModule,
+} from './ports/graphql-schema'
+import {
+  graphqlServerConfig,
+  GraphqlServerModule,
+} from './ports/graphql-server'
+import { AwsModule } from './ports/persistence/aws'
 
 @Module({
   imports: [

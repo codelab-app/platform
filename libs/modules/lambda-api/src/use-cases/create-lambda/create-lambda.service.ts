@@ -22,7 +22,9 @@ export class CreateLambdaService extends DgraphUseCase<
     const mu = new Mutation()
     mu.setSetJson({
       uid: '_:lambda_id',
+      'dgraph.type': 'Lambda',
       'Lambda.name': request.input.name,
+      'Lambda.body': request.input.body,
       'Lambda.ownerId': request.ownerId,
     })
 
@@ -30,41 +32,20 @@ export class CreateLambdaService extends DgraphUseCase<
     await txn.commit()
     await txn.discard()
 
-    // const lambdaId = mutationResult.getUidsMap().get('lambda_id')
+    const lambdaId = mutationResult.getUidsMap().get('lambda_id')
 
-    // const q = `{ lambda(func: eq(uid, ${lambdaId})){
-    //   uid
-    //   Lambda.name
-    // }}`
+    // Query block
+    const q = `{ lambda(func: uid(${lambdaId})){
+      id: uid
+      name: Lambda.name
+      body: Lambda.body
+    }}`
 
     const _txn = this.dgraphProvider.client.newTxn()
-
-    const q = `{
-      lambda(func: type(Lambda)){
-        uid
-        Lambda.name
-      }
-    }`
-
     const results = await _txn.query(q)
+
     await _txn.discard()
 
-    console.log(results.getJson())
-
-    // await this.transactionWrapper(async (_txn) => {
-    //   const q = `{
-    //   lambda(func: type(Lambda)){
-    //     uid
-    //     Lambda.name
-    //   }
-    // }`
-
-    //   const results = await _txn.query(q)
-    //   await txn.commit()
-
-    //   console.log(results.getJson())
-    // })
-
-    return mutationResult
+    return results.getJson().lambda[0]
   }
 }

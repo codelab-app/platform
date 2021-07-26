@@ -7,12 +7,12 @@ import {
   UpdateAtomModal,
 } from '@codelab/modules/atom'
 import { Breadcrumb, Card, PageHeader, Space } from 'antd'
-import { LayoutAtom } from 'apps/web/src/templates/Layout--atom'
+import { AtomTemplate } from 'apps/web/src/templates/AtomTemplate'
 import React from 'react'
 import tw from 'twin.macro'
-import { NextPageLayout } from '../../../../src/templates/Layout.d'
+import { NextPageTemplate } from '../../../../src/templates/Layout.interface'
 
-const AtomsPage: NextPageLayout = () => {
+const AtomsPage: NextPageTemplate = () => {
   return (
     <div css={tw`m-6`}>
       <Space direction="vertical" css={tw`flex`}>
@@ -29,7 +29,7 @@ const AtomsPage: NextPageLayout = () => {
                 Atom (Interface)
               </span>
             }
-            extra={[<CreateAtomButton />]}
+            extra={[<CreateAtomButton key="create-atom-button" />]}
           />
         </Card>
         <Card bodyStyle={tw`p-0`}>
@@ -44,6 +44,6 @@ const AtomsPage: NextPageLayout = () => {
 }
 
 export const getServerSideProps = withPageAuthRequired()
-AtomsPage.Layout = LayoutAtom
+AtomsPage.Template = AtomTemplate
 
 export default AtomsPage

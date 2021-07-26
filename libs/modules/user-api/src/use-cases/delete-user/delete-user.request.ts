@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/backend/adapters'
+import { JwtPayload } from '@codelab/backend'
 import { DeleteUserInput } from './delete-user.input'
 
 export class DeleteUserRequest {

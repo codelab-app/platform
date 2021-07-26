@@ -6,6 +6,7 @@ const withCSS = require('@zeit/next-css')
 module.exports = withLess({
   ...withNx({
     cssModules: false,
+    webpack5: false,
   }),
   ...withSass({
     lessLoaderOptions: {

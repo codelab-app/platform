@@ -1,9 +1,9 @@
-import { DeleteResponse } from '@codelab/backend'
 import {
   CurrentUser,
+  DeleteResponse,
   GqlAuthGuard,
   JwtPayload,
-} from '@codelab/backend/adapters'
+} from '@codelab/backend'
 import {
   GetPropAggregatesService,
   PropAggregate,

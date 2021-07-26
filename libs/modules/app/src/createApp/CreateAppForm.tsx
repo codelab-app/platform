@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0'
 import {
   CreateAppInput,
   refetchGetAppsQuery,
@@ -19,7 +18,6 @@ import { createAppSchema } from './createAppSchema'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const { reset, setLoading } = useCrudModalForm(EntityType.App)
-  const { user } = useUser()
 
   const [mutate, { loading }] = useCreateAppMutation({
     awaitRefetchQueries: true,

@@ -9,10 +9,11 @@ import {
 } from '@codelab/modules/app'
 import { SignOutUserButton } from '@codelab/modules/user'
 import { PageHeader } from 'antd'
-import { AppListLayout } from 'apps/web/src/layout/AppListLayout'
 import React from 'react'
+import { NextPageTemplate } from '../../src/templates/Layout.interface'
+import { MainDashboardTemplate } from '../../src/templates/MainDashboardTemplate'
 
-const AppsPage = () => {
+const AppsPage: NextPageTemplate<'dashboard'> = () => {
   const pageHeaderButtons = [
     <CreateAppButton key={0} />,
     <SignOutUserButton key={1} />,
@@ -36,10 +37,7 @@ const AppsPage = () => {
   )
 }
 
-AppsPage.Layout = AppListLayout
-// AppsPage.MainPane = () => <></>
-// AppsPage.MetaPane = () => <></>
-AppsPage.SidebarNavigation = () => <></>
+AppsPage.Template = MainDashboardTemplate
 
 export const getServerSideProps = withPageAuthRequired()
 

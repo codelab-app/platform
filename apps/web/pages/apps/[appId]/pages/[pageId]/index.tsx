@@ -7,11 +7,11 @@ import {
   withPageQueryProvider,
 } from '@codelab/modules/page'
 import { Empty } from 'antd'
-import { LayoutPageDetail } from 'apps/web/src/templates/Layout--pageDetail'
+import { PageDetailTemplate } from 'apps/web/src/templates/PageDetailTemplate'
 import React, { useContext } from 'react'
-import { NextPageLayout } from '../../../../../src/templates/Layout.d'
+import { NextPageTemplate } from '../../../../../src/templates/Layout.interface'
 
-const PageDetail: NextPageLayout<'builder'> = () => {
+const PageDetail: NextPageTemplate<'builder'> = () => {
   const { cytoscapeRoot, page, loading } = useContext(PageContext)
 
   if (loading) {
@@ -27,7 +27,7 @@ const PageDetail: NextPageLayout<'builder'> = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-PageDetail.Layout = withPageQueryProvider(LayoutPageDetail)
+PageDetail.Template = withPageQueryProvider(PageDetailTemplate)
 PageDetail.MainPane = MainPanePageDetail
 PageDetail.MetaPane = MetaPanePageDetail
 

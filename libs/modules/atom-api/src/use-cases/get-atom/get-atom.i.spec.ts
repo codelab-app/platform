@@ -1,12 +1,11 @@
 import { ApolloQueryResult } from '@apollo/client'
 import {
   ApiResponse,
-  Auth0Service,
   request,
+  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend'
-import { Role } from '@codelab/backend/adapters'
 import {
   __AtomFragment,
   GetAtomGql,

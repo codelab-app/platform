@@ -1,5 +1,4 @@
-import { DeleteResponse } from '@codelab/backend'
-import { GqlAuthGuard } from '@codelab/backend/adapters'
+import { DeleteResponse, GqlAuthGuard } from '@codelab/backend'
 import { GetInterfaceService, Interface } from '@codelab/modules/type-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {

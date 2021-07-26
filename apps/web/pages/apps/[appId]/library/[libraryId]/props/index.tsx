@@ -1,15 +1,15 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { DashboardLayout } from 'apps/web/src/templates/DashboardLayout'
+import { DashboardLayout } from 'apps/web/src/layout/DashboardLayout'
 import React from 'react'
-import { NextPageLayout } from '../../../../../../src/templates/Layout.d'
+import { NextPageTemplate } from '../../../../../../src/templates/Layout.interface'
 
-const PropTypeCDetail: NextPageLayout<'dashboard'> = () => {
+const PropTypeCDetail: NextPageTemplate<'dashboard'> = () => {
   return <div id="Builder" style={{ position: 'relative' }}></div>
 }
 
 export const getServerSideProps = withPageAuthRequired()
 
-PropTypeCDetail.Layout = DashboardLayout
+PropTypeCDetail.Template = DashboardLayout
 // PropTypeCDetail.MainPane = PaneMainPropTypeC
 
 export default PropTypeCDetail

@@ -1,4 +1,9 @@
-import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
+import {
+  Auth0UserId,
+  DgraphProvider,
+  DgraphTokens,
+  DgraphUseCase,
+} from '@codelab/backend'
 import { Dgraph_ElementFragment } from '@codelab/codegen/dgraph'
 import { Atom, GetAtomService } from '@codelab/modules/atom-api'
 import { Inject, Injectable } from '@nestjs/common'
@@ -70,7 +75,7 @@ export class CreateElementService extends DgraphUseCase<
 
   private static createMutation(
     { parentElementId, order, name, atomId }: CreateElementInput,
-    ownerId?: string,
+    ownerId?: Auth0UserId,
   ) {
     const mu = new Mutation()
     mu.setSetNquads(`

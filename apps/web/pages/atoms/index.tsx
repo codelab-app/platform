@@ -8,10 +8,11 @@ import {
   UpdateAtomModal,
 } from '@codelab/modules/atom'
 import { PageHeader } from 'antd'
-import { AppListLayout } from 'apps/web/src/layout/AppListLayout'
+import { NextPageTemplate } from 'apps/web/src/templates/Layout.interface'
+import { MainDashboardTemplate } from 'apps/web/src/templates/MainDashboardTemplate'
 import React from 'react'
 
-const AtomsPage = () => {
+const AtomsPage: NextPageTemplate = () => {
   const pageHeaderButtons = [<CreateAtomButton key={0} />]
 
   return (
@@ -32,10 +33,7 @@ const AtomsPage = () => {
   )
 }
 
-AtomsPage.Layout = AppListLayout
-// AppsPage.MainPane = () => <></>
-// AppsPage.MetaPane = () => <></>
-AtomsPage.SidebarNavigation = () => <></>
+AtomsPage.Template = MainDashboardTemplate
 
 export const getServerSideProps = withPageAuthRequired()
 
