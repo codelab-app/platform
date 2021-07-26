@@ -29,7 +29,7 @@ const AtomsPage: NextPageTemplate = () => {
                 Atom (Interface)
               </span>
             }
-            extra={[<CreateAtomButton />]}
+            extra={[<CreateAtomButton key="create-atom-button" />]}
           />
         </Card>
         <Card bodyStyle={tw`p-0`}>

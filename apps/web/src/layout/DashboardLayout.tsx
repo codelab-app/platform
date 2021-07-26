@@ -35,7 +35,7 @@ export const DashboardLayout: LayoutComponent<
   { layoutProps?: LayoutProps }
 > = ({ children, layoutProps, MainPane, MetaPane, SidebarNavigation }) => {
   const router = useRouter()
-  const contentPadding = isPageDetailRoute(router) ? 'pt-12' : ''
+  // const contentPadding = isPageDetailRoute(router) ? 'pt-12' : ''
 
   return (
     <Layout css={tw`h-full`} {...(layoutProps || {})}>

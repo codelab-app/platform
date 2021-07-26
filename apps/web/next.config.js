@@ -6,6 +6,10 @@ const withCSS = require('@zeit/next-css')
 module.exports = withLess({
   ...withNx({
     cssModules: false,
+    webpack5: false,
+    eslint: {
+      dirs: ['apps/web/pages'], // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
+    },
   }),
   ...withSass({
     lessLoaderOptions: {

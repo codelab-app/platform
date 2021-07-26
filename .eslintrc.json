@@ -3,16 +3,16 @@
   "ignorePatterns": ["**/*"],
   "plugins": [
     "@nrwl/nx",
-    "import",
+    // "import",
     "unused-imports",
     "react-hooks",
     "graphql",
     "@emotion",
     "prettier",
     "jest-formatting",
-    "simple-import-sort",
-    "@graphql-eslint",
-    "eslint-plugin-graphql"
+    "simple-import-sort"
+    // "@graphql-eslint",
+    // "eslint-plugin-graphql"
   ],
   "extends": ["plugin:prettier/recommended"],
   "overrides": [
