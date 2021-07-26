@@ -3,12 +3,12 @@ import { Layout } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
-import { BuilderSidebarNavigation } from '../sections/BuilderSidebarNavigation'
+import { BuilderSidebarNavigation } from './builder/BuilderSidebarNavigation'
 import { LayoutComponent } from './Layout.d'
 
 const { Sider, Content, Header } = Layout
 
-export const LayoutAtom: LayoutComponent = ({ children }) => {
+export const AtomTemplate: LayoutComponent = ({ children }) => {
   const router = useRouter()
 
   return (

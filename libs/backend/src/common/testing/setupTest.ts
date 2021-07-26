@@ -8,12 +8,12 @@ import {
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { ExpressAdapter } from '@nestjs/platform-express'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
-import { GqlAuthGuard, JwtPayload, Role } from '../adapters'
+import { GqlAuthGuard, JwtPayload, Role } from '../../adapters/auth'
 import {
   DgraphProvider,
   DgraphTokens,
   InfrastructureModule,
-} from '../infrastructure'
+} from '../../infrastructure'
 
 type NestModule =
   | Type<any>

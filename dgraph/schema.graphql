@@ -11,6 +11,7 @@ type Lambda {
   id: ID!
   ownerId: String! @search(by: [hash])
   name: String!
+  body: String!
 }
 
 type Page {

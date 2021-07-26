@@ -17,6 +17,7 @@ export enum EntityType {
   App = 'App',
   Style = 'Style',
   Library = 'Library',
+  Lambda = 'Lambda',
   // Not used yet \/
   Component = 'Component',
   ComponentElement = 'ComponentElement',

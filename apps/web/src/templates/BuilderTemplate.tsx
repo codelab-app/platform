@@ -5,7 +5,7 @@ import React, { PropsWithChildren } from 'react'
 /**
  * The App view
  */
-export const BuilderLayout = ({ children }: PropsWithChildren<any>) => {
+export const BuilderTemplate = ({ children }: PropsWithChildren<any>) => {
   const { query } = useRouter()
   const appId = query.appId as string
 

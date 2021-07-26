@@ -4,8 +4,11 @@ import { ComponentType } from 'react'
 
 type LayoutVariant = 'default' | 'builder' | 'component' | 'dashboard'
 
-export type WithLayout<TLayout extends LayoutVariant, P = unknown> = {
-  Layout: LayoutComponent<TLayout, P>
+/**
+ * A Template can use from a selection of existing Layouts
+ */
+export type WithTemplate<TLayout extends LayoutVariant, P = unknown> = {
+  Template: LayoutComponent<TLayout, P>
 }
 
 export type WithMainPane = {
@@ -20,17 +23,21 @@ export type WithSidebarNavigation = {
   SidebarNavigation?: ComponentType
 }
 
-type WithLayoutProps<TLayout extends LayoutVariant> = TLayout extends 'default'
-  ? {}
-  : WithMainPane &
-      WithMetaPane &
-      (TLayout extends 'dashboard' ? WithSidebarNavigation : {})
+export type WithLayoutProps<TLayout extends LayoutVariant> =
+  TLayout extends 'default'
+    ? {}
+    : WithMainPane &
+        WithMetaPane &
+        (TLayout extends 'dashboard' ? WithSidebarNavigation : {})
 
-export type NextPageLayout<
+/**
+ * Used for Next.js pages
+ */
+export type NextPageTemplate<
   TLayout extends LayoutVariant = 'default',
   P = unknown,
   IP = P,
-> = NextPage<P, IP> & WithLayout<TLayout, P> & WithLayoutProps<TLayout>
+> = NextPage<P, IP> & WithTemplate<TLayout, P> & WithLayoutProps<TLayout>
 
 export type LayoutComponent<
   TLayout extends LayoutVariant = 'default',

@@ -4,8 +4,8 @@ import { Layout } from 'antd'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
-import { BuilderSidebarNavigation } from '../sections/BuilderSidebarNavigation'
-import { WithMainPane, WithMetaPane } from './Layout.d'
+import { WithMainPane, WithMetaPane } from '../Layout.d'
+import { BuilderSidebarNavigation } from './BuilderSidebarNavigation'
 
 const { Sider, Content } = Layout
 
@@ -18,7 +18,7 @@ const MetaPaneSection = styled('div')`
   width: 100%;
 `
 
-export const LayoutBuilder = ({
+export const BuilderTemplate = ({
   children,
   MainPane,
   MetaPane,

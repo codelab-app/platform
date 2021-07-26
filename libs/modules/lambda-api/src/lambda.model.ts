@@ -7,4 +7,7 @@ export class Lambda {
 
   @Field()
   declare name: string
+
+  @Field()
+  declare body: string
 }

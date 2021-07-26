@@ -1,11 +1,10 @@
-import {
-  refetchGetLambdasByLibraryIdQuery,
-  useCreateLambdaMutation,
-} from '@codelab/codegen/hasura'
+import { useCreateLambdaMutation } from '@codelab/codegen/graphql'
 import {
   createNotificationHandler,
+  EntityType,
   FormUniforms,
   UniFormUseCaseProps,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { useSelectedLibrary } from '@codelab/modules/library'
 import React from 'react'
@@ -13,14 +12,15 @@ import { DeepPartial } from 'uniforms'
 import { CreateLambdaInput, createLambdaSchema } from './createLambdaSchema'
 
 export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {
+  const { reset, setLoading } = useCrudModalForm(EntityType.Lambda)
   const { library } = useSelectedLibrary()
 
   const [mutate] = useCreateLambdaMutation({
-    refetchQueries: [
-      refetchGetLambdasByLibraryIdQuery({
-        libraryId: library?.id ?? '',
-      }),
-    ],
+    // refetchQueries: [
+    //   refetchGetLambdasByLibraryIdQuery({
+    //     libraryId: library?.id ?? '',
+    //   }),
+    // ],
   })
 
   const onSubmit = (submitData: DeepPartial<CreateLambdaInput>) => {

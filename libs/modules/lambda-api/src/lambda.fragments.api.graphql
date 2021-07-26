@@ -1,4 +1,5 @@
 fragment __Lambda on Lambda {
   id
   name
+  body
 }

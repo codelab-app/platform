@@ -8,10 +8,11 @@ import {
   UpdateTypeModal,
 } from '@codelab/modules/type'
 import { PageHeader } from 'antd'
-import { AppListLayout } from 'apps/web/src/layout/AppListLayout'
+import { NextPageTemplate } from 'apps/web/src/templates/Layout.d'
+import { MainDashboardTemplate } from 'apps/web/src/templates/MainDashboardTemplate'
 import React from 'react'
 
-const TypesPage = () => {
+const TypesPage: NextPageTemplate<'dashboard'> = () => {
   const headerButtons = [<CreateTypeButton key={0} />]
 
   return (
@@ -32,10 +33,7 @@ const TypesPage = () => {
   )
 }
 
-TypesPage.Layout = AppListLayout
-// AppsPage.MainPane = () => <></>
-// AppsPage.MetaPane = () => <></>
-TypesPage.SidebarNavigation = () => <></>
+TypesPage.Template = MainDashboardTemplate
 
 export const getServerSideProps = withPageAuthRequired()
 

@@ -348,6 +348,7 @@ type ElementAggregate {
 type Lambda {
   id: ID!
   name: String!
+  body: String!
 }
 
 type Page {
@@ -497,6 +498,7 @@ type Mutation {
   updateApp(input: UpdateAppInput!): App!
   deleteApp(input: DeleteAppInput!): App!
   createLambda(input: CreateLambdaInput!): Lambda!
+  deleteLambda(input: DeleteLambdaInput!): Lambda!
   updateUser(input: UpdateUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
   createPage(input: CreatePageInput!): Page!
@@ -543,7 +545,15 @@ input DeleteAppInput {
 }
 
 input CreateLambdaInput {
+  """Name of the Lambda function to be executed"""
   name: String!
+
+  """Content of the Lambda function"""
+  body: String!
+}
+
+input DeleteLambdaInput {
+  lambdaId: String!
 }
 
 input UpdateUserInput {

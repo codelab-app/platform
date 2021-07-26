@@ -9,12 +9,12 @@ import {
 } from '@codelab/modules/component-element'
 import { MainPaneLibrary } from '@codelab/modules/library'
 import { Breadcrumb, Empty } from 'antd'
-import { MetaPaneComponent } from 'apps/web/src/templates/MetaPaneComponent'
+import { MetaPaneComponent } from 'apps/web/src/templates/library/MetaPaneComponent'
 import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
-import { NextPageLayout } from '../../../../src/templates/Layout.d'
-import { LayoutLibrary } from '../../../../src/templates/Layout--library'
+import { NextPageTemplate } from '../../../../src/templates/Layout.d'
+import { LibraryTemplate } from '../../../../src/templates/library/LibraryTemplate'
 
 const LibraryContent = () => {
   const { selectedComponent, setSelected } = useComponentBuilder()
@@ -44,7 +44,7 @@ const LibraryContent = () => {
   )
 }
 
-const Library: NextPageLayout<'builder'> = () => {
+const Library: NextPageTemplate<'builder'> = () => {
   return (
     <div id="Builder" css={tw`relative h-full`}>
       <Breadcrumb>
@@ -60,7 +60,7 @@ const Library: NextPageLayout<'builder'> = () => {
   )
 }
 
-Library.Layout = LayoutLibrary
+Library.Template = LibraryTemplate
 Library.MainPane = MainPaneLibrary
 Library.MetaPane = MetaPaneComponent
 

@@ -13,7 +13,7 @@ import React from 'react'
 import { NextPageTemplate } from '../../src/templates/Layout.d'
 import { MainDashboardTemplate } from '../../src/templates/MainDashboardTemplate'
 
-const AppsPage: NextPageTemplate<'dashboard'> = () => {
+const LambdasPage: NextPageTemplate<'dashboard'> = () => {
   const pageHeaderButtons = [
     <CreateAppButton key={0} />,
     <SignOutUserButton key={1} />,
@@ -37,8 +37,8 @@ const AppsPage: NextPageTemplate<'dashboard'> = () => {
   )
 }
 
-AppsPage.Template = MainDashboardTemplate
+LambdasPage.Template = MainDashboardTemplate
 
 export const getServerSideProps = withPageAuthRequired()
 
-export default AppsPage
+export default LambdasPage

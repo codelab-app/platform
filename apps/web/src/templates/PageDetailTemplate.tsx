@@ -1,9 +1,9 @@
 import { EditorProvider } from '@codelab/frontend/builder'
 import React from 'react'
-import { DashboardLayout } from './DashboardLayout'
+import { DashboardLayout } from '../layout/DashboardLayout'
 import { LayoutComponent } from './Layout.d'
 
-export const LayoutPageDetail: LayoutComponent<'builder'> = (props) => {
+export const PageDetailTemplate: LayoutComponent<'builder'> = (props) => {
   const { children, MainPane, MetaPane } = props
 
   return (

@@ -2,7 +2,7 @@ import { EditorProvider } from '@codelab/frontend/builder'
 import { ComponentProvider } from '@codelab/frontend/shared'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
-import { DashboardLayout } from './DashboardLayout'
+import { DashboardLayout } from '../layout/DashboardLayout'
 import { WithMainPane } from './Layout.d'
 
 export const LayoutComponentDetail = (

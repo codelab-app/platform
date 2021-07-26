@@ -30,7 +30,7 @@
         //   }
         // ],
         // "react/jsx-props-no-spreading": "error",
-        "spaced-comment": ["error", "always"],
+        "spaced-comment": ["error", "always", { "markers": ["/"] }],
         "simple-import-sort/imports": [
           "error",
           {

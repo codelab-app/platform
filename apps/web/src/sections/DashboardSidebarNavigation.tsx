@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 
-export const AppListSidebarNavigation = () => {
+export const DashboardSidebarNavigation = () => {
   const router = useRouter()
 
   // const paths = router.pathname

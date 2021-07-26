@@ -11,8 +11,8 @@ import React from 'react'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
 
-const AppContainer = ({ pageProps, Component, router }: AppProps) => {
-  const { Layout, MainPane, MetaPane, SidebarNavigation } = Component as any
+const AppContainer = ({ pageProps, Component, router }: AppProps<any>) => {
+  const { Template, MainPane, MetaPane, SidebarNavigation } = Component as any
 
   return (
     <RecoilRoot>
@@ -31,14 +31,14 @@ const AppContainer = ({ pageProps, Component, router }: AppProps) => {
                 },
               })}
             />
-            {Layout ? (
-              <Layout
+            {Template ? (
+              <Template
                 MainPane={MainPane}
                 MetaPane={MetaPane}
                 SidebarNavigation={SidebarNavigation}
               >
                 <Component {...pageProps} />
-              </Layout>
+              </Template>
             ) : (
               <Component {...pageProps} />
             )}

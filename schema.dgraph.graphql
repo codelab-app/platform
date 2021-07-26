@@ -252,6 +252,7 @@ type AddInterfaceValuePayload {
 input AddLambdaInput {
   ownerId: String!
   name: String!
+  body: String!
 }
 
 type AddLambdaPayload {
@@ -1588,6 +1589,7 @@ type Lambda {
   id: ID!
   ownerId: String!
   name: String!
+  body: String!
 }
 
 type LambdaAggregateResult {
@@ -1596,6 +1598,8 @@ type LambdaAggregateResult {
   ownerIdMax: String
   nameMin: String
   nameMax: String
+  bodyMin: String
+  bodyMax: String
 }
 
 input LambdaFilter {
@@ -1610,6 +1614,7 @@ input LambdaFilter {
 enum LambdaHasFilter {
   ownerId
   name
+  body
 }
 
 input LambdaOrder {
@@ -1621,17 +1626,20 @@ input LambdaOrder {
 enum LambdaOrderable {
   ownerId
   name
+  body
 }
 
 input LambdaPatch {
   ownerId: String
   name: String
+  body: String
 }
 
 input LambdaRef {
   id: ID
   ownerId: String
   name: String
+  body: String
 }
 
 type Library {

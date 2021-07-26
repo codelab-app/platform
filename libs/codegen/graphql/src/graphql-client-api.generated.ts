@@ -281,7 +281,10 @@ export type CreateInterfaceInput = {
 }
 
 export type CreateLambdaInput = {
+  /** Name of the Lambda function to be executed */
   name: Scalars['String']
+  /** Content of the Lambda function */
+  body: Scalars['String']
 }
 
 export type CreatePageInput = {
@@ -316,6 +319,10 @@ export type DeleteElementInput = {
 
 export type DeleteFieldInput = {
   fieldId: Scalars['String']
+}
+
+export type DeleteLambdaInput = {
+  lambdaId: Scalars['String']
 }
 
 export type DeletePageInput = {
@@ -493,6 +500,7 @@ export type InterfaceValueInput = {
 export type Lambda = {
   id: Scalars['ID']
   name: Scalars['String']
+  body: Scalars['String']
 }
 
 export type MoveData = {
@@ -510,6 +518,7 @@ export type Mutation = {
   updateApp: App
   deleteApp: App
   createLambda: Lambda
+  deleteLambda: Lambda
   updateUser: User
   deleteUser: Scalars['Boolean']
   createPage: Page
@@ -551,6 +560,10 @@ export type MutationDeleteAppArgs = {
 
 export type MutationCreateLambdaArgs = {
   input: CreateLambdaInput
+}
+
+export type MutationDeleteLambdaArgs = {
+  input: DeleteLambdaInput
 }
 
 export type MutationUpdateUserArgs = {
@@ -1068,13 +1081,19 @@ export type UpdateElementMutationVariables = Exact<{
 
 export type UpdateElementMutation = { updateElement: ElementFragment }
 
-export type __LambdaFragment = Pick<Lambda, 'id' | 'name'>
+export type __LambdaFragment = Pick<Lambda, 'id' | 'name' | 'body'>
 
 export type CreateLambdaMutationVariables = Exact<{
   input: CreateLambdaInput
 }>
 
 export type CreateLambdaMutation = { createLambda: __LambdaFragment }
+
+export type DeleteLambdaMutationVariables = Exact<{
+  input: DeleteLambdaInput
+}>
+
+export type DeleteLambdaMutation = { deleteLambda: __LambdaFragment }
 
 export type PageBaseFragment = Pick<Page, 'id' | 'name'> & {
   app: Pick<App, 'id' | 'name' | 'ownerId'>
@@ -1571,6 +1590,7 @@ export const __LambdaFragmentDoc = gql`
   fragment __Lambda on Lambda {
     id
     name
+    body
   }
 `
 export const PageBaseFragmentDoc = gql`
@@ -2810,6 +2830,57 @@ export type CreateLambdaMutationResult =
 export type CreateLambdaMutationOptions = Apollo.BaseMutationOptions<
   CreateLambdaMutation,
   CreateLambdaMutationVariables
+>
+export const DeleteLambdaGql = gql`
+  mutation DeleteLambda($input: DeleteLambdaInput!) {
+    deleteLambda(input: $input) {
+      ...__Lambda
+    }
+  }
+  ${__LambdaFragmentDoc}
+`
+export type DeleteLambdaMutationFn = Apollo.MutationFunction<
+  DeleteLambdaMutation,
+  DeleteLambdaMutationVariables
+>
+
+/**
+ * __useDeleteLambdaMutation__
+ *
+ * To run a mutation, you first call `useDeleteLambdaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLambdaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLambdaMutation, { data, loading, error }] = useDeleteLambdaMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteLambdaMutation,
+    DeleteLambdaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteLambdaMutation,
+    DeleteLambdaMutationVariables
+  >(DeleteLambdaGql, options)
+}
+export type DeleteLambdaMutationHookResult = ReturnType<
+  typeof useDeleteLambdaMutation
+>
+export type DeleteLambdaMutationResult =
+  Apollo.MutationResult<DeleteLambdaMutation>
+export type DeleteLambdaMutationOptions = Apollo.BaseMutationOptions<
+  DeleteLambdaMutation,
+  DeleteLambdaMutationVariables
 >
 export const CreatePageGql = gql`
   mutation CreatePage($input: CreatePageInput!) {
@@ -4379,6 +4450,7 @@ export const __Lambda = gql`
   fragment __Lambda on Lambda {
     id
     name
+    body
   }
 `
 export const PageBase = gql`
@@ -4857,6 +4929,14 @@ export const UpdateElement = gql`
 export const CreateLambda = gql`
   mutation CreateLambda($input: CreateLambdaInput!) {
     createLambda(input: $input) {
+      ...__Lambda
+    }
+  }
+  ${__Lambda}
+`
+export const DeleteLambda = gql`
+  mutation DeleteLambda($input: DeleteLambdaInput!) {
+    deleteLambda(input: $input) {
       ...__Lambda
     }
   }
