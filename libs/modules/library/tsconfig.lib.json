@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
-    "types": ["node", "xwind"],
+    "types": ["node"],
     "esModuleInterop": true,
     "strict": true,
     "noImplicitReturns": true,

@@ -332,7 +332,6 @@
     "utility-types": "3.10.0",
     "wait-on": "5.3.0",
     "webpack": "4.44.2",
-    "xwind": "0.8.0",
     "yargs": "17.0.1"
   }
 }

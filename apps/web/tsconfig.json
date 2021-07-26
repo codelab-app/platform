@@ -8,7 +8,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "jest", "xwind"],
+    "types": ["node"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
