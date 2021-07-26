@@ -37,6 +37,9 @@ type ExpectedError = {
   message: string
 }
 
+export const request = (app: INestApplication) =>
+  supertestRequest(app).post('/graphql').timeout(30000)
+
 /**
  *
  * @param app

@@ -9,7 +9,7 @@ import {
 import { Empty } from 'antd'
 import { PageDetailTemplate } from 'apps/web/src/templates/PageDetailTemplate'
 import React, { useContext } from 'react'
-import { NextPageTemplate } from '../../../../../src/templates/Layout.d'
+import { NextPageTemplate } from '../../../../../src/templates/Layout.interface'
 
 const PageDetail: NextPageTemplate<'builder'> = () => {
   const { cytoscapeRoot, page, loading } = useContext(PageContext)

@@ -1,7 +1,7 @@
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { Inject, Injectable } from '@nestjs/common'
-import { ConfigService, ConfigType } from '@nestjs/config'
+import { ConfigType } from '@nestjs/config'
 import { print } from 'graphql'
 import { DgraphConfig, DgraphTokens } from '../dgraph'
 import { GraphqlSchemaConfig } from './config/graphql-schema.config'

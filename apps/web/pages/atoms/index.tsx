@@ -8,7 +8,7 @@ import {
   UpdateAtomModal,
 } from '@codelab/modules/atom'
 import { PageHeader } from 'antd'
-import { NextPageTemplate } from 'apps/web/src/templates/Layout.d'
+import { NextPageTemplate } from 'apps/web/src/templates/Layout.interface'
 import { MainDashboardTemplate } from 'apps/web/src/templates/MainDashboardTemplate'
 import React from 'react'
 

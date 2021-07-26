@@ -3,7 +3,7 @@ import { ComponentProvider, LibraryProvider } from '@codelab/frontend/shared'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { DashboardLayout } from '../../layout/DashboardLayout'
-import { LayoutComponent } from '../Layout.d'
+import { LayoutComponent } from '../Layout.interface'
 
 export const LibraryTemplate: LayoutComponent<'builder'> = (props) => {
   const { children, MainPane } = props

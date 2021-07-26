@@ -4,7 +4,7 @@ import { Layout } from 'antd'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
-import { WithMainPane, WithMetaPane } from '../Layout.d'
+import { WithMainPane, WithMetaPane } from '../Layout.interface'
 import { BuilderSidebarNavigation } from './BuilderSidebarNavigation'
 
 const { Sider, Content } = Layout

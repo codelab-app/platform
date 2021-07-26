@@ -1,9 +1,9 @@
-import { DeleteResponse } from '@codelab/backend'
 import {
   CurrentUser,
+  DeleteResponse,
   GqlAuthGuard,
   JwtPayload,
-} from '@codelab/backend/adapters'
+} from '@codelab/backend'
 import { ElementAggregate } from '@codelab/modules/element-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {

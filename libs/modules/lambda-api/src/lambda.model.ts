@@ -6,6 +6,9 @@ export class Lambda {
   declare id: string
 
   @Field()
+  declare ownerId: string
+
+  @Field()
   declare name: string
 
   @Field()

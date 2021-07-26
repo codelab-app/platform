@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/backend/adapters'
+import { JwtPayload } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { GetAppService } from '../../use-cases/get-app/get-app.service'
 

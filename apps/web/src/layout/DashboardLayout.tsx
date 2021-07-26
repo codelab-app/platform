@@ -5,7 +5,7 @@ import { LayoutProps } from 'antd/lib/layout'
 import { NextRouter, useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
-import { LayoutComponent } from '../templates/Layout.d'
+import { LayoutComponent } from '../templates/Layout.interface'
 
 const { Sider, Content } = Layout
 

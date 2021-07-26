@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/backend/adapters'
+import { JwtPayload } from '@codelab/backend'
 import { UpsertPropsInput } from './upsert-props.input'
 
 export class UpsertPropsRequest {

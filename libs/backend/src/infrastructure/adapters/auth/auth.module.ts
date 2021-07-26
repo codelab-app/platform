@@ -6,7 +6,7 @@ import {
   Auth0Module,
   Auth0Service,
   Auth0Tokens,
-} from '../../infrastructure/auth0'
+} from '../../ports/auth0'
 import { JwtStrategy } from './strategy/jwt.strategy'
 
 @Global()

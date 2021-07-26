@@ -10,7 +10,7 @@ import {
 import { SignOutUserButton } from '@codelab/modules/user'
 import { PageHeader } from 'antd'
 import React from 'react'
-import { NextPageTemplate } from '../../src/templates/Layout.d'
+import { NextPageTemplate } from '../../src/templates/Layout.interface'
 import { MainDashboardTemplate } from '../../src/templates/MainDashboardTemplate'
 
 const LambdasPage: NextPageTemplate<'dashboard'> = () => {

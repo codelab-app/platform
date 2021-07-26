@@ -1,9 +1,9 @@
 import {
   domainRequest,
+  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend'
-import { Role } from '@codelab/backend/adapters'
 import {
   CreateLambdaGql,
   CreateLambdaInput,

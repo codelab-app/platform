@@ -10,9 +10,7 @@ import {
   UpdateFunctionCodeCommand,
   UpdateFunctionCodeRequest,
 } from '@aws-sdk/client-lambda'
-
-// TODO: fix type without breaking circular dep
-export type ILambda = any
+import { Lambda } from './lambda.interface'
 
 interface LambdaPayload {
   [key: string]: any
@@ -21,10 +19,10 @@ interface LambdaPayload {
 export class AwsLambdaService extends LambdaClient {
   bucketPrefix = 'codelab-lambda'
 
-  async createFunction(lambda: ILambda) {
+  async createFunction(lambda: Lambda) {
     const params: CreateFunctionRequest = {
       Code: {
-        S3Bucket: `${this.bucketPrefix}-${lambda.library_id}`, // BUCKET_NAME
+        S3Bucket: `${this.bucketPrefix}-${lambda.ownerId}`, // BUCKET_NAME
         S3Key: lambda.id, // ZIP_FILE_NAME
         // ZipFile: ''
       },
@@ -51,7 +49,7 @@ export class AwsLambdaService extends LambdaClient {
     }
   }
 
-  async removeFunction(lambda: ILambda) {
+  async removeFunction(lambda: Lambda) {
     const params: DeleteFunctionRequest = {
       FunctionName: lambda.id,
     }
@@ -68,7 +66,7 @@ export class AwsLambdaService extends LambdaClient {
     }
   }
 
-  async getFunction(lambda: ILambda) {
+  async getFunction(lambda: Lambda) {
     const params: DeleteFunctionRequest = {
       FunctionName: lambda.id,
     }
@@ -85,9 +83,9 @@ export class AwsLambdaService extends LambdaClient {
     }
   }
 
-  async updateFunction(lambda: ILambda) {
+  async updateFunction(lambda: Lambda) {
     const params: UpdateFunctionCodeRequest = {
-      S3Bucket: `${this.bucketPrefix}-${lambda.library_id}`,
+      S3Bucket: `${this.bucketPrefix}-${lambda.ownerId}`,
       S3Key: lambda.id,
       FunctionName: lambda.id,
     }
@@ -104,7 +102,7 @@ export class AwsLambdaService extends LambdaClient {
     }
   }
 
-  async executeFunction(lambda: ILambda, payload: LambdaPayload) {
+  async executeFunction(lambda: Lambda, payload: LambdaPayload) {
     const params: InvocationRequest = {
       FunctionName: lambda.id,
       Payload: new TextEncoder().encode(JSON.stringify(payload)),

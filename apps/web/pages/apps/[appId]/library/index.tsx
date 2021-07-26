@@ -13,7 +13,7 @@ import { MetaPaneComponent } from 'apps/web/src/templates/library/MetaPaneCompon
 import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
-import { NextPageTemplate } from '../../../../src/templates/Layout.d'
+import { NextPageTemplate } from '../../../../src/templates/Layout.interface'
 import { LibraryTemplate } from '../../../../src/templates/library/LibraryTemplate'
 
 const LibraryContent = () => {

@@ -3,7 +3,7 @@ import { ComponentProvider, LibraryProvider } from '@codelab/frontend/shared'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 import { DashboardLayout } from '../../layout/DashboardLayout'
-import { WithMainPane } from '../Layout.d'
+import { WithMainPane } from '../Layout.interface'
 
 export const LayoutComponentDetail = (
   props: PropsWithChildren<WithMainPane>,

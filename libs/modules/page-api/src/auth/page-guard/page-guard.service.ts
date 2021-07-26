@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/backend/adapters'
+import { JwtPayload } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { GetPageOwnerService } from '../../use-cases/get-page-owner/get-page-owner.service'
 

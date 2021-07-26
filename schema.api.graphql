@@ -347,6 +347,7 @@ type ElementAggregate {
 
 type Lambda {
   id: ID!
+  ownerId: String!
   name: String!
   body: String!
 }

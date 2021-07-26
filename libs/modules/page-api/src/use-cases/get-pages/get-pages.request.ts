@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/backend/adapters'
+import { JwtPayload } from '@codelab/backend'
 import { GetPagesInput } from './get-pages.input'
 
 export class GetPagesRequest {

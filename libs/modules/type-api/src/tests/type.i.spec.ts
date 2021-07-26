@@ -3,10 +3,10 @@ import {
   ApiResponse,
   getDgraphProviderFromTestModule,
   request,
+  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend'
-import { Role } from '@codelab/backend/adapters'
 import {
   __ArrayTypeFragment,
   __EnumTypeFragment,

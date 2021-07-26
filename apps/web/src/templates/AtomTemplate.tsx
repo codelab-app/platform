@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 import { BuilderSidebarNavigation } from './builder/BuilderSidebarNavigation'
-import { LayoutComponent } from './Layout.d'
+import { LayoutComponent } from './Layout.interface'
 
 const { Sider, Content, Header } = Layout
 

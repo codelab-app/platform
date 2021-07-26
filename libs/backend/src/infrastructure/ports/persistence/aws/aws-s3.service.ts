@@ -6,7 +6,7 @@ import {
   S3Client,
 } from '@aws-sdk/client-s3'
 import AdmZip from 'adm-zip'
-import { ILambda } from './aws-lambda.service'
+import { Lambda } from './lambda.interface'
 
 export class AwsS3Service extends S3Client {
   bucketPrefix = 'codelab-lambda'
@@ -16,10 +16,10 @@ export class AwsS3Service extends S3Client {
    *
    * @param appId
    */
-  public async createBucket(libraryId: string): Promise<void> {
+  public async createBucket(ownerId: string): Promise<void> {
     try {
       const createBucketCommand = new CreateBucketCommand({
-        Bucket: `${this.bucketPrefix}-${libraryId}`,
+        Bucket: `${this.bucketPrefix}-${ownerId}`,
       })
 
       await this.send(createBucketCommand)
@@ -28,10 +28,10 @@ export class AwsS3Service extends S3Client {
     }
   }
 
-  public async deleteBucket(libraryId: string) {
+  public async deleteBucket(ownerId: string) {
     try {
       const createBucketCommand = new DeleteBucketCommand({
-        Bucket: `${this.bucketPrefix}-${libraryId}`,
+        Bucket: `${this.bucketPrefix}-${ownerId}`,
       })
 
       return await this.send(createBucketCommand)
@@ -42,10 +42,10 @@ export class AwsS3Service extends S3Client {
     }
   }
 
-  public async removeObject(lambda: ILambda) {
+  public async removeObject(lambda: Lambda) {
     try {
       const deleteBucketCommand = new DeleteObjectCommand({
-        Bucket: `${this.bucketPrefix}-${lambda.library_id}`,
+        Bucket: `${this.bucketPrefix}-${lambda.ownerId}`,
         Key: lambda.id,
       })
 
@@ -59,7 +59,7 @@ export class AwsS3Service extends S3Client {
     }
   }
 
-  public async uploadObject(lambda: ILambda) {
+  public async uploadObject(lambda: Lambda) {
     const zip = new AdmZip()
 
     zip.addFile(
@@ -69,7 +69,7 @@ export class AwsS3Service extends S3Client {
 
     try {
       const putObjectCommand = new PutObjectCommand({
-        Bucket: `${this.bucketPrefix}-${lambda.library_id}`,
+        Bucket: `${this.bucketPrefix}-${lambda.ownerId}`,
         Key: lambda.id,
         Body: zip.toBuffer(),
       })

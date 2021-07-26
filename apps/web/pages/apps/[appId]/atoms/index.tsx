@@ -10,7 +10,7 @@ import { Breadcrumb, Card, PageHeader, Space } from 'antd'
 import { AtomTemplate } from 'apps/web/src/templates/AtomTemplate'
 import React from 'react'
 import tw from 'twin.macro'
-import { NextPageTemplate } from '../../../../src/templates/Layout.d'
+import { NextPageTemplate } from '../../../../src/templates/Layout.interface'
 
 const AtomsPage: NextPageTemplate = () => {
   return (

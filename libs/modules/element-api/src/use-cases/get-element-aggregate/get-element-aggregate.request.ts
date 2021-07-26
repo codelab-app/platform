@@ -1,4 +1,4 @@
-import { JwtPayload } from '@codelab/backend/adapters'
+import { JwtPayload } from '@codelab/backend'
 import { GetElementInput } from '../get-element'
 
 export class GetElementAggregateRequest {
