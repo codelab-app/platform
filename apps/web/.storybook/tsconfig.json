@@ -11,5 +11,9 @@
     "../**/*.spec.tsx",
     "../**/*.spec.jsx"
   ],
-  "include": ["../src/**/*", "*.js", "../docs/**/*"]
+  "include": ["../src/**/*", "*.js", "../docs/**/*"],
+  "files": [
+    "../../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
+    "../../../node_modules/@nrwl/react/typings/image.d.ts"
+  ]
 }
