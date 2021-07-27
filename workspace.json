@@ -854,7 +854,7 @@
           },
           "configurations": {
             "ci": {
-              "memoryLimit": 8192
+              "memoryLimit": 4096
             },
             "ci": {
               "memoryLimit": 4096
