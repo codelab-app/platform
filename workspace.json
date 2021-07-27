@@ -846,14 +846,16 @@
         "serve": {
           "builder": "@nrwl/next:server",
           "options": {
-            "buildTarget": "web:build-next",
+            "buildTarget": "web:build",
             "dev": true,
             "port": 3000,
             "maxWorkers": 4,
             "memoryLimit": 2048
           },
           "configurations": {
-            "ci": {},
+            "ci": {
+              "memoryLimit": 8192
+            },
             "local": {
               "port": 3001
             },
