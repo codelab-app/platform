@@ -854,7 +854,7 @@
           },
           "configurations": {
             "ci": {
-              "memoryLimit": 8192
+              "memoryLimit": 4096
             },
             "local": {
               "port": 3001
