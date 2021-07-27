@@ -24,21 +24,19 @@ export class AwsS3Service extends S3Client {
 
       await this.send(createBucketCommand)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 
-  public async deleteBucket(ownerId: string) {
+  public async deleteBucket(ownerId: string): Promise<void> {
     try {
       const createBucketCommand = new DeleteBucketCommand({
         Bucket: `${this.bucketPrefix}-${ownerId}`,
       })
 
-      return await this.send(createBucketCommand)
+      await this.send(createBucketCommand)
     } catch (e) {
-      console.log(e)
-
-      return
+      console.error(e)
     }
   }
 

@@ -18,6 +18,7 @@ export class DeleteLambdaService extends DgraphUseCase<any, any, any> {
       id: uid
       name: Lambda.name
       body: Lambda.body
+      ownerId: Lambda.ownerId
     }}`
 
     const _txn = this.dgraphProvider.client.newTxn()

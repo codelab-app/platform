@@ -9,6 +9,9 @@ import {
   DeleteLambdaInput,
   DeleteLambdaService,
 } from './use-cases/delete-lambda'
+import { GetLambdaInput } from './use-cases/get-lambda/get-lambda.input'
+import { GetLambdaService } from './use-cases/get-lambda/get-lambda.service'
+import { GetLambdasService } from './use-cases/get-lambdas/get-lambdas.service'
 
 @Resolver(() => Lambda)
 @Injectable()
@@ -17,6 +20,8 @@ export class LambdaResolver {
     private readonly lambdaService: LambdaService,
     private readonly createLambdaService: CreateLambdaService,
     private readonly deleteLambdaService: DeleteLambdaService,
+    private readonly getLambdasService: GetLambdasService,
+    private readonly getLambdaService: GetLambdaService,
   ) {}
 
   @Mutation(() => Lambda)
@@ -30,7 +35,7 @@ export class LambdaResolver {
       ownerId: user.sub,
     })
 
-    await this.lambdaService.createLambda(lambda)
+    // await this.lambdaService.createLambda(lambda)
 
     return lambda
   }
@@ -43,7 +48,13 @@ export class LambdaResolver {
 
   @Query(() => Lambda)
   @UseGuards(GqlAuthGuard)
-  async getLambda() {
-    return null
+  async getLambda(@Args('input') input: GetLambdaInput) {
+    return this.getLambdaService.execute(input)
+  }
+
+  @Query(() => [Lambda])
+  @UseGuards(GqlAuthGuard)
+  async getLambdas(@CurrentUser() user: JwtPayload) {
+    return this.getLambdasService.execute({ ownerId: user.sub })
   }
 }

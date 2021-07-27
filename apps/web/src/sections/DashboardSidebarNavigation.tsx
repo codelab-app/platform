@@ -2,6 +2,7 @@ import {
   AppstoreOutlined,
   BlockOutlined,
   DeploymentUnitOutlined,
+  FunctionOutlined,
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/shared'
 import { Menu } from 'antd'
@@ -45,6 +46,12 @@ export const DashboardSidebarNavigation = () => {
         }
       >
         <Link href={PageType.Atom}>Atoms</Link>
+      </Menu.Item>
+      <Menu.Item
+        key={PageType.LambdaList}
+        icon={<FunctionOutlined title="Lambdas" />}
+      >
+        <Link href={PageType.LambdaList}>Lambdas</Link>
       </Menu.Item>
       <Menu.Item key={PageType.Type} icon={<BlockOutlined title="Types" />}>
         <Link href={PageType.Type}>Types</Link>

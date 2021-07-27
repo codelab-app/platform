@@ -444,6 +444,10 @@ export type GetInterfaceInput = {
   interfaceId: Scalars['String']
 }
 
+export type GetLambdaInput = {
+  lambdaId: Scalars['String']
+}
+
 export type GetPageInput = {
   pageId: Scalars['String']
 }
@@ -499,6 +503,7 @@ export type InterfaceValueInput = {
 
 export type Lambda = {
   id: Scalars['ID']
+  ownerId: Scalars['String']
   name: Scalars['String']
   body: Scalars['String']
 }
@@ -719,6 +724,7 @@ export type Query = {
   getApp?: Maybe<App>
   getApps: Array<App>
   getLambda: Lambda
+  getLambdas: Array<Lambda>
   getMe: User
   getUsers: Array<User>
   getPages: Array<Page>
@@ -739,6 +745,10 @@ export type Query = {
 
 export type QueryGetAppArgs = {
   input: GetAppInput
+}
+
+export type QueryGetLambdaArgs = {
+  input: GetLambdaInput
 }
 
 export type QueryGetUsersArgs = {
@@ -1081,7 +1091,7 @@ export type UpdateElementMutationVariables = Exact<{
 
 export type UpdateElementMutation = { updateElement: ElementFragment }
 
-export type __LambdaFragment = Pick<Lambda, 'id' | 'name' | 'body'>
+export type __LambdaFragment = Pick<Lambda, 'id' | 'name' | 'body' | 'ownerId'>
 
 export type CreateLambdaMutationVariables = Exact<{
   input: CreateLambdaInput
@@ -1094,6 +1104,16 @@ export type DeleteLambdaMutationVariables = Exact<{
 }>
 
 export type DeleteLambdaMutation = { deleteLambda: __LambdaFragment }
+
+export type GetLambdaQueryVariables = Exact<{
+  input: GetLambdaInput
+}>
+
+export type GetLambdaQuery = { getLambda: __LambdaFragment }
+
+export type GetLambdasQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetLambdasQuery = { getLambdas: Array<__LambdaFragment> }
 
 export type PageBaseFragment = Pick<Page, 'id' | 'name'> & {
   app: Pick<App, 'id' | 'name' | 'ownerId'>
@@ -1591,6 +1611,7 @@ export const __LambdaFragmentDoc = gql`
     id
     name
     body
+    ownerId
   }
 `
 export const PageBaseFragmentDoc = gql`
@@ -2882,6 +2903,122 @@ export type DeleteLambdaMutationOptions = Apollo.BaseMutationOptions<
   DeleteLambdaMutation,
   DeleteLambdaMutationVariables
 >
+export const GetLambdaGql = gql`
+  query GetLambda($input: GetLambdaInput!) {
+    getLambda(input: $input) {
+      ...__Lambda
+    }
+  }
+  ${__LambdaFragmentDoc}
+`
+
+/**
+ * __useGetLambdaQuery__
+ *
+ * To run a query within a React component, call `useGetLambdaQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLambdaQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLambdaQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetLambdaQuery(
+  baseOptions: Apollo.QueryHookOptions<GetLambdaQuery, GetLambdaQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetLambdaQuery, GetLambdaQueryVariables>(
+    GetLambdaGql,
+    options,
+  )
+}
+export function useGetLambdaLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLambdaQuery,
+    GetLambdaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetLambdaQuery, GetLambdaQueryVariables>(
+    GetLambdaGql,
+    options,
+  )
+}
+export type GetLambdaQueryHookResult = ReturnType<typeof useGetLambdaQuery>
+export type GetLambdaLazyQueryHookResult = ReturnType<
+  typeof useGetLambdaLazyQuery
+>
+export type GetLambdaQueryResult = Apollo.QueryResult<
+  GetLambdaQuery,
+  GetLambdaQueryVariables
+>
+export function refetchGetLambdaQuery(variables?: GetLambdaQueryVariables) {
+  return { query: GetLambdaGql, variables: variables }
+}
+export const GetLambdasGql = gql`
+  query GetLambdas {
+    getLambdas {
+      ...__Lambda
+    }
+  }
+  ${__LambdaFragmentDoc}
+`
+
+/**
+ * __useGetLambdasQuery__
+ *
+ * To run a query within a React component, call `useGetLambdasQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLambdasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLambdasQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLambdasQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetLambdasQuery,
+    GetLambdasQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetLambdasQuery, GetLambdasQueryVariables>(
+    GetLambdasGql,
+    options,
+  )
+}
+export function useGetLambdasLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLambdasQuery,
+    GetLambdasQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetLambdasQuery, GetLambdasQueryVariables>(
+    GetLambdasGql,
+    options,
+  )
+}
+export type GetLambdasQueryHookResult = ReturnType<typeof useGetLambdasQuery>
+export type GetLambdasLazyQueryHookResult = ReturnType<
+  typeof useGetLambdasLazyQuery
+>
+export type GetLambdasQueryResult = Apollo.QueryResult<
+  GetLambdasQuery,
+  GetLambdasQueryVariables
+>
+export function refetchGetLambdasQuery(variables?: GetLambdasQueryVariables) {
+  return { query: GetLambdasGql, variables: variables }
+}
 export const CreatePageGql = gql`
   mutation CreatePage($input: CreatePageInput!) {
     createPage(input: $input) {
@@ -4451,6 +4588,7 @@ export const __Lambda = gql`
     id
     name
     body
+    ownerId
   }
 `
 export const PageBase = gql`
@@ -4937,6 +5075,22 @@ export const CreateLambda = gql`
 export const DeleteLambda = gql`
   mutation DeleteLambda($input: DeleteLambdaInput!) {
     deleteLambda(input: $input) {
+      ...__Lambda
+    }
+  }
+  ${__Lambda}
+`
+export const GetLambda = gql`
+  query GetLambda($input: GetLambdaInput!) {
+    getLambda(input: $input) {
+      ...__Lambda
+    }
+  }
+  ${__Lambda}
+`
+export const GetLambdas = gql`
+  query GetLambdas {
+    getLambdas {
       ...__Lambda
     }
   }

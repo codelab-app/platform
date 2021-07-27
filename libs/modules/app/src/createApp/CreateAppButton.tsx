@@ -9,9 +9,7 @@ export const CreateAppButton = () => {
   return (
     <Button
       type="primary"
-      onClick={() => {
-        openCreateModal()
-      }}
+      onClick={() => openCreateModal()}
       icon={<PlusOutlined />}
     >
       Create App

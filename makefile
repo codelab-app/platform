@@ -156,5 +156,3 @@ unit-ci:
 	--memoryLimit=8192 \
 	--verbose
 
-start-prod:
-	pm2 startOrReload config/pm2.json

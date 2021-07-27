@@ -29,7 +29,6 @@ export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {
         input: {
           name: submitData.name as string,
           body: submitData.body as string,
-          libraryId: library?.id,
         },
       },
     })

@@ -1,0 +1,5 @@
+query GetLambda($input: GetLambdaInput!) {
+  getLambda(input: $input) {
+    ...__Lambda
+  }
+}
