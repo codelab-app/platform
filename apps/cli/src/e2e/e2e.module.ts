@@ -1,14 +1,10 @@
-import {
-  graphqlServerConfig,
-  serverConfig,
-  ServerTokens,
-} from '@codelab/backend'
+import { serverConfig, ServerTokens } from '@codelab/backend'
 import { Module } from '@nestjs/common'
 import { ServerModule } from '../server'
 import { E2eService } from './e2e.service'
 
 @Module({
-  imports: [ServerModule.register(graphqlServerConfig)],
+  imports: [ServerModule],
   providers: [
     E2eService,
     {
