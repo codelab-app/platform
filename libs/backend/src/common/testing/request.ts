@@ -50,7 +50,7 @@ export const request = (app: INestApplication) =>
 export const domainRequest = async <TInput extends any, TResults extends any>(
   app: INestApplication,
   gql: ASTNode,
-  input: TInput,
+  input?: TInput,
   expectedError?: ExpectedError,
 ): Promise<TResults> => {
   const response = graphqlRequest(app, gql, {
