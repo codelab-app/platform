@@ -1,7 +1,7 @@
-import { awsConfig } from '../config/aws.config'
 import { AwsTokens } from './aws.tokens'
-import { AwsLambdaService } from './aws-lambda.service'
-import { AwsS3Service } from './aws-s3.service'
+import { awsConfig } from './config/aws.config'
+import { AwsLambdaService } from './lambda/aws-lambda.service'
+import { AwsS3Service } from './s3/aws-s3.service'
 
 export const awsProviders = [
   {

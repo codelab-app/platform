@@ -14,10 +14,7 @@ import { ServerModule } from '../server/server.module'
 import { GraphqlCodegenService } from './graphql-codegen.service'
 
 @Module({
-  imports: [
-    GraphqlSchemaModule.register(dgraphConfig, graphqlSchemaConfig),
-    ServerModule.register(graphqlServerConfig),
-  ],
+  imports: [GraphqlSchemaModule, ServerModule.register(graphqlServerConfig)],
   providers: [
     GraphqlCodegenService,
     {

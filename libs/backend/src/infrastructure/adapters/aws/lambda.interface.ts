@@ -1,4 +1,4 @@
-import { Auth0UserId } from '../../auth0'
+import { Auth0UserId } from '../../ports/auth0'
 
 /**
  * This is the port that our domain needs to implement
