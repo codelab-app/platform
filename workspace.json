@@ -856,9 +856,6 @@
             "ci": {
               "memoryLimit": 4096
             },
-            "ci": {
-              "memoryLimit": 4096
-            },
             "local": {
               "port": 3001
             },
