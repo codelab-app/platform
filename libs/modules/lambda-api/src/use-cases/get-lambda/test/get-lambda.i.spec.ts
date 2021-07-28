@@ -56,7 +56,7 @@ describe('GetLambda', () => {
   })
 
   describe('User', () => {
-    it('should get a lambda', async () => {
+    it('should get an existing lambda', async () => {
       const getLambdaInput: GetLambdaInput = {
         lambdaId: lambda.id,
       }
@@ -68,6 +68,22 @@ describe('GetLambda', () => {
       )
 
       expect(results.getLambda).toMatchObject(lambda)
+    })
+
+    it.only('should return a null lambda', async () => {
+      const getLambdaInput: GetLambdaInput = {
+        lambdaId: '0x3a0123',
+      }
+
+      const results = await domainRequest<GetLambdaInput, GetLambdaQuery>(
+        userApp,
+        GetLambdaGql,
+        getLambdaInput,
+      )
+
+      console.log(results)
+
+      expect(results.getLambda).toBeNull()
     })
   })
 })

@@ -9,6 +9,10 @@ import {
   DeleteLambdaInput,
   DeleteLambdaService,
 } from './use-cases/delete-lambda'
+import {
+  ExecuteLambdaInput,
+  ExecuteLambdaService,
+} from './use-cases/execute-lambda'
 import { GetLambdaInput } from './use-cases/get-lambda/get-lambda.input'
 import { GetLambdaService } from './use-cases/get-lambda/get-lambda.service'
 import { GetLambdasService } from './use-cases/get-lambdas/get-lambdas.service'
@@ -22,6 +26,7 @@ export class LambdaResolver {
     private readonly deleteLambdaService: DeleteLambdaService,
     private readonly getLambdasService: GetLambdasService,
     private readonly getLambdaService: GetLambdaService,
+    private readonly executeLambdaService: ExecuteLambdaService,
   ) {}
 
   @Mutation(() => Lambda)
@@ -50,6 +55,12 @@ export class LambdaResolver {
   @UseGuards(GqlAuthGuard)
   async getLambda(@Args('input') input: GetLambdaInput) {
     return this.getLambdaService.execute(input)
+  }
+
+  @Query(() => Lambda)
+  @UseGuards(GqlAuthGuard)
+  async executeLambda(@Args('input') input: ExecuteLambdaInput) {
+    return this.executeLambdaService.execute(input)
   }
 
   @Query(() => [Lambda])

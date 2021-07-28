@@ -57,6 +57,8 @@ export const domainRequest = async <TInput extends any, TResults extends any>(
     input,
   })
 
+  console.log(response)
+
   if (expectedError) {
     response.expect((res: ApiResponse<ApolloQueryResult<any>>) => {
       expect(res?.body?.errors).toMatchObject([
@@ -72,9 +74,9 @@ export const domainRequest = async <TInput extends any, TResults extends any>(
     return res.body.data
   })
 
-  if (!data) {
-    throw new Error('Data is missing!')
-  }
+  // if (!data) {
+  //   throw new Error('Data is missing!')
+  // }
 
   return data
 }

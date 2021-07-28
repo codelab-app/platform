@@ -13,7 +13,7 @@ export class GetLambdaService extends DgraphUseCase<GetLambdaInput, any, any> {
   }
 
   async executeTransaction(input: GetLambdaInput, txn: Txn) {
-    const q = `{ getLambda(func: uid(${input.lambdaId})){
+    const q = `{ getLambda(func: uid("${input.lambdaId}")) @filter(eq(dgraph.type, Lambda)) {
       id: uid
       name: Lambda.name
       body: Lambda.body
@@ -22,6 +22,6 @@ export class GetLambdaService extends DgraphUseCase<GetLambdaInput, any, any> {
 
     const results = await txn.query(q)
 
-    return results.getJson().getLambda[0]
+    return results.getJson().getLambda[0] ?? null
   }
 }

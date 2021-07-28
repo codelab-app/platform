@@ -1,16 +1,14 @@
-import { useGetLambdaByIdQuery } from '@codelab/codegen/hasura'
-// import { ModalForm } from '@codelab/frontend/shared'
 import { useRecoilState } from 'recoil'
 import { updateLambdaState } from './UpdateLambdaState'
 
 export const UpdateLambdaModal = () => {
   const [updateLambda, setUpdateLambda] = useRecoilState(updateLambdaState)
 
-  const { data, loading } = useGetLambdaByIdQuery({
-    variables: {
-      id: updateLambda.lambdaId,
-    },
-  })
+  // const { data, loading } = useGetLambdaQuery({
+  //   variables: {
+  //     lambdaId: updateLambda.lambdaId,
+  //   },
+  // })
 
   return null
   // <ModalForm

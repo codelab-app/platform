@@ -2,7 +2,7 @@ import {
   Lambda,
   refetchGetLambdasByLibraryIdQuery,
   useUpdateLambdaMutation,
-} from '@codelab/codegen/hasura'
+} from '@codelab/codegen/graphql'
 import {
   createNotificationHandler,
   FormUniforms,

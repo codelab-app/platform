@@ -17,7 +17,7 @@ export class GetLambdasService extends DgraphUseCase<
   }
 
   async executeTransaction(request: GetLambdasRequest, txn: Txn) {
-    const q = `{ getLambdas(func: eq(Lambda.ownerId, ${request.ownerId})){
+    const q = `{ getLambdas(func: eq(Lambda.ownerId, "${request.ownerId}")){
       id: uid
       name: Lambda.name
       body: Lambda.body

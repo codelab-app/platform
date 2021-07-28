@@ -1,6 +1,6 @@
 import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
-import { Mutation } from 'dgraph-js'
+import { Mutation, Txn } from 'dgraph-js'
 import { DeleteLambdaInput } from './delete-lambda.input'
 
 @Injectable()
@@ -12,9 +12,11 @@ export class DeleteLambdaService extends DgraphUseCase<any, any, any> {
     super(dgraphProvider)
   }
 
-  async executeTransaction(input: DeleteLambdaInput) {
+  async executeTransaction(input: DeleteLambdaInput, txn: Txn) {
+    console.log(input)
+
     // Query block
-    const q = `{ lambda(func: uid(${input.lambdaId})){
+    const q = `{ lambda(func: uid("${input.lambdaId}")){
       id: uid
       name: Lambda.name
       body: Lambda.body
@@ -28,7 +30,6 @@ export class DeleteLambdaService extends DgraphUseCase<any, any, any> {
     await _txn.discard()
 
     // Mutation block
-    const txn = this.dgraphProvider.client.newTxn()
     const mu = new Mutation()
     mu.setDeleteJson({ uid: input.lambdaId })
     await txn.commit()

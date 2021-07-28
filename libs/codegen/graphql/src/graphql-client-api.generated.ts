@@ -382,6 +382,10 @@ export type EnumTypeValue = {
   value: Scalars['String']
 }
 
+export type ExecuteLambdaInput = {
+  lambdaId: Scalars['String']
+}
+
 export type Field = {
   id: Scalars['ID']
   key: Scalars['String']
@@ -724,6 +728,7 @@ export type Query = {
   getApp?: Maybe<App>
   getApps: Array<App>
   getLambda: Lambda
+  executeLambda: Lambda
   getLambdas: Array<Lambda>
   getMe: User
   getUsers: Array<User>
@@ -749,6 +754,10 @@ export type QueryGetAppArgs = {
 
 export type QueryGetLambdaArgs = {
   input: GetLambdaInput
+}
+
+export type QueryExecuteLambdaArgs = {
+  input: ExecuteLambdaInput
 }
 
 export type QueryGetUsersArgs = {
@@ -1104,6 +1113,12 @@ export type DeleteLambdaMutationVariables = Exact<{
 }>
 
 export type DeleteLambdaMutation = { deleteLambda: __LambdaFragment }
+
+export type ExecuteLambdaQueryVariables = Exact<{
+  input: ExecuteLambdaInput
+}>
+
+export type ExecuteLambdaQuery = { executeLambda: __LambdaFragment }
 
 export type GetLambdaQueryVariables = Exact<{
   input: GetLambdaInput
@@ -2903,6 +2918,70 @@ export type DeleteLambdaMutationOptions = Apollo.BaseMutationOptions<
   DeleteLambdaMutation,
   DeleteLambdaMutationVariables
 >
+export const ExecuteLambdaGql = gql`
+  query ExecuteLambda($input: ExecuteLambdaInput!) {
+    executeLambda(input: $input) {
+      ...__Lambda
+    }
+  }
+  ${__LambdaFragmentDoc}
+`
+
+/**
+ * __useExecuteLambdaQuery__
+ *
+ * To run a query within a React component, call `useExecuteLambdaQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExecuteLambdaQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExecuteLambdaQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useExecuteLambdaQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ExecuteLambdaQuery,
+    ExecuteLambdaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ExecuteLambdaQuery, ExecuteLambdaQueryVariables>(
+    ExecuteLambdaGql,
+    options,
+  )
+}
+export function useExecuteLambdaLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ExecuteLambdaQuery,
+    ExecuteLambdaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ExecuteLambdaQuery, ExecuteLambdaQueryVariables>(
+    ExecuteLambdaGql,
+    options,
+  )
+}
+export type ExecuteLambdaQueryHookResult = ReturnType<
+  typeof useExecuteLambdaQuery
+>
+export type ExecuteLambdaLazyQueryHookResult = ReturnType<
+  typeof useExecuteLambdaLazyQuery
+>
+export type ExecuteLambdaQueryResult = Apollo.QueryResult<
+  ExecuteLambdaQuery,
+  ExecuteLambdaQueryVariables
+>
+export function refetchExecuteLambdaQuery(
+  variables?: ExecuteLambdaQueryVariables,
+) {
+  return { query: ExecuteLambdaGql, variables: variables }
+}
 export const GetLambdaGql = gql`
   query GetLambda($input: GetLambdaInput!) {
     getLambda(input: $input) {
@@ -5075,6 +5154,14 @@ export const CreateLambda = gql`
 export const DeleteLambda = gql`
   mutation DeleteLambda($input: DeleteLambdaInput!) {
     deleteLambda(input: $input) {
+      ...__Lambda
+    }
+  }
+  ${__Lambda}
+`
+export const ExecuteLambda = gql`
+  query ExecuteLambda($input: ExecuteLambdaInput!) {
+    executeLambda(input: $input) {
       ...__Lambda
     }
   }

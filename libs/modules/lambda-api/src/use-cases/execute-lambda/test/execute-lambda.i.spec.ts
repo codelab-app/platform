@@ -9,19 +9,18 @@ import {
   CreateLambdaGql,
   CreateLambdaInput,
   CreateLambdaMutation,
-  DeleteLambdaGql,
-  DeleteLambdaInput,
-  DeleteLambdaMutation,
+  ExecuteLambdaGql,
+  GetLambdaQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
 import { createLambdaInput } from '../../create-lambda/test/create-lambda.data'
+import { ExecuteLambdaInput } from '../execute-lambda.input'
 
-describe('DeleteLambda', () => {
+describe('ExecuteLambda', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
   let lambda: __LambdaFragment
-  let deleteLambdaInput: DeleteLambdaInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([LambdaModule], { role: Role.GUEST })
@@ -33,9 +32,6 @@ describe('DeleteLambda', () => {
     >(userApp, CreateLambdaGql, createLambdaInput)
 
     lambda = results.createLambda
-    deleteLambdaInput = {
-      lambdaId: lambda.id,
-    }
 
     expect(lambda).toMatchObject(createLambdaInput)
   })
@@ -46,32 +42,32 @@ describe('DeleteLambda', () => {
   })
 
   describe('Guest', () => {
-    it('should fail to delete a lambda', async () => {
-      await domainRequest(guestApp, DeleteLambdaGql, deleteLambdaInput, {
-        message: 'Unauthorized',
-      })
+    it('should fail to execute a lambda', async () => {
+      await domainRequest(
+        guestApp,
+        ExecuteLambdaGql,
+        {},
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
-    it('should delete a lambda', async () => {
-      const results = await domainRequest<
-        DeleteLambdaInput,
-        DeleteLambdaMutation
-      >(userApp, DeleteLambdaGql, deleteLambdaInput)
+    it('should execute a lambda', async () => {
+      const executeLambdaInput: ExecuteLambdaInput = {
+        lambdaId: lambda.id,
+      }
 
-      expect(results.deleteLambda).toMatchObject({ id: lambda.id })
-      // const getLambdaInput: GetLambdaInput = {
-      //   lambdaId: lambda.id,
-      // }
-
-      // const results = await domainRequest<GetLambdaInput, GetLambdaQuery>(
-      //   userApp,
-      //   GetLambdaGql,
-      //   getLambdaInput,
-      // )
+      const results = await domainRequest<ExecuteLambdaInput, GetLambdaQuery>(
+        userApp,
+        ExecuteLambdaGql,
+        executeLambdaInput,
+      )
 
       // expect(results.getLambda).toMatchObject(lambda)
+      expect(true).toBeTruthy()
     })
   })
 })

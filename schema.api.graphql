@@ -385,6 +385,7 @@ type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
   getLambda(input: GetLambdaInput!): Lambda!
+  executeLambda(input: ExecuteLambdaInput!): Lambda!
   getLambdas: [Lambda!]!
   getMe: User!
   getUsers(input: GetUsersInput): [User!]!
@@ -413,6 +414,11 @@ input GetAppInput {
 
 input GetLambdaInput {
   lambdaId: String!
+}
+
+input ExecuteLambdaInput {
+  lambdaId: String!
+  payload: String
 }
 
 input GetUsersInput {

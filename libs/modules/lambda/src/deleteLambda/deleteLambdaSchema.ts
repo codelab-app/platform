@@ -5,7 +5,7 @@ export const deleteLambdaSchema: JSONSchemaType<DeleteLambdaInput> = {
   title: 'Delete Lambda',
   type: 'object',
   properties: {
-    lambdaId: { type: 'string' },
+    lambdaId: { type: 'string', disabled: true },
   },
   required: ['lambdaId'],
 }

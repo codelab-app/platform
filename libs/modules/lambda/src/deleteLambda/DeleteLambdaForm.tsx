@@ -1,5 +1,6 @@
 import {
   DeleteLambdaInput,
+  refetchGetLambdasQuery,
   useDeleteLambdaMutation,
 } from '@codelab/codegen/graphql'
 import {
@@ -10,25 +11,22 @@ import {
   useCrudModalForm,
 } from '@codelab/frontend/shared'
 import React, { useEffect } from 'react'
-import { AutoFields } from 'uniforms-antd'
 import { deleteLambdaSchema } from './deleteLambdaSchema'
 
 type DeleteLambdaFormProps = UniFormUseCaseProps<DeleteLambdaInput>
 
 export const DeleteLambdaForm = (props: DeleteLambdaFormProps) => {
   const { reset, setLoading, state } = useCrudModalForm(EntityType.Lambda)
-  const { deleteIds: appDeleteIds, metadata } = state
+  const { deleteIds: lambdaDeleteIds, metadata } = state
 
   const [mutate, { loading: deleting }] = useDeleteLambdaMutation({
     awaitRefetchQueries: true,
-    // refetchQueries: [refetchGetLambdasQuery()],
+    refetchQueries: [refetchGetLambdasQuery()],
   })
 
-  useEffect(() => {
-    setLoading(deleting)
-  }, [deleting])
-
   const onSubmit = (data: DeleteLambdaInput) => {
+    console.log(data)
+
     return mutate({
       variables: {
         input: {
@@ -38,8 +36,15 @@ export const DeleteLambdaForm = (props: DeleteLambdaFormProps) => {
     })
   }
 
+  useEffect(() => {
+    setLoading(deleting)
+  }, [deleting])
+
   return (
     <FormUniforms<DeleteLambdaInput>
+      model={{
+        lambdaId: lambdaDeleteIds[0],
+      }}
       onSubmit={onSubmit}
       schema={deleteLambdaSchema}
       onSubmitError={createNotificationHandler({
@@ -49,7 +54,6 @@ export const DeleteLambdaForm = (props: DeleteLambdaFormProps) => {
       {...props}
     >
       <h4>Are you sure you want to delete lambda "{metadata?.name}"?</h4>
-      <AutoFields />
     </FormUniforms>
   )
 }
