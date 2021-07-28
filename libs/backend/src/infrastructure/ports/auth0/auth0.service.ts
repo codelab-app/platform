@@ -1,31 +1,23 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { AuthenticationClient, ManagementClient } from 'auth0'
 import axios from 'axios'
-import { Auth0Config } from './config/auth0.config'
-import { Auth0Tokens } from './config/auth0.tokens'
+import { Auth0Config, auth0Config } from './config/auth0.config'
 
-/**
- * Auth0 has 2 API's
- *
- * AuthenticationClient deals with authorizing clients
- *
- * Management API deals with things you would do inside the Auth0 dashboard.
- */
 @Injectable()
 export class Auth0Service {
   constructor(
-    @Inject(Auth0Tokens.Auth0Config) private readonly auth0Config: Auth0Config,
+    @Inject(auth0Config.KEY) private readonly _auth0Config: Auth0Config,
   ) {}
 
   private getDomain() {
-    return new URL(this.auth0Config.issuer).hostname
+    return new URL(this._auth0Config.issuer).hostname
   }
 
   /**
    * We pick any api on random in order to test our access token.
    */
   private get managementApiUrl() {
-    return new URL('api/v2/clients', this.auth0Config.issuer).toString()
+    return new URL('api/v2/clients', this._auth0Config.issuer).toString()
   }
 
   /**
@@ -39,13 +31,13 @@ export class Auth0Service {
     try {
       await axios.get(this.managementApiUrl, {
         headers: {
-          Authorization: `Bearer ${this.auth0Config.api.accessToken}`,
+          Authorization: `Bearer ${this._auth0Config.api.accessToken}`,
         },
       })
     } catch (e) {
       const { access_token } =
         await this.getAuthClient().clientCredentialsGrant({
-          audience: this.auth0Config.api.audience,
+          audience: this._auth0Config.api.audience,
         })
 
       console.log('Please update `AUTH0_M2M_TOKEN` with', access_token)
@@ -53,13 +45,13 @@ export class Auth0Service {
       return process.exit(1)
     }
 
-    return this.auth0Config.api.accessToken
+    return this._auth0Config.api.accessToken
   }
 
   getAuthClient() {
     return new AuthenticationClient({
-      clientId: this.auth0Config.api.clientId,
-      clientSecret: this.auth0Config.api.clientSecret,
+      clientId: this._auth0Config.api.clientId,
+      clientSecret: this._auth0Config.api.clientSecret,
       domain: this.getDomain(),
     })
   }
@@ -68,8 +60,8 @@ export class Auth0Service {
     return new ManagementClient({
       // token,
       domain: this.getDomain(),
-      clientId: this.auth0Config.api.clientId,
-      clientSecret: this.auth0Config.api.clientSecret,
+      clientId: this._auth0Config.api.clientId,
+      clientSecret: this._auth0Config.api.clientSecret,
     })
   }
 }

@@ -1,10 +1,9 @@
 import {
   Environment,
   GraphqlServerConfig,
-  GraphqlServerTokens,
+  graphqlServerConfig,
 } from '@codelab/backend'
 import { Inject, Injectable, Logger } from '@nestjs/common'
-import { ConfigType } from '@nestjs/config'
 import { get } from 'env-var'
 import portfinder from 'portfinder'
 import shell from 'shelljs'
@@ -12,8 +11,8 @@ import shell from 'shelljs'
 @Injectable()
 export class ServerService {
   constructor(
-    @Inject(GraphqlServerTokens.GraphqlServerConfig)
-    private readonly graphqlServerConfig: ConfigType<() => GraphqlServerConfig>,
+    @Inject(graphqlServerConfig.KEY)
+    private readonly _graphqlServerConfig: GraphqlServerConfig,
   ) {}
 
   /**
@@ -33,7 +32,7 @@ export class ServerService {
 
   public async maybeStartApiServer() {
     const apiServerPort = parseInt(
-      new URL(this.graphqlServerConfig?.endpoint).port,
+      new URL(this._graphqlServerConfig?.endpoint).port,
     )
 
     const isApiPortOpen = await this.isPortOpen(apiServerPort)

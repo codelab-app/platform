@@ -1,5 +1,4 @@
 import { Provider } from '@nestjs/common'
-import { ConfigType } from '@nestjs/config'
 import {
   clientStubFromCloudEndpoint,
   DgraphClient,
@@ -9,7 +8,7 @@ import {
 import { promises as fs } from 'fs'
 import fetch from 'node-fetch'
 import shell from 'shelljs'
-import { DgraphConfig } from './config/dgraph.config'
+import { DgraphConfig, dgraphConfig } from './config/dgraph.config'
 import { DgraphTokens } from './config/dgraph.tokens'
 
 export interface DgraphProvider {
@@ -72,20 +71,20 @@ const updateSchema = async ({
 
 export const dgraphClientProvider: Provider<DgraphProvider> = {
   provide: DgraphTokens.DgraphProvider,
-  useFactory: (dgraphConfig: ConfigType<() => DgraphConfig>) => {
+  useFactory: (_dgraphConfig: DgraphConfig) => {
     if (!dgraphConfig) {
       throw new Error('Missing DgraphConfig')
     }
 
     let clientStub: DgraphClientStub
 
-    if (dgraphConfig.apiKey) {
+    if (_dgraphConfig.apiKey) {
       clientStub = clientStubFromCloudEndpoint(
-        dgraphConfig.endpoint,
-        dgraphConfig.apiKey,
+        _dgraphConfig.endpoint,
+        _dgraphConfig.apiKey,
       )
     } else {
-      clientStub = new DgraphClientStub(dgraphConfig?.grpcEndpoint)
+      clientStub = new DgraphClientStub(_dgraphConfig?.grpcEndpoint)
     }
 
     const dgraphClient = new DgraphClient(clientStub)
@@ -94,9 +93,9 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
       client: dgraphClient,
       updateDgraphSchema: async () =>
         updateSchema({
-          endpoint: dgraphConfig?.endpoint,
-          schemaFile: dgraphConfig?.schemaGeneratedFile,
-          apiKey: dgraphConfig?.apiKey,
+          endpoint: _dgraphConfig?.endpoint,
+          schemaFile: _dgraphConfig?.schemaGeneratedFile,
+          apiKey: _dgraphConfig?.apiKey,
         }),
       resetDb: async () => {
         const op = new Operation()
@@ -107,12 +106,12 @@ export const dgraphClientProvider: Provider<DgraphProvider> = {
         await dgraphClient.alter(op)
 
         return updateSchema({
-          endpoint: dgraphConfig?.endpoint,
-          schemaFile: dgraphConfig?.schemaGeneratedFile,
-          apiKey: dgraphConfig?.apiKey,
+          endpoint: _dgraphConfig?.endpoint,
+          schemaFile: _dgraphConfig?.schemaGeneratedFile,
+          apiKey: _dgraphConfig?.apiKey,
         })
       },
     }
   },
-  inject: [DgraphTokens.DgraphConfig],
+  inject: [dgraphConfig.KEY],
 }

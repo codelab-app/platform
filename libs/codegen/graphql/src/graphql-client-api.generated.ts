@@ -384,6 +384,7 @@ export type EnumTypeValue = {
 
 export type ExecuteLambdaInput = {
   lambdaId: Scalars['String']
+  payload?: Maybe<Scalars['String']>
 }
 
 export type Field = {
@@ -727,7 +728,7 @@ export type PropsByInterfaceValueId = {
 export type Query = {
   getApp?: Maybe<App>
   getApps: Array<App>
-  getLambda: Lambda
+  getLambda?: Maybe<Lambda>
   executeLambda: Lambda
   getLambdas: Array<Lambda>
   getMe: User
@@ -1124,7 +1125,7 @@ export type GetLambdaQueryVariables = Exact<{
   input: GetLambdaInput
 }>
 
-export type GetLambdaQuery = { getLambda: __LambdaFragment }
+export type GetLambdaQuery = { getLambda?: Maybe<__LambdaFragment> }
 
 export type GetLambdasQueryVariables = Exact<{ [key: string]: never }>
 
