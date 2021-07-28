@@ -12,10 +12,13 @@ import {
   DeleteLambdaGql,
   DeleteLambdaInput,
   DeleteLambdaMutation,
+  GetLambdaGql,
+  GetLambdaQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
 import { createLambdaInput } from '../../create-lambda/test/create-lambda.data'
+import { GetLambdaInput } from '../../get-lambda'
 
 describe('DeleteLambda', () => {
   let guestApp: INestApplication
@@ -55,23 +58,23 @@ describe('DeleteLambda', () => {
 
   describe('User', () => {
     it('should delete a lambda', async () => {
-      const results = await domainRequest<
-        DeleteLambdaInput,
-        DeleteLambdaMutation
-      >(userApp, DeleteLambdaGql, deleteLambdaInput)
+      const getLambdaInput: GetLambdaInput = {
+        lambdaId: lambda.id,
+      }
 
-      expect(results.deleteLambda).toMatchObject({ id: lambda.id })
-      // const getLambdaInput: GetLambdaInput = {
-      //   lambdaId: lambda.id,
-      // }
+      await domainRequest<DeleteLambdaInput, DeleteLambdaMutation>(
+        userApp,
+        DeleteLambdaGql,
+        deleteLambdaInput,
+      )
 
-      // const results = await domainRequest<GetLambdaInput, GetLambdaQuery>(
-      //   userApp,
-      //   GetLambdaGql,
-      //   getLambdaInput,
-      // )
+      const results = await domainRequest<GetLambdaInput, GetLambdaQuery>(
+        userApp,
+        GetLambdaGql,
+        getLambdaInput,
+      )
 
-      // expect(results.getLambda).toMatchObject(lambda)
+      expect(results.getLambda).toBeNull()
     })
   })
 })

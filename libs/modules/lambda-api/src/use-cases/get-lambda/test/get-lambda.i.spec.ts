@@ -70,7 +70,7 @@ describe('GetLambda', () => {
       expect(results.getLambda).toMatchObject(lambda)
     })
 
-    it.only('should return a null lambda', async () => {
+    it('should return a null lambda', async () => {
       const getLambdaInput: GetLambdaInput = {
         lambdaId: '0x3a0123',
       }
@@ -80,8 +80,6 @@ describe('GetLambda', () => {
         GetLambdaGql,
         getLambdaInput,
       )
-
-      console.log(results)
 
       expect(results.getLambda).toBeNull()
     })

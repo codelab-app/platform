@@ -26,7 +26,7 @@ export const graphqlRequest = <TOperationVariables>(
       // This helps us log error
       .expect((res) => {
         if (res.status != 200) {
-          console.log(JSON.stringify(res.body, null, 2))
+          console.error(JSON.stringify(res.body, null, 2))
         }
       })
       .expect(200)
@@ -56,8 +56,6 @@ export const domainRequest = async <TInput extends any, TResults extends any>(
   const response = graphqlRequest(app, gql, {
     input,
   })
-
-  console.log(response)
 
   if (expectedError) {
     response.expect((res: ApiResponse<ApolloQueryResult<any>>) => {

@@ -51,7 +51,7 @@ export class LambdaResolver {
     return await this.deleteLambdaService.execute(input)
   }
 
-  @Query(() => Lambda)
+  @Query(() => Lambda, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getLambda(@Args('input') input: GetLambdaInput) {
     return this.getLambdaService.execute(input)
