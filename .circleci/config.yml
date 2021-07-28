@@ -320,11 +320,23 @@ jobs:
   lint:
     <<: *executor-params
     environment:
-      CIRCLE_BASE_REVISION: <<pipeline.git.base_revision>>
+      CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
+      CIRCLE_REVISION: << pipeline.git.revision >>
     steps:
       - setup-workspace
       - run: make lint-eslint
       - run: make lint-commit-ci
+      # - run:
+      #     name: 'Commitlint'
+      #     command: |
+      #       echo $CIRCLE_BASE_REVISION
+      #       echo $CIRCLE_REVISION
+
+      #       if [[ ! -z < ${CIRCLE_BASE_REVISION} ]]; then
+      #         npx commitlint --from=$CIRCLE_REVISION
+      #       else
+      #         npx commitlint --from=$CIRCLE_BASE_REVISION
+      #       fi
       - notify-failure
 
   unit:
