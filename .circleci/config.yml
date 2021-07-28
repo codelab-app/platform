@@ -332,7 +332,7 @@ jobs:
             echo $CIRCLE_BASE_REVISION
             echo $CIRCLE_REVISION
 
-            if [ -z < $CIRCLE_BASE_REVISION ]; then
+            if [[ ! -z < ${CIRCLE_BASE_REVISION} ]]; then
               npx commitlint --from=$CIRCLE_REVISION
             else
               npx commitlint --from=$CIRCLE_BASE_REVISION
