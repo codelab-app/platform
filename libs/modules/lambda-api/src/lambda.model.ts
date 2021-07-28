@@ -14,3 +14,8 @@ export class Lambda {
   @Field()
   declare body: string
 }
+
+@ObjectType()
+export class LambdaResults {
+  declare data: string
+}

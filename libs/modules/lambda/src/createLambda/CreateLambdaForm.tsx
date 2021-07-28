@@ -1,4 +1,7 @@
-import { useCreateLambdaMutation } from '@codelab/codegen/graphql'
+import {
+  refetchGetLambdasQuery,
+  useCreateLambdaMutation,
+} from '@codelab/codegen/graphql'
 import {
   createNotificationHandler,
   EntityType,
@@ -6,29 +9,34 @@ import {
   UniFormUseCaseProps,
   useCrudModalForm,
 } from '@codelab/frontend/shared'
-import { useSelectedLibrary } from '@codelab/modules/library'
-import React from 'react'
-import { DeepPartial } from 'uniforms'
+import React, { useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+import { AutoFields } from 'uniforms-antd'
+import { lambdaState } from '../state'
 import { CreateLambdaInput, createLambdaSchema } from './createLambdaSchema'
 
 export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {
   const { reset, setLoading } = useCrudModalForm(EntityType.Lambda)
-  const { library } = useSelectedLibrary()
+  // const { library } = useSelectedLibrary()
+  const [, setLambdaState] = useRecoilState(lambdaState)
 
-  const [mutate] = useCreateLambdaMutation({
-    // refetchQueries: [
-    //   refetchGetLambdasByLibraryIdQuery({
-    //     libraryId: library?.id ?? '',
-    //   }),
-    // ],
+  const [mutate, { loading }] = useCreateLambdaMutation({
+    awaitRefetchQueries: true,
+    refetchQueries: [refetchGetLambdasQuery()],
   })
 
-  const onSubmit = (submitData: DeepPartial<CreateLambdaInput>) => {
+  useEffect(() => {
+    // Keep the loading state in recoil, so we can use it other components, like loading buttons, etc.
+    setLoading(loading)
+    setLambdaState((current) => ({ ...current, loading }))
+  }, [loading, setLambdaState])
+
+  const onSubmit = (submitData: CreateLambdaInput) => {
     return mutate({
       variables: {
         input: {
-          name: submitData.name as string,
-          body: submitData.body as string,
+          name: submitData.name,
+          body: submitData.body,
         },
       },
     })
@@ -38,10 +46,13 @@ export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {
     <FormUniforms<CreateLambdaInput>
       onSubmit={onSubmit}
       schema={createLambdaSchema}
+      onSubmitSuccess={() => reset()}
       onSubmitError={createNotificationHandler({
         title: 'Error while creating lambda',
       })}
       {...props}
-    />
+    >
+      <AutoFields />
+    </FormUniforms>
   )
 }

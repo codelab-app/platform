@@ -1,8 +1,8 @@
+import { ConfigModule } from '@nestjs/config'
 import { Test, TestingModule } from '@nestjs/testing'
 import path from 'path'
-import { dgraphConfig, DgraphTokens } from '../dgraph'
+import { dgraphConfig } from '../dgraph'
 import { graphqlSchemaConfig } from './config/graphql-schema.config'
-import { GraphqlSchemaTokens } from './config/graphql-schema.tokens'
 import { GraphqlSchemaService } from './graphql-schema.service'
 
 describe('GraphqlService', () => {
@@ -10,14 +10,11 @@ describe('GraphqlService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        {
-          provide: GraphqlSchemaTokens.GraphqlSchemaConfig,
-          useValue: graphqlSchemaConfig(),
-        },
-        { provide: DgraphTokens.DgraphConfig, useValue: dgraphConfig() },
-        GraphqlSchemaService,
+      imports: [
+        ConfigModule.forFeature(dgraphConfig),
+        ConfigModule.forFeature(graphqlSchemaConfig),
       ],
+      providers: [GraphqlSchemaService],
     }).compile()
 
     service = module.get<GraphqlSchemaService>(GraphqlSchemaService)

@@ -2,8 +2,6 @@ import { useGetLambdasQuery } from '@codelab/codegen/graphql'
 import { Space, Table } from 'antd'
 import React from 'react'
 import { DeleteLambdaButton } from '../deleteLambda'
-import { ExecuteLambdaButton } from '../executeLambda'
-import { UpdateLambdaButton } from '../updateLambda/UpdateLambdaButton'
 import { LambdaRecord } from './LambdaRecord'
 
 const mapDataSource = (lambdas: Array<LambdaRecord>) =>
@@ -40,8 +38,8 @@ export const GetLambdasTable = () => {
       key: 'action',
       render: (text: string, record: LambdaRecord) => (
         <Space size="middle">
-          <ExecuteLambdaButton {...record} />
-          <UpdateLambdaButton {...record} />
+          {/* <ExecuteLambdaButton {...record} />
+          <UpdateLambdaButton {...record} /> */}
           <DeleteLambdaButton {...record} />
         </Space>
       ),

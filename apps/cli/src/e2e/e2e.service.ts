@@ -1,6 +1,5 @@
-import { Environment, ServerConfig, ServerTokens } from '@codelab/backend'
+import { Environment, ServerConfig, serverConfig } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
-import { ConfigType } from '@nestjs/config'
 import { Command, Console } from 'nestjs-console'
 import shell from 'shelljs'
 import waitOn from 'wait-on'
@@ -16,8 +15,8 @@ export interface E2eOptions {
 export class E2eService {
   constructor(
     private readonly serverService: ServerService,
-    @Inject(ServerTokens.ServerConfig)
-    private readonly serverConfig: ConfigType<() => ServerConfig>,
+    @Inject(serverConfig.KEY)
+    private readonly _serverConfig: ServerConfig,
   ) {}
 
   @Command({
@@ -36,7 +35,10 @@ export class E2eService {
        * (2) Wait for server
        */
       await waitOn({
-        resources: [this.serverConfig.webEndpoint, this.serverConfig.endpoint],
+        resources: [
+          this._serverConfig.webEndpoint,
+          this._serverConfig.endpoint,
+        ],
         timeout: 60000,
       })
 

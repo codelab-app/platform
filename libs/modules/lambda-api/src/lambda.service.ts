@@ -1,4 +1,3 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { AwsLambdaService, AwsS3Service, AwsTokens } from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
 import { Lambda } from './lambda.model'

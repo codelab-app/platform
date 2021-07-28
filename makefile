@@ -62,7 +62,7 @@ build-storybook:
 #
 
 lint-commit-ci:
-	npx commitlint --from="${CIRCLE_BASE_REVISION}"
+	npx commitlint --from="${CIRCLE_BASE_REVISION}" --to="${CIRCLE_REVISION}"
 
 lint-eslint:
 	yarn affected:lint && npx prettier --check '**/*.{graphql,yaml}'

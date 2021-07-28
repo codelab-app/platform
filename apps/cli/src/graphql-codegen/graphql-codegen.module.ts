@@ -1,42 +1,27 @@
 import {
   dgraphConfig,
-  DgraphTokens,
+  DgraphModule,
   graphqlSchemaConfig,
   GraphqlSchemaModule,
-  GraphqlSchemaTokens,
-  graphqlServerConfig,
-  GraphqlServerTokens,
+  GraphqlServerModule,
   serverConfig,
-  ServerTokens,
 } from '@codelab/backend'
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 import { ServerModule } from '../server/server.module'
 import { GraphqlCodegenService } from './graphql-codegen.service'
 
 @Module({
   imports: [
-    GraphqlSchemaModule.register(dgraphConfig, graphqlSchemaConfig),
-    ServerModule.register(graphqlServerConfig),
+    ConfigModule.forRoot({
+      load: [dgraphConfig, serverConfig, graphqlSchemaConfig],
+    }),
+    GraphqlServerModule,
+    GraphqlSchemaModule,
+    DgraphModule,
+    ServerModule,
   ],
-  providers: [
-    GraphqlCodegenService,
-    {
-      provide: GraphqlSchemaTokens.GraphqlSchemaConfig,
-      useValue: graphqlSchemaConfig(),
-    },
-    {
-      provide: DgraphTokens.DgraphConfig,
-      useValue: dgraphConfig(),
-    },
-    {
-      provide: ServerTokens.ServerConfig,
-      useValue: serverConfig(),
-    },
-    {
-      provide: GraphqlServerTokens.GraphqlServerConfig,
-      useValue: graphqlServerConfig(),
-    },
-  ],
+  providers: [GraphqlCodegenService],
   exports: [GraphqlCodegenService],
 })
 export class GraphqlCodegenModule {}

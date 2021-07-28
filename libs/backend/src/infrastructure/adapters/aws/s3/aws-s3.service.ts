@@ -6,9 +6,13 @@ import {
   S3Client,
 } from '@aws-sdk/client-s3'
 import AdmZip from 'adm-zip'
-import { Lambda } from './lambda.interface'
+import { ObjectStorageRepository } from '../../../ports/persistence'
+import { Lambda } from '../lambda.interface'
 
-export class AwsS3Service extends S3Client {
+export class AwsS3Service
+  extends S3Client
+  implements ObjectStorageRepository<Lambda>
+{
   bucketPrefix = 'codelab-lambda'
 
   /**

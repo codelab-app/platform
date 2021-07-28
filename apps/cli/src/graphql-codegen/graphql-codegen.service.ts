@@ -1,13 +1,11 @@
 import {
-  DgraphConfig,
+  dgraphConfig,
   DgraphProvider,
   DgraphTokens,
   Environment,
-  GraphqlSchemaConfig,
+  graphqlSchemaConfig,
   GraphqlSchemaService,
-  GraphqlSchemaTokens,
-  ServerConfig,
-  ServerTokens,
+  serverConfig,
 } from '@codelab/backend'
 import { generate } from '@graphql-codegen/cli'
 import { Types } from '@graphql-codegen/plugin-helpers'
@@ -50,12 +48,14 @@ export class GraphqlCodegenService {
     private readonly serverService: ServerService,
     @Inject(DgraphTokens.DgraphProvider)
     private readonly dgraphProvider: DgraphProvider,
-    @Inject(DgraphTokens.DgraphConfig)
-    private readonly dgraphConfig: ConfigType<() => DgraphConfig>,
-    @Inject(ServerTokens.ServerConfig)
-    private readonly serverConfig: ConfigType<() => ServerConfig>,
-    @Inject(GraphqlSchemaTokens.GraphqlSchemaConfig)
-    private readonly graphqlSchemaConfig: ConfigType<() => GraphqlSchemaConfig>,
+    @Inject(dgraphConfig.KEY)
+    private readonly _dgraphConfig: ConfigType<typeof dgraphConfig>,
+    @Inject(serverConfig.KEY)
+    private readonly _serverConfig: ConfigType<typeof serverConfig>,
+    @Inject(graphqlSchemaConfig.KEY)
+    private readonly _graphqlSchemaConfig: ConfigType<
+      typeof graphqlSchemaConfig
+    >,
     private readonly graphqlSchemaService: GraphqlSchemaService,
   ) {}
 
@@ -74,7 +74,7 @@ export class GraphqlCodegenService {
        * (2) Wait for server
        */
       await waitOn({
-        resources: [this.serverConfig.endpoint],
+        resources: [this._serverConfig.endpoint],
         timeout: 20000,
       })
 
@@ -83,7 +83,7 @@ export class GraphqlCodegenService {
        */
 
       const generateAndUpdateDgraphSchema = async () => {
-        await this.saveMergedSchema(this.dgraphConfig.schemaGeneratedFile)
+        await this.saveMergedSchema(this._dgraphConfig.schemaGeneratedFile)
         this.dgraphProvider.updateDgraphSchema()
       }
 
@@ -92,8 +92,8 @@ export class GraphqlCodegenService {
       if (watch) {
         chokidar
           .watch([
-            this.dgraphConfig.schemaFile,
-            this.graphqlSchemaConfig.apiGraphqlSchemaFile,
+            this._dgraphConfig.schemaFile,
+            this._graphqlSchemaConfig.apiGraphqlSchemaFile,
           ])
           .on('all', async (event, _path) => {
             generateAndUpdateDgraphSchema()
@@ -105,8 +105,8 @@ export class GraphqlCodegenService {
        */
       const apiPromise = this.generateApi({
         watch,
-        schema: this.graphqlSchemaConfig.apiGraphqlSchemaFile,
-        outputPath: this.graphqlSchemaConfig.apiCodegenOutputFile,
+        schema: this._graphqlSchemaConfig.apiGraphqlSchemaFile,
+        outputPath: this._graphqlSchemaConfig.apiCodegenOutputFile,
       })
 
       /**
@@ -115,10 +115,10 @@ export class GraphqlCodegenService {
       const dgraphPromise = this.generateDgraph({
         watch,
         schema: {
-          [this.dgraphConfig.graphqlEndpoint]: {},
+          [this._dgraphConfig.graphqlEndpoint]: {},
         },
-        outputPath: this.graphqlSchemaConfig.dgraphCodegenOutputFile,
-        outputSchemaPath: this.graphqlSchemaConfig.dgraphGraphqlSchemaFile,
+        outputPath: this._graphqlSchemaConfig.dgraphCodegenOutputFile,
+        outputSchemaPath: this._graphqlSchemaConfig.dgraphGraphqlSchemaFile,
       })
 
       await Promise.all([apiPromise, dgraphPromise])

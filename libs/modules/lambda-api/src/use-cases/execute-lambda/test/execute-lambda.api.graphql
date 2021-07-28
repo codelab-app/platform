@@ -1,0 +1,5 @@
+query ExecuteLambda($input: ExecuteLambdaInput!) {
+  executeLambda(input: $input) {
+    ...__Lambda
+  }
+}

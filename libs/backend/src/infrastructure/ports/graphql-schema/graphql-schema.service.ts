@@ -1,26 +1,26 @@
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { mergeTypeDefs } from '@graphql-tools/merge'
 import { Inject, Injectable } from '@nestjs/common'
-import { ConfigType } from '@nestjs/config'
 import { print } from 'graphql'
-import { DgraphConfig, DgraphTokens } from '../dgraph'
-import { GraphqlSchemaConfig } from './config/graphql-schema.config'
-import { GraphqlSchemaTokens } from './config/graphql-schema.tokens'
+import { DgraphConfig, dgraphConfig } from '../dgraph'
+import {
+  GraphqlSchemaConfig,
+  graphqlSchemaConfig,
+} from './config/graphql-schema.config'
 
 @Injectable()
 export class GraphqlSchemaService {
   constructor(
-    @Inject(GraphqlSchemaTokens.GraphqlSchemaConfig)
-    private readonly graphqlSchemaConfig: ConfigType<() => GraphqlSchemaConfig>,
-    @Inject(DgraphTokens.DgraphConfig)
-    private readonly dgraphConfig: ConfigType<() => DgraphConfig>,
+    @Inject(dgraphConfig.KEY) private readonly _dgraphConfig: DgraphConfig,
+    @Inject(graphqlSchemaConfig.KEY)
+    private readonly _graphqlSchemaConfig: GraphqlSchemaConfig,
   ) {}
 
   getMergedSchema() {
-    const dgraphSchema = this.loadGraphqlSchema(this.dgraphConfig?.schemaFile)
+    const dgraphSchema = this.loadGraphqlSchema(this._dgraphConfig.schemaFile)
 
     const apiSchema = this.loadGraphqlSchema(
-      this.graphqlSchemaConfig.apiGraphqlSchemaFile,
+      this._graphqlSchemaConfig.apiGraphqlSchemaFile,
     )
 
     const enumType = this.getEnumTypeDef('AtomType', apiSchema[0])
