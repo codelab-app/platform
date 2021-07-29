@@ -12,6 +12,7 @@ import {
   DeleteAppGql,
   DeleteAppInput,
   DeleteAppMutation,
+  GetAppInput,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
@@ -22,6 +23,7 @@ describe('DeleteApp', () => {
   let userApp: INestApplication
   let app: __AppFragment
   let deleteAppInput: DeleteAppInput
+  let getAppInput: GetAppInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
@@ -35,6 +37,9 @@ describe('DeleteApp', () => {
 
     app = results.createApp
     deleteAppInput = {
+      appId: app.id,
+    }
+    getAppInput = {
       appId: app.id,
     }
 
@@ -66,6 +71,12 @@ describe('DeleteApp', () => {
       expect(results.deleteApp).toMatchObject({
         id: app.id,
       })
+
+      // Should fail to get the deleted app
+      // TODO: GetAppGql should returns the error message, but it returns nothing for now
+      // await domainRequest(userApp, GetAppGql, getAppInput, {
+      //   message: 'App does not exist',
+      // })
     })
   })
 })
