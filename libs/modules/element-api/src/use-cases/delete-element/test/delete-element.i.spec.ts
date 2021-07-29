@@ -14,6 +14,7 @@ import {
   ElementFragment,
   GetElementGql,
   GetElementInput,
+  GetElementQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../element.module'
@@ -71,10 +72,13 @@ describe('DeleteElement', () => {
         affected: 1,
       })
 
-      // Try to get the deleted element
-      await domainRequest(userApp, GetElementGql, getElementInput, {
-        message: 'Element does not exist',
-      })
+      // Should fail to get the deleted element
+      const getElementResults = await domainRequest<
+        GetElementInput,
+        GetElementQuery
+      >(userApp, GetElementGql, getElementInput)
+
+      expect(getElementResults.getElement).toBeNull()
     })
   })
 })

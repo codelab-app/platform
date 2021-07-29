@@ -12,7 +12,9 @@ import {
   DeleteAppGql,
   DeleteAppInput,
   DeleteAppMutation,
+  GetAppGql,
   GetAppInput,
+  GetAppQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
@@ -73,10 +75,13 @@ describe('DeleteApp', () => {
       })
 
       // Should fail to get the deleted app
-      // TODO: GetAppGql should returns the error message, but it returns nothing for now
-      // await domainRequest(userApp, GetAppGql, getAppInput, {
-      //   message: 'App does not exist',
-      // })
+      const getAppResults = await domainRequest<GetAppInput, GetAppQuery>(
+        userApp,
+        GetAppGql,
+        getAppInput,
+      )
+
+      expect(getAppResults.app).toBeNull()
     })
   })
 })

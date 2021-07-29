@@ -12,6 +12,9 @@ import {
   DeleteAtomGql,
   DeleteAtomInput,
   DeleteAtomMutation,
+  GetAtomGql,
+  GetAtomInput,
+  GetAtomQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
@@ -22,6 +25,7 @@ describe('DeleteAtom', () => {
   let userApp: INestApplication
   let atom: __AtomFragment
   let deleteAtomInput: DeleteAtomInput
+  let getAtomInput: GetAtomInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
@@ -35,6 +39,9 @@ describe('DeleteAtom', () => {
 
     atom = results.createAtom
     deleteAtomInput = {
+      atomId: atom.id,
+    }
+    getAtomInput = {
       atomId: atom.id,
     }
 
@@ -66,6 +73,15 @@ describe('DeleteAtom', () => {
       expect(results.deleteAtom).toMatchObject({
         affected: 2,
       })
+
+      // Should fail to get the deleted atom
+      const getAtomResults = await domainRequest<GetAtomInput, GetAtomQuery>(
+        userApp,
+        GetAtomGql,
+        getAtomInput,
+      )
+
+      expect(getAtomResults.atom).toBeNull()
     })
   })
 })
