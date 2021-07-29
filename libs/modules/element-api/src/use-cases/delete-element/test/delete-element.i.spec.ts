@@ -12,6 +12,9 @@ import {
   DeleteElementInput,
   DeleteElementMutation,
   ElementFragment,
+  GetElementGql,
+  GetElementInput,
+  GetElementQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../element.module'
@@ -22,6 +25,7 @@ describe('DeleteElement', () => {
   let userApp: INestApplication
   let element: ElementFragment
   let deleteElementInput: DeleteElementInput
+  let getElementInput: GetElementInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ElementModule], { role: Role.GUEST })
@@ -34,6 +38,9 @@ describe('DeleteElement', () => {
 
     element = results.createElement
     deleteElementInput = {
+      elementId: element.id,
+    }
+    getElementInput = {
       elementId: element.id,
     }
 
@@ -64,6 +71,14 @@ describe('DeleteElement', () => {
       expect(results.deleteElement).toMatchObject({
         affected: 1,
       })
+
+      // Should fail to get the deleted element
+      const getElementResults = await domainRequest<
+        GetElementInput,
+        GetElementQuery
+      >(userApp, GetElementGql, getElementInput)
+
+      expect(getElementResults.getElement).toBeNull()
     })
   })
 })

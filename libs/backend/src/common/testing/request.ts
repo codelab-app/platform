@@ -1,6 +1,5 @@
 /// <reference types='jest'/>
 
-import { ApolloQueryResult } from '@apollo/client'
 import { INestApplication } from '@nestjs/common'
 import { ASTNode, print } from 'graphql'
 import { default as supertestRequest } from 'supertest'
@@ -50,25 +49,23 @@ export const request = (app: INestApplication) =>
 export const domainRequest = async <TInput extends any, TResults extends any>(
   app: INestApplication,
   gql: ASTNode,
-  input: TInput,
+  input?: TInput,
   expectedError?: ExpectedError,
 ): Promise<TResults> => {
   const response = graphqlRequest(app, gql, {
     input,
   })
 
-  if (expectedError) {
-    response.expect((res: ApiResponse<ApolloQueryResult<any>>) => {
+  const data = await response.then((res: ApiResponse) => {
+    if (expectedError) {
       expect(res?.body?.errors).toMatchObject([
         { message: expectedError.message },
       ])
-    })
 
-    // Satisfy return type
-    return {} as any
-  }
+      // Satisfy return type
+      return {} as any
+    }
 
-  const data = await response.then((res: ApiResponse) => {
     return res.body.data
   })
 
