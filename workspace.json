@@ -253,19 +253,6 @@
         }
       }
     },
-    "frontend-cytoscape": {
-      "root": "libs/frontend/cytoscape",
-      "sourceRoot": "libs/frontend/cytoscape/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/frontend/cytoscape/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
     "frontend-dgraph": {
       "root": "libs/frontend/dgraph",
       "sourceRoot": "libs/frontend/dgraph/src",
@@ -608,7 +595,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/modules/type-api/**/*.graphql"]
+            "lintFilePatterns": [
+              "libs/modules/user/**/*.{ts,tsx,js,jsx,graphql}"
+            ]
           }
         },
         "test": {

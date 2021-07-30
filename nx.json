@@ -47,9 +47,6 @@
     "frontend-builder": {
       "tags": []
     },
-    "frontend-cytoscape": {
-      "tags": []
-    },
     "frontend-dgraph": {
       "tags": []
     },
