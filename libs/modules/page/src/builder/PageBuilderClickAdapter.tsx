@@ -46,7 +46,7 @@ export const PageBuilderClickAdapter = () => {
     <StyledOverlayContainer className="click-overlay-toolbar">
       <span>
         {selectedElement.name}{' '}
-        {selectedElement.atom ? `(${selectedElement.atom.label})` : ''}
+        {selectedElement.atom ? `(${selectedElement.atom.name})` : ''}
       </span>
       <StyledOverlayButtonGroup>
         <Button

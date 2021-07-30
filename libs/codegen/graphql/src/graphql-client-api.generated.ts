@@ -490,7 +490,7 @@ export type Mutation = {
   updateType?: Maybe<Scalars['Void']>
   deleteType?: Maybe<Scalars['Void']>
   createLambda: Lambda
-  deleteLambda: Lambda
+  deleteLambda?: Maybe<Scalars['Void']>
 }
 
 export type MutationCreateAppArgs = {
@@ -865,8 +865,6 @@ export type User = {
   username?: Maybe<Scalars['String']>
 }
 
-export type __AppFragment = Pick<App, 'id' | 'name'>
-
 export type CreateAppMutationVariables = Exact<{
   input: CreateAppInput
 }>
@@ -893,7 +891,9 @@ export type UpdateAppMutationVariables = Exact<{
   input: UpdateAppInput
 }>
 
-export type UpdateAppMutation = { app: Mutation['updateApp'] }
+export type UpdateAppMutation = Pick<Mutation, 'updateApp'>
+
+export type __AppFragment = Pick<App, 'id' | 'name'>
 
 export type __AtomFragment = Pick<Atom, 'id' | 'name' | 'type'> & {
   api: __InterfaceFragment
@@ -926,6 +926,14 @@ export type UpdateAtomMutationVariables = Exact<{
 }>
 
 export type UpdateAtomMutation = Pick<Mutation, 'updateAtom'>
+
+export type GetElementGraphQueryVariables = Exact<{
+  input: GetElementInput
+}>
+
+export type GetElementGraphQuery = {
+  getElementGraph?: Maybe<ElementGraphFragment>
+}
 
 export type ElementFragment = { __typename: 'Element' } & Pick<
   Element,
@@ -992,7 +1000,7 @@ export type DeleteLambdaMutationVariables = Exact<{
   input: DeleteLambdaInput
 }>
 
-export type DeleteLambdaMutation = { deleteLambda: __LambdaFragment }
+export type DeleteLambdaMutation = Pick<Mutation, 'deleteLambda'>
 
 export type ExecuteLambdaQueryVariables = Exact<{
   input: ExecuteLambdaInput
@@ -1653,7 +1661,7 @@ export function refetchGetAppsQuery(variables?: GetAppsQueryVariables) {
 }
 export const UpdateAppGql = gql`
   mutation UpdateApp($input: UpdateAppInput!) {
-    app: updateApp(input: $input)
+    updateApp(input: $input)
   }
 `
 export type UpdateAppMutationFn = Apollo.MutationFunction<
@@ -1952,6 +1960,70 @@ export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
 >
+export const GetElementGraphGql = gql`
+  query GetElementGraph($input: GetElementInput!) {
+    getElementGraph(input: $input) {
+      ...ElementGraph
+    }
+  }
+  ${ElementGraphFragmentDoc}
+`
+
+/**
+ * __useGetElementGraphQuery__
+ *
+ * To run a query within a React component, call `useGetElementGraphQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetElementGraphQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetElementGraphQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetElementGraphQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetElementGraphQuery,
+    GetElementGraphQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetElementGraphQuery, GetElementGraphQueryVariables>(
+    GetElementGraphGql,
+    options,
+  )
+}
+export function useGetElementGraphLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetElementGraphQuery,
+    GetElementGraphQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetElementGraphQuery,
+    GetElementGraphQueryVariables
+  >(GetElementGraphGql, options)
+}
+export type GetElementGraphQueryHookResult = ReturnType<
+  typeof useGetElementGraphQuery
+>
+export type GetElementGraphLazyQueryHookResult = ReturnType<
+  typeof useGetElementGraphLazyQuery
+>
+export type GetElementGraphQueryResult = Apollo.QueryResult<
+  GetElementGraphQuery,
+  GetElementGraphQueryVariables
+>
+export function refetchGetElementGraphQuery(
+  variables?: GetElementGraphQueryVariables,
+) {
+  return { query: GetElementGraphGql, variables: variables }
+}
 export const CreateElementGql = gql`
   mutation CreateElement($input: CreateElementInput!) {
     createElement(input: $input) {
@@ -2307,11 +2379,8 @@ export type CreateLambdaMutationOptions = Apollo.BaseMutationOptions<
 >
 export const DeleteLambdaGql = gql`
   mutation DeleteLambda($input: DeleteLambdaInput!) {
-    deleteLambda(input: $input) {
-      ...__Lambda
-    }
+    deleteLambda(input: $input)
   }
-  ${__LambdaFragmentDoc}
 `
 export type DeleteLambdaMutationFn = Apollo.MutationFunction<
   DeleteLambdaMutation,
@@ -4209,7 +4278,7 @@ export const GetApps = gql`
 `
 export const UpdateApp = gql`
   mutation UpdateApp($input: UpdateAppInput!) {
-    app: updateApp(input: $input)
+    updateApp(input: $input)
   }
 `
 export const CreateAtom = gql`
@@ -4244,6 +4313,14 @@ export const UpdateAtom = gql`
   mutation UpdateAtom($input: UpdateAtomInput!) {
     updateAtom(input: $input)
   }
+`
+export const GetElementGraph = gql`
+  query GetElementGraph($input: GetElementInput!) {
+    getElementGraph(input: $input) {
+      ...ElementGraph
+    }
+  }
+  ${ElementGraph}
 `
 export const CreateElement = gql`
   mutation CreateElement($input: CreateElementInput!) {
@@ -4290,11 +4367,8 @@ export const CreateLambda = gql`
 `
 export const DeleteLambda = gql`
   mutation DeleteLambda($input: DeleteLambdaInput!) {
-    deleteLambda(input: $input) {
-      ...__Lambda
-    }
+    deleteLambda(input: $input)
   }
-  ${__Lambda}
 `
 export const ExecuteLambda = gql`
   query ExecuteLambda($input: ExecuteLambdaInput!) {

@@ -62,7 +62,12 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     return this.setFilterFunc(func)
   }
 
-  /** Will override all previous func filters */
+  /**
+   * The part after func:
+   * Will override all previous func filters
+   * @example
+   * 'uid(x)'
+   *  */
   setFilterFuncString(filterString: string) {
     this._func = [new DgraphFilter().withFilter(filterString)]
 

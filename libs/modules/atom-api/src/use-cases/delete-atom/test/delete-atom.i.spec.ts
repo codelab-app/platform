@@ -5,7 +5,6 @@ import {
   teardownTestModule,
 } from '@codelab/backend'
 import {
-  __AtomFragment,
   CreateAtomGql,
   CreateAtomInput,
   CreateAtomMutation,
@@ -23,7 +22,7 @@ import { createAtomInput } from '../../create-atom/test/create-atom.data'
 describe('DeleteAtom', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let atom: __AtomFragment
+  let atomId: string
   let deleteAtomInput: DeleteAtomInput
   let getAtomInput: GetAtomInput
 
@@ -37,16 +36,15 @@ describe('DeleteAtom', () => {
       createAtomInput,
     )
 
-    atom = results.createAtom
+    atomId = results.createAtom.id
     deleteAtomInput = {
-      atomId: atom.id,
+      atomId: atomId,
     }
     getAtomInput = {
-      atomId: atom.id,
+      byId: { atomId },
     }
 
-    expect(atom.id).toBeDefined()
-    expect(atom).toMatchObject(createAtomInput)
+    expect(atomId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -64,24 +62,19 @@ describe('DeleteAtom', () => {
 
   describe('User', () => {
     it('should delete an atom', async () => {
-      const results = await domainRequest<DeleteAtomInput, DeleteAtomMutation>(
+      await domainRequest<DeleteAtomInput, DeleteAtomMutation>(
         userApp,
         DeleteAtomGql,
         deleteAtomInput,
       )
 
-      expect(results.deleteAtom).toMatchObject({
-        affected: 2,
-      })
-
       // Should fail to get the deleted atom
-      const getAtomResults = await domainRequest<GetAtomInput, GetAtomQuery>(
+      await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
         getAtomInput,
+        { message: 'Not found' },
       )
-
-      expect(getAtomResults.atom).toBeNull()
     })
   })
 })

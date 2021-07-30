@@ -1,2 +1,2 @@
-export { ElementTree } from './ElementTree'
+export * from './ElementTree'
 export * from './useElementTree'

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Divider, PageHeader } from 'antd'
+import { Divider, PageHeader, PageHeaderProps } from 'antd'
 import React from 'react'
 import { GlobalStyles } from 'twin.macro'
 
@@ -11,6 +11,7 @@ type MainPaneTemplateProps = React.PropsWithChildren<{
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   >
+  headerProps?: PageHeaderProps
 }>
 
 const StyledContainer = styled.div`
@@ -35,13 +36,14 @@ export const MainPaneTemplate = ({
   header,
   title,
   containerProps,
+  headerProps,
 }: MainPaneTemplateProps) => {
   const extra = header && Array.isArray(header) ? header : [header]
 
   return (
     <StyledContainer {...containerProps}>
       <GlobalStyles />
-      <PageHeader title={title} extra={[...extra]}>
+      <PageHeader title={title} extra={[...extra]} {...(headerProps || {})}>
         <Divider tw="mt-0" />
         {children}
       </PageHeader>

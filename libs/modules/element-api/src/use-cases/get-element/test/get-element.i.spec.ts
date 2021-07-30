@@ -8,7 +8,6 @@ import {
   CreateElementGql,
   CreateElementInput,
   CreateElementMutation,
-  ElementFragment,
   GetElementGql,
   GetElementInput,
   GetElementQuery,
@@ -20,7 +19,7 @@ import { createElementInput } from '../../create-element/test/create-element.dat
 describe('GetElement', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let element: ElementFragment
+  let elementId: string
   let getElementInput: GetElementInput
 
   beforeAll(async () => {
@@ -32,13 +31,10 @@ describe('GetElement', () => {
       CreateElementMutation
     >(userApp, CreateElementGql, createElementInput)
 
-    element = results.createElement
-    getElementInput = {
-      elementId: element.id,
-    }
+    elementId = results.createElement.id
+    getElementInput = { elementId }
 
-    expect(element.id).toBeDefined()
-    expect(element).toMatchObject(createElementInput)
+    expect(elementId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -62,7 +58,10 @@ describe('GetElement', () => {
         getElementInput,
       )
 
-      expect(results?.getElement).toMatchObject(element)
+      expect(results?.getElement).toMatchObject({
+        ...createElementInput,
+        id: elementId,
+      })
     })
   })
 })

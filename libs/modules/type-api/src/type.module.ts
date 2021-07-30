@@ -1,4 +1,4 @@
-import { CytoscapeModule, TreeModule } from '@codelab/backend'
+import { CytoscapeModule, TreeModule, Void } from '@codelab/backend'
 import { Module } from '@nestjs/common'
 import { FieldResolver } from './field.resolver'
 import { FieldValidator } from './field.validator'
@@ -62,7 +62,7 @@ const services = [
 
 @Module({
   imports: [CytoscapeModule, TreeModule],
-  providers: [FieldResolver, TypeResolver, ...services],
+  providers: [FieldResolver, TypeResolver, Void, ...services],
   exports: [...services],
 })
 export class TypeModule {}

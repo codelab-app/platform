@@ -8,7 +8,9 @@ import {
   CreateElementGql,
   CreateElementInput,
   CreateElementMutation,
-  ElementFragment,
+  GetElementGql,
+  GetElementInput,
+  GetElementQuery,
   UpdateElementGql,
   UpdateElementInput,
   UpdateElementMutation,
@@ -20,7 +22,7 @@ import { createElementInput } from '../../create-element/test/create-element.dat
 describe('UpdateElement', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let element: ElementFragment
+  let elementId: string
   let updateElementInput: UpdateElementInput
 
   beforeAll(async () => {
@@ -32,16 +34,16 @@ describe('UpdateElement', () => {
       CreateElementMutation
     >(userApp, CreateElementGql, createElementInput)
 
-    element = results.createElement
+    elementId = results.createElement.id
+
+    expect(elementId).toBeDefined()
+
     updateElementInput = {
-      elementId: element.id,
+      elementId,
       updateData: {
         name: 'Example Element updated',
       },
     }
-
-    expect(element.id).toBeDefined()
-    expect(element).toMatchObject(createElementInput)
   })
 
   afterAll(async () => {
@@ -59,12 +61,18 @@ describe('UpdateElement', () => {
 
   describe('User', () => {
     it('should update an element', async () => {
-      const results = await domainRequest<
-        UpdateElementInput,
-        UpdateElementMutation
-      >(userApp, UpdateElementGql, updateElementInput)
+      await domainRequest<UpdateElementInput, UpdateElementMutation>(
+        userApp,
+        UpdateElementGql,
+        updateElementInput,
+      )
 
-      expect(results.updateElement).toMatchObject({
+      const { getElement: element } = await domainRequest<
+        GetElementInput,
+        GetElementQuery
+      >(userApp, GetElementGql, { elementId })
+
+      expect(element).toMatchObject({
         ...updateElementInput.updateData,
         id: updateElementInput.elementId,
       })

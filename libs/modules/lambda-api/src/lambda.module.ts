@@ -1,3 +1,4 @@
+import { Void } from '@codelab/backend'
 import { Module } from '@nestjs/common'
 import { LambdaResolver } from './lambda.resolver'
 import { LambdaService } from './lambda.service'
@@ -17,7 +18,7 @@ const services = [
 
 @Module({
   controllers: [],
-  providers: [LambdaResolver, LambdaService, ...services],
+  providers: [Void, LambdaResolver, LambdaService, ...services],
   exports: [...services],
 })
 export class LambdaModule {}

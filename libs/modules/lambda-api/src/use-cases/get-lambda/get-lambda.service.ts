@@ -1,20 +1,14 @@
 import { DgraphUseCase } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js'
+import { getLambdaQuery } from '../../lib/getLambdaQuery'
 import { GetLambdaInput } from './get-lambda.input'
 
 @Injectable()
 export class GetLambdaService extends DgraphUseCase<GetLambdaInput, any> {
   async executeTransaction(input: GetLambdaInput, txn: Txn) {
-    const q = `{ getLambda(func: uid("${input.lambdaId}")) @filter(eq(dgraph.type, Lambda)) {
-      id: uid
-      name: Lambda.name
-      body: Lambda.body
-      ownerId: Lambda.ownerId
-    }}`
+    const q = getLambdaQuery().setUidFunc(input.lambdaId)
 
-    const results = await txn.query(q)
-
-    return results.getJson().getLambda[0] ?? null
+    return this.dgraph.getOne(txn, q)
   }
 }

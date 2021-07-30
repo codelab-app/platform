@@ -3,21 +3,28 @@ import {
   useMoveElementMutation,
 } from '@codelab/codegen/graphql'
 import { MainPaneTemplate } from '@codelab/frontend/layout'
-import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
+import {
+  ActionType,
+  CrudModal,
+  EntityType,
+  PageType,
+} from '@codelab/frontend/shared'
 import { CreateElementButton } from '@codelab/modules/element'
 import { Dropdown, Empty, Tree } from 'antd'
 import { TreeProps } from 'antd/lib/tree'
+import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 import tw from 'twin.macro'
 import { usePageBuilderState } from '../../builder'
 import { CreatePageElementForm } from '../../pageElement/createPageElement'
 import { PageContext } from '../../providers'
 import { ElementContextMenu } from './ElementContextMenu'
-import { MainPanePageDetailTitle } from './MainPanePageDetailTitle'
 import { useMainPanePageDetailExpandedNodes } from './useMainPanePageDetailExpandedNodes'
 
 export const MainPanePageDetail = () => {
   const { tree, page, loading, pageId } = useContext(PageContext)
+  const router = useRouter()
+  const appId = router.query.appId as string
 
   const {
     selectPageElement,
@@ -107,7 +114,14 @@ export const MainPanePageDetail = () => {
 
   return (
     <MainPaneTemplate
-      title={<MainPanePageDetailTitle page={page} />}
+      title={page.name}
+      headerProps={{
+        onBack: () =>
+          router.push({
+            pathname: PageType.PageList,
+            query: { appId },
+          }),
+      }}
       header={
         <CreateElementButton loading={loading || movingPageElement} key={0} />
       }

@@ -8,6 +8,9 @@ import {
   CreateAppGql,
   CreateAppInput,
   CreateAppMutation,
+  GetAppGql,
+  GetAppInput,
+  GetAppQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
@@ -37,14 +40,23 @@ describe('CreateApp', () => {
 
   describe('User', () => {
     it('should create an App', async () => {
-      const results = await domainRequest<CreateAppInput, CreateAppMutation>(
+      const {
+        createApp: { id: appId },
+      } = await domainRequest<CreateAppInput, CreateAppMutation>(
         userApp,
         CreateAppGql,
         createAppInput,
       )
 
-      expect(results.createApp.id).toBeDefined()
-      expect(results.createApp).toMatchObject(createAppInput)
+      expect(appId).toBeDefined()
+
+      const { getApp: app } = await domainRequest<GetAppInput, GetAppQuery>(
+        userApp,
+        GetAppGql,
+        { byId: { appId } },
+      )
+
+      expect(app).toMatchObject({ ...createAppInput, id: appId })
     })
   })
 })

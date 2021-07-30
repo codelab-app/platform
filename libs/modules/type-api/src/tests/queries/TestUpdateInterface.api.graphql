@@ -1,3 +1,0 @@
-mutation TestUpdateInterface($input: UpdateTypeInput!) {
-  updateType(input: $input)
-}

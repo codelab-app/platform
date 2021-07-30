@@ -1,5 +1,0 @@
-query TestGetInterface($input: GetTypesInput!) {
-  getTypes(input: $input) {
-    ...__Type
-  }
-}

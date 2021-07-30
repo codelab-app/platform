@@ -1,5 +1,0 @@
-mutation TestCreateInterface($input: CreateTypeInput!) {
-  createType(input: $input) {
-    id
-  }
-}

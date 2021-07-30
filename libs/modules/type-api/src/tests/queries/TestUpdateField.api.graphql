@@ -1,3 +1,0 @@
-mutation TestUpdateField($input: UpdateFieldInput!) {
-  updateField(input: $input)
-}

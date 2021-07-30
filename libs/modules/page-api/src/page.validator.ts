@@ -26,7 +26,7 @@ export class PageValidator {
       this.dgraph.getOneOrThrow<QueryResult>(
         txn,
         this.createGetOwnerRequest(pageId),
-        () => new Error('Page does not exist'),
+        () => new Error('Page not found'),
       ),
     )
 

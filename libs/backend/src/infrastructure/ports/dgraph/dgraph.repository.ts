@@ -117,7 +117,7 @@ export class DgraphRepository {
 
   /**
    * Executes the provided mutation and returns a {@link CreateResponse} with the id
-   * of the entity, labeled by the blankNodeLabel
+   * of the entity, labeled by the blankNodeLabel. Note blankNodeLabel is the blank node uid, but without "_:"
    *
    * If you supply a Mutation object, you need to either use the default blankNodeLabel ("entity", respectively "_:entity")
    * or supply your own as the third parameter
@@ -231,6 +231,24 @@ export class DgraphRepository {
     errorFactory?: () => Error,
   ): Promise<T> {
     const result = await this.getOne<T>(txn, queryOrFactory)
+
+    if (!result) {
+      throw errorFactory ? errorFactory() : new Error('Not found')
+    }
+
+    return result
+  }
+
+  /**
+   * Executes a named query and returns the first found item or throws if not found
+   */
+  async getOneOrThrowNamed<T>(
+    txn: Txn,
+    query: string,
+    queryName: string,
+    errorFactory?: () => Error,
+  ): Promise<T> {
+    const result = await this.getOneNamed<T>(txn, query, queryName)
 
     if (!result) {
       throw errorFactory ? errorFactory() : new Error('Not found')

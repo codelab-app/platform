@@ -5,11 +5,13 @@ import {
   teardownTestModule,
 } from '@codelab/backend'
 import {
-  __AtomFragment,
   AtomType,
   CreateAtomGql,
   CreateAtomInput,
   CreateAtomMutation,
+  GetAtomGql,
+  GetAtomInput,
+  GetAtomQuery,
   UpdateAtomGql,
   UpdateAtomInput,
   UpdateAtomMutation,
@@ -21,8 +23,9 @@ import { createAtomInput } from '../../create-atom/test/create-atom.data'
 describe('UpdateAtom', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let atom: __AtomFragment
+  let atomId: string
   let updateAtomInput: UpdateAtomInput
+  let getAtomInput: GetAtomInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
@@ -34,17 +37,18 @@ describe('UpdateAtom', () => {
       createAtomInput,
     )
 
-    atom = results.createAtom
+    atomId = results.createAtom.id
     updateAtomInput = {
-      id: atom.id,
+      id: atomId,
       data: {
-        label: 'Button updated (Ant Design)',
+        name: 'Button updated (Ant Design)',
         type: AtomType.AntDesignButton,
       },
     }
 
-    expect(atom.id).toBeDefined()
-    expect(atom).toMatchObject(createAtomInput)
+    getAtomInput = { byId: { atomId } }
+
+    expect(atomId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -62,13 +66,19 @@ describe('UpdateAtom', () => {
 
   describe('User', () => {
     it('should update an atom', async () => {
-      const results = await domainRequest<UpdateAtomInput, UpdateAtomMutation>(
+      await domainRequest<UpdateAtomInput, UpdateAtomMutation>(
         userApp,
         UpdateAtomGql,
         updateAtomInput,
       )
 
-      expect(results.atom).toMatchObject({
+      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+        userApp,
+        GetAtomGql,
+        getAtomInput,
+      )
+
+      expect(atom).toMatchObject({
         ...updateAtomInput.data,
         id: updateAtomInput.id,
       })

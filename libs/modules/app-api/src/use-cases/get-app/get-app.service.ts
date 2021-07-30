@@ -1,5 +1,6 @@
 import {
   DgraphApp,
+  DgraphEntityType,
   DgraphQueryBuilder,
   DgraphQueryField,
   DgraphRepository,
@@ -67,6 +68,7 @@ export class GetAppService extends DgraphUseCase<GetAppRequest, DgraphApp> {
   protected createByIdQuery({ appId }: AppByIdFilter) {
     return new DgraphQueryBuilder()
       .setUidFunc(appId)
+      .addTypeFilterDirective(DgraphEntityType.App)
       .addBaseFields()
       .addExpandAll((f) => f.addExpandAll((f2) => f2.addExpandAll()))
   }
@@ -74,6 +76,7 @@ export class GetAppService extends DgraphUseCase<GetAppRequest, DgraphApp> {
   protected createByPageQuery({ pageId }: AppByPageFilter) {
     return new DgraphQueryBuilder()
       .setUidFunc(pageId)
+      .addTypeFilterDirective(DgraphEntityType.App)
       .addBaseFields()
       .addFields(
         new DgraphQueryField('~pages').addExpandAll((f) =>

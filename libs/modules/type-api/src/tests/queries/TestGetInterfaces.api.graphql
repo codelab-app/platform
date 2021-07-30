@@ -1,5 +1,0 @@
-query TestGetInterfaces {
-  getTypes {
-    ...__Interface
-  }
-}

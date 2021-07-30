@@ -21,6 +21,7 @@ const {
   EnumTypeValue,
   App,
   Component,
+  Lambda,
 } = DgraphEntityType
 
 export const dgraphSchema = `
@@ -98,6 +99,12 @@ export const dgraphSchema = `
       description
    }
 
+   type ${Lambda} {
+      ownerId
+      name
+      body
+   }
+
    name: string @index(term) .
    description: string .
 
@@ -138,4 +145,6 @@ export const dgraphSchema = `
 
    field: uid @reverse .
    value: uid @reverse .
+
+   body: string .
 `

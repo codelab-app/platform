@@ -8,6 +8,9 @@ import {
   CreateAtomGql,
   CreateAtomInput,
   CreateAtomMutation,
+  GetAtomGql,
+  GetAtomInput,
+  GetAtomQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
@@ -37,14 +40,26 @@ describe('CreateAtom', () => {
 
   describe('User', () => {
     it('should create an atom', async () => {
-      const results = await domainRequest<CreateAtomInput, CreateAtomMutation>(
+      const {
+        createAtom: { id: atomId },
+      } = await domainRequest<CreateAtomInput, CreateAtomMutation>(
         userApp,
         CreateAtomGql,
         createAtomInput,
       )
 
-      expect(results.createAtom.id).toBeDefined()
-      expect(results.createAtom).toMatchObject(createAtomInput)
+      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+        userApp,
+        GetAtomGql,
+        { byId: { atomId } },
+      )
+
+      expect(atomId).toBeDefined()
+      expect(atom).toMatchObject({ id: atomId, ...createAtomInput })
+
+      expect(atom?.api).toBeDefined()
+      expect(atom?.api.name).toBeDefined()
+      expect(atom?.api.id).toBeDefined()
     })
   })
 })
