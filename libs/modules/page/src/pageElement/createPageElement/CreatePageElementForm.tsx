@@ -15,15 +15,14 @@ type CreatePageElementFormProps = Omit<
  * Wrapper for {@link CreateElementForm} in the context of a Page
  */
 export const CreatePageElementForm = (props: CreatePageElementFormProps) => {
-  const { pageId, page } = useContext(PageContext)
+  const { pageId, page, tree } = useContext(PageContext)
 
   if (!page) {
     return null
   }
 
   const parentElementOptions = [
-    { label: page.rootElement.name, value: page.rootElement.id },
-    ...page.rootElement.descendants.map((element) => ({
+    ...tree.getAllElements().map((element) => ({
       label: element.name,
       value: element.id,
     })),

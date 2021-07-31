@@ -1,57 +1,76 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, QueryUseCase } from '@codelab/backend'
-import {
-  GetElementGql,
-  GetElementQuery,
-  GetElementQueryVariables,
-} from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
-import { ElementGuardService } from '../../auth'
-import { Element } from '../../models'
+  DgraphElement,
+  DgraphEntityType,
+  DgraphQueryBuilder,
+  DgraphRepository,
+  DgraphUseCase,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js'
+import { ElementValidator } from '../../element.validator'
 import { GetElementRequest } from './get-element.request'
 
-type GqlVariablesType = GetElementQueryVariables
-type GqlOperationType = GetElementQuery
-
 @Injectable()
-export class GetElementService extends QueryUseCase<
+export class GetElementService extends DgraphUseCase<
   GetElementRequest,
-  Element | null,
-  GqlOperationType,
-  GqlVariablesType
+  DgraphElement
 > {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-    private elementGuardService: ElementGuardService,
+    protected readonly dgraph: DgraphRepository,
+    private elementGuardService: ElementValidator,
   ) {
-    super(apolloClient)
+    super(dgraph)
   }
 
-  protected getGql() {
-    return GetElementGql
-  }
+  protected async executeTransaction(
+    request: GetElementRequest,
+    txn: Txn,
+  ): Promise<DgraphElement> {
+    await this.validate(request)
 
-  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    return Element.Schema.parse(result?.data?.getElement) || null
-  }
-
-  protected mapVariables({
-    input: { elementId },
-  }: GetElementRequest): GqlVariablesType {
-    return {
-      id: elementId,
-    }
+    return this.dgraph.getOneOrThrow(
+      txn,
+      this.createQuery(request),
+      () => new Error('Element not found'),
+    )
   }
 
   protected async validate({
     currentUser,
     input: { elementId },
   }: GetElementRequest): Promise<void> {
-    await this.elementGuardService.validate(elementId, currentUser)
+    await this.elementGuardService.existsAndIsOwnedBy(elementId, currentUser)
+  }
+
+  private createQuery({ input: { elementId } }: GetElementRequest) {
+    return new DgraphQueryBuilder()
+      .setUidFunc(elementId)
+      .addTypeFilterDirective(DgraphEntityType.Element)
+      .addBaseFields()
+      .addRecurseDirective().addFields(`
+          name
+          children @facets(order)
+          component
+          atom
+          value
+          elementProps
+          props
+          values
+          booleanValue
+          floatValue
+          intValue
+          stringValue
+          type
+          key
+          css
+          description
+          fields
+          field
+          allowedValues
+          itemType
+          primitiveKind
+          atomType
+          api
+      `)
   }
 }

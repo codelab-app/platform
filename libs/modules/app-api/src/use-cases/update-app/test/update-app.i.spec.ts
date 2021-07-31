@@ -5,10 +5,12 @@ import {
   teardownTestModule,
 } from '@codelab/backend'
 import {
-  __AppFragment,
   CreateAppGql,
   CreateAppInput,
   CreateAppMutation,
+  GetAppGql,
+  GetAppInput,
+  GetAppQuery,
   UpdateAppGql,
   UpdateAppInput,
   UpdateAppMutation,
@@ -20,8 +22,9 @@ import { createAppInput } from '../../create-app/test/create-app.data'
 describe('UpdateApp', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let app: __AppFragment
+  let appId: string
   let updateAppInput: UpdateAppInput
+  let getAppInput: GetAppInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
@@ -33,16 +36,14 @@ describe('UpdateApp', () => {
       createAppInput,
     )
 
-    app = results.createApp
+    appId = results.createApp.id
     updateAppInput = {
-      id: app.id,
-      data: {
-        name: 'Test App Updated',
-      },
+      id: appId,
+      data: { name: 'Test App Updated' },
     }
+    getAppInput = { byId: { appId } }
 
-    expect(app.id).toBeDefined()
-    expect(app).toMatchObject(createAppInput)
+    expect(appId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -60,15 +61,21 @@ describe('UpdateApp', () => {
 
   describe('User', () => {
     it('should update an app', async () => {
-      const results = await domainRequest<UpdateAppInput, UpdateAppMutation>(
+      await domainRequest<UpdateAppInput, UpdateAppMutation>(
         userApp,
         UpdateAppGql,
         updateAppInput,
       )
 
-      expect(results.app).toMatchObject({
+      const { getApp: app } = await domainRequest<GetAppInput, GetAppQuery>(
+        userApp,
+        GetAppGql,
+        getAppInput,
+      )
+
+      expect(app).toMatchObject({
         ...updateAppInput.data,
-        id: updateAppInput.id,
+        id: appId,
       })
     })
   })

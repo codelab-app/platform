@@ -11,7 +11,6 @@ import {
   DeleteElementGql,
   DeleteElementInput,
   DeleteElementMutation,
-  ElementFragment,
   GetElementGql,
   GetElementInput,
   GetElementQuery,
@@ -23,7 +22,7 @@ import { createElementInput } from '../../create-element/test/create-element.dat
 describe('DeleteElement', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let element: ElementFragment
+  let elementId: string
   let deleteElementInput: DeleteElementInput
   let getElementInput: GetElementInput
 
@@ -36,16 +35,11 @@ describe('DeleteElement', () => {
       CreateElementMutation
     >(userApp, CreateElementGql, createElementInput)
 
-    element = results.createElement
-    deleteElementInput = {
-      elementId: element.id,
-    }
-    getElementInput = {
-      elementId: element.id,
-    }
+    elementId = results.createElement.id
+    deleteElementInput = { elementId }
+    getElementInput = { elementId }
 
-    expect(element.id).toBeDefined()
-    expect(element).toMatchObject(createElementInput)
+    expect(elementId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -63,22 +57,19 @@ describe('DeleteElement', () => {
 
   describe('User', () => {
     it('should delete an element', async () => {
-      const results = await domainRequest<
-        DeleteElementInput,
-        DeleteElementMutation
-      >(userApp, DeleteElementGql, deleteElementInput)
-
-      expect(results.deleteElement).toMatchObject({
-        affected: 1,
-      })
+      await domainRequest<DeleteElementInput, DeleteElementMutation>(
+        userApp,
+        DeleteElementGql,
+        deleteElementInput,
+      )
 
       // Should fail to get the deleted element
-      const getElementResults = await domainRequest<
-        GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, getElementInput)
-
-      expect(getElementResults.getElement).toBeNull()
+      await domainRequest<GetElementInput, GetElementQuery>(
+        userApp,
+        GetElementGql,
+        getElementInput,
+        { message: 'Element not found' },
+      )
     })
   })
 })

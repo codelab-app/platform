@@ -1,7 +1,5 @@
-import { Atom, atomSchema } from '@codelab/modules/atom-api'
-import { PropAggregate } from '@codelab/modules/prop-api'
-import { createUnionType, Field, ID, ObjectType } from '@nestjs/graphql'
-import { z } from 'zod'
+import { Atom } from '@codelab/modules/atom-api'
+import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 /**
  * The Element is our base renderable unit
@@ -27,26 +25,22 @@ export class Element {
   @Field(() => Atom, { nullable: true })
   declare atom?: Atom | null
 
-  // @Field(() => Component) //need to add this when component-api is done
-  // declare  component: Component
+  @Field(() => String, {
+    nullable: true,
+    description:
+      'Referenced only by id to avoid recursion. Use ElementGraph to get all needed Components',
+  })
+  declare componentId?: string | null
 
-  @Field(() => [PropAggregate])
-  // Optional, because the fields resolver can get it
-  declare props?: Array<PropAggregate>
+  @Field({ description: 'Props in a json format' })
+  declare props: string
 
-  constructor({ id, name, atom, props, css }: Element) {
+  constructor({ id, name, atom, props, css, componentId }: Element) {
     this.id = id
     this.name = name
     this.atom = atom
     this.css = css
+    this.componentId = componentId
     this.props = props
   }
-
-  static Schema = z.object({
-    id: z.string(),
-    name: z.string(),
-    css: z.string().optional().nullable(),
-    atom: atomSchema.optional().nullable(),
-    props: PropAggregate.Schema.array().optional(),
-  })
 }

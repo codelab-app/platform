@@ -1,45 +1,30 @@
-import { FetchResult } from '@apollo/client'
-import { QueryUseCase } from '@codelab/backend'
 import {
-  Dgraph__AppFragment,
-  GetAppsGql,
-  GetAppsQuery,
-  GetAppsQueryVariables,
-} from '@codelab/codegen/dgraph'
+  DgraphApp,
+  DgraphEntityType,
+  DgraphQueryBuilder,
+  DgraphUseCase,
+} from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { App } from '../../app.model'
+import { Txn } from 'dgraph-js'
 import { GetAppsRequest } from './get-apps.request'
 
 @Injectable()
-export class GetAppsService extends QueryUseCase<
+export class GetAppsService extends DgraphUseCase<
   GetAppsRequest,
-  Array<App>,
-  GetAppsQuery,
-  GetAppsQueryVariables
+  Array<DgraphApp>
 > {
-  protected extractDataFromResult(
-    result: FetchResult<GetAppsQuery>,
-  ): Array<App> {
-    const apps = result?.data?.apps?.filter(
-      (app): app is Dgraph__AppFragment => !!app,
-    )
-
-    if (!apps) {
-      throw new Error('Error while getting apps')
-    }
-
-    return apps
+  protected executeTransaction(
+    request: GetAppsRequest,
+    txn: Txn,
+  ): Promise<Array<DgraphApp>> {
+    return this.dgraph.getAll<DgraphApp>(txn, this.createQuery(request))
   }
 
-  protected getGql() {
-    return GetAppsGql
-  }
-
-  protected mapVariables(request: GetAppsRequest): GetAppsQueryVariables {
-    return {
-      filter: {
-        ownerId: { eq: request.ownerId },
-      },
-    }
+  protected createQuery({ ownerId }: GetAppsRequest) {
+    return new DgraphQueryBuilder()
+      .setTypeFunc(DgraphEntityType.App)
+      .addEqFilterDirective<DgraphApp>('ownerId', ownerId)
+      .addBaseFields()
+      .addExpandAll()
   }
 }

@@ -1,14 +1,7 @@
-import { DeleteResponse, GqlAuthGuard } from '@codelab/backend'
+import { CreateResponse, GqlAuthGuard, Void } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
-import {
-  Args,
-  Mutation,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql'
-import { Field, Interface } from './models'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Field } from './models'
 import {
   CreateFieldInput,
   CreateFieldService,
@@ -16,7 +9,6 @@ import {
   DeleteFieldService,
   GetFieldInput,
   GetFieldService,
-  GetInterfaceService,
   UpdateFieldInput,
   UpdateFieldService,
 } from './use-cases'
@@ -29,10 +21,9 @@ export class FieldResolver {
     private getFieldService: GetFieldService,
     private updateFieldService: UpdateFieldService,
     private deleteFieldService: DeleteFieldService,
-    private getInterfaceService: GetInterfaceService,
   ) {}
 
-  @Mutation(() => Field)
+  @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
   createField(@Args('input') input: CreateFieldInput) {
     return this.createFieldService.execute({
@@ -46,23 +37,15 @@ export class FieldResolver {
     return this.getFieldService.execute({ input })
   }
 
-  @Mutation(() => Field)
+  @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
   updateField(@Args('input') input: UpdateFieldInput) {
     return this.updateFieldService.execute({ input })
   }
 
-  @Mutation(() => DeleteResponse)
+  @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  deleteField(@Args('input') input: DeleteFieldInput) {
-    return this.deleteFieldService.execute({ input })
-  }
-
-  @ResolveField('interface', () => Interface)
-  @UseGuards(GqlAuthGuard)
-  resolveInterface(@Parent() field: Field) {
-    return this.getInterfaceService.execute({
-      input: { interfaceId: field.interface.id },
-    })
+  async deleteField(@Args('input') input: DeleteFieldInput) {
+    await this.deleteFieldService.execute({ input })
   }
 }

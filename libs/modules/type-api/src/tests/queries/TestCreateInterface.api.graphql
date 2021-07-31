@@ -1,5 +1,0 @@
-mutation TestCreateInterface($input: CreateInterfaceInput!) {
-  createInterface(input: $input) {
-    ...__Interface
-  }
-}

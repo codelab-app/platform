@@ -1,19 +1,20 @@
+import { Edge } from '@codelab/backend'
 import { Field, Int, ObjectType } from '@nestjs/graphql'
 
 @ObjectType({ description: 'An edge between two element nodes' })
-export class ElementLink {
+export class ElementEdge implements Edge {
   @Field({ description: 'The id of the source Element' })
-  declare from: string
+  declare source: string
 
   @Field({ description: 'The id of the target Element' })
-  declare to: string
+  declare target: string
 
   @Field(() => Int)
   declare order: number
 
-  constructor(from: string, to: string, order: number) {
-    this.from = from
-    this.to = to
+  constructor(source: string, target: string, order: number) {
+    this.source = source
+    this.target = target
     this.order = order
   }
 }

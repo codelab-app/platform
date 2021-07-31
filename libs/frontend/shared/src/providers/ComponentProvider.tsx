@@ -1,11 +1,7 @@
-import {
-  __ComponentFragment,
-  useGetComponentDetailLazyQuery,
-} from '@codelab/codegen/dgraph'
-import React, { PropsWithChildren, useEffect } from 'react'
+import React, { PropsWithChildren } from 'react'
 
 type IComponentContext = {
-  component: __ComponentFragment
+  component: any
   loading: boolean
 }
 
@@ -22,33 +18,34 @@ const _ComponentProvider = ({
   componentId,
   children,
 }: PropsWithChildren<ComponentProviderProps>) => {
-  const [load, { loading, data }] = useGetComponentDetailLazyQuery({})
-  const component = data?.component
+  // const [load, { loading, data }] = useGetComponentDetailLazyQuery({})
+  // const component = data?.component
 
-  useEffect(() => {
-    if (componentId) {
-      load({
-        variables: {
-          componentId,
-        },
-      })
-    }
-  }, [componentId, load])
-
-  if (!component) {
-    return null
-  }
-
-  return (
-    <ComponentContext.Provider
-      value={{
-        component,
-        loading,
-      }}
-    >
-      {children}
-    </ComponentContext.Provider>
-  )
+  // useEffect(() => {
+  //   if (componentId) {
+  //     load({
+  //       variables: {
+  //         componentId,
+  //       },
+  //     })
+  //   }
+  // }, [componentId, load])
+  //
+  // if (!component) {
+  //   return null
+  // }
+  //
+  // return (
+  //   <ComponentContext.Provider
+  //     value={{
+  //       component,
+  //       loading,
+  //     }}
+  //   >
+  //     {children}
+  //   </ComponentContext.Provider>
+  // )
+  return <>{children}</>
 }
 
 export const ComponentProvider = React.memo(

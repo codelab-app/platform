@@ -1,7 +1,0 @@
-fragment Dgraph__Page on Page {
-  id
-  name
-  app {
-    ...Dgraph__App
-  }
-}

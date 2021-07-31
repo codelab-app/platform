@@ -1,5 +1,3 @@
 mutation DeleteApp($input: DeleteAppInput!) {
-  deleteApp(input: $input) {
-    id
-  }
+  deleteApp(input: $input)
 }

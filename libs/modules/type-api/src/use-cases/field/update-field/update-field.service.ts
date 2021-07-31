@@ -1,77 +1,59 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
-import {
-  UpdateFieldGql,
-  UpdateFieldMutation,
-  UpdateFieldMutationVariables,
-} from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
-import { Field } from '../../../models'
+  DgraphEntity,
+  DgraphEntityType,
+  DgraphField,
+  DgraphQueryBuilder,
+  DgraphRepository,
+  DgraphUseCase,
+  jsonMutation,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js'
+import { FieldValidator } from '../../../field.validator'
+import { TypeValidator } from '../../../type.validator'
 import { CreateTypeService } from '../../type'
-import { FieldMutationValidator, TypeRef } from '../create-field'
+import { TypeRef } from '../create-field'
 import { GetFieldService } from '../get-field'
 import { UpdateFieldRequest } from './update-field.request'
 
-type GqlVariablesType = UpdateFieldMutationVariables
-type GqlOperationType = UpdateFieldMutation
-
 @Injectable()
-export class UpdateFieldService extends MutationUseCase<
-  UpdateFieldRequest,
-  Field,
-  GqlOperationType,
-  GqlVariablesType
-> {
+export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
+    dgraph: DgraphRepository,
     private getFieldService: GetFieldService,
-    private fieldValidationService: FieldMutationValidator,
+    private fieldValidator: FieldValidator,
+    private typeValidator: TypeValidator,
     private createTypeService: CreateTypeService,
   ) {
-    super(apolloClient)
+    super(dgraph)
   }
 
-  protected getGql() {
-    return UpdateFieldGql
+  protected async executeTransaction(request: UpdateFieldRequest, txn: Txn) {
+    await this.validate(request)
+
+    const typeId = await this.getTypeId(request.input.updateData.type)
+
+    await this.dgraph.executeMutation(txn, this.createMutation(request, typeId))
   }
 
-  protected extractDataFromResult(
-    _: FetchResult<GqlOperationType>,
-    __: unknown,
-    { input: { fieldId } }: UpdateFieldRequest,
-  ) {
-    return this.getFieldService.execute({
-      input: { byId: { fieldId } },
-    }) as Promise<Field>
-  }
-
-  protected async mapVariables({
-    input: {
-      fieldId,
-      updateData: { interfaceId, name, description, type, key },
-    },
-  }: UpdateFieldRequest): Promise<GqlVariablesType> {
-    const typeId = await this.getTypeId(type)
-
-    return {
+  private createMutation(
+    {
       input: {
-        filter: {
-          id: [fieldId],
-        },
-        set: {
-          interface: { id: interfaceId },
-          name,
-          description,
-          type: { id: typeId },
-          key,
-        },
+        fieldId,
+        updateData: { name, description, key },
       },
-    }
+    }: UpdateFieldRequest,
+    typeId: string,
+  ) {
+    return jsonMutation<DgraphField>({
+      uid: fieldId,
+      name,
+      key,
+      description: description ?? undefined,
+      type: {
+        uid: typeId,
+      },
+    })
   }
 
   private async getTypeId(type: TypeRef) {
@@ -90,9 +72,50 @@ export class UpdateFieldService extends MutationUseCase<
     return typeId
   }
 
+  /**
+   * Throws Error if:
+   * - The updated field doesn't exist
+   * - There is another field with that key in the same interface
+   * - The specified existingTypeId does not exist
+   * - The specified existingTypeId causes a recursive type reference
+   * - Neither existingTypeId nor newType are provided
+   */
   protected async validate({
-    input: { updateData, fieldId },
+    input: {
+      fieldId,
+      updateData: {
+        key,
+        type: { existingTypeId, newType },
+      },
+    },
   }: UpdateFieldRequest): Promise<void> {
-    await this.fieldValidationService.validate(updateData, fieldId)
+    const field = await this.dgraph.transactionWrapper<
+      DgraphEntity<any> & { '~fields': [{ uid: string }] }
+    >((txn) =>
+      this.dgraph.getOneOrThrow(
+        txn,
+        new DgraphQueryBuilder()
+          .addTypeFilterDirective(DgraphEntityType.Field)
+          .setUidFunc(fieldId)
+          .addFields(`~fields { uid }`),
+        () => new Error("Field doesn't exist"),
+      ),
+    )
+
+    const interfaceId = field['~fields'][0].uid
+
+    await this.fieldValidator.keyIsUnique(interfaceId, key, fieldId)
+
+    if ((!existingTypeId && !newType) || (existingTypeId && newType)) {
+      throw new Error('Either existingTypeId or newType must be provided')
+    }
+
+    if (existingTypeId) {
+      // If we specify an existing type, check if it exists
+      const existingType = await this.typeValidator.typeExists(existingTypeId)
+
+      // And it doesn't cause a recursive loop
+      this.typeValidator.notRecursive(interfaceId, existingType)
+    }
   }
 }

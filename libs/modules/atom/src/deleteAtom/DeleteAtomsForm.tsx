@@ -1,5 +1,6 @@
 import {
   refetchGetAtomsQuery,
+  refetchGetTypesQuery,
   useDeleteAtomMutation,
 } from '@codelab/codegen/graphql'
 import {
@@ -7,42 +8,37 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { DeleteAtomInput, deleteAtomSchema } from './deleteAtomSchema'
 
 type DeleteAtomFormProps = UniFormUseCaseProps<DeleteAtomInput>
 
 export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
-  const { reset, setLoading, state } = useCrudModalForm(EntityType.Atom)
-  const { deleteIds: atomIds, metadata } = state
-
-  const [mutate, { loading: deleting }] = useDeleteAtomMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetAtomsQuery()],
+  const {
+    handleSubmit,
+    crudModal: {
+      reset,
+      state: { metadata },
+    },
+  } = useCrudModalMutationForm({
+    entityType: EntityType.Atom,
+    useMutationFunction: useDeleteAtomMutation,
+    mutationOptions: {
+      refetchQueries: [refetchGetAtomsQuery(), refetchGetTypesQuery()],
+    },
+    mapVariables: (_, state) => ({
+      input: { atomId: state.deleteIds[0] },
+    }),
   })
-
-  useEffect(() => {
-    setLoading(deleting)
-  }, [deleting, setLoading])
-
-  const onSubmit = () => {
-    return mutate({
-      variables: {
-        input: {
-          atomId: atomIds[0],
-        },
-      },
-    })
-  }
 
   return (
     <FormUniforms<DeleteAtomInput>
       data-testid="delete-atom-form"
       id="delete-atom-form"
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       schema={deleteAtomSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while deleting atom',
@@ -50,7 +46,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <h4>Are you sure you want to delete atom "{metadata?.label}"?</h4>
+      <h4>Are you sure you want to delete atom "{metadata?.name}"?</h4>
       <AutoFields />
     </FormUniforms>
   )

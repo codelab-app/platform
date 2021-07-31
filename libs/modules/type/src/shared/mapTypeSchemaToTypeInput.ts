@@ -1,4 +1,8 @@
-import { CreateTypeInput, PrimitiveKind } from '@codelab/codegen/graphql'
+import {
+  __EnumTypeValueFragment,
+  CreateTypeInput,
+  PrimitiveKind,
+} from '@codelab/codegen/graphql'
 
 /**
  * This is the version of TypeModels that we present to the Ui, for simplicity
@@ -13,7 +17,7 @@ export enum TypeKind {
 export interface BaseTypeMutationSchema {
   name: string
   primitiveKind?: PrimitiveKind
-  allowedValues?: Array<{ name?: string | null; value: string }>
+  allowedValues?: Array<__EnumTypeValueFragment>
 }
 
 export const baseTypeMutationSchemaProperties = {
@@ -31,6 +35,13 @@ export const baseTypeMutationSchemaProperties = {
     items: {
       type: 'object',
       properties: {
+        id: {
+          type: 'string',
+          nullable: true,
+          uniforms: {
+            component: () => null,
+          },
+        },
         name: { type: 'string', nullable: true },
         value: { type: 'string' },
       },

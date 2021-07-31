@@ -1,5 +1,5 @@
 import {
-  refetchGetInterfaceQuery,
+  refetchGetTypeGraphQuery,
   UpdateFieldMutation,
   UpdateFieldMutationVariables,
   useUpdateFieldMutation,
@@ -36,14 +36,15 @@ export const UpdateFieldForm = (
     UpdateFieldMutationVariables
   >({
     mutationOptions: {
-      refetchQueries: [refetchGetInterfaceQuery({ input: { interfaceId } })],
+      refetchQueries: [
+        refetchGetTypeGraphQuery({ input: { typeId: interfaceId } }),
+      ],
     },
     useMutationFunction: useUpdateFieldMutation,
     mapVariables: (formData, crudState) => ({
       input: {
         fieldId: crudState.updateId,
         updateData: {
-          interfaceId,
           type: {
             existingTypeId: formData.typeId,
           },

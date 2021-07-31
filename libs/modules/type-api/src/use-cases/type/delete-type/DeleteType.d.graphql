@@ -1,8 +1,0 @@
-mutation DeleteType($filter: TypeFilter!, $fieldFilter: FieldFilter!) {
-  deleteType(filter: $filter) {
-    numUids
-  }
-  deleteField(filter: $fieldFilter) {
-    numUids
-  }
-}

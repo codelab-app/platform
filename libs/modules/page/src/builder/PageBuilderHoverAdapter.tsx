@@ -12,7 +12,7 @@ export const PageBuilderHoverAdapter = () => {
   }
 
   const content = `${hoveringPageElement.name} ${
-    hoveringPageElement.atom ? `(${hoveringPageElement.atom.label})` : ''
+    hoveringPageElement.atom ? `(${hoveringPageElement.atom.name})` : ''
   }`
 
   return <HoverOverlay nodeId={hoveringPageElement.id} content={content} />

@@ -1,6 +1,15 @@
-import { CurrentUser, GqlAuthGuard, JwtPayload } from '@codelab/backend'
+import {
+  ArrayMapper,
+  CreateResponse,
+  CurrentUser,
+  DgraphApp,
+  GqlAuthGuard,
+  JwtPayload,
+  Void,
+} from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { AppMapper } from './app.mapper'
 import { App } from './app.model'
 import {
   CreateAppInput,
@@ -17,15 +26,20 @@ import {
 @Resolver(() => App)
 @Injectable()
 export class AppResolver {
+  private appsMapper: ArrayMapper<DgraphApp, App>
+
   constructor(
     private readonly createAppService: CreateAppService,
     private readonly getAppsService: GetAppsService,
     private readonly getAppService: GetAppService,
     private readonly updateAppService: UpdateAppService,
     private readonly deleteAppService: DeleteAppService,
-  ) {}
+    private readonly appMapper: AppMapper,
+  ) {
+    this.appsMapper = new ArrayMapper(appMapper)
+  }
 
-  @Mutation(() => App)
+  @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
   createApp(
     @Args('input') input: CreateAppInput,
@@ -34,57 +48,43 @@ export class AppResolver {
     return this.createAppService.execute({ input, ownerId: user.sub })
   }
 
-  @Query(() => App, { nullable: true })
+  @Query(() => App)
   @UseGuards(GqlAuthGuard)
-  getApp(
+  async getApp(
     @Args('input') input: GetAppInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.getAppService.execute({
+    const app = await this.getAppService.execute({
       input,
       currentUser,
     })
+
+    return this.appMapper.map(app)
   }
 
   @Query(() => [App])
   @UseGuards(GqlAuthGuard)
-  getApps(@CurrentUser() user: JwtPayload) {
-    return this.getAppsService.execute({ ownerId: user.sub })
+  async getApps(@CurrentUser() user: JwtPayload) {
+    const apps = await this.getAppsService.execute({ ownerId: user.sub })
+
+    return this.appsMapper.map(apps)
   }
 
-  @Mutation(() => App)
+  @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  updateApp(
+  async updateApp(
     @Args('input') input: UpdateAppInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.updateAppService.execute({ input, currentUser })
+    await this.updateAppService.execute({ input, currentUser })
   }
 
-  @Mutation(() => App)
+  @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  deleteApp(
+  async deleteApp(
     @Args('input') input: DeleteAppInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.deleteAppService.execute({ input, currentUser })
+    await this.deleteAppService.execute({ input, currentUser })
   }
-
-  // @ResolveField('pages', () => [Page])
-  // pages(@Parent() app: App) {
-  //   return this.prismaService.page.findMany({
-  //     where: {
-  //       appId: app.id,
-  //     },
-  //   })
-  // }
-
-  // @ResolveField('lambdas', () => [Lambda])
-  // lambdas(@Parent() app: App) {
-  //   return this.prismaService.lambda.findMany({
-  //     where: {
-  //       appId: app.id,
-  //     },
-  //   })
-  // }
 }

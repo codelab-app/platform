@@ -1,14 +1,11 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { z } from 'zod'
 import { Type } from '../type.model'
 import { EnumTypeValue } from './enum-type-value.model'
 
 /**
  * Allows only a set of values
  */
-@ObjectType({
-  implements: () => [Type],
-})
+@ObjectType({ implements: () => [Type] })
 export class EnumType implements Type {
   declare id: string
 
@@ -22,8 +19,4 @@ export class EnumType implements Type {
     this.name = name
     this.allowedValues = allowedValues
   }
-
-  static Schema: z.ZodSchema<EnumType> = Type.Schema.extend({
-    allowedValues: EnumTypeValue.Schema.array(),
-  })
 }

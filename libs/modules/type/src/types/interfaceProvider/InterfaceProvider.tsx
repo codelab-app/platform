@@ -1,20 +1,24 @@
 import {
   __InterfaceFragment,
-  __TypeFragment,
-  useGetInterfaceQuery,
+  __TypeGraphFragment,
+  useGetTypeGraphQuery,
+  useGetTypeQuery,
 } from '@codelab/codegen/graphql'
 import { notify } from '@codelab/frontend/shared'
-import _ from 'lodash'
 import React, { useEffect } from 'react'
+import { TypeTree } from '../../typeTree/TypeTree'
+import { useTypeTree } from '../../typeTree/useTypeTree'
 
 export interface InterfaceContextType {
   interface: __InterfaceFragment
-  interfaceTypesById: Record<string, __TypeFragment>
+  interfaceGraph: __TypeGraphFragment
+  tree: TypeTree
 }
 
 const defaultContext: InterfaceContextType = {
   interface: null!,
-  interfaceTypesById: {},
+  interfaceGraph: null!,
+  tree: null!,
 }
 
 export const InterfaceContext = React.createContext(defaultContext)
@@ -23,40 +27,74 @@ export interface InterfaceProviderProps {
   interfaceId: string
 }
 
+const useInterfaceProviderQueries = (interfaceId: string) => {
+  const interfaceQuery = useGetTypeQuery({
+    variables: { input: { typeId: interfaceId } },
+  })
+
+  const graphQuery = useGetTypeGraphQuery({
+    variables: { input: { typeId: interfaceId } },
+  })
+
+  useEffect(() => {
+    if (interfaceQuery.error && !interfaceQuery.loading) {
+      notify({
+        title: 'Error while getting interface',
+        content: interfaceQuery.error?.message,
+        type: 'error',
+      })
+    }
+  }, [interfaceQuery])
+
+  useEffect(() => {
+    if (graphQuery.error && !graphQuery.loading) {
+      notify({
+        title: 'Error while getting interface graph',
+        content: graphQuery.error?.message,
+        type: 'error',
+      })
+    }
+  }, [graphQuery])
+
+  return { interfaceQuery, graphQuery }
+}
+
 export const InterfaceProvider = ({
   interfaceId,
   children,
 }: React.PropsWithChildren<InterfaceProviderProps>) => {
-  const { data, loading, error } = useGetInterfaceQuery({
-    variables: { input: { interfaceId } },
-  })
+  const { interfaceQuery, graphQuery } =
+    useInterfaceProviderQueries(interfaceId)
 
-  useEffect(() => {
-    if (error && !loading) {
-      notify({
-        title: 'Error while getting interface',
-        content: error?.message,
-        type: 'error',
-      })
-    }
-  }, [error, loading])
+  const tree = useTypeTree(
+    graphQuery.data
+      ? graphQuery.data.getTypeGraph
+      : { edges: [], vertices: [] },
+  )
 
-  if (!data) {
+  if (
+    !graphQuery.data ||
+    !graphQuery.data.getTypeGraph ||
+    !interfaceQuery.data ||
+    !interfaceQuery.data.getType
+  ) {
     return null
   }
 
-  if (!data.getInterface) {
-    return <>Interface not found</>
+  if (interfaceQuery.data.getType.__typename !== 'InterfaceType') {
+    throw new Error(
+      'interfaceId provided to InterfaceProvider is not of type InterfaceType, but is ' +
+        interfaceQuery.data.getType.__typename,
+    )
   }
-
-  const interfaceTypesById = _.keyBy(
-    data.getInterface.fieldCollection.types,
-    (t) => t.id,
-  )
 
   return (
     <InterfaceContext.Provider
-      value={{ interface: data.getInterface, interfaceTypesById }}
+      value={{
+        interface: interfaceQuery.data.getType,
+        interfaceGraph: graphQuery.data.getTypeGraph,
+        tree,
+      }}
     >
       {children}
     </InterfaceContext.Provider>

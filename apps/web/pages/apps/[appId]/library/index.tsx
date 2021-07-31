@@ -1,14 +1,9 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { useComponentBuilder } from '@codelab/frontend/builder'
-import { CytoscapeService } from '@codelab/frontend/cytoscape'
 import { PageType } from '@codelab/frontend/shared'
-import { ComponentRenderer } from '@codelab/modules/component'
-import {
-  CreateComponentElementButton,
-  CreateComponentElementModal,
-} from '@codelab/modules/component-element'
+import { CreateComponentElementModal } from '@codelab/modules/component-element'
 import { MainPaneLibrary } from '@codelab/modules/library'
-import { Breadcrumb, Empty } from 'antd'
+import { Breadcrumb } from 'antd'
 import { MetaPaneComponent } from 'apps/web/src/templates/library/MetaPaneComponent'
 import Link from 'next/link'
 import React from 'react'
@@ -23,22 +18,22 @@ const LibraryContent = () => {
     return null
   }
 
-  const cy = CytoscapeService.fromComponent(selectedComponent)
-  const root = CytoscapeService.componentTree(cy)
+  // const cy = CytoscapeService.fromComponent(selectedComponent)
+  // const root = CytoscapeService.componentTree(cy)
 
   return (
     <>
-      {root.children?.length ? (
-        <ComponentRenderer component={selectedComponent} />
-      ) : (
-        <Empty
-          description={
-            <span>Your component is empty, please add a component element</span>
-          }
-        >
-          <CreateComponentElementButton />
-        </Empty>
-      )}
+      {/* {root.children?.length ? (*/}
+      {/*  <ComponentRenderer component={selectedComponent} />*/}
+      {/* ) : (*/}
+      {/*  <Empty*/}
+      {/*    description={*/}
+      {/*      <span>Your component is empty, please add a component element</span>*/}
+      {/*    }*/}
+      {/*  >*/}
+      {/*    <CreateComponentElementButton />*/}
+      {/*  </Empty>*/}
+      {/* )}*/}
       <CreateComponentElementModal componentId={selectedComponent.id} />
     </>
   )

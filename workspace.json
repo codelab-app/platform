@@ -201,19 +201,6 @@
         }
       }
     },
-    "codegen-dgraph": {
-      "root": "libs/codegen/dgraph",
-      "sourceRoot": "libs/codegen/dgraph/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/codegen/dgraph/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
     "codegen-graphql": {
       "root": "libs/codegen/graphql",
       "sourceRoot": "libs/codegen/graphql/src",
@@ -262,19 +249,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/frontend/builder/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
-    "frontend-cytoscape": {
-      "root": "libs/frontend/cytoscape",
-      "sourceRoot": "libs/frontend/cytoscape/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/frontend/cytoscape/**/*.{ts,tsx,js,jsx}"]
           }
         }
       }
@@ -587,40 +561,6 @@
         }
       }
     },
-    "modules-prop": {
-      "root": "libs/modules/prop",
-      "sourceRoot": "libs/modules/prop/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/modules/prop/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
-    "modules-prop-api": {
-      "root": "libs/modules/prop-api",
-      "sourceRoot": "libs/modules/prop-api/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/modules/prop-api/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/modules/prop-api"],
-          "options": {
-            "jestConfig": "libs/modules/prop-api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "modules-style": {
       "root": "libs/modules/style",
       "sourceRoot": "libs/modules/style/src",
@@ -655,7 +595,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/modules/type-api/**/*.graphql"]
+            "lintFilePatterns": [
+              "libs/modules/user/**/*.{ts,tsx,js,jsx,graphql}"
+            ]
           }
         },
         "test": {

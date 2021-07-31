@@ -1,48 +1,40 @@
-import { FetchResult } from '@apollo/client'
-import { MutationUseCase } from '@codelab/backend'
 import {
-  UpdatePrimitiveTypeGql,
-  UpdatePrimitiveTypeMutation,
-  UpdatePrimitiveTypeMutationVariables,
-} from '@codelab/codegen/dgraph'
+  DgraphPrimitiveType,
+  DgraphRepository,
+  DgraphUseCase,
+  jsonMutation,
+} from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { PrimitiveType } from '../../../models'
+import { Txn } from 'dgraph-js'
+import { TypeValidator } from '../../../type.validator'
 import { UpdatePrimitiveTypeInput } from './update-primitive-type.input'
 
-type GqlVariablesType = UpdatePrimitiveTypeMutationVariables
-type GqlOperationType = UpdatePrimitiveTypeMutation
-
 @Injectable()
-export class UpdatePrimitiveTypeService extends MutationUseCase<
-  UpdatePrimitiveTypeInput,
-  PrimitiveType,
-  GqlOperationType,
-  GqlVariablesType
-> {
-  protected getGql() {
-    return UpdatePrimitiveTypeGql
+export class UpdatePrimitiveTypeService extends DgraphUseCase<UpdatePrimitiveTypeInput> {
+  constructor(dgraph: DgraphRepository, private typeValidator: TypeValidator) {
+    super(dgraph)
   }
 
-  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    const dataArray = result.data?.updatePrimitiveType?.primitiveType
-    const dataItem = (dataArray || [])[0]
-
-    if (!dataItem) {
-      throw new Error('Error while updating enum type')
-    }
-
-    return new PrimitiveType(dataItem.id, dataItem.name, dataItem.primitiveKind)
+  protected async executeTransaction(
+    request: UpdatePrimitiveTypeInput,
+    txn: Txn,
+  ) {
+    await this.validate(request)
+    await this.dgraph.executeMutation(txn, this.createMutation(request))
   }
 
-  protected mapVariables({
+  private async validate(request: UpdatePrimitiveTypeInput) {
+    await this.typeValidator.typeExists(request.typeId)
+  }
+
+  private createMutation({
     typeId,
     updateData: { name, primitiveKind },
-  }: UpdatePrimitiveTypeInput): GqlVariablesType {
-    return {
-      input: {
-        filter: { id: [typeId] },
-        set: { name, primitiveKind },
-      },
-    }
+  }: UpdatePrimitiveTypeInput) {
+    return jsonMutation<DgraphPrimitiveType>({
+      uid: typeId,
+      name,
+      primitiveKind,
+    })
   }
 }

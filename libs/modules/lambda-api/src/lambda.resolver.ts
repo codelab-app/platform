@@ -1,4 +1,4 @@
-import { CurrentUser, GqlAuthGuard, JwtPayload } from '@codelab/backend'
+import { CurrentUser, GqlAuthGuard, JwtPayload, Void } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Lambda } from './lambda.model'
@@ -45,10 +45,10 @@ export class LambdaResolver {
     return lambda
   }
 
-  @Mutation(() => Lambda)
+  @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async deleteLambda(@Args('input') input: DeleteLambdaInput) {
-    return await this.deleteLambdaService.execute(input)
+    await this.deleteLambdaService.execute(input)
   }
 
   @Query(() => Lambda, { nullable: true })

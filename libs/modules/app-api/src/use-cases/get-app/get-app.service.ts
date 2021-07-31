@@ -1,44 +1,97 @@
-import { FetchResult } from '@apollo/client'
-import { QueryUseCase } from '@codelab/backend'
 import {
-  GetAppGql,
-  GetAppQuery,
-  GetAppQueryVariables,
-} from '@codelab/codegen/dgraph'
+  DgraphApp,
+  DgraphEntityType,
+  DgraphQueryBuilder,
+  DgraphQueryField,
+  DgraphRepository,
+  DgraphUseCase,
+} from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { App, appSchema } from '../../app.model'
+import { Txn } from 'dgraph-js'
+import { AppValidator } from '../../app.validator'
+import { AppByIdFilter, AppByPageFilter } from './get-app.input'
 import { GetAppRequest } from './get-app.request'
 
 @Injectable()
-export class GetAppService extends QueryUseCase<
-  GetAppRequest,
-  App | null,
-  GetAppQuery,
-  GetAppQueryVariables
-> {
-  protected extractDataFromResult(
-    result: FetchResult<GetAppQuery>,
-    _: void,
-    { currentUser }: GetAppRequest,
-  ): App | null {
-    const app = appSchema.nullable().parse(result?.data?.app || null)
+export class GetAppService extends DgraphUseCase<GetAppRequest, DgraphApp> {
+  constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
+    super(dgraph)
+  }
 
-    // We don't use the appGuard here because it would create a circular dependency
-    // and because we allow it if the app doesn't exist
-    if (app && app.ownerId !== currentUser?.sub) {
-      throw new Error("You don't have access to this app")
+  protected async executeTransaction(
+    request: GetAppRequest,
+    txn: Txn,
+  ): Promise<DgraphApp> {
+    const {
+      input: { byId, byPage },
+    } = request
+
+    this.validate(request)
+
+    let app: DgraphApp
+
+    if (byId) {
+      app = await this.getAppById(txn, byId)
+    } else if (byPage) {
+      app = await this.getAppByPage(txn, byPage)
+    } else {
+      throw new Error('Invalid request')
     }
+
+    await this.appValidator.isOwnedBy(app, request.currentUser)
 
     return app
   }
 
-  protected getGql() {
-    return GetAppGql
+  private async getAppByPage(txn: Txn, byPage: AppByPageFilter) {
+    return await this.dgraph
+      .getOneOrThrow<{ '~pages': [DgraphApp] }>(
+        txn,
+        this.createByPageQuery(byPage),
+      )
+      .then((r) => {
+        if (!r['~pages'] || !r['~pages'].length) {
+          throw new Error('Error while getting app for page')
+        }
+
+        return r['~pages'][0]
+      })
   }
 
-  protected mapVariables({ input }: GetAppRequest): GetAppQueryVariables {
-    return {
-      id: input.appId,
+  private async getAppById(txn: Txn, byId: AppByIdFilter) {
+    return await this.dgraph.getOneOrThrow<DgraphApp>(
+      txn,
+      this.createByIdQuery(byId),
+    )
+  }
+
+  protected createByIdQuery({ appId }: AppByIdFilter) {
+    return new DgraphQueryBuilder()
+      .setUidFunc(appId)
+      .addTypeFilterDirective(DgraphEntityType.App)
+      .addBaseFields()
+      .addExpandAll((f) => f.addExpandAll((f2) => f2.addExpandAll()))
+  }
+
+  protected createByPageQuery({ pageId }: AppByPageFilter) {
+    return new DgraphQueryBuilder()
+      .setUidFunc(pageId)
+      .addTypeFilterDirective(DgraphEntityType.App)
+      .addBaseFields()
+      .addFields(
+        new DgraphQueryField('~pages').addExpandAll((f) =>
+          f.addExpandAll((f2) => f2.addExpandAll()),
+        ),
+      )
+  }
+
+  private validate({ input: { byId, byPage } }: GetAppRequest) {
+    if (!byId && !byPage) {
+      throw new Error('Provide at least one filter to getApp')
+    }
+
+    if (byId && byPage) {
+      throw new Error('Provide only one filter to getApp')
     }
   }
 }

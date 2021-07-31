@@ -1,8 +1,0 @@
-mutation UpdateField($input: UpdateFieldInput!) {
-  updateField(input: $input) {
-    field {
-      ...Dgraph__Field
-    }
-    numUids
-  }
-}

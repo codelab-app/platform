@@ -3,14 +3,14 @@ import {
   EditOutlined,
   EllipsisOutlined,
 } from '@ant-design/icons'
+import { __AppFragment } from '@codelab/codegen/graphql'
 import { PageType, useCrudModalForm } from '@codelab/frontend/shared'
 import { Button, Card, Dropdown, Menu } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties } from 'react'
-import { AppType } from '../state'
 
 export type GetAppsItemProps = {
-  app: AppType
+  app: __AppFragment
   handleDeleteClick: ReturnType<typeof useCrudModalForm>['openDeleteModal']
   handleEditClick: ReturnType<typeof useCrudModalForm>['openUpdateModal']
 }
@@ -39,7 +39,7 @@ export const GetAppsItem = ({
         style={menuItemStyle}
         onClick={() => {
           if (app) {
-            handleEditClick(app.id)
+            handleEditClick(app.id, app)
           }
         }}
       >
@@ -51,7 +51,7 @@ export const GetAppsItem = ({
         style={menuItemStyle}
         onClick={() => {
           if (app) {
-            handleDeleteClick([app.id], { name: app.name })
+            handleDeleteClick([app.id], app)
           }
         }}
       >

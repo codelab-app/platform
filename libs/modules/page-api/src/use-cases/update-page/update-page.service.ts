@@ -1,70 +1,71 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
-import {
-  UpdatePageGql,
-  UpdatePageMutation,
-  UpdatePageMutationVariables,
-} from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
-import { PageGuardService } from '../../auth'
-import { Page, pageSchema } from '../../page.model'
+  DgraphApp,
+  DgraphPage,
+  DgraphRepository,
+  DgraphUpdateMutationJson,
+  DgraphUseCase,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Mutation, Txn } from 'dgraph-js'
+import { PageValidator } from '../../page.validator'
 import { UpdatePageRequest } from './update-page.request'
 
-type GqlVariablesType = UpdatePageMutationVariables
-type GqlOperationType = UpdatePageMutation
-
 @Injectable()
-export class UpdatePageService extends MutationUseCase<
-  UpdatePageRequest,
-  Partial<Page>,
-  GqlOperationType,
-  GqlVariablesType
-> {
-  constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-    private pageGuardService: PageGuardService,
-  ) {
-    super(apolloClient)
+export class UpdatePageService extends DgraphUseCase<UpdatePageRequest> {
+  constructor(dgraph: DgraphRepository, private pageValidator: PageValidator) {
+    super(dgraph)
   }
 
-  protected getGql() {
-    return UpdatePageGql
+  protected async executeTransaction(
+    request: UpdatePageRequest,
+    txn: Txn,
+  ): Promise<void> {
+    const { appId: existingAppId } = await this.validate(request)
+
+    await this.dgraph.executeMutation(
+      txn,
+      this.createMutation(request, existingAppId),
+    )
   }
 
-  protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-    return pageSchema
-      .array()
-      .nonempty()
-      .parse(result?.data?.updatePage?.page)[0]
-  }
-
-  protected async mapVariables({
-    input: { pageId, updateData },
-  }: UpdatePageRequest): Promise<GqlVariablesType> {
-    return {
+  private createMutation(
+    {
       input: {
-        filter: {
-          id: [pageId],
-        },
-        set: {
-          app: {
-            id: updateData.appId,
-          },
-          name: updateData.name,
-        },
+        pageId,
+        updateData: { appId, name },
       },
+    }: UpdatePageRequest,
+    existingAppId: string,
+  ) {
+    const mu = new Mutation()
+    const setMutations = []
+
+    const updatePageJson: DgraphUpdateMutationJson<DgraphPage> = {
+      uid: pageId,
+      name,
     }
+
+    setMutations.push(updatePageJson)
+
+    if (existingAppId !== appId) {
+      const updateAppMutation: DgraphUpdateMutationJson<DgraphApp> = {
+        uid: appId,
+        pages: { uid: pageId },
+      }
+
+      setMutations.push(updateAppMutation)
+      mu.setDelNquads(`<${existingAppId}> pages <${pageId}> .`)
+    }
+
+    mu.setSetJson(setMutations)
+
+    return mu
   }
 
   protected async validate({
     currentUser,
     input: { pageId },
-  }: UpdatePageRequest): Promise<void> {
-    await this.pageGuardService.validate(pageId, currentUser)
+  }: UpdatePageRequest) {
+    return this.pageValidator.existsAndIsOwnedBy(pageId, currentUser)
   }
 }

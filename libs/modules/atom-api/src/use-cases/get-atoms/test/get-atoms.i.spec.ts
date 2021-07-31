@@ -5,7 +5,6 @@ import {
   teardownTestModule,
 } from '@codelab/backend'
 import {
-  __AtomFragment,
   CreateAtomGql,
   CreateAtomInput,
   CreateAtomMutation,
@@ -19,7 +18,7 @@ import { createAtomInput } from '../../create-atom/test/create-atom.data'
 describe('GetAtoms', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let atom: __AtomFragment
+  let atomId: string
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
@@ -31,10 +30,9 @@ describe('GetAtoms', () => {
       createAtomInput,
     )
 
-    atom = results.createAtom
+    atomId = results.createAtom.id
 
-    expect(atom.id).toBeDefined()
-    expect(atom).toMatchObject(createAtomInput)
+    expect(atomId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -57,7 +55,7 @@ describe('GetAtoms', () => {
         GetAtomsGql,
       )
 
-      expect(results?.atoms).toMatchObject([atom])
+      expect(results?.atoms).toMatchObject([{ ...createAtomInput, id: atomId }])
     })
   })
 })

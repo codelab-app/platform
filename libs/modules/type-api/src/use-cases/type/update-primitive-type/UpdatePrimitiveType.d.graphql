@@ -1,7 +1,0 @@
-mutation UpdatePrimitiveType($input: UpdatePrimitiveTypeInput!) {
-  updatePrimitiveType(input: $input) {
-    primitiveType {
-      ...Dgraph__Type
-    }
-  }
-}

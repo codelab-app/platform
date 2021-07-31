@@ -1,5 +1,3 @@
 mutation MoveElement($input: MoveElementInput!) {
-  moveElement(input: $input) {
-    ...Element
-  }
+  moveElement(input: $input)
 }

@@ -8,13 +8,12 @@ import {
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { ExpressAdapter } from '@nestjs/platform-express'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
-import { InfrastructureModule } from '../../infrastructure'
+import { DgraphService, InfrastructureModule } from '../../infrastructure'
 import {
   GqlAuthGuard,
   JwtPayload,
   Role,
 } from '../../infrastructure/adapters/auth'
-import { DgraphProvider, DgraphTokens } from '../../infrastructure/ports'
 
 type NestModule =
   | Type<any>
@@ -90,7 +89,7 @@ export const setupTestModule = async (
 }
 
 export const getDgraphProviderFromTestModule = (app: INestApplication) => {
-  return app.get<DgraphProvider>(DgraphTokens.DgraphProvider)
+  return app.get<DgraphService>(DgraphService)
 }
 
 export const teardownTestModule = async (app: INestApplication) => {

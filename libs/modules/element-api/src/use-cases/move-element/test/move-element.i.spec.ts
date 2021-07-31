@@ -8,7 +8,9 @@ import {
   CreateElementGql,
   CreateElementInput,
   CreateElementMutation,
-  ElementFragment,
+  GetElementGraphGql,
+  GetElementGraphQuery,
+  GetElementInput,
   MoveElementGql,
   MoveElementInput,
   MoveElementMutation,
@@ -25,79 +27,78 @@ import {
 describe('MoveElement', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let rootElement: ElementFragment
-  let parent1Element: ElementFragment
-  let parent2Element: ElementFragment
-  let childElement: ElementFragment
+  let rootElementId: string
+  let parent1ElementId: string
+  let parent2ElementId: string
+  let childElementId: string
   let moveElementInput: MoveElementInput
+  let getRootInput: GetElementInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ElementModule], { role: Role.GUEST })
     userApp = await setupTestModule([ElementModule], { role: Role.USER })
 
     // Create root element
-    let results: any
+    let results: CreateElementMutation
+
     results = await domainRequest<CreateElementInput, CreateElementMutation>(
       userApp,
       CreateElementGql,
       createRootElementInput,
     )
-    rootElement = results.createElement
+    rootElementId = results.createElement.id
 
-    expect(rootElement.id).toBeDefined()
-    expect(rootElement).toMatchObject(createRootElementInput)
+    getRootInput = {
+      elementId: rootElementId,
+    }
+
+    expect(rootElementId).toBeDefined()
 
     // Create parent1 element(root->parent1)
-    const createParent1ElementInput = createParent1ElementInputFunc(
-      rootElement.id,
-    )
+    const createParent1ElementInput =
+      createParent1ElementInputFunc(rootElementId)
 
     results = await domainRequest<CreateElementInput, CreateElementMutation>(
       userApp,
       CreateElementGql,
       createParent1ElementInput,
     )
-    parent1Element = results.createElement
+    parent1ElementId = results.createElement.id
 
-    expect(parent1Element.id).toBeDefined()
-    expect(parent1Element.name).toMatch(createParent1ElementInput.name)
+    expect(parent1ElementId).toBeDefined()
 
     // Create parent2 element(root->parent2)
-    const createParent2ElementInput = createParent2ElementInputFunc(
-      rootElement.id,
-    )
+    const createParent2ElementInput =
+      createParent2ElementInputFunc(rootElementId)
 
     results = await domainRequest<CreateElementInput, CreateElementMutation>(
       userApp,
       CreateElementGql,
       createParent2ElementInput,
     )
-    parent2Element = results.createElement
+    parent2ElementId = results.createElement.id
 
-    expect(parent2Element.id).toBeDefined()
-    expect(parent2Element.name).toMatch(createParent2ElementInput.name)
+    expect(parent2ElementId).toBeDefined()
 
     // Create child element(root->parent1->child)
-    const createChildElementInput = createChildElementInputFunc(
-      parent1Element.id,
-    )
+    const createChildElementInput =
+      createChildElementInputFunc(parent1ElementId)
 
     results = await domainRequest<CreateElementInput, CreateElementMutation>(
       userApp,
       CreateElementGql,
       createChildElementInput,
     )
-    childElement = results.createElement
+    childElementId = results.createElement.id
 
-    expect(childElement.id).toBeDefined()
-    expect(childElement.name).toMatch(createChildElementInput.name)
+    expect(childElementId).toBeDefined()
 
     // Move child element input(root->parent1->child -----> root->parent2->child)
     moveElementInput = {
-      elementId: childElement.id,
+      elementId: childElementId,
       moveData: {
-        parentElementId: parent2Element.id,
-        order: 1,
+        parentElementId: parent2ElementId,
+        order: 3,
       },
     }
   })
@@ -117,12 +118,27 @@ describe('MoveElement', () => {
 
   describe('User', () => {
     it('should move an element', async () => {
-      const results = await domainRequest<
-        MoveElementInput,
-        MoveElementMutation
-      >(userApp, MoveElementGql, moveElementInput)
+      await domainRequest<MoveElementInput, MoveElementMutation>(
+        userApp,
+        MoveElementGql,
+        moveElementInput,
+      )
 
-      expect(results.moveElement).toMatchObject(childElement)
+      const { getElementGraph: graph } = await domainRequest<
+        GetElementInput,
+        GetElementGraphQuery
+      >(userApp, GetElementGraphGql, getRootInput)
+
+      expect(graph).toBeTruthy()
+
+      const foundEdge = graph?.edges.find(
+        ({ source, target }) =>
+          source === moveElementInput.moveData.parentElementId &&
+          target === moveElementInput.elementId,
+      )
+
+      expect(foundEdge).toBeDefined()
+      expect(foundEdge?.order).toBe(moveElementInput.moveData.order)
     })
   })
 })

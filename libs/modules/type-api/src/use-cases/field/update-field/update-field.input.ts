@@ -3,7 +3,6 @@ import { CreateFieldInput } from '../create-field'
 
 @InputType()
 export class UpdateFieldData extends PickType(CreateFieldInput, [
-  'interfaceId',
   'key',
   'description',
   'name',

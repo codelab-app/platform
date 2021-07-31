@@ -1,6 +1,5 @@
-import { Interface, interfaceSchema } from '@codelab/modules/type-api'
+import { InterfaceType } from '@codelab/modules/type-api'
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
-import { z } from 'zod'
 import { AtomType, AtomTypeEnum } from './atom-type.model'
 
 registerEnumType(AtomTypeEnum, {
@@ -16,29 +15,16 @@ export class Atom {
   declare type: AtomType
 
   @Field()
-  declare label: string
+  declare name: string
 
-  @Field(() => Interface)
-  /**
-   *  Union typed, because it's valid to return just the interface id from a service
-   *  the field resolver will get it
-   */
-  declare propTypes: Interface | Pick<Interface, 'id'>
+  @Field(() => InterfaceType)
+  /** Optional because the field resolver can get it */
+  declare api?: InterfaceType
 
-  constructor({ id, type, label, propTypes }: Atom) {
+  constructor({ id, type, name, api }: Atom) {
     this.id = id
     this.type = type
-    this.label = label
-    this.propTypes = propTypes
+    this.name = name
+    this.api = api
   }
 }
-
-export const atomSchema = z.object({
-  id: z.string(),
-  type: AtomType,
-  label: z.string(),
-  propTypes: interfaceSchema.or(z.object({ id: z.string() })),
-})
-
-export const atomTypeSchema = z.object({ type: AtomType })
-export const atomsSchema = z.array(atomSchema)

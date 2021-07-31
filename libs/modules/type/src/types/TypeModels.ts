@@ -13,5 +13,5 @@ export const TypeModels: TypeModelsType = {
   PrimitiveType: 'PrimitiveType',
   EnumType: 'EnumType',
   ArrayType: 'ArrayType',
-  Interface: 'Interface',
+  InterfaceType: 'InterfaceType',
 }

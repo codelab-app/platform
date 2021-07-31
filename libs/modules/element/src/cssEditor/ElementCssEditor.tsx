@@ -1,16 +1,13 @@
 import {
+  ElementFragment,
   refetchGetElementQuery,
   useUpdateElementMutation,
 } from '@codelab/codegen/graphql'
-import {
-  ElementNode,
-  EmotionCssEditor,
-  useDebouncedState,
-} from '@codelab/frontend/shared'
+import { EmotionCssEditor, useDebouncedState } from '@codelab/frontend/shared'
 import React, { useEffect, useState } from 'react'
 
 export interface ElementCssEditorProps {
-  element: ElementNode
+  element: ElementFragment
 }
 
 export const ElementCssEditor = ({ element }: ElementCssEditorProps) => {

@@ -1,35 +1,27 @@
 import {
+  CreateResponse,
   CurrentUser,
-  DeleteResponse,
   GqlAuthGuard,
   JwtPayload,
+  Void,
 } from '@codelab/backend'
-import {
-  GetPropAggregatesService,
-  PropAggregate,
-} from '@codelab/modules/prop-api'
 import { Injectable, UseGuards } from '@nestjs/common'
-import {
-  Args,
-  Mutation,
-  Parent,
-  Query,
-  ResolveField,
-  Resolver,
-} from '@nestjs/graphql'
-import { Element, ElementAggregate } from './models'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { ElementMapper } from './element.mapper'
+import { ElementTreeTransformer } from './element-tree.transformer'
+import { Element, ElementGraph } from './models'
 import {
   CreateElementInput,
   CreateElementService,
   DeleteElementInput,
   DeleteElementService,
-  GetElementAggregateInput,
-  GetElementAggregateService,
   GetElementInput,
   GetElementService,
   MoveElementInput,
   MoveElementService,
   UpdateElementInput,
+  UpdateElementPropsInput,
+  UpdateElementPropsService,
   UpdateElementService,
 } from './use-cases'
 
@@ -39,14 +31,15 @@ export class ElementResolver {
   constructor(
     private createElementService: CreateElementService,
     private getElementService: GetElementService,
-    private getElementAggregateService: GetElementAggregateService,
     private deleteElementService: DeleteElementService,
     private updateElementService: UpdateElementService,
     private moveElementService: MoveElementService,
-    private getPropAggregatesService: GetPropAggregatesService,
+    private elementTreeTransformer: ElementTreeTransformer,
+    private updateElementPropsService: UpdateElementPropsService,
+    private elementMapper: ElementMapper,
   ) {}
 
-  @Mutation(() => Element)
+  @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
   createElement(
     @Args('input') input: CreateElementInput,
@@ -57,59 +50,72 @@ export class ElementResolver {
 
   @Query(() => Element, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  getElement(
+  async getElement(
     @Args('input') input: GetElementInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.getElementService.execute({ input, currentUser })
+    const dgraphElement = await this.getElementService.execute({
+      input,
+      currentUser,
+    })
+
+    return this.elementMapper.map(dgraphElement)
   }
 
-  @Query(() => ElementAggregate, {
+  @Query(() => ElementGraph, {
     nullable: true,
     description:
-      'Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of array of Element and array of ElementLink',
+      'Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge',
   })
   @UseGuards(GqlAuthGuard)
-  getElementAggregate(
-    @Args('input') input: GetElementAggregateInput,
+  async getElementGraph(
+    @Args('input') input: GetElementInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.getElementAggregateService.execute({ input, currentUser })
+    const dgraphElement = await this.getElementService.execute({
+      input,
+      currentUser,
+    })
+
+    return this.elementTreeTransformer.transform(dgraphElement)
   }
 
-  @Mutation(() => Element)
+  @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  updateElement(
+  async updateElement(
     @Args('input') input: UpdateElementInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.updateElementService.execute({ input, currentUser })
+    await this.updateElementService.execute({ input, currentUser })
   }
 
-  @Mutation(() => Element)
+  @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  moveElement(
+  async moveElement(
     @Args('input') input: MoveElementInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.moveElementService.execute({ input, currentUser })
+    await this.moveElementService.execute({ input, currentUser })
   }
 
-  @Mutation(() => DeleteResponse, {
+  @Mutation(() => Void, { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  async updateElementProps(
+    @Args('input') input: UpdateElementPropsInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    await this.updateElementPropsService.execute({ input, currentUser })
+  }
+
+  @Mutation(() => Void, {
+    nullable: true,
     description: 'Deletes an element and all the descending elements',
   })
   @UseGuards(GqlAuthGuard)
-  deleteElement(
+  async deleteElement(
     @Args('input') input: DeleteElementInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    return this.deleteElementService.execute({ input, currentUser })
-  }
-
-  @ResolveField('props', () => [PropAggregate])
-  resolveProps(@Parent() element: Element) {
-    return this.getPropAggregatesService.execute({
-      byElement: { elementIds: [element.id] },
-    })
+    await this.deleteElementService.execute({ input, currentUser })
   }
 }

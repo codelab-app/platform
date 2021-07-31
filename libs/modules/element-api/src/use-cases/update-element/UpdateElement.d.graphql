@@ -1,8 +1,0 @@
-mutation UpdateElement($input: UpdateElementInput!) {
-  updateElement(input: $input) {
-    numUids
-    element {
-      ...Dgraph_Element
-    }
-  }
-}

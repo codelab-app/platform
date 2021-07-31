@@ -1,16 +1,11 @@
+import { Vertex } from '@codelab/backend'
 import { Field, ID, InterfaceType } from '@nestjs/graphql'
-import { z } from 'zod'
 
 @InterfaceType()
-export abstract class Type {
+export class Type implements Vertex {
   @Field(() => ID)
   declare id: string
 
   @Field()
   declare name: string
-
-  static Schema = z.object({
-    id: z.string(),
-    name: z.string(),
-  })
 }

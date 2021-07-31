@@ -46,7 +46,10 @@ export const request = (app: INestApplication) =>
  * @param expectError Allow us to skip the results mapping, so we can assert the error message
  * @returns
  */
-export const domainRequest = async <TInput extends any, TResults extends any>(
+export const domainRequest = async <
+  TInput extends any,
+  TResults extends any = void,
+>(
   app: INestApplication,
   gql: ASTNode,
   input?: TInput,
@@ -64,6 +67,8 @@ export const domainRequest = async <TInput extends any, TResults extends any>(
 
       // Satisfy return type
       return {} as any
+    } else if (res.body.errors) {
+      throw new Error(JSON.stringify(res.body.errors, undefined, 2))
     }
 
     return res.body.data

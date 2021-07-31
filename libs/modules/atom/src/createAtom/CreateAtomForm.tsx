@@ -1,5 +1,6 @@
 import {
   AtomType,
+  CreateAtomInput,
   refetchGetAtomsQuery,
   refetchGetTypesQuery,
   useCreateAtomMutation,
@@ -9,48 +10,32 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AutoField, SelectField } from 'uniforms-antd'
-import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
+import { createAtomSchema } from './createAtomSchema'
 
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
 
 export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
-  const { reset, setLoading } = useCrudModalForm(EntityType.Atom)
-
-  // Only Editors can modify Atoms (dgraph permissions?)
-  const [mutate, { loading: creating }] = useCreateAtomMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetAtomsQuery(), refetchGetTypesQuery()],
+  const {
+    handleSubmit,
+    crudModal: { reset },
+  } = useCrudModalMutationForm({
+    entityType: EntityType.Atom,
+    useMutationFunction: useCreateAtomMutation,
+    mutationOptions: {
+      refetchQueries: [refetchGetAtomsQuery(), refetchGetTypesQuery()],
+    },
+    mapVariables: ({ name, type }: CreateAtomInput) => ({
+      input: { name, type },
+    }),
   })
-
-  useEffect(() => {
-    setLoading(creating)
-  }, [creating, setLoading])
-
-  const onSubmit = (submitData: CreateAtomInput) => {
-    return mutate({
-      variables: {
-        input: {
-          label: submitData.label,
-          type: submitData.type,
-        },
-      },
-    })
-  }
-
-  console.log(
-    Object.keys(AtomType).map((atomType) => ({
-      label: atomType,
-      value: atomType,
-    })),
-  )
 
   return (
     <FormUniforms<CreateAtomInput>
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       schema={createAtomSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while creating atom',
@@ -61,7 +46,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       layout="horizontal"
       {...props}
     >
-      <AutoField name="label" />
+      <AutoField name="name" />
       <SelectField
         name="type"
         label="Type"

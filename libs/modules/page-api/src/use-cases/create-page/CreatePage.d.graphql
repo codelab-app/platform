@@ -1,7 +1,0 @@
-mutation CreatePage($input: [AddPageInput!]!) {
-  addPage(input: $input) {
-    page {
-      ...Dgraph__Page
-    }
-  }
-}

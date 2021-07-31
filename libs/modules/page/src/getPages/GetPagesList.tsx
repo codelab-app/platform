@@ -18,7 +18,7 @@ export const GetPagesList = () => {
 
   const { data, loading } = useGetPagesQuery({
     variables: {
-      input: { appId: app.id },
+      input: { byApp: { appId: app.id } },
     },
   })
 
@@ -46,10 +46,10 @@ export const GetPagesList = () => {
             </Space>
             <Space>
               <ListItemSettingsButton
-                onClick={() => openUpdateModal(page.id)}
+                onClick={() => openUpdateModal(page.id, page)}
               />
               <ListItemDeleteButton
-                onClick={() => openDeleteModal([page.id])}
+                onClick={() => openDeleteModal([page.id], page)}
               />
             </Space>
           </List.Item>

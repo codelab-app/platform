@@ -1,8 +1,8 @@
 fragment __Atom on Atom {
   id
-  label
+  name
   type
-  propTypes {
-    ...__InterfaceWithoutFields
+  api {
+    ...__Interface
   }
 }

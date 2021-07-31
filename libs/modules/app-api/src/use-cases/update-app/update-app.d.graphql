@@ -1,7 +1,0 @@
-mutation UpdateApp($input: UpdateAppInput!) {
-  updateApp(input: $input) {
-    app {
-      ...Dgraph__App
-    }
-  }
-}

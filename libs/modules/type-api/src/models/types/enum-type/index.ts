@@ -1,6 +1,2 @@
-export * from './dgraph-enum-type.model'
-export * from './dgraph-enum-type-value.model'
-export * from './enum-type.mapper'
 export * from './enum-type.model'
-export * from './enum-type-value.mapper'
 export * from './enum-type-value.model'

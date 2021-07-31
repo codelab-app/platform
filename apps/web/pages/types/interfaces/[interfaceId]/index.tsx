@@ -10,17 +10,15 @@ import {
   withInterfaceQueryProvider,
 } from '@codelab/modules/type'
 import { PageHeader } from 'antd'
-import { MainDashboardTemplate } from 'apps/web/src/templates/MainDashboardTemplate'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
+import { NextPageTemplate } from '../../../../src/templates/Layout.interface'
+import { MainDashboardTemplate } from '../../../../src/templates/MainDashboardTemplate'
 
-const InterfaceDetailPage = () => {
+const InterfaceDetailPage: NextPageTemplate<'dashboard'> = () => {
   const {
-    interface: {
-      fieldCollection: { fields },
-      name,
-    },
-    interfaceTypesById,
+    interface: { name },
+    tree,
   } = useContext(InterfaceContext)
 
   const headerButtons = [<CreateFieldButton key={0} />]
@@ -38,13 +36,13 @@ const InterfaceDetailPage = () => {
       <UpdateFieldModal />
       <DeleteFieldModal />
       <section style={{ marginTop: padding.sm }}>
-        <FieldsTable fields={fields} typesById={interfaceTypesById} />
+        <FieldsTable tree={tree} />
       </section>
     </>
   )
 }
 
-InterfaceDetailPage.Layout = withInterfaceQueryProvider(MainDashboardTemplate)
+InterfaceDetailPage.Template = withInterfaceQueryProvider(MainDashboardTemplate)
 // AppsPage.MainPane = () => <></>
 // AppsPage.MetaPane = () => <></>
 InterfaceDetailPage.SidebarNavigation = () => <></>

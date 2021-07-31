@@ -20,7 +20,6 @@
     "baseUrl": ".",
     "paths": {
       "@codelab/backend": ["libs/backend/src/index.ts"],
-      "@codelab/codegen/dgraph": ["libs/codegen/dgraph/src/index.ts"],
       "@codelab/codegen/graphql": ["libs/codegen/graphql/src/index.ts"],
       "@codelab/codegen/hasura": ["libs/codegen/hasura/src/index.ts"],
       "@codelab/demo": ["libs/tools/plugins/demo/src/index.ts"],
@@ -47,8 +46,6 @@
       "@codelab/modules/library": ["libs/modules/library/src/index.ts"],
       "@codelab/modules/page": ["libs/modules/page/src/index.ts"],
       "@codelab/modules/page-api": ["libs/modules/page-api/src/index.ts"],
-      "@codelab/modules/prop": ["libs/modules/prop/src/index.ts"],
-      "@codelab/modules/prop-api": ["libs/modules/prop-api/src/index.ts"],
       "@codelab/modules/style": ["libs/modules/style/src/index.ts"],
       "@codelab/modules/type": ["libs/modules/type/src/index.ts"],
       "@codelab/modules/type-api": ["libs/modules/type-api/src/index.ts"],

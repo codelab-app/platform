@@ -1,5 +1,6 @@
 export * from './constants'
 export * from './errors'
+export * from './mappers'
 export * from './models'
 export * from './type.module'
 export * from './use-cases'

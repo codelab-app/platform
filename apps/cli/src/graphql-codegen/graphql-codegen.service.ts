@@ -1,22 +1,22 @@
 import {
   dgraphConfig,
-  DgraphProvider,
+  DgraphService,
   DgraphTokens,
   Environment,
   graphqlSchemaConfig,
   GraphqlSchemaService,
+  GraphqlSchemaTokens,
   serverConfig,
+  ServerTokens,
 } from '@codelab/backend'
 import { generate } from '@graphql-codegen/cli'
 import { Types } from '@graphql-codegen/plugin-helpers'
 import { Inject, Injectable } from '@nestjs/common'
 import { ConfigType } from '@nestjs/config'
 import chokidar from 'chokidar'
-import fs from 'fs'
 import { merge } from 'lodash'
 import { Command, Console } from 'nestjs-console'
 import path from 'path'
-import prettier from 'prettier'
 import shell from 'shelljs'
 import waitOn from 'wait-on'
 import { envOption } from '../env-helper'
@@ -46,8 +46,7 @@ export interface CodegenOptions {
 export class GraphqlCodegenService {
   constructor(
     private readonly serverService: ServerService,
-    @Inject(DgraphTokens.DgraphProvider)
-    private readonly dgraphProvider: DgraphProvider,
+    private readonly dgraphService: DgraphService,
     @Inject(dgraphConfig.KEY)
     private readonly _dgraphConfig: ConfigType<typeof dgraphConfig>,
     @Inject(serverConfig.KEY)
@@ -83,45 +82,33 @@ export class GraphqlCodegenService {
        */
 
       const generateAndUpdateDgraphSchema = async () => {
-        await this.saveMergedSchema(this._dgraphConfig.schemaGeneratedFile)
-        this.dgraphProvider.updateDgraphSchema()
+        await this.dgraphService.updateDqlSchema()
       }
 
       await generateAndUpdateDgraphSchema()
 
       if (watch) {
         chokidar
-          .watch([
-            this._dgraphConfig.schemaFile,
-            this._graphqlSchemaConfig.apiGraphqlSchemaFile,
-          ])
+          .watch([this._graphqlSchemaConfig.apiGraphqlSchemaFile])
           .on('all', async (event, _path) => {
-            generateAndUpdateDgraphSchema()
+            await generateAndUpdateDgraphSchema()
           })
       }
+
+      const promises: Array<Promise<any>> = []
 
       /**
        * (4) Graphql codegen for API
        */
-      const apiPromise = this.generateApi({
-        watch,
-        schema: this._graphqlSchemaConfig.apiGraphqlSchemaFile,
-        outputPath: this._graphqlSchemaConfig.apiCodegenOutputFile,
-      })
+      promises.push(
+        this.generateApi({
+          watch,
+          schema: this._graphqlSchemaConfig.apiGraphqlSchemaFile,
+          outputPath: this._graphqlSchemaConfig.apiCodegenOutputFile,
+        }),
+      )
 
-      /**
-       * (5) Graphql codegen for Dgraph
-       */
-      const dgraphPromise = this.generateDgraph({
-        watch,
-        schema: {
-          [this._dgraphConfig.graphqlEndpoint]: {},
-        },
-        outputPath: this._graphqlSchemaConfig.dgraphCodegenOutputFile,
-        outputSchemaPath: this._graphqlSchemaConfig.dgraphGraphqlSchemaFile,
-      })
-
-      await Promise.all([apiPromise, dgraphPromise])
+      await Promise.all(promises)
 
       shell.echo('Codegen process completed! You may Ctrl + C the terminal.')
 
@@ -131,21 +118,6 @@ export class GraphqlCodegenService {
     } catch (e) {
       console.error(e)
     }
-  }
-
-  private async saveMergedSchema(outputPath: string) {
-    const mergedSchema = this.graphqlSchemaService.getMergedSchema()
-    console.log(outputPath)
-
-    const prettierOptions = await prettier.resolveConfig(outputPath)
-    console.log(prettierOptions)
-
-    const formattedMergedSchema = prettier.format(mergedSchema, {
-      ...prettierOptions,
-      parser: 'graphql',
-    })
-
-    fs.writeFileSync(outputPath, formattedMergedSchema)
   }
 
   public async generateApi({
@@ -163,30 +135,6 @@ export class GraphqlCodegenService {
     )
 
     return await generate(config, true)
-  }
-
-  public async generateDgraph({
-    schema,
-    outputPath,
-    outputSchemaPath,
-    watch = false,
-  }: DgraphCodegenConfig) {
-    return await generate(
-      merge(
-        this.baseGraphqlConfig(watch),
-        this.apolloGenerateConfig({
-          schema,
-          outputPath,
-          extension: 'd',
-        }),
-        this.schemaGenerateConfig({
-          outputSchemaPath,
-          outputPath,
-          schema,
-        }),
-      ),
-      true,
-    )
   }
 
   private apolloGenerateConfig({
@@ -225,6 +173,7 @@ export class GraphqlCodegenService {
               DateTime: 'string',
               Int64: 'number',
               _Any: 'any',
+              Void: 'void',
             },
           },
         },

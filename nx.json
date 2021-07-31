@@ -35,9 +35,6 @@
     "cli": {
       "tags": []
     },
-    "codegen-dgraph": {
-      "tags": []
-    },
     "codegen-graphql": {
       "tags": []
     },
@@ -48,9 +45,6 @@
       "tags": []
     },
     "frontend-builder": {
-      "tags": []
-    },
-    "frontend-cytoscape": {
       "tags": []
     },
     "frontend-dgraph": {
@@ -105,12 +99,6 @@
       "tags": []
     },
     "modules-page-api": {
-      "tags": []
-    },
-    "modules-prop": {
-      "tags": []
-    },
-    "modules-prop-api": {
       "tags": []
     },
     "modules-style": {

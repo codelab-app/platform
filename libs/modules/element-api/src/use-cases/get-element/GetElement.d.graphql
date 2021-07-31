@@ -1,5 +1,0 @@
-query GetElement($id: ID!) {
-  getElement(id: $id) {
-    ...Dgraph_Element
-  }
-}

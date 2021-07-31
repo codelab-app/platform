@@ -1,73 +1,56 @@
-import { DgraphProvider, DgraphTokens, DgraphUseCase } from '@codelab/backend'
-import { Dgraph_ElementFragment } from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
+import { DgraphRepository, DgraphUseCase } from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js'
-import { ElementGuardService } from '../../auth'
-import { Element } from '../../models'
-import { GetElementService } from '../get-element'
+import { ElementValidator } from '../../element.validator'
 import { GetElementParentService } from '../get-element-parent'
 import { MoveElementInput } from './move-element.input'
 import { MoveElementRequest } from './move-element.request'
 
-interface ValidationContext {
-  existingParent: Dgraph_ElementFragment
-}
-
 @Injectable()
-export class MoveElementService extends DgraphUseCase<
-  MoveElementRequest,
-  Element,
-  ValidationContext
-> {
+export class MoveElementService extends DgraphUseCase<MoveElementRequest> {
   constructor(
-    @Inject(DgraphTokens.DgraphProvider)
-    protected readonly dgraphProvider: DgraphProvider,
+    protected readonly dgraph: DgraphRepository,
     private getElementParentService: GetElementParentService,
-    private getElementService: GetElementService,
-    private elementGuardService: ElementGuardService,
+    private elementValidator: ElementValidator,
   ) {
-    super(dgraphProvider)
+    super(dgraph)
   }
 
-  protected async executeTransaction(
-    { input, currentUser }: MoveElementRequest,
-    txn: Txn,
-    { existingParent }: ValidationContext,
-  ) {
+  protected async executeTransaction(request: MoveElementRequest, txn: Txn) {
+    const { input } = request
+
+    await this.validate(request)
+
+    const existingParent = await this.getElementParentService.execute({
+      elementId: input.elementId,
+    })
+
     // Delete the old parent-child edge and create a new one
     const mu = new Mutation()
-    mu.setSetNquads(MoveElementService.createSetMutation(input))
-    mu.setDelNquads(
-      MoveElementService.createDeleteMutation(input, existingParent.id),
-    )
+    mu.setSetNquads(this.createSetMutation(input))
 
-    await txn.mutate(mu)
+    if (
+      existingParent?.uid &&
+      existingParent.uid !== input.moveData.parentElementId
+    ) {
+      mu.setDelNquads(this.createDeleteMutation(input, existingParent.uid))
+    }
 
-    await txn.commit()
-
-    return (await this.getElementService.execute({
-      input: { elementId: input.elementId },
-      currentUser,
-    })) as Element
+    await this.dgraph.executeMutation(txn, mu)
   }
 
-  private static createSetMutation({
+  private createSetMutation({
     elementId,
     moveData: { parentElementId, order },
   }: MoveElementInput) {
-    return `
-          <${elementId}> <Element.parent> <${parentElementId}> .
-          <${parentElementId}> <Element.children> <${elementId}> (order=${order}) .
-      `
+    return `<${parentElementId}> <children> <${elementId}> (order=${order}) .`
   }
 
-  private static createDeleteMutation(
+  private createDeleteMutation(
     { elementId }: MoveElementInput,
     existingParentId: string,
   ) {
-    return `
-          <${existingParentId}> <Element.children> <${elementId}> .
-      `
+    return `<${existingParentId}> <children> <${elementId}> .`
   }
 
   protected async validate({
@@ -77,28 +60,28 @@ export class MoveElementService extends DgraphUseCase<
     },
     currentUser,
   }: MoveElementRequest) {
-    const existingParent = await this.getElementParentService.execute({
-      elementId: elementId,
-    })
+    const movedElementData = await this.elementValidator.existsAndIsOwnedBy(
+      elementId,
+      currentUser,
+    )
+
+    const targetParentData = await this.elementValidator.existsAndIsOwnedBy(
+      parentElementId,
+      currentUser,
+    )
+
+    await this.elementValidator.isNotRoot(elementId)
 
     if (parentElementId === elementId) {
       throw new Error("Can't move element within itself")
     }
 
-    if (!existingParent) {
-      throw new Error("Can't move a root element")
+    if (
+      movedElementData.tree &&
+      targetParentData.tree &&
+      movedElementData.tree.uid !== targetParentData.tree.uid
+    ) {
+      throw new Error("Can't move element to a different tree")
     }
-
-    // make sure the new parent exists and the user has ownership over it
-    const { element: newParent } = await this.elementGuardService.validate(
-      parentElementId,
-      currentUser,
-    )
-
-    if (newParent.ownedBy?.id !== existingParent.ownedBy?.id) {
-      throw new Error("Can't move page element to a different page")
-    }
-
-    return { existingParent }
   }
 }

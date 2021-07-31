@@ -5,7 +5,6 @@ import {
   teardownTestModule,
 } from '@codelab/backend'
 import {
-  __AppFragment,
   CreateAppGql,
   CreateAppInput,
   CreateAppMutation,
@@ -23,7 +22,7 @@ import { createAppInput } from '../../create-app/test/create-app.data'
 describe('DeleteApp', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let app: __AppFragment
+  let appId: string
   let deleteAppInput: DeleteAppInput
   let getAppInput: GetAppInput
 
@@ -37,16 +36,11 @@ describe('DeleteApp', () => {
       createAppInput,
     )
 
-    app = results.createApp
-    deleteAppInput = {
-      appId: app.id,
-    }
-    getAppInput = {
-      appId: app.id,
-    }
+    appId = results.createApp.id
+    deleteAppInput = { appId }
+    getAppInput = { byId: { appId } }
 
-    expect(app.id).toBeDefined()
-    expect(app).toMatchObject(createAppInput)
+    expect(appId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -64,24 +58,19 @@ describe('DeleteApp', () => {
 
   describe('User', () => {
     it('should delete an app', async () => {
-      const results = await domainRequest<DeleteAppInput, DeleteAppMutation>(
+      await domainRequest<DeleteAppInput, DeleteAppMutation>(
         userApp,
         DeleteAppGql,
         deleteAppInput,
       )
 
-      expect(results.deleteApp).toMatchObject({
-        id: app.id,
-      })
-
       // Should fail to get the deleted app
-      const getAppResults = await domainRequest<GetAppInput, GetAppQuery>(
+      await domainRequest<GetAppInput, GetAppQuery>(
         userApp,
         GetAppGql,
         getAppInput,
+        { message: 'Not found' },
       )
-
-      expect(getAppResults.app).toBeNull()
     })
   })
 })

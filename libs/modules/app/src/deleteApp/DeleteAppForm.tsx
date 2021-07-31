@@ -7,40 +7,31 @@ import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { DeleteAppInput, DeleteAppSchema } from './deleteAppSchema'
 
 type DeleteAppFormProps = UniFormUseCaseProps<DeleteAppInput>
 
 export const DeleteAppForm = (props: DeleteAppFormProps) => {
-  const { reset, setLoading, state } = useCrudModalForm(EntityType.App)
-  const { deleteIds: appDeleteIds, metadata } = state
-
-  const [mutate, { loading: deleting }] = useDeleteAppMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetAppsQuery()],
+  const {
+    crudModal: {
+      reset,
+      state: { metadata },
+    },
+    handleSubmit,
+  } = useCrudModalMutationForm({
+    entityType: EntityType.App,
+    useMutationFunction: useDeleteAppMutation,
+    mutationOptions: { refetchQueries: [refetchGetAppsQuery()] },
+    mapVariables: (_, state) => ({ input: { appId: state.deleteIds[0] } }),
   })
-
-  useEffect(() => {
-    setLoading(deleting)
-  }, [deleting])
-
-  const onSubmit = () => {
-    return mutate({
-      variables: {
-        input: {
-          appId: appDeleteIds[0],
-        },
-      },
-    })
-  }
 
   return (
     <FormUniforms<DeleteAppInput>
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       schema={DeleteAppSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while deleting app',

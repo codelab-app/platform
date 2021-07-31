@@ -1,17 +1,12 @@
 fragment PageBase on Page {
   id
   name
-  app {
-    id
-    name
-    ownerId
-  }
-  #  Root element is expensive to get, don't query it every time
+  # Elements are expensive to get, don't query it every time
 }
 
 fragment PageFull on Page {
   ...PageBase
-  rootElement {
-    ...ElementAggregate
+  elements {
+    ...ElementGraph
   }
 }

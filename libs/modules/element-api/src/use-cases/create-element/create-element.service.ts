@@ -1,103 +1,78 @@
 import {
-  Auth0UserId,
-  DgraphProvider,
-  DgraphTokens,
-  DgraphUseCase,
+  CreateResponse,
+  DgraphCreateMutationJson,
+  DgraphCreateUseCase,
+  DgraphElement,
+  DgraphEntityType,
+  DgraphRepository,
 } from '@codelab/backend'
-import { Dgraph_ElementFragment } from '@codelab/codegen/dgraph'
-import { Atom, GetAtomService } from '@codelab/modules/atom-api'
-import { Inject, Injectable } from '@nestjs/common'
+import { GetAtomService } from '@codelab/modules/atom-api'
+import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js'
-import { ElementGuardService } from '../../auth'
-import { Element } from '../../models/'
+import { ElementValidator } from '../../element.validator'
 import { GetElementService } from '../get-element'
 import { GetLastOrderChildService } from '../get-last-order-child'
 import { CreateElementInput } from './create-element.input'
 import { CreateElementRequest } from './create-element.request'
 
-interface ValidationContext {
-  atom: Atom | undefined | null
-  parentElement: Dgraph_ElementFragment | undefined | null
-}
-
 @Injectable()
-export class CreateElementService extends DgraphUseCase<
-  CreateElementRequest,
-  Element,
-  ValidationContext
-> {
+export class CreateElementService extends DgraphCreateUseCase<CreateElementRequest> {
   constructor(
-    @Inject(DgraphTokens.DgraphProvider)
-    protected readonly dgraphProvider: DgraphProvider,
+    protected readonly dgraph: DgraphRepository,
     private getElementService: GetElementService,
     private getLastOrderChildService: GetLastOrderChildService,
     private getAtomService: GetAtomService,
-    private elementGuardService: ElementGuardService,
+    private elementValidator: ElementValidator,
   ) {
-    super(dgraphProvider)
+    super(dgraph)
   }
 
   protected async executeTransaction(
-    { input, currentUser }: CreateElementRequest,
+    request: CreateElementRequest,
     txn: Txn,
-    { parentElement }: ValidationContext,
-  ) {
+  ): Promise<CreateResponse> {
+    await this.validate(request)
+
+    const { input } = request
     const order = await this.getOrder(input)
 
-    const mu = CreateElementService.createMutation(
-      { ...input, order },
-      parentElement?.ownedBy?.id,
+    return await this.dgraph.create(txn, (blankNodeUid) =>
+      this.createMutation({ ...input, order }, blankNodeUid),
     )
-
-    const mutationResult = await txn.mutate(mu)
-
-    await txn.commit()
-
-    const uid = mutationResult.getUidsMap().get('element')
-
-    if (!uid) {
-      throw CreateElementService.createError()
-    }
-
-    const element = await this.getElementService.execute({
-      input: {
-        elementId: uid,
-      },
-      currentUser,
-    })
-
-    if (!element) {
-      throw CreateElementService.createError()
-    }
-
-    return element
   }
 
-  private static createMutation(
+  private createMutation(
     { parentElementId, order, name, atomId }: CreateElementInput,
-    ownerId?: Auth0UserId,
+    blankNodeUid: string,
   ) {
     const mu = new Mutation()
-    mu.setSetNquads(`
-      _:element <dgraph.type> "Element" .
-      _:element <Element.name> "${name}" .
-      ${ownerId ? `_:element <Element.ownedBy> <${ownerId}> .` : ''}
-      ${
-        parentElementId
-          ? `_:element <Element.parent> <${parentElementId}> .
-            <${parentElementId}> <Element.children> _:element (order=${order}) .`
-          : ``
-      }
-      ${atomId ? `_:element <Element.atom> <${atomId}> .` : ''}
-      `)
+
+    const createElementJson: DgraphCreateMutationJson<DgraphElement> = {
+      uid: blankNodeUid,
+      name,
+      'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Element],
+      atom: atomId ? { uid: atomId } : null,
+      'children|order': order ? order : 1,
+      children: [],
+      props: '{}',
+    }
+
+    if (parentElementId) {
+      mu.setSetJson({
+        uid: parentElementId,
+        children: createElementJson,
+      })
+    } else {
+      mu.setSetJson(createElementJson)
+    }
 
     return mu
   }
 
-  private static createError() {
-    return new Error('Error while creating element')
-  }
-
+  /**
+   * Returns the order from the request if defined, if not - gets the order of the last child of the same parent
+   * and returns it + 1
+   */
   private async getOrder(request: CreateElementInput): Promise<number> {
     const { order, parentElementId } = request
 
@@ -105,15 +80,18 @@ export class CreateElementService extends DgraphUseCase<
       return order
     }
 
-    // if we don't have order - put it last
-    const lastOrderChild = await this.getLastOrderChildService.execute({
-      elementId: parentElementId,
-    })
+    if (parentElementId) {
+      // if we don't have order - put it last
+      const lastOrderChild = await this.getLastOrderChildService.execute({
+        elementId: parentElementId,
+      })
 
-    if (lastOrderChild && typeof lastOrderChild.order === 'number') {
-      return lastOrderChild.order + 1
+      if (lastOrderChild && typeof lastOrderChild.order === 'number') {
+        return lastOrderChild.order + 1
+      }
     }
 
+    // If nothing else - put it by default as 1
     return 1
   }
 
@@ -121,27 +99,21 @@ export class CreateElementService extends DgraphUseCase<
     input: { parentElementId, atomId },
     currentUser,
   }: CreateElementRequest) {
-    let parentElement: Dgraph_ElementFragment | null | undefined
-
     if (parentElementId) {
-      parentElement = (
-        await this.elementGuardService.validate(parentElementId, currentUser)
-      ).element
+      /** Validate the parent element exists and is owned by the current user */
+      await this.elementValidator.existsAndIsOwnedBy(
+        parentElementId,
+        currentUser,
+      )
     }
 
-    let atom: Atom | null | undefined
-
     if (atomId) {
-      atom = await this.getAtomService.execute({ atomId })
+      /** Validate the atom exists */
+      const atom = await this.getAtomService.execute({ byId: { atomId } })
 
       if (!atom) {
         throw new Error('Atom not found')
       }
-    }
-
-    return {
-      atom,
-      parentElement,
     }
   }
 }

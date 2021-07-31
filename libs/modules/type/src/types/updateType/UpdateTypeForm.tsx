@@ -20,7 +20,7 @@ import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
 
 const typenameToKind = (typename: string) => {
   switch (typename) {
-    case TypeModels.Interface:
+    case TypeModels.InterfaceType:
       return TypeKind.Interface
     case TypeModels.PrimitiveType:
       return TypeKind.Primitive

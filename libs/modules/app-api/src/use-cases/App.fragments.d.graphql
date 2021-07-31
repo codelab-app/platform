@@ -1,5 +1,0 @@
-fragment Dgraph__App on App {
-  id
-  name
-  ownerId
-}

@@ -1,41 +1,39 @@
+import { CytoscapeModule, TreeModule, Void } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app-api'
 import { AtomModule } from '@codelab/modules/atom-api'
-import { PropModule } from '@codelab/modules/prop-api'
 import { Module } from '@nestjs/common'
-import { ElementGuardService } from './auth'
+import { ElementMapper } from './element.mapper'
 import { ElementResolver } from './element.resolver'
+import { ElementValidator } from './element.validator'
+import { ElementTreeTransformer } from './element-tree.transformer'
 import {
   CreateElementService,
   DeleteElementService,
-  FlattenElementTreeService,
-  GetDgraphElementAggregateService,
-  GetElementAggregateService,
-  GetElementOwnerService,
   GetElementParentService,
   GetElementService,
   GetLastOrderChildService,
   MoveElementService,
+  UpdateElementPropsService,
   UpdateElementService,
 } from './use-cases'
 
 const services = [
-  ElementGuardService,
-  GetElementAggregateService,
-  GetDgraphElementAggregateService,
+  ElementValidator,
   CreateElementService,
   GetElementService,
   GetLastOrderChildService,
-  FlattenElementTreeService,
   DeleteElementService,
   GetElementParentService,
   UpdateElementService,
   MoveElementService,
-  GetElementOwnerService,
+  ElementTreeTransformer,
+  ElementMapper,
+  UpdateElementPropsService,
 ]
 
 @Module({
-  imports: [AppModule, AtomModule, PropModule],
-  providers: [...services, ElementResolver],
+  imports: [AppModule, AtomModule, CytoscapeModule, TreeModule],
+  providers: [...services, ElementResolver, Void],
   exports: [...services],
 })
 export class ElementModule {}

@@ -1,0 +1,5 @@
+query GetTypeGraph($input: GetTypeInput!) {
+  getTypeGraph(input: $input) {
+    ...__TypeGraph
+  }
+}

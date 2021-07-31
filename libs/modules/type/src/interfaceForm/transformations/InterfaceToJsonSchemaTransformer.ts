@@ -1,13 +1,11 @@
 import {
-  __FieldCollectionFragment,
-  __InterfaceFragment,
+  __FieldFragment,
   __TypeFragment,
   PrimitiveKind,
 } from '@codelab/codegen/graphql'
 import { PropertiesSchema } from 'ajv/lib/types/json-schema'
-import _ from 'lodash'
 import { TypeModels } from '../../types/TypeModels'
-import { GetByIdFunction } from './types'
+import { TypeTree } from '../../typeTree'
 
 export interface InterfaceToJsonSchemaTransformerOptions {
   /** Max amount of type nesting that's allowed, used to prevent infinite loops. Defaults to 100 */
@@ -25,7 +23,10 @@ export class InterfaceToJsonSchemaTransformer {
 
   private readonly maxNesting: number
 
-  constructor(options?: InterfaceToJsonSchemaTransformerOptions) {
+  constructor(
+    private typeTree: TypeTree,
+    options?: InterfaceToJsonSchemaTransformerOptions,
+  ) {
     this.maxNesting = options?.maxNesting || 100
   }
 
@@ -33,22 +34,10 @@ export class InterfaceToJsonSchemaTransformer {
    * Transforms an Interface to a json schema object
    * Throws Error if PrimitiveKinds or if the Type object's __typename are not recognized
    */
-  transform(intface: __InterfaceFragment) {
-    const typesByIdMap = _.keyBy(intface.fieldCollection.types, (i) => i.id)
-
-    return this.interfaceToJsonSchema(intface, (typeId) => typesByIdMap[typeId])
-  }
-
-  private interfaceToJsonSchema(
-    intface: __InterfaceFragment,
-    getType: GetByIdFunction<__TypeFragment>,
-  ) {
+  transform() {
     return {
       type: 'object',
-      properties: this.fieldCollectionToJsonProperties(
-        intface.fieldCollection,
-        getType,
-      ),
+      properties: this.fieldsToProperties(this.typeTree.getRootFields()),
     } as any // cast is needed, because we can't verify at compile time that the interface matches the data
   }
 
@@ -80,25 +69,36 @@ export class InterfaceToJsonSchemaTransformer {
    *
    * Handles PrimitiveType, ArrayType, EnumType and Interface
    */
-  typeToJsonProperty(
-    type: __TypeFragment,
-    getNestedType: GetByIdFunction<__TypeFragment>,
-  ): Record<string, any> {
+  typeToJsonProperty(type: __TypeFragment): Record<string, any> {
     this.iteration++
+
+    if (this.iteration > this.maxNesting) {
+      throw new Error(
+        'Error while transforming interface to json schema. Type too nested',
+      )
+    }
 
     switch (type.__typename) {
       case TypeModels.PrimitiveType:
         return {
           type: this.primitiveKindToJsonType(type.primitiveKind),
         }
-      case TypeModels.ArrayType:
+
+      case TypeModels.ArrayType: {
+        const itemType = this.typeTree.getArrayItemType(type.id)
+
+        if (!itemType) {
+          throw new Error(
+            `Item type of ArayType ${type.id} not found in the Type Tree`,
+          )
+        }
+
         return {
           type: 'array',
-          items: this.typeToJsonProperty(
-            getNestedType(type.typeId),
-            getNestedType,
-          ),
+          items: this.typeToJsonProperty(itemType),
         }
+      }
+
       case TypeModels.EnumType:
         return {
           type: 'string',
@@ -111,45 +111,30 @@ export class InterfaceToJsonSchemaTransformer {
             })),
           },
         }
-      case TypeModels.Interface:
+      case TypeModels.InterfaceType:
         return {
           type: 'object',
-          // nullable: true,
-          properties: this.fieldCollectionToJsonProperties(
-            {
-              fields: type.fieldCollection.fields,
-              types: type.fieldCollection.types.map((t) => {
-                // The Interface and Array types are only referenced by ID, need to get them from
-                // the root types source
-                if (
-                  t.__typename === 'ArrayType' ||
-                  t.__typename === 'Interface'
-                ) {
-                  return getNestedType(t.id)
-                }
-
-                return t
-              }),
-            },
-            getNestedType,
+          properties: this.fieldsToProperties(
+            this.typeTree.getFieldsOf(type.id),
           ),
-        }
+        } as any // cast is needed, because we can't verify at compile time that the interface matches the data
+
       default:
         throw new Error('Type not recognized ' + (type as any).__typename)
     }
   }
 
-  fieldCollectionToJsonProperties(
-    fieldCollection: __FieldCollectionFragment,
-    getType: (typeId: string) => __TypeFragment,
-  ) {
+  fieldsToProperties(fields: Array<__FieldFragment>) {
     const properties: PropertiesSchema<any> = {}
 
-    for (const field of fieldCollection.fields) {
-      const type = getType(field.typeId)
-      properties[field.key] = {
-        ...(this.typeToJsonProperty(type, getType) as any),
-        label: field.name,
+    for (const field of fields) {
+      const type = this.typeTree.getFieldType(field.id)
+
+      if (type) {
+        properties[field.key] = {
+          ...(this.typeToJsonProperty(type) as any),
+          label: field.name,
+        }
       }
     }
 

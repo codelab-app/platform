@@ -1,5 +1,4 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql'
-import { z } from 'zod'
 
 @ObjectType()
 export class App {
@@ -12,10 +11,14 @@ export class App {
 
   @Field()
   declare name: string
-}
 
-export const appSchema = z.object({
-  id: z.string(),
-  ownerId: z.string(),
-  name: z.string(),
-})
+  // This is implicit and its resolved in page-api/../AppPagesResolver to avoid circular dependencies
+  // @Field(() => [Page])
+  // declare pages?: Array<Page>
+
+  constructor(id: string, ownerId: string, name: string) {
+    this.id = id
+    this.ownerId = ownerId
+    this.name = name
+  }
+}

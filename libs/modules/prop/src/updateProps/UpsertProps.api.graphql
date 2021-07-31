@@ -1,5 +1,0 @@
-mutation UpsertProps($input: [UpsertPropsInput!]!) {
-  upsertProp(input: $input) {
-    ok
-  }
-}

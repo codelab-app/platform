@@ -5,7 +5,6 @@ import {
   teardownTestModule,
 } from '@codelab/backend'
 import {
-  __AppFragment,
   CreateAppGql,
   CreateAppInput,
   CreateAppMutation,
@@ -19,7 +18,7 @@ import { createAppInput } from '../../create-app/test/create-app.data'
 describe('GetApps', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let app: __AppFragment
+  let appId: string
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
@@ -31,10 +30,9 @@ describe('GetApps', () => {
       createAppInput,
     )
 
-    app = results.createApp
+    appId = results.createApp.id
 
-    expect(app.id).toBeDefined()
-    expect(app).toMatchObject(createAppInput)
+    expect(appId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -57,7 +55,7 @@ describe('GetApps', () => {
         GetAppsGql,
       )
 
-      expect(results?.apps).toMatchObject([app])
+      expect(results?.apps).toMatchObject([{ ...createAppInput, id: appId }])
     })
   })
 })

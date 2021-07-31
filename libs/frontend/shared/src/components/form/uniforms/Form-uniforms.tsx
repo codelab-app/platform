@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { callbackWithParams } from '../../../utils'
@@ -42,7 +42,7 @@ export const FormUniforms = <TData extends any>({
             }
           })
           .catch((err: any) => {
-            console.log(err)
+            console.error(err)
 
             if (typeof result === 'object') {
               callbackWithParams(onSubmitError, err)

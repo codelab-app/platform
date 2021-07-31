@@ -1,10 +1,10 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { z } from 'zod'
 import { Type } from '../type.model'
-import { PrimitiveKind, primitiveKindSchema } from './primitive-kind.model'
+import { PrimitiveKind } from './primitive-kind.model'
 
 /**
- * A wrapper for a PrimitiveKind
+ * A wrapper for a PrimitiveKind. It's needed because
+ * we can't directly reference the PrimitiveKind, we have to reference a 'object instance' instead
  */
 @ObjectType({
   implements: () => [Type],
@@ -22,8 +22,4 @@ export class PrimitiveType implements Type {
     this.name = name
     this.primitiveKind = primitiveKind
   }
-
-  static Schema: z.ZodSchema<PrimitiveType> = Type.Schema.extend({
-    primitiveKind: primitiveKindSchema,
-  })
 }

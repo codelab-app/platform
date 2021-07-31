@@ -185,5 +185,6 @@ export enum AtomTypeEnum {
 }
 
 export const AtomType = z.nativeEnum(AtomTypeEnum)
+export const atomTypeSchema = z.object({ type: AtomType })
 
 export type AtomType = z.infer<typeof AtomType>

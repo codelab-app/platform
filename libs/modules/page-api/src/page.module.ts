@@ -1,15 +1,14 @@
-import { CytoscapeModule } from '@codelab/backend'
+import { CytoscapeModule, Void } from '@codelab/backend'
 import { AppModule } from '@codelab/modules/app-api'
 import { ElementModule } from '@codelab/modules/element-api'
-import { PropModule } from '@codelab/modules/prop-api'
 import { Module } from '@nestjs/common'
-import { PageGuardService } from './auth'
+import { AppPagesResolver } from './app-pages.resolver'
+import { PageMapper } from './page.mapper'
 import { PageResolver } from './page.resolver'
+import { PageValidator } from './page.validator'
 import {
   CreatePageService,
   DeletePageService,
-  GetPageOwnerService,
-  GetPageRootService,
   GetPageService,
   GetPagesService,
   UpdatePageService,
@@ -17,18 +16,17 @@ import {
 
 const services = [
   CreatePageService,
-  GetPageOwnerService,
-  PageGuardService,
+  PageValidator,
   GetPagesService,
-  GetPageRootService,
   GetPageService,
   UpdatePageService,
   DeletePageService,
+  PageMapper,
 ]
 
 @Module({
-  imports: [AppModule, ElementModule, PropModule, CytoscapeModule],
-  providers: [PageResolver, ...services],
+  imports: [AppModule, ElementModule, CytoscapeModule],
+  providers: [PageResolver, AppPagesResolver, ...services, Void],
   exports: [...services],
 })
 export class PageModule {}

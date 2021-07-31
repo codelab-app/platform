@@ -5,7 +5,6 @@ import {
   teardownTestModule,
 } from '@codelab/backend'
 import {
-  __AtomFragment,
   CreateAtomGql,
   CreateAtomInput,
   CreateAtomMutation,
@@ -20,7 +19,7 @@ import { createAtomInput } from '../../create-atom/test/create-atom.data'
 describe('GetAtom', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let atom: __AtomFragment
+  let atomId: string
   let getAtomInput: GetAtomInput
 
   beforeAll(async () => {
@@ -33,13 +32,10 @@ describe('GetAtom', () => {
       createAtomInput,
     )
 
-    atom = results.createAtom
+    atomId = results.createAtom.id
     getAtomInput = {
-      atomId: atom.id,
+      byId: { atomId },
     }
-
-    expect(atom.id).toBeDefined()
-    expect(atom).toMatchObject(createAtomInput)
   })
 
   afterAll(async () => {
@@ -48,7 +44,7 @@ describe('GetAtom', () => {
   })
 
   describe('Guest', () => {
-    it('should fail to get an atom', async () => {
+    it('should fail to get atom', async () => {
       await domainRequest(guestApp, GetAtomGql, getAtomInput, {
         message: 'Unauthorized',
       })
@@ -56,14 +52,18 @@ describe('GetAtom', () => {
   })
 
   describe('User', () => {
-    it('should get an atom', async () => {
-      const results = await domainRequest<GetAtomInput, GetAtomQuery>(
+    it('should get an atom ', async () => {
+      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
         getAtomInput,
       )
 
-      expect(results?.atom).toMatchObject(atom)
+      expect(atom).toMatchObject({
+        id: atomId,
+        name: 'Button (Ant Design)',
+        type: 'AntDesignButton',
+      })
     })
   })
 })

@@ -1,5 +1,5 @@
 query GetApp($input: GetAppInput!) {
-  app: getApp(input: $input) {
+  getApp(input: $input) {
     ...__App
   }
 }

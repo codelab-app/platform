@@ -1,7 +1,5 @@
 import { loadFilesSync } from '@graphql-tools/load-files'
-import { mergeTypeDefs } from '@graphql-tools/merge'
 import { Inject, Injectable } from '@nestjs/common'
-import { print } from 'graphql'
 import { DgraphConfig, dgraphConfig } from '../dgraph'
 import {
   GraphqlSchemaConfig,
@@ -17,19 +15,19 @@ export class GraphqlSchemaService {
   ) {}
 
   getMergedSchema() {
-    const dgraphSchema = this.loadGraphqlSchema(this._dgraphConfig.schemaFile)
-
-    const apiSchema = this.loadGraphqlSchema(
-      this._graphqlSchemaConfig.apiGraphqlSchemaFile,
-    )
-
-    const enumType = this.getEnumTypeDef('AtomType', apiSchema[0])
-    /**
-     * Merge schemas together
-     */
-    const mergedTypeDefs = mergeTypeDefs([enumType, ...dgraphSchema])
-
-    return print(mergedTypeDefs)
+    // const dgraphSchema = this.loadGraphqlSchema(this.dgraphConfig?.schemaFile)
+    //
+    // const apiSchema = this.loadGraphqlSchema(
+    //   this.graphqlSchemaConfig.apiGraphqlSchemaFile,
+    // )
+    //
+    // const enumType = this.getEnumTypeDef('AtomType', apiSchema[0])
+    // /**
+    //  * Merge schemas together
+    //  */
+    // const mergedTypeDefs = mergeTypeDefs([enumType, ...dgraphSchema])
+    //
+    // return print(mergedTypeDefs)
   }
 
   getEnumTypeDef(enumType: string, schema: string) {

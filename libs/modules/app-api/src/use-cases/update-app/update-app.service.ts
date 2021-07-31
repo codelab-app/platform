@@ -1,67 +1,47 @@
 import {
-  ApolloClient,
-  FetchResult,
-  NormalizedCacheObject,
-} from '@apollo/client'
-import { ApolloClientTokens, MutationUseCase } from '@codelab/backend'
-import {
-  UpdateAppGql,
-  UpdateAppMutation,
-  UpdateAppMutationVariables,
-} from '@codelab/codegen/dgraph'
-import { Inject, Injectable } from '@nestjs/common'
-import { App } from '../../app.model'
-import { AppGuardService } from '../../auth'
+  DgraphApp,
+  DgraphRepository,
+  DgraphUseCase,
+  jsonMutation,
+} from '@codelab/backend'
+import { Injectable } from '@nestjs/common'
+import { Mutation, Txn } from 'dgraph-js'
+import { AppValidator } from '../../app.validator'
 import { UpdateAppRequest } from './update-app.request'
 
 @Injectable()
-export class UpdateAppService extends MutationUseCase<
-  UpdateAppRequest,
-  App,
-  UpdateAppMutation,
-  UpdateAppMutationVariables
-> {
+export class UpdateAppService extends DgraphUseCase<UpdateAppRequest> {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    protected apolloClient: ApolloClient<NormalizedCacheObject>,
-    private appGuardService: AppGuardService,
+    dgraphRepository: DgraphRepository,
+    private appValidator: AppValidator,
   ) {
-    super(apolloClient)
+    super(dgraphRepository)
   }
 
-  protected extractDataFromResult(result: FetchResult<UpdateAppMutation>): App {
-    const app = result?.data?.updateApp?.app
-
-    if (!app || !app.length || !app[0]) {
-      throw new Error('App not found')
-    }
-
-    return app[0]
+  protected async executeTransaction(
+    request: UpdateAppRequest,
+    txn: Txn,
+  ): Promise<void> {
+    await this.validate(request)
+    await this.dgraph.executeMutation(txn, this.createMutation(request))
   }
 
-  protected getGql() {
-    return UpdateAppGql
-  }
-
-  protected mapVariables({
-    input: { id, data },
-  }: UpdateAppRequest): UpdateAppMutationVariables {
-    return {
-      input: {
-        filter: {
-          id: [id],
-        },
-        set: {
-          name: data.name,
-        },
-      },
-    }
+  protected createMutation({
+    input: {
+      id,
+      data: { name },
+    },
+  }: UpdateAppRequest): Mutation {
+    return jsonMutation<DgraphApp>({
+      uid: id,
+      name,
+    })
   }
 
   protected async validate({
     input: { id },
     currentUser,
   }: UpdateAppRequest): Promise<void> {
-    await this.appGuardService.validate(id, currentUser)
+    await this.appValidator.existsAndIsOwnedBy(id, currentUser)
   }
 }
