@@ -8,7 +8,7 @@ import {
 } from '@codelab/backend'
 import { GetAtomService } from '@codelab/modules/atom-api'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../element.validator'
 import { GetElementService } from '../get-element'
 import { GetLastOrderChildService } from '../get-last-order-child'
@@ -45,7 +45,7 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
     { parentElementId, order, name, atomId }: CreateElementInput,
     blankNodeUid: string,
   ) {
-    const mu = new Mutation()
+    const mu: Mutation = {}
 
     const createElementJson: DgraphCreateMutationJson<DgraphElement> = {
       uid: blankNodeUid,
@@ -58,12 +58,12 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
     }
 
     if (parentElementId) {
-      mu.setSetJson({
+      mu.setJson = {
         uid: parentElementId,
         children: createElementJson,
-      })
+      }
     } else {
-      mu.setSetJson(createElementJson)
+      mu.setJson = createElementJson
     }
 
     return mu

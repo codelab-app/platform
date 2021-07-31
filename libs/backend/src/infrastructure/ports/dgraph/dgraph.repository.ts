@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Mutation, Request, Response, Txn } from 'dgraph-js'
+import { Mutation, Response, Txn } from 'dgraph-js-http'
 import { CreateResponse } from '../../../application/graphql/create.response'
 import { DgraphService } from './dgraph.service'
 import { DgraphQueryBuilder } from './query-building'
@@ -46,7 +46,7 @@ export class DgraphRepository {
    * @param blankNodeLabel the label of the blank node (not the blank node itself: INCORRECT - '_:item', CORRECT - 'item')
    */
   getUid(response: Response, blankNodeLabel: string) {
-    const id = response.getUidsMap().get(blankNodeLabel)
+    const id = (response.data as any).uids[blankNodeLabel] as string
 
     if (!id) {
       throw new Error(
@@ -80,21 +80,6 @@ export class DgraphRepository {
   }
 
   /**
-   * Performs a set of mutations, and commits the transaction
-   */
-  async executeMutations(txn: Txn, mutations: Array<Mutation>) {
-    const req = new Request()
-
-    req.setMutationsList(mutations)
-
-    const response = await txn.doRequest(req)
-
-    await txn.commit()
-
-    return response
-  }
-
-  /**
    * Performs a query with the provided query builder and extracts the json data
    */
   async executeQuery<TResult>(
@@ -112,7 +97,7 @@ export class DgraphRepository {
     query: string,
     queryName: string,
   ): Promise<Array<TResult>> {
-    return (await txn.query(query)).getJson()[queryName] || null
+    return ((await txn.query(query)).data as any)[queryName] || null
   }
 
   /**
@@ -145,15 +130,23 @@ export class DgraphRepository {
   async executeUpsert(
     txn: Txn,
     query: string | DgraphQueryBuilder,
-    mutations: Array<Mutation>,
+    mutation: string,
   ) {
-    const req = new Request()
+    if (typeof query === 'string' && !query.trim().startsWith('{')) {
+      query = `{ ${query}`
+    }
 
-    req.setQuery(query.toString())
-    req.setMutationsList(mutations)
-    req.setCommitNow(true)
+    return this.executeMutation(txn, {
+      mutation: `
+            upsert {
+              query ${query.toString()}
 
-    return await txn.doRequest(req)
+              mutation {
+                  ${mutation}
+              }
+            }
+        `,
+    })
   }
 
   /**
@@ -178,7 +171,10 @@ export class DgraphRepository {
   async executeUpsertDeleteAll(
     txn: Txn,
     queryBuilder: (query: DgraphQueryBuilder) => DgraphQueryBuilder,
-    extraMutations?: Array<Mutation>,
+    extraMutation?: {
+      delete?: any
+      set?: any
+    },
   ) {
     const uidsAlias = 'toDelete'
 
@@ -189,20 +185,28 @@ export class DgraphRepository {
         .addFields(`${uidsAlias} as uid`),
     )
 
-    const mu = new Mutation()
-    mu.setDelNquads(`uid(${uidsAlias}) * * .`)
+    const del = `
+      uid(${uidsAlias}) * * .
+      ${extraMutation?.delete ?? ''}
+    `
 
-    return await this.executeUpsert(txn, query, [mu, ...(extraMutations || [])])
+    return this.executeUpsert(
+      txn,
+      query,
+      `
+        delete { ${del} }
+        ${extraMutation?.set ? ` set { ${extraMutation.set}` : ''}
+    `,
+    )
   }
 
   async deleteEntity(txn: Txn, uid: string, extraNquads?: string) {
-    const mu = new Mutation()
-    mu.setDelNquads(`
+    return this.executeMutation(txn, {
+      deleteNquads: `
     <${uid}> * * .
     ${extraNquads ? extraNquads : ''}
-    `)
-
-    return this.executeMutation(txn, mu)
+    `,
+    })
   }
 
   /**

@@ -5,7 +5,7 @@ import {
   DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { PageValidator } from '../../page.validator'
 import { DeletePageRequest } from './delete-page.request'
 
@@ -27,11 +27,7 @@ export class DeletePageService extends DgraphUseCase<DeletePageRequest, void> {
     } = request
 
     const validationContext = await this.validate(request)
-    const deletePageAppMu = new Mutation()
-
-    deletePageAppMu.setDelNquads(
-      `<${validationContext.appId}> <pages> <${pageId}> .`,
-    )
+    const deletePage = `<${validationContext.appId}> <pages> <${pageId}> .`
 
     // We need to delete related page elements and props too,
     // otherwise they will become inaccessible garbage
@@ -47,7 +43,7 @@ export class DeletePageService extends DgraphUseCase<DeletePageRequest, void> {
             props: true,
           })
           .setUidFunc(pageId),
-      [deletePageAppMu],
+      { delete: deletePage },
     )
   }
 

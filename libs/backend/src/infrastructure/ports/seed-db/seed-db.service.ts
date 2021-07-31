@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { DgraphRepository } from '../dgraph'
 
 @Injectable()
@@ -19,7 +19,7 @@ export class SeedDbService {
   }
 
   private async seedAtoms(txn: Txn) {
-    const mu = new Mutation()
+    const mu: Mutation = {}
     const ATOM_UID = '_:atom_id'
     const INTERFACE_UID = '_:interface_id'
 
@@ -125,7 +125,7 @@ export class SeedDbService {
       },
     }
 
-    mu.setSetJson(atoms)
+    mu.setJson = atoms
 
     await txn.mutate(mu)
     await txn.commit()
@@ -151,7 +151,7 @@ export class SeedDbService {
   }
 
   private async seedAtomsAndLibraries(txn: Txn) {
-    const mu = new Mutation()
+    const mu: Mutation = {}
     const OWNER_ID = 'seed-user-test-id'
     const LIB_UID = '_:root_lib'
     const ATOM_UID = '_:atom_id'
@@ -187,11 +187,10 @@ export class SeedDbService {
       ],
     }
 
-    mu.setSetJson(lib_data)
+    mu.setJson = lib_data
 
     const mutationResultLib = await txn.mutate(mu)
-    const fieldUid = mutationResultLib.getUidsMap().get('block_id')
-    const uidMap = mutationResultLib.getUidsMap()
+    const fieldUid = mutationResultLib.data.uids['block_id']
 
     const prop = {
       field: { uid: fieldUid },
@@ -200,16 +199,16 @@ export class SeedDbService {
       },
     }
 
-    const propMutation = new Mutation()
-    propMutation.setSetJson(prop)
+    const propMutation: Mutation = {
+      setJson: prop,
+    }
+
     await txn.mutate(propMutation)
 
     await txn.commit()
   }
 
   private async seedAppWithPage(txn: Txn) {
-    const mu = new Mutation()
-
     const d = {
       uid: '_:codelab_app',
       name: 'Codelab Test App',
@@ -223,9 +222,9 @@ export class SeedDbService {
       ],
     }
 
-    mu.setSetJson(d)
-
-    const mutationResult = await txn.mutate(mu)
+    const mutationResult = await txn.mutate({
+      setJson: d,
+    })
 
     // const uid = mutationResult.getUidsMap()
 

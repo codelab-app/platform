@@ -5,7 +5,7 @@ import {
   DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../element.validator'
 import { DeleteElementRequest } from './delete-element.request'
 
@@ -36,16 +36,6 @@ export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
         ? validationContext.element['~children'][0].uid
         : undefined
 
-    const extraMutations = []
-
-    if (parentId) {
-      const deleteChildMutation = new Mutation()
-      deleteChildMutation.setDelNquads(
-        `<${parentId}> <children> <${elementId}> .`,
-      )
-      extraMutations.push(deleteChildMutation)
-    }
-
     await this.dgraph.executeUpsertDeleteAll(
       txn,
       (query) =>
@@ -56,7 +46,9 @@ export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
             children: true,
             props: true,
           }),
-      extraMutations,
+      parentId
+        ? { delete: `<${parentId}> <children> <${elementId}> .` }
+        : undefined,
     )
   }
 

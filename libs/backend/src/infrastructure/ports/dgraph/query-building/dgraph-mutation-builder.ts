@@ -1,4 +1,4 @@
-import { Mutation } from 'dgraph-js'
+import { Mutation } from 'dgraph-js-http'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphTriple } from './dgraph-triple'
 import { IQueryBuilder } from './i-query-builder'
@@ -30,10 +30,9 @@ export class DgraphMutationBuilder implements IQueryBuilder {
     return compileMultiple(this._triples, { multiline: true })
   }
 
-  buildMutation() {
-    const mu = new Mutation()
-    mu.setSetNquads(this.build())
-
-    return mu
+  buildSetMutation(): Mutation {
+    return {
+      setNquads: this.build(),
+    }
   }
 }

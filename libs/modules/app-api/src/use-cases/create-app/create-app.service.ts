@@ -5,7 +5,7 @@ import {
   DgraphEntityType,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { CreateAppRequest } from './create-app.request'
 
 @Injectable()
@@ -19,9 +19,7 @@ export class CreateAppService extends DgraphCreateUseCase<CreateAppRequest> {
   protected createMutation(
     { input: { name }, ownerId }: CreateAppRequest,
     blandNodeUid: string,
-  ) {
-    const mu = new Mutation()
-
+  ): Mutation {
     const setJson: DgraphCreateMutationJson<DgraphApp> = {
       uid: blandNodeUid,
       name,
@@ -29,8 +27,6 @@ export class CreateAppService extends DgraphCreateUseCase<CreateAppRequest> {
       'dgraph.type': [DgraphEntityType.App],
     }
 
-    mu.setSetJson(setJson)
-
-    return mu
+    return { setJson }
   }
 }

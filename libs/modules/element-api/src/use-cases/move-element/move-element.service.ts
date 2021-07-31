@@ -1,6 +1,6 @@
 import { DgraphRepository, DgraphUseCase } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../element.validator'
 import { GetElementParentService } from '../get-element-parent'
 import { MoveElementInput } from './move-element.input'
@@ -26,14 +26,14 @@ export class MoveElementService extends DgraphUseCase<MoveElementRequest> {
     })
 
     // Delete the old parent-child edge and create a new one
-    const mu = new Mutation()
-    mu.setSetNquads(this.createSetMutation(input))
+    const mu: Mutation = {}
+    mu.setNquads = this.createSetMutation(input)
 
     if (
       existingParent?.uid &&
       existingParent.uid !== input.moveData.parentElementId
     ) {
-      mu.setDelNquads(this.createDeleteMutation(input, existingParent.uid))
+      mu.deleteNquads = this.createDeleteMutation(input, existingParent.uid)
     }
 
     await this.dgraph.executeMutation(txn, mu)

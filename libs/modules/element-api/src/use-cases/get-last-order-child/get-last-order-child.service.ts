@@ -7,7 +7,7 @@ import {
   DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { GetLastOrderChildInput } from './get-last-order-child.input'
 import { GetLastOrderChildResponse } from './get-last-order-child.response'
 

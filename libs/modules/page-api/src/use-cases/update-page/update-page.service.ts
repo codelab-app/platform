@@ -6,7 +6,7 @@ import {
   DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { PageValidator } from '../../page.validator'
 import { UpdatePageRequest } from './update-page.request'
 
@@ -37,7 +37,7 @@ export class UpdatePageService extends DgraphUseCase<UpdatePageRequest> {
     }: UpdatePageRequest,
     existingAppId: string,
   ) {
-    const mu = new Mutation()
+    const mu: Mutation = {}
     const setMutations = []
 
     const updatePageJson: DgraphUpdateMutationJson<DgraphPage> = {
@@ -54,10 +54,10 @@ export class UpdatePageService extends DgraphUseCase<UpdatePageRequest> {
       }
 
       setMutations.push(updateAppMutation)
-      mu.setDelNquads(`<${existingAppId}> pages <${pageId}> .`)
+      mu.deleteNquads = `<${existingAppId}> pages <${pageId}> .`
     }
 
-    mu.setSetJson(setMutations)
+    mu.setJson = setMutations
 
     return mu
   }

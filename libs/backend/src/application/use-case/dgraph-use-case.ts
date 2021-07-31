@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { DgraphRepository } from '../../infrastructure'
 import { UseCase } from './use-case'
 

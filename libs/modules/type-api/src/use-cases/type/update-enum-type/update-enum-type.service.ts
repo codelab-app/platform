@@ -6,7 +6,7 @@ import {
   DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../type.validator'
 import { UpdateEnumTypeInput } from './update-enum-type.input'
 
@@ -30,10 +30,10 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
     { typeId, updateData: { name, allowedValues } }: UpdateEnumTypeInput,
     idsToDelete: Array<string>,
   ) {
-    const mu = new Mutation()
+    const mu: Mutation = {}
 
     // Delete all EnumTypeValues that are not in the new array
-    mu.setDelNquads(`
+    mu.deleteNquads = `
       ${idsToDelete
         .map(
           (id) => `
@@ -42,10 +42,10 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
             `,
         )
         .join(' ')}
-    `)
+    `
 
     // Create or update all other
-    const updateJson: DgraphUpdateMutationJson<DgraphEnumType> = {
+    const updateEnumTypeJson: DgraphUpdateMutationJson<DgraphEnumType> = {
       uid: typeId,
       name,
       allowedValues: allowedValues.map((av) => ({
@@ -56,7 +56,7 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
       })),
     }
 
-    mu.setSetJson(updateJson)
+    mu.setJson = updateEnumTypeJson
 
     return mu
   }

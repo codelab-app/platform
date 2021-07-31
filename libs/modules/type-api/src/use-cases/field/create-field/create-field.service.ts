@@ -6,7 +6,7 @@ import {
   jsonMutation,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { FieldValidator } from '../../../field.validator'
 import { TypeValidator } from '../../../type.validator'
 import { CreateTypeService } from '../../type'

@@ -10,7 +10,7 @@ import {
 } from '@codelab/backend'
 import { AppValidator } from '@codelab/modules/app-api'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { CreatePageRequest } from './create-page.request'
 
 @Injectable()
@@ -34,8 +34,6 @@ export class CreatePageService extends DgraphCreateUseCase<CreatePageRequest> {
     { input: { appId, name } }: CreatePageRequest,
     blankNodeUid: string,
   ): Mutation {
-    const mu = new Mutation()
-
     const createPageJson: DgraphCreateMutationJson<DgraphPage> = {
       uid: blankNodeUid,
       'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.Page],
@@ -53,9 +51,9 @@ export class CreatePageService extends DgraphCreateUseCase<CreatePageRequest> {
       pages: { uid: blankNodeUid },
     }
 
-    mu.setSetJson([createPageJson, updateAppJson])
-
-    return mu
+    return {
+      setJson: [createPageJson, updateAppJson],
+    }
   }
 
   protected async validate({

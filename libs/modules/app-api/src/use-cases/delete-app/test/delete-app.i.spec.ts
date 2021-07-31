@@ -71,6 +71,8 @@ describe('DeleteApp', () => {
         getAppInput,
         { message: 'Not found' },
       )
+
+      // TODO make sure pages are deleted too
     })
   })
 })
