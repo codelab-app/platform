@@ -76,7 +76,6 @@ executor-config: &executor-config
 version: 2.1
 
 orbs:
-  compare-url: iynere/compare-url@1.2.0
   slack: circleci/slack@4.4.2
   node: circleci/node@4.1.0
   aws-cli: circleci/aws-cli@2.0.2
@@ -325,7 +324,6 @@ jobs:
       CIRCLE_REVISION: << pipeline.git.revision >>
     steps:
       - setup-workspace
-      - circle-compare-url/reconstruct
       - run: make lint-eslint
       # - run: make lint-commit-ci
       - run:
