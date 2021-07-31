@@ -227,6 +227,48 @@
         }
       }
     },
+    "ddd-core": {
+      "root": "libs/ddd/core",
+      "sourceRoot": "libs/ddd/core/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ddd/core/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ddd/core"],
+          "options": {
+            "jestConfig": "libs/ddd/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ddd-types": {
+      "root": "libs/ddd/types",
+      "sourceRoot": "libs/ddd/types/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ddd/types/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ddd/types"],
+          "options": {
+            "jestConfig": "libs/ddd/types/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "frontend-apollo": {
       "root": "libs/frontend/apollo",
       "sourceRoot": "libs/frontend/apollo/src",

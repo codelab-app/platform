@@ -13,7 +13,7 @@ import {
   GetAtomQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
-import { AtomModule } from '../../../atom.module'
+import { AtomModule } from '../../../infrastructure'
 import { createAtomInput } from '../../create-atom/test/create-atom.data'
 
 describe('GetAtom', () => {

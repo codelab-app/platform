@@ -1,6 +1,7 @@
-import { DgraphUseCase } from '@codelab/backend'
+import { DgraphRepository, DgraphUseCase } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { GetLambdaService } from '../get-lambda'
 import { ExecuteLambdaInput } from './execute-lambda.input'
 
 @Injectable()
@@ -8,18 +9,17 @@ export class ExecuteLambdaService extends DgraphUseCase<
   ExecuteLambdaInput,
   any
 > {
+  constructor(
+    dgraph: DgraphRepository,
+    private readonly getLambdaService: GetLambdaService,
+  ) {
+    super(dgraph)
+  }
+
   async executeTransaction(input: ExecuteLambdaInput, txn: Txn) {
-    console.log('execute lambda')
-    // const q = `{ getLambda(func: uid("${input.lambdaId}")){
-    //   id: uid
-    //   name: Lambda.name
-    //   body: Lambda.body
-    //   ownerId: Lambda.ownerId
-    // }}`
+    const lambda = await this.getLambdaService.executeTransaction(input, txn)
+    console.log(lambda)
 
-    // const results = await txn.query(q)
-
-    // return results.getJson().getLambda[0]
     return null
   }
 }

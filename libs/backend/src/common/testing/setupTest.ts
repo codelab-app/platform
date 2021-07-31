@@ -6,7 +6,6 @@ import {
   Type,
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { ExpressAdapter } from '@nestjs/platform-express'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
 import { DgraphService, InfrastructureModule } from '../../infrastructure'
 import {
@@ -34,13 +33,17 @@ const logErrors = (err: any, req: any, res: any, next: any) => {
 export const setupTestModule = async (
   nestModules: Array<NestModule>,
   options: TestOptions,
+  testModuleCallback: (
+    testModule: TestingModuleBuilder,
+  ) => TestingModuleBuilder = (x) => x,
 ): Promise<INestApplication> => {
   const { role = Role.GUEST, resetDb = true } = options
 
-  const testModuleBuilder: TestingModuleBuilder =
-    await Test.createTestingModule({
-      imports: [InfrastructureModule, ...nestModules],
-    })
+  let testModuleBuilder: TestingModuleBuilder = await Test.createTestingModule({
+    imports: [InfrastructureModule, ...nestModules],
+  })
+
+  testModuleBuilder = testModuleCallback(testModuleBuilder)
 
   // Mock Auth0 authentication & authorization
   if (role !== Role.GUEST) {
@@ -71,13 +74,7 @@ export const setupTestModule = async (
   }
 
   const testModule = await testModuleBuilder.compile()
-
-  const app = testModule.createNestApplication(new ExpressAdapter(), {
-    // logger: false,
-    // logger: ['log', 'error'],
-  })
-
-  app.use(logErrors)
+  const app = testModule.createNestApplication()
 
   await app.init()
 

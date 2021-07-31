@@ -8,8 +8,6 @@ import {
 import { GetTypeService } from '@codelab/modules/type-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { AtomMapper } from './atom.mapper'
-import { Atom } from './atom.model'
 import {
   CreateAtomInput,
   CreateAtomService,
@@ -19,8 +17,10 @@ import {
   GetAtomsService,
   UpdateAtomInput,
   UpdateAtomService,
-} from './use-cases'
-import { GetAtomInput } from './use-cases/get-atom/get-atom.input'
+} from '../use-cases'
+import { GetAtomInput } from '../use-cases/get-atom/get-atom.input'
+import { AtomMapper } from './atom.mapper'
+import { Atom } from './atom.model'
 
 @Resolver(() => Atom)
 @Injectable()

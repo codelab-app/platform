@@ -1,10 +1,11 @@
-import { useExecuteLambdaLazyQuery } from '@codelab/codegen/graphql'
+import { useExecuteLambdaMutation } from '@codelab/codegen/graphql'
+import { createNotificationHandler } from '@codelab/frontend/shared'
 import { Button } from 'antd'
 import React from 'react'
 import { LambdaRecord } from '../getLambdas/LambdaRecord'
 
 export const ExecuteLambdaButton = (props: LambdaRecord) => {
-  const [executeLambdaQuery, { data, loading }] = useExecuteLambdaLazyQuery({
+  const [executeLambdaMutation, { loading }] = useExecuteLambdaMutation({
     variables: {
       input: {
         lambdaId: props.id,
@@ -21,17 +22,15 @@ export const ExecuteLambdaButton = (props: LambdaRecord) => {
     <Button
       type="primary"
       onClick={() => {
-        executeLambdaQuery()
-
-        console.log(loading, data)
-        // if (data) {
-        //   createNotificationHandler({
-        //     type: 'info',
-        //     title: 'Execute result',
-        //     content: JSON.stringify(data.executeLambda?.payload),
-        //   })()
-        //   console.log(data.executeLambda?.payload)
-        // }
+        executeLambdaMutation().then(({ data }) => {
+          if (data) {
+            createNotificationHandler({
+              type: 'info',
+              title: 'Execute result',
+              content: JSON.stringify(data.executeLambda?.payload),
+            })()
+          }
+        })
       }}
     >
       Execute

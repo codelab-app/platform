@@ -1,15 +1,20 @@
+import { registerAs } from '@nestjs/config'
 import { get } from 'env-var'
+import { AwsTokens } from './aws.tokens'
 
 export interface AwsConfig {
-  AWS_ACCESS_KEY_ID: string
-  AWS_SECRET_ACCESS_KEY: string
-  AWS_REGION: string
-  AWS_BUCKET_NAME: string
+  awsAccessKeyId: string
+  awsSecretAccessKey: string
+  awsRegion: string
+  awsBucketName: string
 }
 
-export const awsConfig: AwsConfig = {
-  AWS_ACCESS_KEY_ID: get('AWS_ACCESS_KEY_ID').required().asString(),
-  AWS_SECRET_ACCESS_KEY: get('AWS_SECRET_ACCESS_KEY').required().asString(),
-  AWS_REGION: get('AWS_REGION').required().asString(),
-  AWS_BUCKET_NAME: get('AWS_BUCKET_NAME').required().asString(),
-}
+export const awsConfig = registerAs<() => AwsConfig>(
+  AwsTokens.AwsConfig.toString(),
+  () => ({
+    awsAccessKeyId: get('AWS_ACCESS_KEY_ID').required().asString(),
+    awsSecretAccessKey: get('AWS_SECRET_ACCESS_KEY').required().asString(),
+    awsRegion: get('AWS_REGION').required().asString(),
+    awsBucketName: get('AWS_BUCKET_NAME').required().asString(),
+  }),
+)

@@ -1,48 +1,69 @@
 import {
   Lambda,
-  refetchGetLambdasByLibraryIdQuery,
+  refetchGetLambdasQuery,
+  UpdateLambdaInput,
+  useGetLambdaQuery,
   useUpdateLambdaMutation,
 } from '@codelab/codegen/graphql'
 import {
   createNotificationHandler,
+  EntityType,
   FormUniforms,
+  UniFormUseCaseProps,
+  useCrudModalForm,
 } from '@codelab/frontend/shared'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
-import { DeepPartial } from 'uniforms'
-import { UpdateLambdaInput, updateLambdaSchema } from './updateLambdaSchema'
-import { updateLambdaState } from './UpdateLambdaState'
+import { AutoFields } from 'uniforms-antd'
+import { lambdaState } from '../state'
+import { updateLambdaSchema } from './updateLambdaSchema'
 
 type UpdateLambdaFormProps = {
   lambda: Lambda
 }
 
-export const UpdateLambdaForm = ({
-  lambda,
-  ...props
-}: UpdateLambdaFormProps) => {
-  const [mutate] = useUpdateLambdaMutation({
-    refetchQueries: [
-      refetchGetLambdasByLibraryIdQuery({
-        libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
-      }),
-    ],
+export const UpdateLambdaForm = (
+  props: UniFormUseCaseProps<UpdateLambdaInput>,
+) => {
+  const {
+    reset,
+    setLoading,
+    state: { updateId: updateLambdaId },
+  } = useCrudModalForm(EntityType.Lambda)
+
+  const [mutate, { loading: updateLambdaLoading }] = useUpdateLambdaMutation({
+    refetchQueries: [refetchGetLambdasQuery()],
   })
 
-  const [updateLambda, setUpdateLambda] = useRecoilState(updateLambdaState)
+  const [, setLambdaState] = useRecoilState(lambdaState)
 
-  if (!lambda) {
-    return null
-  }
+  const { data, loading } = useGetLambdaQuery({
+    variables: {
+      input: {
+        lambdaId: updateLambdaId,
+      },
+    },
+  })
 
-  const onSubmit = (submitData: DeepPartial<UpdateLambdaInput>) => {
+  const onSubmit = (submitData: UpdateLambdaInput) => {
     return mutate({
       variables: {
-        name: submitData.name as string,
-        body: submitData.body as string,
-        id: updateLambda.lambdaId,
+        input: {
+          name: submitData.name,
+          body: submitData.body,
+          id: submitData.id,
+        },
       },
     })
+  }
+
+  useEffect(() => {
+    setLoading(updateLambdaLoading)
+    setLambdaState((current) => ({ ...current, updateLambdaLoading }))
+  }, [updateLambdaLoading])
+
+  if (!data?.getLambda) {
+    return null
   }
 
   return (
@@ -52,8 +73,13 @@ export const UpdateLambdaForm = ({
       onSubmitError={createNotificationHandler({
         title: 'Error while updating lambda',
       })}
-      model={{ name: updateLambda.name, body: updateLambda.body }}
+      onSubmitSuccess={() => reset()}
+      model={{
+        ...data.getLambda,
+      }}
       {...props}
-    />
+    >
+      <AutoFields />
+    </FormUniforms>
   )
 }

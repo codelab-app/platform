@@ -4,3 +4,7 @@ fragment __Lambda on Lambda {
   body
   ownerId
 }
+
+fragment __LambdaPayload on LambdaPayload {
+  payload
+}

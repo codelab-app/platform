@@ -41,6 +41,12 @@
     "codegen-hasura": {
       "tags": []
     },
+    "ddd-core": {
+      "tags": []
+    },
+    "ddd-types": {
+      "tags": []
+    },
     "frontend-apollo": {
       "tags": []
     },

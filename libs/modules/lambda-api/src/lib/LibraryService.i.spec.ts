@@ -1,5 +1,3 @@
-import { InfrastructureModule } from '@codelab/backend'
-import { Test } from '@nestjs/testing'
 import { Lambda } from '../lambda.model'
 import { LambdaService } from '../lambda.service'
 
@@ -9,27 +7,24 @@ describe('LibraryService', () => {
   let payload: any
 
   beforeAll(async () => {
-    const app = await Test.createTestingModule({
-      imports: [InfrastructureModule],
-      providers: [LambdaService],
-    }).compile()
-
-    lambda = {
-      id: 'test-lambda-id',
-      ownerId: 'test-owner-id',
-      name: 'lambda-name-test',
-      body: `exports.handler = (event, context, callback) => {
-			  callback(null, event)
-			};`,
-    }
-
-    payload = {
-      key1: 'value1',
-      key2: 'value2',
-      key3: 'value3',
-    }
-
-    service = app.get<LambdaService>(LambdaService)
+    // const app = await Test.createTestingModule({
+    //   imports: [InfrastructureModule],
+    //   providers: [LambdaService],
+    // }).compile()
+    // lambda = {
+    //   id: 'test-lambda-id',
+    //   ownerId: 'test-owner-id',
+    //   name: 'lambda-name-test',
+    //   body: `exports.handler = (event, context, callback) => {
+    // 	  callback(null, event)
+    // 	};`,
+    // }
+    // payload = {
+    //   key1: 'value1',
+    //   key2: 'value2',
+    //   key3: 'value3',
+    // }
+    // service = app.get<LambdaService>(LambdaService)
   })
 
   // afterEach(async () => {

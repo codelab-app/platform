@@ -1,5 +1,5 @@
+import { MonacoField } from '@codelab/frontend/shared'
 import { JSONSchemaType } from 'ajv'
-import { LongTextField } from 'uniforms-antd'
 
 export type CreateLambdaInput = {
   name: string
@@ -15,7 +15,7 @@ export const createLambdaSchema: JSONSchemaType<CreateLambdaInput> = {
     },
     body: {
       type: 'string',
-      uniforms: { component: LongTextField },
+      uniforms: { component: MonacoField },
     },
   },
   required: ['name', 'body'],

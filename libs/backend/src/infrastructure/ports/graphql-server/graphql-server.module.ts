@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { GraphqlOptions } from './config/graphql-options'
 import { graphqlServerConfig } from './config/graphql-server.config'
@@ -9,7 +9,6 @@ import { graphqlServerConfig } from './config/graphql-server.config'
     GraphQLModule.forRootAsync({
       imports: [ConfigModule.forFeature(graphqlServerConfig)],
       useClass: GraphqlOptions,
-      inject: [ConfigService],
     }),
   ],
 })

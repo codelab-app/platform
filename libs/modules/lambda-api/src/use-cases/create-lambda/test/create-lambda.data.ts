@@ -1,6 +1,6 @@
 import { CreateLambdaInput } from '@codelab/codegen/graphql'
 
 export const createLambdaInput: CreateLambdaInput = {
-  name: 'Hello World',
+  name: 'HelloWorld',
   body: 'function(){ console.log("Hello World")}',
 }

@@ -1,4 +1,11 @@
-import { AwsLambdaService, AwsS3Service, AwsTokens } from '@codelab/backend'
+import {
+  AwsConfig,
+  awsConfig,
+  AwsLambdaService,
+  AwsS3Service,
+  AwsTokens,
+  LambdaPayload,
+} from '@codelab/backend'
 import { Inject, Injectable } from '@nestjs/common'
 import { Lambda } from './lambda.model'
 
@@ -8,16 +15,23 @@ import { Lambda } from './lambda.model'
 @Injectable()
 export class LambdaService {
   constructor(
+    @Inject(awsConfig.KEY) private readonly _awsConfig: AwsConfig,
     @Inject(AwsTokens.S3) private readonly awsS3Service: AwsS3Service,
     @Inject(AwsTokens.Lambda)
     private readonly awsLambdaService: AwsLambdaService,
   ) {}
 
   async createLambda(lambda: Lambda) {
-    await this.awsS3Service.createBucket(lambda.ownerId)
-    await this.awsS3Service.uploadObject(lambda)
+    try {
+      // await this.awsS3Service.createBucket(this._awsConfig.awsBucketName)
+    } catch (e) {
+      console.error(e)
+    }
+
+    await this.awsS3Service.uploadObject(this._awsConfig.awsBucketName, lambda)
 
     const createFunctionResults = await this.awsLambdaService.createFunction(
+      this._awsConfig.awsBucketName,
       lambda,
     )
 
@@ -29,22 +43,25 @@ export class LambdaService {
   }
 
   async deleteLambda(lambda: Lambda) {
-    await this.awsS3Service.removeObject(lambda)
+    await this.awsS3Service.removeObject(this._awsConfig.awsBucketName, lambda)
 
     return await this.awsLambdaService.removeFunction(lambda)
   }
 
   async updateLambda(lambda: Lambda) {
-    await this.awsS3Service.uploadObject(lambda)
+    await this.awsS3Service.uploadObject(this._awsConfig.awsBucketName, lambda)
 
-    return await this.awsLambdaService.updateFunction(lambda)
+    return await this.awsLambdaService.updateFunction(
+      this._awsConfig.awsBucketName,
+      lambda,
+    )
   }
 
-  async executeLambda(lambda: Lambda, payload: any) {
+  async executeLambda(lambda: Lambda, payload?: LambdaPayload) {
     return await this.awsLambdaService.executeFunction(lambda, payload)
   }
 
-  async deleteBucket(lambda: Lambda) {
-    return await this.awsS3Service.deleteBucket(lambda.ownerId)
-  }
+  // private async deleteBucket(lambda: Lambda) {
+  //   return await this.awsS3Service.deleteBucket(lambda.ownerId)
+  // }
 }

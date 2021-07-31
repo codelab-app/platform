@@ -13,17 +13,15 @@ export class AwsS3Service
   extends S3Client
   implements ObjectStorageRepository<Lambda>
 {
-  bucketPrefix = 'codelab-lambda'
-
   /**
    * Do nothing if bucket already exists
    *
    * @param appId
    */
-  public async createBucket(ownerId: string): Promise<void> {
+  public async createBucket(bucketId: string): Promise<void> {
     try {
       const createBucketCommand = new CreateBucketCommand({
-        Bucket: `${this.bucketPrefix}-${ownerId}`,
+        Bucket: bucketId,
       })
 
       await this.send(createBucketCommand)
@@ -32,10 +30,10 @@ export class AwsS3Service
     }
   }
 
-  public async deleteBucket(ownerId: string): Promise<void> {
+  public async deleteBucket(bucketId: string): Promise<void> {
     try {
       const createBucketCommand = new DeleteBucketCommand({
-        Bucket: `${this.bucketPrefix}-${ownerId}`,
+        Bucket: bucketId,
       })
 
       await this.send(createBucketCommand)
@@ -44,41 +42,37 @@ export class AwsS3Service
     }
   }
 
-  public async removeObject(lambda: Lambda) {
+  public async removeObject(bucketId: string, s3Object: Lambda) {
     try {
       const deleteBucketCommand = new DeleteObjectCommand({
-        Bucket: `${this.bucketPrefix}-${lambda.ownerId}`,
-        Key: lambda.id,
+        Bucket: bucketId,
+        Key: s3Object.id,
       })
 
-      const results = await this.send(deleteBucketCommand)
-
-      return results
+      await this.send(deleteBucketCommand)
     } catch (e) {
-      console.log(e)
-
-      return
+      console.error(e)
     }
   }
 
-  public async uploadObject(lambda: Lambda) {
+  public async uploadObject(bucketId: string, s3Object: Lambda) {
     const zip = new AdmZip()
 
     zip.addFile(
-      `${lambda.name}.js`,
-      Buffer.alloc(lambda.body.length, lambda.body),
+      `${s3Object.name}.js`,
+      Buffer.alloc(s3Object.body.length, s3Object.body),
     )
 
     try {
       const putObjectCommand = new PutObjectCommand({
-        Bucket: `${this.bucketPrefix}-${lambda.ownerId}`,
-        Key: lambda.id,
+        Bucket: bucketId,
+        Key: s3Object.id,
         Body: zip.toBuffer(),
       })
 
-      const results = await this.send(putObjectCommand)
+      await this.send(putObjectCommand)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 }
