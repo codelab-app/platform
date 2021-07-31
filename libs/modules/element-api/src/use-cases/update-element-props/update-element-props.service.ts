@@ -6,7 +6,7 @@ import {
 } from '@codelab/backend'
 import { GetAtomService } from '@codelab/modules/atom-api'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../element.validator'
 import { UpdateElementPropsRequest } from './update-element-props.request'
 

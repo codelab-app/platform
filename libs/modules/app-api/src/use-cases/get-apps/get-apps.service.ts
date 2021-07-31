@@ -5,7 +5,7 @@ import {
   DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { GetAppsRequest } from './get-apps.request'
 
 @Injectable()

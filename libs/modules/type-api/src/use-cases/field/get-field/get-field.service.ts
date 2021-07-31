@@ -6,7 +6,7 @@ import {
   DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { FieldByIdFilter, FieldByInterfaceFilter } from './get-field.input'
 import { GetFieldRequest } from './get-field.request'
 

@@ -5,7 +5,7 @@ import {
   jsonMutation,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { AppValidator } from '../../app.validator'
 import { UpdateAppRequest } from './update-app.request'
 

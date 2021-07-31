@@ -5,7 +5,7 @@ import {
   jsonMutation,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { getLambdaQuery } from '../../lib/getLambdaQuery'
 import { CreateLambdaRequest } from './create-lambda.request'
 

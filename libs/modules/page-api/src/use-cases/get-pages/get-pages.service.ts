@@ -8,7 +8,7 @@ import {
 } from '@codelab/backend'
 import { AppValidator } from '@codelab/modules/app-api'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { GetPagesRequest } from './get-pages.request'
 
 @Injectable()

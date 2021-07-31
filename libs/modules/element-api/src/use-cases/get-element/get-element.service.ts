@@ -6,7 +6,7 @@ import {
   DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../element.validator'
 import { GetElementRequest } from './get-element.request'
 

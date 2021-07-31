@@ -7,7 +7,7 @@ import {
   DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js'
+import { Txn } from 'dgraph-js-http'
 import { AppValidator } from '../../app.validator'
 import { AppByIdFilter, AppByPageFilter } from './get-app.input'
 import { GetAppRequest } from './get-app.request'

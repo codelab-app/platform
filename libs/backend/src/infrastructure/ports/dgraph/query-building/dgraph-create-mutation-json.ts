@@ -1,4 +1,4 @@
-import { Mutation } from 'dgraph-js'
+import { Mutation } from 'dgraph-js-http'
 import { DgraphEntity } from '../interfaces'
 
 export type MutationJsonValue<TValue> = TValue extends any | undefined
@@ -75,10 +75,8 @@ export type DgraphUpdateMutationJson<TEntity extends DgraphEntity<any>> =
 
 export const jsonMutation = <TEntity extends DgraphEntity<any>>(
   json: DgraphCreateMutationJson<TEntity> | DgraphUpdateMutationJson<TEntity>,
-) => {
-  const mu = new Mutation()
-
-  mu.setSetJson(json)
-
-  return mu
+): Mutation => {
+  return {
+    setJson: json,
+  }
 }
