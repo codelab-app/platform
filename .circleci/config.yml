@@ -35,12 +35,6 @@ filters-prod: &filters-prod
       only:
         - production
 
-# Workaround for the lack of logical "AND" for filters
-# filters-master-branch-only: &filters-master-branch-only
-#   when:
-#     and:
-#       - equal: [master, <<pipeline.git.branch>>]
-
 executor-params: &executor-params
   parameters:
     e:

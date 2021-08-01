@@ -43,18 +43,11 @@ build-dev:
 build-ci:
 	npx nx run-many \
 		--target=build \
-		--projects=api,web,cli \
+		--projects=api,web \
 		--prod \
 		--parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192
-
-build-prod:
-	npx nx run-many \
-		--target=build \
-		--projects=web,api-gateway,api-services-props \
-		--with-deps \
-		--parallel
 
 build-storybook:
 	npx nx build-storybook web
