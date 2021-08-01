@@ -830,10 +830,9 @@
         "serve-with-api": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "envFile": ".env.test",
             "commands": [
               {
-                "command": "npx env-cmd -f .env.test next start dist/apps/web --port 3001"
+                "command": "next start dist/apps/web --port 3001"
               },
               {
                 "command": "node dist/apps/api/main.js"
