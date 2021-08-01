@@ -359,7 +359,8 @@ jobs:
     steps:
       - setup-workspace
       - run: npx cypress verify
-      - run: yarn cli e2e --env ci
+      - run: make e2e-ci-affected
+      # - run: yarn cli e2e --env ci
       - notify-failure
 
   notify-success:

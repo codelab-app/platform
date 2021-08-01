@@ -827,6 +827,25 @@
             "production": {}
           }
         },
+        "serve-with-api": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "envFile": ".env.test",
+            "commands": [
+              {
+                "command": "npx env-cmd -f .env.test next start dist/apps/web --port 3001"
+              },
+              {
+                "command": "node dist/apps/api/main.js"
+              },
+              {
+                "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
+              }
+            ],
+            "parallel": true,
+            "readyWhen": "READY"
+          }
+        },
         "serve": {
           "builder": "@nrwl/next:server",
           "options": {
@@ -912,21 +931,22 @@
           "builder": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/web-e2e/cypress.json",
-            "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
-            "baseUrl": "http://127.0.0.1:3000"
+            "tsConfig": "apps/web-e2e/tsconfig.e2e.json"
           },
           "configurations": {
             "ci": {
-              "baseUrl": "http://127.0.0.1:3000",
+              "devServerTarget": "web:serve-with-api",
+              "baseUrl": "http://127.0.0.1:3001",
               "headless": true
             },
             "local": {
+              "devServerTarget": "web:serve-with-api",
               "baseUrl": "http://127.0.0.1:3001",
               "headless": true
             },
             "dev": {
-              "watch": true,
               "baseUrl": "http://127.0.0.1:3000",
+              "watch": true,
               "exit": false
             }
           }

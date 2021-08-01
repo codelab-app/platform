@@ -31,3 +31,7 @@ The end product is a highly configurable UI layer that competes with writing cod
 <!-- [Data Types](documentation/getting-started/10-data-types.md) -->
 
 <!-- [Testing](documentation/getting-started/11-testing.md) -->
+
+## Serving
+
+`nx serve web --with-deps --paralell` starts `api` as well

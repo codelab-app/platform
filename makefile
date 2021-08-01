@@ -26,10 +26,12 @@ lambda:
 		# --timeout 10 \
 		# --memory-size 1024
 
+# Next build hardcodes env vars into the compliation
+# Since this build will be used by Cypress, we'll want to use test env
 build-dev-affected:
-	npx nx affected:build \
+	npx env-cmd -f .env.test nx affected:build \
 		--maxWorkers=2 \
-		--parallel
+		--parallel \
 
 build-dev:
 	npx nx run-many \
@@ -72,14 +74,11 @@ lint-eslint:
 # E2E
 #
 
-start-ci:
-	npx concurrently \
-		--names=web,api \
-			"npx next start -p 3000 dist/apps/web" \
-			"node dist/apps/api/main.js"
+e2e-dev-affected:
+	npx env-cmd -f .env.test cross-env NODE_ENV=test nx affected:e2e --configuration local
 
-e2e-dev:
-	yarn cli e2e --env local
+e2e-ci-affected:
+	yarn affected:e2e --configuration ci
 
 #
 # INTEGRATION TESTS
@@ -119,13 +118,6 @@ test-dev-affected:
  		"make unit-dev-affected" \
 		"make integration-dev-affected"
 
-test-dev:
-	npx concurrently \
-		--names=unit,int,e2e \
- 		"make unit-dev" \
-		"make integration-dev" \
-		"make e2e-dev"
-
 #
 # UNIT TEST
 #
@@ -136,16 +128,6 @@ unit-dev-affected:
 	--maxWorkers=2 \
 	--memoryLimit=4096 \
 	--parallel
-
-unit-dev:
-	npx nx run-many \
-	--target=test \
-	--testPathPattern=[^i].spec.ts \
-	--parallel \
-	--silent \
-	--maxWorkers=2 \
-	--memoryLimit=4096 \
-	--all
 
 unit-ci:
 	npx nx run-many \
