@@ -1,29 +1,31 @@
-import { AwsTokens } from './aws.tokens'
-import { awsConfig } from './config/aws.config'
+import { AwsConfig, awsConfig } from './config/aws.config'
+import { AwsTokens } from './config/aws.tokens'
 import { AwsLambdaService } from './lambda/aws-lambda.service'
 import { AwsS3Service } from './s3/aws-s3.service'
 
 export const awsProviders = [
   {
     provide: AwsTokens.S3,
-    useFactory: () =>
+    useFactory: (_awsConfig: AwsConfig) =>
       new AwsS3Service({
-        region: awsConfig.AWS_REGION,
+        region: _awsConfig.awsRegion,
         credentials: {
-          accessKeyId: awsConfig.AWS_ACCESS_KEY_ID,
-          secretAccessKey: awsConfig.AWS_SECRET_ACCESS_KEY,
+          accessKeyId: _awsConfig.awsAccessKeyId,
+          secretAccessKey: _awsConfig.awsSecretAccessKey,
         },
       }),
+    inject: [awsConfig.KEY],
   },
   {
     provide: AwsTokens.Lambda,
-    useFactory: () =>
+    useFactory: (_awsConfig: AwsConfig) =>
       new AwsLambdaService({
-        region: awsConfig.AWS_REGION,
+        region: _awsConfig.awsRegion,
         credentials: {
-          accessKeyId: awsConfig.AWS_ACCESS_KEY_ID,
-          secretAccessKey: awsConfig.AWS_SECRET_ACCESS_KEY,
+          accessKeyId: _awsConfig.awsAccessKeyId,
+          secretAccessKey: _awsConfig.awsSecretAccessKey,
         },
       }),
+    inject: [awsConfig.KEY],
   },
 ]

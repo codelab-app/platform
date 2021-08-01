@@ -1,7 +1,8 @@
+import { MonacoField } from '@codelab/frontend/shared'
 import { JSONSchemaType } from 'ajv'
-import { LongTextField } from 'uniforms-antd'
 
 export type UpdateLambdaInput = {
+  id: string
   name: string
   body: string
 }
@@ -10,13 +11,17 @@ export const updateLambdaSchema: JSONSchemaType<UpdateLambdaInput> = {
   title: 'Update Lambda Input',
   type: 'object',
   properties: {
+    id: {
+      type: 'string',
+      disabled: true,
+    },
     name: {
       type: 'string',
     },
     body: {
       type: 'string',
-      uniforms: { component: LongTextField },
+      uniforms: { component: MonacoField },
     },
   },
-  required: ['name', 'body'],
+  required: ['id', 'name', 'body'],
 }

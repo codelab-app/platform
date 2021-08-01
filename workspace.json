@@ -227,6 +227,48 @@
         }
       }
     },
+    "ddd-core": {
+      "root": "libs/ddd/core",
+      "sourceRoot": "libs/ddd/core/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ddd/core/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ddd/core"],
+          "options": {
+            "jestConfig": "libs/ddd/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ddd-types": {
+      "root": "libs/ddd/types",
+      "sourceRoot": "libs/ddd/types/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ddd/types/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ddd/types"],
+          "options": {
+            "jestConfig": "libs/ddd/types/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "frontend-apollo": {
       "root": "libs/frontend/apollo",
       "sourceRoot": "libs/frontend/apollo/src",
@@ -785,6 +827,24 @@
             "production": {}
           }
         },
+        "serve-with-api": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "next start dist/apps/web --port 3001"
+              },
+              {
+                "command": "node dist/apps/api/main.js"
+              },
+              {
+                "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
+              }
+            ],
+            "parallel": true,
+            "readyWhen": "READY"
+          }
+        },
         "serve": {
           "builder": "@nrwl/next:server",
           "options": {
@@ -870,21 +930,22 @@
           "builder": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/web-e2e/cypress.json",
-            "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
-            "baseUrl": "http://127.0.0.1:3000"
+            "tsConfig": "apps/web-e2e/tsconfig.e2e.json"
           },
           "configurations": {
             "ci": {
-              "baseUrl": "http://127.0.0.1:3000",
+              "devServerTarget": "web:serve-with-api",
+              "baseUrl": "http://127.0.0.1:3001",
               "headless": true
             },
             "local": {
+              "devServerTarget": "web:serve-with-api",
               "baseUrl": "http://127.0.0.1:3001",
               "headless": true
             },
             "dev": {
-              "watch": true,
               "baseUrl": "http://127.0.0.1:3000",
+              "watch": true,
               "exit": false
             }
           }

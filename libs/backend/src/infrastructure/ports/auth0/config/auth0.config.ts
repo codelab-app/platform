@@ -12,7 +12,7 @@ export interface Auth0Config {
     audience: string
     clientId: string
     clientSecret: string
-    accessToken: string
+    accessToken?: string
   }
   // Cypress
   cypressUsername: string
@@ -31,8 +31,8 @@ export const auth0Config = registerAs<() => Auth0Config>(
       audience: get('AUTH0_AUDIENCE').required().asString(),
       clientId: get('AUTH0_API_CLIENT_ID').required().asString(),
       clientSecret: get('AUTH0_API_CLIENT_SECRET').required().asString(),
-      // Obtained from `clientCredentialsGrant`, updated every 30 days
-      accessToken: get('AUTH0_M2M_TOKEN').required().asString(),
+      // accessToken: get('AUTH0_M2M_TOKEN').required().asString(),
+      accessToken: get('AUTH0_M2M_TOKEN').asString(),
     },
     cypressUsername: get('CYPRESS_AUTH0_USER').required().asString(),
     cypressPassword: get('CYPRESS_AUTH0_PASSWORD').required().asString(),

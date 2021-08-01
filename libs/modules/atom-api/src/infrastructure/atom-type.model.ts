@@ -100,6 +100,9 @@ export enum AtomTypeEnum {
   AntDesignTypographyTitle = 'AntDesignTypographyTitle',
   AntDesignUpload = 'AntDesignUpload',
 
+  // React Query
+  Query = 'Query',
+
   // React
   ReactFragment = 'ReactFragment',
 

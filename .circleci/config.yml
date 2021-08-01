@@ -35,12 +35,6 @@ filters-prod: &filters-prod
       only:
         - production
 
-# Workaround for the lack of logical "AND" for filters
-# filters-master-branch-only: &filters-master-branch-only
-#   when:
-#     and:
-#       - equal: [master, <<pipeline.git.branch>>]
-
 executor-params: &executor-params
   parameters:
     e:
@@ -325,18 +319,19 @@ jobs:
     steps:
       - setup-workspace
       - run: make lint-eslint
-      - run: make lint-commit-ci
-      # - run:
-      #     name: 'Commitlint'
-      #     command: |
-      #       echo $CIRCLE_BASE_REVISION
-      #       echo $CIRCLE_REVISION
+      # - run: make lint-commit-ci
+      - run:
+          name: 'Commitlint'
+          command: |
+            echo $CIRCLE_BASE_REVISION
+            echo $CIRCLE_REVISION
+            echo $CIRCLE_SHA1
 
-      #       if [[ ! -z < ${CIRCLE_BASE_REVISION} ]]; then
-      #         npx commitlint --from=$CIRCLE_REVISION
-      #       else
-      #         npx commitlint --from=$CIRCLE_BASE_REVISION
-      #       fi
+            if [ ${CIRCLE_BASE_REVISION} == "<nil>" ]; then
+              npx commitlint --from=$CIRCLE_SHA1
+            else
+              npx commitlint --from=$CIRCLE_BASE_REVISION
+            fi
       - notify-failure
 
   unit:
@@ -358,7 +353,8 @@ jobs:
     steps:
       - setup-workspace
       - run: npx cypress verify
-      - run: yarn cli e2e --env ci
+      - run: make e2e-ci-affected
+      # - run: yarn cli e2e --env ci
       - notify-failure
 
   notify-success:

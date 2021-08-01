@@ -22,6 +22,8 @@
       "@codelab/backend": ["libs/backend/src/index.ts"],
       "@codelab/codegen/graphql": ["libs/codegen/graphql/src/index.ts"],
       "@codelab/codegen/hasura": ["libs/codegen/hasura/src/index.ts"],
+      "@codelab/ddd/core": ["libs/ddd/core/src/index.ts"],
+      "@codelab/ddd/types": ["libs/ddd/types/src/index.ts"],
       "@codelab/demo": ["libs/tools/plugins/demo/src/index.ts"],
       "@codelab/frontend/apollo": ["libs/frontend/apollo/src/index.ts"],
       "@codelab/frontend/builder": ["libs/frontend/builder/src/index.ts"],

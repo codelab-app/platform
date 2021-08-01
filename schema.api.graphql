@@ -189,6 +189,7 @@ enum AtomType {
   AntDesignTypographyText
   AntDesignTypographyTitle
   AntDesignUpload
+  Query
   ReactFragment
   HtmlA
   HtmlP
@@ -310,6 +311,10 @@ type Lambda {
   body: String!
 }
 
+type LambdaPayload {
+  payload: String!
+}
+
 type Page {
   id: ID!
   name: String!
@@ -358,7 +363,6 @@ type Query {
   getTypeGraph(input: GetTypeInput!): TypeGraph!
   getTypes(input: GetTypesInput): [Type!]!
   getLambda(input: GetLambdaInput!): Lambda
-  executeLambda(input: ExecuteLambdaInput!): Lambda!
   getLambdas: [Lambda!]!
 }
 
@@ -454,11 +458,6 @@ input GetLambdaInput {
   lambdaId: String!
 }
 
-input ExecuteLambdaInput {
-  lambdaId: String!
-  payload: String
-}
-
 type Mutation {
   createApp(input: CreateAppInput!): CreateResponse!
   updateApp(input: UpdateAppInput!): Void
@@ -488,6 +487,8 @@ type Mutation {
   deleteType(input: DeleteTypeInput!): Void
   createLambda(input: CreateLambdaInput!): Lambda!
   deleteLambda(input: DeleteLambdaInput!): Void
+  updateLambda(input: UpdateLambdaInput!): Lambda
+  executeLambda(input: ExecuteLambdaInput!): LambdaPayload
 }
 
 input CreateAppInput {
@@ -707,4 +708,18 @@ input CreateLambdaInput {
 
 input DeleteLambdaInput {
   lambdaId: String!
+}
+
+input UpdateLambdaInput {
+  """Name of the Lambda function to be executed"""
+  name: String!
+
+  """Content of the Lambda function"""
+  body: String!
+  id: String!
+}
+
+input ExecuteLambdaInput {
+  lambdaId: String!
+  payload: String
 }

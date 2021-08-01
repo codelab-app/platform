@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { AtomTypeEnum } from '../../atom-type.model'
+import { AtomTypeEnum } from '../../infrastructure/atom-type.model'
 
 @InputType()
 export class CreateAtomInput {

@@ -13,7 +13,7 @@ import {
 import { CloudFunctionsRepository } from '../../../ports/persistence'
 import { Lambda } from '../lambda.interface'
 
-interface LambdaPayload {
+export interface LambdaPayload {
   [key: string]: any
 }
 
@@ -23,10 +23,10 @@ export class AwsLambdaService
 {
   bucketPrefix = 'codelab-lambda'
 
-  async createFunction(lambda: Lambda) {
+  async createFunction(bucketId: string, lambda: Lambda) {
     const params: CreateFunctionRequest = {
       Code: {
-        S3Bucket: `${this.bucketPrefix}-${lambda.ownerId}`, // BUCKET_NAME
+        S3Bucket: bucketId, // BUCKET_NAME
         S3Key: lambda.id, // ZIP_FILE_NAME
         // ZipFile: ''
       },
@@ -45,10 +45,10 @@ export class AwsLambdaService
     try {
       const data = await this.send(new CreateFunctionCommand(params))
 
-      // console.log('Success', data)
       return data
     } catch (err) {
-      // console.log('Error', err)
+      console.error(err)
+
       return
     }
   }
@@ -62,7 +62,6 @@ export class AwsLambdaService
       const data = await this.send(new DeleteFunctionCommand(params))
 
       return data
-      // console.log('Success', data)
     } catch (err) {
       console.log('Error', err)
 
@@ -79,7 +78,6 @@ export class AwsLambdaService
       const data = await this.send(new GetFunctionCommand(params))
 
       return data
-      // console.log('Success', data)
     } catch (err) {
       console.log('Error', err)
 
@@ -87,9 +85,9 @@ export class AwsLambdaService
     }
   }
 
-  async updateFunction(lambda: Lambda) {
+  async updateFunction(bucketId: string, lambda: Lambda) {
     const params: UpdateFunctionCodeRequest = {
-      S3Bucket: `${this.bucketPrefix}-${lambda.ownerId}`,
+      S3Bucket: bucketId,
       S3Key: lambda.id,
       FunctionName: lambda.id,
     }
@@ -98,15 +96,20 @@ export class AwsLambdaService
       const data = await this.send(new UpdateFunctionCodeCommand(params))
 
       return data
-      console.log('Success', data)
     } catch (err) {
-      console.log('Error', err)
+      console.error(err)
 
       return
     }
   }
 
-  async executeFunction(lambda: Lambda, payload: LambdaPayload) {
+  /**
+   *
+   * @param lambda
+   * @param payload The json input to your lambda function
+   * @returns
+   */
+  async executeFunction(lambda: Lambda, payload?: LambdaPayload) {
     const params: InvocationRequest = {
       FunctionName: lambda.id,
       Payload: new TextEncoder().encode(JSON.stringify(payload)),

@@ -28,7 +28,6 @@ WORKDIR /usr/local/codelab
 
 COPY package.json package.json
 COPY dist dist
-COPY dgraph dgraph
 COPY scripts scripts
 COPY --from=build /usr/local/codelab/node_modules ./node_modules
 

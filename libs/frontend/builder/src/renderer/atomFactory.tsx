@@ -19,7 +19,8 @@ export const atomFactory = (
   // Switch statement instead of a map, since otherwise they would all get loaded into memory
   switch (atomType) {
     //
-    // HTML:
+    // HTML
+    //
     case AtomType.ReactFragment:
       return React.Fragment
     case AtomType.HtmlDiv:
@@ -179,7 +180,8 @@ export const atomFactory = (
     case AtomType.HtmlSup:
       return 'sup'
     //
-    // Ant design:
+    // Ant Design
+    //
     case AtomType.AntDesignIcon:
       return Icon
     case AtomType.AntDesignMenu:
@@ -394,6 +396,9 @@ export const atomFactory = (
       return ''
     case AtomType.AntDesignPageContainer:
       return ''
+    // React Query
+    // case AtomType.Query:
+    //   return Query
     default:
       return null
   }

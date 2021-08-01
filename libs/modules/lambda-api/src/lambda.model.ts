@@ -16,6 +16,7 @@ export class Lambda {
 }
 
 @ObjectType()
-export class LambdaResults {
-  declare data: string
+export class LambdaPayload {
+  @Field()
+  declare payload: string
 }

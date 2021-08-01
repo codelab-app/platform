@@ -1,5 +1,3 @@
-export * from './atom.mapper'
-export * from './atom.model'
-export * from './atom.module'
-export * from './atom-type.model'
+export * from './domain'
+export * from './infrastructure'
 export * from './use-cases'

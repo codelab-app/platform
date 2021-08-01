@@ -27,7 +27,7 @@ describe('GetLambdas', () => {
     userApp = await setupTestModule([LambdaModule], { role: Role.USER })
 
     const createLambdaInputA = createLambdaInput
-    const createLambdaInputB = { ...createLambdaInput, name: 'Hello World 2' }
+    const createLambdaInputB = { ...createLambdaInput, name: 'HelloWorld2' }
 
     const resultsA = await domainRequest<
       CreateLambdaInput,

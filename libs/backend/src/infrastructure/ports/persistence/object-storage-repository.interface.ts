@@ -1,6 +1,11 @@
-export interface ObjectStorageRepository<TObject> {
-  createBucket: (owner: string) => Promise<any>
-  deleteBucket: (owner: string) => Promise<any>
-  removeObject: (object: TObject) => Promise<any>
-  uploadObject: (object: TObject) => Promise<any>
+export interface CloudObject {
+  name: string
+  body: string
+}
+
+export interface ObjectStorageRepository<TObject extends CloudObject> {
+  createBucket: (bucketId: string) => Promise<any>
+  deleteBucket: (bucketId: string) => Promise<any>
+  removeObject: (bucketId: string, cloudObject: TObject) => Promise<any>
+  uploadObject: (bucketId: string, cloudObject: TObject) => Promise<any>
 }

@@ -1,0 +1,5 @@
+mutation UpdateLambda($input: UpdateLambdaInput!) {
+  updateLambda(input: $input) {
+    ...__Lambda
+  }
+}
