@@ -1,5 +1,10 @@
 import '@testing-library/cypress/add-commands'
-import { CreateAppGql, CreateAppInput } from '@codelab/codegen/graphql'
+import {
+  CreateAppGql,
+  CreateAppInput,
+  DeleteAppGql,
+  DeleteAppInput,
+} from '@codelab/codegen/graphql'
 import { Library_Insert_Input } from '@codelab/codegen/hasura'
 import { AtomType } from '@codelab/frontend/shared'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
@@ -31,6 +36,7 @@ declare global {
       dGraphGraphqlRequest: typeof dGraphGraphqlRequest
       /** Creates an app for the current logged in user */
       createApp: typeof createApp
+      deleteApp: typeof deleteApp
       createAtom: typeof createAtom
       deleteAllAtoms: typeof deleteAllAtoms
       createComponent: typeof createComponent
@@ -64,6 +70,14 @@ declare global {
         text: Matcher,
         options?: SelectorMatcherOptions,
       ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
+      findSettingsButtonByPageName: (
+        text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => Cypress.Chainable<JQuery<HTMLElement>>
+      findDeleteButtonByPageName: (
+        text: Matcher,
+        options?: SelectorMatcherOptions,
+      ) => Cypress.Chainable<JQuery<HTMLElement>>
       findMainPaneButtonByItemName: (
         pageName: Matcher,
         settingTitle: string,
@@ -134,6 +148,17 @@ const createApp = (input: CreateAppInput = defaultCreateAppInput) => {
 }
 
 Cypress.Commands.add('createApp', createApp)
+
+const deleteApp = (input: DeleteAppInput) => {
+  return cy
+    .graphqlRequest({
+      query: print(DeleteAppGql),
+      variables: { input },
+    })
+    .then((r) => r.body.data)
+}
+
+Cypress.Commands.add('deleteApp', deleteApp)
 
 const createPage = (appId: string, pageName = 'default') => {
   return new Promise((resolve, reject) => reject('not implemeneted'))
@@ -317,6 +342,44 @@ Cypress.Commands.add(
     prevSubject: 'optional',
   },
   findSettingsButtonByAppName,
+)
+
+export const findSettingsButtonByPageName = (
+  subject: any,
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+  return (subject ? cy.wrap(subject) : cy)
+    .findByText(text, { exact: true, timeout: 0, ...options })
+    .closest('.ant-list-item')
+    .find('.anticon-setting')
+}
+
+Cypress.Commands.add(
+  'findSettingsButtonByPageName',
+  {
+    prevSubject: 'optional',
+  },
+  findSettingsButtonByPageName,
+)
+
+export const findDeleteButtonByPageName = (
+  subject: any,
+  text: Matcher,
+  options?: SelectorMatcherOptions,
+): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
+  return (subject ? cy.wrap(subject) : cy)
+    .findByText(text, { exact: true, timeout: 0, ...options })
+    .closest('.ant-list-item')
+    .find('.anticon-delete')
+}
+
+Cypress.Commands.add(
+  'findDeleteButtonByPageName',
+  {
+    prevSubject: 'optional',
+  },
+  findDeleteButtonByPageName,
 )
 
 Cypress.Commands.add(
