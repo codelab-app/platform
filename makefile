@@ -30,6 +30,7 @@ lambda:
 # Since this build will be used by Cypress, we'll want to use test env
 build-dev-affected:
 	npx env-cmd -f .env.test nx affected:build \
+    --prod \
 		--maxWorkers=2 \
 		--parallel \
 
@@ -76,15 +77,6 @@ e2e-ci-affected:
 #
 # INTEGRATION TESTS
 #
-integration-dev:
-	npx nx-test-env run-many \
-	--target=test \
-	--maxWorkers=2 \
-	--memoryLimit=4096 \
-	--testPathPattern=i.spec.ts \
-	--runInBand \
-	--all
-
 integration-dev-affected:
 	yarn nx-test-env affected:test \
 	--testPathPattern=i.spec.ts \

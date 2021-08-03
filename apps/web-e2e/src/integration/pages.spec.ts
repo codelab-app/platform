@@ -1,34 +1,32 @@
 describe('Pages', () => {
   let appId: string
-  let pageId: string
-
-  const openPagesTab = () => {
-    cy.getPaneMain().findByTitle('Pages').click()
-  }
+  const pageName = 'new useful page'
+  const updatedPageName = 'updated page'
 
   before(() => {
     cy.clearCookies()
     cy.login().then(() => {
       cy.createApp().then((app: any) => {
         appId = app.id
-        pageId = app.pages[0].id
       })
+    })
+  })
+  after(() => {
+    cy.deleteApp({
+      appId,
     })
   })
 
   beforeEach(() => {
-    Cypress.Cookies.preserveOnce('appSession')
-    cy.getSpinner().should('not.exist')
+    cy.login()
   })
 
   describe('create', () => {
     before(() => {
-      cy.visit(`/apps/${appId}/pages/${pageId}`)
-      openPagesTab()
+      cy.visit(`/apps/${appId}/pages`)
     })
 
     it('should be able to create page', () => {
-      const pageName = 'new useful page'
       cy.findAllByText(pageName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )
@@ -46,19 +44,8 @@ describe('Pages', () => {
   })
 
   describe('update', () => {
-    const pageName = 'page for update'
-    before(() => {
-      cy.createPage(appId, pageName)
-      cy.visit(`/apps/${appId}/pages/${pageId}`)
-      openPagesTab()
-    })
-
-    const updatedPageName = 'updated page'
-
     it('should be able to update page name', () => {
-      cy.findMainPaneButtonByItemName(pageName, 'Settings', {
-        timeout: 2000,
-      }).click()
+      cy.findSettingsButtonByPageName(pageName).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal().findByLabelText('Name').clear().type(updatedPageName)
@@ -74,25 +61,15 @@ describe('Pages', () => {
   })
 
   describe('delete', () => {
-    const pageName = 'page for delete'
-    before(() => {
-      cy.createPage(appId, pageName)
-      cy.visit(`/apps/${appId}/pages/${pageId}`)
-      openPagesTab()
-    })
-
     it('should be able to delete page', () => {
-      cy.findMainPaneButtonByItemName(pageName, 'Delete', {
-        timeout: 2000,
-      }).click()
+      cy.findDeleteButtonByPageName(updatedPageName).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
         .findByButtonText(/delete page/i)
         .click()
 
-      cy.findAllByText(pageName).should('not.exist')
+      cy.findAllByText(updatedPageName).should('not.exist')
     })
   })
-  // describe('update', () => {})
 })
