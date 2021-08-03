@@ -10,5 +10,5 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true
   },
-  "include": ["./scripts/**/*.ts"]
+  "include": ["./**/*.ts"]
 }

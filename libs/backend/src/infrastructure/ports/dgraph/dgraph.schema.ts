@@ -25,126 +25,124 @@ const {
 } = DgraphEntityType
 
 export const dgraphSchema = `
+  type ${Tree} {
+    name
+    root
+  }
 
-    type ${Tree} {
-       name
-       root
-    }
+  type ${Node} {
+    name
+    children
+  }
 
-    type ${Node} {
-       name
-       children
-    }
+  type ${App} {
+    ownerId
+    name
+    pages
+  }
 
-    type ${App} {
-       ownerId
-       name
-       pages
-    }
+  type ${Page} {}
 
-    type ${Page} {}
+  type ${Component} {}
 
-    type ${Component} {}
+  type ${Library} {
+    ownerId
+    name
+    atoms
+    components
+  }
 
-    type ${Library} {
-      ownerId
-      name
-      atoms
-      components
-    }
+  type ${Element} {
+    component
+    atom
+    props
+    css
+  }
 
-    type ${Element} {
-      component
-      atom
-      props
-      css
-    }
+  type ${Atom} {
+    name
+    atomType
+    api
+  }
 
-    type ${Atom} {
-      name
-      atomType
-      api
-    }
+  type ${Type} {
+    name
+  }
 
+  type ${PrimitiveType} {
+    primitiveKind
+  }
 
-   type ${Type} {
-      name
-   }
+  type ${ArrayType} {
+    itemType
+  }
 
-   type ${PrimitiveType} {
-      primitiveKind
-   }
+  type ${EnumTypeValue} {
+    name
+    stringValue
+  }
 
-   type ${ArrayType} {
-      itemType
-   }
+  type ${EnumType} {
+    allowedValues
+  }
 
-   type ${EnumTypeValue} {
-      name
-      stringValue
-   }
+  type ${InterfaceType} {
+    fields
+  }
 
-   type ${EnumType} {
-      allowedValues
-   }
+  type ${Field} {
+    type
+    key
+    name
+    description
+  }
 
-   type ${InterfaceType} {
-      fields
-   }
+  type ${Lambda} {
+    ownerId
+    name
+    body
+  }
 
-   type ${Field} {
-      type
-      key
-      name
-      description
-   }
+  name: string @index(term) .
+  description: string .
 
-   type ${Lambda} {
-      ownerId
-      name
-      body
-   }
+  children: [uid] @reverse .
 
-   name: string @index(term) .
-   description: string .
+  ownerId: string @index(hash) .
+  pages: [uid] @reverse .
 
-   children: [uid] @reverse .
+  component: uid @reverse .
+  atom: uid @reverse .
+  props: string .
+  css: string .
 
-   ownerId: string @index(hash) .
-   pages: [uid] @reverse .
+  root: uid @reverse .
 
-   component: uid @reverse .
-   atom: uid @reverse .
-   props: string .
-   css: string .
+  atoms: [uid] @reverse .
+  components: [uid] @reverse .
 
-   root: uid @reverse .
+  atomType: string @index(term) .
+  api: uid @reverse .
 
-   atoms: [uid] @reverse .
-   components: [uid] @reverse .
+  primitiveKind: string .
+  itemType: uid .
 
-   atomType: string @index(term) .
-   api: uid @reverse .
+  stringValue: string .
+  intValue: int .
+  floatValue: float .
+  booleanValue: bool .
 
-   primitiveKind: string .
-   itemType: uid .
+  values: [uid] .
 
-   stringValue: string .
-   intValue: int .
-   floatValue: float .
-   booleanValue: bool .
+  allowedValues: [uid] @reverse .
 
-   values: [uid] .
+  fields: [uid] @reverse .
 
-   allowedValues: [uid] @reverse .
+  type: uid @reverse .
+  key: string @index(term) .
 
-   fields: [uid] @reverse .
+  field: uid @reverse .
+  value: uid @reverse .
 
-   type: uid @reverse .
-   key: string @index(term) .
-
-   field: uid @reverse .
-   value: uid @reverse .
-
-   body: string .
+  body: string .
 `

@@ -1,24 +1,8 @@
 {
   "presets": [
-    // "@babel/preset-react",
-    // "@babel/preset-typescript",
-    // "@babel/preset-env",
-    // Don't use `@nrwl/next/babel`, has preset merging issues
     "@nrwl/next/babel",
     // Need to to use `css` property for tailwind
     "@emotion/babel-preset-css-prop"
-    // [
-    //   "@nrwl/next/babel",
-    //   {
-    //     "useBuiltIns": "usage",
-    //     "corejs": 3
-    //   }
-    // ]
   ],
-  "plugins": [
-    "@emotion",
-    "macros"
-    // ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    // "@babel/plugin-proposal-nullish-coalescing-operator"
-  ]
+  "plugins": ["@emotion", "macros"]
 }

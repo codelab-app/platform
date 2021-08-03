@@ -3,8 +3,8 @@ import { DgraphEntity } from './core'
 import { DgraphType } from './types'
 
 export interface DgraphField extends DgraphEntity<DgraphEntityType.Field> {
-  type: DgraphType<any>
+  type: DgraphType<DgraphEntityType>
   key: string
-  name: string
+  name?: string
   description?: string
 }

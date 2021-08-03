@@ -40,6 +40,7 @@
         "simple-import-sort/exports": "error",
         "import/newline-after-import": "error",
         "import/first": "error",
+        "import/no-cycle": ["error", { "ignoreExternal": true }],
         "import/no-duplicates": "error",
         "prettier/prettier": "error",
         "func-style": "error",
@@ -127,6 +128,7 @@
       "rules": {
         "curly": "error",
         "@typescript-eslint/no-explicit-any": "off",
+        "import/no-cycle": "error",
         "@typescript-eslint/ban-types": [
           "error",
           {

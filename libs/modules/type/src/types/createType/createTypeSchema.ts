@@ -1,10 +1,10 @@
 import { CreateTypeInput } from '@codelab/codegen/graphql'
+import { TypeKind } from '@codelab/ddd/types'
 import { JSONSchemaType } from 'ajv'
 import {
   BaseTypeMutationSchema,
   baseTypeMutationSchemaProperties,
   mapTypeSchemaToTypeInput,
-  TypeKind,
 } from '../../shared'
 
 export interface CreateTypeSchema extends BaseTypeMutationSchema {
@@ -36,7 +36,7 @@ export const mapCreateTypeSchemaToTypeInput = (
   const common: Pick<CreateTypeInput, 'name'> = { name: typeSchema.name }
 
   switch (kind) {
-    case TypeKind.Array:
+    case TypeKind.ArrayType:
       if (!typeSchema.arrayItemTypeId) {
         throw new Error('Array item type not set')
       }

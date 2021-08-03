@@ -25,11 +25,6 @@ interface TestOptions {
   resetDb?: boolean
 }
 
-const logErrors = (err: any, req: any, res: any, next: any) => {
-  console.error(err)
-  next(err)
-}
-
 export const setupTestModule = async (
   nestModules: Array<NestModule>,
   options: TestOptions,

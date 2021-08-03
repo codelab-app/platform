@@ -1,16 +1,10 @@
+import { TypeKind } from '@codelab/ddd/types'
 import { Field, InputType, registerEnumType } from '@nestjs/graphql'
 
 @InputType()
 export class TypesByIdsFilter {
   @Field(() => [String])
   declare typeIds: Array<string>
-}
-
-export enum TypeKind {
-  Primitive = 'Primitive',
-  Array = 'Array',
-  Interface = 'InterfaceType',
-  Enum = 'Enum',
 }
 
 registerEnumType(TypeKind, { name: 'TypeKindFilter' })
