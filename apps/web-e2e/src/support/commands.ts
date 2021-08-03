@@ -60,6 +60,7 @@ declare global {
       getSelectOptionsContent: typeof getSelectOptionsContent
       getSelectDropdown: typeof getSelectDropdown
       getSelectOptionItemByValue: typeof getSelectOptionItemByValue
+      getOptionItem: typeof getOptionItem
       getSpinner: typeof getSpinner
       getOpenedModal: typeof getOpenedModal
       getPaneMain: (
@@ -293,6 +294,16 @@ export const getSelectOptionItemByValue = (
 }
 
 Cypress.Commands.add('getSelectOptionItemByValue', getSelectOptionItemByValue)
+
+export const getOptionItem = (text: string): Cypress.Chainable<JQuery> => {
+  return cy
+    .getSelectDropdown()
+    .find('.rc-virtual-list')
+    .contains(text)
+    .closest('.ant-select-item')
+}
+
+Cypress.Commands.add('getOptionItem', getOptionItem)
 
 const deleteAllAtoms = () => {
   return new Promise((resolve, reject) => reject('not implemeneted'))
