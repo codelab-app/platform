@@ -1,8 +1,11 @@
+import { PrimitiveKind } from '@codelab/codegen/graphql'
+import { TypeKind } from '@codelab/ddd/types'
+
 describe('Types', () => {
   // Primitive Type use case
   const primitiveTypeName = 'Text'
-  const primitiveTypeKind = 'Primitive'
-  const primitiveTypePrimitiveKind = 'String'
+  const primitiveTypeKind = TypeKind.PrimitiveType
+  const primitiveTypePrimitiveKind = PrimitiveKind.String
   // Enum Type use case
   const enumTypeName = 'COLORS'
   const enumTypeKind = 'Enum'
@@ -14,12 +17,12 @@ describe('Types', () => {
 
   // Array Type use case
   const arrayTypeName = 'TextArray'
-  const arrayTypeKind = 'Array'
+  const arrayTypeKind = TypeKind.ArrayType
   const arrayItemType = 'Text'
   const updatedArrayTypeName = 'Updated TextArray'
   // Interface Type use case
   const interfaceTypeName = 'New Interface'
-  const interfaceTypeKind = 'Object'
+  const interfaceTypeKind = TypeKind.InterfaceType
 
   const findEditButtonByTypeName = (text: string) =>
     cy

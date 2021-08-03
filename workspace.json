@@ -832,7 +832,7 @@
           "options": {
             "commands": [
               {
-                "command": "next start dist/apps/web --port 3001"
+                "command": "npx next start dist/apps/web --port 3001"
               },
               {
                 "command": "node dist/apps/api/main.js"
@@ -936,12 +936,14 @@
             "ci": {
               "devServerTarget": "web:serve-with-api",
               "baseUrl": "http://127.0.0.1:3001",
-              "headless": true
+              "headless": true,
+              "record": false
             },
             "local": {
               "devServerTarget": "web:serve-with-api",
               "baseUrl": "http://127.0.0.1:3001",
-              "headless": true
+              "headless": true,
+              "record": false
             },
             "dev": {
               "baseUrl": "http://127.0.0.1:3000",
