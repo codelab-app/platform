@@ -5,6 +5,7 @@
     "outDir": "../../../dist/out-tsc",
     "declaration": true,
     "types": ["node"],
+    "composite": true,
     "target": "es6",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

@@ -638,7 +638,7 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/modules/user/**/*.{ts,tsx,js,jsx,graphql}"
+              "libs/modules/type-api/**/*.{ts,tsx,js,jsx,graphql}"
             ]
           }
         },

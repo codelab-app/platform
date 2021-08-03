@@ -1,6 +1,6 @@
+import { PrimitiveKind } from '@codelab/backend'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Type } from '../type.model'
-import { PrimitiveKind } from './primitive-kind.model'
 
 /**
  * A wrapper for a PrimitiveKind. It's needed because

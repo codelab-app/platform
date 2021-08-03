@@ -70,7 +70,7 @@ export class TypeValidator {
       )
 
       if (fields.length) {
-        throw new TypeIsUsedError(fields.map((f) => f.name))
+        throw new TypeIsUsedError(fields.map((f) => `${f.name}`))
       }
     }
   }
@@ -123,7 +123,7 @@ export class TypeValidator {
       if (instanceOfDgraphModel(next, DgraphEntityType.ArrayType)) {
         queue.push((next as DgraphArrayType).itemType)
       } else if (instanceOfDgraphModel(next, DgraphEntityType.InterfaceType)) {
-        queue.push(...(next as DgraphInterfaceType).fields.map((f) => f.type))
+        queue.push(...(next as DgraphInterfaceType).fields?.map((f) => f.type))
       }
 
       itemCheckIteration++

@@ -11,8 +11,8 @@ export class Field {
   @GraphqlField()
   declare key: string
 
-  @GraphqlField()
-  declare name: string
+  @GraphqlField({ nullable: true })
+  declare name?: string
 
   @GraphqlField(() => String, { nullable: true })
   declare description: string | null
@@ -20,7 +20,7 @@ export class Field {
   constructor(
     id: string,
     key: string,
-    name: string,
+    name: string | undefined,
     description: string | null,
   ) {
     this.id = id

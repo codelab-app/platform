@@ -2,6 +2,7 @@ import {
   refetchGetTypesQuery,
   useCreateTypeMutation,
 } from '@codelab/codegen/graphql'
+import { TypeKind } from '@codelab/ddd/types'
 import {
   createNotificationHandler,
   DisplayIfField,
@@ -12,7 +13,7 @@ import {
 } from '@codelab/frontend/shared'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { TypeKind, TypeSelect } from '../../shared'
+import { TypeSelect } from '../../shared'
 import {
   CreateTypeSchema,
   createTypeSchema,
@@ -55,15 +56,15 @@ export const CreateTypeForm = (
     >
       <AutoFields fields={['name', 'kind']} />
 
-      <DisplayIfKind kind={TypeKind.Primitive}>
+      <DisplayIfKind kind={TypeKind.PrimitiveType}>
         <AutoField name={'primitiveKind'} />
       </DisplayIfKind>
 
-      <DisplayIfKind kind={TypeKind.Enum}>
+      <DisplayIfKind kind={TypeKind.EnumType}>
         <AutoField name={'allowedValues'} />
       </DisplayIfKind>
 
-      <DisplayIfKind kind={TypeKind.Array}>
+      <DisplayIfKind kind={TypeKind.ArrayType}>
         <TypeSelect name={'arrayItemTypeId'} label="Array item type" />
       </DisplayIfKind>
     </FormUniforms>

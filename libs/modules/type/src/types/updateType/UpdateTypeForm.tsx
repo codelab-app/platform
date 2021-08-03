@@ -5,6 +5,7 @@ import {
   useUpdatePrimitiveTypeMutation,
   useUpdateTypeMutation,
 } from '@codelab/codegen/graphql'
+import { TypeKind } from '@codelab/ddd/types'
 import {
   createNotificationHandler,
   EntityType,
@@ -14,20 +15,19 @@ import {
 } from '@codelab/frontend/shared'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { TypeKind } from '../../shared'
 import { TypeModels } from '../TypeModels'
 import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
 
 const typenameToKind = (typename: string) => {
   switch (typename) {
     case TypeModels.InterfaceType:
-      return TypeKind.Interface
+      return TypeKind.InterfaceType
     case TypeModels.PrimitiveType:
-      return TypeKind.Primitive
+      return TypeKind.PrimitiveType
     case TypeModels.ArrayType:
-      return TypeKind.Array
+      return TypeKind.ArrayType
     case TypeModels.EnumType:
-      return TypeKind.Enum
+      return TypeKind.EnumType
   }
 
   throw new Error("Can't recognize typename of type")
@@ -66,7 +66,7 @@ export const UpdateTypeForm = (
       const kind = typenameToKind(state?.metadata?.__typename)
 
       switch (kind) {
-        case TypeKind.Primitive:
+        case TypeKind.PrimitiveType:
           if (!submitData.primitiveKind) {
             throw new Error('Primitive type not set')
           }
@@ -82,7 +82,7 @@ export const UpdateTypeForm = (
               },
             },
           })
-        case TypeKind.Enum:
+        case TypeKind.EnumType:
           if (!submitData.allowedValues) {
             throw new Error('Allowed values not set')
           }
@@ -152,8 +152,8 @@ export const UpdateTypeForm = (
     >
       <AutoFields fields={['name']} />
 
-      {kind === TypeKind.Primitive && <AutoField name={'primitiveKind'} />}
-      {kind === TypeKind.Enum && <AutoField name={'allowedValues'} />}
+      {kind === TypeKind.PrimitiveType && <AutoField name={'primitiveKind'} />}
+      {kind === TypeKind.EnumType && <AutoField name={'allowedValues'} />}
     </FormUniforms>
   )
 }

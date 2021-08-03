@@ -1,8 +1,9 @@
 import { DgraphEntityType, DgraphType, DgraphUseCase } from '@codelab/backend'
+import { TypeKind } from '@codelab/ddd/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { getTypeQuery } from '../get-type'
-import { GetTypesInput, TypeKind, TypesByKindFilter } from './get-types.input'
+import { GetTypesInput, TypesByKindFilter } from './get-types.input'
 
 @Injectable()
 export class GetTypesService extends DgraphUseCase<
@@ -33,13 +34,13 @@ export class GetTypesService extends DgraphUseCase<
     }
 
     switch (filter.kind) {
-      case TypeKind.Primitive:
+      case TypeKind.PrimitiveType:
         return DgraphEntityType.PrimitiveType
-      case TypeKind.Array:
+      case TypeKind.ArrayType:
         return DgraphEntityType.ArrayType
-      case TypeKind.Interface:
+      case TypeKind.InterfaceType:
         return DgraphEntityType.InterfaceType
-      case TypeKind.Enum:
+      case TypeKind.EnumType:
         return DgraphEntityType.EnumType
       default:
         throw new Error('Unrecognized type kind option')

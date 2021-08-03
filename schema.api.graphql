@@ -21,7 +21,7 @@ type App {
 type Field {
   id: ID!
   key: String!
-  name: String!
+  name: String
   description: String
 }
 
@@ -448,10 +448,10 @@ input TypesByKindFilter {
 }
 
 enum TypeKindFilter {
-  Primitive
-  Array
-  Interface
-  Enum
+  PrimitiveType
+  ArrayType
+  InterfaceType
+  EnumType
 }
 
 input GetLambdaInput {

@@ -326,12 +326,8 @@ jobs:
             echo $CIRCLE_BASE_REVISION
             echo $CIRCLE_REVISION
             echo $CIRCLE_SHA1
+            ./scripts/lint/commitlint-ci.sh
 
-            if [ ${CIRCLE_BASE_REVISION} == "<nil>" ]; then
-              npx commitlint --from=$CIRCLE_SHA1
-            else
-              npx commitlint --from=$CIRCLE_BASE_REVISION
-            fi
       - notify-failure
 
   unit:

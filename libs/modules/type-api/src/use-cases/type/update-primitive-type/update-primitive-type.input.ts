@@ -1,5 +1,5 @@
+import { PrimitiveKind } from '@codelab/backend'
 import { Field, InputType } from '@nestjs/graphql'
-import { PrimitiveKind } from '../../../models'
 
 @InputType()
 export class UpdatePrimitiveKindData {
