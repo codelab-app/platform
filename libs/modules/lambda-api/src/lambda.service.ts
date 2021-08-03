@@ -23,7 +23,7 @@ export class LambdaService {
 
   async createLambda(lambda: Lambda) {
     try {
-      // await this.awsS3Service.createBucket(this._awsConfig.awsBucketName)
+      await this.awsS3Service.createBucket(this._awsConfig.awsBucketName)
     } catch (e) {
       console.error(e)
     }
