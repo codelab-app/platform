@@ -70,7 +70,7 @@ declare global {
         text: Matcher,
         options?: SelectorMatcherOptions,
       ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
-      findSettingsButtonByPageName: (
+      findEditButtonByPageName: (
         text: Matcher,
         options?: SelectorMatcherOptions,
       ) => Cypress.Chainable<JQuery<HTMLElement>>
@@ -342,7 +342,7 @@ Cypress.Commands.add(
   findSettingsButtonByAppName,
 )
 
-export const findSettingsButtonByPageName = (
+export const findEditButtonByPageName = (
   subject: any,
   text: Matcher,
   options?: SelectorMatcherOptions,
@@ -350,15 +350,15 @@ export const findSettingsButtonByPageName = (
   return (subject ? cy.wrap(subject) : cy)
     .findByText(text, { exact: true, timeout: 0, ...options })
     .closest('.ant-list-item')
-    .find('.anticon-setting')
+    .find('.anticon-edit')
 }
 
 Cypress.Commands.add(
-  'findSettingsButtonByPageName',
+  'findEditButtonByPageName',
   {
     prevSubject: 'optional',
   },
-  findSettingsButtonByPageName,
+  findEditButtonByPageName,
 )
 
 export const findDeleteButtonByPageName = (

@@ -46,7 +46,6 @@ describe('Types', () => {
   })
 
   beforeEach(() => {
-    cy.clearCookies()
     cy.login().then(() => {
       cy.visit(`/types`)
       cy.get('.ant-table-cell', { timeout: 30000 })
