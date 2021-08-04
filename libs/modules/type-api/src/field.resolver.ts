@@ -1,6 +1,7 @@
 import { CreateResponse, GqlAuthGuard, Void } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { FieldMapper } from './mappers'
 import { Field } from './models'
 import {
   CreateFieldInput,
@@ -21,6 +22,7 @@ export class FieldResolver {
     private getFieldService: GetFieldService,
     private updateFieldService: UpdateFieldService,
     private deleteFieldService: DeleteFieldService,
+    private fieldMapper: FieldMapper,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -33,8 +35,10 @@ export class FieldResolver {
 
   @Query(() => Field, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  getField(@Args('input') input: GetFieldInput) {
-    return this.getFieldService.execute({ input })
+  async getField(@Args('input') input: GetFieldInput) {
+    const field = await this.getFieldService.execute({ input })
+
+    return field && this.fieldMapper.map(field)
   }
 
   @Mutation(() => Void, { nullable: true })
