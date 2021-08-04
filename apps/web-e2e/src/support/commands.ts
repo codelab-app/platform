@@ -83,9 +83,18 @@ declare global {
         settingTitle: string,
         options?: SelectorMatcherOptions,
       ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
+      preserveAuthCookies(): void
     }
   }
 }
+
+const preserveAuthCookies = () => {
+  Cypress.Cookies.preserveOnce('appSession')
+  Cypress.Cookies.preserveOnce('appSession.0')
+  Cypress.Cookies.preserveOnce('appSession.1')
+}
+
+Cypress.Commands.add('preserveAuthCookies', preserveAuthCookies)
 
 const graphqlRequest = (body: string | Record<string, any>) =>
   cy.request({

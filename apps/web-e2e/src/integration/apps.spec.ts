@@ -1,15 +1,15 @@
 describe('Apps CRUD', () => {
   before(() => {
     // cy.clearCookies()
-    cy.login()
+    cy.login().then(() => {
+      cy.preserveAuthCookies()
+      cy.visit('/apps')
+      cy.getSpinner().should('not.exist')
+    })
   })
 
   beforeEach(() => {
-    cy.login().then(() => {
-      cy.visit('/apps')
-      // Cypress.Cookies.preserveOnce('appSession')
-      cy.getSpinner().should('not.exist')
-    })
+    cy.preserveAuthCookies()
   })
 
   const appName = 'new app'

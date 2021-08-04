@@ -19,11 +19,12 @@ describe('Atoms', () => {
 
   before(() => {
     cy.clearCookies()
+    cy.preserveAuthCookies()
     cy.login()
   })
 
   beforeEach(() => {
-    cy.login()
+    cy.preserveAuthCookies()
   })
 
   describe('create', () => {

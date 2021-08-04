@@ -39,6 +39,8 @@ describe('Types', () => {
       .closest('button')
 
   before(() => {
+    cy.preserveAuthCookies()
+    cy.login()
     // cy.clearCookies()
     // cy.login().then(() => {
     //   cy.visit(`/types`)
@@ -46,10 +48,9 @@ describe('Types', () => {
   })
 
   beforeEach(() => {
-    cy.login().then(() => {
-      cy.visit(`/types`)
-      cy.get('.ant-table-cell', { timeout: 30000 })
-    })
+    cy.preserveAuthCookies()
+    cy.visit(`/types`)
+    cy.get('.ant-table-cell', { timeout: 30000 })
   })
 
   describe('create type', () => {

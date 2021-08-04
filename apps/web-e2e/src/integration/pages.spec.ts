@@ -5,6 +5,8 @@ describe('Pages', () => {
 
   before(() => {
     cy.clearCookies()
+    cy.preserveAuthCookies()
+
     cy.login().then(() => {
       cy.createApp().then((app: any) => {
         appId = app.id
@@ -18,7 +20,7 @@ describe('Pages', () => {
   })
 
   beforeEach(() => {
-    cy.login()
+    cy.preserveAuthCookies()
   })
 
   describe('create', () => {
