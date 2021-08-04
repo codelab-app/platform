@@ -60,4 +60,33 @@ const argv = yargs(hideBin(process.argv))
     (yargs) => yargs,
     (argv) => runCli(Env.Dev, `${argv._[0]}`),
   )
+  //
+  // Dgraph
+  //
+  .command(
+    'dgraph',
+    'Run dgraph related command',
+    (yargs) =>
+      yargs
+        .command(
+          'update-scheme',
+          'Update dgraph scheme',
+          (yargs) =>
+            yargs
+              .option(ENV_FLAG, envOption)
+              .demandOption([ENV_FLAG], 'Please provide an environment'),
+          (argv) => runCli(argv.env as any, `${argv._[0]} ${argv._[1]} --env ${argv.env}`),
+        )
+        .command(
+          'reset-data',
+          'Reset dgraph data',
+          (yargs) =>
+            yargs
+              .option(ENV_FLAG, envOption)
+              .demandOption([ENV_FLAG], 'Please provide an environment'),
+          (argv) => runCli(argv.env as any, `${argv._[0]} ${argv._[1]} --env ${argv.env}`),
+        )
+        .demandCommand(1, 'Please provide a dgraph command').argv
+
+  )
   .demandCommand(1, 'Please provide a command').argv
