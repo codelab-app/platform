@@ -4,7 +4,7 @@ import {
   AppContext,
   EntityType,
   ListItemDeleteButton,
-  ListItemSettingsButton,
+  ListItemEditButton,
   PageType,
   useCrudModalForm,
 } from '@codelab/frontend/shared'
@@ -45,7 +45,7 @@ export const GetPagesList = () => {
               </Link>
             </Space>
             <Space>
-              <ListItemSettingsButton
+              <ListItemEditButton
                 onClick={() => openUpdateModal(page.id, page)}
               />
               <ListItemDeleteButton

@@ -9,10 +9,6 @@ export type ListItemSettingsButtonProps = Omit<
 
 export const ListItemSettingsButton = (props: ListItemSettingsButtonProps) => {
   return (
-    <ListItemButton
-      icon={<SettingOutlined />}
-      title="Settings"
-      {...props}
-    ></ListItemButton>
+    <ListItemButton icon={<SettingOutlined />} title="Settings" {...props} />
   )
 }

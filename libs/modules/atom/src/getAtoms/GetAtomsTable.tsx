@@ -2,7 +2,7 @@ import { __AtomFragment, useGetAtomsQuery } from '@codelab/codegen/graphql'
 import {
   EntityType,
   ListItemDeleteButton,
-  ListItemSettingsButton,
+  ListItemEditButton,
   PageType,
   useCrudModalForm,
 } from '@codelab/frontend/shared'
@@ -83,7 +83,7 @@ export const GetAtomsTable = () => {
       width: 100,
       render: (text, record) => (
         <Space size="middle">
-          <ListItemSettingsButton
+          <ListItemEditButton
             onClick={() => openUpdateModal(record.id, record)}
           />
 

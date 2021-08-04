@@ -33,7 +33,6 @@ declare global {
       getByTestId: typeof getByTestId
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
       graphqlRequest: typeof graphqlRequest
-      dGraphGraphqlRequest: typeof dGraphGraphqlRequest
       /** Creates an app for the current logged in user */
       createApp: typeof createApp
       deleteApp: typeof deleteApp
@@ -96,18 +95,6 @@ const graphqlRequest = (body: string | Record<string, any>) =>
   })
 
 Cypress.Commands.add('graphqlRequest', graphqlRequest)
-
-const dGraphGraphqlRequest = (body: string | Record<string, any>) =>
-  cy.request({
-    body,
-    url: Cypress.env('dgraphGraphqlEndpoint'),
-    method: 'POST',
-    headers: {
-      'DG-AUTH': Cypress.env('dgraphApiKey'),
-    },
-  })
-
-Cypress.Commands.add('dGraphGraphqlRequest', dGraphGraphqlRequest)
 
 const getCurrentUserId = () => {
   return cy.request('/api/auth/me').then((r) => {

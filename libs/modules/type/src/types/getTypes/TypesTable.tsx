@@ -2,7 +2,7 @@ import { RightCircleOutlined } from '@ant-design/icons'
 import { __TypeFragment } from '@codelab/codegen/graphql'
 import {
   ListItemDeleteButton,
-  ListItemSettingsButton,
+  ListItemEditButton,
   PageType,
 } from '@codelab/frontend/shared'
 import { Space, Table, TableProps } from 'antd'
@@ -58,7 +58,7 @@ export const TypesTable = ({
               <RightCircleOutlined />
             </Link>
           ) : (
-            <ListItemSettingsButton onClick={() => onEditClick(record)} />
+            <ListItemEditButton onClick={() => onEditClick(record)} />
           )}
 
           <ListItemDeleteButton onClick={() => onDeleteClick(record)} />

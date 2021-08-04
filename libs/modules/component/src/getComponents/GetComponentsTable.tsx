@@ -7,7 +7,7 @@ import {
   EntityType,
   ListItemButton,
   ListItemDeleteButton,
-  ListItemSettingsButton,
+  ListItemEditButton,
   PageType,
   useCrudModalForm,
 } from '@codelab/frontend/shared'
@@ -61,7 +61,7 @@ export const GetComponentsTable = () => {
             icon={<ApartmentOutlined />}
           />
 
-          <ListItemSettingsButton
+          <ListItemEditButton
             onClick={() => openUpdateModal(record.id, record)}
           />
 

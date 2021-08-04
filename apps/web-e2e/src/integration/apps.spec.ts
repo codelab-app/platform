@@ -1,18 +1,7 @@
 describe('Apps CRUD', () => {
   before(() => {
     // cy.clearCookies()
-    cy.login().then(() => {
-      // delete all apps for current user
-      cy.getCurrentUserId().then((userId) => {
-        // FIXME
-        // cy.dGraphGraphqlRequest({
-        //   query: print(DeleteUserAppsGql),
-        //   variables: {
-        //     userId,
-        //   },
-        // })
-      })
-    })
+    cy.login()
   })
 
   beforeEach(() => {
