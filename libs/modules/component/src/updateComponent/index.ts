@@ -1,2 +1,2 @@
-export * from './UpdateComonentButton'
+export * from './UpdateComponentForm'
 export * from './UpdateComponentModal'

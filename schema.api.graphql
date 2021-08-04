@@ -277,32 +277,34 @@ type Element {
   css: String
   atom: Atom
 
-  """
-  Referenced only by id to avoid recursion. Use ElementGraph to get all needed Components
-  """
-  componentId: String
-
   """Props in a json format"""
   props: String!
 }
 
+type Component {
+  id: ID!
+  name: String!
+}
+
 """An edge between two element nodes"""
 type ElementEdge {
-  """The id of the source Element"""
+  """The id of the source Element/Component"""
   source: String!
 
-  """The id of the target Element"""
+  """The id of the target Element/Component"""
   target: String!
-  order: Int!
+  order: Int
 }
 
 type ElementGraph {
-  """All descendant Elements, at any level"""
-  vertices: [Element!]!
+  """All descendant Elements or Components, at any level"""
+  vertices: [ElementGraphVertex!]!
 
-  """All the links connecting the descendant elements"""
+  """All the links connecting the descendant elements/components"""
   edges: [ElementEdge!]!
 }
+
+union ElementGraphVertex = Element | Component
 
 type Lambda {
   id: ID!
@@ -356,6 +358,9 @@ type Query {
   Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
   """
   getElementGraph(input: GetElementInput!): ElementGraph
+  getComponent(input: GetComponentInput!): Component!
+  getComponentElements(input: GetComponentInput!): ElementGraph!
+  getComponents: [Component!]!
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
   getField(input: GetFieldInput!): Field
@@ -400,6 +405,10 @@ input GetPageInput {
 
 input GetElementInput {
   elementId: String!
+}
+
+input GetComponentInput {
+  componentId: String!
 }
 
 input GetAtomInput {
@@ -474,6 +483,9 @@ type Mutation {
 
   """Deletes an element and all the descending elements"""
   deleteElement(input: DeleteElementInput!): Void
+  createComponent(input: CreateComponentInput!): CreateResponse!
+  updateComponent(input: UpdateComponentInput!): Void
+  deleteComponent(input: DeleteComponentInput!): Void
   createAtom(input: CreateAtomInput!): CreateResponse!
   deleteAtom(input: DeleteAtomInput!): Void
   updateAtom(input: UpdateAtomInput!): Void
@@ -552,6 +564,7 @@ input UpdatePageData {
 input CreateElementInput {
   name: String!
   atomId: String
+  componentId: String
   parentElementId: String
 
   """
@@ -569,6 +582,7 @@ input UpdateElementData {
   name: String!
   css: String
   atomId: String
+  componentId: String
 }
 
 input MoveElementInput {
@@ -588,6 +602,23 @@ input UpdateElementPropsInput {
 
 input DeleteElementInput {
   elementId: String!
+}
+
+input CreateComponentInput {
+  name: String!
+}
+
+input UpdateComponentInput {
+  componentId: String!
+  updateData: UpdateComponentData!
+}
+
+input UpdateComponentData {
+  name: String!
+}
+
+input DeleteComponentInput {
+  componentId: String!
 }
 
 input CreateAtomInput {

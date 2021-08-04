@@ -1,4 +1,4 @@
-import '../src/wdyr'
+// import '../src/wdyr'
 import '../src/styles/App.less'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'

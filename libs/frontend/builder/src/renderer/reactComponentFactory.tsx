@@ -1,11 +1,11 @@
 import { __AtomFragment, AtomType } from '@codelab/codegen/graphql'
 import { notify } from '@codelab/frontend/shared'
 import React from 'react'
-import { atomFactory } from './atomFactory'
+import { atomTypeToReactComponent } from './atomTypeToReactComponent'
 
-interface AtomElementFactoryProps<
-  TNode extends { id: string } = { id: string },
-> {
+type Identifiable = { id: string }
+
+interface AtomElementFactoryInput<TNode extends Identifiable = Identifiable> {
   atom: __AtomFragment
   node: TNode
 }
@@ -14,11 +14,12 @@ interface AtomElementFactoryProps<
  * This is a mapping of prop transformers for certain elements.
  * Add a transformer here if you want to modify or add props to a specific element type
  */
-export const elementsPropTransformers: {
-  [K in AtomType]?: (
-    input: AtomElementFactoryProps & { props: Record<string, any> },
-  ) => any
-} = {
+export const elementsPropTransformers: Partial<
+  Record<
+    AtomType,
+    (input: AtomElementFactoryInput & { props: Record<string, any> }) => any
+  >
+> = {
   [AtomType.AntDesignRglItem]: ({ node, props }) => {
     // Currently the react-grid-layout library, for some reason, re-renders the layout
     // only if it detects a change in the key of the child, and doesn't care about the data-grid property
@@ -48,24 +49,26 @@ const commonProps = (id: string) => ({
   className: 'Builder-none',
 })
 
-/**
- * Creates a React Component and default props for it out of a node and an atom
- * Pass in handlers to modify the behavior of the rendered HTML element
- */
-export const reactComponentFactory = <
-  TNode extends { id: string } = { id: string },
->({
-  atom,
-  node,
-}: AtomElementFactoryProps<TNode>): [
+export type ReactComponentFactoryResult = [
   React.ComponentType<any> | string | null,
   Record<string, any>,
-] => {
+]
+
+/**
+ * Creates a React Component and default props for it out of an node and an atom
+ */
+export const reactComponentFactory = <
+  TNode extends Identifiable = Identifiable,
+>(
+  input: AtomElementFactoryInput<TNode>,
+): ReactComponentFactoryResult => {
+  const { atom, node } = input
+
   if (!atom || !atom.type || !node) {
     return [null, {}]
   }
 
-  const ReactComponent = atomFactory(atom.type)
+  const ReactComponent = atomTypeToReactComponent(atom.type)
 
   if (!ReactComponent) {
     notify({

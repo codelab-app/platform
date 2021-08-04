@@ -1,5 +1,0 @@
-mutation CreateComponentLink($input: component_link_insert_input!) {
-  insert_component_link_one(object: $input) {
-    ...PageElement__ComponentLink
-  }
-}

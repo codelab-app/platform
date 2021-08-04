@@ -21,7 +21,6 @@ export class ElementMapper implements Mapper<DgraphElementInput, Element> {
       atom: element.atom ? await this.atomMapper.map(element.atom) : undefined,
       css: element.css,
       props: element.props || '{}',
-      componentId: element.component?.uid,
     })
   }
 }

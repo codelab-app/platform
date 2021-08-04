@@ -12,6 +12,10 @@ export const updateElementSchema: JSONSchemaType<UpdateElementSchemaType> = {
       type: 'string',
       nullable: true,
     },
+    componentId: {
+      type: 'string',
+      nullable: true,
+    },
     name: {
       type: 'string',
     },

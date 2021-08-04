@@ -1,5 +1,5 @@
 import { PageFullFragment, useGetPageQuery } from '@codelab/codegen/graphql'
-import { ElementTree, useElementTree } from '@codelab/modules/element'
+import { ElementTree, useElementTree } from '@codelab/frontend/builder'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 
@@ -30,7 +30,7 @@ export const PageQueryProvider = ({
   })
 
   const page = pageId && data?.page ? data.page : null
-  const tree = useElementTree(page?.elements || { edges: [], vertices: [] })
+  const tree = useElementTree(page?.elements)
 
   if (!pageId || !page) {
     return null

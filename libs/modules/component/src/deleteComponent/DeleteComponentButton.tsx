@@ -7,18 +7,21 @@ import {
 import { Button } from 'antd'
 import React from 'react'
 
-export const DeleteComponentButton = ({ disabled, ids }: DeleteButtonProps) => {
+export const DeleteComponentButton = ({
+  ids,
+  disabled,
+  metadata,
+}: DeleteButtonProps) => {
   const { openDeleteModal } = useCrudModalForm(EntityType.Component)
 
   return (
     <Button
-      size="small"
       disabled={disabled}
       danger
+      size="small"
+      type="primary"
       icon={<DeleteOutlined />}
-      onClick={() => {
-        openDeleteModal(ids)
-      }}
+      onClick={() => openDeleteModal(ids, metadata)}
     />
   )
 }

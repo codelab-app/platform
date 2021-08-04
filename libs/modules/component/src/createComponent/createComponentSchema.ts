@@ -1,24 +1,16 @@
+import { CreateComponentInput } from '@codelab/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 
-export type CreateComponentInput = {
-  library_id: string
-  label: string
-  atom_id: string
-}
+export type CreateComponentSchemaType = CreateComponentInput
 
-export const createComponentSchema: JSONSchemaType<CreateComponentInput> = {
-  title: 'Create Component',
-  type: 'object',
-  properties: {
-    library_id: {
-      type: 'string',
+export const createComponentSchema: JSONSchemaType<CreateComponentSchemaType> =
+  {
+    title: 'Create Component Input',
+    type: 'object',
+    properties: {
+      name: {
+        type: 'string',
+      },
     },
-    label: {
-      type: 'string',
-    },
-    atom_id: {
-      type: 'string',
-    },
-  },
-  required: ['label', 'library_id', 'atom_id'],
-} as const
+    required: ['name'],
+  } as const

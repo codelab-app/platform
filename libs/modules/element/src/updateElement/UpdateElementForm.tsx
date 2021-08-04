@@ -2,8 +2,10 @@ import { BaseMutationOptions } from '@apollo/client'
 import {
   ElementFragment,
   useGetAtomsQuery,
+  useGetComponentsQuery,
   useUpdateElementMutation,
 } from '@codelab/codegen/graphql'
+import { ElementTree } from '@codelab/frontend/builder'
 import {
   createNotificationHandler,
   FormUniforms,
@@ -19,19 +21,27 @@ import {
 
 export type UpdateElementFormProps =
   UniFormUseCaseProps<UpdateElementSchemaType> & {
-    initialData: Pick<ElementFragment, 'id' | 'name' | 'atom'>
+    element: ElementFragment
+    tree: ElementTree
     refetchQueries?: BaseMutationOptions['refetchQueries']
   }
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = ({
-  initialData,
+  element,
   refetchQueries,
+  tree,
   ...props
 }: UpdateElementFormProps) => {
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
-  const { current: element } = useRef(initialData)
+  const { current: initialData } = useRef({
+    atomId: element.atom?.id,
+    name: element.name,
+    componentId: tree.getComponentOfElement(element.id)?.id,
+  })
+
   const { data: atoms } = useGetAtomsQuery()
+  const { data: components } = useGetComponentsQuery()
 
   const [mutate, { loading: updating, error, data }] = useUpdateElementMutation(
     {
@@ -40,7 +50,7 @@ export const UpdateElementForm = ({
     },
   )
 
-  if (!element) {
+  if (!initialData) {
     return null
   }
 
@@ -60,8 +70,9 @@ export const UpdateElementForm = ({
         autosaveDelay={500}
         schema={updateElementSchema}
         model={{
-          atomId: element.atom?.id,
-          name: element.name,
+          atomId: initialData.atomId,
+          name: initialData.name,
+          componentId: initialData.componentId,
         }}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating element',
@@ -69,7 +80,7 @@ export const UpdateElementForm = ({
         onSubmit={onSubmit}
         {...props}
       >
-        <AutoFields omitFields={['atomId']} />
+        <AutoFields omitFields={['atomId', 'componentId']} />
 
         <SelectField
           name="atomId"
@@ -81,6 +92,19 @@ export const UpdateElementForm = ({
           options={atoms?.atoms.map((atom) => ({
             label: atom.name,
             value: atom.id,
+          }))}
+        />
+
+        <SelectField
+          name="componentId"
+          label="Component"
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore https://github.com/vazco/uniforms/issues/951
+          showSearch={true}
+          optionFilterProp="label"
+          options={components?.getComponents.map((comp) => ({
+            label: comp.name,
+            value: comp.id,
           }))}
         />
       </FormUniforms>

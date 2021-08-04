@@ -41,4 +41,4 @@ export const CreatePageElementForm = (props: CreatePageElementFormProps) => {
   )
 }
 
-CreatePageElementForm.displayName = 'MovePageElementForm'
+CreatePageElementForm.displayName = 'CreatePageElementForm'

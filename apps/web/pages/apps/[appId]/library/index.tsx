@@ -1,22 +1,19 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { useComponentBuilder } from '@codelab/frontend/builder'
 import { PageType } from '@codelab/frontend/shared'
-import { CreateComponentElementModal } from '@codelab/modules/component-element'
-import { MainPaneLibrary } from '@codelab/modules/library'
 import { Breadcrumb } from 'antd'
-import { MetaPaneComponent } from 'apps/web/src/templates/library/MetaPaneComponent'
 import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
+import { MainPaneLibrary } from '../../../../src/sections/panes'
 import { NextPageTemplate } from '../../../../src/templates/Layout.interface'
 import { LibraryTemplate } from '../../../../src/templates/library/LibraryTemplate'
 
 const LibraryContent = () => {
-  const { selectedComponent, setSelected } = useComponentBuilder()
+  // const { selectedComponent, setSelected } = useComponentBuilder()
 
-  if (!selectedComponent) {
-    return null
-  }
+  // if (!selectedComponent) {
+  //   return null
+  // }
 
   // const cy = CytoscapeService.fromComponent(selectedComponent)
   // const root = CytoscapeService.componentTree(cy)
@@ -34,7 +31,7 @@ const LibraryContent = () => {
       {/*    <CreateComponentElementButton />*/}
       {/*  </Empty>*/}
       {/* )}*/}
-      <CreateComponentElementModal componentId={selectedComponent.id} />
+      {/* <CreateComponentElementModal componentId={selectedComponent.id} /> */}
     </>
   )
 }
@@ -57,7 +54,7 @@ const Library: NextPageTemplate<'builder'> = () => {
 
 Library.Template = LibraryTemplate
 Library.MainPane = MainPaneLibrary
-Library.MetaPane = MetaPaneComponent
+// Library.MetaPane = MetaPaneComponent
 
 export const getServerSideProps = withPageAuthRequired()
 

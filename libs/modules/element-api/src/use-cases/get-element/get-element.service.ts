@@ -1,13 +1,13 @@
 import {
   DgraphElement,
   DgraphEntityType,
-  DgraphQueryBuilder,
   DgraphRepository,
   DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../element.validator'
+import { getElementQuery } from './get-element.query'
 import { GetElementRequest } from './get-element.request'
 
 @Injectable()
@@ -43,34 +43,8 @@ export class GetElementService extends DgraphUseCase<
   }
 
   private createQuery({ input: { elementId } }: GetElementRequest) {
-    return new DgraphQueryBuilder()
+    return getElementQuery()
       .setUidFunc(elementId)
       .addTypeFilterDirective(DgraphEntityType.Element)
-      .addBaseFields()
-      .addRecurseDirective().addFields(`
-          name
-          children @facets(order)
-          component
-          atom
-          value
-          elementProps
-          props
-          values
-          booleanValue
-          floatValue
-          intValue
-          stringValue
-          type
-          key
-          css
-          description
-          fields
-          field
-          allowedValues
-          itemType
-          primitiveKind
-          atomType
-          api
-      `)
   }
 }

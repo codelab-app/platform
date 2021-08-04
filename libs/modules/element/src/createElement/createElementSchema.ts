@@ -12,6 +12,10 @@ export const createElementSchema: JSONSchemaType<CreateElementInput> = {
       type: 'string',
       nullable: true,
     },
+    componentId: {
+      type: 'string',
+      nullable: true,
+    },
     parentElementId: {
       type: 'string',
       nullable: true,

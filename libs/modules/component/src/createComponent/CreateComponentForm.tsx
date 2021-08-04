@@ -1,86 +1,51 @@
 import {
+  refetchGetComponentsQuery,
+  useCreateComponentMutation,
+} from '@codelab/codegen/graphql'
+import {
+  createNotificationHandler,
   EntityType,
-  LibraryContext,
+  FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
-import { useContext } from 'react'
-import { CreateComponentInput } from './createComponentSchema'
+import React from 'react'
+import { AutoFields } from 'uniforms-antd'
+import {
+  createComponentSchema,
+  CreateComponentSchemaType,
+} from './createComponentSchema'
 
-type CreateComponentFormProps = UniFormUseCaseProps<CreateComponentInput>
+type CreateComponentFormProps = UniFormUseCaseProps<CreateComponentSchemaType>
 
-export const CreateComponentForm = ({ ...props }: CreateComponentFormProps) => {
-  const { reset, setLoading } = useCrudModalForm(EntityType.Component)
-  const { libraries } = useContext(LibraryContext)
+export const CreateComponentForm = (props: CreateComponentFormProps) => {
+  const {
+    handleSubmit,
+    crudModal: { reset },
+  } = useCrudModalMutationForm({
+    entityType: EntityType.Component,
+    useMutationFunction: useCreateComponentMutation,
+    mutationOptions: {
+      refetchQueries: [refetchGetComponentsQuery()],
+    },
+    mapVariables: (submitData: CreateComponentSchemaType) => ({
+      input: { ...submitData },
+    }),
+  })
 
-  // const [mutate, { loading: creating }] = useCreateComponentMutation({
-  //   awaitRefetchQueries: true,
-  //   refetchQueries: [
-  //     // {
-  //     //   query: LibraryExplorerGql,
-  //     // },
-  //   ],
-  // })
-
-  // useEffect(() => {
-  //   setLoading(creating)
-  // }, [creating])
-  //
-  // const onSubmit = (submitData: CreateComponentInput) => {
-  //   return mutate({
-  //     variables: {
-  //       input: {
-  //         library: { id: submitData.library_id },
-  //         label: submitData.label,
-  //         atom: {
-  //           id: submitData.atom_id,
-  //         },
-  //       },
-  //     },
-  //   })
-  // }
-
-  // const { data: atoms } = useGetAtomsQuery()
-
-  return null
-  // return (
-  //   <FormUniforms<CreateComponentInput>
-  //     data-testid="create-component-form"
-  //     onSubmit={onSubmit}
-  //     schema={createComponentSchema}
-  //     onSubmitError={createNotificationHandler({
-  //       title: 'Error while creating component',
-  //     })}
-  //     onSubmitSuccess={() => reset()}
-  //     {...props}
-  //   >
-  //     <SelectField
-  //       name="library_id"
-  //       label="Library"
-  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //       // @ts-ignore https://github.com/vazco/uniforms/issues/951
-  //       showSearch={true}
-  //       optionFilterProp="label"
-  //       options={libraries?.map((library) => ({
-  //         label: library.name,
-  //         value: library.id,
-  //       }))}
-  //     />
-  //     <SelectField
-  //       name="atom_id"
-  //       label="Atom"
-  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //       // @ts-ignore https://github.com/vazco/uniforms/issues/951
-  //       showSearch={true}
-  //       optionFilterProp="label"
-  //       options={atoms?.atoms
-  //         ?.filter((atom): atom is DGraph__AtomFragment => !!atom)
-  //         .map((atom) => ({
-  //           label: atom.type,
-  //           value: atom.id,
-  //         }))}
-  //     />
-  //     <AutoField name="label" />
-  //   </FormUniforms>
-  // )
+  return (
+    <FormUniforms<CreateComponentSchemaType>
+      onSubmit={handleSubmit}
+      schema={createComponentSchema}
+      onSubmitError={createNotificationHandler({
+        title: 'Error while creating component',
+      })}
+      onSubmitSuccess={() => {
+        reset()
+      }}
+      {...props}
+    >
+      <AutoFields />
+    </FormUniforms>
+  )
 }

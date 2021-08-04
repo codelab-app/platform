@@ -308,19 +308,6 @@
         }
       }
     },
-    "frontend-layout": {
-      "root": "libs/frontend/layout",
-      "sourceRoot": "libs/frontend/layout/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/frontend/layout/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
     "frontend-shared": {
       "root": "libs/frontend/shared",
       "sourceRoot": "libs/frontend/shared/src",
@@ -469,21 +456,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/modules/component/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
-    "modules-component-element": {
-      "root": "libs/modules/component-element",
-      "sourceRoot": "libs/modules/component-element/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/modules/component-element/**/*.{ts,tsx,js,jsx}"
-            ]
           }
         }
       }

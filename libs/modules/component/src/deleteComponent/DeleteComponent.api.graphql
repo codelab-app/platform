@@ -1,0 +1,3 @@
+mutation DeleteComponent($input: DeleteComponentInput!) {
+  deleteComponent(input: $input)
+}

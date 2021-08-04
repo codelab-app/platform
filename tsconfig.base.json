@@ -29,7 +29,6 @@
       "@codelab/frontend/builder": ["libs/frontend/builder/src/index.ts"],
       "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
       "@codelab/frontend/dgraph": ["libs/frontend/dgraph/src/index.ts"],
-      "@codelab/frontend/layout": ["libs/frontend/layout/src/index.ts"],
       "@codelab/frontend/shared": ["libs/frontend/shared/src/index.ts"],
       "@codelab/frontend/style": ["libs/frontend/style/src/index.ts"],
       "@codelab/modules/app": ["libs/modules/app/src/index.ts"],
@@ -38,9 +37,6 @@
       "@codelab/modules/atom-api": ["libs/modules/atom-api/src/index.ts"],
       "@codelab/modules/category": ["libs/modules/category/src/index.ts"],
       "@codelab/modules/component": ["libs/modules/component/src/index.ts"],
-      "@codelab/modules/component-element": [
-        "libs/modules/component-element/src/index.ts"
-      ],
       "@codelab/modules/element": ["libs/modules/element/src/index.ts"],
       "@codelab/modules/element-api": ["libs/modules/element-api/src/index.ts"],
       "@codelab/modules/lambda": ["libs/modules/lambda/src/index.ts"],

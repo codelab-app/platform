@@ -8,6 +8,8 @@ import { Field, ID, ObjectType } from '@nestjs/graphql'
  * When we add components we will be able to render them inside also
  *
  * Note that the Element model is not the same as the one in DGraph, because we transform it to avoid recursion
+ *
+ * Component relationship is implied by the graph, it's not contained in the model, because it would create a recursive relationship
  */
 @ObjectType()
 export class Element {
@@ -25,22 +27,14 @@ export class Element {
   @Field(() => Atom, { nullable: true })
   declare atom?: Atom | null
 
-  @Field(() => String, {
-    nullable: true,
-    description:
-      'Referenced only by id to avoid recursion. Use ElementGraph to get all needed Components',
-  })
-  declare componentId?: string | null
-
   @Field({ description: 'Props in a json format' })
   declare props: string
 
-  constructor({ id, name, atom, props, css, componentId }: Element) {
+  constructor({ id, name, atom, props, css }: Element) {
     this.id = id
     this.name = name
     this.atom = atom
     this.css = css
-    this.componentId = componentId
     this.props = props
   }
 }

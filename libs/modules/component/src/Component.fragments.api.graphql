@@ -1,0 +1,5 @@
+fragment Component on Component {
+  __typename
+  id
+  name
+}

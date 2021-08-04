@@ -1,20 +1,24 @@
 import {
+  breadthFirstTraversal,
   CytoscapeService,
   DgraphAtom,
+  DgraphComponent,
   DgraphElement,
-  TreeService,
+  DgraphEntityType,
+  instanceOfDgraphModel,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Core } from 'cytoscape'
+import cytoscape from 'cytoscape'
+import { ComponentMapper } from './component'
 import { ElementMapper } from './element.mapper'
-import { Element, ElementEdge, ElementGraph } from './models'
+import { ElementEdge, ElementGraph, ElementGraphVertex } from './models'
 
 @Injectable()
 export class ElementTreeTransformer {
   constructor(
     private elementMapper: ElementMapper,
+    private componentMapper: ComponentMapper,
     private cytoscapeService: CytoscapeService,
-    private treeService: TreeService,
   ) {}
 
   /**
@@ -22,47 +26,115 @@ export class ElementTreeTransformer {
    * @param root
    */
   async transform(root: DgraphElement): Promise<ElementGraph> {
-    return this.cyToGraph(await this.toCytoscape(root))
-  }
-
-  private async toCytoscape(root: DgraphElement) {
     // Keep the atoms in a context, because if there are duplicate atoms anywhere in the tree
     // dgraph will return only the ID of the atom after the first time
     const atomContext = new Map<string, DgraphAtom>()
-    // const componentContext = new Map<string, DgraphAtom>()
+    const componentContext = new Map<string, DgraphComponent>()
+    const cy = cytoscape()
 
-    return this.treeService.toCytoscape(root, {
-      extractId: (node) => node.uid,
-      mapNodeToData: (node) => {
-        const atom =
-          node.atom?.uid && atomContext.has(node.atom?.uid)
-            ? atomContext.get(node.atom?.uid)
-            : node.atom
+    await breadthFirstTraversal<DgraphElement | DgraphComponent>({
+      root,
+      extractId: (el) => el.uid,
+      visit: async (node, parentNode) => {
+        if (instanceOfDgraphModel(node as any, DgraphEntityType.Element)) {
+          const element = node as DgraphElement
 
-        if (node.atom?.['dgraph.type']) {
-          atomContext.set(node.atom.uid, node.atom)
-        }
+          if (element.atom?.['dgraph.type'] && element.atom?.['api']) {
+            atomContext.set(element.atom.uid, element.atom)
+          }
 
-        // TODO component in context and add it as root nodes
+          cy.add({
+            data: {
+              id: element.uid,
+              parent: parentNode?.uid,
+              data: {
+                ...element,
+                'children|order': undefined,
+                children: undefined,
+              },
+            },
+          })
 
-        return {
-          ...node,
-          'children|order': undefined,
-          children: undefined,
-          atom,
+          if (parentNode) {
+            cy.add({
+              data: {
+                source: parentNode.uid,
+                target: element.uid,
+                order: element['children|order'],
+              },
+            })
+          }
+
+          // If this is a 'full' component, ie - one that dgraph returns in full, even
+          // if there are duplicate ones in the tree
+          if (element.component?.['dgraph.type']) {
+            componentContext.set(element.component.uid, element.component)
+
+            if (cy.getElementById(element.component.uid).length === 0) {
+              cy.add({
+                data: {
+                  id: element.component.uid,
+                  data: element.component,
+                },
+              })
+            }
+          }
+
+          if (element.component) {
+            // Add the edge here, because if we add it in the lower block, it won't add edges from
+            // different elements to the same component, since we don't visit the same node twice
+            cy.add({
+              data: {
+                source: element.uid,
+                target: element.component.uid,
+              },
+            })
+
+            // Returning the component makes sure we have the parent-child relationship of element-component-element
+            // instead of just element-element
+            return [element.component]
+          }
+
+          // Edge case alert:
+          // sort the children by ID, because it seems that that's how dgraph executes the query
+          // but sometimes results don't match that. If we start with a element with a latter id,
+          // and we have elements with the same atom - the atom of the element with the latter ID won't have
+          // propTypes defined, because they are already defined in the element with the prior ID
+          return element.children
+            ?.slice()
+            .sort((a, b) => b.uid.localeCompare(a.uid))
+        } else {
+          const component = node as DgraphComponent
+
+          return [component.root]
         }
       },
-      mapNodeToEdgeData: (node) => ({ order: node['children|order'] }),
     })
-  }
 
-  private async cyToGraph(cy: Core): Promise<ElementGraph> {
     const { edges, vertices } = await this.cytoscapeService.treeToGraph<
-      Element,
+      ElementGraphVertex,
       ElementEdge
     >(
       cy,
-      (node) => this.elementMapper.map(node.data),
+      (node) => {
+        if (instanceOfDgraphModel(node.data, DgraphEntityType.Component)) {
+          return this.componentMapper.map(node.data)
+        }
+
+        const element = node.data as DgraphElement
+
+        const atom =
+          element.atom?.uid && atomContext.has(element.atom?.uid)
+            ? atomContext.get(element.atom?.uid)
+            : element.atom
+
+        const component =
+          element.component?.uid && componentContext.has(element.component?.uid)
+            ? componentContext.get(element.component?.uid)
+            : element.component
+
+        return this.elementMapper.map({ ...element, atom, component })
+      },
       (edgeData) =>
         new ElementEdge(edgeData.source, edgeData.target, edgeData.order),
     )

@@ -5,9 +5,6 @@ import { UpdateComponentForm } from './UpdateComponentForm'
 export const UpdateComponentModal = () => {
   return (
     <CrudModal
-      modalProps={{
-        className: 'update-component-modal',
-      }}
       entityType={EntityType.Component}
       actionType={ActionType.Update}
       okText="Update Component"

@@ -1,12 +1,18 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import React from 'react'
+import { ListItemButton, ListItemButtonProps } from './ListItemButton'
 
-export interface ListItemDeleteButtonProps {
-  onClick: () => void
-}
+export type ListItemDeleteButtonProps = Omit<
+  ListItemButtonProps,
+  'icon' | 'danger'
+>
 
-export const ListItemDeleteButton = ({
-  onClick,
-}: ListItemDeleteButtonProps) => {
-  return <DeleteOutlined title="Delete" onClick={onClick} />
+export const ListItemDeleteButton = (props: ListItemDeleteButtonProps) => {
+  return (
+    <ListItemButton
+      icon={<DeleteOutlined />}
+      danger={true}
+      {...props}
+    ></ListItemButton>
+  )
 }

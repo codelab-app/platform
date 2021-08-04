@@ -1,6 +1,7 @@
 import {
   AppstoreOutlined,
   BlockOutlined,
+  BuildOutlined,
   DeploymentUnitOutlined,
   FunctionOutlined,
 } from '@ant-design/icons'
@@ -56,6 +57,14 @@ export const DashboardSidebarNavigation = () => {
       <Menu.Item key={PageType.Type} icon={<BlockOutlined title="Types" />}>
         <Link href={PageType.Type}>Types</Link>
       </Menu.Item>
+
+      <Menu.Item
+        key={PageType.ComponentList}
+        icon={<BuildOutlined title="Components" />}
+      >
+        <Link href={PageType.ComponentList}>Components</Link>
+      </Menu.Item>
+
       {/* <Menu.Item
         key={PageType.AppList}
         icon={<AppstoreOutlined data-testid="app-tab-trigger" title="Apps" />}

@@ -42,7 +42,7 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
   }
 
   private createMutation(
-    { parentElementId, order, name, atomId }: CreateElementInput,
+    { parentElementId, order, name, atomId, componentId }: CreateElementInput,
     blankNodeUid: string,
   ) {
     const mu: Mutation = {}
@@ -51,9 +51,10 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
       uid: blankNodeUid,
       name,
       'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Element],
-      atom: atomId ? { uid: atomId } : null,
       'children|order': order ? order : 1,
       children: [],
+      atom: atomId ? { uid: atomId } : null,
+      component: componentId ? { uid: componentId } : null,
       props: '{}',
     }
 

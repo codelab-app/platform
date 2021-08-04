@@ -29,14 +29,15 @@ export class UpdateElementService extends DgraphUseCase<UpdateElementRequest> {
   protected createMutation({
     input: {
       elementId,
-      updateData: { atomId, css, name },
+      updateData: { atomId, css, name, componentId },
     },
   }: UpdateElementRequest) {
     return jsonMutation<DgraphElement>({
       uid: elementId,
       name,
       atom: atomId ? { uid: atomId } : null,
-      css: css || undefined,
+      component: componentId ? { uid: componentId } : null,
+      css: css || '',
     })
   }
 
