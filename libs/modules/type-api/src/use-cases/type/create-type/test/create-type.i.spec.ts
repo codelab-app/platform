@@ -14,7 +14,10 @@ import {
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
-import { createPrimitiveTypeStringInput } from './data'
+import {
+  createInterfaceTypeInput,
+  createPrimitiveTypeStringInput,
+} from './create-type.data'
 
 describe('CreateType', () => {
   let guestApp: INestApplication
@@ -68,6 +71,27 @@ describe('CreateType', () => {
         name: createPrimitiveTypeStringInput.name,
         primitiveKind:
           createPrimitiveTypeStringInput.primitiveType?.primitiveKind,
+      })
+    })
+
+    it('should create interface type', async () => {
+      const {
+        createType: { id: typeId },
+      } = await domainRequest<CreateTypeInput, CreateTypeMutation>(
+        userApp,
+        CreateTypeGql,
+        createInterfaceTypeInput,
+      )
+
+      const { getType: type } = await domainRequest<GetTypeInput, GetTypeQuery>(
+        userApp,
+        GetTypeGql,
+        { typeId },
+      )
+
+      expect(type).toMatchObject({
+        __typename: 'InterfaceType',
+        name: createInterfaceTypeInput.name,
       })
     })
   })
