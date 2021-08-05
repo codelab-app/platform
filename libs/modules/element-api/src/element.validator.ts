@@ -2,11 +2,11 @@ import {
   DgraphApp,
   DgraphElement,
   DgraphEntity,
-  DgraphEntityType,
   DgraphQueryBuilder,
   DgraphRepository,
   DgraphTree,
-  instanceOfDgraphModel,
+  isDgraphComponent,
+  isDgraphPage,
   JwtPayload,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
@@ -117,7 +117,7 @@ export class ElementValidator {
     }
 
     if (
-      instanceOfDgraphModel(tree, DgraphEntityType.Page) &&
+      isDgraphPage<QueryResult>(tree) &&
       tree['~pages'] &&
       tree['~pages'][0] &&
       tree['~pages'][0].ownerId
@@ -129,7 +129,7 @@ export class ElementValidator {
         element: result,
         ownerId: tree['~pages'][0].ownerId as string,
       }
-    } else if (instanceOfDgraphModel(tree, DgraphEntityType.Component)) {
+    } else if (isDgraphComponent(tree)) {
       // TODO change element validator when adding component ownership logic
       return {
         found: true,

@@ -1,23 +1,15 @@
 import {
   breadthFirstTraversal,
   CytoscapeService,
-  DgraphArrayType,
-  DgraphEntity,
-  DgraphEntityType,
   DgraphInterfaceType,
   DgraphType,
-  instanceOfDgraphModel,
+  isDgraphArrayType,
+  isDgraphInterfaceType,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import cytoscape, { Core } from 'cytoscape'
 import { FieldMapper, TypeMapperFactory } from './mappers'
 import { Type, TypeEdge, TypeEdgeKind, TypeGraph } from './models'
-
-const isInterface = (obj: DgraphEntity<any>) =>
-  instanceOfDgraphModel<any, any>(obj, DgraphEntityType.InterfaceType)
-
-const isArray = (obj: DgraphEntity<any>) =>
-  instanceOfDgraphModel<any, any>(obj, DgraphEntityType.ArrayType)
 
 @Injectable()
 export class TypeTreeTransformer {
@@ -49,7 +41,7 @@ export class TypeTreeTransformer {
       root,
       extractId: (el) => el.uid,
       visit: async (type) => {
-        if (isInterface(type)) {
+        if (isDgraphInterfaceType(type)) {
           const fields = (type as DgraphInterfaceType).fields || []
 
           // We need to add the child types before the edges, because cytoscape complains otherwise
@@ -83,8 +75,8 @@ export class TypeTreeTransformer {
             .sort((a, b) => b.uid.localeCompare(a.uid))
         }
 
-        if (isArray(type)) {
-          const itemType = (type as DgraphArrayType).itemType
+        if (isDgraphArrayType(type)) {
+          const itemType = type.itemType
 
           // We need to add the child type before the edge, because cytoscape complains otherwise
           if (cy.getElementById(itemType.uid).empty()) {

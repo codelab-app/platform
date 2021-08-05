@@ -1,6 +1,5 @@
-import { fromEnum } from '@codelab/backend'
+import { fromEnum, PrimitiveKind } from '@codelab/backend'
 import * as t from 'io-ts'
-import { PrimitiveKind } from '../../models/types/primitive-type'
 
 export const PrimitiveKindC = fromEnum<PrimitiveKind>(
   'PrimitiveKind',

@@ -11,7 +11,7 @@
     "types": ["node"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "noEmit": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "module": "esnext"
@@ -32,8 +32,8 @@
     "**/*.stories.tsx"
   ],
   "references": [
-    {
-      "path": "./.storybook/tsconfig.json"
-    }
+    // {
+    //   "path": "./.storybook/tsconfig.json"
+    // }
   ]
 }

@@ -69,16 +69,16 @@ lint-eslint:
 #
 
 e2e-dev-affected:
-	npx env-cmd -f .env.test cross-env NODE_ENV=test nx affected:e2e --configuration local
+	./scripts/nx.sh affected:e2e -c local
 
 e2e-ci-affected:
-	yarn affected:e2e --configuration ci
+	yarn affected:e2e -c ci
 
 #
 # INTEGRATION TESTS
 #
 integration-dev-affected:
-	yarn nx-test-env affected:test \
+	./scripts/nx.sh affected:test \
 	--testPathPattern=i.spec.ts \
 	--maxWorkers=2 \
 	--memoryLimit=4096 \

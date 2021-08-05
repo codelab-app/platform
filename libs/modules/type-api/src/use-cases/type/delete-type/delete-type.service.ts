@@ -1,4 +1,8 @@
-import { DgraphRepository, DgraphUseCase } from '@codelab/backend'
+import {
+  DgraphEntityType,
+  DgraphRepository,
+  DgraphUseCase,
+} from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TypeIsUsedError } from '../../../errors/TypeIsUsedError'
@@ -15,7 +19,10 @@ export class DeleteTypeService extends DgraphUseCase<DeleteTypeInput> {
     await this.validate(request)
 
     await this.dgraph.executeUpsertDeleteAll(txn, (q) =>
-      q.setUidFunc(request.typeId).addFields(`fields`),
+      q
+        .addTypeFilterDirective(DgraphEntityType.Type)
+        .setUidFunc(request.typeId)
+        .addFields(`fields`),
     )
   }
 

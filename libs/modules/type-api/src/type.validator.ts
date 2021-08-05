@@ -1,5 +1,4 @@
 import {
-  DgraphArrayType,
   DgraphAtom,
   DgraphEntityType,
   DgraphField,
@@ -8,7 +7,9 @@ import {
   DgraphQueryField,
   DgraphRepository,
   DgraphType,
-  instanceOfDgraphModel,
+  isDgraphArrayType,
+  isDgraphFieldType,
+  isDgraphInterfaceType,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { MAX_TYPE_DEPTH } from './constants'
@@ -65,9 +66,7 @@ export class TypeValidator {
     }
 
     if (typeOrTypeId['~type']?.length) {
-      const fields = typeOrTypeId['~type'].filter((f) =>
-        instanceOfDgraphModel(f, DgraphEntityType.Field),
-      )
+      const fields = typeOrTypeId['~type'].filter((f) => isDgraphFieldType(f))
 
       if (fields.length) {
         throw new TypeIsUsedError(fields.map((f) => `${f.name}`))
@@ -127,9 +126,9 @@ export class TypeValidator {
         throw new RecursiveTypeError()
       }
 
-      if (instanceOfDgraphModel(next, DgraphEntityType.ArrayType)) {
-        queue.push((next as DgraphArrayType).itemType)
-      } else if (instanceOfDgraphModel(next, DgraphEntityType.InterfaceType)) {
+      if (isDgraphArrayType(next)) {
+        queue.push(next.itemType)
+      } else if (isDgraphInterfaceType(next)) {
         queue.push(...(next as DgraphInterfaceType).fields?.map((f) => f.type))
       }
 

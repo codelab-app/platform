@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
+    "jsxImportSource": "@emotion/react",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
@@ -11,12 +12,9 @@
   "references": [
     {
       "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./.storybook/tsconfig.json"
-    },
-    {
-      "path": "./.storybook/tsconfig.json"
     }
+    // {
+    //   "path": "./.storybook/tsconfig.json"
+    // }
   ]
 }

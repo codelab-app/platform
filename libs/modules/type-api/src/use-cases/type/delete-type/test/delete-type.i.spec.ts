@@ -73,7 +73,7 @@ describe('DeleteType', () => {
       await domainRequest<GetTypeInput, GetTypeQuery>(
         userApp,
         GetTypeGql,
-        { typeId },
+        { where: { id: typeId } },
         { message: 'Not found' },
       )
     })

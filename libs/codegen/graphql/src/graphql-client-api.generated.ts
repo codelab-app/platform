@@ -278,8 +278,9 @@ export type CreateEnumTypeValueInput = {
 
 export type CreateFieldInput = {
   key: Scalars['String']
-  name: Scalars['String']
+  name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
+  /** The interface to add fields to */
   interfaceId: Scalars['String']
   type: TypeRef
 }
@@ -446,7 +447,7 @@ export type GetPagesInput = {
 }
 
 export type GetTypeInput = {
-  typeId: Scalars['String']
+  where: WhereUniqueType
 }
 
 /** Filters are optional and you can provide both of them together */
@@ -693,7 +694,7 @@ export type Query = {
   getAtom?: Maybe<Atom>
   getField?: Maybe<Field>
   getType?: Maybe<Type>
-  getTypeGraph: TypeGraph
+  getTypeGraph?: Maybe<TypeGraph>
   getTypes: Array<Type>
   getLambda?: Maybe<Lambda>
   getLambdas: Array<Lambda>
@@ -862,7 +863,7 @@ export type UpdateEnumTypeValueData = {
 
 export type UpdateFieldData = {
   key: Scalars['String']
-  name: Scalars['String']
+  name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
   type: TypeRef
 }
@@ -944,6 +945,11 @@ export type User = {
   updated_at?: Maybe<Scalars['String']>
   user_id?: Maybe<Scalars['String']>
   username?: Maybe<Scalars['String']>
+}
+
+export type WhereUniqueType = {
+  id?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
 }
 
 export type CreateAppMutationVariables = Exact<{
@@ -1319,7 +1325,7 @@ export type GetTypeGraphQueryVariables = Exact<{
   input: GetTypeInput
 }>
 
-export type GetTypeGraphQuery = { getTypeGraph: __TypeGraphFragment }
+export type GetTypeGraphQuery = { getTypeGraph?: Maybe<__TypeGraphFragment> }
 
 export type GetTypesQueryVariables = Exact<{ [key: string]: never }>
 

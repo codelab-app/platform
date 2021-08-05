@@ -13,9 +13,9 @@ export const createFieldSchema: JSONSchemaType<CreateFieldSchemaObject> = {
   type: 'object',
   properties: {
     key: { type: 'string' },
-    name: { type: 'string' },
+    name: { type: 'string', nullable: true },
     description: { type: 'string', nullable: true },
     typeId: { type: 'string' },
   },
-  required: ['key', 'name', 'typeId'],
+  required: ['key', 'typeId'],
 }

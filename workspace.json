@@ -796,18 +796,50 @@
             "outputPath": "dist/apps/web"
           },
           "configurations": {
+            "local": {
+              "root": "apps/web",
+              "outputPath": "dist/apps/web-local"
+            },
             "production": {}
           }
         },
-        "serve-with-api": {
+        "serve-prod-with-api": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {
+            "envFile": ".env.test",
             "commands": [
               {
-                "command": "npx next start dist/apps/web --port 3001"
+                "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env local"
+              },
+              {
+                "command": "npx next start dist/apps/web-local --port 3001"
               },
               {
                 "command": "node dist/apps/api/main.js"
+              },
+              {
+                "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
+              }
+            ],
+            "parallel": true,
+            "readyWhen": "READY"
+          }
+        },
+        "serve-dev-with-api": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "envFile": ".env.test",
+            "commands": [
+              {
+                "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env local"
+              },
+              {
+                "command": "nx serve api",
+                "forwardAllArgs": false
+              },
+              {
+                "command": "nx serve web -c local",
+                "forwardAllArgs": false
               },
               {
                 "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
@@ -831,6 +863,7 @@
               "memoryLimit": 4096
             },
             "local": {
+              "buildTarget": "web:build:local",
               "port": 3001
             },
             "dev": {},
@@ -902,23 +935,22 @@
           "builder": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/web-e2e/cypress.json",
-            "tsConfig": "apps/web-e2e/tsconfig.e2e.json"
+            "tsConfig": "apps/web-e2e/tsconfig.e2e.json",
+            "baseUrl": "http://127.0.0.1:3001"
           },
           "configurations": {
             "ci": {
-              "devServerTarget": "web:serve-with-api",
-              "baseUrl": "http://127.0.0.1:3001",
+              "devServerTarget": "web:serve-prod-with-api",
               "headless": true,
               "record": false
             },
             "local": {
-              "devServerTarget": "web:serve-with-api",
-              "baseUrl": "http://127.0.0.1:3001",
+              "devServerTarget": "web:serve-prod-with-api",
               "headless": true,
               "record": false
             },
             "dev": {
-              "baseUrl": "http://127.0.0.1:3000",
+              "devServerTarget": "web:serve-dev-with-api",
               "watch": true,
               "exit": false
             }

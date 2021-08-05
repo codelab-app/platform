@@ -18,16 +18,14 @@ export class DgraphCliService {
   ) {}
 
   @Command({
-    command: 'update-scheme',
+    command: 'update-schema',
     options: [envOption],
   })
   public async updateScheme() {
     try {
       await this.dgraphService.updateDqlSchema()
 
-      shell.echo(
-        'Update Scheme process completed! You may Ctrl + C the terminal.',
-      )
+      shell.echo('Update Scheme process completed!')
       shell.exit(0)
     } catch (e) {
       console.error(e)
@@ -42,7 +40,7 @@ export class DgraphCliService {
     try {
       await this.dgraphService.resetDb()
 
-      shell.echo('Reset Data process completed! You may Ctrl + C the terminal.')
+      shell.echo('Reset Data process completed!')
       shell.exit(0)
     } catch (e) {
       console.error(e)

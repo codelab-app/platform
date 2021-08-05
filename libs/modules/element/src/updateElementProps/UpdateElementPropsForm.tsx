@@ -25,7 +25,7 @@ const _UpdateElementPropsForm = ({
 }: _UpdateElementPropsFormProps) => {
   const { data: interfaceData, loading: interfaceLoading } =
     useGetTypeGraphQuery({
-      variables: { input: { typeId: interfaceId } },
+      variables: { input: { where: { id: interfaceId } } },
     })
 
   const [mutate] = useUpdateElementPropsMutation({

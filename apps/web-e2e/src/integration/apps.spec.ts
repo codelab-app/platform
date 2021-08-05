@@ -1,6 +1,5 @@
 describe('Apps CRUD', () => {
   before(() => {
-    // cy.clearCookies()
     cy.login().then(() => {
       cy.preserveAuthCookies()
       cy.visit('/apps')

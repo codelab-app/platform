@@ -32,7 +32,7 @@ export const DeleteFieldForm = (props: DeleteFieldFormProps) => {
     entityType: EntityType.Field,
     mutationOptions: {
       refetchQueries: [
-        refetchGetTypeGraphQuery({ input: { typeId: interfaceId } }),
+        refetchGetTypeGraphQuery({ input: { where: { id: interfaceId } } }),
       ],
     },
     useMutationFunction: useDeleteFieldMutation,

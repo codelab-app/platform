@@ -1,3 +1,4 @@
+import * as R from 'ramda'
 import { DgraphEntityType } from '../../dgraph-entity-type'
 import { DgraphType } from './dgraph-type'
 
@@ -12,4 +13,13 @@ export enum PrimitiveKind {
 export interface DgraphPrimitiveType
   extends DgraphType<DgraphEntityType.PrimitiveType> {
   primitiveKind: PrimitiveKind
+}
+
+export const isDgraphPrimitiveType = (
+  type: DgraphType<DgraphEntityType>,
+): type is DgraphPrimitiveType => {
+  return R.equals(type['dgraph.type'], [
+    DgraphEntityType.Type,
+    DgraphEntityType.PrimitiveType,
+  ])
 }

@@ -1,9 +1,7 @@
 import {
   CreateResponse,
-  DgraphEntityType,
-  DgraphInterfaceType,
   GqlAuthGuard,
-  instanceOfDgraphModel,
+  isDgraphInterfaceType,
   Void,
 } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
@@ -50,21 +48,31 @@ export class TypeResolver {
       input,
     })
 
+    if (!type) {
+      return null
+    }
+
+    console.log(type)
+
     const mapper = this.typeMapperFactory.getMapper(type)
 
     return mapper.map(type)
   }
 
   @UseGuards(GqlAuthGuard)
-  @Query(() => TypeGraph)
+  @Query(() => TypeGraph, { nullable: true })
   async getTypeGraph(@Args('input') input: GetTypeInput) {
     const type = await this.getTypeService.execute({ input })
 
-    if (!instanceOfDgraphModel(type, DgraphEntityType.InterfaceType)) {
-      throw new Error('Type graph can only be retrieved for an Interface Type')
+    if (!type) {
+      return null
     }
 
-    return this.typeTransformer.toGraph(type as DgraphInterfaceType)
+    if (isDgraphInterfaceType(type)) {
+      return this.typeTransformer.toGraph(type)
+    }
+
+    throw new Error('Type graph can only be retrieved for an Interface Type')
   }
 
   @UseGuards(GqlAuthGuard)
@@ -81,31 +89,31 @@ export class TypeResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => CreateResponse)
-  createType(@Args('input') input: CreateTypeInput) {
-    return this.createTypeService.execute(input)
+  async createType(@Args('input') input: CreateTypeInput) {
+    return await this.createTypeService.execute(input)
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })
-  updateEnumType(@Args('input') input: UpdateEnumTypeInput) {
-    return this.updateEnumTypeService.execute(input)
+  async updateEnumType(@Args('input') input: UpdateEnumTypeInput) {
+    await this.updateEnumTypeService.execute(input)
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })
-  updatePrimitiveType(@Args('input') input: UpdatePrimitiveTypeInput) {
-    return this.updatePrimitiveTypeService.execute(input)
+  async updatePrimitiveType(@Args('input') input: UpdatePrimitiveTypeInput) {
+    await this.updatePrimitiveTypeService.execute(input)
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })
-  updateType(@Args('input') input: UpdateTypeInput) {
-    return this.updateTypeService.execute(input)
+  async updateType(@Args('input') input: UpdateTypeInput) {
+    await this.updateTypeService.execute(input)
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })
-  deleteType(@Args('input') input: DeleteTypeInput) {
-    return this.deleteTypeService.execute(input)
+  async deleteType(@Args('input') input: DeleteTypeInput) {
+    await this.deleteTypeService.execute(input)
   }
 }
