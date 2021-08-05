@@ -6,6 +6,7 @@ import {
 import { PropertiesSchema } from 'ajv/lib/types/json-schema'
 import { TypeModels } from '../../types/TypeModels'
 import { TypeTree } from '../../typeTree'
+import { SelectLambda } from '../fields/SelectLambda'
 
 export interface InterfaceToJsonSchemaTransformerOptions {
   /** Max amount of type nesting that's allowed, used to prevent infinite loops. Defaults to 100 */
@@ -119,6 +120,13 @@ export class InterfaceToJsonSchemaTransformer {
           ),
         } as any // cast is needed, because we can't verify at compile time that the interface matches the data
 
+      case TypeModels.LambdaType:
+        return {
+          type: 'string',
+          uniforms: {
+            component: SelectLambda,
+          },
+        }
       default:
         throw new Error('Type not recognized ' + (type as any).__typename)
     }

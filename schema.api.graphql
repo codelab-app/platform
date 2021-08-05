@@ -66,6 +66,14 @@ type InterfaceType implements Type {
   name: String!
 }
 
+"""
+The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId 
+"""
+type LambdaType implements Type {
+  id: ID!
+  name: String!
+}
+
 type PrimitiveType implements Type {
   id: ID!
   name: String!
@@ -190,6 +198,7 @@ enum AtomType {
   AntDesignTypographyTitle
   AntDesignUpload
   Query
+  TextList
   ReactFragment
   HtmlA
   HtmlP
@@ -461,6 +470,7 @@ enum TypeKindFilter {
   ArrayType
   InterfaceType
   EnumType
+  LambdaType
 }
 
 input GetLambdaInput {
@@ -655,6 +665,7 @@ input CreateTypeInput {
   arrayType: CreateArrayTypeInput
   enumType: CreateEnumTypeInput
   interfaceType: Boolean
+  lambdaType: Boolean
 }
 
 input CreatePrimitiveTypeInput {

@@ -1,13 +1,6 @@
-import { Icon } from '@ant-design/compatible'
 import { AtomType } from '@codelab/codegen/graphql'
 import dynamic from 'next/dynamic'
 import React from 'react'
-import GridLayout, {
-  Responsive as ResponsiveGrid,
-  WidthProvider,
-} from 'react-grid-layout'
-
-const ResponsiveGridLayout = WidthProvider(ResponsiveGrid)
 
 /**
  * Returns a ReactComponent corresponding to the input AtomType
@@ -183,7 +176,9 @@ export const atomTypeToReactComponent = (
     // Ant Design
     //
     case AtomType.AntDesignIcon:
-      return Icon
+      return dynamic(() =>
+        import('@ant-design/compatible').then((mod) => mod.Icon),
+      )
     case AtomType.AntDesignMenu:
       return dynamic(() => import('antd/lib/menu'))
     case AtomType.AntDesignMenuItem:
@@ -247,11 +242,15 @@ export const atomTypeToReactComponent = (
         import('antd/lib/select').then((mod) => mod.default.Option),
       )
     case AtomType.AntDesignRglContainer:
-      return GridLayout
+      return dynamic(() => import('react-grid-layout'))
     case AtomType.AntDesignRglItem:
       return 'div'
     case AtomType.AntDesignRglResponsiveContainer:
-      return ResponsiveGridLayout
+      return dynamic(() =>
+        import('react-grid-layout').then(({ WidthProvider, Responsive }) =>
+          WidthProvider(Responsive),
+        ),
+      )
     case AtomType.AntDesignModal:
       return dynamic(() => import('antd/lib/modal'))
     case AtomType.AntDesignRadioGroup:
@@ -397,8 +396,14 @@ export const atomTypeToReactComponent = (
     case AtomType.AntDesignPageContainer:
       return ''
     // React Query
-    // case AtomType.Query:
-    //   return Query
+    case AtomType.Query:
+      return dynamic(() =>
+        import('@codelab/frontend/shared').then((mod) => mod.Query),
+      )
+    case AtomType.TextList:
+      return dynamic(() =>
+        import('@codelab/frontend/shared').then((mod) => mod.TextList),
+      )
     default:
       return null
   }

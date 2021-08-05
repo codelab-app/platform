@@ -78,9 +78,13 @@ export class LambdaResolver {
   @UseGuards(GqlAuthGuard)
   async executeLambda(@Args('input') input: ExecuteLambdaInput) {
     const lambda = await this.getLambdaService.execute(input)
-    const results = await this.lambdaService.executeLambda(lambda)
 
-    return { payload: results }
+    const results = await this.lambdaService.executeLambda(
+      lambda,
+      JSON.parse(input.payload || '{}'),
+    )
+
+    return { payload: JSON.stringify(results) }
   }
 
   @Query(() => [Lambda])

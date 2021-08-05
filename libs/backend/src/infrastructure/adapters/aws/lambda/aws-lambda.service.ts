@@ -30,6 +30,7 @@ export class AwsLambdaService
         S3Key: lambda.id, // ZIP_FILE_NAME
         // ZipFile: ''
       },
+      Layers: ['arn:aws:lambda:us-west-1:810113963961:layer:axios:1'],
       FunctionName: lambda.id,
       Handler: `${lambda.name}.handler`,
       // https://stackoverflow.com/questions/37498124/accessdeniedexception-user-is-not-authorized-to-perform-lambdainvokefunction

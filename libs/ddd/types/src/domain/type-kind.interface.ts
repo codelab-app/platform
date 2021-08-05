@@ -6,4 +6,5 @@ export enum TypeKind {
   ArrayType = 'ArrayType',
   InterfaceType = 'InterfaceType',
   EnumType = 'EnumType',
+  LambdaType = 'LambdaType',
 }

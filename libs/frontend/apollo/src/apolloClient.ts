@@ -39,7 +39,13 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
     cache: new InMemoryCache({
       possibleTypes: {
         ElementGraphVertex: ['Element', 'Component'],
-        Type: ['PrimitiveType', 'ArrayType', 'EnumType', 'InterfaceType'],
+        Type: [
+          'PrimitiveType',
+          'ArrayType',
+          'EnumType',
+          'InterfaceType',
+          'LambdaType',
+        ],
         PropValue: [
           'ArrayValue',
           'BooleanValue',
