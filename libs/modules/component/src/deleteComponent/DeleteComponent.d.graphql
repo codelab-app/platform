@@ -1,6 +1,0 @@
-mutation DeleteComponent($filter: ComponentFilter!) {
-  deleteComponent(filter: $filter) {
-    numUids
-    msg
-  }
-}

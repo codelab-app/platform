@@ -155,15 +155,20 @@ export class DgraphQueryBuilder implements IQueryBuilder {
   addJsonFields<TEntity extends DgraphEntity<any>>(
     json: DgraphQueryJson<TEntity>,
   ) {
-    Object.keys(json).forEach((key) => {
-      const value = (json as any)[key]
+    const jsonFieldsToString = (innerJson: DgraphQueryJson<TEntity>): string =>
+      Object.keys(innerJson).reduce((prev, key) => {
+        const value = (innerJson as any)[key]
 
-      if (typeof value === 'object') {
-        this.addFields(key + value)
-      } else if (value) {
-        this.addFields(key)
-      }
-    })
+        if (typeof value === 'object') {
+          return prev + ` ${key} { ${jsonFieldsToString(value)} } `
+        } else if (value) {
+          return prev + ' ' + key
+        }
+
+        return ''
+      })
+
+    this.addFields(jsonFieldsToString(json))
 
     return this
   }

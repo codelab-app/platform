@@ -1,2 +1,3 @@
 export * from './DeleteComponentButton'
-export * from './DeleteComponentsModal'
+export * from './DeleteComponentForm'
+export * from './DeleteComponentModal'

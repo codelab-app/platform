@@ -2,25 +2,14 @@ describe('Apps CRUD', () => {
   before(() => {
     // cy.clearCookies()
     cy.login().then(() => {
-      // delete all apps for current user
-      cy.getCurrentUserId().then((userId) => {
-        // FIXME
-        // cy.dGraphGraphqlRequest({
-        //   query: print(DeleteUserAppsGql),
-        //   variables: {
-        //     userId,
-        //   },
-        // })
-      })
+      cy.preserveAuthCookies()
+      cy.visit('/apps')
+      cy.getSpinner().should('not.exist')
     })
   })
 
   beforeEach(() => {
-    cy.login().then(() => {
-      cy.visit('/apps')
-      // Cypress.Cookies.preserveOnce('appSession')
-      cy.getSpinner().should('not.exist')
-    })
+    cy.preserveAuthCookies()
   })
 
   const appName = 'new app'

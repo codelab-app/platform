@@ -1,11 +1,12 @@
-import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import { __AtomFragment, useGetAtomsQuery } from '@codelab/codegen/graphql'
 import {
   EntityType,
+  ListItemDeleteButton,
+  ListItemEditButton,
   PageType,
   useCrudModalForm,
 } from '@codelab/frontend/shared'
-import { Button, Space, Spin, Table, TableColumnProps, Tag } from 'antd'
+import { Space, Spin, Table, TableColumnProps, Tag } from 'antd'
 import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
@@ -82,19 +83,11 @@ export const GetAtomsTable = () => {
       width: 100,
       render: (text, record) => (
         <Space size="middle">
-          <Button
-            size="small"
-            type="primary"
-            css={tw`flex items-center justify-center`}
-            icon={<EditFilled />}
+          <ListItemEditButton
             onClick={() => openUpdateModal(record.id, record)}
           />
-          <Button
-            size="small"
-            type="primary"
-            danger
-            css={tw`flex items-center justify-center`}
-            icon={<DeleteFilled />}
+
+          <ListItemDeleteButton
             onClick={() => openDeleteModal([record.id], record)}
           />
         </Space>

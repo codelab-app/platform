@@ -1,5 +1,0 @@
-mutation UpdateComponent($componentId: uuid!, $input: component_set_input!) {
-  update_component_by_pk(pk_columns: { id: $componentId }, _set: $input) {
-    ...LibraryExplorer__Component
-  }
-}

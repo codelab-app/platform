@@ -8,9 +8,9 @@ export const CreateComponentButton = () => {
 
   return (
     <Button
-      size="small"
       type="primary"
-      icon={<PlusOutlined data-testid="create-component-button" />}
+      size="small"
+      icon={<PlusOutlined />}
       onClick={() => openCreateModal()}
     />
   )

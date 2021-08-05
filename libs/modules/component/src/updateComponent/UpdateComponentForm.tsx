@@ -1,73 +1,51 @@
 import {
-  refetchGetComponentQuery,
-  useGetComponentQuery,
+  refetchGetComponentsQuery,
   useUpdateComponentMutation,
-} from '@codelab/codegen/hasura'
+} from '@codelab/codegen/graphql'
 import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalForm,
+  useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
-import { Spin } from 'antd'
-import React, { useEffect } from 'react'
-import { DeepPartial } from 'uniforms'
+import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import {
-  UpdateComponentInput,
   updateComponentSchema,
+  UpdateComponentSchemaType,
 } from './updateComponentSchema'
 
-type UpdateComponentFormProps = UniFormUseCaseProps<UpdateComponentInput>
+type UpdateComponentFormProps = UniFormUseCaseProps<UpdateComponentSchemaType>
 
-export const UpdateComponentForm = ({ ...props }: UpdateComponentFormProps) => {
+export const UpdateComponentForm = (props: UpdateComponentFormProps) => {
   const {
-    reset,
-    setLoading,
-    state: { updateId: updateComponentId },
-  } = useCrudModalForm(EntityType.Component)
-
-  const [mutate, { loading: updating }] = useUpdateComponentMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetComponentQuery()],
-  })
-
-  useEffect(() => {
-    setLoading(updating)
-  }, [updating])
-
-  const onSubmit = (submitData: DeepPartial<UpdateComponentInput>) => {
-    return mutate({
-      variables: {
-        componentId: updateComponentId,
-        input: submitData,
-      },
-    })
-  }
-
-  const { data, loading } = useGetComponentQuery({
-    variables: {
-      componentId: updateComponentId,
+    handleSubmit,
+    crudModal: {
+      reset,
+      state: { metadata },
     },
+  } = useCrudModalMutationForm({
+    entityType: EntityType.Component,
+    useMutationFunction: useUpdateComponentMutation,
+    mutationOptions: {
+      refetchQueries: [refetchGetComponentsQuery()],
+    },
+    mapVariables: (submitData: UpdateComponentSchemaType, state) => ({
+      input: {
+        componentId: state.updateId,
+        updateData: { ...submitData },
+      },
+    }),
   })
-
-  const component = data?.component_by_pk
-
-  if (loading) {
-    return <Spin />
-  }
 
   return (
-    <FormUniforms<UpdateComponentInput>
-      data-testid="update-component-form"
-      onSubmit={onSubmit}
-      model={{
-        label: component?.label,
-      }}
+    <FormUniforms<UpdateComponentSchemaType>
+      onSubmit={handleSubmit}
       schema={updateComponentSchema}
+      model={{ name: metadata?.name }}
       onSubmitError={createNotificationHandler({
-        title: 'Error while updating component',
+        title: 'Error while updating Component',
       })}
       onSubmitSuccess={() => reset()}
       {...props}

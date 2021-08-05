@@ -1,5 +1,0 @@
-query GetComponentElementsWhere($where: component_element_bool_exp!) {
-  component_element(where: $where) {
-    ...__ComponentElement
-  }
-}

@@ -1,7 +1,6 @@
 export * from './createElement'
 export * from './cssEditor'
 export * from './deleteElement'
-export * from './elementTree'
 export * from './moveElement'
 export * from './updateElement'
 export * from './updateElementProps'

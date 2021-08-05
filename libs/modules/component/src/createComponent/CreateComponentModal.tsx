@@ -5,9 +5,6 @@ import { CreateComponentForm } from './CreateComponentForm'
 export const CreateComponentModal = () => {
   return (
     <CrudModal
-      modalProps={{
-        className: 'create-component-modal',
-      }}
       entityType={EntityType.Component}
       actionType={ActionType.Create}
       okText="Create Component"

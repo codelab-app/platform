@@ -1,8 +1,0 @@
-fragment ComponentElement__Hoc on hoc {
-  id
-  tags {
-    tag {
-      ...__Tag
-    }
-  }
-}

@@ -1,12 +1,12 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import {
-  MainPanePageDetail,
-  PageBuilder,
-  PageContext,
-  withPageQueryProvider,
-} from '@codelab/modules/page'
+import { Builder } from '@codelab/frontend/builder'
+import { PageContext, withPageQueryProvider } from '@codelab/modules/page'
 import { Empty } from 'antd'
 import React, { useContext } from 'react'
+import {
+  MainPanePageDetail,
+  MetaPanePageDetail,
+} from '../../../../../src/sections/panes'
 import { NextPageTemplate } from '../../../../../src/templates/Layout.interface'
 import { PageDetailTemplate } from '../../../../../src/templates/PageDetailTemplate'
 
@@ -21,12 +21,13 @@ const PageDetail: NextPageTemplate<'builder'> = () => {
     return <Empty />
   }
 
-  return <PageBuilder tree={tree} pageId={page.id} />
+  return <Builder tree={tree} />
 }
 
 export const getServerSideProps = withPageAuthRequired()
 
 PageDetail.Template = withPageQueryProvider(PageDetailTemplate)
 PageDetail.MainPane = MainPanePageDetail
+PageDetail.MetaPane = MetaPanePageDetail
 
 export default PageDetail

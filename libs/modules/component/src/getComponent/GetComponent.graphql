@@ -1,5 +1,0 @@
-query GetComponent($componentId: uuid!) {
-  component_by_pk(id: $componentId) {
-    ...__Component
-  }
-}

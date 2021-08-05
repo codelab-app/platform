@@ -35,6 +35,7 @@ export class ElementValidator {
       throw new Error('Element does not exist')
     }
 
+    // If the element doesn't have an ownerId consider it valid for any user to access it
     if (response.ownerId && response.ownerId !== currentUser?.sub) {
       throw new Error("You don't have access to this element")
     }
@@ -128,7 +129,15 @@ export class ElementValidator {
         element: result,
         ownerId: tree['~pages'][0].ownerId as string,
       }
-      //  TODO Add component case here
+    } else if (instanceOfDgraphModel(tree, DgraphEntityType.Component)) {
+      // TODO change element validator when adding component ownership logic
+      return {
+        found: true,
+        tree,
+        root,
+        element: result,
+        ownerId: undefined,
+      }
     } else {
       throw new Error('Unknown tree type ' + tree['dgraph.type'])
     }

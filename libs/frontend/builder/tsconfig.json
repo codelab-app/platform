@@ -3,9 +3,14 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
+    "jsxImportSource": "@emotion/react",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "module": "esnext"
+    "module": "esnext",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "files": [],
   "include": [],

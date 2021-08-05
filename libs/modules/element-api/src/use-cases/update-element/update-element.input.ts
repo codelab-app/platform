@@ -10,6 +10,9 @@ export class UpdateElementData {
 
   @Field({ nullable: true })
   declare atomId?: string
+
+  @Field({ nullable: true })
+  declare componentId?: string
 }
 
 // Note that moveElement is there for updating order and parent

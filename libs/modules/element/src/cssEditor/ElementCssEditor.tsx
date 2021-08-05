@@ -50,6 +50,10 @@ export const ElementCssEditor = ({ element }: ElementCssEditorProps) => {
     }
   }, [cssDebounced])
 
+  if (!element.atom) {
+    return <>Add an atom to this element to edit its CSS</>
+  }
+
   return (
     <EmotionCssEditor
       width="100%"

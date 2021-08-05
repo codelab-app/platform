@@ -1,11 +1,11 @@
-import {
-  DeleteFilled,
-  EditFilled,
-  RightCircleOutlined,
-} from '@ant-design/icons'
+import { RightCircleOutlined } from '@ant-design/icons'
 import { __TypeFragment } from '@codelab/codegen/graphql'
-import { PageType } from '@codelab/frontend/shared'
-import { Button, Space, Table, TableProps } from 'antd'
+import {
+  ListItemDeleteButton,
+  ListItemEditButton,
+  PageType,
+} from '@codelab/frontend/shared'
+import { Space, Table, TableProps } from 'antd'
 import { ColumnsType } from 'antd/lib/table/interface'
 import Link from 'next/link'
 import React from 'react'
@@ -58,22 +58,10 @@ export const TypesTable = ({
               <RightCircleOutlined />
             </Link>
           ) : (
-            <Button
-              onClick={() => onEditClick(record)}
-              size="small"
-              type="primary"
-              tw="flex justify-center items-center"
-              icon={<EditFilled />}
-            />
+            <ListItemEditButton onClick={() => onEditClick(record)} />
           )}
-          <Button
-            size="small"
-            type="primary"
-            danger
-            tw="flex justify-center items-center"
-            icon={<DeleteFilled />}
-            onClick={() => onDeleteClick(record)}
-          />
+
+          <ListItemDeleteButton onClick={() => onDeleteClick(record)} />
         </Space>
       ),
     },

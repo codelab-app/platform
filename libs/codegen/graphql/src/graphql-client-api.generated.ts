@@ -235,6 +235,11 @@ export enum AtomType {
   HtmlSup = 'HtmlSup',
 }
 
+export type Component = {
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
 export type CreateAppInput = {
   name: Scalars['String']
 }
@@ -248,9 +253,14 @@ export type CreateAtomInput = {
   type: AtomType
 }
 
+export type CreateComponentInput = {
+  name: Scalars['String']
+}
+
 export type CreateElementInput = {
   name: Scalars['String']
   atomId?: Maybe<Scalars['String']>
+  componentId?: Maybe<Scalars['String']>
   parentElementId?: Maybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */
   order?: Maybe<Scalars['Int']>
@@ -310,6 +320,10 @@ export type DeleteAtomInput = {
   atomId: Scalars['String']
 }
 
+export type DeleteComponentInput = {
+  componentId: Scalars['String']
+}
+
 export type DeleteElementInput = {
   elementId: Scalars['String']
 }
@@ -339,27 +353,27 @@ export type Element = {
   name: Scalars['String']
   css?: Maybe<Scalars['String']>
   atom?: Maybe<Atom>
-  /** Referenced only by id to avoid recursion. Use ElementGraph to get all needed Components */
-  componentId?: Maybe<Scalars['String']>
   /** Props in a json format */
   props: Scalars['String']
 }
 
 /** An edge between two element nodes */
 export type ElementEdge = {
-  /** The id of the source Element */
+  /** The id of the source Element/Component */
   source: Scalars['String']
-  /** The id of the target Element */
+  /** The id of the target Element/Component */
   target: Scalars['String']
-  order: Scalars['Int']
+  order?: Maybe<Scalars['Int']>
 }
 
 export type ElementGraph = {
-  /** All descendant Elements, at any level */
-  vertices: Array<Element>
-  /** All the links connecting the descendant elements */
+  /** All descendant Elements or Components, at any level */
+  vertices: Array<ElementGraphVertex>
+  /** All the links connecting the descendant elements/components */
   edges: Array<ElementEdge>
 }
+
+export type ElementGraphVertex = Element | Component
 
 export type EnumType = Type & {
   id: Scalars['ID']
@@ -381,7 +395,7 @@ export type ExecuteLambdaInput = {
 export type Field = {
   id: Scalars['ID']
   key: Scalars['String']
-  name: Scalars['String']
+  name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
 }
 
@@ -402,6 +416,10 @@ export type GetAppInput = {
 export type GetAtomInput = {
   byElement?: Maybe<AtomByElement>
   byId?: Maybe<AtomById>
+}
+
+export type GetComponentInput = {
+  componentId: Scalars['String']
 }
 
 export type GetElementInput = {
@@ -483,6 +501,9 @@ export type Mutation = {
   updateElementProps?: Maybe<Scalars['Void']>
   /** Deletes an element and all the descending elements */
   deleteElement?: Maybe<Scalars['Void']>
+  createComponent: CreateResponse
+  updateComponent?: Maybe<Scalars['Void']>
+  deleteComponent?: Maybe<Scalars['Void']>
   createAtom: CreateResponse
   deleteAtom?: Maybe<Scalars['Void']>
   updateAtom?: Maybe<Scalars['Void']>
@@ -550,6 +571,18 @@ export type MutationUpdateElementPropsArgs = {
 
 export type MutationDeleteElementArgs = {
   input: DeleteElementInput
+}
+
+export type MutationCreateComponentArgs = {
+  input: CreateComponentInput
+}
+
+export type MutationUpdateComponentArgs = {
+  input: UpdateComponentInput
+}
+
+export type MutationDeleteComponentArgs = {
+  input: DeleteComponentInput
 }
 
 export type MutationCreateAtomArgs = {
@@ -645,6 +678,9 @@ export type Query = {
   getElement?: Maybe<Element>
   /** Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge */
   getElementGraph?: Maybe<ElementGraph>
+  getComponent: Component
+  getComponentElements: ElementGraph
+  getComponents: Array<Component>
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
   getField?: Maybe<Field>
@@ -677,6 +713,14 @@ export type QueryGetElementArgs = {
 
 export type QueryGetElementGraphArgs = {
   input: GetElementInput
+}
+
+export type QueryGetComponentArgs = {
+  input: GetComponentInput
+}
+
+export type QueryGetComponentElementsArgs = {
+  input: GetComponentInput
 }
 
 export type QueryGetAtomArgs = {
@@ -732,10 +776,10 @@ export type TypeGraph = {
 }
 
 export enum TypeKindFilter {
-  Primitive = 'Primitive',
-  Array = 'Array',
-  Interface = 'Interface',
-  Enum = 'Enum',
+  PrimitiveType = 'PrimitiveType',
+  ArrayType = 'ArrayType',
+  InterfaceType = 'InterfaceType',
+  EnumType = 'EnumType',
 }
 
 export type TypeRef = {
@@ -765,10 +809,20 @@ export type UpdateAtomInput = {
   data: CreateAtomInput
 }
 
+export type UpdateComponentData = {
+  name: Scalars['String']
+}
+
+export type UpdateComponentInput = {
+  componentId: Scalars['String']
+  updateData: UpdateComponentData
+}
+
 export type UpdateElementData = {
   name: Scalars['String']
   css?: Maybe<Scalars['String']>
   atomId?: Maybe<Scalars['String']>
+  componentId?: Maybe<Scalars['String']>
 }
 
 export type UpdateElementInput = {
@@ -945,6 +999,49 @@ export type UpdateAtomMutationVariables = Exact<{
 
 export type UpdateAtomMutation = Pick<Mutation, 'updateAtom'>
 
+export type ComponentFragment = { __typename: 'Component' } & Pick<
+  Component,
+  'id' | 'name'
+>
+
+export type CreateComponentMutationVariables = Exact<{
+  input: CreateComponentInput
+}>
+
+export type CreateComponentMutation = {
+  createComponent: Pick<CreateResponse, 'id'>
+}
+
+export type DeleteComponentMutationVariables = Exact<{
+  input: DeleteComponentInput
+}>
+
+export type DeleteComponentMutation = Pick<Mutation, 'deleteComponent'>
+
+export type GetComponentQueryVariables = Exact<{
+  input: GetComponentInput
+}>
+
+export type GetComponentQuery = { getComponent: ComponentFragment }
+
+export type GetComponentElementsQueryVariables = Exact<{
+  input: GetComponentInput
+}>
+
+export type GetComponentElementsQuery = {
+  getComponentElements: ElementGraphFragment
+}
+
+export type GetComponentsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetComponentsQuery = { getComponents: Array<ComponentFragment> }
+
+export type UpdateComponentMutationVariables = Exact<{
+  input: UpdateComponentInput
+}>
+
+export type UpdateComponentMutation = Pick<Mutation, 'updateComponent'>
+
 export type GetElementGraphQueryVariables = Exact<{
   input: GetElementInput
 }>
@@ -959,7 +1056,10 @@ export type ElementFragment = { __typename: 'Element' } & Pick<
 > & { atom?: Maybe<__AtomFragment> }
 
 export type ElementGraphFragment = {
-  vertices: Array<ElementFragment>
+  vertices: Array<
+    | ({ __typename: 'Element' } & ElementFragment)
+    | ({ __typename: 'Component' } & ComponentFragment)
+  >
   edges: Array<ElementEdgeFragment>
 }
 
@@ -1272,6 +1372,13 @@ export const PageBaseFragmentDoc = gql`
     name
   }
 `
+export const ComponentFragmentDoc = gql`
+  fragment Component on Component {
+    __typename
+    id
+    name
+  }
+`
 export const __InterfaceFragmentDoc = gql`
   fragment __Interface on InterfaceType {
     id
@@ -1312,12 +1419,15 @@ export const ElementEdgeFragmentDoc = gql`
 export const ElementGraphFragmentDoc = gql`
   fragment ElementGraph on ElementGraph {
     vertices {
+      __typename
+      ...Component
       ...Element
     }
     edges {
       ...ElementEdge
     }
   }
+  ${ComponentFragmentDoc}
   ${ElementFragmentDoc}
   ${ElementEdgeFragmentDoc}
 `
@@ -1922,6 +2032,343 @@ export type UpdateAtomMutationResult = Apollo.MutationResult<UpdateAtomMutation>
 export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
   UpdateAtomMutation,
   UpdateAtomMutationVariables
+>
+export const CreateComponentGql = gql`
+  mutation CreateComponent($input: CreateComponentInput!) {
+    createComponent(input: $input) {
+      id
+    }
+  }
+`
+export type CreateComponentMutationFn = Apollo.MutationFunction<
+  CreateComponentMutation,
+  CreateComponentMutationVariables
+>
+
+/**
+ * __useCreateComponentMutation__
+ *
+ * To run a mutation, you first call `useCreateComponentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateComponentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createComponentMutation, { data, loading, error }] = useCreateComponentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateComponentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateComponentMutation,
+    CreateComponentMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateComponentMutation,
+    CreateComponentMutationVariables
+  >(CreateComponentGql, options)
+}
+export type CreateComponentMutationHookResult = ReturnType<
+  typeof useCreateComponentMutation
+>
+export type CreateComponentMutationResult =
+  Apollo.MutationResult<CreateComponentMutation>
+export type CreateComponentMutationOptions = Apollo.BaseMutationOptions<
+  CreateComponentMutation,
+  CreateComponentMutationVariables
+>
+export const DeleteComponentGql = gql`
+  mutation DeleteComponent($input: DeleteComponentInput!) {
+    deleteComponent(input: $input)
+  }
+`
+export type DeleteComponentMutationFn = Apollo.MutationFunction<
+  DeleteComponentMutation,
+  DeleteComponentMutationVariables
+>
+
+/**
+ * __useDeleteComponentMutation__
+ *
+ * To run a mutation, you first call `useDeleteComponentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteComponentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteComponentMutation, { data, loading, error }] = useDeleteComponentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteComponentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteComponentMutation,
+    DeleteComponentMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteComponentMutation,
+    DeleteComponentMutationVariables
+  >(DeleteComponentGql, options)
+}
+export type DeleteComponentMutationHookResult = ReturnType<
+  typeof useDeleteComponentMutation
+>
+export type DeleteComponentMutationResult =
+  Apollo.MutationResult<DeleteComponentMutation>
+export type DeleteComponentMutationOptions = Apollo.BaseMutationOptions<
+  DeleteComponentMutation,
+  DeleteComponentMutationVariables
+>
+export const GetComponentGql = gql`
+  query GetComponent($input: GetComponentInput!) {
+    getComponent(input: $input) {
+      ...Component
+    }
+  }
+  ${ComponentFragmentDoc}
+`
+
+/**
+ * __useGetComponentQuery__
+ *
+ * To run a query within a React component, call `useGetComponentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetComponentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetComponentQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetComponentQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetComponentQuery,
+    GetComponentQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetComponentQuery, GetComponentQueryVariables>(
+    GetComponentGql,
+    options,
+  )
+}
+export function useGetComponentLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComponentQuery,
+    GetComponentQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetComponentQuery, GetComponentQueryVariables>(
+    GetComponentGql,
+    options,
+  )
+}
+export type GetComponentQueryHookResult = ReturnType<
+  typeof useGetComponentQuery
+>
+export type GetComponentLazyQueryHookResult = ReturnType<
+  typeof useGetComponentLazyQuery
+>
+export type GetComponentQueryResult = Apollo.QueryResult<
+  GetComponentQuery,
+  GetComponentQueryVariables
+>
+export function refetchGetComponentQuery(
+  variables?: GetComponentQueryVariables,
+) {
+  return { query: GetComponentGql, variables: variables }
+}
+export const GetComponentElementsGql = gql`
+  query GetComponentElements($input: GetComponentInput!) {
+    getComponentElements(input: $input) {
+      ...ElementGraph
+    }
+  }
+  ${ElementGraphFragmentDoc}
+`
+
+/**
+ * __useGetComponentElementsQuery__
+ *
+ * To run a query within a React component, call `useGetComponentElementsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetComponentElementsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetComponentElementsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetComponentElementsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetComponentElementsQuery,
+    GetComponentElementsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetComponentElementsQuery,
+    GetComponentElementsQueryVariables
+  >(GetComponentElementsGql, options)
+}
+export function useGetComponentElementsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComponentElementsQuery,
+    GetComponentElementsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetComponentElementsQuery,
+    GetComponentElementsQueryVariables
+  >(GetComponentElementsGql, options)
+}
+export type GetComponentElementsQueryHookResult = ReturnType<
+  typeof useGetComponentElementsQuery
+>
+export type GetComponentElementsLazyQueryHookResult = ReturnType<
+  typeof useGetComponentElementsLazyQuery
+>
+export type GetComponentElementsQueryResult = Apollo.QueryResult<
+  GetComponentElementsQuery,
+  GetComponentElementsQueryVariables
+>
+export function refetchGetComponentElementsQuery(
+  variables?: GetComponentElementsQueryVariables,
+) {
+  return { query: GetComponentElementsGql, variables: variables }
+}
+export const GetComponentsGql = gql`
+  query GetComponents {
+    getComponents {
+      ...Component
+    }
+  }
+  ${ComponentFragmentDoc}
+`
+
+/**
+ * __useGetComponentsQuery__
+ *
+ * To run a query within a React component, call `useGetComponentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetComponentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetComponentsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetComponentsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetComponentsQuery,
+    GetComponentsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetComponentsQuery, GetComponentsQueryVariables>(
+    GetComponentsGql,
+    options,
+  )
+}
+export function useGetComponentsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComponentsQuery,
+    GetComponentsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetComponentsQuery, GetComponentsQueryVariables>(
+    GetComponentsGql,
+    options,
+  )
+}
+export type GetComponentsQueryHookResult = ReturnType<
+  typeof useGetComponentsQuery
+>
+export type GetComponentsLazyQueryHookResult = ReturnType<
+  typeof useGetComponentsLazyQuery
+>
+export type GetComponentsQueryResult = Apollo.QueryResult<
+  GetComponentsQuery,
+  GetComponentsQueryVariables
+>
+export function refetchGetComponentsQuery(
+  variables?: GetComponentsQueryVariables,
+) {
+  return { query: GetComponentsGql, variables: variables }
+}
+export const UpdateComponentGql = gql`
+  mutation UpdateComponent($input: UpdateComponentInput!) {
+    updateComponent(input: $input)
+  }
+`
+export type UpdateComponentMutationFn = Apollo.MutationFunction<
+  UpdateComponentMutation,
+  UpdateComponentMutationVariables
+>
+
+/**
+ * __useUpdateComponentMutation__
+ *
+ * To run a mutation, you first call `useUpdateComponentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateComponentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateComponentMutation, { data, loading, error }] = useUpdateComponentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateComponentMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateComponentMutation,
+    UpdateComponentMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateComponentMutation,
+    UpdateComponentMutationVariables
+  >(UpdateComponentGql, options)
+}
+export type UpdateComponentMutationHookResult = ReturnType<
+  typeof useUpdateComponentMutation
+>
+export type UpdateComponentMutationResult =
+  Apollo.MutationResult<UpdateComponentMutation>
+export type UpdateComponentMutationOptions = Apollo.BaseMutationOptions<
+  UpdateComponentMutation,
+  UpdateComponentMutationVariables
 >
 export const GetElementGraphGql = gql`
   query GetElementGraph($input: GetElementInput!) {
@@ -3608,6 +4055,13 @@ export const PageBase = gql`
     name
   }
 `
+export const Component = gql`
+  fragment Component on Component {
+    __typename
+    id
+    name
+  }
+`
 export const __Interface = gql`
   fragment __Interface on InterfaceType {
     id
@@ -3648,12 +4102,15 @@ export const ElementEdge = gql`
 export const ElementGraph = gql`
   fragment ElementGraph on ElementGraph {
     vertices {
+      __typename
+      ...Component
       ...Element
     }
     edges {
       ...ElementEdge
     }
   }
+  ${Component}
   ${Element}
   ${ElementEdge}
 `
@@ -3823,6 +4280,47 @@ export const GetAtoms = gql`
 export const UpdateAtom = gql`
   mutation UpdateAtom($input: UpdateAtomInput!) {
     updateAtom(input: $input)
+  }
+`
+export const CreateComponent = gql`
+  mutation CreateComponent($input: CreateComponentInput!) {
+    createComponent(input: $input) {
+      id
+    }
+  }
+`
+export const DeleteComponent = gql`
+  mutation DeleteComponent($input: DeleteComponentInput!) {
+    deleteComponent(input: $input)
+  }
+`
+export const GetComponent = gql`
+  query GetComponent($input: GetComponentInput!) {
+    getComponent(input: $input) {
+      ...Component
+    }
+  }
+  ${Component}
+`
+export const GetComponentElements = gql`
+  query GetComponentElements($input: GetComponentInput!) {
+    getComponentElements(input: $input) {
+      ...ElementGraph
+    }
+  }
+  ${ElementGraph}
+`
+export const GetComponents = gql`
+  query GetComponents {
+    getComponents {
+      ...Component
+    }
+  }
+  ${Component}
+`
+export const UpdateComponent = gql`
+  mutation UpdateComponent($input: UpdateComponentInput!) {
+    updateComponent(input: $input)
   }
 `
 export const GetElementGraph = gql`

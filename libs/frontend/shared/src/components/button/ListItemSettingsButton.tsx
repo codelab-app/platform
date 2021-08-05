@@ -1,12 +1,14 @@
 import { SettingOutlined } from '@ant-design/icons'
 import React from 'react'
+import { ListItemButton, ListItemButtonProps } from './ListItemButton'
 
-export interface ListItemSettingsButtonProps {
-  onClick: () => void
-}
+export type ListItemSettingsButtonProps = Omit<
+  ListItemButtonProps,
+  'icon' | 'title'
+>
 
-export const ListItemSettingsButton = ({
-  onClick,
-}: ListItemSettingsButtonProps) => {
-  return <SettingOutlined title="Settings" onClick={onClick} />
+export const ListItemSettingsButton = (props: ListItemSettingsButtonProps) => {
+  return (
+    <ListItemButton icon={<SettingOutlined />} title="Settings" {...props} />
+  )
 }

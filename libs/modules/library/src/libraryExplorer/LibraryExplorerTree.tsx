@@ -1,5 +1,4 @@
 import { BookOutlined } from '@ant-design/icons'
-import { useComponentBuilder } from '@codelab/frontend/builder'
 import { CheckedKeys, LibraryContext, PageType } from '@codelab/frontend/shared'
 import {
   CreateAtomButtonIcon,
@@ -13,8 +12,6 @@ import {
   CreateComponentButton,
   CreateComponentModal,
   DeleteComponentButton,
-  DeleteComponentsModal,
-  UpdateComponentButton,
   UpdateComponentModal,
 } from '@codelab/modules/component'
 import { Divider, Space, Tree } from 'antd'
@@ -29,7 +26,7 @@ export const LibraryExplorerTree = () => {
   //   loadComponent,
   //   { called, loading, data },
   // ] = useGetComponentDetailLazyQuery()
-  const { setSelectedComponentId, selectedComponentId } = useComponentBuilder()
+  // const { setSelectedComponentId, selectedComponentId } = useComponentBuilder()
   // useEffect(() => {
   //   if (data?.component_by_pk) {
   //     setSelected(data?.component_by_pk)
@@ -133,10 +130,10 @@ export const LibraryExplorerTree = () => {
         </h3>
         <Space align="center">
           <CreateComponentButton />
-          <UpdateComponentButton
-            id={selectedComponentId}
-            disabled={!selectedComponentId}
-          />
+          {/* <UpdateComponentButton*/}
+          {/*  id={selectedComponentId}*/}
+          {/*  disabled={!selectedComponentId}*/}
+          {/*/ >*/}
           <DeleteComponentButton
             disabled={checkedComponentIds?.length === 0}
             ids={checkedComponentIds}
@@ -145,12 +142,12 @@ export const LibraryExplorerTree = () => {
       </Space>
       <CreateComponentModal />
       <UpdateComponentModal />
-      <DeleteComponentsModal />
+      {/* <DeleteComponentsModal />*/}
       <Tree
         onSelect={([checkedKey], e) => {
           const _selectedComponentId = checkedKey?.toString()
 
-          setSelectedComponentId(_selectedComponentId)
+          // setSelectedComponentId(_selectedComponentId)
         }}
         onCheck={(checkedKeys, e) => {
           const { checked: _checkedComponentIds, halfChecked } =

@@ -3,6 +3,7 @@ import {
   CreateElementInput,
   useCreateElementMutation,
   useGetAtomsQuery,
+  useGetComponentsQuery,
 } from '@codelab/codegen/graphql'
 import {
   createNotificationHandler,
@@ -45,6 +46,7 @@ export const CreateElementForm = ({
   })
 
   const { data: atoms } = useGetAtomsQuery()
+  const { data: components } = useGetComponentsQuery()
 
   return (
     <FormUniforms<CreateElementInput>
@@ -57,7 +59,7 @@ export const CreateElementForm = ({
       model={{ parentElementId: initialDataRef.current?.parentElementId }}
       {...props}
     >
-      <AutoFields omitFields={['parentElementId', 'atomId']} />
+      <AutoFields omitFields={['parentElementId', 'atomId', 'componentId']} />
 
       <SelectField
         name="atomId"
@@ -69,6 +71,19 @@ export const CreateElementForm = ({
         options={atoms?.atoms.map((atom) => ({
           label: atom.name,
           value: atom.id,
+        }))}
+      />
+
+      <SelectField
+        name="componentId"
+        label="Component"
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore https://github.com/vazco/uniforms/issues/951
+        showSearch={true}
+        optionFilterProp="label"
+        options={components?.getComponents.map((comp) => ({
+          label: comp.name,
+          value: comp.id,
         }))}
       />
 

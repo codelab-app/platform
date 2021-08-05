@@ -1,6 +1,0 @@
-query GetComponents($filter: ComponentFilter) {
-  components: queryComponent(filter: $filter) {
-    id
-    label
-  }
-}

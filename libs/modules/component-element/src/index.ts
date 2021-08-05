@@ -1,6 +1,0 @@
-export * from './addChildComponentElement'
-export * from './createComponentElement'
-export * from './createComponentLink'
-export * from './deleteComponentElements'
-export * from './pane'
-export * from './updateComponentElement'

@@ -24,4 +24,4 @@ export const UpdatePageElementForm = (props: UpdatePageElementFormProps) => {
   return <UpdateElementForm refetchQueries={refetchQueries} {...props} />
 }
 
-UpdatePageElementForm.displayName = 'MovePageElementForm'
+UpdatePageElementForm.displayName = 'UpdatePageElementForm'

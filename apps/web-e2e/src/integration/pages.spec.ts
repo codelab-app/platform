@@ -5,6 +5,8 @@ describe('Pages', () => {
 
   before(() => {
     cy.clearCookies()
+    cy.preserveAuthCookies()
+
     cy.login().then(() => {
       cy.createApp().then((app: any) => {
         appId = app.id
@@ -18,7 +20,7 @@ describe('Pages', () => {
   })
 
   beforeEach(() => {
-    cy.login()
+    cy.preserveAuthCookies()
   })
 
   describe('create', () => {
@@ -45,7 +47,7 @@ describe('Pages', () => {
 
   describe('update', () => {
     it('should be able to update page name', () => {
-      cy.findSettingsButtonByPageName(pageName).click()
+      cy.findEditButtonByPageName(pageName).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal().findByLabelText('Name').clear().type(updatedPageName)

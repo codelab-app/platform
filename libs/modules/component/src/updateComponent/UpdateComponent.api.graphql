@@ -1,0 +1,3 @@
+mutation UpdateComponent($input: UpdateComponentInput!) {
+  updateComponent(input: $input)
+}

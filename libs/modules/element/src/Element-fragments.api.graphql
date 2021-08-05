@@ -11,6 +11,8 @@ fragment Element on Element {
 
 fragment ElementGraph on ElementGraph {
   vertices {
+    __typename
+    ...Component
     ...Element
   }
   edges {

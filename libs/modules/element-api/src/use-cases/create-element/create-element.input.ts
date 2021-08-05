@@ -9,6 +9,9 @@ export class CreateElementInput {
   declare atomId?: string
 
   @Field({ nullable: true })
+  declare componentId?: string
+
+  @Field({ nullable: true })
   declare parentElementId?: string
 
   @Field(() => Int, {

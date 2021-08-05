@@ -56,9 +56,6 @@
     "frontend-dgraph": {
       "tags": []
     },
-    "frontend-layout": {
-      "tags": []
-    },
     "frontend-shared": {
       "tags": []
     },
@@ -81,9 +78,6 @@
       "tags": []
     },
     "modules-component": {
-      "tags": []
-    },
-    "modules-component-element": {
       "tags": []
     },
     "modules-element": {
