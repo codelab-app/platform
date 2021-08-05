@@ -28,7 +28,7 @@ export class DgraphService {
     // https://discuss.dgraph.io/t/connection-management/11060 - it's safe to use a single client across the app
     this.dgraphClient = new DgraphClient(clientStub)
 
-    if (_dgraphConfig.apiKey) {
+    if (_dgraphConfig.apiKey && _dgraphConfig.apiKey !== 'empty') {
       this.dgraphClient.setCloudApiKey(_dgraphConfig.apiKey)
     }
   }

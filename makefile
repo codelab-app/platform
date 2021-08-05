@@ -44,7 +44,7 @@ build-dev:
 build-ci:
 	npx nx run-many \
 		--target=build \
-		--projects=api,web \
+		--projects=api,web,cli \
 		--prod \
 		--parallel \
 		--maxWorkers=8 \
