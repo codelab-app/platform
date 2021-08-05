@@ -14,6 +14,7 @@ import {
   InterfaceTypeMapper,
   InterfaceTypeMapperInput,
 } from './interface-type.mapper'
+import { LambdaTypeMapper } from './lambda-type.mapper'
 import { PrimitiveTypeMapper } from './primitive-type.mapper'
 
 export type TypeMapperInput =
@@ -29,6 +30,7 @@ export class TypeMapperFactory {
     private arrayTypeMapper: ArrayTypeMapper,
     private enumTypeMapper: EnumTypeMapper,
     private interfaceMapper: InterfaceTypeMapper,
+    private lambdaTypeMapper: LambdaTypeMapper,
   ) {}
 
   getMapper(type: TypeMapperInput): Mapper<DgraphType<any>, any> {
@@ -66,6 +68,15 @@ export class TypeMapperFactory {
       )
     ) {
       return this.primitiveTypeMapper
+    }
+
+    if (
+      instanceOfDgraphModel(
+        type as DgraphEntity<any>,
+        DgraphEntityType.LambdaType,
+      )
+    ) {
+      return this.lambdaTypeMapper
     }
 
     throw new Error(

@@ -50,6 +50,7 @@ export const mapTypeSchemaToTypeInput = (
   switch (kind) {
     case TypeKind.InterfaceType:
       return { ...common, interfaceType: true }
+
     case TypeKind.EnumType:
       if (!typeSchema.allowedValues) {
         throw new Error('Invalid form input')
@@ -68,6 +69,8 @@ export const mapTypeSchemaToTypeInput = (
         ...common,
         primitiveType: { primitiveKind: typeSchema.primitiveKind },
       }
+    case TypeKind.LambdaType:
+      return { ...common, lambdaType: true }
   }
 
   throw new Error('Invalid form input')

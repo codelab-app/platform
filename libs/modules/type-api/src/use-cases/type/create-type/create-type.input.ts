@@ -48,4 +48,7 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
 
   @Field(() => Boolean, { nullable: true })
   declare interfaceType?: boolean
+
+  @Field(() => Boolean, { nullable: true })
+  declare lambdaType?: boolean
 }

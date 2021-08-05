@@ -28,6 +28,8 @@ const typenameToKind = (typename: string) => {
       return TypeKind.ArrayType
     case TypeModels.EnumType:
       return TypeKind.EnumType
+    case TypeModels.LambdaType:
+      return TypeKind.LambdaType
   }
 
   throw new Error("Can't recognize typename of type")

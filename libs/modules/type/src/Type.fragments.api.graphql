@@ -19,6 +19,11 @@ fragment __EnumTypeValue on EnumTypeValue {
   value
 }
 
+fragment __LambdaType on LambdaType {
+  id
+  name
+}
+
 fragment __EnumType on EnumType {
   id
   name

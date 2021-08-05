@@ -80,8 +80,15 @@ export class TypeValidator {
     enumType,
     interfaceType,
     primitiveType,
+    lambdaType,
   }: CreateTypeInput) {
-    this.singleInput([enumType, arrayType, interfaceType, primitiveType])
+    this.singleInput([
+      enumType,
+      arrayType,
+      interfaceType,
+      primitiveType,
+      lambdaType,
+    ])
 
     if (arrayType) {
       await this.typeExists(arrayType.itemTypeId)

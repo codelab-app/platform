@@ -154,6 +154,7 @@ export enum AtomType {
   AntDesignTypographyTitle = 'AntDesignTypographyTitle',
   AntDesignUpload = 'AntDesignUpload',
   Query = 'Query',
+  TextList = 'TextList',
   ReactFragment = 'ReactFragment',
   HtmlA = 'HtmlA',
   HtmlP = 'HtmlP',
@@ -310,6 +311,7 @@ export type CreateTypeInput = {
   arrayType?: Maybe<CreateArrayTypeInput>
   enumType?: Maybe<CreateEnumTypeInput>
   interfaceType?: Maybe<Scalars['Boolean']>
+  lambdaType?: Maybe<Scalars['Boolean']>
 }
 
 export type DeleteAppInput = {
@@ -474,6 +476,12 @@ export type Lambda = {
 
 export type LambdaPayload = {
   payload: Scalars['String']
+}
+
+/** The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId  */
+export type LambdaType = Type & {
+  id: Scalars['ID']
+  name: Scalars['String']
 }
 
 export type MoveData = {
@@ -780,6 +788,7 @@ export enum TypeKindFilter {
   ArrayType = 'ArrayType',
   InterfaceType = 'InterfaceType',
   EnumType = 'EnumType',
+  LambdaType = 'LambdaType',
 }
 
 export type TypeRef = {
@@ -1191,6 +1200,8 @@ export type __EnumTypeValueFragment = Pick<
   'id' | 'name' | 'value'
 >
 
+export type __LambdaTypeFragment = Pick<LambdaType, 'id' | 'name'>
+
 export type __EnumTypeFragment = Pick<EnumType, 'id' | 'name'> & {
   allowedValues: Array<__EnumTypeValueFragment>
 }
@@ -1218,6 +1229,11 @@ type __Type_InterfaceType_Fragment = { __typename: 'InterfaceType' } & Pick<
 > &
   __InterfaceFragment
 
+type __Type_LambdaType_Fragment = { __typename: 'LambdaType' } & Pick<
+  LambdaType,
+  'id' | 'name'
+>
+
 type __Type_PrimitiveType_Fragment = { __typename: 'PrimitiveType' } & Pick<
   PrimitiveType,
   'id' | 'name'
@@ -1228,6 +1244,7 @@ export type __TypeFragment =
   | __Type_ArrayType_Fragment
   | __Type_EnumType_Fragment
   | __Type_InterfaceType_Fragment
+  | __Type_LambdaType_Fragment
   | __Type_PrimitiveType_Fragment
 
 export type __InterfaceFragment = Pick<InterfaceType, 'id' | 'name'>
@@ -1238,6 +1255,7 @@ export type __TypeGraphFragment = {
     | __Type_ArrayType_Fragment
     | __Type_EnumType_Fragment
     | __Type_InterfaceType_Fragment
+    | __Type_LambdaType_Fragment
     | __Type_PrimitiveType_Fragment
   >
 }
@@ -1292,6 +1310,7 @@ export type GetTypeQuery = {
     | __Type_ArrayType_Fragment
     | __Type_EnumType_Fragment
     | __Type_InterfaceType_Fragment
+    | __Type_LambdaType_Fragment
     | __Type_PrimitiveType_Fragment
   >
 }
@@ -1309,6 +1328,7 @@ export type GetTypesQuery = {
     | ({ __typename: 'ArrayType' } & __Type_ArrayType_Fragment)
     | ({ __typename: 'EnumType' } & __Type_EnumType_Fragment)
     | ({ __typename: 'InterfaceType' } & __Type_InterfaceType_Fragment)
+    | ({ __typename: 'LambdaType' } & __Type_LambdaType_Fragment)
     | ({ __typename: 'PrimitiveType' } & __Type_PrimitiveType_Fragment)
   >
 }
@@ -1440,6 +1460,12 @@ export const PageFullFragmentDoc = gql`
   }
   ${PageBaseFragmentDoc}
   ${ElementGraphFragmentDoc}
+`
+export const __LambdaTypeFragmentDoc = gql`
+  fragment __LambdaType on LambdaType {
+    id
+    name
+  }
 `
 export const __FieldFragmentDoc = gql`
   fragment __Field on Field {
@@ -4123,6 +4149,12 @@ export const PageFull = gql`
   }
   ${PageBase}
   ${ElementGraph}
+`
+export const __LambdaType = gql`
+  fragment __LambdaType on LambdaType {
+    id
+    name
+  }
 `
 export const __Field = gql`
   fragment __Field on Field {

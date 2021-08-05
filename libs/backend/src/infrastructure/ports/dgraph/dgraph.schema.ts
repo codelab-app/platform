@@ -19,6 +19,7 @@ const {
   Library,
   PrimitiveType,
   EnumTypeValue,
+  LambdaType,
   App,
   Component,
   Lambda,
@@ -84,6 +85,9 @@ export const dgraphSchema = `
 
   type ${EnumType} {
     allowedValues
+  }
+
+  type ${LambdaType} {
   }
 
   type ${InterfaceType} {

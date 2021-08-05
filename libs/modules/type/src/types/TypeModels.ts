@@ -14,4 +14,5 @@ export const TypeModels: TypeModelsType = {
   EnumType: 'EnumType',
   ArrayType: 'ArrayType',
   InterfaceType: 'InterfaceType',
+  LambdaType: 'LambdaType',
 }
