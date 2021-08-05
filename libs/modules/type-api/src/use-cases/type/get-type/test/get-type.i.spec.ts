@@ -13,7 +13,7 @@ import {
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
-import { createPrimitiveTypeStringInput } from '../../create-type/test/data'
+import { createPrimitiveTypeStringInput } from '../../create-type/test/create-type.data'
 
 describe('GetType', () => {
   let guestApp: INestApplication
