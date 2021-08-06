@@ -4,6 +4,7 @@ import {
   BuildOutlined,
   DeploymentUnitOutlined,
   FunctionOutlined,
+  UserOutlined,
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/shared'
 import { Menu } from 'antd'
@@ -36,6 +37,12 @@ export const DashboardSidebarNavigation = () => {
         icon={<AppstoreOutlined data-testid="app-tab-trigger" title="Apps" />}
       >
         <Link href={PageType.AppList}>Apps</Link>
+      </Menu.Item>
+      <Menu.Item
+        key={PageType.Admin}
+        icon={<UserOutlined data-testid="admin-tab-trigger" title="Admin" />}
+      >
+        <Link href={PageType.Admin}>Admin</Link>
       </Menu.Item>
       <Menu.Item
         key={PageType.Atom}

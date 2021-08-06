@@ -69,10 +69,10 @@ lint-eslint:
 #
 
 e2e-dev-affected:
-	./scripts/nx.sh affected:e2e -c local
+	./scripts/nx.sh affected:e2e --configuration local
 
 e2e-ci-affected:
-	yarn affected:e2e -c ci
+	yarn affected:e2e --configuration ci
 
 #
 # INTEGRATION TESTS
