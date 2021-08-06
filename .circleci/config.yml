@@ -278,6 +278,9 @@ jobs:
       - run:
           name: 'Build CI'
           command: make build-ci
+      - run:
+          name: 'Update Dgraph Schema'
+          command: yarn cli dgraph update-schema --env ci
       # Save cache after checkout & building project
       - run:
           name: 'Remove Unused Cache'
@@ -475,7 +478,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
-            - install-and-build-workspace
+            - integration
       - notify-success:
           <<: *filters-staging-pr
           context: CI
@@ -540,7 +543,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
-            - install-and-build-workspace
+            - integration
       - build-docker-prod:
           <<: *filters-prod-merge
           e: docker-node
