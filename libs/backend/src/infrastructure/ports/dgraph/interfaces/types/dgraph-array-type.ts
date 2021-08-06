@@ -1,4 +1,4 @@
-import * as R from 'ramda'
+import { equalsSet } from '../../../../../common'
 import { DgraphEntityType } from '../../dgraph-entity-type'
 import { DgraphType } from './dgraph-type'
 
@@ -10,7 +10,7 @@ export interface DgraphArrayType
 export const isDgraphArrayType = (
   type: DgraphType<DgraphEntityType>,
 ): type is DgraphArrayType => {
-  return R.equals(type['dgraph.type'], [
+  return equalsSet(type['dgraph.type'], [
     DgraphEntityType.Type,
     DgraphEntityType.ArrayType,
   ])

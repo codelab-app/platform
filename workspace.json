@@ -809,13 +809,16 @@
             "envFile": ".env.test",
             "commands": [
               {
-                "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env local"
+                "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env local",
+                "forwardAllArgs": false
               },
               {
-                "command": "npx next start dist/apps/web-local --port 3001"
+                "command": "npx next start dist/apps/web-local --port 3001",
+                "forwardAllArgs": false
               },
               {
-                "command": "node dist/apps/api/main.js"
+                "command": "node dist/apps/api/main.js",
+                "forwardAllArgs": false
               },
               {
                 "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
@@ -831,7 +834,8 @@
             "envFile": ".env.test",
             "commands": [
               {
-                "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env local"
+                "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env local",
+                "forwardAllArgs": false
               },
               {
                 "command": "nx serve api",

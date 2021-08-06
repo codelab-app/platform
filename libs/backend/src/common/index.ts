@@ -1,5 +1,6 @@
 export * from './cLog'
 export * from './codec'
+export * from './comparison'
 export * from './cytoscape'
 export * from './environment'
 export * from './graph'

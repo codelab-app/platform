@@ -25,8 +25,6 @@ export const DeleteLambdaForm = (props: DeleteLambdaFormProps) => {
   })
 
   const onSubmit = (data: DeleteLambdaInput) => {
-    console.log(data)
-
     return mutate({
       variables: {
         input: {

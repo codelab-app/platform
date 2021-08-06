@@ -52,8 +52,6 @@ export class TypeResolver {
       return null
     }
 
-    console.log(type)
-
     const mapper = this.typeMapperFactory.getMapper(type)
 
     return mapper.map(type)

@@ -1,4 +1,4 @@
-import * as R from 'ramda'
+import { equalsSet } from '../../../../common'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphEntity } from './core'
 import { DgraphType } from './types'
@@ -13,5 +13,5 @@ export interface DgraphField extends DgraphEntity<DgraphEntityType.Field> {
 export const isDgraphFieldType = (
   entity: DgraphEntity<DgraphEntityType.Field>,
 ): entity is DgraphField => {
-  return R.equals(entity['dgraph.type'], [DgraphEntityType.Field])
+  return equalsSet(entity['dgraph.type'], [DgraphEntityType.Field])
 }

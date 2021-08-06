@@ -4,16 +4,14 @@ import {
   isDgraphArrayType,
   isDgraphEnumType,
   isDgraphInterfaceType,
+  isDgraphLambdaType,
   isDgraphPrimitiveType,
   Mapper,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { ArrayTypeMapper } from './array-type.mapper'
 import { EnumTypeMapper } from './enum-type.mapper'
-import {
-  InterfaceTypeMapper,
-  InterfaceTypeMapperInput,
-} from './interface-type.mapper'
+import { InterfaceTypeMapper } from './interface-type.mapper'
 import { LambdaTypeMapper } from './lambda-type.mapper'
 import { PrimitiveTypeMapper } from './primitive-type.mapper'
 
@@ -46,12 +44,7 @@ export class TypeMapperFactory {
       return this.primitiveTypeMapper
     }
 
-    if (
-      instanceOfDgraphModel(
-        type as DgraphEntity<any>,
-        DgraphEntityType.LambdaType,
-      )
-    ) {
+    if (isDgraphLambdaType(type)) {
       return this.lambdaTypeMapper
     }
 

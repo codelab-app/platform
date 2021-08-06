@@ -36,8 +36,8 @@ const arrayItemEdgeSelector = `[kind=${TypeEdgeKind.ArrayItem}]`
 /**
  * Parses a TypeGraph and provides helper methods for it
  */
-export const useTypeTree = (graph?: __TypeGraphFragment): TypeTree => {
-  const { edges, vertices } = graph || { edges: [], vertices: [] }
+export const useTypeTree = (graph?: __TypeGraphFragment | null): TypeTree => {
+  const { edges, vertices } = graph ?? { edges: [], vertices: [] }
 
   const cy = cytoscape({
     headless: true,

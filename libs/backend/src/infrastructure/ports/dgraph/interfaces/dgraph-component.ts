@@ -1,4 +1,4 @@
-import * as R from 'ramda'
+import { equalsSet } from '../../../../common'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphEntity, DgraphTree } from './core'
 import { DgraphElement } from './dgraph-element'
@@ -15,7 +15,7 @@ export type DgraphComponent = DgraphTree<
 export const isDgraphComponent = (
   entity: DgraphEntity,
 ): entity is DgraphComponent => {
-  return R.equals(entity['dgraph.type'], [
+  return equalsSet(entity['dgraph.type'], [
     DgraphEntityType.Tree,
     DgraphEntityType.Component,
   ])

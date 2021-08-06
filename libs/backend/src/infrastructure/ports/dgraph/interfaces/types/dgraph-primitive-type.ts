@@ -1,4 +1,4 @@
-import * as R from 'ramda'
+import { equalsSet } from '../../../../../common'
 import { DgraphEntityType } from '../../dgraph-entity-type'
 import { DgraphType } from './dgraph-type'
 
@@ -18,7 +18,7 @@ export interface DgraphPrimitiveType
 export const isDgraphPrimitiveType = (
   type: DgraphType<DgraphEntityType>,
 ): type is DgraphPrimitiveType => {
-  return R.equals(type['dgraph.type'], [
+  return equalsSet(type['dgraph.type'], [
     DgraphEntityType.Type,
     DgraphEntityType.PrimitiveType,
   ])

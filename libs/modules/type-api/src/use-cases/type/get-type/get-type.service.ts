@@ -14,7 +14,7 @@ export class GetTypeService extends DgraphUseCase<
   DgraphType<DgraphEntityType.Type> | null
 > {
   protected executeTransaction(request: GetTypeRequest, txn: Txn) {
-    return this.dgraph.getOne<DgraphType<DgraphEntityType.Type>>(
+    return this.dgraph.getOneOrThrow<DgraphType<DgraphEntityType.Type>>(
       txn,
       this.createQuery(request),
     )
@@ -30,7 +30,6 @@ export class GetTypeService extends DgraphUseCase<
     }
 
     const qb = new DgraphQueryBuilder()
-      .setTypeFunc(DgraphEntityType.Type)
       .addBaseFields()
       .addRecurseDirective()
       .addFields(
@@ -46,11 +45,13 @@ export class GetTypeService extends DgraphUseCase<
       )
 
     if (id) {
-      return qb.setUidFunc(id)
+      return qb.setUidFunc(id).addTypeFilterDirective(DgraphEntityType.Type)
     }
 
     if (name) {
-      return qb.addEqFilterDirective<DgraphEntityType>('name', name)
+      return qb
+        .setTypeFunc(DgraphEntityType.Type)
+        .addEqFilterDirective<DgraphEntityType>('name', name)
     }
 
     throw new Error('Missing parameters')
