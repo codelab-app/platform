@@ -800,6 +800,10 @@
               "root": "apps/web",
               "outputPath": "dist/apps/web-local"
             },
+            "ci": {
+              "root": "apps/web",
+              "outputPath": "dist/apps/web-local"
+            },
             "production": {}
           }
         },

@@ -45,7 +45,7 @@ build-ci:
 	npx nx run-many \
 		--target=build \
 		--projects=api,web,cli \
-		--prod \
+    --configuration=ci \
 		--parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192

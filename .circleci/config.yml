@@ -6,13 +6,6 @@
 
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
-# filters-dev: &filters-dev
-#   filters:
-#     branches:
-#       only: /^.*$/
-#     tags:
-#       ignore: /.*/
-
 filters-staging-pr: &filters-staging-pr
   filters:
     branches:
@@ -27,7 +20,7 @@ filters-staging-merge: &filters-staging-merge
       only:
         - staging
 
-filters-prod: &filters-prod
+filters-prod-merge: &filters-prod-merge
   filters:
     tags:
       only: /^prod-.*$/
@@ -86,19 +79,17 @@ executors:
     <<: *executor-config
     docker:
       - image: cimg/node:14.16.0-browsers
-    # resource_class: medium
     resource_class: large
   cypress-node:
     <<: *executor-config
     docker:
       - image: cypress/browsers:chrome69
-    # resource_class: medium
     resource_class: large
   docker-python:
     <<: *executor-config
     docker:
       - image: circleci/python:3.7
-    resource_class: medium
+    resource_class: large
 
 commands:
   setup-workspace:
@@ -127,8 +118,6 @@ commands:
       - run:
           name: 'Setup env'
           command: |
-            # node settings
-
             # git settings
             echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
 
@@ -525,35 +514,35 @@ workflows:
   app-prod:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-prod
+          <<: *filters-prod-merge
           e: docker-node
           context: CI
       - lint:
-          <<: *filters-prod
+          <<: *filters-prod-merge
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - unit:
-          <<: *filters-prod
+          <<: *filters-prod-merge
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - integration:
-          <<: *filters-prod
+          <<: *filters-prod-merge
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - e2e:
-          <<: *filters-prod
+          <<: *filters-prod-merge
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - build-docker-prod:
-          <<: *filters-prod
+          <<: *filters-prod-merge
           e: docker-node
           context: CI
           requires:
@@ -562,14 +551,14 @@ workflows:
             - integration
             - e2e
       - deploy-to-prod:
-          <<: *filters-prod
+          <<: *filters-prod-merge
           e: docker-python
           context: CI
           requires:
             - build-docker-prod
 
       - notify-success:
-          <<: *filters-prod
+          <<: *filters-prod-merge
           e: docker-node
           context: CI
           requires:
