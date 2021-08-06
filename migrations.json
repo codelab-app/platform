@@ -31,6 +31,14 @@
       "factory": "./src/migrations/update-12-5-9/update-storybook-react-typings",
       "package": "@nrwl/storybook",
       "name": "update-12-5-9-beta.1"
+    },
+    {
+      "version": "0.0.1",
+      "cli": "nx",
+      "description": "Custom tsconfig.*.json parser to set correct configs",
+      "factory": "./src/migrations/tsconfig-lib/tsconfig-lib",
+      "package": "@codelab/schematics",
+      "name": "tsconfig-lib"
     }
   ]
 }

@@ -15,18 +15,15 @@ export class CreateFieldInput {
   @Field()
   declare key: string
 
-  @Field()
-  declare name: string
+  @Field(() => String, { nullable: true })
+  declare name?: string
 
   @Field(() => String, { nullable: true })
-  declare description?: string | null
+  declare description?: string
 
-  @Field()
+  @Field({ description: 'The interface to add fields to' })
   declare interfaceId: string
 
   @Field(() => TypeRef)
   declare type: TypeRef
-
-  // @Field(() => [CreateDecoratorInput])
-  // declare decorators: Array<CreateDecoratorInput>
 }

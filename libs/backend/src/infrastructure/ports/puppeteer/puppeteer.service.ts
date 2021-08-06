@@ -4,7 +4,7 @@ import { parse } from 'json2csv'
 import { Dictionary } from 'lodash'
 import puppeteer from 'puppeteer'
 
-interface AntdDesignApi {
+export interface AntdDesignApi {
   property: string
   description: string
   type: string
@@ -12,9 +12,7 @@ interface AntdDesignApi {
   version: string
 }
 
-type ComponentUrls = Map<string, string>
-
-const tableKeys: Array<keyof AntdDesignApi> = [
+export const antdTableKeys: Array<keyof AntdDesignApi> = [
   'property',
   'description',
   'type',
@@ -83,12 +81,12 @@ export class PuppeteerService {
               }
             },
           ),
-        tableKeys,
+        antdTableKeys,
       )
 
       try {
         const csv = parse(tableData, {
-          fields: tableKeys,
+          fields: antdTableKeys,
         })
 
         console.log(csv)

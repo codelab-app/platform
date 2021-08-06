@@ -1,27 +1,19 @@
 import {
-  DgraphEntity,
   DgraphEntityType,
-  DgraphEnumType,
-  DgraphPrimitiveType,
   DgraphType,
-  instanceOfDgraphModel,
+  isDgraphArrayType,
+  isDgraphEnumType,
+  isDgraphInterfaceType,
+  isDgraphLambdaType,
+  isDgraphPrimitiveType,
   Mapper,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { ArrayTypeMapper, ArrayTypeMapperInput } from './array-type.mapper'
+import { ArrayTypeMapper } from './array-type.mapper'
 import { EnumTypeMapper } from './enum-type.mapper'
-import {
-  InterfaceTypeMapper,
-  InterfaceTypeMapperInput,
-} from './interface-type.mapper'
+import { InterfaceTypeMapper } from './interface-type.mapper'
 import { LambdaTypeMapper } from './lambda-type.mapper'
 import { PrimitiveTypeMapper } from './primitive-type.mapper'
-
-export type TypeMapperInput =
-  | ArrayTypeMapperInput
-  | DgraphEnumType
-  | InterfaceTypeMapperInput
-  | DgraphPrimitiveType
 
 @Injectable()
 export class TypeMapperFactory {
@@ -33,49 +25,26 @@ export class TypeMapperFactory {
     private lambdaTypeMapper: LambdaTypeMapper,
   ) {}
 
-  getMapper(type: TypeMapperInput): Mapper<DgraphType<any>, any> {
-    if (
-      instanceOfDgraphModel(
-        type as DgraphEntity<any>,
-        DgraphEntityType.ArrayType,
-      )
-    ) {
+  getMapper(
+    type: DgraphType<DgraphEntityType.Type>,
+  ): Mapper<DgraphType<any>, any> {
+    if (isDgraphArrayType(type)) {
       return this.arrayTypeMapper
     }
 
-    if (
-      instanceOfDgraphModel(
-        type as DgraphEntity<any>,
-        DgraphEntityType.EnumType,
-      )
-    ) {
+    if (isDgraphEnumType(type)) {
       return this.enumTypeMapper
     }
 
-    if (
-      instanceOfDgraphModel(
-        type as DgraphEntity<any>,
-        DgraphEntityType.InterfaceType,
-      )
-    ) {
+    if (isDgraphInterfaceType(type)) {
       return this.interfaceMapper
     }
 
-    if (
-      instanceOfDgraphModel(
-        type as DgraphEntity<any>,
-        DgraphEntityType.PrimitiveType,
-      )
-    ) {
+    if (isDgraphPrimitiveType(type)) {
       return this.primitiveTypeMapper
     }
 
-    if (
-      instanceOfDgraphModel(
-        type as DgraphEntity<any>,
-        DgraphEntityType.LambdaType,
-      )
-    ) {
+    if (isDgraphLambdaType(type)) {
       return this.lambdaTypeMapper
     }
 

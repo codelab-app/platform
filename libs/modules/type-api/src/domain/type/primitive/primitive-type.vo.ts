@@ -32,8 +32,6 @@ export class PrimitiveTypeValueObject
   // }
 
   toString() {
-    console.log(this.name)
-
     return `${this.name}`
   }
 }

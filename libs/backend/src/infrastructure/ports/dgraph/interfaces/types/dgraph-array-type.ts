@@ -1,7 +1,17 @@
+import { equalsSet } from '../../../../../common'
 import { DgraphEntityType } from '../../dgraph-entity-type'
 import { DgraphType } from './dgraph-type'
 
 export interface DgraphArrayType
   extends DgraphType<DgraphEntityType.ArrayType> {
   itemType: DgraphType<any>
+}
+
+export const isDgraphArrayType = (
+  type: DgraphType<DgraphEntityType>,
+): type is DgraphArrayType => {
+  return equalsSet(type['dgraph.type'], [
+    DgraphEntityType.Type,
+    DgraphEntityType.ArrayType,
+  ])
 }

@@ -17,8 +17,9 @@ import 'cypress-nextjs-auth0'
 // Import commands.js using ES2015 syntax:
 import './commands'
 
-const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
 Cypress.on('uncaught:exception', (err) => {
+  const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
+
   /* returning false here prevents Cypress from failing the test */
   if (resizeObserverLoopErrRe.test(err.message)) {
     return false

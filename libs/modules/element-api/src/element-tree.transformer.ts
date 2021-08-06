@@ -4,8 +4,8 @@ import {
   DgraphAtom,
   DgraphComponent,
   DgraphElement,
-  DgraphEntityType,
-  instanceOfDgraphModel,
+  isDgraphComponent,
+  isDgraphElement,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import cytoscape from 'cytoscape'
@@ -36,7 +36,7 @@ export class ElementTreeTransformer {
       root,
       extractId: (el) => el.uid,
       visit: async (node, parentNode) => {
-        if (instanceOfDgraphModel(node as any, DgraphEntityType.Element)) {
+        if (isDgraphElement(node)) {
           const element = node as DgraphElement
 
           if (element.atom?.['dgraph.type'] && element.atom?.['api']) {
@@ -117,7 +117,7 @@ export class ElementTreeTransformer {
     >(
       cy,
       (node) => {
-        if (instanceOfDgraphModel(node.data, DgraphEntityType.Component)) {
+        if (isDgraphComponent(node.data)) {
           return this.componentMapper.map(node.data)
         }
 

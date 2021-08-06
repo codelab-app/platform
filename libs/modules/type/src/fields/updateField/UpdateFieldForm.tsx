@@ -37,7 +37,7 @@ export const UpdateFieldForm = (
   >({
     mutationOptions: {
       refetchQueries: [
-        refetchGetTypeGraphQuery({ input: { typeId: interfaceId } }),
+        refetchGetTypeGraphQuery({ input: { where: { id: interfaceId } } }),
       ],
     },
     useMutationFunction: useUpdateFieldMutation,
@@ -74,7 +74,6 @@ export const UpdateFieldForm = (
       {...props}
     >
       <AutoFields fields={['key', 'name', 'description']} />
-
       <TypeSelect name={'typeId'} label={'Type'} />
     </FormUniforms>
   )

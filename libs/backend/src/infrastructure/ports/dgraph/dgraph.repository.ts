@@ -9,6 +9,7 @@ export type MutationFactoryFn = (
 ) => Mutation | Promise<Mutation>
 
 export type QueryFactoryFn = () => string | Promise<string>
+
 export type QueryBuilderFactoryFn = () =>
   | DgraphQueryBuilder
   | Promise<DgraphQueryBuilder>
@@ -28,7 +29,7 @@ export class DgraphRepository {
    * Wraps an action inside a dgraph transaction
    * The transaction is not committed automatically, you need to call txn.commit()
    * If not committed, the transaction is discarded after the action
-   * */
+   */
   async transactionWrapper<TResult>(action: (txn: Txn) => Promise<TResult>) {
     const txn = this.dgraphService.client.newTxn()
 
@@ -42,6 +43,7 @@ export class DgraphRepository {
   /**
    * Extracts the uid out of the uidsMap of a response
    * Throws error if the uid is not found
+   *
    * @param response the response from the dgraph mutation
    * @param blankNodeLabel the label of the blank node (not the blank node itself: INCORRECT - '_:item', CORRECT - 'item')
    */
@@ -101,11 +103,9 @@ export class DgraphRepository {
   }
 
   /**
-   * Executes the provided mutation and returns a {@link CreateResponse} with the id
-   * of the entity, labeled by the blankNodeLabel. Note blankNodeLabel is the blank node uid, but without "_:"
+   * Executes the provided mutation and returns a {@link CreateResponse} with the id of the entity, labeled by the blankNodeLabel. Note blankNodeLabel is the blank node uid, but without "_:"
    *
-   * If you supply a Mutation object, you need to either use the default blankNodeLabel ("entity", respectively "_:entity")
-   * or supply your own as the third parameter
+   * If you supply a Mutation object, you need to either use the default blankNodeLabel ("entity", respectively "_:entity") or supply your own as the third parameter
    *
    * If you supply a MutationFactoryFn you have the default blankNodeId (_:entity) as a parameter, so you can just use that
    */
@@ -151,8 +151,9 @@ export class DgraphRepository {
 
   /**
    * Shorthand for making a delete upsert that deletes all queried uids
-   * Query is pre-filled with required directives and alias. Do not add uid fields,
-   * just build up the query so that all nodes that should be deleted will be returned
+   *
+   * Query is pre-filled with required directives and alias. Do not add uid fields, just build up the query so that all nodes that should be deleted will be returned
+   *
    * Note that the query is a recursive one, don't add inner fields, only root ones
    *
    * @example
@@ -211,6 +212,7 @@ export class DgraphRepository {
 
   /**
    * Executes a query and returns the first found item or null if not found
+   *
    * @param queryOrFactory
    * @param txn
    */
@@ -263,6 +265,7 @@ export class DgraphRepository {
 
   /**
    * Executes a query and returns the first found item or null if not found
+   *
    * @param txn
    * @param queryOrFactory
    * @param queryName t

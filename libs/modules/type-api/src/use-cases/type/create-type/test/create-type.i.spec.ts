@@ -63,7 +63,7 @@ describe('CreateType', () => {
       const { getType: type } = await domainRequest<GetTypeInput, GetTypeQuery>(
         userApp,
         GetTypeGql,
-        { typeId },
+        { where: { id: typeId } },
       )
 
       expect(type).toMatchObject({
@@ -86,7 +86,7 @@ describe('CreateType', () => {
       const { getType: type } = await domainRequest<GetTypeInput, GetTypeQuery>(
         userApp,
         GetTypeGql,
-        { typeId },
+        { where: { id: typeId } },
       )
 
       expect(type).toMatchObject({

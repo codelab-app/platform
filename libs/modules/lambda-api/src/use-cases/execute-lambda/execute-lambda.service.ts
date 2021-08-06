@@ -18,7 +18,6 @@ export class ExecuteLambdaService extends DgraphUseCase<
 
   async executeTransaction(input: ExecuteLambdaInput, txn: Txn) {
     const lambda = await this.getLambdaService.executeTransaction(input, txn)
-    console.log(lambda)
 
     return null
   }

@@ -374,7 +374,7 @@ type Query {
   getAtom(input: GetAtomInput!): Atom
   getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
-  getTypeGraph(input: GetTypeInput!): TypeGraph!
+  getTypeGraph(input: GetTypeInput!): TypeGraph
   getTypes(input: GetTypesInput): [Type!]!
   getLambda(input: GetLambdaInput!): Lambda
   getLambdas: [Lambda!]!
@@ -448,7 +448,12 @@ input FieldByIdFilter {
 }
 
 input GetTypeInput {
-  typeId: String!
+  where: WhereUniqueType!
+}
+
+input WhereUniqueType {
+  id: String
+  name: String
 }
 
 """Filters are optional and you can provide both of them together"""
@@ -647,8 +652,10 @@ input UpdateAtomInput {
 
 input CreateFieldInput {
   key: String!
-  name: String!
+  name: String
   description: String
+
+  """The interface to add fields to"""
   interfaceId: String!
   type: TypeRef!
 }
@@ -692,7 +699,7 @@ input UpdateFieldInput {
 
 input UpdateFieldData {
   key: String!
-  name: String!
+  name: String
   description: String
   type: TypeRef!
 }

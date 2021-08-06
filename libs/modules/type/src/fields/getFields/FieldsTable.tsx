@@ -21,7 +21,7 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
 
   const columns: Array<TableColumnProps<any>> = [
     {
-      title: 'Field',
+      title: 'Field Name',
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,

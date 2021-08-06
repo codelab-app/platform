@@ -34,7 +34,7 @@ export const CreateFieldForm = (
   >({
     mutationOptions: {
       refetchQueries: [
-        refetchGetTypeGraphQuery({ input: { typeId: interfaceId } }),
+        refetchGetTypeGraphQuery({ input: { where: { id: interfaceId } } }),
       ],
     },
     useMutationFunction: useCreateFieldMutation,
@@ -63,7 +63,6 @@ export const CreateFieldForm = (
       {...props}
     >
       <AutoFields omitFields={['typeId']} />
-
       <TypeSelect name="typeId" label={'Type'} />
     </FormUniforms>
   )

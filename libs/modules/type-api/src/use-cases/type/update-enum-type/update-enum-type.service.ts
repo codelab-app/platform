@@ -37,9 +37,9 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
       ${idsToDelete
         .map(
           (id) => `
-                    <${id}> * * .
-                    <${typeId}> <allowedValues> <${id}> .
-            `,
+            <${id}> * * .
+            <${typeId}> <allowedValues> <${id}> .
+          `,
         )
         .join(' ')}
     `

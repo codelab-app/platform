@@ -36,7 +36,7 @@ app.use('*', async (baseReq, baseRes, next) => {
       )
     },
     onProxyReq: (proxyReq, req) => {
-      console.log(session)
+      // console.log(session)
 
       if (session) {
         proxyReq.setHeader('Authorization', `Bearer ${session.accessToken}`)

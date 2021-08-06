@@ -29,11 +29,11 @@ export interface InterfaceProviderProps {
 
 const useInterfaceProviderQueries = (interfaceId: string) => {
   const interfaceQuery = useGetTypeQuery({
-    variables: { input: { typeId: interfaceId } },
+    variables: { input: { where: { id: interfaceId } } },
   })
 
   const graphQuery = useGetTypeGraphQuery({
-    variables: { input: { typeId: interfaceId } },
+    variables: { input: { where: { id: interfaceId } } },
   })
 
   useEffect(() => {

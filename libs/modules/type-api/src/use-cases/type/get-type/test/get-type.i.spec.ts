@@ -35,7 +35,7 @@ describe('GetType', () => {
     >(userApp, CreateTypeGql, createPrimitiveTypeStringInput)
 
     typeId = createType.id
-    getTypeInput = { typeId }
+    getTypeInput = { where: { id: typeId } }
   })
 
   afterAll(async () => {

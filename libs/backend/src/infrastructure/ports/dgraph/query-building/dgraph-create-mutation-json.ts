@@ -15,22 +15,22 @@ export type UnionToIntersection<U> = (
   : never
 
 /** Makes all uids optional and allows references to other entities and single items for array values */
-export type DgraphCreateMutationJson<TEntity extends DgraphEntity<any>> = Omit<
+export type DgraphCreateMutationJson<TEntity extends DgraphEntity> = Omit<
   {
     [key in keyof TEntity]: key extends 'dgraph.type'
       ? TEntity[key] // If key is dgraph.type, leave it intact
-      : TEntity[key] extends DgraphEntity<any> // DgraphEntity, non-nullable?
+      : TEntity[key] extends DgraphEntity // DgraphEntity, non-nullable?
       ?
           | DgraphUpdateMutationJson<TEntity[key]>
           | DgraphCreateMutationJson<TEntity[key]>
           | UidRef
       : TEntity[key] extends
-          | DgraphEntity<any>
-          | Array<DgraphEntity<any>>
+          | DgraphEntity
+          | Array<DgraphEntity>
           | null
           | undefined // DgraphEntity or DgraphEntityArray[], nullable?
       ? TEntity[key] extends infer TValue | null | undefined
-        ? TValue extends DgraphEntity<any>
+        ? TValue extends DgraphEntity
           ?
               | DgraphUpdateMutationJson<TValue>
               | DgraphCreateMutationJson<TValue>
@@ -38,7 +38,7 @@ export type DgraphCreateMutationJson<TEntity extends DgraphEntity<any>> = Omit<
               | undefined
               | null
           : TValue extends Array<infer TItem>
-          ? TItem extends DgraphEntity<any>
+          ? TItem extends DgraphEntity
             ?
                 | Array<
                     | DgraphUpdateMutationJson<TItem>
@@ -53,7 +53,7 @@ export type DgraphCreateMutationJson<TEntity extends DgraphEntity<any>> = Omit<
           : MutationJsonValue<TEntity[key]>
         : never
       : TEntity[key] extends Array<infer TItem> // DgraphEntity[], non-nullable
-      ? TItem extends DgraphEntity<any>
+      ? TItem extends DgraphEntity
         ?
             | Array<
                 | DgraphUpdateMutationJson<TItem>
@@ -67,13 +67,15 @@ export type DgraphCreateMutationJson<TEntity extends DgraphEntity<any>> = Omit<
   },
   'uid'
 > &
-  Partial<Pick<DgraphEntity<any>, 'uid'>>
+  Partial<Pick<DgraphEntity, 'uid'>>
 
 /** Makes all fields optional, except uid and allows setting array values as single references to uid */
-export type DgraphUpdateMutationJson<TEntity extends DgraphEntity<any>> =
-  Partial<DgraphCreateMutationJson<TEntity>> & Pick<DgraphEntity<any>, 'uid'>
+export type DgraphUpdateMutationJson<TEntity extends DgraphEntity> = Partial<
+  DgraphCreateMutationJson<TEntity>
+> &
+  Pick<DgraphEntity, 'uid'>
 
-export const jsonMutation = <TEntity extends DgraphEntity<any>>(
+export const jsonMutation = <TEntity extends DgraphEntity>(
   json: DgraphCreateMutationJson<TEntity> | DgraphUpdateMutationJson<TEntity>,
 ): Mutation => {
   return {
