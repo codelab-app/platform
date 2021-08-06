@@ -3,6 +3,7 @@ import * as R from 'ramda'
 
 export enum PageType {
   Home = '/',
+  Admin = '/admin',
   AppList = '/apps',
   PageList = '/apps/[appId]/pages',
   LambdaList = '/lambdas',

@@ -800,57 +800,11 @@
               "root": "apps/web",
               "outputPath": "dist/apps/web-local"
             },
+            "ci": {
+              "root": "apps/web",
+              "outputPath": "dist/apps/web-local"
+            },
             "production": {}
-          }
-        },
-        "serve-prod-with-api": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "envFile": ".env.test",
-            "commands": [
-              {
-                "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env local",
-                "forwardAllArgs": false
-              },
-              {
-                "command": "npx next start dist/apps/web-local --port 3001",
-                "forwardAllArgs": false
-              },
-              {
-                "command": "node dist/apps/api/main.js",
-                "forwardAllArgs": false
-              },
-              {
-                "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
-              }
-            ],
-            "parallel": true,
-            "readyWhen": "READY"
-          }
-        },
-        "serve-dev-with-api": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "envFile": ".env.test",
-            "commands": [
-              {
-                "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env local",
-                "forwardAllArgs": false
-              },
-              {
-                "command": "nx serve api",
-                "forwardAllArgs": false
-              },
-              {
-                "command": "nx serve web -c local",
-                "forwardAllArgs": false
-              },
-              {
-                "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
-              }
-            ],
-            "parallel": true,
-            "readyWhen": "READY"
           }
         },
         "serve": {
@@ -944,19 +898,68 @@
           },
           "configurations": {
             "ci": {
-              "devServerTarget": "web:serve-prod-with-api",
+              "cypressConfig": "apps/web-e2e/cypress.ci.json",
+              "devServerTarget": "web-e2e:serve:ci",
               "headless": true,
               "record": false
             },
             "local": {
-              "devServerTarget": "web:serve-prod-with-api",
+              "cypressConfig": "apps/web-e2e/cypress.ci.json",
+              "devServerTarget": "web-e2e:serve:ci",
               "headless": true,
               "record": false
             },
             "dev": {
-              "devServerTarget": "web:serve-dev-with-api",
+              "devServerTarget": "web-e2e:serve:dev",
               "watch": true,
               "exit": false
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": true,
+            "readyWhen": "READY"
+          },
+          "configurations": {
+            "dev": {
+              "commands": [
+                {
+                  "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env local",
+                  "forwardAllArgs": false
+                },
+                {
+                  "command": "nx serve api",
+                  "forwardAllArgs": false
+                },
+                {
+                  "command": "nx serve web --configuration local",
+                  "forwardAllArgs": false
+                },
+                {
+                  "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
+                }
+              ]
+            },
+            "ci": {
+              "commands": [
+                {
+                  "command": "yarn cli dgraph update-schema --env ci && yarn cli dgraph reset-data --env ci",
+                  "forwardAllArgs": false
+                },
+                {
+                  "command": "npx next start dist/apps/web-local --port 3001",
+                  "forwardAllArgs": false
+                },
+                {
+                  "command": "node dist/apps/api/main.js",
+                  "forwardAllArgs": false
+                },
+                {
+                  "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
+                }
+              ]
             }
           }
         },

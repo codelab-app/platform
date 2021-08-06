@@ -30,22 +30,22 @@ lambda:
 # Since this build will be used by Cypress, we'll want to use test env
 build-dev-affected:
 	npx env-cmd -f .env.test nx affected:build \
-    --configuration=local \
+		--configuration=local \
 		--maxWorkers=2 \
 		--parallel \
 
 build-dev:
 	npx nx run-many \
-    --target=build \
-    --maxWorkers=2 \
-    --all \
-    --parallel
+		--target=build \
+		--maxWorkers=2 \
+		--all \
+		--parallel
 
 build-ci:
 	npx nx run-many \
 		--target=build \
 		--projects=api,web,cli \
-		--prod \
+		--configuration=ci \
 		--parallel \
 		--maxWorkers=8 \
 		--memoryLimit=8192
@@ -69,30 +69,30 @@ lint-eslint:
 #
 
 e2e-dev-affected:
-	./scripts/nx.sh affected:e2e -c local -- --record=false
+	./scripts/nx.sh affected:e2e --configuration local
 
 e2e-ci-affected:
-	yarn affected:e2e -c ci
+	yarn affected:e2e --configuration ci
 
 #
 # INTEGRATION TESTS
 #
 integration-dev-affected:
 	./scripts/nx.sh affected:test \
-    --testPathPattern=i.spec.ts \
-    --maxWorkers=2 \
-    --memoryLimit=4096 \
-    --runInBand
+		--testPathPattern=i.spec.ts \
+		--maxWorkers=2 \
+		--memoryLimit=4096 \
+		--runInBand
 
 integration-ci:
 	npx nx run-many \
-    --target=test \
-    --testPathPattern=i.spec.ts \
-    --all \
-    --runInBand \
-    --verbose \
-    --maxWorkers=8 \
-    --memoryLimit=8192
+		--target=test \
+		--testPathPattern=i.spec.ts \
+		--all \
+		--runInBand \
+		--verbose \
+		--maxWorkers=8 \
+		--memoryLimit=8192
 
 #
 # TEST (ALL)
@@ -100,7 +100,7 @@ integration-ci:
 test-dev-affected:
 	npx concurrently \
 		--names=unit,int \
- 		"make unit-dev-affected" \
+		"make unit-dev-affected" \
 		"make integration-dev-affected"
 
 #
@@ -108,18 +108,18 @@ test-dev-affected:
 #
 unit-dev-affected:
 	npx nx affected:test \
-    --testPathPattern=[^i].spec.ts \
-    --silent \
-    --maxWorkers=2 \
-    --memoryLimit=4096 \
-    --parallel
+		--testPathPattern=[^i].spec.ts \
+		--silent \
+		--maxWorkers=2 \
+		--memoryLimit=4096 \
+		--parallel
 
 unit-ci:
 	npx nx run-many \
-    --testPathPattern=[^i].spec.ts \
-    --target=test \
-    --all \
-    --maxWorkers=8 \
-    --memoryLimit=8192 \
-    --verbose
+		--testPathPattern=[^i].spec.ts \
+		--target=test \
+		--all \
+		--maxWorkers=8 \
+		--memoryLimit=8192 \
+		--verbose
 
