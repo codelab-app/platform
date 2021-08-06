@@ -4,6 +4,7 @@ import {
   DgraphEntityType,
   DgraphQueryBuilder,
   DgraphUseCase,
+  NotFoundError,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -32,7 +33,7 @@ export class GetAtomService extends DgraphUseCase<
         .getOneOrThrow<DgraphElement>(
           txn,
           this.createGetByElementQuery(request.byElement),
-          () => new Error('Element not found'),
+          () => new NotFoundError('Element not found'),
         )
         .then((e) => e.atom || null)
     }

@@ -1,3 +1,5 @@
+import { AppError, ErrorCode } from '@codelab/backend'
+
 const defaultMessage = (fieldNames?: Array<string>, atomName?: string) => {
   if (fieldNames) {
     return `The type is used by the fields ${fieldNames.join(', ')}`
@@ -10,13 +12,12 @@ const defaultMessage = (fieldNames?: Array<string>, atomName?: string) => {
   return `The type is used`
 }
 
-export class TypeIsUsedError extends Error {
+export class TypeIsUsedError extends AppError {
   constructor(
     public readonly fieldNames?: Array<string>,
     public readonly atomName?: string,
     message?: string,
   ) {
-    super(message || defaultMessage(fieldNames, atomName))
-    this.name = this.constructor.name
+    super(ErrorCode.TypeIsUsed, message || defaultMessage(fieldNames, atomName))
   }
 }

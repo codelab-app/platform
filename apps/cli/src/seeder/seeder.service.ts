@@ -1,10 +1,15 @@
 import {
   AntdDesignApi,
   Auth0Service,
+  ErrorCode,
   ServerConfig,
   serverConfig,
 } from '@codelab/backend'
 import {
+  CreateTypeGql,
+  CreateTypeInput,
+  CreateTypeMutationResult,
+  CreateTypeMutationVariables,
   GetTypeGql,
   GetTypeQueryResult,
   GetTypeQueryVariables,
@@ -15,6 +20,7 @@ import fs from 'fs'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
 import path from 'path'
+import { primitiveTypes } from './data/primitiveTypes'
 
 @Console()
 @Injectable()
@@ -90,11 +96,68 @@ export class SeederService {
   }
 
   private async seedPrimitiveTypes(client: GraphQLClient) {
-    const results = await client.request<
-      GetTypeQueryResult,
-      GetTypeQueryVariables
-    >(GetTypeGql, { input: { where: { name: 'Strings' } } })
+    await Promise.all(
+      primitiveTypes.map((primitiveType) =>
+        this.seedTypeIfNotExisting(client, primitiveType).then((id) => ({
+          primitiveType,
+          id,
+        })),
+      ),
+    )
+  }
 
-    console.log(results)
+  /**
+   * Checks if a type with the same name exists, if not - creates it
+   * Returns the id in both cases
+   */
+  private async seedTypeIfNotExisting(
+    client: GraphQLClient,
+    typeInput: CreateTypeInput,
+  ): Promise<string> {
+    const isNotFoundError = (e: any) =>
+      Array.isArray(e.response?.errors) &&
+      e.response?.errors.length > 0 &&
+      e.response?.errors[0] &&
+      e.response?.errors[0].code === ErrorCode.NotFound
+
+    const createType = async () => {
+      const createResponse = await client.request<
+        CreateTypeMutationResult['data'],
+        CreateTypeMutationVariables
+      >(CreateTypeGql, {
+        input: typeInput,
+      })
+
+      if (!createResponse?.createType) {
+        throw new Error(
+          `Something went wrong while creating type ${typeInput.name}`,
+        )
+      }
+
+      console.log(`Created type ${typeInput.name}`)
+
+      return createResponse.createType.id
+    }
+
+    try {
+      const results = await client.request<
+        GetTypeQueryResult['data'],
+        GetTypeQueryVariables
+      >(GetTypeGql, { input: { where: { name: typeInput.name } } })
+
+      if (!results?.getType) {
+        return createType()
+      }
+
+      console.log(`Type ${typeInput.name} exists, skipping`)
+
+      return results.getType.id
+    } catch (e) {
+      if (isNotFoundError(e)) {
+        return createType()
+      }
+
+      throw e
+    }
   }
 }

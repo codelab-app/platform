@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { Mutation, Response, Txn } from 'dgraph-js-http'
 import { CreateResponse } from '../../../application/graphql/create.response'
+import { NotFoundError } from '../../../common'
 import { DgraphService } from './dgraph.service'
 import { DgraphQueryBuilder } from './query-building'
 
@@ -239,7 +240,7 @@ export class DgraphRepository {
     const result = await this.getOne<T>(txn, queryOrFactory)
 
     if (!result) {
-      throw errorFactory ? errorFactory() : new Error('Not found')
+      throw errorFactory ? errorFactory() : new NotFoundError('Not found')
     }
 
     return result

@@ -1,10 +1,7 @@
-export class RecursiveTypeError extends Error {
-  static DEFAULT_MESSAGE = `Type is recursive`
+import { AppError, ErrorCode } from '@codelab/backend'
 
-  name: string
-
-  constructor(message: string = RecursiveTypeError.DEFAULT_MESSAGE) {
-    super(message)
-    this.name = this.constructor.name
+export class RecursiveTypeError extends AppError {
+  constructor(message?: string) {
+    super(ErrorCode.RecursiveType, message ?? 'Type is recursive')
   }
 }

@@ -6,6 +6,7 @@ import {
   DgraphRepository,
   DgraphUseCase,
   jsonMutation,
+  NotFoundError,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -98,7 +99,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
           .addTypeFilterDirective(DgraphEntityType.Field)
           .setUidFunc(fieldId)
           .addFields(`~fields { uid }`),
-        () => new Error("Field doesn't exist"),
+        () => new NotFoundError('Field not found'),
       ),
     )
 
