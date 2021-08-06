@@ -1,0 +1,4 @@
+"property","description","type","default","version","isEnum"
+"className","The className of container","string","-","",false
+"hoverable","Lift up when hovering card grid","boolean","true","",false
+"style","The style object of container","CSSProperties","-","",false

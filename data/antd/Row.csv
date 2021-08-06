@@ -1,0 +1,5 @@
+"property","description","type","default","version","isEnum"
+"align","Vertical alignment","top | middle | bottom","top","",true
+"gutter","Spacing between grids, could be a number or a object like { xs: 8, sm: 16, md: 24}. Or you can use array to make horizontal and vertical spacing work at the same time [horizontal, vertical]","number | object | array","0","",false
+"justify","Horizontal arrangement","start | end | center | space-around | space-between","start","",true
+"wrap","Auto wrap line","boolean","true","4.8.0",false

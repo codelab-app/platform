@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import fs from 'fs'
 import { parse } from 'json2csv'
-import { Dictionary } from 'lodash'
 import puppeteer from 'puppeteer'
 
 export interface AntdDesignApi {
@@ -10,6 +9,12 @@ export interface AntdDesignApi {
   type: string
   default: string
   version: string
+  isEnum: boolean
+}
+
+interface ComponentData {
+  name: string
+  props: Array<AntdDesignApi>
 }
 
 export const antdTableKeys: Array<keyof AntdDesignApi> = [
@@ -55,47 +60,114 @@ export class PuppeteerService {
     Logger.log(`Found ${urls.length} links!`)
 
     const urlsMap = new Map(urls)
-    let componentCount = 1
+    let pagesCount = 1
 
-    for (const [component, url] of urlsMap.entries()) {
-      Logger.log(`Fetching [${componentCount}/${urls.length}] ${component}...`)
+    for (const [componentPage, url] of urlsMap.entries()) {
+      Logger.log(`Fetching [${pagesCount}/${urls.length}] ${componentPage}...`)
       await page.goto(url)
 
-      const tableData = await page.evaluate(
-        (_tableKeys) =>
-          Array.from<HTMLTableRowElement, Dictionary<string>>(
-            document.querySelectorAll('section.api-container table tbody tr'),
-            (tr) => {
-              const tableValues = Array.from<
-                HTMLTableCellElement,
-                HTMLTableCellElement['innerText']
-              >(tr.querySelectorAll('td'), (td) => td.innerText)
+      const tableData: Array<ComponentData | undefined> = await page.evaluate(
+        (_tableKeys, _pageName) => {
+          const extractPropsFromTable = (tableToExtract: HTMLTableElement) => {
+            const rows = Array.from<HTMLTableRowElement>(
+              tableToExtract.querySelectorAll('tbody tr'),
+            )
 
-              // Can't access lodash inside `page.evaluate`
-              return {
-                [_tableKeys[0]]: tableValues[0],
-                [_tableKeys[1]]: tableValues[1],
-                [_tableKeys[2]]: tableValues[2],
-                [_tableKeys[3]]: tableValues[3],
-                [_tableKeys[4]]: tableValues[4],
-              }
-            },
-          ),
+            return rows
+              .map((tr) => tr.querySelectorAll('td'))
+              .filter((tableValues) => tableValues.length === _tableKeys.length)
+              .map((tableValues) => {
+                const typeTdChildren = Array.from(
+                  tableValues[2].children,
+                ) as Array<HTMLElement>
+
+                return {
+                  [_tableKeys[0]]: tableValues[0].innerText,
+                  [_tableKeys[1]]: tableValues[1].innerText,
+                  [_tableKeys[2]]: tableValues[2].innerText,
+                  [_tableKeys[3]]: tableValues[3].innerText,
+                  [_tableKeys[4]]: tableValues[4].innerText,
+                  // Enums are displayed within a code block, we can recognize them by that
+                  // if all children of type are in code blocks, we can say that the whole
+                  // props in of enum type
+                  isEnum:
+                    typeTdChildren.length > 0 &&
+                    typeTdChildren.every(
+                      (child) =>
+                        child.tagName === 'CODE' || child?.innerText === '"|"',
+                    ),
+                }
+              })
+          }
+
+          const apiTitleHeaders = Array.from(
+            document.querySelectorAll<HTMLHeadingElement>(
+              'section.api-container h3',
+            ),
+          )
+
+          if (apiTitleHeaders.length === 0) {
+            const table = document.querySelector('section.api-container table')
+
+            if (table) {
+              // Single table
+              return [
+                {
+                  name: _pageName,
+                  props: extractPropsFromTable(
+                    table as HTMLTableElement,
+                  ) as any,
+                },
+              ]
+            }
+
+            // No tables?
+            return []
+          }
+
+          // Multiple tables (components)
+          return apiTitleHeaders.map((h3) => {
+            const name = (h3.firstChild as HTMLElement)?.innerText
+
+            if (!name) {
+              return
+            }
+
+            const table = h3.nextSibling as HTMLTableElement
+
+            if (table.tagName !== 'TABLE') {
+              return
+            }
+
+            return {
+              name,
+              props: extractPropsFromTable(table) as any,
+            }
+          })
+        },
         antdTableKeys,
+        componentPage,
       )
 
       try {
-        const csv = parse(tableData, {
-          fields: antdTableKeys,
-        })
+        tableData
+          .filter((d): d is ComponentData => !!d)
+          .forEach(({ name, props }) => {
+            const csv = parse(props, {
+              fields: [...antdTableKeys, 'isEnum'],
+            })
 
-        console.log(csv)
-        fs.writeFileSync(`${process.cwd()}/data/antd/${component}.csv`, csv)
+            console.log(csv)
+            fs.writeFileSync(
+              `${process.cwd()}/data/antd/${name.replace('/', '_')}.csv`,
+              csv,
+            )
+          })
       } catch (err) {
         console.error(err)
       }
 
-      componentCount++
+      pagesCount++
     }
 
     await browser.close()

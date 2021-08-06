@@ -1,0 +1,6 @@
+"property","description","type","default","version","isEnum"
+"className","The additional css class","string","-","",false
+"dropdownProps","The dropdown props","Dropdown","-","",false
+"href","Target of hyperlink","string","-","",false
+"overlay","The dropdown menu","Menu | () => Menu","-","",false
+"onClick","Set the handler to handle click event","(e:MouseEvent) => void","-","",false

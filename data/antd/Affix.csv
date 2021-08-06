@@ -1,5 +1,0 @@
-"property","description","type","default","version"
-"offsetBottom","Offset from the bottom of the viewport (in pixels)","number","-",
-"offsetTop","Offset from the top of the viewport (in pixels)","number","0",
-"target","Specifies the scrollable area DOM node","() => HTMLElement","() => window",
-"onChange","Callback for when Affix state is changed","function(affixed)","-",

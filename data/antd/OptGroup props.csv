@@ -1,0 +1,3 @@
+"property","description","type","default","version","isEnum"
+"key","Group key","string","-","",false
+"label","Group label","string | React.Element","-","",false

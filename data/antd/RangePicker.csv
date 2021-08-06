@@ -1,0 +1,16 @@
+"property","description","type","default","version","isEnum"
+"allowEmpty","Allow start or end input leave empty","[boolean, boolean]","[false, false]","",false
+"dateRender","Customize date cell. info argument is added in 4.3.0","function(currentDate: moment, today: moment, info: { range: start | end }) => React.ReactNode","-","",true
+"defaultPickerValue","To set default picker date","[moment, moment]","-","",false
+"defaultValue","To set default date","[moment, moment]","-","",false
+"disabled","If disable start or end","[boolean, boolean]","-","",false
+"disabledTime","To specify the time that cannot be selected","function(date: moment, partial: start | end)","-","",true
+"format","To set the date format, refer to moment.js. When an array is provided, all values are used for parsing and first value is used for formatting","string | string[]","YYYY-MM-DD HH:mm:ss","",false
+"ranges","The preseted ranges for quick selection","{ [range: string]: moment[] } | { [range: string]: () => moment[] }","-","",false
+"renderExtraFooter","Render extra footer in panel","() => React.ReactNode","-","",false
+"separator","Set separator between inputs","React.ReactNode","<SwapRightOutlined />","",false
+"showTime","To provide an additional time selection","object | boolean","TimePicker Options","",false
+"showTime.defaultValue","To set default time of selected date, demo","moment[]","[moment(), moment()]","",false
+"value","To set date","[moment, moment]","-","",false
+"onCalendarChange","Callback function, can be executed when the start time or the end time of the range is changing. info argument is added in 4.4.0","function(dates: [moment, moment], dateStrings: [string, string], info: { range:start|end })","-","",true
+"onChange","Callback function, can be executed when the selected time is changing","function(dates: [moment, moment], dateStrings: [string, string])","-","",false

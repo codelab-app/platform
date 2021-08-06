@@ -1,16 +1,16 @@
-"property","description","type","default","version"
-"dateCellRender","Customize the display of the date cell, the returned content will be appended to the cell","function(date: moment): ReactNode","-",""
-"dateFullCellRender","Customize the display of the date cell, the returned content will override the cell","function(date: moment): ReactNode","-",""
-"defaultValue","The date selected by default","moment","-",""
-"disabledDate","Function that specifies the dates that cannot be selected, currentDate is same moment object as value prop which you shouldn't mutate it](https://github.com/ant-design/ant-design/issues/30987)","(currentDate: moment) => boolean","-",""
-"fullscreen","Whether to display in full-screen","boolean","true",""
-"headerRender","Render custom header in panel","function(object:{value: moment, type: string, onChange: f(), onTypeChange: f()})","-",""
-"locale","The calendar's locale","object","(default)",""
-"mode","The display mode of the calendar","month | year","month",""
-"monthCellRender","Customize the display of the month cell, the returned content will be appended to the cell","function(date: moment): ReactNode","-",""
-"monthFullCellRender","Customize the display of the month cell, the returned content will override the cell","function(date: moment): ReactNode","-",""
-"validRange","To set valid range","[moment, moment]","-",""
-"value","The current selected date","moment","-",""
-"onChange","Callback for when date changes","function(date: moment）","-",""
-"onPanelChange","Callback for when panel changes","function(date: moment, mode: string)","-",""
-"onSelect","Callback for when a date is selected","function(date: moment）","-",""
+"property","description","type","default","version","isEnum"
+"dateCellRender","Customize the display of the date cell, the returned content will be appended to the cell","function(date: moment): ReactNode","-","",false
+"dateFullCellRender","Customize the display of the date cell, the returned content will override the cell","function(date: moment): ReactNode","-","",false
+"defaultValue","The date selected by default","moment","-","",false
+"disabledDate","Function that specifies the dates that cannot be selected, currentDate is same moment object as value prop which you shouldn't mutate it](https://github.com/ant-design/ant-design/issues/30987)","(currentDate: moment) => boolean","-","",false
+"fullscreen","Whether to display in full-screen","boolean","true","",false
+"headerRender","Render custom header in panel","function(object:{value: moment, type: string, onChange: f(), onTypeChange: f()})","-","",false
+"locale","The calendar's locale","object","(default)","",false
+"mode","The display mode of the calendar","month | year","month","",true
+"monthCellRender","Customize the display of the month cell, the returned content will be appended to the cell","function(date: moment): ReactNode","-","",false
+"monthFullCellRender","Customize the display of the month cell, the returned content will override the cell","function(date: moment): ReactNode","-","",false
+"validRange","To set valid range","[moment, moment]","-","",false
+"value","The current selected date","moment","-","",false
+"onChange","Callback for when date changes","function(date: moment）","-","",false
+"onPanelChange","Callback for when panel changes","function(date: moment, mode: string)","-","",false
+"onSelect","Callback for when a date is selected","function(date: moment）","-","",false

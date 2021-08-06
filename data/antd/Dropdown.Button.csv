@@ -1,0 +1,12 @@
+"property","description","type","default","version","isEnum"
+"buttonsRender","Custom buttons inside Dropdown.Button","(buttons: ReactNode[]) => ReactNode[]","-","",false
+"disabled","Whether the dropdown menu is disabled","boolean","-","",false
+"icon","Icon (appears on the right)","ReactNode","-","",false
+"overlay","The dropdown menu","Menu","-","",false
+"placement","Placement of popup menu: bottomLeft bottomCenter bottomRight topLeft topCenter topRight","string","bottomLeft","",false
+"size","Size of the button, the same as Button","string","default","",false
+"trigger","The trigger mode which executes the dropdown action","Array<click|hover|contextMenu>","[hover]","",true
+"type","Type of the button, the same as Button","string","default","",false
+"visible","Whether the dropdown menu is currently visible","boolean","-","",false
+"onClick","The same as Button: called when you click the button on the left","(event) => void","-","",false
+"onVisibleChange","Called when the visible state is changed","(visible: boolean) => void","-","",false
