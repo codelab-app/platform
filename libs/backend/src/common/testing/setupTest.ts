@@ -74,7 +74,7 @@ export const setupTestModule = async (
   await app.init()
 
   if (resetDb) {
-    await getDgraphProviderFromTestModule(app).updateDqlSchema()
+    // await getDgraphProviderFromTestModule(app).updateDqlSchema()
     await getDgraphProviderFromTestModule(app).resetDb()
   }
 
