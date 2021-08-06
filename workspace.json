@@ -945,7 +945,7 @@
             "ci": {
               "commands": [
                 {
-                  "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env ci",
+                  "command": "yarn cli dgraph update-schema --env ci && yarn cli dgraph reset-data --env ci",
                   "forwardAllArgs": false
                 },
                 {
