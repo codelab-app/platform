@@ -1,5 +1,5 @@
-query GetTypes {
-  getTypes {
+query GetTypes($input: GetTypesInput) {
+  getTypes(input: $input) {
     __typename
     ...__Type
   }

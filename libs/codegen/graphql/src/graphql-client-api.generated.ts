@@ -55,6 +55,10 @@ export type AtomById = {
   atomId: Scalars['String']
 }
 
+export type AtomByType = {
+  atomType: AtomType
+}
+
 export enum AtomType {
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
@@ -155,6 +159,7 @@ export enum AtomType {
   AntDesignUpload = 'AntDesignUpload',
   Query = 'Query',
   TextList = 'TextList',
+  Text = 'Text',
   ReactFragment = 'ReactFragment',
   HtmlA = 'HtmlA',
   HtmlP = 'HtmlP',
@@ -419,6 +424,7 @@ export type GetAppInput = {
 export type GetAtomInput = {
   byElement?: Maybe<AtomByElement>
   byId?: Maybe<AtomById>
+  byType?: Maybe<AtomByType>
 }
 
 export type GetComponentInput = {
@@ -450,10 +456,11 @@ export type GetTypeInput = {
   where: WhereUniqueType
 }
 
-/** Filters are optional and you can provide both of them together */
+/** Filters are optional and you can provide all three of them together */
 export type GetTypesInput = {
   byIds?: Maybe<TypesByIdsFilter>
   byKind?: Maybe<TypesByKindFilter>
+  byName?: Maybe<TypesByNameFilter>
 }
 
 export type GetUsersInput = {
@@ -803,6 +810,10 @@ export type TypesByIdsFilter = {
 
 export type TypesByKindFilter = {
   kind: TypeKindFilter
+}
+
+export type TypesByNameFilter = {
+  name: Scalars['String']
 }
 
 export type UpdateAppData = {
@@ -1578,7 +1589,9 @@ export type GetTypeGraphQuery = {
   }>
 }
 
-export type GetTypesQueryVariables = Exact<{ [key: string]: never }>
+export type GetTypesQueryVariables = Exact<{
+  input?: Maybe<GetTypesInput>
+}>
 
 export type GetTypesQuery = {
   getTypes: Array<
@@ -4032,8 +4045,8 @@ export function refetchGetTypeGraphQuery(
   return { query: GetTypeGraphGql, variables: variables }
 }
 export const GetTypesGql = gql`
-  query GetTypes {
-    getTypes {
+  query GetTypes($input: GetTypesInput) {
+    getTypes(input: $input) {
       __typename
       ...__Type
     }
@@ -4053,6 +4066,7 @@ export const GetTypesGql = gql`
  * @example
  * const { data, loading, error } = useGetTypesQuery({
  *   variables: {
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -4809,8 +4823,8 @@ export const GetTypeGraph = gql`
   ${__TypeGraph}
 `
 export const GetTypes = gql`
-  query GetTypes {
-    getTypes {
+  query GetTypes($input: GetTypesInput) {
+    getTypes(input: $input) {
       __typename
       ...__Type
     }

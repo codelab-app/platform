@@ -1,0 +1,10 @@
+"property","description","type","default","version","isEnum"
+"buttonStyle","The style type of radio button","outline | solid","outline","",false
+"defaultValue","Default selected value","any","-","",false
+"disabled","Disable all radio buttons","boolean","false","",false
+"name","The name property of all input[type=""radio""] children","string","-","",false
+"options","Set children optional","string[] | Array<{ label: string value: string disabled?: boolean }>","-","",false
+"optionType","Set Radio optionType","default | button","default","4.4.0",false
+"size","The size of radio button style","large | middle | small","-","",false
+"value","Used for setting the currently selected value","any","-","",false
+"onChange","The callback function that is triggered when the state changes","function(e:Event)","-","",false

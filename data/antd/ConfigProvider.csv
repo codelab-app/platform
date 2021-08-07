@@ -1,0 +1,17 @@
+"property","description","type","default","version","isEnum"
+"autoInsertSpaceInButton","Set false to remove space between 2 chinese characters on Button","boolean","true","",false
+"componentSize","Config antd component size","small | middle | large","-","",false
+"csp","Set Content Security Policy config","{ nonce: string }","-","",false
+"direction","Set direction of layout. See demo","ltr | rtl","ltr","",false
+"dropdownMatchSelectWidth","Determine whether the dropdown menu and the select input are the same width. Default set min-width same as input. Will ignore when value less than select width. false will disable virtual scroll","boolean | number","-","4.3.0",false
+"form","Set Form common props","{ validateMessages?: ValidateMessages, requiredMark?: boolean | optional }","-","requiredMark: 4.8.0",false
+"getPopupContainer","To set the container of the popup element. The default is to create a div element in body","function(triggerNode)","() => document.body","",false
+"getTargetContainer","Config Affix, Anchor scroll target container","() => HTMLElement","() => window","4.2.0",false
+"iconPrefixCls","Set icon prefix className (cooperated with @iconfont-css-prefix)","string","anticon","4.11.0",false
+"input","Set Input common props","{ autoComplete?: string }","-","4.2.0",false
+"locale","Language package setting, you can find the packages in antd/lib/locale","object","-","",false
+"pageHeader","Unify the ghost of PageHeader, ref PageHeader","{ ghost: boolean }","true","",false
+"prefixCls","Set prefix className (cooperated with @ant-prefix)","string","ant","",false
+"renderEmpty","Set empty content of components. Ref Empty","function(componentName: string): ReactNode","-","",false
+"space","Set Space size, ref Space","{ size: small | middle | large | number }","-","4.1.0",false
+"virtual","Disable virtual scroll when set to false","boolean","-","4.3.0",false

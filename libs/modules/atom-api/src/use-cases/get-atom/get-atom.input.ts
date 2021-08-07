@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
+import { AtomTypeEnum } from '../../infrastructure'
 
 @InputType()
 export class AtomByElement {
@@ -11,6 +12,11 @@ export class AtomById {
   @Field()
   declare atomId: string
 }
+@InputType()
+export class AtomByType {
+  @Field(() => AtomTypeEnum)
+  declare atomType: AtomTypeEnum
+}
 
 @InputType()
 export class GetAtomInput {
@@ -19,4 +25,7 @@ export class GetAtomInput {
 
   @Field(() => AtomById, { nullable: true })
   declare byId?: AtomById | null
+
+  @Field(() => AtomByType, { nullable: true })
+  declare byType?: AtomByType | null
 }

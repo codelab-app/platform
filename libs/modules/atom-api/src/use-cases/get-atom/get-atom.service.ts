@@ -8,7 +8,12 @@ import {
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { AtomByElement, AtomById, GetAtomInput } from './get-atom.input'
+import {
+  AtomByElement,
+  AtomById,
+  AtomByType,
+  GetAtomInput,
+} from './get-atom.input'
 
 @Injectable()
 export class GetAtomService extends DgraphUseCase<
@@ -25,6 +30,13 @@ export class GetAtomService extends DgraphUseCase<
       return this.dgraph.getOneOrThrow(
         txn,
         this.createGetByIdQuery(request.byId),
+      )
+    }
+
+    if (request.byType) {
+      return this.dgraph.getOneOrThrow(
+        txn,
+        this.createGetByType(request.byType),
       )
     }
 
@@ -49,6 +61,14 @@ export class GetAtomService extends DgraphUseCase<
       .addExpandAll((f) => f.addExpandAllRecursive(3))
   }
 
+  private createGetByType(byType: AtomByType) {
+    return new DgraphQueryBuilder()
+      .setTypeFunc(DgraphEntityType.Atom)
+      .addEqFilterDirective<DgraphAtom>('atomType', byType.atomType)
+      .addBaseFields()
+      .addExpandAll((f) => f.addExpandAllRecursive(3))
+  }
+
   private createGetByElementQuery(byElement: AtomByElement) {
     /**
      *  query(func: uid(0x0)) {
@@ -68,9 +88,9 @@ export class GetAtomService extends DgraphUseCase<
       .addExpandAll((f) => f.addExpandAllRecursive(3))
   }
 
-  private validate({ byId, byElement }: GetAtomInput) {
-    if (!byId && !byElement) {
-      throw new Error('Provide at least one filter to GetAtomService')
+  private validate({ byId, byElement, byType }: GetAtomInput) {
+    if ([byId, byElement, byType].filter((f) => !!f).length !== 1) {
+      throw new Error('Provide exactly one filter to GetAtomService')
     }
   }
 }

@@ -1,0 +1,8 @@
+"property","description","type","default","version","isEnum"
+"expandable","Whether to be expandable","boolean","-","",false
+"rows","Max rows of content","number","-","",false
+"suffix","Suffix of ellipsis content","string","-","",false
+"symbol","Custom description of ellipsis","ReactNode","Expand","",false
+"tooltip","Show tooltip when ellipsis","boolean | ReactNode","-","4.11.0",false
+"onEllipsis","Called when enter or leave ellipsis state","function(ellipsis)","-","4.2.0",false
+"onExpand","Called when expand content","function(event)","-","",false

@@ -1,0 +1,4 @@
+"property","description","type","default","version","isEnum"
+"className","Container className","string","-",,false
+"hasSider","Whether contain Sider in children, don't have to assign it normally. Useful in ssr avoid style flickering","boolean","-",,false
+"style","To customize the styles","CSSProperties","-",,false

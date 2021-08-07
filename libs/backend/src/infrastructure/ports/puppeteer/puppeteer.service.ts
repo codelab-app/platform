@@ -25,6 +25,8 @@ export const antdTableKeys: Array<keyof AntdDesignApi> = [
   'version',
 ]
 
+const toSkip = new Set(['Message', 'Notification'])
+
 @Injectable({})
 export class PuppeteerService {
   public async scrape() {
@@ -63,6 +65,10 @@ export class PuppeteerService {
     let pagesCount = 1
 
     for (const [componentPage, url] of urlsMap.entries()) {
+      if (toSkip.has(componentPage)) {
+        continue
+      }
+
       Logger.log(`Fetching [${pagesCount}/${urls.length}] ${componentPage}...`)
       await page.goto(url)
 
@@ -78,8 +84,8 @@ export class PuppeteerService {
               .filter((tableValues) => tableValues.length >= 4) // some tables are missing version
               .map((tableValues) => {
                 const typeTdChildren = Array.from(
-                  tableValues[2].children,
-                ) as Array<HTMLElement>
+                  tableValues[2].childNodes,
+                ) as Array<Node>
 
                 return {
                   [_tableKeys[0]]: tableValues[0].innerText,
@@ -94,54 +100,67 @@ export class PuppeteerService {
                     typeTdChildren.length > 0 &&
                     typeTdChildren.every(
                       (child) =>
-                        child.tagName === 'CODE' || child?.innerText === '"|"',
+                        (child as HTMLElement).tagName === 'CODE' ||
+                        child?.textContent === '"|"' ||
+                        child?.textContent === '|',
                     ),
                 }
               })
           }
 
-          const apiTitleHeaders = Array.from(
-            document.querySelectorAll<HTMLHeadingElement>(
-              'section.api-container h3',
-            ),
+          const tables = document.querySelectorAll(
+            'section.api-container table',
           )
 
-          if (apiTitleHeaders.length === 0) {
-            const table = document.querySelector('section.api-container table')
-
-            if (table) {
-              // Single table
-              return [
-                {
-                  name: _pageName,
-                  props: extractPropsFromTable(
-                    table as HTMLTableElement,
-                  ) as any,
-                },
-              ]
-            }
-
+          if (tables.length === 0) {
             // No tables?
             return []
           }
 
+          if (tables.length === 1) {
+            // Single table
+            return [
+              {
+                name: _pageName,
+                props: extractPropsFromTable(
+                  tables[0] as HTMLTableElement,
+                ) as any,
+              },
+            ]
+          }
+
           // Multiple tables (components)
-          return apiTitleHeaders.map((h3) => {
-            const name = (h3.firstChild as HTMLElement)?.innerText
-
-            if (!name) {
-              return
-            }
-
-            const table = h3.nextSibling as HTMLTableElement
+          return Array.from(tables).map((table) => {
+            let name: string | undefined = undefined
 
             if (table.tagName !== 'TABLE') {
               return
             }
 
+            const checkPrevSibling = (el: HTMLElement, triesLeft: number) => {
+              if (triesLeft <= 0 || !el.previousSibling) {
+                return
+              }
+
+              if ((el.previousSibling as HTMLElement)?.tagName === 'H3') {
+                name = (el.previousSibling?.firstChild as HTMLElement)
+                  ?.innerText
+
+                return
+              }
+
+              checkPrevSibling(el.previousSibling as HTMLElement, triesLeft - 1)
+            }
+
+            checkPrevSibling(table as HTMLElement, 3)
+
+            if (!name) {
+              return
+            }
+
             return {
               name,
-              props: extractPropsFromTable(table) as any,
+              props: extractPropsFromTable(table as HTMLTableElement) as any,
             }
           })
         },
@@ -158,12 +177,16 @@ export class PuppeteerService {
               fields: [...antdTableKeys, 'isEnum'],
             })
 
+            const componentName =
+              name === 'API' || componentPage === name
+                ? undefined
+                : name.replace('/', '_')
+
             console.log(csv)
             fs.writeFileSync(
-              `${process.cwd()}/data/antd/${componentPage}--${name.replace(
-                '/',
-                '_',
-              )}.csv`,
+              `${process.cwd()}/data/antd/${componentPage}${
+                componentName ? '--' + componentName : ''
+              }.csv`,
               csv,
             )
           })

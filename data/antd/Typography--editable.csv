@@ -1,0 +1,10 @@
+"property","description","type","default","version","isEnum"
+"autoSize","autoSize attribute of textarea","boolean | { minRows: number, maxRows: number }","-","4.4.0",false
+"editing","Whether to be editable","boolean","false","",false
+"icon","Custom editable icon","ReactNode","<EditOutlined />","4.6.0",false
+"maxLength","maxLength attribute of textarea","number","-","4.4.0",false
+"tooltip","Custom tooltip text, hide when it is false","boolean | ReactNode","Edit","4.6.0",false
+"onCancel","Called when type ESC to exit editable state","function","-","",false
+"onChange","Called when input at textarea","function(event)","-","",false
+"onEnd","Called when type ENTER to exit editable state","function","-","4.14.0",false
+"onStart","Called when enter editable state","function","-","",false

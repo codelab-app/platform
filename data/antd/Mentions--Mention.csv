@@ -5,7 +5,7 @@
 "filterOption","Customize filter option logic","false | (input: string, option: OptionProps) => boolean","-",,false
 "getPopupContainer","Set the mount HTML node for suggestions","() => HTMLElement","-",,false
 "notFoundContent","Set mentions content when not match","ReactNode","Not Found",,false
-"placement","Set popup placement","top | bottom","bottom",,true
+"placement","Set popup placement","top | bottom","bottom",,false
 "prefix","Set trigger prefix keyword","string | string[]","@",,false
 "split","Set split string before and after selected mention","string","",,false
 "validateSearch","Customize trigger search logic","(text: string, props: MentionsProps) => void","-",,false

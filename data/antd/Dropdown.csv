@@ -1,0 +1,11 @@
+"property","description","type","default","version","isEnum"
+"arrow","Whether the dropdown arrow should be visible","boolean","false","",false
+"disabled","Whether the dropdown menu is disabled","boolean","-","",false
+"getPopupContainer","To set the container of the dropdown menu. The default is to create a div element in body, but you can reset it to the scrolling area and make a relative reposition. Example on CodePen","(triggerNode: HTMLElement) => HTMLElement","() => document.body","",false
+"overlay","The dropdown menu","Menu | () => Menu","-","",false
+"overlayClassName","The class name of the dropdown root element","string","-","",false
+"overlayStyle","The style of the dropdown root element","CSSProperties","-","",false
+"placement","Placement of popup menu: bottomLeft, bottomCenter, bottomRight, topLeft, topCenter or topRight","string","bottomLeft","",false
+"trigger","The trigger mode which executes the dropdown action. Note that hover can't be used on touchscreens","Array<click|hover|contextMenu>","[hover]","",false
+"visible","Whether the dropdown menu is currently visible","boolean","-","",false
+"onVisibleChange","Called when the visible state is changed","(visible: boolean) => void","-","",false

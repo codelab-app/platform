@@ -1,0 +1,7 @@
+"property","description","type","default","version","isEnum"
+"name","File name","string","-",,false
+"percent","Upload progress percent","number","-",,false
+"status","Upload status. Show different style when configured","error | success | done | uploading | removed","-",,false
+"thumbUrl","Thumb image url","string","-",,false
+"uid","unique id. Will auto generate when not provided","string","-",,false
+"url","Download url","string","-",,false

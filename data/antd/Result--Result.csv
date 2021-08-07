@@ -1,6 +1,0 @@
-"property","description","type","default","version","isEnum"
-"extra","Operating area","ReactNode","-",,false
-"icon","Custom back icon","ReactNode","-",,false
-"status","Result status, decide icons and colors","success | error | info | warning | 404 | 403 | 500","info",,true
-"subTitle","The subTitle","ReactNode","-",,false
-"title","The title","ReactNode","-",,false

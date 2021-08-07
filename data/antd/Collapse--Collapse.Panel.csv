@@ -1,5 +1,5 @@
 "property","description","type","default","version","isEnum"
-"collapsible","Specify whether the panel be collapsible or the trigger area of collapsible","header | disabled","-","4.9.0",true
+"collapsible","Specify whether the panel be collapsible or the trigger area of collapsible","header | disabled","-","4.9.0",false
 "extra","The extra element in the corner","ReactNode","-","",false
 "forceRender","Forced render of content on panel, instead of lazy rending after clicking on header","boolean","false","",false
 "header","Title of the panel","ReactNode","-","",false

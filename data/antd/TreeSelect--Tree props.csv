@@ -13,15 +13,15 @@
 "labelInValue","Whether to embed label in value, turn the format of value from string to {value: string, label: ReactNode, halfChecked: string[]}","boolean","false","",false
 "listHeight","Config popup height","number","256","",false
 "loadData","Load data asynchronously","function(node)","-","",false
-"maxTagCount","Max tag count to show. responsive will cost render performance","number | responsive","-","responsive: 4.10",true
+"maxTagCount","Max tag count to show. responsive will cost render performance","number | responsive","-","responsive: 4.10",false
 "maxTagPlaceholder","Placeholder for not showing tags","ReactNode | function(omittedValues)","-","",false
 "multiple","Support multiple or not, will be true when enable treeCheckable","boolean","false","",false
 "placeholder","Placeholder of the select input","string","-","",false
 "searchValue","Work with onSearch to make search value controlled","string","-","",false
 "showArrow","Whether to show the suffixIcon，when single selection mode, default true","boolean","-","",false
-"showCheckedStrategy","The way show selected item in box when treeCheckable set. Default: just show child nodes. TreeSelect.SHOW_ALL: show all checked treeNodes (include parent treeNode). TreeSelect.SHOW_PARENT: show checked treeNodes (just show parent treeNode)","TreeSelect.SHOW_ALL | TreeSelect.SHOW_PARENT | TreeSelect.SHOW_CHILD","TreeSelect.SHOW_CHILD","",true
+"showCheckedStrategy","The way show selected item in box when treeCheckable set. Default: just show child nodes. TreeSelect.SHOW_ALL: show all checked treeNodes (include parent treeNode). TreeSelect.SHOW_PARENT: show checked treeNodes (just show parent treeNode)","TreeSelect.SHOW_ALL | TreeSelect.SHOW_PARENT | TreeSelect.SHOW_CHILD","TreeSelect.SHOW_CHILD","",false
 "showSearch","Support search or not","boolean","single: false | multiple: true","",false
-"size","To set the size of the select input","large | middle | small","-","",true
+"size","To set the size of the select input","large | middle | small","-","",false
 "suffixIcon","The custom suffix icon,you must set showArrow to true manually in multiple selection mode","ReactNode","-","",false
 "switcherIcon","customize collapse | expand icon of tree node","ReactNode","-","",false
 "treeCheckable","Whether to show checkbox on the treeNodes","boolean","false","",false

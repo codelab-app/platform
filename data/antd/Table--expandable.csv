@@ -1,0 +1,16 @@
+"property","description","type","default","version","isEnum"
+"childrenColumnName","The column contains children to display","string","children","",false
+"columnWidth","Set the width of the expand column","string | number","-","",false
+"defaultExpandAllRows","Expand all rows initially","boolean","false","",false
+"defaultExpandedRowKeys","Initial expanded row keys","string[]","-","",false
+"expandedRowClassName","Expanded row's className","function(record, index, indent): string","-","",false
+"expandedRowKeys","Current expanded row keys","string[]","-","",false
+"expandedRowRender","Expanded container render for each row","function(record, index, indent, expanded): ReactNode","-","",false
+"expandIcon","Customize row expand Icon. Ref example","function(props): ReactNode","-","",false
+"expandIconColumnIndex","Customize expand icon column index. Not render when -1","number","-","",false
+"expandRowByClick","Whether to expand row by clicking anywhere in the whole row","boolean","false","",false
+"fixed","Whether the expansion icon is fixed. Optional true left right","boolean | string","false","4.16.0",false
+"indentSize","Indent size in pixels of tree data","number","15","",false
+"rowExpandable","Enable row can be expandable","(record) => boolean","-","",false
+"onExpand","Callback executed when the row expand icon is clicked","function(expanded, record)","-","",false
+"onExpandedRowsChange","Callback executed when the expanded rows change","function(expandedRows)","-","",false

@@ -1,5 +1,5 @@
 "property","description","type","default","version","isEnum"
 "maxCount","Max avatars to show","number","-","",false
-"maxPopoverPlacement","The placement of excess avatar Popover","top | bottom","top","",true
+"maxPopoverPlacement","The placement of excess avatar Popover","top | bottom","top","",false
 "maxStyle","The style of excess avatar style","CSSProperties","-","",false
-"size","The size of the avatar","number | large | small | default | { xs: number, sm: number, ...}","default","4.8.0",true
+"size","The size of the avatar","number | large | small | default | { xs: number, sm: number, ...}","default","4.8.0",false

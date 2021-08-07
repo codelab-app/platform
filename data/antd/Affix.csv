@@ -1,0 +1,5 @@
+"property","description","type","default","version","isEnum"
+"offsetBottom","Offset from the bottom of the viewport (in pixels)","number","-",,false
+"offsetTop","Offset from the top of the viewport (in pixels)","number","0",,false
+"target","Specifies the scrollable area DOM node","() => HTMLElement","() => window",,false
+"onChange","Callback for when Affix state is changed","function(affixed)","-",,false

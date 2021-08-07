@@ -1,0 +1,2 @@
+"property","description","type","default","version","isEnum"
+"position","The specify the position of Pagination","top | bottom | both","bottom",,false

@@ -1,0 +1,7 @@
+"property","description","type","default","version","isEnum"
+"defaultPickerValue","To set default picker date","moment","-","",false
+"defaultValue","To set default date","moment","-","",false
+"format","To set the date format, refer to moment.js","string","YYYY-\QQ","",false
+"renderExtraFooter","Render extra footer in panel","() => React.ReactNode","-","",false
+"value","To set date","moment","-","",false
+"onChange","Callback function, can be executed when the selected time is changing","function(date: moment, dateString: string)","-","",false

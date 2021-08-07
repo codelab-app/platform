@@ -1,0 +1,7 @@
+"property","description","type","default","version","isEnum"
+"direction","List render direction","left | right","",,false
+"disabled","Disable list or not","boolean","",,false
+"filteredItems","Filtered items","RecordType[]","",,false
+"selectedKeys","Selected items","string[]","",,false
+"onItemSelect","Select item","(key: string, selected: boolean)","",,false
+"onItemSelectAll","Select a group of items","(keys: string[], selected: boolean)","",,false

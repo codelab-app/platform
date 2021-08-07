@@ -4,8 +4,9 @@ import React from 'react'
 import { useQuery } from 'react-query'
 
 export interface QueryProps {
-  name: string
-  lambdaId: string
+  key: string
+  /** The id of the lambda that will execute the query */
+  lambda: string
   children: React.ReactElement
 }
 
@@ -15,20 +16,20 @@ export type QueryData = Array<any>
  * Custom component for Codelab.ai
  * @returns
  */
-export const Query = ({ name, lambdaId, children }: QueryProps) => {
+export const Query = ({ key, lambda, children }: QueryProps) => {
   const [executeLambdaMutation] = useExecuteLambdaMutation()
 
   const { isLoading, isError, data, error } = useQuery<QueryData>(
-    name,
+    key,
     (context) => {
-      if (!lambdaId) {
+      if (!lambda) {
         return Promise.resolve({})
       }
 
       return executeLambdaMutation({
         variables: {
           input: {
-            lambdaId,
+            lambdaId: lambda,
             payload: JSON.stringify(context),
           },
         },

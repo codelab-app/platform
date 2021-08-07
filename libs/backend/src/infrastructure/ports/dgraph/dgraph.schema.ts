@@ -107,7 +107,7 @@ export const dgraphSchema = `
     body
   }
 
-  name: string @index(term) .
+  name: string @index(term, trigram) .
   description: string .
 
   children: [uid] @reverse .

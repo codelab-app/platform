@@ -16,8 +16,9 @@ export class GetTypesService extends DgraphUseCase<
       .then((t) => t.sort((a, b) => a.uid.localeCompare(b.uid)))
   }
 
-  private createQuery({ byIds, byKind }: GetTypesInput) {
-    const qb = getTypeQuery(this.getTypeFilter(byKind))
+  private createQuery({ byIds, byKind, byName }: GetTypesInput) {
+    const nameFilter = byName ? `match(name, "${byName.name}", 4)` : undefined
+    const qb = getTypeQuery(this.getTypeFilter(byKind), nameFilter)
 
     if (byIds) {
       qb.setUidsFunc(byIds.typeIds)

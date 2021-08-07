@@ -20,11 +20,11 @@ LabeledValue | LabeledValue[]","-","",false
 "labelInValue","Whether to embed label in value, turn the format of value from string to { value: string, label: ReactNode }","boolean","false","",false
 "listHeight","Config popup height","number","256","",false
 "loading","Indicate loading state","boolean","false","",false
-"maxTagCount","Max tag count to show. responsive will cost render performance","number | responsive","-","responsive: 4.10",true
+"maxTagCount","Max tag count to show. responsive will cost render performance","number | responsive","-","responsive: 4.10",false
 "maxTagPlaceholder","Placeholder for not showing tags","ReactNode | function(omittedValues)","-","",false
 "maxTagTextLength","Max tag text length to show","number","-","",false
 "menuItemSelectedIcon","The custom menuItemSelected icon with multiple options","ReactNode","-","",false
-"mode","Set mode of Select","multiple | tags","-","",true
+"mode","Set mode of Select","multiple | tags","-","",false
 "notFoundContent","Specify content to show when no result matches","ReactNode","Not Found","",false
 "open","Controlled open state of dropdown","boolean","-","",false
 "optionFilterProp","Which prop value of option will be used for filter if filterOption is true. If options is set, it should be set to label","string","value","",false
@@ -35,7 +35,7 @@ LabeledValue | LabeledValue[]","-","",false
 "searchValue","The current input ""search"" text","string","-","",false
 "showArrow","Whether to show the drop-down arrow","boolean","true(for single select), false(for multiple select)","",false
 "showSearch","Whether show search input in single mode","boolean","false","",false
-"size","Size of Select input","large | middle | small","middle","",true
+"size","Size of Select input","large | middle | small","middle","",false
 "suffixIcon","The custom suffix icon","ReactNode","-","",false
 "tagRender","Customize tag render","(props) => ReactNode","-","",false
 "tokenSeparators","Separator used to tokenize on tag and multiple mode","string[]","-","",false

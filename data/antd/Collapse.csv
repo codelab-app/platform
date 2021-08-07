@@ -1,0 +1,13 @@
+"property","description","type","default","version","isEnum"
+"accordion","If true, Collapse renders as Accordion","boolean","false","",false
+"activeKey","Key of the active panel","string[] | string
+number[] | number","No default value. In accordion mode, it's the key of the first panel","",false
+"bordered","Toggles rendering of the border around the collapse block","boolean","true","",false
+"collapsible","Specify whether the panels of children be collapsible or the trigger area of collapsible","header | disabled","-","4.9.0",false
+"defaultActiveKey","Key of the initial active panel","string[] | string
+number[] | number","-","",false
+"destroyInactivePanel","Destroy Inactive Panel","boolean","false","",false
+"expandIcon","Allow to customize collapse icon","(panelProps) => ReactNode","-","",false
+"expandIconPosition","Set expand icon position","left | right","-","",false
+"ghost","Make the collapse borderless and its background transparent","boolean","false","4.4.0",false
+"onChange","Callback function executed when active panel is changed","function","-","",false

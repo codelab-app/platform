@@ -1,0 +1,9 @@
+"property","description","type","default","version","isEnum"
+"checkable","When Tree is checkable, set TreeNode display Checkbox or not","boolean","-","",false
+"disableCheckbox","Disables the checkbox of the treeNode","boolean","false","",false
+"disabled","Disabled or not","boolean","false","",false
+"isLeaf","Leaf node or not","boolean","false","",false
+"key","Required property (unless using treeDataSimpleMode), should be unique in the tree","string","-","",false
+"selectable","Whether can be selected","boolean","true","",false
+"title","Content showed on the treeNodes","ReactNode","---","",false
+"value","Will be treated as treeNodeFilterProp by default, should be unique in the tree","string","-","",false
