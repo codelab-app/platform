@@ -491,12 +491,36 @@ workflows:
           <<: *filters-staging
           e: docker-node
           context: CI
+      - lint:
+          <<: *filters-dev-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - unit:
+          <<: *filters-dev-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - integration:
+          <<: *filters-dev-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - e2e:
+          <<: *filters-dev-pr
+          e: docker-node
+          context: CI
+          requires:
+            - integration
       - build-docker-staging:
           <<: *filters-staging
           e: docker-node
           context: CI
           requires:
-            - install-and-build-workspace
+            - e2e
       - deploy-to-staging:
           <<: *filters-staging
           e: docker-python
