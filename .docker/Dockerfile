@@ -27,6 +27,7 @@ RUN apk add curl
 WORKDIR /usr/local/codelab
 
 COPY package.json package.json
+COPY yarn.lock yarn.lock
 COPY dist dist
 COPY scripts scripts
 COPY --from=build /usr/local/codelab/node_modules ./node_modules
