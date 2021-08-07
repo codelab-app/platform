@@ -1,0 +1,4 @@
+"property","description","type","default","version","isEnum"
+"active","Show animation effect, only valid when used avatar independently","boolean","false",,false
+"shape","Set the shape of avatar","circle | square","-",,true
+"size","Set the size of avatar","number | large | small | default","-",,true

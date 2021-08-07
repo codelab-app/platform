@@ -1,0 +1,3 @@
+"property","description","type","default","version","isEnum"
+"checked","Checked status of Tag","boolean","false",,false
+"onChange","Callback executed when Tag is checked/unchecked","(checked) => void","-",,false

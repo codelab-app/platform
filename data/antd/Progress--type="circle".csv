@@ -1,0 +1,4 @@
+"property","description","type","default","version","isEnum"
+"strokeColor","The color of circular progress, render linear-gradient when passing an object","string | object","-",,false
+"strokeWidth","To set the width of the circular progress, unit: percentage of the canvas width","number","6",,false
+"width","To set the canvas width of the circular progress, unit: px","number","132",,false

@@ -1,0 +1,6 @@
+"property","description","type","default","version","isEnum"
+"autoFocus","Whether get focus when component mounted","boolean","false",,false
+"checked","Specifies whether the radio is selected","boolean","false",,false
+"defaultChecked","Specifies the initial state: whether or not the radio is selected","boolean","false",,false
+"disabled","Disable radio","boolean","false",,false
+"value","According to value for comparison, to determine whether the selected","any","-",,false

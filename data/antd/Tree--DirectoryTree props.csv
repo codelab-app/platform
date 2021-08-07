@@ -1,0 +1,2 @@
+"property","description","type","default","version","isEnum"
+"expandAction","Directory open logic, optional: false | click | doubleClick","string | boolean","click",,false

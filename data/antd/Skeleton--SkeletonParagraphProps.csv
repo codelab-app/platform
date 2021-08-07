@@ -1,0 +1,3 @@
+"property","description","type","default","version","isEnum"
+"rows","Set the row count of paragraph","number","-",,false
+"width","Set the width of paragraph. When width is an Array, it can set the width of each row. Otherwise only set the last row width","number | string | Array<number | string>","-",,false

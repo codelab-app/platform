@@ -1,0 +1,4 @@
+"property","description","type","default","version","isEnum"
+"key","Unique key of this selection","string","-",,false
+"text","Display text of this selection","ReactNode","-",,false
+"onSelect","Callback executed when this selection is clicked","function(changeableRowKeys)","-",,false

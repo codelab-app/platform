@@ -75,7 +75,7 @@ export class PuppeteerService {
 
             return rows
               .map((tr) => tr.querySelectorAll('td'))
-              .filter((tableValues) => tableValues.length === _tableKeys.length)
+              .filter((tableValues) => tableValues.length >= 4) // some tables are missing version
               .map((tableValues) => {
                 const typeTdChildren = Array.from(
                   tableValues[2].children,
@@ -86,7 +86,7 @@ export class PuppeteerService {
                   [_tableKeys[1]]: tableValues[1].innerText,
                   [_tableKeys[2]]: tableValues[2].innerText,
                   [_tableKeys[3]]: tableValues[3].innerText,
-                  [_tableKeys[4]]: tableValues[4].innerText,
+                  [_tableKeys[4]]: tableValues[4]?.innerText, // some tables are missing version
                   // Enums are displayed within a code block, we can recognize them by that
                   // if all children of type are in code blocks, we can say that the whole
                   // props in of enum type
@@ -152,6 +152,7 @@ export class PuppeteerService {
       try {
         tableData
           .filter((d): d is ComponentData => !!d)
+          .filter((d) => d.props.length > 0)
           .forEach(({ name, props }) => {
             const csv = parse(props, {
               fields: [...antdTableKeys, 'isEnum'],
@@ -159,7 +160,10 @@ export class PuppeteerService {
 
             console.log(csv)
             fs.writeFileSync(
-              `${process.cwd()}/data/antd/${name.replace('/', '_')}.csv`,
+              `${process.cwd()}/data/antd/${componentPage}--${name.replace(
+                '/',
+                '_',
+              )}.csv`,
               csv,
             )
           })

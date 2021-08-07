@@ -1,0 +1,2 @@
+"property","description","type","default","version","isEnum"
+"title","Title of the column group","ReactNode","-",,false

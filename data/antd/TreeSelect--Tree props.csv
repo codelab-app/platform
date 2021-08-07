@@ -1,0 +1,43 @@
+"property","description","type","default","version","isEnum"
+"allowClear","Whether allow clear","boolean","false","",false
+"autoClearSearchValue","If auto clear search input value when multiple select is selected/deselected","boolean","true","",false
+"bordered","Whether has border style","boolean","true","",false
+"defaultValue","To set the initial selected treeNode(s)","string | string[]","-","",false
+"disabled","Disabled or not","boolean","false","",false
+"dropdownClassName","The className of dropdown menu","string","-","",false
+"dropdownMatchSelectWidth","Determine whether the dropdown menu and the select input are the same width. Default set min-width same as input. Will ignore when value less than select width. false will disable virtual scroll","boolean | number","true","",false
+"dropdownRender","Customize dropdown content","(originNode: ReactNode, props) => ReactNode","-","",false
+"dropdownStyle","To set the style of the dropdown menu","CSSProperties","-","",false
+"filterTreeNode","Whether to filter treeNodes by input value. The value of treeNodeFilterProp is used for filtering by default","boolean | function(inputValue: string, treeNode: TreeNode) (should return boolean)","function","",false
+"getPopupContainer","To set the container of the dropdown menu. The default is to create a div element in body, you can reset it to the scrolling area and make a relative reposition. example","function(triggerNode)","() => document.body","",false
+"labelInValue","Whether to embed label in value, turn the format of value from string to {value: string, label: ReactNode, halfChecked: string[]}","boolean","false","",false
+"listHeight","Config popup height","number","256","",false
+"loadData","Load data asynchronously","function(node)","-","",false
+"maxTagCount","Max tag count to show. responsive will cost render performance","number | responsive","-","responsive: 4.10",true
+"maxTagPlaceholder","Placeholder for not showing tags","ReactNode | function(omittedValues)","-","",false
+"multiple","Support multiple or not, will be true when enable treeCheckable","boolean","false","",false
+"placeholder","Placeholder of the select input","string","-","",false
+"searchValue","Work with onSearch to make search value controlled","string","-","",false
+"showArrow","Whether to show the suffixIcon，when single selection mode, default true","boolean","-","",false
+"showCheckedStrategy","The way show selected item in box when treeCheckable set. Default: just show child nodes. TreeSelect.SHOW_ALL: show all checked treeNodes (include parent treeNode). TreeSelect.SHOW_PARENT: show checked treeNodes (just show parent treeNode)","TreeSelect.SHOW_ALL | TreeSelect.SHOW_PARENT | TreeSelect.SHOW_CHILD","TreeSelect.SHOW_CHILD","",true
+"showSearch","Support search or not","boolean","single: false | multiple: true","",false
+"size","To set the size of the select input","large | middle | small","-","",true
+"suffixIcon","The custom suffix icon,you must set showArrow to true manually in multiple selection mode","ReactNode","-","",false
+"switcherIcon","customize collapse | expand icon of tree node","ReactNode","-","",false
+"treeCheckable","Whether to show checkbox on the treeNodes","boolean","false","",false
+"treeCheckStrictly","Whether to check nodes precisely (in the checkable mode), means parent and child nodes are not associated, and it will make labelInValue be true","boolean","false","",false
+"treeData","Data of the treeNodes, manual construction work is no longer needed if this property has been set(ensure the Uniqueness of each value)","array<{ value, title, children, [disabled, disableCheckbox, selectable, checkable] }>","[]","",false
+"treeDataSimpleMode","Enable simple mode of treeData. Changes the treeData schema to: [{id:1, pId:0, value:'1', title:""test1"",...},...] where pId is parent node's id). It is possible to replace the default id and pId keys by providing object to treeDataSimpleMode","boolean | object<{ id: string, pId: string, rootPId: string }>","false","",false
+"treeDefaultExpandAll","Whether to expand all treeNodes by default","boolean","false","",false
+"treeDefaultExpandedKeys","Default expanded treeNodes","string[]","-","",false
+"treeExpandedKeys","Set expanded keys","string[]","-","",false
+"treeIcon","Shows the icon before a TreeNode's title. There is no default style; you must set a custom style for it if set to true","boolean","false","",false
+"treeNodeFilterProp","Will be used for filtering if filterTreeNode returns true","string","value","",false
+"treeNodeLabelProp","Will render as content of select","string","title","",false
+"value","To set the current selected treeNode(s)","string | string[]","-","",false
+"virtual","Disable virtual scroll when set to false","boolean","true","4.1.0",false
+"onChange","A callback function, can be executed when selected treeNodes or input value change","function(value, label, extra)","-","",false
+"onDropdownVisibleChange","Called when dropdown open","function(open)","-","",false
+"onSearch","A callback function, can be executed when the search input changes","function(value: string)","-","",false
+"onSelect","A callback function, can be executed when you select a treeNode","function(value, node, extra)","-","",false
+"onTreeExpand","A callback function, can be executed when treeNode expanded","function(expandedKeys)","-","",false

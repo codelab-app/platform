@@ -1,0 +1,12 @@
+"property","description","type","default","version","isEnum"
+"autoFocus","Whether get focus when component mounted","boolean","false",,false
+"checked","Determine whether the Switch is checked","boolean","false",,false
+"checkedChildren","The content to be shown when the state is checked","ReactNode","-",,false
+"className","The additional class to Switch","string","-",,false
+"defaultChecked","Whether to set the initial state","boolean","false",,false
+"disabled","Disable switch","boolean","false",,false
+"loading","Loading state of switch","boolean","false",,false
+"size","The size of the Switch, options: default small","string","default",,false
+"unCheckedChildren","The content to be shown when the state is unchecked","ReactNode","-",,false
+"onChange","Trigger when the checked state is changing","function(checked: boolean, event: Event)","-",,false
+"onClick","Trigger when clicked","function(checked: boolean, event: Event)","-",,false

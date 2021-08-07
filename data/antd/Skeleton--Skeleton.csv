@@ -1,0 +1,7 @@
+"property","description","type","default","version","isEnum"
+"active","Show animation effect","boolean","false",,false
+"avatar","Show avatar placeholder","boolean | SkeletonAvatarProps","false",,false
+"loading","Display the skeleton when true","boolean","-",,false
+"paragraph","Show paragraph placeholder","boolean | SkeletonParagraphProps","true",,false
+"round","Show paragraph and title radius when true","boolean","false",,false
+"title","Show title placeholder","boolean | SkeletonTitleProps","true",,false

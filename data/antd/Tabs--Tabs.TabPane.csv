@@ -1,0 +1,5 @@
+"property","description","type","default","version","isEnum"
+"closeIcon","Customize close icon in TabPane's head. Only works while type=""editable-card""","ReactNode","-",,false
+"forceRender","Forced render of content in tabs, not lazy render after clicking on tabs","boolean","false",,false
+"key","TabPane's key","string","-",,false
+"tab","Show text in TabPane's head","ReactNode","-",,false

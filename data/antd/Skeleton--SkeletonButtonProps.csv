@@ -1,0 +1,4 @@
+"property","description","type","default","version","isEnum"
+"active","Show animation effect","boolean","false",,false
+"shape","Set the shape of button","circle | round | default","-",,true
+"size","Set the size of button","large | small | default","-",,true
