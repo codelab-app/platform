@@ -324,7 +324,6 @@ export const getSpinner = (): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
 Cypress.Commands.add('getSpinner', getSpinner)
 
 export const getOpenedModal = (
-  // options?: any,
   options?: Parameters<typeof cy.get>[1],
 ): Cypress.Chainable<JQuery> => {
   return cy.get('.ant-modal-content', options)
@@ -333,7 +332,6 @@ export const getOpenedModal = (
 Cypress.Commands.add('getOpenedModal', getOpenedModal)
 
 export const getOpenedDropdownMenu = (
-  // options?: any,
   options?: Parameters<typeof cy.get>[1],
 ): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
   return cy.get('.ant-dropdown-menu', options)
