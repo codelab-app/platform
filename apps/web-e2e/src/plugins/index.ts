@@ -11,13 +11,12 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-const { preprocessTypescript } = require('@nrwl/cypress/plugins/preprocessor')
+import { preprocessTypescript } from '@nrwl/cypress/plugins/preprocessor'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const encrypt = require('cypress-nextjs-auth0/encrypt')
 
-/**
- * @type {Cypress.PluginConfig}
- */
-module.exports = (on, config) => {
+const pluginConfig: Cypress.PluginConfig = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
@@ -35,9 +34,11 @@ module.exports = (on, config) => {
   config.env.auth0SessionCookieName = 'appSession'
   config.env.auth0Username = process.env.CYPRESS_AUTH0_USER
   config.env.auth0Password = process.env.CYPRESS_AUTH0_PASSWORD
-
   config.env.dgraphGraphqlEndpoint = process.env.CODELAB_DGRAPH_GRAPHQL_ENDPOINT
   config.env.dgraphApiKey = process.env.CODELAB_DGRAPH_API_KEY ?? ''
+  config.env.codelabApiEndpoint = process.env.CODELAB_API_ENDPOINT ?? ''
 
   return config
 }
+
+export default pluginConfig

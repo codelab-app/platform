@@ -1,50 +1,46 @@
 import { PrimitiveKind } from '@codelab/codegen/graphql'
 import { TypeKind } from '@codelab/ddd/types'
 
+// Primitive Type use case
+const primitiveTypeName = 'Text'
+const primitiveTypeKind = TypeKind.PrimitiveType
+const primitiveTypePrimitiveKind = PrimitiveKind.String
+// Enum Type use case
+const enumTypeName = 'COLORS'
+const enumTypeKind = 'Enum'
+
+const enumTypeAllowedValues = [
+  { name: 'BLACK', value: '0' },
+  { name: 'WHITE', value: '1' },
+]
+
+// Array Type use case
+const arrayTypeName = 'TextArray'
+const arrayTypeKind = TypeKind.ArrayType
+const arrayItemType = 'Text'
+const updatedArrayTypeName = 'Updated TextArray'
+// Interface Type use case
+const interfaceTypeName = 'New Interface'
+const interfaceTypeKind = TypeKind.InterfaceType
+
+const findEditButtonByTypeName = (text: string) =>
+  cy
+    .findByText(text, { exact: true, timeout: 3000 })
+    .closest('.ant-table-row')
+    .find('.anticon-edit')
+    .closest('button')
+
+const findDeleteButtonByTypeName = (text: string) =>
+  cy
+    .findByText(text, { exact: true, timeout: 3000 })
+    .closest('.ant-table-row')
+    .find('.anticon-delete')
+    .closest('button')
+
 describe('Types', () => {
-  // Primitive Type use case
-  const primitiveTypeName = 'Text'
-  const primitiveTypeKind = TypeKind.PrimitiveType
-  const primitiveTypePrimitiveKind = PrimitiveKind.String
-  // Enum Type use case
-  const enumTypeName = 'COLORS'
-  const enumTypeKind = 'Enum'
-
-  const enumTypeAllowedValues = [
-    { name: 'BLACK', value: '0' },
-    { name: 'WHITE', value: '1' },
-  ]
-
-  // Array Type use case
-  const arrayTypeName = 'TextArray'
-  const arrayTypeKind = TypeKind.ArrayType
-  const arrayItemType = 'Text'
-  const updatedArrayTypeName = 'Updated TextArray'
-  // Interface Type use case
-  const interfaceTypeName = 'New Interface'
-  const interfaceTypeKind = TypeKind.InterfaceType
-
-  const findEditButtonByTypeName = (text: string) =>
-    cy
-      .findByText(text, { exact: true, timeout: 0 })
-      .closest('.ant-table-row')
-      .find('.anticon-edit')
-      .closest('button')
-
-  const findDeleteButtonByTypeName = (text: string) =>
-    cy
-      .findByText(text, { exact: true, timeout: 0 })
-      .closest('.ant-table-row')
-      .find('.anticon-delete')
-      .closest('button')
-
   before(() => {
-    cy.preserveAuthCookies()
+    cy.resetDgraphData()
     cy.login()
-    // cy.clearCookies()
-    // cy.login().then(() => {
-    //   cy.visit(`/types`)
-    // })
   })
 
   beforeEach(() => {
@@ -152,7 +148,7 @@ describe('Types', () => {
 
   describe('update type', () => {
     it('should be able to update array', () => {
-      cy.findAllByText(arrayTypeName, { exact: true, timeout: 0 }).should(
+      cy.findAllByText(arrayTypeName, { exact: true, timeout: 3000 }).should(
         'exist',
       )
 

@@ -1,76 +1,77 @@
+// Text primitive type
+const textTypeName = 'Text'
+const textTypeKind = 'Primitive'
+const textPrimitiveKind = 'String'
+
+// Atoms
+const atoms = [
+  { name: 'Col', type: 'AntDesignGridCol' },
+  { name: 'Row', type: 'AntDesignGridRow' },
+  { name: 'Button', type: 'AntDesignButton' },
+  { name: 'Text', type: 'AntDesignTypographyText' },
+]
+
+// App
+const appName = 'New App'
+let appId: string
+// Page
+const pageName = 'Home Page'
+
+// Page components
+const components = [
+  { name: 'Row', atom: 'Row', parentElement: 'Root element' },
+  { name: 'Col A', atom: 'Col', parentElement: 'Row' },
+  { name: 'Col B', atom: 'Col', parentElement: 'Row' },
+  { name: 'Text', atom: 'Text', parentElement: 'Col A' },
+  { name: 'Button', atom: 'Button', parentElement: 'Col B' },
+  { name: 'Text', atom: 'Text', parentElement: 'Button' },
+]
+
+const findEditButtonByTypeName = (text: string) =>
+  cy
+    .findByText(text, { exact: true, timeout: 5000 })
+    .closest('.ant-table-row')
+    .find('.anticon-edit')
+    .closest('button')
+
+const findDeleteButtonByTypeName = (text: string) =>
+  cy
+    .findByText(text, { exact: true, timeout: 5000 })
+    .closest('.ant-table-row')
+    .find('.anticon-delete')
+    .closest('button')
+
+const findDeleteButtonByAtomName = (text: string) =>
+  cy
+    .findByText(text, { exact: true, timeout: 5000 })
+    .closest('.ant-table-row')
+    .find('.anticon-delete')
+    .closest('button')
+
+const getComponentElementInTree = (label: string) =>
+  cy.findByTestId('pane-main').find('.ant-tree-list').findByText(label)
+
+const getAndExpandElementInTree = (label: string) => {
+  getComponentElementInTree(label)
+    .first()
+    .closest('div')
+    .findByLabelText('caret-down') // Click on the caret next to the element in the tree to expand it
+    .click()
+
+  cy.findByTestId('pane-main')
+    .find('.ant-tree-list .ant-tree-treenode-motion')
+    .should('not.exist') // Wait for the expanding animation to finish
+}
+
+const getTreeItem = (label: string) =>
+  cy.get('.ant-page-header-content').findByText(label).first()
+
 describe('Types', () => {
-  // Text primitive type
-  const textTypeName = 'Text'
-  const textTypeKind = 'Primitive'
-  const textPrimitiveKind = 'String'
-
-  // Atoms
-  const atoms = [
-    { name: 'Col', type: 'AntDesignGridCol' },
-    { name: 'Row', type: 'AntDesignGridRow' },
-    { name: 'Button', type: 'AntDesignButton' },
-    { name: 'Text', type: 'AntDesignTypographyText' },
-  ]
-
-  // App
-  const appName = 'New App'
-  let appId: string
-  // Page
-  const pageName = 'Home Page'
-
-  // Page components
-  const components = [
-    { name: 'Row', atom: 'Row', parentElement: 'Root element' },
-    { name: 'Col A', atom: 'Col', parentElement: 'Row' },
-    { name: 'Col B', atom: 'Col', parentElement: 'Row' },
-    { name: 'Text', atom: 'Text', parentElement: 'Col A' },
-    { name: 'Button', atom: 'Button', parentElement: 'Col B' },
-    { name: 'Text', atom: 'Text', parentElement: 'Button' },
-  ]
-
-  const findEditButtonByTypeName = (text: string) =>
-    cy
-      .findByText(text, { exact: true, timeout: 0 })
-      .closest('.ant-table-row')
-      .find('.anticon-edit')
-      .closest('button')
-
-  const findDeleteButtonByTypeName = (text: string) =>
-    cy
-      .findByText(text, { exact: true, timeout: 0 })
-      .closest('.ant-table-row')
-      .find('.anticon-delete')
-      .closest('button')
-
-  const findDeleteButtonByAtomName = (text: string) =>
-    cy
-      .findByText(text, { exact: true, timeout: 0 })
-      .closest('.ant-table-row')
-      .find('.anticon-delete')
-      .closest('button')
-
-  const getComponentElementInTree = (label: string) =>
-    cy.findByTestId('pane-main').find('.ant-tree-list').findByText(label)
-
-  const getAndExpandElementInTree = (label: string) => {
-    getComponentElementInTree(label)
-      .first()
-      .closest('div')
-      .findByLabelText('caret-down') // Click on the caret next to the element in the tree to expand it
-      .click()
-
-    cy.findByTestId('pane-main')
-      .find('.ant-tree-list .ant-tree-treenode-motion')
-      .should('not.exist') // Wait for the expanding animation to finish
-  }
-
-  const getTreeItem = (label: string) =>
-    cy.get('.ant-page-header-content').findByText(label).first()
-
   before(() => {
-    cy.clearCookies()
-    cy.preserveAuthCookies()
+    cy.resetDgraphData()
+
     cy.login().then(() => {
+      cy.preserveAuthCookies()
       cy.createApp().then((app: any) => {
         appId = app.id
       })
@@ -81,19 +82,10 @@ describe('Types', () => {
     cy.preserveAuthCookies()
   })
 
-  after(() => {
-    cy.deleteApp({
-      appId,
-    })
-  })
-
   describe('create text primitive type', () => {
     before(() => {
-      cy.clearCookies()
-      cy.login().then(() => {
-        cy.visit(`/types`)
-        cy.get('.ant-table-cell', { timeout: 30000 })
-      })
+      cy.visit(`/types`)
+      cy.get('.ant-table-cell', { timeout: 30000 })
     })
 
     it('should be able to create text primitive type', () => {
@@ -120,11 +112,8 @@ describe('Types', () => {
 
   describe('create atoms', () => {
     before(() => {
-      cy.clearCookies()
-      cy.login().then(() => {
-        cy.visit(`/atoms`)
-        cy.get('.ant-table-cell', { timeout: 30000 })
-      })
+      cy.visit(`/atoms`)
+      cy.get('.ant-table-cell', { timeout: 30000 })
     })
 
     it('should be able to create atoms', () => {
@@ -153,12 +142,8 @@ describe('Types', () => {
 
   describe('create page', () => {
     before(() => {
-      cy.clearCookies()
-      cy.login().then(() => {
-        cy.visit(`/apps/${appId}/pages`)
-        cy.getSpinner()
-        cy.getSpinner().should('not.exist')
-      })
+      cy.visit(`/apps/${appId}/pages`)
+      cy.getSpinner().should('not.exist')
     })
 
     it('should be able to create home page', () => {
@@ -210,16 +195,12 @@ describe('Types', () => {
 
   describe('delete page', () => {
     before(() => {
-      cy.clearCookies()
-      cy.login().then(() => {
-        cy.visit(`/apps/${appId}/pages`)
-        cy.getSpinner()
-        cy.getSpinner().should('not.exist')
-      })
+      cy.visit(`/apps/${appId}/pages`)
+      cy.getSpinner().should('not.exist')
     })
 
     it('should be able to delete home page', () => {
-      cy.findAllByText(pageName, { exact: true, timeout: 0 }).should('exist')
+      cy.findAllByText(pageName, { exact: true, timeout: 5000 }).should('exist')
 
       cy.findDeleteButtonByPageName(pageName).click()
 
@@ -234,11 +215,8 @@ describe('Types', () => {
 
   describe('delete atoms', () => {
     before(() => {
-      cy.clearCookies()
-      cy.login().then(() => {
-        cy.visit(`/atoms`)
-        cy.get('.ant-table-cell', { timeout: 30000 })
-      })
+      cy.visit(`/atoms`)
+      cy.get('.ant-table-cell', { timeout: 30000 })
     })
 
     it('should be able to delete atoms', () => {
@@ -260,11 +238,8 @@ describe('Types', () => {
 
   describe('delete text primitive type', () => {
     before(() => {
-      cy.clearCookies()
-      cy.login().then(() => {
-        cy.visit(`/types`)
-        cy.get('.ant-table-cell', { timeout: 30000 })
-      })
+      cy.visit(`/types`)
+      cy.get('.ant-table-cell', { timeout: 5000 })
     })
 
     it('should be able to delete text primitive', () => {

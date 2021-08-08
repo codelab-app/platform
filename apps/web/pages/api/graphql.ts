@@ -19,7 +19,7 @@ app.use('*', async (baseReq, baseRes, next) => {
     changeOrigin: true,
     proxyTimeout: 30000,
     secure: false,
-    logLevel: 'debug',
+    // logLevel: 'debug',
     headers: {
       Connection: 'keep-alive',
     },

@@ -904,10 +904,9 @@
               "record": false
             },
             "local": {
-              "cypressConfig": "apps/web-e2e/cypress.ci.json",
+              "cypressConfig": "apps/web-e2e/cypress.json",
               "devServerTarget": "web-e2e:serve:ci",
-              "headless": true,
-              "record": false
+              "headless": true
             },
             "dev": {
               "devServerTarget": "web-e2e:serve:dev",
