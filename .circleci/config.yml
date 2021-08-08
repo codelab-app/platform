@@ -6,13 +6,15 @@
 
 # Success notification is added to end of workflow, while failure notification is added to end of each job.
 
-filters-staging-pr: &filters-staging-pr
+filters-dev-pr: &filters-dev-pr
   filters:
     branches:
       ignore:
         - master
+        - production
+        - staging
 
-filters-staging-merge: &filters-staging-merge
+filters-staging: &filters-staging
   filters:
     tags:
       only: /^staging-.*$/
@@ -20,7 +22,7 @@ filters-staging-merge: &filters-staging-merge
       only:
         - staging
 
-filters-prod-merge: &filters-prod-merge
+filters-prod: &filters-prod
   filters:
     tags:
       only: /^prod-.*$/
@@ -111,7 +113,6 @@ commands:
             # Set path before install, otherwise paths will be different in the executors
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             source $BASH_ENV
-
             echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
@@ -120,7 +121,6 @@ commands:
           command: |
             # git settings
             echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
-
             # slack settings
             if [ $CIRCLE_USERNAME == $GITHUB_ANTON ]; then
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_ANTON}' >> $BASH_ENV
@@ -137,7 +137,6 @@ commands:
             else
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_WEBBER}' >> $BASH_ENV
             fi
-
             # finally import bash env
             source $BASH_ENV
       - run:
@@ -146,7 +145,6 @@ commands:
             nvm install 14.16.0
             nvm alias default 14.16.0
             node -v
-
   yarn-install-dev:
     steps:
       - restore_cache:
@@ -312,14 +310,13 @@ jobs:
       - setup-workspace
       - run: make lint-eslint
       # - run: make lint-commit-ci
-      - run:
-          name: 'Commitlint'
-          command: |
-            echo $CIRCLE_BASE_REVISION
-            echo $CIRCLE_REVISION
-            echo $CIRCLE_SHA1
-            ./scripts/lint/commitlint-ci.sh
-
+      # - run:
+      #     name: 'Commitlint'
+      #     command: |
+      #       echo $CIRCLE_BASE_REVISION
+      #       echo $CIRCLE_REVISION
+      #       echo $CIRCLE_SHA1
+      #       ./scripts/lint/commitlint-ci.sh
       - notify-failure
 
   unit:
@@ -423,7 +420,6 @@ jobs:
             		}
             	]
             }
-
   build-docker-staging:
     <<: *executor-params
     steps:
@@ -449,38 +445,38 @@ jobs:
       - deploy-to-ecs
 
 workflows:
-  app-staging-pr:
+  app-dev-pr:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-staging-pr
+          <<: *filters-dev-pr
           e: docker-node
           context: CI
       - lint:
-          <<: *filters-staging-pr
+          <<: *filters-dev-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - unit:
-          <<: *filters-staging-pr
+          <<: *filters-dev-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - integration:
-          <<: *filters-staging-pr
+          <<: *filters-dev-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - e2e:
-          <<: *filters-staging-pr
+          <<: *filters-dev-pr
           e: docker-node
           context: CI
           requires:
             - integration
       - notify-success:
-          <<: *filters-staging-pr
+          <<: *filters-dev-pr
           context: CI
           e: docker-node
           requires:
@@ -492,23 +488,47 @@ workflows:
   app-staging:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-staging-merge
+          <<: *filters-staging
           e: docker-node
           context: CI
-      - build-docker-staging:
-          <<: *filters-staging-merge
+      - lint:
+          <<: *filters-dev-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
+      - unit:
+          <<: *filters-dev-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - integration:
+          <<: *filters-dev-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - e2e:
+          <<: *filters-dev-pr
+          e: docker-node
+          context: CI
+          requires:
+            - integration
+      - build-docker-staging:
+          <<: *filters-staging
+          e: docker-node
+          context: CI
+          requires:
+            - e2e
       - deploy-to-staging:
-          <<: *filters-staging-merge
+          <<: *filters-staging
           e: docker-python
           context: CI
           requires:
             - build-docker-staging
       - notify-success:
-          <<: *filters-staging-merge
+          <<: *filters-staging
           e: docker-node
           context: CI
           requires:
@@ -517,35 +537,35 @@ workflows:
   app-prod:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-prod-merge
+          <<: *filters-prod
           e: docker-node
           context: CI
       - lint:
-          <<: *filters-prod-merge
+          <<: *filters-prod
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - unit:
-          <<: *filters-prod-merge
+          <<: *filters-prod
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - integration:
-          <<: *filters-prod-merge
+          <<: *filters-prod
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - e2e:
-          <<: *filters-prod-merge
+          <<: *filters-prod
           e: docker-node
           context: CI
           requires:
             - integration
       - build-docker-prod:
-          <<: *filters-prod-merge
+          <<: *filters-prod
           e: docker-node
           context: CI
           requires:
@@ -554,14 +574,14 @@ workflows:
             - integration
             - e2e
       - deploy-to-prod:
-          <<: *filters-prod-merge
+          <<: *filters-prod
           e: docker-python
           context: CI
           requires:
             - build-docker-prod
 
       - notify-success:
-          <<: *filters-prod-merge
+          <<: *filters-prod
           e: docker-node
           context: CI
           requires:

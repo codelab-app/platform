@@ -1,0 +1,5 @@
+"property","description","type","default","version","isEnum"
+"contentStyle","Customize label style","CSSProperties","-","4.9.0",false
+"label","The description of the content","ReactNode","-","",false
+"labelStyle","Customize label style","CSSProperties","-","4.9.0",false
+"span","The number of columns included","number","1","",false

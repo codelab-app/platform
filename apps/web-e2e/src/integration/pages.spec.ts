@@ -4,18 +4,11 @@ describe('Pages', () => {
   const updatedPageName = 'updated page'
 
   before(() => {
-    cy.clearCookies()
-    cy.preserveAuthCookies()
-
+    cy.resetDgraphData()
     cy.login().then(() => {
       cy.createApp().then((app: any) => {
         appId = app.id
       })
-    })
-  })
-  after(() => {
-    cy.deleteApp({
-      appId,
     })
   })
 

@@ -1,0 +1,6 @@
+"property","description","type","default","version","isEnum"
+"avatar","Avatar or icon","ReactNode","-","",false
+"className","The className of container","string","-","",false
+"description","Description content","ReactNode","-","",false
+"style","The style object of container","CSSProperties","-","",false
+"title","Title content","ReactNode","-","",false

@@ -15,8 +15,15 @@ export class TypesByKindFilter {
   declare kind: TypeKind
 }
 
+@InputType()
+export class TypesByNameFilter {
+  @Field()
+  declare name: string
+}
+
 @InputType({
-  description: 'Filters are optional and you can provide both of them together',
+  description:
+    'Filters are optional and you can provide all three of them together',
 })
 export class GetTypesInput {
   @Field(() => TypesByIdsFilter, { nullable: true })
@@ -24,4 +31,7 @@ export class GetTypesInput {
 
   @Field(() => TypesByKindFilter, { nullable: true })
   declare byKind?: TypesByKindFilter
+
+  @Field(() => TypesByNameFilter, { nullable: true })
+  declare byName?: TypesByNameFilter
 }

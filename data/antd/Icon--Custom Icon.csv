@@ -1,0 +1,5 @@
+"property","description","type","default","version","isEnum"
+"component","The component used for the root node","ComponentType<CustomIconComponentProps>","-","",false
+"rotate","Rotate degrees (not working in IE9)","number","-","",false
+"spin","Rotate icon with animation","boolean","false","",false
+"style","The style properties of icon, like fontSize and color","CSSProperties","-","",false

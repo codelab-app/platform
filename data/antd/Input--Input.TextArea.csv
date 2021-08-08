@@ -1,0 +1,10 @@
+"property","description","type","default","version","isEnum"
+"allowClear","If allow to remove input content with clear icon","boolean","false","",false
+"autoSize","Height autosize feature, can be set to true | false or an object { minRows: 2, maxRows: 6 }","boolean | object","false","",false
+"bordered","Whether has border style","boolean","true","4.5.0",false
+"defaultValue","The initial input content","string","-","",false
+"maxLength","The max length","number","-","4.7.0",false
+"showCount","Whether show text count","boolean | { formatter: ({ count: number, maxLength?: number }) => string }","false","4.7.0 (formatter: 4.10.0)",false
+"value","The input content value","string","-","",false
+"onPressEnter","The callback function that is triggered when Enter key is pressed","function(e)","-","",false
+"onResize","The callback function that is triggered when resize","function({ width, height })","-","",false

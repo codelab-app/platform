@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { GraphQLError, GraphQLFormattedError } from 'graphql'
+import { AppError } from '../../../../common'
 import {
   GraphqlServerConfig,
   graphqlServerConfig,
@@ -68,7 +69,13 @@ export class GraphqlOptions implements GqlOptionsFactory {
             err?.message,
         }
 
-        return graphQLFormattedError
+        return {
+          ...graphQLFormattedError,
+          code:
+            err.originalError instanceof AppError
+              ? err.originalError.code
+              : undefined,
+        }
       },
     }
   }

@@ -1,11 +1,11 @@
-"property","description","type","default","version"
-"cancelButtonProps","The cancel button props","ButtonProps","-",
-"cancelText","The text of the Cancel button","string","Cancel",
-"disabled","Whether show popconfirm when click its childrenNode","boolean","false",
-"icon","Customize icon of confirmation","ReactNode","<ExclamationCircle />",
-"okButtonProps","The ok button props","ButtonProps","-",
-"okText","The text of the Confirm button","string","OK",
-"okType","Button type of the Confirm button","string","primary",
-"title","The title of the confirmation box","ReactNode | () => ReactNode","-",
-"onCancel","A callback of cancel","function(e)","-",
-"onConfirm","A callback of confirmation","function(e)","-",
+"property","description","type","default","version","isEnum"
+"cancelButtonProps","The cancel button props","ButtonProps","-",,false
+"cancelText","The text of the Cancel button","string","Cancel",,false
+"disabled","Whether show popconfirm when click its childrenNode","boolean","false",,false
+"icon","Customize icon of confirmation","ReactNode","<ExclamationCircle />",,false
+"okButtonProps","The ok button props","ButtonProps","-",,false
+"okText","The text of the Confirm button","string","OK",,false
+"okType","Button type of the Confirm button","string","primary",,false
+"title","The title of the confirmation box","ReactNode | () => ReactNode","-",,false
+"onCancel","A callback of cancel","function(e)","-",,false
+"onConfirm","A callback of confirmation","function(e)","-",,false

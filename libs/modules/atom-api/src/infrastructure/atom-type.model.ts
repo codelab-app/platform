@@ -103,9 +103,9 @@ export enum AtomTypeEnum {
   //
   // Custom:
   //
-  // React Query
   Query = 'Query',
   TextList = 'TextList',
+  Text = 'Text',
 
   // React
   ReactFragment = 'ReactFragment',

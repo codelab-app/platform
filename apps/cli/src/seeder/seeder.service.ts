@@ -4,38 +4,97 @@ import {
   ServerConfig,
   serverConfig,
 } from '@codelab/backend'
-import {
-  GetTypeGql,
-  GetTypeQueryResult,
-  GetTypeQueryVariables,
-} from '@codelab/codegen/graphql'
+import { AtomTypeEnum } from '@codelab/modules/atom-api'
 import { Inject, Injectable } from '@nestjs/common'
-import csv from 'csv-parser'
-import fs from 'fs'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
-import path from 'path'
+import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
+import { AtomSeeder } from './seedHelpers/AtomSeeder'
+import { iterateCsvs } from './seedHelpers/iterateCsvs'
+import { snakeCaseToWords } from './seedHelpers/snakeCaseToWords'
+import { TypeSeeder } from './seedHelpers/TypeSeeder'
+
+/**
+ * Idea to improve data management:
+ * Create a libraries.(json/js/ts) in /data dir
+ * In it we have an array of libraries - their names, and a path to a directory that contains the data
+ * e.g. [{name: "Ant Design", dataDir: "data/antd/"}]
+ *
+ * In each data dir (data/antd for example), we keep a atoms.(json/js/ts)
+ * atoms.(json/js/ts) will contain a list of Atoms for this library, with the same structure, but will contain the AtomType:
+ * [{name: "Button", file: "Button.csv", atomType: AtomType.Button}]
+ *
+ * The csv file will contain standardized across all libraries data for the API - things like key, type, etc.
+ * Scrapers will do the work to format the specific data (say from AntD API docs) to our standardized data
+ *
+ * The Seeder will create the libraries, all of the atoms inside them and the types for them
+ */
 
 @Console()
 @Injectable()
 export class SeederService {
-  private antDesignFolder = `${process.cwd()}/data/antd/`
+  private antdDataFolder = `${process.cwd()}/data/antd/`
+
+  private customComponentsDataFolder = `${process.cwd()}/data/customComponents/`
 
   constructor(
     @Inject(serverConfig.KEY) private readonly _serverConfig: ServerConfig,
     private readonly auth0Service: Auth0Service,
   ) {}
 
-  /**
-   * (1) Seed primitive types like String, Boolean, Integer so other types can use them
-   */
   @Command({
     command: 'seed',
   })
   async seed() {
     const client = await this.getClient()
+    const typeSeeder = new TypeSeeder(client)
+    const atomSeeder = new AtomSeeder(client)
 
-    await this.seedPrimitiveTypes(client)
+    /**
+     * (1) Seed primitive types like String, Boolean, Integer so other types can use them
+     */
+    await typeSeeder.seedPrimitiveTypes()
+    await typeSeeder.seedBaseTypes()
+
+    /**
+     * (2) Seed all Atoms
+     */
+    const allAtoms = await Promise.all(
+      Object.values(AtomTypeEnum).map((atomType) =>
+        atomSeeder
+          .seedAtomIfNotExisting({
+            type: atomType as any,
+            name: snakeCaseToWords(atomType),
+          })
+          .then((id) => ({ id, atomType })),
+      ),
+    )
+
+    const atomIdByAtomType = new Map(
+      allAtoms.map(({ id, atomType }) => [atomType, id]),
+    )
+
+    /**
+     * (3) Seed all Atoms API's that we have data for
+     */
+    const handleCsv = async (data: Array<AntdDesignApi>, file: string) => {
+      const atomType = csvNameToAtomTypeMap[file.replace('.csv', '')]
+
+      if (!atomType) {
+        return
+      }
+
+      const atomId = atomIdByAtomType.get(atomType as any)
+
+      if (!atomId) {
+        return
+      }
+
+      return typeSeeder.seedAtomApi(atomId, data)
+    }
+
+    await iterateCsvs(this.antdDataFolder, handleCsv)
+    await iterateCsvs(this.customComponentsDataFolder, handleCsv)
   }
 
   private async getClient() {
@@ -51,50 +110,5 @@ export class SeederService {
     )
 
     return client
-  }
-
-  /**
-   * Import Ant Design .csv props files to our system
-   */
-  private async importAntCsvData() {
-    fs.readdirSync(this.antDesignFolder)
-      .slice(0, 1)
-      .forEach((file) => {
-        const results: Array<AntdDesignApi> = []
-        console.log(file)
-
-        fs.createReadStream(path.resolve(this.antDesignFolder, file))
-          .pipe(csv())
-          .on('data', (data) => results.push(data))
-          .on('end', () => {
-            // Seed here
-            console.log(results)
-          })
-
-        /*
-          Run this to print the file contents
-          console.log(readFileSync(".levels/" + file, {encoding: "utf8"}))
-        */
-
-        // try {
-        //   const parser = new Parser({ fields: antdTableKeys })
-        //   const csv = parser.parse(fileContents)
-        //   console.log(csv)
-        // } catch (err) {
-        //   console.error(err)
-        // }
-      })
-
-    // // but if your goal is just to print the file name you can do this
-    // fs.readFileSync('.levels/').forEach(console.log)
-  }
-
-  private async seedPrimitiveTypes(client: GraphQLClient) {
-    const results = await client.request<
-      GetTypeQueryResult,
-      GetTypeQueryVariables
-    >(GetTypeGql, { input: { where: { name: 'Strings' } } })
-
-    console.log(results)
   }
 }

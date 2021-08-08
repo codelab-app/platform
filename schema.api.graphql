@@ -199,6 +199,7 @@ enum AtomType {
   AntDesignUpload
   Query
   TextList
+  Text
   ReactFragment
   HtmlA
   HtmlP
@@ -423,6 +424,7 @@ input GetComponentInput {
 input GetAtomInput {
   byElement: AtomByElement
   byId: AtomById
+  byType: AtomByType
 }
 
 input AtomByElement {
@@ -431,6 +433,10 @@ input AtomByElement {
 
 input AtomById {
   atomId: String!
+}
+
+input AtomByType {
+  atomType: AtomType!
 }
 
 input GetFieldInput {
@@ -456,10 +462,11 @@ input WhereUniqueType {
   name: String
 }
 
-"""Filters are optional and you can provide both of them together"""
+"""Filters are optional and you can provide all three of them together"""
 input GetTypesInput {
   byIds: TypesByIdsFilter
   byKind: TypesByKindFilter
+  byName: TypesByNameFilter
 }
 
 input TypesByIdsFilter {
@@ -476,6 +483,10 @@ enum TypeKindFilter {
   InterfaceType
   EnumType
   LambdaType
+}
+
+input TypesByNameFilter {
+  name: String!
 }
 
 input GetLambdaInput {

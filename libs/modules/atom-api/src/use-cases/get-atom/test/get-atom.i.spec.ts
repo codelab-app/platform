@@ -21,6 +21,7 @@ describe('GetAtom', () => {
   let userApp: INestApplication
   let atomId: string
   let getAtomInput: GetAtomInput
+  let getAtomByTypeInput: GetAtomInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
@@ -35,6 +36,10 @@ describe('GetAtom', () => {
     atomId = results.createAtom.id
     getAtomInput = {
       byId: { atomId },
+    }
+
+    getAtomByTypeInput = {
+      byType: { atomType: createAtomInput.type },
     }
   })
 
@@ -57,6 +62,20 @@ describe('GetAtom', () => {
         userApp,
         GetAtomGql,
         getAtomInput,
+      )
+
+      expect(atom).toMatchObject({
+        id: atomId,
+        name: 'Button (Ant Design)',
+        type: 'AntDesignButton',
+      })
+    })
+
+    it('should get an atom by type', async () => {
+      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+        userApp,
+        GetAtomGql,
+        getAtomByTypeInput,
       )
 
       expect(atom).toMatchObject({

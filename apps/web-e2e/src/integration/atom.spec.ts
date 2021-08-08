@@ -1,8 +1,8 @@
-describe('Atoms', () => {
-  const atomName = 'Row'
-  const atomType = 'AntDesignGridRow'
-  const updatedAtomName = 'Row updated'
+const atomName = 'Row'
+const atomType = 'AntDesignGridRow'
+const updatedAtomName = 'Row updated'
 
+describe('Atoms', () => {
   const findEditButtonByAtomName = (text: string) =>
     cy
       .findByText(text, { exact: true, timeout: 0 })
@@ -18,8 +18,7 @@ describe('Atoms', () => {
       .closest('button')
 
   before(() => {
-    cy.clearCookies()
-    cy.preserveAuthCookies()
+    cy.resetDgraphData()
     cy.login()
   })
 

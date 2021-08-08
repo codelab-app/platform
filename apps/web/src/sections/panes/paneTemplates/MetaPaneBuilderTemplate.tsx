@@ -31,8 +31,9 @@ const TabContainer = styled.div`
   .tab-panel {
     ${tw`px-4 py-2 `}
   }
-  .tab-panel {
-    ${tw`overflow-auto`}
+  .tab-panel,
+  .ant-tabs-content {
+    overflow: auto;
   }
 `
 

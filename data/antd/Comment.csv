@@ -1,7 +1,7 @@
-"property","description","type","default","version"
-"actions","List of action items rendered below the comment content","Array<ReactNode>","-",""
-"author","The element to display as the comment author","ReactNode","-",""
-"avatar","The element to display as the comment avatar - generally an antd Avatar or src","ReactNode","-",""
-"children","Nested comments should be provided as children of the Comment","ReactNode","-",""
-"content","The main content of the comment","ReactNode","-",""
-"datetime","A datetime element containing the time to be displayed","ReactNode","-",""
+"property","description","type","default","version","isEnum"
+"actions","List of action items rendered below the comment content","Array<ReactNode>","-","",false
+"author","The element to display as the comment author","ReactNode","-","",false
+"avatar","The element to display as the comment avatar - generally an antd Avatar or src","ReactNode","-","",false
+"children","Nested comments should be provided as children of the Comment","ReactNode","-","",false
+"content","The main content of the comment","ReactNode","-","",false
+"datetime","A datetime element containing the time to be displayed","ReactNode","-","",false

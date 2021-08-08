@@ -1,0 +1,3 @@
+"property","description","type","default","version","isEnum"
+"description","Custom error description to show","ReactNode","{{ error stack }}","",false
+"message","Custom error message to show","ReactNode","{{ error }}","",false

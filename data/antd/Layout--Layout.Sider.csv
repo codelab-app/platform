@@ -1,0 +1,15 @@
+"property","description","type","default","version","isEnum"
+"breakpoint","Breakpoints of the responsive layout","xs | sm | md | lg | xl | xxl","-",,false
+"className","Container className","string","-",,false
+"collapsed","To set the current status","boolean","-",,false
+"collapsedWidth","Width of the collapsed sidebar, by setting to 0 a special trigger will appear","number","80",,false
+"collapsible","Whether can be collapsed","boolean","false",,false
+"defaultCollapsed","To set the initial status","boolean","false",,false
+"reverseArrow","Reverse direction of arrow, for a sider that expands from the right","boolean","false",,false
+"style","To customize the styles","CSSProperties","-",,false
+"theme","Color theme of the sidebar","light | dark","dark",,false
+"trigger","Specify the customized trigger, set to null to hide the trigger","ReactNode","-",,false
+"width","Width of the sidebar","number | string","200",,false
+"zeroWidthTriggerStyle","To customize the styles of the special trigger that appears when collapsedWidth is 0","object","-",,false
+"onBreakpoint","The callback function, executed when breakpoints changed","(broken) => {}","-",,false
+"onCollapse","The callback function, executed by clicking the trigger or activating the responsive layout","(collapsed, type) => {}","-",,false

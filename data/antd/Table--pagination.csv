@@ -1,0 +1,2 @@
+"property","description","type","default","version","isEnum"
+"position","Specify the position of Pagination, could betopLeft | topCenter | topRight |bottomLeft | bottomCenter | bottomRight","Array","[bottomRight]",,false

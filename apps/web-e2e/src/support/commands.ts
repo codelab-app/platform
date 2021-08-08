@@ -31,6 +31,7 @@ declare global {
     interface Chainable<Subject> {
       getCurrentUserId: typeof getCurrentUserId
       getByTestId: typeof getByTestId
+      resetDgraphData: typeof resetDgraphData
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
       graphqlRequest: typeof graphqlRequest
       /** Creates an app for the current logged in user */
@@ -90,20 +91,29 @@ declare global {
 
 const preserveAuthCookies = () => {
   Cypress.Cookies.preserveOnce('appSession')
-  Cypress.Cookies.preserveOnce('appSession.0')
-  Cypress.Cookies.preserveOnce('appSession.1')
+  // Cypress.Cookies.preserveOnce('appSession.0')
+  // Cypress.Cookies.preserveOnce('appSession.1')
 }
 
 Cypress.Commands.add('preserveAuthCookies', preserveAuthCookies)
 
 const graphqlRequest = (body: string | Record<string, any>) =>
   cy.request({
-    body,
-    url: '/api/graphql',
     method: 'POST',
+    url: '/api/graphql',
+    body,
   })
 
 Cypress.Commands.add('graphqlRequest', graphqlRequest)
+
+const resetDgraphData = () => {
+  return cy.request({
+    method: 'POST',
+    url: `${Cypress.env('codelabApiEndpoint')}/dgraph/reset-data`,
+  })
+}
+
+Cypress.Commands.add('resetDgraphData', resetDgraphData)
 
 const getCurrentUserId = () => {
   return cy.request('/api/auth/me').then((r) => {
@@ -314,7 +324,6 @@ export const getSpinner = (): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
 Cypress.Commands.add('getSpinner', getSpinner)
 
 export const getOpenedModal = (
-  // options?: any,
   options?: Parameters<typeof cy.get>[1],
 ): Cypress.Chainable<JQuery> => {
   return cy.get('.ant-modal-content', options)
@@ -323,7 +332,6 @@ export const getOpenedModal = (
 Cypress.Commands.add('getOpenedModal', getOpenedModal)
 
 export const getOpenedDropdownMenu = (
-  // options?: any,
   options?: Parameters<typeof cy.get>[1],
 ): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
   return cy.get('.ant-dropdown-menu', options)

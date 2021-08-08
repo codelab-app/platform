@@ -1,0 +1,4 @@
+"property","description","type","default","version","isEnum"
+"color","Customize Ribbon color","string","-","",false
+"placement","The placement of the Ribbon, start and end follow text direction (RTL or LTR)","start | end","end","",false
+"text","Content inside the Ribbon","ReactNode","-","",false

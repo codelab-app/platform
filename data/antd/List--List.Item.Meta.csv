@@ -1,0 +1,4 @@
+"property","description","type","default","version","isEnum"
+"avatar","The avatar of list item","ReactNode","-","",false
+"description","The description of list item","ReactNode","-","",false
+"title","The title of list item","ReactNode","-","",false

@@ -1,0 +1,10 @@
+"property","description","type","default","version","isEnum"
+"affix","Fixed mode of Anchor","boolean","true","",false
+"bounds","Bounding distance of anchor area","number","5","",false
+"getContainer","Scrolling container","() => HTMLElement","() => window","",false
+"getCurrentAnchor","Customize the anchor highlight","() => string","-","",false
+"offsetTop","Pixels to offset from top when calculating position of scroll","number","0","",false
+"showInkInFixed","Whether show ink-balls when affix={false}","boolean","false","",false
+"targetOffset","Anchor scroll offset, default as offsetTop, example","number","-","",false
+"onChange","Listening for anchor link change","(currentActiveLink: string) => void","","",false
+"onClick","Set the handler to handle click event","function(e: Event, link: Object)","-","",false

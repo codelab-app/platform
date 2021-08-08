@@ -1,12 +1,12 @@
-"property","description","type","default","version"
-"avatar","Avatar next to the title bar","AvatarProps","-",""
-"backIcon","Custom back icon, if false the back icon will not be displayed","ReactNode | boolean","<ArrowLeft />",""
-"breadcrumb","Breadcrumb configuration","Breadcrumb","-",""
-"breadcrumbRender","Customize the content of the breadcrumb area","(props, originBreadcrumb)=> ReactNode","-","4.11.0"
-"extra","Operating area, at the end of the line of the title line","ReactNode","-",""
-"footer","PageHeader's footer, generally used to render TabBar","ReactNode","-",""
-"ghost","PageHeader type, will change background color","boolean","true",""
-"subTitle","Custom subtitle text","ReactNode","-",""
-"tags","Tag list next to title","Tag[] | Tag","-",""
-"title","Custom title text","ReactNode","-",""
-"onBack","Back icon click event","() => void","-",""
+"property","description","type","default","version","isEnum"
+"avatar","Avatar next to the title bar","AvatarProps","-","",false
+"backIcon","Custom back icon, if false the back icon will not be displayed","ReactNode | boolean","<ArrowLeft />","",false
+"breadcrumb","Breadcrumb configuration","Breadcrumb","-","",false
+"breadcrumbRender","Customize the content of the breadcrumb area","(props, originBreadcrumb)=> ReactNode","-","4.11.0",true
+"extra","Operating area, at the end of the line of the title line","ReactNode","-","",false
+"footer","PageHeader's footer, generally used to render TabBar","ReactNode","-","",false
+"ghost","PageHeader type, will change background color","boolean","true","",false
+"subTitle","Custom subtitle text","ReactNode","-","",false
+"tags","Tag list next to title","Tag[] | Tag","-","",false
+"title","Custom title text","ReactNode","-","",false
+"onBack","Back icon click event","() => void","-","",false

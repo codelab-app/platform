@@ -1,0 +1,9 @@
+"property","description","type","default","version","isEnum"
+"checkable","When Tree is checkable, set TreeNode display Checkbox or not","boolean","-","",false
+"disableCheckbox","Disables the checkbox of the treeNode","boolean","false","",false
+"disabled","Disables the treeNode","boolean","false","",false
+"icon","Customize icon. When you pass component, whose render will receive full TreeNode props as component props","ReactNode | (props) => ReactNode","-","",false
+"isLeaf","Determines if this is a leaf node(effective when loadData is specified). false will force trade TreeNode as a parent node","boolean","-","",false
+"key","Used with (default)ExpandedKeys / (default)CheckedKeys / (default)SelectedKeys. P.S.: It must be unique in all of treeNodes of the tree","string","(internal calculated position of treeNode)","",false
+"selectable","Set whether the treeNode can be selected","boolean","true","",false
+"title","Title","ReactNode","---","",false

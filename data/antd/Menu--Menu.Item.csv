@@ -1,0 +1,6 @@
+"property","description","type","default","version","isEnum"
+"danger","Display the danger style","boolean","false","4.3.0",false
+"disabled","Whether menu item is disabled","boolean","false","",false
+"icon","The icon of the menu item","ReactNode","-","4.2.0",false
+"key","Unique ID of the menu item","string","-","",false
+"title","Set display title for collapsed item","string","-","",false

@@ -1,0 +1,2 @@
+"property","description","type","default","version","isEnum"
+"draggableTrack","Whether range track can be drag","boolean","false","4.10.0",false

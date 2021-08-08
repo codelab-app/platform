@@ -1,0 +1,32 @@
+"property","description","type","default","version","isEnum"
+"align","The specify which way that column is aligned","left | right | center","left","",false
+"className","The className of this column","string","-","",false
+"colSpan","Span of this column's title","number","-","",false
+"dataIndex","Display field of the data record, support nest path by string array","string | string[]","-","",false
+"defaultFilteredValue","Default filtered values","string[]","-","",false
+"defaultSortOrder","Default order of sorted values","ascend | descend","-","",false
+"editable","Whether column can be edited","boolean","false","",false
+"ellipsis","The ellipsis cell content, not working with sorter and filters for now.
+tableLayout would be fixed when ellipsis is true or { showTitle?: boolean }","boolean | {showTitle?: boolean }","false","showTitle: 4.3.0",false
+"filterDropdown","Customized filter overlay","ReactNode | (props: FilterDropdownProps) => ReactNode","-","",false
+"filterDropdownVisible","Whether filterDropdown is visible","boolean","-","",false
+"filtered","Whether the dataSource is filtered","boolean","false","",false
+"filteredValue","Controlled filtered value, filter icon will highlight","string[]","-","",false
+"filterIcon","Customized filter icon","ReactNode | (filtered: boolean) => ReactNode","-","",false
+"filterMultiple","Whether multiple filters can be selected","boolean","true","",false
+"filters","Filter menu config","object[]","-","",false
+"fixed","(IE not support) Set column to be fixed: true(same as left) 'left' 'right'","boolean | string","false","",false
+"key","Unique key of this column, you can ignore this prop if you've set a unique dataIndex","string","-","",false
+"render","Renderer of the table cell. The return value should be a ReactNode, or an object for colSpan/rowSpan config","function(text, record, index) {}","-","",false
+"responsive","The list of breakpoints at which to display this column. Always visible if not set.","Breakpoint[]","-","4.2.0",false
+"shouldCellUpdate","Control cell render logic","(record, prevRecord) => boolean","-","4.3.0",false
+"showSorterTooltip","If header show next sorter direction tooltip, override showSorterTooltip in table","boolean | Tooltip props","true","",false
+"sortDirections","Supported sort way, override sortDirections in Table, could be ascend, descend","Array","[ascend, descend]","",false
+"sorter","Sort function for local sort, see Array.sort's compareFunction. If you need sort buttons only, set to true","function | boolean","-","",false
+"sortOrder","Order of sorted values: 'ascend' 'descend' false","boolean | string","-","",false
+"title","Title of this column","ReactNode | ({ sortOrder, sortColumn, filters }) => ReactNode","-","",false
+"width","Width of this column (width not working?)","string | number","-","",false
+"onCell","Set props on per cell","function(record, rowIndex)","-","",false
+"onFilter","Function that determines if the row is displayed when filtered","function(value, record) => boolean","-","",false
+"onFilterDropdownVisibleChange","Callback executed when filterDropdownVisible is changed","function(visible) {}","-","",false
+"onHeaderCell","Set props on per header cell","function(column)","-","",false

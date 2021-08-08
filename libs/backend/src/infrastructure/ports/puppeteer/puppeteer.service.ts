@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import fs from 'fs'
 import { parse } from 'json2csv'
-import { Dictionary } from 'lodash'
 import puppeteer from 'puppeteer'
 
 export interface AntdDesignApi {
@@ -10,6 +9,12 @@ export interface AntdDesignApi {
   type: string
   default: string
   version: string
+  isEnum: boolean
+}
+
+interface ComponentData {
+  name: string
+  props: Array<AntdDesignApi>
 }
 
 export const antdTableKeys: Array<keyof AntdDesignApi> = [
@@ -19,6 +24,8 @@ export const antdTableKeys: Array<keyof AntdDesignApi> = [
   'default',
   'version',
 ]
+
+const toSkip = new Set(['Message', 'Notification'])
 
 @Injectable({})
 export class PuppeteerService {
@@ -55,47 +62,139 @@ export class PuppeteerService {
     Logger.log(`Found ${urls.length} links!`)
 
     const urlsMap = new Map(urls)
-    let componentCount = 1
+    let pagesCount = 1
 
-    for (const [component, url] of urlsMap.entries()) {
-      Logger.log(`Fetching [${componentCount}/${urls.length}] ${component}...`)
+    for (const [componentPage, url] of urlsMap.entries()) {
+      if (toSkip.has(componentPage)) {
+        continue
+      }
+
+      Logger.log(`Fetching [${pagesCount}/${urls.length}] ${componentPage}...`)
       await page.goto(url)
 
-      const tableData = await page.evaluate(
-        (_tableKeys) =>
-          Array.from<HTMLTableRowElement, Dictionary<string>>(
-            document.querySelectorAll('section.api-container table tbody tr'),
-            (tr) => {
-              const tableValues = Array.from<
-                HTMLTableCellElement,
-                HTMLTableCellElement['innerText']
-              >(tr.querySelectorAll('td'), (td) => td.innerText)
+      const tableData: Array<ComponentData | undefined> = await page.evaluate(
+        (_tableKeys, _pageName) => {
+          const extractPropsFromTable = (tableToExtract: HTMLTableElement) => {
+            const rows = Array.from<HTMLTableRowElement>(
+              tableToExtract.querySelectorAll('tbody tr'),
+            )
 
-              // Can't access lodash inside `page.evaluate`
-              return {
-                [_tableKeys[0]]: tableValues[0],
-                [_tableKeys[1]]: tableValues[1],
-                [_tableKeys[2]]: tableValues[2],
-                [_tableKeys[3]]: tableValues[3],
-                [_tableKeys[4]]: tableValues[4],
+            return rows
+              .map((tr) => tr.querySelectorAll('td'))
+              .filter((tableValues) => tableValues.length >= 4) // some tables are missing version
+              .map((tableValues) => {
+                const typeTdChildren = Array.from(
+                  tableValues[2].childNodes,
+                ) as Array<Node>
+
+                return {
+                  [_tableKeys[0]]: tableValues[0].innerText,
+                  [_tableKeys[1]]: tableValues[1].innerText,
+                  [_tableKeys[2]]: tableValues[2].innerText,
+                  [_tableKeys[3]]: tableValues[3].innerText,
+                  [_tableKeys[4]]: tableValues[4]?.innerText, // some tables are missing version
+                  // Enums are displayed within a code block, we can recognize them by that
+                  // if all children of type are in code blocks, we can say that the whole
+                  // props in of enum type
+                  isEnum:
+                    typeTdChildren.length > 0 &&
+                    typeTdChildren.every(
+                      (child) =>
+                        (child as HTMLElement).tagName === 'CODE' ||
+                        child?.textContent === '"|"' ||
+                        child?.textContent === '|',
+                    ),
+                }
+              })
+          }
+
+          const tables = document.querySelectorAll(
+            'section.api-container table',
+          )
+
+          if (tables.length === 0) {
+            // No tables?
+            return []
+          }
+
+          if (tables.length === 1) {
+            // Single table
+            return [
+              {
+                name: _pageName,
+                props: extractPropsFromTable(
+                  tables[0] as HTMLTableElement,
+                ) as any,
+              },
+            ]
+          }
+
+          // Multiple tables (components)
+          return Array.from(tables).map((table) => {
+            let name: string | undefined = undefined
+
+            if (table.tagName !== 'TABLE') {
+              return
+            }
+
+            const checkPrevSibling = (el: HTMLElement, triesLeft: number) => {
+              if (triesLeft <= 0 || !el.previousSibling) {
+                return
               }
-            },
-          ),
+
+              if ((el.previousSibling as HTMLElement)?.tagName === 'H3') {
+                name = (el.previousSibling?.firstChild as HTMLElement)
+                  ?.innerText
+
+                return
+              }
+
+              checkPrevSibling(el.previousSibling as HTMLElement, triesLeft - 1)
+            }
+
+            checkPrevSibling(table as HTMLElement, 3)
+
+            if (!name) {
+              return
+            }
+
+            return {
+              name,
+              props: extractPropsFromTable(table as HTMLTableElement) as any,
+            }
+          })
+        },
         antdTableKeys,
+        componentPage,
       )
 
       try {
-        const csv = parse(tableData, {
-          fields: antdTableKeys,
-        })
+        tableData
+          .filter((d): d is ComponentData => !!d)
+          .filter((d) => d.props.length > 0)
+          .forEach(({ name, props }) => {
+            const csv = parse(props, {
+              fields: [...antdTableKeys, 'isEnum'],
+            })
 
-        console.log(csv)
-        fs.writeFileSync(`${process.cwd()}/data/antd/${component}.csv`, csv)
+            const componentName =
+              name === 'API' || componentPage === name
+                ? undefined
+                : name.replace('/', '_')
+
+            console.log(csv)
+            fs.writeFileSync(
+              `${process.cwd()}/data/antd/${componentPage}${
+                componentName ? '--' + componentName : ''
+              }.csv`,
+              csv,
+            )
+          })
       } catch (err) {
         console.error(err)
       }
 
-      componentCount++
+      pagesCount++
     }
 
     await browser.close()

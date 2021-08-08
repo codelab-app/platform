@@ -1,0 +1,18 @@
+"property","description","type","default","version","isEnum"
+"autoFocus","Auto get focus when component mounted","boolean","false",,false
+"autoSize","Textarea height autosize feature, can be set to true | false or an object { minRows: 2, maxRows: 6 }","boolean | object","false",,false
+"defaultValue","Default value","string","-",,false
+"filterOption","Customize filter option logic","false | (input: string, option: OptionProps) => boolean","-",,false
+"getPopupContainer","Set the mount HTML node for suggestions","() => HTMLElement","-",,false
+"notFoundContent","Set mentions content when not match","ReactNode","Not Found",,false
+"placement","Set popup placement","top | bottom","bottom",,false
+"prefix","Set trigger prefix keyword","string | string[]","@",,false
+"split","Set split string before and after selected mention","string","",,false
+"validateSearch","Customize trigger search logic","(text: string, props: MentionsProps) => void","-",,false
+"value","Set value of mentions","string","-",,false
+"onBlur","Trigger when mentions lose focus","() => void","-",,false
+"onChange","Trigger when value changed","(text: string) => void","-",,false
+"onFocus","Trigger when mentions get focus","() => void","-",,false
+"onResize","The callback function that is triggered when textarea resize","function({ width, height })","-",,false
+"onSearch","Trigger when prefix hit","(text: string, prefix: string) => void","-",,false
+"onSelect","Trigger when user select the option","(option: OptionProps, prefix: string) => void","-",,false
