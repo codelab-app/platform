@@ -9,10 +9,10 @@ import { Inject, Injectable } from '@nestjs/common'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
-import { AtomSeeder } from './seedHelpers/AtomSeeder'
+import { AtomSeeder } from './seedHelpers/atom-seeder'
 import { iterateCsvs } from './seedHelpers/iterateCsvs'
 import { snakeCaseToWords } from './seedHelpers/snakeCaseToWords'
-import { TypeSeeder } from './seedHelpers/TypeSeeder'
+import { TypeSeeder } from './seedHelpers/type-seeder'
 
 /**
  * Idea to improve data management:

@@ -37,20 +37,14 @@ export class TypeSeeder {
 
   constructor(private client: GraphQLClient) {}
 
-  //
-  // Public methods:
-  //
-
-  async seedBaseTypes() {
-    this.baseTypes = await this.seedAllIfNotExisting(baseTypeCreateInputs)
+  public async seedBaseTypes() {
+    this.baseTypes = await this.seedIfMissing(baseTypeCreateInputs)
 
     return this.baseTypes
   }
 
-  async seedPrimitiveTypes() {
-    this.primitiveTypes = await this.seedAllIfNotExisting(
-      primitiveTypeCreateInputs,
-    )
+  public async seedPrimitiveTypes() {
+    this.primitiveTypes = await this.seedIfMissing(primitiveTypeCreateInputs)
 
     return this.primitiveTypes
   }
@@ -60,7 +54,7 @@ export class TypeSeeder {
    * Those that are missing are created
    * Returns a map of all input type names and their ids
    */
-  async seedAllIfNotExisting(
+  private async seedIfMissing(
     inputs: Array<CreateTypeInput>,
   ): Promise<Map<string, string>> {
     const results = await Promise.all(
@@ -79,7 +73,7 @@ export class TypeSeeder {
    * Checks if a type with the same name exists, if not - creates it
    * Returns the id in both cases
    */
-  async seedTypeIfNotExisting(input: CreateTypeInput): Promise<string> {
+  private async seedTypeIfNotExisting(input: CreateTypeInput): Promise<string> {
     return createIfNotExisting(
       input,
       () => this.getTypeByName(input.name),
@@ -87,7 +81,7 @@ export class TypeSeeder {
     )
   }
 
-  async seedAtomApi(atomId: string, data: Array<AntdDesignApi>) {
+  public async seedAtomApi(atomId: string, data: Array<AntdDesignApi>) {
     const atom = await this.getAtomById(atomId)
 
     if (!atom) {
@@ -119,10 +113,6 @@ export class TypeSeeder {
       }
     }
   }
-
-  //
-  // Private methods:
-  //
 
   private getAtomById(atomId: string) {
     return this.client
