@@ -331,21 +331,8 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      # - cypress/run:
-      #     verify-command: yarn cypress verify
       - run: npx cypress verify
       - run: make e2e-ci-affected
-      # - run:
-      #     name: 'Store Cypress Artifacts'
-      #     command: |
-      #       cp ~/project/apps/web-e2e/src/screenshots /tmp/artifact/cypress/screenshots
-      #       cp ~/project/apps/web-e2e/src/videos /tmp/artifact/cypress/videos
-      - store_artifacts:
-          path: ~/project/apps/web-e2e/src/screenshots
-          destination: screenshots
-      - store_artifacts:
-          path: ~/project/apps/web-e2e/src/videos
-          destination: videos
       - notify-failure
 
   notify-success:
@@ -457,31 +444,30 @@ workflows:
           <<: *filters-dev-pr
           e: docker-node
           context: CI
-      # - lint:
-      #     <<: *filters-dev-pr
-      #     e: docker-node
-      #     context: CI
-      #     requires:
-      #       - install-and-build-workspace
-      # - unit:
-      #     <<: *filters-dev-pr
-      #     e: docker-node
-      #     context: CI
-      #     requires:
-      #       - install-and-build-workspace
-      # - integration:
-      #     <<: *filters-dev-pr
-      #     e: docker-node
-      #     context: CI
-      #     requires:
-      #       - install-and-build-workspace
-      - e2e:
+      - lint:
           <<: *filters-dev-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
-            # - integration
+      - unit:
+          <<: *filters-dev-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - integration:
+          <<: *filters-dev-pr
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - e2e:
+          <<: *filters-dev-pr
+          e: docker-node
+          context: CI
+          requires:
+            - integration
       - notify-success:
           <<: *filters-dev-pr
           context: CI
