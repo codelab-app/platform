@@ -3,6 +3,7 @@ import { AtomEntity, AtomProperties } from './atom.entity'
 describe('Atom', () => {
   it('can create an atom', () => {
     const atomProps: AtomProperties = {
+      tags: [],
       atomType: 'AntDesignButton',
       name: 'Button',
       api: {

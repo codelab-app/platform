@@ -1,4 +1,4 @@
-import { DgraphAtom, DgraphDomain } from '@codelab/backend'
+import { DgraphAtom, DgraphDomain, DgraphTag } from '@codelab/backend'
 import {
   InterfaceTypeProperties,
   TypeValueProperties,
@@ -10,6 +10,7 @@ export interface AtomProperties {
   propTypes?: Record<string, unknown>
   api: TypeValueProperties<InterfaceTypeProperties>
   atomType: `${AtomTypeEnum}`
+  tags: Array<DgraphTag>
 }
 
 export class AtomEntity implements AtomProperties, DgraphDomain<DgraphAtom> {
@@ -20,6 +21,8 @@ export class AtomEntity implements AtomProperties, DgraphDomain<DgraphAtom> {
   name: string
 
   propTypes?: Record<string, unknown>
+
+  tags: Array<DgraphTag> = []
 
   private constructor({ atomType, api, name, propTypes }: AtomProperties) {
     this.name = name

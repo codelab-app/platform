@@ -1,12 +1,11 @@
-import { INestApplication } from '@nestjs/common'
-import { TagModule } from '../../../../framework/nestjs/TagModule'
 import {
   domainRequest,
+  Role,
   setupTestModule,
   teardownTestModule,
-  Role,
 } from '@codelab/backend'
-import { Tag } from '../../../tag.module'
+import { INestApplication } from '@nestjs/common'
+import { TagModule } from '../../../../framework/nestjs/TagModule'
 
 describe('UpdateTagUseCase', () => {
   let guestApp: INestApplication
