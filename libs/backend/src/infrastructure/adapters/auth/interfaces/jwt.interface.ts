@@ -1,9 +1,9 @@
-export interface CodelabApiClaims extends Record<string, any> {
+export interface CodelabApiClaims {
   email: string
   roles: Array<string>
 }
 
-export interface JwtPayload extends Record<string, any> {
+export interface JwtPayload {
   'https://api.codelab.ai/jwt/claims': CodelabApiClaims
   /** Issuer (who created and signed this token) */
   iss: string
@@ -19,4 +19,6 @@ export interface JwtPayload extends Record<string, any> {
   azp?: string
   /** Token scope (what the token has access to) */
   scope?: string
+  /** Grand type */
+  gty?: string
 }

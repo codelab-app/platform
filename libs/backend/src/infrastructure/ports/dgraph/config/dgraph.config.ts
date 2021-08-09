@@ -8,7 +8,7 @@ export interface DgraphConfig {
   graphqlEndpoint: string
 }
 
-export const dgraphConfig = registerAs<() => DgraphConfig>(
+export const dgraphConfig = registerAs<DgraphConfig>(
   DgraphTokens.DgraphConfig.toString(),
   () => ({
     endpoint: get('CODELAB_DGRAPH_ENDPOINT').required().asUrlString(),

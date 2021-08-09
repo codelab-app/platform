@@ -70,7 +70,7 @@ export class GetAppService extends DgraphUseCase<GetAppRequest, DgraphApp> {
       .setUidFunc(appId)
       .addTypeFilterDirective(DgraphEntityType.App)
       .addBaseFields()
-      .addExpandAll((f) => f.addExpandAll((f2) => f2.addExpandAll()))
+      .addExpandAll()
   }
 
   protected createByPageQuery({ pageId }: AppByPageFilter) {

@@ -6,7 +6,10 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "**/*.spec.ts",

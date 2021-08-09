@@ -1,6 +1,5 @@
 node_modules
 dist
-.next
 yarn-error.log
 yarn.lock
 **/*.tf

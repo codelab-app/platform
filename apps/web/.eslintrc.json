@@ -2,7 +2,6 @@
   "extends": [
     "plugin:@nrwl/nx/react-typescript",
     "../../.eslintrc.json"
-    // Conflict with `import`
     // "next",
     // "next/core-web-vitals"
   ],
@@ -15,7 +14,6 @@
         "@nrwl/nx/enforce-module-boundaries": "off",
         "react/no-unescaped-entities": "off",
         "react/display-name": "off"
-        // "@next/next/no-html-link-for-pages": ["error", "apps/web/pages"]
       }
     },
     {

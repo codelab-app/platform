@@ -35,27 +35,27 @@
     },
     "useCaseType": {
       "type": "string",
-      "description": "regular, dgraph, mutation or query",
-      "enum": ["regular", "dgraph", "mutation", "query"],
+      "description": "Use case type",
+      "enum": ["create", "update", "delete", "get"],
       "x-prompt": {
         "message": "What type of use case is this?",
         "type": "list",
         "items": [
           {
-            "value": "regular",
-            "label": "Regular"
+            "value": "create",
+            "label": "DQL create use case"
           },
           {
-            "value": "dgraph",
-            "label": "DQL use case"
+            "value": "update",
+            "label": "DQL create update case"
           },
           {
-            "value": "mutation",
-            "label": "GraphQL Mutation"
+            "value": "delete",
+            "label": "DQL create delete case"
           },
           {
-            "value": "query",
-            "label": "GraphQL Query"
+            "value": "get",
+            "label": "DQL create get case"
           }
         ]
       }

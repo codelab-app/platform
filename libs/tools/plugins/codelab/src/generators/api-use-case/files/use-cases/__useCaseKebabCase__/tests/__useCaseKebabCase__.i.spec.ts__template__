@@ -1,0 +1,49 @@
+import { INestApplication } from '@nestjs/common'
+import { <%= modelNamePascalCase %>Module } from '../../../../framework/nestjs/<%= modelNamePascalCase %>Module'
+import { domainRequest, setupTestModule, teardownTestModule, Role } from '@codelab/backend'
+import { <%= modelNamePascalCase %> } from '../../../<%= modelName %>.module'
+
+describe('<%= useCaseNamePascalCase %>UseCase', () => {
+  let guestApp: INestApplication
+  let userApp: INestApplication
+
+  beforeAll(async () => {
+    guestApp = await setupTestModule([<%= modelNamePascalCase %>Module], { role: Role.GUEST })
+    userApp = await setupTestModule([<%= modelNamePascalCase %>Module], { role: Role.USER })
+  })
+
+  afterAll(async () => {
+    await teardownTestModule(guestApp)
+    await teardownTestModule(userApp)
+  })
+
+  describe('Guest', () => {
+    it('should fail to create a <%= modelNamePascalCase %>', async () => {
+      await domainRequest(guestApp, <%= useCaseNamePascalCase %>Gql, createAppInput, {
+        message: 'Unauthorized',
+      })
+    })
+  })
+
+ describe('User', () => {
+    it('should create an App', async () => {
+      const {
+        createApp: { id: appId },
+      } = await domainRequest<<%= useCaseNamePascalCase %>Input, <%= useCaseNamePascalCase %>Mutation>(
+        userApp,
+        <%= useCaseNamePascalCase %>Gql,
+        createAppInput,
+      )
+
+      expect(appId).toBeDefined()
+
+      const { getApp: app } = await domainRequest<GetAppInput, GetAppQuery>(
+        userApp,
+        GetAppGql,
+        { byId: { appId } },
+      )
+
+      expect(app).toMatchObject({ ...createAppInput, id: appId })
+    })
+  })
+})

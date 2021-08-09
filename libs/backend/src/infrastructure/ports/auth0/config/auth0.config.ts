@@ -19,7 +19,7 @@ export interface Auth0Config {
   cypressPassword: string
 }
 
-export const auth0Config = registerAs<() => Auth0Config>(
+export const auth0Config = registerAs<Auth0Config>(
   Auth0Tokens.Auth0Config.toString(),
   () => ({
     secret: get('AUTH0_SECRET').required().asString(),

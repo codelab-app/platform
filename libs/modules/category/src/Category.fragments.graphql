@@ -1,7 +1,0 @@
-fragment Library__Category on category {
-  id
-  name
-  tags {
-    ...__Tag
-  }
-}

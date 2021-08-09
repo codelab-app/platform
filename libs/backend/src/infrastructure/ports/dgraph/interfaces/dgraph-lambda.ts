@@ -1,10 +1,12 @@
 import { equalsSet } from '../../../../common'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphEntity } from './core'
+import { WithOwner } from './dgraph-user'
 
-export interface DgraphLambda extends DgraphEntity<DgraphEntityType.Lambda> {
+export interface DgraphLambda
+  extends DgraphEntity<DgraphEntityType.Lambda>,
+    WithOwner {
   name: string
-  ownerId: string
   body: string
 }
 

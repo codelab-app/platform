@@ -333,6 +333,11 @@ type Page {
   elements: ElementGraph!
 }
 
+type Tag {
+  id: ID!
+  name: String!
+}
+
 type User {
   blocked: Boolean
   created_at: String
@@ -379,6 +384,8 @@ type Query {
   getTypes(input: GetTypesInput): [Type!]!
   getLambda(input: GetLambdaInput!): Lambda
   getLambdas: [Lambda!]!
+  getTag(input: GetTagInput!): Tag!
+  getTags: [Tag!]!
 }
 
 input GetAppInput {
@@ -493,6 +500,10 @@ input GetLambdaInput {
   lambdaId: String!
 }
 
+input GetTagInput {
+  id: String!
+}
+
 type Mutation {
   createApp(input: CreateAppInput!): CreateResponse!
   updateApp(input: UpdateAppInput!): Void
@@ -527,6 +538,9 @@ type Mutation {
   deleteLambda(input: DeleteLambdaInput!): Void
   updateLambda(input: UpdateLambdaInput!): Lambda
   executeLambda(input: ExecuteLambdaInput!): LambdaPayload
+  createTag(input: CreateTagInput!): CreateResponse!
+  updateTag(input: UpdateTagInput!): Void
+  deleteTag(input: DeleteTagInput!): Void
 }
 
 input CreateAppInput {
@@ -782,4 +796,21 @@ input UpdateLambdaInput {
 input ExecuteLambdaInput {
   lambdaId: String!
   payload: String
+}
+
+input CreateTagInput {
+  name: String!
+}
+
+input UpdateTagInput {
+  id: String!
+  data: UpdateTagData!
+}
+
+input UpdateTagData {
+  name: String
+}
+
+input DeleteTagInput {
+  id: String!
 }

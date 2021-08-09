@@ -8,7 +8,7 @@ const envPath =
     ? path.resolve(__dirname, '.env.test')
     : path.resolve(__dirname, '.env')
 
-// console.info(`Loading env from ${envPath}`)
+console.info(`Loading env from ${envPath}`)
 
 config({ path: envPath })
 configure({ adapter: new Adapter() })

@@ -5,7 +5,10 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "module": "commonjs",
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "**/*.spec.ts",

@@ -14,16 +14,6 @@ export class AppService {
       return
     }
 
-    //   this.consoleService.createCommand(
-    //     {
-    //       command: 'seed',
-    //       // options: [{}],
-    //       description: 'Seed project with atoms & props',
-    //     },
-    //     this.seedDbService.seedDB.bind(this),
-    //     cli,
-    //   )
-
     this.consoleService.createCommand(
       {
         command: 'scrape',
