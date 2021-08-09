@@ -9,7 +9,7 @@ export interface GraphqlServerConfig {
   endpoint: string
 }
 
-export const graphqlServerConfig = registerAs<() => GraphqlServerConfig>(
+export const graphqlServerConfig = registerAs<GraphqlServerConfig>(
   GraphqlServerTokens.GraphqlServerConfig.toString(),
   () => {
     return {

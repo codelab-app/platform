@@ -9,7 +9,7 @@ export interface AwsConfig {
   awsBucketName: string
 }
 
-export const awsConfig = registerAs<() => AwsConfig>(
+export const awsConfig = registerAs<AwsConfig>(
   AwsTokens.AwsConfig.toString(),
   () => ({
     awsAccessKeyId: get('AWS_ACCESS_KEY_ID').required().asString(),

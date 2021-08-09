@@ -7,7 +7,7 @@ export interface ServerConfig {
   webEndpoint: string
 }
 
-export const serverConfig = registerAs<() => ServerConfig>(
+export const serverConfig = registerAs<ServerConfig>(
   ServerTokens.ServerConfig.toString(),
   () => {
     return {

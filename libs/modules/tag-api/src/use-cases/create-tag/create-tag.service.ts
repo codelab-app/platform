@@ -1,15 +1,11 @@
 import {
-  DgraphApp,
   DgraphCreateMutationJson,
   DgraphCreateUseCase,
   DgraphEntityType,
   DgraphTag,
-  DgraphUseCase,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
-import { Tag } from '../../tag.model'
-import { CreateTagInput } from './create-tag.input'
 import { CreateTagRequest } from './create-tag.request'
 
 @Injectable()
@@ -26,11 +22,13 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
   ): Mutation {
     const {
       input: { name },
+      owner,
     } = request
 
     const setJson: DgraphCreateMutationJson<DgraphTag> = {
       uid: blankNodeUid,
       name,
+      ownerId: owner.id,
       'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
       children: [],
     }
