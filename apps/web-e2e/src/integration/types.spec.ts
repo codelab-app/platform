@@ -41,12 +41,13 @@ describe('Types', () => {
   before(() => {
     cy.resetDgraphData()
     cy.login()
+    cy.preserveAuthCookies()
+    cy.visit(`/types`)
   })
 
   beforeEach(() => {
     cy.preserveAuthCookies()
-    cy.visit(`/types`)
-    cy.get('.ant-table-cell', { timeout: 30000 })
+    cy.get('.ant-table-cell', { timeout: 5000 })
   })
 
   describe('create type', () => {

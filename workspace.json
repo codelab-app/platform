@@ -802,7 +802,7 @@
             },
             "ci": {
               "root": "apps/web",
-              "outputPath": "dist/apps/web-local"
+              "outputPath": "dist/apps/web"
             },
             "production": {}
           }
@@ -901,12 +901,13 @@
               "cypressConfig": "apps/web-e2e/cypress.ci.json",
               "devServerTarget": "web-e2e:serve:ci",
               "headless": true,
-              "record": false
+              "record": true
             },
             "local": {
               "cypressConfig": "apps/web-e2e/cypress.json",
-              "devServerTarget": "web-e2e:serve:ci",
-              "headless": true
+              "devServerTarget": "web-e2e:serve:local",
+              "headless": true,
+              "record": false
             },
             "dev": {
               "devServerTarget": "web-e2e:serve:dev",
@@ -942,6 +943,25 @@
               ]
             },
             "ci": {
+              "commands": [
+                {
+                  "command": "yarn cli dgraph update-schema --env ci && yarn cli dgraph reset-data --env ci",
+                  "forwardAllArgs": false
+                },
+                {
+                  "command": "npx next start dist/apps/web --port 3001",
+                  "forwardAllArgs": false
+                },
+                {
+                  "command": "node dist/apps/api/main.js",
+                  "forwardAllArgs": false
+                },
+                {
+                  "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
+                }
+              ]
+            },
+            "local": {
               "commands": [
                 {
                   "command": "yarn cli dgraph update-schema --env ci && yarn cli dgraph reset-data --env ci",

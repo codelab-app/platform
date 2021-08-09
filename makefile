@@ -31,13 +31,11 @@ lambda:
 build-dev-affected:
 	npx env-cmd -f .env.test nx affected:build \
 		--configuration=local \
-		--maxWorkers=2 \
 		--parallel \
 
 build-dev:
 	npx nx run-many \
 		--target=build \
-		--maxWorkers=2 \
 		--all \
 		--parallel
 
@@ -46,9 +44,9 @@ build-ci:
 		--target=build \
 		--projects=api,web,cli \
 		--configuration=ci \
-		--parallel \
-		--maxWorkers=8 \
-		--memoryLimit=8192
+		--parallel
+# --maxWorkers=8 \
+# --memoryLimit=8192
 
 build-storybook:
 	npx nx build-storybook web
@@ -80,19 +78,17 @@ e2e-ci-affected:
 integration-dev-affected:
 	./scripts/nx.sh affected:test \
 		--testPathPattern=i.spec.ts \
-		--maxWorkers=2 \
 		--memoryLimit=4096 \
 		--runInBand
 
 integration-ci:
-	npx nx run-many \
+	npx nx affected \
 		--target=test \
 		--testPathPattern=i.spec.ts \
-		--all \
 		--runInBand \
-		--verbose \
-		--maxWorkers=8 \
-		--memoryLimit=8192
+		--verbose
+# --maxWorkers=8 \
+# --memoryLimit=8192
 
 #
 # TEST (ALL)
@@ -110,7 +106,6 @@ unit-dev-affected:
 	npx nx affected:test \
 		--testPathPattern=[^i].spec.ts \
 		--silent \
-		--maxWorkers=2 \
 		--memoryLimit=4096 \
 		--parallel
 
@@ -119,7 +114,5 @@ unit-ci:
 		--testPathPattern=[^i].spec.ts \
 		--target=test \
 		--all \
-		--maxWorkers=8 \
-		--memoryLimit=8192 \
 		--verbose
 
