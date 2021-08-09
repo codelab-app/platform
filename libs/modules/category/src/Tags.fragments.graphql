@@ -1,6 +1,0 @@
-fragment __Tag on tag {
-  id
-  category_id
-  label
-  library_id
-}

@@ -1,0 +1,4 @@
+fragment __Tag on Tag {
+  id
+  name
+}

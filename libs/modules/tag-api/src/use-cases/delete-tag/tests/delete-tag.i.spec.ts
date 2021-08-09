@@ -1,56 +1,83 @@
-import { DeleteTagInput, GetTagInput } from '@codelab/codegen/graphql'
+import {
+  domainRequest,
+  Role,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend'
+import {
+  CreateTagGql,
+  CreateTagInput,
+  CreateTagMutation,
+  DeleteTagGql,
+  DeleteTagInput,
+  DeleteTagMutation,
+  GetTagGql,
+  GetTagInput,
+  GetTagQuery,
+} from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
+import { TagModule } from '../../..'
+import { createTagInput } from '../../create-tag/tests/create-tag.data'
 
-describe.skip('DeleteTagUseCase', () => {
+describe('DeleteTagUseCase', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
   let tagId: string
   let deleteTagInput: DeleteTagInput
   let getTagInput: GetTagInput
 
-  // beforeAll(async () => {
-  //   guestApp = await setupTestModule([TagModule], { role: Role.GUEST })
-  //   userApp = await setupTestModule([TagModule], { role: Role.USER })
+  beforeAll(async () => {
+    guestApp = await setupTestModule([TagModule], { role: Role.GUEST })
+    userApp = await setupTestModule([TagModule], { role: Role.USER })
 
-  //   const results = await domainRequest<CreateTagInput, CreateTagMutation>(
-  //     userApp,
-  //     CreateTagGql,
-  //     createTagInput,
-  //   )
-  // })
+    const {
+      createTag: { id },
+    } = await domainRequest<CreateTagInput, CreateTagMutation>(
+      userApp,
+      CreateTagGql,
+      createTagInput,
+    )
 
-  // afterAll(async () => {
-  //   await teardownTestModule(guestApp)
-  //   await teardownTestModule(userApp)
-  // })
+    deleteTagInput = {
+      id,
+    }
+    getTagInput = {
+      id,
+    }
+  })
 
-  // describe('Guest', () => {
-  //   it('should fail to create a Tag', async () => {
-  //     await domainRequest(guestApp, DeleteTagGql, deleteTagInput, {
-  //       message: 'Unauthorized',
-  //     })
-  //   })
-  // })
+  afterAll(async () => {
+    await teardownTestModule(guestApp)
+    await teardownTestModule(userApp)
+  })
 
-  // describe('User', () => {
-  //   it('should create an App', async () => {
-  //     const {
-  //       createApp: { id: appId },
-  //     } = await domainRequest<DeleteTagInput, DeleteTagMutation>(
-  //       userApp,
-  //       DeleteTagGql,
-  //       createAppInput,
-  //     )
+  describe('Guest', () => {
+    it('should fail to delete a Tag', async () => {
+      await domainRequest<DeleteTagInput, DeleteTagMutation>(
+        guestApp,
+        DeleteTagGql,
+        deleteTagInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
+    })
+  })
 
-  //     expect(appId).toBeDefined()
+  describe('User', () => {
+    it('should delete a Tag', async () => {
+      await domainRequest<DeleteTagInput, DeleteTagMutation>(
+        userApp,
+        DeleteTagGql,
+        deleteTagInput,
+      )
 
-  //     const { getApp: app } = await domainRequest<GetAppInput, GetAppQuery>(
-  //       userApp,
-  //       GetAppGql,
-  //       { byId: { appId } },
-  //     )
-
-  //     expect(app).toMatchObject({ ...createAppInput, id: appId })
-  //   })
-  // })
+      await domainRequest<GetTagInput, GetTagQuery>(
+        userApp,
+        GetTagGql,
+        getTagInput,
+        { message: 'Not found' },
+      )
+    })
+  })
 })

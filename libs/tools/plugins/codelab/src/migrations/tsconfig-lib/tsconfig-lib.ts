@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   formatFiles,
   getProjects,
@@ -10,6 +9,7 @@ import {
 import { TsConfig } from '@nrwl/storybook/src/utils/utilities'
 // import { formatFiles } from '@nrwl/workspace'
 import { existsSync } from 'fs'
+import { merge } from 'lodash'
 
 export default async function update(host: Tree) {
   const projects = getProjects(host)
@@ -19,24 +19,27 @@ export default async function update(host: Tree) {
 
     const paths = {
       tsConfig: joinPathFragments(root, `tsconfig.${tsConfigExt}.json`),
+      jestTsConfig: joinPathFragments(root, `tsconfig.spec.json`),
     }
 
-    if (!existsSync(paths.tsConfig)) {
-      return
+    const options = {
+      compilerOptions: {
+        esModuleInterop: true,
+        strict: true,
+        noImplicitReturns: true,
+        noFallthroughCasesInSwitch: true,
+      },
     }
 
-    // console.log(paths)
+    if (existsSync(paths.tsConfig)) {
+      const tsConfig = readJson<TsConfig>(host, paths.tsConfig)
+      writeJson(host, paths.tsConfig, merge(tsConfig, options))
+    }
 
-    const tsConfig = readJson<TsConfig>(host, paths.tsConfig)
-
-    // console.log(tsConfig)
-
-    tsConfig.compilerOptions.esModuleInterop = true
-    tsConfig.compilerOptions.strict = true
-    tsConfig.compilerOptions.noImplicitReturns = true
-    tsConfig.compilerOptions.noFallthroughCasesInSwitch = true
-
-    writeJson(host, paths.tsConfig, tsConfig)
+    if (existsSync(paths.jestTsConfig)) {
+      const jestTsConfig = readJson<TsConfig>(host, paths.jestTsConfig)
+      writeJson(host, paths.jestTsConfig, merge(jestTsConfig, options))
+    }
   })
 
   // Format not working right now

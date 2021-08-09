@@ -1,5 +1,5 @@
 query GetTag($input: GetTagInput!) {
   getTag(input: $input) {
-    id
+    ...__Tag
   }
 }

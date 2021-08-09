@@ -1407,6 +1407,8 @@ export type UpdatePageMutationVariables = Exact<{
 
 export type UpdatePageMutation = { updatePage?: Maybe<void> }
 
+export type __TagFragment = { id: string; name: string }
+
 export type CreateTagMutationVariables = Exact<{
   input: CreateTagInput
 }>
@@ -1423,11 +1425,11 @@ export type GetTagQueryVariables = Exact<{
   input: GetTagInput
 }>
 
-export type GetTagQuery = { getTag: { id: string } }
+export type GetTagQuery = { getTag: { id: string; name: string } }
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never }>
 
-export type GetTagsQuery = { getTags: Array<{ id: string }> }
+export type GetTagsQuery = { getTags: Array<{ id: string; name: string }> }
 
 export type UpdateTagMutationVariables = Exact<{
   input: UpdateTagInput
@@ -1827,6 +1829,12 @@ export const PageFullFragmentDoc = gql`
   }
   ${PageBaseFragmentDoc}
   ${ElementGraphFragmentDoc}
+`
+export const __TagFragmentDoc = gql`
+  fragment __Tag on Tag {
+    id
+    name
+  }
 `
 export const __LambdaTypeFragmentDoc = gql`
   fragment __LambdaType on LambdaType {
@@ -3800,9 +3808,10 @@ export type DeleteTagMutationOptions = Apollo.BaseMutationOptions<
 export const GetTagGql = gql`
   query GetTag($input: GetTagInput!) {
     getTag(input: $input) {
-      id
+      ...__Tag
     }
   }
+  ${__TagFragmentDoc}
 `
 
 /**
@@ -3848,9 +3857,10 @@ export function refetchGetTagQuery(variables?: GetTagQueryVariables) {
 export const GetTagsGql = gql`
   query GetTags {
     getTags {
-      id
+      ...__Tag
     }
   }
+  ${__TagFragmentDoc}
 `
 
 /**
@@ -4762,6 +4772,12 @@ export const PageFull = gql`
   ${PageBase}
   ${ElementGraph}
 `
+export const __Tag = gql`
+  fragment __Tag on Tag {
+    id
+    name
+  }
+`
 export const __LambdaType = gql`
   fragment __LambdaType on LambdaType {
     id
@@ -5103,16 +5119,18 @@ export const DeleteTag = gql`
 export const GetTag = gql`
   query GetTag($input: GetTagInput!) {
     getTag(input: $input) {
-      id
+      ...__Tag
     }
   }
+  ${__Tag}
 `
 export const GetTags = gql`
   query GetTags {
     getTags {
-      id
+      ...__Tag
     }
   }
+  ${__Tag}
 `
 export const UpdateTag = gql`
   mutation UpdateTag($input: UpdateTagInput!) {

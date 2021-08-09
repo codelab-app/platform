@@ -1,5 +1,5 @@
 query GetTags {
   getTags {
-    id
+    ...__Tag
   }
 }

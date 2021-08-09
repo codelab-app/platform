@@ -1,5 +1,6 @@
 import { Void } from '@codelab/backend'
 import { Module } from '@nestjs/common'
+import { TagMapper } from './tag.mapper'
 import { TagResolver } from './tag.resolver'
 import { CreateTagService } from './use-cases/create-tag'
 import { DeleteTagService } from './use-cases/delete-tag'
@@ -16,7 +17,7 @@ const services = [
 ]
 
 @Module({
-  providers: [TagResolver, ...services, Void],
+  providers: [TagResolver, TagMapper, ...services, Void],
   exports: [...services],
 })
 export class TagModule {}

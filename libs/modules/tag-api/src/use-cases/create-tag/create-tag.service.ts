@@ -28,7 +28,7 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
     const setJson: DgraphCreateMutationJson<DgraphTag> = {
       uid: blankNodeUid,
       name,
-      ownerId: owner.id,
+      ownerId: owner.sub,
       'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
       children: [],
     }

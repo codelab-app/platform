@@ -1,20 +1,11 @@
-import {
-  DgraphApp,
-  DgraphCreateMutationJson,
-  DgraphCreateUseCase,
-  DgraphEntityType,
-  DgraphTag,
-  DgraphUseCase,
-} from '@codelab/backend'
+import { DgraphUseCase } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
-import { Tag } from '../../tag.model'
-import { DeleteTagInput } from './delete-tag.input'
+import { Txn } from 'dgraph-js-http'
 import { DeleteTagRequest } from './delete-tag.request'
 
 @Injectable()
-export class DeleteTagService extends DgraphUseCase<any> {
-  protected async executeTransaction(request: DeleteTagInput, txn: Txn) {
-    await this.dgraph.deleteEntity(txn, request.id)
+export class DeleteTagService extends DgraphUseCase<DeleteTagRequest> {
+  protected async executeTransaction(request: DeleteTagRequest, txn: Txn) {
+    await this.dgraph.deleteEntity(txn, request.input.id)
   }
 }

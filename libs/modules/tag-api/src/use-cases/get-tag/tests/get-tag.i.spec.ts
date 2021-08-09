@@ -4,9 +4,17 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend'
-import { GetTagGql, GetTagInput } from '@codelab/codegen/graphql'
+import {
+  CreateTagGql,
+  CreateTagInput,
+  CreateTagMutation,
+  GetTagGql,
+  GetTagInput,
+  GetTagQuery,
+} from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
+import { createTagInput } from '../../create-tag/tests/create-tag.data'
 
 describe('GetTagUseCase', () => {
   let guestApp: INestApplication
@@ -16,6 +24,18 @@ describe('GetTagUseCase', () => {
   beforeAll(async () => {
     guestApp = await setupTestModule([TagModule], { role: Role.GUEST })
     userApp = await setupTestModule([TagModule], { role: Role.USER })
+
+    const {
+      createTag: { id: tagId },
+    } = await domainRequest<CreateTagInput, CreateTagMutation>(
+      userApp,
+      CreateTagGql,
+      createTagInput,
+    )
+
+    getTagInput = {
+      id: tagId,
+    }
   })
 
   afterAll(async () => {
@@ -24,32 +44,22 @@ describe('GetTagUseCase', () => {
   })
 
   describe('Guest', () => {
-    it('should fail to create a Tag', async () => {
+    it('should fail to get a Tag', async () => {
       await domainRequest(guestApp, GetTagGql, getTagInput, {
         message: 'Unauthorized',
       })
     })
   })
 
-  // describe('User', () => {
-  //   it('should create an App', async () => {
-  //     const {
-  //       createApp: { id: appId },
-  //     } = await domainRequest<GetTagInput, GetTagMutation>(
-  //       userApp,
-  //       GetTagGql,
-  //       createAppInput,
-  //     )
+  describe('User', () => {
+    it('should get a Tag', async () => {
+      const { getTag: tag } = await domainRequest<GetTagInput, GetTagQuery>(
+        userApp,
+        GetTagGql,
+        getTagInput,
+      )
 
-  //     expect(appId).toBeDefined()
-
-  //     const { getApp: app } = await domainRequest<GetAppInput, GetAppQuery>(
-  //       userApp,
-  //       GetAppGql,
-  //       { byId: { appId } },
-  //     )
-
-  //     expect(app).toMatchObject({ ...createAppInput, id: appId })
-  //   })
-  // })
+      expect(tag).toMatchObject({ ...createTagInput, id: getTagInput.id })
+    })
+  })
 })

@@ -1,0 +1,12 @@
+schema: 'schema.api.graphql'
+documents:
+  - 'libs/modules/**/*.api.graphql'
+  - 'apps/web-e2e/**/*.api.graphql'
+  - 'apps/web/**/*.api.graphql'
+extensions:
+  - endpoints:
+    'Nest API Graphql Endpoint':
+      url: '${env:CODELAB_API_ENDPOINT}/graphql'
+      headers:
+        user-agent: 'JS Graphql'
+      introspect: true
