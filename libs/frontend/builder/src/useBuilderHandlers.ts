@@ -12,6 +12,13 @@ export const useBuilderHandlers = (tree: ElementTree) => {
   const handleMouseEnter = useCallback(
     (e: MouseEvent) => {
       const target = e.target as HTMLElement
+
+      if (!target) {
+        setHoveringElement(null)
+
+        return
+      }
+
       const id = target.dataset.id
       const componentId = target.dataset.componentId
 
