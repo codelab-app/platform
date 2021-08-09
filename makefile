@@ -46,9 +46,9 @@ build-ci:
 		--target=build \
 		--projects=api,web,cli \
 		--configuration=ci \
-		--parallel \
-		--maxWorkers=8 \
-		--memoryLimit=8192
+		--parallel
+# --maxWorkers=8 \
+# --memoryLimit=8192
 
 build-storybook:
 	npx nx build-storybook web
@@ -85,14 +85,13 @@ integration-dev-affected:
 		--runInBand
 
 integration-ci:
-	npx nx run-many \
+	npx nx affected \
 		--target=test \
 		--testPathPattern=i.spec.ts \
-		--all \
 		--runInBand \
-		--verbose \
-		--maxWorkers=8 \
-		--memoryLimit=8192
+		--verbose
+# --maxWorkers=8 \
+# --memoryLimit=8192
 
 #
 # TEST (ALL)

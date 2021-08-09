@@ -802,7 +802,7 @@
             },
             "ci": {
               "root": "apps/web",
-              "outputPath": "dist/apps/web-local"
+              "outputPath": "dist/apps/web"
             },
             "production": {}
           }
@@ -901,12 +901,13 @@
               "cypressConfig": "apps/web-e2e/cypress.ci.json",
               "devServerTarget": "web-e2e:serve:ci",
               "headless": true,
-              "record": false
+              "record": true
             },
             "local": {
               "cypressConfig": "apps/web-e2e/cypress.json",
               "devServerTarget": "web-e2e:serve:ci",
-              "headless": true
+              "headless": true,
+              "record": false
             },
             "dev": {
               "devServerTarget": "web-e2e:serve:dev",
@@ -948,7 +949,7 @@
                   "forwardAllArgs": false
                 },
                 {
-                  "command": "npx next start dist/apps/web-local --port 3001",
+                  "command": "npx next start dist/apps/web --port 3001",
                   "forwardAllArgs": false
                 },
                 {
