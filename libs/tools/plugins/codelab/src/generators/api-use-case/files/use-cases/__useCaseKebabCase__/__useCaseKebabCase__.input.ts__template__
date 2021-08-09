@@ -2,6 +2,6 @@ import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class <%= useCaseNamePascalCase %>Input {
-  // @Field()
-  // declare props: string
+  @Field()
+  declare name: string
 }

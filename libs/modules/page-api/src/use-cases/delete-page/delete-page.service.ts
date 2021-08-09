@@ -22,11 +22,12 @@ export class DeletePageService extends DgraphUseCase<DeletePageRequest, void> {
     request: DeletePageRequest,
     txn: Txn,
   ): Promise<void> {
+    const validationContext = await this.validate(request)
+
     const {
       input: { pageId },
     } = request
 
-    const validationContext = await this.validate(request)
     const deletePage = `<${validationContext.appId}> <pages> <${pageId}> .`
 
     // We need to delete related page elements and props too,

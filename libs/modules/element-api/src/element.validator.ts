@@ -117,7 +117,7 @@ export class ElementValidator {
     }
 
     if (
-      isDgraphPage<QueryResult>(tree) &&
+      (isDgraphPage(tree) as QueryResult) &&
       tree['~pages'] &&
       tree['~pages'][0] &&
       tree['~pages'][0].ownerId

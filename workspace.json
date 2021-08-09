@@ -588,6 +588,27 @@
         }
       }
     },
+    "modules-tag-api": {
+      "root": "libs/modules/tag-api",
+      "sourceRoot": "libs/modules/tag-api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/modules/tag-api/**/*.{ts,graphql}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/modules/tag-api"],
+          "options": {
+            "jestConfig": "libs/modules/tag-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "modules-type": {
       "root": "libs/modules/type",
       "sourceRoot": "libs/modules/type/src",

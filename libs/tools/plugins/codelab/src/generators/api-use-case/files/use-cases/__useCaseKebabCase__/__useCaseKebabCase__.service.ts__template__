@@ -1,52 +1,47 @@
+import {
+  DgraphApp,
+  DgraphCreateMutationJson,
+  DgraphCreateUseCase,
+  DgraphUseCase,
+  DgraphEntityType,
+  Dgraph<%= modelNamePascalCase %>
+} from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { <%= modelNamePascalCase %> } from '../../<%= modelName %>.model'
 import { <%= useCaseNamePascalCase %>Input } from './<%= useCaseKebabCase %>.input'
+import { <%= useCaseNamePascalCase %>Request } from './<%= useCaseKebabCase %>.request'
 <% if(useCaseType === "dgraph") { %>
   import { Txn } from 'dgraph-js-http'
-  import { <%= useCaseBaseClass %> } from '@codelab/backend'
-<% } else if(useCaseType === "mutation" || useCaseType === "query"){ %>
-  import { <%= useCaseBaseClass %> } from '@codelab/backend'
-  import { FetchResult } from '@apollo/client'
-  <% if(useCaseType === "query"){ %>
-    import { <%= useCaseNamePascalCase %>Gql, <%= useCaseNamePascalCase %>Query, <%= useCaseNamePascalCase %>QueryVariables } from '@codelab/codegen/dgraph'
-  <% } else { %>
-    import { <%= useCaseNamePascalCase %>Gql, <%= useCaseNamePascalCase %>Mutation, <%= useCaseNamePascalCase %>MutationVariables } from '@codelab/codegen/dgraph'
-  <% } %>
-<% } else { %>
-  import { <%= useCaseBaseClass %> } from '@codelab/backend'
-<% } %>
-
-<% if(useCaseType === "query"){ %>
-type GqlVariablesType = <%= useCaseNamePascalCase %>QueryVariables
-type GqlOperationType = <%= useCaseNamePascalCase %>Query
-<% } else if(useCaseType === "mutation") { %>
-type GqlVariablesType = <%= useCaseNamePascalCase %>MutationVariables
-type GqlOperationType = <%= useCaseNamePascalCase %>Mutation
 <% } %>
 
 @Injectable()
-export class <%= useCaseNamePascalCase %>Service <% if(useCaseType === "regular"){ %> implements <% } else { %> extends <% } %> <%= useCaseBaseClass %><<%= useCaseNamePascalCase %>Input, <%= modelNamePascalCase %> <% if(useCaseType === "mutation" || useCaseType === "query"){ %>,GqlOperationType, GqlVariablesType <% } %> > {
-  <% if(useCaseType === "mutation" || useCaseType === "query"){ %>
-    protected getGql() {
-      return <%= useCaseNamePascalCase %>Gql
+export class <%= useCaseNamePascalCase %>Service extends DgraphUseCase<any>  {
+
+  //constructor(dgraph: DgraphRepository) {
+  //  super(dgraph)
+  //}
+
+  protected async executeTransaction(request: <%= useCaseNamePascalCase %>Input, txn: Txn) {
+    //await this.validate(request)
+
+    await this.dgraph.executeMutation(
+      txn,
+      this.createMutation(request)
+    )
+
+    return await Promise.resolve({})
+  }
+
+  private createMutation(request: <%= useCaseNamePascalCase %>Request): Mutation {
+    const setJson: DgraphCreateMutationJson<Dgraph<%= modelNamePascalCase %>> = {
+
     }
 
-    protected extractDataFromResult(result: FetchResult<GqlOperationType>) {
-      return null
-    }
+    return { setJson }
+  }
 
-    protected mapVariables(
-      request: <%= useCaseNamePascalCase %>Input,
-    ): GqlVariablesType {
-      return {}
-    }
-  <% } else if(useCaseType === "dgraph") { %>
-    protected async executeTransaction(request: <%= useCaseNamePascalCase %>Input, txn: Txn) {
-      return (await Promise.resolve({})) as Promise<<%= modelNamePascalCase %>>
-    }
-  <% } else { %>
-    async execute(request: <%= useCaseNamePascalCase %>Input) {
-      return null
-    }
-  <% }  %>
+  //protected async validate(request: <%= useCaseNamePascalCase %>Request>) {
+  //  return
+  //}
 }
