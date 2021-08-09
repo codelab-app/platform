@@ -855,7 +855,7 @@ export type TypesByNameFilter = {
 }
 
 export type UpdateAppData = {
-  name?: Maybe<Scalars['String']>
+  name: Scalars['String']
 }
 
 export type UpdateAppInput = {

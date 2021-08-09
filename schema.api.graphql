@@ -556,7 +556,7 @@ input UpdateAppInput {
 }
 
 input UpdateAppData {
-  name: String
+  name: String!
 }
 
 input DeleteAppInput {
