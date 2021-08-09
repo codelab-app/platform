@@ -12,6 +12,11 @@
       "factory": "./src/generators/api-use-case/generator",
       "schema": "./src/generators/api-use-case/schema.json",
       "description": "api-use-case generator"
+    },
+    "ui-use-case": {
+      "factory": "./src/generators/ui-use-case/generator",
+      "schema": "./src/generators/ui-use-case/schema.json",
+      "description": "ui-use-case generator"
     }
   }
 }

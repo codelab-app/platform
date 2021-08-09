@@ -952,7 +952,7 @@ export type UpdatePrimitiveTypeInput = {
 }
 
 export type UpdateTagData = {
-  name?: Maybe<Scalars['String']>
+  name: Scalars['String']
 }
 
 export type UpdateTagInput = {

@@ -7,20 +7,12 @@ import {
   Tree,
 } from '@nrwl/devkit'
 import * as path from 'path'
-import { toCamelCase, toKebabCase, toPascalCase } from '../../utils/files'
-import { ApiUseCaseGeneratorSchema, NormalizedSchema } from './schema'
-import { UseCaseType } from './useCaseType'
-
-const useCaseToClassMap: Record<UseCaseType, string> = {
-  [UseCaseType.Regular]: 'UseCase',
-  [UseCaseType.Dgraph]: 'DgraphUseCase',
-  [UseCaseType.Mutation]: 'MutationUseCase',
-  [UseCaseType.Query]: 'QueryUseCase',
-}
+import { toCamelCase, toPascalCase, toTitleCase } from '../../utils/files'
+import { NormalizedSchema, UiUseCaseGeneratorSchema } from './schema'
 
 const normalizeOptions = (
   host: Tree,
-  options: ApiUseCaseGeneratorSchema,
+  options: UiUseCaseGeneratorSchema,
 ): NormalizedSchema => {
   const name = names(options.name).fileName
 
@@ -44,22 +36,22 @@ const normalizeOptions = (
     ? options.tags.split(',').map((s) => s.trim())
     : []
 
-  options.useCaseType = options.useCaseType || UseCaseType.Regular
-
-  const useCaseName = toCamelCase(options.useCaseName)
-  const useCaseNamePascalCase = toPascalCase(useCaseName)
-  const useCaseKebabCase = toKebabCase(useCaseName)
-  const modelName = toCamelCase(options.modelName)
-  const modelNamePascalCase = toPascalCase(modelName)
+  const useCase = toCamelCase(options.useCase)
+  const useCasePascalCase = toPascalCase(useCase)
+  const useCaseCamelCase = toCamelCase(useCase)
+  const modelCamelCase = toCamelCase(options.model)
+  const modelPascalCase = toPascalCase(options.model)
+  const useCaseTitleCase = toTitleCase(options.model)
+  const useCaseType = toPascalCase(options.useCaseType)
 
   return {
     ...options,
-    useCaseBaseClass: useCaseToClassMap[options.useCaseType],
-    useCaseNamePascalCase,
-    useCaseName,
-    modelName,
-    modelNamePascalCase,
-    useCaseKebabCase,
+    useCaseType,
+    useCaseTitleCase,
+    useCasePascalCase,
+    useCaseCamelCase,
+    modelCamelCase,
+    modelPascalCase,
     projectName,
     projectRoot,
     projectDirectory,
@@ -83,7 +75,7 @@ const addFiles = (host: Tree, options: NormalizedSchema) => {
   )
 }
 
-export default async function (host: Tree, options: ApiUseCaseGeneratorSchema) {
+export default async function (host: Tree, options: UiUseCaseGeneratorSchema) {
   const normalizedOptions = normalizeOptions(host, options)
   // addProjectConfiguration(host, normalizedOptions.projectName, {
   //   root: normalizedOptions.projectRoot,

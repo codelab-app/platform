@@ -17,6 +17,8 @@ export const removeFiles = (filesToRemove: Array<string>): Rule => {
   }
 }
 
+export const toTitleCase = (value: string) => v.chain(value).titleCase().value()
+
 export const toPascalCase = (value: string) =>
   v.chain(value).camelCase().capitalize().value()
 

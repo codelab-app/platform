@@ -18,15 +18,15 @@ yargs(hideBin(process.argv))
   //
   // Codegen
   //
-  // .command(
-  //   'codegen',
-  //   'Generate typescript types from GraphQL files',
-  //   (yargs) =>
-  //     yargs
-  //       .option(ENV_FLAG, envOption)
-  //       .demandOption([ENV_FLAG], 'Please provide an environment'),
-  //   (argv) => runCli(argv.env as any, `${argv._[0]} --env ${argv.env}`),
-  // )
+  .command(
+    'codegen',
+    'Generate typescript types from GraphQL files',
+    (yargs) =>
+      yargs
+        .option(ENV_FLAG, envOption)
+        .demandOption([ENV_FLAG], 'Please provide an environment'),
+    (argv) => runCli(argv.env as any, `${argv._[0]} --env ${argv.env}`),
+  )
   //
   // E2e
   //

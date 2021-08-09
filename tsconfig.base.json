@@ -44,6 +44,7 @@
       "@codelab/modules/page": ["libs/modules/page/src/index.ts"],
       "@codelab/modules/page-api": ["libs/modules/page-api/src/index.ts"],
       "@codelab/modules/style": ["libs/modules/style/src/index.ts"],
+      "@codelab/modules/tag": ["libs/modules/tag/src/index.ts"],
       "@codelab/modules/tag-api": ["libs/modules/tag-api/src/index.ts"],
       "@codelab/modules/type": ["libs/modules/type/src/index.ts"],
       "@codelab/modules/type-api": ["libs/modules/type-api/src/index.ts"],

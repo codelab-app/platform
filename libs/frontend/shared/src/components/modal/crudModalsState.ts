@@ -8,6 +8,7 @@ export enum ActionType {
 }
 
 export enum EntityType {
+  Tag = 'Tag',
   User = 'User',
   None = 'None',
   Page = 'Page',
