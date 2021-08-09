@@ -31,13 +31,11 @@ lambda:
 build-dev-affected:
 	npx env-cmd -f .env.test nx affected:build \
 		--configuration=local \
-		--maxWorkers=2 \
 		--parallel \
 
 build-dev:
 	npx nx run-many \
 		--target=build \
-		--maxWorkers=2 \
 		--all \
 		--parallel
 
