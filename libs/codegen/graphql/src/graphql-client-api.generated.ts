@@ -160,6 +160,7 @@ export enum AtomType {
   Query = 'Query',
   TextList = 'TextList',
   Text = 'Text',
+  State = 'State',
   ReactFragment = 'ReactFragment',
   HtmlA = 'HtmlA',
   HtmlP = 'HtmlP',

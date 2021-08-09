@@ -8,6 +8,7 @@ export const UpdateLambdaModal = () => {
       entityType={EntityType.Lambda}
       actionType={ActionType.Update}
       okText="Update Lambda"
+      modalProps={{ width: '80vw' }}
       renderForm={() => <UpdateLambdaForm />}
     />
   )

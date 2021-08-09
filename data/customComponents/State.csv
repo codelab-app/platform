@@ -1,0 +1,5 @@
+"property","description","type","default","version","isEnum"
+"identifier","Unique identifier for the state. Two State elements with the same identifier will use the same state",string,"-",,false
+"eventKey","The event of the child element that will the state handler bind to. Leave out to not pass event handler down",string,"",,false
+"propKey","The prop key under which the state will be passed to, leave out to not pass props down",string,"",,false
+"setterLambda","A lambda function ID which takes in an object with the shape of: {event: Event, previousState: TState} and must return the next state object. Will get called when the event with the specified eventKey is called on the child element","LambdaType","",,false

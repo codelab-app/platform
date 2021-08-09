@@ -8,6 +8,7 @@ export const CreateLambdaModal = () => {
       entityType={EntityType.Lambda}
       actionType={ActionType.Create}
       okText="Create Lambda"
+      modalProps={{ width: '80vw' }}
       renderForm={() => <CreateLambdaForm />}
     />
   )

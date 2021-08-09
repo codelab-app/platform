@@ -21,7 +21,12 @@ export class GetElementParentService extends DgraphUseCase<
     request: GetElementParentInput,
     txn: Txn,
   ): Promise<DgraphElement | null> {
-    return this.dgraph.getOne<DgraphElement>(txn, this.createQuery(request))
+    return this.dgraph
+      .getOne<{ '~children': Array<DgraphElement> }>(
+        txn,
+        this.createQuery(request),
+      )
+      .then((p) => (p && p['~children']?.length ? p['~children'][0] : null))
   }
 
   private createQuery({ elementId }: GetElementParentInput) {

@@ -410,6 +410,10 @@ export const atomTypeToReactComponent = (
       return dynamic(() =>
         import('@codelab/frontend/shared').then((mod) => mod.Text),
       )
+    case AtomType.State:
+      return dynamic(() =>
+        import('@codelab/frontend/shared').then((mod) => mod.State),
+      )
     default:
       return null
   }

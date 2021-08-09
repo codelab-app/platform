@@ -23,6 +23,7 @@ export const MainPaneBuilderTemplate = ({
   const {
     setHoveringElement,
     setSelectedElement,
+    reset,
     state: { selectedElement },
   } = useBuilder()
 
@@ -109,70 +110,76 @@ export const MainPaneBuilderTemplate = ({
   return (
     <MainPaneTemplate
       {...props}
-      containerProps={{ onClick: () => setContextMenuNodeId(null) }}
+      containerProps={{
+        onClick: () => {
+          setContextMenuNodeId(null)
+        },
+      }}
     >
-      {tree ? (
-        <Tree
-          disabled={isLoadingMoveElement}
-          className="draggable-tree"
-          blockNode
-          expandedKeys={expandedNodeIds}
-          draggable
-          onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
-          onDrop={handleDrop}
-          selectedKeys={selectedElement ? [selectedElement.id] : []}
-          onMouseEnter={({ node: dataNode }) => {
-            const element = tree.getElementById(
-              (dataNode as any).id?.toString(),
-            )
+      <div style={{ height: '100%' }} onClick={() => reset()}>
+        {tree ? (
+          <Tree
+            disabled={isLoadingMoveElement}
+            className="draggable-tree"
+            blockNode
+            expandedKeys={expandedNodeIds}
+            draggable
+            onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
+            onDrop={handleDrop}
+            selectedKeys={selectedElement ? [selectedElement.id] : []}
+            onMouseEnter={({ node: dataNode }) => {
+              const element = tree.getElementById(
+                (dataNode as any).id?.toString(),
+              )
 
-            setHoveringElement(element)
-          }}
-          onClick={(e) => e.stopPropagation()}
-          onMouseLeave={() => {
-            setHoveringElement(null)
-          }}
-          onSelect={([id], { nativeEvent }) => {
-            nativeEvent.stopPropagation()
+              setHoveringElement(element)
+            }}
+            onClick={(e) => e.stopPropagation()}
+            onMouseLeave={() => {
+              setHoveringElement(null)
+            }}
+            onSelect={([id], { nativeEvent }) => {
+              nativeEvent.stopPropagation()
 
-            const element = tree.getElementById(id?.toString())
-            setSelectedElement(element)
-          }}
-          titleRender={(node) => {
-            const label = (node as any).name
-            const nodeId = (node as any).id
+              const element = tree.getElementById(id?.toString())
+              setSelectedElement(element)
+            }}
+            titleRender={(node) => {
+              const label = (node as any).name
+              const nodeId = (node as any).id
 
-            return (
-              <Dropdown
-                onVisibleChange={() => setContextMenuNodeId(nodeId)}
-                visible={contextMenuItemId === nodeId}
-                overlay={
-                  <>
-                    <div
-                      css={tw`fixed inset-0`}
-                      onClick={(e) => {
-                        setContextMenuNodeId(null)
-                        e.stopPropagation()
-                      }}
-                    />
-                    <ElementContextMenu
-                      // We need to manually hide the context menu, otherwise it stays open
-                      onClick={() => setContextMenuNodeId(null)}
-                      element={node as any}
-                    />
-                  </>
-                }
-                trigger={['contextMenu']}
-              >
-                <div>{label}</div>
-              </Dropdown>
-            )
-          }}
-          treeData={[antdTree]}
-        />
-      ) : null}
+              return (
+                <Dropdown
+                  onVisibleChange={() => setContextMenuNodeId(nodeId)}
+                  visible={contextMenuItemId === nodeId}
+                  overlay={
+                    <>
+                      <div
+                        css={tw`fixed inset-0`}
+                        onClick={(e) => {
+                          setContextMenuNodeId(null)
+                          e.stopPropagation()
+                        }}
+                      />
+                      <ElementContextMenu
+                        // We need to manually hide the context menu, otherwise it stays open
+                        onClick={() => setContextMenuNodeId(null)}
+                        element={node as any}
+                      />
+                    </>
+                  }
+                  trigger={['contextMenu']}
+                >
+                  <div>{label}</div>
+                </Dropdown>
+              )
+            }}
+            treeData={[antdTree]}
+          />
+        ) : null}
 
-      {children}
+        {children}
+      </div>
     </MainPaneTemplate>
   )
 }

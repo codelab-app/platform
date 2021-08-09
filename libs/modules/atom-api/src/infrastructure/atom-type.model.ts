@@ -106,6 +106,7 @@ export enum AtomTypeEnum {
   Query = 'Query',
   TextList = 'TextList',
   Text = 'Text',
+  State = 'State',
 
   // React
   ReactFragment = 'ReactFragment',

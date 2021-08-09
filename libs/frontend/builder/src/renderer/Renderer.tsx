@@ -10,5 +10,5 @@ export const Renderer = ({
   context,
 }: {
   tree: ElementTree
-  context: Omit<RenderContext, 'tree'>
-}) => renderFactory(tree.getRoot(), { ...context, tree }) as any
+  context?: Omit<RenderContext, 'tree'>
+}) => renderFactory(tree.getRoot(), { ...(context || {}), tree }) as any

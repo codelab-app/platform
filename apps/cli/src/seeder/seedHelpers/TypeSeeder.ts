@@ -235,6 +235,13 @@ export class TypeSeeder {
         return {
           existingTypeId: this.baseTypes.get('Lambda') as string,
         }
+      case 'number | string':
+      case 'string | number':
+        return {
+          existingTypeId: this.primitiveTypes.get(
+            PrimitiveKind.String,
+          ) as string,
+        }
     }
 
     return undefined

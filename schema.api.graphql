@@ -200,6 +200,7 @@ enum AtomType {
   Query
   TextList
   Text
+  State
   ReactFragment
   HtmlA
   HtmlP
