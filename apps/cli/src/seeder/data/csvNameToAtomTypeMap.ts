@@ -124,4 +124,5 @@ export const csvNameToAtomTypeMap: Record<string, AtomType> = {
   Query: AtomType.Query,
   TextList: AtomType.TextList,
   Text: AtomType.Text,
+  State: AtomType.State,
 }
