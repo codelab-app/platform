@@ -80,7 +80,6 @@ e2e-ci-affected:
 integration-dev-affected:
 	./scripts/nx.sh affected:test \
 		--testPathPattern=i.spec.ts \
-		--maxWorkers=2 \
 		--memoryLimit=4096 \
 		--runInBand
 
@@ -109,7 +108,6 @@ unit-dev-affected:
 	npx nx affected:test \
 		--testPathPattern=[^i].spec.ts \
 		--silent \
-		--maxWorkers=2 \
 		--memoryLimit=4096 \
 		--parallel
 
@@ -118,7 +116,5 @@ unit-ci:
 		--testPathPattern=[^i].spec.ts \
 		--target=test \
 		--all \
-		--maxWorkers=8 \
-		--memoryLimit=8192 \
 		--verbose
 
