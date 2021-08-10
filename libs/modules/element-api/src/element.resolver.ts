@@ -15,8 +15,8 @@ import {
   CreateElementService,
   DeleteElementInput,
   DeleteElementService,
-  GetElementInput,
-  GetElementService,
+  GetElementGraphInput,
+  GetElementGraphService,
   MoveElementInput,
   MoveElementService,
   UpdateElementInput,
@@ -30,7 +30,7 @@ import {
 export class ElementResolver {
   constructor(
     private createElementService: CreateElementService,
-    private getElementService: GetElementService,
+    private getElementTreeService: GetElementGraphService,
     private deleteElementService: DeleteElementService,
     private updateElementService: UpdateElementService,
     private moveElementService: MoveElementService,
@@ -48,20 +48,6 @@ export class ElementResolver {
     return this.createElementService.execute({ input, currentUser })
   }
 
-  @Query(() => Element, { nullable: true })
-  @UseGuards(GqlAuthGuard)
-  async getElement(
-    @Args('input') input: GetElementInput,
-    @CurrentUser() currentUser: JwtPayload,
-  ) {
-    const dgraphElement = await this.getElementService.execute({
-      input,
-      currentUser,
-    })
-
-    return this.elementMapper.map(dgraphElement)
-  }
-
   @Query(() => ElementGraph, {
     nullable: true,
     description:
@@ -69,10 +55,10 @@ export class ElementResolver {
   })
   @UseGuards(GqlAuthGuard)
   async getElementGraph(
-    @Args('input') input: GetElementInput,
+    @Args('input') input: GetElementGraphInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    const dgraphElement = await this.getElementService.execute({
+    const dgraphElement = await this.getElementTreeService.execute({
       input,
       currentUser,
     })

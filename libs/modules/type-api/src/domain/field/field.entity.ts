@@ -1,9 +1,5 @@
 import { DgraphDomain, DgraphField } from '@codelab/backend'
-import { TypeFactory } from '../type/type.factory'
-import {
-  TypePropertiesUnion,
-  TypeValueProperties,
-} from '../type/type.interface'
+import { TypeFactory, TypePropertiesUnion, TypeValueProperties } from '../type'
 
 export interface FieldProperties {
   name?: string

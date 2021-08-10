@@ -12,7 +12,7 @@ import { Tag } from './models/tag.model'
 import { TagMapper } from './tag.mapper'
 import { CreateTagInput, CreateTagService } from './use-cases/create-tag'
 import { DeleteTagInput, DeleteTagService } from './use-cases/delete-tag'
-import { GetTagInput, GetTagService } from './use-cases/get-tag'
+import { GetTagInput, GetTagTreeService } from './use-cases/get-tag-tree'
 import { GetTagsService } from './use-cases/get-tags'
 import { UpdateTagInput, UpdateTagService } from './use-cases/update-tag'
 
@@ -24,7 +24,7 @@ export class TagResolver {
     private readonly createTagService: CreateTagService,
     private readonly deleteTagService: DeleteTagService,
     private readonly updateTagService: UpdateTagService,
-    private readonly getTagService: GetTagService,
+    private readonly getTagService: GetTagTreeService,
     private readonly getTagsService: GetTagsService,
   ) {}
 

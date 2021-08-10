@@ -10,7 +10,7 @@ export const createTagSchema: JSONSchemaType<CreateTagInput> = {
     },
     parentTagId: {
       type: 'string',
-      // nullable: true,
+      nullable: true,
     },
   },
   required: ['name'],

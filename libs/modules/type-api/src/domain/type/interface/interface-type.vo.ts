@@ -1,5 +1,5 @@
 import { DgraphDomain, DgraphInterfaceType } from '@codelab/backend'
-import { FieldEntity, FieldProperties } from '../../field/field.entity'
+import { FieldEntity, FieldProperties } from '../../field'
 import { TypeValueProperties } from '../type.interface'
 import { TypeValueObject } from '../type.vo'
 

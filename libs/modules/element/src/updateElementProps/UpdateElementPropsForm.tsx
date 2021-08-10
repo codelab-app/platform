@@ -1,6 +1,6 @@
 import {
   ElementFragment,
-  refetchGetElementQuery,
+  refetchGetElementGraphQuery,
   useGetTypeGraphQuery,
   useUpdateElementPropsMutation,
 } from '@codelab/codegen/graphql'
@@ -29,7 +29,7 @@ const _UpdateElementPropsForm = ({
     })
 
   const [mutate] = useUpdateElementPropsMutation({
-    refetchQueries: [refetchGetElementQuery({ input: { elementId } })],
+    refetchQueries: [refetchGetElementGraphQuery({ input: { elementId } })],
   })
 
   const initialPropsRef = useRef(JSON.parse(existingProps))

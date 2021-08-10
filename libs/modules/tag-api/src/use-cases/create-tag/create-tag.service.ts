@@ -21,11 +21,13 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
     blankNodeUid: string,
   ): Mutation {
     const {
-      input: { name },
+      input: { name, parentId },
       owner,
     } = request
 
-    const setJson: DgraphCreateMutationJson<DgraphTag> = {
+    const mu: Mutation = {}
+
+    const createTagJson: DgraphCreateMutationJson<DgraphTag> = {
       uid: blankNodeUid,
       name,
       ownerId: owner.sub,
@@ -33,6 +35,13 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
       children: [],
     }
 
-    return { setJson }
+    mu.setJson = parentId
+      ? {
+          uid: parentId,
+          children: createTagJson,
+        }
+      : createTagJson
+
+    return mu
   }
 }

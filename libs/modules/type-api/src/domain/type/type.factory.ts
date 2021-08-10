@@ -1,14 +1,7 @@
-import { ArrayTypeProperties } from './array/array-type.interface'
-import { ArrayTypeValueObject } from './array/array-type.vo'
-import { EnumTypeProperties, EnumTypeValueObject } from './enum/enum-type.vo'
-import {
-  InterfaceTypeProperties,
-  InterfaceTypeValueObject,
-} from './interface/interface-type.vo'
-import {
-  PrimitiveTypeProperties,
-  PrimitiveTypeValueObject,
-} from './primitive/primitive-type.vo'
+import { ArrayTypeProperties, ArrayTypeValueObject } from './array'
+import { EnumTypeProperties, EnumTypeValueObject } from './enum'
+import { InterfaceTypeProperties, InterfaceTypeValueObject } from './interface'
+import { PrimitiveTypeProperties, PrimitiveTypeValueObject } from './primitive'
 import { TypePropertiesUnion, TypeValueProperties } from './type.interface'
 import { TypeValueObject } from './type.vo'
 

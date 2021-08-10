@@ -313,6 +313,7 @@ export type CreateResponse = {
 
 export type CreateTagInput = {
   name: Scalars['String']
+  parentTagId?: Maybe<Scalars['String']>
 }
 
 /** Provide one of the properties */
@@ -440,7 +441,7 @@ export type GetComponentInput = {
   componentId: Scalars['String']
 }
 
-export type GetElementInput = {
+export type GetElementGraphInput = {
   elementId: Scalars['String']
 }
 
@@ -719,7 +720,6 @@ export type Query = {
   getUsers: Array<User>
   getPages: Array<Page>
   getPage: Page
-  getElement?: Maybe<Element>
   /** Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge */
   getElementGraph?: Maybe<ElementGraph>
   getComponent: Component
@@ -735,6 +735,8 @@ export type Query = {
   getLambdas: Array<Lambda>
   getTag: Tag
   getTags: Array<Tag>
+  /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
+  getTagGraph?: Maybe<TagGraph>
 }
 
 export type QueryGetAppArgs = {
@@ -753,12 +755,8 @@ export type QueryGetPageArgs = {
   input: GetPageInput
 }
 
-export type QueryGetElementArgs = {
-  input: GetElementInput
-}
-
 export type QueryGetElementGraphArgs = {
-  input: GetElementInput
+  input: GetElementGraphInput
 }
 
 export type QueryGetComponentArgs = {
@@ -797,10 +795,32 @@ export type QueryGetTagArgs = {
   input: GetTagInput
 }
 
+export type QueryGetTagGraphArgs = {
+  input: GetTagInput
+}
+
 export type Tag = {
   id: Scalars['ID']
   name: Scalars['String']
 }
+
+/** An edge between two element nodes */
+export type TagEdge = {
+  /** The id of the source Tag */
+  source: Scalars['String']
+  /** The id of the target Tag */
+  target: Scalars['String']
+  order?: Maybe<Scalars['Int']>
+}
+
+export type TagGraph = {
+  /** All descendant Elements or Components, at any level */
+  vertices: Array<TagVertex>
+  /** All the links connecting the descendant elements/components */
+  edges: Array<TagEdge>
+}
+
+export type TagVertex = Tag
 
 export type Type = {
   id: Scalars['ID']
@@ -1155,7 +1175,7 @@ export type UpdateComponentMutationVariables = Exact<{
 export type UpdateComponentMutation = { updateComponent?: Maybe<void> }
 
 export type GetElementGraphQueryVariables = Exact<{
-  input: GetElementInput
+  input: GetElementGraphInput
 }>
 
 export type GetElementGraphQuery = {
@@ -1231,26 +1251,6 @@ export type DeleteElementMutationVariables = Exact<{
 }>
 
 export type DeleteElementMutation = { deleteElement?: Maybe<void> }
-
-export type GetElementQueryVariables = Exact<{
-  input: GetElementInput
-}>
-
-export type GetElementQuery = {
-  getElement?: Maybe<{
-    __typename: 'Element'
-    id: string
-    name: string
-    css?: Maybe<string>
-    props: string
-    atom?: Maybe<{
-      id: string
-      name: string
-      type: AtomType
-      api: { id: string; name: string }
-    }>
-  }>
-}
 
 export type MoveElementMutationVariables = Exact<{
   input: MoveElementInput
@@ -2773,7 +2773,7 @@ export type UpdateComponentMutationOptions = Apollo.BaseMutationOptions<
   UpdateComponentMutationVariables
 >
 export const GetElementGraphGql = gql`
-  query GetElementGraph($input: GetElementInput!) {
+  query GetElementGraph($input: GetElementGraphInput!) {
     getElementGraph(input: $input) {
       ...ElementGraph
     }
@@ -2934,66 +2934,6 @@ export type DeleteElementMutationOptions = Apollo.BaseMutationOptions<
   DeleteElementMutation,
   DeleteElementMutationVariables
 >
-export const GetElementGql = gql`
-  query GetElement($input: GetElementInput!) {
-    getElement(input: $input) {
-      ...Element
-    }
-  }
-  ${ElementFragmentDoc}
-`
-
-/**
- * __useGetElementQuery__
- *
- * To run a query within a React component, call `useGetElementQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetElementQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetElementQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetElementQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetElementQuery,
-    GetElementQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetElementQuery, GetElementQueryVariables>(
-    GetElementGql,
-    options,
-  )
-}
-export function useGetElementLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetElementQuery,
-    GetElementQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetElementQuery, GetElementQueryVariables>(
-    GetElementGql,
-    options,
-  )
-}
-export type GetElementQueryHookResult = ReturnType<typeof useGetElementQuery>
-export type GetElementLazyQueryHookResult = ReturnType<
-  typeof useGetElementLazyQuery
->
-export type GetElementQueryResult = Apollo.QueryResult<
-  GetElementQuery,
-  GetElementQueryVariables
->
-export function refetchGetElementQuery(variables?: GetElementQueryVariables) {
-  return { query: GetElementGql, variables: variables }
-}
 export const MoveElementGql = gql`
   mutation MoveElement($input: MoveElementInput!) {
     moveElement(input: $input)
@@ -4985,7 +4925,7 @@ export const UpdateComponent = gql`
   }
 `
 export const GetElementGraph = gql`
-  query GetElementGraph($input: GetElementInput!) {
+  query GetElementGraph($input: GetElementGraphInput!) {
     getElementGraph(input: $input) {
       ...ElementGraph
     }
@@ -5003,14 +4943,6 @@ export const DeleteElement = gql`
   mutation DeleteElement($input: DeleteElementInput!) {
     deleteElement(input: $input)
   }
-`
-export const GetElement = gql`
-  query GetElement($input: GetElementInput!) {
-    getElement(input: $input) {
-      ...Element
-    }
-  }
-  ${Element}
 `
 export const MoveElement = gql`
   mutation MoveElement($input: MoveElementInput!) {

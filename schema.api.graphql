@@ -282,16 +282,6 @@ enum AtomType {
   HtmlSup
 }
 
-type Element {
-  id: ID!
-  name: String!
-  css: String
-  atom: Atom
-
-  """Props in a json format"""
-  props: String!
-}
-
 """An edge between two element nodes"""
 type ElementEdge {
   """The id of the source Element/Component"""
@@ -316,6 +306,16 @@ type ElementGraph {
 }
 
 union ElementVertex = Element | Component
+
+type Element {
+  id: ID!
+  name: String!
+  css: String
+  atom: Atom
+
+  """Props in a json format"""
+  props: String!
+}
 
 type Lambda {
   id: ID!
@@ -388,12 +388,11 @@ type Query {
   getUsers(input: GetUsersInput): [User!]!
   getPages(input: GetPagesInput!): [Page!]!
   getPage(input: GetPageInput!): Page!
-  getElement(input: GetElementInput!): Element
 
   """
   Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
   """
-  getElementGraph(input: GetElementInput!): ElementGraph
+  getElementGraph(input: GetElementGraphInput!): ElementGraph
   getComponent(input: GetComponentInput!): Component!
   getComponentElements(input: GetComponentInput!): ElementGraph!
   getComponents: [Component!]!
@@ -446,7 +445,7 @@ input GetPageInput {
   pageId: String!
 }
 
-input GetElementInput {
+input GetElementGraphInput {
   elementId: String!
 }
 
@@ -826,6 +825,7 @@ input ExecuteLambdaInput {
 
 input CreateTagInput {
   name: String!
+  parentTagId: String
 }
 
 input UpdateTagInput {

@@ -2,6 +2,7 @@ import {
   CreateTagInput,
   refetchGetTagsQuery,
   useCreateTagMutation,
+  useGetTagsQuery,
 } from '@codelab/codegen/graphql'
 import {
   createNotificationHandler,
@@ -11,7 +12,7 @@ import {
   useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+import { AutoFields, SelectField } from 'uniforms-antd'
 import { createTagSchema } from './createTagSchema'
 
 export const CreateTagForm = (props: UniFormUseCaseProps<CreateTagInput>) => {
@@ -22,8 +23,10 @@ export const CreateTagForm = (props: UniFormUseCaseProps<CreateTagInput>) => {
     entityType: EntityType.Tag,
     useMutationFunction: useCreateTagMutation,
     mutationOptions: { refetchQueries: [refetchGetTagsQuery()] },
-    mapVariables: ({ name }: CreateTagInput) => ({ input: { name } }),
+    mapVariables: (input: CreateTagInput) => ({ input }),
   })
+
+  const { data: tags } = useGetTagsQuery()
 
   return (
     <FormUniforms<CreateTagInput>
@@ -35,7 +38,17 @@ export const CreateTagForm = (props: UniFormUseCaseProps<CreateTagInput>) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields />
+      <AutoFields omitFields={['parentTagId']} />
+      <SelectField
+        name="parentTagId"
+        label="Tag"
+        showSearch={true}
+        optionFilterProp="label"
+        options={tags?.getTags.map((tag) => ({
+          label: tag.name,
+          value: tag.id,
+        }))}
+      />
     </FormUniforms>
   )
 }

@@ -10,7 +10,7 @@ import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { ElementTreeTransformer } from '../element-tree.transformer'
 import { ElementGraph } from '../models'
-import { GetElementService } from '../use-cases'
+import { GetElementGraphService } from '../use-cases'
 import { ComponentMapper } from './component.mapper'
 import { Component } from './component.model'
 import {
@@ -35,7 +35,7 @@ export class ComponentResolver {
     private deleteComponentService: DeleteComponentService,
     private updateComponentService: UpdateComponentService,
     private componentMapper: ComponentMapper,
-    private getElementService: GetElementService,
+    private getElementService: GetElementGraphService,
     private elementTreeTransformer: ElementTreeTransformer,
   ) {}
 

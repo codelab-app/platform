@@ -61,6 +61,8 @@ lint-commit-ci:
 lint-eslint:
 	yarn affected:lint && npx prettier --check '**/*.{graphql,yaml}'
 
+lint-circular-dep:
+	yarn madge --circular libs --extensions ts,tsx,js,jsx
 
 #
 # E2E

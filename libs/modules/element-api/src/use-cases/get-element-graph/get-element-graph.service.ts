@@ -8,12 +8,15 @@ import {
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../element.validator'
-import { getElementQuery } from './get-element.query'
-import { GetElementRequest } from './get-element.request'
+import { getElementGraphQuery } from './get-element-graph.query'
+import { GetElementGraphRequest } from './get-element-graph.request'
 
 @Injectable()
-export class GetElementService extends DgraphUseCase<
-  GetElementRequest,
+/**
+ * Recursively gets the entire tree starting from the root Element node
+ */
+export class GetElementGraphService extends DgraphUseCase<
+  GetElementGraphRequest,
   DgraphElement
 > {
   constructor(
@@ -24,14 +27,14 @@ export class GetElementService extends DgraphUseCase<
   }
 
   protected async executeTransaction(
-    request: GetElementRequest,
+    request: GetElementGraphRequest,
     txn: Txn,
   ): Promise<DgraphElement> {
     await this.validate(request)
 
     return this.dgraph.getOneOrThrow(
       txn,
-      this.createQuery(request),
+      GetElementGraphService.createQuery(request),
       () => new NotFoundError('Element not found'),
     )
   }
@@ -39,12 +42,12 @@ export class GetElementService extends DgraphUseCase<
   protected async validate({
     currentUser,
     input: { elementId },
-  }: GetElementRequest): Promise<void> {
+  }: GetElementGraphRequest): Promise<void> {
     await this.elementGuardService.existsAndIsOwnedBy(elementId, currentUser)
   }
 
-  private createQuery({ input: { elementId } }: GetElementRequest) {
-    return getElementQuery()
+  private static createQuery({ input: { elementId } }: GetElementGraphRequest) {
+    return getElementGraphQuery()
       .setUidFunc(elementId)
       .addTypeFilterDirective(DgraphEntityType.Element)
   }

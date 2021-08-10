@@ -9,7 +9,7 @@ import { Txn } from 'dgraph-js-http'
 import { GetTagRequest } from './get-tag.request'
 
 @Injectable()
-export class GetTagService extends DgraphUseCase<GetTagRequest, DgraphTag> {
+export class GetTagTreeService extends DgraphUseCase<GetTagRequest, DgraphTag> {
   protected async executeTransaction(request: GetTagRequest, txn: Txn) {
     return await this.dgraph.getOneOrThrow<DgraphTag>(
       txn,

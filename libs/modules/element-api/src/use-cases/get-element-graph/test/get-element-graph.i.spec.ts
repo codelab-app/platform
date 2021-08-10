@@ -8,9 +8,9 @@ import {
   CreateElementGql,
   CreateElementInput,
   CreateElementMutation,
-  GetElementGql,
-  GetElementInput,
-  GetElementQuery,
+  GetElementGraphGql,
+  GetElementGraphInput,
+  GetElementGraphQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../element.module'
@@ -20,7 +20,7 @@ describe('GetElement', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
   let elementId: string
-  let getElementInput: GetElementInput
+  let getElementGraphInput: GetElementGraphInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ElementModule], { role: Role.GUEST })
@@ -32,7 +32,7 @@ describe('GetElement', () => {
     >(userApp, CreateElementGql, createElementInput)
 
     elementId = results.createElement.id
-    getElementInput = { elementId }
+    getElementGraphInput = { elementId }
 
     expect(elementId).toBeDefined()
   })
@@ -44,7 +44,7 @@ describe('GetElement', () => {
 
   describe('Guest', () => {
     it('should fail to get an element', async () => {
-      await domainRequest(guestApp, GetElementGql, getElementInput, {
+      await domainRequest(guestApp, GetElementGraphGql, getElementGraphInput, {
         message: 'Unauthorized',
       })
     })
@@ -52,13 +52,12 @@ describe('GetElement', () => {
 
   describe('User', () => {
     it('should get an element', async () => {
-      const results = await domainRequest<GetElementInput, GetElementQuery>(
-        userApp,
-        GetElementGql,
-        getElementInput,
-      )
+      const results = await domainRequest<
+        GetElementGraphInput,
+        GetElementGraphQuery
+      >(userApp, GetElementGraphGql, getElementGraphInput)
 
-      expect(results?.getElement).toMatchObject({
+      expect(results?.getElementGraph).toMatchObject({
         ...createElementInput,
         id: elementId,
       })

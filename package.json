@@ -314,6 +314,7 @@
     "json-schema": "0.3.0",
     "lint-staged": "11.1.2",
     "loader-utils": "2.0.0",
+    "madge": "^5.0.1",
     "next-compose-plugins": "2.2.1",
     "nx": "12.6.5",
     "onchange": "7.1.0",

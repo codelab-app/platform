@@ -1,6 +1,6 @@
 export * from './create-element'
 export * from './delete-element'
-export * from './get-element'
+export * from './get-element-graph'
 export * from './get-element-parent'
 export * from './get-last-order-child'
 export * from './move-element'

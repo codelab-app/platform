@@ -1,6 +1,6 @@
 import { equalsSet } from '../../../../common'
 import { DgraphEntityType } from '../dgraph-entity-type'
-import { DgraphEntity, DgraphTree } from './core'
+import { DgraphEntity, DgraphNode, DgraphTree } from './core'
 import { DgraphElement } from './dgraph-element'
 
 /**
@@ -8,7 +8,7 @@ import { DgraphElement } from './dgraph-element'
  * so we can recognize if a particular Tree is a Page, Component or something else
  */
 export type DgraphComponent = DgraphTree<
-  DgraphElement,
+  DgraphNode<DgraphEntityType.Element, DgraphElement>,
   DgraphEntityType.Component
 >
 

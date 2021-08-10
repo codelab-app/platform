@@ -19,8 +19,8 @@ import { ElementTreeTransformer } from './element-tree.transformer'
 import {
   CreateElementService,
   DeleteElementService,
+  GetElementGraphService,
   GetElementParentService,
-  GetElementService,
   GetLastOrderChildService,
   MoveElementService,
   UpdateElementPropsService,
@@ -32,7 +32,7 @@ const services = [
   // Element
   ElementValidator,
   CreateElementService,
-  GetElementService,
+  GetElementGraphService,
   GetLastOrderChildService,
   DeleteElementService,
   GetElementParentService,

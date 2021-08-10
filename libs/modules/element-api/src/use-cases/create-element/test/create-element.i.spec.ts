@@ -8,9 +8,9 @@ import {
   CreateElementGql,
   CreateElementInput,
   CreateElementMutation,
-  GetElementGql,
-  GetElementInput,
-  GetElementQuery,
+  GetElementGraphGql,
+  GetElementGraphInput,
+  GetElementGraphQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../element.module'
@@ -51,9 +51,9 @@ describe('CreateElement', () => {
       expect(elementId).toBeDefined()
 
       const { getElement: element } = await domainRequest<
-        GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, { elementId })
+        GetElementGraphInput,
+        GetElementGraphQuery
+      >(userApp, GetElementGraphGql, { elementId })
 
       expect(element).toMatchObject({ ...createElementInput, id: elementId })
     })
