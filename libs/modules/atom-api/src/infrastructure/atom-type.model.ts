@@ -107,6 +107,7 @@ export enum AtomTypeEnum {
   TextList = 'TextList',
   Text = 'Text',
   State = 'State',
+  PageLink = 'PageLink',
 
   // React
   ReactFragment = 'ReactFragment',

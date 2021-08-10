@@ -19,6 +19,7 @@ export enum DgraphEntityType {
   EnumType = 'EnumType',
   InterfaceType = 'InterfaceType',
   LambdaType = 'LambdaType',
+  PageType = 'PageType',
   Field = 'Field',
   Prop = 'Prop',
   Lambda = 'Lambda',

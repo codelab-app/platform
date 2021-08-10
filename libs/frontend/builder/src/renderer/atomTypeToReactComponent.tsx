@@ -395,9 +395,7 @@ export const atomTypeToReactComponent = (
       return ''
     case AtomType.AntDesignPageContainer:
       return ''
-    //
-    // Custom
-    //
+    // React Query
     case AtomType.Query:
       return dynamic(() =>
         import('@codelab/frontend/shared').then((mod) => mod.Query),
@@ -413,6 +411,10 @@ export const atomTypeToReactComponent = (
     case AtomType.State:
       return dynamic(() =>
         import('@codelab/frontend/shared').then((mod) => mod.State),
+      )
+    case AtomType.PageLink:
+      return dynamic(() =>
+        import('@codelab/frontend/shared').then((mod) => mod.PageLink),
       )
     default:
       return null

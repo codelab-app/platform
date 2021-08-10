@@ -9,6 +9,7 @@ import {
   FieldMapper,
   InterfaceTypeMapper,
   LambdaTypeMapper,
+  PageTypeMapper,
   PrimitiveTypeMapper,
   TypeMapperFactory,
 } from './mappers'
@@ -38,6 +39,7 @@ const mappers = [
   EnumTypeValueMapper,
   ArrayTypeMapper,
   LambdaTypeMapper,
+  PageTypeMapper,
 ]
 
 const services = [

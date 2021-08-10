@@ -7,4 +7,5 @@ export enum TypeKind {
   InterfaceType = 'InterfaceType',
   EnumType = 'EnumType',
   LambdaType = 'LambdaType',
+  PageType = 'PageType',
 }

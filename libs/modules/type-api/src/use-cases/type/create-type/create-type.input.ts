@@ -51,4 +51,7 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
 
   @Field(() => Boolean, { nullable: true })
   declare lambdaType?: boolean
+
+  @Field(() => Boolean, { nullable: true })
+  declare pageType?: boolean
 }

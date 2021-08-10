@@ -7,6 +7,7 @@ import { PropertiesSchema } from 'ajv/lib/types/json-schema'
 import { TypeModels } from '../../types/TypeModels'
 import { TypeTree } from '../../typeTree'
 import { SelectLambda } from '../fields/SelectLambda'
+import { SelectPage } from '../fields/SelectPage'
 
 export interface InterfaceToJsonSchemaTransformerOptions {
   /** Max amount of type nesting that's allowed, used to prevent infinite loops. Defaults to 100 */
@@ -125,6 +126,14 @@ export class InterfaceToJsonSchemaTransformer {
           type: 'string',
           uniforms: {
             component: SelectLambda,
+          },
+        }
+
+      case TypeModels.PageType:
+        return {
+          type: 'string',
+          uniforms: {
+            component: SelectPage,
           },
         }
       default:

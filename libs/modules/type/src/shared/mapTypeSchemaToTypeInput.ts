@@ -71,6 +71,8 @@ export const mapTypeSchemaToTypeInput = (
       }
     case TypeKind.LambdaType:
       return { ...common, lambdaType: true }
+    case TypeKind.PageType:
+      return { ...common, pageType: true }
   }
 
   throw new Error('Invalid form input')

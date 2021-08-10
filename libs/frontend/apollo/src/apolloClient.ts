@@ -45,6 +45,7 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
           'EnumType',
           'InterfaceType',
           'LambdaType',
+          'PageType',
         ],
         PropValue: [
           'ArrayValue',

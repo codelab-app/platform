@@ -161,6 +161,7 @@ export enum AtomType {
   TextList = 'TextList',
   Text = 'Text',
   State = 'State',
+  PageLink = 'PageLink',
   ReactFragment = 'ReactFragment',
   HtmlA = 'HtmlA',
   HtmlP = 'HtmlP',
@@ -323,6 +324,7 @@ export type CreateTypeInput = {
   enumType?: Maybe<CreateEnumTypeInput>
   interfaceType?: Maybe<Scalars['Boolean']>
   lambdaType?: Maybe<Scalars['Boolean']>
+  pageType?: Maybe<Scalars['Boolean']>
 }
 
 export type DeleteAppInput = {
@@ -699,6 +701,12 @@ export type PageByAppFilter = {
   appId: Scalars['String']
 }
 
+/** The PageType allows selecting a Page in the props form. The value is stored as the lambdaId  */
+export type PageType = Type & {
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
 export enum PrimitiveKind {
   String = 'String',
   Integer = 'Integer',
@@ -735,6 +743,8 @@ export type Query = {
   getLambdas: Array<Lambda>
   getTag: Tag
   getTags: Array<Tag>
+  /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
+  getTagGraph?: Maybe<TagGraph>
 }
 
 export type QueryGetAppArgs = {
@@ -797,10 +807,32 @@ export type QueryGetTagArgs = {
   input: GetTagInput
 }
 
+export type QueryGetTagGraphArgs = {
+  input: GetTagInput
+}
+
 export type Tag = {
   id: Scalars['ID']
   name: Scalars['String']
 }
+
+/** An edge between two element nodes */
+export type TagEdge = {
+  /** The id of the source Tag */
+  source: Scalars['String']
+  /** The id of the target Tag */
+  target: Scalars['String']
+  order?: Maybe<Scalars['Int']>
+}
+
+export type TagGraph = {
+  /** All descendant Elements or Components, at any level */
+  vertices: Array<TagVertex>
+  /** All the links connecting the descendant elements/components */
+  edges: Array<TagEdge>
+}
+
+export type TagVertex = Tag
 
 export type Type = {
   id: Scalars['ID']
@@ -836,6 +868,7 @@ export enum TypeKindFilter {
   InterfaceType = 'InterfaceType',
   EnumType = 'EnumType',
   LambdaType = 'LambdaType',
+  PageType = 'PageType',
 }
 
 export type TypeRef = {
@@ -1455,6 +1488,8 @@ export type __EnumTypeValueFragment = {
 
 export type __LambdaTypeFragment = { id: string; name: string }
 
+export type __PageTypeFragment = { id: string; name: string }
+
 export type __EnumTypeFragment = {
   id: string
   name: string
@@ -1492,6 +1527,12 @@ type __Type_LambdaType_Fragment = {
   name: string
 }
 
+type __Type_PageType_Fragment = {
+  __typename: 'PageType'
+  id: string
+  name: string
+}
+
 type __Type_PrimitiveType_Fragment = {
   __typename: 'PrimitiveType'
   id: string
@@ -1504,6 +1545,7 @@ export type __TypeFragment =
   | __Type_EnumType_Fragment
   | __Type_InterfaceType_Fragment
   | __Type_LambdaType_Fragment
+  | __Type_PageType_Fragment
   | __Type_PrimitiveType_Fragment
 
 export type __InterfaceFragment = { id: string; name: string }
@@ -1534,6 +1576,7 @@ export type __TypeGraphFragment = {
       }
     | { __typename: 'InterfaceType'; id: string; name: string }
     | { __typename: 'LambdaType'; id: string; name: string }
+    | { __typename: 'PageType'; id: string; name: string }
     | {
         __typename: 'PrimitiveType'
         id: string
@@ -1617,6 +1660,7 @@ export type GetTypeQuery = {
       }
     | { __typename: 'InterfaceType'; id: string; name: string }
     | { __typename: 'LambdaType'; id: string; name: string }
+    | { __typename: 'PageType'; id: string; name: string }
     | {
         __typename: 'PrimitiveType'
         id: string
@@ -1657,6 +1701,7 @@ export type GetTypeGraphQuery = {
         }
       | { __typename: 'InterfaceType'; id: string; name: string }
       | { __typename: 'LambdaType'; id: string; name: string }
+      | { __typename: 'PageType'; id: string; name: string }
       | {
           __typename: 'PrimitiveType'
           id: string
@@ -1686,6 +1731,7 @@ export type GetTypesQuery = {
       }
     | { __typename: 'InterfaceType'; id: string; name: string }
     | { __typename: 'LambdaType'; id: string; name: string }
+    | { __typename: 'PageType'; id: string; name: string }
     | {
         __typename: 'PrimitiveType'
         id: string
@@ -1839,6 +1885,12 @@ export const __TagFragmentDoc = gql`
 `
 export const __LambdaTypeFragmentDoc = gql`
   fragment __LambdaType on LambdaType {
+    id
+    name
+  }
+`
+export const __PageTypeFragmentDoc = gql`
+  fragment __PageType on PageType {
     id
     name
   }
@@ -4781,6 +4833,12 @@ export const __Tag = gql`
 `
 export const __LambdaType = gql`
   fragment __LambdaType on LambdaType {
+    id
+    name
+  }
+`
+export const __PageType = gql`
+  fragment __PageType on PageType {
     id
     name
   }

@@ -74,6 +74,14 @@ type LambdaType implements Type {
   name: String!
 }
 
+"""
+The PageType allows selecting a Page in the props form. The value is stored as the lambdaId 
+"""
+type PageType implements Type {
+  id: ID!
+  name: String!
+}
+
 type PrimitiveType implements Type {
   id: ID!
   name: String!
@@ -201,6 +209,7 @@ enum AtomType {
   TextList
   Text
   State
+  PageLink
   ReactFragment
   HtmlA
   HtmlP
@@ -516,6 +525,7 @@ enum TypeKindFilter {
   InterfaceType
   EnumType
   LambdaType
+  PageType
 }
 
 input TypesByNameFilter {
@@ -724,6 +734,7 @@ input CreateTypeInput {
   enumType: CreateEnumTypeInput
   interfaceType: Boolean
   lambdaType: Boolean
+  pageType: Boolean
 }
 
 input CreatePrimitiveTypeInput {

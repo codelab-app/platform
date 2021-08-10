@@ -5,6 +5,7 @@ import {
   isDgraphEnumType,
   isDgraphInterfaceType,
   isDgraphLambdaType,
+  isDgraphPageType,
   isDgraphPrimitiveType,
   Mapper,
 } from '@codelab/backend'
@@ -13,6 +14,7 @@ import { ArrayTypeMapper } from './array-type.mapper'
 import { EnumTypeMapper } from './enum-type.mapper'
 import { InterfaceTypeMapper } from './interface-type.mapper'
 import { LambdaTypeMapper } from './lambda-type.mapper'
+import { PageTypeMapper } from './page-type.mapper'
 import { PrimitiveTypeMapper } from './primitive-type.mapper'
 
 @Injectable()
@@ -23,6 +25,7 @@ export class TypeMapperFactory {
     private enumTypeMapper: EnumTypeMapper,
     private interfaceMapper: InterfaceTypeMapper,
     private lambdaTypeMapper: LambdaTypeMapper,
+    private pageTypeMapper: PageTypeMapper,
   ) {}
 
   getMapper(
@@ -46,6 +49,10 @@ export class TypeMapperFactory {
 
     if (isDgraphLambdaType(type)) {
       return this.lambdaTypeMapper
+    }
+
+    if (isDgraphPageType(type)) {
+      return this.pageTypeMapper
     }
 
     throw new Error(

@@ -69,6 +69,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
     enumType,
     arrayType,
     lambdaType,
+    pageType,
   }: CreateTypeInput) {
     if (interfaceType) {
       return DgraphEntityType.InterfaceType
@@ -88,6 +89,10 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
 
     if (lambdaType) {
       return DgraphEntityType.LambdaType
+    }
+
+    if (pageType) {
+      return DgraphEntityType.PageType
     }
 
     throw new Error("Bad request, can't parse CreateTypeInput")

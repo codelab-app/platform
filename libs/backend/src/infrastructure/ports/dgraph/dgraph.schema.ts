@@ -20,6 +20,7 @@ const {
   PrimitiveType,
   EnumTypeValue,
   LambdaType,
+  PageType,
   App,
   Component,
   Lambda,
@@ -88,6 +89,9 @@ export const dgraphSchema = `
   }
 
   type ${LambdaType} {
+  }
+
+  type ${PageType} {
   }
 
   type ${InterfaceType} {

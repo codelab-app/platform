@@ -15,4 +15,5 @@ export const TypeModels: TypeModelsType = {
   ArrayType: 'ArrayType',
   InterfaceType: 'InterfaceType',
   LambdaType: 'LambdaType',
+  PageType: 'PageType',
 }

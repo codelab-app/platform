@@ -30,6 +30,8 @@ const typenameToKind = (typename: string) => {
       return TypeKind.EnumType
     case TypeModels.LambdaType:
       return TypeKind.LambdaType
+    case TypeModels.PageType:
+      return TypeKind.PageType
   }
 
   throw new Error("Can't recognize typename of type")

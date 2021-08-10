@@ -45,6 +45,8 @@ export class GetTypesService extends DgraphUseCase<
         return DgraphEntityType.EnumType
       case TypeKind.LambdaType:
         return DgraphEntityType.LambdaType
+      case TypeKind.PageType:
+        return DgraphEntityType.PageType
       default:
         throw new Error('Unrecognized type kind option')
     }
