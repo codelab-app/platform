@@ -9,7 +9,7 @@ import {
   GetAtomQueryVariables,
 } from '@codelab/codegen/graphql'
 import { GraphQLClient } from 'graphql-request'
-import { createIfNotExisting } from './createIfNotExisting'
+import { createIfMissing } from '../utils/createIfMissing'
 
 /**
  * Handle seeding of atoms
@@ -21,15 +21,14 @@ export class AtomSeeder {
    * Checks if an Atom with the same AtomType exists, if not - creates it
    * Returns the id in both cases
    */
-  async seedAtomIfNotExisting(input: CreateAtomInput): Promise<string> {
-    return createIfNotExisting(
-      input,
-      () => this.getAtomByType(input.type),
-      () => this.createAtom(input),
+  async seedAtomIfMissing(atom: CreateAtomInput): Promise<string> {
+    return createIfMissing(
+      () => this.getAtomByType(atom.type),
+      () => this.createAtom(atom),
     )
   }
 
-  getAtomByType(atomType: AtomType) {
+  private getAtomByType(atomType: AtomType) {
     return this.client
       .request<GetAtomQuery, GetAtomQueryVariables>(GetAtomGql, {
         input: { byType: { atomType } },

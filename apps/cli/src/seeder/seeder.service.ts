@@ -5,14 +5,14 @@ import {
   serverConfig,
 } from '@codelab/backend'
 import { AtomTypeEnum } from '@codelab/modules/atom-api'
+import { snakeCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable } from '@nestjs/common'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
-import { AtomSeeder } from './seedHelpers/atom-seeder'
-import { iterateCsvs } from './seedHelpers/iterateCsvs'
-import { snakeCaseToWords } from './seedHelpers/snakeCaseToWords'
-import { TypeSeeder } from './seedHelpers/type-seeder'
+import { AtomSeeder } from './models/atom-seeder'
+import { TypeSeeder } from './models/type-seeder'
+import { iterateCsvs } from './utils/iterateCsvs'
 
 /**
  * Idea to improve data management:
@@ -62,7 +62,7 @@ export class SeederService {
     const allAtoms = await Promise.all(
       Object.values(AtomTypeEnum).map((atomType) =>
         atomSeeder
-          .seedAtomIfNotExisting({
+          .seedAtomIfMissing({
             type: atomType as any,
             name: snakeCaseToWords(atomType),
           })

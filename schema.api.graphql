@@ -292,11 +292,6 @@ type Element {
   props: String!
 }
 
-type Component {
-  id: ID!
-  name: String!
-}
-
 """An edge between two element nodes"""
 type ElementEdge {
   """The id of the source Element/Component"""
@@ -307,15 +302,20 @@ type ElementEdge {
   order: Int
 }
 
+type Component {
+  id: ID!
+  name: String!
+}
+
 type ElementGraph {
   """All descendant Elements or Components, at any level"""
-  vertices: [ElementGraphVertex!]!
+  vertices: [ElementVertex!]!
 
   """All the links connecting the descendant elements/components"""
   edges: [ElementEdge!]!
 }
 
-union ElementGraphVertex = Element | Component
+union ElementVertex = Element | Component
 
 type Lambda {
   id: ID!
@@ -338,6 +338,26 @@ type Tag {
   id: ID!
   name: String!
 }
+
+"""An edge between two element nodes"""
+type TagEdge {
+  """The id of the source Tag"""
+  source: String!
+
+  """The id of the target Tag"""
+  target: String!
+  order: Int
+}
+
+type TagGraph {
+  """All descendant Elements or Components, at any level"""
+  vertices: [TagVertex!]!
+
+  """All the links connecting the descendant elements/components"""
+  edges: [TagEdge!]!
+}
+
+union TagVertex = Tag
 
 type User {
   blocked: Boolean
@@ -387,6 +407,11 @@ type Query {
   getLambdas: [Lambda!]!
   getTag(input: GetTagInput!): Tag!
   getTags: [Tag!]!
+
+  """
+  Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
+  """
+  getTagGraph(input: GetTagInput!): TagGraph
 }
 
 input GetAppInput {

@@ -7,8 +7,9 @@ import {
 } from '@codelab/backend'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { TagGraph } from './models'
+import { Tag } from './models/tag.model'
 import { TagMapper } from './tag.mapper'
-import { Tag } from './tag.model'
 import { CreateTagInput, CreateTagService } from './use-cases/create-tag'
 import { DeleteTagInput, DeleteTagService } from './use-cases/delete-tag'
 import { GetTagInput, GetTagService } from './use-cases/get-tag'
@@ -65,5 +66,15 @@ export class TagResolver {
   @UseGuards(GqlAuthGuard)
   deleteTag(@Args('input') input: DeleteTagInput) {
     return this.deleteTagService.execute({ input })
+  }
+
+  @Query(() => TagGraph, {
+    nullable: true,
+    description:
+      'Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge',
+  })
+  @UseGuards(GqlAuthGuard)
+  async getTagGraph(@Args('input') input: GetTagInput) {
+    //
   }
 }

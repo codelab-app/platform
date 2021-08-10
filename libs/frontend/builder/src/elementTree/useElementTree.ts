@@ -1,5 +1,5 @@
 import { ElementGraphFragment } from '@codelab/codegen/graphql'
-import { ElementGraphTreeAdapter } from './ElemenGraphTreeAdapter'
+import { ElementGraphTreeAdapter } from './ElementGraphTreeAdapter'
 import { ElementTree } from './ElementTree'
 
 /**

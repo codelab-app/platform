@@ -7,7 +7,7 @@ export const UpdateTagModal = () => {
     <CrudModal
       entityType={EntityType.Tag}
       actionType={ActionType.Update}
-      okText="Tag"
+      okText="Update Tag"
       renderForm={() => <UpdateTagForm />}
     />
   )

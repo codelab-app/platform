@@ -21,11 +21,11 @@ import {
   PrimitiveKind,
   TypeRef,
 } from '@codelab/codegen/graphql'
+import { snakeCaseToWords } from '@codelab/shared/utils'
 import { GraphQLClient } from 'graphql-request'
 import { baseTypeCreateInputs } from '../data/baseTypeCreateInputs'
 import { primitiveTypeCreateInputs } from '../data/primitiveTypeCreateInputs'
-import { createIfNotExisting } from './createIfNotExisting'
-import { snakeCaseToWords } from './snakeCaseToWords'
+import { createIfMissing } from '../utils/createIfMissing'
 
 /**
  * Handle seeding of types
@@ -38,13 +38,15 @@ export class TypeSeeder {
   constructor(private client: GraphQLClient) {}
 
   public async seedBaseTypes() {
-    this.baseTypes = await this.seedIfMissing(baseTypeCreateInputs)
+    this.baseTypes = await this.seedIfNotExisting(baseTypeCreateInputs)
 
     return this.baseTypes
   }
 
   public async seedPrimitiveTypes() {
-    this.primitiveTypes = await this.seedIfMissing(primitiveTypeCreateInputs)
+    this.primitiveTypes = await this.seedIfNotExisting(
+      primitiveTypeCreateInputs,
+    )
 
     return this.primitiveTypes
   }
@@ -54,7 +56,7 @@ export class TypeSeeder {
    * Those that are missing are created
    * Returns a map of all input type names and their ids
    */
-  private async seedIfMissing(
+  private async seedIfNotExisting(
     inputs: Array<CreateTypeInput>,
   ): Promise<Map<string, string>> {
     const results = await Promise.all(
@@ -74,8 +76,7 @@ export class TypeSeeder {
    * Returns the id in both cases
    */
   private async seedTypeIfNotExisting(input: CreateTypeInput): Promise<string> {
-    return createIfNotExisting(
-      input,
+    return createIfMissing(
       () => this.getTypeByName(input.name),
       () => this.createType(input),
     )

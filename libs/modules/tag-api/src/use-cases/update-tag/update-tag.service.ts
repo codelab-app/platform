@@ -1,16 +1,6 @@
-import {
-  DgraphApp,
-  DgraphCreateMutationJson,
-  DgraphCreateUseCase,
-  DgraphEntityType,
-  DgraphTag,
-  DgraphUseCase,
-  jsonMutation,
-} from '@codelab/backend'
+import { DgraphTag, DgraphUseCase, jsonMutation } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
-import { Tag } from '../../tag.model'
-import { UpdateTagInput } from './update-tag.input'
 import { UpdateTagRequest } from './update-tag.request'
 
 @Injectable()

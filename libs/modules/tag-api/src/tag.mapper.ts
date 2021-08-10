@@ -1,6 +1,6 @@
 import { DgraphTag, Mapper } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
-import { Tag } from './tag.model'
+import { Tag } from './models/tag.model'
 
 @Injectable()
 export class TagMapper implements Mapper<DgraphTag, Tag> {

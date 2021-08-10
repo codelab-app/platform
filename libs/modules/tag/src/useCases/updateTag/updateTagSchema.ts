@@ -10,4 +10,4 @@ export const updateTagSchema: JSONSchemaType<UpdateTagData> = {
     },
   },
   required: ['name'],
-} as const
+}

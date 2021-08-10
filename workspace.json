@@ -700,6 +700,48 @@
         }
       }
     },
+    "shared-operations": {
+      "root": "libs/shared/operations",
+      "sourceRoot": "libs/shared/operations/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/operations/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/operations"],
+          "options": {
+            "jestConfig": "libs/shared/operations/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-utils": {
+      "root": "libs/shared/utils",
+      "sourceRoot": "libs/shared/utils/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/utils/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/utils"],
+          "options": {
+            "jestConfig": "libs/shared/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "tools-plugins-codelab": {
       "root": "libs/tools/plugins/codelab",
       "sourceRoot": "libs/tools/plugins/codelab/src",
@@ -723,6 +765,8 @@
           "builder": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
+            // https://github.com/nrwl/nx/issues/1765#issuecomment-867653579
+            "srcRootForCompilationRoot": "",
             "outputPath": "dist/libs/tools/plugins/codelab",
             "tsConfig": "libs/tools/plugins/codelab/tsconfig.lib.json",
             "packageJson": "libs/tools/plugins/codelab/package.json",

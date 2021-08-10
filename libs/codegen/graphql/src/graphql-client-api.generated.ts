@@ -385,12 +385,12 @@ export type ElementEdge = {
 
 export type ElementGraph = {
   /** All descendant Elements or Components, at any level */
-  vertices: Array<ElementGraphVertex>
+  vertices: Array<ElementVertex>
   /** All the links connecting the descendant elements/components */
   edges: Array<ElementEdge>
 }
 
-export type ElementGraphVertex = Element | Component
+export type ElementVertex = Element | Component
 
 export type EnumType = Type & {
   id: Scalars['ID']

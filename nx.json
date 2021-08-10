@@ -122,6 +122,12 @@
     "modules-user-api": {
       "tags": []
     },
+    "shared-operations": {
+      "tags": []
+    },
+    "shared-utils": {
+      "tags": []
+    },
     "tools-plugins-codelab": {
       "tags": []
     },

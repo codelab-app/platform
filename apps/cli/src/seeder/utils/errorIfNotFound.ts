@@ -1,6 +1,6 @@
 import { ErrorCode } from '@codelab/backend'
 
-export const errorIsNotFound = (e: any) => {
+export const errorIfNotFound = (e: any) => {
   return (
     Array.isArray(e.response?.errors) &&
     e.response?.errors.length > 0 &&

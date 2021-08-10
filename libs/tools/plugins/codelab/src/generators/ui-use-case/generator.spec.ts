@@ -8,9 +8,8 @@ import { UseCaseType } from './useCaseType'
 describe('ui-use-case generator', () => {
   const options: UiUseCaseGeneratorSchema = {
     name: 'modules-user',
-    useCase: 'createUser',
     model: 'user',
-    useCaseType: UseCaseType.Create,
+    useCaseTypes: [UseCaseType.Create],
   }
 
   it('should throw an error for a missing module name', async () => {

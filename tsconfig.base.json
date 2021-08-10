@@ -2,6 +2,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
+    // https://github.com/nrwl/nx/issues/1765#issuecomment-867653579
+    "rootDirs": ["*", "libs"],
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -50,6 +52,8 @@
       "@codelab/modules/type-api": ["libs/modules/type-api/src/index.ts"],
       "@codelab/modules/user": ["libs/modules/user/src/index.ts"],
       "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"],
+      "@codelab/shared/operations": ["libs/shared/operations/src/index.ts"],
+      "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
       ],

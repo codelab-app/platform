@@ -1,0 +1,19 @@
+import { PlusOutlined } from '@ant-design/icons'
+import { EntityType, useCrudModalForm, UpdateButtonProps } from '@codelab/frontend/shared'
+import { Button } from 'antd'
+
+export const <%= useCasePC %>Button = ({ id, disabled }: UpdateButtonProps) => {
+  const { openUpdateModal } = useCrudModalForm(EntityType.<%= modelPC %>)
+
+  return (
+    <Button
+      size="small"
+      type="primary"
+      disabled={disabled}
+      onClick={() => openUpdateModal(id)}
+      icon={<PlusOutlined />}
+    >
+      <%= useCaseTC %>
+    </Button>
+  )
+}

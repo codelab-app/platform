@@ -1,5 +1,4 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics'
-import * as v from 'voca'
 
 export const dirExists = (tree: Tree, path: string) => {
   return tree.getDir(path).subfiles.length > 0
@@ -16,15 +15,6 @@ export const removeFiles = (filesToRemove: Array<string>): Rule => {
     })
   }
 }
-
-export const toTitleCase = (value: string) => v.chain(value).titleCase().value()
-
-export const toPascalCase = (value: string) =>
-  v.chain(value).camelCase().capitalize().value()
-
-export const toCamelCase = (value: string) => v.chain(value).camelCase().value()
-
-export const toKebabCase = (value: string) => v.chain(value).kebabCase().value()
 
 export type BaseNormalizedSchema = {
   projectName: string

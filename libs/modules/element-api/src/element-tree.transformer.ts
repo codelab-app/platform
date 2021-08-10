@@ -11,7 +11,7 @@ import { Injectable } from '@nestjs/common'
 import cytoscape from 'cytoscape'
 import { ComponentMapper } from './component'
 import { ElementMapper } from './element.mapper'
-import { ElementEdge, ElementGraph, ElementGraphVertex } from './models'
+import { ElementEdge, ElementGraph, ElementVertex } from './models'
 
 @Injectable()
 export class ElementTreeTransformer {
@@ -112,7 +112,7 @@ export class ElementTreeTransformer {
     })
 
     const { edges, vertices } = await this.cytoscapeService.treeToGraph<
-      ElementGraphVertex,
+      ElementVertex,
       ElementEdge
     >(
       cy,

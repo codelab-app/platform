@@ -1,0 +1,14 @@
+import { ActionType, CrudModal, EntityType } from '@codelab/frontend/shared'
+import React from 'react'
+import { <%= useCasePC %>Form } from './<%= useCasePC %>Form'
+
+export const <%= useCasePC %>Modal = () => {
+  return (
+    <CrudModal
+      entityType={EntityType.<%= modelPC %>}
+      actionType={ActionType.<%= useCaseTypePC %>}
+      okText="<%= useCaseTC %>"
+      renderForm={() => <<%= useCasePC %>Form />}
+    />
+  )
+}

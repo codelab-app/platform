@@ -10,6 +10,7 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/shared'
+import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { createTagSchema } from './createTagSchema'
 

@@ -2,27 +2,43 @@ import { UseCaseType } from './useCaseType'
 
 export interface UiUseCaseGeneratorSchema {
   name: string
-  useCase: string
+  // useCase: string
   model: string
   overwrite?: boolean
-  tags?: string
+  // tags?: string
   directory?: string
-  useCaseType: UseCaseType
+  useCaseTypes: Array<UseCaseType>
 }
 
+export interface UseCaseInfo {
+  // use case
+  useCasePC: string
+  useCaseCC: string
+  useCaseTC: string
+
+  // use case type
+  useCaseTypeCC: string
+  useCaseTypePC: string
+
+  // CreateAppInput, UpdateAppData etc.
+  // update uses a different name
+  inputType: string
+  useCaseErrorMessage: string
+}
+
+/**
+ * CC - camelCase
+ * PC - PascalCase
+ * TC - Title Case
+ * KB - kebab-case
+ */
 export interface NormalizedSchema extends UiUseCaseGeneratorSchema {
   projectName: string
   projectRoot: string
   projectDirectory: string
-  parsedTags: Array<string>
-  modelCamelCase: string
-  modelPascalCase: string
+  // parsedTags: Array<string>
 
-  // use case
-  useCasePascalCase: string
-  useCaseCamelCase: string
-  useCaseTitleCase: string
-
-  // use case type
-  useCaseType: string
+  useCaseConfigs: Array<UseCaseInfo>
+  modelCC: string
+  modelPC: string
 }
