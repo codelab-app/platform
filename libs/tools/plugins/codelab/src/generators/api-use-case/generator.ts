@@ -1,4 +1,3 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { toCamelCase, toKebabCase, toPascalCase } from '@codelab/shared/utils'
 import {
   formatFiles,
