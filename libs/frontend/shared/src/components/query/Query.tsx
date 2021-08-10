@@ -68,11 +68,7 @@ export const Query = ({ key, lambda, children }: QueryProps) => {
   return (
     <>
       {React.Children.map(children, (child) =>
-        child
-          ? React.cloneElement(child, {
-              dataSource: data,
-            })
-          : null,
+        child ? React.cloneElement(child, data) : null,
       )}
     </>
   )
