@@ -104,6 +104,9 @@
     "modules-style": {
       "tags": []
     },
+    "modules-tag": {
+      "tags": []
+    },
     "modules-tag-api": {
       "tags": []
     },
@@ -117,6 +120,12 @@
       "tags": []
     },
     "modules-user-api": {
+      "tags": []
+    },
+    "shared-operations": {
+      "tags": []
+    },
+    "shared-utils": {
       "tags": []
     },
     "tools-plugins-codelab": {

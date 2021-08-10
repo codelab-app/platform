@@ -1,0 +1,17 @@
+import { PlusOutlined } from '@ant-design/icons'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
+import { Button } from 'antd'
+
+export const <%= useCasePC %>Button = () => {
+  const { open<%= useCaseTypePC %>Modal } = useCrudModalForm(EntityType.<%= modelPC %>)
+
+  return (
+    <Button
+      type="primary"
+      onClick={() => open<%= useCaseTypePC %>Modal()}
+      icon={<PlusOutlined />}
+    >
+      <%= useCaseTC %>
+    </Button>
+  )
+}

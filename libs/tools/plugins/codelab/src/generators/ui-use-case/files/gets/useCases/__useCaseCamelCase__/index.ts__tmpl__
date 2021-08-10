@@ -1,0 +1,2 @@
+export * from './<%= useCasePascalCase %>Form'
+export * from './<%= useCasePascalCase %>Modal'

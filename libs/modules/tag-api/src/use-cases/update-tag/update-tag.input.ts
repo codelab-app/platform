@@ -1,10 +1,8 @@
-import { Field, InputType, PartialType, PickType } from '@nestjs/graphql'
+import { Field, InputType, PickType } from '@nestjs/graphql'
 import { CreateTagInput } from '../create-tag'
 
 @InputType()
-export class UpdateTagData extends PartialType(
-  PickType(CreateTagInput, ['name']),
-) {}
+export class UpdateTagData extends PickType(CreateTagInput, ['name']) {}
 
 @InputType()
 export class UpdateTagInput {

@@ -1,7 +1,6 @@
-import { errorIsNotFound } from './errorIsNotFound'
+import { errorIfNotFound } from './errorIfNotFound'
 
-export const createIfNotExisting = async <TIn, TOut>(
-  input: TIn,
+export const createIfMissing = async <TOut>(
   get: () => Promise<TOut | null | undefined>,
   create: () => Promise<TOut>,
 ): Promise<TOut> => {
@@ -14,7 +13,7 @@ export const createIfNotExisting = async <TIn, TOut>(
 
     return found
   } catch (e) {
-    if (errorIsNotFound(e)) {
+    if (errorIfNotFound(e)) {
       return create()
     }
 

@@ -1,0 +1,18 @@
+import { DeleteOutlined } from '@ant-design/icons'
+import { EntityType, useCrudModalForm, DeleteButtonProps } from '@codelab/frontend/shared'
+import { Button } from 'antd'
+
+export const <%= useCasePC %>Button = ({ ids, disabled }: DeleteButtonProps) => {
+  const { openDeleteModal } = useCrudModalForm(EntityType.<%= modelPC %>)
+
+  return (
+    <Button
+      size="small"
+      danger
+      type="primary"
+      disabled={disabled}
+      icon={<DeleteOutlined />}
+      onClick={() => openDeleteModal(ids) }
+    />
+  )
+}

@@ -1,0 +1,59 @@
+import {
+  <%= useCasePascalCase %>Input,
+  refetchGet<%= modelPascalCase %>sQuery,
+  use<%= useCasePascalCase %>Mutation,
+} from '@codelab/codegen/graphql'
+import {
+  createNotificationHandler,
+  EntityType,
+  FormUniforms,
+  UniFormUseCaseProps,
+  useCrudModalMutationForm,
+} from '@codelab/frontend/shared'
+import React from 'react'
+import { AutoFields } from 'uniforms-antd'
+import { <%= useCaseCamelCase %>Schema } from './<%= useCaseCamelCase %>Schema'
+
+export const <%= useCasePascalCase %>Form = (props: UniFormUseCaseProps<
+  <% if (useCaseType === 'Update') { %>
+    <%= useCasePascalCase %>Data>
+  <% } else { %>
+    <%= useCasePascalCase %>Input>
+  <% } %>
+) => {
+  const {
+    crudModal: { reset },
+    handleSubmit,
+  } = useCrudModalMutationForm({
+    entityType: EntityType.<%= modelPascalCase %>,
+    useMutationFunction: use<%= useCasePascalCase %>Mutation,
+    mutationOptions: { refetchQueries: [refetchGet<%= modelPascalCase %>sQuery()] },
+    mapVariables: ({ name }:
+      <% if (useCaseType === 'Update') { %>
+        <%= useCasePascalCase %>Data>
+      <% } else { %>
+        <%= useCasePascalCase %>Input>
+      <% } %>
+    ) => ({ input: { name } }),
+  })
+
+  return (
+    <FormUniforms<
+        <% if (useCaseType === 'Update') { %>
+          <%= useCasePascalCase %>Data>
+        <% } else { %>
+          <%= useCasePascalCase %>Input>
+        <% } %>
+      >
+      onSubmit={handleSubmit}
+      schema={<%= useCaseCamelCase %>Schema}
+      onSubmitError={createNotificationHandler({
+        title: 'Error while creating <%= modelCamelCase %>',
+      })}
+      onSubmitSuccess={() => reset()}
+      {...props}
+    >
+      <AutoFields />
+    </FormUniforms>
+  )
+}

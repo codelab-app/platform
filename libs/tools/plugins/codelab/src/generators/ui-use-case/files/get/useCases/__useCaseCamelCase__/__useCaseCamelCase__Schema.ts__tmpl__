@@ -1,0 +1,13 @@
+import { <%= useCasePascalCase %>Data } from '@codelab/codegen/graphql'
+import { JSONSchemaType } from 'ajv'
+
+export const <%= useCaseCamelCase %>Schema: JSONSchemaType<<%= useCasePascalCase %>Data> = {
+  title: '<%= useCaseTitleCase %> Input',
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+    },
+  },
+  required: ['name'],
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "cli": "nx",
+  "id": "UiUseCase",
+  "title": "",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "E.g. \"modules-app\", this is the name of this React module",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What ui module library is this for?"
+    },
+    // "useCase": {
+    //   "description": "E.g. \"createApp\", use lower camel case",
+    //   "x-prompt": "What name would you like to use for the use case?"
+    // },
+    "model": {
+      "type": "string",
+      "description": "E.g. \"app\", use lower case",
+      "x-prompt": "What model is this for?"
+    },
+    // "tags": {
+    //   "type": "string",
+    //   "description": "Add tags to the project (used for linting)",
+    //   "alias": "t"
+    // },
+    // "overwrite": {
+    //   "type": "boolean",
+    //   "description": "Overwite existing files?",
+    //   "default": false
+    // },
+    // "directory": {
+    //   "type": "string",
+    //   "description": "A directory where the project is placed",
+    //   "alias": "d"
+    // },
+    "useCaseTypes": {
+      "type": "array",
+      "description": "Use case type",
+      "items": {
+        "type": "string",
+        "enum": ["create", "update", "delete", "get", "gets"]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "x-prompt": {
+        "message": "What type of use case is this?",
+        "type": "list",
+        "items": [
+          {
+            "value": "create",
+            "label": "create use case"
+          },
+          {
+            "value": "update",
+            "label": "update use case"
+          },
+          {
+            "value": "delete",
+            "label": "delete use case"
+          },
+          {
+            "value": "get",
+            "label": "get use case"
+          }
+        ]
+      }
+    }
+  },
+  "required": ["name", "model", "useCaseTypes"]
+}

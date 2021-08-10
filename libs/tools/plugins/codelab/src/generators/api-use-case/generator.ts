@@ -1,3 +1,4 @@
+import { toCamelCase, toKebabCase, toPascalCase } from '@codelab/shared/utils'
 import {
   formatFiles,
   generateFiles,
@@ -7,16 +8,8 @@ import {
   Tree,
 } from '@nrwl/devkit'
 import * as path from 'path'
-import { toCamelCase, toKebabCase, toPascalCase } from '../../utils/files'
 import { ApiUseCaseGeneratorSchema, NormalizedSchema } from './schema'
-import { UseCaseType } from './useCaseType'
-
-const useCaseToClassMap: Record<UseCaseType, string> = {
-  [UseCaseType.Regular]: 'UseCase',
-  [UseCaseType.Dgraph]: 'DgraphUseCase',
-  [UseCaseType.Mutation]: 'MutationUseCase',
-  [UseCaseType.Query]: 'QueryUseCase',
-}
+import { useCaseToClassMap, UseCaseType } from './useCaseType'
 
 const normalizeOptions = (
   host: Tree,
@@ -72,7 +65,7 @@ const addFiles = (host: Tree, options: NormalizedSchema) => {
     ...options,
     ...names(options.name),
     offsetFromRoot: offsetFromRoot(options.projectRoot),
-    template: '',
+    tmpl: '',
   }
 
   generateFiles(

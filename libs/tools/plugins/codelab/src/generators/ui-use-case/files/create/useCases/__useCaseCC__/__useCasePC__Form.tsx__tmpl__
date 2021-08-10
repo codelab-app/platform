@@ -1,0 +1,41 @@
+import {
+  <%= inputType %>,
+  refetchGet<%= modelPC %>sQuery,
+  use<%= useCasePC %>Mutation,
+} from '@codelab/codegen/graphql'
+import {
+  createNotificationHandler,
+  EntityType,
+  FormUniforms,
+  UniFormUseCaseProps,
+  useCrudModalMutationForm,
+} from '@codelab/frontend/shared'
+import React from 'react'
+import { AutoFields } from 'uniforms-antd'
+import { <%= useCaseCC %>Schema } from './<%= useCaseCC %>Schema'
+
+export const <%= useCasePC %>Form = (props: UniFormUseCaseProps<<%= inputType %>>) => {
+  const {
+    crudModal: { reset, state: { metadata } },
+    handleSubmit,
+  } = useCrudModalMutationForm({
+    entityType: EntityType.<%= modelPC %>,
+    useMutationFunction: use<%= useCasePC %>Mutation,
+    mutationOptions: { refetchQueries: [refetchGet<%= modelPC %>sQuery()] },
+    mapVariables: ({ name }: <%= inputType %>, state) => ({ input: { name } }),
+  })
+
+  return (
+    <FormUniforms<<%= inputType %>>
+      onSubmit={handleSubmit}
+      schema={<%= useCaseCC %>Schema}
+      onSubmitError={createNotificationHandler({
+        title: '<%= useCaseErrorMessage %>',
+      })}
+      onSubmitSuccess={() => reset()}
+      {...props}
+    >
+      <AutoFields />
+    </FormUniforms>
+  )
+}
