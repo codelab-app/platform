@@ -4,7 +4,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 
 export interface QueryProps {
-  key: string
+  queryKey: string
   /** The id of the lambda that will execute the query */
   lambda: string
   children: React.ReactElement
@@ -16,11 +16,11 @@ export type QueryData = Array<any>
  * Custom component for Codelab.ai
  * @returns
  */
-export const Query = ({ key, lambda, children }: QueryProps) => {
+export const Query = ({ queryKey, lambda, children }: QueryProps) => {
   const [executeLambdaMutation] = useExecuteLambdaMutation()
 
   const { isLoading, isError, data, error } = useQuery<QueryData>(
-    key,
+    queryKey,
     (context) => {
       if (!lambda) {
         return Promise.resolve({})
@@ -51,8 +51,6 @@ export const Query = ({ key, lambda, children }: QueryProps) => {
     },
   )
 
-  console.log(data)
-
   if (isLoading) {
     return <Spin />
   }
@@ -68,11 +66,7 @@ export const Query = ({ key, lambda, children }: QueryProps) => {
   return (
     <>
       {React.Children.map(children, (child) =>
-        child
-          ? React.cloneElement(child, {
-              dataSource: data,
-            })
-          : null,
+        child ? React.cloneElement(child, data) : null,
       )}
     </>
   )
