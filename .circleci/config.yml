@@ -310,8 +310,13 @@ jobs:
           name: 'Commitlint'
           command: |
             echo $CIRCLE_BASE_REVISION
+            echo `git branch -r --contains ${CIRCLE_BASE_REVISION}`
+
             echo $CIRCLE_REVISION
+            echo `git branch -r --contains ${$CIRCLE_REVISION}`
+
             echo $CIRCLE_SHA1
+            echo `git branch -r --contains ${$CIRCLE_SHA1}`
             ./scripts/lint/commitlint-ci.sh
       - notify-failure
 
@@ -475,6 +480,9 @@ workflows:
           context: CI
           e: docker-node
           requires:
+            - lint
+            - unit
+            - integration
             - e2e
 
   app-staging:
@@ -571,7 +579,6 @@ workflows:
           context: CI
           requires:
             - build-docker-prod
-
       - notify-success:
           <<: *filters-prod
           e: docker-node
