@@ -1,10 +1,9 @@
-import { D3Link } from '../Graph.i'
+import { D3Link, LinkHandlers } from '../graph.interface'
 import {
   LINK_LABEL_CLASS,
   LINK_PATH_CLASS,
-  LinkHandlers,
   LinkSelection,
-} from './Graph-links'
+} from './graph-links.interface'
 
 /**
  * Enter link is called once, to initialize the DOM

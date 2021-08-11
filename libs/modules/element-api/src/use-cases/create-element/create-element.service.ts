@@ -37,11 +37,11 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
     const order = await this.getOrder(input)
 
     return await this.dgraph.create(txn, (blankNodeUid) =>
-      this.createMutation({ ...input, order }, blankNodeUid),
+      CreateElementService.createMutation({ ...input, order }, blankNodeUid),
     )
   }
 
-  private createMutation(
+  private static createMutation(
     { parentElementId, order, name, atomId, componentId }: CreateElementInput,
     blankNodeUid: string,
   ) {

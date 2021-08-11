@@ -8,9 +8,9 @@ import {
   CreateElementGql,
   CreateElementInput,
   CreateElementMutation,
-  GetElementGraphGql,
-  GetElementGraphInput,
-  GetElementGraphQuery,
+  GetElementGql,
+  GetElementInput,
+  GetElementQuery,
   UpdateElementPropsGql,
   UpdateElementPropsInput,
 } from '@codelab/codegen/graphql'
@@ -65,9 +65,9 @@ describe('UpdateElementProps', () => {
       )
 
       const { getElement: element } = await domainRequest<
-        GetElementGraphInput,
-        GetElementGraphQuery
-      >(userApp, GetElementGraphGql, { elementId })
+        GetElementInput,
+        GetElementQuery
+      >(userApp, GetElementGql, { elementId })
 
       expect(element).toBeDefined()
       expect(element?.props).toBe(updatePropsInput.props)

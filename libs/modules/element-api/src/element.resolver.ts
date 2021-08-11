@@ -24,13 +24,14 @@ import {
   UpdateElementPropsService,
   UpdateElementService,
 } from './use-cases'
+import { GetElementInput } from './use-cases/get-element/get-element.input'
 
 @Resolver(() => Element)
 @Injectable()
 export class ElementResolver {
   constructor(
     private createElementService: CreateElementService,
-    private getElementTreeService: GetElementGraphService,
+    private getElementGraphService: GetElementGraphService,
     private deleteElementService: DeleteElementService,
     private updateElementService: UpdateElementService,
     private moveElementService: MoveElementService,
@@ -58,12 +59,32 @@ export class ElementResolver {
     @Args('input') input: GetElementGraphInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    const dgraphElement = await this.getElementTreeService.execute({
+    const dgraphElement = await this.getElementGraphService.execute({
       input,
       currentUser,
     })
 
-    return this.elementTreeTransformer.transform(dgraphElement)
+    return await this.elementTreeTransformer.transform(dgraphElement)
+  }
+
+  @Query(() => Element, {
+    nullable: true,
+    description: 'Get a single element.',
+  })
+  @UseGuards(GqlAuthGuard)
+  /**
+   * Same as GetElementGraph, except we map the data differently
+   */
+  async getElement(
+    @Args('input') input: GetElementInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    const dgraphElement = await this.getElementGraphService.execute({
+      input,
+      currentUser,
+    })
+
+    return this.elementMapper.map(dgraphElement)
   }
 
   @Mutation(() => Void, { nullable: true })

@@ -1,7 +1,5 @@
 import { SimulationLinkDatum, SimulationNodeDatum } from 'd3-force'
 import { Canvas } from '../Canvas.i'
-import { LinkHandlers } from './links/Graph-links'
-import { NodeHandlers } from './nodes/Graph-nodes'
 
 export enum NodeType {
   User = 'User',
@@ -21,7 +19,7 @@ export enum LinkType {
   Default = 'Default',
 }
 
-interface D3Base {
+export interface D3Base {
   id: string
   label?: string
 }
@@ -32,6 +30,14 @@ export interface D3Node extends D3Base, SimulationNodeDatum {
 }
 
 export interface D3Link extends D3Base, SimulationLinkDatum<D3Node> {}
+
+export type LinkHandlers = {
+  onClick: (...args: any) => any
+}
+
+export type NodeHandlers = {
+  onClick: (...args: any) => any
+}
 
 export type D3GraphProps = {
   nodes: Array<D3Node>

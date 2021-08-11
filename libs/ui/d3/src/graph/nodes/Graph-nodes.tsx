@@ -1,10 +1,6 @@
 import { Selection, ValueFn } from 'd3'
 import * as color from 'material-ui-colors'
-import { D3Node, NodeType } from '../Graph.i'
-
-export type NodeHandlers = {
-  onClick: (...args: any) => any
-}
+import { D3Node, NodeType } from '../graph.interface'
 
 export type NodeSelection = Selection<SVGGElement, D3Node, any, D3Node>
 

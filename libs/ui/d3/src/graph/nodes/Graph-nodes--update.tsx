@@ -1,4 +1,4 @@
-import { D3Node } from '../Graph.i'
+import { D3Node } from '../graph.interface'
 import { labelOffset, vertexRadius } from '../variables/Graph-variables'
 import { NodeSelection } from './Graph-nodes'
 

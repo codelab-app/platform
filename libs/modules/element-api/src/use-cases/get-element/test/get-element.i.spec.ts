@@ -14,15 +14,27 @@ import {
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../element.module'
-import { createElementInput } from './create-element.data'
+import { createElementInput } from '../../create-element/test/create-element.data'
 
-describe('CreateElement', () => {
+describe('GetElement', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
+  let elementId: string
+  let getElementInput: GetElementInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ElementModule], { role: Role.GUEST })
     userApp = await setupTestModule([ElementModule], { role: Role.USER })
+
+    const results = await domainRequest<
+      CreateElementInput,
+      CreateElementMutation
+    >(userApp, CreateElementGql, createElementInput)
+
+    elementId = results.createElement.id
+    getElementInput = { elementId }
+
+    expect(elementId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -31,33 +43,25 @@ describe('CreateElement', () => {
   })
 
   describe('Guest', () => {
-    it('should fail to create an element', async () => {
-      await domainRequest(guestApp, CreateElementGql, createElementInput, {
+    it('should fail to get an element', async () => {
+      await domainRequest(guestApp, GetElementGql, getElementInput, {
         message: 'Unauthorized',
       })
     })
   })
 
   describe('User', () => {
-    it('should create an element', async () => {
-      const {
-        createElement: { id: elementId },
-      } = await domainRequest<CreateElementInput, CreateElementMutation>(
+    it('should get an element', async () => {
+      const results = await domainRequest<GetElementInput, GetElementQuery>(
         userApp,
-        CreateElementGql,
-        createElementInput,
+        GetElementGql,
+        getElementInput,
       )
 
-      expect(elementId).toBeDefined()
-
-      const { getElement: element } = await domainRequest<
-        GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, { elementId })
-
-      console.log(element)
-
-      expect(element).toMatchObject({ ...createElementInput, id: elementId })
+      expect(results?.getElement).toMatchObject({
+        ...createElementInput,
+        id: elementId,
+      })
     })
   })
 })

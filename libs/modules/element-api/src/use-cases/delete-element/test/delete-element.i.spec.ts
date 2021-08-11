@@ -11,9 +11,9 @@ import {
   DeleteElementGql,
   DeleteElementInput,
   DeleteElementMutation,
-  GetElementGraphGql,
-  GetElementGraphInput,
-  GetElementGraphQuery,
+  GetElementGql,
+  GetElementInput,
+  GetElementQuery,
 } from '@codelab/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../element.module'
@@ -24,7 +24,7 @@ describe('DeleteElement', () => {
   let userApp: INestApplication
   let elementId: string
   let deleteElementInput: DeleteElementInput
-  let getElementGraphInput: GetElementGraphInput
+  let getElementInput: GetElementInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ElementModule], { role: Role.GUEST })
@@ -37,7 +37,7 @@ describe('DeleteElement', () => {
 
     elementId = results.createElement.id
     deleteElementInput = { elementId }
-    getElementGraphInput = { elementId }
+    getElementInput = { elementId }
 
     expect(elementId).toBeDefined()
   })
@@ -64,10 +64,10 @@ describe('DeleteElement', () => {
       )
 
       // Should fail to get the deleted element
-      await domainRequest<GetElementGraphInput, GetElementGraphQuery>(
+      await domainRequest<GetElementInput, GetElementQuery>(
         userApp,
-        GetElementGraphGql,
-        getElementGraphInput,
+        GetElementGql,
+        getElementInput,
         { message: 'Element not found' },
       )
     })

@@ -8,9 +8,9 @@ import {
   CreateElementGql,
   CreateElementInput,
   CreateElementMutation,
-  GetElementGraphGql,
-  GetElementGraphInput,
-  GetElementGraphQuery,
+  GetElementGql,
+  GetElementInput,
+  GetElementQuery,
   UpdateElementGql,
   UpdateElementInput,
   UpdateElementMutation,
@@ -68,9 +68,9 @@ describe('UpdateElement', () => {
       )
 
       const { getElement: element } = await domainRequest<
-        GetElementGraphInput,
-        GetElementGraphQuery
-      >(userApp, GetElementGraphGql, { elementId })
+        GetElementInput,
+        GetElementQuery
+      >(userApp, GetElementGql, { elementId })
 
       expect(element).toMatchObject({
         ...updateElementInput.updateData,

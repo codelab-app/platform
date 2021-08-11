@@ -445,6 +445,10 @@ export type GetElementGraphInput = {
   elementId: Scalars['String']
 }
 
+export type GetElementInput = {
+  elementId: Scalars['String']
+}
+
 export type GetFieldInput = {
   byInterface?: Maybe<FieldByInterfaceFilter>
   byId?: Maybe<FieldByIdFilter>
@@ -722,6 +726,8 @@ export type Query = {
   getPage: Page
   /** Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge */
   getElementGraph?: Maybe<ElementGraph>
+  /** Get a single element. */
+  getElement?: Maybe<Element>
   getComponent: Component
   getComponentElements: ElementGraph
   getComponents: Array<Component>
@@ -757,6 +763,10 @@ export type QueryGetPageArgs = {
 
 export type QueryGetElementGraphArgs = {
   input: GetElementGraphInput
+}
+
+export type QueryGetElementArgs = {
+  input: GetElementInput
 }
 
 export type QueryGetComponentArgs = {
@@ -1173,6 +1183,26 @@ export type UpdateComponentMutationVariables = Exact<{
 }>
 
 export type UpdateComponentMutation = { updateComponent?: Maybe<void> }
+
+export type GetElementQueryVariables = Exact<{
+  input: GetElementInput
+}>
+
+export type GetElementQuery = {
+  getElement?: Maybe<{
+    __typename: 'Element'
+    id: string
+    name: string
+    css?: Maybe<string>
+    props: string
+    atom?: Maybe<{
+      id: string
+      name: string
+      type: AtomType
+      api: { id: string; name: string }
+    }>
+  }>
+}
 
 export type GetElementGraphQueryVariables = Exact<{
   input: GetElementGraphInput
@@ -2772,6 +2802,66 @@ export type UpdateComponentMutationOptions = Apollo.BaseMutationOptions<
   UpdateComponentMutation,
   UpdateComponentMutationVariables
 >
+export const GetElementGql = gql`
+  query GetElement($input: GetElementInput!) {
+    getElement(input: $input) {
+      ...Element
+    }
+  }
+  ${ElementFragmentDoc}
+`
+
+/**
+ * __useGetElementQuery__
+ *
+ * To run a query within a React component, call `useGetElementQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetElementQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetElementQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetElementQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetElementQuery,
+    GetElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetElementQuery, GetElementQueryVariables>(
+    GetElementGql,
+    options,
+  )
+}
+export function useGetElementLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetElementQuery,
+    GetElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetElementQuery, GetElementQueryVariables>(
+    GetElementGql,
+    options,
+  )
+}
+export type GetElementQueryHookResult = ReturnType<typeof useGetElementQuery>
+export type GetElementLazyQueryHookResult = ReturnType<
+  typeof useGetElementLazyQuery
+>
+export type GetElementQueryResult = Apollo.QueryResult<
+  GetElementQuery,
+  GetElementQueryVariables
+>
+export function refetchGetElementQuery(variables?: GetElementQueryVariables) {
+  return { query: GetElementGql, variables: variables }
+}
 export const GetElementGraphGql = gql`
   query GetElementGraph($input: GetElementGraphInput!) {
     getElementGraph(input: $input) {
@@ -4923,6 +5013,14 @@ export const UpdateComponent = gql`
   mutation UpdateComponent($input: UpdateComponentInput!) {
     updateComponent(input: $input)
   }
+`
+export const GetElement = gql`
+  query GetElement($input: GetElementInput!) {
+    getElement(input: $input) {
+      ...Element
+    }
+  }
+  ${Element}
 `
 export const GetElementGraph = gql`
   query GetElementGraph($input: GetElementGraphInput!) {

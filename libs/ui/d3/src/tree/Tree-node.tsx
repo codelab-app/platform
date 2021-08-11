@@ -1,6 +1,8 @@
-import { Selection, ValueFn } from 'd3'
+import { HierarchyPointNode, Selection, ValueFn } from 'd3'
 import { getNodeColor } from '../graph/nodes/Graph-nodes'
-import { D3TreeNode } from './Tree'
+import { D3TreeData } from './tree.interface'
+
+export type D3TreeNode = HierarchyPointNode<D3TreeData>
 
 export type TreeNodeSelection = Selection<
   SVGGElement,

@@ -1,25 +1,8 @@
 import './D3.scss'
 import * as d3 from 'd3'
-import { HierarchyPointLink, HierarchyPointNode } from 'd3'
 import React, { useEffect, useRef } from 'react'
-import { Canvas } from '../Canvas.i'
-import { NodeType } from '../graph/Graph.i'
-import { updateNode } from './Tree-node'
-
-export type D3TreeData = {
-  label: string
-  type?: NodeType
-  value?: string | number
-  children?: Array<D3TreeData>
-}
-
-export type D3TreeProps = {
-  data: D3TreeData
-} & Canvas
-
-export type D3TreeNode = HierarchyPointNode<D3TreeData>
-
-export type D3TreeLink = HierarchyPointLink<any>
+import { D3TreeData, D3TreeLink, D3TreeProps } from './tree.interface'
+import { D3TreeNode, updateNode } from './Tree-node'
 
 // https://www.d3indepth.com/layouts/
 export const D3Tree = ({

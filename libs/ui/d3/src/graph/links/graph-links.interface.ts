@@ -1,9 +1,5 @@
 import { Selection } from 'd3'
-import { D3Link } from '../Graph.i'
-
-export type LinkHandlers = {
-  onClick: (...args: any) => any
-}
+import { D3Link } from '../graph.interface'
 
 export const LINK_PATH_CLASS = 'Link-path'
 export const LINK_HOVER_CLASS = 'Link-hover'

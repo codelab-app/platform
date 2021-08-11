@@ -1,4 +1,4 @@
-import { D3GraphProps } from '../Graph.i'
+import { D3GraphProps } from '../graph.interface'
 
 export const d3GraphData: D3GraphProps = {
   nodes: [

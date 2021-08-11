@@ -57,9 +57,16 @@ describe('GetElement', () => {
         GetElementGraphQuery
       >(userApp, GetElementGraphGql, getElementGraphInput)
 
+      console.log(results.getElementGraph)
+
       expect(results?.getElementGraph).toMatchObject({
-        ...createElementInput,
-        id: elementId,
+        vertices: [
+          {
+            id: elementId,
+            ...createElementInput,
+          },
+        ],
+        edges: [],
       })
     })
   })
