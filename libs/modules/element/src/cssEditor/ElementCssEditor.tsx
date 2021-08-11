@@ -1,6 +1,6 @@
 import {
   ElementFragment,
-  refetchGetElementQuery,
+  refetchGetElementGraphQuery,
   useUpdateElementMutation,
 } from '@codelab/codegen/graphql'
 import { EmotionCssEditor, useDebouncedState } from '@codelab/frontend/shared'
@@ -14,7 +14,7 @@ export const ElementCssEditor = ({ element }: ElementCssEditorProps) => {
   const [mutate] = useUpdateElementMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
-      refetchGetElementQuery({
+      refetchGetElementGraphQuery({
         input: { elementId: element.id },
       }),
     ],

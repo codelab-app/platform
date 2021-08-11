@@ -9,8 +9,8 @@ import {
   CreateElementInput,
   CreateElementMutation,
   GetElementGraphGql,
+  GetElementGraphInput,
   GetElementGraphQuery,
-  GetElementInput,
   MoveElementGql,
   MoveElementInput,
   MoveElementMutation,
@@ -32,7 +32,7 @@ describe('MoveElement', () => {
   let parent2ElementId: string
   let childElementId: string
   let moveElementInput: MoveElementInput
-  let getRootInput: GetElementInput
+  let getRootInput: GetElementGraphInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ElementModule], { role: Role.GUEST })
@@ -125,7 +125,7 @@ describe('MoveElement', () => {
       )
 
       const { getElementGraph: graph } = await domainRequest<
-        GetElementInput,
+        GetElementGraphInput,
         GetElementGraphQuery
       >(userApp, GetElementGraphGql, getRootInput)
 

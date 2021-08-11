@@ -1,8 +1,8 @@
 import { TypeKind } from '@codelab/ddd/types'
-import { ArrayTypeProperties } from './array/array-type.interface'
-import { EnumTypeProperties } from './enum/enum-type.vo'
-import { InterfaceTypeProperties } from './interface/interface-type.vo'
-import { PrimitiveTypeProperties } from './primitive/primitive-type.vo'
+import { ArrayTypeProperties } from './array'
+import { EnumTypeProperties } from './enum'
+import { InterfaceTypeProperties } from './interface'
+import { PrimitiveTypeProperties } from './primitive'
 
 export type TypePropertiesUnion =
   | EnumTypeProperties

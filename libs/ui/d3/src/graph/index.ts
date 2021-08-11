@@ -1,3 +1,3 @@
 export * from './Graph'
-export * from './Graph.i'
+export * from './graph.interface'
 export * from './Graph-filters'

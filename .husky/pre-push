@@ -4,6 +4,7 @@
 make build-dev-affected
 make test-dev-affected
 make e2e-dev-affected
+#make lint-circular-dep
 # make build-storybook
 
 ./libs/tools/scripts/src/lint/git.sh

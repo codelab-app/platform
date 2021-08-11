@@ -1,10 +1,10 @@
-import { D3Link, D3Node } from '../Graph.i'
+import { D3Link, D3Node } from '../graph.interface'
 import {
   LINK_HOVER_CLASS,
   LINK_LABEL_CLASS,
   LINK_PATH_CLASS,
   LinkSelection,
-} from './Graph-links'
+} from './graph-links.interface'
 
 /**
  * After enter is called once, we call update per tick. If you see the force moving, that is because the DOM is updated here per tick.

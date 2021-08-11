@@ -388,12 +388,14 @@ type Query {
   getUsers(input: GetUsersInput): [User!]!
   getPages(input: GetPagesInput!): [Page!]!
   getPage(input: GetPageInput!): Page!
-  getElement(input: GetElementInput!): Element
 
   """
   Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
   """
-  getElementGraph(input: GetElementInput!): ElementGraph
+  getElementGraph(input: GetElementGraphInput!): ElementGraph
+
+  """Get a single element."""
+  getElement(input: GetElementInput!): Element
   getComponent(input: GetComponentInput!): Component!
   getComponentElements(input: GetComponentInput!): ElementGraph!
   getComponents: [Component!]!
@@ -444,6 +446,10 @@ input PageByAppFilter {
 
 input GetPageInput {
   pageId: String!
+}
+
+input GetElementGraphInput {
+  elementId: String!
 }
 
 input GetElementInput {
@@ -826,6 +832,7 @@ input ExecuteLambdaInput {
 
 input CreateTagInput {
   name: String!
+  parentTagId: String
 }
 
 input UpdateTagInput {

@@ -1,4 +1,5 @@
-import { getD3NodeColor, NodeHandlers, NodeSelection } from './Graph-nodes'
+import { NodeHandlers } from '../graph.interface'
+import { getD3NodeColor, NodeSelection } from './Graph-nodes'
 
 /**
  * D3 update methods

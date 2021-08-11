@@ -1,8 +1,7 @@
 import { equalsSet } from '../../../../common'
 import { DgraphEntityType } from '../dgraph-entity-type'
-import { DgraphEntity, DgraphNode } from './core'
+import { DgraphEntity, DgraphNode, DgraphTree } from './core'
 import { DgraphAtom } from './dgraph-atom'
-import { DgraphComponent } from './dgraph-component'
 
 export interface DgraphElement
   extends DgraphNode<DgraphEntityType.Element, DgraphElement> {
@@ -20,3 +19,14 @@ export const isDgraphElement = (
     DgraphEntityType.Element,
   ])
 }
+
+/**
+ * Moved here to avoid circular dependency
+ *
+ * We store the Component in dgraph as a Tree object, we just use the type Component
+ * so we can recognize if a particular Tree is a Page, Component or something else
+ */
+export type DgraphComponent = DgraphTree<
+  DgraphElement,
+  DgraphEntityType.Component
+>

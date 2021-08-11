@@ -10,7 +10,7 @@ import {
 import {
   ElementGraph,
   ElementTreeTransformer,
-  GetElementService,
+  GetElementGraphService,
 } from '@codelab/modules/element-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
@@ -48,7 +48,7 @@ export class PageResolver {
     private getPageService: GetPageService,
     private deletePageService: DeletePageService,
     private pageMapper: PageMapper,
-    private getElementService: GetElementService,
+    private getElementService: GetElementGraphService,
     private elementTransformer: ElementTreeTransformer,
   ) {
     this.pagesMapper = new ArrayMapper(pageMapper)

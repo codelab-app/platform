@@ -23,7 +23,10 @@ export class GetPageService extends DgraphUseCase<GetPageRequest, DgraphPage> {
 
     await this.validate(request)
 
-    return this.dgraph.getOneOrThrow<DgraphPage>(txn, this.createQuery(pageId))
+    return this.dgraph.getOneOrThrow<DgraphPage>(
+      txn,
+      GetPageService.createQuery(pageId),
+    )
   }
 
   protected async validate({
@@ -33,7 +36,7 @@ export class GetPageService extends DgraphUseCase<GetPageRequest, DgraphPage> {
     await this.pageValidator.existsAndIsOwnedBy(pageId, currentUser)
   }
 
-  private createQuery(pageId: string) {
+  private static createQuery(pageId: string) {
     return new DgraphQueryBuilder()
       .addTypeFilterDirective(DgraphEntityType.Page)
       .setUidFunc(pageId)

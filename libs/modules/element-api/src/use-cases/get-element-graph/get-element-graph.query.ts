@@ -1,6 +1,6 @@
 import { DgraphQueryBuilder } from '@codelab/backend'
 
-export const getElementQuery = () =>
+export const getElementGraphQuery = () =>
   new DgraphQueryBuilder().addBaseFields().addRecurseDirective().addFields(`
           name
           root

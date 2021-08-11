@@ -1,7 +1,5 @@
-import { Field, InputType } from '@nestjs/graphql'
+import { InputType } from '@nestjs/graphql'
+import { GetElementGraphInput } from '../get-element-graph'
 
 @InputType()
-export class GetElementInput {
-  @Field()
-  declare elementId: string
-}
+export class GetElementInput extends GetElementGraphInput {}

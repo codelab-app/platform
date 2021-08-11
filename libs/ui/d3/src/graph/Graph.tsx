@@ -1,13 +1,17 @@
 import * as d3 from 'd3'
 import { cloneDeep } from 'lodash'
 import React, { useEffect, useRef } from 'react'
-import { D3GraphProps, D3Link, D3Node } from './Graph.i'
+import {
+  D3GraphProps,
+  D3Link,
+  D3Node,
+  LinkHandlers,
+  NodeHandlers,
+} from './graph.interface'
 import { IDMatcher } from './Graph-filters'
 import { defineMarkers, ticked } from './Graph-updatePattern'
-import { LinkHandlers } from './links/Graph-links'
 import { enterLinks } from './links/Graph-links--enter'
 import { updateLinks } from './links/Graph-links--update'
-import { NodeHandlers } from './nodes/Graph-nodes'
 import { enterNodes } from './nodes/Graph-nodes--enter'
 import { updateNodes } from './nodes/Graph-nodes--update'
 

@@ -15,8 +15,8 @@ import {
   CreateElementService,
   DeleteElementInput,
   DeleteElementService,
-  GetElementInput,
-  GetElementService,
+  GetElementGraphInput,
+  GetElementGraphService,
   MoveElementInput,
   MoveElementService,
   UpdateElementInput,
@@ -24,13 +24,14 @@ import {
   UpdateElementPropsService,
   UpdateElementService,
 } from './use-cases'
+import { GetElementInput } from './use-cases/get-element/get-element.input'
 
 @Resolver(() => Element)
 @Injectable()
 export class ElementResolver {
   constructor(
     private createElementService: CreateElementService,
-    private getElementService: GetElementService,
+    private getElementGraphService: GetElementGraphService,
     private deleteElementService: DeleteElementService,
     private updateElementService: UpdateElementService,
     private moveElementService: MoveElementService,
@@ -48,20 +49,6 @@ export class ElementResolver {
     return this.createElementService.execute({ input, currentUser })
   }
 
-  @Query(() => Element, { nullable: true })
-  @UseGuards(GqlAuthGuard)
-  async getElement(
-    @Args('input') input: GetElementInput,
-    @CurrentUser() currentUser: JwtPayload,
-  ) {
-    const dgraphElement = await this.getElementService.execute({
-      input,
-      currentUser,
-    })
-
-    return this.elementMapper.map(dgraphElement)
-  }
-
   @Query(() => ElementGraph, {
     nullable: true,
     description:
@@ -69,15 +56,35 @@ export class ElementResolver {
   })
   @UseGuards(GqlAuthGuard)
   async getElementGraph(
-    @Args('input') input: GetElementInput,
+    @Args('input') input: GetElementGraphInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
-    const dgraphElement = await this.getElementService.execute({
+    const dgraphElement = await this.getElementGraphService.execute({
       input,
       currentUser,
     })
 
-    return this.elementTreeTransformer.transform(dgraphElement)
+    return await this.elementTreeTransformer.transform(dgraphElement)
+  }
+
+  @Query(() => Element, {
+    nullable: true,
+    description: 'Get a single element.',
+  })
+  @UseGuards(GqlAuthGuard)
+  /**
+   * Same as GetElementGraph, except we map the data differently
+   */
+  async getElement(
+    @Args('input') input: GetElementInput,
+    @CurrentUser() currentUser: JwtPayload,
+  ) {
+    const dgraphElement = await this.getElementGraphService.execute({
+      input,
+      currentUser,
+    })
+
+    return this.elementMapper.map(dgraphElement)
   }
 
   @Mutation(() => Void, { nullable: true })
