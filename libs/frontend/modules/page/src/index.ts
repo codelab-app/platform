@@ -1,5 +1,7 @@
 export * from './main-pane'
 export * from './meta-pane'
+export * from './PageDetailHeader'
+export * from './PageRendererTemplate'
 export * from './providers'
 export * from './use-cases/page/create-page'
 export * from './use-cases/page/delete-page'

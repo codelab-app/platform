@@ -9,7 +9,7 @@ import React, { useContext } from 'react'
 import {
   MoveComponentElementForm,
   UpdateComponentElementForm,
-} from '../use-cases'
+} from '../use-cases/component-element'
 
 export const MetaPaneComponentDetail = () => {
   const { tree } = useContext(ComponentContext)

@@ -1,3 +1,4 @@
+import { LayoutComponent } from '@codelab/frontend/abstract/props'
 import { PageType } from '@codelab/frontend/model/state/router'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
@@ -5,7 +6,6 @@ import { LayoutProps } from 'antd/lib/layout'
 import { NextRouter, useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
-import { LayoutComponent } from '../templates/Layout.interface'
 
 const { Sider, Content, Header: AntDesignHeader } = Layout
 

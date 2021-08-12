@@ -1,5 +1,5 @@
+import { LayoutComponent } from '@codelab/frontend/abstract/props'
 import { useRouter } from 'next/router'
-import { LayoutComponent } from '../Layout.interface'
 
 export const LibraryTemplate: LayoutComponent<'builder'> = (props) => {
   const { children, MainPane } = props

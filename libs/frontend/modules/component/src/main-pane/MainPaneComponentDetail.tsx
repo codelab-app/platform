@@ -13,7 +13,7 @@ import {
 import { refetchGetComponentElementsQuery } from '@codelab/shared/codegen/graphql'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
-import { CreateComponentElementForm } from '../use-cases'
+import { CreateComponentElementForm } from '../use-cases/component-element'
 
 export const MainPaneComponentDetail = () => {
   const { tree, component } = useContext(ComponentContext)

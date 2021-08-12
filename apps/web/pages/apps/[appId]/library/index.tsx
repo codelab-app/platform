@@ -1,12 +1,14 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { NextPageTemplate } from '@codelab/frontend/abstract/props'
 import { PageType } from '@codelab/frontend/model/state/router'
+import {
+  LibraryTemplate,
+  MainPaneLibrary,
+} from '@codelab/frontend/modules/library'
 import { Breadcrumb } from 'antd'
 import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
-import { MainPaneLibrary } from '../../../../src/sections/panes'
-import { NextPageTemplate } from '../../../../src/templates/Layout.interface'
-import { LibraryTemplate } from '../../../../src/templates/library/LibraryTemplate'
 
 const LibraryContent = () => {
   // const { selectedComponent, setSelected } = useComponentBuilder()

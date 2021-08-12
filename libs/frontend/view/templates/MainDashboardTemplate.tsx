@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
-import { DashboardLayout } from '../layout/DashboardLayout'
-import { DashboardSidebarNavigation } from '../sections/DashboardSidebarNavigation'
+import { DashboardLayout } from './DashboardLayout'
+import { DashboardSidebarNavigation } from './DashboardSidebarNavigation'
 
 /**
  * The initial layout when entering the builder view

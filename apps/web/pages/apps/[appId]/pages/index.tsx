@@ -1,9 +1,9 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { MainPanePage } from '@codelab/frontend/modules/page'
 import { withAppQueryProvider } from '@codelab/frontend/presenter/container'
 import { DashboardLayout } from 'apps/web/src/layout/DashboardLayout'
 import React from 'react'
-import { MainPanePage } from '../../../../src/sections/panes'
-import { NextPageTemplate } from '../../../../src/templates/Layout.interface'
 
 const Pages: NextPageTemplate<'dashboard'> = () => <></>
 

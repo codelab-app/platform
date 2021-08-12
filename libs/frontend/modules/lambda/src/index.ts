@@ -1,5 +1,6 @@
 export * from './detail-pane/Pane-detail--lambda'
 export * from './main-pane/lambdaState'
+export * from './MainPaneLambda'
 export * from './use-cases/create-lambda'
 export * from './use-cases/delete-lambda'
 export * from './use-cases/execute-lambda'

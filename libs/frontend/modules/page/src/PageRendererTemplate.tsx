@@ -1,6 +1,6 @@
+import { LayoutComponent } from '@codelab/frontend/abstract/props'
 import { Layout } from 'antd'
 import React from 'react'
-import { LayoutComponent } from './Layout.interface'
 
 const { Sider, Content, Header: AntDesignHeader } = Layout
 
