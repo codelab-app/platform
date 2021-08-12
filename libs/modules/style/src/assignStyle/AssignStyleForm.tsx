@@ -1,9 +1,8 @@
-import { AppPageContext, notify } from '@codelab/frontend/shared'
+import { notify } from '@codelab/frontend/shared'
 import { Button, Select } from 'antd'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 
 export const AssignStyleForm = ({ vertexId }: { vertexId: string }) => {
-  const { appId } = useContext(AppPageContext)
   const [selection, setSelection] = useState<string | undefined>(undefined)
 
   // const [mutate] = useAssignStyleMutation({

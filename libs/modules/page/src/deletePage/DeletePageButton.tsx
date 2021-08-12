@@ -1,15 +1,13 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import {
-  AppPageContext,
   DeleteButtonProps,
   EntityType,
   useCrudModalForm,
 } from '@codelab/frontend/shared'
 import { Button } from 'antd'
-import React, { useContext } from 'react'
+import React from 'react'
 
-export const DeletePageButton = ({ disabled, ids }: DeleteButtonProps) => {
-  const { appId } = useContext(AppPageContext)
+export const DeletePageButton = ({ ids, ...props }: DeleteButtonProps) => {
   const { openDeleteModal } = useCrudModalForm(EntityType.Page)
 
   return (
@@ -19,6 +17,7 @@ export const DeletePageButton = ({ disabled, ids }: DeleteButtonProps) => {
       type="primary"
       icon={<DeleteOutlined />}
       onClick={() => openDeleteModal(ids)}
+      {...props}
     />
   )
 }

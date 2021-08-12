@@ -1,12 +1,12 @@
 import '@testing-library/cypress/add-commands'
 import {
+  AtomType,
   CreateAppGql,
   CreateAppInput,
   DeleteAppGql,
   DeleteAppInput,
 } from '@codelab/codegen/graphql'
 import { Library_Insert_Input } from '@codelab/codegen/hasura'
-import { AtomType } from '@codelab/frontend/shared'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
 import { print } from 'graphql'

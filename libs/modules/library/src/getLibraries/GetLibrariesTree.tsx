@@ -1,6 +1,6 @@
-import { BookOutlined, DeploymentUnitOutlined } from '@ant-design/icons'
-import { useGetComponentDetailLazyQuery } from '@codelab/codegen/hasura'
-import { useComponentBuilder } from '@codelab/frontend/builder'
+import { BookOutlined } from '@ant-design/icons'
+// import { useGetComponentDetailLazyQuery } from '@codelab/codegen/hasura'
+// import { useComponentBuilder } from '@codelab/frontend/builder'
 import { CheckedKeys, LibraryContext, PageType } from '@codelab/frontend/shared'
 import {
   CreateAtomButtonIcon,
@@ -14,30 +14,27 @@ import {
   CreateComponentButton,
   CreateComponentModal,
   DeleteComponentButton,
-  DeleteComponentsModal,
-  UpdateComponentButton,
+  // DeleteComponentsModal,
+  // UpdateComponentButton,
   UpdateComponentModal,
 } from '@codelab/modules/component'
 import { Divider, Space, Tree } from 'antd'
 import { DataNode } from 'antd/lib/tree'
 import Link from 'next/link'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import tw from 'twin.macro'
 
 export const GetLibrariesTree = () => {
   const { libraries } = useContext(LibraryContext)
-
-  const [loadComponent, { called, loading, data }] =
-    useGetComponentDetailLazyQuery()
-
-  const { setSelected } = useComponentBuilder()
-
-  useEffect(() => {
-    if (data?.component_by_pk) {
-      setSelected(data?.component_by_pk)
-    }
-  }, [data])
-
+  // const [loadComponent, { called, loading, data }] =
+  //   useGetComponentDetailLazyQuery()
+  //
+  // const { setSelected } = useComponentBuilder()
+  // useEffect(() => {
+  //   if (data?.component_by_pk) {
+  //     setSelected(data?.component_by_pk)
+  //   }
+  // }, [data])
   const [checkedAtomIds, setCheckedAtomIds] = useState<Array<string>>([])
   const [selectedAtomId, setSelectedAtomId] = useState<string>()
   const [selectedComponentId, setSelectedComponentId] = useState<string>()
@@ -53,13 +50,13 @@ export const GetLibrariesTree = () => {
       icon: <BookOutlined />,
       selectable: false,
       checkable: false,
-      children: (library?.atoms ?? []).map((atom) => {
-        return {
-          title: atom?.type,
-          key: atom?.id ?? '',
-          icon: <DeploymentUnitOutlined />,
-        }
-      }),
+      // children: (library?.atoms ?? []).map((atom) => {
+      //   return {
+      //     title: atom?.type,
+      //     key: atom?.id ?? '',
+      //     icon: <DeploymentUnitOutlined />,
+      //   }
+      // }),
     }
   })
 
@@ -71,13 +68,13 @@ export const GetLibrariesTree = () => {
         icon: <BookOutlined />,
         selectable: false,
         checkable: false,
-        children: (library?.components ?? []).map((component) => {
-          return {
-            title: component?.label,
-            key: component?.id ?? '',
-            icon: <DeploymentUnitOutlined />,
-          }
-        }),
+        // children: (library?.components ?? []).map((component) => {
+        //   return {
+        //     title: component?.label,
+        //     key: component?.id ?? '',
+        //     icon: <DeploymentUnitOutlined />,
+        //   }
+        // }),
       }
     },
   )
@@ -129,10 +126,10 @@ export const GetLibrariesTree = () => {
         </h3>
         <Space align="center">
           <CreateComponentButton />
-          <UpdateComponentButton
-            id={selectedComponentId}
-            disabled={!selectedComponentId}
-          />
+          {/* <UpdateComponentButton*/}
+          {/*  id={selectedComponentId}*/}
+          {/*  disabled={!selectedComponentId}*/}
+          {/*/ >*/}
           <DeleteComponentButton
             disabled={checkedComponentIds?.length === 0}
             ids={checkedComponentIds}
@@ -141,16 +138,16 @@ export const GetLibrariesTree = () => {
       </Space>
       <CreateComponentModal />
       <UpdateComponentModal />
-      <DeleteComponentsModal />
+      {/* <DeleteComponentsModal />*/}
       <Tree
         onSelect={([checkedKey], e) => {
           const _selectedComponentId = checkedKey?.toString()
           setSelectedComponentId(_selectedComponentId)
-          loadComponent({
-            variables: {
-              componentId: _selectedComponentId,
-            },
-          })
+          // loadComponent({
+          //   variables: {
+          //     componentId: _selectedComponentId,
+          //   },
+          // })
         }}
         onCheck={(checkedKeys, e) => {
           const { checked: _checkedComponentIds, halfChecked } =

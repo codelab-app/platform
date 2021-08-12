@@ -1,6 +1,5 @@
 import {
   refetchGetStyleQuery,
-  useGetStyleQuery,
   useUpdateStyleMutation,
 } from '@codelab/codegen/hasura'
 import {
@@ -10,8 +9,7 @@ import {
   UniFormUseCaseProps,
   useCrudModalForm,
 } from '@codelab/frontend/shared'
-import { Spin } from 'antd'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { UpdateStyleInput, UpdateStyleSchema } from './updateStyleSchema'
@@ -25,22 +23,22 @@ export const UpdateStyleForm = (
   const [mutate, { loading: updating }] = useUpdateStyleMutation({
     refetchQueries: [refetchGetStyleQuery()],
   })
+  //
+  // useEffect(() => {
+  //   setLoading(updating)
+  // }, [updating])
+  //
+  // const { data, loading } = useGetStyleQuery({
+  //   variables: {
+  //     styleId: updateStyleId,
+  //   },
+  // })
 
-  useEffect(() => {
-    setLoading(updating)
-  }, [updating])
-
-  const { data, loading } = useGetStyleQuery({
-    variables: {
-      styleId: updateStyleId,
-    },
-  })
-
-  const style = data?.style_by_pk
-
-  if (loading) {
-    return <Spin />
-  }
+  // const style = data?.style_by_pk
+  //
+  // if (loading) {
+  //   return <Spin />
+  // }
 
   // Reduce the array of key value css props to a simple object
   /* const transformedMutate: typeof mutate = (options) => {
@@ -84,22 +82,22 @@ export const UpdateStyleForm = (
    * ) */
 
   const onSubmit = (submitData: DeepPartial<UpdateStyleInput>) => {
-    return mutate({
-      variables: {
-        input: {
-          ...(submitData as any),
-          id: updateStyleId,
-        },
-        styleId: updateStyleId,
-      },
-    })
+    // return mutate({
+    //   variables: {
+    //     input: {
+    //       ...(submitData as any),
+    //       id: updateStyleId,
+    //     },
+    //     styleId: updateStyleId,
+    //   },
+    // })
   }
 
   return (
     <FormUniforms<UpdateStyleInput>
       onSubmit={onSubmit}
       schema={UpdateStyleSchema}
-      model={{ name: style?.name }}
+      // model={{ name: style?.name }}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating style',
       })}

@@ -1,7 +1,7 @@
-import {
-  refetchGetStylesListQuery,
-  useCreateStyleMutation,
-} from '@codelab/codegen/hasura'
+// import {
+//   refetchGetStylesListQuery,
+//   useCreateStyleMutation,
+// } from '@codelab/codegen/hasura'
 import {
   createNotificationHandler,
   EntityType,
@@ -9,8 +9,7 @@ import {
   UniFormUseCaseProps,
   useCrudModalForm,
 } from '@codelab/frontend/shared'
-import { useSelectedLibrary } from '@codelab/modules/library'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { DeepPartial } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { CreateStyleInput, createStyleSchema } from './createStyleSchema'
@@ -20,13 +19,13 @@ type CreateStyleFormProps = UniFormUseCaseProps<CreateStyleInput>
 export const CreateStyleForm = (props: CreateStyleFormProps) => {
   const { reset, setLoading } = useCrudModalForm(EntityType.Style)
 
-  const [mutate, { loading: creating }] = useCreateStyleMutation({
-    refetchQueries: [refetchGetStylesListQuery()],
-  })
-
-  useEffect(() => {
-    setLoading(creating)
-  }, [creating])
+  // const [mutate, { loading: creating }] = useCreateStyleMutation({
+  //   refetchQueries: [refetchGetStylesListQuery()],
+  // })
+  //
+  // useEffect(() => {
+  //   setLoading(creating)
+  // }, [creating])
 
   // Reduce the array of key value css props to a simple object
   /* const transformedMutate: typeof mutate = (options) => {
@@ -45,17 +44,17 @@ export const CreateStyleForm = (props: CreateStyleFormProps) => {
      * }
      */
 
-  const { library } = useSelectedLibrary()
+  // const { library } = useSelectedLibrary()
 
   const onSubmit = (submitData: DeepPartial<CreateStyleInput>) => {
-    return mutate({
-      variables: {
-        data: {
-          library_id: library?.id,
-          ...(submitData as any),
-        },
-      },
-    })
+    // return mutate({
+    //   variables: {
+    //     data: {
+    //       library_id: library?.id,
+    //       ...(submitData as any),
+    //     },
+    //   },
+    // })
   }
 
   return (

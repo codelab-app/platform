@@ -4,13 +4,10 @@
 //   GetVertexGql,
 //   useUnAssignStyleMutation,
 // } from '@codelab/generated'
-import { AppPageContext } from '@codelab/frontend/shared'
 import { PageHeader } from 'antd'
-import React, { useContext } from 'react'
+import React from 'react'
 
 export const PaneConfigStyle = ({ vertexId }: { vertexId: string }) => {
-  const { appId } = useContext(AppPageContext)
-
   // const [unassign] = useUnAssignStyleMutation({
   //   refetchQueries: [
   //     {

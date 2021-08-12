@@ -1,8 +1,8 @@
-import {
-  refetchGetStylesListQuery,
-  useDeleteStyleMutation,
-  useGetStyleQuery,
-} from '@codelab/codegen/hasura'
+// import {
+//   refetchGetStylesListQuery,
+//   useDeleteStyleMutation,
+//   useGetStyleQuery,
+// } from '@codelab/codegen/hasura'
 import {
   createNotificationHandler,
   EntityType,
@@ -10,8 +10,7 @@ import {
   UniFormUseCaseProps,
   useCrudModalForm,
 } from '@codelab/frontend/shared'
-import { Spin } from 'antd'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { DeleteStyleInput, DeleteStyleSchema } from './deleteStyleSchema'
 
@@ -21,32 +20,32 @@ export const DeleteStyleForm = (props: DeleteStyleFormProps) => {
   const { reset, setLoading, state } = useCrudModalForm(EntityType.Style)
   const { deleteIds: deleteStyleIds } = state
 
-  const [mutate, { loading: deleting }] = useDeleteStyleMutation({
-    refetchQueries: [refetchGetStylesListQuery()],
-  })
+  // const [mutate, { loading: deleting }] = useDeleteStyleMutation({
+  //   refetchQueries: [refetchGetStylesListQuery()],
+  // })
 
-  useEffect(() => {
-    setLoading(deleting)
-  }, [deleting])
+  // useEffect(() => {
+  //   setLoading(deleting)
+  // }, [deleting])
+  //
+  // const { data, loading } = useGetStyleQuery({
+  //   variables: {
+  //     styleId: deleteStyleIds[0],
+  //   },
+  // })
 
-  const { data, loading } = useGetStyleQuery({
-    variables: {
-      styleId: deleteStyleIds[0],
-    },
-  })
-
-  const style = data?.style_by_pk
-
-  if (loading) {
-    return <Spin />
-  }
+  // const style = data?.style_by_pk
+  //
+  // if (loading) {
+  //   return <Spin />
+  // }
 
   const onSubmit = () => {
-    return mutate({
-      variables: {
-        styleId: deleteStyleIds[0],
-      },
-    })
+    // return mutate({
+    //   variables: {
+    //     styleId: deleteStyleIds[0],
+    //   },
+    // })
   }
 
   return (
@@ -59,7 +58,7 @@ export const DeleteStyleForm = (props: DeleteStyleFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <h4>Are you sure you want to delete style "{style?.name}"?</h4>
+      {/* <h4>Are you sure you want to delete style "{style?.name}"?</h4>*/}
       <AutoFields />
     </FormUniforms>
   )
