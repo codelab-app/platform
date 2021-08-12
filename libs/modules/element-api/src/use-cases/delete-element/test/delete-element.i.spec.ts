@@ -64,13 +64,12 @@ describe('DeleteElement', () => {
       )
 
       // Should fail to get the deleted element
-      const element = await domainRequest<GetElementInput, GetElementQuery>(
-        userApp,
-        GetElementGql,
-        getElementInput,
-      )
+      const { getElement } = await domainRequest<
+        GetElementInput,
+        GetElementQuery
+      >(userApp, GetElementGql, getElementInput)
 
-      expect(element.getElement).toBeNull()
+      expect(getElement).toBeNull()
     })
   })
 })
