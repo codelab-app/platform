@@ -25,15 +25,18 @@
       }
     }
   },
+  // Tags:
+  // level: abstract, concrete
+  // end: front, back
   "projects": {
     "api": {
       "tags": []
     },
     "backend-abstract-core": {
-      "tags": []
+      "tags": ["level:abstract"]
     },
     "backend-abstract-types": {
-      "tags": []
+      "tags": ["level:abstract"]
     },
     "backend-infra": {
       "tags": []
@@ -66,7 +69,7 @@
       "tags": []
     },
     "frontend-abstract-props": {
-      "tags": []
+      "tags": ["level:abstract"]
     },
     "frontend-model-domain": {
       "tags": []

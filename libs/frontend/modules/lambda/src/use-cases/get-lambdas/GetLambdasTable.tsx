@@ -1,7 +1,7 @@
 import { useGetLambdasQuery } from '@codelab/shared/codegen/graphql'
 import { Space, Table } from 'antd'
 import React from 'react'
-import { DeleteLambdaButton } from '../deleteLambda'
+import { DeleteLambdaButton } from '../delete-lambda'
 import { ExecuteLambdaButton } from '../execute-lambda'
 import { UpdateLambdaButton } from '../update-lambda'
 import { LambdaRecord } from './LambdaRecord'

@@ -4,7 +4,10 @@ import {
   defaultRenderContext,
   Renderer,
 } from '@codelab/frontend/modules/builder'
-import { PageDetailHeader } from '@codelab/frontend/modules/page'
+import {
+  PageDetailHeader,
+  PageRendererTemplate,
+} from '@codelab/frontend/modules/page'
 import {
   PageContext,
   RenderProvider,
@@ -12,7 +15,6 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
 import React, { useContext } from 'react'
-import { PageRendererTemplate } from '../../../../../src/templates/PageRendererTemplate'
 
 const PageRenderer: NextPageTemplate<'builder'> = () => {
   const { tree, page, loading } = useContext(PageContext)

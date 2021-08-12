@@ -3,6 +3,7 @@ import { NextPageTemplate } from '@codelab/frontend/abstract/props'
 import {
   Builder,
   defaultRenderContext,
+  PageBuilderTemplate,
 } from '@codelab/frontend/modules/builder'
 import {
   MainPanePageDetail,
@@ -16,7 +17,6 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
 import React, { useContext } from 'react'
-import { PageBuilderTemplate } from '../../../../../src/templates/PageBuilderTemplate'
 
 const PageBuilder: NextPageTemplate<'builder'> = () => {
   const { tree, page, loading } = useContext(PageContext)

@@ -9,9 +9,9 @@ import {
 } from '@codelab/frontend/modules/app'
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
 import { padding } from '@codelab/frontend/style'
+import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import React from 'react'
-import { MainDashboardTemplate } from '../../src/templates/MainDashboardTemplate'
 
 const AppsPage: NextPageTemplate<'dashboard'> = () => {
   const pageHeaderButtons = [

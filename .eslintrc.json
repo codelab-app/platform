@@ -61,6 +61,14 @@
               {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
+              },
+              {
+                "sourceTag": "level:abstract",
+                "onlyDependOnLibsWithTags": ["level:abstract"]
+              },
+              {
+                "sourceTag": "level:concrete",
+                "onlyDependOnLibsWithTags": ["*"]
               }
             ]
           }

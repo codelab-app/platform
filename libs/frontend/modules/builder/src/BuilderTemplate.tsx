@@ -1,10 +1,10 @@
+import { WithMainPane, WithMetaPane } from '@codelab/frontend/abstract/props'
 import { AppProvider } from '@codelab/frontend/presenter/container'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 import tw from 'twin.macro'
-import { WithMainPane, WithMetaPane } from '../Layout.interface'
 import { BuilderSidebarNavigation } from './BuilderSidebarNavigation'
 
 const { Sider, Content } = Layout
