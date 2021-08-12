@@ -2,9 +2,8 @@ import {
   CreateResponse,
   DgraphAtom,
   GqlAuthGuard,
-  Void
+  Void,
 } from '@codelab/backend/infra'
-import { GetTypeService } from '@codelab/backend/modules/type'
 import { ArrayMapper } from '@codelab/shared/utils'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
