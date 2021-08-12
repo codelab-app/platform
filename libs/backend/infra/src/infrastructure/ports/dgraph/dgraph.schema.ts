@@ -24,6 +24,7 @@ const {
   Component,
   Lambda,
   ElementType,
+  ComponentType,
 } = DgraphEntityType
 
 export const dgraphSchema = `
@@ -89,6 +90,9 @@ export const dgraphSchema = `
   }
 
   type ${LambdaType} {
+  }
+
+  type ${ComponentType} {
   }
 
   type ${ElementType} {

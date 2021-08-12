@@ -54,6 +54,8 @@ export class GetTypesService extends DgraphUseCase<
         return DgraphEntityType.LambdaType
       case TypeKind.ElementType:
         return DgraphEntityType.ElementType
+      case TypeKind.ComponentType:
+        return DgraphEntityType.ComponentType
       default:
         throw new Error('Unrecognized type kind option')
     }

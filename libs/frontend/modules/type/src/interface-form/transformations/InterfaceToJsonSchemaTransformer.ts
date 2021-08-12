@@ -4,8 +4,9 @@ import {
   PrimitiveKind,
 } from '@codelab/shared/codegen/graphql'
 import { PropertiesSchema } from 'ajv/lib/types/json-schema'
-import { TypeTree } from '../../type-tree'
-import { TypeModels } from '../../uses-cases/types'
+import { TypeModels } from '../../types/TypeModels'
+import { TypeTree } from '../../typeTree'
+import { SelectComponent } from '../fields/SelectComponent'
 import { getSelectElementComponent } from '../fields/SelectElement'
 import { SelectLambda } from '../fields/SelectLambda'
 
@@ -134,6 +135,13 @@ export class InterfaceToJsonSchemaTransformer {
           type: 'string',
           uniforms: {
             component: getSelectElementComponent(type.kind),
+          },
+        }
+      case TypeModels.ComponentType:
+        return {
+          type: 'string',
+          uniforms: {
+            component: SelectComponent,
           },
         }
       default:
