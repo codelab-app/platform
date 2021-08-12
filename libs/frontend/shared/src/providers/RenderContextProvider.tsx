@@ -22,7 +22,10 @@ export interface RenderContext {
    */
   nodePropsMappers?: ReadonlyArray<PropMapperFunction>
 
-  /** A reference to the renderFactory which allows any custom component to render a node */
+  /**
+   * A reference to the renderFactory which allows any custom component to render a node
+   * It's needed in the context, because rendered components can't import it directly, because it will cause a circular dependency
+   * */
   renderFactory: (node: RenderNode | undefined | null) => any | null
 }
 
