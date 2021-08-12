@@ -39,31 +39,31 @@
       "tags": ["level:abstract"]
     },
     "backend-infra": {
-      "tags": []
+      "tags": ["back:infra"]
     },
     "backend-modules-app": {
-      "tags": ["scope:domain"]
+      "tags": ["back:domain"]
     },
     "backend-modules-atom": {
-      "tags": ["scope:domain"]
+      "tags": ["back:domain"]
     },
     "backend-modules-element": {
-      "tags": ["scope:domain"]
+      "tags": ["back:domain"]
     },
     "backend-modules-lambda": {
-      "tags": ["scope:domain"]
+      "tags": ["back:domain"]
     },
     "backend-modules-page": {
-      "tags": ["scope:domain"]
+      "tags": ["back:domain"]
     },
     "backend-modules-tag": {
-      "tags": ["scope:domain"]
+      "tags": ["back:domain"]
     },
     "backend-modules-type": {
-      "tags": ["scope:domain"]
+      "tags": ["back:domain"]
     },
     "backend-modules-user": {
-      "tags": ["scope:domain"]
+      "tags": ["back:domain"]
     },
     "cli": {
       "tags": []
@@ -81,43 +81,43 @@
       "tags": []
     },
     "frontend-modules-app": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-atom": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-builder": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-category": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-component": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-element": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-lambda": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-library": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-page": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-style": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-tag": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-type": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-modules-user": {
-      "tags": ["scope:domain"]
+      "tags": []
     },
     "frontend-presenter-container": {
       "tags": []

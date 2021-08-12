@@ -69,14 +69,6 @@
               {
                 "sourceTag": "level:concrete",
                 "onlyDependOnLibsWithTags": ["*"]
-              },
-              {
-                "sourceTag": "scope:domain",
-                "onlyDependOnLibsWithTags": ["scope:domain"]
-              },
-              {
-                "sourceTag": "scope:application",
-                "onlyDependOnLibsWithTags": ["scope:application"]
               }
             ]
           }
