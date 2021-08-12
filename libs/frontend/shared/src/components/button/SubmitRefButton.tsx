@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import Button from 'antd/lib/button/button'
 import React, { MutableRefObject } from 'react'
 import { SubmitController } from '../form'
 
