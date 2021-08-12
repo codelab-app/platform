@@ -2,11 +2,11 @@
 
 # Check if CIRCLECI_BASE_REVISION is valid, if not then use it
 
-br=`git branch -r --contains ${CIRCLE_BASE_REVISION}`
+br="$(git branch -r --contains ${CIRCLE_BASE_REVISION})"
 
 if [ ! -n $br ]; then
   # Set arbitrary 10 commits as a workaround
-  npx commitlint --from HEAD^10
+  npx commitlint --from "$(git rev-parse --short HEAD^5)"
 else
   npx commitlint --from "${CIRCLE_BASE_REVISION}"
 fi
