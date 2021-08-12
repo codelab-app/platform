@@ -1,5 +1,5 @@
+import { ElementTree, RenderNode } from '@codelab/frontend/abstract/props'
 import React, { useContext } from 'react'
-import { ElementTree, RenderNode } from '../interfaces'
 
 export type PropMapperFunction = (
   props: Record<string, any>,

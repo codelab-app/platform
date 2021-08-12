@@ -4,23 +4,15 @@ import {
   CreateElementButton,
   DeleteElementModal,
 } from '@codelab/frontend/modules/element'
-import {
-  CreatePageElementForm,
-  PageContext,
-} from '@codelab/frontend/modules/page'
+import { CreatePageElementForm } from '@codelab/frontend/modules/page'
+import { PageContext } from '@codelab/frontend/presenter/container'
 import {
   ActionType,
   CrudModal,
   EntityType,
-  PageContext,
-  PageType,
   useCrudModalForm,
-} from '@codelab/frontend/shared'
-import {
-  CreateElementButton,
-  DeleteElementModal,
-} from '@codelab/modules/element'
-import { CreatePageElementForm } from '@codelab/modules/page'
+} from '@codelab/frontend/view/components'
+import { refetchGetPageQuery } from '@codelab/shared/codegen/graphql'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { MainPaneBuilderTemplate } from '../../paneTemplates'

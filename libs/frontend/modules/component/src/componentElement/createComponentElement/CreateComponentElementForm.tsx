@@ -2,6 +2,7 @@ import {
   CreateElementForm,
   CreateElementFormProps,
 } from '@codelab/frontend/modules/element'
+import { ComponentContext } from '@codelab/frontend/presenter/container'
 import { refetchGetComponentElementsQuery } from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
 

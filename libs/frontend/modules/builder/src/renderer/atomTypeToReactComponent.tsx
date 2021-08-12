@@ -416,7 +416,9 @@ export const atomTypeToReactComponent = (
       )
     case AtomType.PropMapper:
       return dynamic(() =>
-        import('@codelab/frontend/shared').then((mod) => mod.PropMapper),
+        import('@codelab/frontend/view/components').then(
+          (mod) => mod.PropMapper,
+        ),
       )
     default:
       return null

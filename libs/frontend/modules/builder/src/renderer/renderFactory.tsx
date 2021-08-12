@@ -1,9 +1,12 @@
-import { ComponentFragment, ElementFragment } from '@codelab/codegen/graphql'
+import { RenderNode } from '@codelab/frontend/abstract/props'
 import {
-  RenderNode,
   RenderProvider,
   useRenderContext,
-} from '@codelab/frontend/shared'
+} from '@codelab/frontend/presenter/container'
+import {
+  ComponentFragment,
+  ElementFragment,
+} from '@codelab/shared/codegen/graphql'
 import { css } from '@emotion/react'
 import deepmerge from 'deepmerge'
 import React, { ReactElement } from 'react'

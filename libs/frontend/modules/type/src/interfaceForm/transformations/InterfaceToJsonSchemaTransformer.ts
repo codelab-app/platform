@@ -4,7 +4,7 @@ import {
   PrimitiveKind,
 } from '@codelab/shared/codegen/graphql'
 import { PropertiesSchema } from 'ajv/lib/types/json-schema'
-import { TypeModels } from '../../types/TypeModels'
+import { TypeModels } from '../../types'
 import { TypeTree } from '../../typeTree'
 import { getSelectElementComponent } from '../fields/SelectElement'
 import { SelectLambda } from '../fields/SelectLambda'

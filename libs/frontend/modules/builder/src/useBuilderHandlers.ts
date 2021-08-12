@@ -1,4 +1,4 @@
-import { ElementTree } from '@codelab/frontend/shared'
+import { ElementTree } from '@codelab/frontend/abstract/props'
 import { useCallback } from 'react'
 import { useSetBuilder } from './useBuilder'
 

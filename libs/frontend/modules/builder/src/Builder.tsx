@@ -1,4 +1,7 @@
-import { RenderProvider, useRenderContext } from '@codelab/frontend/shared'
+import {
+  RenderProvider,
+  useRenderContext,
+} from '@codelab/frontend/presenter/container'
 import styled from '@emotion/styled'
 import React, { MouseEventHandler } from 'react'
 import tw from 'twin.macro'

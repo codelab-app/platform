@@ -1,9 +1,8 @@
-import { refetchGetPageQuery } from '@codelab/codegen/graphql'
-import { PageContext } from '@codelab/frontend/shared'
 import {
   CreateElementForm,
   CreateElementFormProps,
 } from '@codelab/frontend/modules/element'
+import { PageContext } from '@codelab/frontend/presenter/container'
 import { refetchGetPageQuery } from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
 

@@ -1,7 +1,7 @@
-import type {
+import {
   ComponentFragment,
   ElementFragment,
-} from '@codelab/codegen/graphql'
+} from '@codelab/shared/codegen/graphql'
 import type { DataNode } from 'antd/lib/tree'
 
 /**

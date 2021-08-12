@@ -1,4 +1,3 @@
-import { PageContext } from '@codelab/frontend/shared'
 import {
   DeleteElementButton,
   ElementCssEditor,
@@ -8,6 +7,7 @@ import {
   MovePageElementForm,
   UpdatePageElementForm,
 } from '@codelab/frontend/modules/page'
+import { PageContext } from '@codelab/frontend/presenter/container'
 import React, { useContext } from 'react'
 import { MetaPaneBuilderTemplate } from '../../paneTemplates'
 

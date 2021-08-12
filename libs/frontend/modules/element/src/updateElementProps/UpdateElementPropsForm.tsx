@@ -1,12 +1,11 @@
 import { InterfaceForm, useTypeTree } from '@codelab/frontend/modules/type'
+import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import {
   ElementFragment,
   refetchGetElementGraphQuery,
   useGetTypeGraphQuery,
   useUpdateElementPropsMutation,
-} from '@codelab/codegen/graphql'
-import { ElementIdProvider } from '@codelab/frontend/shared'
-import { InterfaceForm, useTypeTree } from '@codelab/modules/type'
+} from '@codelab/shared/codegen/graphql'
 import { Spin } from 'antd'
 import React, { useRef } from 'react'
 

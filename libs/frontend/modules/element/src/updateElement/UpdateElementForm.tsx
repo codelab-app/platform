@@ -1,5 +1,5 @@
 import { BaseMutationOptions } from '@apollo/client'
-import { ElementTree } from '@codelab/frontend/modules/builder'
+import { ElementTree } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   FormUniforms,

@@ -1,17 +1,11 @@
 import { PageType } from '@codelab/frontend/model/state/router'
 import { useBuilder } from '@codelab/frontend/modules/builder'
-import {
-  ActionType,
-  ComponentContext,
-  CrudModal,
-  EntityType,
-  PageType,
-} from '@codelab/frontend/shared'
-import { CreateComponentElementForm } from '@codelab/modules/component'
+import { CreateComponentElementForm } from '@codelab/frontend/modules/component'
 import {
   CreateElementButton,
   DeleteElementModal,
 } from '@codelab/frontend/modules/element'
+import { ComponentContext } from '@codelab/frontend/presenter/container'
 import {
   ActionType,
   CrudModal,

@@ -1,12 +1,12 @@
+import { ElementTree } from '@codelab/frontend/abstract/props'
 import {
   ComponentFragment,
   ElementEdge,
   ElementFragment,
   ElementGraphFragment,
-} from '@codelab/codegen/graphql'
+} from '@codelab/shared/codegen/graphql'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { SingularElementArgument } from 'cytoscape'
-import { ElementTree } from '../interfaces'
 
 //
 // Hook:

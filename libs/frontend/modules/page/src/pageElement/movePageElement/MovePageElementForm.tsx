@@ -1,6 +1,9 @@
-import { refetchGetPageQuery } from '@codelab/codegen/graphql'
-import { PageContext } from '@codelab/frontend/shared'
-import { MoveElementForm, MoveElementFormProps } from '@codelab/modules/element'
+import {
+  MoveElementForm,
+  MoveElementFormProps,
+} from '@codelab/frontend/modules/element'
+import { PageContext } from '@codelab/frontend/presenter/container'
+import { refetchGetPageQuery } from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
 
 type MovePageElementFormProps = Omit<

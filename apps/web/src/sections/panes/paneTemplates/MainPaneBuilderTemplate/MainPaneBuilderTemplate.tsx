@@ -1,5 +1,6 @@
 import { PureQueryOptions } from '@apollo/client'
-import { ElementTree, useBuilder } from '@codelab/frontend/modules/builder'
+import { ElementTree } from '@codelab/frontend/abstract/props'
+import { useBuilder } from '@codelab/frontend/modules/builder'
 import { useMoveElementMutation } from '@codelab/shared/codegen/graphql'
 import { Dropdown, Tree } from 'antd'
 import { TreeProps } from 'antd/lib/tree'

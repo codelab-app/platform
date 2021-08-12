@@ -1,4 +1,4 @@
-import { useRenderContext } from '@codelab/frontend/shared'
+import { useRenderContext } from '@codelab/frontend/presenter/container'
 import React from 'react'
 
 /**
