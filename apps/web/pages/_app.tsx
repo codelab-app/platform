@@ -15,7 +15,8 @@ import { GlobalStyles } from 'twin.macro'
 const queryClient = new QueryClient()
 
 const AppContainer = ({ pageProps, Component, router }: AppProps<any>) => {
-  const { Template, MainPane, MetaPane, SidebarNavigation } = Component as any
+  const { Template, Header, MainPane, MetaPane, SidebarNavigation } =
+    Component as any
 
   return (
     <RecoilRoot>
@@ -31,7 +32,7 @@ const AppContainer = ({ pageProps, Component, router }: AppProps<any>) => {
                   },
                   body: {
                     overflow:
-                      router.pathname === PageType.PageDetail
+                      router.pathname === PageType.PageBuilder
                         ? 'hidden'
                         : 'auto',
                   },
@@ -39,6 +40,7 @@ const AppContainer = ({ pageProps, Component, router }: AppProps<any>) => {
               />
               {Template ? (
                 <Template
+                  Header={Header}
                   MainPane={MainPane}
                   MetaPane={MetaPane}
                   SidebarNavigation={SidebarNavigation}

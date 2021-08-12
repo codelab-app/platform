@@ -3,12 +3,14 @@ import React from 'react'
 import { DashboardLayout } from '../layout/DashboardLayout'
 import { LayoutComponent } from './Layout.interface'
 
-export const PageDetailTemplate: LayoutComponent<'builder'> = (props) => {
-  const { children, MainPane, MetaPane } = props
+// Page Builder Template
+export const PageBuilderTemplate: LayoutComponent<'builder'> = (props) => {
+  const { children, Header, MainPane, MetaPane } = props
 
   return (
     <EditorProvider>
       <DashboardLayout
+        Header={Header}
         MainPane={MainPane}
         MetaPane={MetaPane}
         SidebarNavigation={() => <></>}

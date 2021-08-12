@@ -37,7 +37,7 @@ export const GetPagesList = () => {
               <FileOutlined />
               <Link
                 href={{
-                  pathname: PageType.PageDetail,
+                  pathname: PageType.PageBuilder,
                   query: { appId: app.id, pageId: page.id },
                 }}
               >
