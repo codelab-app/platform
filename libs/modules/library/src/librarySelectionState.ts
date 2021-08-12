@@ -1,8 +1,8 @@
-import {
-  GetFirstLibraryGql,
-  GetLibraryGql,
-  useGetLibraryQuery,
-} from '@codelab/codegen/hasura'
+// import {
+//   GetFirstLibraryGql,
+//   GetLibraryGql,
+//   useGetLibraryQuery,
+// } from '@codelab/codegen/hasura'
 import { getApolloClient } from '@codelab/frontend/apollo'
 import { notify } from '@codelab/frontend/shared'
 import { useEffect } from 'react'
@@ -25,7 +25,8 @@ const fetchAndSelectFirstLibrary = (
 ) => {
   getApolloClient()
     .query({
-      query: GetFirstLibraryGql,
+      query: null!,
+      // query: GetFirstLibraryGql,
     })
     .then((r) => {
       if (r.data?.library && r.data?.library[0]) {
@@ -52,12 +53,12 @@ const fetchAndSelectFirstLibrary = (
 export const useSelectedLibrary = () => {
   const [state, setState] = useRecoilState(librarySelectionState)
 
-  const { data } = useGetLibraryQuery({
-    skip: !state.selectedLibraryId,
-    variables: {
-      libraryId: state.selectedLibraryId ?? '',
-    },
-  })
+  // const { data } = useGetLibraryQuery({
+  //   skip: !state.selectedLibraryId,
+  //   variables: {
+  //     libraryId: state.selectedLibraryId ?? '',
+  //   },
+  // })
 
   const selectLibrary = (libraryId: string) => {
     setState({
@@ -74,7 +75,7 @@ export const useSelectedLibrary = () => {
     if (item) {
       getApolloClient()
         .query({
-          query: GetLibraryGql,
+          query: null!,
           variables: {
             libraryId: item,
           },
@@ -94,7 +95,7 @@ export const useSelectedLibrary = () => {
 
   return {
     selectLibrary,
-    library: data?.library_by_pk,
+    library: null!,
     state,
   }
 }

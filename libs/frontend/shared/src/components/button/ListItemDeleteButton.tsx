@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons'
+import DeleteOutlined from '@ant-design/icons/lib/icons/DeleteOutlined'
 import React from 'react'
 import { ListItemButton, ListItemButtonProps } from './ListItemButton'
 

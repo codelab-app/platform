@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { Spin } from 'antd'
+import Spin from 'antd/lib/spin'
 import React, { CSSProperties } from 'react'
 import { useRecoilValue } from 'recoil'
 import {

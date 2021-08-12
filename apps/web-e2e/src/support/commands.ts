@@ -1,12 +1,12 @@
 import '@testing-library/cypress/add-commands'
 import {
+  AtomType,
   CreateAppGql,
   CreateAppInput,
   DeleteAppGql,
   DeleteAppInput,
 } from '@codelab/codegen/graphql'
-import { Library_Insert_Input } from '@codelab/codegen/hasura'
-import { AtomType } from '@codelab/frontend/shared'
+// import { Library_Insert_Input } from '@codelab/codegen/hasura'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
 import { print } from 'graphql'
@@ -41,7 +41,7 @@ declare global {
       deleteAllAtoms: typeof deleteAllAtoms
       createComponent: typeof createComponent
       /** Creates an app for the current logged in user */
-      createLibrary: typeof createLibrary
+      // createLibrary: typeof createLibrary
       createPage: typeof createPage
       findByButtonText: (
         text: Matcher,
@@ -176,18 +176,18 @@ const createPage = (appId: string, pageName = 'default') => {
 }
 
 Cypress.Commands.add('createPage', createPage)
+//
+// const defaultLibraryData: Library_Insert_Input = {
+//   name: 'Test library',
+// }
+//
+// export const createLibrary = (
+//   data: Library_Insert_Input = defaultLibraryData,
+// ) => {
+//   return new Promise((resolve, reject) => reject('not implemeneted'))
+// }
 
-const defaultLibraryData: Library_Insert_Input = {
-  name: 'Test library',
-}
-
-export const createLibrary = (
-  data: Library_Insert_Input = defaultLibraryData,
-) => {
-  return new Promise((resolve, reject) => reject('not implemeneted'))
-}
-
-Cypress.Commands.add('createLibrary', createLibrary)
+// Cypress.Commands.add('createLibrary', createLibrary)
 
 export const findByButtonText = (
   subject: any,

@@ -1,5 +1,4 @@
-import { Modal } from 'antd'
-import { ModalProps } from 'antd/lib/modal'
+import Modal, { ModalProps } from 'antd/lib/modal'
 import React, {
   cloneElement,
   PropsWithChildren,

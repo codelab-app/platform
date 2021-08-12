@@ -1,5 +1,5 @@
 import { DeleteOutlined, SettingOutlined } from '@ant-design/icons'
-import { useGetStylesListQuery } from '@codelab/codegen/hasura'
+// import { useGetStylesListQuery } from '@codelab/codegen/hasura'
 import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
 import { List, Space } from 'antd'
 import React from 'react'
@@ -9,12 +9,12 @@ export const GetStylesList = () => {
     EntityType.Style,
   )
 
-  const { data } = useGetStylesListQuery({})
+  // const { data } = useGetStylesListQuery({})
 
   return (
     <>
       <List
-        dataSource={data?.style}
+        // dataSource={data?.style}
         renderItem={(style: any) => (
           <List.Item onMouseOver={() => null} style={{ paddingLeft: 0 }}>
             <Space style={{ width: '100%' }}>

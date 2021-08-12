@@ -1,4 +1,4 @@
-import { EditOutlined } from '@ant-design/icons'
+import EditOutlined from '@ant-design/icons/lib/icons/EditOutlined'
 import React from 'react'
 import { ListItemButton, ListItemButtonProps } from './ListItemButton'
 
