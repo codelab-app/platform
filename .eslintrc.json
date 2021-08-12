@@ -64,7 +64,7 @@
               },
               {
                 "sourceTag": "level:abstract",
-                "onlyDependOnLibsWithTags": ["level:abstract"]
+                "onlyDependOnLibsWithTags": ["level:abstract", "shared:codegen"]
               },
               {
                 "sourceTag": "level:concrete",

@@ -135,7 +135,7 @@
       "tags": []
     },
     "shared-codegen-graphql": {
-      "tags": []
+      "tags": ["shared:codegen"]
     },
     "shared-operations": {
       "tags": []
