@@ -1,4 +1,4 @@
-import { AuthModule, DgraphModule, serverConfig } from '@codelab/backend'
+import { AuthModule, DgraphModule, serverConfig } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { SeederService } from './seeder.service'

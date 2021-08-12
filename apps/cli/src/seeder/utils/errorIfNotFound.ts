@@ -1,4 +1,4 @@
-import { ErrorCode } from '@codelab/backend'
+import { ErrorCode } from '@codelab/backend/infra'
 
 export const errorIfNotFound = (e: any) => {
   return (

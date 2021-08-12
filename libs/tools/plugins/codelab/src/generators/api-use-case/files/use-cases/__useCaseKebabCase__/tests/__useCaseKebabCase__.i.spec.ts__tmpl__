@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common'
 import { <%= modelNamePascalCase %>Module } from '../../../../framework/nestjs/<%= modelNamePascalCase %>Module'
-import { domainRequest, setupTestModule, teardownTestModule, Role } from '@codelab/backend'
+import { domainRequest, setupTestModule, teardownTestModule, Role } from '@codelab/backend/infra'
 import { <%= modelNamePascalCase %> } from '../../../<%= modelName %>.module'
 
 describe('<%= useCaseNamePascalCase %>UseCase', () => {

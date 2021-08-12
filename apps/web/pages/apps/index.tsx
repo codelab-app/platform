@@ -1,13 +1,13 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { padding } from '@codelab/frontend/style'
 import {
   CreateAppButton,
   CreateAppModal,
   DeleteAppModal,
   GetAppsList,
   UpdateAppModal,
-} from '@codelab/modules/app'
-import { SignOutUserButton } from '@codelab/modules/user'
+} from '@codelab/frontend/modules/app'
+import { SignOutUserButton } from '@codelab/frontend/modules/user'
+import { padding } from '@codelab/frontend/style'
 import { PageHeader } from 'antd'
 import React from 'react'
 import { NextPageTemplate } from '../../src/templates/Layout.interface'

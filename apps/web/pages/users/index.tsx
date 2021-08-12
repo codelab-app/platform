@@ -1,5 +1,8 @@
-import { useGetUsersQuery } from '@codelab/codegen/graphql'
-import { DeleteUserButton, DeleteUserModal } from '@codelab/modules/user'
+import {
+  DeleteUserButton,
+  DeleteUserModal,
+} from '@codelab/frontend/modules/user'
+import { useGetUsersQuery } from '@codelab/shared/codegen/graphql'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import React from 'react'

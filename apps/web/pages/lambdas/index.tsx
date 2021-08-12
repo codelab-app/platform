@@ -1,13 +1,13 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { padding } from '@codelab/frontend/style'
 import {
+  CreateLambdaButton,
   CreateLambdaModal,
   DeleteLambdaModal,
   GetLambdasTable,
   UpdateLambdaModal,
-} from '@codelab/modules/lambda'
+} from '@codelab/frontend/modules/lambda'
+import { padding } from '@codelab/frontend/style'
 import { PageHeader } from 'antd'
-import { CreateLambdaButton } from 'libs/modules/lambda/src/createLambda/CreateLambdaButton'
 import React from 'react'
 import { NextPageTemplate } from '../../src/templates/Layout.interface'
 import { MainDashboardTemplate } from '../../src/templates/MainDashboardTemplate'

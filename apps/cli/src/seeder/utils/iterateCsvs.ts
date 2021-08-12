@@ -1,4 +1,4 @@
-import { AntdDesignApi } from '@codelab/backend'
+import { AntdDesignApi } from '@codelab/backend/infra'
 import csv from 'csv-parser'
 import fs from 'fs'
 import path from 'path'

@@ -1,4 +1,4 @@
-import { AppProvider } from '@codelab/frontend/shared'
+import { AppProvider } from '@codelab/frontend/presenter/container'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
 

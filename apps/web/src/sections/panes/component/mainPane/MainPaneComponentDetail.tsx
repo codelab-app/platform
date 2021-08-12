@@ -1,17 +1,17 @@
-import { refetchGetComponentElementsQuery } from '@codelab/codegen/graphql'
-import { useBuilder } from '@codelab/frontend/builder'
-import {
-  ActionType,
-  ComponentContext,
-  CrudModal,
-  EntityType,
-  PageType,
-} from '@codelab/frontend/shared'
-import { CreateComponentElementForm } from '@codelab/modules/component'
+import { PageType } from '@codelab/frontend/model/state/router'
+import { useBuilder } from '@codelab/frontend/modules/builder'
+import { CreateComponentElementForm } from '@codelab/frontend/modules/component'
 import {
   CreateElementButton,
   DeleteElementModal,
-} from '@codelab/modules/element'
+} from '@codelab/frontend/modules/element'
+import { ComponentContext } from '@codelab/frontend/presenter/container'
+import {
+  ActionType,
+  CrudModal,
+  EntityType,
+} from '@codelab/frontend/view/components'
+import { refetchGetComponentElementsQuery } from '@codelab/shared/codegen/graphql'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { MainPaneBuilderTemplate } from '../../paneTemplates'

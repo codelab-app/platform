@@ -1,13 +1,14 @@
-import { Environment, ServerConfig, serverConfig } from '@codelab/backend'
+import { ServerConfig, serverConfig } from '@codelab/backend/infra'
 import { Inject, Injectable } from '@nestjs/common'
 import { Command, Console } from 'nestjs-console'
 import shell from 'shelljs'
 import waitOn from 'wait-on'
 import { envOption } from '../env-helper'
+import { Env } from '../environments/env'
 import { ServerService } from '../server'
 
 export interface E2eOptions {
-  env: Environment
+  env: Env
 }
 
 @Console()

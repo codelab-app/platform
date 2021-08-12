@@ -1,7 +1,0 @@
-fragment Library__Style on style {
-  id
-  name
-  propCollection {
-    ...PropCollection
-  }
-}

@@ -2,7 +2,7 @@ import {
   CreateTypeInput,
   ElementTypeKind,
   PrimitiveKind,
-} from '@codelab/codegen/graphql'
+} from '@codelab/shared/codegen/graphql'
 
 export enum BaseTypeName {
   Lambda = 'Lambda',

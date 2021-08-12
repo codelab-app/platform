@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { EntityType, useCrudModalForm, UpdateButtonProps } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm, UpdateButtonProps } from '@codelab/frontend/utils'
 import { Button } from 'antd'
 
 export const <%= useCasePC %>Button = ({ id, disabled }: UpdateButtonProps) => {

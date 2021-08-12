@@ -3,10 +3,10 @@
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */
-import { Env, envOption, ENV_FLAG } from './cli-helpers/env'
+import { Env, envOption, ENV_FLAG } from './cli/env'
 import yargs from 'yargs/yargs'
 import { hideBin } from 'yargs/helpers'
-import { runCli } from './cli-helpers/run-cli'
+import { runCli } from './cli/run-cli'
 
 /**
  * We create wrapper around our cli commands so we can load env vars as needed. Calling nx will automatically load `.env`, we'll have to wait until this PR gets published to nrwl https://github.com/nrwl/nx/issues/5426

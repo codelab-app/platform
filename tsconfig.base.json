@@ -2,7 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
-    // https://github.com/nrwl/nx/issues/1765#issuecomment-867653579
     "rootDirs": ["*", "libs"],
     "sourceMap": true,
     "declaration": false,
@@ -21,36 +20,114 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/backend": ["libs/backend/src/index.ts"],
-      "@codelab/codegen/graphql": ["libs/codegen/graphql/src/index.ts"],
-      "@codelab/ddd/core": ["libs/ddd/core/src/index.ts"],
-      "@codelab/ddd/types": ["libs/ddd/types/src/index.ts"],
-      "@codelab/frontend/apollo": ["libs/frontend/apollo/src/index.ts"],
-      "@codelab/frontend/builder": ["libs/frontend/builder/src/index.ts"],
+      "@codelab/backend/abstract/core": [
+        "libs/backend/abstract/core/src/index.ts"
+      ],
+      "@codelab/backend/abstract/types": [
+        "libs/backend/abstract/types/src/index.ts"
+      ],
+      "@codelab/backend/infra": ["libs/backend/infra/src/index.ts"],
+      "@codelab/backend/modules/app": ["libs/backend/modules/app/src/index.ts"],
+      "@codelab/backend/modules/atom": [
+        "libs/backend/modules/atom/src/index.ts"
+      ],
+      "@codelab/backend/modules/element": [
+        "libs/backend/modules/element/src/index.ts"
+      ],
+      "@codelab/backend/modules/lambda": [
+        "libs/backend/modules/lambda/src/index.ts"
+      ],
+      "@codelab/backend/modules/page": [
+        "libs/backend/modules/page/src/index.ts"
+      ],
+      "@codelab/backend/modules/tag": ["libs/backend/modules/tag/src/index.ts"],
+      "@codelab/backend/modules/type": [
+        "libs/backend/modules/type/src/index.ts"
+      ],
+      "@codelab/backend/modules/user": [
+        "libs/backend/modules/user/src/index.ts"
+      ],
+      "@codelab/frontend/abstract/props": [
+        "libs/frontend/abstract/props/src/index.ts"
+      ],
       "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
-      "@codelab/frontend/dgraph": ["libs/frontend/dgraph/src/index.ts"],
-      "@codelab/frontend/shared": ["libs/frontend/shared/src/index.ts"],
+      "@codelab/frontend/model/domain": [
+        "libs/frontend/model/domain/src/index.ts"
+      ],
+      "@codelab/frontend/model/infra/apollo": [
+        "libs/frontend/model/infra/apollo/src/index.ts"
+      ],
+      "@codelab/frontend/model/state": ["libs/frontend/model/state/index.ts"],
+      "@codelab/frontend/model/state/local": [
+        "libs/frontend/model/state/local/index.ts"
+      ],
+      "@codelab/frontend/model/state/meta": [
+        "libs/frontend/model/state/meta/index.ts"
+      ],
+      "@codelab/frontend/model/state/remote": [
+        "libs/frontend/model/state/remote/index.ts"
+      ],
+      "@codelab/frontend/model/state/router": [
+        "libs/frontend/model/state/router/index.ts"
+      ],
+      "@codelab/frontend/model/state/shared": [
+        "libs/frontend/model/state/shared/index.ts"
+      ],
+      "@codelab/frontend/modules/app": [
+        "libs/frontend/modules/app/src/index.ts"
+      ],
+      "@codelab/frontend/modules/atom": [
+        "libs/frontend/modules/atom/src/index.ts"
+      ],
+      "@codelab/frontend/modules/builder": [
+        "libs/frontend/modules/builder/src/index.ts"
+      ],
+      "@codelab/frontend/modules/category": [
+        "libs/frontend/modules/category/src/index.ts"
+      ],
+      "@codelab/frontend/modules/component": [
+        "libs/frontend/modules/component/src/index.ts"
+      ],
+      "@codelab/frontend/modules/element": [
+        "libs/frontend/modules/element/src/index.ts"
+      ],
+      "@codelab/frontend/modules/lambda": [
+        "libs/frontend/modules/lambda/src/index.ts"
+      ],
+      "@codelab/frontend/modules/library": [
+        "libs/frontend/modules/library/src/index.ts"
+      ],
+      "@codelab/frontend/modules/page": [
+        "libs/frontend/modules/page/src/index.ts"
+      ],
+      "@codelab/frontend/modules/style": [
+        "libs/frontend/modules/style/src/index.ts"
+      ],
+      "@codelab/frontend/modules/tag": [
+        "libs/frontend/modules/tag/src/index.ts"
+      ],
+      "@codelab/frontend/modules/type": [
+        "libs/frontend/modules/type/src/index.ts"
+      ],
+      "@codelab/frontend/modules/user": [
+        "libs/frontend/modules/user/src/index.ts"
+      ],
+      "@codelab/frontend/presenter/container": [
+        "libs/frontend/presenter/container/src/index.ts"
+      ],
+      "@codelab/frontend/shared/types": [
+        "libs/frontend/shared/types/src/index.ts"
+      ],
+      "@codelab/frontend/shared/utils": [
+        "libs/frontend/shared/utils/src/index.ts"
+      ],
       "@codelab/frontend/style": ["libs/frontend/style/src/index.ts"],
-      "@codelab/modules/app": ["libs/modules/app/src/index.ts"],
-      "@codelab/modules/app-api": ["libs/modules/app-api/src/index.ts"],
-      "@codelab/modules/atom": ["libs/modules/atom/src/index.ts"],
-      "@codelab/modules/atom-api": ["libs/modules/atom-api/src/index.ts"],
-      "@codelab/modules/category": ["libs/modules/category/src/index.ts"],
-      "@codelab/modules/component": ["libs/modules/component/src/index.ts"],
-      "@codelab/modules/element": ["libs/modules/element/src/index.ts"],
-      "@codelab/modules/element-api": ["libs/modules/element-api/src/index.ts"],
-      "@codelab/modules/lambda": ["libs/modules/lambda/src/index.ts"],
-      "@codelab/modules/lambda-api": ["libs/modules/lambda-api/src/index.ts"],
-      "@codelab/modules/library": ["libs/modules/library/src/index.ts"],
-      "@codelab/modules/page": ["libs/modules/page/src/index.ts"],
-      "@codelab/modules/page-api": ["libs/modules/page-api/src/index.ts"],
-      "@codelab/modules/style": ["libs/modules/style/src/index.ts"],
-      "@codelab/modules/tag": ["libs/modules/tag/src/index.ts"],
-      "@codelab/modules/tag-api": ["libs/modules/tag-api/src/index.ts"],
-      "@codelab/modules/type": ["libs/modules/type/src/index.ts"],
-      "@codelab/modules/type-api": ["libs/modules/type-api/src/index.ts"],
-      "@codelab/modules/user": ["libs/modules/user/src/index.ts"],
-      "@codelab/modules/user-api": ["libs/modules/user-api/src/index.ts"],
+      "@codelab/frontend/view/components": [
+        "libs/frontend/view/components/src/index.ts"
+      ],
+      "@codelab/shared/codegen/graphql": [
+        "libs/shared/codegen/graphql/src/index.ts"
+      ],
       "@codelab/shared/operations": ["libs/shared/operations/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools/plugins/codelab": [

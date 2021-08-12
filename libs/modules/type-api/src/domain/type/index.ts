@@ -1,7 +1,0 @@
-export * from './array'
-export * from './enum'
-export * from './interface'
-export * from './primitive'
-export * from './type.factory'
-export * from './type.interface'
-export * from './type.vo'

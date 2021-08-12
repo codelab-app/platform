@@ -1,4 +1,4 @@
-import { AppProvider } from '@codelab/frontend/shared'
+import { AppProvider } from '@codelab/frontend/presenter/container'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
 import { useRouter } from 'next/router'

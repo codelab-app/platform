@@ -1,11 +1,11 @@
-import { PageType } from '@codelab/frontend/shared'
+import { PageType } from '@codelab/frontend/model/state/router'
 import {
   CreatePageButton,
   CreatePageModal,
   DeletePageModal,
   GetPagesList,
   UpdatePageModal,
-} from '@codelab/modules/page'
+} from '@codelab/frontend/modules/page'
 import React, { useRouter } from 'next/router'
 import { MainPaneTemplate } from '../../paneTemplates'
 

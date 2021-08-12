@@ -1,4 +1,4 @@
-import { AtomType, CreateFieldInput } from '@codelab/codegen/graphql'
+import { AtomType, CreateFieldInput } from '@codelab/shared/codegen/graphql'
 import { CustomAtomApiFactory } from '../../utils/customAtomApi'
 import { BaseTypeName } from '../baseTypes'
 

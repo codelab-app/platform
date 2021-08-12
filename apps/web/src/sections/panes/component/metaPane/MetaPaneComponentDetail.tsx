@@ -1,13 +1,13 @@
-import { ComponentContext } from '@codelab/frontend/shared'
 import {
   MoveComponentElementForm,
   UpdateComponentElementForm,
-} from '@codelab/modules/component'
+} from '@codelab/frontend/modules/component'
 import {
   DeleteElementButton,
   ElementCssEditor,
   UpdateElementPropsForm,
-} from '@codelab/modules/element'
+} from '@codelab/frontend/modules/element'
+import { ComponentContext } from '@codelab/frontend/presenter/container'
 import React, { useContext } from 'react'
 import { MetaPaneBuilderTemplate } from '../../paneTemplates'
 

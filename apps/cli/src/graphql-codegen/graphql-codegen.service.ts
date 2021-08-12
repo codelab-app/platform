@@ -1,14 +1,10 @@
 import {
   dgraphConfig,
   DgraphService,
-  DgraphTokens,
-  Environment,
   graphqlSchemaConfig,
   GraphqlSchemaService,
-  GraphqlSchemaTokens,
   serverConfig,
-  ServerTokens,
-} from '@codelab/backend'
+} from '@codelab/backend/infra'
 import { generate } from '@graphql-codegen/cli'
 import { Types } from '@graphql-codegen/plugin-helpers'
 import { Inject, Injectable } from '@nestjs/common'
@@ -20,7 +16,8 @@ import path from 'path'
 import shell from 'shelljs'
 import waitOn from 'wait-on'
 import { envOption } from '../env-helper'
-import { ServerService } from '../server/server.service'
+import { Env } from '../environments/env'
+import { ServerService } from '../server'
 
 interface BaseCodegenConfig {
   watch?: boolean
@@ -38,7 +35,7 @@ interface ApolloCodegenConfig extends BaseCodegenConfig {
 
 export interface CodegenOptions {
   watch: boolean
-  env: Environment
+  env: Env
 }
 
 @Console()

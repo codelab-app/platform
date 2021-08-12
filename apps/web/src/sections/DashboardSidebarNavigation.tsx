@@ -7,7 +7,7 @@ import {
   TagOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { PageType } from '@codelab/frontend/shared'
+import { PageType } from '@codelab/frontend/model/state/router'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

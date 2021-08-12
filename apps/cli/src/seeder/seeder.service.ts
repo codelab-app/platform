@@ -3,8 +3,8 @@ import {
   Auth0Service,
   ServerConfig,
   serverConfig,
-} from '@codelab/backend'
-import { AtomTypeEnum } from '@codelab/modules/atom-api'
+} from '@codelab/backend/infra'
+import { AtomTypeEnum } from '@codelab/backend/modules/atom'
 import { snakeCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable } from '@nestjs/common'
 import { GraphQLClient } from 'graphql-request'

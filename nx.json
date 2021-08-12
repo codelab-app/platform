@@ -29,94 +29,109 @@
     "api": {
       "tags": []
     },
-    "backend": {
+    "backend-abstract-core": {
+      "tags": []
+    },
+    "backend-abstract-types": {
+      "tags": []
+    },
+    "backend-infra": {
+      "tags": []
+    },
+    "backend-modules-app": {
+      "tags": []
+    },
+    "backend-modules-atom": {
+      "tags": []
+    },
+    "backend-modules-element": {
+      "tags": []
+    },
+    "backend-modules-lambda": {
+      "tags": []
+    },
+    "backend-modules-page": {
+      "tags": []
+    },
+    "backend-modules-tag": {
+      "tags": []
+    },
+    "backend-modules-type": {
+      "tags": []
+    },
+    "backend-modules-user": {
       "tags": []
     },
     "cli": {
       "tags": []
     },
-    "codegen-graphql": {
+    "frontend-abstract-props": {
       "tags": []
     },
-    "ddd-core": {
+    "frontend-model-domain": {
       "tags": []
     },
-    "ddd-types": {
+    "frontend-model-infra-apollo": {
       "tags": []
     },
-    "frontend-apollo": {
+    "frontend-model-state": {
       "tags": []
     },
-    "frontend-builder": {
+    "frontend-modules-app": {
       "tags": []
     },
-    "frontend-dgraph": {
+    "frontend-modules-atom": {
       "tags": []
     },
-    "frontend-shared": {
+    "frontend-modules-builder": {
+      "tags": []
+    },
+    "frontend-modules-category": {
+      "tags": []
+    },
+    "frontend-modules-component": {
+      "tags": []
+    },
+    "frontend-modules-element": {
+      "tags": []
+    },
+    "frontend-modules-lambda": {
+      "tags": []
+    },
+    "frontend-modules-library": {
+      "tags": []
+    },
+    "frontend-modules-page": {
+      "tags": []
+    },
+    "frontend-modules-style": {
+      "tags": []
+    },
+    "frontend-modules-tag": {
+      "tags": []
+    },
+    "frontend-modules-type": {
+      "tags": []
+    },
+    "frontend-modules-user": {
+      "tags": []
+    },
+    "frontend-presenter-container": {
+      "tags": []
+    },
+    "frontend-shared-types": {
+      "tags": []
+    },
+    "frontend-shared-utils": {
       "tags": []
     },
     "frontend-style": {
       "tags": []
     },
-    "modules-app": {
+    "frontend-view-components": {
       "tags": []
     },
-    "modules-app-api": {
-      "tags": []
-    },
-    "modules-atom": {
-      "tags": []
-    },
-    "modules-atom-api": {
-      "tags": []
-    },
-    "modules-category": {
-      "tags": []
-    },
-    "modules-component": {
-      "tags": []
-    },
-    "modules-element": {
-      "tags": []
-    },
-    "modules-element-api": {
-      "tags": []
-    },
-    "modules-lambda": {
-      "tags": []
-    },
-    "modules-lambda-api": {
-      "tags": []
-    },
-    "modules-library": {
-      "tags": []
-    },
-    "modules-page": {
-      "tags": []
-    },
-    "modules-page-api": {
-      "tags": []
-    },
-    "modules-style": {
-      "tags": []
-    },
-    "modules-tag": {
-      "tags": []
-    },
-    "modules-tag-api": {
-      "tags": []
-    },
-    "modules-type": {
-      "tags": []
-    },
-    "modules-type-api": {
-      "tags": []
-    },
-    "modules-user": {
-      "tags": []
-    },
-    "modules-user-api": {
+    "shared-codegen-graphql": {
       "tags": []
     },
     "shared-operations": {

@@ -2,14 +2,14 @@ import {
   <%= useCasePascalCase %>Input,
   refetchGet<%= modelPascalCase %>sQuery,
   use<%= useCasePascalCase %>Mutation,
-} from '@codelab/codegen/graphql'
+} from '@codelab/shared/codegen/graphql'
 import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCrudModalMutationForm,
-} from '@codelab/frontend/shared'
+} from '@codelab/frontend/utils'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { <%= useCaseCamelCase %>Schema } from './<%= useCaseCamelCase %>Schema'

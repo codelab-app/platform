@@ -1,5 +1,5 @@
-import { ElementFragment } from '@codelab/codegen/graphql'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
+import { ElementFragment } from '@codelab/shared/codegen/graphql'
 import { Menu } from 'antd'
 import React from 'react'
 

@@ -1,4 +1,4 @@
-import { EditorProvider } from '@codelab/frontend/builder'
+import { EditorProvider } from '@codelab/frontend/modules/builder'
 import React from 'react'
 import { DashboardLayout } from '../layout/DashboardLayout'
 import { LayoutComponent } from './Layout.interface'

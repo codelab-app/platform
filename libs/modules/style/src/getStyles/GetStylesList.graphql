@@ -1,7 +1,0 @@
-query GetStylesList {
-  style {
-    id
-    library_id
-    name
-  }
-}

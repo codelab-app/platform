@@ -1,5 +1,8 @@
-import { __AtomFragment, ElementFragment } from '@codelab/codegen/graphql'
-import { useBuilder } from '@codelab/frontend/builder'
+import { useBuilder } from '@codelab/frontend/modules/builder'
+import {
+  __AtomFragment,
+  ElementFragment,
+} from '@codelab/shared/codegen/graphql'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'

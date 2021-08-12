@@ -1,4 +1,4 @@
-import { serverConfig } from '@codelab/backend'
+import { serverConfig } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { ServerModule } from '../server'

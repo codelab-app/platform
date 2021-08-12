@@ -34,7 +34,6 @@ const pluginConfig: Cypress.PluginConfig = (on, config) => {
   config.env.auth0SessionCookieName = 'appSession'
   config.env.auth0Username = process.env.CYPRESS_AUTH0_USER
   config.env.auth0Password = process.env.CYPRESS_AUTH0_PASSWORD
-  config.env.dgraphGraphqlEndpoint = process.env.CODELAB_DGRAPH_GRAPHQL_ENDPOINT
   config.env.dgraphApiKey = process.env.CODELAB_DGRAPH_API_KEY ?? ''
   config.env.codelabApiEndpoint = process.env.CODELAB_API_ENDPOINT ?? ''
 

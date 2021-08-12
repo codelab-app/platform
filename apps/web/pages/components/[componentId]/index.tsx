@@ -1,10 +1,13 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { Builder, defaultRenderContext } from '@codelab/frontend/builder'
+import {
+  Builder,
+  defaultRenderContext,
+} from '@codelab/frontend/modules/builder'
 import {
   ComponentContext,
   RenderProvider,
   withComponentQueryProvider,
-} from '@codelab/frontend/shared'
+} from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
 import React, { useContext } from 'react'
 import {

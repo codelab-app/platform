@@ -1,4 +1,4 @@
-import { CreateAppInput } from '@codelab/codegen/graphql'
+import { CreateAppInput } from '@codelab/shared/codegen/graphql'
 import { GraphQLClient } from 'graphql-request'
 
 export class AppSeeder {
