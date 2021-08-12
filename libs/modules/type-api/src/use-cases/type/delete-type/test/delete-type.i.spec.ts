@@ -70,9 +70,13 @@ describe('DeleteType', () => {
         deleteTypeInput,
       )
 
-      await domainRequest<GetTypeInput, GetTypeQuery>(userApp, GetTypeGql, {
-        where: { id: typeId },
-      })
+      const type = await domainRequest<GetTypeInput, GetTypeQuery>(
+        userApp,
+        GetTypeGql,
+        { where: { id: typeId } },
+      )
+
+      expect(type.getType).toBeNull()
     })
   })
 })

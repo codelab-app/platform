@@ -65,12 +65,13 @@ describe('DeleteApp', () => {
       )
 
       // Should fail to get the deleted app
-      await domainRequest<GetAppInput, GetAppQuery>(
+      const { getApp } = await domainRequest<GetAppInput, GetAppQuery>(
         userApp,
         GetAppGql,
         getAppInput,
-        { message: 'Not found' },
       )
+
+      expect(getApp).toBeNull()
 
       // TODO make sure pages are deleted too
     })

@@ -12,7 +12,7 @@ import { GetComponentRequest } from './get-component.request'
 @Injectable()
 export class GetComponentService extends DgraphUseCase<
   GetComponentRequest,
-  DgraphComponent
+  DgraphComponent | null
 > {
   constructor(dgraph: DgraphRepository) {
     super(dgraph)
@@ -23,7 +23,7 @@ export class GetComponentService extends DgraphUseCase<
       input: { componentId },
     } = request
 
-    return this.dgraph.getOneOrThrow<DgraphComponent>(
+    return this.dgraph.getOne<DgraphComponent>(
       txn,
       this.createQuery(componentId),
     )

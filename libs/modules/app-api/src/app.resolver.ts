@@ -48,7 +48,7 @@ export class AppResolver {
     return this.createAppService.execute({ input, ownerId: user.sub })
   }
 
-  @Query(() => App)
+  @Query(() => App, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getApp(
     @Args('input') input: GetAppInput,
@@ -58,6 +58,10 @@ export class AppResolver {
       input,
       currentUser,
     })
+
+    if (!app) {
+      return null
+    }
 
     return this.appMapper.map(app)
   }

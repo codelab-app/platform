@@ -4,7 +4,6 @@ import {
   DgraphEntityType,
   DgraphQueryBuilder,
   DgraphUseCase,
-  NotFoundError,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -27,27 +26,20 @@ export class GetAtomService extends DgraphUseCase<
     this.validate(request)
 
     if (request.byId) {
-      return this.dgraph.getOneOrThrow(
-        txn,
-        this.createGetByIdQuery(request.byId),
-      )
+      return this.dgraph.getOne(txn, this.createGetByIdQuery(request.byId))
     }
 
     if (request.byType) {
-      return this.dgraph.getOneOrThrow(
-        txn,
-        this.createGetByType(request.byType),
-      )
+      return this.dgraph.getOne(txn, this.createGetByType(request.byType))
     }
 
     if (request.byElement) {
       return this.dgraph
-        .getOneOrThrow<DgraphElement>(
+        .getOne<DgraphElement>(
           txn,
           this.createGetByElementQuery(request.byElement),
-          () => new NotFoundError('Element not found'),
         )
-        .then((e) => e.atom || null)
+        .then((e) => e?.atom || null)
     }
 
     throw new Error('Bad input to GetAtomsService')

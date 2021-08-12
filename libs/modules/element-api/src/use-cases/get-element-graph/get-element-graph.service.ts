@@ -3,7 +3,6 @@ import {
   DgraphEntityType,
   DgraphRepository,
   DgraphUseCase,
-  NotFoundError,
 } from '@codelab/backend'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -17,7 +16,7 @@ import { GetElementGraphRequest } from './get-element-graph.request'
  */
 export class GetElementGraphService extends DgraphUseCase<
   GetElementGraphRequest,
-  DgraphElement
+  DgraphElement | null
 > {
   constructor(
     protected readonly dgraph: DgraphRepository,
@@ -29,13 +28,12 @@ export class GetElementGraphService extends DgraphUseCase<
   protected async executeTransaction(
     request: GetElementGraphRequest,
     txn: Txn,
-  ): Promise<DgraphElement> {
+  ) {
     await this.validate(request)
 
-    return this.dgraph.getOneOrThrow(
+    return this.dgraph.getOne<DgraphElement>(
       txn,
       GetElementGraphService.createQuery(request),
-      () => new NotFoundError('Element not found'),
     )
   }
 

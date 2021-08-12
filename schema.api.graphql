@@ -347,7 +347,7 @@ type LambdaPayload {
 type Page {
   id: ID!
   name: String!
-  elements: ElementGraph!
+  elements: ElementGraph
 }
 
 type Tag {
@@ -398,12 +398,12 @@ type User {
 }
 
 type Query {
-  getApp(input: GetAppInput!): App!
+  getApp(input: GetAppInput!): App
   getApps: [App!]!
   getMe: User!
   getUsers(input: GetUsersInput): [User!]!
   getPages(input: GetPagesInput!): [Page!]!
-  getPage(input: GetPageInput!): Page!
+  getPage(input: GetPageInput!): Page
 
   """
   Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
@@ -412,8 +412,8 @@ type Query {
 
   """Get a single element."""
   getElement(input: GetElementInput!): Element
-  getComponent(input: GetComponentInput!): Component!
-  getComponentElements(input: GetComponentInput!): ElementGraph!
+  getComponent(input: GetComponentInput!): Component
+  getComponentElements(input: GetComponentInput!): ElementGraph
   getComponents: [Component!]!
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom

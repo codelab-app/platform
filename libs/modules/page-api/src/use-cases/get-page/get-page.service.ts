@@ -11,7 +11,10 @@ import { PageValidator } from '../../page.validator'
 import { GetPageRequest } from './get-page.request'
 
 @Injectable()
-export class GetPageService extends DgraphUseCase<GetPageRequest, DgraphPage> {
+export class GetPageService extends DgraphUseCase<
+  GetPageRequest,
+  DgraphPage | null
+> {
   constructor(dgraph: DgraphRepository, private pageValidator: PageValidator) {
     super(dgraph)
   }
@@ -23,7 +26,7 @@ export class GetPageService extends DgraphUseCase<GetPageRequest, DgraphPage> {
 
     await this.validate(request)
 
-    return this.dgraph.getOneOrThrow<DgraphPage>(
+    return this.dgraph.getOne<DgraphPage>(
       txn,
       GetPageService.createQuery(pageId),
     )

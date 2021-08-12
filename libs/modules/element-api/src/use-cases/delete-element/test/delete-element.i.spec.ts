@@ -64,12 +64,12 @@ describe('DeleteElement', () => {
       )
 
       // Should fail to get the deleted element
-      await domainRequest<GetElementInput, GetElementQuery>(
-        userApp,
-        GetElementGql,
-        getElementInput,
-        { message: 'Element not found' },
-      )
+      const { getElement } = await domainRequest<
+        GetElementInput,
+        GetElementQuery
+      >(userApp, GetElementGql, getElementInput)
+
+      expect(getElement).toBeNull()
     })
   })
 })
