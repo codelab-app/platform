@@ -20,6 +20,7 @@ export enum DgraphEntityType {
   InterfaceType = 'InterfaceType',
   LambdaType = 'LambdaType',
   ElementType = 'ElementType',
+  ComponentType = 'ComponentType',
   Field = 'Field',
   Prop = 'Prop',
   Lambda = 'Lambda',

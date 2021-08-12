@@ -55,4 +55,8 @@ export const baseTypes: Array<CreateTypeInput> = [
       kind: ElementTypeKind.AllElements,
     },
   },
+  {
+    name: BaseTypeName.Component,
+    componentType: true,
+  },
 ]

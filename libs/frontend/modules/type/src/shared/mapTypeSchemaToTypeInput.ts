@@ -78,6 +78,8 @@ export const mapTypeSchemaToTypeInput = (
       }
     case TypeKind.LambdaType:
       return { ...common, lambdaType: true }
+    case TypeKind.ComponentType:
+      return { ...common, componentType: true }
     case TypeKind.ElementType:
       return { ...common, elementType: { kind: typeSchema.elementKind } }
   }

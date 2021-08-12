@@ -50,6 +50,14 @@ type ArrayType implements Type {
 }
 
 """
+The ComponentType allows selecting a Component in the props form. The value is stored as the componentId 
+"""
+type ComponentType implements Type {
+  id: ID!
+  name: String!
+}
+
+"""
 The ElementType allows selecting a Element in the props form. The value is stored as the elementId 
 """
 type ElementType implements Type {
@@ -217,6 +225,7 @@ enum AtomType {
   Text
   State
   PropMapper
+  Mapper
   ReactFragment
   HtmlA
   HtmlP
@@ -535,6 +544,7 @@ enum TypeKindFilter {
   EnumType
   LambdaType
   ElementType
+  ComponentType
 }
 
 input TypesByNameFilter {
@@ -743,6 +753,7 @@ input CreateTypeInput {
   enumType: CreateEnumTypeInput
   interfaceType: Boolean
   lambdaType: Boolean
+  componentType: Boolean
   elementType: CreateElementTypeInput
 }
 

@@ -59,6 +59,9 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
   @Field(() => Boolean, { nullable: true })
   declare lambdaType?: boolean
 
+  @Field(() => Boolean, { nullable: true })
+  declare componentType?: boolean
+
   @Field(() => CreateElementTypeInput, { nullable: true })
   declare elementType?: CreateElementTypeInput
 }

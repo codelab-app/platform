@@ -16,4 +16,5 @@ export const TypeModels: TypeModelsType = {
   InterfaceType: 'InterfaceType',
   LambdaType: 'LambdaType',
   ElementType: 'ElementType',
+  ComponentType: 'ComponentType',
 }
