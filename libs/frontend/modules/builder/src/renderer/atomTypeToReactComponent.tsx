@@ -420,6 +420,10 @@ export const atomTypeToReactComponent = (
           (mod) => mod.PropMapper,
         ),
       )
+    case AtomType.Mapper:
+      return dynamic(() =>
+        import('@codelab/frontend/shared').then((mod) => mod.Mapper),
+      )
     default:
       return null
   }
