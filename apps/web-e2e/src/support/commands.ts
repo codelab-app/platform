@@ -5,8 +5,7 @@ import {
   CreateAppInput,
   DeleteAppGql,
   DeleteAppInput,
-} from '@codelab/codegen/graphql'
-// import { Library_Insert_Input } from '@codelab/codegen/hasura'
+} from '@codelab/shared/codegen/graphql'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
 import { print } from 'graphql'

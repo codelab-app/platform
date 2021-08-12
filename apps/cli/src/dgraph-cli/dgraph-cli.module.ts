@@ -1,4 +1,4 @@
-import { dgraphConfig, DgraphModule } from '@codelab/backend'
+import { dgraphConfig, DgraphModule } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { DgraphCliService } from './dgraph-cli.service'

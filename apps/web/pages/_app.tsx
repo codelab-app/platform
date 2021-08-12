@@ -2,9 +2,8 @@
 import '../src/styles/App.less'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
-import { useApollo } from '@codelab/frontend/apollo'
-import { dgraphClient, DgraphProvider } from '@codelab/frontend/dgraph'
-import { PageType } from '@codelab/frontend/shared'
+import { useApollo } from '@codelab/frontend/model/infra/apollo'
+import { PageType } from '@codelab/frontend/model/state/router'
 import { css, Global } from '@emotion/react'
 import { AppProps } from 'next/app'
 import React from 'react'
@@ -21,38 +20,33 @@ const AppContainer = ({ pageProps, Component, router }: AppProps<any>) => {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <DgraphProvider client={dgraphClient}>
-          <ApolloProvider client={useApollo(pageProps)}>
-            <UserProvider>
-              <GlobalStyles />
-              <Global
-                styles={css({
-                  '#__next': {
-                    height: '100%',
-                  },
-                  body: {
-                    overflow:
-                      router.pathname === PageType.PageBuilder
-                        ? 'hidden'
-                        : 'auto',
-                  },
-                })}
-              />
-              {Template ? (
-                <Template
-                  Header={Header}
-                  MainPane={MainPane}
-                  MetaPane={MetaPane}
-                  SidebarNavigation={SidebarNavigation}
-                >
-                  <Component {...pageProps} />
-                </Template>
-              ) : (
+        <ApolloProvider client={useApollo(pageProps)}>
+          <UserProvider>
+            <GlobalStyles />
+            <Global
+              styles={css({
+                '#__next': {
+                  height: '100%',
+                },
+                body: {
+                  overflow:
+                    router.pathname === PageType.PageDetail ? 'hidden' : 'auto',
+                },
+              })}
+            />
+            {Template ? (
+              <Template
+                MainPane={MainPane}
+                MetaPane={MetaPane}
+                SidebarNavigation={SidebarNavigation}
+              >
                 <Component {...pageProps} />
-              )}
-            </UserProvider>
-          </ApolloProvider>
-        </DgraphProvider>
+              </Template>
+            ) : (
+              <Component {...pageProps} />
+            )}
+          </UserProvider>
+        </ApolloProvider>
       </QueryClientProvider>
     </RecoilRoot>
   )

@@ -1,4 +1,4 @@
-import { AntdDesignApi } from '@codelab/backend'
+import { AntdDesignApi } from '@codelab/backend/infra'
 import {
   AtomType,
   CreateFieldGql,
@@ -20,7 +20,7 @@ import {
   GetTypeQuery,
   GetTypeQueryVariables,
   TypeRef,
-} from '@codelab/codegen/graphql'
+} from '@codelab/shared/codegen/graphql'
 import { snakeCaseToWords } from '@codelab/shared/utils'
 import { GraphQLClient } from 'graphql-request'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'

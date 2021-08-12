@@ -3,7 +3,7 @@ import {
   CreateLambdaModal,
   GetLambdasTable,
   UpdateLambdaModal,
-} from '@codelab/modules/lambda'
+} from '@codelab/frontend/modules/lambda'
 import React from 'react'
 import { MainPaneTemplate } from '../paneTemplates'
 

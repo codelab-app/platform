@@ -1,5 +1,0 @@
-mutation DeleteStyle($styleId: uuid!) {
-  delete_style_by_pk(id: $styleId) {
-    id
-  }
-}

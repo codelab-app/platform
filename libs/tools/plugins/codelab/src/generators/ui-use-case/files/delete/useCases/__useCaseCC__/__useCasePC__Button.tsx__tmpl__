@@ -1,5 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { EntityType, useCrudModalForm, DeleteButtonProps } from '@codelab/frontend/shared'
+import { EntityType, useCrudModalForm, DeleteButtonProps } from '@codelab/frontend/utils'
 import { Button } from 'antd'
 
 export const <%= useCasePC %>Button = ({ ids, disabled }: DeleteButtonProps) => {

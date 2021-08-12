@@ -3,11 +3,11 @@ import {
   DeleteElementButton,
   ElementCssEditor,
   UpdateElementPropsForm,
-} from '@codelab/modules/element'
+} from '@codelab/frontend/modules/element'
 import {
   MovePageElementForm,
   UpdatePageElementForm,
-} from '@codelab/modules/page'
+} from '@codelab/frontend/modules/page'
 import React, { useContext } from 'react'
 import { MetaPaneBuilderTemplate } from '../../paneTemplates'
 

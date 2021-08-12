@@ -1,12 +1,12 @@
 import {
-  Environment,
   GraphqlServerConfig,
   graphqlServerConfig,
-} from '@codelab/backend'
+} from '@codelab/backend/infra'
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { get } from 'env-var'
 import portfinder from 'portfinder'
 import shell from 'shelljs'
+import { Env } from '../environments/env'
 
 @Injectable()
 export class ServerService {
@@ -20,7 +20,7 @@ export class ServerService {
    */
   private START_API_SERVER_COMMAND = 'node dist/apps/api/main.js'
 
-  private startWebServerCommand(env: Environment) {
+  private startWebServerCommand(env: Env) {
     return `nx run web:serve:${env.toLowerCase()}`
   }
 
@@ -48,7 +48,7 @@ export class ServerService {
     return
   }
 
-  public async maybeStartWebServer(env: Environment) {
+  public async maybeStartWebServer(env: Env) {
     const webServerPort = parseInt(
       new URL(get('NEXT_PUBLIC_API_ORIGIN').required().asUrlString()).port,
     )
@@ -73,7 +73,7 @@ export class ServerService {
     })
   }
 
-  private async startWebServer(env: Environment) {
+  private async startWebServer(env: Env) {
     return shell.exec(this.startWebServerCommand(env), {
       async: true,
       cwd: process.cwd(),

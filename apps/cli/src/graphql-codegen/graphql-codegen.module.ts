@@ -5,10 +5,10 @@ import {
   GraphqlSchemaModule,
   GraphqlServerModule,
   serverConfig,
-} from '@codelab/backend'
+} from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { ServerModule } from '../server/server.module'
+import { ServerModule } from '../server'
 import { GraphqlCodegenService } from './graphql-codegen.service'
 
 @Module({

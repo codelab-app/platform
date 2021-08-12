@@ -5,7 +5,7 @@ import {
   DeleteTagModal,
   GetTagsTree,
   UpdateTagModal,
-} from '@codelab/modules/tag'
+} from '@codelab/frontend/modules/tag'
 import { PageHeader } from 'antd'
 import React from 'react'
 import { NextPageTemplate } from '../../src/templates/Layout.interface'

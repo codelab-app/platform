@@ -1,4 +1,4 @@
-import { dgraphConfig, DgraphService } from '@codelab/backend'
+import { dgraphConfig, DgraphService } from '@codelab/backend/infra'
 import { Inject, Injectable } from '@nestjs/common'
 import { ConfigType } from '@nestjs/config'
 import { Command, Console } from 'nestjs-console'

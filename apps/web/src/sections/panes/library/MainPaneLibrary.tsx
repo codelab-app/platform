@@ -4,7 +4,7 @@ import {
   DeleteLibraryModal,
   LibraryExplorerTree,
   UpdateLibraryModal,
-} from '@codelab/modules/library'
+} from '@codelab/frontend/modules/library'
 import React from 'react'
 import { MainPaneTemplate } from '../paneTemplates'
 

@@ -1,12 +1,12 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { padding } from '@codelab/frontend/style'
 import {
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
   GetAtomsTable,
   UpdateAtomModal,
-} from '@codelab/modules/atom'
+} from '@codelab/frontend/modules/atom'
+import { padding } from '@codelab/frontend/style'
 import { PageHeader } from 'antd'
 import { NextPageTemplate } from 'apps/web/src/templates/Layout.interface'
 import { MainDashboardTemplate } from 'apps/web/src/templates/MainDashboardTemplate'

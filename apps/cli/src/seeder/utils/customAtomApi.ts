@@ -2,7 +2,7 @@ import {
   AtomType,
   CreateFieldInput,
   CreateTypeInput,
-} from '@codelab/codegen/graphql'
+} from '@codelab/shared/codegen/graphql'
 import { BaseTypeName } from '../data/baseTypes'
 
 export type CustomAtomApiDefinition = {

@@ -5,7 +5,7 @@ import {
   DgraphUseCase,
   DgraphEntityType,
   Dgraph<%= modelNamePascalCase %>
-} from '@codelab/backend'
+} from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { <%= modelNamePascalCase %> } from '../../<%= modelName %>.model'

@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { withAppQueryProvider } from '@codelab/frontend/shared'
+import { withAppQueryProvider } from '@codelab/frontend/presenter/container'
 import { DashboardLayout } from 'apps/web/src/layout/DashboardLayout'
 import React from 'react'
 import { MainPanePage } from '../../../../src/sections/panes'

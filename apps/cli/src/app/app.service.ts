@@ -1,4 +1,4 @@
-import { PuppeteerService } from '@codelab/backend'
+import { PuppeteerService } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { ConsoleService } from 'nestjs-console'
 

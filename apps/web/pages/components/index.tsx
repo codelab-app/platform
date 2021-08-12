@@ -1,12 +1,12 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { padding } from '@codelab/frontend/style'
 import {
   CreateComponentButton,
   CreateComponentModal,
   DeleteComponentModal,
   GetComponentsTable,
   UpdateComponentModal,
-} from '@codelab/modules/component'
+} from '@codelab/frontend/modules/component'
+import { padding } from '@codelab/frontend/style'
 import PageHeader from 'antd/lib/page-header'
 import React from 'react'
 import { NextPageTemplate } from '../../src/templates/Layout.interface'

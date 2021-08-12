@@ -1,5 +1,5 @@
-import { PrimitiveKind } from '@codelab/codegen/graphql'
-import { TypeKind } from '@codelab/ddd/types'
+import { TypeKind } from '@codelab/backend/abstract/types'
+import { PrimitiveKind } from '@codelab/shared/codegen/graphql'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'

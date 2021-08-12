@@ -1,5 +1,5 @@
-import { ElementFragment } from '@codelab/codegen/graphql'
-import { ElementTree } from '@codelab/frontend/builder'
+import { ElementTree } from '@codelab/frontend/modules/builder'
+import { ElementFragment } from '@codelab/shared/codegen/graphql'
 import { useEffect, useState } from 'react'
 
 export const useExpandedNodes = (

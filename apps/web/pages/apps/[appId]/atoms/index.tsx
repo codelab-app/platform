@@ -5,7 +5,7 @@ import {
   DeleteAtomsModal,
   GetAtomsTable,
   UpdateAtomModal,
-} from '@codelab/modules/atom'
+} from '@codelab/frontend/modules/atom'
 import { Breadcrumb, Card, PageHeader, Space } from 'antd'
 import { AtomTemplate } from 'apps/web/src/templates/AtomTemplate'
 import React from 'react'

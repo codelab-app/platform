@@ -7,7 +7,7 @@ import {
   GetAtomGql,
   GetAtomQuery,
   GetAtomQueryVariables,
-} from '@codelab/codegen/graphql'
+} from '@codelab/shared/codegen/graphql'
 import { GraphQLClient } from 'graphql-request'
 import { createIfMissing } from '../utils/createIfMissing'
 

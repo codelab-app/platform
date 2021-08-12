@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { PageType } from '@codelab/frontend/shared'
+import { PageType } from '@codelab/frontend/model/state/router'
 import { Breadcrumb } from 'antd'
 import Link from 'next/link'
 import React from 'react'

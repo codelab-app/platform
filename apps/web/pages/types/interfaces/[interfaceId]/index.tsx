@@ -1,5 +1,4 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { padding } from '@codelab/frontend/style'
 import {
   CreateFieldButton,
   CreateFieldModal,
@@ -8,7 +7,8 @@ import {
   InterfaceContext,
   UpdateFieldModal,
   withInterfaceQueryProvider,
-} from '@codelab/modules/type'
+} from '@codelab/frontend/modules/type'
+import { padding } from '@codelab/frontend/style'
 import { PageHeader } from 'antd'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'

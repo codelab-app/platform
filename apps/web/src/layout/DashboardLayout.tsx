@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/shared'
+import { PageType } from '@codelab/frontend/model/state/router'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
 import { LayoutProps } from 'antd/lib/layout'

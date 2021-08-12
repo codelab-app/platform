@@ -1,5 +1,0 @@
-mutation DeleteUserLibraries($userId: String!) {
-  delete_library(where: { user_id: { _eq: $userId } }) {
-    affected_rows
-  }
-}

@@ -10,7 +10,8 @@ import {
   SettingOutlined,
   TagOutlined,
 } from '@ant-design/icons'
-import { AppContext, PageType } from '@codelab/frontend/shared'
+import { PageType } from '@codelab/frontend/model/state/router'
+import { AppContext } from '@codelab/frontend/presenter/container'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

@@ -1,0 +1,8 @@
+import { JwtPayload } from '@codelab/backend/infra'
+import { UpdateElementPropsInput } from './update-element-props.input'
+
+export class UpdateElementPropsRequest {
+  declare input: UpdateElementPropsInput
+
+  declare currentUser: JwtPayload
+}
