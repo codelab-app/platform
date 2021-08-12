@@ -1,7 +1,0 @@
-export * from './createType'
-export * from './deleteType'
-export * from './getTypeName'
-export * from './getTypes'
-export * from './interfaceProvider'
-export * from './TypeModels'
-export * from './updateType'

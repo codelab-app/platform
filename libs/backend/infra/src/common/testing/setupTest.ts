@@ -7,12 +7,13 @@ import {
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
-import { DgraphService, InfrastructureModule } from '../../infrastructure'
 import {
+  DgraphService,
   GqlAuthGuard,
+  InfrastructureModule,
   JwtPayload,
   Role,
-} from '../../infrastructure/adapters/auth'
+} from '../../infrastructure'
 
 type NestModule =
   | Type<any>

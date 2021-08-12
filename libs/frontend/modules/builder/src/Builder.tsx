@@ -77,7 +77,6 @@ export const Builder = ({ children }: React.PropsWithChildren<unknown>) => {
       >
         <Renderer />
       </RenderProvider>
-
       <BuilderHoverOverlay />
       <BuilderClickOverlay />
       {children}

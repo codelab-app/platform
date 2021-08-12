@@ -128,7 +128,7 @@
     "frontend-style": {
       "tags": []
     },
-    "frontend-view-components": {
+    "frontend-view": {
       "tags": []
     },
     "shared-codegen-graphql": {

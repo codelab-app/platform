@@ -123,7 +123,10 @@
       ],
       "@codelab/frontend/style": ["libs/frontend/style/src/index.ts"],
       "@codelab/frontend/view/components": [
-        "libs/frontend/view/components/src/index.ts"
+        "libs/frontend/view/components/index.ts"
+      ],
+      "@codelab/frontend/view/templates": [
+        "libs/frontend/view/templates/index.ts"
       ],
       "@codelab/shared/codegen/graphql": [
         "libs/shared/codegen/graphql/src/index.ts"
