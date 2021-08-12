@@ -1,7 +1,7 @@
-import {
-  refetchGetStyleQuery,
-  useUpdateStyleMutation,
-} from '@codelab/codegen/hasura'
+// import {
+//   refetchGetStyleQuery,
+//   useUpdateStyleMutation,
+// } from '@codelab/codegen/hasura'
 import {
   createNotificationHandler,
   EntityType,
@@ -20,9 +20,9 @@ export const UpdateStyleForm = (
   const { reset, setLoading, state } = useCrudModalForm(EntityType.Style)
   const { updateId: updateStyleId } = state
 
-  const [mutate, { loading: updating }] = useUpdateStyleMutation({
-    refetchQueries: [refetchGetStyleQuery()],
-  })
+  // const [mutate, { loading: updating }] = useUpdateStyleMutation({
+  //   refetchQueries: [refetchGetStyleQuery()],
+  // })
   //
   // useEffect(() => {
   //   setLoading(updating)

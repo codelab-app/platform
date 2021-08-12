@@ -214,19 +214,6 @@
         }
       }
     },
-    "codegen-hasura": {
-      "root": "libs/codegen/hasura",
-      "sourceRoot": "libs/codegen/hasura/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/codegen/hasura/**/*.{ts,tsx,js,jsx}"]
-          }
-        }
-      }
-    },
     "ddd-core": {
       "root": "libs/ddd/core",
       "sourceRoot": "libs/ddd/core/src",

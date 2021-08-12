@@ -38,9 +38,6 @@
     "codegen-graphql": {
       "tags": []
     },
-    "codegen-hasura": {
-      "tags": []
-    },
     "ddd-core": {
       "tags": []
     },
