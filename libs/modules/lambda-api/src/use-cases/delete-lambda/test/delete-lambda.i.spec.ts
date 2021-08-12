@@ -68,13 +68,13 @@ describe('DeleteLambda', () => {
         deleteLambdaInput,
       )
 
-      const results = await domainRequest<GetLambdaInput, GetLambdaQuery>(
+      const { getLambda } = await domainRequest<GetLambdaInput, GetLambdaQuery>(
         userApp,
         GetLambdaGql,
         getLambdaInput,
       )
 
-      expect(results.getLambda).toBeNull()
+      expect(getLambda).toBeNull()
     })
   })
 })
