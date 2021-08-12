@@ -1,0 +1,2 @@
+"property","description","type","default","version","isEnum"
+"component",The component that will be rendered for each data item, ComponentType,"",,false
