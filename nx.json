@@ -42,28 +42,28 @@
       "tags": []
     },
     "backend-modules-app": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "backend-modules-atom": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "backend-modules-element": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "backend-modules-lambda": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "backend-modules-page": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "backend-modules-tag": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "backend-modules-type": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "backend-modules-user": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "cli": {
       "tags": []
@@ -81,43 +81,43 @@
       "tags": []
     },
     "frontend-modules-app": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-atom": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-builder": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-category": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-component": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-element": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-lambda": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-library": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-page": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-style": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-tag": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-type": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-modules-user": {
-      "tags": []
+      "tags": ["scope:domain"]
     },
     "frontend-presenter-container": {
       "tags": []
