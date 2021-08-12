@@ -48,35 +48,47 @@ export class ComponentResolver {
     return this.createComponentService.execute({ input, currentUser })
   }
 
-  @Query(() => Component)
+  @Query(() => Component, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getComponent(
     @Args('input') input: GetComponentInput,
     @CurrentUser() currentUser: JwtPayload,
-  ) {
+  ): Promise<Component | null> {
     const dgraphComponent = await this.getComponentService.execute({
       input,
       currentUser,
     })
+
+    if (!dgraphComponent) {
+      return null
+    }
 
     return this.componentMapper.map(dgraphComponent)
   }
 
-  @Query(() => ElementGraph)
+  @Query(() => ElementGraph, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getComponentElements(
     @Args('input') input: GetComponentInput,
     @CurrentUser() currentUser: JwtPayload,
-  ) {
+  ): Promise<ElementGraph | null> {
     const dgraphComponent = await this.getComponentService.execute({
       input,
       currentUser,
     })
+
+    if (!dgraphComponent) {
+      return null
+    }
 
     const dgraphElement = await this.getElementService.execute({
       input: { elementId: dgraphComponent.root.uid },
       currentUser,
     })
+
+    if (!dgraphElement) {
+      return null
+    }
 
     return this.elementTreeTransformer.transform(dgraphElement)
   }

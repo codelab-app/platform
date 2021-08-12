@@ -74,13 +74,17 @@ export class PageResolver {
     return this.pagesMapper.map(pages)
   }
 
-  @Query(() => Page)
+  @Query(() => Page, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getPage(
     @Args('input') input: GetPageInput,
     @CurrentUser() currentUser: JwtPayload,
   ) {
     const page = await this.getPageService.execute({ input, currentUser })
+
+    if (!page) {
+      return null
+    }
 
     return this.pageMapper.map(page)
   }
@@ -103,20 +107,28 @@ export class PageResolver {
     await this.updatePageService.execute({ input, currentUser })
   }
 
-  @ResolveField('elements', () => ElementGraph)
+  @ResolveField('elements', () => ElementGraph, { nullable: true })
   async resolveElements(
     @Parent() page: Page,
     @CurrentUser() currentUser: JwtPayload,
-  ) {
+  ): Promise<ElementGraph | null> {
     const dgraphPage = await this.getPageService.execute({
       input: { pageId: page.id },
       currentUser,
     })
 
+    if (!dgraphPage) {
+      return null
+    }
+
     const element = await this.getElementService.execute({
       input: { elementId: dgraphPage.root.uid },
       currentUser,
     })
+
+    if (!element) {
+      return null
+    }
 
     return this.elementTransformer.transform(element)
   }

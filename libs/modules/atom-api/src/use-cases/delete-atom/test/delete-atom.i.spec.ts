@@ -69,12 +69,13 @@ describe('DeleteAtom', () => {
       )
 
       // Should fail to get the deleted atom
-      await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
         getAtomInput,
-        { message: 'Not found' },
       )
+
+      expect(atom).toBeNull()
     })
   })
 })

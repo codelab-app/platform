@@ -5,7 +5,6 @@ import {
   GqlAuthGuard,
   Void,
 } from '@codelab/backend'
-import { GetTypeService } from '@codelab/modules/type-api'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import {
@@ -33,7 +32,6 @@ export class AtomResolver {
     private getAtomsService: GetAtomsService,
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
-    private getTypeService: GetTypeService,
     private atomMapper: AtomMapper,
   ) {
     this.atomsMapper = new ArrayMapper(atomMapper)

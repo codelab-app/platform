@@ -64,6 +64,10 @@ export class ElementResolver {
       currentUser,
     })
 
+    if (!dgraphElement) {
+      return null
+    }
+
     return await this.elementTreeTransformer.transform(dgraphElement)
   }
 
@@ -83,6 +87,10 @@ export class ElementResolver {
       input,
       currentUser,
     })
+
+    if (!dgraphElement) {
+      return null
+    }
 
     return this.elementMapper.map(dgraphElement)
   }
