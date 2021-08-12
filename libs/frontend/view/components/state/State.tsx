@@ -52,25 +52,27 @@ export const State = ({
   if (eventKey) {
     childProps[eventKey] = (e: any) => {
       // Call the lambda
-      executeLambda({
-        variables: {
-          input: {
-            lambdaId: setterLambda,
-            payload: eventSafeStringify({ event: e, previousState: state }),
+      if (setterLambda) {
+        executeLambda({
+          variables: {
+            input: {
+              lambdaId: setterLambda,
+              payload: eventSafeStringify({ event: e, previousState: state }),
+            },
           },
-        },
-      }).then((r) => {
-        const payload = r.data?.executeLambda?.payload
+        }).then((r) => {
+          const payload = r.data?.executeLambda?.payload
 
-        if (payload !== undefined) {
-          try {
-            const newState = JSON.parse(payload)
-            setState(newState)
-          } catch (err) {
-            console.error('Error while updating state ', err)
+          if (payload !== undefined) {
+            try {
+              const newState = JSON.parse(payload)
+              setState(newState)
+            } catch (err) {
+              console.error('Error while updating state ', err)
+            }
           }
-        }
-      })
+        })
+      }
 
       // Pass the event up, so that we can nest State elements
       if (props[eventKey] && typeof props[eventKey] === 'function') {
