@@ -8,6 +8,7 @@ export enum PageType {
   PageList = '/apps/[appId]/pages',
   LambdaList = '/lambdas',
   PageDetail = '/apps/[appId]/pages/[pageId]',
+  PageBuilder = '/apps/[appId]/pages/[pageId]/builder',
   AppDetail = '/apps/[appId]',
   ComponentDetail = '/components/[componentId]',
   ComponentList = '/components',

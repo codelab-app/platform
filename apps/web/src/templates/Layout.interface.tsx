@@ -11,6 +11,10 @@ export type WithTemplate<TLayout extends LayoutVariant, P = unknown> = {
   Template: LayoutComponent<TLayout, P>
 }
 
+export type WithHeader = {
+  Header?: ComponentType
+}
+
 export type WithMainPane = {
   MainPane?: ComponentType
 }
@@ -25,8 +29,9 @@ export type WithSidebarNavigation = {
 
 export type WithLayoutProps<TLayout extends LayoutVariant> =
   TLayout extends 'default'
-    ? {}
-    : WithMainPane &
+    ? WithHeader
+    : WithHeader &
+        WithMainPane &
         WithMetaPane &
         (TLayout extends 'dashboard' ? WithSidebarNavigation : {})
 
