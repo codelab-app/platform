@@ -11,13 +11,13 @@ export interface GraphqlServerConfig {
 
 export const graphqlServerConfig = registerAs<GraphqlServerConfig>(
   GraphqlServerTokens.GraphqlServerConfig.toString(),
-  () => {
+  async () => {
     return {
       endpoint: get('CODELAB_API_GRAPHQL_ENDPOINT').required().asUrlString(),
       autoSchemaFile:
         get('NODE_ENV').asEnum(['test', 'development', 'production']) === 'test'
           ? true
-          : graphqlSchemaConfig().apiGraphqlSchemaFile,
+          : (await graphqlSchemaConfig()).apiGraphqlSchemaFile,
     }
   },
 )

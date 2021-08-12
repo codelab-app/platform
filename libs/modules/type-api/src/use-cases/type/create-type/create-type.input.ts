@@ -1,5 +1,6 @@
 import { PrimitiveKind } from '@codelab/backend'
 import { Field, InputType } from '@nestjs/graphql'
+import { ElementTypeKind } from '../../../models'
 
 // It would be nice if we could do union input types, but graphql doesn't support it right now
 // there's an RFC though https://github.com/graphql/graphql-spec/blob/main/rfcs/InputUnion.md maybe we'll see it soon
@@ -31,6 +32,12 @@ export class CreateArrayTypeInput {
   declare itemTypeId: string
 }
 
+@InputType()
+export class CreateElementTypeInput {
+  @Field(() => ElementTypeKind)
+  declare kind: ElementTypeKind
+}
+
 @InputType({ description: 'Provide one of the properties' })
 // The generic is a quick workaround for a circular reference to CreateArrayTypeInput
 export class CreateTypeInput<T = CreateArrayTypeInput> {
@@ -51,4 +58,7 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
 
   @Field(() => Boolean, { nullable: true })
   declare lambdaType?: boolean
+
+  @Field(() => CreateElementTypeInput, { nullable: true })
+  declare elementType?: CreateElementTypeInput
 }

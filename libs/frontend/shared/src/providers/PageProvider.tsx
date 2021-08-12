@@ -1,25 +1,28 @@
 import { PageFullFragment, useGetPageQuery } from '@codelab/codegen/graphql'
-import { ElementTree, useElementTree } from '@codelab/frontend/builder'
 import { useRouter } from 'next/router'
 import * as React from 'react'
+import { useElementTree } from '../elementTree'
+import { ElementTree } from '../interfaces'
 
 export interface PageContextType {
   pageId: string
   page: PageFullFragment
-  tree: ElementTree
   loading: boolean
+  tree: ElementTree
 }
 
-const defaultContext: PageContextType = {
-  pageId: null!,
-  tree: null!,
+export const PageContext = React.createContext<PageContextType>({
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   page: null!,
-  loading: false,
-}
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  pageId: null!,
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  loading: null!,
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  tree: null!,
+})
 
-export const PageContext = React.createContext(defaultContext)
-
-export const PageQueryProvider = ({
+export const PageProvider = ({
   children,
 }: React.PropsWithChildren<unknown>) => {
   const { query } = useRouter()
@@ -37,7 +40,7 @@ export const PageQueryProvider = ({
   }
 
   return (
-    <PageContext.Provider value={{ page, pageId, tree, loading }}>
+    <PageContext.Provider value={{ tree, page, pageId, loading }}>
       {children}
     </PageContext.Provider>
   )
@@ -47,8 +50,8 @@ export const withPageQueryProvider = <TProps extends any>(
   Component: React.ComponentType<TProps>,
 ) => {
   return (props: TProps) => (
-    <PageQueryProvider>
+    <PageProvider>
       <Component {...(props as any)} />
-    </PageQueryProvider>
+    </PageProvider>
   )
 }

@@ -4,6 +4,7 @@ import {
   useGetTypeGraphQuery,
   useUpdateElementPropsMutation,
 } from '@codelab/codegen/graphql'
+import { ElementIdProvider } from '@codelab/frontend/shared'
 import { InterfaceForm, useTypeTree } from '@codelab/modules/type'
 import { Spin } from 'antd'
 import React, { useRef } from 'react'
@@ -12,7 +13,7 @@ export interface UpdateElementPropsFormProps {
   element: ElementFragment
 }
 
-export interface _UpdateElementPropsFormProps {
+interface _UpdateElementPropsFormProps {
   elementId: string
   interfaceId: string
   existingProps: string
@@ -70,10 +71,12 @@ export const UpdateElementPropsForm = ({
   }
 
   return (
-    <_UpdateElementPropsForm
-      interfaceId={element.atom.api.id}
-      elementId={element.id}
-      existingProps={element.props}
-    />
+    <ElementIdProvider elementId={element.id}>
+      <_UpdateElementPropsForm
+        interfaceId={element.atom.api.id}
+        elementId={element.id}
+        existingProps={element.props}
+      />
+    </ElementIdProvider>
   )
 }

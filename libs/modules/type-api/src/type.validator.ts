@@ -80,6 +80,7 @@ export class TypeValidator {
     interfaceType,
     primitiveType,
     lambdaType,
+    elementType,
   }: CreateTypeInput) {
     this.singleInput([
       enumType,
@@ -87,6 +88,7 @@ export class TypeValidator {
       interfaceType,
       primitiveType,
       lambdaType,
+      elementType,
     ])
 
     if (arrayType) {

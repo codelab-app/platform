@@ -1,5 +1,5 @@
+import { ComponentContext } from '@codelab/frontend/shared'
 import {
-  ComponentContext,
   MoveComponentElementForm,
   UpdateComponentElementForm,
 } from '@codelab/modules/component'

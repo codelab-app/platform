@@ -56,6 +56,7 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
     })
   }
 
+  // TODO make this in one txn
   private async getTypeId(type: TypeRef) {
     let typeId = type.existingTypeId
 
@@ -66,6 +67,7 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
       }
 
       const createdType = await this.createTypeService.execute(type.newType)
+
       typeId = createdType.id
     }
 

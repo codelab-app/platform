@@ -161,6 +161,7 @@ export enum AtomType {
   TextList = 'TextList',
   Text = 'Text',
   State = 'State',
+  PropMapper = 'PropMapper',
   ReactFragment = 'ReactFragment',
   HtmlA = 'HtmlA',
   HtmlP = 'HtmlP',
@@ -273,6 +274,10 @@ export type CreateElementInput = {
   order?: Maybe<Scalars['Int']>
 }
 
+export type CreateElementTypeInput = {
+  kind: ElementTypeKind
+}
+
 export type CreateEnumTypeInput = {
   allowedValues: Array<CreateEnumTypeValueInput>
 }
@@ -324,6 +329,7 @@ export type CreateTypeInput = {
   enumType?: Maybe<CreateEnumTypeInput>
   interfaceType?: Maybe<Scalars['Boolean']>
   lambdaType?: Maybe<Scalars['Boolean']>
+  elementType?: Maybe<CreateElementTypeInput>
 }
 
 export type DeleteAppInput = {
@@ -389,6 +395,19 @@ export type ElementGraph = {
   vertices: Array<ElementVertex>
   /** All the links connecting the descendant elements/components */
   edges: Array<ElementEdge>
+}
+
+/** The ElementType allows selecting a Element in the props form. The value is stored as the elementId  */
+export type ElementType = Type & {
+  id: Scalars['ID']
+  name: Scalars['String']
+  kind: ElementTypeKind
+}
+
+export enum ElementTypeKind {
+  AllElements = 'AllElements',
+  DescendantsOnly = 'DescendantsOnly',
+  ChildrenOnly = 'ChildrenOnly',
 }
 
 export type ElementVertex = Element | Component
@@ -866,6 +885,7 @@ export enum TypeKindFilter {
   InterfaceType = 'InterfaceType',
   EnumType = 'EnumType',
   LambdaType = 'LambdaType',
+  ElementType = 'ElementType',
 }
 
 export type TypeRef = {
@@ -1184,26 +1204,6 @@ export type UpdateComponentMutationVariables = Exact<{
 
 export type UpdateComponentMutation = { updateComponent?: Maybe<void> }
 
-export type GetElementQueryVariables = Exact<{
-  input: GetElementInput
-}>
-
-export type GetElementQuery = {
-  getElement?: Maybe<{
-    __typename: 'Element'
-    id: string
-    name: string
-    css?: Maybe<string>
-    props: string
-    atom?: Maybe<{
-      id: string
-      name: string
-      type: AtomType
-      api: { id: string; name: string }
-    }>
-  }>
-}
-
 export type GetElementGraphQueryVariables = Exact<{
   input: GetElementGraphInput
 }>
@@ -1227,6 +1227,26 @@ export type GetElementGraphQuery = {
       | { __typename: 'Component'; id: string; name: string }
     >
     edges: Array<{ order?: Maybe<number>; source: string; target: string }>
+  }>
+}
+
+export type GetElementQueryVariables = Exact<{
+  input: GetElementInput
+}>
+
+export type GetElementQuery = {
+  getElement?: Maybe<{
+    __typename: 'Element'
+    id: string
+    name: string
+    css?: Maybe<string>
+    props: string
+    atom?: Maybe<{
+      id: string
+      name: string
+      type: AtomType
+      api: { id: string; name: string }
+    }>
   }>
 }
 
@@ -1485,6 +1505,12 @@ export type __EnumTypeValueFragment = {
 
 export type __LambdaTypeFragment = { id: string; name: string }
 
+export type __ElementTypeFragment = {
+  id: string
+  name: string
+  kind: ElementTypeKind
+}
+
 export type __EnumTypeFragment = {
   id: string
   name: string
@@ -1501,6 +1527,13 @@ type __Type_ArrayType_Fragment = {
   __typename: 'ArrayType'
   id: string
   name: string
+}
+
+type __Type_ElementType_Fragment = {
+  __typename: 'ElementType'
+  id: string
+  name: string
+  kind: ElementTypeKind
 }
 
 type __Type_EnumType_Fragment = {
@@ -1531,6 +1564,7 @@ type __Type_PrimitiveType_Fragment = {
 
 export type __TypeFragment =
   | __Type_ArrayType_Fragment
+  | __Type_ElementType_Fragment
   | __Type_EnumType_Fragment
   | __Type_InterfaceType_Fragment
   | __Type_LambdaType_Fragment
@@ -1552,6 +1586,12 @@ export type __TypeGraphFragment = {
   }>
   vertices: Array<
     | { __typename: 'ArrayType'; id: string; name: string }
+    | {
+        __typename: 'ElementType'
+        id: string
+        name: string
+        kind: ElementTypeKind
+      }
     | {
         __typename: 'EnumType'
         id: string
@@ -1636,6 +1676,12 @@ export type GetTypeQuery = {
   getType?: Maybe<
     | { __typename: 'ArrayType'; id: string; name: string }
     | {
+        __typename: 'ElementType'
+        id: string
+        name: string
+        kind: ElementTypeKind
+      }
+    | {
         __typename: 'EnumType'
         id: string
         name: string
@@ -1676,6 +1722,12 @@ export type GetTypeGraphQuery = {
     vertices: Array<
       | { __typename: 'ArrayType'; id: string; name: string }
       | {
+          __typename: 'ElementType'
+          id: string
+          name: string
+          kind: ElementTypeKind
+        }
+      | {
           __typename: 'EnumType'
           id: string
           name: string
@@ -1704,6 +1756,12 @@ export type GetTypesQueryVariables = Exact<{
 export type GetTypesQuery = {
   getTypes: Array<
     | { __typename: 'ArrayType'; id: string; name: string }
+    | {
+        __typename: 'ElementType'
+        id: string
+        name: string
+        kind: ElementTypeKind
+      }
     | {
         __typename: 'EnumType'
         id: string
@@ -1867,12 +1925,6 @@ export const __TagFragmentDoc = gql`
     name
   }
 `
-export const __LambdaTypeFragmentDoc = gql`
-  fragment __LambdaType on LambdaType {
-    id
-    name
-  }
-`
 export const __FieldFragmentDoc = gql`
   fragment __Field on Field {
     id
@@ -1922,29 +1974,38 @@ export const __PrimitiveTypeFragmentDoc = gql`
     primitiveKind
   }
 `
+export const __ElementTypeFragmentDoc = gql`
+  fragment __ElementType on ElementType {
+    id
+    name
+    kind
+  }
+`
+export const __LambdaTypeFragmentDoc = gql`
+  fragment __LambdaType on LambdaType {
+    id
+    name
+  }
+`
 export const __TypeFragmentDoc = gql`
   fragment __Type on Type {
     __typename
     id
     name
     __typename
-    ... on ArrayType {
-      ...__ArrayType
-    }
-    ... on EnumType {
-      ...__EnumType
-    }
-    ... on InterfaceType {
-      ...__Interface
-    }
-    ... on PrimitiveType {
-      ...__PrimitiveType
-    }
+    ...__ArrayType
+    ...__EnumType
+    ...__Interface
+    ...__PrimitiveType
+    ...__ElementType
+    ...__LambdaType
   }
   ${__ArrayTypeFragmentDoc}
   ${__EnumTypeFragmentDoc}
   ${__InterfaceFragmentDoc}
   ${__PrimitiveTypeFragmentDoc}
+  ${__ElementTypeFragmentDoc}
+  ${__LambdaTypeFragmentDoc}
 `
 export const __TypeGraphFragmentDoc = gql`
   fragment __TypeGraph on TypeGraph {
@@ -2802,66 +2863,6 @@ export type UpdateComponentMutationOptions = Apollo.BaseMutationOptions<
   UpdateComponentMutation,
   UpdateComponentMutationVariables
 >
-export const GetElementGql = gql`
-  query GetElement($input: GetElementInput!) {
-    getElement(input: $input) {
-      ...Element
-    }
-  }
-  ${ElementFragmentDoc}
-`
-
-/**
- * __useGetElementQuery__
- *
- * To run a query within a React component, call `useGetElementQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetElementQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetElementQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useGetElementQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    GetElementQuery,
-    GetElementQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetElementQuery, GetElementQueryVariables>(
-    GetElementGql,
-    options,
-  )
-}
-export function useGetElementLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetElementQuery,
-    GetElementQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetElementQuery, GetElementQueryVariables>(
-    GetElementGql,
-    options,
-  )
-}
-export type GetElementQueryHookResult = ReturnType<typeof useGetElementQuery>
-export type GetElementLazyQueryHookResult = ReturnType<
-  typeof useGetElementLazyQuery
->
-export type GetElementQueryResult = Apollo.QueryResult<
-  GetElementQuery,
-  GetElementQueryVariables
->
-export function refetchGetElementQuery(variables?: GetElementQueryVariables) {
-  return { query: GetElementGql, variables: variables }
-}
 export const GetElementGraphGql = gql`
   query GetElementGraph($input: GetElementGraphInput!) {
     getElementGraph(input: $input) {
@@ -2925,6 +2926,66 @@ export function refetchGetElementGraphQuery(
   variables?: GetElementGraphQueryVariables,
 ) {
   return { query: GetElementGraphGql, variables: variables }
+}
+export const GetElementGql = gql`
+  query GetElement($input: GetElementInput!) {
+    getElement(input: $input) {
+      ...Element
+    }
+  }
+  ${ElementFragmentDoc}
+`
+
+/**
+ * __useGetElementQuery__
+ *
+ * To run a query within a React component, call `useGetElementQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetElementQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetElementQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetElementQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetElementQuery,
+    GetElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetElementQuery, GetElementQueryVariables>(
+    GetElementGql,
+    options,
+  )
+}
+export function useGetElementLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetElementQuery,
+    GetElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetElementQuery, GetElementQueryVariables>(
+    GetElementGql,
+    options,
+  )
+}
+export type GetElementQueryHookResult = ReturnType<typeof useGetElementQuery>
+export type GetElementLazyQueryHookResult = ReturnType<
+  typeof useGetElementLazyQuery
+>
+export type GetElementQueryResult = Apollo.QueryResult<
+  GetElementQuery,
+  GetElementQueryVariables
+>
+export function refetchGetElementQuery(variables?: GetElementQueryVariables) {
+  return { query: GetElementGql, variables: variables }
 }
 export const CreateElementGql = gql`
   mutation CreateElement($input: CreateElementInput!) {
@@ -4809,12 +4870,6 @@ export const __Tag = gql`
     name
   }
 `
-export const __LambdaType = gql`
-  fragment __LambdaType on LambdaType {
-    id
-    name
-  }
-`
 export const __Field = gql`
   fragment __Field on Field {
     id
@@ -4864,29 +4919,38 @@ export const __PrimitiveType = gql`
     primitiveKind
   }
 `
+export const __ElementType = gql`
+  fragment __ElementType on ElementType {
+    id
+    name
+    kind
+  }
+`
+export const __LambdaType = gql`
+  fragment __LambdaType on LambdaType {
+    id
+    name
+  }
+`
 export const __Type = gql`
   fragment __Type on Type {
     __typename
     id
     name
     __typename
-    ... on ArrayType {
-      ...__ArrayType
-    }
-    ... on EnumType {
-      ...__EnumType
-    }
-    ... on InterfaceType {
-      ...__Interface
-    }
-    ... on PrimitiveType {
-      ...__PrimitiveType
-    }
+    ...__ArrayType
+    ...__EnumType
+    ...__Interface
+    ...__PrimitiveType
+    ...__ElementType
+    ...__LambdaType
   }
   ${__ArrayType}
   ${__EnumType}
   ${__Interface}
   ${__PrimitiveType}
+  ${__ElementType}
+  ${__LambdaType}
 `
 export const __TypeGraph = gql`
   fragment __TypeGraph on TypeGraph {
@@ -5014,14 +5078,6 @@ export const UpdateComponent = gql`
     updateComponent(input: $input)
   }
 `
-export const GetElement = gql`
-  query GetElement($input: GetElementInput!) {
-    getElement(input: $input) {
-      ...Element
-    }
-  }
-  ${Element}
-`
 export const GetElementGraph = gql`
   query GetElementGraph($input: GetElementGraphInput!) {
     getElementGraph(input: $input) {
@@ -5029,6 +5085,14 @@ export const GetElementGraph = gql`
     }
   }
   ${ElementGraph}
+`
+export const GetElement = gql`
+  query GetElement($input: GetElementInput!) {
+    getElement(input: $input) {
+      ...Element
+    }
+  }
+  ${Element}
 `
 export const CreateElement = gql`
   mutation CreateElement($input: CreateElementInput!) {

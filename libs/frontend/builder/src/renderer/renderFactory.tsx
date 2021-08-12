@@ -1,10 +1,13 @@
 import { ComponentFragment, ElementFragment } from '@codelab/codegen/graphql'
+import {
+  RenderNode,
+  RenderProvider,
+  useRenderContext,
+} from '@codelab/frontend/shared'
 import { css } from '@emotion/react'
 import deepmerge from 'deepmerge'
-import React from 'react'
-import { ElementTree } from '../elementTree'
+import React, { ReactElement } from 'react'
 import { reactComponentFactory } from './reactComponentFactory'
-import { RenderNode } from './RenderNode'
 
 //
 // Types:
@@ -14,29 +17,12 @@ import { RenderNode } from './RenderNode'
  * Generic interface of a node renderer
  */
 export type RenderHandler<TNode extends RenderNode = RenderNode> = (
-  node: TNode,
-  metadata: RenderContext<any>,
-) => React.ReactNode
-
-export type RenderContext<TNode extends RenderNode = RenderNode> = {
-  /** The rendered tree */
-  tree: ElementTree
-
-  /** Extra props passed to the element. They override the common props, but props from the node instance override the extraProps */
-  extraProps?: Record<string, any>
-
-  /** Called inside the rendered components, after its children */
-  postChildrenRenderHook?: (node: TNode) => React.ReactNode
-
-  /** Use this to modify the props of the node instance.
-   * @param props - the node instance props, does not include the common props
-   * @return the modified props you want to get passed to the rendered react component
-   */
-  nodePropsMapper?: (
-    props: Record<string, any>,
-    node: TNode,
-  ) => Record<string, any>
-}
+  props: React.PropsWithChildren<
+    {
+      __node: TNode
+    } & Record<string, any>
+  >,
+) => ReactElement | null
 
 //
 // Helpers:
@@ -47,7 +33,7 @@ export type RenderContext<TNode extends RenderNode = RenderNode> = {
  * The following edge cases are handled:
  * - Merging className strings together
  */
-const combineProps = (...props: Array<Record<string, any>>) => {
+const mergeProps = (...props: Array<Record<string, any>>) => {
   return props.reduce((aggregate, nextProps) => {
     return {
       ...deepmerge(aggregate, nextProps),
@@ -63,15 +49,22 @@ const combineProps = (...props: Array<Record<string, any>>) => {
 /**
  *  Handles the rendering of elements
  */
-const renderElement: RenderHandler<ElementFragment> = (element, context) => {
+const RenderElement: RenderHandler<ElementFragment> = ({
+  __node: element,
+  ...props
+}) => {
+  const runtimeProps = props
+  const context = useRenderContext()
+
   const renderedChildren = context.tree
     .getChildren(element.id)
-    ?.map((child) => renderFactory(child, context))
+    ?.map((child) => renderFactory(child))
+    .filter((c): c is ReactElement => !!c)
 
   const component = context.tree.getComponentOfElement(element.id)
 
   if (component) {
-    return renderFactory(component, context)
+    return renderFactory(component)
   }
 
   // Render either the atom with children..
@@ -82,40 +75,55 @@ const renderElement: RenderHandler<ElementFragment> = (element, context) => {
     })
 
     if (!RootComponent) {
-      return renderedChildren
+      return <>{renderedChildren}</>
     }
 
-    let nodeProps = JSON.parse(element.props)
+    const elementProps: Record<string, any> = JSON.parse(element.props)
 
-    if (context.nodePropsMapper) {
-      nodeProps = context.nodePropsMapper(nodeProps, element)
+    let propsCombined = mergeProps(
+      atomProps,
+      context.extraProps || {},
+      elementProps,
+      runtimeProps,
+    )
+
+    if (context.nodePropsMappers) {
+      propsCombined = context.nodePropsMappers.reduce(
+        (acc, mapper) => mapper(acc, element),
+        propsCombined,
+      )
     }
 
     return (
       <RootComponent
-        {...combineProps(atomProps, context.extraProps || {}, nodeProps)}
+        {...propsCombined}
         css={element.css ? css(element.css) : undefined}
       >
         {React.Children.count(renderedChildren)
           ? renderedChildren
-          : nodeProps.children}
+          : propsCombined.children}
         {context.postChildrenRenderHook &&
           context.postChildrenRenderHook(element)}
       </RootComponent>
     )
   }
 
-  // .. or just the children if there's no atom
-  return renderedChildren
+  // ... or just the children if there's no atom
+  return <>{renderedChildren}</>
 }
 
 /**
  *  Handles the rendering of components
  */
-const renderComponent: RenderHandler<ComponentFragment> = (
-  component,
-  context,
-) => {
+const RenderComponent: RenderHandler<ComponentFragment> = (component) => {
+  const context = useRenderContext()
+
+  if (!context) {
+    throw new Error(
+      'You need to have a RenderContext.Provider before Rendering Components',
+    )
+  }
+
   const rootElement = context.tree.getComponentRootElement(component.id)
 
   if (!rootElement) {
@@ -124,30 +132,35 @@ const renderComponent: RenderHandler<ComponentFragment> = (
 
   // data-component-id is to be able to distinguish regular elements and elements belonging to a component
   // we need this because we must not allow selection and editing of a component element inside a page builder
-  return renderFactory(rootElement, {
-    ...context,
-    extraProps: { ...context.extraProps, 'data-component-id': component.id },
-  })
+  return (
+    <RenderProvider
+      context={{
+        ...context,
+        extraProps: {
+          ...context.extraProps,
+          'data-component-id': component.id,
+        },
+      }}
+    >
+      {renderFactory(rootElement)}
+    </RenderProvider>
+  )
 }
 
 /**
  * Creates a React Component from a {@link RenderNode}
  */
-export const renderFactory = (node: RenderNode, context: RenderContext) => {
-  let toRender: React.ReactNode = []
+export const renderFactory = (node: RenderNode | undefined | null) => {
+  if (!node) {
+    return null
+  }
 
   switch (node.__typename) {
     case 'Element':
-      toRender = renderElement(node, context)
-      break
+      return <RenderElement __node={node} />
     case 'Component':
-      toRender = renderComponent(node, context)
-      break
+      return <RenderComponent __node={node} />
     default:
       throw new Error(`Can't render node of type ${(node as any)?.__typename}`)
   }
-
-  return Array.isArray(toRender) && toRender?.length === 1
-    ? toRender[0]
-    : toRender
 }

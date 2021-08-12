@@ -88,7 +88,7 @@ export const UpdateElementForm = ({
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore https://github.com/vazco/uniforms/issues/951
           showSearch={true}
-          optionFilterProp="name"
+          optionFilterProp="label"
           options={atoms?.atoms.map((atom) => ({
             label: atom.name,
             value: atom.id,

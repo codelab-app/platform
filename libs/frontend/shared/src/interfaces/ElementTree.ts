@@ -1,5 +1,8 @@
-import { ComponentFragment, ElementFragment } from '@codelab/codegen/graphql'
-import { DataNode } from 'antd/lib/tree'
+import type {
+  ComponentFragment,
+  ElementFragment,
+} from '@codelab/codegen/graphql'
+import type { DataNode } from 'antd/lib/tree'
 
 /**
  * A generic interface for all Tree's
@@ -22,9 +25,15 @@ export interface NodeTree<TNode> {
 
   /** Returns all children of the element */
   getChildren: (elementId: string) => Array<TNode>
+
+  /** Returns all descendants of an element */
+  getDescendants: (elementId: string) => Array<TNode>
 }
 
 export interface ElementTree extends NodeTree<ElementFragment> {
+  /** Returns an element by its id or null if not found */
+  getComponentById: (componentId: string) => ComponentFragment | null
+
   /** Calculates the shortest path from the root element to a given target element  */
   getPathFromRoot: (elementId: string) => {
     found: boolean

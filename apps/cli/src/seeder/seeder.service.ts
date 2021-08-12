@@ -10,8 +10,8 @@ import { Inject, Injectable } from '@nestjs/common'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
-import { AtomSeeder } from './models/atom-seeder'
-import { TypeSeeder } from './models/type-seeder'
+import { allCustomAtomApiFactories } from './data/customAtomApis'
+import { AtomSeeder, TypeSeeder } from './models'
 import { iterateCsvs } from './utils/iterateCsvs'
 
 /**
@@ -51,9 +51,8 @@ export class SeederService {
     const atomSeeder = new AtomSeeder(client)
 
     /**
-     * (1) Seed primitive types like String, Boolean, Integer so other types can use them
+     * (1) Seed base types like String, Boolean, Integer so other types can use them
      */
-    await typeSeeder.seedPrimitiveTypes()
     await typeSeeder.seedBaseTypes()
 
     /**
@@ -95,6 +94,11 @@ export class SeederService {
 
     await iterateCsvs(this.antdDataFolder, handleCsv)
     await iterateCsvs(this.customComponentsDataFolder, handleCsv)
+
+    /**
+     * (4) Seed all the custom atom API's
+     */
+    await typeSeeder.seedCustomAtomApis(allCustomAtomApiFactories)
   }
 
   private async getClient() {

@@ -107,6 +107,7 @@ export enum AtomTypeEnum {
   TextList = 'TextList',
   Text = 'Text',
   State = 'State',
+  PropMapper = 'PropMapper',
 
   // React
   ReactFragment = 'ReactFragment',

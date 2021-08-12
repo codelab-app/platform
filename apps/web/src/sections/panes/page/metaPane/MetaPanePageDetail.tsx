@@ -1,3 +1,4 @@
+import { PageContext } from '@codelab/frontend/shared'
 import {
   DeleteElementButton,
   ElementCssEditor,
@@ -5,7 +6,6 @@ import {
 } from '@codelab/modules/element'
 import {
   MovePageElementForm,
-  PageContext,
   UpdatePageElementForm,
 } from '@codelab/modules/page'
 import React, { useContext } from 'react'

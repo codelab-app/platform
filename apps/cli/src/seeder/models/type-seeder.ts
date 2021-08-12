@@ -1,5 +1,6 @@
 import { AntdDesignApi } from '@codelab/backend'
 import {
+  AtomType,
   CreateFieldGql,
   CreateFieldInput,
   CreateFieldMutation,
@@ -18,37 +19,32 @@ import {
   GetTypeGql,
   GetTypeQuery,
   GetTypeQueryVariables,
-  PrimitiveKind,
   TypeRef,
 } from '@codelab/codegen/graphql'
 import { snakeCaseToWords } from '@codelab/shared/utils'
 import { GraphQLClient } from 'graphql-request'
-import { baseTypeCreateInputs } from '../data/baseTypeCreateInputs'
-import { primitiveTypeCreateInputs } from '../data/primitiveTypeCreateInputs'
+import { BaseTypeName, baseTypes } from '../data/baseTypes'
 import { createIfMissing } from '../utils/createIfMissing'
+import {
+  CustomAtomApiFactory,
+  CustomAtomApiFactoryInput,
+} from '../utils/customAtomApi'
 
 /**
  * Handle seeding of types
  */
 export class TypeSeeder {
-  private primitiveTypes: Map<string, string> | undefined
-
-  private baseTypes: Map<string, string> | undefined
+  private baseTypes: Map<BaseTypeName, string> | undefined
 
   constructor(private client: GraphQLClient) {}
 
   public async seedBaseTypes() {
-    this.baseTypes = await this.seedIfNotExisting(baseTypeCreateInputs)
+    this.baseTypes = (await this.seedAllIfMissing(baseTypes)) as Map<
+      BaseTypeName,
+      string
+    >
 
     return this.baseTypes
-  }
-
-  public async seedPrimitiveTypes() {
-    this.primitiveTypes = await this.seedIfNotExisting(
-      primitiveTypeCreateInputs,
-    )
-
-    return this.primitiveTypes
   }
 
   /**
@@ -56,7 +52,7 @@ export class TypeSeeder {
    * Those that are missing are created
    * Returns a map of all input type names and their ids
    */
-  private async seedIfNotExisting(
+  private async seedAllIfMissing(
     inputs: Array<CreateTypeInput>,
   ): Promise<Map<string, string>> {
     const results = await Promise.all(
@@ -98,19 +94,62 @@ export class TypeSeeder {
         continue
       }
 
-      try {
-        await this.createField({
-          key: apiField.property,
-          name: snakeCaseToWords(apiField.property),
-          interfaceId: atomApiId,
-          description: apiField.description,
-          type,
+      await this.createFieldIfMissing({
+        key: apiField.property,
+        name: snakeCaseToWords(apiField.property),
+        interfaceId: atomApiId,
+        description: apiField.description,
+        type,
+      })
+    }
+  }
+
+  private async createFieldIfMissing(input: CreateFieldInput): Promise<string> {
+    try {
+      return await this.createField(input)
+    } catch (e) {
+      if (!e.toString().includes('already exists')) {
+        throw e
+      }
+
+      // field already exists with this key
+      const foundField = await this.getField({
+        byInterface: { interfaceId: input.interfaceId, fieldKey: input.key },
+      })
+
+      return foundField?.id as string
+    }
+  }
+
+  public async seedCustomAtomApis(
+    allCustomAtomApiFactories: Array<CustomAtomApiFactory>,
+  ) {
+    if (!this.baseTypes) {
+      throw new Error("call seedBaseTypes before seeding Atom's API")
+    }
+
+    const factoryInput: CustomAtomApiFactoryInput = {
+      baseTypeIdsByName: this.baseTypes,
+      createTypeIfMissing: (typeInput) => this.seedTypeIfNotExisting(typeInput),
+      createFieldIfMissing: (fieldInput) =>
+        this.createFieldIfMissing(fieldInput),
+    }
+
+    for (const apiFactory of allCustomAtomApiFactories) {
+      const api = await apiFactory(factoryInput)
+      const atom = await this.getAtomByType(api.atomType)
+
+      if (!atom) {
+        throw new Error(
+          `Error while seeding custom atoms, atom with type ${api.atomType} not found`,
+        )
+      }
+
+      for (const field of api.fields) {
+        await this.createFieldIfMissing({
+          ...field,
+          interfaceId: atom.api.id,
         })
-      } catch (e) {
-        if (!e.toString().includes('already exists')) {
-          throw e
-        }
-        // field already exists with this key
       }
     }
   }
@@ -119,6 +158,14 @@ export class TypeSeeder {
     return this.client
       .request<GetAtomQuery, GetAtomQueryVariables>(GetAtomGql, {
         input: { byId: { atomId } },
+      })
+      .then((r) => r?.atom)
+  }
+
+  private getAtomByType(atomType: AtomType) {
+    return this.client
+      .request<GetAtomQuery, GetAtomQueryVariables>(GetAtomGql, {
+        input: { byType: { atomType } },
       })
       .then((r) => r?.atom)
   }
@@ -195,10 +242,6 @@ export class TypeSeeder {
 
     const type = apiField.type.trim()
 
-    if (!this.primitiveTypes) {
-      throw new Error("call seedPrimitiveTypes before seeding Atom's API")
-    }
-
     if (!this.baseTypes) {
       throw new Error("call seedBaseTypes before seeding Atom's API")
     }
@@ -206,32 +249,28 @@ export class TypeSeeder {
     switch (type) {
       case 'boolean':
         return {
-          existingTypeId: this.primitiveTypes.get(
-            PrimitiveKind.Boolean,
-          ) as string,
+          existingTypeId: this.baseTypes.get(BaseTypeName.Boolean) as string,
         }
       case 'number':
         return {
-          existingTypeId: this.primitiveTypes.get(
-            PrimitiveKind.Float,
-          ) as string,
+          existingTypeId: this.baseTypes.get(BaseTypeName.Float) as string,
         }
       case 'string':
         return {
-          existingTypeId: this.primitiveTypes.get(
-            PrimitiveKind.String,
-          ) as string,
+          existingTypeId: this.baseTypes.get(BaseTypeName.String) as string,
         }
       case 'LambdaType':
         return {
-          existingTypeId: this.baseTypes.get('Lambda') as string,
+          existingTypeId: this.baseTypes.get(BaseTypeName.Lambda) as string,
+        }
+      case 'ComponentType':
+        return {
+          existingTypeId: this.baseTypes.get(BaseTypeName.Component) as string,
         }
       case 'number | string':
       case 'string | number':
         return {
-          existingTypeId: this.primitiveTypes.get(
-            PrimitiveKind.String,
-          ) as string,
+          existingTypeId: this.baseTypes.get(BaseTypeName.String) as string,
         }
     }
 

@@ -49,6 +49,21 @@ type ArrayType implements Type {
   name: String!
 }
 
+"""
+The ElementType allows selecting a Element in the props form. The value is stored as the elementId 
+"""
+type ElementType implements Type {
+  id: ID!
+  name: String!
+  kind: ElementTypeKind!
+}
+
+enum ElementTypeKind {
+  AllElements
+  DescendantsOnly
+  ChildrenOnly
+}
+
 type EnumTypeValue {
   id: ID!
   name: String
@@ -201,6 +216,7 @@ enum AtomType {
   TextList
   Text
   State
+  PropMapper
   ReactFragment
   HtmlA
   HtmlP
@@ -522,6 +538,7 @@ enum TypeKindFilter {
   InterfaceType
   EnumType
   LambdaType
+  ElementType
 }
 
 input TypesByNameFilter {
@@ -730,6 +747,7 @@ input CreateTypeInput {
   enumType: CreateEnumTypeInput
   interfaceType: Boolean
   lambdaType: Boolean
+  elementType: CreateElementTypeInput
 }
 
 input CreatePrimitiveTypeInput {
@@ -747,6 +765,10 @@ input CreateEnumTypeInput {
 input CreateEnumTypeValueInput {
   name: String
   value: String!
+}
+
+input CreateElementTypeInput {
+  kind: ElementTypeKind!
 }
 
 input UpdateFieldInput {

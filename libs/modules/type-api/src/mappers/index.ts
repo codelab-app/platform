@@ -1,4 +1,5 @@
 export * from './array-type.mapper'
+export * from './element-type.mapper'
 export * from './enum-type.mapper'
 export * from './enum-type-value.mapper'
 export * from './field.mapper'

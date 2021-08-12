@@ -67,6 +67,10 @@ export const CreateTypeForm = (
       <DisplayIfKind kind={TypeKind.ArrayType}>
         <TypeSelect name={'arrayItemTypeId'} label="Array item type" />
       </DisplayIfKind>
+
+      <DisplayIfKind kind={TypeKind.ElementType}>
+        <AutoField name={'elementKind'} label="Element kind" />
+      </DisplayIfKind>
     </FormUniforms>
   )
 }

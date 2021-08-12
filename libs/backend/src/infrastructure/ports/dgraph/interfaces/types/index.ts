@@ -1,4 +1,5 @@
 export * from './dgraph-array-type'
+export * from './dgraph-element-type'
 export * from './dgraph-enum-type'
 export * from './dgraph-enum-type-value'
 export * from './dgraph-interface-type'

@@ -1,6 +1,7 @@
 import {
   __EnumTypeValueFragment,
   CreateTypeInput,
+  ElementTypeKind,
   PrimitiveKind,
 } from '@codelab/codegen/graphql'
 import { TypeKind } from '@codelab/ddd/types'
@@ -8,6 +9,7 @@ import { TypeKind } from '@codelab/ddd/types'
 export interface BaseTypeMutationSchema {
   name: string
   primitiveKind?: PrimitiveKind
+  elementKind: ElementTypeKind
   allowedValues?: Array<__EnumTypeValueFragment>
 }
 
@@ -19,6 +21,11 @@ export const baseTypeMutationSchemaProperties = {
     type: 'string',
     nullable: true,
     enum: Object.values(PrimitiveKind),
+  },
+  elementKind: {
+    type: 'string',
+    nullable: true,
+    enum: Object.values(ElementTypeKind),
   },
   allowedValues: {
     type: 'array',
@@ -71,6 +78,8 @@ export const mapTypeSchemaToTypeInput = (
       }
     case TypeKind.LambdaType:
       return { ...common, lambdaType: true }
+    case TypeKind.ElementType:
+      return { ...common, elementType: { kind: typeSchema.elementKind } }
   }
 
   throw new Error('Invalid form input')

@@ -24,6 +24,12 @@ fragment __LambdaType on LambdaType {
   name
 }
 
+fragment __ElementType on ElementType {
+  id
+  name
+  kind
+}
+
 fragment __EnumType on EnumType {
   id
   name
@@ -43,18 +49,12 @@ fragment __Type on Type {
   id
   name
   __typename
-  ... on ArrayType {
-    ...__ArrayType
-  }
-  ... on EnumType {
-    ...__EnumType
-  }
-  ... on InterfaceType {
-    ...__Interface
-  }
-  ... on PrimitiveType {
-    ...__PrimitiveType
-  }
+  ...__ArrayType
+  ...__EnumType
+  ...__Interface
+  ...__PrimitiveType
+  ...__ElementType
+  ...__LambdaType
 }
 
 #

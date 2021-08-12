@@ -1,7 +1,7 @@
 import { refetchGetPageQuery } from '@codelab/codegen/graphql'
+import { PageContext } from '@codelab/frontend/shared'
 import { MoveElementForm, MoveElementFormProps } from '@codelab/modules/element'
 import React, { useContext } from 'react'
-import { PageContext } from '../../providers'
 
 type MovePageElementFormProps = Omit<
   MoveElementFormProps,
@@ -15,7 +15,7 @@ export const MovePageElementForm = ({
   elementId,
   ...props
 }: MovePageElementFormProps) => {
-  const { tree, pageId, page } = useContext(PageContext)
+  const { pageId, page, tree } = useContext(PageContext)
 
   if (!page || !pageId) {
     throw new Error(

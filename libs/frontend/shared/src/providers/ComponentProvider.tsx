@@ -1,14 +1,17 @@
 import {
   ComponentFragment,
+  ElementGraphFragment,
   useGetComponentElementsQuery,
   useGetComponentQuery,
 } from '@codelab/codegen/graphql'
-import { ElementTree, useElementTree } from '@codelab/frontend/builder'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
+import { useElementTree } from '../elementTree'
+import { ElementTree } from '../interfaces'
 
 type IComponentContext = {
   component: ComponentFragment
+  elements: ElementGraphFragment
   tree: ElementTree
 }
 
@@ -18,9 +21,11 @@ type ComponentProviderProps = {
 
 export const ComponentContext = React.createContext<IComponentContext>({
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  component: undefined!,
+  component: null!,
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  tree: undefined!,
+  elements: null!,
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  tree: null!,
 })
 
 const _ComponentProvider = ({
@@ -38,12 +43,14 @@ const _ComponentProvider = ({
   const component = data?.getComponent
   const tree = useElementTree(graphData?.getComponentElements)
 
-  if (!component || !graphData) {
+  if (!component || !graphData?.getComponentElements) {
     return null
   }
 
   return (
-    <ComponentContext.Provider value={{ component, tree }}>
+    <ComponentContext.Provider
+      value={{ component, elements: graphData.getComponentElements, tree }}
+    >
       {children}
     </ComponentContext.Provider>
   )

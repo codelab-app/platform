@@ -1,10 +1,10 @@
 import { refetchGetComponentElementsQuery } from '@codelab/codegen/graphql'
+import { ComponentContext } from '@codelab/frontend/shared'
 import {
   CreateElementForm,
   CreateElementFormProps,
 } from '@codelab/modules/element'
 import React, { useContext } from 'react'
-import { ComponentContext } from '../../providers'
 
 type CreateComponentElementFormProps = Omit<
   CreateElementFormProps,

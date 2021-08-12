@@ -4,6 +4,7 @@ import {
   ActionType,
   CrudModal,
   EntityType,
+  PageContext,
   PageType,
   useCrudModalForm,
 } from '@codelab/frontend/shared'
@@ -11,7 +12,7 @@ import {
   CreateElementButton,
   DeleteElementModal,
 } from '@codelab/modules/element'
-import { CreatePageElementForm, PageContext } from '@codelab/modules/page'
+import { CreatePageElementForm } from '@codelab/modules/page'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { MainPaneBuilderTemplate } from '../../paneTemplates'
