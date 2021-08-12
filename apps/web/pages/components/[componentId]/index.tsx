@@ -1,9 +1,10 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { Builder } from '@codelab/frontend/builder'
+import { Builder, defaultRenderContext } from '@codelab/frontend/builder'
 import {
   ComponentContext,
+  RenderProvider,
   withComponentQueryProvider,
-} from '@codelab/modules/component'
+} from '@codelab/frontend/shared'
 import { Empty } from 'antd'
 import React, { useContext } from 'react'
 import {
@@ -14,13 +15,17 @@ import { ComponentDetailTemplate } from '../../../src/templates/ComponentDetailT
 import { NextPageTemplate } from '../../../src/templates/Layout.interface'
 
 const ComponentDetail: NextPageTemplate<'builder'> = () => {
-  const { tree, component } = useContext(ComponentContext)
+  const { component, elements, tree } = useContext(ComponentContext)
 
   if (!tree || !component) {
     return <Empty />
   }
 
-  return <Builder tree={tree} />
+  return (
+    <RenderProvider context={defaultRenderContext({ tree })}>
+      <Builder />
+    </RenderProvider>
+  )
 }
 
 export const getServerSideProps = withPageAuthRequired()

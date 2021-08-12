@@ -6,6 +6,7 @@ import {
 import { PropertiesSchema } from 'ajv/lib/types/json-schema'
 import { TypeModels } from '../../types/TypeModels'
 import { TypeTree } from '../../typeTree'
+import { getSelectElementComponent } from '../fields/SelectElement'
 import { SelectLambda } from '../fields/SelectLambda'
 
 export interface InterfaceToJsonSchemaTransformerOptions {
@@ -125,6 +126,14 @@ export class InterfaceToJsonSchemaTransformer {
           type: 'string',
           uniforms: {
             component: SelectLambda,
+          },
+        }
+
+      case TypeModels.ElementType:
+        return {
+          type: 'string',
+          uniforms: {
+            component: getSelectElementComponent(type.kind),
           },
         }
       default:

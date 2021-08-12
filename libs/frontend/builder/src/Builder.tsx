@@ -1,15 +1,11 @@
+import { RenderProvider, useRenderContext } from '@codelab/frontend/shared'
 import styled from '@emotion/styled'
 import React, { MouseEventHandler } from 'react'
 import tw from 'twin.macro'
-import { ElementTree } from './elementTree'
 import { BuilderClickOverlay, BuilderHoverOverlay } from './overlay-toolbar'
 import { Renderer } from './renderer'
 import { useSetBuilder } from './useBuilder'
 import { useBuilderHandlers } from './useBuilderHandlers'
-
-export interface BuilderProps {
-  tree: ElementTree
-}
 
 const StyledBuilderContainer = styled.div`
   // [data-id] is a selector for all rendered elements
@@ -27,12 +23,10 @@ const StyledBuilderContainer = styled.div`
 /**
  * Wraps around {@link Renderer} to provide element-building functionality
  */
-export const Builder = ({
-  tree,
-  children,
-}: React.PropsWithChildren<BuilderProps>) => {
+export const Builder = ({ children }: React.PropsWithChildren<unknown>) => {
+  const renderContext = useRenderContext()
   const { setSelectedElement } = useSetBuilder()
-  const { ...handlers } = useBuilderHandlers(tree)
+  const { ...handlers } = useBuilderHandlers(renderContext.tree)
   const { reset } = useSetBuilder()
 
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -46,7 +40,7 @@ export const Builder = ({
       const componentId = element.dataset?.componentId
 
       if (nodeId && !componentId) {
-        setSelectedElement(tree.getElementById(nodeId))
+        setSelectedElement(renderContext.tree.getElementById(nodeId))
         e.stopPropagation()
       } else if (element.parentElement && element.id !== 'Builder') {
         // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent
@@ -65,15 +59,22 @@ export const Builder = ({
       id="Builder"
       css={tw`relative w-full h-full`}
     >
-      <Renderer
-        tree={tree}
+      <RenderProvider
         context={{
+          ...renderContext,
           extraProps: {
+            ...(renderContext.extraProps || {}),
+            // Override the onMouse enter/leave handlers to have hovering builder functionality
             onMouseEnter: handlers.handleMouseEnter,
             onMouseLeave: handlers.handleMouseLeave,
+            // Remove onClick, because we handle it above at the container level
+            onClick: () => void 0,
           },
         }}
-      />
+      >
+        <Renderer />
+      </RenderProvider>
+
       <BuilderHoverOverlay />
       <BuilderClickOverlay />
       {children}

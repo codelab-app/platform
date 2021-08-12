@@ -5,6 +5,9 @@ import { Txn } from 'dgraph-js-http'
 import { getTypeQuery } from '../get-type'
 import { GetTypesInput, TypesByKindFilter } from './get-types.input'
 
+const compareIds = (a: DgraphType<any>, b: DgraphType<any>) =>
+  a.uid.localeCompare(b.uid)
+
 @Injectable()
 export class GetTypesService extends DgraphUseCase<
   GetTypesInput,
@@ -13,11 +16,11 @@ export class GetTypesService extends DgraphUseCase<
   protected async executeTransaction(request: GetTypesInput, txn: Txn) {
     return this.dgraph
       .getAll<DgraphType<any>>(txn, this.createQuery(request))
-      .then((t) => t.sort((a, b) => a.uid.localeCompare(b.uid)))
+      .then((t) => t.sort(compareIds))
   }
 
   private createQuery({ byIds, byKind, byName }: GetTypesInput) {
-    const nameFilter = byName ? `match(name, "${byName.name}", 4)` : undefined
+    const nameFilter = byName ? `match(name, "${byName.name}", 6)` : undefined
     const qb = getTypeQuery(this.getTypeFilter(byKind), nameFilter)
 
     if (byIds) {
@@ -45,6 +48,8 @@ export class GetTypesService extends DgraphUseCase<
         return DgraphEntityType.EnumType
       case TypeKind.LambdaType:
         return DgraphEntityType.LambdaType
+      case TypeKind.ElementType:
+        return DgraphEntityType.ElementType
       default:
         throw new Error('Unrecognized type kind option')
     }

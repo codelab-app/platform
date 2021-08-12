@@ -6,7 +6,7 @@ import {
 } from '@codelab/codegen/graphql'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { SingularElementArgument } from 'cytoscape'
-import { ElementTree } from './ElementTree'
+import { ElementTree } from '../interfaces'
 
 //
 // Hook:
@@ -32,14 +32,18 @@ const getEdgeOrder = (edge: SingularElementArgument) =>
 export class ElementGraphTreeAdapter implements ElementTree {
   private readonly cy: cytoscape.Core
 
-  constructor(graph?: ElementGraphFragment) {
+  constructor(graph?: ElementGraphFragment | null) {
     const { edges, vertices } = graph || { edges: [], vertices: [] }
+    const parentsMap = new Map<string, string>()
+    edges.forEach((edge) => {
+      parentsMap.set(edge.target, edge.source)
+    })
 
     this.cy = cytoscape({
       headless: true,
       elements: {
         nodes: vertices.map((v) => ({
-          data: { id: v.id, data: v },
+          data: { id: v.id, data: v, parent: parentsMap.get(v.id) },
         })),
         edges: edges.map((v) => ({
           data: {
@@ -168,7 +172,6 @@ export class ElementGraphTreeAdapter implements ElementTree {
   }
 
   getChildren(elementId: string) {
-    // element.children() doesn't work (because we don't set the parent property I think)
     return this.cy
       .getElementById(elementId)
       .outgoers()
@@ -187,5 +190,25 @@ export class ElementGraphTreeAdapter implements ElementTree {
       .filter(isElement)
       .first()
       .map(getNodeData)[0] as ElementFragment
+  }
+
+  getComponentById(componentId: string) {
+    return this.cy
+      .getElementById(componentId)
+      .filter(isComponent)
+      .first()
+      .map(getNodeData)[0] as ComponentFragment
+  }
+
+  getDescendants(elementId: string): Array<ElementFragment> {
+    console.log(
+      this.cy.getElementById(elementId).descendants().map(getNodeData),
+    )
+
+    return this.cy
+      .getElementById(elementId)
+      .descendants()
+      .filter(isElement)
+      .map(getNodeData) as Array<ElementFragment>
   }
 }

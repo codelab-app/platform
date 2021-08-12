@@ -12,44 +12,42 @@ export interface QueryProps {
 
 export type QueryData = Array<any>
 
+const useLambdaQuery = (queryKey: string, lambdaId: string) => {
+  const [executeLambdaMutation] = useExecuteLambdaMutation()
+
+  return useQuery<QueryData>(queryKey, async (context) => {
+    if (!lambdaId) {
+      return Promise.resolve({})
+    }
+
+    const r = await executeLambdaMutation({
+      variables: {
+        input: { lambdaId, payload: JSON.stringify(context) },
+      },
+    })
+
+    const p = r.data?.executeLambda?.payload
+
+    if (!p) {
+      return {}
+    }
+
+    try {
+      return JSON.parse(p)
+    } catch (e) {
+      console.error(e)
+
+      return {}
+    }
+  })
+}
+
 /**
  * Custom component for Codelab.ai
  * @returns
  */
 export const Query = ({ queryKey, lambda, children }: QueryProps) => {
-  const [executeLambdaMutation] = useExecuteLambdaMutation()
-
-  const { isLoading, isError, data, error } = useQuery<QueryData>(
-    queryKey,
-    (context) => {
-      if (!lambda) {
-        return Promise.resolve({})
-      }
-
-      return executeLambdaMutation({
-        variables: {
-          input: {
-            lambdaId: lambda,
-            payload: JSON.stringify(context),
-          },
-        },
-      })
-        .then((r) => r.data?.executeLambda?.payload)
-        .then((p) => {
-          if (!p) {
-            return {}
-          }
-
-          try {
-            return JSON.parse(p)
-          } catch (e) {
-            console.error(e)
-
-            return {}
-          }
-        })
-    },
-  )
+  const { isLoading, isError, data, error } = useLambdaQuery(queryKey, lambda)
 
   if (isLoading) {
     return <Spin />

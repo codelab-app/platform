@@ -1,10 +1,10 @@
 import { refetchGetPageQuery } from '@codelab/codegen/graphql'
+import { PageContext } from '@codelab/frontend/shared'
 import {
   CreateElementForm,
   CreateElementFormProps,
 } from '@codelab/modules/element'
 import React, { useContext } from 'react'
-import { PageContext } from '../../providers'
 
 type CreatePageElementFormProps = Omit<
   CreateElementFormProps,

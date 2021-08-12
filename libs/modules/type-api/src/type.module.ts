@@ -4,6 +4,7 @@ import { FieldResolver } from './field.resolver'
 import { FieldValidator } from './field.validator'
 import {
   ArrayTypeMapper,
+  ElementTypeMapper,
   EnumTypeMapper,
   EnumTypeValueMapper,
   FieldMapper,
@@ -38,6 +39,7 @@ const mappers = [
   EnumTypeValueMapper,
   ArrayTypeMapper,
   LambdaTypeMapper,
+  ElementTypeMapper,
 ]
 
 const services = [

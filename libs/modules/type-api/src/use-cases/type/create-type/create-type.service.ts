@@ -1,6 +1,7 @@
 import {
   DgraphArrayType,
   DgraphCreateUseCase,
+  DgraphElementType,
   DgraphEntityType,
   DgraphEnumType,
   DgraphInterfaceType,
@@ -24,22 +25,23 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
     super(dgraph)
   }
 
-  protected async executeTransaction(request: CreateTypeInput, txn: Txn) {
+  async executeTransaction(request: CreateTypeInput, txn: Txn) {
     await this.validate(request)
 
-    return await this.dgraph.create(txn, (blankNodeUid) =>
+    return this.dgraph.create(txn, (blankNodeUid) =>
       this.createMutation(request, blankNodeUid),
     )
   }
 
   private createMutation(request: CreateTypeInput, blankNodeUid: string) {
-    const { arrayType, enumType, primitiveType, name } = request
+    const { arrayType, enumType, primitiveType, name, elementType } = request
 
     return jsonMutation<
       DgraphArrayType &
         DgraphEnumType &
         DgraphPrimitiveType &
-        DgraphInterfaceType
+        DgraphInterfaceType &
+        DgraphElementType
     >({
       uid: blankNodeUid,
       'dgraph.type': [
@@ -49,6 +51,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
       name,
       itemType: arrayType ? { uid: arrayType.itemTypeId } : undefined,
       primitiveKind: primitiveType ? primitiveType.primitiveKind : undefined,
+      kind: elementType ? elementType.kind : undefined,
       allowedValues: enumType
         ? enumType.allowedValues.map((av) => ({
             'dgraph.type': [DgraphEntityType.EnumTypeValue],
@@ -69,6 +72,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
     enumType,
     arrayType,
     lambdaType,
+    elementType,
   }: CreateTypeInput) {
     if (interfaceType) {
       return DgraphEntityType.InterfaceType
@@ -88,6 +92,10 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
 
     if (lambdaType) {
       return DgraphEntityType.LambdaType
+    }
+
+    if (elementType) {
+      return DgraphEntityType.ElementType
     }
 
     throw new Error("Bad request, can't parse CreateTypeInput")

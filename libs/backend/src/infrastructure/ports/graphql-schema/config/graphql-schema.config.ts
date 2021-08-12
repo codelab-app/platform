@@ -14,15 +14,16 @@ export interface GraphqlSchemaConfig {
 
 const apiGraphqlSchemaFile = path.resolve(process.cwd(), 'schema.api.graphql')
 
-export const graphqlSchemaConfig = registerAs<
-  GraphqlSchemaConfig,
-  () => GraphqlSchemaConfig
->(GraphqlSchemaTokens.GraphqlSchemaConfig.toString(), () => {
-  return {
-    apiGraphqlSchemaFile,
-    apiCodegenOutputFile: path.resolve(
-      process.cwd(),
-      'libs/codegen/graphql/src/graphql-client-api.generated.ts',
-    ),
-  }
-})
+export const graphqlSchemaConfig = registerAs<GraphqlSchemaConfig>(
+  GraphqlSchemaTokens.GraphqlSchemaConfig.toString(),
+  () => {
+    return {
+      apiGraphqlSchemaFile,
+      apiCodegenOutputFile: path.resolve(
+        process.cwd(),
+        // '/home/artonio/DEV/upwork/codelab.ai/',
+        'libs/codegen/graphql/src/graphql-client-api.generated.ts',
+      ),
+    }
+  },
+)

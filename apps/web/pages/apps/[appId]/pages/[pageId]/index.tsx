@@ -1,6 +1,10 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { Builder } from '@codelab/frontend/builder'
-import { PageContext, withPageQueryProvider } from '@codelab/modules/page'
+import { Builder, defaultRenderContext } from '@codelab/frontend/builder'
+import {
+  PageContext,
+  RenderProvider,
+  withPageQueryProvider,
+} from '@codelab/frontend/shared'
 import { Empty } from 'antd'
 import React, { useContext } from 'react'
 import {
@@ -21,7 +25,11 @@ const PageDetail: NextPageTemplate<'builder'> = () => {
     return <Empty />
   }
 
-  return <Builder tree={tree} />
+  return (
+    <RenderProvider context={defaultRenderContext({ tree })}>
+      <Builder />
+    </RenderProvider>
+  )
 }
 
 export const getServerSideProps = withPageAuthRequired()

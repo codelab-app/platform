@@ -1,5 +1,5 @@
+import { ElementTree } from '@codelab/frontend/shared'
 import { useCallback } from 'react'
-import { ElementTree } from './elementTree'
 import { useSetBuilder } from './useBuilder'
 
 /**

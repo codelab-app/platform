@@ -14,7 +14,7 @@ export class GetTypeService extends DgraphUseCase<
   DgraphType<DgraphEntityType.Type> | null
 > {
   protected executeTransaction(request: GetTypeRequest, txn: Txn) {
-    return this.dgraph.getOneOrThrow<DgraphType<DgraphEntityType.Type>>(
+    return this.dgraph.getOne<DgraphType<DgraphEntityType.Type>>(
       txn,
       this.createQuery(request),
     )
@@ -41,7 +41,9 @@ export class GetTypeService extends DgraphUseCase<
         fields
         type
         key
-        description`,
+        description
+        kind
+        `,
       )
 
     if (id) {

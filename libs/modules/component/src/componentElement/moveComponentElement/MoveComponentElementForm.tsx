@@ -1,7 +1,7 @@
 import { refetchGetComponentElementsQuery } from '@codelab/codegen/graphql'
+import { ComponentContext } from '@codelab/frontend/shared'
 import { MoveElementForm, MoveElementFormProps } from '@codelab/modules/element'
 import React, { useContext } from 'react'
-import { ComponentContext } from '../../providers'
 
 type MoveComponentElementFormProps = Omit<
   MoveElementFormProps,
@@ -15,7 +15,7 @@ export const MoveComponentElementForm = ({
   elementId,
   ...props
 }: MoveComponentElementFormProps) => {
-  const { tree, component } = useContext(ComponentContext)
+  const { component, tree } = useContext(ComponentContext)
 
   const parentElementOptions = [
     ...tree.getAllElements().map((e) => ({

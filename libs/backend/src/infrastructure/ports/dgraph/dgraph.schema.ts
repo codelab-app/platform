@@ -23,6 +23,7 @@ const {
   App,
   Component,
   Lambda,
+  ElementType,
 } = DgraphEntityType
 
 export const dgraphSchema = `
@@ -90,6 +91,10 @@ export const dgraphSchema = `
   type ${LambdaType} {
   }
 
+  type ${ElementType} {
+    kind
+  }
+
   type ${InterfaceType} {
     fields
   }
@@ -149,4 +154,6 @@ export const dgraphSchema = `
   value: uid @reverse .
 
   body: string .
+
+  kind: string .
 `

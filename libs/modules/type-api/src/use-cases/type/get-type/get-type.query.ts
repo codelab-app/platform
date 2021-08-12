@@ -33,5 +33,6 @@ export const getTypeQuery = (
       type
       key
       description
+      kind
     `)
 }

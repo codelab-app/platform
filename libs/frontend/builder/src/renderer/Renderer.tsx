@@ -1,14 +1,11 @@
-import { ElementTree } from '../elementTree'
-import { RenderContext, renderFactory } from './renderFactory'
+import { useRenderContext } from '@codelab/frontend/shared'
+import React from 'react'
 
 /**
- * Wrapper element for {@link renderFactory}
- * @constructor
+ * The root render point
  */
-export const Renderer = ({
-  tree,
-  context,
-}: {
-  tree: ElementTree
-  context?: Omit<RenderContext, 'tree'>
-}) => renderFactory(tree.getRoot(), { ...(context || {}), tree }) as any
+export const Renderer = () => {
+  const context = useRenderContext()
+
+  return <>{context.renderFactory(context.tree.getRoot())}</>
+}

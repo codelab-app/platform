@@ -2,14 +2,12 @@ import { refetchGetComponentElementsQuery } from '@codelab/codegen/graphql'
 import { useBuilder } from '@codelab/frontend/builder'
 import {
   ActionType,
+  ComponentContext,
   CrudModal,
   EntityType,
   PageType,
 } from '@codelab/frontend/shared'
-import {
-  ComponentContext,
-  CreateComponentElementForm,
-} from '@codelab/modules/component'
+import { CreateComponentElementForm } from '@codelab/modules/component'
 import {
   CreateElementButton,
   DeleteElementModal,
