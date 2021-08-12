@@ -1,8 +1,13 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { NextPageTemplate } from '@codelab/frontend/abstract/props'
 import {
   defaultRenderContext,
   Renderer,
 } from '@codelab/frontend/modules/builder'
+import {
+  PageDetailHeader,
+  PageRendererTemplate,
+} from '@codelab/frontend/modules/page'
 import {
   PageContext,
   RenderProvider,
@@ -10,9 +15,6 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
 import React, { useContext } from 'react'
-import { PageDetailHeader } from '../../../../../src/sections/header'
-import { NextPageTemplate } from '../../../../../src/templates/Layout.interface'
-import { PageRendererTemplate } from '../../../../../src/templates/PageRendererTemplate'
 
 const PageRenderer: NextPageTemplate<'builder'> = () => {
   const { tree, page, loading } = useContext(PageContext)

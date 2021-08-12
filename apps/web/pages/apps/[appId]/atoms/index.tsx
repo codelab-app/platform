@@ -1,5 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { NextPageTemplate } from '@codelab/frontend/abstract/props'
 import {
+  AtomTemplate,
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
@@ -7,10 +9,8 @@ import {
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
 import { Breadcrumb, Card, PageHeader, Space } from 'antd'
-import { AtomTemplate } from 'apps/web/src/templates/AtomTemplate'
 import React from 'react'
 import tw from 'twin.macro'
-import { NextPageTemplate } from '../../../../src/templates/Layout.interface'
 
 const AtomsPage: NextPageTemplate = () => {
   return (

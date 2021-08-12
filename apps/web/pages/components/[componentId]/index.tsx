@@ -1,8 +1,14 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { NextPageTemplate } from '@codelab/frontend/abstract/props'
 import {
   Builder,
   defaultRenderContext,
 } from '@codelab/frontend/modules/builder'
+import {
+  ComponentDetailTemplate,
+  MainPaneComponentDetail,
+  MetaPaneComponentDetail,
+} from '@codelab/frontend/modules/component'
 import {
   ComponentContext,
   RenderProvider,
@@ -10,12 +16,6 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
 import React, { useContext } from 'react'
-import {
-  MainPaneComponentDetail,
-  MetaPaneComponentDetail,
-} from '../../../src/sections/panes'
-import { ComponentDetailTemplate } from '../../../src/templates/ComponentDetailTemplate'
-import { NextPageTemplate } from '../../../src/templates/Layout.interface'
 
 const ComponentDetail: NextPageTemplate<'builder'> = () => {
   const { component, elements, tree } = useContext(ComponentContext)

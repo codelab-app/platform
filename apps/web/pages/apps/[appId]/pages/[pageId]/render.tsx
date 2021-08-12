@@ -1,4 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { NextPageTemplate } from '@codelab/frontend/abstract/props'
 import {
   defaultRenderContext,
   Renderer,
@@ -10,7 +11,6 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
 import React, { useContext } from 'react'
-import { NextPageTemplate } from '../../../../../src/templates/Layout.interface'
 
 const PageRender: NextPageTemplate<'default'> = () => {
   const { page, loading, tree } = useContext(PageContext)

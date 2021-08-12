@@ -1,4 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { NextPageTemplate } from '@codelab/frontend/abstract/props'
 import {
   CreateFieldButton,
   CreateFieldModal,
@@ -9,11 +10,10 @@ import {
   withInterfaceQueryProvider,
 } from '@codelab/frontend/modules/type'
 import { padding } from '@codelab/frontend/style'
+import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
-import { NextPageTemplate } from '../../../../src/templates/Layout.interface'
-import { MainDashboardTemplate } from '../../../../src/templates/MainDashboardTemplate'
 
 const InterfaceDetailPage: NextPageTemplate<'dashboard'> = () => {
   const {

@@ -1,8 +1,15 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { NextPageTemplate } from '@codelab/frontend/abstract/props'
 import {
   Builder,
   defaultRenderContext,
+  PageBuilderTemplate,
 } from '@codelab/frontend/modules/builder'
+import {
+  MainPanePageDetail,
+  MetaPanePageDetail,
+  PageDetailHeader,
+} from '@codelab/frontend/modules/page'
 import {
   PageContext,
   RenderProvider,
@@ -10,13 +17,6 @@ import {
 } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
 import React, { useContext } from 'react'
-import { PageDetailHeader } from '../../../../../src/sections/header'
-import {
-  MainPanePageDetail,
-  MetaPanePageDetail,
-} from '../../../../../src/sections/panes'
-import { NextPageTemplate } from '../../../../../src/templates/Layout.interface'
-import { PageBuilderTemplate } from '../../../../../src/templates/PageBuilderTemplate'
 
 const PageBuilder: NextPageTemplate<'builder'> = () => {
   const { tree, page, loading } = useContext(PageContext)
@@ -38,8 +38,8 @@ const PageBuilder: NextPageTemplate<'builder'> = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-PageBuilder.Template = withPageQueryProvider(PageBuilderTemplate)
 PageBuilder.Header = PageDetailHeader
+PageBuilder.Template = withPageQueryProvider(PageBuilderTemplate)
 PageBuilder.MainPane = MainPanePageDetail
 PageBuilder.MetaPane = MetaPanePageDetail
 

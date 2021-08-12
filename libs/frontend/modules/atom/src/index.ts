@@ -1,4 +1,2 @@
-export * from './createAtom'
-export * from './deleteAtom'
-export * from './getAtoms'
-export * from './updateAtom'
+export * from './templates'
+export * from './use-cases'

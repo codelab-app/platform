@@ -1,4 +1,5 @@
-import { ElementTree, useElementTree } from '@codelab/frontend/modules/builder'
+import { ElementTree } from '@codelab/frontend/abstract/props'
+import { useElementTree } from '@codelab/frontend/model/domain'
 import {
   PageFullFragment,
   useGetPageQuery,

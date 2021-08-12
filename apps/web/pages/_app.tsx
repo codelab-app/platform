@@ -39,6 +39,7 @@ const AppContainer = ({ pageProps, Component, router }: AppProps<any>) => {
                 MainPane={MainPane}
                 MetaPane={MetaPane}
                 SidebarNavigation={SidebarNavigation}
+                Header={Header}
               >
                 <Component {...pageProps} />
               </Template>

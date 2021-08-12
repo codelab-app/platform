@@ -1,15 +1,14 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { DashboardLayout } from 'apps/web/src/layout/DashboardLayout'
+import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { DashboardLayout } from '@codelab/frontend/view/templates'
 import React from 'react'
-import { NextPageTemplate } from '../../../../../../src/templates/Layout.interface'
 
-const PropTypeCDetail: NextPageTemplate<'dashboard'> = () => {
-  return <div id="Builder" style={{ position: 'relative' }}></div>
+const LibraryPage: NextPageTemplate<'dashboard'> = () => {
+  return <div id="Builder" style={{ position: 'relative' }} />
 }
 
 export const getServerSideProps = withPageAuthRequired()
 
-PropTypeCDetail.Template = DashboardLayout
-// PropTypeCDetail.MainPane = PaneMainPropTypeC
+LibraryPage.Template = DashboardLayout
 
-export default PropTypeCDetail
+export default LibraryPage

@@ -740,17 +740,15 @@
         }
       }
     },
-    "frontend-view-components": {
-      "root": "libs/frontend/view/components",
-      "sourceRoot": "libs/frontend/view/components/src",
+    "frontend-view": {
+      "root": "libs/frontend/view",
+      "sourceRoot": "libs/frontend/view",
       "projectType": "library",
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/frontend/view/components/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/frontend/view/**/*.{ts,tsx,js,jsx}"]
           }
         }
       }
