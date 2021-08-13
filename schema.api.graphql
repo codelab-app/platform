@@ -300,6 +300,10 @@ enum AtomType {
 
 type Element {
   id: ID!
+
+  """
+  Due to union nullability issue, we have to make this non-nullable. Defaults to atom type
+  """
   name: String!
   css: String
   atom: Atom
@@ -351,7 +355,7 @@ type Page {
 }
 
 type Tag {
-  id: ID!
+  id: String!
   name: String!
 }
 
@@ -477,21 +481,13 @@ input GetComponentInput {
 }
 
 input GetAtomInput {
-  byElement: AtomByElement
-  byId: AtomById
-  byType: AtomByType
+  where: AtomWhereUniqueInput!
 }
 
-input AtomByElement {
-  elementId: String!
-}
-
-input AtomById {
-  atomId: String!
-}
-
-input AtomByType {
-  atomType: AtomType!
+input AtomWhereUniqueInput {
+  id: String
+  type: AtomType
+  element: String
 }
 
 input GetFieldInput {
@@ -651,7 +647,7 @@ input UpdatePageData {
 }
 
 input CreateElementInput {
-  name: String!
+  name: String
   atomId: String
   componentId: String
   parentElementId: String
@@ -663,15 +659,15 @@ input CreateElementInput {
 }
 
 input UpdateElementInput {
-  updateData: UpdateElementData!
-  elementId: String!
+  data: UpdateElementData!
+  id: String!
 }
 
 input UpdateElementData {
-  name: String!
-  css: String
+  name: String
   atomId: String
   componentId: String
+  css: String
 }
 
 input MoveElementInput {

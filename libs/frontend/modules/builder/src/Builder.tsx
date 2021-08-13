@@ -1,14 +1,16 @@
+import { ElementTree } from '@codelab/frontend/abstract/props'
 import {
   RenderProvider,
   useRenderContext,
 } from '@codelab/frontend/presenter/container'
+import { ElementFragment } from '@codelab/shared/codegen/graphql'
 import styled from '@emotion/styled'
 import React, { MouseEventHandler } from 'react'
 import tw from 'twin.macro'
+import { useSetBuilder } from './containers/useBuilder'
+import { useBuilderHandlers } from './containers/useBuilderHandlers'
 import { BuilderClickOverlay, BuilderHoverOverlay } from './overlay-toolbar'
 import { Renderer } from './renderer'
-import { useSetBuilder } from './useBuilder'
-import { useBuilderHandlers } from './useBuilderHandlers'
 
 const StyledBuilderContainer = styled.div`
   // [data-id] is a selector for all rendered elements
@@ -29,7 +31,12 @@ const StyledBuilderContainer = styled.div`
 export const Builder = ({ children }: React.PropsWithChildren<unknown>) => {
   const renderContext = useRenderContext()
   const { setSelectedElement } = useSetBuilder()
-  const { ...handlers } = useBuilderHandlers(renderContext.tree)
+
+  // TODO: Deal with context mapping
+  const { ...handlers } = useBuilderHandlers(
+    renderContext.tree as ElementTree<ElementFragment>,
+  )
+
   const { reset } = useSetBuilder()
 
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -43,7 +50,10 @@ export const Builder = ({ children }: React.PropsWithChildren<unknown>) => {
       const componentId = element.dataset?.componentId
 
       if (nodeId && !componentId) {
-        setSelectedElement(renderContext.tree.getElementById(nodeId))
+        // TODO: Find a way to resolve the context switch between RenderNode & ElementFragment
+        setSelectedElement(
+          renderContext.tree.getNodeById(nodeId) as ElementFragment,
+        )
         e.stopPropagation()
       } else if (element.parentElement && element.id !== 'Builder') {
         // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent

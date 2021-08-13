@@ -16,7 +16,7 @@ import {
   GetAtomQuery,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
-import { AtomModule } from '../../../infrastructure'
+import { AtomModule } from '../../../atom.module'
 import { createAtomInput } from '../../create-atom/test/create-atom.data'
 
 describe('DeleteAtom', () => {
@@ -41,7 +41,7 @@ describe('DeleteAtom', () => {
       atomId: atomId,
     }
     getAtomInput = {
-      byId: { atomId },
+      where: { id: atomId },
     }
 
     expect(atomId).toBeDefined()

@@ -7,7 +7,7 @@ import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'
 import React from 'react'
 import tw from 'twin.macro'
-import { useBuilder } from './useBuilder'
+import { useBuilder } from '../containers/useBuilder'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div

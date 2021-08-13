@@ -38,7 +38,7 @@ export class DeleteAtomService extends DgraphUseCase<DeleteAtomInput> {
   }
 
   protected async validate({ atomId }: DeleteAtomInput) {
-    const atom = await this.getAtomService.execute({ byId: { atomId } })
+    const atom = await this.getAtomService.execute({ where: { id: atomId } })
 
     if (!atom) {
       throw new Error("Can't delete, atom not found")

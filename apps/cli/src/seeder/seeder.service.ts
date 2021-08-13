@@ -5,7 +5,13 @@ import {
   serverConfig,
 } from '@codelab/backend/infra'
 import { AtomTypeEnum } from '@codelab/backend/modules/atom'
-import { snakeCaseToWords } from '@codelab/shared/utils'
+import {
+  __AtomFragment,
+  AtomType,
+  CreateAtomMutation,
+  CreateAtomMutationResult,
+} from '@codelab/shared/codegen/graphql'
+import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable } from '@nestjs/common'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
@@ -30,6 +36,11 @@ import { iterateCsvs } from './utils/iterateCsvs'
  * The Seeder will create the libraries, all of the atoms inside them and the types for them
  */
 
+interface AtomSeed {
+  id: string
+  atomType: AtomType
+}
+
 @Console()
 @Injectable()
 export class SeederService {
@@ -37,74 +48,57 @@ export class SeederService {
 
   private customComponentsDataFolder = `${process.cwd()}/data/customComponents/`
 
+  /**
+   * An array of future created atoms, we first build out the pipeline, then call it with input data later
+   */
+  private atoms: Array<AtomSeed> = []
+
+  private atomSeeder: AtomSeeder
+
+  private typeSeeder: TypeSeeder
+
   constructor(
     @Inject(serverConfig.KEY) private readonly _serverConfig: ServerConfig,
-    private readonly auth0Service: Auth0Service,
-  ) {}
+    accessToken: string,
+  ) {
+    const client = this.getClient(accessToken)
+
+    this.atomSeeder = new AtomSeeder(client)
+    this.typeSeeder = new TypeSeeder(client, this.atomSeeder)
+  }
 
   @Command({
     command: 'seed',
   })
   async seed() {
-    const client = await this.getClient()
-    const typeSeeder = new TypeSeeder(client)
-    const atomSeeder = new AtomSeeder(client)
-
     /**
      * (1) Seed base types like String, Boolean, Integer so other types can use them
      */
-    await typeSeeder.seedBaseTypes()
+    await this.typeSeeder.seedBaseTypes()
 
     /**
      * (2) Seed all Atoms
      */
-    const allAtoms = await Promise.all(
-      Object.values(AtomTypeEnum).map((atomType) =>
-        atomSeeder
-          .seedAtomIfMissing({
-            type: atomType as any,
-            name: snakeCaseToWords(atomType),
-          })
-          .then((id) => ({ id, atomType })),
-      ),
-    )
+    this.atoms = await this.seedAtoms()
 
-    const atomIdByAtomType = new Map(
-      allAtoms.map(({ id, atomType }) => [atomType, id]),
-    )
+    /**
+     * (3) Wrap all Atoms with a Component
+     */
 
     /**
      * (3) Seed all Atoms API's that we have data for
      */
-    const handleCsv = async (data: Array<AntdDesignApi>, file: string) => {
-      const atomType = csvNameToAtomTypeMap[file.replace('.csv', '')]
-
-      if (!atomType) {
-        return
-      }
-
-      const atomId = atomIdByAtomType.get(atomType as any)
-
-      if (!atomId) {
-        return
-      }
-
-      return typeSeeder.seedAtomApi(atomId, data)
-    }
-
-    await iterateCsvs(this.antdDataFolder, handleCsv)
-    await iterateCsvs(this.customComponentsDataFolder, handleCsv)
+    await iterateCsvs(this.antdDataFolder, this.handleCsv)
+    await iterateCsvs(this.customComponentsDataFolder, this.handleCsv)
 
     /**
      * (4) Seed all the custom atom API's
      */
-    await typeSeeder.seedCustomAtomApis(allCustomAtomApiFactories)
+    await this.typeSeeder.seedCustomAtomApis(allCustomAtomApiFactories)
   }
 
-  private async getClient() {
-    const accessToken = await this.auth0Service.getAccessToken()
-
-    const client = new GraphQLClient(
+  private getClient(accessToken: string) {
+    return new GraphQLClient(
       new URL('graphql', this._serverConfig.endpoint).toString(),
       {
         headers: {
@@ -112,7 +106,38 @@ export class SeederService {
         },
       },
     )
+  }
 
-    return client
+  private seedAtoms() {
+    return Promise.all(
+      Object.values(AtomType).map((atomType) =>
+        this.atomSeeder
+          .seedAtomIfMissing({
+            type: atomType,
+            name: pascalCaseToWords(atomType),
+          })
+          .then((id) => ({ id, atomType })),
+      ),
+    )
+  }
+
+  private get atomIdByAtomType() {
+    return new Map(this.atoms.map(({ id, atomType }) => [atomType, id]))
+  }
+
+  private async handleCsv(data: Array<AntdDesignApi>, file: string) {
+    const atomType = csvNameToAtomTypeMap[file.replace('.csv', '')]
+
+    if (!atomType) {
+      return
+    }
+
+    const atomId = this.atomIdByAtomType.get(atomType as any)
+
+    if (!atomId) {
+      return
+    }
+
+    return this.typeSeeder.seedAtomApi(atomId, data)
   }
 }

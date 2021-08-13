@@ -28,12 +28,12 @@ export class UpdateElementService extends DgraphUseCase<UpdateElementRequest> {
 
   protected createMutation({
     input: {
-      elementId,
-      updateData: { atomId, css, name, componentId },
+      id,
+      data: { atomId, css, name, componentId },
     },
   }: UpdateElementRequest) {
     return jsonMutation<DgraphElement>({
-      uid: elementId,
+      uid: id,
       name,
       atom: atomId ? { uid: atomId } : null,
       component: componentId ? { uid: componentId } : null,
@@ -43,15 +43,15 @@ export class UpdateElementService extends DgraphUseCase<UpdateElementRequest> {
 
   protected async validate({
     input: {
-      elementId,
-      updateData: { atomId },
+      id,
+      data: { atomId },
     },
     currentUser,
   }: UpdateElementRequest): Promise<void> {
-    await this.elementValidator.existsAndIsOwnedBy(elementId, currentUser)
+    await this.elementValidator.existsAndIsOwnedBy(id, currentUser)
 
     if (atomId) {
-      const atom = await this.getAtomService.execute({ byId: { atomId } })
+      const atom = await this.getAtomService.execute({ where: { id: atomId } })
 
       if (!atom) {
         throw new Error('Atom not found')

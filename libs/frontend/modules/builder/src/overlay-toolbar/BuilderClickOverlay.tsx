@@ -3,7 +3,7 @@ import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
 import React from 'react'
-import { useBuilder } from '../useBuilder'
+import { useBuilder } from '../containers/useBuilder'
 import { ClickOverlay } from './Overlay-click'
 
 const StyledOverlayContainer = styled.div`

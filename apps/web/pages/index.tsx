@@ -1,9 +1,9 @@
 import { NextPageTemplate } from '@codelab/frontend/abstract/props'
 import React from 'react'
-import { HomeClients } from '../src/home/Home-clients'
-import { HomeFeatures } from '../src/home/Home-features'
-import { HomeJumbo } from '../src/home/Home-jumbo'
-import { HomeTemplate } from '../src/templates/HomeTemplate'
+import { HomeClients } from '../src/home/HomeClients'
+import { HomeFeatures } from '../src/home/HomeFeatures'
+import { HomeJumbo } from '../src/home/HomeJumbo'
+import { HomeTemplate } from '../src/home/HomeTemplate'
 
 const HomePage: NextPageTemplate = () => {
   return (

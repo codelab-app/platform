@@ -11,7 +11,7 @@ import {
   UpdateComponentElementForm,
 } from '../use-cases/component-element'
 
-export const MetaPaneComponentDetail = () => {
+export const ComponentDetailMetaPane = () => {
   const { tree } = useContext(ComponentContext)
 
   return (
@@ -29,13 +29,11 @@ export const MetaPaneComponentDetail = () => {
             elementId={element.id}
           />
 
-          <div>
-            <DeleteElementButton
-              danger={true}
-              elementId={element.id}
-              metadata={element}
-            />
-          </div>
+          <DeleteElementButton
+            danger={true}
+            elementId={element.id}
+            metadata={element}
+          />
         </>
       )}
       renderUpdatePropsContent={(element) => (

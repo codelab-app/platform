@@ -1,12 +1,9 @@
-import { RenderNode } from '@codelab/frontend/abstract/props'
+import { isElement, RenderNode } from '@codelab/frontend/abstract/props'
 import {
   RenderProvider,
   useRenderContext,
 } from '@codelab/frontend/presenter/container'
-import {
-  ComponentFragment,
-  ElementFragment,
-} from '@codelab/shared/codegen/graphql'
+import { ComponentFragment } from '@codelab/shared/codegen/graphql'
 import { css } from '@emotion/react'
 import deepmerge from 'deepmerge'
 import React, { ReactElement } from 'react'
@@ -52,10 +49,7 @@ const mergeProps = (...props: Array<Record<string, any>>) => {
 /**
  *  Handles the rendering of elements
  */
-const RenderElement: RenderHandler<ElementFragment> = ({
-  __node: element,
-  ...props
-}) => {
+const RenderElement: RenderHandler = ({ __node: element, ...props }) => {
   const runtimeProps = props
   const context = useRenderContext()
 
@@ -71,7 +65,7 @@ const RenderElement: RenderHandler<ElementFragment> = ({
   }
 
   // Render either the atom with children..
-  if (element.atom) {
+  if (isElement(element) && element.atom) {
     const [RootComponent, atomProps] = reactComponentFactory({
       atom: element.atom,
       node: element,

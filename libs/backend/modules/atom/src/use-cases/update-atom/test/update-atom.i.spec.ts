@@ -17,7 +17,7 @@ import {
   UpdateAtomMutation,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
-import { AtomModule } from '../../../infrastructure'
+import { AtomModule } from '../../../atom.module'
 import { createAtomInput } from '../../create-atom/test/create-atom.data'
 
 describe('UpdateAtom', () => {
@@ -46,7 +46,7 @@ describe('UpdateAtom', () => {
       },
     }
 
-    getAtomInput = { byId: { atomId } }
+    getAtomInput = { where: { id: atomId } }
 
     expect(atomId).toBeDefined()
   })

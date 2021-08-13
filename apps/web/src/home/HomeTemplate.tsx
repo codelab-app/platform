@@ -2,7 +2,7 @@ import { LayoutComponent } from '@codelab/frontend/abstract/props'
 import { contentStyle } from '@codelab/frontend/style'
 import { Layout } from 'antd'
 import React from 'react'
-import { HomeMenuHeader } from '../home/Home-menu--header'
+import { HomeMenuHeader } from './HomeMenuHeader'
 
 const { Content, Header, Footer } = Layout
 

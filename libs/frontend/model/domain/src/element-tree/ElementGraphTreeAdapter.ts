@@ -1,12 +1,12 @@
+import { Edge, Graph, Vertex } from '@codelab/backend/abstract/types'
+import { ElementTree } from '@codelab/frontend/abstract/props'
 import {
   ComponentFragment,
   ElementEdge,
   ElementFragment,
-  ElementGraphFragment,
 } from '@codelab/shared/codegen/graphql'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { SingularElementArgument } from 'cytoscape'
-import { ElementTree } from './ElementTree'
 
 //
 // Hook:
@@ -14,14 +14,17 @@ import { ElementTree } from './ElementTree'
 const edgeId = (sourceId: string, targetId: string) =>
   `${sourceId}--${targetId}`
 
-const getNodeData = (node: SingularElementArgument) =>
-  (node?.data()?.data as ElementFragment | ComponentFragment) ?? null
+// const getNodeData = (node: SingularElementArgument) =>
+//   (node?.data()?.data as ElementFragment | ComponentFragment) ?? null
+
+const getNodeData = <TData>(node: SingularElementArgument) =>
+  node?.data()?.data as TData
 
 const isElement = (node: SingularElementArgument) =>
-  getNodeData(node)?.__typename === 'Element'
+  getNodeData<ElementFragment>(node)?.__typename === 'Element'
 
 const isComponent = (node: SingularElementArgument) =>
-  getNodeData(node)?.__typename === 'Component'
+  getNodeData<ComponentFragment>(node)?.__typename === 'Component'
 
 const getEdgeDataFromEdge = (edge: SingularElementArgument) =>
   (edge?.data()?.data as ElementEdge) ?? null
@@ -29,17 +32,23 @@ const getEdgeDataFromEdge = (edge: SingularElementArgument) =>
 const getEdgeOrder = (edge: SingularElementArgument) =>
   getEdgeDataFromEdge(edge)?.order ?? 0
 
-export class ElementGraphTreeAdapter implements ElementTree {
+export class ElementGraphTreeAdapter implements ElementTree<ElementFragment> {
   private readonly cy: cytoscape.Core
 
-  constructor(graph?: ElementGraphFragment) {
-    const { edges, vertices } = graph || { edges: [], vertices: [] }
+  constructor(graph?: Graph<Vertex, Edge> | null) {
+    const vertices = graph?.vertices ?? []
+    const edges = graph?.edges ?? []
+    const parentsMap = new Map<string, string>()
+
+    edges.forEach((edge) => {
+      parentsMap.set(edge.target, edge.source)
+    })
 
     this.cy = cytoscape({
       headless: true,
       elements: {
         nodes: vertices.map((v) => ({
-          data: { id: v.id, data: v },
+          data: { id: v.id, data: v, parent: parentsMap.get(v.id) },
         })),
         edges: edges.map((v) => ({
           data: {
@@ -59,7 +68,7 @@ export class ElementGraphTreeAdapter implements ElementTree {
       .outgoers()
       .filter(isComponent)
       .first()
-      .map(getNodeData)[0] as ComponentFragment
+      .map<ComponentFragment>(getNodeData)[0]
   }
 
   getPathFromRoot(elementId: string) {
@@ -84,7 +93,7 @@ export class ElementGraphTreeAdapter implements ElementTree {
     this.cy.elements().breadthFirstSearch({
       root,
       visit: (visitedNode, edge) => {
-        const element = getNodeData(visitedNode)
+        const element = getNodeData<ElementFragment>(visitedNode)
         const order = getEdgeOrder(edge)
 
         const node = {
@@ -123,13 +132,13 @@ export class ElementGraphTreeAdapter implements ElementTree {
     return tree as unknown as DataNode
   }
 
-  getElementById(id: string) {
+  getNodeById(id: string) {
     return this.cy
       .elements()
       .filter(isElement)
       .getElementById(id)
       .first()
-      .map(getNodeData)[0] as ElementFragment
+      .map<ElementFragment>(getNodeData)[0]
   }
 
   getParent(id: string) {
@@ -139,7 +148,7 @@ export class ElementGraphTreeAdapter implements ElementTree {
       .nodes()
       .filter(isElement)
       .first()
-      .map(getNodeData)[0] as ElementFragment
+      .map<ElementFragment>(getNodeData)[0]
   }
 
   getOrderInParent(id: string) {
@@ -151,11 +160,11 @@ export class ElementGraphTreeAdapter implements ElementTree {
       .map(getEdgeOrder)[0]
   }
 
-  getAllElements() {
+  getAllNodes() {
     return this.cy
       .elements()
       .filter(isElement)
-      .map(getNodeData) as Array<ElementFragment>
+      .map<ElementFragment>(getNodeData)
   }
 
   getRoot() {
@@ -164,11 +173,10 @@ export class ElementGraphTreeAdapter implements ElementTree {
       .roots()
       .filter(isElement)
       .first()
-      .map(getNodeData)[0] as ElementFragment
+      .map<ElementFragment>(getNodeData)[0]
   }
 
   getChildren(elementId: string) {
-    // element.children() doesn't work (because we don't set the parent property I think)
     return this.cy
       .getElementById(elementId)
       .outgoers()
@@ -176,16 +184,36 @@ export class ElementGraphTreeAdapter implements ElementTree {
       .sort((a, b) => getEdgeOrder(a) - getEdgeOrder(b))
       .targets()
       .filter(isElement)
-      .map(getNodeData) as Array<ElementFragment>
+      .map<ElementFragment>(getNodeData)
   }
 
-  getComponentRootElement(componentId: string): ElementFragment | null {
+  getComponentRootElement(componentId: string): ElementFragment | undefined {
     return this.cy
       .getElementById(componentId)
       .outgoers()
       .nodes()
       .filter(isElement)
       .first()
-      .map(getNodeData)[0] as ElementFragment
+      .map<ElementFragment>(getNodeData)[0]
+  }
+
+  getComponentById(componentId: string) {
+    return this.cy
+      .getElementById(componentId)
+      .filter(isComponent)
+      .first()
+      .map(getNodeData)[0] as ComponentFragment
+  }
+
+  getDescendants(elementId: string) {
+    console.log(
+      this.cy.getElementById(elementId).descendants().map(getNodeData),
+    )
+
+    return this.cy
+      .getElementById(elementId)
+      .descendants()
+      .filter(isElement)
+      .map<ElementFragment>(getNodeData)
   }
 }

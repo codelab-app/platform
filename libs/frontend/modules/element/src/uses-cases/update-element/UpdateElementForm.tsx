@@ -22,7 +22,7 @@ import {
 export type UpdateElementFormProps =
   UniFormUseCaseProps<UpdateElementSchemaType> & {
     element: ElementFragment
-    tree: ElementTree
+    tree: ElementTree<ElementFragment>
     refetchQueries?: BaseMutationOptions['refetchQueries']
   }
 
@@ -57,7 +57,7 @@ export const UpdateElementForm = ({
   const onSubmit = (submitData: UpdateElementSchemaType) => {
     return mutate({
       variables: {
-        input: { elementId: element.id, updateData: { ...submitData } },
+        input: { id: element.id, data: { ...submitData } },
       },
     })
   }

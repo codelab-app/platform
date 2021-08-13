@@ -1,3 +1,3 @@
-export * from './createComponentElement'
-export * from './moveComponentElement'
-export * from './updateComponentElement'
+export * from './create-component-element'
+export * from './move-component-element'
+export * from './update-component-element'

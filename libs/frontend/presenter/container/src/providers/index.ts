@@ -1,6 +1,7 @@
 export * from './AppProvider'
 export * from './AppQueryProvider'
 export * from './ComponentProvider'
+export * from './EditorProvider'
 export * from './ElementIdProvider'
 export * from './LibraryProvider'
 export * from './PageProvider'

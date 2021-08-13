@@ -29,7 +29,7 @@ export class CreateComponentService extends DgraphCreateUseCase<CreateComponentR
     { input: { name } }: CreateComponentRequest,
     blankNodeUid: string,
   ): Mutation {
-    const createPageJson: DgraphCreateMutationJson<DgraphComponent> = {
+    const createComponentJson: DgraphCreateMutationJson<DgraphComponent> = {
       uid: blankNodeUid,
       'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.Component],
       name,
@@ -42,7 +42,7 @@ export class CreateComponentService extends DgraphCreateUseCase<CreateComponentR
     }
 
     return {
-      setJson: [createPageJson],
+      setJson: [createComponentJson],
     }
   }
 }

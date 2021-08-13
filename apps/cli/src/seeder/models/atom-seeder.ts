@@ -5,6 +5,7 @@ import {
   CreateAtomMutation,
   CreateAtomMutationVariables,
   GetAtomGql,
+  GetAtomInput,
   GetAtomQuery,
   GetAtomQueryVariables,
 } from '@codelab/shared/codegen/graphql'
@@ -23,17 +24,21 @@ export class AtomSeeder {
    */
   async seedAtomIfMissing(atom: CreateAtomInput): Promise<string> {
     return createIfMissing(
-      () => this.getAtomByType(atom.type),
+      () =>
+        this.getAtom({ where: { type: atom.type } }).then((_atom) => _atom?.id),
       () => this.createAtom(atom),
     )
   }
 
-  private getAtomByType(atomType: AtomType) {
-    return this.client
-      .request<GetAtomQuery, GetAtomQueryVariables>(GetAtomGql, {
-        input: { byType: { atomType } },
-      })
-      .then((r) => r?.atom?.id)
+  async getAtom(input: GetAtomInput) {
+    const { atom } = await this.client.request<
+      GetAtomQuery,
+      GetAtomQueryVariables
+    >(GetAtomGql, {
+      input,
+    })
+
+    return atom
   }
 
   private async createAtom(input: CreateAtomInput) {

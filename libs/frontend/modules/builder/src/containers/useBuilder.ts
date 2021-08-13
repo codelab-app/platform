@@ -3,13 +3,13 @@ import { useCallback, useEffect } from 'react'
 import { atom, useRecoilState, useSetRecoilState } from 'recoil'
 
 export interface UseBuilder {
-  selectedElement: ElementFragment | null
-  hoveringElement: ElementFragment | null
+  selectedElement?: ElementFragment
+  hoveringElement?: ElementFragment
 }
 
-const defaultState: UseBuilder = {
-  selectedElement: null,
-  hoveringElement: null,
+const defaultState = {
+  selectedElement: undefined,
+  hoveringElement: undefined,
 }
 
 const elementBuilderState = atom<UseBuilder>({
@@ -25,7 +25,7 @@ export const useSetBuilder = () => {
   const setState = useSetRecoilState(elementBuilderState)
 
   const setSelectedElement = useCallback(
-    (element: ElementFragment | null) => {
+    (element?: ElementFragment) => {
       setState((s) => ({ ...s, selectedElement: element }))
     },
 
@@ -33,7 +33,7 @@ export const useSetBuilder = () => {
   )
 
   const setHoveringElement = useCallback(
-    (hoveringElement: ElementFragment | null) => {
+    (hoveringElement?: ElementFragment) => {
       setState((s) => ({ ...s, hoveringElement: hoveringElement }))
     },
     [setState],

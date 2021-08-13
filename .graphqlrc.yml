@@ -1,8 +1,8 @@
 schema: 'schema.api.graphql'
 documents:
-  - 'libs/modules/**/*.api.graphql'
-  - 'apps/web-e2e/**/*.api.graphql'
-  - 'apps/web/**/*.api.graphql'
+  - libs/**/modules/**/*.api.graphql
+  - apps/web/**/*.api.graphql
+  - apps/web-e2e/**/*.api.graphq
 extensions:
   - endpoints:
     'Nest API Graphql Endpoint':

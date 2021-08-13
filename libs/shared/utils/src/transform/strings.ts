@@ -13,7 +13,7 @@ export const toCamelCase = (value: string) => v.chain(value).camelCase().value()
 
 export const toKebabCase = (value: string) => v.chain(value).kebabCase().value()
 
-export const snakeCaseToWords = (input: string) =>
+export const pascalCaseToWords = (input: string) =>
   input
     // insert a space before all caps
     .replace(/([A-Z])/g, ' $1')

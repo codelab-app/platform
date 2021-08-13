@@ -90,6 +90,8 @@ export class ComponentResolver {
       return null
     }
 
+    console.log(dgraphElement)
+
     return this.elementTreeTransformer.transform(dgraphElement)
   }
 

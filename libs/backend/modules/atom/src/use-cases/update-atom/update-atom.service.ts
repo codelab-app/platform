@@ -43,7 +43,7 @@ export class UpdateAtomService extends DgraphUseCase<UpdateAtomInput> {
   }
 
   private async validate({ id }: UpdateAtomInput) {
-    const atom = await this.getAtomService.execute({ byId: { atomId: id } })
+    const atom = await this.getAtomService.execute({ where: { id } })
 
     if (!atom) {
       throw new Error("Atom doesn't exist")

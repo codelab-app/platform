@@ -24,7 +24,7 @@ import {
   UpdateElementPropsService,
   UpdateElementService,
 } from './use-cases'
-import { GetElementInput } from './use-cases/get-element/get-element.input'
+import { GetElementInput } from './use-cases/get-element'
 
 @Resolver(() => Element)
 @Injectable()

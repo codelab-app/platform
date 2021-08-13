@@ -5,9 +5,9 @@ import {
   defaultRenderContext,
 } from '@codelab/frontend/modules/builder'
 import {
+  ComponentDetailMainPane,
+  ComponentDetailMetaPane,
   ComponentDetailTemplate,
-  MainPaneComponentDetail,
-  MetaPaneComponentDetail,
 } from '@codelab/frontend/modules/component'
 import {
   ComponentContext,
@@ -18,7 +18,7 @@ import { Empty } from 'antd'
 import React, { useContext } from 'react'
 
 const ComponentDetail: NextPageTemplate<'builder'> = () => {
-  const { component, elements, tree } = useContext(ComponentContext)
+  const { component, tree } = useContext(ComponentContext)
 
   if (!tree || !component) {
     return <Empty />
@@ -34,7 +34,7 @@ const ComponentDetail: NextPageTemplate<'builder'> = () => {
 export const getServerSideProps = withPageAuthRequired()
 
 ComponentDetail.Template = withComponentQueryProvider(ComponentDetailTemplate)
-ComponentDetail.MainPane = MainPaneComponentDetail
-ComponentDetail.MetaPane = MetaPaneComponentDetail
+ComponentDetail.MainPane = ComponentDetailMainPane
+ComponentDetail.MetaPane = ComponentDetailMetaPane
 
 export default ComponentDetail
