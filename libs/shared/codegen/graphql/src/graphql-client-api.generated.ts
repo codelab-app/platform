@@ -48,18 +48,6 @@ export type Atom = {
   api: InterfaceType
 }
 
-export type AtomByElement = {
-  elementId: Scalars['String']
-}
-
-export type AtomById = {
-  atomId: Scalars['String']
-}
-
-export type AtomByType = {
-  atomType: AtomType
-}
-
 export enum AtomType {
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
@@ -246,6 +234,12 @@ export enum AtomType {
   HtmlSup = 'HtmlSup',
 }
 
+export type AtomWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>
+  type?: Maybe<AtomType>
+  element?: Maybe<Scalars['String']>
+}
+
 export type Component = {
   id: Scalars['ID']
   name: Scalars['String']
@@ -276,7 +270,7 @@ export type CreateComponentInput = {
 }
 
 export type CreateElementInput = {
-  name: Scalars['String']
+  name?: Maybe<Scalars['String']>
   atomId?: Maybe<Scalars['String']>
   componentId?: Maybe<Scalars['String']>
   parentElementId?: Maybe<Scalars['String']>
@@ -385,6 +379,7 @@ export type DeleteUserInput = {
 
 export type Element = {
   id: Scalars['ID']
+  /** Due to union nullability issue, we have to make this non-nullable. Defaults to atom type */
   name: Scalars['String']
   css?: Maybe<Scalars['String']>
   atom?: Maybe<Atom>
@@ -464,9 +459,7 @@ export type GetAppInput = {
 }
 
 export type GetAtomInput = {
-  byElement?: Maybe<AtomByElement>
-  byId?: Maybe<AtomById>
-  byType?: Maybe<AtomByType>
+  where: AtomWhereUniqueInput
 }
 
 export type GetComponentInput = {
@@ -853,7 +846,7 @@ export type QueryGetTagGraphArgs = {
 }
 
 export type Tag = {
-  id: Scalars['ID']
+  id: Scalars['String']
   name: Scalars['String']
 }
 
@@ -955,15 +948,15 @@ export type UpdateComponentInput = {
 }
 
 export type UpdateElementData = {
-  name: Scalars['String']
-  css?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
   atomId?: Maybe<Scalars['String']>
   componentId?: Maybe<Scalars['String']>
+  css?: Maybe<Scalars['String']>
 }
 
 export type UpdateElementInput = {
-  updateData: UpdateElementData
-  elementId: Scalars['String']
+  data: UpdateElementData
+  id: Scalars['String']
 }
 
 export type UpdateElementPropsInput = {
