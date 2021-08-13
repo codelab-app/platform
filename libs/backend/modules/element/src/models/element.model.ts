@@ -16,7 +16,18 @@ export class Element {
   @Field(() => ID)
   declare id: string
 
-  @Field({ nullable: true })
+  /**
+   * Field with same key must have same nullability. GraphQL wise needs to be non-nullable, domain wise is nullable.
+   *
+   * https://github.com/graphql/graphql-js/issues/1361
+   *
+   * {@link ElementVertex}
+   *
+   **/
+  @Field({
+    description:
+      'Due to union nullability issue, we have to make this non-nullable. Defaults to atom type',
+  })
   declare name?: string
 
   @Field(() => String, { nullable: true })
@@ -32,7 +43,7 @@ export class Element {
 
   constructor({ id, name, atom, props, css }: Element) {
     this.id = id
-    this.name = name
+    this.name = name ? name : atom?.type
     this.atom = atom
     this.css = css
     this.props = props

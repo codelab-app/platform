@@ -300,7 +300,11 @@ enum AtomType {
 
 type Element {
   id: ID!
-  name: String
+
+  """
+  Due to union nullability issue, we have to make this non-nullable. Defaults to atom type
+  """
+  name: String!
   css: String
   atom: Atom
 
@@ -351,7 +355,7 @@ type Page {
 }
 
 type Tag {
-  id: ID!
+  id: String!
   name: String!
 }
 

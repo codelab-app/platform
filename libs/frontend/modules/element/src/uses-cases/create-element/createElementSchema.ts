@@ -7,6 +7,7 @@ export const createElementSchema: JSONSchemaType<CreateElementInput> = {
   properties: {
     name: {
       type: 'string',
+      nullable: true,
     },
     atomId: {
       type: 'string',
@@ -25,5 +26,5 @@ export const createElementSchema: JSONSchemaType<CreateElementInput> = {
       nullable: true,
     },
   },
-  required: ['name'],
+  required: [],
 }

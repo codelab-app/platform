@@ -4,9 +4,11 @@ import { Tree, TreeProps } from 'antd'
 export const GetTagsTree = () => {
   const { data, loading } = useGetTagsQuery()
 
-  console.log(data)
+  if (!data) {
+    return null
+  }
 
-  const treeData = data
+  const tags = data.getTags
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     console.log('selected', selectedKeys, info)
@@ -25,7 +27,7 @@ export const GetTagsTree = () => {
       onSelect={onSelect}
       onCheck={onCheck}
       // treeData={treeData}
-      treeData={[]}
+      treeData={tags}
     />
   )
 }

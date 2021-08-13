@@ -41,7 +41,7 @@ export const CreateTagForm = (props: UniFormUseCaseProps<CreateTagInput>) => {
       <AutoFields omitFields={['parentTagId']} />
       <SelectField
         name="parentTagId"
-        label="Tag"
+        label="Parent Tag"
         showSearch={true}
         optionFilterProp="label"
         options={tags?.getTags.map((tag) => ({
