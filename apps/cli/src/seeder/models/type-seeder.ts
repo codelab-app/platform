@@ -21,7 +21,7 @@ import {
   GetTypeQueryVariables,
   TypeRef,
 } from '@codelab/shared/codegen/graphql'
-import { snakeCaseToWords } from '@codelab/shared/utils'
+import { pascalCaseToWords } from '@codelab/shared/utils'
 import { GraphQLClient } from 'graphql-request'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
 import { createIfMissing } from '../utils/createIfMissing'
@@ -29,6 +29,7 @@ import {
   CustomAtomApiFactory,
   CustomAtomApiFactoryInput,
 } from '../utils/customAtomApi'
+import { AtomSeeder } from './atom-seeder'
 
 /**
  * Handle seeding of types
@@ -36,13 +37,10 @@ import {
 export class TypeSeeder {
   private baseTypes: Map<BaseTypeName, string> | undefined
 
-  constructor(private client: GraphQLClient) {}
+  constructor(private client: GraphQLClient, private atomSeeder: AtomSeeder) {}
 
   public async seedBaseTypes() {
-    this.baseTypes = (await this.seedAllIfMissing(baseTypes)) as Map<
-      BaseTypeName,
-      string
-    >
+    this.baseTypes = await this.seedAllIfMissing(baseTypes)
 
     return this.baseTypes
   }
@@ -54,7 +52,7 @@ export class TypeSeeder {
    */
   private async seedAllIfMissing(
     inputs: Array<CreateTypeInput>,
-  ): Promise<Map<string, string>> {
+  ): Promise<Map<BaseTypeName, string>> {
     const results = await Promise.all(
       inputs.map((input) =>
         this.seedTypeIfNotExisting(input).then((id) => ({
@@ -64,7 +62,7 @@ export class TypeSeeder {
       ),
     )
 
-    return new Map(results.map(({ key, id }) => [key, id]))
+    return new Map(results.map(({ key, id }) => [key as BaseTypeName, id]))
   }
 
   /**
@@ -79,7 +77,7 @@ export class TypeSeeder {
   }
 
   public async seedAtomApi(atomId: string, data: Array<AntdDesignApi>) {
-    const atom = await this.getAtomById(atomId)
+    const atom = await this.atomSeeder.getAtom({ where: { id: atomId } })
 
     if (!atom) {
       throw new Error(`Atom ${atomId} doesn't exist`)
@@ -96,7 +94,7 @@ export class TypeSeeder {
 
       await this.createFieldIfMissing({
         key: apiField.property,
-        name: snakeCaseToWords(apiField.property),
+        name: pascalCaseToWords(apiField.property),
         interfaceId: atomApiId,
         description: apiField.description,
         type,
@@ -137,7 +135,10 @@ export class TypeSeeder {
 
     for (const apiFactory of allCustomAtomApiFactories) {
       const api = await apiFactory(factoryInput)
-      const atom = await this.getAtomByType(api.atomType)
+
+      const atom = await this.atomSeeder.getAtom({
+        where: { type: api.atomType },
+      })
 
       if (!atom) {
         throw new Error(
@@ -152,22 +153,6 @@ export class TypeSeeder {
         })
       }
     }
-  }
-
-  private getAtomById(atomId: string) {
-    return this.client
-      .request<GetAtomQuery, GetAtomQueryVariables>(GetAtomGql, {
-        input: { byId: { atomId } },
-      })
-      .then((r) => r?.atom)
-  }
-
-  private getAtomByType(atomType: AtomType) {
-    return this.client
-      .request<GetAtomQuery, GetAtomQueryVariables>(GetAtomGql, {
-        input: { byType: { atomType } },
-      })
-      .then((r) => r?.atom)
   }
 
   private getTypeByName(name: string) {
@@ -229,11 +214,11 @@ export class TypeSeeder {
 
       return {
         newType: {
-          name: `${atomName} ${snakeCaseToWords(apiField.property)} Enum`,
+          name: `${atomName} ${pascalCaseToWords(apiField.property)} Enum`,
           enumType: {
             allowedValues: enumValues.map((value) => ({
               value,
-              name: snakeCaseToWords(value),
+              name: pascalCaseToWords(value),
             })),
           },
         },

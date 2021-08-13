@@ -21,8 +21,7 @@ export const graphqlSchemaConfig = registerAs<GraphqlSchemaConfig>(
       apiGraphqlSchemaFile,
       apiCodegenOutputFile: path.resolve(
         process.cwd(),
-        // '/home/artonio/DEV/upwork/codelab.ai/',
-        'libs/codegen/graphql/src/graphql-client-api.generated.ts',
+        'libs/shared/codegen/graphql/src/graphql-client-api.generated.ts',
       ),
     }
   },

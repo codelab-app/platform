@@ -110,7 +110,7 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
 
     if (atomId) {
       /** Validate the atom exists */
-      const atom = await this.getAtomService.execute({ byId: { atomId } })
+      const atom = await this.getAtomService.execute({ where: { id: atomId } })
 
       if (!atom) {
         throw new Error('Atom not found')

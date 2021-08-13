@@ -16,8 +16,8 @@ export class Element {
   @Field(() => ID)
   declare id: string
 
-  @Field()
-  declare name: string
+  @Field({ nullable: true })
+  declare name?: string
 
   @Field(() => String, { nullable: true })
   /** The CSS string that gets passed down to emotion */

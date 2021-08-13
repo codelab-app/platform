@@ -1,5 +1,5 @@
 import React from 'react'
-import { useBuilder } from '../useBuilder'
+import { useBuilder } from '../containers/useBuilder'
 import { HoverOverlay } from './Overlay-hover'
 
 export const BuilderHoverOverlay = () => {

@@ -9,7 +9,7 @@ import { Dropdown, Tree } from 'antd'
 import { TreeProps } from 'antd/lib/tree'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
-import { useBuilder } from '../useBuilder'
+import { useBuilder } from '../containers/useBuilder'
 import { ElementContextMenu } from './ElementContextMenu'
 import { useExpandedNodes } from './useExpandedNodes'
 

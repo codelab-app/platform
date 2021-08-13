@@ -1,7 +1,7 @@
 import { LayoutComponent } from '@codelab/frontend/abstract/props'
+import { EditorProvider } from '@codelab/frontend/presenter/container'
 import { DashboardLayout } from '@codelab/frontend/view/templates'
 import React from 'react'
-import { EditorProvider } from './EditorProvider'
 
 // Page Builder Template
 export const PageBuilderTemplate: LayoutComponent<'builder'> = (props) => {

@@ -108,7 +108,7 @@ export const GetAtomsTable = () => {
 
   return (
     <Table
-      pagination={{ position: ['bottomCenter'] }}
+      pagination={{ position: ['bottomCenter'], defaultPageSize: 25 }}
       dataSource={atoms}
       columns={columns}
       rowKey={(atom) => atom.id}

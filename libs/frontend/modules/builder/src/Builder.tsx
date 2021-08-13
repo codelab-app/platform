@@ -5,10 +5,10 @@ import {
 import styled from '@emotion/styled'
 import React, { MouseEventHandler } from 'react'
 import tw from 'twin.macro'
+import { useSetBuilder } from './containers/useBuilder'
+import { useBuilderHandlers } from './containers/useBuilderHandlers'
 import { BuilderClickOverlay, BuilderHoverOverlay } from './overlay-toolbar'
 import { Renderer } from './renderer'
-import { useSetBuilder } from './useBuilder'
-import { useBuilderHandlers } from './useBuilderHandlers'
 
 const StyledBuilderContainer = styled.div`
   // [data-id] is a selector for all rendered elements

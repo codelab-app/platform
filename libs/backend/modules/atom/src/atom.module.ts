@@ -1,15 +1,15 @@
 import { Void } from '@codelab/backend/infra'
 import { TypeModule } from '@codelab/backend/modules/type'
 import { Module } from '@nestjs/common'
+import { AtomResolver } from './atom.resolver'
+import { AtomMapper } from './domain/atom.mapper'
 import {
   CreateAtomService,
   DeleteAtomService,
   GetAtomService,
   GetAtomsService,
   UpdateAtomService,
-} from '../use-cases'
-import { AtomMapper } from './atom.mapper'
-import { AtomResolver } from './atom.resolver'
+} from './use-cases'
 
 const services = [
   CreateAtomService,

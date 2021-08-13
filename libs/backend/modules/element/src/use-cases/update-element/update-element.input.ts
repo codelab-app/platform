@@ -1,26 +1,22 @@
-import { Field, InputType } from '@nestjs/graphql'
+import { Field, InputType, PickType } from '@nestjs/graphql'
+import { CreateElementInput } from '../create-element'
 
 @InputType()
-export class UpdateElementData {
-  @Field()
-  declare name: string
-
+export class UpdateElementData extends PickType(CreateElementInput, [
+  'name',
+  'atomId',
+  'componentId',
+]) {
   @Field(() => String, { nullable: true })
   declare css: string | null
-
-  @Field({ nullable: true })
-  declare atomId?: string
-
-  @Field({ nullable: true })
-  declare componentId?: string
 }
 
 // Note that moveElement is there for updating order and parent
 @InputType()
 export class UpdateElementInput {
   @Field(() => UpdateElementData)
-  declare updateData: UpdateElementData
+  declare data: UpdateElementData
 
   @Field()
-  declare elementId: string
+  declare id: string
 }

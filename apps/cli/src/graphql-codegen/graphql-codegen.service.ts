@@ -35,7 +35,7 @@ interface ApolloCodegenConfig extends BaseCodegenConfig {
 
 export interface CodegenOptions {
   watch: boolean
-  env: Env
+  // env: Env
 }
 
 @Console()
@@ -52,14 +52,13 @@ export class GraphqlCodegenService {
     private readonly _graphqlSchemaConfig: ConfigType<
       typeof graphqlSchemaConfig
     >,
-    private readonly graphqlSchemaService: GraphqlSchemaService,
   ) {}
 
   @Command({
     command: 'codegen',
     options: [envOption],
   })
-  public async codegen({ watch, env }: CodegenOptions) {
+  public async codegen({ watch }: CodegenOptions) {
     try {
       /**
        * (1) Start GraphQL server
@@ -77,20 +76,15 @@ export class GraphqlCodegenService {
       /**
        * (3) Generate merged schema & update Dgraph server
        */
+      await this.dgraphService.updateDqlSchema()
 
-      const generateAndUpdateDgraphSchema = async () => {
-        await this.dgraphService.updateDqlSchema()
-      }
-
-      await generateAndUpdateDgraphSchema()
-
-      if (watch) {
-        chokidar
-          .watch([this._graphqlSchemaConfig.apiGraphqlSchemaFile])
-          .on('all', async (event, _path) => {
-            await generateAndUpdateDgraphSchema()
-          })
-      }
+      // if (watch) {
+      //   chokidar
+      //     .watch([this._graphqlSchemaConfig.apiGraphqlSchemaFile])
+      //     .on('all', async (event, _path) => {
+      //       await this.dgraphService.updateDqlSchema()
+      //     })
+      // }
 
       const promises: Array<Promise<any>> = []
 
@@ -123,8 +117,8 @@ export class GraphqlCodegenService {
     watch = false,
   }: BaseCodegenConfig) {
     const config = merge(
-      this.baseGraphqlConfig(watch),
-      this.apolloGenerateConfig({
+      GraphqlCodegenService.baseGraphqlConfig(watch),
+      GraphqlCodegenService.apolloGenerateConfig({
         schema,
         outputPath,
         extension: 'api',
@@ -134,13 +128,13 @@ export class GraphqlCodegenService {
     return await generate(config, true)
   }
 
-  private apolloGenerateConfig({
+  private static apolloGenerateConfig({
     schema,
     outputPath,
     extension,
   }: ApolloCodegenConfig): Types.Config {
     const documents = [
-      `libs/modules/**/*.${extension}.graphql`,
+      `libs/**/modules/**/*.${extension}.graphql`,
       `apps/web/**/*.${extension}.graphql`,
       `apps/web-e2e/**/*.${extension}.graphql`,
     ]
@@ -178,7 +172,7 @@ export class GraphqlCodegenService {
     }
   }
 
-  private baseGraphqlConfig(watch: boolean): Types.Config {
+  private static baseGraphqlConfig(watch: boolean): Types.Config {
     return {
       watch,
       overwrite: true,
@@ -189,20 +183,6 @@ export class GraphqlCodegenService {
         ],
       },
       generates: {},
-    }
-  }
-
-  private schemaGenerateConfig({
-    outputSchemaPath,
-    schema,
-  }: DgraphCodegenConfig): Types.Config {
-    return {
-      generates: {
-        [path.resolve(process.cwd(), outputSchemaPath)]: {
-          schema,
-          plugins: ['schema-ast'],
-        },
-      },
     }
   }
 }

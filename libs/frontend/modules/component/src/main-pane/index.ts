@@ -1,1 +1,1 @@
-export * from './MainPaneComponentDetail'
+export * from './ComponentDetailMainPane'

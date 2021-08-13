@@ -300,7 +300,7 @@ enum AtomType {
 
 type Element {
   id: ID!
-  name: String!
+  name: String
   css: String
   atom: Atom
 
@@ -477,21 +477,13 @@ input GetComponentInput {
 }
 
 input GetAtomInput {
-  byElement: AtomByElement
-  byId: AtomById
-  byType: AtomByType
+  where: AtomWhereUniqueInput!
 }
 
-input AtomByElement {
-  elementId: String!
-}
-
-input AtomById {
-  atomId: String!
-}
-
-input AtomByType {
-  atomType: AtomType!
+input AtomWhereUniqueInput {
+  id: String
+  type: AtomType
+  element: String
 }
 
 input GetFieldInput {
@@ -651,7 +643,7 @@ input UpdatePageData {
 }
 
 input CreateElementInput {
-  name: String!
+  name: String
   atomId: String
   componentId: String
   parentElementId: String
@@ -663,15 +655,15 @@ input CreateElementInput {
 }
 
 input UpdateElementInput {
-  updateData: UpdateElementData!
-  elementId: String!
+  data: UpdateElementData!
+  id: String!
 }
 
 input UpdateElementData {
-  name: String!
-  css: String
+  name: String
   atomId: String
   componentId: String
+  css: String
 }
 
 input MoveElementInput {

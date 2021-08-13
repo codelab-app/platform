@@ -1,5 +1,5 @@
 import { LayoutComponent } from '@codelab/frontend/abstract/props'
-import { EditorProvider } from '@codelab/frontend/modules/builder'
+import { EditorProvider } from '@codelab/frontend/presenter/container'
 import { DashboardLayout } from '@codelab/frontend/view/templates'
 import React from 'react'
 

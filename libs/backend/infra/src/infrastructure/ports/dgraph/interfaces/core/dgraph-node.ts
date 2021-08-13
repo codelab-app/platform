@@ -10,6 +10,5 @@ export interface DgraphNode<
 > extends DgraphEntity<[DgraphEntityType.Node, TType]>,
     NodeLike<TNodeType & ChildrenOrder>,
     ChildrenOrder {
-  name: string
   children: Array<TNodeType & ChildrenOrder>
 }

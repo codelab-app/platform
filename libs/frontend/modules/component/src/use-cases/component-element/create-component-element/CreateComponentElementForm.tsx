@@ -6,7 +6,7 @@ import { ComponentContext } from '@codelab/frontend/presenter/container'
 import { refetchGetComponentElementsQuery } from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
 
-type CreateComponentElementFormProps = Omit<
+export type CreateComponentElementFormProps = Omit<
   CreateElementFormProps,
   'parentElementOptions' | 'refetchQueries'
 >

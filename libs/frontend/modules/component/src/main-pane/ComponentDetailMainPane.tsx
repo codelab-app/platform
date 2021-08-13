@@ -14,8 +14,9 @@ import { refetchGetComponentElementsQuery } from '@codelab/shared/codegen/graphq
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { CreateComponentElementForm } from '../use-cases/component-element'
+import { CreateComponentElementModal } from '../use-cases/component-element/create-component-element/CreateComponentElementModal'
 
-export const MainPaneComponentDetail = () => {
+export const ComponentDetailMainPane = () => {
   const { tree, component } = useContext(ComponentContext)
   const router = useRouter()
 
@@ -38,15 +39,8 @@ export const MainPaneComponentDetail = () => {
       }}
       header={<CreateElementButton key={0} />}
     >
-      <CrudModal
-        entityType={EntityType.Element}
-        actionType={ActionType.Create}
-        okText={'Create'}
-        renderForm={() => (
-          <CreateComponentElementForm
-            initialData={{ parentElementId: selectedElement?.id }}
-          />
-        )}
+      <CreateComponentElementModal
+        initialData={{ parentElementId: selectedElement?.id }}
       />
       <DeleteElementModal
         formProps={{

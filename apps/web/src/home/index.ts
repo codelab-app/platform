@@ -1,1 +1,1 @@
-export * from '../templates/HomeTemplate'
+export * from './HomeTemplate'

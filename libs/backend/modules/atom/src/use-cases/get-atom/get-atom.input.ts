@@ -1,31 +1,20 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { AtomTypeEnum } from '../../infrastructure'
+import { AtomTypeEnum } from '../../domain/atom-type.model'
 
 @InputType()
-export class AtomByElement {
-  @Field()
-  declare elementId: string
-}
+export class AtomWhereUniqueInput {
+  @Field({ nullable: true })
+  declare id?: string
 
-@InputType()
-export class AtomById {
-  @Field()
-  declare atomId: string
-}
-@InputType()
-export class AtomByType {
-  @Field(() => AtomTypeEnum)
-  declare atomType: AtomTypeEnum
+  @Field(() => AtomTypeEnum, { nullable: true })
+  declare type?: AtomTypeEnum
+
+  @Field({ nullable: true })
+  declare element?: string
 }
 
 @InputType()
 export class GetAtomInput {
-  @Field(() => AtomByElement, { nullable: true })
-  declare byElement?: AtomByElement | null
-
-  @Field(() => AtomById, { nullable: true })
-  declare byId?: AtomById | null
-
-  @Field(() => AtomByType, { nullable: true })
-  declare byType?: AtomByType | null
+  @Field(() => AtomWhereUniqueInput)
+  declare where: AtomWhereUniqueInput
 }

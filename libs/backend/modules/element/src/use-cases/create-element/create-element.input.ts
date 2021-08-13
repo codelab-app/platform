@@ -2,8 +2,8 @@ import { Field, InputType, Int } from '@nestjs/graphql'
 
 @InputType()
 export class CreateElementInput {
-  @Field()
-  declare name: string
+  @Field({ nullable: true })
+  declare name?: string
 
   @Field({ nullable: true })
   declare atomId?: string
