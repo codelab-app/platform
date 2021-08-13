@@ -1,12 +1,12 @@
 import {
-  CreateComponentElementForm,
-  CreateComponentElementFormProps,
-} from '@codelab/frontend/modules/component'
-import {
   ActionType,
   CrudModal,
   EntityType,
 } from '@codelab/frontend/view/components'
+import {
+  CreateComponentElementForm,
+  CreateComponentElementFormProps,
+} from './CreateComponentElementForm'
 
 export const CreateComponentElementModal = (
   props: CreateComponentElementFormProps,
