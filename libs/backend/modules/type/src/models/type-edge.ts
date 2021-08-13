@@ -1,15 +1,10 @@
-import { Edge } from '@codelab/backend/abstract/types'
+import { ITypeEdge, TypeEdgeKind } from '@codelab/shared/graph'
 import {
   Field as GraphqlField,
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql'
 import { Field as FieldModel } from './field.model'
-
-export enum TypeEdgeKind {
-  Field = 'Field',
-  ArrayItem = 'ArrayItem',
-}
 
 registerEnumType(TypeEdgeKind, { name: 'TypeEdgeKind' })
 
@@ -23,7 +18,7 @@ registerEnumType(TypeEdgeKind, { name: 'TypeEdgeKind' })
   TypeEdgeKind.Field - it represents a Field object, the field property will contain the metadata;
   TypeEdgeKind.ArrayItem - it represents the generic array item type of an array type. The field property will be empty`,
 })
-export class TypeEdge implements Edge {
+export class TypeEdge implements ITypeEdge {
   @GraphqlField()
   declare source: string
 

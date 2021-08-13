@@ -1,13 +1,13 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
+import { ITypeTree } from '@codelab/shared/graph'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
-import { TypeTree } from '../../../type-tree'
 import { getTypeName } from '../../types'
 
 export interface FieldsTableProps {
-  tree: TypeTree
+  tree: ITypeTree
 }
 
 export const FieldsTable = ({ tree }: FieldsTableProps) => {
@@ -43,7 +43,7 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
       dataIndex: 'id',
       key: 'id',
       onHeaderCell: headerCellProps,
-      render: (id) => getTypeName(tree.getFieldType(id), tree.getArrayItemType),
+      render: (id) => getTypeName(tree.getFieldType(id), tree),
     },
     {
       title: 'Action',

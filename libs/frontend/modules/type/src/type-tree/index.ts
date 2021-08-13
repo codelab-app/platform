@@ -1,2 +1,3 @@
-export * from './TypeTree'
+export * from './typeFragmentToTypeVertex'
+export * from './typenameToTypeKind'
 export * from './useTypeTree'

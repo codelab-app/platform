@@ -1,10 +1,11 @@
+import { IFieldVertex } from '@codelab/shared/graph'
 import { Field as GraphqlField, ID, ObjectType } from '@nestjs/graphql'
 
 /**
  * Metadata for an Edge between an Interface and other types
  */
 @ObjectType()
-export class Field {
+export class Field implements IFieldVertex {
   @GraphqlField(() => ID)
   declare id: string
 

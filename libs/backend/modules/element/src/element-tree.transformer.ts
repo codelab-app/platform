@@ -7,6 +7,8 @@ import {
   isDgraphComponent,
   isDgraphElement,
 } from '@codelab/backend/infra'
+import { typeDefinitions, TypeGraphMapper } from '@codelab/backend/modules/type'
+import { TypeGraphTreeAdapter, TypeKind } from '@codelab/shared/graph'
 import { Injectable } from '@nestjs/common'
 import cytoscape from 'cytoscape'
 import { ComponentMapper } from './component'
@@ -19,6 +21,7 @@ export class ElementTreeTransformer {
     private elementMapper: ElementMapper,
     private componentMapper: ComponentMapper,
     private cytoscapeService: CytoscapeService,
+    private typeGraphMapper: TypeGraphMapper,
   ) {}
 
   /**
@@ -31,24 +34,25 @@ export class ElementTreeTransformer {
     const atomContext = new Map<string, DgraphAtom>()
     const componentContext = new Map<string, DgraphComponent>()
     const cy = cytoscape()
+    // We can provide Component ids as props. Since they are likely outside the tree, we need
+    // to fetch them and put them in there, so they're available
+    const componentIdsToFetch = new Set<string>()
 
     await breadthFirstTraversal<DgraphElement | DgraphComponent>({
       root,
       extractId: (el) => el.uid,
       visit: async (node, parentNode) => {
         if (isDgraphElement(node)) {
-          const element = node as DgraphElement
-
-          if (element.atom?.['dgraph.type'] && element.atom?.['api']) {
-            atomContext.set(element.atom.uid, element.atom)
+          if (node.atom?.['dgraph.type'] && node.atom?.['api']) {
+            atomContext.set(node.atom.uid, node.atom)
           }
 
           cy.add({
             data: {
-              id: element.uid,
+              id: node.uid,
               parent: parentNode?.uid,
               data: {
-                ...element,
+                ...node,
                 'children|order': undefined,
                 children: undefined,
               },
@@ -59,48 +63,50 @@ export class ElementTreeTransformer {
             cy.add({
               data: {
                 source: parentNode.uid,
-                target: element.uid,
-                order: element['children|order'],
+                target: node.uid,
+                order: node['children|order'],
               },
             })
           }
 
           // If this is a 'full' component, ie - one that dgraph returns in full, even
           // if there are duplicate ones in the tree
-          if (element.component?.['dgraph.type']) {
-            componentContext.set(element.component.uid, element.component)
+          if (node.component?.['dgraph.type']) {
+            componentContext.set(node.component.uid, node.component)
 
-            if (cy.getElementById(element.component.uid).length === 0) {
+            if (cy.getElementById(node.component.uid).length === 0) {
               cy.add({
                 data: {
-                  id: element.component.uid,
-                  data: element.component,
+                  id: node.component.uid,
+                  data: node.component,
                 },
               })
             }
           }
 
-          if (element.component) {
+          if (node.component) {
             // Add the edge here, because if we add it in the lower block, it won't add edges from
             // different elements to the same component, since we don't visit the same node twice
             cy.add({
               data: {
-                source: element.uid,
-                target: element.component.uid,
+                source: node.uid,
+                target: node.component.uid,
               },
             })
 
             // Returning the component makes sure we have the parent-child relationship of element-component-element
             // instead of just element-element
-            return [element.component]
+            return [node.component]
           }
+
+          const componentIdsFromProps = this.getComponentIdsFromProps(node)
 
           // Edge case alert:
           // sort the children by ID, because it seems that that's how dgraph executes the query
           // but sometimes results don't match that. If we start with a element with a latter id,
           // and we have elements with the same atom - the atom of the element with the latter ID won't have
           // propTypes defined, because they are already defined in the element with the prior ID
-          return element.children
+          return node.children
             ?.slice()
             .sort((a, b) => b.uid.localeCompare(a.uid))
         } else {
@@ -140,5 +146,32 @@ export class ElementTreeTransformer {
     )
 
     return new ElementGraph(vertices, edges)
+  }
+
+  private async getComponentIdsFromProps(
+    node: DgraphElement,
+  ): Promise<Array<string>> {
+    if (!node?.props || !node?.atom?.api) {
+      return []
+    }
+
+    const typeGraph = await this.typeGraphMapper.map(node.atom.api)
+
+    const tree = new TypeGraphTreeAdapter(typeGraph, (type) => {
+      const kind = typeDefinitions.find(
+        (def) => type instanceof def.typeModelClass,
+      )?.typeKind
+
+      if (!kind) {
+        throw new Error('Unrecognized type')
+      }
+
+      return kind
+    })
+
+    const allComponentTypes = tree.getTypes(TypeKind.ComponentType)
+
+    // TODO
+    return null!
   }
 }

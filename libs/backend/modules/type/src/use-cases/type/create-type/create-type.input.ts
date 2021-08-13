@@ -1,6 +1,5 @@
-import { PrimitiveKind } from '@codelab/backend/infra'
+import { ElementTypeKind, PrimitiveKind } from '@codelab/shared/graph'
 import { Field, InputType } from '@nestjs/graphql'
-import { ElementTypeKind } from '../../../models'
 
 // It would be nice if we could do union input types, but graphql doesn't support it right now
 // there's an RFC though https://github.com/graphql/graphql-spec/blob/main/rfcs/InputUnion.md maybe we'll see it soon

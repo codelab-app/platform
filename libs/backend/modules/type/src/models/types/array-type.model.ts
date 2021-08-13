@@ -1,3 +1,4 @@
+import { IArrayTypeVertex } from '@codelab/shared/graph'
 import { ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 
@@ -5,7 +6,7 @@ import { Type } from './type.model'
  * The array item type is represented by a TypeEdge of kind ArrayItem
  */
 @ObjectType({ implements: () => [Type] })
-export class ArrayType implements Type {
+export class ArrayType implements Type, IArrayTypeVertex {
   declare id: string
 
   declare name: string

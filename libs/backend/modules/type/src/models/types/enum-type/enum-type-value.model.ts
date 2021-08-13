@@ -1,7 +1,8 @@
+import { IEnumTypeValue } from '@codelab/shared/graph'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
-export class EnumTypeValue {
+export class EnumTypeValue implements IEnumTypeValue {
   @Field(() => ID)
   declare id: string
 
