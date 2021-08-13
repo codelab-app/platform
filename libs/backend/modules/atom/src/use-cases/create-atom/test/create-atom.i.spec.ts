@@ -13,7 +13,7 @@ import {
   GetAtomQuery,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
-import { AtomModule } from '../../../infrastructure'
+import { AtomModule } from '../../../atom.module'
 import { createAtomInput } from './create-atom.data'
 
 describe('CreateAtom', () => {
@@ -51,7 +51,7 @@ describe('CreateAtom', () => {
       const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
-        { byId: { atomId } },
+        { where: { id: atomId } },
       )
 
       expect(atomId).toBeDefined()

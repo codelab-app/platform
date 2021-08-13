@@ -39,8 +39,8 @@ describe('UpdateElement', () => {
     expect(elementId).toBeDefined()
 
     updateElementInput = {
-      elementId,
-      updateData: {
+      id: elementId,
+      data: {
         name: 'Example Element updated',
       },
     }
@@ -73,8 +73,8 @@ describe('UpdateElement', () => {
       >(userApp, GetElementGql, { elementId })
 
       expect(element).toMatchObject({
-        ...updateElementInput.updateData,
-        id: updateElementInput.elementId,
+        ...updateElementInput.data,
+        id: updateElementInput.id,
       })
     })
   })
