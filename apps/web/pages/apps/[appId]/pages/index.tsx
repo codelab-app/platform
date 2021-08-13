@@ -1,11 +1,25 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { NextPageTemplate } from '@codelab/frontend/abstract/props'
 import { MainPanePage } from '@codelab/frontend/modules/page'
-import { withAppQueryProvider } from '@codelab/frontend/presenter/container'
+import {
+  AppContext,
+  withAppQueryProvider,
+} from '@codelab/frontend/presenter/container'
 import { DashboardLayout } from '@codelab/frontend/view/templates'
-import React from 'react'
+import Head from 'next/head'
+import React, { useContext } from 'react'
 
-const Pages: NextPageTemplate<'dashboard'> = () => <></>
+const Pages: NextPageTemplate<'dashboard'> = () => {
+  const { app } = useContext(AppContext)
+
+  return (
+    <>
+      <Head>
+        <title>Pages | {app.name} | Codelab</title>
+      </Head>
+    </>
+  )
+}
 
 Pages.Template = withAppQueryProvider(DashboardLayout)
 Pages.MainPane = MainPanePage

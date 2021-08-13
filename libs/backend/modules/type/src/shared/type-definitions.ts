@@ -14,7 +14,7 @@ import {
 interface TypeDefinition {
   typeModelClass: { new (...args: Array<any>): Type }
   typeKind: TypeKind
-  dgraphType: Omit<DgraphEntityType, DgraphEntityType.Type>
+  dgraphType: DgraphEntityType
 }
 
 /** A single source of truth that connects type kinds throughout all layers */

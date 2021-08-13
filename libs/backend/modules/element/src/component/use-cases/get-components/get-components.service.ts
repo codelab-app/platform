@@ -1,30 +1,23 @@
 import {
   DgraphComponent,
-  DgraphEntityType,
-  DgraphQueryBuilder,
   DgraphRepository,
   DgraphUseCase,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { GetComponentsInput } from './get-components.input'
+import { getComponentsQuery } from './get-components.query'
 
 @Injectable()
 export class GetComponentsService extends DgraphUseCase<
-  Record<string, never>,
+  GetComponentsInput,
   Array<DgraphComponent>
 > {
   constructor(dgraph: DgraphRepository) {
     super(dgraph)
   }
 
-  protected async executeTransaction(_: never, txn: Txn) {
-    return this.dgraph.getAll<DgraphComponent>(txn, this.createQuery())
-  }
-
-  private createQuery() {
-    return new DgraphQueryBuilder()
-      .addBaseFields()
-      .setTypeFunc(DgraphEntityType.Component)
-      .addExpandAll((f) => f.addExpandAllRecursive(2))
+  protected async executeTransaction(input: GetComponentsInput, txn: Txn) {
+    return this.dgraph.getAll<DgraphComponent>(txn, getComponentsQuery(input))
   }
 }

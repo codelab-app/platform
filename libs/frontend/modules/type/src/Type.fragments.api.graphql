@@ -53,7 +53,7 @@ fragment __Type on Type {
   __typename
   id
   name
-  __typename
+  typeKind
   ...__ArrayType
   ...__EnumType
   ...__Interface

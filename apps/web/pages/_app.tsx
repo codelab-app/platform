@@ -3,7 +3,6 @@ import '../src/styles/App.less'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import { useApollo } from '@codelab/frontend/model/infra/apollo'
-import { PageType } from '@codelab/frontend/model/state/router'
 import { css, Global } from '@emotion/react'
 import { AppProps } from 'next/app'
 import React from 'react'
@@ -27,10 +26,6 @@ const AppContainer = ({ pageProps, Component, router }: AppProps<any>) => {
               styles={css({
                 '#__next': {
                   height: '100%',
-                },
-                body: {
-                  overflow:
-                    router.pathname === PageType.PageDetail ? 'hidden' : 'auto',
                 },
               })}
             />

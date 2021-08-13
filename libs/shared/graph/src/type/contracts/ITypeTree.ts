@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/ddd/types'
+import { TypeKind } from '../enums'
 import { IFieldVertex } from './IFieldVertex'
 import { ITypeVertex } from './ITypeVertex'
 
@@ -16,11 +16,11 @@ export interface ITypeTree {
   getArrayItemType: (arrayTypeId: string) => ITypeVertex | null
 
   /** Returns all the fields of a type. Returns an empty array if the type doesn't have any fields (i.e. if it's not an interface) */
-  getFieldsOf: (typeId: string) => Array<IFieldVertex>
+  getFields: (typeId: string) => Array<IFieldVertex>
+
+  /** Returns all the fields with a type kind. Returns an empty array if the type doesn't have any fields (i.e. if it's not an interface) */
+  getFieldsByTypeKind: (typeKind: TypeKind) => Array<IFieldVertex>
 
   /** Returns all types, or all types by typeKind if provided */
   getTypes: (typeKind?: TypeKind) => Array<ITypeVertex>
-
-  /** Returns the kind of the type or null if it's not found by id */
-  getTypeKind: (typeOrId: ITypeVertex | string) => TypeKind | null
 }

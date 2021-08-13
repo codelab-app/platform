@@ -1,12 +1,11 @@
 import {
   DgraphComponent,
-  DgraphEntityType,
-  DgraphQueryBuilder,
   DgraphRepository,
   DgraphUseCase,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { getComponentQuery } from './get-component.query'
 import { GetComponentRequest } from './get-component.request'
 
 @Injectable()
@@ -30,10 +29,6 @@ export class GetComponentService extends DgraphUseCase<
   }
 
   private createQuery(componentId: string) {
-    return new DgraphQueryBuilder()
-      .addBaseFields()
-      .addTypeFilterDirective(DgraphEntityType.Component)
-      .setUidFunc(componentId)
-      .addExpandAll((f) => f.addExpandAllRecursive(2))
+    return getComponentQuery().setUidFunc(componentId)
   }
 }

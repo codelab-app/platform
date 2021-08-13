@@ -41,6 +41,7 @@ export const elementsPropTransformers: Partial<
     },
   }),
   [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), // Do not pass in any props for fragments, except key, because it creates an error
+  [AtomType.HtmlImage]: (input) => ({ src: '', alt: '' }),
 }
 
 const commonProps = (id: string) => ({

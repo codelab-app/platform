@@ -112,7 +112,11 @@ const RenderElement: RenderHandler = ({ __node: element, ...props }) => {
 /**
  *  Handles the rendering of components
  */
-const RenderComponent: RenderHandler<ComponentFragment> = (component) => {
+const RenderComponent: RenderHandler<ComponentFragment> = ({
+  __node: component,
+  ...props
+}) => {
+  const runtimeProps = props
   const context = useRenderContext()
 
   if (!context) {
@@ -127,6 +131,8 @@ const RenderComponent: RenderHandler<ComponentFragment> = (component) => {
     return null
   }
 
+  const children = renderFactory(rootElement)
+
   // data-component-id is to be able to distinguish regular elements and elements belonging to a component
   // we need this because we must not allow selection and editing of a component element inside a page builder
   return (
@@ -139,7 +145,10 @@ const RenderComponent: RenderHandler<ComponentFragment> = (component) => {
         },
       }}
     >
-      {renderFactory(rootElement)}
+      {/* Make sure we pass the props we get down */}
+      {React.Children.map(children, (child) =>
+        child ? React.cloneElement(child, runtimeProps) : child,
+      )}
     </RenderProvider>
   )
 }
@@ -154,9 +163,9 @@ export const renderFactory = (node: RenderNode | undefined | null) => {
 
   switch (node.__typename) {
     case 'Element':
-      return <RenderElement __node={node} />
+      return <RenderElement key={node.id} __node={node} />
     case 'Component':
-      return <RenderComponent __node={node} />
+      return <RenderComponent key={node.id} __node={node} />
     default:
       throw new Error(`Can't render node of type ${(node as any)?.__typename}`)
   }

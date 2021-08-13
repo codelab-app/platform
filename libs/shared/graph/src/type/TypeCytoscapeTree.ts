@@ -1,8 +1,6 @@
-import { TypeKind } from '@codelab/ddd/types'
 import { CollectionReturnValue, Core, SingularElementArgument } from 'cytoscape'
-import { IFieldVertex, ITypeTree, ITypeVertex, TypeEdgeKind } from './contracts'
-
-export type TypeClassifierFn = (type: ITypeVertex) => TypeKind
+import { IFieldVertex, ITypeTree, ITypeVertex } from './contracts'
+import { TypeEdgeKind, TypeKind } from './enums'
 
 //
 // Node / Edge helpers:
@@ -11,10 +9,8 @@ export type TypeClassifierFn = (type: ITypeVertex) => TypeKind
 const edgeIsOfFieldKind = (e: SingularElementArgument) =>
   e.data().kind === TypeEdgeKind.Field && !!e.data().field
 
-const typeIsOfKind =
-  (kind: TypeKind, classifier: TypeClassifierFn) =>
-  (node: SingularElementArgument) =>
-    classifier(getTypeFromNode(node)) === kind
+const typeIsOfKind = (kind: TypeKind) => (node: SingularElementArgument) =>
+  getTypeFromNode(node).typeKind === kind
 
 const getFieldFromEdge = (e: SingularElementArgument) =>
   e.data().field as IFieldVertex
@@ -30,24 +26,7 @@ const arrayItemEdgeSelector = `[kind=${TypeEdgeKind.ArrayItem}]`
  * A Cytoscape implementation of a TypeTree
  */
 export class TypeCytoscapeTree implements ITypeTree {
-  constructor(
-    private readonly cy: Core,
-    private readonly typeClassifier: TypeClassifierFn,
-  ) {}
-
-  getTypeKind(typeOrId: ITypeVertex | string): TypeKind | null {
-    if (typeof typeOrId === 'string') {
-      const type = this.getType(typeOrId)
-
-      if (!type) {
-        return null
-      }
-
-      return this.typeClassifier(type)
-    }
-
-    return this.typeClassifier(typeOrId)
-  }
+  constructor(private readonly cy: Core) {}
 
   getRootFields() {
     return this.cy
@@ -59,10 +38,20 @@ export class TypeCytoscapeTree implements ITypeTree {
       .map(getFieldFromEdge)
   }
 
-  getFieldsOf(typeId: string) {
+  getFields(typeId: string) {
     return this.cy
       .getElementById(typeId)
       .connectedEdges()
+      .filter(edgeIsOfFieldKind)
+      .map(getFieldFromEdge)
+  }
+
+  getFieldsByTypeKind(typeKind: TypeKind) {
+    return this.cy
+      .elements()
+      .filter(typeIsOfKind(typeKind))
+      .incomers()
+      .edges()
       .filter(edgeIsOfFieldKind)
       .map(getFieldFromEdge)
   }
@@ -87,7 +76,7 @@ export class TypeCytoscapeTree implements ITypeTree {
     let vertices = this.cy.elements()
 
     if (typeKind) {
-      vertices = vertices.filter(typeIsOfKind(typeKind, this.typeClassifier))
+      vertices = vertices.filter(typeIsOfKind(typeKind))
     }
 
     return vertices.map(getTypeFromNode)

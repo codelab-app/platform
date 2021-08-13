@@ -28,7 +28,7 @@ export const Mapper = <T extends Record<string, any>>({
     return null
   }
 
-  return <>{data.map((item) => React.cloneElement(renderedComponent, item))}</>
+  return <>{data?.map((item) => React.cloneElement(renderedComponent, item))}</>
 }
 
 Mapper.displayName = 'Mapper'

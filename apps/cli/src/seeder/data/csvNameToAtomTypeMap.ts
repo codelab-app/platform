@@ -117,6 +117,7 @@ export const csvNameToAtomTypeMap: Record<string, AtomType> = {
   'Typography--Typography.Text': AtomType.AntDesignTypographyText,
   'Typography--Typography.Title': AtomType.AntDesignTypographyTitle,
   'Upload--UploadFile': AtomType.AntDesignUpload,
+  Image: AtomType.AntDesignImage,
 
   //
   // Custom components:

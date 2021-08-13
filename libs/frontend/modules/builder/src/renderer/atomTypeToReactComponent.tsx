@@ -385,6 +385,8 @@ export const atomTypeToReactComponent = (
       return dynamic(() => import('antd/lib/popover'))
     case AtomType.AntDesignTable:
       return dynamic(() => import('antd/lib/table'))
+    case AtomType.AntDesignImage:
+      return dynamic(() => import('antd/lib/image'))
     case AtomType.AntDesignRenderComponent:
       return ''
     case AtomType.AntDesignRenderContainer:
@@ -422,7 +424,7 @@ export const atomTypeToReactComponent = (
       )
     case AtomType.Mapper:
       return dynamic(() =>
-        import('@codelab/frontend/shared').then((mod) => mod.Mapper),
+        import('@codelab/frontend/view/components').then((mod) => mod.Mapper),
       )
     default:
       return null

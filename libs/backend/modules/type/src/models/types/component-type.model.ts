@@ -1,4 +1,4 @@
-import { IComponentTypeVertex } from '@codelab/shared/graph'
+import { IComponentTypeVertex, TypeKind } from '@codelab/shared/graph'
 import { ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 
@@ -10,10 +10,14 @@ import { Type } from './type.model'
   description:
     'The ComponentType allows selecting a Component in the props form. The value is stored as the componentId ',
 })
-export class ComponentType implements Type, IComponentTypeVertex {
+export class ComponentType
+  implements Type<TypeKind.ComponentType>, IComponentTypeVertex
+{
   declare id: string
 
   declare name: string
+
+  typeKind: TypeKind.ComponentType = TypeKind.ComponentType
 
   constructor(id: string, name: string) {
     this.id = id

@@ -19,7 +19,7 @@ export const getTypeName = (
     return ''
   }
 
-  const kind = typeTree.getTypeKind(type)
+  const kind = type.typeKind
 
   switch (kind) {
     case TypeModels.PrimitiveType:

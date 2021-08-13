@@ -68,7 +68,7 @@ export class ElementResolver {
       return null
     }
 
-    return await this.elementTreeTransformer.transform(dgraphElement)
+    return this.elementTreeTransformer.transform(dgraphElement)
   }
 
   @Query(() => Element, {

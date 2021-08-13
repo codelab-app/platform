@@ -12,6 +12,7 @@ import {
 import { padding } from '@codelab/frontend/style'
 import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 
@@ -26,6 +27,10 @@ const InterfaceDetailPage: NextPageTemplate<'dashboard'> = () => {
 
   return (
     <>
+      <Head>
+        <title>{name} | Codelab</title>
+      </Head>
+
       <PageHeader
         ghost={false}
         onBack={() => router.back()}

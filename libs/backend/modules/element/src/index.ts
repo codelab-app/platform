@@ -1,3 +1,4 @@
+export * from './component'
 export * from './element.mapper'
 export * from './element.module'
 export * from './element-tree.transformer'

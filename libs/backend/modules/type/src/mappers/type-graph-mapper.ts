@@ -8,7 +8,7 @@ import {
 import { TypeEdgeKind } from '@codelab/shared/graph'
 import { Mapper } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
-import { Type, TypeEdge, TypeGraph } from '../models'
+import { TypeEdge, TypeGraph, TypeUnion } from '../models'
 import { FieldMapper } from './field.mapper'
 import { TypeMapperFactory } from './type-mapper.factory'
 
@@ -24,7 +24,7 @@ export class TypeGraphMapper implements Mapper<DgraphInterfaceType, TypeGraph> {
       throw new Error('Only Interface types can be converted to a graph')
     }
 
-    const vertices = new Map<string, Type>()
+    const vertices = new Map<string, TypeUnion>()
     const edges = new Map<string, TypeEdge>()
     const rootMapper = this.mapperFactory.getMapper(dgraphInterface)
     vertices.set(dgraphInterface.uid, await rootMapper.map(dgraphInterface))
@@ -63,7 +63,7 @@ export class TypeGraphMapper implements Mapper<DgraphInterfaceType, TypeGraph> {
 
         if (isDgraphArrayType(type)) {
           const itemType = type.itemType
-          const mapper = await this.mapperFactory.getMapper(itemType)
+          const mapper = this.mapperFactory.getMapper(itemType)
 
           vertices.set(itemType.uid, await mapper.map(itemType))
           edges.set(

@@ -10,6 +10,7 @@ import {
 import { padding } from '@codelab/frontend/style'
 import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
+import Head from 'next/head'
 import React from 'react'
 
 const AtomsPage: NextPageTemplate = () => {
@@ -17,6 +18,10 @@ const AtomsPage: NextPageTemplate = () => {
 
   return (
     <>
+      <Head>
+        <title>Atoms | Codelab</title>
+      </Head>
+
       <PageHeader
         ghost={false}
         // onBack={() => router.back()}

@@ -1,5 +1,5 @@
-import { TypeEdgeKind } from '@codelab/ddd/types'
 import { IEdge } from '../../IEdge'
+import { TypeEdgeKind } from '../enums'
 import { IFieldVertex } from './IFieldVertex'
 
 export interface ITypeEdge extends IEdge {

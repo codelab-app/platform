@@ -14,6 +14,7 @@ import {
   withPageQueryProvider,
 } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
+import Head from 'next/head'
 import React, { useContext } from 'react'
 
 const PageRenderer: NextPageTemplate<'builder'> = () => {
@@ -33,6 +34,10 @@ const PageRenderer: NextPageTemplate<'builder'> = () => {
         tree,
       })}
     >
+      <Head>
+        <title>{page.name} | Codelab</title>
+      </Head>
+
       <Renderer />
     </RenderProvider>
   )

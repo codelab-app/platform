@@ -1,7 +1,8 @@
 import { DgraphElementType } from '@codelab/backend/infra'
+import { ElementTypeKind } from '@codelab/shared/graph'
 import { Mapper } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
-import { ElementType, ElementTypeKind } from '../models'
+import { ElementType } from '../models'
 
 export type ElementTypeMapperInput = DgraphElementType
 

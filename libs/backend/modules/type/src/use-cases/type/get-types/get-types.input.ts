@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/backend/abstract/types'
+import { TypeKind } from '@codelab/shared/graph'
 import { Field, InputType, registerEnumType } from '@nestjs/graphql'
 
 @InputType()

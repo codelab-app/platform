@@ -1,4 +1,4 @@
-import { IEnumTypeVertex } from '@codelab/shared/graph'
+import { IEnumTypeVertex, TypeKind } from '@codelab/shared/graph'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Type } from '../type.model'
 import { EnumTypeValue } from './enum-type-value.model'
@@ -7,10 +7,12 @@ import { EnumTypeValue } from './enum-type-value.model'
  * Allows only a set of values
  */
 @ObjectType({ implements: () => [Type] })
-export class EnumType implements Type, IEnumTypeVertex {
+export class EnumType implements Type<TypeKind.EnumType>, IEnumTypeVertex {
   declare id: string
 
   declare name: string
+
+  typeKind: TypeKind.EnumType = TypeKind.EnumType
 
   @Field(() => [EnumTypeValue])
   declare allowedValues: Array<EnumTypeValue>

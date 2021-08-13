@@ -1,4 +1,4 @@
-import { ITypeTree } from '../../typeTree'
+import { ITypeTree } from '@codelab/shared/graph'
 import {
   InterfaceToJsonSchemaTransformer,
   InterfaceToJsonSchemaTransformerOptions,

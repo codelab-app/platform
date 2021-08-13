@@ -3,9 +3,9 @@ import {
   __TypeFragment,
   PrimitiveKind,
 } from '@codelab/shared/codegen/graphql'
+import { ITypeTree } from '@codelab/shared/graph'
 import { PropertiesSchema } from 'ajv/lib/types/json-schema'
-import { TypeModels } from '../../types'
-import { ITypeTree } from '../../typeTree'
+import { TypeModels } from '../../uses-cases/types'
 import { SelectComponent } from '../fields/SelectComponent'
 import { getSelectElementComponent } from '../fields/SelectElement'
 import { SelectLambda } from '../fields/SelectLambda'
@@ -119,9 +119,7 @@ export class InterfaceToJsonSchemaTransformer {
       case TypeModels.InterfaceType:
         return {
           type: 'object',
-          properties: this.fieldsToProperties(
-            this.typeTree.getFieldsOf(type.id),
-          ),
+          properties: this.fieldsToProperties(this.typeTree.getFields(type.id)),
         } as any // cast is needed, because we can't verify at compile time that the interface matches the data
 
       case TypeModels.LambdaType:

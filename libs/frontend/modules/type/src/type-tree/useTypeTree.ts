@@ -1,17 +1,17 @@
+import { __TypeGraphFragment } from '@codelab/shared/codegen/graphql'
 import {
-  __TypeFragment,
-  __TypeGraphFragment,
-} from '@codelab/shared/codegen/graphql'
-import { ITypeTree, TypeGraphTreeAdapter } from '@codelab/shared/graph'
-import { typeGraphFragmentToTypeGraph } from './typeGraphFragmentToTypeGraph'
-import { typenameToTypeKind } from './typenameToTypeKind'
+  ITypeGraph,
+  ITypeTree,
+  TypeGraphTreeAdapter,
+} from '@codelab/shared/graph'
 
 /**
  * Parses a TypeGraph and provides helper methods for it
  */
 export const useTypeTree = (graph?: __TypeGraphFragment | null): ITypeTree => {
-  return new TypeGraphTreeAdapter(
-    graph ? typeGraphFragmentToTypeGraph(graph) : undefined,
-    (type) => typenameToTypeKind((type as __TypeFragment).__typename),
-  )
+  // FIXME
+  // there's a difference between union typed 'kind', and a general typed TypeKind one, so we have to cast
+  // can we make them the same somehow, tweak some graphql-gen settings perhaps? Or make concrete models have concrete enum types?
+
+  return new TypeGraphTreeAdapter(graph as any as ITypeGraph)
 }

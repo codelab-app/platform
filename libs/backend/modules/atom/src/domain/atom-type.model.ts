@@ -99,6 +99,7 @@ export enum AtomTypeEnum {
   AntDesignTypographyText = 'AntDesignTypographyText',
   AntDesignTypographyTitle = 'AntDesignTypographyTitle',
   AntDesignUpload = 'AntDesignUpload',
+  AntDesignImage = 'AntDesignImage',
 
   //
   // Custom:
