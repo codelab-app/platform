@@ -21,7 +21,7 @@ export const MoveComponentElementForm = ({
   const { component, tree } = useContext(ComponentContext)
 
   const parentElementOptions = [
-    ...tree.getAllElements().map((e) => ({
+    ...tree.getAllNodes().map((e) => ({
       label: e.name,
       value: e.id,
     })),

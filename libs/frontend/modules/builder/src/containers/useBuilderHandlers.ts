@@ -1,11 +1,12 @@
-import { ElementTree } from '@codelab/frontend/abstract/props'
+import { Tree } from '@codelab/backend/abstract/types'
+import { ElementFragment } from '@codelab/shared/codegen/graphql'
 import { useCallback } from 'react'
 import { useSetBuilder } from './useBuilder'
 
 /**
  * RenderHandlers in the context of Page elements
  */
-export const useBuilderHandlers = (tree: ElementTree) => {
+export const useBuilderHandlers = (tree: Tree<ElementFragment>) => {
   // Use setters only, because we don't want to re-render this every time the hover/selected element is changed
   const { setHoveringElement } = useSetBuilder()
 
@@ -14,7 +15,7 @@ export const useBuilderHandlers = (tree: ElementTree) => {
       const target = e.target as HTMLElement
 
       if (!target) {
-        setHoveringElement(null)
+        setHoveringElement(undefined)
 
         return
       }
@@ -31,13 +32,13 @@ export const useBuilderHandlers = (tree: ElementTree) => {
         return
       }
 
-      setHoveringElement(tree.getElementById(id))
+      setHoveringElement(tree.getNodeById(id))
     },
     [setHoveringElement, tree],
   )
 
   const handleMouseLeave = useCallback(
-    () => setHoveringElement(null),
+    () => setHoveringElement(undefined),
     [setHoveringElement],
   )
 

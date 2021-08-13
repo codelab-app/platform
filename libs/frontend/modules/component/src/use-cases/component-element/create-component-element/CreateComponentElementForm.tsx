@@ -20,7 +20,7 @@ export const CreateComponentElementForm = (
   const { component, tree } = useContext(ComponentContext)
 
   const parentElementOptions = [
-    ...tree.getAllElements().map((element) => ({
+    ...tree.getAllNodes().map((element) => ({
       label: element.name,
       value: element.id,
     })),

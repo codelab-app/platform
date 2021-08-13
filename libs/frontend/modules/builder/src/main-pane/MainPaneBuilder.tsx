@@ -1,11 +1,14 @@
 import { PureQueryOptions } from '@apollo/client'
-import { ElementTree } from '@codelab/frontend/abstract/props'
+import { Tree } from '@codelab/backend/abstract/types'
 import {
   MainPaneTemplate,
   MainPaneTemplateProps,
 } from '@codelab/frontend/view/templates'
-import { useMoveElementMutation } from '@codelab/shared/codegen/graphql'
-import { Dropdown, Tree } from 'antd'
+import {
+  ElementFragment,
+  useMoveElementMutation,
+} from '@codelab/shared/codegen/graphql'
+import { Dropdown, Tree as AntdTree } from 'antd'
 import { TreeProps } from 'antd/lib/tree'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
@@ -14,7 +17,7 @@ import { ElementContextMenu } from './ElementContextMenu'
 import { useExpandedNodes } from './useExpandedNodes'
 
 export interface MainPaneBuilderTemplateProps extends MainPaneTemplateProps {
-  tree: ElementTree
+  tree: Tree<ElementFragment>
   moveElementRefetchQueries?: Array<PureQueryOptions>
 }
 
@@ -32,8 +35,8 @@ export const MainPaneBuilder = ({
   } = useBuilder()
 
   const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(
-    selectedElement,
     tree,
+    selectedElement,
   )
 
   const [contextMenuItemId, setContextMenuNodeId] = useState<string | null>(
@@ -122,7 +125,7 @@ export const MainPaneBuilder = ({
     >
       <div style={{ height: '100%' }} onClick={() => reset()}>
         {tree ? (
-          <Tree
+          <AntdTree
             disabled={isLoadingMoveElement}
             className="draggable-tree"
             blockNode
@@ -132,20 +135,18 @@ export const MainPaneBuilder = ({
             onDrop={handleDrop}
             selectedKeys={selectedElement ? [selectedElement.id] : []}
             onMouseEnter={({ node: dataNode }) => {
-              const element = tree.getElementById(
-                (dataNode as any).id?.toString(),
-              )
+              const element = tree.getNodeById((dataNode as any).id?.toString())
 
               setHoveringElement(element)
             }}
             onClick={(e) => e.stopPropagation()}
             onMouseLeave={() => {
-              setHoveringElement(null)
+              setHoveringElement(undefined)
             }}
             onSelect={([id], { nativeEvent }) => {
               nativeEvent.stopPropagation()
 
-              const element = tree.getElementById(id?.toString())
+              const element = tree.getNodeById(id?.toString())
               setSelectedElement(element)
             }}
             titleRender={(node) => {

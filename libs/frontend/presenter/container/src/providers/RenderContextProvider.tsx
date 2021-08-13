@@ -8,7 +8,7 @@ export type PropMapperFunction = (
 
 export interface RenderContext {
   /** The rendered tree */
-  tree: ElementTree
+  tree: ElementTree<RenderNode>
 
   /** Extra props passed to the element. They override the common props, but props from the node instance override the extraProps */
   extraProps?: Record<string, any>

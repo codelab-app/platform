@@ -10,7 +10,7 @@ import * as React from 'react'
 export interface PageContextType {
   pageId: string
   page: PageFullFragment
-  tree: ElementTree
+  tree: ElementTree<any>
   loading: boolean
 }
 

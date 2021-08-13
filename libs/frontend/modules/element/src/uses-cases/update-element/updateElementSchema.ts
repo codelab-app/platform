@@ -18,7 +18,8 @@ export const updateElementSchema: JSONSchemaType<UpdateElementSchemaType> = {
     },
     name: {
       type: 'string',
+      nullable: true,
     },
   },
-  required: ['name'],
+  required: [],
 } as const

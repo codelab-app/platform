@@ -34,8 +34,8 @@ export const ElementCssEditor = ({ element }: ElementCssEditorProps) => {
     return mutate({
       variables: {
         input: {
-          elementId: element.id,
-          updateData: {
+          id: element.id,
+          data: {
             atomId: element.atom?.id,
             name: element.name,
             css: newCss,

@@ -33,11 +33,11 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
     console.warn(
       'SelectElement needs ElementIdContext, but it was not found. Will display All Elements',
     )
-    elements = tree.getAllElements()
+    elements = tree.getAllNodes()
   } else {
     switch (kind) {
       case ElementTypeKind.AllElements:
-        elements = tree.getAllElements()
+        elements = tree.getAllNodes()
         break
       case ElementTypeKind.ChildrenOnly:
         elements = tree.getChildren(elementIdContext.elementId)

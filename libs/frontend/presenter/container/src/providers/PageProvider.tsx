@@ -11,7 +11,7 @@ export interface PageContextType {
   pageId: string
   page: PageFullFragment
   loading: boolean
-  tree: ElementTree
+  tree: ElementTree<any>
 }
 
 export const PageContext = React.createContext<PageContextType>({

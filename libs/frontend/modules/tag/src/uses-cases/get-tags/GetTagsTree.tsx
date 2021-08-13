@@ -27,7 +27,7 @@ export const GetTagsTree = () => {
       onSelect={onSelect}
       onCheck={onCheck}
       // treeData={treeData}
-      treeData={tags}
+      treeData={[]}
     />
   )
 }

@@ -12,7 +12,7 @@ import React, { PropsWithChildren } from 'react'
 type IComponentContext = {
   component: ComponentFragment
   elements: ElementGraphFragment
-  tree: ElementTree
+  tree: ElementTree<any>
 }
 
 type ComponentProviderProps = {

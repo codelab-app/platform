@@ -22,7 +22,7 @@ export const CreatePageElementForm = (props: CreatePageElementFormProps) => {
   }
 
   const parentElementOptions = [
-    ...tree.getAllElements().map((element) => ({
+    ...tree.getAllNodes().map((element) => ({
       label: element.name,
       value: element.id,
     })),

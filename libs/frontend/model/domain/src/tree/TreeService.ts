@@ -1,9 +1,8 @@
 import { Edge, Graph, Vertex } from '@codelab/backend/abstract/types'
-import { ElementTree, NodeTree } from '@codelab/frontend/abstract/props'
-import { ComponentFragment } from '@codelab/shared/codegen/graphql'
-import cytoscape, { SingularElementArgument } from 'cytoscape'
+import { Node } from '@codelab/frontend/abstract/props'
+import cytoscape from 'cytoscape'
 
-export abstract class TreeService implements NodeTree<any> {
+export abstract class TreeService implements Node<any> {
   protected readonly cy: cytoscape.Core
 
   constructor(graph?: Graph<Vertex, Edge>) {
