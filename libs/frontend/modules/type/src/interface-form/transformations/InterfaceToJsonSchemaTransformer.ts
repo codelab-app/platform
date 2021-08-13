@@ -4,8 +4,8 @@ import {
   PrimitiveKind,
 } from '@codelab/shared/codegen/graphql'
 import { PropertiesSchema } from 'ajv/lib/types/json-schema'
-import { TypeModels } from '../../types/TypeModels'
-import { TypeTree } from '../../typeTree'
+import { TypeModels } from '../../types'
+import { ITypeTree } from '../../typeTree'
 import { SelectComponent } from '../fields/SelectComponent'
 import { getSelectElementComponent } from '../fields/SelectElement'
 import { SelectLambda } from '../fields/SelectLambda'
@@ -27,7 +27,7 @@ export class InterfaceToJsonSchemaTransformer {
   private readonly maxNesting: number
 
   constructor(
-    private typeTree: TypeTree,
+    private typeTree: ITypeTree,
     options?: InterfaceToJsonSchemaTransformerOptions,
   ) {
     this.maxNesting = options?.maxNesting || 100
@@ -72,6 +72,7 @@ export class InterfaceToJsonSchemaTransformer {
    *
    * Handles PrimitiveType, ArrayType, EnumType and Interface
    */
+  // TODO move this to shared/graph/type
   typeToJsonProperty(type: __TypeFragment): Record<string, any> {
     this.iteration++
 
@@ -98,7 +99,8 @@ export class InterfaceToJsonSchemaTransformer {
 
         return {
           type: 'array',
-          items: this.typeToJsonProperty(itemType),
+          // todo cast
+          items: this.typeToJsonProperty(itemType as any),
         }
       }
 
@@ -157,7 +159,8 @@ export class InterfaceToJsonSchemaTransformer {
 
       if (type) {
         properties[field.key] = {
-          ...(this.typeToJsonProperty(type) as any),
+          // todo cast
+          ...(this.typeToJsonProperty(type as any) as any),
           label: field.name,
         }
       }

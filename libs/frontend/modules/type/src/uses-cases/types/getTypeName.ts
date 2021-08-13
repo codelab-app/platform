@@ -1,9 +1,14 @@
-import { __TypeFragment } from '@codelab/shared/codegen/graphql'
+import {
+  __ElementTypeFragment,
+  __EnumTypeFragment,
+  __PrimitiveTypeFragment,
+} from '@codelab/shared/codegen/graphql'
+import { ITypeTree, ITypeVertex } from '@codelab/shared/graph'
 import { TypeModels } from './TypeModels'
 
 export const getTypeName = (
-  type: __TypeFragment | null | undefined,
-  getArrayItemType: (typeId: string) => __TypeFragment | null | undefined,
+  type: ITypeVertex | null | undefined,
+  typeTree: ITypeTree,
   iteration = 0,
 ): string => {
   if (!type) {
@@ -14,24 +19,30 @@ export const getTypeName = (
     return ''
   }
 
-  switch (type?.__typename) {
+  const kind = typeTree.getTypeKind(type)
+
+  switch (kind) {
     case TypeModels.PrimitiveType:
-      return type.primitiveKind
+      return (type as __PrimitiveTypeFragment).primitiveKind
 
     case TypeModels.ArrayType: {
-      const itemType = getArrayItemType(type.id)
+      const itemType = typeTree.getArrayItemType(type.id)
 
-      return `Array of ${getTypeName(
-        itemType,
-        getArrayItemType,
-        iteration + 1,
-      )}`
+      return `Array of ${getTypeName(itemType, typeTree, iteration + 1)}`
     }
 
     case TypeModels.EnumType:
-      return `Enum (${type.allowedValues.map((v) => v.name).join(',')})`
+      return `Enum (${(type as __EnumTypeFragment).allowedValues
+        .map((v) => v.name)
+        .join(',')})`
     case TypeModels.InterfaceType:
-      return `Object (${type.name})`
+      return `Interface (${type.name})`
+    case TypeModels.ElementType:
+      return `Element (${(type as __ElementTypeFragment).kind})`
+    case TypeModels.LambdaType:
+      return `Lambda`
+    case TypeModels.ComponentType:
+      return `Component`
     default:
       return ''
   }

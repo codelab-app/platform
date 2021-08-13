@@ -1,4 +1,5 @@
-import { PrimitiveKind } from '@codelab/backend/infra'
+import { PrimitiveKind } from '@codelab/ddd/types'
+import { IPrimitiveTypeVertex } from '@codelab/shared/graph'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Type } from '../type.model'
 
@@ -9,7 +10,7 @@ import { Type } from '../type.model'
 @ObjectType({
   implements: () => [Type],
 })
-export class PrimitiveType implements Type {
+export class PrimitiveType implements Type, IPrimitiveTypeVertex {
   declare id: string
 
   declare name: string

@@ -1,3 +1,4 @@
+import { IInterfaceTypeVertex } from '@codelab/shared/graph'
 import { ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 
@@ -7,7 +8,7 @@ import { Type } from './type.model'
 @ObjectType({
   implements: () => [Type],
 })
-export class InterfaceType implements Type {
+export class InterfaceType implements Type, IInterfaceTypeVertex {
   declare id: string
 
   declare name: string

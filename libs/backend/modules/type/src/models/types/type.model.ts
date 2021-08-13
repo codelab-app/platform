@@ -1,8 +1,8 @@
-import { Vertex } from '@codelab/backend/abstract/types'
+import { IBaseTypeVertex, IVertex } from '@codelab/shared/graph'
 import { Field, ID, InterfaceType } from '@nestjs/graphql'
 
 @InterfaceType()
-export class Type implements Vertex {
+export class Type implements IVertex, IBaseTypeVertex {
   @Field(() => ID)
   declare id: string
 

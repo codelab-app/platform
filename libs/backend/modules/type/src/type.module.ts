@@ -12,11 +12,11 @@ import {
   InterfaceTypeMapper,
   LambdaTypeMapper,
   PrimitiveTypeMapper,
+  TypeGraphMapper,
   TypeMapperFactory,
 } from './mappers'
 import { TypeResolver } from './type.resolver'
 import { TypeValidator } from './type.validator'
-import { TypeTreeTransformer } from './type-tree.transformer'
 import {
   CreateFieldService,
   CreateTypeService,
@@ -42,6 +42,7 @@ const mappers = [
   LambdaTypeMapper,
   ElementTypeMapper,
   ComponentTypeMapper,
+  TypeGraphMapper,
 ]
 
 const services = [
@@ -63,7 +64,6 @@ const services = [
   UpdatePrimitiveTypeService,
   UpdateTypeService,
   TypeValidator,
-  TypeTreeTransformer,
 ]
 
 @Module({

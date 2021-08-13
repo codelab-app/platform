@@ -1,11 +1,7 @@
+import { ElementTypeKind } from '@codelab/ddd/types'
+import { IElementTypeVertex } from '@codelab/shared/graph'
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Type } from './type.model'
-
-export enum ElementTypeKind {
-  AllElements = 'AllElements',
-  DescendantsOnly = 'DescendantsOnly',
-  ChildrenOnly = 'ChildrenOnly',
-}
 
 registerEnumType(ElementTypeKind, { name: 'ElementTypeKind' })
 
@@ -17,7 +13,7 @@ registerEnumType(ElementTypeKind, { name: 'ElementTypeKind' })
   description:
     'The ElementType allows selecting a Element in the props form. The value is stored as the elementId ',
 })
-export class ElementType implements Type {
+export class ElementType implements Type, IElementTypeVertex {
   declare id: string
 
   declare name: string

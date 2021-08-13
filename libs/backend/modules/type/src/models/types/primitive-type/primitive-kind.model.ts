@@ -1,4 +1,4 @@
-import { PrimitiveKind } from '@codelab/backend/infra'
+import { PrimitiveKind } from '@codelab/ddd/types'
 import { registerEnumType } from '@nestjs/graphql'
 import { z } from 'zod'
 
