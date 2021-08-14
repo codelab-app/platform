@@ -321,6 +321,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_INTEGRATION_ENDPOINT}"'
       - run: make integration-ci
       - notify-failure
 
@@ -328,6 +329,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_E2E_ENDPOINT}"'
       - run: npx cypress verify
       - run: make e2e-ci-affected
       - notify-failure
@@ -464,7 +466,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
-            - integration
+            - install-and-build-workspace
       - notify-success:
           <<: *filters-dev-pr
           context: CI
@@ -504,7 +506,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
-            - integration
+            - install-and-build-workspace
       - build-docker-staging:
           <<: *filters-staging
           e: docker-node
@@ -553,7 +555,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
-            - integration
+            - install-and-build-workspace
       - build-docker-prod:
           <<: *filters-prod
           e: docker-node
