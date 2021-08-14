@@ -52,7 +52,7 @@ export class ElementValidator {
     //   typeof elementOrId === 'string'
     //     ? await this.query(elementOrId)
     //     : elementOrId
-    // TODO validate props string
+    // TODO validate props string, could use TypeTree.toJsonSchema?
   }
 
   /**

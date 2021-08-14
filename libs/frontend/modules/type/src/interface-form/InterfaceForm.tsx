@@ -2,13 +2,44 @@ import {
   FormUniforms,
   FormUniformsProps,
 } from '@codelab/frontend/view/components'
-import { ITypeTree } from '@codelab/shared/graph'
+import { IJsonSchemaOptions, ITypeTree, TypeKind } from '@codelab/shared/graph'
 import React from 'react'
-import { interfaceToJsonSchema } from './transformations'
+import { SelectComponent } from './fields/SelectComponent'
+import { getSelectElementComponent } from './fields/SelectElement'
+import { SelectLambda } from './fields/SelectLambda'
 
 export interface InterfaceFormProps<TData>
   extends Omit<FormUniformsProps<TData>, 'schema'> {
   interfaceTree: ITypeTree
+}
+
+const jsonPropertiesMapper: IJsonSchemaOptions['jsonPropertiesMapper'] = (
+  type,
+) => {
+  switch (type.typeKind) {
+    case TypeKind.LambdaType:
+      return {
+        uniforms: {
+          component: SelectLambda,
+        },
+      }
+
+    case TypeKind.ElementType:
+      return {
+        uniforms: {
+          component: getSelectElementComponent(type.kind),
+        },
+      }
+    case TypeKind.ComponentType:
+      return {
+        type: 'string',
+        uniforms: {
+          component: SelectComponent,
+        },
+      }
+  }
+
+  return {}
 }
 
 /**
@@ -20,7 +51,10 @@ export const InterfaceForm = <TData extends any>({
   ...props
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
   return (
-    <FormUniforms schema={interfaceToJsonSchema(interfaceTree)} {...props}>
+    <FormUniforms
+      schema={interfaceTree.toJsonSchema({ jsonPropertiesMapper }) as any}
+      {...props}
+    >
       {children}
     </FormUniforms>
   )

@@ -1,5 +1,6 @@
 import { TypeKind } from '../enums'
 import { IFieldVertex } from './IFieldVertex'
+import { IJsonSchemaOptions } from './IJsonSchemaOptions'
 import { ITypeVertex } from './ITypeVertex'
 
 export interface ITypeTree {
@@ -23,4 +24,7 @@ export interface ITypeTree {
 
   /** Returns all types, or all types by typeKind if provided */
   getTypes: (typeKind?: TypeKind) => Array<ITypeVertex>
+
+  /** Creates a json schema from the type tree. Throws if the tree doesn't have fields */
+  toJsonSchema: (options: IJsonSchemaOptions) => Record<string, any>
 }
