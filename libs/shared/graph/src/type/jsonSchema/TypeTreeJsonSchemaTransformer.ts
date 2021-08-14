@@ -1,36 +1,25 @@
 import {
-  __FieldFragment,
-  __TypeFragment,
-  PrimitiveKind,
-} from '@codelab/shared/codegen/graphql'
-import { ITypeTree } from '@codelab/shared/graph'
-import { PropertiesSchema } from 'ajv/lib/types/json-schema'
-import { TypeModels } from '../../uses-cases/types'
-import { SelectComponent } from '../fields/SelectComponent'
-import { getSelectElementComponent } from '../fields/SelectElement'
-import { SelectLambda } from '../fields/SelectLambda'
-
-export interface InterfaceToJsonSchemaTransformerOptions {
-  /** Max amount of type nesting that's allowed, used to prevent infinite loops. Defaults to 100 */
-  maxNesting?: number
-}
-
-// Maybe we can create a custom bridge to uniforms instead?
+  IFieldVertex,
+  IJsonSchemaOptions,
+  ITypeTree,
+  ITypeVertex,
+} from '../contracts'
+import { PrimitiveKind, TypeKind } from '../enums'
 
 /**
  * Transforms an Interface to a json schema object
  */
-export class InterfaceToJsonSchemaTransformer {
+export class TypeTreeJsonSchemaTransformer {
   /** Keeps track of recursive transformations while transforming nested types */
   private iteration = 0
 
-  private readonly maxNesting: number
+  private readonly options: IJsonSchemaOptions
 
-  constructor(
-    private typeTree: ITypeTree,
-    options?: InterfaceToJsonSchemaTransformerOptions,
-  ) {
-    this.maxNesting = options?.maxNesting || 100
+  constructor(private typeTree: ITypeTree, options?: IJsonSchemaOptions) {
+    this.options = {
+      maxNesting: 100,
+      ...(options ?? {}),
+    }
   }
 
   /**
@@ -69,26 +58,28 @@ export class InterfaceToJsonSchemaTransformer {
    * or throws an error if the type is not recognized.
    * Since the TypeFragment is flat, doesn't contain any nested types in itself, only references
    * them by id, an external source is needed for them to be transformed too
-   *
-   * Handles PrimitiveType, ArrayType, EnumType and Interface
    */
-  // TODO move this to shared/graph/type
-  typeToJsonProperty(type: __TypeFragment): Record<string, any> {
+  typeToJsonProperty(type: ITypeVertex): Record<string, any> {
     this.iteration++
 
-    if (this.iteration > this.maxNesting) {
+    if (this.iteration > (this.options.maxNesting || 100)) {
       throw new Error(
         'Error while transforming interface to json schema. Type too nested',
       )
     }
 
-    switch (type.__typename) {
-      case TypeModels.PrimitiveType:
+    const extra = this.options.jsonPropertiesMapper
+      ? this.options.jsonPropertiesMapper(type)
+      : {}
+
+    switch (type.typeKind) {
+      case TypeKind.PrimitiveType:
         return {
+          ...extra,
           type: this.primitiveKindToJsonType(type.primitiveKind),
         }
 
-      case TypeModels.ArrayType: {
+      case TypeKind.ArrayType: {
         const itemType = this.typeTree.getArrayItemType(type.id)
 
         if (!itemType) {
@@ -98,14 +89,15 @@ export class InterfaceToJsonSchemaTransformer {
         }
 
         return {
+          ...extra,
           type: 'array',
-          // todo cast
-          items: this.typeToJsonProperty(itemType as any),
+          items: this.typeToJsonProperty(itemType),
         }
       }
 
-      case TypeModels.EnumType:
+      case TypeKind.EnumType:
         return {
+          ...extra,
           type: 'string',
           // nullable: true,
           enum: type.allowedValues.map((v) => v.id),
@@ -116,49 +108,43 @@ export class InterfaceToJsonSchemaTransformer {
             })),
           },
         }
-      case TypeModels.InterfaceType:
+      case TypeKind.InterfaceType:
         return {
+          ...extra,
           type: 'object',
           properties: this.fieldsToProperties(this.typeTree.getFields(type.id)),
         } as any // cast is needed, because we can't verify at compile time that the interface matches the data
 
-      case TypeModels.LambdaType:
+      case TypeKind.LambdaType:
         return {
+          ...extra,
           type: 'string',
-          uniforms: {
-            component: SelectLambda,
-          },
         }
 
-      case TypeModels.ElementType:
+      case TypeKind.ElementType:
         return {
+          ...extra,
           type: 'string',
-          uniforms: {
-            component: getSelectElementComponent(type.kind),
-          },
         }
-      case TypeModels.ComponentType:
+      case TypeKind.ComponentType:
         return {
+          ...extra,
           type: 'string',
-          uniforms: {
-            component: SelectComponent,
-          },
         }
       default:
         throw new Error('Type not recognized ' + (type as any).__typename)
     }
   }
 
-  fieldsToProperties(fields: Array<__FieldFragment>) {
-    const properties: PropertiesSchema<any> = {}
+  fieldsToProperties(fields: Array<IFieldVertex>) {
+    const properties: Record<string, any> = {}
 
     for (const field of fields) {
       const type = this.typeTree.getFieldType(field.id)
 
       if (type) {
         properties[field.key] = {
-          // todo cast
-          ...(this.typeToJsonProperty(type as any) as any),
+          ...(this.typeToJsonProperty(type) as any),
           label: field.name,
         }
       }

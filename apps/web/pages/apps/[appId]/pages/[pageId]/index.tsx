@@ -35,7 +35,7 @@ const PageRenderer: NextPageTemplate<'builder'> = () => {
       })}
     >
       <Head>
-        <title>{page.name} | Codelab</title>
+        <title>{page.name}</title>
       </Head>
 
       <Renderer />

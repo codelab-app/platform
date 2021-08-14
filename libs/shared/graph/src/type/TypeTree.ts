@@ -1,6 +1,8 @@
 import { CollectionReturnValue, Core, SingularElementArgument } from 'cytoscape'
 import { IFieldVertex, ITypeTree, ITypeVertex } from './contracts'
+import { IJsonSchemaOptions } from './contracts/IJsonSchemaOptions'
 import { TypeEdgeKind, TypeKind } from './enums'
+import { TypeTreeJsonSchemaTransformer } from './jsonSchema'
 
 //
 // Node / Edge helpers:
@@ -25,7 +27,7 @@ const arrayItemEdgeSelector = `[kind=${TypeEdgeKind.ArrayItem}]`
 /**
  * A Cytoscape implementation of a TypeTree
  */
-export class TypeCytoscapeTree implements ITypeTree {
+export class TypeTree implements ITypeTree {
   constructor(private readonly cy: Core) {}
 
   getRootFields() {
@@ -80,5 +82,9 @@ export class TypeCytoscapeTree implements ITypeTree {
     }
 
     return vertices.map(getTypeFromNode)
+  }
+
+  toJsonSchema(options: IJsonSchemaOptions): Record<string, any> {
+    return new TypeTreeJsonSchemaTransformer(this, options).transform()
   }
 }

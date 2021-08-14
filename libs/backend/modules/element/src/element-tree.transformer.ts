@@ -16,12 +16,11 @@ import {
 import { Injectable, Logger } from '@nestjs/common'
 import cytoscape, { Core } from 'cytoscape'
 import * as _ from 'lodash'
-import { ComponentMapper } from './component'
-import { GetComponentsService } from './component/use-cases'
+import { ComponentMapper, GetComponentsService } from './component'
 import { ElementMapper } from './element.mapper'
 import { ElementEdge, ElementGraph, ElementVertex } from './models'
 
-// FIXME this class is getting too big, need to refactor it soon
+// FIXME this class is getting too big, need to refactor it soon - perhaps move some parts to shared/graph/element?
 
 @Injectable()
 export class ElementTreeTransformer {
@@ -42,8 +41,9 @@ export class ElementTreeTransformer {
     // dgraph will return only the ID of the atom after the first time
     const atomContext = new Map<string, DgraphAtom>()
     const componentContext = new Map<string, DgraphComponent>()
-    const cy = cytoscape()
+    // Those are the components we need to fetch, which are in props
     const extraComponentsRef = new Set<string>()
+    const cy = cytoscape()
 
     await breadthFirstTraversal<DgraphElement | DgraphComponent>({
       root,
@@ -60,7 +60,6 @@ export class ElementTreeTransformer {
       },
     })
 
-    // FIXME Need to clean this up
     let n = 0
 
     while (extraComponentsRef.size > 0) {
@@ -70,29 +69,11 @@ export class ElementTreeTransformer {
         throw new Error('Components too nested')
       }
 
-      const components = await this.getComponentsService.execute({
-        componentIds: Array.from(extraComponentsRef),
-      })
-
-      extraComponentsRef.clear()
-
-      await Promise.all(
-        components.map((component) => {
-          return breadthFirstTraversal<DgraphElement | DgraphComponent>({
-            root: component,
-            extractId: (el) => el.uid,
-            visit: async (node, parentNode) => {
-              return this.visit(
-                node,
-                parentNode,
-                atomContext,
-                componentContext,
-                cy,
-                extraComponentsRef,
-              )
-            },
-          })
-        }),
+      await this.getAllExtraComponents(
+        extraComponentsRef,
+        atomContext,
+        componentContext,
+        cy,
       )
     }
 
@@ -102,29 +83,69 @@ export class ElementTreeTransformer {
     >(
       cy,
       (node) => {
-        if (isDgraphComponent(node.data)) {
-          return this.componentMapper.map(node.data)
-        }
-
-        const element = node.data as DgraphElement
-
-        const atom =
-          element.atom?.uid && atomContext.has(element.atom?.uid)
-            ? atomContext.get(element.atom?.uid)
-            : element.atom
-
-        const component =
-          element.component?.uid && componentContext.has(element.component?.uid)
-            ? componentContext.get(element.component?.uid)
-            : element.component
-
-        return this.elementMapper.map({ ...element, atom, component })
+        return this.mapVertex(node, atomContext, componentContext)
       },
       (edgeData) =>
         new ElementEdge(edgeData.source, edgeData.target, edgeData.order),
     )
 
     return new ElementGraph(vertices, edges)
+  }
+
+  private async getAllExtraComponents(
+    extraComponentsRef: Set<string>,
+    atomContext: Map<string, DgraphAtom>,
+    componentContext: Map<string, DgraphComponent>,
+    cy: Core,
+  ): Promise<void> {
+    const components = await this.getComponentsService.execute({
+      componentIds: Array.from(extraComponentsRef),
+    })
+
+    extraComponentsRef.clear()
+
+    await Promise.all(
+      components.map((component) => {
+        return breadthFirstTraversal<DgraphElement | DgraphComponent>({
+          root: component,
+          extractId: (el) => el.uid,
+          visit: async (node, parentNode) => {
+            return this.visit(
+              node,
+              parentNode,
+              atomContext,
+              componentContext,
+              cy,
+              extraComponentsRef,
+            )
+          },
+        })
+      }),
+    )
+  }
+
+  private mapVertex(
+    node: any,
+    atomContext: Map<string, DgraphAtom>,
+    componentContext: Map<string, DgraphComponent>,
+  ): Promise<ElementVertex> {
+    if (isDgraphComponent(node.data)) {
+      return this.componentMapper.map(node.data)
+    }
+
+    const element = node.data as DgraphElement
+
+    const atom =
+      element.atom?.uid && atomContext.has(element.atom?.uid)
+        ? atomContext.get(element.atom?.uid)
+        : element.atom
+
+    const component =
+      element.component?.uid && componentContext.has(element.component?.uid)
+        ? componentContext.get(element.component?.uid)
+        : element.component
+
+    return this.elementMapper.map({ ...element, atom, component })
   }
 
   private async visit(
@@ -240,47 +261,59 @@ export class ElementTreeTransformer {
     const allComponentFields = tree.getFieldsByTypeKind(TypeKind.ComponentType)
 
     if (allComponentFields.length) {
-      const rootFields = tree.getRootFields()
-      const keysToCheck: Array<string> = []
+      const componentKeys = this.getKeysWithComponentType(tree)
 
-      const visitField = (field: IFieldVertex, path: string) => {
-        const type = tree.getFieldType(field.id)
-        const kind = type?.typeKind
-
-        if (!type || !kind) {
-          return
-        }
-
-        if (kind === TypeKind.ComponentType) {
-          keysToCheck.push(path)
-        } else if (kind === TypeKind.InterfaceType) {
-          const innerFields = tree.getFields(type.id)
-          innerFields.forEach((innerField) =>
-            visitField(innerField, `${path}.${innerField.key}`),
-          )
-        }
-      }
-
-      rootFields.forEach((field) => visitField(field, field.key))
-
-      if (keysToCheck.length > 0) {
-        return keysToCheck
-          .map((key) => {
-            try {
-              return _.get(props, key)
-            } catch (e) {
-              Logger.error('Error while parsing prop value. ', e)
-
-              return null
-            }
-          })
-          .filter(
-            (v): v is string =>
-              !!v && typeof v === 'string' && v.startsWith('0x'),
-          )
+      if (componentKeys.length > 0) {
+        return this.getAllValuesByKeys(componentKeys, props)
       }
     }
 
     return []
+  }
+
+  private getAllValuesByKeys(
+    keys: Array<string>,
+    props: Record<string, any>,
+  ): Array<string> {
+    return keys
+      .map((key) => {
+        try {
+          return _.get(props, key)
+        } catch (e) {
+          Logger.error('Error while parsing prop value. ', e)
+
+          return null
+        }
+      })
+      .filter(
+        (v): v is string => !!v && typeof v === 'string' && v.startsWith('0x'),
+      )
+  }
+
+  private getKeysWithComponentType(tree: TypeGraphTreeAdapter): Array<string> {
+    const rootFields = tree.getRootFields()
+    const keysToCheck: Array<string> = []
+
+    const visitField = (field: IFieldVertex, path: string) => {
+      const type = tree.getFieldType(field.id)
+      const kind = type?.typeKind
+
+      if (!type || !kind) {
+        return
+      }
+
+      if (kind === TypeKind.ComponentType) {
+        keysToCheck.push(path)
+      } else if (kind === TypeKind.InterfaceType) {
+        const innerFields = tree.getFields(type.id)
+        innerFields.forEach((innerField) =>
+          visitField(innerField, `${path}.${innerField.key}`),
+        )
+      }
+    }
+
+    rootFields.forEach((field) => visitField(field, field.key))
+
+    return keysToCheck
   }
 }
