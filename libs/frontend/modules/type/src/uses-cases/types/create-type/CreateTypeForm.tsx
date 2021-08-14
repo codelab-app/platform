@@ -1,4 +1,3 @@
-import { TypeKind } from '@codelab/backend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -11,6 +10,7 @@ import {
   refetchGetTypesQuery,
   useCreateTypeMutation,
 } from '@codelab/shared/codegen/graphql'
+import { TypeKind } from '@codelab/shared/graph'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'

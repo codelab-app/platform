@@ -3,9 +3,10 @@ import {
   __TypeFragment,
   PrimitiveKind,
 } from '@codelab/shared/codegen/graphql'
+import { ITypeTree } from '@codelab/shared/graph'
 import { PropertiesSchema } from 'ajv/lib/types/json-schema'
-import { TypeTree } from '../../type-tree'
 import { TypeModels } from '../../uses-cases/types'
+import { SelectComponent } from '../fields/SelectComponent'
 import { getSelectElementComponent } from '../fields/SelectElement'
 import { SelectLambda } from '../fields/SelectLambda'
 
@@ -26,7 +27,7 @@ export class InterfaceToJsonSchemaTransformer {
   private readonly maxNesting: number
 
   constructor(
-    private typeTree: TypeTree,
+    private typeTree: ITypeTree,
     options?: InterfaceToJsonSchemaTransformerOptions,
   ) {
     this.maxNesting = options?.maxNesting || 100
@@ -71,6 +72,7 @@ export class InterfaceToJsonSchemaTransformer {
    *
    * Handles PrimitiveType, ArrayType, EnumType and Interface
    */
+  // TODO move this to shared/graph/type
   typeToJsonProperty(type: __TypeFragment): Record<string, any> {
     this.iteration++
 
@@ -97,7 +99,8 @@ export class InterfaceToJsonSchemaTransformer {
 
         return {
           type: 'array',
-          items: this.typeToJsonProperty(itemType),
+          // todo cast
+          items: this.typeToJsonProperty(itemType as any),
         }
       }
 
@@ -116,9 +119,7 @@ export class InterfaceToJsonSchemaTransformer {
       case TypeModels.InterfaceType:
         return {
           type: 'object',
-          properties: this.fieldsToProperties(
-            this.typeTree.getFieldsOf(type.id),
-          ),
+          properties: this.fieldsToProperties(this.typeTree.getFields(type.id)),
         } as any // cast is needed, because we can't verify at compile time that the interface matches the data
 
       case TypeModels.LambdaType:
@@ -136,6 +137,13 @@ export class InterfaceToJsonSchemaTransformer {
             component: getSelectElementComponent(type.kind),
           },
         }
+      case TypeModels.ComponentType:
+        return {
+          type: 'string',
+          uniforms: {
+            component: SelectComponent,
+          },
+        }
       default:
         throw new Error('Type not recognized ' + (type as any).__typename)
     }
@@ -149,7 +157,8 @@ export class InterfaceToJsonSchemaTransformer {
 
       if (type) {
         properties[field.key] = {
-          ...(this.typeToJsonProperty(type) as any),
+          // todo cast
+          ...(this.typeToJsonProperty(type as any) as any),
           label: field.name,
         }
       }

@@ -766,6 +766,27 @@
         }
       }
     },
+    "shared-graph": {
+      "root": "libs/shared/graph",
+      "sourceRoot": "libs/shared/graph/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/graph/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/graph"],
+          "options": {
+            "jestConfig": "libs/shared/graph/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-operations": {
       "root": "libs/shared/operations",
       "sourceRoot": "libs/shared/operations/src",

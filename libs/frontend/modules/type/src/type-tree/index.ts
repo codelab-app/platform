@@ -1,2 +1,2 @@
-export * from './TypeTree'
+export * from './typenameToTypeKind'
 export * from './useTypeTree'

@@ -1,4 +1,3 @@
-import { TypeKind } from '@codelab/backend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   EntityType,
@@ -13,27 +12,12 @@ import {
   useUpdatePrimitiveTypeMutation,
   useUpdateTypeMutation,
 } from '@codelab/shared/codegen/graphql'
+import { TypeKind } from '@codelab/shared/graph'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { typenameToTypeKind } from '../../../type-tree'
 import { TypeModels } from '../TypeModels'
 import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
-
-const typenameToKind = (typename: string) => {
-  switch (typename) {
-    case TypeModels.InterfaceType:
-      return TypeKind.InterfaceType
-    case TypeModels.PrimitiveType:
-      return TypeKind.PrimitiveType
-    case TypeModels.ArrayType:
-      return TypeKind.ArrayType
-    case TypeModels.EnumType:
-      return TypeKind.EnumType
-    case TypeModels.LambdaType:
-      return TypeKind.LambdaType
-  }
-
-  throw new Error("Can't recognize typename of type")
-}
 
 export const UpdateTypeForm = (
   props: UniFormUseCaseProps<UpdateTypeSchema>,
@@ -65,7 +49,7 @@ export const UpdateTypeForm = (
 
   const handleSubmit = useCallback(
     (submitData: UpdateTypeSchema) => {
-      const kind = typenameToKind(state?.metadata?.__typename)
+      const kind = typenameToTypeKind(state?.metadata?.__typename)
 
       switch (kind) {
         case TypeKind.PrimitiveType:
@@ -120,7 +104,7 @@ export const UpdateTypeForm = (
   )
 
   const kind = state?.metadata?.__typename
-    ? typenameToKind(state?.metadata?.__typename)
+    ? typenameToTypeKind(state?.metadata?.__typename)
     : null
 
   const type = state.metadata as __TypeFragment

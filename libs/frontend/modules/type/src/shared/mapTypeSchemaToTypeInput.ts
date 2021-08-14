@@ -1,10 +1,10 @@
-import { TypeKind } from '@codelab/backend/abstract/types'
 import {
   __EnumTypeValueFragment,
   CreateTypeInput,
   ElementTypeKind,
   PrimitiveKind,
 } from '@codelab/shared/codegen/graphql'
+import { TypeKind } from '@codelab/shared/graph'
 
 export interface BaseTypeMutationSchema {
   name: string
@@ -78,6 +78,8 @@ export const mapTypeSchemaToTypeInput = (
       }
     case TypeKind.LambdaType:
       return { ...common, lambdaType: true }
+    case TypeKind.ComponentType:
+      return { ...common, componentType: true }
     case TypeKind.ElementType:
       return { ...common, elementType: { kind: typeSchema.elementKind } }
   }

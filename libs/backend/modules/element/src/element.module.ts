@@ -1,6 +1,7 @@
 import { CytoscapeModule, TreeModule, Void } from '@codelab/backend/infra'
 import { AppModule } from '@codelab/backend/modules/app'
 import { AtomModule } from '@codelab/backend/modules/atom'
+import { TypeModule } from '@codelab/backend/modules/type'
 import { Module } from '@nestjs/common'
 import {
   ComponentMapper,
@@ -53,7 +54,7 @@ const services = [
 ]
 
 @Module({
-  imports: [AppModule, AtomModule, CytoscapeModule, TreeModule],
+  imports: [AppModule, AtomModule, TypeModule, CytoscapeModule, TreeModule],
   providers: [...services, ElementResolver, ComponentResolver, Void],
   exports: [...services],
 })

@@ -2,13 +2,13 @@ import {
   FormUniforms,
   FormUniformsProps,
 } from '@codelab/frontend/view/components'
+import { ITypeTree } from '@codelab/shared/graph'
 import React from 'react'
-import { TypeTree } from '../type-tree'
 import { interfaceToJsonSchema } from './transformations'
 
 export interface InterfaceFormProps<TData>
   extends Omit<FormUniformsProps<TData>, 'schema'> {
-  interfaceTree: TypeTree
+  interfaceTree: ITypeTree
 }
 
 /**

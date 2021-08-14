@@ -5,13 +5,14 @@ import {
   useGetTypeGraphQuery,
   useGetTypeQuery,
 } from '@codelab/shared/codegen/graphql'
+import { ITypeTree } from '@codelab/shared/graph'
 import React, { useEffect } from 'react'
-import { TypeTree, useTypeTree } from '../../../type-tree'
+import { useTypeTree } from '../../../type-tree'
 
 export interface InterfaceContextType {
   interface: __InterfaceFragment
   interfaceGraph: __TypeGraphFragment
-  tree: TypeTree
+  tree: ITypeTree
 }
 
 const defaultContext: InterfaceContextType = {

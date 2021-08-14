@@ -1,4 +1,5 @@
 import { DgraphArrayType } from './dgraph-array-type'
+import { DgraphComponentType } from './dgraph-component-type'
 import { DgraphElementType } from './dgraph-element-type'
 import { DgraphEnumType } from './dgraph-enum-type'
 import { DgraphInterfaceType } from './dgraph-interface-type'
@@ -12,3 +13,4 @@ export type DgraphTypeUnion =
   | DgraphPrimitiveType
   | DgraphLambdaType
   | DgraphElementType
+  | DgraphComponentType

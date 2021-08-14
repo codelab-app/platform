@@ -15,6 +15,7 @@ import {
   withComponentQueryProvider,
 } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
+import Head from 'next/head'
 import React, { useContext } from 'react'
 
 const ComponentDetail: NextPageTemplate<'builder'> = () => {
@@ -26,6 +27,10 @@ const ComponentDetail: NextPageTemplate<'builder'> = () => {
 
   return (
     <RenderProvider context={defaultRenderContext({ tree })}>
+      <Head>
+        <title>{component.name} | Codelab</title>
+      </Head>
+
       <Builder />
     </RenderProvider>
   )

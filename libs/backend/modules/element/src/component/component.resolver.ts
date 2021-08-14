@@ -20,6 +20,7 @@ import {
   DeleteComponentService,
   GetComponentInput,
   GetComponentService,
+  GetComponentsInput,
   GetComponentsService,
   UpdateComponentInput,
   UpdateComponentService,
@@ -97,8 +98,12 @@ export class ComponentResolver {
 
   @Query(() => [Component])
   @UseGuards(GqlAuthGuard)
-  async getComponents() {
-    const dgraphComponents = await this.getComponentsService.execute({})
+  async getComponents(
+    @Args('input', { nullable: true }) input?: GetComponentsInput,
+  ) {
+    const dgraphComponents = await this.getComponentsService.execute(
+      input ?? {},
+    )
 
     return new ArrayMapper(this.componentMapper).map(dgraphComponents)
   }

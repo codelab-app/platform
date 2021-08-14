@@ -5,6 +5,17 @@
 interface Type {
   id: ID!
   name: String!
+  typeKind: TypeKindFilter!
+}
+
+enum TypeKindFilter {
+  PrimitiveType
+  ArrayType
+  InterfaceType
+  EnumType
+  LambdaType
+  ElementType
+  ComponentType
 }
 
 type CreateResponse {
@@ -47,14 +58,25 @@ enum TypeEdgeKind {
 type ArrayType implements Type {
   id: ID!
   name: String!
+  typeKind: TypeKindFilter!
 }
 
 """
-The ElementType allows selecting a Element in the props form. The value is stored as the elementId 
+The ComponentType allows selecting a Component in the props form. The value is stored as the componentId 
+"""
+type ComponentType implements Type {
+  id: ID!
+  name: String!
+  typeKind: TypeKindFilter!
+}
+
+"""
+The ElementType allows selecting an Element in the props form. The value is stored as the elementId 
 """
 type ElementType implements Type {
   id: ID!
   name: String!
+  typeKind: TypeKindFilter!
   kind: ElementTypeKind!
 }
 
@@ -73,12 +95,14 @@ type EnumTypeValue {
 type EnumType implements Type {
   id: ID!
   name: String!
+  typeKind: TypeKindFilter!
   allowedValues: [EnumTypeValue!]!
 }
 
 type InterfaceType implements Type {
   id: ID!
   name: String!
+  typeKind: TypeKindFilter!
 }
 
 """
@@ -87,11 +111,13 @@ The LambdaType allows selecting a Lambda in the props form. The value is stored 
 type LambdaType implements Type {
   id: ID!
   name: String!
+  typeKind: TypeKindFilter!
 }
 
 type PrimitiveType implements Type {
   id: ID!
   name: String!
+  typeKind: TypeKindFilter!
   primitiveKind: PrimitiveKind!
 }
 
@@ -212,11 +238,13 @@ enum AtomType {
   AntDesignTypographyText
   AntDesignTypographyTitle
   AntDesignUpload
+  AntDesignImage
   Query
   TextList
   Text
   State
   PropMapper
+  Mapper
   ReactFragment
   HtmlA
   HtmlP
@@ -298,6 +326,11 @@ enum AtomType {
   HtmlSup
 }
 
+type Component {
+  id: ID!
+  name: String!
+}
+
 type Element {
   id: ID!
 
@@ -320,11 +353,6 @@ type ElementEdge {
   """The id of the target Element/Component"""
   target: String!
   order: Int
-}
-
-type Component {
-  id: ID!
-  name: String!
 }
 
 type ElementGraph {
@@ -418,7 +446,7 @@ type Query {
   getElement(input: GetElementInput!): Element
   getComponent(input: GetComponentInput!): Component
   getComponentElements(input: GetComponentInput!): ElementGraph
-  getComponents: [Component!]!
+  getComponents(input: GetComponentsInput): [Component!]!
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
   getField(input: GetFieldInput!): Field
@@ -480,6 +508,10 @@ input GetComponentInput {
   componentId: String!
 }
 
+input GetComponentsInput {
+  componentIds: [String!]
+}
+
 input GetAtomInput {
   where: AtomWhereUniqueInput!
 }
@@ -526,15 +558,6 @@ input TypesByIdsFilter {
 
 input TypesByKindFilter {
   kind: TypeKindFilter!
-}
-
-enum TypeKindFilter {
-  PrimitiveType
-  ArrayType
-  InterfaceType
-  EnumType
-  LambdaType
-  ElementType
 }
 
 input TypesByNameFilter {
@@ -743,6 +766,7 @@ input CreateTypeInput {
   enumType: CreateEnumTypeInput
   interfaceType: Boolean
   lambdaType: Boolean
+  componentType: Boolean
   elementType: CreateElementTypeInput
 }
 

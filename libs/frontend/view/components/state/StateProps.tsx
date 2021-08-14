@@ -21,5 +21,5 @@ export interface StateProps {
    * and must return the next state object
    * Will get called when the event with the specified eventKey is called on the child element
    */
-  setterLambda: string
+  setterLambda?: string
 }

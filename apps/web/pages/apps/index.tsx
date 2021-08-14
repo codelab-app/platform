@@ -11,6 +11,7 @@ import { SignOutUserButton } from '@codelab/frontend/modules/user'
 import { padding } from '@codelab/frontend/style'
 import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
+import Head from 'next/head'
 import React from 'react'
 
 const AppsPage: NextPageTemplate<'dashboard'> = () => {
@@ -21,6 +22,10 @@ const AppsPage: NextPageTemplate<'dashboard'> = () => {
 
   return (
     <>
+      <Head>
+        <title>Apps | Codelab</title>
+      </Head>
+
       <PageHeader
         ghost={false}
         // onBack={() => router.back()}

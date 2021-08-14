@@ -1,4 +1,4 @@
-import { TypeTree } from '../../type-tree'
+import { ITypeTree } from '@codelab/shared/graph'
 import {
   InterfaceToJsonSchemaTransformer,
   InterfaceToJsonSchemaTransformerOptions,
@@ -9,7 +9,7 @@ export * from './InterfaceToJsonSchemaTransformer'
 // Functions for easier access:
 
 export const interfaceToJsonSchema = (
-  typeTree: TypeTree,
+  typeTree: ITypeTree,
   options?: InterfaceToJsonSchemaTransformerOptions,
 ) => {
   return new InterfaceToJsonSchemaTransformer(typeTree, options).transform()

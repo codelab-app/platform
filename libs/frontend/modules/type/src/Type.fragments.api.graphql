@@ -24,6 +24,11 @@ fragment __LambdaType on LambdaType {
   name
 }
 
+fragment __ComponentType on ComponentType {
+  id
+  name
+}
+
 fragment __ElementType on ElementType {
   id
   name
@@ -48,13 +53,14 @@ fragment __Type on Type {
   __typename
   id
   name
-  __typename
+  typeKind
   ...__ArrayType
   ...__EnumType
   ...__Interface
   ...__PrimitiveType
   ...__ElementType
   ...__LambdaType
+  ...__ComponentType
 }
 
 #

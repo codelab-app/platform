@@ -1,16 +1,10 @@
-import {
-  DgraphEntityType,
-  DgraphType,
-  isDgraphArrayType,
-  isDgraphElementType,
-  isDgraphEnumType,
-  isDgraphInterfaceType,
-  isDgraphLambdaType,
-  isDgraphPrimitiveType,
-} from '@codelab/backend/infra'
+import { DgraphEntityType, DgraphType } from '@codelab/backend/infra'
+import { TypeKind } from '@codelab/shared/graph'
 import { Mapper } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
+import { typeDefinitionByDgraphType } from '../shared'
 import { ArrayTypeMapper } from './array-type.mapper'
+import { ComponentTypeMapper } from './component-type.mapper'
 import { ElementTypeMapper } from './element-type.mapper'
 import { EnumTypeMapper } from './enum-type.mapper'
 import { InterfaceTypeMapper } from './interface-type.mapper'
@@ -19,44 +13,43 @@ import { PrimitiveTypeMapper } from './primitive-type.mapper'
 
 @Injectable()
 export class TypeMapperFactory {
+  private mappers: Map<TypeKind, Mapper<DgraphType<any>, any>>
+
   constructor(
-    private primitiveTypeMapper: PrimitiveTypeMapper,
-    private arrayTypeMapper: ArrayTypeMapper,
-    private enumTypeMapper: EnumTypeMapper,
-    private interfaceMapper: InterfaceTypeMapper,
-    private lambdaTypeMapper: LambdaTypeMapper,
-    private elementTypeMapper: ElementTypeMapper,
-  ) {}
+    primitiveTypeMapper: PrimitiveTypeMapper,
+    arrayTypeMapper: ArrayTypeMapper,
+    enumTypeMapper: EnumTypeMapper,
+    interfaceMapper: InterfaceTypeMapper,
+    lambdaTypeMapper: LambdaTypeMapper,
+    elementTypeMapper: ElementTypeMapper,
+    componentTypeMapper: ComponentTypeMapper,
+  ) {
+    this.mappers = new Map<TypeKind, Mapper<DgraphType<any>, any>>()
 
-  getMapper(
-    type: DgraphType<DgraphEntityType.Type>,
-  ): Mapper<DgraphType<any>, any> {
-    if (isDgraphArrayType(type)) {
-      return this.arrayTypeMapper
+    this.mappers.set(TypeKind.PrimitiveType, primitiveTypeMapper)
+    this.mappers.set(TypeKind.ArrayType, arrayTypeMapper)
+    this.mappers.set(TypeKind.EnumType, enumTypeMapper)
+    this.mappers.set(TypeKind.InterfaceType, interfaceMapper)
+    this.mappers.set(TypeKind.LambdaType, lambdaTypeMapper)
+    this.mappers.set(TypeKind.ElementType, elementTypeMapper)
+    this.mappers.set(TypeKind.ComponentType, componentTypeMapper)
+  }
+
+  getMapper(type: DgraphType<DgraphEntityType>): Mapper<DgraphType<any>, any> {
+    const def = typeDefinitionByDgraphType(type)
+
+    return this.getMapperByKind(def.typeKind)
+  }
+
+  getMapperByKind(kind: TypeKind): Mapper<DgraphType<any>, any> {
+    const mapper = this.mappers.get(kind)
+
+    if (!mapper) {
+      throw new Error(
+        `Can't map dgraph type, unrecognized kind ${kind}. Add it to TypeMapperFactory`,
+      )
     }
 
-    if (isDgraphEnumType(type)) {
-      return this.enumTypeMapper
-    }
-
-    if (isDgraphInterfaceType(type)) {
-      return this.interfaceMapper
-    }
-
-    if (isDgraphPrimitiveType(type)) {
-      return this.primitiveTypeMapper
-    }
-
-    if (isDgraphLambdaType(type)) {
-      return this.lambdaTypeMapper
-    }
-
-    if (isDgraphElementType(type)) {
-      return this.elementTypeMapper
-    }
-
-    throw new Error(
-      "Can't map dgraph type, unrecognized type " + type['dgraph.type'],
-    )
+    return mapper
   }
 }

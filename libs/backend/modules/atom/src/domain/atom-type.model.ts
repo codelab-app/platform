@@ -99,6 +99,7 @@ export enum AtomTypeEnum {
   AntDesignTypographyText = 'AntDesignTypographyText',
   AntDesignTypographyTitle = 'AntDesignTypographyTitle',
   AntDesignUpload = 'AntDesignUpload',
+  AntDesignImage = 'AntDesignImage',
 
   //
   // Custom:
@@ -108,6 +109,7 @@ export enum AtomTypeEnum {
   Text = 'Text',
   State = 'State',
   PropMapper = 'PropMapper',
+  Mapper = 'Mapper',
 
   // React
   ReactFragment = 'ReactFragment',

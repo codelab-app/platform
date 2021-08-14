@@ -188,6 +188,9 @@ export class ElementGraphTreeAdapter implements ElementTree<ElementFragment> {
   }
 
   getComponentRootElement(componentId: string): ElementFragment | undefined {
+    console.log(this.cy.nodes().map(getNodeData))
+    console.log(this.cy.edges().map(getNodeData))
+
     return this.cy
       .getElementById(componentId)
       .outgoers()

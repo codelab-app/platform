@@ -1,4 +1,4 @@
-import { PrimitiveKind } from '@codelab/backend/infra'
+import { PrimitiveKind } from '@codelab/shared/graph'
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
