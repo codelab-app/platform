@@ -11,6 +11,8 @@ import { CreateTagRequest } from './create-tag.request'
 
 @Injectable()
 export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
+  private readonly __SYSTEM_ROOT_TAG = '__SYSTEM_ROOT_TAG'
+
   protected async executeTransaction(request: CreateTagRequest, txn: Txn) {
     return await this.dgraph.create(txn, (blankNodeUid) =>
       CreateTagService.createMutation(request, blankNodeUid),

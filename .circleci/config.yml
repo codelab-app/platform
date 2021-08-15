@@ -321,6 +321,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      # Since integration doesn't require frontend, we reserve 8081 for e2e & use 8082 here instead
       - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_INTEGRATION_ENDPOINT}"'
       - run: make integration-ci
       - notify-failure
@@ -329,6 +330,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      # Since e2e requires frontend, we use 8081 here
       - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_E2E_ENDPOINT}"'
       - run: npx cypress verify
       - run: make e2e-ci-affected
