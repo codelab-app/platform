@@ -35,7 +35,7 @@ export const isDgraphElement = (
  *
  * Could think of Component as the pointer to the root tree. A Component is simply a tree of Elements, and each descendent element could be of type Atom or another Component
  */
-export type DgraphComponent = DgraphTree<
-  DgraphElement,
-  DgraphEntityType.Component
->
+export interface DgraphComponent
+  extends DgraphTree<DgraphElement, DgraphEntityType.Component> {
+  name: string
+}

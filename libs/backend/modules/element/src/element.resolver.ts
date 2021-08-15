@@ -7,8 +7,8 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { ElementMapper } from './element.mapper'
-import { ElementTreeTransformer } from './element-tree.transformer'
+import { ElementAdapter } from './element.adapter'
+import { ElementTreeAdapter } from './element-tree.adapter'
 import { Element, ElementGraph } from './models'
 import {
   CreateElementInput,
@@ -35,9 +35,9 @@ export class ElementResolver {
     private deleteElementService: DeleteElementService,
     private updateElementService: UpdateElementService,
     private moveElementService: MoveElementService,
-    private elementTreeTransformer: ElementTreeTransformer,
+    private elementTreeAdapter: ElementTreeAdapter,
     private updateElementPropsService: UpdateElementPropsService,
-    private elementMapper: ElementMapper,
+    private elementAdapter: ElementAdapter,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -68,7 +68,7 @@ export class ElementResolver {
       return null
     }
 
-    return this.elementTreeTransformer.transform(dgraphElement)
+    return this.elementTreeAdapter.mapItem(dgraphElement)
   }
 
   @Query(() => Element, {
@@ -92,7 +92,7 @@ export class ElementResolver {
       return null
     }
 
-    return this.elementMapper.map(dgraphElement)
+    return this.elementAdapter.map(dgraphElement)
   }
 
   @Mutation(() => Void, { nullable: true })

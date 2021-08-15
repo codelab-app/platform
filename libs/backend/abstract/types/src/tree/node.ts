@@ -1,17 +1,19 @@
-export interface NodeLike<TChild extends NodeLike<TChild>> {
+export interface BaseNode<TChild extends BaseNode<TChild>> {
   children: Array<TChild>
 }
+
+// export interface BaseNode<TData> {
+//   // id: string
+//
+//   children: Array<TData>
+//
+//   // data: TData
+// }
 
 /**
  * A generic interface for all Node's
  */
 export interface Node<TData> {
-  // id: string
-  //
-  // children: Array<Node<TData>>
-
-  // data: TData
-
   /** Returns the root element */
   getRoot: () => TData
 

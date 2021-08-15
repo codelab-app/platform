@@ -35,6 +35,8 @@ const getEdgeOrder = (edge: SingularElementArgument) =>
 export class ElementGraphTreeAdapter implements ElementTree<ElementFragment> {
   private readonly cy: cytoscape.Core
 
+  readonly root: ElementFragment
+
   constructor(graph?: Graph<Vertex, Edge> | null) {
     const vertices = graph?.vertices ?? []
     const edges = graph?.edges ?? []
@@ -60,6 +62,8 @@ export class ElementGraphTreeAdapter implements ElementTree<ElementFragment> {
         })),
       },
     })
+
+    this.root = this.cy.elements().roots().map<ElementFragment>(getNodeData)[0]
   }
 
   getComponentOfElement(elementId: string) {
@@ -188,9 +192,6 @@ export class ElementGraphTreeAdapter implements ElementTree<ElementFragment> {
   }
 
   getComponentRootElement(componentId: string): ElementFragment | undefined {
-    console.log(this.cy.nodes().map(getNodeData))
-    console.log(this.cy.edges().map(getNodeData))
-
     return this.cy
       .getElementById(componentId)
       .outgoers()

@@ -1,20 +1,20 @@
 import { CytoscapeModule, TreeModule, Void } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
+import {
+  ComponentTypeAdapter,
+  ElementTypeAdapter,
+  EnumTypeAdapter,
+  EnumTypeValueAdapter,
+  FieldAdapter,
+  InterfaceTypeAdapter,
+  LambdaTypeAdapter,
+  PrimitiveTypeAdapter,
+  TypeAdapterFactory,
+  TypeGraphAdapter,
+} from './adapters'
+import { ArrayTypeAdapter } from './adapters/array-type.adapter'
 import { FieldResolver } from './field.resolver'
 import { FieldValidator } from './field.validator'
-import {
-  ArrayTypeMapper,
-  ComponentTypeMapper,
-  ElementTypeMapper,
-  EnumTypeMapper,
-  EnumTypeValueMapper,
-  FieldMapper,
-  InterfaceTypeMapper,
-  LambdaTypeMapper,
-  PrimitiveTypeMapper,
-  TypeGraphMapper,
-  TypeMapperFactory,
-} from './mappers'
 import { TypeResolver } from './type.resolver'
 import { TypeValidator } from './type.validator'
 import {
@@ -31,22 +31,21 @@ import {
   UpdateTypeService,
 } from './use-cases'
 
-const mappers = [
-  InterfaceTypeMapper,
-  FieldMapper,
-  TypeMapperFactory,
-  PrimitiveTypeMapper,
-  EnumTypeMapper,
-  EnumTypeValueMapper,
-  ArrayTypeMapper,
-  LambdaTypeMapper,
-  ElementTypeMapper,
-  ComponentTypeMapper,
-  TypeGraphMapper,
+const adapters = [
+  InterfaceTypeAdapter,
+  ArrayTypeAdapter,
+  FieldAdapter,
+  ComponentTypeAdapter,
+  TypeAdapterFactory,
+  PrimitiveTypeAdapter,
+  EnumTypeAdapter,
+  EnumTypeValueAdapter,
+  LambdaTypeAdapter,
+  ElementTypeAdapter,
 ]
 
 const services = [
-  ...mappers,
+  ...adapters,
   //
   // Fields
   CreateFieldService,
@@ -64,6 +63,7 @@ const services = [
   UpdatePrimitiveTypeService,
   UpdateTypeService,
   TypeValidator,
+  TypeGraphAdapter,
 ]
 
 @Module({

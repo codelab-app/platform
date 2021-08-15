@@ -1,13 +1,7 @@
-import {
-  CreateResponse,
-  DgraphAtom,
-  GqlAuthGuard,
-  Void,
-} from '@codelab/backend/infra'
-import { ArrayMapper } from '@codelab/shared/utils'
+import { CreateResponse, GqlAuthGuard, Void } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { AtomMapper } from './domain/atom.mapper'
+import { AtomAdapter } from './domain/atom.adapter'
 import { Atom } from './domain/atom.model'
 import {
   CreateAtomInput,
@@ -24,18 +18,14 @@ import { GetAtomInput } from './use-cases/get-atom/get-atom.input'
 @Resolver(() => Atom)
 @Injectable()
 export class AtomResolver {
-  private readonly atomsMapper: ArrayMapper<DgraphAtom, Atom>
-
   constructor(
     private createAtomService: CreateAtomService,
     private getAtomService: GetAtomService,
     private getAtomsService: GetAtomsService,
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
-    private atomMapper: AtomMapper,
-  ) {
-    this.atomsMapper = new ArrayMapper(atomMapper)
-  }
+    private atomAdapter: AtomAdapter,
+  ) {}
 
   @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
@@ -54,7 +44,7 @@ export class AtomResolver {
   async getAtoms() {
     const atoms = await this.getAtomsService.execute({})
 
-    return this.atomsMapper.map(atoms)
+    return this.atomAdapter.map(atoms)
   }
 
   @Query(() => Atom, { nullable: true })
@@ -62,7 +52,7 @@ export class AtomResolver {
   async getAtom(@Args('input') input: GetAtomInput) {
     const atom = await this.getAtomService.execute(input)
 
-    return atom ? this.atomMapper.map(atom) : null
+    return atom ? this.atomAdapter.map(atom) : null
   }
 
   @Mutation(() => Void, { nullable: true })

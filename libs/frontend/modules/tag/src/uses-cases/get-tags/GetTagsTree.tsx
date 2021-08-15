@@ -1,8 +1,10 @@
 import { useGetTagsQuery } from '@codelab/shared/codegen/graphql'
 import { Tree, TreeProps } from 'antd'
+import { useTagTree } from '../../useTagTree'
 
 export const GetTagsTree = () => {
   const { data, loading } = useGetTagsQuery()
+  const { setSelectedTag, setCheckedTags, selectedTag } = useTagTree()
 
   if (!data) {
     return null
@@ -12,10 +14,11 @@ export const GetTagsTree = () => {
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     console.log('selected', selectedKeys, info)
+    setSelectedTag(`${selectedKeys[0]}`)
   }
 
   const onCheck: TreeProps['onCheck'] = (checked, info) => {
-    //
+    setCheckedTags(checked as Array<string>)
   }
 
   return (
@@ -27,7 +30,11 @@ export const GetTagsTree = () => {
       onSelect={onSelect}
       onCheck={onCheck}
       // treeData={treeData}
-      treeData={[]}
+      treeData={tags.map((tag) => ({
+        key: tag.id,
+        title: tag.name,
+        children: [],
+      }))}
     />
   )
 }

@@ -326,11 +326,6 @@ enum AtomType {
   HtmlSup
 }
 
-type Component {
-  id: ID!
-  name: String!
-}
-
 type Element {
   id: ID!
 
@@ -353,6 +348,11 @@ type ElementEdge {
   """The id of the target Element/Component"""
   target: String!
   order: Int
+}
+
+type Component {
+  id: ID!
+  name: String!
 }
 
 type ElementGraph {
@@ -385,6 +385,7 @@ type Page {
 type Tag {
   id: String!
   name: String!
+  isRoot: Boolean!
 }
 
 """An edge between two element nodes"""
@@ -456,12 +457,14 @@ type Query {
   getLambda(input: GetLambdaInput!): Lambda
   getLambdas: [Lambda!]!
   getTag(input: GetTagInput!): Tag!
+
+  """Get all Tag graphs"""
   getTags: [Tag!]!
 
   """
   Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
   """
-  getTagGraph(input: GetTagInput!): TagGraph
+  getTagGraph(input: GetTagGraphInput!): TagGraph
 }
 
 input GetAppInput {
@@ -572,6 +575,14 @@ input GetTagInput {
   id: String!
 }
 
+input GetTagGraphInput {
+  where: TagWhereUniqueInput!
+}
+
+input TagWhereUniqueInput {
+  id: String
+}
+
 type Mutation {
   createApp(input: CreateAppInput!): CreateResponse!
   updateApp(input: UpdateAppInput!): Void
@@ -608,7 +619,7 @@ type Mutation {
   executeLambda(input: ExecuteLambdaInput!): LambdaPayload
   createTag(input: CreateTagInput!): CreateResponse!
   updateTag(input: UpdateTagInput!): Void
-  deleteTag(input: DeleteTagInput!): Void
+  deleteTags(input: DeleteTagsInput!): Void
 }
 
 input CreateAppInput {
@@ -875,6 +886,11 @@ input ExecuteLambdaInput {
 input CreateTagInput {
   name: String!
   parentTagId: String
+
+  """
+  We can create multiple tag trees, the root tells us whether this is a separate tree
+  """
+  isRoot: Boolean = false
 }
 
 input UpdateTagInput {
@@ -886,6 +902,6 @@ input UpdateTagData {
   name: String!
 }
 
-input DeleteTagInput {
-  id: String!
+input DeleteTagsInput {
+  ids: [String!]!
 }

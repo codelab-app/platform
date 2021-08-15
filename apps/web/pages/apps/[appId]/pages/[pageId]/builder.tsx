@@ -6,9 +6,9 @@ import {
   PageBuilderTemplate,
 } from '@codelab/frontend/modules/builder'
 import {
-  MainPanePageDetail,
-  MetaPanePageDetail,
   PageDetailHeader,
+  PageDetailMainPane,
+  PageDetailMetaPane,
 } from '@codelab/frontend/modules/page'
 import {
   PageContext,
@@ -45,7 +45,7 @@ export const getServerSideProps = withPageAuthRequired()
 
 PageBuilder.Header = PageDetailHeader
 PageBuilder.Template = withPageQueryProvider(PageBuilderTemplate)
-PageBuilder.MainPane = MainPanePageDetail
-PageBuilder.MetaPane = MetaPanePageDetail
+PageBuilder.MainPane = PageDetailMainPane
+PageBuilder.MetaPane = PageDetailMetaPane
 
 export default PageBuilder

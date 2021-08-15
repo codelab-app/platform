@@ -1,14 +1,13 @@
-import { NodeLike } from '@codelab/backend/abstract/types'
+import { BaseNode } from '@codelab/backend/abstract/types'
+import { MaybePromise } from '@codelab/shared/utils'
 import cytoscape, { EdgeDataDefinition, NodeDataDefinition } from 'cytoscape'
 import { breadthFirstTraversal } from './breadthFirstTraversal'
-
-export type MaybePromise<TType> = TType | Promise<TType>
 
 export type StrippedNodeDefinition = Omit<NodeDataDefinition, 'id' | 'parent'>
 
 export type StrippedEdgeDefinition = Omit<EdgeDataDefinition, 'from' | 'to'>
 
-export interface TreeToCytoscapeOptions<TInput extends NodeLike<any>> {
+export interface TreeToCytoscapeOptions<TInput extends BaseNode<any>> {
   /** A function that will get the id from any given node */
   extractId: (node: TInput) => string
 
@@ -32,7 +31,7 @@ export interface TreeToCytoscapeOptions<TInput extends NodeLike<any>> {
 }
 
 export class TreeService {
-  async toCytoscape<TInput extends NodeLike<any>>(
+  async toCytoscape<TInput extends BaseNode<any>>(
     root: TInput,
     {
       mapNodeToEdgeData,
@@ -45,8 +44,8 @@ export class TreeService {
     await breadthFirstTraversal<TInput>({
       root,
       extractId: (el) => extractId(el),
-      visit: async (element, parentElement) => {
-        const nodeData = await mapNodeToData(element, parentElement)
+      visit: (element, parentElement) => {
+        const nodeData = mapNodeToData(element, parentElement)
 
         if (nodeData) {
           cy.add({
@@ -59,7 +58,7 @@ export class TreeService {
         }
 
         if (parentElement) {
-          const edgeData = await mapNodeToEdgeData(element, parentElement)
+          const edgeData = mapNodeToEdgeData(element, parentElement)
 
           if (edgeData) {
             cy.add({

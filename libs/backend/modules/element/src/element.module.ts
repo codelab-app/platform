@@ -4,7 +4,7 @@ import { AtomModule } from '@codelab/backend/modules/atom'
 import { TypeModule } from '@codelab/backend/modules/type'
 import { Module } from '@nestjs/common'
 import {
-  ComponentMapper,
+  ComponentAdapter,
   ComponentValidator,
   CreateComponentService,
   DeleteComponentService,
@@ -13,10 +13,10 @@ import {
   UpdateComponentService,
 } from './component'
 import { ComponentResolver } from './component/component.resolver'
-import { ElementMapper } from './element.mapper'
+import { ElementAdapter } from './element.adapter'
 import { ElementResolver } from './element.resolver'
 import { ElementValidator } from './element.validator'
-import { ElementTreeTransformer } from './element-tree.transformer'
+import { ElementTreeAdapter } from './element-tree.adapter'
 import {
   CreateElementService,
   DeleteElementService,
@@ -39,13 +39,13 @@ const services = [
   GetElementParentService,
   UpdateElementService,
   MoveElementService,
-  ElementTreeTransformer,
-  ElementMapper,
+  ElementTreeAdapter,
+  ElementAdapter,
   UpdateElementPropsService,
   //
   // Component
   ComponentValidator,
-  ComponentMapper,
+  ComponentAdapter,
   CreateComponentService,
   DeleteComponentService,
   GetComponentService,

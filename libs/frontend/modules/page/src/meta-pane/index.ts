@@ -1,1 +1,1 @@
-export * from './MetaPanePageDetail'
+export * from './PageDetailMetaPane'

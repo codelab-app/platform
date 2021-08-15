@@ -1,5 +1,0 @@
-query GetTag($input: GetTagInput!) {
-  getTag(input: $input) {
-    ...__Tag
-  }
-}

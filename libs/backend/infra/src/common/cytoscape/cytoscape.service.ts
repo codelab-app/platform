@@ -8,41 +8,41 @@ import cytoscape, {
 
 @Injectable()
 export class CytoscapeService {
-  // constructor() {}
+  cy: Core
+
+  constructor() {
+    this.cy = cytoscape()
+  }
 
   /**
    * We're using elements in the cytoscape sense, not our domain sense.
    */
-  fromElements({ nodes, edges }: CytoscapeGraph) {
-    return cytoscape({
-      headless: true,
-      elements: {
-        nodes: nodes.map((node) => ({
-          data: {
-            ...node,
-          },
-        })),
-        edges: edges.map((edge) => ({
-          data: {
-            ...edge,
-          },
-        })),
-      },
-    })
-  }
+  // fromElements({ nodes, edges }: CytoscapeGraph) {
+  //   return cytoscape({
+  //     headless: true,
+  //     elements: {
+  //       nodes: nodes.map((node) => ({
+  //         data: {
+  //           ...node,
+  //         },
+  //       })),
+  //       edges: edges.map((edge) => ({
+  //         data: {
+  //           ...edge,
+  //         },
+  //       })),
+  //     },
+  //   })
+  // }
 
-  async treeToGraph<TVertex extends Vertex, TEdge extends Edge>(
+  treeToGraph<TVertex extends Vertex, TEdge extends Edge>(
     cy: Core,
-    vertexMapper: (nodeData: any) => TVertex | Promise<TVertex>,
-    edgeMapper: (edgeData: any) => TEdge | Promise<TEdge>,
-  ): Promise<Graph<TVertex, TEdge>> {
+    vertexMapper: (nodeData: any) => TVertex,
+    edgeMapper: (edgeData: any) => TEdge,
+  ): Graph<TVertex, TEdge> {
     return {
-      vertices: await Promise.all(
-        cy.nodes().map((node) => vertexMapper(node.data())),
-      ),
-      edges: await Promise.all(
-        cy.edges().map((edge) => edgeMapper(edge.data())),
-      ),
+      vertices: cy.nodes().map((node) => vertexMapper(node.data())),
+      edges: cy.edges().map((edge) => edgeMapper(edge.data())),
     }
   }
 }

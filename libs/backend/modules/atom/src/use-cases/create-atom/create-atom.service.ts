@@ -12,11 +12,11 @@ import { CreateAtomInput } from './create-atom.input'
 export class CreateAtomService extends DgraphCreateUseCase<CreateAtomInput> {
   protected executeTransaction(request: CreateAtomInput, txn: Txn) {
     return this.dgraph.create(txn, (blankNodeUid) =>
-      this.createMutation(request, blankNodeUid),
+      CreateAtomService.createMutation(request, blankNodeUid),
     )
   }
 
-  private createMutation(
+  private static createMutation(
     { type, name }: CreateAtomInput,
     blankNodeUid: string,
   ) {

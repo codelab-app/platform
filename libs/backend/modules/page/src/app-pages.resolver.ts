@@ -1,29 +1,18 @@
-import {
-  CurrentUser,
-  DgraphPage,
-  GqlAuthGuard,
-  JwtPayload,
-} from '@codelab/backend/infra'
+import { CurrentUser, GqlAuthGuard, JwtPayload } from '@codelab/backend/infra'
 import { App } from '@codelab/backend/modules/app'
-import { ArrayMapper } from '@codelab/shared/utils'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
-import { PageMapper } from './page.mapper'
-import { Page } from './page.model'
+import { PageAdapter } from './page.adapter'
 import { GetPagesService } from './use-cases'
 
 /** Resolve the pages field of App here, so that we avoid a circular dependency between page and app */
 @Resolver(() => App)
 @Injectable()
 export class AppPagesResolver {
-  private pagesMapper: ArrayMapper<DgraphPage, Page>
-
   constructor(
-    pageMapper: PageMapper,
-    private getPagesService: GetPagesService,
-  ) {
-    this.pagesMapper = new ArrayMapper(pageMapper)
-  }
+    private readonly pageMapper: PageAdapter,
+    private readonly getPagesService: GetPagesService,
+  ) {}
 
   @ResolveField('pages', () => App)
   @UseGuards(GqlAuthGuard)
@@ -36,6 +25,6 @@ export class AppPagesResolver {
       currentUser,
     })
 
-    return this.pagesMapper.map(pages)
+    return this.pageMapper.map(pages)
   }
 }

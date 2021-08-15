@@ -3,6 +3,7 @@ import {
   DgraphCreateUseCase,
   DgraphEntityType,
   DgraphTag,
+  DgraphTagTree,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
@@ -12,22 +13,37 @@ import { CreateTagRequest } from './create-tag.request'
 export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
   protected async executeTransaction(request: CreateTagRequest, txn: Txn) {
     return await this.dgraph.create(txn, (blankNodeUid) =>
-      this.createMutation(request, blankNodeUid),
+      CreateTagService.createMutation(request, blankNodeUid),
     )
   }
 
-  private createMutation(
+  private static createMutation(
     request: CreateTagRequest,
     blankNodeUid: string,
   ): Mutation {
+    console.log(request)
+
+    const {
+      input: { isRoot },
+    } = request
+
+    if (isRoot) {
+      return CreateTagService.createTagTreeMutation(request, blankNodeUid)
+    }
+
+    return CreateTagService.createTagMutation(request, blankNodeUid)
+  }
+
+  private static createTagMutation(
+    request: CreateTagRequest,
+    blankNodeUid: string,
+  ) {
     const {
       input: { name, parentTagId },
       owner,
     } = request
 
-    const mu: Mutation = {}
-
-    const createTagJson: DgraphCreateMutationJson<DgraphTag> = {
+    const createJson: DgraphCreateMutationJson<DgraphTag> = {
       uid: blankNodeUid,
       name,
       ownerId: owner.sub,
@@ -35,13 +51,38 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
       children: [],
     }
 
-    mu.setJson = parentTagId
-      ? {
-          uid: parentTagId,
-          children: createTagJson,
-        }
-      : createTagJson
+    return {
+      setJson: {
+        uid: parentTagId,
+        children: createJson,
+      },
+    }
+  }
 
-    return mu
+  private static createTagTreeMutation(
+    request: CreateTagRequest,
+    blankNodeUid: string,
+  ) {
+    const {
+      input: { name },
+      owner,
+    } = request
+
+    const createJson: DgraphCreateMutationJson<DgraphTagTree> = {
+      uid: '_:tagTree',
+      ownerId: owner.sub,
+      'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.TagTree],
+      root: {
+        uid: blankNodeUid,
+        name,
+        ownerId: owner.sub,
+        'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
+        children: [],
+      },
+    }
+
+    return {
+      setJson: [createJson],
+    }
   }
 }

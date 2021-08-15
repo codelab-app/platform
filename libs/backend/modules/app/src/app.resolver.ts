@@ -1,15 +1,13 @@
 import {
   CreateResponse,
   CurrentUser,
-  DgraphApp,
   GqlAuthGuard,
   JwtPayload,
   Void,
 } from '@codelab/backend/infra'
-import { ArrayMapper } from '@codelab/shared/utils'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { AppMapper } from './app.mapper'
+import { AppAdapter } from './app.adapter'
 import { App } from './app.model'
 import {
   CreateAppInput,
@@ -26,18 +24,14 @@ import {
 @Resolver(() => App)
 @Injectable()
 export class AppResolver {
-  private appsMapper: ArrayMapper<DgraphApp, App>
-
   constructor(
     private readonly createAppService: CreateAppService,
     private readonly getAppsService: GetAppsService,
     private readonly getAppService: GetAppService,
     private readonly updateAppService: UpdateAppService,
     private readonly deleteAppService: DeleteAppService,
-    private readonly appMapper: AppMapper,
-  ) {
-    this.appsMapper = new ArrayMapper(appMapper)
-  }
+    private readonly appAdapter: AppAdapter,
+  ) {}
 
   @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
@@ -63,7 +57,7 @@ export class AppResolver {
       return null
     }
 
-    return this.appMapper.map(app)
+    return this.appAdapter.map(app)
   }
 
   @Query(() => [App])
@@ -71,7 +65,7 @@ export class AppResolver {
   async getApps(@CurrentUser() user: JwtPayload) {
     const apps = await this.getAppsService.execute({ ownerId: user.sub })
 
-    return this.appsMapper.map(apps)
+    return this.appAdapter.map(apps)
   }
 
   @Mutation(() => Void, { nullable: true })

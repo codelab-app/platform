@@ -5,13 +5,12 @@ import {
   JwtPayload,
   Void,
 } from '@codelab/backend/infra'
-import { ArrayMapper } from '@codelab/shared/utils'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { ElementTreeTransformer } from '../element-tree.transformer'
+import { ElementTreeAdapter } from '../element-tree.adapter'
 import { ElementGraph } from '../models'
 import { GetElementGraphService } from '../use-cases'
-import { ComponentMapper } from './component.mapper'
+import { ComponentAdapter } from './component.adapter'
 import { Component } from './component.model'
 import {
   CreateComponentInput,
@@ -35,9 +34,9 @@ export class ComponentResolver {
     private getComponentsService: GetComponentsService,
     private deleteComponentService: DeleteComponentService,
     private updateComponentService: UpdateComponentService,
-    private componentMapper: ComponentMapper,
+    private componentAdapter: ComponentAdapter,
     private getElementService: GetElementGraphService,
-    private elementTreeTransformer: ElementTreeTransformer,
+    private elementTreeAdapter: ElementTreeAdapter,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -64,7 +63,7 @@ export class ComponentResolver {
       return null
     }
 
-    return this.componentMapper.map(dgraphComponent)
+    return this.componentAdapter.map(dgraphComponent)
   }
 
   @Query(() => ElementGraph, { nullable: true })
@@ -91,9 +90,7 @@ export class ComponentResolver {
       return null
     }
 
-    console.log(dgraphElement)
-
-    return this.elementTreeTransformer.transform(dgraphElement)
+    return this.elementTreeAdapter.map(dgraphElement)
   }
 
   @Query(() => [Component])
@@ -101,11 +98,9 @@ export class ComponentResolver {
   async getComponents(
     @Args('input', { nullable: true }) input?: GetComponentsInput,
   ) {
-    const dgraphComponents = await this.getComponentsService.execute(
-      input ?? {},
-    )
+    const components = await this.getComponentsService.execute(input ?? {})
 
-    return new ArrayMapper(this.componentMapper).map(dgraphComponents)
+    return this.componentAdapter.map(components)
   }
 
   @Mutation(() => Void, { nullable: true })

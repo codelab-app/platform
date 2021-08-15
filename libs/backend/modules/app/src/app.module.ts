@@ -1,6 +1,6 @@
 import { Void } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
-import { AppMapper } from './app.mapper'
+import { AppAdapter } from './app.adapter'
 import { AppResolver } from './app.resolver'
 import { AppValidator } from './app.validator'
 import {
@@ -18,7 +18,7 @@ const services = [
   GetAppService,
   UpdateAppService,
   AppValidator,
-  AppMapper,
+  AppAdapter,
 ]
 
 @Module({

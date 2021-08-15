@@ -1,15 +1,10 @@
 import { PageType } from '@codelab/frontend/model/state/router'
-import { MainPaneBuilder, useBuilder } from '@codelab/frontend/modules/builder'
+import { BuilderMainPane, useBuilder } from '@codelab/frontend/modules/builder'
 import {
   CreateElementButton,
   DeleteElementModal,
 } from '@codelab/frontend/modules/element'
 import { ComponentContext } from '@codelab/frontend/presenter/container'
-import {
-  ActionType,
-  CrudModal,
-  EntityType,
-} from '@codelab/frontend/view/components'
 import { refetchGetComponentElementsQuery } from '@codelab/shared/codegen/graphql'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
@@ -25,7 +20,7 @@ export const ComponentDetailMainPane = () => {
   } = useBuilder()
 
   return (
-    <MainPaneBuilder
+    <BuilderMainPane
       key={component.id}
       tree={tree}
       title={component.name}
@@ -51,6 +46,6 @@ export const ComponentDetailMainPane = () => {
           ],
         }}
       />
-    </MainPaneBuilder>
+    </BuilderMainPane>
   )
 }

@@ -1,6 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { NextPageTemplate } from '@codelab/frontend/abstract/props'
-import { MainPanePage } from '@codelab/frontend/modules/page'
+import { PageMainPane } from '@codelab/frontend/modules/page'
 import {
   AppContext,
   withAppQueryProvider,
@@ -22,7 +22,7 @@ const Pages: NextPageTemplate<'dashboard'> = () => {
 }
 
 Pages.Template = withAppQueryProvider(DashboardLayout)
-Pages.MainPane = MainPanePage
+Pages.MainPane = PageMainPane
 
 export const getServerSideProps = withPageAuthRequired()
 

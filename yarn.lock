@@ -28078,31 +28078,31 @@ unified@^8.4.2:
     trough "^1.0.0"
     vfile "^4.0.0"
 
-uniforms-antd@3.5.4:
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/uniforms-antd/-/uniforms-antd-3.5.4.tgz#cd88ab456ce26ad6d8da53d0bc31efefa84b4140"
-  integrity sha512-R1eSi0ip2rHt8AJfrqNcZH/akHGljk5dYqrfuo+b9YxkI0zJl4M4mT0/07wbh8ZGtxQDqkn6npjGqrhisBXemA==
+uniforms-antd@3.5.5:
+  version "3.5.5"
+  resolved "https://registry.yarnpkg.com/uniforms-antd/-/uniforms-antd-3.5.5.tgz#1156d2f92a7c02e952a26ff001faefec472944a1"
+  integrity sha512-lYFLAu8yAFEr0BO6jbuFCGrBvu3xc9VJiXallLOxZ8iqjxuHjn++2lBVHimCkJ3GUVm91vVNQ22N4CbcdauBvw==
   dependencies:
     invariant "^2.0.0"
     lodash "^4.0.0"
     tslib "^2.2.0"
-    uniforms "^3.5.4"
+    uniforms "^3.5.5"
     warning "^4.0.0"
 
-uniforms-bridge-json-schema@3.5.4:
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/uniforms-bridge-json-schema/-/uniforms-bridge-json-schema-3.5.4.tgz#f8d4c9aff4a26bfa8b7ccfd7ed073ae25776a52d"
-  integrity sha512-Zcz12jfaoAAvgeIN6T5eYukV+/Is8qIbPAuw82mFHmdS7uHt0xLv+rm4rZ/OomSbY/Sshoc1sWoP5QgUogGDHg==
+uniforms-bridge-json-schema@3.5.5:
+  version "3.5.5"
+  resolved "https://registry.yarnpkg.com/uniforms-bridge-json-schema/-/uniforms-bridge-json-schema-3.5.5.tgz#23df1350d2449b6e261e5fccd22f6b75a8bfb882"
+  integrity sha512-lq0DBpoegTjjZpMQZKCvrMqz6YG1MgtzZTp+HXBgLYS0r15gWA7Zm/4xMxJE5gavYuitgH6jYG4nCLRu6Ap6dw==
   dependencies:
     invariant "^2.0.0"
     lodash "^4.0.0"
     tslib "^2.2.0"
-    uniforms "^3.5.4"
+    uniforms "^3.5.5"
 
-uniforms@3.5.4, uniforms@^3.5.4:
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/uniforms/-/uniforms-3.5.4.tgz#26e65f119b06eed41ad6183057ff8b3f0146ba95"
-  integrity sha512-s3L+uZmPwSj+2Z9xe86Pu43AJxPCzSDeIriYVtacH9+VoR/zqXM6h9SrTf/Gtdp7sPPxxBnAMPmgmLtQNJdEPg==
+uniforms@3.5.5, uniforms@^3.5.5:
+  version "3.5.5"
+  resolved "https://registry.yarnpkg.com/uniforms/-/uniforms-3.5.5.tgz#cb8ac5224b1828ca33431e94ad3ad17265cfb5fc"
+  integrity sha512-X5EQnm2CL5KSbu+ZAUua8sIZbzCMXtmSFQf3hTzBQydzYkhy1mm+19OcdrvJJn//Bf8vbUcaycxefZ9qRL4hKA==
   dependencies:
     invariant "^2.0.0"
     lodash "^4.0.0"

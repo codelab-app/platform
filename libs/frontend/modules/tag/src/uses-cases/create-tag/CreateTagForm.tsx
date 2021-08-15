@@ -1,5 +1,6 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
+  DisplayIfField,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
@@ -13,9 +14,25 @@ import {
 } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { createTagSchema } from './createTagSchema'
+import { CreateTagSchema, createTagSchema } from './CreateTagSchema'
 
-export const CreateTagForm = (props: UniFormUseCaseProps<CreateTagInput>) => {
+export interface CreateTagFormProps
+  extends UniFormUseCaseProps<CreateTagInput> {
+  parentTagId?: string
+}
+
+export const DisplayIfNotRoot = ({
+  children,
+}: React.PropsWithChildren<any>) => (
+  <DisplayIfField<CreateTagSchema> condition={(c) => !c.model.isRoot}>
+    {children}
+  </DisplayIfField>
+)
+
+export const CreateTagForm = ({
+  parentTagId,
+  ...props
+}: CreateTagFormProps) => {
   const {
     crudModal: { reset },
     handleSubmit,
@@ -23,13 +40,20 @@ export const CreateTagForm = (props: UniFormUseCaseProps<CreateTagInput>) => {
     entityType: EntityType.Tag,
     useMutationFunction: useCreateTagMutation,
     mutationOptions: { refetchQueries: [refetchGetTagsQuery()] },
-    mapVariables: (input: CreateTagInput) => ({ input }),
+    mapVariables: (input: CreateTagInput) => {
+      // if (input.isRoot) {
+      //
+      // }
+
+      return { input }
+    },
   })
 
   const { data: tags } = useGetTagsQuery()
 
   return (
     <FormUniforms<CreateTagInput>
+      model={{ parentTagId }}
       onSubmit={handleSubmit}
       schema={createTagSchema}
       onSubmitError={createNotificationHandler({
@@ -39,16 +63,19 @@ export const CreateTagForm = (props: UniFormUseCaseProps<CreateTagInput>) => {
       {...props}
     >
       <AutoFields omitFields={['parentTagId']} />
-      <SelectField
-        name="parentTagId"
-        label="Parent Tag"
-        showSearch={true}
-        optionFilterProp="label"
-        options={tags?.getTags.map((tag) => ({
-          label: tag.name,
-          value: tag.id,
-        }))}
-      />
+      <DisplayIfNotRoot>
+        <SelectField
+          required
+          name="parentTagId"
+          label="Parent Tag"
+          showSearch={true}
+          optionFilterProp="label"
+          options={tags?.getTags.map((tag) => ({
+            label: tag.name,
+            value: tag.id,
+          }))}
+        />
+      </DisplayIfNotRoot>
     </FormUniforms>
   )
 }

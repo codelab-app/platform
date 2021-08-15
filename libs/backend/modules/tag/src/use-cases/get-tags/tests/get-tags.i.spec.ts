@@ -18,7 +18,6 @@ import { TagModule } from '../../../tag.module'
 describe('GetTagsUseCase', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let getTagsInput: GetTagInput
 
   const tagA: CreateTagInput = {
     name: 'Tag A',
@@ -68,8 +67,6 @@ describe('GetTagsUseCase', () => {
         userApp,
         GetTagsGql,
       )
-
-      console.log(getTags)
 
       expect(getTags).toMatchObject([tagA, tagB])
     })

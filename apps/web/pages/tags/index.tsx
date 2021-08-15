@@ -4,8 +4,10 @@ import {
   CreateTagButton,
   CreateTagModal,
   DeleteTagModal,
+  DeleteTagsButton,
   GetTagsTree,
   UpdateTagModal,
+  useTagTree,
 } from '@codelab/frontend/modules/tag'
 import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
@@ -13,7 +15,14 @@ import Head from 'next/head'
 import React from 'react'
 
 const TagPage: NextPageTemplate<'dashboard'> = () => {
-  const pageHeaderButtons = [<CreateTagButton key={0} />]
+  const { checkedTags } = useTagTree()
+
+  console.log(checkedTags)
+
+  const pageHeaderButtons = [
+    <CreateTagButton key={0} />,
+    <DeleteTagsButton key={1} ids={checkedTags} />,
+  ]
 
   return (
     <>

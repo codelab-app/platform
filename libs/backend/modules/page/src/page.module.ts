@@ -3,7 +3,7 @@ import { AppModule } from '@codelab/backend/modules/app'
 import { ElementModule } from '@codelab/backend/modules/element'
 import { Module } from '@nestjs/common'
 import { AppPagesResolver } from './app-pages.resolver'
-import { PageMapper } from './page.mapper'
+import { PageAdapter } from './page.adapter'
 import { PageResolver } from './page.resolver'
 import { PageValidator } from './page.validator'
 import {
@@ -21,7 +21,7 @@ const services = [
   GetPageService,
   UpdatePageService,
   DeletePageService,
-  PageMapper,
+  PageAdapter,
 ]
 
 @Module({
