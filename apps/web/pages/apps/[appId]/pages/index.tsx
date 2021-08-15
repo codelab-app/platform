@@ -1,6 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { NextPageTemplate } from '@codelab/frontend/abstract/props'
-import { MainPanePage } from '@codelab/frontend/modules/page'
+import { PageMainPane } from '@codelab/frontend/modules/page'
 import {
   AppContext,
   withAppQueryProvider,

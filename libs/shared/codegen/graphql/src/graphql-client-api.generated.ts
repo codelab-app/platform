@@ -1224,7 +1224,14 @@ export type UpdateLambdaMutation = {
   }>
 }
 
-export type __TagFragment = { id: string; name: string }
+export type TagEdgeFragment = { source: string; target: string }
+
+export type TagGraphFragment = {
+  vertices: Array<{ id: string; name: string }>
+  edges: Array<{ source: string; target: string }>
+}
+
+export type TagFragment = { id: string; name: string }
 
 export type CreateTagMutationVariables = Exact<{
   input: CreateTagInput
@@ -1232,11 +1239,22 @@ export type CreateTagMutationVariables = Exact<{
 
 export type CreateTagMutation = { createTag: { id: string } }
 
-export type DeleteTagMutationVariables = Exact<{
-  input: DeleteTagInput
+export type DeleteTagsMutationVariables = Exact<{
+  input: DeleteTagsInput
 }>
 
-export type DeleteTagMutation = { deleteTag?: Maybe<void> }
+export type DeleteTagsMutation = { deleteTags?: Maybe<void> }
+
+export type GetTagGraphQueryVariables = Exact<{
+  input: GetTagGraphInput
+}>
+
+export type GetTagGraphQuery = {
+  getTagGraph?: Maybe<{
+    vertices: Array<{ id: string; name: string }>
+    edges: Array<{ source: string; target: string }>
+  }>
+}
 
 export type GetTagQueryVariables = Exact<{
   input: GetTagInput
@@ -1981,11 +1999,29 @@ export const __LambdaPayloadFragmentDoc = gql`
     payload
   }
 `
-export const __TagFragmentDoc = gql`
-  fragment __Tag on Tag {
+export const TagFragmentDoc = gql`
+  fragment Tag on Tag {
     id
     name
   }
+`
+export const TagEdgeFragmentDoc = gql`
+  fragment TagEdge on TagEdge {
+    source
+    target
+  }
+`
+export const TagGraphFragmentDoc = gql`
+  fragment TagGraph on TagGraph {
+    vertices {
+      ...Tag
+    }
+    edges {
+      ...TagEdge
+    }
+  }
+  ${TagFragmentDoc}
+  ${TagEdgeFragmentDoc}
 `
 export const __AppFragmentDoc = gql`
   fragment __App on App {
@@ -2912,60 +2948,120 @@ export type CreateTagMutationOptions = Apollo.BaseMutationOptions<
   CreateTagMutation,
   CreateTagMutationVariables
 >
-export const DeleteTagGql = gql`
-  mutation DeleteTag($input: DeleteTagInput!) {
-    deleteTag(input: $input)
+export const DeleteTagsGql = gql`
+  mutation DeleteTags($input: DeleteTagsInput!) {
+    deleteTags(input: $input)
   }
 `
-export type DeleteTagMutationFn = Apollo.MutationFunction<
-  DeleteTagMutation,
-  DeleteTagMutationVariables
+export type DeleteTagsMutationFn = Apollo.MutationFunction<
+  DeleteTagsMutation,
+  DeleteTagsMutationVariables
 >
 
 /**
- * __useDeleteTagMutation__
+ * __useDeleteTagsMutation__
  *
- * To run a mutation, you first call `useDeleteTagMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteTagMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useDeleteTagsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTagsMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [deleteTagMutation, { data, loading, error }] = useDeleteTagMutation({
+ * const [deleteTagsMutation, { data, loading, error }] = useDeleteTagsMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useDeleteTagMutation(
+export function useDeleteTagsMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    DeleteTagMutation,
-    DeleteTagMutationVariables
+    DeleteTagsMutation,
+    DeleteTagsMutationVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<DeleteTagMutation, DeleteTagMutationVariables>(
-    DeleteTagGql,
+  return Apollo.useMutation<DeleteTagsMutation, DeleteTagsMutationVariables>(
+    DeleteTagsGql,
     options,
   )
 }
-export type DeleteTagMutationHookResult = ReturnType<
-  typeof useDeleteTagMutation
+export type DeleteTagsMutationHookResult = ReturnType<
+  typeof useDeleteTagsMutation
 >
-export type DeleteTagMutationResult = Apollo.MutationResult<DeleteTagMutation>
-export type DeleteTagMutationOptions = Apollo.BaseMutationOptions<
-  DeleteTagMutation,
-  DeleteTagMutationVariables
+export type DeleteTagsMutationResult = Apollo.MutationResult<DeleteTagsMutation>
+export type DeleteTagsMutationOptions = Apollo.BaseMutationOptions<
+  DeleteTagsMutation,
+  DeleteTagsMutationVariables
 >
+export const GetTagGraphGql = gql`
+  query GetTagGraph($input: GetTagGraphInput!) {
+    getTagGraph(input: $input) {
+      ...TagGraph
+    }
+  }
+  ${TagGraphFragmentDoc}
+`
+
+/**
+ * __useGetTagGraphQuery__
+ *
+ * To run a query within a React component, call `useGetTagGraphQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTagGraphQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTagGraphQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetTagGraphQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetTagGraphQuery,
+    GetTagGraphQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetTagGraphQuery, GetTagGraphQueryVariables>(
+    GetTagGraphGql,
+    options,
+  )
+}
+export function useGetTagGraphLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTagGraphQuery,
+    GetTagGraphQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetTagGraphQuery, GetTagGraphQueryVariables>(
+    GetTagGraphGql,
+    options,
+  )
+}
+export type GetTagGraphQueryHookResult = ReturnType<typeof useGetTagGraphQuery>
+export type GetTagGraphLazyQueryHookResult = ReturnType<
+  typeof useGetTagGraphLazyQuery
+>
+export type GetTagGraphQueryResult = Apollo.QueryResult<
+  GetTagGraphQuery,
+  GetTagGraphQueryVariables
+>
+export function refetchGetTagGraphQuery(variables?: GetTagGraphQueryVariables) {
+  return { query: GetTagGraphGql, variables: variables }
+}
 export const GetTagGql = gql`
   query GetTag($input: GetTagInput!) {
     getTag(input: $input) {
-      ...__Tag
+      ...Tag
     }
   }
-  ${__TagFragmentDoc}
+  ${TagFragmentDoc}
 `
 
 /**
@@ -3011,10 +3107,10 @@ export function refetchGetTagQuery(variables?: GetTagQueryVariables) {
 export const GetTagsGql = gql`
   query GetTags {
     getTags {
-      ...__Tag
+      ...Tag
     }
   }
-  ${__TagFragmentDoc}
+  ${TagFragmentDoc}
 `
 
 /**
@@ -4933,11 +5029,29 @@ export const __LambdaPayload = gql`
     payload
   }
 `
-export const __Tag = gql`
-  fragment __Tag on Tag {
+export const Tag = gql`
+  fragment Tag on Tag {
     id
     name
   }
+`
+export const TagEdge = gql`
+  fragment TagEdge on TagEdge {
+    source
+    target
+  }
+`
+export const TagGraph = gql`
+  fragment TagGraph on TagGraph {
+    vertices {
+      ...Tag
+    }
+    edges {
+      ...TagEdge
+    }
+  }
+  ${Tag}
+  ${TagEdge}
 `
 export const __App = gql`
   fragment __App on App {
@@ -5229,26 +5343,34 @@ export const CreateTag = gql`
     }
   }
 `
-export const DeleteTag = gql`
-  mutation DeleteTag($input: DeleteTagInput!) {
-    deleteTag(input: $input)
+export const DeleteTags = gql`
+  mutation DeleteTags($input: DeleteTagsInput!) {
+    deleteTags(input: $input)
   }
+`
+export const GetTagGraph = gql`
+  query GetTagGraph($input: GetTagGraphInput!) {
+    getTagGraph(input: $input) {
+      ...TagGraph
+    }
+  }
+  ${TagGraph}
 `
 export const GetTag = gql`
   query GetTag($input: GetTagInput!) {
     getTag(input: $input) {
-      ...__Tag
+      ...Tag
     }
   }
-  ${__Tag}
+  ${Tag}
 `
 export const GetTags = gql`
   query GetTags {
     getTags {
-      ...__Tag
+      ...Tag
     }
   }
-  ${__Tag}
+  ${Tag}
 `
 export const UpdateTag = gql`
   mutation UpdateTag($input: UpdateTagInput!) {
