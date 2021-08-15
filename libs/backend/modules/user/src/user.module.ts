@@ -1,20 +1,22 @@
 import { Module } from '@nestjs/common'
-import {
-  DeleteUserService,
-  GetUserService,
-  GetUsersService,
+import { UserResolver } from './application/user.resolver'
+import { DeleteUserService } from './use-cases/delete-user'
+import { GetUserService } from './use-cases/get-user'
+import { GetUsersService } from './use-cases/get-users'
+import { UpdateUserService } from './use-cases/update-user'
+
+const services = [
+  /**
+   * Use Cases
+   */
   UpdateUserService,
-} from './use-cases'
-import { UserResolver } from './user.resolver'
+  GetUserService,
+  DeleteUserService,
+  GetUsersService,
+]
 
 @Module({
-  providers: [
-    UpdateUserService,
-    GetUserService,
-    DeleteUserService,
-    GetUsersService,
-    UserResolver,
-  ],
+  providers: [UserResolver, ...services],
   exports: [],
 })
 export class UserModule {}

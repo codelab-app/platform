@@ -1,0 +1,5 @@
+mutation SeedTagTree($input: SeedTagTreeInput!) {
+  seedTagTree(input: $input) {
+    id
+  }
+}

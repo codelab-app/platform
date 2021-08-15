@@ -6,7 +6,7 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
-import { AppValidator } from '../../app.validator'
+import { AppValidator } from '../../domain/app.validator'
 import { UpdateAppRequest } from './update-app.request'
 
 @Injectable()

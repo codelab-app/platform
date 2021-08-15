@@ -340,6 +340,11 @@ type Element {
   props: String!
 }
 
+type Component {
+  id: ID!
+  name: String!
+}
+
 """An edge between two element nodes"""
 type ElementEdge {
   """The id of the source Element/Component"""
@@ -348,11 +353,6 @@ type ElementEdge {
   """The id of the target Element/Component"""
   target: String!
   order: Int
-}
-
-type Component {
-  id: ID!
-  name: String!
 }
 
 type ElementGraph {
@@ -450,10 +450,10 @@ type Query {
   getComponents(input: GetComponentsInput): [Component!]!
   getAtoms: [Atom!]!
   getAtom(input: GetAtomInput!): Atom
-  getField(input: GetFieldInput!): Field
   getType(input: GetTypeInput!): Type
   getTypeGraph(input: GetTypeInput!): TypeGraph
   getTypes(input: GetTypesInput): [Type!]!
+  getField(input: GetFieldInput!): Field
   getLambda(input: GetLambdaInput!): Lambda
   getLambdas: [Lambda!]!
   getTag(input: GetTagInput!): Tag!
@@ -525,20 +525,6 @@ input AtomWhereUniqueInput {
   element: String
 }
 
-input GetFieldInput {
-  byInterface: FieldByInterfaceFilter
-  byId: FieldByIdFilter
-}
-
-input FieldByInterfaceFilter {
-  interfaceId: String!
-  fieldKey: String!
-}
-
-input FieldByIdFilter {
-  fieldId: String!
-}
-
 input GetTypeInput {
   where: WhereUniqueType!
 }
@@ -565,6 +551,20 @@ input TypesByKindFilter {
 
 input TypesByNameFilter {
   name: String!
+}
+
+input GetFieldInput {
+  byInterface: FieldByInterfaceFilter
+  byId: FieldByIdFilter
+}
+
+input FieldByInterfaceFilter {
+  interfaceId: String!
+  fieldKey: String!
+}
+
+input FieldByIdFilter {
+  fieldId: String!
 }
 
 input GetLambdaInput {
@@ -605,14 +605,14 @@ type Mutation {
   createAtom(input: CreateAtomInput!): CreateResponse!
   deleteAtom(input: DeleteAtomInput!): Void
   updateAtom(input: UpdateAtomInput!): Void
-  createField(input: CreateFieldInput!): CreateResponse!
-  updateField(input: UpdateFieldInput!): Void
-  deleteField(input: DeleteFieldInput!): Void
   createType(input: CreateTypeInput!): CreateResponse!
   updateEnumType(input: UpdateEnumTypeInput!): Void
   updatePrimitiveType(input: UpdatePrimitiveTypeInput!): Void
   updateType(input: UpdateTypeInput!): Void
   deleteType(input: DeleteTypeInput!): Void
+  createField(input: CreateFieldInput!): CreateResponse!
+  updateField(input: UpdateFieldInput!): Void
+  deleteField(input: DeleteFieldInput!): Void
   createLambda(input: CreateLambdaInput!): Lambda!
   deleteLambda(input: DeleteLambdaInput!): Void
   updateLambda(input: UpdateLambdaInput!): Lambda
@@ -754,21 +754,6 @@ input UpdateAtomInput {
   data: CreateAtomInput!
 }
 
-input CreateFieldInput {
-  key: String!
-  name: String
-  description: String
-
-  """The interface to add fields to"""
-  interfaceId: String!
-  type: TypeRef!
-}
-
-input TypeRef {
-  existingTypeId: String
-  newType: CreateTypeInput
-}
-
 """Provide one of the properties"""
 input CreateTypeInput {
   name: String!
@@ -800,22 +785,6 @@ input CreateEnumTypeValueInput {
 
 input CreateElementTypeInput {
   kind: ElementTypeKind!
-}
-
-input UpdateFieldInput {
-  fieldId: String!
-  updateData: UpdateFieldData!
-}
-
-input UpdateFieldData {
-  key: String!
-  name: String
-  description: String
-  type: TypeRef!
-}
-
-input DeleteFieldInput {
-  fieldId: String!
 }
 
 input UpdateEnumTypeInput {
@@ -855,6 +824,37 @@ input UpdateTypeData {
 
 input DeleteTypeInput {
   typeId: String!
+}
+
+input CreateFieldInput {
+  key: String!
+  name: String
+  description: String
+
+  """The interface to add fields to"""
+  interfaceId: String!
+  type: TypeRef!
+}
+
+input TypeRef {
+  existingTypeId: String
+  newType: CreateTypeInput
+}
+
+input UpdateFieldInput {
+  fieldId: String!
+  updateData: UpdateFieldData!
+}
+
+input UpdateFieldData {
+  key: String!
+  name: String
+  description: String
+  type: TypeRef!
+}
+
+input DeleteFieldInput {
+  fieldId: String!
 }
 
 input CreateLambdaInput {

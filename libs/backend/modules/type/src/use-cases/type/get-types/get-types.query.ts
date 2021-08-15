@@ -1,5 +1,5 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
-import { typeDefinitionByTypeKind } from '../../../shared'
+import { typeDefinitionByTypeKind } from '../../../domain/type-definition-by-type-kind'
 import { getTypeQuery } from '../get-type'
 import { GetTypesInput, TypesByKindFilter } from './get-types.input'
 

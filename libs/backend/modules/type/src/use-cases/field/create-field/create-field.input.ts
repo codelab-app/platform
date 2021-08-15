@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { CreateTypeInput } from '../../type'
+import { CreateTypeInput } from '../../type/create-type'
 
 @InputType()
 export class TypeRef {

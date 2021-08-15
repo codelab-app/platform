@@ -7,7 +7,7 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { PageValidator } from '../../page.validator'
+import { PageValidator } from '../../domain/page.validator'
 import { GetPageRequest } from './get-page.request'
 
 @Injectable()
