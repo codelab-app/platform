@@ -43,7 +43,7 @@ export class ElementTreeAdapter extends BaseAdapter<
    * Transforms a DgraphElement to an ElementGraph
    * @param root
    */
-  async mapSingle(root: DgraphElement): Promise<ElementGraph> {
+  async mapItem(root: DgraphElement): Promise<ElementGraph> {
     // Keep the atoms in a context, because if there are duplicate atoms anywhere in the tree
     // dgraph will return only the ID of the atom after the first time
     const atomContext = new Map<string, DgraphAtom>()

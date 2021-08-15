@@ -10,7 +10,7 @@ export class ComponentTypeAdapter extends BaseAdapter<
   ComponentTypeAdapterInput,
   ComponentType
 > {
-  mapSingle({ uid: id, name }: ComponentTypeAdapterInput) {
+  mapItem({ uid: id, name }: ComponentTypeAdapterInput) {
     return new ComponentType(id, name)
   }
 }

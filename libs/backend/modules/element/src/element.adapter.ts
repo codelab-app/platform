@@ -17,7 +17,7 @@ export class ElementAdapter extends BaseAdapter<DgraphElementInput, Element> {
     super()
   }
 
-  mapSingle(element: DgraphElementInput) {
+  mapItem(element: DgraphElementInput) {
     return new Element({
       id: element.uid,
       name: element.name,

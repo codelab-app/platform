@@ -11,7 +11,7 @@ export class ElementTypeAdapter extends BaseAdapter<
   ElementTypeAdapterInput,
   ElementType
 > {
-  mapSingle({ uid: id, name, kind }: ElementTypeAdapterInput) {
+  mapItem({ uid: id, name, kind }: ElementTypeAdapterInput) {
     return new ElementType(id, name, kind as ElementTypeKind)
   }
 }

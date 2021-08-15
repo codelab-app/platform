@@ -3,6 +3,7 @@ import { DgraphEntityType, DgraphType } from '@codelab/backend/infra'
 import { TypeKind } from '@codelab/shared/graph'
 import { Injectable } from '@nestjs/common'
 import { typeDefinitionByDgraphType } from '../shared'
+import { ArrayTypeAdapter } from './array-type.adapter'
 import { ComponentTypeAdapter } from './component-type.adapter'
 import { ElementTypeAdapter } from './element-type.adapter'
 import { EnumTypeAdapter } from './enum-type.adapter'
@@ -18,6 +19,7 @@ export class TypeAdapterFactory {
 
   constructor(
     private primitiveTypeAdapter: PrimitiveTypeAdapter,
+    private arrayTypeAdapter: ArrayTypeAdapter,
     private enumTypeAdapter: EnumTypeAdapter,
     private interfaceAdapter: InterfaceTypeAdapter,
     private lambdaTypeAdapter: LambdaTypeAdapter,
@@ -27,6 +29,7 @@ export class TypeAdapterFactory {
     this.mappers = new Map<TypeKind, Adapter>()
 
     this.mappers.set(TypeKind.PrimitiveType, primitiveTypeAdapter)
+    this.mappers.set(TypeKind.ArrayType, arrayTypeAdapter)
     this.mappers.set(TypeKind.EnumType, enumTypeAdapter)
     this.mappers.set(TypeKind.InterfaceType, interfaceAdapter)
     this.mappers.set(TypeKind.LambdaType, lambdaTypeAdapter)

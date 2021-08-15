@@ -1,7 +1,5 @@
 import { CytoscapeModule, TreeModule, Void } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
-import { FieldResolver } from './field.resolver'
-import { FieldValidator } from './field.validator'
 import {
   ComponentTypeAdapter,
   ElementTypeAdapter,
@@ -13,7 +11,10 @@ import {
   PrimitiveTypeAdapter,
   TypeAdapterFactory,
   TypeGraphAdapter,
-} from './mappers'
+} from './adapters'
+import { ArrayTypeAdapter } from './adapters/array-type.adapter'
+import { FieldResolver } from './field.resolver'
+import { FieldValidator } from './field.validator'
 import { TypeResolver } from './type.resolver'
 import { TypeValidator } from './type.validator'
 import {
@@ -32,6 +33,7 @@ import {
 
 const adapters = [
   InterfaceTypeAdapter,
+  ArrayTypeAdapter,
   FieldAdapter,
   ComponentTypeAdapter,
   TypeAdapterFactory,

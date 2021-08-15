@@ -10,7 +10,7 @@ export class EnumTypeAdapter extends BaseAdapter<DgraphEnumType, EnumType> {
     super()
   }
 
-  mapSingle({
+  mapItem({
     name,
     uid: id,
     allowedValues: dgraphAllowedValues,

@@ -5,7 +5,7 @@ import { Component } from './component.model'
 
 @Injectable()
 export class ComponentAdapter extends BaseAdapter<DgraphComponent, Component> {
-  mapSingle(input: DgraphComponent) {
+  mapItem(input: DgraphComponent) {
     return new Component(input.uid, input.name)
   }
 }

@@ -5,7 +5,7 @@ import { Tag } from './models'
 
 @Injectable()
 export class TagAdapter extends BaseAdapter<DgraphTag, Tag> {
-  mapSingle({ name, uid }: DgraphTag): Tag {
+  mapItem({ name, uid }: DgraphTag): Tag {
     return new Tag({ id: uid, name })
   }
 }

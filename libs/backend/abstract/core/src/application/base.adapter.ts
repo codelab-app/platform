@@ -17,17 +17,14 @@ export abstract class BaseAdapter<TIn, TOut> implements GraphqlPort<TIn, TOut> {
 
   private mapMaybeArray(input: MaybeArray<TIn>) {
     if (Array.isArray(input)) {
-      return input.map((item) => this.mapSingle(item)) as AdapterOutput<
-        TIn,
-        TOut
-      >
+      return input.map((item) => this.mapItem(item)) as AdapterOutput<TIn, TOut>
     }
 
-    return this.mapSingle(input) as AdapterOutput<TIn, TOut>
+    return this.mapItem(input) as AdapterOutput<TIn, TOut>
   }
 
   /**
    * Maps a single item, this is the function we implement. The base class will use this to map maybe arrays
    */
-  protected abstract mapSingle(input: TIn): MaybePromise<TOut>
+  protected abstract mapItem(input: TIn): MaybePromise<TOut>
 }

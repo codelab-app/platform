@@ -8,7 +8,7 @@ export class EnumTypeValueAdapter extends BaseAdapter<
   DgraphEnumTypeValue,
   EnumTypeValue
 > {
-  mapSingle({ name, stringValue: value, uid: id }: DgraphEnumTypeValue) {
+  mapItem({ name, stringValue: value, uid: id }: DgraphEnumTypeValue) {
     return new EnumTypeValue(id, name, value)
   }
 }

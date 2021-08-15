@@ -10,7 +10,7 @@ export class LambdaTypeAdapter extends BaseAdapter<
   LambdaTypeAdapterInput,
   LambdaType
 > {
-  mapSingle({ uid: id, name }: LambdaTypeAdapterInput) {
+  mapItem({ uid: id, name }: LambdaTypeAdapterInput) {
     return new LambdaType(id, name)
   }
 }

@@ -6,7 +6,7 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { TypeAdapterFactory, TypeGraphAdapter } from './mappers'
+import { TypeAdapterFactory, TypeGraphAdapter } from './adapters'
 import { Type, TypeGraph } from './models'
 import {
   CreateTypeInput,

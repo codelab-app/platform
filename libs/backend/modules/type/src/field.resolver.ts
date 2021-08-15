@@ -1,7 +1,7 @@
 import { CreateResponse, GqlAuthGuard, Void } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { FieldAdapter } from './mappers'
+import { FieldAdapter } from './adapters'
 import { Field } from './models'
 import {
   CreateFieldInput,

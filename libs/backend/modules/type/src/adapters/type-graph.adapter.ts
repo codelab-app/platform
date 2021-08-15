@@ -24,7 +24,7 @@ export class TypeGraphAdapter extends BaseAdapter<
     super()
   }
 
-  async mapSingle(dgraphInterface: DgraphInterfaceType) {
+  async mapItem(dgraphInterface: DgraphInterfaceType) {
     if (!isDgraphInterfaceType(dgraphInterface)) {
       throw new Error('Only Interface types can be converted to a graph')
     }

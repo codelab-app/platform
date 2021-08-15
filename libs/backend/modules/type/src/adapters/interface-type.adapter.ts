@@ -10,7 +10,7 @@ export class InterfaceTypeAdapter extends BaseAdapter<
   InterfaceTypeAdapterInput,
   InterfaceType
 > {
-  mapSingle({ uid: id, name }: InterfaceTypeAdapterInput) {
+  mapItem({ uid: id, name }: InterfaceTypeAdapterInput) {
     return new InterfaceType(id, name)
   }
 }

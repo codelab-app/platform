@@ -11,7 +11,7 @@ export class AtomAdapter extends BaseAdapter<DgraphAtom, Atom> {
     super()
   }
 
-  mapSingle({ name, api, atomType, uid }: DgraphAtom) {
+  mapItem({ name, api, atomType, uid }: DgraphAtom) {
     return new Atom({
       id: uid,
       type: atomType as AtomType,
