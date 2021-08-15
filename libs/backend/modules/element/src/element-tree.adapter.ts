@@ -8,9 +8,17 @@ import {
   isDgraphComponent,
   isDgraphElement,
 } from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
-import cytoscape from 'cytoscape'
-import { ComponentAdapter } from './component'
+import { TypeGraphAdapter } from '@codelab/backend/modules/type'
+import {
+  IFieldVertex,
+  TypeGraphTreeAdapter,
+  TypeKind,
+} from '@codelab/shared/graph'
+import { Injectable, Logger } from '@nestjs/common'
+import cytoscape, { Core } from 'cytoscape'
+import * as _ from 'lodash'
+import { ComponentAdapter } from './component/component.adapter'
+import { GetComponentsService } from './component/use-cases/get-components/get-components.service'
 import { ElementAdapter } from './element.adapter'
 import { ElementEdge, ElementGraph, ElementVertex } from './models'
 
@@ -22,9 +30,11 @@ export class ElementTreeAdapter extends BaseAdapter<
   ElementGraph
 > {
   constructor(
-    private elementAdapter: ElementAdapter,
+    private elementMapper: ElementAdapter,
     private componentAdapter: ComponentAdapter,
     private cytoscapeService: CytoscapeService,
+    private typeGraphAdapter: TypeGraphAdapter,
+    private getComponentsService: GetComponentsService,
   ) {
     super()
   }
@@ -45,9 +55,17 @@ export class ElementTreeAdapter extends BaseAdapter<
     await breadthFirstTraversal<DgraphElement | DgraphComponent>({
       root,
       extractId: (el) => el.uid,
-      visit: (node, parentNode) => {
-        if (isDgraphElement(node)) {
-          const element = node as DgraphElement
+      visit: async (node, parentNode) => {
+        return this.visit(
+          node,
+          parentNode,
+          atomContext,
+          componentContext,
+          cy,
+          extraComponentsRef,
+        )
+      },
+    })
 
     let n = 0
 
@@ -117,9 +135,9 @@ export class ElementTreeAdapter extends BaseAdapter<
     node: any,
     atomContext: Map<string, DgraphAtom>,
     componentContext: Map<string, DgraphComponent>,
-  ): Promise<ElementVertex> {
+  ): ElementVertex {
     if (isDgraphComponent(node.data)) {
-      return this.componentMapper.map(node.data)
+      return this.componentAdapter.map(node.data)
     }
 
     const element = node.data as DgraphElement
@@ -235,14 +253,43 @@ export class ElementTreeAdapter extends BaseAdapter<
       return []
     }
 
-    const { edges, vertices } = this.cytoscapeService.treeToGraph<
-      ElementVertex,
-      ElementEdge
-    >(
-      cy,
-      (node) => {
-        if (isDgraphComponent(node.data)) {
-          return this.componentAdapter.map(node.data)
+    let props: Record<string, any>
+
+    try {
+      props = JSON.parse(node.props)
+    } catch (e) {
+      Logger.error(`Error while parsing props ${node.props}.`, e)
+
+      return []
+    }
+
+    const typeGraph = await this.typeGraphAdapter.map(node.atom.api)
+    const tree = new TypeGraphTreeAdapter(typeGraph)
+    const allComponentFields = tree.getFieldsByTypeKind(TypeKind.ComponentType)
+
+    if (allComponentFields.length) {
+      const componentKeys = this.getKeysWithComponentType(tree)
+
+      if (componentKeys.length > 0) {
+        return this.getAllValuesByKeys(componentKeys, props)
+      }
+    }
+
+    return []
+  }
+
+  private getAllValuesByKeys(
+    keys: Array<string>,
+    props: Record<string, any>,
+  ): Array<string> {
+    return keys
+      .map((key) => {
+        try {
+          return _.get(props, key)
+        } catch (e) {
+          Logger.error('Error while parsing prop value. ', e)
+
+          return null
         }
       })
       .filter(
@@ -262,11 +309,15 @@ export class ElementTreeAdapter extends BaseAdapter<
         return
       }
 
-        return this.elementAdapter.map({ ...element, atom, component })
-      },
-      (edgeData) =>
-        new ElementEdge(edgeData.source, edgeData.target, edgeData.order),
-    )
+      if (kind === TypeKind.ComponentType) {
+        keysToCheck.push(path)
+      } else if (kind === TypeKind.InterfaceType) {
+        const innerFields = tree.getFields(type.id)
+        innerFields.forEach((innerField) =>
+          visitField(innerField, `${path}.${innerField.key}`),
+        )
+      }
+    }
 
     rootFields.forEach((field) => visitField(field, field.key))
 

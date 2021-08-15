@@ -1,3 +1,4 @@
+import { BaseAdapter } from '@codelab/backend/abstract/core'
 import {
   breadthFirstTraversal,
   DgraphInterfaceType,
@@ -6,20 +7,24 @@ import {
   isDgraphInterfaceType,
 } from '@codelab/backend/infra'
 import { TypeEdgeKind } from '@codelab/shared/graph'
-import { Mapper } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { TypeEdge, TypeGraph, TypeUnion } from '../models'
-import { FieldMapper } from './field.mapper'
-import { TypeMapperFactory } from './type-mapper.factory'
+import { FieldAdapter } from './field.adapter'
+import { TypeAdapterFactory } from './type-adapter.factory'
 
 @Injectable()
-export class TypeGraphMapper implements Mapper<DgraphInterfaceType, TypeGraph> {
+export class TypeGraphAdapter extends BaseAdapter<
+  DgraphInterfaceType,
+  TypeGraph
+> {
   constructor(
-    private mapperFactory: TypeMapperFactory,
-    private fieldMapper: FieldMapper,
-  ) {}
+    private mapperFactory: TypeAdapterFactory,
+    private fieldAdapter: FieldAdapter,
+  ) {
+    super()
+  }
 
-  async map(dgraphInterface: DgraphInterfaceType) {
+  async mapSingle(dgraphInterface: DgraphInterfaceType) {
     if (!isDgraphInterfaceType(dgraphInterface)) {
       throw new Error('Only Interface types can be converted to a graph')
     }
@@ -42,7 +47,7 @@ export class TypeGraphMapper implements Mapper<DgraphInterfaceType, TypeGraph> {
 
             vertices.set(field.type.uid, await mapper.map(field.type))
 
-            const fieldModel = await this.fieldMapper.map(field)
+            const fieldModel = await this.fieldAdapter.map(field)
 
             edges.set(
               field.uid,

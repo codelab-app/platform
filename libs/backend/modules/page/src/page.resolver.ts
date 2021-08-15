@@ -45,7 +45,7 @@ export class PageResolver {
     private deletePageService: DeletePageService,
     private pageAdapter: PageAdapter,
     private getElementService: GetElementGraphService,
-    private elementTransformer: ElementTreeAdapter,
+    private elementTreeAdapter: ElementTreeAdapter,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -124,7 +124,7 @@ export class PageResolver {
       return null
     }
 
-    return this.elementTransformer.map(element)
+    return this.elementTreeAdapter.map(element)
   }
 
   // The Page.app resolver is in app-api/../PageAppResolver

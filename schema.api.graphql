@@ -326,11 +326,6 @@ enum AtomType {
   HtmlSup
 }
 
-type Component {
-  id: ID!
-  name: String!
-}
-
 type Element {
   id: ID!
 
@@ -353,6 +348,11 @@ type ElementEdge {
   """The id of the target Element/Component"""
   target: String!
   order: Int
+}
+
+type Component {
+  id: ID!
+  name: String!
 }
 
 type ElementGraph {

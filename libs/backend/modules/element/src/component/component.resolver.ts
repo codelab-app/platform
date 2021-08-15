@@ -98,9 +98,7 @@ export class ComponentResolver {
   async getComponents(
     @Args('input', { nullable: true }) input?: GetComponentsInput,
   ) {
-    const dgraphComponents = await this.getComponentsService.execute(
-      input ?? {},
-    )
+    const components = await this.getComponentsService.execute(input ?? {})
 
     return this.componentAdapter.map(components)
   }
