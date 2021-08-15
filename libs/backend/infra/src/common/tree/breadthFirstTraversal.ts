@@ -1,4 +1,4 @@
-import { MaybePromise } from '@codelab/shared/utils'
+import { MaybePromise } from '@codelab/shared-utils'
 
 export interface BfsOptions<TNode> {
   /**

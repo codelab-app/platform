@@ -1,4 +1,4 @@
 {
-  "name": "@codelab/shared/utils",
-  "version": "link: ./libs/shared/utils"
+  "name": "@codelab/shared-utils",
+  "version": "0.0.1"
 }

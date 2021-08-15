@@ -1,6 +1,6 @@
 import { DgraphAtom } from '@codelab/backend/infra'
 import { InterfaceTypeMapper } from '@codelab/backend/modules/type'
-import { Mapper } from '@codelab/shared/utils'
+import { Mapper } from '@codelab/shared-utils'
 import { Injectable } from '@nestjs/common'
 import { Atom } from './atom.model'
 import { AtomType } from './atom-type.model'

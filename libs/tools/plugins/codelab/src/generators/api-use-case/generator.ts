@@ -1,4 +1,4 @@
-import { toCamelCase, toKebabCase, toPascalCase } from '@codelab/shared/utils'
+import { toCamelCase, toKebabCase, toPascalCase } from '@codelab/shared-utils'
 import {
   formatFiles,
   generateFiles,

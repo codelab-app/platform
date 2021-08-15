@@ -1,4 +1,4 @@
-import { arrayEquals } from '@codelab/shared/utils'
+import { arrayEquals } from '@codelab/shared-utils'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphEntity } from './core'
 import { WithOwner } from './dgraph-user'

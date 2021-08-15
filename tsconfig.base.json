@@ -133,7 +133,7 @@
       ],
       "@codelab/shared/graph": ["libs/shared/graph/src/index.ts"],
       "@codelab/shared/operations": ["libs/shared/operations/src/index.ts"],
-      "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@codelab/shared-utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
       ],
