@@ -1,9 +1,15 @@
 {
   "name": "@codelab/schematics",
+  "private": true,
   "version": "0.0.1",
   "main": "src/index.js",
   "generators": "./generators.json",
   "executors": "./executors.json",
+  "workspaces": {
+    "packages": [
+      "dist/libs/shared/*"
+    ]
+  },
   "nx-migrations": {
     "migrations": "./migrations.json"
   }

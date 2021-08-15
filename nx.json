@@ -25,9 +25,6 @@
       }
     }
   },
-  // Tags:
-  // level: abstract, concrete
-  // end: front, back
   "projects": {
     "api": {
       "tags": []
