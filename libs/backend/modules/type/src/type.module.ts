@@ -3,20 +3,19 @@ import { Module } from '@nestjs/common'
 import { FieldResolver } from './field.resolver'
 import { FieldValidator } from './field.validator'
 import {
-  ArrayTypeMapper,
-  ComponentTypeMapper,
-  ElementTypeMapper,
-  EnumTypeMapper,
-  EnumTypeValueMapper,
-  FieldMapper,
-  InterfaceTypeMapper,
-  LambdaTypeMapper,
-  PrimitiveTypeMapper,
-  TypeGraphMapper,
-  TypeMapperFactory,
+  ArrayTypeAdapter,
+  ElementTypeAdapter,
+  EnumTypeAdapter,
+  EnumTypeValueAdapter,
+  FieldAdapter,
+  InterfaceTypeAdapter,
+  LambdaTypeAdapter,
+  PrimitiveTypeAdapter,
+  TypeAdapterFactory,
 } from './mappers'
 import { TypeResolver } from './type.resolver'
 import { TypeValidator } from './type.validator'
+import { TypeTreeAdapter } from './type-tree.adapter'
 import {
   CreateFieldService,
   CreateTypeService,
@@ -32,17 +31,15 @@ import {
 } from './use-cases'
 
 const mappers = [
-  InterfaceTypeMapper,
-  FieldMapper,
-  TypeMapperFactory,
-  PrimitiveTypeMapper,
-  EnumTypeMapper,
-  EnumTypeValueMapper,
-  ArrayTypeMapper,
-  LambdaTypeMapper,
-  ElementTypeMapper,
-  ComponentTypeMapper,
-  TypeGraphMapper,
+  InterfaceTypeAdapter,
+  FieldAdapter,
+  TypeAdapterFactory,
+  PrimitiveTypeAdapter,
+  EnumTypeAdapter,
+  EnumTypeValueAdapter,
+  ArrayTypeAdapter,
+  LambdaTypeAdapter,
+  ElementTypeAdapter,
 ]
 
 const services = [
@@ -64,6 +61,7 @@ const services = [
   UpdatePrimitiveTypeService,
   UpdateTypeService,
   TypeValidator,
+  TypeTreeAdapter,
 ]
 
 @Module({

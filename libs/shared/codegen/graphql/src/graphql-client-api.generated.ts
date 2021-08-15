@@ -323,6 +323,8 @@ export type CreateResponse = {
 export type CreateTagInput = {
   name: Scalars['String']
   parentTagId?: Maybe<Scalars['String']>
+  /** We can create multiple tag trees, the root tells us whether this is a separate tree */
+  isRoot?: Maybe<Scalars['Boolean']>
 }
 
 /** Provide one of the properties */
@@ -365,8 +367,8 @@ export type DeletePageInput = {
   pageId: Scalars['String']
 }
 
-export type DeleteTagInput = {
-  id: Scalars['String']
+export type DeleteTagsInput = {
+  ids: Array<Scalars['String']>
 }
 
 export type DeleteTypeInput = {
@@ -495,6 +497,10 @@ export type GetPagesInput = {
   byApp: PageByAppFilter
 }
 
+export type GetTagGraphInput = {
+  where: TagWhereUniqueInput
+}
+
 export type GetTagInput = {
   id: Scalars['String']
 }
@@ -586,7 +592,7 @@ export type Mutation = {
   executeLambda?: Maybe<LambdaPayload>
   createTag: CreateResponse
   updateTag?: Maybe<Scalars['Void']>
-  deleteTag?: Maybe<Scalars['Void']>
+  deleteTags?: Maybe<Scalars['Void']>
 }
 
 export type MutationCreateAppArgs = {
@@ -721,8 +727,8 @@ export type MutationUpdateTagArgs = {
   input: UpdateTagInput
 }
 
-export type MutationDeleteTagArgs = {
-  input: DeleteTagInput
+export type MutationDeleteTagsArgs = {
+  input: DeleteTagsInput
 }
 
 export type Page = {
@@ -772,6 +778,7 @@ export type Query = {
   getLambda?: Maybe<Lambda>
   getLambdas: Array<Lambda>
   getTag: Tag
+  /** Get all Tag graphs */
   getTags: Array<Tag>
   /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
   getTagGraph?: Maybe<TagGraph>
@@ -842,12 +849,13 @@ export type QueryGetTagArgs = {
 }
 
 export type QueryGetTagGraphArgs = {
-  input: GetTagInput
+  input: GetTagGraphInput
 }
 
 export type Tag = {
   id: Scalars['String']
   name: Scalars['String']
+  isRoot: Scalars['Boolean']
 }
 
 /** An edge between two element nodes */
@@ -867,6 +875,10 @@ export type TagGraph = {
 }
 
 export type TagVertex = Tag
+
+export type TagWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>
+}
 
 export type Type = {
   id: Scalars['ID']
@@ -2034,7 +2046,6 @@ export const ElementEdgeFragmentDoc = gql`
 export const ElementGraphFragmentDoc = gql`
   fragment ElementGraph on ElementGraph {
     vertices {
-      __typename
       ...Component
       ...Element
     }
@@ -4987,7 +4998,6 @@ export const ElementEdge = gql`
 export const ElementGraph = gql`
   fragment ElementGraph on ElementGraph {
     vertices {
-      __typename
       ...Component
       ...Element
     }

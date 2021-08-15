@@ -6,8 +6,9 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { TypeGraphMapper, TypeMapperFactory } from './mappers'
+import { TypeAdapterFactory } from './mappers'
 import { Type, TypeGraph } from './models'
+import { TypeTreeAdapter } from './type-tree.adapter'
 import {
   CreateTypeInput,
   CreateTypeService,
@@ -36,8 +37,8 @@ export class TypeResolver {
     private updateTypeService: UpdateTypeService,
     private createTypeService: CreateTypeService,
     private deleteTypeService: DeleteTypeService,
-    private typeMapperFactory: TypeMapperFactory,
-    private typeGraphMapper: TypeGraphMapper,
+    private typeMapperFactory: TypeAdapterFactory,
+    private typeTransformer: TypeTreeAdapter,
   ) {}
 
   @UseGuards(GqlAuthGuard)
@@ -66,7 +67,7 @@ export class TypeResolver {
     }
 
     if (isDgraphInterfaceType(type)) {
-      return this.typeGraphMapper.map(type)
+      return this.typeTransformer.map(type)
     }
 
     throw new Error('Type graph can only be retrieved for an Interface Type')

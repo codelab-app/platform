@@ -6,10 +6,13 @@ import { UpdateTagRequest } from './update-tag.request'
 @Injectable()
 export class UpdateTagService extends DgraphUseCase<UpdateTagRequest> {
   protected async executeTransaction(request: UpdateTagRequest, txn: Txn) {
-    await this.dgraph.executeMutation(txn, this.createMutation(request))
+    await this.dgraph.executeMutation(
+      txn,
+      UpdateTagService.createMutation(request),
+    )
   }
 
-  private createMutation(request: UpdateTagRequest): Mutation {
+  private static createMutation(request: UpdateTagRequest): Mutation {
     const {
       input: {
         id,

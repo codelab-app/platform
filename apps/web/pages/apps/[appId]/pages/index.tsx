@@ -22,7 +22,7 @@ const Pages: NextPageTemplate<'dashboard'> = () => {
 }
 
 Pages.Template = withAppQueryProvider(DashboardLayout)
-Pages.MainPane = MainPanePage
+Pages.MainPane = PageMainPane
 
 export const getServerSideProps = withPageAuthRequired()
 

@@ -1,17 +1,15 @@
 import {
   CreateResponse,
   CurrentUser,
-  DgraphPage,
   GqlAuthGuard,
   JwtPayload,
   Void,
 } from '@codelab/backend/infra'
 import {
   ElementGraph,
-  ElementTreeTransformer,
+  ElementTreeAdapter,
   GetElementGraphService,
 } from '@codelab/backend/modules/element'
-import { ArrayMapper } from '@codelab/shared/utils'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -21,7 +19,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { PageMapper } from './page.mapper'
+import { PageAdapter } from './page.adapter'
 import { Page } from './page.model'
 import {
   CreatePageInput,
@@ -39,20 +37,16 @@ import {
 @Resolver(() => Page)
 @Injectable()
 export class PageResolver {
-  private readonly pagesMapper: ArrayMapper<DgraphPage, Page>
-
   constructor(
     private createPageService: CreatePageService,
     private getPagesService: GetPagesService,
     private updatePageService: UpdatePageService,
     private getPageService: GetPageService,
     private deletePageService: DeletePageService,
-    private pageMapper: PageMapper,
+    private pageAdapter: PageAdapter,
     private getElementService: GetElementGraphService,
-    private elementTransformer: ElementTreeTransformer,
-  ) {
-    this.pagesMapper = new ArrayMapper(pageMapper)
-  }
+    private elementTransformer: ElementTreeAdapter,
+  ) {}
 
   @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
@@ -71,7 +65,7 @@ export class PageResolver {
   ) {
     const pages = await this.getPagesService.execute({ input, currentUser })
 
-    return this.pagesMapper.map(pages)
+    return this.pageAdapter.map(pages)
   }
 
   @Query(() => Page, { nullable: true })
@@ -86,7 +80,7 @@ export class PageResolver {
       return null
     }
 
-    return this.pageMapper.map(page)
+    return this.pageAdapter.map(page)
   }
 
   @Mutation(() => Void, { nullable: true })
@@ -130,7 +124,7 @@ export class PageResolver {
       return null
     }
 
-    return this.elementTransformer.transform(element)
+    return this.elementTransformer.map(element)
   }
 
   // The Page.app resolver is in app-api/../PageAppResolver

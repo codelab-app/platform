@@ -1,2 +1,2 @@
-export * from './MainPanePage'
-export * from './MainPanePageDetail'
+export * from './PageDetailMainPane'
+export * from './PageMainPane'

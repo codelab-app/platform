@@ -1,3 +1,5 @@
+import { MaybePromise } from '@codelab/shared/utils'
+
 export interface BfsOptions<TNode> {
   /**
    * Will be called for every node in breadth-first order
@@ -6,11 +8,7 @@ export interface BfsOptions<TNode> {
   visit: (
     node: TNode,
     parentNode?: TNode,
-  ) =>
-    | Array<TNode>
-    | undefined
-    | void
-    | Promise<Array<TNode> | undefined | void>
+  ) => MaybePromise<Array<TNode> | undefined | void>
 
   /** The root node(s), traversal will start from it */
   root: TNode | Array<TNode>

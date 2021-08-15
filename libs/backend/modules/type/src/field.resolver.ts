@@ -1,7 +1,7 @@
 import { CreateResponse, GqlAuthGuard, Void } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { FieldMapper } from './mappers'
+import { FieldAdapter } from './mappers'
 import { Field } from './models'
 import {
   CreateFieldInput,
@@ -22,7 +22,7 @@ export class FieldResolver {
     private getFieldService: GetFieldService,
     private updateFieldService: UpdateFieldService,
     private deleteFieldService: DeleteFieldService,
-    private fieldMapper: FieldMapper,
+    private fieldMapper: FieldAdapter,
   ) {}
 
   @Mutation(() => CreateResponse)

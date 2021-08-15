@@ -8,10 +8,11 @@ export class CreateTagInput {
   @Field({ nullable: true })
   declare parentTagId?: string
 
-  // @Field(() => Int, {
-  //   nullable: true,
-  //   description:
-  //     'Leave it out to automatically set it as the last order of all the children',
-  // })
-  // declare order?: number | null
+  @Field({
+    nullable: true,
+    defaultValue: false,
+    description:
+      'We can create multiple tag trees, the root tells us whether this is a separate tree',
+  })
+  declare isRoot?: boolean
 }

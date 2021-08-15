@@ -1,0 +1,35 @@
+overwrite: true
+hooks:
+  afterAllFileWrite:
+    - yarn prettier --write
+    - yarn eslint --ext ts --fix
+
+generates:
+  libs/shared/codegen/graphql/src/graphql-client-api.generated.ts:
+    schema: schema.api.graphql
+    documents:
+      - libs/**/modules/**/*.api.graphql
+      - apps/web/**/*.api.graphql
+      - apps/web-e2e/**/*.api.graphql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+      - typescript-document-nodes
+    config:
+      documentVariableSuffix: Gql
+      gqlImport: '@apollo/client#gql'
+      skipTypename: true
+      strictScalars: true
+      defaultScalarType: unknown
+      withRefetchFn: true
+      # defaultBaseOptions:
+      #   operationName: 'dgraph'
+      scalars:
+        uuid: string
+        json: Record<string, any>
+        jsonb: Record<string, any>
+        DateTime: string
+        Int64: number
+        _Any: any
+        Void: void

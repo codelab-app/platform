@@ -7,12 +7,12 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { TagGraph } from './models'
-import { Tag } from './models/tag.model'
-import { TagMapper } from './tag.mapper'
+import { Tag, TagGraph } from './models'
+import { TagAdapter } from './tag.adapter'
 import { CreateTagInput, CreateTagService } from './use-cases/create-tag'
-import { DeleteTagInput, DeleteTagService } from './use-cases/delete-tag'
-import { GetTagInput, GetTagTreeService } from './use-cases/get-tag-tree'
+import { DeleteTagsInput, DeleteTagsService } from './use-cases/delete-tags'
+import { GetTagInput, GetTagService } from './use-cases/get-tag'
+import { GetTagGraphInput, GetTagGraphService } from './use-cases/get-tag-graph'
 import { GetTagsService } from './use-cases/get-tags'
 import { UpdateTagInput, UpdateTagService } from './use-cases/update-tag'
 
@@ -20,21 +20,22 @@ import { UpdateTagInput, UpdateTagService } from './use-cases/update-tag'
 @Injectable()
 export class TagResolver {
   constructor(
-    private readonly tagMapper: TagMapper,
+    private readonly tagAdapter: TagAdapter,
+    private readonly getTagService: GetTagService,
     private readonly createTagService: CreateTagService,
-    private readonly deleteTagService: DeleteTagService,
+    private readonly deleteTagsService: DeleteTagsService,
     private readonly updateTagService: UpdateTagService,
-    private readonly getTagService: GetTagTreeService,
+    private readonly getTagGraphService: GetTagGraphService,
     private readonly getTagsService: GetTagsService,
   ) {}
 
   @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
-  createTag(
+  async createTag(
     @Args('input') input: CreateTagInput,
     @CurrentUser() owner: JwtPayload,
   ) {
-    return this.createTagService.execute({ input, owner })
+    return await this.createTagService.execute({ input, owner })
   }
 
   @Query(() => Tag)
@@ -43,17 +44,19 @@ export class TagResolver {
     @CurrentUser() user: JwtPayload,
     @Args('input') input: GetTagInput,
   ) {
-    const tag = await this.getTagService.execute({ owner: user, input })
+    const tag = await this.getTagService.execute(input)
 
-    return this.tagMapper.map(tag)
+    return this.tagAdapter.map(tag)
   }
 
-  @Query(() => [Tag])
+  @Query(() => [Tag], {
+    description: 'Get all Tag graphs',
+  })
   @UseGuards(GqlAuthGuard)
   async getTags(@CurrentUser() user: JwtPayload) {
     const tags = await this.getTagsService.execute({ owner: user })
 
-    return tags.map((tag) => this.tagMapper.map(tag))
+    return this.tagAdapter.map(tags)
   }
 
   @Mutation(() => Void, { nullable: true })
@@ -64,8 +67,8 @@ export class TagResolver {
 
   @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  deleteTag(@Args('input') input: DeleteTagInput) {
-    return this.deleteTagService.execute({ input })
+  deleteTags(@Args('input') input: DeleteTagsInput) {
+    return this.deleteTagsService.execute({ input })
   }
 
   @Query(() => TagGraph, {
@@ -74,7 +77,7 @@ export class TagResolver {
       'Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge',
   })
   @UseGuards(GqlAuthGuard)
-  async getTagGraph(@Args('input') input: GetTagInput) {
+  async getTagGraph(@Args('input') input: GetTagGraphInput) {
     //
   }
 }

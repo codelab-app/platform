@@ -1,2 +1,2 @@
+export * from './BuilderMainPane'
 export * from './ElementContextMenu'
-export * from './MainPaneBuilder'

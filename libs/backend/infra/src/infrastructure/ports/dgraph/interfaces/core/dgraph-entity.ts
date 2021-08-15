@@ -1,10 +1,11 @@
 import { DgraphEntityType } from '../../dgraph-entity-type'
 
-export interface DgraphEntity<
+export abstract class DgraphEntity<
   TType extends Array<DgraphEntityType> | DgraphEntityType =
     | Array<DgraphEntityType>
     | DgraphEntityType,
 > {
-  uid: string
-  'dgraph.type': TType extends Array<DgraphEntityType> ? TType : [TType]
+  declare uid: string
+
+  declare 'dgraph.type': TType extends Array<DgraphEntityType> ? TType : [TType]
 }

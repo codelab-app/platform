@@ -8,8 +8,12 @@ export class Tag {
   @Field()
   name: string
 
-  constructor({ id, name }: Tag) {
+  @Field({ defaultValue: false })
+  isRoot?: boolean
+
+  constructor({ id, name, isRoot = false }: Tag) {
     this.id = id
     this.name = name
+    this.isRoot = isRoot
   }
 }
