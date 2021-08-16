@@ -81,8 +81,11 @@ export class SeederService {
     /**
      * (3) Seed all Atoms API's that we have data for
      */
-    await iterateCsvs(this.antdDataFolder, this.handleCsv)
-    await iterateCsvs(this.customComponentsDataFolder, this.handleCsv)
+    await iterateCsvs(this.antdDataFolder, this.handleCsv.bind(this))
+    await iterateCsvs(
+      this.customComponentsDataFolder,
+      this.handleCsv.bind(this),
+    )
 
     /**
      * (4) Seed all the custom atom API's
@@ -101,7 +104,7 @@ export class SeederService {
     )
   }
 
-  private seedAtoms() {
+  private async seedAtoms() {
     return Promise.all(
       Object.values(AtomType).map((atomType) =>
         this.atomSeeder
@@ -114,7 +117,7 @@ export class SeederService {
     )
   }
 
-  private get atomIdByAtomType() {
+  private atomIdByAtomType() {
     return new Map(this.atoms.map(({ id, atomType }) => [atomType, id]))
   }
 
@@ -125,12 +128,12 @@ export class SeederService {
       return
     }
 
-    const atomId = this.atomIdByAtomType.get(atomType as any)
+    const atomId = this.atomIdByAtomType().get(atomType)
 
     if (!atomId) {
       return
     }
 
-    return this.typeSeeder.seedAtomApi(atomId, data)
+    return await this.typeSeeder.seedAtomApi(atomId, data)
   }
 }

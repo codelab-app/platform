@@ -38,7 +38,7 @@ export class DgraphCliService {
   })
   public async resetData() {
     try {
-      await this.dgraphService.resetDb()
+      await this.dgraphService.resetData()
 
       shell.echo('Reset Data process completed!')
       shell.exit(0)

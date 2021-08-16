@@ -1,19 +1,9 @@
 import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import cytoscape, {
-  Core,
-  EdgeDataDefinition,
-  NodeDataDefinition,
-} from 'cytoscape'
+import { Core, EdgeDataDefinition, NodeDataDefinition } from 'cytoscape'
 
 @Injectable()
 export class CytoscapeService {
-  cy: Core
-
-  constructor() {
-    this.cy = cytoscape()
-  }
-
   /**
    * We're using elements in the cytoscape sense, not our domain sense.
    */
@@ -36,12 +26,13 @@ export class CytoscapeService {
   // }
 
   treeToGraph<TVertex extends Vertex, TEdge extends Edge>(
+    cy: Core,
     vertexMapper: (nodeData: any) => TVertex,
     edgeMapper: (edgeData: any) => TEdge,
   ): Graph<TVertex, TEdge> {
     return {
-      vertices: this.cy.nodes().map((node) => vertexMapper(node.data())),
-      edges: this.cy.edges().map((edge) => edgeMapper(edge.data())),
+      vertices: cy.nodes().map((node) => vertexMapper(node.data())),
+      edges: cy.edges().map((edge) => edgeMapper(edge.data())),
     }
   }
 }

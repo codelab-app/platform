@@ -6,7 +6,7 @@ import {
   isDgraphTag,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
-import { Core } from 'cytoscape'
+import cytoscape, { Core } from 'cytoscape'
 import { Tag } from '../domain/tag.model'
 import { TagEdge } from '../domain/tag-edge.model'
 import { TagGraph } from '../domain/tag-graph.model'
@@ -14,19 +14,18 @@ import { TagVertex } from '../domain/tag-vertex.model'
 
 @Injectable()
 export class DgraphTagAdapter extends BaseAdapter<DgraphTag, TagGraph> {
-  private readonly cy: Core
-
   constructor(private cytoscapeService: CytoscapeService) {
     super()
-    this.cy = cytoscapeService.cy
   }
 
   async mapItem(root: DgraphTag) {
+    const cy = cytoscape({ headless: true })
+
     await breadthFirstTraversal<DgraphTag>({
       root,
       extractId: (el) => el.uid,
       visit: (node, parentNode) => {
-        return this.visit(node, parentNode)
+        return this.visit(cy, node, parentNode)
       },
     })
 
@@ -34,6 +33,7 @@ export class DgraphTagAdapter extends BaseAdapter<DgraphTag, TagGraph> {
       TagVertex,
       TagEdge
     >(
+      cy,
       (vertex) => {
         return new Tag(vertex)
       },
@@ -45,14 +45,14 @@ export class DgraphTagAdapter extends BaseAdapter<DgraphTag, TagGraph> {
     return new TagGraph(vertices, edges)
   }
 
-  private visit(node: DgraphTag, parentNode?: DgraphTag) {
+  private visit(cy: Core, node: DgraphTag, parentNode?: DgraphTag) {
     // if (isDgraphTagTree(node)) {
     //   //
     // }
 
     if (isDgraphTag(node)) {
       // Add Vertex
-      this.cy.add({
+      cy.add({
         data: {
           id: node.uid,
           name: node.name,
@@ -61,7 +61,7 @@ export class DgraphTagAdapter extends BaseAdapter<DgraphTag, TagGraph> {
       })
 
       if (parentNode) {
-        this.cy.add({
+        cy.add({
           data: {
             source: parentNode.uid,
             target: node.uid,
