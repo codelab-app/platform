@@ -20,6 +20,10 @@ describe.skip('SeedTagTreeUseCase', () => {
     await teardownTestModule(userApp)
   })
 
+  it('should be truthy', () => {
+    expect(true).toBeTruthy()
+  })
+
   // describe('Guest', () => {
   //   it('should fail to create a Tag', async () => {
   //     await domainRequest(guestApp, SeedTagTreeGql, createAppInput, {
@@ -27,7 +31,7 @@ describe.skip('SeedTagTreeUseCase', () => {
   //     })
   //   })
   // })
-  //
+
   // describe('User', () => {
   //   it('should create an App', async () => {
   //     const {
