@@ -22,7 +22,7 @@ export type RenderHandler<TNode extends RenderNode = RenderNode> = (
       __node: TNode
     } & Record<string, any>
   >,
-) => ReactElement | null
+) => any
 
 //
 // Helpers:
@@ -72,7 +72,7 @@ const RenderElement: RenderHandler = ({ __node: element, ...props }) => {
     })
 
     if (!RootComponent) {
-      return <>{renderedChildren}</>
+      return renderedChildren
     }
 
     const elementProps: Record<string, any> = JSON.parse(element.props)
@@ -106,7 +106,7 @@ const RenderElement: RenderHandler = ({ __node: element, ...props }) => {
   }
 
   // ... or just the children if there's no atom
-  return <>{renderedChildren}</>
+  return renderedChildren
 }
 
 /**
@@ -163,9 +163,9 @@ export const renderFactory = (node: RenderNode | undefined | null) => {
 
   switch (node.__typename) {
     case 'Element':
-      return <RenderElement key={node.id} __node={node} />
+      return <>{RenderElement({ __node: node })}</>
     case 'Component':
-      return <RenderComponent key={node.id} __node={node} />
+      return <>{RenderComponent({ __node: node })}</>
     default:
       throw new Error(`Can't render node of type ${(node as any)?.__typename}`)
   }
