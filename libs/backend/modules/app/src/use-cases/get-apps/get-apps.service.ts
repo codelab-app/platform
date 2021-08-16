@@ -20,10 +20,10 @@ export class GetAppsService extends DgraphUseCase<
     return this.dgraph.getAll<DgraphApp>(txn, this.createQuery(request))
   }
 
-  protected createQuery({ ownerId }: GetAppsRequest) {
+  protected createQuery({ currentUser }: GetAppsRequest) {
     return new DgraphQueryBuilder()
       .setTypeFunc(DgraphEntityType.App)
-      .addEqFilterDirective<DgraphApp>('ownerId', ownerId)
+      .addEqFilterDirective<DgraphApp>('ownerId', currentUser.id)
       .addBaseFields()
       .addExpandAll()
   }

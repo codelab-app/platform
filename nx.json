@@ -131,14 +131,11 @@
     "frontend-view": {
       "tags": []
     },
+    "shared-abstract-core": {
+      "tags": []
+    },
     "shared-codegen-graphql": {
       "tags": ["shared:codegen"]
-    },
-    "shared-graph": {
-      "tags": []
-    },
-    "shared-operations": {
-      "tags": []
     },
     "shared-utils": {
       "tags": []

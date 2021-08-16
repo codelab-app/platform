@@ -7,8 +7,8 @@ import {
   DgraphTree,
   isDgraphComponent,
   isDgraphPage,
-  JwtPayload,
 } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -24,7 +24,7 @@ export class ElementValidator {
    * if no currentUser is not provided
    * if the currentUser doesn't have ownership rights over the element
    */
-  async existsAndIsOwnedBy(elementId?: string, currentUser?: JwtPayload) {
+  async existsAndIsOwnedBy(elementId?: string, currentUser?: User) {
     if (!elementId) {
       throw new Error('elementId not provided')
     }
@@ -36,7 +36,7 @@ export class ElementValidator {
     }
 
     // If the element doesn't have an ownerId consider it valid for any user to access it
-    if (response.ownerId && response.ownerId !== currentUser?.sub) {
+    if (response.ownerId && response.ownerId !== currentUser?.id) {
       throw new Error("You don't have access to this element")
     }
 

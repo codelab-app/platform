@@ -14,6 +14,6 @@ export class WhereUniqueType {
 
 @InputType()
 export class GetTypeInput {
-  @Field()
+  @Field(() => WhereUniqueType)
   declare where: WhereUniqueType
 }

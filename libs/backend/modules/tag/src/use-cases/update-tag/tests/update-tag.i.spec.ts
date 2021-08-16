@@ -68,7 +68,7 @@ describe('UpdateTagUseCase', () => {
       const { getTag } = await domainRequest<GetTagInput, GetTagQuery>(
         userApp,
         GetTagGql,
-        { id: createdTagId },
+        { where: { id: createdTagId } },
       )
 
       expect(getTag).toMatchObject({

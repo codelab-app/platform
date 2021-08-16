@@ -1,4 +1,4 @@
-import { ITypeGraph } from '@codelab/shared/graph'
+import { ITypeGraph } from '@codelab/shared/abstract/core'
 import { Field as GraphqlField, ObjectType } from '@nestjs/graphql'
 import { TypeEdge } from './type-edge'
 import { Type, TypeUnion } from './types'

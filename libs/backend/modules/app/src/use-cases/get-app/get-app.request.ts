@@ -1,8 +1,9 @@
-import { JwtPayload } from '@codelab/backend/infra'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
+import { User } from '@codelab/shared/abstract/core'
 import { GetAppInput } from './get-app.input'
 
-export class GetAppRequest {
+export class GetAppRequest implements WithCurrentUserRequest {
   declare input: GetAppInput
 
-  declare currentUser?: JwtPayload
+  declare currentUser: User
 }

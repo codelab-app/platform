@@ -1,5 +1,6 @@
-import { CurrentUser, GqlAuthGuard, JwtPayload } from '@codelab/backend/infra'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend/infra'
 import { App } from '@codelab/backend/modules/app'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { GetPagesService } from '../use-cases/get-pages'
@@ -16,10 +17,7 @@ export class AppPagesResolver {
 
   @ResolveField('pages', () => App)
   @UseGuards(GqlAuthGuard)
-  async resolvePages(
-    @Parent() parent: App,
-    @CurrentUser() currentUser: JwtPayload,
-  ) {
+  async resolvePages(@Parent() parent: App, @CurrentUser() currentUser: User) {
     const pages = await this.getPagesService.execute({
       input: { byApp: { appId: parent.id } },
       currentUser,

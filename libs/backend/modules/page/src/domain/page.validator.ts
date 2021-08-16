@@ -4,8 +4,8 @@ import {
   DgraphQueryBuilder,
   DgraphQueryField,
   DgraphRepository,
-  JwtPayload,
 } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 interface QueryResult {
@@ -21,11 +21,11 @@ export class PageValidator {
    * if the page doesn't exist
    * if the current user doesn't have ownership access to the page
    */
-  async existsAndIsOwnedBy(pageId: string, currentUser?: JwtPayload) {
+  async existsAndIsOwnedBy(pageId: string, currentUser?: User) {
     const result = await this.dgraph.transactionWrapper((txn) =>
       this.dgraph.getOneOrThrow<QueryResult>(
         txn,
-        this.createGetOwnerRequest(pageId),
+        PageValidator.createGetOwnerRequest(pageId),
         () => new Error('Page not found'),
       ),
     )
@@ -33,7 +33,7 @@ export class PageValidator {
     if (
       !currentUser ||
       !result['~pages'][0] ||
-      result['~pages'][0].ownerId !== currentUser.sub
+      result['~pages'][0].ownerId !== currentUser.id
     ) {
       throw new Error("You don't have access to this page")
     }
@@ -44,7 +44,7 @@ export class PageValidator {
     }
   }
 
-  private createGetOwnerRequest(pageId: string) {
+  private static createGetOwnerRequest(pageId: string) {
     /**
      * {
         query(func: uid(0x2711))  {

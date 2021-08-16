@@ -13,7 +13,7 @@ import {
   IFieldVertex,
   TypeGraphTreeAdapter,
   TypeKind,
-} from '@codelab/shared/graph'
+} from '@codelab/shared/abstract/core'
 import { Injectable, Logger } from '@nestjs/common'
 import cytoscape, { Core } from 'cytoscape'
 import * as _ from 'lodash'
@@ -25,6 +25,8 @@ import { GetComponentsService } from '../use-cases/component/get-components'
 import { ElementAdapter } from './element.adapter'
 
 // FIXME this class is getting too big, need to refactor it soon - perhaps move some parts to shared/graph/element?
+
+export type Node = DgraphElement | DgraphComponent
 
 @Injectable()
 export class ElementTreeAdapter extends BaseAdapter<
@@ -52,9 +54,9 @@ export class ElementTreeAdapter extends BaseAdapter<
     const componentContext = new Map<string, DgraphComponent>()
     // Those are the components we need to fetch, which are in props
     const extraComponentsRef = new Set<string>()
-    const cy = cytoscape()
+    const cy = cytoscape({ headless: true })
 
-    await breadthFirstTraversal<DgraphElement | DgraphComponent>({
+    await breadthFirstTraversal<Node>({
       root,
       extractId: (el) => el.uid,
       visit: async (node, parentNode) => {
@@ -86,16 +88,13 @@ export class ElementTreeAdapter extends BaseAdapter<
       )
     }
 
-    const { edges, vertices } = await this.cytoscapeService.treeToGraph<
+    const { edges, vertices } = this.cytoscapeService.treeToGraph<
       ElementVertex,
       ElementEdge
     >(
       cy,
-      (node) => {
-        return this.mapVertex(node, atomContext, componentContext)
-      },
-      (edgeData) =>
-        new ElementEdge(edgeData.source, edgeData.target, edgeData.order),
+      (node) => this.mapVertex(node, atomContext, componentContext),
+      (edge) => new ElementEdge(edge),
     )
 
     return new ElementGraph(vertices, edges)
@@ -115,7 +114,7 @@ export class ElementTreeAdapter extends BaseAdapter<
 
     await Promise.all(
       components.map((component) => {
-        return breadthFirstTraversal<DgraphElement | DgraphComponent>({
+        return breadthFirstTraversal<Node>({
           root: component,
           extractId: (el) => el.uid,
           visit: async (node, parentNode) => {
@@ -158,8 +157,8 @@ export class ElementTreeAdapter extends BaseAdapter<
   }
 
   private async visit(
-    node: DgraphElement | DgraphComponent,
-    parentNode: DgraphElement | DgraphComponent | undefined | null,
+    node: Node,
+    parentNode: Node | undefined | null,
     atomContext: Map<string, DgraphAtom>,
     componentContext: Map<string, DgraphComponent>,
     cy: Core,

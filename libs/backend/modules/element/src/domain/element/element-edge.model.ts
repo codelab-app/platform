@@ -1,4 +1,4 @@
-import { Edge } from '@codelab/backend/abstract/types'
+import { Edge } from '@codelab/shared/abstract/core'
 import { Field, Int, ObjectType } from '@nestjs/graphql'
 
 @ObjectType({ description: 'An edge between two element nodes' })
@@ -12,7 +12,7 @@ export class ElementEdge implements Edge {
   @Field(() => Int, { nullable: true })
   declare order?: number
 
-  constructor(source: string, target: string, order?: number) {
+  constructor({ source, target, order }: ElementEdge) {
     this.source = source
     this.target = target
     this.order = order

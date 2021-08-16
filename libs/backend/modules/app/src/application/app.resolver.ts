@@ -2,9 +2,9 @@ import {
   CreateResponse,
   CurrentUser,
   GqlAuthGuard,
-  JwtPayload,
   Void,
 } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { App } from '../domain/app.model'
@@ -29,22 +29,19 @@ export class AppResolver {
 
   @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
-  createApp(
-    @Args('input') input: CreateAppInput,
-    @CurrentUser() user: JwtPayload,
-  ) {
-    return this.createAppService.execute({ input, ownerId: user.sub })
+  createApp(@Args('input') input: CreateAppInput, @CurrentUser() user: User) {
+    return this.createAppService.execute({ input, currentUser: user })
   }
 
   @Query(() => App, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getApp(
     @Args('input') input: GetAppInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     const app = await this.getAppService.execute({
       input,
-      currentUser,
+      currentUser: currentUser,
     })
 
     if (!app) {
@@ -56,8 +53,8 @@ export class AppResolver {
 
   @Query(() => [App])
   @UseGuards(GqlAuthGuard)
-  async getApps(@CurrentUser() user: JwtPayload) {
-    const apps = await this.getAppsService.execute({ ownerId: user.sub })
+  async getApps(@CurrentUser() user: User) {
+    const apps = await this.getAppsService.execute({ currentUser: user })
 
     return this.appAdapter.map(apps)
   }
@@ -66,7 +63,7 @@ export class AppResolver {
   @UseGuards(GqlAuthGuard)
   async updateApp(
     @Args('input') input: UpdateAppInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     await this.updateAppService.execute({ input, currentUser })
   }
@@ -75,7 +72,7 @@ export class AppResolver {
   @UseGuards(GqlAuthGuard)
   async deleteApp(
     @Args('input') input: DeleteAppInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     await this.deleteAppService.execute({ input, currentUser })
   }

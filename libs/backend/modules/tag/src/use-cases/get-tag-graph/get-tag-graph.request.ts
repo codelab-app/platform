@@ -1,8 +1,8 @@
-import { JwtPayload } from '@codelab/backend/infra'
-import { GetTagGraphInput } from './get-tag-graph.input'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
+import { User } from '@codelab/shared/abstract/core'
 
-export class GetTagGraphRequest {
-  declare input: GetTagGraphInput
+export class GetTagGraphRequest implements WithCurrentUserRequest {
+  // declare input: GetTagGraphInput
 
-  declare owner: JwtPayload
+  declare currentUser: User
 }

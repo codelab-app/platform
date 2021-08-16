@@ -131,7 +131,7 @@ export class DgraphRepository {
   async executeUpsert(
     txn: Txn,
     query: string | DgraphQueryBuilder,
-    mutation: string,
+    mutation: string | Mutation,
   ) {
     if (typeof query === 'string' && !query.trim().startsWith('{')) {
       query = `{ ${query}`
@@ -139,14 +139,13 @@ export class DgraphRepository {
 
     return this.executeMutation(txn, {
       mutation: `
-            upsert {
-              query ${query.toString()}
-
-              mutation {
-                  ${mutation}
-              }
-            }
-        `,
+        upsert {
+          query ${query.toString()}
+          mutation {
+            ${mutation.toString()}
+          }
+        }
+      `,
     })
   }
 

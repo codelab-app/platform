@@ -1,4 +1,4 @@
-import { Tree } from '@codelab/backend/abstract/types'
+import { Tree } from '@codelab/shared/abstract/core'
 import {
   ComponentFragment,
   ElementFragment,

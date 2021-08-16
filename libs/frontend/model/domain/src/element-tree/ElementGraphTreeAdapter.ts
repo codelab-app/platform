@@ -1,5 +1,5 @@
-import { Edge, Graph, Vertex } from '@codelab/backend/abstract/types'
 import { ElementTree } from '@codelab/frontend/abstract/props'
+import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
 import {
   ComponentFragment,
   ElementEdge,
@@ -206,7 +206,7 @@ export class ElementGraphTreeAdapter implements ElementTree<ElementFragment> {
       .getElementById(componentId)
       .filter(isComponent)
       .first()
-      .map(getNodeData)[0] as ComponentFragment
+      .map<ComponentFragment>(getNodeData)[0]
   }
 
   getDescendants(elementId: string) {

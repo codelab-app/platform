@@ -23,6 +23,8 @@ export class DgraphService {
       throw new Error('Missing DgraphConfig')
     }
 
+    console.log('Dgraph endpoint using', _dgraphConfig.endpoint)
+
     const clientStub = new DgraphClientStub(_dgraphConfig.endpoint)
 
     // https://discuss.dgraph.io/t/connection-management/11060 - it's safe to use a single client across the app
@@ -46,5 +48,12 @@ export class DgraphService {
     })
 
     await this.updateDqlSchema()
+  }
+
+  async resetData() {
+    await this.client.alter({
+      dropAll: true,
+      schema: '{"drop_op": "DATA"}',
+    })
   }
 }

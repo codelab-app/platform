@@ -1,4 +1,4 @@
-import { PrimitiveKind } from '@codelab/shared/graph'
+import { PrimitiveKind } from '@codelab/shared/abstract/core'
 import { arrayEquals } from '@codelab/shared-utils'
 import { DgraphEntityType } from '../../dgraph-entity-type'
 import { DgraphType } from './dgraph-type'

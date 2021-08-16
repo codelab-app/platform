@@ -1,10 +1,10 @@
+import { TypeKind } from '@codelab/shared/abstract/core'
 import {
   __EnumTypeValueFragment,
   CreateTypeInput,
   ElementTypeKind,
   PrimitiveKind,
 } from '@codelab/shared/codegen/graphql'
-import { TypeKind } from '@codelab/shared/graph'
 
 export interface BaseTypeMutationSchema {
   name: string

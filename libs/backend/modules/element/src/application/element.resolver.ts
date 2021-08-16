@@ -2,9 +2,9 @@ import {
   CreateResponse,
   CurrentUser,
   GqlAuthGuard,
-  JwtPayload,
   Void,
 } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Element } from '../domain/element/element.model'
@@ -55,7 +55,7 @@ export class ElementResolver {
   @UseGuards(GqlAuthGuard)
   createElement(
     @Args('input') input: CreateElementInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     return this.createElementService.execute({ input, currentUser })
   }
@@ -68,7 +68,7 @@ export class ElementResolver {
   @UseGuards(GqlAuthGuard)
   async getElementGraph(
     @Args('input') input: GetElementGraphInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     const dgraphElement = await this.getElementGraphService.execute({
       input,
@@ -79,7 +79,10 @@ export class ElementResolver {
       return null
     }
 
-    return this.elementTreeAdapter.mapItem(dgraphElement)
+    const r = await this.elementTreeAdapter.mapItem(dgraphElement)
+    console.log(r)
+
+    return r
   }
 
   @Query(() => Element, {
@@ -92,7 +95,7 @@ export class ElementResolver {
    */
   async getElement(
     @Args('input') input: GetElementInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     const dgraphElement = await this.getElementGraphService.execute({
       input,
@@ -110,7 +113,7 @@ export class ElementResolver {
   @UseGuards(GqlAuthGuard)
   async updateElement(
     @Args('input') input: UpdateElementInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     await this.updateElementService.execute({ input, currentUser })
   }
@@ -119,7 +122,7 @@ export class ElementResolver {
   @UseGuards(GqlAuthGuard)
   async moveElement(
     @Args('input') input: MoveElementInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     await this.moveElementService.execute({ input, currentUser })
   }
@@ -128,7 +131,7 @@ export class ElementResolver {
   @UseGuards(GqlAuthGuard)
   async updateElementProps(
     @Args('input') input: UpdateElementPropsInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     await this.updateElementPropsService.execute({ input, currentUser })
   }
@@ -140,7 +143,7 @@ export class ElementResolver {
   @UseGuards(GqlAuthGuard)
   async deleteElement(
     @Args('input') input: DeleteElementInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     await this.deleteElementService.execute({ input, currentUser })
   }

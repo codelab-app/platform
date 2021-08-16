@@ -753,6 +753,27 @@
         }
       }
     },
+    "shared-abstract-core": {
+      "root": "libs/shared/abstract/core",
+      "sourceRoot": "libs/shared/abstract/core/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/abstract/core/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/abstract/core"],
+          "options": {
+            "jestConfig": "libs/shared/abstract/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-codegen-graphql": {
       "root": "libs/shared/codegen/graphql",
       "sourceRoot": "libs/shared/codegen/graphql/src",
@@ -762,48 +783,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/codegen/graphql/**/*.ts"]
-          }
-        }
-      }
-    },
-    "shared-graph": {
-      "root": "libs/shared/graph",
-      "sourceRoot": "libs/shared/graph/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/graph/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/shared/graph"],
-          "options": {
-            "jestConfig": "libs/shared/graph/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "shared-operations": {
-      "root": "libs/shared/operations",
-      "sourceRoot": "libs/shared/operations/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/operations/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/shared/operations"],
-          "options": {
-            "jestConfig": "libs/shared/operations/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }

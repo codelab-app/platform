@@ -26,7 +26,7 @@ export class GetAppService extends DgraphUseCase<
       input: { byId, byPage },
     } = request
 
-    this.validate(request)
+    GetAppService.validate(request)
 
     let app: DgraphApp | null
 
@@ -85,7 +85,7 @@ export class GetAppService extends DgraphUseCase<
       )
   }
 
-  private validate({ input: { byId, byPage } }: GetAppRequest) {
+  private static validate({ input: { byId, byPage } }: GetAppRequest) {
     if (!byId && !byPage) {
       throw new Error('Provide at least one filter to getApp')
     }

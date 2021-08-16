@@ -10,7 +10,7 @@ export class DeleteUserService
   constructor(private auth0: Auth0Service) {}
 
   async execute({ currentUser, input }: DeleteUserRequest): Promise<boolean> {
-    if (currentUser?.sub !== input.userId) {
+    if (currentUser.id !== input.userId) {
       throw new UnauthorizedException("Can't delete this user")
     }
 

@@ -1,9 +1,5 @@
-import {
-  CurrentUser,
-  GqlAuthGuard,
-  JwtPayload,
-  Void,
-} from '@codelab/backend/infra'
+import { CurrentUser, GqlAuthGuard, Void } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Lambda, LambdaPayload } from '../domain/lambda.model'
@@ -17,9 +13,8 @@ import {
   ExecuteLambdaInput,
   ExecuteLambdaService,
 } from '../use-cases/execute-lambda'
-import { GetLambdaInput } from '../use-cases/get-lambda/get-lambda.input'
-import { GetLambdaService } from '../use-cases/get-lambda/get-lambda.service'
-import { GetLambdasService } from '../use-cases/get-lambdas/get-lambdas.service'
+import { GetLambdaInput, GetLambdaService } from '../use-cases/get-lambda'
+import { GetLambdasService } from '../use-cases/get-lambdas'
 import { UpdateLambdaInput } from '../use-cases/update-lambda/update-lambda.input'
 import { UpdateLambdaService } from '../use-cases/update-lambda/update-lambda.service'
 import { LambdaService } from './lambda.service'
@@ -41,11 +36,11 @@ export class LambdaResolver {
   @UseGuards(GqlAuthGuard)
   async createLambda(
     @Args('input') input: CreateLambdaInput,
-    @CurrentUser() user: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     const lambda = await this.createLambdaService.execute({
       input,
-      ownerId: user.sub,
+      currentUser,
     })
 
     await this.lambdaService.createLambda(lambda)
@@ -94,7 +89,7 @@ export class LambdaResolver {
 
   @Query(() => [Lambda])
   @UseGuards(GqlAuthGuard)
-  async getLambdas(@CurrentUser() user: JwtPayload) {
-    return this.getLambdasService.execute({ ownerId: user.sub })
+  async getLambdas(@CurrentUser() currentUser: User) {
+    return this.getLambdasService.execute({ currentUser })
   }
 }

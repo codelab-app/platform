@@ -456,7 +456,7 @@ type Query {
   getField(input: GetFieldInput!): Field
   getLambda(input: GetLambdaInput!): Lambda
   getLambdas: [Lambda!]!
-  getTag(input: GetTagInput!): Tag!
+  getTag(input: GetTagInput!): Tag
 
   """Get all Tag graphs"""
   getTags: [Tag!]!
@@ -464,7 +464,7 @@ type Query {
   """
   Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
   """
-  getTagGraph(input: GetTagGraphInput!): TagGraph
+  getTagGraph: TagGraph
 }
 
 input GetAppInput {
@@ -572,14 +572,11 @@ input GetLambdaInput {
 }
 
 input GetTagInput {
-  id: String!
+  where: WhereUniqueTag!
 }
 
-input GetTagGraphInput {
-  where: TagWhereUniqueInput!
-}
-
-input TagWhereUniqueInput {
+input WhereUniqueTag {
+  name: String
   id: String
 }
 

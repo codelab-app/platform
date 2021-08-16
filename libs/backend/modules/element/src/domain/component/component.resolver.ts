@@ -2,9 +2,9 @@ import {
   CreateResponse,
   CurrentUser,
   GqlAuthGuard,
-  JwtPayload,
   Void,
 } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { ElementTreeAdapter } from '../../application/element-tree.adapter'
@@ -51,7 +51,7 @@ export class ComponentResolver {
   @UseGuards(GqlAuthGuard)
   createComponent(
     @Args('input') input: CreateComponentInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     return this.createComponentService.execute({ input, currentUser })
   }
@@ -60,7 +60,7 @@ export class ComponentResolver {
   @UseGuards(GqlAuthGuard)
   async getComponent(
     @Args('input') input: GetComponentInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ): Promise<Component | null> {
     const dgraphComponent = await this.getComponentService.execute({
       input,
@@ -78,7 +78,7 @@ export class ComponentResolver {
   @UseGuards(GqlAuthGuard)
   async getComponentElements(
     @Args('input') input: GetComponentInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ): Promise<ElementGraph | null> {
     const dgraphComponent = await this.getComponentService.execute({
       input,
@@ -115,7 +115,7 @@ export class ComponentResolver {
   @UseGuards(GqlAuthGuard)
   async updateComponent(
     @Args('input') input: UpdateComponentInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     await this.updateComponentService.execute({ input, currentUser })
   }
@@ -126,7 +126,7 @@ export class ComponentResolver {
   @UseGuards(GqlAuthGuard)
   async deleteComponent(
     @Args('input') input: DeleteComponentInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     await this.deleteComponentService.execute({ input, currentUser })
   }

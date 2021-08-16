@@ -8,7 +8,7 @@ import { GetLambdasRequest } from './get-lambdas.request'
 export class GetLambdasService extends DgraphUseCase<GetLambdasRequest, any> {
   async executeTransaction(request: GetLambdasRequest, txn: Txn) {
     const q = getLambdaQuery().setFilterFuncString(
-      `eq(ownerId, "${request.ownerId}")`,
+      `eq(ownerId, "${request.currentUser.id}")`,
     )
 
     return this.dgraph.getAll(txn, q)

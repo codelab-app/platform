@@ -17,10 +17,16 @@ export class UpdateTypeService extends DgraphUseCase<UpdateTypeInput> {
 
   protected async executeTransaction(request: UpdateTypeInput, txn: Txn) {
     await this.validate(request)
-    await this.dgraph.executeMutation(txn, this.createMutation(request))
+    await this.dgraph.executeMutation(
+      txn,
+      UpdateTypeService.createMutation(request),
+    )
   }
 
-  private createMutation({ typeId, updateData: { name } }: UpdateTypeInput) {
+  private static createMutation({
+    typeId,
+    updateData: { name },
+  }: UpdateTypeInput) {
     return jsonMutation<DgraphType<any>>({
       uid: typeId,
       name,

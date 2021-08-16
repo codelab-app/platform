@@ -34,7 +34,9 @@ describe('GetTagUseCase', () => {
     )
 
     getTagInput = {
-      id: tagId,
+      where: {
+        id: tagId,
+      },
     }
   })
 
@@ -59,7 +61,7 @@ describe('GetTagUseCase', () => {
         getTagInput,
       )
 
-      expect(tag).toMatchObject({ ...createTagInput, id: getTagInput.id })
+      expect(tag).toMatchObject({ ...createTagInput, id: getTagInput.where.id })
     })
   })
 })

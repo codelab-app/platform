@@ -1,9 +1,9 @@
+import { ITypeTree, ITypeVertex } from '@codelab/shared/abstract/core'
 import {
   __ElementTypeFragment,
   __EnumTypeFragment,
   __PrimitiveTypeFragment,
 } from '@codelab/shared/codegen/graphql'
-import { ITypeTree, ITypeVertex } from '@codelab/shared/graph'
 import { TypeModels } from './TypeModels'
 
 export const getTypeName = (

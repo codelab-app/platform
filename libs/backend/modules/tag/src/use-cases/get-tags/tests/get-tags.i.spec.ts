@@ -8,12 +8,12 @@ import {
   CreateTagGql,
   CreateTagInput,
   CreateTagMutation,
-  GetTagInput,
   GetTagsGql,
   GetTagsQuery,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
+import { SeedTagTreeService } from '../../seed-tag-tree'
 
 describe('GetTagsUseCase', () => {
   let guestApp: INestApplication
@@ -68,7 +68,11 @@ describe('GetTagsUseCase', () => {
         GetTagsGql,
       )
 
-      expect(getTags).toMatchObject([tagA, tagB])
+      expect(getTags).toMatchObject([
+        { name: SeedTagTreeService.__TAG_ROOT },
+        tagA,
+        tagB,
+      ])
     })
   })
 })

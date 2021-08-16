@@ -2,7 +2,7 @@ import { DgraphRepository, DgraphUseCase } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../application/element.validator'
-import { GetElementParentService } from '../get-element-parent/index'
+import { GetElementParentService } from '../get-element-parent'
 import { MoveElementInput } from './move-element.input'
 import { MoveElementRequest } from './move-element.request'
 
@@ -27,26 +27,29 @@ export class MoveElementService extends DgraphUseCase<MoveElementRequest> {
 
     // Delete the old parent-child edge and create a new one
     const mu: Mutation = {}
-    mu.setNquads = this.createSetMutation(input)
+    mu.setNquads = MoveElementService.createSetMutation(input)
 
     if (
       existingParent?.uid &&
       existingParent.uid !== input.moveData.parentElementId
     ) {
-      mu.deleteNquads = this.createDeleteMutation(input, existingParent.uid)
+      mu.deleteNquads = MoveElementService.createDeleteMutation(
+        input,
+        existingParent.uid,
+      )
     }
 
     await this.dgraph.executeMutation(txn, mu)
   }
 
-  private createSetMutation({
+  private static createSetMutation({
     elementId,
     moveData: { parentElementId, order },
   }: MoveElementInput) {
     return `<${parentElementId}> <children> <${elementId}> (order=${order}) .`
   }
 
-  private createDeleteMutation(
+  private static createDeleteMutation(
     { elementId }: MoveElementInput,
     existingParentId: string,
   ) {

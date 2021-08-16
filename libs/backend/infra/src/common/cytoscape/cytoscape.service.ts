@@ -1,19 +1,9 @@
-import { Edge, Graph, Vertex } from '@codelab/backend/abstract/types'
+import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import cytoscape, {
-  Core,
-  EdgeDataDefinition,
-  NodeDataDefinition,
-} from 'cytoscape'
+import { Core, EdgeDataDefinition, NodeDataDefinition } from 'cytoscape'
 
 @Injectable()
 export class CytoscapeService {
-  cy: Core
-
-  constructor() {
-    this.cy = cytoscape()
-  }
-
   /**
    * We're using elements in the cytoscape sense, not our domain sense.
    */

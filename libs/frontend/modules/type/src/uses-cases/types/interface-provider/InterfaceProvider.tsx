@@ -1,11 +1,11 @@
 import { notify } from '@codelab/frontend/shared/utils'
+import { ITypeTree } from '@codelab/shared/abstract/core'
 import {
   __InterfaceFragment,
   __TypeGraphFragment,
   useGetTypeGraphQuery,
   useGetTypeQuery,
 } from '@codelab/shared/codegen/graphql'
-import { ITypeTree } from '@codelab/shared/graph'
 import React, { useEffect } from 'react'
 import { useTypeTree } from '../../../type-tree'
 

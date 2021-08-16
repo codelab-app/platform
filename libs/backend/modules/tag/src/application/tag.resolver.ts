@@ -2,9 +2,9 @@ import {
   CreateResponse,
   CurrentUser,
   GqlAuthGuard,
-  JwtPayload,
   Void,
 } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Tag } from '../domain/tag.model'
@@ -12,12 +12,10 @@ import { TagGraph } from '../domain/tag-graph.model'
 import { CreateTagInput, CreateTagService } from '../use-cases/create-tag'
 import { DeleteTagsInput, DeleteTagsService } from '../use-cases/delete-tags'
 import { GetTagInput, GetTagService } from '../use-cases/get-tag'
-import {
-  GetTagGraphInput,
-  GetTagGraphService,
-} from '../use-cases/get-tag-graph'
+import { GetTagGraphService } from '../use-cases/get-tag-graph'
 import { GetTagsService } from '../use-cases/get-tags'
 import { UpdateTagInput, UpdateTagService } from '../use-cases/update-tag'
+import { DgraphTagAdapter } from './dgraph-tag.adapter'
 import { TagAdapter } from './tag.adapter'
 
 @Resolver(() => Tag)
@@ -31,23 +29,21 @@ export class TagResolver {
     private readonly updateTagService: UpdateTagService,
     private readonly getTagGraphService: GetTagGraphService,
     private readonly getTagsService: GetTagsService,
+    private readonly tagTreeAdapter: DgraphTagAdapter,
   ) {}
 
   @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
   async createTag(
     @Args('input') input: CreateTagInput,
-    @CurrentUser() owner: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
-    return await this.createTagService.execute({ input, owner })
+    return await this.createTagService.execute({ input, currentUser })
   }
 
-  @Query(() => Tag)
+  @Query(() => Tag, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getTag(
-    @CurrentUser() user: JwtPayload,
-    @Args('input') input: GetTagInput,
-  ) {
+  async getTag(@CurrentUser() user: User, @Args('input') input: GetTagInput) {
     const tag = await this.getTagService.execute(input)
 
     return this.tagAdapter.map(tag)
@@ -57,8 +53,8 @@ export class TagResolver {
     description: 'Get all Tag graphs',
   })
   @UseGuards(GqlAuthGuard)
-  async getTags(@CurrentUser() user: JwtPayload) {
-    const tags = await this.getTagsService.execute({ owner: user })
+  async getTags(@CurrentUser() currentUser: User) {
+    const tags = await this.getTagsService.execute({ currentUser })
 
     return this.tagAdapter.map(tags)
   }
@@ -81,7 +77,15 @@ export class TagResolver {
       'Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge',
   })
   @UseGuards(GqlAuthGuard)
-  async getTagGraph(@Args('input') input: GetTagGraphInput) {
-    //
+  async getTagGraph(@CurrentUser() currentUser: User) {
+    const dgraphTagTree = await this.getTagGraphService.execute({
+      currentUser,
+    })
+
+    if (!dgraphTagTree) {
+      return null
+    }
+
+    return this.tagTreeAdapter.map(dgraphTagTree.root)
   }
 }

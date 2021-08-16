@@ -2,9 +2,9 @@ import {
   CurrentUser,
   GqlAuthGuard,
   GqlRoleGuard,
-  JwtPayload,
   Role,
 } from '@codelab/backend/infra'
+import { User as IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { User } from '../domain/user.model'
@@ -17,16 +17,16 @@ import { UpdateUserInput, UpdateUserService } from '../use-cases/update-user'
 @Injectable()
 export class UserResolver {
   constructor(
-    private updateService: UpdateUserService,
-    private deleteService: DeleteUserService,
+    private updateUserService: UpdateUserService,
+    private deleteUserService: DeleteUserService,
     private getUserService: GetUserService,
     private getUsersService: GetUsersService,
   ) {}
 
   @Query(() => User)
   @UseGuards(GqlAuthGuard)
-  getMe(@CurrentUser() currentUser: JwtPayload) {
-    return this.getUserService.execute({ userId: currentUser.sub })
+  getMe(@CurrentUser() currentUser: IUser) {
+    return this.getUserService.execute({ userId: currentUser.id })
   }
 
   @Query(() => [User])
@@ -39,17 +39,17 @@ export class UserResolver {
   @UseGuards(GqlAuthGuard)
   updateUser(
     @Args('input') input: UpdateUserInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: IUser,
   ) {
-    return this.updateService.execute({ input, currentUser })
+    return this.updateUserService.execute({ input, currentUser })
   }
 
   @Mutation(() => Boolean)
   @UseGuards(GqlAuthGuard)
   deleteUser(
     @Args('input') input: DeleteUserInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: IUser,
   ) {
-    return this.deleteService.execute({ input, currentUser })
+    return this.deleteUserService.execute({ input, currentUser })
   }
 }

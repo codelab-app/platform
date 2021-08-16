@@ -1,5 +1,6 @@
-import { SeedTagTreeInput } from './seed-tag-tree.input'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
+import { User } from '@codelab/shared/abstract/core'
 
-export class SeedTagTreeRequest {
-  declare input: SeedTagTreeInput
+export class SeedTagTreeRequest implements WithCurrentUserRequest {
+  declare currentUser: User
 }

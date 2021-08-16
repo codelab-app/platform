@@ -1,11 +1,15 @@
-import { IBaseTypeVertex, IVertex, TypeKind } from '@codelab/shared/graph'
+import {
+  IBaseTypeVertex,
+  TypeKind,
+  Vertex,
+} from '@codelab/shared/abstract/core'
 import { Field, ID, InterfaceType, registerEnumType } from '@nestjs/graphql'
 
 registerEnumType(TypeKind, { name: 'TypeKind' })
 
 @InterfaceType()
 export class Type<TTypeKind extends TypeKind = TypeKind>
-  implements IVertex, IBaseTypeVertex<TTypeKind>
+  implements Vertex, IBaseTypeVertex<TTypeKind>
 {
   @Field(() => ID)
   declare id: string

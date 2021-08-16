@@ -497,12 +497,8 @@ export type GetPagesInput = {
   byApp: PageByAppFilter
 }
 
-export type GetTagGraphInput = {
-  where: TagWhereUniqueInput
-}
-
 export type GetTagInput = {
-  id: Scalars['String']
+  where: WhereUniqueTag
 }
 
 export type GetTypeInput = {
@@ -578,14 +574,14 @@ export type Mutation = {
   createAtom: CreateResponse
   deleteAtom?: Maybe<Scalars['Void']>
   updateAtom?: Maybe<Scalars['Void']>
-  createField: CreateResponse
-  updateField?: Maybe<Scalars['Void']>
-  deleteField?: Maybe<Scalars['Void']>
   createType: CreateResponse
   updateEnumType?: Maybe<Scalars['Void']>
   updatePrimitiveType?: Maybe<Scalars['Void']>
   updateType?: Maybe<Scalars['Void']>
   deleteType?: Maybe<Scalars['Void']>
+  createField: CreateResponse
+  updateField?: Maybe<Scalars['Void']>
+  deleteField?: Maybe<Scalars['Void']>
   createLambda: Lambda
   deleteLambda?: Maybe<Scalars['Void']>
   updateLambda?: Maybe<Lambda>
@@ -671,18 +667,6 @@ export type MutationUpdateAtomArgs = {
   input: UpdateAtomInput
 }
 
-export type MutationCreateFieldArgs = {
-  input: CreateFieldInput
-}
-
-export type MutationUpdateFieldArgs = {
-  input: UpdateFieldInput
-}
-
-export type MutationDeleteFieldArgs = {
-  input: DeleteFieldInput
-}
-
 export type MutationCreateTypeArgs = {
   input: CreateTypeInput
 }
@@ -701,6 +685,18 @@ export type MutationUpdateTypeArgs = {
 
 export type MutationDeleteTypeArgs = {
   input: DeleteTypeInput
+}
+
+export type MutationCreateFieldArgs = {
+  input: CreateFieldInput
+}
+
+export type MutationUpdateFieldArgs = {
+  input: UpdateFieldInput
+}
+
+export type MutationDeleteFieldArgs = {
+  input: DeleteFieldInput
 }
 
 export type MutationCreateLambdaArgs = {
@@ -771,13 +767,13 @@ export type Query = {
   getComponents: Array<Component>
   getAtoms: Array<Atom>
   getAtom?: Maybe<Atom>
-  getField?: Maybe<Field>
   getType?: Maybe<Type>
   getTypeGraph?: Maybe<TypeGraph>
   getTypes: Array<Type>
+  getField?: Maybe<Field>
   getLambda?: Maybe<Lambda>
   getLambdas: Array<Lambda>
-  getTag: Tag
+  getTag?: Maybe<Tag>
   /** Get all Tag graphs */
   getTags: Array<Tag>
   /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
@@ -824,10 +820,6 @@ export type QueryGetAtomArgs = {
   input: GetAtomInput
 }
 
-export type QueryGetFieldArgs = {
-  input: GetFieldInput
-}
-
 export type QueryGetTypeArgs = {
   input: GetTypeInput
 }
@@ -840,16 +832,16 @@ export type QueryGetTypesArgs = {
   input?: Maybe<GetTypesInput>
 }
 
+export type QueryGetFieldArgs = {
+  input: GetFieldInput
+}
+
 export type QueryGetLambdaArgs = {
   input: GetLambdaInput
 }
 
 export type QueryGetTagArgs = {
   input: GetTagInput
-}
-
-export type QueryGetTagGraphArgs = {
-  input: GetTagGraphInput
 }
 
 export type Tag = {
@@ -875,10 +867,6 @@ export type TagGraph = {
 }
 
 export type TagVertex = Tag
-
-export type TagWhereUniqueInput = {
-  id?: Maybe<Scalars['String']>
-}
 
 export type Type = {
   id: Scalars['ID']
@@ -1087,6 +1075,11 @@ export type User = {
   username?: Maybe<Scalars['String']>
 }
 
+export type WhereUniqueTag = {
+  name?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
+}
+
 export type WhereUniqueType = {
   id?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
@@ -1245,9 +1238,7 @@ export type DeleteTagsMutationVariables = Exact<{
 
 export type DeleteTagsMutation = { deleteTags?: Maybe<void> }
 
-export type GetTagGraphQueryVariables = Exact<{
-  input: GetTagGraphInput
-}>
+export type GetTagGraphQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetTagGraphQuery = {
   getTagGraph?: Maybe<{
@@ -1260,7 +1251,7 @@ export type GetTagQueryVariables = Exact<{
   input: GetTagInput
 }>
 
-export type GetTagQuery = { getTag: { id: string; name: string } }
+export type GetTagQuery = { getTag?: Maybe<{ id: string; name: string }> }
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never }>
 
@@ -2996,8 +2987,8 @@ export type DeleteTagsMutationOptions = Apollo.BaseMutationOptions<
   DeleteTagsMutationVariables
 >
 export const GetTagGraphGql = gql`
-  query GetTagGraph($input: GetTagGraphInput!) {
-    getTagGraph(input: $input) {
+  query GetTagGraph {
+    getTagGraph {
       ...TagGraph
     }
   }
@@ -3016,12 +3007,11 @@ export const GetTagGraphGql = gql`
  * @example
  * const { data, loading, error } = useGetTagGraphQuery({
  *   variables: {
- *      input: // value for 'input'
  *   },
  * });
  */
 export function useGetTagGraphQuery(
-  baseOptions: Apollo.QueryHookOptions<
+  baseOptions?: Apollo.QueryHookOptions<
     GetTagGraphQuery,
     GetTagGraphQueryVariables
   >,
@@ -5349,8 +5339,8 @@ export const DeleteTags = gql`
   }
 `
 export const GetTagGraph = gql`
-  query GetTagGraph($input: GetTagGraphInput!) {
-    getTagGraph(input: $input) {
+  query GetTagGraph {
+    getTagGraph {
       ...TagGraph
     }
   }
