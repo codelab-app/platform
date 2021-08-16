@@ -13,7 +13,7 @@ import {
   GetFieldQuery,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
-import { TypeModule } from '../../../../type.module'
+import { FieldModule } from '../../../../field.module'
 import {
   createInterfaceType,
   createPrimitiveType,
@@ -26,10 +26,10 @@ describe('CreateField', () => {
   let createFieldInput: CreateFieldInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([TypeModule], {
+    guestApp = await setupTestModule([FieldModule], {
       role: Role.GUEST,
     })
-    userApp = await setupTestModule([TypeModule], {
+    userApp = await setupTestModule([FieldModule], {
       role: Role.USER,
     })
 
