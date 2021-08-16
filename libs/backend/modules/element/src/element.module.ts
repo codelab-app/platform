@@ -3,35 +3,25 @@ import { AppModule } from '@codelab/backend/modules/app'
 import { AtomModule } from '@codelab/backend/modules/atom'
 import { TypeModule } from '@codelab/backend/modules/type'
 import { Module } from '@nestjs/common'
-import {
-  ComponentAdapter,
-  ComponentValidator,
-  CreateComponentService,
-  DeleteComponentService,
-  GetComponentService,
-  GetComponentsService,
-  UpdateComponentService,
-} from './component'
-import { ComponentResolver } from './component/component.resolver'
-import { ElementAdapter } from './element.adapter'
-import { ElementResolver } from './element.resolver'
-import { ElementValidator } from './element.validator'
-import { ElementTreeAdapter } from './element-tree.adapter'
-import {
-  CreateElementService,
-  DeleteElementService,
-  GetElementGraphService,
-  GetElementParentService,
-  GetLastOrderChildService,
-  MoveElementService,
-  UpdateElementPropsService,
-  UpdateElementService,
-} from './use-cases'
+import { ElementAdapter } from './application/element.adapter'
+import { ElementResolver } from './application/element.resolver'
+import { ElementValidator } from './application/element.validator'
+import { ElementTreeAdapter } from './application/element-tree.adapter'
+import { ComponentModule } from './component.module'
+import { ComponentResolver } from './domain/component/component.resolver'
+import { CreateElementService } from './use-cases/element/create-element'
+import { DeleteElementService } from './use-cases/element/delete-element'
+import { GetElementGraphService } from './use-cases/element/get-element-graph'
+import { GetElementParentService } from './use-cases/element/get-element-parent'
+import { GetLastOrderChildService } from './use-cases/element/get-last-order-child'
+import { MoveElementService } from './use-cases/element/move-element'
+import { UpdateElementService } from './use-cases/element/update-element'
+import { UpdateElementPropsService } from './use-cases/element/update-element-props'
 
 const services = [
-  //
-  // Element
-  ElementValidator,
+  /**
+   * Use Cases
+   */
   CreateElementService,
   GetElementGraphService,
   GetLastOrderChildService,
@@ -39,22 +29,27 @@ const services = [
   GetElementParentService,
   UpdateElementService,
   MoveElementService,
-  ElementTreeAdapter,
-  ElementAdapter,
   UpdateElementPropsService,
-  //
-  // Component
-  ComponentValidator,
-  ComponentAdapter,
-  CreateComponentService,
-  DeleteComponentService,
-  GetComponentService,
-  GetComponentsService,
-  UpdateComponentService,
+  /**
+   * Adapters
+   */
+  ElementAdapter,
+  ElementTreeAdapter,
+  /**
+   * Validators
+   */
+  ElementValidator,
 ]
 
 @Module({
-  imports: [AppModule, AtomModule, TypeModule, CytoscapeModule, TreeModule],
+  imports: [
+    AppModule,
+    AtomModule,
+    TypeModule,
+    CytoscapeModule,
+    TreeModule,
+    ComponentModule,
+  ],
   providers: [...services, ElementResolver, ComponentResolver, Void],
   exports: [...services],
 })

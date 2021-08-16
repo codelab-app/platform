@@ -6,7 +6,7 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { TypeValidator } from '../../../type.validator'
+import { TypeValidator } from '../../../domain/type.validator'
 import { UpdateTypeInput } from './update-type.input'
 
 @Injectable()

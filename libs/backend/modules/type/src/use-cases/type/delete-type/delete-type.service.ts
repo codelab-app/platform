@@ -5,8 +5,8 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { TypeIsUsedError } from '../../../errors/TypeIsUsedError'
-import { TypeValidator } from '../../../type.validator'
+import { TypeUnusedError } from '../../../application/errors/type-unused.error'
+import { TypeValidator } from '../../../domain/type.validator'
 import { DeleteTypeInput } from './delete-type.input'
 
 @Injectable()
@@ -38,8 +38,8 @@ export class DeleteTypeService extends DgraphUseCase<DeleteTypeInput> {
       // Check if any fields reference it. If there are any - prevent deleting it
       await this.typeValidator.typeIsNotReferencedInFields(type)
     } catch (e) {
-      if (e instanceof TypeIsUsedError) {
-        throw new TypeIsUsedError(
+      if (e instanceof TypeUnusedError) {
+        throw new TypeUnusedError(
           e.fieldNames,
           e.atomName,
           `Can't delete type ${e.message}`,

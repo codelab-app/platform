@@ -1,5 +1,0 @@
-mutation ExecuteLambda($lambda: LambdaInput!, $payload: String!) {
-  executeLambda(lambda: $lambda, payload: $payload) {
-    payload
-  }
-}

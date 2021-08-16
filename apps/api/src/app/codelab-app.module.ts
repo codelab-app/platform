@@ -5,7 +5,7 @@ import { ElementModule } from '@codelab/backend/modules/element'
 import { LambdaModule } from '@codelab/backend/modules/lambda'
 import { PageModule } from '@codelab/backend/modules/page'
 import { TagModule } from '@codelab/backend/modules/tag'
-import { TypeModule } from '@codelab/backend/modules/type'
+import { FieldModule } from '@codelab/backend/modules/type'
 import { UserModule } from '@codelab/backend/modules/user'
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
@@ -13,13 +13,15 @@ import { AppController } from './app.controller'
 @Module({
   imports: [
     InfrastructureModule,
-    // Domain
+    /**
+     * Domain
+     */
     AppModule,
     UserModule,
     PageModule,
     ElementModule,
     AtomModule,
-    TypeModule,
+    FieldModule,
     LambdaModule,
     TagModule,
   ],

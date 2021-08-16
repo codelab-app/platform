@@ -1,4 +1,4 @@
-import { arrayEquals } from '@codelab/shared/utils'
+import { arrayEquals } from '@codelab/shared-utils'
 import { DgraphEntityType } from '../../dgraph-entity-type'
 import { DgraphEnumTypeValue } from './dgraph-enum-type-value'
 import { DgraphType } from './dgraph-type'

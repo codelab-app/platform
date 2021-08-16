@@ -128,12 +128,12 @@
       "@codelab/frontend/view/templates": [
         "libs/frontend/view/templates/index.ts"
       ],
+      "@codelab/shared-utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/shared/codegen/graphql": [
         "libs/shared/codegen/graphql/src/index.ts"
       ],
       "@codelab/shared/graph": ["libs/shared/graph/src/index.ts"],
       "@codelab/shared/operations": ["libs/shared/operations/src/index.ts"],
-      "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
       ],

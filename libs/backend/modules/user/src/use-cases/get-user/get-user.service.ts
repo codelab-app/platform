@@ -1,7 +1,7 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { Auth0Service } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
-import { User } from '../../user.model'
+import { User } from '../../domain/user.model'
 import { GetUserRequest } from './get-user.request'
 
 @Injectable()

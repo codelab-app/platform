@@ -1,17 +1,10 @@
 import {
   AntdDesignApi,
-  Auth0Service,
   ServerConfig,
   serverConfig,
 } from '@codelab/backend/infra'
-import { AtomTypeEnum } from '@codelab/backend/modules/atom'
-import {
-  __AtomFragment,
-  AtomType,
-  CreateAtomMutation,
-  CreateAtomMutationResult,
-} from '@codelab/shared/codegen/graphql'
-import { pascalCaseToWords } from '@codelab/shared/utils'
+import { AtomType } from '@codelab/shared/codegen/graphql'
+import { pascalCaseToWords } from '@codelab/shared-utils'
 import { Inject, Injectable } from '@nestjs/common'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'

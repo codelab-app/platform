@@ -1,8 +1,8 @@
 import { awsConfig, Void } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { LambdaResolver } from './lambda.resolver'
-import { LambdaService } from './lambda.service'
+import { LambdaResolver } from './application/lambda.resolver'
+import { LambdaService } from './application/lambda.service'
 import { CreateLambdaService } from './use-cases/create-lambda/create-lambda.service'
 import { DeleteLambdaService } from './use-cases/delete-lambda'
 import { ExecuteLambdaService } from './use-cases/execute-lambda'
@@ -11,6 +11,9 @@ import { GetLambdasService } from './use-cases/get-lambdas'
 import { UpdateLambdaService } from './use-cases/update-lambda/update-lambda.service'
 
 const services = [
+  /**
+   * Use Cases
+   */
   CreateLambdaService,
   DeleteLambdaService,
   UpdateLambdaService,

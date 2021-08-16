@@ -7,7 +7,7 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { FieldValidator } from '../../../field.validator'
+import { FieldValidator } from '../../../domain/field.validator'
 import { DeleteFieldRequest } from './delete-field.request'
 
 @Injectable()

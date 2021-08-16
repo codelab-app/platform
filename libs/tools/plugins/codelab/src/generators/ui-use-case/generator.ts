@@ -2,7 +2,7 @@ import {
   camelToTitleCase,
   toCamelCase,
   toPascalCase,
-} from '@codelab/shared/utils'
+} from '@codelab/shared-utils'
 import {
   formatFiles,
   generateFiles,

@@ -1,8 +1,0 @@
-query GetLambdas {
-  lambda {
-    body
-    id
-    libraryId
-    name
-  }
-}

@@ -6,7 +6,7 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { getLambdaQuery } from '../../lib/getLambdaQuery'
+import { getLambdaQuery } from '../../application/getLambdaQuery'
 import { CreateLambdaRequest } from './create-lambda.request'
 
 @Injectable()

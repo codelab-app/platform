@@ -7,9 +7,9 @@ import {
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { FieldValidator } from '../../../field.validator'
-import { TypeValidator } from '../../../type.validator'
-import { CreateTypeService } from '../../type'
+import { FieldValidator } from '../../../domain/field.validator'
+import { TypeValidator } from '../../../domain/type.validator'
+import { CreateTypeService } from '../../type/create-type'
 import { TypeRef } from './create-field.input'
 import { CreateFieldRequest } from './create-field.request'
 
@@ -34,11 +34,11 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
     const typeId = await this.getTypeId(type)
 
     return this.dgraph.create(txn, (blankNodeUid) =>
-      this.createMutation(request, typeId, blankNodeUid),
+      CreateFieldService.createMutation(request, typeId, blankNodeUid),
     )
   }
 
-  private createMutation(
+  private static createMutation(
     { input: { key, interfaceId, name, description } }: CreateFieldRequest,
     typeId: string,
     blankNodeUid: string,

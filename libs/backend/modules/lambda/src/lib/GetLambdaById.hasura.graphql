@@ -1,8 +1,0 @@
-query GetLambdaById($id: uuid!) {
-  lambda(where: { id: { _eq: $id } }) {
-    body
-    id
-    libraryId
-    name
-  }
-}
