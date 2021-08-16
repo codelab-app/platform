@@ -1,3 +1,4 @@
+import { User } from '@codelab/shared/abstract/core'
 import { createParamDecorator, ExecutionContext } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { JwtPayload } from './interfaces/jwt.interface'
@@ -8,9 +9,12 @@ import { JwtPayload } from './interfaces/jwt.interface'
 export const CurrentUser = createParamDecorator<
   unknown,
   ExecutionContext,
-  JwtPayload
+  User
 >((data: unknown, context: ExecutionContext) => {
   const ctx = GqlExecutionContext.create(context)
+  const user: JwtPayload = ctx.getContext().req.user
 
-  return ctx.getContext().req.user
+  return {
+    id: user.sub,
+  }
 })

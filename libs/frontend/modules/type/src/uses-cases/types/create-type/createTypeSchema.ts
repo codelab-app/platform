@@ -1,5 +1,5 @@
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { CreateTypeInput } from '@codelab/shared/codegen/graphql'
-import { TypeKind } from '@codelab/shared/graph'
 import { JSONSchemaType } from 'ajv'
 import {
   BaseTypeMutationSchema,

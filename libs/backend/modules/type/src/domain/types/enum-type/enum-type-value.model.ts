@@ -1,4 +1,4 @@
-import { IEnumTypeValue } from '@codelab/shared/graph'
+import { IEnumTypeValue } from '@codelab/shared/abstract/core'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()

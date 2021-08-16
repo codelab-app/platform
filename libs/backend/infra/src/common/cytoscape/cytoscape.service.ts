@@ -1,4 +1,4 @@
-import { Edge, Graph, Vertex } from '@codelab/backend/abstract/types'
+import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import cytoscape, {
   Core,

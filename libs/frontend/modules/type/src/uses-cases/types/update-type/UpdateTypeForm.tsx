@@ -5,6 +5,7 @@ import {
   UniFormUseCaseProps,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import {
   __TypeFragment,
   refetchGetTypesQuery,
@@ -12,7 +13,6 @@ import {
   useUpdatePrimitiveTypeMutation,
   useUpdateTypeMutation,
 } from '@codelab/shared/codegen/graphql'
-import { TypeKind } from '@codelab/shared/graph'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { typenameToTypeKind } from '../../../type-tree'

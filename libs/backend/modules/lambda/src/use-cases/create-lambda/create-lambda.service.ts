@@ -15,7 +15,7 @@ export class CreateLambdaService extends DgraphUseCase<
   any
 > {
   async executeTransaction(
-    { owner, input: { name, body } }: CreateLambdaRequest,
+    { currentUser, input: { name, body } }: CreateLambdaRequest,
     txn: Txn,
   ) {
     // Mutation block
@@ -24,7 +24,7 @@ export class CreateLambdaService extends DgraphUseCase<
       'dgraph.type': [DgraphEntityType.Lambda],
       name,
       body,
-      ownerId: owner.sub,
+      ownerId: currentUser.id,
     })
 
     const { id } = await this.dgraph.create(txn, createMutation, 'lambda_id')

@@ -1,8 +1,9 @@
-import { JwtPayload } from '@codelab/backend/infra'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
+import { User } from '@codelab/shared/abstract/core'
 import { UpdatePageInput } from './update-page.input'
 
-export class UpdatePageRequest {
+export class UpdatePageRequest implements WithCurrentUserRequest {
   declare input: UpdatePageInput
 
-  declare currentUser?: JwtPayload
+  declare currentUser: User
 }

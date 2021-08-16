@@ -1,5 +1,5 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
-import { TypeKind } from '@codelab/shared/graph'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import {
   ArrayType,
   ComponentType,

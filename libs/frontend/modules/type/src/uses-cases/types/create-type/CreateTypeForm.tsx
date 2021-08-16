@@ -6,11 +6,11 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import {
   refetchGetTypesQuery,
   useCreateTypeMutation,
 } from '@codelab/shared/codegen/graphql'
-import { TypeKind } from '@codelab/shared/graph'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'

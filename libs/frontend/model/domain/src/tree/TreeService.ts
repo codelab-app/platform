@@ -1,11 +1,10 @@
-import { Edge, Graph, Vertex } from '@codelab/backend/abstract/types'
-import { Node } from '@codelab/frontend/abstract/props'
+import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
 import cytoscape from 'cytoscape'
 
-export abstract class TreeService implements Node<any> {
+export abstract class TreeService {
   protected readonly cy: cytoscape.Core
 
-  constructor(graph?: Graph<Vertex, Edge>) {
+  protected constructor(graph?: Graph<Vertex, Edge>) {
     const { edges, vertices } = graph || { edges: [], vertices: [] }
     const parentsMap = new Map<string, string>()
 

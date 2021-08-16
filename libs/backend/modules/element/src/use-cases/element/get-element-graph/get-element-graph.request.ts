@@ -1,8 +1,9 @@
-import { JwtPayload } from '@codelab/backend/infra'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
+import { User } from '@codelab/shared/abstract/core'
 import { GetElementGraphInput } from './get-element-graph.input'
 
-export class GetElementGraphRequest {
+export class GetElementGraphRequest implements WithCurrentUserRequest {
   declare input: GetElementGraphInput
 
-  declare currentUser?: JwtPayload
+  declare currentUser: User
 }

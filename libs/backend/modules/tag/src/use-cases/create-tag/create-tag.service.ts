@@ -25,8 +25,6 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
   protected async executeTransaction(request: CreateTagRequest, txn: Txn) {
     const rootTagId = await this.seedTagTree.execute(request)
 
-    console.log(rootTagId)
-
     if (request.input.isRoot) {
       request.input.parentTagId = rootTagId
     }
@@ -59,13 +57,13 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
   ) {
     const {
       input: { name, parentTagId },
-      owner,
+      currentUser,
     } = request
 
     const createJson: DgraphCreateMutationJson<DgraphTag> = {
       uid: blankNodeUid,
       name,
-      ownerId: owner.sub,
+      ownerId: currentUser.id,
       'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
       children: [],
     }
@@ -84,17 +82,17 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
   ) {
     const {
       input: { name },
-      owner,
+      currentUser,
     } = request
 
     const createJson: DgraphCreateMutationJson<DgraphTagTree> = {
       uid: '_:tagTree',
-      ownerId: owner.sub,
+      ownerId: currentUser.id,
       'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.TagTree],
       root: {
         uid: blankNodeUid,
         name,
-        ownerId: owner.sub,
+        ownerId: currentUser.id,
         'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
         children: [],
       },

@@ -2,7 +2,7 @@ import {
   ElementTypeKind,
   IElementTypeVertex,
   TypeKind,
-} from '@codelab/shared/graph'
+} from '@codelab/shared/abstract/core'
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Type } from './type.model'
 

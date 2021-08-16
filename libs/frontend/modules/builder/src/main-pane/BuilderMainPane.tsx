@@ -1,9 +1,9 @@
 import { PureQueryOptions } from '@apollo/client'
-import { Tree } from '@codelab/backend/abstract/types'
 import {
   MainPaneTemplate,
   MainPaneTemplateProps,
 } from '@codelab/frontend/view/templates'
+import { Tree } from '@codelab/shared/abstract/core'
 import {
   ElementFragment,
   useMoveElementMutation,

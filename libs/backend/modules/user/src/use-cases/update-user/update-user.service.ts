@@ -9,7 +9,7 @@ export class UpdateUserService implements UseCasePort<UpdateUserRequest, User> {
   constructor(private auth0: Auth0Service) {}
 
   async execute({ currentUser, input }: UpdateUserRequest): Promise<User> {
-    if (currentUser?.sub !== input.userId) {
+    if (currentUser?.id !== input.userId) {
       throw new UnauthorizedException("You can't edit this user")
     }
 

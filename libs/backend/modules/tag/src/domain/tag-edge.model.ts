@@ -1,4 +1,4 @@
-import { Edge } from '@codelab/backend/abstract/types'
+import { Edge } from '@codelab/shared/abstract/core'
 import { Field, Int, ObjectType } from '@nestjs/graphql'
 
 @ObjectType({ description: 'An edge between two element nodes' })

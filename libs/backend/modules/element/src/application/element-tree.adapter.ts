@@ -13,7 +13,7 @@ import {
   IFieldVertex,
   TypeGraphTreeAdapter,
   TypeKind,
-} from '@codelab/shared/graph'
+} from '@codelab/shared/abstract/core'
 import { Injectable, Logger } from '@nestjs/common'
 import cytoscape, { Core } from 'cytoscape'
 import * as _ from 'lodash'

@@ -1,9 +1,9 @@
-import { WithOwnerRequest } from '@codelab/backend/abstract/core'
-import { JwtPayload } from '@codelab/backend/infra'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
+import { User } from '@codelab/shared/abstract/core'
 import { GetAppInput } from './get-app.input'
 
-export class GetAppRequest implements WithOwnerRequest {
+export class GetAppRequest implements WithCurrentUserRequest {
   declare input: GetAppInput
 
-  declare owner: JwtPayload
+  declare currentUser: User
 }

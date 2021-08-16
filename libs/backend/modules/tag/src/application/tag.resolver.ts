@@ -2,10 +2,9 @@ import {
   CreateResponse,
   CurrentUser,
   GqlAuthGuard,
-  JwtPayload,
   Void,
 } from '@codelab/backend/infra'
-import { cLog } from '@codelab/shared-utils'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Tag } from '../domain/tag.model'
@@ -37,17 +36,14 @@ export class TagResolver {
   @UseGuards(GqlAuthGuard)
   async createTag(
     @Args('input') input: CreateTagInput,
-    @CurrentUser() owner: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
-    return await this.createTagService.execute({ input, owner })
+    return await this.createTagService.execute({ input, currentUser })
   }
 
   @Query(() => Tag, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getTag(
-    @CurrentUser() user: JwtPayload,
-    @Args('input') input: GetTagInput,
-  ) {
+  async getTag(@CurrentUser() user: User, @Args('input') input: GetTagInput) {
     const tag = await this.getTagService.execute(input)
 
     return this.tagAdapter.map(tag)
@@ -57,8 +53,8 @@ export class TagResolver {
     description: 'Get all Tag graphs',
   })
   @UseGuards(GqlAuthGuard)
-  async getTags(@CurrentUser() user: JwtPayload) {
-    const tags = await this.getTagsService.execute({ owner: user })
+  async getTags(@CurrentUser() currentUser: User) {
+    const tags = await this.getTagsService.execute({ currentUser })
 
     return this.tagAdapter.map(tags)
   }
@@ -81,10 +77,10 @@ export class TagResolver {
       'Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge',
   })
   @UseGuards(GqlAuthGuard)
-  async getTagGraph(@CurrentUser() user: JwtPayload) {
-    const dgraphTagTree = await this.getTagGraphService.execute({ owner: user })
-
-    cLog(dgraphTagTree)
+  async getTagGraph(@CurrentUser() currentUser: User) {
+    const dgraphTagTree = await this.getTagGraphService.execute({
+      currentUser,
+    })
 
     if (!dgraphTagTree) {
       return null

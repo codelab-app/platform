@@ -33,7 +33,7 @@ export class GetPagesService extends DgraphUseCase<
     await this.validate(request)
 
     return this.dgraph
-      .getOneOrThrow<DgraphApp>(txn, this.createQuery(appId))
+      .getOneOrThrow<DgraphApp>(txn, GetPagesService.createQuery(appId))
       .then((app) => app.pages || [])
   }
 
@@ -46,7 +46,7 @@ export class GetPagesService extends DgraphUseCase<
     await this.appValidator.existsAndIsOwnedBy(appId, currentUser)
   }
 
-  private createQuery(appId: string) {
+  private static createQuery(appId: string) {
     return new DgraphQueryBuilder()
       .addTypeFilterDirective(DgraphEntityType.App)
       .setUidFunc(appId)

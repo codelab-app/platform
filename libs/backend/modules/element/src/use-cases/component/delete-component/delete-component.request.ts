@@ -1,8 +1,8 @@
-import { JwtPayload } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { DeleteComponentInput } from './delete-component.input'
 
 export class DeleteComponentRequest {
   declare input: DeleteComponentInput
 
-  declare currentUser?: JwtPayload
+  declare currentUser: User
 }

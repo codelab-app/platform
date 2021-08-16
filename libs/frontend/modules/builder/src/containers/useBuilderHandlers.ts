@@ -1,4 +1,4 @@
-import { Tree } from '@codelab/backend/abstract/types'
+import { Tree } from '@codelab/shared/abstract/core'
 import { ElementFragment } from '@codelab/shared/codegen/graphql'
 import { useCallback } from 'react'
 import { useSetBuilder } from './useBuilder'

@@ -39,7 +39,7 @@ export class GetAppService extends DgraphUseCase<
     }
 
     if (app) {
-      await this.appValidator.isOwnedBy(app, request.owner)
+      await this.appValidator.isOwnedBy(app, request.currentUser)
     }
 
     return app

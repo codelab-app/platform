@@ -1,4 +1,4 @@
-import { IVertex } from '../../IVertex'
+import { Vertex } from '../../graph/Vertex'
 import { ElementTypeKind, PrimitiveKind, TypeKind } from '../enums'
 
 export type ITypeVertex =
@@ -10,7 +10,7 @@ export type ITypeVertex =
   | ILambdaTypeVertex
   | IPrimitiveTypeVertex
 
-export interface IBaseTypeVertex<TTypeKind extends TypeKind> extends IVertex {
+export interface IBaseTypeVertex<TTypeKind extends TypeKind> extends Vertex {
   name: string
   typeKind: TTypeKind
 }

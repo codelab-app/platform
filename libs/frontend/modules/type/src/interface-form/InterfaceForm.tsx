@@ -2,7 +2,11 @@ import {
   FormUniforms,
   FormUniformsProps,
 } from '@codelab/frontend/view/components'
-import { IJsonSchemaOptions, ITypeTree, TypeKind } from '@codelab/shared/graph'
+import {
+  IJsonSchemaOptions,
+  ITypeTree,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import React from 'react'
 import { SelectComponent } from './fields/SelectComponent'
 import { getSelectElementComponent } from './fields/SelectElement'

@@ -1,3 +1,3 @@
-import { Tree } from '@codelab/backend/abstract/types'
+import { Tree } from '@codelab/shared/abstract/core'
 
 export type TagTree<T> = Tree<T>

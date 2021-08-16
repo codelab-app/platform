@@ -1,4 +1,4 @@
-import { PrimitiveKind, TypeKind } from '@codelab/shared/graph'
+import { PrimitiveKind, TypeKind } from '@codelab/shared/abstract/core'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'

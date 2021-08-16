@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/shared/graph'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { typeDefinitions } from './type-definitions'
 
 const typeDefinitionByTypeKindMap = new Map(

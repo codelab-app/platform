@@ -1,8 +1,8 @@
-import { JwtPayload } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { CreatePageInput } from './create-page.input'
 
 export class CreatePageRequest {
   declare input: CreatePageInput
 
-  declare currentUser?: JwtPayload
+  declare currentUser: User
 }

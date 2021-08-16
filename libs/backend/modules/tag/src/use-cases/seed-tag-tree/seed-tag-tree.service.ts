@@ -53,15 +53,15 @@ export class SeedTagTreeService extends DgraphUseCase<
     request: SeedTagTreeRequest,
     blankNodeUid: string,
   ) {
-    const { owner } = request
+    const { currentUser } = request
 
     const createJson: DgraphCreateMutationJson<DgraphTagTree> = {
-      ownerId: owner.sub,
+      ownerId: currentUser.id,
       'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.TagTree],
       root: {
         uid: blankNodeUid,
         name: SeedTagTreeService.__TAG_ROOT,
-        ownerId: owner.sub,
+        ownerId: currentUser.id,
         'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
         children: [],
       },

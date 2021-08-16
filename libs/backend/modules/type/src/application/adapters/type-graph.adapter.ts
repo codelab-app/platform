@@ -6,7 +6,7 @@ import {
   isDgraphArrayType,
   isDgraphInterfaceType,
 } from '@codelab/backend/infra'
-import { TypeEdgeKind } from '@codelab/shared/graph'
+import { TypeEdgeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { TypeEdge, TypeGraph, TypeUnion } from '../../domain'
 import { FieldAdapter } from './field.adapter'

@@ -1,4 +1,4 @@
-import { BaseNode } from '@codelab/backend/abstract/types'
+import { BaseNode } from '@codelab/shared/abstract/core'
 import { DgraphEntityType } from '../../dgraph-entity-type'
 import { DgraphEntity } from './dgraph-entity'
 

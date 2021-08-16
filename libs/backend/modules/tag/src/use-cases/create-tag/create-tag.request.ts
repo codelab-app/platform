@@ -1,9 +1,9 @@
-import { WithOwnerRequest } from '@codelab/backend/abstract/core'
-import { JwtPayload } from '@codelab/backend/infra'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
+import { User } from '@codelab/shared/abstract/core'
 import { CreateTagInput } from './create-tag.input'
 
-export class CreateTagRequest implements WithOwnerRequest {
+export class CreateTagRequest implements WithCurrentUserRequest {
   declare input: CreateTagInput
 
-  declare owner: JwtPayload
+  declare currentUser: User
 }

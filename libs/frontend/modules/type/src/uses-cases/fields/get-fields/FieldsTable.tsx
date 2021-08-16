@@ -1,6 +1,6 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
 import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
-import { ITypeTree } from '@codelab/shared/graph'
+import { ITypeTree } from '@codelab/shared/abstract/core'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'

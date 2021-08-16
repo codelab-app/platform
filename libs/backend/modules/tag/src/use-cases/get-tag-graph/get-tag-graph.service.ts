@@ -21,12 +21,12 @@ export class GetTagGraphService extends DgraphUseCase<
   }
 
   static createQuery(request: GetTagGraphRequest) {
-    const { owner } = request
+    const { currentUser } = request
 
     return new DgraphQueryBuilder()
       .addBaseFields()
       .addExpandAll()
-      .addEqFilterDirective('ownerId', owner.sub)
+      .addEqFilterDirective('ownerId', currentUser.id)
       .setTypeFunc(DgraphEntityType.TagTree)
       .addRecurseDirective()
   }

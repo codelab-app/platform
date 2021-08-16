@@ -1,9 +1,9 @@
-import { __TypeGraphFragment } from '@codelab/shared/codegen/graphql'
 import {
   ITypeGraph,
   ITypeTree,
   TypeGraphTreeAdapter,
-} from '@codelab/shared/graph'
+} from '@codelab/shared/abstract/core'
+import { __TypeGraphFragment } from '@codelab/shared/codegen/graphql'
 
 /**
  * Parses a TypeGraph and provides helper methods for it

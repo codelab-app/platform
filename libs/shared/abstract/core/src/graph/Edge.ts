@@ -1,4 +1,4 @@
-export interface IEdge {
+export interface Edge {
   source: string
   target: string
 }

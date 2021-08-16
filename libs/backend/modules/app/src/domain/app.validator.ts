@@ -3,8 +3,8 @@ import {
   DgraphEntityType,
   DgraphQueryBuilder,
   DgraphRepository,
-  JwtPayload,
 } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 /**
@@ -20,7 +20,7 @@ export class AppValidator {
    * or if there's no current user
    * or if the current user doesn't own the app
    */
-  async existsAndIsOwnedBy(appId: string, currentUser?: JwtPayload) {
+  async existsAndIsOwnedBy(appId: string, currentUser?: User) {
     const app = await this.getApp(appId)
 
     if (!app) {
@@ -35,8 +35,8 @@ export class AppValidator {
    * if there's no current user
    * or if the current user doesn't own the app
    */
-  isOwnedBy(app: DgraphApp, currentUser?: JwtPayload) {
-    if (!currentUser || app.ownerId !== currentUser.sub) {
+  isOwnedBy(app: DgraphApp, currentUser?: User) {
+    if (!currentUser || app.ownerId !== currentUser.id) {
       throw new Error("You don't have access to this app")
     }
   }

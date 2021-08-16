@@ -1,5 +1,5 @@
-import { Edge, Graph, Vertex } from '@codelab/backend/abstract/types'
 import { ElementTree } from '@codelab/frontend/abstract/props'
+import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
 import {
   ComponentFragment,
   ElementEdge,

@@ -2,7 +2,6 @@ import {
   CreateResponse,
   CurrentUser,
   GqlAuthGuard,
-  JwtPayload,
   Void,
 } from '@codelab/backend/infra'
 import {
@@ -10,6 +9,7 @@ import {
   ElementTreeAdapter,
   GetElementGraphService,
 } from '@codelab/backend/modules/element'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -45,7 +45,7 @@ export class PageResolver {
   @UseGuards(GqlAuthGuard)
   createPage(
     @Args('input') input: CreatePageInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     return this.createPageService.execute({ input, currentUser })
   }
@@ -54,7 +54,7 @@ export class PageResolver {
   @UseGuards(GqlAuthGuard)
   async getPages(
     @Args('input') input: GetPagesInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     const pages = await this.getPagesService.execute({ input, currentUser })
 
@@ -65,7 +65,7 @@ export class PageResolver {
   @UseGuards(GqlAuthGuard)
   async getPage(
     @Args('input') input: GetPageInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     const page = await this.getPageService.execute({ input, currentUser })
 
@@ -80,7 +80,7 @@ export class PageResolver {
   @UseGuards(GqlAuthGuard)
   async deletePage(
     @Args('input') input: DeletePageInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     await this.deletePageService.execute({ input, currentUser })
   }
@@ -89,7 +89,7 @@ export class PageResolver {
   @UseGuards(GqlAuthGuard)
   async updatePage(
     @Args('input') input: UpdatePageInput,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ) {
     await this.updatePageService.execute({ input, currentUser })
   }
@@ -97,7 +97,7 @@ export class PageResolver {
   @ResolveField('elements', () => ElementGraph, { nullable: true })
   async resolveElements(
     @Parent() page: Page,
-    @CurrentUser() currentUser: JwtPayload,
+    @CurrentUser() currentUser: User,
   ): Promise<ElementGraph | null> {
     const dgraphPage = await this.getPageService.execute({
       input: { pageId: page.id },

@@ -1,4 +1,4 @@
-import { Graph } from '@codelab/backend/abstract/types'
+import { Graph } from '@codelab/shared/abstract/core'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { ElementEdge } from './element-edge.model'
 import { ElementVertex } from './element-vertex.model'
@@ -11,14 +11,17 @@ export class ElementGraph implements Graph<ElementVertex, ElementEdge> {
   @Field(() => [ElementVertex], {
     description: 'All descendant Elements or Components, at any level',
   })
-  declare vertices: Array<ElementVertex>
+  declare vertices: ReadonlyArray<ElementVertex>
 
   @Field(() => [ElementEdge], {
     description: 'All the links connecting the descendant elements/components',
   })
-  declare edges: Array<ElementEdge>
+  declare edges: ReadonlyArray<ElementEdge>
 
-  constructor(vertices: Array<ElementVertex>, edges: Array<ElementEdge>) {
+  constructor(
+    vertices: ReadonlyArray<ElementVertex>,
+    edges: ReadonlyArray<ElementEdge>,
+  ) {
     this.vertices = vertices
     this.edges = edges
   }

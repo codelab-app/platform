@@ -1,4 +1,4 @@
-import { Graph } from '@codelab/backend/abstract/types'
+import { Graph } from '@codelab/shared/abstract/core'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { TagEdge } from './tag-edge.model'
 import { TagVertex } from './tag-vertex.model'
@@ -12,15 +12,18 @@ export class TagGraph implements Graph<TagVertex, TagEdge> {
     description: 'All descendant Elements or Components, at any level',
     defaultValue: [],
   })
-  declare vertices: Array<TagVertex>
+  declare vertices: ReadonlyArray<TagVertex>
 
   @Field(() => [TagEdge], {
     description: 'All the links connecting the descendant elements/components',
     defaultValue: [],
   })
-  declare edges: Array<TagEdge>
+  declare edges: ReadonlyArray<TagEdge>
 
-  constructor(vertices: Array<TagVertex>, edges: Array<TagEdge>) {
+  constructor(
+    vertices: ReadonlyArray<TagVertex>,
+    edges: ReadonlyArray<TagEdge>,
+  ) {
     this.vertices = vertices
     this.edges = edges
   }

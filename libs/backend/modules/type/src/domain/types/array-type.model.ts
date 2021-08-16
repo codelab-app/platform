@@ -1,4 +1,4 @@
-import { IArrayTypeVertex, TypeKind } from '@codelab/shared/graph'
+import { IArrayTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
 import { ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 

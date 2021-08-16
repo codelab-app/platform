@@ -6,7 +6,7 @@ import { GetTagTreeRequest } from './get-tag-tree.request'
 export class GetTagTreeService {
   static createQuery(request: GetTagTreeRequest) {
     return new DgraphQueryBuilder()
-      .addEqFilterDirective('ownerId', request.owner.sub)
+      .addEqFilterDirective('ownerId', request.currentUser.id)
       .setTypeFunc(DgraphEntityType.TagTree)
       .addBaseFields()
       .addExpandAll()

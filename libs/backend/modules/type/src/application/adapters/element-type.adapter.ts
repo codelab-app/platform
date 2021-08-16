@@ -1,6 +1,6 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphElementType } from '@codelab/backend/infra'
-import { ElementTypeKind } from '@codelab/shared/graph'
+import { ElementTypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { ElementType } from '../../domain'
 

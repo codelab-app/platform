@@ -1,4 +1,4 @@
-import { BaseNode } from '@codelab/backend/abstract/types'
+import { BaseNode } from '@codelab/shared/abstract/core'
 import { MaybePromise } from '@codelab/shared-utils'
 import cytoscape, { EdgeDataDefinition, NodeDataDefinition } from 'cytoscape'
 import { breadthFirstTraversal } from './breadthFirstTraversal'

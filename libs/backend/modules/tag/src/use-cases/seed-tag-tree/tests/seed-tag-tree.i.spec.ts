@@ -32,7 +32,7 @@ describe('SeedTagTreeUseCase', () => {
   describe('User', () => {
     it('should seed a Tag Tree with a root Tag', async () => {
       await seedTagTreeService.execute({
-        owner: { sub: 'codelab-test-user-id' },
+        currentUser: { sub: 'codelab-test-user-id' },
       })
 
       const { getTagGraph: tagGraph } = await domainRequest<
