@@ -41,7 +41,7 @@ export class TagResolver {
     return await this.createTagService.execute({ input, owner })
   }
 
-  @Query(() => Tag)
+  @Query(() => Tag, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getTag(
     @CurrentUser() user: JwtPayload,

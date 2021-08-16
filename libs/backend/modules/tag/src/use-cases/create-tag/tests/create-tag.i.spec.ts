@@ -53,7 +53,7 @@ describe('CreateTagUseCase', () => {
       const { getTag: tag } = await domainRequest<GetTagInput, GetTagQuery>(
         userApp,
         GetTagGql,
-        { id: tagId },
+        { where: { id: tagId } },
       )
 
       expect(tag).toMatchObject({ ...createTagInput, id: tagId })

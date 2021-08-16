@@ -11,18 +11,14 @@ import {
   GetTagGql,
   GetTagInput,
   GetTagQuery,
-  UpdateTagGql,
-  UpdateTagInput,
-  UpdateTagMutation,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
 import { createTagInput } from '../../create-tag/tests/create-tag.data'
 
-describe('UpdateTagUseCase', () => {
+describe('GetTagUseCase', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let updateTagInput: UpdateTagInput
   let createdTagId: string
 
   beforeAll(async () => {
@@ -35,13 +31,6 @@ describe('UpdateTagUseCase', () => {
     >(userApp, CreateTagGql, createTagInput)
 
     createdTagId = createTag.id
-
-    updateTagInput = {
-      id: createdTagId,
-      data: {
-        name: 'Ant Design V2',
-      },
-    }
   })
 
   afterAll(async () => {
@@ -50,31 +39,37 @@ describe('UpdateTagUseCase', () => {
   })
 
   describe('Guest', () => {
-    it('should fail to create a Tag', async () => {
-      await domainRequest(guestApp, UpdateTagGql, updateTagInput, {
-        message: 'Unauthorized',
-      })
+    it('should fail to get a Tag', async () => {
+      await domainRequest<GetTagInput, GetTagQuery>(
+        guestApp,
+        GetTagGql,
+        { where: { id: createdTagId } },
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
-    it('should update a Tag', async () => {
-      await domainRequest<UpdateTagInput, UpdateTagMutation>(
-        userApp,
-        UpdateTagGql,
-        updateTagInput,
-      )
-
+    it('should get Tag by id', async () => {
       const { getTag } = await domainRequest<GetTagInput, GetTagQuery>(
         userApp,
         GetTagGql,
         { where: { id: createdTagId } },
       )
 
-      expect(getTag).toMatchObject({
-        id: createdTagId,
-        ...updateTagInput.data,
-      })
+      expect(getTag).toMatchObject(createTagInput)
+    })
+
+    it('should get Tag by name', async () => {
+      const { getTag } = await domainRequest<GetTagInput, GetTagQuery>(
+        userApp,
+        GetTagGql,
+        { where: { name: createTagInput.name } },
+      )
+
+      expect(getTag).toMatchObject(createTagInput)
     })
   })
 })

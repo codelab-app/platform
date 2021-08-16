@@ -10,7 +10,7 @@ import {
   UpdateFunctionCodeCommand,
   UpdateFunctionCodeRequest,
 } from '@aws-sdk/client-lambda'
-import { CloudFunctionsRepository } from '../../../ports/persistence'
+import { CloudFunctionsRepository } from '../../../ports'
 import { Lambda } from '../lambda.interface'
 
 export interface LambdaPayload {
@@ -21,8 +21,6 @@ export class AwsLambdaService
   extends LambdaClient
   implements CloudFunctionsRepository<Lambda>
 {
-  bucketPrefix = 'codelab-lambda'
-
   async createFunction(bucketId: string, lambda: Lambda) {
     const params: CreateFunctionRequest = {
       Code: {

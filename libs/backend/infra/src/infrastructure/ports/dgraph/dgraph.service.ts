@@ -47,4 +47,11 @@ export class DgraphService {
 
     await this.updateDqlSchema()
   }
+
+  async resetData() {
+    await this.client.alter({
+      dropAll: true,
+      schema: '{"drop_op": "DATA"}',
+    })
+  }
 }

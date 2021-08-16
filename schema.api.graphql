@@ -456,7 +456,7 @@ type Query {
   getField(input: GetFieldInput!): Field
   getLambda(input: GetLambdaInput!): Lambda
   getLambdas: [Lambda!]!
-  getTag(input: GetTagInput!): Tag!
+  getTag(input: GetTagInput!): Tag
 
   """Get all Tag graphs"""
   getTags: [Tag!]!
@@ -572,7 +572,12 @@ input GetLambdaInput {
 }
 
 input GetTagInput {
-  id: String!
+  where: WhereUniqueTag!
+}
+
+input WhereUniqueTag {
+  name: String
+  id: String
 }
 
 type Mutation {

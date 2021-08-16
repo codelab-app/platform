@@ -21,14 +21,12 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
     request: CreateTagRequest,
     blankNodeUid: string,
   ): Mutation {
-    console.log(request)
-
     const {
       input: { isRoot },
     } = request
 
     if (isRoot) {
-      return CreateTagService.createTagTreeMutation(request, blankNodeUid)
+      request.input.parentTagId = ''
     }
 
     return CreateTagService.createTagMutation(request, blankNodeUid)

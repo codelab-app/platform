@@ -1,6 +1,5 @@
-import * as Apollo from '@apollo/client'
 import { gql } from '@apollo/client'
-
+import * as Apollo from '@apollo/client'
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
@@ -499,7 +498,7 @@ export type GetPagesInput = {
 }
 
 export type GetTagInput = {
-  id: Scalars['String']
+  where: WhereUniqueTag
 }
 
 export type GetTypeInput = {
@@ -774,7 +773,7 @@ export type Query = {
   getField?: Maybe<Field>
   getLambda?: Maybe<Lambda>
   getLambdas: Array<Lambda>
-  getTag: Tag
+  getTag?: Maybe<Tag>
   /** Get all Tag graphs */
   getTags: Array<Tag>
   /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
@@ -1076,6 +1075,11 @@ export type User = {
   username?: Maybe<Scalars['String']>
 }
 
+export type WhereUniqueTag = {
+  name?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
+}
+
 export type WhereUniqueType = {
   id?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
@@ -1247,7 +1251,7 @@ export type GetTagQueryVariables = Exact<{
   input: GetTagInput
 }>
 
-export type GetTagQuery = { getTag: { id: string; name: string } }
+export type GetTagQuery = { getTag?: Maybe<{ id: string; name: string }> }
 
 export type GetTagsQueryVariables = Exact<{ [key: string]: never }>
 
