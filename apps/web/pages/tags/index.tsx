@@ -7,7 +7,7 @@ import {
   DeleteTagsButton,
   GetTagsTree,
   UpdateTagModal,
-  useTagTree,
+  useTagState,
 } from '@codelab/frontend/modules/tag'
 import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
@@ -15,9 +15,7 @@ import Head from 'next/head'
 import React from 'react'
 
 const TagPage: NextPageTemplate<'dashboard'> = () => {
-  const { checkedTags } = useTagTree()
-
-  console.log(checkedTags)
+  const { checkedTags } = useTagState()
 
   const pageHeaderButtons = [
     <CreateTagButton key={0} />,

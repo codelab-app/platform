@@ -206,7 +206,7 @@ export class ElementGraphTreeAdapter implements ElementTree<ElementFragment> {
       .getElementById(componentId)
       .filter(isComponent)
       .first()
-      .map(getNodeData)[0] as ComponentFragment
+      .map<ComponentFragment>(getNodeData)[0]
   }
 
   getDescendants(elementId: string) {

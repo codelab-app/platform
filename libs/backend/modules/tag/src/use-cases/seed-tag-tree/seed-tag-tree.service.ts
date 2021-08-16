@@ -1,6 +1,7 @@
 import {
   DgraphCreateMutationJson,
   DgraphEntityType,
+  DgraphRepository,
   DgraphTagTree,
   DgraphUseCase,
   jsonMutation,
@@ -13,32 +14,52 @@ import { SeedTagTreeRequest } from './seed-tag-tree.request'
 @Injectable()
 /**
  * When a new user is created, we'll seed the TagTree along with a root tag which all future tags will be descendents to
+ *
+ * As with all seeders, this operation should be idempotent. Meaning we can call it multiple times without changing state.
+ *
+ * @return Return existing or created tag root uid
  */
-export class SeedTagTreeService extends DgraphUseCase<any, any> {
+export class SeedTagTreeService extends DgraphUseCase<
+  SeedTagTreeRequest,
+  string
+> {
   /**
    * Name of the Tag root, will be created via seed once.
    */
   static __TAG_ROOT = '__TAG_ROOT'
 
-  protected async executeTransaction(request: SeedTagTreeRequest, txn: Txn) {
-    const results = await this.validate(request)
-
-    // console.log(results)
-
-    await this.dgraph.executeMutation(
-      txn,
-      SeedTagTreeService.createTagTreeMutation(request),
-    )
+  constructor(
+    protected readonly dgraph: DgraphRepository,
+    private getTagGraphService: GetTagGraphService,
+  ) {
+    super(dgraph)
   }
 
-  private static createTagTreeMutation(request: SeedTagTreeRequest) {
+  protected async executeTransaction(request: SeedTagTreeRequest, txn: Txn) {
+    const tagTree = await this.getTagGraphService.createRootTagQuery(request)
+
+    if (tagTree?.root) {
+      return tagTree.root.uid
+    }
+
+    const { id: tagRootId } = await this.dgraph.create(txn, (blankNodeUid) =>
+      SeedTagTreeService.createTagTreeMutation(request, blankNodeUid),
+    )
+
+    return tagRootId
+  }
+
+  private static createTagTreeMutation(
+    request: SeedTagTreeRequest,
+    blankNodeUid: string,
+  ) {
     const { owner } = request
 
     const createJson: DgraphCreateMutationJson<DgraphTagTree> = {
-      uid: '_:tagTree',
       ownerId: owner.sub,
       'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.TagTree],
       root: {
+        uid: blankNodeUid,
         name: SeedTagTreeService.__TAG_ROOT,
         ownerId: owner.sub,
         'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
@@ -47,19 +68,5 @@ export class SeedTagTreeService extends DgraphUseCase<any, any> {
     }
 
     return jsonMutation<DgraphTagTree>(createJson)
-  }
-
-  // private async tagRootExists(request: SeedTagTreeRequest) {
-  //   const results = await this.dgraph.transactionWrapper((txn) =>
-  //     this.dgraph.executeQuery(txn, GetTagTreeService.createQuery(request)),
-  //   )
-  //
-  //   return results.root.name === SeedTagTreeService.__TAG_ROOT
-  // }
-
-  private async validate(request: SeedTagTreeRequest) {
-    return this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.executeQuery(txn, GetTagGraphService.createQuery(request)),
-    )
   }
 }

@@ -52,6 +52,7 @@ export class DgraphTagAdapter extends BaseAdapter<DgraphTag, TagGraph> {
     // }
 
     if (isDgraphTag(node)) {
+      // Add Vertex
       this.cy.add({
         data: {
           id: node.uid,
@@ -59,6 +60,17 @@ export class DgraphTagAdapter extends BaseAdapter<DgraphTag, TagGraph> {
           parent: parentNode?.uid,
         },
       })
+
+      if (parentNode) {
+        this.cy.add({
+          data: {
+            source: parentNode.uid,
+            target: node.uid,
+          },
+        })
+      }
     }
+
+    return node.children
   }
 }

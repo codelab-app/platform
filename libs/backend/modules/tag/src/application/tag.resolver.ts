@@ -5,6 +5,7 @@ import {
   JwtPayload,
   Void,
 } from '@codelab/backend/infra'
+import { cLog } from '@codelab/shared-utils'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Tag } from '../domain/tag.model'
@@ -82,6 +83,12 @@ export class TagResolver {
   @UseGuards(GqlAuthGuard)
   async getTagGraph(@CurrentUser() user: JwtPayload) {
     const dgraphTagTree = await this.getTagGraphService.execute({ owner: user })
+
+    cLog(dgraphTagTree)
+
+    if (!dgraphTagTree) {
+      return null
+    }
 
     return this.tagTreeAdapter.map(dgraphTagTree.root)
   }

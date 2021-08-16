@@ -11,10 +11,10 @@ import { GetTagGraphRequest } from './get-tag-graph.request'
 @Injectable()
 export class GetTagGraphService extends DgraphUseCase<
   GetTagGraphRequest,
-  DgraphTagTree
+  DgraphTagTree | null
 > {
   protected async executeTransaction(request: GetTagGraphRequest, txn: Txn) {
-    return await this.dgraph.getOneOrThrow<DgraphTagTree>(
+    return await this.dgraph.getOne<DgraphTagTree>(
       txn,
       GetTagGraphService.createQuery(request),
     )
@@ -29,5 +29,14 @@ export class GetTagGraphService extends DgraphUseCase<
       .addEqFilterDirective('ownerId', owner.sub)
       .setTypeFunc(DgraphEntityType.TagTree)
       .addRecurseDirective()
+  }
+
+  async createRootTagQuery(request: GetTagGraphRequest) {
+    return this.dgraph.transactionWrapper((txn) =>
+      this.dgraph.getOne<DgraphTagTree>(
+        txn,
+        GetTagGraphService.createQuery(request),
+      ),
+    )
   }
 }
