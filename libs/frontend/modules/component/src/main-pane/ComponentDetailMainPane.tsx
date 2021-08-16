@@ -8,7 +8,6 @@ import { ComponentContext } from '@codelab/frontend/presenter/container'
 import { refetchGetComponentElementsQuery } from '@codelab/shared/codegen/graphql'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
-import { CreateComponentElementForm } from '../use-cases/component-element'
 import { CreateComponentElementModal } from '../use-cases/component-element/create-component-element/CreateComponentElementModal'
 
 export const ComponentDetailMainPane = () => {

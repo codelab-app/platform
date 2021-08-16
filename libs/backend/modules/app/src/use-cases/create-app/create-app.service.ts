@@ -17,13 +17,13 @@ export class CreateAppService extends DgraphCreateUseCase<CreateAppRequest> {
   }
 
   protected createMutation(
-    { input: { name }, ownerId }: CreateAppRequest,
+    { input: { name }, owner }: CreateAppRequest,
     blandNodeUid: string,
   ): Mutation {
     return jsonMutation<DgraphApp>({
       uid: blandNodeUid,
       name,
-      ownerId,
+      ownerId: owner.sub,
       'dgraph.type': [DgraphEntityType.App],
     })
   }

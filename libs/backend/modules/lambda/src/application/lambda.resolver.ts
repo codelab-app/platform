@@ -17,9 +17,8 @@ import {
   ExecuteLambdaInput,
   ExecuteLambdaService,
 } from '../use-cases/execute-lambda'
-import { GetLambdaInput } from '../use-cases/get-lambda/get-lambda.input'
-import { GetLambdaService } from '../use-cases/get-lambda/get-lambda.service'
-import { GetLambdasService } from '../use-cases/get-lambdas/get-lambdas.service'
+import { GetLambdaInput, GetLambdaService } from '../use-cases/get-lambda'
+import { GetLambdasService } from '../use-cases/get-lambdas'
 import { UpdateLambdaInput } from '../use-cases/update-lambda/update-lambda.input'
 import { UpdateLambdaService } from '../use-cases/update-lambda/update-lambda.service'
 import { LambdaService } from './lambda.service'
@@ -45,7 +44,7 @@ export class LambdaResolver {
   ) {
     const lambda = await this.createLambdaService.execute({
       input,
-      ownerId: user.sub,
+      owner: user,
     })
 
     await this.lambdaService.createLambda(lambda)
@@ -95,6 +94,6 @@ export class LambdaResolver {
   @Query(() => [Lambda])
   @UseGuards(GqlAuthGuard)
   async getLambdas(@CurrentUser() user: JwtPayload) {
-    return this.getLambdasService.execute({ ownerId: user.sub })
+    return this.getLambdasService.execute({ owner: user })
   }
 }

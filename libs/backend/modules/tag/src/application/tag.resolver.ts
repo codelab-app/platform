@@ -12,12 +12,10 @@ import { TagGraph } from '../domain/tag-graph.model'
 import { CreateTagInput, CreateTagService } from '../use-cases/create-tag'
 import { DeleteTagsInput, DeleteTagsService } from '../use-cases/delete-tags'
 import { GetTagInput, GetTagService } from '../use-cases/get-tag'
-import {
-  GetTagGraphInput,
-  GetTagGraphService,
-} from '../use-cases/get-tag-graph'
+import { GetTagGraphService } from '../use-cases/get-tag-graph'
 import { GetTagsService } from '../use-cases/get-tags'
 import { UpdateTagInput, UpdateTagService } from '../use-cases/update-tag'
+import { DgraphTagAdapter } from './dgraph-tag.adapter'
 import { TagAdapter } from './tag.adapter'
 
 @Resolver(() => Tag)
@@ -31,6 +29,7 @@ export class TagResolver {
     private readonly updateTagService: UpdateTagService,
     private readonly getTagGraphService: GetTagGraphService,
     private readonly getTagsService: GetTagsService,
+    private readonly tagTreeAdapter: DgraphTagAdapter,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -81,7 +80,9 @@ export class TagResolver {
       'Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge',
   })
   @UseGuards(GqlAuthGuard)
-  async getTagGraph(@Args('input') input: GetTagGraphInput) {
-    //
+  async getTagGraph(@CurrentUser() user: JwtPayload) {
+    const dgraphTagTree = await this.getTagGraphService.execute({ owner: user })
+
+    return this.tagTreeAdapter.map(dgraphTagTree.root)
   }
 }

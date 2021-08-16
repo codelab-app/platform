@@ -3415,10 +3415,6 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@codelab/shared-utils@link:dist/libs/tools/plugins/shared/utils":
-  version "0.0.0"
-  uid ""
-
 "@commitlint/cli@13.1.0":
   version "13.1.0"
   resolved "https://registry.yarnpkg.com/@commitlint/cli/-/cli-13.1.0.tgz#3608bb24dbef41aaa0729ffe65c7f9b57409626a"

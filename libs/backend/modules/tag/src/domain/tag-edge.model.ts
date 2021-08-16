@@ -12,7 +12,7 @@ export class TagEdge implements Edge {
   @Field(() => Int, { nullable: true })
   declare order?: number
 
-  constructor(source: string, target: string, order?: number) {
+  constructor({ source, target, order }: TagEdge) {
     this.source = source
     this.target = target
     this.order = order

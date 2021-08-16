@@ -12,7 +12,7 @@ export class ElementEdge implements Edge {
   @Field(() => Int, { nullable: true })
   declare order?: number
 
-  constructor(source: string, target: string, order?: number) {
+  constructor({ source, target, order }: ElementEdge) {
     this.source = source
     this.target = target
     this.order = order

@@ -10,11 +10,13 @@ import { TagVertex } from './tag-vertex.model'
 export class TagGraph implements Graph<TagVertex, TagEdge> {
   @Field(() => [TagVertex], {
     description: 'All descendant Elements or Components, at any level',
+    defaultValue: [],
   })
   declare vertices: Array<TagVertex>
 
   @Field(() => [TagEdge], {
     description: 'All the links connecting the descendant elements/components',
+    defaultValue: [],
   })
   declare edges: Array<TagEdge>
 

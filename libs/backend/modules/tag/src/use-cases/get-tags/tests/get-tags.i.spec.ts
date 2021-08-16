@@ -8,7 +8,6 @@ import {
   CreateTagGql,
   CreateTagInput,
   CreateTagMutation,
-  GetTagInput,
   GetTagsGql,
   GetTagsQuery,
 } from '@codelab/shared/codegen/graphql'

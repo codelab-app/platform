@@ -26,6 +26,8 @@ import { ElementAdapter } from './element.adapter'
 
 // FIXME this class is getting too big, need to refactor it soon - perhaps move some parts to shared/graph/element?
 
+export type Node = DgraphElement | DgraphComponent
+
 @Injectable()
 export class ElementTreeAdapter extends BaseAdapter<
   DgraphElement,
@@ -54,7 +56,7 @@ export class ElementTreeAdapter extends BaseAdapter<
     const extraComponentsRef = new Set<string>()
     const cy = cytoscape()
 
-    await breadthFirstTraversal<DgraphElement | DgraphComponent>({
+    await breadthFirstTraversal<Node>({
       root,
       extractId: (el) => el.uid,
       visit: async (node, parentNode) => {
@@ -86,7 +88,7 @@ export class ElementTreeAdapter extends BaseAdapter<
       )
     }
 
-    const { edges, vertices } = await this.cytoscapeService.treeToGraph<
+    const { edges, vertices } = this.cytoscapeService.treeToGraph<
       ElementVertex,
       ElementEdge
     >(
@@ -94,8 +96,7 @@ export class ElementTreeAdapter extends BaseAdapter<
       (node) => {
         return this.mapVertex(node, atomContext, componentContext)
       },
-      (edgeData) =>
-        new ElementEdge(edgeData.source, edgeData.target, edgeData.order),
+      (edge) => new ElementEdge(edge),
     )
 
     return new ElementGraph(vertices, edges)
@@ -115,7 +116,7 @@ export class ElementTreeAdapter extends BaseAdapter<
 
     await Promise.all(
       components.map((component) => {
-        return breadthFirstTraversal<DgraphElement | DgraphComponent>({
+        return breadthFirstTraversal<Node>({
           root: component,
           extractId: (el) => el.uid,
           visit: async (node, parentNode) => {
@@ -158,8 +159,8 @@ export class ElementTreeAdapter extends BaseAdapter<
   }
 
   private async visit(
-    node: DgraphElement | DgraphComponent,
-    parentNode: DgraphElement | DgraphComponent | undefined | null,
+    node: Node,
+    parentNode: Node | undefined | null,
     atomContext: Map<string, DgraphAtom>,
     componentContext: Map<string, DgraphComponent>,
     cy: Core,

@@ -1,5 +1,5 @@
-query GetTagGraph($input: GetTagGraphInput!) {
-  getTagGraph(input: $input) {
+query GetTagGraph {
+  getTagGraph {
     ...TagGraph
   }
 }

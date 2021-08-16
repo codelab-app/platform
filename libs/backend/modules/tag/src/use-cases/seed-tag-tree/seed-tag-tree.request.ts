@@ -1,5 +1,6 @@
-import { SeedTagTreeInput } from './seed-tag-tree.input'
+import { WithOwnerRequest } from '@codelab/backend/abstract/core'
+import { JwtPayload } from '@codelab/backend/infra'
 
-export class SeedTagTreeRequest {
-  declare input: SeedTagTreeInput
+export class SeedTagTreeRequest implements WithOwnerRequest {
+  declare owner: JwtPayload
 }

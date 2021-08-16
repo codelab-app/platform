@@ -33,7 +33,7 @@ export class AppResolver {
     @Args('input') input: CreateAppInput,
     @CurrentUser() user: JwtPayload,
   ) {
-    return this.createAppService.execute({ input, ownerId: user.sub })
+    return this.createAppService.execute({ input, owner: user })
   }
 
   @Query(() => App, { nullable: true })
@@ -44,7 +44,7 @@ export class AppResolver {
   ) {
     const app = await this.getAppService.execute({
       input,
-      currentUser,
+      owner: currentUser,
     })
 
     if (!app) {
@@ -57,7 +57,7 @@ export class AppResolver {
   @Query(() => [App])
   @UseGuards(GqlAuthGuard)
   async getApps(@CurrentUser() user: JwtPayload) {
-    const apps = await this.getAppsService.execute({ ownerId: user.sub })
+    const apps = await this.getAppsService.execute({ owner: user })
 
     return this.appAdapter.map(apps)
   }

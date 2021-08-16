@@ -464,7 +464,7 @@ type Query {
   """
   Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
   """
-  getTagGraph(input: GetTagGraphInput!): TagGraph
+  getTagGraph: TagGraph
 }
 
 input GetAppInput {
@@ -573,14 +573,6 @@ input GetLambdaInput {
 
 input GetTagInput {
   id: String!
-}
-
-input GetTagGraphInput {
-  where: TagWhereUniqueInput!
-}
-
-input TagWhereUniqueInput {
-  id: String
 }
 
 type Mutation {

@@ -1,7 +1,7 @@
 import {
   DgraphEntityType,
   DgraphQueryBuilder,
-  DgraphTag,
+  DgraphTagTree,
   DgraphUseCase,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
@@ -11,29 +11,23 @@ import { GetTagGraphRequest } from './get-tag-graph.request'
 @Injectable()
 export class GetTagGraphService extends DgraphUseCase<
   GetTagGraphRequest,
-  DgraphTag
+  DgraphTagTree
 > {
   protected async executeTransaction(request: GetTagGraphRequest, txn: Txn) {
-    return await this.dgraph.getOneOrThrow<DgraphTag>(
+    return await this.dgraph.getOneOrThrow<DgraphTagTree>(
       txn,
       GetTagGraphService.createQuery(request),
     )
   }
 
-  private static createQuery(request: GetTagGraphRequest) {
-    return (
-      new DgraphQueryBuilder()
-        .addBaseFields()
-        .addRecurseDirective()
-        // .addExpandAll()
-        //   .addFields(
-        //     `
-        //   name
-        //   children @facets(order
-        // `,
-        //   )
-        // .setUidFunc(request.input.id)
-        .addTypeFilterDirective(DgraphEntityType.Tag)
-    )
+  static createQuery(request: GetTagGraphRequest) {
+    const { owner } = request
+
+    return new DgraphQueryBuilder()
+      .addBaseFields()
+      .addExpandAll()
+      .addEqFilterDirective('ownerId', owner.sub)
+      .setTypeFunc(DgraphEntityType.TagTree)
+      .addRecurseDirective()
   }
 }
