@@ -15,7 +15,7 @@ import {
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { Injectable, Logger } from '@nestjs/common'
-import cytoscape, { Core } from 'cytoscape'
+import { Core } from 'cytoscape'
 import * as _ from 'lodash'
 import { ComponentAdapter } from '../domain/component/component.adapter'
 import { ElementEdge } from '../domain/element/element-edge.model'
@@ -54,7 +54,7 @@ export class ElementTreeAdapter extends BaseAdapter<
     const componentContext = new Map<string, DgraphComponent>()
     // Those are the components we need to fetch, which are in props
     const extraComponentsRef = new Set<string>()
-    const cy = cytoscape()
+    const { cy } = this.cytoscapeService
 
     await breadthFirstTraversal<Node>({
       root,
@@ -92,9 +92,7 @@ export class ElementTreeAdapter extends BaseAdapter<
       ElementVertex,
       ElementEdge
     >(
-      (node) => {
-        return this.mapVertex(node, atomContext, componentContext)
-      },
+      (node) => this.mapVertex(node, atomContext, componentContext),
       (edge) => new ElementEdge(edge),
     )
 
