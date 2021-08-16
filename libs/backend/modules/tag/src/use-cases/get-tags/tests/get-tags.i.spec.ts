@@ -69,9 +69,9 @@ describe('GetTagsUseCase', () => {
       )
 
       expect(getTags).toMatchObject([
+        { name: SeedTagTreeService.__TAG_ROOT },
         tagA,
         tagB,
-        { name: SeedTagTreeService.__TAG_ROOT },
       ])
     })
   })
