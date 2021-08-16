@@ -13,7 +13,9 @@ import { AppController } from './app.controller'
 @Module({
   imports: [
     InfrastructureModule,
-    // Domain
+    /**
+     * Domain
+     */
     AppModule,
     UserModule,
     PageModule,
