@@ -92,7 +92,6 @@ export class ElementTreeAdapter extends BaseAdapter<
       ElementVertex,
       ElementEdge
     >(
-      cy,
       (node) => {
         return this.mapVertex(node, atomContext, componentContext)
       },

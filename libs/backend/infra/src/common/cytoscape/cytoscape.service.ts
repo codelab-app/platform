@@ -36,13 +36,12 @@ export class CytoscapeService {
   // }
 
   treeToGraph<TVertex extends Vertex, TEdge extends Edge>(
-    cy: Core,
     vertexMapper: (nodeData: any) => TVertex,
     edgeMapper: (edgeData: any) => TEdge,
   ): Graph<TVertex, TEdge> {
     return {
-      vertices: cy.nodes().map((node) => vertexMapper(node.data())),
-      edges: cy.edges().map((edge) => edgeMapper(edge.data())),
+      vertices: this.cy.nodes().map((node) => vertexMapper(node.data())),
+      edges: this.cy.edges().map((edge) => edgeMapper(edge.data())),
     }
   }
 }

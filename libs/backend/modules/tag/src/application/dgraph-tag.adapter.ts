@@ -34,7 +34,6 @@ export class DgraphTagAdapter extends BaseAdapter<DgraphTag, TagGraph> {
       TagVertex,
       TagEdge
     >(
-      this.cy,
       (vertex) => {
         return new Tag(vertex)
       },
