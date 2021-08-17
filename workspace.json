@@ -774,6 +774,19 @@
         }
       }
     },
+    "shared-abstract-types": {
+      "root": "libs/shared/abstract/types",
+      "sourceRoot": "libs/shared/abstract/types/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/abstract/types/**/*.ts"]
+          }
+        }
+      }
+    },
     "shared-codegen-graphql": {
       "root": "libs/shared/codegen/graphql",
       "sourceRoot": "libs/shared/codegen/graphql/src",

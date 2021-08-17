@@ -27,94 +27,94 @@
   },
   "projects": {
     "api": {
-      "tags": []
+      "tags": ["scope:backend"]
     },
     "backend-abstract-core": {
-      "tags": ["back:abstract", "scope:backend"]
+      "tags": ["type:abstract", "scope:backend"]
     },
     "backend-abstract-types": {
-      "tags": ["back:abstract", "scope:backend"]
+      "tags": ["type:abstract", "scope:backend"]
     },
     "backend-infra": {
-      "tags": ["backend:infra", "scope:backend"]
+      "tags": ["layer:infra", "scope:backend"]
     },
     "backend-modules-app": {
-      "tags": ["backend:domain", "scope:backend"]
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-atom": {
-      "tags": ["backend:domain", "scope:backend"]
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-element": {
-      "tags": ["backend:domain", "scope:backend"]
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-lambda": {
-      "tags": ["backend:domain", "scope:backend"]
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-page": {
-      "tags": ["backend:domain", "scope:backend"]
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-tag": {
-      "tags": ["backend:domain", "scope:backend"]
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-type": {
-      "tags": ["backend:domain", "scope:backend"]
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-user": {
-      "tags": ["backend:domain", "scope:backend"]
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "cli": {
-      "tags": []
+      "tags": ["scope:backend"]
     },
     "frontend-abstract-props": {
-      "tags": ["frontend:abstract", "scope:frontend"]
+      "tags": ["type:abstract", "scope:frontend"]
     },
     "frontend-model-domain": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain", "scope:frontend"]
     },
     "frontend-model-infra-apollo": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:infra", "scope:frontend"]
     },
     "frontend-model-state": {
       "tags": ["scope:frontend"]
     },
     "frontend-modules-app": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-atom": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-builder": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-category": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-component": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-element": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-lambda": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-library": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-page": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-style": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-tag": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-type": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-user": {
-      "tags": ["scope:frontend"]
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-presenter-container": {
       "tags": ["scope:frontend"]
@@ -132,10 +132,13 @@
       "tags": ["scope:frontend"]
     },
     "shared-abstract-core": {
-      "tags": ["scope:shared", "shared:abstract"]
+      "tags": ["scope:shared", "type:abstract"]
+    },
+    "shared-abstract-types": {
+      "tags": ["scope:shared", "type:abstract"]
     },
     "shared-codegen-graphql": {
-      "tags": ["scope:shared", "shared:codegen"]
+      "tags": ["scope:codegen", "scope:shared"]
     },
     "shared-core": {
       "tags": ["scope:shared"]
@@ -153,11 +156,11 @@
       "tags": []
     },
     "web": {
-      "tags": [],
+      "tags": ["scope:frontend"],
       "implicitDependencies": []
     },
     "web-e2e": {
-      "tags": [],
+      "tags": ["scope:frontend"],
       "implicitDependencies": ["web"]
     }
   },

@@ -20,7 +20,7 @@ export class ServerService {
    */
   private START_API_SERVER_COMMAND = 'node dist/apps/api/main.js'
 
-  private startWebServerCommand(env: Env) {
+  private static startWebServerCommand(env: Env) {
     return `nx run web:serve:${env.toLowerCase()}`
   }
 
@@ -58,7 +58,7 @@ export class ServerService {
     if (isApiPortOpen) {
       Logger.log(`${webServerPort} is open, starting server...`)
 
-      return await this.startWebServer(env)
+      return await ServerService.startWebServer(env)
     } else {
       Logger.log(`${webServerPort} is closed, skipping start server.`)
     }
@@ -73,8 +73,8 @@ export class ServerService {
     })
   }
 
-  private async startWebServer(env: Env) {
-    return shell.exec(this.startWebServerCommand(env), {
+  private static async startWebServer(env: Env) {
+    return shell.exec(ServerService.startWebServerCommand(env), {
       async: true,
       cwd: process.cwd(),
     })
