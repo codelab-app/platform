@@ -1,14 +1,17 @@
-// Add remove un-used when pushing only a
-const rules = `--rule 'unused-imports/no-unused-imports-ts: 2'`
-
 module.exports = {
-  '**/*.{js,ts,tsx}': (files) => {
+  '**/*.{js,jsx,ts,tsx}': (files) => {
     const stagedFiles = files.join(' ')
-    const cmd = `cross-env NODE_OPTIONS=--max-old-space-size=8192 eslint ${stagedFiles} ${rules} --fix`
+    // Add remove un-used when pushing only a
+    const rules = `--rule 'unused-imports/no-unused-imports-ts: 2'`
 
-    console.log(`Running: ${cmd}`)
+    const cmds = [
+      `cross-env NODE_OPTIONS=--max-old-space-size=8192 eslint ${stagedFiles} ${rules} --fix`,
+      `madge --circular ${stagedFiles} --extensions ts,tsx,js,jsx`,
+    ]
 
-    return cmd
+    console.log(`Running: ${cmds}`)
+
+    return cmds
   },
   '**/*.{json,graphql,yml,yaml}': (files) => {
     const stagedFiles = files.join(' ')

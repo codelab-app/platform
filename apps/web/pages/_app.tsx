@@ -2,6 +2,7 @@
 import '../src/styles/App.less'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import { useApollo } from '@codelab/frontend/model/infra/apollo'
 import { css, Global } from '@emotion/react'
 import { AppProps } from 'next/app'
@@ -12,9 +13,9 @@ import { GlobalStyles } from 'twin.macro'
 
 const queryClient = new QueryClient()
 
-const AppContainer = ({ pageProps, Component, router }: AppProps<any>) => {
+const AppContainer = ({ pageProps, Component }: AppProps<any>) => {
   const { Template, Header, MainPane, MetaPane, SidebarNavigation } =
-    Component as any
+    Component as CodelabPage
 
   return (
     <RecoilRoot>

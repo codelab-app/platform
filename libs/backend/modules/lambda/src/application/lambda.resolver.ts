@@ -3,8 +3,10 @@ import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Lambda, LambdaPayload } from '../domain/lambda.model'
-import { CreateLambdaInput } from '../use-cases/create-lambda/create-lambda.input'
-import { CreateLambdaService } from '../use-cases/create-lambda/create-lambda.service'
+import {
+  CreateLambdaInput,
+  CreateLambdaService,
+} from '../use-cases/create-lambda'
 import {
   DeleteLambdaInput,
   DeleteLambdaService,
@@ -15,8 +17,10 @@ import {
 } from '../use-cases/execute-lambda'
 import { GetLambdaInput, GetLambdaService } from '../use-cases/get-lambda'
 import { GetLambdasService } from '../use-cases/get-lambdas'
-import { UpdateLambdaInput } from '../use-cases/update-lambda/update-lambda.input'
-import { UpdateLambdaService } from '../use-cases/update-lambda/update-lambda.service'
+import {
+  UpdateLambdaInput,
+  UpdateLambdaService,
+} from '../use-cases/update-lambda'
 import { LambdaService } from './lambda.service'
 
 @Resolver(() => Lambda)

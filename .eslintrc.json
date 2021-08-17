@@ -30,7 +30,13 @@
         //   }
         // ],
         // "react/jsx-props-no-spreading": "error",
-        "spaced-comment": ["error", "always", { "markers": ["/"] }],
+        "spaced-comment": [
+          "error",
+          "always",
+          {
+            "markers": ["/"]
+          }
+        ],
         "simple-import-sort/imports": [
           "error",
           {
@@ -40,7 +46,12 @@
         "simple-import-sort/exports": "error",
         "import/newline-after-import": "error",
         "import/first": "error",
-        "import/no-cycle": ["error", { "ignoreExternal": true }],
+        "import/no-cycle": [
+          "error",
+          {
+            "ignoreExternal": true
+          }
+        ],
         "import/no-duplicates": "error",
         "prettier/prettier": "error",
         "func-style": "error",
@@ -58,18 +69,40 @@
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
+              //
+              // This is a map of key & their possible values
+              //
+              // "scope": ["frontend", "backend", "shared", "codegen"]
+              // "layer": ["ui-domain", "api-domain", "app", "infra"]
+              // "type": ["concrete", "abstract"]
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "sourceTag": "type:abstract",
+                "onlyDependOnLibsWithTags": ["type:abstract", "scope:codegen"]
+              },
+              {
+                "sourceTag": "scope:backend",
+                "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
+              },
+              {
+                "sourceTag": "scope:frontend",
+                "onlyDependOnLibsWithTags": ["scope:frontend", "scope:shared"]
+              },
+              {
+                "sourceTag": "scope:backend",
+                "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
+              },
+              {
+                "sourceTag": "scope:shared",
+                "onlyDependOnLibsWithTags": ["scope:shared"]
+              },
+              {
+                "sourceTag": "layer:domain:backend",
+                "onlyDependOnLibsWithTags": [
+                  "layer:domain:backend",
+                  "layer:infra",
+                  "type:abstract"
+                ]
               }
-              //              {
-              //                "sourceTag": "level:abstract",
-              //                "onlyDependOnLibsWithTags": ["level:abstract", "shared:codegen"]
-              //              },
-              //              {
-              //                "sourceTag": "level:concrete",
-              //                "onlyDependOnLibsWithTags": ["*"]
-              //              }
             ]
           }
         ],
@@ -125,6 +158,45 @@
           }
         ],
         "lines-between-class-members": ["error", "always"]
+      }
+    },
+    {
+      // In order to allow spec files to import codegen, we unfortunately have to copy the whole rules here
+      "files": ["**/tests/**/*"],
+      "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "depConstraints": [
+              {
+                "sourceTag": "type:abstract",
+                "onlyDependOnLibsWithTags": ["type:abstract", "scope:codegen"]
+              },
+              {
+                "sourceTag": "scope:backend",
+                "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
+              },
+              {
+                "sourceTag": "scope:frontend",
+                "onlyDependOnLibsWithTags": ["scope:frontend", "scope:shared"]
+              },
+              {
+                "sourceTag": "scope:backend",
+                "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
+              },
+              {
+                "sourceTag": "layer:domain:backend",
+                "onlyDependOnLibsWithTags": [
+                  "layer:domain:backend",
+                  "layer:infra",
+                  "type:abstract",
+                  "scope:codegen"
+                ]
+              }
+            ]
+          }
+        ]
       }
     },
     {

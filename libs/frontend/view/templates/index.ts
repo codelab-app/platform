@@ -1,4 +1,3 @@
-export * from './DashboardLayout'
-export * from './DashboardSidebarNavigation'
-export * from './MainDashboardTemplate'
+export * from './DashboardTemplate'
 export * from './MainPaneTemplate'
+export * from './SidebarNavigation'

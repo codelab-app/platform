@@ -1,15 +1,15 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import { PageMainPane } from '@codelab/frontend/modules/page'
 import {
   AppContext,
   withAppQueryProvider,
 } from '@codelab/frontend/presenter/container'
-import { DashboardLayout } from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import Head from 'next/head'
 import React, { useContext } from 'react'
 
-const Pages: NextPageTemplate<'dashboard'> = () => {
+const Pages: CodelabPage = () => {
   const { app } = useContext(AppContext)
 
   return (
@@ -21,9 +21,12 @@ const Pages: NextPageTemplate<'dashboard'> = () => {
   )
 }
 
-Pages.Template = withAppQueryProvider(DashboardLayout)
-Pages.MainPane = PageMainPane
-
 export const getServerSideProps = withPageAuthRequired()
+
+Pages.Template = withAppQueryProvider(DashboardTemplate)
+Pages.MainPane = PageMainPane
+Pages.Header = null
+Pages.SidebarNavigation = null
+Pages.MetaPane = null
 
 export default Pages

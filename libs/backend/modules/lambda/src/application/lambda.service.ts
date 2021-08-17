@@ -35,6 +35,8 @@ export class LambdaService {
       lambda,
     )
 
+    console.log(createFunctionResults)
+
     return createFunctionResults
   }
 

@@ -1,13 +1,16 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   DeleteUserButton,
   DeleteUserModal,
 } from '@codelab/frontend/modules/user'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { useGetUsersQuery } from '@codelab/shared/codegen/graphql'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import React from 'react'
 
-const Users = () => {
+const UsersPage: CodelabPage = () => {
   const { data } = useGetUsersQuery()
 
   const dataSource = data?.users?.map((user) => ({
@@ -52,4 +55,12 @@ const Users = () => {
   )
 }
 
-export default Users
+export const getServerSideProps = withPageAuthRequired()
+
+UsersPage.Template = DashboardTemplate
+UsersPage.Header = null
+UsersPage.MetaPane = null
+UsersPage.MainPane = null
+UsersPage.SidebarNavigation = null
+
+export default UsersPage

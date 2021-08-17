@@ -8,6 +8,7 @@ import {
 } from '@codelab/shared/codegen/graphql'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
+import { withProvider } from './withProvider'
 
 type IComponentContext = {
   component: ComponentFragment
@@ -78,12 +79,4 @@ export const ComponentQueryProvider = ({
   )
 }
 
-export const withComponentQueryProvider = <TProps extends any>(
-  Component: React.ComponentType<TProps>,
-) => {
-  return (props: TProps) => (
-    <ComponentQueryProvider>
-      <Component {...(props as any)} />
-    </ComponentQueryProvider>
-  )
-}
+export const withComponentQueryProvider = withProvider(ComponentQueryProvider)

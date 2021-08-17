@@ -8,7 +8,7 @@ import {
 } from '@codelab/frontend/view/components'
 import {
   CreateTagInput,
-  refetchGetTagsQuery,
+  refetchGetTagGraphQuery,
   useCreateTagMutation,
   useGetTagsQuery,
 } from '@codelab/shared/codegen/graphql'
@@ -39,12 +39,8 @@ export const CreateTagForm = ({
   } = useCrudModalMutationForm({
     entityType: EntityType.Tag,
     useMutationFunction: useCreateTagMutation,
-    mutationOptions: { refetchQueries: [refetchGetTagsQuery()] },
+    mutationOptions: { refetchQueries: [refetchGetTagGraphQuery()] },
     mapVariables: (input: CreateTagInput) => {
-      // if (input.isRoot) {
-      //
-      // }
-
       return { input }
     },
   })

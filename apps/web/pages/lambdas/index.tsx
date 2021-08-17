@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   CreateLambdaButton,
   CreateLambdaModal,
@@ -8,12 +8,15 @@ import {
   UpdateLambdaModal,
 } from '@codelab/frontend/modules/lambda'
 import { padding } from '@codelab/frontend/style'
-import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const LambdasPage: NextPageTemplate<'dashboard'> = () => {
+const LambdasPage: CodelabPage = () => {
   const pageHeaderButtons = [<CreateLambdaButton key={0} />]
 
   return (
@@ -38,8 +41,12 @@ const LambdasPage: NextPageTemplate<'dashboard'> = () => {
   )
 }
 
-LambdasPage.Template = MainDashboardTemplate
-
 export const getServerSideProps = withPageAuthRequired()
+
+LambdasPage.Template = DashboardTemplate
+LambdasPage.Header = null
+LambdasPage.MetaPane = null
+LambdasPage.MainPane = null
+LambdasPage.SidebarNavigation = SidebarNavigation
 
 export default LambdasPage

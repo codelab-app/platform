@@ -1,10 +1,12 @@
 import { useGetTagGraphQuery } from '@codelab/shared/codegen/graphql'
 import { Tree, TreeProps } from 'antd'
-import { useTagState } from '../../useTagState'
+import { useTagState } from '../../domain/use-tag/useTagState'
+import { useTagTree } from '../../domain/use-tag/useTagTree'
 
 export const GetTagsTree = () => {
   const { data, loading } = useGetTagGraphQuery()
   const { setSelectedTag, setCheckedTags, selectedTag } = useTagState()
+  const tagTree = useTagTree(data?.getTagGraph)
 
   if (!data) {
     return null
@@ -13,6 +15,7 @@ export const GetTagsTree = () => {
   const tags = data.getTagGraph
 
   console.log(tags)
+  console.log(tagTree.getAntdTree())
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     console.log('selected', selectedKeys, info)
@@ -31,7 +34,10 @@ export const GetTagsTree = () => {
       // defaultCheckedKeys={['0-0-0', '0-0-1']}
       onSelect={onSelect}
       onCheck={onCheck}
-      treeData={[]}
+      /**
+       * The root is a system root & shouldn't be shown
+       */
+      treeData={tagTree.getAntdTree().children}
       // treeData={tags.map((tag) => ({
       //   key: tag.id,
       //   title: tag.name,

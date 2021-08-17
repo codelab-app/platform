@@ -1,0 +1,16 @@
+{
+  "fileServerFolder": ".",
+  "fixturesFolder": "./src/fixtures",
+  "integrationFolder": "./src/integration",
+  "modifyObstructiveCode": false,
+  "pluginsFile": "./src/plugins/index.ts",
+  "supportFile": "./src/support/index.ts",
+  "video": false,
+  "videosFolder": "./src/videos",
+  "screenshotsFolder": "./src/screenshots",
+  "chromeWebSecurity": false,
+  "ignoreTestFiles": "*.ignore.ts",
+  "defaultCommandTimeout": 30000,
+  "projectId": "37q6ed",
+  "env": {}
+}

@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   CreateComponentButton,
   CreateComponentModal,
@@ -8,12 +8,12 @@ import {
   UpdateComponentModal,
 } from '@codelab/frontend/modules/component'
 import { padding } from '@codelab/frontend/style'
-import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import PageHeader from 'antd/lib/page-header'
 import Head from 'next/head'
 import React from 'react'
 
-const Components: NextPageTemplate<'dashboard'> = () => {
+const Components: CodelabPage = () => {
   const pageHeaderButtons = [<CreateComponentButton key={0} />]
 
   return (
@@ -38,8 +38,12 @@ const Components: NextPageTemplate<'dashboard'> = () => {
   )
 }
 
-Components.Template = MainDashboardTemplate
-
 export const getServerSideProps = withPageAuthRequired()
+
+Components.Template = DashboardTemplate
+Components.Header = null
+Components.MetaPane = null
+Components.MainPane = null
+Components.SidebarNavigation = null
 
 export default Components

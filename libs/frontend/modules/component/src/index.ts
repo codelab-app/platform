@@ -1,4 +1,3 @@
-export * from './ComponentDetailTemplate'
 export * from './main-pane'
 export * from './meta-pane/ComponentDetailMetaPane'
 export * from './use-cases/component-element'

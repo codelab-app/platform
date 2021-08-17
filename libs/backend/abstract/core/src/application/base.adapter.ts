@@ -1,4 +1,8 @@
-import { InferPromise, MaybeArray, MaybePromise } from '@codelab/shared-utils'
+import {
+  InferPromise,
+  MaybeArray,
+  MaybePromise,
+} from '@codelab/shared/abstract/types'
 import { GraphqlPort } from './graphql.port'
 
 type AdapterOutput<TIn, TOut> = TIn extends Array<any>

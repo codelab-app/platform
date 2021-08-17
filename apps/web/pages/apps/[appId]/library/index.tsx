@@ -1,10 +1,8 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import { PageType } from '@codelab/frontend/model/state/router'
-import {
-  LibraryTemplate,
-  MainPaneLibrary,
-} from '@codelab/frontend/modules/library'
+import { MainPaneLibrary } from '@codelab/frontend/modules/library'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Breadcrumb } from 'antd'
 import Link from 'next/link'
 import React from 'react'
@@ -38,7 +36,7 @@ const LibraryContent = () => {
   )
 }
 
-const Library: NextPageTemplate<'builder'> = () => {
+const Library: CodelabPage = () => {
   return (
     <div id="Builder" css={tw`relative h-full`}>
       <Breadcrumb>
@@ -54,9 +52,11 @@ const Library: NextPageTemplate<'builder'> = () => {
   )
 }
 
-Library.Template = LibraryTemplate
+Library.Template = DashboardTemplate
 Library.MainPane = MainPaneLibrary
-// Library.MetaPane = MetaPaneComponent
+Library.Header = null
+Library.MetaPane = null
+Library.SidebarNavigation = null
 
 export const getServerSideProps = withPageAuthRequired()
 

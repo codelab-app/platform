@@ -1,15 +1,19 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
-import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import React from 'react'
 
-const AdminPage: NextPageTemplate<'dashboard'> = () => {
+const AdminPage: CodelabPage = () => {
   return <PageHeader ghost={false} title="Admin" />
 }
 
-AdminPage.Template = MainDashboardTemplate
-
 export const getServerSideProps = withPageAuthRequired()
+
+AdminPage.Template = DashboardTemplate
+AdminPage.Header = null
+AdminPage.MetaPane = null
+AdminPage.MainPane = null
+AdminPage.SidebarNavigation = null
 
 export default AdminPage

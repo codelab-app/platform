@@ -1,5 +1,6 @@
 import { ElementTree } from '@codelab/frontend/abstract/props'
 import {
+  ComponentFragment,
   ElementFragment,
   ElementGraphFragment,
 } from '@codelab/shared/codegen/graphql'
@@ -10,6 +11,6 @@ import { ElementGraphTreeAdapter } from './ElementGraphTreeAdapter'
  */
 export const useElementTree = (
   graph?: ElementGraphFragment | null,
-): ElementTree<ElementFragment> => {
+): ElementTree<ElementFragment | ComponentFragment> => {
   return new ElementGraphTreeAdapter(graph)
 }

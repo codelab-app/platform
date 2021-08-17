@@ -3,12 +3,12 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { LambdaResolver } from './application/lambda.resolver'
 import { LambdaService } from './application/lambda.service'
-import { CreateLambdaService } from './use-cases/create-lambda/create-lambda.service'
+import { CreateLambdaService } from './use-cases/create-lambda'
 import { DeleteLambdaService } from './use-cases/delete-lambda'
 import { ExecuteLambdaService } from './use-cases/execute-lambda'
 import { GetLambdaService } from './use-cases/get-lambda'
 import { GetLambdasService } from './use-cases/get-lambdas'
-import { UpdateLambdaService } from './use-cases/update-lambda/update-lambda.service'
+import { UpdateLambdaService } from './use-cases/update-lambda'
 
 const services = [
   /**

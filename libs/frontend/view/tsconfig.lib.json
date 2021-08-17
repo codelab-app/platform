@@ -7,7 +7,10 @@
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "jsxImportSource": "@emotion/react",
-    "types": ["node"]
+    "types": ["node"],
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
   },
   "files": [
     "../../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
