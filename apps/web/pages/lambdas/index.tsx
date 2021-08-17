@@ -8,7 +8,10 @@ import {
   UpdateLambdaModal,
 } from '@codelab/frontend/modules/lambda'
 import { padding } from '@codelab/frontend/style'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
@@ -44,6 +47,6 @@ LambdasPage.Template = DashboardTemplate
 LambdasPage.Header = null
 LambdasPage.MetaPane = null
 LambdasPage.MainPane = null
-LambdasPage.SidebarNavigation = null
+LambdasPage.SidebarNavigation = SidebarNavigation
 
 export default LambdasPage
