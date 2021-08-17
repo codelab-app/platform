@@ -4,41 +4,30 @@ import {
   ElementEdgeFragment,
   ElementFragment,
 } from '@codelab/shared/codegen/graphql'
-import { getElementData, TreeAdapter } from '@codelab/shared/core'
-import { SingularElementArgument } from 'cytoscape'
-
-//
-// Hook:
-//
-
-// const getNodeData = (node: SingularElementArgument) =>
-//   (node?.data()?.data as ElementFragment | ComponentFragment) ?? null
+import { getElementData } from '@codelab/shared/core'
+import { filterPredicate, Predicate, TreeAdapter } from '../tree/TreeAdapter'
 
 type Vertex = ComponentFragment | ElementFragment
 type Edge = ElementEdgeFragment
 
-const isDataElement = (node: SingularElementArgument) =>
-  getElementData(node)?.__typename === 'Element'
+export const isElement: Predicate = ({ __typename }: any) =>
+  __typename === 'Element'
 
-export const isElement = ({ __typename }: any) => __typename === 'Element'
-
-export const isComponent = ({ __typename }: any) => __typename === 'Component'
-
-const isDataComponent = (node: SingularElementArgument) =>
-  getElementData(node)?.__typename === 'Component'
+export const isComponent: Predicate = ({ __typename }: any) =>
+  __typename === 'Component'
 
 export class ElementGraphTreeAdapter
   extends TreeAdapter<Vertex, Edge>
   implements ElementTree<Vertex>
 {
-  predicate = isDataElement
+  predicate = isElement
 
   /**
    * Component methods
    */
 
   getComponentRootElement(componentId: string) {
-    return this.findElementFrom<ElementFragment>(componentId, isDataElement)
+    return this.findElementFrom<ElementFragment>(componentId, isElement)
   }
 
   getComponentById(componentId: string) {
@@ -49,7 +38,7 @@ export class ElementGraphTreeAdapter
     return this.cy
       .getElementById(elementId)
       .outgoers()
-      .filter(isDataComponent)
+      .filter(filterPredicate(isComponent))
       .first()
       .map<ComponentFragment>(getElementData)[0]
   }

@@ -30,7 +30,13 @@
         //   }
         // ],
         // "react/jsx-props-no-spreading": "error",
-        "spaced-comment": ["error", "always", { "markers": ["/"] }],
+        "spaced-comment": [
+          "error",
+          "always",
+          {
+            "markers": ["/"]
+          }
+        ],
         "simple-import-sort/imports": [
           "error",
           {
@@ -40,7 +46,12 @@
         "simple-import-sort/exports": "error",
         "import/newline-after-import": "error",
         "import/first": "error",
-        "import/no-cycle": ["error", { "ignoreExternal": true }],
+        "import/no-cycle": [
+          "error",
+          {
+            "ignoreExternal": true
+          }
+        ],
         "import/no-duplicates": "error",
         "prettier/prettier": "error",
         "func-style": "error",
@@ -61,15 +72,29 @@
               {
                 "sourceTag": "*",
                 "onlyDependOnLibsWithTags": ["*"]
+              },
+              {
+                "sourceTag": "frontend:abstract",
+                "onlyDependOnLibsWithTags": [
+                  "shared:abstract",
+                  "shared:codegen"
+                ]
+              },
+              {
+                "sourceTag": "backend:abstract",
+                "onlyDependOnLibsWithTags": [
+                  "shared:abstract",
+                  "shared:codegen"
+                ]
+              },
+              {
+                "sourceTag": "scope:frontend",
+                "onlyDependOnLibsWithTags": ["scope:frontend", "scope:shared"]
+              },
+              {
+                "sourceTag": "scope:backend",
+                "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
               }
-              //              {
-              //                "sourceTag": "level:abstract",
-              //                "onlyDependOnLibsWithTags": ["level:abstract", "shared:codegen"]
-              //              },
-              //              {
-              //                "sourceTag": "level:concrete",
-              //                "onlyDependOnLibsWithTags": ["*"]
-              //              }
             ]
           }
         ],

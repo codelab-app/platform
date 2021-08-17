@@ -7,6 +7,12 @@ type ElementPredicate<TElement = SingularElementArgument> = (
   element: TElement,
 ) => boolean
 
+export type Predicate = (node: any) => boolean
+
+export const filterPredicate =
+  (guard: Predicate) => (node: SingularElementArgument) =>
+    guard(getElementData(node))
+
 /**
  * The TreeAdapter implements the Graph port interface. Think of the GraphQL server data as the contract, and we're adapting to that.
  */
@@ -24,9 +30,9 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
   /**
    * This is the default predicate used for searching, can be overridden.
    */
-  abstract predicate: ElementPredicate = () => true
+  predicate: Predicate = () => true
 
-  protected constructor(graph?: Graph<TVertex, TEdge> | null) {
+  constructor(graph?: Graph<TVertex, TEdge> | null) {
     this.vertices = graph?.vertices ?? []
     this.edges = graph?.edges ?? []
 
@@ -62,7 +68,10 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
    * @param predicate filters the type of element
    */
   private getAllElements<TElement = TVertex>(predicate: ElementPredicate) {
-    return this.cy.elements().filter(predicate).map<TElement>(getElementData)
+    return this.cy
+      .elements()
+      .filter(filterPredicate(predicate))
+      .map<TElement>(getElementData)
   }
 
   getPathFromRoot(elementId: string) {
@@ -132,7 +141,7 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
   getAllNodes<TElement = TVertex>(predicate: ElementPredicate = () => true) {
     return this.cy
       .elements()
-      .filter(this.predicate ?? predicate)
+      .filter(filterPredicate(this.predicate ?? predicate))
       .map<TElement>(getElementData)
   }
 
@@ -148,7 +157,7 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
   ) {
     return this.cy
       .getElementById(elementId)
-      .filter(predicate)
+      .filter(filterPredicate(this.predicate ?? predicate))
       .first()
       .map<TElement>(getElementData)[0]
   }
@@ -161,7 +170,7 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
       .getElementById(elementId)
       .incomers()
       .nodes()
-      .filter(this.predicate ?? predicate)
+      .filter(filterPredicate(this.predicate ?? predicate))
       .first()
       .map<TElement>(getElementData)[0]
   }
@@ -180,7 +189,7 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
       .edges()
       .sort((a, b) => getEdgeOrder(a) - getEdgeOrder(b))
       .targets()
-      .filter(this.predicate ?? predicate)
+      .filter(filterPredicate(this.predicate ?? predicate))
       .map<TElement>(getElementData)
   }
 
@@ -192,20 +201,10 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
       .getElementById(elementId)
       .outgoers()
       .nodes()
-      .filter(predicate)
+      .filter(filterPredicate(this.predicate ?? predicate))
       .first()
       .map<TElement>(getElementData)[0]
   }
-
-  // getParent(elementId: string) {
-  //   return this.cy
-  //     .getElementById(elementId)
-  //     .incomers()
-  //     .nodes()
-  //     .filter(isElement)
-  //     .first()
-  //     .map<ElementFragment>(getElementData)[0]
-  // }
 
   getNodeById<TElement = TVertex>(
     id: string,
@@ -213,7 +212,7 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
   ) {
     return this.cy
       .elements()
-      .filter(predicate)
+      .filter(filterPredicate(this.predicate ?? predicate))
       .getElementById(id)
       .first()
       .map<TElement>(getElementData)[0]
@@ -226,7 +225,7 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
     return this.cy
       .getElementById(elementId)
       .descendants()
-      .filter(this.predicate ?? predicate)
+      .filter(filterPredicate(this.predicate ?? predicate))
       .map<TElement>(getElementData)
   }
 

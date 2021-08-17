@@ -10,6 +10,7 @@ fragment Element on Element {
 }
 
 fragment ElementGraph on ElementGraph {
+  # Union type
   vertices {
     ...Component
     ...Element

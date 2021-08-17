@@ -30,118 +30,118 @@
       "tags": []
     },
     "backend-abstract-core": {
-      "tags": ["level:abstract"]
+      "tags": ["back:abstract", "scope:backend"]
     },
     "backend-abstract-types": {
-      "tags": ["level:abstract"]
+      "tags": ["back:abstract", "scope:backend"]
     },
     "backend-infra": {
-      "tags": ["back:infra"]
+      "tags": ["backend:infra", "scope:backend"]
     },
     "backend-modules-app": {
-      "tags": ["back:domain"]
+      "tags": ["backend:domain", "scope:backend"]
     },
     "backend-modules-atom": {
-      "tags": ["back:domain"]
+      "tags": ["backend:domain", "scope:backend"]
     },
     "backend-modules-element": {
-      "tags": ["back:domain"]
+      "tags": ["backend:domain", "scope:backend"]
     },
     "backend-modules-lambda": {
-      "tags": ["back:domain"]
+      "tags": ["backend:domain", "scope:backend"]
     },
     "backend-modules-page": {
-      "tags": ["back:domain"]
+      "tags": ["backend:domain", "scope:backend"]
     },
     "backend-modules-tag": {
-      "tags": ["back:domain"]
+      "tags": ["backend:domain", "scope:backend"]
     },
     "backend-modules-type": {
-      "tags": ["back:domain"]
+      "tags": ["backend:domain", "scope:backend"]
     },
     "backend-modules-user": {
-      "tags": ["back:domain"]
+      "tags": ["backend:domain", "scope:backend"]
     },
     "cli": {
       "tags": []
     },
     "frontend-abstract-props": {
-      "tags": ["level:abstract"]
+      "tags": ["frontend:abstract", "scope:frontend"]
     },
     "frontend-model-domain": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-model-infra-apollo": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-model-state": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-app": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-atom": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-builder": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-category": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-component": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-element": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-lambda": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-library": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-page": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-style": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-tag": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-type": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-user": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-presenter-container": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-shared-types": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-shared-utils": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-style": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "frontend-view": {
-      "tags": []
+      "tags": ["scope:frontend"]
     },
     "shared-abstract-core": {
-      "tags": []
+      "tags": ["scope:shared", "shared:abstract"]
     },
     "shared-codegen-graphql": {
-      "tags": ["shared:codegen"]
+      "tags": ["scope:shared", "shared:codegen"]
     },
     "shared-core": {
-      "tags": []
+      "tags": ["scope:shared"]
     },
     "shared-utils": {
-      "tags": []
+      "tags": ["scope:shared"]
     },
     "tools-plugins-codelab": {
       "tags": []

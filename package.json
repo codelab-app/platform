@@ -313,7 +313,7 @@
     "prettier": "2.3.2",
     "sass-loader": "10",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
-    "ts-jest": "27.0.4",
+    "ts-jest": "27.0.5",
     "ts-node": "10.2.0",
     "tsconfig-paths-webpack-plugin": "3.5.1",
     "tslib": "2.3.1",

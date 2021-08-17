@@ -1,0 +1,13 @@
+{
+  "dockerExe": "/usr/local/bin/docker",
+  "dockerfileDir": "/Users/Webber/Sites/Codelab/codelab/docker",
+  "dockerImgUrl": "",
+  "isImage": false,
+  "makefilePath": "..",
+  "makefileFile": "makefile",
+  "target": "lint-circular-dep",
+  "codePath": "/Users/Webber/Sites/Codelab/codelab",
+  "m2Path": "/Users/Webber/.m2",
+  "envScript": "",
+  "advancedDockerSettings": ""
+}
