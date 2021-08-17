@@ -15,7 +15,7 @@ export const GetTagsTree = () => {
   const tags = data.getTagGraph
 
   console.log(tags)
-  console.log(tagTree)
+  console.log(tagTree.getAntdTree())
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     console.log('selected', selectedKeys, info)
@@ -34,7 +34,10 @@ export const GetTagsTree = () => {
       // defaultCheckedKeys={['0-0-0', '0-0-1']}
       onSelect={onSelect}
       onCheck={onCheck}
-      treeData={[]}
+      /**
+       * The root is a system root & shouldn't be shown
+       */
+      treeData={tagTree.getAntdTree().children}
       // treeData={tags.map((tag) => ({
       //   key: tag.id,
       //   title: tag.name,

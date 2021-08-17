@@ -6,6 +6,7 @@ import {
 } from '@codelab/shared/codegen/graphql'
 import { useRouter } from 'next/router'
 import * as React from 'react'
+import { withProvider } from './withProvider'
 
 export interface PageContextType {
   pageId: string
@@ -51,12 +52,4 @@ export const PageProvider = ({
   )
 }
 
-export const withPageQueryProvider = <TProps extends any>(
-  Component: React.ComponentType<TProps>,
-) => {
-  return (props: TProps) => (
-    <PageProvider>
-      <Component {...(props as any)} />
-    </PageProvider>
-  )
-}
+export const withPageQueryProvider = withProvider(PageProvider)

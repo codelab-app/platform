@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   CreateAppButton,
   CreateAppModal,
@@ -9,12 +9,15 @@ import {
 } from '@codelab/frontend/modules/app'
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
 import { padding } from '@codelab/frontend/style'
-import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const AppsPage: NextPageTemplate<'dashboard'> = () => {
+const AppsPage: CodelabPage = () => {
   const pageHeaderButtons = [
     <CreateAppButton key={0} />,
     <SignOutUserButton key={1} />,
@@ -42,8 +45,12 @@ const AppsPage: NextPageTemplate<'dashboard'> = () => {
   )
 }
 
-AppsPage.Template = MainDashboardTemplate
-
 export const getServerSideProps = withPageAuthRequired()
+
+AppsPage.Template = DashboardTemplate
+AppsPage.SidebarNavigation = SidebarNavigation
+AppsPage.Header = null
+AppsPage.MetaPane = null
+AppsPage.MainPane = null
 
 export default AppsPage

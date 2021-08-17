@@ -1,6 +1,6 @@
 import {
+  ApiOutlined,
   AppstoreOutlined,
-  BlockOutlined,
   BuildOutlined,
   DeploymentUnitOutlined,
   FunctionOutlined,
@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 
-export const DashboardSidebarNavigation = () => {
+export const SidebarNavigation = () => {
   const router = useRouter()
 
   // const paths = router.pathname
@@ -68,7 +68,7 @@ export const DashboardSidebarNavigation = () => {
       >
         <Link href={PageType.LambdaList}>Lambdas</Link>
       </Menu.Item>
-      <Menu.Item key={PageType.Type} icon={<BlockOutlined title="Types" />}>
+      <Menu.Item key={PageType.Type} icon={<ApiOutlined title="Types" />}>
         <Link href={PageType.Type}>Types</Link>
       </Menu.Item>
 

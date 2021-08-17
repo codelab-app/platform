@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   CreateAtomButton,
   CreateAtomModal,
@@ -8,12 +8,12 @@ import {
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
 import { padding } from '@codelab/frontend/style'
-import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const AtomsPage: NextPageTemplate = () => {
+const AtomsPage: CodelabPage = () => {
   const pageHeaderButtons = [<CreateAtomButton key={0} />]
 
   return (
@@ -38,8 +38,12 @@ const AtomsPage: NextPageTemplate = () => {
   )
 }
 
-AtomsPage.Template = MainDashboardTemplate
-
 export const getServerSideProps = withPageAuthRequired()
+
+AtomsPage.Template = DashboardTemplate
+AtomsPage.Header = null
+AtomsPage.MetaPane = null
+AtomsPage.MainPane = null
+AtomsPage.SidebarNavigation = null
 
 export default AtomsPage

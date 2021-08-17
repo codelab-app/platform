@@ -6,10 +6,6 @@ export class TagGraphTreeAdapter
   extends TreeAdapter<TagFragment, TagEdgeFragment>
   implements TagTree<TagFragment>
 {
-  getAntdTree() {
-    return { key: '' }
-  }
-
   getPathFromRoot(nodeId: string): { found: boolean; path: Array<string> } {
     return { found: false, path: [] }
   }

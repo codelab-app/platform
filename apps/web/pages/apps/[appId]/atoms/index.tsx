@@ -1,18 +1,20 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
-  AtomTemplate,
   CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
   GetAtomsTable,
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
+import { BuilderSidebarNavigation } from '@codelab/frontend/modules/builder'
+import { withAppQueryProvider } from '@codelab/frontend/presenter/container'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Breadcrumb, Card, PageHeader, Space } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 
-const AtomsPage: NextPageTemplate = () => {
+const AtomsPage: CodelabPage = () => {
   return (
     <div css={tw`m-6`}>
       <Space direction="vertical" css={tw`flex`}>
@@ -44,6 +46,11 @@ const AtomsPage: NextPageTemplate = () => {
 }
 
 export const getServerSideProps = withPageAuthRequired()
-AtomsPage.Template = AtomTemplate
+
+AtomsPage.Template = withAppQueryProvider(DashboardTemplate)
+AtomsPage.SidebarNavigation = BuilderSidebarNavigation
+AtomsPage.Header = null
+AtomsPage.MetaPane = null
+AtomsPage.MainPane = null
 
 export default AtomsPage

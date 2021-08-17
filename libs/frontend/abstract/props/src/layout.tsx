@@ -1,50 +1,26 @@
-/* eslint-disable @typescript-eslint/ban-types */
+import { LayoutProps } from 'antd/lib/layout'
 import { NextPage } from 'next'
-import { ComponentType } from 'react'
+import { JSXElementConstructor, ReactChild } from 'react'
 
-type LayoutVariant = 'default' | 'builder' | 'component' | 'dashboard'
-
-/**
- * A Template can use from a selection of existing Layouts
- */
-export type WithTemplate<TLayout extends LayoutVariant, P = unknown> = {
-  Template: LayoutComponent<TLayout, P>
-}
-
-export type WithHeader = {
-  Header?: ComponentType
-}
-
-export type WithMainPane = {
-  MainPane?: ComponentType
-}
-
-export type WithMetaPane = {
-  MetaPane?: ComponentType
-}
-
-export type WithSidebarNavigation = {
-  SidebarNavigation?: ComponentType
-}
-
-export type WithLayoutProps<TLayout extends LayoutVariant> =
-  TLayout extends 'default'
-    ? WithHeader
-    : WithHeader &
-        WithMainPane &
-        WithMetaPane &
-        (TLayout extends 'dashboard' ? WithSidebarNavigation : {})
+export type TemplateProps = {
+  layoutProps?: LayoutProps
+  children?: ReactChild
+} & Omit<PageProps, 'Template'>
 
 /**
- * Used for Next.js pages
+ * These are the props a page requires. We don't pass any props into these components
  */
-export type NextPageTemplate<
-  TLayout extends LayoutVariant = 'default',
-  P = unknown,
-  IP = P,
-> = NextPage<P, IP> & WithTemplate<TLayout, P> & WithLayoutProps<TLayout>
+export type PageProps = {
+  Template: JSXElementConstructor<TemplateProps> | null
+  Header: JSXElementConstructor<any> | null
+  MetaPane: JSXElementConstructor<any> | null
+  MainPane: JSXElementConstructor<any> | null
+  SidebarNavigation: JSXElementConstructor<any> | null
+}
 
-export type LayoutComponent<
-  TLayout extends LayoutVariant = 'default',
-  P = {},
-> = ComponentType<P & WithLayoutProps<TLayout>>
+/**
+ * A Next.js Page could set any of these settings.
+ *
+ * We force the settings of these keys, assign to null if not used. This gives a more consistent picture for each page
+ */
+export type CodelabPage<P = unknown, IP = P> = NextPage<P, IP> & PageProps

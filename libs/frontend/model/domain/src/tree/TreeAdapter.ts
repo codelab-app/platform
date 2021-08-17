@@ -113,7 +113,7 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
         nodes[element.id] = node
         nodeOrder[element.id] = order
 
-        if (element.__typename !== 'Element') {
+        if (!this.predicate(element)) {
           return
         }
 

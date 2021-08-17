@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   CreateFieldButton,
   CreateFieldModal,
@@ -10,13 +10,13 @@ import {
   withInterfaceQueryProvider,
 } from '@codelab/frontend/modules/type'
 import { padding } from '@codelab/frontend/style'
-import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 
-const InterfaceDetailPage: NextPageTemplate<'dashboard'> = () => {
+const InterfaceDetailPage: CodelabPage = () => {
   const {
     interface: { name },
     tree,
@@ -47,11 +47,12 @@ const InterfaceDetailPage: NextPageTemplate<'dashboard'> = () => {
   )
 }
 
-InterfaceDetailPage.Template = withInterfaceQueryProvider(MainDashboardTemplate)
-// AppsPage.MainPane = () => <></>
-// AppsPage.MetaPane = () => <></>
-InterfaceDetailPage.SidebarNavigation = () => <></>
-
 export const getServerSideProps = withPageAuthRequired()
+
+InterfaceDetailPage.Template = withInterfaceQueryProvider(DashboardTemplate)
+InterfaceDetailPage.MainPane = null
+InterfaceDetailPage.MetaPane = null
+InterfaceDetailPage.SidebarNavigation = null
+InterfaceDetailPage.Header = null
 
 export default InterfaceDetailPage

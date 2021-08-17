@@ -1,8 +1,7 @@
-import { LayoutComponent } from '@codelab/frontend/abstract/props'
+import { TemplateProps } from '@codelab/frontend/abstract/props'
 import { PageType } from '@codelab/frontend/model/state/router'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
-import { LayoutProps } from 'antd/lib/layout'
 import { NextRouter, useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
@@ -31,17 +30,14 @@ const StyledContent = styled(Content)(({ router }: { router: NextRouter }) => [
   { minHeight: 'initial' },
 ])
 
-export const DashboardLayout: LayoutComponent<
-  'dashboard',
-  { layoutProps?: LayoutProps }
-> = ({
+export const DashboardTemplate = ({
   children,
   layoutProps,
   Header,
   MainPane,
   MetaPane,
   SidebarNavigation,
-}) => {
+}: TemplateProps) => {
   const router = useRouter()
   // const contentPadding = isPageDetailRoute(router) ? 'pt-12' : ''
 

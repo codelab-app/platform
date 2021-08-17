@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   Builder,
   defaultRenderContext,
@@ -7,18 +7,19 @@ import {
 import {
   ComponentDetailMainPane,
   ComponentDetailMetaPane,
-  ComponentDetailTemplate,
 } from '@codelab/frontend/modules/component'
 import {
   ComponentContext,
   RenderProvider,
   withComponentQueryProvider,
+  withEditorProvider,
 } from '@codelab/frontend/presenter/container'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
 import Head from 'next/head'
 import React, { useContext } from 'react'
 
-const ComponentDetail: NextPageTemplate<'builder'> = () => {
+const ComponentDetail: CodelabPage = () => {
   const { component, tree } = useContext(ComponentContext)
 
   if (!tree || !component) {
@@ -38,8 +39,12 @@ const ComponentDetail: NextPageTemplate<'builder'> = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-ComponentDetail.Template = withComponentQueryProvider(ComponentDetailTemplate)
+ComponentDetail.Template = withEditorProvider(
+  withComponentQueryProvider(DashboardTemplate),
+)
 ComponentDetail.MainPane = ComponentDetailMainPane
 ComponentDetail.MetaPane = ComponentDetailMetaPane
+ComponentDetail.Header = null
+ComponentDetail.SidebarNavigation = null
 
 export default ComponentDetail

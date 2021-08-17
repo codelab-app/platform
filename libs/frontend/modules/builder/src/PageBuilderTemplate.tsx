@@ -1,22 +1,21 @@
-import { LayoutComponent } from '@codelab/frontend/abstract/props'
+import { TemplateProps } from '@codelab/frontend/abstract/props'
 import { EditorProvider } from '@codelab/frontend/presenter/container'
-import { DashboardLayout } from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import React from 'react'
 
-// Page Builder Template
-export const PageBuilderTemplate: LayoutComponent<'builder'> = (props) => {
+export const PageBuilderTemplate = (props: TemplateProps) => {
   const { children, Header, MainPane, MetaPane } = props
 
   return (
     <EditorProvider>
-      <DashboardLayout
+      <DashboardTemplate
         Header={Header}
         MainPane={MainPane}
         MetaPane={MetaPane}
-        SidebarNavigation={() => <></>}
+        SidebarNavigation={null}
       >
         {children}
-      </DashboardLayout>
+      </DashboardTemplate>
     </EditorProvider>
   )
 }

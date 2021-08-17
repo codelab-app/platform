@@ -1,9 +1,9 @@
-import { WithMainPane, WithMetaPane } from '@codelab/frontend/abstract/props'
+import { TemplateProps } from '@codelab/frontend/abstract/props'
 import { AppProvider } from '@codelab/frontend/presenter/container'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
 import { useRouter } from 'next/router'
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 import { BuilderSidebarNavigation } from './BuilderSidebarNavigation'
 
@@ -22,7 +22,7 @@ export const BuilderTemplate = ({
   children,
   MainPane,
   MetaPane,
-}: PropsWithChildren<WithMainPane & WithMetaPane>) => {
+}: TemplateProps) => {
   const router = useRouter()
 
   return (

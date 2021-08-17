@@ -1,4 +1,4 @@
-import { LayoutComponent } from '@codelab/frontend/abstract/props'
+import { TemplateProps } from '@codelab/frontend/abstract/props'
 import { contentStyle } from '@codelab/frontend/style'
 import { Layout } from 'antd'
 import React from 'react'
@@ -6,7 +6,7 @@ import { HomeMenuHeader } from './HomeMenuHeader'
 
 const { Content, Header, Footer } = Layout
 
-export const HomeTemplate: LayoutComponent = ({ children }) => {
+export const HomeTemplate = ({ children }: TemplateProps) => {
   return (
     <Layout style={{ height: '100%' }}>
       <Layout>

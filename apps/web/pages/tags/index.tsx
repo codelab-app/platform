@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { NextPageTemplate } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   CreateTagButton,
   CreateTagModal,
@@ -9,12 +9,12 @@ import {
   UpdateTagModal,
   useTagState,
 } from '@codelab/frontend/modules/tag'
-import { MainDashboardTemplate } from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const TagPage: NextPageTemplate<'dashboard'> = () => {
+const TagPage: CodelabPage = () => {
   const { checkedTags } = useTagState()
 
   const pageHeaderButtons = [
@@ -37,9 +37,12 @@ const TagPage: NextPageTemplate<'dashboard'> = () => {
   )
 }
 
-TagPage.Template = MainDashboardTemplate
-TagPage.MainPane = () => <GetTagsTree />
-
 export const getServerSideProps = withPageAuthRequired()
+
+TagPage.Template = DashboardTemplate
+TagPage.MainPane = () => <GetTagsTree />
+TagPage.Header = null
+TagPage.MetaPane = null
+TagPage.SidebarNavigation = null
 
 export default TagPage
