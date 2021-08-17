@@ -1,2 +1,2 @@
+export * from './domain/use-tag/useTagState'
 export * from './uses-cases'
-export * from './useTagState'

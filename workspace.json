@@ -787,6 +787,19 @@
         }
       }
     },
+    "shared-core": {
+      "root": "libs/shared/core",
+      "sourceRoot": "libs/shared/core/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/core/**/*.ts"]
+          }
+        }
+      }
+    },
     "shared-utils": {
       "root": "libs/shared/utils",
       "sourceRoot": "libs/shared/utils/src",

@@ -4,7 +4,7 @@ import {
   EntityType,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useTagState } from '../../useTagState'
+import { useTagState } from '../../domain/use-tag/useTagState'
 import { CreateTagForm } from './CreateTagForm'
 
 export const CreateTagModal = () => {

@@ -29,7 +29,7 @@ export class GraphqlOptions implements GqlOptionsFactory {
       debug: true,
       tracing: true,
       playground: true,
-      context: ({ req }: any) => {
+      context: ({ req }) => {
         return { req }
       },
       formatError: (err: GraphQLError) => {
