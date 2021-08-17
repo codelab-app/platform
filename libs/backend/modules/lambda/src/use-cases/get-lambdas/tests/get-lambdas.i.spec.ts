@@ -72,6 +72,8 @@ describe('GetLambdas', () => {
         null,
       )
 
+      console.log(results.getLambdas)
+
       expect(results.getLambdas).toMatchObject([lambdaA, lambdaB])
     })
   })

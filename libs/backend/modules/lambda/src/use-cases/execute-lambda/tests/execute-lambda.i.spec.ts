@@ -9,6 +9,9 @@ import {
   CreateLambdaGql,
   CreateLambdaInput,
   CreateLambdaMutation,
+  ExecuteLambdaGql,
+  ExecuteLambdaInput,
+  ExecuteLambdaMutation,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
@@ -18,6 +21,7 @@ describe('ExecuteLambda', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
   let lambda: __LambdaFragment
+  let executeLambdaInput: ExecuteLambdaInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([LambdaModule], { role: Role.GUEST })
@@ -30,6 +34,10 @@ describe('ExecuteLambda', () => {
 
     lambda = results.createLambda
 
+    executeLambdaInput = {
+      lambdaId: lambda.id,
+    }
+
     expect(lambda).toMatchObject(createLambdaInput)
   })
 
@@ -40,33 +48,20 @@ describe('ExecuteLambda', () => {
 
   describe('Guest', () => {
     it('should fail to execute a lambda', async () => {
-      // TODO: Enable this spec after completing the execute-lambda.service
-      // await domainRequest(
-      //   guestApp,
-      //   ExecuteLambdaGql,
-      //   {},
-      //   {
-      //     message: 'Unauthorized',
-      //   },
-      // )
+      await domainRequest(guestApp, ExecuteLambdaGql, executeLambdaInput, {
+        message: 'Unauthorized',
+      })
     })
   })
 
   describe('User', () => {
     it('should execute a lambda', async () => {
-      // TODO: Enable this spec after completing the execute-lambda.service
-      // const executeLambdaInput: ExecuteLambdaInput = {
-      //   lambdaId: lambda.id,
-      // }
-      //
-      // const results = await domainRequest<ExecuteLambdaInput, GetLambdaQuery>(
-      //   userApp,
-      //   ExecuteLambdaGql,
-      //   executeLambdaInput,
-      // )
-      //
-      // // expect(results.getLambda).toMatchObject(lambda)
-      // expect(true).toBeTruthy()
+      const results = await domainRequest<
+        ExecuteLambdaInput,
+        ExecuteLambdaMutation
+      >(userApp, ExecuteLambdaGql, executeLambdaInput)
+
+      expect(results.executeLambda?.payload).toBe('"Hello, World!"')
     })
   })
 })
