@@ -95,18 +95,11 @@ executors:
 
 commands:
   setup-workspace:
-    parameters:
-      attach_workspace:
-        default: true
-        type: boolean
     description: 'Setup workspace'
     steps:
       - checkout
-      - when:
-          condition: << parameters.attach_workspace >>
-          steps:
-            - attach_workspace:
-                at: ..
+      - attach_workspace:
+          at: ..
       - run:
           name: 'Install NVM'
           command: |
