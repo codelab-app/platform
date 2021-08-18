@@ -5,7 +5,10 @@ import {
   AppContext,
   withAppQueryProvider,
 } from '@codelab/frontend/presenter/container'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import Head from 'next/head'
 import React, { useContext } from 'react'
 
@@ -26,7 +29,7 @@ export const getServerSideProps = withPageAuthRequired()
 Pages.Template = withAppQueryProvider(DashboardTemplate)
 Pages.MainPane = PageMainPane
 Pages.Header = null
-Pages.SidebarNavigation = null
+Pages.SidebarNavigation = SidebarNavigation
 Pages.MetaPane = null
 
 export default Pages

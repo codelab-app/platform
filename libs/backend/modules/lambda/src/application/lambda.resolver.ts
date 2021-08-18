@@ -75,7 +75,7 @@ export class LambdaResolver {
   @Query(() => Lambda, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getLambda(@Args('input') input: GetLambdaInput) {
-    return this.getLambdaService.execute(input)
+    return await this.getLambdaService.execute(input)
   }
 
   @Mutation(() => LambdaPayload, { nullable: true })
@@ -94,6 +94,6 @@ export class LambdaResolver {
   @Query(() => [Lambda])
   @UseGuards(GqlAuthGuard)
   async getLambdas(@CurrentUser() currentUser: User) {
-    return this.getLambdasService.execute({ currentUser })
+    return await this.getLambdasService.execute({ currentUser })
   }
 }

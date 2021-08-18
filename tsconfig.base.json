@@ -128,6 +128,9 @@
       "@codelab/frontend/view/templates": [
         "libs/frontend/view/templates/index.ts"
       ],
+      "@codelab/frontend/view/sections": [
+        "libs/frontend/view/sections/index.ts"
+      ],
       "@codelab/shared-utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"

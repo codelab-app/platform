@@ -7,7 +7,7 @@ import {
   GetComponentsTable,
   UpdateComponentModal,
 } from '@codelab/frontend/modules/component'
-import { padding } from '@codelab/frontend/style'
+import { ContentSection } from '@codelab/frontend/view/sections'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import PageHeader from 'antd/lib/page-header'
 import Head from 'next/head'
@@ -31,9 +31,9 @@ const Components: CodelabPage = () => {
       <CreateComponentModal />
       <UpdateComponentModal />
       <DeleteComponentModal />
-      <section style={{ marginTop: padding.sm }}>
+      <ContentSection>
         <GetComponentsTable />
-      </section>
+      </ContentSection>
     </>
   )
 }

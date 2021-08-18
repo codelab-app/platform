@@ -7,7 +7,7 @@ import {
   GetLambdasTable,
   UpdateLambdaModal,
 } from '@codelab/frontend/modules/lambda'
-import { padding } from '@codelab/frontend/style'
+import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -34,9 +34,9 @@ const LambdasPage: CodelabPage = () => {
       <CreateLambdaModal />
       <UpdateLambdaModal />
       <DeleteLambdaModal />
-      <section style={{ marginTop: padding.sm }}>
+      <ContentSection>
         <GetLambdasTable />
-      </section>
+      </ContentSection>
     </>
   )
 }

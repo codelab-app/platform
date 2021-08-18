@@ -9,6 +9,6 @@ export class GetLambdaService extends DgraphUseCase<GetLambdaInput, any> {
   async executeTransaction(input: GetLambdaInput, txn: Txn) {
     const q = getLambdaQuery().setUidFunc(input.lambdaId)
 
-    return this.dgraph.getOne(txn, q)
+    return await this.dgraph.getOne(txn, q)
   }
 }
