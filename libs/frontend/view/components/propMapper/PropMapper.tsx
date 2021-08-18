@@ -46,8 +46,6 @@ export const PropMapper = ({
       const elementBindings = bindingsByElementId[node.id]
 
       if (elementBindings) {
-        console.log(applyBindings(props, elementProps, elementBindings))
-
         return applyBindings(props, elementProps, elementBindings)
       }
 

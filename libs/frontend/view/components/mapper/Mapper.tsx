@@ -1,7 +1,7 @@
 import { useRenderContext } from '@codelab/frontend/presenter/container'
 import React from 'react'
 
-export interface LoopProps<T> {
+export interface MapperProps<T> {
   data: Array<T>
   /** The id of the component to be rendered */
   component: string
@@ -14,7 +14,7 @@ export interface LoopProps<T> {
 export const Mapper = <T extends Record<string, any>>({
   component,
   data,
-}: LoopProps<T>) => {
+}: MapperProps<T>) => {
   const context = useRenderContext()
 
   if (!context) {
