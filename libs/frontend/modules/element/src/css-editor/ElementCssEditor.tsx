@@ -5,7 +5,7 @@ import {
   refetchGetElementGraphQuery,
   useUpdateElementMutation,
 } from '@codelab/shared/codegen/graphql'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export interface ElementCssEditorProps {
   element: ElementFragment
@@ -22,6 +22,21 @@ export const ElementCssEditor = ({ element }: ElementCssEditorProps) => {
   })
 
   const [cssString, setCssString] = useState(element.css || '')
+  // Keep the css string value in a ref so we can access it when unmounting the component
+  const cssStringRef = useRef(cssString)
+
+  useEffect(() => {
+    cssStringRef.current = cssString
+  }, [cssString])
+
+  useEffect(() => {
+    // Make sure the new string is saved when unmounting the component
+    // because if the panel is closed too quickly, the autosave won't catch the latest changes
+    return () => {
+      updateCss(cssStringRef.current).then()
+    }
+  }, [])
+
   // Debounce the autosaving, otherwise it will be too quick
   // Getting a dgraph  error if this is too fast, like 500ms
   const [cssDebounced, setCssDebounced] = useDebouncedState(1000, cssString)
