@@ -1,9 +1,4 @@
 import {
-  camelToTitleCase,
-  toCamelCase,
-  toPascalCase,
-} from '@codelab/shared-utils'
-import {
   formatFiles,
   generateFiles,
   names,
@@ -12,6 +7,11 @@ import {
   Tree,
 } from '@nrwl/devkit'
 import * as path from 'path'
+import {
+  camelToTitleCase,
+  toCamelCase,
+  toPascalCase,
+} from '../../utils/strings'
 import { NormalizedSchema, UiUseCaseGeneratorSchema } from './schema'
 import { UseCaseType, useCaseTypeToPresentParticle } from './useCaseType'
 

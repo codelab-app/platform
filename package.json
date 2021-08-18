@@ -2,8 +2,7 @@
   "name": "codelab",
   "workspaces": {
     "packages": [
-      "dist/libs/tools/plugins/*",
-      "dist/libs/shared/*"
+      "dist/libs/tools/plugins/*"
     ]
   },
   "engines": {
@@ -19,7 +18,6 @@
     "docker:up": "libs/tools/scripts/src/docker/up.sh",
     "codegen": "cross-env DEBUG=1 graphql-codegen",
     "nx": "nx",
-    "plugin": "nx build tools-plugins-codelab --buildableProjectDepsInPackageJsonType=peerDependencies",
     "start": "nx serve",
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test --testPathPattern=[^i].spec.ts --parallel && nx run-many --all --target=test --testPathPattern=i.spec.ts --runInBand",

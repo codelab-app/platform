@@ -28,11 +28,10 @@ lambda:
 
 # Next build hardcodes env vars into the compliation, since this build will be used by Cypress, we'll want to use test env
 #
-# `tools-plugins-codelab` requires peerDendencies so `@codelab/shared-utils` won't be fetched from NPM. Although it passes this flag to all projects, it won't affect anything
+# `tools-plugins-codelab` requires peerDendencies so `@codelab/shared/utils` won't be fetched from NPM. Although it passes this flag to all projects, it won't affect anything
 build-dev-affected:
 	npx env-cmd -f .env.test nx affected:build \
 		--configuration=local \
-		--exclude=tools-plugins-codelab \
 		--parallel \
 
 build-ci:
