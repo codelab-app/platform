@@ -31,7 +31,11 @@ export class ElementGraphTreeAdapter
   }
 
   getComponentById(componentId: string) {
-    return this.getElement<ComponentFragment>(componentId, getElementData)
+    return this.cy
+      .getElementById(componentId)
+      .filter(filterPredicate(isComponent))
+      .first()
+      .map<ComponentFragment>(getElementData)[0]
   }
 
   getComponentOfElement(elementId: string) {
