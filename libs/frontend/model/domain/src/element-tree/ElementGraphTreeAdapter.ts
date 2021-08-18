@@ -30,7 +30,7 @@ export class ElementGraphTreeAdapter
     return {
       ...element,
       key: element.id,
-      title: element.name ?? element?.atom?.type ?? 'Default',
+      name: element.name || element?.atom?.type,
     }
   }
 

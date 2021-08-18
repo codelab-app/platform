@@ -94,7 +94,8 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
     return {
       ...element,
       key: element.id,
-      title: element.name,
+      // Antd `title` field not working
+      name: element.name,
     }
   }
 

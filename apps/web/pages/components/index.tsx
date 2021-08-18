@@ -8,7 +8,10 @@ import {
   UpdateComponentModal,
 } from '@codelab/frontend/modules/component'
 import { ContentSection } from '@codelab/frontend/view/sections'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import PageHeader from 'antd/lib/page-header'
 import Head from 'next/head'
 import React from 'react'
@@ -44,6 +47,6 @@ Components.Template = DashboardTemplate
 Components.Header = null
 Components.MetaPane = null
 Components.MainPane = null
-Components.SidebarNavigation = null
+Components.SidebarNavigation = SidebarNavigation
 
 export default Components
