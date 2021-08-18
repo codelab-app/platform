@@ -2,7 +2,6 @@ fragment __Lambda on Lambda {
   id
   name
   body
-  ownerId
 }
 
 fragment __LambdaPayload on LambdaPayload {

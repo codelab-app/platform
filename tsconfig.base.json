@@ -4,6 +4,7 @@
     "rootDir": ".",
     "rootDirs": ["*", "libs"],
     "sourceMap": true,
+    //    "noImplicitOverride": true,
     "declaration": false,
     "moduleResolution": "node",
     "strict": true,

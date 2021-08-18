@@ -4,10 +4,10 @@ import {
   AwsLambdaService,
   AwsS3Service,
   AwsTokens,
+  Lambda,
   LambdaPayload,
 } from '@codelab/backend/infra'
 import { Inject, Injectable } from '@nestjs/common'
-import { Lambda } from '../domain/lambda.model'
 
 /**
  * This is a wrapper around AWS S3 & Lambda services, to easily help us create functions
@@ -22,11 +22,7 @@ export class LambdaService {
   ) {}
 
   async createLambda(lambda: Lambda) {
-    try {
-      await this.awsS3Service.createBucket(this._awsConfig.awsBucketName)
-    } catch (e) {
-      console.error(e)
-    }
+    await this.awsS3Service.createBucket(this._awsConfig.awsBucketName)
 
     await this.awsS3Service.uploadObject(this._awsConfig.awsBucketName, lambda)
 
@@ -35,7 +31,7 @@ export class LambdaService {
       lambda,
     )
 
-    console.log(createFunctionResults)
+    // console.log(createFunctionResults)
 
     return createFunctionResults
   }
@@ -44,10 +40,10 @@ export class LambdaService {
     return await this.awsLambdaService.getFunction(lambda)
   }
 
-  async deleteLambda(lambda: Lambda) {
+  async deleteLambda(lambda: Pick<Lambda, 'id'>) {
     await this.awsS3Service.removeObject(this._awsConfig.awsBucketName, lambda)
 
-    return await this.awsLambdaService.removeFunction(lambda)
+    await this.awsLambdaService.removeFunction(lambda)
   }
 
   async updateLambda(lambda: Lambda) {

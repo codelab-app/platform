@@ -11,8 +11,8 @@ import { CreateAppRequest } from './create-app.request'
 @Injectable()
 export class CreateAppService extends DgraphCreateUseCase<CreateAppRequest> {
   protected executeTransaction(request: CreateAppRequest, txn: Txn) {
-    return this.dgraph.create(txn, (nodeId) =>
-      this.createMutation(request, nodeId),
+    return this.dgraph.create(txn, (blankNodeUid) =>
+      this.createMutation(request, blankNodeUid),
     )
   }
 

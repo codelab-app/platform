@@ -16,7 +16,7 @@ export class App {
   // @Field(() => [Page])
   // declare pages?: Array<Page>
 
-  constructor(id: string, ownerId: string, name: string) {
+  constructor({ id, ownerId, name }: App) {
     this.id = id
     this.ownerId = ownerId
     this.name = name

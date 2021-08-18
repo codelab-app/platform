@@ -610,9 +610,9 @@ type Mutation {
   createField(input: CreateFieldInput!): CreateResponse!
   updateField(input: UpdateFieldInput!): Void
   deleteField(input: DeleteFieldInput!): Void
-  createLambda(input: CreateLambdaInput!): Lambda!
+  createLambda(input: CreateLambdaInput!): CreateResponse!
   deleteLambda(input: DeleteLambdaInput!): Void
-  updateLambda(input: UpdateLambdaInput!): Lambda
+  updateLambda(input: UpdateLambdaInput!): Void
   executeLambda(input: ExecuteLambdaInput!): LambdaPayload
   createTag(input: CreateTagInput!): CreateResponse!
   updateTag(input: UpdateTagInput!): Void

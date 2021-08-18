@@ -1,6 +1,7 @@
 import { awsConfig, Void } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { LambdaAdapter } from './application/lambda.adapter'
 import { LambdaResolver } from './application/lambda.resolver'
 import { LambdaService } from './application/lambda.service'
 import { CreateLambdaService } from './use-cases/create-lambda'
@@ -20,6 +21,10 @@ const services = [
   GetLambdaService,
   GetLambdasService,
   ExecuteLambdaService,
+  /**
+   * Adapters
+   */
+  LambdaAdapter,
 ]
 
 @Module({

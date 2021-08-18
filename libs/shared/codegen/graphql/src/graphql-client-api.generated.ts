@@ -582,9 +582,9 @@ export type Mutation = {
   createField: CreateResponse
   updateField?: Maybe<Scalars['Void']>
   deleteField?: Maybe<Scalars['Void']>
-  createLambda: Lambda
+  createLambda: CreateResponse
   deleteLambda?: Maybe<Scalars['Void']>
-  updateLambda?: Maybe<Lambda>
+  updateLambda?: Maybe<Scalars['Void']>
   executeLambda?: Maybe<LambdaPayload>
   createTag: CreateResponse
   updateTag?: Maybe<Scalars['Void']>
@@ -1159,12 +1159,7 @@ export type GetElementQuery = {
   }>
 }
 
-export type __LambdaFragment = {
-  id: string
-  name: string
-  body: string
-  ownerId: string
-}
+export type __LambdaFragment = { id: string; name: string; body: string }
 
 export type __LambdaPayloadFragment = { payload: string }
 
@@ -1172,9 +1167,7 @@ export type CreateLambdaMutationVariables = Exact<{
   input: CreateLambdaInput
 }>
 
-export type CreateLambdaMutation = {
-  createLambda: { id: string; name: string; body: string; ownerId: string }
-}
+export type CreateLambdaMutation = { createLambda: { id: string } }
 
 export type DeleteLambdaMutationVariables = Exact<{
   input: DeleteLambdaInput
@@ -1195,27 +1188,20 @@ export type GetLambdaQueryVariables = Exact<{
 }>
 
 export type GetLambdaQuery = {
-  getLambda?: Maybe<{ id: string; name: string; body: string; ownerId: string }>
+  getLambda?: Maybe<{ id: string; name: string; body: string }>
 }
 
 export type GetLambdasQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetLambdasQuery = {
-  getLambdas: Array<{ id: string; name: string; body: string; ownerId: string }>
+  getLambdas: Array<{ id: string; name: string; body: string }>
 }
 
 export type UpdateLambdaMutationVariables = Exact<{
   input: UpdateLambdaInput
 }>
 
-export type UpdateLambdaMutation = {
-  updateLambda?: Maybe<{
-    id: string
-    name: string
-    body: string
-    ownerId: string
-  }>
-}
+export type UpdateLambdaMutation = { updateLambda?: Maybe<void> }
 
 export type TagEdgeFragment = { source: string; target: string }
 
@@ -1982,7 +1968,6 @@ export const __LambdaFragmentDoc = gql`
     id
     name
     body
-    ownerId
   }
 `
 export const __LambdaPayloadFragmentDoc = gql`
@@ -2576,10 +2561,9 @@ export function refetchGetElementQuery(variables?: GetElementQueryVariables) {
 export const CreateLambdaGql = gql`
   mutation CreateLambda($input: CreateLambdaInput!) {
     createLambda(input: $input) {
-      ...__Lambda
+      id
     }
   }
-  ${__LambdaFragmentDoc}
 `
 export type CreateLambdaMutationFn = Apollo.MutationFunction<
   CreateLambdaMutation,
@@ -2841,11 +2825,8 @@ export function refetchGetLambdasQuery(variables?: GetLambdasQueryVariables) {
 }
 export const UpdateLambdaGql = gql`
   mutation UpdateLambda($input: UpdateLambdaInput!) {
-    updateLambda(input: $input) {
-      ...__Lambda
-    }
+    updateLambda(input: $input)
   }
-  ${__LambdaFragmentDoc}
 `
 export type UpdateLambdaMutationFn = Apollo.MutationFunction<
   UpdateLambdaMutation,
@@ -5011,7 +4992,6 @@ export const __Lambda = gql`
     id
     name
     body
-    ownerId
   }
 `
 export const __LambdaPayload = gql`
@@ -5284,10 +5264,9 @@ export const GetElement = gql`
 export const CreateLambda = gql`
   mutation CreateLambda($input: CreateLambdaInput!) {
     createLambda(input: $input) {
-      ...__Lambda
+      id
     }
   }
-  ${__Lambda}
 `
 export const DeleteLambda = gql`
   mutation DeleteLambda($input: DeleteLambdaInput!) {
@@ -5320,11 +5299,8 @@ export const GetLambdas = gql`
 `
 export const UpdateLambda = gql`
   mutation UpdateLambda($input: UpdateLambdaInput!) {
-    updateLambda(input: $input) {
-      ...__Lambda
-    }
+    updateLambda(input: $input)
   }
-  ${__Lambda}
 `
 export const CreateTag = gql`
   mutation CreateTag($input: CreateTagInput!) {

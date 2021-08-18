@@ -23,7 +23,7 @@ export class DgraphService {
       throw new Error('Missing DgraphConfig')
     }
 
-    console.log('Dgraph endpoint using', _dgraphConfig.endpoint)
+    // console.log('Dgraph endpoint using', _dgraphConfig.endpoint)
 
     const clientStub = new DgraphClientStub(_dgraphConfig.endpoint)
 

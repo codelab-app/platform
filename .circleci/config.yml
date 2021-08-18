@@ -164,19 +164,12 @@ commands:
       - run:
           name: 'Install NPM packages'
           command: yarn install --frozen-lockfile --prod=true --ignore-scripts
-      # - run:
-      #     name: 'Remove NPM .cache'
-      #     command: |
-      #       rm -rf ~/project/node_modules/.cache
-      #       npx cypress cache prune
       - save_cache:
           name: 'Save cache'
           key: dep-cache-prod-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
             - ~/.cache/Cypress
-            # - ~/project/app/node_modules
-            # - ~/project/app/apps/web/.next/cache
 
   notify-failure:
     steps:

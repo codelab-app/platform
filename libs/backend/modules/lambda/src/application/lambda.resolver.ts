@@ -1,4 +1,9 @@
-import { CurrentUser, GqlAuthGuard, Void } from '@codelab/backend/infra'
+import {
+  CreateResponse,
+  CurrentUser,
+  GqlAuthGuard,
+  Void,
+} from '@codelab/backend/infra'
 import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
@@ -21,6 +26,7 @@ import {
   UpdateLambdaInput,
   UpdateLambdaService,
 } from '../use-cases/update-lambda'
+import { LambdaAdapter } from './lambda.adapter'
 import { LambdaService } from './lambda.service'
 
 @Resolver(() => Lambda)
@@ -34,54 +40,66 @@ export class LambdaResolver {
     private readonly getLambdaService: GetLambdaService,
     private readonly executeLambdaService: ExecuteLambdaService,
     private readonly updateLambdaService: UpdateLambdaService,
+    private readonly lambdaAdapter: LambdaAdapter,
   ) {}
 
-  @Mutation(() => Lambda)
+  @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
   async createLambda(
     @Args('input') input: CreateLambdaInput,
     @CurrentUser() currentUser: User,
   ) {
-    const lambda = await this.createLambdaService.execute({
+    const { id } = await this.createLambdaService.execute({
       input,
       currentUser,
     })
 
-    await this.lambdaService.createLambda(lambda)
+    await this.lambdaService.createLambda({
+      id,
+      ...input,
+    })
 
-    return lambda
+    return { id }
   }
 
   @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async deleteLambda(@Args('input') input: DeleteLambdaInput) {
-    const lambda = await this.deleteLambdaService.execute(input)
+    await this.deleteLambdaService.execute(input)
 
-    await this.lambdaService.deleteLambda(lambda)
-
-    return lambda
+    return await this.lambdaService.deleteLambda({ id: input.lambdaId })
   }
 
-  @Mutation(() => Lambda, { nullable: true })
+  @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async updateLambda(@Args('input') input: UpdateLambdaInput) {
-    const lambda = await this.updateLambdaService.execute(input)
+    await this.updateLambdaService.execute(input)
 
-    await this.lambdaService.updateLambda(lambda)
-
-    return lambda
+    await this.lambdaService.updateLambda(input)
   }
 
   @Query(() => Lambda, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getLambda(@Args('input') input: GetLambdaInput) {
-    return await this.getLambdaService.execute(input)
+    const dgraphLambda = await this.getLambdaService.execute(input)
+
+    if (!dgraphLambda) {
+      return null
+    }
+
+    return this.lambdaAdapter.map(dgraphLambda)
   }
 
   @Mutation(() => LambdaPayload, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async executeLambda(@Args('input') input: ExecuteLambdaInput) {
-    const lambda = await this.getLambdaService.execute(input)
+    const dgraphLambda = await this.getLambdaService.execute(input)
+
+    if (!dgraphLambda) {
+      return null
+    }
+
+    const lambda = this.lambdaAdapter.map(dgraphLambda)
 
     const results = await this.lambdaService.executeLambda(
       lambda,
@@ -91,9 +109,11 @@ export class LambdaResolver {
     return { payload: JSON.stringify(results) }
   }
 
-  @Query(() => [Lambda])
+  @Query(() => [Lambda], { defaultValue: [] })
   @UseGuards(GqlAuthGuard)
   async getLambdas(@CurrentUser() currentUser: User) {
-    return await this.getLambdasService.execute({ currentUser })
+    const dgraphLambdas = await this.getLambdasService.execute({ currentUser })
+
+    return this.lambdaAdapter.map(dgraphLambdas)
   }
 }

@@ -28,7 +28,7 @@ export class Element {
     description:
       'Due to union nullability issue, we have to make this non-nullable. Defaults to atom type',
   })
-  declare name?: string
+  declare name: string
 
   @Field(() => String, { nullable: true })
   /** The CSS string that gets passed down to emotion */
@@ -41,9 +41,9 @@ export class Element {
   @Field({ description: 'Props in a json format' })
   declare props: string
 
-  constructor({ id, name, atom, props, css }: Element) {
+  constructor({ id, name = '', atom, props, css }: Element) {
     this.id = id
-    this.name = name ? name : atom?.type
+    this.name = name
     this.atom = atom
     this.css = css
     this.props = props

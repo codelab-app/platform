@@ -46,13 +46,13 @@ export class AwsLambdaService
 
       return data
     } catch (err) {
-      console.error(err)
+      // console.error(err)
 
       return
     }
   }
 
-  async removeFunction(lambda: Lambda) {
+  async removeFunction(lambda: Pick<Lambda, 'id'>) {
     const params: DeleteFunctionRequest = {
       FunctionName: lambda.id,
     }
@@ -62,7 +62,7 @@ export class AwsLambdaService
 
       return data
     } catch (err) {
-      console.log('Error', err)
+      // console.log('Error', err)
 
       return
     }
@@ -78,7 +78,7 @@ export class AwsLambdaService
 
       return data
     } catch (err) {
-      console.log('Error', err)
+      // console.log('Error', err)
 
       return
     }
@@ -96,7 +96,7 @@ export class AwsLambdaService
 
       return data
     } catch (err) {
-      console.error(err)
+      // console.error(err)
 
       return
     }
@@ -121,11 +121,11 @@ export class AwsLambdaService
         new TextDecoder().decode(result.Payload) || '{}',
       )
 
-      console.log('Success', result, responseObject)
+      // console.log('Success', result, responseObject)
 
       return responseObject
     } catch (err) {
-      console.log('Error', err)
+      // console.log('Error', err)
     }
   }
 }

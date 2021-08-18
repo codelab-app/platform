@@ -5,7 +5,6 @@ import {
   teardownTestModule,
 } from '@codelab/backend/infra'
 import {
-  __LambdaFragment,
   CreateLambdaGql,
   CreateLambdaInput,
   CreateLambdaMutation,
@@ -20,25 +19,22 @@ import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 describe('ExecuteLambda', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let lambda: __LambdaFragment
   let executeLambdaInput: ExecuteLambdaInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([LambdaModule], { role: Role.GUEST })
     userApp = await setupTestModule([LambdaModule], { role: Role.USER })
 
-    const results = await domainRequest<
+    const { createLambda } = await domainRequest<
       CreateLambdaInput,
       CreateLambdaMutation
     >(userApp, CreateLambdaGql, createLambdaInput)
 
-    lambda = results.createLambda
-
     executeLambdaInput = {
-      lambdaId: lambda.id,
+      lambdaId: createLambda.id,
     }
 
-    expect(lambda).toMatchObject(createLambdaInput)
+    expect(createLambda.id).toBeDefined()
   })
 
   afterAll(async () => {

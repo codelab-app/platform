@@ -13,6 +13,13 @@ export class Lambda {
 
   @Field()
   declare body: string
+
+  constructor({ id, ownerId, name, body }: Lambda) {
+    this.id = id
+    this.ownerId = ownerId
+    this.name = name
+    this.body = body
+  }
 }
 
 @ObjectType()
