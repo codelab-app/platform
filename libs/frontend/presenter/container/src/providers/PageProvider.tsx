@@ -37,8 +37,6 @@ export const PageProvider = ({
   })
 
   const page = pageId && data?.page ? data.page : null
-  console.log(page?.elements)
-
   const tree = useElementTree(page?.elements)
 
   if (!pageId || !page) {
