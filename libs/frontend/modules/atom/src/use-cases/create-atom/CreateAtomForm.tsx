@@ -41,7 +41,6 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
         title: 'Error while creating atom',
       })}
       onSubmitSuccess={() => reset()}
-      layout="horizontal"
       {...props}
     >
       <AutoField name="name" />
@@ -50,8 +49,6 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
         label="Type"
         showSearch={true}
         optionFilterProp="label"
-        // labelCol={{ span: 3 }}
-        // colon={false}
         options={Object.keys(AtomType).map((atomType) => ({
           label: atomType,
           value: atomType,
