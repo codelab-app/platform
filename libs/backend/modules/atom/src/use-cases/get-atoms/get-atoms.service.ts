@@ -21,6 +21,7 @@ export class GetAtomsService extends DgraphUseCase<
     return new DgraphQueryBuilder()
       .setTypeFunc(DgraphEntityType.Atom)
       .addBaseFields()
+      .addRecurseDirective()
       .addExpandAll()
   }
 }
