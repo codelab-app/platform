@@ -486,7 +486,6 @@ workflows:
           e: docker-node
           requires:
             - lint
-            - e2e
 
   app-staging:
     jobs:
