@@ -15,10 +15,10 @@ export class TypeTreeJsonSchemaTransformer {
 
   private readonly options: IJsonSchemaOptions
 
-  constructor(private typeTree: ITypeTree, options?: IJsonSchemaOptions) {
+  constructor(private typeTree: ITypeTree, options: IJsonSchemaOptions = {}) {
     this.options = {
       maxNesting: 100,
-      ...(options ?? {}),
+      ...options,
     }
   }
 
@@ -108,6 +108,7 @@ export class TypeTreeJsonSchemaTransformer {
             })),
           },
         }
+
       case TypeKind.InterfaceType:
         return {
           ...extra,
@@ -126,11 +127,13 @@ export class TypeTreeJsonSchemaTransformer {
           ...extra,
           type: 'string',
         }
+
       case TypeKind.ComponentType:
         return {
           ...extra,
           type: 'string',
         }
+
       default:
         throw new Error('Type not recognized ' + (type as any).__typename)
     }

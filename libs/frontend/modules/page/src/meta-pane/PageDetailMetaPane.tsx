@@ -27,13 +27,11 @@ export const PageDetailMetaPane = () => {
             elementId={element.id}
           />
 
-          <div>
-            <DeleteElementButton
-              danger={true}
-              elementId={element.id}
-              metadata={element}
-            />
-          </div>
+          <DeleteElementButton
+            danger={true}
+            elementId={element.id}
+            metadata={element}
+          />
         </>
       )}
       renderUpdatePropsContent={(element) => (

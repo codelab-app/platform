@@ -41,8 +41,6 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
         title: 'Error while creating atom',
       })}
       onSubmitSuccess={() => reset()}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore https://github.com/vazco/uniforms/issues/951
       layout="horizontal"
       {...props}
     >
@@ -50,8 +48,6 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       <SelectField
         name="type"
         label="Type"
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore https://github.com/vazco/uniforms/issues/951
         showSearch={true}
         optionFilterProp="label"
         // labelCol={{ span: 3 }}

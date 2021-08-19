@@ -1,5 +1,5 @@
 // import '../src/wdyr'
-import '../src/styles/App.less'
+import '../src/styles/antd-theme.less'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
@@ -10,6 +10,7 @@ import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
+import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 
 const queryClient = new QueryClient()
 
@@ -24,11 +25,14 @@ const AppContainer = ({ pageProps, Component }: AppProps<any>) => {
           <UserProvider>
             <GlobalStyles />
             <Global
-              styles={css({
-                '#__next': {
-                  height: '100%',
-                },
-              })}
+              styles={[
+                css({
+                  '#__next': {
+                    height: '100%',
+                  },
+                }),
+                ...globalTailwindFix,
+              ]}
             />
             {Template ? (
               <Template

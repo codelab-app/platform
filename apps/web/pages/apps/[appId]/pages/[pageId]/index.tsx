@@ -35,7 +35,6 @@ const PageRenderer: CodelabPage = () => {
       <Head>
         <title>{page.name}</title>
       </Head>
-
       <Renderer />
     </RenderProvider>
   )

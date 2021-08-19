@@ -10,26 +10,29 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
 
-module.exports = withPlugins([
+module.exports = withPlugins(
   [
-    withCSS,
-    {
-      cssLoaderOptions: {
-        url: false,
+    [
+      withCSS,
+      {
+        cssLoaderOptions: {
+          url: false,
+        },
       },
-    },
-  ],
-  [
-    withSass,
-    {
-      lessLoaderOptions: {
-        javascriptEnabled: true,
+    ],
+    [
+      withSass,
+      {
+        lessLoaderOptions: {
+          javascriptEnabled: true,
+        },
       },
-    },
+    ],
+    withLess,
+    withBundleAnalyzer,
   ],
-  [withLess, withNx({ cssModules: false, webpack5: false })],
-  withBundleAnalyzer,
-])
+  withNx({ cssModules: false, webpack5: false }),
+)
 
 // module.exports =
 withBundleAnalyzer(

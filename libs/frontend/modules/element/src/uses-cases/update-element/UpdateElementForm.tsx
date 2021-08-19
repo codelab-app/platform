@@ -33,7 +33,7 @@ export const UpdateElementForm = ({
   tree,
   ...props
 }: UpdateElementFormProps) => {
-  // Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
+  // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
   const { current: initialData } = useRef({
     atomId: element.atom?.id,
     name: element.name,
@@ -85,8 +85,6 @@ export const UpdateElementForm = ({
         <SelectField
           name="atomId"
           label="Atom"
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore https://github.com/vazco/uniforms/issues/951
           showSearch={true}
           optionFilterProp="label"
           options={atoms?.atoms.map((atom) => ({
@@ -98,8 +96,6 @@ export const UpdateElementForm = ({
         <SelectField
           name="componentId"
           label="Component"
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore https://github.com/vazco/uniforms/issues/951
           showSearch={true}
           optionFilterProp="label"
           options={components?.getComponents.map((comp) => ({

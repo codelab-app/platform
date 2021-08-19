@@ -18,8 +18,6 @@ export const SelectLambda = ({ name }: SelectLambdaProps) => {
     <SelectField
       options={lambdaOptions}
       name={name}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       loading={loading}
       showSearch={true}
       optionFilterProp="label"

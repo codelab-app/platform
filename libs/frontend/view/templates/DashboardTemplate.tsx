@@ -48,7 +48,7 @@ export const DashboardTemplate = ({
           <Header />
         </AntDesignHeader>
       ) : null}
-      <Layout>
+      {SidebarNavigation ? (
         <Sider
           theme="light"
           style={{ height: '100%' }}
@@ -59,34 +59,30 @@ export const DashboardTemplate = ({
             {SidebarNavigation ? <SidebarNavigation /> : null}
           </div>
         </Sider>
-        <Layout>
-          <Layout>
-            {MainPane ? (
-              <Sider
-                theme="light"
-                width={mainPaneWidth}
-                style={{
-                  overflowY: 'scroll',
-                  // position: 'fixed',
-                  height: '100%',
-                  top: 0,
-                  // right: 0,
-                }}
-              >
-                <MainPane />
-              </Sider>
-            ) : null}
-            <StyledContent router={router}>
-              {children}
-              {MetaPane ? (
-                <MetaPaneSection>
-                  <MetaPane />
-                </MetaPaneSection>
-              ) : null}
-            </StyledContent>
-          </Layout>
-        </Layout>
-      </Layout>
+      ) : null}
+      {MainPane ? (
+        <Sider
+          theme="light"
+          width={mainPaneWidth}
+          style={{
+            overflowY: 'scroll',
+            // position: 'fixed',
+            height: '100%',
+            top: 0,
+            // right: 0,
+          }}
+        >
+          <MainPane />
+        </Sider>
+      ) : null}
+      <StyledContent router={router}>
+        {children}
+        {MetaPane ? (
+          <MetaPaneSection>
+            <MetaPane />
+          </MetaPaneSection>
+        ) : null}
+      </StyledContent>
     </Layout>
   )
 }

@@ -17,9 +17,9 @@ export interface InterfaceFormProps<TData>
   interfaceTree: ITypeTree
 }
 
-const jsonPropertiesMapper: IJsonSchemaOptions['jsonPropertiesMapper'] = (
-  type,
-) => {
+const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (type) => {
+  console.log(type)
+
   switch (type.typeKind) {
     case TypeKind.LambdaType:
       return {
@@ -52,12 +52,19 @@ const jsonPropertiesMapper: IJsonSchemaOptions['jsonPropertiesMapper'] = (
 export const InterfaceForm = <TData extends any>({
   interfaceTree,
   children,
+  model,
+  onSubmit,
   ...props
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
   return (
     <FormUniforms
-      schema={interfaceTree.toJsonSchema({ jsonPropertiesMapper }) as any}
-      {...props}
+      schema={
+        interfaceTree.toJsonSchema({
+          jsonPropertiesMapper: uniformsFactory,
+        }) as any
+      }
+      model={model}
+      onSubmit={onSubmit}
     >
       {children}
     </FormUniforms>

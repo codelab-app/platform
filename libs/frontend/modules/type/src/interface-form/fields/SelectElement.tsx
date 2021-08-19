@@ -50,8 +50,8 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
     }
   }
 
-  const elementOptions = elements.map(({ id, name: elementName }) => ({
-    label: elementName,
+  const elementOptions = elements.map(({ id, name: elementName, atom }) => ({
+    label: elementName || atom?.type,
     value: id,
   }))
 
@@ -59,8 +59,6 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
     <SelectField
       options={elementOptions}
       name={name}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       showSearch={true}
       optionFilterProp="label"
     />
@@ -73,7 +71,9 @@ export const SelectChildElement = (props: Omit<SelectElementProps, 'kind'>) => (
 
 export const SelectDescendantElement = (
   props: Omit<SelectElementProps, 'kind'>,
-) => <SelectElement kind={ElementTypeKind.DescendantsOnly} {...props} />
+) => {
+  return <SelectElement kind={ElementTypeKind.DescendantsOnly} {...props} />
+}
 
 export const SelectAnyElement = (props: Omit<SelectElementProps, 'kind'>) => (
   <SelectElement kind={ElementTypeKind.AllElements} {...props} />
