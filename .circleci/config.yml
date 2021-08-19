@@ -14,18 +14,20 @@ filters-dev-pr: &filters-dev-pr
         - production
         - staging
 
+filters-master: &filters-master
+  filters:
+    branches:
+      only:
+        - master
+
 filters-staging: &filters-staging
   filters:
-    tags:
-      only: /^staging-.*$/
     branches:
       only:
         - staging
 
 filters-prod: &filters-prod
   filters:
-    tags:
-      only: /^prod-.*$/
     branches:
       only:
         - production
@@ -400,6 +402,7 @@ jobs:
             		}
             	]
             }
+
   build-docker-staging:
     <<: *executor-params
     steps:
@@ -463,6 +466,26 @@ workflows:
             - lint
             - unit
             - integration
+            - e2e
+
+  app-master:
+    jobs:
+      - install-and-build-workspace:
+          <<: *filters-master
+          e: docker-node
+          context: CI
+      - lint:
+          <<: *filters-master
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - notify-success:
+          <<: *filters-master
+          context: CI
+          e: docker-node
+          requires:
+            - lint
             - e2e
 
   app-staging:
