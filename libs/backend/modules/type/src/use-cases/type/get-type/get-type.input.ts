@@ -10,6 +10,9 @@ export class WhereUniqueType {
 
   @Field({ nullable: true })
   declare name?: string
+
+  @Field({ nullable: true })
+  declare atomId?: string
 }
 
 @InputType()

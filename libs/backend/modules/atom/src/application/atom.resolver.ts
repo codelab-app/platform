@@ -1,4 +1,8 @@
 import { CreateResponse, GqlAuthGuard, Void } from '@codelab/backend/infra'
+import {
+  GetTypeService,
+  TypeAdapterFactory,
+} from '@codelab/backend/modules/type'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { AtomAdapter } from '../domain/atom.adapter'
@@ -19,7 +23,9 @@ export class AtomResolver {
     private getAtomsService: GetAtomsService,
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
+    private getTypeService: GetTypeService,
     private atomAdapter: AtomAdapter,
+    private typeAdapterFactory: TypeAdapterFactory,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -34,20 +40,48 @@ export class AtomResolver {
     await this.deleteAtomService.execute(input)
   }
 
-  @Query(() => [Atom])
+  @Query(() => [Atom], { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getAtoms() {
     const atoms = await this.getAtomsService.execute({})
 
+    if (!atoms) {
+      return null
+    }
+
     return this.atomAdapter.map(atoms)
   }
+
+  /**
+   * It's better to resolve inside dql, we'd have to query a lot using resolveField approach for getAtoms
+   */
+  // @ResolveField('api', () => Type, { nullable: true })
+  // async api(@Parent() atom: Atom) {
+  //   const { id } = atom
+  //
+  //   const api = await this.getTypeService.execute({
+  //     input: { where: { atomId: id } },
+  //   })
+  //
+  //   if (!api) {
+  //     return null
+  //   }
+  //
+  //   const mapper = this.typeAdapterFactory.getMapper(api)
+  //
+  //   return mapper.map(api)
+  // }
 
   @Query(() => Atom, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getAtom(@Args('input') input: GetAtomInput) {
     const atom = await this.getAtomService.execute(input)
 
-    return atom ? this.atomAdapter.map(atom) : null
+    if (!atom) {
+      return null
+    }
+
+    return this.atomAdapter.map(atom)
   }
 
   @Mutation(() => Void, { nullable: true })

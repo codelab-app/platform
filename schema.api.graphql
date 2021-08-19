@@ -448,7 +448,7 @@ type Query {
   getComponent(input: GetComponentInput!): Component
   getComponentElements(input: GetComponentInput!): ElementGraph
   getComponents(input: GetComponentsInput): [Component!]!
-  getAtoms: [Atom!]!
+  getAtoms: [Atom!]
   getAtom(input: GetAtomInput!): Atom
   getType(input: GetTypeInput!): Type
   getTypeGraph(input: GetTypeInput!): TypeGraph
@@ -532,6 +532,7 @@ input GetTypeInput {
 input WhereUniqueType {
   id: String
   name: String
+  atomId: String
 }
 
 """Filters are optional and you can provide all three of them together"""

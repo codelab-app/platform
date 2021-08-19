@@ -49,6 +49,7 @@ export class GetAtomService extends DgraphUseCase<
       .setUidFunc(id)
       .addTypeFilterDirective(DgraphEntityType.Atom)
       .addBaseFields()
+      .addRecurseDirective()
       .addExpandAll()
   }
 
@@ -57,6 +58,7 @@ export class GetAtomService extends DgraphUseCase<
       .setTypeFunc(DgraphEntityType.Atom)
       .addEqFilterDirective<DgraphAtom>('atomType', type)
       .addBaseFields()
+      .addRecurseDirective()
       .addExpandAll()
   }
 
@@ -76,6 +78,7 @@ export class GetAtomService extends DgraphUseCase<
       .setUidFunc(elementId)
       .addTypeFilterDirective(DgraphEntityType.Atom)
       .addBaseFields()
+      .addRecurseDirective()
       .addExpandAll()
   }
 
