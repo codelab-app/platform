@@ -9,7 +9,10 @@ import {
   UpdateTagModal,
   useTagState,
 } from '@codelab/frontend/modules/tag'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
@@ -43,6 +46,6 @@ TagPage.Template = DashboardTemplate
 TagPage.MainPane = () => <GetTagsTree />
 TagPage.Header = null
 TagPage.MetaPane = null
-TagPage.SidebarNavigation = null
+TagPage.SidebarNavigation = SidebarNavigation
 
 export default TagPage

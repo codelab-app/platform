@@ -14,7 +14,10 @@ import {
   withComponentQueryProvider,
   withEditorProvider,
 } from '@codelab/frontend/presenter/container'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
 import Head from 'next/head'
 import React, { useContext } from 'react'
@@ -45,6 +48,6 @@ ComponentDetail.Template = withEditorProvider(
 ComponentDetail.MainPane = ComponentDetailMainPane
 ComponentDetail.MetaPane = ComponentDetailMetaPane
 ComponentDetail.Header = null
-ComponentDetail.SidebarNavigation = null
+ComponentDetail.SidebarNavigation = SidebarNavigation
 
 export default ComponentDetail

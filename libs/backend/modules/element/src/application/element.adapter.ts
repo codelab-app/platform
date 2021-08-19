@@ -20,7 +20,7 @@ export class ElementAdapter extends BaseAdapter<DgraphElementInput, Element> {
   mapItem(element: DgraphElementInput) {
     return new Element({
       id: element.uid,
-      name: element.name,
+      name: element.name ?? '',
       atom: element.atom ? this.atomAdapter.map(element.atom) : undefined,
       css: element.css,
       props: element.props || '{}',

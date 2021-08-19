@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { CreateLambdaInput } from '../create-lambda/create-lambda.input'
+import { CreateLambdaInput } from '../create-lambda'
 
 @InputType()
 export class UpdateLambdaInput extends CreateLambdaInput {

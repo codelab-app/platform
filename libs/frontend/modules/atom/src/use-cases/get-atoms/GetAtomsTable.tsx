@@ -1,8 +1,10 @@
 import { PageType } from '@codelab/frontend/model/state/router'
+import { headerCellProps } from '@codelab/frontend/style'
 import {
   EntityType,
   ListItemDeleteButton,
   ListItemEditButton,
+  useColumnSearchProps,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
 import {
@@ -13,15 +15,9 @@ import { Space, Spin, Table, TableColumnProps, Tag } from 'antd'
 import Link from 'next/link'
 import React from 'react'
 import tw from 'twin.macro'
-import { useColumnSearchProps } from './useColumnSearchProps'
 
 export const GetAtomsTable = () => {
   const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Atom)
-  const columnSearchProps = useColumnSearchProps('name')
-
-  const headerCellProps = () => ({
-    style: tw`font-semibold text-gray-900`,
-  })
 
   const columns: Array<TableColumnProps<__AtomFragment>> = [
     {
@@ -29,23 +25,13 @@ export const GetAtomsTable = () => {
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
-      ...columnSearchProps,
+      ...useColumnSearchProps('name'),
     },
     {
       title: 'Library',
       dataIndex: 'library',
       key: 'library',
       onHeaderCell: headerCellProps,
-      filters: [
-        {
-          text: 'Ant Design',
-          value: 'Ant Design',
-        },
-        {
-          text: 'Orange',
-          value: 'Orange',
-        },
-      ],
       onFilter: (value, record) =>
         record.name.toLowerCase().indexOf(value.toString().toLowerCase()) ===
           0 ||

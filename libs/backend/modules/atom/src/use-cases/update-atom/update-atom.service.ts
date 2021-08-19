@@ -24,10 +24,13 @@ export class UpdateAtomService extends DgraphUseCase<UpdateAtomInput> {
   ): Promise<void> {
     const { atom } = await this.validate(request)
 
-    await this.dgraph.executeMutation(txn, this.createMutation(request, atom))
+    await this.dgraph.executeMutation(
+      txn,
+      UpdateAtomService.createMutation(request, atom),
+    )
   }
 
-  private createMutation(
+  private static createMutation(
     { id, data: { name, type } }: UpdateAtomInput,
     atom: DgraphAtom,
   ) {

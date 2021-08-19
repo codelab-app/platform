@@ -69,8 +69,6 @@ export const MoveElementForm = ({
         <SelectField
           name="parentElementId"
           label="Parent element"
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore https://github.com/vazco/uniforms/issues/951
           showSearch={true}
           optionFilterProp="label"
           options={parentElementOptions}

@@ -18,7 +18,7 @@ export class Atom {
   declare name: string
 
   @Field(() => InterfaceType)
-  /** Optional because the field resolver can get it */
+  /** Resolved by field resolvers */
   declare api?: InterfaceType
 
   constructor({ id, type, name, api }: Atom) {

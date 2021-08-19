@@ -5,13 +5,11 @@ import {
   teardownTestModule,
 } from '@codelab/backend/infra'
 import {
-  __LambdaFragment,
   CreateLambdaGql,
   CreateLambdaInput,
   CreateLambdaMutation,
   GetLambdaGql,
   GetLambdaQuery,
-  GetLambdasGql,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
@@ -21,20 +19,25 @@ import { GetLambdaInput } from '../get-lambda.input'
 describe('GetLambda', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let lambda: __LambdaFragment
+  let getLambdaInput: GetLambdaInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([LambdaModule], { role: Role.GUEST })
     userApp = await setupTestModule([LambdaModule], { role: Role.USER })
 
-    const results = await domainRequest<
-      CreateLambdaInput,
-      CreateLambdaMutation
-    >(userApp, CreateLambdaGql, createLambdaInput)
+    const {
+      createLambda: { id },
+    } = await domainRequest<CreateLambdaInput, CreateLambdaMutation>(
+      userApp,
+      CreateLambdaGql,
+      createLambdaInput,
+    )
 
-    lambda = results.createLambda
+    getLambdaInput = {
+      lambdaId: id,
+    }
 
-    expect(lambda).toMatchObject(createLambdaInput)
+    expect(id).toBeDefined()
   })
 
   afterAll(async () => {
@@ -44,41 +47,35 @@ describe('GetLambda', () => {
 
   describe('Guest', () => {
     it('should fail to get a lambda', async () => {
-      await domainRequest(
-        guestApp,
-        GetLambdasGql,
-        {},
-        {
-          message: 'Unauthorized',
-        },
-      )
+      await domainRequest(guestApp, GetLambdaGql, getLambdaInput, {
+        message: 'Unauthorized',
+      })
     })
   })
 
   describe('User', () => {
     it('should get an existing lambda', async () => {
-      const getLambdaInput: GetLambdaInput = {
-        lambdaId: lambda.id,
-      }
-
-      const results = await domainRequest<GetLambdaInput, GetLambdaQuery>(
+      const { getLambda } = await domainRequest<GetLambdaInput, GetLambdaQuery>(
         userApp,
         GetLambdaGql,
         getLambdaInput,
       )
 
-      expect(results.getLambda).toMatchObject(lambda)
+      expect(getLambda).toMatchObject({
+        ...createLambdaInput,
+        id: getLambdaInput.lambdaId,
+      })
     })
 
     it('should return a null lambda', async () => {
-      const getLambdaInput: GetLambdaInput = {
+      const getMissingLambdaInput: GetLambdaInput = {
         lambdaId: '0x3a0123',
       }
 
       const results = await domainRequest<GetLambdaInput, GetLambdaQuery>(
         userApp,
         GetLambdaGql,
-        getLambdaInput,
+        getMissingLambdaInput,
       )
 
       expect(results.getLambda).toBeNull()

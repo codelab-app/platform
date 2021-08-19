@@ -448,7 +448,7 @@ type Query {
   getComponent(input: GetComponentInput!): Component
   getComponentElements(input: GetComponentInput!): ElementGraph
   getComponents(input: GetComponentsInput): [Component!]!
-  getAtoms: [Atom!]!
+  getAtoms: [Atom!]
   getAtom(input: GetAtomInput!): Atom
   getType(input: GetTypeInput!): Type
   getTypeGraph(input: GetTypeInput!): TypeGraph
@@ -532,6 +532,7 @@ input GetTypeInput {
 input WhereUniqueType {
   id: String
   name: String
+  atomId: String
 }
 
 """Filters are optional and you can provide all three of them together"""
@@ -610,9 +611,9 @@ type Mutation {
   createField(input: CreateFieldInput!): CreateResponse!
   updateField(input: UpdateFieldInput!): Void
   deleteField(input: DeleteFieldInput!): Void
-  createLambda(input: CreateLambdaInput!): Lambda!
+  createLambda(input: CreateLambdaInput!): CreateResponse!
   deleteLambda(input: DeleteLambdaInput!): Void
-  updateLambda(input: UpdateLambdaInput!): Lambda
+  updateLambda(input: UpdateLambdaInput!): Void
   executeLambda(input: ExecuteLambdaInput!): LambdaPayload
   createTag(input: CreateTagInput!): CreateResponse!
   updateTag(input: UpdateTagInput!): Void

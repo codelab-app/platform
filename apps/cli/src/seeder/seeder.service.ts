@@ -4,7 +4,7 @@ import {
   serverConfig,
 } from '@codelab/backend/infra'
 import { AtomType } from '@codelab/shared/codegen/graphql'
-import { pascalCaseToWords } from '@codelab/shared-utils'
+import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable } from '@nestjs/common'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'

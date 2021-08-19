@@ -1,6 +1,9 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import React from 'react'
 
@@ -14,6 +17,6 @@ AdminPage.Template = DashboardTemplate
 AdminPage.Header = null
 AdminPage.MetaPane = null
 AdminPage.MainPane = null
-AdminPage.SidebarNavigation = null
+AdminPage.SidebarNavigation = SidebarNavigation
 
 export default AdminPage

@@ -7,8 +7,11 @@ import {
   GetTypesTable,
   UpdateTypeModal,
 } from '@codelab/frontend/modules/type'
-import { padding } from '@codelab/frontend/style'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
@@ -31,9 +34,9 @@ const TypesPage: CodelabPage = () => {
       <CreateTypeModal />
       <DeleteTypeModal />
       <UpdateTypeModal />
-      <section style={{ marginTop: padding.sm }}>
+      <ContentSection>
         <GetTypesTable />
-      </section>
+      </ContentSection>
     </>
   )
 }
@@ -44,6 +47,6 @@ TypesPage.Template = DashboardTemplate
 TypesPage.Header = null
 TypesPage.MetaPane = null
 TypesPage.MainPane = null
-TypesPage.SidebarNavigation = null
+TypesPage.SidebarNavigation = SidebarNavigation
 
 export default TypesPage

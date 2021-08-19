@@ -14,13 +14,14 @@ export class GetAtomsService extends DgraphUseCase<
   Array<DgraphAtom>
 > {
   protected executeTransaction(request: GetAtomsInput, txn: Txn) {
-    return this.dgraph.getAll<DgraphAtom>(txn, this.createQuery())
+    return this.dgraph.getAll<DgraphAtom>(txn, GetAtomsService.createQuery())
   }
 
-  private createQuery() {
+  private static createQuery() {
     return new DgraphQueryBuilder()
       .setTypeFunc(DgraphEntityType.Atom)
       .addBaseFields()
-      .addExpandAll((f) => f.addExpandAllRecursive(2))
+      .addRecurseDirective()
+      .addExpandAll()
   }
 }

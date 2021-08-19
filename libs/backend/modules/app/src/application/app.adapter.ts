@@ -5,7 +5,7 @@ import { App } from '../domain/app.model'
 
 @Injectable()
 export class AppAdapter extends BaseAdapter<DgraphApp, App> {
-  mapItem({ ownerId, name, uid }: DgraphApp): App {
-    return new App(uid, ownerId, name)
+  mapItem({ ownerId, name, uid }: DgraphApp) {
+    return new App({ id: uid, ownerId, name })
   }
 }

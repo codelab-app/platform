@@ -1,7 +1,7 @@
 #
 # We don't use .dockerignore due to performance issues.
 #
-# We build `dist` with CI first before building our image, installing production NPM here is require due to some packages that require native bindings.
+# We build `dist` with CI first before building our image, installing NPM here is require due to some packages that require native bindings.
 #
 
 #
@@ -14,6 +14,7 @@ RUN apk add bash make nasm autoconf automake libtool dpkg pkgconfig libpng libpn
 WORKDIR /usr/local/codelab
 
 COPY package.json package.json
+COPY yarn.lock yarn.lock
 
 RUN yarn --prod --frozen-lockfile
 
@@ -27,13 +28,9 @@ RUN apk add curl
 WORKDIR /usr/local/codelab
 
 COPY package.json package.json
-COPY yarn.lock yarn.lock
 COPY dist dist
 COPY scripts scripts
 COPY --from=build /usr/local/codelab/node_modules ./node_modules
-
-RUN ls
-RUN ls -al node_modules | head -10
 
 CMD ["node", "dist/apps/api/main.js"]
 

@@ -15,11 +15,11 @@ export abstract class BaseAdapter<TIn, TOut> implements GraphqlPort<TIn, TOut> {
    *
    * We infer the output from the input type, otherwise the output would be Array<TOut> | TOut
    */
-  public map(input: MaybeArray<TIn> | null) {
+  public map(input: MaybeArray<TIn>) {
     return this.mapMaybeArray(input)
   }
 
-  private mapMaybeArray(input: MaybeArray<TIn> | null) {
+  private mapMaybeArray(input: MaybeArray<TIn>) {
     if (Array.isArray(input)) {
       return input.map((item) => this.mapItem(item)) as AdapterOutput<TIn, TOut>
     }
@@ -30,5 +30,5 @@ export abstract class BaseAdapter<TIn, TOut> implements GraphqlPort<TIn, TOut> {
   /**
    * Maps a single item, this is the function we implement. The base class will use this to map maybe arrays
    */
-  protected abstract mapItem(input: TIn | null): MaybePromise<TOut>
+  protected abstract mapItem(input: TIn): MaybePromise<TOut>
 }

@@ -14,7 +14,7 @@ export const useColumnSearchProps = (dataIndex: string) => {
     selectedKeys: Array<React.Key>,
     confirm: (params?: any) => void,
   ) => {
-    confirm()
+    confirm({ closeDropdown: false })
     setState({
       searchText: selectedKeys[0] as string,
       searchedColumn: dataIndex,
@@ -43,22 +43,23 @@ export const useColumnSearchProps = (dataIndex: string) => {
           }}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={(e) =>
+          onChange={(e) => {
             setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
+            handleSearch(selectedKeys, confirm)
+          }}
           onPressEnter={() => handleSearch(selectedKeys, confirm)}
           style={{ marginBottom: 8, display: 'block' }}
         />
         <Space>
-          <Button
-            type="primary"
-            onClick={() => handleSearch(selectedKeys, confirm)}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{ width: 90 }}
-          >
-            Search
-          </Button>
+          {/* <Button*/}
+          {/*  type="primary"*/}
+          {/*  onClick={() => handleSearch(selectedKeys, confirm)}*/}
+          {/*  icon={<SearchOutlined />}*/}
+          {/*  size="small"*/}
+          {/*  style={{ width: 90 }}*/}
+          {/* >*/}
+          {/*  Search*/}
+          {/* </Button>*/}
           <Button
             onClick={() => handleReset(clearFilters)}
             size="small"
@@ -66,19 +67,19 @@ export const useColumnSearchProps = (dataIndex: string) => {
           >
             Reset
           </Button>
-          <Button
-            type="link"
-            size="small"
-            onClick={() => {
-              confirm({ closeDropdown: false })
-              setState({
-                searchText: selectedKeys[0] as string,
-                searchedColumn: dataIndex,
-              })
-            }}
-          >
-            Filter
-          </Button>
+          {/* <Button*/}
+          {/*  type="link"*/}
+          {/*  size="small"*/}
+          {/*  onClick={() => {*/}
+          {/*    confirm({ closeDropdown: false })*/}
+          {/*    setState({*/}
+          {/*      searchText: selectedKeys[0] as string,*/}
+          {/*      searchedColumn: dataIndex,*/}
+          {/*    })*/}
+          {/*  }}*/}
+          {/* >*/}
+          {/*  Filter*/}
+          {/* </Button>*/}
         </Space>
       </div>
     ),

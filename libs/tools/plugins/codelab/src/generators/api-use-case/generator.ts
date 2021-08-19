@@ -1,4 +1,3 @@
-import { toCamelCase, toKebabCase, toPascalCase } from '@codelab/shared-utils'
 import {
   formatFiles,
   generateFiles,
@@ -8,6 +7,7 @@ import {
   Tree,
 } from '@nrwl/devkit'
 import * as path from 'path'
+import { toCamelCase, toKebabCase, toPascalCase } from '../../utils/strings'
 import { ApiUseCaseGeneratorSchema, NormalizedSchema } from './schema'
 import { useCaseToClassMap, UseCaseType } from './useCaseType'
 

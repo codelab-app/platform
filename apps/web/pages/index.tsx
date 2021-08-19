@@ -1,10 +1,7 @@
 import { CodelabPage } from '@codelab/frontend/abstract/props'
 import Head from 'next/head'
 import React from 'react'
-import { HomeClients } from '../src/home/HomeClients'
-import { HomeFeatures } from '../src/home/HomeFeatures'
-import { HomeJumbo } from '../src/home/HomeJumbo'
-import { HomeTemplate } from '../src/home/HomeTemplate'
+import { HomeClients, HomeFeatures, HomeJumbo, HomeTemplate } from '../src/home'
 
 const HomePage: CodelabPage = () => {
   return (

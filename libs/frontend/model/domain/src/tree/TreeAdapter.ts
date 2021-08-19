@@ -88,6 +88,17 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
   }
 
   /**
+   * Allows child class to override antd tree node mapping behavior
+   */
+  protected antdNodeMapper(element: TVertex): DataNode {
+    return {
+      ...element,
+      key: element.id,
+      title: element.name,
+    }
+  }
+
+  /**
    * @param predicate
    */
   getAntdTree() {
@@ -101,14 +112,7 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
       visit: (visitedNode, edge) => {
         const element = getElementData(visitedNode)
         const order = getEdgeOrder(edge)
-
-        const node = {
-          ...element,
-          // draggable: data.type !== AtomType.ReactRglItem,
-          // disabled: data.type === VertexType.React_RGL_Item,
-          key: element.id,
-          title: element.name,
-        }
+        const node = this.antdNodeMapper(element)
 
         nodes[element.id] = node
         nodeOrder[element.id] = order

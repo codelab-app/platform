@@ -8,9 +8,12 @@ import {
   CreateLambdaGql,
   CreateLambdaInput,
   CreateLambdaMutation,
+  GetLambdaGql,
+  GetLambdaQuery,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
+import { GetLambdaInput } from '../../get-lambda'
 import { createLambdaInput } from './create-lambda.data'
 
 describe('CreateLambda', () => {
@@ -37,16 +40,18 @@ describe('CreateLambda', () => {
 
   describe('User', () => {
     it('should create a lambda', async () => {
-      const results = await domainRequest<
+      const { createLambda } = await domainRequest<
         CreateLambdaInput,
         CreateLambdaMutation
       >(userApp, CreateLambdaGql, createLambdaInput)
 
-      expect(results.createLambda.id).toBeDefined()
-      expect(results.createLambda).toMatchObject({
-        ...createLambdaInput,
-        ownerId: 'codelab-test-user-id',
-      })
+      const results = await domainRequest<GetLambdaInput, GetLambdaQuery>(
+        userApp,
+        GetLambdaGql,
+        { lambdaId: createLambda.id },
+      )
+
+      expect(results.getLambda).toMatchObject(createLambdaInput)
     })
   })
 })

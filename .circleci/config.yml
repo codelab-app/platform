@@ -14,18 +14,20 @@ filters-dev-pr: &filters-dev-pr
         - production
         - staging
 
+filters-master: &filters-master
+  filters:
+    branches:
+      only:
+        - master
+
 filters-staging: &filters-staging
   filters:
-    tags:
-      only: /^staging-.*$/
     branches:
       only:
         - staging
 
 filters-prod: &filters-prod
   filters:
-    tags:
-      only: /^prod-.*$/
     branches:
       only:
         - production
@@ -95,18 +97,11 @@ executors:
 
 commands:
   setup-workspace:
-    parameters:
-      attach_workspace:
-        default: true
-        type: boolean
     description: 'Setup workspace'
     steps:
       - checkout
-      - when:
-          condition: << parameters.attach_workspace >>
-          steps:
-            - attach_workspace:
-                at: ..
+      - attach_workspace:
+          at: ..
       - run:
           name: 'Install NVM'
           command: |
@@ -155,7 +150,7 @@ commands:
             - dep-cache-staging-
       - run:
           name: 'Install NPM packages'
-          command: yarn install --frozen-lockfile --prod=false
+          command: yarn install --frozen-lockfile --prod=false --ignore-scripts
 
   yarn-install-prod:
     description: 'Install prod dependencies'
@@ -171,19 +166,12 @@ commands:
       - run:
           name: 'Install NPM packages'
           command: yarn install --frozen-lockfile --prod=true --ignore-scripts
-      # - run:
-      #     name: 'Remove NPM .cache'
-      #     command: |
-      #       rm -rf ~/project/node_modules/.cache
-      #       npx cypress cache prune
       - save_cache:
           name: 'Save cache'
           key: dep-cache-prod-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
             - ~/.cache/Cypress
-            # - ~/project/app/node_modules
-            # - ~/project/app/apps/web/.next/cache
 
   notify-failure:
     steps:
@@ -414,6 +402,7 @@ jobs:
             		}
             	]
             }
+
   build-docker-staging:
     <<: *executor-params
     steps:
@@ -478,6 +467,25 @@ workflows:
             - unit
             - integration
             - e2e
+
+  app-master:
+    jobs:
+      - install-and-build-workspace:
+          <<: *filters-master
+          e: docker-node
+          context: CI
+      - lint:
+          <<: *filters-master
+          e: docker-node
+          context: CI
+          requires:
+            - install-and-build-workspace
+      - notify-success:
+          <<: *filters-master
+          context: CI
+          e: docker-node
+          requires:
+            - lint
 
   app-staging:
     jobs:

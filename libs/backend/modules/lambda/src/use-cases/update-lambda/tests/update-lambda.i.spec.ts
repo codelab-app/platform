@@ -8,6 +8,9 @@ import {
   CreateLambdaGql,
   CreateLambdaInput,
   CreateLambdaMutation,
+  GetLambdaGql,
+  GetLambdaInput,
+  GetLambdaQuery,
   UpdateLambdaGql,
   UpdateLambdaInput,
   UpdateLambdaMutation,
@@ -33,7 +36,7 @@ describe('UpdateLambda', () => {
     updateLambdaInput = {
       id: results.createLambda.id,
       name: 'HelloWorld2',
-      body: results.createLambda.body,
+      body: createLambdaInput.body,
     }
   })
 
@@ -52,12 +55,19 @@ describe('UpdateLambda', () => {
 
   describe('User', () => {
     it('should update a lambda', async () => {
-      const results = await domainRequest<
-        UpdateLambdaInput,
-        UpdateLambdaMutation
-      >(userApp, UpdateLambdaGql, updateLambdaInput)
+      await domainRequest<UpdateLambdaInput, UpdateLambdaMutation>(
+        userApp,
+        UpdateLambdaGql,
+        updateLambdaInput,
+      )
 
-      expect(results.updateLambda?.name).toBe(updateLambdaInput.name)
+      const { getLambda } = await domainRequest<GetLambdaInput, GetLambdaQuery>(
+        userApp,
+        GetLambdaGql,
+        { lambdaId: updateLambdaInput.id },
+      )
+
+      expect(getLambda?.name).toBe(updateLambdaInput.name)
     })
   })
 })

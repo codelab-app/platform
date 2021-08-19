@@ -28,7 +28,7 @@ export const MovePageElementForm = ({
 
   const parentElementOptions = [
     ...tree.getAllNodes().map((e) => ({
-      label: e.name,
+      label: e.name || e.atom.type,
       value: e.id,
     })),
   ]

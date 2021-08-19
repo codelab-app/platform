@@ -8,7 +8,7 @@ import {
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
-import { padding } from '@codelab/frontend/style'
+import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -38,9 +38,9 @@ const AppsPage: CodelabPage = () => {
       <CreateAppModal />
       <UpdateAppModal />
       <DeleteAppModal />
-      <section style={{ marginTop: padding.sm }}>
+      <ContentSection>
         <GetAppsList />
-      </section>
+      </ContentSection>
     </>
   )
 }

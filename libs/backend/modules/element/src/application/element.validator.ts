@@ -86,7 +86,10 @@ export class ElementValidator {
     element?: QueryResult
   }> {
     const result = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getOne<QueryResult>(txn, this.createQuery(elementId)),
+      this.dgraph.getOne<QueryResult>(
+        txn,
+        ElementValidator.createQuery(elementId),
+      ),
     )
 
     if (!result) {
@@ -143,7 +146,7 @@ export class ElementValidator {
     }
   }
 
-  private createQuery(elementId: string) {
+  private static createQuery(elementId: string) {
     // We need the id of the tree which has this element
     return new DgraphQueryBuilder()
       .addBaseFields()

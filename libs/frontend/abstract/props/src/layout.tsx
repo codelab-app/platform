@@ -11,7 +11,7 @@ export type TemplateProps = {
  * These are the props a page requires. We don't pass any props into these components
  */
 export type PageProps = {
-  Template: JSXElementConstructor<TemplateProps> | null
+  Template: JSXElementConstructor<TemplateProps>
   Header: JSXElementConstructor<any> | null
   MetaPane: JSXElementConstructor<any> | null
   MainPane: JSXElementConstructor<any> | null

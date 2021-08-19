@@ -7,8 +7,8 @@ import {
 import { getElementData } from '@codelab/shared/core'
 import { filterPredicate, Predicate, TreeAdapter } from '../tree/TreeAdapter'
 
-type Vertex = ComponentFragment | ElementFragment
-type Edge = ElementEdgeFragment
+type IVertex = ComponentFragment | ElementFragment
+type IEdge = ElementEdgeFragment
 
 export const isElement: Predicate = ({ __typename }: any) =>
   __typename === 'Element'
@@ -17,14 +17,22 @@ export const isComponent: Predicate = ({ __typename }: any) =>
   __typename === 'Component'
 
 export class ElementGraphTreeAdapter
-  extends TreeAdapter<Vertex, Edge>
-  implements ElementTree<Vertex>
+  extends TreeAdapter<IVertex, IEdge>
+  implements ElementTree<IVertex>
 {
   predicate = isElement
 
   /**
    * Component methods
    */
+
+  protected antdNodeMapper(element: ElementFragment) {
+    return {
+      ...element,
+      key: element.id,
+      name: element.name || element?.atom?.type,
+    }
+  }
 
   getComponentRootElement(componentId: string) {
     return this.findElementFrom<ElementFragment>(componentId, isElement)

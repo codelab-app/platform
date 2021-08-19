@@ -42,7 +42,7 @@ export class TypeResolver {
     private updateTypeService: UpdateTypeService,
     private createTypeService: CreateTypeService,
     private deleteTypeService: DeleteTypeService,
-    private typeMapperFactory: TypeAdapterFactory,
+    private typeAdapterFactory: TypeAdapterFactory,
     private typeGraphAdapter: TypeGraphAdapter,
   ) {}
 
@@ -57,9 +57,9 @@ export class TypeResolver {
       return null
     }
 
-    const mapper = this.typeMapperFactory.getMapper(type)
+    const typeAdapter = this.typeAdapterFactory.getMapper(type)
 
-    return mapper.map(type)
+    return typeAdapter.map(type)
   }
 
   @UseGuards(GqlAuthGuard)
@@ -85,7 +85,7 @@ export class TypeResolver {
 
     return Promise.all(
       types.map((type) =>
-        this.typeMapperFactory.getMapper(type).map(type as any),
+        this.typeAdapterFactory.getMapper(type).map(type as any),
       ),
     )
   }

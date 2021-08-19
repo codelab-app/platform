@@ -10,7 +10,10 @@ import {
   withInterfaceQueryProvider,
 } from '@codelab/frontend/modules/type'
 import { padding } from '@codelab/frontend/style'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -52,7 +55,7 @@ export const getServerSideProps = withPageAuthRequired()
 InterfaceDetailPage.Template = withInterfaceQueryProvider(DashboardTemplate)
 InterfaceDetailPage.MainPane = null
 InterfaceDetailPage.MetaPane = null
-InterfaceDetailPage.SidebarNavigation = null
+InterfaceDetailPage.SidebarNavigation = SidebarNavigation
 InterfaceDetailPage.Header = null
 
 export default InterfaceDetailPage

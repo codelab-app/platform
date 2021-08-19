@@ -17,7 +17,7 @@ import {
   GetTypeQueryVariables,
   TypeRef,
 } from '@codelab/shared/codegen/graphql'
-import { pascalCaseToWords } from '@codelab/shared-utils'
+import { pascalCaseToWords } from '@codelab/shared/utils'
 import { GraphQLClient } from 'graphql-request'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
 import { createIfMissing } from '../utils/createIfMissing'

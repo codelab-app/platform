@@ -64,7 +64,6 @@ describe('DeleteApp', () => {
         deleteAppInput,
       )
 
-      // Should fail to get the deleted app
       const { getApp } = await domainRequest<GetAppInput, GetAppQuery>(
         userApp,
         GetAppGql,

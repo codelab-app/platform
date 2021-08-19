@@ -46,6 +46,10 @@ export class TagResolver {
   async getTag(@CurrentUser() user: User, @Args('input') input: GetTagInput) {
     const tag = await this.getTagService.execute(input)
 
+    if (!tag) {
+      return null
+    }
+
     return this.tagAdapter.map(tag)
   }
 

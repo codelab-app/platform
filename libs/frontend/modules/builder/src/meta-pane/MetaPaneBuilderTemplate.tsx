@@ -64,7 +64,6 @@ export const MetaPaneBuilderTemplate = ({
   }
 
   // Transform it, because we have the node in the state
-
   return (
     <Resizable
       enable={{ top: true }}

@@ -1,4 +1,5 @@
 import { notification } from 'antd'
+import { ReactNode } from 'react'
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error'
 
@@ -8,7 +9,7 @@ export interface NotificationOptions<TEvent> {
   /** Enter a custom title of the notification. If you don't, it will be "info" */
   title?: string | ((e: TEvent | undefined) => string)
   /** Enter a custom content of the notification. If you don't, it will be inferred from the error message, if found */
-  content?: string | ((e: TEvent | undefined) => string)
+  content?: string | ((e: TEvent | undefined) => string) | ReactNode
 }
 
 const defaultOptions: NotificationOptions<any> = {
@@ -24,37 +25,40 @@ export const notify = <TEvent extends any>(
   e: TEvent | undefined = undefined,
 ) => {
   const { content, type, title } = { ...defaultOptions, ...options }
-  let titleString: string
-  let contentString: string
+  let message
+  let description
 
   if (typeof title === 'string') {
-    titleString = title
+    message = title
   } else if (typeof title === 'function') {
-    titleString = title(e)
+    message = title(e)
   } else {
-    titleString = 'Error'
+    message = 'Error'
   }
 
   if (typeof content === 'string') {
-    contentString = content
+    description = content
   } else if (typeof content === 'function') {
-    contentString = content(e)
+    description = content(e)
+    // React object
+  } else if (typeof content === 'object') {
+    description = content
   } else {
-    contentString = inferErrorMessage(e)
+    description = inferErrorMessage(e)
   }
 
   notification[type || 'info']({
-    message: titleString,
-    description: contentString,
+    message: message,
+    description: 'hello',
     placement: 'bottomRight',
   })
 
   if (type === 'warning') {
-    console.warn(titleString, contentString)
+    console.warn(message, description)
   } else if (type === 'error') {
-    console.error(titleString, contentString)
+    console.error(message, description)
   } else {
-    console.log(titleString, contentString)
+    console.log(message, description)
   }
 }
 

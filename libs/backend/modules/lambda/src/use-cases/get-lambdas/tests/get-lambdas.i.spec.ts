@@ -5,7 +5,6 @@ import {
   teardownTestModule,
 } from '@codelab/backend/infra'
 import {
-  __LambdaFragment,
   CreateLambdaGql,
   CreateLambdaInput,
   CreateLambdaMutation,
@@ -19,8 +18,8 @@ import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 describe('GetLambdas', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let lambdaA: __LambdaFragment
-  let lambdaB: __LambdaFragment
+  let lambdaAId: string
+  let lambdaBId: string
 
   beforeAll(async () => {
     guestApp = await setupTestModule([LambdaModule], { role: Role.GUEST })
@@ -29,21 +28,21 @@ describe('GetLambdas', () => {
     const createLambdaInputA = createLambdaInput
     const createLambdaInputB = { ...createLambdaInput, name: 'HelloWorld2' }
 
-    const resultsA = await domainRequest<
+    const lambdaA = await domainRequest<
       CreateLambdaInput,
       CreateLambdaMutation
     >(userApp, CreateLambdaGql, createLambdaInputA)
 
-    const resultsB = await domainRequest<
+    const lambdaB = await domainRequest<
       CreateLambdaInput,
       CreateLambdaMutation
     >(userApp, CreateLambdaGql, createLambdaInputB)
 
-    lambdaA = resultsA.createLambda
-    lambdaB = resultsB.createLambda
+    lambdaAId = lambdaA.createLambda.id
+    lambdaBId = lambdaB.createLambda.id
 
-    expect(lambdaA).toMatchObject(resultsA.createLambda)
-    expect(lambdaB).toMatchObject(resultsB.createLambda)
+    expect(lambdaA.createLambda.id).toBeDefined()
+    expect(lambdaB.createLambda.id).toBeDefined()
   })
 
   afterAll(async () => {
@@ -53,14 +52,9 @@ describe('GetLambdas', () => {
 
   describe('Guest', () => {
     it('should fail to get lambdas', async () => {
-      await domainRequest(
-        guestApp,
-        GetLambdasGql,
-        {},
-        {
-          message: 'Unauthorized',
-        },
-      )
+      await domainRequest(guestApp, GetLambdasGql, null, {
+        message: 'Unauthorized',
+      })
     })
   })
 
@@ -72,9 +66,10 @@ describe('GetLambdas', () => {
         null,
       )
 
-      console.log(results.getLambdas)
-
-      expect(results.getLambdas).toMatchObject([lambdaA, lambdaB])
+      expect(results.getLambdas).toMatchObject([
+        { id: lambdaAId },
+        { id: lambdaBId },
+      ])
     })
   })
 })

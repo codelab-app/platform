@@ -1,1 +1,5 @@
+export * from './HomeClients'
+export * from './HomeFeatures'
+export * from './HomeJumbo'
+export * from './HomeMenuHeader'
 export * from './HomeTemplate'

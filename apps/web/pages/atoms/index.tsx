@@ -7,8 +7,11 @@ import {
   GetAtomsTable,
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
-import { padding } from '@codelab/frontend/style'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import { ContentSection } from '@codelab/frontend/view/sections'
+import {
+  DashboardTemplate,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
@@ -31,9 +34,9 @@ const AtomsPage: CodelabPage = () => {
       <CreateAtomModal />
       <UpdateAtomModal />
       <DeleteAtomsModal />
-      <section style={{ marginTop: padding.sm }}>
+      <ContentSection>
         <GetAtomsTable />
-      </section>
+      </ContentSection>
     </>
   )
 }
@@ -44,6 +47,6 @@ AtomsPage.Template = DashboardTemplate
 AtomsPage.Header = null
 AtomsPage.MetaPane = null
 AtomsPage.MainPane = null
-AtomsPage.SidebarNavigation = null
+AtomsPage.SidebarNavigation = SidebarNavigation
 
 export default AtomsPage

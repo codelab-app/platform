@@ -6,7 +6,7 @@ import {
   S3Client,
 } from '@aws-sdk/client-s3'
 import AdmZip from 'adm-zip'
-import { ObjectStorageRepository } from '../../../ports/persistence'
+import { ObjectStorageRepository } from '../../../ports'
 import { Lambda } from '../lambda.interface'
 
 export class AwsS3Service
@@ -26,7 +26,7 @@ export class AwsS3Service
 
       await this.send(createBucketCommand)
     } catch (e) {
-      console.error(e)
+      // console.error(e)
     }
   }
 
@@ -42,7 +42,7 @@ export class AwsS3Service
     }
   }
 
-  public async removeObject(bucketId: string, s3Object: Lambda) {
+  public async removeObject(bucketId: string, s3Object: Pick<Lambda, 'id'>) {
     try {
       const deleteBucketCommand = new DeleteObjectCommand({
         Bucket: bucketId,

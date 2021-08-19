@@ -147,7 +147,7 @@
       "tags": ["scope:shared"]
     },
     "tools-plugins-codelab": {
-      "tags": []
+      "tags": ["scope:publishable"]
     },
     "tools-scripts": {
       "tags": []

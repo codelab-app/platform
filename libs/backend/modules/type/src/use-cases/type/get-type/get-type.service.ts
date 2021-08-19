@@ -13,19 +13,29 @@ export class GetTypeService extends DgraphUseCase<
   GetTypeRequest,
   DgraphType<DgraphEntityType.Type> | null
 > {
-  protected executeTransaction(request: GetTypeRequest, txn: Txn) {
+  protected async executeTransaction(request: GetTypeRequest, txn: Txn) {
+    if (request.input.where.atomId) {
+      return (
+        await this.dgraph.executeNamedQuery<DgraphType<DgraphEntityType.Type> | null>(
+          txn,
+          GetTypeService.createStringQuery(request),
+          'query',
+        )
+      )[0]
+    }
+
     return this.dgraph.getOne<DgraphType<DgraphEntityType.Type>>(
       txn,
-      this.createQuery(request),
+      GetTypeService.createQuery(request),
     )
   }
 
-  private createQuery({
+  private static createQuery({
     input: {
-      where: { id, name },
+      where: { id, name, atomId },
     },
   }: GetTypeRequest) {
-    if (id && name) {
+    if ([id, name, atomId].filter((x) => x).length > 1) {
       throw new Error('Only 1 parameter is allowed')
     }
 
@@ -57,5 +67,25 @@ export class GetTypeService extends DgraphUseCase<
     }
 
     throw new Error('Missing parameters')
+  }
+
+  private static createStringQuery(request: GetTypeRequest) {
+    const atomId = request.input.where.atomId
+
+    return `
+      {
+        var(func: type(Type)) {
+          A as uid
+          dgraph.type
+          ~atom @filter(uid(${atomId}))
+        }
+        query(func: uid(A)) @recurse {
+          uid
+          dgraph.type
+          name
+          fields
+        }
+      }
+      `
   }
 }
