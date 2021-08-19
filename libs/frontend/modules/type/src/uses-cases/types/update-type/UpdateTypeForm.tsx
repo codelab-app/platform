@@ -23,6 +23,8 @@ export const UpdateTypeForm = (
   props: UniFormUseCaseProps<UpdateTypeSchema>,
 ) => {
   const { setLoading, state, reset } = useCrudModalForm(EntityType.Type)
+  console.log(state)
+
   const mutationOptions = { refetchQueries: [refetchGetTypesQuery()] }
 
   const [mutatePrimitive, primitiveMutationData] =

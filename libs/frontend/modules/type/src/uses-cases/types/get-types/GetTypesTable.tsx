@@ -34,6 +34,7 @@ export const GetTypesTable = () => {
       dataIndex: '__typename',
       key: 'typename',
       onHeaderCell: headerCellProps,
+      ...useColumnSearchProps('typename'),
     },
     {
       title: 'Action',
@@ -52,7 +53,9 @@ export const GetTypesTable = () => {
               <RightCircleOutlined />
             </Link>
           ) : (
-            <ListItemEditButton onClick={() => openUpdateModal(record.id)} />
+            <ListItemEditButton
+              onClick={() => openUpdateModal(record.id, record)}
+            />
           )}
 
           <ListItemDeleteButton onClick={() => openDeleteModal([record.id])} />

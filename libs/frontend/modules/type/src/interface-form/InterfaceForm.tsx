@@ -18,8 +18,6 @@ export interface InterfaceFormProps<TData>
 }
 
 const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (type) => {
-  console.log(type)
-
   switch (type.typeKind) {
     case TypeKind.LambdaType:
       return {

@@ -14,6 +14,8 @@ export const FormUniforms = <TData extends any>({
   children,
   ...props
 }: React.PropsWithChildren<FormUniformsProps<TData>>): ReactElement => {
+  console.log(schema, schema instanceof Bridge)
+
   const [bridge, setBridge] = useState(
     schema instanceof Bridge ? schema : createBridge(schema),
   )
