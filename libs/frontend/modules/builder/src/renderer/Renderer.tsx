@@ -7,5 +7,12 @@ import React from 'react'
 export const Renderer = () => {
   const context = useRenderContext()
 
-  return <>{context.renderFactory(context.tree.getRoot())}</>
+  return (
+    <>
+      {context.renderFactory(context.tree.getRoot(), {
+        ...(context || {}),
+        tree: context.tree,
+      })}
+    </>
+  )
 }

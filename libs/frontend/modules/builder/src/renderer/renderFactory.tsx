@@ -1,8 +1,5 @@
 import { isElement, RenderNode } from '@codelab/frontend/abstract/props'
-import {
-  RenderProvider,
-  useRenderContext,
-} from '@codelab/frontend/presenter/container'
+import { RenderContext } from '@codelab/frontend/presenter/container'
 import { ComponentFragment } from '@codelab/shared/codegen/graphql'
 import { css } from '@emotion/react'
 import deepmerge from 'deepmerge'
@@ -17,11 +14,8 @@ import { reactComponentFactory } from './reactComponentFactory'
  * Generic interface of a node renderer
  */
 export type RenderHandler<TNode extends RenderNode = RenderNode> = (
-  props: React.PropsWithChildren<
-    {
-      __node: TNode
-    } & Record<string, any>
-  >,
+  node: TNode,
+  metadata: RenderContext,
 ) => ReactElement | null
 
 //
@@ -49,19 +43,15 @@ const mergeProps = (...props: Array<Record<string, any>>) => {
 /**
  *  Handles the rendering of elements
  */
-const RenderElement: RenderHandler = ({ __node: element, ...props }) => {
-  const runtimeProps = props
-  const context = useRenderContext()
-
+const renderElement: RenderHandler = (element, context) => {
   const renderedChildren = context.tree
     .getChildren(element.id)
-    ?.map((child) => renderFactory(child))
-    .filter((c): c is ReactElement => !!c)
+    ?.map((child) => renderFactory(child, context))
 
   const component = context.tree.getComponentOfElement(element.id)
 
   if (component) {
-    return renderFactory(component)
+    return renderFactory(component, context)
   }
 
   // Render either the atom with children..
@@ -72,24 +62,19 @@ const RenderElement: RenderHandler = ({ __node: element, ...props }) => {
     })
 
     if (!RootComponent) {
-      return <>{renderedChildren}</>
+      return renderedChildren
     }
 
     const elementProps: Record<string, any> = JSON.parse(element.props)
 
-    let propsCombined = mergeProps(
+    const propsCombined = mergeProps(
+      {
+        nodeid: element.id,
+      },
       atomProps,
       context.extraProps || {},
       elementProps,
-      runtimeProps,
     )
-
-    if (context.nodePropsMappers) {
-      propsCombined = context.nodePropsMappers.reduce(
-        (acc, mapper) => mapper(acc, element),
-        propsCombined,
-      )
-    }
 
     return (
       <RootComponent
@@ -106,19 +91,16 @@ const RenderElement: RenderHandler = ({ __node: element, ...props }) => {
   }
 
   // ... or just the children if there's no atom
-  return <>{renderedChildren}</>
+  return renderedChildren
 }
 
 /**
  *  Handles the rendering of components
  */
-const RenderComponent: RenderHandler<ComponentFragment> = ({
-  __node: component,
-  ...props
-}) => {
-  const runtimeProps = props
-  const context = useRenderContext()
-
+const renderComponent: RenderHandler<ComponentFragment> = (
+  component,
+  context,
+) => {
   if (!context) {
     throw new Error(
       'You need to have a RenderContext.Provider before Rendering Components',
@@ -131,42 +113,32 @@ const RenderComponent: RenderHandler<ComponentFragment> = ({
     return null
   }
 
-  const children = renderFactory(rootElement)
-
   // data-component-id is to be able to distinguish regular elements and elements belonging to a component
   // we need this because we must not allow selection and editing of a component element inside a page builder
-  return (
-    <RenderProvider
-      context={{
-        ...context,
-        extraProps: {
-          ...context.extraProps,
-          'data-component-id': component.id,
-        },
-      }}
-    >
-      {/* Make sure we pass the props we get down */}
-      {React.Children.map(children, (child) =>
-        child ? React.cloneElement(child, runtimeProps) : child,
-      )}
-    </RenderProvider>
-  )
+  return renderFactory(rootElement, {
+    ...context,
+    extraProps: { ...context.extraProps, 'data-component-id': component.id },
+  })
 }
 
 /**
  * Creates a React Component from a {@link RenderNode}
  */
-export const renderFactory = (node: RenderNode | undefined | null) => {
-  if (!node) {
-    return null
-  }
+export const renderFactory = (node: RenderNode, context: RenderContext) => {
+  let toRender: React.ReactNode = []
 
   switch (node.__typename) {
     case 'Element':
-      return <RenderElement key={node.id} __node={node} />
+      toRender = renderElement(node, context)
+      break
     case 'Component':
-      return <RenderComponent key={node.id} __node={node} />
+      toRender = renderComponent(node, context)
+      break
     default:
       throw new Error(`Can't render node of type ${(node as any)?.__typename}`)
   }
+
+  return Array.isArray(toRender) && toRender?.length === 1
+    ? toRender[0]
+    : toRender
 }

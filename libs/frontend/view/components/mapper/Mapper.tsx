@@ -22,13 +22,23 @@ export const Mapper = <T extends Record<string, any>>({
   }
 
   const componentNode = context.tree.getComponentById(component)
-  const renderedComponent = context.renderFactory(componentNode)
 
-  if (!renderedComponent) {
-    return null
+  if (componentNode) {
+    const renderedComponent = context.renderFactory(componentNode, context)
+
+    return (
+      <>
+        {data?.map((item, index) =>
+          React.cloneElement(renderedComponent, {
+            ...item,
+            key: `${componentNode.id}-${index}`,
+          }),
+        )}
+      </>
+    )
   }
 
-  return <>{data?.map((item) => React.cloneElement(renderedComponent, item))}</>
+  return null
 }
 
 Mapper.displayName = 'Mapper'
