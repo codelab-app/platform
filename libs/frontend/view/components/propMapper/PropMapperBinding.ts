@@ -14,8 +14,8 @@ export interface PropMapperBinding {
 }
 
 export const applyBinding = (
-  sourceProps: Record<string, any>,
   targetProps: Record<string, any>,
+  sourceProps: Record<string, any>,
   binding: PropMapperBinding,
 ): Record<string, any> => {
   // get and set allow . and [1] expressions
@@ -27,11 +27,11 @@ export const applyBinding = (
 }
 
 export const applyBindings = (
-  sourceProps: Record<string, any>,
   targetProps: Record<string, any>,
+  sourceProps: Record<string, any>,
   bindings: Array<PropMapperBinding>,
 ): Record<string, any> =>
   bindings.reduce(
-    (accProps, nextBinder) => applyBinding(sourceProps, accProps, nextBinder),
+    (accProps, nextBinder) => applyBinding(accProps, sourceProps, nextBinder),
     targetProps,
   )

@@ -17,6 +17,9 @@ const bindingsListToMap = (bindings: Array<PropMapperBinding>) =>
     return acc
   }, {})
 
+/**
+ * PropMapper will recursively build descendants that are targets at runtime. It'll modify components using cloneElement
+ */
 export const PropMapper = ({
   bindings,
   children,
@@ -49,7 +52,7 @@ export const PropMapper = ({
         const elementBindings = bindingsByElementId[child.props.nodeid]
 
         if (elementBindings) {
-          childProps = applyBindings(props, childProps, elementBindings)
+          childProps = applyBindings(childProps, props, elementBindings)
         }
       }
 
