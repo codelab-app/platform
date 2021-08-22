@@ -1,9 +1,4 @@
-import {
-  PropMapperFunction,
-  RenderProvider,
-  useRenderContext,
-} from '@codelab/frontend/presenter/container'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { applyBindings, PropMapperBinding } from './PropMapperBinding'
 
 export interface PropMapperProps {
@@ -22,13 +17,14 @@ const bindingsListToMap = (bindings: Array<PropMapperBinding>) =>
     return acc
   }, {})
 
+/**
+ * PropMapper will recursively build descendants that are targets at runtime. It'll modify components using cloneElement
+ */
 export const PropMapper = ({
   bindings,
   children,
   ...props
 }: React.PropsWithChildren<PropMapperProps>) => {
-  const renderContext = useRenderContext()
-
   // Keep the bindings in a map by element id, because we don't want to do a
   // .filter for each and every element that's rendered
   const [bindingsByElementId, setBindingsByElementId] = useState(
@@ -40,32 +36,33 @@ export const PropMapper = ({
     setBindingsByElementId(bindingsListToMap(bindings || []))
   }, [bindings])
 
-  const propsMapper: PropMapperFunction = useCallback(
-    (elementProps, node) => {
-      // if any of our bindings match the element id, apply the mapping
-      const elementBindings = bindingsByElementId[node.id]
-
-      if (elementBindings) {
-        return applyBindings(props, elementProps, elementBindings)
+  const recursiveMap = (nodeChildren: React.ReactNode) => {
+    return React.Children.map(nodeChildren, (child) => {
+      if (!React.isValidElement(child)) {
+        return child
       }
 
-      return elementProps
-    },
-    [bindingsByElementId, props],
-  )
+      let childProps = {
+        ...child.props,
+        key: child.props.nodeid,
+      }
 
-  const existingMappers = renderContext.nodePropsMappers || []
+      // Check if has nodeId
+      if (child.props.nodeid) {
+        const elementBindings = bindingsByElementId[child.props.nodeid]
 
-  return (
-    <RenderProvider
-      context={{
-        ...renderContext,
-        nodePropsMappers: [...existingMappers, propsMapper],
-      }}
-    >
-      {children}
-    </RenderProvider>
-  )
+        if (elementBindings) {
+          childProps = applyBindings(childProps, props, elementBindings)
+        }
+      }
+
+      childProps.children = recursiveMap(child.props.children)
+
+      return React.cloneElement(child, childProps)
+    })
+  }
+
+  return <>{recursiveMap(children)}</>
 }
 
 PropMapper.displayName = 'PropMapper'

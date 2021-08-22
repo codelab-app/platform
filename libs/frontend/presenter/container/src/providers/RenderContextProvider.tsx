@@ -26,7 +26,7 @@ export interface RenderContext {
    * A reference to the renderFactory which allows any custom component to render a node
    * It's needed in the context, because rendered components can't import it directly, because it will cause a circular dependency
    * */
-  renderFactory: (node: RenderNode | undefined | null) => any | null
+  renderFactory: (node: RenderNode, context: RenderContext) => any | null
 }
 
 // If you need to modify some value, provide a new RenderContextProvider, with new values
