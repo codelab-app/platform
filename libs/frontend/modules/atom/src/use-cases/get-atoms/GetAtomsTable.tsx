@@ -13,19 +13,31 @@ import {
 } from '@codelab/shared/codegen/graphql'
 import { Space, Spin, Table, TableColumnProps, Tag } from 'antd'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import tw from 'twin.macro'
+import { ExportAtomsButton } from '../export-atoms/ExportAtomsButton'
+
+export type Record = __AtomFragment
 
 export const GetAtomsTable = () => {
   const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Atom)
+  const [selectedIds, setSelectedIds] = useState<Array<string>>([])
+  const { data, loading } = useGetAtomsQuery()
 
-  const columns: Array<TableColumnProps<__AtomFragment>> = [
+  const columns: Array<TableColumnProps<Record>> = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
       onHeaderCell: headerCellProps,
       ...useColumnSearchProps('name'),
+    },
+    {
+      title: 'Label',
+      dataIndex: 'label',
+      key: 'label',
+      onHeaderCell: headerCellProps,
+      ...useColumnSearchProps('label'),
     },
     {
       title: 'Library',
@@ -84,20 +96,42 @@ export const GetAtomsTable = () => {
     },
   ]
 
-  const { data, loading } = useGetAtomsQuery()
-
   if (loading) {
     return <Spin />
   }
 
   const atoms = data?.atoms ?? []
 
+  const rowSelection = {
+    onChange: (
+      _selectedRowKeys: Array<React.Key>,
+      _selectedRows: Array<Record>,
+    ) => {
+      setSelectedIds(_selectedRows.map(({ id }) => id))
+    },
+    getCheckboxProps: (record: Record) => {
+      return {
+        // disabled: record.name === 'Disabled User', // Column configuration not to be checked
+        // name: record.name,
+      }
+    },
+  }
+
   return (
-    <Table
-      pagination={{ position: ['bottomCenter'], defaultPageSize: 25 }}
-      dataSource={atoms}
-      columns={columns}
-      rowKey={(atom) => atom.id}
-    />
+    <>
+      <Space style={{ marginBottom: 16 }}>
+        <ExportAtomsButton atomIds={selectedIds} />
+      </Space>
+      <Table
+        rowSelection={{
+          type: 'checkbox',
+          ...rowSelection,
+        }}
+        pagination={{ position: ['bottomCenter'], defaultPageSize: 25 }}
+        dataSource={atoms}
+        columns={columns}
+        rowKey={(atom) => atom.id}
+      />
+    </>
   )
 }

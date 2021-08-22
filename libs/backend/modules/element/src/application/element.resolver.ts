@@ -79,10 +79,7 @@ export class ElementResolver {
       return null
     }
 
-    const r = await this.elementTreeAdapter.mapItem(dgraphElement)
-    console.log(r)
-
-    return r
+    return await this.elementTreeAdapter.mapItem(dgraphElement)
   }
 
   @Query(() => Element, {

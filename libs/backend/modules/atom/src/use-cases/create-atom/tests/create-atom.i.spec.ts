@@ -54,12 +54,7 @@ describe('CreateAtom', () => {
         { where: { id: atomId } },
       )
 
-      expect(atomId).toBeDefined()
       expect(atom).toMatchObject({ id: atomId, ...createAtomInput })
-
-      expect(atom?.api).toBeDefined()
-      expect(atom?.api.name).toBeDefined()
-      expect(atom?.api.id).toBeDefined()
     })
   })
 })

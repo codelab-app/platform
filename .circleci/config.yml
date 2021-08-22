@@ -140,6 +140,7 @@ commands:
             nvm install 14.16.0
             nvm alias default 14.16.0
             node -v
+
   yarn-install-dev:
     steps:
       - restore_cache:
@@ -179,6 +180,16 @@ commands:
           event: fail
           channel: $SLACK_CHANNEL_UPDATE
           template: basic_fail_1
+
+  setup-dgraph:
+    description: 'Setup Dgraph'
+    steps:
+      - run:
+          name: 'Update Dgraph Schema'
+          command: yarn cli dgraph update-schema --env ci
+      - run:
+          name: 'Reset Dgraph Data'
+          command: yarn cli dgraph reset-data --env ci
 
   build-docker-image:
     description: 'Build docker image'
@@ -259,9 +270,6 @@ jobs:
           name: 'Build CI'
           command: make build-ci
       - run:
-          name: 'Update Dgraph Schema'
-          command: yarn cli dgraph update-schema --env ci
-      - run:
           name: 'Remove Unused Cache'
           command: |
             rm -rf ~/project/node_modules/.cache
@@ -311,6 +319,7 @@ jobs:
       - setup-workspace
       # Since integration doesn't require frontend, we reserve 8081 for e2e & use 8082 here instead
       - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_INTEGRATION_ENDPOINT}"'
+      - setup-dgraph
       - run: make integration-ci
       - notify-failure
 
@@ -320,6 +329,7 @@ jobs:
       - setup-workspace
       # Since e2e requires frontend, we use 8081 here
       - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_E2E_ENDPOINT}"'
+      - setup-dgraph
       - run: npx cypress verify
       - run: make e2e-ci-affected
       - notify-failure

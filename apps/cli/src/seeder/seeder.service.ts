@@ -46,7 +46,7 @@ export class SeederService {
    */
   private atoms: Array<AtomSeed> = []
 
-  private atomSeeder: AtomSeeder
+  private readonly atomSeeder: AtomSeeder
 
   private typeSeeder: TypeSeeder
 
@@ -109,6 +109,7 @@ export class SeederService {
       Object.values(AtomType).map((atomType) =>
         this.atomSeeder
           .seedAtomIfMissing({
+            label: pascalCaseToWords(atomType),
             type: atomType,
             name: pascalCaseToWords(atomType),
           })

@@ -17,12 +17,13 @@ export class CreateAtomService extends DgraphCreateUseCase<CreateAtomInput> {
   }
 
   private static createMutation(
-    { type, name }: CreateAtomInput,
+    { type, name, label }: CreateAtomInput,
     blankNodeUid: string,
   ) {
     return jsonMutation<DgraphAtom>({
       uid: blankNodeUid,
       'dgraph.type': [DgraphEntityType.Atom],
+      label,
       atomType: type,
       name,
       api: {

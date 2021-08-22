@@ -29,7 +29,7 @@ services:
       - 8080:8080
       - 9080:9080
     restart: on-failure
-    command: dgraph alpha --my=alpha:7080 --zero=zero:5080 --security whitelist=0.0.0.0/0
+    command: dgraph alpha --my=alpha:7080 --zero=zero:5080 --security whitelist=0.0.0.0/0 --limit "mutations=strict"
 
   # E2E
   zero-test:
@@ -54,7 +54,7 @@ services:
       - 8081:8080
       - 9081:9080
     restart: on-failure
-    command: dgraph alpha --my=alpha-test:7080 --zero=zero-test:5080 --security whitelist=0.0.0.0/0
+    command: dgraph alpha --my=alpha-test:7080 --zero=zero-test:5080 --security whitelist=0.0.0.0/0 --limit "mutations=strict"
 
 volumes:
   dgraph:

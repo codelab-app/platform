@@ -39,12 +39,16 @@ export type ArrayType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
   typeKind: TypeKindFilter
+  typeGraph: TypeGraph
 }
 
 export type Atom = {
   id: Scalars['ID']
   type: AtomType
+  /** This is a unique ID suitable for seeders to lookup, will rename to value */
   name: Scalars['String']
+  /** A user friendly display */
+  label: Scalars['String']
   api: InterfaceType
 }
 
@@ -240,6 +244,10 @@ export type AtomWhereUniqueInput = {
   element?: Maybe<Scalars['String']>
 }
 
+export type AtomsWhereInput = {
+  ids: Array<Scalars['String']>
+}
+
 export type Component = {
   id: Scalars['ID']
   name: Scalars['String']
@@ -250,6 +258,7 @@ export type ComponentType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
   typeKind: TypeKindFilter
+  typeGraph: TypeGraph
 }
 
 export type CreateAppInput = {
@@ -262,6 +271,7 @@ export type CreateArrayTypeInput = {
 
 export type CreateAtomInput = {
   name: Scalars['String']
+  label: Scalars['String']
   type: AtomType
 }
 
@@ -410,6 +420,7 @@ export type ElementType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
   typeKind: TypeKindFilter
+  typeGraph: TypeGraph
   kind: ElementTypeKind
 }
 
@@ -425,6 +436,7 @@ export type EnumType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
   typeKind: TypeKindFilter
+  typeGraph: TypeGraph
   allowedValues: Array<EnumTypeValue>
 }
 
@@ -462,6 +474,10 @@ export type GetAppInput = {
 
 export type GetAtomInput = {
   where: AtomWhereUniqueInput
+}
+
+export type GetAtomsInput = {
+  where?: Maybe<AtomsWhereInput>
 }
 
 export type GetComponentInput = {
@@ -523,6 +539,8 @@ export type InterfaceType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
   typeKind: TypeKindFilter
+  typeGraph: TypeGraph
+  fields: Array<Field>
 }
 
 export type Lambda = {
@@ -541,6 +559,7 @@ export type LambdaType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
   typeKind: TypeKindFilter
+  typeGraph: TypeGraph
 }
 
 export type MoveData = {
@@ -748,6 +767,7 @@ export type PrimitiveType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
   typeKind: TypeKindFilter
+  typeGraph: TypeGraph
   primitiveKind: PrimitiveKind
 }
 
@@ -765,7 +785,7 @@ export type Query = {
   getComponent?: Maybe<Component>
   getComponentElements?: Maybe<ElementGraph>
   getComponents: Array<Component>
-  getAtoms: Array<Atom>
+  getAtoms?: Maybe<Array<Atom>>
   getAtom?: Maybe<Atom>
   getType?: Maybe<Type>
   getTypeGraph?: Maybe<TypeGraph>
@@ -814,6 +834,10 @@ export type QueryGetComponentElementsArgs = {
 
 export type QueryGetComponentsArgs = {
   input?: Maybe<GetComponentsInput>
+}
+
+export type QueryGetAtomsArgs = {
+  input?: Maybe<GetAtomsInput>
 }
 
 export type QueryGetAtomArgs = {
@@ -872,6 +896,7 @@ export type Type = {
   id: Scalars['ID']
   name: Scalars['String']
   typeKind: TypeKindFilter
+  typeGraph: TypeGraph
 }
 
 /**
@@ -1083,6 +1108,7 @@ export type WhereUniqueTag = {
 export type WhereUniqueType = {
   id?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
+  atomId?: Maybe<Scalars['String']>
 }
 
 export type CreateAppMutationVariables = Exact<{
@@ -1129,6 +1155,7 @@ export type GetElementGraphQuery = {
           atom?: Maybe<{
             id: string
             name: string
+            label: string
             type: AtomType
             api: { id: string; name: string }
           }>
@@ -1153,6 +1180,7 @@ export type GetElementQuery = {
     atom?: Maybe<{
       id: string
       name: string
+      label: string
       type: AtomType
       api: { id: string; name: string }
     }>
@@ -1254,6 +1282,7 @@ export type __AppFragment = { id: string; name: string }
 export type __AtomFragment = {
   id: string
   name: string
+  label: string
   type: AtomType
   api: { id: string; name: string }
 }
@@ -1270,6 +1299,90 @@ export type DeleteAtomMutationVariables = Exact<{
 
 export type DeleteAtomMutation = { deleteAtom?: Maybe<void> }
 
+export type ExportAtomsQueryVariables = Exact<{
+  input?: Maybe<GetAtomsInput>
+}>
+
+export type ExportAtomsQuery = {
+  getAtoms?: Maybe<
+    Array<{
+      id: string
+      name: string
+      label: string
+      type: AtomType
+      api: {
+        id: string
+        name: string
+        typeKind: TypeKindFilter
+        typeGraph: {
+          edges: Array<{
+            source: string
+            target: string
+            kind: TypeEdgeKind
+            field?: Maybe<{
+              id: string
+              key: string
+              name?: Maybe<string>
+              description?: Maybe<string>
+            }>
+          }>
+          vertices: Array<
+            | {
+                __typename: 'ArrayType'
+                id: string
+                name: string
+                typeKind: TypeKindFilter
+              }
+            | {
+                __typename: 'ComponentType'
+                id: string
+                name: string
+                typeKind: TypeKindFilter
+              }
+            | {
+                __typename: 'ElementType'
+                id: string
+                name: string
+                typeKind: TypeKindFilter
+                kind: ElementTypeKind
+              }
+            | {
+                __typename: 'EnumType'
+                id: string
+                name: string
+                typeKind: TypeKindFilter
+                allowedValues: Array<{
+                  id: string
+                  name?: Maybe<string>
+                  value: string
+                }>
+              }
+            | {
+                __typename: 'InterfaceType'
+                id: string
+                name: string
+                typeKind: TypeKindFilter
+              }
+            | {
+                __typename: 'LambdaType'
+                id: string
+                name: string
+                typeKind: TypeKindFilter
+              }
+            | {
+                __typename: 'PrimitiveType'
+                id: string
+                name: string
+                typeKind: TypeKindFilter
+                primitiveKind: PrimitiveKind
+              }
+          >
+        }
+      }
+    }>
+  >
+}
+
 export type GetAtomQueryVariables = Exact<{
   input: GetAtomInput
 }>
@@ -1278,20 +1391,26 @@ export type GetAtomQuery = {
   atom?: Maybe<{
     id: string
     name: string
+    label: string
     type: AtomType
     api: { id: string; name: string }
   }>
 }
 
-export type GetAtomsQueryVariables = Exact<{ [key: string]: never }>
+export type GetAtomsQueryVariables = Exact<{
+  input?: Maybe<GetAtomsInput>
+}>
 
 export type GetAtomsQuery = {
-  atoms: Array<{
-    id: string
-    name: string
-    type: AtomType
-    api: { id: string; name: string }
-  }>
+  atoms?: Maybe<
+    Array<{
+      id: string
+      name: string
+      label: string
+      type: AtomType
+      api: { id: string; name: string }
+    }>
+  >
 }
 
 export type UpdateAtomMutationVariables = Exact<{
@@ -1334,6 +1453,7 @@ export type GetComponentElementsQuery = {
           atom?: Maybe<{
             id: string
             name: string
+            label: string
             type: AtomType
             api: { id: string; name: string }
           }>
@@ -1373,6 +1493,7 @@ export type ElementFragment = {
   atom?: Maybe<{
     id: string
     name: string
+    label: string
     type: AtomType
     api: { id: string; name: string }
   }>
@@ -1389,6 +1510,7 @@ export type ElementGraphFragment = {
         atom?: Maybe<{
           id: string
           name: string
+          label: string
           type: AtomType
           api: { id: string; name: string }
         }>
@@ -1450,6 +1572,7 @@ export type PageFullFragment = {
           atom?: Maybe<{
             id: string
             name: string
+            label: string
             type: AtomType
             api: { id: string; name: string }
           }>
@@ -1491,6 +1614,7 @@ export type GetPageQuery = {
             atom?: Maybe<{
               id: string
               name: string
+              label: string
               type: AtomType
               api: { id: string; name: string }
             }>
@@ -2018,22 +2142,17 @@ export const ComponentFragmentDoc = gql`
     name
   }
 `
-export const __InterfaceFragmentDoc = gql`
-  fragment __Interface on InterfaceType {
-    id
-    name
-  }
-`
 export const __AtomFragmentDoc = gql`
   fragment __Atom on Atom {
     id
     name
+    label
     type
     api {
-      ...__Interface
+      id
+      name
     }
   }
-  ${__InterfaceFragmentDoc}
 `
 export const ElementFragmentDoc = gql`
   fragment Element on Element {
@@ -2120,6 +2239,12 @@ export const __EnumTypeFragmentDoc = gql`
     }
   }
   ${__EnumTypeValueFragmentDoc}
+`
+export const __InterfaceFragmentDoc = gql`
+  fragment __Interface on InterfaceType {
+    id
+    name
+  }
 `
 export const __PrimitiveTypeFragmentDoc = gql`
   fragment __PrimitiveType on PrimitiveType {
@@ -3272,6 +3397,77 @@ export type DeleteAtomMutationOptions = Apollo.BaseMutationOptions<
   DeleteAtomMutation,
   DeleteAtomMutationVariables
 >
+export const ExportAtomsGql = gql`
+  query ExportAtoms($input: GetAtomsInput) {
+    getAtoms(input: $input) {
+      id
+      name
+      label
+      type
+      api {
+        id
+        name
+        typeKind
+        typeGraph {
+          ...__TypeGraph
+        }
+      }
+    }
+  }
+  ${__TypeGraphFragmentDoc}
+`
+
+/**
+ * __useExportAtomsQuery__
+ *
+ * To run a query within a React component, call `useExportAtomsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useExportAtomsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useExportAtomsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useExportAtomsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ExportAtomsQuery,
+    ExportAtomsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ExportAtomsQuery, ExportAtomsQueryVariables>(
+    ExportAtomsGql,
+    options,
+  )
+}
+export function useExportAtomsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ExportAtomsQuery,
+    ExportAtomsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ExportAtomsQuery, ExportAtomsQueryVariables>(
+    ExportAtomsGql,
+    options,
+  )
+}
+export type ExportAtomsQueryHookResult = ReturnType<typeof useExportAtomsQuery>
+export type ExportAtomsLazyQueryHookResult = ReturnType<
+  typeof useExportAtomsLazyQuery
+>
+export type ExportAtomsQueryResult = Apollo.QueryResult<
+  ExportAtomsQuery,
+  ExportAtomsQueryVariables
+>
+export function refetchExportAtomsQuery(variables?: ExportAtomsQueryVariables) {
+  return { query: ExportAtomsGql, variables: variables }
+}
 export const GetAtomGql = gql`
   query GetAtom($input: GetAtomInput!) {
     atom: getAtom(input: $input) {
@@ -3328,8 +3524,8 @@ export function refetchGetAtomQuery(variables?: GetAtomQueryVariables) {
   return { query: GetAtomGql, variables: variables }
 }
 export const GetAtomsGql = gql`
-  query GetAtoms {
-    atoms: getAtoms {
+  query GetAtoms($input: GetAtomsInput) {
+    atoms: getAtoms(input: $input) {
       ...__Atom
     }
   }
@@ -3348,6 +3544,7 @@ export const GetAtomsGql = gql`
  * @example
  * const { data, loading, error } = useGetAtomsQuery({
  *   variables: {
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -5042,22 +5239,17 @@ export const Component = gql`
     name
   }
 `
-export const __Interface = gql`
-  fragment __Interface on InterfaceType {
-    id
-    name
-  }
-`
 export const __Atom = gql`
   fragment __Atom on Atom {
     id
     name
+    label
     type
     api {
-      ...__Interface
+      id
+      name
     }
   }
-  ${__Interface}
 `
 export const Element = gql`
   fragment Element on Element {
@@ -5144,6 +5336,12 @@ export const __EnumType = gql`
     }
   }
   ${__EnumTypeValue}
+`
+export const __Interface = gql`
+  fragment __Interface on InterfaceType {
+    id
+    name
+  }
 `
 export const __PrimitiveType = gql`
   fragment __PrimitiveType on PrimitiveType {
@@ -5355,6 +5553,25 @@ export const DeleteAtom = gql`
     deleteAtom(input: $input)
   }
 `
+export const ExportAtoms = gql`
+  query ExportAtoms($input: GetAtomsInput) {
+    getAtoms(input: $input) {
+      id
+      name
+      label
+      type
+      api {
+        id
+        name
+        typeKind
+        typeGraph {
+          ...__TypeGraph
+        }
+      }
+    }
+  }
+  ${__TypeGraph}
+`
 export const GetAtom = gql`
   query GetAtom($input: GetAtomInput!) {
     atom: getAtom(input: $input) {
@@ -5364,8 +5581,8 @@ export const GetAtom = gql`
   ${__Atom}
 `
 export const GetAtoms = gql`
-  query GetAtoms {
-    atoms: getAtoms {
+  query GetAtoms($input: GetAtomsInput) {
+    atoms: getAtoms(input: $input) {
       ...__Atom
     }
   }

@@ -13,7 +13,7 @@ import {
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
-import { createPrimitiveTypeStringInput } from '../../create-type/tests/create-type.data'
+import { createPrimitiveStringInput } from '../../create-type/tests/create-type.data'
 
 describe('GetType', () => {
   let guestApp: INestApplication
@@ -32,7 +32,7 @@ describe('GetType', () => {
     const { createType } = await domainRequest<
       CreateTypeInput,
       CreateTypeMutation
-    >(userApp, CreateTypeGql, createPrimitiveTypeStringInput)
+    >(userApp, CreateTypeGql, createPrimitiveStringInput)
 
     typeId = createType.id
     getTypeInput = { where: { id: typeId } }
@@ -57,7 +57,7 @@ describe('GetType', () => {
     // - test if the subtypes are well arranged with edges
     // - test arrays, interfaces
 
-    it('should get type', async () => {
+    it('should create a string', async () => {
       expect(true).toBeTruthy()
     })
   })

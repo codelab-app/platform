@@ -6,6 +6,9 @@ export class CreateAtomInput {
   @Field()
   declare name: string
 
+  @Field()
+  declare label: string
+
   @Field(() => AtomTypeEnum)
   declare type: AtomTypeEnum
 }

@@ -1,0 +1,16 @@
+query ExportAtoms($input: GetAtomsInput) {
+  getAtoms(input: $input) {
+    id
+    name
+    label
+    type
+    api {
+      id
+      name
+      typeKind
+      typeGraph {
+        ...__TypeGraph
+      }
+    }
+  }
+}

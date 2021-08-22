@@ -1,5 +1,8 @@
+import { DgraphField } from '@codelab/backend/infra'
 import { IInterfaceTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
-import { ObjectType } from '@nestjs/graphql'
+import { Field as GraphqlField, ObjectType } from '@nestjs/graphql'
+import { Field } from '../field.model'
+import { TypeGraph } from '../type-graph'
 import { Type } from './type.model'
 
 /**
@@ -17,10 +20,19 @@ export class InterfaceType
 
   typeKind: TypeKind.InterfaceType = TypeKind.InterfaceType
 
-  // Add a library?
+  @GraphqlField(() => [Field])
+  declare fields: Array<DgraphField>
 
-  constructor(id: string, name: string) {
+  // @GraphqlField(() => TypeGraph, { nullable: true })
+  declare typeGraph?: TypeGraph
+
+  constructor({
+    id,
+    name,
+    fields,
+  }: Pick<InterfaceType, 'id' | 'name' | 'fields'>) {
     this.id = id
     this.name = name
+    this.fields = fields
   }
 }

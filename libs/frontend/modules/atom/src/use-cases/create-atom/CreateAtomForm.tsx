@@ -13,7 +13,7 @@ import {
   useCreateAtomMutation,
 } from '@codelab/shared/codegen/graphql'
 import React from 'react'
-import { AutoField, SelectField } from 'uniforms-antd'
+import { AutoFields, SelectField } from 'uniforms-antd'
 import { createAtomSchema } from './createAtomSchema'
 
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
@@ -28,8 +28,8 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     mutationOptions: {
       refetchQueries: [refetchGetAtomsQuery(), refetchGetTypesQuery()],
     },
-    mapVariables: ({ name, type }: CreateAtomInput) => ({
-      input: { name, type },
+    mapVariables: ({ name, type, label }: CreateAtomInput) => ({
+      input: { name, type, label },
     }),
   })
 
@@ -43,7 +43,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoField name="name" />
+      <AutoFields omitFields={['type']} />
       <SelectField
         name="type"
         label="Type"

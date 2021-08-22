@@ -21,11 +21,11 @@ describe('Apps CRUD', () => {
       // check that we don't have app with test-name
       cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
 
-      cy.findByButtonText(/create app/i).click()
+      cy.findByButtonText(/Create App/).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(appName)
       cy.getOpenedModal()
-        .findByButtonText(/create app/i)
+        .findByButtonText(/Create App/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -41,7 +41,7 @@ describe('Apps CRUD', () => {
       cy.getOpenedModal().findByLabelText('Name').clear().type(updatedAppName)
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/update app/i)
+        .findByButtonText(/Update App/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -57,7 +57,7 @@ describe('Apps CRUD', () => {
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/delete app/i)
+        .findByButtonText(/Delete App/)
         .click()
 
       cy.findAllByText(appName).should('not.exist')

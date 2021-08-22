@@ -1,3 +1,5 @@
+import { AtomType } from '@codelab/shared/codegen/graphql'
+
 // Text primitive type
 const textTypeName = 'Text'
 const textTypeKind = 'Primitive'
@@ -5,10 +7,10 @@ const textPrimitiveKind = 'String'
 
 // Atoms
 const atoms = [
-  { name: 'Col', type: 'AntDesignGridCol' },
-  { name: 'Row', type: 'AntDesignGridRow' },
-  { name: 'Button', type: 'AntDesignButton' },
-  { name: 'Text', type: 'AntDesignTypographyText' },
+  { name: 'Col', type: AtomType.AntDesignGridCol },
+  { name: 'Row', type: AtomType.AntDesignGridRow },
+  { name: 'Button', type: AtomType.AntDesignButton },
+  { name: 'Text', type: AtomType.AntDesignTypographyText },
 ]
 
 // App
@@ -93,7 +95,7 @@ describe('Types', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/i }).click()
+      cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(textTypeName)
       cy.getOpenedModal().findByLabelText('Kind').click()
@@ -102,7 +104,7 @@ describe('Types', () => {
       cy.getOpenedModal().getOptionItem(textPrimitiveKind).first().click()
 
       cy.getOpenedModal()
-        .findByButtonText(/create/i)
+        .findByButtonText(/Create/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -120,18 +122,20 @@ describe('Types', () => {
       atoms.map((atom) => {
         const atomName = atom.name
         const atomType = atom.type
+        const atomLabel = atom.type
 
         cy.findAllByText(atomName, { exact: true, timeout: 0 }).should(
           'not.exist',
         )
 
-        cy.findByRole('button', { name: /plus/i }).click()
+        cy.findByRole('button', { name: /plus/ }).click()
 
         cy.getOpenedModal().findByLabelText('Name').type(atomName)
+        cy.getOpenedModal().findByLabelText('Label').type(atomLabel)
         cy.getOpenedModal().findByLabelText('Type').type(atomType)
         cy.getSelectOptionItemByValue(atomType).first().click()
         cy.getOpenedModal()
-          .findByButtonText(/create atom/i)
+          .findByButtonText(/Create Atom/)
           .click()
 
         cy.getOpenedModal().should('not.exist')
@@ -151,11 +155,11 @@ describe('Types', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/i }).click()
+      cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(pageName)
       cy.getOpenedModal()
-        .findByButtonText(/create page/i)
+        .findByButtonText(/Create Page/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -163,7 +167,7 @@ describe('Types', () => {
 
       // Go to page
       cy.findByText(pageName).click()
-      cy.contains(/root element/i)
+      cy.contains(/Root element/)
 
       // Add Row component
       components.map((component) => {
@@ -171,7 +175,7 @@ describe('Types', () => {
         const componentAtom = component.atom
         const componentParentElement = component.parentElement
 
-        cy.findByRole('button', { name: /plus/i }).click()
+        cy.findByRole('button', { name: /plus/ }).click()
 
         cy.getOpenedModal().findByLabelText('Name').type(componentName)
         cy.getOpenedModal().findByLabelText('Atom').type(componentAtom)
@@ -185,7 +189,7 @@ describe('Types', () => {
           .click()
 
         cy.getOpenedModal()
-          .findByButtonText(/create/i)
+          .findByButtonText(/Create/)
           .click()
 
         cy.getOpenedModal().should('not.exist')
@@ -206,7 +210,7 @@ describe('Types', () => {
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/delete page/i)
+        .findByButtonText(/Delete Page/)
         .click()
 
       cy.findAllByText(pageName).should('not.exist')
@@ -228,7 +232,7 @@ describe('Types', () => {
 
         cy.getSpinner().should('not.exist')
         cy.getOpenedModal()
-          .findByButtonText(/delete atom/i)
+          .findByButtonText(/Delete Atom/)
           .click()
 
         cy.findAllByText(atomName).should('not.exist')
@@ -247,7 +251,7 @@ describe('Types', () => {
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/delete/i)
+        .findByButtonText(/Delete/)
         .click()
 
       cy.findAllByText(textTypeName).should('not.exist')

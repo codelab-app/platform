@@ -31,12 +31,13 @@ export class UpdateAtomService extends DgraphUseCase<UpdateAtomInput> {
   }
 
   private static createMutation(
-    { id, data: { name, type } }: UpdateAtomInput,
+    { id, data: { name, type, label } }: UpdateAtomInput,
     atom: DgraphAtom,
   ) {
     return jsonMutation<DgraphAtom>({
       uid: id,
       atomType: type,
+      label,
       name,
       api: {
         uid: atom.api.uid,

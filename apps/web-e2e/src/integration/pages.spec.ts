@@ -26,11 +26,11 @@ describe('Pages', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/i }).click()
+      cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(pageName)
       cy.getOpenedModal()
-        .findByButtonText(/create page/i)
+        .findByButtonText(/Create Page/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -46,7 +46,7 @@ describe('Pages', () => {
       cy.getOpenedModal().findByLabelText('Name').clear().type(updatedPageName)
 
       cy.getOpenedModal()
-        .findByButtonText(/update page/i)
+        .findByButtonText(/Update Page/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -61,7 +61,7 @@ describe('Pages', () => {
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/delete page/i)
+        .findByButtonText(/Delete Page/)
         .click()
 
       cy.findAllByText(updatedPageName).should('not.exist')

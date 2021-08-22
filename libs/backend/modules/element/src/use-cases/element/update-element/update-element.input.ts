@@ -1,5 +1,5 @@
 import { Field, InputType, PickType } from '@nestjs/graphql'
-import { CreateElementInput } from '../create-element/index'
+import { CreateElementInput } from '../create-element'
 
 @InputType()
 export class UpdateElementData extends PickType(CreateElementInput, [
