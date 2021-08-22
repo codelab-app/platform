@@ -26,6 +26,7 @@ const isPageBuilderRoute = (router: NextRouter) => {
 
 const StyledContent = styled(Content)(({ router }: { router: NextRouter }) => [
   tw`relative p-2`,
+  // tw`relative`,
   isPageBuilderRoute(router) ? tw`pt-16` : '',
   { minHeight: 'initial' },
 ])
@@ -49,16 +50,18 @@ export const DashboardTemplate = ({
         </AntDesignHeader>
       ) : null}
       <Layout>
-        <Sider
-          theme="light"
-          style={{ height: '100%' }}
-          collapsed
-          collapsedWidth={40}
-        >
-          <div data-testid="pane-main" css={tw`h-full`}>
-            {SidebarNavigation ? <SidebarNavigation /> : null}
-          </div>
-        </Sider>
+        {SidebarNavigation ? (
+          <Sider
+            theme="light"
+            style={{ height: '100%' }}
+            collapsed
+            collapsedWidth={40}
+          >
+            <div data-testid="pane-main" css={tw`h-full`}>
+              <SidebarNavigation />
+            </div>
+          </Sider>
+        ) : null}
         <Layout>
           {MainPane ? (
             <Sider

@@ -9,30 +9,41 @@ import {
   CreateAtomInput,
   CreateAtomMutation,
   GetAtomsGql,
+  GetAtomsInput,
   GetAtomsQuery,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
-import { createAtomInput } from '../../create-atom/tests/create-atom.data'
+import {
+  createAtomBInput,
+  createAtomInput,
+} from '../../create-atom/tests/create-atom.data'
 
 describe('GetAtoms', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let atomId: string
+  let atomAId: string
+  let atomBId: string
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
     userApp = await setupTestModule([AtomModule], { role: Role.USER })
 
-    const results = await domainRequest<CreateAtomInput, CreateAtomMutation>(
-      userApp,
-      CreateAtomGql,
-      createAtomInput,
-    )
+    const { createAtom: atomA } = await domainRequest<
+      CreateAtomInput,
+      CreateAtomMutation
+    >(userApp, CreateAtomGql, createAtomInput)
 
-    atomId = results.createAtom.id
+    const { createAtom: atomB } = await domainRequest<
+      CreateAtomInput,
+      CreateAtomMutation
+    >(userApp, CreateAtomGql, createAtomBInput)
 
-    expect(atomId).toBeDefined()
+    atomAId = atomA.id
+    atomBId = atomB.id
+
+    expect(atomAId).toBeDefined()
+    expect(atomBId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -42,20 +53,41 @@ describe('GetAtoms', () => {
 
   describe('Guest', () => {
     it('should fail to get atoms', async () => {
-      await domainRequest(guestApp, GetAtomsGql, undefined, {
-        message: 'Unauthorized',
-      })
+      await domainRequest<GetAtomsInput, GetAtomsQuery>(
+        guestApp,
+        GetAtomsGql,
+        {},
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
     it('should get atoms', async () => {
-      const results = await domainRequest<any, GetAtomsQuery>(
+      const results = await domainRequest<GetAtomsInput, GetAtomsQuery>(
         userApp,
         GetAtomsGql,
+        {},
       )
 
-      expect(results?.atoms).toMatchObject([{ ...createAtomInput, id: atomId }])
+      expect(results?.atoms).toMatchObject([
+        { ...createAtomInput, id: atomAId },
+        { ...createAtomBInput, id: atomBId },
+      ])
+    })
+
+    it('should get atoms where', async () => {
+      const { atoms } = await domainRequest<GetAtomsInput, GetAtomsQuery>(
+        userApp,
+        GetAtomsGql,
+        {
+          where: { ids: [atomAId] },
+        },
+      )
+
+      expect(atoms).toMatchObject([{ ...createAtomInput, id: atomAId }])
     })
   })
 })

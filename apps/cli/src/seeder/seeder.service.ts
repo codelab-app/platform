@@ -109,6 +109,7 @@ export class SeederService {
       Object.values(AtomType).map((atomType) =>
         this.atomSeeder
           .seedAtomIfMissing({
+            label: pascalCaseToWords(atomType),
             type: atomType,
             name: pascalCaseToWords(atomType),
           })

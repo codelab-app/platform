@@ -1,6 +1,6 @@
 import { CreateTypeInput, PrimitiveKind } from '@codelab/shared/codegen/graphql'
 
-export const createPrimitiveTypeStringInput: CreateTypeInput = {
+export const createPrimitiveStringInput: CreateTypeInput = {
   name: 'String',
   primitiveType: { primitiveKind: PrimitiveKind.String },
 }

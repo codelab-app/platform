@@ -31,7 +31,7 @@ const mergeProps = (...props: Array<Record<string, any>>) => {
   return props.reduce((aggregate, nextProps) => {
     return {
       ...deepmerge(aggregate, nextProps),
-      className: `${aggregate.className || ''} ${nextProps.className || ''}`,
+      className: `${aggregate.className ?? ''} ${nextProps.className ?? ''}`,
     }
   }, {})
 }
@@ -72,7 +72,7 @@ const renderElement: RenderHandler = (element, context) => {
         nodeid: element.id,
       },
       atomProps,
-      context.extraProps || {},
+      context.extraProps ?? {},
       elementProps,
     )
 

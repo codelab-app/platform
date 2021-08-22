@@ -1,5 +1,5 @@
-query GetAtoms {
-  atoms: getAtoms {
+query GetAtoms($input: GetAtomsInput) {
+  atoms: getAtoms(input: $input) {
     ...__Atom
   }
 }

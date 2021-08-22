@@ -1,5 +1,5 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
-import { getComponentQuery } from '../get-component/index'
+import { getComponentQuery } from '../get-component'
 import { GetComponentsInput } from './get-components.input'
 
 export const getComponentsQuery = (input: GetComponentsInput) => {

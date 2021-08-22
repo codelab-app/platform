@@ -44,7 +44,10 @@ export type ArrayType = Type & {
 export type Atom = {
   id: Scalars['ID']
   type: AtomType
+  /** This is a unique ID suitable for seeders to lookup, will rename to value */
   name: Scalars['String']
+  /** A user friendly display */
+  label: Scalars['String']
   api: InterfaceType
 }
 
@@ -240,6 +243,10 @@ export type AtomWhereUniqueInput = {
   element?: Maybe<Scalars['String']>
 }
 
+export type AtomsWhereInput = {
+  ids: Array<Scalars['String']>
+}
+
 export type Component = {
   id: Scalars['ID']
   name: Scalars['String']
@@ -262,6 +269,7 @@ export type CreateArrayTypeInput = {
 
 export type CreateAtomInput = {
   name: Scalars['String']
+  label: Scalars['String']
   type: AtomType
 }
 
@@ -439,6 +447,10 @@ export type ExecuteLambdaInput = {
   payload?: Maybe<Scalars['String']>
 }
 
+export type ExportAtomsInput = {
+  where?: Maybe<AtomsWhereInput>
+}
+
 export type Field = {
   id: Scalars['ID']
   key: Scalars['String']
@@ -462,6 +474,10 @@ export type GetAppInput = {
 
 export type GetAtomInput = {
   where: AtomWhereUniqueInput
+}
+
+export type GetAtomsInput = {
+  where?: Maybe<AtomsWhereInput>
 }
 
 export type GetComponentInput = {
@@ -574,6 +590,7 @@ export type Mutation = {
   createAtom: CreateResponse
   deleteAtom?: Maybe<Scalars['Void']>
   updateAtom?: Maybe<Scalars['Void']>
+  exportAtoms: Array<Atom>
   createType: CreateResponse
   updateEnumType?: Maybe<Scalars['Void']>
   updatePrimitiveType?: Maybe<Scalars['Void']>
@@ -665,6 +682,10 @@ export type MutationDeleteAtomArgs = {
 
 export type MutationUpdateAtomArgs = {
   input: UpdateAtomInput
+}
+
+export type MutationExportAtomsArgs = {
+  input: ExportAtomsInput
 }
 
 export type MutationCreateTypeArgs = {
@@ -765,7 +786,7 @@ export type Query = {
   getComponent?: Maybe<Component>
   getComponentElements?: Maybe<ElementGraph>
   getComponents: Array<Component>
-  getAtoms: Array<Atom>
+  getAtoms?: Maybe<Array<Atom>>
   getAtom?: Maybe<Atom>
   getType?: Maybe<Type>
   getTypeGraph?: Maybe<TypeGraph>
@@ -814,6 +835,10 @@ export type QueryGetComponentElementsArgs = {
 
 export type QueryGetComponentsArgs = {
   input?: Maybe<GetComponentsInput>
+}
+
+export type QueryGetAtomsArgs = {
+  input?: Maybe<GetAtomsInput>
 }
 
 export type QueryGetAtomArgs = {
@@ -1083,6 +1108,7 @@ export type WhereUniqueTag = {
 export type WhereUniqueType = {
   id?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
+  atomId?: Maybe<Scalars['String']>
 }
 
 export type CreateAppMutationVariables = Exact<{
@@ -1113,6 +1139,12 @@ export type UpdateAppMutationVariables = Exact<{
 
 export type UpdateAppMutation = { updateApp?: Maybe<void> }
 
+export type ExportAtomsMutationVariables = Exact<{
+  input: ExportAtomsInput
+}>
+
+export type ExportAtomsMutation = { exportAtoms: Array<{ id: string }> }
+
 export type GetElementGraphQueryVariables = Exact<{
   input: GetElementGraphInput
 }>
@@ -1129,6 +1161,7 @@ export type GetElementGraphQuery = {
           atom?: Maybe<{
             id: string
             name: string
+            label: string
             type: AtomType
             api: { id: string; name: string }
           }>
@@ -1153,6 +1186,7 @@ export type GetElementQuery = {
     atom?: Maybe<{
       id: string
       name: string
+      label: string
       type: AtomType
       api: { id: string; name: string }
     }>
@@ -1254,6 +1288,7 @@ export type __AppFragment = { id: string; name: string }
 export type __AtomFragment = {
   id: string
   name: string
+  label: string
   type: AtomType
   api: { id: string; name: string }
 }
@@ -1278,20 +1313,26 @@ export type GetAtomQuery = {
   atom?: Maybe<{
     id: string
     name: string
+    label: string
     type: AtomType
     api: { id: string; name: string }
   }>
 }
 
-export type GetAtomsQueryVariables = Exact<{ [key: string]: never }>
+export type GetAtomsQueryVariables = Exact<{
+  input?: Maybe<GetAtomsInput>
+}>
 
 export type GetAtomsQuery = {
-  atoms: Array<{
-    id: string
-    name: string
-    type: AtomType
-    api: { id: string; name: string }
-  }>
+  atoms?: Maybe<
+    Array<{
+      id: string
+      name: string
+      label: string
+      type: AtomType
+      api: { id: string; name: string }
+    }>
+  >
 }
 
 export type UpdateAtomMutationVariables = Exact<{
@@ -1334,6 +1375,7 @@ export type GetComponentElementsQuery = {
           atom?: Maybe<{
             id: string
             name: string
+            label: string
             type: AtomType
             api: { id: string; name: string }
           }>
@@ -1373,6 +1415,7 @@ export type ElementFragment = {
   atom?: Maybe<{
     id: string
     name: string
+    label: string
     type: AtomType
     api: { id: string; name: string }
   }>
@@ -1389,6 +1432,7 @@ export type ElementGraphFragment = {
         atom?: Maybe<{
           id: string
           name: string
+          label: string
           type: AtomType
           api: { id: string; name: string }
         }>
@@ -1450,6 +1494,7 @@ export type PageFullFragment = {
           atom?: Maybe<{
             id: string
             name: string
+            label: string
             type: AtomType
             api: { id: string; name: string }
           }>
@@ -1491,6 +1536,7 @@ export type GetPageQuery = {
             atom?: Maybe<{
               id: string
               name: string
+              label: string
               type: AtomType
               api: { id: string; name: string }
             }>
@@ -2028,6 +2074,7 @@ export const __AtomFragmentDoc = gql`
   fragment __Atom on Atom {
     id
     name
+    label
     type
     api {
       ...__Interface
@@ -2433,6 +2480,56 @@ export type UpdateAppMutationResult = Apollo.MutationResult<UpdateAppMutation>
 export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<
   UpdateAppMutation,
   UpdateAppMutationVariables
+>
+export const ExportAtomsGql = gql`
+  mutation ExportAtoms($input: ExportAtomsInput!) {
+    exportAtoms(input: $input) {
+      id
+    }
+  }
+`
+export type ExportAtomsMutationFn = Apollo.MutationFunction<
+  ExportAtomsMutation,
+  ExportAtomsMutationVariables
+>
+
+/**
+ * __useExportAtomsMutation__
+ *
+ * To run a mutation, you first call `useExportAtomsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useExportAtomsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [exportAtomsMutation, { data, loading, error }] = useExportAtomsMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useExportAtomsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ExportAtomsMutation,
+    ExportAtomsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<ExportAtomsMutation, ExportAtomsMutationVariables>(
+    ExportAtomsGql,
+    options,
+  )
+}
+export type ExportAtomsMutationHookResult = ReturnType<
+  typeof useExportAtomsMutation
+>
+export type ExportAtomsMutationResult =
+  Apollo.MutationResult<ExportAtomsMutation>
+export type ExportAtomsMutationOptions = Apollo.BaseMutationOptions<
+  ExportAtomsMutation,
+  ExportAtomsMutationVariables
 >
 export const GetElementGraphGql = gql`
   query GetElementGraph($input: GetElementGraphInput!) {
@@ -3328,8 +3425,8 @@ export function refetchGetAtomQuery(variables?: GetAtomQueryVariables) {
   return { query: GetAtomGql, variables: variables }
 }
 export const GetAtomsGql = gql`
-  query GetAtoms {
-    atoms: getAtoms {
+  query GetAtoms($input: GetAtomsInput) {
+    atoms: getAtoms(input: $input) {
       ...__Atom
     }
   }
@@ -3348,6 +3445,7 @@ export const GetAtomsGql = gql`
  * @example
  * const { data, loading, error } = useGetAtomsQuery({
  *   variables: {
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -5052,6 +5150,7 @@ export const __Atom = gql`
   fragment __Atom on Atom {
     id
     name
+    label
     type
     api {
       ...__Interface
@@ -5245,6 +5344,13 @@ export const UpdateApp = gql`
     updateApp(input: $input)
   }
 `
+export const ExportAtoms = gql`
+  mutation ExportAtoms($input: ExportAtomsInput!) {
+    exportAtoms(input: $input) {
+      id
+    }
+  }
+`
 export const GetElementGraph = gql`
   query GetElementGraph($input: GetElementGraphInput!) {
     getElementGraph(input: $input) {
@@ -5364,8 +5470,8 @@ export const GetAtom = gql`
   ${__Atom}
 `
 export const GetAtoms = gql`
-  query GetAtoms {
-    atoms: getAtoms {
+  query GetAtoms($input: GetAtomsInput) {
+    atoms: getAtoms(input: $input) {
       ...__Atom
     }
   }

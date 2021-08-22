@@ -2,7 +2,7 @@ import { useRenderContext } from '@codelab/frontend/presenter/container'
 import React from 'react'
 
 /**
- * The root render point
+ * The root render point. RendererProvider must be used first.
  */
 export const Renderer = () => {
   const context = useRenderContext()
@@ -10,7 +10,7 @@ export const Renderer = () => {
   return (
     <>
       {context.renderFactory(context.tree.getRoot(), {
-        ...(context || {}),
+        ...(context ?? {}),
         tree: context.tree,
       })}
     </>

@@ -10,10 +10,17 @@ import { GetAtomsInput } from './get-atoms.input'
 
 @Injectable()
 export class GetAtomsService extends DgraphUseCase<
-  GetAtomsInput,
+  GetAtomsInput | undefined,
   Array<DgraphAtom>
 > {
-  protected executeTransaction(request: GetAtomsInput, txn: Txn) {
+  protected executeTransaction(request: GetAtomsInput | undefined, txn: Txn) {
+    if (request?.where?.ids) {
+      return this.dgraph.executeQuery<DgraphAtom>(
+        txn,
+        GetAtomsService.createWhereIdsQuery(request.where.ids),
+      )
+    }
+
     return this.dgraph.getAll<DgraphAtom>(txn, GetAtomsService.createQuery())
   }
 
@@ -23,5 +30,16 @@ export class GetAtomsService extends DgraphUseCase<
       .addBaseFields()
       .addRecurseDirective()
       .addExpandAll()
+  }
+
+  private static createWhereIdsQuery(ids: Array<string>) {
+    return (
+      new DgraphQueryBuilder()
+        .setUidsFunc(ids)
+        // .addFilterDirective(DgraphEntityType.Atom)
+        .addBaseFields()
+        .addRecurseDirective()
+        .addExpandAll()
+    )
   }
 }

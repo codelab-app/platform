@@ -16,7 +16,7 @@ import {
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
-import { createPrimitiveTypeStringInput } from '../../create-type/tests/create-type.data'
+import { createPrimitiveStringInput } from '../../create-type/tests/create-type.data'
 
 describe('DeleteType', () => {
   let guestApp: INestApplication
@@ -35,7 +35,7 @@ describe('DeleteType', () => {
     const { createType } = await domainRequest<
       CreateTypeInput,
       CreateTypeMutation
-    >(userApp, CreateTypeGql, createPrimitiveTypeStringInput)
+    >(userApp, CreateTypeGql, createPrimitiveStringInput)
 
     typeId = createType.id
     deleteTypeInput = { typeId }

@@ -1,0 +1,11 @@
+query ExportAtoms($input: GetAtomsInput) {
+  getAtoms(input: $input) {
+    id
+    name
+    label
+    type
+    api {
+      ...__Interface
+    }
+  }
+}

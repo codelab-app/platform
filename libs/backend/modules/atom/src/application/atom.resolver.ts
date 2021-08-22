@@ -12,6 +12,7 @@ import { DeleteAtomInput, DeleteAtomService } from '../use-cases/delete-atom'
 import { GetAtomService } from '../use-cases/get-atom'
 import { GetAtomInput } from '../use-cases/get-atom/get-atom.input'
 import { GetAtomsService } from '../use-cases/get-atoms'
+import { GetAtomsInput } from '../use-cases/get-atoms/get-atoms.input'
 import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
 
 @Resolver(() => Atom)
@@ -42,8 +43,8 @@ export class AtomResolver {
 
   @Query(() => [Atom], { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getAtoms() {
-    const atoms = await this.getAtomsService.execute({})
+  async getAtoms(@Args('input', { nullable: true }) input?: GetAtomsInput) {
+    const atoms = await this.getAtomsService.execute(input)
 
     if (!atoms) {
       return null

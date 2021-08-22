@@ -11,12 +11,13 @@ import {
   GetTypeGql,
   GetTypeInput,
   GetTypeQuery,
+  PrimitiveKind,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
 import {
   createInterfaceTypeInput,
-  createPrimitiveTypeStringInput,
+  createPrimitiveStringInput,
 } from './create-type.data'
 
 describe('CreateType', () => {
@@ -42,7 +43,7 @@ describe('CreateType', () => {
       await domainRequest<CreateTypeInput>(
         guestApp,
         CreateTypeGql,
-        createPrimitiveTypeStringInput,
+        createPrimitiveStringInput,
         { message: 'Unauthorized' },
       )
     })
@@ -51,13 +52,13 @@ describe('CreateType', () => {
   describe('User', () => {
     // TODO add for other types
 
-    it('should create primitive type', async () => {
+    it('should create a primitive type', async () => {
       const {
         createType: { id: typeId },
       } = await domainRequest<CreateTypeInput, CreateTypeMutation>(
         userApp,
         CreateTypeGql,
-        createPrimitiveTypeStringInput,
+        createPrimitiveStringInput,
       )
 
       const { getType: type } = await domainRequest<GetTypeInput, GetTypeQuery>(
@@ -68,9 +69,8 @@ describe('CreateType', () => {
 
       expect(type).toMatchObject({
         __typename: 'PrimitiveType',
-        name: createPrimitiveTypeStringInput.name,
-        primitiveKind:
-          createPrimitiveTypeStringInput.primitiveType?.primitiveKind,
+        name: createPrimitiveStringInput.name,
+        primitiveKind: PrimitiveKind.String,
       })
     })
 

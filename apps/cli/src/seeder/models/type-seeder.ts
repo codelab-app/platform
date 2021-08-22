@@ -73,6 +73,8 @@ export class TypeSeeder {
   }
 
   public async seedAtomApi(atomId: string, data: Array<AntdDesignApi>) {
+    console.log(data)
+
     const atom = await this.atomSeeder.getAtom({ where: { id: atomId } })
 
     if (!atom) {
@@ -85,6 +87,7 @@ export class TypeSeeder {
       const type = this.getTypeForApi(apiField, atom.name)
 
       if (!type) {
+        console.log(`${apiField.type} is not valid`)
         continue
       }
 

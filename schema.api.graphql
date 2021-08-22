@@ -136,7 +136,14 @@ type TypeGraph {
 type Atom {
   id: ID!
   type: AtomType!
+
+  """
+  This is a unique ID suitable for seeders to lookup, will rename to value
+  """
   name: String!
+
+  """A user friendly display"""
+  label: String!
   api: InterfaceType!
 }
 
@@ -448,7 +455,7 @@ type Query {
   getComponent(input: GetComponentInput!): Component
   getComponentElements(input: GetComponentInput!): ElementGraph
   getComponents(input: GetComponentsInput): [Component!]!
-  getAtoms: [Atom!]
+  getAtoms(input: GetAtomsInput): [Atom!]
   getAtom(input: GetAtomInput!): Atom
   getType(input: GetTypeInput!): Type
   getTypeGraph(input: GetTypeInput!): TypeGraph
@@ -513,6 +520,14 @@ input GetComponentInput {
 
 input GetComponentsInput {
   componentIds: [String!]
+}
+
+input GetAtomsInput {
+  where: AtomsWhereInput
+}
+
+input AtomsWhereInput {
+  ids: [String!]!
 }
 
 input GetAtomInput {
@@ -740,6 +755,7 @@ input DeleteComponentInput {
 
 input CreateAtomInput {
   name: String!
+  label: String!
   type: AtomType!
 }
 

@@ -49,8 +49,8 @@ export class GetAtomService extends DgraphUseCase<
       .setUidFunc(id)
       .addTypeFilterDirective(DgraphEntityType.Atom)
       .addBaseFields()
-      .addRecurseDirective()
       .addExpandAll()
+      .addRecurseDirective()
   }
 
   private static createGetByType(type: string) {
@@ -58,8 +58,8 @@ export class GetAtomService extends DgraphUseCase<
       .setTypeFunc(DgraphEntityType.Atom)
       .addEqFilterDirective<DgraphAtom>('atomType', type)
       .addBaseFields()
-      .addRecurseDirective()
       .addExpandAll()
+      .addRecurseDirective()
   }
 
   private static createGetByElementQuery(elementId: string) {
@@ -78,8 +78,8 @@ export class GetAtomService extends DgraphUseCase<
       .setUidFunc(elementId)
       .addTypeFilterDirective(DgraphEntityType.Atom)
       .addBaseFields()
-      .addRecurseDirective()
       .addExpandAll()
+      .addRecurseDirective()
   }
 
   private static validate({ where: { id, element, type } }: GetAtomInput) {

@@ -11,12 +11,13 @@ export class AtomAdapter extends BaseAdapter<DgraphAtom, Atom> {
     super()
   }
 
-  mapItem({ name, atomType, uid, api }: DgraphAtom) {
+  mapItem({ name, atomType, uid, api, label }: DgraphAtom) {
     return new Atom({
       id: uid,
       type: atomType as AtomType,
       name,
       api: this.interfaceTypeAdapter.map(api),
+      label,
     })
   }
 }

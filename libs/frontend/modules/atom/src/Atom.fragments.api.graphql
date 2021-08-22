@@ -1,8 +1,10 @@
 fragment __Atom on Atom {
   id
   name
+  label
   type
   api {
-    ...__Interface
+    id
+    name
   }
 }
