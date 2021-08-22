@@ -3,14 +3,12 @@ import { DgraphInterfaceType } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { InterfaceType } from '../../domain'
 
-export type InterfaceTypeAdapterInput = Omit<DgraphInterfaceType, 'fields'>
-
 @Injectable()
 export class InterfaceTypeAdapter extends BaseAdapter<
-  InterfaceTypeAdapterInput,
+  DgraphInterfaceType,
   InterfaceType
 > {
-  mapItem({ uid: id, name }: InterfaceTypeAdapterInput) {
-    return new InterfaceType(id, name)
+  mapItem({ uid: id, name, fields }: DgraphInterfaceType) {
+    return new InterfaceType({ id, name, fields })
   }
 }

@@ -1,4 +1,4 @@
-import { useExportAtomsMutation } from '@codelab/shared/codegen/graphql'
+import { useExportAtomsLazyQuery } from '@codelab/shared/codegen/graphql'
 import { Button } from 'antd'
 import React from 'react'
 
@@ -7,7 +7,11 @@ type ExportAtomsButtonProps = {
 }
 
 export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
-  const [exportData] = useExportAtomsMutation()
+  const [exportData, { loading, data }] = useExportAtomsLazyQuery()
+
+  if (data?.getAtoms) {
+    console.log(data?.getAtoms)
+  }
 
   return (
     <Button

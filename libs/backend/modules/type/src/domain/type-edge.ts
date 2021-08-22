@@ -4,7 +4,7 @@ import {
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql'
-import { Field as FieldModel } from './field.model'
+import { Field } from './field.model'
 
 registerEnumType(TypeEdgeKind, { name: 'TypeEdgeKind' })
 
@@ -28,17 +28,17 @@ export class TypeEdge implements ITypeEdge {
   @GraphqlField(() => TypeEdgeKind)
   declare kind: TypeEdgeKind
 
-  @GraphqlField(() => FieldModel, {
+  @GraphqlField(() => Field, {
     nullable: true,
     description: 'Empty if kind is not TypeEdgeKind.Field',
   })
-  declare field?: FieldModel
+  declare field?: Field
 
   constructor(
     source: string,
     target: string,
     kind: TypeEdgeKind,
-    field?: FieldModel,
+    field?: Field,
   ) {
     this.source = source
     this.target = target

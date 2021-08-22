@@ -1,3 +1,4 @@
+import { DgraphInterfaceType } from '@codelab/backend/infra'
 import { Tag } from '@codelab/backend/modules/tag'
 import { InterfaceType } from '@codelab/backend/modules/type'
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
@@ -25,8 +26,10 @@ export class Atom {
   declare label: string
 
   @Field(() => InterfaceType)
-  /** Resolved by field resolvers */
-  declare api?: InterfaceType
+  /**
+   *  Keep Dgraph context & resolve in GraphQL resolvers
+   */
+  declare api?: DgraphInterfaceType
 
   declare tags?: Array<Tag>
 

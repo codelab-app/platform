@@ -5,7 +5,12 @@ query ExportAtoms($input: GetAtomsInput) {
     label
     type
     api {
-      ...__Interface
+      id
+      name
+      typeKind
+      typeGraph {
+        ...__TypeGraph
+      }
     }
   }
 }

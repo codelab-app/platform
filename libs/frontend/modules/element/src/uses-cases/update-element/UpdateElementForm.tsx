@@ -87,7 +87,7 @@ export const UpdateElementForm = ({
           label="Atom"
           showSearch={true}
           optionFilterProp="label"
-          options={atoms?.atoms.map((atom) => ({
+          options={atoms?.atoms?.map((atom) => ({
             label: atom.name,
             value: atom.id,
           }))}

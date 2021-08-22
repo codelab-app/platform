@@ -5,8 +5,15 @@ import {
   Void,
 } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { Type, TypeGraph } from '../domain'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
+import { InterfaceType, Type, TypeGraph } from '../domain'
 import {
   CreateTypeInput,
   CreateTypeService,
@@ -45,6 +52,22 @@ export class TypeResolver {
     private typeAdapterFactory: TypeAdapterFactory,
     private typeGraphAdapter: TypeGraphAdapter,
   ) {}
+
+  @ResolveField('typeGraph', () => TypeGraph)
+  async typeGraph(@Parent() api: InterfaceType) {
+    const { id } = api
+    const type = await this.getTypeService.execute({ input: { where: { id } } })
+
+    if (!type) {
+      return null
+    }
+
+    if (isDgraphInterfaceType(type)) {
+      return this.typeGraphAdapter.map(type)
+    }
+
+    throw new Error('Type graph can only be retrieved for an Interface Type')
+  }
 
   @UseGuards(GqlAuthGuard)
   @Query(() => Type, { nullable: true })

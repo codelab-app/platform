@@ -6,6 +6,7 @@ interface Type {
   id: ID!
   name: String!
   typeKind: TypeKindFilter!
+  typeGraph: TypeGraph!
 }
 
 enum TypeKindFilter {
@@ -59,6 +60,7 @@ type ArrayType implements Type {
   id: ID!
   name: String!
   typeKind: TypeKindFilter!
+  typeGraph: TypeGraph!
 }
 
 """
@@ -68,6 +70,7 @@ type ComponentType implements Type {
   id: ID!
   name: String!
   typeKind: TypeKindFilter!
+  typeGraph: TypeGraph!
 }
 
 """
@@ -77,6 +80,7 @@ type ElementType implements Type {
   id: ID!
   name: String!
   typeKind: TypeKindFilter!
+  typeGraph: TypeGraph!
   kind: ElementTypeKind!
 }
 
@@ -96,6 +100,7 @@ type EnumType implements Type {
   id: ID!
   name: String!
   typeKind: TypeKindFilter!
+  typeGraph: TypeGraph!
   allowedValues: [EnumTypeValue!]!
 }
 
@@ -103,6 +108,8 @@ type InterfaceType implements Type {
   id: ID!
   name: String!
   typeKind: TypeKindFilter!
+  typeGraph: TypeGraph!
+  fields: [Field!]!
 }
 
 """
@@ -112,12 +119,14 @@ type LambdaType implements Type {
   id: ID!
   name: String!
   typeKind: TypeKindFilter!
+  typeGraph: TypeGraph!
 }
 
 type PrimitiveType implements Type {
   id: ID!
   name: String!
   typeKind: TypeKindFilter!
+  typeGraph: TypeGraph!
   primitiveKind: PrimitiveKind!
 }
 

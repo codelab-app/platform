@@ -16,14 +16,9 @@ export class Field implements IFieldVertex {
   declare name?: string
 
   @GraphqlField(() => String, { nullable: true })
-  declare description: string | null
+  declare description?: string
 
-  constructor(
-    id: string,
-    key: string,
-    name: string | undefined,
-    description: string | null,
-  ) {
+  constructor({ id, key, name, description }: Field) {
     this.id = id
     this.key = key
     this.name = name
