@@ -55,7 +55,7 @@ describe('Types', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/i }).click()
+      cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(primitiveTypeName)
       cy.getOpenedModal().findByLabelText('Kind').click()
@@ -67,7 +67,7 @@ describe('Types', () => {
         .click()
 
       cy.getOpenedModal()
-        .findByButtonText(/create/i)
+        .findByButtonText(/Create/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -79,14 +79,14 @@ describe('Types', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/i }).click()
+      cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(enumTypeName)
       cy.getOpenedModal().findByLabelText('Kind').click()
       cy.getOpenedModal().getOptionItem(enumTypeKind).first().click()
 
       enumTypeAllowedValues.map((enumItem) => {
-        cy.findByRole('button', { name: /plus-square/i }).click()
+        cy.findByRole('button', { name: /plus-square/ }).click()
 
         cy.getOpenedModal()
           .findAllByLabelText('Name')
@@ -99,7 +99,7 @@ describe('Types', () => {
       })
 
       cy.getOpenedModal()
-        .findByButtonText(/create/i)
+        .findByButtonText(/Create/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -111,7 +111,7 @@ describe('Types', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/i }).click()
+      cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(arrayTypeName)
       cy.getOpenedModal().findByLabelText('Kind').click()
@@ -120,7 +120,7 @@ describe('Types', () => {
       cy.getOpenedModal().getOptionItem(arrayItemType).first().click()
 
       cy.getOpenedModal()
-        .findByButtonText(/create/i)
+        .findByButtonText(/Create/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -132,13 +132,13 @@ describe('Types', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/i }).click()
+      cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(interfaceTypeName)
       cy.getOpenedModal().findByLabelText('Kind').click()
       cy.getSelectOptionItemByValue(interfaceTypeKind).first().click()
       cy.getOpenedModal()
-        .findByButtonText(/create/i)
+        .findByButtonText(/Create/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -161,7 +161,7 @@ describe('Types', () => {
         .type(updatedArrayTypeName)
 
       cy.getOpenedModal()
-        .findByButtonText(/update/i)
+        .findByButtonText(/Update/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -176,7 +176,7 @@ describe('Types', () => {
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/delete/i)
+        .findByButtonText(/Delete/)
         .click()
 
       cy.findAllByText(interfaceTypeName).should('not.exist')
@@ -187,7 +187,7 @@ describe('Types', () => {
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/delete/i)
+        .findByButtonText(/Delete/)
         .click()
 
       cy.findAllByText(updatedArrayTypeName).should('not.exist')
@@ -198,7 +198,7 @@ describe('Types', () => {
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/delete/i)
+        .findByButtonText(/Delete/)
         .click()
 
       cy.findAllByText(enumTypeName).should('not.exist')
@@ -209,7 +209,7 @@ describe('Types', () => {
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/delete/i)
+        .findByButtonText(/Delete/)
         .click()
 
       cy.findAllByText(primitiveTypeName).should('not.exist')

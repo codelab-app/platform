@@ -1,5 +1,7 @@
+import { AtomType } from '@codelab/shared/codegen/graphql'
+
 const atomName = 'Row'
-const atomType = 'AntDesignGridRow'
+const atomType = AtomType.AntDesignButton
 const updatedAtomName = 'Row updated'
 
 describe('Atoms', () => {
@@ -36,14 +38,14 @@ describe('Atoms', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/i }).click()
+      cy.findByRole('button', { name: /plus/ }).click()
 
       cy.getOpenedModal().findByLabelText('Name').type(atomName)
       cy.getOpenedModal().findByLabelText('Type').type(atomType)
-      // cy.getOpenedModal().openSelectByLabel('Type')
       cy.getSelectOptionItemByValue(atomType).first().click()
+      cy.getOpenedModal().findByLabelText('Label').type(atomType)
       cy.getOpenedModal()
-        .findByButtonText(/create atom/i)
+        .findByButtonText(/Create Atom/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -59,7 +61,7 @@ describe('Atoms', () => {
       cy.getOpenedModal().findByLabelText('Name').clear().type(updatedAtomName)
 
       cy.getOpenedModal()
-        .findByButtonText(/update atom/i)
+        .findByButtonText(/Update Atom/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
@@ -74,7 +76,7 @@ describe('Atoms', () => {
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/delete atom/i)
+        .findByButtonText(/Delete Atom/)
         .click()
 
       cy.findAllByText(updatedAtomName).should('not.exist')
