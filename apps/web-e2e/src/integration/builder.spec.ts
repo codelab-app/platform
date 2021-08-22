@@ -167,7 +167,7 @@ describe('Types', () => {
 
       // Go to page
       cy.findByText(pageName).click()
-      cy.contains(/Root Element/)
+      cy.contains(/Root element/)
 
       // Add Row component
       components.map((component) => {

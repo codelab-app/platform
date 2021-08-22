@@ -46,7 +46,7 @@ export class SeederService {
    */
   private atoms: Array<AtomSeed> = []
 
-  private atomSeeder: AtomSeeder
+  private readonly atomSeeder: AtomSeeder
 
   private typeSeeder: TypeSeeder
 
