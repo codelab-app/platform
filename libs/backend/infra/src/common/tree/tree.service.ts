@@ -39,7 +39,7 @@ export class TreeService {
       mapNodeToData,
     }: TreeToCytoscapeOptions<TInput>,
   ) {
-    const cy = cytoscape()
+    const cy = cytoscape({ headless: true })
 
     await breadthFirstTraversal<TInput>({
       root,
