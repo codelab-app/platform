@@ -7,7 +7,7 @@ export class TypesByIdsFilter {
   declare typeIds: Array<string>
 }
 
-registerEnumType(TypeKind, { name: 'TypeKindFilter' })
+registerEnumType(TypeKind, { name: 'TypeKind' })
 
 @InputType()
 export class TypesByKindFilter {

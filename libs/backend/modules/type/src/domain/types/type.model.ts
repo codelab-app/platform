@@ -11,6 +11,11 @@ registerEnumType(TypeKind, { name: 'TypeKind' })
 export class Type<TTypeKind extends TypeKind = TypeKind>
   implements Vertex, IBaseTypeVertex<TTypeKind>
 {
+  /**
+   * Added to satisfy context between generated types & these models
+   */
+  declare __typename: `${TypeKind}`
+
   @Field(() => ID)
   declare id: string
 

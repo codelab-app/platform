@@ -7,6 +7,8 @@ import { Type } from './type.model'
  */
 @ObjectType({ implements: () => [Type] })
 export class ArrayType implements Type<TypeKind.ArrayType>, IArrayTypeVertex {
+  __typename = TypeKind.ArrayType as const
+
   declare id: string
 
   declare name: string

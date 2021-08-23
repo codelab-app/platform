@@ -38,7 +38,7 @@ export type AppByPageFilter = {
 export type ArrayType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   typeGraph: TypeGraph
 }
 
@@ -257,7 +257,7 @@ export type Component = {
 export type ComponentType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   typeGraph: TypeGraph
 }
 
@@ -419,7 +419,7 @@ export type ElementGraph = {
 export type ElementType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   typeGraph: TypeGraph
   kind: ElementTypeKind
 }
@@ -435,7 +435,7 @@ export type ElementVertex = Element | Component
 export type EnumType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   typeGraph: TypeGraph
   allowedValues: Array<EnumTypeValue>
 }
@@ -538,7 +538,7 @@ export type GetUsersInput = {
 export type InterfaceType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   typeGraph: TypeGraph
   fields: Array<Field>
 }
@@ -558,7 +558,7 @@ export type LambdaPayload = {
 export type LambdaType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   typeGraph: TypeGraph
 }
 
@@ -766,7 +766,7 @@ export enum PrimitiveKind {
 export type PrimitiveType = Type & {
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   typeGraph: TypeGraph
   primitiveKind: PrimitiveKind
 }
@@ -895,7 +895,7 @@ export type TagVertex = Tag
 export type Type = {
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   typeGraph: TypeGraph
 }
 
@@ -922,7 +922,7 @@ export type TypeGraph = {
   edges: Array<TypeEdge>
 }
 
-export enum TypeKindFilter {
+export enum TypeKind {
   PrimitiveType = 'PrimitiveType',
   ArrayType = 'ArrayType',
   InterfaceType = 'InterfaceType',
@@ -942,7 +942,7 @@ export type TypesByIdsFilter = {
 }
 
 export type TypesByKindFilter = {
-  kind: TypeKindFilter
+  kind: TypeKind
 }
 
 export type TypesByNameFilter = {
@@ -1313,7 +1313,7 @@ export type ExportAtomsQuery = {
       api: {
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
         typeGraph: {
           edges: Array<{
             source: string
@@ -1331,26 +1331,26 @@ export type ExportAtomsQuery = {
                 __typename: 'ArrayType'
                 id: string
                 name: string
-                typeKind: TypeKindFilter
+                typeKind: TypeKind
               }
             | {
                 __typename: 'ComponentType'
                 id: string
                 name: string
-                typeKind: TypeKindFilter
+                typeKind: TypeKind
               }
             | {
                 __typename: 'ElementType'
                 id: string
                 name: string
-                typeKind: TypeKindFilter
+                typeKind: TypeKind
                 kind: ElementTypeKind
               }
             | {
                 __typename: 'EnumType'
                 id: string
                 name: string
-                typeKind: TypeKindFilter
+                typeKind: TypeKind
                 allowedValues: Array<{
                   id: string
                   name?: Maybe<string>
@@ -1361,19 +1361,19 @@ export type ExportAtomsQuery = {
                 __typename: 'InterfaceType'
                 id: string
                 name: string
-                typeKind: TypeKindFilter
+                typeKind: TypeKind
               }
             | {
                 __typename: 'LambdaType'
                 id: string
                 name: string
-                typeKind: TypeKindFilter
+                typeKind: TypeKind
               }
             | {
                 __typename: 'PrimitiveType'
                 id: string
                 name: string
-                typeKind: TypeKindFilter
+                typeKind: TypeKind
                 primitiveKind: PrimitiveKind
               }
           >
@@ -1679,21 +1679,21 @@ type __Type_ArrayType_Fragment = {
   __typename: 'ArrayType'
   id: string
   name: string
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
 }
 
 type __Type_ComponentType_Fragment = {
   __typename: 'ComponentType'
   id: string
   name: string
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
 }
 
 type __Type_ElementType_Fragment = {
   __typename: 'ElementType'
   id: string
   name: string
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   kind: ElementTypeKind
 }
 
@@ -1701,7 +1701,7 @@ type __Type_EnumType_Fragment = {
   __typename: 'EnumType'
   id: string
   name: string
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   allowedValues: Array<{ id: string; name?: Maybe<string>; value: string }>
 }
 
@@ -1709,21 +1709,21 @@ type __Type_InterfaceType_Fragment = {
   __typename: 'InterfaceType'
   id: string
   name: string
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
 }
 
 type __Type_LambdaType_Fragment = {
   __typename: 'LambdaType'
   id: string
   name: string
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
 }
 
 type __Type_PrimitiveType_Fragment = {
   __typename: 'PrimitiveType'
   id: string
   name: string
-  typeKind: TypeKindFilter
+  typeKind: TypeKind
   primitiveKind: PrimitiveKind
 }
 
@@ -1751,30 +1751,25 @@ export type __TypeGraphFragment = {
     }>
   }>
   vertices: Array<
-    | {
-        __typename: 'ArrayType'
-        id: string
-        name: string
-        typeKind: TypeKindFilter
-      }
+    | { __typename: 'ArrayType'; id: string; name: string; typeKind: TypeKind }
     | {
         __typename: 'ComponentType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
       }
     | {
         __typename: 'ElementType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
         kind: ElementTypeKind
       }
     | {
         __typename: 'EnumType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
         allowedValues: Array<{
           id: string
           name?: Maybe<string>
@@ -1785,19 +1780,14 @@ export type __TypeGraphFragment = {
         __typename: 'InterfaceType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
       }
-    | {
-        __typename: 'LambdaType'
-        id: string
-        name: string
-        typeKind: TypeKindFilter
-      }
+    | { __typename: 'LambdaType'; id: string; name: string; typeKind: TypeKind }
     | {
         __typename: 'PrimitiveType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
         primitiveKind: PrimitiveKind
       }
   >
@@ -1880,26 +1870,26 @@ export type GetTypeGraphQuery = {
           __typename: 'ArrayType'
           id: string
           name: string
-          typeKind: TypeKindFilter
+          typeKind: TypeKind
         }
       | {
           __typename: 'ComponentType'
           id: string
           name: string
-          typeKind: TypeKindFilter
+          typeKind: TypeKind
         }
       | {
           __typename: 'ElementType'
           id: string
           name: string
-          typeKind: TypeKindFilter
+          typeKind: TypeKind
           kind: ElementTypeKind
         }
       | {
           __typename: 'EnumType'
           id: string
           name: string
-          typeKind: TypeKindFilter
+          typeKind: TypeKind
           allowedValues: Array<{
             id: string
             name?: Maybe<string>
@@ -1910,19 +1900,19 @@ export type GetTypeGraphQuery = {
           __typename: 'InterfaceType'
           id: string
           name: string
-          typeKind: TypeKindFilter
+          typeKind: TypeKind
         }
       | {
           __typename: 'LambdaType'
           id: string
           name: string
-          typeKind: TypeKindFilter
+          typeKind: TypeKind
         }
       | {
           __typename: 'PrimitiveType'
           id: string
           name: string
-          typeKind: TypeKindFilter
+          typeKind: TypeKind
           primitiveKind: PrimitiveKind
         }
     >
@@ -1935,30 +1925,25 @@ export type GetTypeQueryVariables = Exact<{
 
 export type GetTypeQuery = {
   getType?: Maybe<
-    | {
-        __typename: 'ArrayType'
-        id: string
-        name: string
-        typeKind: TypeKindFilter
-      }
+    | { __typename: 'ArrayType'; id: string; name: string; typeKind: TypeKind }
     | {
         __typename: 'ComponentType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
       }
     | {
         __typename: 'ElementType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
         kind: ElementTypeKind
       }
     | {
         __typename: 'EnumType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
         allowedValues: Array<{
           id: string
           name?: Maybe<string>
@@ -1969,19 +1954,14 @@ export type GetTypeQuery = {
         __typename: 'InterfaceType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
       }
-    | {
-        __typename: 'LambdaType'
-        id: string
-        name: string
-        typeKind: TypeKindFilter
-      }
+    | { __typename: 'LambdaType'; id: string; name: string; typeKind: TypeKind }
     | {
         __typename: 'PrimitiveType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
         primitiveKind: PrimitiveKind
       }
   >
@@ -1993,30 +1973,25 @@ export type GetTypesQueryVariables = Exact<{
 
 export type GetTypesQuery = {
   getTypes: Array<
-    | {
-        __typename: 'ArrayType'
-        id: string
-        name: string
-        typeKind: TypeKindFilter
-      }
+    | { __typename: 'ArrayType'; id: string; name: string; typeKind: TypeKind }
     | {
         __typename: 'ComponentType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
       }
     | {
         __typename: 'ElementType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
         kind: ElementTypeKind
       }
     | {
         __typename: 'EnumType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
         allowedValues: Array<{
           id: string
           name?: Maybe<string>
@@ -2027,19 +2002,14 @@ export type GetTypesQuery = {
         __typename: 'InterfaceType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
       }
-    | {
-        __typename: 'LambdaType'
-        id: string
-        name: string
-        typeKind: TypeKindFilter
-      }
+    | { __typename: 'LambdaType'; id: string; name: string; typeKind: TypeKind }
     | {
         __typename: 'PrimitiveType'
         id: string
         name: string
-        typeKind: TypeKindFilter
+        typeKind: TypeKind
         primitiveKind: PrimitiveKind
       }
   >

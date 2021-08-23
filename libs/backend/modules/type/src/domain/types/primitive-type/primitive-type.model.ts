@@ -16,6 +16,8 @@ import { Type } from '../type.model'
 export class PrimitiveType
   implements Type<TypeKind.PrimitiveType>, IPrimitiveTypeVertex
 {
+  __typename = TypeKind.PrimitiveType as const
+
   declare id: string
 
   declare name: string

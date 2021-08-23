@@ -13,6 +13,8 @@ import { Type } from './type.model'
 export class ComponentType
   implements Type<TypeKind.ComponentType>, IComponentTypeVertex
 {
+  __typename = TypeKind.ComponentType as const
+
   declare id: string
 
   declare name: string

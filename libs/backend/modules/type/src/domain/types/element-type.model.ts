@@ -19,6 +19,8 @@ registerEnumType(ElementTypeKind, { name: 'ElementTypeKind' })
 export class ElementType
   implements Type<TypeKind.ElementType>, IElementTypeVertex
 {
+  __typename = TypeKind.ElementType as const
+
   declare id: string
 
   declare name: string

@@ -13,6 +13,8 @@ import { Type } from './type.model'
 export class LambdaType
   implements Type<TypeKind.LambdaType>, ILambdaTypeVertex
 {
+  __typename = TypeKind.LambdaType as const
+
   declare id: string
 
   declare name: string

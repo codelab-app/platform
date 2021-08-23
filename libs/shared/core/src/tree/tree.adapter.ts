@@ -1,7 +1,9 @@
 import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
-import { edgeId, getEdgeOrder, getElementData } from '@codelab/shared/core'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { SingularElementArgument } from 'cytoscape'
+import { getEdgeOrder } from '../cytoscape/edge'
+import { getElementData } from '../cytoscape/element'
+import { edgeId } from '../graph/edge'
 
 type ElementPredicate<TElement = SingularElementArgument> = (
   element: TElement,
@@ -16,14 +18,8 @@ export const filterPredicate =
 /**
  * The TreeAdapter implements the Graph port interface. Think of the GraphQL server data as the contract, and we're adapting to that.
  */
-export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
-  implements Graph<TVertex, Edge>
-{
+export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
   protected readonly cy: cytoscape.Core
-
-  edges: ReadonlyArray<TEdge>
-
-  vertices: ReadonlyArray<TVertex>
 
   root: TVertex
 
@@ -32,28 +28,30 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge>
    */
   predicate: Predicate = () => true
 
-  constructor(graph?: Graph<TVertex, TEdge> | null) {
-    this.vertices = graph?.vertices ?? []
-    this.edges = graph?.edges ?? []
-
+  constructor(
+    graph?: Graph<TVertex, TEdge> | null,
+    extractEdgeId?: (edge: TEdge) => string,
+  ) {
+    const vertices = graph?.vertices ?? []
+    const edges = graph?.edges ?? []
     const parentsMap = new Map<string, string>()
 
-    this.edges.forEach((edge) => {
+    edges.forEach((edge) => {
       parentsMap.set(edge.target, edge.source)
     })
 
     this.cy = cytoscape({
       headless: true,
       elements: {
-        nodes: this.vertices.map((v) => ({
-          data: { id: v.id, data: v, parent: parentsMap.get(v.id) },
+        nodes: vertices.map((v) => ({
+          data: { ...v, id: v.id, data: v, parent: parentsMap.get(v.id) },
         })),
-        edges: this.edges.map((v) => ({
+        edges: edges.map((e) => ({
           data: {
-            source: v.source,
-            target: v.target,
-            data: v,
-            id: edgeId(v),
+            ...e,
+            source: e.source,
+            target: e.target,
+            id: extractEdgeId ? extractEdgeId(e) : edgeId(e),
           },
         })),
       },

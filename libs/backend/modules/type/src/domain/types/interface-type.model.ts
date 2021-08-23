@@ -14,6 +14,8 @@ import { Type } from './type.model'
 export class InterfaceType
   implements Type<TypeKind.InterfaceType>, IInterfaceTypeVertex
 {
+  __typename = TypeKind.InterfaceType as const
+
   declare id: string
 
   declare name: string

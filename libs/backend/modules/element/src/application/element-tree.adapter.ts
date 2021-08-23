@@ -9,11 +9,8 @@ import {
   isDgraphElement,
 } from '@codelab/backend/infra'
 import { TypeGraphAdapter } from '@codelab/backend/modules/type'
-import {
-  IFieldVertex,
-  TypeGraphTreeAdapter,
-  TypeKind,
-} from '@codelab/shared/abstract/core'
+import { IFieldVertex, TypeKind } from '@codelab/shared/abstract/core'
+import { BaseTypeGraphAdapter } from '@codelab/shared/core'
 import { Injectable, Logger } from '@nestjs/common'
 import cytoscape, { Core } from 'cytoscape'
 import * as _ from 'lodash'
@@ -265,7 +262,7 @@ export class ElementTreeAdapter extends BaseAdapter<
     }
 
     const typeGraph = await this.typeGraphAdapter.map(node.atom.api)
-    const tree = new TypeGraphTreeAdapter(typeGraph)
+    const tree = new BaseTypeGraphAdapter(typeGraph)
     const allComponentFields = tree.getFieldsByTypeKind(TypeKind.ComponentType)
 
     if (allComponentFields.length) {
@@ -298,7 +295,7 @@ export class ElementTreeAdapter extends BaseAdapter<
       )
   }
 
-  private getKeysWithComponentType(tree: TypeGraphTreeAdapter): Array<string> {
+  private getKeysWithComponentType(tree: BaseTypeGraphAdapter): Array<string> {
     const rootFields = tree.getRootFields()
     const keysToCheck: Array<string> = []
 

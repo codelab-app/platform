@@ -1,6 +1,6 @@
 import { TagTree } from '@codelab/frontend/abstract/props'
 import { TagEdgeFragment, TagFragment } from '@codelab/shared/codegen/graphql'
-import { TreeAdapter } from '../tree/TreeAdapter'
+import { TreeAdapter } from '@codelab/shared/core'
 
 export class TagGraphTreeAdapter
   extends TreeAdapter<TagFragment, TagEdgeFragment>

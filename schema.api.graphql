@@ -5,11 +5,11 @@
 interface Type {
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
+  typeKind: TypeKind!
   typeGraph: TypeGraph!
 }
 
-enum TypeKindFilter {
+enum TypeKind {
   PrimitiveType
   ArrayType
   InterfaceType
@@ -59,7 +59,7 @@ enum TypeEdgeKind {
 type ArrayType implements Type {
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
+  typeKind: TypeKind!
   typeGraph: TypeGraph!
 }
 
@@ -69,7 +69,7 @@ The ComponentType allows selecting a Component in the props form. The value is s
 type ComponentType implements Type {
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
+  typeKind: TypeKind!
   typeGraph: TypeGraph!
 }
 
@@ -79,7 +79,7 @@ The ElementType allows selecting an Element in the props form. The value is stor
 type ElementType implements Type {
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
+  typeKind: TypeKind!
   typeGraph: TypeGraph!
   kind: ElementTypeKind!
 }
@@ -99,7 +99,7 @@ type EnumTypeValue {
 type EnumType implements Type {
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
+  typeKind: TypeKind!
   typeGraph: TypeGraph!
   allowedValues: [EnumTypeValue!]!
 }
@@ -107,7 +107,7 @@ type EnumType implements Type {
 type InterfaceType implements Type {
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
+  typeKind: TypeKind!
   typeGraph: TypeGraph!
   fields: [Field!]!
 }
@@ -118,14 +118,14 @@ The LambdaType allows selecting a Lambda in the props form. The value is stored 
 type LambdaType implements Type {
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
+  typeKind: TypeKind!
   typeGraph: TypeGraph!
 }
 
 type PrimitiveType implements Type {
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
+  typeKind: TypeKind!
   typeGraph: TypeGraph!
   primitiveKind: PrimitiveKind!
 }
@@ -571,7 +571,7 @@ input TypesByIdsFilter {
 }
 
 input TypesByKindFilter {
-  kind: TypeKindFilter!
+  kind: TypeKind!
 }
 
 input TypesByNameFilter {

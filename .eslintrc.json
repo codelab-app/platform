@@ -99,6 +99,7 @@
                 "sourceTag": "layer:domain:backend",
                 "onlyDependOnLibsWithTags": [
                   "layer:domain:backend",
+                  "scope:shared",
                   "layer:infra",
                   "type:abstract"
                 ]

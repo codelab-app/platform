@@ -8,6 +8,8 @@ import { EnumTypeValue } from './enum-type-value.model'
  */
 @ObjectType({ implements: () => [Type] })
 export class EnumType implements Type<TypeKind.EnumType>, IEnumTypeVertex {
+  __typename = TypeKind.EnumType as const
+
   declare id: string
 
   declare name: string
