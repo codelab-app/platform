@@ -1,0 +1,9 @@
+"property","description","type","default","version","isEnum"
+"cancelText","Text of the Cancel button","string","Cancel",,false
+"centered","Centered Modal","boolean","false",,false
+"closable","Whether a close (x) button is visible on top right of the modal dialog or not","boolean","true",,false
+"destroyOnClose","Whether to unmount child components on onClose","boolean","false",,false
+"okText","Text of the OK button","string","OK",,false
+"okType","Button type of the OK button","string","primary",,false
+"title","The modal dialog's title","string","",,false
+"visible","Whether the modal dialog is visible or not","boolean","",,false
