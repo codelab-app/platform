@@ -2,23 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-interface Type {
-  id: ID!
-  name: String!
-  typeKind: TypeKind!
-  typeGraph: TypeGraph!
-}
-
-enum TypeKind {
-  PrimitiveType
-  ArrayType
-  InterfaceType
-  EnumType
-  LambdaType
-  ElementType
-  ComponentType
-}
-
 type CreateResponse {
   id: String!
 }
@@ -61,6 +44,23 @@ type ArrayType implements Type {
   name: String!
   typeKind: TypeKind!
   typeGraph: TypeGraph!
+}
+
+interface Type {
+  id: ID!
+  name: String!
+  typeKind: TypeKind!
+  typeGraph: TypeGraph!
+}
+
+enum TypeKind {
+  PrimitiveType
+  ArrayType
+  InterfaceType
+  EnumType
+  LambdaType
+  ElementType
+  ComponentType
 }
 
 """
@@ -150,9 +150,6 @@ type Atom {
   This is a unique ID suitable for seeders to lookup, will rename to value
   """
   name: String!
-
-  """A user friendly display"""
-  label: String!
   api: InterfaceType!
 }
 
@@ -626,6 +623,7 @@ type Mutation {
   deleteComponent(input: DeleteComponentInput!): Void
   createAtom(input: CreateAtomInput!): CreateResponse!
   deleteAtom(input: DeleteAtomInput!): Void
+  importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Void
   createType(input: CreateTypeInput!): CreateResponse!
   updateEnumType(input: UpdateEnumTypeInput!): Void
@@ -764,12 +762,25 @@ input DeleteComponentInput {
 
 input CreateAtomInput {
   name: String!
-  label: String!
   type: AtomType!
 }
 
 input DeleteAtomInput {
   atomId: String!
+}
+
+input ImportAtomsInput {
+  atoms: [AtomWithApi!]!
+}
+
+input AtomWithApi {
+  name: String!
+  type: AtomType!
+  api: TypeGraphInput!
+}
+
+input TypeGraphInput {
+  vertices: String!
 }
 
 input UpdateAtomInput {

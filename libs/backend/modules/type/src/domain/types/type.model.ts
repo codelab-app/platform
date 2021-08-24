@@ -7,14 +7,17 @@ import { Field, ID, InterfaceType, registerEnumType } from '@nestjs/graphql'
 
 registerEnumType(TypeKind, { name: 'TypeKind' })
 
-@InterfaceType()
-export class Type<TTypeKind extends TypeKind = TypeKind>
+@InterfaceType({ isAbstract: true })
+export class Type<TTypeKind extends TypeKind>
   implements Vertex, IBaseTypeVertex<TTypeKind>
 {
   /**
    * Added to satisfy context between generated types & these models
    */
-  declare __typename: `${TypeKind}`
+  __typename: `${TTypeKind}`
+
+  @Field(() => TypeKind)
+  typeKind: TTypeKind
 
   @Field(() => ID)
   declare id: string
@@ -22,6 +25,8 @@ export class Type<TTypeKind extends TypeKind = TypeKind>
   @Field()
   declare name: string
 
-  @Field(() => TypeKind)
-  declare typeKind: TTypeKind
+  constructor(typeKind: TTypeKind) {
+    this.typeKind = typeKind
+    this.__typename = `${typeKind}` as const
+  }
 }

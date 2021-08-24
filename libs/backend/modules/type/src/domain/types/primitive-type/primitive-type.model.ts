@@ -14,20 +14,19 @@ import { Type } from '../type.model'
   implements: () => [Type],
 })
 export class PrimitiveType
-  implements Type<TypeKind.PrimitiveType>, IPrimitiveTypeVertex
+  extends Type<TypeKind.PrimitiveType>
+  implements IPrimitiveTypeVertex
 {
-  __typename = TypeKind.PrimitiveType as const
-
-  declare id: string
-
-  declare name: string
-
-  typeKind: TypeKind.PrimitiveType = TypeKind.PrimitiveType
-
   @Field(() => PrimitiveKind)
   declare primitiveKind: PrimitiveKind
 
-  constructor(id: string, name: string, primitiveKind: PrimitiveKind) {
+  constructor({
+    id,
+    name,
+    primitiveKind,
+  }: Pick<PrimitiveType, 'id' | 'name' | 'primitiveKind'>) {
+    super(TypeKind.PrimitiveType)
+
     this.id = id
     this.name = name
     this.primitiveKind = primitiveKind

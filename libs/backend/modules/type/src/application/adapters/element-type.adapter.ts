@@ -1,6 +1,6 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphElementType } from '@codelab/backend/infra'
-import { ElementTypeKind } from '@codelab/shared/abstract/core'
+import { elementTypeKindMap } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { ElementType } from '../../domain'
 
@@ -12,6 +12,6 @@ export class ElementTypeAdapter extends BaseAdapter<
   ElementType
 > {
   mapItem({ uid: id, name, kind }: ElementTypeAdapterInput) {
-    return new ElementType(id, name, kind as ElementTypeKind)
+    return new ElementType({ id, name, kind: elementTypeKindMap(kind) })
   }
 }

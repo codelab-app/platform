@@ -13,7 +13,10 @@ import { TagGraph } from '../domain/tag-graph.model'
 import { TagVertex } from '../domain/tag-vertex.model'
 
 @Injectable()
-export class DgraphTagAdapter extends BaseAdapter<DgraphTag, TagGraph> {
+export class DgraphTagAdapter extends BaseAdapter<
+  DgraphTag,
+  Promise<TagGraph>
+> {
   constructor(private cytoscapeService: CytoscapeService) {
     super()
   }

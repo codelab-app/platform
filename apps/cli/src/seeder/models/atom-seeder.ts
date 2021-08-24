@@ -1,5 +1,5 @@
+import { createIfMissing } from '@codelab/backend/shared/utils'
 import {
-  AtomType,
   CreateAtomGql,
   CreateAtomInput,
   CreateAtomMutation,
@@ -10,7 +10,6 @@ import {
   GetAtomQueryVariables,
 } from '@codelab/shared/codegen/graphql'
 import { GraphQLClient } from 'graphql-request'
-import { createIfMissing } from '../utils/createIfMissing'
 
 /**
  * Handle seeding of atoms

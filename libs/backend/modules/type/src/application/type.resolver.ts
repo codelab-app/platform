@@ -63,7 +63,7 @@ export class TypeResolver {
     }
 
     if (isDgraphInterfaceType(type)) {
-      return this.typeGraphAdapter.map(type)
+      return this.typeGraphAdapter.mapItem(type)
     }
 
     throw new Error('Type graph can only be retrieved for an Interface Type')
@@ -80,9 +80,7 @@ export class TypeResolver {
       return null
     }
 
-    const typeAdapter = this.typeAdapterFactory.getMapper(type)
-
-    return typeAdapter.map(type)
+    return this.typeAdapterFactory.getMapper(type).mapItem(type)
   }
 
   @UseGuards(GqlAuthGuard)
@@ -95,7 +93,7 @@ export class TypeResolver {
     }
 
     if (isDgraphInterfaceType(type)) {
-      return this.typeGraphAdapter.map(type)
+      return this.typeGraphAdapter.mapItem(type)
     }
 
     throw new Error('Type graph can only be retrieved for an Interface Type')

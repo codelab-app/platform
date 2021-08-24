@@ -9,6 +9,6 @@ export class PrimitiveTypeAdapter extends BaseAdapter<
   PrimitiveType
 > {
   mapItem({ uid: id, name, primitiveKind }: DgraphPrimitiveType) {
-    return new PrimitiveType(id, name, primitiveKind)
+    return new PrimitiveType({ id, name, primitiveKind })
   }
 }

@@ -71,7 +71,7 @@ export class ComponentResolver {
       return null
     }
 
-    return this.componentAdapter.map(dgraphComponent)
+    return this.componentAdapter.mapItem(dgraphComponent)
   }
 
   @Query(() => ElementGraph, { nullable: true })
@@ -98,7 +98,7 @@ export class ComponentResolver {
       return null
     }
 
-    return this.elementTreeAdapter.map(dgraphElement)
+    return this.elementTreeAdapter.mapItem(dgraphElement)
   }
 
   @Query(() => [Component])

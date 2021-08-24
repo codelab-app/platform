@@ -7,6 +7,7 @@ import {
 } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { GraphQLClient } from 'graphql-request'
 import { SeederService } from './seeder.service'
 
 export const SeederProvider = 'SEEDER_PROVIDER'
@@ -22,7 +23,16 @@ export const SeederProvider = 'SEEDER_PROVIDER'
       ) => {
         const accessToken = (await auth0Service.getAccessToken()) ?? ''
 
-        return new SeederService(_serverConfig, accessToken)
+        const client = new GraphQLClient(
+          new URL('graphql', _serverConfig.endpoint).toString(),
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        )
+
+        return new SeederService(_serverConfig, client)
       },
       inject: [Auth0Service, serverConfig.KEY],
     },

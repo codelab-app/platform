@@ -1,14 +1,11 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { AtomTypeEnum } from '../../domain/atom-type.model'
+import { AtomType } from '../../domain/atom-type.model'
 
 @InputType()
 export class CreateAtomInput {
   @Field()
   declare name: string
 
-  @Field()
-  declare label: string
-
-  @Field(() => AtomTypeEnum)
-  declare type: AtomTypeEnum
+  @Field(() => AtomType)
+  declare type: AtomType
 }

@@ -4,9 +4,17 @@ import {
   GqlAuthGuard,
   Void,
 } from '@codelab/backend/infra'
+import { Atom, AtomAdapter } from '@codelab/backend/modules/atom'
 import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 import { Element } from '../domain/element/element.model'
 import { ElementGraph } from '../domain/element/element-graph.model'
 import {
@@ -49,6 +57,7 @@ export class ElementResolver {
     private elementTreeAdapter: ElementTreeAdapter,
     private updateElementPropsService: UpdateElementPropsService,
     private elementAdapter: ElementAdapter,
+    private atomAdapter: AtomAdapter,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -103,7 +112,16 @@ export class ElementResolver {
       return null
     }
 
-    return this.elementAdapter.map(dgraphElement)
+    return this.elementAdapter.mapItem(dgraphElement)
+  }
+
+  @ResolveField('atom', () => Atom, { nullable: true })
+  async atom(@Parent() { atom }: Element) {
+    if (!atom) {
+      return null
+    }
+
+    return this.atomAdapter.mapItem(atom)
   }
 
   @Mutation(() => Void, { nullable: true })

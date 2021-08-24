@@ -145,6 +145,7 @@
     "react-resizable": "3.0.4",
     "recoil": "0.4.0",
     "reflect-metadata": "0.1.13",
+    "rxjs": "6.6.3",
     "shelljs": "0.8.4",
     "supertest": "6.1.6",
     "tsconfig-paths": "3.10.1",
@@ -156,9 +157,7 @@
     "voca": "1.4.0",
     "wait-on": "6.0.0",
     "why-is-node-running": "2.2.0",
-    "zod": "3.8.1",
-    "reflect-metadata": "0.1.13",
-    "tslib": "2.3.1"
+    "zod": "3.8.1"
   },
   "devDependencies": {
     "@apollo/graphql": "14.5.0",

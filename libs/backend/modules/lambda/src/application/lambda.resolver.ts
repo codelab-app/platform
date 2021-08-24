@@ -87,7 +87,7 @@ export class LambdaResolver {
       return null
     }
 
-    return this.lambdaAdapter.map(dgraphLambda)
+    return this.lambdaAdapter.mapItem(dgraphLambda)
   }
 
   @Mutation(() => LambdaPayload, { nullable: true })
@@ -99,7 +99,7 @@ export class LambdaResolver {
       return null
     }
 
-    const lambda = this.lambdaAdapter.map(dgraphLambda)
+    const lambda = this.lambdaAdapter.mapItem(dgraphLambda)
 
     const results = await this.lambdaService.executeLambda(
       lambda,

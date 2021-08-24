@@ -1,16 +1,18 @@
-query ExportAtoms($input: GetAtomsInput) {
-  getAtoms(input: $input) {
+fragment AtomExport on Atom {
+  id
+  name
+  type
+  api {
     id
     name
-    label
-    type
-    api {
-      id
-      name
-      typeKind
-      typeGraph {
-        ...__TypeGraph
-      }
+    typeKind
+    typeGraph {
+      ...__TypeGraph
     }
+  }
+}
+query ExportAtoms($input: GetAtomsInput) {
+  getAtoms(input: $input) {
+    ...AtomExport
   }
 }

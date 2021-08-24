@@ -62,6 +62,9 @@
     "backend-modules-user": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },
+    "backend-shared-utils": {
+      "tags": ["scope:shared"]
+    },
     "cli": {
       "tags": ["scope:backend"]
     },

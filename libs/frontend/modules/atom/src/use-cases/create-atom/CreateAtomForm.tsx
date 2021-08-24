@@ -28,8 +28,8 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     mutationOptions: {
       refetchQueries: [refetchGetAtomsQuery(), refetchGetTypesQuery()],
     },
-    mapVariables: ({ name, type, label }: CreateAtomInput) => ({
-      input: { name, type, label },
+    mapVariables: ({ name, type }: CreateAtomInput) => ({
+      input: { name, type },
     }),
   })
 

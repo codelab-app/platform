@@ -33,13 +33,6 @@ export const GetAtomsTable = () => {
       ...useColumnSearchProps('name'),
     },
     {
-      title: 'Label',
-      dataIndex: 'label',
-      key: 'label',
-      onHeaderCell: headerCellProps,
-      ...useColumnSearchProps('label'),
-    },
-    {
       title: 'Library',
       dataIndex: 'library',
       key: 'library',

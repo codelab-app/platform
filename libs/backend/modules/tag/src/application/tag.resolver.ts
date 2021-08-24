@@ -50,7 +50,7 @@ export class TagResolver {
       return null
     }
 
-    return this.tagAdapter.map(tag)
+    return this.tagAdapter.mapItem(tag)
   }
 
   @Query(() => [Tag], {
@@ -90,6 +90,6 @@ export class TagResolver {
       return null
     }
 
-    return this.tagTreeAdapter.map(dgraphTagTree.root)
+    return this.tagTreeAdapter.mapItem(dgraphTagTree.root)
   }
 }

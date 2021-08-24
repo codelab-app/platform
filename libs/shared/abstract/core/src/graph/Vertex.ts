@@ -1,5 +1,11 @@
 export interface Vertex {
   id: string
-  // TODO: Rename this to label
   name?: string | null
 }
+
+/**
+ * Value objects don't have id's
+ */
+export type VertexValueObject = Omit<Vertex, 'id'>
+
+export type VertexInput = Omit<Vertex, 'id'>

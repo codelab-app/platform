@@ -21,6 +21,7 @@ import { GetAtomService } from '../use-cases/get-atom'
 import { GetAtomInput } from '../use-cases/get-atom/get-atom.input'
 import { GetAtomsService } from '../use-cases/get-atoms'
 import { GetAtomsInput } from '../use-cases/get-atoms/get-atoms.input'
+import { ImportAtomsInput, ImportAtomsService } from '../use-cases/import-atoms'
 import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
 
 @Resolver(() => Atom)
@@ -35,6 +36,7 @@ export class AtomResolver {
     private getTypeService: GetTypeService,
     private atomAdapter: AtomAdapter,
     private typeAdapterFactory: TypeAdapterFactory,
+    private importAtomsService: ImportAtomsService,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -69,7 +71,13 @@ export class AtomResolver {
       return null
     }
 
-    return this.typeAdapterFactory.getMapper(api).map(api)
+    return this.typeAdapterFactory.getMapper(api).mapItem(api)
+  }
+
+  @Mutation(() => Void, { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  async importAtoms(@Args('input') input: ImportAtomsInput) {
+    await this.importAtomsService.execute(input)
   }
 
   @Query(() => Atom, { nullable: true })
@@ -81,7 +89,7 @@ export class AtomResolver {
       return null
     }
 
-    return this.atomAdapter.map(atom)
+    return this.atomAdapter.mapItem(atom)
   }
 
   @Mutation(() => Void, { nullable: true })

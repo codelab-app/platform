@@ -1,3 +1,4 @@
+export * from './entity/entity'
 export * from './graph/Edge'
 export * from './graph/Graph'
 export * from './graph/Vertex'

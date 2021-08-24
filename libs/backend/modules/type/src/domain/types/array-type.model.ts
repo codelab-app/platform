@@ -6,16 +6,13 @@ import { Type } from './type.model'
  * The array item type is represented by a TypeEdge of kind ArrayItem
  */
 @ObjectType({ implements: () => [Type] })
-export class ArrayType implements Type<TypeKind.ArrayType>, IArrayTypeVertex {
-  __typename = TypeKind.ArrayType as const
+export class ArrayType
+  extends Type<TypeKind.ArrayType>
+  implements IArrayTypeVertex
+{
+  constructor({ id, name }: Pick<ArrayType, 'id' | 'name'>) {
+    super(TypeKind.ArrayType)
 
-  declare id: string
-
-  declare name: string
-
-  typeKind: TypeKind.ArrayType = TypeKind.ArrayType
-
-  constructor(id: string, name: string) {
     this.id = id
     this.name = name
   }

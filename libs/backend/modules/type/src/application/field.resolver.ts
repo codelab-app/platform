@@ -41,7 +41,11 @@ export class FieldResolver {
   async getField(@Args('input') input: GetFieldInput) {
     const field = await this.getFieldService.execute({ input })
 
-    return field && this.fieldMapper.map(field)
+    if (!field) {
+      return null
+    }
+
+    return this.fieldMapper.mapItem(field)
   }
 
   @Mutation(() => Void, { nullable: true })
