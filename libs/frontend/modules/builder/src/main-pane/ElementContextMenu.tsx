@@ -27,7 +27,10 @@ export const ElementContextMenu = ({
         }
       }}
     >
-      <Menu.Item onClick={() => openCreateModal()} key="1">
+      <Menu.Item
+        onClick={() => openCreateModal({ parentElementId: element.id })}
+        key="1"
+      >
         Add child
       </Menu.Item>
       <Menu.Item

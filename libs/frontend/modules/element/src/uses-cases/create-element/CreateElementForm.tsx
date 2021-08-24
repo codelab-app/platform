@@ -33,7 +33,10 @@ export const CreateElementForm = ({
 
   const {
     handleSubmit,
-    crudModal: { reset },
+    crudModal: {
+      reset,
+      state: { metadata },
+    },
   } = useCrudModalMutationForm({
     entityType: EntityType.Element,
     mutationOptions: { refetchQueries },
@@ -56,7 +59,10 @@ export const CreateElementForm = ({
       })}
       onSubmit={handleSubmit}
       onSubmitSuccess={() => reset()}
-      model={{ parentElementId: initialDataRef.current?.parentElementId }}
+      model={{
+        parentElementId:
+          initialDataRef.current?.parentElementId ?? metadata?.parentElementId,
+      }}
       {...props}
     >
       <AutoFields omitFields={['parentElementId', 'atomId', 'componentId']} />

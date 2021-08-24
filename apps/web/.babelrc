@@ -4,5 +4,15 @@
     // Need to to use `css` property for tailwind
     "@emotion/babel-preset-css-prop"
   ],
-  "plugins": ["@emotion", "macros"]
+  "plugins": [
+    "@emotion",
+    "macros",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": true
+      }
+    ]
+  ]
 }

@@ -16,6 +16,6 @@
 "validateTrigger","Config field validate trigger","string | string[]","onChange","4.3.0",false
 "wrapperCol","The layout for input controls, same as labelCol","object","-","",false
 "onFieldsChange","Trigger when field updated","function(changedFields, allFields)","-","",false
-"onFinish","Trigger after submitting the form and verifying data successfully","function(values)","-","",false
+"onFinish","Trigger after submitting the form and verifying data successfully","LambdaType","-","",false
 "onFinishFailed","Trigger after submitting the form and verifying data failed","function({ values, errorFields, outOfDate })","-","",false
 "onValuesChange","Trigger when value updated","function(changedValues, allValues)","-","",false

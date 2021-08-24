@@ -3,6 +3,7 @@ import { PageType } from '@codelab/frontend/model/state/router'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
+import { Resizable } from 're-resizable'
 import React from 'react'
 import tw from 'twin.macro'
 
@@ -64,19 +65,29 @@ export const DashboardTemplate = ({
         ) : null}
         <Layout>
           {MainPane ? (
-            <Sider
-              theme="light"
-              width={mainPaneWidth}
-              style={{
-                overflowY: 'scroll',
-                // position: 'fixed',
+            <Resizable
+              enable={{ right: true }}
+              maxWidth={mainPaneWidth * 2}
+              minWidth={mainPaneWidth}
+              defaultSize={{
                 height: '100%',
-                top: 0,
-                // right: 0,
+                width: mainPaneWidth,
               }}
             >
-              <MainPane />
-            </Sider>
+              <Sider
+                theme="light"
+                width={'100%'}
+                style={{
+                  overflowY: 'scroll',
+                  // position: 'fixed',
+                  height: '100%',
+                  top: 0,
+                  // right: 0,
+                }}
+              >
+                <MainPane />
+              </Sider>
+            </Resizable>
           ) : null}
           <StyledContent router={router}>
             {children}

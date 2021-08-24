@@ -51,7 +51,7 @@ export const State = ({
 
   if (eventKey) {
     childProps[eventKey] = (e: any) => {
-      // Call the lambda
+      // Call the lambda if we have one
       if (setterLambda) {
         executeLambda({
           variables: {
@@ -72,6 +72,9 @@ export const State = ({
             }
           }
         })
+      } else {
+        // If not - directly set the state
+        setState(e)
       }
 
       // Pass the event up, so that we can nest State elements

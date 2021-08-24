@@ -118,12 +118,13 @@ export const BuilderMainPane = ({
     <MainPaneTemplate
       {...props}
       containerProps={{
+        style: { width: '100%', height: '100%' },
         onClick: () => {
           setContextMenuNodeId(null)
         },
       }}
     >
-      <div style={{ height: '100%' }} onClick={() => reset()}>
+      <div onClick={() => reset()}>
         {tree ? (
           <AntdTree
             disabled={isLoadingMoveElement}
@@ -150,8 +151,12 @@ export const BuilderMainPane = ({
               setSelectedElement(element)
             }}
             titleRender={(node) => {
-              const label = (node as any).name
-              const nodeId = (node as any).id
+              const element = node as any as ElementFragment
+              const label = element.name
+              const nodeId = element.id
+
+              const atomName =
+                element.atom?.name ?? element.atom?.label ?? element.atom?.type
 
               return (
                 <Dropdown
@@ -175,7 +180,12 @@ export const BuilderMainPane = ({
                   }
                   trigger={['contextMenu']}
                 >
-                  <div>{label}</div>
+                  <div>
+                    {label}{' '}
+                    {atomName && (
+                      <span css={tw`text-gray-400 text-xs`}>({atomName})</span>
+                    )}
+                  </div>
                 </Dropdown>
               )
             }}
