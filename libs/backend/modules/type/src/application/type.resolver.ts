@@ -106,7 +106,7 @@ export class TypeResolver {
 
     return Promise.all(
       types.map((type) =>
-        this.typeAdapterFactory.getMapper(type).map(type as any),
+        this.typeAdapterFactory.getMapper(type).mapItem(type),
       ),
     )
   }
