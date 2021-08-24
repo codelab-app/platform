@@ -43,7 +43,6 @@ describe('Atoms', () => {
       cy.getOpenedModal().findByLabelText('Name').type(atomName)
       cy.getOpenedModal().findByLabelText('Type').type(atomType)
       cy.getSelectOptionItemByValue(atomType).first().click()
-      cy.getOpenedModal().findByLabelText('Label').type(atomType)
       cy.getOpenedModal()
         .findByButtonText(/Create Atom/)
         .click()
