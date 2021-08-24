@@ -76,16 +76,28 @@ const renderElement: RenderHandler = (element, context) => {
       elementProps,
     )
 
+    const children = []
+
+    if (React.Children.count(renderedChildren)) {
+      children.push(renderedChildren)
+    } else if (propsCombined.children) {
+      children.push(propsCombined.children)
+    }
+
+    if (context.postChildrenRenderHook) {
+      children.push(context.postChildrenRenderHook(element))
+    }
+
     return (
       <RootComponent
         {...propsCombined}
         css={element.css ? css(element.css) : undefined}
       >
-        {React.Children.count(renderedChildren)
-          ? renderedChildren
-          : propsCombined.children}
-        {context.postChildrenRenderHook &&
-          context.postChildrenRenderHook(element)}
+        {/*
+        It's important to be undefined if we have no children to display,
+        since void components like input will throw an error if their children prop isn't undefined
+        */}
+        {children.length ? children : undefined}
       </RootComponent>
     )
   }
