@@ -40,16 +40,16 @@ enum TypeEdgeKind {
 }
 
 type ArrayType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKind!
   typeGraph: TypeGraph!
 }
 
 interface Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKind!
   typeGraph: TypeGraph!
 }
 
@@ -67,9 +67,9 @@ enum TypeKind {
 The ComponentType allows selecting a Component in the props form. The value is stored as the componentId 
 """
 type ComponentType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKind!
   typeGraph: TypeGraph!
 }
 
@@ -77,9 +77,9 @@ type ComponentType implements Type {
 The ElementType allows selecting an Element in the props form. The value is stored as the elementId 
 """
 type ElementType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKind!
   typeGraph: TypeGraph!
   kind: ElementTypeKind!
 }
@@ -97,17 +97,17 @@ type EnumTypeValue {
 }
 
 type EnumType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKind!
   typeGraph: TypeGraph!
   allowedValues: [EnumTypeValue!]!
 }
 
 type InterfaceType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKind!
   typeGraph: TypeGraph!
   fields: [Field!]!
 }
@@ -116,16 +116,16 @@ type InterfaceType implements Type {
 The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId 
 """
 type LambdaType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKind!
   typeGraph: TypeGraph!
 }
 
 type PrimitiveType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKind!
   typeGraph: TypeGraph!
   primitiveKind: PrimitiveKind!
 }
@@ -138,9 +138,11 @@ enum PrimitiveKind {
 }
 
 type TypeGraph {
-  vertices: [Type!]!
+  vertices: [TypeVertex!]!
   edges: [TypeEdge!]!
 }
+
+union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType
 
 type Atom {
   id: ID!
@@ -347,10 +349,10 @@ type Element {
   """
   name: String!
   css: String
-  atom: Atom
 
   """Props in a json format"""
   props: String!
+  atom: Atom
 }
 
 type Component {
@@ -770,17 +772,17 @@ input DeleteAtomInput {
 }
 
 input ImportAtomsInput {
-  atoms: [AtomWithApi!]!
+  atoms: [ImportAtom!]!
 }
 
-input AtomWithApi {
+input ImportAtom {
   name: String!
   type: AtomType!
-  api: TypeGraphInput!
+  api: ImportTypeGraphInput!
 }
 
-input TypeGraphInput {
-  vertices: String!
+input ImportTypeGraphInput {
+  name: String!
 }
 
 input UpdateAtomInput {
