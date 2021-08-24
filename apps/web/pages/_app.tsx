@@ -11,8 +11,6 @@ import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 
-require('../src/styles/antd-theme.less')
-
 const queryClient = new QueryClient()
 
 const AppContainer = ({ pageProps, Component }: AppProps<any>) => {

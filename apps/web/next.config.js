@@ -1,6 +1,7 @@
 const withNx = require('@nrwl/next/plugins/with-nx')
 const withPlugins = require('next-compose-plugins')
 const withAntdLess = require('next-plugin-antd-less')
+const path = require('path')
 // const nodeExternals = require('webpack-node-externals')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -8,6 +9,17 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 module.exports = withPlugins(
-  [withAntdLess, withBundleAnalyzer],
+  [
+    [
+      withAntdLess,
+      {
+        lessVarsFilePath: path.resolve(
+          process.cwd(),
+          'apps/web/src/styles/antd-theme.less',
+        ),
+      },
+    ],
+    withBundleAnalyzer,
+  ],
   withNx({ cssModules: false }),
 )
