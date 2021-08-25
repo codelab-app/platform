@@ -1,4 +1,7 @@
-import { ElementFragment } from '@codelab/shared/codegen/graphql'
+import {
+  ElementFragment,
+  useGetElementLazyQuery,
+} from '@codelab/shared/codegen/graphql'
 import { useCallback, useEffect } from 'react'
 import { atom, useRecoilState, useSetRecoilState } from 'recoil'
 
@@ -55,12 +58,46 @@ export const useSetBuilder = () => {
   }
 }
 
+const useFetchElement = (
+  element: ElementFragment | undefined,
+  setElement: (element?: ElementFragment) => any,
+) => {
+  // Doing this makes sure the selected/hovering element objects are updated whenever we mutate the actual element and refetch
+  // it should be cached, so this shouldn't cause another api call
+
+  const [fetchElement, { data: fetchedElement, loading }] =
+    useGetElementLazyQuery()
+
+  useEffect(() => {
+    if (element) {
+      fetchElement({
+        variables: { input: { elementId: element?.id } },
+      })
+    }
+  }, [fetchElement, element])
+
+  useEffect(() => {
+    if (
+      element &&
+      fetchedElement &&
+      fetchedElement.getElement &&
+      element.id === fetchedElement.getElement?.id &&
+      element !== fetchedElement &&
+      !loading
+    ) {
+      setElement(fetchedElement.getElement)
+    }
+  }, [element, fetchedElement, loading, setElement])
+}
+
 /**
  * Hook for managing the builder state
  */
 export const useBuilder = () => {
   const [state] = useRecoilState(elementBuilderState)
   const setters = useSetBuilder()
+  useFetchElement(state.selectedElement, setters.setSelectedElement)
+  useFetchElement(state.hoveringElement, setters.setHoveringElement)
 
   return {
     ...setters,
