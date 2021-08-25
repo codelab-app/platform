@@ -1,7 +1,6 @@
 import { DgraphEntityType } from '../../dgraph-entity-type'
 import { DgraphEntity } from '../../interfaces'
-import { IBuildable } from '../i-query-builder'
-import { DgraphFilter, FilterConnection } from './dgraph-filter'
+import { DgraphFilter } from './dgraph-filter'
 
 /** https://dgraph.io/docs/query-language/functions/#inequality */
 export class EqFilter<
@@ -10,8 +9,6 @@ export class EqFilter<
   private readonly _predicate?: keyof TEntity | string
 
   private readonly _value?: string
-
-  private _additionalString = ''
 
   constructor(
     predicate: TEntity extends DgraphEntity<any> ? keyof TEntity : string,
@@ -29,31 +26,9 @@ export class EqFilter<
 
     const valueString = this.getValueString()
 
-    this.withFilter(
-      `eq(${this._predicate}, ${valueString}) ${this._additionalString}`,
-    )
+    this.withFilter(`eq(${this._predicate}, ${valueString})`)
 
     return super.build()
-  }
-
-  and(otherFilter: DgraphFilter | IBuildable | string) {
-    if (otherFilter instanceof DgraphFilter) {
-      otherFilter.setConnectionPrefix(FilterConnection.AND)
-      this._additionalString += ' ' + otherFilter.build()
-    } else {
-      this._additionalString +=
-        ' and ' +
-        (typeof otherFilter === 'string' ? otherFilter : otherFilter.build())
-    }
-  }
-
-  or(otherFilter: DgraphFilter | IBuildable) {
-    if (otherFilter instanceof DgraphFilter) {
-      otherFilter.setConnectionPrefix(FilterConnection.OR)
-      this._additionalString += ' ' + otherFilter.build()
-    } else {
-      this._additionalString += ' or ' + otherFilter.build()
-    }
   }
 
   private getValueString() {
