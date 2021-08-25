@@ -34,6 +34,7 @@ const TabContainer = styled.div`
   .tab-panel {
     ${tw`px-4 py-2 `}
   }
+
   .tab-panel,
   .ant-tabs-content {
     overflow: auto;
@@ -48,12 +49,16 @@ export interface MetaPaneBuilderProps {
   renderUpdateCssContent: (
     element: Omit<ElementFragment, 'atom'> & { atom: __AtomFragment },
   ) => React.ReactNode
+  renderUpdateHooksContent: (
+    element: Omit<ElementFragment, 'atom'> & { atom: __AtomFragment },
+  ) => React.ReactNode
 }
 
 export const MetaPaneBuilderTemplate = ({
   renderUpdateElementContent,
   renderUpdateCssContent,
   renderUpdatePropsContent,
+  renderUpdateHooksContent,
 }: MetaPaneBuilderProps) => {
   const {
     state: { selectedElement },
@@ -82,7 +87,7 @@ export const MetaPaneBuilderTemplate = ({
           <Tabs.TabPane tab="Props" key={selectedElement.id + '_tab2'}>
             {selectedElement.atom
               ? renderUpdatePropsContent(selectedElement as any)
-              : 'Add an atom to this element to edit its props'}
+              : `Add an atom to this element to edit its props`}
           </Tabs.TabPane>
           <Tabs.TabPane
             style={{ overflow: 'visible' }}
@@ -91,7 +96,16 @@ export const MetaPaneBuilderTemplate = ({
           >
             {selectedElement.atom
               ? renderUpdateCssContent(selectedElement as any)
-              : 'Add an atom to this page element to edit its CSS'}
+              : `Add an atom to this page element to edit its CSS`}
+          </Tabs.TabPane>
+          <Tabs.TabPane
+            style={{ overflow: 'visible' }}
+            tab="Hooks"
+            key={selectedElement.id + '_tab4'}
+          >
+            {selectedElement.atom
+              ? renderUpdateHooksContent(selectedElement as any)
+              : `Add an atom to this page element to edit its hooks`}
           </Tabs.TabPane>
         </Tabs>
       </TabContainer>

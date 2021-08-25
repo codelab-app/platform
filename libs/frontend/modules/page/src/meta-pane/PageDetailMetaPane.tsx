@@ -2,6 +2,7 @@ import { MetaPaneBuilderTemplate } from '@codelab/frontend/modules/builder'
 import {
   DeleteElementButton,
   ElementCssEditor,
+  ElementHookSection,
   UpdateElementPropsForm,
 } from '@codelab/frontend/modules/element'
 import { PageContext } from '@codelab/frontend/presenter/container'
@@ -39,6 +40,9 @@ export const PageDetailMetaPane = () => {
       )}
       renderUpdateCssContent={(element) => (
         <ElementCssEditor key={element.id} element={element} />
+      )}
+      renderUpdateHooksContent={(element) => (
+        <ElementHookSection key={element.id} element={element} />
       )}
     />
   )

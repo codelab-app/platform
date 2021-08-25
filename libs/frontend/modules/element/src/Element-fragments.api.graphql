@@ -33,9 +33,13 @@ fragment Hook on Hook {
   id
   type
   config {
-    __typename
-    ...QueryHookConfig
+    ...HookConfig
   }
+}
+
+fragment HookConfig on HookConfig {
+  __typename
+  ...QueryHookConfig
 }
 
 fragment QueryHookConfig on QueryHookConfig {
