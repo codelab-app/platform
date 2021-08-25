@@ -36,9 +36,9 @@ export type AppByPageFilter = {
 }
 
 export type ArrayType = Type & {
+  typeKind: TypeKind
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKind
   typeGraph: TypeGraph
 }
 
@@ -242,14 +242,8 @@ export type AtomWhereUniqueInput = {
   element?: Maybe<Scalars['String']>
 }
 
-export type AtomWithApi = {
-  name: Scalars['String']
-  type: AtomType
-  api: TypeGraphInput
-}
-
 export type AtomsWhereInput = {
-  ids: Array<Scalars['String']>
+  ids?: Maybe<Array<Scalars['String']>>
 }
 
 export type Component = {
@@ -259,9 +253,9 @@ export type Component = {
 
 /** The ComponentType allows selecting a Component in the props form. The value is stored as the componentId  */
 export type ComponentType = Type & {
+  typeKind: TypeKind
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKind
   typeGraph: TypeGraph
 }
 
@@ -397,9 +391,9 @@ export type Element = {
   /** Due to union nullability issue, we have to make this non-nullable. Defaults to atom type */
   name: Scalars['String']
   css?: Maybe<Scalars['String']>
-  atom?: Maybe<Atom>
   /** Props in a json format */
   props: Scalars['String']
+  atom?: Maybe<Atom>
 }
 
 /** An edge between two element nodes */
@@ -420,9 +414,9 @@ export type ElementGraph = {
 
 /** The ElementType allows selecting an Element in the props form. The value is stored as the elementId  */
 export type ElementType = Type & {
+  typeKind: TypeKind
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKind
   typeGraph: TypeGraph
   kind: ElementTypeKind
 }
@@ -436,9 +430,9 @@ export enum ElementTypeKind {
 export type ElementVertex = Element | Component
 
 export type EnumType = Type & {
+  typeKind: TypeKind
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKind
   typeGraph: TypeGraph
   allowedValues: Array<EnumTypeValue>
 }
@@ -452,6 +446,10 @@ export type EnumTypeValue = {
 export type ExecuteLambdaInput = {
   lambdaId: Scalars['String']
   payload?: Maybe<Scalars['String']>
+}
+
+export type ExportAtom = {
+  payload: Scalars['String']
 }
 
 export type Field = {
@@ -538,14 +536,24 @@ export type GetUsersInput = {
   sort: Scalars['String']
 }
 
+export type ImportAtom = {
+  name: Scalars['String']
+  type: AtomType
+  api: ImportTypeGraphInput
+}
+
 export type ImportAtomsInput = {
-  atoms: Array<AtomWithApi>
+  atoms: Array<ImportAtom>
+}
+
+export type ImportTypeGraphInput = {
+  name: Scalars['String']
 }
 
 export type InterfaceType = Type & {
+  typeKind: TypeKind
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKind
   typeGraph: TypeGraph
   fields: Array<Field>
 }
@@ -563,9 +571,9 @@ export type LambdaPayload = {
 
 /** The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId  */
 export type LambdaType = Type & {
+  typeKind: TypeKind
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKind
   typeGraph: TypeGraph
 }
 
@@ -776,9 +784,9 @@ export enum PrimitiveKind {
 }
 
 export type PrimitiveType = Type & {
+  typeKind: TypeKind
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKind
   typeGraph: TypeGraph
   primitiveKind: PrimitiveKind
 }
@@ -798,6 +806,7 @@ export type Query = {
   getComponentElements?: Maybe<ElementGraph>
   getComponents: Array<Component>
   getAtoms?: Maybe<Array<Atom>>
+  exportAtoms?: Maybe<Array<ExportAtom>>
   getAtom?: Maybe<Atom>
   getType?: Maybe<Type>
   getTypeGraph?: Maybe<TypeGraph>
@@ -849,6 +858,10 @@ export type QueryGetComponentsArgs = {
 }
 
 export type QueryGetAtomsArgs = {
+  input?: Maybe<GetAtomsInput>
+}
+
+export type QueryExportAtomsArgs = {
   input?: Maybe<GetAtomsInput>
 }
 
@@ -905,9 +918,9 @@ export type TagGraph = {
 export type TagVertex = Tag
 
 export type Type = {
+  typeKind: TypeKind
   id: Scalars['ID']
   name: Scalars['String']
-  typeKind: TypeKind
   typeGraph: TypeGraph
 }
 
@@ -930,12 +943,8 @@ export enum TypeEdgeKind {
 }
 
 export type TypeGraph = {
-  vertices: Array<Type>
+  vertices: Array<TypeVertex>
   edges: Array<TypeEdge>
-}
-
-export type TypeGraphInput = {
-  vertices: Scalars['String']
 }
 
 export enum TypeKind {
@@ -952,6 +961,15 @@ export type TypeRef = {
   existingTypeId?: Maybe<Scalars['String']>
   newType?: Maybe<CreateTypeInput>
 }
+
+export type TypeVertex =
+  | EnumType
+  | PrimitiveType
+  | ArrayType
+  | ComponentType
+  | ElementType
+  | InterfaceType
+  | LambdaType
 
 export type TypesByIdsFilter = {
   typeIds: Array<Scalars['String']>
@@ -1293,7 +1311,9 @@ export type ExportAtomsQueryVariables = Exact<{
   input?: Maybe<GetAtomsInput>
 }>
 
-export type ExportAtomsQuery = { getAtoms?: Maybe<Array<AtomExportFragment>> }
+export type ExportAtomsQuery = {
+  exportAtoms?: Maybe<Array<{ payload: string }>>
+}
 
 export type GetAtomQueryVariables = Exact<{
   input: GetAtomInput
@@ -1305,7 +1325,7 @@ export type GetAtomsQueryVariables = Exact<{
   input?: Maybe<GetAtomsInput>
 }>
 
-export type GetAtomsQuery = { atoms?: Maybe<Array<__AtomFragment>> }
+export type GetAtomsQuery = { getAtoms?: Maybe<Array<__AtomFragment>> }
 
 export type UpdateAtomMutationVariables = Exact<{
   input: UpdateAtomInput
@@ -1541,13 +1561,13 @@ export type __InterfaceFragment = { id: string; name: string }
 export type __TypeGraphFragment = {
   edges: Array<__TypeEdgeFragment>
   vertices: Array<
+    | __Type_EnumType_Fragment
+    | __Type_PrimitiveType_Fragment
     | __Type_ArrayType_Fragment
     | __Type_ComponentType_Fragment
     | __Type_ElementType_Fragment
-    | __Type_EnumType_Fragment
     | __Type_InterfaceType_Fragment
     | __Type_LambdaType_Fragment
-    | __Type_PrimitiveType_Fragment
   >
 }
 
@@ -3043,11 +3063,10 @@ export type DeleteAtomMutationOptions = Apollo.BaseMutationOptions<
 >
 export const ExportAtomsGql = gql`
   query ExportAtoms($input: GetAtomsInput) {
-    getAtoms(input: $input) {
-      ...AtomExport
+    exportAtoms(input: $input) {
+      payload
     }
   }
-  ${AtomExportFragmentDoc}
 `
 
 /**
@@ -3158,7 +3177,7 @@ export function refetchGetAtomQuery(variables?: GetAtomQueryVariables) {
 }
 export const GetAtomsGql = gql`
   query GetAtoms($input: GetAtomsInput) {
-    atoms: getAtoms(input: $input) {
+    getAtoms(input: $input) {
       ...__Atom
     }
   }
@@ -5208,11 +5227,10 @@ export const DeleteAtom = gql`
 `
 export const ExportAtoms = gql`
   query ExportAtoms($input: GetAtomsInput) {
-    getAtoms(input: $input) {
-      ...AtomExport
+    exportAtoms(input: $input) {
+      payload
     }
   }
-  ${AtomExport}
 `
 export const GetAtom = gql`
   query GetAtom($input: GetAtomInput!) {
@@ -5224,7 +5242,7 @@ export const GetAtom = gql`
 `
 export const GetAtoms = gql`
   query GetAtoms($input: GetAtomsInput) {
-    atoms: getAtoms(input: $input) {
+    getAtoms(input: $input) {
       ...__Atom
     }
   }

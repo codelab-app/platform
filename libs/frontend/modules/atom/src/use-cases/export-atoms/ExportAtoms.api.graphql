@@ -11,8 +11,11 @@ fragment AtomExport on Atom {
     }
   }
 }
+
+# We return a base64 string for frotnend to download the file
+# https://stackoverflow.com/questions/54983080/return-file-from-graphql-resolve
 query ExportAtoms($input: GetAtomsInput) {
-  getAtoms(input: $input) {
-    ...AtomExport
+  exportAtoms(input: $input) {
+    payload
   }
 }

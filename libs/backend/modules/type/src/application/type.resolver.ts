@@ -53,6 +53,10 @@ export class TypeResolver {
     private typeGraphAdapter: TypeGraphAdapter,
   ) {}
 
+  /**
+   * Used by export to resolve the graph on the type
+   * @param api
+   */
   @ResolveField('typeGraph', () => TypeGraph)
   async typeGraph(@Parent() api: InterfaceType) {
     const { id } = api

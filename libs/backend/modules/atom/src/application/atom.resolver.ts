@@ -1,10 +1,21 @@
-import { CreateResponse, GqlAuthGuard, Void } from '@codelab/backend/infra'
+import { ApolloClient } from '@apollo/client'
+import {
+  ApolloClientTokens,
+  CreateResponse,
+  GqlAuthGuard,
+  Void,
+} from '@codelab/backend/infra'
 import {
   GetTypeService,
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
-import { Injectable, UseGuards } from '@nestjs/common'
+import {
+  GetAtomsGql,
+  GetAtomsQuery,
+  GetAtomsQueryVariables,
+} from '@codelab/shared/codegen/graphql'
+import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -17,6 +28,7 @@ import { AtomAdapter } from '../domain/atom.adapter'
 import { Atom } from '../domain/atom.model'
 import { CreateAtomInput, CreateAtomService } from '../use-cases/create-atom'
 import { DeleteAtomInput, DeleteAtomService } from '../use-cases/delete-atom'
+import { ExportAtom } from '../use-cases/export-atoms/export-atom.model'
 import { GetAtomService } from '../use-cases/get-atom'
 import { GetAtomInput } from '../use-cases/get-atom/get-atom.input'
 import { GetAtomsService } from '../use-cases/get-atoms'
@@ -28,6 +40,8 @@ import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
 @Injectable()
 export class AtomResolver {
   constructor(
+    @Inject(ApolloClientTokens.ApolloClientProvider)
+    private client: ApolloClient<any>,
     private createAtomService: CreateAtomService,
     private getAtomService: GetAtomService,
     private getAtomsService: GetAtomsService,
@@ -61,6 +75,39 @@ export class AtomResolver {
     }
 
     return this.atomAdapter.map(atoms)
+  }
+
+  /**
+   * We wrap around getAtoms query, so we can utilize all the nested resolvers. Then we convert all to payload string
+   */
+  @Query(() => [ExportAtom], { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  async exportAtoms(@Args('input', { nullable: true }) input?: GetAtomsInput) {
+    const {
+      data: { getAtoms },
+    } = await this.client.query<GetAtomsQuery, GetAtomsQueryVariables>({
+      query: GetAtomsGql,
+      variables: {
+        input,
+      },
+    })
+
+    if (!getAtoms) {
+      return null
+    }
+
+    /**
+     * Parse for payload
+     */
+    console.log(getAtoms)
+
+    const base64Buffer = Buffer.from(JSON.stringify(getAtoms)).toString(
+      'base64',
+    )
+
+    console.log(base64Buffer)
+
+    return base64Buffer
   }
 
   @ResolveField('api', () => InterfaceType, { nullable: true })

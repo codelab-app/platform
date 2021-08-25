@@ -1,4 +1,10 @@
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
+import {
+  ApolloClient,
+  ApolloLink,
+  from,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client'
 import { fetch } from 'cross-fetch'
 import { Auth0Service } from '../auth0'
 import {
@@ -8,7 +14,7 @@ import {
 import { ApolloClientTokens } from './config/apollo-client.tokens'
 
 /**
- * Provider for access to api endpoint
+ * Used internally to access own API
  */
 export const apolloClientProvider = {
   provide: ApolloClientTokens.ApolloClientProvider,
@@ -18,17 +24,25 @@ export const apolloClientProvider = {
   ) => {
     const accessToken = await auth0Service.getAccessToken()
 
-    const apiLink = new HttpLink({
+    const httpLink = new HttpLink({
       uri: _apolloClientConfig?.endpoint,
       credentials: 'same-origin',
       fetch,
     })
 
+    const authMiddleware = new ApolloLink((operation, forward) => {
+      operation.setContext(({ headers = {} }) => ({
+        headers: {
+          ...headers,
+          authorization: `Bearer ${accessToken}`,
+        },
+      }))
+
+      return forward(operation)
+    })
+
     return new ApolloClient({
-      link: apiLink,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+      link: from([authMiddleware, httpLink]),
       cache: new InMemoryCache(),
       ssrMode: true,
       defaultOptions: {

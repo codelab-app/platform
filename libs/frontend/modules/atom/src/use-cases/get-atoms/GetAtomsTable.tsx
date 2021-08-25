@@ -93,7 +93,7 @@ export const GetAtomsTable = () => {
     return <Spin />
   }
 
-  const atoms = data?.atoms ?? []
+  const atoms = data?.getAtoms ?? []
 
   const rowSelection = {
     onChange: (
