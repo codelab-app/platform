@@ -16,6 +16,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { ExportAtomsButton } from '../export-atoms/ExportAtomsButton'
+import { ImportAtomsUpload } from '../import-atoms'
 
 export type Record = __AtomFragment
 
@@ -114,6 +115,7 @@ export const GetAtomsTable = () => {
     <>
       <Space style={{ marginBottom: 16 }}>
         <ExportAtomsButton atomIds={selectedIds} />
+        <ImportAtomsUpload />
       </Space>
       <Table
         rowSelection={{

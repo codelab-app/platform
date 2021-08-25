@@ -1,18 +1,4 @@
-fragment AtomExport on Atom {
-  id
-  name
-  type
-  api {
-    id
-    name
-    typeKind
-    typeGraph {
-      ...__TypeGraph
-    }
-  }
-}
-
-# We return a base64 string for frotnend to download the file
+# We return a base64 string for frontend to download the file
 # https://stackoverflow.com/questions/54983080/return-file-from-graphql-resolve
 query ExportAtoms($input: GetAtomsInput) {
   exportAtoms(input: $input) {

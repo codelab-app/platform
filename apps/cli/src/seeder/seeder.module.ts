@@ -21,7 +21,8 @@ export const SeederProvider = 'SEEDER_PROVIDER'
         auth0Service: Auth0Service,
         _serverConfig: ServerConfig,
       ) => {
-        const accessToken = (await auth0Service.getAccessToken()) ?? ''
+        // const accessToken = (await auth0Service.getAccessToken()) ?? ''
+        const accessToken = ''
 
         const client = new GraphQLClient(
           new URL('graphql', _serverConfig.endpoint).toString(),

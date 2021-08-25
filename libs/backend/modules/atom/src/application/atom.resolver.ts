@@ -11,10 +11,11 @@ import {
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
 import {
-  GetAtomsGql,
   GetAtomsQuery,
   GetAtomsQueryVariables,
+  GetExportAtomsGql,
 } from '@codelab/shared/codegen/graphql'
+import { stringToBase64 } from '@codelab/shared/utils'
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -28,7 +29,7 @@ import { AtomAdapter } from '../domain/atom.adapter'
 import { Atom } from '../domain/atom.model'
 import { CreateAtomInput, CreateAtomService } from '../use-cases/create-atom'
 import { DeleteAtomInput, DeleteAtomService } from '../use-cases/delete-atom'
-import { ExportAtom } from '../use-cases/export-atoms/export-atom.model'
+import { ExportAtoms } from '../use-cases/export-atoms/export-atoms.model'
 import { GetAtomService } from '../use-cases/get-atom'
 import { GetAtomInput } from '../use-cases/get-atom/get-atom.input'
 import { GetAtomsService } from '../use-cases/get-atoms'
@@ -80,13 +81,13 @@ export class AtomResolver {
   /**
    * We wrap around getAtoms query, so we can utilize all the nested resolvers. Then we convert all to payload string
    */
-  @Query(() => [ExportAtom], { nullable: true })
+  @Query(() => ExportAtoms, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async exportAtoms(@Args('input', { nullable: true }) input?: GetAtomsInput) {
     const {
       data: { getAtoms },
     } = await this.client.query<GetAtomsQuery, GetAtomsQueryVariables>({
-      query: GetAtomsGql,
+      query: GetExportAtomsGql,
       variables: {
         input,
       },
@@ -97,17 +98,11 @@ export class AtomResolver {
     }
 
     /**
-     * Parse for payload
+     * GraphQL uses JSON format, which represents as text format, not as binary.
+     *
+     * We want to transmit a file based encoding for the frontend to download as file
      */
-    console.log(getAtoms)
-
-    const base64Buffer = Buffer.from(JSON.stringify(getAtoms)).toString(
-      'base64',
-    )
-
-    console.log(base64Buffer)
-
-    return base64Buffer
+    return { payload: stringToBase64(JSON.stringify(getAtoms)) }
   }
 
   @ResolveField('api', () => InterfaceType, { nullable: true })

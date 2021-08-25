@@ -448,7 +448,7 @@ export type ExecuteLambdaInput = {
   payload?: Maybe<Scalars['String']>
 }
 
-export type ExportAtom = {
+export type ExportAtoms = {
   payload: Scalars['String']
 }
 
@@ -536,18 +536,8 @@ export type GetUsersInput = {
   sort: Scalars['String']
 }
 
-export type ImportAtom = {
-  name: Scalars['String']
-  type: AtomType
-  api: ImportTypeGraphInput
-}
-
 export type ImportAtomsInput = {
-  atoms: Array<ImportAtom>
-}
-
-export type ImportTypeGraphInput = {
-  name: Scalars['String']
+  payload: Scalars['String']
 }
 
 export type InterfaceType = Type & {
@@ -806,7 +796,7 @@ export type Query = {
   getComponentElements?: Maybe<ElementGraph>
   getComponents: Array<Component>
   getAtoms?: Maybe<Array<Atom>>
-  exportAtoms?: Maybe<Array<ExportAtom>>
+  exportAtoms?: Maybe<ExportAtoms>
   getAtom?: Maybe<Atom>
   getType?: Maybe<Type>
   getTypeGraph?: Maybe<TypeGraph>
@@ -1295,25 +1285,11 @@ export type DeleteAtomMutationVariables = Exact<{
 
 export type DeleteAtomMutation = { deleteAtom?: Maybe<void> }
 
-export type AtomExportFragment = {
-  id: string
-  name: string
-  type: AtomType
-  api: {
-    id: string
-    name: string
-    typeKind: TypeKind
-    typeGraph: __TypeGraphFragment
-  }
-}
-
 export type ExportAtomsQueryVariables = Exact<{
   input?: Maybe<GetAtomsInput>
 }>
 
-export type ExportAtomsQuery = {
-  exportAtoms?: Maybe<Array<{ payload: string }>>
-}
+export type ExportAtomsQuery = { exportAtoms?: Maybe<{ payload: string }> }
 
 export type GetAtomQueryVariables = Exact<{
   input: GetAtomInput
@@ -1326,6 +1302,26 @@ export type GetAtomsQueryVariables = Exact<{
 }>
 
 export type GetAtomsQuery = { getAtoms?: Maybe<Array<__AtomFragment>> }
+
+export type GetExport__AtomsFragment = {
+  id: string
+  name: string
+  type: AtomType
+  api: {
+    id: string
+    name: string
+    typeKind: TypeKind
+    typeGraph: __TypeGraphFragment
+  }
+}
+
+export type GetExportAtomsQueryVariables = Exact<{
+  input?: Maybe<GetAtomsInput>
+}>
+
+export type GetExportAtomsQuery = {
+  getAtoms?: Maybe<Array<GetExport__AtomsFragment>>
+}
 
 export type UpdateAtomMutationVariables = Exact<{
   input: UpdateAtomInput
@@ -1838,8 +1834,8 @@ export const __TypeGraphFragmentDoc = gql`
   ${__TypeEdgeFragmentDoc}
   ${__TypeFragmentDoc}
 `
-export const AtomExportFragmentDoc = gql`
-  fragment AtomExport on Atom {
+export const GetExport__AtomsFragmentDoc = gql`
+  fragment GetExport__Atoms on Atom {
     id
     name
     type
@@ -3231,6 +3227,70 @@ export type GetAtomsQueryResult = Apollo.QueryResult<
 >
 export function refetchGetAtomsQuery(variables?: GetAtomsQueryVariables) {
   return { query: GetAtomsGql, variables: variables }
+}
+export const GetExportAtomsGql = gql`
+  query GetExportAtoms($input: GetAtomsInput) {
+    getAtoms(input: $input) {
+      ...GetExport__Atoms
+    }
+  }
+  ${GetExport__AtomsFragmentDoc}
+`
+
+/**
+ * __useGetExportAtomsQuery__
+ *
+ * To run a query within a React component, call `useGetExportAtomsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetExportAtomsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetExportAtomsQuery({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGetExportAtomsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetExportAtomsQuery,
+    GetExportAtomsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetExportAtomsQuery, GetExportAtomsQueryVariables>(
+    GetExportAtomsGql,
+    options,
+  )
+}
+export function useGetExportAtomsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetExportAtomsQuery,
+    GetExportAtomsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetExportAtomsQuery, GetExportAtomsQueryVariables>(
+    GetExportAtomsGql,
+    options,
+  )
+}
+export type GetExportAtomsQueryHookResult = ReturnType<
+  typeof useGetExportAtomsQuery
+>
+export type GetExportAtomsLazyQueryHookResult = ReturnType<
+  typeof useGetExportAtomsLazyQuery
+>
+export type GetExportAtomsQueryResult = Apollo.QueryResult<
+  GetExportAtomsQuery,
+  GetExportAtomsQueryVariables
+>
+export function refetchGetExportAtomsQuery(
+  variables?: GetExportAtomsQueryVariables,
+) {
+  return { query: GetExportAtomsGql, variables: variables }
 }
 export const UpdateAtomGql = gql`
   mutation UpdateAtom($input: UpdateAtomInput!) {
@@ -4986,8 +5046,8 @@ export const __TypeGraph = gql`
   ${__TypeEdge}
   ${__Type}
 `
-export const AtomExport = gql`
-  fragment AtomExport on Atom {
+export const GetExport__Atoms = gql`
+  fragment GetExport__Atoms on Atom {
     id
     name
     type
@@ -5247,6 +5307,14 @@ export const GetAtoms = gql`
     }
   }
   ${__Atom}
+`
+export const GetExportAtoms = gql`
+  query GetExportAtoms($input: GetAtomsInput) {
+    getAtoms(input: $input) {
+      ...GetExport__Atoms
+    }
+  }
+  ${GetExport__Atoms}
 `
 export const UpdateAtom = gql`
   mutation UpdateAtom($input: UpdateAtomInput!) {
