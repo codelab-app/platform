@@ -4,6 +4,7 @@ import { ComponentFragment } from '@codelab/shared/codegen/graphql'
 import { css } from '@emotion/react'
 import deepmerge from 'deepmerge'
 import React, { ReactElement } from 'react'
+import { HookElementWrapper } from './hooks/HookElementWrapper'
 import { reactComponentFactory } from './reactComponentFactory'
 
 //
@@ -88,7 +89,7 @@ const renderElement: RenderHandler = (element, context) => {
       children.push(context.postChildrenRenderHook(element))
     }
 
-    return (
+    const rendered = (
       <RootComponent
         {...propsCombined}
         css={element.css ? css(element.css) : undefined}
@@ -100,6 +101,16 @@ const renderElement: RenderHandler = (element, context) => {
         {children.length ? children : undefined}
       </RootComponent>
     )
+
+    if (element.hooks?.length > 0) {
+      return (
+        <HookElementWrapper hooks={element.hooks}>
+          {rendered}
+        </HookElementWrapper>
+      )
+    }
+
+    return rendered
   }
 
   // ... or just the children if there's no atom
