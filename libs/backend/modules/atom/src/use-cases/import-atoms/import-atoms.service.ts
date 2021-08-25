@@ -7,12 +7,12 @@ import { ImportAtomsInput } from './import-atoms.input'
  * The calls are idempotent
  */
 export class ImportAtomsService implements UseCasePort<ImportAtomsInput, void> {
-  execute(request: ImportAtomsInput): Promise<any> {
+  execute(request: ImportAtomsInput): Promise<void> {
     const { payload } = request
     const data = JSON.parse(payload)
 
     console.log(data)
 
-    return Promise.resolve(undefined)
+    return Promise.resolve()
   }
 }

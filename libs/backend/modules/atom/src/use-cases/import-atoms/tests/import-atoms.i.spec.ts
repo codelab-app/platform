@@ -5,15 +5,12 @@ import {
   teardownTestModule,
 } from '@codelab/backend/infra'
 import {
-  GetAtomsGql,
-  GetAtomsInput,
-  GetAtomsQuery,
   ImportAtomsGql,
+  ImportAtomsInput,
   ImportAtomsMutation,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
-import { ImportAtomsInput } from '../import-atoms.input'
 
 describe('ImportAtoms', () => {
   let guestApp: INestApplication
@@ -35,7 +32,7 @@ describe('ImportAtoms', () => {
         guestApp,
         ImportAtomsGql,
         {
-          payload: '',
+          payload: '{}',
         },
         {
           message: 'Unauthorized',
@@ -50,17 +47,17 @@ describe('ImportAtoms', () => {
         userApp,
         ImportAtomsGql,
         {
-          payload: '',
+          payload: '{}',
         },
       )
 
-      const results = await domainRequest<GetAtomsInput, GetAtomsQuery>(
-        userApp,
-        GetAtomsGql,
-        {},
-      )
-
-      console.log(results)
+      // const results = await domainRequest<GetAtomsInput, GetAtomsQuery>(
+      //   userApp,
+      //   GetAtomsGql,
+      //   {},
+      // )
+      //
+      // console.log(results)
 
       expect(true).toBeTruthy()
     })
