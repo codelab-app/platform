@@ -25,4 +25,5 @@ export enum DgraphEntityType {
   Field = 'Field',
   Prop = 'Prop',
   Lambda = 'Lambda',
+  Hook = 'Hook',
 }

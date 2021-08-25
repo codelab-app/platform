@@ -25,6 +25,7 @@ const {
   Lambda,
   ElementType,
   ComponentType,
+  Hook,
 } = DgraphEntityType
 
 export const dgraphSchema = `
@@ -60,6 +61,7 @@ export const dgraphSchema = `
     atom
     props
     css
+    hooks
   }
 
   type ${Atom} {
@@ -116,6 +118,11 @@ export const dgraphSchema = `
     body
   }
 
+  type ${Hook} {
+    hookType
+    configJson
+  }
+
   name: string @index(term, trigram) .
   description: string .
 
@@ -160,4 +167,9 @@ export const dgraphSchema = `
   body: string .
 
   kind: string .
+
+  hookType: string @index(hash)  .
+  configJson: string .
+
+  hooks: [uid] @reverse .
 `
