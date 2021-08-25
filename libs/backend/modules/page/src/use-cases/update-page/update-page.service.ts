@@ -1,12 +1,11 @@
 import {
-  DgraphApp,
   DgraphPage,
   DgraphRepository,
-  DgraphUpdateMutationJson,
   DgraphUseCase,
+  jsonMutation,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+import { Txn } from 'dgraph-js-http'
 import { PageValidator } from '../../domain/page.validator'
 import { UpdatePageRequest } from './update-page.request'
 
@@ -24,11 +23,11 @@ export class UpdatePageService extends DgraphUseCase<UpdatePageRequest> {
 
     await this.dgraph.executeMutation(
       txn,
-      this.createMutation(request, existingAppId),
+      UpdatePageService.createMutation(request, existingAppId),
     )
   }
 
-  private createMutation(
+  private static createMutation(
     {
       input: {
         pageId,
@@ -37,29 +36,20 @@ export class UpdatePageService extends DgraphUseCase<UpdatePageRequest> {
     }: UpdatePageRequest,
     existingAppId: string,
   ) {
-    const mu: Mutation = {}
-    const setMutations = []
+    // if (existingAppId !== appId) {
+    //   const updateAppMutation: DgraphUpdateMutationJson<DgraphApp> = {
+    //     uid: appId,
+    //     pages: { uid: pageId },
+    //   }
+    //
+    //   setMutations.push(updateAppMutation)
+    //   mu.deleteNquads = `<${existingAppId}> pages <${pageId}> .`
+    // }
 
-    const updatePageJson: DgraphUpdateMutationJson<DgraphPage> = {
+    return jsonMutation<DgraphPage>({
       uid: pageId,
       name,
-    }
-
-    setMutations.push(updatePageJson)
-
-    if (existingAppId !== appId) {
-      const updateAppMutation: DgraphUpdateMutationJson<DgraphApp> = {
-        uid: appId,
-        pages: { uid: pageId },
-      }
-
-      setMutations.push(updateAppMutation)
-      mu.deleteNquads = `<${existingAppId}> pages <${pageId}> .`
-    }
-
-    mu.setJson = setMutations
-
-    return mu
+    })
   }
 
   protected async validate({

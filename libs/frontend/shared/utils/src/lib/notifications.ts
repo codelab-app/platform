@@ -1,5 +1,4 @@
 import { notification } from 'antd'
-import { ReactNode } from 'react'
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error'
 
@@ -9,7 +8,7 @@ export interface NotificationOptions<TEvent> {
   /** Enter a custom title of the notification. If you don't, it will be "info" */
   title?: string | ((e: TEvent | undefined) => string)
   /** Enter a custom content of the notification. If you don't, it will be inferred from the error message, if found */
-  content?: string | ((e: TEvent | undefined) => string) | ReactNode
+  content?: string | ((e: TEvent | undefined) => string)
 }
 
 const defaultOptions: NotificationOptions<any> = {
@@ -25,40 +24,37 @@ export const notify = <TEvent extends any>(
   e: TEvent | undefined = undefined,
 ) => {
   const { content, type, title } = { ...defaultOptions, ...options }
-  let message
-  let description
+  let titleString: string
+  let contentString: string
 
   if (typeof title === 'string') {
-    message = title
+    titleString = title
   } else if (typeof title === 'function') {
-    message = title(e)
+    titleString = title(e)
   } else {
-    message = 'Error'
+    titleString = 'Error'
   }
 
   if (typeof content === 'string') {
-    description = content
+    contentString = content
   } else if (typeof content === 'function') {
-    description = content(e)
-    // React object
-  } else if (typeof content === 'object') {
-    description = content
+    contentString = content(e)
   } else {
-    description = inferErrorMessage(e)
+    contentString = inferErrorMessage(e)
   }
 
   notification[type || 'info']({
-    message: message,
-    description: 'hello',
+    message: titleString,
+    description: contentString,
     placement: 'bottomRight',
   })
 
   if (type === 'warning') {
-    console.warn(message, description)
+    console.warn(titleString, contentString)
   } else if (type === 'error') {
-    console.error(message, description)
+    console.error(titleString, contentString)
   } else {
-    console.log(message, description)
+    console.log(titleString, contentString)
   }
 }
 
