@@ -11,8 +11,6 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-import { preprocessTypescript } from '@nrwl/cypress/plugins/preprocessor'
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const encrypt = require('cypress-nextjs-auth0/encrypt')
 
@@ -21,7 +19,7 @@ const pluginConfig: Cypress.PluginConfig = (on, config) => {
   // `config` is the resolved Cypress config
 
   // Preprocess Typescript file using Nx helper
-  on('file:preprocessor', preprocessTypescript(config))
+
   on('task', { encrypt })
 
   // Remap some of the .env values, because cypress-nextjs-auth0/encrypt requires them to be with other names
