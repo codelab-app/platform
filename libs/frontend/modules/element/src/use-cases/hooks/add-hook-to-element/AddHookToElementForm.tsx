@@ -74,6 +74,9 @@ export const AddHookToElementForm = ({
             'queryHook.url',
             'queryHook.method',
             'queryHook.body',
+            'queryHook.dataPropKey',
+            'queryHook.loadingPropKey',
+            'queryHook.errorPropKey',
           ]}
         />
       </DisplayIfType>

@@ -37,6 +37,18 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
         url: {
           type: 'string',
         },
+        dataPropKey: {
+          type: 'string',
+          nullable: true,
+        },
+        loadingPropKey: {
+          type: 'string',
+          nullable: true,
+        },
+        errorPropKey: {
+          type: 'string',
+          nullable: true,
+        },
       },
       required: ['url', 'method', 'queryKey'],
     },

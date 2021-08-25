@@ -6,26 +6,23 @@ registerEnumType(QueryMethod, { name: 'QueryMethod' })
 @InputType()
 export class QueryHookConfigInput implements QueryHookConfig {
   @Field()
-  queryKey: string
+  declare queryKey: string
 
   @Field()
-  url: string
+  declare url: string
 
   @Field(() => String, { nullable: true })
-  body?: string
+  declare body?: string
 
   @Field(() => QueryMethod)
-  method: QueryMethod
+  declare method: QueryMethod
 
-  constructor(
-    queryKey: string,
-    url: string,
-    body: string,
-    method: QueryMethod,
-  ) {
-    this.queryKey = queryKey
-    this.url = url
-    this.body = body
-    this.method = method
-  }
+  @Field(() => String, { nullable: true })
+  declare dataPropKey?: string
+
+  @Field(() => String, { nullable: true })
+  declare loadingPropKey?: string
+
+  @Field(() => String, { nullable: true })
+  declare errorPropKey?: string
 }

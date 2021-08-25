@@ -47,4 +47,7 @@ fragment QueryHookConfig on QueryHookConfig {
   method
   queryKey
   url
+  dataPropKey
+  errorPropKey
+  loadingPropKey
 }
