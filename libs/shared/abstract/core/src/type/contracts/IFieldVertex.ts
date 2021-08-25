@@ -1,4 +1,4 @@
-import { Vertex } from '../../graph/Vertex'
+import { Vertex } from '../../graph/vertex'
 
 export interface IFieldVertex extends Vertex {
   key: string

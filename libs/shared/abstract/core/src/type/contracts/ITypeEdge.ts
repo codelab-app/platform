@@ -1,4 +1,4 @@
-import { Edge } from '../../graph/Edge'
+import { Edge } from '../../graph/edge'
 import { TypeEdgeKind } from '../enums'
 import { IFieldVertex } from './IFieldVertex'
 

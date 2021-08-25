@@ -1,5 +1,5 @@
-import { Edge } from './Edge'
-import { Vertex, VertexInput } from './Vertex'
+import { Edge } from './edge'
+import { Vertex, VertexInput } from './vertex'
 
 export interface Graph<TVertex extends Vertex, TEdge extends Edge> {
   vertices: ReadonlyArray<TVertex>

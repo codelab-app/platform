@@ -1,2 +1,2 @@
-export * from './seed/createIfMissing'
-export * from './seed/errorIfNotFound'
+export * from './request/createIfMissing'
+export * from './request/errorIfNotFound'

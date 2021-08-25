@@ -1,4 +1,4 @@
-import { Graph, GraphInput } from '../../graph/Graph'
+import { Graph, GraphInput } from '../../graph/graph'
 import { ITypeEdge } from './ITypeEdge'
 import { ITypeVertex } from './ITypeVertex'
 import { ITypeVertexInput } from './ITypeVertex.input'

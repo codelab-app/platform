@@ -1,4 +1,4 @@
-import { Vertex } from '../../graph/Vertex'
+import { Vertex } from '../../graph/vertex'
 import { ElementTypeKind, PrimitiveKind, TypeKind } from '../enums'
 
 export type ITypeVertex =

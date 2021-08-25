@@ -1,6 +1,4 @@
-// TODO: Remove this
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ErrorCode } from '@codelab/backend/infra'
+import { ErrorCode } from '@codelab/backend/abstract/types'
 
 export const errorIfNotFound = (e: any) => {
   return (

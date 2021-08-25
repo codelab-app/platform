@@ -1,7 +1,7 @@
+import { AppError } from '@codelab/backend/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { GraphQLError, GraphQLFormattedError } from 'graphql'
-import { AppError } from '../../../../common'
 import {
   GraphqlServerConfig,
   graphqlServerConfig,
