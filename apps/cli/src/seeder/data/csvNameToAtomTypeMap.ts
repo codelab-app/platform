@@ -1,6 +1,8 @@
 import { AtomType } from '@codelab/shared/codegen/graphql'
 
-// Maps the name of the csv files to their atom type
+/**
+ * Maps the name of the csv files to their atom type
+ */
 export const csvNameToAtomTypeMap: Record<string, AtomType> = {
   //
   // Antd:

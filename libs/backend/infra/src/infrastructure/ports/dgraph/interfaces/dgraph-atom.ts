@@ -6,8 +6,6 @@ import { DgraphInterfaceType } from './types'
 export interface DgraphAtom
   extends DgraphEntity<DgraphEntityType.Atom>,
     Taggable {
-  label: string
-  // TODO: Rename to value
   name: string
   atomType: string
   api: DgraphInterfaceType

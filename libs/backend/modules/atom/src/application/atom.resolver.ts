@@ -1,10 +1,22 @@
-import { CreateResponse, GqlAuthGuard, Void } from '@codelab/backend/infra'
+import { ApolloClient } from '@apollo/client'
+import {
+  ApolloClientTokens,
+  CreateResponse,
+  GqlAuthGuard,
+  Void,
+} from '@codelab/backend/infra'
 import {
   GetTypeService,
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
-import { Injectable, UseGuards } from '@nestjs/common'
+import {
+  GetAtomsQuery,
+  GetAtomsQueryVariables,
+  GetExportAtomsGql,
+} from '@codelab/shared/codegen/graphql'
+import { stringToBase64 } from '@codelab/shared/utils'
+import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -17,16 +29,20 @@ import { AtomAdapter } from '../domain/atom.adapter'
 import { Atom } from '../domain/atom.model'
 import { CreateAtomInput, CreateAtomService } from '../use-cases/create-atom'
 import { DeleteAtomInput, DeleteAtomService } from '../use-cases/delete-atom'
+import { ExportAtoms } from '../use-cases/export-atoms/export-atoms.model'
 import { GetAtomService } from '../use-cases/get-atom'
 import { GetAtomInput } from '../use-cases/get-atom/get-atom.input'
 import { GetAtomsService } from '../use-cases/get-atoms'
 import { GetAtomsInput } from '../use-cases/get-atoms/get-atoms.input'
+import { ImportAtomsInput, ImportAtomsService } from '../use-cases/import-atoms'
 import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
 
 @Resolver(() => Atom)
 @Injectable()
 export class AtomResolver {
   constructor(
+    @Inject(ApolloClientTokens.ApolloClientProvider)
+    private client: ApolloClient<any>,
     private createAtomService: CreateAtomService,
     private getAtomService: GetAtomService,
     private getAtomsService: GetAtomsService,
@@ -35,6 +51,7 @@ export class AtomResolver {
     private getTypeService: GetTypeService,
     private atomAdapter: AtomAdapter,
     private typeAdapterFactory: TypeAdapterFactory,
+    private importAtomsService: ImportAtomsService,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -61,6 +78,33 @@ export class AtomResolver {
     return this.atomAdapter.map(atoms)
   }
 
+  /**
+   * We wrap around getAtoms query, so we can utilize all the nested resolvers. Then we convert all to payload string
+   */
+  @Query(() => ExportAtoms, { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  async exportAtoms(@Args('input', { nullable: true }) input?: GetAtomsInput) {
+    const {
+      data: { getAtoms },
+    } = await this.client.query<GetAtomsQuery, GetAtomsQueryVariables>({
+      query: GetExportAtomsGql,
+      variables: {
+        input,
+      },
+    })
+
+    if (!getAtoms) {
+      return null
+    }
+
+    /**
+     * GraphQL uses JSON format, which represents as text format, not as binary.
+     *
+     * We want to transmit a file based encoding for the frontend to download as file
+     */
+    return { payload: stringToBase64(JSON.stringify(getAtoms)) }
+  }
+
   @ResolveField('api', () => InterfaceType, { nullable: true })
   async api(@Parent() atom: Atom) {
     const { api } = atom
@@ -69,7 +113,13 @@ export class AtomResolver {
       return null
     }
 
-    return this.typeAdapterFactory.getMapper(api).map(api)
+    return this.typeAdapterFactory.getMapper(api).mapItem(api)
+  }
+
+  @Mutation(() => Void, { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  async importAtoms(@Args('input') input: ImportAtomsInput) {
+    await this.importAtomsService.execute(input)
   }
 
   @Query(() => Atom, { nullable: true })
@@ -81,7 +131,7 @@ export class AtomResolver {
       return null
     }
 
-    return this.atomAdapter.map(atom)
+    return this.atomAdapter.mapItem(atom)
   }
 
   @Mutation(() => Void, { nullable: true })

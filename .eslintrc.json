@@ -93,12 +93,13 @@
               },
               {
                 "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": ["scope:shared"]
+                "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
               },
               {
                 "sourceTag": "layer:domain:backend",
                 "onlyDependOnLibsWithTags": [
                   "layer:domain:backend",
+                  "scope:shared",
                   "layer:infra",
                   "type:abstract"
                 ]

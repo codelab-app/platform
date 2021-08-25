@@ -47,6 +47,9 @@
       "@codelab/backend/modules/user": [
         "libs/backend/modules/user/src/index.ts"
       ],
+      "@codelab/backend/shared/utils": [
+        "libs/backend/shared/utils/src/index.ts"
+      ],
       "@codelab/frontend/abstract/props": [
         "libs/frontend/abstract/props/src/index.ts"
       ],

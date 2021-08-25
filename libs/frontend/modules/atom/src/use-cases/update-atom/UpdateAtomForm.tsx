@@ -27,8 +27,8 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
     mutationOptions: {
       refetchQueries: [refetchGetAtomsQuery()],
     },
-    mapVariables: ({ name, type, label }: CreateAtomInput, state) => ({
-      input: { id: state.updateId, data: { name, type, label } },
+    mapVariables: ({ name, type }: CreateAtomInput, state) => ({
+      input: { id: state.updateId, data: { name, type } },
     }),
   })
 
@@ -41,7 +41,6 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
       model={{
         type: metadata?.type,
         name: metadata?.name,
-        label: metadata?.label,
       }}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating Atom',

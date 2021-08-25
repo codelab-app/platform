@@ -42,7 +42,6 @@ describe('UpdateAtom', () => {
       id: atomId,
       data: {
         name: 'Button updated (Ant Design)',
-        label: 'Button',
         type: AtomType.AntDesignButton,
       },
     }
@@ -78,8 +77,6 @@ describe('UpdateAtom', () => {
         GetAtomGql,
         getAtomInput,
       )
-
-      console.log(atom)
 
       expect(atom).toMatchObject({
         ...updateAtomInput.data,

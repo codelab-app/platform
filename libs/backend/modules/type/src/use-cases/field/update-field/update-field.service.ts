@@ -1,3 +1,4 @@
+import { NotFoundError } from '@codelab/backend/abstract/types'
 import {
   DgraphEntity,
   DgraphEntityType,
@@ -6,7 +7,6 @@ import {
   DgraphRepository,
   DgraphUseCase,
   jsonMutation,
-  NotFoundError,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'

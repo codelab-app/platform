@@ -63,7 +63,6 @@ export const dgraphSchema = `
   }
 
   type ${Atom} {
-    label
     name
     atomType
     api

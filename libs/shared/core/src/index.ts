@@ -1,3 +1,5 @@
 export * from './cytoscape/edge'
 export * from './cytoscape/element'
 export * from './graph/edge'
+export * from './tree/tree.adapter'
+export * from './type-graph/base-type-graph.adapter'

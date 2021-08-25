@@ -53,6 +53,10 @@ export class TypeResolver {
     private typeGraphAdapter: TypeGraphAdapter,
   ) {}
 
+  /**
+   * Used by export to resolve the graph on the type
+   * @param api
+   */
   @ResolveField('typeGraph', () => TypeGraph)
   async typeGraph(@Parent() api: InterfaceType) {
     const { id } = api
@@ -63,7 +67,7 @@ export class TypeResolver {
     }
 
     if (isDgraphInterfaceType(type)) {
-      return this.typeGraphAdapter.map(type)
+      return this.typeGraphAdapter.mapItem(type)
     }
 
     throw new Error('Type graph can only be retrieved for an Interface Type')
@@ -80,9 +84,7 @@ export class TypeResolver {
       return null
     }
 
-    const typeAdapter = this.typeAdapterFactory.getMapper(type)
-
-    return typeAdapter.map(type)
+    return this.typeAdapterFactory.getMapper(type).mapItem(type)
   }
 
   @UseGuards(GqlAuthGuard)
@@ -95,7 +97,7 @@ export class TypeResolver {
     }
 
     if (isDgraphInterfaceType(type)) {
-      return this.typeGraphAdapter.map(type)
+      return this.typeGraphAdapter.mapItem(type)
     }
 
     throw new Error('Type graph can only be retrieved for an Interface Type')
@@ -108,7 +110,7 @@ export class TypeResolver {
 
     return Promise.all(
       types.map((type) =>
-        this.typeAdapterFactory.getMapper(type).map(type as any),
+        this.typeAdapterFactory.getMapper(type).mapItem(type),
       ),
     )
   }

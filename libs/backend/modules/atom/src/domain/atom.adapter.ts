@@ -6,13 +6,12 @@ import { AtomType } from './atom-type.model'
 
 @Injectable()
 export class AtomAdapter extends BaseAdapter<DgraphAtom, Atom> {
-  mapItem({ name, atomType, uid, api, label }: DgraphAtom) {
+  mapItem({ name, atomType, uid, api }: DgraphAtom) {
     return new Atom({
       id: uid,
       type: atomType as AtomType,
       name,
       api,
-      label,
     })
   }
 }

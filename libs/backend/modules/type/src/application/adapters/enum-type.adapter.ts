@@ -17,7 +17,6 @@ export class EnumTypeAdapter extends BaseAdapter<DgraphEnumType, EnumType> {
   }: DgraphEnumType) {
     const allowedValues = this.enumTypeValueAdapter.map(dgraphAllowedValues)
 
-    // TODO: Remove any cast
-    return new EnumType(id, name, allowedValues as any)
+    return new EnumType({ id, name, allowedValues })
   }
 }

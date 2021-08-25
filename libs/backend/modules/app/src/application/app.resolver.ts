@@ -48,7 +48,7 @@ export class AppResolver {
       return null
     }
 
-    return this.appAdapter.map(app)
+    return this.appAdapter.mapItem(app)
   }
 
   @Query(() => [App])

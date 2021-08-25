@@ -42,7 +42,7 @@ export class Auth0Service {
 
       console.log('Please update `AUTH0_M2M_TOKEN` with', access_token)
 
-      return process.exit(1)
+      process.exit(1)
     }
 
     return this._auth0Config.api.accessToken

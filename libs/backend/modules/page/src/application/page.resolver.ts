@@ -73,7 +73,7 @@ export class PageResolver {
       return null
     }
 
-    return this.pageAdapter.map(page)
+    return this.pageAdapter.mapItem(page)
   }
 
   @Mutation(() => Void, { nullable: true })
@@ -117,7 +117,7 @@ export class PageResolver {
       return null
     }
 
-    return this.elementTreeAdapter.map(element)
+    return this.elementTreeAdapter.mapItem(element)
   }
 
   // The Page.app resolver is in app-api/../PageAppResolver

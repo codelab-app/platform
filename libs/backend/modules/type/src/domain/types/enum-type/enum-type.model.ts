@@ -7,19 +7,23 @@ import { EnumTypeValue } from './enum-type-value.model'
  * Allows only a set of values
  */
 @ObjectType({ implements: () => [Type] })
-export class EnumType implements Type<TypeKind.EnumType>, IEnumTypeVertex {
-  declare id: string
-
-  declare name: string
-
-  typeKind: TypeKind.EnumType = TypeKind.EnumType
-
+export class EnumType
+  extends Type<TypeKind.EnumType>
+  implements IEnumTypeVertex
+{
   @Field(() => [EnumTypeValue])
   declare allowedValues: Array<EnumTypeValue>
 
-  constructor(id: string, name: string, allowedValues: Array<EnumTypeValue>) {
+  constructor({
+    id,
+    name,
+    allowedValues,
+  }: Pick<EnumType, 'id' | 'name' | 'allowedValues'>) {
+    super(TypeKind.EnumType)
+
     this.id = id
     this.name = name
     this.allowedValues = allowedValues
+    this.__typename = TypeKind.EnumType as const
   }
 }

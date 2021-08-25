@@ -46,7 +46,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
       uid: blankNodeUid,
       'dgraph.type': [
         DgraphEntityType.Type,
-        this.getDgraphType(request),
+        CreateTypeService.getDgraphType(request),
       ] as any,
       name,
       itemType: arrayType ? { uid: arrayType.itemTypeId } : undefined,
@@ -66,7 +66,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
     await this.typeValidator.validateCreateTypeInput(request)
   }
 
-  private getDgraphType({
+  private static getDgraphType({
     interfaceType,
     primitiveType,
     enumType,

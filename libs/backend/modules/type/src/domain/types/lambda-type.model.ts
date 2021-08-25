@@ -11,15 +11,12 @@ import { Type } from './type.model'
     'The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId ',
 })
 export class LambdaType
-  implements Type<TypeKind.LambdaType>, ILambdaTypeVertex
+  extends Type<TypeKind.LambdaType>
+  implements ILambdaTypeVertex
 {
-  declare id: string
+  constructor({ id, name }: Pick<LambdaType, 'id' | 'name'>) {
+    super(TypeKind.LambdaType)
 
-  declare name: string
-
-  typeKind: TypeKind.LambdaType = TypeKind.LambdaType
-
-  constructor(id: string, name: string) {
     this.id = id
     this.name = name
   }

@@ -14,6 +14,7 @@ import {
 } from './application/adapters'
 import { ArrayTypeAdapter } from './application/adapters/array-type.adapter'
 import { TypeResolver } from './application/type.resolver'
+import { TypeGraphResolver } from './application/type-graph.resolver'
 import { TypeValidator } from './domain/type.validator'
 import { CreateTypeService } from './use-cases/type/create-type'
 import { DeleteTypeService } from './use-cases/type/delete-type'
@@ -54,10 +55,9 @@ const services = [
   TypeValidator,
 ]
 
-// TODO: Rename this lib to `field`, as field depends on type
 @Module({
   imports: [CytoscapeModule, TreeModule],
-  providers: [TypeResolver, Void, ...services],
+  providers: [TypeResolver, TypeGraphResolver, Void, ...services],
   exports: [...services],
 })
 export class TypeModule {}

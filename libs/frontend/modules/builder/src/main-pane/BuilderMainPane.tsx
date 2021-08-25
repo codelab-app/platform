@@ -154,9 +154,7 @@ export const BuilderMainPane = ({
               const element = node as any as ElementFragment
               const label = element.name
               const nodeId = element.id
-
-              const atomName =
-                element.atom?.name ?? element.atom?.label ?? element.atom?.type
+              const atomName = element.atom?.name || element.atom?.type
 
               return (
                 <Dropdown

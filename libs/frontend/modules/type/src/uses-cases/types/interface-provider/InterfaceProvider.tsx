@@ -66,11 +66,7 @@ export const InterfaceProvider = ({
   const { interfaceQuery, graphQuery } =
     useInterfaceProviderQueries(interfaceId)
 
-  const tree = useTypeTree(
-    graphQuery.data
-      ? graphQuery.data.getTypeGraph
-      : { edges: [], vertices: [] },
-  )
+  const tree = useTypeTree(graphQuery.data?.getTypeGraph)
 
   if (
     !graphQuery.data ||

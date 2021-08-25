@@ -12,7 +12,7 @@ import {
 } from './index'
 
 interface TypeDefinition {
-  typeModelClass: { new (...args: Array<any>): Type }
+  typeModelClass: { new (...args: Array<any>): Type<TypeKind> }
   typeKind: TypeKind
   dgraphType: DgraphEntityType
 }

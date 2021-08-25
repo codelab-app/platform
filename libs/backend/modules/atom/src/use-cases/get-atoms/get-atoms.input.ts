@@ -2,7 +2,7 @@ import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class AtomsWhereInput {
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   declare ids?: Array<string>
 }
 

@@ -8,14 +8,14 @@ import {
 } from '@codelab/backend/infra'
 import { TypeEdgeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { TypeEdge, TypeGraph, TypeUnion } from '../../domain'
+import { TypeEdge, TypeGraph, TypeVertex } from '../../domain'
 import { FieldAdapter } from './field.adapter'
 import { TypeAdapterFactory } from './type-adapter.factory'
 
 @Injectable()
 export class TypeGraphAdapter extends BaseAdapter<
   DgraphInterfaceType,
-  TypeGraph
+  Promise<TypeGraph>
 > {
   constructor(
     private mapperFactory: TypeAdapterFactory,
@@ -29,10 +29,10 @@ export class TypeGraphAdapter extends BaseAdapter<
       throw new Error('Only Interface types can be converted to a graph')
     }
 
-    const vertices = new Map<string, TypeUnion>()
+    const vertices = new Map<string, TypeVertex>()
     const edges = new Map<string, TypeEdge>()
     const rootMapper = this.mapperFactory.getMapper(dgraphInterface)
-    vertices.set(dgraphInterface.uid, await rootMapper.map(dgraphInterface))
+    vertices.set(dgraphInterface.uid, await rootMapper.mapItem(dgraphInterface))
 
     await breadthFirstTraversal<DgraphType<any>>({
       root: dgraphInterface,
@@ -45,9 +45,9 @@ export class TypeGraphAdapter extends BaseAdapter<
           for (const field of fields) {
             const mapper = this.mapperFactory.getMapper(field.type)
 
-            vertices.set(field.type.uid, await mapper.map(field.type))
+            vertices.set(field.type.uid, await mapper.mapItem(field.type))
 
-            const fieldModel = await this.fieldAdapter.map(field)
+            const fieldModel = await this.fieldAdapter.mapItem(field)
 
             edges.set(
               field.uid,
@@ -70,7 +70,7 @@ export class TypeGraphAdapter extends BaseAdapter<
           const itemType = type.itemType
           const mapper = this.mapperFactory.getMapper(itemType)
 
-          vertices.set(itemType.uid, await mapper.map(itemType))
+          vertices.set(itemType.uid, await mapper.mapItem(itemType))
           edges.set(
             type.uid + '-' + itemType.uid,
             new TypeEdge(type.uid, itemType.uid, TypeEdgeKind.ArrayItem),

@@ -1,4 +1,4 @@
-import { Atom } from '@codelab/backend/modules/atom'
+import { DgraphAtom } from '@codelab/backend/infra'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 /**
@@ -34,9 +34,12 @@ export class Element {
   /** The CSS string that gets passed down to emotion */
   declare css?: string | null
 
-  // We allow null atoms, because then we won't render a container element, just the children
-  @Field(() => Atom, { nullable: true })
-  declare atom?: Atom | null
+  /**
+   * Resolved by field resolvers
+   *
+   * We allow null atoms, because then we won't render a container element, just the children
+   */
+  declare atom?: DgraphAtom | null
 
   @Field({ description: 'Props in a json format' })
   declare props: string

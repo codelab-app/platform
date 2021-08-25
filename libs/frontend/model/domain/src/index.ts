@@ -1,3 +1,3 @@
 export * from './element-tree'
 export * from './tag-tree/TagGraphTreeAdapter'
-export * from './tree/TreeAdapter'
+export * from './type-tree/TypeGraphTreeAdapter'

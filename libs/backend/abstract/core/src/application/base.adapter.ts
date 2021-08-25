@@ -1,13 +1,5 @@
-import {
-  InferPromise,
-  MaybeArray,
-  MaybePromise,
-} from '@codelab/shared/abstract/types'
+import { InferPromise } from '@codelab/shared/abstract/types'
 import { GraphqlPort } from './graphql.port'
-
-type AdapterOutput<TIn, TOut> = TIn extends Array<any>
-  ? InferPromise<TIn, Array<TOut>>
-  : InferPromise<TIn, TOut>
 
 export abstract class BaseAdapter<TIn, TOut> implements GraphqlPort<TIn, TOut> {
   /**
@@ -15,20 +7,15 @@ export abstract class BaseAdapter<TIn, TOut> implements GraphqlPort<TIn, TOut> {
    *
    * We infer the output from the input type, otherwise the output would be Array<TOut> | TOut
    */
-  public map(input: MaybeArray<TIn>) {
-    return this.mapMaybeArray(input)
-  }
-
-  private mapMaybeArray(input: MaybeArray<TIn>) {
-    if (Array.isArray(input)) {
-      return input.map((item) => this.mapItem(item)) as AdapterOutput<TIn, TOut>
-    }
-
-    return this.mapItem(input) as AdapterOutput<TIn, TOut>
+  public map(list: Array<TIn>) {
+    return list.map((item) => this.mapItem(item)) as InferPromise<
+      Array<TIn>,
+      Array<TOut>
+    >
   }
 
   /**
    * Maps a single item, this is the function we implement. The base class will use this to map maybe arrays
    */
-  protected abstract mapItem(input: TIn): MaybePromise<TOut>
+  abstract mapItem(item: TIn): InferPromise<TIn, TOut>
 }

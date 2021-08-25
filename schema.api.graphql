@@ -2,23 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-interface Type {
-  id: ID!
-  name: String!
-  typeKind: TypeKindFilter!
-  typeGraph: TypeGraph!
-}
-
-enum TypeKindFilter {
-  PrimitiveType
-  ArrayType
-  InterfaceType
-  EnumType
-  LambdaType
-  ElementType
-  ComponentType
-}
-
 type CreateResponse {
   id: String!
 }
@@ -57,19 +40,36 @@ enum TypeEdgeKind {
 }
 
 type ArrayType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
   typeGraph: TypeGraph!
+}
+
+interface Type {
+  typeKind: TypeKind!
+  id: ID!
+  name: String!
+  typeGraph: TypeGraph!
+}
+
+enum TypeKind {
+  PrimitiveType
+  ArrayType
+  InterfaceType
+  EnumType
+  LambdaType
+  ElementType
+  ComponentType
 }
 
 """
 The ComponentType allows selecting a Component in the props form. The value is stored as the componentId 
 """
 type ComponentType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
   typeGraph: TypeGraph!
 }
 
@@ -77,9 +77,9 @@ type ComponentType implements Type {
 The ElementType allows selecting an Element in the props form. The value is stored as the elementId 
 """
 type ElementType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
   typeGraph: TypeGraph!
   kind: ElementTypeKind!
 }
@@ -97,17 +97,17 @@ type EnumTypeValue {
 }
 
 type EnumType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
   typeGraph: TypeGraph!
   allowedValues: [EnumTypeValue!]!
 }
 
 type InterfaceType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
   typeGraph: TypeGraph!
   fields: [Field!]!
 }
@@ -116,16 +116,16 @@ type InterfaceType implements Type {
 The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId 
 """
 type LambdaType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
   typeGraph: TypeGraph!
 }
 
 type PrimitiveType implements Type {
+  typeKind: TypeKind!
   id: ID!
   name: String!
-  typeKind: TypeKindFilter!
   typeGraph: TypeGraph!
   primitiveKind: PrimitiveKind!
 }
@@ -138,9 +138,11 @@ enum PrimitiveKind {
 }
 
 type TypeGraph {
-  vertices: [Type!]!
+  vertices: [TypeVertex!]!
   edges: [TypeEdge!]!
 }
+
+union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType
 
 type Atom {
   id: ID!
@@ -150,9 +152,6 @@ type Atom {
   This is a unique ID suitable for seeders to lookup, will rename to value
   """
   name: String!
-
-  """A user friendly display"""
-  label: String!
   api: InterfaceType!
 }
 
@@ -342,6 +341,10 @@ enum AtomType {
   HtmlSup
 }
 
+type ExportAtoms {
+  payload: String!
+}
+
 type Element {
   id: ID!
 
@@ -350,10 +353,10 @@ type Element {
   """
   name: String!
   css: String
-  atom: Atom
 
   """Props in a json format"""
   props: String!
+  atom: Atom
 }
 
 type Component {
@@ -465,6 +468,7 @@ type Query {
   getComponentElements(input: GetComponentInput!): ElementGraph
   getComponents(input: GetComponentsInput): [Component!]!
   getAtoms(input: GetAtomsInput): [Atom!]
+  exportAtoms(input: GetAtomsInput): ExportAtoms
   getAtom(input: GetAtomInput!): Atom
   getType(input: GetTypeInput!): Type
   getTypeGraph(input: GetTypeInput!): TypeGraph
@@ -536,7 +540,7 @@ input GetAtomsInput {
 }
 
 input AtomsWhereInput {
-  ids: [String!]!
+  ids: [String!]
 }
 
 input GetAtomInput {
@@ -571,7 +575,7 @@ input TypesByIdsFilter {
 }
 
 input TypesByKindFilter {
-  kind: TypeKindFilter!
+  kind: TypeKind!
 }
 
 input TypesByNameFilter {
@@ -626,6 +630,7 @@ type Mutation {
   deleteComponent(input: DeleteComponentInput!): Void
   createAtom(input: CreateAtomInput!): CreateResponse!
   deleteAtom(input: DeleteAtomInput!): Void
+  importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Void
   createType(input: CreateTypeInput!): CreateResponse!
   updateEnumType(input: UpdateEnumTypeInput!): Void
@@ -764,12 +769,15 @@ input DeleteComponentInput {
 
 input CreateAtomInput {
   name: String!
-  label: String!
   type: AtomType!
 }
 
 input DeleteAtomInput {
   atomId: String!
+}
+
+input ImportAtomsInput {
+  payload: String!
 }
 
 input UpdateAtomInput {

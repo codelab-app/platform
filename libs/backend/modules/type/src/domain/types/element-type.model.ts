@@ -17,18 +17,15 @@ registerEnumType(ElementTypeKind, { name: 'ElementTypeKind' })
     'The ElementType allows selecting an Element in the props form. The value is stored as the elementId ',
 })
 export class ElementType
-  implements Type<TypeKind.ElementType>, IElementTypeVertex
+  extends Type<TypeKind.ElementType>
+  implements IElementTypeVertex
 {
-  declare id: string
-
-  declare name: string
-
-  typeKind: TypeKind.ElementType = TypeKind.ElementType
-
   @Field(() => ElementTypeKind)
   declare kind: ElementTypeKind
 
-  constructor(id: string, name: string, kind: ElementTypeKind) {
+  constructor({ id, name, kind }: Pick<ElementType, 'id' | 'name' | 'kind'>) {
+    super(TypeKind.ElementType)
+
     this.id = id
     this.name = name
     this.kind = kind

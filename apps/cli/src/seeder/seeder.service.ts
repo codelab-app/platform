@@ -52,10 +52,8 @@ export class SeederService {
 
   constructor(
     @Inject(serverConfig.KEY) private readonly _serverConfig: ServerConfig,
-    accessToken: string,
+    private readonly client: GraphQLClient,
   ) {
-    const client = this.getClient(accessToken)
-
     this.atomSeeder = new AtomSeeder(client)
     this.typeSeeder = new TypeSeeder(client, this.atomSeeder)
   }
@@ -67,7 +65,8 @@ export class SeederService {
     /**
      * (1) Seed base types like String, Boolean, Integer so other types can use them
      */
-    await this.typeSeeder.seedBaseTypes()
+    // await this.typeSeeder.seedBaseTypes()
+    // this.client.request<I>()
 
     /**
      * (2) Seed all Atoms
@@ -109,7 +108,6 @@ export class SeederService {
       Object.values(AtomType).map((atomType) =>
         this.atomSeeder
           .seedAtomIfMissing({
-            label: pascalCaseToWords(atomType),
             type: atomType,
             name: pascalCaseToWords(atomType),
           })

@@ -8,13 +8,10 @@ export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
     name: {
       type: 'string',
     },
-    label: {
-      type: 'string',
-    },
     type: {
       type: 'string',
       enum: Object.keys(AtomType) as Array<AtomType>,
     },
   },
-  required: ['name', 'label', 'type'],
+  required: ['name', 'type'],
 } as const

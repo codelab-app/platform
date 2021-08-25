@@ -131,7 +131,6 @@ describe('Types', () => {
         cy.findByRole('button', { name: /plus/ }).click()
 
         cy.getOpenedModal().findByLabelText('Name').type(atomName)
-        cy.getOpenedModal().findByLabelText('Label').type(atomLabel)
         cy.getOpenedModal().findByLabelText('Type').type(atomType)
         cy.getSelectOptionItemByValue(atomType).first().click()
         cy.getOpenedModal()

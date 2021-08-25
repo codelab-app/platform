@@ -72,14 +72,14 @@ describe('GetAtoms', () => {
         {},
       )
 
-      expect(results?.atoms).toMatchObject([
+      expect(results?.getAtoms).toMatchObject([
         { ...createAtomInput, id: atomAId },
         { ...createAtomBInput, id: atomBId },
       ])
     })
 
     it('should get atoms where', async () => {
-      const { atoms } = await domainRequest<GetAtomsInput, GetAtomsQuery>(
+      const { getAtoms } = await domainRequest<GetAtomsInput, GetAtomsQuery>(
         userApp,
         GetAtomsGql,
         {
@@ -87,7 +87,7 @@ describe('GetAtoms', () => {
         },
       )
 
-      expect(atoms).toMatchObject([{ ...createAtomInput, id: atomAId }])
+      expect(getAtoms).toMatchObject([{ ...createAtomInput, id: atomAId }])
     })
   })
 })

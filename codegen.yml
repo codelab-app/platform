@@ -17,6 +17,8 @@ generates:
       - typescript-react-apollo
       - typescript-document-nodes
     config:
+      # Switch off if have deeply nested issues
+      inlineFragmentTypes: combine
       documentVariableSuffix: Gql
       gqlImport: '@apollo/client#gql'
       skipTypename: true

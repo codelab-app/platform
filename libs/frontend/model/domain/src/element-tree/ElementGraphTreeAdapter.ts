@@ -4,17 +4,26 @@ import {
   ElementEdgeFragment,
   ElementFragment,
 } from '@codelab/shared/codegen/graphql'
-import { getElementData } from '@codelab/shared/core'
-import { filterPredicate, Predicate, TreeAdapter } from '../tree/TreeAdapter'
+import {
+  filterPredicate,
+  getElementData,
+  Predicate,
+  TreeAdapter,
+} from '@codelab/shared/core'
 
 type IVertex = ComponentFragment | ElementFragment
 type IEdge = ElementEdgeFragment
 
-export const isElement: Predicate = ({ __typename }: any) =>
-  __typename === 'Element'
+export const isElement: Predicate = (element: any) => {
+  return element?.__typename === 'Element'
+}
 
-export const isComponent: Predicate = ({ __typename }: any) =>
-  __typename === 'Component'
+// TODO: element is undefined at times, regression behavior
+export const isComponent: Predicate = (element: any) => {
+  // console.log('isComponent', element)
+
+  return element?.__typename === 'Component'
+}
 
 export class ElementGraphTreeAdapter
   extends TreeAdapter<IVertex, IEdge>

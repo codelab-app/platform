@@ -1,6 +1,4 @@
-import { z } from 'zod'
-
-export enum AtomTypeEnum {
+export enum AtomType {
   // Ant Design
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
@@ -194,8 +192,3 @@ export enum AtomTypeEnum {
   HtmlSub = 'HtmlSub',
   HtmlSup = 'HtmlSup',
 }
-
-export const AtomType = z.nativeEnum(AtomTypeEnum)
-export const atomTypeSchema = z.object({ type: AtomType })
-
-export type AtomType = z.infer<typeof AtomType>

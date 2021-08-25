@@ -361,6 +361,19 @@
         }
       }
     },
+    "backend-shared-utils": {
+      "root": "libs/backend/shared/utils",
+      "sourceRoot": "libs/backend/shared/utils/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/backend/shared/utils/**/*.ts"]
+          }
+        }
+      }
+    },
     "cli": {
       "root": "apps/cli",
       "sourceRoot": "apps/cli/src",
