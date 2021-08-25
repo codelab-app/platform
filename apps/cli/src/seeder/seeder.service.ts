@@ -121,7 +121,7 @@ export class SeederService {
     return new Map(this.atoms.map(({ id, atomType }) => [atomType, id]))
   }
 
-  private async handleCsv(data: Array<AntdDesignApi>, file: string) {
+  private handleCsv(data: Array<AntdDesignApi>, file: string) {
     const atomType = csvNameToAtomTypeMap[file.replace('.csv', '')]
 
     if (!atomType) {
@@ -134,6 +134,6 @@ export class SeederService {
       return
     }
 
-    return await this.typeSeeder.seedAtomApi(atomId, data)
+    return this.typeSeeder.seedAtomApi(atomId, data)
   }
 }
