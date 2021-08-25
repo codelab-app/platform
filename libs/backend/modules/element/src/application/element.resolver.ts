@@ -15,6 +15,10 @@ import {
 import { Element } from '../domain/element/element.model'
 import { ElementGraph } from '../domain/element/element-graph.model'
 import {
+  AddHookToElementInput,
+  AddHookToElementService,
+} from '../use-cases/element/add-hook-to-element'
+import {
   CreateElementInput,
   CreateElementService,
 } from '../use-cases/element/create-element'
@@ -31,6 +35,10 @@ import {
   MoveElementInput,
   MoveElementService,
 } from '../use-cases/element/move-element'
+import {
+  RemoveHookFromElementInput,
+  RemoveHookFromElementService,
+} from '../use-cases/element/remove-hook-from-element'
 import {
   UpdateElementInput,
   UpdateElementService,
@@ -55,6 +63,8 @@ export class ElementResolver {
     private updateElementPropsService: UpdateElementPropsService,
     private elementAdapter: ElementAdapter,
     private atomAdapter: AtomAdapter,
+    private addHookToElementService: AddHookToElementService,
+    private removeHookFromElementService: RemoveHookFromElementService,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -158,5 +168,23 @@ export class ElementResolver {
     @CurrentUser() currentUser: User,
   ) {
     await this.deleteElementService.execute({ input, currentUser })
+  }
+
+  @Mutation(() => CreateResponse)
+  @UseGuards(GqlAuthGuard)
+  addHookToElement(
+    @Args('input') input: AddHookToElementInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.addHookToElementService.execute({ input, currentUser })
+  }
+
+  @Mutation(() => Void, { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  removeHookFromElement(
+    @Args('input') input: RemoveHookFromElementInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.removeHookFromElementService.execute({ input, currentUser })
   }
 }

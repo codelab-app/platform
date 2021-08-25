@@ -7,6 +7,9 @@ fragment Element on Element {
     ...__Atom
   }
   props
+  hooks {
+    ...Hook
+  }
 }
 
 fragment ElementGraph on ElementGraph {
@@ -24,4 +27,20 @@ fragment ElementEdge on ElementEdge {
   order
   source
   target
+}
+
+fragment Hook on Hook {
+  id
+  type
+  config {
+    __typename
+    ...QueryHookConfig
+  }
+}
+
+fragment QueryHookConfig on QueryHookConfig {
+  body
+  method
+  queryKey
+  url
 }

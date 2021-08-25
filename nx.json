@@ -53,6 +53,9 @@
     "backend-modules-element": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },
+    "backend-modules-hook": {
+      "tags": ["layer:domain:backend", "scope:backend"]
+    },
     "backend-modules-lambda": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },

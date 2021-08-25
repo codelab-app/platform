@@ -296,6 +296,27 @@
         }
       }
     },
+    "backend-modules-hook": {
+      "root": "libs/backend/modules/hook",
+      "sourceRoot": "libs/backend/modules/hook/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/backend/modules/hook/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/backend/modules/hook"],
+          "options": {
+            "jestConfig": "libs/backend/modules/hook/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "backend-modules-lambda": {
       "root": "libs/backend/modules/lambda",
       "sourceRoot": "libs/backend/modules/lambda/src",

@@ -1,4 +1,5 @@
 export * from './application/element.adapter'
+export * from './application/element.validator'
 export * from './application/element-tree.adapter'
 export * from './domain/component/component.adapter'
 export * from './domain/component/component.model'

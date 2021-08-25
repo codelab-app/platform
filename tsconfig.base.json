@@ -38,6 +38,9 @@
       "@codelab/backend/modules/element": [
         "libs/backend/modules/element/src/index.ts"
       ],
+      "@codelab/backend/modules/hook": [
+        "libs/backend/modules/hook/src/index.ts"
+      ],
       "@codelab/backend/modules/lambda": [
         "libs/backend/modules/lambda/src/index.ts"
       ],
