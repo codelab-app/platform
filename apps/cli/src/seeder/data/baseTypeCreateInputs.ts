@@ -1,8 +1,8 @@
-import { CreateTypeInput } from '@codelab/shared/codegen/graphql'
+import { CreateTypeInput, TypeKind } from '@codelab/shared/codegen/graphql'
 
 export const baseTypeCreateInputs: Array<CreateTypeInput> = [
   {
+    typeKind: TypeKind.LambdaType,
     name: 'Lambda',
-    lambdaType: true,
   },
 ]
