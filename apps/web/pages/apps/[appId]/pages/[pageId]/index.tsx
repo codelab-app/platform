@@ -2,7 +2,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   defaultRenderContext,
-  Renderer,
+  TestRenderer,
 } from '@codelab/frontend/modules/builder'
 import { PageDetailHeader } from '@codelab/frontend/modules/page'
 import {
@@ -35,7 +35,8 @@ const PageRenderer: CodelabPage = () => {
       <Head>
         <title>{page.name}</title>
       </Head>
-      <Renderer />
+      {/* <Renderer />*/}
+      <TestRenderer />
     </RenderProvider>
   )
 }
