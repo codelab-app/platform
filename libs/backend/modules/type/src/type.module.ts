@@ -62,7 +62,6 @@ const typeServices = [
   UpdatePrimitiveTypeService,
   UpdateTypeService,
   ImportApiService,
-  CreateFieldService,
   /**
    * Adapters
    */

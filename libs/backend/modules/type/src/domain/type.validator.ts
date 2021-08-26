@@ -77,38 +77,13 @@ export class TypeValidator {
     }
   }
 
-  async validateCreateTypeInput({
-    arrayType,
-    enumType,
-    primitiveType,
-    interfaceType,
-    lambdaType,
-    elementType,
-    componentType,
-  }: CreateTypeInput) {
-    this.singleInput([
-      enumType,
-      arrayType,
-      interfaceType,
-      primitiveType,
-      lambdaType,
-      elementType,
-      componentType,
-    ])
+  async validateCreateTypeInput({ typeKind, arrayType }: CreateTypeInput) {
+    if (!typeKind) {
+      throw new Error('Missing type kind')
+    }
 
     if (arrayType) {
       await this.typeExists(arrayType.itemTypeId)
-    }
-  }
-
-  /** Throws error if there are less or more than 1 input in the array */
-  singleInput(inputs: Array<any>) {
-    const numberOfTypeFields = inputs.filter((t) => !!t).length
-
-    if (numberOfTypeFields < 1) {
-      throw new Error('At least one type input must be provided')
-    } else if (numberOfTypeFields > 1) {
-      throw new Error('No more than one type input must be provided')
     }
   }
 
