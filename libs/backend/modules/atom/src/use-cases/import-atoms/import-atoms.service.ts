@@ -23,7 +23,7 @@ export class ImportAtomsService implements UseCasePort<ImportAtomsInput, void> {
     const { payload } = request
     const data = JSON.parse(payload)
 
-    await this.seedAtoms(data)
+    await this.seedAtoms(data ?? [])
   }
 
   private async seedAtoms(atoms: Array<GetExport__AtomsFragment>) {

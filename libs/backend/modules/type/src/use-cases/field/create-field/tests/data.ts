@@ -2,16 +2,18 @@ import {
   CreateFieldInput,
   CreateTypeInput,
   PrimitiveKind,
+  TypeKind,
 } from '@codelab/shared/codegen/graphql'
 
 export const createPrimitiveTypeInput: CreateTypeInput = {
   name: 'String',
+  typeKind: TypeKind.PrimitiveType,
   primitiveType: { primitiveKind: PrimitiveKind.String },
 }
 
 export const createInterfaceTypeInput: CreateTypeInput = {
   name: 'New Interface',
-  interfaceType: true,
+  typeKind: TypeKind.InterfaceType,
 }
 
 export const partialCreateFieldInput: Partial<CreateFieldInput> = {
