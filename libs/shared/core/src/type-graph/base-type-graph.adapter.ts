@@ -10,6 +10,7 @@ import {
   __TypeGraphFragment,
 } from '@codelab/shared/codegen/graphql'
 import { CollectionReturnValue, SingularElementArgument } from 'cytoscape'
+import { edgeId } from '../graph/edge'
 import { TreeAdapter } from '../tree/tree.adapter'
 
 type Vertex = __TypeFragment
@@ -37,7 +38,7 @@ export class BaseTypeGraphAdapter extends TreeAdapter<Vertex, Edge> {
   constructor(graph?: __TypeGraphFragment | null) {
     const extractEdgeId = (e: Edge) => {
       if (!e.field?.id) {
-        throw new Error('Field data is corrupt')
+        return edgeId(e)
       }
 
       return e.field.id
