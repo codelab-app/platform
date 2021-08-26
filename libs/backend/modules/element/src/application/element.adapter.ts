@@ -21,14 +21,14 @@ export class ElementAdapter extends BaseAdapter<DgraphElementInput, Element> {
     super()
   }
 
-  async mapItem(element: DgraphElementInput) {
+  mapItem(element: DgraphElementInput) {
     return new Element({
       id: element.uid,
       name: element.name ?? '',
       atom: element.atom,
       css: element.css,
       props: element.props || '{}',
-      hooks: await this.hookAdapter.map(element.hooks ?? []),
+      hooks: this.hookAdapter.map(element.hooks ?? []),
     })
   }
 }
