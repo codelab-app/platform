@@ -5,6 +5,7 @@ import {
   ServerConfig,
   serverConfig,
 } from '@codelab/backend/infra'
+import { SeedBaseTypesService } from '@codelab/backend/modules/type'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLClient } from 'graphql-request'
@@ -20,6 +21,7 @@ export const SeederProvider = 'SEEDER_PROVIDER'
       useFactory: async (
         auth0Service: Auth0Service,
         _serverConfig: ServerConfig,
+        seedBaseTypesService: SeedBaseTypesService,
       ) => {
         // const accessToken = (await auth0Service.getAccessToken()) ?? ''
         const accessToken = ''
@@ -33,9 +35,9 @@ export const SeederProvider = 'SEEDER_PROVIDER'
           },
         )
 
-        return new SeederService(_serverConfig, client)
+        return new SeederService(_serverConfig, client, seedBaseTypesService)
       },
-      inject: [Auth0Service, serverConfig.KEY],
+      inject: [Auth0Service, serverConfig.KEY, SeedBaseTypesService],
     },
   ],
   exports: [SeederProvider],

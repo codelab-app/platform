@@ -29,14 +29,15 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
   @Field(() => CreateEnumTypeInput, { nullable: true })
   declare enumType?: CreateEnumTypeInput
 
-  // @Field(() => CreateInterfaceTypeInput, { nullable: true })
-  // declare interfaceType?: CreateInterfaceTypeInput
-  //
-  // @Field(() => CreateLambdaTypeInput, { nullable: true })
-  // declare lambdaType?: CreateLambdaTypeInput
-  //
-  // @Field(() => CreateComponentTypeInput, { nullable: true })
-  // declare componentType?: CreateComponentTypeInput
+  // These boolean are used as placeholder since these keys are required in certain places
+  @Field({ nullable: true, defaultValue: false })
+  declare interfaceType?: boolean
+
+  @Field({ nullable: true, defaultValue: false })
+  declare lambdaType?: boolean
+
+  @Field({ nullable: true, defaultValue: false })
+  declare componentType?: boolean
 
   @Field(() => CreateElementTypeInput, { nullable: true })
   declare elementType?: CreateElementTypeInput

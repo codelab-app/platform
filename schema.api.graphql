@@ -797,6 +797,9 @@ input CreateTypeInput {
   primitiveType: CreatePrimitiveTypeInput
   arrayType: CreateArrayTypeInput
   enumType: CreateEnumTypeInput
+  interfaceType: Boolean = false
+  lambdaType: Boolean = false
+  componentType: Boolean = false
   elementType: CreateElementTypeInput
 }
 

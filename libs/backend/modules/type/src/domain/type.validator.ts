@@ -80,8 +80,8 @@ export class TypeValidator {
   async validateCreateTypeInput({
     arrayType,
     enumType,
-    interfaceType,
     primitiveType,
+    interfaceType,
     lambdaType,
     elementType,
     componentType,
