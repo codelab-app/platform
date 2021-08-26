@@ -20,6 +20,7 @@ import { CreateTypeService } from './use-cases/type/create-type'
 import { DeleteTypeService } from './use-cases/type/delete-type'
 import { GetTypeService } from './use-cases/type/get-type'
 import { GetTypesService } from './use-cases/type/get-types'
+import { ImportApiService } from './use-cases/type/import-api'
 import { UpdateEnumTypeService } from './use-cases/type/update-enum-type'
 import { UpdatePrimitiveTypeService } from './use-cases/type/update-primitive-type'
 import { UpdateTypeService } from './use-cases/type/update-type'
@@ -35,6 +36,7 @@ const services = [
   UpdateEnumTypeService,
   UpdatePrimitiveTypeService,
   UpdateTypeService,
+  ImportApiService,
   /**
    * Adapters
    */

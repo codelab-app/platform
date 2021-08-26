@@ -24,6 +24,8 @@ import {
 } from '../use-cases/type/delete-type'
 import { GetTypeInput, GetTypeService } from '../use-cases/type/get-type'
 import { GetTypesInput, GetTypesService } from '../use-cases/type/get-types'
+import { ImportApiService } from '../use-cases/type/import-api'
+import { ImportApiInput } from '../use-cases/type/import-api/import-api.input'
 import {
   UpdateEnumTypeInput,
   UpdateEnumTypeService,
@@ -51,6 +53,7 @@ export class TypeResolver {
     private deleteTypeService: DeleteTypeService,
     private typeAdapterFactory: TypeAdapterFactory,
     private typeGraphAdapter: TypeGraphAdapter,
+    private importApiService: ImportApiService,
   ) {}
 
   /**
@@ -71,6 +74,12 @@ export class TypeResolver {
     }
 
     throw new Error('Type graph can only be retrieved for an Interface Type')
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Void, { nullable: true })
+  async importApi(@Args('input') input: ImportApiInput) {
+    await this.importApiService.execute(input)
   }
 
   @UseGuards(GqlAuthGuard)

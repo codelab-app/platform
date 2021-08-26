@@ -1,3 +1,4 @@
+import { TypeKind } from '@codelab/shared/abstract/core'
 import {
   CreateTypeInput,
   ElementTypeKind,
@@ -19,44 +20,53 @@ export enum BaseTypeName {
 export const baseTypes: Array<CreateTypeInput> = [
   {
     name: BaseTypeName.String,
-    primitiveType: { primitiveKind: PrimitiveKind.String },
+    typeKind: TypeKind.PrimitiveType,
+    primitiveType: {
+      primitiveKind: PrimitiveKind.String,
+    },
   },
   {
     name: BaseTypeName.Boolean,
+    typeKind: TypeKind.PrimitiveType,
     primitiveType: { primitiveKind: PrimitiveKind.Boolean },
   },
   {
     name: BaseTypeName.Float,
+    typeKind: TypeKind.PrimitiveType,
     primitiveType: { primitiveKind: PrimitiveKind.Float },
   },
   {
     name: BaseTypeName.Integer,
+    typeKind: TypeKind.PrimitiveType,
     primitiveType: { primitiveKind: PrimitiveKind.Integer },
   },
   {
     name: BaseTypeName.Lambda,
-    lambdaType: true,
+    typeKind: TypeKind.LambdaType,
   },
   {
     name: BaseTypeName.ChildElement,
+    typeKind: TypeKind.ElementType,
     elementType: {
       kind: ElementTypeKind.ChildrenOnly,
     },
   },
   {
     name: BaseTypeName.DescendantElement,
+    typeKind: TypeKind.ElementType,
     elementType: {
       kind: ElementTypeKind.DescendantsOnly,
     },
   },
   {
     name: BaseTypeName.Element,
+    typeKind: TypeKind.ElementType,
     elementType: {
       kind: ElementTypeKind.AllElements,
     },
   },
   {
     name: BaseTypeName.Component,
-    componentType: true,
+    typeKind: TypeKind.ComponentType,
   },
 ]
