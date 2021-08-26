@@ -5,25 +5,53 @@ import {
 } from '@codelab/frontend/model/domain'
 import { RenderProvider } from '@codelab/frontend/presenter/container'
 import { Graph } from '@codelab/shared/abstract/core'
-import { render, waitForElement } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import preloadAll from 'jest-next-dynamic'
+import dynamic from 'next/dynamic'
 import React from 'react'
 import { Renderer } from '../Renderer'
 import { renderFactory } from '../renderFactory'
 import { mapperPageElements } from './Mapper.data'
 
+beforeAll(async () => {
+  await preloadAll()
+})
+
+const DynamicMenu = dynamic(() => import('antd/lib/menu'))
+const DynamicMenuItem = dynamic(() => import('antd/lib/menu/MenuItem'))
+
 export const renderPage = async (pageElements: Graph<IVertex, IEdge>) => {
   const tree = new ElementGraphTreeAdapter(pageElements)
+  //
+  // return render(
+  //   <RenderProvider
+  //     context={{
+  //       tree,
+  //       renderFactory,
+  //     }}
+  //   >
+  //     <Renderer />
+  //   </RenderProvider>,
+  // )
 
-  return render(
-    <RenderProvider
-      context={{
-        tree,
-        renderFactory,
-      }}
-    >
-      <Renderer />
-    </RenderProvider>,
-  )
+  // render(
+  //   <DynamicMenu>
+  //     <div>ab</div>
+  //   </DynamicMenu>,
+  // )
+
+  // act(() => {
+  //   render(
+  //     <RenderProvider
+  //       context={{
+  //         tree,
+  //         renderFactory,
+  //       }}
+  //     >
+  //       <DynamicMenu />
+  //     </RenderProvider>,
+  //   )
+  // })
 }
 
 describe('Renderer', () => {
@@ -36,14 +64,27 @@ describe('Renderer', () => {
     //
     // // render(<Mapper component={'ab'} data={data} />)
     // screen.debug()
-
     // act(() => {
     //   renderPage(mapperPageElements)
     // })
+    // renderPage(mapperPageElements)
 
-    const { getByTestId } = renderPage(mapperPageElements)
+    // render(<DynamicMenu />)
 
-    await waitForElement(() => getByTestId('list'))
+    const tree = new ElementGraphTreeAdapter(mapperPageElements)
+
+    const Component = render(
+      <RenderProvider
+        context={{
+          tree,
+          renderFactory,
+        }}
+      >
+        <Renderer />
+      </RenderProvider>,
+    )
+
+    screen.debug()
   })
 
   // it('should render a group of links', async () => {

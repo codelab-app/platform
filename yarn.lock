@@ -2186,7 +2186,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.14.5"
 
-"@babel/plugin-syntax-dynamic-import@^7.8.3":
+"@babel/plugin-syntax-dynamic-import@^7.0.0", "@babel/plugin-syntax-dynamic-import@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-dynamic-import/-/plugin-syntax-dynamic-import-7.8.3.tgz#62bf98b2da3cd21d626154fc96ee5b3cb68eacb3"
   integrity sha512-5gdGbFon+PszYzqs83S3E5mpi7/y/8M9eC90MRTZfduQOYW76ig6SOSPNe41IG5LoP3FGBn2N0RjVDSQiS94kQ==
@@ -10179,6 +10179,13 @@ babel-plugin-transform-async-to-promises@^0.8.15:
   version "0.8.15"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-async-to-promises/-/babel-plugin-transform-async-to-promises-0.8.15.tgz#13b6d8ef13676b4e3c576d3600b85344bb1ba346"
   integrity sha512-fDXP68ZqcinZO2WCiimCL9zhGjGXOnn3D33zvbh+yheZ/qOrNVVDDIBtAaM3Faz8TRvQzHiRKsu3hfrBAhEncQ==
+
+babel-plugin-transform-dynamic-import@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-dynamic-import/-/babel-plugin-transform-dynamic-import-2.1.0.tgz#3ce618dd983c072b6e2135f527d46092fb45d80e"
+  integrity sha512-ja4NWc37+7bV6/uJKCERJEGHEyK1DXgXp8teHvjKC4Jsj3Ib484dJdamFIBtSb40JFniyWZo6ML46usVvfdsSg==
+  dependencies:
+    "@babel/plugin-syntax-dynamic-import" "^7.0.0"
 
 babel-plugin-transform-typescript-metadata@^0.3.1:
   version "0.3.2"
@@ -18765,6 +18772,11 @@ jest-mock@^27.0.6:
   dependencies:
     "@jest/types" "^27.0.6"
     "@types/node" "*"
+
+jest-next-dynamic@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jest-next-dynamic/-/jest-next-dynamic-1.0.1.tgz#b8af62babeda3cff0cf0a6e0af6de3a9dfc8d6cd"
+  integrity sha512-peo9yRvUn8u6PZro9AzzjxpgUc+1NZhZMan+1xzk7Bz1vA0d5IC2Iw8E7bkC2cwl9AG3XxTaqPVAXbC3aMbVkw==
 
 jest-pnp-resolver@^1.2.2:
   version "1.2.2"
