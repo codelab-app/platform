@@ -11,8 +11,8 @@ import {
   TreeAdapter,
 } from '@codelab/shared/core'
 
-type IVertex = ComponentFragment | ElementFragment
-type IEdge = ElementEdgeFragment
+export type IVertex = ComponentFragment | ElementFragment
+export type IEdge = ElementEdgeFragment
 
 export const isElement: Predicate = (element: any) => {
   return element?.__typename === 'Element'

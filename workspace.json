@@ -528,6 +528,14 @@
               "libs/frontend/modules/builder/**/*.{ts,tsx,js,jsx}"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/modules/builder"],
+          "options": {
+            "jestConfig": "libs/frontend/modules/builder/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },
