@@ -39,7 +39,7 @@ export const CreateTypeForm = (
     mutationOptions: { refetchQueries: [refetchGetTypesQuery()] },
     useMutationFunction: useCreateTypeMutation,
     mapVariables: (submitData: CreateTypeSchema) => ({
-      input: mapCreateTypeSchemaToTypeInput(submitData.kind, submitData),
+      input: mapCreateTypeSchemaToTypeInput(submitData),
     }),
     entityType: EntityType.Type,
   })

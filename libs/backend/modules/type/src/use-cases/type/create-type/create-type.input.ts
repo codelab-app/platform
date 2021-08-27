@@ -1,47 +1,24 @@
-import { ElementTypeKind, PrimitiveKind } from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { Field, InputType } from '@nestjs/graphql'
+import { CreateArrayTypeInput } from './create-array-type.input'
+import { CreateElementTypeInput } from './create-element-type.input'
+import { CreateEnumTypeInput } from './create-enum-type.input'
+import { CreatePrimitiveTypeInput } from './create-primitive-type.input'
 
-// It would be nice if we could do union input types, but graphql doesn't support it right now
-// there's an RFC though https://github.com/graphql/graphql-spec/blob/main/rfcs/InputUnion.md maybe we'll see it soon
-
-@InputType()
-export class CreatePrimitiveTypeInput {
-  @Field(() => PrimitiveKind)
-  declare primitiveKind: PrimitiveKind
-}
-
-@InputType()
-export class CreateEnumTypeValueInput {
-  @Field(() => String, { nullable: true })
-  declare name?: string
-
-  @Field()
-  declare value: string
-}
-
-@InputType()
-export class CreateEnumTypeInput {
-  @Field(() => [CreateEnumTypeValueInput])
-  declare allowedValues: Array<CreateEnumTypeValueInput>
-}
-
-@InputType()
-export class CreateArrayTypeInput {
-  @Field()
-  declare itemTypeId: string
-}
-
-@InputType()
-export class CreateElementTypeInput {
-  @Field(() => ElementTypeKind)
-  declare kind: ElementTypeKind
-}
-
+/**
+ * This is a workaround for the lack of GraphQL union input types as described here https://github.com/graphql/graphql-spec/issues/488
+ *
+ * https://github.com/graphql/graphql-spec/blob/main/rfcs/InputUnion.md maybe we'll see it soon
+ */
 @InputType({ description: 'Provide one of the properties' })
+
 // The generic is a quick workaround for a circular reference to CreateArrayTypeInput
 export class CreateTypeInput<T = CreateArrayTypeInput> {
   @Field()
   declare name: string
+
+  @Field(() => TypeKind)
+  declare typeKind: TypeKind
 
   @Field(() => CreatePrimitiveTypeInput, { nullable: true })
   declare primitiveType?: CreatePrimitiveTypeInput
@@ -52,13 +29,14 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
   @Field(() => CreateEnumTypeInput, { nullable: true })
   declare enumType?: CreateEnumTypeInput
 
-  @Field(() => Boolean, { nullable: true })
+  // These boolean are used as placeholder since these keys are required in certain places
+  @Field({ nullable: true, defaultValue: false })
   declare interfaceType?: boolean
 
-  @Field(() => Boolean, { nullable: true })
+  @Field({ nullable: true, defaultValue: false })
   declare lambdaType?: boolean
 
-  @Field(() => Boolean, { nullable: true })
+  @Field({ nullable: true, defaultValue: false })
   declare componentType?: boolean
 
   @Field(() => CreateElementTypeInput, { nullable: true })

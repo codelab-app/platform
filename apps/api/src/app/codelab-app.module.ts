@@ -5,7 +5,7 @@ import { ElementModule } from '@codelab/backend/modules/element'
 import { LambdaModule } from '@codelab/backend/modules/lambda'
 import { PageModule } from '@codelab/backend/modules/page'
 import { TagModule } from '@codelab/backend/modules/tag'
-import { FieldModule } from '@codelab/backend/modules/type'
+import { TypeModule } from '@codelab/backend/modules/type'
 import { UserModule } from '@codelab/backend/modules/user'
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
@@ -21,7 +21,7 @@ import { AppController } from './app.controller'
     PageModule,
     ElementModule,
     AtomModule,
-    FieldModule,
+    TypeModule,
     LambdaModule,
     TagModule,
   ],

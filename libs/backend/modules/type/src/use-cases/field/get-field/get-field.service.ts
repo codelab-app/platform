@@ -16,22 +16,27 @@ export class GetFieldService extends DgraphUseCase<
   DgraphField | null
 > {
   protected executeTransaction(request: GetFieldRequest, txn: Txn) {
-    return this.dgraph.getOne<DgraphField>(txn, this.createQuery(request))
+    return this.dgraph.getOne<DgraphField>(
+      txn,
+      GetFieldService.createQuery(request),
+    )
   }
 
-  private createQuery({ input: { byId, byInterface } }: GetFieldRequest) {
+  private static createQuery({
+    input: { byId, byInterface },
+  }: GetFieldRequest) {
     if (byId) {
-      return this.createByIdQuery(byId)
+      return GetFieldService.createByIdQuery(byId)
     }
 
     if (byInterface) {
-      return this.createByInterfaceQuery(byInterface)
+      return GetFieldService.createByInterfaceQuery(byInterface)
     }
 
     throw new Error('At least one filter must be provided to GetField')
   }
 
-  private createByIdQuery(byId: FieldByIdFilter) {
+  private static createByIdQuery(byId: FieldByIdFilter) {
     return new DgraphQueryBuilder()
       .addBaseFields()
       .setUidFunc(byId.fieldId)
@@ -39,7 +44,7 @@ export class GetFieldService extends DgraphUseCase<
       .addExpandAll((f) => f.addExpandAllRecursive(2))
   }
 
-  private createByInterfaceQuery({
+  private static createByInterfaceQuery({
     fieldKey,
     interfaceId,
   }: FieldByInterfaceFilter) {

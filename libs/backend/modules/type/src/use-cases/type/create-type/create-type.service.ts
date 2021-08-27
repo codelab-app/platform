@@ -14,6 +14,7 @@ import { Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../domain/type.validator'
 import { GetTypeService } from '../get-type'
 import { CreateTypeInput } from './create-type.input'
+import { typeKindDgraphMap } from './typeKind'
 
 @Injectable()
 export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
@@ -26,6 +27,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
   }
 
   async executeTransaction(request: CreateTypeInput, txn: Txn) {
+    console.log(request)
     await this.validate(request)
 
     return this.dgraph.create(txn, (blankNodeUid) =>
@@ -34,7 +36,17 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
   }
 
   private createMutation(request: CreateTypeInput, blankNodeUid: string) {
-    const { arrayType, enumType, primitiveType, name, elementType } = request
+    const {
+      name,
+      typeKind,
+      arrayType,
+      enumType,
+      primitiveType,
+      elementType,
+      // lambdaType,
+      // componentType,
+      // interfaceType,
+    } = request
 
     return jsonMutation<
       DgraphArrayType &
@@ -46,17 +58,17 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
       uid: blankNodeUid,
       'dgraph.type': [
         DgraphEntityType.Type,
-        CreateTypeService.getDgraphType(request),
+        typeKindDgraphMap[request.typeKind],
       ] as any,
       name,
       itemType: arrayType ? { uid: arrayType.itemTypeId } : undefined,
       primitiveKind: primitiveType ? primitiveType.primitiveKind : undefined,
       kind: elementType ? elementType.kind : undefined,
       allowedValues: enumType
-        ? enumType.allowedValues.map((av) => ({
+        ? enumType.allowedValues.map((allowedValue) => ({
             'dgraph.type': [DgraphEntityType.EnumTypeValue],
-            name: av.name,
-            stringValue: av.value,
+            name: allowedValue.name,
+            stringValue: allowedValue.value,
           }))
         : undefined,
     })
@@ -64,45 +76,5 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
 
   protected async validate(request: CreateTypeInput): Promise<void> {
     await this.typeValidator.validateCreateTypeInput(request)
-  }
-
-  private static getDgraphType({
-    interfaceType,
-    primitiveType,
-    enumType,
-    arrayType,
-    lambdaType,
-    elementType,
-    componentType,
-  }: CreateTypeInput) {
-    if (interfaceType) {
-      return DgraphEntityType.InterfaceType
-    }
-
-    if (primitiveType) {
-      return DgraphEntityType.PrimitiveType
-    }
-
-    if (enumType) {
-      return DgraphEntityType.EnumType
-    }
-
-    if (arrayType) {
-      return DgraphEntityType.ArrayType
-    }
-
-    if (lambdaType) {
-      return DgraphEntityType.LambdaType
-    }
-
-    if (elementType) {
-      return DgraphEntityType.ElementType
-    }
-
-    if (componentType) {
-      return DgraphEntityType.ComponentType
-    }
-
-    throw new Error("Bad request, can't parse CreateTypeInput")
   }
 }

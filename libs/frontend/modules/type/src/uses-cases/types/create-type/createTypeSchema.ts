@@ -4,7 +4,6 @@ import { JSONSchemaType } from 'ajv'
 import {
   BaseTypeMutationSchema,
   baseTypeMutationSchemaProperties,
-  mapTypeSchemaToTypeInput,
 } from '../../../shared'
 
 export interface CreateTypeSchema extends BaseTypeMutationSchema {
@@ -30,22 +29,68 @@ export const createTypeSchema: JSONSchemaType<CreateTypeSchema> = {
 }
 
 export const mapCreateTypeSchemaToTypeInput = (
-  kind: TypeKind,
-  typeSchema: CreateTypeSchema,
+  formData: CreateTypeSchema,
 ): CreateTypeInput => {
-  const common: Pick<CreateTypeInput, 'name'> = { name: typeSchema.name }
+  const baseCreateTypeInput = {
+    name: formData.name,
+    typeKind: formData.kind,
+  }
 
-  switch (kind) {
+  switch (formData.kind) {
     case TypeKind.ArrayType:
-      if (!typeSchema.arrayItemTypeId) {
+      if (!formData.arrayItemTypeId) {
         throw new Error('Array item type not set')
       }
 
       return {
-        ...common,
-        arrayType: { itemTypeId: typeSchema.arrayItemTypeId },
+        ...baseCreateTypeInput,
+        arrayType: {
+          itemTypeId: formData.arrayItemTypeId,
+        },
+      }
+    case TypeKind.InterfaceType:
+      return {
+        ...baseCreateTypeInput,
+      }
+    case TypeKind.EnumType:
+      if (!formData.allowedValues) {
+        throw new Error('Invalid form input')
+      }
+
+      return {
+        ...baseCreateTypeInput,
+        enumType: {
+          allowedValues: formData.allowedValues,
+        },
+      }
+    case TypeKind.PrimitiveType:
+      if (!formData.primitiveKind) {
+        throw new Error('Invalid form input')
+      }
+
+      return {
+        ...baseCreateTypeInput,
+        primitiveType: {
+          primitiveKind: formData.primitiveKind,
+        },
+      }
+    case TypeKind.LambdaType:
+      return {
+        ...baseCreateTypeInput,
+      }
+    case TypeKind.ComponentType:
+      return {
+        ...baseCreateTypeInput,
+      }
+    case TypeKind.ElementType:
+      return {
+        ...baseCreateTypeInput,
+        elementType: {
+          ...baseCreateTypeInput,
+          kind: formData.elementKind,
+        },
       }
     default:
-      return mapTypeSchemaToTypeInput(kind, typeSchema)
+      throw new Error('Invalid create form type')
   }
 }

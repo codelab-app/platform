@@ -632,6 +632,7 @@ type Mutation {
   deleteAtom(input: DeleteAtomInput!): Void
   importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Void
+  importApi(input: ImportApiInput!): Void
   createType(input: CreateTypeInput!): CreateResponse!
   updateEnumType(input: UpdateEnumTypeInput!): Void
   updatePrimitiveType(input: UpdatePrimitiveTypeInput!): Void
@@ -785,15 +786,20 @@ input UpdateAtomInput {
   data: CreateAtomInput!
 }
 
+input ImportApiInput {
+  payload: String!
+}
+
 """Provide one of the properties"""
 input CreateTypeInput {
   name: String!
+  typeKind: TypeKind!
   primitiveType: CreatePrimitiveTypeInput
   arrayType: CreateArrayTypeInput
   enumType: CreateEnumTypeInput
-  interfaceType: Boolean
-  lambdaType: Boolean
-  componentType: Boolean
+  interfaceType: Boolean = false
+  lambdaType: Boolean = false
+  componentType: Boolean = false
   elementType: CreateElementTypeInput
 }
 

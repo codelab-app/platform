@@ -1,3 +1,4 @@
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { AtomType, CreateFieldInput } from '@codelab/shared/codegen/graphql'
 import { CustomAtomApiFactory } from '../../utils/customAtomApi'
 import { BaseTypeName } from '../baseTypes'
@@ -9,8 +10,8 @@ export const propMapperAtom: CustomAtomApiFactory = async (input) => {
   const { createFieldIfMissing, createTypeIfMissing, baseTypeIdsByName } = input
 
   const bindingInterfaceType = await createTypeIfMissing({
+    typeKind: TypeKind.InterfaceType,
     name: 'Prop Mapper Binding',
-    interfaceType: true,
   })
 
   const string = baseTypeIdsByName.get(BaseTypeName.String)
@@ -56,6 +57,7 @@ export const propMapperAtom: CustomAtomApiFactory = async (input) => {
         type: {
           newType: {
             name: 'Prop Mapper Binding Array',
+            typeKind: TypeKind.ArrayType,
             arrayType: {
               itemTypeId: bindingInterfaceType,
             },

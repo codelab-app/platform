@@ -16,6 +16,7 @@ import {
   GetTypeGql,
   GetTypeQuery,
   GetTypeQueryVariables,
+  TypeKind,
   TypeRef,
 } from '@codelab/shared/codegen/graphql'
 import { pascalCaseToWords } from '@codelab/shared/utils'
@@ -213,6 +214,7 @@ export class TypeSeeder {
 
       return {
         newType: {
+          typeKind: TypeKind.EnumType,
           name: `${atomName} ${pascalCaseToWords(apiField.property)} Enum`,
           enumType: {
             allowedValues: enumValues.map((value) => ({

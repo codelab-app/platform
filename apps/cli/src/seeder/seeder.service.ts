@@ -3,6 +3,7 @@ import {
   ServerConfig,
   serverConfig,
 } from '@codelab/backend/infra'
+import { SeedBaseTypesService } from '@codelab/backend/modules/type'
 import { AtomType } from '@codelab/shared/codegen/graphql'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable } from '@nestjs/common'
@@ -53,6 +54,7 @@ export class SeederService {
   constructor(
     @Inject(serverConfig.KEY) private readonly _serverConfig: ServerConfig,
     private readonly client: GraphQLClient,
+    private seedBaseTypesService: SeedBaseTypesService,
   ) {
     this.atomSeeder = new AtomSeeder(client)
     this.typeSeeder = new TypeSeeder(client, this.atomSeeder)
@@ -65,8 +67,7 @@ export class SeederService {
     /**
      * (1) Seed base types like String, Boolean, Integer so other types can use them
      */
-    // await this.typeSeeder.seedBaseTypes()
-    // this.client.request<I>()
+    await this.seedBaseTypesService.execute()
 
     /**
      * (2) Seed all Atoms

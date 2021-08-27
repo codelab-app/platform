@@ -12,7 +12,7 @@ import {
   GetFieldQuery,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
-import { FieldModule } from '../../../../field.module'
+import { TypeModule } from '../../../../type.module'
 import { createField } from '../../create-field/tests/create-type-field'
 
 describe('DeleteField', () => {
@@ -22,10 +22,10 @@ describe('DeleteField', () => {
   let deleteFieldInput: DeleteFieldInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([FieldModule], {
+    guestApp = await setupTestModule([TypeModule], {
       role: Role.GUEST,
     })
-    userApp = await setupTestModule([FieldModule], {
+    userApp = await setupTestModule([TypeModule], {
       role: Role.USER,
     })
 

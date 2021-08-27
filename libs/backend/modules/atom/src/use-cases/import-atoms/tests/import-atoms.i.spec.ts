@@ -32,7 +32,7 @@ describe('ImportAtoms', () => {
         guestApp,
         ImportAtomsGql,
         {
-          payload: '{}',
+          payload: '[]',
         },
         {
           message: 'Unauthorized',
@@ -47,7 +47,7 @@ describe('ImportAtoms', () => {
         userApp,
         ImportAtomsGql,
         {
-          payload: '{}',
+          payload: '[]',
         },
       )
 

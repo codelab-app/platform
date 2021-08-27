@@ -12,19 +12,20 @@ import {
   GetTypeQueryVariables,
 } from '@codelab/shared/codegen/graphql'
 import { Inject, Injectable } from '@nestjs/common'
-import { BaseTypeName } from '../../../domain/data/baseTypes'
+import { BaseTypeName, baseTypes } from '../../../domain/data/baseTypes'
 
+/**
+ * Seeds all default types like primitives
+ */
 @Injectable()
-export class SeedBaseTypesService
-  implements UseCasePort<Array<CreateTypeInput>, any>
-{
+export class SeedBaseTypesService implements UseCasePort<void, void> {
   constructor(
     @Inject(ApolloClientTokens.ApolloClientProvider)
     private readonly client: ApolloClient<any>,
   ) {}
 
-  public execute(input: Array<CreateTypeInput>): Promise<any> {
-    return this.seedTypesIfMissing(input)
+  async execute(): Promise<any> {
+    return this.seedTypesIfMissing(baseTypes)
   }
 
   private async seedTypesIfMissing(types: Array<CreateTypeInput>) {

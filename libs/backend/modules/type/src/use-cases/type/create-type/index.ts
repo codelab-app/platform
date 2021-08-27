@@ -1,2 +1,7 @@
+export { CreateArrayTypeInput } from './create-array-type.input'
+export { CreateElementTypeInput } from './create-element-type.input'
+export { CreateEnumTypeInput } from './create-enum-type.input'
+export { CreateEnumTypeValueInput } from './create-enum-type-value.input'
+export { CreatePrimitiveTypeInput } from './create-primitive-type.input'
 export * from './create-type.input'
 export * from './create-type.service'

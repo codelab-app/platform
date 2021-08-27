@@ -1,0 +1,20 @@
+# This is used solely on the backend. The frontend query wraps this query, and gets the payload string only
+query GetExportAtoms($input: GetAtomsInput) {
+  getAtoms(input: $input) {
+    ...GetExport__Atoms
+  }
+}
+
+fragment GetExport__Atoms on Atom {
+  id
+  name
+  type
+  api {
+    id
+    name
+    typeKind
+    typeGraph {
+      ...__TypeGraph
+    }
+  }
+}
