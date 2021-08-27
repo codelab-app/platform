@@ -2,10 +2,11 @@ import {
   Auth0Service,
   AuthModule,
   DgraphModule,
+  InfrastructureModule,
   ServerConfig,
   serverConfig,
 } from '@codelab/backend/infra'
-import { SeedBaseTypesService } from '@codelab/backend/modules/type'
+import { SeedBaseTypesService, TypeModule } from '@codelab/backend/modules/type'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLClient } from 'graphql-request'
@@ -14,8 +15,15 @@ import { SeederService } from './seeder.service'
 export const SeederProvider = 'SEEDER_PROVIDER'
 
 @Module({
-  imports: [DgraphModule, AuthModule, ConfigModule.forFeature(serverConfig)],
+  imports: [
+    InfrastructureModule,
+    DgraphModule,
+    AuthModule,
+    ConfigModule.forFeature(serverConfig),
+    TypeModule,
+  ],
   providers: [
+    SeedBaseTypesService,
     {
       provide: SeederProvider,
       useFactory: async (
