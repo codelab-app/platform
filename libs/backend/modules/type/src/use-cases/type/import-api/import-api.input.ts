@@ -1,7 +1,3 @@
-import { Field, InputType } from '@nestjs/graphql'
+import { __TypeGraphFragment } from '@codelab/shared/codegen/graphql'
 
-@InputType()
-export class ImportApiInput {
-  @Field()
-  declare payload: string
-}
+export type ImportApiInput = __TypeGraphFragment

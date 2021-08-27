@@ -1,4 +1,5 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
+import { ImportApiService } from '@codelab/backend/modules/type'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import {
   CreateAtomInput,
@@ -19,23 +20,26 @@ export class ImportAtomsService implements UseCasePort<ImportAtomsInput, void> {
   constructor(
     private getAtomService: GetAtomService,
     private createAtomService: CreateAtomService,
+    private importApiService: ImportApiService,
   ) {}
 
   async execute(request: ImportAtomsInput): Promise<void> {
     const { payload } = request
     const data = JSON.parse(payload)
     const atoms = await this.seedAtoms(data ?? [])
-    console.log(atoms)
   }
 
   private async seedAtoms(atoms: Array<GetExport__AtomsFragment>) {
     return Promise.all(
-      atoms.map((atom) =>
-        this.seedAtomIfMissing({
+      atoms.map(async (atom) => {
+        // Seed atom
+        await this.seedAtomIfMissing({
           type: atom.type,
           name: atom.name,
-        }),
-      ),
+        })
+        // Seed api
+        // await this.importApiService.execute(atom.api.typeGraph)
+      }),
     )
   }
 

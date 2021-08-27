@@ -26,7 +26,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
     super(dgraph)
   }
 
-  async executeTransaction(request: CreateTypeInput, txn: Txn) {
+  protected async executeTransaction(request: CreateTypeInput, txn: Txn) {
     await this.validate(request)
 
     return this.dgraph.create(txn, (blankNodeUid) =>

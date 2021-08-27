@@ -12,10 +12,6 @@ import {
   GetAtomsInput,
   GetExportAtomsGql,
   GetExportAtomsQuery,
-  GetTypeGql,
-  GetTypesInput,
-  GetTypesQuery,
-  ImportApiInput,
   ImportAtomsGql,
   ImportAtomsInput,
   ImportAtomsMutation,
@@ -57,9 +53,9 @@ describe('ImportAtoms', () => {
     })
   })
 
-  describe('User', () => {
+  describe.skip('User', () => {
     it('should import atoms', async () => {
-      await domainRequest<ImportApiInput>(
+      await domainRequest<ImportAtomsInput>(
         userApp,
         ImportAtomsGql,
         importAtomsInput,
@@ -90,11 +86,6 @@ describe('ImportAtoms', () => {
         GetAtomsInput,
         GetExportAtomsQuery
       >(userApp, GetExportAtomsGql, getAtomsInput)
-
-      const results = await domainRequest<GetTypesInput, GetTypesQuery>(
-        userApp,
-        GetTypeGql,
-      )
 
       /**
        * Remove id from tree
