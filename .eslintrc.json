@@ -166,45 +166,6 @@
       }
     },
     {
-      // In order to allow spec files to import codegen, we unfortunately have to copy the whole rules here
-      "files": ["**/tests/**/*"],
-      "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "depConstraints": [
-              {
-                "sourceTag": "type:abstract",
-                "onlyDependOnLibsWithTags": ["type:abstract", "scope:codegen"]
-              },
-              {
-                "sourceTag": "scope:backend",
-                "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
-              },
-              {
-                "sourceTag": "scope:frontend",
-                "onlyDependOnLibsWithTags": ["scope:frontend", "scope:shared"]
-              },
-              {
-                "sourceTag": "scope:backend",
-                "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
-              },
-              {
-                "sourceTag": "layer:domain:backend",
-                "onlyDependOnLibsWithTags": [
-                  "layer:domain:backend",
-                  "layer:infra",
-                  "type:abstract",
-                  "scope:codegen"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "files": ["*.ts", "*.tsx"],
       "extends": [
         "plugin:@nrwl/nx/typescript",

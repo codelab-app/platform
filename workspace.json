@@ -823,6 +823,14 @@
           "options": {
             "lintFilePatterns": ["libs/shared/core/**/*.ts"]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/core"],
+          "options": {
+            "jestConfig": "libs/shared/core/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },

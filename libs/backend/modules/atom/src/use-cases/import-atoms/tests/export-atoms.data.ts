@@ -1,20 +1,20 @@
-export const importAtomsData = [
+export const exportAtomsData = [
   {
-    id: '0xea81',
+    // id: '0xea81',
     name: 'Ant Design Card',
     type: 'AntDesignCard',
     api: {
-      id: '0xea82',
+      // id: '0xea82',
       name: 'Ant Design Card API',
       typeKind: 'InterfaceType',
       typeGraph: {
         edges: [
           {
-            source: '0xea82',
-            target: '0xea6d',
+            // source: '0xea82',
+            // target: '0xea6d',
             kind: 'Field',
             field: {
-              id: '0xec17',
+              // id: '0xec17',
               key: 'activeTabKey',
               name: 'Active Tab Key',
               description: "Current TabPane's key",
@@ -23,11 +23,11 @@ export const importAtomsData = [
             __typename: 'TypeEdge',
           },
           {
-            source: '0xea82',
-            target: '0xea66',
+            // source: '0xea82',
+            // target: '0xea66',
             kind: 'Field',
             field: {
-              id: '0xec65',
+              // id: '0xec65',
               key: 'bordered',
               name: 'Bordered',
               description: 'Toggles rendering of the border around the card',
@@ -36,11 +36,11 @@ export const importAtomsData = [
             __typename: 'TypeEdge',
           },
           {
-            source: '0xea82',
-            target: '0xea6d',
+            // source: '0xea82',
+            // target: '0xea6d',
             kind: 'Field',
             field: {
-              id: '0xec9a',
+              // id: '0xec9a',
               key: 'defaultActiveTabKey',
               name: 'Default Active Tab Key',
               description:
@@ -50,11 +50,11 @@ export const importAtomsData = [
             __typename: 'TypeEdge',
           },
           {
-            source: '0xea82',
-            target: '0xea66',
+            // source: '0xea82',
+            // target: '0xea66',
             kind: 'Field',
             field: {
-              id: '0xecbb',
+              // id: '0xecbb',
               key: 'hoverable',
               name: 'Hoverable',
               description: 'Lift up when hovering card',
@@ -63,11 +63,11 @@ export const importAtomsData = [
             __typename: 'TypeEdge',
           },
           {
-            source: '0xea82',
-            target: '0xea66',
+            // source: '0xea82',
+            // target: '0xea66',
             kind: 'Field',
             field: {
-              id: '0xecd5',
+              // id: '0xecd5',
               key: 'loading',
               name: 'Loading',
               description:
@@ -77,11 +77,11 @@ export const importAtomsData = [
             __typename: 'TypeEdge',
           },
           {
-            source: '0xea82',
-            target: '0xea6d',
+            // source: '0xea82',
+            // target: '0xea6d',
             kind: 'Field',
             field: {
-              id: '0xecf1',
+              // id: '0xecf1',
               key: 'type',
               name: 'Type',
               description: 'Card style type, can be set to inner or not set',
@@ -93,20 +93,20 @@ export const importAtomsData = [
         vertices: [
           {
             __typename: 'InterfaceType',
-            id: '0xea82',
+            // id: '0xea82',
             name: 'Ant Design Card API',
             typeKind: 'InterfaceType',
           },
           {
             __typename: 'PrimitiveType',
-            id: '0xea6d',
+            // id: '0xea6d',
             name: 'String',
             typeKind: 'PrimitiveType',
             primitiveKind: 'String',
           },
           {
             __typename: 'PrimitiveType',
-            id: '0xea66',
+            // id: '0xea66',
             name: 'Boolean',
             typeKind: 'PrimitiveType',
             primitiveKind: 'Boolean',

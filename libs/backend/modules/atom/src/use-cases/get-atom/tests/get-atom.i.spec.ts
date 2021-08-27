@@ -58,13 +58,13 @@ describe('GetAtom', () => {
 
   describe('User', () => {
     it('should get an atom ', async () => {
-      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { getAtom } = await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
         getAtomInput,
       )
 
-      expect(atom).toMatchObject({
+      expect(getAtom).toMatchObject({
         id: atomId,
         name: 'Button (Ant Design)',
         type: 'AntDesignButton',
@@ -72,13 +72,13 @@ describe('GetAtom', () => {
     })
 
     it('should get an atom by type', async () => {
-      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { getAtom } = await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
         getAtomByTypeInput,
       )
 
-      expect(atom).toMatchObject({
+      expect(getAtom).toMatchObject({
         id: atomId,
         name: 'Button (Ant Design)',
         type: 'AntDesignButton',

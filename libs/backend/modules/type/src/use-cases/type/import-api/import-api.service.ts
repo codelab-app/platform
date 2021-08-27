@@ -17,7 +17,9 @@ export class ImportApiService implements UseCasePort<ImportApiInput, void> {
   ) {}
 
   async execute(request: ImportApiInput): Promise<void> {
-    const { vertices, edges } = JSON.parse(request.payload) as TypeGraph
+    const { vertices = [], edges = [] } = JSON.parse(
+      request.payload,
+    ) as TypeGraph
 
     /**
      * Create vertices and create a mapping of old to new id's
