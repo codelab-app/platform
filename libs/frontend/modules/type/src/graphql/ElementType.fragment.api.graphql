@@ -1,0 +1,5 @@
+fragment __ElementType on ElementType {
+  id
+  name
+  kind
+}

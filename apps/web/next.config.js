@@ -36,7 +36,7 @@ module.exports = withPlugins(
   withNx({
     cssModules: false,
     webpack5: false,
-    webpack(config, { isServer }) {
+    webpack(config, options) {
       // https://github.com/prettier/prettier/issues/4959#issuecomment-416834237
       config.plugins.push(
         new FilterWarningsPlugin({
@@ -44,6 +44,24 @@ module.exports = withPlugins(
             /Critical dependency: the request of a dependency is an expression/,
         }),
       )
+
+      config.module.rules.push({
+        test: /\.graphql$/,
+        exclude: /node_modules/,
+        use: [options.defaultLoaders.babel, { loader: 'graphql-let/loader' }],
+      })
+
+      config.module.rules.push({
+        test: /\.graphqls$/,
+        exclude: /node_modules/,
+        use: ['graphql-let/schema/loader'],
+      })
+
+      config.module.rules.push({
+        test: /\.ya?ml$/,
+        type: 'json',
+        use: 'yaml-loader',
+      })
 
       return config
     },

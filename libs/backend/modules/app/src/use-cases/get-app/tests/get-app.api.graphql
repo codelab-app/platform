@@ -1,3 +1,5 @@
+# import __App from "../../../../../../../frontend/modules/app/src/AppFragments.api.graphql"
+
 query GetApp($input: GetAppInput!) {
   getApp(input: $input) {
     ...__App

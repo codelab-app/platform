@@ -1,0 +1,3 @@
+fragment __LambdaPayload on LambdaPayload {
+  payload
+}

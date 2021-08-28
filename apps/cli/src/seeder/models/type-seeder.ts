@@ -105,8 +105,8 @@ export class TypeSeeder {
   private async createFieldIfMissing(input: CreateFieldInput): Promise<string> {
     try {
       return await this.createField(input)
-    } catch (e) {
-      if (!e.toString().includes('already exists')) {
+    } catch (e: any) {
+      if (!e?.toString().includes('already exists')) {
         throw e
       }
 

@@ -1,3 +1,5 @@
+# import __TypeGraph from '../../../../type/src/graphql/TypeGraph.fragment.api.graphql'
+
 # This is used solely on the backend. The frontend query wraps this query, and gets the payload string only
 query GetExportAtoms($input: GetAtomsInput) {
   getAtoms(input: $input) {

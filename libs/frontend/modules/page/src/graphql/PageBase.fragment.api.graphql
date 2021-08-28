@@ -3,10 +3,3 @@ fragment PageBase on Page {
   name
   # Elements are expensive to get, don't query it every time
 }
-
-fragment PageFull on Page {
-  ...PageBase
-  elements {
-    ...ElementGraph
-  }
-}

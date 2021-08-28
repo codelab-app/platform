@@ -1,0 +1,16 @@
+# import __Atom from '../../../atom/src/Atom.fragments.api.graphql'
+# import Hook from './Hook.fragment.api.graphql'
+
+fragment Element on Element {
+  __typename
+  id
+  name
+  css
+  atom {
+    ...__Atom
+  }
+  props
+  hooks {
+    ...Hook
+  }
+}

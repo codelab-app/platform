@@ -1,0 +1,6 @@
+# import QueryHookConfig from './QueryHookConfig.fragment.api.graphql'
+
+fragment HookConfig on HookConfig {
+  __typename
+  ...QueryHookConfig
+}

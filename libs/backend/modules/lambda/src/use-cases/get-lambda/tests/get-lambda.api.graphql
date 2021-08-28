@@ -1,3 +1,5 @@
+# import __Lambda from '../../../domain/lambda.fragment.api.graphql'
+
 query GetLambda($input: GetLambdaInput!) {
   getLambda(input: $input) {
     ...__Lambda

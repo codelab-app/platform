@@ -1,0 +1,9 @@
+# import PageBase from './PageBase.fragment.api.graphql'
+# import ElementGraph from '../../../element/src/graphql/ElementGraph.fragment.api.graphql'
+
+fragment PageFull on Page {
+  ...PageBase
+  elements {
+    ...ElementGraph
+  }
+}

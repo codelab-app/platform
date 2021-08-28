@@ -1,0 +1,9 @@
+# import __EnumTypeValue from "./EnumTypeValue.fragment.api.graphql"
+
+fragment __EnumType on EnumType {
+  id
+  name
+  allowedValues {
+    ...__EnumTypeValue
+  }
+}

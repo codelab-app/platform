@@ -165,5 +165,5 @@
       "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp", "dist"]
+  "exclude": ["node_modules", "tmp", "dist", ".gqlcodegen"]
 }

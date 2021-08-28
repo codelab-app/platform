@@ -1,0 +1,4 @@
+fragment __ArrayType on ArrayType {
+  id
+  name
+}

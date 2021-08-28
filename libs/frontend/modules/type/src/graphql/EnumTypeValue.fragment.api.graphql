@@ -1,0 +1,5 @@
+fragment __EnumTypeValue on EnumTypeValue {
+  id
+  name
+  value
+}

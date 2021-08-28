@@ -1,3 +1,5 @@
+# import ElementGraph from '../../../../element/src/graphql/ElementGraph.fragment.api.graphql'
+
 query GetComponentElements($input: GetComponentInput!) {
   getComponentElements(input: $input) {
     ...ElementGraph

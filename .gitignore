@@ -48,3 +48,9 @@ coverage/
 Thumbs.db
 
 .vercel
+
+
+# Graphql codegen cache
+/.gqlcodegen
+*.graphql.d.ts
+*.graphqls.d.ts

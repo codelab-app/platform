@@ -1,0 +1,10 @@
+# import __Field from "./Field.fragment.api.graphql"
+
+fragment __TypeEdge on TypeEdge {
+  source
+  target
+  kind
+  field {
+    ...__Field
+  }
+}

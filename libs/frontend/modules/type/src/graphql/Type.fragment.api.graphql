@@ -1,0 +1,21 @@
+# import __ArrayType from "./ArrayType.fragment.api.graphql"
+# import __EnumType from "./EnumType.fragment.api.graphql"
+# import __Interface from "./Interface.fragment.api.graphql"
+# import __PrimitiveType from "./PrimitiveType.fragment.api.graphql"
+# import __ElementType from "./ElementType.fragment.api.graphql"
+# import __LambdaType from "./LambdaType.fragment.api.graphql"
+# import __ComponentType from "./ComponentType.fragment.api.graphql"
+
+fragment __Type on Type {
+  __typename
+  id
+  name
+  typeKind
+  ...__ArrayType
+  ...__EnumType
+  ...__Interface
+  ...__PrimitiveType
+  ...__ElementType
+  ...__LambdaType
+  ...__ComponentType
+}

@@ -1,3 +1,5 @@
+# import __TypeGraph from "../../../graphql/TypeGraph.fragment.api.graphql"
+
 query GetTypeGraph($input: GetTypeInput!) {
   getTypeGraph(input: $input) {
     ...__TypeGraph

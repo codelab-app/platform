@@ -1,3 +1,5 @@
+# import PageFull from '../../../graphql/PageFull.fragment.api.graphql'
+
 query GetPage($input: GetPageInput!) {
   page: getPage(input: $input) {
     ...PageFull

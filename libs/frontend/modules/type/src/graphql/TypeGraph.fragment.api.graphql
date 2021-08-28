@@ -1,0 +1,11 @@
+# import __Type from "./Type.fragment.api.graphql"
+# import __TypeEdge from "./TypeEdge.fragment.api.graphql"
+
+fragment __TypeGraph on TypeGraph {
+  edges {
+    ...__TypeEdge
+  }
+  vertices {
+    ...__Type
+  }
+}

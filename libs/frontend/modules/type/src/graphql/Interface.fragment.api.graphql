@@ -1,0 +1,4 @@
+fragment __Interface on InterfaceType {
+  id
+  name
+}

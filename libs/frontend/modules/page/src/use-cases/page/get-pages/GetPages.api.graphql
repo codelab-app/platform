@@ -1,3 +1,5 @@
+# import PageBase from '../../../graphql/PageBase.fragment.api.graphql'
+
 query GetPages($input: GetPagesInput!) {
   pages: getPages(input: $input) {
     ...PageBase

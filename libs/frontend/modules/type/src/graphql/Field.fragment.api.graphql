@@ -1,0 +1,6 @@
+fragment __Field on Field {
+  id
+  key
+  name
+  description
+}

@@ -1,0 +1,4 @@
+fragment __LambdaType on LambdaType {
+  id
+  name
+}
