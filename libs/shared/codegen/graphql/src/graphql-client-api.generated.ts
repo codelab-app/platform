@@ -271,7 +271,7 @@ export type CreateAtomInput = {
   name: Scalars['String']
   type: AtomType
   /** Pass in an existing interface ID to assign it to the atom */
-  api: Scalars['String']
+  api?: Maybe<Scalars['String']>
 }
 
 export type CreateComponentInput = {

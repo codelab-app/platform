@@ -11,6 +11,7 @@ export class CreateAtomInput {
 
   @Field({
     description: 'Pass in an existing interface ID to assign it to the atom',
+    nullable: true,
   })
   declare api?: string
 }

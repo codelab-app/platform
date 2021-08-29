@@ -1,12 +1,9 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { ImportApiService } from '@codelab/backend/modules/type'
 import { createIfMissing } from '@codelab/backend/shared/utils'
-import {
-  CreateAtomInput,
-  GetExport__AtomsFragment,
-} from '@codelab/shared/codegen/graphql'
+import { GetExport__AtomsFragment } from '@codelab/shared/codegen/graphql'
 import { Injectable } from '@nestjs/common'
-import { CreateAtomService } from '../create-atom'
+import { CreateAtomInput, CreateAtomService } from '../create-atom'
 import { GetAtomService } from '../get-atom'
 import { ImportAtomsInput } from './import-atoms.input'
 
