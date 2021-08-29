@@ -8,7 +8,7 @@ import {
 import { CreateTypeService } from '@codelab/backend/modules/type'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { CreateAtomInput } from './create-atom.input'
 
 @Injectable()
@@ -21,10 +21,22 @@ export class CreateAtomService extends DgraphCreateUseCase<CreateAtomInput> {
   }
 
   protected async executeTransaction(request: CreateAtomInput, txn: Txn) {
-    const { type, name, api } = request
     // TODO: Validate api is a valid interfaceId
+
+    const { type, name, api } = request
+
+    /**
+     * (1) Create atom
+     */
+    const { id: atomId } = await this.dgraph.create(txn, (blankNodeUid) =>
+      CreateAtomService.createMutation(request, blankNodeUid),
+    )
+
     let interfaceId = api
 
+    /**
+     * (2) Create interface if not existing
+     */
     if (!api) {
       const { id } = await this.createTypeService.execute({
         name: `${name} API`,
@@ -34,16 +46,21 @@ export class CreateAtomService extends DgraphCreateUseCase<CreateAtomInput> {
       interfaceId = id
     }
 
-    return this.dgraph.create(txn, (blankNodeUid) =>
-      CreateAtomService.createMutation(
-        { ...request, api: interfaceId },
-        blankNodeUid,
-      ),
-    )
+    /**
+     * (3) Assign interface
+     */
+    const mu: Mutation = {}
+    mu.setNquads = `<${atomId}> <api> <${interfaceId}> .`
+
+    await this.dgraph.transactionWrapper(async (_txn) => {
+      await this.dgraph.executeMutation(_txn, mu)
+    })
+
+    return { id: atomId }
   }
 
   private static createMutation(
-    { type, name, api }: CreateAtomInput,
+    { type, name }: CreateAtomInput,
     blankNodeUid: string,
   ) {
     return jsonMutation<DgraphAtom>({
@@ -51,7 +68,6 @@ export class CreateAtomService extends DgraphCreateUseCase<CreateAtomInput> {
       'dgraph.type': [DgraphEntityType.Atom],
       atomType: type,
       name,
-      api,
     })
   }
 }

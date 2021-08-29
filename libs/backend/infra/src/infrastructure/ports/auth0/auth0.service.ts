@@ -39,9 +39,11 @@ export class Auth0Service {
         await this.getAuthClient().clientCredentialsGrant({
           audience: this._auth0Config.api.audience,
         })
+      // const access_token = await this.getManagementClient().getAccessToken()
 
-      process.on('exit', () => {
+      process.on('uncaughtException', () => {
         console.log('Please update `AUTH0_M2M_TOKEN` with', access_token)
+        process.exit(1)
       })
       process.exit(1)
     }

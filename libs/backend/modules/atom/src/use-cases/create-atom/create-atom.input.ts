@@ -9,6 +9,6 @@ export class CreateAtomInput {
   @Field(() => AtomType)
   declare type: AtomType
 
-  // This is the interfaceId, used at the services level. Not required for frontend because frontend creation never has a existing api
+  // This is the interfaceId used at the services level. Not required for frontend because frontend creation never has a exiatom-seedersting api
   declare api?: string
 }

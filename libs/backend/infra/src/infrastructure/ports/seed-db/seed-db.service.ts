@@ -30,91 +30,91 @@ export class SeedDbService {
       api: {
         uid: INTERFACE_UID,
         fields: [
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'block' + '_id',
             INTERFACE_UID,
             'block',
             'Option to fit button width to its parent width',
             'boolean',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'danger' + '_id',
             INTERFACE_UID,
             'danger',
             'Set the danger status of button',
             'boolean',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'disabled' + '_id',
             INTERFACE_UID,
             'disabled',
             'Disabled state of button',
             'boolean',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'ghost' + '_id',
             INTERFACE_UID,
             'ghost',
             'Make background transparent and invert text and border colors',
             'boolean',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'href' + '_id',
             INTERFACE_UID,
             'href',
             'Redirect url of link button',
             'string',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'htmlType' + '_id',
             INTERFACE_UID,
             'htmlType',
             'Set the original html type of button',
             'string',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'icon' + '_id',
             INTERFACE_UID,
             'icon',
             'Set the icon component of button',
             'ReactNode',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'loading' + '_id',
             INTERFACE_UID,
             'loading',
             'Set the loading status of button',
             'boolean | { delay: number }',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'shape' + '_id',
             INTERFACE_UID,
             'shape',
             'Can be set button shape',
             'circle | round',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'size' + '_id',
             INTERFACE_UID,
             'size',
             'Set the size of button',
             'large | middle | small',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'target' + '_id',
             INTERFACE_UID,
             'target',
             'Same as target attribute of a, works when href is specified',
             'string',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'type' + '_id',
             INTERFACE_UID,
             'type',
             'Can be set to primary ghost dashed link text default',
             'string',
           ),
-          this.createField(
+          SeedDbService.createField(
             '_:' + 'onClick' + '_id',
             INTERFACE_UID,
             'onClick',
@@ -131,7 +131,7 @@ export class SeedDbService {
     await txn.commit()
   }
 
-  private createField(
+  private static createField(
     uid: string,
     interfaceUid: string,
     name: string,
