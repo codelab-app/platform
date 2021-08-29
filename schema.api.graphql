@@ -770,6 +770,9 @@ input DeleteComponentInput {
 input CreateAtomInput {
   name: String!
   type: AtomType!
+
+  """Pass in an existing interface ID to assign it to the atom"""
+  api: String!
 }
 
 input DeleteAtomInput {

@@ -2,6 +2,7 @@ import { ApolloClient } from '@apollo/client'
 import {
   ApolloClientTokens,
   CreateResponse,
+  CurrentUser,
   GqlAuthGuard,
   Void,
 } from '@codelab/backend/infra'
@@ -10,6 +11,7 @@ import {
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
+import { User } from '@codelab/shared/abstract/core'
 import {
   GetAtomsQuery,
   GetAtomsQueryVariables,
@@ -83,7 +85,12 @@ export class AtomResolver {
    */
   @Query(() => ExportAtoms, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async exportAtoms(@Args('input', { nullable: true }) input?: GetAtomsInput) {
+  async exportAtoms(
+    @CurrentUser() currentUser: User,
+    @Args('input', { nullable: true }) input?: GetAtomsInput,
+  ) {
+    console.log(currentUser)
+
     const {
       data: { getAtoms },
     } = await this.client.query<GetAtomsQuery, GetAtomsQueryVariables>({

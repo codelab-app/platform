@@ -6,7 +6,6 @@ import {
   InMemoryCache,
 } from '@apollo/client'
 import { fetch } from 'cross-fetch'
-import { Auth0Service } from '../auth0'
 import {
   ApolloClientConfig,
   apolloClientConfig,
@@ -14,16 +13,13 @@ import {
 import { ApolloClientTokens } from './config/apollo-client.tokens'
 
 /**
- * Used internally to access own API
+ * Used internally to access own API.
+ *
+ * We don't want to fetch token here, because this would be called before module initialization. Instead call before the actual usage of the client
  */
 export const apolloClientProvider = {
   provide: ApolloClientTokens.ApolloClientProvider,
-  useFactory: async (
-    _apolloClientConfig: ApolloClientConfig,
-    auth0Service: Auth0Service,
-  ) => {
-    const accessToken = await auth0Service.getAccessToken()
-
+  useFactory: async (_apolloClientConfig: ApolloClientConfig) => {
     const httpLink = new HttpLink({
       uri: _apolloClientConfig?.endpoint,
       credentials: 'same-origin',
@@ -34,7 +30,7 @@ export const apolloClientProvider = {
       operation.setContext(({ headers = {} }) => ({
         headers: {
           ...headers,
-          authorization: `Bearer ${accessToken}`,
+          // authorization: `Bearer ${accessToken}`,
         },
       }))
 
@@ -58,5 +54,5 @@ export const apolloClientProvider = {
       },
     })
   },
-  inject: [apolloClientConfig.KEY, Auth0Service],
+  inject: [apolloClientConfig.KEY],
 }

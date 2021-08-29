@@ -270,6 +270,8 @@ export type CreateArrayTypeInput = {
 export type CreateAtomInput = {
   name: Scalars['String']
   type: AtomType
+  /** Pass in an existing interface ID to assign it to the atom */
+  api: Scalars['String']
 }
 
 export type CreateComponentInput = {
@@ -537,10 +539,6 @@ export type GetUsersInput = {
   sort: Scalars['String']
 }
 
-export type ImportApiInput = {
-  payload: Scalars['String']
-}
-
 export type ImportAtomsInput = {
   payload: Scalars['String']
 }
@@ -604,7 +602,6 @@ export type Mutation = {
   deleteAtom?: Maybe<Scalars['Void']>
   importAtoms?: Maybe<Scalars['Void']>
   updateAtom?: Maybe<Scalars['Void']>
-  importApi?: Maybe<Scalars['Void']>
   createType: CreateResponse
   updateEnumType?: Maybe<Scalars['Void']>
   updatePrimitiveType?: Maybe<Scalars['Void']>
@@ -700,10 +697,6 @@ export type MutationImportAtomsArgs = {
 
 export type MutationUpdateAtomArgs = {
   input: UpdateAtomInput
-}
-
-export type MutationImportApiArgs = {
-  input: ImportApiInput
 }
 
 export type MutationCreateTypeArgs = {
@@ -1293,12 +1286,6 @@ export type UpdateTagMutationVariables = Exact<{
 }>
 
 export type UpdateTagMutation = { updateTag?: Maybe<void> }
-
-export type ImportApiMutationVariables = Exact<{
-  input: ImportApiInput
-}>
-
-export type ImportApiMutation = { importApi?: Maybe<void> }
 
 export type __AppFragment = { id: string; name: string }
 
@@ -3040,53 +3027,6 @@ export type UpdateTagMutationResult = Apollo.MutationResult<UpdateTagMutation>
 export type UpdateTagMutationOptions = Apollo.BaseMutationOptions<
   UpdateTagMutation,
   UpdateTagMutationVariables
->
-export const ImportApiGql = gql`
-  mutation ImportApi($input: ImportApiInput!) {
-    importApi(input: $input)
-  }
-`
-export type ImportApiMutationFn = Apollo.MutationFunction<
-  ImportApiMutation,
-  ImportApiMutationVariables
->
-
-/**
- * __useImportApiMutation__
- *
- * To run a mutation, you first call `useImportApiMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useImportApiMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [importApiMutation, { data, loading, error }] = useImportApiMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useImportApiMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    ImportApiMutation,
-    ImportApiMutationVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useMutation<ImportApiMutation, ImportApiMutationVariables>(
-    ImportApiGql,
-    options,
-  )
-}
-export type ImportApiMutationHookResult = ReturnType<
-  typeof useImportApiMutation
->
-export type ImportApiMutationResult = Apollo.MutationResult<ImportApiMutation>
-export type ImportApiMutationOptions = Apollo.BaseMutationOptions<
-  ImportApiMutation,
-  ImportApiMutationVariables
 >
 export const CreateAtomGql = gql`
   mutation CreateAtom($input: CreateAtomInput!) {
@@ -5342,11 +5282,6 @@ export const GetTags = gql`
 export const UpdateTag = gql`
   mutation UpdateTag($input: UpdateTagInput!) {
     updateTag(input: $input)
-  }
-`
-export const ImportApi = gql`
-  mutation ImportApi($input: ImportApiInput!) {
-    importApi(input: $input)
   }
 `
 export const CreateAtom = gql`

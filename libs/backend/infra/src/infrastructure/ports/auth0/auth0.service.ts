@@ -1,10 +1,24 @@
-import { Inject, Injectable } from '@nestjs/common'
+import {
+  Inject,
+  Injectable,
+  OnApplicationShutdown,
+  ShutdownSignal,
+} from '@nestjs/common'
 import { AuthenticationClient, ManagementClient } from 'auth0'
 import axios from 'axios'
+import process, { kill } from 'process'
 import { Auth0Config, auth0Config } from './config/auth0.config'
 
 @Injectable()
-export class Auth0Service {
+export class Auth0Service implements OnApplicationShutdown {
+  onApplicationShutdown(signal: ShutdownSignal) {
+    if (signal === ShutdownSignal.SIGTERM) {
+      console.log('Please update `AUTH0_M2M_TOKEN` with', this.newAccessToken)
+    }
+  }
+
+  newAccessToken = ''
+
   constructor(
     @Inject(auth0Config.KEY) private readonly _auth0Config: Auth0Config,
   ) {}
@@ -39,13 +53,10 @@ export class Auth0Service {
         await this.getAuthClient().clientCredentialsGrant({
           audience: this._auth0Config.api.audience,
         })
-      // const access_token = await this.getManagementClient().getAccessToken()
 
-      process.on('uncaughtException', () => {
-        console.log('Please update `AUTH0_M2M_TOKEN` with', access_token)
-        process.exit(1)
-      })
-      process.exit(1)
+      this.newAccessToken = access_token
+
+      kill(process.pid, ShutdownSignal.SIGTERM)
     }
 
     return this._auth0Config.api.accessToken

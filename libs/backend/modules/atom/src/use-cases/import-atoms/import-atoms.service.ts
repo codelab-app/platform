@@ -32,13 +32,18 @@ export class ImportAtomsService implements UseCasePort<ImportAtomsInput, void> {
   private async seedAtoms(atoms: Array<GetExport__AtomsFragment>) {
     return Promise.all(
       atoms.map(async (atom) => {
+        // Seed api
+        const { id } = await this.importApiService.execute({
+          typeGraph: atom.api.typeGraph,
+          api: atom.api.id,
+        })
+
         // Seed atom
         await this.seedAtomIfMissing({
           type: atom.type,
           name: atom.name,
+          api: id,
         })
-        // Seed api
-        // await this.importApiService.execute(atom.api.typeGraph)
       }),
     )
   }

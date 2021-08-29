@@ -1,4 +1,5 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
+import { CreateResponse } from '@codelab/backend/infra'
 import { TypeEdgeKind, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import {
@@ -9,14 +10,16 @@ import { CreateTypeInput, CreateTypeService } from '../create-type'
 import { ImportApiInput } from './import-api.input'
 
 @Injectable()
-export class ImportApiService implements UseCasePort<ImportApiInput, void> {
+export class ImportApiService
+  implements UseCasePort<ImportApiInput, CreateResponse>
+{
   constructor(
     private createTypeService: CreateTypeService,
     private createFieldService: CreateFieldService,
   ) {}
 
-  async execute(request: ImportApiInput): Promise<void> {
-    const { vertices = [], edges = [] } = request
+  async execute({ api, typeGraph }: ImportApiInput): Promise<CreateResponse> {
+    const { vertices = [], edges = [] } = typeGraph
 
     /**
      * Create vertices and create a mapping of old to new id's
@@ -58,7 +61,6 @@ export class ImportApiService implements UseCasePort<ImportApiInput, void> {
           }
 
           const { id } = await this.createFieldService.execute(createFieldInput)
-          console.log(id)
         }
 
         if (edge.kind === TypeEdgeKind.ArrayItem) {
@@ -82,5 +84,13 @@ export class ImportApiService implements UseCasePort<ImportApiInput, void> {
         }
       }),
     )
+
+    const interfaceId = verticesIdMap.get(api)
+
+    if (!interfaceId) {
+      throw new Error('Seeder not returning an interface')
+    }
+
+    return { id: interfaceId }
   }
 }

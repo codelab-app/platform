@@ -53,7 +53,7 @@ describe('ImportAtoms', () => {
     })
   })
 
-  describe.skip('User', () => {
+  describe('User', () => {
     it('should import atoms', async () => {
       await domainRequest<ImportAtomsInput>(
         userApp,

@@ -55,8 +55,6 @@ describe('CreateElement', () => {
         GetElementQuery
       >(userApp, GetElementGql, { elementId })
 
-      console.log(element)
-
       expect(element).toMatchObject({ ...createElementInput, id: elementId })
     })
   })

@@ -3,6 +3,7 @@ import {
   ExecutionContext,
   ForwardReference,
   INestApplication,
+  ShutdownSignal,
   Type,
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
@@ -71,6 +72,7 @@ export const setupTestModule = async (
 
   const testModule = await testModuleBuilder.compile()
   const app = testModule.createNestApplication()
+  app.enableShutdownHooks([ShutdownSignal.SIGTERM, ShutdownSignal.SIGINT])
 
   await app.init()
 
