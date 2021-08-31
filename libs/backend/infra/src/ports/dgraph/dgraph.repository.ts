@@ -1,5 +1,7 @@
-import { NotFoundError } from '@codelab/backend/abstract/core'
-import { CreateResponse } from '@codelab/backend/application'
+import {
+  CreateResponsePort,
+  NotFoundError,
+} from '@codelab/backend/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Response, Txn } from 'dgraph-js-http'
 import { DgraphService } from './dgraph.service'
@@ -114,7 +116,7 @@ export class DgraphRepository {
     txn: Txn,
     mutationOrFactory: Mutation | MutationFactoryFn,
     blankNodeLabel = 'entity',
-  ): Promise<CreateResponse> {
+  ): Promise<CreateResponsePort> {
     const mutation =
       typeof mutationOrFactory === 'function'
         ? await mutationOrFactory(`_:${blankNodeLabel}`)
