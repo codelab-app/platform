@@ -3,6 +3,6 @@ import { DgraphEntity } from '../core'
 
 export interface DgraphEnumTypeValue
   extends DgraphEntity<DgraphEntityType.EnumTypeValue> {
-  name?: string
+  name?: string | null
   stringValue: string
 }

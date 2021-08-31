@@ -32,13 +32,13 @@ export const HomeMenuHeader = () => {
       >
         <Menu.Item>Email {user?.email}</Menu.Item>
       </Menu.SubMenu>
-      <Menu.Item
-        key="5"
-        style={{
-          visibility: 'hidden',
-          flexGrow: 1,
-        }}
-      />
+      {/* <Menu.Item*/}
+      {/*  key="5"*/}
+      {/*  style={{*/}
+      {/*    visibility: 'hidden',*/}
+      {/*    flexGrow: 1,*/}
+      {/*  }}*/}
+      {/*/ >*/}
     </>
   )
 
@@ -61,13 +61,13 @@ export const HomeMenuHeader = () => {
         icon={<LoginUserButton />}
       />
       {/* Empty filler */}
-      <Menu.Item
-        key="5"
-        style={{
-          visibility: 'hidden',
-          flexGrow: 1,
-        }}
-      />
+      {/* <Menu.Item*/}
+      {/*  key="5"*/}
+      {/*  style={{*/}
+      {/*    visibility: 'hidden',*/}
+      {/*    flexGrow: 1,*/}
+      {/*  }}*/}
+      {/*/ >*/}
     </>
   )
 
@@ -94,7 +94,6 @@ export const HomeMenuHeader = () => {
           </Link>
         </Menu.Item>
         {user ? authenticatedUserMenu : guestUserMenu}
-        {/* {user ? authenticatedUserMenu : guestUserMenu}*/}
       </Menu>
     </>
   )

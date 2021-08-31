@@ -11,6 +11,7 @@ import {
   isDgraphFieldType,
   isDgraphInterfaceType,
 } from '@codelab/backend/infra'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import {
   OverlyNestedTypeError,
@@ -37,12 +38,38 @@ export class TypeValidator {
     return await this.dgraph.transactionWrapper((txn) =>
       this.dgraph.getOneOrThrow<QueryResult>(
         txn,
-        this.createGetTypeQuery(typeId),
+        TypeValidator.createGetTypeQuery(typeId),
         () => {
           throw new Error('Type does not exist')
         },
       ),
     )
+  }
+
+  /**
+   * Require that any primitive cannot be created a second time
+   */
+  async primitiveIsNotDuplicated({
+    typeKind,
+    primitiveType,
+  }: CreateTypeInput): Promise<boolean> {
+    if (typeKind !== TypeKind.PrimitiveType) {
+      return false
+    }
+
+    const results = await this.dgraph.transactionWrapper((txn) =>
+      this.dgraph.executeNamedQuery(
+        txn,
+        `
+          query func(eq(dgraph.type, ${DgraphEntityType.PrimitiveType})) {
+            uid
+          }
+         `,
+        'query',
+      ),
+    )
+
+    return !!results
   }
 
   /**
@@ -122,7 +149,7 @@ export class TypeValidator {
     }
   }
 
-  private createGetTypeQuery(typeId: string) {
+  private static createGetTypeQuery(typeId: string) {
     /**
      * 	q(func: uid(typeId)) {
           uid

@@ -38,6 +38,9 @@
     "backend-infra": {
       "tags": ["layer:infra", "scope:backend"]
     },
+    "backend-modules-admin": {
+      "tags": ["layer:domain:backend", "scope:backend"]
+    },
     "backend-modules-app": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },
@@ -79,6 +82,9 @@
     },
     "frontend-model-state": {
       "tags": ["scope:frontend"]
+    },
+    "frontend-modules-admin": {
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-app": {
       "tags": ["layer:domain:frontend", "scope:frontend"]

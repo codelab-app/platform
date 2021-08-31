@@ -1,9 +1,6 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
-import {
-  CreateTypeInput,
-  ElementTypeKind,
-  PrimitiveKind,
-} from '@codelab/shared/codegen/graphql'
+import { ElementTypeKind, PrimitiveKind } from '@codelab/shared/codegen/graphql'
+import { CreateTypeInput } from '../../use-cases/type/create-type'
 
 export enum BaseTypeName {
   Lambda = 'Lambda',

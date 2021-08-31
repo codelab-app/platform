@@ -9,15 +9,13 @@ const { Content, Header, Footer } = Layout
 export const HomeTemplate = ({ children }: TemplateProps) => {
   return (
     <Layout style={{ height: '100%' }}>
-      <Layout>
-        <Header>
-          <HomeMenuHeader />
-        </Header>
-        <Content style={contentStyle}>{children}</Content>
-        <Footer>
-          <span>Codelab.ai ©2020</span>
-        </Footer>
-      </Layout>
+      <Header>
+        <HomeMenuHeader />
+      </Header>
+      <Content style={contentStyle}>{children}</Content>
+      <Footer>
+        <span>Codelab.ai ©2020</span>
+      </Footer>
     </Layout>
   )
 }

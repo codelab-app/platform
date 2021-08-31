@@ -75,5 +75,6 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
 
   protected async validate(request: CreateTypeInput): Promise<void> {
     await this.typeValidator.validateCreateTypeInput(request)
+    await this.typeValidator.primitiveIsNotDuplicated(request)
   }
 }

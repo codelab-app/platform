@@ -586,6 +586,7 @@ export type Mutation = {
   deleteApp?: Maybe<Scalars['Void']>
   updateUser: User
   deleteUser: Scalars['Boolean']
+  resetData?: Maybe<Scalars['Void']>
   createPage: CreateResponse
   deletePage?: Maybe<Scalars['Void']>
   updatePage?: Maybe<Scalars['Void']>
@@ -602,6 +603,7 @@ export type Mutation = {
   deleteAtom?: Maybe<Scalars['Void']>
   importAtoms?: Maybe<Scalars['Void']>
   updateAtom?: Maybe<Scalars['Void']>
+  seedBaseTypes?: Maybe<Scalars['Void']>
   createType: CreateResponse
   updateEnumType?: Maybe<Scalars['Void']>
   updatePrimitiveType?: Maybe<Scalars['Void']>
@@ -1138,6 +1140,10 @@ export type WhereUniqueType = {
   atomId?: Maybe<Scalars['String']>
 }
 
+export type ResetDataMutationVariables = Exact<{ [key: string]: never }>
+
+export type ResetDataMutation = { resetData?: Maybe<void> }
+
 export type CreateAppMutationVariables = Exact<{
   input: CreateAppInput
 }>
@@ -1286,6 +1292,10 @@ export type UpdateTagMutationVariables = Exact<{
 }>
 
 export type UpdateTagMutation = { updateTag?: Maybe<void> }
+
+export type SeedBaseTypesMutationVariables = Exact<{ [key: string]: never }>
+
+export type SeedBaseTypesMutation = { seedBaseTypes?: Maybe<void> }
 
 export type __AppFragment = { id: string; name: string }
 
@@ -1928,6 +1938,52 @@ export const __UserFragmentDoc = gql`
     name
   }
 `
+export const ResetDataGql = gql`
+  mutation ResetData {
+    resetData
+  }
+`
+export type ResetDataMutationFn = Apollo.MutationFunction<
+  ResetDataMutation,
+  ResetDataMutationVariables
+>
+
+/**
+ * __useResetDataMutation__
+ *
+ * To run a mutation, you first call `useResetDataMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetDataMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resetDataMutation, { data, loading, error }] = useResetDataMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useResetDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ResetDataMutation,
+    ResetDataMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<ResetDataMutation, ResetDataMutationVariables>(
+    ResetDataGql,
+    options,
+  )
+}
+export type ResetDataMutationHookResult = ReturnType<
+  typeof useResetDataMutation
+>
+export type ResetDataMutationResult = Apollo.MutationResult<ResetDataMutation>
+export type ResetDataMutationOptions = Apollo.BaseMutationOptions<
+  ResetDataMutation,
+  ResetDataMutationVariables
+>
 export const CreateAppGql = gql`
   mutation CreateApp($input: CreateAppInput!) {
     createApp(input: $input) {
@@ -3027,6 +3083,53 @@ export type UpdateTagMutationResult = Apollo.MutationResult<UpdateTagMutation>
 export type UpdateTagMutationOptions = Apollo.BaseMutationOptions<
   UpdateTagMutation,
   UpdateTagMutationVariables
+>
+export const SeedBaseTypesGql = gql`
+  mutation SeedBaseTypes {
+    seedBaseTypes
+  }
+`
+export type SeedBaseTypesMutationFn = Apollo.MutationFunction<
+  SeedBaseTypesMutation,
+  SeedBaseTypesMutationVariables
+>
+
+/**
+ * __useSeedBaseTypesMutation__
+ *
+ * To run a mutation, you first call `useSeedBaseTypesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSeedBaseTypesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [seedBaseTypesMutation, { data, loading, error }] = useSeedBaseTypesMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSeedBaseTypesMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SeedBaseTypesMutation,
+    SeedBaseTypesMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    SeedBaseTypesMutation,
+    SeedBaseTypesMutationVariables
+  >(SeedBaseTypesGql, options)
+}
+export type SeedBaseTypesMutationHookResult = ReturnType<
+  typeof useSeedBaseTypesMutation
+>
+export type SeedBaseTypesMutationResult =
+  Apollo.MutationResult<SeedBaseTypesMutation>
+export type SeedBaseTypesMutationOptions = Apollo.BaseMutationOptions<
+  SeedBaseTypesMutation,
+  SeedBaseTypesMutationVariables
 >
 export const CreateAtomGql = gql`
   mutation CreateAtom($input: CreateAtomInput!) {
@@ -5140,6 +5243,11 @@ export const __User = gql`
     name
   }
 `
+export const ResetData = gql`
+  mutation ResetData {
+    resetData
+  }
+`
 export const CreateApp = gql`
   mutation CreateApp($input: CreateAppInput!) {
     createApp(input: $input) {
@@ -5282,6 +5390,11 @@ export const GetTags = gql`
 export const UpdateTag = gql`
   mutation UpdateTag($input: UpdateTagInput!) {
     updateTag(input: $input)
+  }
+`
+export const SeedBaseTypes = gql`
+  mutation SeedBaseTypes {
+    seedBaseTypes
   }
 `
 export const CreateAtom = gql`

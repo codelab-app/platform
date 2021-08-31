@@ -66,7 +66,8 @@ export const GetTypesTable = () => {
 
   return (
     <Table<__TypeFragment>
-      pagination={{ position: ['bottomCenter'] }}
+      size="small"
+      pagination={{ position: ['bottomCenter'], pageSize: 25 }}
       dataSource={data?.getTypes ?? []}
       columns={columns}
       rowKey={(type) => type.id}

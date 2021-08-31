@@ -77,5 +77,8 @@ describe('DeleteAtom', () => {
 
       expect(getAtom).toBeNull()
     })
+
+    // TODO: Add delete atom spec
+    it.skip('should remove all associated types, if not used by other atoms')
   })
 })

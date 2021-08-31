@@ -1,4 +1,5 @@
 import { InfrastructureModule } from '@codelab/backend/infra'
+import { AdminModule } from '@codelab/backend/modules/admin'
 import { AppModule } from '@codelab/backend/modules/app'
 import { AtomModule } from '@codelab/backend/modules/atom'
 import { ElementModule } from '@codelab/backend/modules/element'
@@ -18,6 +19,7 @@ import { AppController } from './app.controller'
      */
     AppModule,
     UserModule,
+    AdminModule,
     PageModule,
     ElementModule,
     AtomModule,

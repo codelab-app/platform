@@ -1,5 +1,4 @@
-import { useExportAtomsLazyQuery } from '@codelab/shared/codegen/graphql'
-import { base64ToUtf8 } from '@codelab/shared/utils'
+import { useGetExportAtomsLazyQuery } from '@codelab/shared/codegen/graphql'
 import { Button } from 'antd'
 import fileDownload from 'js-file-download'
 import React from 'react'
@@ -9,18 +8,12 @@ type ExportAtomsButtonProps = {
 }
 
 export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
-  const [exportData, { loading, data }] = useExportAtomsLazyQuery()
-
-  if (data?.exportAtoms) {
-    const content = base64ToUtf8(data?.exportAtoms.payload)
-    console.log(content)
-    fileDownload(content, 'atoms.json')
-  }
+  const [getExportAtoms, { loading, data }] = useGetExportAtomsLazyQuery()
 
   return (
     <Button
-      onClick={() =>
-        exportData({
+      onClick={async () => {
+        getExportAtoms({
           variables: {
             input: {
               where: {
@@ -29,7 +22,13 @@ export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
             },
           },
         })
-      }
+
+        if (data) {
+          const content = JSON.stringify(data.getAtoms)
+          console.log(content)
+          fileDownload(content, 'atoms.json')
+        }
+      }}
     >
       Export
     </Button>

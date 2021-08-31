@@ -2,6 +2,8 @@ export const sectionStyle = {
   margin: '1rem',
 }
 
+export const menuFloatRight = {}
+
 export const disableMenuHoverEffects = {
   backgroundColor: 'initial',
   cursor: 'inherit',

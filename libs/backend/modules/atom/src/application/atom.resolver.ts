@@ -89,8 +89,6 @@ export class AtomResolver {
     @CurrentUser() currentUser: User,
     @Args('input', { nullable: true }) input?: GetAtomsInput,
   ) {
-    console.log(currentUser)
-
     const {
       data: { getAtoms },
     } = await this.client.query<GetAtomsQuery, GetAtomsQueryVariables>({

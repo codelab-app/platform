@@ -2,11 +2,13 @@ import { UseCasePort } from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/infra'
 import { TypeEdgeKind, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
+import { TypeVertex } from '../../../domain'
 import {
   CreateFieldRequest,
   CreateFieldService,
 } from '../../field/create-field'
 import { CreateTypeInput, CreateTypeService } from '../create-type'
+import { CreateTypeFactory } from '../create-type/create-type.factory'
 import { ImportApiInput } from './import-api.input'
 
 @Injectable()
@@ -25,7 +27,10 @@ export class ImportApiService
      * Create vertices and create a mapping of old to new id's
      */
     const verticesIdMap = await vertices.reduce(async (vertexIdMap, vertex) => {
-      const { id } = await this.createTypeService.execute(vertex)
+      // We would want to map the vertex to create types
+      const typeData = CreateTypeFactory.toCreateInput(vertex as TypeVertex)
+
+      const { id } = await this.createTypeService.execute(typeData)
 
       ;(await vertexIdMap).set(vertex.id, id)
 

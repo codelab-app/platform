@@ -21,13 +21,13 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
   declare typeKind: TypeKind
 
   @Field(() => CreatePrimitiveTypeInput, { nullable: true })
-  declare primitiveType?: CreatePrimitiveTypeInput
+  declare primitiveType?: CreatePrimitiveTypeInput | null
 
   @Field(() => CreateArrayTypeInput, { nullable: true })
-  declare arrayType?: T
+  declare arrayType?: T | null
 
   @Field(() => CreateEnumTypeInput, { nullable: true })
-  declare enumType?: CreateEnumTypeInput
+  declare enumType?: CreateEnumTypeInput | null
 
   // These boolean are used as placeholder since these keys are required in certain places
   @Field({ nullable: true, defaultValue: false })
@@ -40,5 +40,5 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
   declare componentType?: boolean
 
   @Field(() => CreateElementTypeInput, { nullable: true })
-  declare elementType?: CreateElementTypeInput
+  declare elementType?: CreateElementTypeInput | null
 }

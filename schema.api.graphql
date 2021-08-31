@@ -615,6 +615,7 @@ type Mutation {
   deleteApp(input: DeleteAppInput!): Void
   updateUser(input: UpdateUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
+  resetData: Void
   createPage(input: CreatePageInput!): CreateResponse!
   deletePage(input: DeletePageInput!): Void
   updatePage(input: UpdatePageInput!): Void
@@ -632,6 +633,7 @@ type Mutation {
   deleteAtom(input: DeleteAtomInput!): Void
   importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Void
+  seedBaseTypes: Void
   createType(input: CreateTypeInput!): CreateResponse!
   updateEnumType(input: UpdateEnumTypeInput!): Void
   updatePrimitiveType(input: UpdatePrimitiveTypeInput!): Void

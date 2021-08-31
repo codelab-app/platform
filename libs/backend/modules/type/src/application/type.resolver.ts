@@ -25,6 +25,7 @@ import {
 import { GetTypeInput, GetTypeService } from '../use-cases/type/get-type'
 import { GetTypesInput, GetTypesService } from '../use-cases/type/get-types'
 import { ImportApiService } from '../use-cases/type/import-api'
+import { SeedBaseTypesService } from '../use-cases/type/seed-base-types'
 import {
   UpdateEnumTypeInput,
   UpdateEnumTypeService,
@@ -52,6 +53,7 @@ export class TypeResolver {
     private deleteTypeService: DeleteTypeService,
     private typeAdapterFactory: TypeAdapterFactory,
     private typeGraphAdapter: TypeGraphAdapter,
+    private seedBaseTypesService: SeedBaseTypesService,
     private importApiService: ImportApiService,
   ) {}
 
@@ -80,6 +82,12 @@ export class TypeResolver {
   // async importApi(@Args('input') input: ImportApiInput) {
   //   await this.importApiService.execute(input)
   // }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Void, { nullable: true })
+  async seedBaseTypes() {
+    this.seedBaseTypesService.execute()
+  }
 
   @UseGuards(GqlAuthGuard)
   @Query(() => Type, { nullable: true })
