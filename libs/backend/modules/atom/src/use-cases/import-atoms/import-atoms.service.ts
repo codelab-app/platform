@@ -27,8 +27,6 @@ export class ImportAtomsService implements UseCasePort<ImportAtomsInput, void> {
   }
 
   private async seedAtoms(atoms: Array<GetExport__AtomsFragment>) {
-    console.log(atoms)
-
     return Promise.all(
       atoms.map(async (atom) => {
         // Seed api

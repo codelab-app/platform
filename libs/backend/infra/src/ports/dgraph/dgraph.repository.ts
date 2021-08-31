@@ -1,7 +1,7 @@
-import { NotFoundError } from '@codelab/backend/abstract/types'
+import { NotFoundError } from '@codelab/backend/abstract/core'
+import { CreateResponse } from '@codelab/backend/application'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Response, Txn } from 'dgraph-js-http'
-import { CreateResponse } from '../../../application'
 import { DgraphService } from './dgraph.service'
 import { DgraphQueryBuilder } from './query-building'
 

@@ -1,5 +1,5 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
-import { CreateResponse } from '@codelab/backend/infra'
+import { CreateResponse } from '@codelab/backend/application'
 import { TypeEdgeKind, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { TypeVertex } from '../../../domain'

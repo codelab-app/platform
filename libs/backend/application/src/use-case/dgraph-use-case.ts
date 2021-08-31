@@ -1,7 +1,7 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { DgraphRepository } from '../../infrastructure'
 
 /**
  * Wraps the execution inside a dgraph transaction and injects the dgraph repository service

@@ -1,4 +1,4 @@
-import { User } from '@codelab/shared/abstract/core'
+import type { User } from '@codelab/shared/abstract/core'
 import { createParamDecorator, ExecutionContext } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { JwtPayload } from './interfaces/jwt.interface'

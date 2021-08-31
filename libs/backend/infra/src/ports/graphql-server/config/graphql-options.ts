@@ -1,4 +1,4 @@
-import { AppError } from '@codelab/backend/abstract/types'
+import { AppError } from '@codelab/backend/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { GraphQLError, GraphQLFormattedError } from 'graphql'
@@ -16,23 +16,19 @@ export class GraphqlOptions implements GqlOptionsFactory {
 
   createGqlOptions(): GqlModuleOptions {
     return {
+      // fieldResolverEnhancers: ['filters', 'interceptors', 'guards'],
       autoSchemaFile: this._graphqlServerConfig?.autoSchemaFile,
       installSubscriptionHandlers: true,
-      // transformSchema: async (schema: GraphQLSchema) => {
-      //   // return stitchSchemas({
-      //   //   subschemas: [schema, remoteExecutableSchema],
-      //   //   mergeTypes: true,
-      //   // })
-      // },
-      // transformAutoSchemaFile: true,
       path: '/graphql',
       debug: true,
-      tracing: true,
+      // tracing: true,
       playground: true,
       context: ({ req }) => {
         return { req }
       },
       formatError: (err: GraphQLError) => {
+        // console.log('graphql error', err)
+
         // See if there is a nested graphQLErrors array and parse it to a (kind of) readable error message
         const graphqlAggregateError =
           err?.extensions?.exception?.graphQLErrors?.reduce(

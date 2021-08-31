@@ -1,9 +1,6 @@
-import {
-  CreateResponse,
-  GqlAuthGuard,
-  isDgraphInterfaceType,
-  Void,
-} from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
+import { CreateResponse } from '@codelab/backend/application'
+import { GqlAuthGuard, isDgraphInterfaceType } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -86,7 +83,7 @@ export class TypeResolver {
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })
   async seedBaseTypes() {
-    this.seedBaseTypesService.execute()
+    await this.seedBaseTypesService.execute()
   }
 
   @UseGuards(GqlAuthGuard)

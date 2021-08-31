@@ -1,11 +1,11 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import {
-  breadthFirstTraversal,
   DgraphInterfaceType,
   DgraphType,
   isDgraphArrayType,
   isDgraphInterfaceType,
 } from '@codelab/backend/infra'
+import { breadthFirstTraversal } from '@codelab/backend/shared/generic'
 import { TypeEdgeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { TypeEdge, TypeGraph, TypeVertex } from '../../domain'

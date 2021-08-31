@@ -3,10 +3,9 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import { ImportApiInput } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
-import { importApiData } from './import-api.data'
+import { ImportApiInput } from '../import-api.input'
 
 describe('ImportApi', () => {
   let guestApp: INestApplication
@@ -20,9 +19,6 @@ describe('ImportApi', () => {
     userApp = await setupTestModule([TypeModule], {
       role: Role.USER,
     })
-    importApiInput = {
-      payload: JSON.stringify(importApiData),
-    }
   })
 
   afterAll(async () => {

@@ -1,9 +1,9 @@
+import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphAtom,
   DgraphEntityType,
   DgraphInterfaceType,
   DgraphRepository,
-  DgraphUseCase,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'

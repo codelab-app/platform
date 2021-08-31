@@ -1,4 +1,4 @@
-import { DgraphUseCase } from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { DeleteLambdaInput } from './delete-lambda.input'

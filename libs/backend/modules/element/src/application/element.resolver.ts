@@ -1,11 +1,8 @@
-import {
-  CreateResponse,
-  CurrentUser,
-  GqlAuthGuard,
-  Void,
-} from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
+import { CreateResponse } from '@codelab/backend/application'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend/infra'
 import { Atom, AtomAdapter } from '@codelab/backend/modules/atom'
-import { User } from '@codelab/shared/abstract/core'
+import type { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,

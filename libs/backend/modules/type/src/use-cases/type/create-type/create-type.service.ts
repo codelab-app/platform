@@ -1,6 +1,6 @@
+import { DgraphCreateUseCase } from '@codelab/backend/application'
 import {
   DgraphArrayType,
-  DgraphCreateUseCase,
   DgraphElementType,
   DgraphEntityType,
   DgraphEnumType,

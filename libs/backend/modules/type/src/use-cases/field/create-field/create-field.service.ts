@@ -1,5 +1,5 @@
+import { DgraphCreateUseCase } from '@codelab/backend/application'
 import {
-  DgraphCreateUseCase,
   DgraphEntityType,
   DgraphInterfaceType,
   DgraphRepository,

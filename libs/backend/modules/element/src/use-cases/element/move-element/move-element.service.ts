@@ -1,4 +1,5 @@
-import { DgraphRepository, DgraphUseCase } from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../application/element.validator'

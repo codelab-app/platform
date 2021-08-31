@@ -1,6 +1,6 @@
+import { DgraphCreateUseCase } from '@codelab/backend/application'
 import {
   DgraphCreateMutationJson,
-  DgraphCreateUseCase,
   DgraphEntityType,
   DgraphRepository,
   DgraphTag,

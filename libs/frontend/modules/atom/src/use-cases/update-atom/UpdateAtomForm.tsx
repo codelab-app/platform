@@ -48,7 +48,7 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields />
+      <AutoFields omitFields={['api']} />
     </FormUniforms>
   )
 }

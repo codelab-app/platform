@@ -1,11 +1,11 @@
-import { NotFoundError } from '@codelab/backend/abstract/types'
+import { NotFoundError } from '@codelab/backend/abstract/core'
+import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphEntity,
   DgraphEntityType,
   DgraphField,
   DgraphQueryBuilder,
   DgraphRepository,
-  DgraphUseCase,
   jsonMutation,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'

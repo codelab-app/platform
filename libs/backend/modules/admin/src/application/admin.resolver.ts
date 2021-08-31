@@ -1,4 +1,4 @@
-import { Void } from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
 import { Mutation, Resolver } from '@nestjs/graphql'
 import { ResetDataService } from '../use-cases/reset-data'
 

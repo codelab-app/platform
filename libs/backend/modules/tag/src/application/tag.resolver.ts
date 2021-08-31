@@ -1,10 +1,7 @@
-import {
-  CreateResponse,
-  CurrentUser,
-  GqlAuthGuard,
-  Void,
-} from '@codelab/backend/infra'
-import { User } from '@codelab/shared/abstract/core'
+import { Void } from '@codelab/backend/abstract/types'
+import { CreateResponse } from '@codelab/backend/application'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend/infra'
+import type { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Tag } from '../domain/tag.model'

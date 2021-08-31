@@ -1,4 +1,4 @@
-import { AppError, ErrorCode } from '@codelab/backend/abstract/types'
+import { AppError, ErrorCode } from '@codelab/backend/abstract/core'
 
 export class TypeUnusedError extends AppError {
   constructor(

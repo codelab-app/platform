@@ -1,6 +1,6 @@
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend/infra'
 import { App } from '@codelab/backend/modules/app'
-import { User } from '@codelab/shared/abstract/core'
+import type { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
 import { GetPagesService } from '../use-cases/get-pages'

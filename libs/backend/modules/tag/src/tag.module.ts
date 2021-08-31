@@ -1,4 +1,5 @@
-import { CytoscapeModule, Void } from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
+import { CytoscapeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
 import { DgraphTagAdapter } from './application/dgraph-tag.adapter'
 import { TagAdapter } from './application/tag.adapter'

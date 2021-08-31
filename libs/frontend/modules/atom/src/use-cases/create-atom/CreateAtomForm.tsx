@@ -43,7 +43,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields omitFields={['type']} />
+      <AutoFields omitFields={['type', 'api']} />
       <SelectField
         name="type"
         label="Type"

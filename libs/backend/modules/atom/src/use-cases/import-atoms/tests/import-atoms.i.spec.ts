@@ -54,7 +54,7 @@ describe('ImportAtoms', () => {
   })
 
   describe('User', () => {
-    it('should import atoms', async () => {
+    it.skip('should import atoms', async () => {
       await domainRequest<ImportAtomsInput>(
         userApp,
         ImportAtomsGql,

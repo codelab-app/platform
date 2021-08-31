@@ -1,4 +1,11 @@
 import {
+  DgraphService,
+  GqlAuthGuard,
+  InfrastructureModule,
+  JwtPayload,
+  Role,
+} from '@codelab/backend/infra'
+import {
   DynamicModule,
   ExecutionContext,
   ForwardReference,
@@ -8,13 +15,6 @@ import {
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
-import {
-  DgraphService,
-  GqlAuthGuard,
-  InfrastructureModule,
-  JwtPayload,
-  Role,
-} from '../../infrastructure'
 
 type NestModule =
   | Type<any>

@@ -1,4 +1,4 @@
-import { User } from '@codelab/shared/abstract/core'
+import type { User } from '@codelab/shared/abstract/core'
 import { DeleteComponentInput } from './delete-component.input'
 
 export class DeleteComponentRequest {

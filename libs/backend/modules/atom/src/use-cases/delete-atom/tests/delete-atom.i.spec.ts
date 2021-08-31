@@ -79,6 +79,6 @@ describe('DeleteAtom', () => {
     })
 
     // TODO: Add delete atom spec
-    it.skip('should remove all associated types, if not used by other atoms')
+    test.todo('should remove all associated types, if not used by other atoms')
   })
 })

@@ -1,17 +1,17 @@
 import { ApolloClient } from '@apollo/client'
+import { Void } from '@codelab/backend/abstract/types'
+import { CreateResponse } from '@codelab/backend/application'
 import {
   ApolloClientTokens,
-  CreateResponse,
   CurrentUser,
   GqlAuthGuard,
-  Void,
 } from '@codelab/backend/infra'
 import {
   GetTypeService,
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
-import { User } from '@codelab/shared/abstract/core'
+import type { User } from '@codelab/shared/abstract/core'
 import {
   GetAtomsQuery,
   GetAtomsQueryVariables,

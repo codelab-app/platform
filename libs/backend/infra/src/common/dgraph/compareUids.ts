@@ -1,4 +1,4 @@
-import { DgraphEntity } from '../../infrastructure'
+import { DgraphEntity } from '../../ports'
 
 export const compareUids = <TEntity extends DgraphEntity>(
   a: TEntity,

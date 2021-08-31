@@ -1,7 +1,7 @@
+import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphPage,
   DgraphRepository,
-  DgraphUseCase,
   jsonMutation,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'

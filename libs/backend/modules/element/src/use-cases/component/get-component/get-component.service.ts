@@ -1,8 +1,5 @@
-import {
-  DgraphComponent,
-  DgraphRepository,
-  DgraphUseCase,
-} from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphComponent, DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { getComponentQuery } from './get-component.query'

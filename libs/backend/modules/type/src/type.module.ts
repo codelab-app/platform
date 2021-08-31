@@ -1,4 +1,5 @@
-import { CytoscapeModule, TreeModule, Void } from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
+import { CytoscapeModule, TreeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
 import {
   ComponentTypeAdapter,

@@ -1,7 +1,7 @@
+import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphElement,
   DgraphRepository,
-  DgraphUseCase,
   jsonMutation,
 } from '@codelab/backend/infra'
 import { GetAtomService } from '@codelab/backend/modules/atom'

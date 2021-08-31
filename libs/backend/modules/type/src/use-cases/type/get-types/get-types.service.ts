@@ -1,4 +1,5 @@
-import { DgraphType, DgraphUseCase, sortByUids } from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphType, sortByUids } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetTypesInput } from './get-types.input'
