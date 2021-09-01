@@ -4,19 +4,20 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateElementGql,
-  CreateElementInput,
-  CreateElementMutation,
-  GetElementGraphGql,
-  GetElementGraphInput,
-  GetElementGraphQuery,
-  MoveElementGql,
-  MoveElementInput,
-  MoveElementMutation,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
+import { CreateElementInput } from '../../create-element/create-element.input'
+import {
+  CreateElementGql,
+  CreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql'
+import { GetElementGraphInput } from '../../get-element-graph'
+import {
+  GetElementGraphGql,
+  GetElementGraphQuery,
+} from '../../get-element-graph/tests/get-element-graph.api.graphql'
+import { MoveElementInput } from '../move-element.input'
+import { MoveElementGql, MoveElementMutation } from './move-element.api.graphql'
 import {
   createChildElementInputFunc,
   createParent1ElementInputFunc,

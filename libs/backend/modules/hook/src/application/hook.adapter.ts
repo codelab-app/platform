@@ -1,7 +1,8 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphHook } from '@codelab/backend/infra'
+import { HookType } from '@codelab/shared/enums'
 import { Injectable } from '@nestjs/common'
-import { Hook, HookType } from '../domain'
+import { Hook } from '../domain'
 import { HookModel } from './hook.model'
 import { HookConfigModel, QueryHookConfigModel } from './hook-config'
 

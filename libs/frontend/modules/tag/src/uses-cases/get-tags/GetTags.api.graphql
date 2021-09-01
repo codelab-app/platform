@@ -1,0 +1,7 @@
+# import Tag from '../../graphql/Tag.fragment.api.graphql'
+
+query GetTags {
+  getTags {
+    ...Tag
+  }
+}

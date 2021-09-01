@@ -20,10 +20,12 @@ export const getTypeQuery = (
     filter.and(andFilter)
   }
 
-  return new DgraphQueryBuilder()
-    .addFilterDirective(filter)
-    .addRecurseDirective()
-    .addBaseFields().addFields(`
+  return baseTypeQuery().addFilterDirective(filter)
+}
+
+export const baseTypeQuery = () => {
+  return new DgraphQueryBuilder().addRecurseDirective().addBaseFields()
+    .addFields(`
       name
       primitiveKind
       itemType

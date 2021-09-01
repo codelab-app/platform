@@ -2,9 +2,9 @@ import {
   UpdateElementForm,
   UpdateElementFormProps,
 } from '@codelab/frontend/modules/element'
-import { ComponentContext } from '@codelab/frontend/presenter/container'
-import { refetchGetComponentElementsQuery } from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
+import { ComponentContext } from '../../../providers/ComponentProvider'
+import { refetchGetComponentElementsQuery } from '../../get-component-elements'
 
 export type UpdateComponentElementFormProps = Omit<
   UpdateElementFormProps,

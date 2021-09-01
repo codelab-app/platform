@@ -63,7 +63,7 @@ export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
 
     try {
       await this.elementValidator.isNotRoot(elementId)
-    } catch (e) {
+    } catch (e: any) {
       if (e.message.toLowerCase().includes('root')) {
         throw new Error("Can't delete root element")
       }

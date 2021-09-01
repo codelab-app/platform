@@ -1,4 +1,4 @@
-import { CreateLambdaInput } from '@codelab/shared/codegen/graphql'
+import { CreateLambdaInput } from '../create-lambda.input'
 
 export const createLambdaInput: CreateLambdaInput = {
   name: 'HelloWorld',

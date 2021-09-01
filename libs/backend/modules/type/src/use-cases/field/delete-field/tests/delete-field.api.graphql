@@ -1,0 +1,3 @@
+mutation DeleteField($input: DeleteFieldInput!) {
+  deleteField(input: $input)
+}

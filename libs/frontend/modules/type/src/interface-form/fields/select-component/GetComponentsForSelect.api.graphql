@@ -1,0 +1,10 @@
+fragment ComponentForSelect on Component {
+  id
+  name
+}
+
+query GetComponentsForSelect {
+  getComponents {
+    ...ComponentForSelect
+  }
+}

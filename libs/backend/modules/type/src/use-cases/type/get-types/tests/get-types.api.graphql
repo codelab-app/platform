@@ -1,0 +1,8 @@
+query GetTypes($input: GetTypesInput) {
+  getTypes(input: $input) {
+    __typename
+    id
+    name
+    typeKind
+  }
+}

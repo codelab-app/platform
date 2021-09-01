@@ -1,4 +1,5 @@
-import { IEnumTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
+import { IEnumTypeVertex } from '@codelab/shared/core'
+import { TypeKind } from '@codelab/shared/enums'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Type } from '../type.model'
 import { EnumTypeValue } from './enum-type-value.model'
@@ -24,6 +25,5 @@ export class EnumType
     this.id = id
     this.name = name
     this.allowedValues = allowedValues
-    this.__typename = TypeKind.EnumType as const
   }
 }

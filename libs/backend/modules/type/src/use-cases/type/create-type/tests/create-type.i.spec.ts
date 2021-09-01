@@ -4,17 +4,16 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateTypeGql,
-  CreateTypeInput,
-  CreateTypeMutation,
-  GetTypeGql,
-  GetTypeInput,
-  GetTypeQuery,
-  PrimitiveKind,
-} from '@codelab/shared/codegen/graphql'
+import { PrimitiveKind } from '@codelab/shared/enums'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
+import { GetTypeInput } from '../../get-type'
+import {
+  GetTypeGql,
+  GetTypeQuery,
+} from '../../get-type/tests/get-type.api.graphql'
+import { CreateTypeInput } from '../create-type.input'
+import { CreateTypeGql, CreateTypeMutation } from './create-type.api.graphql'
 import {
   createInterfaceTypeInput,
   createPrimitiveStringInput,

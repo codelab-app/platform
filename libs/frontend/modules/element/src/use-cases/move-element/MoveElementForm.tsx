@@ -1,33 +1,38 @@
 import { BaseMutationOptions } from '@apollo/client'
+import { SelectAnyElement } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   FormUniforms,
   StatelessLoadingIndicator,
   UniFormUseCaseProps,
 } from '@codelab/frontend/view/components'
-import { useMoveElementMutation } from '@codelab/shared/codegen/graphql'
+import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
-import { AutoFields, SelectField } from 'uniforms-antd'
-import { moveElementSchema, MoveElementSchemaType } from './moveElementSchema'
+import tw from 'twin.macro'
+import { AutoField, AutoFields } from 'uniforms-antd'
+import { useMoveElementMutation } from './MoveElement.api.graphql'
+import { MoveElementSchema, moveElementSchema } from './moveElementSchema'
 
-export type MoveElementFormProps =
-  UniFormUseCaseProps<MoveElementSchemaType> & {
-    initialData: { order: number; parentElementId: string } | undefined
-    elementId: string
-    parentElementOptions: Array<{ value: string; label: string }>
-    refetchQueries?: BaseMutationOptions['refetchQueries']
-  }
+export type MoveElementFormProps = UniFormUseCaseProps<MoveElementSchema> & {
+  elementId: string
+  tree: ElementTree<any, any, any>
+  refetchQueries?: BaseMutationOptions['refetchQueries']
+}
 
 /** Not intended to be used in a modal */
 export const MoveElementForm = ({
-  initialData: initialDataProp,
   refetchQueries,
   elementId,
-  parentElementOptions,
+  tree,
   ...props
 }: MoveElementFormProps) => {
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
-  const { current: initialData } = useRef(initialDataProp)
+  const {
+    current: { parentElementId, order },
+  } = useRef({
+    parentElementId: tree.getParentOf(elementId, tree.isElementPredicate),
+    order: tree.getOrderInParent(elementId),
+  })
 
   const [mutate, { loading: loadingMutation, error, data }] =
     useMoveElementMutation({
@@ -35,11 +40,7 @@ export const MoveElementForm = ({
       refetchQueries: refetchQueries,
     })
 
-  if (!initialData) {
-    return null
-  }
-
-  const onSubmit = (submitData: MoveElementSchemaType) => {
+  const onSubmit = (submitData: MoveElementSchema) => {
     return mutate({
       variables: {
         input: { elementId, moveData: { ...submitData } },
@@ -49,14 +50,14 @@ export const MoveElementForm = ({
 
   return (
     <>
-      <FormUniforms<MoveElementSchemaType>
+      <FormUniforms<MoveElementSchema>
         key={elementId}
         autosave={true}
         autosaveDelay={500}
         schema={moveElementSchema}
         model={{
-          parentElementId: initialData?.parentElementId,
-          order: initialData?.order,
+          parentElementId,
+          order,
         }}
         onSubmitError={createNotificationHandler({
           title: 'Error while moving element',
@@ -65,25 +66,20 @@ export const MoveElementForm = ({
         {...props}
       >
         <AutoFields omitFields={['parentElementId']} />
-
-        <SelectField
-          name="parentElementId"
-          label="Parent element"
-          showSearch={true}
-          optionFilterProp="label"
-          options={parentElementOptions}
-        />
+        <AutoField name="parentElementId" component={SelectAnyElement} />
       </FormUniforms>
 
-      <StatelessLoadingIndicator
-        style={{ display: 'block', margin: '0.5rem' }}
-        state={{
-          isLoading: loadingMutation,
-          isErrored: Boolean(
-            error || (data as any)?.errors || (data as any)?.error,
-          ),
-        }}
-      />
+      <div css={tw`absolute top-0 right-0 m-8`}>
+        <StatelessLoadingIndicator
+          style={{ display: 'block', margin: '0.5rem' }}
+          state={{
+            isLoading: loadingMutation,
+            isErrored: Boolean(
+              error || (data as any)?.errors || (data as any)?.error,
+            ),
+          }}
+        />
+      </div>
     </>
   )
 }

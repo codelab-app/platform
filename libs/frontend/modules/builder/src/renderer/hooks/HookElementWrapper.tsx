@@ -1,4 +1,4 @@
-import { HookFragment } from '@codelab/shared/codegen/graphql'
+import { HookFragment } from '@codelab/frontend/modules/element'
 import React, { useEffect, useState } from 'react'
 import { v4 } from 'uuid'
 import { useHookFactory } from './useHookFactory'
@@ -48,3 +48,4 @@ export const HookElementWrapper = ({
 }
 
 HookElementWrapper.displayName = 'HookElementWrapper'
+HookElementWrapper.whyDidYouRender = true

@@ -1,15 +1,18 @@
 import { createIfMissing } from '@codelab/backend/shared/utils'
+import { GraphQLClient } from 'graphql-request'
 import {
   CreateAtomGql,
-  CreateAtomInput,
   CreateAtomMutation,
   CreateAtomMutationVariables,
+} from './graphql/CreateAtom.api.graphql'
+import {
   GetAtomGql,
-  GetAtomInput,
   GetAtomQuery,
   GetAtomQueryVariables,
-} from '@codelab/shared/codegen/graphql'
-import { GraphQLClient } from 'graphql-request'
+} from './graphql/GetAtom.api.graphql'
+
+export type SeedAtomInput = CreateAtomMutationVariables['input']
+export type GetAtomInput = GetAtomQueryVariables['input']
 
 /**
  * Handle seeding of atoms
@@ -21,7 +24,7 @@ export class AtomSeeder {
    * Checks if an Atom with the same AtomType exists, if not - creates it
    * Returns the id in both cases
    */
-  async seedAtomIfMissing(atom: CreateAtomInput): Promise<string> {
+  async seedAtomIfMissing(atom: SeedAtomInput): Promise<string> {
     return createIfMissing(
       () =>
         this.getAtom({ where: { type: atom.type } }).then((_atom) => _atom?.id),
@@ -40,7 +43,7 @@ export class AtomSeeder {
     return getAtom
   }
 
-  private async createAtom(input: CreateAtomInput) {
+  private async createAtom(input: SeedAtomInput) {
     const createResponse = await this.client.request<
       CreateAtomMutation,
       CreateAtomMutationVariables

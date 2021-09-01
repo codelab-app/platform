@@ -12,11 +12,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "husky install",
+    "postinstall": "husky install && yarn graphql-let",
     "e2e": "env-cmd -f .env.test nx e2e web-e2e -c dev",
     "cli": "ts-node -P ./scripts/tsconfig.json ./scripts/cli.ts",
     "docker:up": "libs/tools/scripts/src/docker/up.sh",
-    "codegen": "cross-env DEBUG=1 npx graphql-codegen",
+    "codegen": "yarn graphql-let",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx run-many --all --target=build",

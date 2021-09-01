@@ -1,18 +1,10 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { ElementTypeKind, PrimitiveKind } from '@codelab/shared/codegen/graphql'
+import {
+  BaseTypeName,
+  ElementTypeKind,
+  PrimitiveKind,
+  TypeKind,
+} from '@codelab/shared/enums'
 import { CreateTypeInput } from '../../use-cases/type/create-type'
-
-export enum BaseTypeName {
-  Lambda = 'Lambda',
-  Component = 'Component',
-  Element = 'Element',
-  ChildElement = 'Child Element',
-  DescendantElement = 'Descendant Element',
-  String = 'String',
-  Boolean = 'Boolean',
-  Float = 'Float',
-  Integer = 'Integer',
-}
 
 export const baseTypes: Array<CreateTypeInput> = [
   {

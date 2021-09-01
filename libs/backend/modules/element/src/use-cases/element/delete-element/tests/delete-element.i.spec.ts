@@ -4,20 +4,24 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateElementGql,
-  CreateElementInput,
-  CreateElementMutation,
-  DeleteElementGql,
-  DeleteElementInput,
-  DeleteElementMutation,
-  GetElementGql,
-  GetElementInput,
-  GetElementQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
+import { CreateElementInput } from '../../create-element'
+import {
+  CreateElementGql,
+  CreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql'
 import { createElementInput } from '../../create-element/tests/create-element.data'
+import { GetElementInput } from '../../get-element/get-element.input'
+import {
+  GetElementGql,
+  GetElementQuery,
+} from '../../get-element/tests/get-element.api.graphql'
+import { DeleteElementInput } from '../delete-element.input'
+import {
+  DeleteElementGql,
+  DeleteElementMutation,
+} from './delete-element.api.graphql'
 
 describe('DeleteElement', () => {
   let guestApp: INestApplication

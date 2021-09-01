@@ -1,8 +1,8 @@
-# import __Type from "../../../graphql/Type.fragment.api.graphql"
+# import Type from "../../../graphql/Type.fragment.api.graphql"
 
 query GetTypes($input: GetTypesInput) {
   getTypes(input: $input) {
     __typename
-    ...__Type
+    ...Type
   }
 }

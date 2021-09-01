@@ -1,0 +1,3 @@
+mutation RemoveHookFromElement($input: RemoveHookFromElementInput!) {
+  removeHookFromElement(input: $input)
+}

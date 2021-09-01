@@ -1,0 +1,5 @@
+mutation AddHookToElement($input: AddHookToElementInput!) {
+  addHookToElement(input: $input) {
+    id
+  }
+}

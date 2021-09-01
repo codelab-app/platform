@@ -4,24 +4,29 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  AddHookToElementGql,
-  AddHookToElementInput,
-  AddHookToElementMutation,
-  CreateElementGql,
-  CreateElementInput,
-  CreateElementMutation,
-  ElementFragment,
-  GetElementGraphGql,
-  GetElementGraphInput,
-  GetElementGraphQuery,
-  QueryMethod,
-  RemoveHookFromElementGql,
-  RemoveHookFromElementInput,
-  RemoveHookFromElementMutation,
-} from '@codelab/shared/codegen/graphql'
+import { QueryMethod } from '@codelab/shared/enums'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
+import { AddHookToElementInput } from '../../add-hook-to-element'
+import {
+  AddHookToElementGql,
+  AddHookToElementMutation,
+} from '../../add-hook-to-element/tests/add-hook-to-element.api.graphql'
+import { CreateElementInput } from '../../create-element/create-element.input'
+import {
+  CreateElementGql,
+  CreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql'
+import { GetElementInput } from '../../get-element/get-element.input'
+import {
+  GetElementGql,
+  GetElementQuery,
+} from '../../get-element/tests/get-element.api.graphql'
+import { RemoveHookFromElementInput } from '../remove-hook-from-element.input'
+import {
+  RemoveHookFromElementGql,
+  RemoveHookFromElementMutation,
+} from './remove-hook-from-element.api.graphql'
 
 describe('RemoveHookFromElementUseCase', () => {
   let guestApp: INestApplication
@@ -45,7 +50,7 @@ describe('RemoveHookFromElementUseCase', () => {
       queryHook: {
         url: 'https://github.com',
         queryKey: 'My Query',
-        method: QueryMethod.Get,
+        method: QueryMethod.GET,
       },
     })
 
@@ -75,14 +80,12 @@ describe('RemoveHookFromElementUseCase', () => {
         RemoveHookFromElementMutation
       >(userApp, RemoveHookFromElementGql, removeHookInput)
 
-      const { getElementGraph } = await domainRequest<
-        GetElementGraphInput,
-        GetElementGraphQuery
-      >(userApp, GetElementGraphGql, { elementId: removeHookInput.elementId })
+      const { getElement } = await domainRequest<
+        GetElementInput,
+        GetElementQuery
+      >(userApp, GetElementGql, { elementId: removeHookInput.elementId })
 
-      const element = getElementGraph?.vertices[0] as ElementFragment
-
-      expect(element.hooks).toHaveLength(0)
+      expect(getElement?.hooks).toHaveLength(0)
     })
   })
 })

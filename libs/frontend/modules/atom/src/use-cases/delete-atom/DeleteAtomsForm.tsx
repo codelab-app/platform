@@ -1,20 +1,18 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
+  emptyJsonSchema,
+  EmptyJsonSchemaType,
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  refetchGetAtomsQuery,
-  refetchGetTypesQuery,
-  useDeleteAtomMutation,
-} from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { DeleteAtomInput, deleteAtomSchema } from './deleteAtomSchema'
+import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.api.graphql'
+import { useDeleteAtomMutation } from './DeleteAtoms.api.graphql'
 
-type DeleteAtomFormProps = UniFormUseCaseProps<DeleteAtomInput>
+type DeleteAtomFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 
 export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
   const {
@@ -27,7 +25,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
     entityType: EntityType.Atom,
     useMutationFunction: useDeleteAtomMutation,
     mutationOptions: {
-      refetchQueries: [refetchGetAtomsQuery(), refetchGetTypesQuery()],
+      refetchQueries: [refetchGetAtomsQuery()],
     },
     mapVariables: (_, state) => ({
       input: { atomId: state.deleteIds[0] },
@@ -35,11 +33,11 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
   })
 
   return (
-    <FormUniforms<DeleteAtomInput>
+    <FormUniforms<EmptyJsonSchemaType>
       data-testid="delete-atom-form"
       id="delete-atom-form"
       onSubmit={handleSubmit}
-      schema={deleteAtomSchema}
+      schema={emptyJsonSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while deleting atom',
       })}

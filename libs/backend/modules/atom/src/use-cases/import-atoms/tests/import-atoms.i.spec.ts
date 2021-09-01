@@ -4,23 +4,22 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { AtomType } from '@codelab/shared/enums'
+import { INestApplication } from '@nestjs/common'
+import { AtomModule } from '../../../atom.module'
 import {
-  AtomType,
-  GetAtomGql,
-  GetAtomInput,
-  GetAtomQuery,
-  GetAtomsInput,
-  GetExport__AtomsFragment,
   GetExportAtomsGql,
   GetExportAtomsQuery,
-  ImportAtomsGql,
-  ImportAtomsInput,
-  ImportAtomsMutation,
-} from '@codelab/shared/codegen/graphql'
-import { INestApplication } from '@nestjs/common'
-import { merge } from 'lodash'
-import { AtomModule } from '../../../atom.module'
+} from '../../export-atoms/get-export-atoms.api.graphql'
+import { GetAtomInput } from '../../get-atom/get-atom.input'
+import {
+  GetAtomGql,
+  GetAtomQuery,
+} from '../../get-atom/tests/get-atom.api.graphql'
+import { GetAtomsInput } from '../../get-atoms/get-atoms.input'
+import { ImportAtomsInput } from '../import-atoms.input'
 import { exportAtomsData } from './export-atoms.data'
+import { ImportAtomsGql, ImportAtomsMutation } from './import-atoms.api.graphql'
 import { importAtomsData } from './import-atoms.data'
 
 const sortedAtoms = (atoms: Array<GetExport__AtomsFragment>) => {
@@ -80,7 +79,7 @@ describe('ImportAtoms', () => {
         importAtomsInput,
       )
 
-      const { getAtom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
         {
@@ -88,13 +87,13 @@ describe('ImportAtoms', () => {
         },
       )
 
-      if (!getAtom) {
+      if (!atom) {
         throw new Error('Atom not found')
       }
 
       const getAtomsInput: GetAtomsInput = {
         where: {
-          ids: [getAtom.id],
+          ids: [atom.id],
         },
       }
 

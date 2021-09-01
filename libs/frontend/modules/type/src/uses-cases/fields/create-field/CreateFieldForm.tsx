@@ -5,20 +5,16 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  CreateFieldMutation,
-  CreateFieldMutationVariables,
-  refetchGetTypeGraphQuery,
-  useCreateFieldMutation,
-} from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
 import { InterfaceContext } from '../../types'
-import { createFieldSchema, CreateFieldSchemaObject } from './createFieldSchema'
+import { refetchGetTypeGraphQuery } from '../../types/get-type-graph/GetTypeGraph.api.graphql'
+import { useCreateFieldMutation } from './CreateField.api.graphql'
+import { CreateFieldSchema, createFieldSchema } from './createFieldSchema'
 
 export const CreateFieldForm = (
-  props: UniFormUseCaseProps<CreateFieldSchemaObject>,
+  props: UniFormUseCaseProps<CreateFieldSchema>,
 ) => {
   const {
     interface: { id: interfaceId },
@@ -27,18 +23,14 @@ export const CreateFieldForm = (
   const {
     handleSubmit,
     crudModal: { reset },
-  } = useCrudModalMutationForm<
-    CreateFieldSchemaObject,
-    CreateFieldMutation,
-    CreateFieldMutationVariables
-  >({
+  } = useCrudModalMutationForm({
     mutationOptions: {
       refetchQueries: [
         refetchGetTypeGraphQuery({ input: { where: { id: interfaceId } } }),
       ],
     },
     useMutationFunction: useCreateFieldMutation,
-    mapVariables: (formData) => ({
+    mapVariables: (formData: CreateFieldSchema) => ({
       input: {
         interfaceId,
         type: {
@@ -53,7 +45,7 @@ export const CreateFieldForm = (
   })
 
   return (
-    <FormUniforms<CreateFieldSchemaObject>
+    <FormUniforms<CreateFieldSchema>
       onSubmit={handleSubmit}
       schema={createFieldSchema}
       onSubmitError={createNotificationHandler({

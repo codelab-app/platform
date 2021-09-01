@@ -1,7 +1,7 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
-import { TypeEdgeKind, TypeKind } from '@codelab/shared/abstract/core'
+import { TypeEdgeKind, TypeKind } from '@codelab/shared/enums'
 import { __TypeEdgeFragment } from '@codelab/shared/codegen/graphql'
 import { Inject, Injectable } from '@nestjs/common'
 import { TypeVertex } from '../../../domain'

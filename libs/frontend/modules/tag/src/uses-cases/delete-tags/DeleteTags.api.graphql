@@ -1,0 +1,3 @@
+mutation DeleteTags($input: DeleteTagsInput!) {
+  deleteTags(input: $input)
+}

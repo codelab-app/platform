@@ -1,7 +1,9 @@
-import { UpdateTagData } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
+import { UpdateTagMutationVariables } from './UpdateTag.api.graphql'
 
-export const updateTagSchema: JSONSchemaType<UpdateTagData> = {
+export type UpdateTagSchema = UpdateTagMutationVariables['input']['data']
+
+export const updateTagSchema: JSONSchemaType<UpdateTagSchema> = {
   title: 'Update Tag Input',
   type: 'object',
   properties: {

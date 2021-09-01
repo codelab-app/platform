@@ -1,5 +1,5 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/enums'
 
 export const typeKindDgraphMap: Record<TypeKind, DgraphEntityType> = {
   [TypeKind.InterfaceType]: DgraphEntityType.InterfaceType,

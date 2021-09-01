@@ -7,12 +7,10 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  refetchGetElementQuery,
-  useRemoveHookFromElementMutation,
-} from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { refetchGetElementQuery } from '../../get-element/GetElement.api.graphql'
+import { useRemoveHookFromElementMutation } from './RemoveHookFromElement.api.graphql'
 
 export type RemoveHookFromElementFormProps =
   UniFormUseCaseProps<EmptyJsonSchemaType> & { elementId: string }

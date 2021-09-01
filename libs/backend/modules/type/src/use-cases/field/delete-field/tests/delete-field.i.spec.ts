@@ -4,16 +4,16 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  DeleteFieldGql,
-  DeleteFieldInput,
-  GetFieldGql,
-  GetFieldInput,
-  GetFieldQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
 import { createField } from '../../create-field/tests/create-type-field'
+import { GetFieldInput } from '../../get-field/get-field.input'
+import {
+  GetFieldGql,
+  GetFieldQuery,
+} from '../../get-field/tests/get-field.api.graphql'
+import { DeleteFieldInput } from '../delete-field.input'
+import { DeleteFieldGql } from './delete-field.api.graphql'
 
 describe('DeleteField', () => {
   let guestApp: INestApplication

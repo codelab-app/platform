@@ -1,3 +1,4 @@
+import { SelectLambda } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -6,17 +7,16 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  HookType,
-  refetchGetElementQuery,
-  useAddHookToElementMutation,
-} from '@codelab/shared/codegen/graphql'
+import { HookType } from '@codelab/shared/enums'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
+import { refetchGetElementQuery } from '../../get-element/GetElement.api.graphql'
+import { useAddHookToElementMutation } from './AddHookToElement.api.graphql'
 import {
   AddHookToElementSchema,
   addHookToElementSchema,
   mapDataToInput,
+  QueryHookVariant,
 } from './addHookToElementSchema'
 
 export type AddHookToElementFormProps =
@@ -25,7 +25,9 @@ export type AddHookToElementFormProps =
 export const DisplayIfType = ({
   type,
   children,
-}: React.PropsWithChildren<{ type: HookType }>) => (
+}: React.PropsWithChildren<{
+  type: HookType
+}>) => (
   <DisplayIfField<AddHookToElementSchema>
     condition={(c) => c.model.type === type}
   >
@@ -65,20 +67,34 @@ export const AddHookToElementForm = ({
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields omitFields={['queryHook']} />
+      <AutoFields omitFields={['queryHook', 'queryHookVariant']} />
 
       <DisplayIfType type={HookType.Query}>
-        <AutoFields
-          fields={[
-            'queryHook.queryKey',
-            'queryHook.url',
-            'queryHook.method',
-            'queryHook.body',
-            'queryHook.dataPropKey',
-            'queryHook.loadingPropKey',
-            'queryHook.errorPropKey',
-          ]}
-        />
+        <AutoFields fields={['queryHookVariant']} />
+
+        <DisplayIfField<AddHookToElementSchema>
+          condition={(c) =>
+            c.model.queryHookVariant === QueryHookVariant.Config
+          }
+        >
+          <AutoFields
+            fields={[
+              'queryHook.queryKey',
+              'queryHook.url',
+              'queryHook.method',
+              'queryHook.body',
+            ]}
+          />
+        </DisplayIfField>
+
+        <DisplayIfField<AddHookToElementSchema>
+          condition={(c) =>
+            c.model.queryHookVariant === QueryHookVariant.Lambda
+          }
+        >
+          <AutoFields fields={['queryHook.queryKey']} />{' '}
+          <AutoField name="queryHook.lambdaId" component={SelectLambda} />
+        </DisplayIfField>
       </DisplayIfType>
     </FormUniforms>
   )

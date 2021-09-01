@@ -1,28 +1,25 @@
-import { QueryHookConfig, QueryMethod } from '@codelab/backend/modules/hook'
+import { QueryHookConfig } from '@codelab/backend/modules/hook'
+import { QueryMethod } from '@codelab/shared/enums'
 import { Field, InputType, registerEnumType } from '@nestjs/graphql'
 
 registerEnumType(QueryMethod, { name: 'QueryMethod' })
 
-@InputType()
+@InputType({
+  description: 'Provide either a lambdaId, or body/method/url',
+})
 export class QueryHookConfigInput implements QueryHookConfig {
   @Field()
   declare queryKey: string
 
-  @Field()
+  @Field(() => String, { nullable: true })
   declare url: string
 
   @Field(() => String, { nullable: true })
   declare body?: string
 
-  @Field(() => QueryMethod)
+  @Field(() => QueryMethod, { nullable: true })
   declare method: QueryMethod
 
   @Field(() => String, { nullable: true })
-  declare dataPropKey?: string
-
-  @Field(() => String, { nullable: true })
-  declare loadingPropKey?: string
-
-  @Field(() => String, { nullable: true })
-  declare errorPropKey?: string
+  declare lambdaId?: string
 }

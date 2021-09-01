@@ -1,7 +1,7 @@
-import { useExecuteLambdaMutation } from '@codelab/shared/codegen/graphql'
 import { Empty, Spin } from 'antd'
 import React from 'react'
 import { useQuery } from 'react-query'
+import { useExecuteLambdaMutation } from './ExecuteLambda.api.graphql'
 
 export interface QueryProps {
   queryKey: string

@@ -4,20 +4,24 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateLambdaGql,
-  CreateLambdaInput,
-  CreateLambdaMutation,
-  GetLambdaGql,
-  GetLambdaInput,
-  GetLambdaQuery,
-  UpdateLambdaGql,
-  UpdateLambdaInput,
-  UpdateLambdaMutation,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
+import { CreateLambdaInput } from '../../create-lambda/create-lambda.input'
+import {
+  CreateLambdaGql,
+  CreateLambdaMutation,
+} from '../../create-lambda/tests/create-lambda.api.graphql'
 import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
+import { GetLambdaInput } from '../../get-lambda/get-lambda.input'
+import {
+  GetLambdaGql,
+  GetLambdaQuery,
+} from '../../get-lambda/tests/get-lambda.api.graphql'
+import { UpdateLambdaInput } from '../update-lambda.input'
+import {
+  UpdateLambdaGql,
+  UpdateLambdaMutation,
+} from './update-lambda.api.graphql'
 
 describe('UpdateLambda', () => {
   let guestApp: INestApplication

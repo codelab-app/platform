@@ -1,16 +1,16 @@
 import { FileOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/model/state/router'
-import { AppContext } from '@codelab/frontend/presenter/container'
+import { AppContext } from '@codelab/frontend/modules/app'
 import {
   EntityType,
   ListItemDeleteButton,
   ListItemEditButton,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
-import { useGetPagesQuery } from '@codelab/shared/codegen/graphql'
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
 import React, { useContext } from 'react'
+import { useGetPagesQuery } from './GetPages.api.graphql'
 
 export const GetPagesList = () => {
   const { app } = useContext(AppContext)

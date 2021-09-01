@@ -2,31 +2,22 @@ import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, { SingularElementArgument } from 'cytoscape'
 import { getEdgeOrder } from '../cytoscape/edge'
-import { getElementData } from '../cytoscape/element'
-import { edgeId } from '../graph/edge'
-
-type ElementPredicate<TElement = SingularElementArgument> = (
-  element: TElement,
-) => boolean
-
-export type Predicate = (node: any) => boolean
-
-export const filterPredicate =
-  (guard: Predicate) => (node: SingularElementArgument) =>
-    guard(getElementData(node))
+import { getCyElementData } from '../cytoscape/element'
+import { edgeId } from '../graph/edgeId'
+import { filterPredicate, InstancePredicate, Predicate } from './treePredicate'
 
 /**
  * The TreeAdapter implements the Graph port interface. Think of the GraphQL server data as the contract, and we're adapting to that.
  */
-export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
+export class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
   protected readonly cy: cytoscape.Core
 
   root: TVertex
 
   /**
-   * This is the default predicate used for searching, can be overridden.
+   * This is the default predicate used for searching, override if needed
    */
-  predicate: Predicate = () => true
+  predicate: Predicate<TVertex> = () => true
 
   constructor(
     graph?: Graph<TVertex, TEdge> | null,
@@ -44,11 +35,13 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
       headless: true,
       elements: {
         nodes: vertices.map((v) => ({
+          // Parent is needed for .children() to work (and some other cy methods too)
           data: { ...v, id: v.id, data: v, parent: parentsMap.get(v.id) },
         })),
         edges: edges.map((e) => ({
           data: {
             ...e,
+            data: e,
             source: e.source,
             target: e.target,
             id: extractEdgeId ? extractEdgeId(e) : edgeId(e),
@@ -57,26 +50,24 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
       },
     })
 
-    this.root = this.cy.elements().roots().map<TVertex>(getElementData)[0]
+    const root = this.cy.elements().roots().map(this.getCyElementData)[0]
+
+    if (!root) {
+      throw new Error("Can't construct tree, root vertex not found")
+    }
+
+    this.root = root
   }
 
-  /**
-   * Get all elements in cytoscape according to the predicate
-   *
-   * @param predicate filters the type of element
-   */
-  private getAllElements<TElement = TVertex>(predicate: ElementPredicate) {
-    return this.cy
-      .elements()
-      .filter(filterPredicate(predicate))
-      .map<TElement>(getElementData)
-  }
+  /** Extracts our custom data from a cytoscape element (node/edge) */
+  protected getCyElementData = (cyElement: SingularElementArgument) =>
+    getCyElementData<TVertex>(cyElement)
 
-  getPathFromRoot(elementId: string) {
+  getPathFromRoot(vertexId: string) {
     const path = this.cy.elements().aStar({
       root: `#${this.cy.elements().roots().first().id()}`,
       directed: true,
-      goal: `#${elementId}`,
+      goal: `#${vertexId}`,
     })
 
     return {
@@ -86,7 +77,7 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
   }
 
   /**
-   * Allows child class to override antd tree node mapping behavior
+   * Override to customize antd tree node mapping behavior
    */
   protected antdNodeMapper(element: TVertex): DataNode {
     return {
@@ -96,10 +87,7 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
     }
   }
 
-  /**
-   * @param predicate
-   */
-  getAntdTree() {
+  getAntdTree(): DataNode {
     const root = this.cy.elements().roots().first()
     let tree: DataNode | null = null
     const nodes: Record<string, DataNode> = {}
@@ -108,7 +96,12 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
     this.cy.elements().breadthFirstSearch({
       root,
       visit: (visitedNode, edge) => {
-        const element = getElementData(visitedNode)
+        const element = this.getCyElementData(visitedNode)
+
+        if (!element) {
+          return
+        }
+
         const order = getEdgeOrder(edge)
         const node = this.antdNodeMapper(element)
 
@@ -140,51 +133,52 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
     return tree as unknown as DataNode
   }
 
-  getAllNodes<TElement = TVertex>(predicate: ElementPredicate = () => true) {
+  getAllVertices(predicate?: Predicate<TVertex>): Array<TVertex> {
     return this.cy
       .elements()
-      .filter(filterPredicate(this.predicate ?? predicate))
-      .map<TElement>(getElementData)
+      .filter(filterPredicate(predicate ?? this.predicate))
+      .map(this.getCyElementData)
+      .filter((v): v is TVertex => !!v)
   }
 
   /**
-   * Get the element by id
+   * Returns a vertex by id or undefined if not found
    *
-   * @param elementId element id
+   * @param vertexId element id
    * @param predicate optional predicate
    */
-  getElement<TElement = TVertex>(
-    elementId: string,
-    predicate: ElementPredicate = () => true,
-  ) {
+  getVertex<TExpected extends TVertex>(
+    vertexId: string,
+    predicate?: InstancePredicate<TVertex, TExpected>,
+  ): TExpected | undefined {
     return this.cy
-      .getElementById(elementId)
-      .filter(filterPredicate(this.predicate ?? predicate))
+      .getElementById(vertexId)
+      .filter(filterPredicate(this.predicate ?? predicate ?? (() => true)))
       .first()
-      .map<TElement>(getElementData)[0]
+      .map<TExpected | undefined>(getCyElementData)[0]
   }
 
-  getParent<TElement = TVertex>(
+  getParentOf(
     elementId: string,
-    predicate: ElementPredicate = () => true,
-  ) {
+    predicate?: Predicate<TVertex>,
+  ): TVertex | undefined {
     return this.cy
       .getElementById(elementId)
       .incomers()
       .nodes()
-      .filter(filterPredicate(this.predicate ?? predicate))
+      .filter(filterPredicate(predicate ?? this.predicate))
       .first()
-      .map<TElement>(getElementData)[0]
+      .map(this.getCyElementData)[0]
   }
 
-  getRoot<TElement = TVertex>() {
-    return this.cy.elements().roots().map<TElement>(getElementData)[0]
+  getRootVertex() {
+    return this.cy.elements().roots().map(this.getCyElementData)[0]
   }
 
-  getChildren<TElement = TVertex>(
+  getChildren(
     elementId: string,
-    predicate: ElementPredicate = () => true,
-  ) {
+    predicate?: Predicate<TVertex>,
+  ): Array<TVertex> {
     return this.cy
       .getElementById(elementId)
       .outgoers()
@@ -192,48 +186,35 @@ export abstract class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
       .sort((a, b) => getEdgeOrder(a) - getEdgeOrder(b))
       .targets()
       .filter(filterPredicate(this.predicate ?? predicate))
-      .map<TElement>(getElementData)
+      .map(this.getCyElementData)
+      .filter((v): v is TVertex => !!v)
   }
 
-  findElementFrom<TElement = TVertex>(
+  findChildVertex(
     elementId: string,
-    predicate: ElementPredicate,
-  ): TElement | undefined {
+    predicate?: Predicate<TVertex>,
+  ): TVertex | undefined {
     return this.cy
       .getElementById(elementId)
       .outgoers()
       .nodes()
-      .filter(filterPredicate(this.predicate ?? predicate))
+      .filter(filterPredicate(predicate ?? this.predicate))
       .first()
-      .map<TElement>(getElementData)[0]
+      .map(this.getCyElementData)[0]
   }
 
-  getNodeById<TElement = TVertex>(
-    id: string,
-    predicate: ElementPredicate = () => true,
-  ) {
+  getDescendants(vertexId: string, predicate?: Predicate<TVertex>) {
     return this.cy
-      .elements()
-      .filter(filterPredicate(this.predicate ?? predicate))
-      .getElementById(id)
-      .first()
-      .map<TElement>(getElementData)[0]
-  }
-
-  getDescendants<TElement = TVertex>(
-    elementId: string,
-    predicate: ElementPredicate = () => true,
-  ) {
-    return this.cy
-      .getElementById(elementId)
+      .getElementById(vertexId)
       .descendants()
-      .filter(filterPredicate(this.predicate ?? predicate))
-      .map<TElement>(getElementData)
+      .filter(filterPredicate(predicate ?? this.predicate))
+      .map(this.getCyElementData)
+      .filter((e): e is TVertex => !!e)
   }
 
-  getOrderInParent(elementId: string) {
+  getOrderInParent(vertexId: string) {
     return this.cy
-      .getElementById(elementId)
+      .getElementById(vertexId)
       .incomers()
       .edges()
       .first()

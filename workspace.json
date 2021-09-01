@@ -470,7 +470,8 @@
             "outputPath": "dist/apps/cli",
             "main": "apps/cli/src/main.ts",
             "tsConfig": "apps/cli/tsconfig.app.json",
-            "assets": ["apps/cli/src/assets"]
+            "assets": ["apps/cli/src/assets"],
+            "webpackConfig": "apps/cli/webpack.config.js"
           },
           "configurations": {
             "production": {
@@ -505,6 +506,29 @@
           "outputs": ["coverage/apps/cli"],
           "options": {
             "jestConfig": "apps/cli/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "frontend-abstract-core": {
+      "root": "libs/frontend/abstract/core",
+      "sourceRoot": "libs/frontend/abstract/core/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend/abstract/core/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/abstract/core"],
+          "options": {
+            "jestConfig": "libs/frontend/abstract/core/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -907,19 +931,6 @@
         }
       }
     },
-    "shared-codegen-graphql": {
-      "root": "libs/shared/codegen/graphql",
-      "sourceRoot": "libs/shared/codegen/graphql/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/codegen/graphql/**/*.ts"]
-          }
-        }
-      }
-    },
     "shared-core": {
       "root": "libs/shared/core",
       "sourceRoot": "libs/shared/core/src",
@@ -929,6 +940,27 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/core/**/*.ts"]
+          }
+        }
+      }
+    },
+    "shared-enums": {
+      "root": "libs/shared/enums",
+      "sourceRoot": "libs/shared/enums/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/enums/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/enums"],
+          "options": {
+            "jestConfig": "libs/shared/enums/jest.config.js",
+            "passWithNoTests": true
           }
         },
         "test": {

@@ -1,10 +1,12 @@
 import {
   CreateElementForm,
   CreateElementFormProps,
+  ElementFragment,
 } from '@codelab/frontend/modules/element'
-import { ComponentContext } from '@codelab/frontend/presenter/container'
-import { refetchGetComponentElementsQuery } from '@codelab/shared/codegen/graphql'
+import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import React, { useContext } from 'react'
+import { ComponentContext } from '../../../providers/ComponentProvider'
+import { refetchGetComponentElementsQuery } from '../../get-component-elements'
 
 export type CreateComponentElementFormProps = Omit<
   CreateElementFormProps,
@@ -20,8 +22,10 @@ export const CreateComponentElementForm = (
   const { component, tree } = useContext(ComponentContext)
 
   const parentElementOptions = [
-    ...tree.getAllNodes().map((element) => ({
-      label: element.name || element.atom.type,
+    ...(
+      tree.getAllVertices(tree.isElementPredicate) as Array<ElementFragment>
+    ).map((element) => ({
+      label: element.name || element.atom?.type,
       value: element.id,
     })),
   ]
@@ -31,11 +35,9 @@ export const CreateComponentElementForm = (
   ]
 
   return (
-    <CreateElementForm
-      parentElementOptions={parentElementOptions}
-      refetchQueries={refetchQueries}
-      {...props}
-    />
+    <SelectElementProvider tree={tree}>
+      <CreateElementForm refetchQueries={refetchQueries} {...props} />
+    </SelectElementProvider>
   )
 }
 

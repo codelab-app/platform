@@ -1,5 +1,5 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { AtomType, CreateFieldInput } from '@codelab/shared/codegen/graphql'
+import { AtomType, TypeKind } from '@codelab/shared/enums'
+import { SeedFieldInput } from '../../models'
 import { CustomAtomApiFactory } from '../../utils/customAtomApi'
 import { BaseTypeName } from '../baseTypes'
 
@@ -20,7 +20,7 @@ export const propMapperAtom: CustomAtomApiFactory = async (input) => {
     BaseTypeName.DescendantElement,
   )
 
-  const fields: Array<CreateFieldInput> = [
+  const fields: Array<SeedFieldInput> = [
     {
       name: 'Target Element',
       key: 'targetElement',

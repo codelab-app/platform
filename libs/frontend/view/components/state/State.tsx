@@ -1,6 +1,6 @@
-import { useExecuteLambdaMutation } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { useRecoilState } from 'recoil'
+import { useExecuteLambdaMutation } from './ExecuteLambda.api.graphql'
 import { stateAtomFamily } from './stateAtomFamily'
 import { StateProps } from './StateProps'
 

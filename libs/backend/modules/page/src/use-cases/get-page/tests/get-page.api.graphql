@@ -1,0 +1,6 @@
+query GetPage($input: GetPageInput!) {
+  page: getPage(input: $input) {
+    id
+    name
+  }
+}

@@ -1,7 +1,7 @@
-# import __Field from "../../../graphql/Field.fragment.api.graphql"
+# import Field from "../../../graphql/Field.fragment.api.graphql"
 
 query GetField($input: GetFieldInput!) {
   getField(input: $input) {
-    ...__Field
+    ...Field
   }
 }

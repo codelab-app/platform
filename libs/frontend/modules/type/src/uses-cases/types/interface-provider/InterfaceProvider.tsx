@@ -1,23 +1,24 @@
 import { notify } from '@codelab/frontend/shared/utils'
-import { ITypeTree } from '@codelab/shared/abstract/core'
-import {
-  __InterfaceFragment,
-  __TypeGraphFragment,
-  useGetTypeGraphQuery,
-  useGetTypeQuery,
-} from '@codelab/shared/codegen/graphql'
 import React, { useEffect } from 'react'
+import { InterfaceFragment } from '../../../graphql/Interface.fragment.api.graphql'
+import { TypeGraphFragment } from '../../../graphql/TypeGraph.fragment.api.graphql'
+import { TypeTreeGraphql } from '../../../shared'
 import { useTypeTree } from '../../../type-tree'
+import { useGetTypeQuery } from '../get-type/GetType.api.graphql'
+import { useGetTypeGraphQuery } from '../get-type-graph/GetTypeGraph.api.graphql'
 
 export interface InterfaceContextType {
-  interface: __InterfaceFragment
-  interfaceGraph: __TypeGraphFragment
-  tree: ITypeTree
+  interface: InterfaceFragment
+  interfaceGraph: TypeGraphFragment
+  tree: TypeTreeGraphql
 }
 
 const defaultContext: InterfaceContextType = {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   interface: null!,
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   interfaceGraph: null!,
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   tree: null!,
 }
 

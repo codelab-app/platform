@@ -1,13 +1,19 @@
-import {
-  AddHookToElementInput,
-  HookType,
-  QueryHookConfigInput,
-  QueryMethod,
-} from '@codelab/shared/codegen/graphql'
+import { HookType, QueryMethod } from '@codelab/shared/enums'
 import { JSONSchemaType } from 'ajv'
+import { AddHookToElementMutationVariables } from './AddHookToElement.api.graphql'
+
+type AddHookToElementInput = AddHookToElementMutationVariables['input']
+
+type QueryHookConfigInput = AddHookToElementInput['queryHook']
+
+export enum QueryHookVariant {
+  Lambda = 'Lambda',
+  Config = 'Config',
+}
 
 export type AddHookToElementSchema = {
   type: HookType
+  queryHookVariant?: QueryHookVariant
   queryHook?: QueryHookConfigInput
 }
 
@@ -18,6 +24,11 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
     type: {
       type: 'string',
       enum: Object.values(HookType),
+    },
+    queryHookVariant: {
+      type: 'string',
+      enum: Object.values(QueryHookVariant),
+      nullable: true,
     },
     queryHook: {
       type: 'object',
@@ -33,24 +44,19 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
         method: {
           type: 'string',
           enum: Object.values(QueryMethod),
+          nullable: true,
         },
         url: {
           type: 'string',
-        },
-        dataPropKey: {
-          type: 'string',
           nullable: true,
         },
-        loadingPropKey: {
-          type: 'string',
-          nullable: true,
-        },
-        errorPropKey: {
+        lambdaId: {
+          label: 'Lambda',
           type: 'string',
           nullable: true,
         },
       },
-      required: ['url', 'method', 'queryKey'],
+      required: ['queryKey'],
     },
   },
   required: ['type'],
@@ -63,7 +69,7 @@ export const mapDataToInput = (
   switch (data.type) {
     case HookType.Query:
       if (!data.queryHook) {
-        throw new Error('Query hook data is reuquired')
+        throw new Error('Query hook data is required')
       }
 
       return {

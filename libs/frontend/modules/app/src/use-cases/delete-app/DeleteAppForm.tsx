@@ -5,12 +5,10 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  refetchGetAppsQuery,
-  useDeleteAppMutation,
-} from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { refetchGetAppsQuery } from '../get-apps/GetApps.api.graphql'
+import { useDeleteAppMutation } from './DeleteApp.api.graphql'
 import { DeleteAppInput, DeleteAppSchema } from './deleteAppSchema'
 
 type DeleteAppFormProps = UniFormUseCaseProps<DeleteAppInput>

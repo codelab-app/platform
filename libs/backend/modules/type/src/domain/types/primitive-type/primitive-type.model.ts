@@ -1,8 +1,5 @@
-import {
-  IPrimitiveTypeVertex,
-  PrimitiveKind,
-  TypeKind,
-} from '@codelab/shared/abstract/core'
+import { IPrimitiveTypeVertex } from '@codelab/shared/core'
+import { PrimitiveKind, TypeKind } from '@codelab/shared/enums'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Type } from '../type.model'
 

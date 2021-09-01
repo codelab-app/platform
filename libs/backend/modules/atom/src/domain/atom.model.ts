@@ -1,8 +1,8 @@
 import { DgraphInterfaceType } from '@codelab/backend/infra'
 import { Tag } from '@codelab/backend/modules/tag'
 import { InterfaceType } from '@codelab/backend/modules/type'
+import { AtomType } from '@codelab/shared/enums'
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
-import { AtomType } from './atom-type.model'
 
 registerEnumType(AtomType, {
   name: 'AtomType',

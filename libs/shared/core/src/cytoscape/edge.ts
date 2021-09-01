@@ -1,5 +1,5 @@
 import { SingularElementArgument } from 'cytoscape'
-import { getElementData } from './element'
+import { getCyElementData } from './element'
 
 export const getEdgeOrder = (edge: SingularElementArgument) =>
-  getElementData(edge)?.order ?? 0
+  getCyElementData(edge)?.order ?? 0

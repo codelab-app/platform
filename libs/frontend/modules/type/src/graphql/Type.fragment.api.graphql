@@ -1,21 +1,21 @@
-# import __ArrayType from "./ArrayType.fragment.api.graphql"
-# import __EnumType from "./EnumType.fragment.api.graphql"
-# import __Interface from "./Interface.fragment.api.graphql"
-# import __PrimitiveType from "./PrimitiveType.fragment.api.graphql"
-# import __ElementType from "./ElementType.fragment.api.graphql"
-# import __LambdaType from "./LambdaType.fragment.api.graphql"
-# import __ComponentType from "./ComponentType.fragment.api.graphql"
+# import ArrayType from "./ArrayType.fragment.api.graphql"
+# import EnumType from "./EnumType.fragment.api.graphql"
+# import Interface from "./Interface.fragment.api.graphql"
+# import PrimitiveType from "./PrimitiveType.fragment.api.graphql"
+# import ElementType from "./ElementType.fragment.api.graphql"
+# import LambdaType from "./LambdaType.fragment.api.graphql"
+# import ComponentType from "./ComponentType.fragment.api.graphql"
 
-fragment __Type on Type {
+fragment Type on Type {
   __typename
   id
   name
   typeKind
-  ...__ArrayType
-  ...__EnumType
-  ...__Interface
-  ...__PrimitiveType
-  ...__ElementType
-  ...__LambdaType
-  ...__ComponentType
+  ...ArrayType
+  ...EnumType
+  ...Interface
+  ...PrimitiveType
+  ...ElementType
+  ...LambdaType
+  ...ComponentType
 }

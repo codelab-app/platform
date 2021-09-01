@@ -1,4 +1,5 @@
-import { AtomType, CreateAtomInput } from '@codelab/shared/codegen/graphql'
+import { AtomType } from '@codelab/shared/enums'
+import { CreateAtomInput } from '../create-atom.input'
 
 export const createAtomInput: CreateAtomInput = {
   name: 'Button (Ant Design)',

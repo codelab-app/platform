@@ -1,13 +1,12 @@
 import { domainRequest } from '@codelab/backend/infra'
-import {
-  CreateFieldGql,
-  CreateFieldInput,
-  CreateFieldMutation,
-  CreateTypeGql,
-  CreateTypeInput,
-  CreateTypeMutation,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
+import { CreateTypeInput } from '../../../type/create-type'
+import {
+  CreateTypeGql,
+  CreateTypeMutation,
+} from '../../../type/create-type/tests/create-type.api.graphql'
+import { CreateFieldInput } from '../create-field.input'
+import { CreateFieldGql, CreateFieldMutation } from './create-field.api.graphql'
 import {
   createInterfaceTypeInput,
   createPrimitiveTypeInput,

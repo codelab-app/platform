@@ -4,15 +4,12 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  GetFieldGql,
-  GetFieldInput,
-  GetFieldQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
 import { createField } from '../../create-field/tests/create-type-field'
 import { partialCreateFieldInput } from '../../create-field/tests/data'
+import { GetFieldInput } from '../get-field.input'
+import { GetFieldGql, GetFieldQuery } from './get-field.api.graphql'
 
 describe('GetField', () => {
   let guestApp: INestApplication

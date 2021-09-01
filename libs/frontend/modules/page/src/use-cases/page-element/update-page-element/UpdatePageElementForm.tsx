@@ -2,9 +2,9 @@ import {
   UpdateElementForm,
   UpdateElementFormProps,
 } from '@codelab/frontend/modules/element'
-import { PageContext } from '@codelab/frontend/presenter/container'
-import { refetchGetPageQuery } from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
+import { PageContext } from '../../../providers'
+import { refetchGetPageQuery } from '../../page/get-page/GetPage.api.graphql'
 
 export type UpdatePageElementFormProps = Omit<
   UpdateElementFormProps,

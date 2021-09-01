@@ -1,7 +1,0 @@
-# import __Atom from '../../Atom.fragments.api.graphql'
-
-query GetAtoms($input: GetAtomsInput) {
-  getAtoms(input: $input) {
-    ...__Atom
-  }
-}

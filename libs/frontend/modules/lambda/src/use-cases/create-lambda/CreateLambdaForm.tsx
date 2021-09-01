@@ -5,14 +5,12 @@ import {
   UniFormUseCaseProps,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
-import {
-  refetchGetLambdasQuery,
-  useCreateLambdaMutation,
-} from '@codelab/shared/codegen/graphql'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
 import { lambdaState } from '../../state'
+import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.api.graphql'
+import { useCreateLambdaMutation } from './CreateLambda.api.graphql'
 import { CreateLambdaInput, createLambdaSchema } from './createLambdaSchema'
 
 export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {

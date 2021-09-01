@@ -4,16 +4,15 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateAtomGql,
-  CreateAtomInput,
-  CreateAtomMutation,
-  GetAtomGql,
-  GetAtomInput,
-  GetAtomQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
+import { GetAtomInput } from '../../get-atom/get-atom.input'
+import {
+  GetAtomGql,
+  GetAtomQuery,
+} from '../../get-atom/tests/get-atom.api.graphql'
+import { CreateAtomInput } from '../create-atom.input'
+import { CreateAtomGql, CreateAtomMutation } from './create-atom.api.graphql'
 import { createAtomInput } from './create-atom.data'
 
 describe('CreateAtom', () => {

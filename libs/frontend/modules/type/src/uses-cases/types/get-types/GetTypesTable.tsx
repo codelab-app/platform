@@ -8,20 +8,18 @@ import {
   useColumnSearchProps,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
-import {
-  __TypeFragment,
-  useGetTypesQuery,
-} from '@codelab/shared/codegen/graphql'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table/interface'
 import Link from 'next/link'
 import React from 'react'
+import { TypeFragment } from '../../../graphql/Type.fragment.api.graphql'
+import { useGetTypesQuery } from './GetTypes.api.graphql'
 
 export const GetTypesTable = () => {
   const { data, loading } = useGetTypesQuery()
   const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Type)
 
-  const columns: ColumnsType<__TypeFragment> = [
+  const columns: ColumnsType<TypeFragment> = [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -65,9 +63,9 @@ export const GetTypesTable = () => {
   ]
 
   return (
-    <Table<__TypeFragment>
+    <Table<TypeFragment>
       size="small"
-      pagination={{ position: ['bottomCenter'], pageSize: 25 }}
+      pagination={{ position: ['bottomCenter'] }}
       dataSource={data?.getTypes ?? []}
       columns={columns}
       rowKey={(type) => type.id}

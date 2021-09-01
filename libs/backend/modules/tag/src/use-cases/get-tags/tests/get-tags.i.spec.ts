@@ -4,16 +4,15 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateTagGql,
-  CreateTagInput,
-  CreateTagMutation,
-  GetTagsGql,
-  GetTagsQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
+import { CreateTagInput } from '../../create-tag/create-tag.input'
+import {
+  CreateTagGql,
+  CreateTagMutation,
+} from '../../create-tag/tests/create-tag.api.graphql'
 import { SeedTagTreeService } from '../../seed-tag-tree'
+import { GetTagsGql, GetTagsQuery } from './get-tags.api.graphql'
 
 describe('GetTagsUseCase', () => {
   let guestApp: INestApplication

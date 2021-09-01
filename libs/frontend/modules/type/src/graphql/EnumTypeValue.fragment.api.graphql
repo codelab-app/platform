@@ -1,4 +1,4 @@
-fragment __EnumTypeValue on EnumTypeValue {
+fragment EnumTypeValue on EnumTypeValue {
   id
   name
   value

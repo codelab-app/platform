@@ -5,20 +5,16 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  refetchGetTypeGraphQuery,
-  UpdateFieldMutation,
-  UpdateFieldMutationVariables,
-  useUpdateFieldMutation,
-} from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
 import { InterfaceContext } from '../../types'
-import { updateFieldSchema, UpdateFieldSchemaType } from './updateFieldSchema'
+import { refetchGetTypeGraphQuery } from '../../types/get-type-graph/GetTypeGraph.api.graphql'
+import { useUpdateFieldMutation } from './UpdateField.api.graphql'
+import { UpdateFieldSchema, updateFieldSchema } from './updateFieldSchema'
 
 export const UpdateFieldForm = (
-  props: UniFormUseCaseProps<UpdateFieldSchemaType>,
+  props: UniFormUseCaseProps<UpdateFieldSchema>,
 ) => {
   const {
     interface: { id: interfaceId },
@@ -30,18 +26,14 @@ export const UpdateFieldForm = (
       reset,
       state: { metadata },
     },
-  } = useCrudModalMutationForm<
-    UpdateFieldSchemaType,
-    UpdateFieldMutation,
-    UpdateFieldMutationVariables
-  >({
+  } = useCrudModalMutationForm({
     mutationOptions: {
       refetchQueries: [
         refetchGetTypeGraphQuery({ input: { where: { id: interfaceId } } }),
       ],
     },
     useMutationFunction: useUpdateFieldMutation,
-    mapVariables: (formData, crudState) => ({
+    mapVariables: (formData: UpdateFieldSchema, crudState) => ({
       input: {
         fieldId: crudState.updateId,
         updateData: {
@@ -58,7 +50,7 @@ export const UpdateFieldForm = (
   })
 
   return (
-    <FormUniforms<UpdateFieldSchemaType>
+    <FormUniforms<UpdateFieldSchema>
       onSubmit={handleSubmit}
       schema={updateFieldSchema as any}
       onSubmitError={createNotificationHandler({

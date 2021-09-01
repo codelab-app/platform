@@ -1,7 +1,9 @@
-import { UpdateAppData } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
+import { UpdateAppMutationVariables } from './UpdateApp.api.graphql'
 
-export const updateAppSchema: JSONSchemaType<UpdateAppData> = {
+export type UpdateAppSchema = UpdateAppMutationVariables['input']['data']
+
+export const updateAppSchema: JSONSchemaType<UpdateAppSchema> = {
   title: 'Edit App Input',
   type: 'object',
   properties: {

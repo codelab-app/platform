@@ -1,4 +1,4 @@
-fragment __ComponentType on ComponentType {
+fragment ComponentType on ComponentType {
   id
   name
 }

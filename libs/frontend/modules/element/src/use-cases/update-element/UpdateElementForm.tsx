@@ -1,47 +1,39 @@
 import { BaseMutationOptions } from '@apollo/client'
-import { ElementTree } from '@codelab/frontend/abstract/props'
+import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   FormUniforms,
   StatelessLoadingIndicator,
   UniFormUseCaseProps,
 } from '@codelab/frontend/view/components'
-import {
-  ElementFragment,
-  useGetAtomsQuery,
-  useGetComponentsQuery,
-  useUpdateElementMutation,
-} from '@codelab/shared/codegen/graphql'
-import React, { useRef } from 'react'
-import { AutoFields, SelectField } from 'uniforms-antd'
-import {
-  updateElementSchema,
-  UpdateElementSchemaType,
-} from './updateElementSchema'
+import React from 'react'
+import tw from 'twin.macro'
+import { AutoField, AutoFields } from 'uniforms-antd'
+import { ElementTreeGraphql } from '../../tree'
+import { useGetElementQuery } from '../get-element'
+import { useUpdateElementMutation } from './UpdateElement.api.graphql'
+import { UpdateElementSchema, updateElementSchema } from './updateElementSchema'
 
 export type UpdateElementFormProps =
-  UniFormUseCaseProps<UpdateElementSchemaType> & {
-    element: ElementFragment
-    tree: ElementTree<ElementFragment>
+  UniFormUseCaseProps<UpdateElementSchema> & {
+    elementId: string
+    tree: ElementTreeGraphql
     refetchQueries?: BaseMutationOptions['refetchQueries']
   }
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = ({
-  element,
+  elementId,
   refetchQueries,
   tree,
   ...props
 }: UpdateElementFormProps) => {
-  // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
-  const { current: initialData } = useRef({
-    atomId: element.atom?.id,
-    name: element.name,
-    componentId: tree.getComponentOfElement(element.id)?.id,
+  const { data: getElementData } = useGetElementQuery({
+    fetchPolicy: 'cache-first',
+    variables: { input: { elementId } },
   })
 
-  const { data: atoms } = useGetAtomsQuery()
-  const { data: components } = useGetComponentsQuery()
+  const element = getElementData?.getElement
 
   const [mutate, { loading: updating, error, data }] = useUpdateElementMutation(
     {
@@ -50,11 +42,11 @@ export const UpdateElementForm = ({
     },
   )
 
-  if (!initialData) {
+  if (!element) {
     return null
   }
 
-  const onSubmit = (submitData: UpdateElementSchemaType) => {
+  const onSubmit = (submitData: UpdateElementSchema) => {
     return mutate({
       variables: {
         input: { id: element.id, data: { ...submitData } },
@@ -62,17 +54,19 @@ export const UpdateElementForm = ({
     })
   }
 
+  const componentId = tree.getComponentOfElement(elementId)?.id
+
   return (
-    <>
-      <FormUniforms<UpdateElementSchemaType>
+    <div css={tw`relative`}>
+      <FormUniforms<UpdateElementSchema>
         key={element.id}
         autosave={true}
         autosaveDelay={500}
         schema={updateElementSchema}
         model={{
-          atomId: initialData.atomId,
-          name: initialData.name,
-          componentId: initialData.componentId,
+          atomId: element.atom?.id,
+          name: element.name,
+          componentId,
         }}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating element',
@@ -82,38 +76,21 @@ export const UpdateElementForm = ({
       >
         <AutoFields omitFields={['atomId', 'componentId']} />
 
-        <SelectField
-          name="atomId"
-          label="Atom"
-          showSearch={true}
-          optionFilterProp="label"
-          options={atoms?.getAtoms?.map((atom) => ({
-            label: atom.name,
-            value: atom.id,
-          }))}
-        />
-
-        <SelectField
-          name="componentId"
-          label="Component"
-          showSearch={true}
-          optionFilterProp="label"
-          options={components?.getComponents.map((comp) => ({
-            label: comp.name,
-            value: comp.id,
-          }))}
-        />
+        <AutoField name="atomId" component={SelectAtom} />
+        <AutoField name="componentId" component={SelectComponent} />
       </FormUniforms>
 
-      <StatelessLoadingIndicator
-        style={{ display: 'block', margin: '0.5rem' }}
-        state={{
-          isLoading: updating,
-          isErrored: Boolean(
-            error || (data as any)?.errors || (data as any)?.error,
-          ),
-        }}
-      />
-    </>
+      <div css={tw`absolute top-0 right-0 m-8`}>
+        <StatelessLoadingIndicator
+          style={{ display: 'block', margin: '0.5rem' }}
+          state={{
+            isLoading: updating,
+            isErrored: Boolean(
+              error || (data as any)?.errors || (data as any)?.error,
+            ),
+          }}
+        />
+      </div>
+    </div>
   )
 }

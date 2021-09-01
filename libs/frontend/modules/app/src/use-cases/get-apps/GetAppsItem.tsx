@@ -5,13 +5,13 @@ import {
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/model/state/router'
 import { useCrudModalForm } from '@codelab/frontend/view/components'
-import { __AppFragment } from '@codelab/shared/codegen/graphql'
 import { Button, Card, Dropdown, Menu } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties } from 'react'
+import { AppFragment } from '../../App.fragment.api.graphql'
 
 export type GetAppsItemProps = {
-  app: __AppFragment
+  app: AppFragment
   handleDeleteClick: ReturnType<typeof useCrudModalForm>['openDeleteModal']
   handleEditClick: ReturnType<typeof useCrudModalForm>['openUpdateModal']
 }

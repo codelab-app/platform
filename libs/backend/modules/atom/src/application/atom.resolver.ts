@@ -24,6 +24,7 @@ import { GetAtomService } from '../use-cases/get-atom'
 import { GetAtomInput } from '../use-cases/get-atom/get-atom.input'
 import { GetAtomsService } from '../use-cases/get-atoms'
 import { GetAtomsInput } from '../use-cases/get-atoms/get-atoms.input'
+import { GetAtomsWithApisService } from '../use-cases/get-atoms-with-apis'
 import { ImportAtomsInput, ImportAtomsService } from '../use-cases/import-atoms'
 import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
 
@@ -36,6 +37,7 @@ export class AtomResolver {
     private createAtomService: CreateAtomService,
     private getAtomService: GetAtomService,
     private getAtomsService: GetAtomsService,
+    private getAtomsWithApisService: GetAtomsWithApisService,
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
     private getTypeService: GetTypeService,

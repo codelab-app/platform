@@ -1,10 +1,9 @@
-import { Tree } from '@codelab/shared/abstract/core'
-import { ElementFragment } from '@codelab/shared/codegen/graphql'
+import { ElementTree, IElementVertex } from '@codelab/shared/core'
 import { useEffect, useState } from 'react'
 
 export const useExpandedNodes = (
-  tree: Tree<ElementFragment>,
-  selectedPageElement?: ElementFragment,
+  tree: ElementTree,
+  selectedPageElement?: IElementVertex,
 ) => {
   const [expandedNodeIds, setExpandedNodeIds] = useState<
     Array<string | number>

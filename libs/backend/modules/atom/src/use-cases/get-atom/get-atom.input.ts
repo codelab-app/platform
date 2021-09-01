@@ -1,5 +1,5 @@
+import { AtomType } from '@codelab/shared/enums'
 import { Field, InputType } from '@nestjs/graphql'
-import { AtomType } from '../../domain/atom-type.model'
 
 @InputType()
 export class AtomWhereUniqueInput {

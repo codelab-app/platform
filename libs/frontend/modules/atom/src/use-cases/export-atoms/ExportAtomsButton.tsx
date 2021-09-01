@@ -1,14 +1,14 @@
-import { useGetExportAtomsLazyQuery } from '@codelab/shared/codegen/graphql'
 import { Button } from 'antd'
 import fileDownload from 'js-file-download'
 import React from 'react'
+import { useExportAtomsLazyQuery } from './ExportAtoms.api.graphql'
 
 type ExportAtomsButtonProps = {
   atomIds: Array<string>
 }
 
 export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
-  const [getExportAtoms, { loading, data }] = useGetExportAtomsLazyQuery()
+  const [getExportAtoms, { loading, data }] = useExportAtomsLazyQuery()
 
   return (
     <Button

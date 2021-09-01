@@ -1,24 +1,6 @@
 import { AntdDesignApi } from '@codelab/backend/infra'
 import { createIfMissing } from '@codelab/backend/shared/utils'
-import {
-  CreateFieldGql,
-  CreateFieldInput,
-  CreateFieldMutation,
-  CreateFieldMutationVariables,
-  CreateTypeGql,
-  CreateTypeInput,
-  CreateTypeMutation,
-  CreateTypeMutationVariables,
-  GetFieldGql,
-  GetFieldInput,
-  GetFieldQuery,
-  GetFieldQueryVariables,
-  GetTypeGql,
-  GetTypeQuery,
-  GetTypeQueryVariables,
-  TypeKind,
-  TypeRef,
-} from '@codelab/shared/codegen/graphql'
+import { TypeKind } from '@codelab/shared/enums'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { GraphQLClient } from 'graphql-request'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
@@ -27,6 +9,32 @@ import {
   CustomAtomApiFactoryInput,
 } from '../utils/customAtomApi'
 import { AtomSeeder } from './atom-seeder'
+import {
+  CreateFieldGql,
+  CreateFieldMutation,
+  CreateFieldMutationVariables,
+} from './graphql/CreateField.api.graphql'
+import {
+  CreateTypeGql,
+  CreateTypeMutation,
+  CreateTypeMutationVariables,
+} from './graphql/CreateType.api.graphql'
+import {
+  GetFieldGql,
+  GetFieldQuery,
+  GetFieldQueryVariables,
+} from './graphql/GetField.api.graphql'
+import {
+  GetTypeGql,
+  GetTypeQuery,
+  GetTypeQueryVariables,
+} from './graphql/GetType.api.graphql'
+import {
+  GetFieldInput,
+  SeedFieldInput,
+  SeedTypeInput,
+  TypeRef,
+} from './types/type'
 
 /**
  * Handle seeding of types
@@ -48,7 +56,7 @@ export class TypeSeeder {
    * Returns a map of all input type names and their ids
    */
   private async seedAllIfMissing(
-    inputs: Array<CreateTypeInput>,
+    inputs: Array<SeedTypeInput>,
   ): Promise<Map<BaseTypeName, string>> {
     const results = await Promise.all(
       inputs.map((input) =>
@@ -66,7 +74,7 @@ export class TypeSeeder {
    * Checks if a type with the same name exists, if not - creates it
    * Returns the id in both cases
    */
-  private async seedTypeIfNotExisting(input: CreateTypeInput): Promise<string> {
+  private async seedTypeIfNotExisting(input: SeedTypeInput): Promise<string> {
     return createIfMissing(
       () => this.getTypeByName(input.name),
       () => this.createType(input),
@@ -102,7 +110,7 @@ export class TypeSeeder {
     }
   }
 
-  private async createFieldIfMissing(input: CreateFieldInput): Promise<string> {
+  private async createFieldIfMissing(input: SeedFieldInput): Promise<string> {
     try {
       return await this.createField(input)
     } catch (e: any) {
@@ -171,7 +179,7 @@ export class TypeSeeder {
       .then((r) => r?.getField)
   }
 
-  private async createType(typeInput: CreateTypeInput) {
+  private async createType(typeInput: SeedTypeInput) {
     const createResponse = await this.client.request<
       CreateTypeMutation,
       CreateTypeMutationVariables
@@ -190,7 +198,7 @@ export class TypeSeeder {
     return createResponse.createType.id
   }
 
-  private async createField(input: CreateFieldInput) {
+  private async createField(input: SeedFieldInput) {
     const createResponse = await this.client.request<
       CreateFieldMutation,
       CreateFieldMutationVariables

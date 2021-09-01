@@ -1,9 +1,5 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import {
-  CreateTypeInput,
-  ElementTypeKind,
-  PrimitiveKind,
-} from '@codelab/shared/codegen/graphql'
+import { ElementTypeKind, PrimitiveKind, TypeKind } from '@codelab/shared/enums'
+import { SeedTypeInput } from '../models'
 
 export enum BaseTypeName {
   Lambda = 'Lambda',
@@ -17,7 +13,7 @@ export enum BaseTypeName {
   Integer = 'Integer',
 }
 
-export const baseTypes: Array<CreateTypeInput> = [
+export const baseTypes: Array<SeedTypeInput> = [
   {
     name: BaseTypeName.String,
     typeKind: TypeKind.PrimitiveType,

@@ -1,0 +1,3 @@
+mutation UpdateField($input: UpdateFieldInput!) {
+  updateField(input: $input)
+}

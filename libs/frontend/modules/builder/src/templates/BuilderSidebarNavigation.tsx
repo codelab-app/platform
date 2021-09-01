@@ -11,7 +11,7 @@ import {
   TagOutlined,
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/model/state/router'
-import { AppContext } from '@codelab/frontend/presenter/container'
+import { AppContext } from '@codelab/frontend/modules/app'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

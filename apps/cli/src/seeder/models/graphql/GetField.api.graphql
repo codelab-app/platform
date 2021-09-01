@@ -1,0 +1,5 @@
+query GetField($input: GetFieldInput!) {
+  getField(input: $input) {
+    id
+  }
+}

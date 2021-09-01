@@ -4,20 +4,18 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateAppGql,
-  CreateAppInput,
-  CreateAppMutation,
-  DeleteAppGql,
-  DeleteAppInput,
-  DeleteAppMutation,
-  GetAppGql,
-  GetAppInput,
-  GetAppQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
+import { CreateAppInput } from '../../create-app/create-app.input'
+import {
+  CreateAppGql,
+  CreateAppMutation,
+} from '../../create-app/tests/create-app.api.graphql'
 import { createAppInput } from '../../create-app/tests/create-app.data'
+import { GetAppInput } from '../../get-app/get-app.input'
+import { GetAppGql, GetAppQuery } from '../../get-app/tests/get-app.api.graphql'
+import { DeleteAppInput } from '../delete-app.input'
+import { DeleteAppGql, DeleteAppMutation } from './delete-app.api.graphql'
 
 describe('DeleteApp', () => {
   let guestApp: INestApplication

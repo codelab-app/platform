@@ -4,20 +4,21 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateAtomGql,
-  CreateAtomInput,
-  CreateAtomMutation,
-  DeleteAtomGql,
-  DeleteAtomInput,
-  DeleteAtomMutation,
-  GetAtomGql,
-  GetAtomInput,
-  GetAtomQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
+import { CreateAtomInput } from '../../create-atom/create-atom.input'
+import {
+  CreateAtomGql,
+  CreateAtomMutation,
+} from '../../create-atom/tests/create-atom.api.graphql'
 import { createAtomInput } from '../../create-atom/tests/create-atom.data'
+import { GetAtomInput } from '../../get-atom/get-atom.input'
+import {
+  GetAtomGql,
+  GetAtomQuery,
+} from '../../get-atom/tests/get-atom.api.graphql'
+import { DeleteAtomInput } from '../delete-atom.input'
+import { DeleteAtomGql, DeleteAtomMutation } from './delete-atom.api.graphql'
 
 describe('DeleteAtom', () => {
   let guestApp: INestApplication

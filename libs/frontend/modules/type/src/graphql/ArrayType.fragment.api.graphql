@@ -1,4 +1,4 @@
-fragment __ArrayType on ArrayType {
+fragment ArrayType on ArrayType {
   id
   name
 }

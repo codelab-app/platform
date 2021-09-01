@@ -4,22 +4,24 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  AddHookToElementGql,
-  AddHookToElementInput,
-  AddHookToElementMutation,
-  CreateElementGql,
-  CreateElementInput,
-  CreateElementMutation,
-  ElementFragment,
-  GetElementGraphGql,
-  GetElementGraphInput,
-  GetElementGraphQuery,
-  HookType,
-  QueryMethod,
-} from '@codelab/shared/codegen/graphql'
+import { HookType, QueryMethod } from '@codelab/shared/enums'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
+import { CreateElementInput } from '../../create-element/create-element.input'
+import {
+  CreateElementGql,
+  CreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql'
+import { GetElementInput } from '../../get-element/get-element.input'
+import {
+  GetElementGql,
+  GetElementQuery,
+} from '../../get-element/tests/get-element.api.graphql'
+import { AddHookToElementInput } from '../add-hook-to-element.input'
+import {
+  AddHookToElementGql,
+  AddHookToElementMutation,
+} from './add-hook-to-element.api.graphql'
 
 describe('AddHookToElementUseCase', () => {
   let guestApp: INestApplication
@@ -44,7 +46,7 @@ describe('AddHookToElementUseCase', () => {
       queryHook: {
         url: 'https://github.com',
         queryKey: 'My Query',
-        method: QueryMethod.Get,
+        method: QueryMethod.GET,
       },
     }
   })
@@ -74,15 +76,13 @@ describe('AddHookToElementUseCase', () => {
 
       expect(id).toBeDefined()
 
-      const { getElementGraph } = await domainRequest<
-        GetElementGraphInput,
-        GetElementGraphQuery
-      >(userApp, GetElementGraphGql, { elementId: addHookInput.elementId })
+      const { getElement } = await domainRequest<
+        GetElementInput,
+        GetElementQuery
+      >(userApp, GetElementGql, { elementId: addHookInput.elementId })
 
-      const element = getElementGraph?.vertices[0] as ElementFragment
-
-      expect(element.hooks).toHaveLength(1)
-      expect(element.hooks[0]).toMatchObject({
+      expect(getElement?.hooks).toHaveLength(1)
+      expect(getElement?.hooks[0]).toMatchObject({
         id,
         type: HookType.Query,
         config: {

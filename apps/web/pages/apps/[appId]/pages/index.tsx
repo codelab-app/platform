@@ -1,10 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
+import { AppContext, withAppQueryProvider } from '@codelab/frontend/modules/app'
 import { PageMainPane } from '@codelab/frontend/modules/page'
-import {
-  AppContext,
-  withAppQueryProvider,
-} from '@codelab/frontend/presenter/container'
 import {
   DashboardTemplate,
   SidebarNavigation,

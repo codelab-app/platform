@@ -2,13 +2,14 @@ import {
   MoveElementForm,
   MoveElementFormProps,
 } from '@codelab/frontend/modules/element'
-import { PageContext } from '@codelab/frontend/presenter/container'
-import { refetchGetPageQuery } from '@codelab/shared/codegen/graphql'
+import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import React, { useContext } from 'react'
+import { PageContext } from '../../../providers'
+import { refetchGetPageQuery } from '../../page/get-page/GetPage.api.graphql'
 
 type MovePageElementFormProps = Omit<
   MoveElementFormProps,
-  'initialData' | 'parentElementOptions' | 'refetchQueries'
+  'initialData' | 'parentElementOptions' | 'refetchQueries' | 'tree'
 >
 
 /**
@@ -26,27 +27,15 @@ export const MovePageElementForm = ({
     )
   }
 
-  const parentElementOptions = [
-    ...tree.getAllNodes().map((e) => ({
-      label: e.name || e.atom.type,
-      value: e.id,
-    })),
-  ]
-
-  const order = tree.getOrderInParent(elementId)
-  const parent = tree.getParent(elementId)
-
   return (
-    <MoveElementForm
-      initialData={{
-        parentElementId: parent?.id as string,
-        order,
-      }}
-      parentElementOptions={parentElementOptions}
-      refetchQueries={[refetchGetPageQuery({ input: { pageId: pageId } })]}
-      elementId={elementId}
-      {...props}
-    />
+    <SelectElementProvider tree={tree}>
+      <MoveElementForm
+        tree={tree}
+        refetchQueries={[refetchGetPageQuery({ input: { pageId: pageId } })]}
+        elementId={elementId}
+        {...props}
+      />
+    </SelectElementProvider>
   )
 }
 

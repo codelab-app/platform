@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/enums'
 import { TypeModels } from '../uses-cases/types'
 
 export const typenameToTypeKind = (typename: string) => {

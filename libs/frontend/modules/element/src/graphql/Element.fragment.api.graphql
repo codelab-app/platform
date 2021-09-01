@@ -1,4 +1,4 @@
-# import __Atom from '../../../atom/src/Atom.fragments.api.graphql'
+# import Atom from '../../../atom/src/Atom.fragment.api.graphql'
 # import Hook from './Hook.fragment.api.graphql'
 
 fragment Element on Element {
@@ -7,7 +7,7 @@ fragment Element on Element {
   name
   css
   atom {
-    ...__Atom
+    ...Atom
   }
   props
   hooks {

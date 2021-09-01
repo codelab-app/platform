@@ -4,12 +4,12 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { INestApplication } from '@nestjs/common'
+import { TagModule } from '../../../tag.module'
 import {
   GetTagGraphGql,
   GetTagGraphQuery,
-} from '@codelab/shared/codegen/graphql'
-import { INestApplication } from '@nestjs/common'
-import { TagModule } from '../../../tag.module'
+} from '../../get-tag-graph/tests/get-tag-graph.api.graphql'
 import { SeedTagTreeService } from '../seed-tag-tree.service'
 
 describe('SeedTagTreeUseCase', () => {

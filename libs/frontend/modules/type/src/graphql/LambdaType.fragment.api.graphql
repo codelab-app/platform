@@ -1,4 +1,4 @@
-fragment __LambdaType on LambdaType {
+fragment LambdaType on LambdaType {
   id
   name
 }

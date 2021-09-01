@@ -1,4 +1,5 @@
-import { Hook, HookType } from '@codelab/backend/modules/hook'
+import { Hook } from '@codelab/backend/modules/hook'
+import { HookType } from '@codelab/shared/enums'
 import { AddHookToElementInput } from './add-hook-to-element.input'
 
 export const hookFactory = ({ queryHook }: AddHookToElementInput) => {

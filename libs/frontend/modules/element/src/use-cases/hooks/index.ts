@@ -1,2 +1,2 @@
-export * from './get-hooks'
+export * from './hooks-list'
 export * from './remove-hook-from-element'

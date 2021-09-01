@@ -8,9 +8,9 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import { useDeleteElementMutation } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useDeleteElementMutation } from './DeleteElement.api.graphql'
 
 export type DeleteElementFormProps =
   UniFormUseCaseProps<EmptyJsonSchemaType> & {

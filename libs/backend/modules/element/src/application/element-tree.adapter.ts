@@ -11,8 +11,8 @@ import {
   breadthFirstTraversal,
   CytoscapeService,
 } from '@codelab/backend/shared/generic'
-import { IFieldVertex, TypeKind } from '@codelab/shared/abstract/core'
-import { BaseTypeGraphAdapter } from '@codelab/shared/core'
+import { IField, TypeTree } from '@codelab/shared/core'
+import { TypeKind } from '@codelab/shared/enums'
 import { Injectable, Logger } from '@nestjs/common'
 import cytoscape, { Core } from 'cytoscape'
 import * as _ from 'lodash'
@@ -264,7 +264,7 @@ export class ElementTreeAdapter extends BaseAdapter<
     }
 
     const typeGraph = await this.typeGraphAdapter.mapItem(node.atom.api)
-    const tree = new BaseTypeGraphAdapter(typeGraph)
+    const tree = new TypeTree(typeGraph)
     const allComponentFields = tree.getFieldsByTypeKind(TypeKind.ComponentType)
 
     if (allComponentFields.length) {
@@ -297,11 +297,11 @@ export class ElementTreeAdapter extends BaseAdapter<
       )
   }
 
-  private getKeysWithComponentType(tree: BaseTypeGraphAdapter): Array<string> {
+  private getKeysWithComponentType(tree: TypeTree<any, any>): Array<string> {
     const rootFields = tree.getRootFields()
     const keysToCheck: Array<string> = []
 
-    const visitField = (field: IFieldVertex, path: string) => {
+    const visitField = (field: IField, path: string) => {
       const type = tree.getFieldType(field.id)
       const kind = type?.typeKind
 

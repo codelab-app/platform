@@ -9,7 +9,9 @@ TSConfigFile: tsconfig.base.json
 schema: schema.api.graphql
 documents:
   - libs/**/modules/**/*.api.graphql
+  - libs/frontend/view/**/*.api.graphql
   - apps/web/**/*.api.graphql
+  - apps/cli/**/*.api.graphql
   - apps/web-e2e/**/*.api.graphql
 plugins:
   - typescript-operations

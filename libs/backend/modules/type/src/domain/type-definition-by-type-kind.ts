@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/enums'
 import { typeDefinitions } from './type-definitions'
 
 const typeDefinitionByTypeKindMap = new Map(

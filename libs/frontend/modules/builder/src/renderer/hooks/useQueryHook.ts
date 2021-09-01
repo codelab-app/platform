@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import {
-  QueryHookConfig,
-  useExecuteLambdaMutation,
-} from '@codelab/shared/codegen/graphql'
+
+import { QueryHookConfigFragment } from '@codelab/frontend/modules/element'
+import { useExecuteLambdaMutation } from '@codelab/frontend/modules/lambda'
 import axios from 'axios'
 import { useQuery } from 'react-query'
 import { QueryHookHandler } from './QueryHookHandler'
 
-export const useQueryHook: QueryHookHandler = (config: QueryHookConfig) => {
+export const useQueryHook: QueryHookHandler = (
+  config: QueryHookConfigFragment,
+) => {
   let body = config.body ?? undefined
 
   try {

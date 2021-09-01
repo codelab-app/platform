@@ -4,20 +4,18 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateTagGql,
-  CreateTagInput,
-  CreateTagMutation,
-  GetTagGql,
-  GetTagInput,
-  GetTagQuery,
-  UpdateTagGql,
-  UpdateTagInput,
-  UpdateTagMutation,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
+import { CreateTagInput } from '../../create-tag/create-tag.input'
+import {
+  CreateTagGql,
+  CreateTagMutation,
+} from '../../create-tag/tests/create-tag.api.graphql'
 import { createTagInput } from '../../create-tag/tests/create-tag.data'
+import { GetTagInput } from '../../get-tag/get-tag.input'
+import { GetTagGql, GetTagQuery } from '../../get-tag/tests/get-tag.api.graphql'
+import { UpdateTagInput } from '../update-tag.input'
+import { UpdateTagGql, UpdateTagMutation } from './update-tag.api.graphql'
 
 describe('UpdateTagUseCase', () => {
   let guestApp: INestApplication

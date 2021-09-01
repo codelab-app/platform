@@ -1,5 +1,6 @@
 export * from './ownerSchema'
 export * from './uses-cases/delete-user'
+export * from './uses-cases/get-users'
 export * from './uses-cases/login-user'
 export * from './uses-cases/register-user'
 export * from './uses-cases/signout-user'

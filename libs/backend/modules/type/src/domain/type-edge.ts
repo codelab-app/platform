@@ -1,4 +1,5 @@
-import { ITypeEdge, TypeEdgeKind } from '@codelab/shared/abstract/core'
+import { ITypeEdge } from '@codelab/shared/core'
+import { TypeEdgeKind } from '@codelab/shared/enums'
 import {
   Field as GraphqlField,
   ObjectType,

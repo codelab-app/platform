@@ -1,7 +1,7 @@
-# import __App from "../../../../../../../frontend/modules/app/src/AppFragments.api.graphql"
+# import App from "../../../application/app.fragment.api.graphql"
 
 query GetApps {
   apps: getApps {
-    ...__App
+    ...App
   }
 }

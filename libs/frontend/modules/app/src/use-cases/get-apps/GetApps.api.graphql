@@ -1,0 +1,7 @@
+# import App from "../../App.fragment.api.graphql"
+
+query GetApps {
+  apps: getApps {
+    ...App
+  }
+}

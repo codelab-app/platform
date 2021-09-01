@@ -6,7 +6,7 @@ import {
   isDgraphInterfaceType,
 } from '@codelab/backend/infra'
 import { breadthFirstTraversal } from '@codelab/backend/shared/generic'
-import { TypeEdgeKind } from '@codelab/shared/abstract/core'
+import { TypeEdgeKind } from '@codelab/shared/enums'
 import { Injectable } from '@nestjs/common'
 import { TypeEdge, TypeGraph, TypeVertex } from '../../domain'
 import { FieldAdapter } from './field.adapter'

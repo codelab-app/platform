@@ -8,7 +8,7 @@ export class UpdateElementData extends PickType(CreateElementInput, [
   'componentId',
 ]) {
   @Field(() => String, { nullable: true })
-  declare css: string | null
+  declare css?: string | null
 }
 
 // Note that moveElement is there for updating order and parent

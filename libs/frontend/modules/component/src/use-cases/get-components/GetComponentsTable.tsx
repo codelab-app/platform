@@ -7,14 +7,12 @@ import {
   ListItemEditButton,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
-import {
-  ComponentFragment,
-  useGetComponentsQuery,
-} from '@codelab/shared/codegen/graphql'
 import { Space, Spin, Table, TableColumnProps } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import tw from 'twin.macro'
+import { ComponentFragment } from '../../Component.fragment.api.graphql'
+import { useGetComponentsQuery } from './GetComponents.api.graphql'
 
 export const GetComponentsTable = () => {
   const router = useRouter()

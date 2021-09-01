@@ -4,16 +4,15 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateFieldGql,
-  CreateFieldInput,
-  CreateFieldMutation,
-  GetFieldGql,
-  GetFieldInput,
-  GetFieldQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
+import { GetFieldInput } from '../../get-field/get-field.input'
+import {
+  GetFieldGql,
+  GetFieldQuery,
+} from '../../get-field/tests/get-field.api.graphql'
+import { CreateFieldInput } from '../create-field.input'
+import { CreateFieldGql, CreateFieldMutation } from './create-field.api.graphql'
 import { createInterfaceType, createPrimitiveType } from './create-type-field'
 import { partialCreateFieldInput } from './data'
 

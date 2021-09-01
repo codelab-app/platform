@@ -1,7 +1,7 @@
-# import __Type from "../../../graphql/Type.fragment.api.graphql"
+# import Type from "../../../graphql/Type.fragment.api.graphql"
 
 query GetType($input: GetTypeInput!) {
   getType(input: $input) {
-    ...__Type
+    ...Type
   }
 }

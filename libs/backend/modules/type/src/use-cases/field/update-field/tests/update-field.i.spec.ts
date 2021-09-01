@@ -4,23 +4,25 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateFieldGql,
-  CreateFieldInput,
-  CreateFieldMutation,
-  GetFieldGql,
-  GetFieldInput,
-  GetFieldQuery,
-  UpdateFieldGql,
-  UpdateFieldInput,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
+import { CreateFieldInput } from '../../create-field/create-field.input'
+import {
+  CreateFieldGql,
+  CreateFieldMutation,
+} from '../../create-field/tests/create-field.api.graphql'
 import {
   createInterfaceType,
   createPrimitiveType,
 } from '../../create-field/tests/create-type-field'
 import { partialCreateFieldInput } from '../../create-field/tests/data'
+import { GetFieldInput } from '../../get-field/get-field.input'
+import {
+  GetFieldGql,
+  GetFieldQuery,
+} from '../../get-field/tests/get-field.api.graphql'
+import { UpdateFieldInput } from '../update-field.input'
+import { UpdateFieldGql } from './update-field.api.graphql'
 
 describe('UpdateField', () => {
   let guestApp: INestApplication

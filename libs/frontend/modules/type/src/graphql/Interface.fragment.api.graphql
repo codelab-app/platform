@@ -1,4 +1,4 @@
-fragment __Interface on InterfaceType {
+fragment Interface on InterfaceType {
   id
   name
 }

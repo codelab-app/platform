@@ -1,14 +1,14 @@
-import { CreateFieldInput } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
+import { CreateFieldMutationVariables } from './CreateField.api.graphql'
 
-export type CreateFieldSchemaObject = Pick<
-  CreateFieldInput,
+export type CreateFieldSchema = Pick<
+  CreateFieldMutationVariables['input'],
   'key' | 'name' | 'description'
 > & {
   typeId: 'string'
 }
 
-export const createFieldSchema: JSONSchemaType<CreateFieldSchemaObject> = {
+export const createFieldSchema: JSONSchemaType<CreateFieldSchema> = {
   title: 'Create Field Input',
   type: 'object',
   properties: {

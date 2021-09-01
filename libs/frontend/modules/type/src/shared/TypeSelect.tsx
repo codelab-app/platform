@@ -1,6 +1,6 @@
-import { useGetTypesQuery } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
+import { useGetTypesQuery } from '../uses-cases/types/get-types/GetTypes.api.graphql'
 
 // export type TypeSelectProps = Omit<Partial<SelectFieldProps>, 'options'>
 export type TypeSelectProps = {

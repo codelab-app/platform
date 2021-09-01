@@ -1,0 +1,10 @@
+query GetAtoms($input: GetAtomsInput) {
+  getAtoms(input: $input) {
+    id
+    api {
+      id
+    }
+    name
+    type
+  }
+}

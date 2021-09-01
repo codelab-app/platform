@@ -1,7 +1,7 @@
-# import __Atom from '../../Atom.fragments.api.graphql'
+# import Atom from '../../Atom.fragment.api.graphql'
 
 query GetAtom($input: GetAtomInput!) {
   getAtom(input: $input) {
-    ...__Atom
+    ...Atom
   }
 }

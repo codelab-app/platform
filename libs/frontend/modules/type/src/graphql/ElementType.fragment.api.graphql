@@ -1,4 +1,4 @@
-fragment __ElementType on ElementType {
+fragment ElementType on ElementType {
   id
   name
   kind

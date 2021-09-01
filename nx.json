@@ -80,6 +80,9 @@
     "cli": {
       "tags": ["scope:backend"]
     },
+    "frontend-abstract-core": {
+      "tags": []
+    },
     "frontend-abstract-props": {
       "tags": ["type:abstract", "scope:frontend"]
     },
@@ -155,11 +158,11 @@
     "shared-abstract-types": {
       "tags": ["scope:shared", "type:abstract"]
     },
-    "shared-codegen-graphql": {
-      "tags": ["scope:codegen", "scope:shared"]
-    },
     "shared-core": {
       "tags": ["scope:shared"]
+    },
+    "shared-enums": {
+      "tags": ["scope:shared", "type:abstract"]
     },
     "shared-utils": {
       "tags": ["scope:shared"]

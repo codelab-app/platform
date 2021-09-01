@@ -1,5 +1,5 @@
 import { TemplateProps } from '@codelab/frontend/abstract/props'
-import { AppProvider } from '@codelab/frontend/presenter/container'
+import { AppProvider } from '@codelab/frontend/modules/app'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
 import { useRouter } from 'next/router'

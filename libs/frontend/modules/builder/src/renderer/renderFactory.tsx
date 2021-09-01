@@ -1,11 +1,15 @@
-import { isElement, RenderNode } from '@codelab/frontend/abstract/props'
+import {
+  ElementTreeGraphql,
+  isComponent,
+  isElement,
+} from '@codelab/frontend/modules/element'
 import { RenderContext } from '@codelab/frontend/presenter/container'
-import { ComponentFragment } from '@codelab/shared/codegen/graphql'
 import { css } from '@emotion/react'
 import deepmerge from 'deepmerge'
 import React, { ReactElement } from 'react'
 import { HookElementWrapper } from './hooks/HookElementWrapper'
 import { reactComponentFactory } from './reactComponentFactory'
+import { RenderNode } from './RenderNode'
 
 //
 // Types:
@@ -16,7 +20,7 @@ import { reactComponentFactory } from './reactComponentFactory'
  */
 export type RenderHandler<TNode extends RenderNode = RenderNode> = (
   node: TNode,
-  metadata: RenderContext,
+  metadata: RenderContext<ElementTreeGraphql>,
 ) => ReactElement | null
 
 //
@@ -45,6 +49,10 @@ const mergeProps = (...props: Array<Record<string, any>>) => {
  *  Handles the rendering of elements
  */
 const renderElement: RenderHandler = (element, context) => {
+  if (!isElement(element)) {
+    return null
+  }
+
   const renderedChildren = context.tree
     .getChildren(element.id)
     ?.map((child) => renderFactory(child, context))
@@ -56,9 +64,9 @@ const renderElement: RenderHandler = (element, context) => {
   }
 
   // Render either the atom with children..
-  if (isElement(element) && element.atom) {
+  if (element.atom) {
     const [RootComponent, atomProps] = reactComponentFactory({
-      atom: element.atom,
+      atomType: element.atom.type,
       node: element,
     })
 
@@ -83,10 +91,6 @@ const renderElement: RenderHandler = (element, context) => {
       children.push(renderedChildren)
     } else if (propsCombined.children) {
       children.push(propsCombined.children)
-    }
-
-    if (context.postChildrenRenderHook) {
-      children.push(context.postChildrenRenderHook(element))
     }
 
     const rendered = (
@@ -120,10 +124,11 @@ const renderElement: RenderHandler = (element, context) => {
 /**
  *  Handles the rendering of components
  */
-const renderComponent: RenderHandler<ComponentFragment> = (
-  component,
-  context,
-) => {
+const renderComponent: RenderHandler = (component, context) => {
+  if (!isComponent(component)) {
+    return null
+  }
+
   if (!context) {
     throw new Error(
       'You need to have a RenderContext.Provider before Rendering Components',
@@ -147,7 +152,10 @@ const renderComponent: RenderHandler<ComponentFragment> = (
 /**
  * Creates a React Component from a {@link RenderNode}
  */
-export const renderFactory = (node: RenderNode, context: RenderContext) => {
+export const renderFactory = (
+  node: RenderNode,
+  context: RenderContext<ElementTreeGraphql>,
+) => {
   let toRender: React.ReactNode = []
 
   switch (node.__typename) {

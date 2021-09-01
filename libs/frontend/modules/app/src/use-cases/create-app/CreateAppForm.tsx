@@ -5,14 +5,11 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  CreateAppInput,
-  refetchGetAppsQuery,
-  useCreateAppMutation,
-} from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { createAppSchema } from './createAppSchema'
+import { refetchGetAppsQuery } from '../get-apps/GetApps.api.graphql'
+import { useCreateAppMutation } from './CreateApp.api.graphql'
+import { CreateAppInput, createAppSchema } from './createAppSchema'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   const {

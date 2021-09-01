@@ -1,22 +1,27 @@
+import { QueryMethod } from '@codelab/shared/enums'
 import { z } from 'zod'
-import { QueryMethod } from '../enums'
 
-export interface QueryHookConfig {
+/**
+ * Either a lambdaId, or url/body/method are required
+ */
+export type QueryHookConfig = {
   queryKey: string
-  url: string
+  lambdaId?: string
+  url?: string
   body?: string | null
-  method: QueryMethod
-  dataPropKey?: string
-  loadingPropKey?: string
-  errorPropKey?: string
+  method?: QueryMethod
 }
 
-export const queryHookConfigSchema: z.ZodSchema<QueryHookConfig> = z.object({
-  queryKey: z.string().nonempty(),
-  url: z.string().nonempty().url(),
-  body: z.string().optional().nullable(),
-  method: z.nativeEnum(QueryMethod),
-  dataPropKey: z.string().optional(),
-  loadingPropKey: z.string().optional(),
-  errorPropKey: z.string().optional(),
-})
+export const queryHookConfigSchema: z.ZodSchema<QueryHookConfig> = z
+  .object({
+    queryKey: z.string().nonempty(),
+    lambdaId: z.string(),
+  })
+  .or(
+    z.object({
+      queryKey: z.string().nonempty(),
+      url: z.string().url(),
+      body: z.string().optional().nullable(),
+      method: z.nativeEnum(QueryMethod),
+    }),
+  )

@@ -1,7 +1,7 @@
-import { __LambdaFragment } from '@codelab/shared/codegen/graphql'
 import { atom } from 'recoil'
+import { LambdaFragment } from './graphql/Lambda.fragment.api.graphql'
 
-export type LambdaType = __LambdaFragment
+export type LambdaType = LambdaFragment
 
 export interface LambdaState {
   loading: boolean

@@ -1,4 +1,4 @@
-import { AppContext } from '@codelab/frontend/presenter/container'
+import { AppContext } from '@codelab/frontend/modules/app'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
@@ -8,12 +8,10 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  refetchGetPagesQuery,
-  useDeletePageMutation,
-} from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { refetchGetPagesQuery } from '../get-pages/GetPages.api.graphql'
+import { useDeletePageMutation } from './DeletePage.api.graphql'
 
 type DeletePageFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 

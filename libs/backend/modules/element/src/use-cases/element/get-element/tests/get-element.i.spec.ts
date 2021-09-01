@@ -4,17 +4,16 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateElementGql,
-  CreateElementInput,
-  CreateElementMutation,
-  GetElementGql,
-  GetElementInput,
-  GetElementQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
+import { CreateElementInput } from '../../create-element/create-element.input'
+import {
+  CreateElementGql,
+  CreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql'
 import { createElementInput } from '../../create-element/tests/create-element.data'
+import { GetElementInput } from '../get-element.input'
+import { GetElementGql, GetElementQuery } from './get-element.api.graphql'
 
 describe('GetElement', () => {
   let guestApp: INestApplication

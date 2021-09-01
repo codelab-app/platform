@@ -4,16 +4,12 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateAppGql,
-  CreateAppInput,
-  CreateAppMutation,
-  GetAppGql,
-  GetAppInput,
-  GetAppQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
+import { GetAppInput } from '../../get-app/get-app.input'
+import { GetAppGql, GetAppQuery } from '../../get-app/tests/get-app.api.graphql'
+import { CreateAppInput } from '../create-app.input'
+import { CreateAppGql, CreateAppMutation } from './create-app.api.graphql'
 import { createAppInput } from './create-app.data'
 
 describe('CreateApp', () => {

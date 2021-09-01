@@ -1,9 +1,12 @@
-import { TagTree } from '@codelab/frontend/abstract/props'
-import { TagGraphTreeAdapter } from '@codelab/frontend/model/domain'
-import { TagFragment, TagGraphFragment } from '@codelab/shared/codegen/graphql'
+import { Graph } from '@codelab/shared/abstract/core'
+import { TreeAdapter } from '@codelab/shared/core'
+import { TagFragment } from '../../graphql/Tag.fragment.api.graphql'
+import { TagEdgeFragment } from '../../graphql/TagEdge.fragment.api.graphql'
+
+export type GraphqlTagGraph = Graph<TagFragment, TagEdgeFragment>
 
 export const useTagTree = (
-  graph?: TagGraphFragment | null,
-): TagTree<TagFragment> => {
-  return new TagGraphTreeAdapter(graph)
+  graph?: GraphqlTagGraph | null,
+): TreeAdapter<TagFragment, TagEdgeFragment> => {
+  return new TreeAdapter(graph)
 }

@@ -1,6 +1,7 @@
-import { CreateTypeInput, TypeKind } from '@codelab/shared/codegen/graphql'
+import { TypeKind } from '@codelab/shared/enums'
+import { SeedTypeInput } from '../models'
 
-export const baseTypeCreateInputs: Array<CreateTypeInput> = [
+export const baseTypeCreateInputs: Array<SeedTypeInput> = [
   {
     typeKind: TypeKind.LambdaType,
     name: 'Lambda',

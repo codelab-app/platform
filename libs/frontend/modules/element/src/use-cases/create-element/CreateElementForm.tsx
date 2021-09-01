@@ -1,4 +1,10 @@
 import { BaseMutationOptions } from '@apollo/client'
+import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
+import {
+  SelectAnyElement,
+  SelectAtom,
+  SelectComponent,
+} from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   EntityType,
@@ -6,25 +12,18 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  CreateElementInput,
-  useCreateElementMutation,
-  useGetAtomsQuery,
-  useGetComponentsQuery,
-} from '@codelab/shared/codegen/graphql'
 import React, { useRef } from 'react'
-import { AutoFields, SelectField } from 'uniforms-antd'
-import { createElementSchema } from './createElementSchema'
+import { AutoField, AutoFields } from 'uniforms-antd'
+import { useCreateElementMutation } from './CreateElement.api.graphql'
+import { CreateElementSchema, createElementSchema } from './createElementSchema'
 
 export interface CreateElementFormProps
-  extends UniFormUseCaseProps<CreateElementInput> {
-  parentElementOptions: Array<{ label: string; value: string }>
+  extends UniFormUseCaseProps<CreateElementSchema> {
   refetchQueries?: BaseMutationOptions['refetchQueries']
-  initialData: Partial<Pick<CreateElementInput, 'parentElementId'>> | undefined
+  initialData: Partial<Pick<CreateElementSchema, 'parentElementId'>> | undefined
 }
 
 export const CreateElementForm = ({
-  parentElementOptions,
   refetchQueries,
   initialData,
   ...props
@@ -41,7 +40,7 @@ export const CreateElementForm = ({
     entityType: EntityType.Element,
     mutationOptions: { refetchQueries },
     useMutationFunction: useCreateElementMutation,
-    mapVariables: (formData: CreateElementInput) => ({
+    mapVariables: (formData: CreateElementSchema) => ({
       input: {
         ...formData,
       },
@@ -49,10 +48,9 @@ export const CreateElementForm = ({
   })
 
   const { data: atoms } = useGetAtomsQuery()
-  const { data: components } = useGetComponentsQuery()
 
   return (
-    <FormUniforms<CreateElementInput>
+    <FormUniforms<CreateElementSchema>
       schema={createElementSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while creating element',
@@ -67,35 +65,9 @@ export const CreateElementForm = ({
     >
       <AutoFields omitFields={['parentElementId', 'atomId', 'componentId']} />
 
-      <SelectField
-        name="atomId"
-        label="Atom"
-        showSearch={true}
-        optionFilterProp="label"
-        options={atoms?.getAtoms?.map((atom) => ({
-          label: atom.name,
-          value: atom.id,
-        }))}
-      />
-
-      <SelectField
-        name="componentId"
-        label="Component"
-        showSearch={true}
-        optionFilterProp="label"
-        options={components?.getComponents.map((comp) => ({
-          label: comp.name,
-          value: comp.id,
-        }))}
-      />
-
-      <SelectField
-        name="parentElementId"
-        label="Parent element"
-        showSearch={true}
-        optionFilterProp="label"
-        options={parentElementOptions}
-      />
+      <AutoField name="atomId" component={SelectAtom} />
+      <AutoField name="componentId" component={SelectComponent} />
+      <AutoField name="parentElementId" component={SelectAnyElement} />
     </FormUniforms>
   )
 }

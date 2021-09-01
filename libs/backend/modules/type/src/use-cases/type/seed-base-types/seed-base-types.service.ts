@@ -46,6 +46,16 @@ export class SeedBaseTypesService implements UseCasePort<void, void> {
   }
 
   private async createType(typeInput: CreateTypeInput) {
-    return this.createTypeService.execute(typeInput).then((type) => type.id)
+    return this.createTypeService.execute(typeInput).then((r) => {
+      if (!r.id) {
+        throw new Error(
+          `Something went wrong while creating type ${typeInput.name}`,
+        )
+      }
+
+      console.log(`Created type ${typeInput.name}`)
+
+      return r.id
+    })
   }
 }

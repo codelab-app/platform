@@ -1,5 +1,5 @@
+import { HookType } from '@codelab/shared/enums'
 import { ICreateHookInput, IUpdateHookInput } from './contracts'
-import { HookType } from './enums'
 import { HookConfig, parseHookConfig } from './hook-config'
 
 /**

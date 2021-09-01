@@ -1,7 +1,8 @@
-import { CreateComponentInput } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
+import { CreateComponentMutationVariables } from './CreateComponent.api.graphql'
 
-export type CreateComponentSchemaType = CreateComponentInput
+export type CreateComponentSchemaType =
+  CreateComponentMutationVariables['input']
 
 export const createComponentSchema: JSONSchemaType<CreateComponentSchemaType> =
   {

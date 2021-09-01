@@ -1,12 +1,12 @@
 import { notify } from '@codelab/frontend/shared/utils'
-import { __AtomFragment, AtomType } from '@codelab/shared/codegen/graphql'
+import { AtomType } from '@codelab/shared/enums'
 import React from 'react'
-import { atomTypeToReactComponent } from './atomTypeToReactComponent'
+import { atomFactory } from './atomFactory'
 
 type Identifiable = { id: string }
 
 interface AtomElementFactoryInput<TNode extends Identifiable = Identifiable> {
-  atom: __AtomFragment
+  atomType: AtomType
   node: TNode
 }
 
@@ -63,28 +63,28 @@ export const reactComponentFactory = <
 >(
   input: AtomElementFactoryInput<TNode>,
 ): ReactComponentFactoryResult => {
-  const { atom, node } = input
+  const { atomType, node } = input
 
-  if (!atom || !atom.type || !node) {
+  if (!atomType || !node) {
     return [null, {}]
   }
 
-  const ReactComponent = atomTypeToReactComponent(atom.type)
+  const ReactComponent = atomFactory(atomType)
 
   if (!ReactComponent) {
     notify({
       type: 'error',
-      title: `Missing atom of type ${atom.type} in atom type map`,
+      title: `Missing atom of type ${atomType} in atom type map`,
     })
 
     return [null, {}]
   }
 
   let props = commonProps(node.id)
-  const propsTransformer = elementsPropTransformers[atom.type]
+  const propsTransformer = elementsPropTransformers[atomType]
 
   if (propsTransformer) {
-    props = propsTransformer({ atom, node, props })
+    props = propsTransformer({ atomType, node, props })
   }
 
   return [ReactComponent, props]

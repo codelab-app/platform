@@ -1,21 +1,24 @@
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import { EmotionCssEditor } from '@codelab/frontend/view/components'
-import {
-  ElementFragment,
-  refetchGetElementGraphQuery,
-  useUpdateElementMutation,
-} from '@codelab/shared/codegen/graphql'
 import React, { useEffect, useRef, useState } from 'react'
+import { ElementFragment } from '../graphql/Element.fragment.api.graphql'
+import {
+  refetchGetElementQuery,
+  useGetElementQuery,
+} from '../use-cases/get-element/GetElement.api.graphql'
+import { useUpdateElementMutation } from '../use-cases/update-element/UpdateElement.api.graphql'
 
-export interface ElementCssEditorProps {
+export interface ElementCssEditorInternalProps {
   element: ElementFragment
 }
 
-export const ElementCssEditor = ({ element }: ElementCssEditorProps) => {
+const ElementCssEditorInternal = ({
+  element,
+}: ElementCssEditorInternalProps) => {
   const [mutate] = useUpdateElementMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
-      refetchGetElementGraphQuery({
+      refetchGetElementQuery({
         input: { elementId: element.id },
       }),
     ],
@@ -80,4 +83,19 @@ export const ElementCssEditor = ({ element }: ElementCssEditorProps) => {
   )
 }
 
-ElementCssEditor.displayName = 'ElementCssEditor'
+export type ElementCssEditorProps = { elementId: string }
+
+export const ElementCssEditor = ({ elementId }: ElementCssEditorProps) => {
+  const { data } = useGetElementQuery({
+    fetchPolicy: 'cache-first',
+    variables: { input: { elementId } },
+  })
+
+  const element = data?.getElement
+
+  if (!element) {
+    return null
+  }
+
+  return <ElementCssEditorInternal element={element} />
+}

@@ -1,19 +1,24 @@
-import { UpdateElementData } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
+import { UpdateElementMutationVariables } from './UpdateElement.api.graphql'
 
-export type UpdateElementSchemaType = Omit<UpdateElementData, 'css'>
+export type UpdateElementSchema = Omit<
+  UpdateElementMutationVariables['input']['data'],
+  'css'
+>
 
 // css property is handled by the CSS tab
-export const updateElementSchema: JSONSchemaType<UpdateElementSchemaType> = {
+export const updateElementSchema: JSONSchemaType<UpdateElementSchema> = {
   title: 'Update Element Input',
   type: 'object',
   properties: {
     atomId: {
       type: 'string',
+      label: 'Atom',
       nullable: true,
     },
     componentId: {
       type: 'string',
+      label: 'Component',
       nullable: true,
     },
     name: {

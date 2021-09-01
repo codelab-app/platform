@@ -4,22 +4,25 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import { AppModule } from '@codelab/backend/modules/app'
-import {
-  CreateAppGql,
-  CreateAppInput,
-  CreateAppMutation,
-  CreatePageGql,
-  CreatePageInput,
-  CreatePageMutation,
-  DeletePageGql,
-  DeletePageInput,
-  GetPageGql,
-  GetPageInput,
-  GetPageQuery,
-} from '@codelab/shared/codegen/graphql'
+import { AppModule, CreateAppInput } from '@codelab/backend/modules/app'
 import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../../../page.module'
+import { CreatePageInput } from '../../create-page'
+import {
+  CreateAppGql,
+  CreateAppMutation,
+} from '../../create-page/tests/create-app.api.graphql'
+import {
+  CreatePageGql,
+  CreatePageMutation,
+} from '../../create-page/tests/create-page.api.graphql'
+import { GetPageInput } from '../../get-page/get-page.input'
+import {
+  GetPageGql,
+  GetPageQuery,
+} from '../../get-page/tests/get-page.api.graphql'
+import { DeletePageInput } from '../delete-page.input'
+import { DeletePageGql } from './delete-page.api.graphql'
 
 describe('DeletePage', () => {
   let guestApp: INestApplication

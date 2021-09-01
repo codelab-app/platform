@@ -1,7 +1,9 @@
-import { CreateElementInput } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
+import { CreateElementMutationVariables } from './CreateElement.api.graphql'
 
-export const createElementSchema: JSONSchemaType<CreateElementInput> = {
+export type CreateElementSchema = CreateElementMutationVariables['input']
+
+export const createElementSchema: JSONSchemaType<CreateElementSchema> = {
   title: 'Create Page Element Input',
   type: 'object',
   properties: {
@@ -12,14 +14,17 @@ export const createElementSchema: JSONSchemaType<CreateElementInput> = {
     atomId: {
       type: 'string',
       nullable: true,
+      label: 'Atom',
     },
     componentId: {
       type: 'string',
       nullable: true,
+      label: 'Component',
     },
     parentElementId: {
       type: 'string',
       nullable: true,
+      label: 'Parent element',
     },
     order: {
       type: 'integer',

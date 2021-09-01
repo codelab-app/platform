@@ -1,17 +1,31 @@
-import { ElementFragment } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import tw from 'twin.macro'
-import { ElementHooksList, RemoveHookFromElementModal } from '../use-cases'
+import {
+  ElementHooksList,
+  RemoveHookFromElementModal,
+  useGetElementQuery,
+} from '../use-cases'
 import {
   AddHookToElementButton,
   AddHookToElementModal,
 } from '../use-cases/hooks/add-hook-to-element'
 
 export interface ElementHookSectionProps {
-  element: ElementFragment
+  elementId: string
 }
 
-export const ElementHookSection = ({ element }: ElementHookSectionProps) => {
+export const ElementHookSection = ({ elementId }: ElementHookSectionProps) => {
+  const { data } = useGetElementQuery({
+    fetchPolicy: 'cache-first',
+    variables: { input: { elementId } },
+  })
+
+  const element = data?.getElement
+
+  if (!element) {
+    return null
+  }
+
   return (
     <>
       <ElementHooksList element={element} />

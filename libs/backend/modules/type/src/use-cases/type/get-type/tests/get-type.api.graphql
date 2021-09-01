@@ -1,0 +1,21 @@
+query GetType($input: GetTypeInput!) {
+  getType(input: $input) {
+    __typename
+    id
+    name
+    typeKind
+    ... on EnumType {
+      allowedValues {
+        id
+        name
+        value
+      }
+    }
+    ... on ElementType {
+      kind
+    }
+    ... on PrimitiveType {
+      primitiveKind
+    }
+  }
+}

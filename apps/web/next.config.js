@@ -48,13 +48,20 @@ module.exports = withPlugins(
       config.module.rules.push({
         test: /\.graphql$/,
         exclude: /node_modules/,
-        use: [options.defaultLoaders.babel, { loader: 'graphql-let/loader' }],
+        use: [
+          options.defaultLoaders.babel,
+          {
+            loader: 'graphql-let/loader',
+          },
+        ],
       })
 
       config.module.rules.push({
         test: /\.graphqls$/,
         exclude: /node_modules/,
-        use: ['graphql-let/schema/loader'],
+        use: {
+          loader: 'graphql-let/schema/loader',
+        },
       })
 
       config.module.rules.push({

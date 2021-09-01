@@ -1,10 +1,10 @@
-# import __Field from "./Field.fragment.api.graphql"
+# import Field from "./Field.fragment.api.graphql"
 
-fragment __TypeEdge on TypeEdge {
+fragment TypeEdge on TypeEdge {
   source
   target
   kind
   field {
-    ...__Field
+    ...Field
   }
 }

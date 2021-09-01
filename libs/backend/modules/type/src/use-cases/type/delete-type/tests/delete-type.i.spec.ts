@@ -4,19 +4,21 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateTypeGql,
-  CreateTypeInput,
-  CreateTypeMutation,
-  DeleteTypeGql,
-  DeleteTypeInput,
-  GetTypeGql,
-  GetTypeInput,
-  GetTypeQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
+import { CreateTypeInput } from '../../create-type'
+import {
+  CreateTypeGql,
+  CreateTypeMutation,
+} from '../../create-type/tests/create-type.api.graphql'
 import { createPrimitiveStringInput } from '../../create-type/tests/create-type.data'
+import { GetTypeInput } from '../../get-type/get-type.input'
+import {
+  GetTypeGql,
+  GetTypeQuery,
+} from '../../get-type/tests/get-type.api.graphql'
+import { DeleteTypeInput } from '../delete-type.input'
+import { DeleteTypeGql } from './delete-type.api.graphql'
 
 describe('DeleteType', () => {
   let guestApp: INestApplication

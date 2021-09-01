@@ -5,12 +5,10 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  refetchGetComponentsQuery,
-  useCreateComponentMutation,
-} from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { refetchGetComponentsQuery } from '../get-components/GetComponents.api.graphql'
+import { useCreateComponentMutation } from './CreateComponent.api.graphql'
 import {
   createComponentSchema,
   CreateComponentSchemaType,

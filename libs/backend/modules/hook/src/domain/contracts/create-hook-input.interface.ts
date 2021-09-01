@@ -1,4 +1,4 @@
-import { HookType } from '../enums'
+import { HookType } from '@codelab/shared/enums'
 
 export interface ICreateHookInput {
   id?: string

@@ -1,9 +1,9 @@
 import { UploadOutlined } from '@ant-design/icons'
-import { useImportAtomsMutation } from '@codelab/shared/codegen/graphql'
 import { Button, Upload, UploadProps } from 'antd'
 import { RcFile } from 'antd/lib/upload'
 import { UploadProgressEvent } from 'rc-upload/es/interface'
 import { useState } from 'react'
+import { useImportAtomsMutation } from './ImportAtoms.api.graphql'
 
 export const ImportAtomsUpload = () => {
   const [importAtoms, { loading }] = useImportAtomsMutation()

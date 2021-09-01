@@ -1,5 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
+import { withAppQueryProvider } from '@codelab/frontend/modules/app'
 import {
   CreateAtomButton,
   CreateAtomModal,
@@ -8,7 +9,6 @@ import {
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
 import { BuilderSidebarNavigation } from '@codelab/frontend/modules/builder'
-import { withAppQueryProvider } from '@codelab/frontend/presenter/container'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Breadcrumb, Card, PageHeader, Space } from 'antd'
 import React from 'react'

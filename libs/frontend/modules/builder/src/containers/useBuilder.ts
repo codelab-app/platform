@@ -1,13 +1,11 @@
-import {
-  ElementFragment,
-  useGetElementLazyQuery,
-} from '@codelab/shared/codegen/graphql'
+import { useGetElementLazyQuery } from '@codelab/frontend/modules/element'
+import { IElementVertex } from '@codelab/shared/core'
 import { useCallback, useEffect } from 'react'
 import { atom, useRecoilState, useSetRecoilState } from 'recoil'
 
 export interface UseBuilder {
-  selectedElement?: ElementFragment
-  hoveringElement?: ElementFragment
+  selectedElement?: IElementVertex
+  hoveringElement?: IElementVertex
 }
 
 const defaultState = {
@@ -28,7 +26,7 @@ export const useSetBuilder = () => {
   const setState = useSetRecoilState(elementBuilderState)
 
   const setSelectedElement = useCallback(
-    (element?: ElementFragment) => {
+    (element?: IElementVertex) => {
       setState((s) => ({ ...s, selectedElement: element }))
     },
 
@@ -36,7 +34,7 @@ export const useSetBuilder = () => {
   )
 
   const setHoveringElement = useCallback(
-    (hoveringElement?: ElementFragment) => {
+    (hoveringElement?: IElementVertex) => {
       setState((s) => ({ ...s, hoveringElement: hoveringElement }))
     },
     [setState],
@@ -59,14 +57,14 @@ export const useSetBuilder = () => {
 }
 
 const useFetchElement = (
-  element: ElementFragment | undefined,
-  setElement: (element?: ElementFragment) => any,
+  element: IElementVertex | undefined,
+  setElement: (element?: IElementVertex) => any,
 ) => {
   // Doing this makes sure the selected/hovering element objects are updated whenever we mutate the actual element and refetch
   // it should be cached, so this shouldn't cause another api call
 
   const [fetchElement, { data: fetchedElement, loading }] =
-    useGetElementLazyQuery()
+    useGetElementLazyQuery({ fetchPolicy: 'cache-first' })
 
   useEffect(() => {
     if (element) {
