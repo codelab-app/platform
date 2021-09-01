@@ -47,13 +47,13 @@ describe('CreateAtom', () => {
         createAtomInput,
       )
 
-      const { getAtom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
         { where: { id: atomId } },
       )
 
-      expect(getAtom).toMatchObject({ id: atomId, ...createAtomInput })
+      expect(atom).toMatchObject({ id: atomId, ...createAtomInput })
     })
   })
 })

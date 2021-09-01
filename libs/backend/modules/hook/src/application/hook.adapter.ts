@@ -19,7 +19,7 @@ export class HookAdapter extends BaseAdapter<DgraphHookInput, HookModel> {
     const hook = new Hook({
       id: input.uid,
       type: input.hookType as HookType,
-      config: JSON.parse(input.configJson),
+      config: input.configJson ? JSON.parse(input.configJson) : {},
     })
 
     return {

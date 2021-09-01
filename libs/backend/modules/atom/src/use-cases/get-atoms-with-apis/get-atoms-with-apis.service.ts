@@ -1,7 +1,7 @@
+import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphAtom,
   DgraphEntityType,
-  DgraphUseCase,
   sortByUids,
 } from '@codelab/backend/infra'
 import { baseTypeQuery } from '@codelab/backend/modules/type'

@@ -1,5 +1,5 @@
-import { useResetDataMutation } from '@codelab/shared/codegen/graphql'
 import { Button } from 'antd'
+import { useResetDataMutation } from './ResetData.api.graphql'
 
 export const ResetDataButton = () => {
   const [resetData] = useResetDataMutation()

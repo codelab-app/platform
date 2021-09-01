@@ -1,7 +1,7 @@
 /**
  * Used to convert a TypeGraph into create types
  */
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { TypeKind } from '@codelab/shared/enums'
 import { TypeVertex } from '../../../domain'
 import { CreateTypeInput } from './create-type.input'
 

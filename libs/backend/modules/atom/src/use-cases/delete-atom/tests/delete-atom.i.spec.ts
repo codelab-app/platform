@@ -70,13 +70,13 @@ describe('DeleteAtom', () => {
       )
 
       // Should fail to get the deleted atom
-      const { getAtom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
         getAtomInput,
       )
 
-      expect(getAtom).toBeNull()
+      expect(atom).toBeNull()
     })
 
     // TODO: Add delete atom spec

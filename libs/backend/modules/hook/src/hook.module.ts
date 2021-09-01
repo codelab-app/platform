@@ -1,4 +1,4 @@
-import { Void } from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
 import { Module, Provider } from '@nestjs/common'
 import { HookAdapter } from './application'
 

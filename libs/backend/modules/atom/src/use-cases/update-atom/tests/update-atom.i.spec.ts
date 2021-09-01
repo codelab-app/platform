@@ -73,13 +73,13 @@ describe('UpdateAtom', () => {
         updateAtomInput,
       )
 
-      const { getAtom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
         getAtomInput,
       )
 
-      expect(getAtom).toMatchObject({
+      expect(atom).toMatchObject({
         ...updateAtomInput.data,
         id: updateAtomInput.id,
       })
