@@ -12,7 +12,7 @@ export const AddHookToElementButton = ({ metadata }: { metadata?: any }) => {
       onClick={() => openCreateModal(metadata)}
       icon={<PlusOutlined />}
     >
-      New hook
+      Add hook
     </Button>
   )
 }

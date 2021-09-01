@@ -1,5 +1,5 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
-import { HookType } from '../domain'
+import { HookType } from '@codelab/shared/enums'
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { HookConfigModel } from './hook-config'
 
 registerEnumType(HookType, { name: 'HookType' })
@@ -9,7 +9,7 @@ registerEnumType(HookType, { name: 'HookType' })
  */
 @ObjectType('Hook')
 export class HookModel {
-  @Field()
+  @Field(() => ID)
   declare id: string
 
   @Field(() => HookType)

@@ -16,7 +16,7 @@ export const AddHookToElementModal = ({
     <CrudModal
       entityType={EntityType.Hook}
       actionType={ActionType.Create}
-      okText="New hook"
+      okText="Add hook"
       renderForm={() => <AddHookToElementForm elementId={elementId} />}
     />
   )
