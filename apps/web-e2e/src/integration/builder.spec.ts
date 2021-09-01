@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/codegen/graphql'
+import { AtomType } from '@codelab/shared/enums'
 
 // Text primitive type
 const textTypeName = 'Text'

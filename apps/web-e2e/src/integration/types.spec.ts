@@ -1,4 +1,4 @@
-import { PrimitiveKind, TypeKind } from '@codelab/shared/abstract/core'
+import { PrimitiveKind, TypeKind } from '@codelab/shared/enums'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
