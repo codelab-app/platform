@@ -57,7 +57,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
       uid: blankNodeUid,
       'dgraph.type': [
         DgraphEntityType.Type,
-        typeKindDgraphMap[request.typeKind],
+        typeKindDgraphMap[typeKind],
       ] as any,
       name,
       itemType: arrayType ? { uid: arrayType.itemTypeId } : undefined,

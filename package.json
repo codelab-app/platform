@@ -122,6 +122,7 @@
     "material-ui-colors": "1.0.0",
     "monaco-css-in-js": "3.5.8",
     "monaco-editor": "0.27.0",
+    "nest-winston": "^1.5.0",
     "nestjs-console": "7.0.0",
     "next": "11.1.0",
     "node-fetch": "2.6.1",
@@ -158,6 +159,7 @@
     "voca": "1.4.0",
     "wait-on": "6.0.0",
     "why-is-node-running": "2.2.0",
+    "winston": "^3.3.3",
     "zod": "3.8.1"
   },
   "devDependencies": {
