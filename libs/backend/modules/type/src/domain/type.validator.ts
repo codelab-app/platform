@@ -11,7 +11,8 @@ import {
   isDgraphFieldType,
   isDgraphInterfaceType,
 } from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
+import { TypeKind } from '@codelab/shared/abstract/core'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import {
   OverlyNestedTypeError,
   RecursiveTypeError,
@@ -37,12 +38,43 @@ export class TypeValidator {
     return await this.dgraph.transactionWrapper((txn) =>
       this.dgraph.getOneOrThrow<QueryResult>(
         txn,
-        this.createGetTypeQuery(typeId),
+        TypeValidator.createGetTypeQuery(typeId),
         () => {
           throw new Error('Type does not exist')
         },
       ),
     )
+  }
+
+  /**
+   * Require that any primitive cannot be created a second time
+   *
+   * We query for primitive types only first, then check the kind. If it already exists, we don't allow creation
+   */
+  async primitiveIsNotDuplicated(request: CreateTypeInput): Promise<void> {
+    if (request.typeKind !== TypeKind.PrimitiveType) {
+      return
+    }
+
+    const results = await this.dgraph.transactionWrapper((txn) =>
+      this.dgraph.executeNamedQuery(
+        txn,
+        `{
+          query(func: eq(dgraph.type, ${DgraphEntityType.PrimitiveType})) @filter(eq(primitiveKind, ${request.primitiveType?.primitiveKind})) {
+            uid
+            primitiveKind
+          }
+        }`,
+        'query',
+      ),
+    )
+
+    if (results?.length) {
+      throw new HttpException(
+        `${request.primitiveType?.primitiveKind} already exists`,
+        HttpStatus.OK,
+      )
+    }
   }
 
   /**
@@ -122,7 +154,7 @@ export class TypeValidator {
     }
   }
 
-  private createGetTypeQuery(typeId: string) {
+  private static createGetTypeQuery(typeId: string) {
     /**
      * 	q(func: uid(typeId)) {
           uid

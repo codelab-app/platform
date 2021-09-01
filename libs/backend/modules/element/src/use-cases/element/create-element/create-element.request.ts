@@ -1,4 +1,4 @@
-import { User } from '@codelab/shared/abstract/core'
+import type { User } from '@codelab/shared/abstract/core'
 import { CreateElementInput } from './create-element.input'
 
 export class CreateElementRequest {

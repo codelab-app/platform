@@ -1,14 +1,7 @@
 export interface BaseNode<TChild extends BaseNode<TChild>> {
   children: Array<TChild>
+  [properties: string]: any
 }
-
-// export interface BaseNode<TData> {
-//   // id: string
-//
-//   children: Array<TData>
-//
-//   // data: TData
-// }
 
 /**
  * A generic interface for all Node's

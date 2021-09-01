@@ -84,7 +84,8 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
 
   return (
     <Table
-      pagination={{ position: ['bottomCenter'] }}
+      size="small"
+      pagination={{ position: ['bottomCenter'], pageSize: 25 }}
       dataSource={tree.getRootFields()}
       columns={columns}
       rowKey={(atom) => atom.id}

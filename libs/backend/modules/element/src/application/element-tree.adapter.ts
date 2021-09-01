@@ -1,7 +1,5 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import {
-  breadthFirstTraversal,
-  CytoscapeService,
   DgraphAtom,
   DgraphComponent,
   DgraphElement,
@@ -9,6 +7,10 @@ import {
   isDgraphElement,
 } from '@codelab/backend/infra'
 import { TypeGraphAdapter } from '@codelab/backend/modules/type'
+import {
+  breadthFirstTraversal,
+  CytoscapeService,
+} from '@codelab/backend/shared/generic'
 import { IFieldVertex, TypeKind } from '@codelab/shared/abstract/core'
 import { BaseTypeGraphAdapter } from '@codelab/shared/core'
 import { Injectable, Logger } from '@nestjs/common'

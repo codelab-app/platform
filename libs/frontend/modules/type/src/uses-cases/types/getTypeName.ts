@@ -33,7 +33,7 @@ export const getTypeName = (
 
     case TypeModels.EnumType:
       return `Enum (${(type as __EnumTypeFragment).allowedValues
-        .map((v) => v.name)
+        .map((v) => v.name || v.value)
         .join(',')})`
     case TypeModels.InterfaceType:
       return `Interface (${type.name})`

@@ -26,7 +26,11 @@
       "@codelab/backend/abstract/types": [
         "libs/backend/abstract/types/src/index.ts"
       ],
+      "@codelab/backend/application": ["libs/backend/application/src/index.ts"],
       "@codelab/backend/infra": ["libs/backend/infra/src/index.ts"],
+      "@codelab/backend/modules/admin": [
+        "libs/backend/modules/admin/src/index.ts"
+      ],
       "@codelab/backend/modules/app": ["libs/backend/modules/app/src/index.ts"],
       "@codelab/backend/modules/atom": [
         "libs/backend/modules/atom/src/index.ts"
@@ -46,6 +50,9 @@
       ],
       "@codelab/backend/modules/user": [
         "libs/backend/modules/user/src/index.ts"
+      ],
+      "@codelab/backend/shared/generic": [
+        "libs/backend/shared/generic/src/index.ts"
       ],
       "@codelab/backend/shared/utils": [
         "libs/backend/shared/utils/src/index.ts"
@@ -75,6 +82,9 @@
       ],
       "@codelab/frontend/model/state/shared": [
         "libs/frontend/model/state/shared/index.ts"
+      ],
+      "@codelab/frontend/modules/admin": [
+        "libs/frontend/modules/admin/src/index.ts"
       ],
       "@codelab/frontend/modules/app": [
         "libs/frontend/modules/app/src/index.ts"

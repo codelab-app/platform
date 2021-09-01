@@ -1,4 +1,5 @@
-import { DgraphTag, DgraphUseCase, jsonMutation } from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphTag, jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { UpdateTagRequest } from './update-tag.request'

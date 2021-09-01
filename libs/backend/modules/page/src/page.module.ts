@@ -1,6 +1,7 @@
-import { CytoscapeModule, Void } from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
 import { AppModule } from '@codelab/backend/modules/app'
 import { ElementModule } from '@codelab/backend/modules/element'
+import { CytoscapeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
 import { AppPagesResolver } from './application/app-pages.resolver'
 import { PageAdapter } from './application/page.adapter'

@@ -1,8 +1,5 @@
-import {
-  DgraphEntityType,
-  DgraphRepository,
-  DgraphUseCase,
-} from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TypeUnusedError } from '../../../application/errors/type-unused.error'

@@ -35,8 +35,14 @@
     "backend-abstract-types": {
       "tags": ["type:abstract", "scope:backend"]
     },
+    "backend-application": {
+      "tags": ["layer:application:backend", "scope:backend"]
+    },
     "backend-infra": {
       "tags": ["layer:infra", "scope:backend"]
+    },
+    "backend-modules-admin": {
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-app": {
       "tags": ["layer:domain:backend", "scope:backend"]
@@ -62,8 +68,11 @@
     "backend-modules-user": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },
+    "backend-shared-generic": {
+      "tags": ["scope:shared", "scope:backend"]
+    },
     "backend-shared-utils": {
-      "tags": ["scope:shared"]
+      "tags": ["scope:shared", "scope:backend"]
     },
     "cli": {
       "tags": ["scope:backend"]
@@ -79,6 +88,9 @@
     },
     "frontend-model-state": {
       "tags": ["scope:frontend"]
+    },
+    "frontend-modules-admin": {
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-app": {
       "tags": ["layer:domain:frontend", "scope:frontend"]

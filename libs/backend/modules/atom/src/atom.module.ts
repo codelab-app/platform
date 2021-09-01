@@ -1,4 +1,4 @@
-import { Void } from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
 import { TypeModule } from '@codelab/backend/modules/type'
 import { Module } from '@nestjs/common'
 import { AtomResolver } from './application/atom.resolver'

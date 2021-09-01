@@ -1,4 +1,4 @@
-import { AppError, ErrorCode } from '@codelab/backend/abstract/types'
+import { AppError, ErrorCode } from '@codelab/backend/abstract/core'
 import { MAX_TYPE_DEPTH } from '../../domain/constants'
 
 export class OverlyNestedTypeError extends AppError {

@@ -1,10 +1,10 @@
+import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphApp,
   DgraphElement,
   DgraphEntityType,
   DgraphPage,
   DgraphRepository,
-  DgraphUseCase,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'

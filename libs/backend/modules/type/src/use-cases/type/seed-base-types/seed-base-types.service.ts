@@ -1,18 +1,9 @@
-import { ApolloClient } from '@apollo/client'
 import { UseCasePort } from '@codelab/backend/abstract/core'
-import { ApolloClientTokens } from '@codelab/backend/infra'
-import { createIfMissing } from '@codelab/backend/shared/utils'
-import {
-  CreateTypeGql,
-  CreateTypeInput,
-  CreateTypeMutation,
-  CreateTypeMutationVariables,
-  GetTypeGql,
-  GetTypeQuery,
-  GetTypeQueryVariables,
-} from '@codelab/shared/codegen/graphql'
-import { Inject, Injectable } from '@nestjs/common'
-import { BaseTypeName, baseTypes } from '../../../domain/data/baseTypes'
+import { Auth0Service } from '@codelab/backend/infra'
+import { Injectable } from '@nestjs/common'
+import { baseTypes } from '../../../domain/data/baseTypes'
+import { CreateTypeInput, CreateTypeService } from '../create-type'
+import { GetTypeService } from '../get-type'
 
 /**
  * Seeds all default types like primitives
@@ -20,8 +11,9 @@ import { BaseTypeName, baseTypes } from '../../../domain/data/baseTypes'
 @Injectable()
 export class SeedBaseTypesService implements UseCasePort<void, void> {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    private readonly client: ApolloClient<any>,
+    private auth0Service: Auth0Service,
+    private getTypeService: GetTypeService,
+    private createTypeService: CreateTypeService,
   ) {}
 
   async execute(): Promise<any> {
@@ -37,46 +29,23 @@ export class SeedBaseTypesService implements UseCasePort<void, void> {
         })),
       ),
     )
-
-    return new Map(results.map(({ key, id }) => [key as BaseTypeName, id]))
   }
 
   private async seedTypeIfMissing(input: CreateTypeInput): Promise<string> {
-    return createIfMissing(
-      () => this.getTypeByName(input.name),
-      () => this.createType(input),
-    )
+    return this.createType(input)
+    // return createIfMissing(
+    //   () => this.getTypeByName(input.name),
+    //   () => this.createType(input),
+    // )
   }
 
   private getTypeByName(name: string) {
-    return this.client
-      .query<GetTypeQuery, GetTypeQueryVariables>({
-        query: GetTypeGql,
-        variables: {
-          input: { where: { name } },
-        },
-      })
-      .then((r) => r.data.getType?.name)
+    return this.getTypeService
+      .execute({ input: { where: { name } } })
+      .then((type) => type?.name)
   }
 
   private async createType(typeInput: CreateTypeInput) {
-    return this.client
-      .query<CreateTypeMutation, CreateTypeMutationVariables>({
-        query: CreateTypeGql,
-        variables: {
-          input: typeInput,
-        },
-      })
-      .then((r) => {
-        if (!r.data.createType) {
-          throw new Error(
-            `Something went wrong while creating type ${typeInput.name}`,
-          )
-        }
-
-        console.log(`Created type ${typeInput.name}`)
-
-        return r.data.createType.id
-      })
+    return this.createTypeService.execute(typeInput).then((type) => type.id)
   }
 }

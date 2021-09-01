@@ -1,6 +1,6 @@
+import { DgraphCreateUseCase } from '@codelab/backend/application'
 import {
   DgraphArrayType,
-  DgraphCreateUseCase,
   DgraphElementType,
   DgraphEntityType,
   DgraphEnumType,
@@ -26,8 +26,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
     super(dgraph)
   }
 
-  async executeTransaction(request: CreateTypeInput, txn: Txn) {
-    console.log(request)
+  protected async executeTransaction(request: CreateTypeInput, txn: Txn) {
     await this.validate(request)
 
     return this.dgraph.create(txn, (blankNodeUid) =>
@@ -76,5 +75,6 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
 
   protected async validate(request: CreateTypeInput): Promise<void> {
     await this.typeValidator.validateCreateTypeInput(request)
+    await this.typeValidator.primitiveIsNotDuplicated(request)
   }
 }

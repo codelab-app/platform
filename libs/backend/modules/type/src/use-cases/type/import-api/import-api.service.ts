@@ -1,29 +1,36 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
+import { CreateResponse } from '@codelab/backend/application'
 import { TypeEdgeKind, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { TypeGraph } from '../../../domain'
+import { TypeVertex } from '../../../domain'
 import {
   CreateFieldRequest,
   CreateFieldService,
 } from '../../field/create-field'
 import { CreateTypeInput, CreateTypeService } from '../create-type'
+import { CreateTypeFactory } from '../create-type/create-type.factory'
 import { ImportApiInput } from './import-api.input'
 
 @Injectable()
-export class ImportApiService implements UseCasePort<ImportApiInput, void> {
+export class ImportApiService
+  implements UseCasePort<ImportApiInput, CreateResponse>
+{
   constructor(
     private createTypeService: CreateTypeService,
     private createFieldService: CreateFieldService,
   ) {}
 
-  async execute(request: ImportApiInput): Promise<void> {
-    const { vertices, edges } = JSON.parse(request.payload) as TypeGraph
+  async execute({ api, typeGraph }: ImportApiInput): Promise<CreateResponse> {
+    const { vertices = [], edges = [] } = typeGraph
 
     /**
      * Create vertices and create a mapping of old to new id's
      */
     const verticesIdMap = await vertices.reduce(async (vertexIdMap, vertex) => {
-      const { id } = await this.createTypeService.execute(vertex)
+      // We would want to map the vertex to create types
+      const typeData = CreateTypeFactory.toCreateInput(vertex as TypeVertex)
+
+      const { id } = await this.createTypeService.execute(typeData)
 
       ;(await vertexIdMap).set(vertex.id, id)
 
@@ -33,50 +40,62 @@ export class ImportApiService implements UseCasePort<ImportApiInput, void> {
     /**
      * Create those fields using the id map
      */
-    await edges.map(async (edge) => {
-      /**
-       * Edge could be either field or array
-       */
-      if (edge.kind === TypeEdgeKind.Field && edge.field) {
-        const interfaceId = verticesIdMap.get(edge.source)
-        const existingTypeId = verticesIdMap.get(edge.target)
+    await Promise.all(
+      edges.map(async (edge) => {
+        /**
+         * Edge could be either field or array
+         */
+        if (edge.kind === TypeEdgeKind.Field && edge.field) {
+          const interfaceId = verticesIdMap.get(edge.source)
+          const existingTypeId = verticesIdMap.get(edge.target)
 
-        if (!interfaceId || !existingTypeId) {
-          throw new Error('Incorrect interface id to assign to')
-        }
+          if (!interfaceId || !existingTypeId) {
+            throw new Error('Incorrect interface id to assign to')
+          }
 
-        const createFieldInput: CreateFieldRequest = {
-          input: {
-            key: edge.field?.key,
-            interfaceId,
-            type: {
-              existingTypeId,
+          const createFieldInput: CreateFieldRequest = {
+            input: {
+              key: edge.field?.key,
+              name: `${edge.field?.name}`,
+              description: `${edge.field?.description}`,
+              interfaceId,
+              type: {
+                existingTypeId,
+              },
             },
-          },
+          }
+
+          const { id } = await this.createFieldService.execute(createFieldInput)
         }
 
-        const { id } = await this.createFieldService.execute(createFieldInput)
-      }
+        if (edge.kind === TypeEdgeKind.ArrayItem) {
+          const arrayTypeId = verticesIdMap.get(edge.target)
 
-      if (edge.kind === TypeEdgeKind.ArrayItem) {
-        const arrayTypeId = verticesIdMap.get(edge.target)
+          if (!arrayTypeId) {
+            throw new Error('Incorrect array type id')
+          }
 
-        if (!arrayTypeId) {
-          throw new Error('Incorrect array type id')
+          const createArrayTypeInput: CreateTypeInput = {
+            name: '// TODO: Add interface name here',
+            typeKind: TypeKind.ArrayType,
+            arrayType: {
+              itemTypeId: arrayTypeId,
+            },
+          }
+
+          const { id } = await this.createTypeService.execute(
+            createArrayTypeInput,
+          )
         }
+      }),
+    )
 
-        const createArrayTypeInput: CreateTypeInput = {
-          name: '// TODO: Add interface name here',
-          typeKind: TypeKind.ArrayType,
-          arrayType: {
-            itemTypeId: arrayTypeId,
-          },
-        }
+    const interfaceId = verticesIdMap.get(api)
 
-        const { id } = await this.createTypeService.execute(
-          createArrayTypeInput,
-        )
-      }
-    })
+    if (!interfaceId) {
+      throw new Error('Seeder not returning an interface')
+    }
+
+    return { id: interfaceId }
   }
 }

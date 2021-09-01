@@ -1,10 +1,10 @@
+import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphApp,
   DgraphEntityType,
   DgraphPage,
   DgraphQueryBuilder,
   DgraphRepository,
-  DgraphUseCase,
 } from '@codelab/backend/infra'
 import { AppValidator } from '@codelab/backend/modules/app'
 import { Injectable } from '@nestjs/common'

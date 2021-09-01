@@ -1,4 +1,4 @@
-import { DgraphUseCase } from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { DeleteTagsRequest } from './delete-tags.request'

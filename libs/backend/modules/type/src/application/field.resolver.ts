@@ -1,4 +1,6 @@
-import { CreateResponse, GqlAuthGuard, Void } from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
+import { CreateResponse } from '@codelab/backend/application'
+import { GqlAuthGuard } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Field } from '../domain'

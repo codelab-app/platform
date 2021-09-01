@@ -1,4 +1,4 @@
-import { ErrorCode } from '@codelab/backend/abstract/types'
+import { ErrorCode } from '@codelab/backend/abstract/core'
 
 export const errorIfNotFound = (e: any) => {
   return (

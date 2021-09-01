@@ -27,14 +27,12 @@ const isPageBuilderRoute = (router: NextRouter) => {
 
 const StyledContent = styled(Content)(({ router }: { router: NextRouter }) => [
   tw`relative p-2`,
-  // tw`relative`,
   isPageBuilderRoute(router) ? tw`pt-16` : '',
-  { minHeight: 'initial' },
 ])
 
 export const DashboardTemplate = ({
   children,
-  layoutProps,
+  layoutProps = {},
   Header,
   MainPane,
   MetaPane,
@@ -44,60 +42,53 @@ export const DashboardTemplate = ({
   // const contentPadding = isPageDetailRoute(router) ? 'pt-12' : ''
 
   return (
-    <Layout css={tw`h-full`} {...(layoutProps || {})}>
-      {Header ? (
-        <AntDesignHeader>
-          <Header />
-        </AntDesignHeader>
+    <Layout css={tw`min-h-full`} {...layoutProps}>
+      {SidebarNavigation ? (
+        <Sider theme="light" collapsed collapsedWidth={40}>
+          <div data-testid="pane-main" css={tw`h-full`}>
+            <SidebarNavigation />
+          </div>
+        </Sider>
       ) : null}
       <Layout>
-        {SidebarNavigation ? (
-          <Sider
-            theme="light"
-            style={{ height: '100%' }}
-            collapsed
-            collapsedWidth={40}
-          >
-            <div data-testid="pane-main" css={tw`h-full`}>
-              <SidebarNavigation />
-            </div>
-          </Sider>
+        {Header ? (
+          <AntDesignHeader>
+            <Header />
+          </AntDesignHeader>
         ) : null}
-        <Layout>
-          {MainPane ? (
-            <Resizable
-              enable={{ right: true }}
-              maxWidth={mainPaneWidth * 2}
-              minWidth={mainPaneWidth}
-              defaultSize={{
+        {MainPane ? (
+          <Resizable
+            enable={{ right: true }}
+            maxWidth={mainPaneWidth * 2}
+            minWidth={mainPaneWidth}
+            defaultSize={{
+              height: '100%',
+              width: mainPaneWidth,
+            }}
+          >
+            <Sider
+              theme="light"
+              width={'100%'}
+              style={{
+                overflowY: 'scroll',
+                // position: 'fixed',
                 height: '100%',
-                width: mainPaneWidth,
+                top: 0,
+                // right: 0,
               }}
             >
-              <Sider
-                theme="light"
-                width={'100%'}
-                style={{
-                  overflowY: 'scroll',
-                  // position: 'fixed',
-                  height: '100%',
-                  top: 0,
-                  // right: 0,
-                }}
-              >
-                <MainPane />
-              </Sider>
-            </Resizable>
+              <MainPane />
+            </Sider>
+          </Resizable>
+        ) : null}
+        <StyledContent router={router}>
+          {children}
+          {MetaPane ? (
+            <MetaPaneSection>
+              <MetaPane />
+            </MetaPaneSection>
           ) : null}
-          <StyledContent router={router}>
-            {children}
-            {MetaPane ? (
-              <MetaPaneSection>
-                <MetaPane />
-              </MetaPaneSection>
-            ) : null}
-          </StyledContent>
-        </Layout>
+        </StyledContent>
       </Layout>
     </Layout>
   )

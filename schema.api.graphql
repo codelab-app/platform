@@ -615,6 +615,7 @@ type Mutation {
   deleteApp(input: DeleteAppInput!): Void
   updateUser(input: UpdateUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
+  resetData: Void
   createPage(input: CreatePageInput!): CreateResponse!
   deletePage(input: DeletePageInput!): Void
   updatePage(input: UpdatePageInput!): Void
@@ -632,7 +633,7 @@ type Mutation {
   deleteAtom(input: DeleteAtomInput!): Void
   importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Void
-  importApi(input: ImportApiInput!): Void
+  seedBaseTypes: Void
   createType(input: CreateTypeInput!): CreateResponse!
   updateEnumType(input: UpdateEnumTypeInput!): Void
   updatePrimitiveType(input: UpdatePrimitiveTypeInput!): Void
@@ -771,6 +772,9 @@ input DeleteComponentInput {
 input CreateAtomInput {
   name: String!
   type: AtomType!
+
+  """Pass in an existing interface ID to assign it to the atom"""
+  api: String
 }
 
 input DeleteAtomInput {
@@ -784,10 +788,6 @@ input ImportAtomsInput {
 input UpdateAtomInput {
   id: String!
   data: CreateAtomInput!
-}
-
-input ImportApiInput {
-  payload: String!
 }
 
 """Provide one of the properties"""

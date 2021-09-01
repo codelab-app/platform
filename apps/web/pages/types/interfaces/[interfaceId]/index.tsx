@@ -9,7 +9,7 @@ import {
   UpdateFieldModal,
   withInterfaceQueryProvider,
 } from '@codelab/frontend/modules/type'
-import { padding } from '@codelab/frontend/style'
+import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -43,9 +43,9 @@ const InterfaceDetailPage: CodelabPage = () => {
       <CreateFieldModal />
       <UpdateFieldModal />
       <DeleteFieldModal />
-      <section style={{ marginTop: padding.sm }}>
+      <ContentSection>
         <FieldsTable tree={tree} />
-      </section>
+      </ContentSection>
     </>
   )
 }

@@ -169,6 +169,27 @@
         }
       }
     },
+    "backend-application": {
+      "root": "libs/backend/application",
+      "sourceRoot": "libs/backend/application/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/backend/application/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/backend/application"],
+          "options": {
+            "jestConfig": "libs/backend/application/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "backend-infra": {
       "root": "libs/backend/infra",
       "sourceRoot": "libs/backend/infra/src",
@@ -188,6 +209,27 @@
             "passWithNoTests": true
           },
           "outputs": ["coverage/libs/backend/infra"]
+        }
+      }
+    },
+    "backend-modules-admin": {
+      "root": "libs/backend/modules/admin",
+      "sourceRoot": "libs/backend/modules/admin/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/backend/modules/admin/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/backend/modules/admin"],
+          "options": {
+            "jestConfig": "libs/backend/modules/admin/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },
@@ -361,6 +403,27 @@
         }
       }
     },
+    "backend-shared-generic": {
+      "root": "libs/backend/shared/generic",
+      "sourceRoot": "libs/backend/shared/generic/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/backend/shared/generic/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/backend/shared/generic"],
+          "options": {
+            "jestConfig": "libs/backend/shared/generic/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "backend-shared-utils": {
       "root": "libs/backend/shared/utils",
       "sourceRoot": "libs/backend/shared/utils/src",
@@ -482,6 +545,29 @@
             "lintFilePatterns": [
               "libs/frontend/model/state/**/*.{ts,tsx,js,jsx}"
             ]
+          }
+        }
+      }
+    },
+    "frontend-modules-admin": {
+      "root": "libs/frontend/modules/admin",
+      "sourceRoot": "libs/frontend/modules/admin/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend/modules/admin/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/modules/admin"],
+          "options": {
+            "jestConfig": "libs/frontend/modules/admin/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
@@ -822,6 +908,14 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/core/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/core"],
+          "options": {
+            "jestConfig": "libs/shared/core/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

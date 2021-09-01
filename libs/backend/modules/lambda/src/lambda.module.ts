@@ -1,4 +1,5 @@
-import { awsConfig, Void } from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
+import { awsConfig } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { LambdaAdapter } from './application/lambda.adapter'

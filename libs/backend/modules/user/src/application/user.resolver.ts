@@ -4,7 +4,7 @@ import {
   GqlRoleGuard,
   Role,
 } from '@codelab/backend/infra'
-import { User as IUser } from '@codelab/shared/abstract/core'
+import type { User as IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { User } from '../domain/user.model'

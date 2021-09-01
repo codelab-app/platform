@@ -30,14 +30,14 @@ export class AtomSeeder {
   }
 
   async getAtom(input: GetAtomInput) {
-    const { atom } = await this.client.request<
+    const { getAtom } = await this.client.request<
       GetAtomQuery,
       GetAtomQueryVariables
     >(GetAtomGql, {
       input,
     })
 
-    return atom
+    return getAtom
   }
 
   private async createAtom(input: CreateAtomInput) {

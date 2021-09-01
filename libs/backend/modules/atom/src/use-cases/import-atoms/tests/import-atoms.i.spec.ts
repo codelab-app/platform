@@ -5,16 +5,26 @@ import {
   teardownTestModule,
 } from '@codelab/backend/infra'
 import {
+  AtomType,
+  GetAtomGql,
+  GetAtomInput,
+  GetAtomQuery,
+  GetAtomsInput,
+  GetExportAtomsGql,
+  GetExportAtomsQuery,
   ImportAtomsGql,
   ImportAtomsInput,
   ImportAtomsMutation,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
+import { exportAtomsData } from './export-atoms.data'
+import { importAtomsData } from './import-atoms.data'
 
 describe('ImportAtoms', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
+  let importAtomsInput: ImportAtomsInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
@@ -27,13 +37,15 @@ describe('ImportAtoms', () => {
   })
 
   describe('Guest', () => {
+    importAtomsInput = {
+      payload: JSON.stringify(importAtomsData),
+    }
+
     it('should fail to import atoms', async () => {
       await domainRequest<ImportAtomsInput, ImportAtomsMutation>(
         guestApp,
         ImportAtomsGql,
-        {
-          payload: '[]',
-        },
+        importAtomsInput,
         {
           message: 'Unauthorized',
         },
@@ -42,24 +54,43 @@ describe('ImportAtoms', () => {
   })
 
   describe('User', () => {
-    it('should import atoms', async () => {
-      await domainRequest<ImportAtomsInput, ImportAtomsMutation>(
+    it.skip('should import atoms', async () => {
+      await domainRequest<ImportAtomsInput>(
         userApp,
         ImportAtomsGql,
+        importAtomsInput,
+      )
+
+      const { getAtom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+        userApp,
+        GetAtomGql,
         {
-          payload: '[]',
+          where: { type: AtomType.AntDesignCard },
         },
       )
 
-      // const results = await domainRequest<GetAtomsInput, GetAtomsQuery>(
-      //   userApp,
-      //   GetAtomsGql,
-      //   {},
-      // )
-      //
-      // console.log(results)
+      if (!getAtom) {
+        throw new Error('Atom not found')
+      }
 
-      expect(true).toBeTruthy()
+      const getAtomsInput: GetAtomsInput = {
+        where: {
+          ids: [getAtom.id],
+        },
+      }
+
+      /**
+       * Can't test exportAtoms here, so we test getExportAtoms instead.
+       */
+      const { getAtoms } = await domainRequest<
+        GetAtomsInput,
+        GetExportAtomsQuery
+      >(userApp, GetExportAtomsGql, getAtomsInput)
+
+      /**
+       * Remove id from tree
+       */
+      expect(getAtoms).toMatchObject(exportAtomsData)
     })
   })
 })

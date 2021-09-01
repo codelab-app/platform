@@ -1,10 +1,9 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
+import { DgraphTag, isDgraphTag } from '@codelab/backend/infra'
 import {
   breadthFirstTraversal,
   CytoscapeService,
-  DgraphTag,
-  isDgraphTag,
-} from '@codelab/backend/infra'
+} from '@codelab/backend/shared/generic'
 import { Injectable } from '@nestjs/common'
 import cytoscape, { Core } from 'cytoscape'
 import { Tag } from '../domain/tag.model'

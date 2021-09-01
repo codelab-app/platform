@@ -1,4 +1,4 @@
-import { User } from '@codelab/shared/abstract/core'
+import type { User } from '@codelab/shared/abstract/core'
 import { CreatePageInput } from './create-page.input'
 
 export class CreatePageRequest {

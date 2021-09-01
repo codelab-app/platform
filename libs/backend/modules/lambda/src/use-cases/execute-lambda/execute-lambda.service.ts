@@ -1,4 +1,5 @@
-import { DgraphRepository, DgraphUseCase } from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetLambdaService } from '../get-lambda'

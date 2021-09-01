@@ -69,13 +69,16 @@ describe('DeleteAtom', () => {
       )
 
       // Should fail to get the deleted atom
-      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { getAtom } = await domainRequest<GetAtomInput, GetAtomQuery>(
         userApp,
         GetAtomGql,
         getAtomInput,
       )
 
-      expect(atom).toBeNull()
+      expect(getAtom).toBeNull()
     })
+
+    // TODO: Add delete atom spec
+    test.todo('should remove all associated types, if not used by other atoms')
   })
 })

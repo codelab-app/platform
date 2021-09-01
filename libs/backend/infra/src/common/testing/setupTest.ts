@@ -3,20 +3,17 @@ import {
   ExecutionContext,
   ForwardReference,
   INestApplication,
+  ShutdownSignal,
   Type,
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
-import {
-  DgraphService,
-  GqlAuthGuard,
-  InfrastructureModule,
-  JwtPayload,
-  Role,
-} from '../../infrastructure'
+import { GqlAuthGuard, JwtPayload, Role } from '../../adapters'
+import { InfrastructureModule } from '../../infrastructure.module'
+import { DgraphService } from '../../ports'
 
 type NestModule =
-  | Type<any>
+  | Type
   | DynamicModule
   | Promise<DynamicModule>
   | ForwardReference
@@ -55,8 +52,8 @@ export const setupTestModule = async (
           iss: 'codelab',
           sub: 'codelab-test-user-id',
           aud: ['https://api.codelab.ai'],
-          iat: 1625172039,
-          exp: 1627764039,
+          iat: Date.now(),
+          exp: Date.now() + 1 * 60 * 60 * 1000,
           azp: 'HgguS961i58k3TOHwS5b4ZW4OevBGibp',
           gty: 'client-credentials',
         }
@@ -71,6 +68,7 @@ export const setupTestModule = async (
 
   const testModule = await testModuleBuilder.compile()
   const app = testModule.createNestApplication()
+  app.enableShutdownHooks([ShutdownSignal.SIGTERM, ShutdownSignal.SIGINT])
 
   await app.init()
 

@@ -1,8 +1,10 @@
 import {
   CreateResponse,
+  DgraphCreateUseCase,
+} from '@codelab/backend/application'
+import {
   DgraphComponent,
   DgraphCreateMutationJson,
-  DgraphCreateUseCase,
   DgraphEntityType,
   DgraphRepository,
 } from '@codelab/backend/infra'

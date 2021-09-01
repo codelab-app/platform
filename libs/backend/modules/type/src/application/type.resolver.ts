@@ -1,9 +1,6 @@
-import {
-  CreateResponse,
-  GqlAuthGuard,
-  isDgraphInterfaceType,
-  Void,
-} from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
+import { CreateResponse } from '@codelab/backend/application'
+import { GqlAuthGuard, isDgraphInterfaceType } from '@codelab/backend/infra'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -25,7 +22,7 @@ import {
 import { GetTypeInput, GetTypeService } from '../use-cases/type/get-type'
 import { GetTypesInput, GetTypesService } from '../use-cases/type/get-types'
 import { ImportApiService } from '../use-cases/type/import-api'
-import { ImportApiInput } from '../use-cases/type/import-api/import-api.input'
+import { SeedBaseTypesService } from '../use-cases/type/seed-base-types'
 import {
   UpdateEnumTypeInput,
   UpdateEnumTypeService,
@@ -53,6 +50,7 @@ export class TypeResolver {
     private deleteTypeService: DeleteTypeService,
     private typeAdapterFactory: TypeAdapterFactory,
     private typeGraphAdapter: TypeGraphAdapter,
+    private seedBaseTypesService: SeedBaseTypesService,
     private importApiService: ImportApiService,
   ) {}
 
@@ -76,10 +74,16 @@ export class TypeResolver {
     throw new Error('Type graph can only be retrieved for an Interface Type')
   }
 
+  // @UseGuards(GqlAuthGuard)
+  // @Mutation(() => Void, { nullable: true })
+  // async importApi(@Args('input') input: ImportApiInput) {
+  //   await this.importApiService.execute(input)
+  // }
+
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })
-  async importApi(@Args('input') input: ImportApiInput) {
-    await this.importApiService.execute(input)
+  async seedBaseTypes() {
+    await this.seedBaseTypesService.execute()
   }
 
   @UseGuards(GqlAuthGuard)

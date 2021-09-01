@@ -1,4 +1,5 @@
-import { CytoscapeModule, TreeModule, Void } from '@codelab/backend/infra'
+import { Void } from '@codelab/backend/abstract/types'
+import { CytoscapeModule, TreeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
 import {
   ComponentTypeAdapter,
@@ -27,6 +28,7 @@ import { DeleteTypeService } from './use-cases/type/delete-type'
 import { GetTypeService } from './use-cases/type/get-type'
 import { GetTypesService } from './use-cases/type/get-types'
 import { ImportApiService } from './use-cases/type/import-api'
+import { SeedBaseTypesService } from './use-cases/type/seed-base-types'
 import { UpdateEnumTypeService } from './use-cases/type/update-enum-type'
 import { UpdatePrimitiveTypeService } from './use-cases/type/update-primitive-type'
 import { UpdateTypeService } from './use-cases/type/update-type'
@@ -62,6 +64,7 @@ const typeServices = [
   UpdatePrimitiveTypeService,
   UpdateTypeService,
   ImportApiService,
+  SeedBaseTypesService,
   /**
    * Adapters
    */
