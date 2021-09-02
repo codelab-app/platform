@@ -10,7 +10,10 @@ import {
   CreateComponentMutation,
   DeleteComponentGql,
   DeleteComponentInput,
+  DeleteComponentMutation,
+  GetComponentGql,
   GetComponentInput,
+  GetComponentQuery,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ComponentModule } from '../../../../component.module'
@@ -59,7 +62,7 @@ describe('DeleteComponent', () => {
 
   describe('User', () => {
     it('should delete an component', async () => {
-      /* await domainRequest<DeleteComponentInput, DeleteComponentMutation>(
+      await domainRequest<DeleteComponentInput, DeleteComponentMutation>(
         userApp,
         DeleteComponentGql,
         deleteComponentInput,
@@ -71,7 +74,7 @@ describe('DeleteComponent', () => {
         GetComponentQuery
       >(userApp, GetComponentGql, getComponentInput)
 
-      expect(getComponent).toBeNull() */
+      expect(getComponent).toBeNull()
     })
   })
 })
