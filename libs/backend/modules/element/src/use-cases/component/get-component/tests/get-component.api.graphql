@@ -1,0 +1,5 @@
+query GetComponent($input: GetComponentInput!) {
+  getComponent(input: $input) {
+    ...Component
+  }
+}
