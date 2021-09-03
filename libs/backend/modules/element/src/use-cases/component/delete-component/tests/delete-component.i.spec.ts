@@ -8,16 +8,27 @@ import {
   CreateComponentGql,
   CreateComponentInput,
   CreateComponentMutation,
+  CreateElementGql,
+  CreateElementInput,
+  CreateElementMutation,
   DeleteComponentGql,
   DeleteComponentInput,
   DeleteComponentMutation,
+  DeleteElementInput,
+  GetComponentElementsGql,
+  GetComponentElementsQuery,
   GetComponentGql,
   GetComponentInput,
   GetComponentQuery,
+  GetElementGql,
+  GetElementGraphInput,
+  GetElementInput,
+  GetElementQuery,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ComponentModule } from '../../../../component.module'
 import { ElementModule } from '../../../../element.module'
+import { createElementInput } from '../../../element/create-element/tests/create-element.data'
 import { createComponentInput } from '../../create-component/tests/create-component.data'
 
 describe('DeleteComponent', () => {
@@ -26,6 +37,11 @@ describe('DeleteComponent', () => {
   let componentId: string
   let deleteComponentInput: DeleteComponentInput
   let getComponentInput: GetComponentInput
+  let elementId: string
+  let deleteElementInput: DeleteElementInput
+  let getElementInput: GetElementInput
+  let parentElementId: string
+  let getRootInput: GetElementGraphInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ComponentModule, ElementModule], {
@@ -35,16 +51,43 @@ describe('DeleteComponent', () => {
       role: Role.USER,
     })
 
-    const results = await domainRequest<
+    // Create component
+    const resultsComponent = await domainRequest<
       CreateComponentInput,
       CreateComponentMutation
     >(userApp, CreateComponentGql, createComponentInput)
 
-    componentId = results.createComponent.id
+    componentId = resultsComponent.createComponent.id
+
     deleteComponentInput = { componentId }
     getComponentInput = { componentId }
 
     expect(componentId).toBeDefined()
+
+    const results = await domainRequest<
+      GetComponentInput,
+      GetComponentElementsQuery
+    >(userApp, GetComponentElementsGql, getComponentInput)
+
+    parentElementId = results.getComponentElements?.vertices[0].id || ''
+
+    const input = { ...createElementInput, componentId, parentElementId }
+
+    const resultsComponentElement = await domainRequest<
+      CreateElementInput,
+      CreateElementMutation
+    >(userApp, CreateElementGql, input)
+
+    elementId = resultsComponentElement.createElement.id
+    deleteElementInput = { elementId }
+    getElementInput = { elementId }
+
+    const results1 = await domainRequest<
+      GetComponentInput,
+      GetComponentElementsQuery
+    >(userApp, GetComponentElementsGql, getComponentInput)
+
+    expect(elementId).toBeDefined()
   })
 
   afterAll(async () => {
@@ -75,6 +118,13 @@ describe('DeleteComponent', () => {
       >(userApp, GetComponentGql, getComponentInput)
 
       expect(getComponent).toBeNull()
+
+      const { getElement } = await domainRequest<
+        GetElementInput,
+        GetElementQuery
+      >(userApp, GetElementGql, getElementInput)
+
+      expect(getElement).toBeNull()
     })
   })
 })
