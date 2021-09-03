@@ -148,7 +148,7 @@ export class TypeTreeJsonSchemaTransformer {
       if (type) {
         properties[field.key] = {
           ...(this.typeToJsonProperty(type) as any),
-          label: field.name,
+          label: field.name || field.key,
         }
       }
     }

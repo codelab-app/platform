@@ -18,7 +18,7 @@ export class TypeGraphAdapter extends BaseAdapter<
   Promise<TypeGraph>
 > {
   constructor(
-    private mapperFactory: TypeAdapterFactory,
+    private typeAdapter: TypeAdapterFactory,
     private fieldAdapter: FieldAdapter,
   ) {
     super()
@@ -31,7 +31,7 @@ export class TypeGraphAdapter extends BaseAdapter<
 
     const vertices = new Map<string, TypeVertex>()
     const edges = new Map<string, TypeEdge>()
-    const rootMapper = this.mapperFactory.getMapper(dgraphInterface)
+    const rootMapper = this.typeAdapter.getMapper(dgraphInterface)
     vertices.set(dgraphInterface.uid, await rootMapper.mapItem(dgraphInterface))
 
     await breadthFirstTraversal<DgraphType<any>>({
@@ -43,9 +43,9 @@ export class TypeGraphAdapter extends BaseAdapter<
 
           // We need to add the child types before the edges, because cytoscape complains otherwise
           for (const field of fields) {
-            const mapper = this.mapperFactory.getMapper(field.type)
+            const typeAdapter = this.typeAdapter.getMapper(field.type)
 
-            vertices.set(field.type.uid, await mapper.mapItem(field.type))
+            vertices.set(field.type.uid, await typeAdapter.mapItem(field.type))
 
             const fieldModel = await this.fieldAdapter.mapItem(field)
 
@@ -68,7 +68,7 @@ export class TypeGraphAdapter extends BaseAdapter<
 
         if (isDgraphArrayType(type)) {
           const itemType = type.itemType
-          const mapper = this.mapperFactory.getMapper(itemType)
+          const mapper = this.typeAdapter.getMapper(itemType)
 
           vertices.set(itemType.uid, await mapper.mapItem(itemType))
           edges.set(

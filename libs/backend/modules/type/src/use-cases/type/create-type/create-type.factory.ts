@@ -20,6 +20,9 @@ export class CreateTypeFactory {
         return {
           name: vertex.name,
           typeKind: TypeKind.PrimitiveType,
+          primitiveType: {
+            primitiveKind: vertex.primitiveKind,
+          },
         }
       case TypeKind.LambdaType:
         return {

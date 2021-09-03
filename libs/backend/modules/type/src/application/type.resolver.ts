@@ -68,7 +68,11 @@ export class TypeResolver {
     }
 
     if (isDgraphInterfaceType(type)) {
-      return this.typeGraphAdapter.mapItem(type)
+      const r = await this.typeGraphAdapter.mapItem(type)
+
+      console.log(r)
+
+      return r
     }
 
     throw new Error('Type graph can only be retrieved for an Interface Type')

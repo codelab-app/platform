@@ -43,7 +43,7 @@ export class TypeAdapterFactory {
     return this.getMapperByKind(def.typeKind)
   }
 
-  getMapperByKind(kind: TypeKind): Adapter {
+  private getMapperByKind(kind: TypeKind): Adapter {
     const mapper = this.mappers.get(kind)
 
     if (!mapper) {

@@ -10,6 +10,7 @@ import {
   GetAtomInput,
   GetAtomQuery,
   GetAtomsInput,
+  GetExport__AtomsFragment,
   GetExportAtomsGql,
   GetExportAtomsQuery,
   ImportAtomsGql,
@@ -17,9 +18,25 @@ import {
   ImportAtomsMutation,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
+import { merge } from 'lodash'
 import { AtomModule } from '../../../atom.module'
 import { exportAtomsData } from './export-atoms.data'
 import { importAtomsData } from './import-atoms.data'
+
+const sortedAtoms = (atoms: Array<GetExport__AtomsFragment>) => {
+  return atoms?.map((atom) => {
+    return merge(atom, {
+      api: {
+        typeGraph: {
+          edges: atom.api.typeGraph.edges.sort((a, b) =>
+            (a?.field?.key ?? '') > (b?.field?.key ?? '') ? 1 : -1,
+          ),
+          vertices: [],
+        },
+      },
+    })
+  })
+}
 
 describe('ImportAtoms', () => {
   let guestApp: INestApplication
@@ -54,7 +71,7 @@ describe('ImportAtoms', () => {
   })
 
   describe('User', () => {
-    it.skip('should import atoms', async () => {
+    it('should import atoms', async () => {
       await domainRequest<ImportAtomsInput>(
         userApp,
         ImportAtomsGql,
@@ -88,9 +105,13 @@ describe('ImportAtoms', () => {
       >(userApp, GetExportAtomsGql, getAtomsInput)
 
       /**
-       * Remove id from tree
+       * Let's sort the vertices/edges by name so order isn't considered
+       *
        */
-      expect(getAtoms).toMatchObject(exportAtomsData)
+      // TODO: Need to check source & target as well
+      expect(sortedAtoms(getAtoms!)).toMatchObject(sortedAtoms(exportAtomsData))
     })
+
+    it.todo('should update existing atoms & types')
   })
 })

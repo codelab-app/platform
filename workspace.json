@@ -1109,7 +1109,7 @@
             },
             "dev": {},
             "production": {
-              "buildTarget": "web:build-next:production",
+              "buildTarget": "web:build:production",
               "dev": false
             }
           }
@@ -1214,7 +1214,7 @@
                   "forwardAllArgs": false
                 },
                 {
-                  "command": "nx serve api",
+                  "command": "npx env-cmd -f .env.test nx serve api",
                   "forwardAllArgs": false
                 },
                 {

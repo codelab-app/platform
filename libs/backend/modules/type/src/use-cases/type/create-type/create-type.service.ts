@@ -8,8 +8,10 @@ import {
   DgraphPrimitiveType,
   DgraphRepository,
   jsonMutation,
+  LoggerService,
+  LoggerTokens,
 } from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../domain/type.validator'
 import { GetTypeService } from '../get-type'
@@ -22,11 +24,14 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
     dgraph: DgraphRepository,
     private getTypeService: GetTypeService,
     private typeValidator: TypeValidator,
+    @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {
     super(dgraph)
   }
 
   protected async executeTransaction(request: CreateTypeInput, txn: Txn) {
+    this.logger.log(request, 'Creating type')
+
     await this.validate(request)
 
     return this.dgraph.create(txn, (blankNodeUid) =>
