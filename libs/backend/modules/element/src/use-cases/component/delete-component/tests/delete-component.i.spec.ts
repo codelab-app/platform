@@ -15,6 +15,8 @@ import {
   DeleteComponentInput,
   DeleteComponentMutation,
   DeleteElementInput,
+  GetComponentElementsGql,
+  GetComponentElementsQuery,
   GetComponentGql,
   GetComponentInput,
   GetComponentQuery,
@@ -25,7 +27,6 @@ import { INestApplication } from '@nestjs/common'
 import { ComponentModule } from '../../../../component.module'
 import { ElementModule } from '../../../../element.module'
 import { createElementInput } from '../../../element/create-element/tests/create-element.data'
-import { createRootElementInput } from '../../../element/move-element/tests/move-element.data'
 import { createComponentInput } from '../../create-component/tests/create-component.data'
 
 describe('DeleteComponent', () => {
@@ -48,21 +49,6 @@ describe('DeleteComponent', () => {
       role: Role.USER,
     })
 
-    // Create root element
-    const resultsRootElement: CreateElementMutation = await domainRequest<
-      CreateElementInput,
-      CreateElementMutation
-    >(userApp, CreateElementGql, createRootElementInput)
-
-    parentElementId = resultsRootElement.createElement.id
-    console.log(resultsRootElement.createElement)
-
-    getRootInput = {
-      elementId: parentElementId,
-    }
-
-    expect(parentElementId).toBeDefined()
-
     // Create component
     const resultsComponent = await domainRequest<
       CreateComponentInput,
@@ -76,6 +62,13 @@ describe('DeleteComponent', () => {
 
     expect(componentId).toBeDefined()
 
+    const results = await domainRequest<
+      GetComponentInput,
+      GetComponentElementsQuery
+    >(userApp, GetComponentElementsGql, getComponentInput)
+
+    parentElementId = results.getComponentElements?.vertices[0].id || ''
+
     const input = { ...createElementInput, componentId, parentElementId }
     console.log(input)
 
@@ -88,6 +81,13 @@ describe('DeleteComponent', () => {
     elementId = resultsComponentElement.createElement.id
     deleteElementInput = { elementId }
     getElementInput = { elementId }
+
+    const results1 = await domainRequest<
+      GetComponentInput,
+      GetComponentElementsQuery
+    >(userApp, GetComponentElementsGql, getComponentInput)
+
+    console.log('results1', results1.getComponentElements?.vertices)
 
     expect(elementId).toBeDefined()
   })
@@ -107,20 +107,6 @@ describe('DeleteComponent', () => {
 
   describe('User', () => {
     it('should delete an component', async () => {
-      /*  await domainRequest<DeleteElementInput, DeleteElementMutation>(
-        userApp,
-        DeleteElementGql,
-        deleteElementInput,
-      )
-
-      // Should fail to get the deleted element
-      const { getElement } = await domainRequest<
-        GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, getElementInput)
-
-      expect(getElement).toBeNull() */
-
       await domainRequest<DeleteComponentInput, DeleteComponentMutation>(
         userApp,
         DeleteComponentGql,
