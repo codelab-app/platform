@@ -31,7 +31,9 @@ const sortedAtoms = (atoms: Array<GetExport__AtomsFragment>) => {
           edges: atom.api.typeGraph.edges.sort((a, b) =>
             (a?.field?.key ?? '') > (b?.field?.key ?? '') ? 1 : -1,
           ),
-          vertices: [],
+          vertices: atom.api.typeGraph.vertices.sort((a, b) =>
+            (a?.name ?? '') > (b?.name ?? '') ? 1 : -1,
+          ),
         },
       },
     })
