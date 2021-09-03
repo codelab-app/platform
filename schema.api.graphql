@@ -341,10 +341,6 @@ enum AtomType {
   HtmlSup
 }
 
-type ExportAtoms {
-  payload: String!
-}
-
 type Element {
   id: ID!
 
@@ -468,7 +464,6 @@ type Query {
   getComponentElements(input: GetComponentInput!): ElementGraph
   getComponents(input: GetComponentsInput): [Component!]!
   getAtoms(input: GetAtomsInput): [Atom!]
-  exportAtoms(input: GetAtomsInput): ExportAtoms
   getAtom(input: GetAtomInput!): Atom
   getType(input: GetTypeInput!): Type
   getTypeGraph(input: GetTypeInput!): TypeGraph

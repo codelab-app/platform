@@ -10,9 +10,11 @@ import {
   isDgraphArrayType,
   isDgraphFieldType,
   isDgraphInterfaceType,
+  LoggerService,
+  LoggerTokens,
 } from '@codelab/backend/infra'
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import {
   OverlyNestedTypeError,
   RecursiveTypeError,
@@ -28,7 +30,10 @@ export type QueryResult = DgraphType<any> & {
 
 @Injectable()
 export class TypeValidator {
-  constructor(private dgraph: DgraphRepository) {}
+  constructor(
+    private dgraph: DgraphRepository,
+    @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
+  ) {}
 
   /**
    * Throws error
@@ -69,11 +74,11 @@ export class TypeValidator {
       ),
     )
 
+    console.log(request, results)
+
     if (results?.length) {
-      throw new HttpException(
-        `${request.primitiveType?.primitiveKind} already exists`,
-        HttpStatus.OK,
-      )
+      this.logger.log(request, 'Type Exists')
+      throw new Error(`${request.primitiveType?.primitiveKind} already exists`)
     }
   }
 

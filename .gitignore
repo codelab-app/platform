@@ -13,8 +13,6 @@ out-tsc/
 apps/web-e2e/src/videos
 apps/web-e2e/src/screenshots
 
-ecs-cli.asc
-
 # dependencies
 node_modules/
 node_modules_prod/
@@ -37,15 +35,13 @@ node_modules_prod/
 
 **/*.log
 
+
 # misc
 .sass-cache
 connect.lock
 coverage/
-libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
 /typings
+*.log
 
 # System Files
 .DS_Store

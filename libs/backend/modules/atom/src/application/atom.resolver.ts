@@ -1,23 +1,12 @@
 import { ApolloClient } from '@apollo/client'
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
-import {
-  ApolloClientTokens,
-  CurrentUser,
-  GqlAuthGuard,
-} from '@codelab/backend/infra'
+import { ApolloClientTokens, GqlAuthGuard } from '@codelab/backend/infra'
 import {
   GetTypeService,
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
-import type { User } from '@codelab/shared/abstract/core'
-import {
-  GetAtomsQuery,
-  GetAtomsQueryVariables,
-  GetExportAtomsGql,
-} from '@codelab/shared/codegen/graphql'
-import { stringToBase64 } from '@codelab/shared/utils'
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -31,7 +20,6 @@ import { AtomAdapter } from '../domain/atom.adapter'
 import { Atom } from '../domain/atom.model'
 import { CreateAtomInput, CreateAtomService } from '../use-cases/create-atom'
 import { DeleteAtomInput, DeleteAtomService } from '../use-cases/delete-atom'
-import { ExportAtoms } from '../use-cases/export-atoms/export-atoms.model'
 import { GetAtomService } from '../use-cases/get-atom'
 import { GetAtomInput } from '../use-cases/get-atom/get-atom.input'
 import { GetAtomsService } from '../use-cases/get-atoms'
@@ -78,36 +66,6 @@ export class AtomResolver {
     }
 
     return this.atomAdapter.map(atoms)
-  }
-
-  /**
-   * We wrap around getAtoms query, so we can utilize all the nested resolvers. Then we convert all to payload string
-   */
-  @Query(() => ExportAtoms, { nullable: true })
-  @UseGuards(GqlAuthGuard)
-  async exportAtoms(
-    @CurrentUser() currentUser: User,
-    @Args('input', { nullable: true }) input?: GetAtomsInput,
-  ) {
-    const {
-      data: { getAtoms },
-    } = await this.client.query<GetAtomsQuery, GetAtomsQueryVariables>({
-      query: GetExportAtomsGql,
-      variables: {
-        input,
-      },
-    })
-
-    if (!getAtoms) {
-      return null
-    }
-
-    /**
-     * GraphQL uses JSON format, which represents as text format, not as binary.
-     *
-     * We want to transmit a file based encoding for the frontend to download as file
-     */
-    return { payload: stringToBase64(JSON.stringify(getAtoms)) }
   }
 
   @ResolveField('api', () => InterfaceType, { nullable: true })

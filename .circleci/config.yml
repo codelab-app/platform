@@ -68,8 +68,8 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@4.4.2
-  node: circleci/node@4.1.0
-  aws-cli: circleci/aws-cli@2.0.2
+  node: circleci/node@4.7.0
+  aws-cli: circleci/aws-cli@2.0.3
   aws-ecs: circleci/aws-ecs@2.2.1
 
 executors:
@@ -273,7 +273,7 @@ jobs:
           name: 'Remove Unused Cache'
           command: |
             rm -rf ~/project/node_modules/.cache
-            npx cypress cache prune
+      #            npx cypress cache prune
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
@@ -330,6 +330,7 @@ jobs:
       # Since e2e requires frontend, we use 8081 here
       - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_E2E_ENDPOINT}"'
       - setup-dgraph
+      - run: npx cypress install
       - run: npx cypress verify
       - run: make e2e-ci-affected
       - notify-failure

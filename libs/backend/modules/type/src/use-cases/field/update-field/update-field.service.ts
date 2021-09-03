@@ -34,10 +34,13 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
 
     const typeId = await this.getTypeId(request.input.updateData.type)
 
-    await this.dgraph.executeMutation(txn, this.createMutation(request, typeId))
+    await this.dgraph.executeMutation(
+      txn,
+      UpdateFieldService.createMutation(request, typeId),
+    )
   }
 
-  private createMutation(
+  private static createMutation(
     {
       input: {
         fieldId,

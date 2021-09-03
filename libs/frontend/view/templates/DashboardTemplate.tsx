@@ -56,39 +56,41 @@ export const DashboardTemplate = ({
             <Header />
           </AntDesignHeader>
         ) : null}
-        {MainPane ? (
-          <Resizable
-            enable={{ right: true }}
-            maxWidth={mainPaneWidth * 2}
-            minWidth={mainPaneWidth}
-            defaultSize={{
-              height: '100%',
-              width: mainPaneWidth,
-            }}
-          >
-            <Sider
-              theme="light"
-              width={'100%'}
-              style={{
-                overflowY: 'scroll',
-                // position: 'fixed',
+        <Layout>
+          {MainPane ? (
+            <Resizable
+              enable={{ right: true }}
+              maxWidth={mainPaneWidth * 2}
+              minWidth={mainPaneWidth}
+              defaultSize={{
                 height: '100%',
-                top: 0,
-                // right: 0,
+                width: mainPaneWidth,
               }}
             >
-              <MainPane />
-            </Sider>
-          </Resizable>
-        ) : null}
-        <StyledContent router={router}>
-          {children}
-          {MetaPane ? (
-            <MetaPaneSection>
-              <MetaPane />
-            </MetaPaneSection>
+              <Sider
+                theme="light"
+                width={'100%'}
+                style={{
+                  overflowY: 'scroll',
+                  // position: 'fixed',
+                  height: '100%',
+                  top: 0,
+                  // right: 0,
+                }}
+              >
+                <MainPane />
+              </Sider>
+            </Resizable>
           ) : null}
-        </StyledContent>
+          <StyledContent router={router}>
+            {children}
+            {MetaPane ? (
+              <MetaPaneSection>
+                <MetaPane />
+              </MetaPaneSection>
+            ) : null}
+          </StyledContent>
+        </Layout>
       </Layout>
     </Layout>
   )

@@ -54,6 +54,12 @@ export const InterfaceForm = <TData extends any>({
   onSubmit,
   ...props
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
+  console.log(
+    interfaceTree.toJsonSchema({
+      jsonPropertiesMapper: uniformsFactory,
+    }) as any,
+  )
+
   return (
     <FormUniforms
       schema={

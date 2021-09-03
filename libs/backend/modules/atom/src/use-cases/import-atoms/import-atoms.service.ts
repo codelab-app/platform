@@ -1,10 +1,13 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
+import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import { ImportApiService } from '@codelab/backend/modules/type'
-import { createIfMissing } from '@codelab/backend/shared/utils'
 import { GetExport__AtomsFragment } from '@codelab/shared/codegen/graphql'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { omit, pick } from 'lodash'
+import { AtomType } from '../../domain/atom-type.model'
 import { CreateAtomInput, CreateAtomService } from '../create-atom'
 import { GetAtomService } from '../get-atom'
+import { UpdateAtomService } from '../update-atom'
 import { ImportAtomsInput } from './import-atoms.input'
 
 /**
@@ -18,17 +21,25 @@ export class ImportAtomsService implements UseCasePort<ImportAtomsInput, void> {
     private getAtomService: GetAtomService,
     private createAtomService: CreateAtomService,
     private importApiService: ImportApiService,
+    private updateAtomService: UpdateAtomService,
+    @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
 
   async execute(request: ImportAtomsInput): Promise<void> {
     const { payload } = request
-    const data = JSON.parse(payload)
-    const atoms = await this.seedAtoms(data ?? [])
+    const atoms = JSON.parse(payload)
+
+    await this.seedAtoms(atoms ?? [])
   }
 
   private async seedAtoms(atoms: Array<GetExport__AtomsFragment>) {
     return Promise.all(
       atoms.map(async (atom) => {
+        this.logger.log(
+          omit(atom.api, 'typeGraph'),
+          `Seeding Atom: ${atom.name}`,
+        )
+
         // Seed api
         const { id } = await this.importApiService.execute({
           typeGraph: atom.api.typeGraph,
@@ -36,26 +47,45 @@ export class ImportAtomsService implements UseCasePort<ImportAtomsInput, void> {
         })
 
         // Seed atom
-        await this.seedAtomIfMissing({
+        const createdAtomId = await this.upsertAtom({
           type: atom.type,
           name: atom.name,
           api: id,
         })
+
+        this.logger.log(
+          pick(atom, ['name', 'type']),
+          createdAtomId ? 'Atom Created' : 'Atom Exists',
+        )
       }),
     )
   }
 
   /**
    * Checks if an Atom with the same AtomType exists, if not - creates it
-   * Returns the id in both cases
+   *
+   * Returns the id if created
    */
-  private async seedAtomIfMissing(atom: CreateAtomInput): Promise<string> {
-    return createIfMissing(
-      () =>
-        this.getAtomService
-          .execute({ where: { type: atom.type } })
-          .then((_atom) => _atom?.uid),
-      () => this.createAtomService.execute(atom).then((r) => r.id),
-    )
+  private async upsertAtom(atomInput: CreateAtomInput): Promise<string | null> {
+    const atom = await this.getAtomService.execute({
+      where: { type: atomInput.type },
+    })
+
+    if (!atom) {
+      const { id } = await this.createAtomService.execute(atomInput)
+
+      return id
+    }
+
+    // We don't update api here
+    await this.updateAtomService.execute({
+      id: atom.uid,
+      data: {
+        name: atomInput.name,
+        type: atom.atomType as AtomType,
+      },
+    })
+
+    return atom.uid
   }
 }

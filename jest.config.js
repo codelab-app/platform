@@ -1,3 +1,7 @@
 const { getJestProjects } = require('@nrwl/jest')
 
-module.exports = { projects: getJestProjects(), transformIgnorePatterns: ['^.+\\.js$'] }
+module.exports = {
+  projects: getJestProjects(),
+  transformIgnorePatterns: ['^.+\\.js$'],
+  testTimeout: 300000
+}
