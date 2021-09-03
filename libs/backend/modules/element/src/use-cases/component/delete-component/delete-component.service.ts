@@ -32,6 +32,7 @@ export class DeleteComponentService extends DgraphUseCase<DeleteComponentRequest
     await this.validate(request)
 
     const elements = await this.getAllReferencingElements(componentId)
+    console.log('---------------', elements)
 
     // Delete all references to the component
     const deleteElementComponent = elements.reduce(
