@@ -273,7 +273,7 @@ jobs:
           name: 'Remove Unused Cache'
           command: |
             rm -rf ~/project/node_modules/.cache
-            npx cypress cache prune
+      #            npx cypress cache prune
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
