@@ -330,6 +330,7 @@ jobs:
       # Since e2e requires frontend, we use 8081 here
       - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_E2E_ENDPOINT}"'
       - setup-dgraph
+      - run: npx cypress install
       - run: npx cypress verify
       - run: make e2e-ci-affected
       - notify-failure

@@ -39,9 +39,8 @@ build-ci:
 		--target=build \
 		--projects=api,web,cli \
 		--configuration=ci \
-		--parallel
-# --maxWorkers=8 \
-# --memoryLimit=8192
+		--parallel \
+		--verbose
 
 build-storybook:
 	npx nx build-storybook web
