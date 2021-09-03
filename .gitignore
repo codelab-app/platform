@@ -35,8 +35,7 @@ node_modules_prod/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# LSP
-.log/*
+**/*.log
 
 # misc
 .sass-cache
