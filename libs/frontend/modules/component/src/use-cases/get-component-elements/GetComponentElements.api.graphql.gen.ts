@@ -1,8 +1,12 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { ElementGraphFragment } from '../../../../element/src/graphql/ElementGraph.fragment.api.graphql.gen';
+import { ComponentVertexFragment } from '../../../../element/src/graphql/ElementGraph.fragment.api.graphql.gen';
+import { ElementFragment } from '../../../../element/src/graphql/Element.fragment.api.graphql.gen';
+import { ElementEdgeFragment } from '../../../../element/src/graphql/ElementEdge.fragment.api.graphql.gen';
 import { gql } from '@apollo/client';
-import { ElementGraphFragmentDoc } from '../../../../element/src/graphql/ElementGraph.fragment.api.graphql.gen';
+import { ComponentVertexFragmentDoc } from '../../../../element/src/graphql/ElementGraph.fragment.api.graphql.gen';
+import { ElementFragmentDoc } from '../../../../element/src/graphql/Element.fragment.api.graphql.gen';
+import { ElementEdgeFragmentDoc } from '../../../../element/src/graphql/ElementEdge.fragment.api.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type GetComponentElementsQueryVariables = Types.Exact<{
@@ -10,16 +14,24 @@ export type GetComponentElementsQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetComponentElementsQuery = { getComponentElements?: Types.Maybe<ElementGraphFragment> };
+export type GetComponentElementsQuery = { getComponentElements?: Types.Maybe<{ vertices: Array<ElementFragment | ComponentVertexFragment>, edges: Array<ElementEdgeFragment> }> };
 
 
 export const GetComponentElementsGql = gql`
     query GetComponentElements($input: GetComponentInput!) {
   getComponentElements(input: $input) {
-    ...ElementGraph
+    vertices {
+      ...ComponentVertex
+      ...Element
+    }
+    edges {
+      ...ElementEdge
+    }
   }
 }
-    ${ElementGraphFragmentDoc}`;
+    ${ComponentVertexFragmentDoc}
+${ElementFragmentDoc}
+${ElementEdgeFragmentDoc}`;
 
 /**
  * __useGetComponentElementsQuery__

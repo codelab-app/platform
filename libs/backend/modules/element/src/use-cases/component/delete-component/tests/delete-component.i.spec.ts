@@ -4,9 +4,24 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import {
+  CreateElementInput,
+  DeleteElementInput,
+  GetElementGraphInput,
+  GetElementInput,
+} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ComponentModule } from '../../../../component.module'
 import { ElementModule } from '../../../../element.module'
+import {
+  TestCreateElementGql,
+  TestCreateElementMutation,
+} from '../../../element/create-element/tests/create-element.api.graphql.gen'
+import { createElementInput } from '../../../element/create-element/tests/create-element.data'
+import {
+  TestGetElementGql,
+  TestGetElementQuery,
+} from '../../../element/get-element/tests/get-element.api.graphql.gen'
 import { CreateComponentInput } from '../../create-component'
 import {
   TestCreateComponentGql,
@@ -23,6 +38,10 @@ import {
   TestDeleteComponentGql,
   TestDeleteComponentMutation,
 } from './delete-component.api.graphql.gen'
+import {
+  TestGetComponentElementsGql,
+  TestGetComponentElementsQuery,
+} from './get-component-elements.api.graphql.gen'
 
 describe('DeleteComponent', () => {
   let guestApp: INestApplication
@@ -59,8 +78,8 @@ describe('DeleteComponent', () => {
 
     const results = await domainRequest<
       GetComponentInput,
-      GetComponentElementsQuery
-    >(userApp, GetComponentElementsGql, getComponentInput)
+      TestGetComponentElementsQuery
+    >(userApp, TestGetComponentElementsGql, getComponentInput)
 
     parentElementId = results.getComponentElements?.vertices[0].id || ''
 
@@ -68,8 +87,8 @@ describe('DeleteComponent', () => {
 
     const resultsComponentElement = await domainRequest<
       CreateElementInput,
-      CreateElementMutation
-    >(userApp, CreateElementGql, input)
+      TestCreateElementMutation
+    >(userApp, TestCreateElementGql, input)
 
     elementId = resultsComponentElement.createElement.id
     deleteElementInput = { elementId }
@@ -77,8 +96,8 @@ describe('DeleteComponent', () => {
 
     const results1 = await domainRequest<
       GetComponentInput,
-      GetComponentElementsQuery
-    >(userApp, GetComponentElementsGql, getComponentInput)
+      TestGetComponentElementsQuery
+    >(userApp, TestGetComponentElementsGql, getComponentInput)
 
     expect(elementId).toBeDefined()
   })
@@ -119,8 +138,8 @@ describe('DeleteComponent', () => {
 
       const { getElement } = await domainRequest<
         GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, getElementInput)
+        TestGetElementQuery
+      >(userApp, TestGetElementGql, getElementInput)
 
       expect(getElement).toBeNull()
     })

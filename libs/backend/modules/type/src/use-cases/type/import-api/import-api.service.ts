@@ -1,8 +1,11 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
-import { TypeEdgeKind, TypeKind } from '@codelab/shared/abstract/core'
-import { __TypeEdgeFragment } from '@codelab/shared/codegen/graphql'
+import {
+  ITypeEdge,
+  TypeEdgeKind,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { TypeVertex } from '../../../domain'
 import {
@@ -151,7 +154,7 @@ export class ImportApiService
 
   private async upsertField(
     interfaceId: string,
-    edge: __TypeEdgeFragment,
+    edge: ITypeEdge,
     existingTypeId: string,
   ) {
     // Check if field exists already

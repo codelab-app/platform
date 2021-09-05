@@ -451,10 +451,6 @@ export type ExecuteLambdaInput = {
   payload?: Maybe<Scalars['String']>;
 };
 
-export type ExportAtoms = {
-  payload: Scalars['String'];
-};
-
 export type Field = {
   id: Scalars['ID'];
   key: Scalars['String'];
@@ -861,7 +857,6 @@ export type Query = {
   getComponentElements?: Maybe<ElementGraph>;
   getComponents: Array<Component>;
   getAtoms?: Maybe<Array<Atom>>;
-  exportAtoms?: Maybe<ExportAtoms>;
   getAtom?: Maybe<Atom>;
   getType?: Maybe<Type>;
   getTypeGraph?: Maybe<TypeGraph>;
@@ -923,11 +918,6 @@ export type QueryGetComponentsArgs = {
 
 
 export type QueryGetAtomsArgs = {
-  input?: Maybe<GetAtomsInput>;
-};
-
-
-export type QueryExportAtomsArgs = {
   input?: Maybe<GetAtomsInput>;
 };
 
@@ -1234,7 +1224,6 @@ export type User = {
   user_id?: Maybe<Scalars['String']>;
   username?: Maybe<Scalars['String']>;
 };
-
 
 export type WhereUniqueTag = {
   name?: Maybe<Scalars['String']>;

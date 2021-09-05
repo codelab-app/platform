@@ -2,15 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type CreateResponse {
-  id: String!
-}
-
 type App {
   id: ID!
   ownerId: String!
   name: String!
   pages: App!
+}
+
+type CreateResponse {
+  id: String!
 }
 
 type Field {
@@ -341,6 +341,40 @@ enum AtomType {
   HtmlSup
 }
 
+type Hook {
+  id: ID!
+  type: HookType!
+  config: HookConfig!
+}
+
+enum HookType {
+  Query
+  GraphqlQuery
+}
+
+union HookConfig = QueryHookConfig
+
+type QueryHookConfig {
+  queryKey: String!
+  url: String
+  body: String
+  method: QueryMethod
+  lambdaId: String
+}
+
+enum QueryMethod {
+  GET
+  DELETE
+  HEAD
+  OPTIONS
+  POST
+  PUT
+  PATCH
+  PURGE
+  LINK
+  UNLINK
+}
+
 type Element {
   id: ID!
 
@@ -352,6 +386,7 @@ type Element {
 
   """Props in a json format"""
   props: String!
+  hooks: [Hook!]!
   atom: Atom
 }
 
@@ -380,76 +415,15 @@ type ElementGraph {
 
 union ElementVertex = Element | Component
 
-type Lambda {
-  id: ID!
-  ownerId: String!
-  name: String!
-  body: String!
-}
-
-type LambdaPayload {
-  payload: String!
-}
-
 type Page {
   id: ID!
   name: String!
   elements: ElementGraph
 }
 
-type Tag {
-  id: String!
-  name: String!
-  isRoot: Boolean!
-}
-
-"""An edge between two element nodes"""
-type TagEdge {
-  """The id of the source Tag"""
-  source: String!
-
-  """The id of the target Tag"""
-  target: String!
-  order: Int
-}
-
-type TagGraph {
-  """All descendant Elements or Components, at any level"""
-  vertices: [TagVertex!]!
-
-  """All the links connecting the descendant elements/components"""
-  edges: [TagEdge!]!
-}
-
-union TagVertex = Tag
-
-type User {
-  blocked: Boolean
-  created_at: String
-  email: String
-  email_verified: Boolean
-  family_name: String
-  given_name: String
-  last_ip: String
-  last_login: String
-  last_password_reset: String
-  logins_count: Float
-  multifactor: [String!]
-  name: String
-  nickname: String
-  phone_number: String
-  phone_verified: Boolean
-  picture: String
-  updated_at: String
-  user_id: String
-  username: String
-}
-
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
-  getMe: User!
-  getUsers(input: GetUsersInput): [User!]!
   getPages(input: GetPagesInput!): [Page!]!
   getPage(input: GetPageInput!): Page
 
@@ -469,17 +443,6 @@ type Query {
   getTypeGraph(input: GetTypeInput!): TypeGraph
   getTypes(input: GetTypesInput): [Type!]!
   getField(input: GetFieldInput!): Field
-  getLambda(input: GetLambdaInput!): Lambda
-  getLambdas: [Lambda!]!
-  getTag(input: GetTagInput!): Tag
-
-  """Get all Tag graphs"""
-  getTags: [Tag!]!
-
-  """
-  Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
-  """
-  getTagGraph: TagGraph
 }
 
 input GetAppInput {
@@ -493,13 +456,6 @@ input AppByIdFilter {
 
 input AppByPageFilter {
   pageId: String!
-}
-
-input GetUsersInput {
-  page: Int!
-  perPage: Int!
-  query: String!
-  sort: String!
 }
 
 input GetPagesInput {
@@ -591,26 +547,10 @@ input FieldByIdFilter {
   fieldId: String!
 }
 
-input GetLambdaInput {
-  lambdaId: String!
-}
-
-input GetTagInput {
-  where: WhereUniqueTag!
-}
-
-input WhereUniqueTag {
-  name: String
-  id: String
-}
-
 type Mutation {
   createApp(input: CreateAppInput!): CreateResponse!
   updateApp(input: UpdateAppInput!): Void
   deleteApp(input: DeleteAppInput!): Void
-  updateUser(input: UpdateUserInput!): User!
-  deleteUser(input: DeleteUserInput!): Boolean!
-  resetData: Void
   createPage(input: CreatePageInput!): CreateResponse!
   deletePage(input: DeletePageInput!): Void
   updatePage(input: UpdatePageInput!): Void
@@ -621,6 +561,8 @@ type Mutation {
 
   """Deletes an element and all the descending elements"""
   deleteElement(input: DeleteElementInput!): Void
+  addHookToElement(input: AddHookToElementInput!): CreateResponse!
+  removeHookFromElement(input: RemoveHookFromElementInput!): Void
   createComponent(input: CreateComponentInput!): CreateResponse!
   updateComponent(input: UpdateComponentInput!): Void
   deleteComponent(input: DeleteComponentInput!): Void
@@ -637,13 +579,6 @@ type Mutation {
   createField(input: CreateFieldInput!): CreateResponse!
   updateField(input: UpdateFieldInput!): Void
   deleteField(input: DeleteFieldInput!): Void
-  createLambda(input: CreateLambdaInput!): CreateResponse!
-  deleteLambda(input: DeleteLambdaInput!): Void
-  updateLambda(input: UpdateLambdaInput!): Void
-  executeLambda(input: ExecuteLambdaInput!): LambdaPayload
-  createTag(input: CreateTagInput!): CreateResponse!
-  updateTag(input: UpdateTagInput!): Void
-  deleteTags(input: DeleteTagsInput!): Void
 }
 
 input CreateAppInput {
@@ -664,25 +599,6 @@ input UpdateAppData {
 
 input DeleteAppInput {
   appId: String!
-}
-
-input UpdateUserInput {
-  userId: String!
-  updateData: UpdateUserData!
-}
-
-input UpdateUserData {
-  family_name: String
-  given_name: String
-  name: String
-  nickname: String
-  phone_number: String
-  picture: String
-  username: String
-}
-
-input DeleteUserInput {
-  userId: String!
 }
 
 input CreatePageInput {
@@ -745,6 +661,26 @@ input UpdateElementPropsInput {
 
 input DeleteElementInput {
   elementId: String!
+}
+
+"""Provide exactly one of the config fields"""
+input AddHookToElementInput {
+  elementId: String!
+  queryHook: QueryHookConfigInput
+}
+
+"""Provide either a lambdaId, or body/method/url"""
+input QueryHookConfigInput {
+  queryKey: String!
+  url: String
+  body: String
+  method: QueryMethod
+  lambdaId: String
+}
+
+input RemoveHookFromElementInput {
+  elementId: String!
+  hookId: String!
 }
 
 input CreateComponentInput {
@@ -887,53 +823,4 @@ input UpdateFieldData {
 
 input DeleteFieldInput {
   fieldId: String!
-}
-
-input CreateLambdaInput {
-  """Name of the Lambda function to be executed"""
-  name: String!
-
-  """Content of the Lambda function"""
-  body: String!
-}
-
-input DeleteLambdaInput {
-  lambdaId: String!
-}
-
-input UpdateLambdaInput {
-  """Name of the Lambda function to be executed"""
-  name: String!
-
-  """Content of the Lambda function"""
-  body: String!
-  id: String!
-}
-
-input ExecuteLambdaInput {
-  lambdaId: String!
-  payload: String
-}
-
-input CreateTagInput {
-  name: String!
-  parentTagId: String
-
-  """
-  We can create multiple tag trees, the root tells us whether this is a separate tree
-  """
-  isRoot: Boolean = false
-}
-
-input UpdateTagInput {
-  id: String!
-  data: UpdateTagData!
-}
-
-input UpdateTagData {
-  name: String!
-}
-
-input DeleteTagsInput {
-  ids: [String!]!
 }

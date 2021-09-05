@@ -12,7 +12,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "husky install && yarn codegen",
+    "postinstall": "husky install",
     "e2e": "env-cmd -f .env.test nx e2e web-e2e -c dev",
     "cli": "ts-node -P ./scripts/tsconfig.json ./scripts/cli.ts",
     "docker:up": "libs/tools/scripts/src/docker/up.sh",

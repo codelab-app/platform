@@ -6,8 +6,10 @@ import {
 } from '@codelab/backend/infra'
 import { AtomType } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
+import { merge } from 'lodash'
 import { AtomModule } from '../../../atom.module'
 import {
+  TestGetExport__AtomsFragment,
   TestGetExportAtomsGql,
   TestGetExportAtomsQuery,
 } from '../../export-atoms/get-export-atoms.api.graphql.gen'
@@ -25,7 +27,7 @@ import {
 } from './import-atoms.api.graphql.gen'
 import { importAtomsData } from './import-atoms.data'
 
-const sortedAtoms = (atoms: Array<GetExport__AtomsFragment>) => {
+const sortedAtoms = (atoms: Array<TestGetExport__AtomsFragment>) => {
   return atoms?.map((atom) => {
     return merge(atom, {
       api: {

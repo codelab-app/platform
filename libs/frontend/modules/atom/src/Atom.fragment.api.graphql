@@ -1,8 +1,10 @@
 fragment Atom on Atom {
+  __typename
   id
   name
   type
   api {
+    __typename
     id
     name
   }
