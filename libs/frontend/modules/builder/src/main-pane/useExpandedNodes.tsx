@@ -1,4 +1,5 @@
-import { ElementTree, IElementVertex } from '@codelab/shared/core'
+import { IElementVertex } from '@codelab/shared/abstract/core'
+import { ElementTree } from '@codelab/shared/core'
 import { useEffect, useState } from 'react'
 
 export const useExpandedNodes = (

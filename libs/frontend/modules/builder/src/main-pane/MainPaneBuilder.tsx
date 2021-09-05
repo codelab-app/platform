@@ -4,7 +4,8 @@ import {
   MainPaneTemplate,
   MainPaneTemplateProps,
 } from '@codelab/frontend/view/templates'
-import { ElementTree, IElementVertex } from '@codelab/shared/core'
+import { IElementVertex } from '@codelab/shared/abstract/core'
+import { ElementTree } from '@codelab/shared/core'
 import { Dropdown, Tree as AntdTree } from 'antd'
 import { TreeProps } from 'antd/lib/tree'
 import React, { useState } from 'react'

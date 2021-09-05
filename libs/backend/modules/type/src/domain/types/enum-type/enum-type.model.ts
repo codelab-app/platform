@@ -1,5 +1,4 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { IEnumTypeVertex } from '@codelab/shared/core'
+import { IEnumTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Type } from '../type.model'
 import { EnumTypeValue } from './enum-type-value.model'

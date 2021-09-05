@@ -1,7 +1,11 @@
-import { Graph } from '@codelab/shared/abstract/core'
+import {
+  Graph,
+  IComponentVertex,
+  IElementEdge,
+  IElementVertex,
+} from '@codelab/shared/abstract/core'
 import { getCyElementData } from '../cytoscape/element'
 import { filterPredicate, Predicate, TreeAdapter } from '../tree'
-import { IComponentVertex, IElementEdge, IElementVertex } from './contracts'
 
 /** Returns the component referenced by the specified element, or null if there isn't one */
 // getComponentOfElement: (elementId: string) => ComponentFragment | undefined

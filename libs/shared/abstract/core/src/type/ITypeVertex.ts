@@ -1,16 +1,6 @@
-import {
-  ElementTypeKind,
-  PrimitiveKind,
-  TypeKind,
-  Vertex,
-} from '@codelab/shared/abstract/core'
+import { ElementTypeKind, PrimitiveKind, TypeKind } from '../enums'
+import { Vertex } from '../graph/vertex'
 
-/**
- * The interface required by TypeTree to function
- *
- * Keeping the port interfaces here allows us to use this in both
- * frontend (with fragments) and backend (with entities or models)
- */
 export type ITypeVertex =
   | IArrayTypeVertex
   | IComponentTypeVertex

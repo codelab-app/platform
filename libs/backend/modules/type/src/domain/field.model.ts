@@ -1,4 +1,4 @@
-import { IField } from '@codelab/shared/core'
+import { IField } from '@codelab/shared/abstract/core'
 import { Field as GraphqlField, ID, ObjectType } from '@nestjs/graphql'
 
 /**

@@ -1,5 +1,4 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { IComponentTypeVertex } from '@codelab/shared/core'
+import { IComponentTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
 import { ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 

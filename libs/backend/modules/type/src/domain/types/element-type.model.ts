@@ -1,5 +1,8 @@
-import { ElementTypeKind, TypeKind } from '@codelab/shared/abstract/core'
-import { IElementTypeVertex } from '@codelab/shared/core'
+import {
+  ElementTypeKind,
+  IElementTypeVertex,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Type } from './type.model'
 

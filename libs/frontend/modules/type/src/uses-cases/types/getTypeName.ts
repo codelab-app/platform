@@ -3,8 +3,8 @@ import {
   IEnumTypeVertex,
   IPrimitiveTypeVertex,
   ITypeVertex,
-  TypeTree,
-} from '@codelab/shared/core'
+} from '@codelab/shared/abstract/core'
+import { TypeTree } from '@codelab/shared/core'
 import { TypeModels } from './TypeModels'
 
 export const getTypeName = (

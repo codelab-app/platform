@@ -1,4 +1,4 @@
-import { ITypeGraph } from '@codelab/shared/core'
+import { ITypeGraph } from '@codelab/shared/abstract/core'
 
 export type ImportApiInput = {
   // We specify the root interface for easier access

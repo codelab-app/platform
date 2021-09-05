@@ -1,7 +1,13 @@
-import { Graph, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  Graph,
+  IField,
+  IJsonSchemaOptions,
+  ITypeEdge,
+  ITypeVertex,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { edgeId } from '../graph/edgeId'
 import { TreeAdapter } from '../tree'
-import { IField, IJsonSchemaOptions, ITypeEdge, ITypeVertex } from './contracts'
 import { TypeTreeJsonSchemaTransformer } from './jsonSchema'
 import {
   edgeIsOfFieldKind,

@@ -1,9 +1,9 @@
 import {
-  ElementTree,
   IComponentVertex,
   IElementEdge,
   IElementVertex,
-} from '@codelab/shared/core'
+} from '@codelab/shared/abstract/core'
+import { ElementTree } from '@codelab/shared/core'
 import React, { useContext } from 'react'
 
 export interface SelectElementContext {

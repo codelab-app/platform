@@ -3,7 +3,7 @@ import {
   ElementHookSection,
   UpdateElementPropsForm,
 } from '@codelab/frontend/modules/element'
-import { IElementVertex } from '@codelab/shared/core'
+import { IElementVertex } from '@codelab/shared/abstract/core'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'

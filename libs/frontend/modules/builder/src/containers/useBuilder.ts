@@ -1,5 +1,5 @@
 import { useGetElementLazyQuery } from '@codelab/frontend/modules/element'
-import { IElementVertex } from '@codelab/shared/core'
+import { IElementVertex } from '@codelab/shared/abstract/core'
 import { useCallback, useEffect } from 'react'
 import { atom, useRecoilState, useSetRecoilState } from 'recoil'
 

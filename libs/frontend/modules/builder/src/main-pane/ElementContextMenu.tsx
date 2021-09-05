@@ -1,5 +1,5 @@
 import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
-import { IElementVertex } from '@codelab/shared/core'
+import { IElementVertex } from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import React from 'react'
 

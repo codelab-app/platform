@@ -1,7 +1,12 @@
-import { TypeEdgeKind, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IField,
+  ITypeEdge,
+  ITypeVertex,
+  TypeEdgeKind,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { CollectionReturnValue, SingularElementArgument } from 'cytoscape'
 import { getCyElementData } from '../cytoscape/element'
-import { IField, ITypeEdge, ITypeVertex } from './contracts'
 
 export const getTypeFromNode = (e: SingularElementArgument) =>
   getCyElementData<ITypeVertex>(e)

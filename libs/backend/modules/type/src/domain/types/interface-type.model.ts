@@ -1,6 +1,5 @@
 import { DgraphField } from '@codelab/backend/infra'
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { IInterfaceTypeVertex } from '@codelab/shared/core'
+import { IInterfaceTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
 import { Field as GraphqlField, ObjectType } from '@nestjs/graphql'
 import { Field } from '../field.model'
 import { Type } from './type.model'

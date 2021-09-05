@@ -11,8 +11,8 @@ import {
   breadthFirstTraversal,
   CytoscapeService,
 } from '@codelab/backend/shared/generic'
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { IField, TypeTree } from '@codelab/shared/core'
+import { IField, TypeKind } from '@codelab/shared/abstract/core'
+import { TypeTree } from '@codelab/shared/core'
 import { Injectable, Logger } from '@nestjs/common'
 import cytoscape, { Core } from 'cytoscape'
 import * as _ from 'lodash'

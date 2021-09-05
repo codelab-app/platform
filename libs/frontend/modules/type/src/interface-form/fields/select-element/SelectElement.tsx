@@ -1,6 +1,5 @@
 import { useElementIdContext } from '@codelab/frontend/presenter/container'
-import { ElementTypeKind } from '@codelab/shared/abstract/core'
-import { IElementVertex } from '@codelab/shared/core'
+import { ElementTypeKind, IElementVertex } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'

@@ -1,4 +1,4 @@
-import { Graph, GraphInput } from '@codelab/shared/abstract/core'
+import { Graph, GraphInput } from '../graph/graph'
 import { ITypeEdge } from './ITypeEdge'
 import { ITypeVertex } from './ITypeVertex'
 import { ITypeVertexInput } from './ITypeVertex.input'

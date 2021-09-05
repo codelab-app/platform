@@ -1,11 +1,12 @@
-import { PrimitiveKind, TypeKind } from '@codelab/shared/abstract/core'
 import {
   IEnumTypeVertex,
   IField,
   IJsonSchemaOptions,
   IPrimitiveTypeVertex,
   ITypeVertex,
-} from '../contracts'
+  PrimitiveKind,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { TypeTree } from '../TypeTree'
 
 /**
