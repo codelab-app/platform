@@ -1,4 +1,4 @@
-fragment App on App {
+fragment TestApp on App {
   id
   name
   ownerId

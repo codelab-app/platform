@@ -1,7 +1,5 @@
 import { GraphQLClient } from 'graphql-request'
-import { CreateAppMutationVariables } from './graphql/CreateApp.api.graphql'
-
-export type SeedAppInput = CreateAppMutationVariables['input']
+import { SeedAppInput } from './types/app'
 
 export class AppSeeder {
   constructor(private client: GraphQLClient) {}

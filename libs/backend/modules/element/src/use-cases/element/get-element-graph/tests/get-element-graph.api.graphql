@@ -1,6 +1,4 @@
-# import ElementGraph from "../../../../../../../../frontend/modules/element/src/graphql/ElementGraph.fragment.api.graphql"
-
-query GetElementGraph($input: GetElementGraphInput!) {
+query TestGetElementGraph($input: GetElementGraphInput!) {
   getElementGraph(input: $input) {
     edges {
       order

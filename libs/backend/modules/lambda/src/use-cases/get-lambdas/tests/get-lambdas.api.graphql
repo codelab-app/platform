@@ -1,7 +1,5 @@
-# import __Lambda from '../../../domain/lambda.fragment.api.graphql'
-
-query GetLambdas {
+query TestGetLambdas {
   getLambdas {
-    ...__Lambda
+    ...TestLambda
   }
 }

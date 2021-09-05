@@ -4,17 +4,19 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateComponentGql,
-  CreateComponentInput,
-  CreateComponentMutation,
-  GetComponentsGql,
-  GetComponentsQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ComponentModule } from '../../../../component.module'
 import { ElementModule } from '../../../../element.module'
+import { CreateComponentInput } from '../../create-component'
+import {
+  TestCreateComponentGql,
+  TestCreateComponentMutation,
+} from '../../create-component/tests/create-component.api.graphql.gen'
 import { createComponentInput } from '../../create-component/tests/create-component.data'
+import {
+  TestGetComponentsGql,
+  TestGetComponentsQuery,
+} from './get-components.api.graphql.gen'
 
 describe('GetComponents', () => {
   let guestApp: INestApplication
@@ -39,13 +41,13 @@ describe('GetComponents', () => {
 
     const componentA = await domainRequest<
       CreateComponentInput,
-      CreateComponentMutation
-    >(userApp, CreateComponentGql, createComponentInputA)
+      TestCreateComponentMutation
+    >(userApp, TestCreateComponentGql, createComponentInputA)
 
     const componentB = await domainRequest<
       CreateComponentInput,
-      CreateComponentMutation
-    >(userApp, CreateComponentGql, createComponentInputB)
+      TestCreateComponentMutation
+    >(userApp, TestCreateComponentGql, createComponentInputB)
 
     componentAId = componentA.createComponent.id
     componentBId = componentB.createComponent.id
@@ -61,7 +63,7 @@ describe('GetComponents', () => {
 
   describe('Guest', () => {
     it('should fail to get components', async () => {
-      await domainRequest(guestApp, GetComponentsGql, null, {
+      await domainRequest(guestApp, TestGetComponentsGql, null, {
         message: 'Unauthorized',
       })
     })
@@ -69,9 +71,9 @@ describe('GetComponents', () => {
 
   describe('User', () => {
     it('should get components', async () => {
-      const results = await domainRequest<null, GetComponentsQuery>(
+      const results = await domainRequest<null, TestGetComponentsQuery>(
         userApp,
-        GetComponentsGql,
+        TestGetComponentsGql,
         null,
       )
 

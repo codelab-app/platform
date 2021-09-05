@@ -9,17 +9,20 @@ import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
 import { CreateAtomInput } from '../../create-atom'
 import {
-  CreateAtomGql,
-  CreateAtomMutation,
-} from '../../create-atom/tests/create-atom.api.graphql'
+  TestCreateAtomGql,
+  TestCreateAtomMutation,
+} from '../../create-atom/tests/create-atom.api.graphql.gen'
 import { createAtomInput } from '../../create-atom/tests/create-atom.data'
 import { GetAtomInput } from '../../get-atom/get-atom.input'
 import {
-  GetAtomGql,
-  GetAtomQuery,
-} from '../../get-atom/tests/get-atom.api.graphql'
+  TestGetAtomGql,
+  TestGetAtomQuery,
+} from '../../get-atom/tests/get-atom.api.graphql.gen'
 import { UpdateAtomInput } from '../update-atom.input'
-import { UpdateAtomGql, UpdateAtomMutation } from './update-atom.api.graphql'
+import {
+  TestUpdateAtomGql,
+  TestUpdateAtomMutation,
+} from './update-atom.api.graphql.gen'
 
 describe('UpdateAtom', () => {
   let guestApp: INestApplication
@@ -32,11 +35,10 @@ describe('UpdateAtom', () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
     userApp = await setupTestModule([AtomModule], { role: Role.USER })
 
-    const results = await domainRequest<CreateAtomInput, CreateAtomMutation>(
-      userApp,
-      CreateAtomGql,
-      createAtomInput,
-    )
+    const results = await domainRequest<
+      CreateAtomInput,
+      TestCreateAtomMutation
+    >(userApp, TestCreateAtomGql, createAtomInput)
 
     atomId = results.createAtom.id
     updateAtomInput = {
@@ -59,7 +61,7 @@ describe('UpdateAtom', () => {
 
   describe('Guest', () => {
     it('should fail to update an atom', async () => {
-      await domainRequest(guestApp, UpdateAtomGql, updateAtomInput, {
+      await domainRequest(guestApp, TestUpdateAtomGql, updateAtomInput, {
         message: 'Unauthorized',
       })
     })
@@ -67,15 +69,15 @@ describe('UpdateAtom', () => {
 
   describe('User', () => {
     it('should update an atom', async () => {
-      await domainRequest<UpdateAtomInput, UpdateAtomMutation>(
+      await domainRequest<UpdateAtomInput, TestUpdateAtomMutation>(
         userApp,
-        UpdateAtomGql,
+        TestUpdateAtomGql,
         updateAtomInput,
       )
 
-      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
         userApp,
-        GetAtomGql,
+        TestGetAtomGql,
         getAtomInput,
       )
 

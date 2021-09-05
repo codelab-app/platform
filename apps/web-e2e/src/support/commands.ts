@@ -7,11 +7,11 @@ import * as JQuery from 'jquery'
 import {
   CreateAppGql,
   CreateAppMutationVariables,
-} from './graphql/CreateApp.api.graphql'
+} from './graphql/CreateApp.api.graphql.gen'
 import {
   DeleteAppGql,
   DeleteAppMutationVariables,
-} from './graphql/DeleteApp.api.graphql'
+} from './graphql/DeleteApp.api.graphql.gen'
 
 // ***********************************************
 // This example commands.js shows you how to

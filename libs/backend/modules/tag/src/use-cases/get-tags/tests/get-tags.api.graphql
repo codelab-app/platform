@@ -1,7 +1,5 @@
-# import Tag from '../../../domain/tag.fragment.api.graphql'
-
-query GetTags {
+query TestGetTags {
   getTags {
-    ...Tag
+    ...TestTag
   }
 }

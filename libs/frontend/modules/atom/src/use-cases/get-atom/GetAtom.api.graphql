@@ -1,5 +1,3 @@
-# import Atom from '../../Atom.fragment.api.graphql'
-
 query GetAtom($input: GetAtomInput!) {
   getAtom(input: $input) {
     ...Atom

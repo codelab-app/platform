@@ -10,8 +10,8 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetPagesQuery } from '../get-pages/GetPages.api.graphql'
-import { useDeletePageMutation } from './DeletePage.api.graphql'
+import { refetchGetPagesQuery } from '../get-pages/GetPages.api.graphql.gen'
+import { useDeletePageMutation } from './DeletePage.api.graphql.gen'
 
 type DeletePageFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 

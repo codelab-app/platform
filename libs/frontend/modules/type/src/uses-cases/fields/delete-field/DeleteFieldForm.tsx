@@ -10,8 +10,8 @@ import {
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { InterfaceContext } from '../../types'
-import { refetchGetTypeGraphQuery } from '../../types/get-type-graph/GetTypeGraph.api.graphql'
-import { useDeleteFieldMutation } from './DeleteField.api.graphql'
+import { refetchGetTypeGraphQuery } from '../../types/get-type-graph/GetTypeGraph.api.graphql.gen'
+import { useDeleteFieldMutation } from './DeleteField.api.graphql.gen'
 
 type DeleteFieldFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 

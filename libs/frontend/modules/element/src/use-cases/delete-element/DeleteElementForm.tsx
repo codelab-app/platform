@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useDeleteElementMutation } from './DeleteElement.api.graphql'
+import { useDeleteElementMutation } from './DeleteElement.api.graphql.gen'
 
 export type DeleteElementFormProps =
   UniFormUseCaseProps<EmptyJsonSchemaType> & {

@@ -1,7 +1,5 @@
-# import __LambdaPayload from '../../../domain/lambda-payload.fragment.api.graphql'
-
-mutation ExecuteLambda($input: ExecuteLambdaInput!) {
+mutation TestExecuteLambda($input: ExecuteLambdaInput!) {
   executeLambda(input: $input) {
-    ...__LambdaPayload
+    ...TestLambdaPayload
   }
 }

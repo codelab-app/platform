@@ -8,12 +8,12 @@ import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
 import { CreateAppInput } from '../../create-app/create-app.input'
 import {
-  CreateAppGql,
-  CreateAppMutation,
-} from '../../create-app/tests/create-app.api.graphql'
+  TestCreateAppGql,
+  TestCreateAppMutation,
+} from '../../create-app/tests/create-app.api.graphql.gen'
 import { createAppInput } from '../../create-app/tests/create-app.data'
 import { GetAppInput } from '../get-app.input'
-import { GetAppGql, GetAppQuery } from './get-app.api.graphql'
+import { TestGetAppGql, TestGetAppQuery } from './get-app.api.graphql.gen'
 
 describe('GetApp', () => {
   let guestApp: INestApplication
@@ -25,9 +25,9 @@ describe('GetApp', () => {
     guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
     userApp = await setupTestModule([AppModule], { role: Role.USER })
 
-    const results = await domainRequest<CreateAppInput, CreateAppMutation>(
+    const results = await domainRequest<CreateAppInput, TestCreateAppMutation>(
       userApp,
-      CreateAppGql,
+      TestCreateAppGql,
       createAppInput,
     )
 
@@ -44,7 +44,7 @@ describe('GetApp', () => {
 
   describe('Guest', () => {
     it('should fail to get an app', async () => {
-      await domainRequest(guestApp, GetAppGql, getAppInput, {
+      await domainRequest(guestApp, TestGetAppGql, getAppInput, {
         message: 'Unauthorized',
       })
     })
@@ -52,9 +52,9 @@ describe('GetApp', () => {
 
   describe('User', () => {
     it('should get an app', async () => {
-      const results = await domainRequest<GetAppInput, GetAppQuery>(
+      const results = await domainRequest<GetAppInput, TestGetAppQuery>(
         userApp,
-        GetAppGql,
+        TestGetAppGql,
         getAppInput,
       )
 

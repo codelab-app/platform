@@ -1,2 +1,2 @@
-export { useExecuteLambdaMutation } from './ExecuteLambda.api.graphql'
+export { useExecuteLambdaMutation } from './ExecuteLambda.api.graphql.gen'
 export * from './ExecuteLambdaButton'

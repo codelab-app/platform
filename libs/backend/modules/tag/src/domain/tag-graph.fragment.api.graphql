@@ -1,11 +1,8 @@
-# import Tag from './tag.fragment.api.graphql'
-# import TagEdge from './tag-edge.fragment.api.graphql'
-
-fragment TagGraph on TagGraph {
+fragment TestTagGraph on TagGraph {
   vertices {
-    ...Tag
+    ...TestTag
   }
   edges {
-    ...TagEdge
+    ...TestTagEdge
   }
 }

@@ -7,9 +7,15 @@ import {
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
 import { GetAppInput } from '../../get-app/get-app.input'
-import { GetAppGql, GetAppQuery } from '../../get-app/tests/get-app.api.graphql'
+import {
+  TestGetAppGql,
+  TestGetAppQuery,
+} from '../../get-app/tests/get-app.api.graphql.gen'
 import { CreateAppInput } from '../create-app.input'
-import { CreateAppGql, CreateAppMutation } from './create-app.api.graphql'
+import {
+  TestCreateAppGql,
+  TestCreateAppMutation,
+} from './create-app.api.graphql.gen'
 import { createAppInput } from './create-app.data'
 
 describe('CreateApp', () => {
@@ -28,7 +34,7 @@ describe('CreateApp', () => {
 
   describe('Guest', () => {
     it('should fail to create an App', async () => {
-      await domainRequest(guestApp, CreateAppGql, createAppInput, {
+      await domainRequest(guestApp, TestCreateAppGql, createAppInput, {
         message: 'Unauthorized',
       })
     })
@@ -38,17 +44,17 @@ describe('CreateApp', () => {
     it('should create an App', async () => {
       const {
         createApp: { id: appId },
-      } = await domainRequest<CreateAppInput, CreateAppMutation>(
+      } = await domainRequest<CreateAppInput, TestCreateAppMutation>(
         userApp,
-        CreateAppGql,
+        TestCreateAppGql,
         createAppInput,
       )
 
       expect(appId).toBeDefined()
 
-      const { getApp: app } = await domainRequest<GetAppInput, GetAppQuery>(
+      const { getApp: app } = await domainRequest<GetAppInput, TestGetAppQuery>(
         userApp,
-        GetAppGql,
+        TestGetAppGql,
         { byId: { appId } },
       )
 

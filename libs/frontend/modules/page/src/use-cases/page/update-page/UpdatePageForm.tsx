@@ -8,8 +8,8 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetPagesQuery } from '../get-pages/GetPages.api.graphql'
-import { useUpdatePageMutation } from './UpdatePage.api.graphql'
+import { refetchGetPagesQuery } from '../get-pages/GetPages.api.graphql.gen'
+import { useUpdatePageMutation } from './UpdatePage.api.graphql.gen'
 import { updatePageSchema, UpdatePageSchemaType } from './updatePageSchema'
 
 type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageSchemaType>

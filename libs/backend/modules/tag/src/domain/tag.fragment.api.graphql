@@ -1,4 +1,4 @@
-fragment Tag on Tag {
+fragment TestTag on Tag {
   id
   name
 }

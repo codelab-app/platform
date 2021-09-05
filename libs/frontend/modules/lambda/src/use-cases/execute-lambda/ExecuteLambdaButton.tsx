@@ -2,7 +2,7 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { Button } from 'antd'
 import React from 'react'
 import { LambdaRecord } from '../get-lambdas/LambdaRecord'
-import { useExecuteLambdaMutation } from './ExecuteLambda.api.graphql'
+import { useExecuteLambdaMutation } from './ExecuteLambda.api.graphql.gen'
 
 export const ExecuteLambdaButton = (props: LambdaRecord) => {
   const [executeLambdaMutation, { loading }] = useExecuteLambdaMutation({

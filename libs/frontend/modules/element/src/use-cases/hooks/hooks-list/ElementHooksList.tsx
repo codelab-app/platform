@@ -3,11 +3,11 @@ import React, { useEffect } from 'react'
 import tw from 'twin.macro'
 import {
   ElementFragment,
+  HookConfigFragment,
   HookFragment,
-} from '../../../graphql/ElementGraph.fragment.api.graphql'
-import { HookConfigFragment } from '../../../graphql/HookConfig.fragment.api.graphql'
+} from '../../../graphql'
 import { RemoveHookFromElementButton } from '../remove-hook-from-element'
-import { useGetLambdaNameLazyQuery } from './GetLambdaName.api.graphql'
+import { useGetLambdaNameLazyQuery } from './GetLambdaName.api.graphql.gen'
 
 export interface ElementHooksListProps {
   element: ElementFragment

@@ -11,8 +11,8 @@ import { Space, Spin, Table, TableColumnProps } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import tw from 'twin.macro'
-import { ComponentFragment } from '../../Component.fragment.api.graphql'
-import { useGetComponentsQuery } from './GetComponents.api.graphql'
+import { ComponentFragment } from '../../Component.fragment.api.graphql.gen'
+import { useGetComponentsQuery } from './GetComponents.api.graphql.gen'
 
 export const GetComponentsTable = () => {
   const router = useRouter()

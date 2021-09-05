@@ -1,8 +1,8 @@
-import { ComponentFragment } from '../../graphql/ElementGraph.fragment.api.graphql'
+import { ComponentVertexFragment } from '../../graphql'
 import { ElementTreeGraphqlVertex } from '../ElementTreeGraphql'
 
 export const isComponent = (
   vertex: ElementTreeGraphqlVertex,
-): vertex is ComponentFragment => {
+): vertex is ComponentVertexFragment => {
   return vertex?.__typename === 'Component'
 }

@@ -1,4 +1,4 @@
-import { ElementFragment } from '../../graphql/Element.fragment.api.graphql'
+import { ElementFragment } from '../../graphql/Element.fragment.api.graphql.gen'
 import { ElementTreeGraphqlVertex } from '../ElementTreeGraphql'
 
 export const isElement = (

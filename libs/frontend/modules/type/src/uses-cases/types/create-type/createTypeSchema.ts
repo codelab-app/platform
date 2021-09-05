@@ -4,7 +4,7 @@ import {
   BaseTypeMutationSchema,
   baseTypeMutationSchemaProperties,
 } from '../../../shared'
-import { CreateTypeMutationVariables } from './CreateType.api.graphql'
+import { CreateTypeMutationVariables } from './CreateType.api.graphql.gen'
 
 type CreateTypeInput = CreateTypeMutationVariables['input']
 

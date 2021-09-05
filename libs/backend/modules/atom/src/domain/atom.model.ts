@@ -1,4 +1,4 @@
-import { DgraphInterfaceType } from '@codelab/backend/infra'
+import type { DgraphInterfaceType } from '@codelab/backend/infra'
 import { Tag } from '@codelab/backend/modules/tag'
 import { InterfaceType } from '@codelab/backend/modules/type'
 import { AtomType } from '@codelab/shared/enums'

@@ -5,8 +5,8 @@ import {
 import { withProvider } from '@codelab/frontend/presenter/container'
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import { PageFullFragment } from '../graphql/PageFull.fragment.api.graphql'
-import { useGetPageQuery } from '../use-cases/page/get-page/GetPage.api.graphql'
+import { PageFullFragment } from '../graphql/PageFull.fragment.api.graphql.gen'
+import { useGetPageQuery } from '../use-cases/page/get-page/GetPage.api.graphql.gen'
 
 export interface PageContextType {
   pageId: string

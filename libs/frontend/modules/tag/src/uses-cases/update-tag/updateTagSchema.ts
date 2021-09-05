@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { UpdateTagMutationVariables } from './UpdateTag.api.graphql'
+import { UpdateTagMutationVariables } from './UpdateTag.api.graphql.gen'
 
 export type UpdateTagSchema = UpdateTagMutationVariables['input']['data']
 

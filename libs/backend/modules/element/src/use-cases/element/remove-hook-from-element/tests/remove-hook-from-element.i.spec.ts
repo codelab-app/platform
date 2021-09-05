@@ -9,24 +9,24 @@ import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
 import { AddHookToElementInput } from '../../add-hook-to-element'
 import {
-  AddHookToElementGql,
-  AddHookToElementMutation,
-} from '../../add-hook-to-element/tests/add-hook-to-element.api.graphql'
+  TestAddHookToElementGql,
+  TestAddHookToElementMutation,
+} from '../../add-hook-to-element/tests/add-hook-to-element.api.graphql.gen'
 import { CreateElementInput } from '../../create-element/create-element.input'
 import {
-  CreateElementGql,
-  CreateElementMutation,
-} from '../../create-element/tests/create-element.api.graphql'
+  TestCreateElementGql,
+  TestCreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql.gen'
 import { GetElementInput } from '../../get-element/get-element.input'
 import {
-  GetElementGql,
-  GetElementQuery,
-} from '../../get-element/tests/get-element.api.graphql'
+  TestGetElementGql,
+  TestGetElementQuery,
+} from '../../get-element/tests/get-element.api.graphql.gen'
 import { RemoveHookFromElementInput } from '../remove-hook-from-element.input'
 import {
-  RemoveHookFromElementGql,
-  RemoveHookFromElementMutation,
-} from './remove-hook-from-element.api.graphql'
+  TestRemoveHookFromElementGql,
+  TestRemoveHookFromElementMutation,
+} from './remove-hook-from-element.api.graphql.gen'
 
 describe('RemoveHookFromElementUseCase', () => {
   let guestApp: INestApplication
@@ -39,13 +39,13 @@ describe('RemoveHookFromElementUseCase', () => {
 
     const { createElement } = await domainRequest<
       CreateElementInput,
-      CreateElementMutation
-    >(userApp, CreateElementGql, { name: 'Element' })
+      TestCreateElementMutation
+    >(userApp, TestCreateElementGql, { name: 'Element' })
 
     const { addHookToElement } = await domainRequest<
       AddHookToElementInput,
-      AddHookToElementMutation
-    >(userApp, AddHookToElementGql, {
+      TestAddHookToElementMutation
+    >(userApp, TestAddHookToElementGql, {
       elementId: createElement.id,
       queryHook: {
         url: 'https://github.com',
@@ -67,9 +67,14 @@ describe('RemoveHookFromElementUseCase', () => {
 
   describe('Guest', () => {
     it('should fail to create a Hook', async () => {
-      await domainRequest(guestApp, RemoveHookFromElementGql, removeHookInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        guestApp,
+        TestRemoveHookFromElementGql,
+        removeHookInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
@@ -77,13 +82,13 @@ describe('RemoveHookFromElementUseCase', () => {
     it('should create an App', async () => {
       await domainRequest<
         RemoveHookFromElementInput,
-        RemoveHookFromElementMutation
-      >(userApp, RemoveHookFromElementGql, removeHookInput)
+        TestRemoveHookFromElementMutation
+      >(userApp, TestRemoveHookFromElementGql, removeHookInput)
 
       const { getElement } = await domainRequest<
         GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, { elementId: removeHookInput.elementId })
+        TestGetElementQuery
+      >(userApp, TestGetElementGql, { elementId: removeHookInput.elementId })
 
       expect(getElement?.hooks).toHaveLength(0)
     })

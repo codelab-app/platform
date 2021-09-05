@@ -1,0 +1,5 @@
+mutation ExecuteLambdaForState($input: ExecuteLambdaInput!) {
+  executeLambda(input: $input) {
+    payload
+  }
+}

@@ -1,5 +1,3 @@
-# import Element from "../../graphql/Element.fragment.api.graphql"
-
 query GetElement($input: GetElementInput!) {
   getElement(input: $input) {
     ...Element

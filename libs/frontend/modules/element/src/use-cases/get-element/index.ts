@@ -1,4 +1,4 @@
 export {
   useGetElementLazyQuery,
   useGetElementQuery,
-} from './GetElement.api.graphql'
+} from './GetElement.api.graphql.gen'

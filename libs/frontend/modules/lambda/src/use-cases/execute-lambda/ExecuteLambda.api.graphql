@@ -1,5 +1,3 @@
-# import LambdaPayload from '../../graphql/LambdaPayload.fragment.api.graphql'
-
 mutation ExecuteLambda($input: ExecuteLambdaInput!) {
   executeLambda(input: $input) {
     ...LambdaPayload

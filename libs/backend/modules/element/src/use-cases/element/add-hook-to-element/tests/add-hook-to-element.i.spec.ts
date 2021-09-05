@@ -9,19 +9,19 @@ import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
 import { CreateElementInput } from '../../create-element/create-element.input'
 import {
-  CreateElementGql,
-  CreateElementMutation,
-} from '../../create-element/tests/create-element.api.graphql'
+  TestCreateElementGql,
+  TestCreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql.gen'
 import { GetElementInput } from '../../get-element/get-element.input'
 import {
-  GetElementGql,
-  GetElementQuery,
-} from '../../get-element/tests/get-element.api.graphql'
+  TestGetElementGql,
+  TestGetElementQuery,
+} from '../../get-element/tests/get-element.api.graphql.gen'
 import { AddHookToElementInput } from '../add-hook-to-element.input'
 import {
-  AddHookToElementGql,
-  AddHookToElementMutation,
-} from './add-hook-to-element.api.graphql'
+  TestAddHookToElementGql,
+  TestAddHookToElementMutation,
+} from './add-hook-to-element.api.graphql.gen'
 
 describe('AddHookToElementUseCase', () => {
   let guestApp: INestApplication
@@ -38,8 +38,8 @@ describe('AddHookToElementUseCase', () => {
 
     const { createElement } = await domainRequest<
       CreateElementInput,
-      CreateElementMutation
-    >(userApp, CreateElementGql, { name: 'Element' })
+      TestCreateElementMutation
+    >(userApp, TestCreateElementGql, { name: 'Element' })
 
     addHookInput = {
       elementId: createElement.id,
@@ -58,7 +58,7 @@ describe('AddHookToElementUseCase', () => {
 
   describe('Guest', () => {
     it('should fail to add a Hook to an Element', async () => {
-      await domainRequest(guestApp, AddHookToElementGql, addHookInput, {
+      await domainRequest(guestApp, TestAddHookToElementGql, addHookInput, {
         message: 'Unauthorized',
       })
     })
@@ -68,18 +68,17 @@ describe('AddHookToElementUseCase', () => {
     it('should add a Hook to an Element', async () => {
       const {
         addHookToElement: { id },
-      } = await domainRequest<AddHookToElementInput, AddHookToElementMutation>(
-        userApp,
-        AddHookToElementGql,
-        addHookInput,
-      )
+      } = await domainRequest<
+        AddHookToElementInput,
+        TestAddHookToElementMutation
+      >(userApp, TestAddHookToElementGql, addHookInput)
 
       expect(id).toBeDefined()
 
       const { getElement } = await domainRequest<
         GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, { elementId: addHookInput.elementId })
+        TestGetElementQuery
+      >(userApp, TestGetElementGql, { elementId: addHookInput.elementId })
 
       expect(getElement?.hooks).toHaveLength(1)
       expect(getElement?.hooks[0]).toMatchObject({

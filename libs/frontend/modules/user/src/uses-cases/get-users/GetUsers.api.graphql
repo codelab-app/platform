@@ -1,5 +1,3 @@
-# import __User from '../../User.fragment.api.graphql'
-
 query GetUsers($input: GetUsersInput) {
   users: getUsers(input: $input) {
     ...__User

@@ -1,3 +1,3 @@
-mutation UpdateLambda($input: UpdateLambdaInput!) {
+mutation TestUpdateLambda($input: UpdateLambdaInput!) {
   updateLambda(input: $input)
 }

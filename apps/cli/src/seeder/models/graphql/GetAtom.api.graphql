@@ -1,4 +1,4 @@
-query GetAtom($input: GetAtomInput!) {
+query Seeder_GetAtom($input: GetAtomInput!) {
   atom: getAtom(input: $input) {
     id
     api {

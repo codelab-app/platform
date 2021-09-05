@@ -8,12 +8,12 @@ import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
 import { CreateAtomInput } from '../../create-atom'
 import {
-  CreateAtomGql,
-  CreateAtomMutation,
-} from '../../create-atom/tests/create-atom.api.graphql'
+  TestCreateAtomGql,
+  TestCreateAtomMutation,
+} from '../../create-atom/tests/create-atom.api.graphql.gen'
 import { createAtomInput } from '../../create-atom/tests/create-atom.data'
 import { GetAtomInput } from '../get-atom.input'
-import { GetAtomGql, GetAtomQuery } from './get-atom.api.graphql'
+import { TestGetAtomGql, TestGetAtomQuery } from './get-atom.api.graphql.gen'
 
 describe('GetAtom', () => {
   let guestApp: INestApplication
@@ -26,11 +26,10 @@ describe('GetAtom', () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
     userApp = await setupTestModule([AtomModule], { role: Role.USER })
 
-    const results = await domainRequest<CreateAtomInput, CreateAtomMutation>(
-      userApp,
-      CreateAtomGql,
-      createAtomInput,
-    )
+    const results = await domainRequest<
+      CreateAtomInput,
+      TestCreateAtomMutation
+    >(userApp, TestCreateAtomGql, createAtomInput)
 
     atomId = results.createAtom.id
     getAtomInput = {
@@ -49,7 +48,7 @@ describe('GetAtom', () => {
 
   describe('Guest', () => {
     it('should fail to get atom', async () => {
-      await domainRequest(guestApp, GetAtomGql, getAtomInput, {
+      await domainRequest(guestApp, TestGetAtomGql, getAtomInput, {
         message: 'Unauthorized',
       })
     })
@@ -57,9 +56,9 @@ describe('GetAtom', () => {
 
   describe('User', () => {
     it('should get an atom ', async () => {
-      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
         userApp,
-        GetAtomGql,
+        TestGetAtomGql,
         getAtomInput,
       )
 
@@ -71,9 +70,9 @@ describe('GetAtom', () => {
     })
 
     it('should get an atom by type', async () => {
-      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
         userApp,
-        GetAtomGql,
+        TestGetAtomGql,
         getAtomByTypeInput,
       )
 

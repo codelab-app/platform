@@ -1,11 +1,11 @@
 import { Graph } from '@codelab/shared/abstract/core'
-import { ElementEdgeFragment } from '../graphql/ElementEdge.fragment.api.graphql'
 import {
-  ComponentFragment,
+  ComponentVertexFragment,
+  ElementEdgeFragment,
   ElementFragment,
-} from '../graphql/ElementGraph.fragment.api.graphql'
+} from '../graphql'
 
 export type ElementGraphGraphql = Graph<
-  ElementFragment | ComponentFragment,
+  ElementFragment | ComponentVertexFragment,
   ElementEdgeFragment
 >

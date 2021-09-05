@@ -1,4 +1,4 @@
-mutation CreateType($input: CreateTypeInput!) {
+mutation TestCreateType($input: CreateTypeInput!) {
   createType(input: $input) {
     id
   }

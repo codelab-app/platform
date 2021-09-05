@@ -1,5 +1,3 @@
-# import EnumTypeValue from "./EnumTypeValue.fragment.api.graphql"
-
 fragment EnumType on EnumType {
   id
   name

@@ -1,4 +1,4 @@
-mutation CreateLambda($input: CreateLambdaInput!) {
+mutation TestCreateLambda($input: CreateLambdaInput!) {
   createLambda(input: $input) {
     id
   }

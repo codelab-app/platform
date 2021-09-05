@@ -1,11 +1,3 @@
-# import ArrayType from "./ArrayType.fragment.api.graphql"
-# import EnumType from "./EnumType.fragment.api.graphql"
-# import Interface from "./Interface.fragment.api.graphql"
-# import PrimitiveType from "./PrimitiveType.fragment.api.graphql"
-# import ElementType from "./ElementType.fragment.api.graphql"
-# import LambdaType from "./LambdaType.fragment.api.graphql"
-# import ComponentType from "./ComponentType.fragment.api.graphql"
-
 fragment Type on Type {
   __typename
   id

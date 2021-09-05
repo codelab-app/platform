@@ -1,10 +1,9 @@
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { Inject, Injectable } from '@nestjs/common'
-import { DgraphConfig, dgraphConfig } from '../dgraph'
-import {
-  GraphqlSchemaConfig,
-  graphqlSchemaConfig,
-} from './config/graphql-schema.config'
+import type { DgraphConfig } from '../dgraph'
+import { dgraphConfig } from '../dgraph'
+import type { GraphqlSchemaConfig } from './config/graphql-schema.config'
+import { graphqlSchemaConfig } from './config/graphql-schema.config'
 
 @Injectable()
 export class GraphqlSchemaService {

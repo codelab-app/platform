@@ -1,4 +1,4 @@
-mutation CreateField($input: CreateFieldInput!) {
+mutation TestCreateField($input: CreateFieldInput!) {
   createField(input: $input) {
     id
   }

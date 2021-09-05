@@ -1,7 +1,7 @@
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
-import { useGetAtomsForSelectQuery } from './GetAtomsForSelect.api.graphql'
+import { useGetAtomsForSelectQuery } from './GetAtomsForSelect.api.graphql.gen'
 
 export type SelectAtomProps = HTMLFieldProps<string, SelectFieldProps>
 

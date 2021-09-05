@@ -1,6 +1,3 @@
-# import Atom from '../../../atom/src/Atom.fragment.api.graphql'
-# import Hook from './Hook.fragment.api.graphql'
-
 fragment Element on Element {
   __typename
   id

@@ -1,4 +1,4 @@
-query GetElement($input: GetElementInput!) {
+query TestGetElement($input: GetElementInput!) {
   getElement(input: $input) {
     id
     name

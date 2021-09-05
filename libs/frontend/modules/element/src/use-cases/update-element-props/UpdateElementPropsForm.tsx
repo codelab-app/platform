@@ -11,8 +11,8 @@ import tw from 'twin.macro'
 import {
   refetchGetElementQuery,
   useGetElementQuery,
-} from '../get-element/GetElement.api.graphql'
-import { useUpdateElementPropsMutation } from './UpdateElementProps.api.graphql'
+} from '../get-element/GetElement.api.graphql.gen'
+import { useUpdateElementPropsMutation } from './UpdateElementProps.api.graphql.gen'
 
 interface UpdateElementPropsFormInternalProps {
   elementId: string

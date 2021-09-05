@@ -1,4 +1,4 @@
-mutation CreateAtom($input: CreateAtomInput!) {
+mutation TestCreateAtom($input: CreateAtomInput!) {
   createAtom(input: $input) {
     id
   }

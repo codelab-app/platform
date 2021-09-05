@@ -1,7 +1,7 @@
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
-import { useGetLambdasForSelectQuery } from './GetLambdasForSelect.api.graphql'
+import { useGetLambdasForSelectQuery } from './GetLambdasForSelect.api.graphql.gen'
 
 export type SelectLambdaProps = HTMLFieldProps<string, SelectFieldProps>
 

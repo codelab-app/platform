@@ -1,6 +1,3 @@
-# import Type from "./Type.fragment.api.graphql"
-# import TypeEdge from "./TypeEdge.fragment.api.graphql"
-
 fragment TypeGraph on TypeGraph {
   edges {
     ...TypeEdge

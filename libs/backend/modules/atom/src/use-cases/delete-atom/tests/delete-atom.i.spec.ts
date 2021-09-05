@@ -8,17 +8,20 @@ import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
 import { CreateAtomInput } from '../../create-atom/create-atom.input'
 import {
-  CreateAtomGql,
-  CreateAtomMutation,
-} from '../../create-atom/tests/create-atom.api.graphql'
+  TestCreateAtomGql,
+  TestCreateAtomMutation,
+} from '../../create-atom/tests/create-atom.api.graphql.gen'
 import { createAtomInput } from '../../create-atom/tests/create-atom.data'
 import { GetAtomInput } from '../../get-atom/get-atom.input'
 import {
-  GetAtomGql,
-  GetAtomQuery,
-} from '../../get-atom/tests/get-atom.api.graphql'
+  TestGetAtomGql,
+  TestGetAtomQuery,
+} from '../../get-atom/tests/get-atom.api.graphql.gen'
 import { DeleteAtomInput } from '../delete-atom.input'
-import { DeleteAtomGql, DeleteAtomMutation } from './delete-atom.api.graphql'
+import {
+  TestDeleteAtomGql,
+  TestDeleteAtomMutation,
+} from './delete-atom.api.graphql.gen'
 
 describe('DeleteAtom', () => {
   let guestApp: INestApplication
@@ -31,11 +34,10 @@ describe('DeleteAtom', () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
     userApp = await setupTestModule([AtomModule], { role: Role.USER })
 
-    const results = await domainRequest<CreateAtomInput, CreateAtomMutation>(
-      userApp,
-      CreateAtomGql,
-      createAtomInput,
-    )
+    const results = await domainRequest<
+      CreateAtomInput,
+      TestCreateAtomMutation
+    >(userApp, TestCreateAtomGql, createAtomInput)
 
     atomId = results.createAtom.id
     deleteAtomInput = {
@@ -55,7 +57,7 @@ describe('DeleteAtom', () => {
 
   describe('Guest', () => {
     it('should fail to delete an atom', async () => {
-      await domainRequest(guestApp, DeleteAtomGql, deleteAtomInput, {
+      await domainRequest(guestApp, TestDeleteAtomGql, deleteAtomInput, {
         message: 'Unauthorized',
       })
     })
@@ -63,16 +65,16 @@ describe('DeleteAtom', () => {
 
   describe('User', () => {
     it('should delete an atom', async () => {
-      await domainRequest<DeleteAtomInput, DeleteAtomMutation>(
+      await domainRequest<DeleteAtomInput, TestDeleteAtomMutation>(
         userApp,
-        DeleteAtomGql,
+        TestDeleteAtomGql,
         deleteAtomInput,
       )
 
       // Should fail to get the deleted atom
-      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
         userApp,
-        GetAtomGql,
+        TestGetAtomGql,
         getAtomInput,
       )
 

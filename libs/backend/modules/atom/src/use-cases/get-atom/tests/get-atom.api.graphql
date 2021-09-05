@@ -1,4 +1,4 @@
-query GetAtom($input: GetAtomInput!) {
+query TestGetAtom($input: GetAtomInput!) {
   atom: getAtom(input: $input) {
     id
     api {

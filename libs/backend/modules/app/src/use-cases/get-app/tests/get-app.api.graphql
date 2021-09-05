@@ -1,7 +1,5 @@
-# import App from "../../../application/app.fragment.api.graphql"
-
-query GetApp($input: GetAppInput!) {
+query TestGetApp($input: GetAppInput!) {
   getApp(input: $input) {
-    ...App
+    ...TestApp
   }
 }

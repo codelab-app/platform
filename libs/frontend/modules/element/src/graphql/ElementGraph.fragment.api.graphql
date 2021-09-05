@@ -1,11 +1,13 @@
-# import Element from './Element.fragment.api.graphql'
-# import ElementEdge from './ElementEdge.fragment.api.graphql'
-# import Component from '../../../component/src/Component.fragment.api.graphql'
+fragment ComponentVertex on Component {
+  __typename
+  id
+  name
+}
 
 fragment ElementGraph on ElementGraph {
   # Union type
   vertices {
-    ...Component
+    ...ComponentVertex
     ...Element
   }
   edges {

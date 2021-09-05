@@ -1,3 +1,3 @@
-mutation DeleteField($input: DeleteFieldInput!) {
+mutation TestDeleteField($input: DeleteFieldInput!) {
   deleteField(input: $input)
 }

@@ -1,4 +1,4 @@
-query GetPage($input: GetPageInput!) {
+query TestGetPage($input: GetPageInput!) {
   page: getPage(input: $input) {
     id
     name

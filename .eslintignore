@@ -14,3 +14,7 @@ public
 jest.preset.js
 jest.config.js
 **/deprecated
+
+
+# Graphql codegen files
+**/*.graphql.gen.ts

@@ -1,20 +1,20 @@
 import { ElementTree } from '@codelab/shared/core'
-import { ElementEdgeFragment } from '../graphql/ElementEdge.fragment.api.graphql'
 import {
-  ComponentFragment,
+  ComponentVertexFragment,
+  ElementEdgeFragment,
   ElementFragment,
-} from '../graphql/ElementGraph.fragment.api.graphql'
+} from '../graphql'
 import { ElementGraphGraphql } from './ElementGraphGraphql'
 import { isComponent, isElement } from './guards'
 
-export type ElementTreeGraphqlVertex = ElementFragment | ComponentFragment
+export type ElementTreeGraphqlVertex = ElementFragment | ComponentVertexFragment
 
 /**
  * A variant of ElementTree that uses Graphql fragments
  */
 export class ElementTreeGraphql extends ElementTree<
   ElementFragment,
-  ComponentFragment,
+  ComponentVertexFragment,
   ElementEdgeFragment
 > {
   constructor(graph: ElementGraphGraphql | null | undefined) {

@@ -4,18 +4,20 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateComponentGql,
-  CreateComponentInput,
-  CreateComponentMutation,
-  GetComponentGql,
-  GetComponentInput,
-  GetComponentQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ComponentModule } from '../../../../component.module'
 import { ElementModule } from '../../../../element.module'
+import { CreateComponentInput } from '../../create-component'
+import {
+  TestCreateComponentGql,
+  TestCreateComponentMutation,
+} from '../../create-component/tests/create-component.api.graphql.gen'
 import { createComponentInput } from '../../create-component/tests/create-component.data'
+import { GetComponentInput } from '../get-component.input'
+import {
+  TestGetComponentGql,
+  TestGetComponentQuery,
+} from './get-component.api.graphql.gen'
 
 describe('GetComponent', () => {
   let guestApp: INestApplication
@@ -33,8 +35,8 @@ describe('GetComponent', () => {
 
     const results = await domainRequest<
       CreateComponentInput,
-      CreateComponentMutation
-    >(userApp, CreateComponentGql, createComponentInput)
+      TestCreateComponentMutation
+    >(userApp, TestCreateComponentGql, createComponentInput)
 
     componentId = results.createComponent.id
     getComponentInput = { componentId }
@@ -49,7 +51,7 @@ describe('GetComponent', () => {
 
   describe('Guest', () => {
     it('should fail to get an component', async () => {
-      await domainRequest(guestApp, GetComponentGql, getComponentInput, {
+      await domainRequest(guestApp, TestGetComponentGql, getComponentInput, {
         message: 'Unauthorized',
       })
     })
@@ -57,11 +59,10 @@ describe('GetComponent', () => {
 
   describe('User', () => {
     it('should get an component', async () => {
-      const results = await domainRequest<GetComponentInput, GetComponentQuery>(
-        userApp,
-        GetComponentGql,
-        getComponentInput,
-      )
+      const results = await domainRequest<
+        GetComponentInput,
+        TestGetComponentQuery
+      >(userApp, TestGetComponentGql, getComponentInput)
 
       expect(results?.getComponent).toMatchObject({
         ...createComponentInput,

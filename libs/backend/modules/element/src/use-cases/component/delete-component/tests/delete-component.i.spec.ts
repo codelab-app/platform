@@ -4,32 +4,25 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateComponentGql,
-  CreateComponentInput,
-  CreateComponentMutation,
-  CreateElementGql,
-  CreateElementInput,
-  CreateElementMutation,
-  DeleteComponentGql,
-  DeleteComponentInput,
-  DeleteComponentMutation,
-  DeleteElementInput,
-  GetComponentElementsGql,
-  GetComponentElementsQuery,
-  GetComponentGql,
-  GetComponentInput,
-  GetComponentQuery,
-  GetElementGql,
-  GetElementGraphInput,
-  GetElementInput,
-  GetElementQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ComponentModule } from '../../../../component.module'
 import { ElementModule } from '../../../../element.module'
-import { createElementInput } from '../../../element/create-element/tests/create-element.data'
+import { CreateComponentInput } from '../../create-component'
+import {
+  TestCreateComponentGql,
+  TestCreateComponentMutation,
+} from '../../create-component/tests/create-component.api.graphql.gen'
 import { createComponentInput } from '../../create-component/tests/create-component.data'
+import { GetComponentInput } from '../../get-component'
+import {
+  TestGetComponentGql,
+  TestGetComponentQuery,
+} from '../../get-component/tests/get-component.api.graphql.gen'
+import { DeleteComponentInput } from '../delete-component.input'
+import {
+  TestDeleteComponentGql,
+  TestDeleteComponentMutation,
+} from './delete-component.api.graphql.gen'
 
 describe('DeleteComponent', () => {
   let guestApp: INestApplication
@@ -54,8 +47,8 @@ describe('DeleteComponent', () => {
     // Create component
     const resultsComponent = await domainRequest<
       CreateComponentInput,
-      CreateComponentMutation
-    >(userApp, CreateComponentGql, createComponentInput)
+      TestCreateComponentMutation
+    >(userApp, TestCreateComponentGql, createComponentInput)
 
     componentId = resultsComponent.createComponent.id
 
@@ -97,25 +90,30 @@ describe('DeleteComponent', () => {
 
   describe('Guest', () => {
     it('should fail to delete an component', async () => {
-      await domainRequest(guestApp, DeleteComponentGql, deleteComponentInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        guestApp,
+        TestDeleteComponentGql,
+        deleteComponentInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
     it('should delete an component', async () => {
-      await domainRequest<DeleteComponentInput, DeleteComponentMutation>(
+      await domainRequest<DeleteComponentInput, TestDeleteComponentMutation>(
         userApp,
-        DeleteComponentGql,
+        TestDeleteComponentGql,
         deleteComponentInput,
       )
 
       // Should fail to get the deleted component
       const { getComponent } = await domainRequest<
         GetComponentInput,
-        GetComponentQuery
-      >(userApp, GetComponentGql, getComponentInput)
+        TestGetComponentQuery
+      >(userApp, TestGetComponentGql, getComponentInput)
 
       expect(getComponent).toBeNull()
 

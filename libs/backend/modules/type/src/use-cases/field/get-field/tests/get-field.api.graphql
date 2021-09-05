@@ -1,4 +1,4 @@
-query GetField($input: GetFieldInput!) {
+query TestGetField($input: GetFieldInput!) {
   getField(input: $input) {
     id
     key

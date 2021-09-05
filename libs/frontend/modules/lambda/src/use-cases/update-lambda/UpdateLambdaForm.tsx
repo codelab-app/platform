@@ -8,11 +8,11 @@ import {
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
-import { LambdaFragment } from '../../graphql/Lambda.fragment.api.graphql'
+import { LambdaFragment } from '../../graphql/Lambda.fragment.api.graphql.gen'
 import { lambdaState } from '../../state'
-import { useGetLambdaQuery } from '../get-lambda/GetLambda.api.graphql'
-import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.api.graphql'
-import { useUpdateLambdaMutation } from './UpdateLambda.api.graphql'
+import { useGetLambdaQuery } from '../get-lambda/GetLambda.api.graphql.gen'
+import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.api.graphql.gen'
+import { useUpdateLambdaMutation } from './UpdateLambda.api.graphql.gen'
 import { UpdateLambdaSchema, updateLambdaSchema } from './updateLambdaSchema'
 
 type UpdateLambdaFormProps = {

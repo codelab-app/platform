@@ -1,4 +1,4 @@
-query GetType($input: GetTypeInput!) {
+query TestGetType($input: GetTypeInput!) {
   getType(input: $input) {
     __typename
     id

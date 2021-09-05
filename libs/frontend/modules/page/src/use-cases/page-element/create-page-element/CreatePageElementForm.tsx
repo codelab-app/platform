@@ -1,12 +1,12 @@
 import {
   CreateElementForm,
   CreateElementFormProps,
+  ElementFragment,
 } from '@codelab/frontend/modules/element'
 import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import React, { useContext } from 'react'
-import { ElementFragment } from '../../../graphql/PageFull.fragment.api.graphql'
 import { PageContext } from '../../../providers'
-import { refetchGetPageQuery } from '../../page/get-page/GetPage.api.graphql'
+import { refetchGetPageQuery } from '../../page/get-page/GetPage.api.graphql.gen'
 
 type CreatePageElementFormProps = Omit<
   CreateElementFormProps,

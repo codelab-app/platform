@@ -1,2 +1,5 @@
-export { useGetAtomsLazyQuery, useGetAtomsQuery } from './GetAtoms.api.graphql'
+export {
+  useGetAtomsLazyQuery,
+  useGetAtomsQuery,
+} from './GetAtoms.api.graphql.gen'
 export * from './GetAtomsTable'

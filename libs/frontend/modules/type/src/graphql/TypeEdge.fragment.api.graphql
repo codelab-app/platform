@@ -1,5 +1,3 @@
-# import Field from "./Field.fragment.api.graphql"
-
 fragment TypeEdge on TypeEdge {
   source
   target

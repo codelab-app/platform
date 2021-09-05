@@ -8,14 +8,14 @@ import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
 import { GetLambdaInput } from '../../get-lambda'
 import {
-  GetLambdaGql,
-  GetLambdaQuery,
-} from '../../get-lambda/tests/get-lambda.api.graphql'
+  TestGetLambdaGql,
+  TestGetLambdaQuery,
+} from '../../get-lambda/tests/get-lambda.api.graphql.gen'
 import { CreateLambdaInput } from '../create-lambda.input'
 import {
-  CreateLambdaGql,
-  CreateLambdaMutation,
-} from './create-lambda.api.graphql'
+  TestCreateLambdaGql,
+  TestCreateLambdaMutation,
+} from './create-lambda.api.graphql.gen'
 import { createLambdaInput } from './create-lambda.data'
 
 describe('CreateLambda', () => {
@@ -34,7 +34,7 @@ describe('CreateLambda', () => {
 
   describe('Guest', () => {
     it('should fail to create a lambda', async () => {
-      await domainRequest(guestApp, CreateLambdaGql, createLambdaInput, {
+      await domainRequest(guestApp, TestCreateLambdaGql, createLambdaInput, {
         message: 'Unauthorized',
       })
     })
@@ -44,12 +44,12 @@ describe('CreateLambda', () => {
     it('should create a lambda', async () => {
       const { createLambda } = await domainRequest<
         CreateLambdaInput,
-        CreateLambdaMutation
-      >(userApp, CreateLambdaGql, createLambdaInput)
+        TestCreateLambdaMutation
+      >(userApp, TestCreateLambdaGql, createLambdaInput)
 
-      const results = await domainRequest<GetLambdaInput, GetLambdaQuery>(
+      const results = await domainRequest<GetLambdaInput, TestGetLambdaQuery>(
         userApp,
-        GetLambdaGql,
+        TestGetLambdaGql,
         { lambdaId: createLambda.id },
       )
 

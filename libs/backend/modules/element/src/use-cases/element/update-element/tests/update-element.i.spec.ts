@@ -8,20 +8,20 @@ import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
 import { CreateElementInput } from '../../create-element/create-element.input'
 import {
-  CreateElementGql,
-  CreateElementMutation,
-} from '../../create-element/tests/create-element.api.graphql'
+  TestCreateElementGql,
+  TestCreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql.gen'
 import { createElementInput } from '../../create-element/tests/create-element.data'
 import { GetElementInput } from '../../get-element'
 import {
-  GetElementGql,
-  GetElementQuery,
-} from '../../get-element/tests/get-element.api.graphql'
+  TestGetElementGql,
+  TestGetElementQuery,
+} from '../../get-element/tests/get-element.api.graphql.gen'
 import { UpdateElementInput } from '../update-element.input'
 import {
-  UpdateElementGql,
-  UpdateElementMutation,
-} from './update-element.api.graphql'
+  TestUpdateElementGql,
+  TestUpdateElementMutation,
+} from './update-element.api.graphql.gen'
 
 describe('UpdateElement', () => {
   let guestApp: INestApplication
@@ -35,8 +35,8 @@ describe('UpdateElement', () => {
 
     const results = await domainRequest<
       CreateElementInput,
-      CreateElementMutation
-    >(userApp, CreateElementGql, createElementInput)
+      TestCreateElementMutation
+    >(userApp, TestCreateElementGql, createElementInput)
 
     elementId = results.createElement.id
 
@@ -57,7 +57,7 @@ describe('UpdateElement', () => {
 
   describe('Guest', () => {
     it('should fail to update an element', async () => {
-      await domainRequest(guestApp, UpdateElementGql, updateElementInput, {
+      await domainRequest(guestApp, TestUpdateElementGql, updateElementInput, {
         message: 'Unauthorized',
       })
     })
@@ -65,16 +65,16 @@ describe('UpdateElement', () => {
 
   describe('User', () => {
     it('should update an element', async () => {
-      await domainRequest<UpdateElementInput, UpdateElementMutation>(
+      await domainRequest<UpdateElementInput, TestUpdateElementMutation>(
         userApp,
-        UpdateElementGql,
+        TestUpdateElementGql,
         updateElementInput,
       )
 
       const { getElement: element } = await domainRequest<
         GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, { elementId })
+        TestGetElementQuery
+      >(userApp, TestGetElementGql, { elementId })
 
       expect(element).toMatchObject({
         ...updateElementInput.data,

@@ -11,7 +11,7 @@ import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { ElementTreeGraphql } from '../../tree'
 import { useGetElementQuery } from '../get-element'
-import { useUpdateElementMutation } from './UpdateElement.api.graphql'
+import { useUpdateElementMutation } from './UpdateElement.api.graphql.gen'
 import { UpdateElementSchema, updateElementSchema } from './updateElementSchema'
 
 export type UpdateElementFormProps =

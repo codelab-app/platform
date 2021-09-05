@@ -1,4 +1,4 @@
-query GetComponents {
+query TestGetComponents {
   getComponents {
     id
     name

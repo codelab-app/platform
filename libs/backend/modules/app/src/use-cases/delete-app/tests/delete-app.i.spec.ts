@@ -8,14 +8,20 @@ import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
 import { CreateAppInput } from '../../create-app/create-app.input'
 import {
-  CreateAppGql,
-  CreateAppMutation,
-} from '../../create-app/tests/create-app.api.graphql'
+  TestCreateAppGql,
+  TestCreateAppMutation,
+} from '../../create-app/tests/create-app.api.graphql.gen'
 import { createAppInput } from '../../create-app/tests/create-app.data'
 import { GetAppInput } from '../../get-app/get-app.input'
-import { GetAppGql, GetAppQuery } from '../../get-app/tests/get-app.api.graphql'
+import {
+  TestGetAppGql,
+  TestGetAppQuery,
+} from '../../get-app/tests/get-app.api.graphql.gen'
 import { DeleteAppInput } from '../delete-app.input'
-import { DeleteAppGql, DeleteAppMutation } from './delete-app.api.graphql'
+import {
+  TestDeleteAppGql,
+  TestDeleteAppMutation,
+} from './delete-app.api.graphql.gen'
 
 describe('DeleteApp', () => {
   let guestApp: INestApplication
@@ -28,9 +34,9 @@ describe('DeleteApp', () => {
     guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
     userApp = await setupTestModule([AppModule], { role: Role.USER })
 
-    const results = await domainRequest<CreateAppInput, CreateAppMutation>(
+    const results = await domainRequest<CreateAppInput, TestCreateAppMutation>(
       userApp,
-      CreateAppGql,
+      TestCreateAppGql,
       createAppInput,
     )
 
@@ -48,7 +54,7 @@ describe('DeleteApp', () => {
 
   describe('Guest', () => {
     it('should fail to delete an app', async () => {
-      await domainRequest(guestApp, DeleteAppGql, deleteAppInput, {
+      await domainRequest(guestApp, TestDeleteAppGql, deleteAppInput, {
         message: 'Unauthorized',
       })
     })
@@ -56,15 +62,15 @@ describe('DeleteApp', () => {
 
   describe('User', () => {
     it('should delete an app', async () => {
-      await domainRequest<DeleteAppInput, DeleteAppMutation>(
+      await domainRequest<DeleteAppInput, TestDeleteAppMutation>(
         userApp,
-        DeleteAppGql,
+        TestDeleteAppGql,
         deleteAppInput,
       )
 
-      const { getApp } = await domainRequest<GetAppInput, GetAppQuery>(
+      const { getApp } = await domainRequest<GetAppInput, TestGetAppQuery>(
         userApp,
-        GetAppGql,
+        TestGetAppGql,
         getAppInput,
       )
 

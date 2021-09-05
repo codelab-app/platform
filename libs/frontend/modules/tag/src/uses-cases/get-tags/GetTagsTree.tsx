@@ -1,7 +1,7 @@
 import { Tree, TreeProps } from 'antd'
 import { useTagState } from '../../domain/use-tag/useTagState'
 import { useTagTree } from '../../domain/use-tag/useTagTree'
-import { useGetTagGraphQuery } from '../get-tag-graph/GetTagGraph.api.graphql'
+import { useGetTagGraphQuery } from '../get-tag-graph/GetTagGraph.api.graphql.gen'
 
 export const GetTagsTree = () => {
   const { data, loading } = useGetTagGraphQuery()

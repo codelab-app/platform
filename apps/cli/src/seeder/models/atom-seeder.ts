@@ -1,18 +1,18 @@
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { GraphQLClient } from 'graphql-request'
 import {
-  CreateAtomGql,
-  CreateAtomMutation,
-  CreateAtomMutationVariables,
-} from './graphql/CreateAtom.api.graphql'
+  Seeder_CreateAtomGql,
+  Seeder_CreateAtomMutation,
+  Seeder_CreateAtomMutationVariables,
+} from './graphql/CreateAtom.api.graphql.gen'
 import {
-  GetAtomGql,
-  GetAtomQuery,
-  GetAtomQueryVariables,
-} from './graphql/GetAtom.api.graphql'
+  Seeder_GetAtomGql,
+  Seeder_GetAtomQuery,
+  Seeder_GetAtomQueryVariables,
+} from './graphql/GetAtom.api.graphql.gen'
 
-export type SeedAtomInput = CreateAtomMutationVariables['input']
-export type GetAtomInput = GetAtomQueryVariables['input']
+export type SeedAtomInput = Seeder_CreateAtomMutationVariables['input']
+export type GetAtomInput = Seeder_GetAtomQueryVariables['input']
 
 /**
  * Handle seeding of atoms
@@ -34,9 +34,9 @@ export class AtomSeeder {
 
   async getAtom(input: GetAtomInput) {
     const { atom } = await this.client.request<
-      GetAtomQuery,
-      GetAtomQueryVariables
-    >(GetAtomGql, {
+      Seeder_GetAtomQuery,
+      Seeder_GetAtomQueryVariables
+    >(Seeder_GetAtomGql, {
       input,
     })
 
@@ -45,9 +45,9 @@ export class AtomSeeder {
 
   private async createAtom(input: SeedAtomInput) {
     const createResponse = await this.client.request<
-      CreateAtomMutation,
-      CreateAtomMutationVariables
-    >(CreateAtomGql, { input })
+      Seeder_CreateAtomMutation,
+      Seeder_CreateAtomMutationVariables
+    >(Seeder_CreateAtomGql, { input })
 
     if (!createResponse?.createAtom) {
       throw new Error(`Something went wrong while creating atom ${input.type}`)

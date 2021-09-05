@@ -10,7 +10,7 @@ import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useMoveElementMutation } from './MoveElement.api.graphql'
+import { useMoveElementMutation } from './MoveElement.api.graphql.gen'
 import { MoveElementSchema, moveElementSchema } from './moveElementSchema'
 
 export type MoveElementFormProps = UniFormUseCaseProps<MoveElementSchema> & {

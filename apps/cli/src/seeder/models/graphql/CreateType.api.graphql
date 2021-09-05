@@ -1,4 +1,4 @@
-mutation CreateType($input: CreateTypeInput!) {
+mutation Seeder_CreateType($input: CreateTypeInput!) {
   createType(input: $input) {
     id
   }

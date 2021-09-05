@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { MoveElementMutationVariables } from './MoveElement.api.graphql'
+import { MoveElementMutationVariables } from './MoveElement.api.graphql.gen'
 
 export type MoveElementSchema =
   MoveElementMutationVariables['input']['moveData']

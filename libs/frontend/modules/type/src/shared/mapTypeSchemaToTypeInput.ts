@@ -1,5 +1,5 @@
 import { ElementTypeKind, PrimitiveKind } from '@codelab/shared/enums'
-import { EnumTypeValueFragment } from '../graphql/EnumTypeValue.fragment.api.graphql'
+import { EnumTypeValueFragment } from '../graphql/EnumTypeValue.fragment.api.graphql.gen'
 
 export interface BaseTypeMutationSchema {
   name: string

@@ -158,6 +158,9 @@
     "shared-abstract-types": {
       "tags": ["scope:shared", "type:abstract"]
     },
+    "shared-codegen-graphql": {
+      "tags": ["scope:shared", "type:abstract"]
+    },
     "shared-core": {
       "tags": ["scope:shared"]
     },

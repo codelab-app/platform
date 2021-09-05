@@ -1,5 +1,3 @@
-# import Type from "../../../graphql/Type.fragment.api.graphql"
-
 query GetType($input: GetTypeInput!) {
   getType(input: $input) {
     ...Type

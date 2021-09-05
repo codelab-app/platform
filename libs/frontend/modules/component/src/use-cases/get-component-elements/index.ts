@@ -2,4 +2,4 @@ export {
   refetchGetComponentElementsQuery,
   useGetComponentElementsLazyQuery,
   useGetComponentElementsQuery,
-} from './GetComponentElements.api.graphql'
+} from './GetComponentElements.api.graphql.gen'

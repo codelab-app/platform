@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useEffect } from 'react'
-import { AppFragment } from '../App.fragment.api.graphql'
-import { useGetAppLazyQuery } from '../use-cases/get-app/GetApp.api.graphql'
+import { AppFragment } from '../App.fragment.api.graphql.gen'
+import { useGetAppLazyQuery } from '../use-cases/get-app/GetApp.api.graphql.gen'
 
 type IAppContext = {
   app: AppFragment

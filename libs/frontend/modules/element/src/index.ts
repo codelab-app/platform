@@ -1,5 +1,5 @@
 export * from './css-editor'
-export * from './graphql/ElementGraph.fragment.api.graphql'
+export * from './graphql'
 export * from './sections'
 export * from './tree'
 export * from './use-cases'

@@ -12,8 +12,8 @@ import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table/interface'
 import Link from 'next/link'
 import React from 'react'
-import { TypeFragment } from '../../../graphql/Type.fragment.api.graphql'
-import { useGetTypesQuery } from './GetTypes.api.graphql'
+import { TypeFragment } from '../../../graphql/Type.fragment.api.graphql.gen'
+import { useGetTypesQuery } from './GetTypes.api.graphql.gen'
 
 export const GetTypesTable = () => {
   const { data, loading } = useGetTypesQuery()

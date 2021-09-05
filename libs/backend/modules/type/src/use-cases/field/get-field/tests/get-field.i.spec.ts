@@ -9,7 +9,7 @@ import { TypeModule } from '../../../../type.module'
 import { createField } from '../../create-field/tests/create-type-field'
 import { partialCreateFieldInput } from '../../create-field/tests/data'
 import { GetFieldInput } from '../get-field.input'
-import { GetFieldGql, GetFieldQuery } from './get-field.api.graphql'
+import { TestGetFieldGql, TestGetFieldQuery } from './get-field.api.graphql.gen'
 
 describe('GetField', () => {
   let guestApp: INestApplication
@@ -37,9 +37,14 @@ describe('GetField', () => {
 
   describe('Guest', () => {
     it('should not get field', async () => {
-      await domainRequest<GetFieldInput>(guestApp, GetFieldGql, getFieldInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest<GetFieldInput>(
+        guestApp,
+        TestGetFieldGql,
+        getFieldInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
@@ -47,8 +52,8 @@ describe('GetField', () => {
     it('should get field', async () => {
       const { getField: field } = await domainRequest<
         GetFieldInput,
-        GetFieldQuery
-      >(userApp, GetFieldGql, getFieldInput)
+        TestGetFieldQuery
+      >(userApp, TestGetFieldGql, getFieldInput)
 
       expect(field).toBeDefined()
       expect(field).toMatchObject(partialCreateFieldInput)

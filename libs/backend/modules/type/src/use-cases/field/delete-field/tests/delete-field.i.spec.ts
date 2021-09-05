@@ -9,11 +9,11 @@ import { TypeModule } from '../../../../type.module'
 import { createField } from '../../create-field/tests/create-type-field'
 import { GetFieldInput } from '../../get-field/get-field.input'
 import {
-  GetFieldGql,
-  GetFieldQuery,
-} from '../../get-field/tests/get-field.api.graphql'
+  TestGetFieldGql,
+  TestGetFieldQuery,
+} from '../../get-field/tests/get-field.api.graphql.gen'
 import { DeleteFieldInput } from '../delete-field.input'
-import { DeleteFieldGql } from './delete-field.api.graphql'
+import { TestDeleteFieldGql } from './delete-field.api.graphql.gen'
 
 describe('DeleteField', () => {
   let guestApp: INestApplication
@@ -43,7 +43,7 @@ describe('DeleteField', () => {
     it('should not delete field', async () => {
       await domainRequest<DeleteFieldInput>(
         guestApp,
-        DeleteFieldGql,
+        TestDeleteFieldGql,
         deleteFieldInput,
         { message: 'Unauthorized' },
       )
@@ -54,14 +54,14 @@ describe('DeleteField', () => {
     it('should delete field', async () => {
       await domainRequest<DeleteFieldInput>(
         userApp,
-        DeleteFieldGql,
+        TestDeleteFieldGql,
         deleteFieldInput,
       )
 
       const { getField: field } = await domainRequest<
         GetFieldInput,
-        GetFieldQuery
-      >(userApp, GetFieldGql, { byId: { fieldId } })
+        TestGetFieldQuery
+      >(userApp, TestGetFieldGql, { byId: { fieldId } })
 
       expect(field).toBeNull()
     })

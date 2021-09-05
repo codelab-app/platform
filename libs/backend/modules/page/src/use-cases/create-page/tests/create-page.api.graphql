@@ -1,4 +1,4 @@
-mutation CreatePage($input: CreatePageInput!) {
+mutation TestCreatePage($input: CreatePageInput!) {
   createPage(input: $input) {
     id
   }

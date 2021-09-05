@@ -1,5 +1,3 @@
-# import HookConfig from './HookConfig.fragment.api.graphql'
-
 fragment Hook on Hook {
   id
   type

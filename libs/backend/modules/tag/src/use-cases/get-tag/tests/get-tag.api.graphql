@@ -1,7 +1,5 @@
-# import Tag from '../../../domain/tag.fragment.api.graphql'
-
-query GetTag($input: GetTagInput!) {
+query TestGetTag($input: GetTagInput!) {
   getTag(input: $input) {
-    ...Tag
+    ...TestTag
   }
 }

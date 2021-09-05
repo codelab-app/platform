@@ -1,5 +1,3 @@
-# import TagGraph from '../../graphql/TagGraph.fragment.api.graphql'
-
 query GetTagGraph {
   getTagGraph {
     ...TagGraph

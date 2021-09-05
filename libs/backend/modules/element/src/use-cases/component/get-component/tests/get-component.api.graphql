@@ -1,4 +1,4 @@
-query GetComponent($input: GetComponentInput!) {
+query TestGetComponent($input: GetComponentInput!) {
   getComponent(input: $input) {
     id
     name

@@ -1,3 +1,3 @@
-mutation MoveElement($input: MoveElementInput!) {
+mutation TestMoveElement($input: MoveElementInput!) {
   moveElement(input: $input)
 }

@@ -1,5 +1,3 @@
-# import Lambda from '../../graphql/Lambda.fragment.api.graphql'
-
 query GetLambdas {
   getLambdas {
     ...Lambda

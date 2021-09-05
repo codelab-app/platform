@@ -7,8 +7,8 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.api.graphql'
-import { useUpdateAtomMutation } from './UpdateAtom.api.graphql'
+import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.api.graphql.gen'
+import { useUpdateAtomMutation } from './UpdateAtom.api.graphql.gen'
 import { UpdateAtomSchema, updateAtomSchema } from './updateAtomSchema'
 
 export const UpdateAtomForm = (

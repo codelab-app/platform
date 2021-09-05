@@ -1,4 +1,4 @@
-query GetField($input: GetFieldInput!) {
+query Seeder_GetField($input: GetFieldInput!) {
   getField(input: $input) {
     id
   }

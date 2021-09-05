@@ -7,7 +7,7 @@ export {
   refetchGetPageQuery,
   useGetPageLazyQuery,
   useGetPageQuery,
-} from './use-cases/page/get-page/GetPage.api.graphql'
+} from './use-cases/page/get-page/GetPage.api.graphql.gen'
 export * from './use-cases/page/get-pages'
 export * from './use-cases/page/update-page'
 export * from './use-cases/page-element/create-page-element'

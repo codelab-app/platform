@@ -8,14 +8,20 @@ import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
 import { CreateTagInput } from '../../create-tag/create-tag.input'
 import {
-  CreateTagGql,
-  CreateTagMutation,
-} from '../../create-tag/tests/create-tag.api.graphql'
+  TestCreateTagGql,
+  TestCreateTagMutation,
+} from '../../create-tag/tests/create-tag.api.graphql.gen'
 import { createTagInput } from '../../create-tag/tests/create-tag.data'
 import { GetTagInput } from '../../get-tag/get-tag.input'
-import { GetTagGql, GetTagQuery } from '../../get-tag/tests/get-tag.api.graphql'
+import {
+  TestGetTagGql,
+  TestGetTagQuery,
+} from '../../get-tag/tests/get-tag.api.graphql.gen'
 import { UpdateTagInput } from '../update-tag.input'
-import { UpdateTagGql, UpdateTagMutation } from './update-tag.api.graphql'
+import {
+  TestUpdateTagGql,
+  TestUpdateTagMutation,
+} from './update-tag.api.graphql.gen'
 
 describe('UpdateTagUseCase', () => {
   let guestApp: INestApplication
@@ -29,8 +35,8 @@ describe('UpdateTagUseCase', () => {
 
     const { createTag } = await domainRequest<
       CreateTagInput,
-      CreateTagMutation
-    >(userApp, CreateTagGql, createTagInput)
+      TestCreateTagMutation
+    >(userApp, TestCreateTagGql, createTagInput)
 
     createdTagId = createTag.id
 
@@ -49,7 +55,7 @@ describe('UpdateTagUseCase', () => {
 
   describe('Guest', () => {
     it('should fail to create a Tag', async () => {
-      await domainRequest(guestApp, UpdateTagGql, updateTagInput, {
+      await domainRequest(guestApp, TestUpdateTagGql, updateTagInput, {
         message: 'Unauthorized',
       })
     })
@@ -57,15 +63,15 @@ describe('UpdateTagUseCase', () => {
 
   describe('User', () => {
     it('should update a Tag', async () => {
-      await domainRequest<UpdateTagInput, UpdateTagMutation>(
+      await domainRequest<UpdateTagInput, TestUpdateTagMutation>(
         userApp,
-        UpdateTagGql,
+        TestUpdateTagGql,
         updateTagInput,
       )
 
-      const { getTag } = await domainRequest<GetTagInput, GetTagQuery>(
+      const { getTag } = await domainRequest<GetTagInput, TestGetTagQuery>(
         userApp,
-        GetTagGql,
+        TestGetTagGql,
         { where: { id: createdTagId } },
       )
 

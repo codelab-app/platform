@@ -470,8 +470,7 @@
             "outputPath": "dist/apps/cli",
             "main": "apps/cli/src/main.ts",
             "tsConfig": "apps/cli/tsconfig.app.json",
-            "assets": ["apps/cli/src/assets"],
-            "webpackConfig": "apps/cli/webpack.config.js"
+            "assets": ["apps/cli/src/assets"]
           },
           "configurations": {
             "production": {
@@ -931,6 +930,27 @@
         }
       }
     },
+    "shared-codegen-graphql": {
+      "root": "libs/shared/codegen/graphql",
+      "sourceRoot": "libs/shared/codegen/graphql/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/codegen/graphql/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/codegen/graphql"],
+          "options": {
+            "jestConfig": "libs/shared/codegen/graphql/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-core": {
       "root": "libs/shared/core",
       "sourceRoot": "libs/shared/core/src",
@@ -953,14 +973,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/enums/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/shared/enums"],
-          "options": {
-            "jestConfig": "libs/shared/enums/jest.config.js",
-            "passWithNoTests": true
           }
         },
         "test": {

@@ -3,7 +3,7 @@ import React from 'react'
 import { DeleteLambdaButton } from '../delete-lambda'
 import { ExecuteLambdaButton } from '../execute-lambda'
 import { UpdateLambdaButton } from '../update-lambda'
-import { useGetLambdasQuery } from './GetLambdas.api.graphql'
+import { useGetLambdasQuery } from './GetLambdas.api.graphql.gen'
 import { LambdaRecord } from './LambdaRecord'
 
 const mapDataSource = (lambdas: Array<LambdaRecord>) =>

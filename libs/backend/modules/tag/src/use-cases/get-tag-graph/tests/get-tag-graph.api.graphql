@@ -1,7 +1,5 @@
-# import TagGraph from '../../../domain/tag-graph.fragment.api.graphql'
-
-query GetTagGraph {
+query TestGetTagGraph {
   getTagGraph {
-    ...TagGraph
+    ...TestTagGraph
   }
 }

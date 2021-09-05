@@ -10,8 +10,8 @@ import {
 import { HookType } from '@codelab/shared/enums'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { refetchGetElementQuery } from '../../get-element/GetElement.api.graphql'
-import { useAddHookToElementMutation } from './AddHookToElement.api.graphql'
+import { refetchGetElementQuery } from '../../get-element/GetElement.api.graphql.gen'
+import { useAddHookToElementMutation } from './AddHookToElement.api.graphql.gen'
 import {
   AddHookToElementSchema,
   addHookToElementSchema,

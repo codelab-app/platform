@@ -8,11 +8,14 @@ import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
 import { GetAtomInput } from '../../get-atom/get-atom.input'
 import {
-  GetAtomGql,
-  GetAtomQuery,
-} from '../../get-atom/tests/get-atom.api.graphql'
+  TestGetAtomGql,
+  TestGetAtomQuery,
+} from '../../get-atom/tests/get-atom.api.graphql.gen'
 import { CreateAtomInput } from '../create-atom.input'
-import { CreateAtomGql, CreateAtomMutation } from './create-atom.api.graphql'
+import {
+  TestCreateAtomGql,
+  TestCreateAtomMutation,
+} from './create-atom.api.graphql.gen'
 import { createAtomInput } from './create-atom.data'
 
 describe('CreateAtom', () => {
@@ -31,7 +34,7 @@ describe('CreateAtom', () => {
 
   describe('Guest', () => {
     it('should fail to create an atom', async () => {
-      await domainRequest(guestApp, CreateAtomGql, createAtomInput, {
+      await domainRequest(guestApp, TestCreateAtomGql, createAtomInput, {
         message: 'Unauthorized',
       })
     })
@@ -41,15 +44,15 @@ describe('CreateAtom', () => {
     it('should create an atom', async () => {
       const {
         createAtom: { id: atomId },
-      } = await domainRequest<CreateAtomInput, CreateAtomMutation>(
+      } = await domainRequest<CreateAtomInput, TestCreateAtomMutation>(
         userApp,
-        CreateAtomGql,
+        TestCreateAtomGql,
         createAtomInput,
       )
 
-      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
         userApp,
-        GetAtomGql,
+        TestGetAtomGql,
         { where: { id: atomId } },
       )
 

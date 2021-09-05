@@ -1,4 +1,4 @@
-mutation CreateElement($input: CreateElementInput!) {
+mutation TestCreateElement($input: CreateElementInput!) {
   createElement(input: $input) {
     id
   }

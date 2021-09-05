@@ -8,8 +8,8 @@ import {
 import { AtomType } from '@codelab/shared/enums'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.api.graphql'
-import { useCreateAtomMutation } from './create-atom.api.graphql'
+import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.api.graphql.gen'
+import { useCreateAtomMutation } from './create-atom.api.graphql.gen'
 import { CreateAtomSchema, createAtomSchema } from './createAtomSchema'
 
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomSchema>

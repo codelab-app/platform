@@ -10,25 +10,25 @@ import {
 } from '../utils/customAtomApi'
 import { AtomSeeder } from './atom-seeder'
 import {
-  CreateFieldGql,
-  CreateFieldMutation,
-  CreateFieldMutationVariables,
-} from './graphql/CreateField.api.graphql'
+  Seeder_CreateFieldGql,
+  Seeder_CreateFieldMutation,
+  Seeder_CreateFieldMutationVariables,
+} from './graphql/CreateField.api.graphql.gen'
 import {
-  CreateTypeGql,
-  CreateTypeMutation,
-  CreateTypeMutationVariables,
-} from './graphql/CreateType.api.graphql'
+  Seeder_CreateTypeGql,
+  Seeder_CreateTypeMutation,
+  Seeder_CreateTypeMutationVariables,
+} from './graphql/CreateType.api.graphql.gen'
 import {
-  GetFieldGql,
-  GetFieldQuery,
-  GetFieldQueryVariables,
-} from './graphql/GetField.api.graphql'
+  Seeder_GetFieldGql,
+  Seeder_GetFieldQuery,
+  Seeder_GetFieldQueryVariables,
+} from './graphql/GetField.api.graphql.gen'
 import {
-  GetTypeGql,
-  GetTypeQuery,
-  GetTypeQueryVariables,
-} from './graphql/GetType.api.graphql'
+  Seeder_GetTypeGql,
+  Seeder_GetTypeQuery,
+  Seeder_GetTypeQueryVariables,
+} from './graphql/GetType.api.graphql.gen'
 import {
   GetFieldInput,
   SeedFieldInput,
@@ -165,25 +165,31 @@ export class TypeSeeder {
 
   private getTypeByName(name: string) {
     return this.client
-      .request<GetTypeQuery, GetTypeQueryVariables>(GetTypeGql, {
-        input: { where: { name } },
-      })
+      .request<Seeder_GetTypeQuery, Seeder_GetTypeQueryVariables>(
+        Seeder_GetTypeGql,
+        {
+          input: { where: { name } },
+        },
+      )
       .then((r) => r?.getType?.id)
   }
 
   private getField(input: GetFieldInput) {
     return this.client
-      .request<GetFieldQuery, GetFieldQueryVariables>(GetFieldGql, {
-        input,
-      })
+      .request<Seeder_GetFieldQuery, Seeder_GetFieldQueryVariables>(
+        Seeder_GetFieldGql,
+        {
+          input,
+        },
+      )
       .then((r) => r?.getField)
   }
 
   private async createType(typeInput: SeedTypeInput) {
     const createResponse = await this.client.request<
-      CreateTypeMutation,
-      CreateTypeMutationVariables
-    >(CreateTypeGql, {
+      Seeder_CreateTypeMutation,
+      Seeder_CreateTypeMutationVariables
+    >(Seeder_CreateTypeGql, {
       input: typeInput,
     })
 
@@ -200,9 +206,9 @@ export class TypeSeeder {
 
   private async createField(input: SeedFieldInput) {
     const createResponse = await this.client.request<
-      CreateFieldMutation,
-      CreateFieldMutationVariables
-    >(CreateFieldGql, { input })
+      Seeder_CreateFieldMutation,
+      Seeder_CreateFieldMutationVariables
+    >(Seeder_CreateFieldGql, { input })
 
     if (!createResponse?.createField) {
       throw new Error(`Something went wrong while creating field ${input.name}`)

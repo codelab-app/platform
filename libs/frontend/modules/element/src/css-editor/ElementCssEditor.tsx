@@ -1,12 +1,12 @@
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import { EmotionCssEditor } from '@codelab/frontend/view/components'
 import React, { useEffect, useRef, useState } from 'react'
-import { ElementFragment } from '../graphql/Element.fragment.api.graphql'
+import { ElementFragment } from '../graphql/Element.fragment.api.graphql.gen'
 import {
   refetchGetElementQuery,
   useGetElementQuery,
-} from '../use-cases/get-element/GetElement.api.graphql'
-import { useUpdateElementMutation } from '../use-cases/update-element/UpdateElement.api.graphql'
+} from '../use-cases/get-element/GetElement.api.graphql.gen'
+import { useUpdateElementMutation } from '../use-cases/update-element/UpdateElement.api.graphql.gen'
 
 export interface ElementCssEditorInternalProps {
   element: ElementFragment

@@ -9,8 +9,8 @@ import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
 import { InterfaceContext } from '../../types'
-import { refetchGetTypeGraphQuery } from '../../types/get-type-graph/GetTypeGraph.api.graphql'
-import { useCreateFieldMutation } from './CreateField.api.graphql'
+import { refetchGetTypeGraphQuery } from '../../types/get-type-graph/GetTypeGraph.api.graphql.gen'
+import { useCreateFieldMutation } from './CreateField.api.graphql.gen'
 import { CreateFieldSchema, createFieldSchema } from './createFieldSchema'
 
 export const CreateFieldForm = (

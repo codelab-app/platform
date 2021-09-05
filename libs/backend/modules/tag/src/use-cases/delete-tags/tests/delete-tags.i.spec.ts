@@ -8,12 +8,15 @@ import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../..'
 import { CreateTagInput } from '../../create-tag/create-tag.input'
 import {
-  CreateTagGql,
-  CreateTagMutation,
-} from '../../create-tag/tests/create-tag.api.graphql'
+  TestCreateTagGql,
+  TestCreateTagMutation,
+} from '../../create-tag/tests/create-tag.api.graphql.gen'
 import { createTagInput } from '../../create-tag/tests/create-tag.data'
 import { DeleteTagsInput } from '../delete-tags.input'
-import { DeleteTagsGql, DeleteTagsMutation } from './delete-tags.api.graphql'
+import {
+  TestDeleteTagsGql,
+  TestDeleteTagsMutation,
+} from './delete-tags.api.graphql.gen'
 
 describe('DeleteTagUseCase', () => {
   let guestApp: INestApplication
@@ -28,13 +31,13 @@ describe('DeleteTagUseCase', () => {
 
     const { createTag: tagA } = await domainRequest<
       CreateTagInput,
-      CreateTagMutation
-    >(userApp, CreateTagGql, createTagInput)
+      TestCreateTagMutation
+    >(userApp, TestCreateTagGql, createTagInput)
 
     const { createTag: tagB } = await domainRequest<
       CreateTagInput,
-      CreateTagMutation
-    >(userApp, CreateTagGql, createTagInput)
+      TestCreateTagMutation
+    >(userApp, TestCreateTagGql, createTagInput)
 
     tagAId = tagA.id
     tagBId = tagB.id
@@ -51,9 +54,9 @@ describe('DeleteTagUseCase', () => {
         ids: [tagAId, tagBId],
       }
 
-      await domainRequest<DeleteTagsInput, DeleteTagsMutation>(
+      await domainRequest<DeleteTagsInput, TestDeleteTagsMutation>(
         guestApp,
-        DeleteTagsGql,
+        TestDeleteTagsGql,
         deleteTagsInput,
         {
           message: 'Unauthorized',
@@ -64,9 +67,9 @@ describe('DeleteTagUseCase', () => {
 
   describe('User', () => {
     it('should delete a Tag', async () => {
-      await domainRequest<DeleteTagsInput, DeleteTagsMutation>(
+      await domainRequest<DeleteTagsInput, TestDeleteTagsMutation>(
         userApp,
-        DeleteTagsGql,
+        TestDeleteTagsGql,
         deleteTagsInput,
       )
 

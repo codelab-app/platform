@@ -9,11 +9,14 @@ import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
 import { GetTypeInput } from '../../get-type'
 import {
-  GetTypeGql,
-  GetTypeQuery,
-} from '../../get-type/tests/get-type.api.graphql'
+  TestGetTypeGql,
+  TestGetTypeQuery,
+} from '../../get-type/tests/get-type.api.graphql.gen'
 import { CreateTypeInput } from '../create-type.input'
-import { CreateTypeGql, CreateTypeMutation } from './create-type.api.graphql'
+import {
+  TestCreateTypeGql,
+  TestCreateTypeMutation,
+} from './create-type.api.graphql.gen'
 import {
   createInterfaceTypeInput,
   createPrimitiveStringInput,
@@ -41,7 +44,7 @@ describe('CreateType', () => {
     it('should not create type', async () => {
       await domainRequest<CreateTypeInput>(
         guestApp,
-        CreateTypeGql,
+        TestCreateTypeGql,
         createPrimitiveStringInput,
         { message: 'Unauthorized' },
       )
@@ -54,17 +57,16 @@ describe('CreateType', () => {
     it('should create a primitive type', async () => {
       const {
         createType: { id: typeId },
-      } = await domainRequest<CreateTypeInput, CreateTypeMutation>(
+      } = await domainRequest<CreateTypeInput, TestCreateTypeMutation>(
         userApp,
-        CreateTypeGql,
+        TestCreateTypeGql,
         createPrimitiveStringInput,
       )
 
-      const { getType: type } = await domainRequest<GetTypeInput, GetTypeQuery>(
-        userApp,
-        GetTypeGql,
-        { where: { id: typeId } },
-      )
+      const { getType: type } = await domainRequest<
+        GetTypeInput,
+        TestGetTypeQuery
+      >(userApp, TestGetTypeGql, { where: { id: typeId } })
 
       expect(type).toMatchObject({
         __typename: 'PrimitiveType',
@@ -76,17 +78,16 @@ describe('CreateType', () => {
     it('should create interface type', async () => {
       const {
         createType: { id: typeId },
-      } = await domainRequest<CreateTypeInput, CreateTypeMutation>(
+      } = await domainRequest<CreateTypeInput, TestCreateTypeMutation>(
         userApp,
-        CreateTypeGql,
+        TestCreateTypeGql,
         createInterfaceTypeInput,
       )
 
-      const { getType: type } = await domainRequest<GetTypeInput, GetTypeQuery>(
-        userApp,
-        GetTypeGql,
-        { where: { id: typeId } },
-      )
+      const { getType: type } = await domainRequest<
+        GetTypeInput,
+        TestGetTypeQuery
+      >(userApp, TestGetTypeGql, { where: { id: typeId } })
 
       expect(type).toMatchObject({
         __typename: 'InterfaceType',

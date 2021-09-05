@@ -1,4 +1,4 @@
-mutation CreateApp($input: CreateAppInput!) {
+mutation TestCreateApp($input: CreateAppInput!) {
   createApp(input: $input) {
     id
   }

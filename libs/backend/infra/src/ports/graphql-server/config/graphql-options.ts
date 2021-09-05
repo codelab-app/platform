@@ -2,10 +2,8 @@ import { AppError } from '@codelab/backend/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { GraphQLError, GraphQLFormattedError } from 'graphql'
-import {
-  GraphqlServerConfig,
-  graphqlServerConfig,
-} from './graphql-server.config'
+import type { GraphqlServerConfig } from './graphql-server.config'
+import { graphqlServerConfig } from './graphql-server.config'
 
 @Injectable()
 export class GraphqlOptions implements GqlOptionsFactory {

@@ -1,6 +1,6 @@
 import { JSONSchemaType } from 'ajv'
 import { createAtomSchema } from '../create-atom'
-import { UpdateAtomMutationVariables } from './UpdateAtom.api.graphql'
+import { UpdateAtomMutationVariables } from './UpdateAtom.api.graphql.gen'
 
 export type UpdateAtomSchema = UpdateAtomMutationVariables['input']['data']
 

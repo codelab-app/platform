@@ -8,18 +8,21 @@ import { AtomType } from '@codelab/shared/enums'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
 import {
-  GetExportAtomsGql,
-  GetExportAtomsQuery,
-} from '../../export-atoms/get-export-atoms.api.graphql'
+  TestGetExportAtomsGql,
+  TestGetExportAtomsQuery,
+} from '../../export-atoms/get-export-atoms.api.graphql.gen'
 import { GetAtomInput } from '../../get-atom/get-atom.input'
 import {
-  GetAtomGql,
-  GetAtomQuery,
-} from '../../get-atom/tests/get-atom.api.graphql'
+  TestGetAtomGql,
+  TestGetAtomQuery,
+} from '../../get-atom/tests/get-atom.api.graphql.gen'
 import { GetAtomsInput } from '../../get-atoms/get-atoms.input'
 import { ImportAtomsInput } from '../import-atoms.input'
 import { exportAtomsData } from './export-atoms.data'
-import { ImportAtomsGql, ImportAtomsMutation } from './import-atoms.api.graphql'
+import {
+  TestImportAtomsGql,
+  TestImportAtomsMutation,
+} from './import-atoms.api.graphql.gen'
 import { importAtomsData } from './import-atoms.data'
 
 const sortedAtoms = (atoms: Array<GetExport__AtomsFragment>) => {
@@ -60,9 +63,9 @@ describe('ImportAtoms', () => {
     }
 
     it('should fail to import atoms', async () => {
-      await domainRequest<ImportAtomsInput, ImportAtomsMutation>(
+      await domainRequest<ImportAtomsInput, TestImportAtomsMutation>(
         guestApp,
-        ImportAtomsGql,
+        TestImportAtomsGql,
         importAtomsInput,
         {
           message: 'Unauthorized',
@@ -75,13 +78,13 @@ describe('ImportAtoms', () => {
     it('should import atoms', async () => {
       await domainRequest<ImportAtomsInput>(
         userApp,
-        ImportAtomsGql,
+        TestImportAtomsGql,
         importAtomsInput,
       )
 
-      const { atom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
         userApp,
-        GetAtomGql,
+        TestGetAtomGql,
         {
           where: { type: AtomType.AntDesignCard },
         },
@@ -102,8 +105,8 @@ describe('ImportAtoms', () => {
        */
       const { getAtoms } = await domainRequest<
         GetAtomsInput,
-        GetExportAtomsQuery
-      >(userApp, GetExportAtomsGql, getAtomsInput)
+        TestGetExportAtomsQuery
+      >(userApp, TestGetExportAtomsGql, getAtomsInput)
 
       /**
        * Let's sort the vertices/edges by name so order isn't considered

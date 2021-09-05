@@ -7,9 +7,9 @@ import {
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
 import {
-  GetTagGraphGql,
-  GetTagGraphQuery,
-} from '../../get-tag-graph/tests/get-tag-graph.api.graphql'
+  TestGetTagGraphGql,
+  TestGetTagGraphQuery,
+} from '../../get-tag-graph/tests/get-tag-graph.api.graphql.gen'
 import { SeedTagTreeService } from '../seed-tag-tree.service'
 
 describe('SeedTagTreeUseCase', () => {
@@ -37,8 +37,8 @@ describe('SeedTagTreeUseCase', () => {
 
       const { getTagGraph: tagGraph } = await domainRequest<
         undefined,
-        GetTagGraphQuery
-      >(app, GetTagGraphGql)
+        TestGetTagGraphQuery
+      >(app, TestGetTagGraphGql)
 
       expect(tagGraph).toMatchObject({
         vertices: [{ name: SeedTagTreeService.__TAG_ROOT }],

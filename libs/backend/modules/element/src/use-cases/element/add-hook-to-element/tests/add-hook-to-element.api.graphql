@@ -1,4 +1,4 @@
-mutation AddHookToElement($input: AddHookToElementInput!) {
+mutation TestAddHookToElement($input: AddHookToElementInput!) {
   addHookToElement(input: $input) {
     id
   }

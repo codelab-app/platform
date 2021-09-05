@@ -9,20 +9,23 @@ import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../../../page.module'
 import { CreatePageInput } from '../../create-page/create-page.input'
 import {
-  CreateAppGql,
-  CreateAppMutation,
-} from '../../create-page/tests/create-app.api.graphql'
+  TestCreateAppGql,
+  TestCreateAppMutation,
+} from '../../create-page/tests/create-app.api.graphql.gen'
 import {
-  CreatePageGql,
-  CreatePageMutation,
-} from '../../create-page/tests/create-page.api.graphql'
+  TestCreatePageGql,
+  TestCreatePageMutation,
+} from '../../create-page/tests/create-page.api.graphql.gen'
 import { GetPageInput } from '../../get-page/get-page.input'
 import {
-  GetPageGql,
-  GetPageQuery,
-} from '../../get-page/tests/get-page.api.graphql'
+  TestGetPageGql,
+  TestGetPageQuery,
+} from '../../get-page/tests/get-page.api.graphql.gen'
 import { UpdatePageInput } from '../update-page.input'
-import { UpdatePageGql, UpdatePageMutation } from './update-page.api.graphql'
+import {
+  TestUpdatePageGql,
+  TestUpdatePageMutation,
+} from './update-page.api.graphql.gen'
 
 describe('UpdatePage', () => {
   let guestApp: INestApplication
@@ -41,9 +44,9 @@ describe('UpdatePage', () => {
       role: Role.USER,
     })
 
-    const result = await domainRequest<CreateAppInput, CreateAppMutation>(
+    const result = await domainRequest<CreateAppInput, TestCreateAppMutation>(
       userApp,
-      CreateAppGql,
+      TestCreateAppGql,
       { name: 'App' },
     )
 
@@ -51,11 +54,10 @@ describe('UpdatePage', () => {
 
     createPageInput = { name: 'My new page', appId }
 
-    const pageResult = await domainRequest<CreatePageInput, CreatePageMutation>(
-      userApp,
-      CreatePageGql,
-      createPageInput,
-    )
+    const pageResult = await domainRequest<
+      CreatePageInput,
+      TestCreatePageMutation
+    >(userApp, TestCreatePageGql, createPageInput)
 
     pageId = pageResult.createPage.id
 
@@ -70,7 +72,7 @@ describe('UpdatePage', () => {
 
   describe('Guest', () => {
     it('should not update page', async () => {
-      await domainRequest(guestApp, UpdatePageGql, updatePageInput, {
+      await domainRequest(guestApp, TestUpdatePageGql, updatePageInput, {
         message: 'Unauthorized',
       })
     })
@@ -78,15 +80,15 @@ describe('UpdatePage', () => {
 
   describe('User', () => {
     it('should update page', async () => {
-      await domainRequest<UpdatePageInput, UpdatePageMutation>(
+      await domainRequest<UpdatePageInput, TestUpdatePageMutation>(
         userApp,
-        UpdatePageGql,
+        TestUpdatePageGql,
         updatePageInput,
       )
 
-      const { page } = await domainRequest<GetPageInput, GetPageQuery>(
+      const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
         userApp,
-        GetPageGql,
+        TestGetPageGql,
         getPageInput,
       )
 

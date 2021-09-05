@@ -1,9 +1,0 @@
-fragment __Lambda on Lambda {
-  id
-  name
-  body
-}
-
-fragment __LambdaPayload on LambdaPayload {
-  payload
-}

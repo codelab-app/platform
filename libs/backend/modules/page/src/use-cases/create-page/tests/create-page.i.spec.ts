@@ -9,12 +9,18 @@ import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../../../page.module'
 import { GetPageInput } from '../../get-page/get-page.input'
 import {
-  GetPageGql,
-  GetPageQuery,
-} from '../../get-page/tests/get-page.api.graphql'
+  TestGetPageGql,
+  TestGetPageQuery,
+} from '../../get-page/tests/get-page.api.graphql.gen'
 import { CreatePageInput } from '../create-page.input'
-import { CreateAppGql, CreateAppMutation } from './create-app.api.graphql'
-import { CreatePageGql, CreatePageMutation } from './create-page.api.graphql'
+import {
+  TestCreateAppGql,
+  TestCreateAppMutation,
+} from './create-app.api.graphql.gen'
+import {
+  TestCreatePageGql,
+  TestCreatePageMutation,
+} from './create-page.api.graphql.gen'
 
 describe('CreatePage', () => {
   let guestApp: INestApplication
@@ -30,9 +36,9 @@ describe('CreatePage', () => {
       role: Role.USER,
     })
 
-    const result = await domainRequest<CreateAppInput, CreateAppMutation>(
+    const result = await domainRequest<CreateAppInput, TestCreateAppMutation>(
       userApp,
-      CreateAppGql,
+      TestCreateAppGql,
       { name: 'App' },
     )
 
@@ -51,7 +57,7 @@ describe('CreatePage', () => {
 
   describe('Guest', () => {
     it('should fail to create a page', async () => {
-      await domainRequest(guestApp, CreatePageGql, createPageInput, {
+      await domainRequest(guestApp, TestCreatePageGql, createPageInput, {
         message: 'Unauthorized',
       })
     })
@@ -60,17 +66,17 @@ describe('CreatePage', () => {
       it('should create a page', async () => {
         const {
           createPage: { id: pageId },
-        } = await domainRequest<CreatePageInput, CreatePageMutation>(
+        } = await domainRequest<CreatePageInput, TestCreatePageMutation>(
           userApp,
-          CreatePageGql,
+          TestCreatePageGql,
           createPageInput,
         )
 
         expect(pageId).toBeDefined()
 
-        const { page } = await domainRequest<GetPageInput, GetPageQuery>(
+        const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
           userApp,
-          GetPageGql,
+          TestGetPageGql,
           { pageId },
         )
 

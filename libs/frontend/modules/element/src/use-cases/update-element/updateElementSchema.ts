@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { UpdateElementMutationVariables } from './UpdateElement.api.graphql'
+import { UpdateElementMutationVariables } from './UpdateElement.api.graphql.gen'
 
 export type UpdateElementSchema = Omit<
   UpdateElementMutationVariables['input']['data'],
