@@ -1,12 +1,18 @@
 import { ApolloClient } from '@apollo/client'
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
-import { ApolloClientTokens, GqlAuthGuard } from '@codelab/backend/infra'
+import {
+  ApolloClientTokens,
+  GqlAuthGuard,
+  Roles,
+  RolesGuard,
+} from '@codelab/backend/infra'
 import {
   GetTypeService,
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
+import { Role } from '@codelab/shared/abstract/core'
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -47,13 +53,15 @@ export class AtomResolver {
   ) {}
 
   @Mutation(() => CreateResponse)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
   createAtom(@Args('input') input: CreateAtomInput) {
     return this.createAtomService.execute(input)
   }
 
   @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
+  @Roles(Role.Admin)
   async deleteAtom(@Args('input') input: DeleteAtomInput) {
     await this.deleteAtomService.execute(input)
   }
@@ -83,6 +91,7 @@ export class AtomResolver {
 
   @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
+  @Roles(Role.Admin)
   async importAtoms(@Args('input') input: ImportAtomsInput) {
     await this.importAtomsService.execute(input)
   }
@@ -101,6 +110,7 @@ export class AtomResolver {
 
   @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
+  @Roles(Role.Admin)
   async updateAtom(@Args('input') input: UpdateAtomInput) {
     await this.updateAtomService.execute(input)
   }

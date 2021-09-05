@@ -1,7 +1,7 @@
+import { Role } from '@codelab/shared/abstract/core'
 import { ExecutionContext } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { JwtPayload } from './interfaces/jwt.interface'
-import { Role } from './role'
 
 export type StringExtractionFn<TInput> = (
   input: TInput,

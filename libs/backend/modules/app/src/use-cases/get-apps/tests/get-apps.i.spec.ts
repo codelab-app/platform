@@ -20,8 +20,8 @@ describe('GetApps', () => {
   let appId: string
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
-    userApp = await setupTestModule([AppModule], { role: Role.USER })
+    guestApp = await setupTestModule([AppModule], { role: Role.Guest })
+    userApp = await setupTestModule([AppModule], { role: Role.User })
 
     const results = await domainRequest<CreateAppInput, TestCreateAppMutation>(
       userApp,

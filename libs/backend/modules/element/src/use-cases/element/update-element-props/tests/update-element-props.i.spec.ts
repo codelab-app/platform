@@ -27,8 +27,8 @@ describe('UpdateElementProps', () => {
   let updatePropsInput: UpdateElementPropsInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], { role: Role.GUEST })
-    userApp = await setupTestModule([ElementModule], { role: Role.USER })
+    guestApp = await setupTestModule([ElementModule], { role: Role.Guest })
+    userApp = await setupTestModule([ElementModule], { role: Role.User })
 
     const results = await domainRequest<
       CreateElementInput,

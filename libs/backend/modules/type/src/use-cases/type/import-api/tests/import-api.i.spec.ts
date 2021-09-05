@@ -14,10 +14,10 @@ describe('ImportApi', () => {
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {
-      role: Role.GUEST,
+      role: Role.Guest,
     })
     userApp = await setupTestModule([TypeModule], {
-      role: Role.USER,
+      role: Role.User,
     })
   })
 

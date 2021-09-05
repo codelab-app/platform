@@ -23,8 +23,8 @@ describe('CreateLambda', () => {
   let userApp: INestApplication
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([LambdaModule], { role: Role.GUEST })
-    userApp = await setupTestModule([LambdaModule], { role: Role.USER })
+    guestApp = await setupTestModule([LambdaModule], { role: Role.Guest })
+    userApp = await setupTestModule([LambdaModule], { role: Role.User })
   })
 
   afterAll(async () => {

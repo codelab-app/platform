@@ -1,13 +1,16 @@
+import { Void } from '@codelab/backend/abstract/types'
 import {
   CurrentUser,
   GqlAuthGuard,
-  GqlRoleGuard,
-  Role,
+  Roles,
+  RolesGuard,
 } from '@codelab/backend/infra'
 import type { User as IUser } from '@codelab/shared/abstract/core'
+import { Role } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { User } from '../domain/user.model'
+import { CreateUserInput, CreateUserService } from '../use-cases/create-user'
 import { DeleteUserInput, DeleteUserService } from '../use-cases/delete-user'
 import { GetUserService } from '../use-cases/get-user'
 import { GetUsersInput, GetUsersService } from '../use-cases/get-users'
@@ -21,6 +24,7 @@ export class UserResolver {
     private deleteUserService: DeleteUserService,
     private getUserService: GetUserService,
     private getUsersService: GetUsersService,
+    private createUserService: CreateUserService,
   ) {}
 
   @Query(() => User)
@@ -30,9 +34,19 @@ export class UserResolver {
   }
 
   @Query(() => [User])
-  @UseGuards(GqlAuthGuard, new GqlRoleGuard([Role.ADMIN]))
+  @Roles(Role.Admin)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   getUsers(@Args('input', { nullable: true }) input?: GetUsersInput) {
     return this.getUsersService.execute(input)
+  }
+
+  @Mutation(() => Void)
+  @UseGuards(GqlAuthGuard)
+  async createUser(
+    @Args('input') input: CreateUserInput,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    await this.createUserService.execute({ input, currentUser })
   }
 
   @Mutation(() => User)

@@ -17,7 +17,7 @@ describe('SeedTagTreeUseCase', () => {
   let seedTagTreeService: SeedTagTreeService
 
   beforeAll(async () => {
-    app = await setupTestModule([TagModule], { role: Role.USER })
+    app = await setupTestModule([TagModule], { role: Role.User })
     seedTagTreeService = app.get(SeedTagTreeService)
   })
 

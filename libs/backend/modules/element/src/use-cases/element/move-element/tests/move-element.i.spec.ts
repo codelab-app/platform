@@ -39,8 +39,8 @@ describe('MoveElement', () => {
   let getRootInput: GetElementGraphInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], { role: Role.GUEST })
-    userApp = await setupTestModule([ElementModule], { role: Role.USER })
+    guestApp = await setupTestModule([ElementModule], { role: Role.Guest })
+    userApp = await setupTestModule([ElementModule], { role: Role.User })
 
     // Create root element
     let results: TestCreateElementMutation

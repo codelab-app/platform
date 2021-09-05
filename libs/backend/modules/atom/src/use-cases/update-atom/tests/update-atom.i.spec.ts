@@ -32,8 +32,8 @@ describe('UpdateAtom', () => {
   let getAtomInput: GetAtomInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
-    userApp = await setupTestModule([AtomModule], { role: Role.USER })
+    guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
+    userApp = await setupTestModule([AtomModule], { role: Role.User })
 
     const results = await domainRequest<
       CreateAtomInput,

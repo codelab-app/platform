@@ -1,10 +1,17 @@
+import { Role } from '@codelab/shared/abstract/core'
+
 export interface CodelabApiClaims {
   email: string
-  roles: Array<string>
+  roles: Array<Role>
 }
 
+export const JWT_CLAIMS = 'https://api.codelab.ai/jwt/claims'
+
 export interface JwtPayload {
-  'https://api.codelab.ai/jwt/claims': CodelabApiClaims
+  /**
+   * These are set programmatically inside Auth0 rules
+   */
+  [JWT_CLAIMS]: CodelabApiClaims
   /** Issuer (who created and signed this token) */
   iss: string
   /** Subject (whom the token refers to) */

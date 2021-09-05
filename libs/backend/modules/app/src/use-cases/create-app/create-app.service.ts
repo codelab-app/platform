@@ -22,9 +22,9 @@ export class CreateAppService extends DgraphCreateUseCase<CreateAppRequest> {
   ): Mutation {
     return jsonMutation<DgraphApp>({
       uid: blandNodeUid,
+      'dgraph.type': [DgraphEntityType.App],
       name,
       ownerId: currentUser.id,
-      'dgraph.type': [DgraphEntityType.App],
     })
   }
 }

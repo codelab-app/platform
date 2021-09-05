@@ -23,8 +23,8 @@ describe('CreateAtom', () => {
   let userApp: INestApplication
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
-    userApp = await setupTestModule([AtomModule], { role: Role.USER })
+    guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
+    userApp = await setupTestModule([AtomModule], { role: Role.User })
   })
 
   afterAll(async () => {

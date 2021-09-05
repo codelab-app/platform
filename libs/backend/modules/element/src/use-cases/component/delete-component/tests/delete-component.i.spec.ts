@@ -57,10 +57,10 @@ describe('DeleteComponent', () => {
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ComponentModule, ElementModule], {
-      role: Role.GUEST,
+      role: Role.Guest,
     })
     userApp = await setupTestModule([ComponentModule, ElementModule], {
-      role: Role.USER,
+      role: Role.User,
     })
 
     // Create component

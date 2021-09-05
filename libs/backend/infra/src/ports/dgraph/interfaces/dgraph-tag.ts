@@ -1,7 +1,7 @@
 import { arrayEquals } from '@codelab/shared/utils'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphEntity, DgraphNode } from './core'
-import { WithOwner } from './dgraph-user'
+import { WithOwner } from './types/with-owner'
 
 export class DgraphTag
   extends DgraphNode<DgraphEntityType.Tag, DgraphTag>

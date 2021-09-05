@@ -29,10 +29,10 @@ describe('GetPage', () => {
 
   beforeAll(async () => {
     guestApp = await setupTestModule([PageModule], {
-      role: Role.GUEST,
+      role: Role.Guest,
     })
     userApp = await setupTestModule([PageModule], {
-      role: Role.USER,
+      role: Role.User,
     })
 
     const result = await domainRequest<CreateAppInput, TestCreateAppMutation>(

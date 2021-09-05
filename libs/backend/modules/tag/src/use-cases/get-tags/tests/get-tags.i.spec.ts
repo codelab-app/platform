@@ -27,8 +27,8 @@ describe('GetTagsUseCase', () => {
   }
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([TagModule], { role: Role.GUEST })
-    userApp = await setupTestModule([TagModule], { role: Role.USER })
+    guestApp = await setupTestModule([TagModule], { role: Role.Guest })
+    userApp = await setupTestModule([TagModule], { role: Role.User })
 
     await domainRequest<CreateTagInput, TestCreateTagMutation>(
       userApp,
