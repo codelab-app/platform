@@ -1,5 +1,5 @@
-query GetApp($input: GetAppInput!) {
+query TestGetApp($input: GetAppInput!) {
   getApp(input: $input) {
-    ...__App
+    ...TestApp
   }
 }

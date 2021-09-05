@@ -26,4 +26,7 @@ export const getElementGraphQuery = () =>
           primitiveKind
           atomType
           api
+          hooks
+          hookType
+          configJson
       `)

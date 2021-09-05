@@ -1,0 +1,3 @@
+mutation TestUpdateElementProps($input: UpdateElementPropsInput!) {
+  updateElementProps(input: $input)
+}

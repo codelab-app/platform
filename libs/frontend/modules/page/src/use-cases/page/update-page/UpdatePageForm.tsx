@@ -1,4 +1,4 @@
-import { AppContext } from '@codelab/frontend/presenter/container'
+import { AppContext } from '@codelab/frontend/modules/app'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   EntityType,
@@ -6,12 +6,10 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  refetchGetPagesQuery,
-  useUpdatePageMutation,
-} from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { refetchGetPagesQuery } from '../get-pages/GetPages.api.graphql.gen'
+import { useUpdatePageMutation } from './UpdatePage.api.graphql.gen'
 import { updatePageSchema, UpdatePageSchemaType } from './updatePageSchema'
 
 type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageSchemaType>

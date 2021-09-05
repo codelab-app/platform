@@ -1,4 +1,5 @@
 import { DgraphAtom } from '@codelab/backend/infra'
+import { HookModel } from '@codelab/backend/modules/hook'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 /**
@@ -14,7 +15,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql'
 @ObjectType()
 export class Element {
   @Field(() => ID)
-  declare id: string
+  id: string
 
   /**
    * Field with same key must have same nullability. GraphQL wise needs to be non-nullable, domain wise is nullable.
@@ -28,27 +29,31 @@ export class Element {
     description:
       'Due to union nullability issue, we have to make this non-nullable. Defaults to atom type',
   })
-  declare name: string
+  name: string
 
   @Field(() => String, { nullable: true })
   /** The CSS string that gets passed down to emotion */
-  declare css?: string | null
+  css?: string | null
 
   /**
    * Resolved by field resolvers
    *
    * We allow null atoms, because then we won't render a container element, just the children
    */
-  declare atom?: DgraphAtom | null
+  atom?: DgraphAtom | null
 
   @Field({ description: 'Props in a json format' })
-  declare props: string
+  props: string
 
-  constructor({ id, name = '', atom, props, css }: Element) {
+  @Field(() => [HookModel])
+  hooks: Array<HookModel>
+
+  constructor({ id, name = '', atom, props, css, hooks }: Element) {
     this.id = id
     this.name = name
     this.atom = atom
     this.css = css
     this.props = props
+    this.hooks = hooks
   }
 }

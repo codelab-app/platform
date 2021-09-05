@@ -1,0 +1,13 @@
+fragment Element on Element {
+  __typename
+  id
+  name
+  css
+  atom {
+    ...Atom
+  }
+  props
+  hooks {
+    ...Hook
+  }
+}

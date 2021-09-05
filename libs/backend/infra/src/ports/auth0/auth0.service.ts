@@ -7,7 +7,8 @@ import {
 import { AuthenticationClient, ManagementClient } from 'auth0'
 import axios from 'axios'
 import process, { kill } from 'process'
-import { Auth0Config, auth0Config } from './config/auth0.config'
+import type { Auth0Config } from './config/auth0.config'
+import { auth0Config } from './config/auth0.config'
 
 @Injectable()
 export class Auth0Service implements OnApplicationShutdown {

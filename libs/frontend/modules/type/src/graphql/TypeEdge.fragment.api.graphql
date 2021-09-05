@@ -1,0 +1,8 @@
+fragment TypeEdge on TypeEdge {
+  source
+  target
+  kind
+  field {
+    ...Field
+  }
+}

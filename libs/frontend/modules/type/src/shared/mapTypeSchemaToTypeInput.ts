@@ -1,14 +1,11 @@
-import {
-  __EnumTypeValueFragment,
-  ElementTypeKind,
-  PrimitiveKind,
-} from '@codelab/shared/codegen/graphql'
+import { ElementTypeKind, PrimitiveKind } from '@codelab/shared/abstract/core'
+import { EnumTypeValueFragment } from '../graphql/EnumTypeValue.fragment.api.graphql.gen'
 
 export interface BaseTypeMutationSchema {
   name: string
   primitiveKind?: PrimitiveKind
   elementKind: ElementTypeKind
-  allowedValues?: Array<__EnumTypeValueFragment>
+  allowedValues?: Array<EnumTypeValueFragment>
 }
 
 export const baseTypeMutationSchemaProperties = {

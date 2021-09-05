@@ -1,1 +1,1 @@
-export * from './PageQueryProvider'
+export * from './PageProvider'

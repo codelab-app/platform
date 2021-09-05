@@ -4,23 +4,25 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateFieldGql,
-  CreateFieldInput,
-  CreateFieldMutation,
-  GetFieldGql,
-  GetFieldInput,
-  GetFieldQuery,
-  UpdateFieldGql,
-  UpdateFieldInput,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
+import { CreateFieldInput } from '../../create-field'
+import {
+  TestCreateFieldGql,
+  TestCreateFieldMutation,
+} from '../../create-field/tests/create-field.api.graphql.gen'
 import {
   createInterfaceType,
   createPrimitiveType,
 } from '../../create-field/tests/create-type-field'
 import { partialCreateFieldInput } from '../../create-field/tests/data'
+import { GetFieldInput } from '../../get-field/get-field.input'
+import {
+  TestGetFieldGql,
+  TestGetFieldQuery,
+} from '../../get-field/tests/get-field.api.graphql.gen'
+import { UpdateFieldInput } from '../update-field.input'
+import { TestUpdateFieldGql } from './update-field.api.graphql.gen'
 
 describe('UpdateField', () => {
   let guestApp: INestApplication
@@ -52,8 +54,8 @@ describe('UpdateField', () => {
     // Create a field
     const { createField } = await domainRequest<
       CreateFieldInput,
-      CreateFieldMutation
-    >(userApp, CreateFieldGql, createFieldInput)
+      TestCreateFieldMutation
+    >(userApp, TestCreateFieldGql, createFieldInput)
 
     fieldId = createField.id
 
@@ -77,7 +79,7 @@ describe('UpdateField', () => {
     it('should not update field', async () => {
       await domainRequest<UpdateFieldInput>(
         guestApp,
-        UpdateFieldGql,
+        TestUpdateFieldGql,
         updateFieldInput,
         { message: 'Unauthorized' },
       )
@@ -88,14 +90,14 @@ describe('UpdateField', () => {
     it('should update field', async () => {
       await domainRequest<UpdateFieldInput>(
         userApp,
-        UpdateFieldGql,
+        TestUpdateFieldGql,
         updateFieldInput,
       )
 
       const { getField: field } = await domainRequest<
         GetFieldInput,
-        GetFieldQuery
-      >(userApp, GetFieldGql, { byId: { fieldId } })
+        TestGetFieldQuery
+      >(userApp, TestGetFieldGql, { byId: { fieldId } })
 
       expect(field).toMatchObject({
         id: fieldId,

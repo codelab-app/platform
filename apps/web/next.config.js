@@ -36,7 +36,7 @@ module.exports = withPlugins(
   withNx({
     cssModules: false,
     webpack5: false,
-    webpack(config, { isServer }) {
+    webpack(config, options) {
       // https://github.com/prettier/prettier/issues/4959#issuecomment-416834237
       config.plugins.push(
         new FilterWarningsPlugin({

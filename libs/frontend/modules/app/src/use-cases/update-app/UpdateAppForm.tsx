@@ -5,17 +5,13 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  CreateAppInput,
-  refetchGetAppsQuery,
-  UpdateAppData,
-  useUpdateAppMutation,
-} from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { updateAppSchema } from './updateAppSchema'
+import { refetchGetAppsQuery } from '../get-apps/GetApps.api.graphql.gen'
+import { useUpdateAppMutation } from './UpdateApp.api.graphql.gen'
+import { UpdateAppSchema, updateAppSchema } from './updateAppSchema'
 
-export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppData>) => {
+export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppSchema>) => {
   const {
     crudModal: {
       reset,
@@ -26,13 +22,13 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppData>) => {
     entityType: EntityType.App,
     useMutationFunction: useUpdateAppMutation,
     mutationOptions: { refetchQueries: [refetchGetAppsQuery()] },
-    mapVariables: ({ name }: CreateAppInput, state) => ({
+    mapVariables: ({ name }: UpdateAppSchema, state) => ({
       input: { data: { name }, id: state.updateId },
     }),
   })
 
   return (
-    <FormUniforms<UpdateAppData>
+    <FormUniforms<UpdateAppSchema>
       onSubmit={handleSubmit}
       schema={updateAppSchema}
       model={{

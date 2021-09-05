@@ -1,0 +1,5 @@
+fragment PrimitiveType on PrimitiveType {
+  id
+  name
+  primitiveKind
+}

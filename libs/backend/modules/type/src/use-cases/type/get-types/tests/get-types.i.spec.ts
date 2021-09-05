@@ -4,16 +4,16 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateTypeGql,
-  CreateTypeInput,
-  CreateTypeMutation,
-  GetTypesGql,
-  GetTypesInput,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
+import { CreateTypeInput } from '../../create-type'
+import {
+  TestCreateTypeGql,
+  TestCreateTypeMutation,
+} from '../../create-type/tests/create-type.api.graphql.gen'
 import { createPrimitiveStringInput } from '../../create-type/tests/create-type.data'
+import { GetTypesInput } from '../get-types.input'
+import { TestGetTypesGql } from './get-types.api.graphql.gen'
 
 describe('GetTypes', () => {
   let guestApp: INestApplication
@@ -31,8 +31,8 @@ describe('GetTypes', () => {
 
     const { createType } = await domainRequest<
       CreateTypeInput,
-      CreateTypeMutation
-    >(userApp, CreateTypeGql, createPrimitiveStringInput)
+      TestCreateTypeMutation
+    >(userApp, TestCreateTypeGql, createPrimitiveStringInput)
 
     typeId = createType.id
     getTypesInput = { byIds: { typeIds: [typeId] } }
@@ -45,9 +45,14 @@ describe('GetTypes', () => {
 
   describe('Guest', () => {
     it('should not get type', async () => {
-      await domainRequest<GetTypesInput>(guestApp, GetTypesGql, getTypesInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest<GetTypesInput>(
+        guestApp,
+        TestGetTypesGql,
+        getTypesInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 

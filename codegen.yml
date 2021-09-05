@@ -1,37 +1,52 @@
 overwrite: true
-hooks:
-  afterAllFileWrite:
-    - yarn prettier --write
-    - yarn eslint --ext ts --fix
+#hooks:
+#  afterAllFileWrite:
+#    - yarn prettier --write
+#    - yarn eslint --ext ts --fix
+
+schema: schema.api.graphql
+documents:
+  - libs/**/modules/**/*.api.graphql
+  - libs/frontend/view/**/*.api.graphql
+  - apps/web/**/*.api.graphql
+  - apps/cli/**/*.api.graphql
+  - apps/web-e2e/**/*.api.graphql
+
+config:
+  # Switch off if have deeply nested issues
+  inlineFragmentTypes: combine
+  documentVariableSuffix: Gql
+  gqlImport: '@apollo/client#gql'
+  skipTypename: true
+  strictScalars: true
+  defaultScalarType: unknown
+  withRefetchFn: true
+  # defaultBaseOptions:
+  #   operationName: 'dgraph'
+  scalars:
+    uuid: string
+    json: Record<string, any>
+    jsonb: Record<string, any>
+    DateTime: string
+    Int64: number
+    _Any: any
+    Void: void
 
 generates:
-  libs/shared/codegen/graphql/src/graphql-client-api.generated.ts:
-    schema: schema.api.graphql
-    documents:
-      - libs/**/modules/**/*.api.graphql
-      - apps/web/**/*.api.graphql
-      - apps/web-e2e/**/*.api.graphql
+  libs/shared/codegen/graphql/src/types.api.graphql.gen.ts:
     plugins:
       - typescript
+    hooks:
+      afterAllFileWrite:
+        - yarn prettier --write
+        - yarn eslint --ext ts --fix
+
+  libs/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .graphql.gen.ts
+      baseTypesPath: ~@codelab/shared/codegen/graphql
+    plugins:
       - typescript-operations
       - typescript-react-apollo
-      - typescript-document-nodes
-    config:
-      # Switch off if have deeply nested issues
-      inlineFragmentTypes: combine
-      documentVariableSuffix: Gql
-      gqlImport: '@apollo/client#gql'
-      skipTypename: true
-      strictScalars: true
-      defaultScalarType: unknown
-      withRefetchFn: true
-      # defaultBaseOptions:
-      #   operationName: 'dgraph'
-      scalars:
-        uuid: string
-        json: Record<string, any>
-        jsonb: Record<string, any>
-        DateTime: string
-        Int64: number
-        _Any: any
-        Void: void
+#      - typescript-document-nodes

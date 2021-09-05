@@ -1,5 +1,5 @@
-query GetTags {
+query TestGetTags {
   getTags {
-    ...Tag
+    ...TestTag
   }
 }

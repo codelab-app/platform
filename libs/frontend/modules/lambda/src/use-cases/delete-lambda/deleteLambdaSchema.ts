@@ -1,7 +1,9 @@
-import { DeleteLambdaInput } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
+import { DeleteLambdaMutationVariables } from './DeleteLambda.api.graphql.gen'
 
-export const deleteLambdaSchema: JSONSchemaType<DeleteLambdaInput> = {
+export type DeleteLambdaSchema = DeleteLambdaMutationVariables['input']
+
+export const deleteLambdaSchema: JSONSchemaType<DeleteLambdaSchema> = {
   title: 'Delete Lambda',
   type: 'object',
   properties: {

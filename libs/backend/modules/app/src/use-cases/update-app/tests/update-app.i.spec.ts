@@ -4,20 +4,24 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateAppGql,
-  CreateAppInput,
-  CreateAppMutation,
-  GetAppGql,
-  GetAppInput,
-  GetAppQuery,
-  UpdateAppGql,
-  UpdateAppInput,
-  UpdateAppMutation,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
+import { CreateAppInput } from '../../create-app/create-app.input'
+import {
+  TestCreateAppGql,
+  TestCreateAppMutation,
+} from '../../create-app/tests/create-app.api.graphql.gen'
 import { createAppInput } from '../../create-app/tests/create-app.data'
+import { GetAppInput } from '../../get-app/get-app.input'
+import {
+  TestGetAppGql,
+  TestGetAppQuery,
+} from '../../get-app/tests/get-app.api.graphql.gen'
+import { UpdateAppInput } from '../update-app.input'
+import {
+  TestUpdateAppGql,
+  TestUpdateAppMutation,
+} from './update-app.api.graphql.gen'
 
 describe('UpdateApp', () => {
   let guestApp: INestApplication
@@ -30,9 +34,9 @@ describe('UpdateApp', () => {
     guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
     userApp = await setupTestModule([AppModule], { role: Role.USER })
 
-    const results = await domainRequest<CreateAppInput, CreateAppMutation>(
+    const results = await domainRequest<CreateAppInput, TestCreateAppMutation>(
       userApp,
-      CreateAppGql,
+      TestCreateAppGql,
       createAppInput,
     )
 
@@ -53,7 +57,7 @@ describe('UpdateApp', () => {
 
   describe('Guest', () => {
     it('should fail to update an app', async () => {
-      await domainRequest(guestApp, UpdateAppGql, updateAppInput, {
+      await domainRequest(guestApp, TestUpdateAppGql, updateAppInput, {
         message: 'Unauthorized',
       })
     })
@@ -61,15 +65,15 @@ describe('UpdateApp', () => {
 
   describe('User', () => {
     it('should update an app', async () => {
-      await domainRequest<UpdateAppInput, UpdateAppMutation>(
+      await domainRequest<UpdateAppInput, TestUpdateAppMutation>(
         userApp,
-        UpdateAppGql,
+        TestUpdateAppGql,
         updateAppInput,
       )
 
-      const { getApp: app } = await domainRequest<GetAppInput, GetAppQuery>(
+      const { getApp: app } = await domainRequest<GetAppInput, TestGetAppQuery>(
         userApp,
-        GetAppGql,
+        TestGetAppGql,
         getAppInput,
       )
 

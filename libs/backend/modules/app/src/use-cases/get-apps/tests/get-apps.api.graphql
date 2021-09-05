@@ -1,5 +1,5 @@
-query GetApps {
+query TestGetApps {
   apps: getApps {
-    ...__App
+    ...TestApp
   }
 }

@@ -1,7 +1,7 @@
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphEntity } from '../interfaces'
 import { DgraphQueryField } from './dgraph-query-field'
-import { DgraphFilter, EqFilter } from './filters'
+import { DgraphFilter, DgraphFilters, EqFilter } from './filters'
 import {
   IBuildable,
   IDgraphQueryFilter,
@@ -110,7 +110,7 @@ export class DgraphQueryBuilder implements IQueryBuilder {
   }
 
   addTypeFilterDirective(typeName: DgraphEntityType) {
-    return this.addFilterDirective(new EqFilter('dgraph.type', typeName))
+    return this.addFilterDirective(DgraphFilters.Type(typeName))
   }
 
   /** Will override all previous filters */

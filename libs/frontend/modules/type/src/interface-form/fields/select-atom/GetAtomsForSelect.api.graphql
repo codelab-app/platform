@@ -1,0 +1,10 @@
+fragment AtomForSelect on Atom {
+  id
+  name
+}
+
+query GetAtomsForSelect {
+  getAtoms {
+    ...AtomForSelect
+  }
+}

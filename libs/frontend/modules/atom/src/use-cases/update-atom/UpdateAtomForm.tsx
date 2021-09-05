@@ -5,16 +5,15 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  CreateAtomInput,
-  refetchGetAtomsQuery,
-  useUpdateAtomMutation,
-} from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { UpdateAtomInput, updateAtomSchema } from './updateAtomSchema'
+import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.api.graphql.gen'
+import { useUpdateAtomMutation } from './UpdateAtom.api.graphql.gen'
+import { UpdateAtomSchema, updateAtomSchema } from './updateAtomSchema'
 
-export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
+export const UpdateAtomForm = (
+  props: UniFormUseCaseProps<UpdateAtomSchema>,
+) => {
   const {
     handleSubmit,
     crudModal: {
@@ -27,13 +26,13 @@ export const UpdateAtomForm = (props: UniFormUseCaseProps<UpdateAtomInput>) => {
     mutationOptions: {
       refetchQueries: [refetchGetAtomsQuery()],
     },
-    mapVariables: ({ name, type }: CreateAtomInput, state) => ({
+    mapVariables: ({ name, type }: UpdateAtomSchema, state) => ({
       input: { id: state.updateId, data: { name, type } },
     }),
   })
 
   return (
-    <FormUniforms<UpdateAtomInput>
+    <FormUniforms<UpdateAtomSchema>
       data-testid="update-atom-form"
       id="update-atom-form"
       onSubmit={handleSubmit}

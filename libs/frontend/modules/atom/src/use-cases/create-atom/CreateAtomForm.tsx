@@ -5,18 +5,19 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  AtomType,
-  CreateAtomInput,
-  refetchGetAtomsQuery,
-  refetchGetTypesQuery,
-  useCreateAtomMutation,
-} from '@codelab/shared/codegen/graphql'
+import { AtomType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { createAtomSchema } from './createAtomSchema'
+import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.api.graphql.gen'
+import { useCreateAtomMutation } from './create-atom.api.graphql.gen'
+import { CreateAtomSchema, createAtomSchema } from './createAtomSchema'
 
-type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomInput>
+type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomSchema>
+
+const atomTypeOptions = Object.keys(AtomType).map((atomType) => ({
+  label: atomType,
+  value: atomType,
+}))
 
 export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   const {
@@ -26,15 +27,15 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
     entityType: EntityType.Atom,
     useMutationFunction: useCreateAtomMutation,
     mutationOptions: {
-      refetchQueries: [refetchGetAtomsQuery(), refetchGetTypesQuery()],
+      refetchQueries: [refetchGetAtomsQuery()],
     },
-    mapVariables: ({ name, type }: CreateAtomInput) => ({
+    mapVariables: ({ name, type }: CreateAtomSchema) => ({
       input: { name, type },
     }),
   })
 
   return (
-    <FormUniforms<CreateAtomInput>
+    <FormUniforms<CreateAtomSchema>
       onSubmit={handleSubmit}
       schema={createAtomSchema}
       onSubmitError={createNotificationHandler({
@@ -49,10 +50,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
         label="Type"
         showSearch={true}
         optionFilterProp="label"
-        options={Object.keys(AtomType).map((atomType) => ({
-          label: atomType,
-          value: atomType,
-        }))}
+        options={atomTypeOptions}
       />
     </FormUniforms>
   )

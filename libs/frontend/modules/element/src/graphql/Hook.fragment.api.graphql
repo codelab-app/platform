@@ -1,0 +1,7 @@
+fragment Hook on Hook {
+  id
+  type
+  config {
+    ...HookConfig
+  }
+}

@@ -1,7 +1,7 @@
-import { useExecuteLambdaMutation } from '@codelab/shared/codegen/graphql'
 import { Empty, Spin } from 'antd'
 import React from 'react'
 import { useQuery } from 'react-query'
+import { useExecuteLambdaForQueryMutation } from './ExecuteLambdaForQuery.api.graphql.gen'
 
 export interface QueryProps {
   queryKey: string
@@ -13,7 +13,7 @@ export interface QueryProps {
 export type QueryData = Array<any>
 
 const useLambdaQuery = (queryKey: string, lambdaId: string) => {
-  const [executeLambdaMutation] = useExecuteLambdaMutation()
+  const [executeLambdaMutation] = useExecuteLambdaForQueryMutation()
 
   return useQuery<QueryData>(queryKey, async (context) => {
     if (!lambdaId) {

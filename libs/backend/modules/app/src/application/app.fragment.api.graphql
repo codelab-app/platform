@@ -1,0 +1,5 @@
+fragment TestApp on App {
+  id
+  name
+  ownerId
+}

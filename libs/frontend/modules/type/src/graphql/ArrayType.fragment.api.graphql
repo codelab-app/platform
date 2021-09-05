@@ -1,0 +1,4 @@
+fragment ArrayType on ArrayType {
+  id
+  name
+}

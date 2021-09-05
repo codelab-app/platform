@@ -1,0 +1,9 @@
+fragment Lambda on Lambda {
+  id
+  name
+  body
+}
+
+fragment LambdaPayload on LambdaPayload {
+  payload
+}

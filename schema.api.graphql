@@ -341,6 +341,40 @@ enum AtomType {
   HtmlSup
 }
 
+type Hook {
+  id: ID!
+  type: HookType!
+  config: HookConfig!
+}
+
+enum HookType {
+  Query
+  GraphqlQuery
+}
+
+union HookConfig = QueryHookConfig
+
+type QueryHookConfig {
+  queryKey: String!
+  url: String
+  body: String
+  method: QueryMethod
+  lambdaId: String
+}
+
+enum QueryMethod {
+  GET
+  DELETE
+  HEAD
+  OPTIONS
+  POST
+  PUT
+  PATCH
+  PURGE
+  LINK
+  UNLINK
+}
+
 type Element {
   id: ID!
 
@@ -352,6 +386,7 @@ type Element {
 
   """Props in a json format"""
   props: String!
+  hooks: [Hook!]!
   atom: Atom
 }
 
@@ -621,6 +656,8 @@ type Mutation {
 
   """Deletes an element and all the descending elements"""
   deleteElement(input: DeleteElementInput!): Void
+  addHookToElement(input: AddHookToElementInput!): CreateResponse!
+  removeHookFromElement(input: RemoveHookFromElementInput!): Void
   createComponent(input: CreateComponentInput!): CreateResponse!
   updateComponent(input: UpdateComponentInput!): Void
   deleteComponent(input: DeleteComponentInput!): Void
@@ -745,6 +782,26 @@ input UpdateElementPropsInput {
 
 input DeleteElementInput {
   elementId: String!
+}
+
+"""Provide exactly one of the config fields"""
+input AddHookToElementInput {
+  elementId: String!
+  queryHook: QueryHookConfigInput
+}
+
+"""Provide either a lambdaId, or body/method/url"""
+input QueryHookConfigInput {
+  queryKey: String!
+  url: String
+  body: String
+  method: QueryMethod
+  lambdaId: String
+}
+
+input RemoveHookFromElementInput {
+  elementId: String!
+  hookId: String!
 }
 
 input CreateComponentInput {

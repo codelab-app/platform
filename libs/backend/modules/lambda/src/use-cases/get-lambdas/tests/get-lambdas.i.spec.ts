@@ -4,16 +4,18 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateLambdaGql,
-  CreateLambdaInput,
-  CreateLambdaMutation,
-  GetLambdasGql,
-  GetLambdasQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
+import { CreateLambdaInput } from '../../create-lambda/create-lambda.input'
+import {
+  TestCreateLambdaGql,
+  TestCreateLambdaMutation,
+} from '../../create-lambda/tests/create-lambda.api.graphql.gen'
 import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
+import {
+  TestGetLambdasGql,
+  TestGetLambdasQuery,
+} from './get-lambdas.api.graphql.gen'
 
 describe('GetLambdas', () => {
   let guestApp: INestApplication
@@ -30,13 +32,13 @@ describe('GetLambdas', () => {
 
     const lambdaA = await domainRequest<
       CreateLambdaInput,
-      CreateLambdaMutation
-    >(userApp, CreateLambdaGql, createLambdaInputA)
+      TestCreateLambdaMutation
+    >(userApp, TestCreateLambdaGql, createLambdaInputA)
 
     const lambdaB = await domainRequest<
       CreateLambdaInput,
-      CreateLambdaMutation
-    >(userApp, CreateLambdaGql, createLambdaInputB)
+      TestCreateLambdaMutation
+    >(userApp, TestCreateLambdaGql, createLambdaInputB)
 
     lambdaAId = lambdaA.createLambda.id
     lambdaBId = lambdaB.createLambda.id
@@ -52,7 +54,7 @@ describe('GetLambdas', () => {
 
   describe('Guest', () => {
     it('should fail to get lambdas', async () => {
-      await domainRequest(guestApp, GetLambdasGql, null, {
+      await domainRequest(guestApp, TestGetLambdasGql, null, {
         message: 'Unauthorized',
       })
     })
@@ -60,9 +62,9 @@ describe('GetLambdas', () => {
 
   describe('User', () => {
     it('should get lambdas', async () => {
-      const results = await domainRequest<null, GetLambdasQuery>(
+      const results = await domainRequest<null, TestGetLambdasQuery>(
         userApp,
-        GetLambdasGql,
+        TestGetLambdasGql,
         null,
       )
 

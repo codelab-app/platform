@@ -19,15 +19,12 @@ export enum EntityType {
   Style = 'Style',
   Library = 'Library',
   Lambda = 'Lambda',
-  // Not used yet \/
   Component = 'Component',
   ComponentElement = 'ComponentElement',
-  ChildComponentElement = 'ChildComponentElement',
-  LinkedComponentElement = 'LinkedComponentElement',
-  //             /\
   Prop = 'Prop',
   Type = 'Type',
   Field = 'Field',
+  Hook = 'Hook',
 }
 
 export interface CRUDModalState {

@@ -3,18 +3,21 @@ import {
   FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import {
+  IElementTypeVertex,
   IJsonSchemaOptions,
-  ITypeTree,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import React from 'react'
-import { SelectComponent } from './fields/SelectComponent'
-import { getSelectElementComponent } from './fields/SelectElement'
-import { SelectLambda } from './fields/SelectLambda'
+import { TypeTreeGraphql } from '../shared'
+import {
+  getSelectElementComponent,
+  SelectComponent,
+  SelectLambda,
+} from './fields'
 
 export interface InterfaceFormProps<TData>
   extends Omit<FormUniformsProps<TData>, 'schema'> {
-  interfaceTree: ITypeTree
+  interfaceTree: TypeTreeGraphql
 }
 
 const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (type) => {
@@ -29,7 +32,9 @@ const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (type) => {
     case TypeKind.ElementType:
       return {
         uniforms: {
-          component: getSelectElementComponent(type.kind),
+          component: getSelectElementComponent(
+            (type as IElementTypeVertex).kind,
+          ),
         },
       }
     case TypeKind.ComponentType:

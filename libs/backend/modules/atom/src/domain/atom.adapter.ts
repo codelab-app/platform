@@ -1,8 +1,8 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphAtom } from '@codelab/backend/infra'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Atom } from './atom.model'
-import { AtomType } from './atom-type.model'
 
 @Injectable()
 export class AtomAdapter extends BaseAdapter<DgraphAtom, Atom> {

@@ -1,4 +1,4 @@
-fragment TagEdge on TagEdge {
+fragment TestTagEdge on TagEdge {
   source
   target
 }

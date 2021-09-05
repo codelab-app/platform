@@ -1,11 +1,11 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import { ImportApiService } from '@codelab/backend/modules/type'
-import { GetExport__AtomsFragment } from '@codelab/shared/codegen/graphql'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { omit, pick } from 'lodash'
-import { AtomType } from '../../domain/atom-type.model'
 import { CreateAtomInput, CreateAtomService } from '../create-atom'
+import { TestGetExport__AtomsFragment } from '../export-atoms/get-export-atoms.api.graphql.gen'
 import { GetAtomService } from '../get-atom'
 import { UpdateAtomService } from '../update-atom'
 import { ImportAtomsInput } from './import-atoms.input'
@@ -32,7 +32,7 @@ export class ImportAtomsService implements UseCasePort<ImportAtomsInput, void> {
     await this.seedAtoms(atoms ?? [])
   }
 
-  private async seedAtoms(atoms: Array<GetExport__AtomsFragment>) {
+  private async seedAtoms(atoms: Array<TestGetExport__AtomsFragment>) {
     return Promise.all(
       atoms.map(async (atom) => {
         this.logger.log(

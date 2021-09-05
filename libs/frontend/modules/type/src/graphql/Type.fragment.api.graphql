@@ -1,0 +1,13 @@
+fragment Type on Type {
+  __typename
+  id
+  name
+  typeKind
+  ...ArrayType
+  ...EnumType
+  ...Interface
+  ...PrimitiveType
+  ...ElementType
+  ...LambdaType
+  ...ComponentType
+}

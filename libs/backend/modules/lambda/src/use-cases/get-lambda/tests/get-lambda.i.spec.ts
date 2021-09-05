@@ -4,17 +4,19 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateLambdaGql,
-  CreateLambdaInput,
-  CreateLambdaMutation,
-  GetLambdaGql,
-  GetLambdaQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
+import { CreateLambdaInput } from '../../create-lambda/create-lambda.input'
+import {
+  TestCreateLambdaGql,
+  TestCreateLambdaMutation,
+} from '../../create-lambda/tests/create-lambda.api.graphql.gen'
 import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 import { GetLambdaInput } from '../get-lambda.input'
+import {
+  TestGetLambdaGql,
+  TestGetLambdaQuery,
+} from './get-lambda.api.graphql.gen'
 
 describe('GetLambda', () => {
   let guestApp: INestApplication
@@ -27,9 +29,9 @@ describe('GetLambda', () => {
 
     const {
       createLambda: { id },
-    } = await domainRequest<CreateLambdaInput, CreateLambdaMutation>(
+    } = await domainRequest<CreateLambdaInput, TestCreateLambdaMutation>(
       userApp,
-      CreateLambdaGql,
+      TestCreateLambdaGql,
       createLambdaInput,
     )
 
@@ -47,7 +49,7 @@ describe('GetLambda', () => {
 
   describe('Guest', () => {
     it('should fail to get a lambda', async () => {
-      await domainRequest(guestApp, GetLambdaGql, getLambdaInput, {
+      await domainRequest(guestApp, TestGetLambdaGql, getLambdaInput, {
         message: 'Unauthorized',
       })
     })
@@ -55,11 +57,10 @@ describe('GetLambda', () => {
 
   describe('User', () => {
     it('should get an existing lambda', async () => {
-      const { getLambda } = await domainRequest<GetLambdaInput, GetLambdaQuery>(
-        userApp,
-        GetLambdaGql,
-        getLambdaInput,
-      )
+      const { getLambda } = await domainRequest<
+        GetLambdaInput,
+        TestGetLambdaQuery
+      >(userApp, TestGetLambdaGql, getLambdaInput)
 
       expect(getLambda).toMatchObject({
         ...createLambdaInput,
@@ -72,9 +73,9 @@ describe('GetLambda', () => {
         lambdaId: '0x3a0123',
       }
 
-      const results = await domainRequest<GetLambdaInput, GetLambdaQuery>(
+      const results = await domainRequest<GetLambdaInput, TestGetLambdaQuery>(
         userApp,
-        GetLambdaGql,
+        TestGetLambdaGql,
         getMissingLambdaInput,
       )
 

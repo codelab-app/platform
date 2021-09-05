@@ -1,10 +1,12 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { CreateTypeInput } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
 import {
   BaseTypeMutationSchema,
   baseTypeMutationSchemaProperties,
 } from '../../../shared'
+import { CreateTypeMutationVariables } from './CreateType.api.graphql.gen'
+
+type CreateTypeInput = CreateTypeMutationVariables['input']
 
 export interface CreateTypeSchema extends BaseTypeMutationSchema {
   kind: TypeKind

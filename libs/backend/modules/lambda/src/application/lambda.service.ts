@@ -1,11 +1,10 @@
+import type { AwsConfig, LambdaPayload } from '@codelab/backend/infra'
 import {
-  AwsConfig,
   awsConfig,
   AwsLambdaService,
   AwsS3Service,
   AwsTokens,
   Lambda,
-  LambdaPayload,
 } from '@codelab/backend/infra'
 import { Inject, Injectable } from '@nestjs/common'
 

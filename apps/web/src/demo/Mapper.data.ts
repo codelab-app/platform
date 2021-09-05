@@ -1,9 +1,4 @@
-import { Graph } from '@codelab/shared/abstract/core'
-import {
-  ComponentFragment,
-  ElementEdgeFragment,
-  ElementFragment,
-} from '@codelab/shared/codegen/graphql'
+import { ElementGraphGraphql } from '@codelab/frontend/modules/element'
 
 /**
  * We first build a page using the web builder, then we copy the data for the renderer.
@@ -30,6 +25,7 @@ export const mapperPageElements = {
       id: '0x249f2',
       name: 'Root element',
       props: '{}',
+      hooks: [],
     },
     {
       __typename: 'Element',
@@ -48,6 +44,7 @@ export const mapperPageElements = {
       id: '0x249f3',
       name: 'Button',
       props: '{ "type": "primary" }',
+      hooks: [],
     },
     {
       __typename: 'Element',
@@ -66,6 +63,7 @@ export const mapperPageElements = {
       id: '0x249f5',
       name: 'Text',
       props: '{ "text": "Click Me!" }',
+      hooks: [],
     },
   ],
-} as Graph<ComponentFragment | ElementFragment, ElementEdgeFragment>
+} as ElementGraphGraphql

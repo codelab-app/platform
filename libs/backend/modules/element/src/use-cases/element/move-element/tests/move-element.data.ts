@@ -1,4 +1,4 @@
-import { CreateElementInput } from '@codelab/shared/codegen/graphql'
+import { CreateElementInput } from '../../create-element'
 
 export const createRootElementInput: CreateElementInput = {
   name: 'Root Element',

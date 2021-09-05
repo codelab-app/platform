@@ -2,13 +2,14 @@ import {
   MoveElementForm,
   MoveElementFormProps,
 } from '@codelab/frontend/modules/element'
-import { ComponentContext } from '@codelab/frontend/presenter/container'
-import { refetchGetComponentElementsQuery } from '@codelab/shared/codegen/graphql'
+import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import React, { useContext } from 'react'
+import { ComponentContext } from '../../../providers/ComponentProvider'
+import { refetchGetComponentElementsQuery } from '../../get-component-elements'
 
 type MoveComponentElementFormProps = Omit<
   MoveElementFormProps,
-  'initialData' | 'parentElementOptions' | 'refetchQueries'
+  'initialData' | 'parentElementOptions' | 'refetchQueries' | 'tree'
 >
 
 /**
@@ -20,31 +21,19 @@ export const MoveComponentElementForm = ({
 }: MoveComponentElementFormProps) => {
   const { component, tree } = useContext(ComponentContext)
 
-  const parentElementOptions = [
-    ...tree.getAllNodes().map((e) => ({
-      label: e.name || e.atom.type,
-      value: e.id,
-    })),
-  ]
-
-  const order = tree.getOrderInParent(elementId)
-  const parent = tree.getParent(elementId)
-
   return (
-    <MoveElementForm
-      initialData={{
-        parentElementId: parent?.id as string,
-        order,
-      }}
-      parentElementOptions={parentElementOptions}
-      refetchQueries={[
-        refetchGetComponentElementsQuery({
-          input: { componentId: component.id },
-        }),
-      ]}
-      elementId={elementId}
-      {...props}
-    />
+    <SelectElementProvider tree={tree}>
+      <MoveElementForm
+        tree={tree}
+        refetchQueries={[
+          refetchGetComponentElementsQuery({
+            input: { componentId: component.id },
+          }),
+        ]}
+        elementId={elementId}
+        {...props}
+      />
+    </SelectElementProvider>
   )
 }
 

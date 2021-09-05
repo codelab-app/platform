@@ -1,10 +1,12 @@
 import {
   CreateElementForm,
   CreateElementFormProps,
+  ElementFragment,
 } from '@codelab/frontend/modules/element'
-import { PageContext } from '@codelab/frontend/presenter/container'
-import { refetchGetPageQuery } from '@codelab/shared/codegen/graphql'
+import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import React, { useContext } from 'react'
+import { PageContext } from '../../../providers'
+import { refetchGetPageQuery } from '../../page/get-page/GetPage.api.graphql.gen'
 
 type CreatePageElementFormProps = Omit<
   CreateElementFormProps,
@@ -22,8 +24,10 @@ export const CreatePageElementForm = (props: CreatePageElementFormProps) => {
   }
 
   const parentElementOptions = [
-    ...tree.getAllNodes().map((element) => ({
-      label: element.name || element.atom.type,
+    ...(
+      tree.getAllVertices(tree.isElementPredicate) as Array<ElementFragment>
+    ).map((element) => ({
+      label: element.name || element.atom?.type,
       value: element.id,
     })),
   ]
@@ -33,11 +37,9 @@ export const CreatePageElementForm = (props: CreatePageElementFormProps) => {
   ]
 
   return (
-    <CreateElementForm
-      parentElementOptions={parentElementOptions}
-      refetchQueries={refetchQueries}
-      {...props}
-    />
+    <SelectElementProvider tree={tree}>
+      <CreateElementForm refetchQueries={refetchQueries} {...props} />
+    </SelectElementProvider>
   )
 }
 

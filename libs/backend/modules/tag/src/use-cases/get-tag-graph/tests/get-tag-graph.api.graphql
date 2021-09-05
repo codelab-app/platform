@@ -1,5 +1,5 @@
-query GetTagGraph {
+query TestGetTagGraph {
   getTagGraph {
-    ...TagGraph
+    ...TestTagGraph
   }
 }

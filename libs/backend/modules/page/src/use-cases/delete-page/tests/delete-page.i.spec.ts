@@ -4,22 +4,25 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import { AppModule } from '@codelab/backend/modules/app'
-import {
-  CreateAppGql,
-  CreateAppInput,
-  CreateAppMutation,
-  CreatePageGql,
-  CreatePageInput,
-  CreatePageMutation,
-  DeletePageGql,
-  DeletePageInput,
-  GetPageGql,
-  GetPageInput,
-  GetPageQuery,
-} from '@codelab/shared/codegen/graphql'
+import { AppModule, CreateAppInput } from '@codelab/backend/modules/app'
 import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../../../page.module'
+import { CreatePageInput } from '../../create-page'
+import {
+  TestCreateAppGql,
+  TestCreateAppMutation,
+} from '../../create-page/tests/create-app.api.graphql.gen'
+import {
+  TestCreatePageGql,
+  TestCreatePageMutation,
+} from '../../create-page/tests/create-page.api.graphql.gen'
+import { GetPageInput } from '../../get-page/get-page.input'
+import {
+  TestGetPageGql,
+  TestGetPageQuery,
+} from '../../get-page/tests/get-page.api.graphql.gen'
+import { DeletePageInput } from '../delete-page.input'
+import { TestDeletePageGql } from './delete-page.api.graphql.gen'
 
 describe('DeletePage', () => {
   let guestApp: INestApplication
@@ -37,19 +40,18 @@ describe('DeletePage', () => {
       role: Role.USER,
     })
 
-    const result = await domainRequest<CreateAppInput, CreateAppMutation>(
+    const result = await domainRequest<CreateAppInput, TestCreateAppMutation>(
       userApp,
-      CreateAppGql,
+      TestCreateAppGql,
       { name: 'App' },
     )
 
     appId = result.createApp.id
 
-    const pageResult = await domainRequest<CreatePageInput, CreatePageMutation>(
-      userApp,
-      CreatePageGql,
-      { name: 'My new page', appId },
-    )
+    const pageResult = await domainRequest<
+      CreatePageInput,
+      TestCreatePageMutation
+    >(userApp, TestCreatePageGql, { name: 'My new page', appId })
 
     pageId = pageResult.createPage.id
 
@@ -64,7 +66,7 @@ describe('DeletePage', () => {
 
   describe('Guest', () => {
     it('should fail to delete a page', async () => {
-      await domainRequest(guestApp, DeletePageGql, deletePageInput, {
+      await domainRequest(guestApp, TestDeletePageGql, deletePageInput, {
         message: 'Unauthorized',
       })
     })
@@ -72,11 +74,11 @@ describe('DeletePage', () => {
 
   describe('User', () => {
     it('should delete a page', async () => {
-      await domainRequest(userApp, DeletePageGql, deletePageInput)
+      await domainRequest(userApp, TestDeletePageGql, deletePageInput)
 
-      await domainRequest<GetPageInput, GetPageQuery>(
+      await domainRequest<GetPageInput, TestGetPageQuery>(
         userApp,
-        GetPageGql,
+        TestGetPageGql,
         getPageInput,
         { message: 'Page not found' },
       )

@@ -151,7 +151,7 @@ commands:
             - dep-cache-staging-
       - run:
           name: 'Install NPM packages'
-          command: yarn install --frozen-lockfile --prod=false --ignore-scripts
+          command: yarn install --frozen-lockfile --prod=false
 
   yarn-install-prod:
     description: 'Install prod dependencies'
@@ -166,7 +166,7 @@ commands:
             - dep-cache-prod-
       - run:
           name: 'Install NPM packages'
-          command: yarn install --frozen-lockfile --prod=true --ignore-scripts
+          command: yarn install --frozen-lockfile --prod=true
       - save_cache:
           name: 'Save cache'
           key: dep-cache-prod-{{ checksum "yarn.lock" }}

@@ -4,19 +4,21 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateElementGql,
-  CreateElementInput,
-  CreateElementMutation,
-  GetElementGraphGql,
-  GetElementGraphInput,
-  GetElementGraphQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
+import { CreateElementInput } from '../../create-element/create-element.input'
+import {
+  TestCreateElementGql,
+  TestCreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql.gen'
 import { createElementInput } from '../../create-element/tests/create-element.data'
+import { GetElementGraphInput } from '../get-element-graph.input'
+import {
+  TestGetElementGraphGql,
+  TestGetElementGraphQuery,
+} from './get-element-graph.api.graphql.gen'
 
-describe('GetElement', () => {
+describe('GetElementGraph', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
   let elementId: string
@@ -28,8 +30,8 @@ describe('GetElement', () => {
 
     const results = await domainRequest<
       CreateElementInput,
-      CreateElementMutation
-    >(userApp, CreateElementGql, createElementInput)
+      TestCreateElementMutation
+    >(userApp, TestCreateElementGql, createElementInput)
 
     elementId = results.createElement.id
     getElementGraphInput = { elementId }
@@ -44,9 +46,14 @@ describe('GetElement', () => {
 
   describe('Guest', () => {
     it('should fail to get an element', async () => {
-      await domainRequest(guestApp, GetElementGraphGql, getElementGraphInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        guestApp,
+        TestGetElementGraphGql,
+        getElementGraphInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
@@ -54,8 +61,8 @@ describe('GetElement', () => {
     it('should get an element', async () => {
       const results = await domainRequest<
         GetElementGraphInput,
-        GetElementGraphQuery
-      >(userApp, GetElementGraphGql, getElementGraphInput)
+        TestGetElementGraphQuery
+      >(userApp, TestGetElementGraphGql, getElementGraphInput)
 
       expect(results?.getElementGraph).toMatchObject({
         vertices: [

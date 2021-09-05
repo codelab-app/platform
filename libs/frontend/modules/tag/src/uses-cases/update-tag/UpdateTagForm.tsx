@@ -5,16 +5,13 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  refetchGetTagsQuery,
-  UpdateTagData,
-  useUpdateTagMutation,
-} from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { updateTagSchema } from './updateTagSchema'
+import { refetchGetTagsQuery } from '../get-tags/GetTags.api.graphql.gen'
+import { useUpdateTagMutation } from './UpdateTag.api.graphql.gen'
+import { UpdateTagSchema, updateTagSchema } from './updateTagSchema'
 
-export const UpdateTagForm = (props: UniFormUseCaseProps<UpdateTagData>) => {
+export const UpdateTagForm = (props: UniFormUseCaseProps<UpdateTagSchema>) => {
   const {
     crudModal: { reset },
     handleSubmit,
@@ -22,13 +19,13 @@ export const UpdateTagForm = (props: UniFormUseCaseProps<UpdateTagData>) => {
     entityType: EntityType.Tag,
     useMutationFunction: useUpdateTagMutation,
     mutationOptions: { refetchQueries: [refetchGetTagsQuery()] },
-    mapVariables: ({ name }: UpdateTagData, state) => ({
+    mapVariables: ({ name }: UpdateTagSchema, state) => ({
       input: { data: { name }, id: state.updateId },
     }),
   })
 
   return (
-    <FormUniforms<UpdateTagData>
+    <FormUniforms<UpdateTagSchema>
       onSubmit={handleSubmit}
       schema={updateTagSchema}
       onSubmitError={createNotificationHandler({

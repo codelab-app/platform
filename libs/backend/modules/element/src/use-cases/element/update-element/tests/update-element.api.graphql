@@ -1,0 +1,3 @@
+mutation TestUpdateElement($input: UpdateElementInput!) {
+  updateElement(input: $input)
+}

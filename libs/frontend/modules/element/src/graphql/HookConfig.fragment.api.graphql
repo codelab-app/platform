@@ -1,0 +1,4 @@
+fragment HookConfig on HookConfig {
+  __typename
+  ...QueryHookConfig
+}

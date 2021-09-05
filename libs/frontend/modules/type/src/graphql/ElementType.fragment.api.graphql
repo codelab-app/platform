@@ -1,0 +1,5 @@
+fragment ElementType on ElementType {
+  id
+  name
+  kind
+}

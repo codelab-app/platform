@@ -7,13 +7,11 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  refetchGetTypeGraphQuery,
-  useDeleteFieldMutation,
-} from '@codelab/shared/codegen/graphql'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { InterfaceContext } from '../../types'
+import { refetchGetTypeGraphQuery } from '../../types/get-type-graph/GetTypeGraph.api.graphql.gen'
+import { useDeleteFieldMutation } from './DeleteField.api.graphql.gen'
 
 type DeleteFieldFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 

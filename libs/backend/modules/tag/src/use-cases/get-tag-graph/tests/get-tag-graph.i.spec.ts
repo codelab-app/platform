@@ -4,17 +4,19 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateTagGql,
-  CreateTagInput,
-  CreateTagMutation,
-  GetTagGql,
-  GetTagInput,
-  GetTagQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
+import { CreateTagInput } from '../../create-tag/create-tag.input'
+import {
+  TestCreateTagGql,
+  TestCreateTagMutation,
+} from '../../create-tag/tests/create-tag.api.graphql.gen'
 import { createTagInput } from '../../create-tag/tests/create-tag.data'
+import { GetTagInput } from '../../get-tag/get-tag.input'
+import {
+  TestGetTagGql,
+  TestGetTagQuery,
+} from '../../get-tag/tests/get-tag.api.graphql.gen'
 
 describe('GetTagUseCase', () => {
   let guestApp: INestApplication
@@ -27,9 +29,9 @@ describe('GetTagUseCase', () => {
 
     const {
       createTag: { id: tagId },
-    } = await domainRequest<CreateTagInput, CreateTagMutation>(
+    } = await domainRequest<CreateTagInput, TestCreateTagMutation>(
       userApp,
-      CreateTagGql,
+      TestCreateTagGql,
       createTagInput,
     )
 
@@ -47,7 +49,7 @@ describe('GetTagUseCase', () => {
 
   describe('Guest', () => {
     it('should fail to get a Tag', async () => {
-      await domainRequest(guestApp, GetTagGql, getTagInput, {
+      await domainRequest(guestApp, TestGetTagGql, getTagInput, {
         message: 'Unauthorized',
       })
     })
@@ -55,9 +57,9 @@ describe('GetTagUseCase', () => {
 
   describe('User', () => {
     it('should get a Tag', async () => {
-      const { getTag: tag } = await domainRequest<GetTagInput, GetTagQuery>(
+      const { getTag: tag } = await domainRequest<GetTagInput, TestGetTagQuery>(
         userApp,
-        GetTagGql,
+        TestGetTagGql,
         getTagInput,
       )
 

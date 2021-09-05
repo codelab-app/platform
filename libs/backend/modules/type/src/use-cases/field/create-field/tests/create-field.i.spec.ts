@@ -4,16 +4,18 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateFieldGql,
-  CreateFieldInput,
-  CreateFieldMutation,
-  GetFieldGql,
-  GetFieldInput,
-  GetFieldQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
+import { GetFieldInput } from '../../get-field/get-field.input'
+import {
+  TestGetFieldGql,
+  TestGetFieldQuery,
+} from '../../get-field/tests/get-field.api.graphql.gen'
+import { CreateFieldInput } from '../create-field.input'
+import {
+  TestCreateFieldGql,
+  TestCreateFieldMutation,
+} from './create-field.api.graphql.gen'
 import { createInterfaceType, createPrimitiveType } from './create-type-field'
 import { partialCreateFieldInput } from './data'
 
@@ -53,7 +55,7 @@ describe('CreateField', () => {
     it('should not create field', async () => {
       await domainRequest<CreateFieldInput>(
         guestApp,
-        CreateFieldGql,
+        TestCreateFieldGql,
         createFieldInput,
         { message: 'Unauthorized' },
       )
@@ -64,16 +66,16 @@ describe('CreateField', () => {
     it('should create field', async () => {
       const {
         createField: { id: fieldId },
-      } = await domainRequest<CreateFieldInput, CreateFieldMutation>(
+      } = await domainRequest<CreateFieldInput, TestCreateFieldMutation>(
         userApp,
-        CreateFieldGql,
+        TestCreateFieldGql,
         createFieldInput,
       )
 
       const { getField: field } = await domainRequest<
         GetFieldInput,
-        GetFieldQuery
-      >(userApp, GetFieldGql, { byId: { fieldId } })
+        TestGetFieldQuery
+      >(userApp, TestGetFieldGql, { byId: { fieldId } })
 
       expect(field).toMatchObject({
         name: createFieldInput.name,

@@ -3,9 +3,9 @@ import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   DeleteUserButton,
   DeleteUserModal,
+  useGetUsersQuery,
 } from '@codelab/frontend/modules/user'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
-import { useGetUsersQuery } from '@codelab/shared/codegen/graphql'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import React from 'react'

@@ -1,24 +1,6 @@
 import { AntdDesignApi } from '@codelab/backend/infra'
 import { createIfMissing } from '@codelab/backend/shared/utils'
-import {
-  CreateFieldGql,
-  CreateFieldInput,
-  CreateFieldMutation,
-  CreateFieldMutationVariables,
-  CreateTypeGql,
-  CreateTypeInput,
-  CreateTypeMutation,
-  CreateTypeMutationVariables,
-  GetFieldGql,
-  GetFieldInput,
-  GetFieldQuery,
-  GetFieldQueryVariables,
-  GetTypeGql,
-  GetTypeQuery,
-  GetTypeQueryVariables,
-  TypeKind,
-  TypeRef,
-} from '@codelab/shared/codegen/graphql'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { GraphQLClient } from 'graphql-request'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
@@ -27,6 +9,32 @@ import {
   CustomAtomApiFactoryInput,
 } from '../utils/customAtomApi'
 import { AtomSeeder } from './atom-seeder'
+import {
+  Seeder_CreateFieldGql,
+  Seeder_CreateFieldMutation,
+  Seeder_CreateFieldMutationVariables,
+} from './graphql/CreateField.api.graphql.gen'
+import {
+  Seeder_CreateTypeGql,
+  Seeder_CreateTypeMutation,
+  Seeder_CreateTypeMutationVariables,
+} from './graphql/CreateType.api.graphql.gen'
+import {
+  Seeder_GetFieldGql,
+  Seeder_GetFieldQuery,
+  Seeder_GetFieldQueryVariables,
+} from './graphql/GetField.api.graphql.gen'
+import {
+  Seeder_GetTypeGql,
+  Seeder_GetTypeQuery,
+  Seeder_GetTypeQueryVariables,
+} from './graphql/GetType.api.graphql.gen'
+import {
+  GetFieldInput,
+  SeedFieldInput,
+  SeedTypeInput,
+  TypeRef,
+} from './types/type'
 
 /**
  * Handle seeding of types
@@ -48,7 +56,7 @@ export class TypeSeeder {
    * Returns a map of all input type names and their ids
    */
   private async seedAllIfMissing(
-    inputs: Array<CreateTypeInput>,
+    inputs: Array<SeedTypeInput>,
   ): Promise<Map<BaseTypeName, string>> {
     const results = await Promise.all(
       inputs.map((input) =>
@@ -66,7 +74,7 @@ export class TypeSeeder {
    * Checks if a type with the same name exists, if not - creates it
    * Returns the id in both cases
    */
-  private async seedTypeIfNotExisting(input: CreateTypeInput): Promise<string> {
+  private async seedTypeIfNotExisting(input: SeedTypeInput): Promise<string> {
     return createIfMissing(
       () => this.getTypeByName(input.name),
       () => this.createType(input),
@@ -102,11 +110,11 @@ export class TypeSeeder {
     }
   }
 
-  private async createFieldIfMissing(input: CreateFieldInput): Promise<string> {
+  private async createFieldIfMissing(input: SeedFieldInput): Promise<string> {
     try {
       return await this.createField(input)
-    } catch (e) {
-      if (!e.toString().includes('already exists')) {
+    } catch (e: any) {
+      if (!e?.toString().includes('already exists')) {
         throw e
       }
 
@@ -157,25 +165,31 @@ export class TypeSeeder {
 
   private getTypeByName(name: string) {
     return this.client
-      .request<GetTypeQuery, GetTypeQueryVariables>(GetTypeGql, {
-        input: { where: { name } },
-      })
+      .request<Seeder_GetTypeQuery, Seeder_GetTypeQueryVariables>(
+        Seeder_GetTypeGql,
+        {
+          input: { where: { name } },
+        },
+      )
       .then((r) => r?.getType?.id)
   }
 
   private getField(input: GetFieldInput) {
     return this.client
-      .request<GetFieldQuery, GetFieldQueryVariables>(GetFieldGql, {
-        input,
-      })
+      .request<Seeder_GetFieldQuery, Seeder_GetFieldQueryVariables>(
+        Seeder_GetFieldGql,
+        {
+          input,
+        },
+      )
       .then((r) => r?.getField)
   }
 
-  private async createType(typeInput: CreateTypeInput) {
+  private async createType(typeInput: SeedTypeInput) {
     const createResponse = await this.client.request<
-      CreateTypeMutation,
-      CreateTypeMutationVariables
-    >(CreateTypeGql, {
+      Seeder_CreateTypeMutation,
+      Seeder_CreateTypeMutationVariables
+    >(Seeder_CreateTypeGql, {
       input: typeInput,
     })
 
@@ -190,11 +204,11 @@ export class TypeSeeder {
     return createResponse.createType.id
   }
 
-  private async createField(input: CreateFieldInput) {
+  private async createField(input: SeedFieldInput) {
     const createResponse = await this.client.request<
-      CreateFieldMutation,
-      CreateFieldMutationVariables
-    >(CreateFieldGql, { input })
+      Seeder_CreateFieldMutation,
+      Seeder_CreateFieldMutationVariables
+    >(Seeder_CreateFieldGql, { input })
 
     if (!createResponse?.createField) {
       throw new Error(`Something went wrong while creating field ${input.name}`)

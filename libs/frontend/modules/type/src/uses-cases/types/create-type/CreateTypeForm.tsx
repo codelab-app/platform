@@ -7,13 +7,11 @@ import {
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
 import { TypeKind } from '@codelab/shared/abstract/core'
-import {
-  refetchGetTypesQuery,
-  useCreateTypeMutation,
-} from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
+import { refetchGetTypesQuery } from '../get-types/GetTypes.api.graphql.gen'
+import { useCreateTypeMutation } from './CreateType.api.graphql.gen'
 import {
   CreateTypeSchema,
   createTypeSchema,

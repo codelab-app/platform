@@ -1,15 +1,11 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
-import {
-  defaultRenderContext,
-  Renderer,
-} from '@codelab/frontend/modules/builder'
-import { PageDetailHeader } from '@codelab/frontend/modules/page'
+import { Renderer } from '@codelab/frontend/modules/builder'
 import {
   PageContext,
-  RenderProvider,
+  PageDetailHeader,
   withPageQueryProvider,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/modules/page'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
 import Head from 'next/head'
@@ -27,16 +23,12 @@ const PageRenderer: CodelabPage = () => {
   }
 
   return (
-    <RenderProvider
-      context={defaultRenderContext({
-        tree,
-      })}
-    >
+    <>
       <Head>
         <title>{page.name}</title>
       </Head>
-      <Renderer />
-    </RenderProvider>
+      <Renderer tree={tree} />
+    </>
   )
 }
 

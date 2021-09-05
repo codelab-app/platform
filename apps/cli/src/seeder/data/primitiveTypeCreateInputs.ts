@@ -1,10 +1,7 @@
-import {
-  CreateTypeInput,
-  PrimitiveKind,
-  TypeKind,
-} from '@codelab/shared/codegen/graphql'
+import { PrimitiveKind, TypeKind } from '@codelab/shared/abstract/core'
+import { SeedTypeInput } from '../models'
 
-export const primitiveTypeCreateInputs: Array<CreateTypeInput> = [
+export const primitiveTypeCreateInputs: Array<SeedTypeInput> = [
   {
     name: PrimitiveKind.String,
     typeKind: TypeKind.PrimitiveType,

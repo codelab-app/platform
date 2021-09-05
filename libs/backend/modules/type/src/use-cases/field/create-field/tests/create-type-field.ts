@@ -1,13 +1,15 @@
 import { domainRequest } from '@codelab/backend/infra'
-import {
-  CreateFieldGql,
-  CreateFieldInput,
-  CreateFieldMutation,
-  CreateTypeGql,
-  CreateTypeInput,
-  CreateTypeMutation,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
+import { CreateTypeInput } from '../../../type/create-type'
+import {
+  TestCreateTypeGql,
+  TestCreateTypeMutation,
+} from '../../../type/create-type/tests/create-type.api.graphql.gen'
+import { CreateFieldInput } from '../create-field.input'
+import {
+  TestCreateFieldGql,
+  TestCreateFieldMutation,
+} from './create-field.api.graphql.gen'
 import {
   createInterfaceTypeInput,
   createPrimitiveTypeInput,
@@ -17,9 +19,9 @@ import {
 export const createPrimitiveType = async (nestApp: INestApplication) => {
   const {
     createType: { id: primitiveTypeId },
-  } = await domainRequest<CreateTypeInput, CreateTypeMutation>(
+  } = await domainRequest<CreateTypeInput, TestCreateTypeMutation>(
     nestApp,
-    CreateTypeGql,
+    TestCreateTypeGql,
     createPrimitiveTypeInput,
   )
 
@@ -29,9 +31,9 @@ export const createPrimitiveType = async (nestApp: INestApplication) => {
 export const createInterfaceType = async (nestApp: INestApplication) => {
   const {
     createType: { id: interfaceTypeId },
-  } = await domainRequest<CreateTypeInput, CreateTypeMutation>(
+  } = await domainRequest<CreateTypeInput, TestCreateTypeMutation>(
     nestApp,
-    CreateTypeGql,
+    TestCreateTypeGql,
     createInterfaceTypeInput,
   )
 
@@ -55,9 +57,9 @@ export const createField = async (nestApp: INestApplication) => {
   // Create a field
   const {
     createField: { id: fieldId },
-  } = await domainRequest<CreateFieldInput, CreateFieldMutation>(
+  } = await domainRequest<CreateFieldInput, TestCreateFieldMutation>(
     nestApp,
-    CreateFieldGql,
+    TestCreateFieldGql,
     createFieldInput,
   )
 

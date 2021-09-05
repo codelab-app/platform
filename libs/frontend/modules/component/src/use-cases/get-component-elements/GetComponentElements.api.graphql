@@ -1,0 +1,11 @@
+query GetComponentElements($input: GetComponentInput!) {
+  getComponentElements(input: $input) {
+    vertices {
+      ...ComponentVertex
+      ...Element
+    }
+    edges {
+      ...ElementEdge
+    }
+  }
+}

@@ -3,15 +3,15 @@ import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   Builder,
   defaultRenderContext,
+  MainPaneBuilderComponent,
+  MetaPaneBuilderComponent,
 } from '@codelab/frontend/modules/builder'
 import {
-  ComponentDetailMainPane,
-  ComponentDetailMetaPane,
+  ComponentContext,
+  withComponentQueryProvider,
 } from '@codelab/frontend/modules/component'
 import {
-  ComponentContext,
   RenderProvider,
-  withComponentQueryProvider,
   withEditorProvider,
 } from '@codelab/frontend/presenter/container'
 import {
@@ -35,7 +35,7 @@ const ComponentDetail: CodelabPage = () => {
         <title>{component.name} | Codelab</title>
       </Head>
 
-      <Builder />
+      <Builder tree={tree} />
     </RenderProvider>
   )
 }
@@ -45,8 +45,8 @@ export const getServerSideProps = withPageAuthRequired()
 ComponentDetail.Template = withEditorProvider(
   withComponentQueryProvider(DashboardTemplate),
 )
-ComponentDetail.MainPane = ComponentDetailMainPane
-ComponentDetail.MetaPane = ComponentDetailMetaPane
+ComponentDetail.MainPane = MainPaneBuilderComponent
+ComponentDetail.MetaPane = MetaPaneBuilderComponent
 ComponentDetail.Header = null
 ComponentDetail.SidebarNavigation = SidebarNavigation
 

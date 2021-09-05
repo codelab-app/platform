@@ -38,6 +38,9 @@
       "@codelab/backend/modules/element": [
         "libs/backend/modules/element/src/index.ts"
       ],
+      "@codelab/backend/modules/hook": [
+        "libs/backend/modules/hook/src/index.ts"
+      ],
       "@codelab/backend/modules/lambda": [
         "libs/backend/modules/lambda/src/index.ts"
       ],
@@ -56,6 +59,9 @@
       ],
       "@codelab/backend/shared/utils": [
         "libs/backend/shared/utils/src/index.ts"
+      ],
+      "@codelab/frontend/abstract/core": [
+        "libs/frontend/abstract/core/src/index.ts"
       ],
       "@codelab/frontend/abstract/props": [
         "libs/frontend/abstract/props/src/index.ts"
@@ -150,10 +156,10 @@
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
       ],
+      "@codelab/shared/core": ["libs/shared/core/src/index.ts"],
       "@codelab/shared/codegen/graphql": [
         "libs/shared/codegen/graphql/src/index.ts"
       ],
-      "@codelab/shared/core": ["libs/shared/core/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
@@ -162,5 +168,5 @@
       "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp", "dist"]
+  "exclude": ["node_modules", "tmp", "dist", ".gqlcodegen"]
 }

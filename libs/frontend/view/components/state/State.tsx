@@ -1,6 +1,6 @@
-import { useExecuteLambdaMutation } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { useRecoilState } from 'recoil'
+import { useExecuteLambdaForStateMutation } from './ExecuteLambdaForState.api.graphql.gen'
 import { stateAtomFamily } from './stateAtomFamily'
 import { StateProps } from './StateProps'
 
@@ -37,7 +37,7 @@ export const State = ({
   children,
   ...props
 }: React.PropsWithChildren<StateProps> & Record<string, any>) => {
-  const [executeLambda] = useExecuteLambdaMutation()
+  const [executeLambda] = useExecuteLambdaForStateMutation()
   const [state, setState] = useRecoilState(stateAtomFamily(identifier))
 
   const childProps: Record<string, any> = {

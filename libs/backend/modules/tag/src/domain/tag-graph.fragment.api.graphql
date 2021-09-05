@@ -1,8 +1,8 @@
-fragment TagGraph on TagGraph {
+fragment TestTagGraph on TagGraph {
   vertices {
-    ...Tag
+    ...TestTag
   }
   edges {
-    ...TagEdge
+    ...TestTagEdge
   }
 }

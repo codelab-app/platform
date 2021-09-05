@@ -4,19 +4,21 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateTypeGql,
-  CreateTypeInput,
-  CreateTypeMutation,
-  DeleteTypeGql,
-  DeleteTypeInput,
-  GetTypeGql,
-  GetTypeInput,
-  GetTypeQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
+import { CreateTypeInput } from '../../create-type'
+import {
+  TestCreateTypeGql,
+  TestCreateTypeMutation,
+} from '../../create-type/tests/create-type.api.graphql.gen'
 import { createPrimitiveStringInput } from '../../create-type/tests/create-type.data'
+import { GetTypeInput } from '../../get-type/get-type.input'
+import {
+  TestGetTypeGql,
+  TestGetTypeQuery,
+} from '../../get-type/tests/get-type.api.graphql.gen'
+import { DeleteTypeInput } from '../delete-type.input'
+import { TestDeleteTypeGql } from './delete-type.api.graphql.gen'
 
 describe('DeleteType', () => {
   let guestApp: INestApplication
@@ -34,8 +36,8 @@ describe('DeleteType', () => {
 
     const { createType } = await domainRequest<
       CreateTypeInput,
-      CreateTypeMutation
-    >(userApp, CreateTypeGql, createPrimitiveStringInput)
+      TestCreateTypeMutation
+    >(userApp, TestCreateTypeGql, createPrimitiveStringInput)
 
     typeId = createType.id
     deleteTypeInput = { typeId }
@@ -50,7 +52,7 @@ describe('DeleteType', () => {
     it('should not delete type', async () => {
       await domainRequest<DeleteTypeInput>(
         guestApp,
-        DeleteTypeGql,
+        TestDeleteTypeGql,
         deleteTypeInput,
         { message: 'Unauthorized' },
       )
@@ -66,13 +68,13 @@ describe('DeleteType', () => {
     it('should delete type', async () => {
       await domainRequest<DeleteTypeInput>(
         userApp,
-        DeleteTypeGql,
+        TestDeleteTypeGql,
         deleteTypeInput,
       )
 
-      const type = await domainRequest<GetTypeInput, GetTypeQuery>(
+      const type = await domainRequest<GetTypeInput, TestGetTypeQuery>(
         userApp,
-        GetTypeGql,
+        TestGetTypeGql,
         { where: { id: typeId } },
       )
 

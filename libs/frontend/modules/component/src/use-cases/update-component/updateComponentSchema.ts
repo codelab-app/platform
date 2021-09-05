@@ -1,8 +1,8 @@
-import { UpdateComponentData } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
+import { UpdateComponentMutationVariables } from './UpdateComponent.api.graphql.gen'
 
-// Won't update appId for now, but might be useful in the future?
-export type UpdateComponentSchemaType = UpdateComponentData
+export type UpdateComponentSchemaType =
+  UpdateComponentMutationVariables['input']['updateData']
 
 export const updateComponentSchema: JSONSchemaType<UpdateComponentSchemaType> =
   {

@@ -1,0 +1,4 @@
+fragment Tag on Tag {
+  id
+  name
+}

@@ -4,20 +4,24 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateElementGql,
-  CreateElementInput,
-  CreateElementMutation,
-  DeleteElementGql,
-  DeleteElementInput,
-  DeleteElementMutation,
-  GetElementGql,
-  GetElementInput,
-  GetElementQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
+import { CreateElementInput } from '../../create-element'
+import {
+  TestCreateElementGql,
+  TestCreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql.gen'
 import { createElementInput } from '../../create-element/tests/create-element.data'
+import { GetElementInput } from '../../get-element/get-element.input'
+import {
+  TestGetElementGql,
+  TestGetElementQuery,
+} from '../../get-element/tests/get-element.api.graphql.gen'
+import { DeleteElementInput } from '../delete-element.input'
+import {
+  TestDeleteElementGql,
+  TestDeleteElementMutation,
+} from './delete-element.api.graphql.gen'
 
 describe('DeleteElement', () => {
   let guestApp: INestApplication
@@ -32,8 +36,8 @@ describe('DeleteElement', () => {
 
     const results = await domainRequest<
       CreateElementInput,
-      CreateElementMutation
-    >(userApp, CreateElementGql, createElementInput)
+      TestCreateElementMutation
+    >(userApp, TestCreateElementGql, createElementInput)
 
     elementId = results.createElement.id
     deleteElementInput = { elementId }
@@ -49,7 +53,7 @@ describe('DeleteElement', () => {
 
   describe('Guest', () => {
     it('should fail to delete an element', async () => {
-      await domainRequest(guestApp, DeleteElementGql, deleteElementInput, {
+      await domainRequest(guestApp, TestDeleteElementGql, deleteElementInput, {
         message: 'Unauthorized',
       })
     })
@@ -57,17 +61,17 @@ describe('DeleteElement', () => {
 
   describe('User', () => {
     it('should delete an element', async () => {
-      await domainRequest<DeleteElementInput, DeleteElementMutation>(
+      await domainRequest<DeleteElementInput, TestDeleteElementMutation>(
         userApp,
-        DeleteElementGql,
+        TestDeleteElementGql,
         deleteElementInput,
       )
 
       // Should fail to get the deleted element
       const { getElement } = await domainRequest<
         GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, getElementInput)
+        TestGetElementQuery
+      >(userApp, TestGetElementGql, getElementInput)
 
       expect(getElement).toBeNull()
     })

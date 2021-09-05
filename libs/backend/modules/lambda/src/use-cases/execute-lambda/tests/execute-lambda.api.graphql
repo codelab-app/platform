@@ -1,5 +1,5 @@
-mutation ExecuteLambda($input: ExecuteLambdaInput!) {
+mutation TestExecuteLambda($input: ExecuteLambdaInput!) {
   executeLambda(input: $input) {
-    ...__LambdaPayload
+    ...TestLambdaPayload
   }
 }

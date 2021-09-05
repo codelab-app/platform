@@ -4,16 +4,15 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateTagGql,
-  CreateTagInput,
-  CreateTagMutation,
-  GetTagsGql,
-  GetTagsQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
+import { CreateTagInput } from '../../create-tag/create-tag.input'
+import {
+  TestCreateTagGql,
+  TestCreateTagMutation,
+} from '../../create-tag/tests/create-tag.api.graphql.gen'
 import { SeedTagTreeService } from '../../seed-tag-tree'
+import { TestGetTagsGql, TestGetTagsQuery } from './get-tags.api.graphql.gen'
 
 describe('GetTagsUseCase', () => {
   let guestApp: INestApplication
@@ -31,14 +30,14 @@ describe('GetTagsUseCase', () => {
     guestApp = await setupTestModule([TagModule], { role: Role.GUEST })
     userApp = await setupTestModule([TagModule], { role: Role.USER })
 
-    await domainRequest<CreateTagInput, CreateTagMutation>(
+    await domainRequest<CreateTagInput, TestCreateTagMutation>(
       userApp,
-      CreateTagGql,
+      TestCreateTagGql,
       tagA,
     )
-    await domainRequest<CreateTagInput, CreateTagMutation>(
+    await domainRequest<CreateTagInput, TestCreateTagMutation>(
       userApp,
-      CreateTagGql,
+      TestCreateTagGql,
       tagB,
     )
   })
@@ -50,9 +49,9 @@ describe('GetTagsUseCase', () => {
 
   describe('Guest', () => {
     it('should fail to create a Tag', async () => {
-      await domainRequest<unknown, GetTagsQuery>(
+      await domainRequest<unknown, TestGetTagsQuery>(
         guestApp,
-        GetTagsGql,
+        TestGetTagsGql,
         {},
         {
           message: 'Unauthorized',
@@ -63,9 +62,9 @@ describe('GetTagsUseCase', () => {
 
   describe('User', () => {
     it('should get Tags', async () => {
-      const { getTags } = await domainRequest<unknown, GetTagsQuery>(
+      const { getTags } = await domainRequest<unknown, TestGetTagsQuery>(
         userApp,
-        GetTagsGql,
+        TestGetTagsGql,
       )
 
       expect(getTags).toMatchObject([

@@ -5,16 +5,16 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import {
-  DeleteTagsInput,
-  refetchGetTagsQuery,
-  useDeleteTagsMutation,
-} from '@codelab/shared/codegen/graphql'
+import { DeleteTagsInput } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { deleteTagsSchema } from './deleteTagsSchema'
+import { refetchGetTagsQuery } from '../get-tags/GetTags.api.graphql.gen'
+import { useDeleteTagsMutation } from './DeleteTags.api.graphql.gen'
+import { DeleteTagsSchema, deleteTagsSchema } from './deleteTagsSchema'
 
-export const DeleteTagsForm = (props: UniFormUseCaseProps<DeleteTagsInput>) => {
+export const DeleteTagsForm = (
+  props: UniFormUseCaseProps<DeleteTagsSchema>,
+) => {
   const {
     crudModal: { reset, state },
     handleSubmit,
@@ -22,7 +22,7 @@ export const DeleteTagsForm = (props: UniFormUseCaseProps<DeleteTagsInput>) => {
     entityType: EntityType.Tag,
     useMutationFunction: useDeleteTagsMutation,
     mutationOptions: { refetchQueries: [refetchGetTagsQuery()] },
-    mapVariables: ({ ids }: DeleteTagsInput) => ({ input: { ids } }),
+    mapVariables: ({ ids }: DeleteTagsSchema) => ({ input: { ids } }),
   })
 
   return (

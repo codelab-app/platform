@@ -4,19 +4,20 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateAppGql,
-  CreateAppInput,
-  CreateAppMutation,
-  CreatePageGql,
-  CreatePageInput,
-  CreatePageMutation,
-  GetPagesGql,
-  GetPagesInput,
-  GetPagesQuery,
-} from '@codelab/shared/codegen/graphql'
+import { CreateAppInput } from '@codelab/backend/modules/app'
 import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../../../page.module'
+import { CreatePageInput } from '../../create-page/create-page.input'
+import {
+  TestCreateAppGql,
+  TestCreateAppMutation,
+} from '../../create-page/tests/create-app.api.graphql.gen'
+import {
+  TestCreatePageGql,
+  TestCreatePageMutation,
+} from '../../create-page/tests/create-page.api.graphql.gen'
+import { GetPagesInput } from '../get-pages.input'
+import { TestGetPagesGql, TestGetPagesQuery } from './get-pages.api.graphql.gen'
 
 describe('GetPages', () => {
   let guestApp: INestApplication
@@ -34,9 +35,9 @@ describe('GetPages', () => {
       role: Role.USER,
     })
 
-    const result = await domainRequest<CreateAppInput, CreateAppMutation>(
+    const result = await domainRequest<CreateAppInput, TestCreateAppMutation>(
       userApp,
-      CreateAppGql,
+      TestCreateAppGql,
       { name: 'App' },
     )
 
@@ -44,11 +45,10 @@ describe('GetPages', () => {
 
     createPageInput = { name: 'My new page', appId }
 
-    const pageResult = await domainRequest<CreatePageInput, CreatePageMutation>(
-      userApp,
-      CreatePageGql,
-      createPageInput,
-    )
+    const pageResult = await domainRequest<
+      CreatePageInput,
+      TestCreatePageMutation
+    >(userApp, TestCreatePageGql, createPageInput)
 
     pageId = pageResult.createPage.id
 
@@ -62,7 +62,7 @@ describe('GetPages', () => {
 
   describe('Guest', () => {
     it('should not get pages', async () => {
-      await domainRequest(guestApp, GetPagesGql, getPagesInput, {
+      await domainRequest(guestApp, TestGetPagesGql, getPagesInput, {
         message: 'Unauthorized',
       })
     })
@@ -70,9 +70,9 @@ describe('GetPages', () => {
 
   describe('User', () => {
     it('should get pages', async () => {
-      const { pages } = await domainRequest<GetPagesInput, GetPagesQuery>(
+      const { pages } = await domainRequest<GetPagesInput, TestGetPagesQuery>(
         userApp,
-        GetPagesGql,
+        TestGetPagesGql,
         getPagesInput,
       )
 

@@ -1,0 +1,5 @@
+mutation Seeder_CreateField($input: CreateFieldInput!) {
+  createField(input: $input) {
+    id
+  }
+}

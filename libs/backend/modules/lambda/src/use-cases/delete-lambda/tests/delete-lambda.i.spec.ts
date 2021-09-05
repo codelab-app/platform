@@ -4,20 +4,24 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateLambdaGql,
-  CreateLambdaInput,
-  CreateLambdaMutation,
-  DeleteLambdaGql,
-  DeleteLambdaInput,
-  DeleteLambdaMutation,
-  GetLambdaGql,
-  GetLambdaQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
+import { CreateLambdaInput } from '../../create-lambda/create-lambda.input'
+import {
+  TestCreateLambdaGql,
+  TestCreateLambdaMutation,
+} from '../../create-lambda/tests/create-lambda.api.graphql.gen'
 import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 import { GetLambdaInput } from '../../get-lambda'
+import {
+  TestGetLambdaGql,
+  TestGetLambdaQuery,
+} from '../../get-lambda/tests/get-lambda.api.graphql.gen'
+import { DeleteLambdaInput } from '../delete-lambda.input'
+import {
+  TestDeleteLambdaGql,
+  TestDeleteLambdaMutation,
+} from './delete-lambda.api.graphql.gen'
 
 describe('DeleteLambda', () => {
   let guestApp: INestApplication
@@ -30,8 +34,8 @@ describe('DeleteLambda', () => {
 
     const { createLambda } = await domainRequest<
       CreateLambdaInput,
-      CreateLambdaMutation
-    >(userApp, CreateLambdaGql, createLambdaInput)
+      TestCreateLambdaMutation
+    >(userApp, TestCreateLambdaGql, createLambdaInput)
 
     deleteLambdaInput = {
       lambdaId: createLambda.id,
@@ -47,7 +51,7 @@ describe('DeleteLambda', () => {
 
   describe('Guest', () => {
     it('should fail to delete a lambda', async () => {
-      await domainRequest(guestApp, DeleteLambdaGql, deleteLambdaInput, {
+      await domainRequest(guestApp, TestDeleteLambdaGql, deleteLambdaInput, {
         message: 'Unauthorized',
       })
     })
@@ -59,17 +63,16 @@ describe('DeleteLambda', () => {
         lambdaId: deleteLambdaInput.lambdaId,
       }
 
-      await domainRequest<DeleteLambdaInput, DeleteLambdaMutation>(
+      await domainRequest<DeleteLambdaInput, TestDeleteLambdaMutation>(
         userApp,
-        DeleteLambdaGql,
+        TestDeleteLambdaGql,
         deleteLambdaInput,
       )
 
-      const { getLambda } = await domainRequest<GetLambdaInput, GetLambdaQuery>(
-        userApp,
-        GetLambdaGql,
-        getLambdaInput,
-      )
+      const { getLambda } = await domainRequest<
+        GetLambdaInput,
+        TestGetLambdaQuery
+      >(userApp, TestGetLambdaGql, getLambdaInput)
 
       expect(getLambda).toBeNull()
     })

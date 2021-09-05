@@ -1,0 +1,8 @@
+query TestGetField($input: GetFieldInput!) {
+  getField(input: $input) {
+    id
+    key
+    name
+    description
+  }
+}

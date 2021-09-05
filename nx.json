@@ -53,6 +53,9 @@
     "backend-modules-element": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },
+    "backend-modules-hook": {
+      "tags": ["layer:domain:backend", "scope:backend"]
+    },
     "backend-modules-lambda": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },
@@ -76,6 +79,9 @@
     },
     "cli": {
       "tags": ["scope:backend"]
+    },
+    "frontend-abstract-core": {
+      "tags": []
     },
     "frontend-abstract-props": {
       "tags": ["type:abstract", "scope:frontend"]
@@ -153,7 +159,7 @@
       "tags": ["scope:shared", "type:abstract"]
     },
     "shared-codegen-graphql": {
-      "tags": ["scope:codegen", "scope:shared"]
+      "tags": ["scope:shared", "type:abstract"]
     },
     "shared-core": {
       "tags": ["scope:shared"]

@@ -1,5 +1,5 @@
-query GetLambda($input: GetLambdaInput!) {
+query TestGetLambda($input: GetLambdaInput!) {
   getLambda(input: $input) {
-    ...__Lambda
+    ...TestLambda
   }
 }

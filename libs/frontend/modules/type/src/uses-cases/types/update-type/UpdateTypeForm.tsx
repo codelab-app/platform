@@ -6,17 +6,17 @@ import {
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
 import { TypeKind } from '@codelab/shared/abstract/core'
+import React, { useCallback, useEffect, useRef } from 'react'
+import { AutoField, AutoFields } from 'uniforms-antd'
+import { TypeFragment } from '../../../graphql/Type.fragment.api.graphql.gen'
+import { typenameToTypeKind } from '../../../type-tree'
+import { refetchGetTypesQuery } from '../get-types/GetTypes.api.graphql.gen'
+import { TypeModels } from '../TypeModels'
 import {
-  __TypeFragment,
-  refetchGetTypesQuery,
   useUpdateEnumTypeMutation,
   useUpdatePrimitiveTypeMutation,
   useUpdateTypeMutation,
-} from '@codelab/shared/codegen/graphql'
-import React, { useCallback, useEffect, useRef } from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
-import { typenameToTypeKind } from '../../../type-tree'
-import { TypeModels } from '../TypeModels'
+} from './UpdateType.api.graphql.gen'
 import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
 
 export const UpdateTypeForm = (
@@ -109,7 +109,7 @@ export const UpdateTypeForm = (
     ? typenameToTypeKind(state?.metadata?.__typename)
     : null
 
-  const type = state.metadata as __TypeFragment
+  const type = state.metadata as TypeFragment
 
   const modelRef = useRef({
     name: type?.name,

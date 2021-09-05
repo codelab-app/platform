@@ -4,26 +4,30 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  AtomType,
-  GetAtomGql,
-  GetAtomInput,
-  GetAtomQuery,
-  GetAtomsInput,
-  GetExport__AtomsFragment,
-  GetExportAtomsGql,
-  GetExportAtomsQuery,
-  ImportAtomsGql,
-  ImportAtomsInput,
-  ImportAtomsMutation,
-} from '@codelab/shared/codegen/graphql'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { merge } from 'lodash'
 import { AtomModule } from '../../../atom.module'
+import {
+  TestGetExport__AtomsFragment,
+  TestGetExportAtomsGql,
+  TestGetExportAtomsQuery,
+} from '../../export-atoms/get-export-atoms.api.graphql.gen'
+import { GetAtomInput } from '../../get-atom/get-atom.input'
+import {
+  TestGetAtomGql,
+  TestGetAtomQuery,
+} from '../../get-atom/tests/get-atom.api.graphql.gen'
+import { GetAtomsInput } from '../../get-atoms/get-atoms.input'
+import { ImportAtomsInput } from '../import-atoms.input'
 import { exportAtomsData } from './export-atoms.data'
+import {
+  TestImportAtomsGql,
+  TestImportAtomsMutation,
+} from './import-atoms.api.graphql.gen'
 import { importAtomsData } from './import-atoms.data'
 
-const sortedAtoms = (atoms: Array<GetExport__AtomsFragment>) => {
+const sortedAtoms = (atoms: Array<TestGetExport__AtomsFragment>) => {
   return atoms?.map((atom) => {
     return merge(atom, {
       api: {
@@ -61,9 +65,9 @@ describe('ImportAtoms', () => {
     }
 
     it('should fail to import atoms', async () => {
-      await domainRequest<ImportAtomsInput, ImportAtomsMutation>(
+      await domainRequest<ImportAtomsInput, TestImportAtomsMutation>(
         guestApp,
-        ImportAtomsGql,
+        TestImportAtomsGql,
         importAtomsInput,
         {
           message: 'Unauthorized',
@@ -76,25 +80,25 @@ describe('ImportAtoms', () => {
     it('should import atoms', async () => {
       await domainRequest<ImportAtomsInput>(
         userApp,
-        ImportAtomsGql,
+        TestImportAtomsGql,
         importAtomsInput,
       )
 
-      const { getAtom } = await domainRequest<GetAtomInput, GetAtomQuery>(
+      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
         userApp,
-        GetAtomGql,
+        TestGetAtomGql,
         {
           where: { type: AtomType.AntDesignCard },
         },
       )
 
-      if (!getAtom) {
+      if (!atom) {
         throw new Error('Atom not found')
       }
 
       const getAtomsInput: GetAtomsInput = {
         where: {
-          ids: [getAtom.id],
+          ids: [atom.id],
         },
       }
 
@@ -103,8 +107,8 @@ describe('ImportAtoms', () => {
        */
       const { getAtoms } = await domainRequest<
         GetAtomsInput,
-        GetExportAtomsQuery
-      >(userApp, GetExportAtomsGql, getAtomsInput)
+        TestGetExportAtomsQuery
+      >(userApp, TestGetExportAtomsGql, getAtomsInput)
 
       /**
        * Let's sort the vertices/edges by name so order isn't considered

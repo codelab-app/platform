@@ -5,25 +5,22 @@ import {
   UniFormUseCaseProps,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
-import {
-  Lambda,
-  refetchGetLambdasQuery,
-  UpdateLambdaInput,
-  useGetLambdaQuery,
-  useUpdateLambdaMutation,
-} from '@codelab/shared/codegen/graphql'
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
+import { LambdaFragment } from '../../graphql/Lambda.fragment.api.graphql.gen'
 import { lambdaState } from '../../state'
-import { updateLambdaSchema } from './updateLambdaSchema'
+import { useGetLambdaQuery } from '../get-lambda/GetLambda.api.graphql.gen'
+import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.api.graphql.gen'
+import { useUpdateLambdaMutation } from './UpdateLambda.api.graphql.gen'
+import { UpdateLambdaSchema, updateLambdaSchema } from './updateLambdaSchema'
 
 type UpdateLambdaFormProps = {
-  lambda: Lambda
+  lambda: LambdaFragment
 }
 
 export const UpdateLambdaForm = (
-  props: UniFormUseCaseProps<UpdateLambdaInput>,
+  props: UniFormUseCaseProps<UpdateLambdaSchema>,
 ) => {
   const {
     reset,
@@ -45,7 +42,7 @@ export const UpdateLambdaForm = (
     },
   })
 
-  const onSubmit = (submitData: UpdateLambdaInput) => {
+  const onSubmit = (submitData: UpdateLambdaSchema) => {
     return mutate({
       variables: {
         input: {
@@ -67,7 +64,7 @@ export const UpdateLambdaForm = (
   }
 
   return (
-    <FormUniforms<UpdateLambdaInput>
+    <FormUniforms<UpdateLambdaSchema>
       onSubmit={onSubmit}
       schema={updateLambdaSchema}
       onSubmitError={createNotificationHandler({

@@ -4403,6 +4403,17 @@
     "@graphql-codegen/plugin-helpers" "^2.1.0"
     tslib "~2.3.0"
 
+"@graphql-codegen/near-operation-file-preset@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/near-operation-file-preset/-/near-operation-file-preset-2.1.3.tgz#394c0a94b0527f5caa8239a6d6659411622023f0"
+  integrity sha512-sfdHWs8ldQwfXbTDRE+k/CXnbXNlmeglI9mKxfnVIiowcOocxidIKMv3oEj095A5g2h2+CZLTWwwWXjjEE7oUg==
+  dependencies:
+    "@graphql-codegen/add" "^3.1.0"
+    "@graphql-codegen/plugin-helpers" "^2.1.1"
+    "@graphql-codegen/visitor-plugin-common" "2.2.0"
+    parse-filepath "^1.0.2"
+    tslib "~2.3.0"
+
 "@graphql-codegen/plugin-helpers@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/plugin-helpers/-/plugin-helpers-2.1.0.tgz#f7a22bd00a36c27b3d2b1a01dd331d3e36a3dd1c"
@@ -28967,15 +28978,15 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@4.3.5:
-  version "4.3.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.3.5.tgz#4d1c37cc16e893973c45a06886b7113234f119f4"
-  integrity sha512-DqQgihaQ9cUrskJo9kIyW/+g0Vxsk8cDtZ52a3NGh0YNTfpUSArXSohyUGnvbPazEPLu398C0UxmKSOrPumUzA==
-
 typescript@^3.9.5, typescript@^3.9.7:
   version "3.9.10"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
   integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
+
+typescript@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.2.tgz#6d618640d430e3569a1dfb44f7d7e600ced3ee86"
+  integrity sha512-gzP+t5W4hdy4c+68bfcv0t400HVJMMd2+H9B7gae1nQlBzCqvrXX+6GL/b3GAgyTH966pzrZ70/fRjwAtZksSQ==
 
 ua-parser-js@^0.7.18:
   version "0.7.28"

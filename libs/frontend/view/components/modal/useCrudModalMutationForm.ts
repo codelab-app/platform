@@ -17,7 +17,11 @@ export interface UseMutationCrudFormOptions<
   TSubmitData,
 > {
   entityType: EntityType
-  mutationOptions?: Apollo.MutationHookOptions<TMutation, TMutationVariables>
+  mutationOptions?:
+    | Apollo.MutationHookOptions<TMutation, TMutationVariables>
+    | ((
+        crudModalState: CRUDModalState,
+      ) => Apollo.MutationHookOptions<TMutation, TMutationVariables>)
   mutationFunctionOptions?: Omit<
     MutationFunctionOptions<TMutation, TMutationVariables>,
     'variables'
@@ -86,7 +90,12 @@ export const useCrudModalMutationForm = <
       ? useMutationFunction
       : useMutationFunction.provider(crudModal.state)
 
-  const [mutate, mutationData] = mutationFn(mutationOptions)
+  const [mutate, mutationData] = mutationFn(
+    typeof mutationOptions === 'function'
+      ? mutationOptions(crudModal.state)
+      : mutationOptions,
+  )
+
   const { loading } = mutationData
 
   useEffect(() => {

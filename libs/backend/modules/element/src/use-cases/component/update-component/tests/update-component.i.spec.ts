@@ -4,21 +4,25 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateComponentGql,
-  CreateComponentInput,
-  CreateComponentMutation,
-  GetComponentGql,
-  GetComponentInput,
-  GetComponentQuery,
-  UpdateComponentGql,
-  UpdateComponentInput,
-  UpdateComponentMutation,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ComponentModule } from '../../../../component.module'
 import { ElementModule } from '../../../../element.module'
+import { CreateComponentInput } from '../../create-component'
+import {
+  TestCreateComponentGql,
+  TestCreateComponentMutation,
+} from '../../create-component/tests/create-component.api.graphql.gen'
 import { createComponentInput } from '../../create-component/tests/create-component.data'
+import { GetComponentInput } from '../../get-component'
+import {
+  TestGetComponentGql,
+  TestGetComponentQuery,
+} from '../../get-component/tests/get-component.api.graphql.gen'
+import { UpdateComponentInput } from '../update-component.input'
+import {
+  TestUpdateComponentGql,
+  TestUpdateComponentMutation,
+} from './update-component.api.graphql.gen'
 
 describe('UpdateComponent', () => {
   let guestApp: INestApplication
@@ -36,8 +40,8 @@ describe('UpdateComponent', () => {
 
     const results = await domainRequest<
       CreateComponentInput,
-      CreateComponentMutation
-    >(userApp, CreateComponentGql, createComponentInput)
+      TestCreateComponentMutation
+    >(userApp, TestCreateComponentGql, createComponentInput)
 
     componentId = results.createComponent.id
 
@@ -58,24 +62,29 @@ describe('UpdateComponent', () => {
 
   describe('Guest', () => {
     it('should fail to update an component', async () => {
-      await domainRequest(guestApp, UpdateComponentGql, updateComponentInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        guestApp,
+        TestUpdateComponentGql,
+        updateComponentInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
     it('should update an component', async () => {
-      await domainRequest<UpdateComponentInput, UpdateComponentMutation>(
+      await domainRequest<UpdateComponentInput, TestUpdateComponentMutation>(
         userApp,
-        UpdateComponentGql,
+        TestUpdateComponentGql,
         updateComponentInput,
       )
 
       const { getComponent: component } = await domainRequest<
         GetComponentInput,
-        GetComponentQuery
-      >(userApp, GetComponentGql, { componentId })
+        TestGetComponentQuery
+      >(userApp, TestGetComponentGql, { componentId })
 
       expect(component).toMatchObject({
         ...updateComponentInput.updateData,

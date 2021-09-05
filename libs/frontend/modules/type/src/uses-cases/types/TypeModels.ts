@@ -1,9 +1,8 @@
-import { __TypeFragment } from '@codelab/shared/codegen/graphql'
-
+import { TypeFragment } from '../../graphql/Type.fragment.api.graphql.gen'
 /**
  * Those types make sure this enum matches the type names returned from the API
  */
-type TypeModelName = __TypeFragment['__typename']
+type TypeModelName = TypeFragment['__typename']
 
 type TypeModelsType = {
   [K in TypeModelName]: K

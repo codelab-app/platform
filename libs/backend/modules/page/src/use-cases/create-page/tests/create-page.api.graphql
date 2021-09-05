@@ -1,0 +1,5 @@
+mutation TestCreatePage($input: CreatePageInput!) {
+  createPage(input: $input) {
+    id
+  }
+}

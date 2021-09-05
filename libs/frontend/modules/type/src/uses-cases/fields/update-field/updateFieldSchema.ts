@@ -1,4 +1,4 @@
-import { createFieldSchema, CreateFieldSchemaObject } from '../create-field'
+import { CreateFieldSchema, createFieldSchema } from '../create-field'
 
-export type UpdateFieldSchemaType = CreateFieldSchemaObject
+export type UpdateFieldSchema = CreateFieldSchema
 export const updateFieldSchema = createFieldSchema

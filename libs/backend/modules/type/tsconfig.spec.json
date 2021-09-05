@@ -8,7 +8,8 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "jsx": "react"
   },
   "include": [
     "**/*.ts",

@@ -2,6 +2,7 @@ import { arrayEquals } from '@codelab/shared/utils'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphEntity, DgraphNode, DgraphTree } from './core'
 import { DgraphAtom } from './dgraph-atom'
+import { DgraphHook } from './dgraph-hook'
 
 export interface DgraphElement
   extends DgraphNode<DgraphEntityType.Element, DgraphElement> {
@@ -16,6 +17,7 @@ export interface DgraphElement
   atom?: DgraphAtom
   props?: string
   css?: string
+  hooks?: Array<DgraphHook>
 }
 
 export const isDgraphElement = (

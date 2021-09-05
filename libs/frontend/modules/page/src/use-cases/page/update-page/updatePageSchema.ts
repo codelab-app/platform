@@ -1,8 +1,11 @@
-import { UpdatePageData } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
+import { UpdatePageMutationVariables } from './UpdatePage.api.graphql.gen'
 
 // Won't update appId for now, but might be useful in the future?
-export type UpdatePageSchemaType = Omit<UpdatePageData, 'appId'>
+export type UpdatePageSchemaType = Omit<
+  UpdatePageMutationVariables['input']['updateData'],
+  'appId'
+>
 
 export const updatePageSchema: JSONSchemaType<UpdatePageSchemaType> = {
   title: 'Update Page Input',

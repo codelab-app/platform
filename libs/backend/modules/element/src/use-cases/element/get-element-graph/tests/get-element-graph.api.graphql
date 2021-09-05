@@ -1,5 +1,27 @@
-query GetElementGraph($input: GetElementGraphInput!) {
+query TestGetElementGraph($input: GetElementGraphInput!) {
   getElementGraph(input: $input) {
-    ...ElementGraph
+    edges {
+      order
+      source
+      target
+    }
+    vertices {
+      ... on Element {
+        id
+        name
+        css
+        props
+        atom {
+          id
+          name
+          type
+        }
+      }
+
+      ... on Component {
+        id
+        name
+      }
+    }
   }
 }

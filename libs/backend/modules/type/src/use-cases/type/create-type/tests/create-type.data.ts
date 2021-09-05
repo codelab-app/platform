@@ -1,8 +1,5 @@
-import {
-  CreateTypeInput,
-  PrimitiveKind,
-  TypeKind,
-} from '@codelab/shared/codegen/graphql'
+import { PrimitiveKind, TypeKind } from '@codelab/shared/abstract/core'
+import { CreateTypeInput } from '../create-type.input'
 
 export const createPrimitiveStringInput: CreateTypeInput = {
   name: 'String',

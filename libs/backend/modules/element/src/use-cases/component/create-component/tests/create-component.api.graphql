@@ -1,0 +1,5 @@
+mutation TestCreateComponent($input: CreateComponentInput!) {
+  createComponent(input: $input) {
+    id
+  }
+}

@@ -1,0 +1,5 @@
+query GetLambdas {
+  getLambdas {
+    ...Lambda
+  }
+}

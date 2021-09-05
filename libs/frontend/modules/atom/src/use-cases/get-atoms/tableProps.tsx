@@ -1,3 +1,3 @@
-import { __AtomFragment } from '@codelab/shared/codegen/graphql'
+import { AtomFragment } from '../../Atom.fragment.api.graphql.gen'
 
-export type Record = __AtomFragment
+export type Record = AtomFragment

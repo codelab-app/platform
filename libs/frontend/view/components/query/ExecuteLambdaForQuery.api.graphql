@@ -1,0 +1,5 @@
+mutation ExecuteLambdaForQuery($input: ExecuteLambdaInput!) {
+  executeLambda(input: $input) {
+    payload
+  }
+}

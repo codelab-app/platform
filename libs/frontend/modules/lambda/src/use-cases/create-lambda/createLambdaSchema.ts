@@ -1,10 +1,8 @@
 import { MonacoField } from '@codelab/frontend/view/components'
 import { JSONSchemaType } from 'ajv'
+import { CreateLambdaMutationVariables } from './CreateLambda.api.graphql.gen'
 
-export type CreateLambdaInput = {
-  name: string
-  body: string
-}
+export type CreateLambdaInput = CreateLambdaMutationVariables['input']
 
 export const createLambdaSchema: JSONSchemaType<CreateLambdaInput> = {
   title: 'Create Lambda Input',

@@ -4,16 +4,18 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateElementGql,
-  CreateElementInput,
-  CreateElementMutation,
-  GetElementGql,
-  GetElementInput,
-  GetElementQuery,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
+import { GetElementInput } from '../../get-element/get-element.input'
+import {
+  TestGetElementGql,
+  TestGetElementQuery,
+} from '../../get-element/tests/get-element.api.graphql.gen'
+import { CreateElementInput } from '../create-element.input'
+import {
+  TestCreateElementGql,
+  TestCreateElementMutation,
+} from './create-element.api.graphql.gen'
 import { createElementInput } from './create-element.data'
 
 describe('CreateElement', () => {
@@ -32,7 +34,7 @@ describe('CreateElement', () => {
 
   describe('Guest', () => {
     it('should fail to create an element', async () => {
-      await domainRequest(guestApp, CreateElementGql, createElementInput, {
+      await domainRequest(guestApp, TestCreateElementGql, createElementInput, {
         message: 'Unauthorized',
       })
     })
@@ -42,9 +44,9 @@ describe('CreateElement', () => {
     it('should create an element', async () => {
       const {
         createElement: { id: elementId },
-      } = await domainRequest<CreateElementInput, CreateElementMutation>(
+      } = await domainRequest<CreateElementInput, TestCreateElementMutation>(
         userApp,
-        CreateElementGql,
+        TestCreateElementGql,
         createElementInput,
       )
 
@@ -52,8 +54,8 @@ describe('CreateElement', () => {
 
       const { getElement: element } = await domainRequest<
         GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, { elementId })
+        TestGetElementQuery
+      >(userApp, TestGetElementGql, { elementId })
 
       expect(element).toMatchObject({ ...createElementInput, id: elementId })
     })

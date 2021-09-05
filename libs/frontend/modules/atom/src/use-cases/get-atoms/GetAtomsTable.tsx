@@ -7,18 +7,16 @@ import {
   useColumnSearchProps,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
-import {
-  __AtomFragment,
-  useGetAtomsQuery,
-} from '@codelab/shared/codegen/graphql'
 import { Space, Spin, Table, TableColumnProps, Tag } from 'antd'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
+import { AtomFragment } from '../../Atom.fragment.api.graphql.gen'
 import { ExportAtomsButton } from '../export-atoms/ExportAtomsButton'
 import { ImportAtomsUpload } from '../import-atoms'
+import { useGetAtomsQuery } from './GetAtoms.api.graphql.gen'
 
-export type Record = __AtomFragment
+export type Record = AtomFragment
 
 export const GetAtomsTable = () => {
   const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Atom)

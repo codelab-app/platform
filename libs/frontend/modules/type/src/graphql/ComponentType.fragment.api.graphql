@@ -1,0 +1,4 @@
+fragment ComponentType on ComponentType {
+  id
+  name
+}

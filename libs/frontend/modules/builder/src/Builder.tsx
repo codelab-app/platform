@@ -1,9 +1,7 @@
-import { ElementTree } from '@codelab/frontend/abstract/props'
 import {
-  RenderProvider,
-  useRenderContext,
-} from '@codelab/frontend/presenter/container'
-import { ElementFragment } from '@codelab/shared/codegen/graphql'
+  ElementTreeGraphql,
+  isElement,
+} from '@codelab/frontend/modules/element'
 import styled from '@emotion/styled'
 import React, { MouseEventHandler } from 'react'
 import tw from 'twin.macro'
@@ -11,6 +9,10 @@ import { useSetBuilder } from './containers/useBuilder'
 import { useBuilderHandlers } from './containers/useBuilderHandlers'
 import { BuilderClickOverlay, BuilderHoverOverlay } from './overlay-toolbar'
 import { Renderer } from './renderer'
+
+export type BuilderProps = {
+  tree: ElementTreeGraphql
+}
 
 const StyledBuilderContainer = styled.div`
   // [data-id] is a selector for all rendered elements
@@ -28,15 +30,13 @@ const StyledBuilderContainer = styled.div`
 /**
  * Wraps around {@link Renderer} to provide element-building functionality
  */
-export const Builder = ({ children }: React.PropsWithChildren<unknown>) => {
-  const renderContext = useRenderContext()
+export const Builder = ({
+  children,
+  tree,
+}: React.PropsWithChildren<BuilderProps>) => {
   const { setSelectedElement } = useSetBuilder()
-
   // TODO: Deal with context mapping
-  const { ...handlers } = useBuilderHandlers(
-    renderContext.tree as ElementTree<ElementFragment>,
-  )
-
+  const { ...handlers } = useBuilderHandlers(tree)
   const { reset } = useSetBuilder()
 
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -50,10 +50,7 @@ export const Builder = ({ children }: React.PropsWithChildren<unknown>) => {
       const componentId = element.dataset?.componentId
 
       if (nodeId && !componentId) {
-        // TODO: Find a way to resolve the context switch between RenderNode & ElementFragment
-        setSelectedElement(
-          renderContext.tree.getNodeById(nodeId) as ElementFragment,
-        )
+        setSelectedElement(tree.getVertex(nodeId, isElement))
         e.stopPropagation()
       } else if (element.parentElement && element.id !== 'Builder') {
         // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent
@@ -72,11 +69,10 @@ export const Builder = ({ children }: React.PropsWithChildren<unknown>) => {
       id="Builder"
       css={tw`relative w-full h-full`}
     >
-      <RenderProvider
+      <Renderer
+        tree={tree}
         context={{
-          ...renderContext,
           extraProps: {
-            ...(renderContext.extraProps || {}),
             // Override the onMouse enter/leave handlers to have hovering builder functionality
             onMouseEnter: handlers.handleMouseEnter,
             onMouseLeave: handlers.handleMouseLeave,
@@ -84,9 +80,8 @@ export const Builder = ({ children }: React.PropsWithChildren<unknown>) => {
             onClick: () => void 0,
           },
         }}
-      >
-        <Renderer />
-      </RenderProvider>
+      />
+
       <BuilderHoverOverlay />
       <BuilderClickOverlay />
       {children}

@@ -1,0 +1,16 @@
+fragment ComponentVertex on Component {
+  __typename
+  id
+  name
+}
+
+fragment ElementGraph on ElementGraph {
+  # Union type
+  vertices {
+    ...ComponentVertex
+    ...Element
+  }
+  edges {
+    ...ElementEdge
+  }
+}

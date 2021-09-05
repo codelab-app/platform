@@ -4,19 +4,21 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import {
-  CreateElementGql,
-  CreateElementInput,
-  CreateElementMutation,
-  GetElementGql,
-  GetElementInput,
-  GetElementQuery,
-  UpdateElementPropsGql,
-  UpdateElementPropsInput,
-} from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
+import { CreateElementInput } from '../../create-element'
+import {
+  TestCreateElementGql,
+  TestCreateElementMutation,
+} from '../../create-element/tests/create-element.api.graphql.gen'
 import { createElementInput } from '../../create-element/tests/create-element.data'
+import { GetElementInput } from '../../get-element'
+import {
+  TestGetElementGql,
+  TestGetElementQuery,
+} from '../../get-element/tests/get-element.api.graphql.gen'
+import { UpdateElementPropsInput } from '../update-element-props.input'
+import { TestUpdateElementPropsGql } from './update-element-props.api.graphql.gen'
 
 describe('UpdateElementProps', () => {
   let guestApp: INestApplication
@@ -30,8 +32,8 @@ describe('UpdateElementProps', () => {
 
     const results = await domainRequest<
       CreateElementInput,
-      CreateElementMutation
-    >(userApp, CreateElementGql, createElementInput)
+      TestCreateElementMutation
+    >(userApp, TestCreateElementGql, createElementInput)
 
     elementId = results.createElement.id
 
@@ -50,9 +52,14 @@ describe('UpdateElementProps', () => {
 
   describe('Guest', () => {
     it('should fail to update an element', async () => {
-      await domainRequest(guestApp, UpdateElementPropsGql, updatePropsInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        guestApp,
+        TestUpdateElementPropsGql,
+        updatePropsInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
@@ -60,14 +67,14 @@ describe('UpdateElementProps', () => {
     it('should update an element', async () => {
       await domainRequest<UpdateElementPropsInput>(
         userApp,
-        UpdateElementPropsGql,
+        TestUpdateElementPropsGql,
         updatePropsInput,
       )
 
       const { getElement: element } = await domainRequest<
         GetElementInput,
-        GetElementQuery
-      >(userApp, GetElementGql, { elementId })
+        TestGetElementQuery
+      >(userApp, TestGetElementGql, { elementId })
 
       expect(element).toBeDefined()
       expect(element?.props).toBe(updatePropsInput.props)

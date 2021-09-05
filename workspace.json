@@ -296,6 +296,27 @@
         }
       }
     },
+    "backend-modules-hook": {
+      "root": "libs/backend/modules/hook",
+      "sourceRoot": "libs/backend/modules/hook/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/backend/modules/hook/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/backend/modules/hook"],
+          "options": {
+            "jestConfig": "libs/backend/modules/hook/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "backend-modules-lambda": {
       "root": "libs/backend/modules/lambda",
       "sourceRoot": "libs/backend/modules/lambda/src",
@@ -484,6 +505,29 @@
           "outputs": ["coverage/apps/cli"],
           "options": {
             "jestConfig": "apps/cli/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "frontend-abstract-core": {
+      "root": "libs/frontend/abstract/core",
+      "sourceRoot": "libs/frontend/abstract/core/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend/abstract/core/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/abstract/core"],
+          "options": {
+            "jestConfig": "libs/frontend/abstract/core/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -896,6 +940,14 @@
           "options": {
             "lintFilePatterns": ["libs/shared/codegen/graphql/**/*.ts"]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/codegen/graphql"],
+          "options": {
+            "jestConfig": "libs/shared/codegen/graphql/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },
@@ -908,14 +960,6 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/shared/core/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/shared/core"],
-          "options": {
-            "jestConfig": "libs/shared/core/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }

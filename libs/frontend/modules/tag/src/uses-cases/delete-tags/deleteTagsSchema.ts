@@ -1,7 +1,9 @@
-import { DeleteTagsInput } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
+import { DeleteTagsMutationVariables } from './DeleteTags.api.graphql.gen'
 
-export const deleteTagsSchema: JSONSchemaType<DeleteTagsInput> = {
+export type DeleteTagsSchema = DeleteTagsMutationVariables['input']
+
+export const deleteTagsSchema: JSONSchemaType<DeleteTagsSchema> = {
   title: 'Delete Tag Input',
   type: 'object',
   properties: {

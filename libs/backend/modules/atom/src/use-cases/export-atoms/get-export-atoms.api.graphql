@@ -1,11 +1,11 @@
 # This is used solely on the backend. The frontend query wraps this query, and gets the payload string only
-query GetExportAtoms($input: GetAtomsInput) {
+query TestGetExportAtoms($input: GetAtomsInput) {
   getAtoms(input: $input) {
-    ...GetExport__Atoms
+    ...TestGetExport__Atoms
   }
 }
 
-fragment GetExport__Atoms on Atom {
+fragment TestGetExport__Atoms on Atom {
   id
   name
   type
@@ -15,7 +15,7 @@ fragment GetExport__Atoms on Atom {
     # These are resolved using @ResolveField
     typeKind
     typeGraph {
-      ...__TypeGraph
+      ...TypeGraph
     }
   }
 }

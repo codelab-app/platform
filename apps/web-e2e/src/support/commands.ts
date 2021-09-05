@@ -1,15 +1,17 @@
 import '@testing-library/cypress/add-commands'
-import {
-  AtomType,
-  CreateAppGql,
-  CreateAppInput,
-  DeleteAppGql,
-  DeleteAppInput,
-} from '@codelab/shared/codegen/graphql'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
 import { print } from 'graphql'
 import * as JQuery from 'jquery'
+import {
+  CreateAppGql,
+  CreateAppMutationVariables,
+} from './graphql/CreateApp.api.graphql.gen'
+import {
+  DeleteAppGql,
+  DeleteAppMutationVariables,
+} from './graphql/DeleteApp.api.graphql.gen'
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -144,6 +146,8 @@ const createAtom = (atomType: AtomType) => {
 
 Cypress.Commands.add('createAtom', createAtom)
 
+type CreateAppInput = CreateAppMutationVariables['input']
+
 const defaultCreateAppInput: CreateAppInput = {
   name: 'Test app',
 }
@@ -158,6 +162,8 @@ const createApp = (input: CreateAppInput = defaultCreateAppInput) => {
 }
 
 Cypress.Commands.add('createApp', createApp)
+
+type DeleteAppInput = DeleteAppMutationVariables['input']
 
 const deleteApp = (input: DeleteAppInput) => {
   return cy

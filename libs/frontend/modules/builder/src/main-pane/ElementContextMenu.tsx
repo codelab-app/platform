@@ -1,10 +1,10 @@
 import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
-import { ElementFragment } from '@codelab/shared/codegen/graphql'
+import { IElementVertex } from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import React from 'react'
 
 export interface ElementContextMenuProps {
-  element: ElementFragment
+  element: IElementVertex
   onClick?: () => any
   onBlur?: () => any
 }

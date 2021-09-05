@@ -1,5 +1,27 @@
-query GetElement($input: GetElementInput!) {
+query TestGetElement($input: GetElementInput!) {
   getElement(input: $input) {
-    ...Element
+    id
+    name
+    css
+    props
+    atom {
+      id
+      name
+      type
+    }
+    hooks {
+      id
+      type
+      config {
+        ... on QueryHookConfig {
+          __typename
+          body
+          lambdaId
+          method
+          queryKey
+          url
+        }
+      }
+    }
   }
 }

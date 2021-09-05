@@ -1,0 +1,4 @@
+fragment LambdaType on LambdaType {
+  id
+  name
+}

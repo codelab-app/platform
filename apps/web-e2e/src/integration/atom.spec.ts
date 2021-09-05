@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/codegen/graphql'
+import { AtomType } from '@codelab/shared/abstract/core'
 
 const atomName = 'Row'
 const atomType = AtomType.AntDesignButton

@@ -4,11 +4,7 @@
     "module": "commonjs",
     "outDir": "../../../../dist/out-tsc",
     "declaration": true,
-    "strict": true,
-    "types": ["node"],
-    "esModuleInterop": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "types": ["node"]
   },
   "exclude": ["**/*.spec.ts"],
   "include": ["**/*.ts"]

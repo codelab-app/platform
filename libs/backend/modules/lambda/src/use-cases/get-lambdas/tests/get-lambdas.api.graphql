@@ -1,5 +1,5 @@
-query GetLambdas {
+query TestGetLambdas {
   getLambdas {
-    ...__Lambda
+    ...TestLambda
   }
 }

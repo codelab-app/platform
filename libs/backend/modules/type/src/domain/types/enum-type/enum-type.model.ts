@@ -24,6 +24,5 @@ export class EnumType
     this.id = id
     this.name = name
     this.allowedValues = allowedValues
-    this.__typename = TypeKind.EnumType as const
   }
 }
