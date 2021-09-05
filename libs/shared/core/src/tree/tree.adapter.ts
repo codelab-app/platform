@@ -12,7 +12,7 @@ import { filterPredicate, InstancePredicate, Predicate } from './treePredicate'
 export class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
   protected readonly cy: cytoscape.Core
 
-  root: TVertex
+  root?: TVertex
 
   /**
    * This is the default predicate used for searching, override if needed
@@ -50,13 +50,7 @@ export class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
       },
     })
 
-    const root = this.cy.elements().roots().map(this.getCyElementData)[0]
-
-    if (!root) {
-      throw new Error("Can't construct tree, root vertex not found")
-    }
-
-    this.root = root
+    this.root = this.cy.elements().roots().map(this.getCyElementData)[0]
   }
 
   /** Extracts our custom data from a cytoscape element (node/edge) */
