@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/enums'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { CreateAtomInput } from '../create-atom.input'
 
 export const createAtomInput: CreateAtomInput = {

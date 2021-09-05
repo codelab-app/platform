@@ -1,6 +1,5 @@
-import { Vertex } from '@codelab/shared/abstract/core'
+import { TypeKind, Vertex } from '@codelab/shared/abstract/core'
 import { IBaseTypeVertex } from '@codelab/shared/core'
-import { TypeKind } from '@codelab/shared/enums'
 import { Field, ID, InterfaceType, registerEnumType } from '@nestjs/graphql'
 
 registerEnumType(TypeKind, { name: 'TypeKind' })

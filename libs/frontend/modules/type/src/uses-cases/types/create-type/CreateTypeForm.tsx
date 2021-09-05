@@ -6,7 +6,7 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import { TypeKind } from '@codelab/shared/enums'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'

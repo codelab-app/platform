@@ -1,6 +1,6 @@
 import { AntdDesignApi } from '@codelab/backend/infra'
 import { createIfMissing } from '@codelab/backend/shared/utils'
-import { TypeKind } from '@codelab/shared/enums'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { GraphQLClient } from 'graphql-request'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'

@@ -157,7 +157,6 @@
         "libs/shared/abstract/types/src/index.ts"
       ],
       "@codelab/shared/core": ["libs/shared/core/src/index.ts"],
-      "@codelab/shared/enums": ["libs/shared/enums/src/index.ts"],
       "@codelab/shared/codegen/graphql": [
         "libs/shared/codegen/graphql/src/index.ts"
       ],

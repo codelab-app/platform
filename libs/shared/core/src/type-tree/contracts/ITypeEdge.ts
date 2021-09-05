@@ -1,5 +1,4 @@
-import { Edge } from '@codelab/shared/abstract/core'
-import { TypeEdgeKind } from '@codelab/shared/enums'
+import { Edge, TypeEdgeKind } from '@codelab/shared/abstract/core'
 import { IField } from './IField'
 
 /**

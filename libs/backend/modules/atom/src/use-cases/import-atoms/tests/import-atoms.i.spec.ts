@@ -4,7 +4,7 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import { AtomType } from '@codelab/shared/enums'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
 import {

@@ -1,4 +1,4 @@
-import { HookType } from '@codelab/shared/enums'
+import { HookType } from '@codelab/shared/abstract/core'
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { HookConfigModel } from './hook-config'
 

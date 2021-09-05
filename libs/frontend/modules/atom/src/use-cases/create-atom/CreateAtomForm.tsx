@@ -5,7 +5,7 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import { AtomType } from '@codelab/shared/enums'
+import { AtomType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.api.graphql.gen'

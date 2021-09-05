@@ -5,7 +5,7 @@ import {
   UniFormUseCaseProps,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
-import { TypeKind } from '@codelab/shared/enums'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeFragment } from '../../../graphql/Type.fragment.api.graphql.gen'

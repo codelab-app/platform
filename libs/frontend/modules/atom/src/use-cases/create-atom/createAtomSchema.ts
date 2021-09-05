@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/enums'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { CreateAtomMutationVariables } from './create-atom.api.graphql.gen'
 

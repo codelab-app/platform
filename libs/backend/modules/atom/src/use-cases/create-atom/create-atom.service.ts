@@ -6,7 +6,7 @@ import {
   jsonMutation,
 } from '@codelab/backend/infra'
 import { CreateTypeService } from '@codelab/backend/modules/type'
-import { TypeKind } from '@codelab/shared/enums'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { CreateAtomInput } from './create-atom.input'

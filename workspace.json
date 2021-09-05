@@ -964,27 +964,6 @@
         }
       }
     },
-    "shared-enums": {
-      "root": "libs/shared/enums",
-      "sourceRoot": "libs/shared/enums/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/enums/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/shared/core"],
-          "options": {
-            "jestConfig": "libs/shared/core/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "shared-utils": {
       "root": "libs/shared/utils",
       "sourceRoot": "libs/shared/utils/src",

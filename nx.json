@@ -164,9 +164,6 @@
     "shared-core": {
       "tags": ["scope:shared"]
     },
-    "shared-enums": {
-      "tags": ["scope:shared", "type:abstract"]
-    },
     "shared-utils": {
       "tags": ["scope:shared"]
     },

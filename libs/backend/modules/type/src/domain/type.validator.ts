@@ -13,8 +13,8 @@ import {
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
-import { TypeKind } from '@codelab/shared/enums'
-import { Inject, Injectable } from '@nestjs/common'
+import { TypeKind } from '@codelab/shared/abstract/core'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import {
   OverlyNestedTypeError,
   RecursiveTypeError,

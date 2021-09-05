@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/enums'
+import { AtomType } from '@codelab/shared/abstract/core'
 
 /**
  * The interface required by ElementTree to function

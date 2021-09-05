@@ -2,8 +2,8 @@ import {
   FormUniforms,
   FormUniformsProps,
 } from '@codelab/frontend/view/components'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { IElementTypeVertex, IJsonSchemaOptions } from '@codelab/shared/core'
-import { TypeKind } from '@codelab/shared/enums'
 import React from 'react'
 import { TypeTreeGraphql } from '../shared'
 import {

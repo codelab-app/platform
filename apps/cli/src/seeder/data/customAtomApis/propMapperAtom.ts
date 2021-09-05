@@ -1,4 +1,4 @@
-import { AtomType, TypeKind } from '@codelab/shared/enums'
+import { AtomType, TypeKind } from '@codelab/shared/abstract/core'
 import { SeedFieldInput } from '../../models'
 import { CustomAtomApiFactory } from '../../utils/customAtomApi'
 import { BaseTypeName } from '../baseTypes'

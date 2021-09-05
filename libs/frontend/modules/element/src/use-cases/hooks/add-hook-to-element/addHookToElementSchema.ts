@@ -1,4 +1,4 @@
-import { HookType, QueryMethod } from '@codelab/shared/enums'
+import { HookType, QueryMethod } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { AddHookToElementMutationVariables } from './AddHookToElement.api.graphql.gen'
 

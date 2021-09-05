@@ -1,4 +1,4 @@
-import { HookType } from '@codelab/shared/enums'
+import { HookType } from '@codelab/shared/abstract/core'
 import { HookConfig } from './hook-config.union'
 import { queryHookConfigSchema } from './query-hook-config.schema'
 

@@ -4,7 +4,7 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import { QueryMethod } from '@codelab/shared/enums'
+import { QueryMethod } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
 import { AddHookToElementInput } from '../../add-hook-to-element'

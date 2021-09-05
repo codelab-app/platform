@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/enums'
+import { AtomType } from '@codelab/shared/abstract/core'
 import dynamic from 'next/dynamic'
 import React from 'react'
 

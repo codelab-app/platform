@@ -3,7 +3,7 @@ import {
   ElementTypeKind,
   PrimitiveKind,
   TypeKind,
-} from '@codelab/shared/enums'
+} from '@codelab/shared/abstract/core'
 import { CreateTypeInput } from '../../use-cases/type/create-type'
 
 export const baseTypes: Array<CreateTypeInput> = [

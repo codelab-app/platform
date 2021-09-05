@@ -1,5 +1,9 @@
-import { Vertex } from '@codelab/shared/abstract/core'
-import { ElementTypeKind, PrimitiveKind, TypeKind } from '@codelab/shared/enums'
+import {
+  ElementTypeKind,
+  PrimitiveKind,
+  TypeKind,
+  Vertex,
+} from '@codelab/shared/abstract/core'
 
 /**
  * The interface required by TypeTree to function

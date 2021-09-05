@@ -1,5 +1,5 @@
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { IArrayTypeVertex } from '@codelab/shared/core'
-import { TypeKind } from '@codelab/shared/enums'
 import { ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 

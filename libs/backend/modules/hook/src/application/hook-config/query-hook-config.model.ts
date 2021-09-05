@@ -1,4 +1,4 @@
-import { QueryMethod } from '@codelab/shared/enums'
+import { QueryMethod } from '@codelab/shared/abstract/core'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { QueryHookConfig } from '../../domain'
 

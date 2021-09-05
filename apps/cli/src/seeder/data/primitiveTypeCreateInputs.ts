@@ -1,4 +1,4 @@
-import { PrimitiveKind, TypeKind } from '@codelab/shared/enums'
+import { PrimitiveKind, TypeKind } from '@codelab/shared/abstract/core'
 import { SeedTypeInput } from '../models'
 
 export const primitiveTypeCreateInputs: Array<SeedTypeInput> = [

@@ -1,6 +1,6 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphEntityType, DgraphType } from '@codelab/backend/infra'
-import { TypeKind } from '@codelab/shared/enums'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { typeDefinitionByDgraphType } from '../../domain/type-definition-by-dgraph-type'
 import { ArrayTypeAdapter } from './array-type.adapter'

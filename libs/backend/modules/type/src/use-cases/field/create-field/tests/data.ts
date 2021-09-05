@@ -1,4 +1,4 @@
-import { PrimitiveKind, TypeKind } from '@codelab/shared/enums'
+import { PrimitiveKind, TypeKind } from '@codelab/shared/abstract/core'
 import { CreateTypeInput } from '../../../type/create-type'
 import { CreateFieldInput } from '../create-field.input'
 

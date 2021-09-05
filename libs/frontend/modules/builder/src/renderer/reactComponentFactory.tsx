@@ -1,5 +1,5 @@
 import { notify } from '@codelab/frontend/shared/utils'
-import { AtomType } from '@codelab/shared/enums'
+import { AtomType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { atomFactory } from './atomFactory'
 

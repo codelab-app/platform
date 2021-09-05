@@ -1,4 +1,4 @@
-import { TypeEdgeKind, TypeKind } from '@codelab/shared/enums'
+import { TypeEdgeKind, TypeKind } from '@codelab/shared/abstract/core'
 import { CollectionReturnValue, SingularElementArgument } from 'cytoscape'
 import { getCyElementData } from '../cytoscape/element'
 import { IField, ITypeEdge, ITypeVertex } from './contracts'

@@ -7,7 +7,7 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import { HookType } from '@codelab/shared/enums'
+import { HookType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { refetchGetElementQuery } from '../../get-element/GetElement.api.graphql.gen'

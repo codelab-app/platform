@@ -1,5 +1,5 @@
 import { QueryHookConfig } from '@codelab/backend/modules/hook'
-import { QueryMethod } from '@codelab/shared/enums'
+import { QueryMethod } from '@codelab/shared/abstract/core'
 import { Field, InputType, registerEnumType } from '@nestjs/graphql'
 
 registerEnumType(QueryMethod, { name: 'QueryMethod' })
