@@ -649,7 +649,7 @@ type Mutation {
   createApp(input: CreateAppInput!): CreateResponse!
   updateApp(input: UpdateAppInput!): Void
   deleteApp(input: DeleteAppInput!): Void
-  createUser(input: CreateUserInput!): Void
+  createUser(input: CreateUserInput!): CreateResponse!
   updateUser(input: UpdateUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
   resetData: Void

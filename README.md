@@ -8,30 +8,19 @@ Codelab.ai is a cloud-based SaaS product designed for developers to build fronte
 
 The end product is a highly configurable UI layer that competes with writing code.
 
-## Table of Contents
+## Getting Started
 
-[Installation](documentation/getting-started/1-installation.md)
+1. `yarn docker:up alpha` starts Dgraph server
+2. Copy `.env.example` to . `.env` &  replace with proper values
+3. `nx serve web --with-deps`
+4. `yarn tunnel` allows localhost to accept HTTP input
 
-[Tech Stack](documentation/getting-started/2-tech-stack.md)
+## Testing
 
-[Project Architecture](documentation/getting-started/3-project-structure.md)
+1. `yarn docker:up alpha-test`
+2. Copy `.env.example` to `.env.test`
+3. `nx test [project] --runInBand`
 
-[Getting Started](documentation/getting-started/4-getting-started.md)
+## E2e
 
-<!-- [Dev Tools](documentation/getting-started/5-devtools.md) -->
-
-[CI/CD Pipeline](documentation/getting-started/6-pipeline.md)
-
-<!-- [Demo](documentation/getting-started/7-demo.md) -->
-
-<!-- [Concepts](documentation/getting-started/8-concepts.md) -->
-
-<!-- [Codegen](documentation/getting-started/9-codegen.md) -->
-
-<!-- [Data Types](documentation/getting-started/10-data-types.md) -->
-
-<!-- [Testing](documentation/getting-started/11-testing.md) -->
-
-## Serving
-
-`nx serve web --with-deps --paralell` starts `api` as well
+1. `nx e2e web-e2e --configuration=dev`

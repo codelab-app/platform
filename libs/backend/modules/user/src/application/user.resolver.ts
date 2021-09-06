@@ -1,4 +1,4 @@
-import { Void } from '@codelab/backend/abstract/types'
+import { CreateResponse } from '@codelab/backend/application'
 import {
   CurrentUser,
   GqlAuthGuard,
@@ -40,13 +40,13 @@ export class UserResolver {
     return this.getUsersService.execute(input)
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
   async createUser(
     @Args('input') input: CreateUserInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    await this.createUserService.execute({ input, currentUser })
+    return await this.createUserService.execute({ input, currentUser })
   }
 
   @Mutation(() => User)

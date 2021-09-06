@@ -178,7 +178,7 @@
     },
     "web": {
       "tags": ["scope:frontend"],
-      "implicitDependencies": []
+      "implicitDependencies": ["api"]
     },
     "web-e2e": {
       "tags": ["scope:frontend"],

@@ -7,7 +7,10 @@ import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { UserModule } from '../../../user.module'
 import { CreateUserInput } from '../create-user.input'
-import { CreateUserGql } from './create-user.api.graphql.gen'
+import {
+  CreateUserGql,
+  CreateUserMutation,
+} from './create-user.api.graphql.gen'
 
 describe('CreateUserUseCase', () => {
   let guestApp: INestApplication
@@ -30,9 +33,14 @@ describe('CreateUserUseCase', () => {
 
   describe('Guest', () => {
     it('should fail to create a User', async () => {
-      await domainRequest(guestApp, CreateUserGql, createUserInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest<CreateUserInput, CreateUserMutation>(
+        guestApp,
+        CreateUserGql,
+        createUserInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
