@@ -1,4 +1,19 @@
+fragment QueryHookConfig on QueryHookConfig {
+  body
+  method
+  queryKey
+  url
+  lambdaId
+}
+
+fragment GraphqlQueryHookConfig on GraphqlQueryHookConfig {
+  graphqlBody: body
+  graphqlUrl: url
+  dataKey
+}
+
 fragment HookConfig on HookConfig {
   __typename
   ...QueryHookConfig
+  ...GraphqlQueryHookConfig
 }

@@ -4,6 +4,7 @@ import {
   RenderProvider,
 } from '@codelab/frontend/presenter/container'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
+import { isEqual } from 'lodash'
 import React from 'react'
 import { defaultRenderContext } from './defaultRenderContext'
 
@@ -15,26 +16,30 @@ export interface RendererProps {
 /**
  * The root render point. RendererProvider must be used first.
  */
-export const Renderer = ({ tree, context: initialContext }: RendererProps) => {
-  const context = defaultRenderContext({
-    ...initialContext,
-    tree,
-  })
+export const Renderer = React.memo<RendererProps>(
+  ({ tree, context: contextProp }: RendererProps) => {
+    const context = defaultRenderContext({
+      ...contextProp,
+      tree,
+    })
 
-  const root = tree.getRootVertex()
+    const root = tree.getRootVertex()
 
-  if (!root) {
-    return null
-  }
+    if (!root) {
+      return null
+    }
 
-  return (
-    <ErrorBoundary>
-      <RenderProvider<ElementTreeGraphql> context={context}>
-        {context.renderFactory(root, {
-          ...(context ?? {}),
-          tree,
-        })}
-      </RenderProvider>
-    </ErrorBoundary>
-  )
-}
+    return (
+      <ErrorBoundary>
+        <RenderProvider<ElementTreeGraphql> context={context}>
+          {context.renderFactory(root, {
+            ...(context ?? {}),
+            tree,
+          })}
+        </RenderProvider>
+      </ErrorBoundary>
+    )
+  },
+  ({ context, tree }, { tree: newTree, context: newContext }) =>
+    isEqual(tree, newTree) && isEqual(context, newContext),
+)

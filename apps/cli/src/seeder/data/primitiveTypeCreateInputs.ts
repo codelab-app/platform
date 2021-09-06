@@ -1,7 +1,7 @@
+import { CreateTypeInput } from '@codelab/backend/modules/type'
 import { PrimitiveKind, TypeKind } from '@codelab/shared/abstract/core'
-import { SeedTypeInput } from '../models'
 
-export const primitiveTypeCreateInputs: Array<SeedTypeInput> = [
+export const primitiveTypeCreateInputs: Array<CreateTypeInput> = [
   {
     name: PrimitiveKind.String,
     typeKind: TypeKind.PrimitiveType,

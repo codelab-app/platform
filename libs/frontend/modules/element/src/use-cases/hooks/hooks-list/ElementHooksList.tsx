@@ -54,10 +54,10 @@ const ElementHooksListItemDescription = (config: HookConfigFragment) => {
   const [getLambda, { data: lambda }] = useGetLambdaNameLazyQuery()
 
   useEffect(() => {
-    if (config.lambdaId) {
+    if (config.__typename === 'QueryHookConfig' && config.lambdaId) {
       getLambda({ variables: { input: { lambdaId: config.lambdaId } } })
     }
-  }, [config.lambdaId])
+  }, [config])
   console.log(config)
 
   switch (config.__typename) {
@@ -71,6 +71,12 @@ const ElementHooksListItemDescription = (config: HookConfigFragment) => {
                   : ''
               }`
             : `${config.queryKey} - ${config.method} - ${config.url}`}
+        </span>
+      )
+    case 'GraphqlQueryHookConfig':
+      return (
+        <span>
+          {config.graphqlUrl} - {config.graphqlBody}
         </span>
       )
   }

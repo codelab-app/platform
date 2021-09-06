@@ -352,7 +352,7 @@ enum HookType {
   GraphqlQuery
 }
 
-union HookConfig = QueryHookConfig
+union HookConfig = QueryHookConfig | GraphqlQueryHookConfig
 
 type QueryHookConfig {
   queryKey: String!
@@ -373,6 +373,12 @@ enum QueryMethod {
   PURGE
   LINK
   UNLINK
+}
+
+type GraphqlQueryHookConfig {
+  body: String!
+  url: String!
+  dataKey: String
 }
 
 type Element {
@@ -788,6 +794,7 @@ input DeleteElementInput {
 input AddHookToElementInput {
   elementId: String!
   queryHook: QueryHookConfigInput
+  graphqlQueryHook: GraphqlQueryHookConfigInput
 }
 
 """Provide either a lambdaId, or body/method/url"""
@@ -797,6 +804,12 @@ input QueryHookConfigInput {
   body: String
   method: QueryMethod
   lambdaId: String
+}
+
+input GraphqlQueryHookConfigInput {
+  url: String!
+  body: String!
+  dataKey: String
 }
 
 input RemoveHookFromElementInput {

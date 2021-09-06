@@ -5,6 +5,7 @@ import { useHookFactory } from './useHookFactory'
 
 export interface HookElementWrapperProps {
   hooks: Array<HookFragment>
+  onRendered?: (renderedElement: React.ReactElement) => void
 }
 
 /**
@@ -14,6 +15,7 @@ export interface HookElementWrapperProps {
 export const HookElementWrapper = ({
   hooks,
   children,
+  onRendered,
 }: React.PropsWithChildren<HookElementWrapperProps>) => {
   const hookProps = useHookFactory(hooks)
   const [key, setKey] = useState(v4())
@@ -44,7 +46,13 @@ export const HookElementWrapper = ({
     key,
   }
 
-  return React.cloneElement(child as any, childProps)
+  const rendered = React.cloneElement(child as any, childProps)
+
+  if (onRendered) {
+    onRendered(rendered)
+  }
+
+  return rendered
 }
 
 HookElementWrapper.displayName = 'HookElementWrapper'

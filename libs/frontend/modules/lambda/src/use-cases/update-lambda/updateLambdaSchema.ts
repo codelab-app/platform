@@ -1,4 +1,4 @@
-import { MonacoField } from '@codelab/frontend/view/components'
+import { monacoFieldFactory } from '@codelab/frontend/view/components'
 import { JSONSchemaType } from 'ajv'
 import { UpdateLambdaMutationVariables } from './UpdateLambda.api.graphql.gen'
 
@@ -17,7 +17,18 @@ export const updateLambdaSchema: JSONSchemaType<UpdateLambdaSchema> = {
     },
     body: {
       type: 'string',
-      uniforms: { component: MonacoField },
+      uniforms: {
+        component: monacoFieldFactory({
+          editorOptions: {
+            language: 'javascript',
+          },
+          containerProps: {
+            style: {
+              height: '240px',
+            },
+          },
+        }),
+      },
     },
   },
   required: ['id', 'name', 'body'],

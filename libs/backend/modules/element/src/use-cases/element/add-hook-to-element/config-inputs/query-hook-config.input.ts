@@ -12,13 +12,13 @@ export class QueryHookConfigInput implements QueryHookConfig {
   declare queryKey: string
 
   @Field(() => String, { nullable: true })
-  declare url: string
+  declare url?: string
 
   @Field(() => String, { nullable: true })
   declare body?: string
 
   @Field(() => QueryMethod, { nullable: true })
-  declare method: QueryMethod
+  declare method?: QueryMethod
 
   @Field(() => String, { nullable: true })
   declare lambdaId?: string

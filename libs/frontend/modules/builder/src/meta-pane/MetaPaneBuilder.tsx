@@ -9,7 +9,8 @@ import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'
 import React from 'react'
 import tw from 'twin.macro'
-import { useBuilder } from '../containers/useBuilder'
+import { useBuilderSelection } from '../containers/builderState'
+import { PropsInspectorTab } from './PropsInspectorTab'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
@@ -52,7 +53,7 @@ export const MetaPaneBuilder = ({
 }: MetaPaneBuilderProps) => {
   const {
     state: { selectedElement },
-  } = useBuilder()
+  } = useBuilderSelection()
 
   if (!selectedElement) {
     return null
@@ -84,6 +85,7 @@ export const MetaPaneBuilder = ({
               `Add an atom to this element to edit its props`
             )}
           </Tabs.TabPane>
+
           <Tabs.TabPane
             style={{ overflow: 'visible' }}
             tab="CSS"
@@ -98,6 +100,7 @@ export const MetaPaneBuilder = ({
               `Add an atom to this page element to edit its CSS`
             )}
           </Tabs.TabPane>
+
           <Tabs.TabPane
             style={{ overflow: 'visible' }}
             tab="Hooks"
@@ -111,6 +114,17 @@ export const MetaPaneBuilder = ({
             ) : (
               `Add an atom to this page element to edit its hooks`
             )}
+          </Tabs.TabPane>
+
+          <Tabs.TabPane
+            style={{ overflow: 'visible' }}
+            tab="Props Inspector"
+            key={selectedElement.id + '_tab5'}
+          >
+            <PropsInspectorTab
+              key={selectedElement.id}
+              elementId={selectedElement.id}
+            />
           </Tabs.TabPane>
         </Tabs>
       </TabContainer>

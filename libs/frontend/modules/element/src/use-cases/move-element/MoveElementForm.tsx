@@ -6,16 +6,16 @@ import {
   StatelessLoadingIndicator,
   UniFormUseCaseProps,
 } from '@codelab/frontend/view/components'
-import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { ElementTreeGraphql } from '../../tree'
 import { useMoveElementMutation } from './MoveElement.api.graphql.gen'
 import { MoveElementSchema, moveElementSchema } from './moveElementSchema'
 
 export type MoveElementFormProps = UniFormUseCaseProps<MoveElementSchema> & {
   elementId: string
-  tree: ElementTree<any, any, any>
+  tree: ElementTreeGraphql
   refetchQueries?: BaseMutationOptions['refetchQueries']
 }
 
@@ -30,7 +30,7 @@ export const MoveElementForm = ({
   const {
     current: { parentElementId, order },
   } = useRef({
-    parentElementId: tree.getParentOf(elementId, tree.isElementPredicate),
+    parentElementId: tree.getParentOf(elementId, tree.isElementPredicate)?.id,
     order: tree.getOrderInParent(elementId),
   })
 

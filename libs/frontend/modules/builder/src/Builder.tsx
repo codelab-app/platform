@@ -3,9 +3,13 @@ import {
   isElement,
 } from '@codelab/frontend/modules/element'
 import styled from '@emotion/styled'
-import React, { MouseEventHandler } from 'react'
+import React, { MouseEventHandler, useCallback } from 'react'
 import tw from 'twin.macro'
-import { useSetBuilder } from './containers/useBuilder'
+import {
+  useBuilder,
+  useBuilderExtraProps,
+  useOnRendered,
+} from './containers/builderState'
 import { useBuilderHandlers } from './containers/useBuilderHandlers'
 import { BuilderClickOverlay, BuilderHoverOverlay } from './overlay-toolbar'
 import { Renderer } from './renderer'
@@ -27,6 +31,28 @@ const StyledBuilderContainer = styled.div`
   }
 `
 
+const BuilderRenderer = ({ tree }: { tree: ElementTreeGraphql }) => {
+  const { handleMouseEnter, handleMouseLeave } = useBuilderHandlers(tree)
+  const { onRendered } = useOnRendered()
+  const extraProps = useBuilderExtraProps()
+  const voidClick = useCallback(() => void 0, [])
+
+  return (
+    <Renderer
+      tree={tree}
+      context={{
+        onRendered,
+        extraElementProps: extraProps,
+        extraProps: {
+          onMouseEnter: handleMouseEnter,
+          onMouseLeave: handleMouseLeave,
+          onClick: voidClick,
+        },
+      }}
+    />
+  )
+}
+
 /**
  * Wraps around {@link Renderer} to provide element-building functionality
  */
@@ -34,10 +60,8 @@ export const Builder = ({
   children,
   tree,
 }: React.PropsWithChildren<BuilderProps>) => {
-  const { setSelectedElement } = useSetBuilder()
   // TODO: Deal with context mapping
-  const { ...handlers } = useBuilderHandlers(tree)
-  const { reset } = useSetBuilder()
+  const { resetSelection, setSelectedElement } = useBuilder()
 
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
@@ -56,7 +80,7 @@ export const Builder = ({
         // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent
         visit(element.parentElement)
       } else {
-        reset()
+        resetSelection()
       }
     }
 
@@ -69,19 +93,7 @@ export const Builder = ({
       id="Builder"
       css={tw`relative w-full h-full`}
     >
-      <Renderer
-        tree={tree}
-        context={{
-          extraProps: {
-            // Override the onMouse enter/leave handlers to have hovering builder functionality
-            onMouseEnter: handlers.handleMouseEnter,
-            onMouseLeave: handlers.handleMouseLeave,
-            // Remove onClick, because we handle it above at the container level
-            onClick: () => void 0,
-          },
-        }}
-      />
-
+      <BuilderRenderer tree={tree} />
       <BuilderHoverOverlay />
       <BuilderClickOverlay />
       {children}

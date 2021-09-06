@@ -17,12 +17,17 @@ type ExtractComponentType<TTree> = TTree extends ElementTree<
   ? TComponent
   : never
 
-export interface RenderContext<TTree extends ElementTree<any, any, any>> {
+export interface RenderContext<
+  TTree extends ElementTree<any, any, any> = ElementTree,
+> {
   /** The rendered tree */
   tree: TTree
 
-  /** Extra props passed to the element. They override the common props, but props from the node instance override the extraProps */
+  /** Extra props passed to all element. They override the common props, but props from the node instance override the extraProps */
   extraProps?: Record<string, any>
+
+  /** Extra props by element id, they override every other prop */
+  extraElementProps?: Record<string, Record<string, any>>
 
   /**
    * A reference to the renderFactory which allows any custom component to render a node
@@ -32,6 +37,14 @@ export interface RenderContext<TTree extends ElementTree<any, any, any>> {
     node: ExtractComponentType<TTree> | ExtractElementType<TTree>,
     context: RenderContext<TTree>,
   ) => any | null
+
+  /**
+   * Called after the element is rendered
+   */
+  onRendered?: (
+    renderedElement: React.ReactElement,
+    vertex: ExtractElementType<TTree>,
+  ) => void
 }
 
 // If you need to modify some value, provide a new RenderContextProvider, with new values

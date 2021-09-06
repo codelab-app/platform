@@ -8,6 +8,7 @@ import {
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
+import { defaultLambdaBody } from '../../defaultLambdBody'
 import { lambdaState } from '../../state'
 import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.api.graphql.gen'
 import { useCreateLambdaMutation } from './CreateLambda.api.graphql.gen'
@@ -43,6 +44,7 @@ export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {
   return (
     <FormUniforms<CreateLambdaInput>
       onSubmit={onSubmit}
+      model={{ body: defaultLambdaBody }}
       schema={createLambdaSchema}
       onSubmitSuccess={() => reset()}
       onSubmitError={createNotificationHandler({

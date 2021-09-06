@@ -10,7 +10,7 @@ import { Dropdown, Tree as AntdTree } from 'antd'
 import { TreeProps } from 'antd/lib/tree'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
-import { useBuilder } from '../containers/useBuilder'
+import { useBuilderSelection } from '../containers/builderState'
 import { ElementContextMenu } from './ElementContextMenu'
 import { useExpandedNodes } from './useExpandedNodes'
 
@@ -28,9 +28,9 @@ export const MainPaneBuilder = ({
   const {
     setHoveringElement,
     setSelectedElement,
-    reset,
+    resetSelection,
     state: { selectedElement },
-  } = useBuilder()
+  } = useBuilderSelection()
 
   const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(
     tree,
@@ -122,7 +122,7 @@ export const MainPaneBuilder = ({
         },
       }}
     >
-      <div onClick={() => reset()}>
+      <div onClick={() => resetSelection()}>
         {tree ? (
           <AntdTree
             disabled={isLoadingMoveElement}

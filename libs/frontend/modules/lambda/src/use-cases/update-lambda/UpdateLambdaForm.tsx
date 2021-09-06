@@ -8,6 +8,7 @@ import {
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
+import { defaultLambdaBody } from '../../defaultLambdBody'
 import { LambdaFragment } from '../../graphql/Lambda.fragment.api.graphql.gen'
 import { lambdaState } from '../../state'
 import { useGetLambdaQuery } from '../get-lambda/GetLambda.api.graphql.gen'
@@ -73,6 +74,7 @@ export const UpdateLambdaForm = (
       onSubmitSuccess={() => reset()}
       model={{
         ...data.getLambda,
+        body: data.getLambda.body || defaultLambdaBody,
       }}
       {...props}
     >

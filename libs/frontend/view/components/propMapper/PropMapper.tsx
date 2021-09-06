@@ -1,3 +1,4 @@
+import { useRenderContext } from '@codelab/frontend/presenter/container'
 import React, { useEffect, useState } from 'react'
 import { applyBindings, PropMapperBinding } from './PropMapperBinding'
 
@@ -25,6 +26,8 @@ export const PropMapper = ({
   children,
   ...props
 }: React.PropsWithChildren<PropMapperProps>) => {
+  const context = useRenderContext()
+
   // Keep the bindings in a map by element id, because we don't want to do a
   // .filter for each and every element that's rendered
   const [bindingsByElementId, setBindingsByElementId] = useState(
@@ -58,7 +61,13 @@ export const PropMapper = ({
 
       childProps.children = recursiveMap(child.props.children)
 
-      return React.cloneElement(child, childProps)
+      const newRendered = React.cloneElement(child, childProps)
+
+      if (context.onRendered) {
+        context.onRendered(newRendered, child.props.__node)
+      }
+
+      return newRendered
     })
   }
 

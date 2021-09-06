@@ -4,10 +4,13 @@ import {
   DisplayIfField,
   EntityType,
   FormUniforms,
+  graphqlEditorFieldFactory,
+  monacoFieldFactory,
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
 import { HookType } from '@codelab/shared/abstract/core'
+import { css } from '@emotion/react'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { refetchGetElementQuery } from '../../get-element/GetElement.api.graphql.gen'
@@ -34,6 +37,11 @@ export const DisplayIfType = ({
     {children}
   </DisplayIfField>
 )
+
+const JsonField = monacoFieldFactory({
+  editorOptions: { language: 'json', lineNumbers: 'off' },
+  containerProps: { style: { height: '15rem' } },
+})
 
 export const AddHookToElementForm = ({
   elementId,
@@ -67,8 +75,33 @@ export const AddHookToElementForm = ({
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields omitFields={['queryHook', 'queryHookVariant']} />
+      {/* Base fields */}
+      <AutoFields
+        omitFields={['queryHook', 'queryHookVariant', 'graphqlQueryHook']}
+      />
 
+      {/* Graphql query fields */}
+      <DisplayIfType type={HookType.GraphqlQuery}>
+        <div
+          css={css`
+            display: grid;
+            grid-template-rows: auto 26rem auto;
+          `}
+        >
+          <AutoFields fields={['graphqlQueryHook.url']} />
+
+          <AutoField
+            name={'graphqlQueryHook.body'}
+            component={graphqlEditorFieldFactory({
+              schemaUrlFieldKey: 'graphqlQueryHook.url',
+              editorOptions: { lineNumbers: 'off' },
+            })}
+          />
+          <AutoFields fields={['graphqlQueryHook.dataKey']} />
+        </div>
+      </DisplayIfType>
+
+      {/* Query fields */}
       <DisplayIfType type={HookType.Query}>
         <AutoFields fields={['queryHookVariant']} />
 
@@ -78,13 +111,10 @@ export const AddHookToElementForm = ({
           }
         >
           <AutoFields
-            fields={[
-              'queryHook.queryKey',
-              'queryHook.url',
-              'queryHook.method',
-              'queryHook.body',
-            ]}
+            fields={['queryHook.queryKey', 'queryHook.url', 'queryHook.method']}
           />
+
+          <JsonField name={'queryHook.body'} />
         </DisplayIfField>
 
         <DisplayIfField<AddHookToElementSchema>

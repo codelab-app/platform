@@ -1,5 +1,0 @@
-query Seeder_GetType($input: GetTypeInput!) {
-  getType(input: $input) {
-    id
-  }
-}

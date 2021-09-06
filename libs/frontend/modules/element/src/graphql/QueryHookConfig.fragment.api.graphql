@@ -1,7 +1,0 @@
-fragment QueryHookConfig on QueryHookConfig {
-  body
-  method
-  queryKey
-  url
-  lambdaId
-}

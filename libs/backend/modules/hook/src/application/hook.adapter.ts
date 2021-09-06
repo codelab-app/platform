@@ -4,7 +4,11 @@ import { HookType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Hook } from '../domain'
 import { HookModel } from './hook.model'
-import { HookConfigModel, QueryHookConfigModel } from './hook-config'
+import {
+  GraphqlQueryHookConfigModel,
+  HookConfigModel,
+  QueryHookConfigModel,
+} from './hook-config'
 
 export type DgraphHookInput = Omit<
   DgraphHook,
@@ -33,7 +37,11 @@ export class HookAdapter extends BaseAdapter<DgraphHookInput, HookModel> {
     // we must provide concrete model types for graphql
     switch (hook.type) {
       case HookType.Query:
-        return new QueryHookConfigModel(hook.config)
+        return new QueryHookConfigModel(hook.config as QueryHookConfigModel)
+      case HookType.GraphqlQuery:
+        return new GraphqlQueryHookConfigModel(
+          hook.config as GraphqlQueryHookConfigModel,
+        )
     }
 
     throw new Error(`Unrecognized hook type ${hook.type}`)
