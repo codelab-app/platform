@@ -1,16 +1,11 @@
-import {
-  Role,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/infra'
+import { setupTestModule, teardownTestModule } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
-import { ImportApiInput } from '../import-api.input'
 
 describe('ImportApi', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
-  let importApiInput: ImportApiInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {

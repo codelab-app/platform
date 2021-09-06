@@ -17,7 +17,7 @@ export class CreateUserService extends DgraphCreateUseCase<CreateUserRequest> {
   }
 
   protected createMutation(
-    { input: { name }, currentUser }: CreateUserRequest,
+    { input: { auth0Id }, currentUser }: CreateUserRequest,
     blandNodeUid: string,
   ): Mutation {
     return jsonMutation<DgraphUser>({

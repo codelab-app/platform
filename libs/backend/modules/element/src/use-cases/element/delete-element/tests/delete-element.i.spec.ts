@@ -1,9 +1,9 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
 import { CreateElementInput } from '../../create-element'
@@ -12,7 +12,7 @@ import {
   TestCreateElementMutation,
 } from '../../create-element/tests/create-element.api.graphql.gen'
 import { createElementInput } from '../../create-element/tests/create-element.data'
-import { GetElementInput } from '../../get-element/get-element.input'
+import { GetElementInput } from '../../get-element'
 import {
   TestGetElementGql,
   TestGetElementQuery,

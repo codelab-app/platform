@@ -1,13 +1,13 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
 import { CreateAppInput } from '@codelab/backend/modules/app'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../../../page.module'
-import { CreatePageInput } from '../../create-page/create-page.input'
+import { CreatePageInput } from '../../create-page'
 import {
   TestCreateAppGql,
   TestCreateAppMutation,

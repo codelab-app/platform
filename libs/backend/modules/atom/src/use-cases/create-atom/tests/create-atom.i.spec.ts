@@ -1,9 +1,9 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
 import { GetAtomInput } from '../../get-atom/get-atom.input'

@@ -40,7 +40,7 @@ export class UserResolver {
     return this.getUsersService.execute(input)
   }
 
-  @Mutation(() => Void)
+  @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async createUser(
     @Args('input') input: CreateUserInput,

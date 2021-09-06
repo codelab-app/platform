@@ -349,6 +349,10 @@ export type CreateTypeInput = {
   elementType?: Maybe<CreateElementTypeInput>;
 };
 
+export type CreateUserInput = {
+  name: Scalars['String'];
+};
+
 export type DeleteAppInput = {
   appId: Scalars['String'];
 };
@@ -606,6 +610,7 @@ export type Mutation = {
   createApp: CreateResponse;
   updateApp?: Maybe<Scalars['Void']>;
   deleteApp?: Maybe<Scalars['Void']>;
+  createUser: Scalars['Void'];
   updateUser: User;
   deleteUser: Scalars['Boolean'];
   resetData?: Maybe<Scalars['Void']>;
@@ -658,6 +663,11 @@ export type MutationUpdateAppArgs = {
 
 export type MutationDeleteAppArgs = {
   input: DeleteAppInput;
+};
+
+
+export type MutationCreateUserArgs = {
+  input: CreateUserInput;
 };
 
 

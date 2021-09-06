@@ -1,10 +1,9 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import { QueryMethod } from '@codelab/shared/abstract/core'
+import { QueryMethod, Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
 import { AddHookToElementInput } from '../../add-hook-to-element'
@@ -12,12 +11,12 @@ import {
   TestAddHookToElementGql,
   TestAddHookToElementMutation,
 } from '../../add-hook-to-element/tests/add-hook-to-element.api.graphql.gen'
-import { CreateElementInput } from '../../create-element/create-element.input'
+import { CreateElementInput } from '../../create-element'
 import {
   TestCreateElementGql,
   TestCreateElementMutation,
 } from '../../create-element/tests/create-element.api.graphql.gen'
-import { GetElementInput } from '../../get-element/get-element.input'
+import { GetElementInput } from '../../get-element'
 import {
   TestGetElementGql,
   TestGetElementQuery,
@@ -34,8 +33,8 @@ describe('RemoveHookFromElementUseCase', () => {
   let removeHookInput: RemoveHookFromElementInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], { role: Role.GUEST })
-    userApp = await setupTestModule([ElementModule], { role: Role.USER })
+    guestApp = await setupTestModule([ElementModule], { role: Role.Guest })
+    userApp = await setupTestModule([ElementModule], { role: Role.User })
 
     const { createElement } = await domainRequest<
       CreateElementInput,

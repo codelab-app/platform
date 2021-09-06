@@ -1,12 +1,7 @@
 import { ApolloClient } from '@apollo/client'
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
-import {
-  ApolloClientTokens,
-  GqlAuthGuard,
-  Roles,
-  RolesGuard,
-} from '@codelab/backend/infra'
+import { ApolloClientTokens, GqlAuthGuard, Roles } from '@codelab/backend/infra'
 import {
   GetTypeService,
   InterfaceType,
@@ -53,7 +48,7 @@ export class AtomResolver {
   ) {}
 
   @Mutation(() => CreateResponse)
-  @UseGuards(GqlAuthGuard, RolesGuard)
+  @UseGuards(GqlAuthGuard)
   @Roles(Role.Admin)
   createAtom(@Args('input') input: CreateAtomInput) {
     return this.createAtomService.execute(input)

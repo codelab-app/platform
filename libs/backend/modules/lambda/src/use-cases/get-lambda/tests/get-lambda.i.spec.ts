@@ -1,12 +1,12 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
-import { CreateLambdaInput } from '../../create-lambda/create-lambda.input'
+import { CreateLambdaInput } from '../../create-lambda'
 import {
   TestCreateLambdaGql,
   TestCreateLambdaMutation,

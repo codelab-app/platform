@@ -54,7 +54,7 @@ export const setupTestModule = async (
           sub: 'codelab-test-user-id',
           aud: ['https://api.codelab.ai'],
           iat: Date.now(),
-          exp: Date.now() + 1 * 60 * 60 * 1000,
+          exp: Date.now() + 60 * 60 * 1000,
           azp: 'HgguS961i58k3TOHwS5b4ZW4OevBGibp',
           gty: 'client-credentials',
         }
