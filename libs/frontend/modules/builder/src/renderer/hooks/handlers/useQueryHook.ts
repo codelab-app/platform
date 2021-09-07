@@ -4,7 +4,7 @@ import { QueryHookConfigFragment } from '@codelab/frontend/modules/element'
 import { useExecuteLambdaMutation } from '@codelab/frontend/modules/lambda'
 import axios from 'axios'
 import { useQuery } from 'react-query'
-import { QueryHookHandler } from './QueryHookHandler'
+import { QueryHookHandler } from '../QueryHookHandler'
 
 export const useQueryHook: QueryHookHandler = (
   config: QueryHookConfigFragment,
@@ -32,6 +32,16 @@ export const useQueryHook: QueryHookHandler = (
             payload: JSON.stringify(context),
           },
         },
+      }).then((r) => {
+        try {
+          const payload = r.data?.executeLambda?.payload
+
+          return payload ? JSON.parse(payload) : undefined
+        } catch (e) {
+          console.warn('Error while processing lambda payload: ', e)
+        }
+
+        return undefined
       }),
     )
   }
@@ -42,7 +52,26 @@ export const useQueryHook: QueryHookHandler = (
     return
   }
 
-  return useQuery(config.queryKey, (context) =>
+  const {
+    data,
+    dataUpdatedAt,
+    error,
+    errorUpdatedAt,
+    failureCount,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isFetching,
+    isIdle,
+    isLoading,
+    isLoadingError,
+    isPlaceholderData,
+    isPreviousData,
+    isRefetchError,
+    isStale,
+    isSuccess,
+    status,
+  } = useQuery(config.queryKey, (context) =>
     axios({
       data: body,
       url,
@@ -52,4 +81,25 @@ export const useQueryHook: QueryHookHandler = (
       },
     }).then((r) => r.data),
   )
+
+  return {
+    data,
+    dataUpdatedAt,
+    error,
+    errorUpdatedAt,
+    failureCount,
+    isError,
+    isFetched,
+    isFetchedAfterMount,
+    isFetching,
+    isIdle,
+    isLoading,
+    isLoadingError,
+    isPlaceholderData,
+    isPreviousData,
+    isRefetchError,
+    isStale,
+    isSuccess,
+    status,
+  }
 }

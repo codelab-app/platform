@@ -1,10 +1,10 @@
+import { CreateAppInput } from '@codelab/backend/modules/app'
 import { GraphQLClient } from 'graphql-request'
-import { SeedAppInput } from './types/app'
 
 export class AppSeeder {
   constructor(private client: GraphQLClient) {}
 
-  public seedAppIfMissing(app: SeedAppInput) {
+  public seedAppIfMissing(app: CreateAppInput) {
     // return createIfMissing(app)
   }
 

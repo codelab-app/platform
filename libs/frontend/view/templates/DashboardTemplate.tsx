@@ -1,5 +1,6 @@
 import { TemplateProps } from '@codelab/frontend/abstract/props'
 import { PageType } from '@codelab/frontend/model/state/router'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Layout } from 'antd'
 import { NextRouter, useRouter } from 'next/router'
@@ -42,7 +43,12 @@ export const DashboardTemplate = ({
   // const contentPadding = isPageDetailRoute(router) ? 'pt-12' : ''
 
   return (
-    <Layout css={tw`min-h-full`} {...layoutProps}>
+    <Layout
+      css={css`
+        min-height: 100% !important;
+      `}
+      {...layoutProps}
+    >
       {SidebarNavigation ? (
         <Sider theme="light" collapsed collapsedWidth={40}>
           <div data-testid="pane-main" css={tw`h-full`}>

@@ -1,5 +1,0 @@
-mutation Seeder_CreateAtom($input: CreateAtomInput!) {
-  createAtom(input: $input) {
-    id
-  }
-}

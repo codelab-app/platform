@@ -8,7 +8,7 @@ export type TestGetElementQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetElementQuery = { getElement?: Types.Maybe<{ id: string, name: string, css?: Types.Maybe<string>, props: string, atom?: Types.Maybe<{ id: string, name: string, type: Types.AtomType }>, hooks: Array<{ id: string, type: Types.HookType, config: { __typename: 'QueryHookConfig', body?: Types.Maybe<string>, lambdaId?: Types.Maybe<string>, method?: Types.Maybe<Types.QueryMethod>, queryKey: string, url?: Types.Maybe<string> } }> }> };
+export type TestGetElementQuery = { getElement?: Types.Maybe<{ id: string, name: string, css?: Types.Maybe<string>, props: string, atom?: Types.Maybe<{ id: string, name: string, type: Types.AtomType }>, hooks: Array<{ id: string, type: Types.HookType, config: { __typename: 'QueryHookConfig', body?: Types.Maybe<string>, lambdaId?: Types.Maybe<string>, method?: Types.Maybe<Types.QueryMethod>, queryKey: string, url?: Types.Maybe<string> } | {} }> }> };
 
 
 export const TestGetElementGql = gql`

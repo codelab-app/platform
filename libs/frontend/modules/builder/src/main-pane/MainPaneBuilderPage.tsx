@@ -16,7 +16,7 @@ import {
 } from '@codelab/frontend/view/components'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
-import { useBuilder } from '../containers/useBuilder'
+import { useBuilderSelection } from '../containers/builderState'
 import { MainPaneBuilder } from './MainPaneBuilder'
 
 export const MainPaneBuilderPage = () => {
@@ -26,7 +26,7 @@ export const MainPaneBuilderPage = () => {
 
   const {
     state: { selectedElement },
-  } = useBuilder()
+  } = useBuilderSelection()
 
   const appId = router.query.appId as string
 

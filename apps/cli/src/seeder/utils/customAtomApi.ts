@@ -1,10 +1,13 @@
+import {
+  CreateFieldInput,
+  CreateTypeInput,
+} from '@codelab/backend/modules/type'
 import { AtomType } from '@codelab/shared/abstract/core'
 import { BaseTypeName } from '../data/baseTypes'
-import { SeedFieldInput, SeedTypeInput } from '../models/types/type'
 
 export type CustomAtomApiDefinition = {
   atomType: AtomType
-  fields: Array<Omit<SeedFieldInput, 'interfaceId'>>
+  fields: Array<Omit<CreateFieldInput, 'interfaceId'>>
 }
 
 export type CustomAtomApiFactory = (
@@ -13,6 +16,6 @@ export type CustomAtomApiFactory = (
 
 export interface CustomAtomApiFactoryInput {
   baseTypeIdsByName: Map<BaseTypeName, string>
-  createTypeIfMissing: (typeInput: SeedTypeInput) => Promise<string>
-  createFieldIfMissing: (fieldInput: SeedFieldInput) => Promise<string>
+  createTypeIfMissing: (typeInput: CreateTypeInput) => Promise<string>
+  createFieldIfMissing: (fieldInput: CreateFieldInput) => Promise<string>
 }

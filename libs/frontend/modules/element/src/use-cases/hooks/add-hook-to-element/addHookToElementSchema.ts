@@ -3,8 +3,8 @@ import { JSONSchemaType } from 'ajv'
 import { AddHookToElementMutationVariables } from './AddHookToElement.api.graphql.gen'
 
 type AddHookToElementInput = AddHookToElementMutationVariables['input']
-
 type QueryHookConfigInput = AddHookToElementInput['queryHook']
+type GraphqlQueryHookConfigInput = AddHookToElementInput['graphqlQueryHook']
 
 export enum QueryHookVariant {
   Lambda = 'Lambda',
@@ -15,6 +15,7 @@ export type AddHookToElementSchema = {
   type: HookType
   queryHookVariant?: QueryHookVariant
   queryHook?: QueryHookConfigInput
+  graphqlQueryHook?: GraphqlQueryHookConfigInput
 }
 
 export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
@@ -58,6 +59,22 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
       },
       required: ['queryKey'],
     },
+    graphqlQueryHook: {
+      type: 'object',
+      nullable: true,
+      properties: {
+        url: {
+          type: 'string',
+        },
+        body: {
+          type: 'string',
+        },
+        dataKey: {
+          type: 'string',
+        },
+      },
+      required: ['body', 'url'],
+    },
   },
   required: ['type'],
 }
@@ -75,6 +92,15 @@ export const mapDataToInput = (
       return {
         elementId,
         queryHook: data.queryHook,
+      }
+    case HookType.GraphqlQuery:
+      if (!data.graphqlQueryHook) {
+        throw new Error('Graphql query hook data is required')
+      }
+
+      return {
+        elementId,
+        graphqlQueryHook: data.graphqlQueryHook,
       }
   }
 

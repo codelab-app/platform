@@ -52,10 +52,10 @@ export class AddHookToElementService extends DgraphCreateUseCase<AddHookToElemen
   }
 
   protected async validate({
-    input: { elementId, queryHook },
+    input: { elementId, queryHook, graphqlQueryHook },
     currentUser,
   }: AddHookToElementRequest) {
-    if (!queryHook) {
+    if ([queryHook, graphqlQueryHook].filter((f) => !!f).length !== 1) {
       throw new Error('Provide exactly 1 config type to addHookToElement')
     }
 

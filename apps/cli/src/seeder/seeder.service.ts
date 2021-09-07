@@ -14,22 +14,6 @@ import { allCustomAtomApiFactories } from './data/customAtomApis'
 import { AtomSeeder, TypeSeeder } from './models'
 import { iterateCsvs } from './utils/iterateCsvs'
 
-/**
- * Idea to improve data management:
- * Create a libraries.(json/js/ts) in /data dir
- * In it we have an array of libraries - their names, and a path to a directory that contains the data
- * e.g. [{name: "Ant Design", dataDir: "data/antd/"}]
- *
- * In each data dir (data/antd for example), we keep a atoms.(json/js/ts)
- * atoms.(json/js/ts) will contain a list of Atoms for this library, with the same structure, but will contain the AtomType:
- * [{name: "Button", file: "Button.csv", atomType: AtomType.Button}]
- *
- * The csv file will contain standardized across all libraries data for the API - things like key, type, etc.
- * Scrapers will do the work to format the specific data (say from AntD API docs) to our standardized data
- *
- * The Seeder will create the libraries, all of the atoms inside them and the types for them
- */
-
 interface AtomSeed {
   id: string
   atomType: AtomType
@@ -47,18 +31,12 @@ export class SeederService {
    */
   private atoms: Array<AtomSeed> = []
 
-  private readonly atomSeeder: AtomSeeder
-
-  private typeSeeder: TypeSeeder
-
   constructor(
     @Inject(serverConfig.KEY) private readonly _serverConfig: ServerConfig,
-    private readonly client: GraphQLClient,
-    private seedBaseTypesService: SeedBaseTypesService,
-  ) {
-    this.atomSeeder = new AtomSeeder(client)
-    this.typeSeeder = new TypeSeeder(client, this.atomSeeder)
-  }
+    private readonly seedBaseTypesService: SeedBaseTypesService,
+    private readonly atomSeeder: AtomSeeder,
+    private readonly typeSeeder: TypeSeeder,
+  ) {}
 
   @Command({
     command: 'seed',
@@ -105,6 +83,8 @@ export class SeederService {
   }
 
   private async seedAtoms() {
+    await this.typeSeeder.seedBaseTypes()
+
     return Promise.all(
       Object.values(AtomType).map((atomType) =>
         this.atomSeeder

@@ -3,7 +3,7 @@ import {
   isElement,
 } from '@codelab/frontend/modules/element'
 import { useCallback } from 'react'
-import { useSetBuilder } from './useBuilder'
+import { useSetBuilder } from './builderState'
 
 export const useBuilderHandlers = (tree: ElementTreeGraphql) => {
   // Use setters only, because we don't want to re-render this every time the hover/selected element is changed

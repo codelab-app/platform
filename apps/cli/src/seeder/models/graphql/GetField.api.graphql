@@ -1,5 +1,0 @@
-query Seeder_GetField($input: GetFieldInput!) {
-  getField(input: $input) {
-    id
-  }
-}

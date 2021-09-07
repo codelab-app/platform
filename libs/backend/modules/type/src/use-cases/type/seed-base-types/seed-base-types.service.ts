@@ -1,5 +1,6 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { Auth0Service } from '@codelab/backend/infra'
+import { createIfMissing } from '@codelab/backend/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { baseTypes } from '../../../domain/data/baseTypes'
 import { CreateTypeInput, CreateTypeService } from '../create-type'
@@ -32,11 +33,11 @@ export class SeedBaseTypesService implements UseCasePort<void, void> {
   }
 
   private async seedTypeIfMissing(input: CreateTypeInput): Promise<string> {
-    return this.createType(input)
-    // return createIfMissing(
-    //   () => this.getTypeByName(input.name),
-    //   () => this.createType(input),
-    // )
+    // return this.createType(input)
+    return createIfMissing(
+      () => this.getTypeByName(input.name),
+      () => this.createType(input),
+    )
   }
 
   private getTypeByName(name: string) {

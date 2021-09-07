@@ -1,5 +1,5 @@
 export * from './Builder'
-export * from './containers/useBuilder'
+export * from './containers/builderState'
 export * from './containers/useBuilderHandlers'
 export * from './main-pane'
 export * from './meta-pane'

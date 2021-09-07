@@ -4,8 +4,8 @@ import {
   isElement,
 } from '@codelab/frontend/modules/element'
 import { RenderContext } from '@codelab/frontend/presenter/container'
+import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
-import deepmerge from 'deepmerge'
 import React, { ReactElement } from 'react'
 import { HookElementWrapper } from './hooks/HookElementWrapper'
 import { reactComponentFactory } from './reactComponentFactory'
@@ -26,20 +26,6 @@ export type RenderHandler<TNode extends RenderNode = RenderNode> = (
 //
 // Helpers:
 //
-
-/**
- *  Deep merges a list of props together, the latter props have priority over the prior ones in case of conflict
- * The following edge cases are handled:
- * - Merging className strings together
- */
-const mergeProps = (...props: Array<Record<string, any>>) => {
-  return props.reduce((aggregate, nextProps) => {
-    return {
-      ...deepmerge(aggregate, nextProps),
-      className: `${aggregate.className ?? ''} ${nextProps.className ?? ''}`,
-    }
-  }, {})
-}
 
 //
 // Render handlers:
@@ -76,13 +62,20 @@ const renderElement: RenderHandler = (element, context) => {
 
     const elementProps: Record<string, any> = JSON.parse(element.props)
 
+    const extraElementProps =
+      context.extraElementProps && context.extraElementProps[element.id]
+        ? context.extraElementProps[element.id]
+        : {}
+
     const propsCombined = mergeProps(
       {
         nodeid: element.id,
+        __node: element,
       },
       atomProps,
       context.extraProps ?? {},
       elementProps,
+      extraElementProps,
     )
 
     const children = []
@@ -108,10 +101,23 @@ const renderElement: RenderHandler = (element, context) => {
 
     if (element.hooks?.length > 0) {
       return (
-        <HookElementWrapper hooks={element.hooks}>
+        // the key will cause the wrapper to be destroyed and re-rendered when we add/remove hooks, which will avoid react's error
+        <HookElementWrapper
+          key={element.hooks.length}
+          hooks={element.hooks}
+          onRendered={(renderedElement) => {
+            if (context.onRendered) {
+              context.onRendered(renderedElement, element)
+            }
+          }}
+        >
           {rendered}
         </HookElementWrapper>
       )
+    }
+
+    if (context.onRendered) {
+      context.onRendered(rendered, element)
     }
 
     return rendered

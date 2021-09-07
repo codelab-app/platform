@@ -1,48 +1,39 @@
 import { AntdDesignApi } from '@codelab/backend/infra'
+import {
+  CreateFieldInput,
+  CreateFieldService,
+  CreateTypeInput,
+  CreateTypeService,
+  GetFieldInput,
+  GetFieldService,
+  GetTypeService,
+  TypeRef,
+} from '@codelab/backend/modules/type'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
-import { GraphQLClient } from 'graphql-request'
+import { Injectable } from '@nestjs/common'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
 import {
   CustomAtomApiFactory,
   CustomAtomApiFactoryInput,
 } from '../utils/customAtomApi'
 import { AtomSeeder } from './atom-seeder'
-import {
-  Seeder_CreateFieldGql,
-  Seeder_CreateFieldMutation,
-  Seeder_CreateFieldMutationVariables,
-} from './graphql/CreateField.api.graphql.gen'
-import {
-  Seeder_CreateTypeGql,
-  Seeder_CreateTypeMutation,
-  Seeder_CreateTypeMutationVariables,
-} from './graphql/CreateType.api.graphql.gen'
-import {
-  Seeder_GetFieldGql,
-  Seeder_GetFieldQuery,
-  Seeder_GetFieldQueryVariables,
-} from './graphql/GetField.api.graphql.gen'
-import {
-  Seeder_GetTypeGql,
-  Seeder_GetTypeQuery,
-  Seeder_GetTypeQueryVariables,
-} from './graphql/GetType.api.graphql.gen'
-import {
-  GetFieldInput,
-  SeedFieldInput,
-  SeedTypeInput,
-  TypeRef,
-} from './types/type'
 
 /**
  * Handle seeding of types
  */
+@Injectable()
 export class TypeSeeder {
   private baseTypes: Map<BaseTypeName, string> | undefined
 
-  constructor(private client: GraphQLClient, private atomSeeder: AtomSeeder) {}
+  constructor(
+    private createTypeService: CreateTypeService,
+    private getTypeService: GetTypeService,
+    private createFieldService: CreateFieldService,
+    private getFieldService: GetFieldService,
+    private atomSeeder: AtomSeeder,
+  ) {}
 
   public async seedBaseTypes() {
     this.baseTypes = await this.seedAllIfMissing(baseTypes)
@@ -56,7 +47,7 @@ export class TypeSeeder {
    * Returns a map of all input type names and their ids
    */
   private async seedAllIfMissing(
-    inputs: Array<SeedTypeInput>,
+    inputs: Array<CreateTypeInput>,
   ): Promise<Map<BaseTypeName, string>> {
     const results = await Promise.all(
       inputs.map((input) =>
@@ -74,7 +65,7 @@ export class TypeSeeder {
    * Checks if a type with the same name exists, if not - creates it
    * Returns the id in both cases
    */
-  private async seedTypeIfNotExisting(input: SeedTypeInput): Promise<string> {
+  private async seedTypeIfNotExisting(input: CreateTypeInput): Promise<string> {
     return createIfMissing(
       () => this.getTypeByName(input.name),
       () => this.createType(input),
@@ -82,21 +73,19 @@ export class TypeSeeder {
   }
 
   public async seedAtomApi(atomId: string, data: Array<AntdDesignApi>) {
-    console.log(data)
-
     const atom = await this.atomSeeder.getAtom({ where: { id: atomId } })
 
     if (!atom) {
       throw new Error(`Atom ${atomId} doesn't exist`)
     }
 
-    const atomApiId = atom.api.id
+    const atomApiId = atom.api.uid
 
     for (const apiField of data) {
       const type = this.getTypeForApi(apiField, atom.name)
 
       if (!type) {
-        console.log(`${apiField.type} is not valid`)
+        // console.log(`${apiField.type} is not valid`)
         continue
       }
 
@@ -110,7 +99,7 @@ export class TypeSeeder {
     }
   }
 
-  private async createFieldIfMissing(input: SeedFieldInput): Promise<string> {
+  private async createFieldIfMissing(input: CreateFieldInput): Promise<string> {
     try {
       return await this.createField(input)
     } catch (e: any) {
@@ -123,7 +112,7 @@ export class TypeSeeder {
         byInterface: { interfaceId: input.interfaceId, fieldKey: input.key },
       })
 
-      return foundField?.id as string
+      return foundField?.uid as string
     }
   }
 
@@ -157,43 +146,26 @@ export class TypeSeeder {
       for (const field of api.fields) {
         await this.createFieldIfMissing({
           ...field,
-          interfaceId: atom.api.id,
+          interfaceId: atom.api.uid,
         })
       }
     }
   }
 
   private getTypeByName(name: string) {
-    return this.client
-      .request<Seeder_GetTypeQuery, Seeder_GetTypeQueryVariables>(
-        Seeder_GetTypeGql,
-        {
-          input: { where: { name } },
-        },
-      )
-      .then((r) => r?.getType?.id)
+    return this.getTypeService
+      .execute({ input: { where: { name } } })
+      .then((r) => r?.uid)
   }
 
   private getField(input: GetFieldInput) {
-    return this.client
-      .request<Seeder_GetFieldQuery, Seeder_GetFieldQueryVariables>(
-        Seeder_GetFieldGql,
-        {
-          input,
-        },
-      )
-      .then((r) => r?.getField)
+    return this.getFieldService.execute({ input })
   }
 
-  private async createType(typeInput: SeedTypeInput) {
-    const createResponse = await this.client.request<
-      Seeder_CreateTypeMutation,
-      Seeder_CreateTypeMutationVariables
-    >(Seeder_CreateTypeGql, {
-      input: typeInput,
-    })
+  private async createType(typeInput: CreateTypeInput) {
+    const createResponse = await this.createTypeService.execute(typeInput)
 
-    if (!createResponse?.createType) {
+    if (!createResponse?.id) {
       throw new Error(
         `Something went wrong while creating type ${typeInput.name}`,
       )
@@ -201,22 +173,19 @@ export class TypeSeeder {
 
     console.log(`Created type ${typeInput.name}`)
 
-    return createResponse.createType.id
+    return createResponse.id
   }
 
-  private async createField(input: SeedFieldInput) {
-    const createResponse = await this.client.request<
-      Seeder_CreateFieldMutation,
-      Seeder_CreateFieldMutationVariables
-    >(Seeder_CreateFieldGql, { input })
+  private async createField(input: CreateFieldInput) {
+    const createResponse = await this.createFieldService.execute({ input })
 
-    if (!createResponse?.createField) {
+    if (!createResponse?.id) {
       throw new Error(`Something went wrong while creating field ${input.name}`)
     }
 
     console.log(`Created field ${input.name}`)
 
-    return createResponse.createField.id
+    return createResponse.id
   }
 
   private getTypeForApi(

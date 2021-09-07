@@ -3,7 +3,6 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
-    "jsxImportSource": "@emotion/react",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,

@@ -1,60 +1,49 @@
+import {
+  CreateAtomInput,
+  CreateAtomService,
+  GetAtomInput,
+  GetAtomService,
+} from '@codelab/backend/modules/atom'
 import { createIfMissing } from '@codelab/backend/shared/utils'
-import { GraphQLClient } from 'graphql-request'
-import {
-  Seeder_CreateAtomGql,
-  Seeder_CreateAtomMutation,
-  Seeder_CreateAtomMutationVariables,
-} from './graphql/CreateAtom.api.graphql.gen'
-import {
-  Seeder_GetAtomGql,
-  Seeder_GetAtomQuery,
-  Seeder_GetAtomQueryVariables,
-} from './graphql/GetAtom.api.graphql.gen'
-
-export type SeedAtomInput = Seeder_CreateAtomMutationVariables['input']
-export type GetAtomInput = Seeder_GetAtomQueryVariables['input']
+import { Injectable } from '@nestjs/common'
 
 /**
  * Handle seeding of atoms
  */
+@Injectable()
 export class AtomSeeder {
-  constructor(private client: GraphQLClient) {}
+  constructor(
+    private createAtomService: CreateAtomService,
+    private getAtomService: GetAtomService,
+  ) {}
 
   /**
    * Checks if an Atom with the same AtomType exists, if not - creates it
    * Returns the id in both cases
    */
-  async seedAtomIfMissing(atom: SeedAtomInput): Promise<string> {
+  async seedAtomIfMissing(atom: CreateAtomInput): Promise<string> {
     return createIfMissing(
       () =>
-        this.getAtom({ where: { type: atom.type } }).then((_atom) => _atom?.id),
+        this.getAtom({ where: { type: atom.type } }).then(
+          (_atom) => _atom?.uid,
+        ),
       () => this.createAtom(atom),
     )
   }
 
   async getAtom(input: GetAtomInput) {
-    const { atom } = await this.client.request<
-      Seeder_GetAtomQuery,
-      Seeder_GetAtomQueryVariables
-    >(Seeder_GetAtomGql, {
-      input,
-    })
-
-    return atom
+    return await this.getAtomService.execute(input)
   }
 
-  private async createAtom(input: SeedAtomInput) {
-    const createResponse = await this.client.request<
-      Seeder_CreateAtomMutation,
-      Seeder_CreateAtomMutationVariables
-    >(Seeder_CreateAtomGql, { input })
+  private async createAtom(input: CreateAtomInput) {
+    const createResponse = await this.createAtomService.execute(input)
 
-    if (!createResponse?.createAtom) {
+    if (!createResponse?.id) {
       throw new Error(`Something went wrong while creating atom ${input.type}`)
     }
 
     console.log(`Created atom ${input.type}`)
 
-    return createResponse.createAtom.id
+    return createResponse.id
   }
 }

@@ -17,6 +17,7 @@ export type Scalars = {
 export type AddHookToElementInput = {
   elementId: Scalars['String'];
   queryHook?: Maybe<QueryHookConfigInput>;
+  graphqlQueryHook?: Maybe<GraphqlQueryHookConfigInput>;
 };
 
 export type App = {
@@ -535,13 +536,25 @@ export type GetUsersInput = {
   sort: Scalars['String'];
 };
 
+export type GraphqlQueryHookConfig = {
+  body: Scalars['String'];
+  url: Scalars['String'];
+  dataKey?: Maybe<Scalars['String']>;
+};
+
+export type GraphqlQueryHookConfigInput = {
+  url: Scalars['String'];
+  body: Scalars['String'];
+  dataKey?: Maybe<Scalars['String']>;
+};
+
 export type Hook = {
   id: Scalars['ID'];
   type: HookType;
   config: HookConfig;
 };
 
-export type HookConfig = QueryHookConfig;
+export type HookConfig = QueryHookConfig | GraphqlQueryHookConfig;
 
 export enum HookType {
   Query = 'Query',

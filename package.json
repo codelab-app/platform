@@ -62,7 +62,6 @@
     "@emotion/styled": "11.3.0",
     "@graphql-codegen/cli": "2.1.1",
     "@graphql-tools/load-files": "6.4.0",
-    "@monaco-editor/react": "4.2.2",
     "@nestjs/common": "8.0.6",
     "@nestjs/config": "1.0.1",
     "@nestjs/core": "8.0.6",
@@ -127,6 +126,7 @@
     "material-ui-colors": "1.0.0",
     "monaco-css-in-js": "3.5.8",
     "monaco-editor": "0.27.0",
+    "monaco-graphql": "^0.4.4",
     "nest-winston": "^1.6.0",
     "nestjs-console": "7.0.0",
     "next": "11.1.0",
@@ -165,6 +165,7 @@
     "wait-on": "6.0.0",
     "why-is-node-running": "2.2.0",
     "winston": "^3.3.3",
+    "worker-loader": "^3.0.8",
     "zod": "3.8.1"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import { EmotionCssEditor } from '@codelab/frontend/view/components'
 import React, { useEffect, useRef, useState } from 'react'
-import { ElementFragment } from '../graphql/Element.fragment.api.graphql.gen'
+import { ElementFragment } from '../graphql'
 import {
   refetchGetElementQuery,
   useGetElementQuery,
@@ -75,8 +75,6 @@ const ElementCssEditorInternal = ({
 
   return (
     <EmotionCssEditor
-      width="100%"
-      height="100%"
       value={cssString}
       onChange={(v) => setCssString(v || '')}
     />

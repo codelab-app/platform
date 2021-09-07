@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "jsxImportSource": "@emotion/react",
     "outDir": "../../../../dist/out-tsc",
     "types": ["node", "twin"],
     "esModuleInterop": true,

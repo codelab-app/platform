@@ -1,9 +1,9 @@
+import { CreateTypeInput } from '@codelab/backend/modules/type'
 import {
   ElementTypeKind,
   PrimitiveKind,
   TypeKind,
 } from '@codelab/shared/abstract/core'
-import { SeedTypeInput } from '../models'
 
 export enum BaseTypeName {
   Lambda = 'Lambda',
@@ -17,7 +17,7 @@ export enum BaseTypeName {
   Integer = 'Integer',
 }
 
-export const baseTypes: Array<SeedTypeInput> = [
+export const baseTypes: Array<CreateTypeInput> = [
   {
     name: BaseTypeName.String,
     typeKind: TypeKind.PrimitiveType,
