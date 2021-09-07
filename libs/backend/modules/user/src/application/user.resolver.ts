@@ -9,53 +9,56 @@ import type { User as IUser } from '@codelab/shared/abstract/core'
 import { Role } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { UserAdapter } from '../domain/user.adapter'
 import { User } from '../domain/user.model'
-import { CreateUserInput, CreateUserService } from '../use-cases/create-user'
 import { DeleteUserInput, DeleteUserService } from '../use-cases/delete-user'
-import { GetUserService } from '../use-cases/get-user'
+import { GetUserInput, GetUserService } from '../use-cases/get-user'
 import { GetUsersInput, GetUsersService } from '../use-cases/get-users'
-import { UpdateUserInput, UpdateUserService } from '../use-cases/update-user'
+import { UpsertUserInput, UpsertUserService } from '../use-cases/upsert-user'
 
 @Resolver(() => User)
 @Injectable()
 export class UserResolver {
   constructor(
-    private updateUserService: UpdateUserService,
     private deleteUserService: DeleteUserService,
     private getUserService: GetUserService,
     private getUsersService: GetUsersService,
-    private createUserService: CreateUserService,
+    private upsertUserService: UpsertUserService,
+    private userAdapter: UserAdapter,
   ) {}
 
   @Query(() => User)
   @UseGuards(GqlAuthGuard)
   getMe(@CurrentUser() currentUser: IUser) {
-    return this.getUserService.execute({ userId: currentUser.id })
+    return this.getUserService.execute({ id: currentUser.id })
+  }
+
+  @Query(() => User, { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  async getUser(@Args('input') input: GetUserInput) {
+    const user = await this.getUserService.execute(input)
+
+    if (!user) {
+      return null
+    }
+
+    return this.userAdapter.mapItem(user)
   }
 
   @Query(() => [User])
   @Roles(Role.Admin)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  getUsers(@Args('input', { nullable: true }) input?: GetUsersInput) {
-    return this.getUsersService.execute(input)
+  async getUsers(@Args('input', { nullable: true }) input?: GetUsersInput) {
+    return await this.getUsersService.execute(input)
   }
 
   @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
-  async createUser(
-    @Args('input') input: CreateUserInput,
+  async upsertUser(
+    @Args('input') input: UpsertUserInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    return await this.createUserService.execute({ input, currentUser })
-  }
-
-  @Mutation(() => User)
-  @UseGuards(GqlAuthGuard)
-  updateUser(
-    @Args('input') input: UpdateUserInput,
-    @CurrentUser() currentUser: IUser,
-  ) {
-    return this.updateUserService.execute({ input, currentUser })
+    return await this.upsertUserService.execute({ input, currentUser })
   }
 
   @Mutation(() => Boolean)

@@ -1,9 +1,9 @@
 import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
 import { User } from '@codelab/shared/abstract/core'
-import { CreateUserInput } from './create-user.input'
+import { UpsertUserInput } from './upsert-user.input'
 
-export interface CreateUserRequest extends WithCurrentUserRequest {
-  input: CreateUserInput
+export interface UpsertUserRequest extends WithCurrentUserRequest {
+  input: UpsertUserInput
 
   currentUser: User
 }

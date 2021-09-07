@@ -23,7 +23,7 @@ export const DeleteUserForm = (
   const onSubmit = async () => {
     for (const id of state.deleteIds) {
       await mutate({
-        variables: { input: { userId: id } },
+        variables: { input: { id } },
       })
     }
   }

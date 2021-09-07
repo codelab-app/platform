@@ -48,7 +48,7 @@ export const setupTestModule = async (
         const payload: JwtPayload = {
           'https://api.codelab.ai/jwt/claims': {
             email: 'test-user@codelab.com',
-            roles: [Role.User],
+            roles: [role],
           },
           iss: 'codelab',
           sub: 'codelab-test-user-id',

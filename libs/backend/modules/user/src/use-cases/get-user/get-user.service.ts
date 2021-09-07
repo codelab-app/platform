@@ -1,16 +1,37 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { Auth0Service } from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
+import {
+  DgraphEntityType,
+  DgraphQueryBuilder,
+  DgraphUser,
+} from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
-import { User } from '../../domain/user.model'
-import { GetUserRequest } from './get-user.request'
+import { Txn } from 'dgraph-js-http'
+import { GetUserInput } from './get-user.input'
 
 @Injectable()
-export class GetUserService implements UseCasePort<GetUserRequest, User> {
-  constructor(private auth0: Auth0Service) {}
+export class GetUserService extends DgraphUseCase<
+  GetUserInput,
+  DgraphUser | null
+> {
+  async executeTransaction(request: GetUserInput, txn: Txn) {
+    const { id } = request
 
-  async execute(request: GetUserRequest): Promise<User> {
-    return await this.auth0
-      .getManagementClient()
-      .getUser({ id: request.userId })
+    if (id) {
+      return await this.dgraph.getOne<DgraphUser>(txn, this.createByIdQuery(id))
+    }
+
+    throw new Error('Invalid parameters')
+
+    // return await this.auth0
+    //   .getManagementClient()
+    //   .getUser({ id: request.userId })
+  }
+
+  protected createByIdQuery(id: string) {
+    return new DgraphQueryBuilder()
+      .setUidFunc(id)
+      .addTypeFilterDirective(DgraphEntityType.User)
+      .addBaseFields()
+      .addExpandAll()
   }
 }

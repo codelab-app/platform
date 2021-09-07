@@ -349,10 +349,6 @@ export type CreateTypeInput = {
   elementType?: Maybe<CreateElementTypeInput>;
 };
 
-export type CreateUserInput = {
-  name: Scalars['String'];
-};
-
 export type DeleteAppInput = {
   appId: Scalars['String'];
 };
@@ -390,7 +386,7 @@ export type DeleteTypeInput = {
 };
 
 export type DeleteUserInput = {
-  userId: Scalars['String'];
+  id: Scalars['String'];
 };
 
 export type Element = {
@@ -533,6 +529,10 @@ export type GetTypesInput = {
   byName?: Maybe<TypesByNameFilter>;
 };
 
+export type GetUserInput = {
+  id: Scalars['String'];
+};
+
 export type GetUsersInput = {
   page: Scalars['Int'];
   perPage: Scalars['Int'];
@@ -610,8 +610,7 @@ export type Mutation = {
   createApp: CreateResponse;
   updateApp?: Maybe<Scalars['Void']>;
   deleteApp?: Maybe<Scalars['Void']>;
-  createUser: Scalars['Void'];
-  updateUser: User;
+  upsertUser: CreateResponse;
   deleteUser: Scalars['Boolean'];
   resetData?: Maybe<Scalars['Void']>;
   createPage: CreateResponse;
@@ -666,13 +665,8 @@ export type MutationDeleteAppArgs = {
 };
 
 
-export type MutationCreateUserArgs = {
-  input: CreateUserInput;
-};
-
-
-export type MutationUpdateUserArgs = {
-  input: UpdateUserInput;
+export type MutationUpsertUserArgs = {
+  input: UpsertUserInput;
 };
 
 
@@ -869,6 +863,7 @@ export type Query = {
   getApp?: Maybe<App>;
   getApps: Array<App>;
   getMe: User;
+  getUser?: Maybe<User>;
   getUsers: Array<User>;
   getPages: Array<Page>;
   getPage?: Maybe<Page>;
@@ -897,6 +892,11 @@ export type Query = {
 
 export type QueryGetAppArgs = {
   input: GetAppInput;
+};
+
+
+export type QueryGetUserArgs = {
+  input: GetUserInput;
 };
 
 
@@ -1013,6 +1013,12 @@ export type RemoveHookFromElementInput = {
   elementId: Scalars['String'];
   hookId: Scalars['String'];
 };
+
+export enum Role {
+  Admin = 'Admin',
+  User = 'User',
+  Guest = 'Guest'
+}
 
 export type Tag = {
   id: Scalars['String'];
@@ -1211,41 +1217,23 @@ export type UpdateTypeInput = {
   typeId: Scalars['String'];
 };
 
-export type UpdateUserData = {
-  family_name?: Maybe<Scalars['String']>;
-  given_name?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  nickname?: Maybe<Scalars['String']>;
-  phone_number?: Maybe<Scalars['String']>;
-  picture?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
+export type UpsertUserDataInput = {
+  auth0Id: Scalars['String'];
 };
 
-export type UpdateUserInput = {
-  userId: Scalars['String'];
-  updateData: UpdateUserData;
+export type UpsertUserInput = {
+  data: UpsertUserDataInput;
+  where?: Maybe<UserWhereUniqueInput>;
 };
 
 export type User = {
-  blocked?: Maybe<Scalars['Boolean']>;
-  created_at?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  email_verified?: Maybe<Scalars['Boolean']>;
-  family_name?: Maybe<Scalars['String']>;
-  given_name?: Maybe<Scalars['String']>;
-  last_ip?: Maybe<Scalars['String']>;
-  last_login?: Maybe<Scalars['String']>;
-  last_password_reset?: Maybe<Scalars['String']>;
-  logins_count?: Maybe<Scalars['Float']>;
-  multifactor?: Maybe<Array<Scalars['String']>>;
-  name?: Maybe<Scalars['String']>;
-  nickname?: Maybe<Scalars['String']>;
-  phone_number?: Maybe<Scalars['String']>;
-  phone_verified?: Maybe<Scalars['Boolean']>;
-  picture?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['String']>;
-  user_id?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  auth0Id: Scalars['String'];
+  roles: Array<Role>;
+};
+
+export type UserWhereUniqueInput = {
+  id: Scalars['String'];
 };
 
 export type WhereUniqueTag = {

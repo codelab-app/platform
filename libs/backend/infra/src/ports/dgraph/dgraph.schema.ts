@@ -20,6 +20,7 @@ const {
   PrimitiveType,
   EnumTypeValue,
   LambdaType,
+  User,
   App,
   Component,
   Lambda,
@@ -38,6 +39,15 @@ export const dgraphSchema = `
     name
     children
   }
+
+  type ${User} {
+    auth0Id
+    apps
+    roles
+  }
+  auth0Id: string @index(hash) .
+  apps: [uid] @reverse .
+  roles: [string] .
 
   type ${App} {
     ownerId

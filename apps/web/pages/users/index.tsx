@@ -16,7 +16,6 @@ const UsersPage: CodelabPage = () => {
   const dataSource = data?.users?.map((user) => ({
     id: user?.id,
     key: user?.id,
-    email: user?.email,
   }))
 
   const columns: ColumnsType<any> = [
@@ -24,11 +23,6 @@ const UsersPage: CodelabPage = () => {
       title: 'Id',
       dataIndex: 'id',
       key: 'id',
-    },
-    {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
     },
     {
       title: 'Action',
