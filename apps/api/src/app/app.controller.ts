@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common'
+import { Body, Controller, Get, Post } from '@nestjs/common'
 
 @Controller()
 export class AppController {
@@ -8,5 +8,9 @@ export class AppController {
   @Get()
   getData() {
     return 'Heath check successful'
+  }
+
+  @Post() index(@Body() body: any) {
+    console.log(body)
   }
 }

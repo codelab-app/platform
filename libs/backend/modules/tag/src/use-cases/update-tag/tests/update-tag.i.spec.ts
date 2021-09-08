@@ -1,18 +1,18 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
-import { CreateTagInput } from '../../create-tag/create-tag.input'
+import { CreateTagInput } from '../../create-tag'
 import {
   TestCreateTagGql,
   TestCreateTagMutation,
 } from '../../create-tag/tests/create-tag.api.graphql.gen'
 import { createTagInput } from '../../create-tag/tests/create-tag.data'
-import { GetTagInput } from '../../get-tag/get-tag.input'
+import { GetTagInput } from '../../get-tag'
 import {
   TestGetTagGql,
   TestGetTagQuery,
@@ -30,8 +30,8 @@ describe('UpdateTagUseCase', () => {
   let createdTagId: string
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([TagModule], { role: Role.GUEST })
-    userApp = await setupTestModule([TagModule], { role: Role.USER })
+    guestApp = await setupTestModule([TagModule], { role: Role.Guest })
+    userApp = await setupTestModule([TagModule], { role: Role.User })
 
     const { createTag } = await domainRequest<
       CreateTagInput,

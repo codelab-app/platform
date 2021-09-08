@@ -58,6 +58,10 @@ yargs(hideBin(process.argv))
     (argv) => runCli(Env.Dev, `${argv._[0]}`),
   )
   //
+  // Start
+  //
+  .command('start', 'Start running development environment', (yargs) => yargs, (argv => runCli(Env.Dev, `${argv._[0]}`)))
+  //
   // Dgraph
   //
   .command(

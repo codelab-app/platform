@@ -1,9 +1,9 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { ComponentModule } from '../../../../component.module'
 import { ElementModule } from '../../../../element.module'
@@ -32,10 +32,10 @@ describe('UpdateComponent', () => {
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ComponentModule, ElementModule], {
-      role: Role.GUEST,
+      role: Role.Guest,
     })
     userApp = await setupTestModule([ComponentModule, ElementModule], {
-      role: Role.USER,
+      role: Role.User,
     })
 
     const results = await domainRequest<

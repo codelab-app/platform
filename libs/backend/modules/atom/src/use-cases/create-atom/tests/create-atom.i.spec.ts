@@ -1,9 +1,9 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
 import { GetAtomInput } from '../../get-atom/get-atom.input'
@@ -23,8 +23,8 @@ describe('CreateAtom', () => {
   let userApp: INestApplication
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AtomModule], { role: Role.GUEST })
-    userApp = await setupTestModule([AtomModule], { role: Role.USER })
+    guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
+    userApp = await setupTestModule([AtomModule], { role: Role.User })
   })
 
   afterAll(async () => {

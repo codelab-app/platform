@@ -1,6 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+yarn cli dgraph update-schema --env local
+
 make build-dev-affected
 make test-dev-affected
 make e2e-dev-affected

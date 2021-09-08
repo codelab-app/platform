@@ -1,12 +1,12 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { LambdaModule } from '../../../lambda.module'
-import { CreateLambdaInput } from '../../create-lambda/create-lambda.input'
+import { CreateLambdaInput } from '../../create-lambda'
 import {
   TestCreateLambdaGql,
   TestCreateLambdaMutation,
@@ -24,8 +24,8 @@ describe('GetLambdas', () => {
   let lambdaBId: string
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([LambdaModule], { role: Role.GUEST })
-    userApp = await setupTestModule([LambdaModule], { role: Role.USER })
+    guestApp = await setupTestModule([LambdaModule], { role: Role.Guest })
+    userApp = await setupTestModule([LambdaModule], { role: Role.User })
 
     const createLambdaInputA = createLambdaInput
     const createLambdaInputB = { ...createLambdaInput, name: 'HelloWorld2' }

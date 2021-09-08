@@ -1,3 +1,4 @@
+import { Role } from '@codelab/shared/abstract/core'
 import {
   DynamicModule,
   ExecutionContext,
@@ -8,7 +9,7 @@ import {
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
-import { GqlAuthGuard, JwtPayload, Role } from '../../adapters'
+import { GqlAuthGuard, JwtPayload } from '../../adapters'
 import { InfrastructureModule } from '../../infrastructure.module'
 import { DgraphService } from '../../ports'
 
@@ -30,7 +31,7 @@ export const setupTestModule = async (
     testModule: TestingModuleBuilder,
   ) => TestingModuleBuilder = (x) => x,
 ): Promise<INestApplication> => {
-  const { role = Role.GUEST, resetDb = true } = options
+  const { role = Role.Guest, resetDb = true } = options
 
   let testModuleBuilder: TestingModuleBuilder = await Test.createTestingModule({
     imports: [InfrastructureModule, ...nestModules],
@@ -39,7 +40,7 @@ export const setupTestModule = async (
   testModuleBuilder = testModuleCallback(testModuleBuilder)
 
   // Mock Auth0 authentication & authorization
-  if (role !== Role.GUEST) {
+  if (role !== Role.Guest) {
     testModuleBuilder.overrideGuard(GqlAuthGuard).useValue({
       canActivate: (context: ExecutionContext) => {
         const ctx = GqlExecutionContext.create(context)
@@ -47,13 +48,13 @@ export const setupTestModule = async (
         const payload: JwtPayload = {
           'https://api.codelab.ai/jwt/claims': {
             email: 'test-user@codelab.com',
-            roles: [Role.USER],
+            roles: [role],
           },
           iss: 'codelab',
           sub: 'codelab-test-user-id',
           aud: ['https://api.codelab.ai'],
           iat: Date.now(),
-          exp: Date.now() + 1 * 60 * 60 * 1000,
+          exp: Date.now() + 60 * 60 * 1000,
           azp: 'HgguS961i58k3TOHwS5b4ZW4OevBGibp',
           gty: 'client-credentials',
         }

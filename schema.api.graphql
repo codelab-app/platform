@@ -465,31 +465,22 @@ type TagGraph {
 union TagVertex = Tag
 
 type User {
-  blocked: Boolean
-  created_at: String
-  email: String
-  email_verified: Boolean
-  family_name: String
-  given_name: String
-  last_ip: String
-  last_login: String
-  last_password_reset: String
-  logins_count: Float
-  multifactor: [String!]
-  name: String
-  nickname: String
-  phone_number: String
-  phone_verified: Boolean
-  picture: String
-  updated_at: String
-  user_id: String
-  username: String
+  id: String!
+  auth0Id: String!
+  roles: [Role!]!
+}
+
+enum Role {
+  Admin
+  User
+  Guest
 }
 
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
   getMe: User!
+  getUser(input: GetUserInput!): User
   getUsers(input: GetUsersInput): [User!]!
   getPages(input: GetPagesInput!): [Page!]!
   getPage(input: GetPageInput!): Page
@@ -534,6 +525,11 @@ input AppByIdFilter {
 
 input AppByPageFilter {
   pageId: String!
+}
+
+input GetUserInput {
+  id: String
+  auth0Id: String
 }
 
 input GetUsersInput {
@@ -649,7 +645,7 @@ type Mutation {
   createApp(input: CreateAppInput!): CreateResponse!
   updateApp(input: UpdateAppInput!): Void
   deleteApp(input: DeleteAppInput!): Void
-  updateUser(input: UpdateUserInput!): User!
+  upsertUser(input: UpsertUserInput!): CreateResponse!
   deleteUser(input: DeleteUserInput!): Boolean!
   resetData: Void
   createPage(input: CreatePageInput!): CreateResponse!
@@ -709,23 +705,22 @@ input DeleteAppInput {
   appId: String!
 }
 
-input UpdateUserInput {
-  userId: String!
-  updateData: UpdateUserData!
+input UpsertUserInput {
+  data: UpsertUserDataInput!
+  where: UserWhereUniqueInput
 }
 
-input UpdateUserData {
-  family_name: String
-  given_name: String
-  name: String
-  nickname: String
-  phone_number: String
-  picture: String
-  username: String
+input UpsertUserDataInput {
+  auth0Id: String!
+}
+
+input UserWhereUniqueInput {
+  id: String
+  auth0Id: String
 }
 
 input DeleteUserInput {
-  userId: String!
+  id: String!
 }
 
 input CreatePageInput {

@@ -1,10 +1,10 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
 import { AppModule, CreateAppInput } from '@codelab/backend/modules/app'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../../../page.module'
 import { CreatePageInput } from '../../create-page'
@@ -34,10 +34,10 @@ describe('DeletePage', () => {
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AppModule, PageModule], {
-      role: Role.GUEST,
+      role: Role.Guest,
     })
     userApp = await setupTestModule([AppModule, PageModule], {
-      role: Role.USER,
+      role: Role.User,
     })
 
     const result = await domainRequest<CreateAppInput, TestCreateAppMutation>(

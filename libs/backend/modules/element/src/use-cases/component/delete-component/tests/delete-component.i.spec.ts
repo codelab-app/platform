@@ -1,13 +1,12 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import {
   CreateElementInput,
   DeleteElementInput,
-  GetElementGraphInput,
   GetElementInput,
 } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
@@ -53,14 +52,13 @@ describe('DeleteComponent', () => {
   let deleteElementInput: DeleteElementInput
   let getElementInput: GetElementInput
   let parentElementId: string
-  let getRootInput: GetElementGraphInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ComponentModule, ElementModule], {
-      role: Role.GUEST,
+      role: Role.Guest,
     })
     userApp = await setupTestModule([ComponentModule, ElementModule], {
-      role: Role.USER,
+      role: Role.User,
     })
 
     // Create component

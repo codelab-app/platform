@@ -1,9 +1,9 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
 import { createField } from '../../create-field/tests/create-type-field'
@@ -19,10 +19,10 @@ describe('GetField', () => {
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {
-      role: Role.GUEST,
+      role: Role.Guest,
     })
     userApp = await setupTestModule([TypeModule], {
-      role: Role.USER,
+      role: Role.User,
     })
 
     fieldId = await createField(userApp)

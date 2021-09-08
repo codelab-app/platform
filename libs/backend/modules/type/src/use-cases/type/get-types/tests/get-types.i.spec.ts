@@ -1,9 +1,9 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
 import { CreateTypeInput } from '../../create-type'
@@ -23,10 +23,10 @@ describe('GetTypes', () => {
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {
-      role: Role.GUEST,
+      role: Role.Guest,
     })
     userApp = await setupTestModule([TypeModule], {
-      role: Role.USER,
+      role: Role.User,
     })
 
     const { createType } = await domainRequest<

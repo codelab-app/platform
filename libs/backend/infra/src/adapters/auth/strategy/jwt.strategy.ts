@@ -20,6 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       }),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       audience: _auth0Config?.api.audience,
+      scope: 'openid email profile roles',
       issuer: _auth0Config?.issuer,
       algorithms: ['RS256'],
     })

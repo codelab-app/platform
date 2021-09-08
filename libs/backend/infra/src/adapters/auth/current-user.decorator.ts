@@ -1,7 +1,7 @@
 import type { User } from '@codelab/shared/abstract/core'
 import { createParamDecorator, ExecutionContext } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { JwtPayload } from './interfaces/jwt.interface'
+import { JWT_CLAIMS, JwtPayload } from './interfaces/jwt.interface'
 
 /**
  * Can only be called if the GqlAuthGuard is applied
@@ -16,5 +16,6 @@ export const CurrentUser = createParamDecorator<
 
   return {
     id: user.sub,
+    roles: user[JWT_CLAIMS].roles,
   }
 })

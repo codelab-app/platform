@@ -1,12 +1,12 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
-import { CreateAppInput } from '../../create-app/create-app.input'
+import { CreateAppInput } from '../../create-app'
 import {
   TestCreateAppGql,
   TestCreateAppMutation,
@@ -31,8 +31,8 @@ describe('DeleteApp', () => {
   let getAppInput: GetAppInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
-    userApp = await setupTestModule([AppModule], { role: Role.USER })
+    guestApp = await setupTestModule([AppModule], { role: Role.Guest })
+    userApp = await setupTestModule([AppModule], { role: Role.User })
 
     const results = await domainRequest<CreateAppInput, TestCreateAppMutation>(
       userApp,

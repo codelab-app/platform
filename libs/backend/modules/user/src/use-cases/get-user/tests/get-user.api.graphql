@@ -1,0 +1,7 @@
+query GetUser($input: GetUserInput!) {
+  getUser(input: $input) {
+    id
+    auth0Id
+    roles
+  }
+}

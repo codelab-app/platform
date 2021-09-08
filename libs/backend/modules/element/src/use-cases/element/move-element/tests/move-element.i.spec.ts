@@ -1,9 +1,9 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../element.module'
 import { CreateElementInput } from '../../create-element'
@@ -39,8 +39,8 @@ describe('MoveElement', () => {
   let getRootInput: GetElementGraphInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], { role: Role.GUEST })
-    userApp = await setupTestModule([ElementModule], { role: Role.USER })
+    guestApp = await setupTestModule([ElementModule], { role: Role.Guest })
+    userApp = await setupTestModule([ElementModule], { role: Role.User })
 
     // Create root element
     let results: TestCreateElementMutation

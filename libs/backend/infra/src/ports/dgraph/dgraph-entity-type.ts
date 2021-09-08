@@ -11,6 +11,7 @@ export enum DgraphEntityType {
   Library = 'Library',
   Node = 'Node',
   App = 'App',
+  User = 'User',
   Element = 'Element',
   Atom = 'Atom',
   Type = 'Type',

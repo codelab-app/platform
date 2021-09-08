@@ -1,12 +1,12 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
-import { GetFieldInput } from '../../get-field/get-field.input'
+import { GetFieldInput } from '../../get-field'
 import {
   TestGetFieldGql,
   TestGetFieldQuery,
@@ -26,10 +26,10 @@ describe('CreateField', () => {
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {
-      role: Role.GUEST,
+      role: Role.Guest,
     })
     userApp = await setupTestModule([TypeModule], {
-      role: Role.USER,
+      role: Role.User,
     })
 
     const primitiveTypeId = await createPrimitiveType(userApp)

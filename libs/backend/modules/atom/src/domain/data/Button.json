@@ -1,0 +1,268 @@
+[
+  {
+    "__typename": "Atom",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "0x15fab",
+      "name": "Button API",
+      "typeGraph": {
+        "__typename": "TypeGraph",
+        "edges": [
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Set the icon component of button",
+              "id": "0x15fb3",
+              "key": "icon",
+              "name": "Icon"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa5"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Set the danger status of button",
+              "id": "0x15fb4",
+              "key": "danger",
+              "name": "Danger"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa7"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Set the handler to handle click event",
+              "id": "0x15fb5",
+              "key": "onClick",
+              "name": "On Click"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa2"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Same as target attribute of a, works when href is specified",
+              "id": "0x15fb6",
+              "key": "target",
+              "name": "Target"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa9"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Disabled state of button",
+              "id": "0x15fb7",
+              "key": "disabled",
+              "name": "Disabled"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa7"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Option to fit button width to its parent width",
+              "id": "0x15fb8",
+              "key": "block",
+              "name": "Block"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa7"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Set the loading status of button",
+              "id": "0x15fb9",
+              "key": "loading",
+              "name": "Loading"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa7"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Set the original html type of button, see: MDN",
+              "id": "0x15fba",
+              "key": "htmlType",
+              "name": "Html Type"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa9"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Redirect url of link button",
+              "id": "0x15fbb",
+              "key": "href",
+              "name": "Href"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa9"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Can be set button shape",
+              "id": "0x15fbc",
+              "key": "shape",
+              "name": "Shape"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fb2"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Set the size of button",
+              "id": "0x15fbd",
+              "key": "size",
+              "name": "Size"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fac"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Make background transparent and invert text and border colors",
+              "id": "0x15fbe",
+              "key": "ghost",
+              "name": "Ghost"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa9"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Can be set to primary ghost dashed link text default",
+              "id": "0x15fbf",
+              "key": "type",
+              "name": "Type"
+            },
+            "kind": "Field",
+            "source": "0x15fab",
+            "target": "0x15fa9"
+          }
+        ],
+        "vertices": [
+          {
+            "__typename": "InterfaceType",
+            "id": "0x15fab",
+            "name": "Button API",
+            "typeKind": "InterfaceType"
+          },
+          {
+            "__typename": "ComponentType",
+            "id": "0x15fa5",
+            "name": "Component",
+            "typeKind": "ComponentType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x15fa7",
+            "name": "Boolean",
+            "primitiveKind": "Boolean",
+            "typeKind": "PrimitiveType"
+          },
+          {
+            "__typename": "LambdaType",
+            "id": "0x15fa2",
+            "name": "Lambda",
+            "typeKind": "LambdaType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x15fa9",
+            "name": "String",
+            "primitiveKind": "String",
+            "typeKind": "PrimitiveType"
+          },
+          {
+            "__typename": "EnumType",
+            "allowedValues": [
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x15fb0",
+                "name": "",
+                "value": "round"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x15fb1",
+                "name": "",
+                "value": "circle"
+              }
+            ],
+            "id": "0x15fb2",
+            "name": "ButtonShape",
+            "typeKind": "EnumType"
+          },
+          {
+            "__typename": "EnumType",
+            "allowedValues": [
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x15fad",
+                "name": "",
+                "value": "large"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x15fae",
+                "name": "",
+                "value": "middle"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x15faf",
+                "name": "",
+                "value": "small"
+              }
+            ],
+            "id": "0x15fac",
+            "name": "ButtonSize",
+            "typeKind": "EnumType"
+          }
+        ]
+      },
+      "typeKind": "InterfaceType"
+    },
+    "id": "0x15fc0",
+    "name": "Button",
+    "type": "AntDesignButton"
+  }
+]

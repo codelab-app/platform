@@ -1,9 +1,9 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
 import { GetAppInput } from '../../get-app/get-app.input'
@@ -23,8 +23,8 @@ describe('CreateApp', () => {
   let userApp: INestApplication
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AppModule], { role: Role.GUEST })
-    userApp = await setupTestModule([AppModule], { role: Role.USER })
+    guestApp = await setupTestModule([AppModule], { role: Role.Guest })
+    userApp = await setupTestModule([AppModule], { role: Role.User })
   })
 
   afterAll(async () => {

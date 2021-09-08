@@ -1,13 +1,13 @@
 import {
   domainRequest,
-  Role,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
 import { createField } from '../../create-field/tests/create-type-field'
-import { GetFieldInput } from '../../get-field/get-field.input'
+import { GetFieldInput } from '../../get-field'
 import {
   TestGetFieldGql,
   TestGetFieldQuery,
@@ -23,10 +23,10 @@ describe('DeleteField', () => {
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {
-      role: Role.GUEST,
+      role: Role.Guest,
     })
     userApp = await setupTestModule([TypeModule], {
-      role: Role.USER,
+      role: Role.User,
     })
 
     fieldId = await createField(userApp)
