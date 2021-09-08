@@ -118,6 +118,8 @@ export const useBuilderSelection = (): BuilderHandlers & {
 }
 
 export const useBuilderExtraProps = () => useRecoilValue(builderExtraPropsState)
+export const useBuilderCurrentProps = () =>
+  useRecoilValue(builderCurrentPropsState)
 
 export const useBuilder = (): BuilderHandlers & {
   state: BuilderState

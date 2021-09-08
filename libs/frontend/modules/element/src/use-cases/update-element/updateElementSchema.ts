@@ -1,10 +1,8 @@
 import { JSONSchemaType } from 'ajv'
 import { UpdateElementMutationVariables } from './UpdateElement.api.graphql.gen'
 
-export type UpdateElementSchema = Omit<
-  UpdateElementMutationVariables['input']['data'],
-  'css'
->
+export type UpdateElementSchema =
+  UpdateElementMutationVariables['input']['data']
 
 // css property is handled by the CSS tab
 export const updateElementSchema: JSONSchemaType<UpdateElementSchema> = {
@@ -22,6 +20,18 @@ export const updateElementSchema: JSONSchemaType<UpdateElementSchema> = {
       nullable: true,
     },
     name: {
+      type: 'string',
+      nullable: true,
+    },
+    renderIfPropKey: {
+      type: 'string',
+      nullable: true,
+    },
+    renderForEachPropKey: {
+      type: 'string',
+      nullable: true,
+    },
+    css: {
       type: 'string',
       nullable: true,
     },

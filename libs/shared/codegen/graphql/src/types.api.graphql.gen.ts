@@ -16,14 +16,14 @@ export type Scalars = {
 /** Provide exactly one of the config fields */
 export type AddHookToElementInput = {
   elementId: Scalars['String'];
-  graphqlQueryHook?: Maybe<GraphqlQueryHookConfigInput>;
   queryHook?: Maybe<QueryHookConfigInput>;
+  graphqlQueryHook?: Maybe<GraphqlQueryHookConfigInput>;
 };
 
 export type App = {
   id: Scalars['ID'];
-  name: Scalars['String'];
   ownerId: Scalars['String'];
+  name: Scalars['String'];
   pages: App;
 };
 
@@ -36,18 +36,18 @@ export type AppByPageFilter = {
 };
 
 export type ArrayType = Type & {
+  typeKind: TypeKind;
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
-  typeKind: TypeKind;
 };
 
 export type Atom = {
-  api: InterfaceType;
   id: Scalars['ID'];
+  type: AtomType;
   /** This is a unique ID suitable for seeders to lookup, will rename to value */
   name: Scalars['String'];
-  type: AtomType;
+  api: InterfaceType;
 };
 
 export enum AtomType {
@@ -87,7 +87,6 @@ export enum AtomType {
   AntDesignGridCol = 'AntDesignGridCol',
   AntDesignGridRow = 'AntDesignGridRow',
   AntDesignIcon = 'AntDesignIcon',
-  AntDesignImage = 'AntDesignImage',
   AntDesignInput = 'AntDesignInput',
   AntDesignInputNumber = 'AntDesignInputNumber',
   AntDesignLayout = 'AntDesignLayout',
@@ -106,22 +105,22 @@ export enum AtomType {
   AntDesignMenuItemGroup = 'AntDesignMenuItemGroup',
   AntDesignMenuSubMenu = 'AntDesignMenuSubMenu',
   AntDesignModal = 'AntDesignModal',
-  AntDesignPageContainer = 'AntDesignPageContainer',
   AntDesignPageHeader = 'AntDesignPageHeader',
+  AntDesignPageContainer = 'AntDesignPageContainer',
   AntDesignPagination = 'AntDesignPagination',
   AntDesignPopconfirm = 'AntDesignPopconfirm',
   AntDesignPopover = 'AntDesignPopover',
   AntDesignProgress = 'AntDesignProgress',
   AntDesignProvider = 'AntDesignProvider',
+  AntDesignRglContainer = 'AntDesignRglContainer',
+  AntDesignRglItem = 'AntDesignRglItem',
+  AntDesignRglResponsiveContainer = 'AntDesignRglResponsiveContainer',
   AntDesignRadio = 'AntDesignRadio',
   AntDesignRadioGroup = 'AntDesignRadioGroup',
   AntDesignRate = 'AntDesignRate',
   AntDesignRenderComponent = 'AntDesignRenderComponent',
   AntDesignRenderContainer = 'AntDesignRenderContainer',
   AntDesignResult = 'AntDesignResult',
-  AntDesignRglContainer = 'AntDesignRglContainer',
-  AntDesignRglItem = 'AntDesignRglItem',
-  AntDesignRglResponsiveContainer = 'AntDesignRglResponsiveContainer',
   AntDesignSelect = 'AntDesignSelect',
   AntDesignSelectOption = 'AntDesignSelectOption',
   AntDesignSkeleton = 'AntDesignSkeleton',
@@ -149,29 +148,52 @@ export enum AtomType {
   AntDesignTypographyText = 'AntDesignTypographyText',
   AntDesignTypographyTitle = 'AntDesignTypographyTitle',
   AntDesignUpload = 'AntDesignUpload',
+  AntDesignImage = 'AntDesignImage',
+  Query = 'Query',
+  TextList = 'TextList',
+  Text = 'Text',
+  State = 'State',
+  PropMapper = 'PropMapper',
+  Mapper = 'Mapper',
+  ReactFragment = 'ReactFragment',
   HtmlA = 'HtmlA',
-  HtmlArea = 'HtmlArea',
-  HtmlAside = 'HtmlAside',
-  HtmlAudio = 'HtmlAudio',
-  HtmlBase = 'HtmlBase',
-  HtmlBr = 'HtmlBr',
-  HtmlButton = 'HtmlButton',
-  HtmlCanvas = 'HtmlCanvas',
-  HtmlCode = 'HtmlCode',
-  HtmlDList = 'HtmlDList',
-  HtmlData = 'HtmlData',
-  HtmlDatalist = 'HtmlDatalist',
-  HtmlDetails = 'HtmlDetails',
-  HtmlDialog = 'HtmlDialog',
-  HtmlDiv = 'HtmlDiv',
-  HtmlEm = 'HtmlEm',
-  HtmlEmbed = 'HtmlEmbed',
-  HtmlFieldset = 'HtmlFieldset',
-  HtmlFont = 'HtmlFont',
-  HtmlFooter = 'HtmlFooter',
-  HtmlForm = 'HtmlForm',
-  HtmlFrame = 'HtmlFrame',
-  HtmlFrameset = 'HtmlFrameset',
+  HtmlP = 'HtmlP',
+  HtmlVideo = 'HtmlVideo',
+  HtmlUList = 'HtmlUList',
+  HtmlTrack = 'HtmlTrack',
+  HtmlTitle = 'HtmlTitle',
+  HtmlTime = 'HtmlTime',
+  HtmlTextarea = 'HtmlTextarea',
+  HtmlTemplate = 'HtmlTemplate',
+  HtmlTableRow = 'HtmlTableRow',
+  HtmlTable = 'HtmlTable',
+  HtmlTableCol = 'HtmlTableCol',
+  HtmlTableCell = 'HtmlTableCell',
+  HtmlTableCaption = 'HtmlTableCaption',
+  HtmlStyle = 'HtmlStyle',
+  HtmlSpan = 'HtmlSpan',
+  HtmlSource = 'HtmlSource',
+  HtmlSelect = 'HtmlSelect',
+  HtmlQuote = 'HtmlQuote',
+  HtmlProgress = 'HtmlProgress',
+  HtmlPre = 'HtmlPre',
+  HtmlPicture = 'HtmlPicture',
+  HtmlParam = 'HtmlParam',
+  HtmlOutput = 'HtmlOutput',
+  HtmlOption = 'HtmlOption',
+  HtmlOptgroup = 'HtmlOptgroup',
+  HtmlObject = 'HtmlObject',
+  HtmlOList = 'HtmlOList',
+  HtmlMeter = 'HtmlMeter',
+  HtmlMeta = 'HtmlMeta',
+  HtmlMap = 'HtmlMap',
+  HtmlLink = 'HtmlLink',
+  HtmlLegend = 'HtmlLegend',
+  HtmlLabel = 'HtmlLabel',
+  HtmlLi = 'HtmlLi',
+  HtmlInput = 'HtmlInput',
+  HtmlImage = 'HtmlImage',
+  HtmlIframe = 'HtmlIframe',
   HtmlH1 = 'HtmlH1',
   HtmlH2 = 'HtmlH2',
   HtmlH3 = 'HtmlH3',
@@ -179,67 +201,45 @@ export enum AtomType {
   HtmlH5 = 'HtmlH5',
   HtmlH6 = 'HtmlH6',
   HtmlHead = 'HtmlHead',
-  HtmlHeader = 'HtmlHeader',
   HtmlHr = 'HtmlHr',
-  HtmlI = 'HtmlI',
-  HtmlIframe = 'HtmlIframe',
-  HtmlImage = 'HtmlImage',
-  HtmlInput = 'HtmlInput',
-  HtmlLabel = 'HtmlLabel',
-  HtmlLegend = 'HtmlLegend',
-  HtmlLi = 'HtmlLi',
-  HtmlLink = 'HtmlLink',
+  HtmlFrameset = 'HtmlFrameset',
+  HtmlFrame = 'HtmlFrame',
+  HtmlForm = 'HtmlForm',
+  HtmlFont = 'HtmlFont',
+  HtmlFieldset = 'HtmlFieldset',
+  HtmlEmbed = 'HtmlEmbed',
+  HtmlDiv = 'HtmlDiv',
+  HtmlDialog = 'HtmlDialog',
+  HtmlDetails = 'HtmlDetails',
+  HtmlDatalist = 'HtmlDatalist',
+  HtmlData = 'HtmlData',
+  HtmlDList = 'HtmlDList',
+  HtmlCanvas = 'HtmlCanvas',
+  HtmlButton = 'HtmlButton',
+  HtmlBase = 'HtmlBase',
+  HtmlBr = 'HtmlBr',
+  HtmlAudio = 'HtmlAudio',
+  HtmlArea = 'HtmlArea',
+  HtmlFooter = 'HtmlFooter',
+  HtmlAside = 'HtmlAside',
+  HtmlHeader = 'HtmlHeader',
   HtmlMain = 'HtmlMain',
-  HtmlMap = 'HtmlMap',
-  HtmlMeta = 'HtmlMeta',
-  HtmlMeter = 'HtmlMeter',
   HtmlNav = 'HtmlNav',
-  HtmlOList = 'HtmlOList',
-  HtmlObject = 'HtmlObject',
-  HtmlOptgroup = 'HtmlOptgroup',
-  HtmlOption = 'HtmlOption',
-  HtmlOutput = 'HtmlOutput',
-  HtmlP = 'HtmlP',
-  HtmlParam = 'HtmlParam',
-  HtmlPicture = 'HtmlPicture',
-  HtmlPre = 'HtmlPre',
-  HtmlProgress = 'HtmlProgress',
-  HtmlQuote = 'HtmlQuote',
-  HtmlS = 'HtmlS',
   HtmlSection = 'HtmlSection',
-  HtmlSelect = 'HtmlSelect',
+  HtmlCode = 'HtmlCode',
+  HtmlEm = 'HtmlEm',
+  HtmlI = 'HtmlI',
+  HtmlS = 'HtmlS',
   HtmlSmall = 'HtmlSmall',
-  HtmlSource = 'HtmlSource',
-  HtmlSpan = 'HtmlSpan',
   HtmlStrong = 'HtmlStrong',
-  HtmlStyle = 'HtmlStyle',
   HtmlSub = 'HtmlSub',
-  HtmlSup = 'HtmlSup',
-  HtmlTable = 'HtmlTable',
-  HtmlTableCaption = 'HtmlTableCaption',
-  HtmlTableCell = 'HtmlTableCell',
-  HtmlTableCol = 'HtmlTableCol',
-  HtmlTableRow = 'HtmlTableRow',
-  HtmlTemplate = 'HtmlTemplate',
-  HtmlTextarea = 'HtmlTextarea',
-  HtmlTime = 'HtmlTime',
-  HtmlTitle = 'HtmlTitle',
-  HtmlTrack = 'HtmlTrack',
-  HtmlUList = 'HtmlUList',
-  HtmlVideo = 'HtmlVideo',
-  Mapper = 'Mapper',
-  PropMapper = 'PropMapper',
-  Query = 'Query',
-  ReactFragment = 'ReactFragment',
-  State = 'State',
-  Text = 'Text',
-  TextList = 'TextList'
+  HtmlSup = 'HtmlSup'
 }
 
 export type AtomWhereUniqueInput = {
-  element?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   type?: Maybe<AtomType>;
+  element?: Maybe<Scalars['String']>;
 };
 
 export type AtomsWhereInput = {
@@ -253,10 +253,10 @@ export type Component = {
 
 /** The ComponentType allows selecting a Component in the props form. The value is stored as the componentId  */
 export type ComponentType = Type & {
+  typeKind: TypeKind;
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
-  typeKind: TypeKind;
 };
 
 export type CreateAppInput = {
@@ -268,10 +268,10 @@ export type CreateArrayTypeInput = {
 };
 
 export type CreateAtomInput = {
-  /** Pass in an existing interface ID to assign it to the atom */
-  api?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   type: AtomType;
+  /** Pass in an existing interface ID to assign it to the atom */
+  api?: Maybe<Scalars['String']>;
 };
 
 export type CreateComponentInput = {
@@ -279,12 +279,12 @@ export type CreateComponentInput = {
 };
 
 export type CreateElementInput = {
+  name?: Maybe<Scalars['String']>;
   atomId?: Maybe<Scalars['String']>;
   componentId?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  parentElementId?: Maybe<Scalars['String']>;
   /** Leave it out to automatically set it as the last order of all the children */
   order?: Maybe<Scalars['Int']>;
-  parentElementId?: Maybe<Scalars['String']>;
 };
 
 export type CreateElementTypeInput = {
@@ -301,24 +301,24 @@ export type CreateEnumTypeValueInput = {
 };
 
 export type CreateFieldInput = {
+  key: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   /** The interface to add fields to */
   interfaceId: Scalars['String'];
-  key: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
   type: TypeRef;
 };
 
 export type CreateLambdaInput = {
-  /** Content of the Lambda function */
-  body: Scalars['String'];
   /** Name of the Lambda function to be executed */
   name: Scalars['String'];
+  /** Content of the Lambda function */
+  body: Scalars['String'];
 };
 
 export type CreatePageInput = {
-  appId: Scalars['String'];
   name: Scalars['String'];
+  appId: Scalars['String'];
 };
 
 export type CreatePrimitiveTypeInput = {
@@ -330,23 +330,23 @@ export type CreateResponse = {
 };
 
 export type CreateTagInput = {
-  /** We can create multiple tag trees, the root tells us whether this is a separate tree */
-  isRoot?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
   parentTagId?: Maybe<Scalars['String']>;
+  /** We can create multiple tag trees, the root tells us whether this is a separate tree */
+  isRoot?: Maybe<Scalars['Boolean']>;
 };
 
 /** Provide one of the properties */
 export type CreateTypeInput = {
+  name: Scalars['String'];
+  typeKind: TypeKind;
+  primitiveType?: Maybe<CreatePrimitiveTypeInput>;
   arrayType?: Maybe<CreateArrayTypeInput>;
-  componentType?: Maybe<Scalars['Boolean']>;
-  elementType?: Maybe<CreateElementTypeInput>;
   enumType?: Maybe<CreateEnumTypeInput>;
   interfaceType?: Maybe<Scalars['Boolean']>;
   lambdaType?: Maybe<Scalars['Boolean']>;
-  name: Scalars['String'];
-  primitiveType?: Maybe<CreatePrimitiveTypeInput>;
-  typeKind: TypeKind;
+  componentType?: Maybe<Scalars['Boolean']>;
+  elementType?: Maybe<CreateElementTypeInput>;
 };
 
 export type DeleteAppInput = {
@@ -386,59 +386,63 @@ export type DeleteTypeInput = {
 };
 
 export type DeleteUserInput = {
-  id: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 export type Element = {
-  atom?: Maybe<Atom>;
-  css?: Maybe<Scalars['String']>;
-  hooks: Array<Hook>;
   id: Scalars['ID'];
   /** Due to union nullability issue, we have to make this non-nullable. Defaults to atom type */
   name: Scalars['String'];
+  css?: Maybe<Scalars['String']>;
   /** Props in a json format */
   props: Scalars['String'];
+  hooks: Array<Hook>;
+  /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
+  renderForEachPropKey?: Maybe<Scalars['String']>;
+  /** If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy) */
+  renderIfPropKey?: Maybe<Scalars['String']>;
+  atom?: Maybe<Atom>;
 };
 
 /** An edge between two element nodes */
 export type ElementEdge = {
-  order?: Maybe<Scalars['Int']>;
   /** The id of the source Element/Component */
   source: Scalars['String'];
   /** The id of the target Element/Component */
   target: Scalars['String'];
+  order?: Maybe<Scalars['Int']>;
 };
 
 export type ElementGraph = {
-  /** All the links connecting the descendant elements/components */
-  edges: Array<ElementEdge>;
   /** All descendant Elements or Components, at any level */
   vertices: Array<ElementVertex>;
+  /** All the links connecting the descendant elements/components */
+  edges: Array<ElementEdge>;
 };
 
 /** The ElementType allows selecting an Element in the props form. The value is stored as the elementId  */
 export type ElementType = Type & {
+  typeKind: TypeKind;
   id: Scalars['ID'];
-  kind: ElementTypeKind;
   name: Scalars['String'];
   typeGraph: TypeGraph;
-  typeKind: TypeKind;
+  kind: ElementTypeKind;
 };
 
 export enum ElementTypeKind {
   AllElements = 'AllElements',
-  ChildrenOnly = 'ChildrenOnly',
-  DescendantsOnly = 'DescendantsOnly'
+  DescendantsOnly = 'DescendantsOnly',
+  ChildrenOnly = 'ChildrenOnly'
 }
 
-export type ElementVertex = Component | Element;
+export type ElementVertex = Element | Component;
 
 export type EnumType = Type & {
-  allowedValues: Array<EnumTypeValue>;
+  typeKind: TypeKind;
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
-  typeKind: TypeKind;
+  allowedValues: Array<EnumTypeValue>;
 };
 
 export type EnumTypeValue = {
@@ -453,10 +457,10 @@ export type ExecuteLambdaInput = {
 };
 
 export type Field = {
-  description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   key: Scalars['String'];
   name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type FieldByIdFilter = {
@@ -464,8 +468,8 @@ export type FieldByIdFilter = {
 };
 
 export type FieldByInterfaceFilter = {
-  fieldKey: Scalars['String'];
   interfaceId: Scalars['String'];
+  fieldKey: Scalars['String'];
 };
 
 export type GetAppInput = {
@@ -498,8 +502,8 @@ export type GetElementInput = {
 };
 
 export type GetFieldInput = {
-  byId?: Maybe<FieldByIdFilter>;
   byInterface?: Maybe<FieldByInterfaceFilter>;
+  byId?: Maybe<FieldByIdFilter>;
 };
 
 export type GetLambdaInput = {
@@ -529,11 +533,6 @@ export type GetTypesInput = {
   byName?: Maybe<TypesByNameFilter>;
 };
 
-export type GetUserInput = {
-  auth0Id?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
-};
-
 export type GetUsersInput = {
   page: Scalars['Int'];
   perPage: Scalars['Int'];
@@ -543,27 +542,27 @@ export type GetUsersInput = {
 
 export type GraphqlQueryHookConfig = {
   body: Scalars['String'];
-  dataKey?: Maybe<Scalars['String']>;
   url: Scalars['String'];
+  dataKey?: Maybe<Scalars['String']>;
 };
 
 export type GraphqlQueryHookConfigInput = {
+  url: Scalars['String'];
   body: Scalars['String'];
   dataKey?: Maybe<Scalars['String']>;
-  url: Scalars['String'];
 };
 
 export type Hook = {
-  config: HookConfig;
   id: Scalars['ID'];
   type: HookType;
+  config: HookConfig;
 };
 
-export type HookConfig = GraphqlQueryHookConfig | QueryHookConfig;
+export type HookConfig = QueryHookConfig | GraphqlQueryHookConfig;
 
 export enum HookType {
-  GraphqlQuery = 'GraphqlQuery',
-  Query = 'Query'
+  Query = 'Query',
+  GraphqlQuery = 'GraphqlQuery'
 }
 
 export type ImportAtomsInput = {
@@ -571,18 +570,18 @@ export type ImportAtomsInput = {
 };
 
 export type InterfaceType = Type & {
-  fields: Array<Field>;
+  typeKind: TypeKind;
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
-  typeKind: TypeKind;
+  fields: Array<Field>;
 };
 
 export type Lambda = {
-  body: Scalars['String'];
   id: Scalars['ID'];
-  name: Scalars['String'];
   ownerId: Scalars['String'];
+  name: Scalars['String'];
+  body: Scalars['String'];
 };
 
 export type LambdaPayload = {
@@ -591,10 +590,10 @@ export type LambdaPayload = {
 
 /** The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId  */
 export type LambdaType = Type & {
+  typeKind: TypeKind;
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
-  typeKind: TypeKind;
 };
 
 export type MoveData = {
@@ -608,51 +607,46 @@ export type MoveElementInput = {
 };
 
 export type Mutation = {
-  addHookToElement: CreateResponse;
   createApp: CreateResponse;
-  createAtom: CreateResponse;
-  createComponent: CreateResponse;
-  createElement: CreateResponse;
-  createField: CreateResponse;
-  createLambda: CreateResponse;
-  createPage: CreateResponse;
-  createTag: CreateResponse;
-  createType: CreateResponse;
+  updateApp?: Maybe<Scalars['Void']>;
   deleteApp?: Maybe<Scalars['Void']>;
-  deleteAtom?: Maybe<Scalars['Void']>;
-  deleteComponent?: Maybe<Scalars['Void']>;
+  updateUser: User;
+  deleteUser: Scalars['Boolean'];
+  resetData?: Maybe<Scalars['Void']>;
+  createPage: CreateResponse;
+  deletePage?: Maybe<Scalars['Void']>;
+  updatePage?: Maybe<Scalars['Void']>;
+  createElement: CreateResponse;
+  updateElement?: Maybe<Scalars['Void']>;
+  moveElement?: Maybe<Scalars['Void']>;
+  updateElementProps?: Maybe<Scalars['Void']>;
   /** Deletes an element and all the descending elements */
   deleteElement?: Maybe<Scalars['Void']>;
-  deleteField?: Maybe<Scalars['Void']>;
-  deleteLambda?: Maybe<Scalars['Void']>;
-  deletePage?: Maybe<Scalars['Void']>;
-  deleteTags?: Maybe<Scalars['Void']>;
-  deleteType?: Maybe<Scalars['Void']>;
-  deleteUser: Scalars['Boolean'];
-  executeLambda?: Maybe<LambdaPayload>;
-  importAtoms?: Maybe<Scalars['Void']>;
-  moveElement?: Maybe<Scalars['Void']>;
+  addHookToElement: CreateResponse;
   removeHookFromElement?: Maybe<Scalars['Void']>;
-  resetData?: Maybe<Scalars['Void']>;
-  seedBaseTypes?: Maybe<Scalars['Void']>;
-  updateApp?: Maybe<Scalars['Void']>;
-  updateAtom?: Maybe<Scalars['Void']>;
+  createComponent: CreateResponse;
   updateComponent?: Maybe<Scalars['Void']>;
-  updateElement?: Maybe<Scalars['Void']>;
-  updateElementProps?: Maybe<Scalars['Void']>;
+  deleteComponent?: Maybe<Scalars['Void']>;
+  createAtom: CreateResponse;
+  deleteAtom?: Maybe<Scalars['Void']>;
+  importAtoms?: Maybe<Scalars['Void']>;
+  updateAtom?: Maybe<Scalars['Void']>;
+  seedBaseTypes?: Maybe<Scalars['Void']>;
+  createType: CreateResponse;
   updateEnumType?: Maybe<Scalars['Void']>;
-  updateField?: Maybe<Scalars['Void']>;
-  updateLambda?: Maybe<Scalars['Void']>;
-  updatePage?: Maybe<Scalars['Void']>;
   updatePrimitiveType?: Maybe<Scalars['Void']>;
-  updateTag?: Maybe<Scalars['Void']>;
   updateType?: Maybe<Scalars['Void']>;
-  upsertUser: CreateResponse;
-};
-
-
-export type MutationAddHookToElementArgs = {
-  input: AddHookToElementInput;
+  deleteType?: Maybe<Scalars['Void']>;
+  createField: CreateResponse;
+  updateField?: Maybe<Scalars['Void']>;
+  deleteField?: Maybe<Scalars['Void']>;
+  createLambda: CreateResponse;
+  deleteLambda?: Maybe<Scalars['Void']>;
+  updateLambda?: Maybe<Scalars['Void']>;
+  executeLambda?: Maybe<LambdaPayload>;
+  createTag: CreateResponse;
+  updateTag?: Maybe<Scalars['Void']>;
+  deleteTags?: Maybe<Scalars['Void']>;
 };
 
 
@@ -661,43 +655,8 @@ export type MutationCreateAppArgs = {
 };
 
 
-export type MutationCreateAtomArgs = {
-  input: CreateAtomInput;
-};
-
-
-export type MutationCreateComponentArgs = {
-  input: CreateComponentInput;
-};
-
-
-export type MutationCreateElementArgs = {
-  input: CreateElementInput;
-};
-
-
-export type MutationCreateFieldArgs = {
-  input: CreateFieldInput;
-};
-
-
-export type MutationCreateLambdaArgs = {
-  input: CreateLambdaInput;
-};
-
-
-export type MutationCreatePageArgs = {
-  input: CreatePageInput;
-};
-
-
-export type MutationCreateTagArgs = {
-  input: CreateTagInput;
-};
-
-
-export type MutationCreateTypeArgs = {
-  input: CreateTypeInput;
+export type MutationUpdateAppArgs = {
+  input: UpdateAppInput;
 };
 
 
@@ -706,43 +665,8 @@ export type MutationDeleteAppArgs = {
 };
 
 
-export type MutationDeleteAtomArgs = {
-  input: DeleteAtomInput;
-};
-
-
-export type MutationDeleteComponentArgs = {
-  input: DeleteComponentInput;
-};
-
-
-export type MutationDeleteElementArgs = {
-  input: DeleteElementInput;
-};
-
-
-export type MutationDeleteFieldArgs = {
-  input: DeleteFieldInput;
-};
-
-
-export type MutationDeleteLambdaArgs = {
-  input: DeleteLambdaInput;
-};
-
-
-export type MutationDeletePageArgs = {
-  input: DeletePageInput;
-};
-
-
-export type MutationDeleteTagsArgs = {
-  input: DeleteTagsInput;
-};
-
-
-export type MutationDeleteTypeArgs = {
-  input: DeleteTypeInput;
+export type MutationUpdateUserArgs = {
+  input: UpdateUserInput;
 };
 
 
@@ -751,63 +675,13 @@ export type MutationDeleteUserArgs = {
 };
 
 
-export type MutationExecuteLambdaArgs = {
-  input: ExecuteLambdaInput;
+export type MutationCreatePageArgs = {
+  input: CreatePageInput;
 };
 
 
-export type MutationImportAtomsArgs = {
-  input: ImportAtomsInput;
-};
-
-
-export type MutationMoveElementArgs = {
-  input: MoveElementInput;
-};
-
-
-export type MutationRemoveHookFromElementArgs = {
-  input: RemoveHookFromElementInput;
-};
-
-
-export type MutationUpdateAppArgs = {
-  input: UpdateAppInput;
-};
-
-
-export type MutationUpdateAtomArgs = {
-  input: UpdateAtomInput;
-};
-
-
-export type MutationUpdateComponentArgs = {
-  input: UpdateComponentInput;
-};
-
-
-export type MutationUpdateElementArgs = {
-  input: UpdateElementInput;
-};
-
-
-export type MutationUpdateElementPropsArgs = {
-  input: UpdateElementPropsInput;
-};
-
-
-export type MutationUpdateEnumTypeArgs = {
-  input: UpdateEnumTypeInput;
-};
-
-
-export type MutationUpdateFieldArgs = {
-  input: UpdateFieldInput;
-};
-
-
-export type MutationUpdateLambdaArgs = {
-  input: UpdateLambdaInput;
+export type MutationDeletePageArgs = {
+  input: DeletePageInput;
 };
 
 
@@ -816,13 +690,88 @@ export type MutationUpdatePageArgs = {
 };
 
 
-export type MutationUpdatePrimitiveTypeArgs = {
-  input: UpdatePrimitiveTypeInput;
+export type MutationCreateElementArgs = {
+  input: CreateElementInput;
 };
 
 
-export type MutationUpdateTagArgs = {
-  input: UpdateTagInput;
+export type MutationUpdateElementArgs = {
+  input: UpdateElementInput;
+};
+
+
+export type MutationMoveElementArgs = {
+  input: MoveElementInput;
+};
+
+
+export type MutationUpdateElementPropsArgs = {
+  input: UpdateElementPropsInput;
+};
+
+
+export type MutationDeleteElementArgs = {
+  input: DeleteElementInput;
+};
+
+
+export type MutationAddHookToElementArgs = {
+  input: AddHookToElementInput;
+};
+
+
+export type MutationRemoveHookFromElementArgs = {
+  input: RemoveHookFromElementInput;
+};
+
+
+export type MutationCreateComponentArgs = {
+  input: CreateComponentInput;
+};
+
+
+export type MutationUpdateComponentArgs = {
+  input: UpdateComponentInput;
+};
+
+
+export type MutationDeleteComponentArgs = {
+  input: DeleteComponentInput;
+};
+
+
+export type MutationCreateAtomArgs = {
+  input: CreateAtomInput;
+};
+
+
+export type MutationDeleteAtomArgs = {
+  input: DeleteAtomInput;
+};
+
+
+export type MutationImportAtomsArgs = {
+  input: ImportAtomsInput;
+};
+
+
+export type MutationUpdateAtomArgs = {
+  input: UpdateAtomInput;
+};
+
+
+export type MutationCreateTypeArgs = {
+  input: CreateTypeInput;
+};
+
+
+export type MutationUpdateEnumTypeArgs = {
+  input: UpdateEnumTypeInput;
+};
+
+
+export type MutationUpdatePrimitiveTypeArgs = {
+  input: UpdatePrimitiveTypeInput;
 };
 
 
@@ -831,14 +780,64 @@ export type MutationUpdateTypeArgs = {
 };
 
 
-export type MutationUpsertUserArgs = {
-  input: UpsertUserInput;
+export type MutationDeleteTypeArgs = {
+  input: DeleteTypeInput;
+};
+
+
+export type MutationCreateFieldArgs = {
+  input: CreateFieldInput;
+};
+
+
+export type MutationUpdateFieldArgs = {
+  input: UpdateFieldInput;
+};
+
+
+export type MutationDeleteFieldArgs = {
+  input: DeleteFieldInput;
+};
+
+
+export type MutationCreateLambdaArgs = {
+  input: CreateLambdaInput;
+};
+
+
+export type MutationDeleteLambdaArgs = {
+  input: DeleteLambdaInput;
+};
+
+
+export type MutationUpdateLambdaArgs = {
+  input: UpdateLambdaInput;
+};
+
+
+export type MutationExecuteLambdaArgs = {
+  input: ExecuteLambdaInput;
+};
+
+
+export type MutationCreateTagArgs = {
+  input: CreateTagInput;
+};
+
+
+export type MutationUpdateTagArgs = {
+  input: UpdateTagInput;
+};
+
+
+export type MutationDeleteTagsArgs = {
+  input: DeleteTagsInput;
 };
 
 export type Page = {
-  elements?: Maybe<ElementGraph>;
   id: Scalars['ID'];
   name: Scalars['String'];
+  elements?: Maybe<ElementGraph>;
 };
 
 export type PageByAppFilter = {
@@ -846,48 +845,47 @@ export type PageByAppFilter = {
 };
 
 export enum PrimitiveKind {
-  Boolean = 'Boolean',
-  Float = 'Float',
+  String = 'String',
   Integer = 'Integer',
-  String = 'String'
+  Float = 'Float',
+  Boolean = 'Boolean'
 }
 
 export type PrimitiveType = Type & {
+  typeKind: TypeKind;
   id: Scalars['ID'];
   name: Scalars['String'];
-  primitiveKind: PrimitiveKind;
   typeGraph: TypeGraph;
-  typeKind: TypeKind;
+  primitiveKind: PrimitiveKind;
 };
 
 export type Query = {
   getApp?: Maybe<App>;
   getApps: Array<App>;
-  getAtom?: Maybe<Atom>;
-  getAtoms?: Maybe<Array<Atom>>;
+  getMe: User;
+  getUsers: Array<User>;
+  getPages: Array<Page>;
+  getPage?: Maybe<Page>;
+  /** Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge */
+  getElementGraph?: Maybe<ElementGraph>;
+  /** Get a single element. */
+  getElement?: Maybe<Element>;
   getComponent?: Maybe<Component>;
   getComponentElements?: Maybe<ElementGraph>;
   getComponents: Array<Component>;
-  /** Get a single element. */
-  getElement?: Maybe<Element>;
-  /** Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge */
-  getElementGraph?: Maybe<ElementGraph>;
-  getField?: Maybe<Field>;
-  getLambda?: Maybe<Lambda>;
-  getLambdas: Array<Lambda>;
-  getMe?: Maybe<User>;
-  getPage?: Maybe<Page>;
-  getPages: Array<Page>;
-  getTag?: Maybe<Tag>;
-  /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
-  getTagGraph?: Maybe<TagGraph>;
-  /** Get all Tag graphs */
-  getTags: Array<Tag>;
+  getAtoms?: Maybe<Array<Atom>>;
+  getAtom?: Maybe<Atom>;
   getType?: Maybe<Type>;
   getTypeGraph?: Maybe<TypeGraph>;
   getTypes: Array<Type>;
-  getUser?: Maybe<User>;
-  getUsers: Array<User>;
+  getField?: Maybe<Field>;
+  getLambda?: Maybe<Lambda>;
+  getLambdas: Array<Lambda>;
+  getTag?: Maybe<Tag>;
+  /** Get all Tag graphs */
+  getTags: Array<Tag>;
+  /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
+  getTagGraph?: Maybe<TagGraph>;
 };
 
 
@@ -896,13 +894,28 @@ export type QueryGetAppArgs = {
 };
 
 
-export type QueryGetAtomArgs = {
-  input: GetAtomInput;
+export type QueryGetUsersArgs = {
+  input?: Maybe<GetUsersInput>;
 };
 
 
-export type QueryGetAtomsArgs = {
-  input?: Maybe<GetAtomsInput>;
+export type QueryGetPagesArgs = {
+  input: GetPagesInput;
+};
+
+
+export type QueryGetPageArgs = {
+  input: GetPageInput;
+};
+
+
+export type QueryGetElementGraphArgs = {
+  input: GetElementGraphInput;
+};
+
+
+export type QueryGetElementArgs = {
+  input: GetElementInput;
 };
 
 
@@ -921,38 +934,13 @@ export type QueryGetComponentsArgs = {
 };
 
 
-export type QueryGetElementArgs = {
-  input: GetElementInput;
+export type QueryGetAtomsArgs = {
+  input?: Maybe<GetAtomsInput>;
 };
 
 
-export type QueryGetElementGraphArgs = {
-  input: GetElementGraphInput;
-};
-
-
-export type QueryGetFieldArgs = {
-  input: GetFieldInput;
-};
-
-
-export type QueryGetLambdaArgs = {
-  input: GetLambdaInput;
-};
-
-
-export type QueryGetPageArgs = {
-  input: GetPageInput;
-};
-
-
-export type QueryGetPagesArgs = {
-  input: GetPagesInput;
-};
-
-
-export type QueryGetTagArgs = {
-  input: GetTagInput;
+export type QueryGetAtomArgs = {
+  input: GetAtomInput;
 };
 
 
@@ -971,42 +959,47 @@ export type QueryGetTypesArgs = {
 };
 
 
-export type QueryGetUserArgs = {
-  input: GetUserInput;
+export type QueryGetFieldArgs = {
+  input: GetFieldInput;
 };
 
 
-export type QueryGetUsersArgs = {
-  input?: Maybe<GetUsersInput>;
+export type QueryGetLambdaArgs = {
+  input: GetLambdaInput;
+};
+
+
+export type QueryGetTagArgs = {
+  input: GetTagInput;
 };
 
 export type QueryHookConfig = {
-  body?: Maybe<Scalars['String']>;
-  lambdaId?: Maybe<Scalars['String']>;
-  method?: Maybe<QueryMethod>;
   queryKey: Scalars['String'];
   url?: Maybe<Scalars['String']>;
+  body?: Maybe<Scalars['String']>;
+  method?: Maybe<QueryMethod>;
+  lambdaId?: Maybe<Scalars['String']>;
 };
 
 /** Provide either a lambdaId, or body/method/url */
 export type QueryHookConfigInput = {
-  body?: Maybe<Scalars['String']>;
-  lambdaId?: Maybe<Scalars['String']>;
-  method?: Maybe<QueryMethod>;
   queryKey: Scalars['String'];
   url?: Maybe<Scalars['String']>;
+  body?: Maybe<Scalars['String']>;
+  method?: Maybe<QueryMethod>;
+  lambdaId?: Maybe<Scalars['String']>;
 };
 
 export enum QueryMethod {
-  Delete = 'DELETE',
   Get = 'GET',
+  Delete = 'DELETE',
   Head = 'HEAD',
-  Link = 'LINK',
   Options = 'OPTIONS',
-  Patch = 'PATCH',
   Post = 'POST',
-  Purge = 'PURGE',
   Put = 'PUT',
+  Patch = 'PATCH',
+  Purge = 'PURGE',
+  Link = 'LINK',
   Unlink = 'UNLINK'
 }
 
@@ -1015,41 +1008,35 @@ export type RemoveHookFromElementInput = {
   hookId: Scalars['String'];
 };
 
-export enum Role {
-  Admin = 'Admin',
-  Guest = 'Guest',
-  User = 'User'
-}
-
 export type Tag = {
   id: Scalars['String'];
-  isRoot: Scalars['Boolean'];
   name: Scalars['String'];
+  isRoot: Scalars['Boolean'];
 };
 
 /** An edge between two element nodes */
 export type TagEdge = {
-  order?: Maybe<Scalars['Int']>;
   /** The id of the source Tag */
   source: Scalars['String'];
   /** The id of the target Tag */
   target: Scalars['String'];
+  order?: Maybe<Scalars['Int']>;
 };
 
 export type TagGraph = {
-  /** All the links connecting the descendant elements/components */
-  edges: Array<TagEdge>;
   /** All descendant Elements or Components, at any level */
   vertices: Array<TagVertex>;
+  /** All the links connecting the descendant elements/components */
+  edges: Array<TagEdge>;
 };
 
 export type TagVertex = Tag;
 
 export type Type = {
+  typeKind: TypeKind;
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
-  typeKind: TypeKind;
 };
 
 /**
@@ -1058,31 +1045,31 @@ export type Type = {
  *   TypeEdgeKind.ArrayItem - it represents the generic array item type of an array type. The field property will be empty
  */
 export type TypeEdge = {
-  /** Empty if kind is not TypeEdgeKind.Field */
-  field?: Maybe<Field>;
-  kind: TypeEdgeKind;
   source: Scalars['String'];
   target: Scalars['String'];
+  kind: TypeEdgeKind;
+  /** Empty if kind is not TypeEdgeKind.Field */
+  field?: Maybe<Field>;
 };
 
 export enum TypeEdgeKind {
-  ArrayItem = 'ArrayItem',
-  Field = 'Field'
+  Field = 'Field',
+  ArrayItem = 'ArrayItem'
 }
 
 export type TypeGraph = {
-  edges: Array<TypeEdge>;
   vertices: Array<TypeVertex>;
+  edges: Array<TypeEdge>;
 };
 
 export enum TypeKind {
+  PrimitiveType = 'PrimitiveType',
   ArrayType = 'ArrayType',
-  ComponentType = 'ComponentType',
-  ElementType = 'ElementType',
-  EnumType = 'EnumType',
   InterfaceType = 'InterfaceType',
+  EnumType = 'EnumType',
   LambdaType = 'LambdaType',
-  PrimitiveType = 'PrimitiveType'
+  ElementType = 'ElementType',
+  ComponentType = 'ComponentType'
 }
 
 export type TypeRef = {
@@ -1090,7 +1077,7 @@ export type TypeRef = {
   newType?: Maybe<CreateTypeInput>;
 };
 
-export type TypeVertex = ArrayType | ComponentType | ElementType | EnumType | InterfaceType | LambdaType | PrimitiveType;
+export type TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType;
 
 export type TypesByIdsFilter = {
   typeIds: Array<Scalars['String']>;
@@ -1109,13 +1096,13 @@ export type UpdateAppData = {
 };
 
 export type UpdateAppInput = {
-  data: UpdateAppData;
   id: Scalars['String'];
+  data: UpdateAppData;
 };
 
 export type UpdateAtomInput = {
-  data: CreateAtomInput;
   id: Scalars['String'];
+  data: CreateAtomInput;
 };
 
 export type UpdateComponentData = {
@@ -1128,10 +1115,14 @@ export type UpdateComponentInput = {
 };
 
 export type UpdateElementData = {
+  name?: Maybe<Scalars['String']>;
   atomId?: Maybe<Scalars['String']>;
   componentId?: Maybe<Scalars['String']>;
   css?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
+  renderForEachPropKey?: Maybe<Scalars['String']>;
+  /** If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy) */
+  renderIfPropKey?: Maybe<Scalars['String']>;
 };
 
 export type UpdateElementInput = {
@@ -1140,8 +1131,8 @@ export type UpdateElementInput = {
 };
 
 export type UpdateElementPropsInput = {
-  elementId: Scalars['String'];
   props: Scalars['String'];
+  elementId: Scalars['String'];
 };
 
 export type UpdateEnumTypeData = {
@@ -1161,9 +1152,9 @@ export type UpdateEnumTypeValueData = {
 };
 
 export type UpdateFieldData = {
-  description?: Maybe<Scalars['String']>;
   key: Scalars['String'];
   name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
   type: TypeRef;
 };
 
@@ -1173,16 +1164,16 @@ export type UpdateFieldInput = {
 };
 
 export type UpdateLambdaInput = {
+  /** Name of the Lambda function to be executed */
+  name: Scalars['String'];
   /** Content of the Lambda function */
   body: Scalars['String'];
   id: Scalars['String'];
-  /** Name of the Lambda function to be executed */
-  name: Scalars['String'];
 };
 
 export type UpdatePageData = {
-  appId: Scalars['String'];
   name: Scalars['String'];
+  appId: Scalars['String'];
 };
 
 export type UpdatePageInput = {
@@ -1191,8 +1182,8 @@ export type UpdatePageInput = {
 };
 
 export type UpdatePrimitiveKindData = {
-  name: Scalars['String'];
   primitiveKind: PrimitiveKind;
+  name: Scalars['String'];
 };
 
 export type UpdatePrimitiveTypeInput = {
@@ -1205,8 +1196,8 @@ export type UpdateTagData = {
 };
 
 export type UpdateTagInput = {
-  data: UpdateTagData;
   id: Scalars['String'];
+  data: UpdateTagData;
 };
 
 export type UpdateTypeData = {
@@ -1214,38 +1205,54 @@ export type UpdateTypeData = {
 };
 
 export type UpdateTypeInput = {
-  typeId: Scalars['String'];
   updateData: UpdateTypeData;
+  typeId: Scalars['String'];
 };
 
-export type UpsertUserDataInput = {
-  auth0Id: Scalars['String'];
-  roles?: Maybe<Array<Role>>;
+export type UpdateUserData = {
+  family_name?: Maybe<Scalars['String']>;
+  given_name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  nickname?: Maybe<Scalars['String']>;
+  phone_number?: Maybe<Scalars['String']>;
+  picture?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
 };
 
-export type UpsertUserInput = {
-  data: UpsertUserDataInput;
-  where?: Maybe<UserWhereUniqueInput>;
+export type UpdateUserInput = {
+  userId: Scalars['String'];
+  updateData: UpdateUserData;
 };
 
 export type User = {
-  auth0Id: Scalars['String'];
-  id: Scalars['String'];
-  roles: Array<Role>;
-};
-
-export type UserWhereUniqueInput = {
-  auth0Id?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['String']>;
+  blocked?: Maybe<Scalars['Boolean']>;
+  created_at?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  email_verified?: Maybe<Scalars['Boolean']>;
+  family_name?: Maybe<Scalars['String']>;
+  given_name?: Maybe<Scalars['String']>;
+  last_ip?: Maybe<Scalars['String']>;
+  last_login?: Maybe<Scalars['String']>;
+  last_password_reset?: Maybe<Scalars['String']>;
+  logins_count?: Maybe<Scalars['Float']>;
+  multifactor?: Maybe<Array<Scalars['String']>>;
+  name?: Maybe<Scalars['String']>;
+  nickname?: Maybe<Scalars['String']>;
+  phone_number?: Maybe<Scalars['String']>;
+  phone_verified?: Maybe<Scalars['Boolean']>;
+  picture?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['String']>;
+  user_id?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']>;
 };
 
 export type WhereUniqueTag = {
-  id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
 };
 
 export type WhereUniqueType = {
-  atomId?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  atomId?: Maybe<Scalars['String']>;
 };

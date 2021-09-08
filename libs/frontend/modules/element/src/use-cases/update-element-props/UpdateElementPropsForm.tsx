@@ -66,7 +66,7 @@ const UpdateElementPropsFormInternal = ({
         }
       />
 
-      <div css={tw`absolute top-0 right-0 m-8`}>
+      <div css={tw`absolute bottom-0 right-0 m-8`}>
         <StatelessLoadingIndicator
           style={{ display: 'block', margin: '0.5rem' }}
           state={{

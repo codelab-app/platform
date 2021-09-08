@@ -72,6 +72,8 @@ export const dgraphSchema = `
     props
     css
     hooks
+    renderForEachPropKey
+    renderIfPropKey
   }
 
   type ${Atom} {
@@ -183,4 +185,7 @@ export const dgraphSchema = `
   configJson: string .
 
   hooks: [uid] @reverse .
+
+  renderForEachPropKey: string .
+  renderIfPropKey: string .
 `

@@ -29,6 +29,18 @@ const StyledBuilderContainer = styled.div`
     // elements that have it disabled by design, like disabled buttons
     pointer-events: all !important;
   }
+
+  position: relative;
+  max-height: 100%;
+`
+
+const StyledBuilderInnerContainer = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
 `
 
 const BuilderRenderer = ({ tree }: { tree: ElementTreeGraphql }) => {
@@ -93,10 +105,12 @@ export const Builder = ({
       id="Builder"
       css={tw`relative w-full h-full`}
     >
-      <BuilderRenderer tree={tree} />
-      <BuilderHoverOverlay />
-      <BuilderClickOverlay />
-      {children}
+      <StyledBuilderInnerContainer>
+        <BuilderRenderer tree={tree} />
+        <BuilderHoverOverlay />
+        <BuilderClickOverlay />
+        {children}
+      </StyledBuilderInnerContainer>
     </StyledBuilderContainer>
   )
 }

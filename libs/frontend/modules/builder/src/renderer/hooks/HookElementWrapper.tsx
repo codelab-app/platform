@@ -1,59 +1,33 @@
 import { HookFragment } from '@codelab/frontend/modules/element'
-import React, { useEffect, useState } from 'react'
-import { v4 } from 'uuid'
+import React from 'react'
 import { useHookFactory } from './useHookFactory'
 
 export interface HookElementWrapperProps {
+  children?: never
   hooks: Array<HookFragment>
-  onRendered?: (renderedElement: React.ReactElement) => void
+  renderChildren: (hookProps: Record<string, any>) => React.ReactElement | null
 }
 
 /**
  * Wrapper for a rendered element that uses hooks
  * Required, because we can't use hooks in renderFactory since it's a plain function, not a React component
+ * Don't pass any children, instead use the renderChild render prop
+ * It receives the hookProps and should return the children that will get rendered inside this component
  */
 export const HookElementWrapper = ({
   hooks,
-  children,
-  onRendered,
-}: React.PropsWithChildren<HookElementWrapperProps>) => {
+  renderChildren,
+}: HookElementWrapperProps) => {
   const hookProps = useHookFactory(hooks)
-  const [key, setKey] = useState(v4())
 
-  // Change the element key every time the number of hooks change, that way we avoid getting a error from react
-  // reason is - the element will be destroyed and rerendered
-  useEffect(() => {
-    setKey(v4())
-  }, [hooks.length])
-
-  if (!children) {
+  if (!renderChildren) {
     return null
   }
 
-  const child = React.Children.only(children)
-
-  if (
-    !child ||
-    typeof child === 'string' ||
-    typeof child === 'boolean' ||
-    typeof child === 'number'
-  ) {
-    return null
-  }
-
-  const childProps = {
+  return renderChildren({
     ...(hookProps || {}),
-    key,
-  }
-
-  const rendered = React.cloneElement(child as any, childProps)
-
-  if (onRendered) {
-    onRendered(rendered)
-  }
-
-  return rendered
+    key: hooks.length,
+  })
 }
 
 HookElementWrapper.displayName = 'HookElementWrapper'
-HookElementWrapper.whyDidYouRender = true

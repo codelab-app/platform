@@ -18,8 +18,11 @@ export const loadIndicatorState = atomFamily<LoadingIndicatorState, string>({
  * Use this to track the loading state of multiple promises
  * @param key
  */
-export const usePromisesLoadingIndicator = (key: string) => {
-  const setState = useSetRecoilState(loadIndicatorState(key))
+export const usePromisesLoadingIndicator = (key: string | undefined) => {
+  const setState = useSetRecoilState(
+    loadIndicatorState(key ?? 'defaultLoadingState'),
+  )
+
   const [promises, setPromises] = useState<Array<Promise<any>>>([])
 
   useEffect(() => {

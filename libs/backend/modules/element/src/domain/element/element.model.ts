@@ -48,12 +48,37 @@ export class Element {
   @Field(() => [HookModel])
   hooks: Array<HookModel>
 
-  constructor({ id, name = '', atom, props, css, hooks }: Element) {
+  @Field(() => String, {
+    description:
+      'If set, the element will get rendered for each item in the array found in its props by the given key, if it exists',
+    nullable: true,
+  })
+  renderForEachPropKey?: string
+
+  @Field(() => String, {
+    description:
+      'If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)',
+    nullable: true,
+  })
+  renderIfPropKey?: string
+
+  constructor({
+    id,
+    name = '',
+    atom,
+    props,
+    css,
+    hooks,
+    renderForEachPropKey,
+    renderIfPropKey,
+  }: Element) {
     this.id = id
     this.name = name
     this.atom = atom
     this.css = css
     this.props = props
     this.hooks = hooks
+    this.renderForEachPropKey = renderIfPropKey
+    this.renderForEachPropKey = renderForEachPropKey
   }
 }

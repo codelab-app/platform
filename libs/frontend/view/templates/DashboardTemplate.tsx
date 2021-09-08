@@ -15,8 +15,9 @@ export const mainPaneWidth = 300
 
 const MetaPaneSection = styled('div')`
   position: absolute;
+  left: 0;
+  right: 0;
   bottom: 0;
-  width: 100%;
   background-color: white;
   z-index: 100;
   ${tw`p-4`}
@@ -30,6 +31,8 @@ const StyledContent = styled(Content)(({ router }: { router: NextRouter }) => [
   tw`relative p-2`,
   isPageBuilderRoute(router) ? tw`pt-16` : '',
 ])
+
+const sidebarNavWidth = 40
 
 export const DashboardTemplate = ({
   children,
@@ -50,7 +53,12 @@ export const DashboardTemplate = ({
       {...layoutProps}
     >
       {SidebarNavigation ? (
-        <Sider theme="light" collapsed collapsedWidth={40}>
+        <Sider
+          // style={{ position: 'fixed' }}
+          theme="light"
+          collapsed
+          collapsedWidth={40}
+        >
           <div data-testid="pane-main" css={tw`h-full`}>
             <SidebarNavigation />
           </div>
@@ -81,6 +89,7 @@ export const DashboardTemplate = ({
                   // position: 'fixed',
                   height: '100%',
                   top: 0,
+                  // left: sidebarNavWidth,
                   // right: 0,
                 }}
               >

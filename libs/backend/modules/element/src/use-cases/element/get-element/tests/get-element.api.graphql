@@ -9,6 +9,8 @@ query TestGetElement($input: GetElementInput!) {
       name
       type
     }
+    renderForEachPropKey
+    renderIfPropKey
     hooks {
       id
       type

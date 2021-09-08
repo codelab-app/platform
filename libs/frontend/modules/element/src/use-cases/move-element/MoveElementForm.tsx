@@ -5,6 +5,7 @@ import {
   FormUniforms,
   StatelessLoadingIndicator,
   UniFormUseCaseProps,
+  usePromisesLoadingIndicator,
 } from '@codelab/frontend/view/components'
 import React, { useRef } from 'react'
 import tw from 'twin.macro'
@@ -17,6 +18,7 @@ export type MoveElementFormProps = UniFormUseCaseProps<MoveElementSchema> & {
   elementId: string
   tree: ElementTreeGraphql
   refetchQueries?: BaseMutationOptions['refetchQueries']
+  loadingStateKey?: string
 }
 
 /** Not intended to be used in a modal */
@@ -24,8 +26,11 @@ export const MoveElementForm = ({
   refetchQueries,
   elementId,
   tree,
+  loadingStateKey,
   ...props
 }: MoveElementFormProps) => {
+  const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
+
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
   const {
     current: { parentElementId, order },
@@ -34,18 +39,23 @@ export const MoveElementForm = ({
     order: tree.getOrderInParent(elementId),
   })
 
-  const [mutate, { loading: loadingMutation, error, data }] =
-    useMoveElementMutation({
-      awaitRefetchQueries: true,
-      refetchQueries: refetchQueries,
-    })
+  const [mutate] = useMoveElementMutation({
+    awaitRefetchQueries: true,
+    refetchQueries: refetchQueries,
+  })
 
   const onSubmit = (submitData: MoveElementSchema) => {
-    return mutate({
+    const promise = mutate({
       variables: {
         input: { elementId, moveData: { ...submitData } },
       },
     })
+
+    if (loadingStateKey) {
+      trackPromise(promise)
+    }
+
+    return promise
   }
 
   return (
@@ -53,7 +63,7 @@ export const MoveElementForm = ({
       <FormUniforms<MoveElementSchema>
         key={elementId}
         autosave={true}
-        autosaveDelay={500}
+        autosaveDelay={200}
         schema={moveElementSchema}
         model={{
           parentElementId,
@@ -68,18 +78,6 @@ export const MoveElementForm = ({
         <AutoFields omitFields={['parentElementId']} />
         <AutoField name="parentElementId" component={SelectAnyElement} />
       </FormUniforms>
-
-      <div css={tw`absolute top-0 right-0 m-8`}>
-        <StatelessLoadingIndicator
-          style={{ display: 'block', margin: '0.5rem' }}
-          state={{
-            isLoading: loadingMutation,
-            isErrored: Boolean(
-              error || (data as any)?.errors || (data as any)?.error,
-            ),
-          }}
-        />
-      </div>
     </>
   )
 }

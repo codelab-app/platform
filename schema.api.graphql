@@ -405,6 +405,16 @@ type Element {
   """Props in a json format"""
   props: String!
   hooks: [Hook!]!
+
+  """
+  If set, the element will get rendered for each item in the array found in its props by the given key, if it exists
+  """
+  renderForEachPropKey: String
+
+  """
+  If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)
+  """
+  renderIfPropKey: String
   atom: Atom
 }
 
@@ -765,6 +775,16 @@ input UpdateElementData {
   atomId: String
   componentId: String
   css: String
+
+  """
+  If set, the element will get rendered for each item in the array found in its props by the given key, if it exists
+  """
+  renderForEachPropKey: String
+
+  """
+  If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)
+  """
+  renderIfPropKey: String
 }
 
 input MoveElementInput {

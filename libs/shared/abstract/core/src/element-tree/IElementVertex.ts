@@ -7,4 +7,7 @@ export interface IElementVertex extends Vertex {
   // props: string
 
   // hooks: Array<HookModel>
+
+  renderForEachPropKey?: string | null
+  renderIfPropKey?: string | null
 }

@@ -61,22 +61,18 @@ export const Mapper = <T extends Record<string, any>>(
   }
 
   if (Array.isArray(data)) {
-    return (
-      <>
-        {data?.map((item, index) => {
-          const newRendered = React.cloneElement(rendered, {
-            ...item,
-            key: `${rendered.key}-${index}`,
-          })
+    return data?.map((item, index) => {
+      const newRendered = React.cloneElement(rendered, {
+        ...item,
+        key: `${rendered.key}-${index}`,
+      })
 
-          if (context.onRendered) {
-            context.onRendered(newRendered, (newRendered.props as any).__node)
-          }
+      if (context.onRendered) {
+        context.onRendered(newRendered, (newRendered.props as any).__node)
+      }
 
-          return newRendered
-        })}
-      </>
-    )
+      return newRendered
+    })
   }
 
   if (typeof data === 'object') {

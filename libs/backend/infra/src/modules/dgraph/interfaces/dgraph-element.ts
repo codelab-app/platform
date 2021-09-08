@@ -18,6 +18,8 @@ export interface DgraphElement
   props?: string
   css?: string
   hooks?: Array<DgraphHook>
+  renderForEachPropKey?: string
+  renderIfPropKey?: string
 }
 
 export const isDgraphElement = (
