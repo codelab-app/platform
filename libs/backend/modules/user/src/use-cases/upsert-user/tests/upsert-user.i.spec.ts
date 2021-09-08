@@ -23,7 +23,7 @@ describe('CreateUserUseCase', () => {
   let userApp: INestApplication
   let createdUserId: string
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     guestApp = await setupTestModule([UserModule], { role: Role.Guest })
     userApp = await setupTestModule([UserModule], { role: Role.User })
 
@@ -69,13 +69,43 @@ describe('CreateUserUseCase', () => {
       })
     })
 
-    it('should update a user', async () => {
+    it('should update a user by id', async () => {
       const updateUserInput: UpsertUserInput = {
         data: {
           auth0Id: 'new-id',
         },
         where: {
           id: createdUserId,
+        },
+      }
+
+      await domainRequest<UpsertUserInput, UpsertUserMutation>(
+        userApp,
+        UpsertUserGql,
+        updateUserInput,
+      )
+
+      const { getUser } = await domainRequest<GetUserInput, GetUserQuery>(
+        userApp,
+        GetUserGql,
+        {
+          id: createdUserId,
+        },
+      )
+
+      expect(getUser).toMatchObject({
+        id: createdUserId,
+        auth0Id: 'new-id',
+      })
+    })
+
+    it('should update a user by auth0Id', async () => {
+      const updateUserInput: UpsertUserInput = {
+        data: {
+          auth0Id: 'new-id',
+        },
+        where: {
+          auth0Id: 'some-id',
         },
       }
 

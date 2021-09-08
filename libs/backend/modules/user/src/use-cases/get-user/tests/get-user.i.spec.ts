@@ -55,11 +55,26 @@ describe('GetUser', () => {
   })
 
   describe('User', () => {
-    it('should get a user', async () => {
+    it('should get a user by id', async () => {
       const { getUser } = await domainRequest<GetUserInput, GetUserQuery>(
         userApp,
         GetUserGql,
         getUserInput,
+      )
+
+      expect(getUser).toMatchObject({
+        id: createUserId,
+        auth0Id: createUserInput.data.auth0Id,
+      })
+    })
+
+    it('should get a user by auth0Id', async () => {
+      const { getUser } = await domainRequest<GetUserInput, GetUserQuery>(
+        userApp,
+        GetUserGql,
+        {
+          auth0Id: createUserInput.data.auth0Id,
+        },
       )
 
       expect(getUser).toMatchObject({

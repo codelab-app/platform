@@ -531,6 +531,7 @@ export type GetTypesInput = {
 
 export type GetUserInput = {
   id: Scalars['String'];
+  auth0Id: Scalars['String'];
 };
 
 export type GetUsersInput = {
@@ -1234,6 +1235,7 @@ export type User = {
 
 export type UserWhereUniqueInput = {
   id: Scalars['String'];
+  auth0Id: Scalars['String'];
 };
 
 export type WhereUniqueTag = {

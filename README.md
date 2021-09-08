@@ -12,8 +12,9 @@ The end product is a highly configurable UI layer that competes with writing cod
 
 1. `yarn docker:up alpha` starts Dgraph server
 2. Copy `.env.example` to . `.env` &  replace with proper values
-3. `nx serve web --with-deps`
-4. `yarn tunnel` allows localhost to accept HTTP input
+3. `nx serve api`
+4. `nx serve web`
+5. `yarn tunnel` allows localhost to accept HTTP input
 
 ## Testing
 

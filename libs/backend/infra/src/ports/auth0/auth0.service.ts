@@ -24,7 +24,7 @@ export class Auth0Service implements OnApplicationShutdown {
     @Inject(auth0Config.KEY) private readonly _auth0Config: Auth0Config,
   ) {}
 
-  private getDomain() {
+  private get issuer() {
     return new URL(this._auth0Config.issuer).hostname
   }
 
@@ -65,16 +65,18 @@ export class Auth0Service implements OnApplicationShutdown {
 
   getAuthClient() {
     return new AuthenticationClient({
-      clientId: this._auth0Config.api.clientId,
-      clientSecret: this._auth0Config.api.clientSecret,
-      domain: this.getDomain(),
+      // clientId: this._auth0Config.api.clientId,
+      // clientSecret: this._auth0Config.api.clientSecret,
+      clientId: this._auth0Config.clientId,
+      clientSecret: this._auth0Config.clientSecret,
+      domain: this.issuer,
     })
   }
 
   getManagementClient(token?: string) {
     return new ManagementClient({
       // token,
-      domain: this.getDomain(),
+      domain: this.issuer,
       clientId: this._auth0Config.api.clientId,
       clientSecret: this._auth0Config.api.clientSecret,
     })

@@ -528,7 +528,8 @@ input AppByPageFilter {
 }
 
 input GetUserInput {
-  id: String!
+  id: String
+  auth0Id: String
 }
 
 input GetUsersInput {
@@ -714,7 +715,8 @@ input UpsertUserDataInput {
 }
 
 input UserWhereUniqueInput {
-  id: String!
+  id: String
+  auth0Id: String
 }
 
 input DeleteUserInput {

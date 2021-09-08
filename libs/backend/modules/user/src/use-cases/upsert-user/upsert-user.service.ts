@@ -23,6 +23,10 @@ export class UpsertUserService extends DgraphCreateUseCase<UpsertUserRequest> {
   protected async executeTransaction(request: UpsertUserRequest, txn: Txn) {
     const { where } = request.input
 
+    if (where?.id && where?.auth0Id) {
+      throw new Error('At most 1 where')
+    }
+
     if (where?.id) {
       const user = await this.getUserService.execute({ id: where.id })
 
@@ -33,6 +37,19 @@ export class UpsertUserService extends DgraphCreateUseCase<UpsertUserRequest> {
         )
 
         return { id: where.id }
+      }
+    }
+
+    if (where?.auth0Id) {
+      const user = await this.getUserService.execute({ auth0Id: where.auth0Id })
+
+      if (user) {
+        await this.dgraph.executeMutation(
+          txn,
+          this.createUpdateMutation(user.uid, request.input.data),
+        )
+
+        return { id: user.uid }
       }
     }
 
