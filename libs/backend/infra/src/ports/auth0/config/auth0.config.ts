@@ -33,7 +33,7 @@ export const auth0Config = registerAs<Auth0Config>(
       clientSecret: get('AUTH0_API_CLIENT_SECRET').required().asString(),
       accessToken: get('AUTH0_M2M_TOKEN').required().asString(),
     },
-    cypressUsername: get('CYPRESS_AUTH0_USER').required().asString(),
-    cypressPassword: get('CYPRESS_AUTH0_PASSWORD').required().asString(),
+    cypressUsername: get('AUTH0_CYPRESS_USERNAME').required().asString(),
+    cypressPassword: get('AUTH0_CYPRESS_PASSWORD').required().asString(),
   }),
 )
