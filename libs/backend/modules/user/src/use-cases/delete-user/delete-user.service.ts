@@ -14,9 +14,10 @@ export class DeleteUserService
       throw new UnauthorizedException("Can't delete this user")
     }
 
-    return await this.auth0
-      .getManagementClient()
-      .deleteUser({ id: input.id })
-      .then(() => true)
+    // return await this.auth0
+    //   .getManagementClient()
+    //   .deleteUser({ id: input.id })
+    //   .then(() => true)
+    return false
   }
 }

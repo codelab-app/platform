@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         handleSigningKeyError: (err) => console.error(err), // do it better in real app!
       }),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      audience: _auth0Config?.api.audience,
+      audience: _auth0Config?.audience,
       scope: 'openid email profile roles',
       issuer: _auth0Config?.issuer,
       algorithms: ['RS256'],
