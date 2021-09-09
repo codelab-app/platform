@@ -2,6 +2,7 @@
   "extends": [
     "plugin:@nrwl/nx/react-typescript",
     "../../.eslintrc.json"
+    // Conflict with `import`
     // "next",
     // "next/core-web-vitals"
   ],

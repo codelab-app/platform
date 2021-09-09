@@ -57,12 +57,10 @@ describe('GetTypes', () => {
   })
 
   describe('User', () => {
-    // TODO: get types specs:
-    // test get types byId
-    // test get types byKind
+    it.todo('should get types by kind')
 
-    it('should get types', async () => {
-      expect(true).toBeTruthy()
-    })
+    it.todo('should get types by name')
+
+    it.todo('should get types by typeIds')
   })
 })

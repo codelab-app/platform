@@ -27,7 +27,7 @@ export class Auth0Controller {
       .passwordGrant({
         username: 'admin@codelab.ai',
         password: 'a!LcxKZB6W@f',
-        audience: this._auth0Config.api.audience,
+        audience: this._auth0Config.audience,
         // realm: 'Username-Password-Authentication',
         scope: 'openid email profile',
       })
