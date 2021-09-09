@@ -156,10 +156,10 @@
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
       ],
-      "@codelab/shared/core": ["libs/shared/core/src/index.ts"],
       "@codelab/shared/codegen/graphql": [
         "libs/shared/codegen/graphql/src/index.ts"
       ],
+      "@codelab/shared/core": ["libs/shared/core/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
