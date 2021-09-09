@@ -1,6 +1,9 @@
-import { domainRequest } from '@codelab/backend/infra'
-import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
-import { Role } from '@codelab/shared/abstract/core'
+import {
+  domainRequest,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend/infra'
+import { Role, TypeKind } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
 import { CreateTypeInput } from '../../create-type'
@@ -16,7 +19,8 @@ describe('GetTypes', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
   let typeId: string
-  let getTypesInput: GetTypesInput
+  let getTypesByIdInput: GetTypesInput
+  let getTypesByKindInput: GetTypesInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {
@@ -32,7 +36,9 @@ describe('GetTypes', () => {
     >(userApp, TestCreateTypeGql, createPrimitiveStringInput)
 
     typeId = createType.id
-    getTypesInput = { byIds: { typeIds: [typeId] } }
+    getTypesByIdInput = { byIds: { typeIds: [typeId] } }
+
+    getTypesByKindInput = { byKind: { kind: TypeKind.PrimitiveType } }
   })
 
   afterAll(async () => {
@@ -45,7 +51,7 @@ describe('GetTypes', () => {
       await domainRequest<GetTypesInput>(
         guestApp,
         TestGetTypesGql,
-        getTypesInput,
+        getTypesByIdInput,
         {
           message: 'Unauthorized',
         },
@@ -54,10 +60,20 @@ describe('GetTypes', () => {
   })
 
   describe('User', () => {
-    it.todo('should get types by kind')
+    it('should get types by id', async () => {
+      await domainRequest<GetTypesInput>(
+        userApp,
+        TestGetTypesGql,
+        getTypesByIdInput,
+      )
+    })
 
-    it.todo('should get types by name')
-
-    it.todo('should get types by typeIds')
+    it('should get types by primitive kind', async () => {
+      await domainRequest<GetTypesInput>(
+        userApp,
+        TestGetTypesGql,
+        getTypesByKindInput,
+      )
+    })
   })
 })
