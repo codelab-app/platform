@@ -6,15 +6,27 @@ const pageName = 'PageRender'
 let pageId: string
 
 describe('Renderer', () => {
-  it('Check page render from fixture', () => {
-    cy.intercept('POST', '/mock-endpoint', {
-      fixture: 'renderer.json',
-    }).as('apiCheck')
-    cy.visit(`/renderer`)
-    cy.wait('@apiCheck').then((interception: any) => {
-      console.log(interception.response.body)
+  before(() => {
+    cy.resetDgraphData()
 
-      assert.isNotNull(interception.response.body, '1st API call has data')
+    cy.intercept('POST', '/api/graphql', {
+      fixture: 'page.json',
+    }).as('pageData')
+
+    cy.login().then(() => {
+      cy.preserveAuthCookies()
+      cy.visit(`/apps/0x01/pages/0x01/builder`)
+    })
+  })
+
+  beforeEach(() => {
+    cy.preserveAuthCookies()
+  })
+
+  describe('Page', () => {
+    it('renders a page with a button', () => {
+      cy.wait('@pageData')
+      cy.findByButtonText('Click Me')
     })
   })
 })
