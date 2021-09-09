@@ -1,10 +1,3 @@
-// App
-const appName = 'AppRender'
-let appId: string
-// Page
-const pageName = 'PageRender'
-let pageId: string
-
 describe('Renderer', () => {
   before(() => {
     cy.resetDgraphData()
