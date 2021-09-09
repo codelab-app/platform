@@ -21,7 +21,7 @@ export interface Auth0Config {
   //   accessToken?: string
   // }
   admin: UsernamePassword
-  cypress: UsernamePassword & { token: string }
+  cypress: UsernamePassword
 }
 
 export const auth0Config = registerAs<Auth0Config>(
@@ -47,7 +47,7 @@ export const auth0Config = registerAs<Auth0Config>(
     cypress: {
       username: get('AUTH0_CYPRESS_USERNAME').required().asString(),
       password: get('AUTH0_CYPRESS_PASSWORD').required().asString(),
-      token: get('AUTH0_CYPRESS_TOKEN').required().asString(),
+      // token: get('AUTH0_CYPRESS_TOKEN').required().asString(),
     },
   }),
 )
