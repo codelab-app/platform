@@ -13,7 +13,7 @@
   "license": "MIT",
   "scripts": {
     "start": "./scripts/start.sh",
-    "postinstall": "husky install && yarn cli update-schema --local dev",
+    "postinstall": "./scripts/postinstall.sh",
     "tunnel": "ngrok http -region=us -hostname=a8069b052300.ngrok.io http://127.0.0.1:3333",
     "e2e": "env-cmd -f .env.test nx e2e web-e2e -c dev",
     "cli": "ts-node -P ./scripts/tsconfig.json ./scripts/cli.ts",
