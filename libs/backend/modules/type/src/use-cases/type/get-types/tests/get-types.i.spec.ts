@@ -3,7 +3,7 @@ import {
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/infra'
-import { Role, TypeKind } from '@codelab/shared/abstract/core'
+import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
 import { CreateTypeInput } from '../../create-type'
@@ -21,6 +21,7 @@ describe('GetTypes', () => {
   let typeId: string
   let getTypesByIdInput: GetTypesInput
   let getTypesByKindInput: GetTypesInput
+  let getTypesByNameInput: GetTypesInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {
@@ -38,7 +39,10 @@ describe('GetTypes', () => {
     typeId = createType.id
     getTypesByIdInput = { byIds: { typeIds: [typeId] } }
 
-    getTypesByKindInput = { byKind: { kind: TypeKind.PrimitiveType } }
+    getTypesByKindInput = {
+      byKind: { kind: createPrimitiveStringInput.typeKind },
+    }
+    getTypesByNameInput = { byName: { name: createPrimitiveStringInput.name } }
   })
 
   afterAll(async () => {
@@ -71,7 +75,7 @@ describe('GetTypes', () => {
       expect(type).toMatchObject({
         __typename: 'PrimitiveType',
         name: createPrimitiveStringInput.name,
-        typeKind: TypeKind.PrimitiveType,
+        typeKind: createPrimitiveStringInput.typeKind,
       })
     })
 
@@ -86,7 +90,22 @@ describe('GetTypes', () => {
       expect(type).toMatchObject({
         __typename: 'PrimitiveType',
         name: createPrimitiveStringInput.name,
-        typeKind: TypeKind.PrimitiveType,
+        typeKind: createPrimitiveStringInput.typeKind,
+      })
+    })
+
+    it('should get types by name', async () => {
+      const { getTypes } = await domainRequest<
+        GetTypesInput,
+        TestGetTypesQuery
+      >(userApp, TestGetTypesGql, getTypesByNameInput)
+
+      const type = getTypes[0] || {}
+
+      expect(type).toMatchObject({
+        __typename: 'PrimitiveType',
+        name: createPrimitiveStringInput.name,
+        typeKind: createPrimitiveStringInput.typeKind,
       })
     })
   })
