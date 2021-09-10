@@ -1309,7 +1309,7 @@
                   "forwardAllArgs": false
                 },
                 {
-                  "command": "npx env-cmd -f .env.test nx serve api",
+                  "command": "nx serve api",
                   "forwardAllArgs": false
                 },
                 {
