@@ -14,5 +14,4 @@ const envPath =
 config({ path: envPath })
 configure({ adapter: new Adapter() })
 
-shell.exec('yarn cli dgraph update-schema --env local')
 

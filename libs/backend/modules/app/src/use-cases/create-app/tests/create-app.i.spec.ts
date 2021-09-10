@@ -59,6 +59,8 @@ describe('CreateApp', () => {
       )
 
       expect(app).toMatchObject({ ...createAppInput, id: appId })
+
+      // Should assign app to user
     })
   })
 })

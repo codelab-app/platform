@@ -65,6 +65,8 @@ export class UpsertUserService extends DgraphCreateUseCase<UpsertUserRequest> {
     return jsonMutation<DgraphUser>({
       uid,
       auth0Id: data.auth0Id,
+      // TODO: Remove any cast
+      roles: data.roles as any,
     })
   }
 

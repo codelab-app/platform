@@ -1,7 +1,12 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# Update schema
 yarn cli dgraph update-schema --env local
+
+# Close ports in case left open from previous runs
+kill "$(lsof -t -i:3001)"
+kill "$(lsof -t -i:3334)"
 
 make build-dev-affected
 make test-dev-affected

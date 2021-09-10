@@ -5,7 +5,7 @@ import { Type_ArrayType_Fragment, Type_ComponentType_Fragment, Type_ElementType_
 import { gql } from '@apollo/client';
 import { TypeEdgeFragmentDoc } from './TypeEdge.fragment.api.graphql.gen';
 import { TypeFragmentDoc } from './Type.fragment.api.graphql.gen';
-export type TypeGraphFragment = { edges: Array<TypeEdgeFragment>, vertices: Array<Type_EnumType_Fragment | Type_PrimitiveType_Fragment | Type_ArrayType_Fragment | Type_ComponentType_Fragment | Type_ElementType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment> };
+export type TypeGraphFragment = { edges: Array<TypeEdgeFragment>, vertices: Array<Type_ArrayType_Fragment | Type_ComponentType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PrimitiveType_Fragment> };
 
 export const TypeGraphFragmentDoc = gql`
     fragment TypeGraph on TypeGraph {

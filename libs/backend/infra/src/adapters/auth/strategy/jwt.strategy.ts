@@ -1,10 +1,11 @@
+import { User } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import type { Auth0Config } from '../../../ports'
 import { auth0Config } from '../../../ports'
-import { JwtPayload } from '../interfaces/jwt.interface'
+import { JWT_CLAIMS, JwtPayload } from '../interfaces/jwt.interface'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -32,7 +33,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    * @param payload
    * @returns
    */
-  validate(payload: JwtPayload): JwtPayload {
-    return payload
+  validate(payload: JwtPayload): User {
+    return {
+      id: payload.sub,
+      auth0Id: payload.sub,
+      roles: payload[JWT_CLAIMS].roles,
+    }
   }
 }

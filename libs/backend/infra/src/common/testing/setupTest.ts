@@ -1,17 +1,16 @@
-import { Role } from '@codelab/shared/abstract/core'
+import { Role, User } from '@codelab/shared/abstract/core'
 import {
   DynamicModule,
   ExecutionContext,
   ForwardReference,
   INestApplication,
-  ShutdownSignal,
   Type,
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
-import { GqlAuthGuard, JwtPayload } from '../../adapters'
+import { GqlAuthGuard } from '../../adapters'
 import { InfrastructureModule } from '../../infrastructure.module'
-import { DgraphService } from '../../ports'
+import { auth0Config, Auth0Tokens, DgraphService } from '../../ports'
 
 type NestModule =
   | Type
@@ -35,32 +34,41 @@ export const setupTestModule = async (
 
   let testModuleBuilder: TestingModuleBuilder = await Test.createTestingModule({
     imports: [InfrastructureModule, ...nestModules],
+    providers: [
+      {
+        provide: Auth0Tokens.Auth0Config,
+        useValue: auth0Config(),
+      },
+    ],
   })
 
   testModuleBuilder = testModuleCallback(testModuleBuilder)
 
+  const username = process.env.AUTH0_CYPRESS_USERNAME
+  const userUid = '0x01'
+  const auth0Id = 'codelab-auth0-id'
+
+  if (!username) {
+    throw new Error('Missing Auth0 username')
+  }
+
   // Mock Auth0 authentication & authorization
   if (role !== Role.Guest) {
+    /**
+     * Override Auth guard return true for checks
+     */
     testModuleBuilder.overrideGuard(GqlAuthGuard).useValue({
       canActivate: (context: ExecutionContext) => {
         const ctx = GqlExecutionContext.create(context)
 
-        const payload: JwtPayload = {
-          'https://api.codelab.ai/jwt/claims': {
-            email: 'test-user@codelab.com',
-            roles: [role],
-          },
-          iss: 'codelab',
-          sub: 'codelab-test-user-id',
-          aud: ['https://api.codelab.ai'],
-          iat: Date.now(),
-          exp: Date.now() + 60 * 60 * 1000,
-          azp: 'HgguS961i58k3TOHwS5b4ZW4OevBGibp',
-          gty: 'client-credentials',
+        const user: User = {
+          id: userUid,
+          auth0Id: auth0Id,
+          roles: [Role.User],
         }
 
         // This will override our @CurrentUser annotation
-        ctx.getContext().req.user = payload
+        ctx.getContext().req.user = user
 
         return true
       },
@@ -69,7 +77,6 @@ export const setupTestModule = async (
 
   const testModule = await testModuleBuilder.compile()
   const app = testModule.createNestApplication()
-  app.enableShutdownHooks([ShutdownSignal.SIGTERM, ShutdownSignal.SIGINT])
 
   await app.init()
 

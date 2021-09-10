@@ -14,7 +14,7 @@ export type GetComponentElementsQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetComponentElementsQuery = { getComponentElements?: Types.Maybe<{ vertices: Array<ElementFragment | ComponentVertexFragment>, edges: Array<ElementEdgeFragment> }> };
+export type GetComponentElementsQuery = { getComponentElements?: Types.Maybe<{ vertices: Array<ComponentVertexFragment | ElementFragment>, edges: Array<ElementEdgeFragment> }> };
 
 
 export const GetComponentElementsGql = gql`

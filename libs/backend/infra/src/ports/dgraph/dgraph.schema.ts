@@ -138,6 +138,7 @@ export const dgraphSchema = `
 
   children: [uid] @reverse .
 
+  owner: uid @reverse .
   ownerId: string @index(hash) .
   pages: [uid] @reverse .
 

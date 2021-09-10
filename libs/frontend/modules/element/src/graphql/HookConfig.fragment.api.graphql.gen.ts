@@ -5,17 +5,17 @@ export type QueryHookConfigFragment = { body?: Types.Maybe<string>, method?: Typ
 
 export type GraphqlQueryHookConfigFragment = { dataKey?: Types.Maybe<string>, graphqlBody: string, graphqlUrl: string };
 
-export type HookConfig_QueryHookConfig_Fragment = (
-  { __typename: 'QueryHookConfig' }
-  & QueryHookConfigFragment
-);
-
 export type HookConfig_GraphqlQueryHookConfig_Fragment = (
   { __typename: 'GraphqlQueryHookConfig' }
   & GraphqlQueryHookConfigFragment
 );
 
-export type HookConfigFragment = HookConfig_QueryHookConfig_Fragment | HookConfig_GraphqlQueryHookConfig_Fragment;
+export type HookConfig_QueryHookConfig_Fragment = (
+  { __typename: 'QueryHookConfig' }
+  & QueryHookConfigFragment
+);
+
+export type HookConfigFragment = HookConfig_GraphqlQueryHookConfig_Fragment | HookConfig_QueryHookConfig_Fragment;
 
 export const QueryHookConfigFragmentDoc = gql`
     fragment QueryHookConfig on QueryHookConfig {

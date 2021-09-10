@@ -712,6 +712,7 @@ input UpsertUserInput {
 
 input UpsertUserDataInput {
   auth0Id: String!
+  roles: [Role!] = []
 }
 
 input UserWhereUniqueInput {

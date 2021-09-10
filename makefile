@@ -26,9 +26,8 @@ lambda:
 		# --timeout 10 \
 		# --memory-size 1024
 
-# Next build hardcodes env vars into the compliation, since this build will be used by Cypress, we'll want to use test env
+# Next build hardcoded env vars into the compilation, since this build will be used by Cypress, we'll want to use test env
 #
-# `tools-plugins-codelab` requires peerDendencies so `@codelab/shared/utils` won't be fetched from NPM. Although it passes this flag to all projects, it won't affect anything
 build-dev-affected:
 	npx env-cmd -f .env.test nx affected:build \
 		--configuration=local \
