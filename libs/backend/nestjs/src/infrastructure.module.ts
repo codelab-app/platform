@@ -1,5 +1,6 @@
 import {
   ApolloClientModule,
+  AwsModule,
   DgraphModule,
   GraphqlSchemaModule,
   GraphqlServerModule,
@@ -10,6 +11,7 @@ import { Module } from '@nestjs/common'
 
 @Module({
   imports: [
+    AwsModule,
     LoggerModule,
     ApolloClientModule,
     GraphqlSchemaModule,

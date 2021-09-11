@@ -13,6 +13,18 @@ type App {
   pages: App!
 }
 
+type User {
+  id: String!
+  auth0Id: String!
+  roles: [Role!]!
+}
+
+enum Role {
+  Admin
+  User
+  Guest
+}
+
 type Field {
   id: ID!
   key: String!
@@ -464,24 +476,12 @@ type TagGraph {
 
 union TagVertex = Tag
 
-type User {
-  id: String!
-  auth0Id: String!
-  roles: [Role!]!
-}
-
-enum Role {
-  Admin
-  User
-  Guest
-}
-
 type Query {
-  getApp(input: GetAppInput!): App
-  getApps: [App!]!
   getMe: User!
   getUser(input: GetUserInput!): User
   getUsers(input: GetUsersInput): [User!]!
+  getApp(input: GetAppInput!): App
+  getApps: [App!]!
   getPages(input: GetPagesInput!): [Page!]!
   getPage(input: GetPageInput!): Page
 
@@ -514,6 +514,18 @@ type Query {
   getTagGraph: TagGraph
 }
 
+input GetUserInput {
+  id: String
+  auth0Id: String
+}
+
+input GetUsersInput {
+  page: Int!
+  perPage: Int!
+  query: String!
+  sort: String!
+}
+
 input GetAppInput {
   byId: AppByIdFilter
   byPage: AppByPageFilter
@@ -525,18 +537,6 @@ input AppByIdFilter {
 
 input AppByPageFilter {
   pageId: String!
-}
-
-input GetUserInput {
-  id: String
-  auth0Id: String
-}
-
-input GetUsersInput {
-  page: Int!
-  perPage: Int!
-  query: String!
-  sort: String!
 }
 
 input GetPagesInput {
@@ -642,11 +642,11 @@ input WhereUniqueTag {
 }
 
 type Mutation {
+  upsertUser(input: UpsertUserInput!): CreateResponse!
+  deleteUser(input: DeleteUserInput!): Boolean!
   createApp(input: CreateAppInput!): CreateResponse!
   updateApp(input: UpdateAppInput!): Void
   deleteApp(input: DeleteAppInput!): Void
-  upsertUser(input: UpsertUserInput!): CreateResponse!
-  deleteUser(input: DeleteUserInput!): Boolean!
   resetData: Void
   createPage(input: CreatePageInput!): CreateResponse!
   deletePage(input: DeletePageInput!): Void
@@ -685,6 +685,25 @@ type Mutation {
   deleteTags(input: DeleteTagsInput!): Void
 }
 
+input UpsertUserInput {
+  data: UpsertUserDataInput!
+  where: UserWhereUniqueInput
+}
+
+input UpsertUserDataInput {
+  auth0Id: String!
+  roles: [Role!] = []
+}
+
+input UserWhereUniqueInput {
+  id: String
+  auth0Id: String
+}
+
+input DeleteUserInput {
+  id: String!
+}
+
 input CreateAppInput {
   name: String!
 }
@@ -703,25 +722,6 @@ input UpdateAppData {
 
 input DeleteAppInput {
   appId: String!
-}
-
-input UpsertUserInput {
-  data: UpsertUserDataInput!
-  where: UserWhereUniqueInput
-}
-
-input UpsertUserDataInput {
-  auth0Id: String!
-  roles: [Role!] = []
-}
-
-input UserWhereUniqueInput {
-  id: String
-  auth0Id: String
-}
-
-input DeleteUserInput {
-  id: String!
 }
 
 input CreatePageInput {

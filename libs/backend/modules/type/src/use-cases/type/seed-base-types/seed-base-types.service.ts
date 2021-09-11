@@ -1,5 +1,4 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
-import { Auth0Service } from '@codelab/backend/modules/user'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { baseTypes } from '../../../domain/data/baseTypes'
@@ -12,7 +11,6 @@ import { GetTypeService } from '../get-type'
 @Injectable()
 export class SeedBaseTypesService implements UseCasePort<void, void> {
   constructor(
-    private auth0Service: Auth0Service,
     private getTypeService: GetTypeService,
     private createTypeService: CreateTypeService,
   ) {}
