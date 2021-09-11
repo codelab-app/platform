@@ -6,7 +6,7 @@ import {
   S3Client,
 } from '@aws-sdk/client-s3'
 import AdmZip from 'adm-zip'
-import { ObjectStorageRepository } from '../../../ports'
+import { ObjectStorageRepository } from '../../index'
 import { Lambda } from '../lambda.interface'
 
 export class AwsS3Service

@@ -1,7 +1,7 @@
 import { Controller, Get, Inject } from '@nestjs/common'
 import { ClientParams, Data } from 'auth0'
 import jwtDecode from 'jwt-decode'
-import { JwtPayload } from '../../adapters'
+import { JwtPayload } from '../auth/jwt.interface'
 import { Auth0Service } from './auth0.service'
 import { Auth0Config, auth0Config } from './config/auth0.config'
 

@@ -1,5 +1,5 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
-import { Auth0Service } from '@codelab/backend/infra'
+import { Auth0Service } from '@codelab/backend/modules/user'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { baseTypes } from '../../../domain/data/baseTypes'

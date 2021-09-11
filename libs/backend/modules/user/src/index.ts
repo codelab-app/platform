@@ -1,4 +1,7 @@
+export * from './auth.module'
 export * from './domain/user.model'
+export * from './infra/auth'
+export * from './infra/auth0'
 export * from './use-cases/delete-user'
 export * from './use-cases/get-user'
 export * from './use-cases/get-users'

@@ -1,16 +1,11 @@
 import { CreateResponse } from '@codelab/backend/application'
-import {
-  CurrentUser,
-  GqlAuthGuard,
-  Roles,
-  RolesGuard,
-} from '@codelab/backend/infra'
 import type { User as IUser } from '@codelab/shared/abstract/core'
 import { Role } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { UserAdapter } from '../domain/user.adapter'
 import { User } from '../domain/user.model'
+import { CurrentUser, GqlAuthGuard, Roles, RolesGuard } from '../infra/auth'
 import { DeleteUserInput, DeleteUserService } from '../use-cases/delete-user'
 import { GetUserInput, GetUserService } from '../use-cases/get-user'
 import { GetUsersInput, GetUsersService } from '../use-cases/get-users'

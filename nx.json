@@ -71,6 +71,9 @@
     "backend-modules-user": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },
+    "backend-nestjs": {
+      "tags": ["layer:domain:backend", "scope:backend"]
+    },
     "backend-shared-generic": {
       "tags": ["scope:shared", "scope:backend"]
     },

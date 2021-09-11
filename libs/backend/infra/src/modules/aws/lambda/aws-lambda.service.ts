@@ -10,7 +10,7 @@ import {
   UpdateFunctionCodeCommand,
   UpdateFunctionCodeRequest,
 } from '@aws-sdk/client-lambda'
-import { CloudFunctionsRepository } from '../../../ports'
+import { CloudFunctionsRepository } from '../../index'
 import { Lambda } from '../lambda.interface'
 
 export interface LambdaPayload {

@@ -1,12 +1,13 @@
 import { ApolloClient } from '@apollo/client'
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
-import { ApolloClientTokens, GqlAuthGuard, Roles } from '@codelab/backend/infra'
+import { ApolloClientTokens } from '@codelab/backend/infra'
 import {
   GetTypeService,
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
+import { GqlAuthGuard, Roles } from '@codelab/backend/modules/user'
 import { Role } from '@codelab/shared/abstract/core'
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import {

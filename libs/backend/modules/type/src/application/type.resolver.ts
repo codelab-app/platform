@@ -1,6 +1,7 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
-import { GqlAuthGuard, isDgraphInterfaceType } from '@codelab/backend/infra'
+import { isDgraphInterfaceType } from '@codelab/backend/infra'
+import { GqlAuthGuard } from '@codelab/backend/modules/user'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,

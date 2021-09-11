@@ -1,15 +1,15 @@
-import { Module } from '@nestjs/common'
-import { AuthModule, AwsModule, LoggerModule } from './adapters'
 import {
   ApolloClientModule,
   DgraphModule,
   GraphqlSchemaModule,
   GraphqlServerModule,
-} from './ports'
+  LoggerModule,
+} from '@codelab/backend/infra'
+import { AuthModule } from '@codelab/backend/modules/user'
+import { Module } from '@nestjs/common'
 
 @Module({
   imports: [
-    AwsModule,
     LoggerModule,
     ApolloClientModule,
     GraphqlSchemaModule,

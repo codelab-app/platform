@@ -2,8 +2,8 @@ import { Role } from '@codelab/shared/abstract/core'
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { JWT_CLAIMS } from './interfaces/jwt.interface'
-import { ROLES_KEY } from './roles.decorator'
+import { ROLES_KEY } from '../decorators/roles.decorator'
+import { JWT_CLAIMS } from '../jwt.interface'
 
 /**
  * Allows only if the current user has ONE OF the roles in the allowedRoles array

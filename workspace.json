@@ -439,6 +439,20 @@
         }
       }
     },
+    "backend-nestjs": {
+      "root": "libs/backend/nestjs",
+      "sourceRoot": "libs/backend/nestjs/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/backend/nestjs/**/*.ts"]
+          }
+        }
+      }
+    },
     "backend-shared-generic": {
       "root": "libs/backend/shared/generic",
       "sourceRoot": "libs/backend/shared/generic/src",

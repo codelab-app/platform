@@ -3,13 +3,16 @@ import { Inject, Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import type { Auth0Config } from '../../../ports'
-import { auth0Config } from '../../../ports'
-import { JWT_CLAIMS, JwtPayload } from '../interfaces/jwt.interface'
+import { GetUserService } from '../../use-cases/get-user'
+import { Auth0Config, auth0Config } from '../auth0'
+import { JWT_CLAIMS, JwtPayload } from './jwt.interface'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(@Inject(auth0Config.KEY) readonly _auth0Config: Auth0Config) {
+  constructor(
+    @Inject(auth0Config.KEY) readonly _auth0Config: Auth0Config,
+    private getUserService: GetUserService,
+  ) {
     super({
       secretOrKeyProvider: passportJwtSecret({
         cache: true,
@@ -33,9 +36,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    * @param payload
    * @returns
    */
-  validate(payload: JwtPayload): User {
+  async validate(payload: JwtPayload): Promise<User> {
+    const user = await this.getUserService.execute({ auth0Id: payload.sub })
+
+    if (!user) {
+      throw new Error('User data invalid')
+    }
+
     return {
-      id: payload.sub,
+      id: user.uid,
       auth0Id: payload.sub,
       roles: payload[JWT_CLAIMS].roles,
     }
