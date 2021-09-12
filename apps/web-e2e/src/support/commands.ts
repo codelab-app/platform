@@ -44,6 +44,7 @@ declare global {
       /** Creates an app for the current logged in user */
       // createLibrary: typeof createLibrary
       createPage: typeof createPage
+      loginUpsert: typeof loginUpsert
       findByButtonText: (
         text: Matcher,
         options?: SelectorMatcherOptions,
@@ -95,18 +96,16 @@ const preserveAuthCookies = () => {
     const namesOfCookies = cookies.map((c) => c.name)
     Cypress.Cookies.preserveOnce(...namesOfCookies)
   })
-  // Cypress.Cookies.preserveOnce('appSession')
-  // Cypress.Cookies.preserveOnce('appSession.0')
-  // Cypress.Cookies.preserveOnce('appSession.1')
 }
 
 Cypress.Commands.add('preserveAuthCookies', preserveAuthCookies)
 
-const graphqlRequest = (body: string | Record<string, any>) =>
+const graphqlRequest = (body: string | Record<string, any>, config?: any) =>
   cy.request({
     method: 'POST',
     url: '/api/graphql',
     body,
+    ...config,
   })
 
 Cypress.Commands.add('graphqlRequest', graphqlRequest)

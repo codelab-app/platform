@@ -7,8 +7,8 @@ export class UpsertUserDataInput {
   @Field()
   declare auth0Id: string
 
-  @Field(() => [Role], { nullable: true, defaultValue: [] })
-  declare roles?: Array<Role>
+  @Field(() => [Role])
+  declare roles: Array<Role>
 }
 
 @InputType()

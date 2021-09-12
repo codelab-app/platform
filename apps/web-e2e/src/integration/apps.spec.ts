@@ -5,6 +5,7 @@ describe('Apps CRUD', () => {
     cy.login().then(() => {
       cy.preserveAuthCookies()
       cy.visit('/apps')
+
       cy.getSpinner().should('not.exist')
     })
   })

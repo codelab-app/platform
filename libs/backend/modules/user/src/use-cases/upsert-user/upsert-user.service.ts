@@ -71,7 +71,7 @@ export class UpsertUserService extends DgraphCreateUseCase<UpsertUserRequest> {
   }
 
   protected createMutation(
-    { input: { data, where }, currentUser }: UpsertUserRequest,
+    { input: { data, where } }: UpsertUserRequest,
     blandNodeUid: string,
   ): Mutation {
     return jsonMutation<DgraphUser>({
@@ -79,7 +79,7 @@ export class UpsertUserService extends DgraphCreateUseCase<UpsertUserRequest> {
       auth0Id: data.auth0Id,
       'dgraph.type': [DgraphEntityType.User],
       // TODO: Remove any cast
-      roles: currentUser.roles as any,
+      roles: data.roles as any,
       apps: [],
     })
   }

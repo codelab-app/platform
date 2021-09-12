@@ -1,9 +1,12 @@
 import { CodelabPage } from '@codelab/frontend/abstract/props'
+import { useGetMeQuery } from '@codelab/frontend/modules/user'
 import Head from 'next/head'
 import React from 'react'
 import { HomeClients, HomeFeatures, HomeJumbo, HomeTemplate } from '../src/home'
 
 const HomePage: CodelabPage = () => {
+  const { data } = useGetMeQuery()
+
   return (
     <>
       <Head>

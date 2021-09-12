@@ -36,7 +36,6 @@ export class Auth0Controller {
      * This token has claims on them added by Auth actions, we just need to decode them
      */
     const decoded = jwtDecode<JwtPayload>(access_token)
-    console.log(decoded)
   }
 
   @Get('grants')
@@ -48,8 +47,6 @@ export class Auth0Controller {
     const client = await this.auth0Service
       .getManagementClient()
       .getClient(params)
-
-    console.log(client)
 
     const data: Data = {
       grant_types: [

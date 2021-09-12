@@ -22,10 +22,16 @@ export class UserResolver {
     private userAdapter: UserAdapter,
   ) {}
 
-  @Query(() => User)
+  @Query(() => User, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  getMe(@CurrentUser() currentUser: IUser) {
-    return this.getUserService.execute({ id: currentUser.id })
+  async getMe(@CurrentUser() currentUser: IUser) {
+    const user = await this.getUserService.execute({ id: currentUser.id })
+
+    if (!user) {
+      return null
+    }
+
+    return this.userAdapter.mapItem(user)
   }
 
   @Query(() => User, { nullable: true })
@@ -49,11 +55,8 @@ export class UserResolver {
 
   @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
-  async upsertUser(
-    @Args('input') input: UpsertUserInput,
-    @CurrentUser() currentUser: IUser,
-  ) {
-    return await this.upsertUserService.execute({ input, currentUser })
+  async upsertUser(@Args('input') input: UpsertUserInput) {
+    return await this.upsertUserService.execute({ input })
   }
 
   @Mutation(() => Boolean)

@@ -4,6 +4,7 @@ import { PassportStrategy } from '@nestjs/passport'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { GetUserService } from '../../use-cases/get-user'
+import { UpsertUserService } from '../../use-cases/upsert-user'
 import { Auth0Config, auth0Config } from '../auth0'
 import { JWT_CLAIMS, JwtPayload } from './jwt.interface'
 
@@ -12,6 +13,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @Inject(auth0Config.KEY) readonly _auth0Config: Auth0Config,
     private getUserService: GetUserService,
+    private upsertUserService: UpsertUserService,
   ) {
     super({
       secretOrKeyProvider: passportJwtSecret({
@@ -33,18 +35,29 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   /**
    * At this point, Auth0 has already checked the validity of the JWT token, we can do further validation to check for roles or permissions here.
    *
+   * We search the database to see whether the user exists, otherwise we create it
+   *
    * @param payload
    * @returns
    */
   async validate(payload: JwtPayload): Promise<User> {
     const user = await this.getUserService.execute({ auth0Id: payload.sub })
+    let userId
 
-    if (!user) {
-      throw new Error('User data invalid')
+    if (user) {
+      userId = user.uid
+    } else {
+      const { id } = await this.upsertUserService.execute({
+        input: {
+          data: { auth0Id: payload.sub, roles: payload[JWT_CLAIMS].roles },
+        },
+      })
+
+      userId = id
     }
 
     return {
-      id: user.uid,
+      id: userId,
       auth0Id: payload.sub,
       roles: payload[JWT_CLAIMS].roles,
     }

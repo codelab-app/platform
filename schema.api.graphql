@@ -477,7 +477,7 @@ type TagGraph {
 union TagVertex = Tag
 
 type Query {
-  getMe: User!
+  getMe: User
   getUser(input: GetUserInput!): User
   getUsers(input: GetUsersInput): [User!]!
   getApp(input: GetAppInput!): App
@@ -692,7 +692,7 @@ input UpsertUserInput {
 
 input UpsertUserDataInput {
   auth0Id: String!
-  roles: [Role!] = []
+  roles: [Role!]!
 }
 
 input UserWhereUniqueInput {

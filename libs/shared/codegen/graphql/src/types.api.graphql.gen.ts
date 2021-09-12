@@ -875,7 +875,7 @@ export type Query = {
   getField?: Maybe<Field>;
   getLambda?: Maybe<Lambda>;
   getLambdas: Array<Lambda>;
-  getMe: User;
+  getMe?: Maybe<User>;
   getPage?: Maybe<Page>;
   getPages: Array<Page>;
   getTag?: Maybe<Tag>;

@@ -23,11 +23,6 @@ const bootstrap = async () => {
   // Allows us to use class-validator to validate graphql input
   app.useGlobalPipes(new ValidationPipe())
 
-  // Starts listening for shutdown hooks
-  if (process.env.NODE_ENV !== 'production') {
-    app.enableShutdownHooks()
-  }
-
   const apiEndpoint = get('CODELAB_API_ENDPOINT').required().asUrlObject()
   const port = get('CODELAB_API_PORT').asPortNumber() ?? apiEndpoint.port
 

@@ -21,9 +21,5 @@ Cypress.on('uncaught:exception', (err) => {
   const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
 
   /* returning false here prevents Cypress from failing the test */
-  if (resizeObserverLoopErrRe.test(err.message)) {
-    return false
-  }
-
-  return true
+  return !resizeObserverLoopErrRe.test(err.message)
 })

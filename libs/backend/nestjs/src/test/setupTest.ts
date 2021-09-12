@@ -59,6 +59,7 @@ export const setupTestModule = async (
       canActivate: (context: ExecutionContext) => {
         const ctx = GqlExecutionContext.create(context)
 
+        // TODO: Since mocking GqlAuthGuard doesn't trigger jwt.strategy, we need a way to add roles to user
         const user: User = {
           id: userUid,
           auth0Id: auth0Id,
