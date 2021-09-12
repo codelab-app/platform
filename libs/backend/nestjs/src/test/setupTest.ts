@@ -1,4 +1,6 @@
 import { DgraphService } from '@codelab/backend/infra'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { GqlAuthGuard } from '@codelab/backend/modules/user'
 import { testAuth0Id, testUserUid } from '@codelab/backend/shared/generic'
 import { Role, User } from '@codelab/shared/abstract/core'
 import {
@@ -50,8 +52,10 @@ export const setupTestModule = async (
   if (role !== Role.Guest) {
     /**
      * Override Auth guard return true for checks
+     *
+     * // TODO: Look into circular dependency
      */
-    testModuleBuilder.overrideGuard('GqlAuthGuard').useValue({
+    testModuleBuilder.overrideGuard(GqlAuthGuard).useValue({
       canActivate: (context: ExecutionContext) => {
         const ctx = GqlExecutionContext.create(context)
 
