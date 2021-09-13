@@ -1,16 +1,11 @@
 import { CreateResponse } from '@codelab/backend/application'
-import {
-  CurrentUser,
-  GqlAuthGuard,
-  Roles,
-  RolesGuard,
-} from '@codelab/backend/infra'
 import type { User as IUser } from '@codelab/shared/abstract/core'
 import { Role } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { UserAdapter } from '../domain/user.adapter'
 import { User } from '../domain/user.model'
+import { CurrentUser, GqlAuthGuard, Roles, RolesGuard } from '../infra/auth'
 import { DeleteUserInput, DeleteUserService } from '../use-cases/delete-user'
 import { GetUserInput, GetUserService } from '../use-cases/get-user'
 import { GetUsersInput, GetUsersService } from '../use-cases/get-users'
@@ -27,10 +22,16 @@ export class UserResolver {
     private userAdapter: UserAdapter,
   ) {}
 
-  @Query(() => User)
+  @Query(() => User, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  getMe(@CurrentUser() currentUser: IUser) {
-    return this.getUserService.execute({ id: currentUser.id })
+  async getMe(@CurrentUser() currentUser: IUser) {
+    const user = await this.getUserService.execute({ id: currentUser.id })
+
+    if (!user) {
+      return null
+    }
+
+    return this.userAdapter.mapItem(user)
   }
 
   @Query(() => User, { nullable: true })
@@ -54,11 +55,8 @@ export class UserResolver {
 
   @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
-  async upsertUser(
-    @Args('input') input: UpsertUserInput,
-    @CurrentUser() currentUser: IUser,
-  ) {
-    return await this.upsertUserService.execute({ input, currentUser })
+  async upsertUser(@Args('input') input: UpsertUserInput) {
+    return await this.upsertUserService.execute({ input })
   }
 
   @Mutation(() => Boolean)

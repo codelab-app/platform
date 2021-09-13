@@ -14,7 +14,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const encrypt = require('cypress-nextjs-auth0/encrypt')
 
-const pluginConfig: Cypress.PluginConfig = (on, config) => {
+const pluginConfig: Cypress.PluginConfig = async (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
@@ -34,6 +34,27 @@ const pluginConfig: Cypress.PluginConfig = (on, config) => {
   config.env.auth0Password = process.env.AUTH0_CYPRESS_PASSWORD
   config.env.dgraphApiKey = process.env.CODELAB_DGRAPH_API_KEY ?? ''
   config.env.codelabApiEndpoint = process.env.CODELAB_API_ENDPOINT ?? ''
+
+  /**
+   * Programmatically get the user since Auth0 actions is too complicated with Cypress
+   */
+  // const authClient = new AuthenticationClient({
+  //   clientId: process.env.AUTH0_CLIENT_ID,
+  //   clientSecret: process.env.AUTH0_CLIENT_SECRET,
+  //   domain: new URL(`${process.env.AUTH0_ISSUER_BASE_URL}`).hostname,
+  // })
+  //
+  // const { access_token } = await authClient.passwordGrant({
+  //   username: config.env.auth0Username,
+  //   password: config.env.auth0Password,
+  //   audience: `${process.env.AUTH0_AUDIENCE}`,
+  //   scope: 'openid email profile',
+  // })
+  //
+  // const profile = await authClient.getProfile(access_token)
+  //
+  // config.env.profile = profile
+  // config.env.accessToken = access_token
 
   return config
 }

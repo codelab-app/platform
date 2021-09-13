@@ -7,7 +7,7 @@ import { ElementFragmentDoc } from './Element.fragment.api.graphql.gen';
 import { ElementEdgeFragmentDoc } from './ElementEdge.fragment.api.graphql.gen';
 export type ComponentVertexFragment = { __typename: 'Component', id: string, name: string };
 
-export type ElementGraphFragment = { vertices: Array<ElementFragment | ComponentVertexFragment>, edges: Array<ElementEdgeFragment> };
+export type ElementGraphFragment = { vertices: Array<ComponentVertexFragment | ElementFragment>, edges: Array<ElementEdgeFragment> };
 
 export const ComponentVertexFragmentDoc = gql`
     fragment ComponentVertex on Component {

@@ -1,11 +1,11 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
-import { CurrentUser, GqlAuthGuard } from '@codelab/backend/infra'
 import {
   ElementGraph,
   ElementTreeAdapter,
   GetElementGraphService,
 } from '@codelab/backend/modules/element'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
 import type { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {

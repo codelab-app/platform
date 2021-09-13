@@ -1,8 +1,7 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/infra'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { domainRequest } from '@codelab/backend/infra'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { UserModule } from '../../../user.module'
@@ -73,6 +72,7 @@ describe('CreateUserUseCase', () => {
       const updateUserInput: UpsertUserInput = {
         data: {
           auth0Id: 'new-id',
+          roles: [Role.User],
         },
         where: {
           id: createdUserId,
@@ -103,6 +103,7 @@ describe('CreateUserUseCase', () => {
       const updateUserInput: UpsertUserInput = {
         data: {
           auth0Id: 'new-id',
+          roles: [Role.User],
         },
         where: {
           auth0Id: 'some-id',

@@ -1,5 +1,4 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
-import { Auth0Service } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { User } from '../../domain/user.model'
 import { GetUsersInput } from './get-users.input'
@@ -8,8 +7,6 @@ import { GetUsersInput } from './get-users.input'
 export class GetUsersService
   implements UseCasePort<GetUsersInput | undefined, Array<User>>
 {
-  constructor(private auth0: Auth0Service) {}
-
   async execute(request: GetUsersInput | undefined): Promise<Array<User>> {
     // https://auth0.com/docs/api/management/v2#!/Users/get_users
     return Promise.resolve([])

@@ -1,8 +1,6 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/infra'
+import { domainRequest } from '@codelab/backend/infra'
+import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
+import { testAuth0Id, testUserUid } from '@codelab/backend/shared/generic'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
@@ -25,14 +23,14 @@ describe('SeedTagTreeUseCase', () => {
     await teardownTestModule(app)
   })
 
-  it('should be truthy', () => {
-    expect(true).toBeTruthy()
-  })
-
   describe('User', () => {
     it('should seed a Tag Tree with a root Tag', async () => {
       await seedTagTreeService.execute({
-        currentUser: { id: 'codelab-test-user-id', roles: [Role.User] },
+        currentUser: {
+          id: testUserUid,
+          auth0Id: testAuth0Id,
+          roles: [Role.User],
+        },
       })
 
       const { getTagGraph: tagGraph } = await domainRequest<

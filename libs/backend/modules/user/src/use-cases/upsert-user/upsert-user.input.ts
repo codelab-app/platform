@@ -1,3 +1,4 @@
+import { Role } from '@codelab/shared/abstract/core'
 import { Field, InputType } from '@nestjs/graphql'
 import { UserWhereUniqueInput } from '../get-user'
 
@@ -5,6 +6,9 @@ import { UserWhereUniqueInput } from '../get-user'
 export class UpsertUserDataInput {
   @Field()
   declare auth0Id: string
+
+  @Field(() => [Role])
+  declare roles: Array<Role>
 }
 
 @InputType()

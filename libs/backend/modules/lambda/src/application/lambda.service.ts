@@ -30,8 +30,6 @@ export class LambdaService {
       lambda,
     )
 
-    // console.log(createFunctionResults)
-
     return createFunctionResults
   }
 
@@ -48,7 +46,7 @@ export class LambdaService {
   async updateLambda(lambda: Lambda) {
     await this.awsS3Service.uploadObject(this._awsConfig.awsBucketName, lambda)
 
-    return await this.awsLambdaService.updateFunction(
+    await this.awsLambdaService.updateFunction(
       this._awsConfig.awsBucketName,
       lambda,
     )

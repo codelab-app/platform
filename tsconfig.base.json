@@ -54,6 +54,7 @@
       "@codelab/backend/modules/user": [
         "libs/backend/modules/user/src/index.ts"
       ],
+      "@codelab/backend/nestjs": ["libs/backend/nestjs/src/index.ts"],
       "@codelab/backend/shared/generic": [
         "libs/backend/shared/generic/src/index.ts"
       ],

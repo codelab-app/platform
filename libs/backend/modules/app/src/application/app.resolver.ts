@@ -1,6 +1,6 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
-import { CurrentUser, GqlAuthGuard } from '@codelab/backend/infra'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
 import type { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
@@ -50,8 +50,8 @@ export class AppResolver {
 
   @Query(() => [App])
   @UseGuards(GqlAuthGuard)
-  async getApps(@CurrentUser() user: User) {
-    const apps = await this.getAppsService.execute({ currentUser: user })
+  async getApps(@CurrentUser() currentUser: User) {
+    const apps = await this.getAppsService.execute({ currentUser })
 
     return this.appAdapter.map(apps)
   }

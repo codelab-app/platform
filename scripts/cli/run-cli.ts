@@ -4,13 +4,6 @@ const shell = require('shelljs')
 
 // `local` is used for pre-push checks. Only `local` uses different port because a dev server may be running, `ci` & `dev` both use normal port.
 export const runCli = (env?: Env, cmd: string = '') => {
-  // We want to build the `cli` app first
-  if (!process.env.CI) {
-    if (shell.exec('npx nx build cli --verbose').code !== 0) {
-      shell.exit(1)
-    }
-  }
-
   switch (env) {
     case Env.Dev:
       runDevCli(cmd)

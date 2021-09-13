@@ -1,8 +1,5 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/infra'
+import { domainRequest } from '@codelab/backend/infra'
+import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
@@ -59,6 +56,8 @@ describe('CreateApp', () => {
       )
 
       expect(app).toMatchObject({ ...createAppInput, id: appId })
+
+      // Should assign app to user
     })
   })
 })

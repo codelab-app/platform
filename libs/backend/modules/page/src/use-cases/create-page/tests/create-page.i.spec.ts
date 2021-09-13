@@ -1,9 +1,6 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/infra'
+import { domainRequest } from '@codelab/backend/infra'
 import { AppModule, CreateAppInput } from '@codelab/backend/modules/app'
+import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../../../page.module'
@@ -61,31 +58,31 @@ describe('CreatePage', () => {
         message: 'Unauthorized',
       })
     })
+  })
 
-    describe('User', () => {
-      it('should create a page', async () => {
-        const {
-          createPage: { id: pageId },
-        } = await domainRequest<CreatePageInput, TestCreatePageMutation>(
-          userApp,
-          TestCreatePageGql,
-          createPageInput,
-        )
+  describe('User', () => {
+    it('should create a page', async () => {
+      const {
+        createPage: { id: pageId },
+      } = await domainRequest<CreatePageInput, TestCreatePageMutation>(
+        userApp,
+        TestCreatePageGql,
+        createPageInput,
+      )
 
-        expect(pageId).toBeDefined()
+      expect(pageId).toBeDefined()
 
-        const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
-          userApp,
-          TestGetPageGql,
-          { pageId },
-        )
+      const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
+        userApp,
+        TestGetPageGql,
+        { pageId },
+      )
 
-        expect(page).toBeDefined()
+      expect(page).toBeDefined()
 
-        expect(page).toMatchObject({
-          id: pageId,
-          name: createPageInput.name,
-        })
+      expect(page).toMatchObject({
+        id: pageId,
+        name: createPageInput.name,
       })
     })
   })
