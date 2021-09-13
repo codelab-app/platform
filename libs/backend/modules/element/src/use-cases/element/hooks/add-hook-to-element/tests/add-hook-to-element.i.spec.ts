@@ -2,17 +2,17 @@ import { domainRequest } from '@codelab/backend/infra'
 import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { HookType, QueryMethod, Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
-import { ElementModule } from '../../../../element.module'
-import { CreateElementInput } from '../../create-element'
+import { ElementModule } from '../../../../../element.module'
+import { CreateElementInput } from '../../../create-element'
 import {
   TestCreateElementGql,
   TestCreateElementMutation,
-} from '../../create-element/tests/create-element.api.graphql.gen'
-import { GetElementInput } from '../../get-element'
+} from '../../../create-element/tests/create-element.api.graphql.gen'
+import { GetElementInput } from '../../../get-element'
 import {
   TestGetElementGql,
   TestGetElementQuery,
-} from '../../get-element/tests/get-element.api.graphql.gen'
+} from '../../../get-element/tests/get-element.api.graphql.gen'
 import { AddHookToElementInput } from '../add-hook-to-element.input'
 import {
   TestAddHookToElementGql,

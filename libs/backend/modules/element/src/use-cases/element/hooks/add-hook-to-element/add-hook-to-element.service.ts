@@ -8,7 +8,7 @@ import {
 import { Hook } from '@codelab/backend/modules/hook'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
-import { ElementValidator } from '../../../application/element.validator'
+import { ElementValidator } from '../../../../application/element.validator'
 import { AddHookToElementRequest } from './add-hook-to-element.request'
 import { hookFactory } from './hook.factory'
 

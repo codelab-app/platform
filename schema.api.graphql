@@ -391,6 +391,21 @@ type GraphqlQueryHookConfig {
   dataKey: String
 }
 
+type PropMapBinding {
+  id: ID!
+
+  """
+  The ID of the target element, if omitted, the current element will be the target
+  """
+  targetElementId: String
+
+  """The key of the prop, as received in the source element"""
+  sourceKey: String!
+
+  """The key of the prop, that the target Element will receive"""
+  targetKey: String!
+}
+
 type Element {
   id: ID!
 
@@ -413,6 +428,7 @@ type Element {
   If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)
   """
   renderIfPropKey: String
+  propMapBindings: [PropMapBinding!]!
   atom: Atom
 }
 
@@ -659,6 +675,11 @@ type Mutation {
   createPage(input: CreatePageInput!): CreateResponse!
   deletePage(input: DeletePageInput!): Void
   updatePage(input: UpdatePageInput!): Void
+  createPropMapBinding(input: CreatePropMapBindingInput!): CreateResponse!
+  updatePropMapBinding(input: UpdatePropMapBindingInput!): Void
+  deletePropMapBinding(input: DeletePropMapBindingInput!): Void
+  addHookToElement(input: AddHookToElementInput!): CreateResponse!
+  removeHookFromElement(input: RemoveHookFromElementInput!): Void
   createElement(input: CreateElementInput!): CreateResponse!
   updateElement(input: UpdateElementInput!): Void
   moveElement(input: MoveElementInput!): Void
@@ -666,8 +687,6 @@ type Mutation {
 
   """Deletes an element and all the descending elements"""
   deleteElement(input: DeleteElementInput!): Void
-  addHookToElement(input: AddHookToElementInput!): CreateResponse!
-  removeHookFromElement(input: RemoveHookFromElementInput!): Void
   createComponent(input: CreateComponentInput!): CreateResponse!
   updateComponent(input: UpdateComponentInput!): Void
   deleteComponent(input: DeleteComponentInput!): Void
@@ -751,6 +770,67 @@ input UpdatePageData {
   appId: String!
 }
 
+input CreatePropMapBindingInput {
+  elementId: String!
+
+  """
+  The ID of the target element, if omitted, the current element will be the target
+  """
+  targetElementId: String
+
+  """The key of the prop, as received in the source element"""
+  sourceKey: String!
+
+  """The key of the prop, that the target Element will receive"""
+  targetKey: String!
+}
+
+input UpdatePropMapBindingInput {
+  propMapBindingId: String!
+
+  """
+  The ID of the target element, if omitted, the current element will be the target
+  """
+  targetElementId: String
+
+  """The key of the prop, as received in the source element"""
+  sourceKey: String!
+
+  """The key of the prop, that the target Element will receive"""
+  targetKey: String!
+}
+
+input DeletePropMapBindingInput {
+  propMapBindingIds: [String!]!
+}
+
+"""Provide exactly one of the config fields"""
+input AddHookToElementInput {
+  elementId: String!
+  queryHook: QueryHookConfigInput
+  graphqlQueryHook: GraphqlQueryHookConfigInput
+}
+
+"""Provide either a lambdaId, or body/method/url"""
+input QueryHookConfigInput {
+  queryKey: String!
+  url: String
+  body: String
+  method: QueryMethod
+  lambdaId: String
+}
+
+input GraphqlQueryHookConfigInput {
+  url: String!
+  body: String!
+  dataKey: String
+}
+
+input RemoveHookFromElementInput {
+  elementId: String!
+  hookId: String!
+}
+
 input CreateElementInput {
   name: String
   atomId: String
@@ -802,33 +882,6 @@ input UpdateElementPropsInput {
 
 input DeleteElementInput {
   elementId: String!
-}
-
-"""Provide exactly one of the config fields"""
-input AddHookToElementInput {
-  elementId: String!
-  queryHook: QueryHookConfigInput
-  graphqlQueryHook: GraphqlQueryHookConfigInput
-}
-
-"""Provide either a lambdaId, or body/method/url"""
-input QueryHookConfigInput {
-  queryKey: String!
-  url: String
-  body: String
-  method: QueryMethod
-  lambdaId: String
-}
-
-input GraphqlQueryHookConfigInput {
-  url: String!
-  body: String!
-  dataKey: String
-}
-
-input RemoveHookFromElementInput {
-  elementId: String!
-  hookId: String!
 }
 
 input CreateComponentInput {

@@ -27,6 +27,7 @@ const {
   ElementType,
   ComponentType,
   Hook,
+  PropMapBinding,
 } = DgraphEntityType
 
 export const dgraphSchema = `
@@ -74,6 +75,7 @@ export const dgraphSchema = `
     hooks
     renderForEachPropKey
     renderIfPropKey
+    propMapBindings
   }
 
   type ${Atom} {
@@ -135,6 +137,12 @@ export const dgraphSchema = `
     configJson
   }
 
+  type ${PropMapBinding} {
+    targetElement
+    sourceKey
+    targetKey
+  }
+
   name: string @index(term, trigram) .
   description: string .
 
@@ -188,4 +196,9 @@ export const dgraphSchema = `
 
   renderForEachPropKey: string .
   renderIfPropKey: string .
+
+  targetElement: uid .
+  sourceKey: string .
+  targetKey: string .
+  propMapBindings: [uid] @reverse .
 `

@@ -4,6 +4,7 @@ import { AtomAdapter } from '@codelab/backend/modules/atom'
 import { HookAdapter } from '@codelab/backend/modules/hook'
 import { Injectable } from '@nestjs/common'
 import { Element } from '../domain/element/element.model'
+import { PropMapBindingAdapter } from '../domain/prop-mapping/prop-map-binding.adapter'
 
 export type DgraphElementInput = Omit<
   DgraphElement,
@@ -17,6 +18,7 @@ export class ElementAdapter extends BaseAdapter<DgraphElementInput, Element> {
   constructor(
     private atomAdapter: AtomAdapter,
     private hookAdapter: HookAdapter,
+    private propMapBindingAdapter: PropMapBindingAdapter,
   ) {
     super()
   }
@@ -31,6 +33,9 @@ export class ElementAdapter extends BaseAdapter<DgraphElementInput, Element> {
       hooks: this.hookAdapter.map(element.hooks ?? []),
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfPropKey: element.renderIfPropKey,
+      propMapBindings: this.propMapBindingAdapter.map(
+        element.propMapBindings ?? [],
+      ),
     })
   }
 }

@@ -31,4 +31,8 @@ export const getElementGraphQuery = () =>
           configJson
           renderForEachPropKey
           renderIfPropKey
+          propMapBindings
+          targetElement
+          sourceKey
+          targetKey
       `)

@@ -1,0 +1,3 @@
+mutation TestDeletePropMapBinding($input: DeletePropMapBindingInput!) {
+  deletePropMapBinding(input: $input)
+}

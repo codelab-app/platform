@@ -212,6 +212,15 @@ export class DgraphRepository {
     })
   }
 
+  async deleteEntities(txn: Txn, uids: Array<string>, extraNquads?: string) {
+    return this.executeMutation(txn, {
+      deleteNquads: `
+    ${uids.map((uid) => ` <${uid}> * * . `).join('\n')}
+    ${extraNquads ? extraNquads : ''}
+    `,
+    })
+  }
+
   /**
    * Executes a query and returns the first found item or null if not found
    *

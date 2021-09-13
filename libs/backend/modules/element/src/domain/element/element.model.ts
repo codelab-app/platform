@@ -1,6 +1,7 @@
 import { DgraphAtom } from '@codelab/backend/infra'
 import { HookModel } from '@codelab/backend/modules/hook'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
+import { PropMapBinding } from '../prop-mapping/prop-map-binding.model'
 
 /**
  * The Element is our base renderable unit
@@ -62,6 +63,9 @@ export class Element {
   })
   renderIfPropKey?: string
 
+  @Field(() => [PropMapBinding])
+  propMapBindings: Array<PropMapBinding>
+
   constructor({
     id,
     name = '',
@@ -71,6 +75,7 @@ export class Element {
     hooks,
     renderForEachPropKey,
     renderIfPropKey,
+    propMapBindings,
   }: Element) {
     this.id = id
     this.name = name
@@ -80,5 +85,6 @@ export class Element {
     this.hooks = hooks
     this.renderIfPropKey = renderIfPropKey
     this.renderForEachPropKey = renderForEachPropKey
+    this.propMapBindings = propMapBindings
   }
 }

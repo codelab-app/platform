@@ -8,7 +8,7 @@ export type TestGetElementQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetElementQuery = { getElement?: Types.Maybe<{ id: string, name: string, css?: Types.Maybe<string>, props: string, renderForEachPropKey?: Types.Maybe<string>, renderIfPropKey?: Types.Maybe<string>, atom?: Types.Maybe<{ id: string, name: string, type: Types.AtomType }>, hooks: Array<{ id: string, type: Types.HookType, config: { __typename: 'QueryHookConfig', body?: Types.Maybe<string>, lambdaId?: Types.Maybe<string>, method?: Types.Maybe<Types.QueryMethod>, queryKey: string, url?: Types.Maybe<string> } | {} }> }> };
+export type TestGetElementQuery = { getElement?: Types.Maybe<{ id: string, name: string, css?: Types.Maybe<string>, props: string, renderForEachPropKey?: Types.Maybe<string>, renderIfPropKey?: Types.Maybe<string>, atom?: Types.Maybe<{ id: string, name: string, type: Types.AtomType }>, hooks: Array<{ id: string, type: Types.HookType, config: { __typename: 'QueryHookConfig', body?: Types.Maybe<string>, lambdaId?: Types.Maybe<string>, method?: Types.Maybe<Types.QueryMethod>, queryKey: string, url?: Types.Maybe<string> } | {} }>, propMapBindings: Array<{ id: string, sourceKey: string, targetElementId?: Types.Maybe<string>, targetKey: string }> }> };
 
 
 export const TestGetElementGql = gql`
@@ -38,6 +38,12 @@ export const TestGetElementGql = gql`
           url
         }
       }
+    }
+    propMapBindings {
+      id
+      sourceKey
+      targetElementId
+      targetKey
     }
   }
 }

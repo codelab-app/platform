@@ -25,5 +25,11 @@ query TestGetElement($input: GetElementInput!) {
         }
       }
     }
+    propMapBindings {
+      id
+      sourceKey
+      targetElementId
+      targetKey
+    }
   }
 }
