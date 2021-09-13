@@ -43,14 +43,10 @@ executor-config: &executor-config
   environment:
     DOCKER_TAG_VERSION: 0.02
     # CircleCI
-    GITHUB_ANGEL: angelwong0963
-    SLACK_ANGEL: <@U026KV9DEJ2>
     GITHUB_ANTON_M: antonmihaylov
     SLACK_ANTON_M: <@U01HWRY2USE>
     GITHUB_WEBBER: webberwang
     SLACK_WEBBER: <@U0J401GAH>
-    GITHUB_OLEK: svitalii33
-    SLACK_OLEK: <@U01PD39QWCX>
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
@@ -72,7 +68,7 @@ executors:
     machine:
       docker_layer_caching: true
       image: ubuntu-2004:202010-01
-    resource_class: medium
+    resource_class: large
   docker-node:
     <<: *executor-config
     docker:
