@@ -32,7 +32,10 @@ export class UpdatePropMapBindingService extends DgraphUseCase<UpdatePropMapBind
   }
 
   private static createMutation({
-    input: { propMapBindingId, targetElementId, targetKey, sourceKey },
+    input: {
+      propMapBindingId,
+      data: { targetElementId, targetKey, sourceKey },
+    },
   }: UpdatePropMapBindingRequest): Mutation {
     const setJson: DgraphUpdateMutationJson<DgraphPropMapBinding> = {
       uid: propMapBindingId,
@@ -49,7 +52,10 @@ export class UpdatePropMapBindingService extends DgraphUseCase<UpdatePropMapBind
   }
 
   protected async validate({
-    input: { targetElementId, propMapBindingId },
+    input: {
+      propMapBindingId,
+      data: { targetElementId },
+    },
     currentUser,
   }: UpdatePropMapBindingRequest) {
     const binding = await this.dgraph.transactionWrapper((txn) =>

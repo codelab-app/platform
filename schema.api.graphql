@@ -787,7 +787,10 @@ input CreatePropMapBindingInput {
 
 input UpdatePropMapBindingInput {
   propMapBindingId: String!
+  data: UpdatePropMapBindingData!
+}
 
+input UpdatePropMapBindingData {
   """
   The ID of the target element, if omitted, the current element will be the target
   """

@@ -1,10 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class UpdatePropMapBindingInput {
-  @Field()
-  declare propMapBindingId: string
-
+export class UpdatePropMapBindingData {
   @Field({
     nullable: true,
     description:
@@ -21,4 +18,13 @@ export class UpdatePropMapBindingInput {
     description: 'The key of the prop, that the target Element will receive',
   })
   declare targetKey: string
+}
+
+@InputType()
+export class UpdatePropMapBindingInput {
+  @Field()
+  declare propMapBindingId: string
+
+  @Field(() => UpdatePropMapBindingData)
+  declare data: UpdatePropMapBindingData
 }

@@ -58,9 +58,11 @@ describe('UpdatePropMapBindingUseCase', () => {
 
     updatePropMappingInput = {
       propMapBindingId: createPropMapBinding.id,
-      sourceKey: 'data',
-      targetKey: 'newData',
-      targetElementId: createElement2.id,
+      data: {
+        sourceKey: 'data',
+        targetKey: 'newData',
+        targetElementId: createElement2.id,
+      },
     }
   })
 
@@ -103,9 +105,9 @@ describe('UpdatePropMapBindingUseCase', () => {
       expect(found).toBeDefined()
       expect(found).toMatchObject({
         id: updatePropMappingInput.propMapBindingId,
-        targetKey: updatePropMappingInput.targetKey,
-        sourceKey: updatePropMappingInput.sourceKey,
-        targetElementId: updatePropMappingInput.targetElementId,
+        targetKey: updatePropMappingInput.data.targetKey,
+        sourceKey: updatePropMappingInput.data.sourceKey,
+        targetElementId: updatePropMappingInput.data.targetElementId,
       })
     })
   })

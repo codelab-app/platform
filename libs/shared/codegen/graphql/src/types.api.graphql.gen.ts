@@ -1249,14 +1249,18 @@ export type UpdatePrimitiveTypeInput = {
   updateData: UpdatePrimitiveKindData;
 };
 
-export type UpdatePropMapBindingInput = {
-  propMapBindingId: Scalars['String'];
+export type UpdatePropMapBindingData = {
   /** The key of the prop, as received in the source element */
   sourceKey: Scalars['String'];
   /** The ID of the target element, if omitted, the current element will be the target */
   targetElementId?: Maybe<Scalars['String']>;
   /** The key of the prop, that the target Element will receive */
   targetKey: Scalars['String'];
+};
+
+export type UpdatePropMapBindingInput = {
+  data: UpdatePropMapBindingData;
+  propMapBindingId: Scalars['String'];
 };
 
 export type UpdateTagData = {
