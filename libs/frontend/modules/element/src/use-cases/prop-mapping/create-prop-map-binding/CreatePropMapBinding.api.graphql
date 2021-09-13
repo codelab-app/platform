@@ -1,0 +1,5 @@
+mutation CreatePropMapBinding($input: CreatePropMapBindingInput!) {
+  createPropMapBinding(input: $input) {
+    id
+  }
+}

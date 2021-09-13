@@ -16,10 +16,10 @@ import { UpdateElementSchema, updateElementSchema } from './updateElementSchema'
 
 export type UpdateElementFormProps =
   UniFormUseCaseProps<UpdateElementSchema> & {
-    elementId: string
     tree: ElementTreeGraphql
-    refetchQueries?: BaseMutationOptions['refetchQueries']
+    elementId: string
     providePropCompletion?: (searchValue: string) => Array<string>
+    refetchQueries?: BaseMutationOptions['refetchQueries']
     loadingStateKey?: string
   }
 

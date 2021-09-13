@@ -20,6 +20,7 @@ export const MetaPaneBuilderComponent = () => {
   return (
     <SelectElementProvider tree={tree}>
       <MetaPaneBuilder
+        tree={tree}
         renderUpdateElementContent={(element) => (
           <>
             <UpdateComponentElementForm

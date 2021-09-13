@@ -12,4 +12,7 @@ fragment Element on Element {
   }
   renderForEachPropKey
   renderIfPropKey
+  propMapBindings {
+    ...PropMapBinding
+  }
 }
