@@ -12,7 +12,7 @@ import {
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
 import {
   CustomAtomApiFactory,
@@ -183,7 +183,7 @@ export class TypeSeeder {
       throw new Error(`Something went wrong while creating field ${input.name}`)
     }
 
-    console.log(`Created field ${input.name}`)
+    Logger.log(`Created field ${input.name}`)
 
     return createResponse.id
   }

@@ -270,8 +270,6 @@ enum AtomType {
   TextList
   Text
   State
-  PropMapper
-  Mapper
   ReactFragment
   HtmlA
   HtmlP
