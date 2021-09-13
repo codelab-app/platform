@@ -29,6 +29,8 @@ export class ElementAdapter extends BaseAdapter<DgraphElementInput, Element> {
       css: element.css,
       props: element.props || '{}',
       hooks: this.hookAdapter.map(element.hooks ?? []),
+      renderForEachPropKey: element.renderForEachPropKey,
+      renderIfPropKey: element.renderIfPropKey,
     })
   }
 }

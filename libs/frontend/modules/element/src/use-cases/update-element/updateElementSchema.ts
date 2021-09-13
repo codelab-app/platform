@@ -26,10 +26,12 @@ export const updateElementSchema: JSONSchemaType<UpdateElementSchema> = {
     renderIfPropKey: {
       type: 'string',
       nullable: true,
+      label: 'Render if',
     },
     renderForEachPropKey: {
       type: 'string',
       nullable: true,
+      label: 'Render for reach',
     },
     css: {
       type: 'string',

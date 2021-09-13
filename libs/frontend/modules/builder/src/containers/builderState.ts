@@ -1,5 +1,5 @@
 import { IElementVertex } from '@codelab/shared/abstract/core'
-import { ReactElement, useCallback } from 'react'
+import { ReactNode, useCallback } from 'react'
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil'
 
 export interface BuilderHandlers {
@@ -140,23 +140,29 @@ export const useBuilder = (): BuilderHandlers & {
 }
 
 export interface ElementBuilderHandlers {
-  onRendered: (renderedElement: ReactElement, vertex: IElementVertex) => void
+  onRendered: (renderedElement: ReactNode, vertex: IElementVertex) => void
 }
 
-/**
- * Hook for managing the builder state
- */
 export const useOnRendered = (): ElementBuilderHandlers => {
   const setCurrentPropsState = useSetRecoilState(builderCurrentPropsState)
 
   const onRendered: ElementBuilderHandlers['onRendered'] = useCallback(
     (renderedElement, vertex) => {
-      setTimeout(() =>
-        setCurrentPropsState((s) => ({
-          ...s,
-          [vertex.id]: { ...renderedElement.props },
-        })),
-      )
+      setTimeout(() => {
+        const props = (renderedElement as any)?.props
+
+        if (props && typeof props === 'object') {
+          setCurrentPropsState((s) => ({
+            ...s,
+            [vertex.id]: { ...props },
+          }))
+        } else {
+          setCurrentPropsState((s) => ({
+            ...s,
+            [vertex.id]: {},
+          }))
+        }
+      })
     },
     [setCurrentPropsState],
   )

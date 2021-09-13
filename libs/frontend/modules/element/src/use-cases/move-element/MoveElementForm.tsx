@@ -3,12 +3,10 @@ import { SelectAnyElement } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   FormUniforms,
-  StatelessLoadingIndicator,
   UniFormUseCaseProps,
   usePromisesLoadingIndicator,
 } from '@codelab/frontend/view/components'
 import React, { useRef } from 'react'
-import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { ElementTreeGraphql } from '../../tree'
 import { useMoveElementMutation } from './MoveElement.api.graphql.gen'

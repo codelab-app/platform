@@ -2,17 +2,12 @@ import { BaseMutationOptions } from '@apollo/client'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
+  AutoCompleteField,
   FormUniforms,
   UniFormUseCaseProps,
   usePromisesLoadingIndicator,
 } from '@codelab/frontend/view/components'
-import {
-  AutoComplete,
-  AutoCompleteProps as DefaultAutoCompleteProps,
-} from 'antd'
-import FormItem from 'antd/lib/form/FormItem'
 import React, { useState } from 'react'
-import { connectField } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { ElementTreeGraphql } from '../../tree'
 import { useGetElementQuery } from '../get-element'
@@ -28,16 +23,6 @@ export type UpdateElementFormProps =
     loadingStateKey?: string
   }
 
-type AutoCompleteProps = DefaultAutoCompleteProps & Record<string, any>
-
-const AutoCompleteField = connectField<AutoCompleteProps>((props) => {
-  return (
-    <FormItem {...props}>
-      <AutoComplete {...props} />
-    </FormItem>
-  )
-})
-
 /** Not intended to be used in a modal */
 export const UpdateElementForm = ({
   elementId,
@@ -46,7 +31,7 @@ export const UpdateElementForm = ({
   providePropCompletion,
   loadingStateKey,
   ...props
-}: UpdateElementFormProps) => {
+}: React.PropsWithChildren<UpdateElementFormProps>) => {
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
 
   const [propCompleteOptions, setPropCompleteOptions] = useState<
@@ -85,6 +70,17 @@ export const UpdateElementForm = ({
 
   const componentId = tree.getComponentOfElement(elementId)?.id
 
+  const handlePropSearch = (value: string) => {
+    if (providePropCompletion) {
+      setPropCompleteOptions(
+        providePropCompletion(value).map((option) => ({
+          value: option,
+          label: option,
+        })),
+      )
+    }
+  }
+
   return (
     <div>
       <FormUniforms<UpdateElementSchema>
@@ -119,31 +115,13 @@ export const UpdateElementForm = ({
         <AutoField name="atomId" component={SelectAtom} />
         <AutoField name="componentId" component={SelectComponent} />
         <AutoCompleteField
-          name={'renderIfPropKey'}
-          onSearch={(value: string) => {
-            if (providePropCompletion) {
-              setPropCompleteOptions(
-                providePropCompletion(value).map((option) => ({
-                  value: option,
-                  label: option,
-                })),
-              )
-            }
-          }}
+          name="renderIfPropKey"
+          onSearch={handlePropSearch}
           options={propCompleteOptions}
         />
         <AutoCompleteField
-          name={'renderForEachPropKey'}
-          onSearch={(value: string) => {
-            if (providePropCompletion) {
-              setPropCompleteOptions(
-                providePropCompletion(value).map((option) => ({
-                  value: option,
-                  label: option,
-                })),
-              )
-            }
-          }}
+          name="renderForEachPropKey"
+          onSearch={handlePropSearch}
           options={propCompleteOptions}
         />
       </FormUniforms>

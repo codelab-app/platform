@@ -1,5 +1,5 @@
-import { useBuilderCurrentProps } from '@codelab/frontend/modules/builder'
 import { useCallback } from 'react'
+import { useBuilderCurrentProps } from './builderState'
 
 export const usePropCompletion = () => {
   const currentProps = useBuilderCurrentProps()

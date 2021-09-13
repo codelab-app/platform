@@ -29,4 +29,6 @@ export const getElementGraphQuery = () =>
           hooks
           hookType
           configJson
+          renderForEachPropKey
+          renderIfPropKey
       `)

@@ -30,7 +30,7 @@ const propSafeStringify = (props: any) => {
   return JSON.stringify(
     obj,
     (k, v) => {
-      if (k === 'children') {
+      if (k === 'children' && typeof v === 'object') {
         return
       }
 
@@ -51,7 +51,9 @@ const propSafeStringify = (props: any) => {
 }
 
 const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
-  const [value, setValue] = useState<string | undefined>()
+  const [persistedPropsValue, setPersistedPropsValue] = useState<
+    string | undefined
+  >()
 
   const { data } = useGetElementQuery({
     fetchPolicy: 'cache-first',
@@ -60,6 +62,7 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
 
   const {
     state: { currentElementProps },
+    setExtraPropsForElement,
   } = useBuilder()
 
   const [mutate, { loading }] = useUpdateElementPropsMutation({
@@ -69,19 +72,29 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
   const element = data?.getElement
 
   useEffect(() => {
-    const rightSideProps = JSON.parse(element?.props ?? '{}')
-    const rightSidePropsContent = JSON.stringify(rightSideProps, null, 4)
-    setValue(rightSidePropsContent)
-  }, [element])
+    if (element?.props) {
+      try {
+        setPersistedPropsValue(
+          JSON.stringify(JSON.parse(element.props), null, 4),
+        )
+      } catch (e) {
+        console.warn("Couldn't parse element props", element?.props)
+      }
+    }
+  }, [element?.props])
+
+  useEffect(() => {
+    return () => {
+      setExtraPropsForElement(elementId, {})
+    }
+  }, [elementId, setExtraPropsForElement])
 
   if (!element) {
     return null
   }
 
-  console.log(value)
-
   const save = () => {
-    if (!value) {
+    if (!persistedPropsValue) {
       notify({ title: 'Invalid json', type: 'warning' })
 
       return
@@ -90,7 +103,10 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
     try {
       mutate({
         variables: {
-          input: { elementId, props: JSON.stringify(JSON.parse(value)) },
+          input: {
+            elementId,
+            props: JSON.stringify(JSON.parse(persistedPropsValue)),
+          },
         },
       })
     } catch (e) {
@@ -98,7 +114,9 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
     }
   }
 
-  const content = propSafeStringify(currentElementProps[elementId] ?? {})
+  const currentPropsValue = propSafeStringify(
+    currentElementProps[elementId] ?? {},
+  )
 
   return (
     <div css={tw`grid grid-cols-2 gap-x-8 h-full`}>
@@ -107,7 +125,7 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
         <MonacoEditor
           containerProps={{ style: { height: '100%' } }}
           editorOptions={{ language: 'json', readOnly: true }}
-          value={content}
+          value={currentPropsValue}
         />
       </div>
 
@@ -121,9 +139,15 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
         <MonacoEditor
           containerProps={{ style: { height: '100%' } }}
           editorOptions={{ language: 'json' }}
-          value={value}
+          value={persistedPropsValue}
           onChange={(v) => {
-            setValue(v)
+            setPersistedPropsValue(v)
+
+            try {
+              setExtraPropsForElement(elementId, JSON.parse(v))
+            } catch (e) {
+              //
+            }
           }}
         />
       </div>

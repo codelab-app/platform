@@ -78,7 +78,7 @@ export class Element {
     this.css = css
     this.props = props
     this.hooks = hooks
-    this.renderForEachPropKey = renderIfPropKey
+    this.renderIfPropKey = renderIfPropKey
     this.renderForEachPropKey = renderForEachPropKey
   }
 }
