@@ -1,11 +1,11 @@
-import { User } from '@codelab/shared/abstract/core'
+import { Role, User } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { GetUserService } from '../../use-cases/get-user'
 import { UpsertUserService } from '../../use-cases/upsert-user'
-import { Auth0Config, auth0Config } from '../auth0'
+import { Auth0Config, auth0Config, Auth0Service } from '../auth0'
 import { JWT_CLAIMS, JwtPayload } from './jwt.interface'
 
 @Injectable()
@@ -14,6 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     @Inject(auth0Config.KEY) readonly _auth0Config: Auth0Config,
     private getUserService: GetUserService,
     private upsertUserService: UpsertUserService,
+    private auth0Service: Auth0Service,
   ) {
     super({
       secretOrKeyProvider: passportJwtSecret({
@@ -42,6 +43,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    */
   async validate(payload: JwtPayload): Promise<User> {
     const user = await this.getUserService.execute({ auth0Id: payload.sub })
+    const roles = payload[JWT_CLAIMS].roles ?? [Role.User]
     let userId
 
     if (user) {
@@ -49,7 +51,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     } else {
       const { id } = await this.upsertUserService.execute({
         input: {
-          data: { auth0Id: payload.sub, roles: payload[JWT_CLAIMS].roles },
+          data: {
+            auth0Id: payload.sub,
+            roles,
+          },
         },
       })
 
@@ -59,7 +64,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return {
       id: userId,
       auth0Id: payload.sub,
-      roles: payload[JWT_CLAIMS].roles,
+      roles,
     }
   }
 }

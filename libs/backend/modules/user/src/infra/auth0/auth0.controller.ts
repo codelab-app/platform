@@ -38,15 +38,35 @@ export class Auth0Controller {
     const decoded = jwtDecode<JwtPayload>(access_token)
   }
 
+  /**
+   * Assign a role to an existing user
+   */
+  @Get('assign-role')
+  async assignRole() {
+    try {
+      ;(await this.auth0Service.getManagementClient()).assignRolestoUser(
+        { id: 'google-oauth2|116956556863062538891' },
+        { roles: ['rol_WIDPKvXdJ5Mplco4'] },
+      )
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  @Get('roles')
+  async roles() {
+    const client = await this.auth0Service.getManagementClient()
+    const roles = await client.getRoles()
+    console.log(roles)
+  }
+
   @Get('grants')
   async patchGrantTypes() {
     const params: ClientParams = {
       client_id: this._auth0Config.clientId,
     }
 
-    const client = await this.auth0Service
-      .getManagementClient()
-      .getClient(params)
+    const client = await this.auth0Service.getManagementClient()
 
     const data: Data = {
       grant_types: [
