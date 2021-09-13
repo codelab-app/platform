@@ -46,9 +46,9 @@ export class AwsLambdaService
 
       return data
     } catch (err) {
-      // console.error(err)
+      console.error(err)
 
-      return
+      return null
     }
   }
 
@@ -62,9 +62,9 @@ export class AwsLambdaService
 
       return data
     } catch (err) {
-      // console.log('Error', err)
+      console.log('Error', err)
 
-      return
+      return null
     }
   }
 
@@ -78,9 +78,9 @@ export class AwsLambdaService
 
       return data
     } catch (err) {
-      // console.log('Error', err)
+      console.log(err)
 
-      return
+      return null
     }
   }
 
@@ -96,9 +96,9 @@ export class AwsLambdaService
 
       return data
     } catch (err) {
-      // console.error(err)
+      console.error(err)
 
-      return
+      return null
     }
   }
 
