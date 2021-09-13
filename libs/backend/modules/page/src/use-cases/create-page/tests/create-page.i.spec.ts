@@ -58,31 +58,31 @@ describe('CreatePage', () => {
         message: 'Unauthorized',
       })
     })
+  })
 
-    describe('User', () => {
-      it('should create a page', async () => {
-        const {
-          createPage: { id: pageId },
-        } = await domainRequest<CreatePageInput, TestCreatePageMutation>(
-          userApp,
-          TestCreatePageGql,
-          createPageInput,
-        )
+  describe('User', () => {
+    it('should create a page', async () => {
+      const {
+        createPage: { id: pageId },
+      } = await domainRequest<CreatePageInput, TestCreatePageMutation>(
+        userApp,
+        TestCreatePageGql,
+        createPageInput,
+      )
 
-        expect(pageId).toBeDefined()
+      expect(pageId).toBeDefined()
 
-        const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
-          userApp,
-          TestGetPageGql,
-          { pageId },
-        )
+      const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
+        userApp,
+        TestGetPageGql,
+        { pageId },
+      )
 
-        expect(page).toBeDefined()
+      expect(page).toBeDefined()
 
-        expect(page).toMatchObject({
-          id: pageId,
-          name: createPageInput.name,
-        })
+      expect(page).toMatchObject({
+        id: pageId,
+        name: createPageInput.name,
       })
     })
   })

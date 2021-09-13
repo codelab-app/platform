@@ -51,8 +51,6 @@ export class AppResolver {
   @Query(() => [App])
   @UseGuards(GqlAuthGuard)
   async getApps(@CurrentUser() currentUser: User) {
-    console.log(currentUser)
-
     const apps = await this.getAppsService.execute({ currentUser })
 
     return this.appAdapter.map(apps)
