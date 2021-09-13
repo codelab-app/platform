@@ -15,6 +15,7 @@ import { HookElementWrapper } from '../hooks/HookElementWrapper'
 import { reactComponentFactory } from '../reactComponentFactory'
 import { RenderHandler } from '../types/RenderHandler'
 import { RenderPipe, RenderPipeFactory } from '../types/RenderPipe'
+import { applyBinding } from '../utils/applyBinding'
 import { evaluateRenderIfPropKey } from '../utils/evaluateRenderIfPropKey'
 
 export const renderElement: RenderHandler = (element, context) => {
@@ -29,6 +30,7 @@ export const renderElement: RenderHandler = (element, context) => {
     extraPropsPipe,
     extraElementPropsPipe,
     hookPipe,
+    propMapBindingsPipe,
   )
 
   // (2). All the pipes that output ReactElements
@@ -140,6 +142,45 @@ const hookPipe: RenderPipeFactory = (next) => (element, context, props) => {
 
   return next(element, context, props)
 }
+
+/**
+ * Adds the prop map bindings to the context
+ */
+const propMapBindingsPipe: RenderPipeFactory =
+  (next) => (element, context, props) => {
+    const extraProps: Record<string, Record<string, any>> = {
+      ...context.extraElementProps,
+    }
+
+    let currentElementProps: Record<string, any> = {}
+
+    if (element.propMapBindings) {
+      for (const binding of element.propMapBindings) {
+        if (binding.targetElementId) {
+          extraProps[binding.targetElementId] = applyBinding(
+            extraProps[binding.targetElementId] ?? {},
+            props,
+            binding,
+          )
+        } else {
+          currentElementProps = applyBinding(
+            currentElementProps,
+            props,
+            binding,
+          )
+        }
+      }
+    }
+
+    return next(
+      element,
+      {
+        ...context,
+        extraElementProps: extraProps,
+      },
+      mergeProps(props, currentElementProps),
+    )
+  }
 
 /**
  * Evaluates the renderIfPropKey and stops the render pipeline if it evaluates to falsy
