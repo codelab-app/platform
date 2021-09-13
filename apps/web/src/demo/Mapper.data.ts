@@ -26,6 +26,7 @@ export const mapperPageElements = {
       name: 'Root element',
       props: '{}',
       hooks: [],
+      propMapBindings: [],
     },
     {
       __typename: 'Element',
@@ -45,6 +46,7 @@ export const mapperPageElements = {
       name: 'Button',
       props: '{ "type": "primary" }',
       hooks: [],
+      propMapBindings: [],
     },
     {
       __typename: 'Element',
@@ -64,6 +66,7 @@ export const mapperPageElements = {
       name: 'Text',
       props: '{ "text": "Click Me!" }',
       hooks: [],
+      propMapBindings: [],
     },
   ],
 } as ElementGraphGraphql
