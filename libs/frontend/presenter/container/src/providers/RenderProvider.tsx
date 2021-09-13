@@ -9,6 +9,8 @@ type ExtractElementType<TTree> = TTree extends ElementTree<
   ? TElement
   : never
 
+export type RenderOutput = React.ReactNode
+
 type ExtractComponentType<TTree> = TTree extends ElementTree<
   any,
   infer TComponent,
@@ -36,13 +38,13 @@ export interface RenderContext<
   renderFactory: (
     node: ExtractComponentType<TTree> | ExtractElementType<TTree>,
     context: RenderContext<TTree>,
-  ) => any | null
+  ) => RenderOutput
 
   /**
    * Called after the element is rendered
    */
   onRendered?: (
-    renderedElement: React.ReactElement,
+    renderedElement: RenderOutput,
     vertex: ExtractElementType<TTree>,
   ) => void
 }

@@ -5,12 +5,12 @@ import { useHookFactory } from './useHookFactory'
 export interface HookElementWrapperProps {
   children?: never
   hooks: Array<HookFragment>
-  renderChildren: (hookProps: Record<string, any>) => React.ReactElement | null
+  renderChildren: (hookProps: Record<string, any>) => React.ReactNode
 }
 
 /**
  * Wrapper for a rendered element that uses hooks
- * Required, because we can't use hooks in renderFactory since it's a plain function, not a React component
+ * It's needed, because we can't use hooks in renderFactory since it's a plain function, not a React component
  * Don't pass any children, instead use the renderChild render prop
  * It receives the hookProps and should return the children that will get rendered inside this component
  */
@@ -24,10 +24,16 @@ export const HookElementWrapper = ({
     return null
   }
 
-  return renderChildren({
-    ...(hookProps || {}),
-    key: hooks.length,
-  })
+  // Needs to be wrapped in fragment or TS complains
+  return (
+    <>
+      {renderChildren({
+        ...(hookProps || {}),
+        // The key makes sure the child gets re-rendered if the hooks change. Not sure if needed, since we do the same for the wrapper
+        key: hooks.length,
+      })}
+    </>
+  )
 }
 
 HookElementWrapper.displayName = 'HookElementWrapper'
