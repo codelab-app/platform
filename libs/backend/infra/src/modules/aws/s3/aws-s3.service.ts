@@ -2,6 +2,8 @@ import {
   CreateBucketCommand,
   DeleteBucketCommand,
   DeleteObjectCommand,
+  DeleteObjectsCommand,
+  ListObjectsV2Command,
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3'
@@ -50,6 +52,34 @@ export class AwsS3Service
       })
 
       await this.send(deleteBucketCommand)
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  public async emptyBucket(bucketId: string) {
+    try {
+      // Get all objects
+      const listObjectsCommand = new ListObjectsV2Command({
+        Bucket: bucketId,
+      })
+
+      const { Contents } = await this.send(listObjectsCommand)
+
+      if (!Contents) {
+        return
+      }
+
+      const Objects = Contents.filter((x): x is { Key: string } => !!x.Key)
+
+      const deleteObjectsCommand = new DeleteObjectsCommand({
+        Bucket: bucketId,
+        Delete: {
+          Objects,
+        },
+      })
+
+      await this.send(deleteObjectsCommand)
     } catch (e) {
       console.error(e)
     }

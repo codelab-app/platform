@@ -125,7 +125,7 @@ export class AwsLambdaService
 
       return responseObject
     } catch (err) {
-      // console.log('Error', err)
+      console.log('Error', err)
     }
   }
 }

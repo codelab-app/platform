@@ -13,10 +13,7 @@ import {
   DeleteLambdaInput,
   DeleteLambdaService,
 } from '../use-cases/delete-lambda'
-import {
-  ExecuteLambdaInput,
-  ExecuteLambdaService,
-} from '../use-cases/execute-lambda'
+import { ExecuteLambdaInput } from '../use-cases/execute-lambda'
 import { GetLambdaInput, GetLambdaService } from '../use-cases/get-lambda'
 import { GetLambdasService } from '../use-cases/get-lambdas'
 import {
@@ -35,7 +32,6 @@ export class LambdaResolver {
     private readonly deleteLambdaService: DeleteLambdaService,
     private readonly getLambdasService: GetLambdasService,
     private readonly getLambdaService: GetLambdaService,
-    private readonly executeLambdaService: ExecuteLambdaService,
     private readonly updateLambdaService: UpdateLambdaService,
     private readonly lambdaAdapter: LambdaAdapter,
   ) {}
