@@ -39,7 +39,11 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
     cache: new InMemoryCache({
       possibleTypes: {
         ElementVertex: ['Element', 'Component'],
-        HookConfig: ['QueryHookConfig', 'GraphqlQueryHookConfig'],
+        HookConfig: [
+          'QueryHookConfig',
+          'GraphqlQueryHookConfig',
+          'RecoilStateHookConfig',
+        ],
         Type: [
           'PrimitiveType',
           'ArrayType',

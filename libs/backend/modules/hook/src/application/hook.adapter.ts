@@ -9,6 +9,7 @@ import {
   HookConfigModel,
   QueryHookConfigModel,
 } from './hook-config'
+import { RecoilStateHookConfigModel } from './hook-config/recoil-state-hook-config.model'
 
 export type DgraphHookInput = Omit<
   DgraphHook,
@@ -41,6 +42,10 @@ export class HookAdapter extends BaseAdapter<DgraphHookInput, HookModel> {
       case HookType.GraphqlQuery:
         return new GraphqlQueryHookConfigModel(
           hook.config as GraphqlQueryHookConfigModel,
+        )
+      case HookType.RecoilState:
+        return new RecoilStateHookConfigModel(
+          hook.config as RecoilStateHookConfigModel,
         )
     }
 

@@ -18,6 +18,7 @@ export type AddHookToElementInput = {
   elementId: Scalars['String'];
   graphqlQueryHook?: Maybe<GraphqlQueryHookConfigInput>;
   queryHook?: Maybe<QueryHookConfigInput>;
+  recoilStateHook?: Maybe<RecoilStateHookConfigInput>;
 };
 
 export type App = {
@@ -576,11 +577,12 @@ export type Hook = {
   type: HookType;
 };
 
-export type HookConfig = GraphqlQueryHookConfig | QueryHookConfig;
+export type HookConfig = GraphqlQueryHookConfig | QueryHookConfig | RecoilStateHookConfig;
 
 export enum HookType {
   GraphqlQuery = 'GraphqlQuery',
-  Query = 'Query'
+  Query = 'Query',
+  RecoilState = 'RecoilState'
 }
 
 export type ImportAtomsInput = {
@@ -1054,6 +1056,16 @@ export enum QueryMethod {
   Put = 'PUT',
   Unlink = 'UNLINK'
 }
+
+export type RecoilStateHookConfig = {
+  defaultValue?: Maybe<Scalars['String']>;
+  key: Scalars['String'];
+};
+
+export type RecoilStateHookConfigInput = {
+  defaultValue?: Maybe<Scalars['String']>;
+  key: Scalars['String'];
+};
 
 export type RemoveHookFromElementInput = {
   elementId: Scalars['String'];

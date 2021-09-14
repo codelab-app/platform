@@ -12,8 +12,14 @@ fragment GraphqlQueryHookConfig on GraphqlQueryHookConfig {
   dataKey
 }
 
+fragment RecoilStateHookConfig on RecoilStateHookConfig {
+  defaultValue
+  key
+}
+
 fragment HookConfig on HookConfig {
   __typename
   ...QueryHookConfig
   ...GraphqlQueryHookConfig
+  ...RecoilStateHookConfig
 }

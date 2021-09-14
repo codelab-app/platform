@@ -23,6 +23,17 @@ query TestGetElement($input: GetElementInput!) {
           queryKey
           url
         }
+        ... on RecoilStateHookConfig {
+          defaultValue
+          key
+          __typename
+        }
+        ... on GraphqlQueryHookConfig {
+          graphqlBody: body
+          dataKey
+          graphqlUrl: url
+          __typename
+        }
       }
     }
     propMapBindings {

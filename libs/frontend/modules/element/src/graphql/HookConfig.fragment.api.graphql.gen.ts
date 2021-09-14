@@ -5,6 +5,8 @@ export type QueryHookConfigFragment = { body?: Types.Maybe<string>, method?: Typ
 
 export type GraphqlQueryHookConfigFragment = { dataKey?: Types.Maybe<string>, graphqlBody: string, graphqlUrl: string };
 
+export type RecoilStateHookConfigFragment = { defaultValue?: Types.Maybe<string>, key: string };
+
 export type HookConfig_GraphqlQueryHookConfig_Fragment = (
   { __typename: 'GraphqlQueryHookConfig' }
   & GraphqlQueryHookConfigFragment
@@ -15,7 +17,12 @@ export type HookConfig_QueryHookConfig_Fragment = (
   & QueryHookConfigFragment
 );
 
-export type HookConfigFragment = HookConfig_GraphqlQueryHookConfig_Fragment | HookConfig_QueryHookConfig_Fragment;
+export type HookConfig_RecoilStateHookConfig_Fragment = (
+  { __typename: 'RecoilStateHookConfig' }
+  & RecoilStateHookConfigFragment
+);
+
+export type HookConfigFragment = HookConfig_GraphqlQueryHookConfig_Fragment | HookConfig_QueryHookConfig_Fragment | HookConfig_RecoilStateHookConfig_Fragment;
 
 export const QueryHookConfigFragmentDoc = gql`
     fragment QueryHookConfig on QueryHookConfig {
@@ -33,11 +40,19 @@ export const GraphqlQueryHookConfigFragmentDoc = gql`
   dataKey
 }
     `;
+export const RecoilStateHookConfigFragmentDoc = gql`
+    fragment RecoilStateHookConfig on RecoilStateHookConfig {
+  defaultValue
+  key
+}
+    `;
 export const HookConfigFragmentDoc = gql`
     fragment HookConfig on HookConfig {
   __typename
   ...QueryHookConfig
   ...GraphqlQueryHookConfig
+  ...RecoilStateHookConfig
 }
     ${QueryHookConfigFragmentDoc}
-${GraphqlQueryHookConfigFragmentDoc}`;
+${GraphqlQueryHookConfigFragmentDoc}
+${RecoilStateHookConfigFragmentDoc}`;
