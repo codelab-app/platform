@@ -393,7 +393,7 @@ type GraphqlQueryHookConfig {
 }
 
 type RecoilStateHookConfig {
-  key: String!
+  stateKey: String!
   defaultValue: String
 }
 
@@ -435,6 +435,7 @@ type Element {
   """
   renderIfPropKey: String
   propMapBindings: [PropMapBinding!]!
+  propTransformationJs: String
   atom: Atom
 }
 
@@ -837,7 +838,7 @@ input GraphqlQueryHookConfigInput {
 }
 
 input RecoilStateHookConfigInput {
-  key: String!
+  stateKey: String!
   defaultValue: String
 }
 
@@ -878,6 +879,7 @@ input UpdateElementData {
   If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)
   """
   renderIfPropKey: String
+  propTransformationJs: String
 }
 
 input MoveElementInput {

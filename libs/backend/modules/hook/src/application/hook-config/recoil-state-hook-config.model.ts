@@ -4,13 +4,13 @@ import { RecoilStateHookConfig } from '../../domain'
 @ObjectType('RecoilStateHookConfig')
 export class RecoilStateHookConfigModel implements RecoilStateHookConfig {
   @Field()
-  key: string
+  stateKey: string
 
   @Field({ nullable: true })
   defaultValue?: string
 
-  constructor({ key, defaultValue }: RecoilStateHookConfigModel) {
-    this.key = key
+  constructor({ stateKey, defaultValue }: RecoilStateHookConfigModel) {
+    this.stateKey = stateKey
     this.defaultValue = defaultValue
   }
 }

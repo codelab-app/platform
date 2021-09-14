@@ -3,7 +3,8 @@ import { HookFragment } from '@codelab/frontend/modules/element'
 import { HookType } from '@codelab/shared/abstract/core'
 import { useGraphqlQueryHook } from './handlers/useGraphqlQueryHook'
 import { useQueryHook } from './handlers/useQueryHook'
-import { QueryHookHandler } from './QueryHookHandler'
+import { useRecoilStateHook } from './handlers/useRecoilStateHook'
+import { HookHandler } from './HookHandler'
 
 export const useHookFactory = (hooks: Array<HookFragment>) => {
   return hooks.reduce<Record<string, any>>((queryProps, hook) => {
@@ -13,7 +14,7 @@ export const useHookFactory = (hooks: Array<HookFragment>) => {
   }, {})
 }
 
-const getHookData: QueryHookHandler = ({ config, type }: HookFragment) => {
+const getHookData: HookHandler = ({ config, type }: HookFragment) => {
   switch (type) {
     case HookType.Query: {
       return useQueryHook(config)
@@ -21,6 +22,10 @@ const getHookData: QueryHookHandler = ({ config, type }: HookFragment) => {
 
     case HookType.GraphqlQuery: {
       return useGraphqlQueryHook(config)
+    }
+
+    case HookType.RecoilState: {
+      return useRecoilStateHook(config)
     }
   }
 }

@@ -49,7 +49,11 @@ export const UpdatePropMapBindingForm = ({
       state,
     ) => ({
       input: {
-        data: { sourceKey, targetKey, targetElementId },
+        data: {
+          sourceKey: sourceKey.trim(),
+          targetKey: targetKey.trim(),
+          targetElementId,
+        },
         propMapBindingId: state.updateId,
       },
     }),

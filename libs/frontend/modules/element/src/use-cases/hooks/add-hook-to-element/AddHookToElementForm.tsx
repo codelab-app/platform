@@ -38,9 +38,33 @@ export const DisplayIfType = ({
   </DisplayIfField>
 )
 
-const JsonField = monacoFieldFactory({
+const QueryBodyField = monacoFieldFactory({
   editorOptions: { language: 'json', lineNumbers: 'off' },
   containerProps: { style: { height: '15rem' } },
+})
+
+const DefaultValueField = monacoFieldFactory({
+  editorOptions: {
+    language: 'json',
+    lineNumbers: 'off',
+    wordWrap: 'off',
+    lineNumbersMinChars: 0,
+    overviewRulerLanes: 0,
+    overviewRulerBorder: false,
+    lineDecorationsWidth: 0,
+    hideCursorInOverviewRuler: true,
+    glyphMargin: false,
+    folding: false,
+    scrollBeyondLastColumn: 0,
+    scrollbar: { horizontal: 'hidden', vertical: 'hidden' },
+    find: {
+      addExtraSpaceOnTop: false,
+      autoFindInSelection: 'never',
+      seedSearchStringFromSelection: 'never',
+    },
+    minimap: { enabled: false },
+  },
+  containerProps: { style: { height: '1.5rem' } },
 })
 
 export const AddHookToElementForm = ({
@@ -77,7 +101,12 @@ export const AddHookToElementForm = ({
     >
       {/* Base fields */}
       <AutoFields
-        omitFields={['queryHook', 'queryHookVariant', 'graphqlQueryHook']}
+        omitFields={[
+          'queryHook',
+          'queryHookVariant',
+          'graphqlQueryHook',
+          'recoilStateHook',
+        ]}
       />
 
       {/* Graphql query fields */}
@@ -114,7 +143,7 @@ export const AddHookToElementForm = ({
             fields={['queryHook.queryKey', 'queryHook.url', 'queryHook.method']}
           />
 
-          <JsonField name={'queryHook.body'} />
+          <QueryBodyField name={'queryHook.body'} />
         </DisplayIfField>
 
         <DisplayIfField<AddHookToElementSchema>
@@ -125,6 +154,12 @@ export const AddHookToElementForm = ({
           <AutoFields fields={['queryHook.queryKey']} />{' '}
           <AutoField name="queryHook.lambdaId" component={SelectLambda} />
         </DisplayIfField>
+      </DisplayIfType>
+
+      {/* Recoil state fields */}
+      <DisplayIfType type={HookType.RecoilState}>
+        <AutoFields fields={['recoilStateHook.stateKey']} />
+        <DefaultValueField name="recoilStateHook.defaultValue" />
       </DisplayIfType>
     </FormUniforms>
   )

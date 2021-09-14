@@ -5,7 +5,7 @@ export type QueryHookConfigFragment = { body?: Types.Maybe<string>, method?: Typ
 
 export type GraphqlQueryHookConfigFragment = { dataKey?: Types.Maybe<string>, graphqlBody: string, graphqlUrl: string };
 
-export type RecoilStateHookConfigFragment = { defaultValue?: Types.Maybe<string>, key: string };
+export type RecoilStateHookConfigFragment = { defaultValue?: Types.Maybe<string>, stateKey: string };
 
 export type HookConfig_GraphqlQueryHookConfig_Fragment = (
   { __typename: 'GraphqlQueryHookConfig' }
@@ -43,7 +43,7 @@ export const GraphqlQueryHookConfigFragmentDoc = gql`
 export const RecoilStateHookConfigFragmentDoc = gql`
     fragment RecoilStateHookConfig on RecoilStateHookConfig {
   defaultValue
-  key
+  stateKey
 }
     `;
 export const HookConfigFragmentDoc = gql`

@@ -2,10 +2,10 @@
 
 import { gql, useQuery } from '@apollo/client'
 import { GraphqlQueryHookConfigFragment } from '@codelab/frontend/modules/element'
-import { QueryHookHandler } from '../QueryHookHandler'
+import { HookHandler } from '../HookHandler'
 import { apolloClient } from '../utils/apolloClient'
 
-export const useGraphqlQueryHook: QueryHookHandler = (
+export const useGraphqlQueryHook: HookHandler = (
   config: GraphqlQueryHookConfigFragment,
 ) => {
   // Only get serializable properties, weird errors happen if we include other things like client

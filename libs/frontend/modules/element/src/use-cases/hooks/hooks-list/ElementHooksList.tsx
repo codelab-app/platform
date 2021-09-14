@@ -78,6 +78,13 @@ const ElementHooksListItemDescription = (config: HookConfigFragment) => {
           {config.graphqlUrl} - {config.graphqlBody}
         </span>
       )
+    case 'RecoilStateHookConfig':
+      return (
+        <span>
+          {config.stateKey}{' '}
+          {config.defaultValue ? `Default: ${config.defaultValue}` : ''}
+        </span>
+      )
   }
 
   return null

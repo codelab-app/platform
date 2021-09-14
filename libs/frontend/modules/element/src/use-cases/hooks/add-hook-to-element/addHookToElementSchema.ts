@@ -5,6 +5,7 @@ import { AddHookToElementMutationVariables } from './AddHookToElement.api.graphq
 type AddHookToElementInput = AddHookToElementMutationVariables['input']
 type QueryHookConfigInput = AddHookToElementInput['queryHook']
 type GraphqlQueryHookConfigInput = AddHookToElementInput['graphqlQueryHook']
+type RecoilStateHookConfig = AddHookToElementInput['recoilStateHook']
 
 export enum QueryHookVariant {
   Lambda = 'Lambda',
@@ -16,6 +17,7 @@ export type AddHookToElementSchema = {
   queryHookVariant?: QueryHookVariant
   queryHook?: QueryHookConfigInput
   graphqlQueryHook?: GraphqlQueryHookConfigInput
+  recoilStateHook?: RecoilStateHookConfig
 }
 
 export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
@@ -75,6 +77,19 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
       },
       required: ['body', 'url'],
     },
+    recoilStateHook: {
+      type: 'object',
+      nullable: true,
+      properties: {
+        stateKey: {
+          type: 'string',
+        },
+        defaultValue: {
+          type: 'string',
+        },
+      },
+      required: ['stateKey'],
+    },
   },
   required: ['type'],
 }
@@ -101,6 +116,15 @@ export const mapDataToInput = (
       return {
         elementId,
         graphqlQueryHook: data.graphqlQueryHook,
+      }
+    case HookType.RecoilState:
+      if (!data.recoilStateHook) {
+        throw new Error('Recoil state hook data is required')
+      }
+
+      return {
+        elementId,
+        recoilStateHook: data.recoilStateHook,
       }
   }
 

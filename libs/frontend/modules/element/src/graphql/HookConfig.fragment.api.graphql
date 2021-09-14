@@ -14,7 +14,7 @@ fragment GraphqlQueryHookConfig on GraphqlQueryHookConfig {
 
 fragment RecoilStateHookConfig on RecoilStateHookConfig {
   defaultValue
-  key
+  stateKey
 }
 
 fragment HookConfig on HookConfig {

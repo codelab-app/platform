@@ -87,7 +87,7 @@ describe('AddHookToElementUseCase', () => {
     addRecoilStateHookInput = {
       elementId: createElement.id,
       recoilStateHook: {
-        key: 'myState',
+        stateKey: 'myState',
         defaultValue: 'true',
       },
     }

@@ -5,10 +5,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ElementFragment } from '../graphql'
-import {
-  refetchGetElementQuery,
-  useGetElementQuery,
-} from '../use-cases/get-element/GetElement.api.graphql.gen'
+import { refetchGetElementQuery, useGetElementQuery } from '../use-cases'
 import { useUpdateElementMutation } from '../use-cases/update-element/UpdateElement.api.graphql.gen'
 
 export interface ElementCssEditorInternalProps {
@@ -47,6 +44,9 @@ const ElementCssEditorInternal = ({
                 atomId: element.atom?.id,
                 name: element.name,
                 css: newCss,
+                renderIfPropKey: element.renderIfPropKey,
+                // propTransformationJs: element.propTransformationJs,
+                renderForEachPropKey: element.renderForEachPropKey,
               },
             },
           },

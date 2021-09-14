@@ -4,7 +4,7 @@ import { Field, InputType } from '@nestjs/graphql'
 @InputType()
 export class RecoilStateHookConfigInput implements RecoilStateHookConfig {
   @Field(() => String)
-  declare key: string
+  declare stateKey: string
 
   @Field(() => String, { nullable: true })
   declare defaultValue?: string

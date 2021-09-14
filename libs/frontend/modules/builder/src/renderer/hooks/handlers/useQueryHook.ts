@@ -4,11 +4,9 @@ import { QueryHookConfigFragment } from '@codelab/frontend/modules/element'
 import { useExecuteLambdaMutation } from '@codelab/frontend/modules/lambda'
 import axios from 'axios'
 import { useQuery } from 'react-query'
-import { QueryHookHandler } from '../QueryHookHandler'
+import { HookHandler } from '../HookHandler'
 
-export const useQueryHook: QueryHookHandler = (
-  config: QueryHookConfigFragment,
-) => {
+export const useQueryHook: HookHandler = (config: QueryHookConfigFragment) => {
   let body = config.body ?? undefined
 
   try {

@@ -20,3 +20,6 @@ export const pascalCaseToWords = (input: string) =>
     // uppercase the first character
     .replace(/^./, (str) => str.toUpperCase())
     .trim()
+
+export const capitalizeFirstLetter = (value: string) =>
+  value.charAt(0).toUpperCase() + value.slice(1)
