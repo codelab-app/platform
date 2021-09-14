@@ -14,6 +14,7 @@ type MovePageElementFormProps = Omit<
 
 /**
  * Wrapper for {@link MoveElementForm} in the context of a Page
+ * Needed, because we need to tell it to refetch the page after the mutation
  */
 export const MovePageElementForm = ({
   elementId,

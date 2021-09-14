@@ -43,18 +43,14 @@ export const StatelessLoadingIndicator = ({
       renderErrored()
     ) : (
       <ExclamationCircleOutlined
-        size={14}
+        size={16}
         style={{ color: '#F43F5E', ...elementStyle }}
       />
     )
   }
 
   if (isLoading) {
-    return renderLoading ? (
-      renderLoading()
-    ) : (
-      <Spin size="small" style={elementStyle} />
-    )
+    return renderLoading ? renderLoading() : <Spin style={elementStyle} />
   }
 
   return renderNotLoading ? renderNotLoading() : null
