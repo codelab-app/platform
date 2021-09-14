@@ -227,8 +227,6 @@ export enum AtomType {
   HtmlTrack = 'HtmlTrack',
   HtmlUList = 'HtmlUList',
   HtmlVideo = 'HtmlVideo',
-  Mapper = 'Mapper',
-  PropMapper = 'PropMapper',
   Query = 'Query',
   ReactFragment = 'ReactFragment',
   State = 'State',
@@ -325,6 +323,16 @@ export type CreatePrimitiveTypeInput = {
   primitiveKind: PrimitiveKind;
 };
 
+export type CreatePropMapBindingInput = {
+  elementId: Scalars['String'];
+  /** The key of the prop, as received in the source element */
+  sourceKey: Scalars['String'];
+  /** The ID of the target element, if omitted, the current element will be the target */
+  targetElementId?: Maybe<Scalars['String']>;
+  /** The key of the prop, that the target Element will receive */
+  targetKey: Scalars['String'];
+};
+
 export type CreateResponse = {
   id: Scalars['String'];
 };
@@ -377,6 +385,10 @@ export type DeletePageInput = {
   pageId: Scalars['String'];
 };
 
+export type DeletePropMapBindingInput = {
+  propMapBindingIds: Array<Scalars['String']>;
+};
+
 export type DeleteTagsInput = {
   ids: Array<Scalars['String']>;
 };
@@ -396,8 +408,13 @@ export type Element = {
   id: Scalars['ID'];
   /** Due to union nullability issue, we have to make this non-nullable. Defaults to atom type */
   name: Scalars['String'];
+  propMapBindings: Array<PropMapBinding>;
   /** Props in a json format */
   props: Scalars['String'];
+  /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
+  renderForEachPropKey?: Maybe<Scalars['String']>;
+  /** If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy) */
+  renderIfPropKey?: Maybe<Scalars['String']>;
 };
 
 /** An edge between two element nodes */
@@ -616,6 +633,7 @@ export type Mutation = {
   createField: CreateResponse;
   createLambda: CreateResponse;
   createPage: CreateResponse;
+  createPropMapBinding: CreateResponse;
   createTag: CreateResponse;
   createType: CreateResponse;
   deleteApp?: Maybe<Scalars['Void']>;
@@ -626,6 +644,7 @@ export type Mutation = {
   deleteField?: Maybe<Scalars['Void']>;
   deleteLambda?: Maybe<Scalars['Void']>;
   deletePage?: Maybe<Scalars['Void']>;
+  deletePropMapBinding?: Maybe<Scalars['Void']>;
   deleteTags?: Maybe<Scalars['Void']>;
   deleteType?: Maybe<Scalars['Void']>;
   deleteUser: Scalars['Boolean'];
@@ -645,6 +664,7 @@ export type Mutation = {
   updateLambda?: Maybe<Scalars['Void']>;
   updatePage?: Maybe<Scalars['Void']>;
   updatePrimitiveType?: Maybe<Scalars['Void']>;
+  updatePropMapBinding?: Maybe<Scalars['Void']>;
   updateTag?: Maybe<Scalars['Void']>;
   updateType?: Maybe<Scalars['Void']>;
   upsertUser: CreateResponse;
@@ -691,6 +711,11 @@ export type MutationCreatePageArgs = {
 };
 
 
+export type MutationCreatePropMapBindingArgs = {
+  input: CreatePropMapBindingInput;
+};
+
+
 export type MutationCreateTagArgs = {
   input: CreateTagInput;
 };
@@ -733,6 +758,11 @@ export type MutationDeleteLambdaArgs = {
 
 export type MutationDeletePageArgs = {
   input: DeletePageInput;
+};
+
+
+export type MutationDeletePropMapBindingArgs = {
+  input: DeletePropMapBindingInput;
 };
 
 
@@ -821,6 +851,11 @@ export type MutationUpdatePrimitiveTypeArgs = {
 };
 
 
+export type MutationUpdatePropMapBindingArgs = {
+  input: UpdatePropMapBindingInput;
+};
+
+
 export type MutationUpdateTagArgs = {
   input: UpdateTagInput;
 };
@@ -858,6 +893,16 @@ export type PrimitiveType = Type & {
   primitiveKind: PrimitiveKind;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
+};
+
+export type PropMapBinding = {
+  id: Scalars['ID'];
+  /** The key of the prop, as received in the source element */
+  sourceKey: Scalars['String'];
+  /** The ID of the target element, if omitted, the current element will be the target */
+  targetElementId?: Maybe<Scalars['String']>;
+  /** The key of the prop, that the target Element will receive */
+  targetKey: Scalars['String'];
 };
 
 export type Query = {
@@ -1132,6 +1177,10 @@ export type UpdateElementData = {
   componentId?: Maybe<Scalars['String']>;
   css?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
+  renderForEachPropKey?: Maybe<Scalars['String']>;
+  /** If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy) */
+  renderIfPropKey?: Maybe<Scalars['String']>;
 };
 
 export type UpdateElementInput = {
@@ -1200,6 +1249,20 @@ export type UpdatePrimitiveTypeInput = {
   updateData: UpdatePrimitiveKindData;
 };
 
+export type UpdatePropMapBindingData = {
+  /** The key of the prop, as received in the source element */
+  sourceKey: Scalars['String'];
+  /** The ID of the target element, if omitted, the current element will be the target */
+  targetElementId?: Maybe<Scalars['String']>;
+  /** The key of the prop, that the target Element will receive */
+  targetKey: Scalars['String'];
+};
+
+export type UpdatePropMapBindingInput = {
+  data: UpdatePropMapBindingData;
+  propMapBindingId: Scalars['String'];
+};
+
 export type UpdateTagData = {
   name: Scalars['String'];
 };
@@ -1220,7 +1283,7 @@ export type UpdateTypeInput = {
 
 export type UpsertUserDataInput = {
   auth0Id: Scalars['String'];
-  roles?: Maybe<Array<Role>>;
+  roles: Array<Role>;
 };
 
 export type UpsertUserInput = {

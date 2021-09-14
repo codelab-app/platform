@@ -5,8 +5,10 @@ import deepmerge from 'deepmerge'
  * The following edge cases are handled:
  * - Merging className strings together
  */
-export const mergeProps = (...props: Array<Record<string, any>>) => {
-  return props.reduce((aggregate, nextProps) => {
+export const mergeProps = (
+  ...props: Array<Record<string, any> | null | undefined>
+) => {
+  return props.reduce<Record<string, any>>((aggregate, nextProps) => {
     if (!nextProps) {
       return aggregate
     }

@@ -9,6 +9,8 @@ query TestGetElement($input: GetElementInput!) {
       name
       type
     }
+    renderForEachPropKey
+    renderIfPropKey
     hooks {
       id
       type
@@ -22,6 +24,12 @@ query TestGetElement($input: GetElementInput!) {
           url
         }
       }
+    }
+    propMapBindings {
+      id
+      sourceKey
+      targetElementId
+      targetKey
     }
   }
 }

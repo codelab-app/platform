@@ -5,7 +5,7 @@ import {
   IElementVertex,
 } from '@codelab/shared/abstract/core'
 import { getCyElementData } from '../cytoscape/element'
-import { filterPredicate, Predicate, TreeAdapter } from '../tree'
+import { filterPredicate, InstancePredicate, TreeAdapter } from '../tree'
 
 /** Returns the component referenced by the specified element, or null if there isn't one */
 // getComponentOfElement: (elementId: string) => ComponentFragment | undefined
@@ -22,11 +22,13 @@ export class ElementTree<
   constructor(
     graph: Graph<TElementVertex | TComponentVertex, TEdge> | null | undefined,
     extractEdgeId: ((edge: TEdge) => string) | undefined,
-    public readonly isElementPredicate: Predicate<
-      TElementVertex | TComponentVertex
+    public readonly isElementPredicate: InstancePredicate<
+      TElementVertex | TComponentVertex,
+      TElementVertex
     >,
-    public readonly isComponentPredicate: Predicate<
-      TElementVertex | TComponentVertex
+    public readonly isComponentPredicate: InstancePredicate<
+      TElementVertex | TComponentVertex,
+      TComponentVertex
     >,
   ) {
     super(graph, extractEdgeId)

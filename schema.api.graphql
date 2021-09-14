@@ -270,8 +270,6 @@ enum AtomType {
   TextList
   Text
   State
-  PropMapper
-  Mapper
   ReactFragment
   HtmlA
   HtmlP
@@ -393,6 +391,21 @@ type GraphqlQueryHookConfig {
   dataKey: String
 }
 
+type PropMapBinding {
+  id: ID!
+
+  """
+  The ID of the target element, if omitted, the current element will be the target
+  """
+  targetElementId: String
+
+  """The key of the prop, as received in the source element"""
+  sourceKey: String!
+
+  """The key of the prop, that the target Element will receive"""
+  targetKey: String!
+}
+
 type Element {
   id: ID!
 
@@ -405,6 +418,17 @@ type Element {
   """Props in a json format"""
   props: String!
   hooks: [Hook!]!
+
+  """
+  If set, the element will get rendered for each item in the array found in its props by the given key, if it exists
+  """
+  renderForEachPropKey: String
+
+  """
+  If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)
+  """
+  renderIfPropKey: String
+  propMapBindings: [PropMapBinding!]!
   atom: Atom
 }
 
@@ -651,6 +675,11 @@ type Mutation {
   createPage(input: CreatePageInput!): CreateResponse!
   deletePage(input: DeletePageInput!): Void
   updatePage(input: UpdatePageInput!): Void
+  createPropMapBinding(input: CreatePropMapBindingInput!): CreateResponse!
+  updatePropMapBinding(input: UpdatePropMapBindingInput!): Void
+  deletePropMapBinding(input: DeletePropMapBindingInput!): Void
+  addHookToElement(input: AddHookToElementInput!): CreateResponse!
+  removeHookFromElement(input: RemoveHookFromElementInput!): Void
   createElement(input: CreateElementInput!): CreateResponse!
   updateElement(input: UpdateElementInput!): Void
   moveElement(input: MoveElementInput!): Void
@@ -658,8 +687,6 @@ type Mutation {
 
   """Deletes an element and all the descending elements"""
   deleteElement(input: DeleteElementInput!): Void
-  addHookToElement(input: AddHookToElementInput!): CreateResponse!
-  removeHookFromElement(input: RemoveHookFromElementInput!): Void
   createComponent(input: CreateComponentInput!): CreateResponse!
   updateComponent(input: UpdateComponentInput!): Void
   deleteComponent(input: DeleteComponentInput!): Void
@@ -743,47 +770,41 @@ input UpdatePageData {
   appId: String!
 }
 
-input CreateElementInput {
-  name: String
-  atomId: String
-  componentId: String
-  parentElementId: String
+input CreatePropMapBindingInput {
+  elementId: String!
 
   """
-  Leave it out to automatically set it as the last order of all the children
+  The ID of the target element, if omitted, the current element will be the target
   """
-  order: Int
+  targetElementId: String
+
+  """The key of the prop, as received in the source element"""
+  sourceKey: String!
+
+  """The key of the prop, that the target Element will receive"""
+  targetKey: String!
 }
 
-input UpdateElementInput {
-  data: UpdateElementData!
-  id: String!
+input UpdatePropMapBindingInput {
+  propMapBindingId: String!
+  data: UpdatePropMapBindingData!
 }
 
-input UpdateElementData {
-  name: String
-  atomId: String
-  componentId: String
-  css: String
+input UpdatePropMapBindingData {
+  """
+  The ID of the target element, if omitted, the current element will be the target
+  """
+  targetElementId: String
+
+  """The key of the prop, as received in the source element"""
+  sourceKey: String!
+
+  """The key of the prop, that the target Element will receive"""
+  targetKey: String!
 }
 
-input MoveElementInput {
-  elementId: String!
-  moveData: MoveData!
-}
-
-input MoveData {
-  order: Int!
-  parentElementId: String!
-}
-
-input UpdateElementPropsInput {
-  props: String!
-  elementId: String!
-}
-
-input DeleteElementInput {
-  elementId: String!
+input DeletePropMapBindingInput {
+  propMapBindingIds: [String!]!
 }
 
 """Provide exactly one of the config fields"""
@@ -811,6 +832,59 @@ input GraphqlQueryHookConfigInput {
 input RemoveHookFromElementInput {
   elementId: String!
   hookId: String!
+}
+
+input CreateElementInput {
+  name: String
+  atomId: String
+  componentId: String
+  parentElementId: String
+
+  """
+  Leave it out to automatically set it as the last order of all the children
+  """
+  order: Int
+}
+
+input UpdateElementInput {
+  data: UpdateElementData!
+  id: String!
+}
+
+input UpdateElementData {
+  name: String
+  atomId: String
+  componentId: String
+  css: String
+
+  """
+  If set, the element will get rendered for each item in the array found in its props by the given key, if it exists
+  """
+  renderForEachPropKey: String
+
+  """
+  If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)
+  """
+  renderIfPropKey: String
+}
+
+input MoveElementInput {
+  elementId: String!
+  moveData: MoveData!
+}
+
+input MoveData {
+  order: Int!
+  parentElementId: String!
+}
+
+input UpdateElementPropsInput {
+  props: String!
+  elementId: String!
+}
+
+input DeleteElementInput {
+  elementId: String!
 }
 
 input CreateComponentInput {

@@ -1,3 +1,4 @@
+export * from './uniforms/AutoCompleteField'
 export * from './uniforms/DisplayIfField'
 export * from './uniforms/emptyJsonSchema'
 export * from './uniforms/Form-uniforms'

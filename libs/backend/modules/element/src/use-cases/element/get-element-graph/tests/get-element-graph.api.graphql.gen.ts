@@ -8,7 +8,7 @@ export type TestGetElementGraphQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetElementGraphQuery = { getElementGraph?: Types.Maybe<{ edges: Array<{ order?: Types.Maybe<number>, source: string, target: string }>, vertices: Array<{ id: string, name: string } | { id: string, name: string, css?: Types.Maybe<string>, props: string, atom?: Types.Maybe<{ id: string, name: string, type: Types.AtomType }> }> }> };
+export type TestGetElementGraphQuery = { getElementGraph?: Types.Maybe<{ edges: Array<{ order?: Types.Maybe<number>, source: string, target: string }>, vertices: Array<{ id: string, name: string } | { id: string, name: string, css?: Types.Maybe<string>, props: string, renderForEachPropKey?: Types.Maybe<string>, renderIfPropKey?: Types.Maybe<string>, atom?: Types.Maybe<{ id: string, name: string, type: Types.AtomType }> }> }> };
 
 
 export const TestGetElementGraphGql = gql`
@@ -30,6 +30,8 @@ export const TestGetElementGraphGql = gql`
           name
           type
         }
+        renderForEachPropKey
+        renderIfPropKey
       }
       ... on Component {
         id

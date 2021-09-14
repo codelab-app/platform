@@ -25,6 +25,7 @@ export enum EntityType {
   Type = 'Type',
   Field = 'Field',
   Hook = 'Hook',
+  PropMapBinding = 'PropMapBinding',
 }
 
 export interface CRUDModalState {

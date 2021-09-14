@@ -3,6 +3,7 @@ import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphEntity, DgraphNode, DgraphTree } from './core'
 import { DgraphAtom } from './dgraph-atom'
 import { DgraphHook } from './dgraph-hook'
+import { DgraphPropMapBinding } from './dgraph-prop-map-binding'
 
 export interface DgraphElement
   extends DgraphNode<DgraphEntityType.Element, DgraphElement> {
@@ -18,6 +19,9 @@ export interface DgraphElement
   props?: string
   css?: string
   hooks?: Array<DgraphHook>
+  renderForEachPropKey?: string
+  renderIfPropKey?: string
+  propMapBindings?: Array<DgraphPropMapBinding> | null
 }
 
 export const isDgraphElement = (

@@ -5,7 +5,7 @@ import {
   GetAtomService,
 } from '@codelab/backend/modules/atom'
 import { createIfMissing } from '@codelab/backend/shared/utils'
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 
 /**
  * Handle seeding of atoms
@@ -42,7 +42,7 @@ export class AtomSeeder {
       throw new Error(`Something went wrong while creating atom ${input.type}`)
     }
 
-    console.log(`Created atom ${input.type}`)
+    Logger.log(`Created atom ${input.type}`)
 
     return createResponse.id
   }

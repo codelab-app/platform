@@ -10,11 +10,9 @@ export const moveElementSchema: JSONSchemaType<MoveElementSchema> = {
   properties: {
     order: {
       type: 'integer',
-      nullable: true,
     },
     parentElementId: {
       type: 'string',
-      nullable: true,
       label: 'Parent Element',
     },
   },

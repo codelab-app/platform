@@ -416,16 +416,6 @@ export const atomFactory = (
       return dynamic(() =>
         import('@codelab/frontend/view/components').then((mod) => mod.State),
       )
-    case AtomType.PropMapper:
-      return dynamic(() =>
-        import('@codelab/frontend/view/components').then(
-          (mod) => mod.PropMapper,
-        ),
-      )
-    case AtomType.Mapper:
-      return dynamic(() =>
-        import('@codelab/frontend/view/components').then((mod) => mod.Mapper),
-      )
     default:
       return null
   }

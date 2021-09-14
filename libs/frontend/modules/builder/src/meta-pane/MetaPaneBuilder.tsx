@@ -1,6 +1,8 @@
 import {
   ElementCssEditor,
   ElementHookSection,
+  ElementTreeGraphql,
+  PropMapBindingSection,
   UpdateElementPropsForm,
 } from '@codelab/frontend/modules/element'
 import { IElementVertex } from '@codelab/shared/abstract/core'
@@ -10,6 +12,7 @@ import { Resizable } from 're-resizable'
 import React from 'react'
 import tw from 'twin.macro'
 import { useBuilderSelection } from '../containers/builderState'
+import { usePropCompletion } from '../containers/usePropCompletion'
 import { PropsInspectorTab } from './PropsInspectorTab'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
@@ -46,14 +49,18 @@ const TabContainer = styled.div`
 
 export interface MetaPaneBuilderProps {
   renderUpdateElementContent: (element: IElementVertex) => React.ReactNode
+  tree: ElementTreeGraphql
 }
 
 export const MetaPaneBuilder = ({
   renderUpdateElementContent,
+  tree,
 }: MetaPaneBuilderProps) => {
   const {
     state: { selectedElement },
   } = useBuilderSelection()
+
+  const { providePropCompletion } = usePropCompletion()
 
   if (!selectedElement) {
     return null
@@ -124,6 +131,23 @@ export const MetaPaneBuilder = ({
             <PropsInspectorTab
               key={selectedElement.id}
               elementId={selectedElement.id}
+            />
+          </Tabs.TabPane>
+
+          <Tabs.TabPane
+            style={{ overflow: 'visible' }}
+            tab="Prop mapping"
+            key={selectedElement.id + '_tab6'}
+          >
+            <PropMapBindingSection
+              key={selectedElement.id}
+              elementId={selectedElement.id}
+              tree={tree}
+              providePropCompletion={(searchValue) =>
+                selectedElement
+                  ? providePropCompletion(searchValue, selectedElement.id)
+                  : []
+              }
             />
           </Tabs.TabPane>
         </Tabs>

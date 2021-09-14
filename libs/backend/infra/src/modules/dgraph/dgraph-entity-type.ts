@@ -27,4 +27,5 @@ export enum DgraphEntityType {
   Prop = 'Prop',
   Lambda = 'Lambda',
   Hook = 'Hook',
+  PropMapBinding = 'PropMapBinding',
 }

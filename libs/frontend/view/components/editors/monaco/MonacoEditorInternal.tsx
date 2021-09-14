@@ -49,6 +49,7 @@ const MonacoEditorInternal = ({
 
     if (editor && value && value !== cachedValueRef.current) {
       cachedValueRef.current = value || ''
+      console.log(value)
       editor.setValue(value || '')
     }
   }, [value])
@@ -65,7 +66,6 @@ const MonacoEditorInternal = ({
     }
   }, [editorOptions])
 
-  cachedValueRef.current = value ?? ''
   useEffect(() => {
     if (isEditorLoaded && onChange) {
       changeHandlerRef.current = editorRef.current?.onDidChangeModelContent(
@@ -73,6 +73,7 @@ const MonacoEditorInternal = ({
           const editorValue = editorRef.current?.getValue()
 
           if (cachedValueRef.current !== editorValue) {
+            cachedValueRef.current = editorValue ?? ''
             onChange(editorValue ?? '')
           }
         },
@@ -87,8 +88,12 @@ const MonacoEditorInternal = ({
   useEffect(() => {
     return () => {
       editorRef.current?.dispose()
+      editorRef.current?.getModel()?.dispose()
+      changeHandlerRef.current?.dispose()
     }
   }, [])
+
+  editorRef.current?.layout()
 
   return (
     <div

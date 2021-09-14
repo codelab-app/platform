@@ -1,0 +1,97 @@
+import { SelectDescendantElement } from '@codelab/frontend/modules/type'
+import { ElementIdProvider } from '@codelab/frontend/presenter/container'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import {
+  AutoCompleteField,
+  EntityType,
+  FormUniforms,
+  UniFormUseCaseProps,
+  useCrudModalMutationForm,
+} from '@codelab/frontend/view/components'
+import React, { useState } from 'react'
+import { AutoField, AutoFields } from 'uniforms-antd'
+import { ElementTreeGraphql } from '../../../tree'
+import { refetchGetElementQuery } from '../../get-element'
+import { useCreatePropMapBindingMutation } from './CreatePropMapBinding.api.graphql.gen'
+import {
+  CreatePropMapBindingSchema,
+  createPropMapBindingSchema,
+} from './createPropMapBindingSchema'
+import { TargetKeyField } from './TargetKeyField'
+
+export interface CreatePropMapBindingFormProps {
+  elementId: string
+  providePropCompletion?: (searchValue: string) => Array<string>
+  tree: ElementTreeGraphql
+}
+
+export const CreatePropMapBindingForm = ({
+  elementId: initialElementId,
+  providePropCompletion,
+  tree,
+  ...props
+}: UniFormUseCaseProps<CreatePropMapBindingSchema> &
+  CreatePropMapBindingFormProps) => {
+  const {
+    crudModal: { reset },
+    handleSubmit,
+  } = useCrudModalMutationForm({
+    entityType: EntityType.App,
+    useMutationFunction: useCreatePropMapBindingMutation,
+    mutationOptions: {
+      refetchQueries: [
+        refetchGetElementQuery({ input: { elementId: initialElementId } }),
+      ],
+    },
+    mapVariables: ({
+      sourceKey,
+      targetKey,
+      targetElementId,
+      elementId,
+    }: CreatePropMapBindingSchema) => ({
+      input: { sourceKey, targetKey, targetElementId, elementId },
+    }),
+  })
+
+  const [propCompleteOptions, setPropCompleteOptions] = useState<
+    Array<{ label: string; value: string }>
+  >([])
+
+  const handlePropSearch = (value: string) => {
+    if (providePropCompletion) {
+      setPropCompleteOptions(
+        providePropCompletion(value).map((option) => ({
+          value: option,
+          label: option,
+        })),
+      )
+    }
+  }
+
+  return (
+    <FormUniforms<CreatePropMapBindingSchema>
+      onSubmit={handleSubmit}
+      model={{ elementId: initialElementId }}
+      schema={createPropMapBindingSchema}
+      onSubmitError={createNotificationHandler({
+        title: 'Error while creating prop map binding',
+      })}
+      onSubmitSuccess={() => reset()}
+      {...props}
+    >
+      <AutoFields omitFields={['sourceKey', 'targetElementId', 'targetKey']} />
+
+      <AutoCompleteField
+        name="sourceKey"
+        onSearch={handlePropSearch}
+        options={propCompleteOptions}
+      />
+
+      <ElementIdProvider elementId={initialElementId}>
+        <AutoField name="targetElementId" component={SelectDescendantElement} />
+      </ElementIdProvider>
+
+      <TargetKeyField name="targetKey" tree={tree} />
+    </FormUniforms>
+  )
+}

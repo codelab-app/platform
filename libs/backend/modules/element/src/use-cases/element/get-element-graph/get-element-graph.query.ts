@@ -29,4 +29,10 @@ export const getElementGraphQuery = () =>
           hooks
           hookType
           configJson
+          renderForEachPropKey
+          renderIfPropKey
+          propMapBindings
+          targetElement
+          sourceKey
+          targetKey
       `)

@@ -16,6 +16,8 @@ query TestGetElementGraph($input: GetElementGraphInput!) {
           name
           type
         }
+        renderForEachPropKey
+        renderIfPropKey
       }
 
       ... on Component {

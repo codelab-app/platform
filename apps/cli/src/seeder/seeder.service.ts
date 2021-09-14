@@ -10,7 +10,6 @@ import { Inject, Injectable } from '@nestjs/common'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
-import { allCustomAtomApiFactories } from './data/customAtomApis'
 import { AtomSeeder, TypeSeeder } from './models'
 import { iterateCsvs } from './utils/iterateCsvs'
 
@@ -64,11 +63,6 @@ export class SeederService {
       this.customComponentsDataFolder,
       this.handleCsv.bind(this),
     )
-
-    /**
-     * (4) Seed all the custom atom API's
-     */
-    await this.typeSeeder.seedCustomAtomApis(allCustomAtomApiFactories)
   }
 
   private getClient(accessToken: string) {
