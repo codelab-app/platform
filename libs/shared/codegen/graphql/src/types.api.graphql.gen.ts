@@ -410,7 +410,6 @@ export type Element = {
   /** Due to union nullability issue, we have to make this non-nullable. Defaults to atom type */
   name: Scalars['String'];
   propMapBindings: Array<PropMapBinding>;
-  propTransformationJs?: Maybe<Scalars['String']>;
   /** Props in a json format */
   props: Scalars['String'];
   /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
@@ -1190,7 +1189,6 @@ export type UpdateElementData = {
   componentId?: Maybe<Scalars['String']>;
   css?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  propTransformationJs?: Maybe<Scalars['String']>;
   /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
   renderForEachPropKey?: Maybe<Scalars['String']>;
   /** If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy) */
