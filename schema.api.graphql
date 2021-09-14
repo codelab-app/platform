@@ -360,9 +360,10 @@ type Hook {
 enum HookType {
   Query
   GraphqlQuery
+  RecoilState
 }
 
-union HookConfig = QueryHookConfig | GraphqlQueryHookConfig
+union HookConfig = QueryHookConfig | GraphqlQueryHookConfig | RecoilStateHookConfig
 
 type QueryHookConfig {
   queryKey: String!
@@ -389,6 +390,11 @@ type GraphqlQueryHookConfig {
   body: String!
   url: String!
   dataKey: String
+}
+
+type RecoilStateHookConfig {
+  stateKey: String!
+  defaultValue: String
 }
 
 type PropMapBinding {
@@ -812,6 +818,7 @@ input AddHookToElementInput {
   elementId: String!
   queryHook: QueryHookConfigInput
   graphqlQueryHook: GraphqlQueryHookConfigInput
+  recoilStateHook: RecoilStateHookConfigInput
 }
 
 """Provide either a lambdaId, or body/method/url"""
@@ -827,6 +834,11 @@ input GraphqlQueryHookConfigInput {
   url: String!
   body: String!
   dataKey: String
+}
+
+input RecoilStateHookConfigInput {
+  stateKey: String!
+  defaultValue: String
 }
 
 input RemoveHookFromElementInput {

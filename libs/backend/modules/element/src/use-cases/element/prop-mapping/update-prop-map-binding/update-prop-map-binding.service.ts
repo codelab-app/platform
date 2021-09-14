@@ -89,7 +89,7 @@ export class UpdatePropMapBindingService extends DgraphUseCase<UpdatePropMapBind
       currentUser,
     )
 
-    if (targetElementId !== binding.targetElement?.uid) {
+    if (targetElementId && targetElementId !== binding.targetElement?.uid) {
       await this.elementValidator.existsAndIsOwnedBy(
         targetElementId,
         currentUser,

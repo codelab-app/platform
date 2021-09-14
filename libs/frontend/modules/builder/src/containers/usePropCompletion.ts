@@ -6,20 +6,28 @@ export const usePropCompletion = () => {
 
   const providePropCompletion = useCallback(
     (value, elementId: string) => {
-      if (!value || !currentProps || !currentProps[elementId]) {
+      if (!currentProps || !currentProps[elementId]) {
         return []
       }
 
       const keys: Array<string> = []
-      const visited = new Set()
+      const visited: Array<any> = []
 
       const visitProp = (prop: any, key: string) => {
-        if (visited.has(key)) {
+        if (key.startsWith('_')) {
           return
         }
 
-        visited.add(key)
+        if (visited.includes(prop)) {
+          return
+        }
+
+        visited.push(prop)
         keys.push(key)
+
+        if (key.startsWith('_') || key === 'children') {
+          return
+        }
 
         if (Array.isArray(prop)) {
           for (let i = 0; i < prop.length; i++) {

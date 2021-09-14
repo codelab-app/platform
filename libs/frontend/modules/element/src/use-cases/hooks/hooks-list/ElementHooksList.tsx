@@ -57,8 +57,7 @@ const ElementHooksListItemDescription = (config: HookConfigFragment) => {
     if (config.__typename === 'QueryHookConfig' && config.lambdaId) {
       getLambda({ variables: { input: { lambdaId: config.lambdaId } } })
     }
-  }, [config])
-  console.log(config)
+  }, [config, getLambda])
 
   switch (config.__typename) {
     case 'QueryHookConfig':
@@ -77,6 +76,13 @@ const ElementHooksListItemDescription = (config: HookConfigFragment) => {
       return (
         <span>
           {config.graphqlUrl} - {config.graphqlBody}
+        </span>
+      )
+    case 'RecoilStateHookConfig':
+      return (
+        <span>
+          {config.stateKey}{' '}
+          {config.defaultValue ? `Default: ${config.defaultValue}` : ''}
         </span>
       )
   }

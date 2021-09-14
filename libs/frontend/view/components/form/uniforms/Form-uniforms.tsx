@@ -35,8 +35,6 @@ export const FormUniforms = <TData extends any>({
 
         return result
           .then((r: any) => {
-            console.log(r)
-
             if (typeof result === 'object') {
               callbackWithParams(onSubmitSuccess, r)
             }

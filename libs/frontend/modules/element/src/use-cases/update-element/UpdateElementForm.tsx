@@ -1,4 +1,3 @@
-import { BaseMutationOptions } from '@apollo/client'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
@@ -7,55 +6,50 @@ import {
   UniFormUseCaseProps,
   usePromisesLoadingIndicator,
 } from '@codelab/frontend/view/components'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { ElementFragment } from '../../graphql'
 import { ElementTreeGraphql } from '../../tree'
-import { useGetElementQuery } from '../get-element'
+import { refetchGetElementQuery, useGetElementQuery } from '../get-element'
 import { useUpdateElementMutation } from './UpdateElement.api.graphql.gen'
 import { UpdateElementSchema, updateElementSchema } from './updateElementSchema'
 
-export type UpdateElementFormProps =
+type UpdateElementFormInternalProps =
   UniFormUseCaseProps<UpdateElementSchema> & {
     tree: ElementTreeGraphql
-    elementId: string
+    element: ElementFragment
     providePropCompletion?: (searchValue: string) => Array<string>
-    refetchQueries?: BaseMutationOptions['refetchQueries']
     loadingStateKey?: string
   }
 
-/** Not intended to be used in a modal */
-export const UpdateElementForm = ({
-  elementId,
-  refetchQueries,
+export type UpdateElementFormProps = Omit<
+  UpdateElementFormInternalProps,
+  'element'
+> & { elementId: string }
+
+const UpdateElementFormInternal = ({
+  element: elementProp,
   tree,
   providePropCompletion,
   loadingStateKey,
   ...props
-}: React.PropsWithChildren<UpdateElementFormProps>) => {
+}: React.PropsWithChildren<UpdateElementFormInternalProps>) => {
+  const { current: element } = useRef(elementProp) // Cache the initial element value, because when it updates it will interfere with what the user is typing
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
 
   const [propCompleteOptions, setPropCompleteOptions] = useState<
     Array<{ label: string; value: string }>
   >([])
 
-  const { data: getElementData } = useGetElementQuery({
-    fetchPolicy: 'cache-first',
-    variables: { input: { elementId } },
-  })
-
-  const element = getElementData?.getElement
-
-  const [mutate] = useUpdateElementMutation({
+  const [updateElement] = useUpdateElementMutation({
     awaitRefetchQueries: true,
-    refetchQueries: refetchQueries,
+    refetchQueries: [
+      refetchGetElementQuery({ input: { elementId: element.id } }),
+    ],
   })
-
-  if (!element) {
-    return null
-  }
 
   const onSubmit = (submitData: UpdateElementSchema) => {
-    const promise = mutate({
+    const promise = updateElement({
       variables: {
         input: { id: element.id, data: { ...submitData } },
       },
@@ -68,7 +62,7 @@ export const UpdateElementForm = ({
     return promise
   }
 
-  const componentId = tree.getComponentOfElement(elementId)?.id
+  const componentId = tree.getComponentOfElement(element.id)?.id
 
   const handlePropSearch = (value: string) => {
     if (providePropCompletion) {
@@ -86,7 +80,7 @@ export const UpdateElementForm = ({
       <FormUniforms<UpdateElementSchema>
         key={element.id}
         autosave={true}
-        autosaveDelay={200}
+        autosaveDelay={500}
         schema={updateElementSchema}
         model={{
           atomId: element.atom?.id,
@@ -127,4 +121,23 @@ export const UpdateElementForm = ({
       </FormUniforms>
     </div>
   )
+}
+
+/** Not intended to be used in a modal */
+export const UpdateElementForm = ({
+  elementId,
+  ...props
+}: UpdateElementFormProps) => {
+  const { data: getElementData } = useGetElementQuery({
+    fetchPolicy: 'cache-first',
+    variables: { input: { elementId } },
+  })
+
+  const element = getElementData?.getElement
+
+  if (!element) {
+    return null
+  }
+
+  return <UpdateElementFormInternal element={element} {...props} />
 }

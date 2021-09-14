@@ -30,21 +30,20 @@ const verifyHookIsAdded = async (
   app: INestApplication,
   hookId: string,
   type: HookType,
-  input: AddHookToElementInput,
+  elementId: string,
+  config: Record<string, any> | undefined,
 ) => {
   expect(hookId).toBeDefined()
 
   const { getElement } = await domainRequest<
     GetElementInput,
     TestGetElementQuery
-  >(app, TestGetElementGql, { elementId: input.elementId })
+  >(app, TestGetElementGql, { elementId })
 
   expect(getElement?.hooks?.find((h) => h.id === hookId)).toMatchObject({
     id: hookId,
     type,
-    config: {
-      ...input.queryHook,
-    },
+    config,
   })
 }
 
@@ -53,6 +52,7 @@ describe('AddHookToElementUseCase', () => {
   let userApp: INestApplication
   let addQueryHookInput: AddHookToElementInput
   let addGraphqlQueryHookInput: AddHookToElementInput
+  let addRecoilStateHookInput: AddHookToElementInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ElementModule], {
@@ -83,6 +83,14 @@ describe('AddHookToElementUseCase', () => {
         body: "Hello World. We don't actually validate if this is a valid gql string",
       },
     }
+
+    addRecoilStateHookInput = {
+      elementId: createElement.id,
+      recoilStateHook: {
+        stateKey: 'myState',
+        defaultValue: 'true',
+      },
+    }
   })
 
   afterAll(async () => {
@@ -109,7 +117,13 @@ describe('AddHookToElementUseCase', () => {
         addHookToElement: { id },
       } = await addHook(userApp, addQueryHookInput)
 
-      await verifyHookIsAdded(userApp, id, HookType.Query, addQueryHookInput)
+      await verifyHookIsAdded(
+        userApp,
+        id,
+        HookType.Query,
+        addQueryHookInput.elementId,
+        addQueryHookInput.queryHook,
+      )
     })
 
     it('should add a graphql query Hook to an Element', async () => {
@@ -121,7 +135,26 @@ describe('AddHookToElementUseCase', () => {
         userApp,
         id,
         HookType.GraphqlQuery,
-        addGraphqlQueryHookInput,
+        addGraphqlQueryHookInput.elementId,
+        {
+          graphqlBody: addGraphqlQueryHookInput.graphqlQueryHook?.body,
+          graphqlUrl: addGraphqlQueryHookInput.graphqlQueryHook?.url,
+          dataKey: addGraphqlQueryHookInput.graphqlQueryHook?.dataKey ?? null,
+        },
+      )
+    })
+
+    it('should add a recoil state Hook to an Element', async () => {
+      const {
+        addHookToElement: { id },
+      } = await addHook(userApp, addRecoilStateHookInput)
+
+      await verifyHookIsAdded(
+        userApp,
+        id,
+        HookType.RecoilState,
+        addRecoilStateHookInput.elementId,
+        addRecoilStateHookInput.recoilStateHook,
       )
     })
   })

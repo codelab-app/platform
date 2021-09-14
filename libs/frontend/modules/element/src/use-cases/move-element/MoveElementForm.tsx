@@ -61,7 +61,7 @@ export const MoveElementForm = ({
       <FormUniforms<MoveElementSchema>
         key={elementId}
         autosave={true}
-        autosaveDelay={200}
+        autosaveDelay={500}
         schema={moveElementSchema}
         model={{
           parentElementId,

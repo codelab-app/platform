@@ -58,6 +58,12 @@ export class CreatePropMapBindingService extends DgraphCreateUseCase<CreatePropM
     currentUser,
   }: CreatePropMapBindingRequest) {
     await this.elementValidator.existsAndIsOwnedBy(elementId, currentUser)
-    await this.elementValidator.existsAndIsOwnedBy(targetElementId, currentUser)
+
+    if (targetElementId) {
+      await this.elementValidator.existsAndIsOwnedBy(
+        targetElementId,
+        currentUser,
+      )
+    }
   }
 }

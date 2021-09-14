@@ -21,6 +21,7 @@ export const createPropMapBindingSchema: JSONSchemaType<CreatePropMapBindingSche
         type: 'string',
         nullable: true,
         label: 'Target Element',
+        help: 'Leave blank to target the current element',
       },
       targetKey: {
         type: 'string',

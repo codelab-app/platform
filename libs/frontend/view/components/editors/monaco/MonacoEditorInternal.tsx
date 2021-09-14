@@ -49,7 +49,6 @@ const MonacoEditorInternal = ({
 
     if (editor && value && value !== cachedValueRef.current) {
       cachedValueRef.current = value || ''
-      console.log(value)
       editor.setValue(value || '')
     }
   }, [value])

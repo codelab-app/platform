@@ -1,17 +1,17 @@
 import {
   ComponentContext,
   MoveComponentElementForm,
-  UpdateComponentElementForm,
 } from '@codelab/frontend/modules/component'
-import { DeleteElementButton } from '@codelab/frontend/modules/element'
+import {
+  DeleteElementButton,
+  UpdateElementForm,
+} from '@codelab/frontend/modules/element'
 import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import { LoadingIndicator } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
 import tw from 'twin.macro'
 import { usePropCompletion } from '../containers/usePropCompletion'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
-
-const loadingKey = 'metaPaneUpdateComponentElement'
 
 export const MetaPaneBuilderComponent = () => {
   const { tree } = useContext(ComponentContext)
@@ -21,9 +21,9 @@ export const MetaPaneBuilderComponent = () => {
     <SelectElementProvider tree={tree}>
       <MetaPaneBuilder
         tree={tree}
-        renderUpdateElementContent={(element) => (
+        renderUpdateElementContent={(element, loadingKey) => (
           <>
-            <UpdateComponentElementForm
+            <UpdateElementForm
               key={element.id + '_update_form'}
               elementId={element.id}
               tree={tree}

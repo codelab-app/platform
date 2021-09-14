@@ -5,6 +5,7 @@ import {
   PropMapBindingSection,
   UpdateElementPropsForm,
 } from '@codelab/frontend/modules/element'
+import { LoadingIndicator } from '@codelab/frontend/view/components'
 import { IElementVertex } from '@codelab/shared/abstract/core'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
@@ -27,6 +28,7 @@ const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
 const TabContainer = styled.div`
   height: 100%;
   display: flex;
+  border-top: rgba(211, 211, 211, 0.21) 1px solid;
 
   .ant-layout-sider-children,
   .ant-tabs,
@@ -48,9 +50,14 @@ const TabContainer = styled.div`
 `
 
 export interface MetaPaneBuilderProps {
-  renderUpdateElementContent: (element: IElementVertex) => React.ReactNode
+  renderUpdateElementContent: (
+    element: IElementVertex,
+    loadingIndicatorKey: string,
+  ) => React.ReactNode
   tree: ElementTreeGraphql
 }
+
+const loadingKey = 'metaPaneBuilderLoadingState'
 
 export const MetaPaneBuilder = ({
   renderUpdateElementContent,
@@ -77,16 +84,27 @@ export const MetaPaneBuilder = ({
       }}
     >
       <TabContainer>
+        <div css={tw`absolute bottom-0 right-0 m-8`}>
+          <LoadingIndicator recoilKey={loadingKey} />
+        </div>
+
         <Tabs defaultActiveKey={selectedElement.id + '_tab1'}>
           <Tabs.TabPane tab="Element" key={selectedElement.id + '_tab1'}>
-            <FormsGrid>{renderUpdateElementContent(selectedElement)}</FormsGrid>
+            <FormsGrid>
+              {renderUpdateElementContent(selectedElement, loadingKey)}
+            </FormsGrid>
           </Tabs.TabPane>
 
-          <Tabs.TabPane tab="Props" key={selectedElement.id + '_tab2'}>
+          <Tabs.TabPane
+            tab="Props"
+            key={selectedElement.id + '_tab2'}
+            destroyInactiveTabPane // needed to update props if we change them in the prop inspector tab
+          >
             {selectedElement.atom ? (
               <UpdateElementPropsForm
                 elementId={selectedElement.id}
                 key={selectedElement.id}
+                loadingStateKey={loadingKey}
               />
             ) : (
               `Add an atom to this element to edit its props`
@@ -102,6 +120,7 @@ export const MetaPaneBuilder = ({
               <ElementCssEditor
                 key={selectedElement.id}
                 elementId={selectedElement.id}
+                loadingStateKey={loadingKey}
               />
             ) : (
               `Add an atom to this page element to edit its CSS`

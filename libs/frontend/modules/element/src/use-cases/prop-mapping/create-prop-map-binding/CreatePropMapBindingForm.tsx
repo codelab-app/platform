@@ -49,13 +49,22 @@ export const CreatePropMapBindingForm = ({
       targetElementId,
       elementId,
     }: CreatePropMapBindingSchema) => ({
-      input: { sourceKey, targetKey, targetElementId, elementId },
+      input: {
+        sourceKey: sourceKey.trim(),
+        targetKey: targetKey.trim(),
+        targetElementId,
+        elementId,
+      },
     }),
   })
 
   const [propCompleteOptions, setPropCompleteOptions] = useState<
     Array<{ label: string; value: string }>
-  >([])
+  >(
+    providePropCompletion
+      ? providePropCompletion('').map((o) => ({ value: o, label: o }))
+      : [],
+  )
 
   const handlePropSearch = (value: string) => {
     if (providePropCompletion) {
