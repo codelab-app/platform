@@ -23,37 +23,37 @@ export const renderElement: RenderHandler = (element, context) => {
     return null
   }
 
-  // (1). All the prop-generating and prop-modifying pipes
+  // (1). Basic prop-generating pipes
   const propsPipeline = compose(
     basePropsPipe,
     persistedPropsPipe,
     extraPropsPipe,
     extraElementPropsPipe,
+  )
+
+  // (2). Prop-modifying pipes
+  const propModifiersPipeline = compose(
     hookPipe,
+    loopingRenderPipe,
     propMapBindingsPipe,
   )
 
-  // (2). All the pipes that output ReactElements
+  // (3). All the pipes that output ReactElements
   const renderPipeline = compose(
     conditionalRenderPipe,
-    loopingRenderPipe,
     elementsComponentPipe,
     elementsAtomPipe,
   )
 
-  // (3). Combine the 2 pipelines and add the final renderChildrenPipe
-  const finalPipeline = compose(
+  // (4). Combine the pipelines and add the final renderChildrenPipe
+  const pipeline = compose(
     propsPipeline,
+    propModifiersPipeline,
     renderPipeline,
   )(renderChildrenPipe)
 
-  // (4). Render
-  const renderResult = finalPipeline(element, context, {})
-
-  // (5). Call the context.onRendered callback with the rendered result
-  callOnRendered(renderResult, element, context)
-
-  return renderResult
+  // (5). Render
+  return pipeline(element, context, {})
 }
 
 /**
@@ -132,8 +132,6 @@ const hookPipe: RenderPipeFactory = (next) => (element, context, props) => {
         key={element.hooks.length}
         hooks={element.hooks}
         renderChildren={(hookProps) => {
-          console.log(hookProps)
-
           return next(element, context, mergeProps(props, hookProps))
         }}
       />
@@ -154,7 +152,7 @@ const propMapBindingsPipe: RenderPipeFactory =
 
     let currentElementProps: Record<string, any> = {}
 
-    if (element.propMapBindings) {
+    if (element.propMapBindings && element.propMapBindings.length > 0) {
       for (const binding of element.propMapBindings) {
         if (binding.targetElementId) {
           extraProps[binding.targetElementId] = applyBinding(
@@ -188,6 +186,8 @@ const propMapBindingsPipe: RenderPipeFactory =
 const conditionalRenderPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
     if (!evaluateRenderIfPropKey(element.renderIfPropKey, props)) {
+      callOnRendered(null, element, context)
+
       return null
     }
 
@@ -217,12 +217,6 @@ const loopingRenderPipe: RenderPipeFactory =
     return (
       <>
         {value.map((valueProps, i) => {
-          console.log(
-            mergeProps(props, valueProps, {
-              key: `${props.key || element.id}-${i}`,
-            }),
-          )
-
           return next(
             element,
             context,
@@ -267,7 +261,7 @@ const elementsAtomPipe: RenderPipeFactory =
 
     const mergedProps = mergeProps(atomProps, props)
 
-    return (
+    const rendered = (
       <RootComponent
         {...mergedProps}
         css={element.css ? css(element.css) : undefined}
@@ -275,6 +269,10 @@ const elementsAtomPipe: RenderPipeFactory =
         {next(element, context, mergedProps)}
       </RootComponent>
     )
+
+    callOnRendered(rendered, element, context)
+
+    return rendered
   }
 
 /**
@@ -309,7 +307,6 @@ const callOnRendered = (
   if (renderCallback) {
     if (Array.isArray(rendered)) {
       rendered.forEach((r) => {
-        console.log('rendered', r)
         renderCallback(r, element)
       })
     } else {
