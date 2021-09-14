@@ -9,6 +9,7 @@ import {
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
 import { BuilderSidebarNavigation } from '@codelab/frontend/modules/builder'
+import { DashboardHeader } from '@codelab/frontend/view/sections'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Breadcrumb, Card, PageHeader, Space } from 'antd'
 import React from 'react'
@@ -49,7 +50,7 @@ export const getServerSideProps = withPageAuthRequired()
 
 AtomsPage.Template = withAppQueryProvider(DashboardTemplate)
 AtomsPage.SidebarNavigation = BuilderSidebarNavigation
-AtomsPage.Header = null
+AtomsPage.Header = DashboardHeader
 AtomsPage.MetaPane = null
 AtomsPage.MainPane = null
 

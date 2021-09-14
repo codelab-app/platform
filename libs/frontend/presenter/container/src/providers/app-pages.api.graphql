@@ -1,0 +1,5 @@
+query AppPages($input: GetAppInput!) {
+  app: getApp(input: $input) {
+    ...App
+  }
+}

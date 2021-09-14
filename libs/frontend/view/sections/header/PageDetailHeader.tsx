@@ -1,10 +1,12 @@
 import { EyeOutlined } from '@ant-design/icons'
+import { HeaderProps } from '@codelab/frontend/abstract/props'
 import { PageType } from '@codelab/frontend/model/state/router'
+import { HeaderPageList } from '@codelab/frontend/view/sections'
 import { Menu } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export const PageDetailHeader = () => {
+export const PageDetailHeader = (props: HeaderProps) => {
   const router = useRouter()
 
   const switchPreviewMode = () => {
@@ -20,17 +22,16 @@ export const PageDetailHeader = () => {
   }
 
   return (
-    <>
-      <Menu theme="dark" mode="horizontal" selectable={false}>
-        <Menu.Item
-          key="1"
-          icon={<EyeOutlined />}
-          style={{
-            backgroundColor: 'initial',
-          }}
-          onClick={switchPreviewMode}
-        />
-      </Menu>
-    </>
+    <Menu theme="light" mode="horizontal" selectable={false}>
+      <HeaderPageList {...props} />
+      <Menu.Item
+        key="1"
+        icon={<EyeOutlined />}
+        style={{
+          backgroundColor: 'initial',
+        }}
+        onClick={switchPreviewMode}
+      />
+    </Menu>
   )
 }

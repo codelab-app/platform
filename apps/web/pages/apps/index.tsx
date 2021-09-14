@@ -8,11 +8,11 @@ import {
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
-import { ContentSection } from '@codelab/frontend/view/sections'
 import {
-  DashboardTemplate,
-  SidebarNavigation,
-} from '@codelab/frontend/view/templates'
+  ContentSection,
+  DashboardHeader,
+} from '@codelab/frontend/view/sections'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
@@ -48,8 +48,8 @@ const AppsPage: CodelabPage = () => {
 export const getServerSideProps = withPageAuthRequired()
 
 AppsPage.Template = DashboardTemplate
-AppsPage.SidebarNavigation = SidebarNavigation
-AppsPage.Header = null
+AppsPage.SidebarNavigation = null
+AppsPage.Header = DashboardHeader
 AppsPage.MetaPane = null
 AppsPage.MainPane = null
 

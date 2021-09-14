@@ -6,11 +6,8 @@ overwrite: true
 
 schema: schema.api.graphql
 documents:
-  - libs/**/modules/**/*.api.graphql
-  - libs/frontend/view/**/*.api.graphql
-  - apps/web/**/*.api.graphql
-  - apps/cli/**/*.api.graphql
-  - apps/web-e2e/**/*.api.graphql
+  - libs/**/*.api.graphql
+  - apps/**/*.api.graphql
 
 config:
   # Switch off if have deeply nested issues
@@ -36,10 +33,10 @@ generates:
   libs/shared/codegen/graphql/src/types.api.graphql.gen.ts:
     plugins:
       - typescript
-    hooks:
-      afterAllFileWrite:
-        - yarn prettier --write
-        - yarn eslint --ext ts --fix
+    # hooks:
+    #   afterAllFileWrite:
+    #     - yarn prettier --write
+    #     - yarn eslint --ext ts --fix
 
   libs/:
     preset: near-operation-file

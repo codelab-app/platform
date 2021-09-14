@@ -7,9 +7,9 @@ import {
 } from '@codelab/frontend/modules/builder'
 import {
   PageContext,
-  PageDetailHeader,
   withPageQueryProvider,
 } from '@codelab/frontend/modules/page'
+import { PageDetailHeader } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
@@ -42,7 +42,11 @@ const PageBuilder: CodelabPage = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-PageBuilder.Header = PageDetailHeader
+const PageBuilderHeader = () => {
+  return <PageDetailHeader />
+}
+
+PageBuilder.Header = PageBuilderHeader
 PageBuilder.Template = withPageQueryProvider(DashboardTemplate)
 PageBuilder.SidebarNavigation = SidebarNavigation
 PageBuilder.MainPane = MainPaneBuilderPage
