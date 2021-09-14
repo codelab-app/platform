@@ -57,8 +57,7 @@ const ElementHooksListItemDescription = (config: HookConfigFragment) => {
     if (config.__typename === 'QueryHookConfig' && config.lambdaId) {
       getLambda({ variables: { input: { lambdaId: config.lambdaId } } })
     }
-  }, [config])
-  console.log(config)
+  }, [config, getLambda])
 
   switch (config.__typename) {
     case 'QueryHookConfig':
