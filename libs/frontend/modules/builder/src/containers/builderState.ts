@@ -1,6 +1,7 @@
 import { IElementVertex } from '@codelab/shared/abstract/core'
 import { ReactNode, useCallback } from 'react'
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil'
+import { useFetchElement } from './useFetchElement'
 
 export interface BuilderHandlers {
   setSelectedElement: (element?: IElementVertex) => void
@@ -110,6 +111,9 @@ export const useBuilderSelection = (): BuilderHandlers & {
 } => {
   const selectionState = useRecoilValue(builderSelectionState)
   const setters = useSetBuilder()
+
+  useFetchElement(selectionState.selectedElement, setters.setSelectedElement)
+  useFetchElement(selectionState.hoveringElement, setters.setHoveringElement)
 
   return {
     ...setters,
