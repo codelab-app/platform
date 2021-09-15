@@ -250,7 +250,7 @@ export type Component = {
   name: Scalars['String'];
 };
 
-/** The ComponentType allows selecting a Component in the props form. The value is stored as the componentId */
+/** The ComponentType allows selecting a Component in the props form. The value is stored as the componentId  */
 export type ComponentType = Type & {
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -435,7 +435,7 @@ export type ElementGraph = {
   vertices: Array<ElementVertex>;
 };
 
-/** The ElementType allows selecting an Element in the props form. The value is stored as the elementId */
+/** The ElementType allows selecting an Element in the props form. The value is stored as the elementId  */
 export type ElementType = Type & {
   id: Scalars['ID'];
   kind: ElementTypeKind;
@@ -609,7 +609,7 @@ export type LambdaPayload = {
   payload: Scalars['String'];
 };
 
-/** The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId */
+/** The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId  */
 export type LambdaType = Type & {
   id: Scalars['ID'];
   name: Scalars['String'];
