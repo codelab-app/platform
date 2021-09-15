@@ -1,5 +1,6 @@
 import { PureQueryOptions } from '@apollo/client'
 import { useMoveElementMutation } from '@codelab/frontend/modules/element'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import {
   MainPaneTemplate,
   MainPaneTemplateProps,
@@ -9,6 +10,7 @@ import { ElementTree } from '@codelab/shared/core'
 import { Dropdown, Tree as AntdTree } from 'antd'
 import { TreeProps } from 'antd/lib/tree'
 import React, { useState } from 'react'
+import { useHotkeys } from 'react-hotkeys-hook'
 import tw from 'twin.macro'
 import { useBuilderSelection } from '../containers/builderState'
 import { ElementContextMenu } from './ElementContextMenu'
@@ -31,6 +33,28 @@ export const MainPaneBuilder = ({
     resetSelection,
     state: { selectedElement },
   } = useBuilderSelection()
+
+  const { openDeleteModal } = useCrudModalForm(EntityType.Element)
+  useHotkeys(
+    'del,backspace',
+    () => {
+      if (selectedElement) {
+        openDeleteModal([selectedElement.id], selectedElement)
+      }
+    },
+    { enabled: !!selectedElement },
+    [selectedElement],
+  )
+  useHotkeys(
+    'esc',
+    () => {
+      if (selectedElement) {
+        setSelectedElement(undefined)
+      }
+    },
+    { enabled: !!selectedElement },
+    [selectedElement],
+  )
 
   const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(
     tree,

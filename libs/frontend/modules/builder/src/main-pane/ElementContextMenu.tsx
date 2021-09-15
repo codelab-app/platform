@@ -1,7 +1,12 @@
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
+import {
+  EntityType,
+  Key,
+  useCrudModalForm,
+} from '@codelab/frontend/view/components'
 import { IElementVertex } from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import React from 'react'
+import tw from 'twin.macro'
 
 export interface ElementContextMenuProps {
   element: IElementVertex
@@ -26,6 +31,7 @@ export const ElementContextMenu = ({
           onClick()
         }
       }}
+      css={tw`border border-gray-200 shadow-xl`}
     >
       <Menu.Item
         onClick={() => openCreateModal({ parentElementId: element.id })}
@@ -38,7 +44,10 @@ export const ElementContextMenu = ({
         onClick={() => openDeleteModal([element.id], element)}
         key="2"
       >
-        Delete `{element.name}`
+        <span>Delete `{element.name}` </span>{' '}
+        <span>
+          <Key>del</Key> <Key>{'\u232B'}</Key>
+        </span>
       </Menu.Item>
     </Menu>
   )
