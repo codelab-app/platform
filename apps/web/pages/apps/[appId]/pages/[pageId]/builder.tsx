@@ -42,11 +42,7 @@ const PageBuilder: CodelabPage = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-const PageBuilderHeader = () => {
-  return <PageDetailHeader />
-}
-
-PageBuilder.Header = PageBuilderHeader
+PageBuilder.Header = PageDetailHeader
 PageBuilder.Template = withPageQueryProvider(DashboardTemplate)
 PageBuilder.SidebarNavigation = SidebarNavigation
 PageBuilder.MainPane = MainPaneBuilderPage
