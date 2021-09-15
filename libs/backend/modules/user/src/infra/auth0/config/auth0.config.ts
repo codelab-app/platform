@@ -14,12 +14,11 @@ export interface Auth0Config {
   clientId: string
   clientSecret: string
   audience: string
-  // api: {
-  //   audience: string
-  //   clientId: string
-  //   clientSecret: string
-  //   accessToken?: string
-  // }
+  api: {
+    // audience: string
+    clientId: string
+    clientSecret: string
+  }
   admin: UsernamePassword
   cypress: UsernamePassword
 }
@@ -34,12 +33,12 @@ export const auth0Config = registerAs<Auth0Config>(
     clientId: get('AUTH0_CLIENT_ID').required().asString(),
     clientSecret: get('AUTH0_CLIENT_SECRET').required().asString(),
     audience: get('AUTH0_AUDIENCE').required().asString(),
-    // api: {
-    //   audience: get('AUTH0_AUDIENCE').required().asString(),
-    //   clientId: get('AUTH0_API_CLIENT_ID').required().asString(),
-    //   clientSecret: get('AUTH0_API_CLIENT_SECRET').required().asString(),
-    //   accessToken: get('AUTH0_M2M_TOKEN').required().asString(),
-    // },
+    api: {
+      // audience: get('AUTH0_AUDIENCE').required().asString(),
+      clientId: get('AUTH0_API_CLIENT_ID').required().asString(),
+      clientSecret: get('AUTH0_API_CLIENT_SECRET').required().asString(),
+      // accessToken: get('AUTH0_M2M_TOKEN').required().asString(),
+    },
     admin: {
       username: get('AUTH0_ADMIN_USERNAME').required().asString(),
       password: get('AUTH0_ADMIN_PASSWORD').required().asString(),

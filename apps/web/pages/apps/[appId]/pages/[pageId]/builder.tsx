@@ -7,9 +7,9 @@ import {
 } from '@codelab/frontend/modules/builder'
 import {
   PageContext,
-  PageDetailHeader,
   withPageQueryProvider,
 } from '@codelab/frontend/modules/page'
+import { PageDetailHeader } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
