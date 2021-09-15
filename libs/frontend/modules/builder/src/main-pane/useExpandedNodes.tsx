@@ -16,7 +16,6 @@ export const useExpandedNodes = (
       return
     }
 
-    const expandedSet = new Set(expandedNodeIds)
     const pathResult = tree.getPathFromRoot(selectedPageElement.id)
 
     // If there is a path (there should always be, it's a tree after all), go through each node
@@ -25,9 +24,13 @@ export const useExpandedNodes = (
       return
     }
 
-    const toExpand = pathResult.path.filter((id) => !expandedSet.has(id))
-    setExpandedNodeIds((prevState) => [...prevState, ...toExpand])
-  }, [selectedPageElement])
+    setExpandedNodeIds((prevState) => {
+      const expandedSet = new Set(prevState)
+      const toExpand = pathResult.path.filter((id) => !expandedSet.has(id))
+
+      return [...prevState, ...toExpand]
+    })
+  }, [tree, selectedPageElement])
 
   return { expandedNodeIds, setExpandedNodeIds }
 }

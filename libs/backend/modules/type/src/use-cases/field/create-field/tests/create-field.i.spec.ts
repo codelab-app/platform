@@ -33,8 +33,8 @@ describe('CreateField', () => {
     const interfaceTypeId = await createInterfaceType(userApp)
 
     createFieldInput = {
-      name: partialCreateFieldInput.name!,
-      key: partialCreateFieldInput.key!,
+      name: partialCreateFieldInput.name,
+      key: partialCreateFieldInput.key as string,
       description: partialCreateFieldInput.description,
       interfaceId: interfaceTypeId,
       type: {

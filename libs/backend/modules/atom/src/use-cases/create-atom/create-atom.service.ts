@@ -23,7 +23,7 @@ export class CreateAtomService extends DgraphCreateUseCase<CreateAtomInput> {
   protected async executeTransaction(request: CreateAtomInput, txn: Txn) {
     // TODO: Validate api is a valid interfaceId
 
-    const { type, name, api } = request
+    const { name, api } = request
 
     /**
      * (1) Create atom

@@ -58,7 +58,7 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
     return null
   }
 
-  const save = () => {
+  const save = async () => {
     if (!persistedPropsValue) {
       notify({ title: 'Invalid json', type: 'warning' })
 
@@ -66,7 +66,7 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
     }
 
     try {
-      mutate({
+      await mutate({
         variables: {
           input: {
             elementId,

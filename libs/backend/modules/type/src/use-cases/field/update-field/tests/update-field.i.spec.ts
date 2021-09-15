@@ -39,8 +39,8 @@ describe('UpdateField', () => {
     const interfaceTypeId = await createInterfaceType(userApp)
 
     const createFieldInput: CreateFieldInput = {
-      name: partialCreateFieldInput.name!,
-      key: partialCreateFieldInput.key!,
+      name: partialCreateFieldInput.name,
+      key: partialCreateFieldInput.key as string,
       description: partialCreateFieldInput.description,
       interfaceId: interfaceTypeId,
       type: {

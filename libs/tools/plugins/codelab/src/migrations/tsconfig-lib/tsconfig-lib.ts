@@ -14,7 +14,7 @@ import { merge } from 'lodash'
 export default async function update(host: Tree) {
   const projects = getProjects(host)
 
-  projects.forEach(({ targets, root, projectType }, projectName) => {
+  projects.forEach(({ root, projectType }) => {
     const tsConfigExt = projectType === 'library' ? 'lib' : 'app'
 
     const paths = {

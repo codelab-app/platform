@@ -89,10 +89,11 @@ describe('DeleteComponent', () => {
     deleteElementInput = { elementId }
     getElementInput = { elementId }
 
-    const results1 = await domainRequest<
-      GetComponentInput,
-      TestGetComponentElementsQuery
-    >(userApp, TestGetComponentElementsGql, getComponentInput)
+    await domainRequest<GetComponentInput, TestGetComponentElementsQuery>(
+      userApp,
+      TestGetComponentElementsGql,
+      getComponentInput,
+    )
 
     expect(elementId).toBeDefined()
   })

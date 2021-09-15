@@ -18,7 +18,7 @@ const SELECTED_LIBRARY_KEY = 'codelab_selected_library'
 const fetchAndSelectFirstLibrary = (
   selectLibrary: (libraryId: string) => void,
 ) => {
-  getApolloClient()
+  return getApolloClient()
     .query({
       query: null!,
       // query: GetFirstLibraryGql,
@@ -80,11 +80,14 @@ export const useSelectedLibrary = () => {
             // We know that it's valid, select it
             selectLibrary(item)
           } else {
-            fetchAndSelectFirstLibrary(selectLibrary)
+            fetchAndSelectFirstLibrary(selectLibrary).catch((err) =>
+              console.error(err),
+            )
           }
         })
+        .catch((err) => console.error(err))
     } else if (!state.selectedLibraryId) {
-      fetchAndSelectFirstLibrary(selectLibrary)
+      fetchAndSelectFirstLibrary(selectLibrary).catch((e) => console.error(e))
     }
   }, [])
 

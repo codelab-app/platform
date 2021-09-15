@@ -8,6 +8,6 @@ export class AdminResolver {
 
   @Mutation(() => Void, { nullable: true })
   resetData() {
-    this.resetDataService.execute()
+    return this.resetDataService.execute()
   }
 }

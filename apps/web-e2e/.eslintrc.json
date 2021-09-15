@@ -7,6 +7,12 @@
       "rules": {}
     },
     {
+      "files": ["*.spec*.ts"],
+      "rules": {
+        "@typescript-eslint/no-floating-promises": "off"
+      }
+    },
+    {
       "files": ["src/plugins/index.js"],
       "rules": {
         "@typescript-eslint/no-var-requires": "off",

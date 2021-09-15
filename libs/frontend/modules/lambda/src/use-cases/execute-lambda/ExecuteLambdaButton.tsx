@@ -22,7 +22,7 @@ export const ExecuteLambdaButton = (props: LambdaRecord) => {
     <Button
       type="primary"
       onClick={() => {
-        executeLambdaMutation().then(({ data }) => {
+        return executeLambdaMutation().then(({ data }) => {
           if (data) {
             createNotificationHandler({
               type: 'info',

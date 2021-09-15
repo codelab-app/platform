@@ -7,6 +7,6 @@ export class ResetDataService implements UseCasePort<void, void> {
   constructor(private dgraphService: DgraphService) {}
 
   async execute(): Promise<void> {
-    await this.dgraphService.resetData()
+    return this.dgraphService.resetData()
   }
 }
