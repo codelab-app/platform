@@ -22,6 +22,7 @@ export interface DgraphElement
   renderForEachPropKey?: string
   renderIfPropKey?: string
   propMapBindings?: Array<DgraphPropMapBinding> | null
+  propTransformationJs?: string | null
 }
 
 export const isDgraphElement = (

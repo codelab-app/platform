@@ -250,7 +250,7 @@ export type Component = {
   name: Scalars['String'];
 };
 
-/** The ComponentType allows selecting a Component in the props form. The value is stored as the componentId  */
+/** The ComponentType allows selecting a Component in the props form. The value is stored as the componentId */
 export type ComponentType = Type & {
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -410,6 +410,7 @@ export type Element = {
   /** Due to union nullability issue, we have to make this non-nullable. Defaults to atom type */
   name: Scalars['String'];
   propMapBindings: Array<PropMapBinding>;
+  propTransformationJs?: Maybe<Scalars['String']>;
   /** Props in a json format */
   props: Scalars['String'];
   /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
@@ -434,7 +435,7 @@ export type ElementGraph = {
   vertices: Array<ElementVertex>;
 };
 
-/** The ElementType allows selecting an Element in the props form. The value is stored as the elementId  */
+/** The ElementType allows selecting an Element in the props form. The value is stored as the elementId */
 export type ElementType = Type & {
   id: Scalars['ID'];
   kind: ElementTypeKind;
@@ -608,7 +609,7 @@ export type LambdaPayload = {
   payload: Scalars['String'];
 };
 
-/** The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId  */
+/** The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId */
 export type LambdaType = Type & {
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -1189,6 +1190,7 @@ export type UpdateElementData = {
   componentId?: Maybe<Scalars['String']>;
   css?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  propTransformationJs?: Maybe<Scalars['String']>;
   /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
   renderForEachPropKey?: Maybe<Scalars['String']>;
   /** If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy) */

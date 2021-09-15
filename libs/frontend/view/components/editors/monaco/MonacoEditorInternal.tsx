@@ -13,6 +13,7 @@ const MonacoEditorInternal = ({
   editorOptions,
   containerProps,
   onMount,
+  onBeforeMount,
 }: MonacoEditorProps) => {
   const [isEditorLoaded, setIsEditorLoaded] = useState(false)
   const divRef = useRef<HTMLDivElement>(null)
@@ -21,6 +22,10 @@ const MonacoEditorInternal = ({
   const changeHandlerRef = useRef<monaco.IDisposable | undefined>(undefined)
 
   useEffect(() => {
+    if (onBeforeMount) {
+      onBeforeMount(monaco)
+    }
+
     const editor = (editorRef.current = monaco.editor.create(
       divRef.current as HTMLDivElement,
       {

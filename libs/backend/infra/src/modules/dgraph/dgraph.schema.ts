@@ -76,6 +76,7 @@ export const dgraphSchema = `
     renderForEachPropKey
     renderIfPropKey
     propMapBindings
+    propTransformationJs
   }
 
   type ${Atom} {
@@ -201,4 +202,6 @@ export const dgraphSchema = `
   sourceKey: string .
   targetKey: string .
   propMapBindings: [uid] @reverse .
+
+  propTransformationJs: string .
 `
