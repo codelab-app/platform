@@ -84,7 +84,7 @@
       "tags": ["scope:backend"]
     },
     "frontend-abstract-core": {
-      "tags": []
+      "tags": ["type:abstract", "scope:frontend"]
     },
     "frontend-abstract-props": {
       "tags": ["type:abstract", "scope:frontend"]

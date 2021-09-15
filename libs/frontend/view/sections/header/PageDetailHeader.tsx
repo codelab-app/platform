@@ -20,17 +20,15 @@ export const PageDetailHeader = () => {
   }
 
   return (
-    <>
-      <Menu theme="dark" mode="horizontal" selectable={false}>
-        <Menu.Item
-          key="1"
-          icon={<EyeOutlined />}
-          style={{
-            backgroundColor: 'initial',
-          }}
-          onClick={switchPreviewMode}
-        />
-      </Menu>
-    </>
+    <Menu theme="light" mode="horizontal" selectable={false}>
+      <Menu.Item
+        key="1"
+        icon={<EyeOutlined />}
+        style={{
+          backgroundColor: 'initial',
+        }}
+        onClick={switchPreviewMode}
+      />
+    </Menu>
   )
 }
