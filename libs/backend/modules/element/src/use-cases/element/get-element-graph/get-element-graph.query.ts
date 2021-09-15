@@ -35,4 +35,5 @@ export const getElementGraphQuery = () =>
           targetElement
           sourceKey
           targetKey
+          propTransformationJs
       `)

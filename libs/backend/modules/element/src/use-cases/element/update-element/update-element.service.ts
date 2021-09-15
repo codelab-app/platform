@@ -36,6 +36,7 @@ export class UpdateElementService extends DgraphUseCase<UpdateElementRequest> {
         componentId,
         renderIfPropKey,
         renderForEachPropKey,
+        propTransformationJs,
       },
     },
   }: UpdateElementRequest) {
@@ -47,6 +48,7 @@ export class UpdateElementService extends DgraphUseCase<UpdateElementRequest> {
       css: css || '',
       renderForEachPropKey,
       renderIfPropKey,
+      propTransformationJs,
     })
   }
 

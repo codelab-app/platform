@@ -66,6 +66,9 @@ export class Element {
   @Field(() => [PropMapBinding])
   propMapBindings: Array<PropMapBinding>
 
+  @Field(() => String, { nullable: true })
+  propTransformationJs?: string
+
   constructor({
     id,
     name = '',
@@ -76,6 +79,7 @@ export class Element {
     renderForEachPropKey,
     renderIfPropKey,
     propMapBindings,
+    propTransformationJs,
   }: Element) {
     this.id = id
     this.name = name
@@ -86,5 +90,6 @@ export class Element {
     this.renderIfPropKey = renderIfPropKey
     this.renderForEachPropKey = renderForEachPropKey
     this.propMapBindings = propMapBindings
+    this.propTransformationJs = propTransformationJs
   }
 }

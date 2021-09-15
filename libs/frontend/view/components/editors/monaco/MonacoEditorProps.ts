@@ -14,4 +14,5 @@ export type MonacoEditorProps = {
     editor: monaco.editor.IStandaloneCodeEditor,
     monacoInstance: typeof monaco,
   ) => void
+  onBeforeMount?: (monacoInstance: typeof monaco) => void
 }

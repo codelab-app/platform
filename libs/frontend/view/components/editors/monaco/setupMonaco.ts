@@ -32,7 +32,7 @@ window.MonacoEnvironment = {
       return new CssWorker()
     }
 
-    if (label === 'javascript') {
+    if (label === 'javascript' || label === 'typescript') {
       return new TsWorker()
     }
 

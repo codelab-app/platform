@@ -23,19 +23,19 @@ export const renderElement: RenderHandler = (element, context) => {
     return null
   }
 
-  // (1). Basic prop-generating pipes
+  // (1). Base props
   const propsPipeline = compose(
     basePropsPipe,
     persistedPropsPipe,
-    extraPropsPipe,
     extraElementPropsPipe,
   )
 
-  // (2). Prop-modifying pipes
+  // (2).Prop transformers
   const propModifiersPipeline = compose(
     hookPipe,
     loopingRenderPipe,
     propMapBindingsPipe,
+    propTransformationJsPipe,
   )
 
   // (3). All the pipes that output ReactElements
@@ -49,6 +49,7 @@ export const renderElement: RenderHandler = (element, context) => {
   const pipeline = compose(
     propsPipeline,
     propModifiersPipeline,
+    extraPropsPipe, // here are our 'global' builder props, which must override all other props, since we override onClick here
     renderPipeline,
   )(renderChildrenPipe)
 
@@ -178,6 +179,36 @@ const propMapBindingsPipe: RenderPipeFactory =
       },
       mergeProps(props, currentElementProps),
     )
+  }
+
+/*
+ *
+ * Evaluates the prop transformation js
+ */
+
+const propTransformationJsPipe: RenderPipeFactory =
+  (next) => (element, context, initialProps) => {
+    const transformationJs = element.propTransformationJs
+
+    if (transformationJs) {
+      try {
+        const props = { ...initialProps }
+        // eslint-disable-next-line no-eval
+        const transform = eval(`(${transformationJs})`) // the parentheses allow us to return a function from eval
+
+        if (typeof transform === 'function') {
+          const newProps = transform(props)
+
+          if (typeof newProps === 'object' && newProps) {
+            return next(element, context, mergeProps(props, newProps))
+          }
+        }
+      } catch (e) {
+        console.warn('Error while evaluating prop transformation', e)
+      }
+    }
+
+    return next(element, context, initialProps)
   }
 
 /**

@@ -59,6 +59,7 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
       atom: atomId ? { uid: atomId } : null,
       component: componentId ? { uid: componentId } : null,
       props: '{}',
+      propTransformationJs: null,
     }
 
     if (parentElementId) {

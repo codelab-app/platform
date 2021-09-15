@@ -4,6 +4,7 @@ import {
   ElementTreeGraphql,
   PropMapBindingSection,
   UpdateElementPropsForm,
+  UpdateElementPropTransformationForm,
 } from '@codelab/frontend/modules/element'
 import { LoadingIndicator } from '@codelab/frontend/view/components'
 import { IElementVertex } from '@codelab/shared/abstract/core'
@@ -167,6 +168,19 @@ export const MetaPaneBuilder = ({
                   ? providePropCompletion(searchValue, selectedElement.id)
                   : []
               }
+            />
+          </Tabs.TabPane>
+
+          <Tabs.TabPane
+            style={{ overflow: 'visible' }}
+            tab="Prop transformation"
+            key={selectedElement.id + '_tab7'}
+          >
+            <UpdateElementPropTransformationForm
+              key={selectedElement.id}
+              elementId={selectedElement.id}
+              loadingStateKey={loadingKey}
+              tree={tree}
             />
           </Tabs.TabPane>
         </Tabs>

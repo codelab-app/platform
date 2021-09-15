@@ -23,6 +23,11 @@ export class UpdateElementData extends PickType(CreateElementInput, [
     nullable: true,
   })
   renderIfPropKey?: string
+
+  @Field(() => String, {
+    nullable: true,
+  })
+  propTransformationJs?: string
 }
 
 // Note that moveElement is there for updating order and parent

@@ -36,6 +36,7 @@ export class ElementAdapter extends BaseAdapter<DgraphElementInput, Element> {
       propMapBindings: this.propMapBindingAdapter.map(
         element.propMapBindings ?? [],
       ),
+      propTransformationJs: element.propTransformationJs ?? undefined,
     })
   }
 }
