@@ -88,6 +88,7 @@ const UpdateElementFormInternal = ({
           componentId,
           renderForEachPropKey: element.renderForEachPropKey,
           renderIfPropKey: element.renderIfPropKey,
+          propTransformationJs: element.propTransformationJs,
           css: element.css,
         }}
         onSubmitError={createNotificationHandler({
@@ -102,6 +103,7 @@ const UpdateElementFormInternal = ({
             'componentId',
             'renderIfPropKey',
             'renderForEachPropKey',
+            'propTransformationJs',
             'css', // We edit it in the css tab
           ]}
         />

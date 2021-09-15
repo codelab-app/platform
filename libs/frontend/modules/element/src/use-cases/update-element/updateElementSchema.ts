@@ -37,6 +37,10 @@ export const updateElementSchema: JSONSchemaType<UpdateElementSchema> = {
       type: 'string',
       nullable: true,
     },
+    propTransformationJs: {
+      type: 'string',
+      nullable: true,
+    },
   },
   required: [],
 } as const

@@ -180,6 +180,7 @@ export const MetaPaneBuilder = ({
               key={selectedElement.id}
               elementId={selectedElement.id}
               loadingStateKey={loadingKey}
+              tree={tree}
             />
           </Tabs.TabPane>
         </Tabs>

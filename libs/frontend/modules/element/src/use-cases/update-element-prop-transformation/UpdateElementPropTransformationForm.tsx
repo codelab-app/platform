@@ -6,10 +6,12 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ElementFragment } from '../../graphql'
+import { ElementTreeGraphql } from '../../tree'
 import { refetchGetElementQuery, useGetElementQuery } from '../get-element'
 import { useUpdateElementMutation } from '../update-element/UpdateElement.api.graphql.gen'
 
 interface InternalProps {
+  tree: ElementTreeGraphql
   element: ElementFragment
   loadingStateKey: string
   monacoProps?: Omit<MonacoEditorProps, 'value' | 'onChange'>
@@ -24,6 +26,7 @@ function transform(props){
 
 const InternalForm = ({
   element,
+  tree,
   loadingStateKey,
   monacoProps,
 }: InternalProps) => {
@@ -43,6 +46,8 @@ const InternalForm = ({
   const valueRef = useRef(value)
   valueRef.current = value
 
+  const componentId = tree.getComponentOfElement(element.id)?.id
+
   const updateValue = useCallback(
     (newValue: string) => {
       if (newValue === defaultFn) {
@@ -59,6 +64,7 @@ const InternalForm = ({
                 name: element.name,
                 renderIfPropKey: element.renderIfPropKey,
                 propTransformationJs: newValue,
+                componentId,
                 css: element.css,
                 renderForEachPropKey: element.renderForEachPropKey,
               },
@@ -110,16 +116,18 @@ const InternalForm = ({
   )
 }
 
-export type UpdateElementPropTransformationFormProp = {
+export type UpdateElementPropTransformationFormProp = Omit<
+  InternalProps,
+  'element'
+> & {
   elementId: string
-  loadingStateKey: string
-  monacoProps?: Omit<MonacoEditorProps, 'value' | 'onChange'>
 }
 
 export const UpdateElementPropTransformationForm = ({
   elementId,
   loadingStateKey,
   monacoProps,
+  tree,
 }: UpdateElementPropTransformationFormProp) => {
   const { data } = useGetElementQuery({
     fetchPolicy: 'cache-first',
@@ -137,6 +145,7 @@ export const UpdateElementPropTransformationForm = ({
       element={element}
       loadingStateKey={loadingStateKey}
       monacoProps={monacoProps}
+      tree={tree}
     />
   )
 }
