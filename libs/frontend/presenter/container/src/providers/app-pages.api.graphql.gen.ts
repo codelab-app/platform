@@ -1,25 +1,30 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { AppFragment } from '../../../../modules/app/src/App.fragment.api.graphql.gen';
 import { gql } from '@apollo/client';
-import { AppFragmentDoc } from '../../../../modules/app/src/App.fragment.api.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
+export type AppPages__AppFragment = { id: string, name: string };
+
 export type AppPagesQueryVariables = Types.Exact<{
   input: Types.GetAppInput;
 }>;
 
 
-export type AppPagesQuery = { app?: Types.Maybe<AppFragment> };
+export type AppPagesQuery = { app?: Types.Maybe<AppPages__AppFragment> };
 
-
+export const AppPages__AppFragmentDoc = gql`
+    fragment AppPages__App on App {
+  id
+  name
+}
+    `;
 export const AppPagesGql = gql`
     query AppPages($input: GetAppInput!) {
   app: getApp(input: $input) {
-    ...App
+    ...AppPages__App
   }
 }
-    ${AppFragmentDoc}`;
+    ${AppPages__AppFragmentDoc}`;
 
 /**
  * __useAppPagesQuery__

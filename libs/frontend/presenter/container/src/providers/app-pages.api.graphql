@@ -1,5 +1,10 @@
+fragment AppPages__App on App {
+  id
+  name
+}
+
 query AppPages($input: GetAppInput!) {
   app: getApp(input: $input) {
-    ...App
+    ...AppPages__App
   }
 }
