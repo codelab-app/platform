@@ -1,6 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { TypeGraphFragment } from '../../../../type/src/graphql/TypeGraph.fragment.api.graphql.gen';
 import { gql } from '@apollo/client';
+import { TypeGraphFragmentDoc } from '../../../../type/src/graphql/TypeGraph.fragment.api.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type ExportAtomsQueryVariables = Types.Exact<{
@@ -8,16 +10,32 @@ export type ExportAtomsQueryVariables = Types.Exact<{
 }>;
 
 
-export type ExportAtomsQuery = { exportAtoms?: Types.Maybe<{ payload: string }> };
+export type ExportAtomsQuery = { getAtoms?: Types.Maybe<Array<Export__AtomsFragment>> };
 
+export type Export__AtomsFragment = { id: string, name: string, type: Types.AtomType, api: { id: string, name: string, typeKind: Types.TypeKind, typeGraph: TypeGraphFragment } };
 
-export const ExportAtomsGql = gql`
-    query ExportAtoms($input: GetAtomsInput) {
-  exportAtoms(input: $input) {
-    payload
+export const Export__AtomsFragmentDoc = gql`
+    fragment Export__Atoms on Atom {
+  id
+  name
+  type
+  api {
+    id
+    name
+    typeKind
+    typeGraph {
+      ...TypeGraph
+    }
   }
 }
-    `;
+    ${TypeGraphFragmentDoc}`;
+export const ExportAtomsGql = gql`
+    query ExportAtoms($input: GetAtomsInput) {
+  getAtoms(input: $input) {
+    ...Export__Atoms
+  }
+}
+    ${Export__AtomsFragmentDoc}`;
 
 /**
  * __useExportAtomsQuery__

@@ -3,5 +3,6 @@
 set -x
 
 husky install
-yarn cli update-schema --env dev
 nx build cli
+yarn cli update-schema --env dev
+yarn cli update-schema --env local

@@ -24,7 +24,7 @@ export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
         })
 
         if (data) {
-          const content = JSON.stringify(data.exportAtoms)
+          const content = JSON.stringify(data.getAtoms)
           console.log(content)
           fileDownload(content, 'atoms.json')
         }
