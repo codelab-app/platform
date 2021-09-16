@@ -33,7 +33,7 @@ export const DeleteLambdaForm = (props: DeleteLambdaFormProps) => {
 
   useEffect(() => {
     setLoading(deleting)
-  }, [deleting])
+  }, [setLoading, deleting])
 
   return (
     <FormUniforms<DeleteLambdaSchema>

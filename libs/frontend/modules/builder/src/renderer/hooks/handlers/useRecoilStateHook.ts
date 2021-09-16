@@ -44,7 +44,7 @@ export const useRecoilStateHook: HookHandler = (
         return defaultValue
       })
     }
-  }, [config.defaultValue])
+  }, [setState, config.defaultValue])
 
   return {
     [config.stateKey]: state,

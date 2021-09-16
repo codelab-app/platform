@@ -29,24 +29,27 @@ export const usePromisesLoadingIndicator = (key: string | undefined) => {
     setState((s) => ({ ...s, isLoading: promises.length !== 0 }))
   }, [promises, setState])
 
-  const trackPromise = useCallback((promise: Promise<any>) => {
-    setPromises([...promises, promise])
-    setState((s) => ({ ...s, isErrored: false }))
+  const trackPromise = useCallback(
+    (promise: Promise<any>) => {
+      setPromises((prev) => [...prev, promise])
+      setState((s) => ({ ...s, isErrored: false }))
 
-    return promise
-      .then((r) => {
-        setPromises((prs) => prs.filter((p) => p !== promise))
-        setState((s) => ({ ...s, isErrored: false }))
+      return promise
+        .then((r) => {
+          setPromises((prs) => prs.filter((p) => p !== promise))
+          setState((s) => ({ ...s, isErrored: false }))
 
-        return r
-      })
-      .catch((e) => {
-        setPromises((prs) => prs.filter((p) => p !== promise))
-        setState((s) => ({ ...s, isErrored: true }))
+          return r
+        })
+        .catch((e) => {
+          setPromises((prs) => prs.filter((p) => p !== promise))
+          setState((s) => ({ ...s, isErrored: true }))
 
-        return e
-      })
-  }, [])
+          return e
+        })
+    },
+    [setState],
+  )
 
   return {
     trackPromise,

@@ -98,6 +98,7 @@ export const CyGraph = (props: ICyGraphProps) => {
             name: 'dagre',
           }).run()
         })
+        .catch((err) => console.error(err))
     }
 
     const onDragOver: ExtendedEventHandler = (

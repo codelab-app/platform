@@ -24,6 +24,7 @@ export const ShouldMoveWithDifferentParent = () => {
 
         setCyGraphProps({ elements: { nodes, edges } })
       })
+      .catch((err) => console.error(err))
   }, [])
 
   return (
@@ -48,6 +49,7 @@ export const MoveWithDifferentParentCorrectOrder = () => {
 
         setCyGraphProps({ elements: { nodes, edges } })
       })
+      .catch((err) => console.error(err))
   }, [])
 
   return (
@@ -72,6 +74,7 @@ export const ShouldMoveItemToEndOfListSameParent = () => {
 
         setCyGraphProps({ elements: { nodes, edges } })
       })
+      .catch((err) => console.error(err))
   }, [])
 
   return (
@@ -96,6 +99,7 @@ export const ShouldMoveItemToEndOfListDifferentParent = () => {
 
         setCyGraphProps({ elements: { nodes, edges } })
       })
+      .catch((err) => console.error(err))
   }, [])
 
   return (
@@ -120,6 +124,7 @@ export const ShouldMoveWithDifferentParentWithTwoChildren = () => {
 
         setCyGraphProps({ elements: { nodes, edges } })
       })
+      .catch((err) => console.error(err))
   }, [])
 
   return (

@@ -28,7 +28,7 @@ export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {
     // Keep the loading state in recoil, so we can use it other components, like loading buttons, etc.
     setLoading(loading)
     setLambdaState((current) => ({ ...current, loading }))
-  }, [loading, setLambdaState])
+  }, [setLoading, loading, setLambdaState])
 
   const onSubmit = (submitData: CreateLambdaInput) => {
     return mutate({

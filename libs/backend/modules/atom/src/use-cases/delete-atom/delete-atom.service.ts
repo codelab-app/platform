@@ -6,7 +6,7 @@ import {
   DgraphRepository,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+import { Txn } from 'dgraph-js-http'
 import { GetAtomService } from '../get-atom'
 import { DeleteAtomInput } from './delete-atom.input'
 
@@ -26,24 +26,24 @@ export class DeleteAtomService extends DgraphUseCase<DeleteAtomInput> {
     const { atomId } = request
     await this.validate(request)
 
-    const mu: Mutation = {
-      mutation: `
-        upsert {
-          query {
-            q(func: uid(${atomId}) @filter(eq(dgraph.type, ${DgraphEntityType.Atom}) @recurse {
-              ATOM as uid
-              API as api
-              fields
-            }
-          }
-          mutation {
-            delete {
-              uid(ATOM) * * .
-            }
-          }
-        }
-      `,
-    }
+    // const mu: Mutation = {
+    //   mutation: `
+    //     upsert {
+    //       query {
+    //         q(func: uid(${atomId}) @filter(eq(dgraph.type, ${DgraphEntityType.Atom}) @recurse {
+    //           ATOM as uid
+    //           API as api
+    //           fields
+    //         }
+    //       }
+    //       mutation {
+    //         delete {
+    //           uid(ATOM) * * .
+    //         }
+    //       }
+    //     }
+    //   `,
+    // }
 
     // await this.dgraph.executeMutation(txn, mu)
 

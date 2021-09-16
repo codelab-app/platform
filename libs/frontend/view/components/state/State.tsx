@@ -60,18 +60,20 @@ export const State = ({
               payload: eventSafeStringify({ event: e, previousState: state }),
             },
           },
-        }).then((r) => {
-          const payload = r.data?.executeLambda?.payload
-
-          if (payload !== undefined) {
-            try {
-              const newState = JSON.parse(payload)
-              setState(newState)
-            } catch (err) {
-              console.error('Error while updating state ', err)
-            }
-          }
         })
+          .then((r) => {
+            const payload = r.data?.executeLambda?.payload
+
+            if (payload !== undefined) {
+              try {
+                const newState = JSON.parse(payload)
+                setState(newState)
+              } catch (err) {
+                console.error('Error while updating state ', err)
+              }
+            }
+          })
+          .catch((err) => console.error(err))
       } else {
         // If not - directly set the state
         setState(e)

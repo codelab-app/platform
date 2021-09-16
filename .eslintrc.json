@@ -172,9 +172,13 @@
         "plugin:@nrwl/nx/typescript",
         "plugin:jest-formatting/strict"
       ],
+      "parserOptions": {
+        "project": "tsconfig.base.json"
+      },
       "rules": {
         "curly": "error",
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-floating-promises": "error",
         "import/no-cycle": "error",
         "@typescript-eslint/ban-types": [
           "error",

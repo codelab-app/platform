@@ -44,7 +44,7 @@ describe('Component', () => {
     // Setup
     const label = 'Test component'
     cy.intercept('/api/graphql').as('graphql')
-    deleteAllComponents()
+    // deleteAllComponents()
     openComponentsTab()
 
     getComponentGridItemByTestId().should('not.exist') // We should have no items in the list
@@ -54,7 +54,7 @@ describe('Component', () => {
     cy.getOpenedModal().findByLabelText('Label').clear().type(label) // Input the label
     cy.getOpenedModal().findByButtonText('Create component').click() // Click the submit button
 
-    cy.wait('@graphql') // Wait for the request to finish
+    // cy.wait('@graphql') // Wait for the request to finish
 
     // Validate component is created
     cy.getOpenedModal().should('not.exist') // modal should close
@@ -82,7 +82,7 @@ describe('Component', () => {
         cy.getOpenedModal().findByLabelText('Label').clear().type(newLabel)
         cy.getOpenedModal().findByButtonText('Update component').click()
 
-        cy.wait('@graphql')
+        // cy.wait('@graphql')
 
         // Validate component is updated
         cy.getOpenedModal().should('not.exist') // modal should close
@@ -122,32 +122,36 @@ describe('Component', () => {
     // Setup
     cy.intercept('/api/graphql').as('graphql')
 
-    deleteAllComponents().then(() => {
-      cy.createComponent(libraryId, 'Test component 1').then((comp1) => {
-        cy.createComponent(libraryId, 'Test component 2').then(
-          (compToDelete) => {
-            openComponentsTab()
+    deleteAllComponents()
+      .then(() => {
+        cy.createComponent(libraryId, 'Test component 1').then((comp1) => {
+          cy.createComponent(libraryId, 'Test component 2').then(
+            (compToDelete) => {
+              openComponentsTab()
 
-            // Ensure we have the 2 components in the left tab
-            // getComponentGridItemByLabel(comp1.label)
-            // getComponentGridItemByLabel(compToDelete.label).rightclick() //Click comp2 delete button
+              // Ensure we have the 2 components in the left tab
+              // getComponentGridItemByLabel(comp1.label)
+              // getComponentGridItemByLabel(compToDelete.label).rightclick() //Click comp2 delete button
 
-            cy.getOpenedDropdownMenu()
-              .findByText('Delete') // And click the Delete item
-              .click()
+              cy.getOpenedDropdownMenu()
+                .findByText('Delete') // And click the Delete item
+                .click()
 
-            // Delete component
-            cy.getOpenedModal().findByButtonText('Delete component').click()
+              // Delete component
+              cy.getOpenedModal().findByButtonText('Delete component').click()
 
-            cy.wait('@graphql') // Wait for request
+              cy.wait('@graphql') // Wait for request
 
-            // Validate component is deleted
-            cy.getOpenedModal().should('not.exist') // modal should close
-            // getComponentGridItemByLabel(compToDelete.label).should('not.exist') //We should not have the deleted item in the list
-            // getComponentGridItemByLabel(comp1.label) //But should have the other item in the list
-          },
-        )
+              // Validate component is deleted
+              cy.getOpenedModal().should('not.exist') // modal should close
+              // getComponentGridItemByLabel(compToDelete.label).should('not.exist') //We should not have the deleted item in the list
+              // getComponentGridItemByLabel(comp1.label) //But should have the other item in the list
+            },
+          )
+        })
       })
-    })
+      .catch((e) => {
+        throw e
+      })
   })
 })

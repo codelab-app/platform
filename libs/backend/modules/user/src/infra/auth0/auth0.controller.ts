@@ -44,7 +44,8 @@ export class Auth0Controller {
   @Get('assign-role')
   async assignRole() {
     try {
-      ;(await this.auth0Service.getManagementClient()).assignRolestoUser(
+      const client = await this.auth0Service.getManagementClient()
+      await client.assignRolestoUser(
         { id: 'google-oauth2|116956556863062538891' },
         { roles: ['rol_WIDPKvXdJ5Mplco4'] },
       )

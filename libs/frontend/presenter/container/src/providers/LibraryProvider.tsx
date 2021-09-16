@@ -5,6 +5,7 @@ type ILibraryContext = {
   loading: boolean
 }
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 export const LibraryContext = React.createContext<ILibraryContext>(undefined!)
 
 export const LibraryProvider = ({
@@ -23,7 +24,7 @@ export const LibraryProvider = ({
         loading,
       }}
     >
-      {loading ? <></> : children}
+      {loading ? null : children}
     </LibraryContext.Provider>
   )
 }

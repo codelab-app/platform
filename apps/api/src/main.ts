@@ -31,4 +31,6 @@ const bootstrap = async () => {
   })
 }
 
-bootstrap()
+bootstrap().catch((err) => {
+  throw err
+})

@@ -6,14 +6,19 @@ const bootstrap = new BootstrapConsole({
   useDecorators: true,
 })
 
-bootstrap.init().then(async (app) => {
-  try {
-    await app.init()
-    await bootstrap.boot()
-    await app.close()
-  } catch (e) {
-    console.error(e)
-    await app.close()
-    process.exit(1)
-  }
-})
+bootstrap
+  .init()
+  .then(async (app) => {
+    try {
+      await app.init()
+      await bootstrap.boot()
+      await app.close()
+    } catch (e) {
+      console.error(e)
+      await app.close()
+      process.exit(1)
+    }
+  })
+  .catch((err) => {
+    throw err
+  })

@@ -7,7 +7,7 @@ export class AdminResolver {
   constructor(private resetDataService: ResetDataService) {}
 
   @Mutation(() => Void, { nullable: true })
-  resetData() {
-    this.resetDataService.execute()
+  async resetData() {
+    await this.resetDataService.execute()
   }
 }

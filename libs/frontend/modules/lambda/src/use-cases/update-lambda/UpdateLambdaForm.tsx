@@ -58,7 +58,7 @@ export const UpdateLambdaForm = (
   useEffect(() => {
     setLoading(updateLambdaLoading)
     setLambdaState((current) => ({ ...current, updateLambdaLoading }))
-  }, [updateLambdaLoading])
+  }, [setLambdaState, setLoading, updateLambdaLoading])
 
   if (!data?.getLambda) {
     return null
