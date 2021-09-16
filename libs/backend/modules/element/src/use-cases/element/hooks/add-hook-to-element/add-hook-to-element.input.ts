@@ -1,5 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { GraphqlHookConfigInput, QueryHookConfigInput } from './config-inputs'
+import {
+  GraphqlQueryHookConfigInput,
+  QueryHookConfigInput,
+  QueryPageHookConfigInput,
+  QueryPagesHookConfigInput,
+} from './config-inputs'
 import { RecoilStateHookConfigInput } from './config-inputs/recoil-state-hook-config.input'
 
 @InputType({
@@ -20,4 +25,10 @@ export class AddHookToElementInput {
 
   @Field(() => RecoilStateHookConfigInput, { nullable: true })
   declare recoilStateHook?: RecoilStateHookConfigInput
+
+  @Field(() => QueryPageHookConfigInput, { nullable: true })
+  declare queryPageHook?: QueryPageHookConfigInput
+
+  @Field(() => QueryPagesHookConfigInput, { nullable: true })
+  declare queryPagesHook?: QueryPagesHookConfigInput
 }

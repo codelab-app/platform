@@ -57,11 +57,26 @@ export class AddHookToElementService extends DgraphCreateUseCase<AddHookToElemen
       queryHook,
       graphqlQueryHook,
       recoilStateHook,
+      queryPageHook,
+      queryPagesHook,
+    },
+    input: {
+      elementId,
+      queryHook,
+      graphqlQueryHook,
+      recoilStateHook,
       graphqlMutationHook,
     },
     currentUser,
   }: AddHookToElementRequest) {
     if (
+      [
+        queryHook,
+        graphqlQueryHook,
+        recoilStateHook,
+        queryPageHook,
+        queryPagesHook,
+      ].filter((f) => !!f).length !== 1
       [
         queryHook,
         graphqlQueryHook,

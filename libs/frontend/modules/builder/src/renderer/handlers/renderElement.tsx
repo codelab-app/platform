@@ -126,6 +126,8 @@ const extraElementPropsPipe: RenderPipeFactory =
  * Adds in props from element.hooks
  */
 const hookPipe: RenderPipeFactory = (next) => (element, context, props) => {
+  console.log('hookPipe', element.hooks)
+
   if (element.hooks?.length > 0) {
     return (
       // the key will cause the wrapper to be destroyed and re-rendered when we add/remove hooks, which will avoid react's error

@@ -3,4 +3,6 @@ export enum HookType {
   GraphqlQuery = 'GraphqlQuery',
   GraphqlMutation = 'GraphqlMutation',
   RecoilState = 'RecoilState',
+  QueryPage = 'QueryPage',
+  QueryPages = 'QueryPages',
 }

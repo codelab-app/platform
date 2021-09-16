@@ -7,9 +7,13 @@ export type GraphqlHookConfigFragment = { dataKey?: Types.Maybe<string>, graphql
 
 export type RecoilStateHookConfigFragment = { defaultValue?: Types.Maybe<string>, stateKey: string };
 
-export type HookConfig_GraphqlHookConfig_Fragment = (
-  { __typename: 'GraphqlHookConfig' }
-  & GraphqlHookConfigFragment
+export type QueryPagesHookConfigFragment = { appId: string };
+
+export type QueryPageHookConfigFragment = { pageId: string };
+
+export type HookConfig_GraphqlQueryHookConfig_Fragment = (
+  { __typename: 'GraphqlQueryHookConfig' }
+  & GraphqlQueryHookConfigFragment
 );
 
 export type HookConfig_QueryHookConfig_Fragment = (
@@ -17,12 +21,22 @@ export type HookConfig_QueryHookConfig_Fragment = (
   & QueryHookConfigFragment
 );
 
+export type HookConfig_QueryPageHookConfig_Fragment = (
+  { __typename: 'QueryPageHookConfig' }
+  & QueryPageHookConfigFragment
+);
+
+export type HookConfig_QueryPagesHookConfig_Fragment = (
+  { __typename: 'QueryPagesHookConfig' }
+  & QueryPagesHookConfigFragment
+);
+
 export type HookConfig_RecoilStateHookConfig_Fragment = (
   { __typename: 'RecoilStateHookConfig' }
   & RecoilStateHookConfigFragment
 );
 
-export type HookConfigFragment = HookConfig_GraphqlHookConfig_Fragment | HookConfig_QueryHookConfig_Fragment | HookConfig_RecoilStateHookConfig_Fragment;
+export type HookConfigFragment = HookConfig_GraphqlQueryHookConfig_Fragment | HookConfig_QueryHookConfig_Fragment | HookConfig_QueryPageHookConfig_Fragment | HookConfig_QueryPagesHookConfig_Fragment | HookConfig_RecoilStateHookConfig_Fragment;
 
 export const QueryHookConfigFragmentDoc = gql`
     fragment QueryHookConfig on QueryHookConfig {
@@ -46,13 +60,27 @@ export const RecoilStateHookConfigFragmentDoc = gql`
   stateKey
 }
     `;
+export const QueryPagesHookConfigFragmentDoc = gql`
+    fragment QueryPagesHookConfig on QueryPagesHookConfig {
+  appId
+}
+    `;
+export const QueryPageHookConfigFragmentDoc = gql`
+    fragment QueryPageHookConfig on QueryPageHookConfig {
+  pageId
+}
+    `;
 export const HookConfigFragmentDoc = gql`
     fragment HookConfig on HookConfig {
   __typename
   ...QueryHookConfig
   ...GraphqlHookConfig
   ...RecoilStateHookConfig
+  ...QueryPagesHookConfig
+  ...QueryPageHookConfig
 }
     ${QueryHookConfigFragmentDoc}
-${GraphqlHookConfigFragmentDoc}
-${RecoilStateHookConfigFragmentDoc}`;
+${GraphqlQueryHookConfigFragmentDoc}
+${RecoilStateHookConfigFragmentDoc}
+${QueryPagesHookConfigFragmentDoc}
+${QueryPageHookConfigFragmentDoc}`;

@@ -1,4 +1,4 @@
-import { SelectLambda } from '@codelab/frontend/modules/type'
+import { SelectLambda, SelectPage } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -11,8 +11,9 @@ import {
 } from '@codelab/frontend/view/components'
 import { HookType } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
+import { useRouter } from 'next/router'
 import React from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
+import { AutoField, AutoFields, HiddenField } from 'uniforms-antd'
 import { refetchGetElementQuery } from '../../get-element/GetElement.api.graphql.gen'
 import { useAddHookToElementMutation } from './AddHookToElement.api.graphql.gen'
 import {
@@ -71,6 +72,8 @@ export const AddHookToElementForm = ({
   elementId,
   ...props
 }: AddHookToElementFormProps) => {
+  const router = useRouter()
+
   const {
     crudModal: { reset },
     handleSubmit,
@@ -103,6 +106,8 @@ export const AddHookToElementForm = ({
       <AutoFields
         omitFields={[
           'queryHook',
+          'queryPageHook',
+          'queryPagesHook',
           'queryHookVariant',
           'graphqlQueryHook',
           'graphqlMutationHook',
@@ -111,6 +116,17 @@ export const AddHookToElementForm = ({
       />
 
       {/* Graphql query fields */}
+      <DisplayIfType type={HookType.QueryPages}>
+        <HiddenField
+          name="queryPagesHook.appId"
+          value={String(router.query.appId)}
+        />
+      </DisplayIfType>
+
+      <DisplayIfType type={HookType.QueryPage}>
+        <AutoField name="queryPageHook.pageId" component={SelectPage} />
+      </DisplayIfType>
+
       <DisplayIfType type={HookType.GraphqlQuery}>
         <div
           css={css`

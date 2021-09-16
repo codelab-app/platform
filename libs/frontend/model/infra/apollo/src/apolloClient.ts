@@ -41,7 +41,9 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
         ElementVertex: ['Element', 'Component'],
         HookConfig: [
           'QueryHookConfig',
-          'GraphqlHookConfig',
+          'QueryPageHookConfig',
+          'QueryPagesHookConfig',
+          'GraphqlQueryHookConfig',
           'RecoilStateHookConfig',
         ],
         Type: [

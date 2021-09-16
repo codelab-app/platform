@@ -4,6 +4,8 @@ import { HookType } from '@codelab/shared/abstract/core'
 import { useGraphqlMutationHook } from './handlers/useGraphqlMutationHook'
 import { useGraphqlQueryHook } from './handlers/useGraphqlQueryHook'
 import { useQueryHook } from './handlers/useQueryHook'
+import { useQueryPageHook } from './handlers/useQueryPage'
+import { useQueryPagesHook } from './handlers/useQueryPages'
 import { useRecoilStateHook } from './handlers/useRecoilStateHook'
 import { HookHandler } from './HookHandler'
 
@@ -31,6 +33,14 @@ const getHookData: HookHandler = ({ config, type }: HookFragment) => {
 
     case HookType.RecoilState: {
       return useRecoilStateHook(config)
+    }
+
+    case HookType.QueryPage: {
+      return useQueryPageHook(config)
+    }
+
+    case HookType.QueryPages: {
+      return useQueryPagesHook(config)
     }
   }
 }

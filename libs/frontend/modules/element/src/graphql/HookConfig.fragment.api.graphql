@@ -17,9 +17,19 @@ fragment RecoilStateHookConfig on RecoilStateHookConfig {
   stateKey
 }
 
+fragment QueryPagesHookConfig on QueryPagesHookConfig {
+  appId
+}
+
+fragment QueryPageHookConfig on QueryPageHookConfig {
+  pageId
+}
+
 fragment HookConfig on HookConfig {
   __typename
   ...QueryHookConfig
   ...GraphqlHookConfig
   ...RecoilStateHookConfig
+  ...QueryPagesHookConfig
+  ...QueryPageHookConfig
 }

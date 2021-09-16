@@ -19,6 +19,8 @@ export type AddHookToElementInput = {
   graphqlMutationHook?: Maybe<GraphqlHookConfigInput>;
   graphqlQueryHook?: Maybe<GraphqlHookConfigInput>;
   queryHook?: Maybe<QueryHookConfigInput>;
+  queryPageHook?: Maybe<QueryPageHookConfigInput>;
+  queryPagesHook?: Maybe<QueryPagesHookConfigInput>;
   recoilStateHook?: Maybe<RecoilStateHookConfigInput>;
 };
 
@@ -579,12 +581,14 @@ export type Hook = {
   type: HookType;
 };
 
-export type HookConfig = GraphqlHookConfig | QueryHookConfig | RecoilStateHookConfig;
+export type HookConfig = GraphqlQueryHookConfig | QueryHookConfig | QueryPageHookConfig | QueryPagesHookConfig | RecoilStateHookConfig;
 
 export enum HookType {
   GraphqlMutation = 'GraphqlMutation',
   GraphqlQuery = 'GraphqlQuery',
   Query = 'Query',
+  QueryPage = 'QueryPage',
+  QueryPages = 'QueryPages',
   RecoilState = 'RecoilState'
 }
 
@@ -1059,6 +1063,22 @@ export enum QueryMethod {
   Put = 'PUT',
   Unlink = 'UNLINK'
 }
+
+export type QueryPageHookConfig = {
+  pageId: Scalars['String'];
+};
+
+export type QueryPageHookConfigInput = {
+  pageId?: Maybe<Scalars['String']>;
+};
+
+export type QueryPagesHookConfig = {
+  appId: Scalars['String'];
+};
+
+export type QueryPagesHookConfigInput = {
+  appId?: Maybe<Scalars['String']>;
+};
 
 export type RecoilStateHookConfig = {
   defaultValue?: Maybe<Scalars['String']>;

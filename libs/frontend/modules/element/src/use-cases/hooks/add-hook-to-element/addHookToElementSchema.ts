@@ -4,7 +4,9 @@ import { AddHookToElementMutationVariables } from './AddHookToElement.api.graphq
 
 type AddHookToElementInput = AddHookToElementMutationVariables['input']
 type QueryHookConfigInput = AddHookToElementInput['queryHook']
-type GraphqlHookConfigInput = AddHookToElementInput['graphqlQueryHook']
+type QueryPageHookConfigInput = AddHookToElementInput['queryPageHook']
+type QueryPagesHookConfigInput = AddHookToElementInput['queryPagesHook']
+type GraphqlQueryHookConfigInput = AddHookToElementInput['graphqlQueryHook']
 type RecoilStateHookConfig = AddHookToElementInput['recoilStateHook']
 
 export enum QueryHookVariant {
@@ -15,6 +17,8 @@ export enum QueryHookVariant {
 export type AddHookToElementSchema = {
   type: HookType
   queryHookVariant?: QueryHookVariant
+  queryPageHook?: QueryPageHookConfigInput
+  queryPagesHook?: QueryPagesHookConfigInput
   queryHook?: QueryHookConfigInput
   graphqlQueryHook?: GraphqlHookConfigInput
   graphqlMutationHook?: GraphqlHookConfigInput
@@ -28,6 +32,24 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
     type: {
       type: 'string',
       enum: Object.values(HookType),
+    },
+    queryPagesHook: {
+      type: 'object',
+      nullable: true,
+      properties: {
+        appId: {
+          type: 'string',
+        },
+      },
+    },
+    queryPageHook: {
+      type: 'object',
+      nullable: true,
+      properties: {
+        pageId: {
+          type: 'string',
+        },
+      },
     },
     queryHookVariant: {
       type: 'string',
@@ -151,6 +173,16 @@ export const mapDataToInput = (
       return {
         elementId,
         recoilStateHook: data.recoilStateHook,
+      }
+    case HookType.QueryPage:
+      return {
+        elementId,
+        queryPageHook: data.queryPageHook,
+      }
+    case HookType.QueryPages:
+      return {
+        elementId,
+        queryPagesHook: data.queryPagesHook,
       }
   }
 
