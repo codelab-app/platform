@@ -1,0 +1,36 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Next.js Apollo SSR props",
+  "steps": [
+    {
+      "file": "apps/web/pages/apps/[appId]/pages/[pageId]/builder.tsx",
+      "description": "We start with an Auth0 hoc that guards authenticated users to the route. Here we can specify a `getServerSideProps` which is run server-side SSR.",
+      "line": 73
+    },
+    {
+      "file": "apps/web/pages/apps/[appId]/pages/[pageId]/builder.tsx",
+      "description": "We use an Auth0 helper method to extract the JWT token from our current session.",
+      "line": 75
+    },
+    {
+      "file": "apps/web/pages/apps/[appId]/pages/[pageId]/builder.tsx",
+      "description": "We explicitly pass the token into our Apollo client,",
+      "line": 79
+    },
+    {
+      "file": "libs/frontend/model/infra/apollo/src/links/authLink.ts",
+      "description": "Because otherwise token would be empty as there is no Cookies on the server side.",
+      "line": 15
+    },
+    {
+      "file": "apps/web/pages/apps/[appId]/pages/[pageId]/builder.tsx",
+      "description": "We then make the query server-side to pre-load our cache.",
+      "line": 82
+    },
+    {
+      "file": "apps/web/pages/apps/[appId]/pages/[pageId]/builder.tsx",
+      "description": "Then the query here will load from cache.",
+      "line": 56
+    }
+  ]
+}
