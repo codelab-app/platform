@@ -12,7 +12,7 @@ import { errorLink } from './links/errorLink'
 import { graphqlApiLink } from './links/graphqlApiLink'
 
 export interface ApolloContext {
-  authToken?: string
+  accessToken?: string
 }
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'

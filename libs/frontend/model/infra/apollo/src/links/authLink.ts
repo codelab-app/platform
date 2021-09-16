@@ -10,15 +10,15 @@ import { getAuthToken } from '@codelab/frontend/shared/utils'
  */
 // We use http-proxy-middleware to handle adding authorization code
 export const authLink: ApolloLink = setContext(
-  (req, { authToken: authTokenFromContext, headers }) => {
+  (req, { accessToken: accessTokenFromContext, headers }) => {
     // get the authentication token from local cookie if it exists
-    const token = authTokenFromContext || getAuthToken()
+    const token = accessTokenFromContext || getAuthToken()
 
     // return the headers to the context so httpLink can read them
     return {
       headers: {
         ...headers,
-        // authorization: token ? `Bearer ${token}` : '',
+        authorization: token ? `Bearer ${token}` : '',
       },
     }
   },

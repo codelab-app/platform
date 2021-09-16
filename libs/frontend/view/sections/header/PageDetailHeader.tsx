@@ -20,8 +20,6 @@ export const PageDetailHeader = (props: HeaderProps) => {
     })
   }
 
-  console.log(props)
-
   return (
     <Menu theme="light" mode="horizontal" selectable={false}>
       <Menu.Item

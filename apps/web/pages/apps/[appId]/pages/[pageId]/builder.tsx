@@ -73,15 +73,11 @@ PageBuilder.MetaPane = MetaPaneBuilderPage
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
     const session = await getSession(context.req, context.res)
-    const appId = context.query.appId
+    const appId = context.query.appId as string
 
-    console.log(session)
-
-    if (!appId) {
-      throw new Error('Missing appId')
-    }
-
-    const apolloClient = initializeApollo()
+    const apolloClient = initializeApollo({
+      accessToken: session?.accessToken,
+    })
 
     await apolloClient.query<AppPagesQuery, AppPagesQueryVariables>({
       query: AppPagesGql,
@@ -92,8 +88,13 @@ export const getServerSideProps = withPageAuthRequired({
       },
     })
 
+    // TODO: Add typing to GetServerSideProps
+    const props: BuilderProps = {
+      appId,
+    }
+
     return {
-      props: {},
+      props,
     }
   },
 })
