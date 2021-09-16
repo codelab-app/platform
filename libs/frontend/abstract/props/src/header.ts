@@ -1,5 +1,5 @@
 import { App } from '@codelab/frontend/abstract/core'
 
 export interface HeaderProps {
-  app: App
+  app?: App | null
 }

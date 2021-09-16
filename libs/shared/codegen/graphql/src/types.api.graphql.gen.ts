@@ -26,7 +26,7 @@ export type App = {
   id: Scalars['ID'];
   name: Scalars['String'];
   ownerId: Scalars['String'];
-  pages: App;
+  pages: Array<Page>;
 };
 
 export type AppByIdFilter = {

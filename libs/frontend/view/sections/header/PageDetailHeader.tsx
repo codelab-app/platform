@@ -1,10 +1,11 @@
 import { EyeOutlined } from '@ant-design/icons'
+import { HeaderProps } from '@codelab/frontend/abstract/props'
 import { PageType } from '@codelab/frontend/model/state/router'
 import { Menu } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export const PageDetailHeader = () => {
+export const PageDetailHeader = (props: HeaderProps) => {
   const router = useRouter()
 
   const switchPreviewMode = () => {
@@ -18,6 +19,8 @@ export const PageDetailHeader = () => {
       query: { appId, pageId },
     })
   }
+
+  console.log(props)
 
   return (
     <Menu theme="light" mode="horizontal" selectable={false}>

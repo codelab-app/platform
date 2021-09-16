@@ -10,6 +10,9 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["apps/web/tsconfig.json"]
+      },
       "rules": {
         "jsx-a11y/anchor-is-valid": "off",
         "react/jsx-no-useless-fragment": "off",

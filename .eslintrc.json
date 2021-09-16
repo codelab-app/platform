@@ -30,6 +30,7 @@
         //   }
         // ],
         // "react/jsx-props-no-spreading": "error",
+        "@typescript-eslint/no-floating-promises": "error",
         "spaced-comment": [
           "error",
           "always",
@@ -172,9 +173,6 @@
         "plugin:@nrwl/nx/typescript",
         "plugin:jest-formatting/strict"
       ],
-      "parserOptions": {
-        "project": "tsconfig.base.json"
-      },
       "rules": {
         "curly": "error",
         "@typescript-eslint/no-explicit-any": "off",

@@ -10,7 +10,7 @@ type App {
   id: ID!
   ownerId: String!
   name: String!
-  pages: App!
+  pages: [Page!]!
 }
 
 type User {
