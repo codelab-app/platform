@@ -1,0 +1,197 @@
+[
+  {
+    "__typename": "Atom",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "0x72",
+      "name": "GridCol API",
+      "typeGraph": {
+        "__typename": "TypeGraph",
+        "edges": [
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Flex layout style",
+              "id": "0x73",
+              "key": "flex",
+              "name": "Flex"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x32"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "The number of cells to offset Col from the left",
+              "id": "0x74",
+              "key": "offset",
+              "name": "Offset"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x75"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Raster order",
+              "id": "0x76",
+              "key": "order",
+              "name": "Order"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x75"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "The number of cells that raster is moved to the left",
+              "id": "0x77",
+              "key": "pull",
+              "name": "Pull"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x75"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "The number of cells that raster is moved to the right",
+              "id": "0x78",
+              "key": "push",
+              "name": "Push"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x75"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Raster number of cells to occupy, 0 corresponds to display: none",
+              "id": "0x79",
+              "key": "span",
+              "name": "Span"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x75"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "screen < 576px and also default setting, could be a span value or an object containing above props",
+              "id": "0x7a",
+              "key": "xs",
+              "name": "Xs"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x32"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "screen ≥ 576px, could be a span value or an object containing above props",
+              "id": "0x7b",
+              "key": "sm",
+              "name": "Sm"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x32"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "screen ≥ 768px, could be a span value or an object containing above props",
+              "id": "0x7c",
+              "key": "md",
+              "name": "Md"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x32"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "screen ≥ 992px, could be a span value or an object containing above props",
+              "id": "0x7d",
+              "key": "lg",
+              "name": "Lg"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x32"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "screen ≥ 1200px, could be a span value or an object containing above props",
+              "id": "0x7e",
+              "key": "xl",
+              "name": "Xl"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x32"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "screen ≥ 1600px, could be a span value or an object containing above props",
+              "id": "0x7f",
+              "key": "xxl",
+              "name": "Xxl"
+            },
+            "kind": "Field",
+            "source": "0x72",
+            "target": "0x32"
+          }
+        ],
+        "vertices": [
+          {
+            "__typename": "InterfaceType",
+            "id": "0x72",
+            "name": "GridCol API",
+            "typeKind": "InterfaceType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x32",
+            "name": "String",
+            "primitiveKind": "String",
+            "typeKind": "PrimitiveType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x75",
+            "name": "Integer",
+            "primitiveKind": "Integer",
+            "typeKind": "PrimitiveType"
+          }
+        ]
+      },
+      "typeKind": "InterfaceType"
+    },
+    "id": "0x71",
+    "name": "GridCol",
+    "type": "AntDesignGridCol"
+  }
+]
