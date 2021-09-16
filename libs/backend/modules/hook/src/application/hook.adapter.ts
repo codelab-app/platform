@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common'
 import { Hook } from '../domain'
 import { HookModel } from './hook.model'
 import {
-  GraphqlQueryHookConfigModel,
+  GraphqlHookConfigModel,
   HookConfigModel,
   QueryHookConfigModel,
 } from './hook-config'
@@ -40,9 +40,8 @@ export class HookAdapter extends BaseAdapter<DgraphHookInput, HookModel> {
       case HookType.Query:
         return new QueryHookConfigModel(hook.config as QueryHookConfigModel)
       case HookType.GraphqlQuery:
-        return new GraphqlQueryHookConfigModel(
-          hook.config as GraphqlQueryHookConfigModel,
-        )
+      case HookType.GraphqlMutation:
+        return new GraphqlHookConfigModel(hook.config as GraphqlHookConfigModel)
       case HookType.RecoilState:
         return new RecoilStateHookConfigModel(
           hook.config as RecoilStateHookConfigModel,

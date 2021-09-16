@@ -53,6 +53,7 @@ describe('AddHookToElementUseCase', () => {
   let addQueryHookInput: AddHookToElementInput
   let addGraphqlQueryHookInput: AddHookToElementInput
   let addRecoilStateHookInput: AddHookToElementInput
+  let addGraphqlMutationHookInput: AddHookToElementInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([ElementModule], {
@@ -89,6 +90,14 @@ describe('AddHookToElementUseCase', () => {
       recoilStateHook: {
         stateKey: 'myState',
         defaultValue: 'true',
+      },
+    }
+
+    addGraphqlMutationHookInput = {
+      elementId: createElement.id,
+      graphqlMutationHook: {
+        url: 'https://github.com',
+        body: "Hello World. We don't actually validate if this is a valid gql string",
       },
     }
   })
@@ -140,6 +149,25 @@ describe('AddHookToElementUseCase', () => {
           graphqlBody: addGraphqlQueryHookInput.graphqlQueryHook?.body,
           graphqlUrl: addGraphqlQueryHookInput.graphqlQueryHook?.url,
           dataKey: addGraphqlQueryHookInput.graphqlQueryHook?.dataKey ?? null,
+        },
+      )
+    })
+
+    it('should add a graphql mutation Hook to an Element', async () => {
+      const {
+        addHookToElement: { id },
+      } = await addHook(userApp, addGraphqlMutationHookInput)
+
+      await verifyHookIsAdded(
+        userApp,
+        id,
+        HookType.GraphqlMutation,
+        addGraphqlMutationHookInput.elementId,
+        {
+          graphqlBody: addGraphqlMutationHookInput.graphqlMutationHook?.body,
+          graphqlUrl: addGraphqlMutationHookInput.graphqlMutationHook?.url,
+          dataKey:
+            addGraphqlMutationHookInput.graphqlMutationHook?.dataKey ?? null,
         },
       )
     })

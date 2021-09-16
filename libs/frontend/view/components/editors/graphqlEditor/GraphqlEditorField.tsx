@@ -1,3 +1,4 @@
+import { Form } from 'antd'
 import dynamic from 'next/dynamic'
 import { Ref } from 'react'
 import { connectField, HTMLFieldProps, useField } from 'uniforms'
@@ -51,15 +52,19 @@ export const graphqlEditorFieldFactory = ({
 
       if (schemaUrlFieldKey) {
         return (
-          <GraphqlEditorWithSchemaKey
-            schemaUrlFieldKey={schemaUrlFieldKey}
-            {...graphqlEditorProps}
-          />
+          <Form.Item label={props.label} name={props.name}>
+            <GraphqlEditorWithSchemaKey
+              schemaUrlFieldKey={schemaUrlFieldKey}
+              {...graphqlEditorProps}
+            />
+          </Form.Item>
         )
       }
 
       return (
-        <GraphqlEditor graphqlSchemaUrl={schemaUrl} {...graphqlEditorProps} />
+        <Form.Item label={props.label} name={props.name}>
+          <GraphqlEditor graphqlSchemaUrl={schemaUrl} {...graphqlEditorProps} />
+        </Form.Item>
       )
     },
     {

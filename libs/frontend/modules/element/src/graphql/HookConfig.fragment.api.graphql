@@ -6,7 +6,7 @@ fragment QueryHookConfig on QueryHookConfig {
   lambdaId
 }
 
-fragment GraphqlQueryHookConfig on GraphqlQueryHookConfig {
+fragment GraphqlHookConfig on GraphqlHookConfig {
   graphqlBody: body
   graphqlUrl: url
   dataKey
@@ -20,6 +20,6 @@ fragment RecoilStateHookConfig on RecoilStateHookConfig {
 fragment HookConfig on HookConfig {
   __typename
   ...QueryHookConfig
-  ...GraphqlQueryHookConfig
+  ...GraphqlHookConfig
   ...RecoilStateHookConfig
 }

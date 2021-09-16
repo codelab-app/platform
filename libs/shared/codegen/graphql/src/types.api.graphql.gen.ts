@@ -16,7 +16,8 @@ export type Scalars = {
 /** Provide exactly one of the config fields */
 export type AddHookToElementInput = {
   elementId: Scalars['String'];
-  graphqlQueryHook?: Maybe<GraphqlQueryHookConfigInput>;
+  graphqlMutationHook?: Maybe<GraphqlHookConfigInput>;
+  graphqlQueryHook?: Maybe<GraphqlHookConfigInput>;
   queryHook?: Maybe<QueryHookConfigInput>;
   recoilStateHook?: Maybe<RecoilStateHookConfigInput>;
 };
@@ -560,13 +561,13 @@ export type GetUsersInput = {
   sort: Scalars['String'];
 };
 
-export type GraphqlQueryHookConfig = {
+export type GraphqlHookConfig = {
   body: Scalars['String'];
   dataKey?: Maybe<Scalars['String']>;
   url: Scalars['String'];
 };
 
-export type GraphqlQueryHookConfigInput = {
+export type GraphqlHookConfigInput = {
   body: Scalars['String'];
   dataKey?: Maybe<Scalars['String']>;
   url: Scalars['String'];
@@ -578,9 +579,10 @@ export type Hook = {
   type: HookType;
 };
 
-export type HookConfig = GraphqlQueryHookConfig | QueryHookConfig | RecoilStateHookConfig;
+export type HookConfig = GraphqlHookConfig | QueryHookConfig | RecoilStateHookConfig;
 
 export enum HookType {
+  GraphqlMutation = 'GraphqlMutation',
   GraphqlQuery = 'GraphqlQuery',
   Query = 'Query',
   RecoilState = 'RecoilState'

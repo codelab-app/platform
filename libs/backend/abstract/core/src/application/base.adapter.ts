@@ -7,7 +7,11 @@ export abstract class BaseAdapter<TIn, TOut> implements GraphqlPort<TIn, TOut> {
    *
    * We infer the output from the input type, otherwise the output would be Array<TOut> | TOut
    */
-  public map(list: Array<TIn>) {
+  public map(list?: Array<TIn>) {
+    if (!list) {
+      return []
+    }
+
     return list.map((item) => this.mapItem(item)) as InferPromise<
       Array<TIn>,
       Array<TOut>

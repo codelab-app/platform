@@ -1,35 +1,30 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
-import { gql, useQuery } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 import { GraphqlHookConfigFragment } from '@codelab/frontend/modules/element'
+import { capitalizeFirstLetter } from '@codelab/shared/utils'
 import { HookHandler } from '../HookHandler'
 import { apolloClient } from '../utils/apolloClient'
 
-export const useGraphqlQueryHook: HookHandler = (
+export const useGraphqlMutationHook: HookHandler = (
   config: GraphqlHookConfigFragment,
 ) => {
-  // Only get serializable properties, weird errors happen if we include other things like client
-  const {
-    data,
-    error,
-    called,
-    loading,
-    previousData,
-    networkStatus,
-    variables,
-  } = useQuery(gql(config.graphqlBody), {
-    client: apolloClient,
-    context: { uri: config.graphqlUrl },
-  })
+  const [mutate, { data, error, called, loading }] = useMutation(
+    gql(config.graphqlBody),
+    {
+      client: apolloClient,
+      context: { uri: config.graphqlUrl },
+    },
+  )
 
   const res = {
     data,
     error,
     called,
     loading,
-    previousData,
-    networkStatus,
-    variables,
+    [config.dataKey
+      ? `${mutate}${capitalizeFirstLetter(config.dataKey)}`
+      : 'mutate']: mutate,
   }
 
   if (config.dataKey && res.data && res.data[config.dataKey]) {
