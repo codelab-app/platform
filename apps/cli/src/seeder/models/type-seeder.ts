@@ -171,7 +171,7 @@ export class TypeSeeder {
       )
     }
 
-    console.log(`Created type ${typeInput.name}`)
+    console.debug(`Created type ${typeInput.name}`)
 
     return createResponse.id
   }
@@ -183,7 +183,7 @@ export class TypeSeeder {
       throw new Error(`Something went wrong while creating field ${input.name}`)
     }
 
-    Logger.log(`Created field ${input.name}`)
+    Logger.debug(`Created field ${input.name}`)
 
     return createResponse.id
   }

@@ -42,7 +42,7 @@ export class AtomSeeder {
       throw new Error(`Something went wrong while creating atom ${input.type}`)
     }
 
-    Logger.log(`Created atom ${input.type}`)
+    Logger.debug(`Created atom ${input.type}`)
 
     return createResponse.id
   }

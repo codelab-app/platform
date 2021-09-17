@@ -30,7 +30,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
   }
 
   protected async executeTransaction(request: CreateTypeInput, txn: Txn) {
-    this.logger.log(request, 'Creating type')
+    this.logger.debug(request, 'Creating type')
 
     await this.validate(request)
 

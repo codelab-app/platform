@@ -74,10 +74,8 @@ export class TypeValidator {
       ),
     )
 
-    console.log(request, results)
-
     if (results?.length) {
-      this.logger.log(request, 'Type Exists')
+      this.logger.debug(request, 'Type Exists')
       throw new Error(`${request.primitiveType?.primitiveKind} already exists`)
     }
   }

@@ -123,7 +123,7 @@ export class ImportApiService
    * Returns existing type id if already existing, otherwise return created id
    */
   private async upsertType(vertex: TypeVertex) {
-    this.logger.log(vertex, 'Create or Get')
+    this.logger.debug(vertex, 'Create or Get')
 
     const typeData = CreateTypeFactory.toCreateInput(vertex)
 
@@ -133,7 +133,7 @@ export class ImportApiService
     })
 
     if (existingType) {
-      this.logger.log(existingType.uid, 'Updating Type')
+      this.logger.debug(existingType.uid, 'Updating Type')
 
       await this.updateTypeService.execute({
         typeId: existingType.uid,
@@ -147,7 +147,7 @@ export class ImportApiService
 
     const createdType = await this.createTypeService.execute(typeData)
 
-    this.logger.log(createdType.id, 'Type Created')
+    this.logger.debug(createdType.id, 'Type Created')
 
     return createdType.id
   }

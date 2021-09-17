@@ -35,7 +35,7 @@ export class ImportAtomsService implements UseCasePort<ImportAtomsInput, void> {
   private async seedAtoms(atoms: Array<TestGetExport__AtomsFragment>) {
     return Promise.all(
       atoms.map(async (atom) => {
-        this.logger.log(
+        this.logger.debug(
           omit(atom.api, 'typeGraph'),
           `Seeding Atom: ${atom.name}`,
         )
@@ -53,7 +53,7 @@ export class ImportAtomsService implements UseCasePort<ImportAtomsInput, void> {
           api: id,
         })
 
-        this.logger.log(
+        this.logger.debug(
           pick(atom, ['name', 'type']),
           createdAtomId ? 'Atom Created' : 'Atom Exists',
         )
