@@ -637,7 +637,7 @@ export type Mutation = {
   createElement: CreateResponse;
   createField: CreateResponse;
   createLambda: CreateResponse;
-  createPage: CreateResponse;
+  createPage: Page;
   createPropMapBinding: CreateResponse;
   createTag: CreateResponse;
   createType: CreateResponse;
@@ -648,7 +648,7 @@ export type Mutation = {
   deleteElement?: Maybe<Scalars['Void']>;
   deleteField?: Maybe<Scalars['Void']>;
   deleteLambda?: Maybe<Scalars['Void']>;
-  deletePage?: Maybe<Scalars['Void']>;
+  deletePage?: Maybe<Page>;
   deletePropMapBinding?: Maybe<Scalars['Void']>;
   deleteTags?: Maybe<Scalars['Void']>;
   deleteType?: Maybe<Scalars['Void']>;

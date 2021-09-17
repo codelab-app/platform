@@ -8,7 +8,11 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetPagesQuery } from '../get-pages/GetPages.api.graphql.gen'
+import {
+  GetPagesGql,
+  GetPagesQuery,
+  GetPagesQueryVariables,
+} from '../get-pages/GetPages.api.graphql.gen'
 import { useCreatePageMutation } from './CreatePage.api.graphql.gen'
 import { createPageSchema, CreatePageSchemaType } from './createPageSchema'
 
@@ -24,9 +28,38 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
     entityType: EntityType.Page,
     useMutationFunction: useCreatePageMutation,
     mutationOptions: {
-      refetchQueries: [
-        refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
-      ],
+      // refetchQueries: [
+      //   refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
+      // ],
+      update: (cache, { data }) => {
+        const newPage = data?.createPage
+
+        const variables = {
+          input: {
+            byApp: {
+              appId: app.id,
+            },
+          },
+        }
+
+        const existingPages = cache.readQuery<
+          GetPagesQuery,
+          GetPagesQueryVariables
+        >({
+          query: GetPagesGql,
+          variables,
+        })
+
+        if (existingPages && newPage) {
+          cache.writeQuery<GetPagesQuery, GetPagesQueryVariables>({
+            query: GetPagesGql,
+            variables,
+            data: {
+              pages: [...existingPages.pages, newPage],
+            },
+          })
+        }
+      },
     },
     mapVariables: (submitData: CreatePageSchemaType) => ({
       input: { ...submitData, appId: app.id },

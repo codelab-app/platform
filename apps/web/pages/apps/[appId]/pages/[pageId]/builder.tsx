@@ -61,14 +61,8 @@ const BuilderHeader = (props: BuilderProps) => {
     },
   })
 
-  return <PageDetailHeader app={data?.app} />
+  return <PageDetailHeader app={data?.app ?? null} />
 }
-
-PageBuilder.Header = BuilderHeader
-PageBuilder.Template = withPageQueryProvider(DashboardTemplate)
-PageBuilder.SidebarNavigation = SidebarNavigation
-PageBuilder.MainPane = MainPaneBuilderPage
-PageBuilder.MetaPane = MetaPaneBuilderPage
 
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
@@ -98,5 +92,11 @@ export const getServerSideProps = withPageAuthRequired({
     }
   },
 })
+
+PageBuilder.Header = BuilderHeader
+PageBuilder.Template = withPageQueryProvider(DashboardTemplate)
+PageBuilder.SidebarNavigation = SidebarNavigation
+PageBuilder.MainPane = MainPaneBuilderPage
+PageBuilder.MetaPane = MetaPaneBuilderPage
 
 export default PageBuilder

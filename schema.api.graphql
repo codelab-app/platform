@@ -680,8 +680,8 @@ type Mutation {
   updateApp(input: UpdateAppInput!): Void
   deleteApp(input: DeleteAppInput!): Void
   resetData: Void
-  createPage(input: CreatePageInput!): CreateResponse!
-  deletePage(input: DeletePageInput!): Void
+  createPage(input: CreatePageInput!): Page!
+  deletePage(input: DeletePageInput!): Page
   updatePage(input: UpdatePageInput!): Void
   createPropMapBinding(input: CreatePropMapBindingInput!): CreateResponse!
   updatePropMapBinding(input: UpdatePropMapBindingInput!): Void

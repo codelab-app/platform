@@ -11,7 +11,7 @@ import { Empty } from 'antd'
 import Head from 'next/head'
 import React, { useContext } from 'react'
 
-const PageRenderer: CodelabPage = () => {
+const PageRenderer: CodelabPage<any> = () => {
   const { tree, page, loading } = useContext(PageContext)
 
   if (loading) {
