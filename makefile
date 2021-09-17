@@ -30,7 +30,7 @@ lambda:
 #
 build-dev-affected:
 	npx env-cmd -f .env.test nx affected:build \
-		--configuration=local \
+		--configuration test \
 		--parallel \
 
 build-ci:
@@ -51,8 +51,8 @@ build-storybook:
 lint-commit-ci:
 	npx commitlint --from="${CIRCLE_BASE_REVISION}" --to="${CIRCLE_REVISION}"
 
-lint-eslint:
-	yarn affected:lint && npx prettier --check '**/*.{graphql,yaml}'
+lint-eslint-ci:
+	yarn affected:lint --configuration ci && npx prettier --check '**/*.{graphql,yaml}'
 
 lint-circular-dep:
 	yarn madge --circular apps libs --extensions ts,tsx,js,jsx
@@ -62,7 +62,7 @@ lint-circular-dep:
 #
 
 e2e-dev-affected:
-	./scripts/nx.sh affected:e2e --configuration local
+	./scripts/nx.sh affected:e2e --configuration test
 
 e2e-ci-affected:
 	yarn affected:e2e --configuration ci

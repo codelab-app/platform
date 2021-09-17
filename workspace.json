@@ -1187,9 +1187,9 @@
             "outputPath": "dist/apps/web"
           },
           "configurations": {
-            "local": {
+            "test": {
               "root": "apps/web",
-              "outputPath": "dist/apps/web-local"
+              "outputPath": "dist/apps/web-test"
             },
             "ci": {
               "root": "apps/web",
@@ -1211,8 +1211,8 @@
             "ci": {
               "memoryLimit": 4096
             },
-            "local": {
-              "buildTarget": "web:build:local",
+            "test": {
+              "buildTarget": "web:build:test",
               "port": 3001
             },
             "dev": {},
@@ -1295,9 +1295,9 @@
               "headless": true,
               "record": true
             },
-            "local": {
-              "cypressConfig": "apps/web-e2e/cypress.local.json",
-              "devServerTarget": "web-e2e:serve:local",
+            "test": {
+              "cypressConfig": "apps/web-e2e/cypress.test.json",
+              "devServerTarget": "web-e2e:serve:test",
               "headless": true,
               "record": false
             },
@@ -1319,7 +1319,7 @@
             "dev": {
               "commands": [
                 {
-                  "command": "yarn cli dgraph update-schema --env local && yarn cli dgraph reset-data --env local",
+                  "command": "yarn cli dgraph update-schema --env test && yarn cli dgraph reset-data --env test",
                   "forwardAllArgs": false
                 },
                 {
@@ -1327,7 +1327,7 @@
                   "forwardAllArgs": false
                 },
                 {
-                  "command": "nx serve web --configuration local",
+                  "command": "nx serve web --configuration test",
                   "forwardAllArgs": false
                 },
                 {
@@ -1354,14 +1354,14 @@
                 }
               ]
             },
-            "local": {
+            "test": {
               "commands": [
                 {
                   "command": "yarn cli dgraph update-schema --env ci && yarn cli dgraph reset-data --env ci",
                   "forwardAllArgs": false
                 },
                 {
-                  "command": "npx next start dist/apps/web-local --port 3001",
+                  "command": "npx next start dist/apps/web-test --port 3001",
                   "forwardAllArgs": false
                 },
                 {

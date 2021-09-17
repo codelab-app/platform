@@ -2,7 +2,6 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # yarn lint:graphql
-# yarn cli codegen --env=local
 
 yarn cross-env TIMING=1 lint-staged --verbose
 

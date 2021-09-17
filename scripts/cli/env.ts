@@ -4,7 +4,7 @@ export const ENV_FLAG = 'env'
 
 export enum Env {
   Dev = 'dev',
-  Local = 'local',
+  Test = 'test',
   Ci = 'ci',
 }
 

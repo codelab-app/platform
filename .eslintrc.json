@@ -30,7 +30,6 @@
         //   }
         // ],
         // "react/jsx-props-no-spreading": "error",
-        "@typescript-eslint/no-floating-promises": "error",
         "spaced-comment": [
           "error",
           "always",
@@ -176,7 +175,6 @@
       "rules": {
         "curly": "error",
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-floating-promises": "error",
         "import/no-cycle": "error",
         "@typescript-eslint/ban-types": [
           "error",

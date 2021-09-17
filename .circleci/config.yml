@@ -281,7 +281,7 @@ jobs:
       CIRCLE_REVISION: << pipeline.git.revision >>
     steps:
       - setup-workspace
-      - run: make lint-eslint
+      - run: make lint-eslint-ci
       - run:
           name: 'Circular Dependencies Check'
           command: make lint-circular-dep

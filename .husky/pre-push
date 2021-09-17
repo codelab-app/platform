@@ -2,7 +2,7 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # Update schema
-yarn cli dgraph update-schema --env local
+yarn cli dgraph update-schema --env test
 
 make build-dev-affected
 make test-dev-affected

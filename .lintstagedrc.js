@@ -1,8 +1,12 @@
 module.exports = {
   '**/*.{js,jsx,ts,tsx}': (files) => {
     const stagedFiles = files.join(' ')
-    // Add remove un-used when pushing only a
-    const rules = `--rule 'unused-imports/no-unused-imports-ts: 2'`
+
+    // Rules when we push only, these are either computationally expensive, or counter-productive during coding
+    const rules = `
+      --rule 'unused-imports/no-unused-imports-ts: 2'
+    `
+    // --rule '@typescript-eslint/no-floating-promises: error'
 
     const cmds = [
       `cross-env NODE_OPTIONS=--max-old-space-size=8192 eslint ${stagedFiles} ${rules} --fix`,
