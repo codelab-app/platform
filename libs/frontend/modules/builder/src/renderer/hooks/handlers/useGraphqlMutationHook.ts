@@ -23,7 +23,7 @@ export const useGraphqlMutationHook: HookHandler = (
     called,
     loading,
     [config.dataKey
-      ? `${mutate}${capitalizeFirstLetter(config.dataKey)}`
+      ? `mutate${capitalizeFirstLetter(config.dataKey)}`
       : 'mutate']: mutate,
   }
 

@@ -135,13 +135,13 @@ export const mapDataToInput = (
         graphqlQueryHook: data.graphqlQueryHook,
       }
     case HookType.GraphqlMutation:
-      if (!data.graphqlQueryHook) {
+      if (!data.graphqlMutationHook) {
         throw new Error('Graphql mutation hook data is required')
       }
 
       return {
         elementId,
-        graphqlQueryHook: data.graphqlMutationHook,
+        graphqlMutationHook: data.graphqlMutationHook,
       }
     case HookType.RecoilState:
       if (!data.recoilStateHook) {

@@ -104,12 +104,25 @@ export const useCrudModalMutationForm = <
 
   const handleSubmit = useCallback(
     (submitData: TSubmitData) => {
-      return mutate({
-        ...mutationFunctionOptions,
-        variables: mapVariables(submitData, crudModal.state),
-      })
+      try {
+        const variables = mapVariables(submitData, crudModal.state)
+
+        return mutate({
+          ...mutationFunctionOptions,
+          variables,
+        })
+      } catch (e) {
+        console.error(`Error while mapping variables in ${entityType} form`, e)
+        throw e
+      }
     },
-    [mapVariables, mutate, mutationFunctionOptions, crudModal.state],
+    [
+      mapVariables,
+      crudModal.state,
+      mutate,
+      mutationFunctionOptions,
+      entityType,
+    ],
   )
 
   return { crudModal, mutate, mutationData, handleSubmit }
