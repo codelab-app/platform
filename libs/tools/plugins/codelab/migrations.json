@@ -1,10 +1,16 @@
 {
   "generators": {
-    "tsconfig-lib": {
+    "tsconfig": {
       "version": "0.0.1",
-      "description": "tsconfig-lib",
+      "description": "Append some tsconfig",
       "cli": "nx",
-      "implementation": "./src/migrations/tsconfig-lib/tsconfig-lib"
+      "implementation": "./src/migrations/tsconfig/tsconfig"
+    },
+    "eslint": {
+      "version": "0.0.1",
+      "description": "Append some eslint",
+      "cli": "nx",
+      "implementation": "./src/migrations/eslint/eslint"
     }
   }
 }
