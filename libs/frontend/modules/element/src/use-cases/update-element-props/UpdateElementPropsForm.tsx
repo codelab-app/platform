@@ -57,7 +57,7 @@ const UpdateElementPropsFormInternal = ({
         key={elementId}
         interfaceTree={tree}
         model={initialPropsRef.current}
-        onSubmit={(data: any) =>
+        onSubmit={(data) =>
           trackPromise(
             mutate({
               variables: {

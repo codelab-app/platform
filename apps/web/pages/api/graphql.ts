@@ -24,7 +24,7 @@ app.use('*', async (baseReq, baseRes, next) => {
     },
     cookieDomainRewrite: 'localhost',
     onError: (err, req, res) => {
-      console.log('err', err, res.statusCode)
+      // console.log('err', err, res.statusCode)
       res.writeHead(500, {
         'Content-Type': 'text/plain',
       })
