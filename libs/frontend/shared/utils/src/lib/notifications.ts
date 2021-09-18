@@ -1,8 +1,10 @@
+import { ApolloError } from '@apollo/client'
+import { formatError } from '@codelab/shared/utils'
 import { notification } from 'antd'
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error'
 
-export interface NotificationOptions<TEvent> {
+export interface NotificationOptions<TEvent extends ApolloError> {
   /** The type of notification. Default is error */
   type?: NotificationType
   /** Enter a custom title of the notification. If you don't, it will be "info" */
@@ -16,10 +18,17 @@ const defaultOptions: NotificationOptions<any> = {
 }
 
 const inferErrorMessage = (e: any) => {
+  /**
+   * Infer from error messages set in backend
+   */
+  if (e instanceof ApolloError) {
+    return formatError(e)
+  }
+
   return e?.data?.message || e?.message
 }
 
-export const notify = <TEvent extends any>(
+export const notify = <TEvent extends ApolloError>(
   options: NotificationOptions<TEvent>,
   e: TEvent | undefined = undefined,
 ) => {
@@ -67,11 +76,10 @@ export const notify = <TEvent extends any>(
  * e.g.:
  *  .catch(getNotificationHandler({...options}))
  */
-export const createNotificationHandler = <TEvent extends any>(
+export const createNotificationHandler = <TEvent extends ApolloError>(
   o: NotificationOptions<TEvent> = defaultOptions,
 ) => {
   return (e: TEvent | undefined = undefined) => {
-    console.log(e)
     notify(o, e)
   }
 }

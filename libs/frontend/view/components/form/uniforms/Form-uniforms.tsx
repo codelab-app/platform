@@ -1,3 +1,4 @@
+import { ApolloError } from '@apollo/client'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
@@ -30,15 +31,19 @@ export const FormUniforms = <TData extends any>({
         const result = onSubmit(formData as TData)
 
         if (!result) {
-          return null
+          return result
         }
 
         return result
           .then((r: any) => {
-            callbackWithParams(onSubmitSuccess, r)
+            if (typeof result === 'object') {
+              callbackWithParams(onSubmitSuccess, r)
+            }
           })
-          .catch((err: any) => {
-            callbackWithParams(onSubmitError, err)
+          .catch((err: ApolloError) => {
+            if (typeof result === 'object') {
+              callbackWithParams(onSubmitError, err)
+            }
           })
       }}
       {...props}
