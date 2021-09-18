@@ -1,0 +1,5 @@
+query GetPage($input: GetPageInput!) {
+  page: getPage(input: $input) {
+    ...PageFull
+  }
+}

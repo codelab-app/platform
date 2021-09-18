@@ -1069,7 +1069,7 @@ export type QueryPageHookConfig = {
 };
 
 export type QueryPageHookConfigInput = {
-  pageId?: Maybe<Scalars['String']>;
+  pageId: Scalars['String'];
 };
 
 export type QueryPagesHookConfig = {
@@ -1077,7 +1077,7 @@ export type QueryPagesHookConfig = {
 };
 
 export type QueryPagesHookConfigInput = {
-  appId?: Maybe<Scalars['String']>;
+  appId: Scalars['String'];
 };
 
 export type RecoilStateHookConfig = {

@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { PageFullFragment } from '../../../graphql/PageFull.fragment.api.graphql.gen';
+import { PageFullFragment } from '../../../../../libs/frontend/modules/page/src/graphql/PageFull.fragment.api.graphql.gen';
 import { gql } from '@apollo/client';
-import { PageFullFragmentDoc } from '../../../graphql/PageFull.fragment.api.graphql.gen';
+import { PageFullFragmentDoc } from '../../../../../libs/frontend/modules/page/src/graphql/PageFull.fragment.api.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type GetPageQueryVariables = Types.Exact<{
