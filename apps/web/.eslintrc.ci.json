@@ -11,7 +11,10 @@
         "react/no-unescaped-entities": "off",
         "react/display-name": "off"
       },
-      "extends": ["../../.eslintrc.ci.json"]
+      "extends": ["../../.eslintrc.ci.json"],
+      "parserOptions": {
+        "project": ["apps/web/tsconfig.*?.json"]
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

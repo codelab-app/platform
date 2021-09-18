@@ -7,7 +7,10 @@
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": "off"
       },
-      "extends": ["../../../../.eslintrc.ci.json"]
+      "extends": ["../../../../.eslintrc.ci.json"],
+      "parserOptions": {
+        "project": ["libs/tools/plugins/codelab/tsconfig.*?.json"]
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

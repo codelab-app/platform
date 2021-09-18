@@ -5,7 +5,10 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {},
-      "extends": ["../../.eslintrc.ci.json"]
+      "extends": ["../../.eslintrc.ci.json"],
+      "parserOptions": {
+        "project": ["apps/web-e2e/tsconfig.*?.json"]
+      }
     },
     {
       "files": ["*.spec*.ts"],

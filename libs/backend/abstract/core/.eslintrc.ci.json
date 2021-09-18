@@ -4,7 +4,10 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "extends": ["../../../../.eslintrc.ci.json"]
+      "extends": ["../../../../.eslintrc.ci.json"],
+      "parserOptions": {
+        "project": ["libs/backend/abstract/core/tsconfig.*?.json"]
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

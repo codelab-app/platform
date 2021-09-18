@@ -19,13 +19,12 @@ import { merge } from 'lodash'
 export default async function update(host: Tree) {
   const projects = getProjects(host)
   projects.forEach((projectConfig, projectName) => {
-    console.log(projectConfig)
-
     const { root, targets, sourceRoot, tags } = projectConfig
 
     const paths = {
       eslintConfig: joinPathFragments(root, '.eslintrc.json'),
       eslintCiConfig: joinPathFragments(root, '.eslintrc.ci.json'),
+      tsconfigPath: joinPathFragments(root, 'tsconfig.*?.json'),
       baseEslintPath: joinPathFragments(
         offsetFromRoot(root),
         '.eslintrc.ci.json',
@@ -43,6 +42,9 @@ export default async function update(host: Tree) {
       overrides: [
         {
           files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+          parserOptions: {
+            project: [paths.tsconfigPath],
+          },
           extends: [paths.baseEslintPath],
         },
       ],

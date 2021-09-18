@@ -30,6 +30,7 @@
         //   }
         // ],
         // "react/jsx-props-no-spreading": "error",
+        "require-await": "error",
         "spaced-comment": [
           "error",
           "always",

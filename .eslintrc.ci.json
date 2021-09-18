@@ -3,7 +3,8 @@
     {
       "files": ["*.ts", "*.tsx"],
       "rules": {
-        "@typescript-eslint/no-floating-promises": "error"
+        "@typescript-eslint/no-floating-promises": "error",
+        "unused-imports/no-unused-imports-ts": "error"
       }
     }
   ]

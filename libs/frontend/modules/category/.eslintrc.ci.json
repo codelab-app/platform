@@ -5,7 +5,10 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {},
-      "extends": ["../../../../.eslintrc.ci.json"]
+      "extends": ["../../../../.eslintrc.ci.json"],
+      "parserOptions": {
+        "project": ["libs/frontend/modules/category/tsconfig.*?.json"]
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

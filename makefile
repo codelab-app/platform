@@ -37,7 +37,7 @@ build-ci:
 	npx nx run-many \
 		--target=build \
 		--projects=api,web,cli \
-		--configuration=ci \
+		--configuration ci \
 		--parallel \
 		--verbose
 
