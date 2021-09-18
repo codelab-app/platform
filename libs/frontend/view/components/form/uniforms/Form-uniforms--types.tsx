@@ -11,10 +11,10 @@ export type FormUniformsProps<TData> = {
   submitRef?: React.MutableRefObject<SubmitController | undefined>
 
   /** Called after a successful submit */
-  onSubmitSuccess?: MaybeArray<Callback<FetchResult<any>>>
+  onSubmitSuccess?: MaybeArray<Callback<FetchResult<any>> | undefined>
 
   /** Called after a failed submit */
-  onSubmitError?: MaybeArray<Callback<any>>
+  onSubmitError?: MaybeArray<Callback<any> | undefined>
 
   /** Schema used for form generation.
    * If you pass a schema object a default {@see Ajv} validator is created from it.
