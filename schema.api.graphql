@@ -2,15 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type CreateResponse {
-  id: String!
-}
-
 type App {
   id: ID!
   ownerId: String!
   name: String!
   pages: [Page!]!
+}
+
+type CreateResponse {
+  id: String!
 }
 
 type User {

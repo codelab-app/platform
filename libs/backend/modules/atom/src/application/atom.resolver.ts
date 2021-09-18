@@ -1,15 +1,13 @@
-import { ApolloClient } from '@apollo/client'
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
-import { ApolloClientTokens } from '@codelab/backend/infra'
 import {
   GetTypeService,
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
-import { GqlAuthGuard, Roles } from '@codelab/backend/modules/user'
+import { GqlAuthGuard, Roles, RolesGuard } from '@codelab/backend/modules/user'
 import { Role } from '@codelab/shared/abstract/core'
-import { Inject, Injectable, UseGuards } from '@nestjs/common'
+import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -34,8 +32,6 @@ import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
 @Injectable()
 export class AtomResolver {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    private client: ApolloClient<any>,
     private createAtomService: CreateAtomService,
     private getAtomService: GetAtomService,
     private getAtomsService: GetAtomsService,
@@ -49,8 +45,8 @@ export class AtomResolver {
   ) {}
 
   @Mutation(() => CreateResponse)
-  @UseGuards(GqlAuthGuard)
   @Roles(Role.Admin)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   createAtom(@Args('input') input: CreateAtomInput) {
     return this.createAtomService.execute(input)
   }
@@ -82,7 +78,7 @@ export class AtomResolver {
       return null
     }
 
-    return this.typeAdapterFactory.getMapper(api).mapItem(api)
+    return await this.typeAdapterFactory.getMapper(api).mapItem(api)
   }
 
   @Mutation(() => Void, { nullable: true })

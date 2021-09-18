@@ -1,9 +1,13 @@
-import { Role } from '@codelab/shared/abstract/core'
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
+import { Role, User } from '@codelab/shared/abstract/core'
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { ROLES_KEY } from '../decorators/roles.decorator'
-import { JWT_CLAIMS } from '../jwt.interface'
 
 /**
  * Allows only if the current user has ONE OF the roles in the allowedRoles array
@@ -26,8 +30,16 @@ export class RolesGuard implements CanActivate {
     }
 
     const ctx = GqlExecutionContext.create(context)
-    const { user } = ctx.getContext().req
+    const user: User = ctx.getContext().req.user
+    const canActivate = requiredRoles.some((role) => user.roles?.includes(role))
 
-    return requiredRoles.some((role) => user[JWT_CLAIMS].roles?.includes(role))
+    if (!canActivate) {
+      throw new UnauthorizedException(
+        'Admin access only',
+        'Only an admin can access this resource',
+      )
+    }
+
+    return true
   }
 }

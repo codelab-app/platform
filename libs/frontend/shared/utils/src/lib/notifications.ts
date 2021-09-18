@@ -71,6 +71,7 @@ export const createNotificationHandler = <TEvent extends any>(
   o: NotificationOptions<TEvent> = defaultOptions,
 ) => {
   return (e: TEvent | undefined = undefined) => {
+    console.log(e)
     notify(o, e)
   }
 }

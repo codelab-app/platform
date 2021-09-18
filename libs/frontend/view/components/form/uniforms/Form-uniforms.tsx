@@ -30,21 +30,15 @@ export const FormUniforms = <TData extends any>({
         const result = onSubmit(formData as TData)
 
         if (!result) {
-          return result
+          return null
         }
 
         return result
           .then((r: any) => {
-            if (typeof result === 'object') {
-              callbackWithParams(onSubmitSuccess, r)
-            }
+            callbackWithParams(onSubmitSuccess, r)
           })
           .catch((err: any) => {
-            console.error(err)
-
-            if (typeof result === 'object') {
-              callbackWithParams(onSubmitError, err)
-            }
+            callbackWithParams(onSubmitError, err)
           })
       }}
       {...props}
