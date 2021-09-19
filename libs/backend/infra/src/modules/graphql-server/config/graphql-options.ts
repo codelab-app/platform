@@ -24,10 +24,9 @@ export class GraphqlOptions implements GqlOptionsFactory {
         return { req }
       },
       formatError: (err: GraphQLError) => {
-        console.log('graphql error', err)
+        console.log(err)
 
         return err
-
         // // See if there is a nested graphQLErrors array and parse it to a (kind of) readable error message
         // const graphqlAggregateError =
         //   err?.extensions?.exception?.graphQLErrors?.reduce(

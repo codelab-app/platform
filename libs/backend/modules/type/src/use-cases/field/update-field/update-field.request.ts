@@ -1,5 +1,6 @@
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
 import { UpdateFieldInput } from './update-field.input'
 
-export class UpdateFieldRequest {
-  declare input: UpdateFieldInput
+export interface UpdateFieldRequest extends WithCurrentUserRequest {
+  input: UpdateFieldInput
 }

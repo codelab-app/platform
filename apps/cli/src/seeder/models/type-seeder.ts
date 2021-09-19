@@ -1,8 +1,9 @@
 import { AntdDesignApi } from '@codelab/backend/infra'
 import {
-  CreateFieldInput,
+  CreateFieldRequest,
   CreateFieldService,
   CreateTypeInput,
+  CreateTypeRequest,
   CreateTypeService,
   GetFieldInput,
   GetFieldService,
@@ -10,7 +11,7 @@ import {
   TypeRef,
 } from '@codelab/backend/modules/type'
 import { createIfMissing } from '@codelab/backend/shared/utils'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { TypeKind, User } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Injectable, Logger } from '@nestjs/common'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
@@ -35,8 +36,8 @@ export class TypeSeeder {
     private atomSeeder: AtomSeeder,
   ) {}
 
-  public async seedBaseTypes() {
-    this.baseTypes = await this.seedAllIfMissing(baseTypes)
+  public async seedBaseTypes(currentUser: User) {
+    this.baseTypes = await this.seedAllIfMissing(baseTypes, currentUser)
 
     return this.baseTypes
   }
@@ -48,10 +49,11 @@ export class TypeSeeder {
    */
   private async seedAllIfMissing(
     inputs: Array<CreateTypeInput>,
+    currentUser: User,
   ): Promise<Map<BaseTypeName, string>> {
     const results = await Promise.all(
       inputs.map((input) =>
-        this.seedTypeIfNotExisting(input).then((id) => ({
+        this.seedTypeIfNotExisting({ input, currentUser }).then((id) => ({
           key: input.name,
           id,
         })),
@@ -65,14 +67,22 @@ export class TypeSeeder {
    * Checks if a type with the same name exists, if not - creates it
    * Returns the id in both cases
    */
-  private async seedTypeIfNotExisting(input: CreateTypeInput): Promise<string> {
-    return createIfMissing(
-      () => this.getTypeByName(input.name),
-      () => this.createType(input),
+  private async seedTypeIfNotExisting(
+    request: CreateTypeRequest,
+  ): Promise<string> {
+    const { input, currentUser } = request
+
+    return await createIfMissing(
+      () => this.getTypeByName(input.name, currentUser),
+      () => this.createType(request),
     )
   }
 
-  public async seedAtomApi(atomId: string, data: Array<AntdDesignApi>) {
+  public async seedAtomApi(
+    atomId: string,
+    data: Array<AntdDesignApi>,
+    currentUser: User,
+  ) {
     const atom = await this.atomSeeder.getAtom({ where: { id: atomId } })
 
     if (!atom) {
@@ -90,18 +100,23 @@ export class TypeSeeder {
       }
 
       await this.createFieldIfMissing({
-        key: apiField.property,
-        name: pascalCaseToWords(apiField.property),
-        interfaceId: atomApiId,
-        description: apiField.description,
-        type,
+        input: {
+          key: apiField.property,
+          name: pascalCaseToWords(apiField.property),
+          interfaceId: atomApiId,
+          description: apiField.description,
+          type,
+        },
+        currentUser,
       })
     }
   }
 
-  private async createFieldIfMissing(input: CreateFieldInput): Promise<string> {
+  private async createFieldIfMissing(
+    request: CreateFieldRequest,
+  ): Promise<string> {
     try {
-      return await this.createField(input)
+      return await this.createField(request)
     } catch (e: any) {
       if (!e?.toString().includes('already exists')) {
         throw e
@@ -109,7 +124,10 @@ export class TypeSeeder {
 
       // field already exists with this key
       const foundField = await this.getField({
-        byInterface: { interfaceId: input.interfaceId, fieldKey: input.key },
+        byInterface: {
+          interfaceId: request.input.interfaceId,
+          fieldKey: request.input.key,
+        },
       })
 
       return foundField?.uid as string
@@ -118,6 +136,7 @@ export class TypeSeeder {
 
   public async seedCustomAtomApis(
     allCustomAtomApiFactories: Array<CustomAtomApiFactory>,
+    currentUser: User,
   ) {
     if (!this.baseTypes) {
       throw new Error("call seedBaseTypes before seeding Atom's API")
@@ -125,9 +144,10 @@ export class TypeSeeder {
 
     const factoryInput: CustomAtomApiFactoryInput = {
       baseTypeIdsByName: this.baseTypes,
-      createTypeIfMissing: (typeInput) => this.seedTypeIfNotExisting(typeInput),
+      createTypeIfMissing: (typeInput) =>
+        this.seedTypeIfNotExisting({ input: typeInput, currentUser }),
       createFieldIfMissing: (fieldInput) =>
-        this.createFieldIfMissing(fieldInput),
+        this.createFieldIfMissing({ input: fieldInput, currentUser }),
     }
 
     for (const apiFactory of allCustomAtomApiFactories) {
@@ -145,16 +165,19 @@ export class TypeSeeder {
 
       for (const field of api.fields) {
         await this.createFieldIfMissing({
-          ...field,
-          interfaceId: atom.api.uid,
+          input: {
+            ...field,
+            interfaceId: atom.api.uid,
+          },
+          currentUser,
         })
       }
     }
   }
 
-  private getTypeByName(name: string) {
+  private getTypeByName(name: string, currentUser: User) {
     return this.getTypeService
-      .execute({ input: { where: { name } } })
+      .execute({ input: { where: { name } }, currentUser })
       .then((r) => r?.uid)
   }
 
@@ -162,28 +185,30 @@ export class TypeSeeder {
     return this.getFieldService.execute({ input })
   }
 
-  private async createType(typeInput: CreateTypeInput) {
-    const createResponse = await this.createTypeService.execute(typeInput)
+  private async createType(request: CreateTypeRequest) {
+    const createResponse = await this.createTypeService.execute(request)
 
     if (!createResponse?.id) {
       throw new Error(
-        `Something went wrong while creating type ${typeInput.name}`,
+        `Something went wrong while creating type ${request.input.name}`,
       )
     }
 
-    console.debug(`Created type ${typeInput.name}`)
+    console.debug(`Created type ${request.input.name}`)
 
     return createResponse.id
   }
 
-  private async createField(input: CreateFieldInput) {
-    const createResponse = await this.createFieldService.execute({ input })
+  private async createField(request: CreateFieldRequest) {
+    const createResponse = await this.createFieldService.execute(request)
 
     if (!createResponse?.id) {
-      throw new Error(`Something went wrong while creating field ${input.name}`)
+      throw new Error(
+        `Something went wrong while creating field ${request.input.name}`,
+      )
     }
 
-    Logger.debug(`Created field ${input.name}`)
+    Logger.debug(`Created field ${request.input.name}`)
 
     return createResponse.id
   }

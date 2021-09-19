@@ -8,4 +8,6 @@ import { DgraphEntity } from '../core'
 export interface DgraphType<TType extends DgraphEntityType>
   extends DgraphEntity<[DgraphEntityType.Type, TType]> {
   name: string
+  // null owner means it's admin created
+  owner: string | null
 }

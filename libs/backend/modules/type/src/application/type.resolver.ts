@@ -1,7 +1,8 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
 import { isDgraphInterfaceType } from '@codelab/backend/infra'
-import { GqlAuthGuard } from '@codelab/backend/modules/user'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -60,9 +61,16 @@ export class TypeResolver {
    * @param api
    */
   @ResolveField('typeGraph', () => TypeGraph)
-  async typeGraph(@Parent() api: InterfaceType) {
+  async typeGraph(
+    @Parent() api: InterfaceType,
+    @CurrentUser() currentUser: User,
+  ) {
     const { id } = api
-    const type = await this.getTypeService.execute({ input: { where: { id } } })
+
+    const type = await this.getTypeService.execute({
+      input: { where: { id } },
+      currentUser,
+    })
 
     if (!type) {
       return null
@@ -83,15 +91,19 @@ export class TypeResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })
-  async seedBaseTypes() {
-    await this.seedBaseTypesService.execute()
+  async seedBaseTypes(@CurrentUser() currentUser: User) {
+    await this.seedBaseTypesService.execute({ currentUser })
   }
 
   @UseGuards(GqlAuthGuard)
   @Query(() => Type, { nullable: true })
-  async getType(@Args('input') input: GetTypeInput) {
+  async getType(
+    @Args('input') input: GetTypeInput,
+    @CurrentUser() currentUser: User,
+  ) {
     const type = await this.getTypeService.execute({
       input,
+      currentUser,
     })
 
     if (!type) {
@@ -103,8 +115,11 @@ export class TypeResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(() => TypeGraph, { nullable: true })
-  async getTypeGraph(@Args('input') input: GetTypeInput) {
-    const type = await this.getTypeService.execute({ input })
+  async getTypeGraph(
+    @Args('input') input: GetTypeInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    const type = await this.getTypeService.execute({ input, currentUser })
 
     if (!type) {
       return null
@@ -119,8 +134,11 @@ export class TypeResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(() => [Type])
-  async getTypes(@Args('input', { nullable: true }) input: GetTypesInput) {
-    const types = await this.getTypesService.execute(input || {})
+  async getTypes(
+    @Args('input', { nullable: true }) input: GetTypesInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    const types = await this.getTypesService.execute({ input, currentUser })
 
     return Promise.all(
       types.map((type) =>
@@ -131,8 +149,11 @@ export class TypeResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => CreateResponse)
-  async createType(@Args('input') input: CreateTypeInput) {
-    return await this.createTypeService.execute(input)
+  async createType(
+    @Args('input') input: CreateTypeInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return await this.createTypeService.execute({ input, currentUser })
   }
 
   @UseGuards(GqlAuthGuard)

@@ -5,8 +5,13 @@ import {
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
-import { GqlAuthGuard, Roles, RolesGuard } from '@codelab/backend/modules/user'
-import { Role } from '@codelab/shared/abstract/core'
+import {
+  CurrentUser,
+  GqlAuthGuard,
+  Roles,
+  RolesGuard,
+} from '@codelab/backend/modules/user'
+import { Role, User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -20,8 +25,7 @@ import { AtomAdapter } from '../domain/atom.adapter'
 import { Atom } from '../domain/atom.model'
 import { CreateAtomInput, CreateAtomService } from '../use-cases/create-atom'
 import { DeleteAtomInput, DeleteAtomService } from '../use-cases/delete-atom'
-import { GetAtomService } from '../use-cases/get-atom'
-import { GetAtomInput } from '../use-cases/get-atom/get-atom.input'
+import { GetAtomInput, GetAtomService } from '../use-cases/get-atom'
 import { GetAtomsService } from '../use-cases/get-atoms'
 import { GetAtomsInput } from '../use-cases/get-atoms/get-atoms.input'
 import { GetAtomsWithApisService } from '../use-cases/get-atoms-with-apis'
@@ -47,8 +51,11 @@ export class AtomResolver {
   @Mutation(() => CreateResponse)
   @Roles(Role.Admin)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  createAtom(@Args('input') input: CreateAtomInput) {
-    return this.createAtomService.execute(input)
+  createAtom(
+    @Args('input') input: CreateAtomInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.createAtomService.execute({ input, currentUser })
   }
 
   @Mutation(() => Void, { nullable: true })
@@ -84,8 +91,11 @@ export class AtomResolver {
   @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
   @Roles(Role.Admin)
-  async importAtoms(@Args('input') input: ImportAtomsInput) {
-    await this.importAtomsService.execute(input)
+  async importAtoms(
+    @Args('input') input: ImportAtomsInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    await this.importAtomsService.execute({ input, currentUser })
   }
 
   @Query(() => Atom, { nullable: true })

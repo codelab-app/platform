@@ -32,7 +32,7 @@ export const setupTestModule = async (
     testModule: TestingModuleBuilder,
   ) => TestingModuleBuilder = (x) => x,
 ): Promise<INestApplication> => {
-  const { role = Role.Guest, resetDb = true } = options
+  const { role, resetDb = true } = options
 
   let testModuleBuilder: TestingModuleBuilder = await Test.createTestingModule({
     imports: [InfrastructureModule, ...nestModules],
@@ -48,10 +48,9 @@ export const setupTestModule = async (
     throw new Error('Missing Auth0 username')
   }
 
-  // Mock Auth0 authentication & authorization
   if (role !== Role.Guest) {
     /**
-     * Override Auth guard return true for checks
+     * Override Auth guard to mock authorization
      *
      * // TODO: Look into circular dependency
      */
@@ -63,7 +62,7 @@ export const setupTestModule = async (
         const user: User = {
           id: userUid,
           auth0Id: auth0Id,
-          roles: [Role.User],
+          roles: [role],
         }
 
         // This will override our @CurrentUser annotation

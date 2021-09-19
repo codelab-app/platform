@@ -11,15 +11,23 @@ import {
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../domain/type.validator'
 import { GetTypeService } from '../get-type'
-import { CreateTypeInput } from './create-type.input'
+import { CreateTypeRequest } from './create-type.request'
 import { typeKindDgraphMap } from './typeKind'
 
+/**
+ * Depending on the type, we may assign a user to it. For example, primitive types are admin created & can only have 1 copy, so these aren't assigned users.
+ *
+ * But an interface created by a user should have an owner, while an interface created by admin shouldn't.
+ *
+ * TLDR: Admin created types don't have owners, while users do
+ */
 @Injectable()
-export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
+export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
   constructor(
     dgraph: DgraphRepository,
     private getTypeService: GetTypeService,
@@ -29,7 +37,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
     super(dgraph)
   }
 
-  protected async executeTransaction(request: CreateTypeInput, txn: Txn) {
+  protected async executeTransaction(request: CreateTypeRequest, txn: Txn) {
     this.logger.debug(request, 'Creating type')
 
     await this.validate(request)
@@ -39,7 +47,10 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
     )
   }
 
-  private createMutation(request: CreateTypeInput, blankNodeUid: string) {
+  private createMutation(
+    { input, currentUser }: CreateTypeRequest,
+    blankNodeUid: string,
+  ) {
     const {
       name,
       typeKind,
@@ -50,7 +61,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
       // lambdaType,
       // componentType,
       // interfaceType,
-    } = request
+    } = input
 
     return jsonMutation<
       DgraphArrayType &
@@ -65,6 +76,10 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
         typeKindDgraphMap[typeKind],
       ] as any,
       name,
+      /**
+       * We use owner field to determine policy
+       */
+      owner: currentUser.roles.includes(Role.User) ? currentUser.id : null,
       itemType: arrayType ? { uid: arrayType.itemTypeId } : undefined,
       primitiveKind: primitiveType ? primitiveType.primitiveKind : undefined,
       kind: elementType ? elementType.kind : undefined,
@@ -78,8 +93,8 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeInput> {
     })
   }
 
-  protected async validate(request: CreateTypeInput): Promise<void> {
-    await this.typeValidator.validateCreateTypeInput(request)
-    await this.typeValidator.primitiveIsNotDuplicated(request)
+  protected async validate(request: CreateTypeRequest): Promise<void> {
+    await this.typeValidator.validateCreateTypeInput(request.input)
+    await this.typeValidator.primitiveIsNotDuplicated(request.input)
   }
 }
