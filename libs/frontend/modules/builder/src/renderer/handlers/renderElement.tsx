@@ -290,13 +290,14 @@ const elementsAtomPipe: RenderPipeFactory =
       return next(element, context, props)
     }
 
-    const mergedProps = mergeProps(atomProps, props)
+    const mergedProps = mergeProps(
+      atomProps,
+      props,
+      element.css ? { css: css(element.css) } : {},
+    )
 
     const rendered = (
-      <RootComponent
-        {...mergedProps}
-        css={element.css ? css(element.css) : undefined}
-      >
+      <RootComponent {...mergedProps}>
         {next(element, context, mergedProps)}
       </RootComponent>
     )
@@ -323,9 +324,21 @@ const renderChildrenPipe: RenderPipe = (element, context, props) => {
     return undefined
   }
 
-  return childVertices
+  const rendered = childVertices
     .map((child) => context.renderFactory(child, context))
     .filter((c): c is ReactElement => !!c)
+
+  if (!rendered?.length) {
+    return undefined
+  }
+
+  // If we have only one children, just return it.
+  // Ant Design doesn't handle array children well in some cases, like Forms
+  if (rendered.length === 1) {
+    return rendered[0]
+  }
+
+  return rendered
 }
 
 const callOnRendered = (
