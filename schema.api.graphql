@@ -360,10 +360,11 @@ type Hook {
 enum HookType {
   Query
   GraphqlQuery
+  GraphqlMutation
   RecoilState
 }
 
-union HookConfig = QueryHookConfig | GraphqlQueryHookConfig | RecoilStateHookConfig
+union HookConfig = QueryHookConfig | GraphqlHookConfig | RecoilStateHookConfig
 
 type QueryHookConfig {
   queryKey: String!
@@ -386,7 +387,7 @@ enum QueryMethod {
   UNLINK
 }
 
-type GraphqlQueryHookConfig {
+type GraphqlHookConfig {
   body: String!
   url: String!
   dataKey: String
@@ -818,7 +819,8 @@ input DeletePropMapBindingInput {
 input AddHookToElementInput {
   elementId: String!
   queryHook: QueryHookConfigInput
-  graphqlQueryHook: GraphqlQueryHookConfigInput
+  graphqlQueryHook: GraphqlHookConfigInput
+  graphqlMutationHook: GraphqlHookConfigInput
   recoilStateHook: RecoilStateHookConfigInput
 }
 
@@ -831,7 +833,7 @@ input QueryHookConfigInput {
   lambdaId: String
 }
 
-input GraphqlQueryHookConfigInput {
+input GraphqlHookConfigInput {
   url: String!
   body: String!
   dataKey: String

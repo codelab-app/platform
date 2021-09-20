@@ -105,6 +105,7 @@ export const AddHookToElementForm = ({
           'queryHook',
           'queryHookVariant',
           'graphqlQueryHook',
+          'graphqlMutationHook',
           'recoilStateHook',
         ]}
       />
@@ -127,6 +128,27 @@ export const AddHookToElementForm = ({
             })}
           />
           <AutoFields fields={['graphqlQueryHook.dataKey']} />
+        </div>
+      </DisplayIfType>
+
+      {/* Graphql mutation fields */}
+      <DisplayIfType type={HookType.GraphqlMutation}>
+        <div
+          css={css`
+            display: grid;
+            grid-template-rows: auto 26rem auto;
+          `}
+        >
+          <AutoFields fields={['graphqlMutationHook.url']} />
+
+          <AutoField
+            name={'graphqlMutationHook.body'}
+            component={graphqlEditorFieldFactory({
+              schemaUrlFieldKey: 'graphqlMutationHook.url',
+              editorOptions: { lineNumbers: 'off' },
+            })}
+          />
+          <AutoFields fields={['graphqlMutationHook.dataKey']} />
         </div>
       </DisplayIfType>
 

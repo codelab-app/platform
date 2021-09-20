@@ -1,8 +1,8 @@
-import { GraphqlQueryHookConfig } from '@codelab/backend/modules/hook'
+import { GraphqlHookConfig } from '@codelab/backend/modules/hook'
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class GraphqlQueryHookConfigInput implements GraphqlQueryHookConfig {
+export class GraphqlHookConfigInput implements GraphqlHookConfig {
   @Field(() => String)
   declare url: string
 

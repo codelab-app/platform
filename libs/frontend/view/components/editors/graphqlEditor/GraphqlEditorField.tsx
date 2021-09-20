@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import { Ref } from 'react'
+import tw from 'twin.macro'
 import { connectField, HTMLFieldProps, useField } from 'uniforms'
 import type { MonacoEditorProps } from '../monaco'
 import type { GraphqlEditorProps } from './GraphqlEditorInternal'
@@ -51,15 +52,21 @@ export const graphqlEditorFieldFactory = ({
 
       if (schemaUrlFieldKey) {
         return (
-          <GraphqlEditorWithSchemaKey
-            schemaUrlFieldKey={schemaUrlFieldKey}
-            {...graphqlEditorProps}
-          />
+          <div>
+            <label css={tw`py-2`}>{props.label}</label>
+            <GraphqlEditorWithSchemaKey
+              schemaUrlFieldKey={schemaUrlFieldKey}
+              {...graphqlEditorProps}
+            />
+          </div>
         )
       }
 
       return (
-        <GraphqlEditor graphqlSchemaUrl={schemaUrl} {...graphqlEditorProps} />
+        <div>
+          <label css={tw`py-2`}>{props.label}</label>
+          <GraphqlEditor graphqlSchemaUrl={schemaUrl} {...graphqlEditorProps} />
+        </div>
       )
     },
     {

@@ -72,7 +72,7 @@ const ElementHooksListItemDescription = (config: HookConfigFragment) => {
             : `${config.queryKey} - ${config.method} - ${config.url}`}
         </span>
       )
-    case 'GraphqlQueryHookConfig':
+    case 'GraphqlHookConfig':
       return (
         <span>
           {config.graphqlUrl} - {config.graphqlBody}

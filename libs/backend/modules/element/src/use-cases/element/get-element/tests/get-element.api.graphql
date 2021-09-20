@@ -28,7 +28,7 @@ query TestGetElement($input: GetElementInput!) {
           stateKey
           __typename
         }
-        ... on GraphqlQueryHookConfig {
+        ... on GraphqlHookConfig {
           graphqlBody: body
           dataKey
           graphqlUrl: url

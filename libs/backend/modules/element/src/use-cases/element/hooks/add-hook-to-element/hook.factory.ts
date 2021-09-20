@@ -6,6 +6,7 @@ export const hookFactory = ({
   queryHook,
   graphqlQueryHook,
   recoilStateHook,
+  graphqlMutationHook,
 }: AddHookToElementInput) => {
   if (queryHook) {
     return new Hook({ type: HookType.Query, config: queryHook })
@@ -13,6 +14,13 @@ export const hookFactory = ({
 
   if (graphqlQueryHook) {
     return new Hook({ type: HookType.GraphqlQuery, config: graphqlQueryHook })
+  }
+
+  if (graphqlMutationHook) {
+    return new Hook({
+      type: HookType.GraphqlMutation,
+      config: graphqlMutationHook,
+    })
   }
 
   if (recoilStateHook) {

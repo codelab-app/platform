@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { HookFragment } from '@codelab/frontend/modules/element'
 import { HookType } from '@codelab/shared/abstract/core'
+import { useGraphqlMutationHook } from './handlers/useGraphqlMutationHook'
 import { useGraphqlQueryHook } from './handlers/useGraphqlQueryHook'
 import { useQueryHook } from './handlers/useQueryHook'
 import { useRecoilStateHook } from './handlers/useRecoilStateHook'
@@ -22,6 +23,10 @@ const getHookData: HookHandler = ({ config, type }: HookFragment) => {
 
     case HookType.GraphqlQuery: {
       return useGraphqlQueryHook(config)
+    }
+
+    case HookType.GraphqlMutation: {
+      return useGraphqlMutationHook(config)
     }
 
     case HookType.RecoilState: {
