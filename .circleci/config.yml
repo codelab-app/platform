@@ -453,6 +453,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
+            - integration
             - install-and-build-workspace
       - notify-success:
           <<: *filters-dev-pr
