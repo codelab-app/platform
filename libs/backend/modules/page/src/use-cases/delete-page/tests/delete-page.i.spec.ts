@@ -73,12 +73,13 @@ describe('DeletePage', () => {
     it('should delete a page', async () => {
       await domainRequest(userApp, TestDeletePageGql, deletePageInput)
 
-      await domainRequest<GetPageInput, TestGetPageQuery>(
+      const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
         userApp,
         TestGetPageGql,
         getPageInput,
-        { message: 'Page not found' },
       )
+
+      expect(page).toBeNull()
     })
   })
 })

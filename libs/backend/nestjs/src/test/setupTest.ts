@@ -9,6 +9,7 @@ import {
   ForwardReference,
   INestApplication,
   Type,
+  UnauthorizedException,
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
@@ -48,30 +49,32 @@ export const setupTestModule = async (
     throw new Error('Missing Auth0 username')
   }
 
-  if (role !== Role.Guest) {
-    /**
-     * Override Auth guard to mock authorization
-     *
-     * // TODO: Look into circular dependency
-     */
-    testModuleBuilder.overrideGuard(GqlAuthGuard).useValue({
-      canActivate: (context: ExecutionContext) => {
-        const ctx = GqlExecutionContext.create(context)
+  /**
+   * Override Auth guard to mock authorization
+   *
+   * // TODO: Look into circular dependency
+   */
+  testModuleBuilder.overrideGuard(GqlAuthGuard).useValue({
+    canActivate: (context: ExecutionContext) => {
+      const ctx = GqlExecutionContext.create(context)
 
-        // TODO: Since mocking GqlAuthGuard doesn't trigger jwt.strategy, we need a way to add roles to user
-        const user: User = {
-          id: userUid,
-          auth0Id: auth0Id,
-          roles: [role],
-        }
+      if (role === Role.Guest) {
+        // If we return false, we default to guard's error message. But AuthGuard('jwt), the class we're mocking, returns UnauthorizedException instead
+        throw new UnauthorizedException()
+      }
 
-        // This will override our @CurrentUser annotation
-        ctx.getContext().req.user = user
+      const user: User = {
+        id: userUid,
+        auth0Id: auth0Id,
+        roles: [role],
+      }
 
-        return true
-      },
-    })
-  }
+      // This will override our @CurrentUser annotation
+      ctx.getContext().req.user = user
+
+      return true
+    },
+  })
 
   const testModule = await testModuleBuilder.compile()
   const app = testModule.createNestApplication()

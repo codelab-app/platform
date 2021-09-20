@@ -79,7 +79,9 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
       /**
        * We use owner field to determine policy
        */
-      owner: currentUser.roles.includes(Role.User) ? currentUser.id : null,
+      owner: currentUser.roles.includes(Role.User)
+        ? { uid: currentUser.id }
+        : null,
       itemType: arrayType ? { uid: arrayType.itemTypeId } : undefined,
       primitiveKind: primitiveType ? primitiveType.primitiveKind : undefined,
       kind: elementType ? elementType.kind : undefined,

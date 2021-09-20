@@ -11,10 +11,9 @@ import { ROLES_KEY } from '../decorators/roles.decorator'
 
 /**
  * Allows only if the current user has ONE OF the roles in the allowedRoles array
+ *
  * Note that you need to apply GqlAuthGuard as well for this to work
  */
-// The previous approach with creating new classes didn't work, because
-// even though we create different classes, only the first of them gets injected everywhere
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {}

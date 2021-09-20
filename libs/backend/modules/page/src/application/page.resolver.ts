@@ -46,7 +46,7 @@ export class PageResolver {
     const page = await this.createPageService.execute({ input, currentUser })
 
     if (!page) {
-      throw new Error('')
+      return new Error('Page not created')
     }
 
     return this.pageAdapter.mapItem(page)
@@ -71,6 +71,10 @@ export class PageResolver {
   ) {
     const page = await this.getPageService.execute({ input, currentUser })
 
+    if (!page) {
+      return null
+    }
+
     return this.pageAdapter.mapItem(page)
   }
 
@@ -81,6 +85,10 @@ export class PageResolver {
     @CurrentUser() currentUser: User,
   ) {
     const page = await this.deletePageService.execute({ input, currentUser })
+
+    if (!page) {
+      throw new Error('Page not found')
+    }
 
     return this.pageAdapter.mapItem(page)
   }

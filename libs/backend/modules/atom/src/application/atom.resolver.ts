@@ -59,7 +59,7 @@ export class AtomResolver {
   }
 
   @Mutation(() => Void, { nullable: true })
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   async deleteAtom(@Args('input') input: DeleteAtomInput) {
     await this.deleteAtomService.execute(input)
@@ -85,11 +85,11 @@ export class AtomResolver {
       return null
     }
 
-    return await this.typeAdapterFactory.getMapper(api).mapItem(api)
+    return this.typeAdapterFactory.getMapper(api).mapItem(api)
   }
 
   @Mutation(() => Void, { nullable: true })
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   async importAtoms(
     @Args('input') input: ImportAtomsInput,
@@ -111,7 +111,7 @@ export class AtomResolver {
   }
 
   @Mutation(() => Void, { nullable: true })
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   async updateAtom(@Args('input') input: UpdateAtomInput) {
     await this.updateAtomService.execute(input)

@@ -15,6 +15,7 @@ import { TestGetAtomGql, TestGetAtomQuery } from './get-atom.api.graphql.gen'
 describe('GetAtom', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
+  let adminApp: INestApplication
   let atomId: string
   let getAtomInput: GetAtomInput
   let getAtomByTypeInput: GetAtomInput
@@ -22,11 +23,12 @@ describe('GetAtom', () => {
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
     userApp = await setupTestModule([AtomModule], { role: Role.User })
+    adminApp = await setupTestModule([AtomModule], { role: Role.Admin })
 
     const results = await domainRequest<
       CreateAtomInput,
       TestCreateAtomMutation
-    >(userApp, TestCreateAtomGql, createAtomInput)
+    >(adminApp, TestCreateAtomGql, createAtomInput)
 
     atomId = results.createAtom.id
     getAtomInput = {

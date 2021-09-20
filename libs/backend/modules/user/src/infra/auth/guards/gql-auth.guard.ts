@@ -3,7 +3,7 @@ import { GqlExecutionContext } from '@nestjs/graphql'
 import { AuthGuard } from '@nestjs/passport'
 
 /**
- * Allows only logged in users
+ * Checks for user authentication only, doesn't account for role-based permissions
  */
 @Injectable()
 export class GqlAuthGuard extends AuthGuard('jwt') {

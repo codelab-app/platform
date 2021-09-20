@@ -24,7 +24,7 @@ export class GetPageService extends DgraphUseCase<
       input: { pageId },
     } = request
 
-    await this.validate(request)
+    // await this.validate(request)
 
     return this.dgraph.getOne<DgraphPage>(
       txn,

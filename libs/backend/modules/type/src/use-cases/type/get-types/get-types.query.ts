@@ -10,13 +10,30 @@ import { GetTypesInput, TypesByKindFilter } from './get-types.input'
  *
  * If current user role is user -> get types without any owner + types from current user
  */
-export const getTypesQuery = (input: GetTypesInput, userId: string | null) => {
+export const getUserTypesQuery = (
+  input: GetTypesInput | undefined = {},
+  userId: string,
+) => {
   const { byIds, byKind, byName } = input
 
   const nameFilter = byName
     ? `match(name, "${byName.name}", 6) AND eq(owner, ${userId})`
     : `eq(owner, ${userId})`
 
+  const qb = getTypeQuery(getType(byKind), nameFilter)
+
+  if (byIds) {
+    qb.setUidsFunc(byIds.typeIds)
+  } else {
+    qb.setTypeFunc(getType(byKind))
+  }
+
+  return qb
+}
+
+export const getAdminTypesQuery = (input: GetTypesInput | undefined = {}) => {
+  const { byIds, byKind, byName } = input
+  const nameFilter = byName ? `match(name, "${byName.name}", 6)` : ``
   const qb = getTypeQuery(getType(byKind), nameFilter)
 
   if (byIds) {
