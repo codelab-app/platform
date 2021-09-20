@@ -20,8 +20,11 @@ describe('Atoms', () => {
       .closest('button')
 
   before(() => {
-    cy.resetDgraphData()
-    cy.login()
+    cy.resetDgraphData().then(() => {
+      cy.login().then(() => {
+        cy.preserveAuthCookies()
+      })
+    })
   })
 
   beforeEach(() => {

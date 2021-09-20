@@ -71,12 +71,12 @@ const getTreeItem = (label: string) =>
 
 describe('Types', () => {
   before(() => {
-    cy.resetDgraphData()
-
-    cy.login().then(() => {
-      cy.preserveAuthCookies()
-      cy.createApp().then((app: any) => {
-        appId = app.id
+    cy.resetDgraphData().then(() => {
+      cy.login().then(() => {
+        cy.preserveAuthCookies()
+        cy.createApp().then((app: any) => {
+          appId = app.id
+        })
       })
     })
   })

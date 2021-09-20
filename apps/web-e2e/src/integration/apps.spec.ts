@@ -1,12 +1,12 @@
 describe('Apps CRUD', () => {
   before(() => {
-    cy.resetDgraphData()
+    cy.resetDgraphData().then(() => {
+      cy.login().then(() => {
+        cy.preserveAuthCookies()
+        cy.visit('/apps')
 
-    cy.login().then(() => {
-      cy.preserveAuthCookies()
-      cy.visit('/apps')
-
-      cy.getSpinner().should('not.exist')
+        cy.getSpinner().should('not.exist')
+      })
     })
   })
 

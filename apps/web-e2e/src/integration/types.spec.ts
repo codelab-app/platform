@@ -38,10 +38,12 @@ const findDeleteButtonByTypeName = (text: string) =>
 
 describe('Types', () => {
   before(() => {
-    cy.resetDgraphData()
-    cy.login()
-    cy.preserveAuthCookies()
-    cy.visit(`/types`)
+    cy.resetDgraphData().then(() => {
+      cy.login().then(() => {
+        cy.preserveAuthCookies()
+        cy.visit(`/types`)
+      })
+    })
   })
 
   beforeEach(() => {

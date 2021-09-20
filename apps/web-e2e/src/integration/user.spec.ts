@@ -1,5 +1,5 @@
 describe('UserUseCase', () => {
-  beforeEach(() => {
+  before(() => {
     cy.visit('/')
     cy.logout()
   })
