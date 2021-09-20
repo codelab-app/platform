@@ -1,5 +1,6 @@
 import { FetchResult } from '@apollo/client'
-import { CallbackOrArrayOfCallbacks } from '@codelab/frontend/shared/utils'
+import { Callback } from '@codelab/frontend/shared/utils'
+import { MaybeArray } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
 import React from 'react'
 import { AutoFormProps, Bridge } from 'uniforms'
@@ -10,10 +11,10 @@ export type FormUniformsProps<TData> = {
   submitRef?: React.MutableRefObject<SubmitController | undefined>
 
   /** Called after a successful submit */
-  onSubmitSuccess?: CallbackOrArrayOfCallbacks<FetchResult<any>>
+  onSubmitSuccess?: MaybeArray<Callback<FetchResult<any>> | undefined>
 
   /** Called after a failed submit */
-  onSubmitError?: CallbackOrArrayOfCallbacks<any>
+  onSubmitError?: MaybeArray<Callback<any> | undefined>
 
   /** Schema used for form generation.
    * If you pass a schema object a default {@see Ajv} validator is created from it.
@@ -24,7 +25,9 @@ export type FormUniformsProps<TData> = {
   schema: JSONSchemaType<TData> | Bridge
 } & /** Props that get passed down to the AutoForm component */ Partial<
   Omit<AutoFormProps<TData>, 'schema' | 'onSubmit'>
-> & { onSubmit: (model: TData) => void | Promise<any> } // Pick<AutoFormProps<TData>, 'onSubmit'>
+> & { onSubmit: (model: TData) => void | Promise<any> }
+// Pick<AutoFormProps<TData>, 'onSubmit'>
+//
 
 /**
  * Read to use form, can be used with modal or standalone

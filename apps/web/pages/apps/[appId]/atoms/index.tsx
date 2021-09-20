@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import { CodelabPage, HeaderProps } from '@codelab/frontend/abstract/props'
 import { withAppQueryProvider } from '@codelab/frontend/modules/app'
 import {
   CreateAtomButton,
@@ -15,7 +15,7 @@ import { Breadcrumb, Card, PageHeader, Space } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 
-const AtomsPage: CodelabPage = () => {
+const AtomsPage: CodelabPage<HeaderProps> = () => {
   return (
     <div css={tw`m-6`}>
       <Space direction="vertical" css={tw`flex`}>

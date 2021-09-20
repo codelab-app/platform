@@ -49,6 +49,13 @@ describe('UpdateLambda', () => {
       name: 'HelloWorld2',
       body: createLambdaInput.body,
     }
+
+    const { getLambda } = await domainRequest<
+      GetLambdaInput,
+      TestGetLambdaQuery
+    >(userApp, TestGetLambdaGql, { lambdaId: updateLambdaInput.id })
+
+    expect(getLambda?.name).toBe(createLambdaInput.name)
   })
 
   afterAll(async () => {

@@ -5,6 +5,7 @@ import {
   ITypeEdge,
   TypeEdgeKind,
   TypeKind,
+  User,
 } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { TypeVertex } from '../../../domain'
@@ -21,14 +22,14 @@ import { CreateTypeInput, CreateTypeService } from '../create-type'
 import { CreateTypeFactory } from '../create-type/create-type.factory'
 import { GetTypeService } from '../get-type'
 import { UpdateTypeService } from '../update-type'
-import { ImportApiInput } from './import-api.input'
+import { ImportApiRequest } from './import-api.request'
 
 /**
  * This service is essentially a wrapper around createField & createType. We transform the graph vertices/edges back into fields & types
  */
 @Injectable()
 export class ImportApiService
-  implements UseCasePort<ImportApiInput, CreateResponse>
+  implements UseCasePort<ImportApiRequest, CreateResponse>
 {
   constructor(
     private createTypeService: CreateTypeService,
@@ -40,7 +41,12 @@ export class ImportApiService
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
 
-  async execute({ api, typeGraph }: ImportApiInput): Promise<CreateResponse> {
+  async execute(request: ImportApiRequest): Promise<CreateResponse> {
+    const {
+      input: { api, typeGraph },
+      currentUser,
+    } = request
+
     const { vertices = [], edges = [] } = typeGraph
 
     /**
@@ -49,7 +55,10 @@ export class ImportApiService
     const verticesIdMap = await vertices.reduce(async (vertexIdMap, vertex) => {
       // We would want to map the old vertex ids to current ids
 
-      const currentVertexId = await this.upsertType(vertex as TypeVertex)
+      const currentVertexId = await this.upsertType(
+        vertex as TypeVertex,
+        currentUser,
+      )
 
       ;(await vertexIdMap).set(vertex.id, currentVertexId)
 
@@ -72,20 +81,7 @@ export class ImportApiService
             throw new Error('Incorrect interface id to assign to')
           }
 
-          await this.upsertField(interfaceId, edge, existingTypeId)
-          // const createFieldInput: CreateFieldRequest = {
-          //   input: {
-          //     key: edge.field?.key,
-          //     name: `${edge.field?.name}`,
-          //     description: `${edge.field?.description}`,
-          //     interfaceId,
-          //     type: {
-          //       existingTypeId,
-          //     },
-          //   },
-          // }
-          //
-          // const { id } = await this.createFieldService.execute(createFieldInput)
+          await this.upsertField(interfaceId, edge, existingTypeId, currentUser)
         }
 
         if (edge.kind === TypeEdgeKind.ArrayItem) {
@@ -103,9 +99,10 @@ export class ImportApiService
             },
           }
 
-          const { id } = await this.createTypeService.execute(
-            createArrayTypeInput,
-          )
+          const { id } = await this.createTypeService.execute({
+            input: createArrayTypeInput,
+            currentUser,
+          })
         }
       }),
     )
@@ -122,18 +119,19 @@ export class ImportApiService
   /**
    * Returns existing type id if already existing, otherwise return created id
    */
-  private async upsertType(vertex: TypeVertex) {
-    this.logger.log(vertex, 'Create or Get')
+  private async upsertType(vertex: TypeVertex, currentUser: User) {
+    this.logger.debug(vertex, 'Create or Get')
 
     const typeData = CreateTypeFactory.toCreateInput(vertex)
 
     // We assume name is constant for primitive
     const existingType = await this.getTypeService.execute({
       input: { where: { name: typeData.name } },
+      currentUser,
     })
 
     if (existingType) {
-      this.logger.log(existingType.uid, 'Updating Type')
+      this.logger.debug(existingType.uid, 'Updating Type')
 
       await this.updateTypeService.execute({
         typeId: existingType.uid,
@@ -145,9 +143,12 @@ export class ImportApiService
       return existingType.uid
     }
 
-    const createdType = await this.createTypeService.execute(typeData)
+    const createdType = await this.createTypeService.execute({
+      input: typeData,
+      currentUser,
+    })
 
-    this.logger.log(createdType.id, 'Type Created')
+    this.logger.debug(createdType.id, 'Type Created')
 
     return createdType.id
   }
@@ -156,6 +157,7 @@ export class ImportApiService
     interfaceId: string,
     edge: ITypeEdge,
     existingTypeId: string,
+    currentUser: User,
   ) {
     // Check if field exists already
     const existingField = await this.getFieldService.execute({
@@ -184,6 +186,7 @@ export class ImportApiService
             },
           },
         },
+        currentUser,
       }
 
       await this.updateFieldService.execute(updateFieldInput)
@@ -201,6 +204,7 @@ export class ImportApiService
           existingTypeId,
         },
       },
+      currentUser,
     }
 
     const { id } = await this.createFieldService.execute(createFieldInput)

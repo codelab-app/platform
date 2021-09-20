@@ -1,15 +1,18 @@
-import { ApolloClient } from '@apollo/client'
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
-import { ApolloClientTokens } from '@codelab/backend/infra'
 import {
   GetTypeService,
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
-import { GqlAuthGuard, Roles } from '@codelab/backend/modules/user'
-import { Role } from '@codelab/shared/abstract/core'
-import { Inject, Injectable, UseGuards } from '@nestjs/common'
+import {
+  CurrentUser,
+  GqlAuthGuard,
+  Roles,
+  RolesGuard,
+} from '@codelab/backend/modules/user'
+import { Role, User } from '@codelab/shared/abstract/core'
+import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
   Mutation,
@@ -22,8 +25,7 @@ import { AtomAdapter } from '../domain/atom.adapter'
 import { Atom } from '../domain/atom.model'
 import { CreateAtomInput, CreateAtomService } from '../use-cases/create-atom'
 import { DeleteAtomInput, DeleteAtomService } from '../use-cases/delete-atom'
-import { GetAtomService } from '../use-cases/get-atom'
-import { GetAtomInput } from '../use-cases/get-atom/get-atom.input'
+import { GetAtomInput, GetAtomService } from '../use-cases/get-atom'
 import { GetAtomsService } from '../use-cases/get-atoms'
 import { GetAtomsInput } from '../use-cases/get-atoms/get-atoms.input'
 import { GetAtomsWithApisService } from '../use-cases/get-atoms-with-apis'
@@ -34,8 +36,6 @@ import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
 @Injectable()
 export class AtomResolver {
   constructor(
-    @Inject(ApolloClientTokens.ApolloClientProvider)
-    private client: ApolloClient<any>,
     private createAtomService: CreateAtomService,
     private getAtomService: GetAtomService,
     private getAtomsService: GetAtomsService,
@@ -49,14 +49,17 @@ export class AtomResolver {
   ) {}
 
   @Mutation(() => CreateResponse)
-  @UseGuards(GqlAuthGuard)
   @Roles(Role.Admin)
-  createAtom(@Args('input') input: CreateAtomInput) {
-    return this.createAtomService.execute(input)
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  createAtom(
+    @Args('input') input: CreateAtomInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.createAtomService.execute({ input, currentUser })
   }
 
   @Mutation(() => Void, { nullable: true })
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   async deleteAtom(@Args('input') input: DeleteAtomInput) {
     await this.deleteAtomService.execute(input)
@@ -86,10 +89,13 @@ export class AtomResolver {
   }
 
   @Mutation(() => Void, { nullable: true })
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
-  async importAtoms(@Args('input') input: ImportAtomsInput) {
-    await this.importAtomsService.execute(input)
+  async importAtoms(
+    @Args('input') input: ImportAtomsInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    await this.importAtomsService.execute({ input, currentUser })
   }
 
   @Query(() => Atom, { nullable: true })
@@ -105,7 +111,7 @@ export class AtomResolver {
   }
 
   @Mutation(() => Void, { nullable: true })
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   async updateAtom(@Args('input') input: UpdateAtomInput) {
     await this.updateAtomService.execute(input)

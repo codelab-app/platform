@@ -1,7 +1,4 @@
-import {
-  CreateResponse,
-  DgraphCreateUseCase,
-} from '@codelab/backend/application'
+import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphApp,
   DgraphCreateMutationJson,
@@ -13,23 +10,42 @@ import {
 import { AppValidator } from '@codelab/backend/modules/app'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
+import { GetPageService } from '../get-page'
 import { CreatePageRequest } from './create-page.request'
 
 @Injectable()
-export class CreatePageService extends DgraphCreateUseCase<CreatePageRequest> {
-  constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
+export class CreatePageService extends DgraphUseCase<
+  CreatePageRequest,
+  DgraphPage
+> {
+  constructor(
+    dgraph: DgraphRepository,
+    private appValidator: AppValidator,
+    private getPageService: GetPageService,
+  ) {
     super(dgraph)
   }
 
   protected async executeTransaction(
     request: CreatePageRequest,
     txn: Txn,
-  ): Promise<CreateResponse> {
+  ): Promise<DgraphPage> {
     await this.validate(request)
 
-    return this.dgraph.create(txn, (blankNodeUid) =>
+    const { id } = await this.dgraph.create(txn, (blankNodeUid) =>
       this.createMutation(request, blankNodeUid),
     )
+
+    const page = await this.getPageService.execute({
+      input: { pageId: id },
+      currentUser: request.currentUser,
+    })
+
+    if (!page) {
+      throw new Error('Page not created')
+    }
+
+    return page
   }
 
   protected createMutation(

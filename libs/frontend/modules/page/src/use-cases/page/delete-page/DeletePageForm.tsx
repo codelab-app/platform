@@ -10,7 +10,11 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetPagesQuery } from '../get-pages/GetPages.api.graphql.gen'
+import {
+  GetPagesGql,
+  GetPagesQuery,
+  GetPagesQueryVariables,
+} from '../get-pages/GetPages.api.graphql.gen'
 import { useDeletePageMutation } from './DeletePage.api.graphql.gen'
 
 type DeletePageFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
@@ -28,9 +32,44 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
     entityType: EntityType.Page,
     useMutationFunction: useDeletePageMutation,
     mutationOptions: {
-      refetchQueries: [
-        refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
-      ],
+      // refetchQueries: [
+      //   refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
+      // ],
+      update: (cache, { data }) => {
+        const deletedPage = data?.deletePage
+
+        console.log('deletedPage', data)
+
+        const variables = {
+          input: {
+            byApp: {
+              appId: app.id,
+            },
+          },
+        }
+
+        const existingPages = cache.readQuery<
+          GetPagesQuery,
+          GetPagesQueryVariables
+        >({
+          query: GetPagesGql,
+          variables,
+        })
+
+        if (existingPages && deletedPage) {
+          cache.writeQuery<GetPagesQuery, GetPagesQueryVariables>({
+            query: GetPagesGql,
+            variables,
+            data: {
+              pages: [
+                ...existingPages.pages.filter(
+                  (page) => page.id !== deletedPage?.id,
+                ),
+              ],
+            },
+          })
+        }
+      },
     },
     mapVariables: (_, state) => ({ input: { pageId: state.deleteIds[0] } }),
   })

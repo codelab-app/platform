@@ -1,0 +1,51 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "CRUD + Apollo Caching",
+  "steps": [
+    {
+      "file": "apps/web/pages/apps/[appId]/pages/index.tsx",
+      "description": "Let's see how a create page mutation would work",
+      "line": 12
+    },
+    {
+      "file": "libs/frontend/modules/page/src/use-cases/page/create-page/CreatePageForm.tsx",
+      "description": "We use a custom hook that takes in generated React Apollo mutation hooks",
+      "line": 28
+    },
+    {
+      "file": "libs/backend/modules/page/src/application/page.resolver.ts",
+      "description": "The mutation hits our GraphQL resolvers",
+      "line": 43
+    },
+    {
+      "file": "libs/backend/modules/page/src/use-cases/create-page/create-page.service.ts",
+      "description": "The resolver defers to a Dgraph service for interacting with our graph database",
+      "line": 21
+    },
+    {
+      "file": "libs/backend/modules/page/src/use-cases/create-page/create-page.service.ts",
+      "description": "Dgraph mutation only returns id",
+      "line": 39
+    },
+    {
+      "file": "libs/backend/modules/page/src/use-cases/create-page/create-page.service.ts",
+      "description": "So we have to re-fetch the full entity ",
+      "line": 43
+    },
+    {
+      "file": "libs/backend/modules/page/src/application/page.resolver.ts",
+      "description": "Then we map from Dgraph to GraphQL model",
+      "line": 53
+    },
+    {
+      "file": "libs/frontend/modules/page/src/use-cases/page/create-page/CreatePageForm.tsx",
+      "description": "Apollo normalized caching requires custom code for create & delete.",
+      "line": 35
+    },
+    {
+      "file": "libs/frontend/modules/page/src/use-cases/page/create-page/CreatePageForm.tsx",
+      "description": "We add to existing pages, only pages of same variables can be combined",
+      "line": 54
+    }
+  ]
+}

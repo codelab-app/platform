@@ -1,6 +1,10 @@
 fragment AppPages__App on App {
   id
   name
+  pages {
+    id
+    name
+  }
 }
 
 query AppPages($input: GetAppInput!) {

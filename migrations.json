@@ -1,5 +1,6 @@
 {
   "migrations": [
+    //
     {
       "cli": "nx",
       "version": "12.9.0",
@@ -23,6 +24,22 @@
       "factory": "./src/migrations/update-12-4-0/remove-eslint-project-config-if-no-type-checking-rules",
       "package": "@nrwl/linter",
       "name": "remove-eslint-project-config-if-no-type-checking-rules-again"
+    },
+    {
+      "version": "0.0.1",
+      "cli": "nx",
+      "description": "Custom tsconfig.*.json parser to set correct configs",
+      "factory": "./src/migrations/tsconfig/tsconfig",
+      "package": "@codelab/schematics",
+      "name": "tsconfig"
+    },
+    {
+      "version": "0.0.1",
+      "cli": "nx",
+      "description": "Add .eslintrc.ci.json",
+      "factory": "./src/migrations/eslint/eslint",
+      "package": "@codelab/schematics",
+      "name": "eslint"
     }
   ]
 }

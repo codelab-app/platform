@@ -256,6 +256,7 @@ jobs:
       - run:
           name: 'Remove Unused Cache'
           command: |
+            npx cypress cache path
             rm -rf ~/project/node_modules/.cache
       #            npx cypress cache prune
       - save_cache:
@@ -267,7 +268,7 @@ jobs:
             - ~/project/node_modules
             - ~/project/dist/apps/web/.next/cache
       - persist_to_workspace:
-          root: ..
+          root: ~/
           paths:
             - project/node_modules
             - project/dist
@@ -281,7 +282,7 @@ jobs:
       CIRCLE_REVISION: << pipeline.git.revision >>
     steps:
       - setup-workspace
-      - run: make lint-eslint
+      - run: make lint-eslint-ci
       - run:
           name: 'Circular Dependencies Check'
           command: make lint-circular-dep
@@ -452,6 +453,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
+            - integration
             - install-and-build-workspace
       - notify-success:
           <<: *filters-dev-pr

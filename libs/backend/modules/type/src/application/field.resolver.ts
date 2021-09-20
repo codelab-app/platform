@@ -1,6 +1,7 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
-import { GqlAuthGuard } from '@codelab/backend/modules/user'
+import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Field } from '../domain'
@@ -32,9 +33,13 @@ export class FieldResolver {
 
   @Mutation(() => CreateResponse)
   @UseGuards(GqlAuthGuard)
-  createField(@Args('input') input: CreateFieldInput) {
+  createField(
+    @Args('input') input: CreateFieldInput,
+    @CurrentUser() currentUser: User,
+  ) {
     return this.createFieldService.execute({
       input,
+      currentUser,
     })
   }
 
@@ -52,8 +57,11 @@ export class FieldResolver {
 
   @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  updateField(@Args('input') input: UpdateFieldInput) {
-    return this.updateFieldService.execute({ input })
+  updateField(
+    @Args('input') input: UpdateFieldInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.updateFieldService.execute({ input, currentUser })
   }
 
   @Mutation(() => Void, { nullable: true })

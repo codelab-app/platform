@@ -43,16 +43,19 @@ const sortedAtoms = (atoms: Array<TestGetExport__AtomsFragment>) => {
 describe('ImportAtoms', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
+  let adminApp: INestApplication
   let importAtomsInput: ImportAtomsInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
     userApp = await setupTestModule([AtomModule], { role: Role.User })
+    adminApp = await setupTestModule([AtomModule], { role: Role.Admin })
   })
 
   afterAll(async () => {
     await teardownTestModule(guestApp)
     await teardownTestModule(userApp)
+    await teardownTestModule(adminApp)
   })
 
   describe('Guest', () => {
@@ -73,9 +76,26 @@ describe('ImportAtoms', () => {
   })
 
   describe('User', () => {
+    importAtomsInput = {
+      payload: JSON.stringify(importAtomsData),
+    }
+
+    it('should fail to import atoms', async () => {
+      await domainRequest<ImportAtomsInput, TestImportAtomsMutation>(
+        userApp,
+        TestImportAtomsGql,
+        importAtomsInput,
+        {
+          message: 'Admin access only',
+        },
+      )
+    })
+  })
+
+  describe('Admin', () => {
     it('should import atoms', async () => {
       await domainRequest<ImportAtomsInput>(
-        userApp,
+        adminApp,
         TestImportAtomsGql,
         importAtomsInput,
       )

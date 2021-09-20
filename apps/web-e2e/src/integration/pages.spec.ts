@@ -1,13 +1,16 @@
+import { TIMEOUT } from '../support/timeout'
+
 describe('Pages', () => {
   let appId: string
   const pageName = 'new useful page'
   const updatedPageName = 'updated page'
 
   before(() => {
-    cy.resetDgraphData()
-    cy.login().then(() => {
-      cy.createApp().then((app: any) => {
-        appId = app.id
+    cy.resetDgraphData().then(() => {
+      cy.login().then(() => {
+        cy.createApp().then((app: any) => {
+          appId = app.id
+        })
       })
     })
   })
@@ -22,7 +25,7 @@ describe('Pages', () => {
     })
 
     it('should be able to create page', () => {
-      cy.findAllByText(pageName, { exact: true, timeout: 0 }).should(
+      cy.findAllByText(pageName, { exact: true, timeout: TIMEOUT }).should(
         'not.exist',
       )
 

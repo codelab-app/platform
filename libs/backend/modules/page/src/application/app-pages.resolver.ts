@@ -3,6 +3,7 @@ import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
 import type { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Parent, ResolveField, Resolver } from '@nestjs/graphql'
+import { Page } from '../domain/page.model'
 import { GetPagesService } from '../use-cases/get-pages'
 import { PageAdapter } from './page.adapter'
 
@@ -15,7 +16,7 @@ export class AppPagesResolver {
     private readonly getPagesService: GetPagesService,
   ) {}
 
-  @ResolveField('pages', () => App)
+  @ResolveField('pages', () => [Page])
   @UseGuards(GqlAuthGuard)
   async resolvePages(@Parent() parent: App, @CurrentUser() currentUser: User) {
     const pages = await this.getPagesService.execute({

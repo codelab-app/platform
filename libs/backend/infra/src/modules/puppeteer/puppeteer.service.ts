@@ -59,7 +59,7 @@ export class PuppeteerService {
     // Use this for testing only
     // .slice(0, 1)
 
-    Logger.log(`Found ${urls.length} links!`)
+    Logger.debug(`Found ${urls.length} links!`)
 
     const urlsMap = new Map(urls)
     let pagesCount = 1
@@ -69,7 +69,9 @@ export class PuppeteerService {
         continue
       }
 
-      Logger.log(`Fetching [${pagesCount}/${urls.length}] ${componentPage}...`)
+      Logger.debug(
+        `Fetching [${pagesCount}/${urls.length}] ${componentPage}...`,
+      )
       await page.goto(url)
 
       const tableData: Array<ComponentData | undefined> = await page.evaluate(

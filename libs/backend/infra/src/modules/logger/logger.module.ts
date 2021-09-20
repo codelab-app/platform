@@ -1,7 +1,9 @@
 import { Global, Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 // import * as logger from 'fluent-logger'
 import { WinstonModule } from 'nest-winston'
 import * as winston from 'winston'
+import { LoggerConfig, loggerConfig } from './config/logger.config'
 import { LoggerTokens } from './config/logger.tokens'
 import { consoleFormat } from './format/console-format'
 import { fileFormat } from './format/file-format'
@@ -20,8 +22,9 @@ import { loggerProvider } from './logger.provider'
 @Module({
   imports: [
     WinstonModule.forRootAsync({
-      inject: [],
-      useFactory: () => {
+      imports: [ConfigModule.forFeature(loggerConfig)],
+      inject: [loggerConfig.KEY],
+      useFactory: (_loggerConfig: LoggerConfig) => {
         return {
           format: winston.format.combine(
             // format.label({ label: path.basename(process.mainModule.filename) }),
@@ -40,10 +43,11 @@ import { loggerProvider } from './logger.provider'
             // new FluentTransport('codelab', fluentConfig),
             new winston.transports.File({
               filename: 'info.log',
-              level: 'info',
+              level: _loggerConfig.level,
               format: winston.format.combine(fileFormat()),
             }),
             new winston.transports.Console({
+              level: _loggerConfig.level,
               format: winston.format.combine(consoleFormat()),
             }),
           ],

@@ -43,7 +43,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    */
   async validate(payload: JwtPayload): Promise<User> {
     const user = await this.getUserService.execute({ auth0Id: payload.sub })
-    const roles = payload[JWT_CLAIMS].roles ?? [Role.User]
+
+    const roles = payload[JWT_CLAIMS].roles.length
+      ? payload[JWT_CLAIMS].roles
+      : [Role.User]
+
     let userId
 
     if (user) {

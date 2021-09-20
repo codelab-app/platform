@@ -2,14 +2,14 @@ import { Env } from './env'
 
 const shell = require('shelljs')
 
-// `local` is used for pre-push checks. Only `local` uses different port because a dev server may be running, `ci` & `dev` both use normal port.
+// `test` is used for pre-push checks. Only `test` uses different port because a dev server may be running, `ci` & `dev` both use normal port.
 export const runCli = (env?: Env, cmd: string = '') => {
   switch (env) {
     case Env.Dev:
       runDevCli(cmd)
       break
-    case Env.Local:
-      runLocalCli(cmd)
+    case Env.Test:
+      runTestCli(cmd)
       break
     case Env.Ci:
       runCiCli(cmd)
@@ -17,7 +17,7 @@ export const runCli = (env?: Env, cmd: string = '') => {
   }
 }
 
-const runLocalCli = (cmd: string) => {
+const runTestCli = (cmd: string) => {
   if (
     shell.exec(`npx env-cmd -f .env.test node dist/apps/cli/main.js ${cmd}`)
       .code !== 0

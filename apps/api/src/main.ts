@@ -3,7 +3,6 @@
  * This is only a minimal backend to get started.
  */
 
-import { AllExceptionsFilter } from '@codelab/backend/application'
 import { Logger, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { get } from 'env-var'
@@ -19,7 +18,7 @@ const bootstrap = async () => {
   app.setGlobalPrefix(globalPrefix)
   app.enableCors({ origin: '*' })
 
-  app.useGlobalFilters(new AllExceptionsFilter())
+  // app.useGlobalFilters(new AllExceptionsFilter())
   // Allows us to use class-validator to validate graphql input
   app.useGlobalPipes(new ValidationPipe())
 

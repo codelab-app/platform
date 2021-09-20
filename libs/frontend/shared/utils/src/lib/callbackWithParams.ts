@@ -1,13 +1,4 @@
-export type ArrayOfCallbacks<TParam> = Array<
-  ((param: TParam) => any) | undefined
->
-
 export type Callback<TParam> = (param: TParam) => any
-
-export type CallbackOrArrayOfCallbacks<TParam> =
-  | undefined
-  | Callback<TParam>
-  | ArrayOfCallbacks<TParam>
 
 export const callbackWithParams = <
   T extends any,

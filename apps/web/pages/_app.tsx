@@ -14,14 +14,26 @@ import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 
 const queryClient = new QueryClient()
 
-const AppContainer = ({ pageProps, Component }: AppProps<any>) => {
+const AppContainer = ({
+  // Props come from getServerSideProps
+  pageProps: ssrPageProps,
+  Component,
+}: AppProps<any>) => {
   const { Template, Header, MainPane, MetaPane, SidebarNavigation } =
     Component as CodelabPage
+
+  const _Header = Header ? () => <Header {...ssrPageProps} /> : null
+  const _MainPane = MainPane ? () => <MainPane {...ssrPageProps} /> : null
+  const _MetaPane = MetaPane ? () => <MetaPane {...ssrPageProps} /> : null
+
+  const _SidebarNavigation = SidebarNavigation
+    ? () => <SidebarNavigation {...ssrPageProps} />
+    : null
 
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <ApolloProvider client={useApollo(pageProps)}>
+        <ApolloProvider client={useApollo(ssrPageProps)}>
           <UserProvider>
             <GlobalStyles />
             <Global
@@ -36,15 +48,15 @@ const AppContainer = ({ pageProps, Component }: AppProps<any>) => {
             />
             {Template ? (
               <Template
-                MainPane={MainPane}
-                MetaPane={MetaPane}
-                SidebarNavigation={SidebarNavigation}
-                Header={Header}
+                MainPane={_MainPane}
+                MetaPane={_MetaPane}
+                SidebarNavigation={_SidebarNavigation}
+                Header={_Header}
               >
-                <Component {...pageProps} />
+                <Component {...ssrPageProps} />
               </Template>
             ) : (
-              <Component {...pageProps} />
+              <Component {...ssrPageProps} />
             )}
           </UserProvider>
         </ApolloProvider>

@@ -1,6 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { PageBaseFragment } from '../../../graphql/PageBase.fragment.api.graphql.gen';
 import { gql } from '@apollo/client';
+import { PageBaseFragmentDoc } from '../../../graphql/PageBase.fragment.api.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type CreatePageMutationVariables = Types.Exact<{
@@ -8,16 +10,16 @@ export type CreatePageMutationVariables = Types.Exact<{
 }>;
 
 
-export type CreatePageMutation = { createPage: { id: string } };
+export type CreatePageMutation = { createPage: PageBaseFragment };
 
 
 export const CreatePageGql = gql`
     mutation CreatePage($input: CreatePageInput!) {
   createPage(input: $input) {
-    id
+    ...PageBase
   }
 }
-    `;
+    ${PageBaseFragmentDoc}`;
 export type CreatePageMutationFn = Apollo.MutationFunction<CreatePageMutation, CreatePageMutationVariables>;
 
 /**

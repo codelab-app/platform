@@ -5,6 +5,7 @@ import {
   DgraphRepository,
   jsonMutation,
 } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { FieldValidator } from '../../../domain/field.validator'
@@ -27,11 +28,12 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
   protected async executeTransaction(request: CreateFieldRequest, txn: Txn) {
     const {
       input: { type },
+      currentUser,
     } = request
 
     await this.validate(request)
 
-    const typeId = await this.getTypeId(type)
+    const typeId = await this.getTypeId(type, currentUser)
 
     return this.dgraph.create(txn, (blankNodeUid) =>
       CreateFieldService.createMutation(request, typeId, blankNodeUid),
@@ -57,7 +59,7 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
   }
 
   // TODO make this in one txn
-  private async getTypeId(type: TypeRef) {
+  private async getTypeId(type: TypeRef, currentUser: User) {
     let typeId = type.existingTypeId
 
     // Check if we specify an existing type, if not - create a new one and get its ID
@@ -66,7 +68,10 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
         throw new Error('Either newType or existingTypeId must be provided')
       }
 
-      const createdType = await this.createTypeService.execute(type.newType)
+      const createdType = await this.createTypeService.execute({
+        input: type.newType,
+        currentUser,
+      })
 
       typeId = createdType.id
     }

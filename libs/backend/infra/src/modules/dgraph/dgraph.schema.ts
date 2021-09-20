@@ -45,10 +45,12 @@ export const dgraphSchema = `
     auth0Id
     apps
     roles
+    types
   }
   auth0Id: string @index(hash) .
   apps: [uid] @reverse .
   roles: [string] .
+  types: [uid] @reverse .
 
   type ${App} {
     ownerId
@@ -86,6 +88,7 @@ export const dgraphSchema = `
   }
 
   type ${Type} {
+    owner
     name
   }
 

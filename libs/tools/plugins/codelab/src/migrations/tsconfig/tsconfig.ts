@@ -11,6 +11,9 @@ import { TsConfig } from '@nrwl/storybook/src/utils/utilities'
 import { existsSync } from 'fs'
 import { merge } from 'lodash'
 
+/**
+ * Append some tsconfig too our libs & apps
+ */
 export default async function update(host: Tree) {
   const projects = getProjects(host)
 
@@ -44,5 +47,4 @@ export default async function update(host: Tree) {
 
   // Format not working right now
   await formatFiles(host)
-  // return chain([formatFiles()])
 }

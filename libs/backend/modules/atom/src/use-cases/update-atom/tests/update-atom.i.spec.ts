@@ -23,6 +23,7 @@ import {
 describe('UpdateAtom', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
+  let adminApp: INestApplication
   let atomId: string
   let updateAtomInput: UpdateAtomInput
   let getAtomInput: GetAtomInput
@@ -30,11 +31,12 @@ describe('UpdateAtom', () => {
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
     userApp = await setupTestModule([AtomModule], { role: Role.User })
+    adminApp = await setupTestModule([AtomModule], { role: Role.Admin })
 
     const results = await domainRequest<
       CreateAtomInput,
       TestCreateAtomMutation
-    >(userApp, TestCreateAtomGql, createAtomInput)
+    >(adminApp, TestCreateAtomGql, createAtomInput)
 
     atomId = results.createAtom.id
     updateAtomInput = {
@@ -53,6 +55,7 @@ describe('UpdateAtom', () => {
   afterAll(async () => {
     await teardownTestModule(guestApp)
     await teardownTestModule(userApp)
+    await teardownTestModule(adminApp)
   })
 
   describe('Guest', () => {
@@ -64,9 +67,17 @@ describe('UpdateAtom', () => {
   })
 
   describe('User', () => {
+    it('should fail to update an atom', async () => {
+      await domainRequest(userApp, TestUpdateAtomGql, updateAtomInput, {
+        message: 'Admin access only',
+      })
+    })
+  })
+
+  describe('Admin', () => {
     it('should update an atom', async () => {
       await domainRequest<UpdateAtomInput, TestUpdateAtomMutation>(
-        userApp,
+        adminApp,
         TestUpdateAtomGql,
         updateAtomInput,
       )

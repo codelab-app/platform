@@ -18,22 +18,24 @@ import { TestGetAtomsGql, TestGetAtomsQuery } from './get-atoms.api.graphql.gen'
 describe('GetAtoms', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
+  let adminApp: INestApplication
   let atomAId: string
   let atomBId: string
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
     userApp = await setupTestModule([AtomModule], { role: Role.User })
+    adminApp = await setupTestModule([AtomModule], { role: Role.Admin })
 
     const { createAtom: atomA } = await domainRequest<
       CreateAtomInput,
       TestCreateAtomMutation
-    >(userApp, TestCreateAtomGql, createAtomInput)
+    >(adminApp, TestCreateAtomGql, createAtomInput)
 
     const { createAtom: atomB } = await domainRequest<
       CreateAtomInput,
       TestCreateAtomMutation
-    >(userApp, TestCreateAtomGql, createAtomBInput)
+    >(adminApp, TestCreateAtomGql, createAtomBInput)
 
     atomAId = atomA.id
     atomBId = atomB.id
@@ -45,6 +47,7 @@ describe('GetAtoms', () => {
   afterAll(async () => {
     await teardownTestModule(guestApp)
     await teardownTestModule(userApp)
+    await teardownTestModule(adminApp)
   })
 
   describe('Guest', () => {

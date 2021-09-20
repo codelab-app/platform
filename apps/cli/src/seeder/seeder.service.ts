@@ -4,7 +4,7 @@ import {
   serverConfig,
 } from '@codelab/backend/infra'
 import { SeedBaseTypesService } from '@codelab/backend/modules/type'
-import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomType, User } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable } from '@nestjs/common'
 import { GraphQLClient } from 'graphql-request'
@@ -40,16 +40,16 @@ export class SeederService {
   @Command({
     command: 'seed',
   })
-  async seed() {
+  async seed(currentUser: User) {
     /**
      * (1) Seed base types like String, Boolean, Integer so other types can use them
      */
-    await this.seedBaseTypesService.execute()
+    await this.seedBaseTypesService.execute({ currentUser })
 
     /**
      * (2) Seed all Atoms
      */
-    this.atoms = await this.seedAtoms()
+    this.atoms = await this.seedAtoms(currentUser)
 
     /**
      * (3) Wrap all Atoms with a Component
@@ -58,10 +58,13 @@ export class SeederService {
     /**
      * (3) Seed all Atoms API's that we have data for
      */
-    await iterateCsvs(this.antdDataFolder, this.handleCsv.bind(this))
+    await iterateCsvs(
+      this.antdDataFolder,
+      this.handleCsv.bind(this, currentUser),
+    )
     await iterateCsvs(
       this.customComponentsDataFolder,
-      this.handleCsv.bind(this),
+      this.handleCsv.bind(this, currentUser),
     )
   }
 
@@ -76,15 +79,18 @@ export class SeederService {
     )
   }
 
-  private async seedAtoms() {
-    await this.typeSeeder.seedBaseTypes()
+  private async seedAtoms(currentUser: User) {
+    await this.typeSeeder.seedBaseTypes(currentUser)
 
     return Promise.all(
       Object.values(AtomType).map((atomType) =>
         this.atomSeeder
           .seedAtomIfMissing({
-            type: atomType,
-            name: pascalCaseToWords(atomType),
+            input: {
+              type: atomType,
+              name: pascalCaseToWords(atomType),
+            },
+            currentUser,
           })
           .then((id) => ({ id, atomType })),
       ),
@@ -95,7 +101,11 @@ export class SeederService {
     return new Map(this.atoms.map(({ id, atomType }) => [atomType, id]))
   }
 
-  private handleCsv(data: Array<AntdDesignApi>, file: string) {
+  private handleCsv(
+    currentUser: User,
+    data: Array<AntdDesignApi>,
+    file: string,
+  ) {
     const atomType = csvNameToAtomTypeMap[file.replace('.csv', '')]
 
     if (!atomType) {
@@ -108,6 +118,6 @@ export class SeederService {
       return
     }
 
-    return this.typeSeeder.seedAtomApi(atomId, data)
+    return this.typeSeeder.seedAtomApi(atomId, data, currentUser)
   }
 }

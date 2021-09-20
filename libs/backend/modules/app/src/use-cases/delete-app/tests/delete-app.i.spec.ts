@@ -59,11 +59,10 @@ describe('DeleteApp', () => {
 
   describe('User', () => {
     it('should delete an app', async () => {
-      await domainRequest<DeleteAppInput, TestDeleteAppMutation>(
-        userApp,
-        TestDeleteAppGql,
-        deleteAppInput,
-      )
+      const { deleteApp } = await domainRequest<
+        DeleteAppInput,
+        TestDeleteAppMutation
+      >(userApp, TestDeleteAppGql, deleteAppInput)
 
       const { getApp } = await domainRequest<GetAppInput, TestGetAppQuery>(
         userApp,

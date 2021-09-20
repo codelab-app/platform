@@ -3,20 +3,49 @@ import { typeDefinitionByTypeKind } from '../../../domain/type-definition-by-typ
 import { getTypeQuery } from '../get-type'
 import { GetTypesInput, TypesByKindFilter } from './get-types.input'
 
-export const getTypesQuery = ({ byIds, byKind, byName }: GetTypesInput) => {
-  const nameFilter = byName ? `match(name, "${byName.name}", 6)` : undefined
-  const qb = getTypeQuery(getTypeFilter(byKind), nameFilter)
+/**
+ * Based on current user role, we fetch differently.
+ *
+ * If current user role is admin -> get only types without any owner
+ *
+ * If current user role is user -> get types without any owner + types from current user
+ */
+export const getUserTypesQuery = (
+  input: GetTypesInput | undefined = {},
+  userId: string,
+) => {
+  const { byIds, byKind, byName } = input
+
+  const nameFilter = byName
+    ? `match(name, "${byName.name}", 6) AND eq(owner, ${userId})`
+    : `eq(owner, ${userId})`
+
+  const qb = getTypeQuery(getType(byKind), nameFilter)
 
   if (byIds) {
     qb.setUidsFunc(byIds.typeIds)
   } else {
-    qb.setTypeFunc(getTypeFilter(byKind))
+    qb.setTypeFunc(getType(byKind))
   }
 
   return qb
 }
 
-export const getTypeFilter = (filter?: TypesByKindFilter): DgraphEntityType => {
+export const getAdminTypesQuery = (input: GetTypesInput | undefined = {}) => {
+  const { byIds, byKind, byName } = input
+  const nameFilter = byName ? `match(name, "${byName.name}", 6)` : ``
+  const qb = getTypeQuery(getType(byKind), nameFilter)
+
+  if (byIds) {
+    qb.setUidsFunc(byIds.typeIds)
+  } else {
+    qb.setTypeFunc(getType(byKind))
+  }
+
+  return qb
+}
+
+export const getType = (filter?: TypesByKindFilter): DgraphEntityType => {
   if (!filter) {
     return DgraphEntityType.Type
   }

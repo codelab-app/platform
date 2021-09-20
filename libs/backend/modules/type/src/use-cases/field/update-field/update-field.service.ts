@@ -8,6 +8,7 @@ import {
   DgraphRepository,
   jsonMutation,
 } from '@codelab/backend/infra'
+import { User } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { FieldValidator } from '../../../domain/field.validator'
@@ -30,9 +31,10 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
   }
 
   protected async executeTransaction(request: UpdateFieldRequest, txn: Txn) {
+    const { currentUser, input } = request
     await this.validate(request)
 
-    const typeId = await this.getTypeId(request.input.updateData.type)
+    const typeId = await this.getTypeId(input.updateData.type, currentUser)
 
     await this.dgraph.executeMutation(
       txn,
@@ -60,7 +62,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
     })
   }
 
-  private async getTypeId(type: TypeRef) {
+  private async getTypeId(type: TypeRef, currentUser: User) {
     let typeId = type.existingTypeId
 
     // Check if we specify an existing type, if not - create a new one and get its ID
@@ -69,7 +71,11 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
         throw new Error('Either newType or existingTypeId must be provided')
       }
 
-      const createdType = await this.createTypeService.execute(type.newType)
+      const createdType = await this.createTypeService.execute({
+        input: type.newType,
+        currentUser,
+      })
+
       typeId = createdType.id
     }
 

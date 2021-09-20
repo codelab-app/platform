@@ -1,5 +1,5 @@
 import {
-  CreateAtomInput,
+  CreateAtomRequest,
   CreateAtomService,
   GetAtomInput,
   GetAtomService,
@@ -21,13 +21,13 @@ export class AtomSeeder {
    * Checks if an Atom with the same AtomType exists, if not - creates it
    * Returns the id in both cases
    */
-  async seedAtomIfMissing(atom: CreateAtomInput): Promise<string> {
-    return createIfMissing(
+  async seedAtomIfMissing(request: CreateAtomRequest): Promise<string> {
+    return await createIfMissing(
       () =>
-        this.getAtom({ where: { type: atom.type } }).then(
+        this.getAtom({ where: { type: request.input.type } }).then(
           (_atom) => _atom?.uid,
         ),
-      () => this.createAtom(atom),
+      () => this.createAtom(request),
     )
   }
 
@@ -35,14 +35,16 @@ export class AtomSeeder {
     return await this.getAtomService.execute(input)
   }
 
-  private async createAtom(input: CreateAtomInput) {
-    const createResponse = await this.createAtomService.execute(input)
+  private async createAtom(request: CreateAtomRequest) {
+    const createResponse = await this.createAtomService.execute(request)
 
     if (!createResponse?.id) {
-      throw new Error(`Something went wrong while creating atom ${input.type}`)
+      throw new Error(
+        `Something went wrong while creating atom ${request.input.type}`,
+      )
     }
 
-    Logger.log(`Created atom ${input.type}`)
+    Logger.debug(`Created atom ${request.input.type}`)
 
     return createResponse.id
   }

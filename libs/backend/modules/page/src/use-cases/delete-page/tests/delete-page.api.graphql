@@ -1,3 +1,5 @@
 mutation TestDeletePage($input: DeletePageInput!) {
-  deletePage(input: $input)
+  deletePage(input: $input) {
+    ...PageBase
+  }
 }

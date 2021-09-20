@@ -1,0 +1,33 @@
+{
+  "extends": ["plugin:@nrwl/nx/react-typescript", "../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "jsx-a11y/anchor-is-valid": "off",
+        "react/jsx-no-useless-fragment": "off",
+        "@nrwl/nx/enforce-module-boundaries": "off",
+        "react/no-unescaped-entities": "off",
+        "react/display-name": "off"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {},
+      "parserOptions": {
+        "project": [
+          "apps/web/tsconfig.*?.json",
+          "apps/web/.storybook/tsconfig.json"
+        ]
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    }
+  ],
+  "env": {
+    "jest": true
+  }
+}

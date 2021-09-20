@@ -5,6 +5,29 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/@nrwl/cli/bin/nx",
+      // "program": "${workspaceFolder}/node_modules/.bin/nx",
+      "args": [
+        "test",
+        "backend-modules-atom",
+        "--passWithNoTests",
+        "--no-code-coverage",
+        "--runInBand",
+        "--testFile"
+      ],
+      // "runtimeArgs": [
+      //   "--inspect-brk",
+      //   "${workspaceRoot}/node_modules/.bin/jest",
+      //   "--runInBand"
+      // ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Jest Current File",
@@ -18,7 +41,6 @@
         "--skip-nx-cache"
       ],
       "console": "integratedTerminal",
-      // "console": "internalConsole",
       "internalConsoleOptions": "neverOpen",
       "disableOptimisticBPs": true
     },
