@@ -25,6 +25,13 @@ export default async function update(host: Tree) {
       eslintConfig: joinPathFragments(root, '.eslintrc.json'),
       eslintCiConfig: joinPathFragments(root, '.eslintrc.ci.json'),
       tsconfigPath: joinPathFragments(root, 'tsconfig.*?.json'),
+      tsconfigStorybookPath: joinPathFragments(
+        root,
+        '.storybook/tsconfig.json',
+      ),
+      /**
+       *
+       */
       baseEslintPath: joinPathFragments(
         offsetFromRoot(root),
         '.eslintrc.ci.json',
@@ -38,16 +45,15 @@ export default async function update(host: Tree) {
     /**
      * Add option to extend a base shared eslint config for CI only
      */
+
+    const project = existsSync(paths.tsconfigStorybookPath)
+      ? [paths.tsconfigPath, paths.tsconfigStorybookPath]
+      : [paths.tsconfigPath]
+
+    console.log(projectName, project)
+
     const options = {
-      overrides: [
-        {
-          files: ['*.ts', '*.tsx'],
-          parserOptions: {
-            project: [paths.tsconfigPath],
-          },
-          extends: [paths.baseEslintPath],
-        },
-      ],
+      project,
     }
 
     console.log('Checking...', paths.eslintCiConfig)
@@ -61,18 +67,14 @@ export default async function update(host: Tree) {
     if (existsSync(paths.eslintCiConfig)) {
       const eslint = readJson<TsConfig>(host, paths.eslintCiConfig)
 
-      set(eslint, 'overrides.1.parserOptions', {
-        project: [paths.tsconfigPath],
-      })
+      set(eslint, 'overrides.1.parserOptions', options)
 
       writeJson(host, paths.eslintCiConfig, eslint)
     } else {
       // Create .eslint.ci.config
       const eslint = readJson<TsConfig>(host, paths.eslintConfig)
 
-      set(eslint, 'overrides.1.parserOptions', {
-        project: [paths.tsconfigPath],
-      })
+      set(eslint, 'overrides.1.parserOptions', options)
       writeJson(host, paths.eslintCiConfig, eslint)
     }
 

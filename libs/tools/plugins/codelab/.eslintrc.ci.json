@@ -6,15 +6,14 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": "off"
-      },
-      "parserOptions": {
-        "project": ["libs/tools/plugins/codelab/tsconfig.*?.json"]
-      },
-      "extends": ["../../../../.eslintrc.ci.json"]
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {}
+      "rules": {},
+      "parserOptions": {
+        "project": ["libs/tools/plugins/codelab/tsconfig.*?.json"]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

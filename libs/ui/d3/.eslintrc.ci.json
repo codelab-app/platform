@@ -4,15 +4,17 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {},
-      "parserOptions": {
-        "project": ["libs/ui/d3/tsconfig.*?.json"]
-      },
-      "extends": ["../../../.eslintrc.ci.json"]
+      "rules": {}
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {}
+      "rules": {},
+      "parserOptions": {
+        "project": [
+          "libs/ui/d3/tsconfig.*?.json",
+          "libs/ui/d3/.storybook/tsconfig.json"
+        ]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

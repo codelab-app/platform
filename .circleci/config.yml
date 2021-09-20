@@ -256,6 +256,7 @@ jobs:
       - run:
           name: 'Remove Unused Cache'
           command: |
+            npx cypress cache path
             rm -rf ~/project/node_modules/.cache
       #            npx cypress cache prune
       - save_cache:

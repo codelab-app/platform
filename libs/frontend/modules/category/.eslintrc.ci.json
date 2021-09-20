@@ -4,15 +4,14 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {},
-      "parserOptions": {
-        "project": ["libs/frontend/modules/category/tsconfig.*?.json"]
-      },
-      "extends": ["../../../../.eslintrc.ci.json"]
+      "rules": {}
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {}
+      "rules": {},
+      "parserOptions": {
+        "project": ["libs/frontend/modules/category/tsconfig.*?.json"]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

@@ -4,15 +4,14 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {},
-      "parserOptions": {
-        "project": ["apps/web-e2e/tsconfig.*?.json"]
-      },
-      "extends": ["../../.eslintrc.ci.json"]
+      "rules": {}
     },
     {
       "files": ["*.spec*.ts"],
-      "rules": {}
+      "rules": {},
+      "parserOptions": {
+        "project": ["apps/web-e2e/tsconfig.*?.json"]
+      }
     },
     {
       "files": ["src/plugins/index.js"],

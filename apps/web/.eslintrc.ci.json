@@ -10,15 +10,17 @@
         "@nrwl/nx/enforce-module-boundaries": "off",
         "react/no-unescaped-entities": "off",
         "react/display-name": "off"
-      },
-      "parserOptions": {
-        "project": ["apps/web/tsconfig.*?.json"]
-      },
-      "extends": ["../../.eslintrc.ci.json"]
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {}
+      "rules": {},
+      "parserOptions": {
+        "project": [
+          "apps/web/tsconfig.*?.json",
+          "apps/web/.storybook/tsconfig.json"
+        ]
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
