@@ -125,7 +125,7 @@ describe('Types', () => {
         const atomType = atom.type
         const atomLabel = atom.type
 
-        cy.findAllByText(atomName, { exact: true, timeout: 0 }).should(
+        cy.findAllByText(atomName, { exact: true, timeout: TIMEOUT }).should(
           'not.exist',
         )
 
