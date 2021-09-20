@@ -272,7 +272,7 @@ jobs:
           paths:
             - project/node_modules
             - project/dist
-            - .cache/Cypress
+            - ~/.cache/Cypress
       - notify-failure
 
   lint:

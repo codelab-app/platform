@@ -1,3 +1,5 @@
+import { TIMEOUT } from '../support/timeout'
+
 describe('Pages', () => {
   let appId: string
   const pageName = 'new useful page'
@@ -22,7 +24,7 @@ describe('Pages', () => {
     })
 
     it('should be able to create page', () => {
-      cy.findAllByText(pageName, { exact: true, timeout: 0 }).should(
+      cy.findAllByText(pageName, { exact: true, timeout: TIMEOUT }).should(
         'not.exist',
       )
 

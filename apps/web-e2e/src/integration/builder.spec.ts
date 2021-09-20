@@ -1,4 +1,5 @@
 import { AtomType } from '@codelab/shared/abstract/core'
+import { TIMEOUT } from '../support/timeout'
 
 // Text primitive type
 const textTypeName = 'Text'
@@ -31,21 +32,21 @@ const components = [
 
 const findEditButtonByTypeName = (text: string) =>
   cy
-    .findByText(text, { exact: true, timeout: 5000 })
+    .findByText(text, { exact: true, timeout: TIMEOUT })
     .closest('.ant-table-row')
     .find('.anticon-edit')
     .closest('button')
 
 const findDeleteButtonByTypeName = (text: string) =>
   cy
-    .findByText(text, { exact: true, timeout: 5000 })
+    .findByText(text, { exact: true, timeout: TIMEOUT })
     .closest('.ant-table-row')
     .find('.anticon-delete')
     .closest('button')
 
 const findDeleteButtonByAtomName = (text: string) =>
   cy
-    .findByText(text, { exact: true, timeout: 5000 })
+    .findByText(text, { exact: true, timeout: TIMEOUT })
     .closest('.ant-table-row')
     .find('.anticon-delete')
     .closest('button')
@@ -87,7 +88,7 @@ describe('Types', () => {
   describe('create text primitive type', () => {
     before(() => {
       cy.visit(`/types`)
-      cy.get('.ant-table-cell', { timeout: 30000 })
+      cy.get('.ant-table-cell', { timeout: TIMEOUT })
     })
 
     it('should be able to create text primitive type', () => {
@@ -115,7 +116,7 @@ describe('Types', () => {
   describe('create atoms', () => {
     before(() => {
       cy.visit(`/atoms`)
-      cy.get('.ant-table-cell', { timeout: 30000 })
+      cy.get('.ant-table-cell', { timeout: TIMEOUT })
     })
 
     it('should be able to create atoms', () => {
@@ -150,7 +151,7 @@ describe('Types', () => {
     })
 
     it('should be able to create home page', () => {
-      cy.findAllByText(pageName, { exact: true, timeout: 0 }).should(
+      cy.findAllByText(pageName, { exact: true, timeout: TIMEOUT }).should(
         'not.exist',
       )
 
@@ -203,7 +204,9 @@ describe('Types', () => {
     })
 
     it('should be able to delete home page', () => {
-      cy.findAllByText(pageName, { exact: true, timeout: 5000 }).should('exist')
+      cy.findAllByText(pageName, { exact: true, timeout: TIMEOUT }).should(
+        'exist',
+      )
 
       cy.findDeleteButtonByPageName(pageName).click()
 
@@ -219,7 +222,7 @@ describe('Types', () => {
   describe('delete atoms', () => {
     before(() => {
       cy.visit(`/atoms`)
-      cy.get('.ant-table-cell', { timeout: 30000 })
+      cy.get('.ant-table-cell', { timeout: TIMEOUT })
     })
 
     it('should be able to delete atoms', () => {
@@ -242,7 +245,7 @@ describe('Types', () => {
   describe('delete text primitive type', () => {
     before(() => {
       cy.visit(`/types`)
-      cy.get('.ant-table-cell', { timeout: 5000 })
+      cy.get('.ant-table-cell', { timeout: TIMEOUT })
     })
 
     it('should be able to delete text primitive', () => {
