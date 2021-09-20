@@ -4,9 +4,7 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "demo": 2
-      },
+      "rules": {},
       "extends": ["../../../../.eslintrc.ci.json"],
       "parserOptions": {
         "project": ["libs/backend/modules/app/tsconfig.*?.json"]
