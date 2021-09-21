@@ -16,6 +16,7 @@
     "postinstall": "./scripts/postinstall.sh",
     "tunnel": "ngrok http -region=us -hostname=a8069b052300.ngrok.io http://127.0.0.1:3333",
     "e2e": "env-cmd -f .env.test nx e2e web-e2e -c dev",
+    "rename": "ts-node -P ./scripts/tsconfig.json ./scripts/rename/batch-rename.ts",
     "cli": "ts-node -P ./scripts/tsconfig.json ./scripts/cli.ts",
     "docker:up": "libs/tools/scripts/src/docker/up.sh",
     "codegen": "yarn graphql-codegen",

@@ -1,12 +1,10 @@
-import { print } from 'graphql'
 import {
   CreatePageGql,
   CreatePageMutationVariables,
-} from './graphql/CreatePage.api.graphql.gen'
-import {
   GetPageGql,
   GetPageQueryVariables,
-} from './graphql/GetPage.api.graphql.gen'
+} from '@codelab/frontend/modules/page'
+import { print } from 'graphql'
 
 type GetPageInput = GetPageQueryVariables['input']
 

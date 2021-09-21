@@ -14,7 +14,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useCreateElementMutation } from './CreateElement.api.graphql.gen'
+import { useCreateElementMutation } from './CreateElement.web.graphql.gen'
 import { CreateElementSchema, createElementSchema } from './createElementSchema'
 
 export interface CreateElementFormProps

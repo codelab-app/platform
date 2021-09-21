@@ -1,5 +1,5 @@
 import { Button } from 'antd'
-import { useSeedBaseTypesMutation } from './SeedBaseTypes.api.graphql.gen'
+import { useSeedBaseTypesMutation } from './SeedBaseTypes.web.graphql.gen'
 
 export const SeedBaseTypesButton = () => {
   const [seedBaseTypes] = useSeedBaseTypesMutation()

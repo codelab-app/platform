@@ -11,10 +11,10 @@ import { Space, Spin, Table, TableColumnProps, Tag } from 'antd'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
-import { AtomFragment } from '../../Atom.fragment.api.graphql.gen'
+import { AtomFragment } from '../../Atom.fragment.web.graphql.gen'
 import { ExportAtomsButton } from '../export-atoms/ExportAtomsButton'
 import { ImportAtomsUpload } from '../import-atoms'
-import { useGetAtomsQuery } from './GetAtoms.api.graphql.gen'
+import { useGetAtomsQuery } from './GetAtoms.web.graphql.gen'
 
 export type Record = AtomFragment
 

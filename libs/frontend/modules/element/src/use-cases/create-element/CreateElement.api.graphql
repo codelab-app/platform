@@ -1,5 +1,0 @@
-mutation CreateElement($input: CreateElementInput!) {
-  createElement(input: $input) {
-    id
-  }
-}

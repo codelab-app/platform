@@ -10,8 +10,8 @@ import React, { useRef } from 'react'
 import {
   refetchGetElementQuery,
   useGetElementQuery,
-} from '../get-element/GetElement.api.graphql.gen'
-import { useUpdateElementPropsMutation } from './UpdateElementProps.api.graphql.gen'
+} from '../get-element/GetElement.web.graphql.gen'
+import { useUpdateElementPropsMutation } from './UpdateElementProps.web.graphql.gen'
 
 interface UpdateElementPropsFormInternalProps {
   elementId: string

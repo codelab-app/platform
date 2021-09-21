@@ -2,4 +2,4 @@ export {
   refetchGetElementQuery,
   useGetElementLazyQuery,
   useGetElementQuery,
-} from './GetElement.api.graphql.gen'
+} from './GetElement.web.graphql.gen'

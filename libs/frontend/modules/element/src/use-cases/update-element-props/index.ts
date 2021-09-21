@@ -1,2 +1,2 @@
-export * from './UpdateElementProps.api.graphql.gen'
+export * from './UpdateElementProps.web.graphql.gen'
 export * from './UpdateElementPropsForm'

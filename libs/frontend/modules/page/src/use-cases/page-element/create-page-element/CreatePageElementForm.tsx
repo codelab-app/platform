@@ -6,7 +6,7 @@ import {
 import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import React, { useContext } from 'react'
 import { PageContext } from '../../../providers'
-import { refetchGetPageQuery } from '../../page/get-page/GetPage.api.graphql.gen'
+import { refetchGetPageQuery } from '../../page/get-page/GetPage.web.graphql.gen'
 
 type CreatePageElementFormProps = Omit<
   CreateElementFormProps,

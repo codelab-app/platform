@@ -3,7 +3,7 @@ import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Col, Empty, Row, Spin } from 'antd'
 import React from 'react'
 import { CreateAppButtonNow } from '../create-app'
-import { useGetAppsQuery } from './GetApps.api.graphql.gen'
+import { useGetAppsQuery } from './GetApps.web.graphql.gen'
 import { GetAppsItem } from './GetAppsItem'
 
 export const GetAppsList = () => {

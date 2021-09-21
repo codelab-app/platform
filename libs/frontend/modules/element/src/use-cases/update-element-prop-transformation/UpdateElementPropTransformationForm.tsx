@@ -8,7 +8,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ElementFragment } from '../../graphql'
 import { ElementTreeGraphql } from '../../tree'
 import { refetchGetElementQuery, useGetElementQuery } from '../get-element'
-import { useUpdateElementMutation } from '../update-element/UpdateElement.api.graphql.gen'
+import { useUpdateElementMutation } from '../update-element/UpdateElement.web.graphql.gen'
 
 interface InternalProps {
   tree: ElementTreeGraphql

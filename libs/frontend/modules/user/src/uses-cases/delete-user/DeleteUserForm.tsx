@@ -8,8 +8,8 @@ import {
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { refetchGetUsersQuery } from '../get-users/GetUsers.api.graphql.gen'
-import { useDeleteUserMutation } from './DeleteUser.api.graphql.gen'
+import { refetchGetUsersQuery } from '../get-users/GetUsers.web.graphql.gen'
+import { useDeleteUserMutation } from './DeleteUser.web.graphql.gen'
 
 export const DeleteUserForm = (
   props: UniFormUseCaseProps<EmptyJsonSchemaType>,

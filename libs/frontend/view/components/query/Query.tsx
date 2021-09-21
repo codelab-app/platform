@@ -1,7 +1,7 @@
 import { Empty, Spin } from 'antd'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { useExecuteLambdaForQueryMutation } from './ExecuteLambdaForQuery.api.graphql.gen'
+import { useExecuteLambdaForQueryMutation } from './ExecuteLambdaForQuery.web.graphql.gen'
 
 export interface QueryProps {
   queryKey: string

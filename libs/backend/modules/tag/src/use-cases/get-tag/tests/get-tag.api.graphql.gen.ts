@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { TestTagFragment } from '../../../domain/tag.fragment.api.graphql.gen';
+import { TestTagFragment } from '../../../domain/tag.fragment.graphql.gen';
 import { gql } from '@apollo/client';
-import { TestTagFragmentDoc } from '../../../domain/tag.fragment.api.graphql.gen';
+import { TestTagFragmentDoc } from '../../../domain/tag.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestGetTagQueryVariables = Types.Exact<{

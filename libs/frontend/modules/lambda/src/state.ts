@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import { LambdaFragment } from './graphql/Lambda.fragment.api.graphql.gen'
+import { LambdaFragment } from './graphql/Lambda.fragment.web.graphql.gen'
 
 export type LambdaType = LambdaFragment
 

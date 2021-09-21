@@ -1,17 +1,15 @@
 import '@testing-library/cypress/add-commands'
+import {
+  CreateAppGql,
+  CreateAppMutationVariables,
+  DeleteAppGql,
+  DeleteAppMutationVariables,
+} from '@codelab/frontend/modules/app'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
 import { print } from 'graphql'
 import { createAtom } from './atom'
 import { createElement, createPropBinding } from './element'
-import {
-  CreateAppGql,
-  CreateAppMutationVariables,
-} from './graphql/CreateApp.api.graphql.gen'
-import {
-  DeleteAppGql,
-  DeleteAppMutationVariables,
-} from './graphql/DeleteApp.api.graphql.gen'
 import { createPage, getPage } from './page'
 
 // ***********************************************

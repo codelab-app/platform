@@ -3,7 +3,7 @@ import { Button, Upload, UploadProps } from 'antd'
 import { RcFile } from 'antd/lib/upload'
 import { UploadProgressEvent } from 'rc-upload/es/interface'
 import { useState } from 'react'
-import { useImportAtomsMutation } from './ImportAtoms.api.graphql.gen'
+import { useImportAtomsMutation } from './ImportAtoms.web.graphql.gen'
 
 export const ImportAtomsUpload = () => {
   const [importAtoms, { loading }] = useImportAtomsMutation()

@@ -1,3 +1,3 @@
-import { AtomFragment } from '../../Atom.fragment.api.graphql.gen'
+import { AtomFragment } from '../../Atom.fragment.web.graphql.gen'
 
 export type Record = AtomFragment

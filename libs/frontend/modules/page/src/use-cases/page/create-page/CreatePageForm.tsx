@@ -12,8 +12,8 @@ import {
   GetPagesGql,
   GetPagesQuery,
   GetPagesQueryVariables,
-} from '../get-pages/GetPages.api.graphql.gen'
-import { useCreatePageMutation } from './CreatePage.api.graphql.gen'
+} from '../get-pages/GetPages.web.graphql.gen'
+import { useCreatePageMutation } from './CreatePage.web.graphql.gen'
 import { createPageSchema, CreatePageSchemaType } from './createPageSchema'
 
 type CreatePageFormProps = UniFormUseCaseProps<CreatePageSchemaType>

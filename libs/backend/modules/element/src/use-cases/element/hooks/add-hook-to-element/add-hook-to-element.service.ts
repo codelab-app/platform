@@ -57,15 +57,9 @@ export class AddHookToElementService extends DgraphCreateUseCase<AddHookToElemen
       queryHook,
       graphqlQueryHook,
       recoilStateHook,
+      graphqlMutationHook,
       queryPageHook,
       queryPagesHook,
-    },
-    input: {
-      elementId,
-      queryHook,
-      graphqlQueryHook,
-      recoilStateHook,
-      graphqlMutationHook,
     },
     currentUser,
   }: AddHookToElementRequest) {
@@ -74,14 +68,9 @@ export class AddHookToElementService extends DgraphCreateUseCase<AddHookToElemen
         queryHook,
         graphqlQueryHook,
         recoilStateHook,
+        graphqlMutationHook,
         queryPageHook,
         queryPagesHook,
-      ].filter((f) => !!f).length !== 1
-      [
-        queryHook,
-        graphqlQueryHook,
-        recoilStateHook,
-        graphqlMutationHook,
       ].filter((f) => !!f).length !== 1
     ) {
       throw new Error('Provide exactly 1 config type to addHookToElement')

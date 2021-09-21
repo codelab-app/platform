@@ -14,8 +14,8 @@ import { css } from '@emotion/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { AutoField, AutoFields, HiddenField } from 'uniforms-antd'
-import { refetchGetElementQuery } from '../../get-element/GetElement.api.graphql.gen'
-import { useAddHookToElementMutation } from './AddHookToElement.api.graphql.gen'
+import { refetchGetElementQuery } from '../../get-element/GetElement.web.graphql.gen'
+import { useAddHookToElementMutation } from './AddHookToElement.web.graphql.gen'
 import {
   AddHookToElementSchema,
   addHookToElementSchema,

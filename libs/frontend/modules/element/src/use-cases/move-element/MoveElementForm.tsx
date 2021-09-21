@@ -9,7 +9,7 @@ import {
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { ElementTreeGraphql } from '../../tree'
-import { useMoveElementMutation } from './MoveElement.api.graphql.gen'
+import { useMoveElementMutation } from './MoveElement.web.graphql.gen'
 import { MoveElementSchema, moveElementSchema } from './moveElementSchema'
 
 export type MoveElementFormProps = UniFormUseCaseProps<MoveElementSchema> & {

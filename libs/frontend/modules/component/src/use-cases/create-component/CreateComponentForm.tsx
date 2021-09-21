@@ -7,8 +7,8 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetComponentsQuery } from '../get-components/GetComponents.api.graphql.gen'
-import { useCreateComponentMutation } from './CreateComponent.api.graphql.gen'
+import { refetchGetComponentsQuery } from '../get-components/GetComponents.web.graphql.gen'
+import { useCreateComponentMutation } from './CreateComponent.web.graphql.gen'
 import {
   createComponentSchema,
   CreateComponentSchemaType,

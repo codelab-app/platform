@@ -1,1 +1,1 @@
-export * from './GetMe.api.graphql.gen'
+export * from './GetMe.web.graphql.gen'

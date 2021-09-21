@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
-import { useGetPagesForSelectQuery } from './GetPagesForSelect.api.graphql.gen'
+import { useGetPagesForSelectQuery } from './GetPagesForSelect.web.graphql.gen'
 
 export type SelectPageProps = HTMLFieldProps<string, SelectFieldProps>
 

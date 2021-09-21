@@ -1,12 +1,10 @@
-import { print } from 'graphql'
 import {
   CreateElementGql,
   CreateElementMutationVariables,
-} from './graphql/CreateElement.api.graphql.gen'
-import {
   CreatePropMapBindingGql,
   CreatePropMapBindingMutationVariables,
-} from './graphql/CreatePropMapBinding.api.graphql.gen'
+} from '@codelab/frontend/modules/element'
+import { print } from 'graphql'
 
 type CreateElementInput = CreateElementMutationVariables['input']
 

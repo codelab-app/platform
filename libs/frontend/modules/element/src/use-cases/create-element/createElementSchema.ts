@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { CreateElementMutationVariables } from './CreateElement.api.graphql.gen'
+import { CreateElementMutationVariables } from './CreateElement.web.graphql.gen'
 
 export type CreateElementSchema = CreateElementMutationVariables['input']
 

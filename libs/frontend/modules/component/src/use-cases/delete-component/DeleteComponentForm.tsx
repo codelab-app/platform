@@ -9,8 +9,8 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetComponentsQuery } from '../get-components/GetComponents.api.graphql.gen'
-import { useDeleteComponentMutation } from './DeleteComponent.api.graphql.gen'
+import { refetchGetComponentsQuery } from '../get-components/GetComponents.web.graphql.gen'
+import { useDeleteComponentMutation } from './DeleteComponent.web.graphql.gen'
 
 type DeleteComponentForm = UniFormUseCaseProps<EmptyJsonSchemaType>
 

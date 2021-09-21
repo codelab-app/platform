@@ -1,1 +1,1 @@
-export { useGetUsersQuery } from './GetUsers.api.graphql.gen'
+export { useGetUsersQuery } from './GetUsers.web.graphql.gen'

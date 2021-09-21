@@ -8,8 +8,8 @@ import {
 import { DeleteTagsInput } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetTagsQuery } from '../get-tags/GetTags.api.graphql.gen'
-import { useDeleteTagsMutation } from './DeleteTags.api.graphql.gen'
+import { refetchGetTagsQuery } from '../get-tags/GetTags.web.graphql.gen'
+import { useDeleteTagsMutation } from './DeleteTags.web.graphql.gen'
 import { DeleteTagsSchema, deleteTagsSchema } from './deleteTagsSchema'
 
 export const DeleteTagsForm = (

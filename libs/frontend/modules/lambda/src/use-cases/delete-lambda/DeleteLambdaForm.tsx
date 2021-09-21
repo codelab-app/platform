@@ -6,8 +6,8 @@ import {
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
 import React, { useEffect } from 'react'
-import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.api.graphql.gen'
-import { useDeleteLambdaMutation } from './DeleteLambda.api.graphql.gen'
+import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.web.graphql.gen'
+import { useDeleteLambdaMutation } from './DeleteLambda.web.graphql.gen'
 import { DeleteLambdaSchema, deleteLambdaSchema } from './deleteLambdaSchema'
 
 type DeleteLambdaFormProps = UniFormUseCaseProps<DeleteLambdaSchema>

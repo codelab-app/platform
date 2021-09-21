@@ -10,7 +10,7 @@ import {
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { refetchGetElementQuery } from '../../get-element'
-import { useDeletePropMapBindingMutation } from './DeletePropMapBinding.api.graphql.gen'
+import { useDeletePropMapBindingMutation } from './DeletePropMapBinding.web.graphql.gen'
 
 export interface DeletePropMapBindingFormProps {
   elementId: string

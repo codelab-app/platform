@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { CreateTagMutationVariables } from './CreateTag.api.graphql.gen'
+import { CreateTagMutationVariables } from './CreateTag.web.graphql.gen'
 
 export type CreateTagSchema = CreateTagMutationVariables['input']
 

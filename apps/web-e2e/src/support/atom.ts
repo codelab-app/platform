@@ -1,8 +1,8 @@
-import { print } from 'graphql'
 import {
   CreateAtomGql,
   CreateAtomMutationVariables,
-} from './graphql/CreateAtom.api.graphql.gen'
+} from '@codelab/frontend/modules/atom'
+import { print } from 'graphql'
 
 type CreateAtomInput = CreateAtomMutationVariables['input']
 

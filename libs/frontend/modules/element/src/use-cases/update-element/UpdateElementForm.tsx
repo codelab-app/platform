@@ -11,7 +11,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { ElementFragment } from '../../graphql'
 import { ElementTreeGraphql } from '../../tree'
 import { refetchGetElementQuery, useGetElementQuery } from '../get-element'
-import { useUpdateElementMutation } from './UpdateElement.api.graphql.gen'
+import { useUpdateElementMutation } from './UpdateElement.web.graphql.gen'
 import { UpdateElementSchema, updateElementSchema } from './updateElementSchema'
 
 type UpdateElementFormInternalProps =

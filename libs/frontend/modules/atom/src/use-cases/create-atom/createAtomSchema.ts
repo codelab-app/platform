@@ -1,6 +1,6 @@
 import { AtomType } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import { CreateAtomMutationVariables } from './create-atom.api.graphql.gen'
+import { CreateAtomMutationVariables } from './create-atom.web.graphql.gen'
 
 export type CreateAtomSchema = CreateAtomMutationVariables['input']
 

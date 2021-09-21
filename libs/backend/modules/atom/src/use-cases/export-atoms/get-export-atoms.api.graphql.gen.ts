@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { TypeGraphFragment } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.api.graphql.gen';
+import { TypeGraphFragment } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.graphql.gen';
 import { gql } from '@apollo/client';
-import { TypeGraphFragmentDoc } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.api.graphql.gen';
+import { TypeGraphFragmentDoc } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestGetExportAtomsQueryVariables = Types.Exact<{

@@ -366,7 +366,7 @@ enum HookType {
   QueryPages
 }
 
-union HookConfig = QueryHookConfig | GraphqlQueryHookConfig | RecoilStateHookConfig | QueryPageHookConfig | QueryPagesHookConfig
+union HookConfig = QueryHookConfig | GraphqlHookConfig | RecoilStateHookConfig | QueryPageHookConfig | QueryPagesHookConfig
 
 type QueryHookConfig {
   queryKey: String!

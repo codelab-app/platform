@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql'
 import {
-  GraphqlQueryHookConfigInput,
+  GraphqlHookConfigInput,
   QueryHookConfigInput,
   QueryPageHookConfigInput,
   QueryPagesHookConfigInput,

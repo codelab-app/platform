@@ -1,12 +1,12 @@
 import { HookType, QueryMethod } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import { AddHookToElementMutationVariables } from './AddHookToElement.api.graphql.gen'
+import { AddHookToElementMutationVariables } from './AddHookToElement.web.graphql.gen'
 
 type AddHookToElementInput = AddHookToElementMutationVariables['input']
 type QueryHookConfigInput = AddHookToElementInput['queryHook']
+type GraphqlHookConfigInput = AddHookToElementInput['graphqlQueryHook']
 type QueryPageHookConfigInput = AddHookToElementInput['queryPageHook']
 type QueryPagesHookConfigInput = AddHookToElementInput['queryPagesHook']
-type GraphqlQueryHookConfigInput = AddHookToElementInput['graphqlQueryHook']
 type RecoilStateHookConfig = AddHookToElementInput['recoilStateHook']
 
 export enum QueryHookVariant {
