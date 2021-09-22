@@ -1,12 +1,12 @@
 import {
   CreateElementGql,
-  CreateElementMutationVariables,
   CreatePropMapBindingGql,
-  CreatePropMapBindingMutationVariables,
 } from '@codelab/frontend/modules/element'
+import {
+  CreateElementInput,
+  CreatePropMapBindingInput,
+} from '@codelab/shared/codegen/graphql'
 import { print } from 'graphql'
-
-type CreateElementInput = CreateElementMutationVariables['input']
 
 export const createElement = (input: CreateElementInput) =>
   cy
@@ -15,8 +15,6 @@ export const createElement = (input: CreateElementInput) =>
       variables: { input },
     })
     .then((r) => r.body.data?.createElement)
-
-type CreatePropMapBindingInput = CreatePropMapBindingMutationVariables['input']
 
 export const createPropBinding = (input: CreatePropMapBindingInput) =>
   cy

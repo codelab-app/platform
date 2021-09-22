@@ -1,10 +1,6 @@
-import {
-  CreateAtomGql,
-  CreateAtomMutationVariables,
-} from '@codelab/frontend/modules/atom'
+import { CreateAtomGql } from '@codelab/frontend/modules/atom'
+import { CreateAtomInput } from '@codelab/shared/codegen/graphql'
 import { print } from 'graphql'
-
-type CreateAtomInput = CreateAtomMutationVariables['input']
 
 export const createAtom = (input: CreateAtomInput) => {
   return cy

@@ -1,12 +1,6 @@
-import {
-  CreatePageGql,
-  CreatePageMutationVariables,
-  GetPageGql,
-  GetPageQueryVariables,
-} from '@codelab/frontend/modules/page'
+import { CreatePageGql, GetPageGql } from '@codelab/frontend/modules/page'
+import { CreatePageInput, GetPageInput } from '@codelab/shared/codegen/graphql'
 import { print } from 'graphql'
-
-type GetPageInput = GetPageQueryVariables['input']
 
 export const getPage = (input: GetPageInput) => {
   return cy
@@ -16,8 +10,6 @@ export const getPage = (input: GetPageInput) => {
     })
     .then((r) => r.body.data?.page)
 }
-
-type CreatePageInput = CreatePageMutationVariables['input']
 
 export const createPage = (input: CreatePageInput) => {
   return cy

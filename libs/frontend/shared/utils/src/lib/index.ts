@@ -1,7 +1,6 @@
 export * from './authTokenStorage'
 export * from './callbackWithParams'
 export * from './env'
-export * from './log'
 export * from './notifications'
 export * from './runMiddleware'
 export * from './ssrPipe'

@@ -183,6 +183,8 @@
     "@babel/preset-typescript": "7.15.0",
     "@commitlint/cli": "13.1.0",
     "@commitlint/config-conventional": "13.1.0",
+    "@cypress/react": "^5.10.0",
+    "@cypress/webpack-preprocessor": "^5.9.1",
     "@emotion/babel-plugin": "11.3.0",
     "@emotion/babel-preset-css-prop": "11.2.0",
     "@emotion/eslint-plugin": "11.2.0",
@@ -276,6 +278,7 @@
     "@types/voca": "1.4.1",
     "@types/wait-on": "5.3.1",
     "@types/webpack": "5.28.0",
+    "@types/webpack-merge": "^5.0.0",
     "@types/yargs": "17.0.2",
     "@typescript-eslint/eslint-plugin": "4.31.1",
     "@typescript-eslint/parser": "4.31.1",
@@ -327,6 +330,7 @@
     "lint-staged": "11.1.2",
     "loader-utils": "2.0.0",
     "madge": "5.0.1",
+    "monaco-editor-webpack-plugin": "^4.2.0",
     "next-compose-plugins": "2.2.1",
     "nx": "12.9.0",
     "onchange": "7.1.0",
@@ -344,6 +348,8 @@
     "utility-types": "3.10.0",
     "webpack": "4.44.2",
     "webpack-filter-warnings-plugin": "^1.2.1",
+    "webpack-merge": "^5.8.0",
     "yargs": "17.1.1"
-  }
+  },
+  "resolutions": {}
 }

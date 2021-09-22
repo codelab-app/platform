@@ -1566,6 +1566,12 @@
               "devServerTarget": "web-e2e:serve:dev",
               "watch": true,
               "exit": false
+            },
+            "start": {
+              "cypressConfig": "apps/web-e2e/cypress.ci.json",
+              "baseUrl": "http://127.0.0.1:3000",
+              "watch": true,
+              "exit": false
             }
           }
         },

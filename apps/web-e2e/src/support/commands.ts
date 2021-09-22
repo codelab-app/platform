@@ -2,12 +2,12 @@ import '@testing-library/cypress/add-commands'
 import {
   CreateAppGql,
   CreateAppMutationVariables,
-  DeleteAppGql,
   DeleteAppMutationVariables,
 } from '@codelab/frontend/modules/app'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
 import { print } from 'graphql'
+import { deleteApp } from './app'
 import { createAtom } from './atom'
 import { createElement, createPropBinding } from './element'
 import { createPage, getPage } from './page'
@@ -38,7 +38,6 @@ declare global {
       createApp: typeof createApp
       deleteApp: typeof deleteApp
       createAtom: typeof createAtom
-      deleteAllAtoms: typeof deleteAllAtoms
       createComponent: typeof createComponent
       createElement: typeof createElement
       /** Creates an app for the current logged in user */
@@ -158,30 +157,6 @@ const createApp = (input: CreateAppInput = defaultCreateAppInput) => {
 Cypress.Commands.add('createApp', createApp)
 
 type DeleteAppInput = DeleteAppMutationVariables['input']
-
-const deleteApp = (input: DeleteAppInput) => {
-  return cy
-    .graphqlRequest({
-      query: print(DeleteAppGql),
-      variables: { input },
-    })
-    .then((r) => r.body.data)
-}
-
-Cypress.Commands.add('deleteApp', deleteApp)
-
-//
-// const defaultLibraryData: Library_Insert_Input = {
-//   name: 'Test library',
-// }
-//
-// export const createLibrary = (
-//   data: Library_Insert_Input = defaultLibraryData,
-// ) => {
-//   return new Promise((resolve, reject) => reject('not implemeneted'))
-// }
-
-// Cypress.Commands.add('createLibrary', createLibrary)
 
 export const findByButtonText = (
   subject: any,
@@ -308,12 +283,6 @@ export const getOptionItem = (text: string): Cypress.Chainable<JQuery> => {
 }
 
 Cypress.Commands.add('getOptionItem', getOptionItem)
-
-const deleteAllAtoms = () => {
-  return new Promise((resolve, reject) => reject('not implemeneted'))
-}
-
-Cypress.Commands.add('deleteAllAtoms', deleteAllAtoms)
 
 export const getSpinner = (): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
   return cy.get('.ant-spin')
