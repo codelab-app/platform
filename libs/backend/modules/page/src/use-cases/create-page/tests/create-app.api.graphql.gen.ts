@@ -1,6 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { AppBaseFragment } from '../../../../../../../frontend/modules/app/src/graphql/AppBase.fragment.api.graphql.gen';
 import { gql } from '@apollo/client';
+import { AppBaseFragmentDoc } from '../../../../../../../frontend/modules/app/src/graphql/AppBase.fragment.api.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestCreateAppMutationVariables = Types.Exact<{
@@ -8,16 +10,16 @@ export type TestCreateAppMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestCreateAppMutation = { createApp: { id: string } };
+export type TestCreateAppMutation = { createApp: AppBaseFragment };
 
 
 export const TestCreateAppGql = gql`
     mutation TestCreateApp($input: CreateAppInput!) {
   createApp(input: $input) {
-    id
+    ...AppBase
   }
 }
-    `;
+    ${AppBaseFragmentDoc}`;
 export type TestCreateAppMutationFn = Apollo.MutationFunction<TestCreateAppMutation, TestCreateAppMutationVariables>;
 
 /**

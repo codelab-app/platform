@@ -3,11 +3,6 @@ import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { AppModule } from '../../../app.module'
-import { GetAppInput } from '../../get-app/get-app.input'
-import {
-  TestGetAppGql,
-  TestGetAppQuery,
-} from '../../get-app/tests/get-app.api.graphql.gen'
 import { CreateAppInput } from '../create-app.input'
 import {
   TestCreateAppGql,
@@ -39,23 +34,12 @@ describe('CreateApp', () => {
 
   describe('User', () => {
     it('should create an App', async () => {
-      const {
-        createApp: { id: appId },
-      } = await domainRequest<CreateAppInput, TestCreateAppMutation>(
-        userApp,
-        TestCreateAppGql,
-        createAppInput,
-      )
+      const { createApp } = await domainRequest<
+        CreateAppInput,
+        TestCreateAppMutation
+      >(userApp, TestCreateAppGql, createAppInput)
 
-      expect(appId).toBeDefined()
-
-      const { getApp: app } = await domainRequest<GetAppInput, TestGetAppQuery>(
-        userApp,
-        TestGetAppGql,
-        { byId: { appId } },
-      )
-
-      expect(app).toMatchObject({ ...createAppInput, id: appId })
+      expect(createApp).toMatchObject({ ...createAppInput, id: createApp.id })
 
       // Should assign app to user
     })

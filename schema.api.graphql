@@ -676,9 +676,9 @@ input WhereUniqueTag {
 type Mutation {
   upsertUser(input: UpsertUserInput!): CreateResponse!
   deleteUser(input: DeleteUserInput!): Boolean!
-  createApp(input: CreateAppInput!): CreateResponse!
-  updateApp(input: UpdateAppInput!): Void
-  deleteApp(input: DeleteAppInput!): Void
+  createApp(input: CreateAppInput!): App!
+  updateApp(input: UpdateAppInput!): App
+  deleteApp(input: DeleteAppInput!): App
   resetData: Void
   createPage(input: CreatePageInput!): Page!
   deletePage(input: DeletePageInput!): Page
@@ -743,9 +743,6 @@ input CreateAppInput {
   name: String!
 }
 
-"""Date custom scalar type"""
-scalar Void
-
 input UpdateAppInput {
   id: String!
   data: UpdateAppData!
@@ -758,6 +755,9 @@ input UpdateAppData {
 input DeleteAppInput {
   appId: String!
 }
+
+"""Date custom scalar type"""
+scalar Void
 
 input CreatePageInput {
   name: String!
