@@ -631,7 +631,7 @@ export type MoveElementInput = {
 
 export type Mutation = {
   addHookToElement: CreateResponse;
-  createApp: CreateResponse;
+  createApp: App;
   createAtom: CreateResponse;
   createComponent: CreateResponse;
   createElement: CreateResponse;
@@ -641,7 +641,7 @@ export type Mutation = {
   createPropMapBinding: CreateResponse;
   createTag: CreateResponse;
   createType: CreateResponse;
-  deleteApp?: Maybe<Scalars['Void']>;
+  deleteApp?: Maybe<App>;
   deleteAtom?: Maybe<Scalars['Void']>;
   deleteComponent?: Maybe<Scalars['Void']>;
   /** Deletes an element and all the descending elements */
@@ -659,7 +659,7 @@ export type Mutation = {
   removeHookFromElement?: Maybe<Scalars['Void']>;
   resetData?: Maybe<Scalars['Void']>;
   seedBaseTypes?: Maybe<Scalars['Void']>;
-  updateApp?: Maybe<Scalars['Void']>;
+  updateApp?: Maybe<App>;
   updateAtom?: Maybe<Scalars['Void']>;
   updateComponent?: Maybe<Scalars['Void']>;
   updateElement?: Maybe<Scalars['Void']>;

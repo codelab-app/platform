@@ -1,5 +1,3 @@
-import { Void } from '@codelab/backend/abstract/types'
-import { CreateResponse } from '@codelab/backend/application'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
 import type { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
@@ -24,10 +22,22 @@ export class AppResolver {
     private readonly appAdapter: AppAdapter,
   ) {}
 
-  @Mutation(() => CreateResponse)
+  @Mutation(() => App)
   @UseGuards(GqlAuthGuard)
-  createApp(@Args('input') input: CreateAppInput, @CurrentUser() user: User) {
-    return this.createAppService.execute({ input, currentUser: user })
+  async createApp(
+    @Args('input') input: CreateAppInput,
+    @CurrentUser() user: User,
+  ) {
+    const app = await this.createAppService.execute({
+      input,
+      currentUser: user,
+    })
+
+    if (!app) {
+      return new Error('App not created')
+    }
+
+    return this.appAdapter.mapItem(app)
   }
 
   @Query(() => App, { nullable: true })
@@ -56,21 +66,33 @@ export class AppResolver {
     return this.appAdapter.map(apps)
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => App, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async updateApp(
     @Args('input') input: UpdateAppInput,
     @CurrentUser() currentUser: User,
   ) {
-    await this.updateAppService.execute({ input, currentUser })
+    const app = await this.updateAppService.execute({ input, currentUser })
+
+    if (!app) {
+      throw new Error('App not found')
+    }
+
+    return this.appAdapter.mapItem(app)
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => App, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async deleteApp(
     @Args('input') input: DeleteAppInput,
     @CurrentUser() currentUser: User,
   ) {
-    await this.deleteAppService.execute({ input, currentUser })
+    const app = await this.deleteAppService.execute({ input, currentUser })
+
+    if (!app) {
+      throw new Error('App not found')
+    }
+
+    return this.appAdapter.mapItem(app)
   }
 }

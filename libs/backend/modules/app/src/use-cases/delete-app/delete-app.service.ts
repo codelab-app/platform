@@ -9,23 +9,41 @@ import {
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { AppValidator } from '../../domain/app.validator'
+import { GetAppService } from '../get-app'
 import { DeleteAppRequest } from './delete-app.request'
 
 @Injectable()
-export class DeleteAppService extends DgraphUseCase<DeleteAppRequest> {
-  constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
+export class DeleteAppService extends DgraphUseCase<
+  DeleteAppRequest,
+  DgraphApp | null
+> {
+  constructor(
+    protected readonly dgraph: DgraphRepository,
+    private appValidator: AppValidator,
+    private getAppService: GetAppService,
+  ) {
     super(dgraph)
   }
 
   protected async executeTransaction(
     request: DeleteAppRequest,
     txn: Txn,
-  ): Promise<void> {
+  ): Promise<DgraphApp | null> {
     const {
       input: { appId },
+      currentUser,
     } = request
 
     await this.validate(request)
+
+    const appToDelete = await this.getAppService.execute({
+      input: { byId: { appId } },
+      currentUser,
+    })
+
+    if (!appToDelete) {
+      return null
+    }
 
     await this.dgraph.executeUpsertDeleteAll(txn, (q) =>
       q
@@ -38,6 +56,8 @@ export class DeleteAppService extends DgraphUseCase<DeleteAppRequest> {
         .addTypeFilterDirective(DgraphEntityType.App)
         .setUidFunc(appId),
     )
+
+    return appToDelete
   }
 
   protected async validate({

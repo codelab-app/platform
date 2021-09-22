@@ -1,5 +1,5 @@
 mutation TestCreateApp($input: CreateAppInput!) {
   createApp(input: $input) {
-    id
+    ...AppBase
   }
 }

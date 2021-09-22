@@ -1,3 +1,5 @@
 mutation UpdateApp($input: UpdateAppInput!) {
-  updateApp(input: $input)
+  updateApp(input: $input) {
+    ...AppBase
+  }
 }

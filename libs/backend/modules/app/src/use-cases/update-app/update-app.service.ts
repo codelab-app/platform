@@ -7,13 +7,18 @@ import {
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { AppValidator } from '../../domain/app.validator'
+import { GetAppService } from '../get-app'
 import { UpdateAppRequest } from './update-app.request'
 
 @Injectable()
-export class UpdateAppService extends DgraphUseCase<UpdateAppRequest> {
+export class UpdateAppService extends DgraphUseCase<
+  UpdateAppRequest,
+  DgraphApp | null
+> {
   constructor(
-    dgraphRepository: DgraphRepository,
+    protected readonly dgraphRepository: DgraphRepository,
     private appValidator: AppValidator,
+    private getAppService: GetAppService,
   ) {
     super(dgraphRepository)
   }
@@ -21,9 +26,21 @@ export class UpdateAppService extends DgraphUseCase<UpdateAppRequest> {
   protected async executeTransaction(
     request: UpdateAppRequest,
     txn: Txn,
-  ): Promise<void> {
+  ): Promise<DgraphApp | null> {
+    const {
+      input: { id },
+      currentUser,
+    } = request
+
     await this.validate(request)
     await this.dgraph.executeMutation(txn, this.createMutation(request))
+
+    const app = await this.getAppService.execute({
+      input: { byId: { appId: id } },
+      currentUser,
+    })
+
+    return app
   }
 
   protected createMutation({
