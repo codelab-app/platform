@@ -10,13 +10,15 @@ import {
 } from '../../create-type/tests/create-type.api.graphql.gen'
 import { createPrimitiveStringInput } from '../../create-type/tests/create-type.data'
 import { GetTypesInput } from '../get-types.input'
-import { TestGetTypesGql } from './get-types.api.graphql.gen'
+import { TestGetTypesGql, TestGetTypesQuery } from './get-types.api.graphql.gen'
 
 describe('GetTypes', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
   let typeId: string
-  let getTypesInput: GetTypesInput
+  let getTypesByIdInput: GetTypesInput
+  let getTypesByKindInput: GetTypesInput
+  let getTypesByNameInput: GetTypesInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {
@@ -32,7 +34,12 @@ describe('GetTypes', () => {
     >(userApp, TestCreateTypeGql, createPrimitiveStringInput)
 
     typeId = createType.id
-    getTypesInput = { byIds: { typeIds: [typeId] } }
+    getTypesByIdInput = { byIds: { typeIds: [typeId] } }
+
+    getTypesByKindInput = {
+      byKind: { kind: createPrimitiveStringInput.typeKind },
+    }
+    getTypesByNameInput = { byName: { name: createPrimitiveStringInput.name } }
   })
 
   afterAll(async () => {
@@ -45,7 +52,7 @@ describe('GetTypes', () => {
       await domainRequest<GetTypesInput>(
         guestApp,
         TestGetTypesGql,
-        getTypesInput,
+        getTypesByIdInput,
         {
           message: 'Unauthorized',
         },
@@ -54,10 +61,49 @@ describe('GetTypes', () => {
   })
 
   describe('User', () => {
-    it.todo('should get types by kind')
+    it('should get types by id', async () => {
+      const { getTypes } = await domainRequest<
+        GetTypesInput,
+        TestGetTypesQuery
+      >(userApp, TestGetTypesGql, getTypesByIdInput)
 
-    it.todo('should get types by name')
+      const type = getTypes[0] || {}
 
-    it.todo('should get types by typeIds')
+      expect(type).toMatchObject({
+        __typename: 'PrimitiveType',
+        name: createPrimitiveStringInput.name,
+        typeKind: createPrimitiveStringInput.typeKind,
+      })
+    })
+
+    it('should get types by primitive kind', async () => {
+      const { getTypes } = await domainRequest<
+        GetTypesInput,
+        TestGetTypesQuery
+      >(userApp, TestGetTypesGql, getTypesByKindInput)
+
+      const type = getTypes[0] || {}
+
+      expect(type).toMatchObject({
+        __typename: 'PrimitiveType',
+        name: createPrimitiveStringInput.name,
+        typeKind: createPrimitiveStringInput.typeKind,
+      })
+    })
+
+    it('should get types by name', async () => {
+      const { getTypes } = await domainRequest<
+        GetTypesInput,
+        TestGetTypesQuery
+      >(userApp, TestGetTypesGql, getTypesByNameInput)
+
+      const type = getTypes[0] || {}
+
+      expect(type).toMatchObject({
+        __typename: 'PrimitiveType',
+        name: createPrimitiveStringInput.name,
+        typeKind: createPrimitiveStringInput.typeKind,
+      })
+    })
   })
 })
