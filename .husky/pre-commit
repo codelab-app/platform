@@ -1,8 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# yarn lint:graphql
-
 yarn cross-env TIMING=1 lint-staged --verbose
-
-# ./libs/tools/scripts/src/lint/git.sh
