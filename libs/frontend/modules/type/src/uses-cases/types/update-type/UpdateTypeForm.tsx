@@ -8,15 +8,15 @@ import {
 import { TypeKind } from '@codelab/shared/abstract/core'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { TypeFragment } from '../../../graphql/Type.fragment.api.graphql.gen'
+import { TypeFragment } from '../../../graphql/Type.fragment.web.graphql.gen'
 import { typenameToTypeKind } from '../../../type-tree'
-import { refetchGetTypesQuery } from '../get-types/GetTypes.api.graphql.gen'
+import { refetchGetTypesQuery } from '../get-types/GetTypes.web.graphql.gen'
 import { TypeModels } from '../TypeModels'
 import {
   useUpdateEnumTypeMutation,
   useUpdatePrimitiveTypeMutation,
   useUpdateTypeMutation,
-} from './UpdateType.api.graphql.gen'
+} from './UpdateType.web.graphql.gen'
 import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
 
 export const UpdateTypeForm = (

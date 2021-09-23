@@ -6,7 +6,7 @@ import {
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ElementFragment } from '../graphql'
 import { refetchGetElementQuery, useGetElementQuery } from '../use-cases'
-import { useUpdateElementMutation } from '../use-cases/update-element/UpdateElement.api.graphql.gen'
+import { useUpdateElementMutation } from '../use-cases/update-element/UpdateElement.web.graphql.gen'
 
 export interface ElementCssEditorInternalProps {
   element: ElementFragment

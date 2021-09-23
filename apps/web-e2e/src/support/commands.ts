@@ -1,17 +1,16 @@
 import '@testing-library/cypress/add-commands'
-import { AtomType } from '@codelab/shared/abstract/core'
-import { SelectorMatcherOptions } from '@testing-library/cypress'
-import { ByRoleOptions, Matcher } from '@testing-library/dom'
-import { print } from 'graphql'
-import * as JQuery from 'jquery'
 import {
   CreateAppGql,
   CreateAppMutationVariables,
-} from './graphql/CreateApp.api.graphql.gen'
-import {
-  DeleteAppGql,
   DeleteAppMutationVariables,
-} from './graphql/DeleteApp.api.graphql.gen'
+} from '@codelab/frontend/modules/app'
+import { SelectorMatcherOptions } from '@testing-library/cypress'
+import { ByRoleOptions, Matcher } from '@testing-library/dom'
+import { print } from 'graphql'
+import { deleteApp } from './app'
+import { createAtom } from './atom'
+import { createElement, createPropBinding } from './element'
+import { createPage, getPage } from './page'
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -39,12 +38,13 @@ declare global {
       createApp: typeof createApp
       deleteApp: typeof deleteApp
       createAtom: typeof createAtom
-      deleteAllAtoms: typeof deleteAllAtoms
       createComponent: typeof createComponent
+      createElement: typeof createElement
       /** Creates an app for the current logged in user */
       // createLibrary: typeof createLibrary
       createPage: typeof createPage
-      loginUpsert: typeof loginUpsert
+      createPropBinding: typeof createPropBinding
+      getPage: typeof getPage
       findByButtonText: (
         text: Matcher,
         options?: SelectorMatcherOptions,
@@ -139,12 +139,6 @@ const createComponent = (libraryId: string, label = 'Test component') => {
 
 Cypress.Commands.add('createComponent', createComponent)
 
-const createAtom = (atomType: AtomType) => {
-  return new Promise((resolve, reject) => reject('not implemeneted'))
-}
-
-Cypress.Commands.add('createAtom', createAtom)
-
 type CreateAppInput = CreateAppMutationVariables['input']
 
 const defaultCreateAppInput: CreateAppInput = {
@@ -163,35 +157,6 @@ const createApp = (input: CreateAppInput = defaultCreateAppInput) => {
 Cypress.Commands.add('createApp', createApp)
 
 type DeleteAppInput = DeleteAppMutationVariables['input']
-
-const deleteApp = (input: DeleteAppInput) => {
-  return cy
-    .graphqlRequest({
-      query: print(DeleteAppGql),
-      variables: { input },
-    })
-    .then((r) => r.body.data)
-}
-
-Cypress.Commands.add('deleteApp', deleteApp)
-
-const createPage = (appId: string, pageName = 'default') => {
-  return new Promise((resolve, reject) => reject('not implemeneted'))
-}
-
-Cypress.Commands.add('createPage', createPage)
-//
-// const defaultLibraryData: Library_Insert_Input = {
-//   name: 'Test library',
-// }
-//
-// export const createLibrary = (
-//   data: Library_Insert_Input = defaultLibraryData,
-// ) => {
-//   return new Promise((resolve, reject) => reject('not implemeneted'))
-// }
-
-// Cypress.Commands.add('createLibrary', createLibrary)
 
 export const findByButtonText = (
   subject: any,
@@ -318,12 +283,6 @@ export const getOptionItem = (text: string): Cypress.Chainable<JQuery> => {
 }
 
 Cypress.Commands.add('getOptionItem', getOptionItem)
-
-const deleteAllAtoms = () => {
-  return new Promise((resolve, reject) => reject('not implemeneted'))
-}
-
-Cypress.Commands.add('deleteAllAtoms', deleteAllAtoms)
 
 export const getSpinner = (): Cypress.Chainable<JQuery<HTMLButtonElement>> => {
   return cy.get('.ant-spin')

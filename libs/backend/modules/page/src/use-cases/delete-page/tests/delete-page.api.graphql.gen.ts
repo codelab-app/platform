@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { PageBaseFragment } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.api.graphql.gen';
+import { PageBaseFragment } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen';
 import { gql } from '@apollo/client';
-import { PageBaseFragmentDoc } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.api.graphql.gen';
+import { PageBaseFragmentDoc } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestDeletePageMutationVariables = Types.Exact<{

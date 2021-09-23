@@ -5,19 +5,7 @@ overwrite: true
 #    - yarn eslint --ext ts --fix
 
 schema: schema.api.graphql
-documents:
-  - libs/**/*.api.graphql
-  - apps/**/*.api.graphql
-
 config:
-  # Switch off if have deeply nested issues
-  inlineFragmentTypes: combine
-  documentVariableSuffix: Gql
-  gqlImport: '@apollo/client#gql'
-  skipTypename: true
-  strictScalars: true
-  defaultScalarType: unknown
-  withRefetchFn: true
   # defaultBaseOptions:
   #   operationName: 'dgraph'
   scalars:
@@ -31,14 +19,14 @@ config:
 
 generates:
   libs/shared/codegen/graphql/src/types.api.graphql.gen.ts:
+    documents:
+      - libs/**/*.{web,api,fragment}.graphql
+      - apps/**/*.{web,api,fragment}.graphql
     plugins:
       - typescript
-    # hooks:
-    #   afterAllFileWrite:
-    #     - yarn prettier --write
-    #     - yarn eslint --ext ts --fix
-
-  libs/:
+  ./:
+    documents:
+      - '{apps,libs}/**/*.{web,fragment}.graphql'
     preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
@@ -46,4 +34,34 @@ generates:
     plugins:
       - typescript-operations
       - typescript-react-apollo
-#      - typescript-document-nodes
+    #      - typescript-document-nodes
+    # Switch off if have deeply nested issues
+    config:
+      inlineFragmentTypes: combine
+      documentVariableSuffix: Gql
+      gqlImport: '@apollo/client#gql'
+      skipTypename: true
+      strictScalars: true
+      defaultScalarType: unknown
+      withRefetchFn: true
+  # We allow backend to import fragments from frontend
+  ./libs/backend/:
+    documents:
+      - '**/*.{api,fragment}.graphql'
+    preset: near-operation-file
+    presetConfig:
+      extension: .graphql.gen.ts
+      baseTypesPath: ~@codelab/shared/codegen/graphql
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+    #      - typescript-document-nodes
+    # Switch off if have deeply nested issues
+    config:
+      inlineFragmentTypes: combine
+      documentVariableSuffix: Gql
+      gqlImport: '@apollo/client#gql'
+      skipTypename: true
+      strictScalars: true
+      defaultScalarType: unknown
+      withRefetchFn: true

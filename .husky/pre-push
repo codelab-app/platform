@@ -4,6 +4,8 @@
 # Update schema
 yarn cli dgraph update-schema --env test
 
+yarn codegen
+
 make build-dev-affected
 make test-dev-affected
 make e2e-dev-affected

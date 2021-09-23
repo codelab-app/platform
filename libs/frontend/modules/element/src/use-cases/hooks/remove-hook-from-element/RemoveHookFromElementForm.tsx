@@ -9,8 +9,8 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetElementQuery } from '../../get-element/GetElement.api.graphql.gen'
-import { useRemoveHookFromElementMutation } from './RemoveHookFromElement.api.graphql.gen'
+import { refetchGetElementQuery } from '../../get-element/GetElement.web.graphql.gen'
+import { useRemoveHookFromElementMutation } from './RemoveHookFromElement.web.graphql.gen'
 
 export type RemoveHookFromElementFormProps =
   UniFormUseCaseProps<EmptyJsonSchemaType> & { elementId: string }

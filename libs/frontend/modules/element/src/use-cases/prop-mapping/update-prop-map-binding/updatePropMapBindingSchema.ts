@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { UpdatePropMapBindingMutationVariables } from './UpdatePropMapBinding.api.graphql.gen'
+import { UpdatePropMapBindingMutationVariables } from './UpdatePropMapBinding.web.graphql.gen'
 
 export type UpdatePropMapBindingSchema =
   UpdatePropMapBindingMutationVariables['input']['data']

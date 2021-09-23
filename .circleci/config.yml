@@ -283,6 +283,10 @@ jobs:
     steps:
       - setup-workspace
       - run: make lint-eslint-ci
+      # Check to see if codegen works, all files should be committed locally
+      - run:
+          name: 'GraphQL Codegen'
+          command: yarn codegen
       - run:
           name: 'Circular Dependencies Check'
           command: make lint-circular-dep

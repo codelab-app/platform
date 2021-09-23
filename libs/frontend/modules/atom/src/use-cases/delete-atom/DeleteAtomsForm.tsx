@@ -9,8 +9,8 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.api.graphql.gen'
-import { useDeleteAtomMutation } from './DeleteAtoms.api.graphql.gen'
+import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.web.graphql.gen'
+import { useDeleteAtomMutation } from './DeleteAtoms.web.graphql.gen'
 
 type DeleteAtomFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 

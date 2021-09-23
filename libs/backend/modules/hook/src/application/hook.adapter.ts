@@ -8,6 +8,8 @@ import {
   GraphqlHookConfigModel,
   HookConfigModel,
   QueryHookConfigModel,
+  QueryPageHookConfigModel,
+  QueryPagesHookConfigModel,
 } from './hook-config'
 import { RecoilStateHookConfigModel } from './hook-config/recoil-state-hook-config.model'
 
@@ -45,6 +47,14 @@ export class HookAdapter extends BaseAdapter<DgraphHookInput, HookModel> {
       case HookType.RecoilState:
         return new RecoilStateHookConfigModel(
           hook.config as RecoilStateHookConfigModel,
+        )
+      case HookType.QueryPage:
+        return new QueryPageHookConfigModel(
+          hook.config as QueryPageHookConfigModel,
+        )
+      case HookType.QueryPages:
+        return new QueryPagesHookConfigModel(
+          hook.config as QueryPagesHookConfigModel,
         )
     }
 

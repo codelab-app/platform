@@ -7,8 +7,8 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetTagsQuery } from '../get-tags/GetTags.api.graphql.gen'
-import { useUpdateTagMutation } from './UpdateTag.api.graphql.gen'
+import { refetchGetTagsQuery } from '../get-tags/GetTags.web.graphql.gen'
+import { useUpdateTagMutation } from './UpdateTag.web.graphql.gen'
 import { UpdateTagSchema, updateTagSchema } from './updateTagSchema'
 
 export const UpdateTagForm = (props: UniFormUseCaseProps<UpdateTagSchema>) => {

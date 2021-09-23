@@ -12,7 +12,7 @@ import React, { useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { ElementTreeGraphql } from '../../../tree'
 import { refetchGetElementQuery } from '../../get-element'
-import { useCreatePropMapBindingMutation } from './CreatePropMapBinding.api.graphql.gen'
+import { useCreatePropMapBindingMutation } from './CreatePropMapBinding.web.graphql.gen'
 import {
   CreatePropMapBindingSchema,
   createPropMapBindingSchema,

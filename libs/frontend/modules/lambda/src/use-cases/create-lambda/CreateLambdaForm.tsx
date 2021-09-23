@@ -10,8 +10,8 @@ import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
 import { defaultLambdaBody } from '../../defaultLambdBody'
 import { lambdaState } from '../../state'
-import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.api.graphql.gen'
-import { useCreateLambdaMutation } from './CreateLambda.api.graphql.gen'
+import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.web.graphql.gen'
+import { useCreateLambdaMutation } from './CreateLambda.web.graphql.gen'
 import { CreateLambdaInput, createLambdaSchema } from './createLambdaSchema'
 
 export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {

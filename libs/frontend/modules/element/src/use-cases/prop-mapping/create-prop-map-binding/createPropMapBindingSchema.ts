@@ -1,6 +1,6 @@
 import { JSONSchemaType } from 'ajv'
 import { HiddenField } from 'uniforms-antd'
-import { CreatePropMapBindingMutationVariables } from './CreatePropMapBinding.api.graphql.gen'
+import { CreatePropMapBindingMutationVariables } from './CreatePropMapBinding.web.graphql.gen'
 
 export type CreatePropMapBindingSchema =
   CreatePropMapBindingMutationVariables['input']

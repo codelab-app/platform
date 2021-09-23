@@ -1,4 +1,4 @@
 export {
   useGetTypeGraphLazyQuery,
   useGetTypeGraphQuery,
-} from './GetTypeGraph.api.graphql.gen'
+} from './GetTypeGraph.web.graphql.gen'

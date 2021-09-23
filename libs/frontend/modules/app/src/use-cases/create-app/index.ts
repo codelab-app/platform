@@ -1,3 +1,4 @@
+export * from './CreateApp.web.graphql.gen'
 export * from './CreateAppButton'
 export * from './CreateAppButton'
 export * from './CreateAppForm'

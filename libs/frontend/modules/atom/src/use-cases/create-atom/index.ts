@@ -1,3 +1,4 @@
+export * from './create-atom.web.graphql.gen'
 export * from './CreateAtomButton'
 export * from './CreateAtomForm'
 export * from './CreateAtomModal'

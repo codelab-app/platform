@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { UpdatePageMutationVariables } from './UpdatePage.api.graphql.gen'
+import { UpdatePageMutationVariables } from './UpdatePage.web.graphql.gen'
 
 // Won't update appId for now, but might be useful in the future?
 export type UpdatePageSchemaType = Omit<

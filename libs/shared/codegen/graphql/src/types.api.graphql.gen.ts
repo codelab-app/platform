@@ -19,10 +19,13 @@ export type AddHookToElementInput = {
   graphqlMutationHook?: Maybe<GraphqlHookConfigInput>;
   graphqlQueryHook?: Maybe<GraphqlHookConfigInput>;
   queryHook?: Maybe<QueryHookConfigInput>;
+  queryPageHook?: Maybe<QueryPageHookConfigInput>;
+  queryPagesHook?: Maybe<QueryPagesHookConfigInput>;
   recoilStateHook?: Maybe<RecoilStateHookConfigInput>;
 };
 
 export type App = {
+  __typename?: 'App';
   id: Scalars['ID'];
   name: Scalars['String'];
   ownerId: Scalars['String'];
@@ -38,6 +41,7 @@ export type AppByPageFilter = {
 };
 
 export type ArrayType = Type & {
+  __typename?: 'ArrayType';
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
@@ -45,6 +49,7 @@ export type ArrayType = Type & {
 };
 
 export type Atom = {
+  __typename?: 'Atom';
   api: InterfaceType;
   id: Scalars['ID'];
   /** This is a unique ID suitable for seeders to lookup, will rename to value */
@@ -247,12 +252,14 @@ export type AtomsWhereInput = {
 };
 
 export type Component = {
+  __typename?: 'Component';
   id: Scalars['ID'];
   name: Scalars['String'];
 };
 
 /** The ComponentType allows selecting a Component in the props form. The value is stored as the componentId  */
 export type ComponentType = Type & {
+  __typename?: 'ComponentType';
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
@@ -336,6 +343,7 @@ export type CreatePropMapBindingInput = {
 };
 
 export type CreateResponse = {
+  __typename?: 'CreateResponse';
   id: Scalars['String'];
 };
 
@@ -404,6 +412,7 @@ export type DeleteUserInput = {
 };
 
 export type Element = {
+  __typename?: 'Element';
   atom?: Maybe<Atom>;
   css?: Maybe<Scalars['String']>;
   hooks: Array<Hook>;
@@ -422,6 +431,7 @@ export type Element = {
 
 /** An edge between two element nodes */
 export type ElementEdge = {
+  __typename?: 'ElementEdge';
   order?: Maybe<Scalars['Int']>;
   /** The id of the source Element/Component */
   source: Scalars['String'];
@@ -430,6 +440,7 @@ export type ElementEdge = {
 };
 
 export type ElementGraph = {
+  __typename?: 'ElementGraph';
   /** All the links connecting the descendant elements/components */
   edges: Array<ElementEdge>;
   /** All descendant Elements or Components, at any level */
@@ -438,6 +449,7 @@ export type ElementGraph = {
 
 /** The ElementType allows selecting an Element in the props form. The value is stored as the elementId  */
 export type ElementType = Type & {
+  __typename?: 'ElementType';
   id: Scalars['ID'];
   kind: ElementTypeKind;
   name: Scalars['String'];
@@ -454,6 +466,7 @@ export enum ElementTypeKind {
 export type ElementVertex = Component | Element;
 
 export type EnumType = Type & {
+  __typename?: 'EnumType';
   allowedValues: Array<EnumTypeValue>;
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -462,6 +475,7 @@ export type EnumType = Type & {
 };
 
 export type EnumTypeValue = {
+  __typename?: 'EnumTypeValue';
   id: Scalars['ID'];
   name?: Maybe<Scalars['String']>;
   value: Scalars['String'];
@@ -473,6 +487,7 @@ export type ExecuteLambdaInput = {
 };
 
 export type Field = {
+  __typename?: 'Field';
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   key: Scalars['String'];
@@ -562,6 +577,7 @@ export type GetUsersInput = {
 };
 
 export type GraphqlHookConfig = {
+  __typename?: 'GraphqlHookConfig';
   body: Scalars['String'];
   dataKey?: Maybe<Scalars['String']>;
   url: Scalars['String'];
@@ -574,17 +590,20 @@ export type GraphqlHookConfigInput = {
 };
 
 export type Hook = {
+  __typename?: 'Hook';
   config: HookConfig;
   id: Scalars['ID'];
   type: HookType;
 };
 
-export type HookConfig = GraphqlHookConfig | QueryHookConfig | RecoilStateHookConfig;
+export type HookConfig = GraphqlHookConfig | QueryHookConfig | QueryPageHookConfig | QueryPagesHookConfig | RecoilStateHookConfig;
 
 export enum HookType {
   GraphqlMutation = 'GraphqlMutation',
   GraphqlQuery = 'GraphqlQuery',
   Query = 'Query',
+  QueryPage = 'QueryPage',
+  QueryPages = 'QueryPages',
   RecoilState = 'RecoilState'
 }
 
@@ -593,6 +612,7 @@ export type ImportAtomsInput = {
 };
 
 export type InterfaceType = Type & {
+  __typename?: 'InterfaceType';
   fields: Array<Field>;
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -601,6 +621,7 @@ export type InterfaceType = Type & {
 };
 
 export type Lambda = {
+  __typename?: 'Lambda';
   body: Scalars['String'];
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -608,11 +629,13 @@ export type Lambda = {
 };
 
 export type LambdaPayload = {
+  __typename?: 'LambdaPayload';
   payload: Scalars['String'];
 };
 
 /** The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId  */
 export type LambdaType = Type & {
+  __typename?: 'LambdaType';
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
@@ -630,6 +653,7 @@ export type MoveElementInput = {
 };
 
 export type Mutation = {
+  __typename?: 'Mutation';
   addHookToElement: CreateResponse;
   createApp: App;
   createAtom: CreateResponse;
@@ -876,6 +900,7 @@ export type MutationUpsertUserArgs = {
 };
 
 export type Page = {
+  __typename?: 'Page';
   elements?: Maybe<ElementGraph>;
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -893,6 +918,7 @@ export enum PrimitiveKind {
 }
 
 export type PrimitiveType = Type & {
+  __typename?: 'PrimitiveType';
   id: Scalars['ID'];
   name: Scalars['String'];
   primitiveKind: PrimitiveKind;
@@ -901,6 +927,7 @@ export type PrimitiveType = Type & {
 };
 
 export type PropMapBinding = {
+  __typename?: 'PropMapBinding';
   id: Scalars['ID'];
   /** The key of the prop, as received in the source element */
   sourceKey: Scalars['String'];
@@ -911,6 +938,7 @@ export type PropMapBinding = {
 };
 
 export type Query = {
+  __typename?: 'Query';
   getApp?: Maybe<App>;
   getApps: Array<App>;
   getAtom?: Maybe<Atom>;
@@ -1031,6 +1059,7 @@ export type QueryGetUsersArgs = {
 };
 
 export type QueryHookConfig = {
+  __typename?: 'QueryHookConfig';
   body?: Maybe<Scalars['String']>;
   lambdaId?: Maybe<Scalars['String']>;
   method?: Maybe<QueryMethod>;
@@ -1060,7 +1089,26 @@ export enum QueryMethod {
   Unlink = 'UNLINK'
 }
 
+export type QueryPageHookConfig = {
+  __typename?: 'QueryPageHookConfig';
+  pageId: Scalars['String'];
+};
+
+export type QueryPageHookConfigInput = {
+  pageId: Scalars['String'];
+};
+
+export type QueryPagesHookConfig = {
+  __typename?: 'QueryPagesHookConfig';
+  appId: Scalars['String'];
+};
+
+export type QueryPagesHookConfigInput = {
+  appId: Scalars['String'];
+};
+
 export type RecoilStateHookConfig = {
+  __typename?: 'RecoilStateHookConfig';
   defaultValue?: Maybe<Scalars['String']>;
   stateKey: Scalars['String'];
 };
@@ -1082,6 +1130,7 @@ export enum Role {
 }
 
 export type Tag = {
+  __typename?: 'Tag';
   id: Scalars['String'];
   isRoot: Scalars['Boolean'];
   name: Scalars['String'];
@@ -1089,6 +1138,7 @@ export type Tag = {
 
 /** An edge between two element nodes */
 export type TagEdge = {
+  __typename?: 'TagEdge';
   order?: Maybe<Scalars['Int']>;
   /** The id of the source Tag */
   source: Scalars['String'];
@@ -1097,6 +1147,7 @@ export type TagEdge = {
 };
 
 export type TagGraph = {
+  __typename?: 'TagGraph';
   /** All the links connecting the descendant elements/components */
   edges: Array<TagEdge>;
   /** All descendant Elements or Components, at any level */
@@ -1118,6 +1169,7 @@ export type Type = {
  *   TypeEdgeKind.ArrayItem - it represents the generic array item type of an array type. The field property will be empty
  */
 export type TypeEdge = {
+  __typename?: 'TypeEdge';
   /** Empty if kind is not TypeEdgeKind.Field */
   field?: Maybe<Field>;
   kind: TypeEdgeKind;
@@ -1131,6 +1183,7 @@ export enum TypeEdgeKind {
 }
 
 export type TypeGraph = {
+  __typename?: 'TypeGraph';
   edges: Array<TypeEdge>;
   vertices: Array<TypeVertex>;
 };
@@ -1308,6 +1361,7 @@ export type UpsertUserInput = {
 };
 
 export type User = {
+  __typename?: 'User';
   auth0Id: Scalars['String'];
   id: Scalars['String'];
   roles: Array<Role>;

@@ -14,8 +14,8 @@ import {
   GetPagesGql,
   GetPagesQuery,
   GetPagesQueryVariables,
-} from '../get-pages/GetPages.api.graphql.gen'
-import { useDeletePageMutation } from './DeletePage.api.graphql.gen'
+} from '../get-pages/GetPages.web.graphql.gen'
+import { useDeletePageMutation } from './DeletePage.web.graphql.gen'
 
 type DeletePageFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 

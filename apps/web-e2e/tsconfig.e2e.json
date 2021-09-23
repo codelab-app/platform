@@ -1,20 +1,23 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "sourceMap": false,
     "outDir": "../../dist/out-tsc",
     "allowSyntheticDefaultImports": true,
     "allowJs": false,
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "module": "CommonJS",
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["cypress", "node"],
-    "jsx": "react-jsx",
+    "types": ["cypress", "node", "worker-loader"],
+    "jsx": "react-jsxdev",
     "jsxImportSource": "@emotion/react"
   },
   "exclude": [],
-  "include": ["src/**/*.ts", "src/**/*.js"]
+  "include": ["src/**/*.ts"]
 }

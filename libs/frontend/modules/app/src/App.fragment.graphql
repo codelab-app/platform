@@ -1,0 +1,11 @@
+fragment App on App {
+  id
+  ownerId
+  name
+}
+
+fragment AppBase on App {
+  id
+  ownerId
+  name
+}

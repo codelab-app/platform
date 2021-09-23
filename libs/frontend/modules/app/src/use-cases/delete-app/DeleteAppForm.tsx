@@ -7,8 +7,8 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetAppsQuery } from '../get-apps/GetApps.api.graphql.gen'
-import { useDeleteAppMutation } from './DeleteApp.api.graphql.gen'
+import { refetchGetAppsQuery } from '../get-apps/GetApps.web.graphql.gen'
+import { useDeleteAppMutation } from './DeleteApp.web.graphql.gen'
 import { DeleteAppInput, DeleteAppSchema } from './deleteAppSchema'
 
 type DeleteAppFormProps = UniFormUseCaseProps<DeleteAppInput>

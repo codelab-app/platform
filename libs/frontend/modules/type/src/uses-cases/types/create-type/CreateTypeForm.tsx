@@ -10,8 +10,8 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
-import { refetchGetTypesQuery } from '../get-types/GetTypes.api.graphql.gen'
-import { useCreateTypeMutation } from './CreateType.api.graphql.gen'
+import { refetchGetTypesQuery } from '../get-types/GetTypes.web.graphql.gen'
+import { useCreateTypeMutation } from './CreateType.web.graphql.gen'
 import {
   CreateTypeSchema,
   createTypeSchema,

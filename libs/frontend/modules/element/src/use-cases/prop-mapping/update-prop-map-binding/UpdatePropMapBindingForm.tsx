@@ -13,7 +13,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { ElementTreeGraphql } from '../../../tree'
 import { refetchGetElementQuery } from '../../get-element'
 import { TargetKeyField } from '../create-prop-map-binding/TargetKeyField'
-import { useUpdatePropMapBindingMutation } from './UpdatePropMapBinding.api.graphql.gen'
+import { useUpdatePropMapBindingMutation } from './UpdatePropMapBinding.web.graphql.gen'
 import {
   UpdatePropMapBindingSchema,
   updatePropMapBindingSchema,

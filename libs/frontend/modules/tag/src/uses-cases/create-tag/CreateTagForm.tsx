@@ -8,9 +8,9 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { refetchGetTagGraphQuery } from '../get-tag-graph/GetTagGraph.api.graphql.gen'
-import { useGetTagsQuery } from '../get-tags/GetTags.api.graphql.gen'
-import { useCreateTagMutation } from './CreateTag.api.graphql.gen'
+import { refetchGetTagGraphQuery } from '../get-tag-graph/GetTagGraph.web.graphql.gen'
+import { useGetTagsQuery } from '../get-tags/GetTags.web.graphql.gen'
+import { useCreateTagMutation } from './CreateTag.web.graphql.gen'
 import { CreateTagSchema, createTagSchema } from './CreateTagSchema'
 
 export interface CreateTagFormProps

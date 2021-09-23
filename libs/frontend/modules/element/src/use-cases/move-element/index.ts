@@ -1,3 +1,3 @@
-export { useMoveElementMutation } from './MoveElement.api.graphql.gen'
+export { useMoveElementMutation } from './MoveElement.web.graphql.gen'
 export * from './MoveElementForm'
 export * from './moveElementSchema'

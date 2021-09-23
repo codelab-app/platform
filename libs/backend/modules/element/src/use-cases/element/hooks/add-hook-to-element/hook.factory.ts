@@ -6,6 +6,8 @@ export const hookFactory = ({
   queryHook,
   graphqlQueryHook,
   recoilStateHook,
+  queryPageHook,
+  queryPagesHook,
   graphqlMutationHook,
 }: AddHookToElementInput) => {
   if (queryHook) {
@@ -25,6 +27,14 @@ export const hookFactory = ({
 
   if (recoilStateHook) {
     return new Hook({ type: HookType.RecoilState, config: recoilStateHook })
+  }
+
+  if (queryPageHook) {
+    return new Hook({ type: HookType.QueryPage, config: queryPageHook })
+  }
+
+  if (queryPagesHook) {
+    return new Hook({ type: HookType.QueryPages, config: queryPagesHook })
   }
 
   throw new Error('Invalid AddHookToElementInput')

@@ -1,11 +1,11 @@
 import { notify } from '@codelab/frontend/shared/utils'
 import React, { useEffect } from 'react'
-import { InterfaceFragment } from '../../../graphql/Interface.fragment.api.graphql.gen'
-import { TypeGraphFragment } from '../../../graphql/TypeGraph.fragment.api.graphql.gen'
+import { InterfaceFragment } from '../../../graphql/Interface.fragment.web.graphql.gen'
+import { TypeGraphFragment } from '../../../graphql/TypeGraph.fragment.web.graphql.gen'
 import { TypeTreeGraphql } from '../../../shared'
 import { useTypeTree } from '../../../type-tree'
-import { useGetTypeQuery } from '../get-type/GetType.api.graphql.gen'
-import { useGetTypeGraphQuery } from '../get-type-graph/GetTypeGraph.api.graphql.gen'
+import { useGetTypeQuery } from '../get-type/GetType.web.graphql.gen'
+import { useGetTypeGraphQuery } from '../get-type-graph/GetTypeGraph.web.graphql.gen'
 
 export interface InterfaceContextType {
   interface: InterfaceFragment

@@ -1,6 +1,6 @@
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
 import { JSONSchemaType } from 'ajv'
-import { UpdateLambdaMutationVariables } from './UpdateLambda.api.graphql.gen'
+import { UpdateLambdaMutationVariables } from './UpdateLambda.web.graphql.gen'
 
 export type UpdateLambdaSchema = UpdateLambdaMutationVariables['input']
 

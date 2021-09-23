@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { useExecuteLambdaForStateMutation } from './ExecuteLambdaForState.api.graphql.gen'
+import { useExecuteLambdaForStateMutation } from './ExecuteLambdaForState.web.graphql.gen'
 import { stateAtomFamily } from './stateAtomFamily'
 import { StateProps } from './StateProps'
 

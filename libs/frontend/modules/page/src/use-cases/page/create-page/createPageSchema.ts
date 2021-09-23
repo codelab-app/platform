@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { CreatePageMutationVariables } from './CreatePage.api.graphql.gen'
+import { CreatePageMutationVariables } from './CreatePage.web.graphql.gen'
 
 export type CreatePageSchemaType = Omit<
   CreatePageMutationVariables['input'],

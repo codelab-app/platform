@@ -7,7 +7,7 @@ import {
   HookFragment,
 } from '../../../graphql'
 import { RemoveHookFromElementButton } from '../remove-hook-from-element'
-import { useGetLambdaNameLazyQuery } from './GetLambdaName.api.graphql.gen'
+import { useGetLambdaNameLazyQuery } from './GetLambdaName.web.graphql.gen'
 
 export interface ElementHooksListProps {
   element: ElementFragment

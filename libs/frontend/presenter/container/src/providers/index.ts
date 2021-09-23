@@ -1,4 +1,4 @@
-export * from './app-pages.api.graphql.gen'
+export * from './app-pages.web.graphql.gen'
 export * from './EditorProvider'
 export * from './ElementIdProvider'
 export * from './LibraryProvider'

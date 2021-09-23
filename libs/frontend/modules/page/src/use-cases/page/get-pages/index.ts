@@ -1,2 +1,2 @@
-export * from './GetPages.api.graphql.gen'
+export * from './GetPages.web.graphql.gen'
 export * from './GetPagesList'

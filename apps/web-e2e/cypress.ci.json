@@ -12,5 +12,6 @@
   "ignoreTestFiles": "*.ignore.ts",
   "defaultCommandTimeout": 30000,
   "projectId": "86p5h3",
-  "env": {}
+  "env": {},
+  "testFiles": "**/*.spec.*"
 }
