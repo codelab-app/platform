@@ -19,7 +19,7 @@ const MetaPaneSection = styled('div')`
   right: 0;
   bottom: 0;
   background-color: white;
-  z-index: 100;
+  z-index: 1001;
   ${tw`p-4`}
 `
 
@@ -58,6 +58,9 @@ export const DashboardTemplate = ({
           theme="light"
           collapsed
           collapsedWidth={40}
+          style={{
+            zIndex: 1001,
+          }}
         >
           <div data-testid="pane-main" css={tw`h-full`}>
             <SidebarNavigation />
@@ -66,7 +69,11 @@ export const DashboardTemplate = ({
       ) : null}
       <Layout>
         {Header ? (
-          <AntDesignHeader>
+          <AntDesignHeader
+            style={{
+              zIndex: 1001,
+            }}
+          >
             <Header />
           </AntDesignHeader>
         ) : null}
