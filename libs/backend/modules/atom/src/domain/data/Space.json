@@ -1,0 +1,170 @@
+[
+  {
+    "__typename": "Atom",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "0x9c",
+      "name": "Space API",
+      "typeGraph": {
+        "__typename": "TypeGraph",
+        "edges": [
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Align items",
+              "id": "0x9d",
+              "key": "align",
+              "name": "Align"
+            },
+            "kind": "Field",
+            "source": "0x9c",
+            "target": "0xa3"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "The space direction",
+              "id": "0x9e",
+              "key": "direction",
+              "name": "Direction"
+            },
+            "kind": "Field",
+            "source": "0x9c",
+            "target": "0x5e"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "The space size",
+              "id": "0x9f",
+              "key": "size",
+              "name": "Size"
+            },
+            "kind": "Field",
+            "source": "0x9c",
+            "target": "0x32"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Set split",
+              "id": "0xa0",
+              "key": "split",
+              "name": "Split"
+            },
+            "kind": "Field",
+            "source": "0x9c",
+            "target": "0x2a"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Auto wrap line, when horizontal effective",
+              "id": "0xa1",
+              "key": "wrap",
+              "name": "Wrap"
+            },
+            "kind": "Field",
+            "source": "0x9c",
+            "target": "0x34"
+          }
+        ],
+        "vertices": [
+          {
+            "__typename": "InterfaceType",
+            "id": "0x9c",
+            "name": "Space API",
+            "typeKind": "InterfaceType"
+          },
+          {
+            "__typename": "EnumType",
+            "allowedValues": [
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0xa2",
+                "name": "baseline",
+                "value": "baseline"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0xa4",
+                "name": "start",
+                "value": "start"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0xa5",
+                "name": "end",
+                "value": "end"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0xa6",
+                "name": "center",
+                "value": "center"
+              }
+            ],
+            "id": "0xa3",
+            "name": "SpaceAlign",
+            "typeKind": "EnumType"
+          },
+          {
+            "__typename": "EnumType",
+            "allowedValues": [
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x5d",
+                "name": "left",
+                "value": "left"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x5f",
+                "name": "right",
+                "value": "right"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x60",
+                "name": "center",
+                "value": "center"
+              }
+            ],
+            "id": "0x5e",
+            "name": "Orientation",
+            "typeKind": "EnumType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x32",
+            "name": "String",
+            "primitiveKind": "String",
+            "typeKind": "PrimitiveType"
+          },
+          {
+            "__typename": "ComponentType",
+            "id": "0x2a",
+            "name": "Component",
+            "typeKind": "ComponentType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x34",
+            "name": "Boolean",
+            "primitiveKind": "Boolean",
+            "typeKind": "PrimitiveType"
+          }
+        ]
+      },
+      "typeKind": "InterfaceType"
+    },
+    "id": "0x9b",
+    "name": "Space",
+    "type": "AntDesignSpace"
+  }
+]

@@ -1,0 +1,157 @@
+[
+  {
+    "__typename": "Atom",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "0x62",
+      "name": "GridRow API",
+      "typeGraph": {
+        "__typename": "TypeGraph",
+        "edges": [
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Vertical alignment",
+              "id": "0x63",
+              "key": "align",
+              "name": "Align"
+            },
+            "kind": "Field",
+            "source": "0x62",
+            "target": "0x67"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Spacing between grids, could be a number or a object like { xs: 8, sm: 16, md: 24}. Or you can use array to make horizontal and vertical spacing work at the same time [horizontal, vertical]\t",
+              "id": "0x64",
+              "key": "gutter",
+              "name": "Gutter"
+            },
+            "kind": "Field",
+            "source": "0x62",
+            "target": "0x32"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Horizontal arrangement",
+              "id": "0x65",
+              "key": "justify",
+              "name": "justify"
+            },
+            "kind": "Field",
+            "source": "0x62",
+            "target": "0x6f"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Auto wrap line",
+              "id": "0x66",
+              "key": "wrap",
+              "name": "wrap"
+            },
+            "kind": "Field",
+            "source": "0x62",
+            "target": "0x34"
+          }
+        ],
+        "vertices": [
+          {
+            "__typename": "InterfaceType",
+            "id": "0x62",
+            "name": "GridRow API",
+            "typeKind": "InterfaceType"
+          },
+          {
+            "__typename": "EnumType",
+            "allowedValues": [
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x68",
+                "name": "top",
+                "value": "top"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x69",
+                "name": "middle",
+                "value": "middle"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x6a",
+                "name": "bottom",
+                "value": "bottom"
+              }
+            ],
+            "id": "0x67",
+            "name": "VerticalAlignment",
+            "typeKind": "EnumType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x32",
+            "name": "String",
+            "primitiveKind": "String",
+            "typeKind": "PrimitiveType"
+          },
+          {
+            "__typename": "EnumType",
+            "allowedValues": [
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x6b",
+                "name": "end",
+                "value": "end"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x6c",
+                "name": "center",
+                "value": "center"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x6d",
+                "name": "space-around",
+                "value": "space-around"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x6e",
+                "name": "space-between",
+                "value": "space-between"
+              },
+              {
+                "__typename": "EnumTypeValue",
+                "id": "0x70",
+                "name": "start",
+                "value": "start"
+              }
+            ],
+            "id": "0x6f",
+            "name": "HorizontalArrangement",
+            "typeKind": "EnumType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x34",
+            "name": "Boolean",
+            "primitiveKind": "Boolean",
+            "typeKind": "PrimitiveType"
+          }
+        ]
+      },
+      "typeKind": "InterfaceType"
+    },
+    "id": "0x61",
+    "name": "GridRow",
+    "type": "AntDesignGridRow"
+  }
+]

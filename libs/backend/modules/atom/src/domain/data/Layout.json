@@ -1,0 +1,80 @@
+[
+  {
+    "__typename": "Atom",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "0x23",
+      "name": "Layout API",
+      "typeGraph": {
+        "__typename": "TypeGraph",
+        "edges": [
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Container className",
+              "id": "0x24",
+              "key": "className",
+              "name": "ClassName"
+            },
+            "kind": "Field",
+            "source": "0x23",
+            "target": "0x8"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "Whther contain Sider in children, don't have to assign it normally. Useful in ssr avoid style flickering",
+              "id": "0x25",
+              "key": "hasSider",
+              "name": "HasSider"
+            },
+            "kind": "Field",
+            "source": "0x23",
+            "target": "0x9"
+          },
+          {
+            "__typename": "TypeEdge",
+            "field": {
+              "__typename": "Field",
+              "description": "To customize the styles",
+              "id": "0x26",
+              "key": "style",
+              "name": "Style"
+            },
+            "kind": "Field",
+            "source": "0x23",
+            "target": "0x8"
+          }
+        ],
+        "vertices": [
+          {
+            "__typename": "InterfaceType",
+            "id": "0x23",
+            "name": "Layout API",
+            "typeKind": "InterfaceType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x8",
+            "name": "String",
+            "primitiveKind": "String",
+            "typeKind": "PrimitiveType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x9",
+            "name": "Boolean",
+            "primitiveKind": "Boolean",
+            "typeKind": "PrimitiveType"
+          }
+        ]
+      },
+      "typeKind": "InterfaceType"
+    },
+    "id": "0x22",
+    "name": "Layout",
+    "type": "AntDesignLayout"
+  }
+]
