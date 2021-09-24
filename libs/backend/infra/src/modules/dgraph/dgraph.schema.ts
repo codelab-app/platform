@@ -33,21 +33,21 @@ const {
 
 export const dgraphSchema = `
   type ${Tree} {
-    name
-    root
+    name: string
+    root: ${Node}
   }
 
   type ${Node} {
-    name
-    children
+    name: string
+    children: [${Node}]
   }
 
   type ${User} {
-    auth0Id
-    apps
-    roles
-    types
-    tags
+    auth0Id: string
+    apps: [${App}]
+    roles: [string]
+    types: [${Type}]
+    tags: [${Tag}]
   }
   auth0Id: string @index(hash) .
   apps: [uid] @reverse .
@@ -56,9 +56,9 @@ export const dgraphSchema = `
   tags: [uid] @reverse .
 
   type ${App} {
-    ownerId
-    name
-    pages
+    ownerId: string
+    name: string
+    pages: [${Page}]
   }
 
   type ${Page} {}
@@ -66,23 +66,23 @@ export const dgraphSchema = `
   type ${Component} {}
 
   type ${Tag} {
-    owner
-    name
+    owner: ${User}
+    name: string
   }
 
   type ${Library} {
-    ownerId
-    name
-    atoms
-    components
+    ownerId: string
+    name: string
+    atoms: [${Atom}]
+    components: [${Component}]
   }
 
   type ${Element} {
-    component
-    atom
-    props
-    css
-    hooks
+    component: ${Component}
+    atom: ${Atom}
+    props: string
+    css: string
+    hooks: [${Hook}]
     renderForEachPropKey
     renderIfPropKey
     propMapBindings
@@ -90,31 +90,31 @@ export const dgraphSchema = `
   }
 
   type ${Atom} {
-    name
-    atomType
-    api
+    name: string
+    atomType: string
+    api: [${InterfaceType}]
   }
 
   type ${Type} {
-    owner
-    name
+    owner: ${User}
+    name: string
   }
 
   type ${PrimitiveType} {
-    primitiveKind
+    primitiveKind: string
   }
 
   type ${ArrayType} {
-    itemType
+    itemType: string
   }
 
   type ${EnumTypeValue} {
-    name
-    stringValue
+    name: string
+    stringValue: string
   }
 
   type ${EnumType} {
-    allowedValues
+    allowedValues: [${EnumTypeValue}]
   }
 
   type ${LambdaType} {
@@ -124,35 +124,35 @@ export const dgraphSchema = `
   }
 
   type ${ElementType} {
-    kind
+    kind: string
   }
 
   type ${InterfaceType} {
-    fields
+    fields: [${Field}]
   }
 
   type ${Field} {
-    type
-    key
-    name
-    description
+    type: ${Type}
+    key: string
+    name: string
+    description: string
   }
 
   type ${Lambda} {
-    ownerId
-    name
-    body
+    ownerId: string
+    name: string
+    body: string
   }
 
   type ${Hook} {
-    hookType
-    configJson
+    hookType: string
+    configJson: string
   }
 
   type ${PropMapBinding} {
-    targetElement
-    sourceKey
-    targetKey
+    targetElement: ${Element}
+    sourceKey: string
+    targetKey: string
   }
 
   name: string @index(term, trigram) .

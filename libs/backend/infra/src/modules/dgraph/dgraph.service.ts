@@ -36,7 +36,7 @@ export class DgraphService {
   }
 
   async updateDqlSchema() {
-    await this.client.alter({
+    return await this.client.alter({
       schema: dgraphSchema,
     })
   }
