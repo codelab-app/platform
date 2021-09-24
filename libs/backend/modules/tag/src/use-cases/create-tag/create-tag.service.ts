@@ -5,6 +5,7 @@ import {
   DgraphRepository,
   DgraphTag,
   DgraphTagTree,
+  jsonMutation,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
@@ -23,14 +24,16 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
   }
 
   protected async executeTransaction(request: CreateTagRequest, txn: Txn) {
-    const rootTagId = await this.seedTagTree.execute(request)
+    console.log(request)
 
-    if (request.input.isRoot) {
-      request.input.parentTagId = rootTagId
+    if (request.input.parent) {
+      return await this.dgraph.create(txn, (blankNodeUid) =>
+        CreateTagService.createTagMutation(request, blankNodeUid),
+      )
     }
 
     return await this.dgraph.create(txn, (blankNodeUid) =>
-      CreateTagService.createMutation(request, blankNodeUid),
+      this.createRootTagMutation(request, blankNodeUid),
     )
   }
 
@@ -40,43 +43,7 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
     })
   }
 
-  private static createMutation(
-    request: CreateTagRequest,
-    blankNodeUid: string,
-  ): Mutation {
-    const {
-      input: { isRoot },
-    } = request
-
-    return CreateTagService.createTagMutation(request, blankNodeUid)
-  }
-
-  private static createTagMutation(
-    request: CreateTagRequest,
-    blankNodeUid: string,
-  ) {
-    const {
-      input: { name, parentTagId },
-      currentUser,
-    } = request
-
-    const createJson: DgraphCreateMutationJson<DgraphTag> = {
-      uid: blankNodeUid,
-      name,
-      ownerId: currentUser.id,
-      'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
-      children: [],
-    }
-
-    return {
-      setJson: {
-        uid: parentTagId,
-        children: createJson,
-      },
-    }
-  }
-
-  private static createTagTreeMutation(
+  private createRootTagMutation(
     request: CreateTagRequest,
     blankNodeUid: string,
   ) {
@@ -85,21 +52,70 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
       currentUser,
     } = request
 
-    const createJson: DgraphCreateMutationJson<DgraphTagTree> = {
-      uid: '_:tagTree',
-      ownerId: currentUser.id,
-      'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.TagTree],
-      root: {
-        uid: blankNodeUid,
-        name,
-        ownerId: currentUser.id,
-        'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
-        children: [],
-      },
+    return jsonMutation<DgraphTag>({
+      uid: blankNodeUid,
+      name,
+      owner: { uid: currentUser.id },
+      parent: undefined,
+      'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
+      children: [],
+    })
+  }
+
+  private static createTagMutation(
+    request: CreateTagRequest,
+    blankNodeUid: string,
+  ) {
+    const {
+      input: { name, parent },
+      currentUser,
+    } = request
+
+    if (!parent) {
+      throw new Error('Must have parent')
+    }
+
+    const createJson: DgraphCreateMutationJson<DgraphTag> = {
+      uid: blankNodeUid,
+      name,
+      owner: { uid: currentUser.id },
+      parent: { uid: parent },
+      'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
+      children: [],
     }
 
     return {
-      setJson: [createJson],
+      setJson: {
+        uid: parent,
+        children: createJson,
+      },
     }
   }
+
+  // private static createTagTreeMutation(
+  //   request: CreateTagRequest,
+  //   blankNodeUid: string,
+  // ) {
+  //   const {
+  //     input: { name },
+  //     currentUser,
+  //   } = request
+
+  //   const createJson: DgraphCreateMutationJson<DgraphTagTree> = {
+  //     uid: '_:tagTree',
+  //     ownerId: currentUser.id,
+  //     'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.TagTree],
+  //     root: {
+  //       uid: blankNodeUid,
+  //       name,
+  //       ownerId: currentUser.id,
+  //       'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
+  //       children: [],
+  //     },
+  //   }
+
+  //   return {
+  //     setJson: [createJson],
+  //   }
+  // }
 }

@@ -10,6 +10,7 @@ import { CreateTagInput, CreateTagService } from '../use-cases/create-tag'
 import { DeleteTagsInput, DeleteTagsService } from '../use-cases/delete-tags'
 import { GetTagInput, GetTagService } from '../use-cases/get-tag'
 import { GetTagGraphService } from '../use-cases/get-tag-graph'
+import { GetTagGraphsService } from '../use-cases/get-tag-graphs'
 import { GetTagsService } from '../use-cases/get-tags'
 import { UpdateTagInput, UpdateTagService } from '../use-cases/update-tag'
 import { DgraphTagAdapter } from './dgraph-tag.adapter'
@@ -25,6 +26,7 @@ export class TagResolver {
     private readonly deleteTagsService: DeleteTagsService,
     private readonly updateTagService: UpdateTagService,
     private readonly getTagGraphService: GetTagGraphService,
+    private readonly getTagGraphsService: GetTagGraphsService,
     private readonly getTagsService: GetTagsService,
     private readonly tagTreeAdapter: DgraphTagAdapter,
   ) {}
@@ -88,5 +90,25 @@ export class TagResolver {
     }
 
     return this.tagTreeAdapter.mapItem(dgraphTagTree.root)
+  }
+
+  @Query(() => [TagGraph], {
+    defaultValue: [],
+    description:
+      'Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge',
+  })
+  @UseGuards(GqlAuthGuard)
+  async getTagGraphs(@CurrentUser() currentUser: User) {
+    const dgraphTagRoots = await this.getTagGraphsService.execute({
+      currentUser,
+    })
+
+    console.log(dgraphTagRoots)
+
+    if (!dgraphTagRoots) {
+      return []
+    }
+
+    return []
   }
 }

@@ -1,4 +1,4 @@
-mutation <%= useCaseNamePascalCase %>($input: <%= useCaseNamePascalCase %>Input!) {
+mutation <%= useCasePascalCase %>($input: <%= useCasePascalCase %>Input!) {
   <%= useCaseName %>(input: $input) {
     id
   }

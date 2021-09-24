@@ -10,3 +10,9 @@ export const useTagTree = (
 ): TreeAdapter<TagFragment, TagEdgeFragment> => {
   return new TreeAdapter(graph)
 }
+
+export const useTagTrees = (
+  graphs: Array<GraphqlTagGraph> = [],
+): Array<TreeAdapter<TagFragment, TagEdgeFragment>> => {
+  return graphs.map((graph) => new TreeAdapter(graph))
+}

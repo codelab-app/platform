@@ -1,15 +1,15 @@
 import { INestApplication } from '@nestjs/common'
-import { <%= modelNamePascalCase %>Module } from '../../../../framework/nestjs/<%= modelNamePascalCase %>Module'
+import { <%= modelPascalCase %>Module } from '../../../../framework/nestjs/<%= modelPascalCase %>Module'
 import { domainRequest, setupTestModule, teardownTestModule, Role } from '@codelab/backend/infra'
-import { <%= modelNamePascalCase %> } from '../../../<%= modelName %>.module'
+import { <%= modelPascalCase %> } from '../../../<%= model %>.module'
 
-describe('<%= useCaseNamePascalCase %>UseCase', () => {
+describe('<%= useCasePascalCase %>UseCase', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([<%= modelNamePascalCase %>Module], { role: Role.GUEST })
-    userApp = await setupTestModule([<%= modelNamePascalCase %>Module], { role: Role.USER })
+    guestApp = await setupTestModule([<%= modelPascalCase %>Module], { role: Role.GUEST })
+    userApp = await setupTestModule([<%= modelPascalCase %>Module], { role: Role.USER })
   })
 
   afterAll(async () => {
@@ -18,8 +18,8 @@ describe('<%= useCaseNamePascalCase %>UseCase', () => {
   })
 
   describe('Guest', () => {
-    it('should fail to create a <%= modelNamePascalCase %>', async () => {
-      await domainRequest(guestApp, <%= useCaseNamePascalCase %>Gql, createAppInput, {
+    it('should fail to create a <%= modelPascalCase %>', async () => {
+      await domainRequest(guestApp, <%= useCasePascalCase %>Gql, createAppInput, {
         message: 'Unauthorized',
       })
     })
@@ -29,9 +29,9 @@ describe('<%= useCaseNamePascalCase %>UseCase', () => {
     it('should create an App', async () => {
       const {
         createApp: { id: appId },
-      } = await domainRequest<<%= useCaseNamePascalCase %>Input, <%= useCaseNamePascalCase %>Mutation>(
+      } = await domainRequest<<%= useCasePascalCase %>Input, <%= useCasePascalCase %>Mutation>(
         userApp,
-        <%= useCaseNamePascalCase %>Gql,
+        <%= useCasePascalCase %>Gql,
         createAppInput,
       )
 

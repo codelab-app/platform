@@ -4,25 +4,25 @@ import {
   DgraphCreateUseCase,
   DgraphUseCase,
   DgraphEntityType,
-  Dgraph<%= modelNamePascalCase %>
+  Dgraph<%= modelPascalCase %>
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
-import { <%= modelNamePascalCase %> } from '../../<%= modelName %>.model'
-import { <%= useCaseNamePascalCase %>Input } from './<%= useCaseKebabCase %>.input'
-import { <%= useCaseNamePascalCase %>Request } from './<%= useCaseKebabCase %>.request'
+import { <%= modelPascalCase %> } from '../../<%= model %>.model'
+import { <%= useCasePascalCase %>Input } from './<%= useCaseKebabCase %>.input'
+import { <%= useCasePascalCase %>Request } from './<%= useCaseKebabCase %>.request'
 <% if(useCaseType === "dgraph") { %>
   import { Txn } from 'dgraph-js-http'
 <% } %>
 
 @Injectable()
-export class <%= useCaseNamePascalCase %>Service extends DgraphUseCase<any>  {
+export class <%= useCasePascalCase %>Service extends DgraphUseCase<any>  {
 
   //constructor(dgraph: DgraphRepository) {
   //  super(dgraph)
   //}
 
-  protected async executeTransaction(request: <%= useCaseNamePascalCase %>Input, txn: Txn) {
+  protected async executeTransaction(request: <%= useCasePascalCase %>Input, txn: Txn) {
     //await this.validate(request)
 
     await this.dgraph.executeMutation(
@@ -33,15 +33,15 @@ export class <%= useCaseNamePascalCase %>Service extends DgraphUseCase<any>  {
     return await Promise.resolve({})
   }
 
-  private createMutation(request: <%= useCaseNamePascalCase %>Request): Mutation {
-    const setJson: DgraphCreateMutationJson<Dgraph<%= modelNamePascalCase %>> = {
+  private createMutation(request: <%= useCasePascalCase %>Request): Mutation {
+    const setJson: DgraphCreateMutationJson<Dgraph<%= modelPascalCase %>> = {
 
     }
 
     return { setJson }
   }
 
-  //protected async validate(request: <%= useCaseNamePascalCase %>Request>) {
+  //protected async validate(request: <%= useCasePascalCase %>Request>) {
   //  return
   //}
 }

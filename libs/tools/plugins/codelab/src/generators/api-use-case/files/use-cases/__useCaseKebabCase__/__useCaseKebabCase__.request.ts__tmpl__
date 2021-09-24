@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { <%= useCaseNamePascalCase %>Input } from './<%= useCaseKebabCase %>.input'
+import { <%= useCasePascalCase %>Input } from './<%= useCaseKebabCase %>.input'
 
-export class <%= useCaseNamePascalCase %>Request {
-  declare input: <%= useCaseNamePascalCase %>Input
+export class <%= useCasePascalCase %>Request {
+  declare input: <%= useCasePascalCase %>Input
 }

@@ -26,7 +26,7 @@ export class GetTagsService extends DgraphUseCase<
 
     return new DgraphQueryBuilder()
       .setTypeFunc(DgraphEntityType.Tag)
-      .addEqFilterDirective<DgraphTagTree>('ownerId', currentUser.id)
+      .addFilterDirective(`uid_in(owner, ${currentUser.id})`)
       .addRecurseDirective()
       .addBaseFields()
       .addExpandAll()

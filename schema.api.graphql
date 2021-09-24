@@ -561,6 +561,11 @@ type Query {
   Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
   """
   getTagGraph: TagGraph
+
+  """
+  Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
+  """
+  getTagGraphs: [TagGraph!]!
 }
 
 input GetUserInput {
@@ -1101,12 +1106,9 @@ input ExecuteLambdaInput {
 
 input CreateTagInput {
   name: String!
-  parentTagId: String
 
-  """
-  We can create multiple tag trees, the root tells us whether this is a separate tree
-  """
-  isRoot: Boolean = false
+  """Parent tag id, empty parent means it's root"""
+  parent: String = null
 }
 
 input UpdateTagInput {

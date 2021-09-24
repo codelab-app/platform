@@ -28,6 +28,7 @@ const {
   ComponentType,
   Hook,
   PropMapBinding,
+  Tag,
 } = DgraphEntityType
 
 export const dgraphSchema = `
@@ -46,11 +47,13 @@ export const dgraphSchema = `
     apps
     roles
     types
+    tags
   }
   auth0Id: string @index(hash) .
   apps: [uid] @reverse .
   roles: [string] .
   types: [uid] @reverse .
+  tags: [uid] @reverse .
 
   type ${App} {
     ownerId
@@ -61,6 +64,11 @@ export const dgraphSchema = `
   type ${Page} {}
 
   type ${Component} {}
+
+  type ${Tag} {
+    owner
+    name
+  }
 
   type ${Library} {
     ownerId

@@ -1,7 +1,8 @@
 import { arrayEquals } from '@codelab/shared/utils'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphEntity, DgraphNode } from './core'
-import { WithOwner } from './types/with-owner'
+import { DgraphUser } from './dgraph-user'
+import { WithOwner, WithOwnerId } from './types/with-owner'
 
 export class DgraphTag
   extends DgraphNode<DgraphEntityType.Tag, DgraphTag>
@@ -9,7 +10,9 @@ export class DgraphTag
 {
   declare name: string
 
-  declare ownerId: string
+  declare owner: DgraphUser
+
+  declare parent?: DgraphTag
 }
 
 export const isDgraphTag = (entity: DgraphEntity): entity is DgraphTag => {

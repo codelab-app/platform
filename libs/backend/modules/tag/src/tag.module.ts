@@ -8,6 +8,7 @@ import { CreateTagService } from './use-cases/create-tag'
 import { DeleteTagsService } from './use-cases/delete-tags'
 import { GetTagService } from './use-cases/get-tag'
 import { GetTagGraphService } from './use-cases/get-tag-graph'
+import { GetTagGraphsService } from './use-cases/get-tag-graphs'
 import { GetTagsService } from './use-cases/get-tags'
 import { SeedTagTreeService } from './use-cases/seed-tag-tree'
 import { UpdateTagService } from './use-cases/update-tag'
@@ -21,6 +22,7 @@ const services = [
   DeleteTagsService,
   UpdateTagService,
   GetTagGraphService,
+  GetTagGraphsService,
   GetTagsService,
   SeedTagTreeService,
   /**

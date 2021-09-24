@@ -348,10 +348,9 @@ export type CreateResponse = {
 };
 
 export type CreateTagInput = {
-  /** We can create multiple tag trees, the root tells us whether this is a separate tree */
-  isRoot?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
-  parentTagId?: Maybe<Scalars['String']>;
+  /** Parent tag id, empty parent means it's root */
+  parent?: Maybe<Scalars['String']>;
 };
 
 /** Provide one of the properties */
@@ -965,6 +964,8 @@ export type Query = {
   getTag?: Maybe<Tag>;
   /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
   getTagGraph?: Maybe<TagGraph>;
+  /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
+  getTagGraphs: Array<TagGraph>;
   /** Get all Tag graphs */
   getTags: Array<Tag>;
   getType?: Maybe<Type>;

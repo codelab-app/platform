@@ -7,59 +7,25 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "E.g. \"modules-app-api\", this is the name of the Nest.js module",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "What api library is this for?"
+      "description": "E.g. \"app\", this is the name of the api model",
+      "enum": [
+        "admin",
+        "app",
+        "atom",
+        "element",
+        "hook",
+        "lambda",
+        "page",
+        "tag",
+        "type",
+        "user"
+      ],
+      "default": ""
     },
-    "useCaseName": {
-      "description": "E.g. \"createApp\", use lower camel case",
+    "useCase": {
+      "description": "E.g. \"create\", use lower camel case. The model will be prepended automatically",
       "x-prompt": "What name would you like to use for the use case?"
-    },
-    "modelName": {
-      "type": "string",
-      "description": "E.g. \"app\", use lower case",
-      "x-prompt": "What model is this for?"
-    },
-    "tags": {
-      "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
-    },
-    "directory": {
-      "type": "string",
-      "description": "A directory where the project is placed",
-      "alias": "d"
-    },
-    "useCaseType": {
-      "type": "string",
-      "description": "Use case type",
-      "enum": ["create", "update", "delete", "get"],
-      "x-prompt": {
-        "message": "What type of use case is this?",
-        "type": "list",
-        "items": [
-          {
-            "value": "create",
-            "label": "DQL create use case"
-          },
-          {
-            "value": "update",
-            "label": "DQL create update case"
-          },
-          {
-            "value": "delete",
-            "label": "DQL create delete case"
-          },
-          {
-            "value": "get",
-            "label": "DQL create get case"
-          }
-        ]
-      }
     }
   },
-  "required": ["name"]
+  "required": ["name", "useCase"]
 }

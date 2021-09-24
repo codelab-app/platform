@@ -1,21 +1,22 @@
 import { Tree, TreeProps } from 'antd'
 import { useTagState } from '../../domain/use-tag/useTagState'
-import { useTagTree } from '../../domain/use-tag/useTagTree'
+import { useTagTree, useTagTrees } from '../../domain/use-tag/useTagTree'
 import { useGetTagGraphQuery } from '../get-tag-graph/GetTagGraph.web.graphql.gen'
+import { useGetTagGraphsQuery } from '../get-tag-graphs'
 
 export const GetTagsTree = () => {
-  const { data, loading } = useGetTagGraphQuery()
+  const { data, loading } = useGetTagGraphsQuery()
   const { setSelectedTag, setCheckedTags, selectedTag } = useTagState()
-  const tagTree = useTagTree(data?.getTagGraph)
+  const tagTrees = useTagTrees(data?.getTagGraphs)
 
   if (!data) {
     return null
   }
 
-  const tags = data.getTagGraph
+  const tags = data.getTagGraphs
 
   console.log(tags)
-  console.log(tagTree.getAntdTree())
+  console.log(tagTrees)
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     console.log('selected', selectedKeys, info)
@@ -37,7 +38,8 @@ export const GetTagsTree = () => {
       /**
        * The root is a system root & shouldn't be shown
        */
-      treeData={tagTree.getAntdTree().children}
+      // treeData={tagTree.getAntdTree().children}
+      treeData={[]}
       // treeData={tags.map((tag) => ({
       //   key: tag.id,
       //   title: tag.name,
