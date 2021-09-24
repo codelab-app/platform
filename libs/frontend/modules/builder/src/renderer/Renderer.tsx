@@ -29,16 +29,27 @@ export const Renderer = React.memo<RendererProps>(
       return null
     }
 
-    return (
+    if (context.inspect) {
+      console.group('Root')
+    }
+
+    const rendered = (
       <ErrorBoundary>
         <RenderProvider<ElementTreeGraphql> context={context}>
           {context.renderFactory(root, {
             ...(context ?? {}),
+            inspect: false,
             tree,
           })}
         </RenderProvider>
       </ErrorBoundary>
     )
+
+    if (context.inspect) {
+      console.groupEnd()
+    }
+
+    return rendered
   },
   ({ context, tree }, { tree: newTree, context: newContext }) =>
     isEqual(tree, newTree) && isEqual(context, newContext),

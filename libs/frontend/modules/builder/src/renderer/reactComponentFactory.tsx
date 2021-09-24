@@ -50,7 +50,6 @@ export const elementsPropTransformers: Partial<
 
 const commonProps = (id: string) => ({
   'data-id': id,
-  key: id,
   className: 'Builder-none',
 })
 
