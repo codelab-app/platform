@@ -17,8 +17,8 @@ export const getUserTypesQuery = (
   const { byIds, byKind, byName } = input
 
   const nameFilter = byName
-    ? `match(name, "${byName.name}", 6) AND eq(owner, ${userId})`
-    : `eq(owner, ${userId})`
+    ? `match(name, "${byName.name}", 6) AND uid_in(owner, ${userId})`
+    : `uid_in(owner, ${userId})`
 
   const qb = getTypeQuery(getType(byKind), nameFilter)
 
