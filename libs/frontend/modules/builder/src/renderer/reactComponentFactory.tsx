@@ -40,6 +40,10 @@ export const elementsPropTransformers: Partial<
       height: '200px',
     },
   }),
+  [AtomType.AntDesignModal]: ({ props }) => ({
+    ...props,
+    getContainer: '#Builder',
+  }),
   [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), // Do not pass in any props for fragments, except key, because it creates an error
   [AtomType.HtmlImage]: (input) => ({ src: '', alt: '' }),
 }
