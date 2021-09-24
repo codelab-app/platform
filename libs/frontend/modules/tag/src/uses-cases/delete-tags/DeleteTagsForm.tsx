@@ -8,7 +8,7 @@ import {
 import { DeleteTagsInput } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetTagsQuery } from '../get-tags/GetTags.web.graphql.gen'
+import { refetchGetTagGraphsQuery } from '../get-tag-graphs'
 import { useDeleteTagsMutation } from './DeleteTags.web.graphql.gen'
 import { DeleteTagsSchema, deleteTagsSchema } from './deleteTagsSchema'
 
@@ -21,7 +21,7 @@ export const DeleteTagsForm = (
   } = useCrudModalMutationForm({
     entityType: EntityType.Tag,
     useMutationFunction: useDeleteTagsMutation,
-    mutationOptions: { refetchQueries: [refetchGetTagsQuery()] },
+    mutationOptions: { refetchQueries: [refetchGetTagGraphsQuery()] },
     mapVariables: ({ ids }: DeleteTagsSchema) => ({ input: { ids } }),
   })
 

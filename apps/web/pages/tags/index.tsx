@@ -3,8 +3,8 @@ import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   CreateTagButton,
   CreateTagModal,
-  DeleteTagModal,
   DeleteTagsButton,
+  DeleteTagsModal,
   GetTagsTree,
   UpdateTagModal,
   useTagState,
@@ -34,7 +34,7 @@ const TagPage: CodelabPage = () => {
       <PageHeader ghost={false} title="Tags" extra={pageHeaderButtons} />
       <CreateTagModal />
       <UpdateTagModal />
-      <DeleteTagModal />
+      <DeleteTagsModal />
       <GetTagsTree />
     </>
   )

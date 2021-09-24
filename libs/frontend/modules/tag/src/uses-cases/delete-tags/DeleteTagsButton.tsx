@@ -14,7 +14,7 @@ export const DeleteTagsButton = ({ disabled, ids }: DeleteButtonProps) => {
       disabled={disabled}
       icon={<DeleteOutlined />}
     >
-      Delete Tag
+      Delete Tags
     </Button>
   )
 }

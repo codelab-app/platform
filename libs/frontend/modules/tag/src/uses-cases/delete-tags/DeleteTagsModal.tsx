@@ -6,7 +6,7 @@ import {
 import React from 'react'
 import { DeleteTagsForm } from './DeleteTagsForm'
 
-export const DeleteTagModal = () => {
+export const DeleteTagsModal = () => {
   return (
     <CrudModal
       entityType={EntityType.Tag}

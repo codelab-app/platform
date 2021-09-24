@@ -350,7 +350,7 @@ export type CreateResponse = {
 export type CreateTagInput = {
   name: Scalars['String'];
   /** Parent tag id, empty parent means it's root */
-  parent?: Maybe<Scalars['String']>;
+  parentTagId?: Maybe<Scalars['String']>;
 };
 
 /** Provide one of the properties */

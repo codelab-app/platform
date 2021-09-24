@@ -1,4 +1,3 @@
-import { supportsResultCaching } from '@apollo/client/cache/inmemory/entityStore'
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
@@ -11,7 +10,7 @@ export class CreateTagInput {
     defaultValue: null,
     description: "Parent tag id, empty parent means it's root",
   })
-  declare parent?: string | null
+  declare parentTagId?: string | null
 
   // @Field({
   //   nullable: true,

@@ -1108,7 +1108,7 @@ input CreateTagInput {
   name: String!
 
   """Parent tag id, empty parent means it's root"""
-  parent: String = null
+  parentTagId: String = null
 }
 
 input UpdateTagInput {

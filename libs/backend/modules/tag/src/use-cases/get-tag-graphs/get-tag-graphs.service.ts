@@ -1,14 +1,7 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphApp,
-  DgraphCreateMutationJson,
-  DgraphEntityType,
-  DgraphQueryBuilder,
-  DgraphTag,
-} from '@codelab/backend/infra'
+import { DgraphEntityType, DgraphQueryBuilder } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
-import { GetTagGraphsInput } from './get-tag-graphs.input'
+import { Txn } from 'dgraph-js-http'
 import { GetTagGraphsRequest } from './get-tag-graphs.request'
 
 @Injectable()
@@ -22,7 +15,7 @@ export class GetTagGraphsService extends DgraphUseCase<
 
   protected createQuery({ currentUser }: GetTagGraphsRequest) {
     return new DgraphQueryBuilder()
-      .setTypeFunc(DgraphEntityType.App)
+      .setTypeFunc(DgraphEntityType.Tag)
       .addFilterDirective(`uid_in(owner, ${currentUser.id})`)
       .addRecurseDirective()
       .addBaseFields()

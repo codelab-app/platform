@@ -1,9 +1,7 @@
+import { CreateTagInput } from '@codelab/shared/codegen/graphql'
 import { JSONSchemaType } from 'ajv'
-import { CreateTagMutationVariables } from './CreateTag.web.graphql.gen'
 
-export type CreateTagSchema = CreateTagMutationVariables['input']
-
-export const createTagSchema: JSONSchemaType<CreateTagSchema> = {
+export const createTagSchema: JSONSchemaType<CreateTagInput> = {
   title: 'Create Tag Input',
   type: 'object',
   properties: {
@@ -14,10 +12,10 @@ export const createTagSchema: JSONSchemaType<CreateTagSchema> = {
       type: 'string',
       nullable: true,
     },
-    isRoot: {
-      type: 'boolean',
-      nullable: true,
-    },
+    // isRoot: {
+    //   type: 'boolean',
+    //   nullable: true,
+    // },
   },
   required: ['name'],
 }
