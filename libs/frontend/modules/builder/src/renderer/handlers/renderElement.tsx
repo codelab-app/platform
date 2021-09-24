@@ -10,48 +10,21 @@ import {
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import { compose } from 'ramda'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { HookElementWrapper } from '../hooks/HookElementWrapper'
 import { reactComponentFactory } from '../reactComponentFactory'
 import { RenderHandler } from '../types/RenderHandler'
 import { RenderPipe, RenderPipeFactory } from '../types/RenderPipe'
 import { applyBinding } from '../utils/applyBinding'
+import { evalCss } from '../utils/evalCss'
 import { evaluateRenderIfPropKey } from '../utils/evaluateRenderIfPropKey'
+
+// TODO: split this in multiple files
 
 export const renderElement: RenderHandler = (element, context) => {
   if (!isElement(element)) {
     return null
   }
-
-  // (1). Base props
-  const propsPipeline = compose(
-    basePropsPipe,
-    persistedPropsPipe,
-    extraElementPropsPipe,
-  )
-
-  // (2).Prop transformers
-  const propModifiersPipeline = compose(
-    hookPipe,
-    loopingRenderPipe,
-    propMapBindingsPipe,
-    propTransformationJsPipe,
-  )
-
-  // (3). All the pipes that output ReactElements
-  const renderPipeline = compose(
-    conditionalRenderPipe,
-    elementsComponentPipe,
-    elementsAtomPipe,
-  )
-
-  // (4). Combine the pipelines and add the final renderChildrenPipe
-  const pipeline = compose(
-    propsPipeline,
-    propModifiersPipeline,
-    extraPropsPipe, // here are our 'global' builder props, which must override all other props, since we override onClick here
-    renderPipeline,
-  )(renderChildrenPipe)
 
   // (5). Render
   return pipeline(element, context, {})
@@ -68,6 +41,7 @@ const basePropsPipe: RenderPipeFactory =
       mergeProps(props, {
         nodeid: element.id,
         __node: element,
+        key: element.id,
       }),
     )
   }
@@ -126,13 +100,11 @@ const extraElementPropsPipe: RenderPipeFactory =
  * Adds in props from element.hooks
  */
 const hookPipe: RenderPipeFactory = (next) => (element, context, props) => {
-  console.log('hookPipe', element.hooks)
-
   if (element.hooks?.length > 0) {
     return (
       // the key will cause the wrapper to be destroyed and re-rendered when we add/remove hooks, which will avoid react's error
       <HookElementWrapper
-        key={element.hooks.length}
+        key={`${props.key ?? element.id}-${element.hooks.length}`}
         hooks={element.hooks}
         renderChildren={(hookProps) => {
           return next(element, context, mergeProps(props, hookProps))
@@ -219,7 +191,7 @@ const propTransformationJsPipe: RenderPipeFactory =
 const conditionalRenderPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
     if (!evaluateRenderIfPropKey(element.renderIfPropKey, props)) {
-      callOnRendered(null, element, context)
+      onRendered(null, element, context)
 
       return null
     }
@@ -292,19 +264,26 @@ const elementsAtomPipe: RenderPipeFactory =
       return next(element, context, props)
     }
 
-    const mergedProps = mergeProps(
-      atomProps,
-      props,
-      element.css ? { css: css(element.css) } : {},
-    )
+    const mergedProps = mergeProps(atomProps, props)
+
+    if (context.inspect) {
+      console.group(element.id, element.name)
+    }
 
     const rendered = (
-      <RootComponent {...mergedProps}>
+      <RootComponent
+        {...mergedProps}
+        css={element.css ? css(evalCss(mergedProps, element.css)) : undefined}
+      >
         {next(element, context, mergedProps)}
       </RootComponent>
     )
 
-    callOnRendered(rendered, element, context)
+    onRendered(rendered, element, context)
+
+    if (context.inspect) {
+      console.groupEnd()
+    }
 
     return rendered
   }
@@ -343,20 +322,60 @@ const renderChildrenPipe: RenderPipe = (element, context, props) => {
   return rendered
 }
 
-const callOnRendered = (
+const onRendered = (
   rendered: RenderOutput,
   element: ElementFragment,
   context: RenderContext<ElementTreeGraphql>,
 ) => {
   const renderCallback = context.onRendered
 
-  if (renderCallback) {
-    if (Array.isArray(rendered)) {
-      rendered.forEach((r) => {
-        renderCallback(r, element)
-      })
-    } else {
-      renderCallback(rendered, element)
+  const callRendered = (r: ReactNode) => {
+    if (context.inspect) {
+      console.dir({ element: { ...element }, rendered: r })
+    }
+
+    if (renderCallback) {
+      renderCallback(r, element)
     }
   }
+
+  if (Array.isArray(rendered)) {
+    rendered.forEach((r) => callRendered(r))
+  } else {
+    callRendered(rendered)
+  }
 }
+
+//
+// Construct the pipeline:
+//
+
+// (1). Base props
+const propsPipeline = compose(
+  basePropsPipe,
+  persistedPropsPipe,
+  extraElementPropsPipe,
+)
+
+// (2).Prop transformers
+const propModifiersPipeline = compose(
+  hookPipe,
+  loopingRenderPipe,
+  propMapBindingsPipe,
+  propTransformationJsPipe,
+)
+
+// (3). All the pipes that output ReactElements
+const renderPipeline = compose(
+  conditionalRenderPipe,
+  elementsComponentPipe,
+  elementsAtomPipe,
+)
+
+// (4). Combine the pipelines and add the final renderChildrenPipe
+const pipeline = compose(
+  propsPipeline,
+  propModifiersPipeline,
+  extraPropsPipe, // here are our 'global' builder props, which must override all other props, since we override onClick here
+  renderPipeline,
+)(renderChildrenPipe)

@@ -47,6 +47,9 @@ export interface RenderContext<
     renderedElement: RenderOutput,
     vertex: ExtractElementType<TTree>,
   ) => void
+
+  /** Set to true to log rendering information */
+  inspect?: boolean
 }
 
 // If you need to modify some value, provide a new RenderContextProvider, with new values

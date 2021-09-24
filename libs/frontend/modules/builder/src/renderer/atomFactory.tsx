@@ -2,6 +2,173 @@ import { AtomType } from '@codelab/shared/abstract/core'
 import dynamic from 'next/dynamic'
 import React from 'react'
 
+const Row = dynamic(() => import('antd/lib/grid/row'))
+const Icon = dynamic(() => import('antd/lib/icon'))
+const Menu = dynamic(() => import('antd/lib/menu'))
+const MenuItem = dynamic(() => import('antd/lib/menu/MenuItem'))
+
+const ItemGroup = dynamic(() =>
+  import('antd/lib/menu').then((mod) => mod.default.ItemGroup as any),
+)
+
+const SubMenu = dynamic(() => import('antd/lib/menu/SubMenu'))
+const Col = dynamic(() => import('antd/lib/grid/col'))
+const Card = dynamic(() => import('antd/lib/card'))
+const CardGrid = dynamic(() => import('antd/lib/card/Grid'))
+const CardMeta = dynamic(() => import('antd/lib/card/Meta'))
+const Typography = dynamic(() => import('antd/lib/typography'))
+const TypographyTitle = dynamic(() => import('antd/lib/typography/Title'))
+const TypographyText = dynamic(() => import('antd/lib/typography/Text'))
+
+const TypographyParagraph = dynamic(
+  () => import('antd/lib/typography/Paragraph'),
+)
+
+const Alert = dynamic(() => import('antd/lib/alert'))
+const Affix = dynamic(() => import('antd/lib/affix'))
+const AutoComplete = dynamic(() => import('antd/lib/auto-complete'))
+const Button = dynamic(() => import('antd/lib/button'))
+const Breadcrumb = dynamic(() => import('antd/lib/breadcrumb'))
+
+const BreadcrumbItem = dynamic(() =>
+  import('antd/lib/breadcrumb').then((mod) => mod.default.Item as any),
+)
+
+const Dropdown = dynamic(() => import('antd/lib/dropdown'))
+const Form = dynamic(() => import('antd/lib/form'))
+const FormItem = dynamic(() => import('antd/lib/form/FormItem'))
+const FormList = dynamic(() => import('antd/lib/form/FormList'))
+const Checkbox = dynamic(() => import('antd/lib/checkbox'))
+const Input = dynamic(() => import('antd/lib/input'))
+const InputNumber = dynamic(() => import('antd/lib/input-number'))
+const Select = dynamic(() => import('antd/lib/select'))
+
+const SelectOption = dynamic(() =>
+  import('antd/lib/select').then((mod) => mod.default.Option as any),
+)
+
+const ReactGridLayout = dynamic(() => import('react-grid-layout'))
+
+const ReactGridLayoutResponsive = dynamic(
+  () =>
+    import('react-grid-layout').then(({ WidthProvider, Responsive }) =>
+      WidthProvider(Responsive),
+    ) as any,
+)
+
+const Modal = dynamic(() => import('antd/lib/modal'))
+const RadioGroup = dynamic(() => import('antd/lib/radio/group'))
+const Radio = dynamic(() => import('antd/lib/radio'))
+const Rate = dynamic(() => import('antd/lib/rate'))
+const Slider = dynamic(() => import('antd/lib/slider') as any)
+const Switch = dynamic(() => import('antd/lib/switch'))
+const Space = dynamic(() => import('antd/lib/space'))
+const DatePicker = dynamic(() => import('antd/lib/date-picker'))
+const Divider = dynamic(() => import('antd/lib/divider'))
+const Pagination = dynamic(() => import('antd/lib/pagination'))
+const PageHeader = dynamic(() => import('antd/lib/page-header'))
+const Badge = dynamic(() => import('antd/lib/badge'))
+const Avatar = dynamic(() => import('antd/lib/avatar'))
+const Comment = dynamic(() => import('antd/lib/comment'))
+const Calendar = dynamic(() => import('antd/lib/calendar'))
+const Descriptions = dynamic(() => import('antd/lib/descriptions'))
+const DescriptionsItem = dynamic(() => import('antd/lib/descriptions/Item'))
+const Empty = dynamic(() => import('antd/lib/empty'))
+const Timeline = dynamic(() => import('antd/lib/timeline'))
+const TimelineItem = dynamic(() => import('antd/lib/timeline/TimelineItem'))
+const Tabs = dynamic(() => import('antd/lib/tabs'))
+
+const TabPane = dynamic(
+  () => import('antd/lib/tabs').then((mod) => mod.default.TabPane) as any,
+)
+
+const Statistic = dynamic(() => import('antd/lib/statistic'))
+const Tooltip = dynamic(() => import('antd/lib/tooltip'))
+const Tag = dynamic(() => import('antd/lib/tag'))
+const Tree = dynamic(() => import('antd/lib/tree'))
+const Drawer = dynamic(() => import('antd/lib/drawer'))
+const Progress = dynamic(() => import('antd/lib/progress') as any)
+const Result = dynamic(() => import('antd/lib/result'))
+const Spin = dynamic(() => import('antd/lib/spin'))
+const Skeleton = dynamic(() => import('antd/lib/skeleton'))
+const Anchor = dynamic(() => import('antd/lib/anchor'))
+const AnchorLink = dynamic(() => import('antd/lib/anchor/AnchorLink'))
+const BackTop = dynamic(() => import('antd/lib/back-top'))
+const ConfigProvider = dynamic(() => import('antd/lib/config-provider'))
+const PopConfirm = dynamic(() => import('antd/lib/popconfirm'))
+const TreeSelect = dynamic(() => import('antd/lib/tree-select'))
+
+const TreeNode = dynamic(
+  () =>
+    import('antd/lib/tree-select').then((mod) => mod.default.TreeNode) as any,
+)
+
+const TimePicker = dynamic(() => import('antd/lib/time-picker'))
+const Upload = dynamic(() => import('antd/lib/upload'))
+const Steps = dynamic(() => import('antd/lib/steps'))
+
+const Step = dynamic(
+  () => import('antd/lib/steps').then((mod) => mod.default.Step) as any,
+)
+
+const Collapse = dynamic(() => import('antd/lib/collapse'))
+const CollapsePanel = dynamic(() => import('antd/lib/collapse/CollapsePanel'))
+const Carousel = dynamic(() => import('antd/lib/carousel'))
+const List = dynamic(() => import('antd/lib/list'))
+const ListItem = dynamic(() => import('antd/lib/list/Item'))
+
+const ListItemMeta = dynamic(
+  () => import('antd/lib/list/Item').then((mod) => mod.default.Meta) as any,
+)
+
+const Mentions = dynamic(() => import('antd/lib/mentions'))
+
+const MentionsOption = dynamic(
+  () => import('antd/lib/mentions').then((mod) => mod.Option) as any,
+)
+
+const Layout = dynamic(() => import('antd/lib/layout'))
+
+const LayoutHeader = dynamic(
+  () => import('antd/lib/layout').then((mod) => mod.default.Header) as any,
+)
+
+const LayoutSider = dynamic(() => import('antd/lib/layout/Sider'))
+
+const LayoutContent = dynamic(
+  () => import('antd/lib/layout').then((mod) => mod.default.Content) as any,
+)
+
+const LayoutFooter = dynamic(
+  () => import('antd/lib/layout').then((mod) => mod.default.Footer) as any,
+)
+
+const Popover = dynamic(() => import('antd/lib/popover'))
+const Table = dynamic(() => import('antd/lib/table'))
+const Image = dynamic(() => import('antd/lib/image'))
+
+const CodelabQuery = dynamic(
+  () =>
+    import('@codelab/frontend/view/components').then((mod) => mod.Query) as any,
+)
+
+const CodelabTextList = dynamic(
+  () =>
+    import('@codelab/frontend/view/components').then(
+      (mod) => mod.TextList,
+    ) as any,
+)
+
+const CodelabText = dynamic(
+  () =>
+    import('@codelab/frontend/view/components').then((mod) => mod.Text) as any,
+)
+
+const CodelabState = dynamic(
+  () =>
+    import('@codelab/frontend/view/components').then((mod) => mod.State) as any,
+)
+
 /**
  * Returns a ReactComponent corresponding to the input AtomType
  * Returns null if a mapping is not found
@@ -176,217 +343,189 @@ export const atomFactory = (
     // Ant Design
     //
     case AtomType.AntDesignIcon:
-      return dynamic(() =>
-        import('@ant-design/compatible').then((mod) => mod.Icon),
-      )
+      return Icon
     case AtomType.AntDesignMenu:
-      return dynamic(() => import('antd/lib/menu'))
+      return Menu
     case AtomType.AntDesignMenuItem:
-      return dynamic(() => import('antd/lib/menu/MenuItem'))
+      return MenuItem
     case AtomType.AntDesignMenuItemGroup:
-      return dynamic(() =>
-        import('antd/lib/menu').then((mod) => mod.default.ItemGroup),
-      )
+      return ItemGroup
     case AtomType.AntDesignMenuSubMenu:
-      return dynamic(() => import('antd/lib/menu/SubMenu'))
+      return SubMenu
     case AtomType.AntDesignGridCol:
-      return dynamic(() => import('antd/lib/grid/col'))
+      return Col
     case AtomType.AntDesignGridRow:
-      return dynamic(() => import('antd/lib/grid/row'))
+      return Row
     case AtomType.AntDesignCard:
-      return dynamic(() => import('antd/lib/card'))
+      return Card
     case AtomType.AntDesignCardGrid:
-      return dynamic(() => import('antd/lib/card/Grid'))
+      return CardGrid
     case AtomType.AntDesignCardMeta:
-      return dynamic(() => import('antd/lib/card/Meta'))
+      return CardMeta
     case AtomType.AntDesignTypography:
-      return dynamic(() => import('antd/lib/typography'))
+      return Typography
     case AtomType.AntDesignTypographyTitle:
-      return dynamic(() => import('antd/lib/typography/Title'))
+      return TypographyTitle
     case AtomType.AntDesignTypographyText:
-      return dynamic(() => import('antd/lib/typography/Text'))
+      return TypographyText
     case AtomType.AntDesignTypographyParagraph:
-      return dynamic(() => import('antd/lib/typography/Paragraph'))
+      return TypographyParagraph
     case AtomType.AntDesignAlert:
-      return dynamic(() => import('antd/lib/alert'))
+      return Alert
     case AtomType.AntDesignAffix:
-      return dynamic(() => import('antd/lib/affix'))
+      return Affix
     case AtomType.AntDesignAutoComplete:
-      return dynamic(() => import('antd/lib/auto-complete'))
+      return AutoComplete
     case AtomType.AntDesignButton:
-      return dynamic(() => import('antd/lib/button'))
+      return Button
     case AtomType.AntDesignBreadcrumb:
-      return dynamic(() => import('antd/lib/breadcrumb'))
+      return Breadcrumb
     case AtomType.AntDesignBreadcrumbItem:
-      return dynamic(() =>
-        import('antd/lib/breadcrumb').then((mod) => mod.default.Item),
-      )
+      return BreadcrumbItem
     case AtomType.AntDesignDropdown:
-      return dynamic(() => import('antd/lib/dropdown'))
+      return Dropdown
     case AtomType.AntDesignForm:
-      return dynamic(() => import('antd/lib/form'))
+      return Form
     case AtomType.AntDesignFormItem:
-      return dynamic(() => import('antd/lib/form/FormItem'))
+      return FormItem
     case AtomType.AntDesignFormList:
-      return dynamic(() => import('antd/lib/form/FormList'))
+      return FormList
     case AtomType.AntDesignCheckbox:
-      return dynamic(() => import('antd/lib/checkbox'))
+      return Checkbox
     case AtomType.AntDesignInput:
-      return dynamic(() => import('antd/lib/input'))
+      return Input
     case AtomType.AntDesignInputNumber:
-      return dynamic(() => import('antd/lib/input-number'))
+      return InputNumber
     case AtomType.AntDesignSelect:
-      return dynamic(() => import('antd/lib/select'))
+      return Select
     case AtomType.AntDesignSelectOption:
-      return dynamic(() =>
-        import('antd/lib/select').then((mod) => mod.default.Option),
-      )
+      return SelectOption
     case AtomType.AntDesignRglContainer:
-      return dynamic(() => import('react-grid-layout'))
+      return ReactGridLayout
     case AtomType.AntDesignRglItem:
       return 'div'
     case AtomType.AntDesignRglResponsiveContainer:
-      return dynamic(() =>
-        import('react-grid-layout').then(({ WidthProvider, Responsive }) =>
-          WidthProvider(Responsive),
-        ),
-      )
+      return ReactGridLayoutResponsive
     case AtomType.AntDesignModal:
-      return dynamic(() => import('antd/lib/modal'))
+      return Modal
     case AtomType.AntDesignRadioGroup:
-      return dynamic(() => import('antd/lib/radio/group'))
+      return RadioGroup
     case AtomType.AntDesignRadio:
-      return dynamic(() => import('antd/lib/radio'))
+      return Radio
     case AtomType.AntDesignRate:
-      return dynamic(() => import('antd/lib/rate'))
+      return Rate
     case AtomType.AntDesignSlider:
-      return dynamic(() => import('antd/lib/slider') as any)
+      return Slider
     case AtomType.AntDesignSwitch:
-      return dynamic(() => import('antd/lib/switch'))
+      return Switch
     case AtomType.AntDesignSpace:
-      return dynamic(() => import('antd/lib/space'))
+      return Space
     case AtomType.AntDesignDatePicker:
-      return dynamic(() => import('antd/lib/date-picker'))
+      return DatePicker
     case AtomType.AntDesignDivider:
-      return dynamic(() => import('antd/lib/divider'))
+      return Divider
     case AtomType.AntDesignPagination:
-      return dynamic(() => import('antd/lib/pagination'))
+      return Pagination
     case AtomType.AntDesignPageHeader:
-      return dynamic(() => import('antd/lib/page-header'))
+      return PageHeader
     case AtomType.AntDesignBadge:
-      return dynamic(() => import('antd/lib/badge'))
+      return Badge
     case AtomType.AntDesignAvatar:
-      return dynamic(() => import('antd/lib/avatar'))
+      return Avatar
     case AtomType.AntDesignComment:
-      return dynamic(() => import('antd/lib/comment'))
+      return Comment
     case AtomType.AntDesignCalendar:
-      return dynamic(() => import('antd/lib/calendar'))
+      return Calendar
     case AtomType.AntDesignDescriptions:
-      return dynamic(() => import('antd/lib/descriptions'))
+      return Descriptions
     case AtomType.AntDesignDescriptionsItem:
-      return dynamic(() => import('antd/lib/descriptions/Item'))
+      return DescriptionsItem
     case AtomType.AntDesignEmpty:
-      return dynamic(() => import('antd/lib/empty'))
+      return Empty
     case AtomType.AntDesignTimeline:
-      return dynamic(() => import('antd/lib/timeline'))
+      return Timeline
     case AtomType.AntDesignTimelineItem:
-      return dynamic(() => import('antd/lib/timeline/TimelineItem'))
+      return TimelineItem
     case AtomType.AntDesignTabs:
-      return dynamic(() => import('antd/lib/tabs'))
+      return Tabs
     case AtomType.AntDesignTabsTabPane:
-      return dynamic(() =>
-        import('antd/lib/tabs').then((mod) => mod.default.TabPane),
-      )
+      return TabPane
     case AtomType.AntDesignStatistic:
-      return dynamic(() => import('antd/lib/statistic'))
+      return Statistic
     case AtomType.AntDesignTooltip:
-      return dynamic(() => import('antd/lib/tooltip'))
+      return Tooltip
     case AtomType.AntDesignTag:
-      return dynamic(() => import('antd/lib/tag'))
+      return Tag
     case AtomType.AntDesignTree:
-      return dynamic(() => import('antd/lib/tree'))
+      return Tree
     case AtomType.AntDesignDrawer:
-      return dynamic(() => import('antd/lib/drawer'))
+      return Drawer
     case AtomType.AntDesignProgress:
-      return dynamic(() => import('antd/lib/progress') as any)
+      return Progress
     case AtomType.AntDesignResult:
-      return dynamic(() => import('antd/lib/result'))
+      return Result
     case AtomType.AntDesignSpin:
-      return dynamic(() => import('antd/lib/spin'))
+      return Spin
     case AtomType.AntDesignSkeleton:
-      return dynamic(() => import('antd/lib/skeleton'))
+      return Skeleton
     case AtomType.AntDesignAnchor:
-      return dynamic(() => import('antd/lib/anchor'))
+      return Anchor
     case AtomType.AntDesignAnchorLink:
-      return dynamic(() => import('antd/lib/anchor/AnchorLink'))
+      return AnchorLink
     case AtomType.AntDesignBackTop:
-      return dynamic(() => import('antd/lib/back-top'))
+      return BackTop
     case AtomType.AntDesignConfigProvider:
-      return dynamic(() => import('antd/lib/config-provider'))
+      return ConfigProvider
     case AtomType.AntDesignPopconfirm:
-      return dynamic(() => import('antd/lib/popconfirm'))
+      return PopConfirm
     case AtomType.AntDesignTransfer:
       return 'null'
     case AtomType.AntDesignTreeSelect:
-      return dynamic(() => import('antd/lib/tree-select'))
+      return TreeSelect
     case AtomType.AntDesignTreeNode:
-      return dynamic(() =>
-        import('antd/lib/tree-select').then((mod) => mod.default.TreeNode),
-      )
+      return TreeNode
     case AtomType.AntDesignTimePicker:
-      return dynamic(() => import('antd/lib/time-picker'))
+      return TimePicker
     case AtomType.AntDesignUpload:
-      return dynamic(() => import('antd/lib/upload'))
+      return Upload
     case AtomType.AntDesignSteps:
-      return dynamic(() => import('antd/lib/steps'))
+      return Steps
     case AtomType.AntDesignStepsStep:
-      return dynamic(() =>
-        import('antd/lib/steps').then((mod) => mod.default.Step),
-      )
+      return Step
     case AtomType.AntDesignCollapse:
-      return dynamic(() => import('antd/lib/collapse'))
+      return Collapse
     case AtomType.AntDesignCollapsePanel:
-      return dynamic(() => import('antd/lib/collapse/CollapsePanel'))
+      return CollapsePanel
     case AtomType.AntDesignCarousel:
-      return dynamic(() => import('antd/lib/carousel'))
+      return Carousel
     case AtomType.AntDesignList:
-      return dynamic(() => import('antd/lib/list'))
+      return List
     case AtomType.AntDesignListItem:
-      return dynamic(() => import('antd/lib/list/Item'))
+      return ListItem
     case AtomType.AntDesignListItemMeta:
-      return dynamic(() =>
-        import('antd/lib/list/Item').then((mod) => mod.default.Meta),
-      )
+      return ListItemMeta
     case AtomType.AntDesignMentions:
-      return dynamic(() => import('antd/lib/mentions'))
+      return Mentions
     case AtomType.AntDesignMentionsOption:
-      return dynamic(() =>
-        import('antd/lib/mentions').then((mod) => mod.Option),
-      )
+      return MentionsOption
     case AtomType.AntDesignLayout:
-      return dynamic(() => import('antd/lib/layout'))
+      return Layout
     case AtomType.AntDesignLayoutHeader:
-      return dynamic(() =>
-        import('antd/lib/layout').then((mod) => mod.default.Header),
-      )
+      return LayoutHeader
     case AtomType.AntDesignLayoutSider:
-      return dynamic(() => import('antd/lib/layout/Sider'))
+      return LayoutSider
     case AtomType.AntDesignLayoutContent:
-      return dynamic(() =>
-        import('antd/lib/layout').then((mod) => mod.default.Content),
-      )
+      return LayoutContent
     case AtomType.AntDesignLayoutFooter:
-      return dynamic(() =>
-        import('antd/lib/layout').then((mod) => mod.default.Footer),
-      )
+      return LayoutFooter
     case AtomType.AntDesignCascader:
       return ''
     case AtomType.AntDesignPopover:
-      return dynamic(() => import('antd/lib/popover'))
+      return Popover
     case AtomType.AntDesignTable:
-      return dynamic(() => import('antd/lib/table'))
+      return Table
     case AtomType.AntDesignImage:
-      return dynamic(() => import('antd/lib/image'))
+      return Image
     case AtomType.AntDesignRenderComponent:
       return ''
     case AtomType.AntDesignRenderContainer:
@@ -401,21 +540,13 @@ export const atomFactory = (
     // Custom
     //
     case AtomType.Query:
-      return dynamic(() =>
-        import('@codelab/frontend/view/components').then((mod) => mod.Query),
-      )
+      return CodelabQuery
     case AtomType.TextList:
-      return dynamic(() =>
-        import('@codelab/frontend/view/components').then((mod) => mod.TextList),
-      )
+      return CodelabTextList
     case AtomType.Text:
-      return dynamic(() =>
-        import('@codelab/frontend/view/components').then((mod) => mod.Text),
-      )
+      return CodelabText
     case AtomType.State:
-      return dynamic(() =>
-        import('@codelab/frontend/view/components').then((mod) => mod.State),
-      )
+      return CodelabState
     default:
       return null
   }

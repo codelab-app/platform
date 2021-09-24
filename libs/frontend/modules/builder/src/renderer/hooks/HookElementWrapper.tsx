@@ -24,16 +24,12 @@ export const HookElementWrapper = ({
     return null
   }
 
+  const children = renderChildren({
+    ...(hookProps || {}),
+  })
+
   // Needs to be wrapped in fragment or TS complains
-  return (
-    <>
-      {renderChildren({
-        ...(hookProps || {}),
-        // The key makes sure the child gets re-rendered if the hooks change. Not sure if needed, since we do the same for the wrapper
-        key: hooks.length,
-      })}
-    </>
-  )
+  return <>{children}</>
 }
 
 HookElementWrapper.displayName = 'HookElementWrapper'
