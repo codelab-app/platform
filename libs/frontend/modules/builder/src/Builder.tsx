@@ -32,6 +32,12 @@ const StyledBuilderContainer = styled.div`
 
   position: relative;
   max-height: 100%;
+
+  .ant-modal-mask,
+  .ant-modal-wrap {
+    position: absolute;
+    z-index: 99;
+  }
 `
 
 const StyledBuilderInnerContainer = styled.div`
