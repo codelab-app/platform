@@ -1,5 +1,5 @@
-mutation <%= useCasePascalCase %>($input: <%= useCasePascalCase %>Input!) {
-  <%= useCaseName %>(input: $input) {
+<%= graphqlType %> <%= useCasePascalCase %>($input: <%= useCasePascalCase %>Input!) {
+  <%= useCase %>(input: $input) {
     id
   }
 }

@@ -15,7 +15,7 @@ const normalizeOptions = (
   host: Tree,
   options: ApiUseCaseGeneratorSchema,
 ): NormalizedSchema => {
-  const { model, useCase } = options
+  const { model, useCase, graphqlType } = options
   const projectDirectory = names(`backend-modules-${model}`).fileName
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
 
@@ -29,9 +29,8 @@ const normalizeOptions = (
     throw new Error(`${projectName} cannot be found!`)
   }
 
-  const useCaseName = toCamelCase(options.useCase)
-  const useCasePascalCase = toPascalCase(useCaseName)
-  const useCaseKebabCase = toKebabCase(useCaseName)
+  const useCasePascalCase = toPascalCase(useCase)
+  const useCaseKebabCase = toKebabCase(useCase)
   const modelPascalCase = toPascalCase(model)
 
   return {
@@ -45,6 +44,7 @@ const normalizeOptions = (
     projectName,
     projectRoot,
     projectDirectory,
+    graphqlType,
   }
 }
 

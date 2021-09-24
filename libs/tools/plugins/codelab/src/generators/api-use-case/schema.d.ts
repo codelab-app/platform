@@ -3,6 +3,7 @@ import { UseCaseType } from './useCaseType'
 export interface ApiUseCaseGeneratorSchema {
   model: string
   useCase: string
+  graphqlType: string
   // model: string
   // tags?: string
   // directory?: string

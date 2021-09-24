@@ -5,7 +5,7 @@
   "title": "",
   "type": "object",
   "properties": {
-    "name": {
+    "model": {
       "type": "string",
       "description": "E.g. \"app\", this is the name of the api model",
       "enum": [
@@ -19,13 +19,17 @@
         "tag",
         "type",
         "user"
-      ],
-      "default": ""
+      ]
     },
     "useCase": {
-      "description": "E.g. \"create\", use lower camel case. The model will be prepended automatically",
+      "description": "E.g. \"createApp\", use lower camel case",
       "x-prompt": "What name would you like to use for the use case?"
+    },
+    "graphqlType": {
+      "type": "string",
+      "description": "GraphQL query type",
+      "enum": ["query", "mutation"]
     }
   },
-  "required": ["name", "useCase"]
+  "required": ["model", "useCase"]
 }

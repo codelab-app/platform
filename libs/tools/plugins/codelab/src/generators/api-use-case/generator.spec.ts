@@ -9,7 +9,7 @@ describe('api-use-case generator', () => {
 
   const options: ApiUseCaseGeneratorSchema = {
     name: 'modules-user-api',
-    useCaseName: 'createUser',
+    useCase: 'createUser',
     model: 'user',
   }
 

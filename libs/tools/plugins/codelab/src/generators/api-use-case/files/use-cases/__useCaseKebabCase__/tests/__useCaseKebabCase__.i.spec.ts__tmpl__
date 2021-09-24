@@ -1,20 +1,25 @@
+import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { INestApplication } from '@nestjs/common'
-import { <%= modelPascalCase %>Module } from '../../../../framework/nestjs/<%= modelPascalCase %>Module'
-import { domainRequest, setupTestModule, teardownTestModule, Role } from '@codelab/backend/infra'
+import { <%= modelPascalCase %>Module } from '../../../<%= model %>.module'
+import { domainRequest } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { <%= modelPascalCase %> } from '../../../<%= model %>.module'
 
 describe('<%= useCasePascalCase %>UseCase', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
+  let adminApp: INestApplication
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([<%= modelPascalCase %>Module], { role: Role.GUEST })
-    userApp = await setupTestModule([<%= modelPascalCase %>Module], { role: Role.USER })
+    guestApp = await setupTestModule([<%= modelPascalCase %>Module], { role: Role.Guest })
+    userApp = await setupTestModule([<%= modelPascalCase %>Module], { role: Role.User })
+    adminApp = await setupTestModule([<%= modelPascalCase %>Module], { role: Role.Admin })
   })
 
   afterAll(async () => {
     await teardownTestModule(guestApp)
     await teardownTestModule(userApp)
+    await teardownTestModule(adminApp)
   })
 
   describe('Guest', () => {

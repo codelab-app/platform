@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { TagGraphFragment } from '../../graphql/TagGraph.fragment.graphql.gen';
+import { TagGraphFragment } from '../Tag.fragment.graphql.gen';
 import { gql } from '@apollo/client';
-import { TagGraphFragmentDoc } from '../../graphql/TagGraph.fragment.graphql.gen';
+import { TagGraphFragmentDoc } from '../Tag.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type GetTagGraphQueryVariables = Types.Exact<{ [key: string]: never; }>;
