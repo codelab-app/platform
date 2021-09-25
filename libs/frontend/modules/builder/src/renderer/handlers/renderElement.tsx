@@ -106,6 +106,7 @@ const hookPipe: RenderPipeFactory = (next) => (element, context, props) => {
       <HookElementWrapper
         key={`${props.key ?? element.id}-${element.hooks.length}`}
         hooks={element.hooks}
+        inputProps={props}
         renderChildren={(hookProps) => {
           return next(element, context, mergeProps(props, hookProps))
         }}
@@ -360,9 +361,9 @@ const propsPipeline = compose(
 // (2).Prop transformers
 const propModifiersPipeline = compose(
   hookPipe,
-  loopingRenderPipe,
-  propMapBindingsPipe,
   propTransformationJsPipe,
+  loopingRenderPipe,
+  propMapBindingsPipe, // We want the propMapBindings to be last, so that we can pass any transformed/modified props down
 )
 
 // (3). All the pipes that output ReactElements

@@ -9,38 +9,51 @@ import { useQueryPagesHook } from './handlers/useQueryPages'
 import { useRecoilStateHook } from './handlers/useRecoilStateHook'
 import { HookHandler } from './HookHandler'
 
-export const useHookFactory = (hooks: Array<HookFragment>) => {
+export const useHookFactory = (
+  hooks: Array<HookFragment>,
+  inputProps?: Record<string, any>,
+) => {
   return hooks.reduce<Record<string, any>>((queryProps, hook) => {
-    const hookData = getHookData(hook) ?? {}
+    const hookData = getHookData(hook, inputProps) ?? {}
 
     return Object.assign(queryProps, hookData)
   }, {})
 }
 
-const getHookData: HookHandler = ({ config, type }: HookFragment) => {
+const getHookData: HookHandler = (
+  { config, type }: HookFragment,
+  inputProps?: Record<string, any>,
+) => {
+  let handler: HookHandler
+
   switch (type) {
-    case HookType.Query: {
-      return useQueryHook(config)
-    }
+    case HookType.Query:
+      handler = useQueryHook
+      break
 
-    case HookType.GraphqlQuery: {
-      return useGraphqlQueryHook(config)
-    }
+    case HookType.GraphqlQuery:
+      handler = useGraphqlQueryHook
+      break
 
-    case HookType.GraphqlMutation: {
-      return useGraphqlMutationHook(config)
-    }
+    case HookType.GraphqlMutation:
+      handler = useGraphqlMutationHook
+      break
 
-    case HookType.RecoilState: {
-      return useRecoilStateHook(config)
-    }
+    case HookType.RecoilState:
+      handler = useRecoilStateHook
+      break
 
-    case HookType.QueryPage: {
-      return useQueryPageHook(config)
-    }
+    case HookType.QueryPage:
+      handler = useQueryPageHook
+      break
 
-    case HookType.QueryPages: {
-      return useQueryPagesHook(config)
-    }
+    case HookType.QueryPages:
+      handler = useQueryPagesHook
+      break
+
+    default:
+      return undefined
   }
+
+  return handler(config, inputProps)
 }

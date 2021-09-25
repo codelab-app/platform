@@ -8,12 +8,14 @@ import { apolloClient } from '../utils/apolloClient'
 
 export const useGraphqlMutationHook: HookHandler = (
   config: GraphqlHookConfigFragment,
+  inputProps,
 ) => {
   const [mutate, { data, error, called, loading }] = useMutation(
     gql(config.graphqlBody),
     {
       client: apolloClient,
       context: { uri: config.graphqlUrl },
+      variables: inputProps ?? undefined,
     },
   )
 
