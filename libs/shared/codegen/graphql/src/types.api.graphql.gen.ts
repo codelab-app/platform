@@ -1140,9 +1140,11 @@ export enum Role {
 
 export type Tag = {
   __typename?: 'Tag';
+  children: Array<Scalars['String']>;
   id: Scalars['String'];
   isRoot: Scalars['Boolean'];
   name: Scalars['String'];
+  parent?: Maybe<Scalars['String']>;
 };
 
 /** An edge between two element nodes */

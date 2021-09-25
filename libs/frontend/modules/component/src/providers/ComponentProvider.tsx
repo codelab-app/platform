@@ -6,7 +6,7 @@ import {
 import { withProvider } from '@codelab/frontend/presenter/container'
 import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
-import { ComponentFragment } from '../Component.fragment.web.graphql.gen'
+import { ComponentFragment } from '../Component.fragment.graphql.gen'
 import { useGetComponentQuery } from '../use-cases/get-component/GetComponent.web.graphql.gen'
 import { useGetComponentElementsQuery } from '../use-cases/get-component-elements'
 

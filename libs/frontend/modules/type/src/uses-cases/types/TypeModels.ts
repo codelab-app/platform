@@ -1,4 +1,4 @@
-import { TypeFragment } from '../../graphql/Type.fragment.web.graphql.gen'
+import { TypeFragment } from '../../graphql/Type.fragment.graphql.gen'
 /**
  * Those types make sure this enum matches the type names returned from the API
  */
