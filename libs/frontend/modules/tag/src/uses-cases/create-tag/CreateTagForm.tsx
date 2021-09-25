@@ -9,26 +9,30 @@ import {
 import { CreateTagInput } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { refetchGetTagGraphQuery } from '../get-tag-graph/GetTagGraph.web.graphql.gen'
+import { refetchGetTagGraphsQuery } from '../get-tag-graphs'
 import { useGetTagsQuery } from '../get-tags/GetTags.web.graphql.gen'
 import { useCreateTagMutation } from './CreateTag.web.graphql.gen'
 import { createTagSchema } from './CreateTagSchema'
 
 export interface CreateTagFormProps
   extends UniFormUseCaseProps<CreateTagInput> {
-  parentTagId?: string
+  parentTagId?: string | null
 }
 
 export const DisplayIfNotRoot = ({
   children,
 }: React.PropsWithChildren<any>) => (
-  <DisplayIfField<CreateTagInput> condition={(c) => !!c.model.parentTagId}>
+  <DisplayIfField<CreateTagInput>
+    condition={(c) => {
+      return !!c.model.parentTagId
+    }}
+  >
     {children}
   </DisplayIfField>
 )
 
 export const CreateTagForm = ({
-  parentTagId,
+  parentTagId = null,
   ...props
 }: CreateTagFormProps) => {
   const {
@@ -37,7 +41,7 @@ export const CreateTagForm = ({
   } = useCrudModalMutationForm({
     entityType: EntityType.Tag,
     useMutationFunction: useCreateTagMutation,
-    mutationOptions: { refetchQueries: [refetchGetTagGraphQuery()] },
+    mutationOptions: { refetchQueries: [refetchGetTagGraphsQuery()] },
     mapVariables: (input: CreateTagInput) => {
       return { input }
     },

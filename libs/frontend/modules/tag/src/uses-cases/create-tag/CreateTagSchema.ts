@@ -12,10 +12,6 @@ export const createTagSchema: JSONSchemaType<CreateTagInput> = {
       type: 'string',
       nullable: true,
     },
-    // isRoot: {
-    //   type: 'boolean',
-    //   nullable: true,
-    // },
   },
   required: ['name'],
 }

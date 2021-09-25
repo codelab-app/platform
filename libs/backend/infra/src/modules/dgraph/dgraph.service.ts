@@ -17,7 +17,7 @@ export class DgraphService {
 
   constructor(
     @Inject(dgraphConfig.KEY)
-    private _dgraphConfig: ConfigType<() => DgraphConfig>,
+    _dgraphConfig: ConfigType<() => DgraphConfig>,
   ) {
     if (!_dgraphConfig) {
       throw new Error('Missing DgraphConfig')

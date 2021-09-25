@@ -12,8 +12,6 @@ import { CreateTagRequest } from './create-tag.request'
 @Injectable()
 export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
   protected async executeTransaction(request: CreateTagRequest, txn: Txn) {
-    console.log(request)
-
     if (request.input.parentTagId) {
       return await this.dgraph.create(txn, (blankNodeUid) =>
         CreateTagService.createTagMutation(request, blankNodeUid),
@@ -39,6 +37,7 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
       name,
       owner: { uid: currentUser.id },
       parent: undefined,
+      isRoot: true,
       'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
       children: [],
     })
@@ -62,6 +61,7 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
       name,
       owner: { uid: currentUser.id },
       parent: { uid: parentTagId },
+      isRoot: false,
       'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
       children: [],
     }

@@ -10,13 +10,17 @@ export class GetTagGraphsService extends DgraphUseCase<
   any
 > {
   protected async executeTransaction(request: GetTagGraphsRequest, txn: Txn) {
+    console.log(this.createQuery(request).toString())
+
     return await this.dgraph.executeQuery(txn, this.createQuery(request))
   }
 
   protected createQuery({ currentUser }: GetTagGraphsRequest) {
     return new DgraphQueryBuilder()
       .setTypeFunc(DgraphEntityType.Tag)
-      .addFilterDirective(`uid_in(owner, ${currentUser.id})`)
+      .addFilterDirective(
+        `uid_in(owner, ${currentUser.id}) AND eq(isRoot, true)`,
+      )
       .addRecurseDirective()
       .addBaseFields()
       .addExpandAll()

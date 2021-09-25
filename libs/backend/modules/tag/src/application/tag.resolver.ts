@@ -2,6 +2,7 @@ import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
 import type { User } from '@codelab/shared/abstract/core'
+import { cLog } from '@codelab/shared/utils'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Tag } from '../domain/tag.model'
@@ -103,7 +104,7 @@ export class TagResolver {
       currentUser,
     })
 
-    console.log(dgraphTagRoots)
+    cLog(dgraphTagRoots)
 
     if (!dgraphTagRoots) {
       return []

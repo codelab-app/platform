@@ -10,7 +10,7 @@ import {
 } from '../../get-tag-graph/tests/get-tag-graph.api.graphql.gen'
 import { SeedTagTreeService } from '../seed-tag-tree.service'
 
-describe('SeedTagTreeUseCase', () => {
+describe.skip('SeedTagTreeUseCase', () => {
   let app: INestApplication
   let seedTagTreeService: SeedTagTreeService
 

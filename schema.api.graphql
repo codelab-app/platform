@@ -502,6 +502,8 @@ type Page {
 type Tag {
   id: String!
   name: String!
+  parent: String
+  children: [String!]!
   isRoot: Boolean!
 }
 
