@@ -36,11 +36,13 @@ export const Renderer = React.memo<RendererProps>(
     const rendered = (
       <ErrorBoundary>
         <RenderProvider<ElementTreeGraphql> context={context}>
-          {context.renderFactory(root, {
-            ...(context ?? {}),
-            inspect: false,
-            tree,
-          })}
+          <div id="render-root">
+            {context.renderFactory(root, {
+              ...(context ?? {}),
+              inspect: false,
+              tree,
+            })}
+          </div>
         </RenderProvider>
       </ErrorBoundary>
     )

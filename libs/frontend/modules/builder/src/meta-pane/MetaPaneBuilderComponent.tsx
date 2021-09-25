@@ -1,6 +1,7 @@
 import {
   ComponentContext,
   MoveComponentElementForm,
+  refetchGetComponentElementsQuery,
 } from '@codelab/frontend/modules/component'
 import {
   DeleteElementButton,
@@ -14,7 +15,7 @@ import { usePropCompletion } from '../containers/usePropCompletion'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
 
 export const MetaPaneBuilderComponent = () => {
-  const { tree } = useContext(ComponentContext)
+  const { tree, component } = useContext(ComponentContext)
   const { providePropCompletion } = usePropCompletion()
 
   return (
@@ -31,6 +32,11 @@ export const MetaPaneBuilderComponent = () => {
               providePropCompletion={(value) =>
                 providePropCompletion(value, element.id)
               }
+              refetchQueries={[
+                refetchGetComponentElementsQuery({
+                  input: { componentId: component.id },
+                }),
+              ]}
             />
 
             <MoveComponentElementForm

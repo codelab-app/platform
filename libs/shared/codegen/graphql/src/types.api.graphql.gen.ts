@@ -910,6 +910,12 @@ export type PageByAppFilter = {
   appId: Scalars['String'];
 };
 
+export enum PersistenceType {
+  LocalStorage = 'LocalStorage',
+  NotPersisted = 'NotPersisted',
+  SessionStorage = 'SessionStorage'
+}
+
 export enum PrimitiveKind {
   Boolean = 'Boolean',
   Float = 'Float',
@@ -1110,11 +1116,13 @@ export type QueryPagesHookConfigInput = {
 export type RecoilStateHookConfig = {
   __typename?: 'RecoilStateHookConfig';
   defaultValue?: Maybe<Scalars['String']>;
+  persisted: PersistenceType;
   stateKey: Scalars['String'];
 };
 
 export type RecoilStateHookConfigInput = {
   defaultValue?: Maybe<Scalars['String']>;
+  persisted: PersistenceType;
   stateKey: Scalars['String'];
 };
 

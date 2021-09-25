@@ -1,3 +1,4 @@
+import { MutationHookOptions } from '@apollo/client'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
@@ -20,6 +21,7 @@ type UpdateElementFormInternalProps =
     element: ElementFragment
     providePropCompletion?: (searchValue: string) => Array<string>
     loadingStateKey?: string
+    refetchQueries: Required<MutationHookOptions>['refetchQueries']
   }
 
 export type UpdateElementFormProps = Omit<
@@ -32,6 +34,7 @@ const UpdateElementFormInternal = ({
   tree,
   providePropCompletion,
   loadingStateKey,
+  refetchQueries,
   ...props
 }: React.PropsWithChildren<UpdateElementFormInternalProps>) => {
   const { current: element } = useRef(elementProp) // Cache the initial element value, because when it updates it will interfere with what the user is typing
@@ -45,6 +48,7 @@ const UpdateElementFormInternal = ({
     awaitRefetchQueries: true,
     refetchQueries: [
       refetchGetElementQuery({ input: { elementId: element.id } }),
+      ...(Array.isArray(refetchQueries) ? refetchQueries : []),
     ],
   })
 

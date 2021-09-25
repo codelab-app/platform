@@ -1,6 +1,11 @@
 import { domainRequest } from '@codelab/backend/infra'
 import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
-import { HookType, QueryMethod, Role } from '@codelab/shared/abstract/core'
+import {
+  HookType,
+  PersistenceType,
+  QueryMethod,
+  Role,
+} from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../../element.module'
 import { CreateElementInput } from '../../../create-element'
@@ -90,6 +95,7 @@ describe('AddHookToElementUseCase', () => {
       recoilStateHook: {
         stateKey: 'myState',
         defaultValue: 'true',
+        persisted: PersistenceType.NotPersisted,
       },
     }
 

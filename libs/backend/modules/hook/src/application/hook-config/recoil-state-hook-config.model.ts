@@ -1,5 +1,10 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { PersistenceType } from '@codelab/shared/abstract/core'
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { RecoilStateHookConfig } from '../../domain'
+
+registerEnumType(PersistenceType, {
+  name: 'PersistenceType',
+})
 
 @ObjectType('RecoilStateHookConfig')
 export class RecoilStateHookConfigModel implements RecoilStateHookConfig {
@@ -9,8 +14,16 @@ export class RecoilStateHookConfigModel implements RecoilStateHookConfig {
   @Field({ nullable: true })
   defaultValue?: string
 
-  constructor({ stateKey, defaultValue }: RecoilStateHookConfigModel) {
+  @Field(() => PersistenceType)
+  declare persisted: PersistenceType
+
+  constructor({
+    stateKey,
+    defaultValue,
+    persisted,
+  }: RecoilStateHookConfigModel) {
     this.stateKey = stateKey
     this.defaultValue = defaultValue
+    this.persisted = persisted
   }
 }

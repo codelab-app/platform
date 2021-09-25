@@ -5,6 +5,7 @@ import {
 import {
   MovePageElementForm,
   PageContext,
+  refetchGetPageQuery,
 } from '@codelab/frontend/modules/page'
 import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import React, { useContext } from 'react'
@@ -12,7 +13,7 @@ import { usePropCompletion } from '../containers/usePropCompletion'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
 
 export const MetaPaneBuilderPage = () => {
-  const { tree } = useContext(PageContext)
+  const { tree, pageId } = useContext(PageContext)
   const { providePropCompletion } = usePropCompletion()
 
   return (
@@ -29,6 +30,7 @@ export const MetaPaneBuilderPage = () => {
               providePropCompletion={(value) =>
                 providePropCompletion(value, element.id)
               }
+              refetchQueries={[refetchGetPageQuery({ input: { pageId } })]}
             />
 
             <MovePageElementForm

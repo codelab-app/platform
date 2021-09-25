@@ -42,7 +42,7 @@ export const elementsPropTransformers: Partial<
   }),
   [AtomType.AntDesignModal]: ({ props }) => ({
     ...props,
-    getContainer: '#Builder',
+    getContainer: '#render-root',
   }),
   [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), // Do not pass in any props for fragments, except key, because it creates an error
   [AtomType.HtmlImage]: (input) => ({ src: '', alt: '' }),

@@ -4,6 +4,7 @@ import { useHookFactory } from './useHookFactory'
 
 export interface HookElementWrapperProps {
   children?: never
+  inputProps?: Record<string, any>
   hooks: Array<HookFragment>
   renderChildren: (hookProps: Record<string, any>) => React.ReactNode
 }
@@ -16,9 +17,10 @@ export interface HookElementWrapperProps {
  */
 export const HookElementWrapper = ({
   hooks,
+  inputProps,
   renderChildren,
 }: HookElementWrapperProps) => {
-  const hookProps = useHookFactory(hooks)
+  const hookProps = useHookFactory(hooks, inputProps)
 
   if (!renderChildren) {
     return null
