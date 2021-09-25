@@ -22,7 +22,7 @@ const TagPage: CodelabPage = () => {
 
   const pageHeaderButtons = [
     <CreateTagButton key={0} />,
-    <DeleteTagsButton key={1} ids={checkedTags} />,
+    <DeleteTagsButton key={1} ids={checkedTags.map((tag) => tag.toString())} />,
   ]
 
   return (

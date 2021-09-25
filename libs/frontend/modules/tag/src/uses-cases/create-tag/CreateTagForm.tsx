@@ -32,7 +32,7 @@ export const DisplayIfNotRoot = ({
 )
 
 export const CreateTagForm = ({
-  parentTagId = null,
+  parentTagId,
   ...props
 }: CreateTagFormProps) => {
   const {
@@ -43,11 +43,15 @@ export const CreateTagForm = ({
     useMutationFunction: useCreateTagMutation,
     mutationOptions: { refetchQueries: [refetchGetTagGraphsQuery()] },
     mapVariables: (input: CreateTagInput) => {
+      console.log(input)
+
       return { input }
     },
   })
 
   const { data: tags } = useGetTagsQuery()
+
+  console.log(parentTagId)
 
   return (
     <FormUniforms<CreateTagInput>

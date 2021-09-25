@@ -10,8 +10,6 @@ export class GetTagGraphsService extends DgraphUseCase<
   any
 > {
   protected async executeTransaction(request: GetTagGraphsRequest, txn: Txn) {
-    console.log(this.createQuery(request).toString())
-
     return await this.dgraph.executeQuery(txn, this.createQuery(request))
   }
 

@@ -15,7 +15,7 @@ export const CreateTagModal = () => {
       entityType={EntityType.Tag}
       actionType={ActionType.Create}
       okText="Create Tag"
-      renderForm={() => <CreateTagForm parentTagId={selectedTag} />}
+      renderForm={() => <CreateTagForm parentTagId={selectedTag?.toString()} />}
     />
   )
 }

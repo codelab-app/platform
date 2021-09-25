@@ -13,6 +13,7 @@ export class DeleteTagsService extends DgraphUseCase<DeleteTagsRequest> {
     txn: Txn,
     { input: { ids } }: DeleteTagsRequest,
   ) {
+    console.log(ids)
     /**
      * https://discuss.dgraph.io/t/using-reverse-in-json-syntax/6414/4
      *
@@ -21,25 +22,31 @@ export class DeleteTagsService extends DgraphUseCase<DeleteTagsRequest> {
      * An upsert seems to be the way
      */
 
+    const uids = ids.join(',')
+
     const upsert: Mutation = {
       mutation: `
       upsert {
         query {
-          q(func: uid(${ids})) @recurse {
+          # We use a separate parent query without recursion
+          parent(func: uid(${uids})) {
             UID as uid
             # Get parent for removing relationship
             PARENT_UID as parent
+          }
+          descendants(func: uid(${uids})) @recurse {
             # Used for cascade delete
+            uid
             DESCENDANT_UID as children
           }
         }
         mutation {
           delete {
+            # Unset parent relationship
+            uid(PARENT_UID) <children> uid(UID) .
             # Delete child node
             uid(UID) * * .
             uid(DESCENDANT_UID) * * .
-            # Unset parent relationship
-            uid(PARENT_UID) <children> val(UID) .
           }
         }
       }

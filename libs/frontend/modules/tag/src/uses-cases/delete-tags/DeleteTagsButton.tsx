@@ -10,7 +10,9 @@ export const DeleteTagsButton = ({ disabled, ids }: DeleteButtonProps) => {
     <Button
       type="primary"
       danger
-      onClick={() => openDeleteModal(ids)}
+      onClick={() => {
+        openDeleteModal(ids)
+      }}
       disabled={disabled}
       icon={<DeleteOutlined />}
     >
