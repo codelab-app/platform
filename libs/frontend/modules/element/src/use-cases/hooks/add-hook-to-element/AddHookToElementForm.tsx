@@ -196,7 +196,9 @@ export const AddHookToElementForm = ({
 
       {/* Recoil state fields */}
       <DisplayIfType type={HookType.RecoilState}>
-        <AutoFields fields={['recoilStateHook.stateKey']} />
+        <AutoFields
+          fields={['recoilStateHook.stateKey', 'recoilStateHook.persisted']}
+        />
         <DefaultValueField name="recoilStateHook.defaultValue" />
       </DisplayIfType>
     </FormUniforms>

@@ -398,6 +398,13 @@ type GraphqlHookConfig {
 type RecoilStateHookConfig {
   stateKey: String!
   defaultValue: String
+  persisted: PersistenceType!
+}
+
+enum PersistenceType {
+  NotPersisted
+  LocalStorage
+  SessionStorage
 }
 
 type QueryPageHookConfig {
@@ -854,6 +861,7 @@ input GraphqlHookConfigInput {
 input RecoilStateHookConfigInput {
   stateKey: String!
   defaultValue: String
+  persisted: PersistenceType!
 }
 
 input QueryPageHookConfigInput {

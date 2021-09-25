@@ -1,4 +1,8 @@
-import { HookType, QueryMethod } from '@codelab/shared/abstract/core'
+import {
+  HookType,
+  PersistenceType,
+  QueryMethod,
+} from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { AddHookToElementMutationVariables } from './AddHookToElement.web.graphql.gen'
 
@@ -125,6 +129,11 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
         },
         defaultValue: {
           type: 'string',
+        },
+        persisted: {
+          type: 'string',
+          enum: Object.values(PersistenceType),
+          default: PersistenceType.NotPersisted,
         },
       },
       required: ['stateKey'],
