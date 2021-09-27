@@ -3,9 +3,9 @@ import * as Types from '@codelab/shared/codegen/graphql';
 import { gql } from '@apollo/client';
 export type TagGraphFragment = { vertices: Array<TagFragment>, edges: Array<TagEdgeFragment> };
 
-export type TagFragment = { id: string, name: string };
-
 export type TagEdgeFragment = { source: string, target: string };
+
+export type TagFragment = { id: string, name: string };
 
 export const TagFragmentDoc = gql`
     fragment Tag on Tag {

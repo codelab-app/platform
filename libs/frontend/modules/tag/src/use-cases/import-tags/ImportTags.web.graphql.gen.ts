@@ -8,7 +8,7 @@ export type ImportTagsMutationVariables = Types.Exact<{
 }>;
 
 
-export type ImportTagsMutation = { importTags: void };
+export type ImportTagsMutation = { importTags?: Types.Maybe<void> };
 
 
 export const ImportTagsGql = gql`
