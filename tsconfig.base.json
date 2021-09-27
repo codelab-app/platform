@@ -15,7 +15,7 @@
     "module": "es2015",
     "types": ["node", "worker-loader", "window"],
     "typeRoots": ["node_modules/@types", "types"],
-    "lib": ["es6"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",

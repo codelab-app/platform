@@ -7,6 +7,7 @@ import {
   DeleteTagsModal,
   ExportTagsButton,
   GetTagsTree,
+  ImportTagsUpload,
   UpdateTagModal,
   useTagState,
 } from '@codelab/frontend/modules/tag'
@@ -25,6 +26,7 @@ const TagPage: CodelabPage = () => {
     <CreateTagButton key={0} />,
     <DeleteTagsButton key={1} ids={checkedTags.map((tag) => tag.toString())} />,
     <ExportTagsButton key={2} />,
+    <ImportTagsUpload key={3} />,
   ]
 
   return (

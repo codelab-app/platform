@@ -37,10 +37,10 @@ export class ImportAtomsService
 
     const atoms = JSON.parse(payload)
 
-    await this.seedAtoms(atoms ?? [], currentUser)
+    await this.createAtoms(atoms ?? [], currentUser)
   }
 
-  private async seedAtoms(
+  private async createAtoms(
     atoms: Array<TestGetExport__AtomsFragment>,
     currentUser: User,
   ) {

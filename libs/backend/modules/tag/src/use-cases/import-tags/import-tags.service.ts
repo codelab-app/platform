@@ -1,6 +1,11 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+import {
+  DgraphRepository,
+  LoggerService,
+  LoggerTokens,
+} from '@codelab/backend/infra'
+import { Inject, Injectable } from '@nestjs/common'
+import { TestTagGraphFragment } from '../../domain/tag-graph.fragment.api.graphql.gen'
 import { ImportTagsRequest } from './import-tags.request'
 
 /**
@@ -8,15 +13,39 @@ import { ImportTagsRequest } from './import-tags.request'
  */
 @Injectable()
 export class ImportTagsService extends DgraphUseCase<ImportTagsRequest, any> {
-  protected async executeTransaction(request: ImportTagsRequest, txn: Txn) {
-    return await this.dgraph.executeMutation(txn, this.createMutation(request))
+  constructor(
+    @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
+    dgraph: DgraphRepository,
+  ) {
+    super(dgraph)
   }
 
-  private createMutation(request: ImportTagsRequest): Mutation {
+  async executeTransaction(request: ImportTagsRequest) {
     const { payload } = request.input
+    const tags = JSON.parse(payload)
 
-    console.log(payload)
+    // return await this.dgraph.executeMutation(txn, this.createMutation(request))
+    await this.createTags(tags)
+  }
 
+  private async createTags(tagGraphs: Array<TestTagGraphFragment>) {
+    return Promise.all(
+      tagGraphs.map(async (tagGraph) => {
+        return await this.createTagGraph(tagGraph)
+      }),
+    )
+  }
+
+  private async createTagGraph(tagGraph: TestTagGraphFragment) {
+    this.dgraph.transactionWrapper(async (txn) => {
+      await this.dgraph.executeMutation(txn, this.createMutation())
+    })
+  }
+
+  /**
+   * Go throughGo through all vertices to create tags, then connect them with edges
+   */
+  private createMutation() {
     return {}
   }
 }

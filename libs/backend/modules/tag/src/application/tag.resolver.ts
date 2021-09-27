@@ -108,6 +108,8 @@ export class TagResolver {
     @CurrentUser() currentUser: User,
     @Args('input', { nullable: true }) input?: GetTagGraphsInput,
   ) {
+    console.log(input)
+
     const dgraphTagRoots = await this.getTagGraphsService.execute({
       input,
       currentUser,
@@ -122,7 +124,7 @@ export class TagResolver {
     return this.tagTreeAdapter.map(dgraphTagRoots)
   }
 
-  @Mutation(() => Void)
+  @Mutation(() => Void, { nullable: true })
   async importTags(
     @Args('input') input: ImportTagsInput,
     @CurrentUser() currentUser: User,

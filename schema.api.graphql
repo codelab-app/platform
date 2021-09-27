@@ -750,7 +750,7 @@ type Mutation {
   createTag(input: CreateTagInput!): CreateResponse!
   updateTag(input: UpdateTagInput!): Void
   deleteTags(input: DeleteTagsInput!): Void
-  importTags(input: ImportTagsInput!): Void!
+  importTags(input: ImportTagsInput!): Void
 }
 
 input UpsertUserInput {

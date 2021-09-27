@@ -686,7 +686,7 @@ export type Mutation = {
   deleteUser: Scalars['Boolean'];
   executeLambda?: Maybe<LambdaPayload>;
   importAtoms?: Maybe<Scalars['Void']>;
-  importTags: Scalars['Void'];
+  importTags?: Maybe<Scalars['Void']>;
   moveElement?: Maybe<Scalars['Void']>;
   removeHookFromElement?: Maybe<Scalars['Void']>;
   resetData?: Maybe<Scalars['Void']>;

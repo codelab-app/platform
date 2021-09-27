@@ -3,7 +3,6 @@ import {
   DgraphEntityType,
   DgraphQueryBuilder,
   DgraphTag,
-  DgraphTagTree,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -15,6 +14,8 @@ export class GetTagsService extends DgraphUseCase<
   Array<DgraphTag>
 > {
   protected async executeTransaction(request: GetTagsRequest, txn: Txn) {
+    console.log(request)
+
     return await this.dgraph.getAll<DgraphTag>(
       txn,
       GetTagsService.createQuery(request),
