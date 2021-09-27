@@ -1240,6 +1240,20 @@
         }
       }
     },
+    "shared-constants": {
+      "root": "libs/shared/constants",
+      "sourceRoot": "libs/shared/constants/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/constants/**/*.ts"]
+          },
+          "outputs": ["{options.outputFile}"]
+        }
+      }
+    },
     "shared-core": {
       "root": "libs/shared/core",
       "sourceRoot": "libs/shared/core/src",

@@ -7,6 +7,11 @@ import {
   RenderContext,
   RenderOutput,
 } from '@codelab/frontend/presenter/container'
+import {
+  REACT_NODE_PROPS_ACCESSOR,
+  RENDER_PROPS_ACCESSOR,
+  RENDER_PROPS_ACCESSORS,
+} from '@codelab/shared/constants'
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import { compose } from 'ramda'
@@ -49,6 +54,53 @@ const basePropsPipe: RenderPipeFactory =
 /**
  * Adds the persisted element props (element.props)
  */
+const renderPropsRenderPipe: RenderPipeFactory =
+  (next) => (element, context, props) => {
+    const renderProps: Record<string, any> = {}
+
+    RENDER_PROPS_ACCESSORS.forEach((renderPropsAccessor) => {
+      const currentRenderProps = props[renderPropsAccessor]
+
+      for (const propKey in currentRenderProps) {
+        const componentId = currentRenderProps[propKey]
+        const component = context.tree.getComponentById(componentId)
+
+        if (!component) {
+          return next(element, context, mergeProps(props, renderProps))
+        }
+
+        const rootElement = context.tree.getComponentRootElement(component.id)
+
+        if (!component) {
+          return null
+        }
+
+        const RenderPropsComponent = (...args: Array<any>) => {
+          const componentProps = mergeProps(...args)
+
+          const result = context.renderFactory(component, {
+            ...context,
+            extraElementProps: mergeProps(context.extraElementProps, {
+              [rootElement.id]: componentProps,
+            }),
+          })
+
+          return <>{result}</>
+        }
+
+        if (renderPropsAccessor === RENDER_PROPS_ACCESSOR) {
+          renderProps[propKey] = RenderPropsComponent
+        }
+
+        if (renderPropsAccessor === REACT_NODE_PROPS_ACCESSOR) {
+          renderProps[propKey] = <RenderPropsComponent />
+        }
+      }
+    })
+
+    return next(element, context, mergeProps(props, renderProps))
+  }
+
 const persistedPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
     try {
@@ -368,6 +420,7 @@ const propModifiersPipeline = compose(
 
 // (3). All the pipes that output ReactElements
 const renderPipeline = compose(
+  renderPropsRenderPipe,
   conditionalRenderPipe,
   elementsComponentPipe,
   elementsAtomPipe,

@@ -1,3 +1,9 @@
+// TODO: restucture module page to get rid of this error later
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import {
+  PageContext,
+  refetchGetPageQuery,
+} from '@codelab/frontend/modules/page'
 import {
   InterfaceForm,
   useGetTypeGraphQuery,
@@ -5,8 +11,12 @@ import {
 } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { usePromisesLoadingIndicator } from '@codelab/frontend/view/components'
+import {
+  REACT_NODE_PROPS_ACCESSOR,
+  RENDER_PROPS_ACCESSOR,
+} from '@codelab/shared/constants'
 import { Spin } from 'antd'
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import {
   refetchGetElementQuery,
   useGetElementQuery,
@@ -27,16 +37,29 @@ const UpdateElementPropsFormInternal = ({
   loadingStateKey,
 }: UpdateElementPropsFormInternalProps) => {
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
+  const [isRefetchPage, needRefetchPage] = React.useState(false)
 
   const { data: interfaceData, loading: interfaceLoading } =
     useGetTypeGraphQuery({
       variables: { input: { where: { id: interfaceId } } },
     })
 
-  const [mutate, { loading: updating, error, data: updateData }] =
-    useUpdateElementPropsMutation({
-      refetchQueries: [refetchGetElementQuery({ input: { elementId } })],
-    })
+  const { pageId } = useContext(PageContext)
+
+  const [mutate] = useUpdateElementPropsMutation({
+    refetchQueries: () => {
+      const queries: Array<any> = [
+        refetchGetElementQuery({ input: { elementId } }),
+      ]
+
+      if (isRefetchPage) {
+        queries.push(refetchGetPageQuery({ input: { pageId } }))
+        needRefetchPage(false)
+      }
+
+      return queries
+    },
+  })
 
   const initialPropsRef = useRef(JSON.parse(existingProps))
   const tree = useTypeTree(interfaceData?.getTypeGraph)
@@ -57,7 +80,12 @@ const UpdateElementPropsFormInternal = ({
         key={elementId}
         interfaceTree={tree}
         model={initialPropsRef.current}
-        onSubmit={(data) =>
+        onSubmit={(data: any) => {
+          if (data[RENDER_PROPS_ACCESSOR] || data[REACT_NODE_PROPS_ACCESSOR]) {
+            // fetch component for new render props...
+            needRefetchPage(true)
+          }
+
           trackPromise(
             mutate({
               variables: {
@@ -68,7 +96,7 @@ const UpdateElementPropsFormInternal = ({
               },
             }),
           )
-        }
+        }}
       />
     </div>
   )

@@ -15,9 +15,14 @@ export enum BaseTypeName {
   Boolean = 'Boolean',
   Float = 'Float',
   Integer = 'Integer',
+  RenderProps = 'RenderProps',
 }
 
 export const baseTypes: Array<CreateTypeInput> = [
+  {
+    name: BaseTypeName.RenderProps,
+    typeKind: TypeKind.RenderPropsType,
+  },
   {
     name: BaseTypeName.String,
     typeKind: TypeKind.PrimitiveType,

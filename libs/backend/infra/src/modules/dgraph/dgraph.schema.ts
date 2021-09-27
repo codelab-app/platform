@@ -29,6 +29,7 @@ const {
   Hook,
   PropMapBinding,
   Tag,
+  RenderPropsType,
 } = DgraphEntityType
 
 export const dgraphSchema = `
@@ -126,6 +127,9 @@ export const dgraphSchema = `
   }
 
   type ${ComponentType} {
+  }
+
+  type ${RenderPropsType} {
   }
 
   type ${ElementType} {

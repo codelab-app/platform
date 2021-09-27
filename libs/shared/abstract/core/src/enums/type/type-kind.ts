@@ -6,4 +6,5 @@ export enum TypeKind {
   LambdaType = 'LambdaType',
   ElementType = 'ElementType',
   ComponentType = 'ComponentType',
+  RenderPropsType = 'RenderPropsType',
 }

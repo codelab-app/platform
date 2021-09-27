@@ -1157,6 +1157,14 @@ export type RemoveHookFromElementInput = {
   hookId: Scalars['String'];
 };
 
+export type RenderPropsType = Type & {
+  __typename?: 'RenderPropsType';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  typeGraph: TypeGraph;
+  typeKind: TypeKind;
+};
+
 export enum Role {
   Admin = 'Admin',
   Guest = 'Guest',
@@ -1240,7 +1248,8 @@ export enum TypeKind {
   EnumType = 'EnumType',
   InterfaceType = 'InterfaceType',
   LambdaType = 'LambdaType',
-  PrimitiveType = 'PrimitiveType'
+  PrimitiveType = 'PrimitiveType',
+  RenderPropsType = 'RenderPropsType'
 }
 
 export type TypeRef = {
@@ -1248,7 +1257,7 @@ export type TypeRef = {
   newType?: Maybe<CreateTypeInput>;
 };
 
-export type TypeVertex = ArrayType | ComponentType | ElementType | EnumType | InterfaceType | LambdaType | PrimitiveType;
+export type TypeVertex = ArrayType | ComponentType | ElementType | EnumType | InterfaceType | LambdaType | PrimitiveType | RenderPropsType;
 
 export type TypesByIdsFilter = {
   typeIds: Array<Scalars['String']>;

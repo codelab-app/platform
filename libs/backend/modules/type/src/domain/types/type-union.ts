@@ -6,6 +6,7 @@ import { EnumType } from './enum-type'
 import { InterfaceType } from './interface-type.model'
 import { LambdaType } from './lambda-type.model'
 import { PrimitiveType } from './primitive-type'
+import { RenderPropsType } from './render-props-type.model'
 
 export const TypeVertex = createUnionType({
   name: 'TypeVertex',
@@ -17,6 +18,7 @@ export const TypeVertex = createUnionType({
     ElementType,
     InterfaceType,
     LambdaType,
+    RenderPropsType,
   ],
 })
 

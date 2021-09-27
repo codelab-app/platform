@@ -1,11 +1,27 @@
 import '@testing-library/cypress/add-commands'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
-import { createApp, deleteApp } from './app'
-import { createAtom } from './atom'
-import { createElement, createPropBinding } from './element'
-import { createPage, getPage } from './page'
+<<<<<<< HEAD
+=======
+import { print } from 'graphql'
 import { getCurrentUserId } from './user'
+import { deleteApp, createApp } from './app'
+import { createAtom, getAtom } from './atom'
+import {
+  createComponent,
+  getComponentElements,
+  getComponentRootElementId,
+} from './component'
+import { createElement, createPropBinding, updateElementProps } from './element'
+import { createField } from './field'
+import {
+  createPage,
+  createPageFromScratch,
+  getPage,
+  goToPageByAliasId,
+} from './page'
+import { createType } from './type'
+>>>>>>> d3ff56a1 (feat: implement render props, react node)
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -24,7 +40,15 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable<Subject> {
+      getComponentRootElementId: typeof getComponentRootElementId
+      updateElementProps: typeof updateElementProps
+      createType: typeof createType
+      getComponentElements: typeof getComponentElements
+      getAtom: typeof getAtom
+      createField: typeof createField
+      createPageFromScratch: typeof createPageFromScratch
       getCurrentUserId: typeof getCurrentUserId
+      goToPageByAliasId: typeof goToPageByAliasId
       getByTestId: typeof getByTestId
       resetDgraphData: typeof resetDgraphData
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
@@ -121,11 +145,24 @@ const getByTestId = (testId: string, selectorAddon?: string) => {
 
 Cypress.Commands.add('getByTestId', getByTestId)
 
-const createComponent = (libraryId: string, label = 'Test component') => {
-  return new Promise((resolve, reject) => reject('not implemeneted'))
+type CreateAppInput = CreateAppMutationVariables['input']
+
+const defaultCreateAppInput: CreateAppInput = {
+  name: 'Test app',
 }
 
-Cypress.Commands.add('createComponent', createComponent)
+const createApp = (input: CreateAppInput = defaultCreateAppInput) => {
+  return cy
+    .graphqlRequest({
+      query: print(CreateAppGql),
+      variables: { input },
+    })
+    .then((r) => r.body.data?.createApp)
+}
+
+Cypress.Commands.add('createApp', createApp)
+
+type DeleteAppInput = DeleteAppMutationVariables['input']
 
 export const findByButtonText = (
   subject: any,

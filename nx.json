@@ -164,6 +164,9 @@
     "shared-codegen-graphql": {
       "tags": ["scope:shared", "type:abstract"]
     },
+    "shared-constants": {
+      "tags": ["scope:shared"]
+    },
     "shared-core": {
       "tags": ["scope:shared"]
     },
@@ -181,7 +184,7 @@
     },
     "web": {
       "tags": ["scope:frontend"],
-      "implicitDependencies": []
+      "implicitDependencies": ["api"]
     },
     "web-e2e": {
       "tags": ["scope:frontend"],

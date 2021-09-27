@@ -12,6 +12,10 @@ import {
 } from '@codelab/backend/modules/type'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { TypeKind, User } from '@codelab/shared/abstract/core'
+import {
+  REACT_NODE_PROPS_ACCESSOR,
+  RENDER_PROPS_ACCESSOR,
+} from '@codelab/shared/constants'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Injectable, Logger } from '@nestjs/common'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
@@ -19,6 +23,10 @@ import {
   CustomAtomApiFactory,
   CustomAtomApiFactoryInput,
 } from '../utils/customAtomApi'
+import {
+  isReactNodeTypeRegex,
+  isRenderPropType,
+} from '../utils/isRenderPropType'
 import { AtomSeeder } from './atom-seeder'
 
 /**
@@ -101,7 +109,7 @@ export class TypeSeeder {
 
       await this.createFieldIfMissing({
         input: {
-          key: apiField.property,
+          key: this.transformKeyForApi(apiField),
           name: pascalCaseToWords(apiField.property),
           interfaceId: atomApiId,
           description: apiField.description,
@@ -213,6 +221,19 @@ export class TypeSeeder {
     return createResponse.id
   }
 
+  // TODO: didn't handle union type atm: ReactNode | () => ReactNode | anything
+  private transformKeyForApi(apiField: AntdDesignApi): string {
+    if (isRenderPropType(apiField.type)) {
+      return RENDER_PROPS_ACCESSOR + '.' + apiField.property
+    }
+
+    if (isReactNodeTypeRegex.test(apiField.type)) {
+      return REACT_NODE_PROPS_ACCESSOR + '.' + apiField.property
+    }
+
+    return apiField.property
+  }
+
   private getTypeForApi(
     apiField: AntdDesignApi,
     atomName: string,
@@ -238,6 +259,12 @@ export class TypeSeeder {
 
     if (!this.baseTypes) {
       throw new Error("call seedBaseTypes before seeding Atom's API")
+    }
+
+    if (isRenderPropType(type) || isReactNodeTypeRegex.test(type)) {
+      return {
+        existingTypeId: this.baseTypes.get(BaseTypeName.RenderProps) as string,
+      }
     }
 
     switch (type) {

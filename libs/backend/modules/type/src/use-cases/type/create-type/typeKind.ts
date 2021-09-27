@@ -9,4 +9,5 @@ export const typeKindDgraphMap: Record<TypeKind, DgraphEntityType> = {
   [TypeKind.LambdaType]: DgraphEntityType.LambdaType,
   [TypeKind.ElementType]: DgraphEntityType.ElementType,
   [TypeKind.ComponentType]: DgraphEntityType.ComponentType,
+  [TypeKind.RenderPropsType]: DgraphEntityType.RenderPropsType,
 }

@@ -10,6 +10,7 @@ import { EnumTypeAdapter } from './enum-type.adapter'
 import { InterfaceTypeAdapter } from './interface-type.adapter'
 import { LambdaTypeAdapter } from './lambda-type.adapter'
 import { PrimitiveTypeAdapter } from './primitive-type.adapter'
+import { RenderPropsAdapter } from './render-props-type.adapter'
 
 type Adapter = BaseAdapter<DgraphType<any>, any>
 
@@ -25,6 +26,7 @@ export class TypeAdapterFactory {
     private lambdaTypeAdapter: LambdaTypeAdapter,
     private elementTypeAdapter: ElementTypeAdapter,
     private componentTypeAdapter: ComponentTypeAdapter,
+    private renderPropsTypeAdapter: RenderPropsAdapter,
   ) {
     this.mappers = new Map<TypeKind, Adapter>()
 
@@ -35,6 +37,7 @@ export class TypeAdapterFactory {
     this.mappers.set(TypeKind.LambdaType, lambdaTypeAdapter)
     this.mappers.set(TypeKind.ElementType, elementTypeAdapter)
     this.mappers.set(TypeKind.ComponentType, componentTypeAdapter)
+    this.mappers.set(TypeKind.RenderPropsType, renderPropsTypeAdapter)
   }
 
   getMapper(type: DgraphType<DgraphEntityType>): Adapter {

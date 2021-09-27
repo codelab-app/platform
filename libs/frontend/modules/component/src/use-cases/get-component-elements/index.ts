@@ -1,4 +1,5 @@
 export {
+  GetComponentElementsGql,
   refetchGetComponentElementsQuery,
   useGetComponentElementsLazyQuery,
   useGetComponentElementsQuery,

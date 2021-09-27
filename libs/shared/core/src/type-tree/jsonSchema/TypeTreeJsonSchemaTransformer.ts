@@ -7,6 +7,10 @@ import {
   PrimitiveKind,
   TypeKind,
 } from '@codelab/shared/abstract/core'
+import {
+  REACT_NODE_PROPS_ACCESSOR,
+  RENDER_PROPS_ACCESSOR,
+} from '@codelab/shared/constants'
 import { TypeTree } from '../TypeTree'
 
 /**
@@ -120,6 +124,12 @@ export class TypeTreeJsonSchemaTransformer {
         }
       }
 
+      case TypeKind.RenderPropsType:
+        return {
+          type: 'string',
+          ...extra,
+        }
+
       case TypeKind.InterfaceType:
         return {
           ...extra,
@@ -150,6 +160,31 @@ export class TypeTreeJsonSchemaTransformer {
     }
   }
 
+  private renderPropsFieldToProperty = (
+    properties: Record<string, any>,
+    field: IField,
+    accessor: string,
+    type: any,
+  ) => {
+    // TODO: we don't have object type
+    // Add object type, add map this properly later
+    // Example key: codeLabRenderProps.key123
+    if (!properties[accessor]) {
+      properties[accessor] = {
+        type: 'object',
+        properties: {},
+        uniforms: { component: null },
+        label: '',
+      }
+    }
+
+    const key = field.key.replace(accessor + '.', '')
+    properties[accessor].properties[key] = {
+      ...(this.typeToJsonProperty(type) as any),
+      label: field.name || field.key,
+    }
+  }
+
   fieldsToProperties(fields: Array<IField>) {
     const properties: Record<string, any> = {}
 
@@ -157,9 +192,25 @@ export class TypeTreeJsonSchemaTransformer {
       const type = this.typeTree.getFieldType(field.id)
 
       if (type) {
-        properties[field.key] = {
-          ...(this.typeToJsonProperty(type) as any),
-          label: field.name || field.key,
+        if (field.key.includes(RENDER_PROPS_ACCESSOR)) {
+          this.renderPropsFieldToProperty(
+            properties,
+            field,
+            RENDER_PROPS_ACCESSOR,
+            type,
+          )
+        } else if (field.key.includes(REACT_NODE_PROPS_ACCESSOR)) {
+          this.renderPropsFieldToProperty(
+            properties,
+            field,
+            REACT_NODE_PROPS_ACCESSOR,
+            type,
+          )
+        } else {
+          properties[field.key] = {
+            ...(this.typeToJsonProperty(type) as any),
+            label: field.name || field.key,
+          }
         }
       }
     }

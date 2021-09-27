@@ -20,6 +20,9 @@ import './atom'
 import './page'
 import './element'
 import './app'
+import './component'
+import './type'
+import './field'
 
 Cypress.on('uncaught:exception', (err) => {
   const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
