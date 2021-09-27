@@ -209,7 +209,7 @@
     "@nrwl/nest": "12.9.0",
     "@nrwl/next": "12.9.0",
     "@nrwl/node": "12.9.0",
-    "@nrwl/nx-cloud": "12.3.10",
+    "@nrwl/nx-cloud": "12.3.13",
     "@nrwl/nx-plugin": "12.9.0",
     "@nrwl/react": "12.9.0",
     "@nrwl/storybook": "12.9.0",

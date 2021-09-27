@@ -108,6 +108,7 @@ const pluginConfig: Cypress.PluginConfig = async (on, config) => {
   config.env.auth0Password = process.env.AUTH0_CYPRESS_PASSWORD
   config.env.dgraphApiKey = process.env.CODELAB_DGRAPH_API_KEY ?? ''
   config.env.codelabApiEndpoint = process.env.CODELAB_API_ENDPOINT ?? ''
+  config.env.env = process.env.CI ? 'ci' : 'test'
 
   return config
 }

@@ -322,6 +322,19 @@ jobs:
       - run: npx cypress install
       - run: npx cypress verify
       - run: make e2e-ci-affected
+      - run: |
+          ls .
+          ls ~/
+      # - run:
+      #     name: Store Cypress Artifacts
+      #     command: |
+      #       c
+      - store_artifacts:
+          path: ~/project/apps/web-e2e/src/videos
+          destination: cypress-videos
+      - store_artifacts:
+          path: ~/project/apps/web-e2e/src/screenshots
+          destination: cypress-screenshots
       - notify-failure
 
   notify-success:
@@ -457,7 +470,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
-            - integration
+            # - integration
             - install-and-build-workspace
       - notify-success:
           <<: *filters-dev-pr

@@ -7,12 +7,12 @@ fragment TagGraph on TagGraph {
   }
 }
 
-fragment Tag on Tag {
-  id
-  name
-}
-
 fragment TagEdge on TagEdge {
   source
   target
+}
+
+fragment Tag on Tag {
+  id
+  name
 }

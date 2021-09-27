@@ -11,6 +11,7 @@ import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
+import { envOption } from '../env-helper'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
 import { AtomSeeder, TypeSeeder } from './models'
 import { iterateCsvs } from './utils/iterateCsvs'
@@ -41,6 +42,7 @@ export class SeederService {
 
   @Command({
     command: 'seed',
+    options: [envOption],
   })
   async seed() {
     const currentUser: User = {

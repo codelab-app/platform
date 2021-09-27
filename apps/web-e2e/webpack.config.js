@@ -34,7 +34,7 @@ module.exports = {
             '@nrwl/react/babel',
             // '@emotion/babel-preset-css-prop',
           ],
-          plugins: ['@emotion', 'macros'],
+          // plugins: ['@emotion', 'macros'],
           ignore: [/node_modules/],
         },
         exclude: /node_modules/,
