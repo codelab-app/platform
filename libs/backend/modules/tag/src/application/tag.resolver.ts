@@ -18,6 +18,7 @@ import {
 import { GetTagsService } from '../use-cases/get-tags'
 import { ImportTagsInput, ImportTagsService } from '../use-cases/import-tags'
 import { UpdateTagInput, UpdateTagService } from '../use-cases/update-tag'
+import { UpsertTagInput, UpsertTagService } from '../use-cases/upsert-tag'
 import { DgraphTagAdapter } from './dgraph-tag.adapter'
 import { TagAdapter } from './tag.adapter'
 
@@ -35,6 +36,7 @@ export class TagResolver {
     private readonly getTagsService: GetTagsService,
     private readonly tagTreeAdapter: DgraphTagAdapter,
     private readonly importTagsService: ImportTagsService,
+    private readonly upsertTagService: UpsertTagService,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -78,6 +80,14 @@ export class TagResolver {
   @UseGuards(GqlAuthGuard)
   deleteTags(@Args('input') input: DeleteTagsInput) {
     return this.deleteTagsService.execute({ input })
+  }
+
+  @Mutation(() => Void)
+  async upsertTag(
+    @Args('input') input: UpsertTagInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.upsertTagService.execute({ input, currentUser })
   }
 
   @Query(() => TagGraph, {

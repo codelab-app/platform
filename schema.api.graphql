@@ -750,6 +750,7 @@ type Mutation {
   createTag(input: CreateTagInput!): CreateResponse!
   updateTag(input: UpdateTagInput!): Void
   deleteTags(input: DeleteTagsInput!): Void
+  upsertTag(input: UpsertTagInput!): Void!
   importTags(input: ImportTagsInput!): Void
 }
 
@@ -1133,6 +1134,16 @@ input UpdateTagData {
 
 input DeleteTagsInput {
   ids: [String!]!
+}
+
+input UpsertTagInput {
+  data: CreateTagInput!
+  where: TagWhereUniqueInput
+}
+
+input TagWhereUniqueInput {
+  id: String
+  name: String
 }
 
 input ImportTagsInput {

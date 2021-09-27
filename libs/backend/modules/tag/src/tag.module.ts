@@ -13,6 +13,7 @@ import { GetTagsService } from './use-cases/get-tags'
 import { ImportTagsService } from './use-cases/import-tags'
 import { SeedTagTreeService } from './use-cases/seed-tag-tree'
 import { UpdateTagService } from './use-cases/update-tag'
+import { UpsertTagService } from './use-cases/upsert-tag'
 
 const services = [
   /**
@@ -27,6 +28,7 @@ const services = [
   GetTagsService,
   SeedTagTreeService,
   ImportTagsService,
+  UpsertTagService,
   /**
    * Adapters
    */

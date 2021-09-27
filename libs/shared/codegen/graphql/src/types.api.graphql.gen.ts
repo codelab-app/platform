@@ -704,6 +704,7 @@ export type Mutation = {
   updatePropMapBinding?: Maybe<Scalars['Void']>;
   updateTag?: Maybe<Scalars['Void']>;
   updateType?: Maybe<Scalars['Void']>;
+  upsertTag: Scalars['Void'];
   upsertUser: CreateResponse;
 };
 
@@ -905,6 +906,11 @@ export type MutationUpdateTagArgs = {
 
 export type MutationUpdateTypeArgs = {
   input: UpdateTypeInput;
+};
+
+
+export type MutationUpsertTagArgs = {
+  input: UpsertTagInput;
 };
 
 
@@ -1186,6 +1192,11 @@ export type TagGraph = {
 
 export type TagVertex = Tag;
 
+export type TagWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
 export type TagsWhereInput = {
   ids?: Maybe<Array<Scalars['String']>>;
 };
@@ -1382,6 +1393,11 @@ export type UpdateTypeData = {
 export type UpdateTypeInput = {
   typeId: Scalars['String'];
   updateData: UpdateTypeData;
+};
+
+export type UpsertTagInput = {
+  data: CreateTagInput;
+  where?: Maybe<TagWhereUniqueInput>;
 };
 
 export type UpsertUserDataInput = {
