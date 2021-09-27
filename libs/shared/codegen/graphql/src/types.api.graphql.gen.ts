@@ -548,6 +548,10 @@ export type GetPagesInput = {
   byApp: PageByAppFilter;
 };
 
+export type GetTagGraphsInput = {
+  where?: Maybe<TagsWhereInput>;
+};
+
 export type GetTagInput = {
   where: WhereUniqueTag;
 };
@@ -607,6 +611,10 @@ export enum HookType {
 }
 
 export type ImportAtomsInput = {
+  payload: Scalars['String'];
+};
+
+export type ImportTagsInput = {
   payload: Scalars['String'];
 };
 
@@ -678,6 +686,7 @@ export type Mutation = {
   deleteUser: Scalars['Boolean'];
   executeLambda?: Maybe<LambdaPayload>;
   importAtoms?: Maybe<Scalars['Void']>;
+  importTags: Scalars['Void'];
   moveElement?: Maybe<Scalars['Void']>;
   removeHookFromElement?: Maybe<Scalars['Void']>;
   resetData?: Maybe<Scalars['Void']>;
@@ -816,6 +825,11 @@ export type MutationExecuteLambdaArgs = {
 
 export type MutationImportAtomsArgs = {
   input: ImportAtomsInput;
+};
+
+
+export type MutationImportTagsArgs = {
+  input: ImportTagsInput;
 };
 
 
@@ -1041,6 +1055,11 @@ export type QueryGetTagArgs = {
 };
 
 
+export type QueryGetTagGraphsArgs = {
+  input?: Maybe<GetTagGraphsInput>;
+};
+
+
 export type QueryGetTypeArgs = {
   input: GetTypeInput;
 };
@@ -1166,6 +1185,10 @@ export type TagGraph = {
 };
 
 export type TagVertex = Tag;
+
+export type TagsWhereInput = {
+  ids?: Maybe<Array<Scalars['String']>>;
+};
 
 export type Type = {
   id: Scalars['ID'];

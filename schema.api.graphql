@@ -567,7 +567,7 @@ type Query {
   """
   Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
   """
-  getTagGraphs: [TagGraph!]!
+  getTagGraphs(input: GetTagGraphsInput): [TagGraph!]!
 }
 
 input GetUserInput {
@@ -697,6 +697,14 @@ input WhereUniqueTag {
   id: String
 }
 
+input GetTagGraphsInput {
+  where: TagsWhereInput
+}
+
+input TagsWhereInput {
+  ids: [String!]
+}
+
 type Mutation {
   upsertUser(input: UpsertUserInput!): CreateResponse!
   deleteUser(input: DeleteUserInput!): Boolean!
@@ -742,6 +750,7 @@ type Mutation {
   createTag(input: CreateTagInput!): CreateResponse!
   updateTag(input: UpdateTagInput!): Void
   deleteTags(input: DeleteTagsInput!): Void
+  importTags(input: ImportTagsInput!): Void!
 }
 
 input UpsertUserInput {
@@ -1124,4 +1133,8 @@ input UpdateTagData {
 
 input DeleteTagsInput {
   ids: [String!]!
+}
+
+input ImportTagsInput {
+  payload: String!
 }

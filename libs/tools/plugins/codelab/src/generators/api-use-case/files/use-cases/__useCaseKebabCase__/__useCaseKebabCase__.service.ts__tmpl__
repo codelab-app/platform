@@ -1,8 +1,8 @@
 import {
   DgraphApp,
   DgraphCreateMutationJson,
-  DgraphCreateUseCase,
   DgraphEntityType,
+  Dgraph<%= modelPascalCase %>
 } from '@codelab/backend/infra'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { Injectable } from '@nestjs/common'

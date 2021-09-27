@@ -11,8 +11,12 @@ import { CreateTagInput, CreateTagService } from '../use-cases/create-tag'
 import { DeleteTagsInput, DeleteTagsService } from '../use-cases/delete-tags'
 import { GetTagInput, GetTagService } from '../use-cases/get-tag'
 import { GetTagGraphService } from '../use-cases/get-tag-graph'
-import { GetTagGraphsService } from '../use-cases/get-tag-graphs'
+import {
+  GetTagGraphsInput,
+  GetTagGraphsService,
+} from '../use-cases/get-tag-graphs'
 import { GetTagsService } from '../use-cases/get-tags'
+import { ImportTagsInput, ImportTagsService } from '../use-cases/import-tags'
 import { UpdateTagInput, UpdateTagService } from '../use-cases/update-tag'
 import { DgraphTagAdapter } from './dgraph-tag.adapter'
 import { TagAdapter } from './tag.adapter'
@@ -30,6 +34,7 @@ export class TagResolver {
     private readonly getTagGraphsService: GetTagGraphsService,
     private readonly getTagsService: GetTagsService,
     private readonly tagTreeAdapter: DgraphTagAdapter,
+    private readonly importTagsService: ImportTagsService,
   ) {}
 
   @Mutation(() => CreateResponse)
@@ -99,8 +104,12 @@ export class TagResolver {
       'Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge',
   })
   @UseGuards(GqlAuthGuard)
-  async getTagGraphs(@CurrentUser() currentUser: User) {
+  async getTagGraphs(
+    @CurrentUser() currentUser: User,
+    @Args('input', { nullable: true }) input?: GetTagGraphsInput,
+  ) {
     const dgraphTagRoots = await this.getTagGraphsService.execute({
+      input,
       currentUser,
     })
 
@@ -111,5 +120,13 @@ export class TagResolver {
     }
 
     return this.tagTreeAdapter.map(dgraphTagRoots)
+  }
+
+  @Mutation(() => Void)
+  async importTags(
+    @Args('input') input: ImportTagsInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return await this.importTagsService.execute({ input, currentUser })
   }
 }

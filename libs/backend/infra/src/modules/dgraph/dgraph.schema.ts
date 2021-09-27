@@ -96,7 +96,9 @@ export const dgraphSchema = `
     name
     atomType
     api
+    library
   }
+  library: uid .
 
   type ${Type} {
     owner

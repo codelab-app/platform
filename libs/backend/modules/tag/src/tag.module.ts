@@ -10,6 +10,7 @@ import { GetTagService } from './use-cases/get-tag'
 import { GetTagGraphService } from './use-cases/get-tag-graph'
 import { GetTagGraphsService } from './use-cases/get-tag-graphs'
 import { GetTagsService } from './use-cases/get-tags'
+import { ImportTagsService } from './use-cases/import-tags'
 import { SeedTagTreeService } from './use-cases/seed-tag-tree'
 import { UpdateTagService } from './use-cases/update-tag'
 
@@ -25,6 +26,7 @@ const services = [
   GetTagGraphsService,
   GetTagsService,
   SeedTagTreeService,
+  ImportTagsService,
   /**
    * Adapters
    */

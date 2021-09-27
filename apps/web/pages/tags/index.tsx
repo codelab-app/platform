@@ -5,6 +5,7 @@ import {
   CreateTagModal,
   DeleteTagsButton,
   DeleteTagsModal,
+  ExportTagsButton,
   GetTagsTree,
   UpdateTagModal,
   useTagState,
@@ -23,6 +24,7 @@ const TagPage: CodelabPage = () => {
   const pageHeaderButtons = [
     <CreateTagButton key={0} />,
     <DeleteTagsButton key={1} ids={checkedTags.map((tag) => tag.toString())} />,
+    <ExportTagsButton key={2} />,
   ]
 
   return (

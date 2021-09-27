@@ -1,0 +1,5 @@
+query ExportTags($input: GetTagGraphsInput) {
+  getTagGraphs(input: $input) {
+    ...TagGraph
+  }
+}

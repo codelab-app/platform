@@ -13,13 +13,7 @@ export const GetTagsTree = () => {
     return null
   }
 
-  const tags = data.getTagGraphs
-
-  console.log(tags)
-
   const tagTreesData = tagTrees.map((tagTree) => tagTree.getAntdTree())
-
-  console.log(tagTreesData)
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     setSelectedTag(selectedKeys[0])
@@ -27,7 +21,6 @@ export const GetTagsTree = () => {
 
   const onCheck: TreeProps['onCheck'] = (checkedKeys, info) => {
     const { checked } = checkedKeys as CheckedKeys
-    console.log(checked)
     setCheckedTags(checked)
   }
 
