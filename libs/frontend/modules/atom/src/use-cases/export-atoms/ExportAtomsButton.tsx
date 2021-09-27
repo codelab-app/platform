@@ -12,7 +12,7 @@ export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
 
   return (
     <Button
-      onClick={async () => {
+      onClick={() => {
         getExportAtoms({
           variables: {
             input: {

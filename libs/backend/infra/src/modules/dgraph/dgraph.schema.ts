@@ -28,6 +28,7 @@ const {
   ComponentType,
   Hook,
   PropMapBinding,
+  Tag,
 } = DgraphEntityType
 
 export const dgraphSchema = `
@@ -35,6 +36,16 @@ export const dgraphSchema = `
     name
     root
   }
+
+  type ${Tag} {
+    name
+    owner
+    parent
+    children
+    isRoot
+  }
+  parent: uid .
+  isRoot: bool .
 
   type ${Node} {
     name
@@ -85,7 +96,9 @@ export const dgraphSchema = `
     name
     atomType
     api
+    library
   }
+  library: uid .
 
   type ${Type} {
     owner

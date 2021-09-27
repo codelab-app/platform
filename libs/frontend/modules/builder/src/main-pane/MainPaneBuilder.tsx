@@ -179,34 +179,38 @@ export const MainPaneBuilder = ({
               const atomName = element.atom?.name || element.atom?.type
 
               return (
-                <Dropdown
-                  onVisibleChange={() => setContextMenuNodeId(nodeId)}
-                  visible={contextMenuItemId === nodeId}
-                  overlay={
-                    <>
-                      <div
-                        css={tw`fixed inset-0`}
-                        onClick={(e) => {
-                          setContextMenuNodeId(null)
-                          e.stopPropagation()
-                        }}
-                      />
-                      <ElementContextMenu
-                        // We need to manually hide the context menu, otherwise it stays open
-                        onClick={() => setContextMenuNodeId(null)}
-                        element={node as any}
-                      />
-                    </>
-                  }
-                  trigger={['contextMenu']}
-                >
-                  <div>
-                    {label}{' '}
-                    {atomName && (
-                      <span css={tw`text-gray-400 text-xs`}>({atomName})</span>
-                    )}
-                  </div>
-                </Dropdown>
+                <div data-cy={`atom-${label}`}>
+                  <Dropdown
+                    onVisibleChange={() => setContextMenuNodeId(nodeId)}
+                    visible={contextMenuItemId === nodeId}
+                    overlay={
+                      <>
+                        <div
+                          css={tw`fixed inset-0`}
+                          onClick={(e) => {
+                            setContextMenuNodeId(null)
+                            e.stopPropagation()
+                          }}
+                        />
+                        <ElementContextMenu
+                          // We need to manually hide the context menu, otherwise it stays open
+                          onClick={() => setContextMenuNodeId(null)}
+                          element={node as any}
+                        />
+                      </>
+                    }
+                    trigger={['contextMenu']}
+                  >
+                    <div>
+                      {label}{' '}
+                      {atomName && (
+                        <span css={tw`text-gray-400 text-xs`}>
+                          ({atomName})
+                        </span>
+                      )}
+                    </div>
+                  </Dropdown>
+                </div>
               )
             }}
             treeData={[antdTree]}

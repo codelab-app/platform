@@ -1,4 +1,4 @@
-import { TypeGraphFragment } from '../graphql/TypeGraph.fragment.web.graphql.gen'
+import { TypeGraphFragment } from '../graphql/TypeGraph.fragment.graphql.gen'
 import { TypeTreeGraphql } from '../shared'
 /**
  * Parses a TypeGraph and provides helper methods for it

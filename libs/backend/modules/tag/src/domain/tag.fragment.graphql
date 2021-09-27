@@ -1,4 +1,5 @@
 fragment TestTag on Tag {
   id
   name
+  isRoot
 }

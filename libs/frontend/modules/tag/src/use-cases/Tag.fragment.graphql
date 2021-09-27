@@ -1,0 +1,18 @@
+fragment TagGraph on TagGraph {
+  vertices {
+    ...Tag
+  }
+  edges {
+    ...TagEdge
+  }
+}
+
+fragment TagEdge on TagEdge {
+  source
+  target
+}
+
+fragment Tag on Tag {
+  id
+  name
+}

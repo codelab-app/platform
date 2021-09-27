@@ -15,13 +15,13 @@ export const rename = () => {
 }
 
 export const remove = () => {
-  const source = glob.sync('libs/frontend/**/*.web.graphql')
+  const source = glob.sync('libs/frontend/**/*.fragment.web.graphql.gen.ts')
 
   source.forEach((oldPath) => {
-    const newPath = oldPath.replace('.web.graphql', '.api.graphql.gen.ts')
-    fs.unlinkSync(newPath)
+    // const newPath = oldPath.replace('.web.graphql', '.api.graphql.gen.ts')
+    fs.unlinkSync(oldPath)
   })
 }
 
-rename()
-// remove()
+// rename()
+remove()

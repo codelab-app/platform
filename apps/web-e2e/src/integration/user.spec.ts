@@ -1,3 +1,5 @@
+import { TIMEOUT } from '../support/timeout'
+
 describe('UserUseCase', () => {
   before(() => {
     cy.visit('/')
@@ -14,8 +16,17 @@ describe('UserUseCase', () => {
       cy.visit('/')
       cy.request('/api/auth/me').then((r) => {
         const email = r.body.email
+
+        if (!email) {
+          console.error(email)
+          throw new Error('Email is not valid!')
+        }
+
         cy.findByLabelText('user').click() // the icon has a user label
-        cy.findElementByText(email, 'li', { exact: false }).should('exist')
+        cy.findElementByText(email, 'li', {
+          exact: false,
+          timeout: TIMEOUT,
+        }).should('exist')
 
         cy.findElementByText('Sign Out', 'a').click()
         cy.findElementByText('Login', 'a').should('exist')

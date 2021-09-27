@@ -65,7 +65,7 @@ e2e-dev-affected:
 	./scripts/nx.sh affected:e2e --configuration test
 
 e2e-ci-affected:
-	yarn affected:e2e --configuration ci
+	yarn affected:e2e --configuration ci --record
 
 #
 # INTEGRATION TESTS

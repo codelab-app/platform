@@ -1,0 +1,5 @@
+query TestExportTags {
+  getTagGraphs {
+    ...TestTagGraph
+  }
+}

@@ -5,14 +5,18 @@ export class CreateTagInput {
   @Field()
   declare name: string
 
-  @Field({ nullable: true })
-  declare parentTagId?: string
-
-  @Field({
+  @Field(() => String, {
     nullable: true,
-    defaultValue: false,
-    description:
-      'We can create multiple tag trees, the root tells us whether this is a separate tree',
+    defaultValue: null,
+    description: "Parent tag id, empty parent means it's root",
   })
-  declare isRoot?: boolean
+  declare parentTagId?: string | null
+
+  // @Field({
+  //   nullable: true,
+  //   defaultValue: false,
+  //   description:
+  //     'We can create multiple tag trees, the root tells us whether this is a separate tree',
+  // })
+  // declare isRoot?: boolean
 }

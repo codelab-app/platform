@@ -348,9 +348,8 @@ export type CreateResponse = {
 };
 
 export type CreateTagInput = {
-  /** We can create multiple tag trees, the root tells us whether this is a separate tree */
-  isRoot?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
+  /** Parent tag id, empty parent means it's root */
   parentTagId?: Maybe<Scalars['String']>;
 };
 
@@ -549,6 +548,10 @@ export type GetPagesInput = {
   byApp: PageByAppFilter;
 };
 
+export type GetTagGraphsInput = {
+  where?: Maybe<TagsWhereInput>;
+};
+
 export type GetTagInput = {
   where: WhereUniqueTag;
 };
@@ -608,6 +611,10 @@ export enum HookType {
 }
 
 export type ImportAtomsInput = {
+  payload: Scalars['String'];
+};
+
+export type ImportTagsInput = {
   payload: Scalars['String'];
 };
 
@@ -679,6 +686,7 @@ export type Mutation = {
   deleteUser: Scalars['Boolean'];
   executeLambda?: Maybe<LambdaPayload>;
   importAtoms?: Maybe<Scalars['Void']>;
+  importTags?: Maybe<Scalars['Void']>;
   moveElement?: Maybe<Scalars['Void']>;
   removeHookFromElement?: Maybe<Scalars['Void']>;
   resetData?: Maybe<Scalars['Void']>;
@@ -696,6 +704,7 @@ export type Mutation = {
   updatePropMapBinding?: Maybe<Scalars['Void']>;
   updateTag?: Maybe<Scalars['Void']>;
   updateType?: Maybe<Scalars['Void']>;
+  upsertTag: Scalars['Void'];
   upsertUser: CreateResponse;
 };
 
@@ -820,6 +829,11 @@ export type MutationImportAtomsArgs = {
 };
 
 
+export type MutationImportTagsArgs = {
+  input: ImportTagsInput;
+};
+
+
 export type MutationMoveElementArgs = {
   input: MoveElementInput;
 };
@@ -895,6 +909,11 @@ export type MutationUpdateTypeArgs = {
 };
 
 
+export type MutationUpsertTagArgs = {
+  input: UpsertTagInput;
+};
+
+
 export type MutationUpsertUserArgs = {
   input: UpsertUserInput;
 };
@@ -965,6 +984,8 @@ export type Query = {
   getTag?: Maybe<Tag>;
   /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
   getTagGraph?: Maybe<TagGraph>;
+  /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
+  getTagGraphs: Array<TagGraph>;
   /** Get all Tag graphs */
   getTags: Array<Tag>;
   getType?: Maybe<Type>;
@@ -1037,6 +1058,11 @@ export type QueryGetPagesArgs = {
 
 export type QueryGetTagArgs = {
   input: GetTagInput;
+};
+
+
+export type QueryGetTagGraphsArgs = {
+  input?: Maybe<GetTagGraphsInput>;
 };
 
 
@@ -1139,9 +1165,11 @@ export enum Role {
 
 export type Tag = {
   __typename?: 'Tag';
+  children: Array<Scalars['String']>;
   id: Scalars['String'];
   isRoot: Scalars['Boolean'];
   name: Scalars['String'];
+  parent?: Maybe<Scalars['String']>;
 };
 
 /** An edge between two element nodes */
@@ -1163,6 +1191,15 @@ export type TagGraph = {
 };
 
 export type TagVertex = Tag;
+
+export type TagWhereUniqueInput = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type TagsWhereInput = {
+  ids?: Maybe<Array<Scalars['String']>>;
+};
 
 export type Type = {
   id: Scalars['ID'];
@@ -1356,6 +1393,11 @@ export type UpdateTypeData = {
 export type UpdateTypeInput = {
   typeId: Scalars['String'];
   updateData: UpdateTypeData;
+};
+
+export type UpsertTagInput = {
+  data: CreateTagInput;
+  where?: Maybe<TagWhereUniqueInput>;
 };
 
 export type UpsertUserDataInput = {

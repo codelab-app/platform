@@ -23,9 +23,10 @@ export class DgraphCliService {
   })
   public async updateScheme() {
     try {
-      await this.dgraphService.updateDqlSchema()
+      const results = await this.dgraphService.updateDqlSchema()
 
       shell.echo('Update Scheme process completed!')
+      console.log(results)
       shell.exit(0)
     } catch (e) {
       console.error(e)

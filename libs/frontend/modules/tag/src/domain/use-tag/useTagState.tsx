@@ -1,9 +1,9 @@
-import { useCallback, useEffect } from 'react'
+import { Key, useCallback, useEffect } from 'react'
 import { atom, useRecoilState, useSetRecoilState } from 'recoil'
 
 export interface UseTagTree {
-  selectedTag?: string
-  checkedTags: Array<string>
+  selectedTag?: Key
+  checkedTags: Array<Key>
 }
 
 const defaultState = {
@@ -20,14 +20,15 @@ export const useSetTagState = () => {
   const setState = useSetRecoilState(tagTreeState)
 
   const setSelectedTag = useCallback(
-    (tag: string) => {
+    (tag: Key) => {
+      console.log(tag)
       setState((s) => ({ ...s, selectedTag: tag }))
     },
     [setState],
   )
 
   const setCheckedTags = useCallback(
-    (tags: Array<string>) => {
+    (tags: Array<Key>) => {
       setState((s) => ({ ...s, checkedTags: tags }))
     },
     [setState],

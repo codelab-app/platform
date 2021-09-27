@@ -1,14 +1,14 @@
 import { domainRequest } from '@codelab/backend/infra'
 import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { Role } from '@codelab/shared/abstract/core'
+import { GetTagInput } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../..'
-import { CreateTagInput } from '../../create-tag'
+import { createTagGraphs, createTags } from '../../create-tag'
 import {
-  TestCreateTagGql,
-  TestCreateTagMutation,
-} from '../../create-tag/tests/create-tag.api.graphql.gen'
-import { createTagInput } from '../../create-tag/tests/create-tag.data'
+  TestGetTagGql,
+  TestGetTagQuery,
+} from '../../get-tag/tests/get-tag.api.graphql.gen'
 import { DeleteTagsInput } from '../delete-tags.input'
 import {
   TestDeleteTagsGql,
@@ -26,18 +26,14 @@ describe('DeleteTagUseCase', () => {
     guestApp = await setupTestModule([TagModule], { role: Role.Guest })
     userApp = await setupTestModule([TagModule], { role: Role.User })
 
-    const { createTag: tagA } = await domainRequest<
-      CreateTagInput,
-      TestCreateTagMutation
-    >(userApp, TestCreateTagGql, createTagInput)
-
-    const { createTag: tagB } = await domainRequest<
-      CreateTagInput,
-      TestCreateTagMutation
-    >(userApp, TestCreateTagGql, createTagInput)
+    const { tagA, tagB } = await createTags(userApp)
 
     tagAId = tagA.id
     tagBId = tagB.id
+
+    deleteTagsInput = {
+      ids: [tagAId, tagBId],
+    }
   })
 
   afterAll(async () => {
@@ -47,10 +43,6 @@ describe('DeleteTagUseCase', () => {
 
   describe('Guest', () => {
     it('should fail to delete tags', async () => {
-      deleteTagsInput = {
-        ids: [tagAId, tagBId],
-      }
-
       await domainRequest<DeleteTagsInput, TestDeleteTagsMutation>(
         guestApp,
         TestDeleteTagsGql,
@@ -70,12 +62,38 @@ describe('DeleteTagUseCase', () => {
         deleteTagsInput,
       )
 
-      // await domainRequest<GetTagInput, GetTagQuery>(
-      //   userApp,
-      //   GetTagGql,
-      //   { where: { id: tagAId } },
-      //   { message: 'Not found' },
-      // )
+      const { getTag } = await domainRequest<GetTagInput, TestGetTagQuery>(
+        userApp,
+        TestGetTagGql,
+        { where: { id: tagAId } },
+      )
+
+      expect(getTag).toBeNull()
+    })
+
+    it('should cascade delete tags', async () => {
+      const { parentTag, childTag } = await createTagGraphs(userApp)
+
+      await domainRequest<DeleteTagsInput, TestDeleteTagsMutation>(
+        userApp,
+        TestDeleteTagsGql,
+        {
+          ids: [parentTag.id],
+        },
+      )
+
+      const { getTag: getParentTag } = await domainRequest<
+        GetTagInput,
+        TestGetTagQuery
+      >(userApp, TestGetTagGql, { where: { id: parentTag.id } })
+
+      const { getTag: getChildTag } = await domainRequest<
+        GetTagInput,
+        TestGetTagQuery
+      >(userApp, TestGetTagGql, { where: { id: childTag.id } })
+
+      expect(getParentTag).toBeNull()
+      expect(getChildTag).toBeNull()
     })
   })
 })

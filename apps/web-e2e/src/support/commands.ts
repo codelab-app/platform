@@ -1,16 +1,11 @@
 import '@testing-library/cypress/add-commands'
-import {
-  CreateAppGql,
-  CreateAppMutationVariables,
-  DeleteAppMutationVariables,
-} from '@codelab/frontend/modules/app'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
-import { print } from 'graphql'
-import { deleteApp } from './app'
+import { createApp, deleteApp } from './app'
 import { createAtom } from './atom'
 import { createElement, createPropBinding } from './element'
 import { createPage, getPage } from './page'
+import { getCurrentUserId } from './user'
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -87,6 +82,7 @@ declare global {
         options?: SelectorMatcherOptions,
       ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
       preserveAuthCookies: typeof preserveAuthCookies
+      runSeeder: typeof runSeeder
     }
   }
 }
@@ -119,14 +115,6 @@ const resetDgraphData = () => {
 
 Cypress.Commands.add('resetDgraphData', resetDgraphData)
 
-const getCurrentUserId = () => {
-  return cy.request('/api/auth/me').then((r) => {
-    return r.body.sub
-  })
-}
-
-Cypress.Commands.add('getCurrentUserId', getCurrentUserId)
-
 const getByTestId = (testId: string, selectorAddon?: string) => {
   return cy.get(`[data-testid=${testId}]${selectorAddon || ''}`)
 }
@@ -138,25 +126,6 @@ const createComponent = (libraryId: string, label = 'Test component') => {
 }
 
 Cypress.Commands.add('createComponent', createComponent)
-
-type CreateAppInput = CreateAppMutationVariables['input']
-
-const defaultCreateAppInput: CreateAppInput = {
-  name: 'Test app',
-}
-
-const createApp = (input: CreateAppInput = defaultCreateAppInput) => {
-  return cy
-    .graphqlRequest({
-      query: print(CreateAppGql),
-      variables: { input },
-    })
-    .then((r) => r.body.data?.createApp)
-}
-
-Cypress.Commands.add('createApp', createApp)
-
-type DeleteAppInput = DeleteAppMutationVariables['input']
 
 export const findByButtonText = (
   subject: any,
@@ -385,3 +354,9 @@ Cypress.Commands.add(
 Cypress.Commands.add('getPaneMain', (): Cypress.Chainable<JQuery> => {
   return cy.getByTestId('pane-main').findByRole('tablist')
 })
+
+const runSeeder = () => {
+  cy.exec(`yarn cli seed --env ${Cypress.env('env')}`)
+}
+
+Cypress.Commands.add('runSeeder', runSeeder)

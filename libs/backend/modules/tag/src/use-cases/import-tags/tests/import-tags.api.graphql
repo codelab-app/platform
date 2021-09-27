@@ -1,0 +1,3 @@
+mutation TestImportTags($input: ImportTagsInput!) {
+  importTags(input: $input)
+}

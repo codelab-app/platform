@@ -15,12 +15,8 @@ const normalizeOptions = (
   host: Tree,
   options: ApiUseCaseGeneratorSchema,
 ): NormalizedSchema => {
-  const name = names(options.name).fileName
-
-  const projectDirectory = options.directory
-    ? `${names(options.directory).fileName}/${name}`
-    : name
-
+  const { model, useCase, graphqlType } = options
+  const projectDirectory = names(`backend-modules-${model}`).fileName
   const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
 
   // const projectRoot = `${getWorkspaceLayout(host).libsDir}/${projectDirectory}`
@@ -33,37 +29,29 @@ const normalizeOptions = (
     throw new Error(`${projectName} cannot be found!`)
   }
 
-  const parsedTags = options.tags
-    ? options.tags.split(',').map((s) => s.trim())
-    : []
-
-  options.useCaseType = options.useCaseType || UseCaseType.Regular
-
-  const useCaseName = toCamelCase(options.useCaseName)
-  const useCaseNamePascalCase = toPascalCase(useCaseName)
-  const useCaseKebabCase = toKebabCase(useCaseName)
-  const modelName = toCamelCase(options.modelName)
-  const modelNamePascalCase = toPascalCase(modelName)
+  const useCasePascalCase = toPascalCase(useCase)
+  const useCaseKebabCase = toKebabCase(useCase)
+  const modelPascalCase = toPascalCase(model)
 
   return {
     ...options,
-    useCaseBaseClass: useCaseToClassMap[options.useCaseType],
-    useCaseNamePascalCase,
-    useCaseName,
-    modelName,
-    modelNamePascalCase,
+    // useCaseBaseClass: useCaseToClassMap[options.useCaseType],
+    useCasePascalCase,
+    useCase,
+    model,
+    modelPascalCase,
     useCaseKebabCase,
     projectName,
     projectRoot,
     projectDirectory,
-    parsedTags,
+    graphqlType,
   }
 }
 
 const addFiles = (host: Tree, options: NormalizedSchema) => {
   const templateOptions = {
     ...options,
-    ...names(options.name),
+    ...names(options.projectDirectory),
     offsetFromRoot: offsetFromRoot(options.projectRoot),
     tmpl: '',
   }

@@ -1,0 +1,26 @@
+upsert {
+  query {
+    q(func: uid(0x22330)) {
+	    UID as uid
+	    parent {
+	      PARENT_UID as uid
+	    }
+	  }
+  }
+  mutation {
+	  delete {
+	    uid(PARENT_UID) <children> uid(UID) .
+    }
+	}
+}
+
+query {
+  q(func: eq(dgraph.type, Tag)) @recurse {
+    uid
+    name
+    isRoot
+    parent
+    owner
+    children
+  }
+}

@@ -55,7 +55,11 @@ yargs(hideBin(process.argv))
     'seed',
     'Seed Antd Design props to platform',
     (yargs) => yargs,
-    (argv) => runCli(Env.Dev, `${argv._[0]}`),
+    (argv) =>
+      runCli(
+        argv.env as any,
+        `${argv._[0]} --env ${argv.env}`,
+      ),
   )
   //
   // Start

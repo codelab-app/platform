@@ -1,6 +1,10 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { <%= useCaseNamePascalCase %>Input } from './<%= useCaseKebabCase %>.input'
+import type { User } from '@codelab/shared/abstract/core'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
+import { <%= useCasePascalCase %>Input } from './<%= useCaseKebabCase %>.input'
 
-export class <%= useCaseNamePascalCase %>Request {
-  declare input: <%= useCaseNamePascalCase %>Input
+export interface <%= useCasePascalCase %>Request extends WithCurrentUserRequest {
+  input: <%= useCasePascalCase %>Input
+
+  currentUser: User
 }

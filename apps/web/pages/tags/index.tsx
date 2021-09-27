@@ -3,9 +3,11 @@ import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   CreateTagButton,
   CreateTagModal,
-  DeleteTagModal,
   DeleteTagsButton,
+  DeleteTagsModal,
+  ExportTagsButton,
   GetTagsTree,
+  ImportTagsUpload,
   UpdateTagModal,
   useTagState,
 } from '@codelab/frontend/modules/tag'
@@ -22,7 +24,9 @@ const TagPage: CodelabPage = () => {
 
   const pageHeaderButtons = [
     <CreateTagButton key={0} />,
-    <DeleteTagsButton key={1} ids={checkedTags} />,
+    <DeleteTagsButton key={1} ids={checkedTags.map((tag) => tag.toString())} />,
+    <ExportTagsButton key={2} />,
+    <ImportTagsUpload key={3} />,
   ]
 
   return (
@@ -34,7 +38,7 @@ const TagPage: CodelabPage = () => {
       <PageHeader ghost={false} title="Tags" extra={pageHeaderButtons} />
       <CreateTagModal />
       <UpdateTagModal />
-      <DeleteTagModal />
+      <DeleteTagsModal />
       <GetTagsTree />
     </>
   )

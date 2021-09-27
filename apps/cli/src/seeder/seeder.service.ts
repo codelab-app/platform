@@ -4,11 +4,14 @@ import {
   serverConfig,
 } from '@codelab/backend/infra'
 import { SeedBaseTypesService } from '@codelab/backend/modules/type'
-import { AtomType, User } from '@codelab/shared/abstract/core'
+import { CurrentUser } from '@codelab/backend/modules/user'
+import { AtomType, Role, User } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject, Injectable, UseGuards } from '@nestjs/common'
+import { AuthGuard } from '@nestjs/passport'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
+import { envOption } from '../env-helper'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
 import { AtomSeeder, TypeSeeder } from './models'
 import { iterateCsvs } from './utils/iterateCsvs'
@@ -39,8 +42,15 @@ export class SeederService {
 
   @Command({
     command: 'seed',
+    options: [envOption],
   })
-  async seed(currentUser: User) {
+  async seed() {
+    const currentUser: User = {
+      id: '0x01',
+      auth0Id: '0x01',
+      roles: [Role.Admin],
+    }
+
     /**
      * (1) Seed base types like String, Boolean, Integer so other types can use them
      */

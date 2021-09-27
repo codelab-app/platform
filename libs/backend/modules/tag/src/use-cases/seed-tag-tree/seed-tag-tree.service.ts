@@ -61,7 +61,7 @@ export class SeedTagTreeService extends DgraphUseCase<
       root: {
         uid: blankNodeUid,
         name: SeedTagTreeService.__TAG_ROOT,
-        ownerId: currentUser.id,
+        owner: { uid: currentUser.id },
         'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
         children: [],
       },

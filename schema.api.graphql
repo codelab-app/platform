@@ -502,6 +502,8 @@ type Page {
 type Tag {
   id: String!
   name: String!
+  parent: String
+  children: [String!]!
   isRoot: Boolean!
 }
 
@@ -561,6 +563,11 @@ type Query {
   Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
   """
   getTagGraph: TagGraph
+
+  """
+  Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
+  """
+  getTagGraphs(input: GetTagGraphsInput): [TagGraph!]!
 }
 
 input GetUserInput {
@@ -690,6 +697,14 @@ input WhereUniqueTag {
   id: String
 }
 
+input GetTagGraphsInput {
+  where: TagsWhereInput
+}
+
+input TagsWhereInput {
+  ids: [String!]
+}
+
 type Mutation {
   upsertUser(input: UpsertUserInput!): CreateResponse!
   deleteUser(input: DeleteUserInput!): Boolean!
@@ -735,6 +750,8 @@ type Mutation {
   createTag(input: CreateTagInput!): CreateResponse!
   updateTag(input: UpdateTagInput!): Void
   deleteTags(input: DeleteTagsInput!): Void
+  upsertTag(input: UpsertTagInput!): Void!
+  importTags(input: ImportTagsInput!): Void
 }
 
 input UpsertUserInput {
@@ -1101,12 +1118,9 @@ input ExecuteLambdaInput {
 
 input CreateTagInput {
   name: String!
-  parentTagId: String
 
-  """
-  We can create multiple tag trees, the root tells us whether this is a separate tree
-  """
-  isRoot: Boolean = false
+  """Parent tag id, empty parent means it's root"""
+  parentTagId: String = null
 }
 
 input UpdateTagInput {
@@ -1120,4 +1134,18 @@ input UpdateTagData {
 
 input DeleteTagsInput {
   ids: [String!]!
+}
+
+input UpsertTagInput {
+  data: CreateTagInput!
+  where: TagWhereUniqueInput
+}
+
+input TagWhereUniqueInput {
+  id: String
+  name: String
+}
+
+input ImportTagsInput {
+  payload: String!
 }

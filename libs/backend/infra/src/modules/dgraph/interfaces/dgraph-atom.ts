@@ -1,6 +1,6 @@
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphEntity } from './core'
-import { Taggable } from './dgraph-tag'
+import { DgraphTag, Taggable } from './dgraph-tag'
 import { DgraphInterfaceType } from './types'
 
 export interface DgraphAtom
@@ -9,4 +9,5 @@ export interface DgraphAtom
   name: string
   atomType: string
   api: DgraphInterfaceType
+  library: DgraphTag
 }

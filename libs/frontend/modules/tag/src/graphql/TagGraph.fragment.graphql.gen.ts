@@ -1,10 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { TagFragment } from './Tag.fragment.graphql.gen';
-import { TagEdgeFragment } from './TagEdge.fragment.graphql.gen';
+import { TagFragment, TagEdgeFragment } from '../use-cases/Tag.fragment.graphql.gen';
 import { gql } from '@apollo/client';
-import { TagFragmentDoc } from './Tag.fragment.graphql.gen';
-import { TagEdgeFragmentDoc } from './TagEdge.fragment.graphql.gen';
+import { TagFragmentDoc, TagEdgeFragmentDoc } from '../use-cases/Tag.fragment.graphql.gen';
 export type TagGraphFragment = { vertices: Array<TagFragment>, edges: Array<TagEdgeFragment> };
 
 export const TagGraphFragmentDoc = gql`

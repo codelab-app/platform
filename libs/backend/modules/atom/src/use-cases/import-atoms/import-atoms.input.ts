@@ -1,19 +1,5 @@
-import { Field, InputType } from '@nestjs/graphql'
-
-// @InputType()
-// export class ImportApiInput {
-//   @Field(() => ImportTypeGraphInput)
-//   declare api: ImportTypeGraphInput
-// }
-//
-// @InputType()
-// export class ImportAtom extends IntersectionType(
-//   CreateAtomInput,
-//   ImportApiInput,
-// ) {}
+import { BasePayloadInput } from '@codelab/backend/application'
+import { InputType } from '@nestjs/graphql'
 
 @InputType()
-export class ImportAtomsInput {
-  @Field()
-  declare payload: string
-}
+export class ImportAtomsInput extends BasePayloadInput {}
