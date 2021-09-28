@@ -1,11 +1,7 @@
 import '@testing-library/cypress/add-commands'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
-<<<<<<< HEAD
-=======
-import { print } from 'graphql'
-import { getCurrentUserId } from './user'
-import { deleteApp, createApp } from './app'
+import { createApp, deleteApp } from './app'
 import { createAtom, getAtom } from './atom'
 import {
   createComponent,
@@ -21,7 +17,7 @@ import {
   goToPageByAliasId,
 } from './page'
 import { createType } from './type'
->>>>>>> d3ff56a1 (feat: implement render props, react node)
+import { getCurrentUserId } from './user'
 
 // ***********************************************
 // This example commands.js shows you how to
@@ -150,17 +146,6 @@ type CreateAppInput = CreateAppMutationVariables['input']
 const defaultCreateAppInput: CreateAppInput = {
   name: 'Test app',
 }
-
-const createApp = (input: CreateAppInput = defaultCreateAppInput) => {
-  return cy
-    .graphqlRequest({
-      query: print(CreateAppGql),
-      variables: { input },
-    })
-    .then((r) => r.body.data?.createApp)
-}
-
-Cypress.Commands.add('createApp', createApp)
 
 type DeleteAppInput = DeleteAppMutationVariables['input']
 

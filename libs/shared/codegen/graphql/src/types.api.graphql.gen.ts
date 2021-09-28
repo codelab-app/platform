@@ -1139,6 +1139,14 @@ export type QueryPagesHookConfigInput = {
   appId: Scalars['String'];
 };
 
+export type ReactNodeType = Type & {
+  __typename?: 'ReactNodeType';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  typeGraph: TypeGraph;
+  typeKind: TypeKind;
+};
+
 export type RecoilStateHookConfig = {
   __typename?: 'RecoilStateHookConfig';
   defaultValue?: Maybe<Scalars['String']>;
@@ -1249,6 +1257,7 @@ export enum TypeKind {
   InterfaceType = 'InterfaceType',
   LambdaType = 'LambdaType',
   PrimitiveType = 'PrimitiveType',
+  ReactNodeType = 'ReactNodeType',
   RenderPropsType = 'RenderPropsType'
 }
 
@@ -1257,7 +1266,7 @@ export type TypeRef = {
   newType?: Maybe<CreateTypeInput>;
 };
 
-export type TypeVertex = ArrayType | ComponentType | ElementType | EnumType | InterfaceType | LambdaType | PrimitiveType | RenderPropsType;
+export type TypeVertex = ArrayType | ComponentType | ElementType | EnumType | InterfaceType | LambdaType | PrimitiveType | ReactNodeType | RenderPropsType;
 
 export type TypesByIdsFilter = {
   typeIds: Array<Scalars['String']>;

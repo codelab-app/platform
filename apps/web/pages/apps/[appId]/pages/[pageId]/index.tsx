@@ -5,6 +5,7 @@ import {
   PageContext,
   withPageQueryProvider,
 } from '@codelab/frontend/modules/page'
+import { withTypeKindProvider } from '@codelab/frontend/modules/type'
 import { PageDetailHeader } from '@codelab/frontend/view/sections'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
@@ -34,7 +35,9 @@ const PageRenderer: CodelabPage<any> = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-PageRenderer.Template = withPageQueryProvider(DashboardTemplate)
+PageRenderer.Template = withTypeKindProvider(
+  withPageQueryProvider(DashboardTemplate),
+)
 PageRenderer.Header = PageDetailHeader
 PageRenderer.SidebarNavigation = null
 PageRenderer.MainPane = null

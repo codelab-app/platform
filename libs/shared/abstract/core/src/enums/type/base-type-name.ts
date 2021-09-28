@@ -12,4 +12,5 @@ export enum BaseTypeName {
   Float = 'Float',
   Integer = 'Integer',
   RenderProps = 'RenderProps',
+  ReactNode = 'ReactNode',
 }

@@ -22,6 +22,7 @@ export interface InterfaceFormProps<TData>
 
 const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (type) => {
   switch (type.typeKind) {
+    case TypeKind.ReactNodeType:
     case TypeKind.RenderPropsType:
       return {
         uniforms: {

@@ -6,15 +6,13 @@ import {
 } from '@codelab/frontend/modules/page'
 import {
   InterfaceForm,
+  TypeKindsContext,
   useGetTypeGraphQuery,
   useTypeTree,
 } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { usePromisesLoadingIndicator } from '@codelab/frontend/view/components'
-import {
-  REACT_NODE_PROPS_ACCESSOR,
-  RENDER_PROPS_ACCESSOR,
-} from '@codelab/shared/constants'
+import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { Spin } from 'antd'
 import React, { useContext, useRef } from 'react'
 import {
@@ -30,6 +28,22 @@ interface UpdateElementPropsFormInternalProps {
   loadingStateKey: string
 }
 
+const hasDataType = (
+  data: Record<string, any>,
+  typeKinds: Array<TypeKind>,
+  typeKindsById: Record<string, TypeKind>,
+) => {
+  return Object.values(data).some((value) => {
+    const valueTypeKind = typeKindsById[value?.type]
+
+    if (!valueTypeKind) {
+      return false
+    }
+
+    return typeKinds.includes(valueTypeKind)
+  })
+}
+
 const UpdateElementPropsFormInternal = ({
   interfaceId,
   elementId,
@@ -37,6 +51,7 @@ const UpdateElementPropsFormInternal = ({
   loadingStateKey,
 }: UpdateElementPropsFormInternalProps) => {
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
+  const { typeKindsById } = useContext(TypeKindsContext)
   const [isRefetchPage, needRefetchPage] = React.useState(false)
 
   const { data: interfaceData, loading: interfaceLoading } =
@@ -81,8 +96,13 @@ const UpdateElementPropsFormInternal = ({
         interfaceTree={tree}
         model={initialPropsRef.current}
         onSubmit={(data: any) => {
-          if (data[RENDER_PROPS_ACCESSOR] || data[REACT_NODE_PROPS_ACCESSOR]) {
-            // fetch component for new render props...
+          if (
+            hasDataType(
+              data,
+              [TypeKind.RenderPropsType, TypeKind.ReactNodeType],
+              typeKindsById,
+            )
+          ) {
             needRefetchPage(true)
           }
 

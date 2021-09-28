@@ -16,9 +16,14 @@ export enum BaseTypeName {
   Float = 'Float',
   Integer = 'Integer',
   RenderProps = 'RenderProps',
+  ReactNode = 'ReactNode',
 }
 
 export const baseTypes: Array<CreateTypeInput> = [
+  {
+    name: BaseTypeName.ReactNode,
+    typeKind: TypeKind.RenderPropsType,
+  },
   {
     name: BaseTypeName.RenderProps,
     typeKind: TypeKind.RenderPropsType,

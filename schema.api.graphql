@@ -74,6 +74,7 @@ enum TypeKind {
   ElementType
   ComponentType
   RenderPropsType
+  ReactNodeType
 }
 
 """
@@ -150,6 +151,13 @@ enum PrimitiveKind {
   Boolean
 }
 
+type ReactNodeType implements Type {
+  typeKind: TypeKind!
+  id: ID!
+  name: String!
+  typeGraph: TypeGraph!
+}
+
 type RenderPropsType implements Type {
   typeKind: TypeKind!
   id: ID!
@@ -162,7 +170,7 @@ type TypeGraph {
   edges: [TypeEdge!]!
 }
 
-union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | RenderPropsType
+union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | RenderPropsType | ReactNodeType
 
 type Atom {
   id: ID!

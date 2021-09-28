@@ -14,6 +14,7 @@ import {
   TypeGraphAdapter,
 } from './application/adapters'
 import { ArrayTypeAdapter } from './application/adapters/array-type.adapter'
+import { ReactNodeAdapter } from './application/adapters/react-node-type.adapter'
 import { RenderPropsAdapter } from './application/adapters/render-props-type.adapter'
 import { FieldResolver } from './application/field.resolver'
 import { TypeResolver } from './application/type.resolver'
@@ -71,6 +72,7 @@ const typeServices = [
    */
   InterfaceTypeAdapter,
   RenderPropsAdapter,
+  ReactNodeAdapter,
   ArrayTypeAdapter,
   ComponentTypeAdapter,
   TypeAdapterFactory,

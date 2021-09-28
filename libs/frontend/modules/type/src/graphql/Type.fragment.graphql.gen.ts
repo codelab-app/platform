@@ -52,12 +52,14 @@ export type Type_PrimitiveType_Fragment = (
   & PrimitiveTypeFragment
 );
 
+export type Type_ReactNodeType_Fragment = { __typename: 'ReactNodeType', id: string, name: string, typeKind: Types.TypeKind };
+
 export type Type_RenderPropsType_Fragment = (
   { __typename: 'RenderPropsType', id: string, name: string, typeKind: Types.TypeKind }
   & RenderPropsTypeFragment
 );
 
-export type TypeFragment = Type_ArrayType_Fragment | Type_ComponentType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PrimitiveType_Fragment | Type_RenderPropsType_Fragment;
+export type TypeFragment = Type_ArrayType_Fragment | Type_ComponentType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PrimitiveType_Fragment | Type_ReactNodeType_Fragment | Type_RenderPropsType_Fragment;
 
 export const TypeFragmentDoc = gql`
     fragment Type on Type {

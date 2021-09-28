@@ -235,11 +235,23 @@ export class ElementTreeAdapter extends BaseAdapter<
       componentIdsFromProps.forEach((id) => extraComponentsRef.add(id))
 
       const renderPropsComponentIdsFromProps =
-        await this.getRenderPropsComponentIdFromProps(props, typeTree)
+        await this.getComponentIdFromProps(
+          props,
+          typeTree,
+          TypeKind.RenderPropsType,
+        )
 
       renderPropsComponentIdsFromProps.forEach((id) =>
         extraComponentsRef.add(id),
       )
+
+      const reactNodeComponentIdsFromProps = await this.getComponentIdFromProps(
+        props,
+        typeTree,
+        TypeKind.ReactNodeType,
+      )
+
+      reactNodeComponentIdsFromProps.forEach((id) => extraComponentsRef.add(id))
 
       // Edge case alert:
       // sort the children by ID, because it seems that that's how dgraph executes the query
@@ -289,21 +301,21 @@ export class ElementTreeAdapter extends BaseAdapter<
     return new TypeTree(typeGraph)
   }
 
-  private getRenderPropsComponentIdFromProps(
+  private getComponentIdFromProps(
     nodeProps: Record<string, any> | null,
     tree: TypeTree | null,
+    type: TypeKind,
   ) {
     if (!nodeProps || !tree) {
       return []
     }
 
-    const propsTypeRenderProps = tree.getFieldsByTypeKind(
-      TypeKind.RenderPropsType,
-    )
+    const propsTypeRenderProps = tree.getFieldsByTypeKind(type)
 
     return propsTypeRenderProps
       .map(({ key }) => {
-        const componentId = _.get(nodeProps, key)
+        const prop = _.get(nodeProps, key)
+        const componentId = prop?.id
 
         if (componentId) {
           if (typeof componentId !== 'string') {

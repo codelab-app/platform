@@ -10,6 +10,7 @@ import {
   ComponentContext,
   withComponentQueryProvider,
 } from '@codelab/frontend/modules/component'
+import { TypeKindsContext } from '@codelab/frontend/modules/type'
 import {
   RenderProvider,
   withEditorProvider,
@@ -24,13 +25,14 @@ import React, { useContext } from 'react'
 
 const ComponentDetail: CodelabPage = () => {
   const { component, tree } = useContext(ComponentContext)
+  const { typeKindsById } = useContext(TypeKindsContext)
 
   if (!tree || !component) {
     return <Empty />
   }
 
   return (
-    <RenderProvider context={defaultRenderContext({ tree })}>
+    <RenderProvider context={defaultRenderContext({ tree, typeKindsById })}>
       <Head>
         <title>{component.name} | Codelab</title>
       </Head>

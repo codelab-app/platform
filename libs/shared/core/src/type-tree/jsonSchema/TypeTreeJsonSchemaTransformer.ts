@@ -7,10 +7,6 @@ import {
   PrimitiveKind,
   TypeKind,
 } from '@codelab/shared/abstract/core'
-import {
-  REACT_NODE_PROPS_ACCESSOR,
-  RENDER_PROPS_ACCESSOR,
-} from '@codelab/shared/constants'
 import { TypeTree } from '../TypeTree'
 
 /**
@@ -69,7 +65,7 @@ export class TypeTreeJsonSchemaTransformer {
    * Since the TypeFragment is flat, doesn't contain any nested types in itself, only references
    * them by id, an external source is needed for them to be transformed too
    */
-  typeToJsonProperty(type: ITypeVertex): Record<string, any> {
+  typeToJsonProperty(type: ITypeVertex, field: IField): Record<string, any> {
     this.iteration++
 
     if (this.iteration > (this.options.maxNesting || 100)) {
@@ -78,11 +74,43 @@ export class TypeTreeJsonSchemaTransformer {
       )
     }
 
+    // object,
+    /**
+     * type: 'object'
+     *         properties: {},
+        uniforms: { component: null },
+        label: '',
+
+
+
+     */
+
     const extra = this.options.jsonPropertiesMapper
       ? this.options.jsonPropertiesMapper(type)
       : {}
 
     switch (type.typeKind) {
+      case TypeKind.ReactNodeType:
+      case TypeKind.RenderPropsType:
+        return {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              label: field.name || field.key,
+              ...extra,
+            },
+            type: {
+              type: 'string',
+              uniforms: { component: () => null },
+              label: '',
+              default: type.id,
+            },
+          },
+          uniforms: { component: null },
+          label: '',
+        }
+
       case TypeKind.PrimitiveType:
         return {
           ...extra,
@@ -103,7 +131,7 @@ export class TypeTreeJsonSchemaTransformer {
         return {
           ...extra,
           type: 'array',
-          items: this.typeToJsonProperty(itemType),
+          items: this.typeToJsonProperty(itemType, field),
         }
       }
 
@@ -123,12 +151,6 @@ export class TypeTreeJsonSchemaTransformer {
           },
         }
       }
-
-      case TypeKind.RenderPropsType:
-        return {
-          type: 'string',
-          ...extra,
-        }
 
       case TypeKind.InterfaceType:
         return {
@@ -160,58 +182,18 @@ export class TypeTreeJsonSchemaTransformer {
     }
   }
 
-  private renderPropsFieldToProperty = (
-    properties: Record<string, any>,
-    field: IField,
-    accessor: string,
-    type: any,
-  ) => {
-    // TODO: we don't have object type
-    // Add object type, add map this properly later
-    // Example key: codeLabRenderProps.key123
-    if (!properties[accessor]) {
-      properties[accessor] = {
-        type: 'object',
-        properties: {},
-        uniforms: { component: null },
-        label: '',
-      }
-    }
-
-    const key = field.key.replace(accessor + '.', '')
-    properties[accessor].properties[key] = {
-      ...(this.typeToJsonProperty(type) as any),
-      label: field.name || field.key,
-    }
-  }
-
   fieldsToProperties(fields: Array<IField>) {
     const properties: Record<string, any> = {}
 
     for (const field of fields) {
       const type = this.typeTree.getFieldType(field.id)
+      const fieldSchema = this.typeToJsonProperty(type, field) as any
+      console.log({ fieldSchema })
 
-      if (type) {
-        if (field.key.includes(RENDER_PROPS_ACCESSOR)) {
-          this.renderPropsFieldToProperty(
-            properties,
-            field,
-            RENDER_PROPS_ACCESSOR,
-            type,
-          )
-        } else if (field.key.includes(REACT_NODE_PROPS_ACCESSOR)) {
-          this.renderPropsFieldToProperty(
-            properties,
-            field,
-            REACT_NODE_PROPS_ACCESSOR,
-            type,
-          )
-        } else {
-          properties[field.key] = {
-            ...(this.typeToJsonProperty(type) as any),
-            label: field.name || field.key,
-          }
-        }
+      properties[field.key] = {
+        ...fieldSchema,
+        label:
+          'label' in fieldSchema ? fieldSchema.label : field.name || field.key,
       }
     }
 

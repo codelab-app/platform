@@ -7,4 +7,5 @@ export enum TypeKind {
   ElementType = 'ElementType',
   ComponentType = 'ComponentType',
   RenderPropsType = 'RenderPropsType',
+  ReactNodeType = 'ReactNodeType',
 }

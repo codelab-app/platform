@@ -62,4 +62,8 @@ export const baseTypes: Array<CreateTypeInput> = [
     name: BaseTypeName.RenderProps,
     typeKind: TypeKind.RenderPropsType,
   },
+  {
+    name: BaseTypeName.ReactNode,
+    typeKind: TypeKind.ReactNodeType,
+  },
 ]

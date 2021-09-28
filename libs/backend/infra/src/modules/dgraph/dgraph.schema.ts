@@ -30,6 +30,7 @@ const {
   PropMapBinding,
   Tag,
   RenderPropsType,
+  ReactNodeType,
 } = DgraphEntityType
 
 export const dgraphSchema = `
@@ -127,6 +128,9 @@ export const dgraphSchema = `
   }
 
   type ${ComponentType} {
+  }
+
+  type ${ReactNodeType} {
   }
 
   type ${RenderPropsType} {

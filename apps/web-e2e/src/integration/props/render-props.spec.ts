@@ -5,10 +5,6 @@ import {
   Element,
   Page,
 } from '@codelab/shared/codegen/graphql'
-import {
-  REACT_NODE_PROPS_ACCESSOR,
-  RENDER_PROPS_ACCESSOR,
-} from '@codelab/shared/constants'
 
 const listElementName = 'List'
 const renderItemFieldName = 'Render Item'
@@ -27,6 +23,13 @@ describe('render props', () => {
 
       cy.login().then(async () => {
         cy.preserveAuthCookies()
+        cy.createType({
+          name: BaseTypeName.ReactNode,
+          typeKind: TypeKind.ReactNodeType,
+        }).then((renderPropType: CreateResponse) => {
+          cy.wrap(renderPropType.id).as('reactNodeTypeId')
+        })
+
         cy.createType({
           name: BaseTypeName.RenderProps,
           typeKind: TypeKind.RenderPropsType,
@@ -93,17 +96,20 @@ describe('render props', () => {
           (listAtom: CreateResponse) => {
             cy.getAtom({ where: { id: listAtom.id } }).then(
               (listAtomFull: Atom) => {
+                cy.get('@reactNodeTypeId').then((reactNodeTypeId) => {
+                  cy.createField({
+                    name: headerFieldName,
+                    key: 'header',
+                    interfaceId: listAtomFull.api.id,
+                    type: { existingTypeId: String(reactNodeTypeId) },
+                  })
+                })
+
                 cy.get('@renderPropTypeId').then((renderPropTypeId) => {
                   // set render item field to render props type
                   cy.createField({
-                    name: headerFieldName,
-                    key: `${REACT_NODE_PROPS_ACCESSOR}.header`,
-                    interfaceId: listAtomFull.api.id,
-                    type: { existingTypeId: String(renderPropTypeId) },
-                  })
-                  cy.createField({
                     name: renderItemFieldName,
-                    key: `${RENDER_PROPS_ACCESSOR}.renderItem`,
+                    key: 'renderItem',
                     interfaceId: listAtomFull.api.id,
                     type: { existingTypeId: String(renderPropTypeId) },
                   })

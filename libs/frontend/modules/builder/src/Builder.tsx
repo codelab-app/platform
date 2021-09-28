@@ -2,8 +2,9 @@ import {
   ElementTreeGraphql,
   isElement,
 } from '@codelab/frontend/modules/element'
+import { TypeKindsContext } from '@codelab/frontend/modules/type'
 import styled from '@emotion/styled'
-import React, { MouseEventHandler, useCallback } from 'react'
+import React, { MouseEventHandler, useCallback, useContext } from 'react'
 import tw from 'twin.macro'
 import {
   useBuilder,
@@ -51,6 +52,7 @@ const StyledBuilderInnerContainer = styled.div`
 
 const BuilderRenderer = ({ tree }: { tree: ElementTreeGraphql }) => {
   const { handleMouseEnter, handleMouseLeave } = useBuilderHandlers(tree)
+  const { typeKindsById } = useContext(TypeKindsContext)
   const { onRendered } = useOnRendered()
   const extraProps = useBuilderExtraProps()
   const voidClick = useCallback(() => void 0, [])
@@ -60,6 +62,7 @@ const BuilderRenderer = ({ tree }: { tree: ElementTreeGraphql }) => {
       tree={tree}
       context={{
         onRendered,
+        typeKindsById,
         extraElementProps: extraProps,
         extraProps: {
           onMouseEnter: handleMouseEnter,
