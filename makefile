@@ -18,7 +18,7 @@ terraform-lint:
 # Next build hardcoded env vars into the compilation, since this build will be used by Cypress, we'll want to use test env
 #
 build-dev-affected:
-	 nx affected:build \
+	 ./scripts/nx.sh affected:build \
 		--configuration test \
 		--parallel \
 		--verbose \

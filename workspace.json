@@ -1625,11 +1625,11 @@
                   "forwardAllArgs": false
                 },
                 {
-                  "command": "npx env-cmd -f .env.test npx next start dist/apps/web-test --port 3001",
+                  "command": "next start dist/apps/web-test --port 3001",
                   "forwardAllArgs": false
                 },
                 {
-                  "command": "npx env-cmd -f .env.test node dist/apps/api/main.js",
+                  "command": "node dist/apps/api/main.js",
                   "forwardAllArgs": false
                 },
                 {
