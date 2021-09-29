@@ -24,4 +24,4 @@ The end product is a highly configurable UI layer that competes with writing cod
 
 ## E2e
 
-1. `./scripts/nx.sh e2e web-e2e --configuration dev`, custom script loads `.env.test` before starting nx
+1. `yarn e2e`
