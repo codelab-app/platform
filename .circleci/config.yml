@@ -264,15 +264,15 @@ jobs:
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-            - ~/.cache/Cypress
+            # - ~/.cache/Cypress
             - ~/project/node_modules
-            - ~/project/dist/apps/web/.next/cache
+            # - ~/project/dist/apps/web/.next/cache
       - persist_to_workspace:
           root: ~/
           paths:
             - project/node_modules
             - project/dist
-            - .cache/Cypress
+            # - .cache/Cypress
       - notify-failure
 
   lint:
