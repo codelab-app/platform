@@ -15,7 +15,7 @@ export class GetAtomsService extends DgraphUseCase<
 > {
   protected executeTransaction(request: GetAtomsInput | undefined, txn: Txn) {
     if (request?.where?.ids) {
-      return this.dgraph.executeQuery<DgraphAtom>(
+      return this.dgraph.getAll<DgraphAtom>(
         txn,
         GetAtomsService.createWhereIdsQuery(request.where.ids),
       )
@@ -33,13 +33,10 @@ export class GetAtomsService extends DgraphUseCase<
   }
 
   private static createWhereIdsQuery(ids: Array<string>) {
-    return (
-      new DgraphQueryBuilder()
-        .setUidsFunc(ids)
-        // .addFilterDirective(DgraphEntityType.Atom)
-        .addBaseFields()
-        .addRecurseDirective()
-        .addExpandAll()
-    )
+    return new DgraphQueryBuilder()
+      .setUidsFunc(ids)
+      .addBaseFields()
+      .addRecurseDirective()
+      .addExpandAll()
   }
 }

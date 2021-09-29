@@ -1,2 +1,2 @@
-export * from './tree.adapter'
+export * from './tree.service'
 export * from './treePredicate'

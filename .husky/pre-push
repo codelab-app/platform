@@ -2,7 +2,6 @@
 . "$(dirname "$0")/_/husky.sh"
 
 yarn cli dgraph update-schema --env test
-
 yarn codegen
 
 make build-dev-affected

@@ -985,7 +985,7 @@ export type Query = {
   /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
   getTagGraph?: Maybe<TagGraph>;
   /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
-  getTagGraphs: Array<TagGraph>;
+  getTagGraphs: TagGraph;
   /** Get all Tag graphs */
   getTags: Array<Tag>;
   getType?: Maybe<Type>;

@@ -14,8 +14,8 @@ export class Tag {
   @Field(() => [String], { defaultValue: [] })
   children: Array<string>
 
-  @Field({ defaultValue: false })
-  isRoot?: boolean
+  @Field()
+  isRoot: boolean
 
   constructor({ id, name, isRoot = false, parent, children }: Tag) {
     this.id = id

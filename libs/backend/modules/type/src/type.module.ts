@@ -1,5 +1,5 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { CytoscapeModule, TreeModule } from '@codelab/backend/shared/generic'
+import { CytoscapeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
 import {
   ComponentTypeAdapter,
@@ -88,7 +88,7 @@ const typeServices = [
 const services = [...fieldServices, ...typeServices]
 
 @Module({
-  imports: [CytoscapeModule, TreeModule],
+  imports: [CytoscapeModule],
   providers: [
     TypeResolver,
     FieldResolver,

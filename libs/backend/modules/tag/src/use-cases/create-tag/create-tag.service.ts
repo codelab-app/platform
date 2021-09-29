@@ -5,6 +5,7 @@ import {
   DgraphTag,
   jsonMutation,
 } from '@codelab/backend/infra'
+import { isAdmin } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { CreateTagRequest } from './create-tag.request'
@@ -19,11 +20,11 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
     }
 
     return await this.dgraph.create(txn, (blankNodeUid) =>
-      this.createRootTagMutation(request, blankNodeUid),
+      CreateTagService.createRootTagMutation(request, blankNodeUid),
     )
   }
 
-  private createRootTagMutation(
+  private static createRootTagMutation(
     request: CreateTagRequest,
     blankNodeUid: string,
   ) {
@@ -35,7 +36,7 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
     return jsonMutation<DgraphTag>({
       uid: blankNodeUid,
       name,
-      owner: { uid: currentUser.id },
+      owner: isAdmin(currentUser) ? null : { uid: currentUser.id },
       parent: undefined,
       isRoot: true,
       'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
@@ -59,7 +60,7 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
     const createJson: DgraphCreateMutationJson<DgraphTag> = {
       uid: blankNodeUid,
       name,
-      owner: { uid: currentUser.id },
+      owner: isAdmin(currentUser) ? null : { uid: currentUser.id },
       parent: { uid: parentTagId },
       isRoot: false,
       'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],

@@ -13,7 +13,6 @@ export class DeleteTagsService extends DgraphUseCase<DeleteTagsRequest> {
     txn: Txn,
     { input: { ids } }: DeleteTagsRequest,
   ) {
-    console.log(ids)
     /**
      * https://discuss.dgraph.io/t/using-reverse-in-json-syntax/6414/4
      *

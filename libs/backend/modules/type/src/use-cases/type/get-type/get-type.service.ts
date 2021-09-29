@@ -8,6 +8,10 @@ import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetTypeRequest } from './get-type.request'
 
+type GetTypeQuery = {
+  query: [DgraphType<DgraphEntityType.Type> | null]
+}
+
 @Injectable()
 export class GetTypeService extends DgraphUseCase<
   GetTypeRequest,
@@ -15,13 +19,12 @@ export class GetTypeService extends DgraphUseCase<
 > {
   protected async executeTransaction(request: GetTypeRequest, txn: Txn) {
     if (request.input.where.atomId) {
-      return (
-        await this.dgraph.executeNamedQuery<DgraphType<DgraphEntityType.Type> | null>(
-          txn,
-          GetTypeService.createStringQuery(request),
-          'query',
-        )
-      )[0]
+      const { query } = await this.dgraph.executeQuery<GetTypeQuery>(
+        txn,
+        GetTypeService.getTypeByAtom(request),
+      )
+
+      return query[0]
     }
 
     return this.dgraph.getOne<DgraphType<DgraphEntityType.Type>>(
@@ -69,7 +72,7 @@ export class GetTypeService extends DgraphUseCase<
     throw new Error('Missing parameters')
   }
 
-  private static createStringQuery(request: GetTypeRequest) {
+  private static getTypeByAtom(request: GetTypeRequest) {
     const atomId = request.input.where.atomId
 
     return `

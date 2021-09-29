@@ -1,5 +1,5 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { CytoscapeModule } from '@codelab/backend/shared/generic'
+import { CytoscapeModule, TreeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
 import { DgraphTagAdapter } from './application/dgraph-tag.adapter'
 import { TagAdapter } from './application/tag.adapter'
@@ -37,7 +37,7 @@ const services = [
 ]
 
 @Module({
-  imports: [CytoscapeModule],
+  imports: [CytoscapeModule, TreeModule],
   providers: [TagResolver, ...services, Void],
   exports: [...services],
 })

@@ -7,7 +7,7 @@ import {
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { edgeId } from '../graph/edgeId'
-import { TreeAdapter } from '../tree'
+import { TreeService } from '../tree'
 import { TypeTreeJsonSchemaTransformer } from './jsonSchema'
 import {
   edgeIsOfFieldKind,
@@ -20,8 +20,8 @@ import {
 export class TypeTree<
   TVertex extends ITypeVertex,
   TEdge extends ITypeEdge,
-> extends TreeAdapter<TVertex, TEdge> {
-  constructor(graph?: Graph<TVertex, TEdge> | null) {
+> extends TreeService<TVertex, TEdge> {
+  constructor(graph: Graph<TVertex, TEdge>) {
     const extractEdgeId = (e: TEdge) => {
       if (!e.field?.id) {
         return edgeId(e)

@@ -14,8 +14,6 @@ export class GetTagsService extends DgraphUseCase<
   Array<DgraphTag>
 > {
   protected async executeTransaction(request: GetTagsRequest, txn: Txn) {
-    console.log(request)
-
     return await this.dgraph.getAll<DgraphTag>(
       txn,
       GetTagsService.createQuery(request),

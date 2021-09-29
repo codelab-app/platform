@@ -5,5 +5,5 @@ export interface WithOwnerId {
 }
 
 export interface WithOwner {
-  owner: DgraphUser
+  owner?: DgraphUser
 }

@@ -1,5 +1,6 @@
 import { Graph } from '@codelab/shared/abstract/core'
 import { Field, ObjectType } from '@nestjs/graphql'
+import { Tag } from './tag.model'
 import { TagEdge } from './tag-edge.model'
 import { TagVertex } from './tag-vertex.model'
 
@@ -20,11 +21,8 @@ export class TagGraph implements Graph<TagVertex, TagEdge> {
   })
   declare edges: ReadonlyArray<TagEdge>
 
-  constructor(
-    vertices: ReadonlyArray<TagVertex>,
-    edges: ReadonlyArray<TagEdge>,
-  ) {
-    this.vertices = vertices
-    this.edges = edges
+  constructor({ vertices, edges }: Graph<TagVertex, TagEdge>) {
+    this.vertices = vertices.map((vertex) => new Tag(vertex))
+    this.edges = edges.map((edge) => new TagEdge(edge))
   }
 }

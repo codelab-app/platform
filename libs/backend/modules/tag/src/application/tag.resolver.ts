@@ -2,7 +2,6 @@ import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
 import type { User } from '@codelab/shared/abstract/core'
-import { cLog } from '@codelab/shared/utils'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Tag } from '../domain/tag.model'
@@ -83,6 +82,7 @@ export class TagResolver {
   }
 
   @Mutation(() => Void)
+  @UseGuards(GqlAuthGuard)
   async upsertTag(
     @Args('input') input: UpsertTagInput,
     @CurrentUser() currentUser: User,
@@ -108,8 +108,8 @@ export class TagResolver {
     return this.tagTreeAdapter.mapItem(dgraphTagTree.root)
   }
 
-  @Query(() => [TagGraph], {
-    defaultValue: [],
+  @Query(() => TagGraph, {
+    defaultValue: { vertices: [], edges: [] },
     description:
       'Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge',
   })
@@ -118,23 +118,20 @@ export class TagResolver {
     @CurrentUser() currentUser: User,
     @Args('input', { nullable: true }) input?: GetTagGraphsInput,
   ) {
-    console.log(input)
-
-    const dgraphTagRoots = await this.getTagGraphsService.execute({
+    const tagGraph = await this.getTagGraphsService.execute({
       input,
       currentUser,
     })
 
-    cLog(dgraphTagRoots)
-
-    if (!dgraphTagRoots) {
+    if (!tagGraph) {
       return []
     }
 
-    return this.tagTreeAdapter.map(dgraphTagRoots)
+    return new TagGraph(tagGraph)
   }
 
   @Mutation(() => Void, { nullable: true })
+  @UseGuards(GqlAuthGuard)
   async importTags(
     @Args('input') input: ImportTagsInput,
     @CurrentUser() currentUser: User,
