@@ -9,3 +9,13 @@ fragment Atom on Atom {
     name
   }
 }
+
+fragment AtomBase on Atom {
+  id
+  name
+  type
+  api {
+    id
+    name
+  }
+}

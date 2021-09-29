@@ -1,5 +1,4 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { CreateResponse } from '@codelab/backend/application'
 import {
   GetTypeService,
   InterfaceType,
@@ -48,21 +47,43 @@ export class AtomResolver {
     private importAtomsService: ImportAtomsService,
   ) {}
 
-  @Mutation(() => CreateResponse)
+  @Mutation(() => Atom)
   @Roles(Role.Admin)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  createAtom(
+  async createAtom(
     @Args('input') input: CreateAtomInput,
     @CurrentUser() currentUser: User,
   ) {
-    return this.createAtomService.execute({ input, currentUser })
+    const { id } = await this.createAtomService.execute({ input, currentUser })
+
+    const atom = await this.getAtomService.execute({
+      where: { id },
+    })
+
+    if (!atom) {
+      throw new Error('Atom not created')
+    }
+
+    return this.atomAdapter.mapItem(atom)
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Atom, { nullable: true })
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   async deleteAtom(@Args('input') input: DeleteAtomInput) {
+    const { atomId } = input
+
+    const atom = await this.getAtomService.execute({
+      where: { id: atomId },
+    })
+
+    if (!atom) {
+      throw new Error('Atom not found')
+    }
+
     await this.deleteAtomService.execute(input)
+
+    return this.atomAdapter.mapItem(atom)
   }
 
   @Query(() => [Atom], { nullable: true })
@@ -110,10 +131,22 @@ export class AtomResolver {
     return this.atomAdapter.mapItem(atom)
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Atom, { nullable: true })
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   async updateAtom(@Args('input') input: UpdateAtomInput) {
     await this.updateAtomService.execute(input)
+
+    const { id } = input
+
+    const atom = await this.getAtomService.execute({
+      where: { id },
+    })
+
+    if (!atom) {
+      throw new Error('Atom not found')
+    }
+
+    return this.atomAdapter.mapItem(atom)
   }
 }

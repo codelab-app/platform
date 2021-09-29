@@ -1,6 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { AtomBaseFragment } from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen';
 import { gql } from '@apollo/client';
+import { AtomBaseFragmentDoc } from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestUpdateAtomMutationVariables = Types.Exact<{
@@ -8,14 +10,16 @@ export type TestUpdateAtomMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestUpdateAtomMutation = { updateAtom?: Types.Maybe<void> };
+export type TestUpdateAtomMutation = { updateAtom?: Types.Maybe<AtomBaseFragment> };
 
 
 export const TestUpdateAtomGql = gql`
     mutation TestUpdateAtom($input: UpdateAtomInput!) {
-  updateAtom(input: $input)
+  updateAtom(input: $input) {
+    ...AtomBase
+  }
 }
-    `;
+    ${AtomBaseFragmentDoc}`;
 export type TestUpdateAtomMutationFn = Apollo.MutationFunction<TestUpdateAtomMutation, TestUpdateAtomMutationVariables>;
 
 /**
