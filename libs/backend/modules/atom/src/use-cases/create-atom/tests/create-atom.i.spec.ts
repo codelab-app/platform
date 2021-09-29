@@ -3,11 +3,6 @@ import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { AtomModule } from '../../../atom.module'
-import { GetAtomInput } from '../../get-atom/get-atom.input'
-import {
-  TestGetAtomGql,
-  TestGetAtomQuery,
-} from '../../get-atom/tests/get-atom.api.graphql.gen'
 import { CreateAtomInput } from '../create-atom.input'
 import {
   TestCreateAtomGql,
@@ -50,21 +45,15 @@ describe('CreateAtom', () => {
 
   describe('Admin', () => {
     it('should create an atom', async () => {
-      const {
-        createAtom: { id: atomId },
-      } = await domainRequest<CreateAtomInput, TestCreateAtomMutation>(
-        adminApp,
-        TestCreateAtomGql,
-        createAtomInput,
-      )
+      const { createAtom } = await domainRequest<
+        CreateAtomInput,
+        TestCreateAtomMutation
+      >(adminApp, TestCreateAtomGql, createAtomInput)
 
-      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
-        userApp,
-        TestGetAtomGql,
-        { where: { id: atomId } },
-      )
-
-      expect(atom).toMatchObject({ id: atomId, ...createAtomInput })
+      expect(createAtom).toMatchObject({
+        id: createAtom.id,
+        ...createAtomInput,
+      })
     })
   })
 })

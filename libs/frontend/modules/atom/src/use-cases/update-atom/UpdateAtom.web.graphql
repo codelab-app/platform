@@ -1,3 +1,5 @@
 mutation UpdateAtom($input: UpdateAtomInput!) {
-  updateAtom(input: $input)
+  updateAtom(input: $input) {
+    ...AtomBase
+  }
 }

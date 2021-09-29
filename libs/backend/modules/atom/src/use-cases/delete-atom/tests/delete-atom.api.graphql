@@ -1,3 +1,5 @@
 mutation TestDeleteAtom($input: DeleteAtomInput!) {
-  deleteAtom(input: $input)
+  deleteAtom(input: $input) {
+    ...AtomBase
+  }
 }

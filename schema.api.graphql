@@ -730,10 +730,10 @@ type Mutation {
   createComponent(input: CreateComponentInput!): CreateResponse!
   updateComponent(input: UpdateComponentInput!): Void
   deleteComponent(input: DeleteComponentInput!): Void
-  createAtom(input: CreateAtomInput!): CreateResponse!
-  deleteAtom(input: DeleteAtomInput!): Void
+  createAtom(input: CreateAtomInput!): Atom!
+  deleteAtom(input: DeleteAtomInput!): Atom
   importAtoms(input: ImportAtomsInput!): Void
-  updateAtom(input: UpdateAtomInput!): Void
+  updateAtom(input: UpdateAtomInput!): Atom
   seedBaseTypes: Void
   createType(input: CreateTypeInput!): CreateResponse!
   updateEnumType(input: UpdateEnumTypeInput!): Void

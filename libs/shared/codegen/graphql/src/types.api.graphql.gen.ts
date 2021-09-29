@@ -663,7 +663,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   addHookToElement: CreateResponse;
   createApp: App;
-  createAtom: CreateResponse;
+  createAtom: Atom;
   createComponent: CreateResponse;
   createElement: CreateResponse;
   createField: CreateResponse;
@@ -673,7 +673,7 @@ export type Mutation = {
   createTag: CreateResponse;
   createType: CreateResponse;
   deleteApp?: Maybe<App>;
-  deleteAtom?: Maybe<Scalars['Void']>;
+  deleteAtom?: Maybe<Atom>;
   deleteComponent?: Maybe<Scalars['Void']>;
   /** Deletes an element and all the descending elements */
   deleteElement?: Maybe<Scalars['Void']>;
@@ -692,7 +692,7 @@ export type Mutation = {
   resetData?: Maybe<Scalars['Void']>;
   seedBaseTypes?: Maybe<Scalars['Void']>;
   updateApp?: Maybe<App>;
-  updateAtom?: Maybe<Scalars['Void']>;
+  updateAtom?: Maybe<Atom>;
   updateComponent?: Maybe<Scalars['Void']>;
   updateElement?: Maybe<Scalars['Void']>;
   updateElementProps?: Maybe<Scalars['Void']>;

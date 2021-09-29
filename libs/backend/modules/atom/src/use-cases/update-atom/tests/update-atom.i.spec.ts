@@ -9,11 +9,6 @@ import {
   TestCreateAtomMutation,
 } from '../../create-atom/tests/create-atom.api.graphql.gen'
 import { createAtomInput } from '../../create-atom/tests/create-atom.data'
-import { GetAtomInput } from '../../get-atom/get-atom.input'
-import {
-  TestGetAtomGql,
-  TestGetAtomQuery,
-} from '../../get-atom/tests/get-atom.api.graphql.gen'
 import { UpdateAtomInput } from '../update-atom.input'
 import {
   TestUpdateAtomGql,
@@ -26,7 +21,6 @@ describe('UpdateAtom', () => {
   let adminApp: INestApplication
   let atomId: string
   let updateAtomInput: UpdateAtomInput
-  let getAtomInput: GetAtomInput
 
   beforeAll(async () => {
     guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
@@ -46,8 +40,6 @@ describe('UpdateAtom', () => {
         type: AtomType.AntDesignButton,
       },
     }
-
-    getAtomInput = { where: { id: atomId } }
 
     expect(atomId).toBeDefined()
   })
@@ -76,19 +68,14 @@ describe('UpdateAtom', () => {
 
   describe('Admin', () => {
     it('should update an atom', async () => {
-      await domainRequest<UpdateAtomInput, TestUpdateAtomMutation>(
-        adminApp,
-        TestUpdateAtomGql,
-        updateAtomInput,
-      )
+      const { updateAtom } = await domainRequest<
+        UpdateAtomInput,
+        TestUpdateAtomMutation
+      >(adminApp, TestUpdateAtomGql, updateAtomInput)
 
-      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
-        userApp,
-        TestGetAtomGql,
-        getAtomInput,
-      )
+      expect(updateAtom).toBeDefined()
 
-      expect(atom).toMatchObject({
+      expect(updateAtom).toMatchObject({
         ...updateAtomInput.data,
         id: updateAtomInput.id,
       })
