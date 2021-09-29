@@ -19,30 +19,16 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
   protected async executeTransaction(request: UpdateEnumTypeInput, txn: Txn) {
     await this.validate(request)
 
-    const idsToDelete = await this.getOldValuesToDelete(request)
-    await this.dgraph.executeMutation(
-      txn,
-      this.createMutation(request, idsToDelete),
-    )
+    await this.getOldValuesToDelete(request)
+
+    await this.dgraph.executeMutation(txn, this.createMutation(request))
   }
 
-  private createMutation(
-    { typeId, updateData: { name, allowedValues } }: UpdateEnumTypeInput,
-    idsToDelete: Array<string>,
-  ) {
+  private createMutation({
+    typeId,
+    updateData: { allowedValues, name },
+  }: UpdateEnumTypeInput) {
     const mu: Mutation = {}
-
-    // Delete all EnumTypeValues that are not in the new array
-    mu.deleteNquads = `
-      ${idsToDelete
-        .map(
-          (id) => `
-            <${id}> * * .
-            <${typeId}> <allowedValues> <${id}> .
-          `,
-        )
-        .join(' ')}
-    `
 
     // Create or update all other
     const updateEnumTypeJson: DgraphUpdateMutationJson<DgraphEnumType> = {
@@ -72,8 +58,8 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
     // Fetch all EnumTypeValues that are not in the new array
     const updatedIds = allowedValues.map((av) => av.id).filter((id) => !!id)
 
-    const result = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getAllNamed<{ idToDelete: string }>(
+    await this.dgraph.transactionWrapper((txn) =>
+      this.dgraph.executeUpsert(
         txn,
         `
           {
@@ -83,17 +69,18 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
                   ? `@filter(NOT uid(${updatedIds}))`
                   : ''
               } {
-                idToDelete: uid
+                idToDelete as uid
               }
             }
         }
        `,
-        'query',
+        `
+          delete {
+            uid(idToDelete) * * .
+            <${typeId}> <allowedValues> uid(idToDelete) .
+          }
+        `,
       ),
     )
-
-    return result
-      .filter((r) => !!r && !!r.idToDelete)
-      .map((r) => r.idToDelete as string)
   }
 }
