@@ -30,20 +30,13 @@ export class ImportTagsService extends DgraphUseCase<ImportTagsRequest, any> {
 
   async executeTransaction({ input, currentUser }: ImportTagsRequest) {
     const { payload } = input
-    const tags = JSON.parse(payload)
+    const tagGraph = JSON.parse(payload)
 
-    await this.createTags(tags, currentUser)
+    await this.createTags(tagGraph, currentUser)
   }
 
-  private async createTags(
-    tagGraphs: Array<TestTagGraphFragment>,
-    currentUser: User,
-  ) {
-    return Promise.all(
-      tagGraphs.map(async (tagGraph) => {
-        return await this.createTagGraph(tagGraph, currentUser)
-      }),
-    )
+  private async createTags(tagGraph: TestTagGraphFragment, currentUser: User) {
+    return await this.createTagGraph(tagGraph, currentUser)
   }
 
   private async createTagGraph(

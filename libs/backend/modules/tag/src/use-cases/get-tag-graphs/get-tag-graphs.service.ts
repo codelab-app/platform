@@ -31,8 +31,7 @@ export class GetTagGraphsService extends DgraphUseCase<
           @recurse @normalize {
             id: uid
             name: name
-            isRoot
-            owner
+            isRoot: isRoot
         }
         var(func: eq(dgraph.type, Tag))
           @filter(has(parent))

@@ -13,7 +13,7 @@ import {
   TestImportTagsGql,
   TestImportTagsMutation,
 } from './import-tags.api.graphql.gen'
-import { tagGraphsData } from './import-tags.data'
+import { tagGraphData } from './import-tags.data'
 
 describe('ImportTagsUseCase', () => {
   let guestApp: INestApplication
@@ -51,7 +51,7 @@ describe('ImportTagsUseCase', () => {
         userApp,
         TestImportTagsGql,
         {
-          payload: JSON.stringify(tagGraphsData),
+          payload: JSON.stringify(tagGraphData),
         },
       )
 
@@ -60,7 +60,17 @@ describe('ImportTagsUseCase', () => {
         TestGetTagGraphsQuery
       >(userApp, TestGetTagGraphsGql)
 
-      expect(getTagGraphs).toMatchObject(tagGraphsData)
+      // Remove id's for now
+      expect(getTagGraphs.edges).toMatchObject(
+        tagGraphData.edges.map(({ source, target, ...e }) => ({
+          ...e,
+          source: expect.anything(),
+          target: expect.anything(),
+        })),
+      )
+      expect(getTagGraphs.vertices).toMatchObject(
+        tagGraphData.vertices.map(({ id, ...v }) => v),
+      )
     })
   })
 })

@@ -48,17 +48,15 @@ describe('GetTagGraphsUseCase', () => {
         TestGetTagGraphsQuery
       >(userApp, TestGetTagGraphsGql)
 
-      expect(getTagGraphs).toMatchObject([
-        {
-          vertices: [parentTagData, childTagData],
-          edges: [
-            {
-              source: parentTagId,
-              target: childTagId,
-            },
-          ],
-        },
-      ])
+      expect(getTagGraphs).toMatchObject({
+        vertices: [parentTagData, childTagData],
+        edges: [
+          {
+            source: parentTagId,
+            target: childTagId,
+          },
+        ],
+      })
     })
   })
 })

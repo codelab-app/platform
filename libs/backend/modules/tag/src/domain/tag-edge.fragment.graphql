@@ -1,4 +1,5 @@
 fragment TestTagEdge on TagEdge {
+  __typename
   source
   target
 }
