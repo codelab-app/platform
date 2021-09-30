@@ -74,17 +74,6 @@ export class TypeTreeJsonSchemaTransformer {
       )
     }
 
-    // object,
-    /**
-     * type: 'object'
-     *         properties: {},
-        uniforms: { component: null },
-        label: '',
-
-
-
-     */
-
     const extra = this.options.jsonPropertiesMapper
       ? this.options.jsonPropertiesMapper(type)
       : {}
