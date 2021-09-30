@@ -55,8 +55,9 @@ export class CreateAtomService extends DgraphCreateUseCase<CreateAtomRequest> {
     /**
      * (3) Assign interface
      */
-    const mu: Mutation = {}
-    mu.setNquads = `<${atomId}> <api> <${interfaceId}> .`
+    const mu: Mutation = {
+      setNquads: `<${atomId}> <api> <${interfaceId}> .`,
+    }
 
     await this.dgraph.transactionWrapper(async (_txn) => {
       await this.dgraph.executeMutation(_txn, mu)

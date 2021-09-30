@@ -15,7 +15,9 @@ describe('CreateApp', () => {
   let userApp: INestApplication
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AppModule], { role: Role.Guest })
+    guestApp = await setupTestModule([AppModule], {
+      role: Role.Guest,
+    })
     userApp = await setupTestModule([AppModule], { role: Role.User })
   })
 

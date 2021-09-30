@@ -59,20 +59,24 @@ export const domainRequest = async <
     input,
   })
 
-  const data = await response.then((res: ApiResponse) => {
-    if (expectedError) {
-      expect(res?.body?.errors).toMatchObject([
-        { message: expectedError.message },
-      ])
+  const data = await response
+    .then((res: ApiResponse) => {
+      if (expectedError) {
+        expect(res?.body?.errors).toMatchObject([
+          { message: expectedError.message },
+        ])
 
-      // Satisfy return type
-      return {} as any
-    } else if (res.body.errors) {
-      throw new Error(JSON.stringify(res.body.errors, undefined, 2))
-    }
+        // Satisfy return type
+        return {} as any
+      } else if (res.body.errors) {
+        throw new Error(JSON.stringify(res.body.errors, undefined, 2))
+      }
 
-    return res.body.data
-  })
+      return res.body.data
+    })
+    .catch((e) => {
+      console.error(e)
+    })
 
   // if (!data) {
   //   throw new Error('Data is missing!')
