@@ -66,6 +66,7 @@ const reactNodePipe: RenderPipeFactory =
       reactNodeProps,
       context,
       true,
+      props,
     )
 
     return next(element, context, mergeProps(props, transformedReactNodeProps))
@@ -84,6 +85,8 @@ const renderPropsRenderPipe: RenderPipeFactory =
     const transformedRenderProps = transformPropsToComponent(
       renderProps,
       context,
+      false,
+      props,
     )
 
     return next(element, context, mergeProps(props, transformedRenderProps))

@@ -8,6 +8,7 @@ export const transformPropsToComponent = (
   props: Record<string, any>,
   context: RenderContext<ElementTreeGraphql>,
   isRender = false,
+  allProps: Record<string, any>,
 ) => {
   return _.mapValues(props, (value) => {
     const componentId = value?.id
@@ -29,8 +30,8 @@ export const transformPropsToComponent = (
 
     const rootElement = context.tree.getComponentRootElement(component.id)
 
-    const RenderedPropsComponent = (...args: Array<any>) => {
-      const componentProps = mergeProps(...args)
+    const RenderedPropsComponent = (...spreadComponentProps: Array<any>) => {
+      const componentProps = mergeProps(allProps, ...spreadComponentProps)
 
       const result = context.renderFactory(component, {
         ...context,

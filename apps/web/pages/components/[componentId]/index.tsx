@@ -10,7 +10,10 @@ import {
   ComponentContext,
   withComponentQueryProvider,
 } from '@codelab/frontend/modules/component'
-import { TypeKindsContext } from '@codelab/frontend/modules/type'
+import {
+  TypeKindsContext,
+  withTypeKindProvider,
+} from '@codelab/frontend/modules/type'
 import {
   RenderProvider,
   withEditorProvider,
@@ -44,8 +47,8 @@ const ComponentDetail: CodelabPage = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-ComponentDetail.Template = withEditorProvider(
-  withComponentQueryProvider(DashboardTemplate),
+ComponentDetail.Template = withTypeKindProvider(
+  withEditorProvider(withComponentQueryProvider(DashboardTemplate)),
 )
 ComponentDetail.MainPane = MainPaneBuilderComponent
 ComponentDetail.MetaPane = MetaPaneBuilderComponent
