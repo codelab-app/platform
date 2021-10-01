@@ -24,7 +24,7 @@
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test --testPathPattern=[^i].spec.ts --parallel && nx run-many --all --target=test --testPathPattern=i.spec.ts --runInBand",
     "lint": "nx workspace-lint && nx run-many --all --target=lint",
-    "lint:graphql": "prettier --write '**/*.{graphql,yaml}'",
+    "lint:prettier": "prettier --write '**/*.{graphql,yaml,json}'",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
     "affected:build": "nx affected:build",

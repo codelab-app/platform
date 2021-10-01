@@ -84,16 +84,12 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -118,13 +114,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/api/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "apps/api/.eslintrc.ci.json"
@@ -133,9 +125,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/api"
-          ],
+          "outputs": ["coverage/apps/api"],
           "options": {
             "jestConfig": "apps/api/jest.config.js",
             "passWithNoTests": true
@@ -151,13 +141,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/abstract/core/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/abstract/core/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/abstract/core/.eslintrc.ci.json"
@@ -166,9 +152,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/abstract/core"
-          ],
+          "outputs": ["coverage/libs/backend/abstract/core"],
           "options": {
             "jestConfig": "libs/backend/abstract/core/jest.config.js",
             "passWithNoTests": true
@@ -184,13 +168,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/abstract/types/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/abstract/types/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/abstract/types/.eslintrc.ci.json"
@@ -199,9 +179,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/abstract/types"
-          ],
+          "outputs": ["coverage/libs/backend/abstract/types"],
           "options": {
             "jestConfig": "libs/backend/abstract/types/jest.config.js",
             "passWithNoTests": true
@@ -217,13 +195,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/application/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/application/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/application/.eslintrc.ci.json"
@@ -232,9 +206,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/application"
-          ],
+          "outputs": ["coverage/libs/backend/application"],
           "options": {
             "jestConfig": "libs/backend/application/jest.config.js",
             "passWithNoTests": true
@@ -251,13 +223,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/infra/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/backend/infra/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/infra/.eslintrc.ci.json"
@@ -270,9 +238,7 @@
             "jestConfig": "libs/backend/infra/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/backend/infra"
-          ]
+          "outputs": ["coverage/libs/backend/infra"]
         }
       }
     },
@@ -284,13 +250,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/modules/admin/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/modules/admin/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/modules/admin/.eslintrc.ci.json"
@@ -299,9 +261,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/modules/admin"
-          ],
+          "outputs": ["coverage/libs/backend/modules/admin"],
           "options": {
             "jestConfig": "libs/backend/modules/admin/jest.config.js",
             "passWithNoTests": true
@@ -317,13 +277,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/modules/app/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/modules/app/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/modules/app/.eslintrc.ci.json"
@@ -332,9 +288,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/modules/app"
-          ],
+          "outputs": ["coverage/libs/backend/modules/app"],
           "options": {
             "jestConfig": "libs/backend/modules/app/jest.config.js",
             "passWithNoTests": true
@@ -350,13 +304,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/modules/atom/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/modules/atom/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/modules/atom/.eslintrc.ci.json"
@@ -365,9 +315,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/modules/atom"
-          ],
+          "outputs": ["coverage/libs/backend/modules/atom"],
           "options": {
             "jestConfig": "libs/backend/modules/atom/jest.config.js",
             "passWithNoTests": true
@@ -383,13 +331,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/modules/element/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/modules/element/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/modules/element/.eslintrc.ci.json"
@@ -398,9 +342,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/modules/element"
-          ],
+          "outputs": ["coverage/libs/backend/modules/element"],
           "options": {
             "jestConfig": "libs/backend/modules/element/jest.config.js",
             "passWithNoTests": true
@@ -416,13 +358,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/modules/hook/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/modules/hook/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/modules/hook/.eslintrc.ci.json"
@@ -431,9 +369,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/modules/hook"
-          ],
+          "outputs": ["coverage/libs/backend/modules/hook"],
           "options": {
             "jestConfig": "libs/backend/modules/hook/jest.config.js",
             "passWithNoTests": true
@@ -449,13 +385,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/modules/lambda/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/modules/lambda/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/modules/lambda/.eslintrc.ci.json"
@@ -464,9 +396,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/modules/lambda"
-          ],
+          "outputs": ["coverage/libs/backend/modules/lambda"],
           "options": {
             "jestConfig": "libs/backend/modules/lambda/jest.config.js",
             "passWithNoTests": true
@@ -482,13 +412,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/modules/page/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/modules/page/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/modules/page/.eslintrc.ci.json"
@@ -497,9 +423,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/modules/page"
-          ],
+          "outputs": ["coverage/libs/backend/modules/page"],
           "options": {
             "jestConfig": "libs/backend/modules/page/jest.config.js",
             "passWithNoTests": true
@@ -515,13 +439,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/modules/tag/**/*.{ts,graphql}"
-            ]
+            "lintFilePatterns": ["libs/backend/modules/tag/**/*.{ts,graphql}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/modules/tag/.eslintrc.ci.json"
@@ -530,9 +450,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/modules/tag"
-          ],
+          "outputs": ["coverage/libs/backend/modules/tag"],
           "options": {
             "jestConfig": "libs/backend/modules/tag/jest.config.js",
             "passWithNoTests": true
@@ -552,9 +470,7 @@
               "libs/backend/modules/type/**/*.{ts,tsx,js,jsx,graphql}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/modules/type/.eslintrc.ci.json"
@@ -563,9 +479,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/modules/type"
-          ],
+          "outputs": ["coverage/libs/backend/modules/type"],
           "options": {
             "jestConfig": "libs/backend/modules/type/jest.config.js",
             "passWithNoTests": true
@@ -581,13 +495,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/modules/user/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/modules/user/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/modules/user/.eslintrc.ci.json"
@@ -596,9 +506,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/modules/user"
-          ],
+          "outputs": ["coverage/libs/backend/modules/user"],
           "options": {
             "jestConfig": "libs/backend/modules/user/jest.config.js",
             "passWithNoTests": true
@@ -613,13 +521,9 @@
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/nestjs/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/nestjs/**/*.ts"]
           },
           "configurations": {
             "ci": {
@@ -637,13 +541,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/shared/generic/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/shared/generic/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/shared/generic/.eslintrc.ci.json"
@@ -652,9 +552,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/backend/shared/generic"
-          ],
+          "outputs": ["coverage/libs/backend/shared/generic"],
           "options": {
             "jestConfig": "libs/backend/shared/generic/jest.config.js",
             "passWithNoTests": true
@@ -670,13 +568,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/backend/shared/utils/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/backend/shared/utils/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/backend/shared/utils/.eslintrc.ci.json"
@@ -692,16 +586,12 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/cli",
             "main": "apps/cli/src/main.ts",
             "tsConfig": "apps/cli/tsconfig.app.json",
-            "assets": [
-              "apps/cli/src/assets"
-            ]
+            "assets": ["apps/cli/src/assets"]
           },
           "configurations": {
             "production": {
@@ -728,13 +618,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/cli/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/cli/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "apps/cli/.eslintrc.ci.json"
@@ -743,9 +629,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/cli"
-          ],
+          "outputs": ["coverage/apps/cli"],
           "options": {
             "jestConfig": "apps/cli/jest.config.js",
             "passWithNoTests": true
@@ -765,9 +649,7 @@
               "libs/frontend/abstract/core/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/abstract/core/.eslintrc.ci.json"
@@ -776,9 +658,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/frontend/abstract/core"
-          ],
+          "outputs": ["coverage/libs/frontend/abstract/core"],
           "options": {
             "jestConfig": "libs/frontend/abstract/core/jest.config.js",
             "passWithNoTests": true
@@ -798,9 +678,7 @@
               "libs/frontend/abstract/props/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/abstract/props/.eslintrc.ci.json"
@@ -821,9 +699,7 @@
               "libs/frontend/model/domain/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/model/domain/.eslintrc.ci.json"
@@ -844,9 +720,7 @@
               "libs/frontend/model/infra/apollo/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/model/infra/apollo/.eslintrc.ci.json"
@@ -867,9 +741,7 @@
               "libs/frontend/model/state/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/model/state/.eslintrc.ci.json"
@@ -890,9 +762,7 @@
               "libs/frontend/modules/admin/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/admin/.eslintrc.ci.json"
@@ -901,9 +771,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/frontend/modules/admin"
-          ],
+          "outputs": ["coverage/libs/frontend/modules/admin"],
           "options": {
             "jestConfig": "libs/frontend/modules/admin/jest.config.js",
             "passWithNoTests": true
@@ -923,9 +791,7 @@
               "libs/frontend/modules/app/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/app/.eslintrc.ci.json"
@@ -946,9 +812,7 @@
               "libs/frontend/modules/atom/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/atom/.eslintrc.ci.json"
@@ -969,9 +833,7 @@
               "libs/frontend/modules/builder/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/builder/.eslintrc.ci.json"
@@ -992,9 +854,7 @@
               "libs/frontend/modules/category/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/category/.eslintrc.ci.json"
@@ -1015,9 +875,7 @@
               "libs/frontend/modules/component/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/component/.eslintrc.ci.json"
@@ -1034,13 +892,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/frontend/modules/element/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/frontend/modules/element/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/element/.eslintrc.ci.json"
@@ -1061,9 +915,7 @@
               "libs/frontend/modules/lambda/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/lambda/.eslintrc.ci.json"
@@ -1084,9 +936,7 @@
               "libs/frontend/modules/library/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/library/.eslintrc.ci.json"
@@ -1107,9 +957,7 @@
               "libs/frontend/modules/page/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/page/.eslintrc.ci.json"
@@ -1130,9 +978,7 @@
               "libs/frontend/modules/style/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/style/.eslintrc.ci.json"
@@ -1153,9 +999,7 @@
               "libs/frontend/modules/tag/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/tag/.eslintrc.ci.json"
@@ -1164,9 +1008,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/frontend/modules/tag"
-          ],
+          "outputs": ["coverage/libs/frontend/modules/tag"],
           "options": {
             "jestConfig": "libs/frontend/modules/tag/jest.config.js",
             "passWithNoTests": true
@@ -1186,9 +1028,7 @@
               "libs/frontend/modules/type/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/type/.eslintrc.ci.json"
@@ -1209,9 +1049,7 @@
               "libs/frontend/modules/user/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/user/.eslintrc.ci.json"
@@ -1232,9 +1070,7 @@
               "libs/frontend/presenter/container/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/presenter/container/.eslintrc.ci.json"
@@ -1255,9 +1091,7 @@
               "libs/frontend/shared/types/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/shared/types/.eslintrc.ci.json"
@@ -1278,9 +1112,7 @@
               "libs/frontend/shared/utils/**/*.{ts,tsx,js,jsx}"
             ]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/shared/utils/.eslintrc.ci.json"
@@ -1289,9 +1121,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/frontend/shared/utils"
-          ],
+          "outputs": ["coverage/libs/frontend/shared/utils"],
           "options": {
             "jestConfig": "libs/frontend/shared/utils/jest.config.js",
             "passWithNoTests": true
@@ -1307,13 +1137,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/frontend/style/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/frontend/style/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/style/.eslintrc.ci.json"
@@ -1330,13 +1156,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/frontend/view/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/frontend/view/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/view/.eslintrc.ci.json"
@@ -1353,13 +1175,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/abstract/core/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/abstract/core/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/shared/abstract/core/.eslintrc.ci.json"
@@ -1368,9 +1186,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/shared/abstract/core"
-          ],
+          "outputs": ["coverage/libs/shared/abstract/core"],
           "options": {
             "jestConfig": "libs/shared/abstract/core/jest.config.js",
             "passWithNoTests": true
@@ -1386,13 +1202,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/abstract/types/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/abstract/types/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/shared/abstract/types/.eslintrc.ci.json"
@@ -1409,13 +1221,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/codegen/graphql/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/codegen/graphql/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/shared/codegen/graphql/.eslintrc.ci.json"
@@ -1424,9 +1232,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/shared/codegen/graphql"
-          ],
+          "outputs": ["coverage/libs/shared/codegen/graphql"],
           "options": {
             "jestConfig": "libs/shared/codegen/graphql/jest.config.js",
             "passWithNoTests": true
@@ -1442,13 +1248,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/core/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/core/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/shared/core/.eslintrc.ci.json"
@@ -1465,13 +1267,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/utils/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/utils/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/shared/utils/.eslintrc.ci.json"
@@ -1480,9 +1278,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/shared/utils"
-          ],
+          "outputs": ["coverage/libs/shared/utils"],
           "options": {
             "jestConfig": "libs/shared/utils/jest.config.js",
             "passWithNoTests": true
@@ -1498,13 +1294,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/tools/plugins/codelab/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/tools/plugins/codelab/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/tools/plugins/codelab/.eslintrc.ci.json"
@@ -1513,9 +1305,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/tools/plugins/codelab"
-          ],
+          "outputs": ["coverage/libs/tools/plugins/codelab"],
           "options": {
             "jestConfig": "libs/tools/plugins/codelab/jest.config.js",
             "passWithNoTests": true
@@ -1523,9 +1313,7 @@
         },
         "build": {
           "builder": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/libs/tools/plugins/codelab",
             "tsConfig": "libs/tools/plugins/codelab/tsconfig.lib.json",
@@ -1571,13 +1359,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/tools/scripts/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/tools/scripts/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/tools/scripts/.eslintrc.ci.json"
@@ -1594,13 +1378,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui/d3/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/ui/d3/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "libs/ui/d3/.eslintrc.ci.json"
@@ -1609,9 +1389,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ui/d3"
-          ],
+          "outputs": ["coverage/libs/ui/d3"],
           "options": {
             "jestConfig": "libs/ui/d3/jest.config.js",
             "passWithNoTests": true
@@ -1634,9 +1412,7 @@
         },
         "build-storybook": {
           "builder": "@nrwl/storybook:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/ui-d3",
@@ -1660,9 +1436,7 @@
       "architect": {
         "build": {
           "builder": "@nrwl/next:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "root": "apps/web",
             "outputPath": "dist/apps/web"
@@ -1710,13 +1484,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/web/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "apps/web/.eslintrc.ci.json"
@@ -1729,9 +1499,7 @@
             "jestConfig": "apps/web/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/web"
-          ]
+          "outputs": ["coverage/apps/web"]
         },
         "storybook": {
           "builder": "@nrwl/storybook:storybook",
@@ -1750,9 +1518,7 @@
         },
         "build-storybook": {
           "builder": "@nrwl/storybook:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "uiFramework": "@storybook/react",
             "outputPath": "dist/storybook/web",
@@ -1876,13 +1642,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/web-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/web-e2e/**/*.{js,ts}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
               "eslintConfig": "apps/web-e2e/.eslintrc.ci.json"

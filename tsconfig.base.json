@@ -2,10 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
-    "rootDirs": [
-      "*",
-      "libs"
-    ],
+    "rootDirs": ["*", "libs"],
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -16,19 +13,9 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2015",
-    "types": [
-      "node",
-      "worker-loader",
-      "window"
-    ],
-    "typeRoots": [
-      "node_modules/@types",
-      "types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "types": ["node", "worker-loader", "window"],
+    "typeRoots": ["node_modules/@types", "types"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -39,18 +26,12 @@
       "@codelab/backend/abstract/types": [
         "libs/backend/abstract/types/src/index.ts"
       ],
-      "@codelab/backend/application": [
-        "libs/backend/application/src/index.ts"
-      ],
-      "@codelab/backend/infra": [
-        "libs/backend/infra/src/index.ts"
-      ],
+      "@codelab/backend/application": ["libs/backend/application/src/index.ts"],
+      "@codelab/backend/infra": ["libs/backend/infra/src/index.ts"],
       "@codelab/backend/modules/admin": [
         "libs/backend/modules/admin/src/index.ts"
       ],
-      "@codelab/backend/modules/app": [
-        "libs/backend/modules/app/src/index.ts"
-      ],
+      "@codelab/backend/modules/app": ["libs/backend/modules/app/src/index.ts"],
       "@codelab/backend/modules/atom": [
         "libs/backend/modules/atom/src/index.ts"
       ],
@@ -66,18 +47,14 @@
       "@codelab/backend/modules/page": [
         "libs/backend/modules/page/src/index.ts"
       ],
-      "@codelab/backend/modules/tag": [
-        "libs/backend/modules/tag/src/index.ts"
-      ],
+      "@codelab/backend/modules/tag": ["libs/backend/modules/tag/src/index.ts"],
       "@codelab/backend/modules/type": [
         "libs/backend/modules/type/src/index.ts"
       ],
       "@codelab/backend/modules/user": [
         "libs/backend/modules/user/src/index.ts"
       ],
-      "@codelab/backend/nestjs": [
-        "libs/backend/nestjs/src/index.ts"
-      ],
+      "@codelab/backend/nestjs": ["libs/backend/nestjs/src/index.ts"],
       "@codelab/backend/shared/generic": [
         "libs/backend/shared/generic/src/index.ts"
       ],
@@ -90,18 +67,14 @@
       "@codelab/frontend/abstract/props": [
         "libs/frontend/abstract/props/src/index.ts"
       ],
-      "@codelab/frontend/cytoscape": [
-        "libs/frontend/cytoscape/src/index.ts"
-      ],
+      "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
       "@codelab/frontend/model/domain": [
         "libs/frontend/model/domain/src/index.ts"
       ],
       "@codelab/frontend/model/infra/apollo": [
         "libs/frontend/model/infra/apollo/src/index.ts"
       ],
-      "@codelab/frontend/model/state": [
-        "libs/frontend/model/state/index.ts"
-      ],
+      "@codelab/frontend/model/state": ["libs/frontend/model/state/index.ts"],
       "@codelab/frontend/model/state/local": [
         "libs/frontend/model/state/local/index.ts"
       ],
@@ -168,9 +141,7 @@
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],
-      "@codelab/frontend/style": [
-        "libs/frontend/style/src/index.ts"
-      ],
+      "@codelab/frontend/style": ["libs/frontend/style/src/index.ts"],
       "@codelab/frontend/view/components": [
         "libs/frontend/view/components/index.ts"
       ],
@@ -189,27 +160,14 @@
       "@codelab/shared/codegen/graphql": [
         "libs/shared/codegen/graphql/src/index.ts"
       ],
-      "@codelab/shared/core": [
-        "libs/shared/core/src/index.ts"
-      ],
-      "@codelab/shared/utils": [
-        "libs/shared/utils/src/index.ts"
-      ],
+      "@codelab/shared/core": ["libs/shared/core/src/index.ts"],
+      "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
       ],
-      "@codelab/tools/scripts": [
-        "libs/tools/scripts/src/index.ts"
-      ],
-      "@codelab/ui/d3": [
-        "libs/ui/d3/src/index.ts"
-      ]
+      "@codelab/tools/scripts": ["libs/tools/scripts/src/index.ts"],
+      "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp",
-    "dist",
-    ".gqlcodegen"
-  ]
+  "exclude": ["node_modules", "tmp", "dist", ".gqlcodegen"]
 }
