@@ -6,7 +6,11 @@ import {
   isDgraphComponent,
   isDgraphElement,
 } from '@codelab/backend/infra'
-import { TypeGraphAdapter } from '@codelab/backend/modules/type'
+import {
+  TypeEdge,
+  TypeGraphAdapter,
+  TypeVertex,
+} from '@codelab/backend/modules/type'
 import {
   breadthFirstTraversal,
   CytoscapeService,
@@ -291,7 +295,7 @@ export class ElementTreeAdapter extends BaseAdapter<
 
   private async parseNodeTypeTree(
     node: DgraphElement,
-  ): Promise<TypeTree | null> {
+  ): Promise<TypeTree<TypeVertex, TypeEdge> | null> {
     if (!node?.atom?.api) {
       return null
     }
@@ -303,7 +307,7 @@ export class ElementTreeAdapter extends BaseAdapter<
 
   private getComponentIdFromProps(
     nodeProps: Record<string, any> | null,
-    tree: TypeTree | null,
+    tree: TypeTree<TypeVertex, TypeEdge> | null,
     type: TypeKind,
   ) {
     if (!nodeProps || !tree) {
@@ -334,7 +338,7 @@ export class ElementTreeAdapter extends BaseAdapter<
 
   private async getComponentIdsFromProps(
     nodeProps: Record<string, any> | null,
-    tree: TypeTree | null,
+    tree: TypeTree<TypeVertex, TypeEdge> | null,
   ): Promise<Array<string>> {
     if (!nodeProps || !tree) {
       return []
