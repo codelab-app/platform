@@ -65,7 +65,7 @@ export class TypeTreeJsonSchemaTransformer {
    * Since the TypeFragment is flat, doesn't contain any nested types in itself, only references
    * them by id, an external source is needed for them to be transformed too
    */
-  typeToJsonProperty(type: ITypeVertex): Record<string, any> {
+  typeToJsonProperty(type: ITypeVertex, field: IField): Record<string, any> {
     this.iteration++
 
     if (this.iteration > (this.options.maxNesting || 100)) {
@@ -79,6 +79,27 @@ export class TypeTreeJsonSchemaTransformer {
       : {}
 
     switch (type.typeKind) {
+      case TypeKind.ReactNodeType:
+      case TypeKind.RenderPropsType:
+        return {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              label: field.name || field.key,
+              ...extra,
+            },
+            type: {
+              type: 'string',
+              uniforms: { component: () => null },
+              label: '',
+              default: type.id,
+            },
+          },
+          uniforms: { component: null },
+          label: '',
+        }
+
       case TypeKind.PrimitiveType:
         return {
           ...extra,
@@ -99,7 +120,7 @@ export class TypeTreeJsonSchemaTransformer {
         return {
           ...extra,
           type: 'array',
-          items: this.typeToJsonProperty(itemType),
+          items: this.typeToJsonProperty(itemType, field),
         }
       }
 
@@ -155,12 +176,13 @@ export class TypeTreeJsonSchemaTransformer {
 
     for (const field of fields) {
       const type = this.typeTree.getFieldType(field.id)
+      const fieldSchema = this.typeToJsonProperty(type, field) as any
+      console.log({ fieldSchema })
 
-      if (type) {
-        properties[field.key] = {
-          ...(this.typeToJsonProperty(type) as any),
-          label: field.name || field.key,
-        }
+      properties[field.key] = {
+        ...fieldSchema,
+        label:
+          'label' in fieldSchema ? fieldSchema.label : field.name || field.key,
       }
     }
 

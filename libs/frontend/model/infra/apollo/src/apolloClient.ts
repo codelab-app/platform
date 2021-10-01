@@ -54,6 +54,8 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
           'LambdaType',
           'ElementType',
           'ComponentType',
+          'RenderPropsType',
+          'ReactNodeType',
         ],
         PropValue: [
           'ArrayValue',

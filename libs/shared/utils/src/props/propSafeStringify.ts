@@ -1,3 +1,5 @@
+import React from 'react'
+
 export const propSafeStringify = (props: any, maskFunctions = true) => {
   const obj: Record<string, any> = {}
 
@@ -11,10 +13,15 @@ export const propSafeStringify = (props: any, maskFunctions = true) => {
 
   const cache: Array<any> | null = []
 
-  return JSON.stringify(
+  const result = JSON.stringify(
     obj,
     (k, v) => {
       if (k === 'children' && typeof v === 'object') {
+        return
+      }
+
+      // handle ReactNodetype
+      if (React.isValidElement(v)) {
         return
       }
 
@@ -36,4 +43,6 @@ export const propSafeStringify = (props: any, maskFunctions = true) => {
     },
     4,
   )
+
+  return result
 }

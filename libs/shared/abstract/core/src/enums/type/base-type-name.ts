@@ -11,4 +11,6 @@ export enum BaseTypeName {
   Boolean = 'Boolean',
   Float = 'Float',
   Integer = 'Integer',
+  RenderProps = 'RenderProps',
+  ReactNode = 'ReactNode',
 }

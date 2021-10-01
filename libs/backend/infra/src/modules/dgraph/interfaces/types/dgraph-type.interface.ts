@@ -5,6 +5,8 @@ import { DgraphEnumType } from './dgraph-enum-type'
 import { DgraphInterfaceType } from './dgraph-interface-type'
 import { DgraphLambdaType } from './dgraph-lambda-type'
 import { DgraphPrimitiveType } from './dgraph-primitive-type'
+import { DgraphReactNodeType } from './dgraph-react-node-type'
+import { DgraphRenderPropsType } from './dgraph-render-props-type'
 
 export type DgraphTypeUnion =
   | DgraphInterfaceType
@@ -14,3 +16,5 @@ export type DgraphTypeUnion =
   | DgraphLambdaType
   | DgraphElementType
   | DgraphComponentType
+  | DgraphRenderPropsType
+  | DgraphReactNodeType

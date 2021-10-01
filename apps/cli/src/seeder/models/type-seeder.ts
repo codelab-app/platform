@@ -19,6 +19,10 @@ import {
   CustomAtomApiFactory,
   CustomAtomApiFactoryInput,
 } from '../utils/customAtomApi'
+import {
+  isReactNodeTypeRegex,
+  isRenderPropType,
+} from '../utils/isRenderPropType'
 import { AtomSeeder } from './atom-seeder'
 
 /**
@@ -238,6 +242,18 @@ export class TypeSeeder {
 
     if (!this.baseTypes) {
       throw new Error("call seedBaseTypes before seeding Atom's API")
+    }
+
+    if (isReactNodeTypeRegex.test(type)) {
+      return {
+        existingTypeId: this.baseTypes.get(BaseTypeName.ReactNode) as string,
+      }
+    }
+
+    if (isRenderPropType(type)) {
+      return {
+        existingTypeId: this.baseTypes.get(BaseTypeName.RenderProps) as string,
+      }
     }
 
     switch (type) {

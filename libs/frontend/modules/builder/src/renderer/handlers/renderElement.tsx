@@ -7,6 +7,7 @@ import {
   RenderContext,
   RenderOutput,
 } from '@codelab/frontend/presenter/container'
+import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import { compose } from 'ramda'
@@ -18,6 +19,8 @@ import { RenderPipe, RenderPipeFactory } from '../types/RenderPipe'
 import { applyBinding } from '../utils/applyBinding'
 import { evalCss } from '../utils/evalCss'
 import { evaluateRenderIfPropKey } from '../utils/evaluateRenderIfPropKey'
+import { getPropsByTypeKind } from '../utils/getPropsByTypeKind'
+import { transformPropsToComponent } from '../utils/tranformPropsToComponent'
 
 // TODO: split this in multiple files
 
@@ -49,6 +52,46 @@ const basePropsPipe: RenderPipeFactory =
 /**
  * Adds the persisted element props (element.props)
  */
+const reactNodePipe: RenderPipeFactory =
+  (next) => (element, context, props) => {
+    const { typeKindsById } = context
+
+    const reactNodeProps = getPropsByTypeKind(
+      props,
+      TypeKind.ReactNodeType,
+      typeKindsById,
+    )
+
+    const transformedReactNodeProps = transformPropsToComponent(
+      reactNodeProps,
+      context,
+      true,
+      props,
+    )
+
+    return next(element, context, mergeProps(props, transformedReactNodeProps))
+  }
+
+const renderPropsRenderPipe: RenderPipeFactory =
+  (next) => (element, context, props) => {
+    const { typeKindsById } = context
+
+    const renderProps = getPropsByTypeKind(
+      props,
+      TypeKind.RenderPropsType,
+      typeKindsById,
+    )
+
+    const transformedRenderProps = transformPropsToComponent(
+      renderProps,
+      context,
+      false,
+      props,
+    )
+
+    return next(element, context, mergeProps(props, transformedRenderProps))
+  }
+
 const persistedPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
     try {
@@ -368,6 +411,8 @@ const propModifiersPipeline = compose(
 
 // (3). All the pipes that output ReactElements
 const renderPipeline = compose(
+  renderPropsRenderPipe,
+  reactNodePipe,
   conditionalRenderPipe,
   elementsComponentPipe,
   elementsAtomPipe,

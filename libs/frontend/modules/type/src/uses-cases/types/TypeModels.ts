@@ -16,4 +16,6 @@ export const TypeModels: TypeModelsType = {
   LambdaType: 'LambdaType',
   ElementType: 'ElementType',
   ComponentType: 'ComponentType',
+  RenderPropsType: 'RenderPropsType',
+  ReactNodeType: 'ReactNodeType',
 }

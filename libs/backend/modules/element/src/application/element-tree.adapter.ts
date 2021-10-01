@@ -6,7 +6,11 @@ import {
   isDgraphComponent,
   isDgraphElement,
 } from '@codelab/backend/infra'
-import { TypeGraphAdapter } from '@codelab/backend/modules/type'
+import {
+  TypeEdge,
+  TypeGraphAdapter,
+  TypeVertex,
+} from '@codelab/backend/modules/type'
 import {
   breadthFirstTraversal,
   CytoscapeService,
@@ -168,17 +172,19 @@ export class ElementTreeAdapter extends BaseAdapter<
         atomContext.set(node.atom.uid, node.atom)
       }
 
-      cy.add({
-        data: {
-          id: node.uid,
-          parent: parentNode?.uid,
+      if (cy.getElementById(node.uid).length === 0) {
+        cy.add({
           data: {
-            ...node,
-            'children|order': undefined,
-            children: undefined,
+            id: node.uid,
+            parent: parentNode?.uid,
+            data: {
+              ...node,
+              'children|order': undefined,
+              children: undefined,
+            },
           },
-        },
-      })
+        })
+      }
 
       if (parentNode) {
         cy.add({
@@ -222,9 +228,34 @@ export class ElementTreeAdapter extends BaseAdapter<
 
       // We can provide Component ids as props. Since they are likely outside the tree, we need
       // to fetch them and put them in there, so they're available
-      const componentIdsFromProps = await this.getComponentIdsFromProps(node)
+      const props = this.parseNodeProps(node)
+      const typeTree = await this.parseNodeTypeTree(node)
+
+      const componentIdsFromProps = await this.getComponentIdsFromProps(
+        props,
+        typeTree,
+      )
 
       componentIdsFromProps.forEach((id) => extraComponentsRef.add(id))
+
+      const renderPropsComponentIdsFromProps =
+        await this.getComponentIdFromProps(
+          props,
+          typeTree,
+          TypeKind.RenderPropsType,
+        )
+
+      renderPropsComponentIdsFromProps.forEach((id) =>
+        extraComponentsRef.add(id),
+      )
+
+      const reactNodeComponentIdsFromProps = await this.getComponentIdFromProps(
+        props,
+        typeTree,
+        TypeKind.ReactNodeType,
+      )
+
+      reactNodeComponentIdsFromProps.forEach((id) => extraComponentsRef.add(id))
 
       // Edge case alert:
       // sort the children by ID, because it seems that that's how dgraph executes the query
@@ -246,32 +277,80 @@ export class ElementTreeAdapter extends BaseAdapter<
     }
   }
 
-  private async getComponentIdsFromProps(
-    node: DgraphElement,
-  ): Promise<Array<string>> {
-    if (!node?.props || !node?.atom?.api) {
-      return []
+  private parseNodeProps(node: DgraphElement): Record<string, any> | null {
+    if (!node?.props) {
+      return null
     }
 
-    let props: Record<string, any>
-
     try {
-      props = JSON.parse(node.props)
+      const props = JSON.parse(node.props)
+
+      return props
     } catch (e) {
       Logger.error(`Error while parsing props ${node.props}.`, e)
 
-      return []
+      return null
+    }
+  }
+
+  private async parseNodeTypeTree(
+    node: DgraphElement,
+  ): Promise<TypeTree<TypeVertex, TypeEdge> | null> {
+    if (!node?.atom?.api) {
+      return null
     }
 
     const typeGraph = await this.typeGraphAdapter.mapItem(node.atom.api)
-    const tree = new TypeTree(typeGraph)
+
+    return new TypeTree(typeGraph)
+  }
+
+  private getComponentIdFromProps(
+    nodeProps: Record<string, any> | null,
+    tree: TypeTree<TypeVertex, TypeEdge> | null,
+    type: TypeKind,
+  ) {
+    if (!nodeProps || !tree) {
+      return []
+    }
+
+    const propsTypeRenderProps = tree.getFieldsByTypeKind(type)
+
+    return propsTypeRenderProps
+      .map(({ key }) => {
+        const prop = _.get(nodeProps, key)
+        const componentId = prop?.id
+
+        if (componentId) {
+          if (typeof componentId !== 'string') {
+            Logger.error(`component id at ${key} isn't a string`)
+
+            return null
+          }
+
+          return componentId
+        }
+
+        return null
+      })
+      .filter((ids) => ids) as Array<string>
+  }
+
+  private async getComponentIdsFromProps(
+    nodeProps: Record<string, any> | null,
+    tree: TypeTree<TypeVertex, TypeEdge> | null,
+  ): Promise<Array<string>> {
+    if (!nodeProps || !tree) {
+      return []
+    }
+
     const allComponentFields = tree.getFieldsByTypeKind(TypeKind.ComponentType)
 
     if (allComponentFields.length) {
       const componentKeys = this.getKeysWithComponentType(tree)
 
       if (componentKeys.length > 0) {
-        return this.getAllValuesByKeys(componentKeys, props)
+        return this.getAllValuesByKeys(componentKeys, nodeProps)
       }
     }
 

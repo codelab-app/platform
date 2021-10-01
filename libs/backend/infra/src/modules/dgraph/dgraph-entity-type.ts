@@ -28,4 +28,6 @@ export enum DgraphEntityType {
   Lambda = 'Lambda',
   Hook = 'Hook',
   PropMapBinding = 'PropMapBinding',
+  RenderPropsType = 'RenderPropsType',
+  ReactNodeType = 'ReactNodeType',
 }

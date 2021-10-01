@@ -9,6 +9,8 @@ export type ITypeVertex =
   | IInterfaceTypeVertex
   | ILambdaTypeVertex
   | IPrimitiveTypeVertex
+  | IRenderPropsTypeVertex
+  | IReactNodeTypeVertex
 
 export interface IBaseTypeVertex extends Vertex {
   name: string
@@ -16,6 +18,8 @@ export interface IBaseTypeVertex extends Vertex {
 }
 
 export type ILambdaTypeVertex = IBaseTypeVertex
+export type IRenderPropsTypeVertex = IBaseTypeVertex
+export type IReactNodeTypeVertex = IBaseTypeVertex
 
 export type IComponentTypeVertex = IBaseTypeVertex
 

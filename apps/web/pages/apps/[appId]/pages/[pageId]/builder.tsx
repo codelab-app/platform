@@ -10,6 +10,7 @@ import {
   PageContext,
   withPageQueryProvider,
 } from '@codelab/frontend/modules/page'
+import { withTypeKindProvider } from '@codelab/frontend/modules/type'
 import {
   AppPagesGql,
   AppPagesQuery,
@@ -94,7 +95,9 @@ export const getServerSideProps = withPageAuthRequired({
 })
 
 PageBuilder.Header = BuilderHeader
-PageBuilder.Template = withPageQueryProvider(DashboardTemplate)
+PageBuilder.Template = withTypeKindProvider(
+  withPageQueryProvider(DashboardTemplate),
+)
 PageBuilder.SidebarNavigation = SidebarNavigation
 PageBuilder.MainPane = MainPaneBuilderPage
 PageBuilder.MetaPane = MetaPaneBuilderPage

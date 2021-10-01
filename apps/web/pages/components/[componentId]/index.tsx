@@ -11,6 +11,10 @@ import {
   withComponentQueryProvider,
 } from '@codelab/frontend/modules/component'
 import {
+  TypeKindsContext,
+  withTypeKindProvider,
+} from '@codelab/frontend/modules/type'
+import {
   RenderProvider,
   withEditorProvider,
 } from '@codelab/frontend/presenter/container'
@@ -24,13 +28,14 @@ import React, { useContext } from 'react'
 
 const ComponentDetail: CodelabPage = () => {
   const { component, tree } = useContext(ComponentContext)
+  const { typeKindsById } = useContext(TypeKindsContext)
 
   if (!tree || !component) {
     return <Empty />
   }
 
   return (
-    <RenderProvider context={defaultRenderContext({ tree })}>
+    <RenderProvider context={defaultRenderContext({ tree, typeKindsById })}>
       <Head>
         <title>{component.name} | Codelab</title>
       </Head>
@@ -42,8 +47,8 @@ const ComponentDetail: CodelabPage = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-ComponentDetail.Template = withEditorProvider(
-  withComponentQueryProvider(DashboardTemplate),
+ComponentDetail.Template = withTypeKindProvider(
+  withEditorProvider(withComponentQueryProvider(DashboardTemplate)),
 )
 ComponentDetail.MainPane = MainPaneBuilderComponent
 ComponentDetail.MetaPane = MetaPaneBuilderComponent

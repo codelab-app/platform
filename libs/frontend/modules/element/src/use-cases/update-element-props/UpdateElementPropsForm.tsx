@@ -1,12 +1,20 @@
+// TODO: restucture module page to get rid of this error later
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import {
+  PageContext,
+  refetchGetPageQuery,
+} from '@codelab/frontend/modules/page'
 import {
   InterfaceForm,
+  TypeKindsContext,
   useGetTypeGraphQuery,
   useTypeTree,
 } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { usePromisesLoadingIndicator } from '@codelab/frontend/view/components'
+import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { Spin } from 'antd'
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import {
   refetchGetElementQuery,
   useGetElementQuery,
@@ -20,6 +28,22 @@ interface UpdateElementPropsFormInternalProps {
   loadingStateKey: string
 }
 
+const hasDataType = (
+  data: Record<string, any>,
+  typeKinds: Array<TypeKind>,
+  typeKindsById: Record<string, TypeKind>,
+) => {
+  return Object.values(data).some((value) => {
+    const valueTypeKind = typeKindsById[value?.type]
+
+    if (!valueTypeKind) {
+      return false
+    }
+
+    return typeKinds.includes(valueTypeKind)
+  })
+}
+
 const UpdateElementPropsFormInternal = ({
   interfaceId,
   elementId,
@@ -27,16 +51,30 @@ const UpdateElementPropsFormInternal = ({
   loadingStateKey,
 }: UpdateElementPropsFormInternalProps) => {
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
+  const { typeKindsById } = useContext(TypeKindsContext)
+  const [isRefetchPage, needRefetchPage] = React.useState(false)
 
   const { data: interfaceData, loading: interfaceLoading } =
     useGetTypeGraphQuery({
       variables: { input: { where: { id: interfaceId } } },
     })
 
-  const [mutate, { loading: updating, error, data: updateData }] =
-    useUpdateElementPropsMutation({
-      refetchQueries: [refetchGetElementQuery({ input: { elementId } })],
-    })
+  const { pageId } = useContext(PageContext)
+
+  const [mutate] = useUpdateElementPropsMutation({
+    refetchQueries: () => {
+      const queries: Array<any> = [
+        refetchGetElementQuery({ input: { elementId } }),
+      ]
+
+      if (isRefetchPage) {
+        queries.push(refetchGetPageQuery({ input: { pageId } }))
+        needRefetchPage(false)
+      }
+
+      return queries
+    },
+  })
 
   const initialPropsRef = useRef(JSON.parse(existingProps))
   const tree = useTypeTree(interfaceData?.getTypeGraph)
@@ -57,7 +95,17 @@ const UpdateElementPropsFormInternal = ({
         key={elementId}
         interfaceTree={tree}
         model={initialPropsRef.current}
-        onSubmit={(data) =>
+        onSubmit={(data: any) => {
+          if (
+            hasDataType(
+              data,
+              [TypeKind.RenderPropsType, TypeKind.ReactNodeType],
+              typeKindsById,
+            )
+          ) {
+            needRefetchPage(true)
+          }
+
           trackPromise(
             mutate({
               variables: {
@@ -68,7 +116,7 @@ const UpdateElementPropsFormInternal = ({
               },
             }),
           )
-        }
+        }}
       />
     </div>
   )

@@ -8,8 +8,10 @@ import {
   InterfaceType,
   LambdaType,
   PrimitiveType,
+  ReactNodeType,
   Type,
 } from './index'
+import { RenderPropsType } from './types/render-props-type.model'
 
 interface TypeDefinition {
   typeModelClass: { new (...args: Array<any>): Type<TypeKind> }
@@ -19,6 +21,16 @@ interface TypeDefinition {
 
 /** A single source of truth that connects type kinds throughout all layers */
 export const typeDefinitions: Array<TypeDefinition> = [
+  {
+    typeModelClass: ReactNodeType,
+    typeKind: TypeKind.ReactNodeType,
+    dgraphType: DgraphEntityType.ReactNodeType,
+  },
+  {
+    typeModelClass: RenderPropsType,
+    typeKind: TypeKind.RenderPropsType,
+    dgraphType: DgraphEntityType.RenderPropsType,
+  },
   {
     typeModelClass: ArrayType,
     typeKind: TypeKind.ArrayType,

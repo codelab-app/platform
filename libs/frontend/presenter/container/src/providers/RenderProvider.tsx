@@ -1,3 +1,4 @@
+import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { ElementTree } from '@codelab/shared/core'
 import React, { useContext } from 'react'
 
@@ -50,6 +51,7 @@ export interface RenderContext<
 
   /** Set to true to log rendering information */
   inspect?: boolean
+  typeKindsById: Record<string, TypeKind>
 }
 
 // If you need to modify some value, provide a new RenderContextProvider, with new values
@@ -59,6 +61,7 @@ const RenderContext = React.createContext<RenderContext<any>>({
   tree: null!,
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   renderFactory: null!,
+  typeKindsById: {},
 })
 
 export const RenderProvider = <TTree extends ElementTree<any, any, any>>({

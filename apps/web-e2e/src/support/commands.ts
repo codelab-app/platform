@@ -2,9 +2,21 @@ import '@testing-library/cypress/add-commands'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
 import { createApp, deleteApp } from './app'
-import { createAtom } from './atom'
-import { createElement, createPropBinding } from './element'
-import { createPage, getPage } from './page'
+import { createAtom, getAtom } from './atom'
+import {
+  createComponent,
+  getComponentElements,
+  getComponentRootElementId,
+} from './component'
+import { createElement, createPropBinding, updateElementProps } from './element'
+import { createField } from './field'
+import {
+  createPage,
+  createPageFromScratch,
+  getPage,
+  goToPageByAliasId,
+} from './page'
+import { createType } from './type'
 import { getCurrentUserId } from './user'
 
 // ***********************************************
@@ -24,7 +36,15 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable<Subject> {
+      getComponentRootElementId: typeof getComponentRootElementId
+      updateElementProps: typeof updateElementProps
+      createType: typeof createType
+      getComponentElements: typeof getComponentElements
+      getAtom: typeof getAtom
+      createField: typeof createField
+      createPageFromScratch: typeof createPageFromScratch
       getCurrentUserId: typeof getCurrentUserId
+      goToPageByAliasId: typeof goToPageByAliasId
       getByTestId: typeof getByTestId
       resetDgraphData: typeof resetDgraphData
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
@@ -121,11 +141,13 @@ const getByTestId = (testId: string, selectorAddon?: string) => {
 
 Cypress.Commands.add('getByTestId', getByTestId)
 
-const createComponent = (libraryId: string, label = 'Test component') => {
-  return new Promise((resolve, reject) => reject('not implemeneted'))
+type CreateAppInput = CreateAppMutationVariables['input']
+
+const defaultCreateAppInput: CreateAppInput = {
+  name: 'Test app',
 }
 
-Cypress.Commands.add('createComponent', createComponent)
+type DeleteAppInput = DeleteAppMutationVariables['input']
 
 export const findByButtonText = (
   subject: any,

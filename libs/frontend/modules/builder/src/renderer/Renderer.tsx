@@ -1,11 +1,12 @@
 import { ElementTreeGraphql } from '@codelab/frontend/modules/element'
+import { TypeKindsContext } from '@codelab/frontend/modules/type'
 import {
   RenderContext,
   RenderProvider,
 } from '@codelab/frontend/presenter/container'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { isEqual } from 'lodash'
-import React from 'react'
+import React, { useContext } from 'react'
 import { defaultRenderContext } from './defaultRenderContext'
 
 export interface RendererProps {
@@ -18,8 +19,11 @@ export interface RendererProps {
  */
 export const Renderer = React.memo<RendererProps>(
   ({ tree, context: contextProp }: RendererProps) => {
+    const { typeKindsById } = useContext(TypeKindsContext)
+
     const context = defaultRenderContext({
       ...contextProp,
+      typeKindsById,
       tree,
     })
 

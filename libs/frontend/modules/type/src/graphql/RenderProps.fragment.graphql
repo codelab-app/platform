@@ -1,0 +1,4 @@
+fragment RenderPropsType on RenderPropsType {
+  id
+  name
+}

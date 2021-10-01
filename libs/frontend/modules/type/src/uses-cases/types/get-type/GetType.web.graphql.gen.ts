@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { Type_ArrayType_Fragment, Type_ComponentType_Fragment, Type_ElementType_Fragment, Type_EnumType_Fragment, Type_InterfaceType_Fragment, Type_LambdaType_Fragment, Type_PrimitiveType_Fragment } from '../../../graphql/Type.fragment.graphql.gen';
+import { Type_ArrayType_Fragment, Type_ComponentType_Fragment, Type_ElementType_Fragment, Type_EnumType_Fragment, Type_InterfaceType_Fragment, Type_LambdaType_Fragment, Type_PrimitiveType_Fragment, Type_ReactNodeType_Fragment, Type_RenderPropsType_Fragment } from '../../../graphql/Type.fragment.graphql.gen';
 import { gql } from '@apollo/client';
 import { TypeFragmentDoc } from '../../../graphql/Type.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
@@ -10,7 +10,7 @@ export type GetTypeQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetTypeQuery = { getType?: Types.Maybe<Type_ArrayType_Fragment | Type_ComponentType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PrimitiveType_Fragment> };
+export type GetTypeQuery = { getType?: Types.Maybe<Type_ArrayType_Fragment | Type_ComponentType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PrimitiveType_Fragment | Type_ReactNodeType_Fragment | Type_RenderPropsType_Fragment> };
 
 
 export const GetTypeGql = gql`
