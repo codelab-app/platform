@@ -3,9 +3,19 @@ import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'
-import { TestImportTagsGql } from './import-tags.api.graphql.gen'
+import { GetTagGraphsInput } from '../../get-tag-graphs'
+import {
+  TestGetTagGraphsGql,
+  TestGetTagGraphsQuery,
+} from '../../get-tag-graphs/tests/get-tag-graphs.api.graphql.gen'
+import { ImportTagsInput } from '../import-tags.input'
+import {
+  TestImportTagsGql,
+  TestImportTagsMutation,
+} from './import-tags.api.graphql.gen'
+import { tagGraphData } from './import-tags.data'
 
-describe.skip('ImportTagsUseCase', () => {
+describe('ImportTagsUseCase', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
   let adminApp: INestApplication
@@ -22,38 +32,45 @@ describe.skip('ImportTagsUseCase', () => {
     await teardownTestModule(adminApp)
   })
 
-  describe('Guest', () => {
-    it('should fail to create a Tag', async () => {
-      await domainRequest(
-        guestApp,
+  // describe('Guest', () => {
+  //   it('should fail to import tags', async () => {
+  //     await domainRequest(
+  //       guestApp,
+  //       TestImportTagsGql,
+  //       {},
+  //       {
+  //         message: 'Unauthorized',
+  //       },
+  //     )
+  //   })
+  // })
+
+  describe('User', () => {
+    it('should import tags', async () => {
+      await domainRequest<ImportTagsInput, TestImportTagsMutation>(
+        userApp,
         TestImportTagsGql,
-        {},
         {
-          message: 'Unauthorized',
+          payload: JSON.stringify(tagGraphData),
         },
+      )
+
+      const { getTagGraphs } = await domainRequest<
+        GetTagGraphsInput,
+        TestGetTagGraphsQuery
+      >(userApp, TestGetTagGraphsGql)
+
+      // Remove id's for now
+      expect(getTagGraphs.edges).toMatchObject(
+        tagGraphData.edges.map(({ source, target, ...e }) => ({
+          ...e,
+          source: expect.anything(),
+          target: expect.anything(),
+        })),
+      )
+      expect(getTagGraphs.vertices).toMatchObject(
+        tagGraphData.vertices.map(({ id, ...v }) => v),
       )
     })
   })
-
-  // describe('User', () => {
-  //   it('should create an App', async () => {
-  //     const {
-  //       createApp: { id: appId },
-  //     } = await domainRequest<ImportTagsInput, ImportTagsMutation>(
-  //       userApp,
-  //       ImportTagsGql,
-  //       createAppInput,
-  //     )
-
-  //     expect(appId).toBeDefined()
-
-  //     const { getApp: app } = await domainRequest<GetAppInput, GetAppQuery>(
-  //       userApp,
-  //       GetAppGql,
-  //       { byId: { appId } },
-  //     )
-
-  //     expect(app).toMatchObject({ ...createAppInput, id: appId })
-  //   })
-  // })
 })

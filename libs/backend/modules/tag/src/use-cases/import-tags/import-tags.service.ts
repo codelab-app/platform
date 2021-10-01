@@ -4,6 +4,7 @@ import {
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
+import { TreeProvider, TreeTokens } from '@codelab/backend/shared/generic'
 import { User } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { TestTagGraphFragment } from '../../domain/tag-graph.fragment.graphql.gen'
@@ -21,71 +22,65 @@ export class ImportTagsService extends DgraphUseCase<ImportTagsRequest, any> {
     dgraph: DgraphRepository,
     private createTagService: CreateTagService,
     private upsertTagService: UpsertTagService,
+    @Inject(TreeTokens.Service)
+    private treeProvider: TreeProvider,
   ) {
     super(dgraph)
   }
 
   async executeTransaction({ input, currentUser }: ImportTagsRequest) {
     const { payload } = input
-    const tags = JSON.parse(payload)
+    const tagGraph = JSON.parse(payload)
 
-    // return await this.dgraph.executeMutation(txn, this.createMutation(request))
-    await this.createTags(tags, currentUser)
+    await this.createTags(tagGraph, currentUser)
   }
 
-  private async createTags(
-    tagGraphs: Array<TestTagGraphFragment>,
-    currentUser: User,
-  ) {
-    return Promise.all(
-      tagGraphs.map(async (tagGraph) => {
-        return await this.createTagGraph(tagGraph, currentUser)
-      }),
-    )
+  private async createTags(tagGraph: TestTagGraphFragment, currentUser: User) {
+    return await this.createTagGraph(tagGraph, currentUser)
   }
 
   private async createTagGraph(
     tagGraph: TestTagGraphFragment,
     currentUser: User,
   ) {
-    const { vertices = [], edges = [] } = tagGraph
+    const operations: Array<(_: Map<string, string>) => Promise<any>> = []
+    const treeService = this.treeProvider(tagGraph)
 
-    /**
-     * Create all the root vertices first, then traverse down
-     */
-    const verticesIdMap = vertices
-      .filter((v) => v.isRoot)
-      .reduce(async (vertexIdMap, vertex) => {
-        const currentVertexId = await this.upsertTagService.execute({
+    treeService.bfsVisit((v, e, u, i, depth) => {
+      const vertex = v?.data()
+      const edge = e?.data()
+      const parent = u?.data()
+
+      /**
+       * Queue up promise operations for later
+       *
+       * Since the traversal is using old id, we'll need to map that to new id's
+       *
+       * We use the traversal to build up our map here
+       */
+      operations.push(async (_vertexIdsMap: Map<string, string>) => {
+        const { id } = await this.upsertTagService.execute({
           input: {
-            where: {
+            where: { name: vertex.name },
+            data: {
               name: vertex.name,
+              parentTagId: parent ? _vertexIdsMap.get(parent.id) : undefined,
             },
-            data: vertex,
           },
           currentUser,
         })
 
-        ;(await vertexIdMap).set(vertex.id, currentVertexId)
+        _vertexIdsMap.set(vertex.id, id)
 
-        return vertexIdMap
-      }, Promise.resolve(new Map<string, string>()))
-
-    // await Promise.all(
-    //   edge.map((edge) => {
-    //     //
-    //   }),
-    // )
-
-    this.dgraph.transactionWrapper(async (txn) => {
-      await this.dgraph.executeMutation(txn, this.createMutation())
+        return _vertexIdsMap
+      })
     })
-  }
 
-  /**
-   * Go throughGo through all vertices to create tags, then connect them with edges
-   */
-  private createMutation() {
-    return {}
+    /**
+     * We build up the vertex ids map as we call each operation
+     */
+    return operations.reduce(async (_vertexIdsMap, operation) => {
+      return await operation(await _vertexIdsMap)
+    }, Promise.resolve(new Map<string, string>()))
   }
 }

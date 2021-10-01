@@ -1,4 +1,4 @@
-import { DgraphUseCase } from '@codelab/backend/application'
+import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -8,7 +8,10 @@ import { UpdateTagService } from '../update-tag'
 import { UpsertTagRequest } from './upsert-tag.request'
 
 @Injectable()
-export class UpsertTagService extends DgraphUseCase<UpsertTagRequest, any> {
+export class UpsertTagService extends DgraphUseCase<
+  UpsertTagRequest,
+  CreateResponse
+> {
   constructor(
     dgraph: DgraphRepository,
     private getTagService: GetTagService,
@@ -32,12 +35,14 @@ export class UpsertTagService extends DgraphUseCase<UpsertTagRequest, any> {
       const tag = await this.getTagService.execute({ where: { id: where.id } })
 
       if (tag) {
-        return await this.updateTagService.execute({
+        await this.updateTagService.execute({
           input: {
             id: tag.uid,
             data,
           },
         })
+
+        return { id: tag.uid }
       }
     }
 
@@ -47,12 +52,14 @@ export class UpsertTagService extends DgraphUseCase<UpsertTagRequest, any> {
       })
 
       if (tag) {
-        return await this.updateTagService.execute({
+        await this.updateTagService.execute({
           input: {
             id: tag.uid,
             data,
           },
         })
+
+        return { id: tag.uid }
       }
     }
 

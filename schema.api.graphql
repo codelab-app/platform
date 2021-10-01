@@ -567,7 +567,7 @@ type Query {
   """
   Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
   """
-  getTagGraphs(input: GetTagGraphsInput): [TagGraph!]!
+  getTagGraphs(input: GetTagGraphsInput): TagGraph!
 }
 
 input GetUserInput {

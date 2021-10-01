@@ -31,10 +31,7 @@ export class DgraphTagAdapter extends BaseAdapter<
       },
     })
 
-    const { edges, vertices } = this.cytoscapeService.treeToGraph<
-      TagVertex,
-      TagEdge
-    >(
+    const graph = this.cytoscapeService.treeToGraph<TagVertex, TagEdge>(
       cy,
       (vertex) => {
         return new Tag(vertex)
@@ -44,7 +41,7 @@ export class DgraphTagAdapter extends BaseAdapter<
       },
     )
 
-    return new TagGraph(vertices, edges)
+    return new TagGraph(graph)
   }
 
   private visit(cy: Core, node: DgraphTag, parentNode?: DgraphTag) {

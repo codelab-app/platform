@@ -10,7 +10,7 @@ export type ExportTagsQueryVariables = Types.Exact<{
 }>;
 
 
-export type ExportTagsQuery = { getTagGraphs: Array<TagGraphFragment> };
+export type ExportTagsQuery = { getTagGraphs: TagGraphFragment };
 
 
 export const ExportTagsGql = gql`

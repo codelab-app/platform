@@ -8,7 +8,7 @@ const defaultOptions =  {}
 export type GetTagGraphsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetTagGraphsQuery = { getTagGraphs: Array<TagGraphFragment> };
+export type GetTagGraphsQuery = { getTagGraphs: TagGraphFragment };
 
 
 export const GetTagGraphsGql = gql`

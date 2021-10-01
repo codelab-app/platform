@@ -1,6 +1,9 @@
 import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
 import { DataNode } from 'antd/lib/tree'
-import cytoscape, { SingularElementArgument } from 'cytoscape'
+import cytoscape, {
+  SearchVisitFunction,
+  SingularElementArgument,
+} from 'cytoscape'
 import { getEdgeOrder } from '../cytoscape/edge'
 import { getCyElementData } from '../cytoscape/element'
 import { edgeId } from '../graph/edgeId'
@@ -9,8 +12,8 @@ import { filterPredicate, InstancePredicate, Predicate } from './treePredicate'
 /**
  * The TreeAdapter implements the Graph port interface. Think of the GraphQL server data as the contract, and we're adapting to that.
  */
-export class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
-  protected readonly cy: cytoscape.Core
+export class TreeService<TVertex extends Vertex, TEdge extends Edge> {
+  public readonly cy: cytoscape.Core
 
   root?: TVertex
 
@@ -20,11 +23,9 @@ export class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
   predicate: Predicate<TVertex> = () => true
 
   constructor(
-    graph?: Graph<TVertex, TEdge> | null,
+    { vertices, edges }: Graph<TVertex, TEdge> = { vertices: [], edges: [] },
     extractEdgeId?: (edge: TEdge) => string,
   ) {
-    const vertices = graph?.vertices ?? []
-    const edges = graph?.edges ?? []
     const parentsMap = new Map<string, string>()
 
     edges.forEach((edge) => {
@@ -79,6 +80,16 @@ export class TreeAdapter<TVertex extends Vertex, TEdge extends Edge> {
       key: element.id,
       title: element.name,
     }
+  }
+
+  /**
+   * Wrapper around bfs visit function
+   */
+  bfsVisit(visit: SearchVisitFunction) {
+    return this.cy.elements().bfs({
+      root: this.cy.elements().roots().first(),
+      visit,
+    })
   }
 
   getAntdTree(): DataNode {

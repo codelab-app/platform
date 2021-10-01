@@ -17,7 +17,7 @@ export class ElementTreeGraphql extends ElementTree<
   ComponentVertexFragment,
   ElementEdgeFragment
 > {
-  constructor(graph: ElementGraphGraphql | null | undefined) {
+  constructor(graph: ElementGraphGraphql) {
     super(graph, undefined, isElement, isComponent)
   }
 }

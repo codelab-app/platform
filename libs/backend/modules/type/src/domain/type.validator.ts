@@ -62,7 +62,7 @@ export class TypeValidator {
     }
 
     const results = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.executeNamedQuery(
+      this.dgraph.executeNamedQuery<Array<DgraphType<any>>>(
         txn,
         `{
           query(func: eq(dgraph.type, ${DgraphEntityType.PrimitiveType})) @filter(eq(primitiveKind, ${request.primitiveType?.primitiveKind})) {

@@ -13,6 +13,8 @@ import {
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
+import * as shell from 'shelljs'
+import { env } from '../../../../../jest/setupFiles'
 import { InfrastructureModule } from '../infrastructure.module'
 
 type NestModule =
@@ -23,7 +25,6 @@ type NestModule =
 
 interface TestOptions {
   role: Role
-  resetDb?: boolean
 }
 
 export const setupTestModule = async (
@@ -33,7 +34,7 @@ export const setupTestModule = async (
     testModule: TestingModuleBuilder,
   ) => TestingModuleBuilder = (x) => x,
 ): Promise<INestApplication> => {
-  const { role, resetDb = true } = options
+  const { role } = options
 
   let testModuleBuilder: TestingModuleBuilder = await Test.createTestingModule({
     imports: [InfrastructureModule, ...nestModules],
@@ -81,11 +82,6 @@ export const setupTestModule = async (
 
   await app.init()
 
-  if (resetDb) {
-    // await getDgraphProviderFromTestModule(app).updateDqlSchema()
-    await getDgraphProviderFromTestModule(app).resetData()
-  }
-
   return app
 }
 
@@ -95,4 +91,8 @@ export const getDgraphProviderFromTestModule = (app: INestApplication) => {
 
 export const teardownTestModule = async (app: INestApplication) => {
   await app.close()
+}
+
+export const resetData = () => {
+  shell.exec(`yarn cli dgraph reset-data --env ${env}`)
 }

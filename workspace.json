@@ -1459,15 +1459,13 @@
             "buildTarget": "web:build",
             "dev": true,
             "port": 3000,
-            "maxWorkers": 4,
-            "memoryLimit": 2048
+            "maxWorkers": 4
           },
           "configurations": {
-            "ci": {
-              "memoryLimit": 4096
-            },
+            "ci": {},
             "test": {
               "buildTarget": "web:build:test",
+              "memoryLimit": 4096,
               "port": 3001
             },
             "dev": {},
@@ -1627,7 +1625,7 @@
                   "forwardAllArgs": false
                 },
                 {
-                  "command": "npx next start dist/apps/web-test --port 3001",
+                  "command": "next start dist/apps/web-test --port 3001",
                   "forwardAllArgs": false
                 },
                 {

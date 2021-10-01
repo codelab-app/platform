@@ -6,8 +6,7 @@ import { TypeGraphFragment } from '../graphql/TypeGraph.fragment.graphql.gen'
 // Type tree composed of graphql fragments
 export class TypeTreeGraphql extends TypeTree<TypeFragment, TypeEdgeFragment> {
   // Not useless - constricts to a specific input type
-  // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-  constructor(graph: TypeGraphFragment | undefined | null) {
+  constructor(graph: TypeGraphFragment) {
     super(graph)
   }
 }

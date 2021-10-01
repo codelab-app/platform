@@ -264,15 +264,15 @@ jobs:
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-            - ~/.cache/Cypress
+            # - ~/.cache/Cypress
             - ~/project/node_modules
-            - ~/project/dist/apps/web/.next/cache
+            # - ~/project/dist/apps/web/.next/cache
       - persist_to_workspace:
           root: ~/
           paths:
             - project/node_modules
             - project/dist
-            - .cache/Cypress
+            # - .cache/Cypress
       - notify-failure
 
   lint:
@@ -308,7 +308,7 @@ jobs:
       - setup-workspace
       # Since integration doesn't require frontend, we reserve 8081 for e2e & use 8082 here instead
       - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_INTEGRATION_ENDPOINT}"'
-      - setup-dgraph
+      # - setup-dgraph
       - run: make integration-ci
       - notify-failure
 

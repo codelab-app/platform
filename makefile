@@ -14,24 +14,14 @@ terraform-lint:
 #
 # BUILD
 #
-lambda:
-	aws lambda create-function \
-		--region ap-east-1 \
-		--function-name HelloWorld \
-		--zip-file fileb://~/Sites/Codelab/codelab/function.zip \
-		--role arn:aws:iam::810113963961:role/codelab-aws-lambda \
-		--handler index.handler \
-		--runtime nodejs14.x
-		# --profile adminuser \
-		# --timeout 10 \
-		# --memory-size 1024
 
 # Next build hardcoded env vars into the compilation, since this build will be used by Cypress, we'll want to use test env
 #
 build-dev-affected:
-	npx env-cmd -f .env.test nx affected:build \
+	 ./scripts/nx.sh affected:build \
 		--configuration test \
 		--parallel \
+		--verbose \
 
 build-ci:
 	npx nx run-many \
@@ -52,7 +42,7 @@ lint-commit-ci:
 	npx commitlint --from="${CIRCLE_BASE_REVISION}" --to="${CIRCLE_REVISION}"
 
 lint-eslint-ci:
-	yarn affected:lint --configuration ci && npx prettier --check '**/*.{graphql,yaml}'
+	yarn affected:lint --configuration ci --parallel --maxParallel=5 && npx prettier --check '**/*.{graphql,yaml,json}'
 
 lint-circular-dep:
 	yarn madge --circular apps libs --extensions ts,tsx,js,jsx
@@ -102,12 +92,14 @@ unit-dev-affected:
 		--testPathPattern=[^i].spec.ts \
 		--silent \
 		--memoryLimit=4096 \
-		--parallel
+		--parallel \
+		--color
 
 unit-ci:
 	npx nx run-many \
 		--testPathPattern=[^i].spec.ts \
 		--target=test \
 		--all \
-		--verbose
+		--verbose \
+		--color
 

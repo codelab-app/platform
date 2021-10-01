@@ -5,6 +5,7 @@ import {
   HttpLink,
   InMemoryCache,
 } from '@apollo/client'
+import { FactoryProvider } from '@nestjs/common'
 import { fetch } from 'cross-fetch'
 import {
   ApolloClientConfig,
@@ -17,7 +18,7 @@ import { ApolloClientTokens } from './config/apollo-client.tokens'
  *
  * We don't want to fetch token here, because this would be called before module initialization. Instead call before the actual usage of the client
  */
-export const apolloClientProvider = {
+export const apolloClientProvider: FactoryProvider = {
   provide: ApolloClientTokens.ApolloClientProvider,
   useFactory: async (_apolloClientConfig: ApolloClientConfig) => {
     const httpLink = new HttpLink({

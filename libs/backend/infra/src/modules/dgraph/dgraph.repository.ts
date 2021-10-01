@@ -87,11 +87,20 @@ export class DgraphRepository {
   /**
    * Performs a query with the provided query builder and extracts the json data
    */
-  async executeQuery<TResult>(
+  async executeQuery<TResult, TVars = { [k: string]: any }>(
     txn: Txn,
-    qb: DgraphQueryBuilder,
-  ): Promise<Array<TResult>> {
-    return this.executeNamedQuery(txn, qb.build(), qb.queryName)
+    qb: DgraphQueryBuilder | string,
+    vars?: TVars,
+  ): Promise<TResult> {
+    if (typeof qb === 'string') {
+      if (vars) {
+        return (await txn.queryWithVars(qb, vars)).data as TResult
+      }
+
+      return (await txn.query(qb)).data as TResult
+    }
+
+    return this.executeNamedQuery<TResult>(txn, qb.build(), qb.queryName)
   }
 
   /**
@@ -101,8 +110,8 @@ export class DgraphRepository {
     txn: Txn,
     query: string,
     queryName: string,
-  ): Promise<Array<TResult>> {
-    return ((await txn.query(query)).data as any)[queryName] || null
+  ): Promise<TResult> {
+    return ((await txn.query(query)).data as any)[queryName]
   }
 
   /**
@@ -291,7 +300,7 @@ export class DgraphRepository {
         ? await queryOrFactory()
         : queryOrFactory
 
-    const response = await this.executeNamedQuery<TResponse>(
+    const response = await this.executeNamedQuery<Array<TResponse>>(
       txn,
       query,
       queryName,
@@ -305,7 +314,7 @@ export class DgraphRepository {
   }
 
   /** Same as executeNamedQuery */
-  async getAllNamed<T>(
+  async getAllNamed<TResult>(
     txn: Txn,
     queryOrFactory: string | QueryFactoryFn,
     queryName: string,
@@ -315,11 +324,11 @@ export class DgraphRepository {
         ? await queryOrFactory()
         : queryOrFactory
 
-    return this.executeNamedQuery<T>(txn, query, queryName)
+    return this.executeNamedQuery<Array<TResult>>(txn, query, queryName)
   }
 
   /** Same as executeQuery */
-  async getAll<T>(
+  async getAll<TResult>(
     txn: Txn,
     queryOrFactory: DgraphQueryBuilder | QueryBuilderFactoryFn,
   ) {
@@ -328,6 +337,6 @@ export class DgraphRepository {
         ? await queryOrFactory()
         : queryOrFactory
 
-    return this.executeQuery<T>(txn, query)
+    return this.executeQuery<Array<TResult>>(txn, query)
   }
 }

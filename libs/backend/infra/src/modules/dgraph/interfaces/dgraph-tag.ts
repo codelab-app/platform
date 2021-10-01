@@ -15,7 +15,7 @@ export class DgraphTag
 {
   declare name: string
 
-  declare owner: DgraphUser
+  declare owner?: DgraphUser
 
   declare parent?: DgraphTag
 

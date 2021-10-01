@@ -14,7 +14,7 @@ module.exports = {
       }),
     ],
     // https://github.com/microsoft/monaco-editor-webpack-plugin/issues/90
-    extensions: ['.tsx', '.ts', '.js', 'css', 'scss'],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   plugins: [new MonacoWebpackPlugin()],
   // in order to ignore built-in modules like path, fs,
