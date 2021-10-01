@@ -25,8 +25,8 @@ export class DgraphCliService {
     try {
       const results = await this.dgraphService.updateDqlSchema()
 
-      shell.echo('Update Scheme process completed!')
-      console.log(results)
+      shell.echo('Update scheme process completed!')
+      // console.log(results)
       shell.exit(0)
     } catch (e) {
       console.error(e)
@@ -41,7 +41,7 @@ export class DgraphCliService {
     try {
       await this.dgraphService.resetData()
 
-      shell.echo('Reset Data process completed!')
+      shell.echo('Reset data process completed!')
       shell.exit(0)
     } catch (e) {
       console.error(e)

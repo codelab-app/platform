@@ -308,7 +308,7 @@ jobs:
       - setup-workspace
       # Since integration doesn't require frontend, we reserve 8081 for e2e & use 8082 here instead
       - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_INTEGRATION_ENDPOINT}"'
-      - setup-dgraph
+      # - setup-dgraph
       - run: make integration-ci
       - notify-failure
 

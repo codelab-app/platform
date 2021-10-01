@@ -42,7 +42,7 @@ lint-commit-ci:
 	npx commitlint --from="${CIRCLE_BASE_REVISION}" --to="${CIRCLE_REVISION}"
 
 lint-eslint-ci:
-	yarn affected:lint --configuration ci --parallel --maxParallel=5 && npx prettier --check '**/*.{graphql,yaml}'
+	yarn affected:lint --configuration ci --parallel --maxParallel=5 && npx prettier --check '**/*.{graphql,yaml,json}'
 
 lint-circular-dep:
 	yarn madge --circular apps libs --extensions ts,tsx,js,jsx
