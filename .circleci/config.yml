@@ -22,15 +22,15 @@ filters-master: &filters-master
 
 filters-staging: &filters-staging
   filters:
-    branches:
+    tags:
       only:
-        - staging
+        - /^(stag-)(\d|[1-9]\d*)\.(\d|[1-9]\d*)\.(\d|[1-9]\d*)$/
 
 filters-prod: &filters-prod
   filters:
-    branches:
+    tags:
       only:
-        - production
+        - /^(prod-)(\d|[1-9]\d*)\.(\d|[1-9]\d*)\.(\d|[1-9]\d*)$/
 
 executor-params: &executor-params
   parameters:
