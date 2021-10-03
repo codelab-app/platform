@@ -1,6 +1,12 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
-import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
+import {
+  DgraphEntityType,
+  DgraphRepository,
+  DgraphType,
+  LoggerService,
+  LoggerTokens,
+} from '@codelab/backend/infra'
 import {
   ITypeEdge,
   TypeEdgeKind,
@@ -20,9 +26,11 @@ import {
 } from '../../field/update-field'
 import { CreateTypeInput, CreateTypeService } from '../create-type'
 import { CreateTypeFactory } from '../create-type/create-type.factory'
-import { GetTypeService } from '../get-type'
 import { UpdateTypeService } from '../update-type'
 import { ImportApiRequest } from './import-api.request'
+
+// Stored by Name
+type TypesCache = Map<string, Pick<DgraphType<any>, 'name' | 'uid'>>
 
 /**
  * This service is essentially a wrapper around createField & createType. We transform the graph vertices/edges back into fields & types
@@ -32,11 +40,11 @@ export class ImportApiService
   implements UseCasePort<ImportApiRequest, CreateResponse>
 {
   constructor(
+    private dgraph: DgraphRepository,
     private createTypeService: CreateTypeService,
     private getFieldService: GetFieldService,
     private createFieldService: CreateFieldService,
     private updateTypeService: UpdateTypeService,
-    private getTypeService: GetTypeService,
     private updateFieldService: UpdateFieldService,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
@@ -48,6 +56,7 @@ export class ImportApiService
     } = request
 
     const { vertices = [], edges = [] } = typeGraph
+    const typesCache = await this.getTypesCache(vertices.map((v) => v.name))
 
     /**
      * Create vertices and create a mapping of old to new id's
@@ -55,9 +64,10 @@ export class ImportApiService
     const verticesIdMap = await vertices.reduce(async (vertexIdMap, vertex) => {
       // We would want to map the old vertex ids to current ids
 
-      const currentVertexId = await this.upsertType(
+      const currentVertexId = await this.createTypeIfMissing(
         vertex as TypeVertex,
         currentUser,
+        typesCache,
       )
 
       ;(await vertexIdMap).set(vertex.id, currentVertexId)
@@ -65,9 +75,6 @@ export class ImportApiService
       return vertexIdMap
     }, Promise.resolve(new Map<string, string>()))
 
-    /**
-     * Create those fields using the id map
-     */
     await Promise.all(
       edges.map(async (edge) => {
         /**
@@ -78,6 +85,7 @@ export class ImportApiService
           const existingTypeId = verticesIdMap.get(edge.target)
 
           if (!interfaceId || !existingTypeId) {
+            console.log(edge)
             throw new Error('Incorrect interface id to assign to')
           }
 
@@ -99,7 +107,7 @@ export class ImportApiService
             },
           }
 
-          const { id } = await this.createTypeService.execute({
+          await this.createTypeService.execute({
             input: createArrayTypeInput,
             currentUser,
           })
@@ -116,30 +124,42 @@ export class ImportApiService
     return { id: interfaceId }
   }
 
+  private async getTypesCache(names: Array<string>): Promise<TypesCache> {
+    return this.dgraph.transactionWrapper(async (txn) => {
+      const items = await this.dgraph.getAllNamed<
+        Pick<DgraphType<any>, 'name' | 'uid'>
+      >(
+        txn,
+        `{
+           q(func: type(${
+             DgraphEntityType.Type
+           })) @filter(eq(name, ["${names.join('","')}"]) AND has(name)) {
+              uid
+              name
+           }
+      }`,
+        'q',
+      )
+
+      return new Map(items.map((item) => [item.name, item]))
+    })
+  }
+
   /**
    * Returns existing type id if already existing, otherwise return created id
    */
-  private async upsertType(vertex: TypeVertex, currentUser: User) {
-    this.logger.debug(vertex, 'Create or Get')
+  private async createTypeIfMissing(
+    vertex: TypeVertex,
+    currentUser: User,
+    typesCache: TypesCache,
+  ) {
+    // this.logger.debug(vertex, 'Create or Get')
 
     const typeData = CreateTypeFactory.toCreateInput(vertex)
-
     // We assume name is constant for primitive
-    const existingType = await this.getTypeService.execute({
-      input: { where: { name: typeData.name } },
-      currentUser,
-    })
+    const existingType = typesCache.get(typeData.name)
 
     if (existingType) {
-      this.logger.debug(existingType.uid, 'Updating Type')
-
-      await this.updateTypeService.execute({
-        typeId: existingType.uid,
-        updateData: {
-          ...typeData,
-        },
-      })
-
       return existingType.uid
     }
 
@@ -148,7 +168,7 @@ export class ImportApiService
       currentUser,
     })
 
-    this.logger.debug(createdType.id, 'Type Created')
+    // this.logger.debug(createdType.id, 'Type Created')
 
     return createdType.id
   }
@@ -159,6 +179,10 @@ export class ImportApiService
     existingTypeId: string,
     currentUser: User,
   ) {
+    if (!edge?.field?.key) {
+      throw new Error('Missing key')
+    }
+
     // Check if field exists already
     const existingField = await this.getFieldService.execute({
       input: {
@@ -168,10 +192,6 @@ export class ImportApiService
         },
       },
     })
-
-    if (!edge?.field?.key) {
-      throw new Error('Missing key')
-    }
 
     if (existingField) {
       const updateFieldInput: UpdateFieldRequest = {

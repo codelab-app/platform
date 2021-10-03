@@ -14,5 +14,3 @@ const envPath =
 
 config({ path: envPath })
 configure({ adapter: new Adapter() })
-
-

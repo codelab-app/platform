@@ -26,10 +26,10 @@ export interface RenderContext<
   /** The rendered tree */
   tree: TTree
 
-  /** Extra props passed to all element. They override the common props, but props from the node instance override the extraProps */
+  /** Extra props passed to all elements. */
   extraProps?: Record<string, any>
 
-  /** Extra props by element id, they override every other prop */
+  /** Extra props by element id */
   extraElementProps?: Record<string, Record<string, any>>
 
   /**

@@ -23,3 +23,6 @@ export const pascalCaseToWords = (input: string) =>
 
 export const capitalizeFirstLetter = (value: string) =>
   value.charAt(0).toUpperCase() + value.slice(1)
+
+export const startsWithCapital = (word: string) =>
+  word.charAt(0) === word.charAt(0).toUpperCase()

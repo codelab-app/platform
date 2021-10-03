@@ -27,6 +27,7 @@ Select a Card from the `To do` then move it to `In progress` to begin work on it
 <!-- ### Second Time
 
 After completing the task, create a Pull Request & move the Task to `Review in progress` -->
+
 ## Branching
 
 Clone from `master` to a new branch. Name it something relevant to your task and use kebab-case-like-this.
@@ -48,6 +49,3 @@ The code will be tested by Jest, and built prior to pushing to the repository.
 Once you create the PR, CircleCI will perform checks before the branch can be merged to master. Once the checks are complete, this is the second time you'll have to move the Task card. Move it from `In progress` to `Review in progress` and assign me as the `Reviewer`
 
 <img src="https://codelab.sfo2.digitaloceanspaces.com/docs/workflow/github-project-reviewers.png" width="480">
-
-
-

@@ -10,6 +10,7 @@ import {
 import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
+import { merge } from 'lodash'
 import { compose } from 'ramda'
 import React, { ReactElement, ReactNode } from 'react'
 import { HookElementWrapper } from '../hooks/HookElementWrapper'
@@ -29,7 +30,6 @@ export const renderElement: RenderHandler = (element, context) => {
     return null
   }
 
-  // (5). Render
   return pipeline(element, context, {})
 }
 
@@ -284,7 +284,16 @@ const elementsComponentPipe: RenderPipeFactory =
     const component = context.tree.getComponentOfElement(element.id)
 
     if (component) {
-      return context.renderFactory(component, context)
+      const rootElement = context.tree.getComponentRootElement(component.id)
+
+      return context.renderFactory(
+        component,
+        merge(context, {
+          extraElementProps: {
+            [rootElement.id]: props,
+          },
+        }),
+      )
     }
 
     return next(element, context, props)

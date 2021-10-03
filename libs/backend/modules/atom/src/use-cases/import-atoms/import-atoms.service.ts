@@ -3,7 +3,6 @@ import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import { ImportApiService } from '@codelab/backend/modules/type'
 import { AtomType, User } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
-import { omit, pick } from 'lodash'
 import { CreateAtomService } from '../create-atom'
 import { CreateAtomRequest } from '../create-atom/create-atom.request'
 import { TestGetExport__AtomsFragment } from '../export-atoms/get-export-atoms.api.graphql.gen'
@@ -44,12 +43,12 @@ export class ImportAtomsService
     atoms: Array<TestGetExport__AtomsFragment>,
     currentUser: User,
   ) {
-    return await Promise.all(
+    await Promise.all(
       atoms.map(async (atom) => {
-        this.logger.debug(
-          omit(atom.api, 'typeGraph'),
-          `Seeding Atom: ${atom.name}`,
-        )
+        // this.logger.debug(
+        //   omit(atom.api, 'typeGraph'),
+        //   `Seeding Atom: ${atom.name}`,
+        // )
 
         // Seed api
         const { id } = await this.importApiService.execute({
@@ -63,17 +62,17 @@ export class ImportAtomsService
         // Seed atom
         const createdAtomId = await this.upsertAtom({
           input: {
-            type: atom.type,
+            type: atom.type as any,
             name: atom.name,
             api: id,
           },
           currentUser,
         })
 
-        this.logger.debug(
-          pick(atom, ['name', 'type']),
-          createdAtomId ? 'Atom Created' : 'Atom Exists',
-        )
+        // this.logger.debug(
+        //   pick(atom, ['name', 'type']),
+        //   createdAtomId ? 'Atom Created' : 'Atom Exists',
+        // )
       }),
     )
   }

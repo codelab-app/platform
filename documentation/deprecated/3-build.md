@@ -49,7 +49,7 @@ It just happened that workspace allows path alias to be omitted during reference
 
 We can have a root config that tells us where all the packages are, but order info isn't available there.
 
-- ts-node 8.10.2 not picking up types unless `--files` is specified. A bug https://github.com/TypeStrong/ts-node/issues/782 
+- ts-node 8.10.2 not picking up types unless `--files` is specified. A bug https://github.com/TypeStrong/ts-node/issues/782
 
 - storybook still depends on tsc for compiling packages. it only needs ts-loader to load story files, not actual library code
 
@@ -58,6 +58,7 @@ We can have a root config that tells us where all the packages are, but order in
 - we want to include stories from tsc, otherwise it is loaded twice
 
 ## IDE
+
 - Webstorm scope by default includes libraries, which includes node_modules
 - Remove them here https://stackoverflow.com/questions/47149448/webstorm-make-node-modules-library-root-but-also-exclude-it-from-indexing/47156247 to exclude ndoe_modules from search
 
