@@ -50,7 +50,6 @@ lint-circular-dep:
 #
 # E2E
 #
-
 e2e-dev-affected:
 	./scripts/nx.sh affected:e2e --configuration test
 
@@ -61,7 +60,7 @@ e2e-ci-affected:
 # INTEGRATION TESTS
 #
 integration-dev-affected:
-	./scripts/nx.sh affected:test \
+	nx affected:test \
 		--testPathPattern=i.spec.ts \
 		--memoryLimit=4096 \
 		--runInBand
