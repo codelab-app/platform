@@ -5,6 +5,7 @@
 
 import { Logger, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import * as bodyParser from 'body-parser'
 import { get } from 'env-var'
 import { CodelabAppModule } from './app/codelab-app.module'
 
@@ -21,6 +22,9 @@ const bootstrap = async () => {
   // app.useGlobalFilters(new AllExceptionsFilter())
   // Allows us to use class-validator to validate graphql input
   app.useGlobalPipes(new ValidationPipe())
+  // Raise the limit so we can handle large ui library imports
+  app.use(bodyParser.json({ limit: '1mb' }))
+  app.use(bodyParser.urlencoded({ limit: '1mb', extended: true }))
 
   const apiEndpoint = get('CODELAB_API_ENDPOINT').required().asUrlObject()
   const port = get('CODELAB_API_PORT').asPortNumber() ?? apiEndpoint.port

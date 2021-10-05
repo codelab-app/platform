@@ -55,16 +55,17 @@ yargs(hideBin(process.argv))
     'seed',
     'Seed Antd Design props to platform',
     (yargs) => yargs,
-    (argv) =>
-      runCli(
-        argv.env as any,
-        `${argv._[0]} --env ${argv.env}`,
-      ),
+    (argv) => runCli(argv.env as any, `${argv._[0]} --env ${argv.env}`),
   )
   //
   // Start
   //
-  .command('start', 'Start running development environment', (yargs) => yargs, (argv => runCli(Env.Dev, `${argv._[0]}`)))
+  .command(
+    'start',
+    'Start running development environment',
+    (yargs) => yargs,
+    (argv) => runCli(Env.Dev, `${argv._[0]}`),
+  )
   //
   // Dgraph
   //
@@ -104,4 +105,22 @@ yargs(hideBin(process.argv))
         )
         .demandCommand(1, 'Please provide a dgraph command').argv,
   )
+  //
+  // Ts Parser
+  //
+  .command('parse-ts', 'Typescript prop types to Interface parse', (yargs) => {
+    return yargs.command(
+      'mui',
+      "Parses Material UI's component declarations",
+      (yargs) =>
+        yargs.option('dir', {
+          type: 'string',
+          alias: 'd',
+          required: true,
+          describe:
+            'The root directory where MUI is downloaded, e.g. ~/material-ui',
+        }),
+      (argv) => runCli(Env.Dev, `parse-ts mui -d ${argv.dir}`),
+    )
+  })
   .demandCommand(1, 'Please provide a command').argv

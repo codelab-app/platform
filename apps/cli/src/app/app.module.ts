@@ -5,6 +5,7 @@ import { DgraphCliModule } from '../dgraph-cli'
 import { E2eModule } from '../e2e'
 import { GraphqlCodegenModule } from '../graphql-codegen'
 import { SeederModule } from '../seeder'
+import { TsParserModule } from '../ts-parser'
 import { AppService } from './app.service'
 
 @Module({
@@ -16,6 +17,7 @@ import { AppService } from './app.service'
     PuppeteerModule,
     E2eModule,
     DgraphCliModule,
+    TsParserModule,
   ],
   controllers: [AppService],
 })

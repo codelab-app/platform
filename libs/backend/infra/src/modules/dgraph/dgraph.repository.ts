@@ -2,8 +2,9 @@ import {
   CreateResponsePort,
   NotFoundError,
 } from '@codelab/backend/abstract/core'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Mutation, Response, Txn } from 'dgraph-js-http'
+import { LoggerService, LoggerTokens } from '../logger'
 import { DgraphService } from './dgraph.service'
 import { DgraphQueryBuilder } from './query-building'
 
@@ -22,7 +23,10 @@ export type QueryBuilderFactoryFn = () =>
  */
 @Injectable()
 export class DgraphRepository {
-  constructor(protected readonly dgraphService: DgraphService) {}
+  constructor(
+    protected readonly dgraphService: DgraphService,
+    @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
+  ) {}
 
   get client() {
     return this.dgraphService.client
@@ -34,10 +38,24 @@ export class DgraphRepository {
    * If not committed, the transaction is discarded after the action
    */
   async transactionWrapper<TResult>(action: (txn: Txn) => Promise<TResult>) {
-    const txn = this.dgraphService.client.newTxn()
+    let txn = this.dgraphService.client.newTxn()
 
     try {
       return await action(txn)
+    } catch (e) {
+      // Retry
+      if (e.message?.includes('Please retry')) {
+        this.logger.log(
+          `Dgraph error "${e.message}". Retrying`,
+          'DgraphRepository',
+        )
+        txn.discard()
+        txn = this.dgraphService.client.newTxn()
+
+        return await action(txn)
+      }
+
+      throw e
     } finally {
       await txn.discard()
     }

@@ -1,7 +1,7 @@
 import { notify } from '@codelab/frontend/shared/utils'
 import { AtomType } from '@codelab/shared/abstract/core'
 import React from 'react'
-import { atomFactory } from './atomFactory'
+import { atomFactory } from './atoms/atomFactory'
 
 type Identifiable = { id: string }
 
