@@ -18,4 +18,5 @@ export const TypeModels: TypeModelsType = {
   ComponentType: 'ComponentType',
   RenderPropsType: 'RenderPropsType',
   ReactNodeType: 'ReactNodeType',
+  UnionType: 'UnionType',
 }

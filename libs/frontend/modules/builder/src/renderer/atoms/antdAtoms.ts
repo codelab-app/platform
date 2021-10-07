@@ -1,6 +1,6 @@
 import { AtomType } from '@codelab/shared/abstract/core'
 import dynamic from 'next/dynamic'
-import { AtomsRecord } from './AtomFactory'
+import { AtomsRecord } from './atomFactoryType'
 
 export const antdAtoms: AtomsRecord = {
   [AtomType.AntDesignGridRow]: dynamic(() => import('antd/lib/grid/row')),
