@@ -12,6 +12,7 @@ import { LambdaTypeAdapter } from './lambda-type.adapter'
 import { PrimitiveTypeAdapter } from './primitive-type.adapter'
 import { ReactNodeAdapter } from './react-node-type.adapter'
 import { RenderPropsAdapter } from './render-props-type.adapter'
+import { UnionTypeAdapter } from './union-type-adapter'
 
 type Adapter = BaseAdapter<DgraphType<any>, any>
 
@@ -29,6 +30,7 @@ export class TypeAdapterFactory {
     private componentTypeAdapter: ComponentTypeAdapter,
     private renderPropsTypeAdapter: RenderPropsAdapter,
     private reactNodeTypeAdapter: ReactNodeAdapter,
+    private unionTypeAdapter: UnionTypeAdapter,
   ) {
     this.mappers = new Map<TypeKind, Adapter>()
 
@@ -41,6 +43,7 @@ export class TypeAdapterFactory {
     this.mappers.set(TypeKind.ComponentType, componentTypeAdapter)
     this.mappers.set(TypeKind.RenderPropsType, renderPropsTypeAdapter)
     this.mappers.set(TypeKind.ReactNodeType, reactNodeTypeAdapter)
+    this.mappers.set(TypeKind.UnionType, unionTypeAdapter)
   }
 
   getMapper(type: DgraphType<DgraphEntityType>): Adapter {

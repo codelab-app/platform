@@ -8,4 +8,5 @@ export enum TypeKind {
   ComponentType = 'ComponentType',
   RenderPropsType = 'RenderPropsType',
   ReactNodeType = 'ReactNodeType',
+  UnionType = 'UnionType',
 }

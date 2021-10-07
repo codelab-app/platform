@@ -16,6 +16,7 @@ import {
 import { ArrayTypeAdapter } from './application/adapters/array-type.adapter'
 import { ReactNodeAdapter } from './application/adapters/react-node-type.adapter'
 import { RenderPropsAdapter } from './application/adapters/render-props-type.adapter'
+import { UnionTypeAdapter } from './application/adapters/union-type-adapter'
 import { FieldResolver } from './application/field.resolver'
 import { TypeResolver } from './application/type.resolver'
 import { TypeGraphResolver } from './application/type-graph.resolver'
@@ -79,6 +80,7 @@ const typeServices = [
   PrimitiveTypeAdapter,
   EnumTypeAdapter,
   EnumTypeValueAdapter,
+  UnionTypeAdapter,
   LambdaTypeAdapter,
   ElementTypeAdapter,
   TypeGraphAdapter,

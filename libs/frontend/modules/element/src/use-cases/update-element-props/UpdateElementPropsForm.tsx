@@ -1,3 +1,8 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import {
+  ComponentContext,
+  refetchGetComponentElementsQuery,
+} from '@codelab/frontend/modules/component'
 // TODO: restucture module page to get rid of this error later
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import {
@@ -14,6 +19,7 @@ import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { usePromisesLoadingIndicator } from '@codelab/frontend/view/components'
 import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { Spin } from 'antd'
+import { useRouter } from 'next/router'
 import React, { useContext, useRef } from 'react'
 import {
   refetchGetElementQuery,
@@ -53,6 +59,10 @@ const UpdateElementPropsFormInternal = ({
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
   const { typeKindsById } = useContext(TypeKindsContext)
   const [isRefetchPage, needRefetchPage] = React.useState(false)
+  const [isRefetchComponent, needRefetchComponent] = React.useState(false)
+  const { pathname } = useRouter()
+  const isPageBuilder = pathname === '/apps/[appId]/pages/[pageId]/builder'
+  const isComponentBuilder = pathname == '/components/[componentId]'
 
   const { data: interfaceData, loading: interfaceLoading } =
     useGetTypeGraphQuery({
@@ -60,12 +70,22 @@ const UpdateElementPropsFormInternal = ({
     })
 
   const { pageId } = useContext(PageContext)
+  const { component } = useContext(ComponentContext)
 
   const [mutate] = useUpdateElementPropsMutation({
     refetchQueries: () => {
       const queries: Array<any> = [
         refetchGetElementQuery({ input: { elementId } }),
       ]
+
+      if (isRefetchComponent && component) {
+        queries.push(
+          refetchGetComponentElementsQuery({
+            input: { componentId: component.id },
+          }),
+        )
+        needRefetchComponent(false)
+      }
 
       if (isRefetchPage) {
         queries.push(refetchGetPageQuery({ input: { pageId } }))
@@ -103,7 +123,13 @@ const UpdateElementPropsFormInternal = ({
               typeKindsById,
             )
           ) {
-            needRefetchPage(true)
+            if (isPageBuilder) {
+              needRefetchPage(true)
+            }
+
+            if (isComponentBuilder) {
+              needRefetchComponent(true)
+            }
           }
 
           trackPromise(
