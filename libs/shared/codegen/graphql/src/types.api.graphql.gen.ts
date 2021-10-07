@@ -1474,7 +1474,10 @@ export type UnionType = Type & {
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
+<<<<<<< HEAD
   typeIdsOfUnionType: Array<Scalars['String']>;
+=======
+>>>>>>> c707cd23 (feat: handle prop type: "union type")
   typeKind: TypeKind;
 };
 

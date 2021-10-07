@@ -9,14 +9,6 @@ export class UnionType
   extends Type<TypeKind.UnionType>
   implements IUnionTypeVertex
 {
-  /**
-   * TODON
-   * typeIdsOfUnionType: array string
-   *   @Field(() => array<string>)
-  typeIdsOfUnionType id: string
-
-  assign constructor
-   */
   @Field(() => [String])
   declare typeIdsOfUnionType: Array<string>
 
