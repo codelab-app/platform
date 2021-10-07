@@ -9,11 +9,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import * as _ from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
-<<<<<<< HEAD
 import { Bridge, DeepPartial } from 'uniforms'
-=======
-import { DeepPartial } from 'uniforms'
->>>>>>> c707cd23 (feat: handle prop type: "union type")
 import { TypeTreeGraphql } from '../shared'
 import {
   getSelectElementComponent,
