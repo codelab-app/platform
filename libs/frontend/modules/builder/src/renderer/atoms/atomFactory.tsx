@@ -1,4 +1,4 @@
-import { AtomFactory } from './AtomFactory'
+import { AtomFactory } from './atomFactoryType'
 import { atoms } from './atoms'
 
 const allAtomsRecord = Object.assign({}, ...atoms)

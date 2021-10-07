@@ -9,7 +9,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import * as _ from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
-import { DeepPartial } from 'uniforms'
+import { Bridge, DeepPartial } from 'uniforms'
 import { TypeTreeGraphql } from '../shared'
 import {
   getSelectElementComponent,
@@ -71,9 +71,9 @@ export const InterfaceForm = <TData extends any>({
   onSubmit,
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
   const formChangedKey = useRef('')
-  const [formSchema, setFormSchema] = useState()
+  const [formSchema, setFormSchema] = useState<Bridge>()
 
-  const updateFormSchema = (formModel: DeepPartial<TData>) => {
+  const updateFormSchema = (formModel: DeepPartial<TData> = {}) => {
     setFormSchema(
       interfaceTree.toJsonSchema(
         {

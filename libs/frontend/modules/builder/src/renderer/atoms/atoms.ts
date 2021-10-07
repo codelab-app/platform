@@ -1,5 +1,5 @@
 import { antdAtoms } from './antdAtoms'
-import { AtomsRecord } from './AtomFactory'
+import { AtomsRecord } from './atomFactoryType'
 import { codelabAtoms } from './codelabAtoms'
 import { htmlAtoms } from './htmlAtoms'
 import { muiAtoms } from './muiAtoms'
