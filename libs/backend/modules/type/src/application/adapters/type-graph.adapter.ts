@@ -4,6 +4,7 @@ import {
   DgraphType,
   isDgraphArrayType,
   isDgraphInterfaceType,
+  isDgraphUnionType,
 } from '@codelab/backend/infra'
 import { breadthFirstTraversal } from '@codelab/backend/shared/generic'
 import { TypeEdgeKind } from '@codelab/shared/abstract/core'
@@ -44,7 +45,6 @@ export class TypeGraphAdapter extends BaseAdapter<
           // We need to add the child types before the edges, because cytoscape complains otherwise
           for (const field of fields) {
             const typeAdapter = this.typeAdapter.getMapper(field.type)
-
             vertices.set(field.type.uid, await typeAdapter.mapItem(field.type))
 
             const fieldModel = await this.fieldAdapter.mapItem(field)
@@ -64,6 +64,19 @@ export class TypeGraphAdapter extends BaseAdapter<
             .map((f) => f.type)
             .slice()
             .sort((a, b) => b.uid.localeCompare(a.uid))
+        }
+
+        if (isDgraphUnionType(type) && type.typesOfUnionType) {
+          for (const unionType of type.typesOfUnionType) {
+            const typeAdapter = this.typeAdapter.getMapper(unionType)
+            const parsedTypeOfUnionType = await typeAdapter.mapItem(unionType)
+
+            vertices.set(unionType.uid, parsedTypeOfUnionType)
+            edges.set(
+              type.uid + '-' + unionType.uid,
+              new TypeEdge(type.uid, unionType.uid, TypeEdgeKind.Union),
+            )
+          }
         }
 
         if (isDgraphArrayType(type)) {

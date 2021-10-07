@@ -11,4 +11,5 @@ fragment Type on Type {
   ...LambdaType
   ...ComponentType
   ...RenderPropsType
+  ...UnionType
 }

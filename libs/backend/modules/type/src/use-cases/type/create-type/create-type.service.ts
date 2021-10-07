@@ -7,6 +7,7 @@ import {
   DgraphInterfaceType,
   DgraphPrimitiveType,
   DgraphRepository,
+  DgraphUnionType,
   jsonMutation,
   LoggerService,
   LoggerTokens,
@@ -16,6 +17,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../domain/type.validator'
 import { GetTypeService } from '../get-type'
+import { GetTypesService } from '../get-types'
 import { CreateTypeRequest } from './create-type.request'
 import { typeKindDgraphMap } from './typeKind'
 
@@ -31,6 +33,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
   constructor(
     dgraph: DgraphRepository,
     private getTypeService: GetTypeService,
+    private getTypesService: GetTypesService,
     private typeValidator: TypeValidator,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {
@@ -58,6 +61,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
       enumType,
       primitiveType,
       elementType,
+      unionType,
       // lambdaType,
       // componentType,
       // interfaceType,
@@ -68,7 +72,8 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
         DgraphEnumType &
         DgraphPrimitiveType &
         DgraphInterfaceType &
-        DgraphElementType
+        DgraphElementType &
+        DgraphUnionType
     >({
       uid: blankNodeUid,
       'dgraph.type': [
@@ -85,6 +90,8 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
       itemType: arrayType ? { uid: arrayType.itemTypeId } : undefined,
       primitiveKind: primitiveType ? primitiveType.primitiveKind : undefined,
       kind: elementType ? elementType.kind : undefined,
+      typesOfUnionType:
+        unionType?.typeIdsOfUnionType.map((id) => ({ uid: id })) || [],
       allowedValues: enumType
         ? enumType.allowedValues.map((allowedValue) => ({
             'dgraph.type': [DgraphEntityType.EnumTypeValue],

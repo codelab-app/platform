@@ -8,6 +8,7 @@ import { ElementTypeFragment } from './ElementType.fragment.graphql.gen';
 import { LambdaTypeFragment } from './LambdaType.fragment.graphql.gen';
 import { ComponentTypeFragment } from './ComponentType.fragment.graphql.gen';
 import { RenderPropsTypeFragment } from './RenderProps.fragment.graphql.gen';
+import { UnionTypeFragment } from './UnionType.fragment.graphql.gen';
 import { gql } from '@apollo/client';
 import { ArrayTypeFragmentDoc } from './ArrayType.fragment.graphql.gen';
 import { EnumTypeFragmentDoc } from './EnumType.fragment.graphql.gen';
@@ -17,6 +18,7 @@ import { ElementTypeFragmentDoc } from './ElementType.fragment.graphql.gen';
 import { LambdaTypeFragmentDoc } from './LambdaType.fragment.graphql.gen';
 import { ComponentTypeFragmentDoc } from './ComponentType.fragment.graphql.gen';
 import { RenderPropsTypeFragmentDoc } from './RenderProps.fragment.graphql.gen';
+import { UnionTypeFragmentDoc } from './UnionType.fragment.graphql.gen';
 export type Type_ArrayType_Fragment = (
   { __typename: 'ArrayType', id: string, name: string, typeKind: Types.TypeKind }
   & ArrayTypeFragment
@@ -59,7 +61,12 @@ export type Type_RenderPropsType_Fragment = (
   & RenderPropsTypeFragment
 );
 
-export type TypeFragment = Type_ArrayType_Fragment | Type_ComponentType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PrimitiveType_Fragment | Type_ReactNodeType_Fragment | Type_RenderPropsType_Fragment;
+export type Type_UnionType_Fragment = (
+  { __typename: 'UnionType', id: string, name: string, typeKind: Types.TypeKind }
+  & UnionTypeFragment
+);
+
+export type TypeFragment = Type_ArrayType_Fragment | Type_ComponentType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PrimitiveType_Fragment | Type_ReactNodeType_Fragment | Type_RenderPropsType_Fragment | Type_UnionType_Fragment;
 
 export const TypeFragmentDoc = gql`
     fragment Type on Type {
@@ -75,6 +82,7 @@ export const TypeFragmentDoc = gql`
   ...LambdaType
   ...ComponentType
   ...RenderPropsType
+  ...UnionType
 }
     ${ArrayTypeFragmentDoc}
 ${EnumTypeFragmentDoc}
@@ -83,4 +91,5 @@ ${PrimitiveTypeFragmentDoc}
 ${ElementTypeFragmentDoc}
 ${LambdaTypeFragmentDoc}
 ${ComponentTypeFragmentDoc}
-${RenderPropsTypeFragmentDoc}`;
+${RenderPropsTypeFragmentDoc}
+${UnionTypeFragmentDoc}`;

@@ -21,6 +21,8 @@ export type ILambdaTypeVertex = IBaseTypeVertex
 export type IRenderPropsTypeVertex = IBaseTypeVertex
 export type IReactNodeTypeVertex = IBaseTypeVertex
 
+export type IUnionTypeVertex = IBaseTypeVertex
+
 export type IComponentTypeVertex = IBaseTypeVertex
 
 export type IArrayTypeVertex = IBaseTypeVertex

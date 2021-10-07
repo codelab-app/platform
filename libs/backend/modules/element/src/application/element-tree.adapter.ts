@@ -231,12 +231,10 @@ export class ElementTreeAdapter extends BaseAdapter<
       const props = this.parseNodeProps(node)
       const typeTree = await this.parseNodeTypeTree(node)
 
-      const componentIdsFromProps = await this.getComponentIdsFromProps(
-        props,
-        typeTree,
-      )
+      const componentIdsFromUnionProps =
+        await this.getComponentIdFromUnionTypeProps(props, typeTree)
 
-      componentIdsFromProps.forEach((id) => extraComponentsRef.add(id))
+      componentIdsFromUnionProps.forEach((id) => extraComponentsRef.add(id))
 
       const renderPropsComponentIdsFromProps =
         await this.getComponentIdFromProps(
@@ -305,21 +303,30 @@ export class ElementTreeAdapter extends BaseAdapter<
     return new TypeTree(typeGraph)
   }
 
-  private getComponentIdFromProps(
+  private getComponentIdFromUnionTypeProps(
     nodeProps: Record<string, any> | null,
     tree: TypeTree<TypeVertex, TypeEdge> | null,
-    type: TypeKind,
   ) {
     if (!nodeProps || !tree) {
       return []
     }
 
-    const propsTypeRenderProps = tree.getFieldsByTypeKind(type)
+    const fields = [
+      ...tree.getUnionTypeFieldContainingType(TypeKind.ReactNodeType),
+      ...tree.getUnionTypeFieldContainingType(TypeKind.RenderPropsType),
+    ]
 
-    return propsTypeRenderProps
+    return this.getComponentIdFromPropsByFields(nodeProps, fields, '.id')
+  }
+
+  private getComponentIdFromPropsByFields(
+    props: Record<string, any> | null,
+    fields: Array<IField>,
+    idPath: string,
+  ) {
+    return fields
       .map(({ key }) => {
-        const prop = _.get(nodeProps, key)
-        const componentId = prop?.id
+        const componentId = _.get(props, key + idPath)
 
         if (componentId) {
           if (typeof componentId !== 'string') {
@@ -336,7 +343,25 @@ export class ElementTreeAdapter extends BaseAdapter<
       .filter((ids) => ids) as Array<string>
   }
 
-  private async getComponentIdsFromProps(
+  private getComponentIdFromProps(
+    nodeProps: Record<string, any> | null,
+    tree: TypeTree<TypeVertex, TypeEdge> | null,
+    type: TypeKind,
+  ) {
+    if (!nodeProps || !tree) {
+      return []
+    }
+
+    const fieldsTypeRenderProps = tree.getFieldsByTypeKind(type)
+
+    return this.getComponentIdFromPropsByFields(
+      nodeProps,
+      fieldsTypeRenderProps,
+      '.id',
+    )
+  }
+
+  private async getComponentIdsFromComponentTypeProps(
     nodeProps: Record<string, any> | null,
     tree: TypeTree<TypeVertex, TypeEdge> | null,
   ): Promise<Array<string>> {

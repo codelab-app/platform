@@ -14,6 +14,7 @@ import {
   getFieldFromEdge,
   getItemTypeFromNode,
   getTypeFromNode,
+  getTypesOfUnionTypeFromNode,
   typeIsOfKind,
 } from './treeHelpers'
 
@@ -33,6 +34,12 @@ export class TypeTree<
     super(graph, extractEdgeId)
   }
 
+  getTypeById(typeId: string): TVertex | null {
+    const node = this.cy.getElementById(typeId).first()
+
+    return node ? (getTypeFromNode(node) as TVertex) ?? null : null
+  }
+
   /** Returns the type of the field or null if the field is not found */
   getFieldType(fieldId: string): TVertex | null {
     const node = this.cy.getElementById(fieldId).targets().first()
@@ -47,6 +54,39 @@ export class TypeTree<
       .connectedEdges()
       .filter(edgeIsOfFieldKind)
       .map(getFieldFromEdge)
+  }
+
+  getUnionTypeFieldContainingType(type: TypeKind) {
+    return this.cy
+      .elements()
+      .filter(typeIsOfKind(TypeKind.UnionType))
+      .map((unionType) => {
+        const fields = unionType
+          .nodes()
+          .incomers()
+          .edges()
+          .filter(edgeIsOfFieldKind)
+          .map(getFieldFromEdge)
+
+        const isUnionReactTypeNodeType = unionType
+          .nodes()
+          .outgoers()
+          .some((e) => {
+            const parsedElement = e.first().data()
+            console.log({ parsedElement })
+
+            return parsedElement?.typeKind === type
+          })
+
+        console.log({ fields, isUnionReactTypeNodeType })
+
+        return { fields, isUnionReactTypeNodeType }
+      })
+      .filter((parsedData) => parsedData.isUnionReactTypeNodeType)
+      .reduce<Array<IField>>(
+        (aggregatedFields, { fields }) => aggregatedFields.concat(fields),
+        [],
+      )
   }
 
   getRootFields(): Array<IField> {
@@ -70,6 +110,12 @@ export class TypeTree<
       .map(getFieldFromEdge)
   }
 
+  getUnionItemTypes(unionTypeId: string): Array<TVertex> {
+    return getTypesOfUnionTypeFromNode(
+      this.cy.getElementById(unionTypeId),
+    ) as Array<TVertex>
+  }
+
   /** Returns the item type of an array or undefined if not found */
   getArrayItemType(arrayTypeId: string): TVertex | undefined {
     return (
@@ -90,7 +136,14 @@ export class TypeTree<
   }
 
   /** Creates a json schema from the type tree. Throws if the tree doesn't have fields */
-  toJsonSchema(options: IJsonSchemaOptions): Record<string, any> {
-    return new TypeTreeJsonSchemaTransformer(this, options).transform()
+  toJsonSchema(
+    options: IJsonSchemaOptions,
+    formModel?: any,
+  ): Record<string, any> {
+    return new TypeTreeJsonSchemaTransformer(
+      this,
+      options,
+      formModel,
+    ).transform()
   }
 }

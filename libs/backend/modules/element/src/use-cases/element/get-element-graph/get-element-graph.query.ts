@@ -13,6 +13,7 @@ export const getElementGraphQuery = () =>
           values
           booleanValue
           floatValue
+          typesOfUnionType
           intValue
           stringValue
           type

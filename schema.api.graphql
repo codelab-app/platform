@@ -49,6 +49,7 @@ type TypeEdge {
 enum TypeEdgeKind {
   Field
   ArrayItem
+  Union
 }
 
 type ArrayType implements Type {
@@ -75,6 +76,7 @@ enum TypeKind {
   ComponentType
   RenderPropsType
   ReactNodeType
+  UnionType
 }
 
 """
@@ -165,12 +167,19 @@ type RenderPropsType implements Type {
   typeGraph: TypeGraph!
 }
 
+type UnionType implements Type {
+  typeKind: TypeKind!
+  id: ID!
+  name: String!
+  typeGraph: TypeGraph!
+}
+
 type TypeGraph {
   vertices: [TypeVertex!]!
   edges: [TypeEdge!]!
 }
 
-union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | RenderPropsType | ReactNodeType
+union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | RenderPropsType | ReactNodeType | UnionType
 
 type Atom {
   id: ID!
@@ -1185,6 +1194,7 @@ input CreateTypeInput {
   primitiveType: CreatePrimitiveTypeInput
   arrayType: CreateArrayTypeInput
   enumType: CreateEnumTypeInput
+  unionType: CreateUnionType
   interfaceType: Boolean = false
   lambdaType: Boolean = false
   componentType: Boolean = false
@@ -1206,6 +1216,10 @@ input CreateEnumTypeInput {
 input CreateEnumTypeValueInput {
   name: String
   value: String!
+}
+
+input CreateUnionType {
+  typeIdsOfUnionType: [String!]!
 }
 
 input CreateElementTypeInput {

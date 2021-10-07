@@ -4,6 +4,7 @@ import { CreateArrayTypeInput } from './create-array-type.input'
 import { CreateElementTypeInput } from './create-element-type.input'
 import { CreateEnumTypeInput } from './create-enum-type.input'
 import { CreatePrimitiveTypeInput } from './create-primitive-type.input'
+import { CreateUnionType } from './create-union-type-input'
 
 /**
  * This is a workaround for the lack of GraphQL union input types as described here https://github.com/graphql/graphql-spec/issues/488
@@ -28,6 +29,9 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
 
   @Field(() => CreateEnumTypeInput, { nullable: true })
   declare enumType?: CreateEnumTypeInput | null
+
+  @Field(() => CreateUnionType, { nullable: true })
+  declare unionType?: CreateUnionType | null
 
   // These boolean are used as placeholder since these keys are required in certain places
   @Field({ nullable: true, defaultValue: false })

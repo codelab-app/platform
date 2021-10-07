@@ -6,7 +6,7 @@ import {
 import { SeedBaseTypesService } from '@codelab/backend/modules/type'
 import { AtomType, Role, User } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
-import { Inject, Injectable, UseGuards } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
 import { envOption } from '../env-helper'
