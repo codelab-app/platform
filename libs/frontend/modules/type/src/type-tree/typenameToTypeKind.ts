@@ -13,6 +13,8 @@ export const typenameToTypeKind = (typename: string) => {
       return TypeKind.EnumType
     case TypeModels.LambdaType:
       return TypeKind.LambdaType
+    case TypeModels.UnionType:
+      return TypeKind.UnionType
   }
 
   throw new Error("Can't recognize typename of type")

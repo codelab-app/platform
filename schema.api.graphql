@@ -172,6 +172,7 @@ type UnionType implements Type {
   id: ID!
   name: String!
   typeGraph: TypeGraph!
+  typeIdsOfUnionType: [String!]!
 }
 
 type TypeGraph {
@@ -939,6 +940,7 @@ type Mutation {
   createType(input: CreateTypeInput!): CreateResponse!
   updateEnumType(input: UpdateEnumTypeInput!): Void
   updatePrimitiveType(input: UpdatePrimitiveTypeInput!): Void
+  updateUnionType(input: UpdateUnionTypeInput!): Void
   updateType(input: UpdateTypeInput!): Void
   deleteType(input: DeleteTypeInput!): Void
   createField(input: CreateFieldInput!): CreateResponse!
@@ -1250,6 +1252,16 @@ input UpdatePrimitiveTypeInput {
 input UpdatePrimitiveKindData {
   primitiveKind: PrimitiveKind!
   name: String!
+}
+
+input UpdateUnionTypeInput {
+  updateData: UpdateUnionTypeData!
+  typeId: String!
+}
+
+input UpdateUnionTypeData {
+  name: String!
+  typeIdsOfUnionType: [String!]!
 }
 
 input UpdateTypeInput {

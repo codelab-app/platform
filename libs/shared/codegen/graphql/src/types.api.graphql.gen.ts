@@ -885,6 +885,7 @@ export type Mutation = {
   updatePropMapBinding?: Maybe<Scalars['Void']>;
   updateTag?: Maybe<Scalars['Void']>;
   updateType?: Maybe<Scalars['Void']>;
+  updateUnionType?: Maybe<Scalars['Void']>;
   upsertTag: Scalars['Void'];
   upsertUser: CreateResponse;
 };
@@ -1087,6 +1088,11 @@ export type MutationUpdateTagArgs = {
 
 export type MutationUpdateTypeArgs = {
   input: UpdateTypeInput;
+};
+
+
+export type MutationUpdateUnionTypeArgs = {
+  input: UpdateUnionTypeInput;
 };
 
 
@@ -1468,6 +1474,7 @@ export type UnionType = Type & {
   id: Scalars['ID'];
   name: Scalars['String'];
   typeGraph: TypeGraph;
+  typeIdsOfUnionType: Array<Scalars['String']>;
   typeKind: TypeKind;
 };
 
@@ -1602,6 +1609,16 @@ export type UpdateTypeData = {
 export type UpdateTypeInput = {
   typeId: Scalars['String'];
   updateData: UpdateTypeData;
+};
+
+export type UpdateUnionTypeData = {
+  name: Scalars['String'];
+  typeIdsOfUnionType: Array<Scalars['String']>;
+};
+
+export type UpdateUnionTypeInput = {
+  typeId: Scalars['String'];
+  updateData: UpdateUnionTypeData;
 };
 
 export type UpsertTagInput = {

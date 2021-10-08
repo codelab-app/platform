@@ -31,6 +31,7 @@ export const baseTypeQuery = () => {
       itemType
       stringValue
       allowedValues
+      typesOfUnionType
       fields
       type
       key

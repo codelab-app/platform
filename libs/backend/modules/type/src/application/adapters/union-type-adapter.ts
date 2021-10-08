@@ -8,7 +8,11 @@ export class UnionTypeAdapter extends BaseAdapter<
   DgraphUnionType,
   Promise<UnionType>
 > {
-  async mapItem({ name, uid: id }: DgraphUnionType) {
-    return new UnionType({ id, name })
+  async mapItem({ name, uid: id, typesOfUnionType = [] }: DgraphUnionType) {
+    return new UnionType({
+      id,
+      name,
+      typeIdsOfUnionType: typesOfUnionType.map((t) => t.uid),
+    })
   }
 }

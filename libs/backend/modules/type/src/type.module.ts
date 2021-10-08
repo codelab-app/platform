@@ -35,6 +35,7 @@ import { SeedBaseTypesService } from './use-cases/type/seed-base-types'
 import { UpdateEnumTypeService } from './use-cases/type/update-enum-type'
 import { UpdatePrimitiveTypeService } from './use-cases/type/update-primitive-type'
 import { UpdateTypeService } from './use-cases/type/update-type'
+import { UpdateUnionTypeService } from './use-cases/type/update-union-type'
 
 const fieldServices = [
   /**
@@ -65,7 +66,9 @@ const typeServices = [
   GetTypesService,
   UpdateEnumTypeService,
   UpdatePrimitiveTypeService,
+  UpdateUnionTypeService,
   UpdateTypeService,
+  // TODON: inject here
   ImportApiService,
   SeedBaseTypesService,
   /**

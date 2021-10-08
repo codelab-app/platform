@@ -27,7 +27,12 @@ export const FormUniforms = <TData extends any>({
     <AutoForm<TData>
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}
+      onValidate={async (model, error) => {
+        console.log({ error, model })
+      }}
       onSubmit={(formData) => {
+        console.log({ formData })
+
         const result = onSubmit(formData as TData)
 
         if (!result) {
