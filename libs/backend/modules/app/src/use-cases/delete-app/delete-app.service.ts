@@ -13,10 +13,7 @@ import { GetAppService } from '../get-app'
 import { DeleteAppRequest } from './delete-app.request'
 
 @Injectable()
-export class DeleteAppService extends DgraphUseCase<
-  DeleteAppRequest,
-  DgraphApp | null
-> {
+export class DeleteAppService extends DgraphUseCase<DeleteAppRequest> {
   constructor(
     protected readonly dgraph: DgraphRepository,
     private appValidator: AppValidator,
@@ -28,22 +25,12 @@ export class DeleteAppService extends DgraphUseCase<
   protected async executeTransaction(
     request: DeleteAppRequest,
     txn: Txn,
-  ): Promise<DgraphApp | null> {
+  ): Promise<void> {
     const {
       input: { appId },
-      currentUser,
     } = request
 
     await this.validate(request)
-
-    const appToDelete = await this.getAppService.execute({
-      input: { byId: { appId } },
-      currentUser,
-    })
-
-    if (!appToDelete) {
-      return null
-    }
 
     await this.dgraph.executeUpsertDeleteAll(txn, (q) =>
       q
@@ -56,8 +43,6 @@ export class DeleteAppService extends DgraphUseCase<
         .addTypeFilterDirective(DgraphEntityType.App)
         .setUidFunc(appId),
     )
-
-    return appToDelete
   }
 
   protected async validate({

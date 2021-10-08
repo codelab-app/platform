@@ -72,7 +72,14 @@ export class AppResolver {
     @Args('input') input: UpdateAppInput,
     @CurrentUser() currentUser: User,
   ) {
-    const app = await this.updateAppService.execute({ input, currentUser })
+    await this.updateAppService.execute({ input, currentUser })
+
+    const { id } = input
+
+    const app = await this.getAppService.execute({
+      input: { byId: { appId: id } },
+      currentUser,
+    })
 
     if (!app) {
       throw new Error('App not found')
@@ -87,11 +94,18 @@ export class AppResolver {
     @Args('input') input: DeleteAppInput,
     @CurrentUser() currentUser: User,
   ) {
-    const app = await this.deleteAppService.execute({ input, currentUser })
+    const { appId } = input
+
+    const app = await this.getAppService.execute({
+      input: { byId: { appId } },
+      currentUser,
+    })
 
     if (!app) {
       throw new Error('App not found')
     }
+
+    await this.deleteAppService.execute({ input, currentUser })
 
     return this.appAdapter.mapItem(app)
   }

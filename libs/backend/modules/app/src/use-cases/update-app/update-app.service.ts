@@ -11,10 +11,7 @@ import { GetAppService } from '../get-app'
 import { UpdateAppRequest } from './update-app.request'
 
 @Injectable()
-export class UpdateAppService extends DgraphUseCase<
-  UpdateAppRequest,
-  DgraphApp | null
-> {
+export class UpdateAppService extends DgraphUseCase<UpdateAppRequest> {
   constructor(
     protected readonly dgraphRepository: DgraphRepository,
     private appValidator: AppValidator,
@@ -26,21 +23,9 @@ export class UpdateAppService extends DgraphUseCase<
   protected async executeTransaction(
     request: UpdateAppRequest,
     txn: Txn,
-  ): Promise<DgraphApp | null> {
-    const {
-      input: { id },
-      currentUser,
-    } = request
-
+  ): Promise<void> {
     await this.validate(request)
     await this.dgraph.executeMutation(txn, this.createMutation(request))
-
-    const app = await this.getAppService.execute({
-      input: { byId: { appId: id } },
-      currentUser,
-    })
-
-    return app
   }
 
   protected createMutation({

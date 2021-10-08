@@ -59,11 +59,12 @@ describe('DeleteApp', () => {
 
   describe('User', () => {
     it('should delete an app', async () => {
-      await domainRequest<DeleteAppInput, TestDeleteAppMutation>(
-        userApp,
-        TestDeleteAppGql,
-        deleteAppInput,
-      )
+      const { deleteApp } = await domainRequest<
+        DeleteAppInput,
+        TestDeleteAppMutation
+      >(userApp, TestDeleteAppGql, deleteAppInput)
+
+      expect(deleteApp?.id).toBe(deleteAppInput.appId)
 
       const { getApp } = await domainRequest<GetAppInput, TestGetAppQuery>(
         userApp,
@@ -72,8 +73,6 @@ describe('DeleteApp', () => {
       )
 
       expect(getApp).toBeNull()
-
-      // TODO make sure pages are deleted too
     })
   })
 })
