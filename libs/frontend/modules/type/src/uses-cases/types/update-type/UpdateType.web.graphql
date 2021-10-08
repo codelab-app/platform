@@ -9,3 +9,7 @@ mutation UpdateType($input: UpdateTypeInput!) {
 mutation UpdatePrimitiveType($input: UpdatePrimitiveTypeInput!) {
   updatePrimitiveType(input: $input)
 }
+
+mutation UpdateUnionType($input: UpdateUnionTypeInput!) {
+  updateUnionType(input: $input)
+}
