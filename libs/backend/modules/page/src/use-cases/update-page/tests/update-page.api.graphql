@@ -1,3 +1,5 @@
 mutation TestUpdatePage($input: UpdatePageInput!) {
-  updatePage(input: $input)
+  updatePage(input: $input) {
+    ...PageBase
+  }
 }

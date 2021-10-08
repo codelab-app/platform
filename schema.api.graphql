@@ -906,7 +906,7 @@ type Mutation {
   resetData: Void
   createPage(input: CreatePageInput!): Page!
   deletePage(input: DeletePageInput!): Page
-  updatePage(input: UpdatePageInput!): Void
+  updatePage(input: UpdatePageInput!): Page
   createPropMapBinding(input: CreatePropMapBindingInput!): CreateResponse!
   updatePropMapBinding(input: UpdatePropMapBindingInput!): Void
   deletePropMapBinding(input: DeletePropMapBindingInput!): Void

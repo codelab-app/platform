@@ -10,7 +10,7 @@ import { PageValidator } from '../../domain/page.validator'
 import { DeletePageRequest } from './delete-page.request'
 
 @Injectable()
-export class DeletePageService extends DgraphUseCase<DeletePageRequest, void> {
+export class DeletePageService extends DgraphUseCase<DeletePageRequest> {
   constructor(
     protected readonly dgraph: DgraphRepository,
     private pageValidator: PageValidator,
