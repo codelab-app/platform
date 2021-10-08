@@ -84,13 +84,27 @@ export class PageResolver {
     @Args('input') input: DeletePageInput,
     @CurrentUser() currentUser: User,
   ) {
-    const page = await this.deletePageService.execute({ input, currentUser })
+    const pageToDelete = await this.getPageService.execute({
+      input,
+      currentUser,
+    })
 
-    if (!page) {
-      throw new Error('Page not found')
+    if (!pageToDelete) {
+      return null
     }
 
-    return this.pageAdapter.mapItem(page)
+    await this.deletePageService.execute({ input, currentUser })
+
+    const deletedPage = await this.getPageService.execute({
+      input,
+      currentUser,
+    })
+
+    if (deletedPage) {
+      throw new Error('Page not Deleted')
+    }
+
+    return this.pageAdapter.mapItem(pageToDelete)
   }
 
   @Mutation(() => Void, { nullable: true })
