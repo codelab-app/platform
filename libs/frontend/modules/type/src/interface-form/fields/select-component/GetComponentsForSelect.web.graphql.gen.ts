@@ -1,28 +1,32 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
-export type ComponentForSelectFragment = { id: string, name: string };
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
+export type ComponentForSelectFragment = { id: string; name: string }
 
-export type GetComponentsForSelectQueryVariables = Types.Exact<{ [key: string]: never; }>;
+export type GetComponentsForSelectQueryVariables = Types.Exact<{
+  [key: string]: never
+}>
 
-
-export type GetComponentsForSelectQuery = { getComponents: Array<ComponentForSelectFragment> };
+export type GetComponentsForSelectQuery = {
+  getComponents: Array<ComponentForSelectFragment>
+}
 
 export const ComponentForSelectFragmentDoc = gql`
-    fragment ComponentForSelect on Component {
-  id
-  name
-}
-    `;
-export const GetComponentsForSelectGql = gql`
-    query GetComponentsForSelect {
-  getComponents {
-    ...ComponentForSelect
+  fragment ComponentForSelect on Element {
+    id
+    name
   }
-}
-    ${ComponentForSelectFragmentDoc}`;
+`
+export const GetComponentsForSelectGql = gql`
+  query GetComponentsForSelect {
+    getComponents {
+      ...ComponentForSelect
+    }
+  }
+  ${ComponentForSelectFragmentDoc}
+`
 
 /**
  * __useGetComponentsForSelectQuery__
@@ -39,17 +43,42 @@ export const GetComponentsForSelectGql = gql`
  *   },
  * });
  */
-export function useGetComponentsForSelectQuery(baseOptions?: Apollo.QueryHookOptions<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables>(GetComponentsForSelectGql, options);
-      }
-export function useGetComponentsForSelectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables>(GetComponentsForSelectGql, options);
-        }
-export type GetComponentsForSelectQueryHookResult = ReturnType<typeof useGetComponentsForSelectQuery>;
-export type GetComponentsForSelectLazyQueryHookResult = ReturnType<typeof useGetComponentsForSelectLazyQuery>;
-export type GetComponentsForSelectQueryResult = Apollo.QueryResult<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables>;
-export function refetchGetComponentsForSelectQuery(variables?: GetComponentsForSelectQueryVariables) {
-      return { query: GetComponentsForSelectGql, variables: variables }
-    }
+export function useGetComponentsForSelectQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetComponentsForSelectQuery,
+    GetComponentsForSelectQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetComponentsForSelectQuery,
+    GetComponentsForSelectQueryVariables
+  >(GetComponentsForSelectGql, options)
+}
+export function useGetComponentsForSelectLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetComponentsForSelectQuery,
+    GetComponentsForSelectQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetComponentsForSelectQuery,
+    GetComponentsForSelectQueryVariables
+  >(GetComponentsForSelectGql, options)
+}
+export type GetComponentsForSelectQueryHookResult = ReturnType<
+  typeof useGetComponentsForSelectQuery
+>
+export type GetComponentsForSelectLazyQueryHookResult = ReturnType<
+  typeof useGetComponentsForSelectLazyQuery
+>
+export type GetComponentsForSelectQueryResult = Apollo.QueryResult<
+  GetComponentsForSelectQuery,
+  GetComponentsForSelectQueryVariables
+>
+export function refetchGetComponentsForSelectQuery(
+  variables?: GetComponentsForSelectQueryVariables,
+) {
+  return { query: GetComponentsForSelectGql, variables: variables }
+}

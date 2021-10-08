@@ -1,69 +1,72 @@
 import {
-  BaseTypeName,
+  BaseTypeKind,
   ElementTypeKind,
-  PrimitiveKind,
+  PrimitiveTypeKind,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { CreateTypeInput } from '../../use-cases/type/create-type'
 
+/**
+ * The core types that we rely on being there at any point when creating more complex types
+ */
 export const baseTypes: Array<CreateTypeInput> = [
   {
-    name: BaseTypeName.String,
+    name: BaseTypeKind.String,
     typeKind: TypeKind.PrimitiveType,
     primitiveType: {
-      primitiveKind: PrimitiveKind.String,
+      primitiveKind: PrimitiveTypeKind.String,
     },
   },
   {
-    name: BaseTypeName.Boolean,
+    name: BaseTypeKind.Boolean,
     typeKind: TypeKind.PrimitiveType,
-    primitiveType: { primitiveKind: PrimitiveKind.Boolean },
+    primitiveType: { primitiveKind: PrimitiveTypeKind.Boolean },
   },
   {
-    name: BaseTypeName.Float,
+    name: BaseTypeKind.Float,
     typeKind: TypeKind.PrimitiveType,
-    primitiveType: { primitiveKind: PrimitiveKind.Float },
+    primitiveType: { primitiveKind: PrimitiveTypeKind.Float },
   },
   {
-    name: BaseTypeName.Integer,
+    name: BaseTypeKind.Integer,
     typeKind: TypeKind.PrimitiveType,
-    primitiveType: { primitiveKind: PrimitiveKind.Integer },
+    primitiveType: { primitiveKind: PrimitiveTypeKind.Integer },
   },
   {
-    name: BaseTypeName.Lambda,
+    name: BaseTypeKind.Lambda,
     typeKind: TypeKind.LambdaType,
   },
   {
-    name: BaseTypeName.ChildElement,
+    name: BaseTypeKind.ChildElement,
     typeKind: TypeKind.ElementType,
     elementType: {
       kind: ElementTypeKind.ChildrenOnly,
     },
   },
   {
-    name: BaseTypeName.DescendantElement,
+    name: BaseTypeKind.DescendantElement,
     typeKind: TypeKind.ElementType,
     elementType: {
       kind: ElementTypeKind.DescendantsOnly,
     },
   },
   {
-    name: BaseTypeName.Element,
+    name: BaseTypeKind.Element,
     typeKind: TypeKind.ElementType,
     elementType: {
       kind: ElementTypeKind.AllElements,
     },
   },
   {
-    name: BaseTypeName.Component,
+    name: BaseTypeKind.Component,
     typeKind: TypeKind.ComponentType,
   },
   {
-    name: BaseTypeName.RenderProps,
+    name: BaseTypeKind.RenderProps,
     typeKind: TypeKind.RenderPropsType,
   },
   {
-    name: BaseTypeName.ReactNode,
+    name: BaseTypeKind.ReactNode,
     typeKind: TypeKind.ReactNodeType,
   },
 ]

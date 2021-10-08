@@ -1,5 +1,8 @@
+import {
+  CreateAtomInput,
+  GetAtomInput,
+} from '@codelab/frontend/abstract/codegen'
 import { CreateAtomGql, GetAtomGql } from '@codelab/frontend/modules/atom'
-import { CreateAtomInput, GetAtomInput } from '@codelab/shared/codegen/graphql'
 import { print } from 'graphql'
 
 export const createAtom = (input: CreateAtomInput) => {

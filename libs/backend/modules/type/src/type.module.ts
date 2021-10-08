@@ -1,26 +1,10 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { CytoscapeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
-import {
-  ComponentTypeAdapter,
-  ElementTypeAdapter,
-  EnumTypeAdapter,
-  EnumTypeValueAdapter,
-  FieldAdapter,
-  InterfaceTypeAdapter,
-  LambdaTypeAdapter,
-  PrimitiveTypeAdapter,
-  TypeAdapterFactory,
-  TypeGraphAdapter,
-} from './application/adapters'
-import { ArrayTypeAdapter } from './application/adapters/array-type.adapter'
-import { ReactNodeAdapter } from './application/adapters/react-node-type.adapter'
-import { RenderPropsAdapter } from './application/adapters/render-props-type.adapter'
-import { UnionTypeAdapter } from './application/adapters/union-type-adapter'
 import { FieldResolver } from './application/field.resolver'
 import { TypeResolver } from './application/type.resolver'
 import { TypeGraphResolver } from './application/type-graph.resolver'
-import { FieldValidator } from './domain/field.validator'
+import { FieldValidator } from './domain/field/field.validator'
 import { TypeValidator } from './domain/type.validator'
 import { CreateFieldService } from './use-cases/field/create-field'
 import { DeleteFieldService } from './use-cases/field/delete-field'
@@ -29,6 +13,7 @@ import { UpdateFieldService } from './use-cases/field/update-field'
 import { CreateTypeService } from './use-cases/type/create-type'
 import { DeleteTypeService } from './use-cases/type/delete-type'
 import { GetTypeService } from './use-cases/type/get-type'
+import { GetTypeGraphService } from './use-cases/type/get-type-graph'
 import { GetTypesService } from './use-cases/type/get-types'
 import { ImportApiService } from './use-cases/type/import-api'
 import { SeedBaseTypesService } from './use-cases/type/seed-base-types'
@@ -45,10 +30,6 @@ const fieldServices = [
   DeleteFieldService,
   GetFieldService,
   UpdateFieldService,
-  /**
-   * Adapters
-   */
-  FieldAdapter,
   /**
    * Validators
    */
@@ -70,23 +51,7 @@ const typeServices = [
   UpdateTypeService,
   ImportApiService,
   SeedBaseTypesService,
-  /**
-   * Adapters
-   */
-  InterfaceTypeAdapter,
-  RenderPropsAdapter,
-  ReactNodeAdapter,
-  ArrayTypeAdapter,
-  ComponentTypeAdapter,
-  TypeAdapterFactory,
-  PrimitiveTypeAdapter,
-  EnumTypeAdapter,
-  EnumTypeValueAdapter,
-  UnionTypeAdapter,
-  LambdaTypeAdapter,
-  ElementTypeAdapter,
-  TypeGraphAdapter,
-  FieldAdapter,
+  GetTypeGraphService,
   /**
    * Validators
    */

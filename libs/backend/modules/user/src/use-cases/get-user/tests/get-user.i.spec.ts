@@ -1,52 +1,32 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { UserModule } from '../../../user.module'
-import { UpsertUserInput } from '../../upsert-user'
-import {
-  UpsertUserGql,
-  UpsertUserMutation,
-} from '../../upsert-user/tests/upsert-user.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupUserTestModule } from '../../../test/setupUserTestModule'
 import { createUserInput } from '../../upsert-user/tests/upsert-user.data'
 import { GetUserInput } from '../get-user.input'
-import { GetUserGql, GetUserQuery } from './get-user.api.graphql.gen'
+import {
+  TestGetUserGql,
+  TestGetUserQuery,
+} from './test-get-user.api.graphql.gen'
 
 describe('GetUser', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupUserTestModule()
   let getUserInput: GetUserInput
   let createUserId: string
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([UserModule], { role: Role.Guest })
-    userApp = await setupTestModule([UserModule], { role: Role.User })
+    const user = await testModule.upsertUser(createUserInput)
 
-    const { upsertUser } = await domainRequest<
-      UpsertUserInput,
-      UpsertUserMutation
-    >(userApp, UpsertUserGql, createUserInput)
-
-    createUserId = upsertUser.id
+    createUserId = user.id
     getUserInput = {
       id: createUserId,
     }
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to get a user', async () => {
-      await domainRequest<GetUserInput, GetUserQuery>(
-        guestApp,
-        GetUserGql,
+      await domainRequest<GetUserInput, TestGetUserQuery>(
+        testModule.guestApp,
+        TestGetUserGql,
         getUserInput,
         {
           message: 'Unauthorized',
@@ -57,11 +37,7 @@ describe('GetUser', () => {
 
   describe('User', () => {
     it('should get a user by id', async () => {
-      const { getUser } = await domainRequest<GetUserInput, GetUserQuery>(
-        userApp,
-        GetUserGql,
-        getUserInput,
-      )
+      const getUser = await testModule.getUser(getUserInput)
 
       expect(getUser).toMatchObject({
         id: createUserId,
@@ -70,13 +46,9 @@ describe('GetUser', () => {
     })
 
     it('should get a user by auth0Id', async () => {
-      const { getUser } = await domainRequest<GetUserInput, GetUserQuery>(
-        userApp,
-        GetUserGql,
-        {
-          auth0Id: createUserInput.data.auth0Id,
-        },
-      )
+      const getUser = await testModule.getUser({
+        auth0Id: createUserInput.data.auth0Id,
+      })
 
       expect(getUser).toMatchObject({
         id: createUserId,

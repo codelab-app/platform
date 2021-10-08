@@ -2,22 +2,16 @@ import {
   CreateResponse,
   DgraphCreateUseCase,
 } from '@codelab/backend/application'
-import {
-  DgraphComponent,
-  DgraphCreateMutationJson,
-  DgraphEntityType,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { CreateComponentRequest } from './create-component.request'
 
+/**
+ * Creates an Element and tags it with componentTag
+ */
 @Injectable()
 export class CreateComponentService extends DgraphCreateUseCase<CreateComponentRequest> {
-  constructor(dgraph: DgraphRepository) {
-    super(dgraph)
-  }
-
   protected async executeTransaction(
     request: CreateComponentRequest,
     txn: Txn,
@@ -28,23 +22,32 @@ export class CreateComponentService extends DgraphCreateUseCase<CreateComponentR
   }
 
   protected createMutation(
-    { input: { name } }: CreateComponentRequest,
+    { input: { name }, currentUser }: CreateComponentRequest,
     blankNodeUid: string,
   ): Mutation {
-    const createComponentJson: DgraphCreateMutationJson<DgraphComponent> = {
-      uid: blankNodeUid,
-      'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.Component],
+    const createTagJson = {
+      'dgraph.type': [DgraphEntityType.Tag],
       name,
-      root: {
-        'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Element],
-        name: 'Root element',
-        children: [],
-        props: '{}',
+      isRoot: true,
+    }
+
+    const createElementJson = {
+      uid: blankNodeUid,
+      name,
+      'dgraph.type': [DgraphEntityType.Element],
+      'children|order': 0,
+      children: [],
+      atom: undefined,
+      props: '{}',
+      owner: {
+        uid: currentUser.id,
       },
+      propTransformationJs: undefined,
+      componentTag: createTagJson,
     }
 
     return {
-      setJson: [createComponentJson],
+      setJson: [createElementJson],
     }
   }
 }

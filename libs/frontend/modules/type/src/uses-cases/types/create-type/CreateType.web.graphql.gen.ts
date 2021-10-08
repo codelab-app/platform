@@ -1,24 +1,37 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type CreateTypeMutationVariables = Types.Exact<{
-  input: Types.CreateTypeInput;
-}>;
+  input: Types.CreateTypeInput
+}>
 
-
-export type CreateTypeMutation = { createType: { id: string } };
-
+export type CreateTypeMutation = {
+  createType:
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
+}
 
 export const CreateTypeGql = gql`
-    mutation CreateType($input: CreateTypeInput!) {
-  createType(input: $input) {
-    id
+  mutation CreateType($input: CreateTypeInput!) {
+    createType(input: $input) {
+      id
+    }
   }
-}
-    `;
-export type CreateTypeMutationFn = Apollo.MutationFunction<CreateTypeMutation, CreateTypeMutationVariables>;
+`
+export type CreateTypeMutationFn = Apollo.MutationFunction<
+  CreateTypeMutation,
+  CreateTypeMutationVariables
+>
 
 /**
  * __useCreateTypeMutation__
@@ -37,10 +50,23 @@ export type CreateTypeMutationFn = Apollo.MutationFunction<CreateTypeMutation, C
  *   },
  * });
  */
-export function useCreateTypeMutation(baseOptions?: Apollo.MutationHookOptions<CreateTypeMutation, CreateTypeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateTypeMutation, CreateTypeMutationVariables>(CreateTypeGql, options);
-      }
-export type CreateTypeMutationHookResult = ReturnType<typeof useCreateTypeMutation>;
-export type CreateTypeMutationResult = Apollo.MutationResult<CreateTypeMutation>;
-export type CreateTypeMutationOptions = Apollo.BaseMutationOptions<CreateTypeMutation, CreateTypeMutationVariables>;
+export function useCreateTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateTypeMutation,
+    CreateTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateTypeMutation, CreateTypeMutationVariables>(
+    CreateTypeGql,
+    options,
+  )
+}
+export type CreateTypeMutationHookResult = ReturnType<
+  typeof useCreateTypeMutation
+>
+export type CreateTypeMutationResult = Apollo.MutationResult<CreateTypeMutation>
+export type CreateTypeMutationOptions = Apollo.BaseMutationOptions<
+  CreateTypeMutation,
+  CreateTypeMutationVariables
+>

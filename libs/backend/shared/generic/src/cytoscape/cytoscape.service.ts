@@ -1,4 +1,4 @@
-import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
+import { IEdge, IGraph, IVertex } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Core, EdgeDataDefinition, NodeDataDefinition } from 'cytoscape'
 
@@ -25,11 +25,11 @@ export class CytoscapeService {
   //   })
   // }
 
-  treeToGraph<TVertex extends Vertex, TEdge extends Edge>(
+  treeToGraph<TVertex extends IVertex, TEdge extends IEdge>(
     cy: Core,
     vertexMapper: (nodeData: any) => TVertex,
     edgeMapper: (edgeData: any) => TEdge,
-  ): Graph<TVertex, TEdge> {
+  ): IGraph<TVertex, TEdge> {
     return {
       vertices: cy.nodes().map((node) => vertexMapper(node.data())),
       edges: cy.edges().map((edge) => edgeMapper(edge.data())),

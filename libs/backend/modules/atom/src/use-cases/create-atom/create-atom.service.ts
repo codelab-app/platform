@@ -1,6 +1,5 @@
 import { DgraphCreateUseCase } from '@codelab/backend/application'
 import {
-  DgraphAtom,
   DgraphEntityType,
   DgraphRepository,
   jsonMutation,
@@ -70,7 +69,7 @@ export class CreateAtomService extends DgraphCreateUseCase<CreateAtomRequest> {
     { type, name }: CreateAtomInput,
     blankNodeUid: string,
   ) {
-    return jsonMutation<DgraphAtom>({
+    return jsonMutation({
       uid: blankNodeUid,
       'dgraph.type': [DgraphEntityType.Atom],
       atomType: type,

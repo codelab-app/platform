@@ -1,7 +1,7 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import { ImportApiService } from '@codelab/backend/modules/type'
-import { AtomType, User } from '@codelab/shared/abstract/core'
+import { AtomType, IUser } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { CreateAtomService } from '../create-atom'
 import { CreateAtomRequest } from '../create-atom/create-atom.request'
@@ -41,7 +41,7 @@ export class ImportAtomsService
 
   private async createAtoms(
     atoms: Array<TestGetExport__AtomsFragment>,
-    currentUser: User,
+    currentUser: IUser,
   ) {
     await Promise.all(
       atoms.map(async (atom) => {
@@ -53,7 +53,7 @@ export class ImportAtomsService
         // Seed api
         const { id } = await this.importApiService.execute({
           input: {
-            typeGraph: atom.api.typeGraph,
+            typeGraph: atom.api.typeGraph as any,
             api: atom.api.id,
           },
           currentUser,
@@ -101,13 +101,13 @@ export class ImportAtomsService
 
     // We don't update api here
     await this.updateAtomService.execute({
-      id: atom.uid,
+      id: atom.id,
       data: {
         name: input.name,
-        type: atom.atomType as AtomType,
+        type: atom.type as AtomType,
       },
     })
 
-    return atom.uid
+    return atom.id
   }
 }

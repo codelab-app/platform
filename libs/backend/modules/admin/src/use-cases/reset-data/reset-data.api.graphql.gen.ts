@@ -1,20 +1,23 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
-export type TestResetDataMutationVariables = Types.Exact<{ [key: string]: never; }>;
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
+export type TestResetDataMutationVariables = Types.Exact<{
+  [key: string]: never
+}>
 
-
-export type TestResetDataMutation = { resetData?: Types.Maybe<void> };
-
+export type TestResetDataMutation = { resetData?: void | null | undefined }
 
 export const TestResetDataGql = gql`
-    mutation TestResetData {
-  resetData
-}
-    `;
-export type TestResetDataMutationFn = Apollo.MutationFunction<TestResetDataMutation, TestResetDataMutationVariables>;
+  mutation TestResetData {
+    resetData
+  }
+`
+export type TestResetDataMutationFn = Apollo.MutationFunction<
+  TestResetDataMutation,
+  TestResetDataMutationVariables
+>
 
 /**
  * __useTestResetDataMutation__
@@ -32,10 +35,24 @@ export type TestResetDataMutationFn = Apollo.MutationFunction<TestResetDataMutat
  *   },
  * });
  */
-export function useTestResetDataMutation(baseOptions?: Apollo.MutationHookOptions<TestResetDataMutation, TestResetDataMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestResetDataMutation, TestResetDataMutationVariables>(TestResetDataGql, options);
-      }
-export type TestResetDataMutationHookResult = ReturnType<typeof useTestResetDataMutation>;
-export type TestResetDataMutationResult = Apollo.MutationResult<TestResetDataMutation>;
-export type TestResetDataMutationOptions = Apollo.BaseMutationOptions<TestResetDataMutation, TestResetDataMutationVariables>;
+export function useTestResetDataMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestResetDataMutation,
+    TestResetDataMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestResetDataMutation,
+    TestResetDataMutationVariables
+  >(TestResetDataGql, options)
+}
+export type TestResetDataMutationHookResult = ReturnType<
+  typeof useTestResetDataMutation
+>
+export type TestResetDataMutationResult =
+  Apollo.MutationResult<TestResetDataMutation>
+export type TestResetDataMutationOptions = Apollo.BaseMutationOptions<
+  TestResetDataMutation,
+  TestResetDataMutationVariables
+>

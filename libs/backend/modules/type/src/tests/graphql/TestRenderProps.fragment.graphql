@@ -1,0 +1,4 @@
+fragment TestRenderPropsType on RenderPropsType {
+  id
+  name
+}

@@ -1,15 +1,15 @@
 import {
-  IElementTypeVertex,
-  IEnumTypeVertex,
-  IPrimitiveTypeVertex,
-  ITypeVertex,
+  IElementType,
+  IEnumType,
+  IPrimitiveType,
+  IType,
 } from '@codelab/shared/abstract/core'
 import { TypeTree } from '@codelab/shared/core'
 import { TypeModels } from './TypeModels'
 
 export const getTypeName = (
-  type: ITypeVertex | null | undefined,
-  typeTree: TypeTree<any, any>,
+  type: IType | null | undefined,
+  typeTree: TypeTree,
   iteration = 0,
 ): string => {
   if (!type) {
@@ -24,7 +24,7 @@ export const getTypeName = (
 
   switch (kind) {
     case TypeModels.PrimitiveType:
-      return (type as IPrimitiveTypeVertex).primitiveKind
+      return (type as IPrimitiveType).primitiveKind
 
     case TypeModels.ArrayType: {
       const itemType = typeTree.getArrayItemType(type.id)
@@ -33,13 +33,13 @@ export const getTypeName = (
     }
 
     case TypeModels.EnumType:
-      return `Enum (${(type as IEnumTypeVertex).allowedValues
+      return `Enum (${(type as IEnumType).allowedValues
         .map((v) => v.name ?? v.value)
         .join(',')})`
     case TypeModels.InterfaceType:
       return `Interface (${type.name})`
     case TypeModels.ElementType:
-      return `Element (${(type as IElementTypeVertex).kind})`
+      return `Element (${(type as IElementType).elementKind})`
     case TypeModels.LambdaType:
       return `Lambda`
     case TypeModels.ComponentType:

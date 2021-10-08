@@ -1,60 +1,43 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { AtomModule } from '../../../atom.module'
-import { CreateAtomInput } from '../create-atom.input'
-import {
-  TestCreateAtomGql,
-  TestCreateAtomMutation,
-} from './create-atom.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupAtomTestModule } from '../../../test/setupAtomTestModule'
+import { TestCreateAtomGql } from './create-atom.api.graphql.gen'
 import { createAtomInput } from './create-atom.data'
 
 describe('CreateAtom', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
-  let adminApp: INestApplication
-
-  beforeAll(async () => {
-    guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
-    userApp = await setupTestModule([AtomModule], { role: Role.User })
-    adminApp = await setupTestModule([AtomModule], { role: Role.Admin })
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-    await teardownTestModule(adminApp)
-  })
+  const testModule = setupAtomTestModule(false)
 
   describe('Guest', () => {
     it('should fail to create an atom', async () => {
-      await domainRequest(guestApp, TestCreateAtomGql, createAtomInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestCreateAtomGql,
+        createAtomInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
     it('should fail to create an atom', async () => {
-      await domainRequest(userApp, TestCreateAtomGql, createAtomInput, {
-        message: 'Admin access only',
-      })
+      await domainRequest(
+        testModule.userApp,
+        TestCreateAtomGql,
+        createAtomInput,
+        {
+          message: 'Admin access only',
+        },
+      )
     })
   })
 
   describe('Admin', () => {
     it('should create an atom', async () => {
-      const { createAtom } = await domainRequest<
-        CreateAtomInput,
-        TestCreateAtomMutation
-      >(adminApp, TestCreateAtomGql, createAtomInput)
+      const atom = await testModule.createTestAtom(createAtomInput)
 
-      expect(createAtom).toMatchObject({
-        id: createAtom.id,
+      expect(atom).toMatchObject({
+        id: atom.id,
         ...createAtomInput,
       })
     })

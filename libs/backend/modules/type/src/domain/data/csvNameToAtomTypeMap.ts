@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/codegen/graphql'
+import { AtomType } from '@codelab/frontend/abstract/codegen'
 
 /**
  * Maps the name of the csv files to their atom type

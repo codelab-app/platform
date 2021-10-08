@@ -1,12 +1,11 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphEntityType,
-  DgraphEnumType,
   DgraphRepository,
-  DgraphUpdateMutationJson,
+  jsonMutation,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+import { Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../domain/type.validator'
 import { UpdateEnumTypeInput } from './update-enum-type.input'
 
@@ -28,10 +27,7 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
     typeId,
     updateData: { allowedValues, name },
   }: UpdateEnumTypeInput) {
-    const mu: Mutation = {}
-
-    // Create or update all other
-    const updateEnumTypeJson: DgraphUpdateMutationJson<DgraphEnumType> = {
+    return jsonMutation({
       uid: typeId,
       name,
       allowedValues: allowedValues.map((av) => ({
@@ -40,11 +36,7 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
         name: av.name ?? undefined,
         stringValue: av.value,
       })),
-    }
-
-    mu.setJson = updateEnumTypeJson
-
-    return mu
+    })
   }
 
   private async validate(request: UpdateEnumTypeInput) {

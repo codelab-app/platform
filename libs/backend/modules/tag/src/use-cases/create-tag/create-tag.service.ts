@@ -1,10 +1,5 @@
 import { DgraphCreateUseCase } from '@codelab/backend/application'
-import {
-  DgraphCreateMutationJson,
-  DgraphEntityType,
-  DgraphTag,
-  jsonMutation,
-} from '@codelab/backend/infra'
+import { DgraphEntityType, jsonMutation } from '@codelab/backend/infra'
 import { isAdmin } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -33,13 +28,13 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
       currentUser,
     } = request
 
-    return jsonMutation<DgraphTag>({
+    return jsonMutation({
       uid: blankNodeUid,
       name,
       owner: isAdmin(currentUser) ? null : { uid: currentUser.id },
       parent: undefined,
       isRoot: true,
-      'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
+      'dgraph.type': [DgraphEntityType.Tag],
       children: [],
     })
   }
@@ -57,13 +52,13 @@ export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
       throw new Error('Must have parent')
     }
 
-    const createJson: DgraphCreateMutationJson<DgraphTag> = {
+    const createJson = {
       uid: blankNodeUid,
       name,
       owner: isAdmin(currentUser) ? null : { uid: currentUser.id },
       parent: { uid: parentTagId },
       isRoot: false,
-      'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
+      'dgraph.type': [DgraphEntityType.Tag],
       children: [],
     }
 

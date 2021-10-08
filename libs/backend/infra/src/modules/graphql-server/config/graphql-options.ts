@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql'
 import { GraphQLError } from 'graphql'
+import { join } from 'path'
 import type { GraphqlServerConfig } from './graphql-server.config'
 import { graphqlServerConfig } from './graphql-server.config'
 
@@ -15,6 +16,12 @@ export class GraphqlOptions implements GqlOptionsFactory {
     return {
       // fieldResolverEnhancers: ['filters', 'interceptors', 'guards'],
       autoSchemaFile: this._graphqlServerConfig?.autoSchemaFile,
+      definitions: {
+        path: join(
+          process.cwd(),
+          'libs/backend/abstract/codegen/src/nestjs-types.api.graphql.gen.ts',
+        ),
+      },
       installSubscriptionHandlers: true,
       path: '/graphql',
       debug: true,

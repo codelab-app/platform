@@ -4,6 +4,7 @@ fragment AppPages__App on App {
   pages {
     id
     name
+    rootElementId
   }
 }
 

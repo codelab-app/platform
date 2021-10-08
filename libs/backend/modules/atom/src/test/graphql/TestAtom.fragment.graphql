@@ -1,0 +1,21 @@
+fragment TestAtom on Atom {
+  __typename
+  id
+  name
+  type
+  api {
+    __typename
+    id
+    name
+  }
+}
+
+fragment TestAtomBase on Atom {
+  id
+  name
+  type
+  api {
+    id
+    name
+  }
+}

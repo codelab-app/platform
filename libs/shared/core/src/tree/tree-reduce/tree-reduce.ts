@@ -1,8 +1,8 @@
-import { BaseNode } from '@codelab/shared/abstract/core'
+import { IBaseNode } from '@codelab/shared/abstract/core'
 import { hasChildren } from '../has-children'
 
 export const treeReduce =
-  <T extends BaseNode<T>, R>(
+  <T extends IBaseNode<T>, R>(
     reducerFn: (...args: any) => any,
     childrenKey = 'children',
   ) =>
@@ -14,7 +14,7 @@ export const treeReduce =
     }
 
     return node[childrenKey]?.reduce(
-      treeReduce<BaseNode<T>, R>(reducerFn, childrenKey),
+      treeReduce<IBaseNode<T>, R>(reducerFn, childrenKey),
       acc,
     )
   }

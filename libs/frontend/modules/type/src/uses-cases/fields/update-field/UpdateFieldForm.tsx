@@ -52,7 +52,7 @@ export const UpdateFieldForm = (
   return (
     <FormUniforms<UpdateFieldSchema>
       onSubmit={handleSubmit}
-      schema={updateFieldSchema as any}
+      schema={updateFieldSchema}
       onSubmitError={createNotificationHandler({
         title: 'Error while updating field',
       })}

@@ -2,7 +2,7 @@ import { DgraphService, GqlAuthGuard } from '@codelab/backend/infra'
 import { testAuth0Id, testUserUid } from '@codelab/backend/shared/generic'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { NestjsModule } from '@codelab/backend/shared/nestjs'
-import { Role, User } from '@codelab/shared/abstract/core'
+import { IUser, Role } from '@codelab/shared/abstract/core'
 import {
   DynamicModule,
   ExecutionContext,
@@ -14,7 +14,8 @@ import {
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
 import * as shell from 'shelljs'
-import { env } from '../../../../../jest/env'
+
+export const env = process.env.CI ? 'ci' : 'test'
 
 type NestModule =
   | Type
@@ -24,6 +25,7 @@ type NestModule =
 
 interface TestOptions {
   role: Role
+  resetDb?: boolean
 }
 
 export const setupTestModule = async (
@@ -33,7 +35,7 @@ export const setupTestModule = async (
     testModule: TestingModuleBuilder,
   ) => TestingModuleBuilder = (x) => x,
 ): Promise<INestApplication> => {
-  const { role } = options
+  const { role, resetDb } = options
 
   let testModuleBuilder: TestingModuleBuilder = await Test.createTestingModule({
     imports: [NestjsModule, ...nestModules],
@@ -63,7 +65,7 @@ export const setupTestModule = async (
         throw new UnauthorizedException()
       }
 
-      const user: User = {
+      const user: IUser = {
         id: userUid,
         auth0Id: auth0Id,
         roles: [role],
@@ -80,6 +82,10 @@ export const setupTestModule = async (
   const app = testModule.createNestApplication()
 
   await app.init()
+
+  if (resetDb) {
+    await getDgraphProviderFromTestModule(app).resetDb()
+  }
 
   return app
 }

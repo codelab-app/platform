@@ -133,6 +133,25 @@
         }
       }
     },
+    "backend-abstract-codegen": {
+      "root": "libs/backend/abstract/codegen",
+      "sourceRoot": "libs/backend/abstract/codegen/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/backend/abstract/codegen/**/*.ts"]
+          },
+          "configurations": {
+            "ci": {
+              "eslintConfig": "libs/backend/abstract/codegen/.eslintrc.ci.json"
+            }
+          }
+        }
+      }
+    },
     "backend-abstract-core": {
       "root": "libs/backend/abstract/core",
       "sourceRoot": "libs/backend/abstract/core/src",
@@ -619,7 +638,55 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "cli:build",
+            "buildTarget": "cli:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/cli/**/*.ts"]
+          },
+          "configurations": {
+            "ci": {
+              "eslintConfig": "apps/cli/.eslintrc.ci.json"
+            }
+          }
+        }
+      }
+    },
+    "cmd": {
+      "root": "apps/cmd",
+      "sourceRoot": "apps/cmd/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/cmd",
+            "main": "apps/cmd/src/main.ts",
+            "tsConfig": "apps/cmd/tsconfig.app.json",
+            "assets": ["apps/cmd/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/cmd/src/environments/environment.ts",
+                  "with": "apps/cmd/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "cmd:build",
             "inspect": true,
             "port": 9229
           }
@@ -627,20 +694,49 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/cli/**/*.ts"]
+            "lintFilePatterns": ["apps/cmd/**/*.ts"]
           },
           "outputs": ["{options.outputFile}"],
           "configurations": {
             "ci": {
-              "eslintConfig": "apps/cli/.eslintrc.ci.json"
+              "eslintConfig": "apps/cmd/.eslintrc.ci.json"
             }
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/cli"],
+          "outputs": ["coverage/apps/cmd"],
           "options": {
-            "jestConfig": "apps/cli/jest.config.js",
+            "jestConfig": "apps/cmd/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "frontend-abstract-codegen": {
+      "root": "libs/frontend/abstract/codegen",
+      "sourceRoot": "libs/frontend/abstract/codegen/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend/abstract/codegen/**/*.{ts,tsx,js,jsx}"
+            ]
+          },
+          "configurations": {
+            "ci": {
+              "eslintConfig": "libs/frontend/abstract/codegen/.eslintrc.ci.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/abstract/codegen"],
+          "options": {
+            "jestConfig": "libs/frontend/abstract/codegen/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -867,27 +963,6 @@
           "configurations": {
             "ci": {
               "eslintConfig": "libs/frontend/modules/category/.eslintrc.ci.json"
-            }
-          }
-        }
-      }
-    },
-    "frontend-modules-component": {
-      "root": "libs/frontend/modules/component",
-      "sourceRoot": "libs/frontend/modules/component/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/frontend/modules/component/**/*.{ts,tsx,js,jsx}"
-            ]
-          },
-          "outputs": ["{options.outputFile}"],
-          "configurations": {
-            "ci": {
-              "eslintConfig": "libs/frontend/modules/component/.eslintrc.ci.json"
             }
           }
         }

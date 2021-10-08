@@ -1,18 +1,14 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphQueryBuilder,
-  DgraphUser,
-} from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/infra'
+import { IUser, UserSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetUserInput } from './get-user.input'
 
 @Injectable()
-export class GetUserService extends DgraphUseCase<
-  GetUserInput,
-  DgraphUser | null
-> {
+export class GetUserService extends DgraphUseCase<GetUserInput, IUser | null> {
+  protected schema = UserSchema.nullable().optional()
+
   async executeTransaction(request: GetUserInput, txn: Txn) {
     const { id, auth0Id } = request
 
@@ -21,13 +17,18 @@ export class GetUserService extends DgraphUseCase<
     }
 
     if (id) {
-      return await this.dgraph.getOne<DgraphUser>(txn, this.createByIdQuery(id))
+      return await this.dgraph.getOneNamed<IUser>(
+        txn,
+        this.createByIdQuery(id),
+        'query',
+      )
     }
 
     if (auth0Id) {
-      return await this.dgraph.getOne<DgraphUser>(
+      return await this.dgraph.getOneNamed<IUser>(
         txn,
         this.createByAuth0IdQuery(auth0Id),
+        'query',
       )
     }
 
@@ -35,18 +36,22 @@ export class GetUserService extends DgraphUseCase<
   }
 
   protected createByIdQuery(id: string) {
-    return new DgraphQueryBuilder()
-      .setUidFunc(id)
-      .addTypeFilterDirective(DgraphEntityType.User)
-      .addBaseFields()
-      .addExpandAll()
+    return `{
+      query(func: type(${DgraphEntityType.User})) @filter(uid(${id})){
+        id: uid
+        auth0Id
+        roles
+      }
+    }`
   }
 
   protected createByAuth0IdQuery(auth0Id: string) {
-    return new DgraphQueryBuilder()
-      .setTypeFunc(DgraphEntityType.User)
-      .addEqFilterDirective('auth0Id', auth0Id)
-      .addBaseFields()
-      .addExpandAll()
+    return `{
+      query(func: type(${DgraphEntityType.User})) @filter(eq(auth0Id, "${auth0Id}")){
+        id: uid
+        auth0Id
+        roles
+      }
+    }`
   }
 }

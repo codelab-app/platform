@@ -1,22 +1,12 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { AtomType, Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { AtomType, IField } from '@codelab/shared/abstract/core'
 import { merge } from 'lodash'
-import { AtomModule } from '../../../atom.module'
+import { setupAtomTestModule } from '../../../test/setupAtomTestModule'
 import {
   TestGetExport__AtomsFragment,
   TestGetExportAtomsGql,
   TestGetExportAtomsQuery,
 } from '../../export-atoms/get-export-atoms.api.graphql.gen'
-import { GetAtomInput } from '../../get-atom/get-atom.input'
-import {
-  TestGetAtomGql,
-  TestGetAtomQuery,
-} from '../../get-atom/tests/get-atom.api.graphql.gen'
 import { GetAtomsInput } from '../../get-atoms/get-atoms.input'
 import { ImportAtomsInput } from '../import-atoms.input'
 import { exportAtomsData } from './export-atoms.data'
@@ -32,7 +22,7 @@ const sortedAtoms = (atoms: Array<TestGetExport__AtomsFragment>) => {
       api: {
         typeGraph: {
           edges: atom.api.typeGraph.edges.sort((a, b) =>
-            (a?.field?.key ?? '') > (b?.field?.key ?? '') ? 1 : -1,
+            ((a as IField)?.key ?? '') > ((b as IField)?.key ?? '') ? 1 : -1,
           ),
           vertices: atom.api.typeGraph.vertices.sort((a, b) =>
             (a?.name ?? '') > (b?.name ?? '') ? 1 : -1,
@@ -44,22 +34,8 @@ const sortedAtoms = (atoms: Array<TestGetExport__AtomsFragment>) => {
 }
 
 describe('ImportAtoms', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
-  let adminApp: INestApplication
+  const testModule = setupAtomTestModule(true)
   let importAtomsInput: ImportAtomsInput
-
-  beforeAll(async () => {
-    guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
-    userApp = await setupTestModule([AtomModule], { role: Role.User })
-    adminApp = await setupTestModule([AtomModule], { role: Role.Admin })
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-    await teardownTestModule(adminApp)
-  })
 
   describe('Guest', () => {
     importAtomsInput = {
@@ -68,7 +44,7 @@ describe('ImportAtoms', () => {
 
     it('should fail to import atoms', async () => {
       await domainRequest<ImportAtomsInput, TestImportAtomsMutation>(
-        guestApp,
+        testModule.guestApp,
         TestImportAtomsGql,
         importAtomsInput,
         {
@@ -85,7 +61,7 @@ describe('ImportAtoms', () => {
 
     it('should fail to import atoms', async () => {
       await domainRequest<ImportAtomsInput, TestImportAtomsMutation>(
-        userApp,
+        testModule.userApp,
         TestImportAtomsGql,
         importAtomsInput,
         {
@@ -98,18 +74,14 @@ describe('ImportAtoms', () => {
   describe('Admin', () => {
     it('should import atoms', async () => {
       await domainRequest<ImportAtomsInput>(
-        adminApp,
+        testModule.adminApp,
         TestImportAtomsGql,
         importAtomsInput,
       )
 
-      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
-        userApp,
-        TestGetAtomGql,
-        {
-          where: { type: AtomType.AntDesignCard },
-        },
-      )
+      const atom = await testModule.getAtom({
+        where: { type: AtomType.AntDesignCard },
+      })
 
       if (!atom) {
         throw new Error('Atom not found')
@@ -127,7 +99,7 @@ describe('ImportAtoms', () => {
       const { getAtoms } = await domainRequest<
         GetAtomsInput,
         TestGetExportAtomsQuery
-      >(userApp, TestGetExportAtomsGql, getAtomsInput)
+      >(testModule.userApp, TestGetExportAtomsGql, getAtomsInput)
 
       /**
        * Let's sort the vertices/edges by name so order isn't considered

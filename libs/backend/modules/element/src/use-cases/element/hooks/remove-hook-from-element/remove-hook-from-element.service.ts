@@ -2,7 +2,6 @@ import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphEntityType,
   DgraphFilters,
-  DgraphHook,
   DgraphQueryBuilder,
   DgraphQueryField,
 } from '@codelab/backend/infra'
@@ -31,7 +30,7 @@ export class RemoveHookFromElementService extends DgraphUseCase<RemoveHookFromEl
 
     const elementWithHook = await this.dgraph.transactionWrapper((txn) => {
       return this.dgraph.getOneOrThrow<{
-        hooks: Array<Pick<DgraphHook, 'uid'>>
+        hooks: Array<Pick<any, 'uid'>>
       }>(
         txn,
         new DgraphQueryBuilder()

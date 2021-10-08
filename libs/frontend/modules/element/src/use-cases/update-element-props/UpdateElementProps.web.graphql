@@ -1,3 +1,5 @@
 mutation UpdateElementProps($input: UpdateElementPropsInput!) {
-  updateElementProps(input: $input)
+  updateElementProps(input: $input) {
+    ...Element
+  }
 }

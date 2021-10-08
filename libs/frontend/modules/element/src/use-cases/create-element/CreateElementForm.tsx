@@ -1,34 +1,38 @@
-import { BaseMutationOptions } from '@apollo/client'
-import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
 import {
   SelectAnyElement,
   SelectAtom,
   SelectComponent,
+  SelectElementProvider,
 } from '@codelab/frontend/modules/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import {
+  createNotificationHandler,
+  notify,
+} from '@codelab/frontend/shared/utils'
 import {
   EntityType,
   FormUniforms,
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
+import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { useElementGraphContext } from '../../providers'
+import { refetchGetElementGraphQuery } from '../get-element-graph'
 import { useCreateElementMutation } from './CreateElement.web.graphql.gen'
 import { CreateElementSchema, createElementSchema } from './createElementSchema'
 
 export interface CreateElementFormProps
   extends UniFormUseCaseProps<CreateElementSchema> {
-  refetchQueries?: BaseMutationOptions['refetchQueries']
   initialData: Partial<Pick<CreateElementSchema, 'parentElementId'>> | undefined
 }
 
 export const CreateElementForm = ({
-  refetchQueries,
   initialData,
   ...props
 }: CreateElementFormProps) => {
   const initialDataRef = useRef(initialData)
+  const { elementId, elementTree } = useElementGraphContext()
 
   const {
     handleSubmit,
@@ -38,36 +42,56 @@ export const CreateElementForm = ({
     },
   } = useCrudModalMutationForm({
     entityType: EntityType.Element,
-    mutationOptions: { refetchQueries },
+    mutationOptions: {
+      refetchQueries: [
+        refetchGetElementGraphQuery({ input: { where: { id: elementId } } }),
+      ],
+    },
     useMutationFunction: useCreateElementMutation,
-    mapVariables: (formData: CreateElementSchema) => ({
-      input: {
-        ...formData,
-      },
-    }),
+    mapVariables: ({ componentId, ...formData }: CreateElementSchema) => {
+      if (formData.atomId && componentId) {
+        notify({
+          title: 'Set either atom or component, not both',
+          type: 'error',
+        })
+        throw new Error('Set either atom or component, not both')
+      }
+
+      return {
+        input: {
+          ...formData,
+          childrenIds: componentId ? [componentId] : undefined,
+        },
+      }
+    },
   })
 
-  const { data: atoms } = useGetAtomsQuery()
-
   return (
-    <FormUniforms<CreateElementSchema>
-      schema={createElementSchema}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while creating element',
-      })}
-      onSubmit={handleSubmit}
-      onSubmitSuccess={() => reset()}
-      model={{
-        parentElementId:
-          initialDataRef.current?.parentElementId ?? metadata?.parentElementId,
-      }}
-      {...props}
+    <SelectElementProvider
+      tree={elementTree ?? new ElementTree({ edges: [], vertices: [] })}
     >
-      <AutoFields omitFields={['parentElementId', 'atomId', 'componentId']} />
-
-      <AutoField name="atomId" component={SelectAtom} />
-      <AutoField name="componentId" component={SelectComponent} />
-      <AutoField name="parentElementId" component={SelectAnyElement} />
-    </FormUniforms>
+      <FormUniforms<CreateElementSchema>
+        schema={createElementSchema}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating element',
+        })}
+        onSubmit={handleSubmit}
+        onSubmitSuccess={() => reset()}
+        model={{
+          parentElementId:
+            initialDataRef.current?.parentElementId ??
+            metadata?.parentElementId,
+        }}
+        {...props}
+      >
+        <AutoFields
+          omitFields={['parentElementId', 'atomId', 'componentId', 'order']}
+        />
+        <AutoField name="parentElementId" component={SelectAnyElement} />
+        <AutoField name={'order'} />
+        <AutoField name="atomId" component={SelectAtom} />
+        <AutoField name="componentId" component={SelectComponent} />
+      </FormUniforms>
+    </SelectElementProvider>
   )
 }

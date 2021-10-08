@@ -1,4 +1,8 @@
-import { AtomType, CreateResponse, Page } from '@codelab/shared/codegen/graphql'
+import {
+  AtomType,
+  CreateResponse,
+  Page,
+} from '@codelab/frontend/abstract/codegen'
 
 interface beforeHookParams {
   pageName: string

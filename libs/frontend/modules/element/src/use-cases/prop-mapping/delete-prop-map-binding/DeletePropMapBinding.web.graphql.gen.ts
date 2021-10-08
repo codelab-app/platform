@@ -1,22 +1,25 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type DeletePropMapBindingMutationVariables = Types.Exact<{
-  input: Types.DeletePropMapBindingInput;
-}>;
+  input: Types.DeletePropMapBindingInput
+}>
 
-
-export type DeletePropMapBindingMutation = { deletePropMapBinding?: Types.Maybe<void> };
-
+export type DeletePropMapBindingMutation = {
+  deletePropMapBinding?: void | null | undefined
+}
 
 export const DeletePropMapBindingGql = gql`
-    mutation DeletePropMapBinding($input: DeletePropMapBindingInput!) {
-  deletePropMapBinding(input: $input)
-}
-    `;
-export type DeletePropMapBindingMutationFn = Apollo.MutationFunction<DeletePropMapBindingMutation, DeletePropMapBindingMutationVariables>;
+  mutation DeletePropMapBinding($input: DeletePropMapBindingInput!) {
+    deletePropMapBinding(input: $input)
+  }
+`
+export type DeletePropMapBindingMutationFn = Apollo.MutationFunction<
+  DeletePropMapBindingMutation,
+  DeletePropMapBindingMutationVariables
+>
 
 /**
  * __useDeletePropMapBindingMutation__
@@ -35,10 +38,24 @@ export type DeletePropMapBindingMutationFn = Apollo.MutationFunction<DeletePropM
  *   },
  * });
  */
-export function useDeletePropMapBindingMutation(baseOptions?: Apollo.MutationHookOptions<DeletePropMapBindingMutation, DeletePropMapBindingMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeletePropMapBindingMutation, DeletePropMapBindingMutationVariables>(DeletePropMapBindingGql, options);
-      }
-export type DeletePropMapBindingMutationHookResult = ReturnType<typeof useDeletePropMapBindingMutation>;
-export type DeletePropMapBindingMutationResult = Apollo.MutationResult<DeletePropMapBindingMutation>;
-export type DeletePropMapBindingMutationOptions = Apollo.BaseMutationOptions<DeletePropMapBindingMutation, DeletePropMapBindingMutationVariables>;
+export function useDeletePropMapBindingMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeletePropMapBindingMutation,
+    DeletePropMapBindingMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeletePropMapBindingMutation,
+    DeletePropMapBindingMutationVariables
+  >(DeletePropMapBindingGql, options)
+}
+export type DeletePropMapBindingMutationHookResult = ReturnType<
+  typeof useDeletePropMapBindingMutation
+>
+export type DeletePropMapBindingMutationResult =
+  Apollo.MutationResult<DeletePropMapBindingMutation>
+export type DeletePropMapBindingMutationOptions = Apollo.BaseMutationOptions<
+  DeletePropMapBindingMutation,
+  DeletePropMapBindingMutationVariables
+>

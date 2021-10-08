@@ -7,3 +7,7 @@ import { SingularElementArgument } from 'cytoscape'
 export const getCyElementData = <TData = any>(
   cyElement?: SingularElementArgument,
 ): TData | undefined => cyElement?.data()?.data
+
+export const isDefined = <TData>(
+  item: TData | undefined | null,
+): item is TData => !!item

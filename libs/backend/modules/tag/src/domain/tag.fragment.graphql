@@ -1,6 +1,0 @@
-fragment TestTag on Tag {
-  __typename
-  id
-  name
-  isRoot
-}

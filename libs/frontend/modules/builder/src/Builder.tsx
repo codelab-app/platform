@@ -1,8 +1,5 @@
-import {
-  ElementTreeGraphql,
-  isElement,
-} from '@codelab/frontend/modules/element'
 import { TypeKindsContext } from '@codelab/frontend/modules/type'
+import { ElementTree } from '@codelab/shared/core'
 import styled from '@emotion/styled'
 import React, { MouseEventHandler, useCallback, useContext } from 'react'
 import tw from 'twin.macro'
@@ -16,7 +13,7 @@ import { BuilderClickOverlay, BuilderHoverOverlay } from './overlay-toolbar'
 import { Renderer } from './renderer'
 
 export type BuilderProps = {
-  tree: ElementTreeGraphql
+  tree: ElementTree
 }
 
 const StyledBuilderContainer = styled.div`
@@ -50,7 +47,7 @@ const StyledBuilderInnerContainer = styled.div`
   overflow: auto;
 `
 
-const BuilderRenderer = ({ tree }: { tree: ElementTreeGraphql }) => {
+const BuilderRenderer = ({ tree }: { tree: ElementTree }) => {
   const { handleMouseEnter, handleMouseLeave } = useBuilderHandlers(tree)
   const { typeKindsById } = useContext(TypeKindsContext)
   const { onRendered } = useOnRendered()
@@ -95,7 +92,7 @@ export const Builder = ({
       const componentId = element.dataset?.componentId
 
       if (nodeId && !componentId) {
-        setSelectedElement(tree.getVertex(nodeId, isElement))
+        setSelectedElement(tree.getVertex(nodeId, ElementTree.isElement))
         e.stopPropagation()
       } else if (element.parentElement && element.id !== 'Builder') {
         // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent

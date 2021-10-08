@@ -1,4 +1,4 @@
-import { Role, User } from '@codelab/shared/abstract/core'
+import { IUser, Role } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { passportJwtSecret } from 'jwks-rsa'
@@ -40,7 +40,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    * @param payload
    * @returns
    */
-  async validate(payload: JwtPayload): Promise<User> {
+  async validate(payload: JwtPayload): Promise<IUser> {
     const user = await this.getUserService.execute({ auth0Id: payload.sub })
 
     const roles = payload[JWT_CLAIMS].roles.length
@@ -50,7 +50,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     let userId
 
     if (user) {
-      userId = user.uid
+      userId = user.id
     } else {
       const { id } = await this.upsertUserService.execute({
         input: {

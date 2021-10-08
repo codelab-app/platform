@@ -1,14 +1,11 @@
-import { IUnionTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
+import { IUnionType, TypeKind } from '@codelab/shared/abstract/core'
 import { Field, ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 
 @ObjectType({
   implements: () => [Type],
 })
-export class UnionType
-  extends Type<TypeKind.UnionType>
-  implements IUnionTypeVertex
-{
+export class UnionType extends Type<TypeKind.UnionType> implements IUnionType {
   @Field(() => [String])
   declare typeIdsOfUnionType: Array<string>
 
@@ -20,7 +17,7 @@ export class UnionType
     super(TypeKind.UnionType)
 
     this.id = id
-    this.name = name
     this.typeIdsOfUnionType = typeIdsOfUnionType
+    this.name = name
   }
 }

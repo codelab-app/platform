@@ -1,22 +1,30 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { LambdaFragmentDoc } from '../../graphql/Lambda.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type UpdateLambdaMutationVariables = Types.Exact<{
-  input: Types.UpdateLambdaInput;
-}>;
+  input: Types.UpdateLambdaInput
+}>
 
-
-export type UpdateLambdaMutation = { updateLambda?: Types.Maybe<void> };
-
+export type UpdateLambdaMutation = {
+  updateLambda?: LambdaFragment | null | undefined
+}
 
 export const UpdateLambdaGql = gql`
-    mutation UpdateLambda($input: UpdateLambdaInput!) {
-  updateLambda(input: $input)
-}
-    `;
-export type UpdateLambdaMutationFn = Apollo.MutationFunction<UpdateLambdaMutation, UpdateLambdaMutationVariables>;
+  mutation UpdateLambda($input: UpdateLambdaInput!) {
+    updateLambda(input: $input) {
+      ...Lambda
+    }
+  }
+  ${LambdaFragmentDoc}
+`
+export type UpdateLambdaMutationFn = Apollo.MutationFunction<
+  UpdateLambdaMutation,
+  UpdateLambdaMutationVariables
+>
 
 /**
  * __useUpdateLambdaMutation__
@@ -35,10 +43,24 @@ export type UpdateLambdaMutationFn = Apollo.MutationFunction<UpdateLambdaMutatio
  *   },
  * });
  */
-export function useUpdateLambdaMutation(baseOptions?: Apollo.MutationHookOptions<UpdateLambdaMutation, UpdateLambdaMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateLambdaMutation, UpdateLambdaMutationVariables>(UpdateLambdaGql, options);
-      }
-export type UpdateLambdaMutationHookResult = ReturnType<typeof useUpdateLambdaMutation>;
-export type UpdateLambdaMutationResult = Apollo.MutationResult<UpdateLambdaMutation>;
-export type UpdateLambdaMutationOptions = Apollo.BaseMutationOptions<UpdateLambdaMutation, UpdateLambdaMutationVariables>;
+export function useUpdateLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateLambdaMutation,
+    UpdateLambdaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateLambdaMutation,
+    UpdateLambdaMutationVariables
+  >(UpdateLambdaGql, options)
+}
+export type UpdateLambdaMutationHookResult = ReturnType<
+  typeof useUpdateLambdaMutation
+>
+export type UpdateLambdaMutationResult =
+  Apollo.MutationResult<UpdateLambdaMutation>
+export type UpdateLambdaMutationOptions = Apollo.BaseMutationOptions<
+  UpdateLambdaMutation,
+  UpdateLambdaMutationVariables
+>

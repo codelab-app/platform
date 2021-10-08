@@ -1,26 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AppBaseFragment } from '../../../../../../../frontend/modules/app/src/App.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { AppBaseFragmentDoc } from '../../../../../../../frontend/modules/app/src/App.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { AppBaseFragment } from '../../../../../../../frontend/modules/app/src/App.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { AppBaseFragmentDoc } from '../../../../../../../frontend/modules/app/src/App.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestCreateAppMutationVariables = Types.Exact<{
-  input: Types.CreateAppInput;
-}>;
+  input: Types.CreateAppInput
+}>
 
-
-export type TestCreateAppMutation = { createApp: AppBaseFragment };
-
+export type TestCreateAppMutation = { createApp: AppBaseFragment }
 
 export const TestCreateAppGql = gql`
-    mutation TestCreateApp($input: CreateAppInput!) {
-  createApp(input: $input) {
-    ...AppBase
+  mutation TestCreateApp($input: CreateAppInput!) {
+    createApp(input: $input) {
+      ...AppBase
+    }
   }
-}
-    ${AppBaseFragmentDoc}`;
-export type TestCreateAppMutationFn = Apollo.MutationFunction<TestCreateAppMutation, TestCreateAppMutationVariables>;
+  ${AppBaseFragmentDoc}
+`
+export type TestCreateAppMutationFn = Apollo.MutationFunction<
+  TestCreateAppMutation,
+  TestCreateAppMutationVariables
+>
 
 /**
  * __useTestCreateAppMutation__
@@ -39,10 +41,24 @@ export type TestCreateAppMutationFn = Apollo.MutationFunction<TestCreateAppMutat
  *   },
  * });
  */
-export function useTestCreateAppMutation(baseOptions?: Apollo.MutationHookOptions<TestCreateAppMutation, TestCreateAppMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestCreateAppMutation, TestCreateAppMutationVariables>(TestCreateAppGql, options);
-      }
-export type TestCreateAppMutationHookResult = ReturnType<typeof useTestCreateAppMutation>;
-export type TestCreateAppMutationResult = Apollo.MutationResult<TestCreateAppMutation>;
-export type TestCreateAppMutationOptions = Apollo.BaseMutationOptions<TestCreateAppMutation, TestCreateAppMutationVariables>;
+export function useTestCreateAppMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestCreateAppMutation,
+    TestCreateAppMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestCreateAppMutation,
+    TestCreateAppMutationVariables
+  >(TestCreateAppGql, options)
+}
+export type TestCreateAppMutationHookResult = ReturnType<
+  typeof useTestCreateAppMutation
+>
+export type TestCreateAppMutationResult =
+  Apollo.MutationResult<TestCreateAppMutation>
+export type TestCreateAppMutationOptions = Apollo.BaseMutationOptions<
+  TestCreateAppMutation,
+  TestCreateAppMutationVariables
+>

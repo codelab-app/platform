@@ -1,24 +1,25 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type CreateFieldMutationVariables = Types.Exact<{
-  input: Types.CreateFieldInput;
-}>;
+  input: Types.CreateFieldInput
+}>
 
-
-export type CreateFieldMutation = { createField: { id: string } };
-
+export type CreateFieldMutation = { createField: { id: string } }
 
 export const CreateFieldGql = gql`
-    mutation CreateField($input: CreateFieldInput!) {
-  createField(input: $input) {
-    id
+  mutation CreateField($input: CreateFieldInput!) {
+    createField(input: $input) {
+      id
+    }
   }
-}
-    `;
-export type CreateFieldMutationFn = Apollo.MutationFunction<CreateFieldMutation, CreateFieldMutationVariables>;
+`
+export type CreateFieldMutationFn = Apollo.MutationFunction<
+  CreateFieldMutation,
+  CreateFieldMutationVariables
+>
 
 /**
  * __useCreateFieldMutation__
@@ -37,10 +38,24 @@ export type CreateFieldMutationFn = Apollo.MutationFunction<CreateFieldMutation,
  *   },
  * });
  */
-export function useCreateFieldMutation(baseOptions?: Apollo.MutationHookOptions<CreateFieldMutation, CreateFieldMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateFieldMutation, CreateFieldMutationVariables>(CreateFieldGql, options);
-      }
-export type CreateFieldMutationHookResult = ReturnType<typeof useCreateFieldMutation>;
-export type CreateFieldMutationResult = Apollo.MutationResult<CreateFieldMutation>;
-export type CreateFieldMutationOptions = Apollo.BaseMutationOptions<CreateFieldMutation, CreateFieldMutationVariables>;
+export function useCreateFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateFieldMutation,
+    CreateFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateFieldMutation, CreateFieldMutationVariables>(
+    CreateFieldGql,
+    options,
+  )
+}
+export type CreateFieldMutationHookResult = ReturnType<
+  typeof useCreateFieldMutation
+>
+export type CreateFieldMutationResult =
+  Apollo.MutationResult<CreateFieldMutation>
+export type CreateFieldMutationOptions = Apollo.BaseMutationOptions<
+  CreateFieldMutation,
+  CreateFieldMutationVariables
+>

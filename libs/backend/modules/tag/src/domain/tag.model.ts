@@ -1,7 +1,8 @@
+import { ITag } from '@codelab/shared/abstract/core'
 import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
-export class Tag {
+export class Tag implements Omit<ITag, '__typename'> {
   @Field()
   id: string
 

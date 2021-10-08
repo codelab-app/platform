@@ -4,7 +4,10 @@ fragment Element on Element {
   name
   css
   atom {
-    ...Atom
+    ...AtomBase
+  }
+  componentTag {
+    ...Tag
   }
   props
   hooks {

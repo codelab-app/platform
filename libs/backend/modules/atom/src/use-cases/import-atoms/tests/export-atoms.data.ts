@@ -1,5 +1,4 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { AtomType, TypeEdgeKind } from '@codelab/shared/codegen/graphql'
+import { AtomType, TypeKind } from '@codelab/shared/abstract/core'
 
 // GetExportAtomsQuery
 export const exportAtomsData = [
@@ -14,64 +13,46 @@ export const exportAtomsData = [
           {
             // source: '0xea82',
             // target: '0xea6d',
-            kind: TypeEdgeKind.Field,
-            field: {
-              key: 'activeTabKey',
-              name: 'Active Tab Key',
-              description: "Current TabPane's key",
-            },
+            key: 'activeTabKey',
+            name: 'Active Tab Key',
+            description: "Current TabPane's key",
           },
           {
             // source: '0xea82',
             // target: '0xea66',
-            kind: 'Field',
-            field: {
-              key: 'bordered',
-              name: 'Bordered',
-              description: 'Toggles rendering of the border around the card',
-            },
+            key: 'bordered',
+            name: 'Bordered',
+            description: 'Toggles rendering of the border around the card',
           },
           {
             // source: '0xea82',
             // target: '0xea6d',
-            kind: 'Field',
-            field: {
-              key: 'defaultActiveTabKey',
-              name: 'Default Active Tab Key',
-              description:
-                "Initial active TabPane's key, if activeTabKey is not set",
-            },
+            key: 'defaultActiveTabKey',
+            name: 'Default Active Tab Key',
+            description:
+              "Initial active TabPane's key, if activeTabKey is not set",
           },
           {
             // source: '0xea82',
             // target: '0xea66',
-            kind: 'Field',
-            field: {
-              key: 'hoverable',
-              name: 'Hoverable',
-              description: 'Lift up when hovering card',
-            },
+            key: 'hoverable',
+            name: 'Hoverable',
+            description: 'Lift up when hovering card',
           },
           {
             // source: '0xea82',
             // target: '0xea66',
-            kind: 'Field',
-            field: {
-              key: 'loading',
-              name: 'Loading',
-              description:
-                'Shows a loading indicator while the contents of the card are being fetched',
-            },
+            key: 'loading',
+            name: 'Loading',
+            description:
+              'Shows a loading indicator while the contents of the card are being fetched',
           },
           {
             // source: '0xea82',
             // target: '0xea6d',
-            kind: 'Field',
-            field: {
-              key: 'type',
-              name: 'Type',
-              description: 'Card style type, can be set to inner or not set',
-            },
+            key: 'type',
+            name: 'Type',
+            description: 'Card style type, can be set to inner or not set',
           },
         ],
         vertices: [

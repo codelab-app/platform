@@ -1,25 +1,26 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { TypeGraphFragment } from '../../../graphql/TypeGraph.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { TypeGraphFragmentDoc } from '../../../graphql/TypeGraph.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TypeGraphFragment } from '../../../graphql/TypeGraph.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TypeGraphFragmentDoc } from '../../../graphql/TypeGraph.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type GetTypeGraphQueryVariables = Types.Exact<{
-  input: Types.GetTypeInput;
-}>;
+  input: Types.GetTypeGraphInput
+}>
 
-
-export type GetTypeGraphQuery = { getTypeGraph?: Types.Maybe<TypeGraphFragment> };
-
+export type GetTypeGraphQuery = {
+  getTypeGraph?: TypeGraphFragment | null | undefined
+}
 
 export const GetTypeGraphGql = gql`
-    query GetTypeGraph($input: GetTypeInput!) {
-  getTypeGraph(input: $input) {
-    ...TypeGraph
+  query GetTypeGraph($input: GetTypeGraphInput!) {
+    getTypeGraph(input: $input) {
+      ...TypeGraph
+    }
   }
-}
-    ${TypeGraphFragmentDoc}`;
+  ${TypeGraphFragmentDoc}
+`
 
 /**
  * __useGetTypeGraphQuery__
@@ -37,17 +38,42 @@ export const GetTypeGraphGql = gql`
  *   },
  * });
  */
-export function useGetTypeGraphQuery(baseOptions: Apollo.QueryHookOptions<GetTypeGraphQuery, GetTypeGraphQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTypeGraphQuery, GetTypeGraphQueryVariables>(GetTypeGraphGql, options);
-      }
-export function useGetTypeGraphLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTypeGraphQuery, GetTypeGraphQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTypeGraphQuery, GetTypeGraphQueryVariables>(GetTypeGraphGql, options);
-        }
-export type GetTypeGraphQueryHookResult = ReturnType<typeof useGetTypeGraphQuery>;
-export type GetTypeGraphLazyQueryHookResult = ReturnType<typeof useGetTypeGraphLazyQuery>;
-export type GetTypeGraphQueryResult = Apollo.QueryResult<GetTypeGraphQuery, GetTypeGraphQueryVariables>;
-export function refetchGetTypeGraphQuery(variables?: GetTypeGraphQueryVariables) {
-      return { query: GetTypeGraphGql, variables: variables }
-    }
+export function useGetTypeGraphQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetTypeGraphQuery,
+    GetTypeGraphQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetTypeGraphQuery, GetTypeGraphQueryVariables>(
+    GetTypeGraphGql,
+    options,
+  )
+}
+export function useGetTypeGraphLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTypeGraphQuery,
+    GetTypeGraphQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetTypeGraphQuery, GetTypeGraphQueryVariables>(
+    GetTypeGraphGql,
+    options,
+  )
+}
+export type GetTypeGraphQueryHookResult = ReturnType<
+  typeof useGetTypeGraphQuery
+>
+export type GetTypeGraphLazyQueryHookResult = ReturnType<
+  typeof useGetTypeGraphLazyQuery
+>
+export type GetTypeGraphQueryResult = Apollo.QueryResult<
+  GetTypeGraphQuery,
+  GetTypeGraphQueryVariables
+>
+export function refetchGetTypeGraphQuery(
+  variables?: GetTypeGraphQueryVariables,
+) {
+  return { query: GetTypeGraphGql, variables: variables }
+}

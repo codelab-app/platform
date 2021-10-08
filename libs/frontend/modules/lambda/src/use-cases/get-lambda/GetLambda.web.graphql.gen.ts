@@ -1,25 +1,24 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { LambdaFragmentDoc } from '../../graphql/Lambda.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { LambdaFragmentDoc } from '../../graphql/Lambda.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type GetLambdaQueryVariables = Types.Exact<{
-  input: Types.GetLambdaInput;
-}>;
+  input: Types.GetLambdaInput
+}>
 
-
-export type GetLambdaQuery = { getLambda?: Types.Maybe<LambdaFragment> };
-
+export type GetLambdaQuery = { getLambda?: LambdaFragment | null | undefined }
 
 export const GetLambdaGql = gql`
-    query GetLambda($input: GetLambdaInput!) {
-  getLambda(input: $input) {
-    ...Lambda
+  query GetLambda($input: GetLambdaInput!) {
+    getLambda(input: $input) {
+      ...Lambda
+    }
   }
-}
-    ${LambdaFragmentDoc}`;
+  ${LambdaFragmentDoc}
+`
 
 /**
  * __useGetLambdaQuery__
@@ -37,17 +36,35 @@ export const GetLambdaGql = gql`
  *   },
  * });
  */
-export function useGetLambdaQuery(baseOptions: Apollo.QueryHookOptions<GetLambdaQuery, GetLambdaQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLambdaQuery, GetLambdaQueryVariables>(GetLambdaGql, options);
-      }
-export function useGetLambdaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLambdaQuery, GetLambdaQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLambdaQuery, GetLambdaQueryVariables>(GetLambdaGql, options);
-        }
-export type GetLambdaQueryHookResult = ReturnType<typeof useGetLambdaQuery>;
-export type GetLambdaLazyQueryHookResult = ReturnType<typeof useGetLambdaLazyQuery>;
-export type GetLambdaQueryResult = Apollo.QueryResult<GetLambdaQuery, GetLambdaQueryVariables>;
+export function useGetLambdaQuery(
+  baseOptions: Apollo.QueryHookOptions<GetLambdaQuery, GetLambdaQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetLambdaQuery, GetLambdaQueryVariables>(
+    GetLambdaGql,
+    options,
+  )
+}
+export function useGetLambdaLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLambdaQuery,
+    GetLambdaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetLambdaQuery, GetLambdaQueryVariables>(
+    GetLambdaGql,
+    options,
+  )
+}
+export type GetLambdaQueryHookResult = ReturnType<typeof useGetLambdaQuery>
+export type GetLambdaLazyQueryHookResult = ReturnType<
+  typeof useGetLambdaLazyQuery
+>
+export type GetLambdaQueryResult = Apollo.QueryResult<
+  GetLambdaQuery,
+  GetLambdaQueryVariables
+>
 export function refetchGetLambdaQuery(variables?: GetLambdaQueryVariables) {
-      return { query: GetLambdaGql, variables: variables }
-    }
+  return { query: GetLambdaGql, variables: variables }
+}

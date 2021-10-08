@@ -1,42 +1,20 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { TypeModule } from '../../../../type.module'
-import { CreateTypeInput } from '../../create-type'
-import {
-  TestCreateTypeGql,
-  TestCreateTypeMutation,
-} from '../../create-type/tests/create-type.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupTypeTestModule } from '../../../../tests/setupTypeTestModule'
 import { createPrimitiveStringInput } from '../../create-type/tests/create-type.data'
 import { GetTypesInput } from '../get-types.input'
 import { TestGetTypesGql, TestGetTypesQuery } from './get-types.api.graphql.gen'
 
 describe('GetTypes', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupTypeTestModule()
   let typeId: string
   let getTypesByIdInput: GetTypesInput
   let getTypesByKindInput: GetTypesInput
   let getTypesByNameInput: GetTypesInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([TypeModule], {
-      role: Role.Guest,
-    })
-    userApp = await setupTestModule([TypeModule], {
-      role: Role.User,
-    })
+    const type = await testModule.createTestType(createPrimitiveStringInput)
 
-    const { createType } = await domainRequest<
-      CreateTypeInput,
-      TestCreateTypeMutation
-    >(userApp, TestCreateTypeGql, createPrimitiveStringInput)
-
-    typeId = createType.id
+    typeId = type.id
     getTypesByIdInput = { byIds: { typeIds: [typeId] } }
 
     getTypesByKindInput = {
@@ -45,15 +23,10 @@ describe('GetTypes', () => {
     getTypesByNameInput = { byName: { name: createPrimitiveStringInput.name } }
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should not get type', async () => {
       await domainRequest<GetTypesInput>(
-        guestApp,
+        testModule.guestApp,
         TestGetTypesGql,
         getTypesByIdInput,
         {
@@ -68,7 +41,7 @@ describe('GetTypes', () => {
       const { getTypes } = await domainRequest<
         GetTypesInput,
         TestGetTypesQuery
-      >(userApp, TestGetTypesGql, getTypesByIdInput)
+      >(testModule.userApp, TestGetTypesGql, getTypesByIdInput)
 
       const type = getTypes[0] || {}
 
@@ -83,7 +56,7 @@ describe('GetTypes', () => {
       const { getTypes } = await domainRequest<
         GetTypesInput,
         TestGetTypesQuery
-      >(userApp, TestGetTypesGql, getTypesByKindInput)
+      >(testModule.userApp, TestGetTypesGql, getTypesByKindInput)
 
       const type = getTypes[0] || {}
 
@@ -98,7 +71,7 @@ describe('GetTypes', () => {
       const { getTypes } = await domainRequest<
         GetTypesInput,
         TestGetTypesQuery
-      >(userApp, TestGetTypesGql, getTypesByNameInput)
+      >(testModule.userApp, TestGetTypesGql, getTypesByNameInput)
 
       const type = getTypes[0] || {}
 

@@ -1,13 +1,10 @@
 import { PageType } from '@codelab/frontend/model/state/router'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
 import React, { useRouter } from 'next/router'
-import {
-  CreatePageButton,
-  CreatePageModal,
-} from '../use-cases/page/create-page'
-import { DeletePageModal } from '../use-cases/page/delete-page'
-import { GetPagesList } from '../use-cases/page/get-pages'
-import { UpdatePageModal } from '../use-cases/page/update-page'
+import { CreatePageButton, CreatePageModal } from '../use-cases/create-page'
+import { DeletePageModal } from '../use-cases/delete-page'
+import { GetPagesList } from '../use-cases/get-pages'
+import { UpdatePageModal } from '../use-cases/update-page'
 
 export const PageMainPane = () => {
   const router = useRouter()

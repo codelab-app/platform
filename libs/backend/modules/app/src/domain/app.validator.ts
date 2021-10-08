@@ -1,10 +1,5 @@
-import {
-  DgraphApp,
-  DgraphEntityType,
-  DgraphQueryBuilder,
-  DgraphRepository,
-} from '@codelab/backend/infra'
-import type { User } from '@codelab/shared/abstract/core'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import type { IApp, IUser } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 /**
@@ -20,7 +15,7 @@ export class AppValidator {
    * or if there's no current user
    * or if the current user doesn't own the app
    */
-  async existsAndIsOwnedBy(appId: string, currentUser?: User) {
+  async existsAndIsOwnedBy(appId: string, currentUser?: IUser) {
     const app = await this.getApp(appId)
 
     if (!app) {
@@ -32,24 +27,30 @@ export class AppValidator {
 
   /**
    * Throws error
-   * if there's no current user
-   * or if the current user doesn't own the app
+   * - if there's no current user
+   * - if the current user doesn't own the app
    */
-  isOwnedBy(app: DgraphApp, currentUser?: User) {
+  isOwnedBy(app: Pick<IApp, 'ownerId'>, currentUser?: IUser) {
     if (!currentUser || app.ownerId !== currentUser.id) {
       throw new Error("You don't have access to this app")
     }
   }
 
-  protected async getApp(appId: string): Promise<DgraphApp> {
+  // We're not using GetAppService, because it will cause circular dependency
+  protected async getApp(appId: string): Promise<IApp> {
     return this.dgraph.transactionWrapper(async (txn) => {
-      return await this.dgraph.getOneOrThrow<DgraphApp>(
+      return await this.dgraph.getOneOrThrowNamed<IApp>(
         txn,
-        new DgraphQueryBuilder()
-          .setUidFunc(appId)
-          .addTypeFilterDirective(DgraphEntityType.App)
-          .addBaseFields()
-          .addExpandAll(),
+        `{
+            query(func: type(${DgraphEntityType.App})) @filter(uid(${appId})) @normalize {
+                id: uid
+                owner {
+                   ownerId: uid
+                }
+                name: name
+            }
+        }`,
+        'query',
       )
     })
   }

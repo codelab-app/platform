@@ -1,23 +1,18 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphAtom,
-  DgraphElement,
-  DgraphEntityType,
-  DgraphQueryBuilder,
-} from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/infra'
+import { AtomSchema, IAtom } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetAtomInput } from './get-atom.input'
 
 @Injectable()
-export class GetAtomService extends DgraphUseCase<
-  GetAtomInput,
-  DgraphAtom | null
-> {
+export class GetAtomService extends DgraphUseCase<GetAtomInput, IAtom | null> {
+  protected schema = AtomSchema.nullable()
+
   protected async executeTransaction(
     input: GetAtomInput,
     txn: Txn,
-  ): Promise<DgraphAtom | null> {
+  ): Promise<IAtom | null> {
     GetAtomService.validate(input)
 
     const {
@@ -25,61 +20,65 @@ export class GetAtomService extends DgraphUseCase<
     } = input
 
     if (id) {
-      return this.dgraph.getOne(txn, GetAtomService.createGetByIdQuery(id))
+      return this.dgraph.getOneNamed(
+        txn,
+        GetAtomService.createGetByIdQuery(id),
+        'query',
+      )
     }
 
     if (type) {
-      return this.dgraph.getOne(txn, GetAtomService.createGetByType(type))
+      return this.dgraph.getOneNamed<IAtom>(
+        txn,
+        GetAtomService.createGetByType(type),
+        'query',
+      )
     }
 
     if (element) {
-      return this.dgraph
-        .getOne<DgraphElement>(
-          txn,
-          GetAtomService.createGetByElementQuery(element),
-        )
-        .then((e) => e?.atom || null)
+      return this.dgraph.getOneNamed<IAtom>(
+        txn,
+        GetAtomService.getAtomByElementQuery(element),
+        'query',
+      )
     }
 
     throw new Error('Bad input to GetAtomsService')
   }
 
   private static createGetByIdQuery(id: string) {
-    return new DgraphQueryBuilder()
-      .setUidFunc(id)
-      .addTypeFilterDirective(DgraphEntityType.Atom)
-      .addBaseFields()
-      .addExpandAll()
-      .addRecurseDirective()
+    return GetAtomService.getAtomQuery(`@filter(uid(${id}))`)
   }
 
   private static createGetByType(type: string) {
-    return new DgraphQueryBuilder()
-      .setTypeFunc(DgraphEntityType.Atom)
-      .addEqFilterDirective<DgraphAtom>('atomType', type)
-      .addBaseFields()
-      .addExpandAll()
-      .addRecurseDirective()
+    return GetAtomService.getAtomQuery(`@filter(eq(atomType, ${type}))`)
   }
 
-  private static createGetByElementQuery(elementId: string) {
-    /**
-     *  query(func: uid(0x0)) {
-            uid
-            dgraph.type
-            expand(_all_) {
-              uid
-              dgraph.type
-              expand(_all_)
-            }
-          }
-     */
-    return new DgraphQueryBuilder()
-      .setUidFunc(elementId)
-      .addTypeFilterDirective(DgraphEntityType.Atom)
-      .addBaseFields()
-      .addExpandAll()
-      .addRecurseDirective()
+  public static getAtomByElementQuery(elementId: string) {
+    return GetAtomService.getAtomQuery(
+      `@filter(uid(ATOM_ID))`,
+      `
+      var (func: uid(${elementId})) @filter(type(${DgraphEntityType.Element})) {
+        atom {
+          ATOM_ID as uid
+        }
+      }`,
+    )
+  }
+
+  public static getAtomQuery(filter?: string, extraQuery?: string) {
+    return `{
+      ${extraQuery ?? ''}
+      query(func: type(${DgraphEntityType.Atom})) ${filter ?? ''} {
+        id: uid
+        type: atomType
+        name
+        api {
+          id: uid
+          expand(_all_)
+        }
+      }
+    }`
   }
 
   private static validate({ where: { id, element, type } }: GetAtomInput) {

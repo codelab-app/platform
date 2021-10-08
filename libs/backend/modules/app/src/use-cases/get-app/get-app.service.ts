@@ -1,11 +1,6 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphApp,
-  DgraphEntityType,
-  DgraphQueryBuilder,
-  DgraphQueryField,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { AppSchema, IApp } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { AppValidator } from '../../domain/app.validator'
@@ -13,13 +8,12 @@ import { AppByIdFilter, AppByPageFilter } from './get-app.input'
 import { GetAppRequest } from './get-app.request'
 
 @Injectable()
-export class GetAppService extends DgraphUseCase<
-  GetAppRequest,
-  DgraphApp | null
-> {
+export class GetAppService extends DgraphUseCase<GetAppRequest, IApp | null> {
   constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
     super(dgraph)
   }
+
+  protected schema = AppSchema.nullable()
 
   protected async executeTransaction(request: GetAppRequest, txn: Txn) {
     const {
@@ -28,7 +22,7 @@ export class GetAppService extends DgraphUseCase<
 
     GetAppService.validate(request)
 
-    let app: DgraphApp | null
+    let app: IApp | null
 
     if (byId) {
       app = await this.getAppById(txn, byId)
@@ -46,43 +40,45 @@ export class GetAppService extends DgraphUseCase<
   }
 
   private async getAppByPage(txn: Txn, byPage: AppByPageFilter) {
-    return await this.dgraph
-      .getOne<{ '~pages': [DgraphApp] }>(txn, this.createByPageQuery(byPage))
-      .then((r) => {
-        if (!r) {
-          return r
-        }
-
-        if (!r['~pages'] || !r['~pages'].length) {
-          throw new Error('Error while getting app for page')
-        }
-
-        return r['~pages'][0]
-      })
+    return await this.dgraph.getOneNamed<IApp>(
+      txn,
+      this.createByPageQuery(byPage),
+      'query',
+    )
   }
 
   private async getAppById(txn: Txn, byId: AppByIdFilter) {
-    return await this.dgraph.getOne<DgraphApp>(txn, this.createByIdQuery(byId))
+    return await this.dgraph.getOneNamed<IApp>(
+      txn,
+      this.createByIdQuery(byId),
+      'query',
+    )
   }
 
   protected createByIdQuery({ appId }: AppByIdFilter) {
-    return new DgraphQueryBuilder()
-      .setUidFunc(appId)
-      .addTypeFilterDirective(DgraphEntityType.App)
-      .addBaseFields()
-      .addExpandAll()
+    return `{
+        query(func: type(${DgraphEntityType.App})) @normalize @filter(uid(${appId})) {
+          id: uid
+          owner {
+             ownerId: uid
+          }
+          name: name
+        }
+    }`
   }
 
   protected createByPageQuery({ pageId }: AppByPageFilter) {
-    return new DgraphQueryBuilder()
-      .setUidFunc(pageId)
-      .addTypeFilterDirective(DgraphEntityType.App)
-      .addBaseFields()
-      .addFields(
-        new DgraphQueryField('~pages').addExpandAll((f) =>
-          f.addExpandAll((f2) => f2.addExpandAll()),
-        ),
-      )
+    return `{
+      query(func: type(${DgraphEntityType.App})) @filter(uid(${pageId})) @normalize  {
+         ~pages {
+            id: uid
+            owner {
+               ownerId: uid
+            }
+            name: name
+          }
+      }
+    }`
   }
 
   private static validate({ input: { byId, byPage } }: GetAppRequest) {

@@ -1,9 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphRepository,
-  DgraphUnionType,
-  jsonMutation,
-} from '@codelab/backend/infra'
+import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { UpdateUnionTypeInput } from './update-union-type.input'
@@ -54,7 +50,7 @@ export class UpdateUnionTypeService extends DgraphUseCase<UpdateUnionTypeInput> 
   }: UpdateUnionTypeInput) {
     console.log({ typeIdsOfUnionType, name, typeId })
 
-    return jsonMutation<DgraphUnionType>({
+    return jsonMutation({
       uid: typeId,
       name,
       typesOfUnionType: typeIdsOfUnionType.map((id) => ({ uid: id })),

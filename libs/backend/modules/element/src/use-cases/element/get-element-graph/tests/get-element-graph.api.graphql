@@ -11,6 +11,10 @@ query TestGetElementGraph($input: GetElementGraphInput!) {
         name
         css
         props
+        componentTag {
+          name
+          id
+        }
         atom {
           id
           name
@@ -18,11 +22,6 @@ query TestGetElementGraph($input: GetElementGraphInput!) {
         }
         renderForEachPropKey
         renderIfPropKey
-      }
-
-      ... on Component {
-        id
-        name
       }
     }
   }

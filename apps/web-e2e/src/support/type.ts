@@ -1,5 +1,5 @@
+import { CreateTypeInput } from '@codelab/frontend/abstract/codegen'
 import { CreateTypeGql } from '@codelab/frontend/modules/type'
-import { CreateTypeInput } from '@codelab/shared/codegen/graphql'
 import { print } from 'graphql'
 
 export const createType = (input: CreateTypeInput) => {

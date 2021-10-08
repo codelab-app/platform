@@ -1,19 +1,15 @@
 import { DgraphEntityType } from '../../dgraph-entity-type'
-import { DgraphEntity } from '../../interfaces'
 import { DgraphFilter } from './dgraph-filter'
 
 /** https://dgraph.io/docs/query-language/functions/#inequality */
 export class EqFilter<
-  TEntity extends DgraphEntity<any> | unknown = unknown,
+  TEntity extends any | unknown = unknown,
 > extends DgraphFilter {
   private readonly _predicate?: keyof TEntity | string
 
   private readonly _value?: string
 
-  constructor(
-    predicate: TEntity extends DgraphEntity<any> ? keyof TEntity : string,
-    value: string,
-  ) {
+  constructor(predicate: string, value: string) {
     super()
     this._predicate = predicate
     this._value = value

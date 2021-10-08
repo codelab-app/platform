@@ -1,9 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphPrimitiveType,
-  DgraphRepository,
-  jsonMutation,
-} from '@codelab/backend/infra'
+import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../domain/type.validator'
@@ -20,18 +16,21 @@ export class UpdatePrimitiveTypeService extends DgraphUseCase<UpdatePrimitiveTyp
     txn: Txn,
   ) {
     await this.validate(request)
-    await this.dgraph.executeMutation(txn, this.createMutation(request))
+    await this.dgraph.executeMutation(
+      txn,
+      UpdatePrimitiveTypeService.createMutation(request),
+    )
   }
 
   private async validate(request: UpdatePrimitiveTypeInput) {
     await this.typeValidator.typeExists(request.typeId)
   }
 
-  private createMutation({
+  private static createMutation({
     typeId,
     updateData: { name, primitiveKind },
   }: UpdatePrimitiveTypeInput) {
-    return jsonMutation<DgraphPrimitiveType>({
+    return jsonMutation({
       uid: typeId,
       name,
       primitiveKind,

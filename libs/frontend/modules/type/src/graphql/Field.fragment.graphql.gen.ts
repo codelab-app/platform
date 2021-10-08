@@ -1,13 +1,18 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-export type FieldFragment = { id: string, key: string, name?: Types.Maybe<string>, description?: Types.Maybe<string> };
+import { gql } from '@apollo/client'
+export type FieldFragment = {
+  id: string
+  key: string
+  name?: string | null | undefined
+  description?: string | null | undefined
+}
 
 export const FieldFragmentDoc = gql`
-    fragment Field on Field {
-  id
-  key
-  name
-  description
-}
-    `;
+  fragment Field on Field {
+    id
+    key
+    name
+    description
+  }
+`

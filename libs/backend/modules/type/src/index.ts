@@ -1,4 +1,3 @@
-export * from './application/adapters'
 export * from './application/errors'
 export * from './domain'
 export * from './domain/constants'

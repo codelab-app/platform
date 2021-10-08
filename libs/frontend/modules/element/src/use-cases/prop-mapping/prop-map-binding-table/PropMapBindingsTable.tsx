@@ -1,3 +1,4 @@
+import { IElement } from '@codelab/frontend/abstract/core'
 import { headerCellProps } from '@codelab/frontend/style'
 import {
   EntityType,
@@ -6,14 +7,14 @@ import {
   useColumnSearchProps,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
+import { ElementTree } from '@codelab/shared/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
 import { ElementFragment, PropMapBindingFragment } from '../../../graphql'
-import { ElementTreeGraphql } from '../../../tree'
 
 export interface PropMapBindingsTableProps {
-  element: ElementFragment
-  tree: ElementTreeGraphql
+  element: IElement
+  tree: ElementTree
 }
 
 export const PropMapBindingsTable = ({

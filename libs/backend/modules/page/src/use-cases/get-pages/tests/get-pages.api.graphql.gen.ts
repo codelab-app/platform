@@ -1,24 +1,22 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestGetPagesQueryVariables = Types.Exact<{
-  input: Types.GetPagesInput;
-}>;
+  input: Types.GetPagesInput
+}>
 
-
-export type TestGetPagesQuery = { pages: Array<{ id: string, name: string }> };
-
+export type TestGetPagesQuery = { pages: Array<{ id: string; name: string }> }
 
 export const TestGetPagesGql = gql`
-    query TestGetPages($input: GetPagesInput!) {
-  pages: getPages(input: $input) {
-    id
-    name
+  query TestGetPages($input: GetPagesInput!) {
+    pages: getPages(input: $input) {
+      id
+      name
+    }
   }
-}
-    `;
+`
 
 /**
  * __useTestGetPagesQuery__
@@ -36,17 +34,42 @@ export const TestGetPagesGql = gql`
  *   },
  * });
  */
-export function useTestGetPagesQuery(baseOptions: Apollo.QueryHookOptions<TestGetPagesQuery, TestGetPagesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetPagesQuery, TestGetPagesQueryVariables>(TestGetPagesGql, options);
-      }
-export function useTestGetPagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetPagesQuery, TestGetPagesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetPagesQuery, TestGetPagesQueryVariables>(TestGetPagesGql, options);
-        }
-export type TestGetPagesQueryHookResult = ReturnType<typeof useTestGetPagesQuery>;
-export type TestGetPagesLazyQueryHookResult = ReturnType<typeof useTestGetPagesLazyQuery>;
-export type TestGetPagesQueryResult = Apollo.QueryResult<TestGetPagesQuery, TestGetPagesQueryVariables>;
-export function refetchTestGetPagesQuery(variables?: TestGetPagesQueryVariables) {
-      return { query: TestGetPagesGql, variables: variables }
-    }
+export function useTestGetPagesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TestGetPagesQuery,
+    TestGetPagesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TestGetPagesQuery, TestGetPagesQueryVariables>(
+    TestGetPagesGql,
+    options,
+  )
+}
+export function useTestGetPagesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetPagesQuery,
+    TestGetPagesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TestGetPagesQuery, TestGetPagesQueryVariables>(
+    TestGetPagesGql,
+    options,
+  )
+}
+export type TestGetPagesQueryHookResult = ReturnType<
+  typeof useTestGetPagesQuery
+>
+export type TestGetPagesLazyQueryHookResult = ReturnType<
+  typeof useTestGetPagesLazyQuery
+>
+export type TestGetPagesQueryResult = Apollo.QueryResult<
+  TestGetPagesQuery,
+  TestGetPagesQueryVariables
+>
+export function refetchTestGetPagesQuery(
+  variables?: TestGetPagesQueryVariables,
+) {
+  return { query: TestGetPagesGql, variables: variables }
+}

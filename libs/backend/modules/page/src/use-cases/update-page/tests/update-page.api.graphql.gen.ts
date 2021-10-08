@@ -1,26 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { PageBaseFragment } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { PageBaseFragmentDoc } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { PageBaseFragment } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { PageBaseFragmentDoc } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestUpdatePageMutationVariables = Types.Exact<{
-  input: Types.UpdatePageInput;
-}>;
+  input: Types.UpdatePageInput
+}>
 
-
-export type TestUpdatePageMutation = { updatePage?: Types.Maybe<PageBaseFragment> };
-
+export type TestUpdatePageMutation = { updatePage: PageBaseFragment }
 
 export const TestUpdatePageGql = gql`
-    mutation TestUpdatePage($input: UpdatePageInput!) {
-  updatePage(input: $input) {
-    ...PageBase
+  mutation TestUpdatePage($input: UpdatePageInput!) {
+    updatePage(input: $input) {
+      ...PageBase
+    }
   }
-}
-    ${PageBaseFragmentDoc}`;
-export type TestUpdatePageMutationFn = Apollo.MutationFunction<TestUpdatePageMutation, TestUpdatePageMutationVariables>;
+  ${PageBaseFragmentDoc}
+`
+export type TestUpdatePageMutationFn = Apollo.MutationFunction<
+  TestUpdatePageMutation,
+  TestUpdatePageMutationVariables
+>
 
 /**
  * __useTestUpdatePageMutation__
@@ -39,10 +41,24 @@ export type TestUpdatePageMutationFn = Apollo.MutationFunction<TestUpdatePageMut
  *   },
  * });
  */
-export function useTestUpdatePageMutation(baseOptions?: Apollo.MutationHookOptions<TestUpdatePageMutation, TestUpdatePageMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestUpdatePageMutation, TestUpdatePageMutationVariables>(TestUpdatePageGql, options);
-      }
-export type TestUpdatePageMutationHookResult = ReturnType<typeof useTestUpdatePageMutation>;
-export type TestUpdatePageMutationResult = Apollo.MutationResult<TestUpdatePageMutation>;
-export type TestUpdatePageMutationOptions = Apollo.BaseMutationOptions<TestUpdatePageMutation, TestUpdatePageMutationVariables>;
+export function useTestUpdatePageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestUpdatePageMutation,
+    TestUpdatePageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestUpdatePageMutation,
+    TestUpdatePageMutationVariables
+  >(TestUpdatePageGql, options)
+}
+export type TestUpdatePageMutationHookResult = ReturnType<
+  typeof useTestUpdatePageMutation
+>
+export type TestUpdatePageMutationResult =
+  Apollo.MutationResult<TestUpdatePageMutation>
+export type TestUpdatePageMutationOptions = Apollo.BaseMutationOptions<
+  TestUpdatePageMutation,
+  TestUpdatePageMutationVariables
+>

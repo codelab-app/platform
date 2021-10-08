@@ -1,18 +1,15 @@
-import {
-  TypeTreeGraphql,
-  useGetTypeGraphLazyQuery,
-} from '@codelab/frontend/modules/type'
+import { useGetTypeGraphLazyQuery } from '@codelab/frontend/modules/type'
 import { usePrevious } from '@codelab/frontend/shared/utils'
+import { ElementTree, TypeTree } from '@codelab/shared/core'
 import AutoComplete, { AutoCompleteProps } from 'antd/lib/auto-complete'
 import { RefSelectProps } from 'antd/lib/select'
 import React, { Ref, useEffect, useState } from 'react'
 import { connectField, FieldProps, filterDOMProps, useField } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
 import { ElementFragment } from '../../../graphql'
-import { ElementTreeGraphql } from '../../../tree'
 
 type InnerProps = Omit<AutoCompleteProps, 'onSearch' | 'options'> & {
-  tree: ElementTreeGraphql
+  tree: ElementTree
 }
 
 export type TargetKeyFieldProps = FieldProps<
@@ -52,10 +49,7 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
   // Every time the targetElementId changes, fetch the targetElement's api
   useEffect(() => {
     const targetElement = targetElementId
-      ? (tree.getVertex(
-          targetElementId as string,
-          tree.isElementPredicate,
-        ) as ElementFragment)
+      ? (tree.getVertex(targetElementId as string) as ElementFragment)
       : null
 
     const api = targetElement?.atom?.api
@@ -72,7 +66,7 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
     if (!data?.getTypeGraph) {
       setOptions([])
     } else {
-      const typeTree = new TypeTreeGraphql(data.getTypeGraph)
+      const typeTree = new TypeTree(data.getTypeGraph)
       setOptions(
         typeTree.getRootFields().map((f) => ({ label: f.key, value: f.key })),
       )

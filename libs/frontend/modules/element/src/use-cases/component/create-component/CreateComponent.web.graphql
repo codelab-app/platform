@@ -1,0 +1,5 @@
+mutation CreateComponent($input: CreateComponentInput!) {
+  createComponent(input: $input) {
+    ...Element
+  }
+}

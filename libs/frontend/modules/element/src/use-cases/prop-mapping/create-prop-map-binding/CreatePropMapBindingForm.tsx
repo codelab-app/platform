@@ -8,9 +8,9 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
+import { ElementTree } from '@codelab/shared/core'
 import React, { useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { ElementTreeGraphql } from '../../../tree'
 import { refetchGetElementQuery } from '../../get-element'
 import { useCreatePropMapBindingMutation } from './CreatePropMapBinding.web.graphql.gen'
 import {
@@ -22,7 +22,7 @@ import { TargetKeyField } from './TargetKeyField'
 export interface CreatePropMapBindingFormProps {
   elementId: string
   providePropCompletion?: (searchValue: string) => Array<string>
-  tree: ElementTreeGraphql
+  tree: ElementTree
 }
 
 export const CreatePropMapBindingForm = ({
@@ -40,7 +40,7 @@ export const CreatePropMapBindingForm = ({
     useMutationFunction: useCreatePropMapBindingMutation,
     mutationOptions: {
       refetchQueries: [
-        refetchGetElementQuery({ input: { elementId: initialElementId } }),
+        refetchGetElementQuery({ input: { where: { id: initialElementId } } }),
       ],
     },
     mapVariables: ({

@@ -1,7 +1,6 @@
 node_modules
 dist
 yarn.lock
-*.generated.ts
 .yarn
 .next
 .cache
@@ -11,10 +10,7 @@ public
 *.mp4
 *.log
 !.*
-jest.preset.js
-jest.config.js
 **/deprecated
-
 
 # Graphql codegen files
 **/*.graphql.gen.ts

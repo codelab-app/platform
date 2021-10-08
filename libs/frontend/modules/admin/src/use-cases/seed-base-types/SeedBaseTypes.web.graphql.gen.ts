@@ -1,20 +1,23 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
-export type SeedBaseTypesMutationVariables = Types.Exact<{ [key: string]: never; }>;
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
+export type SeedBaseTypesMutationVariables = Types.Exact<{
+  [key: string]: never
+}>
 
-
-export type SeedBaseTypesMutation = { seedBaseTypes?: Types.Maybe<void> };
-
+export type SeedBaseTypesMutation = { seedBaseTypes?: void | null | undefined }
 
 export const SeedBaseTypesGql = gql`
-    mutation SeedBaseTypes {
-  seedBaseTypes
-}
-    `;
-export type SeedBaseTypesMutationFn = Apollo.MutationFunction<SeedBaseTypesMutation, SeedBaseTypesMutationVariables>;
+  mutation SeedBaseTypes {
+    seedBaseTypes
+  }
+`
+export type SeedBaseTypesMutationFn = Apollo.MutationFunction<
+  SeedBaseTypesMutation,
+  SeedBaseTypesMutationVariables
+>
 
 /**
  * __useSeedBaseTypesMutation__
@@ -32,10 +35,24 @@ export type SeedBaseTypesMutationFn = Apollo.MutationFunction<SeedBaseTypesMutat
  *   },
  * });
  */
-export function useSeedBaseTypesMutation(baseOptions?: Apollo.MutationHookOptions<SeedBaseTypesMutation, SeedBaseTypesMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SeedBaseTypesMutation, SeedBaseTypesMutationVariables>(SeedBaseTypesGql, options);
-      }
-export type SeedBaseTypesMutationHookResult = ReturnType<typeof useSeedBaseTypesMutation>;
-export type SeedBaseTypesMutationResult = Apollo.MutationResult<SeedBaseTypesMutation>;
-export type SeedBaseTypesMutationOptions = Apollo.BaseMutationOptions<SeedBaseTypesMutation, SeedBaseTypesMutationVariables>;
+export function useSeedBaseTypesMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SeedBaseTypesMutation,
+    SeedBaseTypesMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    SeedBaseTypesMutation,
+    SeedBaseTypesMutationVariables
+  >(SeedBaseTypesGql, options)
+}
+export type SeedBaseTypesMutationHookResult = ReturnType<
+  typeof useSeedBaseTypesMutation
+>
+export type SeedBaseTypesMutationResult =
+  Apollo.MutationResult<SeedBaseTypesMutation>
+export type SeedBaseTypesMutationOptions = Apollo.BaseMutationOptions<
+  SeedBaseTypesMutation,
+  SeedBaseTypesMutationVariables
+>

@@ -1,10 +1,10 @@
+import { IElement } from '@codelab/frontend/abstract/core'
 import { useGetElementLazyQuery } from '@codelab/frontend/modules/element'
-import { IElementVertex } from '@codelab/shared/abstract/core'
 import { useEffect } from 'react'
 
 export const useFetchElement = (
-  element: IElementVertex | undefined,
-  setElement: (element?: IElementVertex) => any,
+  element: IElement | undefined,
+  setElement: (element?: IElement) => any,
 ) => {
   // Doing this makes sure the selected/hovering element objects are updated whenever we mutate the actual element and refetch
   // it should be cached, so this shouldn't cause another api call
@@ -15,7 +15,7 @@ export const useFetchElement = (
   useEffect(() => {
     if (element) {
       fetchElement({
-        variables: { input: { elementId: element?.id } },
+        variables: { input: { where: { id: element?.id } } },
       })
     }
   }, [fetchElement, element])
@@ -29,7 +29,7 @@ export const useFetchElement = (
       element !== fetchedElement &&
       !loading
     ) {
-      setElement(fetchedElement.getElement)
+      setElement(fetchedElement?.getElement as IElement)
     }
   }, [element, fetchedElement, loading, setElement])
 }

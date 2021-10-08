@@ -1,39 +1,19 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { AtomModule } from '../../../atom.module'
-import { CreateAtomInput } from '../../create-atom'
-import {
-  TestCreateAtomGql,
-  TestCreateAtomMutation,
-} from '../../create-atom/tests/create-atom.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupAtomTestModule } from '../../../test/setupAtomTestModule'
 import { createAtomInput } from '../../create-atom/tests/create-atom.data'
 import { GetAtomInput } from '../get-atom.input'
-import { TestGetAtomGql, TestGetAtomQuery } from './get-atom.api.graphql.gen'
+import { TestGetAtomGql } from './get-atom.api.graphql.gen'
 
 describe('GetAtom', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
-  let adminApp: INestApplication
+  const testModule = setupAtomTestModule(true)
   let atomId: string
   let getAtomInput: GetAtomInput
   let getAtomByTypeInput: GetAtomInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
-    userApp = await setupTestModule([AtomModule], { role: Role.User })
-    adminApp = await setupTestModule([AtomModule], { role: Role.Admin })
+    const atom = await testModule.createTestAtom(createAtomInput)
 
-    const results = await domainRequest<
-      CreateAtomInput,
-      TestCreateAtomMutation
-    >(adminApp, TestCreateAtomGql, createAtomInput)
-
-    atomId = results.createAtom.id
+    atomId = atom.id
     getAtomInput = {
       where: { id: atomId },
     }
@@ -43,14 +23,9 @@ describe('GetAtom', () => {
     }
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to get atom', async () => {
-      await domainRequest(guestApp, TestGetAtomGql, getAtomInput, {
+      await domainRequest(testModule.guestApp, TestGetAtomGql, getAtomInput, {
         message: 'Unauthorized',
       })
     })
@@ -58,11 +33,7 @@ describe('GetAtom', () => {
 
   describe('User', () => {
     it('should get an atom ', async () => {
-      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
-        userApp,
-        TestGetAtomGql,
-        getAtomInput,
-      )
+      const atom = await testModule.getAtom(getAtomInput)
 
       expect(atom).toMatchObject({
         id: atomId,
@@ -72,11 +43,7 @@ describe('GetAtom', () => {
     })
 
     it('should get an atom by type', async () => {
-      const { atom } = await domainRequest<GetAtomInput, TestGetAtomQuery>(
-        userApp,
-        TestGetAtomGql,
-        getAtomByTypeInput,
-      )
+      const atom = await testModule.getAtom(getAtomByTypeInput)
 
       expect(atom).toMatchObject({
         id: atomId,

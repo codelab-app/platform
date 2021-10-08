@@ -27,9 +27,13 @@ RUN apk add curl
 
 WORKDIR /usr/local/codelab
 
+# Ignore specs from image
+RUN rm **/tests
+
 COPY package.json package.json
 COPY dist dist
 COPY scripts scripts
+COPY .docker .docker
 COPY --from=build /usr/local/codelab/node_modules ./node_modules
 
 CMD ["node", "dist/apps/api/main.js"]

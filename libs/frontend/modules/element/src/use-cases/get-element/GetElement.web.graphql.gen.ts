@@ -1,25 +1,26 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { ElementFragment } from '../../graphql/Element.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { ElementFragmentDoc } from '../../graphql/Element.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { ElementFragment } from '../../graphql/Element.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { ElementFragmentDoc } from '../../graphql/Element.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type GetElementQueryVariables = Types.Exact<{
-  input: Types.GetElementInput;
-}>;
+  input: Types.GetElementInput
+}>
 
-
-export type GetElementQuery = { getElement?: Types.Maybe<ElementFragment> };
-
+export type GetElementQuery = {
+  getElement?: ElementFragment | null | undefined
+}
 
 export const GetElementGql = gql`
-    query GetElement($input: GetElementInput!) {
-  getElement(input: $input) {
-    ...Element
+  query GetElement($input: GetElementInput!) {
+    getElement(input: $input) {
+      ...Element
+    }
   }
-}
-    ${ElementFragmentDoc}`;
+  ${ElementFragmentDoc}
+`
 
 /**
  * __useGetElementQuery__
@@ -37,17 +38,38 @@ export const GetElementGql = gql`
  *   },
  * });
  */
-export function useGetElementQuery(baseOptions: Apollo.QueryHookOptions<GetElementQuery, GetElementQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetElementQuery, GetElementQueryVariables>(GetElementGql, options);
-      }
-export function useGetElementLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetElementQuery, GetElementQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetElementQuery, GetElementQueryVariables>(GetElementGql, options);
-        }
-export type GetElementQueryHookResult = ReturnType<typeof useGetElementQuery>;
-export type GetElementLazyQueryHookResult = ReturnType<typeof useGetElementLazyQuery>;
-export type GetElementQueryResult = Apollo.QueryResult<GetElementQuery, GetElementQueryVariables>;
+export function useGetElementQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetElementQuery,
+    GetElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetElementQuery, GetElementQueryVariables>(
+    GetElementGql,
+    options,
+  )
+}
+export function useGetElementLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetElementQuery,
+    GetElementQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetElementQuery, GetElementQueryVariables>(
+    GetElementGql,
+    options,
+  )
+}
+export type GetElementQueryHookResult = ReturnType<typeof useGetElementQuery>
+export type GetElementLazyQueryHookResult = ReturnType<
+  typeof useGetElementLazyQuery
+>
+export type GetElementQueryResult = Apollo.QueryResult<
+  GetElementQuery,
+  GetElementQueryVariables
+>
 export function refetchGetElementQuery(variables?: GetElementQueryVariables) {
-      return { query: GetElementGql, variables: variables }
-    }
+  return { query: GetElementGql, variables: variables }
+}

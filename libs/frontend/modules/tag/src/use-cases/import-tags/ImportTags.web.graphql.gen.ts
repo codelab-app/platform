@@ -1,22 +1,23 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type ImportTagsMutationVariables = Types.Exact<{
-  input: Types.ImportTagsInput;
-}>;
+  input: Types.ImportTagsInput
+}>
 
-
-export type ImportTagsMutation = { importTags?: Types.Maybe<void> };
-
+export type ImportTagsMutation = { importTags?: void | null | undefined }
 
 export const ImportTagsGql = gql`
-    mutation ImportTags($input: ImportTagsInput!) {
-  importTags(input: $input)
-}
-    `;
-export type ImportTagsMutationFn = Apollo.MutationFunction<ImportTagsMutation, ImportTagsMutationVariables>;
+  mutation ImportTags($input: ImportTagsInput!) {
+    importTags(input: $input)
+  }
+`
+export type ImportTagsMutationFn = Apollo.MutationFunction<
+  ImportTagsMutation,
+  ImportTagsMutationVariables
+>
 
 /**
  * __useImportTagsMutation__
@@ -35,10 +36,23 @@ export type ImportTagsMutationFn = Apollo.MutationFunction<ImportTagsMutation, I
  *   },
  * });
  */
-export function useImportTagsMutation(baseOptions?: Apollo.MutationHookOptions<ImportTagsMutation, ImportTagsMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ImportTagsMutation, ImportTagsMutationVariables>(ImportTagsGql, options);
-      }
-export type ImportTagsMutationHookResult = ReturnType<typeof useImportTagsMutation>;
-export type ImportTagsMutationResult = Apollo.MutationResult<ImportTagsMutation>;
-export type ImportTagsMutationOptions = Apollo.BaseMutationOptions<ImportTagsMutation, ImportTagsMutationVariables>;
+export function useImportTagsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ImportTagsMutation,
+    ImportTagsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<ImportTagsMutation, ImportTagsMutationVariables>(
+    ImportTagsGql,
+    options,
+  )
+}
+export type ImportTagsMutationHookResult = ReturnType<
+  typeof useImportTagsMutation
+>
+export type ImportTagsMutationResult = Apollo.MutationResult<ImportTagsMutation>
+export type ImportTagsMutationOptions = Apollo.BaseMutationOptions<
+  ImportTagsMutation,
+  ImportTagsMutationVariables
+>

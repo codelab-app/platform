@@ -1,9 +1,7 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import {
-  DgraphCreateMutationJson,
   DgraphEntityType,
   DgraphRepository,
-  DgraphTagTree,
   jsonMutation,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
@@ -38,9 +36,11 @@ export class SeedTagTreeService extends DgraphUseCase<
   protected async executeTransaction(request: SeedTagTreeRequest, txn: Txn) {
     const tagTree = await this.getTagGraphService.createRootTagQuery(request)
 
-    if (tagTree?.root) {
-      return tagTree.root.uid
-    }
+    // TODO fix that
+    //
+    // if (tagTree?.root) {
+    //   return tagTree.root.uid
+    // }
 
     const { id: tagRootId } = await this.dgraph.create(txn, (blankNodeUid) =>
       SeedTagTreeService.createTagTreeMutation(request, blankNodeUid),
@@ -55,18 +55,18 @@ export class SeedTagTreeService extends DgraphUseCase<
   ) {
     const { currentUser } = request
 
-    const createJson: DgraphCreateMutationJson<DgraphTagTree> = {
+    const createJson = {
       ownerId: currentUser.id,
-      'dgraph.type': [DgraphEntityType.Tree, DgraphEntityType.TagTree],
+      'dgraph.type': [DgraphEntityType.TagTree],
       root: {
         uid: blankNodeUid,
         name: SeedTagTreeService.__TAG_ROOT,
         owner: { uid: currentUser.id },
-        'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Tag],
+        'dgraph.type': [DgraphEntityType.Tag],
         children: [],
       },
     }
 
-    return jsonMutation<DgraphTagTree>(createJson)
+    return jsonMutation(createJson)
   }
 }

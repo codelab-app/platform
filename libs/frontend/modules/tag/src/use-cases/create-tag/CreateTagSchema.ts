@@ -1,4 +1,4 @@
-import { CreateTagInput } from '@codelab/shared/codegen/graphql'
+import { CreateTagInput } from '@codelab/frontend/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 
 export const createTagSchema: JSONSchemaType<CreateTagInput> = {

@@ -2,7 +2,7 @@ import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
-import type { User } from '@codelab/shared/abstract/core'
+import type { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { PropMapBinding } from '../domain/prop-mapping/prop-map-binding.model'
@@ -32,7 +32,7 @@ export class PropMapBindingResolver {
   @UseGuards(GqlAuthGuard)
   createPropMapBinding(
     @Args('input') input: CreatePropMapBindingInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     return this.createPropMapBindingService.execute({ input, currentUser })
   }
@@ -41,7 +41,7 @@ export class PropMapBindingResolver {
   @UseGuards(GqlAuthGuard)
   updatePropMapBinding(
     @Args('input') input: UpdatePropMapBindingInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     return this.updatePropMapBindingService.execute({ input, currentUser })
   }
@@ -50,7 +50,7 @@ export class PropMapBindingResolver {
   @UseGuards(GqlAuthGuard)
   deletePropMapBinding(
     @Args('input') input: DeletePropMapBindingInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     return this.deletePropMapBindingService.execute({ input, currentUser })
   }

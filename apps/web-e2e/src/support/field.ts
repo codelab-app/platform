@@ -1,5 +1,5 @@
+import { CreateFieldInput } from '@codelab/frontend/abstract/codegen'
 import { CreateFieldGql } from '@codelab/frontend/modules/type'
-import { CreateFieldInput } from '@codelab/shared/codegen/graphql'
 import { print } from 'graphql'
 
 export const createField = (input: CreateFieldInput) => {

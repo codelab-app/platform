@@ -1,3 +1,4 @@
+import { CreateTagInput } from '@codelab/frontend/abstract/codegen'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
@@ -6,7 +7,6 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import { CreateTagInput } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { refetchGetTagGraphsQuery } from '../get-tag-graphs'

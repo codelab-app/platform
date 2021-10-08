@@ -1,36 +1,31 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphQueryBuilder,
-  DgraphType,
-} from '@codelab/backend/infra'
+import { IType, TypeKind, TypeSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetTypeRequest } from './get-type.request'
 
-type GetTypeQuery = {
-  query: [DgraphType<DgraphEntityType.Type> | null]
-}
-
 @Injectable()
 export class GetTypeService extends DgraphUseCase<
   GetTypeRequest,
-  DgraphType<DgraphEntityType.Type> | null
+  IType | null
 > {
+  protected schema = TypeSchema.optional().nullable()
+
   protected async executeTransaction(request: GetTypeRequest, txn: Txn) {
-    if (request.input.where.atomId) {
-      const { query } = await this.dgraph.executeQuery<GetTypeQuery>(
-        txn,
-        GetTypeService.getTypeByAtom(request),
-      )
-
-      return query[0]
-    }
-
-    return this.dgraph.getOne<DgraphType<DgraphEntityType.Type>>(
+    const type = await this.dgraph.getOneNamed<any>(
       txn,
       GetTypeService.createQuery(request),
+      'query',
     )
+
+    if (type?.typeKind === TypeKind.UnionType) {
+      return {
+        ...type,
+        typeIdsOfUnionType: type.typesOfUnionType.map(({ id }: any) => id),
+      }
+    }
+
+    return type
   }
 
   private static createQuery({
@@ -42,54 +37,53 @@ export class GetTypeService extends DgraphUseCase<
       throw new Error('Only 1 parameter is allowed')
     }
 
-    const qb = new DgraphQueryBuilder()
-      .addBaseFields()
-      .addRecurseDirective()
-      .addFields(
-        `name
-        primitiveKind
-        itemType
-        stringValue
-        allowedValues
-        typesOfUnionType
-        fields
-        type
-        key
-        description
-        kind
-        `,
-      )
+    if (atomId) {
+      return GetTypeService.getTypeByAtomQuery(atomId)
+    }
 
     if (id) {
-      return qb.setUidFunc(id).addTypeFilterDirective(DgraphEntityType.Type)
+      return GetTypeService.getTypeByIdQuery(id)
     }
 
     if (name) {
-      return qb
-        .setTypeFunc(DgraphEntityType.Type)
-        .addEqFilterDirective<DgraphEntityType>('name', name)
+      return GetTypeService.getTypeByName(name)
     }
 
-    throw new Error('Missing parameters')
+    throw new Error('Missing where parameters')
   }
 
-  private static getTypeByAtom(request: GetTypeRequest) {
-    const atomId = request.input.where.atomId
+  public static getTypeByAtomQuery(atomId: string, queryName = 'query') {
+    return `{
+        var(func: type(Atom)) @filter(uid(${atomId})) {
+          api {
+            ApiUid as uid
+          }
+        }
+        ${queryName}(func: uid(ApiUid))  @recurse(depth: 2) {
+          id: uid
+          expand(Type, Field)
+          value: stringValue
+        }
+      }`
+  }
 
-    return `
-      {
-        var(func: type(Type)) {
-          A as uid
-          dgraph.type
-          ~atom @filter(uid(${atomId}))
+  public static getTypeByIdQuery(typeId: string, queryName = 'query') {
+    return `{
+        ${queryName}(func: type(Type)) @filter(uid(${typeId})) @recurse(depth: 2) {
+          id: uid
+          expand(Type, Field)
+          value: stringValue
         }
-        query(func: uid(A)) @recurse {
-          uid
-          dgraph.type
-          name
-          fields
+      }`
+  }
+
+  public static getTypeByName(typeName: string, queryName = 'query') {
+    return `{
+        ${queryName}(func: type(Type)) @filter(eq(name, "${typeName}")) @recurse(depth: 2) {
+          id: uid
+          expand(Type, Field)
+          value: stringValue
         }
-      }
-      `
+      }`
   }
 }

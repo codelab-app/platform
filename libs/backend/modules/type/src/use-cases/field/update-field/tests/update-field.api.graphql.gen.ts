@@ -1,22 +1,30 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TestFieldFragment } from '../../../../tests/graphql/TestField.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TestFieldFragmentDoc } from '../../../../tests/graphql/TestField.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestUpdateFieldMutationVariables = Types.Exact<{
-  input: Types.UpdateFieldInput;
-}>;
+  input: Types.UpdateFieldInput
+}>
 
-
-export type TestUpdateFieldMutation = { updateField?: Types.Maybe<void> };
-
+export type TestUpdateFieldMutation = {
+  updateField?: TestFieldFragment | null | undefined
+}
 
 export const TestUpdateFieldGql = gql`
-    mutation TestUpdateField($input: UpdateFieldInput!) {
-  updateField(input: $input)
-}
-    `;
-export type TestUpdateFieldMutationFn = Apollo.MutationFunction<TestUpdateFieldMutation, TestUpdateFieldMutationVariables>;
+  mutation TestUpdateField($input: UpdateFieldInput!) {
+    updateField(input: $input) {
+      ...TestField
+    }
+  }
+  ${TestFieldFragmentDoc}
+`
+export type TestUpdateFieldMutationFn = Apollo.MutationFunction<
+  TestUpdateFieldMutation,
+  TestUpdateFieldMutationVariables
+>
 
 /**
  * __useTestUpdateFieldMutation__
@@ -35,10 +43,24 @@ export type TestUpdateFieldMutationFn = Apollo.MutationFunction<TestUpdateFieldM
  *   },
  * });
  */
-export function useTestUpdateFieldMutation(baseOptions?: Apollo.MutationHookOptions<TestUpdateFieldMutation, TestUpdateFieldMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestUpdateFieldMutation, TestUpdateFieldMutationVariables>(TestUpdateFieldGql, options);
-      }
-export type TestUpdateFieldMutationHookResult = ReturnType<typeof useTestUpdateFieldMutation>;
-export type TestUpdateFieldMutationResult = Apollo.MutationResult<TestUpdateFieldMutation>;
-export type TestUpdateFieldMutationOptions = Apollo.BaseMutationOptions<TestUpdateFieldMutation, TestUpdateFieldMutationVariables>;
+export function useTestUpdateFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestUpdateFieldMutation,
+    TestUpdateFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestUpdateFieldMutation,
+    TestUpdateFieldMutationVariables
+  >(TestUpdateFieldGql, options)
+}
+export type TestUpdateFieldMutationHookResult = ReturnType<
+  typeof useTestUpdateFieldMutation
+>
+export type TestUpdateFieldMutationResult =
+  Apollo.MutationResult<TestUpdateFieldMutation>
+export type TestUpdateFieldMutationOptions = Apollo.BaseMutationOptions<
+  TestUpdateFieldMutation,
+  TestUpdateFieldMutationVariables
+>

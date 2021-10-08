@@ -6,11 +6,11 @@ import {
   MainPaneBuilderPage,
   MetaPaneBuilderPage,
 } from '@codelab/frontend/modules/builder'
+import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
   PageContext,
   withPageQueryProvider,
 } from '@codelab/frontend/modules/page'
-import { withTypeKindProvider } from '@codelab/frontend/modules/type'
 import {
   AppPagesGql,
   AppPagesQuery,
@@ -32,13 +32,14 @@ export interface BuilderProps {
 }
 
 const PageBuilder: CodelabPage<BuilderProps> = (props) => {
-  const { tree, page, loading } = useContext(PageContext)
+  const { page, loading } = useContext(PageContext)
+  const { elementTree } = useElementGraphContext()
 
   if (loading) {
     return null
   }
 
-  if (!tree || !page) {
+  if (!page || !elementTree) {
     return <Empty />
   }
 
@@ -48,7 +49,7 @@ const PageBuilder: CodelabPage<BuilderProps> = (props) => {
         <title>{page.name} | Builder | Codelab</title>
       </Head>
 
-      <Builder tree={tree} />
+      <Builder tree={elementTree} />
     </>
   )
 }
@@ -95,9 +96,7 @@ export const getServerSideProps = withPageAuthRequired({
 })
 
 PageBuilder.Header = BuilderHeader
-PageBuilder.Template = withTypeKindProvider(
-  withPageQueryProvider(DashboardTemplate),
-)
+PageBuilder.Template = withPageQueryProvider(DashboardTemplate)
 PageBuilder.SidebarNavigation = SidebarNavigation
 PageBuilder.MainPane = MainPaneBuilderPage
 PageBuilder.MetaPane = MetaPaneBuilderPage

@@ -1,3 +1,5 @@
 mutation DeleteTags($input: DeleteTagsInput!) {
-  deleteTags(input: $input)
+  deleteTags(input: $input) {
+    ...Tag
+  }
 }

@@ -1,20 +1,19 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphQueryBuilder,
-  DgraphTagTree,
-} from '@codelab/backend/infra'
+import { DgraphEntityType, DgraphQueryBuilder } from '@codelab/backend/infra'
+import { IGraph } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { TagEdge } from '../../domain/tag-edge.model'
+import { TagVertex } from '../../domain/tag-vertex.model'
 import { GetTagGraphRequest } from './get-tag-graph.request'
 
 @Injectable()
 export class GetTagGraphService extends DgraphUseCase<
   GetTagGraphRequest,
-  DgraphTagTree | null
+  IGraph<TagVertex, TagEdge> | null
 > {
   protected async executeTransaction(request: GetTagGraphRequest, txn: Txn) {
-    return await this.dgraph.getOne<DgraphTagTree>(
+    return await this.dgraph.getOne<IGraph<TagVertex, TagEdge>>(
       txn,
       GetTagGraphService.createQuery(request),
     )
@@ -33,7 +32,7 @@ export class GetTagGraphService extends DgraphUseCase<
 
   async createRootTagQuery(request: GetTagGraphRequest) {
     return this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getOne<DgraphTagTree>(
+      this.dgraph.getOne<IGraph<TagVertex, TagEdge>>(
         txn,
         GetTagGraphService.createQuery(request),
       ),

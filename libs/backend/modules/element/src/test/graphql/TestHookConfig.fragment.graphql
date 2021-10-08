@@ -1,0 +1,36 @@
+fragment TestQueryHookConfig on QueryHookConfig {
+  body
+  method
+  queryKey
+  url
+  lambdaId
+}
+
+fragment TestGraphqlHookConfig on GraphqlHookConfig {
+  graphqlBody
+  graphqlUrl
+  dataKey
+}
+
+fragment TestRecoilStateHookConfig on RecoilStateHookConfig {
+  defaultValue
+  stateKey
+  persisted
+}
+
+fragment TestQueryPagesHookConfig on QueryPagesHookConfig {
+  appId
+}
+
+fragment TestQueryPageHookConfig on QueryPageHookConfig {
+  pageId
+}
+
+fragment TestHookConfig on HookConfig {
+  __typename
+  ...QueryHookConfig
+  ...GraphqlHookConfig
+  ...RecoilStateHookConfig
+  ...QueryPagesHookConfig
+  ...QueryPageHookConfig
+}

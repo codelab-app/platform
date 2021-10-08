@@ -1,25 +1,36 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type GetTypeKindsQueryVariables = Types.Exact<{
-  input?: Types.Maybe<Types.GetTypesInput>;
-}>;
+  input?: Types.Maybe<Types.GetTypesInput>
+}>
 
-
-export type GetTypeKindsQuery = { getTypes: Array<{ __typename: 'ArrayType', id: string, typeKind: Types.TypeKind } | { __typename: 'ComponentType', id: string, typeKind: Types.TypeKind } | { __typename: 'ElementType', id: string, typeKind: Types.TypeKind } | { __typename: 'EnumType', id: string, typeKind: Types.TypeKind } | { __typename: 'InterfaceType', id: string, typeKind: Types.TypeKind } | { __typename: 'LambdaType', id: string, typeKind: Types.TypeKind } | { __typename: 'PrimitiveType', id: string, typeKind: Types.TypeKind } | { __typename: 'ReactNodeType', id: string, typeKind: Types.TypeKind } | { __typename: 'RenderPropsType', id: string, typeKind: Types.TypeKind } | { __typename: 'UnionType', id: string, typeKind: Types.TypeKind }> };
-
+export type GetTypeKindsQuery = {
+  getTypes: Array<
+    | { __typename: 'ArrayType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'ComponentType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'ElementType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'EnumType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'InterfaceType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'LambdaType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'PrimitiveType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'ReactNodeType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'RenderPropsType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'UnionType'; id: string; typeKind: Types.TypeKind }
+  >
+}
 
 export const GetTypeKindsGql = gql`
-    query GetTypeKinds($input: GetTypesInput) {
-  getTypes(input: $input) {
-    id
-    typeKind
-    __typename
+  query GetTypeKinds($input: GetTypesInput) {
+    getTypes(input: $input) {
+      id
+      typeKind
+      __typename
+    }
   }
-}
-    `;
+`
 
 /**
  * __useGetTypeKindsQuery__
@@ -37,17 +48,42 @@ export const GetTypeKindsGql = gql`
  *   },
  * });
  */
-export function useGetTypeKindsQuery(baseOptions?: Apollo.QueryHookOptions<GetTypeKindsQuery, GetTypeKindsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTypeKindsQuery, GetTypeKindsQueryVariables>(GetTypeKindsGql, options);
-      }
-export function useGetTypeKindsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTypeKindsQuery, GetTypeKindsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTypeKindsQuery, GetTypeKindsQueryVariables>(GetTypeKindsGql, options);
-        }
-export type GetTypeKindsQueryHookResult = ReturnType<typeof useGetTypeKindsQuery>;
-export type GetTypeKindsLazyQueryHookResult = ReturnType<typeof useGetTypeKindsLazyQuery>;
-export type GetTypeKindsQueryResult = Apollo.QueryResult<GetTypeKindsQuery, GetTypeKindsQueryVariables>;
-export function refetchGetTypeKindsQuery(variables?: GetTypeKindsQueryVariables) {
-      return { query: GetTypeKindsGql, variables: variables }
-    }
+export function useGetTypeKindsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetTypeKindsQuery,
+    GetTypeKindsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetTypeKindsQuery, GetTypeKindsQueryVariables>(
+    GetTypeKindsGql,
+    options,
+  )
+}
+export function useGetTypeKindsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetTypeKindsQuery,
+    GetTypeKindsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetTypeKindsQuery, GetTypeKindsQueryVariables>(
+    GetTypeKindsGql,
+    options,
+  )
+}
+export type GetTypeKindsQueryHookResult = ReturnType<
+  typeof useGetTypeKindsQuery
+>
+export type GetTypeKindsLazyQueryHookResult = ReturnType<
+  typeof useGetTypeKindsLazyQuery
+>
+export type GetTypeKindsQueryResult = Apollo.QueryResult<
+  GetTypeKindsQuery,
+  GetTypeKindsQueryVariables
+>
+export function refetchGetTypeKindsQuery(
+  variables?: GetTypeKindsQueryVariables,
+) {
+  return { query: GetTypeKindsGql, variables: variables }
+}

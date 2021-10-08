@@ -1,28 +1,31 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestGetAtomQueryVariables = Types.Exact<{
-  input: Types.GetAtomInput;
-}>;
+  input: Types.GetAtomInput
+}>
 
-
-export type TestGetAtomQuery = { atom?: Types.Maybe<{ id: string, name: string, type: Types.AtomType, api: { id: string } }> };
-
+export type TestGetAtomQuery = {
+  atom?:
+    | { id: string; name: string; type: Types.AtomType; api: { id: string } }
+    | null
+    | undefined
+}
 
 export const TestGetAtomGql = gql`
-    query TestGetAtom($input: GetAtomInput!) {
-  atom: getAtom(input: $input) {
-    id
-    api {
+  query TestGetAtom($input: GetAtomInput!) {
+    atom: getAtom(input: $input) {
       id
+      api {
+        id
+      }
+      name
+      type
     }
-    name
-    type
   }
-}
-    `;
+`
 
 /**
  * __useTestGetAtomQuery__
@@ -40,17 +43,38 @@ export const TestGetAtomGql = gql`
  *   },
  * });
  */
-export function useTestGetAtomQuery(baseOptions: Apollo.QueryHookOptions<TestGetAtomQuery, TestGetAtomQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetAtomQuery, TestGetAtomQueryVariables>(TestGetAtomGql, options);
-      }
-export function useTestGetAtomLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetAtomQuery, TestGetAtomQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetAtomQuery, TestGetAtomQueryVariables>(TestGetAtomGql, options);
-        }
-export type TestGetAtomQueryHookResult = ReturnType<typeof useTestGetAtomQuery>;
-export type TestGetAtomLazyQueryHookResult = ReturnType<typeof useTestGetAtomLazyQuery>;
-export type TestGetAtomQueryResult = Apollo.QueryResult<TestGetAtomQuery, TestGetAtomQueryVariables>;
+export function useTestGetAtomQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TestGetAtomQuery,
+    TestGetAtomQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TestGetAtomQuery, TestGetAtomQueryVariables>(
+    TestGetAtomGql,
+    options,
+  )
+}
+export function useTestGetAtomLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetAtomQuery,
+    TestGetAtomQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TestGetAtomQuery, TestGetAtomQueryVariables>(
+    TestGetAtomGql,
+    options,
+  )
+}
+export type TestGetAtomQueryHookResult = ReturnType<typeof useTestGetAtomQuery>
+export type TestGetAtomLazyQueryHookResult = ReturnType<
+  typeof useTestGetAtomLazyQuery
+>
+export type TestGetAtomQueryResult = Apollo.QueryResult<
+  TestGetAtomQuery,
+  TestGetAtomQueryVariables
+>
 export function refetchTestGetAtomQuery(variables?: TestGetAtomQueryVariables) {
-      return { query: TestGetAtomGql, variables: variables }
-    }
+  return { query: TestGetAtomGql, variables: variables }
+}

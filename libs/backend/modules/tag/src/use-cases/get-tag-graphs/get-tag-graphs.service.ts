@@ -48,42 +48,4 @@ export class GetTagGraphsService extends DgraphUseCase<
       }
     `
   }
-
-  // protected createQuery({ currentUser }: GetTagGraphsRequest) {
-  //   return new DgraphQueryBuilder()
-  //     .setTypeFunc(DgraphEntityType.Tag)
-  //     .addFilterDirective(
-  //       `uid_in(owner, ${currentUser.id}) AND eq(isRoot, true)`,
-  //     )
-  //     .addRecurseDirective()
-  //     .addBaseFields()
-  //     .addExpandAll()
-  // }
 }
-
-// query {
-//   var(func: uid(0x2812f)) @recurse @normalize {
-//     UIDS AS uid
-//     name
-//     CHILDREN_IDS AS children
-//   }
-//   vertices(func: uid(UIDS)) @normalize {
-//     uid
-//     name: name
-//   }
-//   edges(func: uid(CHILDREN_IDS)) @normalize {
-//     parent {
-//      source: uid
-//     }
-//     target: uid
-//   }
-//   # Get all ids with parents
-//   # var(func: uid(0x2812f)) @recurse(depth: 2) @normalize  {
-//   #   IDS_WITH_PARENT AS uid
-//   #   parent
-//   #   children
-//   # }
-//   # test(func: uid(CHILDREN_IDS)) @recurse(depth: 2) {
-//   #   uid
-//   # }
-// }

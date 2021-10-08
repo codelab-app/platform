@@ -1,16 +1,5 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { AtomModule } from '../../../atom.module'
-import { CreateAtomInput } from '../../create-atom'
-import {
-  TestCreateAtomGql,
-  TestCreateAtomMutation,
-} from '../../create-atom/tests/create-atom.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupAtomTestModule } from '../../../test/setupAtomTestModule'
 import {
   createAtomBInput,
   createAtomInput,
@@ -19,26 +8,13 @@ import { GetAtomsInput } from '../get-atoms.input'
 import { TestGetAtomsGql, TestGetAtomsQuery } from './get-atoms.api.graphql.gen'
 
 describe('GetAtoms', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
-  let adminApp: INestApplication
+  const testModule = setupAtomTestModule(true)
   let atomAId: string
   let atomBId: string
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
-    userApp = await setupTestModule([AtomModule], { role: Role.User })
-    adminApp = await setupTestModule([AtomModule], { role: Role.Admin })
-
-    const { createAtom: atomA } = await domainRequest<
-      CreateAtomInput,
-      TestCreateAtomMutation
-    >(adminApp, TestCreateAtomGql, createAtomInput)
-
-    const { createAtom: atomB } = await domainRequest<
-      CreateAtomInput,
-      TestCreateAtomMutation
-    >(adminApp, TestCreateAtomGql, createAtomBInput)
+    const atomA = await testModule.createTestAtom(createAtomInput)
+    const atomB = await testModule.createTestAtom(createAtomBInput)
 
     atomAId = atomA.id
     atomBId = atomB.id
@@ -47,16 +23,10 @@ describe('GetAtoms', () => {
     expect(atomBId).toBeDefined()
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-    await teardownTestModule(adminApp)
-  })
-
   describe('Guest', () => {
     it('should fail to get atoms', async () => {
       await domainRequest<GetAtomsInput, TestGetAtomsQuery>(
-        guestApp,
+        testModule.guestApp,
         TestGetAtomsGql,
         {},
         {
@@ -69,7 +39,7 @@ describe('GetAtoms', () => {
   describe('User', () => {
     it('should get atoms', async () => {
       const results = await domainRequest<GetAtomsInput, TestGetAtomsQuery>(
-        userApp,
+        testModule.userApp,
         TestGetAtomsGql,
         {},
       )
@@ -84,7 +54,7 @@ describe('GetAtoms', () => {
       const { getAtoms } = await domainRequest<
         GetAtomsInput,
         TestGetAtomsQuery
-      >(userApp, TestGetAtomsGql, {
+      >(testModule.userApp, TestGetAtomsGql, {
         where: { ids: [atomAId] },
       })
 

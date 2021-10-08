@@ -9,9 +9,6 @@ export class CreateElementInput {
   declare atomId?: string
 
   @Field({ nullable: true })
-  declare componentId?: string
-
-  @Field({ nullable: true })
   declare parentElementId?: string
 
   @Field(() => Int, {
@@ -20,4 +17,7 @@ export class CreateElementInput {
       'Leave it out to automatically set it as the last order of all the children',
   })
   declare order?: number | null
+
+  @Field(() => [String], { nullable: true })
+  declare childrenIds?: Array<string>
 }

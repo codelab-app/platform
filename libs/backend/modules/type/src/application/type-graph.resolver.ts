@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Resolver } from '@nestjs/graphql'
-import { TypeGraph } from '../domain/type-graph'
+import { TypeGraph } from '../domain/type-graph.model'
 
 @Resolver(() => TypeGraph)
 @Injectable()

@@ -1,6 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import {
-  DgraphElement,
   DgraphEntityType,
   DgraphQueryBuilder,
   DgraphQueryField,
@@ -15,17 +14,14 @@ import { GetElementParentInput } from './get-element-parent.input'
 @Injectable()
 export class GetElementParentService extends DgraphUseCase<
   GetElementParentInput,
-  DgraphElement | null
+  any | null
 > {
   protected executeTransaction(
     request: GetElementParentInput,
     txn: Txn,
-  ): Promise<DgraphElement | null> {
+  ): Promise<any | null> {
     return this.dgraph
-      .getOne<{ '~children': Array<DgraphElement> }>(
-        txn,
-        this.createQuery(request),
-      )
+      .getOne<{ '~children': Array<any> }>(txn, this.createQuery(request))
       .then((p) => (p && p['~children']?.length ? p['~children'][0] : null))
   }
 

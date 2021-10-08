@@ -4,19 +4,8 @@ import {
   AwsS3Service,
   AwsTokens,
 } from '@codelab/backend/infra'
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { LambdaModule } from '../../../lambda.module'
-import { CreateLambdaInput } from '../../create-lambda'
-import {
-  TestCreateLambdaGql,
-  TestCreateLambdaMutation,
-} from '../../create-lambda/tests/create-lambda.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupLambdaTestModule } from '../../../test/setupLambdaTestModule'
 import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 import { ExecuteLambdaInput } from '../execute-lambda.input'
 import {
@@ -25,22 +14,15 @@ import {
 } from './execute-lambda.api.graphql.gen'
 
 describe('ExecuteLambda', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupLambdaTestModule()
   let executeLambdaInput: ExecuteLambdaInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([LambdaModule], { role: Role.Guest })
-    userApp = await setupTestModule([LambdaModule], { role: Role.User })
-
-    const awsS3Service = userApp.get<AwsS3Service>(AwsTokens.S3)
-    const _awsConfig = userApp.get<AwsConfig>(awsConfig.KEY)
+    const awsS3Service = testModule.userApp.get<AwsS3Service>(AwsTokens.S3)
+    const _awsConfig = testModule.userApp.get<AwsConfig>(awsConfig.KEY)
     await awsS3Service.emptyBucket(_awsConfig.awsBucketName)
 
-    const { createLambda } = await domainRequest<
-      CreateLambdaInput,
-      TestCreateLambdaMutation
-    >(userApp, TestCreateLambdaGql, createLambdaInput)
+    const createLambda = await testModule.createTestLambda(createLambdaInput)
 
     executeLambdaInput = {
       lambdaId: createLambda.id,
@@ -49,16 +31,16 @@ describe('ExecuteLambda', () => {
     expect(createLambda.id).toBeDefined()
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to execute a lambda', async () => {
-      await domainRequest(guestApp, TestExecuteLambdaGql, executeLambdaInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestExecuteLambdaGql,
+        executeLambdaInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
@@ -67,9 +49,9 @@ describe('ExecuteLambda', () => {
       const results = await domainRequest<
         ExecuteLambdaInput,
         TestExecuteLambdaMutation
-      >(userApp, TestExecuteLambdaGql, executeLambdaInput)
+      >(testModule.userApp, TestExecuteLambdaGql, executeLambdaInput)
 
-      expect(results.executeLambda?.payload).toBe('"Hello, World!"')
+      expect(results.executeLambda?.payload).toStrictEqual('"Hello, World!"')
     })
   })
 })

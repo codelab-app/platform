@@ -1,5 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphLambda, jsonMutation } from '@codelab/backend/infra'
+import { jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { UpdateLambdaInput } from './update-lambda.input'
@@ -11,7 +11,7 @@ export class UpdateLambdaService extends DgraphUseCase<UpdateLambdaInput> {
   }
 
   createMutation(request: UpdateLambdaInput) {
-    return jsonMutation<DgraphLambda>({
+    return jsonMutation<any>({
       uid: request.id,
       name: request.name,
       body: request.body,

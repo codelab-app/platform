@@ -1,23 +1,22 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { __UserFragment } from '../../User.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { __UserFragmentDoc } from '../../User.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
-export type GetMeQueryVariables = Types.Exact<{ [key: string]: never; }>;
+import { __UserFragment } from '../../User.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { __UserFragmentDoc } from '../../User.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
+export type GetMeQueryVariables = Types.Exact<{ [key: string]: never }>
 
-
-export type GetMeQuery = { getMe?: Types.Maybe<__UserFragment> };
-
+export type GetMeQuery = { getMe?: __UserFragment | null | undefined }
 
 export const GetMeGql = gql`
-    query GetMe {
-  getMe {
-    ...__User
+  query GetMe {
+    getMe {
+      ...__User
+    }
   }
-}
-    ${__UserFragmentDoc}`;
+  ${__UserFragmentDoc}
+`
 
 /**
  * __useGetMeQuery__
@@ -34,17 +33,24 @@ export const GetMeGql = gql`
  *   },
  * });
  */
-export function useGetMeQuery(baseOptions?: Apollo.QueryHookOptions<GetMeQuery, GetMeQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMeQuery, GetMeQueryVariables>(GetMeGql, options);
-      }
-export function useGetMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMeQuery, GetMeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMeQuery, GetMeQueryVariables>(GetMeGql, options);
-        }
-export type GetMeQueryHookResult = ReturnType<typeof useGetMeQuery>;
-export type GetMeLazyQueryHookResult = ReturnType<typeof useGetMeLazyQuery>;
-export type GetMeQueryResult = Apollo.QueryResult<GetMeQuery, GetMeQueryVariables>;
+export function useGetMeQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetMeQuery, GetMeQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetMeQuery, GetMeQueryVariables>(GetMeGql, options)
+}
+export function useGetMeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetMeQuery, GetMeQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetMeQuery, GetMeQueryVariables>(GetMeGql, options)
+}
+export type GetMeQueryHookResult = ReturnType<typeof useGetMeQuery>
+export type GetMeLazyQueryHookResult = ReturnType<typeof useGetMeLazyQuery>
+export type GetMeQueryResult = Apollo.QueryResult<
+  GetMeQuery,
+  GetMeQueryVariables
+>
 export function refetchGetMeQuery(variables?: GetMeQueryVariables) {
-      return { query: GetMeGql, variables: variables }
-    }
+  return { query: GetMeGql, variables: variables }
+}

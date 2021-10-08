@@ -1,6 +1,5 @@
 import { DgraphCreateUseCase } from '@codelab/backend/application'
 import {
-  DgraphElement,
   DgraphEntityType,
   DgraphRepository,
   DgraphUpdateMutationJson,
@@ -37,7 +36,7 @@ export class AddHookToElementService extends DgraphCreateUseCase<AddHookToElemen
   }
 
   private static createMutation(hook: Hook, elementId: string): Mutation {
-    const setJson: DgraphUpdateMutationJson<DgraphElement> = {
+    const setJson: DgraphUpdateMutationJson<any> = {
       uid: elementId,
       hooks: {
         uid: '_:hook',

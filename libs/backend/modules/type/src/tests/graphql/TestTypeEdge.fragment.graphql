@@ -1,0 +1,16 @@
+fragment TestFieldTypeEdge on FieldTypeEdge {
+  description
+  id
+  key
+  name
+  source
+  target
+}
+
+fragment TestTypeEdge on TypeEdge {
+  source
+  target
+  ... on FieldTypeEdge {
+    ...TestFieldTypeEdge
+  }
+}

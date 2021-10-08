@@ -1,25 +1,28 @@
-import { QueryMethod } from '@codelab/shared/abstract/core'
+import {
+  HookDiscriminator,
+  IQueryHookConfig,
+  QueryMethod,
+} from '@codelab/shared/abstract/core'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { QueryHookConfig } from '../../domain'
 
-@ObjectType('QueryHookConfig')
-export class QueryHookConfigModel implements QueryHookConfig {
+@ObjectType(HookDiscriminator.QueryHookConfig)
+export class QueryHookConfig implements IQueryHookConfig {
   @Field()
   queryKey: string
 
-  @Field({ nullable: true })
-  url?: string
+  @Field(() => String, { nullable: true })
+  url?: string | null
 
   @Field(() => String, { nullable: true })
   body?: string | null
 
   @Field(() => QueryMethod, { nullable: true })
-  method?: QueryMethod
+  method?: QueryMethod | null
 
-  @Field({ nullable: true })
-  lambdaId?: string
+  @Field(() => String, { nullable: true })
+  lambdaId?: string | null
 
-  constructor({ queryKey, method, url, body, lambdaId }: QueryHookConfigModel) {
+  constructor({ queryKey, method, url, body, lambdaId }: QueryHookConfig) {
     this.queryKey = queryKey
     this.url = url
     this.body = body

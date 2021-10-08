@@ -1,11 +1,15 @@
-import { PureQueryOptions } from '@apollo/client'
-import { useMoveElementMutation } from '@codelab/frontend/modules/element'
+import { IElement } from '@codelab/frontend/abstract/core'
+import {
+  CreateElementModal,
+  refetchGetElementGraphQuery,
+  useElementGraphContext,
+  useMoveElementMutation,
+} from '@codelab/frontend/modules/element'
 import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import {
   MainPaneTemplate,
   MainPaneTemplateProps,
 } from '@codelab/frontend/view/templates'
-import { IElementVertex } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { Dropdown, Tree as AntdTree } from 'antd'
 import { TreeProps } from 'antd/lib/tree'
@@ -16,17 +20,18 @@ import { useBuilderSelection } from '../containers/builderState'
 import { ElementContextMenu } from './ElementContextMenu'
 import { useExpandedNodes } from './useExpandedNodes'
 
-export interface MainPaneBuilderTemplateProps extends MainPaneTemplateProps {
-  tree: ElementTree<any, any, any>
-  moveElementRefetchQueries?: Array<PureQueryOptions>
-}
+export type MainPaneBuilderTemplateProps = MainPaneTemplateProps
 
+/**
+ * Reusable builder pane, which renders an Antd tree for visualizing the DOM tree
+ */
 export const MainPaneBuilder = ({
-  tree,
-  moveElementRefetchQueries,
   children,
   ...props
 }: MainPaneBuilderTemplateProps) => {
+  const { elementTree, elementId } = useElementGraphContext()
+  const tree = elementTree ?? new ElementTree({ edges: [], vertices: [] })
+
   const {
     setHoveringElement,
     setSelectedElement,
@@ -70,7 +75,9 @@ export const MainPaneBuilder = ({
   const [moveElement, { loading: isLoadingMoveElement }] =
     useMoveElementMutation({
       awaitRefetchQueries: true,
-      refetchQueries: moveElementRefetchQueries,
+      refetchQueries: [
+        refetchGetElementGraphQuery({ input: { where: { id: elementId } } }),
+      ],
     })
 
   const handleDrop: TreeProps['onDrop'] = (e) => {
@@ -173,7 +180,7 @@ export const MainPaneBuilder = ({
               setSelectedElement(element)
             }}
             titleRender={(node) => {
-              const element = node as any as IElementVertex
+              const element = node as any as IElement
               const label = element.name
               const nodeId = element.id
               const atomName = element.atom?.name || element.atom?.type
@@ -213,9 +220,13 @@ export const MainPaneBuilder = ({
                 </div>
               )
             }}
-            treeData={[antdTree]}
+            treeData={antdTree ? [antdTree] : undefined}
           />
         ) : null}
+
+        <CreateElementModal
+          formProps={{ initialData: { parentElementId: selectedElement?.id } }}
+        />
 
         {children}
       </div>

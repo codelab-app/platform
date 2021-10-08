@@ -1,6 +1,6 @@
 import {
   ElementTypeKind,
-  IElementTypeVertex,
+  IElementType,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
@@ -18,16 +18,20 @@ registerEnumType(ElementTypeKind, { name: 'ElementTypeKind' })
 })
 export class ElementType
   extends Type<TypeKind.ElementType>
-  implements IElementTypeVertex
+  implements IElementType
 {
   @Field(() => ElementTypeKind)
-  declare kind: ElementTypeKind
+  declare elementKind: ElementTypeKind
 
-  constructor({ id, name, kind }: Pick<ElementType, 'id' | 'name' | 'kind'>) {
+  constructor({
+    id,
+    name,
+    elementKind,
+  }: Pick<ElementType, 'id' | 'name' | 'elementKind'>) {
     super(TypeKind.ElementType)
 
     this.id = id
     this.name = name
-    this.kind = kind
+    this.elementKind = elementKind
   }
 }

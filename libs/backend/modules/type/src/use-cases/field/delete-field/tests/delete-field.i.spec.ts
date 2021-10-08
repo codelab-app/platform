@@ -1,11 +1,5 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { TypeModule } from '../../../../type.module'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupTypeTestModule } from '../../../../tests/setupTypeTestModule'
 import { createField } from '../../create-field/tests/create-type-field'
 import { GetFieldInput } from '../../get-field'
 import {
@@ -16,33 +10,20 @@ import { DeleteFieldInput } from '../delete-field.input'
 import { TestDeleteFieldGql } from './delete-field.api.graphql.gen'
 
 describe('DeleteField', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupTypeTestModule()
   let fieldId: string
   let deleteFieldInput: DeleteFieldInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([TypeModule], {
-      role: Role.Guest,
-    })
-    userApp = await setupTestModule([TypeModule], {
-      role: Role.User,
-    })
-
-    fieldId = await createField(userApp)
+    fieldId = await createField(testModule.userApp)
 
     deleteFieldInput = { fieldId }
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
   })
 
   describe('Guest', () => {
     it('should not delete field', async () => {
       await domainRequest<DeleteFieldInput>(
-        guestApp,
+        testModule.guestApp,
         TestDeleteFieldGql,
         deleteFieldInput,
         { message: 'Unauthorized' },
@@ -53,7 +34,7 @@ describe('DeleteField', () => {
   describe('User', () => {
     it('should delete field', async () => {
       await domainRequest<DeleteFieldInput>(
-        userApp,
+        testModule.userApp,
         TestDeleteFieldGql,
         deleteFieldInput,
       )
@@ -61,7 +42,7 @@ describe('DeleteField', () => {
       const { getField: field } = await domainRequest<
         GetFieldInput,
         TestGetFieldQuery
-      >(userApp, TestGetFieldGql, { byId: { fieldId } })
+      >(testModule.userApp, TestGetFieldGql, { byId: { fieldId } })
 
       expect(field).toBeNull()
     })

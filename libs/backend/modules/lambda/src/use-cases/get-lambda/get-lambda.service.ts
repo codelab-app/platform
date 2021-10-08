@@ -1,5 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphLambda } from '@codelab/backend/infra'
+import { ILambda, LambdaSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetLambdaInput } from './get-lambda.input'
@@ -8,11 +8,13 @@ import { getLambdaQuery } from './get-lambda.query'
 @Injectable()
 export class GetLambdaService extends DgraphUseCase<
   GetLambdaInput,
-  DgraphLambda | null
+  ILambda | null
 > {
-  async executeTransaction(input: GetLambdaInput, txn: Txn) {
-    const q = getLambdaQuery().setUidFunc(input.lambdaId)
+  protected schema = LambdaSchema.nullable().optional()
 
-    return await this.dgraph.getOne<DgraphLambda>(txn, q)
+  async executeTransaction(input: GetLambdaInput, txn: Txn) {
+    const q = getLambdaQuery(`@filter(uid(${input.lambdaId}))`, 'query')
+
+    return this.dgraph.getOneNamed<ILambda>(txn, q, 'query')
   }
 }

@@ -1,26 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AtomBaseFragment } from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { AtomBaseFragmentDoc } from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TestAtomBaseFragment } from '../../../test/graphql/TestAtom.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TestAtomBaseFragmentDoc } from '../../../test/graphql/TestAtom.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestCreateAtomMutationVariables = Types.Exact<{
-  input: Types.CreateAtomInput;
-}>;
+  input: Types.CreateAtomInput
+}>
 
-
-export type TestCreateAtomMutation = { createAtom: AtomBaseFragment };
-
+export type TestCreateAtomMutation = { createAtom: TestAtomBaseFragment }
 
 export const TestCreateAtomGql = gql`
-    mutation TestCreateAtom($input: CreateAtomInput!) {
-  createAtom(input: $input) {
-    ...AtomBase
+  mutation TestCreateAtom($input: CreateAtomInput!) {
+    createAtom(input: $input) {
+      ...TestAtomBase
+    }
   }
-}
-    ${AtomBaseFragmentDoc}`;
-export type TestCreateAtomMutationFn = Apollo.MutationFunction<TestCreateAtomMutation, TestCreateAtomMutationVariables>;
+  ${TestAtomBaseFragmentDoc}
+`
+export type TestCreateAtomMutationFn = Apollo.MutationFunction<
+  TestCreateAtomMutation,
+  TestCreateAtomMutationVariables
+>
 
 /**
  * __useTestCreateAtomMutation__
@@ -39,10 +41,24 @@ export type TestCreateAtomMutationFn = Apollo.MutationFunction<TestCreateAtomMut
  *   },
  * });
  */
-export function useTestCreateAtomMutation(baseOptions?: Apollo.MutationHookOptions<TestCreateAtomMutation, TestCreateAtomMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestCreateAtomMutation, TestCreateAtomMutationVariables>(TestCreateAtomGql, options);
-      }
-export type TestCreateAtomMutationHookResult = ReturnType<typeof useTestCreateAtomMutation>;
-export type TestCreateAtomMutationResult = Apollo.MutationResult<TestCreateAtomMutation>;
-export type TestCreateAtomMutationOptions = Apollo.BaseMutationOptions<TestCreateAtomMutation, TestCreateAtomMutationVariables>;
+export function useTestCreateAtomMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestCreateAtomMutation,
+    TestCreateAtomMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestCreateAtomMutation,
+    TestCreateAtomMutationVariables
+  >(TestCreateAtomGql, options)
+}
+export type TestCreateAtomMutationHookResult = ReturnType<
+  typeof useTestCreateAtomMutation
+>
+export type TestCreateAtomMutationResult =
+  Apollo.MutationResult<TestCreateAtomMutation>
+export type TestCreateAtomMutationOptions = Apollo.BaseMutationOptions<
+  TestCreateAtomMutation,
+  TestCreateAtomMutationVariables
+>

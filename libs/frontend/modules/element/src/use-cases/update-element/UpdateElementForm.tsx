@@ -1,5 +1,5 @@
-import { MutationHookOptions } from '@apollo/client'
-import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
+import { IElement } from '@codelab/frontend/abstract/core'
+import { SelectAtom } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   AutoCompleteField,
@@ -7,21 +7,20 @@ import {
   UniFormUseCaseProps,
   usePromisesLoadingIndicator,
 } from '@codelab/frontend/view/components'
+import { ElementTree } from '@codelab/shared/core'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { ElementFragment } from '../../graphql'
-import { ElementTreeGraphql } from '../../tree'
 import { refetchGetElementQuery, useGetElementQuery } from '../get-element'
+import { refetchGetElementGraphQuery } from '../get-element-graph'
 import { useUpdateElementMutation } from './UpdateElement.web.graphql.gen'
 import { UpdateElementSchema, updateElementSchema } from './updateElementSchema'
 
 type UpdateElementFormInternalProps =
   UniFormUseCaseProps<UpdateElementSchema> & {
-    tree: ElementTreeGraphql
-    element: ElementFragment
+    tree: ElementTree
+    element: IElement
     providePropCompletion?: (searchValue: string) => Array<string>
     loadingStateKey?: string
-    refetchQueries: Required<MutationHookOptions>['refetchQueries']
   }
 
 export type UpdateElementFormProps = Omit<
@@ -34,7 +33,6 @@ const UpdateElementFormInternal = ({
   tree,
   providePropCompletion,
   loadingStateKey,
-  refetchQueries,
   ...props
 }: React.PropsWithChildren<UpdateElementFormInternalProps>) => {
   const { current: element } = useRef(elementProp) // Cache the initial element value, because when it updates it will interfere with what the user is typing
@@ -47,8 +45,8 @@ const UpdateElementFormInternal = ({
   const [updateElement] = useUpdateElementMutation({
     awaitRefetchQueries: true,
     refetchQueries: [
-      refetchGetElementQuery({ input: { elementId: element.id } }),
-      ...(Array.isArray(refetchQueries) ? refetchQueries : []),
+      refetchGetElementQuery({ input: { where: { id: element.id } } }),
+      refetchGetElementGraphQuery({ input: { where: { id: element.id } } }),
     ],
   })
 
@@ -65,8 +63,6 @@ const UpdateElementFormInternal = ({
 
     return promise
   }
-
-  const componentId = tree.getComponentOfElement(element.id)?.id
 
   const handlePropSearch = (value: string) => {
     if (providePropCompletion) {
@@ -89,7 +85,6 @@ const UpdateElementFormInternal = ({
         model={{
           atomId: element.atom?.id,
           name: element.name,
-          componentId,
           renderForEachPropKey: element.renderForEachPropKey,
           renderIfPropKey: element.renderIfPropKey,
           propTransformationJs: element.propTransformationJs,
@@ -104,7 +99,6 @@ const UpdateElementFormInternal = ({
         <AutoFields
           omitFields={[
             'atomId',
-            'componentId',
             'renderIfPropKey',
             'renderForEachPropKey',
             'propTransformationJs',
@@ -113,7 +107,6 @@ const UpdateElementFormInternal = ({
         />
 
         <AutoField name="atomId" component={SelectAtom} />
-        <AutoField name="componentId" component={SelectComponent} />
         <AutoCompleteField
           name="renderIfPropKey"
           onSearch={handlePropSearch}
@@ -136,7 +129,7 @@ export const UpdateElementForm = ({
 }: UpdateElementFormProps) => {
   const { data: getElementData } = useGetElementQuery({
     fetchPolicy: 'cache-first',
-    variables: { input: { elementId } },
+    variables: { input: { where: { id: elementId } } },
   })
 
   const element = getElementData?.getElement

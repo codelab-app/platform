@@ -1,90 +1,81 @@
-import { DgraphAtom } from '@codelab/backend/infra'
+import { Atom } from '@codelab/backend/modules/atom'
 import { HookModel } from '@codelab/backend/modules/hook'
+import { Tag } from '@codelab/backend/modules/tag'
+import { IElement, IHook, IPropMapBinding } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { PropMapBinding } from '../prop-mapping/prop-map-binding.model'
 
 /**
  * The Element is our base renderable unit
  *
- * Currently it's only rendered either as atom container with children, or just children.
- * When we add components we will be able to render them inside also
- *
- * Note that the Element model is not the same as the one in DGraph, because we transform it to avoid recursion
- *
- * Component relationship is implied by the graph, it's not contained in the model, because it would create a recursive relationship
+ * The relationships to to other Elements is stored in ElementGraph, in the form of edges
  */
 @ObjectType()
-export class Element {
+export class Element implements IElement {
   @Field(() => ID)
   id: string
 
-  /**
-   * Field with same key must have same nullability. GraphQL wise needs to be non-nullable, domain wise is nullable.
-   *
-   * https://github.com/graphql/graphql-js/issues/1361
-   *
-   * {@link ElementVertex}
-   *
-   **/
-  @Field({
-    description:
-      'Due to union nullability issue, we have to make this non-nullable. Defaults to atom type',
-  })
+  @Field()
   name: string
+
+  @Field(() => Tag, {
+    nullable: true,
+    description: 'An Element tagged with componentTag is a reusable component',
+  })
+  componentTag?: Maybe<Tag>
 
   @Field(() => String, { nullable: true })
   /** The CSS string that gets passed down to emotion */
-  css?: string | null
+  css?: Maybe<string>
 
-  /**
-   * Resolved by field resolvers
-   *
-   * We allow null atoms, because then we won't render a container element, just the children
-   */
-  atom?: DgraphAtom | null
+  @Field(() => Atom, { nullable: true })
+  atom?: Maybe<Atom>
 
   @Field({ description: 'Props in a json format' })
   props: string
 
   @Field(() => [HookModel])
-  hooks: Array<HookModel>
+  hooks: Array<IHook>
 
   @Field(() => String, {
     description:
       'If set, the element will get rendered for each item in the array found in its props by the given key, if it exists',
     nullable: true,
   })
-  renderForEachPropKey?: string
+  renderForEachPropKey?: Maybe<string>
 
   @Field(() => String, {
     description:
       'If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)',
     nullable: true,
   })
-  renderIfPropKey?: string
+  renderIfPropKey?: Maybe<string>
 
   @Field(() => [PropMapBinding])
-  propMapBindings: Array<PropMapBinding>
+  propMapBindings: Array<IPropMapBinding>
 
   @Field(() => String, { nullable: true })
-  propTransformationJs?: string
+  propTransformationJs?: Maybe<string>
 
   constructor({
     id,
     name = '',
     atom,
-    props,
+    props = '{}',
     css,
-    hooks,
+    hooks = [],
+    componentTag,
     renderForEachPropKey,
     renderIfPropKey,
-    propMapBindings,
+    propMapBindings = [],
     propTransformationJs,
-  }: Element) {
-    this.id = id
+  }: IElement) {
+    this.id = id!
     this.name = name
-    this.atom = atom
+    this.atom = atom as any
     this.css = css
+    this.componentTag = componentTag
     this.props = props
     this.hooks = hooks
     this.renderIfPropKey = renderIfPropKey

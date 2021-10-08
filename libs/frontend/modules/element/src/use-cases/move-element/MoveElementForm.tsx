@@ -1,45 +1,52 @@
-import { BaseMutationOptions } from '@apollo/client'
-import { SelectAnyElement } from '@codelab/frontend/modules/type'
+import {
+  SelectAnyElement,
+  SelectElementProvider,
+} from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   FormUniforms,
   UniFormUseCaseProps,
   usePromisesLoadingIndicator,
 } from '@codelab/frontend/view/components'
+import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { ElementTreeGraphql } from '../../tree'
+import { useElementGraphContext } from '../../providers'
+import { refetchGetElementGraphQuery } from '../get-element-graph'
 import { useMoveElementMutation } from './MoveElement.web.graphql.gen'
 import { MoveElementSchema, moveElementSchema } from './moveElementSchema'
 
 export type MoveElementFormProps = UniFormUseCaseProps<MoveElementSchema> & {
   elementId: string
-  tree: ElementTreeGraphql
-  refetchQueries?: BaseMutationOptions['refetchQueries']
+  tree: ElementTree
   loadingStateKey?: string
 }
 
 /** Not intended to be used in a modal */
 export const MoveElementForm = ({
-  refetchQueries,
   elementId,
   tree,
   loadingStateKey,
   ...props
 }: MoveElementFormProps) => {
+  const { elementTree, elementId: rootElementId } = useElementGraphContext()
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
 
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
   const {
     current: { parentElementId, order },
   } = useRef({
-    parentElementId: tree.getParentOf(elementId, tree.isElementPredicate)?.id,
+    parentElementId: tree.getParentOf(elementId)?.id,
     order: tree.getOrderInParent(elementId),
   })
 
   const [mutate] = useMoveElementMutation({
     awaitRefetchQueries: true,
-    refetchQueries: refetchQueries,
+    refetchQueries: [
+      refetchGetElementGraphQuery({
+        input: { where: { id: rootElementId } },
+      }),
+    ],
   })
 
   const onSubmit = (submitData: MoveElementSchema) => {
@@ -57,7 +64,9 @@ export const MoveElementForm = ({
   }
 
   return (
-    <>
+    <SelectElementProvider
+      tree={elementTree ?? new ElementTree({ edges: [], vertices: [] })}
+    >
       <FormUniforms<MoveElementSchema>
         key={elementId}
         autosave={true}
@@ -75,7 +84,7 @@ export const MoveElementForm = ({
       >
         <AutoFields omitFields={['parentElementId']} />
         <AutoField name="parentElementId" component={SelectAnyElement} />
-      </FormUniforms>
-    </>
+      </FormUniforms>{' '}
+    </SelectElementProvider>
   )
 }

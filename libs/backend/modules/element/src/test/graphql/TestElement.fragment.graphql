@@ -1,0 +1,23 @@
+fragment TestElement on Element {
+  __typename
+  id
+  name
+  css
+  atom {
+    ...AtomBase
+  }
+  componentTag {
+    id
+    name
+  }
+  props
+  hooks {
+    ...Hook
+  }
+  renderForEachPropKey
+  renderIfPropKey
+  propMapBindings {
+    ...PropMapBinding
+  }
+  propTransformationJs
+}

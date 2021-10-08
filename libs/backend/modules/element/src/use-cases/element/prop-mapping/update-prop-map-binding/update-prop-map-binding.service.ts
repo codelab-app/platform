@@ -1,7 +1,6 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphEntityType,
-  DgraphPropMapBinding,
   DgraphRepository,
   DgraphUpdateMutationJson,
 } from '@codelab/backend/infra'
@@ -37,7 +36,7 @@ export class UpdatePropMapBindingService extends DgraphUseCase<UpdatePropMapBind
       data: { targetElementId, targetKey, sourceKey },
     },
   }: UpdatePropMapBindingRequest): Mutation {
-    const setJson: DgraphUpdateMutationJson<DgraphPropMapBinding> = {
+    const setJson: DgraphUpdateMutationJson<any> = {
       uid: propMapBindingId,
       targetElement: targetElementId
         ? {
@@ -60,7 +59,7 @@ export class UpdatePropMapBindingService extends DgraphUseCase<UpdatePropMapBind
   }: UpdatePropMapBindingRequest) {
     const binding = await this.dgraph.transactionWrapper((txn) =>
       this.dgraph.getOneOrThrowNamed<
-        DgraphPropMapBinding & { '~propMapBindings': [{ uid: string }] }
+        any & { '~propMapBindings': [{ uid: string }] }
       >(
         txn,
         `

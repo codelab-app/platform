@@ -1,4 +1,4 @@
-import { BaseMutationOptions } from '@apollo/client'
+import { InternalRefetchQueriesInclude } from '@apollo/client/core/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
@@ -10,11 +10,12 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { refetchGetElementGraphQuery } from '../get-element-graph'
 import { useDeleteElementMutation } from './DeleteElement.web.graphql.gen'
 
 export type DeleteElementFormProps =
   UniFormUseCaseProps<EmptyJsonSchemaType> & {
-    refetchQueries?: BaseMutationOptions['refetchQueries']
+    refetchQueries?: InternalRefetchQueriesInclude
   }
 
 export const DeleteElementForm = ({
@@ -35,9 +36,14 @@ export const DeleteElementForm = ({
     mapVariables: (_, state) => ({
       input: { elementId: state.deleteIds[0] },
     }),
-    mutationOptions: {
-      refetchQueries: refetchQueries,
-    },
+    mutationOptions: (state) => ({
+      refetchQueries: [
+        refetchGetElementGraphQuery({
+          input: { where: { id: state.deleteIds[0] } },
+        }),
+        ...(refetchQueries ?? []),
+      ],
+    }),
   })
 
   return (

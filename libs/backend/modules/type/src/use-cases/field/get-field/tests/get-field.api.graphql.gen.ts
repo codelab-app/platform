@@ -1,26 +1,26 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TestFieldFragment } from '../../../../tests/graphql/TestField.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TestFieldFragmentDoc } from '../../../../tests/graphql/TestField.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestGetFieldQueryVariables = Types.Exact<{
-  input: Types.GetFieldInput;
-}>;
+  input: Types.GetFieldInput
+}>
 
-
-export type TestGetFieldQuery = { getField?: Types.Maybe<{ id: string, key: string, name?: Types.Maybe<string>, description?: Types.Maybe<string> }> };
-
+export type TestGetFieldQuery = {
+  getField?: TestFieldFragment | null | undefined
+}
 
 export const TestGetFieldGql = gql`
-    query TestGetField($input: GetFieldInput!) {
-  getField(input: $input) {
-    id
-    key
-    name
-    description
+  query TestGetField($input: GetFieldInput!) {
+    getField(input: $input) {
+      ...TestField
+    }
   }
-}
-    `;
+  ${TestFieldFragmentDoc}
+`
 
 /**
  * __useTestGetFieldQuery__
@@ -38,17 +38,42 @@ export const TestGetFieldGql = gql`
  *   },
  * });
  */
-export function useTestGetFieldQuery(baseOptions: Apollo.QueryHookOptions<TestGetFieldQuery, TestGetFieldQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetFieldQuery, TestGetFieldQueryVariables>(TestGetFieldGql, options);
-      }
-export function useTestGetFieldLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetFieldQuery, TestGetFieldQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetFieldQuery, TestGetFieldQueryVariables>(TestGetFieldGql, options);
-        }
-export type TestGetFieldQueryHookResult = ReturnType<typeof useTestGetFieldQuery>;
-export type TestGetFieldLazyQueryHookResult = ReturnType<typeof useTestGetFieldLazyQuery>;
-export type TestGetFieldQueryResult = Apollo.QueryResult<TestGetFieldQuery, TestGetFieldQueryVariables>;
-export function refetchTestGetFieldQuery(variables?: TestGetFieldQueryVariables) {
-      return { query: TestGetFieldGql, variables: variables }
-    }
+export function useTestGetFieldQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TestGetFieldQuery,
+    TestGetFieldQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TestGetFieldQuery, TestGetFieldQueryVariables>(
+    TestGetFieldGql,
+    options,
+  )
+}
+export function useTestGetFieldLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetFieldQuery,
+    TestGetFieldQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TestGetFieldQuery, TestGetFieldQueryVariables>(
+    TestGetFieldGql,
+    options,
+  )
+}
+export type TestGetFieldQueryHookResult = ReturnType<
+  typeof useTestGetFieldQuery
+>
+export type TestGetFieldLazyQueryHookResult = ReturnType<
+  typeof useTestGetFieldLazyQuery
+>
+export type TestGetFieldQueryResult = Apollo.QueryResult<
+  TestGetFieldQuery,
+  TestGetFieldQueryVariables
+>
+export function refetchTestGetFieldQuery(
+  variables?: TestGetFieldQueryVariables,
+) {
+  return { query: TestGetFieldGql, variables: variables }
+}

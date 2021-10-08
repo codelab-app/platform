@@ -3,7 +3,7 @@ import { CreateResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { Hook } from '@codelab/backend/modules/hook'
 import { CurrentUser } from '@codelab/backend/modules/user'
-import type { User } from '@codelab/shared/abstract/core'
+import type { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import {
@@ -27,7 +27,7 @@ export class HookResolver {
   @UseGuards(GqlAuthGuard)
   addHookToElement(
     @Args('input') input: AddHookToElementInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     return this.addHookToElementService.execute({ input, currentUser })
   }
@@ -36,7 +36,7 @@ export class HookResolver {
   @UseGuards(GqlAuthGuard)
   removeHookFromElement(
     @Args('input') input: RemoveHookFromElementInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     return this.removeHookFromElementService.execute({ input, currentUser })
   }

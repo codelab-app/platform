@@ -1,20 +1,8 @@
-import {
-  DgraphApp,
-  DgraphElement,
-  DgraphEntity,
-  DgraphQueryBuilder,
-  DgraphRepository,
-  DgraphTree,
-  isDgraphComponent,
-  isDgraphPage,
-} from '@codelab/backend/infra'
-import type { User } from '@codelab/shared/abstract/core'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import type { IUser } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-/**
- * Validates that an element exists and that is owner by the current user
- */
 export class ElementValidator {
   constructor(private dgraph: DgraphRepository) {}
 
@@ -24,23 +12,56 @@ export class ElementValidator {
    * if no currentUser is not provided
    * if the currentUser doesn't have ownership rights over the element
    */
-  async existsAndIsOwnedBy(elementId?: string, currentUser?: User) {
+  async existsAndIsOwnedBy(elementId?: string, currentUser?: IUser) {
     if (!elementId) {
       throw new Error('elementId not provided')
     }
 
-    const response = await this.query(elementId)
-
-    if (!response || !response.found) {
-      throw new Error('Element does not exist')
-    }
-
-    // If the element doesn't have an ownerId consider it valid for any user to access it
-    if (response.ownerId && response.ownerId !== currentUser?.id) {
+    if (!currentUser) {
       throw new Error("You don't have access to this element")
     }
 
-    return response
+    const res = await this.dgraph.transactionWrapper((txn) =>
+      this.dgraph.executeQuery<{
+        owner?: { ownerId?: string }
+        element?: { id: string }
+      }>(
+        txn,
+        `{
+            var(func: type(${DgraphEntityType.Element})) @filter(uid(${elementId}))  @recurse {
+              OWNER as owner
+              ~children
+              ~root
+              ~pages
+            }
+
+            element(func: type(${DgraphEntityType.Element})) @filter(uid(${elementId})){
+              id: uid
+            }
+
+            owner(func: uid(OWNER)) @filter(type(${DgraphEntityType.User})) {
+              ownerId: uid
+            }
+          }`,
+      ),
+    )
+
+    const { owner, element } = res
+
+    if (!element) {
+      throw new Error("Element doesn't exist")
+    }
+
+    // If the element doesn't have an ownerId consider it valid for any user to access it
+    if (!owner?.ownerId) {
+      return res
+    }
+
+    if (owner.ownerId !== currentUser.id) {
+      throw new Error("You don't have access to this element")
+    }
+
+    return res
   }
 
   /**
@@ -64,113 +85,54 @@ export class ElementValidator {
       throw new Error('elementId not provided')
     }
 
-    const response = await this.query(elementId)
+    const response = await this.dgraph.transactionWrapper((txn) =>
+      this.dgraph.getOneNamed<{ containerId?: string }>(
+        txn,
+        `{
+          query(func: type(Element)) @normalize {
+            ~root {
+              containerId: uid
+            }
+          }
+        }`,
+        'query',
+      ),
+    )
 
-    if (
-      response.found &&
-      response.tree &&
-      response.root &&
-      response.root.uid === elementId
-    ) {
+    if (response?.containerId) {
       throw new Error('Element is root')
     }
 
     return response
   }
 
-  protected async query(elementId: string): Promise<{
-    found: boolean
-    tree?: QueryResult
-    ownerId?: string
-    root?: QueryResult
-    element?: QueryResult
-  }> {
-    const result = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getOne<QueryResult>(
+  /**
+   * Throws error
+   * if the element has a parent element
+   */
+  public async isOrphan(elementId: string) {
+    if (!elementId) {
+      throw new Error('elementId not provided')
+    }
+
+    const response = await this.dgraph.transactionWrapper((txn) =>
+      this.dgraph.getOneNamed<{ parentId?: string }>(
         txn,
-        ElementValidator.createQuery(elementId),
+        `{
+          query(func: type(${DgraphEntityType.Element})) @normalize @filter(uid(${elementId})) {
+            ~children {
+              parentId: uid
+            }
+          }
+        }`,
+        'query',
       ),
     )
 
-    if (!result) {
-      return { found: false }
+    if (response?.parentId) {
+      throw new Error('Element is referenced')
     }
 
-    let tree: QueryResult | undefined
-    let root: QueryResult | undefined
-
-    // Go through each node up until we find a tree
-    const visit = (node: QueryResult) => {
-      if (node['~root'] && node['~root'].length) {
-        tree = node['~root'][0]
-        root = node
-
-        return
-      }
-
-      if (node['~children'] && node['~children'].length) {
-        node['~children'].forEach(visit)
-      }
-    }
-
-    visit(result)
-
-    if (!tree) {
-      return { found: true, element: result }
-    }
-
-    if (
-      isDgraphPage(tree as QueryResult) &&
-      tree['~pages'] &&
-      tree['~pages'][0] &&
-      tree['~pages'][0].ownerId
-    ) {
-      return {
-        found: true,
-        tree,
-        root,
-        element: result,
-        ownerId: tree['~pages'][0].ownerId as string,
-      }
-    } else if (isDgraphComponent(tree)) {
-      // TODO change element validator when adding component ownership logic
-      return {
-        found: true,
-        tree,
-        root,
-        element: result,
-        ownerId: undefined,
-      }
-    } else {
-      throw new Error('Unknown tree type ' + tree['dgraph.type'])
-    }
-  }
-
-  private static createQuery(elementId: string) {
-    // We need the id of the tree which has this element
-    return new DgraphQueryBuilder()
-      .addBaseFields()
-      .addRecurseDirective()
-      .addJsonFields<DgraphElement & DgraphApp>({
-        name: true,
-        ownerId: true,
-        props: true,
-        atom: true,
-      })
-      .addJsonReverseFields<DgraphTree<any, any> & DgraphElement & DgraphApp>({
-        '~root': true,
-        '~children': true,
-        '~pages': true,
-      })
-      .setUidFunc(elementId)
+    return response
   }
 }
-
-type QueryResult = {
-  '~children'?: Array<QueryResult>
-  '~root'?: [QueryResult]
-  name?: string
-  ownerId?: string
-  '~pages'?: [QueryResult]
-} & DgraphEntity<any> &
-  Pick<DgraphElement, 'atom'>

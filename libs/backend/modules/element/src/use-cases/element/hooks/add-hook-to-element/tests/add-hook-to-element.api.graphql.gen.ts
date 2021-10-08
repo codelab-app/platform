@@ -1,24 +1,25 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestAddHookToElementMutationVariables = Types.Exact<{
-  input: Types.AddHookToElementInput;
-}>;
+  input: Types.AddHookToElementInput
+}>
 
-
-export type TestAddHookToElementMutation = { addHookToElement: { id: string } };
-
+export type TestAddHookToElementMutation = { addHookToElement: { id: string } }
 
 export const TestAddHookToElementGql = gql`
-    mutation TestAddHookToElement($input: AddHookToElementInput!) {
-  addHookToElement(input: $input) {
-    id
+  mutation TestAddHookToElement($input: AddHookToElementInput!) {
+    addHookToElement(input: $input) {
+      id
+    }
   }
-}
-    `;
-export type TestAddHookToElementMutationFn = Apollo.MutationFunction<TestAddHookToElementMutation, TestAddHookToElementMutationVariables>;
+`
+export type TestAddHookToElementMutationFn = Apollo.MutationFunction<
+  TestAddHookToElementMutation,
+  TestAddHookToElementMutationVariables
+>
 
 /**
  * __useTestAddHookToElementMutation__
@@ -37,10 +38,24 @@ export type TestAddHookToElementMutationFn = Apollo.MutationFunction<TestAddHook
  *   },
  * });
  */
-export function useTestAddHookToElementMutation(baseOptions?: Apollo.MutationHookOptions<TestAddHookToElementMutation, TestAddHookToElementMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestAddHookToElementMutation, TestAddHookToElementMutationVariables>(TestAddHookToElementGql, options);
-      }
-export type TestAddHookToElementMutationHookResult = ReturnType<typeof useTestAddHookToElementMutation>;
-export type TestAddHookToElementMutationResult = Apollo.MutationResult<TestAddHookToElementMutation>;
-export type TestAddHookToElementMutationOptions = Apollo.BaseMutationOptions<TestAddHookToElementMutation, TestAddHookToElementMutationVariables>;
+export function useTestAddHookToElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestAddHookToElementMutation,
+    TestAddHookToElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestAddHookToElementMutation,
+    TestAddHookToElementMutationVariables
+  >(TestAddHookToElementGql, options)
+}
+export type TestAddHookToElementMutationHookResult = ReturnType<
+  typeof useTestAddHookToElementMutation
+>
+export type TestAddHookToElementMutationResult =
+  Apollo.MutationResult<TestAddHookToElementMutation>
+export type TestAddHookToElementMutationOptions = Apollo.BaseMutationOptions<
+  TestAddHookToElementMutation,
+  TestAddHookToElementMutationVariables
+>

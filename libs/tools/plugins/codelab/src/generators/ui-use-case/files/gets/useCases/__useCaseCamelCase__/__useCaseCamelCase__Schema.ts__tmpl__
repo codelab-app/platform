@@ -1,4 +1,4 @@
-import { <%= useCasePascalCase %>Data } from '@codelab/shared/codegen/graphql'
+import { <%= useCasePascalCase %>Data } from '@codelab/frontend/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 
 export const <%= useCaseCamelCase %>Schema: JSONSchemaType<<%= useCasePascalCase %>Data> = {

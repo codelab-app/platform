@@ -1,6 +1,7 @@
 import { registerAs } from '@nestjs/config'
 import { GqlModuleOptions } from '@nestjs/graphql'
 import { get } from 'env-var'
+import { join } from 'path'
 import { graphqlSchemaConfig } from '../../graphql-schema'
 import { GraphqlServerTokens } from './graphql-server.tokens'
 

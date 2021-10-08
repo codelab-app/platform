@@ -1,16 +1,5 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { ElementModule } from '../../../../element.module'
-import { CreateElementInput } from '../../create-element'
-import {
-  TestCreateElementGql,
-  TestCreateElementMutation,
-} from '../../create-element/tests/create-element.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupElementTestModule } from '../../../../test/setupElementTestModule'
 import { createElementInput } from '../../create-element/tests/create-element.data'
 import { GetElementGraphInput } from '../get-element-graph.input'
 import {
@@ -18,36 +7,24 @@ import {
   TestGetElementGraphQuery,
 } from './get-element-graph.api.graphql.gen'
 
-describe('GetElementGraph', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+describe.skip('GetElementGraph', () => {
+  const testModule = setupElementTestModule()
   let elementId: string
   let getElementGraphInput: GetElementGraphInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], { role: Role.Guest })
-    userApp = await setupTestModule([ElementModule], { role: Role.User })
+    const results = await testModule.createTestElement(createElementInput)
 
-    const results = await domainRequest<
-      CreateElementInput,
-      TestCreateElementMutation
-    >(userApp, TestCreateElementGql, createElementInput)
-
-    elementId = results.createElement.id
-    getElementGraphInput = { elementId }
+    elementId = results.id
+    getElementGraphInput = { where: { id: elementId } }
 
     expect(elementId).toBeDefined()
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
   })
 
   describe('Guest', () => {
     it('should fail to get an element', async () => {
       await domainRequest(
-        guestApp,
+        testModule.guestApp,
         TestGetElementGraphGql,
         getElementGraphInput,
         {
@@ -62,7 +39,7 @@ describe('GetElementGraph', () => {
       const results = await domainRequest<
         GetElementGraphInput,
         TestGetElementGraphQuery
-      >(userApp, TestGetElementGraphGql, getElementGraphInput)
+      >(testModule.userApp, TestGetElementGraphGql, getElementGraphInput)
 
       expect(results?.getElementGraph).toMatchObject({
         vertices: [

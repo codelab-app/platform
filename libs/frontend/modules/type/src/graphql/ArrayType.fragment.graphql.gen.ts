@@ -1,11 +1,11 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-export type ArrayTypeFragment = { id: string, name: string };
+import { gql } from '@apollo/client'
+export type ArrayTypeFragment = { id: string; name: string }
 
 export const ArrayTypeFragmentDoc = gql`
-    fragment ArrayType on ArrayType {
-  id
-  name
-}
-    `;
+  fragment ArrayType on ArrayType {
+    id
+    name
+  }
+`

@@ -1,0 +1,6 @@
+export * from './TestElement.fragment.graphql.gen'
+export * from './TestElementEdge.fragment.graphql.gen'
+export * from './TestElementGraph.fragment.graphql.gen'
+export * from './TestHook.fragment.graphql.gen'
+export * from './TestHookConfig.fragment.graphql.gen'
+export * from './TestPropMapBinding.fragment.graphql.gen'

@@ -1,24 +1,25 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type CreateAtomMutationVariables = Types.Exact<{
-  input: Types.CreateAtomInput;
-}>;
+  input: Types.CreateAtomInput
+}>
 
-
-export type CreateAtomMutation = { createAtom: { id: string } };
-
+export type CreateAtomMutation = { createAtom: { id: string } }
 
 export const CreateAtomGql = gql`
-    mutation CreateAtom($input: CreateAtomInput!) {
-  createAtom(input: $input) {
-    id
+  mutation CreateAtom($input: CreateAtomInput!) {
+    createAtom(input: $input) {
+      id
+    }
   }
-}
-    `;
-export type CreateAtomMutationFn = Apollo.MutationFunction<CreateAtomMutation, CreateAtomMutationVariables>;
+`
+export type CreateAtomMutationFn = Apollo.MutationFunction<
+  CreateAtomMutation,
+  CreateAtomMutationVariables
+>
 
 /**
  * __useCreateAtomMutation__
@@ -37,10 +38,23 @@ export type CreateAtomMutationFn = Apollo.MutationFunction<CreateAtomMutation, C
  *   },
  * });
  */
-export function useCreateAtomMutation(baseOptions?: Apollo.MutationHookOptions<CreateAtomMutation, CreateAtomMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateAtomMutation, CreateAtomMutationVariables>(CreateAtomGql, options);
-      }
-export type CreateAtomMutationHookResult = ReturnType<typeof useCreateAtomMutation>;
-export type CreateAtomMutationResult = Apollo.MutationResult<CreateAtomMutation>;
-export type CreateAtomMutationOptions = Apollo.BaseMutationOptions<CreateAtomMutation, CreateAtomMutationVariables>;
+export function useCreateAtomMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateAtomMutation,
+    CreateAtomMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateAtomMutation, CreateAtomMutationVariables>(
+    CreateAtomGql,
+    options,
+  )
+}
+export type CreateAtomMutationHookResult = ReturnType<
+  typeof useCreateAtomMutation
+>
+export type CreateAtomMutationResult = Apollo.MutationResult<CreateAtomMutation>
+export type CreateAtomMutationOptions = Apollo.BaseMutationOptions<
+  CreateAtomMutation,
+  CreateAtomMutationVariables
+>

@@ -1,17 +1,12 @@
-import {
-  ElementFragment,
-  ElementTreeGraphql,
-  isElement,
-} from '@codelab/frontend/modules/element'
+import { TypeKind } from '@codelab/frontend/abstract/codegen'
+import { IElement } from '@codelab/frontend/abstract/core'
 import {
   RenderContext,
   RenderOutput,
 } from '@codelab/frontend/presenter/container'
-import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import * as _ from 'lodash'
-import { merge } from 'lodash'
 import { compose } from 'ramda'
 import React, { ReactElement, ReactNode } from 'react'
 import { HookElementWrapper } from '../hooks/HookElementWrapper'
@@ -24,13 +19,7 @@ import { evaluateRenderIfPropKey } from '../utils/evaluateRenderIfPropKey'
 import { getPropsByTypeKind } from '../utils/getPropsByTypeKind'
 import { transformPropsToComponent } from '../utils/tranformPropsToComponent'
 
-// TODO: split this in multiple files
-
 export const renderElement: RenderHandler = (element, context) => {
-  if (!isElement(element)) {
-    return null
-  }
-
   return pipeline(element, context, {})
 }
 
@@ -54,7 +43,7 @@ const propsWithTypePipe: RenderPipeFactory =
   (next) => (element, context, props) => {
     const { typeKindsById } = context
 
-    const handledTypeKinds = [
+    const handledTypeKinds = new Set([
       TypeKind.PrimitiveType,
       TypeKind.ArrayType,
       TypeKind.InterfaceType,
@@ -62,12 +51,12 @@ const propsWithTypePipe: RenderPipeFactory =
       TypeKind.LambdaType,
       TypeKind.ElementType,
       TypeKind.ComponentType,
-    ]
+    ])
 
     const propsWithType = _.pickBy(props, (value) => {
       const propTypeKind = typeKindsById[value?.type]
 
-      return handledTypeKinds.includes(propTypeKind)
+      return handledTypeKinds.has(propTypeKind)
     })
 
     const transformedProps = _.mapValues(propsWithType, (value) => value.value)
@@ -292,6 +281,8 @@ const loopingRenderPipe: RenderPipeFactory =
     return (
       <>
         {value.map((valueProps, i) => {
+          console.log(valueProps)
+
           return next(
             element,
             context,
@@ -304,21 +295,22 @@ const loopingRenderPipe: RenderPipeFactory =
     )
   }
 
-/** If the element has a component it renders it, if not - calls next */
+/** If the element is a component add 'data-component-id' to the extra props */
 const elementsComponentPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    const component = context.tree.getComponentOfElement(element.id)
+    const isComponent = !!element.componentTag
 
-    if (component) {
-      const rootElement = context.tree.getComponentRootElement(component.id)
-
-      return context.renderFactory(
-        component,
-        merge(context, {
-          extraElementProps: {
-            [rootElement.id]: props,
+    if (isComponent) {
+      return next(
+        element,
+        {
+          ...context,
+          extraProps: {
+            ...context.extraProps,
+            'data-component-id': element.id,
           },
-        }),
+        },
+        mergeProps(props, { 'data-component-id': element.id }),
       )
     }
 
@@ -403,8 +395,8 @@ const renderChildrenPipe: RenderPipe = (element, context, props) => {
 
 const onRendered = (
   rendered: RenderOutput,
-  element: ElementFragment,
-  context: RenderContext<ElementTreeGraphql>,
+  element: IElement,
+  context: RenderContext,
 ) => {
   const renderCallback = context.onRendered
 

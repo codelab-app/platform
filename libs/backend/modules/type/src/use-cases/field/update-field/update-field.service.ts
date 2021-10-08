@@ -1,17 +1,15 @@
 import { NotFoundError } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import {
-  DgraphEntity,
   DgraphEntityType,
-  DgraphField,
   DgraphQueryBuilder,
   DgraphRepository,
   jsonMutation,
 } from '@codelab/backend/infra'
-import { User } from '@codelab/shared/abstract/core'
+import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { FieldValidator } from '../../../domain/field.validator'
+import { FieldValidator } from '../../../domain/field/field.validator'
 import { TypeValidator } from '../../../domain/type.validator'
 import { CreateTypeService } from '../../type/create-type'
 import { TypeRef } from '../create-field'
@@ -51,7 +49,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
     }: UpdateFieldRequest,
     typeId: string,
   ) {
-    return jsonMutation<DgraphField>({
+    return jsonMutation({
       uid: fieldId,
       name,
       key,
@@ -62,7 +60,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
     })
   }
 
-  private async getTypeId(type: TypeRef, currentUser: User) {
+  private async getTypeId(type: TypeRef, currentUser: IUser) {
     let typeId = type.existingTypeId
 
     // Check if we specify an existing type, if not - create a new one and get its ID
@@ -99,9 +97,9 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
       },
     },
   }: UpdateFieldRequest): Promise<void> {
-    const field = await this.dgraph.transactionWrapper<
-      DgraphEntity<any> & { '~fields': [{ uid: string }] }
-    >((txn) =>
+    const field = await this.dgraph.transactionWrapper<{
+      '~fields': [{ uid: string }]
+    }>((txn) =>
       this.dgraph.getOneOrThrow(
         txn,
         new DgraphQueryBuilder()
@@ -125,7 +123,8 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
       const existingType = await this.typeValidator.typeExists(existingTypeId)
 
       // And it doesn't cause a recursive loop
-      this.typeValidator.notRecursive(interfaceId, existingType)
+      // TODO fix  this after implementing get-type-graph
+      // this.typeValidator.notRecursive(interfaceId, existingType)
     }
   }
 }

@@ -38,7 +38,6 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
     // https://www.apollographql.com/docs/react/data/fragments/#generating-possibletypes-automatically
     cache: new InMemoryCache({
       possibleTypes: {
-        ElementVertex: ['Element', 'Component'],
         HookConfig: [
           'QueryHookConfig',
           'QueryPageHookConfig',
@@ -67,6 +66,7 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
           'StringValue',
           'EnumTypeValue',
         ],
+        TypeEdge: ['BaseTypeEdge', 'FieldTypeEdge'],
       },
     }),
     // Disables forceFetch on the server (so queries are only run once)

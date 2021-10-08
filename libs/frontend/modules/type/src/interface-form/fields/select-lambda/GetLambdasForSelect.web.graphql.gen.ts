@@ -1,22 +1,24 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
-export type GetLambdasForSelectQueryVariables = Types.Exact<{ [key: string]: never; }>;
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
+export type GetLambdasForSelectQueryVariables = Types.Exact<{
+  [key: string]: never
+}>
 
-
-export type GetLambdasForSelectQuery = { getLambdas: Array<{ id: string, name: string }> };
-
+export type GetLambdasForSelectQuery = {
+  getLambdas: Array<{ id: string; name: string }>
+}
 
 export const GetLambdasForSelectGql = gql`
-    query GetLambdasForSelect {
-  getLambdas {
-    id
-    name
+  query GetLambdasForSelect {
+    getLambdas {
+      id
+      name
+    }
   }
-}
-    `;
+`
 
 /**
  * __useGetLambdasForSelectQuery__
@@ -33,17 +35,42 @@ export const GetLambdasForSelectGql = gql`
  *   },
  * });
  */
-export function useGetLambdasForSelectQuery(baseOptions?: Apollo.QueryHookOptions<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables>(GetLambdasForSelectGql, options);
-      }
-export function useGetLambdasForSelectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables>(GetLambdasForSelectGql, options);
-        }
-export type GetLambdasForSelectQueryHookResult = ReturnType<typeof useGetLambdasForSelectQuery>;
-export type GetLambdasForSelectLazyQueryHookResult = ReturnType<typeof useGetLambdasForSelectLazyQuery>;
-export type GetLambdasForSelectQueryResult = Apollo.QueryResult<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables>;
-export function refetchGetLambdasForSelectQuery(variables?: GetLambdasForSelectQueryVariables) {
-      return { query: GetLambdasForSelectGql, variables: variables }
-    }
+export function useGetLambdasForSelectQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetLambdasForSelectQuery,
+    GetLambdasForSelectQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetLambdasForSelectQuery,
+    GetLambdasForSelectQueryVariables
+  >(GetLambdasForSelectGql, options)
+}
+export function useGetLambdasForSelectLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLambdasForSelectQuery,
+    GetLambdasForSelectQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetLambdasForSelectQuery,
+    GetLambdasForSelectQueryVariables
+  >(GetLambdasForSelectGql, options)
+}
+export type GetLambdasForSelectQueryHookResult = ReturnType<
+  typeof useGetLambdasForSelectQuery
+>
+export type GetLambdasForSelectLazyQueryHookResult = ReturnType<
+  typeof useGetLambdasForSelectLazyQuery
+>
+export type GetLambdasForSelectQueryResult = Apollo.QueryResult<
+  GetLambdasForSelectQuery,
+  GetLambdasForSelectQueryVariables
+>
+export function refetchGetLambdasForSelectQuery(
+  variables?: GetLambdasForSelectQueryVariables,
+) {
+  return { query: GetLambdasForSelectGql, variables: variables }
+}

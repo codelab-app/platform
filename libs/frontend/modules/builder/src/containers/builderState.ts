@@ -1,11 +1,11 @@
-import { IElementVertex } from '@codelab/shared/abstract/core'
+import { IElement } from '@codelab/frontend/abstract/core'
 import { ReactNode, useCallback } from 'react'
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil'
 import { useFetchElement } from './useFetchElement'
 
 export interface BuilderHandlers {
-  setSelectedElement: (element?: IElementVertex) => void
-  setHoveringElement: (element?: IElementVertex) => void
+  setSelectedElement: (element?: IElement) => void
+  setHoveringElement: (element?: IElement) => void
   resetSelection: () => void
   reset: () => void
   setExtraPropsForElement: (
@@ -15,8 +15,8 @@ export interface BuilderHandlers {
 }
 
 interface BuilderSelectionState {
-  selectedElement?: IElementVertex
-  hoveringElement?: IElementVertex
+  selectedElement?: IElement
+  hoveringElement?: IElement
 }
 
 export interface BuilderState extends BuilderSelectionState {
@@ -59,7 +59,7 @@ export const useSetBuilder = (): BuilderHandlers => {
   )
 
   const setSelectedElement = useCallback(
-    (element?: IElementVertex) => {
+    (element?: IElement) => {
       setSelectionState((s) => ({ ...s, selectedElement: element }))
     },
 
@@ -67,7 +67,7 @@ export const useSetBuilder = (): BuilderHandlers => {
   )
 
   const setHoveringElement = useCallback(
-    (hoveringElement?: IElementVertex) => {
+    (hoveringElement?: IElement) => {
       setSelectionState((s) => ({ ...s, hoveringElement: hoveringElement }))
     },
     [setSelectionState],
@@ -144,7 +144,7 @@ export const useBuilder = (): BuilderHandlers & {
 }
 
 export interface ElementBuilderHandlers {
-  onRendered: (renderedElement: ReactNode, vertex: IElementVertex) => void
+  onRendered: (renderedElement: ReactNode, vertex: IElement) => void
 }
 
 export const useOnRendered = (): ElementBuilderHandlers => {

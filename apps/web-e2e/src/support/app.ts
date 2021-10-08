@@ -1,5 +1,8 @@
+import {
+  CreateAppInput,
+  DeleteAppInput,
+} from '@codelab/frontend/abstract/codegen'
 import { CreateAppGql, DeleteAppGql } from '@codelab/frontend/modules/app'
-import { CreateAppInput, DeleteAppInput } from '@codelab/shared/codegen/graphql'
 import { print } from 'graphql'
 
 const defaultCreateAppInput: CreateAppInput = {

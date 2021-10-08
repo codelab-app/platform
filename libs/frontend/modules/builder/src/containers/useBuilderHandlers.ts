@@ -1,11 +1,8 @@
-import {
-  ElementTreeGraphql,
-  isElement,
-} from '@codelab/frontend/modules/element'
+import { ElementTree } from '@codelab/shared/core'
 import { useCallback } from 'react'
 import { useSetBuilder } from './builderState'
 
-export const useBuilderHandlers = (tree: ElementTreeGraphql) => {
+export const useBuilderHandlers = (tree: ElementTree) => {
   // Use setters only, because we don't want to re-render this every time the hover/selected element is changed
   const { setHoveringElement } = useSetBuilder()
 
@@ -31,9 +28,9 @@ export const useBuilderHandlers = (tree: ElementTreeGraphql) => {
         return
       }
 
-      const element = tree.getVertex(id, isElement)
+      const element = tree.getVertex(id, ElementTree.isElement)
 
-      if (element && isElement(element)) {
+      if (element && ElementTree.isElement(element)) {
         setHoveringElement(element)
       } else {
         setHoveringElement(undefined)

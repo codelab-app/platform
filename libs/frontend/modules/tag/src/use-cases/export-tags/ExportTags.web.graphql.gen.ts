@@ -1,25 +1,24 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { TagGraphFragment } from '../Tag.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { TagGraphFragmentDoc } from '../Tag.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TagGraphFragment } from '../Tag.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TagGraphFragmentDoc } from '../Tag.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type ExportTagsQueryVariables = Types.Exact<{
-  input?: Types.Maybe<Types.GetTagGraphsInput>;
-}>;
+  input?: Types.Maybe<Types.GetTagGraphsInput>
+}>
 
-
-export type ExportTagsQuery = { getTagGraphs: TagGraphFragment };
-
+export type ExportTagsQuery = { getTagGraphs: TagGraphFragment }
 
 export const ExportTagsGql = gql`
-    query ExportTags($input: GetTagGraphsInput) {
-  getTagGraphs(input: $input) {
-    ...TagGraph
+  query ExportTags($input: GetTagGraphsInput) {
+    getTagGraphs(input: $input) {
+      ...TagGraph
+    }
   }
-}
-    ${TagGraphFragmentDoc}`;
+  ${TagGraphFragmentDoc}
+`
 
 /**
  * __useExportTagsQuery__
@@ -37,17 +36,38 @@ export const ExportTagsGql = gql`
  *   },
  * });
  */
-export function useExportTagsQuery(baseOptions?: Apollo.QueryHookOptions<ExportTagsQuery, ExportTagsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ExportTagsQuery, ExportTagsQueryVariables>(ExportTagsGql, options);
-      }
-export function useExportTagsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExportTagsQuery, ExportTagsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ExportTagsQuery, ExportTagsQueryVariables>(ExportTagsGql, options);
-        }
-export type ExportTagsQueryHookResult = ReturnType<typeof useExportTagsQuery>;
-export type ExportTagsLazyQueryHookResult = ReturnType<typeof useExportTagsLazyQuery>;
-export type ExportTagsQueryResult = Apollo.QueryResult<ExportTagsQuery, ExportTagsQueryVariables>;
+export function useExportTagsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ExportTagsQuery,
+    ExportTagsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ExportTagsQuery, ExportTagsQueryVariables>(
+    ExportTagsGql,
+    options,
+  )
+}
+export function useExportTagsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ExportTagsQuery,
+    ExportTagsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ExportTagsQuery, ExportTagsQueryVariables>(
+    ExportTagsGql,
+    options,
+  )
+}
+export type ExportTagsQueryHookResult = ReturnType<typeof useExportTagsQuery>
+export type ExportTagsLazyQueryHookResult = ReturnType<
+  typeof useExportTagsLazyQuery
+>
+export type ExportTagsQueryResult = Apollo.QueryResult<
+  ExportTagsQuery,
+  ExportTagsQueryVariables
+>
 export function refetchExportTagsQuery(variables?: ExportTagsQueryVariables) {
-      return { query: ExportTagsGql, variables: variables }
-    }
+  return { query: ExportTagsGql, variables: variables }
+}

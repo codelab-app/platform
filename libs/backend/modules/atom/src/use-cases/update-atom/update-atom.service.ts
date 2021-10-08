@@ -1,9 +1,6 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphAtom,
-  DgraphRepository,
-  jsonMutation,
-} from '@codelab/backend/infra'
+import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
+import { IAtom } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetAtomService } from '../get-atom'
@@ -32,16 +29,18 @@ export class UpdateAtomService extends DgraphUseCase<UpdateAtomInput> {
 
   private static createMutation(
     { id, data: { name, type } }: UpdateAtomInput,
-    atom: DgraphAtom,
+    atom: IAtom,
   ) {
-    return jsonMutation<DgraphAtom>({
+    return jsonMutation({
       uid: id,
       atomType: type,
       name,
-      api: {
-        uid: atom.api.uid,
-        name: `${name} API`,
-      },
+      api: atom.api
+        ? {
+            uid: atom.api?.id,
+            name: `${name} API`,
+          }
+        : null,
     })
   }
 

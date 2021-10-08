@@ -1,13 +1,12 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import {
-  DgraphEntity,
   DgraphEntityType,
   DgraphQueryBuilder,
   DgraphRepository,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { FieldValidator } from '../../../domain/field.validator'
+import { FieldValidator } from '../../../domain/field/field.validator'
 import { DeleteFieldRequest } from './delete-field.request'
 
 @Injectable()
@@ -36,9 +35,9 @@ export class DeleteFieldService extends DgraphUseCase<DeleteFieldRequest> {
   }
 
   private async getInterfaceId(fieldId: string) {
-    const field = await this.dgraph.transactionWrapper<
-      DgraphEntity<any> & { '~fields': [{ uid: string }] }
-    >((txn2) =>
+    const field = await this.dgraph.transactionWrapper<{
+      '~fields': [{ uid: string }]
+    }>((txn2) =>
       this.dgraph.getOneOrThrow(
         txn2,
         new DgraphQueryBuilder()

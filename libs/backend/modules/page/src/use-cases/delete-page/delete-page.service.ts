@@ -1,9 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphElement,
-  DgraphRepository,
-  DgraphTree,
-} from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { PageValidator } from '../../domain/page.validator'
@@ -38,11 +34,11 @@ export class DeletePageService extends DgraphUseCase<DeletePageRequest> {
       txn,
       (q) =>
         q
-          .addJsonFields<DgraphTree<any, any> & DgraphElement>({
-            root: true,
-            children: true,
-            props: true,
-          })
+          // .addJsonFields<DgraphTree<any, any> & DgraphElement>({
+          //   root: true,
+          //   children: true,
+          //   props: true,
+          // })
           .setUidFunc(pageId),
       { delete: deletePage },
     )

@@ -1,3 +1,5 @@
 mutation UpdateField($input: UpdateFieldInput!) {
-  updateField(input: $input)
+  updateField(input: $input) {
+    ...Field
+  }
 }

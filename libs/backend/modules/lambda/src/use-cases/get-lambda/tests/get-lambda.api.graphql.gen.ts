@@ -1,25 +1,26 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { TestLambdaFragment } from '../../../domain/lambda.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { TestLambdaFragmentDoc } from '../../../domain/lambda.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TestLambdaFragment } from '../../../domain/lambda.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TestLambdaFragmentDoc } from '../../../domain/lambda.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestGetLambdaQueryVariables = Types.Exact<{
-  input: Types.GetLambdaInput;
-}>;
+  input: Types.GetLambdaInput
+}>
 
-
-export type TestGetLambdaQuery = { getLambda?: Types.Maybe<TestLambdaFragment> };
-
+export type TestGetLambdaQuery = {
+  getLambda?: TestLambdaFragment | null | undefined
+}
 
 export const TestGetLambdaGql = gql`
-    query TestGetLambda($input: GetLambdaInput!) {
-  getLambda(input: $input) {
-    ...TestLambda
+  query TestGetLambda($input: GetLambdaInput!) {
+    getLambda(input: $input) {
+      ...TestLambda
+    }
   }
-}
-    ${TestLambdaFragmentDoc}`;
+  ${TestLambdaFragmentDoc}
+`
 
 /**
  * __useTestGetLambdaQuery__
@@ -37,17 +38,42 @@ export const TestGetLambdaGql = gql`
  *   },
  * });
  */
-export function useTestGetLambdaQuery(baseOptions: Apollo.QueryHookOptions<TestGetLambdaQuery, TestGetLambdaQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetLambdaQuery, TestGetLambdaQueryVariables>(TestGetLambdaGql, options);
-      }
-export function useTestGetLambdaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetLambdaQuery, TestGetLambdaQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetLambdaQuery, TestGetLambdaQueryVariables>(TestGetLambdaGql, options);
-        }
-export type TestGetLambdaQueryHookResult = ReturnType<typeof useTestGetLambdaQuery>;
-export type TestGetLambdaLazyQueryHookResult = ReturnType<typeof useTestGetLambdaLazyQuery>;
-export type TestGetLambdaQueryResult = Apollo.QueryResult<TestGetLambdaQuery, TestGetLambdaQueryVariables>;
-export function refetchTestGetLambdaQuery(variables?: TestGetLambdaQueryVariables) {
-      return { query: TestGetLambdaGql, variables: variables }
-    }
+export function useTestGetLambdaQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TestGetLambdaQuery,
+    TestGetLambdaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TestGetLambdaQuery, TestGetLambdaQueryVariables>(
+    TestGetLambdaGql,
+    options,
+  )
+}
+export function useTestGetLambdaLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetLambdaQuery,
+    TestGetLambdaQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TestGetLambdaQuery, TestGetLambdaQueryVariables>(
+    TestGetLambdaGql,
+    options,
+  )
+}
+export type TestGetLambdaQueryHookResult = ReturnType<
+  typeof useTestGetLambdaQuery
+>
+export type TestGetLambdaLazyQueryHookResult = ReturnType<
+  typeof useTestGetLambdaLazyQuery
+>
+export type TestGetLambdaQueryResult = Apollo.QueryResult<
+  TestGetLambdaQuery,
+  TestGetLambdaQueryVariables
+>
+export function refetchTestGetLambdaQuery(
+  variables?: TestGetLambdaQueryVariables,
+) {
+  return { query: TestGetLambdaGql, variables: variables }
+}

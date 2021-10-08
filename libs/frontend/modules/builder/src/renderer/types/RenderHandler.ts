@@ -1,11 +1,10 @@
-import { ElementTreeGraphql } from '@codelab/frontend/modules/element'
+import { RenderNode } from '@codelab/frontend/abstract/core'
 import {
   RenderContext,
   RenderOutput,
 } from '@codelab/frontend/presenter/container'
-import { RenderNode } from './RenderNode'
 
-export type RenderHandler<TNode extends RenderNode = RenderNode> = (
-  node: TNode,
-  metadata: RenderContext<ElementTreeGraphql>,
+export type RenderHandler = (
+  node: RenderNode,
+  metadata: RenderContext,
 ) => RenderOutput

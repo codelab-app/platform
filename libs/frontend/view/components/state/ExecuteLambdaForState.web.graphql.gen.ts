@@ -1,24 +1,27 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type ExecuteLambdaForStateMutationVariables = Types.Exact<{
-  input: Types.ExecuteLambdaInput;
-}>;
+  input: Types.ExecuteLambdaInput
+}>
 
-
-export type ExecuteLambdaForStateMutation = { executeLambda?: Types.Maybe<{ payload: string }> };
-
+export type ExecuteLambdaForStateMutation = {
+  executeLambda?: { payload: string } | null | undefined
+}
 
 export const ExecuteLambdaForStateGql = gql`
-    mutation ExecuteLambdaForState($input: ExecuteLambdaInput!) {
-  executeLambda(input: $input) {
-    payload
+  mutation ExecuteLambdaForState($input: ExecuteLambdaInput!) {
+    executeLambda(input: $input) {
+      payload
+    }
   }
-}
-    `;
-export type ExecuteLambdaForStateMutationFn = Apollo.MutationFunction<ExecuteLambdaForStateMutation, ExecuteLambdaForStateMutationVariables>;
+`
+export type ExecuteLambdaForStateMutationFn = Apollo.MutationFunction<
+  ExecuteLambdaForStateMutation,
+  ExecuteLambdaForStateMutationVariables
+>
 
 /**
  * __useExecuteLambdaForStateMutation__
@@ -37,10 +40,24 @@ export type ExecuteLambdaForStateMutationFn = Apollo.MutationFunction<ExecuteLam
  *   },
  * });
  */
-export function useExecuteLambdaForStateMutation(baseOptions?: Apollo.MutationHookOptions<ExecuteLambdaForStateMutation, ExecuteLambdaForStateMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ExecuteLambdaForStateMutation, ExecuteLambdaForStateMutationVariables>(ExecuteLambdaForStateGql, options);
-      }
-export type ExecuteLambdaForStateMutationHookResult = ReturnType<typeof useExecuteLambdaForStateMutation>;
-export type ExecuteLambdaForStateMutationResult = Apollo.MutationResult<ExecuteLambdaForStateMutation>;
-export type ExecuteLambdaForStateMutationOptions = Apollo.BaseMutationOptions<ExecuteLambdaForStateMutation, ExecuteLambdaForStateMutationVariables>;
+export function useExecuteLambdaForStateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ExecuteLambdaForStateMutation,
+    ExecuteLambdaForStateMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    ExecuteLambdaForStateMutation,
+    ExecuteLambdaForStateMutationVariables
+  >(ExecuteLambdaForStateGql, options)
+}
+export type ExecuteLambdaForStateMutationHookResult = ReturnType<
+  typeof useExecuteLambdaForStateMutation
+>
+export type ExecuteLambdaForStateMutationResult =
+  Apollo.MutationResult<ExecuteLambdaForStateMutation>
+export type ExecuteLambdaForStateMutationOptions = Apollo.BaseMutationOptions<
+  ExecuteLambdaForStateMutation,
+  ExecuteLambdaForStateMutationVariables
+>

@@ -1,3 +1,5 @@
 mutation UpdateLambda($input: UpdateLambdaInput!) {
-  updateLambda(input: $input)
+  updateLambda(input: $input) {
+    ...Lambda
+  }
 }

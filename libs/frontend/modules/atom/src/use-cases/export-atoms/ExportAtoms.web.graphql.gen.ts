@@ -1,41 +1,54 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { TypeGraphFragment } from '../../../../type/src/graphql/TypeGraph.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { TypeGraphFragmentDoc } from '../../../../type/src/graphql/TypeGraph.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TypeGraphFragment } from '../../../../type/src/graphql/TypeGraph.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TypeGraphFragmentDoc } from '../../../../type/src/graphql/TypeGraph.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type ExportAtomsQueryVariables = Types.Exact<{
-  input?: Types.Maybe<Types.GetAtomsInput>;
-}>;
+  input?: Types.Maybe<Types.GetAtomsInput>
+}>
 
+export type ExportAtomsQuery = {
+  getAtoms?: Array<Export__AtomsFragment> | null | undefined
+}
 
-export type ExportAtomsQuery = { getAtoms?: Types.Maybe<Array<Export__AtomsFragment>> };
-
-export type Export__AtomsFragment = { id: string, name: string, type: Types.AtomType, api: { id: string, name: string, typeKind: Types.TypeKind, typeGraph: TypeGraphFragment } };
+export type Export__AtomsFragment = {
+  id: string
+  name: string
+  type: Types.AtomType
+  api: {
+    id: string
+    name: string
+    typeKind: Types.TypeKind
+    typeGraph: TypeGraphFragment
+  }
+}
 
 export const Export__AtomsFragmentDoc = gql`
-    fragment Export__Atoms on Atom {
-  id
-  name
-  type
-  api {
+  fragment Export__Atoms on Atom {
     id
     name
-    typeKind
-    typeGraph {
-      ...TypeGraph
+    type
+    api {
+      id
+      name
+      typeKind
+      typeGraph {
+        ...TypeGraph
+      }
     }
   }
-}
-    ${TypeGraphFragmentDoc}`;
+  ${TypeGraphFragmentDoc}
+`
 export const ExportAtomsGql = gql`
-    query ExportAtoms($input: GetAtomsInput) {
-  getAtoms(input: $input) {
-    ...Export__Atoms
+  query ExportAtoms($input: GetAtomsInput) {
+    getAtoms(input: $input) {
+      ...Export__Atoms
+    }
   }
-}
-    ${Export__AtomsFragmentDoc}`;
+  ${Export__AtomsFragmentDoc}
+`
 
 /**
  * __useExportAtomsQuery__
@@ -53,17 +66,38 @@ export const ExportAtomsGql = gql`
  *   },
  * });
  */
-export function useExportAtomsQuery(baseOptions?: Apollo.QueryHookOptions<ExportAtomsQuery, ExportAtomsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ExportAtomsQuery, ExportAtomsQueryVariables>(ExportAtomsGql, options);
-      }
-export function useExportAtomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ExportAtomsQuery, ExportAtomsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ExportAtomsQuery, ExportAtomsQueryVariables>(ExportAtomsGql, options);
-        }
-export type ExportAtomsQueryHookResult = ReturnType<typeof useExportAtomsQuery>;
-export type ExportAtomsLazyQueryHookResult = ReturnType<typeof useExportAtomsLazyQuery>;
-export type ExportAtomsQueryResult = Apollo.QueryResult<ExportAtomsQuery, ExportAtomsQueryVariables>;
+export function useExportAtomsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ExportAtomsQuery,
+    ExportAtomsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ExportAtomsQuery, ExportAtomsQueryVariables>(
+    ExportAtomsGql,
+    options,
+  )
+}
+export function useExportAtomsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ExportAtomsQuery,
+    ExportAtomsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ExportAtomsQuery, ExportAtomsQueryVariables>(
+    ExportAtomsGql,
+    options,
+  )
+}
+export type ExportAtomsQueryHookResult = ReturnType<typeof useExportAtomsQuery>
+export type ExportAtomsLazyQueryHookResult = ReturnType<
+  typeof useExportAtomsLazyQuery
+>
+export type ExportAtomsQueryResult = Apollo.QueryResult<
+  ExportAtomsQuery,
+  ExportAtomsQueryVariables
+>
 export function refetchExportAtomsQuery(variables?: ExportAtomsQueryVariables) {
-      return { query: ExportAtomsGql, variables: variables }
-    }
+  return { query: ExportAtomsGql, variables: variables }
+}

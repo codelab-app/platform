@@ -1,12 +1,12 @@
 import {
-  CreateComponentGql,
-  GetComponentElementsGql,
-} from '@codelab/frontend/modules/component'
-import {
   CreateComponentInput,
   ElementGraph,
-  GetComponentInput,
-} from '@codelab/shared/codegen/graphql'
+} from '@codelab/frontend/abstract/codegen'
+import {
+  CreateComponentGql,
+  GetElementGraphGql,
+} from '@codelab/frontend/modules/element'
+import { GetElementGraphInput } from '@codelab/shared/codegen/graphql'
 import { print } from 'graphql'
 
 export const createComponent = (input: CreateComponentInput) => {
@@ -18,10 +18,10 @@ export const createComponent = (input: CreateComponentInput) => {
     .then((r) => r.body.data?.createComponent)
 }
 
-export const getComponentElements = (input: GetComponentInput) => {
+export const getComponentElements = (input: GetElementGraphInput) => {
   return cy
     .graphqlRequest({
-      query: print(GetComponentElementsGql),
+      query: print(GetElementGraphGql),
       variables: { input },
     })
     .then((r) => {
@@ -32,7 +32,9 @@ export const getComponentElements = (input: GetComponentInput) => {
 export const getComponentRootElementId = ({ id }: { id: string }) => {
   return cy
     .getComponentElements({
-      componentId: id,
+      where: {
+        id,
+      },
     })
     .then((listComponentGraph: ElementGraph) => {
       const rootElId = listComponentGraph.vertices[0].id

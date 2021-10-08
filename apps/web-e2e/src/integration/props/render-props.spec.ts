@@ -1,10 +1,10 @@
-import { AtomType, BaseTypeName, TypeKind } from '@codelab/shared/abstract/core'
 import {
   Atom,
   CreateResponse,
   Element,
   Page,
-} from '@codelab/shared/codegen/graphql'
+} from '@codelab/frontend/abstract/codegen'
+import { AtomType, BaseTypeKind, TypeKind } from '@codelab/shared/abstract/core'
 
 const listElementName = 'List'
 const renderItemFieldName = 'Render Item'
@@ -24,14 +24,14 @@ describe('render props', () => {
       cy.login().then(async () => {
         cy.preserveAuthCookies()
         cy.createType({
-          name: BaseTypeName.ReactNode,
+          name: BaseTypeKind.ReactNode,
           typeKind: TypeKind.ReactNodeType,
         }).then((renderPropType: CreateResponse) => {
           cy.wrap(renderPropType.id).as('reactNodeTypeId')
         })
 
         cy.createType({
-          name: BaseTypeName.RenderProps,
+          name: BaseTypeKind.RenderProps,
           typeKind: TypeKind.RenderPropsType,
         }).then((renderPropType: CreateResponse) => {
           cy.wrap(renderPropType.id).as('renderPropTypeId')

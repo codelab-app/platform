@@ -1,14 +1,16 @@
-import { GraphqlHookConfig } from '@codelab/backend/modules/hook'
+import { Model } from '@codelab/backend/abstract/core'
+import { IGraphqlHookConfig } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class GraphqlHookConfigInput implements GraphqlHookConfig {
+export class GraphqlHookConfigInput implements Model<IGraphqlHookConfig> {
   @Field(() => String)
-  declare url: string
+  declare graphqlUrl: string
 
   @Field(() => String)
-  declare body: string
+  declare graphqlBody: string
 
   @Field(() => String, { nullable: true })
-  declare dataKey?: string
+  declare dataKey?: Maybe<string>
 }

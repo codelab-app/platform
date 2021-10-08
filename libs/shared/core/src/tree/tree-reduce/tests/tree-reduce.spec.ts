@@ -1,4 +1,4 @@
-import { BaseNode } from '@codelab/shared/abstract/core'
+import { IBaseNode } from '@codelab/shared/abstract/core'
 import { treeReduce } from '../tree-reduce'
 import { reducerData, reducerDataCustomChildrenKey } from './tree-reduce.data'
 
@@ -8,7 +8,7 @@ describe('Tree reducers', () => {
     children: any
   }
 
-  const reducer = (total: number, node: BaseNode<PageStats>) => {
+  const reducer = (total: number, node: IBaseNode<PageStats>) => {
     return total + (node.props?.views ?? 0)
   }
 

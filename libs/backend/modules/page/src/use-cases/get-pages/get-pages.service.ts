@@ -1,12 +1,7 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphApp,
-  DgraphEntityType,
-  DgraphPage,
-  DgraphQueryBuilder,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { AppValidator } from '@codelab/backend/modules/app'
+import { IPage, PageSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetPagesRequest } from './get-pages.request'
@@ -14,8 +9,10 @@ import { GetPagesRequest } from './get-pages.request'
 @Injectable()
 export class GetPagesService extends DgraphUseCase<
   GetPagesRequest,
-  Array<DgraphPage>
+  Array<IPage>
 > {
+  protected schema = PageSchema.array()
+
   constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
     super(dgraph)
   }
@@ -23,7 +20,7 @@ export class GetPagesService extends DgraphUseCase<
   protected async executeTransaction(
     request: GetPagesRequest,
     txn: Txn,
-  ): Promise<Array<DgraphPage>> {
+  ): Promise<Array<IPage>> {
     const {
       input: {
         byApp: { appId },
@@ -32,9 +29,11 @@ export class GetPagesService extends DgraphUseCase<
 
     await this.validate(request)
 
-    return this.dgraph
-      .getOneOrThrow<DgraphApp>(txn, GetPagesService.createQuery(appId))
-      .then((app) => app.pages || [])
+    return this.dgraph.getAllNamed<IPage>(
+      txn,
+      GetPagesService.createQuery(appId),
+      'query',
+    )
   }
 
   protected async validate({
@@ -47,10 +46,19 @@ export class GetPagesService extends DgraphUseCase<
   }
 
   private static createQuery(appId: string) {
-    return new DgraphQueryBuilder()
-      .addTypeFilterDirective(DgraphEntityType.App)
-      .setUidFunc(appId)
-      .addBaseFields()
-      .addExpandAll((f) => f.addExpandAllRecursive(2))
+    return `{
+        var(func: type(App)) @filter(uid(${appId})) {
+          pages {
+            PAGE_IDS as uid
+          }
+        }
+        query(func: type(Page)) @filter(uid(PAGE_IDS)) @normalize {
+          id: uid
+          name: name
+          root {
+            rootElementId: uid
+          }
+        }
+      }`
   }
 }

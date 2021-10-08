@@ -1,13 +1,13 @@
 import {
+  CreateElementInput,
+  CreatePropMapBindingInput,
+  UpdateElementPropsInput,
+} from '@codelab/frontend/abstract/codegen'
+import {
   CreateElementGql,
   CreatePropMapBindingGql,
   UpdateElementPropsGql,
 } from '@codelab/frontend/modules/element'
-import {
-  CreateElementInput,
-  CreatePropMapBindingInput,
-  UpdateElementPropsInput,
-} from '@codelab/shared/codegen/graphql'
 import { print } from 'graphql'
 
 export const createElement = (input: CreateElementInput) =>

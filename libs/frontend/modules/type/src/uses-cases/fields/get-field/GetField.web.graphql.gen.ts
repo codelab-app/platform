@@ -1,25 +1,24 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { FieldFragment } from '../../../graphql/Field.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { FieldFragmentDoc } from '../../../graphql/Field.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { FieldFragment } from '../../../graphql/Field.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { FieldFragmentDoc } from '../../../graphql/Field.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type GetFieldQueryVariables = Types.Exact<{
-  input: Types.GetFieldInput;
-}>;
+  input: Types.GetFieldInput
+}>
 
-
-export type GetFieldQuery = { getField?: Types.Maybe<FieldFragment> };
-
+export type GetFieldQuery = { getField?: FieldFragment | null | undefined }
 
 export const GetFieldGql = gql`
-    query GetField($input: GetFieldInput!) {
-  getField(input: $input) {
-    ...Field
+  query GetField($input: GetFieldInput!) {
+    getField(input: $input) {
+      ...Field
+    }
   }
-}
-    ${FieldFragmentDoc}`;
+  ${FieldFragmentDoc}
+`
 
 /**
  * __useGetFieldQuery__
@@ -37,17 +36,35 @@ export const GetFieldGql = gql`
  *   },
  * });
  */
-export function useGetFieldQuery(baseOptions: Apollo.QueryHookOptions<GetFieldQuery, GetFieldQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetFieldQuery, GetFieldQueryVariables>(GetFieldGql, options);
-      }
-export function useGetFieldLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFieldQuery, GetFieldQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetFieldQuery, GetFieldQueryVariables>(GetFieldGql, options);
-        }
-export type GetFieldQueryHookResult = ReturnType<typeof useGetFieldQuery>;
-export type GetFieldLazyQueryHookResult = ReturnType<typeof useGetFieldLazyQuery>;
-export type GetFieldQueryResult = Apollo.QueryResult<GetFieldQuery, GetFieldQueryVariables>;
+export function useGetFieldQuery(
+  baseOptions: Apollo.QueryHookOptions<GetFieldQuery, GetFieldQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetFieldQuery, GetFieldQueryVariables>(
+    GetFieldGql,
+    options,
+  )
+}
+export function useGetFieldLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetFieldQuery,
+    GetFieldQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetFieldQuery, GetFieldQueryVariables>(
+    GetFieldGql,
+    options,
+  )
+}
+export type GetFieldQueryHookResult = ReturnType<typeof useGetFieldQuery>
+export type GetFieldLazyQueryHookResult = ReturnType<
+  typeof useGetFieldLazyQuery
+>
+export type GetFieldQueryResult = Apollo.QueryResult<
+  GetFieldQuery,
+  GetFieldQueryVariables
+>
 export function refetchGetFieldQuery(variables?: GetFieldQueryVariables) {
-      return { query: GetFieldGql, variables: variables }
-    }
+  return { query: GetFieldGql, variables: variables }
+}

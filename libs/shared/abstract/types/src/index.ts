@@ -1,4 +1,6 @@
 export * from './array'
 export * from './graphql/graphql.error'
 export * from './mapper'
+export * from './maybe'
+export * from './optional'
 export * from './promise'

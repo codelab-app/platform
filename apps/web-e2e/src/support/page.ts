@@ -1,9 +1,9 @@
-import { CreatePageGql, GetPageGql } from '@codelab/frontend/modules/page'
 import {
   CreatePageInput,
   CreateResponse,
   GetPageInput,
-} from '@codelab/shared/codegen/graphql'
+} from '@codelab/frontend/abstract/codegen'
+import { CreatePageGql, GetPageGql } from '@codelab/frontend/modules/page'
 import { print } from 'graphql'
 
 export const getPage = (input: GetPageInput) => {

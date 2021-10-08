@@ -1,22 +1,41 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import {
+  TestType_ArrayType_Fragment,
+  TestType_ComponentType_Fragment,
+  TestType_ElementType_Fragment,
+  TestType_EnumType_Fragment,
+  TestType_InterfaceType_Fragment,
+  TestType_LambdaType_Fragment,
+  TestType_PrimitiveType_Fragment,
+  TestType_ReactNodeType_Fragment,
+  TestType_RenderPropsType_Fragment,
+  TestType_UnionType_Fragment,
+} from '../../../../tests/graphql/TestType.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TestTypeFragmentDoc } from '../../../../tests/graphql/TestType.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestUpdateEnumTypeMutationVariables = Types.Exact<{
-  input: Types.UpdateEnumTypeInput;
-}>;
+  input: Types.UpdateEnumTypeInput
+}>
 
-
-export type TestUpdateEnumTypeMutation = { updateEnumType?: Types.Maybe<void> };
-
+export type TestUpdateEnumTypeMutation = {
+  updateEnumType?: TestType_EnumType_Fragment | null | undefined
+}
 
 export const TestUpdateEnumTypeGql = gql`
-    mutation TestUpdateEnumType($input: UpdateEnumTypeInput!) {
-  updateEnumType(input: $input)
-}
-    `;
-export type TestUpdateEnumTypeMutationFn = Apollo.MutationFunction<TestUpdateEnumTypeMutation, TestUpdateEnumTypeMutationVariables>;
+  mutation TestUpdateEnumType($input: UpdateEnumTypeInput!) {
+    updateEnumType(input: $input) {
+      ...TestType
+    }
+  }
+  ${TestTypeFragmentDoc}
+`
+export type TestUpdateEnumTypeMutationFn = Apollo.MutationFunction<
+  TestUpdateEnumTypeMutation,
+  TestUpdateEnumTypeMutationVariables
+>
 
 /**
  * __useTestUpdateEnumTypeMutation__
@@ -35,10 +54,24 @@ export type TestUpdateEnumTypeMutationFn = Apollo.MutationFunction<TestUpdateEnu
  *   },
  * });
  */
-export function useTestUpdateEnumTypeMutation(baseOptions?: Apollo.MutationHookOptions<TestUpdateEnumTypeMutation, TestUpdateEnumTypeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestUpdateEnumTypeMutation, TestUpdateEnumTypeMutationVariables>(TestUpdateEnumTypeGql, options);
-      }
-export type TestUpdateEnumTypeMutationHookResult = ReturnType<typeof useTestUpdateEnumTypeMutation>;
-export type TestUpdateEnumTypeMutationResult = Apollo.MutationResult<TestUpdateEnumTypeMutation>;
-export type TestUpdateEnumTypeMutationOptions = Apollo.BaseMutationOptions<TestUpdateEnumTypeMutation, TestUpdateEnumTypeMutationVariables>;
+export function useTestUpdateEnumTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestUpdateEnumTypeMutation,
+    TestUpdateEnumTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestUpdateEnumTypeMutation,
+    TestUpdateEnumTypeMutationVariables
+  >(TestUpdateEnumTypeGql, options)
+}
+export type TestUpdateEnumTypeMutationHookResult = ReturnType<
+  typeof useTestUpdateEnumTypeMutation
+>
+export type TestUpdateEnumTypeMutationResult =
+  Apollo.MutationResult<TestUpdateEnumTypeMutation>
+export type TestUpdateEnumTypeMutationOptions = Apollo.BaseMutationOptions<
+  TestUpdateEnumTypeMutation,
+  TestUpdateEnumTypeMutationVariables
+>

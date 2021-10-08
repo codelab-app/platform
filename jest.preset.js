@@ -2,13 +2,15 @@ const nxPreset = require('@nrwl/jest/preset')
 
 const testTimeout = process.env.CI ? 30000 : 300000
 
+const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`
+
 module.exports = {
   ...nxPreset,
-  setupFiles: [`${__dirname}/jest/setupFiles.ts`],
-  globalSetup: `${__dirname}/jest/globalSetup.ts`,
+  setupFiles: [`${JEST_CONFIG_PATH}/setupFiles.js`],
+  globalSetup: `${JEST_CONFIG_PATH}/globalSetup.js`,
   setupFilesAfterEnv: [
     '@testing-library/jest-dom',
-    `${__dirname}/jest/setupFilesAfterEnv.ts`,
+    `${JEST_CONFIG_PATH}/setupFilesAfterEnv.js`,
   ],
   testTimeout,
   /**

@@ -1,28 +1,5 @@
-import {
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { TypeModule } from '../../../../type.module'
-
 describe('ImportApi', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
-
-  beforeAll(async () => {
-    guestApp = await setupTestModule([TypeModule], {
-      role: Role.Guest,
-    })
-    userApp = await setupTestModule([TypeModule], {
-      role: Role.User,
-    })
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
+  // const testModule = setupTypeTestModule()
 
   describe('Guest', () => {
     it.skip('should not import api', async () => {

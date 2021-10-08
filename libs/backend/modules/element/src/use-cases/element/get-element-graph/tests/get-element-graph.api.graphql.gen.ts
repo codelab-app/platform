@@ -1,46 +1,65 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestGetElementGraphQueryVariables = Types.Exact<{
-  input: Types.GetElementGraphInput;
-}>;
+  input: Types.GetElementGraphInput
+}>
 
-
-export type TestGetElementGraphQuery = { getElementGraph?: Types.Maybe<{ edges: Array<{ order?: Types.Maybe<number>, source: string, target: string }>, vertices: Array<{ id: string, name: string } | { id: string, name: string, css?: Types.Maybe<string>, props: string, renderForEachPropKey?: Types.Maybe<string>, renderIfPropKey?: Types.Maybe<string>, atom?: Types.Maybe<{ id: string, name: string, type: Types.AtomType }> }> }> };
-
+export type TestGetElementGraphQuery = {
+  getElementGraph: {
+    edges: Array<{
+      order?: number | null | undefined
+      source: string
+      target: string
+    }>
+    vertices: Array<{
+      id: string
+      name: string
+      css?: string | null | undefined
+      props: string
+      renderForEachPropKey?: string | null | undefined
+      renderIfPropKey?: string | null | undefined
+      componentTag?: { name: string; id: string } | null | undefined
+      atom?:
+        | { id: string; name: string; type: Types.AtomType }
+        | null
+        | undefined
+    }>
+  }
+}
 
 export const TestGetElementGraphGql = gql`
-    query TestGetElementGraph($input: GetElementGraphInput!) {
-  getElementGraph(input: $input) {
-    edges {
-      order
-      source
-      target
-    }
-    vertices {
-      ... on Element {
-        id
-        name
-        css
-        props
-        atom {
+  query TestGetElementGraph($input: GetElementGraphInput!) {
+    getElementGraph(input: $input) {
+      edges {
+        order
+        source
+        target
+      }
+      vertices {
+        ... on Element {
           id
           name
-          type
+          css
+          props
+          componentTag {
+            name
+            id
+          }
+          atom {
+            id
+            name
+            type
+          }
+          renderForEachPropKey
+          renderIfPropKey
         }
-        renderForEachPropKey
-        renderIfPropKey
-      }
-      ... on Component {
-        id
-        name
       }
     }
   }
-}
-    `;
+`
 
 /**
  * __useTestGetElementGraphQuery__
@@ -58,17 +77,42 @@ export const TestGetElementGraphGql = gql`
  *   },
  * });
  */
-export function useTestGetElementGraphQuery(baseOptions: Apollo.QueryHookOptions<TestGetElementGraphQuery, TestGetElementGraphQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetElementGraphQuery, TestGetElementGraphQueryVariables>(TestGetElementGraphGql, options);
-      }
-export function useTestGetElementGraphLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetElementGraphQuery, TestGetElementGraphQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetElementGraphQuery, TestGetElementGraphQueryVariables>(TestGetElementGraphGql, options);
-        }
-export type TestGetElementGraphQueryHookResult = ReturnType<typeof useTestGetElementGraphQuery>;
-export type TestGetElementGraphLazyQueryHookResult = ReturnType<typeof useTestGetElementGraphLazyQuery>;
-export type TestGetElementGraphQueryResult = Apollo.QueryResult<TestGetElementGraphQuery, TestGetElementGraphQueryVariables>;
-export function refetchTestGetElementGraphQuery(variables?: TestGetElementGraphQueryVariables) {
-      return { query: TestGetElementGraphGql, variables: variables }
-    }
+export function useTestGetElementGraphQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TestGetElementGraphQuery,
+    TestGetElementGraphQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    TestGetElementGraphQuery,
+    TestGetElementGraphQueryVariables
+  >(TestGetElementGraphGql, options)
+}
+export function useTestGetElementGraphLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetElementGraphQuery,
+    TestGetElementGraphQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    TestGetElementGraphQuery,
+    TestGetElementGraphQueryVariables
+  >(TestGetElementGraphGql, options)
+}
+export type TestGetElementGraphQueryHookResult = ReturnType<
+  typeof useTestGetElementGraphQuery
+>
+export type TestGetElementGraphLazyQueryHookResult = ReturnType<
+  typeof useTestGetElementGraphLazyQuery
+>
+export type TestGetElementGraphQueryResult = Apollo.QueryResult<
+  TestGetElementGraphQuery,
+  TestGetElementGraphQueryVariables
+>
+export function refetchTestGetElementGraphQuery(
+  variables?: TestGetElementGraphQueryVariables,
+) {
+  return { query: TestGetElementGraphGql, variables: variables }
+}

@@ -1,22 +1,30 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TagFragment, TagEdgeFragment } from '../Tag.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TagFragmentDoc, TagEdgeFragmentDoc } from '../Tag.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type DeleteTagsMutationVariables = Types.Exact<{
-  input: Types.DeleteTagsInput;
-}>;
+  input: Types.DeleteTagsInput
+}>
 
-
-export type DeleteTagsMutation = { deleteTags?: Types.Maybe<void> };
-
+export type DeleteTagsMutation = {
+  deleteTags?: Array<TagFragment> | null | undefined
+}
 
 export const DeleteTagsGql = gql`
-    mutation DeleteTags($input: DeleteTagsInput!) {
-  deleteTags(input: $input)
-}
-    `;
-export type DeleteTagsMutationFn = Apollo.MutationFunction<DeleteTagsMutation, DeleteTagsMutationVariables>;
+  mutation DeleteTags($input: DeleteTagsInput!) {
+    deleteTags(input: $input) {
+      ...Tag
+    }
+  }
+  ${TagFragmentDoc}
+`
+export type DeleteTagsMutationFn = Apollo.MutationFunction<
+  DeleteTagsMutation,
+  DeleteTagsMutationVariables
+>
 
 /**
  * __useDeleteTagsMutation__
@@ -35,10 +43,23 @@ export type DeleteTagsMutationFn = Apollo.MutationFunction<DeleteTagsMutation, D
  *   },
  * });
  */
-export function useDeleteTagsMutation(baseOptions?: Apollo.MutationHookOptions<DeleteTagsMutation, DeleteTagsMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteTagsMutation, DeleteTagsMutationVariables>(DeleteTagsGql, options);
-      }
-export type DeleteTagsMutationHookResult = ReturnType<typeof useDeleteTagsMutation>;
-export type DeleteTagsMutationResult = Apollo.MutationResult<DeleteTagsMutation>;
-export type DeleteTagsMutationOptions = Apollo.BaseMutationOptions<DeleteTagsMutation, DeleteTagsMutationVariables>;
+export function useDeleteTagsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteTagsMutation,
+    DeleteTagsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<DeleteTagsMutation, DeleteTagsMutationVariables>(
+    DeleteTagsGql,
+    options,
+  )
+}
+export type DeleteTagsMutationHookResult = ReturnType<
+  typeof useDeleteTagsMutation
+>
+export type DeleteTagsMutationResult = Apollo.MutationResult<DeleteTagsMutation>
+export type DeleteTagsMutationOptions = Apollo.BaseMutationOptions<
+  DeleteTagsMutation,
+  DeleteTagsMutationVariables
+>

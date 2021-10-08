@@ -1,3 +1,4 @@
+import { DeleteTagsInput } from '@codelab/frontend/abstract/codegen'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   EntityType,
@@ -5,7 +6,6 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import { DeleteTagsInput } from '@codelab/shared/codegen/graphql'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { refetchGetTagGraphsQuery } from '../get-tag-graphs'

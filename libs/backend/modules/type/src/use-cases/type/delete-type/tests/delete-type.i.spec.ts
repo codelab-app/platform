@@ -1,57 +1,25 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { TypeModule } from '../../../../type.module'
-import { CreateTypeInput } from '../../create-type'
-import {
-  TestCreateTypeGql,
-  TestCreateTypeMutation,
-} from '../../create-type/tests/create-type.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupTypeTestModule } from '../../../../tests/setupTypeTestModule'
 import { createPrimitiveStringInput } from '../../create-type/tests/create-type.data'
-import { GetTypeInput } from '../../get-type/get-type.input'
-import {
-  TestGetTypeGql,
-  TestGetTypeQuery,
-} from '../../get-type/tests/get-type.api.graphql.gen'
 import { DeleteTypeInput } from '../delete-type.input'
 import { TestDeleteTypeGql } from './delete-type.api.graphql.gen'
 
 describe('DeleteType', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
-  let typeId: string
+  const testModule = setupTypeTestModule()
   let deleteTypeInput: DeleteTypeInput
+  let typeId: string
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([TypeModule], {
-      role: Role.Guest,
-    })
-    userApp = await setupTestModule([TypeModule], {
-      role: Role.User,
-    })
+    const type = await testModule.createTestType(createPrimitiveStringInput)
 
-    const { createType } = await domainRequest<
-      CreateTypeInput,
-      TestCreateTypeMutation
-    >(userApp, TestCreateTypeGql, createPrimitiveStringInput)
-
-    typeId = createType.id
+    typeId = type.id
     deleteTypeInput = { typeId }
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
   })
 
   describe('Guest', () => {
     it('should not delete type', async () => {
       await domainRequest<DeleteTypeInput>(
-        guestApp,
+        testModule.guestApp,
         TestDeleteTypeGql,
         deleteTypeInput,
         { message: 'Unauthorized' },
@@ -67,18 +35,14 @@ describe('DeleteType', () => {
 
     it('should delete type', async () => {
       await domainRequest<DeleteTypeInput>(
-        userApp,
+        testModule.userApp,
         TestDeleteTypeGql,
         deleteTypeInput,
       )
 
-      const type = await domainRequest<GetTypeInput, TestGetTypeQuery>(
-        userApp,
-        TestGetTypeGql,
-        { where: { id: typeId } },
-      )
+      const type = await testModule.getType({ where: { id: typeId } })
 
-      expect(type.getType).toBeNull()
+      expect(type).toBeNull()
     })
   })
 })

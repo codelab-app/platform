@@ -1,22 +1,19 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphElement,
-  DgraphEntityType,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../application/element.validator'
 import { DeleteElementRequest } from './delete-element.request'
 
 /**
- * Deletes an element and all the descending elements and their props
+ * Deletes an element/component and all the descending elements and their props
+ * Doesn't delete descendant component elements
  */
 @Injectable()
 export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
   constructor(
     dgraph: DgraphRepository,
-    private elementValidator: ElementValidator,
+    private readonly elementValidator: ElementValidator,
   ) {
     super(dgraph)
   }
@@ -25,50 +22,43 @@ export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
     request: DeleteElementRequest,
     txn: Txn,
   ): Promise<void> {
-    const {
-      input: { elementId },
-    } = request
-
-    const validationContext = await this.validate(request)
-
-    const parentId =
-      validationContext.element && validationContext.element['~children']
-        ? validationContext.element['~children'][0].uid
-        : undefined
-
-    await this.dgraph.executeUpsertDeleteAll(
+    await this.validate(request)
+    await this.dgraph.executeMutation(
       txn,
-      (query) =>
-        query
-          .setUidFunc(elementId)
-          .addTypeFilterDirective(DgraphEntityType.Element)
-          .addJsonFields<DgraphElement>({
-            children: true,
-            props: true,
-          }),
-      parentId
-        ? { delete: `<${parentId}> <children> <${elementId}> .` }
-        : undefined,
+      DeleteElementService.getMutation(request),
     )
   }
 
-  protected async validate({
-    currentUser,
-    input: { elementId },
-  }: DeleteElementRequest) {
-    const result = await this.elementValidator.existsAndIsOwnedBy(
-      elementId,
-      currentUser,
-    )
+  private static getMutation({ input }: DeleteElementRequest) {
+    const { elementId } = input
 
-    try {
-      await this.elementValidator.isNotRoot(elementId)
-    } catch (e: any) {
-      if (e.message.toLowerCase().includes('root')) {
-        throw new Error("Can't delete root element")
-      }
+    const mutation: Mutation = {
+      mutation: `
+        upsert {
+          query {
+           descendants(func: uid(${elementId}))  @filter(type(Element)) @recurse {
+                COMPONENT AS uid
+                DESCENDANTS AS children @filter(NOT has(componentTag))
+            }
+          }
+          mutation {
+            delete {
+              uid(COMPONENT) * * .
+              uid(DESCENDANTS) * * .
+            }
+          }
+        }
+      `,
     }
 
-    return result
+    return mutation
+  }
+
+  private async validate({ input, currentUser }: DeleteElementRequest) {
+    await this.elementValidator.existsAndIsOwnedBy(input.elementId, currentUser)
+
+    await this.elementValidator.isNotRoot(input.elementId)
+
+    await this.elementValidator.isOrphan(input.elementId)
   }
 }

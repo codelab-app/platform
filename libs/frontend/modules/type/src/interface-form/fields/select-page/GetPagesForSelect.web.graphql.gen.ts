@@ -1,24 +1,24 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type GetPagesForSelectQueryVariables = Types.Exact<{
-  input: Types.GetPagesInput;
-}>;
+  input: Types.GetPagesInput
+}>
 
-
-export type GetPagesForSelectQuery = { pages: Array<{ id: string, name: string }> };
-
+export type GetPagesForSelectQuery = {
+  pages: Array<{ id: string; name: string }>
+}
 
 export const GetPagesForSelectGql = gql`
-    query GetPagesForSelect($input: GetPagesInput!) {
-  pages: getPages(input: $input) {
-    id
-    name
+  query GetPagesForSelect($input: GetPagesInput!) {
+    pages: getPages(input: $input) {
+      id
+      name
+    }
   }
-}
-    `;
+`
 
 /**
  * __useGetPagesForSelectQuery__
@@ -36,17 +36,42 @@ export const GetPagesForSelectGql = gql`
  *   },
  * });
  */
-export function useGetPagesForSelectQuery(baseOptions: Apollo.QueryHookOptions<GetPagesForSelectQuery, GetPagesForSelectQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPagesForSelectQuery, GetPagesForSelectQueryVariables>(GetPagesForSelectGql, options);
-      }
-export function useGetPagesForSelectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPagesForSelectQuery, GetPagesForSelectQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPagesForSelectQuery, GetPagesForSelectQueryVariables>(GetPagesForSelectGql, options);
-        }
-export type GetPagesForSelectQueryHookResult = ReturnType<typeof useGetPagesForSelectQuery>;
-export type GetPagesForSelectLazyQueryHookResult = ReturnType<typeof useGetPagesForSelectLazyQuery>;
-export type GetPagesForSelectQueryResult = Apollo.QueryResult<GetPagesForSelectQuery, GetPagesForSelectQueryVariables>;
-export function refetchGetPagesForSelectQuery(variables?: GetPagesForSelectQueryVariables) {
-      return { query: GetPagesForSelectGql, variables: variables }
-    }
+export function useGetPagesForSelectQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetPagesForSelectQuery,
+    GetPagesForSelectQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    GetPagesForSelectQuery,
+    GetPagesForSelectQueryVariables
+  >(GetPagesForSelectGql, options)
+}
+export function useGetPagesForSelectLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetPagesForSelectQuery,
+    GetPagesForSelectQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    GetPagesForSelectQuery,
+    GetPagesForSelectQueryVariables
+  >(GetPagesForSelectGql, options)
+}
+export type GetPagesForSelectQueryHookResult = ReturnType<
+  typeof useGetPagesForSelectQuery
+>
+export type GetPagesForSelectLazyQueryHookResult = ReturnType<
+  typeof useGetPagesForSelectLazyQuery
+>
+export type GetPagesForSelectQueryResult = Apollo.QueryResult<
+  GetPagesForSelectQuery,
+  GetPagesForSelectQueryVariables
+>
+export function refetchGetPagesForSelectQuery(
+  variables?: GetPagesForSelectQueryVariables,
+) {
+  return { query: GetPagesForSelectGql, variables: variables }
+}

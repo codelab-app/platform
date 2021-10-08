@@ -23,7 +23,7 @@ const ElementCssEditorInternal = ({
     awaitRefetchQueries: true,
     refetchQueries: [
       refetchGetElementQuery({
-        input: { elementId: element.id },
+        input: { where: { id: element.id } },
       }),
     ],
   })
@@ -101,7 +101,7 @@ export const ElementCssEditor = ({
 }: ElementCssEditorProps) => {
   const { data } = useGetElementQuery({
     fetchPolicy: 'cache-first',
-    variables: { input: { elementId } },
+    variables: { input: { where: { id: elementId } } },
   })
 
   const element = data?.getElement

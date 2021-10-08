@@ -1,4 +1,4 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen';
 
 import { TypeEdgeFragment } from './TypeEdge.fragment.web.graphql.gen';
 import { Type_ArrayType_Fragment, Type_ComponentType_Fragment, Type_ElementType_Fragment, Type_EnumType_Fragment, Type_InterfaceType_Fragment, Type_LambdaType_Fragment, Type_PrimitiveType_Fragment, Type_RenderPropsType_Fragment } from './Type.fragment.web.graphql.gen';

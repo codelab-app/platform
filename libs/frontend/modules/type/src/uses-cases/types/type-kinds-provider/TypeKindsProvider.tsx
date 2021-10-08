@@ -1,6 +1,5 @@
-import { withProvider } from '@codelab/frontend/presenter/container'
+import { Type, TypeKind } from '@codelab/frontend/abstract/codegen'
 import { notify } from '@codelab/frontend/shared/utils'
-import { Type, TypeKind } from '@codelab/shared/codegen/graphql'
 import React, { useEffect, useMemo } from 'react'
 import { useGetTypeKindsQuery } from '../get-type-kinds'
 
@@ -67,4 +66,3 @@ export const TypeKindProvider = ({
 }
 
 TypeKindProvider.displayName = 'TypeKindProvider'
-export const withTypeKindProvider = withProvider(TypeKindProvider)

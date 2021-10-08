@@ -1,10 +1,6 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphPage,
-  DgraphQueryBuilder,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { IPage, PageSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { PageValidator } from '../../domain/page.validator'
@@ -13,8 +9,10 @@ import { GetPageRequest } from './get-page.request'
 @Injectable()
 export class GetPageService extends DgraphUseCase<
   GetPageRequest,
-  DgraphPage | null
+  IPage | null
 > {
+  protected schema = PageSchema.nullable().optional()
+
   constructor(dgraph: DgraphRepository, private pageValidator: PageValidator) {
     super(dgraph)
   }
@@ -22,28 +20,35 @@ export class GetPageService extends DgraphUseCase<
   protected async executeTransaction(request: GetPageRequest, txn: Txn) {
     const {
       input: { pageId },
+      currentUser,
     } = request
 
-    // await this.validate(request)
-
-    return this.dgraph.getOne<DgraphPage>(
+    const result = await this.dgraph.getOneNamed<IPage>(
       txn,
-      GetPageService.createQuery(pageId),
+      GetPageService.byIdQuery(pageId),
+      'query',
     )
+
+    if (result) {
+      await this.pageValidator.existsAndIsOwnedBy(pageId, currentUser)
+    }
+
+    return result
   }
 
-  protected async validate({
-    input: { pageId },
-    currentUser,
-  }: GetPageRequest): Promise<void> {
-    await this.pageValidator.existsAndIsOwnedBy(pageId, currentUser)
+  public static byIdQuery(pageId: string) {
+    return GetPageService.pageQuery(`@filter(uid(${pageId}))`)
   }
 
-  private static createQuery(pageId: string) {
-    return new DgraphQueryBuilder()
-      .addTypeFilterDirective(DgraphEntityType.Page)
-      .setUidFunc(pageId)
-      .addBaseFields()
-      .addExpandAll((f) => f.addExpandAllRecursive(2))
+  public static pageQuery(filter?: string) {
+    return `{
+      query(func: type(${DgraphEntityType.Page})) @normalize ${filter || ''} {
+        id: uid
+        name: name
+        root {
+          rootElementId: uid
+        }
+      }
+    }`
   }
 }

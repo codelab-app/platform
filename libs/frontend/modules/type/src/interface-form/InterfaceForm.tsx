@@ -3,7 +3,7 @@ import {
   FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import {
-  IElementTypeVertex,
+  IElementType,
   IJsonSchemaOptions,
   TypeKind,
 } from '@codelab/shared/abstract/core'
@@ -45,7 +45,7 @@ export const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (
       return {
         uniforms: {
           component: getSelectElementComponent(
-            (type as IElementTypeVertex).kind,
+            (type as IElementType).elementKind,
           ),
         },
       }

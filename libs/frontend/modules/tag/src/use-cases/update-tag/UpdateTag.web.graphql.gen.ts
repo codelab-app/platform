@@ -1,22 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TagFragment, TagEdgeFragment } from '../Tag.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TagFragmentDoc, TagEdgeFragmentDoc } from '../Tag.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type UpdateTagMutationVariables = Types.Exact<{
-  input: Types.UpdateTagInput;
-}>;
+  input: Types.UpdateTagInput
+}>
 
-
-export type UpdateTagMutation = { updateTag?: Types.Maybe<void> };
-
+export type UpdateTagMutation = { updateTag?: TagFragment | null | undefined }
 
 export const UpdateTagGql = gql`
-    mutation UpdateTag($input: UpdateTagInput!) {
-  updateTag(input: $input)
-}
-    `;
-export type UpdateTagMutationFn = Apollo.MutationFunction<UpdateTagMutation, UpdateTagMutationVariables>;
+  mutation UpdateTag($input: UpdateTagInput!) {
+    updateTag(input: $input) {
+      ...Tag
+    }
+  }
+  ${TagFragmentDoc}
+`
+export type UpdateTagMutationFn = Apollo.MutationFunction<
+  UpdateTagMutation,
+  UpdateTagMutationVariables
+>
 
 /**
  * __useUpdateTagMutation__
@@ -35,10 +41,23 @@ export type UpdateTagMutationFn = Apollo.MutationFunction<UpdateTagMutation, Upd
  *   },
  * });
  */
-export function useUpdateTagMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTagMutation, UpdateTagMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateTagMutation, UpdateTagMutationVariables>(UpdateTagGql, options);
-      }
-export type UpdateTagMutationHookResult = ReturnType<typeof useUpdateTagMutation>;
-export type UpdateTagMutationResult = Apollo.MutationResult<UpdateTagMutation>;
-export type UpdateTagMutationOptions = Apollo.BaseMutationOptions<UpdateTagMutation, UpdateTagMutationVariables>;
+export function useUpdateTagMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateTagMutation,
+    UpdateTagMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateTagMutation, UpdateTagMutationVariables>(
+    UpdateTagGql,
+    options,
+  )
+}
+export type UpdateTagMutationHookResult = ReturnType<
+  typeof useUpdateTagMutation
+>
+export type UpdateTagMutationResult = Apollo.MutationResult<UpdateTagMutation>
+export type UpdateTagMutationOptions = Apollo.BaseMutationOptions<
+  UpdateTagMutation,
+  UpdateTagMutationVariables
+>

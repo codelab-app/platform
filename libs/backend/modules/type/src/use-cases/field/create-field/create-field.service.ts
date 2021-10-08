@@ -1,14 +1,13 @@
 import { DgraphCreateUseCase } from '@codelab/backend/application'
 import {
   DgraphEntityType,
-  DgraphInterfaceType,
   DgraphRepository,
   jsonMutation,
 } from '@codelab/backend/infra'
-import { User } from '@codelab/shared/abstract/core'
+import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { FieldValidator } from '../../../domain/field.validator'
+import { FieldValidator } from '../../../domain/field/field.validator'
 import { TypeValidator } from '../../../domain/type.validator'
 import { CreateTypeService } from '../../type/create-type'
 import { TypeRef } from './create-field.input'
@@ -45,7 +44,7 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
     typeId: string,
     blankNodeUid: string,
   ) {
-    return jsonMutation<DgraphInterfaceType>({
+    return jsonMutation({
       uid: interfaceId,
       fields: {
         uid: blankNodeUid,
@@ -59,7 +58,7 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
   }
 
   // TODO make this in one txn
-  private async getTypeId(type: TypeRef, currentUser: User) {
+  private async getTypeId(type: TypeRef, currentUser: IUser) {
     let typeId = type.existingTypeId
 
     // Check if we specify an existing type, if not - create a new one and get its ID
@@ -103,7 +102,8 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
     if (existingTypeId) {
       const existingType = await this.typeValidator.typeExists(existingTypeId)
 
-      this.typeValidator.notRecursive(interfaceId, existingType)
+      // TODO fix this after implementing get-type-graph
+      // this.typeValidator.notRecursive(interfaceId, existingType)
     }
   }
 }

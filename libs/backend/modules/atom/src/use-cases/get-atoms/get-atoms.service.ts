@@ -1,42 +1,32 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphAtom,
-  DgraphEntityType,
-  DgraphQueryBuilder,
-} from '@codelab/backend/infra'
+import { AtomSchema, IAtom } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { GetAtomService } from '../get-atom'
 import { GetAtomsInput } from './get-atoms.input'
 
 @Injectable()
 export class GetAtomsService extends DgraphUseCase<
   GetAtomsInput | undefined,
-  Array<DgraphAtom>
+  Array<IAtom>
 > {
+  protected schema = AtomSchema.array()
+
   protected executeTransaction(request: GetAtomsInput | undefined, txn: Txn) {
     if (request?.where?.ids) {
-      return this.dgraph.getAll<DgraphAtom>(
+      return this.dgraph.getAllNamed<IAtom>(
         txn,
-        GetAtomsService.createWhereIdsQuery(request.where.ids),
+        GetAtomService.getAtomQuery(
+          `@filter(uid(${request.where.ids.join(',')}))`,
+        ),
+        'query',
       )
     }
 
-    return this.dgraph.getAll<DgraphAtom>(txn, GetAtomsService.createQuery())
-  }
-
-  private static createQuery() {
-    return new DgraphQueryBuilder()
-      .setTypeFunc(DgraphEntityType.Atom)
-      .addBaseFields()
-      .addRecurseDirective()
-      .addExpandAll()
-  }
-
-  private static createWhereIdsQuery(ids: Array<string>) {
-    return new DgraphQueryBuilder()
-      .setUidsFunc(ids)
-      .addBaseFields()
-      .addRecurseDirective()
-      .addExpandAll()
+    return this.dgraph.getAllNamed<IAtom>(
+      txn,
+      GetAtomService.getAtomQuery(),
+      'query',
+    )
   }
 }

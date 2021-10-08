@@ -37,12 +37,12 @@ export class UpsertTagService extends DgraphUseCase<
       if (tag) {
         await this.updateTagService.execute({
           input: {
-            id: tag.uid,
+            id: tag.id,
             data,
           },
         })
 
-        return { id: tag.uid }
+        return { id: tag.id }
       }
     }
 
@@ -54,12 +54,12 @@ export class UpsertTagService extends DgraphUseCase<
       if (tag) {
         await this.updateTagService.execute({
           input: {
-            id: tag.uid,
+            id: tag.id,
             data,
           },
         })
 
-        return { id: tag.uid }
+        return { id: tag.id }
       }
     }
 

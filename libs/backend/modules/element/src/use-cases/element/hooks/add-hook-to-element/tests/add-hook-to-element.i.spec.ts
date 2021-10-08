@@ -1,21 +1,11 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
+import { domainRequest } from '@codelab/backend/shared/testing'
 import {
   HookType,
   PersistenceType,
   QueryMethod,
-  Role,
 } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
-import { ElementModule } from '../../../../../element.module'
-import { CreateElementInput } from '../../../create-element'
-import {
-  TestCreateElementGql,
-  TestCreateElementMutation,
-} from '../../../create-element/tests/create-element.api.graphql.gen'
+import { setupElementTestModule } from '../../../../../test/setupElementTestModule'
 import { GetElementInput } from '../../../get-element'
 import {
   TestGetElementGql,
@@ -46,7 +36,7 @@ const verifyHookIsAdded = async (
   const { getElement } = await domainRequest<
     GetElementInput,
     TestGetElementQuery
-  >(app, TestGetElementGql, { elementId })
+  >(app, TestGetElementGql, { where: { id: elementId } })
 
   expect(getElement?.hooks?.find((h) => h.id === hookId)).toMatchObject({
     id: hookId,
@@ -56,40 +46,32 @@ const verifyHookIsAdded = async (
 }
 
 describe('AddHookToElementUseCase', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupElementTestModule()
   let addQueryHookInput: AddHookToElementInput
   let addGraphqlQueryHookInput: AddHookToElementInput
   let addRecoilStateHookInput: AddHookToElementInput
   let addGraphqlMutationHookInput: AddHookToElementInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], {
-      role: Role.Guest,
+    const createElement = await testModule.createTestElement({
+      name: 'Element',
     })
-    userApp = await setupTestModule([ElementModule], {
-      role: Role.User,
-    })
-
-    const { createElement } = await domainRequest<
-      CreateElementInput,
-      TestCreateElementMutation
-    >(userApp, TestCreateElementGql, { name: 'Element' })
 
     addQueryHookInput = {
       elementId: createElement.id,
       queryHook: {
         url: 'https://github.com',
         queryKey: 'My Query',
-        method: QueryMethod.GET,
+        method: QueryMethod.Get,
       },
     }
 
     addGraphqlQueryHookInput = {
       elementId: createElement.id,
       graphqlQueryHook: {
-        url: 'https://github.com',
-        body: "Hello World. We don't actually validate if this is a valid gql string",
+        graphqlUrl: 'https://github.com',
+        graphqlBody:
+          "Hello World. We don't actually validate if this is a valid gql string",
       },
     }
 
@@ -105,21 +87,17 @@ describe('AddHookToElementUseCase', () => {
     addGraphqlMutationHookInput = {
       elementId: createElement.id,
       graphqlMutationHook: {
-        url: 'https://github.com',
-        body: "Hello World. We don't actually validate if this is a valid gql string",
+        graphqlUrl: 'https://github.com',
+        graphqlBody:
+          "Hello World. We don't actually validate if this is a valid gql string",
       },
     }
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
   })
 
   describe('Guest', () => {
     it('should fail to add a Hook to an Element', async () => {
       await domainRequest(
-        guestApp,
+        testModule.guestApp,
         TestAddHookToElementGql,
         addQueryHookInput,
         {
@@ -133,10 +111,10 @@ describe('AddHookToElementUseCase', () => {
     it('should add a query Hook to an Element', async () => {
       const {
         addHookToElement: { id },
-      } = await addHook(userApp, addQueryHookInput)
+      } = await addHook(testModule.userApp, addQueryHookInput)
 
       await verifyHookIsAdded(
-        userApp,
+        testModule.userApp,
         id,
         HookType.Query,
         addQueryHookInput.elementId,
@@ -147,16 +125,16 @@ describe('AddHookToElementUseCase', () => {
     it('should add a graphql query Hook to an Element', async () => {
       const {
         addHookToElement: { id },
-      } = await addHook(userApp, addGraphqlQueryHookInput)
+      } = await addHook(testModule.userApp, addGraphqlQueryHookInput)
 
       await verifyHookIsAdded(
-        userApp,
+        testModule.userApp,
         id,
         HookType.GraphqlQuery,
         addGraphqlQueryHookInput.elementId,
         {
-          graphqlBody: addGraphqlQueryHookInput.graphqlQueryHook?.body,
-          graphqlUrl: addGraphqlQueryHookInput.graphqlQueryHook?.url,
+          graphqlBody: addGraphqlQueryHookInput.graphqlQueryHook?.graphqlBody,
+          graphqlUrl: addGraphqlQueryHookInput.graphqlQueryHook?.graphqlUrl,
           dataKey: addGraphqlQueryHookInput.graphqlQueryHook?.dataKey ?? null,
         },
       )
@@ -165,16 +143,18 @@ describe('AddHookToElementUseCase', () => {
     it('should add a graphql mutation Hook to an Element', async () => {
       const {
         addHookToElement: { id },
-      } = await addHook(userApp, addGraphqlMutationHookInput)
+      } = await addHook(testModule.userApp, addGraphqlMutationHookInput)
 
       await verifyHookIsAdded(
-        userApp,
+        testModule.userApp,
         id,
         HookType.GraphqlMutation,
         addGraphqlMutationHookInput.elementId,
         {
-          graphqlBody: addGraphqlMutationHookInput.graphqlMutationHook?.body,
-          graphqlUrl: addGraphqlMutationHookInput.graphqlMutationHook?.url,
+          graphqlBody:
+            addGraphqlMutationHookInput.graphqlMutationHook?.graphqlBody,
+          graphqlUrl:
+            addGraphqlMutationHookInput.graphqlMutationHook?.graphqlUrl,
           dataKey:
             addGraphqlMutationHookInput.graphqlMutationHook?.dataKey ?? null,
         },
@@ -184,10 +164,10 @@ describe('AddHookToElementUseCase', () => {
     it('should add a recoil state Hook to an Element', async () => {
       const {
         addHookToElement: { id },
-      } = await addHook(userApp, addRecoilStateHookInput)
+      } = await addHook(testModule.userApp, addRecoilStateHookInput)
 
       await verifyHookIsAdded(
-        userApp,
+        testModule.userApp,
         id,
         HookType.RecoilState,
         addRecoilStateHookInput.elementId,

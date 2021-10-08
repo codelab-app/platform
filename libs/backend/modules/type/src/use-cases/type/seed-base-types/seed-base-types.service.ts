@@ -1,6 +1,6 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { createIfMissing } from '@codelab/backend/shared/utils'
-import { User } from '@codelab/shared/abstract/core'
+import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { baseTypes } from '../../../domain/data/baseTypes'
 import {
@@ -29,7 +29,7 @@ export class SeedBaseTypesService
 
   private async seedTypesIfMissing(
     types: Array<CreateTypeInput>,
-    currentUser: User,
+    currentUser: IUser,
   ) {
     await Promise.all(
       types.map((type) =>
@@ -51,7 +51,7 @@ export class SeedBaseTypesService
     )
   }
 
-  private async getTypeByName(name: string, currentUser: User) {
+  private async getTypeByName(name: string, currentUser: IUser) {
     return await this.getTypeService
       .execute({ input: { where: { name } }, currentUser })
       .then((type) => type?.name)

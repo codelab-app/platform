@@ -1,7 +1,12 @@
 import { JSONSchemaType } from 'ajv'
 import { CreateElementMutationVariables } from './CreateElement.web.graphql.gen'
 
-export type CreateElementSchema = CreateElementMutationVariables['input']
+export type CreateElementSchema = Omit<
+  CreateElementMutationVariables['input'],
+  'childrenIds'
+> & {
+  componentId?: string | null
+}
 
 export const createElementSchema: JSONSchemaType<CreateElementSchema> = {
   title: 'Create Page Element Input',
@@ -9,6 +14,15 @@ export const createElementSchema: JSONSchemaType<CreateElementSchema> = {
   properties: {
     name: {
       type: 'string',
+      nullable: true,
+    },
+    parentElementId: {
+      type: 'string',
+      nullable: true,
+      label: 'Parent element',
+    },
+    order: {
+      type: 'integer',
       nullable: true,
     },
     atomId: {
@@ -20,15 +34,6 @@ export const createElementSchema: JSONSchemaType<CreateElementSchema> = {
       type: 'string',
       nullable: true,
       label: 'Component',
-    },
-    parentElementId: {
-      type: 'string',
-      nullable: true,
-      label: 'Parent element',
-    },
-    order: {
-      type: 'integer',
-      nullable: true,
     },
   },
   required: [],

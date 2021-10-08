@@ -1,53 +1,35 @@
 import { PageType } from '@codelab/frontend/model/state/router'
 import {
-  ComponentContext,
-  CreateComponentElementModal,
-  refetchGetComponentElementsQuery,
-} from '@codelab/frontend/modules/component'
-import {
   CreateElementButton,
   DeleteElementModal,
+  useElementGraphContext,
 } from '@codelab/frontend/modules/element'
+import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
+import { ElementTree } from '@codelab/shared/core'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
-import { useBuilderSelection } from '../containers/builderState'
+import React from 'react'
 import { MainPaneBuilder } from './MainPaneBuilder'
 
 export const MainPaneBuilderComponent = () => {
-  const { tree, component } = useContext(ComponentContext)
+  const { elementTree } = useElementGraphContext()
+  const root = elementTree?.getRootVertex(ElementTree.isComponent)
   const router = useRouter()
+  const { reset } = useCrudModalForm(EntityType.Component)
 
-  const {
-    state: { selectedElement },
-  } = useBuilderSelection()
+  if (!elementTree || !root || !root.componentTag) {
+    return null
+  }
 
   return (
     <MainPaneBuilder
-      key={component.id}
-      tree={tree}
-      title={component.name}
-      moveElementRefetchQueries={[
-        refetchGetComponentElementsQuery({
-          input: { componentId: component.id },
-        }),
-      ]}
+      key={root.id}
+      title={root.componentTag?.name}
       headerProps={{
         onBack: () => router.push({ pathname: PageType.ComponentList }),
       }}
       header={<CreateElementButton key={0} />}
     >
-      <CreateComponentElementModal
-        initialData={{ parentElementId: selectedElement?.id }}
-      />
-      <DeleteElementModal
-        formProps={{
-          refetchQueries: [
-            refetchGetComponentElementsQuery({
-              input: { componentId: component.id },
-            }),
-          ],
-        }}
-      />
+      <DeleteElementModal formProps={{ onSubmitSuccess: () => reset() }} />
     </MainPaneBuilder>
   )
 }

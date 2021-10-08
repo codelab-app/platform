@@ -1,0 +1,5 @@
+mutation TestUpsertUser($input: UpsertUserInput!) {
+  upsertUser(input: $input) {
+    ...TestUser
+  }
+}

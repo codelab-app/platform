@@ -1,6 +1,6 @@
-import { HookType } from '@codelab/shared/abstract/core'
+import { HookType, IHookConfig } from '@codelab/shared/abstract/core'
 import { ICreateHookInput, IUpdateHookInput } from './contracts'
-import { HookConfig, parseHookConfig } from './hook-config'
+import { parseHookConfig } from './hook-config'
 
 /**
  * Hook domain entity
@@ -10,7 +10,7 @@ export class Hook {
 
   private _type: HookType
 
-  private _config: HookConfig
+  private _config: IHookConfig
 
   constructor({ id, type, config }: ICreateHookInput) {
     this._id = id
@@ -28,7 +28,7 @@ export class Hook {
     return this._type
   }
 
-  get config(): HookConfig {
+  get config(): IHookConfig {
     return this._config
   }
 

@@ -1,6 +1,6 @@
-import { BaseNode } from '@codelab/shared/abstract/core'
+import { IBaseNode } from '@codelab/shared/abstract/core'
 
-export const hasChildren = <T extends BaseNode<T>>(
+export const hasChildren = <T extends IBaseNode<T>>(
   node: T,
   childrenKey = 'children',
 ) =>

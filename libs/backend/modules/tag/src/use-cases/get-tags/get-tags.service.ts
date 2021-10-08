@@ -1,33 +1,36 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphQueryBuilder,
-  DgraphTag,
-} from '@codelab/backend/infra'
+import { ITag, TagSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { getTagQuery, mapDgraphTag } from '../get-tag/get-tag.query'
 import { GetTagsRequest } from './get-tags.request'
 
 @Injectable()
-export class GetTagsService extends DgraphUseCase<
-  GetTagsRequest,
-  Array<DgraphTag>
-> {
+export class GetTagsService extends DgraphUseCase<GetTagsRequest, Array<ITag>> {
+  protected schema = TagSchema.array()
+
   protected async executeTransaction(request: GetTagsRequest, txn: Txn) {
-    return await this.dgraph.getAll<DgraphTag>(
+    const tags = await this.dgraph.getAllNamed<any>(
       txn,
       GetTagsService.createQuery(request),
+      'query',
     )
+
+    return tags.map(mapDgraphTag)
   }
 
   private static createQuery(request: GetTagsRequest) {
     const { currentUser } = request
+    const userFilter = `uid_in(owner, ${currentUser.id})`
 
-    return new DgraphQueryBuilder()
-      .setTypeFunc(DgraphEntityType.Tag)
-      .addFilterDirective(`uid_in(owner, ${currentUser.id})`)
-      .addRecurseDirective()
-      .addBaseFields()
-      .addExpandAll()
+    const idsFilter = request.input?.ids
+      ? `uid(${request.input.ids.join(',')})`
+      : undefined
+
+    const filter = `@filter(${userFilter}${
+      idsFilter ? ' AND ' + idsFilter : ''
+    })`
+
+    return getTagQuery(filter)
   }
 }

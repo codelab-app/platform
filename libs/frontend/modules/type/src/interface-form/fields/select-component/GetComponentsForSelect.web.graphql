@@ -1,4 +1,4 @@
-fragment ComponentForSelect on Component {
+fragment ComponentForSelect on Element {
   id
   name
 }

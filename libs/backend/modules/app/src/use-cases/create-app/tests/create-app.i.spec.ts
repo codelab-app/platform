@@ -1,50 +1,44 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { AppModule } from '../../../app.module'
-import { CreateAppInput } from '../create-app.input'
-import {
-  TestCreateAppGql,
-  TestCreateAppMutation,
-} from './create-app.api.graphql.gen'
+import { testUserUid } from '@codelab/backend/shared/generic'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupAppTestModule } from '../../../test/setupAppTestModule'
+import { TestCreateAppGql } from './create-app.api.graphql.gen'
 import { createAppInput } from './create-app.data'
 
 describe('CreateApp', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
-
-  beforeAll(async () => {
-    guestApp = await setupTestModule([AppModule], {
-      role: Role.Guest,
-    })
-    userApp = await setupTestModule([AppModule], { role: Role.User })
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
+  const testModule = setupAppTestModule(false)
 
   describe('Guest', () => {
     it('should fail to create an App', async () => {
-      await domainRequest(guestApp, TestCreateAppGql, createAppInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestCreateAppGql,
+        createAppInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
     it('should create an App', async () => {
-      const { createApp } = await domainRequest<
-        CreateAppInput,
-        TestCreateAppMutation
-      >(userApp, TestCreateAppGql, createAppInput)
+      const createApp = await testModule.createTestApp(createAppInput)
 
-      expect(createApp).toMatchObject({ ...createAppInput, id: createApp.id })
+      expect(createApp).toMatchObject({
+        ...createAppInput,
+        id: createApp.id,
+        ownerId: testUserUid,
+      })
+
+      const getApp = await testModule.getApp({
+        byId: { appId: createApp.id },
+      })
+
+      expect(getApp).toMatchObject({
+        ...createAppInput,
+        id: createApp.id,
+        ownerId: testUserUid,
+      })
 
       // Should assign app to user
     })

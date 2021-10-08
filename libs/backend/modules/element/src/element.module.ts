@@ -5,10 +5,8 @@ import { HookModule } from '@codelab/backend/modules/hook'
 import { TypeModule } from '@codelab/backend/modules/type'
 import { CytoscapeModule, TreeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
-import { ElementAdapter } from './application/element.adapter'
 import { ElementResolver } from './application/element.resolver'
 import { ElementValidator } from './application/element.validator'
-import { ElementTreeAdapter } from './application/element-tree.adapter'
 import { HookResolver } from './application/hook.resolver'
 import { PropMapBindingResolver } from './application/prop-map.binding.resolver'
 import { ComponentModule } from './component.module'
@@ -41,11 +39,6 @@ const services = [
   MoveElementService,
   UpdateElementPropsService,
 
-  /**
-   * Adapters
-   */
-  ElementAdapter,
-  ElementTreeAdapter,
   /**
    * Validators
    */

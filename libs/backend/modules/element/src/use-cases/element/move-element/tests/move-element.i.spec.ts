@@ -1,16 +1,6 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { ElementModule } from '../../../../element.module'
-import { CreateElementInput } from '../../create-element'
-import {
-  TestCreateElementGql,
-  TestCreateElementMutation,
-} from '../../create-element/tests/create-element.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { TestElementFragment } from '../../../../test/graphql'
+import { setupElementTestModule } from '../../../../test/setupElementTestModule'
 import { GetElementGraphInput } from '../../get-element-graph'
 import {
   TestGetElementGraphGql,
@@ -29,8 +19,7 @@ import {
 } from './move-element.data'
 
 describe('MoveElement', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupElementTestModule()
   let rootElementId: string
   let parent1ElementId: string
   let parent2ElementId: string
@@ -39,57 +28,50 @@ describe('MoveElement', () => {
   let getRootInput: GetElementGraphInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], { role: Role.Guest })
-    userApp = await setupTestModule([ElementModule], { role: Role.User })
+    // Re-used variable for results
+    let results: TestElementFragment
 
-    // Create root element
-    let results: TestCreateElementMutation
-
-    results = await domainRequest<
-      CreateElementInput,
-      TestCreateElementMutation
-    >(userApp, TestCreateElementGql, createRootElementInput)
-    rootElementId = results.createElement.id
+    results = await testModule.createTestElement(createRootElementInput)
+    rootElementId = results.id
 
     getRootInput = {
-      elementId: rootElementId,
+      where: { id: rootElementId },
     }
 
     expect(rootElementId).toBeDefined()
 
-    // Create parent1 element(root->parent1)
+    //
+    // Create parent1 element (root -> parent1)
+    //
     const createParent1ElementInput =
       createParent1ElementInputFunc(rootElementId)
 
-    results = await domainRequest<
-      CreateElementInput,
-      TestCreateElementMutation
-    >(userApp, TestCreateElementGql, createParent1ElementInput)
-    parent1ElementId = results.createElement.id
+    results = await testModule.createTestElement(createParent1ElementInput)
+    parent1ElementId = results.id
 
     expect(parent1ElementId).toBeDefined()
 
-    // Create parent2 element(root->parent2)
+    //
+    // Create parent2 element (root -> parent2)
+    //
+
     const createParent2ElementInput =
       createParent2ElementInputFunc(rootElementId)
 
-    results = await domainRequest<
-      CreateElementInput,
-      TestCreateElementMutation
-    >(userApp, TestCreateElementGql, createParent2ElementInput)
-    parent2ElementId = results.createElement.id
+    results = await testModule.createTestElement(createParent2ElementInput)
+    parent2ElementId = results.id
 
     expect(parent2ElementId).toBeDefined()
 
-    // Create child element(root->parent1->child)
+    //
+    // Create child element (root -> parent1 -> child)
+    //
     const createChildElementInput =
       createChildElementInputFunc(parent1ElementId)
 
-    results = await domainRequest<
-      CreateElementInput,
-      TestCreateElementMutation
-    >(userApp, TestCreateElementGql, createChildElementInput)
-    childElementId = results.createElement.id
+    results = await testModule.createTestElement(createParent2ElementInput)
+
+    childElementId = results.id
 
     expect(childElementId).toBeDefined()
 
@@ -103,23 +85,23 @@ describe('MoveElement', () => {
     }
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to move an element', async () => {
-      await domainRequest(guestApp, TestMoveElementGql, moveElementInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestMoveElementGql,
+        moveElementInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
     it('should move an element', async () => {
       await domainRequest<MoveElementInput, TestMoveElementMutation>(
-        userApp,
+        testModule.userApp,
         TestMoveElementGql,
         moveElementInput,
       )
@@ -127,7 +109,7 @@ describe('MoveElement', () => {
       const { getElementGraph: graph } = await domainRequest<
         GetElementGraphInput,
         TestGetElementGraphQuery
-      >(userApp, TestGetElementGraphGql, getRootInput)
+      >(testModule.userApp, TestGetElementGraphGql, getRootInput)
 
       expect(graph).toBeTruthy()
 
@@ -138,7 +120,7 @@ describe('MoveElement', () => {
       )
 
       expect(foundEdge).toBeDefined()
-      expect(foundEdge?.order).toBe(moveElementInput.moveData.order)
+      expect(foundEdge?.order).toStrictEqual(moveElementInput.moveData.order)
     })
   })
 })
