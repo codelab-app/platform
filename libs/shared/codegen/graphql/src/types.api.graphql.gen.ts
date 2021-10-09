@@ -875,7 +875,7 @@ export type Mutation = {
   updateEnumType?: Maybe<Scalars['Void']>;
   updateField?: Maybe<Scalars['Void']>;
   updateLambda?: Maybe<Scalars['Void']>;
-  updatePage?: Maybe<Scalars['Void']>;
+  updatePage?: Maybe<Page>;
   updatePrimitiveType?: Maybe<Scalars['Void']>;
   updatePropMapBinding?: Maybe<Scalars['Void']>;
   updateTag?: Maybe<Scalars['Void']>;

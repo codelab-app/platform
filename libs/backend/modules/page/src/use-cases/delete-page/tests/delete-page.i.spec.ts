@@ -19,7 +19,10 @@ import {
   TestGetPageQuery,
 } from '../../get-page/tests/get-page.api.graphql.gen'
 import { DeletePageInput } from '../delete-page.input'
-import { TestDeletePageGql } from './delete-page.api.graphql.gen'
+import {
+  TestDeletePageGql,
+  TestDeletePageMutation,
+} from './delete-page.api.graphql.gen'
 
 describe('DeletePage', () => {
   let guestApp: INestApplication
@@ -71,7 +74,12 @@ describe('DeletePage', () => {
 
   describe('User', () => {
     it('should delete a page', async () => {
-      await domainRequest(userApp, TestDeletePageGql, deletePageInput)
+      const { deletePage } = await domainRequest<
+        DeletePageInput,
+        TestDeletePageMutation
+      >(userApp, TestDeletePageGql, deletePageInput)
+
+      expect(deletePage?.id).toEqual(deletePageInput.pageId)
 
       const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
         userApp,

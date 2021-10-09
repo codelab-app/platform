@@ -1,4 +1,3 @@
-import { Void } from '@codelab/backend/abstract/types'
 import {
   ElementGraph,
   ElementTreeAdapter,
@@ -84,22 +83,42 @@ export class PageResolver {
     @Args('input') input: DeletePageInput,
     @CurrentUser() currentUser: User,
   ) {
-    const page = await this.deletePageService.execute({ input, currentUser })
+    const { pageId } = input
+
+    const page = await this.getPageService.execute({
+      input: { pageId },
+      currentUser,
+    })
 
     if (!page) {
       throw new Error('Page not found')
     }
 
+    await this.deletePageService.execute({ input, currentUser })
+
     return this.pageAdapter.mapItem(page)
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Page, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async updatePage(
     @Args('input') input: UpdatePageInput,
     @CurrentUser() currentUser: User,
   ) {
     await this.updatePageService.execute({ input, currentUser })
+
+    const { pageId } = input
+
+    const page = await this.getPageService.execute({
+      input: { pageId },
+      currentUser,
+    })
+
+    if (!page) {
+      throw new Error('Page not found')
+    }
+
+    return this.pageAdapter.mapItem(page)
   }
 
   @ResolveField('elements', () => ElementGraph, { nullable: true })

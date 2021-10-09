@@ -14,10 +14,6 @@ import {
   TestCreatePageMutation,
 } from '../../create-page/tests/create-page.api.graphql.gen'
 import { GetPageInput } from '../../get-page/get-page.input'
-import {
-  TestGetPageGql,
-  TestGetPageQuery,
-} from '../../get-page/tests/get-page.api.graphql.gen'
 import { UpdatePageInput } from '../update-page.input'
 import {
   TestUpdatePageGql,
@@ -77,19 +73,12 @@ describe('UpdatePage', () => {
 
   describe('User', () => {
     it('should update page', async () => {
-      await domainRequest<UpdatePageInput, TestUpdatePageMutation>(
-        userApp,
-        TestUpdatePageGql,
-        updatePageInput,
-      )
+      const { updatePage } = await domainRequest<
+        UpdatePageInput,
+        TestUpdatePageMutation
+      >(userApp, TestUpdatePageGql, updatePageInput)
 
-      const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
-        userApp,
-        TestGetPageGql,
-        getPageInput,
-      )
-
-      expect(page).toMatchObject({
+      expect(updatePage).toMatchObject({
         id: pageId,
         name: updatePageInput.updateData.name,
       })
