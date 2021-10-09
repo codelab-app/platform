@@ -31,6 +31,9 @@ filters-prod: &filters-prod
     tags:
       only:
         - /^(prod-)(\d|[1-9]\d*)\.(\d|[1-9]\d*)\.(\d|[1-9]\d*)$/
+    branches:
+      only:
+        - production
 
 executor-params: &executor-params
   parameters:
@@ -470,7 +473,7 @@ workflows:
           e: docker-node
           context: CI
           requires:
-            # - integration
+            - integration
             - install-and-build-workspace
       - notify-success:
           <<: *filters-dev-pr
