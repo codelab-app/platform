@@ -29,10 +29,11 @@ build-ci:
 		--projects=api,web,cli \
 		--configuration ci \
 		--parallel \
-		--verbose
+		--verbose \
+		--skip-nx-cache
 
 build-storybook:
-	npx nx build-storybook web
+	npx nx build-storybook web --skip-nx-cache
 
 #
 # LINT
@@ -70,7 +71,8 @@ integration-ci:
 		--target=test \
 		--testPathPattern=i.spec.ts \
 		--runInBand \
-		--verbose
+		--verbose \
+		--skip-nx-cache
 # --maxWorkers=8 \
 # --memoryLimit=8192
 
@@ -92,7 +94,8 @@ unit-dev-affected:
 		--silent \
 		--memoryLimit=4096 \
 		--parallel \
-		--color
+		--color \
+		--skip-nx-cache
 
 unit-ci:
 	npx nx run-many \
@@ -100,5 +103,6 @@ unit-ci:
 		--target=test \
 		--all \
 		--verbose \
-		--color
+		--color \
+		--skip-nx-cache
 
