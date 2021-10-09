@@ -42,6 +42,10 @@ app.use('*', async (baseReq, baseRes, next) => {
         // For SSR session is null, so we instead we use getSession inside getServerSideProps to set apollo client auth headers
         proxyReq.setHeader('Authorization', req.headers.authorization)
       }
+
+      if (process.env.DG_AUTH) {
+        proxyReq.setHeader('Dg-Auth', process.env.DG_AUTH)
+      }
     },
   })(baseReq, baseRes, next)
 })
