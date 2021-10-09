@@ -307,7 +307,7 @@ jobs:
     steps:
       - setup-workspace
       # Since integration doesn't require frontend, we reserve 8081 for e2e & use 8082 here instead
-      - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_INTEGRATION_ENDPOINT}"'
+      - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${DGRAPH_CI_CLOUD_ENDPOINT}"'
       # - setup-dgraph
       - run: make integration-ci
       - notify-failure
@@ -317,7 +317,7 @@ jobs:
     steps:
       - setup-workspace
       # Since e2e requires frontend, we use 8081 here
-      - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${CODELAB_DGRAPH_E2E_ENDPOINT}"'
+      - run: echo 'export CODELAB_DGRAPH_ENDPOINT="${DGRAPH_CI_CLOUD_ENDPOINT}"'
       - setup-dgraph
       - run: npx cypress install
       - run: npx cypress verify
