@@ -74,8 +74,6 @@ export class SeederService {
       this.customComponentsDataFolder,
       this.handleCsv.bind(this, currentUser),
     )
-
-    shell.exit(0)
   }
 
   private async seedAtoms(currentUser: User) {
