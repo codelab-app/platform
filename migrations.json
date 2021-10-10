@@ -1,45 +1,20 @@
 {
   "migrations": [
-    //
     {
       "cli": "nx",
-      "version": "12.9.0",
-      "description": "Fixes invalid importPaths for buildable and publishable libs.",
-      "factory": "./src/migrations/update-12-9-0/update-invalid-import-paths",
-      "package": "@nrwl/angular",
-      "name": "update-invalid-import-paths"
+      "version": "12.9.1-beta.1",
+      "description": "Replace gatsby-image with gatsby-image-plugin in package.json",
+      "factory": "./src/migrations/update-12-9-1/replace-gatsby-image-with-gatsby-plugin-image-12-9-1",
+      "package": "@nrwl/gatsby",
+      "name": "replace-gatsby-image-with-gatsby-plugin-image-12.9.1"
     },
     {
       "cli": "nx",
-      "version": "12.9.0-beta.0",
-      "description": "Add outputs for caching",
-      "factory": "./src/migrations/update-12-9-0/add-outputs",
-      "package": "@nrwl/linter",
-      "name": "add-outputs"
-    },
-    {
-      "cli": "nx",
-      "version": "12.9.0-beta.0",
-      "description": "Remove ESLint parserOptions.project config if no rules requiring type-checking are in use",
-      "factory": "./src/migrations/update-12-4-0/remove-eslint-project-config-if-no-type-checking-rules",
-      "package": "@nrwl/linter",
-      "name": "remove-eslint-project-config-if-no-type-checking-rules-again"
-    },
-    {
-      "version": "0.0.1",
-      "cli": "nx",
-      "description": "Custom tsconfig.*.json parser to set correct configs",
-      "factory": "./src/migrations/tsconfig/tsconfig",
-      "package": "@codelab/schematics",
-      "name": "tsconfig"
-    },
-    {
-      "version": "0.0.1",
-      "cli": "nx",
-      "description": "Add .eslintrc.ci.json",
-      "factory": "./src/migrations/eslint/eslint",
-      "package": "@codelab/schematics",
-      "name": "eslint"
+      "version": "12.10.0-beta.1",
+      "description": "Updates .eslintrc.json file to use the correct pages directory for '@next/next/no-html-link-for-pages'.",
+      "factory": "./src/migrations/update-12-10-0/fix-page-dir-for-eslint",
+      "package": "@nrwl/next",
+      "name": "fix-page-dir-for-eslint"
     }
   ]
 }

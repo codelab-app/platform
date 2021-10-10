@@ -3,7 +3,7 @@ const pageName = 'Home Page'
 
 const buttonComponent = {
   name: 'Button',
-  atom: 'Button',
+  atom: 'Ant Design Button',
   parentElement: 'Root element',
 }
 

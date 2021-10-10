@@ -7,8 +7,8 @@ import { SeedBaseTypesService } from '@codelab/backend/modules/type'
 import { AtomType, Role, User } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable } from '@nestjs/common'
-import { GraphQLClient } from 'graphql-request'
 import { Command, Console } from 'nestjs-console'
+import shell from 'shelljs'
 import { envOption } from '../env-helper'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
 import { AtomSeeder, TypeSeeder } from './models'
@@ -52,15 +52,17 @@ export class SeederService {
     /**
      * (1) Seed base types like String, Boolean, Integer so other types can use them
      */
+    // await this.seedBaseTypesService.execute({ currentUser })
 
-    await this.seedBaseTypesService.execute({ currentUser })
     /**
      * (2) Seed all Atoms
      */
     this.atoms = await this.seedAtoms(currentUser)
+
     /**
      * (3) Wrap all Atoms with a Component
      */
+
     /**
      * (3) Seed all Atoms API's that we have data for
      */
@@ -72,17 +74,8 @@ export class SeederService {
       this.customComponentsDataFolder,
       this.handleCsv.bind(this, currentUser),
     )
-  }
 
-  private getClient(accessToken: string) {
-    return new GraphQLClient(
-      new URL('graphql', this._serverConfig.endpoint).toString(),
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    )
+    shell.exit(0)
   }
 
   private async seedAtoms(currentUser: User) {

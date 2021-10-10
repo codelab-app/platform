@@ -1,3 +1,4 @@
+import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import {
   CreateAtomRequest,
   CreateAtomService,
@@ -5,7 +6,7 @@ import {
   GetAtomService,
 } from '@codelab/backend/modules/atom'
 import { createIfMissing } from '@codelab/backend/shared/utils'
-import { Injectable, Logger } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 
 /**
  * Handle seeding of atoms
@@ -15,6 +16,7 @@ export class AtomSeeder {
   constructor(
     private createAtomService: CreateAtomService,
     private getAtomService: GetAtomService,
+    @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
 
   /**
@@ -22,12 +24,23 @@ export class AtomSeeder {
    * Returns the id in both cases
    */
   async seedAtomIfMissing(request: CreateAtomRequest): Promise<string> {
+    this.logger.log(request, 'Seeding atom...')
+
     return await createIfMissing(
-      () =>
-        this.getAtom({ where: { type: request.input.type } }).then(
-          (_atom) => _atom?.uid,
-        ),
-      () => this.createAtom(request),
+      () => {
+        const found = this.getAtom({
+          where: { type: request.input.type },
+        }).then((_atom) => _atom?.uid)
+
+        this.logger.log('Found')
+
+        return found
+      },
+      () => {
+        this.logger.log('Not found! Creating new atom...')
+
+        return this.createAtom(request)
+      },
     )
   }
 
