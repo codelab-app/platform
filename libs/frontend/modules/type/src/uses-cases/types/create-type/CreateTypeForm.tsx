@@ -57,14 +57,6 @@ export const CreateTypeForm = (
       <DisplayIfKind kind={TypeKind.PrimitiveType}>
         <AutoField name={'primitiveKind'} />
       </DisplayIfKind>
-      {/* @TODON if kind if union
-
-- test render
-kep nothinth
-*/}
-      {/* <DisplayIfKind kind={TypeKind.UnionType}>
-
-      // </DisplayIfKind> */}
       <DisplayIfKind kind={TypeKind.UnionType}>
         <AutoField
           createTypeOptions={createNonUnionTypeOptionsForTypeSelect}

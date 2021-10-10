@@ -27,13 +27,6 @@ export const createTypeSchema: JSONSchemaType<CreateTypeSchema> = {
       type: 'string',
       nullable: true,
     },
-    /**
-     * @TODON
-     *
-     * baseTypeMutationSchemaProperties.items.propeties.kind
-     * attached bellow
-     */
-
     ...(baseTypeMutationSchemaProperties as any),
   },
   required: ['name', 'kind'],
@@ -49,8 +42,6 @@ export const mapCreateTypeSchemaToTypeInput = (
 
   switch (formData.kind) {
     case TypeKind.UnionType:
-      console.log({ formData })
-
       if (
         formData.typeIdsOfUnionType &&
         formData.typeIdsOfUnionType.length > 0

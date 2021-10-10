@@ -57,7 +57,6 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
   }: UpdateEnumTypeInput) {
     // Fetch all EnumTypeValues that are not in the new array
     const updatedIds = allowedValues.map((av) => av.id).filter((id) => !!id)
-    console.log({ allowedValues, updatedIds })
 
     await this.dgraph.transactionWrapper((txn) =>
       this.dgraph.executeUpsert(

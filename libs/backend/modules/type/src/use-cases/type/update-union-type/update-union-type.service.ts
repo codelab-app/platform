@@ -8,7 +8,6 @@ import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { UpdateUnionTypeInput } from './update-union-type.input'
 
-// chagen naem, and chnage inpuits
 @Injectable()
 export class UpdateUnionTypeService extends DgraphUseCase<UpdateUnionTypeInput> {
   constructor(dgraph: DgraphRepository) {
@@ -51,9 +50,6 @@ export class UpdateUnionTypeService extends DgraphUseCase<UpdateUnionTypeInput> 
 
   private createMutation({
     typeId,
-    /**
-     * typeIdsOfUnionType
-     */
     updateData: { name, typeIdsOfUnionType },
   }: UpdateUnionTypeInput) {
     console.log({ typeIdsOfUnionType, name, typeId })
@@ -61,7 +57,6 @@ export class UpdateUnionTypeService extends DgraphUseCase<UpdateUnionTypeInput> 
     return jsonMutation<DgraphUnionType>({
       uid: typeId,
       name,
-      // typeIdsOfUnionType
       typesOfUnionType: typeIdsOfUnionType.map((id) => ({ uid: id })),
     })
   }

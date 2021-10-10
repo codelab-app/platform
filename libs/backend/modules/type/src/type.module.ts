@@ -68,7 +68,6 @@ const typeServices = [
   UpdatePrimitiveTypeService,
   UpdateUnionTypeService,
   UpdateTypeService,
-  // TODON: inject here
   ImportApiService,
   SeedBaseTypesService,
   /**

@@ -19,16 +19,7 @@ export const baseTypeMutationSchemaProperties = {
     items: {
       type: 'string',
       isUnionTypeInput: true,
-      // properties: {
-      //   label: {
-      //     type: 'string',
-      //     nullable: true,
-      //   },
-      //   value: { type: 'string' },
-      // },
-      // required: ['value'],
     },
-    abc: 'test',
     uniforms: { component: TypeSelect, isUnionTypeInput: true },
   },
   name: {
@@ -44,25 +35,6 @@ export const baseTypeMutationSchemaProperties = {
     nullable: true,
     enum: Object.values(ElementTypeKind),
   },
-  // TODON
-  /**
-   * array
-   * nullable
-   * items:
-   * id:
-   * disallow update kind...
-   * copy properties
-   * typesOfUnionType
-   *           type: 'string',
-          nullable: true,
-          uniforms: {
-            component: () => null,
-          },
-          only editable in create ..
-          component
-   * bellow
-   */
-
   allowedValues: {
     type: 'array',
     nullable: true,

@@ -1,11 +1,3 @@
-// TODON
-// UpdateUnionTypeInput
-//   @Field()
-//   declare name: string
-
-//   @Field(() => [String])
-//   declare typeIdsOfUnionType: Array<string>
-
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()

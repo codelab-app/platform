@@ -18,7 +18,6 @@ import {
   useUpdatePrimitiveTypeMutation,
   useUpdateTypeMutation,
   useUpdateUnionTypeMutation,
-  // from here
 } from './UpdateType.web.graphql.gen'
 import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
 
@@ -28,7 +27,6 @@ export const UpdateTypeForm = (
   const { setLoading, state, reset } = useCrudModalForm(EntityType.Type)
   const mutationOptions = { refetchQueries: [refetchGetTypesQuery()] }
 
-  // TODON: mutate union types
   const [mutateUnion, unionMutationData] =
     useUpdateUnionTypeMutation(mutationOptions)
 
@@ -62,12 +60,6 @@ export const UpdateTypeForm = (
 
       switch (kind) {
         case TypeKind.UnionType:
-          // TODON
-          /**
-
-
-      throw new Error('Union item types not set')
-         */
           if (
             submitData.typeIdsOfUnionType &&
             submitData.typeIdsOfUnionType.length > 0

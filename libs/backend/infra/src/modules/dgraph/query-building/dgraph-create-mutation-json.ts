@@ -78,8 +78,6 @@ export type DgraphUpdateMutationJson<TEntity extends DgraphEntity> = Partial<
 export const jsonMutation = <TEntity extends DgraphEntity>(
   json: DgraphCreateMutationJson<TEntity> | DgraphUpdateMutationJson<TEntity>,
 ): Mutation => {
-  console.dir({ json }, { depth: null })
-
   return {
     setJson: json,
   }

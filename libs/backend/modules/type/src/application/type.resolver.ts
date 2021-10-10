@@ -173,12 +173,6 @@ export class TypeResolver {
     await this.updatePrimitiveTypeService.execute(input)
   }
 
-  /**
-   * usegruade
-   * UpdateUnionTypeInput
-   * UpdateUnionTypeService.ex
-   */
-
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })
   async updateUnionType(@Args('input') input: UpdateUnionTypeInput) {
