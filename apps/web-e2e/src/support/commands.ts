@@ -127,10 +127,12 @@ const graphqlRequest = (body: string | Record<string, any>, config?: any) =>
 Cypress.Commands.add('graphqlRequest', graphqlRequest)
 
 const resetDgraphData = () => {
-  return cy.request({
-    method: 'POST',
-    url: `${Cypress.env('codelabApiEndpoint')}/dgraph/reset-data`,
-  })
+  return cy.exec(`yarn cli dgraph reset-data --env ${Cypress.env('env')}`)
+
+  // return cy.request({
+  //   method: 'POST',
+  //   url: `${Cypress.env('codelabApiEndpoint')}/dgraph/reset-data`,
+  // })
 }
 
 Cypress.Commands.add('resetDgraphData', resetDgraphData)
@@ -140,14 +142,6 @@ const getByTestId = (testId: string, selectorAddon?: string) => {
 }
 
 Cypress.Commands.add('getByTestId', getByTestId)
-
-type CreateAppInput = CreateAppMutationVariables['input']
-
-const defaultCreateAppInput: CreateAppInput = {
-  name: 'Test app',
-}
-
-type DeleteAppInput = DeleteAppMutationVariables['input']
 
 export const findByButtonText = (
   subject: any,

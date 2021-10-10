@@ -1,4 +1,8 @@
-import { AntdDesignApi } from '@codelab/backend/infra'
+import {
+  AntdDesignApi,
+  LoggerService,
+  LoggerTokens,
+} from '@codelab/backend/infra'
 import {
   CreateFieldRequest,
   CreateFieldService,
@@ -13,7 +17,7 @@ import {
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { TypeKind, User } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
-import { Injectable, Logger } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
 import {
   CustomAtomApiFactory,
@@ -38,6 +42,7 @@ export class TypeSeeder {
     private createFieldService: CreateFieldService,
     private getFieldService: GetFieldService,
     private atomSeeder: AtomSeeder,
+    @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
 
   public async seedBaseTypes(currentUser: User) {
@@ -87,6 +92,8 @@ export class TypeSeeder {
     data: Array<AntdDesignApi>,
     currentUser: User,
   ) {
+    this.logger.log('Seeding atom api...')
+
     const atom = await this.atomSeeder.getAtom({ where: { id: atomId } })
 
     if (!atom) {
@@ -96,6 +103,8 @@ export class TypeSeeder {
     const atomApiId = atom.api.uid
 
     for (const apiField of data) {
+      this.logger.log(apiField, 'Seeding api field...')
+
       const type = await this.getTypeForApi(apiField, atom.name)
 
       if (type) {
