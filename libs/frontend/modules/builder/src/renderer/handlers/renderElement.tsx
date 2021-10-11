@@ -10,6 +10,7 @@ import {
 import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
+import * as _ from 'lodash'
 import { merge } from 'lodash'
 import { compose } from 'ramda'
 import React, { ReactElement, ReactNode } from 'react'
@@ -47,6 +48,31 @@ const basePropsPipe: RenderPipeFactory =
         key: element.id,
       }),
     )
+  }
+
+const propsWithTypePipe: RenderPipeFactory =
+  (next) => (element, context, props) => {
+    const { typeKindsById } = context
+
+    const handledTypeKinds = [
+      TypeKind.PrimitiveType,
+      TypeKind.ArrayType,
+      TypeKind.InterfaceType,
+      TypeKind.EnumType,
+      TypeKind.LambdaType,
+      TypeKind.ElementType,
+      TypeKind.ComponentType,
+    ]
+
+    const propsWithType = _.pickBy(props, (value) => {
+      const propTypeKind = typeKindsById[value?.type]
+
+      return handledTypeKinds.includes(propTypeKind)
+    })
+
+    const transformedProps = _.mapValues(propsWithType, (value) => value.value)
+
+    return next(element, context, mergeProps(props, transformedProps))
   }
 
 /**
@@ -408,6 +434,7 @@ const propsPipeline = compose(
   basePropsPipe,
   persistedPropsPipe,
   extraElementPropsPipe,
+  propsWithTypePipe,
 )
 
 // (2).Prop transformers

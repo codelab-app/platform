@@ -7,7 +7,9 @@ import {
   IJsonSchemaOptions,
   TypeKind,
 } from '@codelab/shared/abstract/core'
-import React from 'react'
+import * as _ from 'lodash'
+import React, { useEffect, useRef, useState } from 'react'
+import { Bridge, DeepPartial } from 'uniforms'
 import { TypeTreeGraphql } from '../shared'
 import {
   getSelectElementComponent,
@@ -20,7 +22,9 @@ export interface InterfaceFormProps<TData>
   interfaceTree: TypeTreeGraphql
 }
 
-const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (type) => {
+export const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (
+  type,
+) => {
   switch (type.typeKind) {
     case TypeKind.ReactNodeType:
     case TypeKind.RenderPropsType:
@@ -65,22 +69,51 @@ export const InterfaceForm = <TData extends any>({
   children,
   model,
   onSubmit,
-  ...props
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
-  // console.log(
-  //   interfaceTree.toJsonSchema({
-  //     jsonPropertiesMapper: uniformsFactory,
-  //   }) as any,
-  // )
+  const formChangedKey = useRef('')
+  const [formSchema, setFormSchema] = useState<Bridge>()
+
+  const updateFormSchema = (formModel: DeepPartial<TData> = {}) => {
+    setFormSchema(
+      interfaceTree.toJsonSchema(
+        {
+          jsonPropertiesMapper: uniformsFactory,
+        },
+        formModel,
+      ) as any,
+    )
+  }
+
+  useEffect(() => {
+    updateFormSchema(model)
+  }, [])
+
+  if (!formSchema) {
+    return null
+  }
 
   return (
     <FormUniforms
-      schema={
-        interfaceTree.toJsonSchema({
-          jsonPropertiesMapper: uniformsFactory,
-        }) as any
-      }
+      schema={formSchema}
       model={model}
+      onChangeModel={(newModel: any) => {
+        // E.g: loading.type -> loading.properties.type
+        const formatChangedKey = formChangedKey.current
+          ?.split('.')
+          .join('.properties.')
+
+        const isUnionTypeInput = _.get(
+          formSchema,
+          `properties.${formatChangedKey}.isUnionTypeInput`,
+        )
+
+        if (isUnionTypeInput) {
+          updateFormSchema(newModel)
+        }
+      }}
+      onChange={(key) => {
+        formChangedKey.current = key
+      }}
       onSubmit={onSubmit}
     >
       {children}

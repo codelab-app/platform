@@ -37,6 +37,10 @@ import {
   UpdateTypeInput,
   UpdateTypeService,
 } from '../use-cases/type/update-type'
+import {
+  UpdateUnionTypeInput,
+  UpdateUnionTypeService,
+} from '../use-cases/type/update-union-type/'
 import { TypeAdapterFactory, TypeGraphAdapter } from './adapters'
 
 @Resolver(() => Type)
@@ -46,6 +50,7 @@ export class TypeResolver {
     private getTypeService: GetTypeService,
     private getTypesService: GetTypesService,
     private updateEnumTypeService: UpdateEnumTypeService,
+    private updateUnionTypeService: UpdateUnionTypeService,
     private updatePrimitiveTypeService: UpdatePrimitiveTypeService,
     private updateTypeService: UpdateTypeService,
     private createTypeService: CreateTypeService,
@@ -166,6 +171,12 @@ export class TypeResolver {
   @Mutation(() => Void, { nullable: true })
   async updatePrimitiveType(@Args('input') input: UpdatePrimitiveTypeInput) {
     await this.updatePrimitiveTypeService.execute(input)
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Void, { nullable: true })
+  async updateUnionType(@Args('input') input: UpdateUnionTypeInput) {
+    await this.updateUnionTypeService.execute(input)
   }
 
   @UseGuards(GqlAuthGuard)

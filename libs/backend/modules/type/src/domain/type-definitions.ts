@@ -10,6 +10,7 @@ import {
   PrimitiveType,
   ReactNodeType,
   Type,
+  UnionType,
 } from './index'
 import { RenderPropsType } from './types/render-props-type.model'
 
@@ -30,6 +31,11 @@ export const typeDefinitions: Array<TypeDefinition> = [
     typeModelClass: RenderPropsType,
     typeKind: TypeKind.RenderPropsType,
     dgraphType: DgraphEntityType.RenderPropsType,
+  },
+  {
+    typeModelClass: UnionType,
+    typeKind: TypeKind.UnionType,
+    dgraphType: DgraphEntityType.UnionType,
   },
   {
     typeModelClass: ArrayType,

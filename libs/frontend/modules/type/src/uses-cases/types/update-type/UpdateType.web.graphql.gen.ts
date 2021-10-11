@@ -24,6 +24,13 @@ export type UpdatePrimitiveTypeMutationVariables = Types.Exact<{
 
 export type UpdatePrimitiveTypeMutation = { updatePrimitiveType?: Types.Maybe<void> };
 
+export type UpdateUnionTypeMutationVariables = Types.Exact<{
+  input: Types.UpdateUnionTypeInput;
+}>;
+
+
+export type UpdateUnionTypeMutation = { updateUnionType?: Types.Maybe<void> };
+
 
 export const UpdateEnumTypeGql = gql`
     mutation UpdateEnumType($input: UpdateEnumTypeInput!) {
@@ -118,3 +125,34 @@ export function useUpdatePrimitiveTypeMutation(baseOptions?: Apollo.MutationHook
 export type UpdatePrimitiveTypeMutationHookResult = ReturnType<typeof useUpdatePrimitiveTypeMutation>;
 export type UpdatePrimitiveTypeMutationResult = Apollo.MutationResult<UpdatePrimitiveTypeMutation>;
 export type UpdatePrimitiveTypeMutationOptions = Apollo.BaseMutationOptions<UpdatePrimitiveTypeMutation, UpdatePrimitiveTypeMutationVariables>;
+export const UpdateUnionTypeGql = gql`
+    mutation UpdateUnionType($input: UpdateUnionTypeInput!) {
+  updateUnionType(input: $input)
+}
+    `;
+export type UpdateUnionTypeMutationFn = Apollo.MutationFunction<UpdateUnionTypeMutation, UpdateUnionTypeMutationVariables>;
+
+/**
+ * __useUpdateUnionTypeMutation__
+ *
+ * To run a mutation, you first call `useUpdateUnionTypeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUnionTypeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUnionTypeMutation, { data, loading, error }] = useUpdateUnionTypeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateUnionTypeMutation(baseOptions?: Apollo.MutationHookOptions<UpdateUnionTypeMutation, UpdateUnionTypeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateUnionTypeMutation, UpdateUnionTypeMutationVariables>(UpdateUnionTypeGql, options);
+      }
+export type UpdateUnionTypeMutationHookResult = ReturnType<typeof useUpdateUnionTypeMutation>;
+export type UpdateUnionTypeMutationResult = Apollo.MutationResult<UpdateUnionTypeMutation>;
+export type UpdateUnionTypeMutationOptions = Apollo.BaseMutationOptions<UpdateUnionTypeMutation, UpdateUnionTypeMutationVariables>;

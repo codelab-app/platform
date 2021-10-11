@@ -25,6 +25,9 @@ filters-staging: &filters-staging
     tags:
       only:
         - /^(stag-)(\d|[1-9]\d*)\.(\d|[1-9]\d*)\.(\d|[1-9]\d*)$/
+    branches:
+      only:
+        - staging
 
 filters-prod: &filters-prod
   filters:

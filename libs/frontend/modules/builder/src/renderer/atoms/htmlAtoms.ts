@@ -1,6 +1,6 @@
 import { AtomType } from '@codelab/shared/abstract/core'
 import React from 'react'
-import { AtomsRecord } from './AtomFactory'
+import { AtomsRecord } from './atomFactoryType'
 
 export const htmlAtoms: AtomsRecord = {
   [AtomType.ReactFragment]: React.Fragment,

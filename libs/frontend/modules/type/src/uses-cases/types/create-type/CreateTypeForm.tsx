@@ -10,6 +10,7 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
+import { createNonUnionTypeOptionsForTypeSelect } from '../../../shared/createNonUnionTypeOptionsForTypeSelect'
 import { refetchGetTypesQuery } from '../get-types/GetTypes.web.graphql.gen'
 import { useCreateTypeMutation } from './CreateType.web.graphql.gen'
 import {
@@ -53,19 +54,22 @@ export const CreateTypeForm = (
       {...props}
     >
       <AutoFields fields={['name', 'kind']} />
-
       <DisplayIfKind kind={TypeKind.PrimitiveType}>
         <AutoField name={'primitiveKind'} />
       </DisplayIfKind>
-
+      <DisplayIfKind kind={TypeKind.UnionType}>
+        <AutoField
+          createTypeOptions={createNonUnionTypeOptionsForTypeSelect}
+          name={'typeIdsOfUnionType'}
+        />
+      </DisplayIfKind>
+      {/* <ListField name="unionTypes" />; */}
       <DisplayIfKind kind={TypeKind.EnumType}>
         <AutoField name={'allowedValues'} />
       </DisplayIfKind>
-
       <DisplayIfKind kind={TypeKind.ArrayType}>
         <TypeSelect name={'arrayItemTypeId'} label="Array item type" />
       </DisplayIfKind>
-
       <DisplayIfKind kind={TypeKind.ElementType}>
         <AutoField name={'elementKind'} label="Element kind" />
       </DisplayIfKind>

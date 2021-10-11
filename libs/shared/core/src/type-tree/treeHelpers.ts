@@ -28,7 +28,23 @@ export const edgeIsOfFieldKind = (e: SingularElementArgument) => {
 export const getFieldFromEdge = (e: SingularElementArgument) =>
   e.data().field as IField
 
+export const getTypesOfUnionTypeFromNode = (
+  TypesOfUnionType: CollectionReturnValue,
+) =>
+  TypesOfUnionType.outgoers(unionItemEdgeSelector)
+    .nodes()
+    .map((node) => {
+      const type = getTypeFromNode(node)
+
+      if (!type) {
+        throw new Error(`Cant find type of node ${node.id} in the type tree`)
+      }
+
+      return type
+    })
+
 export const getItemTypeFromNode = (arrayTypeNode: CollectionReturnValue) =>
   getTypeFromNode(arrayTypeNode.outgoers(arrayItemEdgeSelector).nodes().first())
 
 export const arrayItemEdgeSelector = `[kind=${TypeEdgeKind.ArrayItem}]`
+export const unionItemEdgeSelector = `[kind=${TypeEdgeKind.Union}]`

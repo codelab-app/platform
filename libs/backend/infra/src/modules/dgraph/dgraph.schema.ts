@@ -31,6 +31,7 @@ const {
   Tag,
   RenderPropsType,
   ReactNodeType,
+  UnionType,
 } = DgraphEntityType
 
 export const dgraphSchema = `
@@ -168,6 +169,10 @@ export const dgraphSchema = `
     targetKey
   }
 
+  type ${UnionType} {
+    typesOfUnionType
+  }
+
   name: string @index(term, trigram) .
   description: string .
 
@@ -190,6 +195,7 @@ export const dgraphSchema = `
   atomType: string @index(term) .
   api: uid @reverse .
 
+  typesOfUnionType: [uid] .
   primitiveKind: string .
   itemType: uid .
 

@@ -1,4 +1,8 @@
-import { AntdDesignApi } from '@codelab/backend/infra'
+import {
+  AntdDesignApi,
+  LoggerService,
+  LoggerTokens,
+} from '@codelab/backend/infra'
 import {
   CreateFieldRequest,
   CreateFieldService,
@@ -13,7 +17,7 @@ import {
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { TypeKind, User } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
-import { Injectable, Logger } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
 import {
   CustomAtomApiFactory,
@@ -38,6 +42,7 @@ export class TypeSeeder {
     private createFieldService: CreateFieldService,
     private getFieldService: GetFieldService,
     private atomSeeder: AtomSeeder,
+    @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
 
   public async seedBaseTypes(currentUser: User) {
@@ -87,6 +92,8 @@ export class TypeSeeder {
     data: Array<AntdDesignApi>,
     currentUser: User,
   ) {
+    this.logger.log('Seeding atom api...')
+
     const atom = await this.atomSeeder.getAtom({ where: { id: atomId } })
 
     if (!atom) {
@@ -96,11 +103,42 @@ export class TypeSeeder {
     const atomApiId = atom.api.uid
 
     for (const apiField of data) {
-      const type = this.getTypeForApi(apiField, atom.name)
+      this.logger.log(apiField, 'Seeding api field...')
 
-      if (!type) {
-        // console.log(`${apiField.type} is not valid`)
+      const type = await this.getTypeForApi(apiField, atom.name)
+
+      if (type) {
+        await this.createFieldIfMissing({
+          input: {
+            key: apiField.property,
+            name: pascalCaseToWords(apiField.property),
+            interfaceId: atomApiId,
+            description: apiField.description,
+            type,
+          },
+          currentUser,
+        })
+
         continue
+      }
+
+      const unionTypeData = await this.getUnionTypeData(apiField, atom.name)
+
+      if (!unionTypeData) {
+        continue
+      }
+
+      if (unionTypeData.enumValues.length > 0) {
+        const enumTypeId = await this.seedTypeIfNotExisting({
+          currentUser,
+          input: this.createEnumTypeInputForAtomType(
+            atom.name,
+            apiField.property,
+            unionTypeData.enumValues,
+          ),
+        })
+
+        unionTypeData.newType.unionType.typeIdsOfUnionType.push(enumTypeId)
       }
 
       await this.createFieldIfMissing({
@@ -109,10 +147,79 @@ export class TypeSeeder {
           name: pascalCaseToWords(apiField.property),
           interfaceId: atomApiId,
           description: apiField.description,
-          type,
+          type: { newType: unionTypeData.newType },
         },
         currentUser,
       })
+    }
+  }
+
+  private createEnumTypeInputForAtomType = (
+    atomName: string,
+    property: string,
+    allowValues: Array<string>,
+  ) => ({
+    typeKind: TypeKind.EnumType,
+    name: `${atomName} ${pascalCaseToWords(property)} Enum`,
+    enumType: {
+      allowedValues: allowValues.map((value) => ({
+        value,
+        name: pascalCaseToWords(value),
+      })),
+    },
+  })
+
+  private async getUnionTypeData(apiField: AntdDesignApi, atomName: string) {
+    const type = apiField.type.trim()
+    const isUnionType = type.includes('|')
+
+    if (!isUnionType) {
+      return undefined
+    }
+
+    const processedData = type
+      .split('|')
+      .map((mappedType) => mappedType.trim())
+      // Either a type id , or a map
+      .reduce<{ ids: Array<string>; enumValues: Array<string> }>(
+        (reducedData, mappedType) => {
+          const typeRef = this.getTypeForApi(
+            { ...apiField, type: mappedType },
+            atomName,
+          )
+
+          if (typeRef?.existingTypeId) {
+            reducedData.ids.push(typeRef.existingTypeId)
+
+            return reducedData
+          }
+
+          // enum values should be something likes: abc, or 'abc' not {key: 'value'}, or [1,2,3]....
+          if (/^[a-zA-Z1-9]+$/.test(mappedType) || /^'.+'$/.test(mappedType)) {
+            reducedData.enumValues.push(mappedType)
+          }
+
+          return reducedData
+        },
+        { ids: [], enumValues: [] },
+      )
+
+    if (
+      processedData.ids.length === 0 &&
+      processedData.enumValues.length === 0
+    ) {
+      return undefined
+    }
+
+    return {
+      enumValues: processedData.enumValues,
+      newType: {
+        typeKind: TypeKind.UnionType,
+        name: `${atomName} ${pascalCaseToWords(apiField.property)} Union Type`,
+        unionType: {
+          typeIdsOfUnionType: processedData.ids,
+        },
+      },
     }
   }
 
@@ -225,16 +332,11 @@ export class TypeSeeder {
       const enumValues = apiField.type.split('|').map((v) => v.trim())
 
       return {
-        newType: {
-          typeKind: TypeKind.EnumType,
-          name: `${atomName} ${pascalCaseToWords(apiField.property)} Enum`,
-          enumType: {
-            allowedValues: enumValues.map((value) => ({
-              value,
-              name: pascalCaseToWords(value),
-            })),
-          },
-        },
+        newType: this.createEnumTypeInputForAtomType(
+          atomName,
+          apiField.property,
+          enumValues,
+        ),
       }
     }
 

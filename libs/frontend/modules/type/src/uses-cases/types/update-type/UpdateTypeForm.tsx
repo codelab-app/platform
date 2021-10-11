@@ -9,6 +9,7 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import React, { useCallback, useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeFragment } from '../../../graphql/Type.fragment.graphql.gen'
+import { createNonUnionTypeOptionsForTypeSelect } from '../../../shared/createNonUnionTypeOptionsForTypeSelect'
 import { typenameToTypeKind } from '../../../type-tree'
 import { refetchGetTypesQuery } from '../get-types/GetTypes.web.graphql.gen'
 import { TypeModels } from '../TypeModels'
@@ -16,6 +17,7 @@ import {
   useUpdateEnumTypeMutation,
   useUpdatePrimitiveTypeMutation,
   useUpdateTypeMutation,
+  useUpdateUnionTypeMutation,
 } from './UpdateType.web.graphql.gen'
 import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
 
@@ -24,6 +26,9 @@ export const UpdateTypeForm = (
 ) => {
   const { setLoading, state, reset } = useCrudModalForm(EntityType.Type)
   const mutationOptions = { refetchQueries: [refetchGetTypesQuery()] }
+
+  const [mutateUnion, unionMutationData] =
+    useUpdateUnionTypeMutation(mutationOptions)
 
   const [mutatePrimitive, primitiveMutationData] =
     useUpdatePrimitiveTypeMutation(mutationOptions)
@@ -37,7 +42,8 @@ export const UpdateTypeForm = (
     const loading =
       primitiveMutationData.loading ||
       enumMutationData.loading ||
-      typeMutationData.loading
+      typeMutationData.loading ||
+      unionMutationData.loading
 
     setLoading(loading)
   }, [
@@ -45,6 +51,7 @@ export const UpdateTypeForm = (
     enumMutationData.loading,
     typeMutationData.loading,
     setLoading,
+    unionMutationData.loading,
   ])
 
   const handleSubmit = useCallback(
@@ -52,6 +59,26 @@ export const UpdateTypeForm = (
       const kind = typenameToTypeKind(state?.metadata?.__typename)
 
       switch (kind) {
+        case TypeKind.UnionType:
+          if (
+            submitData.typeIdsOfUnionType &&
+            submitData.typeIdsOfUnionType.length > 0
+          ) {
+            return mutateUnion({
+              variables: {
+                input: {
+                  typeId: state.updateId,
+                  updateData: {
+                    name: submitData.name,
+                    typeIdsOfUnionType: submitData.typeIdsOfUnionType,
+                  },
+                },
+              },
+            })
+          }
+
+          throw new Error('Union item types not set')
+
         case TypeKind.PrimitiveType:
           if (!submitData.primitiveKind) {
             throw new Error('Primitive type not set')
@@ -100,7 +127,7 @@ export const UpdateTypeForm = (
           })
       }
     },
-    [mutateEnum, mutatePrimitive, mutateType, state],
+    [mutateEnum, mutatePrimitive, mutateUnion, mutateType, state],
   )
 
   const kind = state?.metadata?.__typename
@@ -118,6 +145,10 @@ export const UpdateTypeForm = (
     allowedValues:
       type?.__typename === TypeModels.EnumType
         ? type?.allowedValues
+        : undefined,
+    typeIdsOfUnionType:
+      type?.__typename === TypeModels.UnionType
+        ? type?.typeIdsOfUnionType
         : undefined,
   })
 
@@ -138,6 +169,12 @@ export const UpdateTypeForm = (
     >
       <AutoFields fields={['name']} />
 
+      {kind === TypeKind.UnionType && (
+        <AutoField
+          createTypeOptions={createNonUnionTypeOptionsForTypeSelect}
+          name={'typeIdsOfUnionType'}
+        />
+      )}
       {kind === TypeKind.PrimitiveType && <AutoField name={'primitiveKind'} />}
       {kind === TypeKind.EnumType && <AutoField name={'allowedValues'} />}
     </FormUniforms>

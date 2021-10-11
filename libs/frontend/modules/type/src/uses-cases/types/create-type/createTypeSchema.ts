@@ -10,7 +10,9 @@ type CreateTypeInput = CreateTypeMutationVariables['input']
 
 export interface CreateTypeSchema extends BaseTypeMutationSchema {
   kind: TypeKind
+  typeIdsOfUnionType?: Array<string>
   arrayItemTypeId?: string
+  typesOfUnionType?: string
 }
 
 export const createTypeSchema: JSONSchemaType<CreateTypeSchema> = {
@@ -39,6 +41,21 @@ export const mapCreateTypeSchemaToTypeInput = (
   }
 
   switch (formData.kind) {
+    case TypeKind.UnionType:
+      if (
+        formData.typeIdsOfUnionType &&
+        formData.typeIdsOfUnionType.length > 0
+      ) {
+        return {
+          ...baseCreateTypeInput,
+          unionType: {
+            typeIdsOfUnionType: formData.typeIdsOfUnionType,
+          },
+        }
+      }
+
+      throw new Error('Union item types not set')
+
     case TypeKind.ArrayType:
       if (!formData.arrayItemTypeId) {
         throw new Error('Array item type not set')

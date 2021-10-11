@@ -16,6 +16,7 @@ import {
 import { ArrayTypeAdapter } from './application/adapters/array-type.adapter'
 import { ReactNodeAdapter } from './application/adapters/react-node-type.adapter'
 import { RenderPropsAdapter } from './application/adapters/render-props-type.adapter'
+import { UnionTypeAdapter } from './application/adapters/union-type-adapter'
 import { FieldResolver } from './application/field.resolver'
 import { TypeResolver } from './application/type.resolver'
 import { TypeGraphResolver } from './application/type-graph.resolver'
@@ -34,6 +35,7 @@ import { SeedBaseTypesService } from './use-cases/type/seed-base-types'
 import { UpdateEnumTypeService } from './use-cases/type/update-enum-type'
 import { UpdatePrimitiveTypeService } from './use-cases/type/update-primitive-type'
 import { UpdateTypeService } from './use-cases/type/update-type'
+import { UpdateUnionTypeService } from './use-cases/type/update-union-type'
 
 const fieldServices = [
   /**
@@ -64,6 +66,7 @@ const typeServices = [
   GetTypesService,
   UpdateEnumTypeService,
   UpdatePrimitiveTypeService,
+  UpdateUnionTypeService,
   UpdateTypeService,
   ImportApiService,
   SeedBaseTypesService,
@@ -79,6 +82,7 @@ const typeServices = [
   PrimitiveTypeAdapter,
   EnumTypeAdapter,
   EnumTypeValueAdapter,
+  UnionTypeAdapter,
   LambdaTypeAdapter,
   ElementTypeAdapter,
   TypeGraphAdapter,

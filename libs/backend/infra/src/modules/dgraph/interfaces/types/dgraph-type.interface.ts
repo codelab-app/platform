@@ -7,6 +7,7 @@ import { DgraphLambdaType } from './dgraph-lambda-type'
 import { DgraphPrimitiveType } from './dgraph-primitive-type'
 import { DgraphReactNodeType } from './dgraph-react-node-type'
 import { DgraphRenderPropsType } from './dgraph-render-props-type'
+import { DgraphUnionType } from './dgraph-union-type'
 
 export type DgraphTypeUnion =
   | DgraphInterfaceType
@@ -18,3 +19,4 @@ export type DgraphTypeUnion =
   | DgraphComponentType
   | DgraphRenderPropsType
   | DgraphReactNodeType
+  | DgraphUnionType

@@ -540,6 +540,11 @@ export type CreateTypeInput = {
   name: Scalars['String'];
   primitiveType?: Maybe<CreatePrimitiveTypeInput>;
   typeKind: TypeKind;
+  unionType?: Maybe<CreateUnionType>;
+};
+
+export type CreateUnionType = {
+  typeIdsOfUnionType: Array<Scalars['String']>;
 };
 
 export type DeleteAppInput = {
@@ -880,6 +885,7 @@ export type Mutation = {
   updatePropMapBinding?: Maybe<Scalars['Void']>;
   updateTag?: Maybe<Scalars['Void']>;
   updateType?: Maybe<Scalars['Void']>;
+  updateUnionType?: Maybe<Scalars['Void']>;
   upsertTag: Scalars['Void'];
   upsertUser: CreateResponse;
 };
@@ -1082,6 +1088,11 @@ export type MutationUpdateTagArgs = {
 
 export type MutationUpdateTypeArgs = {
   input: UpdateTypeInput;
+};
+
+
+export type MutationUpdateUnionTypeArgs = {
+  input: UpdateUnionTypeInput;
 };
 
 
@@ -1416,7 +1427,8 @@ export type TypeEdge = {
 
 export enum TypeEdgeKind {
   ArrayItem = 'ArrayItem',
-  Field = 'Field'
+  Field = 'Field',
+  Union = 'Union'
 }
 
 export type TypeGraph = {
@@ -1434,7 +1446,8 @@ export enum TypeKind {
   LambdaType = 'LambdaType',
   PrimitiveType = 'PrimitiveType',
   ReactNodeType = 'ReactNodeType',
-  RenderPropsType = 'RenderPropsType'
+  RenderPropsType = 'RenderPropsType',
+  UnionType = 'UnionType'
 }
 
 export type TypeRef = {
@@ -1442,7 +1455,7 @@ export type TypeRef = {
   newType?: Maybe<CreateTypeInput>;
 };
 
-export type TypeVertex = ArrayType | ComponentType | ElementType | EnumType | InterfaceType | LambdaType | PrimitiveType | ReactNodeType | RenderPropsType;
+export type TypeVertex = ArrayType | ComponentType | ElementType | EnumType | InterfaceType | LambdaType | PrimitiveType | ReactNodeType | RenderPropsType | UnionType;
 
 export type TypesByIdsFilter = {
   typeIds: Array<Scalars['String']>;
@@ -1454,6 +1467,15 @@ export type TypesByKindFilter = {
 
 export type TypesByNameFilter = {
   name: Scalars['String'];
+};
+
+export type UnionType = Type & {
+  __typename?: 'UnionType';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  typeGraph: TypeGraph;
+  typeIdsOfUnionType: Array<Scalars['String']>;
+  typeKind: TypeKind;
 };
 
 export type UpdateAppData = {
@@ -1587,6 +1609,16 @@ export type UpdateTypeData = {
 export type UpdateTypeInput = {
   typeId: Scalars['String'];
   updateData: UpdateTypeData;
+};
+
+export type UpdateUnionTypeData = {
+  name: Scalars['String'];
+  typeIdsOfUnionType: Array<Scalars['String']>;
+};
+
+export type UpdateUnionTypeInput = {
+  typeId: Scalars['String'];
+  updateData: UpdateUnionTypeData;
 };
 
 export type UpsertTagInput = {

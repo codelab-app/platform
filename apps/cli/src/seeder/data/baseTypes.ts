@@ -17,6 +17,7 @@ export enum BaseTypeName {
   Integer = 'Integer',
   RenderProps = 'RenderProps',
   ReactNode = 'ReactNode',
+  Union = 'Union',
 }
 
 export const baseTypes: Array<CreateTypeInput> = [
@@ -27,6 +28,10 @@ export const baseTypes: Array<CreateTypeInput> = [
   {
     name: BaseTypeName.RenderProps,
     typeKind: TypeKind.RenderPropsType,
+  },
+  {
+    name: BaseTypeName.Union,
+    typeKind: TypeKind.UnionType,
   },
   {
     name: BaseTypeName.String,

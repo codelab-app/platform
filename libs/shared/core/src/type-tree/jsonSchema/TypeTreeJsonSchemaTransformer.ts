@@ -7,6 +7,7 @@ import {
   PrimitiveKind,
   TypeKind,
 } from '@codelab/shared/abstract/core'
+import * as _ from 'lodash'
 import { TypeTree } from '../TypeTree'
 
 /**
@@ -18,14 +19,19 @@ export class TypeTreeJsonSchemaTransformer {
 
   private readonly options: IJsonSchemaOptions
 
+  private readonly formModel: Record<string, any>
+
   constructor(
     private typeTree: TypeTree<any, any>,
     options: IJsonSchemaOptions = {},
+    formModel?: any,
   ) {
     this.options = {
       maxNesting: 100,
       ...options,
     }
+
+    this.formModel = formModel
   }
 
   /**
@@ -56,6 +62,38 @@ export class TypeTreeJsonSchemaTransformer {
         return 'boolean'
       default:
         throw new Error('Primitive kind not recognized ' + primitiveKind)
+    }
+  }
+
+  private createValueFieldSchemaForUnionType(
+    fieldType: ITypeVertex,
+    field: IField,
+  ) {
+    if (!fieldType) {
+      return {}
+    }
+
+    const fieldTypeSchema = this.typeToJsonProperty(fieldType, field)
+    const label = `"${field.name || field.key}" Value`
+
+    if (
+      [TypeKind.ReactNodeType, TypeKind.RenderPropsType].includes(
+        fieldType.typeKind,
+      )
+    ) {
+      return {
+        id: {
+          ...fieldTypeSchema.properties.id,
+          label,
+        },
+      }
+    }
+
+    return {
+      value: {
+        ...fieldTypeSchema,
+        label,
+      },
     }
   }
 
@@ -99,6 +137,41 @@ export class TypeTreeJsonSchemaTransformer {
           uniforms: { component: null },
           label: '',
         }
+
+      case TypeKind.UnionType: {
+        const typesOfUnionType = this.typeTree.getUnionItemTypes(
+          type.id,
+        ) as Array<ITypeVertex>
+
+        const fieldLabel = field.name || field.key
+        const fieldTypeId = _.get(this.formModel, `${field.key}.type`)
+
+        const fieldType = fieldTypeId
+          ? this.typeTree.getTypeById(fieldTypeId)
+          : null
+
+        const valueFieldSchema = this.createValueFieldSchemaForUnionType(
+          fieldType,
+          field,
+        )
+
+        return {
+          type: 'object',
+          label: '',
+          properties: {
+            type: {
+              isUnionTypeInput: true,
+              type: 'string',
+              options: typesOfUnionType.map((unionType) => ({
+                label: unionType.name,
+                value: unionType.id,
+              })),
+              label: `"${fieldLabel}" Type`,
+            },
+            ...valueFieldSchema,
+          },
+        }
+      }
 
       case TypeKind.PrimitiveType:
         return {
@@ -177,7 +250,6 @@ export class TypeTreeJsonSchemaTransformer {
     for (const field of fields) {
       const type = this.typeTree.getFieldType(field.id)
       const fieldSchema = this.typeToJsonProperty(type, field) as any
-      console.log({ fieldSchema })
 
       properties[field.key] = {
         ...fieldSchema,
