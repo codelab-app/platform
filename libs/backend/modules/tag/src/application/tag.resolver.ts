@@ -69,10 +69,18 @@ export class TagResolver {
     return this.tagAdapter.map(tags)
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Tag, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  updateTag(@Args('input') input: UpdateTagInput) {
-    return this.updateTagService.execute({ input })
+  async updateTag(@Args('input') input: UpdateTagInput) {
+    await this.updateTagService.execute({ input })
+
+    const tag = await this.getTagService.execute({ where: { id: input.id } })
+
+    if (!tag) {
+      throw new Error('Tag not found')
+    }
+
+    return this.tagAdapter.mapItem(tag)
   }
 
   @Mutation(() => Void, { nullable: true })

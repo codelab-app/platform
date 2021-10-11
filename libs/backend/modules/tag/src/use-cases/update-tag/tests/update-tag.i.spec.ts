@@ -9,11 +9,6 @@ import {
   TestCreateTagMutation,
 } from '../../create-tag/tests/create-tag.api.graphql.gen'
 import { createTagInput } from '../../create-tag/tests/create-tag.data'
-import { GetTagInput } from '../../get-tag'
-import {
-  TestGetTagGql,
-  TestGetTagQuery,
-} from '../../get-tag/tests/get-tag.api.graphql.gen'
 import { UpdateTagInput } from '../update-tag.input'
 import {
   TestUpdateTagGql,
@@ -60,19 +55,12 @@ describe('UpdateTagUseCase', () => {
 
   describe('User', () => {
     it('should update a Tag', async () => {
-      await domainRequest<UpdateTagInput, TestUpdateTagMutation>(
-        userApp,
-        TestUpdateTagGql,
-        updateTagInput,
-      )
+      const { updateTag } = await domainRequest<
+        UpdateTagInput,
+        TestUpdateTagMutation
+      >(userApp, TestUpdateTagGql, updateTagInput)
 
-      const { getTag } = await domainRequest<GetTagInput, TestGetTagQuery>(
-        userApp,
-        TestGetTagGql,
-        { where: { id: createdTagId } },
-      )
-
-      expect(getTag).toMatchObject({
+      expect(updateTag).toMatchObject({
         id: createdTagId,
         ...updateTagInput.data,
       })

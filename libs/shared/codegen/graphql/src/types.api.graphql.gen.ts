@@ -878,7 +878,7 @@ export type Mutation = {
   updatePage?: Maybe<Page>;
   updatePrimitiveType?: Maybe<Scalars['Void']>;
   updatePropMapBinding?: Maybe<Scalars['Void']>;
-  updateTag?: Maybe<Scalars['Void']>;
+  updateTag?: Maybe<Tag>;
   updateType?: Maybe<Scalars['Void']>;
   upsertTag: Scalars['Void'];
   upsertUser: CreateResponse;

@@ -1,6 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { TagFragment, TagEdgeFragment } from '../../../../../../../frontend/modules/tag/src/use-cases/Tag.fragment.graphql.gen';
 import { gql } from '@apollo/client';
+import { TagFragmentDoc, TagEdgeFragmentDoc } from '../../../../../../../frontend/modules/tag/src/use-cases/Tag.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestUpdateTagMutationVariables = Types.Exact<{
@@ -8,14 +10,16 @@ export type TestUpdateTagMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestUpdateTagMutation = { updateTag?: Types.Maybe<void> };
+export type TestUpdateTagMutation = { updateTag?: Types.Maybe<TagFragment> };
 
 
 export const TestUpdateTagGql = gql`
     mutation TestUpdateTag($input: UpdateTagInput!) {
-  updateTag(input: $input)
+  updateTag(input: $input) {
+    ...Tag
+  }
 }
-    `;
+    ${TagFragmentDoc}`;
 export type TestUpdateTagMutationFn = Apollo.MutationFunction<TestUpdateTagMutation, TestUpdateTagMutationVariables>;
 
 /**

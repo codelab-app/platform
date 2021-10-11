@@ -940,7 +940,7 @@ type Mutation {
   updateLambda(input: UpdateLambdaInput!): Void
   executeLambda(input: ExecuteLambdaInput!): LambdaPayload
   createTag(input: CreateTagInput!): CreateResponse!
-  updateTag(input: UpdateTagInput!): Void
+  updateTag(input: UpdateTagInput!): Tag
   deleteTags(input: DeleteTagsInput!): Void
   upsertTag(input: UpsertTagInput!): Void!
   importTags(input: ImportTagsInput!): Void
