@@ -854,7 +854,7 @@ export type Mutation = {
   /** Deletes an element and all the descending elements */
   deleteElement?: Maybe<Scalars['Void']>;
   deleteField?: Maybe<Scalars['Void']>;
-  deleteLambda?: Maybe<Scalars['Void']>;
+  deleteLambda?: Maybe<Lambda>;
   deletePage?: Maybe<Page>;
   deletePropMapBinding?: Maybe<Scalars['Void']>;
   deleteTags?: Maybe<Scalars['Void']>;
@@ -874,7 +874,7 @@ export type Mutation = {
   updateElementProps?: Maybe<Scalars['Void']>;
   updateEnumType?: Maybe<Scalars['Void']>;
   updateField?: Maybe<Scalars['Void']>;
-  updateLambda?: Maybe<Scalars['Void']>;
+  updateLambda?: Maybe<Lambda>;
   updatePage?: Maybe<Page>;
   updatePrimitiveType?: Maybe<Scalars['Void']>;
   updatePropMapBinding?: Maybe<Scalars['Void']>;

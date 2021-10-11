@@ -936,8 +936,8 @@ type Mutation {
   updateField(input: UpdateFieldInput!): Void
   deleteField(input: DeleteFieldInput!): Void
   createLambda(input: CreateLambdaInput!): CreateResponse!
-  deleteLambda(input: DeleteLambdaInput!): Void
-  updateLambda(input: UpdateLambdaInput!): Void
+  deleteLambda(input: DeleteLambdaInput!): Lambda
+  updateLambda(input: UpdateLambdaInput!): Lambda
   executeLambda(input: ExecuteLambdaInput!): LambdaPayload
   createTag(input: CreateTagInput!): CreateResponse!
   updateTag(input: UpdateTagInput!): Void

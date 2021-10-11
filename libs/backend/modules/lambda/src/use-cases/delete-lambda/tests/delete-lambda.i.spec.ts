@@ -70,11 +70,12 @@ describe('DeleteLambda', () => {
         lambdaId: deleteLambdaInput.lambdaId,
       }
 
-      await domainRequest<DeleteLambdaInput, TestDeleteLambdaMutation>(
-        userApp,
-        TestDeleteLambdaGql,
-        deleteLambdaInput,
-      )
+      const { deleteLambda } = await domainRequest<
+        DeleteLambdaInput,
+        TestDeleteLambdaMutation
+      >(userApp, TestDeleteLambdaGql, deleteLambdaInput)
+
+      expect(deleteLambda?.id).toEqual(deleteLambda?.id)
 
       const { getLambda } = await domainRequest<
         GetLambdaInput,

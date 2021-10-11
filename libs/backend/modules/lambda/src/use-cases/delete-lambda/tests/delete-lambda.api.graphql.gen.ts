@@ -1,6 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { LambdaFragment } from '../../../../../../../frontend/modules/lambda/src/graphql/Lambda.fragment.graphql.gen';
 import { gql } from '@apollo/client';
+import { LambdaFragmentDoc } from '../../../../../../../frontend/modules/lambda/src/graphql/Lambda.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestDeleteLambdaMutationVariables = Types.Exact<{
@@ -8,14 +10,16 @@ export type TestDeleteLambdaMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestDeleteLambdaMutation = { deleteLambda?: Types.Maybe<void> };
+export type TestDeleteLambdaMutation = { deleteLambda?: Types.Maybe<LambdaFragment> };
 
 
 export const TestDeleteLambdaGql = gql`
     mutation TestDeleteLambda($input: DeleteLambdaInput!) {
-  deleteLambda(input: $input)
+  deleteLambda(input: $input) {
+    ...Lambda
+  }
 }
-    `;
+    ${LambdaFragmentDoc}`;
 export type TestDeleteLambdaMutationFn = Apollo.MutationFunction<TestDeleteLambdaMutation, TestDeleteLambdaMutationVariables>;
 
 /**

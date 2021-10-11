@@ -1,6 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { LambdaFragment } from '../../../../../../../frontend/modules/lambda/src/graphql/Lambda.fragment.graphql.gen';
 import { gql } from '@apollo/client';
+import { LambdaFragmentDoc } from '../../../../../../../frontend/modules/lambda/src/graphql/Lambda.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestUpdateLambdaMutationVariables = Types.Exact<{
@@ -8,14 +10,16 @@ export type TestUpdateLambdaMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestUpdateLambdaMutation = { updateLambda?: Types.Maybe<void> };
+export type TestUpdateLambdaMutation = { updateLambda?: Types.Maybe<LambdaFragment> };
 
 
 export const TestUpdateLambdaGql = gql`
     mutation TestUpdateLambda($input: UpdateLambdaInput!) {
-  updateLambda(input: $input)
+  updateLambda(input: $input) {
+    ...Lambda
+  }
 }
-    `;
+    ${LambdaFragmentDoc}`;
 export type TestUpdateLambdaMutationFn = Apollo.MutationFunction<TestUpdateLambdaMutation, TestUpdateLambdaMutationVariables>;
 
 /**

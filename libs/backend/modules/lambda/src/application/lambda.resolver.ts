@@ -1,4 +1,3 @@
-import { Void } from '@codelab/backend/abstract/types'
 import { CreateResponse } from '@codelab/backend/application'
 import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
 import type { User } from '@codelab/shared/abstract/core'
@@ -55,20 +54,39 @@ export class LambdaResolver {
     return { id }
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Lambda, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async deleteLambda(@Args('input') input: DeleteLambdaInput) {
+    const dgraphLambda = await this.getLambdaService.execute(input)
+
+    if (!dgraphLambda) {
+      throw new Error('Lambda not found')
+    }
+
     await this.deleteLambdaService.execute(input)
 
-    return await this.lambdaService.deleteLambda({ id: input.lambdaId })
+    await this.lambdaService.deleteLambda({ id: input.lambdaId })
+
+    return this.lambdaAdapter.mapItem(dgraphLambda)
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Lambda, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async updateLambda(@Args('input') input: UpdateLambdaInput) {
     await this.updateLambdaService.execute(input)
-
     await this.lambdaService.updateLambda(input)
+
+    const { id } = input
+
+    const dgraphLambda = await this.getLambdaService.execute({
+      lambdaId: id,
+    })
+
+    if (!dgraphLambda) {
+      throw new Error('Lambda not found')
+    }
+
+    return this.lambdaAdapter.mapItem(dgraphLambda)
   }
 
   @Query(() => Lambda, { nullable: true })

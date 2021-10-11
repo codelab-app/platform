@@ -73,18 +73,12 @@ describe('UpdateLambda', () => {
 
   describe('User', () => {
     it('should update a lambda', async () => {
-      await domainRequest<UpdateLambdaInput, TestUpdateLambdaMutation>(
-        userApp,
-        TestUpdateLambdaGql,
-        updateLambdaInput,
-      )
+      const { updateLambda } = await domainRequest<
+        UpdateLambdaInput,
+        TestUpdateLambdaMutation
+      >(userApp, TestUpdateLambdaGql, updateLambdaInput)
 
-      const { getLambda } = await domainRequest<
-        GetLambdaInput,
-        TestGetLambdaQuery
-      >(userApp, TestGetLambdaGql, { lambdaId: updateLambdaInput.id })
-
-      expect(getLambda?.name).toBe(updateLambdaInput.name)
+      expect(updateLambda?.name).toBe(updateLambdaInput.name)
     })
   })
 })
