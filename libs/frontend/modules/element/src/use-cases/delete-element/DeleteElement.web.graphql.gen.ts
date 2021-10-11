@@ -1,6 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { ElementFragment } from '../../graphql/Element.fragment.graphql.gen';
 import { gql } from '@apollo/client';
+import { ElementFragmentDoc } from '../../graphql/Element.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type DeleteElementMutationVariables = Types.Exact<{
@@ -8,14 +10,16 @@ export type DeleteElementMutationVariables = Types.Exact<{
 }>;
 
 
-export type DeleteElementMutation = { deleteElement?: Types.Maybe<void> };
+export type DeleteElementMutation = { deleteElement?: Types.Maybe<ElementFragment> };
 
 
 export const DeleteElementGql = gql`
     mutation DeleteElement($input: DeleteElementInput!) {
-  deleteElement(input: $input)
+  deleteElement(input: $input) {
+    ...Element
+  }
 }
-    `;
+    ${ElementFragmentDoc}`;
 export type DeleteElementMutationFn = Apollo.MutationFunction<DeleteElementMutation, DeleteElementMutationVariables>;
 
 /**

@@ -58,11 +58,13 @@ describe('DeleteElement', () => {
 
   describe('User', () => {
     it('should delete an element', async () => {
-      await domainRequest<DeleteElementInput, TestDeleteElementMutation>(
-        userApp,
-        TestDeleteElementGql,
-        deleteElementInput,
-      )
+      const { deleteElement } = await domainRequest<
+        DeleteElementInput,
+        TestDeleteElementMutation
+      >(userApp, TestDeleteElementGql, deleteElementInput)
+
+      // Should return the deleted element
+      expect(deleteElement?.id).toEqual(deleteElementInput.elementId)
 
       // Should fail to get the deleted element
       const { getElement } = await domainRequest<

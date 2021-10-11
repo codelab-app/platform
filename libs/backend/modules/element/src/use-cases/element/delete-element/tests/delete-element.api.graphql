@@ -1,3 +1,5 @@
 mutation TestDeleteElement($input: DeleteElementInput!) {
-  deleteElement(input: $input)
+  deleteElement(input: $input) {
+    ...Element
+  }
 }

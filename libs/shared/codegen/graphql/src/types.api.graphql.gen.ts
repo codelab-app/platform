@@ -852,7 +852,7 @@ export type Mutation = {
   deleteAtom?: Maybe<Atom>;
   deleteComponent?: Maybe<Scalars['Void']>;
   /** Deletes an element and all the descending elements */
-  deleteElement?: Maybe<Scalars['Void']>;
+  deleteElement?: Maybe<Element>;
   deleteField?: Maybe<Scalars['Void']>;
   deleteLambda?: Maybe<Scalars['Void']>;
   deletePage?: Maybe<Page>;
@@ -870,7 +870,7 @@ export type Mutation = {
   updateApp?: Maybe<App>;
   updateAtom?: Maybe<Atom>;
   updateComponent?: Maybe<Scalars['Void']>;
-  updateElement?: Maybe<Scalars['Void']>;
+  updateElement?: Maybe<Element>;
   updateElementProps?: Maybe<Scalars['Void']>;
   updateEnumType?: Maybe<Scalars['Void']>;
   updateField?: Maybe<Scalars['Void']>;

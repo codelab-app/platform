@@ -913,12 +913,12 @@ type Mutation {
   addHookToElement(input: AddHookToElementInput!): CreateResponse!
   removeHookFromElement(input: RemoveHookFromElementInput!): Void
   createElement(input: CreateElementInput!): CreateResponse!
-  updateElement(input: UpdateElementInput!): Void
+  updateElement(input: UpdateElementInput!): Element
   moveElement(input: MoveElementInput!): Void
   updateElementProps(input: UpdateElementPropsInput!): Void
 
   """Deletes an element and all the descending elements"""
-  deleteElement(input: DeleteElementInput!): Void
+  deleteElement(input: DeleteElementInput!): Element
   createComponent(input: CreateComponentInput!): CreateResponse!
   updateComponent(input: UpdateComponentInput!): Void
   deleteComponent(input: DeleteComponentInput!): Void

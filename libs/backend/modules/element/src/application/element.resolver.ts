@@ -121,13 +121,26 @@ export class ElementResolver {
     return this.atomAdapter.mapItem(atom)
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Element, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async updateElement(
     @Args('input') input: UpdateElementInput,
     @CurrentUser() currentUser: User,
   ) {
     await this.updateElementService.execute({ input, currentUser })
+
+    const { id } = input
+
+    const dgraphElement = await this.getElementGraphService.execute({
+      input: { elementId: id },
+      currentUser,
+    })
+
+    if (!dgraphElement) {
+      throw new Error('Element not found')
+    }
+
+    return this.elementAdapter.mapItem(dgraphElement)
   }
 
   @Mutation(() => Void, { nullable: true })
@@ -148,7 +161,7 @@ export class ElementResolver {
     await this.updateElementPropsService.execute({ input, currentUser })
   }
 
-  @Mutation(() => Void, {
+  @Mutation(() => Element, {
     nullable: true,
     description: 'Deletes an element and all the descending elements',
   })
@@ -157,6 +170,19 @@ export class ElementResolver {
     @Args('input') input: DeleteElementInput,
     @CurrentUser() currentUser: User,
   ) {
+    const { elementId } = input
+
+    const dgraphElement = await this.getElementGraphService.execute({
+      input: { elementId },
+      currentUser,
+    })
+
+    if (!dgraphElement) {
+      throw new Error('Element not found')
+    }
+
     await this.deleteElementService.execute({ input, currentUser })
+
+    return this.elementAdapter.mapItem(dgraphElement)
   }
 }

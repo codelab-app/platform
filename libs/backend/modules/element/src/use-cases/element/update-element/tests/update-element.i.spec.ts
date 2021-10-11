@@ -9,11 +9,6 @@ import {
   TestCreateElementMutation,
 } from '../../create-element/tests/create-element.api.graphql.gen'
 import { createElementInput } from '../../create-element/tests/create-element.data'
-import { GetElementInput } from '../../get-element'
-import {
-  TestGetElementGql,
-  TestGetElementQuery,
-} from '../../get-element/tests/get-element.api.graphql.gen'
 import { UpdateElementInput } from '../update-element.input'
 import {
   TestUpdateElementGql,
@@ -62,18 +57,12 @@ describe('UpdateElement', () => {
 
   describe('User', () => {
     it('should update an element', async () => {
-      await domainRequest<UpdateElementInput, TestUpdateElementMutation>(
-        userApp,
-        TestUpdateElementGql,
-        updateElementInput,
-      )
+      const { updateElement } = await domainRequest<
+        UpdateElementInput,
+        TestUpdateElementMutation
+      >(userApp, TestUpdateElementGql, updateElementInput)
 
-      const { getElement: element } = await domainRequest<
-        GetElementInput,
-        TestGetElementQuery
-      >(userApp, TestGetElementGql, { elementId })
-
-      expect(element).toMatchObject({
+      expect(updateElement).toMatchObject({
         ...updateElementInput.data,
         id: updateElementInput.id,
       })
