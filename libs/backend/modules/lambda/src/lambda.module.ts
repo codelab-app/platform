@@ -1,4 +1,3 @@
-import { Void } from '@codelab/backend/abstract/types'
 import { awsConfig } from '@codelab/backend/infra'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
@@ -28,7 +27,7 @@ const services = [
 
 @Module({
   imports: [ConfigModule.forFeature(awsConfig)],
-  providers: [Void, LambdaResolver, LambdaService, ...services],
+  providers: [LambdaResolver, LambdaService, ...services],
   exports: [...services],
 })
 export class LambdaModule {}
