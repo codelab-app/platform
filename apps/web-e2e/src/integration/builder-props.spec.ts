@@ -20,22 +20,8 @@ const formTextInputs = [
   { text: 'Href', input: 'http://google.com' },
   { text: 'Html Type', input: 'Html Type' },
   { text: 'Target', input: '_blank' },
-  { text: 'Type', input: 'Type', excludeText: 'Html Type' },
+  { text: 'Type', input: 'Type' },
 ]
-
-const cyFormTextInput = (text: string, excludeText?: string) => {
-  let notContains = ''
-
-  if (excludeText) {
-    notContains = `:not(:contains("${excludeText}"))`
-  }
-
-  return cy
-    .get(
-      `.ant-tabs-content-holder .ant-row.ant-form-item:has(span${notContains}:contains("${text}"))`,
-    )
-    .find('input')
-}
 
 const selectApp = () => {
   cy.visit(`/apps/${appId}/pages`)
@@ -114,7 +100,7 @@ describe('Builder Props', () => {
         cyFormToggleButton(btn).click()
       })
       formTextInputs.forEach((item) => {
-        cyFormTextInput(item.text, item.excludeText).type(item.input)
+        cy.findByLabelText(item.text).type(item.input)
       })
       cy.findByButtonText(/Submit/).click()
       // eslint-disable-next-line cypress/no-unnecessary-waiting
@@ -130,10 +116,7 @@ describe('Builder Props', () => {
         cyFormToggleButton(btn).should('have.class', 'ant-switch-checked')
       })
       formTextInputs.forEach((item) => {
-        cyFormTextInput(item.text, item.excludeText).should(
-          'have.value',
-          item.input,
-        )
+        cy.findByLabelText(item.text).should('have.value', item.input)
       })
     })
   })
