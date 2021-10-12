@@ -14,7 +14,7 @@ import {
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
 import * as shell from 'shelljs'
-import { env } from '../../../../../jest/setupFiles'
+import { env } from '../../../../../jest/env'
 import { InfrastructureModule } from '../infrastructure.module'
 
 type NestModule =

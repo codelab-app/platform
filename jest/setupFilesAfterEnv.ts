@@ -1,4 +1,4 @@
-import { env } from './setupFiles'
+import { env } from './env'
 import * as shell from 'shelljs'
 
 global.beforeAll(async () => {
