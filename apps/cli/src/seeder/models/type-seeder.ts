@@ -223,7 +223,7 @@ export class TypeSeeder {
     }
   }
 
-  private async createFieldIfMissing(
+  public async createFieldIfMissing(
     request: CreateFieldRequest,
   ): Promise<string> {
     try {
@@ -324,7 +324,7 @@ export class TypeSeeder {
     return createResponse.id
   }
 
-  private getTypeForApi(
+  public getTypeForApi(
     apiField: AntdDesignApi,
     atomName: string,
   ): TypeRef | undefined {

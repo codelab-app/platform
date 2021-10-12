@@ -8,11 +8,9 @@ import { AtomType, Role, User } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable } from '@nestjs/common'
 import { Command, Console } from 'nestjs-console'
-import shell from 'shelljs'
 import { envOption } from '../env-helper'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
-import { AtomSeeder, TypeSeeder } from './models'
-import { iterateCsvs } from './utils/iterateCsvs'
+import { AtomSeeder, HookSeeder, TypeSeeder } from './models'
 
 interface AtomSeed {
   id: string
@@ -36,6 +34,7 @@ export class SeederService {
     private readonly seedBaseTypesService: SeedBaseTypesService,
     private readonly atomSeeder: AtomSeeder,
     private readonly typeSeeder: TypeSeeder,
+    private readonly hookSeeder: HookSeeder,
   ) {}
 
   @Command({
@@ -66,14 +65,17 @@ export class SeederService {
     /**
      * (3) Seed all Atoms API's that we have data for
      */
-    await iterateCsvs(
-      this.antdDataFolder,
-      this.handleCsv.bind(this, currentUser),
-    )
-    await iterateCsvs(
-      this.customComponentsDataFolder,
-      this.handleCsv.bind(this, currentUser),
-    )
+
+    // await iterateCsvs(
+    //   this.antdDataFolder,
+    //   this.handleCsv.bind(this, currentUser),
+    // )
+    // await iterateCsvs(
+    //   this.customComponentsDataFolder,
+    //   this.handleCsv.bind(this, currentUser),
+    // )
+
+    await this.hookSeeder.seedHooks(currentUser)
   }
 
   private async seedAtoms(currentUser: User) {
