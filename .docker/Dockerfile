@@ -27,6 +27,9 @@ RUN apk add curl
 
 WORKDIR /usr/local/codelab
 
+# Ignore specs from image
+RUN rm **/tests
+
 COPY package.json package.json
 COPY dist dist
 COPY scripts scripts
