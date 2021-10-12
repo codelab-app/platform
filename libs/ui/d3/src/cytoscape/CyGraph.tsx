@@ -92,8 +92,8 @@ export const CyGraph = (props: ICyGraphProps) => {
         .callServerWithEndpoint(endpoint as string, { source, target })
         .then((res) => {
           cy.remove(cy.elements())
-          cy.add(res.data.nodes)
-          cy.add(res.data.edges)
+          cy.add(res.data['nodes'])
+          cy.add(res.data['edges'])
           cy.layout({
             name: 'dagre',
           }).run()
