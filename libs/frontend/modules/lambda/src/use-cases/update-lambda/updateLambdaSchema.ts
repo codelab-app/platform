@@ -9,6 +9,7 @@ export const updateLambdaSchema: JSONSchemaType<UpdateLambdaMutationInput> = {
     id: {
       type: 'string',
       disabled: true,
+      autoFocus: true,
     },
     name: {
       type: 'string',

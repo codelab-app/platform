@@ -10,6 +10,7 @@ export const UpdateLibrarySchema: JSONSchemaType<UpdateLibraryInput> = {
   properties: {
     name: {
       type: 'string',
+      autoFocus: true,
     },
   },
   required: ['name'],

@@ -10,6 +10,7 @@ export const updatePropMapBindingSchema: JSONSchemaType<UpdatePropMapBindingSche
     type: 'object',
     properties: {
       sourceKey: {
+        autoFocus: true,
         type: 'string',
       },
       targetElementId: {

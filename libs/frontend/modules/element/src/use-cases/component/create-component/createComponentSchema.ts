@@ -10,6 +10,7 @@ export const createComponentSchema: JSONSchemaType<CreateComponentSchemaType> =
     type: 'object',
     properties: {
       name: {
+        autoFocus: true,
         type: 'string',
       },
     },

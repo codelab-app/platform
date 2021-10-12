@@ -15,6 +15,7 @@ export const createPropMapBindingSchema: JSONSchemaType<CreatePropMapBindingSche
         component: HiddenField,
       },
       sourceKey: {
+        autoFocus: true,
         type: 'string',
       },
       targetElementId: {

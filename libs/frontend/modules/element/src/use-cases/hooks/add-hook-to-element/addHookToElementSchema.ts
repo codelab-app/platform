@@ -34,6 +34,7 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
   type: 'object',
   properties: {
     type: {
+      autoFocus: true,
       type: 'string',
       enum: Object.values(HookType),
     },

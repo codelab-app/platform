@@ -7,6 +7,7 @@ export const updateAppSchema: JSONSchemaType<UpdateAppMutationInput> = {
   properties: {
     name: {
       type: 'string',
+      autoFocus: true,
     },
   },
   required: ['name'],

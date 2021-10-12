@@ -8,6 +8,7 @@ export const createLambdaSchema: JSONSchemaType<CreateLambdaMutationInput> = {
   properties: {
     name: {
       type: 'string',
+      autoFocus: true,
     },
     body: {
       type: 'string',
