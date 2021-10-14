@@ -1,5 +1,6 @@
 import { DgraphService, GqlAuthGuard } from '@codelab/backend/infra'
 import { testAuth0Id, testUserUid } from '@codelab/backend/shared/generic'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { NestjsModule } from '@codelab/backend/shared/nestjs'
 import { Role, User } from '@codelab/shared/abstract/core'
 import {
