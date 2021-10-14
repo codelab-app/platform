@@ -19,8 +19,10 @@ if [[ -z $br ]]; then
   from="$(git log -10 --pretty=format:"%H" | tail -n 1)"
 
   npx commitlint --from "$from"
-else
+elif [[ $CIRCLE_BASE_REVISION ]]; then
   npx commitlint --from "${CIRCLE_BASE_REVISION}"
+else
+  echo $(git log -1 --pretty=format:"%s") | npx commitlint
 fi
 
 

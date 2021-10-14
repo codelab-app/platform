@@ -1,15 +1,11 @@
 import { Void } from '@codelab/backend/abstract/types'
+import { GqlAuthGuard, RolesGuard } from '@codelab/backend/infra'
 import {
   GetTypeService,
   InterfaceType,
   TypeAdapterFactory,
 } from '@codelab/backend/modules/type'
-import {
-  CurrentUser,
-  GqlAuthGuard,
-  Roles,
-  RolesGuard,
-} from '@codelab/backend/modules/user'
+import { CurrentUser, Roles } from '@codelab/backend/modules/user'
 import { Role, User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {

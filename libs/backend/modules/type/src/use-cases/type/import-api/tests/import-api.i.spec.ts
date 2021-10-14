@@ -1,4 +1,7 @@
-import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
+import {
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend/shared/testing'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'

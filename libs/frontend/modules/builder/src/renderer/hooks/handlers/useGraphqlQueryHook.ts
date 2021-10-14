@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-
 import { gql, useQuery } from '@apollo/client'
 import { GraphqlHookConfigFragment } from '@codelab/frontend/modules/element'
 import { HookHandler } from '../HookHandler'

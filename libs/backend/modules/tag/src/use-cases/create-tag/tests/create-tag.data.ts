@@ -1,4 +1,4 @@
-import { domainRequest } from '@codelab/backend/infra'
+import { domainRequest } from '@codelab/backend/shared/testing'
 import { INestApplication } from '@nestjs/common'
 import { CreateTagInput } from '../create-tag.input'
 import {

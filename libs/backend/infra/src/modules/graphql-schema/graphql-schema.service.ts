@@ -30,7 +30,6 @@ export class GraphqlSchemaService {
   }
 
   getEnumTypeDef(enumType: string, schema: string) {
-    // eslint-disable-next-line no-useless-escape
     const regex = new RegExp(`(?:enum)\\s${enumType}\\s(.+?)}`, 'gs')
 
     return schema.match(regex)?.[0] ?? ''

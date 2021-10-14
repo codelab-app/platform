@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { HookFragment } from '@codelab/frontend/modules/element'
 import { HookType } from '@codelab/shared/abstract/core'
 import { useGraphqlMutationHook } from './handlers/useGraphqlMutationHook'

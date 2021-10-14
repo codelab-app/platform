@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-
 import { RecoilStateHookConfigFragment } from '@codelab/frontend/modules/element'
 import { PersistenceType } from '@codelab/shared/codegen/graphql'
 import { capitalizeFirstLetter } from '@codelab/shared/utils'

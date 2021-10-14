@@ -542,7 +542,9 @@ workflows:
           e: docker-node
           context: CI
           requires:
+            - unit
             - e2e
+            - integration
       - deploy-to-staging:
           <<: *filters-staging
           e: docker-python

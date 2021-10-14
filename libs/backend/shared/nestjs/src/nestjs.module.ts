@@ -7,19 +7,18 @@ import {
   LoggerModule,
 } from '@codelab/backend/infra'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { Auth0Module, AuthModule } from '@codelab/backend/modules/user'
+import { AuthModule } from '@codelab/backend/modules/user'
 import { Module } from '@nestjs/common'
 
 @Module({
   imports: [
+    AuthModule,
     AwsModule,
     LoggerModule,
     ApolloClientModule,
     GraphqlSchemaModule,
     GraphqlServerModule,
-    AuthModule,
-    Auth0Module,
     DgraphModule,
   ],
 })
-export class InfrastructureModule {}
+export class NestjsModule {}
