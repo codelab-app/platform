@@ -10,6 +10,7 @@ type CreateTypeInput = CreateTypeMutationVariables['input']
 
 export interface CreateTypeSchema extends BaseTypeMutationSchema {
   kind: TypeKind
+  tagIds?: Array<string>
   typeIdsOfUnionType?: Array<string>
   arrayItemTypeId?: string
   typesOfUnionType?: string
@@ -38,6 +39,7 @@ export const mapCreateTypeSchemaToTypeInput = (
   const baseCreateTypeInput = {
     name: formData.name,
     typeKind: formData.kind,
+    tagIds: formData.tagIds,
   }
 
   switch (formData.kind) {

@@ -10,9 +10,10 @@ export class ArrayType
   extends Type<TypeKind.ArrayType>
   implements IArrayTypeVertex
 {
-  constructor({ id, name }: Pick<ArrayType, 'id' | 'name'>) {
+  constructor({ id, name, tags }: Pick<ArrayType, 'id' | 'name' | 'tags'>) {
     super(TypeKind.ArrayType)
 
+    this.tags = tags
     this.id = id
     this.name = name
   }

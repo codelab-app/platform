@@ -7,11 +7,16 @@ import {
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../domain/type.validator'
+import { UpdateTagsOftypeService } from '../update-tags-of-type'
 import { UpdatePrimitiveTypeInput } from './update-primitive-type.input'
 
 @Injectable()
 export class UpdatePrimitiveTypeService extends DgraphUseCase<UpdatePrimitiveTypeInput> {
-  constructor(dgraph: DgraphRepository, private typeValidator: TypeValidator) {
+  constructor(
+    dgraph: DgraphRepository,
+    private typeValidator: TypeValidator,
+    private readonly updateTagsOfTypeSerivce: UpdateTagsOftypeService,
+  ) {
     super(dgraph)
   }
 
@@ -29,12 +34,13 @@ export class UpdatePrimitiveTypeService extends DgraphUseCase<UpdatePrimitiveTyp
 
   private createMutation({
     typeId,
-    updateData: { name, primitiveKind },
+    updateData: { name, primitiveKind, tagIds },
   }: UpdatePrimitiveTypeInput) {
     return jsonMutation<DgraphPrimitiveType>({
       uid: typeId,
       name,
       primitiveKind,
+      tags: tagIds?.map((id) => ({ uid: id })),
     })
   }
 }

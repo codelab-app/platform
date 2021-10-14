@@ -9,9 +9,10 @@ export class ReactNodeType
   extends Type<TypeKind.ReactNodeType>
   implements IReactNodeTypeVertex
 {
-  constructor({ id, name }: Pick<ReactNodeType, 'id' | 'name'>) {
+  constructor({ id, name, tags }: Pick<ReactNodeType, 'id' | 'name' | 'tags'>) {
     super(TypeKind.ReactNodeType)
 
+    this.tags = tags
     this.id = id
     this.name = name
   }

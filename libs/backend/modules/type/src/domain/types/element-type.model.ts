@@ -23,9 +23,15 @@ export class ElementType
   @Field(() => ElementTypeKind)
   declare kind: ElementTypeKind
 
-  constructor({ id, name, kind }: Pick<ElementType, 'id' | 'name' | 'kind'>) {
+  constructor({
+    id,
+    name,
+    kind,
+    tags,
+  }: Pick<ElementType, 'id' | 'name' | 'kind' | 'tags'>) {
     super(TypeKind.ElementType)
 
+    this.tags = tags
     this.id = id
     this.name = name
     this.kind = kind

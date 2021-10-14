@@ -1,12 +1,14 @@
 import { ElementTypeKind, PrimitiveKind } from '@codelab/shared/abstract/core'
 import { EnumTypeValueFragment } from '../graphql/EnumTypeValue.fragment.graphql.gen'
 import { TypeSelect } from './TypeSelect'
+import { TagSelect } from '@codelab/frontend/modules/tag'
 
 export interface BaseTypeMutationSchema {
   name: string
   primitiveKind?: PrimitiveKind
   elementKind: ElementTypeKind
   allowedValues?: Array<EnumTypeValueFragment>
+  tagIds?: Array<string>
   typeIdsOfUnionType?: Array<string>
 }
 
@@ -21,6 +23,15 @@ export const baseTypeMutationSchemaProperties = {
       isUnionTypeInput: true,
     },
     uniforms: { component: TypeSelect, isUnionTypeInput: true },
+  },
+  tagIds: {
+    type: 'array',
+    nullable: true,
+    label: 'Tags',
+    items: {
+      type: 'string',
+    },
+    uniforms: { component: TagSelect },
   },
   name: {
     type: 'string',

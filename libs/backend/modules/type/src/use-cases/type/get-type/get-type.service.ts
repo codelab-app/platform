@@ -52,6 +52,7 @@ export class GetTypeService extends DgraphUseCase<
         stringValue
         allowedValues
         typesOfUnionType
+        tags
         fields
         type
         key

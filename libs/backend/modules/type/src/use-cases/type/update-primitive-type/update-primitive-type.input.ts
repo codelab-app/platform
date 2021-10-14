@@ -8,6 +8,9 @@ export class UpdatePrimitiveKindData {
 
   @Field()
   declare name: string
+
+  @Field(() => [String], { nullable: true })
+  declare tagIds?: string[]
 }
 
 @InputType()

@@ -7,6 +7,9 @@ export class UpdateUnionTypeData {
 
   @Field(() => [String])
   declare typeIdsOfUnionType: Array<string>
+
+  @Field(() => [String], { nullable: true })
+  declare tagIds: Array<string>
 }
 
 @InputType()

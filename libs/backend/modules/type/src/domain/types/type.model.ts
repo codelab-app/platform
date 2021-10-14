@@ -3,6 +3,7 @@ import {
   TypeKind,
   Vertex,
 } from '@codelab/shared/abstract/core'
+import { Tag } from '@codelab/backend/modules/tag'
 import { Field, ID, InterfaceType, registerEnumType } from '@nestjs/graphql'
 
 registerEnumType(TypeKind, { name: 'TypeKind' })
@@ -19,6 +20,9 @@ export class Type<TTypeKind extends TypeKind>
 
   @Field()
   declare name: string
+
+  @Field(() => [Tag], { nullable: true })
+  declare tags?: Tag[]
 
   constructor(typeKind: TTypeKind) {
     this.typeKind = typeKind

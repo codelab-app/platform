@@ -9,6 +9,7 @@ import { DgraphUser } from '../dgraph-user'
 export interface DgraphType<TType extends DgraphEntityType>
   extends DgraphEntity<[DgraphEntityType.Type, TType]> {
   name: string
+  tags?: Array<any>
   // null owner means it's admin created
   owner: DgraphUser | null
 }

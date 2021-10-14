@@ -14,9 +14,15 @@ export class EnumTypeAdapter extends BaseAdapter<DgraphEnumType, EnumType> {
     name,
     uid: id,
     allowedValues: dgraphAllowedValues,
+    tags,
   }: DgraphEnumType) {
     const allowedValues = this.enumTypeValueAdapter.map(dgraphAllowedValues)
 
-    return new EnumType({ id, name, allowedValues })
+    return new EnumType({
+      id,
+      name,
+      allowedValues,
+      tags,
+    })
   }
 }

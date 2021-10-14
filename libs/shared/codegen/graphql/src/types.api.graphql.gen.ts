@@ -44,6 +44,7 @@ export type ArrayType = Type & {
   __typename?: 'ArrayType';
   id: Scalars['ID'];
   name: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
 };
@@ -438,6 +439,7 @@ export type ComponentType = Type & {
   __typename?: 'ComponentType';
   id: Scalars['ID'];
   name: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
 };
@@ -539,6 +541,7 @@ export type CreateTypeInput = {
   lambdaType?: Maybe<Scalars['Boolean']>;
   name: Scalars['String'];
   primitiveType?: Maybe<CreatePrimitiveTypeInput>;
+  tagIds?: Maybe<Array<Scalars['String']>>;
   typeKind: TypeKind;
   unionType?: Maybe<CreateUnionType>;
 };
@@ -633,6 +636,7 @@ export type ElementType = Type & {
   id: Scalars['ID'];
   kind: ElementTypeKind;
   name: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
 };
@@ -650,6 +654,7 @@ export type EnumType = Type & {
   allowedValues: Array<EnumTypeValue>;
   id: Scalars['ID'];
   name: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
 };
@@ -804,6 +809,7 @@ export type InterfaceType = Type & {
   fields: Array<Field>;
   id: Scalars['ID'];
   name: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
 };
@@ -826,6 +832,7 @@ export type LambdaType = Type & {
   __typename?: 'LambdaType';
   id: Scalars['ID'];
   name: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
 };
@@ -1134,6 +1141,7 @@ export type PrimitiveType = Type & {
   id: Scalars['ID'];
   name: Scalars['String'];
   primitiveKind: PrimitiveKind;
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
 };
@@ -1330,6 +1338,7 @@ export type ReactNodeType = Type & {
   __typename?: 'ReactNodeType';
   id: Scalars['ID'];
   name: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
 };
@@ -1356,6 +1365,7 @@ export type RenderPropsType = Type & {
   __typename?: 'RenderPropsType';
   id: Scalars['ID'];
   name: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
 };
@@ -1407,6 +1417,7 @@ export type TagsWhereInput = {
 export type Type = {
   id: Scalars['ID'];
   name: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeKind: TypeKind;
 };
@@ -1473,6 +1484,7 @@ export type UnionType = Type & {
   __typename?: 'UnionType';
   id: Scalars['ID'];
   name: Scalars['String'];
+  tags?: Maybe<Array<Tag>>;
   typeGraph: TypeGraph;
   typeIdsOfUnionType: Array<Scalars['String']>;
   typeKind: TypeKind;
@@ -1526,6 +1538,7 @@ export type UpdateElementPropsInput = {
 export type UpdateEnumTypeData = {
   allowedValues: Array<UpdateEnumTypeValueData>;
   name: Scalars['String'];
+  tagIds?: Maybe<Array<Scalars['String']>>;
 };
 
 export type UpdateEnumTypeInput = {
@@ -1572,6 +1585,7 @@ export type UpdatePageInput = {
 export type UpdatePrimitiveKindData = {
   name: Scalars['String'];
   primitiveKind: PrimitiveKind;
+  tagIds?: Maybe<Array<Scalars['String']>>;
 };
 
 export type UpdatePrimitiveTypeInput = {
@@ -1604,6 +1618,7 @@ export type UpdateTagInput = {
 
 export type UpdateTypeData = {
   name: Scalars['String'];
+  tagIds?: Maybe<Array<Scalars['String']>>;
 };
 
 export type UpdateTypeInput = {
@@ -1613,6 +1628,7 @@ export type UpdateTypeInput = {
 
 export type UpdateUnionTypeData = {
   name: Scalars['String'];
+  tagIds?: Maybe<Array<Scalars['String']>>;
   typeIdsOfUnionType: Array<Scalars['String']>;
 };
 

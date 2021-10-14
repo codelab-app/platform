@@ -8,17 +8,23 @@ import {
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../domain/type.validator'
+import { UpdateTagsOftypeService } from '../update-tags-of-type'
 import { UpdateEnumTypeInput } from './update-enum-type.input'
 
 @Injectable()
 export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
-  constructor(dgraph: DgraphRepository, private typeValidator: TypeValidator) {
+  constructor(
+    dgraph: DgraphRepository,
+    private typeValidator: TypeValidator,
+    private readonly updateTagsOfTypeSerivce: UpdateTagsOftypeService,
+  ) {
     super(dgraph)
   }
 
   protected async executeTransaction(request: UpdateEnumTypeInput, txn: Txn) {
     await this.validate(request)
 
+    await this.updateTagsOfTypeSerivce.executeTransaction(request)
     await this.getOldValuesToDelete(request)
 
     await this.dgraph.executeMutation(txn, this.createMutation(request))
@@ -26,7 +32,7 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
 
   private createMutation({
     typeId,
-    updateData: { allowedValues, name },
+    updateData: { allowedValues, name, tagIds },
   }: UpdateEnumTypeInput) {
     const mu: Mutation = {}
 
@@ -40,6 +46,7 @@ export class UpdateEnumTypeService extends DgraphUseCase<UpdateEnumTypeInput> {
         name: av.name ?? undefined,
         stringValue: av.value,
       })),
+      tags: tagIds?.map((id) => ({ uid: id })),
     }
 
     mu.setJson = updateEnumTypeJson

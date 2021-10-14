@@ -24,9 +24,11 @@ export class PrimitiveType
     id,
     name,
     primitiveKind,
-  }: Pick<PrimitiveType, 'id' | 'name' | 'primitiveKind'>) {
+    tags,
+  }: Pick<PrimitiveType, 'id' | 'name' | 'primitiveKind' | 'tags'>) {
     super(TypeKind.PrimitiveType)
 
+    this.tags = tags
     this.id = id
     this.name = name
     this.primitiveKind = primitiveKind

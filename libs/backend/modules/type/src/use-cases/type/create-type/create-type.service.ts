@@ -62,6 +62,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
       primitiveType,
       elementType,
       unionType,
+      tagIds,
       // lambdaType,
       // componentType,
       // interfaceType,
@@ -87,6 +88,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
       owner: currentUser.roles.includes(Role.User)
         ? { uid: currentUser.id }
         : null,
+      tags: tagIds?.map((id) => ({ uid: id })),
       itemType: arrayType ? { uid: arrayType.itemTypeId } : undefined,
       primitiveKind: primitiveType ? primitiveType.primitiveKind : undefined,
       kind: elementType ? elementType.kind : undefined,

@@ -1,4 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
+import { Role } from '@codelab/shared/abstract/core'
 import {
   DgraphEntityType,
   DgraphQueryBuilder,
@@ -23,11 +24,12 @@ export class GetTagsService extends DgraphUseCase<
   private static createQuery(request: GetTagsRequest) {
     const { currentUser } = request
 
-    return new DgraphQueryBuilder()
-      .setTypeFunc(DgraphEntityType.Tag)
-      .addFilterDirective(`uid_in(owner, ${currentUser.id})`)
-      .addRecurseDirective()
-      .addBaseFields()
-      .addExpandAll()
+    let query = new DgraphQueryBuilder().setTypeFunc(DgraphEntityType.Tag)
+
+    if (!currentUser.roles.includes(Role.Admin)) {
+      query.addFilterDirective(`uid_in(owner, ${currentUser.id})`)
+    }
+
+    return query.addRecurseDirective().addBaseFields().addExpandAll()
   }
 }

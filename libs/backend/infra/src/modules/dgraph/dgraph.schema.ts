@@ -106,7 +106,10 @@ export const dgraphSchema = `
   type ${Type} {
     owner
     name
+    tags
   }
+
+  tags: [uid] .
 
   type ${PrimitiveType} {
     primitiveKind

@@ -18,9 +18,11 @@ export class EnumType
     id,
     name,
     allowedValues,
-  }: Pick<EnumType, 'id' | 'name' | 'allowedValues'>) {
+    tags,
+  }: Pick<EnumType, 'id' | 'name' | 'allowedValues' | 'tags'>) {
     super(TypeKind.EnumType)
 
+    this.tags = tags
     this.id = id
     this.name = name
     this.allowedValues = allowedValues

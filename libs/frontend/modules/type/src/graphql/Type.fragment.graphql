@@ -3,6 +3,9 @@ fragment Type on Type {
   id
   name
   typeKind
+  tags {
+    ...Tag
+  }
   ...ArrayType
   ...EnumType
   ...Interface

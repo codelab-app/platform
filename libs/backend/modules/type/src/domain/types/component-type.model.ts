@@ -14,9 +14,10 @@ export class ComponentType
   extends Type<TypeKind.ComponentType>
   implements IComponentTypeVertex
 {
-  constructor({ id, name }: Pick<ComponentType, 'id' | 'name'>) {
+  constructor({ id, name, tags }: Pick<ComponentType, 'id' | 'name' | 'tags'>) {
     super(TypeKind.ComponentType)
 
+    this.tags = tags
     this.id = id
     this.name = name
   }

@@ -16,20 +16,32 @@ import {
   TestGetTypeGql,
   TestGetTypeQuery,
 } from '../../get-type/tests/get-type.api.graphql.gen'
-import { UpdateEnumTypeInput } from '../update-enum-type.input'
+import {
+  UpdateEnumTypeData,
+  UpdateEnumTypeInput,
+} from '../update-enum-type.input'
 import {
   TestUpdateEnumTypeGql,
   TestUpdateEnumTypeMutation,
 } from './update-enum-type.api.graphql.gen'
 import {
   createEnumTypeInput,
-  updateEnumTypeData,
+  createUpdateEnumTypeData,
 } from './update-enum-type.data'
+import {
+  TestCreateTagGql,
+  TestCreateTagMutation,
+  CreateTagInput,
+  createTagInput,
+} from '@codelab/backend/modules/tag'
 
 describe('UpdateEnumType', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
   let enumTypeId: string
+  let tagId: string
+  let tagId2: string
+  let updateEnumTypeData: UpdateEnumTypeData
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {
@@ -42,8 +54,23 @@ describe('UpdateEnumType', () => {
     enumTypeId = await domainRequest<CreateTypeInput, TestCreateTypeMutation>(
       userApp,
       TestCreateTypeGql,
-      createEnumTypeInput,
+      createEnumTypeInput(tagId),
     ).then((r) => r.createType?.id)
+    ;({
+      createTag: { id: tagId },
+    } = await domainRequest<CreateTagInput, TestCreateTagMutation>(
+      userApp,
+      TestCreateTagGql,
+      createTagInput,
+    ))
+    ;({
+      createTag: { id: tagId2 },
+    } = await domainRequest<CreateTagInput, TestCreateTagMutation>(
+      userApp,
+      TestCreateTagGql,
+      createTagInput,
+    ))
+    updateEnumTypeData = createUpdateEnumTypeData(tagId2)
   })
 
   afterAll(async () => {
@@ -91,6 +118,7 @@ describe('UpdateEnumType', () => {
             }),
           ),
         ),
+        tags: [{ ...createTagInput, id: tagId2 }],
       })
     })
   })

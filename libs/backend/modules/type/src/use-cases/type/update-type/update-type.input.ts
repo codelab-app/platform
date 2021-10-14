@@ -4,6 +4,9 @@ import { Field, InputType } from '@nestjs/graphql'
 export class UpdateTypeData {
   @Field()
   declare name: string
+
+  @Field(() => [String], { nullable: true })
+  declare tagIds?: string[]
 }
 
 @InputType()

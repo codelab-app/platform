@@ -13,6 +13,7 @@ import {
   TypeAdapterFactory,
   TypeGraphAdapter,
 } from './application/adapters'
+import { TagAdapter } from '@codelab/backend/modules/tag'
 import { ArrayTypeAdapter } from './application/adapters/array-type.adapter'
 import { ReactNodeAdapter } from './application/adapters/react-node-type.adapter'
 import { RenderPropsAdapter } from './application/adapters/render-props-type.adapter'
@@ -36,6 +37,7 @@ import { UpdateEnumTypeService } from './use-cases/type/update-enum-type'
 import { UpdatePrimitiveTypeService } from './use-cases/type/update-primitive-type'
 import { UpdateTypeService } from './use-cases/type/update-type'
 import { UpdateUnionTypeService } from './use-cases/type/update-union-type'
+import { UpdateTagsOftypeService } from './use-cases/type/update-tags-of-type'
 
 const fieldServices = [
   /**
@@ -68,11 +70,13 @@ const typeServices = [
   UpdatePrimitiveTypeService,
   UpdateUnionTypeService,
   UpdateTypeService,
+  UpdateTagsOftypeService,
   ImportApiService,
   SeedBaseTypesService,
   /**
    * Adapters
    */
+  TagAdapter,
   InterfaceTypeAdapter,
   RenderPropsAdapter,
   ReactNodeAdapter,

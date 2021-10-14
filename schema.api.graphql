@@ -25,6 +25,14 @@ enum Role {
   Guest
 }
 
+type Tag {
+  id: String!
+  name: String!
+  parent: String
+  children: [String!]!
+  isRoot: Boolean!
+}
+
 type Field {
   id: ID!
   key: String!
@@ -52,10 +60,31 @@ enum TypeEdgeKind {
   Union
 }
 
+"""An edge between two element nodes"""
+type TagEdge {
+  """The id of the source Tag"""
+  source: String!
+
+  """The id of the target Tag"""
+  target: String!
+  order: Int
+}
+
+type TagGraph {
+  """All descendant Elements or Components, at any level"""
+  vertices: [TagVertex!]!
+
+  """All the links connecting the descendant elements/components"""
+  edges: [TagEdge!]!
+}
+
+union TagVertex = Tag
+
 type ArrayType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
 }
 
@@ -63,6 +92,7 @@ interface Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
 }
 
@@ -86,6 +116,7 @@ type ComponentType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
 }
 
@@ -96,6 +127,7 @@ type ElementType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
   kind: ElementTypeKind!
 }
@@ -116,6 +148,7 @@ type EnumType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
   allowedValues: [EnumTypeValue!]!
 }
@@ -124,6 +157,7 @@ type InterfaceType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
   fields: [Field!]!
 }
@@ -135,6 +169,7 @@ type LambdaType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
 }
 
@@ -142,6 +177,7 @@ type PrimitiveType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
   primitiveKind: PrimitiveKind!
 }
@@ -157,6 +193,7 @@ type ReactNodeType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
 }
 
@@ -164,6 +201,7 @@ type RenderPropsType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
 }
 
@@ -171,6 +209,7 @@ type UnionType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  tags: [Tag!]
   typeGraph: TypeGraph!
   typeIdsOfUnionType: [String!]!
 }
@@ -701,34 +740,6 @@ type Page {
   elements: ElementGraph
 }
 
-type Tag {
-  id: String!
-  name: String!
-  parent: String
-  children: [String!]!
-  isRoot: Boolean!
-}
-
-"""An edge between two element nodes"""
-type TagEdge {
-  """The id of the source Tag"""
-  source: String!
-
-  """The id of the target Tag"""
-  target: String!
-  order: Int
-}
-
-type TagGraph {
-  """All descendant Elements or Components, at any level"""
-  vertices: [TagVertex!]!
-
-  """All the links connecting the descendant elements/components"""
-  edges: [TagEdge!]!
-}
-
-union TagVertex = Tag
-
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
@@ -1192,6 +1203,7 @@ input UpdateAtomInput {
 """Provide one of the properties"""
 input CreateTypeInput {
   name: String!
+  tagIds: [String!]
   typeKind: TypeKind!
   primitiveType: CreatePrimitiveTypeInput
   arrayType: CreateArrayTypeInput
@@ -1236,6 +1248,7 @@ input UpdateEnumTypeInput {
 input UpdateEnumTypeData {
   allowedValues: [UpdateEnumTypeValueData!]!
   name: String!
+  tagIds: [String!]
 }
 
 input UpdateEnumTypeValueData {
@@ -1252,6 +1265,7 @@ input UpdatePrimitiveTypeInput {
 input UpdatePrimitiveKindData {
   primitiveKind: PrimitiveKind!
   name: String!
+  tagIds: [String!]
 }
 
 input UpdateUnionTypeInput {
@@ -1262,6 +1276,7 @@ input UpdateUnionTypeInput {
 input UpdateUnionTypeData {
   name: String!
   typeIdsOfUnionType: [String!]!
+  tagIds: [String!]
 }
 
 input UpdateTypeInput {
@@ -1271,6 +1286,7 @@ input UpdateTypeInput {
 
 input UpdateTypeData {
   name: String!
+  tagIds: [String!]
 }
 
 input DeleteTypeInput {

@@ -21,9 +21,11 @@ export class InterfaceType
     id,
     name,
     fields,
-  }: Pick<InterfaceType, 'id' | 'name' | 'fields'>) {
+    tags,
+  }: Pick<InterfaceType, 'id' | 'name' | 'fields' | 'tags'>) {
     super(TypeKind.InterfaceType)
 
+    this.tags = tags
     this.id = id
     this.name = name
     this.fields = fields

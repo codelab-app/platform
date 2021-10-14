@@ -14,9 +14,10 @@ export class LambdaType
   extends Type<TypeKind.LambdaType>
   implements ILambdaTypeVertex
 {
-  constructor({ id, name }: Pick<LambdaType, 'id' | 'name'>) {
+  constructor({ id, name, tags }: Pick<LambdaType, 'id' | 'name' | 'tags'>) {
     super(TypeKind.LambdaType)
 
+    this.tags = tags
     this.id = id
     this.name = name
   }

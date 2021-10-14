@@ -2,9 +2,10 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import { CreateTypeInput } from '../../create-type'
 import { UpdateEnumTypeData } from '../update-enum-type.input'
 
-export const createEnumTypeInput: CreateTypeInput = {
+export const createEnumTypeInput = (tagId: string): CreateTypeInput => ({
   name: 'Some Enum',
   typeKind: TypeKind.EnumType,
+  tagIds: [tagId],
   enumType: {
     allowedValues: [
       {
@@ -17,10 +18,13 @@ export const createEnumTypeInput: CreateTypeInput = {
       },
     ],
   },
-}
+})
 
-export const updateEnumTypeData: UpdateEnumTypeData = {
+export const createUpdateEnumTypeData = (
+  updatedTagId: string,
+): UpdateEnumTypeData => ({
   name: 'Some Enum',
+  tagIds: [updatedTagId],
   allowedValues: [
     {
       name: 'First',
@@ -35,4 +39,4 @@ export const updateEnumTypeData: UpdateEnumTypeData = {
       value: 'third',
     },
   ],
-}
+})

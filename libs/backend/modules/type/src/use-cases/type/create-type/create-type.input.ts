@@ -18,6 +18,9 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
   @Field()
   declare name: string
 
+  @Field(() => [String], { nullable: true })
+  declare tagIds?: string[]
+
   @Field(() => TypeKind)
   declare typeKind: TypeKind
 

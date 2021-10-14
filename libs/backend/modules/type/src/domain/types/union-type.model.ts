@@ -16,9 +16,11 @@ export class UnionType
     id,
     name,
     typeIdsOfUnionType,
-  }: Pick<UnionType, 'id' | 'name' | 'typeIdsOfUnionType'>) {
+    tags,
+  }: Pick<UnionType, 'id' | 'name' | 'typeIdsOfUnionType' | 'tags'>) {
     super(TypeKind.UnionType)
 
+    this.tags = tags
     this.id = id
     this.name = name
     this.typeIdsOfUnionType = typeIdsOfUnionType

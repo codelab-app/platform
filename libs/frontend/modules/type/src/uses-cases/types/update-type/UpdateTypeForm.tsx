@@ -57,6 +57,9 @@ export const UpdateTypeForm = (
   const handleSubmit = useCallback(
     (submitData: UpdateTypeSchema) => {
       const kind = typenameToTypeKind(state?.metadata?.__typename)
+      const baseUpdateTypeData = {
+        tagIds: submitData.tagIds,
+      }
 
       switch (kind) {
         case TypeKind.UnionType:
@@ -69,6 +72,7 @@ export const UpdateTypeForm = (
                 input: {
                   typeId: state.updateId,
                   updateData: {
+                    ...baseUpdateTypeData,
                     name: submitData.name,
                     typeIdsOfUnionType: submitData.typeIdsOfUnionType,
                   },
@@ -89,6 +93,7 @@ export const UpdateTypeForm = (
               input: {
                 typeId: state.updateId,
                 updateData: {
+                  ...baseUpdateTypeData,
                   name: submitData.name,
                   primitiveKind: submitData.primitiveKind,
                 },
@@ -105,6 +110,7 @@ export const UpdateTypeForm = (
               input: {
                 typeId: state.updateId,
                 updateData: {
+                  ...baseUpdateTypeData,
                   name: submitData.name,
                   allowedValues: submitData.allowedValues.map((av) => ({
                     value: av.value,
@@ -120,6 +126,7 @@ export const UpdateTypeForm = (
               input: {
                 typeId: state.updateId,
                 updateData: {
+                  ...baseUpdateTypeData,
                   name: submitData.name,
                 },
               },
@@ -150,7 +157,9 @@ export const UpdateTypeForm = (
       type?.__typename === TypeModels.UnionType
         ? type?.typeIdsOfUnionType
         : undefined,
+    tagIds: type?.tags.map((t) => t.id),
   })
+  console.log({ modelRef, updateTypeSchema })
 
   if (!type || !state.updateId) {
     return null
@@ -167,7 +176,7 @@ export const UpdateTypeForm = (
       model={modelRef.current}
       {...props}
     >
-      <AutoFields fields={['name']} />
+      <AutoFields fields={['name', 'tagIds']} />
 
       {kind === TypeKind.UnionType && (
         <AutoField

@@ -4,7 +4,13 @@ import {
   teardownTestModule,
 } from '@codelab/backend/shared/testing'
 import { PrimitiveKind, Role } from '@codelab/shared/abstract/core'
+import { CreateTagInput } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'
+import {
+  TestCreateTagGql,
+  TestCreateTagMutation,
+  createTagInput,
+} from '@codelab/backend/modules/tag'
 import { TypeModule } from '../../../../type.module'
 import { GetTypeInput } from '../../get-type'
 import {
@@ -24,6 +30,7 @@ import {
 describe('CreateType', () => {
   let guestApp: INestApplication
   let userApp: INestApplication
+  let tagId: string
 
   beforeAll(async () => {
     guestApp = await setupTestModule([TypeModule], {
@@ -32,6 +39,13 @@ describe('CreateType', () => {
     userApp = await setupTestModule([TypeModule], {
       role: Role.User,
     })
+    ;({
+      createTag: { id: tagId },
+    } = await domainRequest<CreateTagInput, TestCreateTagMutation>(
+      userApp,
+      TestCreateTagGql,
+      createTagInput,
+    ))
   })
 
   afterAll(async () => {
@@ -52,14 +66,13 @@ describe('CreateType', () => {
 
   describe('User', () => {
     // TODO add for other types
-
     it('should create a primitive type', async () => {
       const {
         createType: { id: typeId },
       } = await domainRequest<CreateTypeInput, TestCreateTypeMutation>(
         userApp,
         TestCreateTypeGql,
-        createPrimitiveStringInput,
+        { ...createPrimitiveStringInput, tagIds: [tagId] },
       )
 
       const { getType: type } = await domainRequest<
@@ -71,6 +84,7 @@ describe('CreateType', () => {
         __typename: 'PrimitiveType',
         name: createPrimitiveStringInput.name,
         primitiveKind: PrimitiveKind.String,
+        tags: [{ ...createTagInput, id: tagId }],
       })
     })
 

@@ -53,7 +53,7 @@ export const CreateTypeForm = (
       onSubmitSuccess={() => reset()}
       {...props}
     >
-      <AutoFields fields={['name', 'kind']} />
+      <AutoFields fields={['name', 'kind', 'tagIds']} />
       <DisplayIfKind kind={TypeKind.PrimitiveType}>
         <AutoField name={'primitiveKind'} />
       </DisplayIfKind>

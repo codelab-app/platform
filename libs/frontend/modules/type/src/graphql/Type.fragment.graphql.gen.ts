@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { TagFragment, TagEdgeFragment } from '../../../tag/src/use-cases/Tag.fragment.graphql.gen';
 import { ArrayTypeFragment } from './ArrayType.fragment.graphql.gen';
 import { EnumTypeFragment } from './EnumType.fragment.graphql.gen';
 import { InterfaceFragment } from './Interface.fragment.graphql.gen';
@@ -10,6 +11,7 @@ import { ComponentTypeFragment } from './ComponentType.fragment.graphql.gen';
 import { RenderPropsTypeFragment } from './RenderProps.fragment.graphql.gen';
 import { UnionTypeFragment } from './UnionType.fragment.graphql.gen';
 import { gql } from '@apollo/client';
+import { TagFragmentDoc, TagEdgeFragmentDoc } from '../../../tag/src/use-cases/Tag.fragment.graphql.gen';
 import { ArrayTypeFragmentDoc } from './ArrayType.fragment.graphql.gen';
 import { EnumTypeFragmentDoc } from './EnumType.fragment.graphql.gen';
 import { InterfaceFragmentDoc } from './Interface.fragment.graphql.gen';
@@ -20,49 +22,49 @@ import { ComponentTypeFragmentDoc } from './ComponentType.fragment.graphql.gen';
 import { RenderPropsTypeFragmentDoc } from './RenderProps.fragment.graphql.gen';
 import { UnionTypeFragmentDoc } from './UnionType.fragment.graphql.gen';
 export type Type_ArrayType_Fragment = (
-  { __typename: 'ArrayType', id: string, name: string, typeKind: Types.TypeKind }
+  { __typename: 'ArrayType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> }
   & ArrayTypeFragment
 );
 
 export type Type_ComponentType_Fragment = (
-  { __typename: 'ComponentType', id: string, name: string, typeKind: Types.TypeKind }
+  { __typename: 'ComponentType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> }
   & ComponentTypeFragment
 );
 
 export type Type_ElementType_Fragment = (
-  { __typename: 'ElementType', id: string, name: string, typeKind: Types.TypeKind }
+  { __typename: 'ElementType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> }
   & ElementTypeFragment
 );
 
 export type Type_EnumType_Fragment = (
-  { __typename: 'EnumType', id: string, name: string, typeKind: Types.TypeKind }
+  { __typename: 'EnumType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> }
   & EnumTypeFragment
 );
 
 export type Type_InterfaceType_Fragment = (
-  { __typename: 'InterfaceType', id: string, name: string, typeKind: Types.TypeKind }
+  { __typename: 'InterfaceType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> }
   & InterfaceFragment
 );
 
 export type Type_LambdaType_Fragment = (
-  { __typename: 'LambdaType', id: string, name: string, typeKind: Types.TypeKind }
+  { __typename: 'LambdaType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> }
   & LambdaTypeFragment
 );
 
 export type Type_PrimitiveType_Fragment = (
-  { __typename: 'PrimitiveType', id: string, name: string, typeKind: Types.TypeKind }
+  { __typename: 'PrimitiveType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> }
   & PrimitiveTypeFragment
 );
 
-export type Type_ReactNodeType_Fragment = { __typename: 'ReactNodeType', id: string, name: string, typeKind: Types.TypeKind };
+export type Type_ReactNodeType_Fragment = { __typename: 'ReactNodeType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> };
 
 export type Type_RenderPropsType_Fragment = (
-  { __typename: 'RenderPropsType', id: string, name: string, typeKind: Types.TypeKind }
+  { __typename: 'RenderPropsType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> }
   & RenderPropsTypeFragment
 );
 
 export type Type_UnionType_Fragment = (
-  { __typename: 'UnionType', id: string, name: string, typeKind: Types.TypeKind }
+  { __typename: 'UnionType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> }
   & UnionTypeFragment
 );
 
@@ -74,6 +76,9 @@ export const TypeFragmentDoc = gql`
   id
   name
   typeKind
+  tags {
+    ...Tag
+  }
   ...ArrayType
   ...EnumType
   ...Interface
@@ -84,7 +89,8 @@ export const TypeFragmentDoc = gql`
   ...RenderPropsType
   ...UnionType
 }
-    ${ArrayTypeFragmentDoc}
+    ${TagFragmentDoc}
+${ArrayTypeFragmentDoc}
 ${EnumTypeFragmentDoc}
 ${InterfaceFragmentDoc}
 ${PrimitiveTypeFragmentDoc}
