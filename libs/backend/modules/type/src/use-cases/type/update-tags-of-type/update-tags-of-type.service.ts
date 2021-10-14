@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common'
 
 interface UpdateTagOfTypeInput {
   typeId: string
-  tagIds?: string[]
+  tagIds?: Array<string>
 }
 
 @Injectable()

@@ -1,8 +1,8 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphElementType } from '@codelab/backend/infra'
+import { TagAdapter } from '@codelab/backend/modules/tag'
 import { elementTypeKindMap } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { TagAdapter } from 'libs/backend/modules/tag/src/application/tag.adapter'
 import { ElementType } from '../../domain'
 
 export type ElementTypeAdapterInput = DgraphElementType

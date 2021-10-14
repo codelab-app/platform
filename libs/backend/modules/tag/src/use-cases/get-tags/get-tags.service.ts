@@ -1,10 +1,10 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { Role } from '@codelab/shared/abstract/core'
 import {
   DgraphEntityType,
   DgraphQueryBuilder,
   DgraphTag,
 } from '@codelab/backend/infra'
+import { Role } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetTagsRequest } from './get-tags.request'
@@ -23,8 +23,7 @@ export class GetTagsService extends DgraphUseCase<
 
   private static createQuery(request: GetTagsRequest) {
     const { currentUser } = request
-
-    let query = new DgraphQueryBuilder().setTypeFunc(DgraphEntityType.Tag)
+    const query = new DgraphQueryBuilder().setTypeFunc(DgraphEntityType.Tag)
 
     if (!currentUser.roles.includes(Role.Admin)) {
       query.addFilterDirective(`uid_in(owner, ${currentUser.id})`)

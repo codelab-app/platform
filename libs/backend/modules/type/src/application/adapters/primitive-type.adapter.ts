@@ -1,7 +1,7 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphPrimitiveType } from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
 import { TagAdapter } from '@codelab/backend/modules/tag'
+import { Injectable } from '@nestjs/common'
 import { PrimitiveType } from '../../domain'
 
 @Injectable()

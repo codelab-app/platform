@@ -1,4 +1,5 @@
 import { Void } from '@codelab/backend/abstract/types'
+import { TagAdapter } from '@codelab/backend/modules/tag'
 import { CytoscapeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
 import {
@@ -13,7 +14,6 @@ import {
   TypeAdapterFactory,
   TypeGraphAdapter,
 } from './application/adapters'
-import { TagAdapter } from '@codelab/backend/modules/tag'
 import { ArrayTypeAdapter } from './application/adapters/array-type.adapter'
 import { ReactNodeAdapter } from './application/adapters/react-node-type.adapter'
 import { RenderPropsAdapter } from './application/adapters/render-props-type.adapter'
@@ -35,9 +35,9 @@ import { ImportApiService } from './use-cases/type/import-api'
 import { SeedBaseTypesService } from './use-cases/type/seed-base-types'
 import { UpdateEnumTypeService } from './use-cases/type/update-enum-type'
 import { UpdatePrimitiveTypeService } from './use-cases/type/update-primitive-type'
+import { UpdateTagsOftypeService } from './use-cases/type/update-tags-of-type'
 import { UpdateTypeService } from './use-cases/type/update-type'
 import { UpdateUnionTypeService } from './use-cases/type/update-union-type'
-import { UpdateTagsOftypeService } from './use-cases/type/update-tags-of-type'
 
 const fieldServices = [
   /**

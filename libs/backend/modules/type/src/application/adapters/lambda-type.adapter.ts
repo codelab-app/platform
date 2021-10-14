@@ -1,8 +1,8 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphLambdaType } from '@codelab/backend/infra'
+import { TagAdapter } from '@codelab/backend/modules/tag'
 import { Injectable } from '@nestjs/common'
 import { LambdaType } from '../../domain'
-import { TagAdapter } from '@codelab/backend/modules/tag'
 
 export type LambdaTypeAdapterInput = DgraphLambdaType
 

@@ -1,8 +1,8 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphUnionType } from '@codelab/backend/infra'
+import { TagAdapter } from '@codelab/backend/modules/tag'
 import { Injectable } from '@nestjs/common'
 import { UnionType } from '../../domain/types/union-type.model'
-import { TagAdapter } from '@codelab/backend/modules/tag'
 
 @Injectable()
 export class UnionTypeAdapter extends BaseAdapter<

@@ -6,7 +6,7 @@ export class UpdateTypeData {
   declare name: string
 
   @Field(() => [String], { nullable: true })
-  declare tagIds?: string[]
+  declare tagIds?: Array<string>
 }
 
 @InputType()

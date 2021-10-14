@@ -1,8 +1,11 @@
+import { domainRequest } from '@codelab/backend/infra'
 import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
+  CreateTagInput,
+  createTagInput,
+  TestCreateTagGql,
+  TestCreateTagMutation,
+} from '@codelab/backend/modules/tag'
+import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../../type.module'
@@ -28,12 +31,6 @@ import {
   createEnumTypeInput,
   createUpdateEnumTypeData,
 } from './update-enum-type.data'
-import {
-  TestCreateTagGql,
-  TestCreateTagMutation,
-  CreateTagInput,
-  createTagInput,
-} from '@codelab/backend/modules/tag'
 
 describe('UpdateEnumType', () => {
   let guestApp: INestApplication

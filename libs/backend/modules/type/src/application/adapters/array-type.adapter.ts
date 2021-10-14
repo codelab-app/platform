@@ -1,8 +1,8 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphArrayType } from '@codelab/backend/infra'
+import { TagAdapter } from '@codelab/backend/modules/tag'
 import { Injectable } from '@nestjs/common'
 import { ArrayType } from '../../domain'
-import { TagAdapter } from 'libs/backend/modules/tag/src/application/tag.adapter'
 
 export type ArrayTypeAdapterInput = Pick<
   DgraphArrayType,

@@ -57,6 +57,7 @@ export const UpdateTypeForm = (
   const handleSubmit = useCallback(
     (submitData: UpdateTypeSchema) => {
       const kind = typenameToTypeKind(state?.metadata?.__typename)
+
       const baseUpdateTypeData = {
         tagIds: submitData.tagIds,
       }
@@ -157,8 +158,9 @@ export const UpdateTypeForm = (
       type?.__typename === TypeModels.UnionType
         ? type?.typeIdsOfUnionType
         : undefined,
-    tagIds: type?.tags.map((t) => t.id),
+    tagIds: type?.tags?.map((t) => t.id),
   })
+
   console.log({ modelRef, updateTypeSchema })
 
   if (!type || !state.updateId) {
