@@ -5,7 +5,7 @@ import { passportJwtSecret } from 'jwks-rsa'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { GetUserService } from '../../use-cases/get-user'
 import { UpsertUserService } from '../../use-cases/upsert-user'
-import { Auth0Config, auth0Config, Auth0Service } from '../auth0'
+import { Auth0Config, auth0Config } from '../auth0'
 import { JWT_CLAIMS, JwtPayload } from './jwt.interface'
 
 @Injectable()
@@ -14,7 +14,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     @Inject(auth0Config.KEY) readonly _auth0Config: Auth0Config,
     private getUserService: GetUserService,
     private upsertUserService: UpsertUserService,
-    private auth0Service: Auth0Service,
   ) {
     super({
       secretOrKeyProvider: passportJwtSecret({

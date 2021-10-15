@@ -60,11 +60,9 @@ export const GetAtomsTable = () => {
         <Link
           href={PageType.InterfaceDetail.replace(
             '[interfaceId]',
-            // eslint-disable-next-line react/forbid-foreign-prop-types
             record.api.id,
           )}
         >
-          {/*  eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a css={tw`text-blue-700`}>View API</a>
         </Link>
       ),

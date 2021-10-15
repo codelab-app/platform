@@ -1,9 +1,10 @@
+import { GqlAuthGuard } from '@codelab/backend/infra'
 import {
   ElementGraph,
   ElementTreeAdapter,
   GetElementGraphService,
 } from '@codelab/backend/modules/element'
-import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
+import { CurrentUser } from '@codelab/backend/modules/user'
 import type { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {

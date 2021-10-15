@@ -1,3 +1,4 @@
+import { ROLES_KEY } from '@codelab/backend/abstract/types'
 import { Role, User } from '@codelab/shared/abstract/core'
 import {
   CanActivate,
@@ -7,8 +8,6 @@ import {
 } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { ROLES_KEY } from '../decorators/roles.decorator'
-
 /**
  * Allows only if the current user has ONE OF the roles in the allowedRoles array
  *

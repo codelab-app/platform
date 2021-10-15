@@ -1,6 +1,9 @@
-import { domainRequest } from '@codelab/backend/infra'
 import { AppModule, CreateAppInput } from '@codelab/backend/modules/app'
-import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
+import {
+  domainRequest,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend/shared/testing'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../../../page.module'

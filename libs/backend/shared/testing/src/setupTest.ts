@@ -1,7 +1,7 @@
-import { DgraphService } from '@codelab/backend/infra'
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { GqlAuthGuard } from '@codelab/backend/modules/user'
+import { DgraphService, GqlAuthGuard } from '@codelab/backend/infra'
 import { testAuth0Id, testUserUid } from '@codelab/backend/shared/generic'
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { NestjsModule } from '@codelab/backend/shared/nestjs'
 import { Role, User } from '@codelab/shared/abstract/core'
 import {
   DynamicModule,
@@ -15,7 +15,6 @@ import { GqlExecutionContext } from '@nestjs/graphql'
 import { Test, TestingModuleBuilder } from '@nestjs/testing'
 import * as shell from 'shelljs'
 import { env } from '../../../../../jest/env'
-import { InfrastructureModule } from '../infrastructure.module'
 
 type NestModule =
   | Type
@@ -37,7 +36,7 @@ export const setupTestModule = async (
   const { role } = options
 
   let testModuleBuilder: TestingModuleBuilder = await Test.createTestingModule({
-    imports: [InfrastructureModule, ...nestModules],
+    imports: [NestjsModule, ...nestModules],
   })
 
   testModuleBuilder = testModuleCallback(testModuleBuilder)

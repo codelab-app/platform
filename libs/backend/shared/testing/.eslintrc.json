@@ -1,5 +1,5 @@
 {
-  "extends": ["../../../.eslintrc.json"],
+  "extends": ["../../../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
@@ -8,10 +8,7 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {},
-      "parserOptions": {
-        "project": ["libs/backend/nestjs/tsconfig.*?.json"]
-      }
+      "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],

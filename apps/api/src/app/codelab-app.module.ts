@@ -8,14 +8,14 @@ import { PageModule } from '@codelab/backend/modules/page'
 import { TagModule } from '@codelab/backend/modules/tag'
 import { TypeModule } from '@codelab/backend/modules/type'
 import { UserModule } from '@codelab/backend/modules/user'
-import { InfrastructureModule } from '@codelab/backend/nestjs'
+import { NestjsModule } from '@codelab/backend/shared/nestjs'
 import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { Auth0Controller } from './auth0/auth0.controller'
 
 @Module({
   imports: [
-    InfrastructureModule,
+    NestjsModule,
     /**
      * Domain
      */

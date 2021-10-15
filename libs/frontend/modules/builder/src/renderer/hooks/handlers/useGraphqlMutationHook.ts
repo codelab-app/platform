@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-
 import { gql, useMutation } from '@apollo/client'
 import { GraphqlHookConfigFragment } from '@codelab/frontend/modules/element'
 import { capitalizeFirstLetter } from '@codelab/shared/utils'

@@ -39,7 +39,7 @@
       "tags": ["layer:application:backend", "scope:backend"]
     },
     "backend-infra": {
-      "tags": ["layer:infra", "scope:backend"]
+      "tags": ["layer:infra", "scope:backend", "scope:shared"]
     },
     "backend-modules-admin": {
       "tags": ["layer:domain:backend", "scope:backend"]
@@ -71,10 +71,13 @@
     "backend-modules-user": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },
-    "backend-nestjs": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
     "backend-shared-generic": {
+      "tags": ["scope:shared", "scope:backend"]
+    },
+    "backend-shared-nestjs": {
+      "tags": ["scope:backend", "scope:shared"]
+    },
+    "backend-shared-testing": {
       "tags": ["scope:shared", "scope:backend"]
     },
     "backend-shared-utils": {

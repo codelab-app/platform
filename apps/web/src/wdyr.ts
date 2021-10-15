@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-/* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react'
 
 if (process.env.NODE_ENV === 'development') {

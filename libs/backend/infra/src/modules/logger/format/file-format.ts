@@ -19,11 +19,9 @@ export const fileFormat = (appName = 'NestWinston'): Format =>
           timestamp = new Date(timestamp).toLocaleString()
         }
       } catch (error) {
-        // eslint-disable-next-line no-empty
+        //
       }
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 
     return (
       `[${appName}]` +

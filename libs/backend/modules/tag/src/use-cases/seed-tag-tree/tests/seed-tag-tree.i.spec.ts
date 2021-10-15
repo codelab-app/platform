@@ -1,6 +1,9 @@
-import { domainRequest } from '@codelab/backend/infra'
-import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
 import { testAuth0Id, testUserUid } from '@codelab/backend/shared/generic'
+import {
+  domainRequest,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend/shared/testing'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TagModule } from '../../../tag.module'

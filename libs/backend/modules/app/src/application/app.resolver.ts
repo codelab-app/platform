@@ -1,4 +1,5 @@
-import { CurrentUser, GqlAuthGuard } from '@codelab/backend/modules/user'
+import { GqlAuthGuard } from '@codelab/backend/infra'
+import { CurrentUser } from '@codelab/backend/modules/user'
 import type { User } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
