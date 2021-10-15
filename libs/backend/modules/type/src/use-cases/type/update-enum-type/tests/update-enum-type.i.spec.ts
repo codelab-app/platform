@@ -84,7 +84,10 @@ describe('UpdateEnumType', () => {
         typeKind: 'EnumType',
         name: updateEnumTypeData.name,
         allowedValues: updateEnumTypeData.allowedValues.map((av) =>
-          expect.objectContaining(av),
+          expect.objectContaining({
+            // id: expect.any(String),
+            ...av,
+          }),
         ),
       })
     })
