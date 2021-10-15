@@ -83,11 +83,13 @@ describe('UpdateEnumType', () => {
         id: enumTypeId,
         typeKind: 'EnumType',
         name: updateEnumTypeData.name,
-        allowedValues: updateEnumTypeData.allowedValues.map((av) =>
-          expect.objectContaining({
-            id: expect.any(String),
-            ...av,
-          }),
+        allowedValues: expect.arrayContaining(
+          updateEnumTypeData.allowedValues.map((av) =>
+            expect.objectContaining({
+              id: expect.any(String),
+              ...av,
+            }),
+          ),
         ),
       })
     })
