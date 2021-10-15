@@ -1,6 +1,7 @@
 import { domainRequest } from '@codelab/backend/infra'
 import {
   createTagInput,
+  TagModule,
   TestCreateTagGql,
   TestCreateTagMutation,
 } from '@codelab/backend/modules/tag'
@@ -33,7 +34,7 @@ describe('CreateType', () => {
     guestApp = await setupTestModule([TypeModule], {
       role: Role.Guest,
     })
-    userApp = await setupTestModule([TypeModule], {
+    userApp = await setupTestModule([TypeModule, TagModule], {
       role: Role.User,
     })
     ;({

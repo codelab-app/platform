@@ -1,7 +1,7 @@
+import { TagSelect } from '@codelab/frontend/modules/tag'
 import { ElementTypeKind, PrimitiveKind } from '@codelab/shared/abstract/core'
 import { EnumTypeValueFragment } from '../graphql/EnumTypeValue.fragment.graphql.gen'
 import { TypeSelect } from './TypeSelect'
-import { TagSelect } from '@codelab/frontend/modules/tag'
 
 export interface BaseTypeMutationSchema {
   name: string

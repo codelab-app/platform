@@ -33,6 +33,26 @@ type Tag {
   isRoot: Boolean!
 }
 
+"""An edge between two element nodes"""
+type TagEdge {
+  """The id of the source Tag"""
+  source: String!
+
+  """The id of the target Tag"""
+  target: String!
+  order: Int
+}
+
+type TagGraph {
+  """All descendant Elements or Components, at any level"""
+  vertices: [TagVertex!]!
+
+  """All the links connecting the descendant elements/components"""
+  edges: [TagEdge!]!
+}
+
+union TagVertex = Tag
+
 type Field {
   id: ID!
   key: String!
@@ -59,26 +79,6 @@ enum TypeEdgeKind {
   ArrayItem
   Union
 }
-
-"""An edge between two element nodes"""
-type TagEdge {
-  """The id of the source Tag"""
-  source: String!
-
-  """The id of the target Tag"""
-  target: String!
-  order: Int
-}
-
-type TagGraph {
-  """All descendant Elements or Components, at any level"""
-  vertices: [TagVertex!]!
-
-  """All the links connecting the descendant elements/components"""
-  edges: [TagEdge!]!
-}
-
-union TagVertex = Tag
 
 type ArrayType implements Type {
   typeKind: TypeKind!

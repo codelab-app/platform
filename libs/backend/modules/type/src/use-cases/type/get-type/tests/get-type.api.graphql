@@ -4,6 +4,9 @@ query TestGetType($input: GetTypeInput!) {
     id
     name
     typeKind
+    tags {
+      ...Tag
+    }
     ... on EnumType {
       allowedValues {
         id

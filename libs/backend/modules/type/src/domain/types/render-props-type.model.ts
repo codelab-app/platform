@@ -9,9 +9,14 @@ export class RenderPropsType
   extends Type<TypeKind.RenderPropsType>
   implements IRenderPropsTypeVertex
 {
-  constructor({ id, name }: Pick<RenderPropsType, 'id' | 'name'>) {
+  constructor({
+    id,
+    name,
+    tags,
+  }: Pick<RenderPropsType, 'id' | 'name' | 'tags'>) {
     super(TypeKind.RenderPropsType)
 
+    this.tags = tags
     this.id = id
     this.name = name
   }

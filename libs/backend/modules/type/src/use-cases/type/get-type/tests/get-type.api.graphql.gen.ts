@@ -1,6 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { TagFragment, TagEdgeFragment } from '../../../../../../../../frontend/modules/tag/src/use-cases/Tag.fragment.graphql.gen';
 import { gql } from '@apollo/client';
+import { TagFragmentDoc, TagEdgeFragmentDoc } from '../../../../../../../../frontend/modules/tag/src/use-cases/Tag.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestGetTypeQueryVariables = Types.Exact<{
@@ -8,7 +10,7 @@ export type TestGetTypeQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetTypeQuery = { getType?: Types.Maybe<{ __typename: 'ArrayType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'ComponentType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'ElementType', kind: Types.ElementTypeKind, id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'EnumType', id: string, name: string, typeKind: Types.TypeKind, allowedValues: Array<{ id: string, name?: Types.Maybe<string>, value: string }> } | { __typename: 'InterfaceType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'LambdaType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'PrimitiveType', primitiveKind: Types.PrimitiveKind, id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'ReactNodeType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'RenderPropsType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'UnionType', id: string, name: string, typeKind: Types.TypeKind }> };
+export type TestGetTypeQuery = { getType?: Types.Maybe<{ __typename: 'ArrayType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> } | { __typename: 'ComponentType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> } | { __typename: 'ElementType', kind: Types.ElementTypeKind, id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> } | { __typename: 'EnumType', id: string, name: string, typeKind: Types.TypeKind, allowedValues: Array<{ id: string, name?: Types.Maybe<string>, value: string }>, tags?: Types.Maybe<Array<TagFragment>> } | { __typename: 'InterfaceType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> } | { __typename: 'LambdaType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> } | { __typename: 'PrimitiveType', primitiveKind: Types.PrimitiveKind, id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> } | { __typename: 'ReactNodeType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> } | { __typename: 'RenderPropsType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> } | { __typename: 'UnionType', id: string, name: string, typeKind: Types.TypeKind, tags?: Types.Maybe<Array<TagFragment>> }> };
 
 
 export const TestGetTypeGql = gql`
@@ -18,6 +20,9 @@ export const TestGetTypeGql = gql`
     id
     name
     typeKind
+    tags {
+      ...Tag
+    }
     ... on EnumType {
       allowedValues {
         id
@@ -33,7 +38,7 @@ export const TestGetTypeGql = gql`
     }
   }
 }
-    `;
+    ${TagFragmentDoc}`;
 
 /**
  * __useTestGetTypeQuery__

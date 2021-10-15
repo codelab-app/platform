@@ -2,6 +2,7 @@ import { domainRequest } from '@codelab/backend/infra'
 import {
   CreateTagInput,
   createTagInput,
+  TagModule,
   TestCreateTagGql,
   TestCreateTagMutation,
 } from '@codelab/backend/modules/tag'
@@ -44,15 +45,9 @@ describe('UpdateEnumType', () => {
     guestApp = await setupTestModule([TypeModule], {
       role: Role.Guest,
     })
-    userApp = await setupTestModule([TypeModule], {
+    userApp = await setupTestModule([TypeModule, TagModule], {
       role: Role.User,
     })
-
-    enumTypeId = await domainRequest<CreateTypeInput, TestCreateTypeMutation>(
-      userApp,
-      TestCreateTypeGql,
-      createEnumTypeInput(tagId),
-    ).then((r) => r.createType?.id)
     ;({
       createTag: { id: tagId },
     } = await domainRequest<CreateTagInput, TestCreateTagMutation>(
@@ -67,6 +62,11 @@ describe('UpdateEnumType', () => {
       TestCreateTagGql,
       createTagInput,
     ))
+    enumTypeId = await domainRequest<CreateTypeInput, TestCreateTypeMutation>(
+      userApp,
+      TestCreateTypeGql,
+      createEnumTypeInput(tagId),
+    ).then((r) => r.createType?.id)
     updateEnumTypeData = createUpdateEnumTypeData(tagId2)
   })
 
@@ -102,6 +102,8 @@ describe('UpdateEnumType', () => {
       >(userApp, TestGetTypeGql, { where: { id: enumTypeId } })
 
       // New enum values match, old values are excluded
+      console.log({ createTagInput })
+
       expect(type).toEqual({
         __typename: 'EnumType',
         id: enumTypeId,

@@ -1,12 +1,16 @@
 import { BaseAdapter } from '@codelab/backend/abstract/core'
 import { DgraphEnumType } from '@codelab/backend/infra'
+import { TagAdapter } from '@codelab/backend/modules/tag'
 import { Injectable } from '@nestjs/common'
 import { EnumType } from '../../domain'
 import { EnumTypeValueAdapter } from './enum-type-value.adapter'
 
 @Injectable()
 export class EnumTypeAdapter extends BaseAdapter<DgraphEnumType, EnumType> {
-  constructor(private readonly enumTypeValueAdapter: EnumTypeValueAdapter) {
+  constructor(
+    private readonly enumTypeValueAdapter: EnumTypeValueAdapter,
+    private readonly tagAdapter: TagAdapter,
+  ) {
     super()
   }
 
@@ -22,7 +26,7 @@ export class EnumTypeAdapter extends BaseAdapter<DgraphEnumType, EnumType> {
       id,
       name,
       allowedValues,
-      tags,
+      tags: tags?.map((t) => this.tagAdapter.mapItem(t)),
     })
   }
 }

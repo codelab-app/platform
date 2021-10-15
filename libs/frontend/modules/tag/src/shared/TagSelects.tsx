@@ -15,7 +15,6 @@ export const TagSelect = (props: TagSelectProps) => {
       label: i.name,
       value: i.id,
     })) || []
-  console.log({ tagOptions })
 
   return (
     <SelectField
