@@ -1,11 +1,14 @@
-import { domainRequest } from '@codelab/backend/infra'
 import {
   createTagInput,
   TagModule,
   TestCreateTagGql,
   TestCreateTagMutation,
 } from '@codelab/backend/modules/tag'
-import { setupTestModule, teardownTestModule } from '@codelab/backend/nestjs'
+import {
+  domainRequest,
+  setupTestModule,
+  teardownTestModule,
+} from '@codelab/backend/shared/testing'
 import { PrimitiveKind, Role } from '@codelab/shared/abstract/core'
 import { CreateTagInput } from '@codelab/shared/codegen/graphql'
 import { INestApplication } from '@nestjs/common'

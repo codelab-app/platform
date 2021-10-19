@@ -7,7 +7,7 @@ export class DgraphController {
 
   @Post('reset-data')
   async resetData() {
-    await this.dgraphService.resetDb()
+    await this.dgraphService.resetData()
   }
 
   @Post('update-schema')

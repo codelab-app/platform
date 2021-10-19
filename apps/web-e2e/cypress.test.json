@@ -11,14 +11,14 @@
   "chromeWebSecurity": false,
   "ignoreTestFiles": "*.ignore.ts",
   "defaultCommandTimeout": 30000,
-  "responseTimeout": 90000,
+  "responseTimeout": 60000,
   "execTimeout": 90000,
   "pageLoadTimeout": 90000,
   "projectId": "37q6ed",
   "env": {},
   "testFiles": "**/*.spec.*",
   "retries": {
-    "runMode": 2,
+    "runMode": 1,
     "openMode": 0
   }
 }
