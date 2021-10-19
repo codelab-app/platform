@@ -11,7 +11,7 @@
   "chromeWebSecurity": false,
   "ignoreTestFiles": "*.ignore.ts",
   "defaultCommandTimeout": 30000,
-  "responseTimeout": 90000,
+  "responseTimeout": 60000,
   "execTimeout": 90000,
   "pageLoadTimeout": 90000,
   "projectId": "86p5h3",
