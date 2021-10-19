@@ -74,23 +74,23 @@ executors:
     machine:
       docker_layer_caching: true
       image: ubuntu-2004:202010-01
-    resource_class: medium
+    resource_class: medium+
     # resource_class: large
   docker-node:
     <<: *executor-config
     docker:
       - image: cimg/node:14.16.0-browsers
-    resource_class: medium
+    resource_class: medium+
   cypress-node:
     <<: *executor-config
     docker:
       - image: cypress/browsers:chrome77
-    resource_class: medium
+    resource_class: medium+
   docker-python:
     <<: *executor-config
     docker:
       - image: circleci/python:3.7
-    resource_class: medium
+    resource_class: medium+
 
 commands:
   setup-workspace:
