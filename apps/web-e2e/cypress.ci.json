@@ -16,7 +16,7 @@
   "pageLoadTimeout": 90000,
   "projectId": "86p5h3",
   "env": {},
-  "testFiles": "**/*.spec.*",
+  "testFiles": "builder-props.spec.ts",
   "retries": {
     "runMode": 1,
     "openMode": 0
