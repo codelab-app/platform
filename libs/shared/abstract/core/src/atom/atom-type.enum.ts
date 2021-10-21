@@ -1,4 +1,10 @@
 export enum AtomType {
+  HookQuery = 'HookQuery',
+  HookGraphqlQuery = 'HookGraphqlQuery',
+  HookGraphqlMutation = 'HookGraphqlMutation',
+  HookRecoilState = 'HookRecoilState',
+  HookQueryPage = 'HookQueryPage',
+  HookQueryPages = 'HookQueryPages',
   // Ant Design
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
@@ -370,3 +376,15 @@ export enum AtomType {
   HtmlSub = 'HtmlSub',
   HtmlSup = 'HtmlSup',
 }
+
+export const hookTypes = [
+  AtomType.HookGraphqlQuery,
+  AtomType.HookGraphqlMutation,
+  AtomType.HookQueryPage,
+  AtomType.HookQueryPages,
+  AtomType.HookRecoilState,
+  AtomType.HookQuery,
+]
+
+export const filterNotHookType = (atom: AtomType | string) =>
+  !hookTypes.includes(atom as AtomType)

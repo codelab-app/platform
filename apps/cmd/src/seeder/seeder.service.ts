@@ -4,12 +4,17 @@ import {
   serverConfig,
 } from '@codelab/backend/infra'
 import { SeedBaseTypesService } from '@codelab/backend/modules/type'
-import { AtomType, IUser, Role } from '@codelab/shared/abstract/core'
+import {
+  AtomType,
+  IUser,
+  Role,
+  filterNotHookType,
+} from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { Command, Console } from 'nestjs-console'
 import { envOption } from '../env-helper'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
-import { AtomSeeder, TypeSeeder } from './models'
+import { AtomSeeder, HookSeeder, TypeSeeder } from './models'
 import { iterateCsvs } from './utils/iterateCsvs'
 
 interface AtomSeed {
@@ -32,6 +37,7 @@ export class SeederService {
   constructor(
     @Inject(serverConfig.KEY) private readonly _serverConfig: ServerConfig,
     private readonly seedBaseTypesService: SeedBaseTypesService,
+    private readonly hookSeeder: HookSeeder,
     private readonly atomSeeder: AtomSeeder,
     private readonly typeSeeder: TypeSeeder,
   ) {}
@@ -58,11 +64,12 @@ export class SeederService {
     this.atoms = await this.seedAtoms(currentUser)
 
     /**
-     * (3) Wrap all Atoms with a Component
+     * (3) Seed atoms api
      */
+    await this.hookSeeder.seedHooks(currentUser)
 
     /**
-     * (3) Seed all Atoms API's that we have data for
+     * (4) Seed all Atoms API's that we have data for
      */
     await iterateCsvs(
       this.antdDataFolder,
@@ -78,7 +85,7 @@ export class SeederService {
     await this.typeSeeder.seedBaseTypes(currentUser)
 
     const atoms = await this.atomSeeder.seedAtomsIfMissing(
-      Object.values(AtomType),
+      Object.values(AtomType).filter(filterNotHookType),
     )
 
     return atoms.map((atom) => ({ id: atom.id, atomType: atom.type }))
