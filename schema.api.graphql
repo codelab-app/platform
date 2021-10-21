@@ -194,6 +194,12 @@ type Atom {
 }
 
 enum AtomType {
+  HookQuery
+  HookGraphqlQuery
+  HookGraphqlMutation
+  HookRecoilState
+  HookQueryPage
+  HookQueryPages
   AntDesignAffix
   AntDesignAlert
   AntDesignAnchor

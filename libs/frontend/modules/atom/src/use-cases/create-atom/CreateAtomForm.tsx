@@ -5,7 +5,7 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
-import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.web.graphql.gen'
@@ -14,10 +14,12 @@ import { CreateAtomSchema, createAtomSchema } from './createAtomSchema'
 
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomSchema>
 
-const atomTypeOptions = Object.keys(AtomType).map((atomType) => ({
-  label: atomType,
-  value: atomType,
-}))
+const atomTypeOptions = Object.keys(AtomType)
+  .filter(filterNotHookType)
+  .map((atomType) => ({
+    label: atomType,
+    value: atomType,
+  }))
 
 export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   const {

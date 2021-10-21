@@ -4,14 +4,18 @@ import {
   serverConfig,
 } from '@codelab/backend/infra'
 import { SeedBaseTypesService } from '@codelab/backend/modules/type'
-import { AtomType, Role, User } from '@codelab/shared/abstract/core'
+import {
+  AtomType,
+  filterNotHookType,
+  Role,
+  User,
+} from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable } from '@nestjs/common'
 import { Command, Console } from 'nestjs-console'
-import shell from 'shelljs'
 import { envOption } from '../env-helper'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
-import { AtomSeeder, TypeSeeder } from './models'
+import { AtomSeeder, HookSeeder, TypeSeeder } from './models'
 import { iterateCsvs } from './utils/iterateCsvs'
 
 interface AtomSeed {
@@ -34,6 +38,7 @@ export class SeederService {
   constructor(
     @Inject(serverConfig.KEY) private readonly _serverConfig: ServerConfig,
     private readonly seedBaseTypesService: SeedBaseTypesService,
+    private readonly hookSeeder: HookSeeder,
     private readonly atomSeeder: AtomSeeder,
     private readonly typeSeeder: TypeSeeder,
   ) {}
@@ -60,11 +65,12 @@ export class SeederService {
     this.atoms = await this.seedAtoms(currentUser)
 
     /**
-     * (3) Wrap all Atoms with a Component
+     * (3) Seed atoms api
      */
+    await this.hookSeeder.seedHooks(currentUser)
 
     /**
-     * (3) Seed all Atoms API's that we have data for
+     * (4) Seed all Atoms API's that we have data for
      */
     await iterateCsvs(
       this.antdDataFolder,
@@ -80,17 +86,19 @@ export class SeederService {
     await this.typeSeeder.seedBaseTypes(currentUser)
 
     return Promise.all(
-      Object.values(AtomType).map((atomType) =>
-        this.atomSeeder
-          .seedAtomIfMissing({
-            input: {
-              type: atomType,
-              name: pascalCaseToWords(atomType),
-            },
-            currentUser,
-          })
-          .then((id) => ({ id, atomType })),
-      ),
+      Object.values(AtomType)
+        .filter(filterNotHookType)
+        .map((atomType) =>
+          this.atomSeeder
+            .seedAtomIfMissing({
+              input: {
+                type: atomType,
+                name: pascalCaseToWords(atomType),
+              },
+              currentUser,
+            })
+            .then((id) => ({ id, atomType })),
+        ),
     )
   }
 

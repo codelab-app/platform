@@ -4,7 +4,7 @@ import { SeedBaseTypesService, TypeModule } from '@codelab/backend/modules/type'
 import { NestjsModule } from '@codelab/backend/shared/nestjs'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { AtomSeeder, TypeSeeder } from './models'
+import { AtomSeeder, HookSeeder, TypeSeeder } from './models'
 import { SeederService } from './seeder.service'
 
 @Module({
@@ -16,7 +16,13 @@ import { SeederService } from './seeder.service'
     TypeModule,
     AtomModule,
   ],
-  providers: [SeedBaseTypesService, SeederService, AtomSeeder, TypeSeeder],
+  providers: [
+    SeedBaseTypesService,
+    SeederService,
+    AtomSeeder,
+    TypeSeeder,
+    HookSeeder,
+  ],
   exports: [SeederService],
 })
 export class SeederModule {}
