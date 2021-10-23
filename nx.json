@@ -98,6 +98,9 @@
     "frontend-model-infra-apollo": {
       "tags": ["layer:infra", "scope:frontend"]
     },
+    "frontend-model-infra-redux": {
+      "tags": ["scope:frontend"]
+    },
     "frontend-model-state": {
       "tags": ["scope:frontend"]
     },

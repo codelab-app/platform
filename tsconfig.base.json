@@ -20,9 +20,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/backend/shared/testing": [
-        "libs/backend/shared/testing/src/index.ts"
-      ],
       "@codelab/backend/abstract/core": [
         "libs/backend/abstract/core/src/index.ts"
       ],
@@ -63,6 +60,9 @@
       "@codelab/backend/shared/nestjs": [
         "libs/backend/shared/nestjs/src/index.ts"
       ],
+      "@codelab/backend/shared/testing": [
+        "libs/backend/shared/testing/src/index.ts"
+      ],
       "@codelab/backend/shared/utils": [
         "libs/backend/shared/utils/src/index.ts"
       ],
@@ -78,6 +78,9 @@
       ],
       "@codelab/frontend/model/infra/apollo": [
         "libs/frontend/model/infra/apollo/src/index.ts"
+      ],
+      "@codelab/frontend/model/infra/redux": [
+        "libs/frontend/model/infra/redux/src/index.ts"
       ],
       "@codelab/frontend/model/state": ["libs/frontend/model/state/index.ts"],
       "@codelab/frontend/model/state/local": [

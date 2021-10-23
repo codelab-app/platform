@@ -1,6 +1,10 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
+  initializeStore,
+  REDUX_STATE_PROP_NAME,
+} from '@codelab/frontend/model/infra/redux'
+import {
   CreateAppButton,
   CreateAppModal,
   DeleteAppModal,
@@ -11,6 +15,7 @@ import { SignOutUserButton } from '@codelab/frontend/modules/user'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
+import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
@@ -42,7 +47,19 @@ const AppsPage: CodelabPage = () => {
   )
 }
 
-export const getServerSideProps = withPageAuthRequired()
+export const getServerSideProps = withPageAuthRequired({
+  getServerSideProps: async (context: GetServerSidePropsContext) => {
+    const reduxStore = initializeStore({})
+
+    const props = {
+      [REDUX_STATE_PROP_NAME]: reduxStore.getState(),
+    }
+
+    return {
+      props,
+    }
+  },
+})
 
 AppsPage.Template = DashboardTemplate
 AppsPage.SidebarNavigation = null

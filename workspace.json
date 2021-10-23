@@ -738,6 +738,30 @@
         }
       }
     },
+    "frontend-model-infra-redux": {
+      "root": "libs/frontend/model/infra/redux",
+      "sourceRoot": "libs/frontend/model/infra/redux/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend/model/infra/redux/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/model/infra/redux"],
+          "options": {
+            "jestConfig": "libs/frontend/model/infra/redux/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "frontend-model-state": {
       "root": "libs/frontend/model/state",
       "sourceRoot": "libs/frontend/model/state/src",
