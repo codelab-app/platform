@@ -6,7 +6,9 @@ import {
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { AutoFields } from 'uniforms-antd'
+import { getApps } from '../../appReducer'
 import { refetchGetAppsQuery } from '../get-apps/GetApps.web.graphql.gen'
 import { useCreateAppMutation } from './CreateApp.web.graphql.gen'
 import { CreateAppInput, createAppSchema } from './createAppSchema'
@@ -22,6 +24,13 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
     mapVariables: ({ name }: CreateAppInput) => ({ input: { name } }),
   })
 
+  const dispatch = useDispatch()
+
+  const onSubmitSuccess = async () => {
+    reset()
+    await dispatch(getApps({}))
+  }
+
   return (
     <FormUniforms<CreateAppInput>
       onSubmit={handleSubmit}
@@ -29,7 +38,7 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
       onSubmitError={createNotificationHandler({
         title: 'Error while creating app',
       })}
-      onSubmitSuccess={() => reset()}
+      onSubmitSuccess={onSubmitSuccess}
       {...props}
     >
       <AutoFields />

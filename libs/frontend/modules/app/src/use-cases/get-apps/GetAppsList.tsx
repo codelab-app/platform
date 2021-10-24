@@ -2,14 +2,16 @@ import { padding, threeGridCol } from '@codelab/frontend/style'
 import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Col, Empty, Row, Spin } from 'antd'
 import React from 'react'
+import { AppState, useAppSelector } from '../../appReducer'
 import { CreateAppButtonNow } from '../create-app'
-import { useGetAppsQuery } from './GetApps.web.graphql.gen'
 import { GetAppsItem } from './GetAppsItem'
 
 export const GetAppsList = () => {
-  const { loading, data } = useGetAppsQuery()
+  // const { loading, data } = useGetAppsQuery()
+
+  // we still have error prop in the destruction which we can use later
+  const { loading, appList } = useAppSelector((state: AppState) => state)
   const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.App)
-  const appList = data?.apps
 
   return (
     <>

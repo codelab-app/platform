@@ -1,25 +1,31 @@
-import { appListSlice } from '@codelab/frontend/modules/app'
+import { ApolloClient } from '@apollo/client'
+import { appSlice } from '@codelab/frontend/modules/app'
 import { configureStore, Store } from '@reduxjs/toolkit'
 
 export const REDUX_STATE_PROP_NAME = '__REDUX_STATE__'
 
-const createStore = (preloadedState: any) => {
+const createStore = (preloadedState: any, client: ApolloClient<any>) => {
   return configureStore({
     reducer: {
-      apps: appListSlice.reducer,
+      apps: appSlice.reducer,
     },
     preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({ thunk: { extraArgument: { client } } }),
   })
 }
 
 let store: Store | undefined
 
-export const initializeStore = (ssPageProps: any) => {
+export const initializeStore = (
+  ssPageProps: any,
+  client: ApolloClient<any>,
+) => {
   const preloadedState = ssPageProps[REDUX_STATE_PROP_NAME]
-  let _store = store ?? createStore(preloadedState)
+  let _store = store ?? createStore(preloadedState, client)
 
   if (preloadedState && store) {
-    _store = createStore({ ...store.getState(), ...preloadedState })
+    _store = createStore({ ...store.getState(), ...preloadedState }, client)
     store = undefined
   }
 

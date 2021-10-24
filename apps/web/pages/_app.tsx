@@ -24,7 +24,8 @@ const AppContainer = ({
   const { Template, Header, MainPane, MetaPane, SidebarNavigation } =
     Component as CodelabPage
 
-  const reduxStore = initializeStore(ssrPageProps)
+  const client = useApollo(ssrPageProps)
+  const reduxStore = initializeStore(ssrPageProps, client)
   const _Header = Header ? () => <Header {...ssrPageProps} /> : null
   const _MainPane = MainPane ? () => <MainPane {...ssrPageProps} /> : null
   const _MetaPane = MetaPane ? () => <MetaPane {...ssrPageProps} /> : null
@@ -36,7 +37,7 @@ const AppContainer = ({
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <ApolloProvider client={useApollo(ssrPageProps)}>
+        <ApolloProvider client={client}>
           <Provider store={reduxStore}>
             <UserProvider>
               <GlobalStyles />
