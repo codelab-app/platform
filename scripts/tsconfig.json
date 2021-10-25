@@ -1,13 +1,14 @@
 {
-  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../dist/out-tsc",
-    "allowJs": true,
     "module": "commonjs",
-    "esModuleInterop": true,
+    "declaration": true,
+    "types": ["node"],
+    "target": "es6",
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true
   },
-  "include": ["**/*.js"]
+  "include": ["./**/*.(t|j)s"]
 }
