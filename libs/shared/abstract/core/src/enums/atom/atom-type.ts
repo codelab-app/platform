@@ -389,4 +389,4 @@ export const hookTypes = [
 export const filterNotHookType = (atom: AtomType | string) =>
   !hookTypes.includes(atom as AtomType)
 export const isAtomTypeForTest = (atom: AtomType) =>
-  [AtomType.AntDesignButton].includes(atom)
+  [AtomType.AntDesignButton, AtomType.AntDesignCard].includes(atom)
