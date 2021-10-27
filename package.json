@@ -168,7 +168,7 @@
     "why-is-node-running": "2.2.0",
     "winston": "^3.3.3",
     "worker-loader": "^3.0.8",
-    "zod": "3.9.5"
+    "zod": "3.11.6"
   },
   "devDependencies": {
     "@apollo/graphql": "14.5.0",

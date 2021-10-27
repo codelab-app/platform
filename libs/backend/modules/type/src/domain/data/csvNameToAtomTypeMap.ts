@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/frontend/abstract/codegen'
+import { AtomType } from '@codelab/shared/abstract/core'
 
 /**
  * Maps the name of the csv files to their atom type
