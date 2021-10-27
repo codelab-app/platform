@@ -10,7 +10,7 @@ export type TestDeletePageMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestDeletePageMutation = { deletePage?: Types.Maybe<PageBaseFragment> };
+export type TestDeletePageMutation = { deletePage?: PageBaseFragment | null | undefined };
 
 
 export const TestDeletePageGql = gql`

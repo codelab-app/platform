@@ -10,7 +10,7 @@ export type TestGetExportAtomsQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetExportAtomsQuery = { getAtoms?: Types.Maybe<Array<TestGetExport__AtomsFragment>> };
+export type TestGetExportAtomsQuery = { getAtoms?: Array<TestGetExport__AtomsFragment> | null | undefined };
 
 export type TestGetExport__AtomsFragment = { id: string, name: string, type: Types.AtomType, api: { id: string, name: string, typeKind: Types.TypeKind, typeGraph: TypeGraphFragment } };
 

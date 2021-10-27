@@ -1,11 +1,11 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { gql } from '@apollo/client';
-export type QueryHookConfigFragment = { body?: Types.Maybe<string>, method?: Types.Maybe<Types.QueryMethod>, queryKey: string, url?: Types.Maybe<string>, lambdaId?: Types.Maybe<string> };
+export type QueryHookConfigFragment = { body?: string | null | undefined, method?: Types.QueryMethod | null | undefined, queryKey: string, url?: string | null | undefined, lambdaId?: string | null | undefined };
 
-export type GraphqlHookConfigFragment = { dataKey?: Types.Maybe<string>, graphqlBody: string, graphqlUrl: string };
+export type GraphqlHookConfigFragment = { dataKey?: string | null | undefined, graphqlBody: string, graphqlUrl: string };
 
-export type RecoilStateHookConfigFragment = { defaultValue?: Types.Maybe<string>, stateKey: string, persisted: Types.PersistenceType };
+export type RecoilStateHookConfigFragment = { defaultValue?: string | null | undefined, stateKey: string, persisted: Types.PersistenceType };
 
 export type QueryPagesHookConfigFragment = { appId: string };
 

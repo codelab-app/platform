@@ -7,7 +7,7 @@ import { gql } from '@apollo/client';
 import { AtomFragmentDoc } from '../../../atom/src/Atom.fragment.graphql.gen';
 import { HookFragmentDoc } from './Hook.fragment.graphql.gen';
 import { PropMapBindingFragmentDoc } from './PropMapBinding.fragment.graphql.gen';
-export type ElementFragment = { __typename: 'Element', id: string, name: string, css?: Types.Maybe<string>, props: string, renderForEachPropKey?: Types.Maybe<string>, renderIfPropKey?: Types.Maybe<string>, propTransformationJs?: Types.Maybe<string>, atom?: Types.Maybe<AtomFragment>, hooks: Array<HookFragment>, propMapBindings: Array<PropMapBindingFragment> };
+export type ElementFragment = { __typename: 'Element', id: string, name: string, css?: string | null | undefined, props: string, renderForEachPropKey?: string | null | undefined, renderIfPropKey?: string | null | undefined, propTransformationJs?: string | null | undefined, atom?: AtomFragment | null | undefined, hooks: Array<HookFragment>, propMapBindings: Array<PropMapBindingFragment> };
 
 export const ElementFragmentDoc = gql`
     fragment Element on Element {

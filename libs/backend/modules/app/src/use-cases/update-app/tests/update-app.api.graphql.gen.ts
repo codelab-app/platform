@@ -10,7 +10,7 @@ export type TestUpdateAppMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestUpdateAppMutation = { updateApp?: Types.Maybe<AppBaseFragment> };
+export type TestUpdateAppMutation = { updateApp?: AppBaseFragment | null | undefined };
 
 
 export const TestUpdateAppGql = gql`

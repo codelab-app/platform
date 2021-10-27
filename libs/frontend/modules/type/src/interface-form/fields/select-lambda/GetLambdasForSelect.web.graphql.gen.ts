@@ -1,15 +1,13 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { api } from '@codelab/shared/codegen/graphql';
 export type GetLambdasForSelectQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
 export type GetLambdasForSelectQuery = { getLambdas: Array<{ id: string, name: string }> };
 
 
-export const GetLambdasForSelectGql = gql`
+export const GetLambdasForSelectGql = `
     query GetLambdasForSelect {
   getLambdas {
     id
@@ -18,32 +16,14 @@ export const GetLambdasForSelectGql = gql`
 }
     `;
 
-/**
- * __useGetLambdasForSelectQuery__
- *
- * To run a query within a React component, call `useGetLambdasForSelectQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLambdasForSelectQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLambdasForSelectQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetLambdasForSelectQuery(baseOptions?: Apollo.QueryHookOptions<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables>(GetLambdasForSelectGql, options);
-      }
-export function useGetLambdasForSelectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables>(GetLambdasForSelectGql, options);
-        }
-export type GetLambdasForSelectQueryHookResult = ReturnType<typeof useGetLambdasForSelectQuery>;
-export type GetLambdasForSelectLazyQueryHookResult = ReturnType<typeof useGetLambdasForSelectLazyQuery>;
-export type GetLambdasForSelectQueryResult = Apollo.QueryResult<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables>;
-export function refetchGetLambdasForSelectQuery(variables?: GetLambdasForSelectQueryVariables) {
-      return { query: GetLambdasForSelectGql, variables: variables }
-    }
+const injectedRtkApi = api.injectEndpoints({
+  endpoints: (build) => ({
+    GetLambdasForSelect: build.query<GetLambdasForSelectQuery, GetLambdasForSelectQueryVariables | void>({
+      query: (variables) => ({ document: GetLambdasForSelectGql, variables })
+    }),
+  }),
+});
+
+export { injectedRtkApi as api };
+export const { useGetLambdasForSelectQuery, useLazyGetLambdasForSelectQuery } = injectedRtkApi;
+

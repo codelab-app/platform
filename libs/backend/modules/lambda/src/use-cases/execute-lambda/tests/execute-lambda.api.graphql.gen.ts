@@ -10,7 +10,7 @@ export type TestExecuteLambdaMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestExecuteLambdaMutation = { executeLambda?: Types.Maybe<TestLambdaPayloadFragment> };
+export type TestExecuteLambdaMutation = { executeLambda?: TestLambdaPayloadFragment | null | undefined };
 
 
 export const TestExecuteLambdaGql = gql`

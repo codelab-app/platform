@@ -8,9 +8,7 @@ import {
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { AutoFields } from 'uniforms-antd'
-import { getApps } from '../../appReducer'
-import { refetchGetAppsQuery } from '../get-apps/GetApps.web.graphql.gen'
-import { useCreateAppMutation } from './CreateApp.web.graphql.gen'
+import { useCreateAppMutation } from '../App.web.graphql.gen'
 import { CreateAppInput, createAppSchema } from './createAppSchema'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
@@ -20,7 +18,7 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
   } = useCrudModalMutationForm({
     entityType: EntityType.App,
     useMutationFunction: useCreateAppMutation,
-    mutationOptions: { refetchQueries: [refetchGetAppsQuery()] },
+    mutationOptions: { refetchQueries: [] },
     mapVariables: ({ name }: CreateAppInput) => ({ input: { name } }),
   })
 
@@ -28,7 +26,6 @@ export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
 
   const onSubmitSuccess = async () => {
     reset()
-    await dispatch(getApps({}))
   }
 
   return (

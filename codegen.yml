@@ -33,7 +33,10 @@ generates:
       baseTypesPath: ~@codelab/shared/codegen/graphql
     plugins:
       - typescript-operations
-      - typescript-react-apollo
+      #  - typescript-react-apollo
+      - typescript-rtk-query:
+          importBaseApiFrom: '@codelab/shared/codegen/graphql'
+          exportHooks: true
     #      - typescript-document-nodes
     # Switch off if have deeply nested issues
     config:

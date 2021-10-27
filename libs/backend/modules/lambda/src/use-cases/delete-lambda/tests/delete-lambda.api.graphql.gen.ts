@@ -8,7 +8,7 @@ export type TestDeleteLambdaMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestDeleteLambdaMutation = { deleteLambda?: Types.Maybe<void> };
+export type TestDeleteLambdaMutation = { deleteLambda?: void | null | undefined };
 
 
 export const TestDeleteLambdaGql = gql`

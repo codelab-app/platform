@@ -1,17 +1,15 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { TagGraphFragment } from '../Tag.fragment.graphql.gen';
-import { gql } from '@apollo/client';
 import { TagGraphFragmentDoc } from '../Tag.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { api } from '@codelab/shared/codegen/graphql';
 export type GetTagGraphQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetTagGraphQuery = { getTagGraph?: Types.Maybe<TagGraphFragment> };
+export type GetTagGraphQuery = { getTagGraph?: TagGraphFragment | null | undefined };
 
 
-export const GetTagGraphGql = gql`
+export const GetTagGraphGql = `
     query GetTagGraph {
   getTagGraph {
     ...TagGraph
@@ -19,32 +17,14 @@ export const GetTagGraphGql = gql`
 }
     ${TagGraphFragmentDoc}`;
 
-/**
- * __useGetTagGraphQuery__
- *
- * To run a query within a React component, call `useGetTagGraphQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTagGraphQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetTagGraphQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetTagGraphQuery(baseOptions?: Apollo.QueryHookOptions<GetTagGraphQuery, GetTagGraphQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTagGraphQuery, GetTagGraphQueryVariables>(GetTagGraphGql, options);
-      }
-export function useGetTagGraphLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTagGraphQuery, GetTagGraphQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTagGraphQuery, GetTagGraphQueryVariables>(GetTagGraphGql, options);
-        }
-export type GetTagGraphQueryHookResult = ReturnType<typeof useGetTagGraphQuery>;
-export type GetTagGraphLazyQueryHookResult = ReturnType<typeof useGetTagGraphLazyQuery>;
-export type GetTagGraphQueryResult = Apollo.QueryResult<GetTagGraphQuery, GetTagGraphQueryVariables>;
-export function refetchGetTagGraphQuery(variables?: GetTagGraphQueryVariables) {
-      return { query: GetTagGraphGql, variables: variables }
-    }
+const injectedRtkApi = api.injectEndpoints({
+  endpoints: (build) => ({
+    GetTagGraph: build.query<GetTagGraphQuery, GetTagGraphQueryVariables | void>({
+      query: (variables) => ({ document: GetTagGraphGql, variables })
+    }),
+  }),
+});
+
+export { injectedRtkApi as api };
+export const { useGetTagGraphQuery, useLazyGetTagGraphQuery } = injectedRtkApi;
+

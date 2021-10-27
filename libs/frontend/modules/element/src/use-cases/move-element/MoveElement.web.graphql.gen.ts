@@ -1,44 +1,28 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { api } from '@codelab/shared/codegen/graphql';
 export type MoveElementMutationVariables = Types.Exact<{
   input: Types.MoveElementInput;
 }>;
 
 
-export type MoveElementMutation = { moveElement?: Types.Maybe<void> };
+export type MoveElementMutation = { moveElement?: void | null | undefined };
 
 
-export const MoveElementGql = gql`
+export const MoveElementGql = `
     mutation MoveElement($input: MoveElementInput!) {
   moveElement(input: $input)
 }
     `;
-export type MoveElementMutationFn = Apollo.MutationFunction<MoveElementMutation, MoveElementMutationVariables>;
 
-/**
- * __useMoveElementMutation__
- *
- * To run a mutation, you first call `useMoveElementMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMoveElementMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [moveElementMutation, { data, loading, error }] = useMoveElementMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useMoveElementMutation(baseOptions?: Apollo.MutationHookOptions<MoveElementMutation, MoveElementMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MoveElementMutation, MoveElementMutationVariables>(MoveElementGql, options);
-      }
-export type MoveElementMutationHookResult = ReturnType<typeof useMoveElementMutation>;
-export type MoveElementMutationResult = Apollo.MutationResult<MoveElementMutation>;
-export type MoveElementMutationOptions = Apollo.BaseMutationOptions<MoveElementMutation, MoveElementMutationVariables>;
+const injectedRtkApi = api.injectEndpoints({
+  endpoints: (build) => ({
+    MoveElement: build.mutation<MoveElementMutation, MoveElementMutationVariables>({
+      query: (variables) => ({ document: MoveElementGql, variables })
+    }),
+  }),
+});
+
+export { injectedRtkApi as api };
+export const { useMoveElementMutation } = injectedRtkApi;
+

@@ -8,7 +8,7 @@ export type TestDeleteFieldMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestDeleteFieldMutation = { deleteField?: Types.Maybe<void> };
+export type TestDeleteFieldMutation = { deleteField?: void | null | undefined };
 
 
 export const TestDeleteFieldGql = gql`

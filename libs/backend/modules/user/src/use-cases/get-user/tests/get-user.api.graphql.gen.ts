@@ -8,7 +8,7 @@ export type GetUserQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetUserQuery = { getUser?: Types.Maybe<{ id: string, auth0Id: string, roles: Array<Types.Role> }> };
+export type GetUserQuery = { getUser?: { id: string, auth0Id: string, roles: Array<Types.Role> } | null | undefined };
 
 
 export const GetUserGql = gql`

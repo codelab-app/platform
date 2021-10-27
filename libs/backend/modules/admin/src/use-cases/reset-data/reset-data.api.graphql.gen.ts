@@ -6,7 +6,7 @@ const defaultOptions =  {}
 export type TestResetDataMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type TestResetDataMutation = { resetData?: Types.Maybe<void> };
+export type TestResetDataMutation = { resetData?: void | null | undefined };
 
 
 export const TestResetDataGql = gql`

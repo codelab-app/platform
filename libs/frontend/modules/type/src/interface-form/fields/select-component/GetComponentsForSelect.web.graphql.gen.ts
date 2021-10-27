@@ -1,8 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { api } from '@codelab/shared/codegen/graphql';
 export type ComponentForSelectFragment = { id: string, name: string };
 
 export type GetComponentsForSelectQueryVariables = Types.Exact<{ [key: string]: never; }>;
@@ -10,13 +8,13 @@ export type GetComponentsForSelectQueryVariables = Types.Exact<{ [key: string]: 
 
 export type GetComponentsForSelectQuery = { getComponents: Array<ComponentForSelectFragment> };
 
-export const ComponentForSelectFragmentDoc = gql`
+export const ComponentForSelectFragmentDoc = `
     fragment ComponentForSelect on Component {
   id
   name
 }
     `;
-export const GetComponentsForSelectGql = gql`
+export const GetComponentsForSelectGql = `
     query GetComponentsForSelect {
   getComponents {
     ...ComponentForSelect
@@ -24,32 +22,14 @@ export const GetComponentsForSelectGql = gql`
 }
     ${ComponentForSelectFragmentDoc}`;
 
-/**
- * __useGetComponentsForSelectQuery__
- *
- * To run a query within a React component, call `useGetComponentsForSelectQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetComponentsForSelectQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetComponentsForSelectQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetComponentsForSelectQuery(baseOptions?: Apollo.QueryHookOptions<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables>(GetComponentsForSelectGql, options);
-      }
-export function useGetComponentsForSelectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables>(GetComponentsForSelectGql, options);
-        }
-export type GetComponentsForSelectQueryHookResult = ReturnType<typeof useGetComponentsForSelectQuery>;
-export type GetComponentsForSelectLazyQueryHookResult = ReturnType<typeof useGetComponentsForSelectLazyQuery>;
-export type GetComponentsForSelectQueryResult = Apollo.QueryResult<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables>;
-export function refetchGetComponentsForSelectQuery(variables?: GetComponentsForSelectQueryVariables) {
-      return { query: GetComponentsForSelectGql, variables: variables }
-    }
+const injectedRtkApi = api.injectEndpoints({
+  endpoints: (build) => ({
+    GetComponentsForSelect: build.query<GetComponentsForSelectQuery, GetComponentsForSelectQueryVariables | void>({
+      query: (variables) => ({ document: GetComponentsForSelectGql, variables })
+    }),
+  }),
+});
+
+export { injectedRtkApi as api };
+export const { useGetComponentsForSelectQuery, useLazyGetComponentsForSelectQuery } = injectedRtkApi;
+

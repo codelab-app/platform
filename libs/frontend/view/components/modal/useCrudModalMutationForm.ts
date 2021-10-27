@@ -26,20 +26,7 @@ export interface UseMutationCrudFormOptions<
     MutationFunctionOptions<TMutation, TMutationVariables>,
     'variables'
   >
-  useMutationFunction:
-    | ((
-        baseOptions?: Apollo.MutationHookOptions<TMutation, TMutationVariables>,
-      ) => MutationTuple<TMutation, TMutationVariables>)
-    | {
-        provider: (
-          state: CRUDModalState,
-        ) => (
-          baseOptions?: Apollo.MutationHookOptions<
-            TMutation,
-            TMutationVariables
-          >,
-        ) => MutationTuple<TMutation, TMutationVariables>
-      }
+  useMutationFunction: any
   mapVariables: (
     formData: TSubmitData,
     crudModalState: CRUDModalState,

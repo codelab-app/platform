@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useEffect } from 'react'
 import { AppFragment } from '../App.fragment.graphql.gen'
-import { useGetAppLazyQuery } from '../use-cases/get-app/GetApp.web.graphql.gen'
+import { useLazyGetAppQuery } from '../use-cases/get-app/GetApp.web.graphql.gen'
 
 type IAppContext = {
   app: AppFragment
@@ -17,12 +17,12 @@ export const _AppProvider = ({
   appId,
   children,
 }: PropsWithChildren<AppProviderProps>) => {
-  const [load, { data, loading }] = useGetAppLazyQuery()
+  const [load, { data }] = useLazyGetAppQuery()
   const app = data?.app
 
   useEffect(() => {
     if (appId) {
-      load({ variables: { input: { byId: { appId } } } })
+      load({ input: { byId: { appId } } })
     }
   }, [appId, load])
 
@@ -34,7 +34,7 @@ export const _AppProvider = ({
     <AppContext.Provider
       value={{
         app,
-        loading,
+        loading: false,
       }}
     >
       {children}

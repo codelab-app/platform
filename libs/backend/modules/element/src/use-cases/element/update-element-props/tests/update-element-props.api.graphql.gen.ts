@@ -8,7 +8,7 @@ export type TestUpdateElementPropsMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestUpdateElementPropsMutation = { updateElementProps?: Types.Maybe<void> };
+export type TestUpdateElementPropsMutation = { updateElementProps?: void | null | undefined };
 
 
 export const TestUpdateElementPropsGql = gql`

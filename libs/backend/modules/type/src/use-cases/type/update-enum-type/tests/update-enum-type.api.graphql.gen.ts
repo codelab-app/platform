@@ -8,7 +8,7 @@ export type TestUpdateEnumTypeMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestUpdateEnumTypeMutation = { updateEnumType?: Types.Maybe<void> };
+export type TestUpdateEnumTypeMutation = { updateEnumType?: void | null | undefined };
 
 
 export const TestUpdateEnumTypeGql = gql`

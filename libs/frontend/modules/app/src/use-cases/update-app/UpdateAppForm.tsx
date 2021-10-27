@@ -7,7 +7,6 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetAppsQuery } from '../get-apps/GetApps.web.graphql.gen'
 import { useUpdateAppMutation } from './UpdateApp.web.graphql.gen'
 import { UpdateAppSchema, updateAppSchema } from './updateAppSchema'
 
@@ -21,7 +20,7 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppSchema>) => {
   } = useCrudModalMutationForm({
     entityType: EntityType.App,
     useMutationFunction: useUpdateAppMutation,
-    mutationOptions: { refetchQueries: [refetchGetAppsQuery()] },
+    mutationOptions: { refetchQueries: [] },
     mapVariables: ({ name }: UpdateAppSchema, state) => ({
       input: { data: { name }, id: state.updateId },
     }),

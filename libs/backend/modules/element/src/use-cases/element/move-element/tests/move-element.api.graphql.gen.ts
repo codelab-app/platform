@@ -8,7 +8,7 @@ export type TestMoveElementMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestMoveElementMutation = { moveElement?: Types.Maybe<void> };
+export type TestMoveElementMutation = { moveElement?: void | null | undefined };
 
 
 export const TestMoveElementGql = gql`

@@ -8,7 +8,7 @@ export type TestGetComponentElementsQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetComponentElementsQuery = { getComponentElements?: Types.Maybe<{ edges: Array<{ order?: Types.Maybe<number>, source: string, target: string }>, vertices: Array<{ id: string, name: string } | { __typename: 'Element', id: string, name: string, css?: Types.Maybe<string>, props: string }> }> };
+export type TestGetComponentElementsQuery = { getComponentElements?: { edges: Array<{ order?: number | null | undefined, source: string, target: string }>, vertices: Array<{ id: string, name: string } | { __typename: 'Element', id: string, name: string, css?: string | null | undefined, props: string }> } | null | undefined };
 
 
 export const TestGetComponentElementsGql = gql`

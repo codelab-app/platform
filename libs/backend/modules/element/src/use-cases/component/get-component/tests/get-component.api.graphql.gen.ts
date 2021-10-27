@@ -8,7 +8,7 @@ export type TestGetComponentQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetComponentQuery = { getComponent?: Types.Maybe<{ id: string, name: string }> };
+export type TestGetComponentQuery = { getComponent?: { id: string, name: string } | null | undefined };
 
 
 export const TestGetComponentGql = gql`

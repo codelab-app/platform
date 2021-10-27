@@ -8,7 +8,7 @@ export type TestImportAtomsMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestImportAtomsMutation = { importAtoms?: Types.Maybe<void> };
+export type TestImportAtomsMutation = { importAtoms?: void | null | undefined };
 
 
 export const TestImportAtomsGql = gql`

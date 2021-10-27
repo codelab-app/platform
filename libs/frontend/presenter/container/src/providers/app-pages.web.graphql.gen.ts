@@ -1,8 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { api } from '@codelab/shared/codegen/graphql';
 export type AppPages__AppFragment = { id: string, name: string, pages: Array<{ id: string, name: string }> };
 
 export type AppPagesQueryVariables = Types.Exact<{
@@ -10,9 +8,9 @@ export type AppPagesQueryVariables = Types.Exact<{
 }>;
 
 
-export type AppPagesQuery = { app?: Types.Maybe<AppPages__AppFragment> };
+export type AppPagesQuery = { app?: AppPages__AppFragment | null | undefined };
 
-export const AppPages__AppFragmentDoc = gql`
+export const AppPages__AppFragmentDoc = `
     fragment AppPages__App on App {
   id
   name
@@ -22,7 +20,7 @@ export const AppPages__AppFragmentDoc = gql`
   }
 }
     `;
-export const AppPagesGql = gql`
+export const AppPagesGql = `
     query AppPages($input: GetAppInput!) {
   app: getApp(input: $input) {
     ...AppPages__App
@@ -30,33 +28,14 @@ export const AppPagesGql = gql`
 }
     ${AppPages__AppFragmentDoc}`;
 
-/**
- * __useAppPagesQuery__
- *
- * To run a query within a React component, call `useAppPagesQuery` and pass it any options that fit your needs.
- * When your component renders, `useAppPagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAppPagesQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useAppPagesQuery(baseOptions: Apollo.QueryHookOptions<AppPagesQuery, AppPagesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AppPagesQuery, AppPagesQueryVariables>(AppPagesGql, options);
-      }
-export function useAppPagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AppPagesQuery, AppPagesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AppPagesQuery, AppPagesQueryVariables>(AppPagesGql, options);
-        }
-export type AppPagesQueryHookResult = ReturnType<typeof useAppPagesQuery>;
-export type AppPagesLazyQueryHookResult = ReturnType<typeof useAppPagesLazyQuery>;
-export type AppPagesQueryResult = Apollo.QueryResult<AppPagesQuery, AppPagesQueryVariables>;
-export function refetchAppPagesQuery(variables?: AppPagesQueryVariables) {
-      return { query: AppPagesGql, variables: variables }
-    }
+const injectedRtkApi = api.injectEndpoints({
+  endpoints: (build) => ({
+    AppPages: build.query<AppPagesQuery, AppPagesQueryVariables>({
+      query: (variables) => ({ document: AppPagesGql, variables })
+    }),
+  }),
+});
+
+export { injectedRtkApi as api };
+export const { useAppPagesQuery, useLazyAppPagesQuery } = injectedRtkApi;
+

@@ -8,7 +8,7 @@ export type TestUpdateLambdaMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestUpdateLambdaMutation = { updateLambda?: Types.Maybe<void> };
+export type TestUpdateLambdaMutation = { updateLambda?: void | null | undefined };
 
 
 export const TestUpdateLambdaGql = gql`

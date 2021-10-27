@@ -8,7 +8,7 @@ export type TestDeleteElementMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestDeleteElementMutation = { deleteElement?: Types.Maybe<void> };
+export type TestDeleteElementMutation = { deleteElement?: void | null | undefined };
 
 
 export const TestDeleteElementGql = gql`

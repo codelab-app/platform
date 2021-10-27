@@ -8,7 +8,7 @@ const defaultOptions =  {}
 export type TestGetTagGraphQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type TestGetTagGraphQuery = { getTagGraph?: Types.Maybe<TestTagGraphFragment> };
+export type TestGetTagGraphQuery = { getTagGraph?: TestTagGraphFragment | null | undefined };
 
 
 export const TestGetTagGraphGql = gql`

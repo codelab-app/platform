@@ -6,7 +6,7 @@ const defaultOptions =  {}
 export type TestSeedBaseTypesMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type TestSeedBaseTypesMutation = { seedBaseTypes?: Types.Maybe<void> };
+export type TestSeedBaseTypesMutation = { seedBaseTypes?: void | null | undefined };
 
 
 export const TestSeedBaseTypesGql = gql`

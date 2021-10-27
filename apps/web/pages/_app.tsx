@@ -25,7 +25,7 @@ const AppContainer = ({
     Component as CodelabPage
 
   const client = useApollo(ssrPageProps)
-  const reduxStore = initializeStore(ssrPageProps, client)
+  const reduxStore = initializeStore(ssrPageProps)
   const _Header = Header ? () => <Header {...ssrPageProps} /> : null
   const _MainPane = MainPane ? () => <MainPane {...ssrPageProps} /> : null
   const _MetaPane = MetaPane ? () => <MetaPane {...ssrPageProps} /> : null

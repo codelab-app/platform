@@ -8,7 +8,7 @@ export type TestUpdateFieldMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestUpdateFieldMutation = { updateField?: Types.Maybe<void> };
+export type TestUpdateFieldMutation = { updateField?: void | null | undefined };
 
 
 export const TestUpdateFieldGql = gql`

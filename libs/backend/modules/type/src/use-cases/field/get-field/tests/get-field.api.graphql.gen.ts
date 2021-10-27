@@ -8,7 +8,7 @@ export type TestGetFieldQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetFieldQuery = { getField?: Types.Maybe<{ id: string, key: string, name?: Types.Maybe<string>, description?: Types.Maybe<string> }> };
+export type TestGetFieldQuery = { getField?: { id: string, key: string, name?: string | null | undefined, description?: string | null | undefined } | null | undefined };
 
 
 export const TestGetFieldGql = gql`

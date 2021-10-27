@@ -10,7 +10,7 @@ export type TestGetLambdaQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetLambdaQuery = { getLambda?: Types.Maybe<TestLambdaFragment> };
+export type TestGetLambdaQuery = { getLambda?: TestLambdaFragment | null | undefined };
 
 
 export const TestGetLambdaGql = gql`

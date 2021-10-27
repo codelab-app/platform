@@ -10,7 +10,7 @@ export type TestUpdatePageMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestUpdatePageMutation = { updatePage?: Types.Maybe<PageBaseFragment> };
+export type TestUpdatePageMutation = { updatePage?: PageBaseFragment | null | undefined };
 
 
 export const TestUpdatePageGql = gql`

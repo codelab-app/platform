@@ -8,7 +8,7 @@ const defaultOptions =  {}
 export type GetMeQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetMeQuery = { getMe?: Types.Maybe<__UserFragment> };
+export type GetMeQuery = { getMe?: __UserFragment | null | undefined };
 
 
 export const GetMeGql = gql`

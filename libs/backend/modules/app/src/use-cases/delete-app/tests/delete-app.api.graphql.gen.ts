@@ -10,7 +10,7 @@ export type TestDeleteAppMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestDeleteAppMutation = { deleteApp?: Types.Maybe<AppBaseFragment> };
+export type TestDeleteAppMutation = { deleteApp?: AppBaseFragment | null | undefined };
 
 
 export const TestDeleteAppGql = gql`

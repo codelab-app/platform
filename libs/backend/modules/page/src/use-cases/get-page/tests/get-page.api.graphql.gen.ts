@@ -8,7 +8,7 @@ export type TestGetPageQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetPageQuery = { page?: Types.Maybe<{ id: string, name: string }> };
+export type TestGetPageQuery = { page?: { id: string, name: string } | null | undefined };
 
 
 export const TestGetPageGql = gql`

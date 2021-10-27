@@ -10,7 +10,7 @@ export type TestGetAppQueryVariables = Types.Exact<{
 }>;
 
 
-export type TestGetAppQuery = { getApp?: Types.Maybe<TestAppFragment> };
+export type TestGetAppQuery = { getApp?: TestAppFragment | null | undefined };
 
 
 export const TestGetAppGql = gql`

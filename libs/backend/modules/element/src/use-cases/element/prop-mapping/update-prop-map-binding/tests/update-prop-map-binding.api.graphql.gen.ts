@@ -8,7 +8,7 @@ export type TestUpdatePropMapBindingMutationVariables = Types.Exact<{
 }>;
 
 
-export type TestUpdatePropMapBindingMutation = { updatePropMapBinding?: Types.Maybe<void> };
+export type TestUpdatePropMapBindingMutation = { updatePropMapBinding?: void | null | undefined };
 
 
 export const TestUpdatePropMapBindingGql = gql`
