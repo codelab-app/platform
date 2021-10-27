@@ -5,11 +5,13 @@ import {
   jsonMutation,
 } from '@codelab/backend/infra'
 import { IUser } from '@codelab/shared/abstract/core'
+import { TypeTree } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { FieldValidator } from '../../../domain/field/field.validator'
 import { TypeValidator } from '../../../domain/type.validator'
 import { CreateTypeService } from '../../type/create-type'
+import { GetTypeGraphService } from '../../type/get-type-graph'
 import { TypeRef } from './create-field.input'
 import { CreateFieldRequest } from './create-field.request'
 
@@ -20,6 +22,7 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
     private fieldValidator: FieldValidator,
     private typeValidator: TypeValidator,
     private createTypeService: CreateTypeService,
+    private getTypeGraphService: GetTypeGraphService,
   ) {
     super(dgraph)
   }
@@ -87,10 +90,11 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
    */
   protected async validate({
     input: {
-      interfaceId,
+      interfaceId, // the interface we're adding the field to
       key,
-      type: { existingTypeId, newType },
+      type: { existingTypeId, newType }, // the type of the field we're creating now
     },
+    currentUser,
   }: CreateFieldRequest): Promise<void> {
     await this.fieldValidator.keyIsUnique(interfaceId, key)
 
@@ -98,12 +102,28 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
       throw new Error('Either existingTypeId or newType must be provided')
     }
 
-    // If we specify an existing type, check if it exists
-    if (existingTypeId) {
-      const existingType = await this.typeValidator.typeExists(existingTypeId)
+    /**
+     * {type: Interface, id: 01, fields: [{type: }]}
+     * {type: Array, id: 02, itemType: 01}
+     *
+     */
 
-      // TODO fix this after implementing get-type-graph
-      // this.typeValidator.notRecursive(interfaceId, existingType)
+    // If we specify an existing type, check if it exists and that we don't cause a recursive type reference
+    if (existingTypeId) {
+      await this.typeValidator.typeExists(existingTypeId)
+
+      const graph = await this.getTypeGraphService.execute({
+        input: { where: { id: existingTypeId } },
+        currentUser,
+      })
+
+      if (!graph) {
+        // Shouldn't happen, we check in typeValidator.typeExists
+        throw new Error('Type graph not found')
+      }
+
+      const existingTypeTree = new TypeTree(graph)
+      this.typeValidator.notRecursive(interfaceId, existingTypeTree)
     }
   }
 }

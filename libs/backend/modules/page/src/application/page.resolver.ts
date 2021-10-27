@@ -134,30 +134,14 @@ export class PageResolver {
       currentUser,
     })
 
-    return null
-
     if (!dgraphPage) {
       return null
     }
 
-    // TODO
-    // const elementGraph = await this.getElementGraphService.execute({
-    //   input: { where: { id: dgraphPage.root.uid } },
-    //   currentUser,
-    // })
-    //
-    // if (!elementGraph) {
-    //   return null
-    // }
-    //
-    // // const r = await this.elementTreeAdapter.mapItem(elementGraph)
-    // // console.log(r)
-    //
-    // // return r
-    //
-    // cLog(elementGraph)
-    //
-    // return new ElementGraph(elementGraph)
+    return this.getElementGraphService.execute({
+      input: { where: { id: dgraphPage.rootElementId } },
+      currentUser,
+    })
   }
 
   // The Page.app resolver is in app-api/../PageAppResolver

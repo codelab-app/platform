@@ -136,9 +136,7 @@ export class TagResolver {
       return null
     }
 
-    // TODO fix this
-    return tagGraph
-    // return this.tagTreeAdapter.mapItem(dgraphTagTree.root)
+    return new TagGraph(tagGraph)
   }
 
   @Query(() => TagGraph, {

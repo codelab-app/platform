@@ -7,11 +7,13 @@ import {
   jsonMutation,
 } from '@codelab/backend/infra'
 import { IUser } from '@codelab/shared/abstract/core'
+import { TypeTree } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { FieldValidator } from '../../../domain/field/field.validator'
 import { TypeValidator } from '../../../domain/type.validator'
 import { CreateTypeService } from '../../type/create-type'
+import { GetTypeGraphService } from '../../type/get-type-graph'
 import { TypeRef } from '../create-field'
 import { GetFieldService } from '../get-field'
 import { UpdateFieldRequest } from './update-field.request'
@@ -24,6 +26,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
     private fieldValidator: FieldValidator,
     private typeValidator: TypeValidator,
     private createTypeService: CreateTypeService,
+    private getTypeGraphService: GetTypeGraphService,
   ) {
     super(dgraph)
   }
@@ -96,6 +99,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
         type: { existingTypeId, newType },
       },
     },
+    currentUser,
   }: UpdateFieldRequest): Promise<void> {
     const field = await this.dgraph.transactionWrapper<{
       '~fields': [{ uid: string }]
@@ -120,11 +124,21 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
 
     if (existingTypeId) {
       // If we specify an existing type, check if it exists
-      const existingType = await this.typeValidator.typeExists(existingTypeId)
+      await this.typeValidator.typeExists(existingTypeId)
 
       // And it doesn't cause a recursive loop
-      // TODO fix  this after implementing get-type-graph
-      // this.typeValidator.notRecursive(interfaceId, existingType)
+      const graph = await this.getTypeGraphService.execute({
+        input: { where: { id: existingTypeId } },
+        currentUser,
+      })
+
+      if (!graph) {
+        // Shouldn't happen, we check in typeValidator.typeExists
+        throw new Error('Type graph not found')
+      }
+
+      const existingTypeTree = new TypeTree(graph)
+      this.typeValidator.notRecursive(interfaceId, existingTypeTree)
     }
   }
 }

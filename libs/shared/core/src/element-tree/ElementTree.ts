@@ -24,9 +24,10 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
     return {
       ...element,
       key: element.id,
-      // An element could be of type Atom or Component
-      // TODO: Since element has no reference to component without the edge, we can't default to component name here
-      name: element.name || (element as IElement)?.atom?.type,
+      name:
+        element.name ||
+        (element as IElement)?.atom?.type ||
+        (element as IElement)?.componentTag?.name,
     }
   }
 

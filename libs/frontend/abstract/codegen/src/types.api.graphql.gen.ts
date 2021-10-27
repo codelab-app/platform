@@ -667,6 +667,8 @@ export type Field = {
   id: Scalars['ID']
   key: Scalars['String']
   name?: Maybe<Scalars['String']>
+  source: Scalars['String']
+  target: Scalars['String']
 }
 
 export type FieldByIdFilter = {

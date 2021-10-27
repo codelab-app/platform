@@ -1,6 +1,6 @@
 import {
   IBaseType,
-  IFieldEdge,
+  IField,
   IGraph,
   IJsonSchemaOptions,
   IType,
@@ -48,7 +48,7 @@ export class TypeTree extends TreeService<IBaseType, ITypeEdge> {
   }
 
   /** Returns all the root fields in the tree, or an empty array if none */
-  getFields(typeId: string): Array<IFieldEdge> {
+  getFields(typeId: string): Array<IField> {
     return this.cy
       .getElementById(typeId)
       .connectedEdges()
@@ -83,13 +83,13 @@ export class TypeTree extends TreeService<IBaseType, ITypeEdge> {
         return { fields, isUnionReactTypeNodeType }
       })
       .filter((parsedData) => parsedData.isUnionReactTypeNodeType)
-      .reduce<Array<IFieldEdge>>(
+      .reduce<Array<IField>>(
         (aggregatedFields, { fields }) => aggregatedFields.concat(fields),
         [],
       )
   }
 
-  getRootFields(): Array<IFieldEdge> {
+  getRootFields(): Array<IField> {
     return this.cy
       .nodes()
       .roots()
@@ -100,7 +100,7 @@ export class TypeTree extends TreeService<IBaseType, ITypeEdge> {
   }
 
   /** Returns all the fields with a type kind. Returns an empty array if the type doesn't have any fields (e.g.. if it's not an interface) */
-  getFieldsByTypeKind(typeKind: TypeKind): Array<IFieldEdge> {
+  getFieldsByTypeKind(typeKind: TypeKind): Array<IField> {
     return this.cy
       .elements()
       .filter(typeIsOfKind(typeKind))

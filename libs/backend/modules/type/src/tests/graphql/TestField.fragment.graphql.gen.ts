@@ -6,6 +6,8 @@ export type TestFieldFragment = {
   key: string
   name?: string | null | undefined
   description?: string | null | undefined
+  source: string
+  target: string
 }
 
 export const TestFieldFragmentDoc = gql`
@@ -14,5 +16,7 @@ export const TestFieldFragmentDoc = gql`
     key
     name
     description
+    source
+    target
   }
 `

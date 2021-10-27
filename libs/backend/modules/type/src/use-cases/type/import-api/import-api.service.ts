@@ -7,7 +7,7 @@ import {
   LoggerTokens,
 } from '@codelab/backend/infra'
 import {
-  IFieldEdge,
+  IField,
   IType,
   IUser,
   typeEdgeIsField,
@@ -203,7 +203,7 @@ export class ImportApiService
 
   private async upsertField(
     interfaceId: string,
-    edge: IFieldEdge,
+    edge: IField,
     existingTypeId: string,
     currentUser: IUser,
   ) {
@@ -230,8 +230,7 @@ export class ImportApiService
             description: edge.description ?? '',
             name: edge.name ?? '',
             type: {
-              // TODO fix this with get type graph
-              // existingTypeId: existingField.type.uid,
+              existingTypeId: existingField.target,
             },
           },
         },

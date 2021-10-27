@@ -35,6 +35,8 @@ type Field {
   key: String!
   name: String
   description: String
+  target: String!
+  source: String!
 }
 
 type BaseTypeEdge implements TypeEdge {

@@ -4,16 +4,12 @@ import {
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
-import { IType, TypeId, TypeKind } from '@codelab/shared/abstract/core'
+import { TypeId, TypeKind } from '@codelab/shared/abstract/core'
 import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
-import {
-  OverlyNestedTypeError,
-  RecursiveTypeError,
-} from '../application/errors'
+import { RecursiveTypeError } from '../application/errors'
 import { TypeUnusedError } from '../application/errors/type-unused.error'
 import { CreateTypeInput } from '../use-cases/type/create-type'
-import { MAX_TYPE_DEPTH } from './constants'
 
 @Injectable()
 export class TypeValidator {
@@ -112,41 +108,9 @@ export class TypeValidator {
    * Throws {@link OverlyNestedTypeError} if the type is too nested based on {@link MAX_TYPE_DEPTH}
    * Throws {@link RecursiveTypeError} if typeAId is referenced inside type B
    */
-  notRecursive(typeAId: TypeId, typeB: IType, typeTree: TypeTree) {
-    let itemCheckIteration = 0
-    const queue: Array<IType> = [typeB]
-
-    while (queue.length > 0) {
-      const next = queue.shift()
-
-      if (!next) {
-        continue
-      }
-
-      if (next.id === typeAId) {
-        throw new RecursiveTypeError()
-      }
-
-      if (next.typeKind === TypeKind.ArrayType) {
-        const itemType = typeTree.getArrayItemType(next.id)
-
-        if (itemType) {
-          queue.push(itemType)
-        }
-      } else if (next.typeKind === TypeKind.InterfaceType) {
-        const fields = typeTree.getFields(next.id)
-        queue.push(
-          ...fields
-            ?.map((f) => typeTree.getFieldType(f.id))
-            .filter((t): t is IType => !!t),
-        )
-      }
-
-      itemCheckIteration++
-
-      if (itemCheckIteration > MAX_TYPE_DEPTH) {
-        throw new OverlyNestedTypeError()
-      }
+  notRecursive(typeAId: TypeId, typeBTree: TypeTree) {
+    if (typeBTree.getTypeById(typeAId)) {
+      throw new RecursiveTypeError()
     }
   }
 

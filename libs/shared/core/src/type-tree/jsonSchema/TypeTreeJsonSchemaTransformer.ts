@@ -1,6 +1,6 @@
 import {
   IEnumType,
-  IFieldEdge,
+  IField,
   IJsonSchemaOptions,
   IPrimitiveType,
   IType,
@@ -65,10 +65,7 @@ export class TypeTreeJsonSchemaTransformer {
     }
   }
 
-  private createValueFieldSchemaForUnionType(
-    fieldType: IType,
-    field: IFieldEdge,
-  ) {
+  private createValueFieldSchemaForUnionType(fieldType: IType, field: IField) {
     if (!fieldType) {
       return {}
     }
@@ -103,7 +100,7 @@ export class TypeTreeJsonSchemaTransformer {
    * Since the TypeFragment is flat, doesn't contain any nested types in itself, only references
    * them by id, an external source is needed for them to be transformed too
    */
-  typeToJsonProperty(type: IType, field: IFieldEdge): Record<string, any> {
+  typeToJsonProperty(type: IType, field: IField): Record<string, any> {
     this.iteration++
 
     if (this.iteration > (this.options.maxNesting || 100)) {
@@ -248,7 +245,7 @@ export class TypeTreeJsonSchemaTransformer {
     }
   }
 
-  fieldsToProperties(fields: Array<IFieldEdge>) {
+  fieldsToProperties(fields: Array<IField>) {
     const properties: Record<string, any> = {}
 
     for (const field of fields) {

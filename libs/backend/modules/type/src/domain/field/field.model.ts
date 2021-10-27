@@ -19,10 +19,18 @@ export class Field implements IField {
   @GraphqlField(() => String, { nullable: true })
   declare description?: Maybe<string>
 
-  constructor({ id, key, name, description }: Field) {
+  @GraphqlField()
+  declare target: string
+
+  @GraphqlField()
+  declare source: string
+
+  constructor({ id, key, name, description, target, source }: Field) {
     this.id = id
     this.key = key
     this.name = name
     this.description = description
+    this.target = target
+    this.source = source
   }
 }

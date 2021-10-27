@@ -36,26 +36,34 @@ export class GetFieldService extends DgraphUseCase<
   }
 
   private static createByIdQuery(byId: FieldByIdFilter) {
-    return `{
-        query(func: type(${DgraphEntityType.Field})) @filter(uid(${byId.fieldId}))  {
-          id: uid
-          expand(_all_)
-        }
-      }`
+    return GetFieldService.getFieldQuery(` @filter(uid(${byId.fieldId}))`)
   }
 
   private static createByInterfaceQuery({
     fieldKey,
     interfaceId,
   }: FieldByInterfaceFilter) {
+    return GetFieldService.getFieldQuery(
+      `@filter(uid_in(~fields, ${interfaceId}) AND eq(key, ${fieldKey}))`,
+    )
+  }
+
+  public static getFieldQuery(filter?: string) {
     return `{
-        query(func: type(${DgraphEntityType.Field})) @filter(uid_in(~fields, ${interfaceId}) AND eq(key, ${fieldKey}))  {
+        query(func: type(${DgraphEntityType.Field})) @normalize ${
+      filter ?? ''
+    } {
           id: uid
-          expand(_all_)
+          key: key
+          name: name
+          description: description
+          type {
+            target: uid
+          }
           ~fields {
-            uid
+            source: uid
           }
         }
-      } `
+      }`
   }
 }

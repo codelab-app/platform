@@ -1,8 +1,4 @@
-import {
-  IEdge,
-  IFieldEdge,
-  typeEdgeIsField,
-} from '@codelab/shared/abstract/core'
+import { IEdge, IField, typeEdgeIsField } from '@codelab/shared/abstract/core'
 import {
   Field as GraphqlField,
   InterfaceType,
@@ -28,4 +24,4 @@ export class BaseTypeEdge extends TypeEdge {}
 @ObjectType({ implements: TypeEdge })
 export class FieldTypeEdge
   extends IntersectionType(BaseTypeEdge, Field)
-  implements IFieldEdge {}
+  implements IField {}
