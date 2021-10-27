@@ -255,6 +255,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - run: 'rm -rf ~/project/node_modules'
       - yarn-install-dev
       - run:
           name: 'Build CI'
