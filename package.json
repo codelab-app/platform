@@ -335,7 +335,7 @@
     "prettier": "2.3.2",
     "sass-loader": "10",
     "supertest": "6.1.6",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "ts-essentials": "8.1.0",
     "ts-jest": "27.0.5",
     "ts-node": "10.2.1",
