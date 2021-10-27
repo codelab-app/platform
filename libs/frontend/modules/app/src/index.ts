@@ -1,4 +1,3 @@
-export * from './appReducer'
 export * from './provider/AppProvider'
 export * from './provider/AppQueryProvider'
 export * from './use-cases/create-app'
