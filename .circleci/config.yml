@@ -139,6 +139,7 @@ commands:
             - dep-cache-staging-{{ checksum "yarn.lock" }}
             # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
             - dep-cache-staging-
+      - run: 'rm -rf ~/project/node_modules ~/.cache/yarn'
       - run:
           name: 'Install NPM packages'
           command: yarn install --frozen-lockfile --ignore-scripts --prod=false
