@@ -186,7 +186,7 @@
     "@emotion/babel-plugin": "11.3.0",
     "@emotion/babel-preset-css-prop": "11.2.0",
     "@emotion/eslint-plugin": "11.2.0",
-    "@graphql-codegen/cli": "2.2.0",
+    "@graphql-codegen/cli": "2.2.1",
     "@graphql-codegen/import-types-preset": "2.1.4",
     "@graphql-codegen/introspection": "2.1.0",
     "@graphql-codegen/near-operation-file-preset": "^2.1.4",
