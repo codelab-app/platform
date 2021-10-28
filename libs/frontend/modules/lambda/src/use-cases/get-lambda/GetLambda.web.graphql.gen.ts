@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen';
 import { LambdaFragmentDoc } from '../../graphql/Lambda.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetLambdaQueryVariables = Types.Exact<{
   input: Types.GetLambdaInput;
 }>;

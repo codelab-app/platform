@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { __UserFragment } from '../../User.fragment.graphql.gen';
 import { __UserFragmentDoc } from '../../User.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetMeQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 

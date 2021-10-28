@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type AppPages__AppFragment = { id: string, name: string, pages: Array<{ id: string, name: string }> };
 
 export type AppPagesQueryVariables = Types.Exact<{

@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { LambdaPayloadFragment } from '../../graphql/LambdaPayload.fragment.graphql.gen';
 import { LambdaPayloadFragmentDoc } from '../../graphql/LambdaPayload.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type ExecuteLambdaMutationVariables = Types.Exact<{
   input: Types.ExecuteLambdaInput;
 }>;

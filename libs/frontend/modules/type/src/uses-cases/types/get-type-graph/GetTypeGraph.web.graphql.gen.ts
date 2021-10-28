@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { TypeGraphFragment } from '../../../graphql/TypeGraph.fragment.graphql.gen';
 import { TypeGraphFragmentDoc } from '../../../graphql/TypeGraph.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetTypeGraphQueryVariables = Types.Exact<{
   input: Types.GetTypeInput;
 }>;

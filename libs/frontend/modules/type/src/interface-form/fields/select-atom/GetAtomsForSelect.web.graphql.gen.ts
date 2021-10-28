@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type AtomForSelectFragment = { id: string, name: string };
 
 export type GetAtomsForSelectQueryVariables = Types.Exact<{ [key: string]: never; }>;

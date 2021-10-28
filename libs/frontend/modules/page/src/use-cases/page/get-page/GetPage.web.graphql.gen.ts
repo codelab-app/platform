@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { PageFullFragment } from '../../../graphql/PageFull.fragment.graphql.gen';
 import { PageFullFragmentDoc } from '../../../graphql/PageFull.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetPageQueryVariables = Types.Exact<{
   input: Types.GetPageInput;
 }>;

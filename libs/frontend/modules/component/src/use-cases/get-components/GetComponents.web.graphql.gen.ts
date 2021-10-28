@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { ComponentFragment } from '../../Component.fragment.graphql.gen';
 import { ComponentFragmentDoc } from '../../Component.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetComponentsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 

@@ -1,6 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type UpdateElementMutationVariables = Types.Exact<{
   input: Types.UpdateElementInput;
 }>;

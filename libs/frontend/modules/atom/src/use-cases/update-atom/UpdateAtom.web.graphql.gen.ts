@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { AtomBaseFragment } from '../../Atom.fragment.graphql.gen';
 import { AtomBaseFragmentDoc } from '../../Atom.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type UpdateAtomMutationVariables = Types.Exact<{
   input: Types.UpdateAtomInput;
 }>;

@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { PageBaseFragment } from '../../../graphql/PageBase.fragment.graphql.gen';
 import { PageBaseFragmentDoc } from '../../../graphql/PageBase.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type UpdatePageMutationVariables = Types.Exact<{
   input: Types.UpdatePageInput;
 }>;

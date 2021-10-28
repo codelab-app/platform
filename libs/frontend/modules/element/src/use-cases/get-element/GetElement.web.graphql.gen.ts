@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { ElementFragment } from '../../graphql/Element.fragment.graphql.gen';
 import { ElementFragmentDoc } from '../../graphql/Element.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetElementQueryVariables = Types.Exact<{
   input: Types.GetElementInput;
 }>;

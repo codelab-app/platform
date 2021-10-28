@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { AtomFragment } from '../../Atom.fragment.graphql.gen';
 import { AtomFragmentDoc } from '../../Atom.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetAtomsQueryVariables = Types.Exact<{
   input?: Types.Maybe<Types.GetAtomsInput>;
 }>;

@@ -6,7 +6,7 @@ import { ElementEdgeFragment } from '../../../../element/src/graphql/ElementEdge
 import { ComponentVertexFragmentDoc } from '../../../../element/src/graphql/ElementGraph.fragment.graphql.gen';
 import { ElementFragmentDoc } from '../../../../element/src/graphql/Element.fragment.graphql.gen';
 import { ElementEdgeFragmentDoc } from '../../../../element/src/graphql/ElementEdge.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetComponentElementsQueryVariables = Types.Exact<{
   input: Types.GetComponentInput;
 }>;

@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { FieldFragment } from '../../../graphql/Field.fragment.graphql.gen';
 import { FieldFragmentDoc } from '../../../graphql/Field.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetFieldQueryVariables = Types.Exact<{
   input: Types.GetFieldInput;
 }>;

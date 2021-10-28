@@ -35,7 +35,7 @@ generates:
       - typescript-operations
       # - typescript-react-apollo
       - typescript-rtk-query:
-          importBaseApiFrom: '@codelab/shared/codegen/graphql'
+          importBaseApiFrom: '@codelab/frontend/model/infra/api'
           exportHooks: true
     #      - typescript-document-nodes
     # Switch off if have deeply nested issues

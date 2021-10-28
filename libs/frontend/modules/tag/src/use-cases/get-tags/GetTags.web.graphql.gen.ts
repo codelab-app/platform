@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { TagFragment, TagEdgeFragment } from '../Tag.fragment.graphql.gen';
 import { TagFragmentDoc, TagEdgeFragmentDoc } from '../Tag.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetTagsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 

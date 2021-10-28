@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/codegen/graphql';
 
 import { AppFragment, AppBaseFragment } from '../App.fragment.graphql.gen';
 import { AppFragmentDoc, AppBaseFragmentDoc } from '../App.fragment.graphql.gen';
-import { api } from '@codelab/shared/codegen/graphql';
+import { api } from '@codelab/frontend/model/infra/api';
 export type GetAppsQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
