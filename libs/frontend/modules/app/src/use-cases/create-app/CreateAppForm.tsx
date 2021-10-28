@@ -8,7 +8,7 @@ import {
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { AutoFields } from 'uniforms-antd'
-import { useCreateAppMutation } from '../App.web.graphql.gen'
+import { useCreateAppMutation } from '../appApi'
 import { CreateAppInput, createAppSchema } from './createAppSchema'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {

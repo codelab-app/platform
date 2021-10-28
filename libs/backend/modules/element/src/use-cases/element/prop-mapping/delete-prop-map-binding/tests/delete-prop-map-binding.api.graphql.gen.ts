@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestDeletePropMapBindingMutationVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestDeletePropMapBindingMutationVariables = Types.Exact<{
 export type TestDeletePropMapBindingMutation = { deletePropMapBinding?: void | null | undefined };
 
 
-export const TestDeletePropMapBindingGql = gql`
+export const TestDeletePropMapBindingGql = `
     mutation TestDeletePropMapBinding($input: DeletePropMapBindingInput!) {
   deletePropMapBinding(input: $input)
 }

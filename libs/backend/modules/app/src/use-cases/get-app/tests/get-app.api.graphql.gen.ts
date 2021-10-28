@@ -1,7 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { TestAppFragment } from '../../../application/app.fragment.graphql.gen';
-import { gql } from '@apollo/client';
 import { TestAppFragmentDoc } from '../../../application/app.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
@@ -13,7 +12,7 @@ export type TestGetAppQueryVariables = Types.Exact<{
 export type TestGetAppQuery = { getApp?: TestAppFragment | null | undefined };
 
 
-export const TestGetAppGql = gql`
+export const TestGetAppGql = `
     query TestGetApp($input: GetAppInput!) {
   getApp(input: $input) {
     ...TestApp

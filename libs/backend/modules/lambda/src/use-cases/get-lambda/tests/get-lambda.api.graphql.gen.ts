@@ -1,7 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { TestLambdaFragment } from '../../../domain/lambda.fragment.graphql.gen';
-import { gql } from '@apollo/client';
 import { TestLambdaFragmentDoc } from '../../../domain/lambda.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
@@ -13,7 +12,7 @@ export type TestGetLambdaQueryVariables = Types.Exact<{
 export type TestGetLambdaQuery = { getLambda?: TestLambdaFragment | null | undefined };
 
 
-export const TestGetLambdaGql = gql`
+export const TestGetLambdaGql = `
     query TestGetLambda($input: GetLambdaInput!) {
   getLambda(input: $input) {
     ...TestLambda

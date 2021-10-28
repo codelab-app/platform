@@ -33,7 +33,7 @@ generates:
       baseTypesPath: ~@codelab/shared/codegen/graphql
     plugins:
       - typescript-operations
-      #  - typescript-react-apollo
+      # - typescript-react-apollo
       - typescript-rtk-query:
           importBaseApiFrom: '@codelab/shared/codegen/graphql'
           exportHooks: true
@@ -63,7 +63,8 @@ generates:
     config:
       inlineFragmentTypes: combine
       documentVariableSuffix: Gql
-      gqlImport: '@apollo/client#gql'
+      #gqlImport: 'graphql.macro'
+      documentMode: string
       skipTypename: true
       strictScalars: true
       defaultScalarType: unknown

@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 export type QueryHookConfigFragment = { body?: string | null | undefined, method?: Types.QueryMethod | null | undefined, queryKey: string, url?: string | null | undefined, lambdaId?: string | null | undefined };
 
 export type GraphqlHookConfigFragment = { dataKey?: string | null | undefined, graphqlBody: string, graphqlUrl: string };
@@ -38,7 +37,7 @@ export type HookConfig_RecoilStateHookConfig_Fragment = (
 
 export type HookConfigFragment = HookConfig_GraphqlHookConfig_Fragment | HookConfig_QueryHookConfig_Fragment | HookConfig_QueryPageHookConfig_Fragment | HookConfig_QueryPagesHookConfig_Fragment | HookConfig_RecoilStateHookConfig_Fragment;
 
-export const QueryHookConfigFragmentDoc = gql`
+export const QueryHookConfigFragmentDoc = `
     fragment QueryHookConfig on QueryHookConfig {
   body
   method
@@ -47,31 +46,31 @@ export const QueryHookConfigFragmentDoc = gql`
   lambdaId
 }
     `;
-export const GraphqlHookConfigFragmentDoc = gql`
+export const GraphqlHookConfigFragmentDoc = `
     fragment GraphqlHookConfig on GraphqlHookConfig {
   graphqlBody: body
   graphqlUrl: url
   dataKey
 }
     `;
-export const RecoilStateHookConfigFragmentDoc = gql`
+export const RecoilStateHookConfigFragmentDoc = `
     fragment RecoilStateHookConfig on RecoilStateHookConfig {
   defaultValue
   stateKey
   persisted
 }
     `;
-export const QueryPagesHookConfigFragmentDoc = gql`
+export const QueryPagesHookConfigFragmentDoc = `
     fragment QueryPagesHookConfig on QueryPagesHookConfig {
   appId
 }
     `;
-export const QueryPageHookConfigFragmentDoc = gql`
+export const QueryPageHookConfigFragmentDoc = `
     fragment QueryPageHookConfig on QueryPageHookConfig {
   pageId
 }
     `;
-export const HookConfigFragmentDoc = gql`
+export const HookConfigFragmentDoc = `
     fragment HookConfig on HookConfig {
   __typename
   ...QueryHookConfig

@@ -1,7 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { TestLambdaPayloadFragment } from '../../../domain/lambda-payload.fragment.graphql.gen';
-import { gql } from '@apollo/client';
 import { TestLambdaPayloadFragmentDoc } from '../../../domain/lambda-payload.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
@@ -13,7 +12,7 @@ export type TestExecuteLambdaMutationVariables = Types.Exact<{
 export type TestExecuteLambdaMutation = { executeLambda?: TestLambdaPayloadFragment | null | undefined };
 
 
-export const TestExecuteLambdaGql = gql`
+export const TestExecuteLambdaGql = `
     mutation TestExecuteLambda($input: ExecuteLambdaInput!) {
   executeLambda(input: $input) {
     ...TestLambdaPayload

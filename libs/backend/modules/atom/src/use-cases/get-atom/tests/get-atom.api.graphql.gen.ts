@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestGetAtomQueryVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestGetAtomQueryVariables = Types.Exact<{
 export type TestGetAtomQuery = { atom?: { id: string, name: string, type: Types.AtomType, api: { id: string } } | null | undefined };
 
 
-export const TestGetAtomGql = gql`
+export const TestGetAtomGql = `
     query TestGetAtom($input: GetAtomInput!) {
   atom: getAtom(input: $input) {
     id

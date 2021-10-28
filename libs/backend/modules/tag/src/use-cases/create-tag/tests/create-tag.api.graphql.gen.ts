@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestCreateTagMutationVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestCreateTagMutationVariables = Types.Exact<{
 export type TestCreateTagMutation = { createTag: { id: string } };
 
 
-export const TestCreateTagGql = gql`
+export const TestCreateTagGql = `
     mutation TestCreateTag($input: CreateTagInput!) {
   createTag(input: $input) {
     id

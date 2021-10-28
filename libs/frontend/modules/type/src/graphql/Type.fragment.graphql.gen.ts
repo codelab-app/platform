@@ -9,7 +9,6 @@ import { LambdaTypeFragment } from './LambdaType.fragment.graphql.gen';
 import { ComponentTypeFragment } from './ComponentType.fragment.graphql.gen';
 import { RenderPropsTypeFragment } from './RenderProps.fragment.graphql.gen';
 import { UnionTypeFragment } from './UnionType.fragment.graphql.gen';
-import { gql } from '@apollo/client';
 import { ArrayTypeFragmentDoc } from './ArrayType.fragment.graphql.gen';
 import { EnumTypeFragmentDoc } from './EnumType.fragment.graphql.gen';
 import { InterfaceFragmentDoc } from './Interface.fragment.graphql.gen';
@@ -68,7 +67,7 @@ export type Type_UnionType_Fragment = (
 
 export type TypeFragment = Type_ArrayType_Fragment | Type_ComponentType_Fragment | Type_ElementType_Fragment | Type_EnumType_Fragment | Type_InterfaceType_Fragment | Type_LambdaType_Fragment | Type_PrimitiveType_Fragment | Type_ReactNodeType_Fragment | Type_RenderPropsType_Fragment | Type_UnionType_Fragment;
 
-export const TypeFragmentDoc = gql`
+export const TypeFragmentDoc = `
     fragment Type on Type {
   __typename
   id

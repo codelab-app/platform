@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestUpdateElementPropsMutationVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestUpdateElementPropsMutationVariables = Types.Exact<{
 export type TestUpdateElementPropsMutation = { updateElementProps?: void | null | undefined };
 
 
-export const TestUpdateElementPropsGql = gql`
+export const TestUpdateElementPropsGql = `
     mutation TestUpdateElementProps($input: UpdateElementPropsInput!) {
   updateElementProps(input: $input)
 }

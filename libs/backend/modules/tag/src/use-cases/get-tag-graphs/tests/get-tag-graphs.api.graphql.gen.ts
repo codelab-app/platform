@@ -1,7 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { TestTagGraphFragment } from '../../../domain/tag-graph.fragment.graphql.gen';
-import { gql } from '@apollo/client';
 import { TestTagGraphFragmentDoc } from '../../../domain/tag-graph.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
@@ -11,7 +10,7 @@ export type TestGetTagGraphsQueryVariables = Types.Exact<{ [key: string]: never;
 export type TestGetTagGraphsQuery = { getTagGraphs: TestTagGraphFragment };
 
 
-export const TestGetTagGraphsGql = gql`
+export const TestGetTagGraphsGql = `
     query TestGetTagGraphs {
   getTagGraphs {
     ...TestTagGraph

@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestGetElementGraphQueryVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestGetElementGraphQueryVariables = Types.Exact<{
 export type TestGetElementGraphQuery = { getElementGraph?: { edges: Array<{ order?: number | null | undefined, source: string, target: string }>, vertices: Array<{ id: string, name: string } | { id: string, name: string, css?: string | null | undefined, props: string, renderForEachPropKey?: string | null | undefined, renderIfPropKey?: string | null | undefined, atom?: { id: string, name: string, type: Types.AtomType } | null | undefined }> } | null | undefined };
 
 
-export const TestGetElementGraphGql = gql`
+export const TestGetElementGraphGql = `
     query TestGetElementGraph($input: GetElementGraphInput!) {
   getElementGraph(input: $input) {
     edges {

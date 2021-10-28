@@ -95,6 +95,9 @@
     "frontend-model-domain": {
       "tags": ["layer:domain", "scope:frontend"]
     },
+    "frontend-model-infra-api": {
+      "tags": ["layer:infra", "scope:frontend"]
+    },
     "frontend-model-infra-apollo": {
       "tags": ["layer:infra", "scope:frontend"]
     },

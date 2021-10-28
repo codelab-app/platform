@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestGetTypesQueryVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestGetTypesQueryVariables = Types.Exact<{
 export type TestGetTypesQuery = { getTypes: Array<{ __typename: 'ArrayType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'ComponentType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'ElementType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'EnumType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'InterfaceType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'LambdaType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'PrimitiveType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'ReactNodeType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'RenderPropsType', id: string, name: string, typeKind: Types.TypeKind } | { __typename: 'UnionType', id: string, name: string, typeKind: Types.TypeKind }> };
 
 
-export const TestGetTypesGql = gql`
+export const TestGetTypesGql = `
     query TestGetTypes($input: GetTypesInput) {
   getTypes(input: $input) {
     __typename

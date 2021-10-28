@@ -1,7 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { PageBaseFragment } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen';
-import { gql } from '@apollo/client';
 import { PageBaseFragmentDoc } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
@@ -13,7 +12,7 @@ export type TestUpdatePageMutationVariables = Types.Exact<{
 export type TestUpdatePageMutation = { updatePage?: PageBaseFragment | null | undefined };
 
 
-export const TestUpdatePageGql = gql`
+export const TestUpdatePageGql = `
     mutation TestUpdatePage($input: UpdatePageInput!) {
   updatePage(input: $input) {
     ...PageBase

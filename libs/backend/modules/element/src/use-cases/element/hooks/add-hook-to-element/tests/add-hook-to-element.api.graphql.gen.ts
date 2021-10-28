@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestAddHookToElementMutationVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestAddHookToElementMutationVariables = Types.Exact<{
 export type TestAddHookToElementMutation = { addHookToElement: { id: string } };
 
 
-export const TestAddHookToElementGql = gql`
+export const TestAddHookToElementGql = `
     mutation TestAddHookToElement($input: AddHookToElementInput!) {
   addHookToElement(input: $input) {
     id

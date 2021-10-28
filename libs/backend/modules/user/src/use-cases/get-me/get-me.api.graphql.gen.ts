@@ -1,7 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { __UserFragment } from '../../../../../../frontend/modules/user/src/User.fragment.graphql.gen';
-import { gql } from '@apollo/client';
 import { __UserFragmentDoc } from '../../../../../../frontend/modules/user/src/User.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
@@ -11,7 +10,7 @@ export type GetMeQueryVariables = Types.Exact<{ [key: string]: never; }>;
 export type GetMeQuery = { getMe?: __UserFragment | null | undefined };
 
 
-export const GetMeGql = gql`
+export const GetMeGql = `
     query GetMe {
   getMe {
     ...__User

@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestResetDataMutationVariables = Types.Exact<{ [key: string]: never; }>;
@@ -9,7 +8,7 @@ export type TestResetDataMutationVariables = Types.Exact<{ [key: string]: never;
 export type TestResetDataMutation = { resetData?: void | null | undefined };
 
 
-export const TestResetDataGql = gql`
+export const TestResetDataGql = `
     mutation TestResetData {
   resetData
 }

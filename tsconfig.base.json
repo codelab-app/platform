@@ -76,6 +76,9 @@
       "@codelab/frontend/model/domain": [
         "libs/frontend/model/domain/src/index.ts"
       ],
+      "@codelab/frontend/model/infra/api": [
+        "libs/frontend/model/infra/api/src/index.ts"
+      ],
       "@codelab/frontend/model/infra/apollo": [
         "libs/frontend/model/infra/apollo/src/index.ts"
       ],

@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestDeleteElementMutationVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestDeleteElementMutationVariables = Types.Exact<{
 export type TestDeleteElementMutation = { deleteElement?: void | null | undefined };
 
 
-export const TestDeleteElementGql = gql`
+export const TestDeleteElementGql = `
     mutation TestDeleteElement($input: DeleteElementInput!) {
   deleteElement(input: $input)
 }

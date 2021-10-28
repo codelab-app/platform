@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestRemoveHookFromElementMutationVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestRemoveHookFromElementMutationVariables = Types.Exact<{
 export type TestRemoveHookFromElementMutation = { removeHookFromElement?: void | null | undefined };
 
 
-export const TestRemoveHookFromElementGql = gql`
+export const TestRemoveHookFromElementGql = `
     mutation TestRemoveHookFromElement($input: RemoveHookFromElementInput!) {
   removeHookFromElement(input: $input)
 }

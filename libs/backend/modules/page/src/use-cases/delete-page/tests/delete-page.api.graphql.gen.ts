@@ -1,7 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { PageBaseFragment } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen';
-import { gql } from '@apollo/client';
 import { PageBaseFragmentDoc } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
@@ -13,7 +12,7 @@ export type TestDeletePageMutationVariables = Types.Exact<{
 export type TestDeletePageMutation = { deletePage?: PageBaseFragment | null | undefined };
 
 
-export const TestDeletePageGql = gql`
+export const TestDeletePageGql = `
     mutation TestDeletePage($input: DeletePageInput!) {
   deletePage(input: $input) {
     ...PageBase

@@ -1,11 +1,15 @@
-import { appSlice } from '@codelab/frontend/modules/app'
+import { appApi } from '@codelab/frontend/modules/app'
 import { configureStore, Store } from '@reduxjs/toolkit'
 
 export const REDUX_STATE_PROP_NAME = '__REDUX_STATE__'
 
 const createStore = (preloadedState: any) => {
   return configureStore({
-    reducer: appSlice.reducer,
+    reducer: {
+      [appApi.reducerPath]: appApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(appApi.middleware),
     preloadedState,
   })
 }

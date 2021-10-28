@@ -1,11 +1,10 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 export type AtomFragment = { __typename: 'Atom', id: string, name: string, type: Types.AtomType, api: { __typename: 'InterfaceType', id: string, name: string } };
 
 export type AtomBaseFragment = { id: string, name: string, type: Types.AtomType, api: { id: string, name: string } };
 
-export const AtomFragmentDoc = gql`
+export const AtomFragmentDoc = `
     fragment Atom on Atom {
   __typename
   id
@@ -18,7 +17,7 @@ export const AtomFragmentDoc = gql`
   }
 }
     `;
-export const AtomBaseFragmentDoc = gql`
+export const AtomBaseFragmentDoc = `
     fragment AtomBase on Atom {
   id
   name

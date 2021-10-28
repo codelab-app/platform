@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestUpdatePropMapBindingMutationVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestUpdatePropMapBindingMutationVariables = Types.Exact<{
 export type TestUpdatePropMapBindingMutation = { updatePropMapBinding?: void | null | undefined };
 
 
-export const TestUpdatePropMapBindingGql = gql`
+export const TestUpdatePropMapBindingGql = `
     mutation TestUpdatePropMapBinding($input: UpdatePropMapBindingInput!) {
   updatePropMapBinding(input: $input)
 }

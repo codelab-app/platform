@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestGetPageQueryVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestGetPageQueryVariables = Types.Exact<{
 export type TestGetPageQuery = { page?: { id: string, name: string } | null | undefined };
 
 
-export const TestGetPageGql = gql`
+export const TestGetPageGql = `
     query TestGetPage($input: GetPageInput!) {
   page: getPage(input: $input) {
     id

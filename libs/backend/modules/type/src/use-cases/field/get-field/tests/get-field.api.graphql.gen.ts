@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type TestGetFieldQueryVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type TestGetFieldQueryVariables = Types.Exact<{
 export type TestGetFieldQuery = { getField?: { id: string, key: string, name?: string | null | undefined, description?: string | null | undefined } | null | undefined };
 
 
-export const TestGetFieldGql = gql`
+export const TestGetFieldGql = `
     query TestGetField($input: GetFieldInput!) {
   getField(input: $input) {
     id

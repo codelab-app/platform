@@ -1,6 +1,5 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
 export type UpsertUserMutationVariables = Types.Exact<{
@@ -11,7 +10,7 @@ export type UpsertUserMutationVariables = Types.Exact<{
 export type UpsertUserMutation = { upsertUser: { id: string } };
 
 
-export const UpsertUserGql = gql`
+export const UpsertUserGql = `
     mutation UpsertUser($input: UpsertUserInput!) {
   upsertUser(input: $input) {
     id

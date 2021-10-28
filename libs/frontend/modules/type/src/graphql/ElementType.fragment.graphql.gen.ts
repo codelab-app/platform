@@ -1,9 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import { gql } from '@apollo/client';
 export type ElementTypeFragment = { id: string, name: string, kind: Types.ElementTypeKind };
 
-export const ElementTypeFragmentDoc = gql`
+export const ElementTypeFragmentDoc = `
     fragment ElementType on ElementType {
   id
   name

@@ -1,7 +1,6 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { TypeGraphFragment } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.graphql.gen';
-import { gql } from '@apollo/client';
 import { TypeGraphFragmentDoc } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.graphql.gen';
 import * as Apollo from '@apollo/client';
 const defaultOptions =  {}
@@ -14,7 +13,7 @@ export type TestGetExportAtomsQuery = { getAtoms?: Array<TestGetExport__AtomsFra
 
 export type TestGetExport__AtomsFragment = { id: string, name: string, type: Types.AtomType, api: { id: string, name: string, typeKind: Types.TypeKind, typeGraph: TypeGraphFragment } };
 
-export const TestGetExport__AtomsFragmentDoc = gql`
+export const TestGetExport__AtomsFragmentDoc = `
     fragment TestGetExport__Atoms on Atom {
   id
   name
@@ -29,7 +28,7 @@ export const TestGetExport__AtomsFragmentDoc = gql`
   }
 }
     ${TypeGraphFragmentDoc}`;
-export const TestGetExportAtomsGql = gql`
+export const TestGetExportAtomsGql = `
     query TestGetExportAtoms($input: GetAtomsInput) {
   getAtoms(input: $input) {
     ...TestGetExport__Atoms
