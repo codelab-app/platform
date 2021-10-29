@@ -1,10 +1,17 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { GqlAuthGuard, RolesGuard } from '@codelab/backend/infra'
-import { GetTypeService } from '@codelab/backend/modules/type'
+import { GetTypeGraphService, TypeGraph } from '@codelab/backend/modules/type'
 import { CurrentUser, Roles } from '@codelab/backend/modules/user'
 import { IUser, Role } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 import { Atom } from '../domain/atom.model'
 import { CreateAtomInput, CreateAtomService } from '../use-cases/create-atom'
 import { DeleteAtomInput, DeleteAtomService } from '../use-cases/delete-atom'
@@ -23,7 +30,7 @@ export class AtomResolver {
     private getAtomsService: GetAtomsService,
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
-    private getTypeService: GetTypeService,
+    private getTypeGraphService: GetTypeGraphService,
     private importAtomsService: ImportAtomsService,
   ) {}
 
@@ -105,5 +112,17 @@ export class AtomResolver {
     }
 
     return atom
+  }
+
+  @ResolveField('apiGraph', () => TypeGraph)
+  @UseGuards(GqlAuthGuard)
+  async apiGraphResolver(
+    @Parent() input: Atom,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    return this.getTypeGraphService.execute({
+      input: { where: { atomId: input.id } },
+      currentUser,
+    })
   }
 }

@@ -8,7 +8,7 @@ export type TestGetTypeQueryVariables = Types.Exact<{
 }>
 
 export type TestGetTypeQuery = {
-  getType?:
+  getType?: Types.Maybe<
     | {
         __typename: 'ArrayType'
         id: string
@@ -35,7 +35,7 @@ export type TestGetTypeQuery = {
         typeKind: Types.TypeKind
         allowedValues: Array<{
           id: string
-          name?: string | null | undefined
+          name?: Types.Maybe<string>
           value: string
         }>
       }
@@ -76,8 +76,7 @@ export type TestGetTypeQuery = {
         name: string
         typeKind: Types.TypeKind
       }
-    | null
-    | undefined
+  >
 }
 
 export const TestGetTypeGql = gql`

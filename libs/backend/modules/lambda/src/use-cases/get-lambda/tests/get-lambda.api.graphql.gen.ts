@@ -9,9 +9,7 @@ export type TestGetLambdaQueryVariables = Types.Exact<{
   input: Types.GetLambdaInput
 }>
 
-export type TestGetLambdaQuery = {
-  getLambda?: TestLambdaFragment | null | undefined
-}
+export type TestGetLambdaQuery = { getLambda?: Types.Maybe<TestLambdaFragment> }
 
 export const TestGetLambdaGql = gql`
   query TestGetLambda($input: GetLambdaInput!) {

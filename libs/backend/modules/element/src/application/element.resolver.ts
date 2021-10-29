@@ -2,7 +2,14 @@ import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import { IElement, IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 import { Element } from '../domain/element/element.model'
 import { ElementGraph } from '../domain/element/element-graph.model'
 import {
@@ -186,5 +193,20 @@ export class ElementResolver {
     }
 
     return element
+  }
+
+  @ResolveField('graph', () => ElementGraph, {
+    description:
+      'Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge',
+  })
+  @UseGuards(GqlAuthGuard)
+  async elementGraphResolver(
+    @Parent() input: Element,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    return this.getElementGraphService.execute({
+      input: { where: { id: input.id } },
+      currentUser,
+    })
   }
 }

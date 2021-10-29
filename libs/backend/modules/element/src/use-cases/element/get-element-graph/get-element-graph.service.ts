@@ -83,6 +83,7 @@ export class GetElementGraphService extends DgraphUseCase<
       ].map((e) => {
         return {
           ...e,
+          propMapBindings: e.propMapBindings ?? [],
           // TODO remove this once we change hooks to use interface
           // Make sure the hook configs are instances of Hook config objects, otherwise graphql won't figure out which type to use
           hooks: this.hookFactory.map(e.hooks ?? []),

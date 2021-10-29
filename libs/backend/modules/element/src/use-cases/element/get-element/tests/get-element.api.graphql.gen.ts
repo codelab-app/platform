@@ -8,53 +8,47 @@ export type TestGetElementQueryVariables = Types.Exact<{
 }>
 
 export type TestGetElementQuery = {
-  getElement?:
-    | {
-        id: string
-        name: string
-        css?: string | null | undefined
-        props: string
-        renderForEachPropKey?: string | null | undefined
-        renderIfPropKey?: string | null | undefined
-        atom?:
-          | { id: string; name: string; type: Types.AtomType }
-          | null
-          | undefined
-        hooks: Array<{
-          id: string
-          type: Types.HookType
-          config:
-            | {
-                __typename: 'GraphqlHookConfig'
-                graphqlBody: string
-                dataKey?: string | null | undefined
-                graphqlUrl: string
-              }
-            | {
-                __typename: 'QueryHookConfig'
-                body?: string | null | undefined
-                lambdaId?: string | null | undefined
-                method?: Types.QueryMethod | null | undefined
-                queryKey: string
-                url?: string | null | undefined
-              }
-            | {
-                __typename: 'RecoilStateHookConfig'
-                defaultValue?: string | null | undefined
-                stateKey: string
-                persisted: Types.PersistenceType
-              }
-            | {}
-        }>
-        propMapBindings: Array<{
-          id: string
-          sourceKey: string
-          targetElementId?: string | null | undefined
-          targetKey: string
-        }>
-      }
-    | null
-    | undefined
+  getElement?: Types.Maybe<{
+    id: string
+    name?: Types.Maybe<string>
+    css?: Types.Maybe<string>
+    props: string
+    renderForEachPropKey?: Types.Maybe<string>
+    renderIfPropKey?: Types.Maybe<string>
+    atom?: Types.Maybe<{ id: string; name: string; type: Types.AtomType }>
+    hooks: Array<{
+      id: string
+      type: Types.HookType
+      config:
+        | {
+            __typename: 'GraphqlHookConfig'
+            graphqlBody: string
+            dataKey?: Types.Maybe<string>
+            graphqlUrl: string
+          }
+        | {
+            __typename: 'QueryHookConfig'
+            body?: Types.Maybe<string>
+            lambdaId?: Types.Maybe<string>
+            method?: Types.Maybe<Types.QueryMethod>
+            queryKey: string
+            url?: Types.Maybe<string>
+          }
+        | {
+            __typename: 'RecoilStateHookConfig'
+            defaultValue?: Types.Maybe<string>
+            stateKey: string
+            persisted: Types.PersistenceType
+          }
+        | {}
+    }>
+    propMapBindings: Array<{
+      id: string
+      sourceKey: string
+      targetElementId?: Types.Maybe<string>
+      targetKey: string
+    }>
+  }>
 }
 
 export const TestGetElementGql = gql`

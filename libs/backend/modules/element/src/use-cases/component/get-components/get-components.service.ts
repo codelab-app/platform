@@ -21,9 +21,13 @@ export class GetComponentsService extends DgraphUseCase<
   }
 
   protected getQuery({ currentUser }: GetComponentsRequest) {
+    // Get all elements, that:
+    // - have a component tag
+    // - are either owned by the current user OR
+    //    - are not owned by anyone
     return `{
       query(func: type(${DgraphEntityType.Element}))
-        @filter(uid_in(owner, ${currentUser.id}) AND has(componentTag)) {
+        @filter((uid_in(owner, ${currentUser.id}) OR NOT has(owner)) AND has(componentTag)) {
         id: uid
         name
         css
@@ -33,7 +37,12 @@ export class GetComponentsService extends DgraphUseCase<
         }
         atom {
           id: uid
-          expand(_all_)
+          type: atomType
+          name
+          api {
+            id: uid
+            expand(_all_)
+          }
         }
         props
         hooks {

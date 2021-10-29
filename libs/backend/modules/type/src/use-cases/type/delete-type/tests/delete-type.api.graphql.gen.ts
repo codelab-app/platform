@@ -21,7 +21,7 @@ export type TestDeleteTypeMutationVariables = Types.Exact<{
 }>
 
 export type TestDeleteTypeMutation = {
-  deleteType?:
+  deleteType?: Types.Maybe<
     | TestType_ArrayType_Fragment
     | TestType_ComponentType_Fragment
     | TestType_ElementType_Fragment
@@ -32,8 +32,7 @@ export type TestDeleteTypeMutation = {
     | TestType_ReactNodeType_Fragment
     | TestType_RenderPropsType_Fragment
     | TestType_UnionType_Fragment
-    | null
-    | undefined
+  >
 }
 
 export const TestDeleteTypeGql = gql`

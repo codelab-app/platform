@@ -9,9 +9,7 @@ export type DeleteAtomMutationVariables = Types.Exact<{
   input: Types.DeleteAtomInput
 }>
 
-export type DeleteAtomMutation = {
-  deleteAtom?: AtomBaseFragment | null | undefined
-}
+export type DeleteAtomMutation = { deleteAtom?: Types.Maybe<AtomBaseFragment> }
 
 export const DeleteAtomGql = gql`
   mutation DeleteAtom($input: DeleteAtomInput!) {

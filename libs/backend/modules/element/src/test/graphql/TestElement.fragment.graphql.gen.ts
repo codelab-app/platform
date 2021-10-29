@@ -10,14 +10,14 @@ import { PropMapBindingFragmentDoc } from '../../../../../../frontend/modules/el
 export type TestElementFragment = {
   __typename: 'Element'
   id: string
-  name: string
-  css?: string | null | undefined
+  name?: Types.Maybe<string>
+  css?: Types.Maybe<string>
   props: string
-  renderForEachPropKey?: string | null | undefined
-  renderIfPropKey?: string | null | undefined
-  propTransformationJs?: string | null | undefined
-  atom?: AtomBaseFragment | null | undefined
-  componentTag?: { id: string; name: string } | null | undefined
+  renderForEachPropKey?: Types.Maybe<string>
+  renderIfPropKey?: Types.Maybe<string>
+  propTransformationJs?: Types.Maybe<string>
+  atom?: Types.Maybe<AtomBaseFragment>
+  componentTag?: Types.Maybe<{ id: string; name: string }>
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
 }

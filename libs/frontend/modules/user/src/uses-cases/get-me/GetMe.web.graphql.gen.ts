@@ -7,7 +7,7 @@ import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type GetMeQueryVariables = Types.Exact<{ [key: string]: never }>
 
-export type GetMeQuery = { getMe?: __UserFragment | null | undefined }
+export type GetMeQuery = { getMe?: Types.Maybe<__UserFragment> }
 
 export const GetMeGql = gql`
   query GetMe {

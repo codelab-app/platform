@@ -1,5 +1,4 @@
 import {
-  Atom,
   CreateResponse,
   Element,
   Page,
@@ -23,6 +22,7 @@ describe('render props', () => {
 
       cy.login().then(async () => {
         cy.preserveAuthCookies()
+
         cy.createType({
           name: BaseTypeKind.ReactNode,
           typeKind: TypeKind.ReactNodeType,
@@ -47,44 +47,45 @@ describe('render props', () => {
         /**
          * create list item component
          * - RootElement - bind prop "value" to atom "text"'s text prop key
-         *     - ListItem
+         *     - ListItem - Component
          *         - Text
          */
         cy.createAtom({
           name: 'ListItem',
           type: AtomType.AntDesignListItem,
         }).then((listItemAtom: CreateResponse) => {
-          cy.createComponent({ name: listItemComponentName })
+          cy.createComponent({ name: listItemComponentName }).then(
+            ({ id, name }) => {
+              listItemRootElId = id
 
-            .then(cy.getComponentRootElementId)
-            .then((_listItemRootElId) => {
-              // create list item element, attach to root
-              listItemRootElId = _listItemRootElId
-
-              return cy.createElement({
-                parentElementId: _listItemRootElId,
-                atomId: listItemAtom.id,
-              })
-            })
-            .then((listItemElement: CreateResponse) => {
-              // create text element, attach to list item
-              return cy
-                .createElement({
-                  parentElementId: listItemElement.id,
-                  atomId: textAtomId,
-                })
-                .then((textElement: CreateResponse) => {
-                  // create prop mapping from root to text
-                  // bind prop "value" to element "text"'s text prop key
-                  cy.createPropBinding({
-                    elementId: listItemRootElId,
-                    targetElementId: textElement.id,
-
-                    sourceKey: 'value',
-                    targetKey: 'text',
+              // set the atom of the created component element
+              cy.updateElement({
+                id: listItemRootElId,
+                data: {
+                  name,
+                  atomId: listItemAtom.id,
+                },
+              }).then(() => {
+                // create text element, attach to list item
+                return cy
+                  .createElement({
+                    parentElementId: listItemRootElId,
+                    atomId: textAtomId,
                   })
-                })
-            })
+                  .then((textElement: CreateResponse) => {
+                    // create prop mapping from root to text
+                    // bind prop "value" to element "text"'s text prop key
+                    cy.createPropBinding({
+                      elementId: listItemRootElId,
+                      targetElementId: textElement.id,
+
+                      sourceKey: 'value',
+                      targetKey: 'text',
+                    })
+                  })
+              })
+            },
+          )
         })
 
         /**
@@ -93,56 +94,55 @@ describe('render props', () => {
          *   - set dataSource to {value:string}[]
          */
         cy.createAtom({ name: 'List', type: AtomType.AntDesignList }).then(
-          (listAtom: CreateResponse) => {
-            cy.getAtom({ where: { id: listAtom.id } }).then(
-              (listAtomFull: Atom) => {
-                cy.get('@reactNodeTypeId').then((reactNodeTypeId) => {
-                  cy.createField({
-                    name: headerFieldName,
-                    key: 'header',
-                    interfaceId: listAtomFull.api.id,
-                    type: { existingTypeId: String(reactNodeTypeId) },
-                  })
-                })
-
-                cy.get('@renderPropTypeId').then((renderPropTypeId) => {
-                  // set render item field to render props type
-                  cy.createField({
-                    name: renderItemFieldName,
-                    key: 'renderItem',
-                    interfaceId: listAtomFull.api.id,
-                    type: { existingTypeId: String(renderPropTypeId) },
-                  })
-                })
-              },
-            )
-
-            cy.createPageFromScratch()
-              .then((page: Page) => {
-                const rootElement = page.elements?.vertices?.[0]
-
-                return cy.createElement({
-                  atomId: listAtom.id,
-                  name: listElementName,
-                  parentElementId: String(rootElement?.id),
-                })
+          (listAtom) => {
+            cy.get('@reactNodeTypeId').then((reactNodeTypeId) => {
+              cy.createField({
+                name: headerFieldName,
+                key: 'header',
+                interfaceId: listAtom.api.id,
+                type: { existingTypeId: String(reactNodeTypeId) },
               })
-              .then((listItemElement: Element) => {
-                // assign data source to list element
-                cy.updateElementProps({
-                  elementId: listItemElement.id,
-                  props: JSON.stringify({ dataSource: listDataSource }),
-                })
+            })
+
+            cy.get('@renderPropTypeId').then((renderPropTypeId) => {
+              // set render item field to render props type
+              cy.createField({
+                name: renderItemFieldName,
+                key: 'renderItem',
+                interfaceId: listAtom.api.id,
+                type: { existingTypeId: String(renderPropTypeId) },
               })
+            })
+
+            cy.createPageFromScratch().then((page: Page) => {
+              return cy
+                .getElementGraph({ where: { id: page.rootElementId } })
+                .then((elements) => {
+                  const rootElement = elements?.vertices?.[0]
+
+                  return cy
+                    .createElement({
+                      atomId: listAtom.id,
+                      name: listElementName,
+                      parentElementId: String(rootElement?.id),
+                    })
+                    .then((listItemElement: Element) => {
+                      // assign data source to list element
+                      cy.updateElementProps({
+                        elementId: listItemElement.id,
+                        props: JSON.stringify({ dataSource: listDataSource }),
+                      })
+                    })
+                })
+            })
           },
         )
 
         // create test component with text prop = 'React Node"
         cy.createComponent({ name: reactNodeTextComponentName })
-          .then(cy.getComponentRootElementId)
-          .then((rootElementId: string) => {
+          .then(({ id }) => {
             return cy.createElement({
-              parentElementId: rootElementId,
+              parentElementId: id,
               atomId: textAtomId,
             })
           })

@@ -3,7 +3,10 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
-export type ComponentForSelectFragment = { id: string; name: string }
+export type ComponentForSelectFragment = {
+  id: string
+  name?: Types.Maybe<string>
+}
 
 export type GetComponentsForSelectQueryVariables = Types.Exact<{
   [key: string]: never

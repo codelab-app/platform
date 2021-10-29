@@ -4,7 +4,7 @@ import { gql } from '@apollo/client'
 export type TestPropMapBindingFragment = {
   id: string
   sourceKey: string
-  targetElementId?: string | null | undefined
+  targetElementId?: Types.Maybe<string>
   targetKey: string
 }
 

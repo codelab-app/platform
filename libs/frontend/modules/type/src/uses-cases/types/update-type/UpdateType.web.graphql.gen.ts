@@ -27,7 +27,7 @@ export type UpdateEnumTypeMutationVariables = Types.Exact<{
 }>
 
 export type UpdateEnumTypeMutation = {
-  updateEnumType?: EnumTypeFragment | null | undefined
+  updateEnumType?: Types.Maybe<EnumTypeFragment>
 }
 
 export type UpdateTypeMutationVariables = Types.Exact<{
@@ -35,7 +35,7 @@ export type UpdateTypeMutationVariables = Types.Exact<{
 }>
 
 export type UpdateTypeMutation = {
-  updateType?:
+  updateType?: Types.Maybe<
     | Type_ArrayType_Fragment
     | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
@@ -46,8 +46,7 @@ export type UpdateTypeMutation = {
     | Type_ReactNodeType_Fragment
     | Type_RenderPropsType_Fragment
     | Type_UnionType_Fragment
-    | null
-    | undefined
+  >
 }
 
 export type UpdatePrimitiveTypeMutationVariables = Types.Exact<{
@@ -55,7 +54,7 @@ export type UpdatePrimitiveTypeMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePrimitiveTypeMutation = {
-  updatePrimitiveType?: PrimitiveTypeFragment | null | undefined
+  updatePrimitiveType?: Types.Maybe<PrimitiveTypeFragment>
 }
 
 export type UpdateUnionTypeMutationVariables = Types.Exact<{
@@ -63,7 +62,7 @@ export type UpdateUnionTypeMutationVariables = Types.Exact<{
 }>
 
 export type UpdateUnionTypeMutation = {
-  updateUnionType?: UnionTypeFragment | null | undefined
+  updateUnionType?: Types.Maybe<UnionTypeFragment>
 }
 
 export const UpdateEnumTypeGql = gql`

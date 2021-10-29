@@ -9,9 +9,7 @@ export type DeleteAppMutationVariables = Types.Exact<{
   input: Types.DeleteAppInput
 }>
 
-export type DeleteAppMutation = {
-  deleteApp?: AppBaseFragment | null | undefined
-}
+export type DeleteAppMutation = { deleteApp?: Types.Maybe<AppBaseFragment> }
 
 export const DeleteAppGql = gql`
   mutation DeleteApp($input: DeleteAppInput!) {

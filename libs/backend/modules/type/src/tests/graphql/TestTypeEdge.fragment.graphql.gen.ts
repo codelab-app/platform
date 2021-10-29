@@ -2,10 +2,10 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 
 import { gql } from '@apollo/client'
 export type TestFieldTypeEdgeFragment = {
-  description?: string | null | undefined
+  description?: Types.Maybe<string>
   id: string
   key: string
-  name?: string | null | undefined
+  name?: Types.Maybe<string>
   source: string
   target: string
 }

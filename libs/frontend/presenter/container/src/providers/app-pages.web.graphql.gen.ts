@@ -13,7 +13,7 @@ export type AppPagesQueryVariables = Types.Exact<{
   input: Types.GetAppInput
 }>
 
-export type AppPagesQuery = { app?: AppPages__AppFragment | null | undefined }
+export type AppPagesQuery = { app?: Types.Maybe<AppPages__AppFragment> }
 
 export const AppPages__AppFragmentDoc = gql`
   fragment AppPages__App on App {

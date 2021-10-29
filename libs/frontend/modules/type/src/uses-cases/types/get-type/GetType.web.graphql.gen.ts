@@ -21,7 +21,7 @@ export type GetTypeQueryVariables = Types.Exact<{
 }>
 
 export type GetTypeQuery = {
-  getType?:
+  getType?: Types.Maybe<
     | Type_ArrayType_Fragment
     | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
@@ -32,8 +32,7 @@ export type GetTypeQuery = {
     | Type_ReactNodeType_Fragment
     | Type_RenderPropsType_Fragment
     | Type_UnionType_Fragment
-    | null
-    | undefined
+  >
 }
 
 export const GetTypeGql = gql`

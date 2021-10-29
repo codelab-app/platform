@@ -10,7 +10,7 @@ export type TestDeleteAtomMutationVariables = Types.Exact<{
 }>
 
 export type TestDeleteAtomMutation = {
-  deleteAtom?: AtomBaseFragment | null | undefined
+  deleteAtom?: Types.Maybe<AtomBaseFragment>
 }
 
 export const TestDeleteAtomGql = gql`

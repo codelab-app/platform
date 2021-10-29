@@ -7,9 +7,7 @@ export type TestSeedBaseTypesMutationVariables = Types.Exact<{
   [key: string]: never
 }>
 
-export type TestSeedBaseTypesMutation = {
-  seedBaseTypes?: void | null | undefined
-}
+export type TestSeedBaseTypesMutation = { seedBaseTypes?: Types.Maybe<void> }
 
 export const TestSeedBaseTypesGql = gql`
   mutation TestSeedBaseTypes {

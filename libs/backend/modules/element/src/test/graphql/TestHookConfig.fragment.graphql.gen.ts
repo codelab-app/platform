@@ -16,21 +16,21 @@ import {
   QueryPageHookConfigFragmentDoc,
 } from '../../../../../../frontend/modules/element/src/graphql/HookConfig.fragment.graphql.gen'
 export type TestQueryHookConfigFragment = {
-  body?: string | null | undefined
-  method?: Types.QueryMethod | null | undefined
+  body?: Types.Maybe<string>
+  method?: Types.Maybe<Types.QueryMethod>
   queryKey: string
-  url?: string | null | undefined
-  lambdaId?: string | null | undefined
+  url?: Types.Maybe<string>
+  lambdaId?: Types.Maybe<string>
 }
 
 export type TestGraphqlHookConfigFragment = {
   graphqlBody: string
   graphqlUrl: string
-  dataKey?: string | null | undefined
+  dataKey?: Types.Maybe<string>
 }
 
 export type TestRecoilStateHookConfigFragment = {
-  defaultValue?: string | null | undefined
+  defaultValue?: Types.Maybe<string>
   stateKey: string
   persisted: Types.PersistenceType
 }

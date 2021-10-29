@@ -9,9 +9,7 @@ export type GetAtomsQueryVariables = Types.Exact<{
   input?: Types.Maybe<Types.GetAtomsInput>
 }>
 
-export type GetAtomsQuery = {
-  getAtoms?: Array<AtomFragment> | null | undefined
-}
+export type GetAtomsQuery = { getAtoms?: Types.Maybe<Array<AtomFragment>> }
 
 export const GetAtomsGql = gql`
   query GetAtoms($input: GetAtomsInput) {

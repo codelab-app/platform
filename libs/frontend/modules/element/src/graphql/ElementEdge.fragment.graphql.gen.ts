@@ -2,7 +2,7 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 
 import { gql } from '@apollo/client'
 export type ElementEdgeFragment = {
-  order?: number | null | undefined
+  order?: Types.Maybe<number>
   source: string
   target: string
 }

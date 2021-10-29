@@ -189,6 +189,7 @@ type Atom {
   """This is a unique ID suitable for seeders to lookup"""
   name: String!
   api: InterfaceType!
+  apiGraph: TypeGraph!
 }
 
 enum AtomType {
@@ -660,7 +661,7 @@ type PropMapBinding {
 
 type Element {
   id: ID!
-  name: String!
+  name: String
 
   """An Element tagged with componentTag is a reusable component"""
   componentTag: Tag
@@ -682,6 +683,11 @@ type Element {
   renderIfPropKey: String
   propMapBindings: [PropMapBinding!]!
   propTransformationJs: String
+
+  """
+  Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
+  """
+  graph: ElementGraph!
 }
 
 """An edge between two element nodes"""

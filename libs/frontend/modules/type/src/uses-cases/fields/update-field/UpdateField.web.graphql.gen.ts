@@ -9,9 +9,7 @@ export type UpdateFieldMutationVariables = Types.Exact<{
   input: Types.UpdateFieldInput
 }>
 
-export type UpdateFieldMutation = {
-  updateField?: FieldFragment | null | undefined
-}
+export type UpdateFieldMutation = { updateField?: Types.Maybe<FieldFragment> }
 
 export const UpdateFieldGql = gql`
   mutation UpdateField($input: UpdateFieldInput!) {

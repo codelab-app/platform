@@ -10,7 +10,7 @@ export type UpdateLambdaMutationVariables = Types.Exact<{
 }>
 
 export type UpdateLambdaMutation = {
-  updateLambda?: LambdaFragment | null | undefined
+  updateLambda?: Types.Maybe<LambdaFragment>
 }
 
 export const UpdateLambdaGql = gql`

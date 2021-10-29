@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const VertexSchema = z.object({
   id: z.string(),
-  name: z.string().optional(),
+  name: z.string().nullish(),
 })
 
 export type IVertex = z.infer<typeof VertexSchema>

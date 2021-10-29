@@ -5,7 +5,7 @@ import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type ResetDataMutationVariables = Types.Exact<{ [key: string]: never }>
 
-export type ResetDataMutation = { resetData?: void | null | undefined }
+export type ResetDataMutation = { resetData?: Types.Maybe<void> }
 
 export const ResetDataGql = gql`
   mutation ResetData {

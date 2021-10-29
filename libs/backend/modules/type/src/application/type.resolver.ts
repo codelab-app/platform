@@ -170,9 +170,11 @@ export class TypeResolver {
     @Args('input') input: DeleteTypeInput,
     @CurrentUser() currentUser: IUser,
   ) {
+    const type = await this.getTypeOrThrow(input.typeId, currentUser)
+
     await this.deleteTypeService.execute(input)
 
-    return this.getTypeOrThrow(input.typeId, currentUser)
+    return type
   }
 
   @UseGuards(GqlAuthGuard)

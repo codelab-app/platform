@@ -1,20 +1,23 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
+import { AtomBaseFragment } from '../../Atom.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import { AtomBaseFragmentDoc } from '../../Atom.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type CreateAtomMutationVariables = Types.Exact<{
   input: Types.CreateAtomInput
 }>
 
-export type CreateAtomMutation = { createAtom: { id: string } }
+export type CreateAtomMutation = { createAtom: AtomBaseFragment }
 
 export const CreateAtomGql = gql`
   mutation CreateAtom($input: CreateAtomInput!) {
     createAtom(input: $input) {
-      id
+      ...AtomBase
     }
   }
+  ${AtomBaseFragmentDoc}
 `
 export type CreateAtomMutationFn = Apollo.MutationFunction<
   CreateAtomMutation,

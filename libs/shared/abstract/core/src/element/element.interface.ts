@@ -16,7 +16,7 @@ export type ElementId = string
 
 export const ElementSchema = z.object({
   id: z.string(),
-  name: z.string(),
+  name: z.string().nullish(),
   css: z.string().nullish(),
   props: z.string().default('{}'),
   atom: z.optional(AtomSchema).nullable(),

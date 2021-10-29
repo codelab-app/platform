@@ -104,6 +104,8 @@ const renderPropsRenderPipe: RenderPipeFactory =
       props,
     )
 
+    console.log(props, renderProps, transformedRenderProps)
+
     return next(element, context, mergeProps(props, transformedRenderProps))
   }
 

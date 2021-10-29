@@ -16,8 +16,8 @@ export class Element implements IElement {
   @Field(() => ID)
   id: string
 
-  @Field()
-  name: string
+  @Field(() => String, { nullable: true })
+  name: Maybe<string>
 
   @Field(() => Tag, {
     nullable: true,

@@ -1,9 +1,7 @@
-import {
-  CreateComponentInput,
-  ElementGraph,
-} from '@codelab/frontend/abstract/codegen'
+import { CreateComponentInput } from '@codelab/frontend/abstract/codegen'
 import {
   CreateComponentGql,
+  ElementFragment,
   GetElementGraphGql,
 } from '@codelab/frontend/modules/element'
 import { GetElementGraphInput } from '@codelab/shared/codegen/graphql'
@@ -15,34 +13,19 @@ export const createComponent = (input: CreateComponentInput) => {
       query: print(CreateComponentGql),
       variables: { input },
     })
-    .then((r) => r.body.data?.createComponent)
+    .then((r) => r.body.data?.createComponent as ElementFragment)
 }
 
-export const getComponentElements = (input: GetElementGraphInput) => {
+export const getElementGraph = (input: GetElementGraphInput) => {
   return cy
     .graphqlRequest({
       query: print(GetElementGraphGql),
       variables: { input },
     })
     .then((r) => {
-      return r.body.data?.getComponentElements
+      return r.body.data?.getElementGraph
     })
 }
 
-export const getComponentRootElementId = ({ id }: { id: string }) => {
-  return cy
-    .getComponentElements({
-      where: {
-        id,
-      },
-    })
-    .then((listComponentGraph: ElementGraph) => {
-      const rootElId = listComponentGraph.vertices[0].id
-
-      return rootElId
-    })
-}
-
-Cypress.Commands.add('getComponentElements', getComponentElements)
+Cypress.Commands.add('getElementGraph', getElementGraph)
 Cypress.Commands.add('createComponent', createComponent)
-Cypress.Commands.add('getComponentRootElementId', getComponentRootElementId)

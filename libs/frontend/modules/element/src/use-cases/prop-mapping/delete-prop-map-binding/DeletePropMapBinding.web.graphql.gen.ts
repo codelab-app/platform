@@ -8,7 +8,7 @@ export type DeletePropMapBindingMutationVariables = Types.Exact<{
 }>
 
 export type DeletePropMapBindingMutation = {
-  deletePropMapBinding?: void | null | undefined
+  deletePropMapBinding?: Types.Maybe<void>
 }
 
 export const DeletePropMapBindingGql = gql`

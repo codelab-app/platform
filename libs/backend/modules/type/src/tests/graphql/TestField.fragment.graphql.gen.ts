@@ -4,8 +4,8 @@ import { gql } from '@apollo/client'
 export type TestFieldFragment = {
   id: string
   key: string
-  name?: string | null | undefined
-  description?: string | null | undefined
+  name?: Types.Maybe<string>
+  description?: Types.Maybe<string>
   source: string
   target: string
 }

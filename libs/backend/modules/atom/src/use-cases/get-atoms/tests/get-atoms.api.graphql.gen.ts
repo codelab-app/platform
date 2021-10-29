@@ -8,15 +8,14 @@ export type TestGetAtomsQueryVariables = Types.Exact<{
 }>
 
 export type TestGetAtomsQuery = {
-  getAtoms?:
-    | Array<{
-        id: string
-        name: string
-        type: Types.AtomType
-        api: { id: string }
-      }>
-    | null
-    | undefined
+  getAtoms?: Types.Maybe<
+    Array<{
+      id: string
+      name: string
+      type: Types.AtomType
+      api: { id: string }
+    }>
+  >
 }
 
 export const TestGetAtomsGql = gql`

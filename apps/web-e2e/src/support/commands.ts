@@ -3,12 +3,13 @@ import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
 import { createApp, deleteApp } from './app'
 import { createAtom, getAtom } from './atom'
+import { createComponent, getElementGraph } from './component'
 import {
-  createComponent,
-  getComponentElements,
-  getComponentRootElementId,
-} from './component'
-import { createElement, createPropBinding, updateElementProps } from './element'
+  createElement,
+  createPropBinding,
+  updateElement,
+  updateElementProps,
+} from './element'
 import { createField } from './field'
 import {
   createPage,
@@ -36,10 +37,10 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable<Subject> {
-      getComponentRootElementId: typeof getComponentRootElementId
       updateElementProps: typeof updateElementProps
+      updateElement: typeof updateElement
       createType: typeof createType
-      getComponentElements: typeof getComponentElements
+      getElementGraph: typeof getElementGraph
       getAtom: typeof getAtom
       createField: typeof createField
       createPageFromScratch: typeof createPageFromScratch

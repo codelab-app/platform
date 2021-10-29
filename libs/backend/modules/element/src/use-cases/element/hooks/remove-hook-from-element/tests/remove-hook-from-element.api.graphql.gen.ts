@@ -8,7 +8,7 @@ export type TestRemoveHookFromElementMutationVariables = Types.Exact<{
 }>
 
 export type TestRemoveHookFromElementMutation = {
-  removeHookFromElement?: void | null | undefined
+  removeHookFromElement?: Types.Maybe<void>
 }
 
 export const TestRemoveHookFromElementGql = gql`

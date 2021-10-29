@@ -10,7 +10,7 @@ export type GetTypeGraphQueryVariables = Types.Exact<{
 }>
 
 export type GetTypeGraphQuery = {
-  getTypeGraph?: TypeGraphFragment | null | undefined
+  getTypeGraph?: Types.Maybe<TypeGraphFragment>
 }
 
 export const GetTypeGraphGql = gql`

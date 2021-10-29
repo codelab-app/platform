@@ -9,9 +9,7 @@ export type UpdateAtomMutationVariables = Types.Exact<{
   input: Types.UpdateAtomInput
 }>
 
-export type UpdateAtomMutation = {
-  updateAtom?: AtomBaseFragment | null | undefined
-}
+export type UpdateAtomMutation = { updateAtom?: Types.Maybe<AtomBaseFragment> }
 
 export const UpdateAtomGql = gql`
   mutation UpdateAtom($input: UpdateAtomInput!) {

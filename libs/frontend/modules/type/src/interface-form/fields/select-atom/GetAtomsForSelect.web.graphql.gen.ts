@@ -10,7 +10,7 @@ export type GetAtomsForSelectQueryVariables = Types.Exact<{
 }>
 
 export type GetAtomsForSelectQuery = {
-  getAtoms?: Array<AtomForSelectFragment> | null | undefined
+  getAtoms?: Types.Maybe<Array<AtomForSelectFragment>>
 }
 
 export const AtomForSelectFragmentDoc = gql`

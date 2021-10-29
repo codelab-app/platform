@@ -55,6 +55,7 @@ export type ArrayType = Type & {
 export type Atom = {
   __typename?: 'Atom'
   api: InterfaceType
+  apiGraph: TypeGraph
   id: Scalars['ID']
   /** This is a unique ID suitable for seeders to lookup */
   name: Scalars['String']
@@ -594,9 +595,11 @@ export type Element = {
   /** An Element tagged with componentTag is a reusable component */
   componentTag?: Maybe<Tag>
   css?: Maybe<Scalars['String']>
+  /** Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge */
+  graph: ElementGraph
   hooks: Array<Hook>
   id: Scalars['ID']
-  name: Scalars['String']
+  name?: Maybe<Scalars['String']>
   propMapBindings: Array<PropMapBinding>
   propTransformationJs?: Maybe<Scalars['String']>
   /** Props in a json format */
