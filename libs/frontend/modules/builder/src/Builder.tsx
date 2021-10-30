@@ -1,4 +1,7 @@
-import { TypeKindsContext } from '@codelab/frontend/modules/type'
+import {
+  TypeKindProvider,
+  TypeKindsContext,
+} from '@codelab/frontend/modules/type'
 import { ElementTree } from '@codelab/shared/core'
 import styled from '@emotion/styled'
 import React, { MouseEventHandler, useCallback, useContext } from 'react'
@@ -111,12 +114,14 @@ export const Builder = ({
       id="Builder"
       css={tw`relative w-full h-full`}
     >
-      <StyledBuilderInnerContainer>
-        <BuilderRenderer tree={tree} />
-        <BuilderHoverOverlay />
-        <BuilderClickOverlay />
-        {children}
-      </StyledBuilderInnerContainer>
+      <TypeKindProvider>
+        <StyledBuilderInnerContainer>
+          <BuilderRenderer tree={tree} />
+          <BuilderHoverOverlay />
+          <BuilderClickOverlay />
+          {children}
+        </StyledBuilderInnerContainer>
+      </TypeKindProvider>
     </StyledBuilderContainer>
   )
 }

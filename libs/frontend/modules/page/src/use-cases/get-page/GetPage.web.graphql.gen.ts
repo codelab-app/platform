@@ -1,23 +1,23 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { PageBaseFragment } from '../../graphql/PageBase.fragment.graphql.gen'
+import { PageFullFragment } from '../../graphql/PageFull.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { PageBaseFragmentDoc } from '../../graphql/PageBase.fragment.graphql.gen'
+import { PageFullFragmentDoc } from '../../graphql/PageFull.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type GetPageQueryVariables = Types.Exact<{
   input: Types.GetPageInput
 }>
 
-export type GetPageQuery = { page?: Types.Maybe<PageBaseFragment> }
+export type GetPageQuery = { page?: Types.Maybe<PageFullFragment> }
 
 export const GetPageGql = gql`
   query GetPage($input: GetPageInput!) {
     page: getPage(input: $input) {
-      ...PageBase
+      ...PageFull
     }
   }
-  ${PageBaseFragmentDoc}
+  ${PageFullFragmentDoc}
 `
 
 /**

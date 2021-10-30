@@ -91,9 +91,7 @@ export class DgraphRepository {
     mu: Mutation,
     blankNodeLabel?: TStringLabel,
   ): Promise<TStringLabel extends string ? string : void> {
-    if (this.DEBUG_MODE) {
-      this.logger.debug({ mutation: mu })
-    }
+    this.logOperation(mu)
 
     const response = await txn.mutate(mu)
 
@@ -118,9 +116,7 @@ export class DgraphRepository {
     vars?: TVars,
   ): Promise<TResult> {
     if (typeof qb === 'string') {
-      if (this.DEBUG_MODE) {
-        this.logger.debug({ query: qb })
-      }
+      this.logOperation(qb)
 
       if (vars) {
         return (await txn.queryWithVars(qb, vars)).data as TResult
@@ -131,9 +127,7 @@ export class DgraphRepository {
 
     const query = qb.build()
 
-    if (this.DEBUG_MODE) {
-      this.logger.debug({ query })
-    }
+    this.logOperation(query)
 
     return this.executeNamedQuery<TResult>(txn, query, qb.queryName)
   }
@@ -146,9 +140,7 @@ export class DgraphRepository {
     query: string,
     queryName: string,
   ): Promise<TResult> {
-    if (this.DEBUG_MODE) {
-      this.logger.debug({ query })
-    }
+    this.logOperation(query)
 
     return ((await txn.query(query)).data as any)[queryName]
   }
@@ -377,5 +369,15 @@ export class DgraphRepository {
         : queryOrFactory
 
     return this.executeQuery<Array<TResult>>(txn, query)
+  }
+
+  private logOperation(op: string | any) {
+    if (typeof op !== 'string') {
+      op = JSON.stringify(op, null, 2)
+    }
+
+    if (this.DEBUG_MODE && process.env.NODE_ENV !== 'production') {
+      this.logger.debug(op)
+    }
   }
 }

@@ -8,6 +8,7 @@ import { usePromisesLoadingIndicator } from '@codelab/frontend/view/components'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Spin } from 'antd'
 import React, { useRef } from 'react'
+import { useElementGraphContext } from '../../providers'
 import { refetchGetElementQuery, useGetElementQuery } from '../get-element'
 import { refetchGetElementGraphQuery } from '../get-element-graph'
 import { useUpdateElementPropsMutation } from './UpdateElementProps.web.graphql.gen'
@@ -42,6 +43,7 @@ const UpdateElementPropsFormInternal = ({
   loadingStateKey,
 }: UpdateElementPropsFormInternalProps) => {
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
+  const { elementId: rootElementId } = useElementGraphContext()
 
   const { data: interfaceData, loading: interfaceLoading } =
     useGetTypeGraphQuery({
@@ -51,7 +53,7 @@ const UpdateElementPropsFormInternal = ({
   const [mutate] = useUpdateElementPropsMutation({
     refetchQueries: [
       refetchGetElementQuery({ input: { where: { id: elementId } } }),
-      refetchGetElementGraphQuery({ input: { where: { id: elementId } } }),
+      refetchGetElementGraphQuery({ input: { where: { id: rootElementId } } }),
     ],
   })
 

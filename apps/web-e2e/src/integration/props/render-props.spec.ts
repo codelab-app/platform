@@ -58,32 +58,30 @@ describe('render props', () => {
             ({ id, name }) => {
               listItemRootElId = id
 
-              // set the atom of the created component element
-              cy.updateElement({
-                id: listItemRootElId,
-                data: {
-                  name,
+              return cy
+                .createElement({
+                  parentElementId: listItemRootElId,
                   atomId: listItemAtom.id,
-                },
-              }).then(() => {
-                // create text element, attach to list item
-                return cy
-                  .createElement({
-                    parentElementId: listItemRootElId,
-                    atomId: textAtomId,
-                  })
-                  .then((textElement: CreateResponse) => {
-                    // create prop mapping from root to text
-                    // bind prop "value" to element "text"'s text prop key
-                    cy.createPropBinding({
-                      elementId: listItemRootElId,
-                      targetElementId: textElement.id,
-
-                      sourceKey: 'value',
-                      targetKey: 'text',
+                })
+                .then((listItemElement) => {
+                  // create text element, attach to list item
+                  return cy
+                    .createElement({
+                      parentElementId: listItemElement.id,
+                      atomId: textAtomId,
                     })
-                  })
-              })
+                    .then((textElement: CreateResponse) => {
+                      // create prop mapping from root to text
+                      // bind prop "value" to element "text"'s text prop key
+                      cy.createPropBinding({
+                        elementId: listItemRootElId,
+                        targetElementId: textElement.id,
+
+                        sourceKey: 'value',
+                        targetKey: 'text',
+                      })
+                    })
+                })
             },
           )
         })

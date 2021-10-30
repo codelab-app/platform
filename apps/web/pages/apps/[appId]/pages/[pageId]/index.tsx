@@ -6,6 +6,7 @@ import {
   PageContext,
   withPageQueryProvider,
 } from '@codelab/frontend/modules/page'
+import { TypeKindProvider } from '@codelab/frontend/modules/type'
 import { PageDetailHeader } from '@codelab/frontend/view/sections'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
@@ -29,7 +30,10 @@ const PageRenderer: CodelabPage<any> = () => {
       <Head>
         <title>{page.name}</title>
       </Head>
-      <Renderer tree={elementTree} />
+
+      <TypeKindProvider>
+        <Renderer tree={elementTree} />
+      </TypeKindProvider>
     </>
   )
 }

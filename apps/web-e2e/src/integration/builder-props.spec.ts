@@ -71,7 +71,7 @@ describe('Builder Props', () => {
       selectPage()
     })
 
-    it('should be able to update Props', () => {
+    it.only('should be able to update Props', () => {
       // Add Button component
       cy.findByRole('button', { name: /plus/ }).click()
 

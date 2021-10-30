@@ -48,8 +48,6 @@ export class UpdateUnionTypeService extends DgraphUseCase<UpdateUnionTypeInput> 
     typeId,
     updateData: { name, typeIdsOfUnionType },
   }: UpdateUnionTypeInput) {
-    console.log({ typeIdsOfUnionType, name, typeId })
-
     return jsonMutation({
       uid: typeId,
       name,

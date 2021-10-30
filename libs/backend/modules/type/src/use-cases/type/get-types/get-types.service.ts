@@ -3,7 +3,11 @@ import { sortByIds } from '@codelab/backend/infra'
 import { IType, Role, TypeSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { getAdminTypesQuery, getUserTypesQuery } from './get-types.query'
+import {
+  getAdminTypesQuery,
+  getUserTypesQuery,
+  mapType,
+} from './get-types.query'
 import { GetTypesRequest } from './get-types.request'
 
 @Injectable()
@@ -21,6 +25,7 @@ export class GetTypesService extends DgraphUseCase<
       return await this.dgraph
         .getAllNamed<IType>(txn, getAdminTypesQuery(input, 'query'), 'query')
         .then(sortByIds)
+        .then((types) => types.map(mapType))
     }
 
     return await this.dgraph
@@ -30,5 +35,6 @@ export class GetTypesService extends DgraphUseCase<
         'query',
       )
       .then(sortByIds)
+      .then((types) => types.map(mapType))
   }
 }

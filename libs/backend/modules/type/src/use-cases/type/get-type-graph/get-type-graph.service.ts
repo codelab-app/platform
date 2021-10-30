@@ -1,11 +1,8 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  ITypeGraph,
-  TypeGraphSchema,
-  TypeKind,
-} from '@codelab/shared/abstract/core'
+import { ITypeGraph, TypeGraphSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { mapType } from '../get-types'
 import { GetTypeGraphRequest } from './get-type-graph.request'
 
 @Injectable()
@@ -25,14 +22,7 @@ export class GetTypeGraphService extends DgraphUseCase<
     return {
       edges: data.edges ?? [],
       vertices: (data.vertices ?? []).map((t: any) => {
-        if (t?.typeKind === TypeKind.UnionType) {
-          return {
-            ...t,
-            typeIdsOfUnionType: t.typesOfUnionType.map(({ id }: any) => id),
-          }
-        }
-
-        return t
+        return mapType(t)
       }),
     }
   }

@@ -3,7 +3,11 @@ import {
   CreateResponse,
   GetPageInput,
 } from '@codelab/frontend/abstract/codegen'
-import { CreatePageGql, GetPageGql } from '@codelab/frontend/modules/page'
+import {
+  CreatePageGql,
+  GetPageGql,
+  PageBaseFragment,
+} from '@codelab/frontend/modules/page'
 import { print } from 'graphql'
 
 export const getPage = (input: GetPageInput) => {
@@ -12,7 +16,7 @@ export const getPage = (input: GetPageInput) => {
       query: print(GetPageGql),
       variables: { input },
     })
-    .then((r) => r.body.data?.page)
+    .then((r) => r.body.data?.page as PageBaseFragment)
 }
 
 export const defaultAppName = 'test'

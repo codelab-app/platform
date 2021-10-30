@@ -104,8 +104,6 @@ const renderPropsRenderPipe: RenderPipeFactory =
       props,
     )
 
-    console.log(props, renderProps, transformedRenderProps)
-
     return next(element, context, mergeProps(props, transformedRenderProps))
   }
 
@@ -283,8 +281,6 @@ const loopingRenderPipe: RenderPipeFactory =
     return (
       <>
         {value.map((valueProps, i) => {
-          console.log(valueProps)
-
           return next(
             element,
             context,

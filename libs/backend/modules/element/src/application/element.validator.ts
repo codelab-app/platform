@@ -13,7 +13,7 @@ export class ElementValidator {
    * if the currentUser doesn't have ownership rights over the element
    */
   async existsAndIsOwnedBy(elementId?: string, currentUser?: IUser) {
-    if (!elementId) {
+    if (!elementId || elementId === 'undefined') {
       throw new Error('elementId not provided')
     }
 

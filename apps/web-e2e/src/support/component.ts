@@ -2,6 +2,7 @@ import { CreateComponentInput } from '@codelab/frontend/abstract/codegen'
 import {
   CreateComponentGql,
   ElementFragment,
+  ElementGraphFragment,
   GetElementGraphGql,
 } from '@codelab/frontend/modules/element'
 import { GetElementGraphInput } from '@codelab/shared/codegen/graphql'
@@ -23,7 +24,7 @@ export const getElementGraph = (input: GetElementGraphInput) => {
       variables: { input },
     })
     .then((r) => {
-      return r.body.data?.getElementGraph
+      return r.body.data?.getElementGraph as ElementGraphFragment
     })
 }
 

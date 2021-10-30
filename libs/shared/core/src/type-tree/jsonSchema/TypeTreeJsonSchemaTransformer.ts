@@ -140,6 +140,8 @@ export class TypeTreeJsonSchemaTransformer {
           type.id,
         ) as Array<IType>
 
+        console.log(typesOfUnionType)
+
         const fieldLabel = field.name || field.key
         const fieldTypeId = _.get(this.formModel, `${field.key}.type`)
 
@@ -147,14 +149,13 @@ export class TypeTreeJsonSchemaTransformer {
           ? this.typeTree.getTypeById(fieldTypeId)
           : null
 
-        if (!fieldType) {
+        if (fieldTypeId && !fieldType) {
           throw new Error(`Field type not found "${fieldTypeId}"`)
         }
 
-        const valueFieldSchema = this.createValueFieldSchemaForUnionType(
-          fieldType,
-          field,
-        )
+        const valueFieldSchema = fieldType
+          ? this.createValueFieldSchemaForUnionType(fieldType, field)
+          : {}
 
         return {
           type: 'object',

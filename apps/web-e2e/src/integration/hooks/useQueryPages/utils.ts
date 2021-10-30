@@ -1,8 +1,4 @@
-import {
-  AtomType,
-  CreateResponse,
-  Page,
-} from '@codelab/frontend/abstract/codegen'
+import { AtomType, CreateResponse } from '@codelab/frontend/abstract/codegen'
 
 interface beforeHookParams {
   pageName: string
@@ -75,27 +71,37 @@ export const beforeHook = ({
 
             return cy.getPage({ pageId })
           })
-          .then((page: Page) => {
-            const rootElement = page.elements?.vertices?.[0]
+          .then((page) => {
+            return cy
+              .getElementGraph({
+                where: {
+                  id: page.rootElementId,
+                },
+              })
+              .then((elements) => {
+                const rootElement = elements.vertices.find(
+                  (v) => v.id === page.rootElementId,
+                )
 
-            return cy.createElement({
-              atomId,
-              name: childElementName,
-              parentElementId: String(rootElement?.id),
-            })
-          })
-          .then((element: CreateResponse) => {
-            const elementId = element.id
-            cy.createPropBinding({
-              elementId,
-              sourceKey,
-              targetKey: 'text',
-            })
-          })
-          .then(() => {
-            cy.get('@appId').then((appId) => {
-              cy.createPage({ appId: String(appId), name: dummyPageName })
-            })
+                return cy.createElement({
+                  atomId,
+                  name: childElementName,
+                  parentElementId: rootElement?.id as string,
+                })
+              })
+              .then((element: CreateResponse) => {
+                const elementId = element.id
+                cy.createPropBinding({
+                  elementId,
+                  sourceKey,
+                  targetKey: 'text',
+                })
+              })
+              .then(() => {
+                cy.get('@appId').then((appId) => {
+                  cy.createPage({ appId: String(appId), name: dummyPageName })
+                })
+              })
           })
       },
     )
