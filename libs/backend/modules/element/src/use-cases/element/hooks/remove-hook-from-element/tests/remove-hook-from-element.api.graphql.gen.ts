@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestRemoveHookFromElementMutationVariables = Types.Exact<{
   input: Types.RemoveHookFromElementInput;
 }>;
@@ -15,29 +15,17 @@ export const TestRemoveHookFromElementGql = `
   removeHookFromElement(input: $input)
 }
     `;
-export type TestRemoveHookFromElementMutationFn = Apollo.MutationFunction<TestRemoveHookFromElementMutation, TestRemoveHookFromElementMutationVariables>;
 
-/**
- * __useTestRemoveHookFromElementMutation__
- *
- * To run a mutation, you first call `useTestRemoveHookFromElementMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTestRemoveHookFromElementMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [testRemoveHookFromElementMutation, { data, loading, error }] = useTestRemoveHookFromElementMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestRemoveHookFromElementMutation(baseOptions?: Apollo.MutationHookOptions<TestRemoveHookFromElementMutation, TestRemoveHookFromElementMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestRemoveHookFromElementMutation, TestRemoveHookFromElementMutationVariables>(TestRemoveHookFromElementGql, options);
-      }
-export type TestRemoveHookFromElementMutationHookResult = ReturnType<typeof useTestRemoveHookFromElementMutation>;
-export type TestRemoveHookFromElementMutationResult = Apollo.MutationResult<TestRemoveHookFromElementMutation>;
-export type TestRemoveHookFromElementMutationOptions = Apollo.BaseMutationOptions<TestRemoveHookFromElementMutation, TestRemoveHookFromElementMutationVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestRemoveHookFromElement(variables: TestRemoveHookFromElementMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestRemoveHookFromElementMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestRemoveHookFromElementMutation>(TestRemoveHookFromElementGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestRemoveHookFromElement');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

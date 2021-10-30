@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestGetComponentQueryVariables = Types.Exact<{
   input: Types.GetComponentInput;
 }>;
@@ -19,33 +19,16 @@ export const TestGetComponentGql = `
 }
     `;
 
-/**
- * __useTestGetComponentQuery__
- *
- * To run a query within a React component, call `useTestGetComponentQuery` and pass it any options that fit your needs.
- * When your component renders, `useTestGetComponentQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTestGetComponentQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestGetComponentQuery(baseOptions: Apollo.QueryHookOptions<TestGetComponentQuery, TestGetComponentQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetComponentQuery, TestGetComponentQueryVariables>(TestGetComponentGql, options);
-      }
-export function useTestGetComponentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetComponentQuery, TestGetComponentQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetComponentQuery, TestGetComponentQueryVariables>(TestGetComponentGql, options);
-        }
-export type TestGetComponentQueryHookResult = ReturnType<typeof useTestGetComponentQuery>;
-export type TestGetComponentLazyQueryHookResult = ReturnType<typeof useTestGetComponentLazyQuery>;
-export type TestGetComponentQueryResult = Apollo.QueryResult<TestGetComponentQuery, TestGetComponentQueryVariables>;
-export function refetchTestGetComponentQuery(variables?: TestGetComponentQueryVariables) {
-      return { query: TestGetComponentGql, variables: variables }
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestGetComponent(variables: TestGetComponentQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestGetComponentQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestGetComponentQuery>(TestGetComponentGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestGetComponent');
     }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

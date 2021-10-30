@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestDeleteLambdaMutationVariables = Types.Exact<{
   input: Types.DeleteLambdaInput;
 }>;
@@ -15,29 +15,17 @@ export const TestDeleteLambdaGql = `
   deleteLambda(input: $input)
 }
     `;
-export type TestDeleteLambdaMutationFn = Apollo.MutationFunction<TestDeleteLambdaMutation, TestDeleteLambdaMutationVariables>;
 
-/**
- * __useTestDeleteLambdaMutation__
- *
- * To run a mutation, you first call `useTestDeleteLambdaMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTestDeleteLambdaMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [testDeleteLambdaMutation, { data, loading, error }] = useTestDeleteLambdaMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestDeleteLambdaMutation(baseOptions?: Apollo.MutationHookOptions<TestDeleteLambdaMutation, TestDeleteLambdaMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestDeleteLambdaMutation, TestDeleteLambdaMutationVariables>(TestDeleteLambdaGql, options);
-      }
-export type TestDeleteLambdaMutationHookResult = ReturnType<typeof useTestDeleteLambdaMutation>;
-export type TestDeleteLambdaMutationResult = Apollo.MutationResult<TestDeleteLambdaMutation>;
-export type TestDeleteLambdaMutationOptions = Apollo.BaseMutationOptions<TestDeleteLambdaMutation, TestDeleteLambdaMutationVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestDeleteLambda(variables: TestDeleteLambdaMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestDeleteLambdaMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestDeleteLambdaMutation>(TestDeleteLambdaGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestDeleteLambda');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

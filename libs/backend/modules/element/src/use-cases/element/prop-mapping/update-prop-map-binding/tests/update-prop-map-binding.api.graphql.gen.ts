@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestUpdatePropMapBindingMutationVariables = Types.Exact<{
   input: Types.UpdatePropMapBindingInput;
 }>;
@@ -15,29 +15,17 @@ export const TestUpdatePropMapBindingGql = `
   updatePropMapBinding(input: $input)
 }
     `;
-export type TestUpdatePropMapBindingMutationFn = Apollo.MutationFunction<TestUpdatePropMapBindingMutation, TestUpdatePropMapBindingMutationVariables>;
 
-/**
- * __useTestUpdatePropMapBindingMutation__
- *
- * To run a mutation, you first call `useTestUpdatePropMapBindingMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTestUpdatePropMapBindingMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [testUpdatePropMapBindingMutation, { data, loading, error }] = useTestUpdatePropMapBindingMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestUpdatePropMapBindingMutation(baseOptions?: Apollo.MutationHookOptions<TestUpdatePropMapBindingMutation, TestUpdatePropMapBindingMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestUpdatePropMapBindingMutation, TestUpdatePropMapBindingMutationVariables>(TestUpdatePropMapBindingGql, options);
-      }
-export type TestUpdatePropMapBindingMutationHookResult = ReturnType<typeof useTestUpdatePropMapBindingMutation>;
-export type TestUpdatePropMapBindingMutationResult = Apollo.MutationResult<TestUpdatePropMapBindingMutation>;
-export type TestUpdatePropMapBindingMutationOptions = Apollo.BaseMutationOptions<TestUpdatePropMapBindingMutation, TestUpdatePropMapBindingMutationVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestUpdatePropMapBinding(variables: TestUpdatePropMapBindingMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestUpdatePropMapBindingMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestUpdatePropMapBindingMutation>(TestUpdatePropMapBindingGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestUpdatePropMapBinding');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

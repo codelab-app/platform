@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestUpdateTagMutationVariables = Types.Exact<{
   input: Types.UpdateTagInput;
 }>;
@@ -15,29 +15,17 @@ export const TestUpdateTagGql = `
   updateTag(input: $input)
 }
     `;
-export type TestUpdateTagMutationFn = Apollo.MutationFunction<TestUpdateTagMutation, TestUpdateTagMutationVariables>;
 
-/**
- * __useTestUpdateTagMutation__
- *
- * To run a mutation, you first call `useTestUpdateTagMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTestUpdateTagMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [testUpdateTagMutation, { data, loading, error }] = useTestUpdateTagMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestUpdateTagMutation(baseOptions?: Apollo.MutationHookOptions<TestUpdateTagMutation, TestUpdateTagMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestUpdateTagMutation, TestUpdateTagMutationVariables>(TestUpdateTagGql, options);
-      }
-export type TestUpdateTagMutationHookResult = ReturnType<typeof useTestUpdateTagMutation>;
-export type TestUpdateTagMutationResult = Apollo.MutationResult<TestUpdateTagMutation>;
-export type TestUpdateTagMutationOptions = Apollo.BaseMutationOptions<TestUpdateTagMutation, TestUpdateTagMutationVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestUpdateTag(variables: TestUpdateTagMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestUpdateTagMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestUpdateTagMutation>(TestUpdateTagGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestUpdateTag');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

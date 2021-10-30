@@ -1,9 +1,9 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { TestTagGraphFragment } from '../../../domain/tag-graph.fragment.graphql.gen';
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 import { TestTagGraphFragmentDoc } from '../../../domain/tag-graph.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
 export type TestGetTagGraphQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
@@ -18,32 +18,16 @@ export const TestGetTagGraphGql = `
 }
     ${TestTagGraphFragmentDoc}`;
 
-/**
- * __useTestGetTagGraphQuery__
- *
- * To run a query within a React component, call `useTestGetTagGraphQuery` and pass it any options that fit your needs.
- * When your component renders, `useTestGetTagGraphQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTestGetTagGraphQuery({
- *   variables: {
- *   },
- * });
- */
-export function useTestGetTagGraphQuery(baseOptions?: Apollo.QueryHookOptions<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>(TestGetTagGraphGql, options);
-      }
-export function useTestGetTagGraphLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>(TestGetTagGraphGql, options);
-        }
-export type TestGetTagGraphQueryHookResult = ReturnType<typeof useTestGetTagGraphQuery>;
-export type TestGetTagGraphLazyQueryHookResult = ReturnType<typeof useTestGetTagGraphLazyQuery>;
-export type TestGetTagGraphQueryResult = Apollo.QueryResult<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>;
-export function refetchTestGetTagGraphQuery(variables?: TestGetTagGraphQueryVariables) {
-      return { query: TestGetTagGraphGql, variables: variables }
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestGetTagGraph(variables?: TestGetTagGraphQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestGetTagGraphQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestGetTagGraphQuery>(TestGetTagGraphGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestGetTagGraph');
     }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

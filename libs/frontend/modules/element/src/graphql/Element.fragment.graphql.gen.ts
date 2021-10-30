@@ -3,6 +3,8 @@ import * as Types from '@codelab/shared/codegen/graphql';
 import { AtomFragment } from '../../../atom/src/Atom.fragment.graphql.gen';
 import { HookFragment } from './Hook.fragment.graphql.gen';
 import { PropMapBindingFragment } from './PropMapBinding.fragment.graphql.gen';
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 import { AtomFragmentDoc } from '../../../atom/src/Atom.fragment.graphql.gen';
 import { HookFragmentDoc } from './Hook.fragment.graphql.gen';
 import { PropMapBindingFragmentDoc } from './PropMapBinding.fragment.graphql.gen';
@@ -31,3 +33,15 @@ export const ElementFragmentDoc = `
     ${AtomFragmentDoc}
 ${HookFragmentDoc}
 ${PropMapBindingFragmentDoc}`;
+
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

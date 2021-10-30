@@ -1,5 +1,6 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
+import { getGraphQLClient } from '@codelab/frontend/model/infra/api'
 import {
   initializeStore,
   REDUX_STATE_PROP_NAME,
@@ -12,6 +13,7 @@ import {
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
+import { getAuthToken } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
@@ -49,11 +51,17 @@ const AppsPage: CodelabPage = () => {
 
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
-    const reduxStore = initializeStore({})
+    // setup authentication for client
+    const session = await getSession(context.req, context.res)
+    const token = session?.accessToken || getAuthToken()
 
-    const props = {
-      [REDUX_STATE_PROP_NAME]: reduxStore.getState(),
-    }
+    getGraphQLClient().setHeader(
+      'authorization',
+      token ? `Bearer ${token}` : '',
+    )
+
+    const reduxStore = initializeStore(context)
+    const props = { [REDUX_STATE_PROP_NAME]: reduxStore.getState() }
 
     return {
       props,

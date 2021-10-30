@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestGetTypeQueryVariables = Types.Exact<{
   input: Types.GetTypeInput;
 }>;
@@ -34,33 +34,16 @@ export const TestGetTypeGql = `
 }
     `;
 
-/**
- * __useTestGetTypeQuery__
- *
- * To run a query within a React component, call `useTestGetTypeQuery` and pass it any options that fit your needs.
- * When your component renders, `useTestGetTypeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTestGetTypeQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestGetTypeQuery(baseOptions: Apollo.QueryHookOptions<TestGetTypeQuery, TestGetTypeQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetTypeQuery, TestGetTypeQueryVariables>(TestGetTypeGql, options);
-      }
-export function useTestGetTypeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetTypeQuery, TestGetTypeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetTypeQuery, TestGetTypeQueryVariables>(TestGetTypeGql, options);
-        }
-export type TestGetTypeQueryHookResult = ReturnType<typeof useTestGetTypeQuery>;
-export type TestGetTypeLazyQueryHookResult = ReturnType<typeof useTestGetTypeLazyQuery>;
-export type TestGetTypeQueryResult = Apollo.QueryResult<TestGetTypeQuery, TestGetTypeQueryVariables>;
-export function refetchTestGetTypeQuery(variables?: TestGetTypeQueryVariables) {
-      return { query: TestGetTypeGql, variables: variables }
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestGetType(variables: TestGetTypeQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestGetTypeQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestGetTypeQuery>(TestGetTypeGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestGetType');
     }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

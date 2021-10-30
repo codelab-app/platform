@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestGetAtomsQueryVariables = Types.Exact<{
   input?: Types.Maybe<Types.GetAtomsInput>;
 }>;
@@ -23,33 +23,16 @@ export const TestGetAtomsGql = `
 }
     `;
 
-/**
- * __useTestGetAtomsQuery__
- *
- * To run a query within a React component, call `useTestGetAtomsQuery` and pass it any options that fit your needs.
- * When your component renders, `useTestGetAtomsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTestGetAtomsQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestGetAtomsQuery(baseOptions?: Apollo.QueryHookOptions<TestGetAtomsQuery, TestGetAtomsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetAtomsQuery, TestGetAtomsQueryVariables>(TestGetAtomsGql, options);
-      }
-export function useTestGetAtomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetAtomsQuery, TestGetAtomsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetAtomsQuery, TestGetAtomsQueryVariables>(TestGetAtomsGql, options);
-        }
-export type TestGetAtomsQueryHookResult = ReturnType<typeof useTestGetAtomsQuery>;
-export type TestGetAtomsLazyQueryHookResult = ReturnType<typeof useTestGetAtomsLazyQuery>;
-export type TestGetAtomsQueryResult = Apollo.QueryResult<TestGetAtomsQuery, TestGetAtomsQueryVariables>;
-export function refetchTestGetAtomsQuery(variables?: TestGetAtomsQueryVariables) {
-      return { query: TestGetAtomsGql, variables: variables }
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestGetAtoms(variables?: TestGetAtomsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestGetAtomsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestGetAtomsQuery>(TestGetAtomsGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestGetAtoms');
     }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

@@ -1,7 +1,6 @@
 /// <reference types='jest'/>
 
 import { INestApplication } from '@nestjs/common'
-import { ASTNode, print } from 'graphql'
 import { default as supertestRequest } from 'supertest'
 
 export type ApiResponse<T = Record<string, any>> = {
@@ -11,7 +10,7 @@ export type ApiResponse<T = Record<string, any>> = {
 
 export const graphqlRequest = <TOperationVariables>(
   app: INestApplication,
-  gql: ASTNode,
+  query: string,
   variables: TOperationVariables,
 ) => {
   return (
@@ -19,7 +18,7 @@ export const graphqlRequest = <TOperationVariables>(
       .post('/graphql')
       .timeout(30000)
       .send({
-        query: print(gql),
+        query,
         variables,
       })
       // This helps us log error
@@ -51,7 +50,7 @@ export const domainRequest = async <
   TResults extends any = void,
 >(
   app: INestApplication,
-  gql: ASTNode,
+  gql: string,
   input?: TInput,
   expectedError?: ExpectedError,
 ): Promise<TResults> => {

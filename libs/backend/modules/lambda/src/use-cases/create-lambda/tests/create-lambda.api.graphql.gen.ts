@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestCreateLambdaMutationVariables = Types.Exact<{
   input: Types.CreateLambdaInput;
 }>;
@@ -17,29 +17,17 @@ export const TestCreateLambdaGql = `
   }
 }
     `;
-export type TestCreateLambdaMutationFn = Apollo.MutationFunction<TestCreateLambdaMutation, TestCreateLambdaMutationVariables>;
 
-/**
- * __useTestCreateLambdaMutation__
- *
- * To run a mutation, you first call `useTestCreateLambdaMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTestCreateLambdaMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [testCreateLambdaMutation, { data, loading, error }] = useTestCreateLambdaMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestCreateLambdaMutation(baseOptions?: Apollo.MutationHookOptions<TestCreateLambdaMutation, TestCreateLambdaMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestCreateLambdaMutation, TestCreateLambdaMutationVariables>(TestCreateLambdaGql, options);
-      }
-export type TestCreateLambdaMutationHookResult = ReturnType<typeof useTestCreateLambdaMutation>;
-export type TestCreateLambdaMutationResult = Apollo.MutationResult<TestCreateLambdaMutation>;
-export type TestCreateLambdaMutationOptions = Apollo.BaseMutationOptions<TestCreateLambdaMutation, TestCreateLambdaMutationVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestCreateLambda(variables: TestCreateLambdaMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestCreateLambdaMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestCreateLambdaMutation>(TestCreateLambdaGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestCreateLambda');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

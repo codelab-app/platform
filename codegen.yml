@@ -57,13 +57,13 @@ generates:
       baseTypesPath: ~@codelab/shared/codegen/graphql
     plugins:
       - typescript-operations
-      - typescript-react-apollo
+      - typescript-graphql-request
     #      - typescript-document-nodes
     # Switch off if have deeply nested issues
     config:
       inlineFragmentTypes: combine
       documentVariableSuffix: Gql
-      #gqlImport: 'graphql.macro'
+      #  gqlImport: '@apollo/client#gql'
       documentMode: string
       skipTypename: true
       strictScalars: true

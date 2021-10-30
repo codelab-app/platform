@@ -16,8 +16,8 @@ const createStore = (preloadedState: any) => {
 
 let store: Store | undefined
 
-export const initializeStore = (ssPageProps: any) => {
-  const preloadedState = ssPageProps[REDUX_STATE_PROP_NAME]
+export const initializeStore = (context: any) => {
+  const preloadedState = context[REDUX_STATE_PROP_NAME]
   let _store = store ?? createStore(preloadedState)
 
   if (preloadedState && store) {

@@ -1,5 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type QueryHookConfigFragment = { body?: string | null | undefined, method?: Types.QueryMethod | null | undefined, queryKey: string, url?: string | null | undefined, lambdaId?: string | null | undefined };
 
 export type GraphqlHookConfigFragment = { dataKey?: string | null | undefined, graphqlBody: string, graphqlUrl: string };
@@ -84,3 +86,15 @@ ${GraphqlHookConfigFragmentDoc}
 ${RecoilStateHookConfigFragmentDoc}
 ${QueryPagesHookConfigFragmentDoc}
 ${QueryPageHookConfigFragmentDoc}`;
+
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

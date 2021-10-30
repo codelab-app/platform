@@ -9,6 +9,8 @@ import { LambdaTypeFragment } from './LambdaType.fragment.graphql.gen';
 import { ComponentTypeFragment } from './ComponentType.fragment.graphql.gen';
 import { RenderPropsTypeFragment } from './RenderProps.fragment.graphql.gen';
 import { UnionTypeFragment } from './UnionType.fragment.graphql.gen';
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 import { ArrayTypeFragmentDoc } from './ArrayType.fragment.graphql.gen';
 import { EnumTypeFragmentDoc } from './EnumType.fragment.graphql.gen';
 import { InterfaceFragmentDoc } from './Interface.fragment.graphql.gen';
@@ -92,3 +94,15 @@ ${LambdaTypeFragmentDoc}
 ${ComponentTypeFragmentDoc}
 ${RenderPropsTypeFragmentDoc}
 ${UnionTypeFragmentDoc}`;
+
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

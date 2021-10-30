@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestCreateComponentMutationVariables = Types.Exact<{
   input: Types.CreateComponentInput;
 }>;
@@ -17,29 +17,17 @@ export const TestCreateComponentGql = `
   }
 }
     `;
-export type TestCreateComponentMutationFn = Apollo.MutationFunction<TestCreateComponentMutation, TestCreateComponentMutationVariables>;
 
-/**
- * __useTestCreateComponentMutation__
- *
- * To run a mutation, you first call `useTestCreateComponentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTestCreateComponentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [testCreateComponentMutation, { data, loading, error }] = useTestCreateComponentMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestCreateComponentMutation(baseOptions?: Apollo.MutationHookOptions<TestCreateComponentMutation, TestCreateComponentMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestCreateComponentMutation, TestCreateComponentMutationVariables>(TestCreateComponentGql, options);
-      }
-export type TestCreateComponentMutationHookResult = ReturnType<typeof useTestCreateComponentMutation>;
-export type TestCreateComponentMutationResult = Apollo.MutationResult<TestCreateComponentMutation>;
-export type TestCreateComponentMutationOptions = Apollo.BaseMutationOptions<TestCreateComponentMutation, TestCreateComponentMutationVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestCreateComponent(variables: TestCreateComponentMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestCreateComponentMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestCreateComponentMutation>(TestCreateComponentGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestCreateComponent');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

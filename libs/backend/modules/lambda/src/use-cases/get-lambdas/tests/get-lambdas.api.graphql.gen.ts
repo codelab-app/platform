@@ -1,9 +1,9 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { TestLambdaFragment } from '../../../domain/lambda.fragment.graphql.gen';
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 import { TestLambdaFragmentDoc } from '../../../domain/lambda.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
 export type TestGetLambdasQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
@@ -18,32 +18,16 @@ export const TestGetLambdasGql = `
 }
     ${TestLambdaFragmentDoc}`;
 
-/**
- * __useTestGetLambdasQuery__
- *
- * To run a query within a React component, call `useTestGetLambdasQuery` and pass it any options that fit your needs.
- * When your component renders, `useTestGetLambdasQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTestGetLambdasQuery({
- *   variables: {
- *   },
- * });
- */
-export function useTestGetLambdasQuery(baseOptions?: Apollo.QueryHookOptions<TestGetLambdasQuery, TestGetLambdasQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetLambdasQuery, TestGetLambdasQueryVariables>(TestGetLambdasGql, options);
-      }
-export function useTestGetLambdasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetLambdasQuery, TestGetLambdasQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetLambdasQuery, TestGetLambdasQueryVariables>(TestGetLambdasGql, options);
-        }
-export type TestGetLambdasQueryHookResult = ReturnType<typeof useTestGetLambdasQuery>;
-export type TestGetLambdasLazyQueryHookResult = ReturnType<typeof useTestGetLambdasLazyQuery>;
-export type TestGetLambdasQueryResult = Apollo.QueryResult<TestGetLambdasQuery, TestGetLambdasQueryVariables>;
-export function refetchTestGetLambdasQuery(variables?: TestGetLambdasQueryVariables) {
-      return { query: TestGetLambdasGql, variables: variables }
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestGetLambdas(variables?: TestGetLambdasQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestGetLambdasQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestGetLambdasQuery>(TestGetLambdasGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestGetLambdas');
     }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

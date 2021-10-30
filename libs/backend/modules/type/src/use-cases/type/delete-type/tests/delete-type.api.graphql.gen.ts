@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestDeleteTypeMutationVariables = Types.Exact<{
   input: Types.DeleteTypeInput;
 }>;
@@ -15,29 +15,17 @@ export const TestDeleteTypeGql = `
   deleteType(input: $input)
 }
     `;
-export type TestDeleteTypeMutationFn = Apollo.MutationFunction<TestDeleteTypeMutation, TestDeleteTypeMutationVariables>;
 
-/**
- * __useTestDeleteTypeMutation__
- *
- * To run a mutation, you first call `useTestDeleteTypeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTestDeleteTypeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [testDeleteTypeMutation, { data, loading, error }] = useTestDeleteTypeMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestDeleteTypeMutation(baseOptions?: Apollo.MutationHookOptions<TestDeleteTypeMutation, TestDeleteTypeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestDeleteTypeMutation, TestDeleteTypeMutationVariables>(TestDeleteTypeGql, options);
-      }
-export type TestDeleteTypeMutationHookResult = ReturnType<typeof useTestDeleteTypeMutation>;
-export type TestDeleteTypeMutationResult = Apollo.MutationResult<TestDeleteTypeMutation>;
-export type TestDeleteTypeMutationOptions = Apollo.BaseMutationOptions<TestDeleteTypeMutation, TestDeleteTypeMutationVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestDeleteType(variables: TestDeleteTypeMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestDeleteTypeMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestDeleteTypeMutation>(TestDeleteTypeGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestDeleteType');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

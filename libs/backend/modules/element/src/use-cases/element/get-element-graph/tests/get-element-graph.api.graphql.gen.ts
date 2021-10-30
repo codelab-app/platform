@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestGetElementGraphQueryVariables = Types.Exact<{
   input: Types.GetElementGraphInput;
 }>;
@@ -41,33 +41,16 @@ export const TestGetElementGraphGql = `
 }
     `;
 
-/**
- * __useTestGetElementGraphQuery__
- *
- * To run a query within a React component, call `useTestGetElementGraphQuery` and pass it any options that fit your needs.
- * When your component renders, `useTestGetElementGraphQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTestGetElementGraphQuery({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestGetElementGraphQuery(baseOptions: Apollo.QueryHookOptions<TestGetElementGraphQuery, TestGetElementGraphQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetElementGraphQuery, TestGetElementGraphQueryVariables>(TestGetElementGraphGql, options);
-      }
-export function useTestGetElementGraphLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetElementGraphQuery, TestGetElementGraphQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetElementGraphQuery, TestGetElementGraphQueryVariables>(TestGetElementGraphGql, options);
-        }
-export type TestGetElementGraphQueryHookResult = ReturnType<typeof useTestGetElementGraphQuery>;
-export type TestGetElementGraphLazyQueryHookResult = ReturnType<typeof useTestGetElementGraphLazyQuery>;
-export type TestGetElementGraphQueryResult = Apollo.QueryResult<TestGetElementGraphQuery, TestGetElementGraphQueryVariables>;
-export function refetchTestGetElementGraphQuery(variables?: TestGetElementGraphQueryVariables) {
-      return { query: TestGetElementGraphGql, variables: variables }
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestGetElementGraph(variables: TestGetElementGraphQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestGetElementGraphQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestGetElementGraphQuery>(TestGetElementGraphGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestGetElementGraph');
     }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

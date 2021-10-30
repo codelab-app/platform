@@ -1,9 +1,9 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { AppBaseFragment } from '../../../../../../../frontend/modules/app/src/App.fragment.graphql.gen';
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 import { AppBaseFragmentDoc } from '../../../../../../../frontend/modules/app/src/App.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
 export type TestDeleteAppMutationVariables = Types.Exact<{
   input: Types.DeleteAppInput;
 }>;
@@ -19,29 +19,17 @@ export const TestDeleteAppGql = `
   }
 }
     ${AppBaseFragmentDoc}`;
-export type TestDeleteAppMutationFn = Apollo.MutationFunction<TestDeleteAppMutation, TestDeleteAppMutationVariables>;
 
-/**
- * __useTestDeleteAppMutation__
- *
- * To run a mutation, you first call `useTestDeleteAppMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTestDeleteAppMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [testDeleteAppMutation, { data, loading, error }] = useTestDeleteAppMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestDeleteAppMutation(baseOptions?: Apollo.MutationHookOptions<TestDeleteAppMutation, TestDeleteAppMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestDeleteAppMutation, TestDeleteAppMutationVariables>(TestDeleteAppGql, options);
-      }
-export type TestDeleteAppMutationHookResult = ReturnType<typeof useTestDeleteAppMutation>;
-export type TestDeleteAppMutationResult = Apollo.MutationResult<TestDeleteAppMutation>;
-export type TestDeleteAppMutationOptions = Apollo.BaseMutationOptions<TestDeleteAppMutation, TestDeleteAppMutationVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestDeleteApp(variables: TestDeleteAppMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestDeleteAppMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestDeleteAppMutation>(TestDeleteAppGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestDeleteApp');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

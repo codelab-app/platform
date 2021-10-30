@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type UpsertUserMutationVariables = Types.Exact<{
   input: Types.UpsertUserInput;
 }>;
@@ -17,29 +17,17 @@ export const UpsertUserGql = `
   }
 }
     `;
-export type UpsertUserMutationFn = Apollo.MutationFunction<UpsertUserMutation, UpsertUserMutationVariables>;
 
-/**
- * __useUpsertUserMutation__
- *
- * To run a mutation, you first call `useUpsertUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpsertUserMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [upsertUserMutation, { data, loading, error }] = useUpsertUserMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpsertUserMutation(baseOptions?: Apollo.MutationHookOptions<UpsertUserMutation, UpsertUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpsertUserMutation, UpsertUserMutationVariables>(UpsertUserGql, options);
-      }
-export type UpsertUserMutationHookResult = ReturnType<typeof useUpsertUserMutation>;
-export type UpsertUserMutationResult = Apollo.MutationResult<UpsertUserMutation>;
-export type UpsertUserMutationOptions = Apollo.BaseMutationOptions<UpsertUserMutation, UpsertUserMutationVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    UpsertUser(variables: UpsertUserMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpsertUserMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpsertUserMutation>(UpsertUserGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'UpsertUser');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

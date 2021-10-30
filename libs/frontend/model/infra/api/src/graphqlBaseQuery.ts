@@ -1,18 +1,16 @@
 import { ClientError } from 'graphql-request'
 import { getGraphQLClient } from './client'
 
-export type GraphqlBaseQuery = {
-  document: string
-  variables: any
-}
-
 export const graphqlBaseQuery = async ({
   document,
   variables,
-}: GraphqlBaseQuery) => {
+}: {
+  document: any
+  variables: any
+}) => {
   try {
     const result = await getGraphQLClient().request(
-      document,
+      document as any,
       variables?.variables,
     )
 

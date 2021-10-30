@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 export type TestDeleteFieldMutationVariables = Types.Exact<{
   input: Types.DeleteFieldInput;
 }>;
@@ -15,29 +15,17 @@ export const TestDeleteFieldGql = `
   deleteField(input: $input)
 }
     `;
-export type TestDeleteFieldMutationFn = Apollo.MutationFunction<TestDeleteFieldMutation, TestDeleteFieldMutationVariables>;
 
-/**
- * __useTestDeleteFieldMutation__
- *
- * To run a mutation, you first call `useTestDeleteFieldMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTestDeleteFieldMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [testDeleteFieldMutation, { data, loading, error }] = useTestDeleteFieldMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useTestDeleteFieldMutation(baseOptions?: Apollo.MutationHookOptions<TestDeleteFieldMutation, TestDeleteFieldMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestDeleteFieldMutation, TestDeleteFieldMutationVariables>(TestDeleteFieldGql, options);
-      }
-export type TestDeleteFieldMutationHookResult = ReturnType<typeof useTestDeleteFieldMutation>;
-export type TestDeleteFieldMutationResult = Apollo.MutationResult<TestDeleteFieldMutation>;
-export type TestDeleteFieldMutationOptions = Apollo.BaseMutationOptions<TestDeleteFieldMutation, TestDeleteFieldMutationVariables>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    TestDeleteField(variables: TestDeleteFieldMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<TestDeleteFieldMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<TestDeleteFieldMutation>(TestDeleteFieldGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'TestDeleteField');
+    }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

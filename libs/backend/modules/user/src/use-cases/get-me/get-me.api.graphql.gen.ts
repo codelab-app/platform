@@ -1,9 +1,9 @@
 import * as Types from '@codelab/shared/codegen/graphql';
 
 import { __UserFragment } from '../../../../../../frontend/modules/user/src/User.fragment.graphql.gen';
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
 import { __UserFragmentDoc } from '../../../../../../frontend/modules/user/src/User.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
 export type GetMeQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
@@ -18,32 +18,16 @@ export const GetMeGql = `
 }
     ${__UserFragmentDoc}`;
 
-/**
- * __useGetMeQuery__
- *
- * To run a query within a React component, call `useGetMeQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMeQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetMeQuery(baseOptions?: Apollo.QueryHookOptions<GetMeQuery, GetMeQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMeQuery, GetMeQueryVariables>(GetMeGql, options);
-      }
-export function useGetMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMeQuery, GetMeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMeQuery, GetMeQueryVariables>(GetMeGql, options);
-        }
-export type GetMeQueryHookResult = ReturnType<typeof useGetMeQuery>;
-export type GetMeLazyQueryHookResult = ReturnType<typeof useGetMeLazyQuery>;
-export type GetMeQueryResult = Apollo.QueryResult<GetMeQuery, GetMeQueryVariables>;
-export function refetchGetMeQuery(variables?: GetMeQueryVariables) {
-      return { query: GetMeGql, variables: variables }
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
+
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
+  return {
+    GetMe(variables?: GetMeQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetMeQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetMeQuery>(GetMeGql, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetMe');
     }
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;
