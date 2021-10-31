@@ -71,10 +71,10 @@ export class TypeSeeder {
         id,
       }))
 
-      results.set(result.key, result.id)
+      results.set(result.key as any, result.id)
     }
 
-    return result
+    return results
   }
 
   /**
