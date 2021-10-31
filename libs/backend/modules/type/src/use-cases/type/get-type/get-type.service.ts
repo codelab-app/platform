@@ -117,7 +117,7 @@ export class GetTypeService extends DgraphUseCase<
 
   public static getTypeByName(typeName: string, queryName = 'query') {
     return `{
-        ${queryName}(func: type(Type)) @filter(eq(name, "${typeName}")) @recurse(depth: 2) {
+        ${queryName}(func: type(Type)) @filter(eq(name, "${typeName}")) {
           id: uid
           typeKind
           owner {
