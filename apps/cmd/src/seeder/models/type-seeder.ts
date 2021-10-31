@@ -14,6 +14,7 @@ import {
   GetTypeService,
   TypeRef,
 } from '@codelab/backend/modules/type'
+import { env } from '@codelab/backend/shared/testing'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { IUser, TypeKind } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
@@ -61,17 +62,28 @@ export class TypeSeeder {
     currentUser: IUser,
   ): Promise<Map<BaseTypeName, string>> {
     const results: Map<BaseTypeName, string> = new Map()
+    const isCi = env === 'ci'
 
     for (const input of inputs) {
-      const result = await this.seedTypeIfNotExisting({
-        input,
-        currentUser,
-      }).then((id) => ({
-        key: input.name,
-        id,
-      }))
+      const handle = async () => {
+        const result = await this.seedTypeIfNotExisting({
+          input,
+          currentUser,
+        }).then((id) => ({
+          key: input.name,
+          id,
+        }))
 
-      results.set(result.key as any, result.id)
+        results.set(result.key as any, result.id)
+      }
+
+      if (isCi) {
+        await new Promise((resolve, reject) => {
+          setTimeout(() => handle().then(resolve).catch(reject), 500)
+        })
+      } else {
+        await handle()
+      }
     }
 
     return results
