@@ -14,6 +14,7 @@ import {
   GetTypeService,
   TypeRef,
 } from '@codelab/backend/modules/type'
+import { env } from '@codelab/backend/shared/testing'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { IUser, TypeKind } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
@@ -81,10 +82,19 @@ export class TypeSeeder {
   ): Promise<string> {
     const { input, currentUser } = request
 
-    return await createIfMissing(
-      () => this.getTypeByName(input.name, currentUser),
-      () => this.createType(request),
-    )
+    const handle = () =>
+      createIfMissing(
+        () => this.getTypeByName(input.name, currentUser),
+        () => this.createType(request),
+      )
+
+    if (env === 'ci') {
+      return new Promise((resolve, reject) =>
+        setTimeout(() => handle().then(resolve).catch(reject), 500),
+      )
+    }
+
+    return handle()
   }
 
   public async seedAtomApi(
