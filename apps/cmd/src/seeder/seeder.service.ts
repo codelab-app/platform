@@ -5,7 +5,6 @@ import {
 } from '@codelab/backend/infra'
 import { SeedBaseTypesService } from '@codelab/backend/modules/type'
 import { AtomType, IUser, Role } from '@codelab/shared/abstract/core'
-import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable } from '@nestjs/common'
 import { Command, Console } from 'nestjs-console'
 import { envOption } from '../env-helper'
@@ -75,24 +74,14 @@ export class SeederService {
     )
   }
 
-  private async seedAtoms(currentUser: IUser) {
+  private async seedAtoms(currentUser: IUser): Promise<Array<AtomSeed>> {
     await this.typeSeeder.seedBaseTypes(currentUser)
 
-    const results: Array<AtomSeed> = []
+    const atoms = await this.atomSeeder.seedAtomsIfMissing(
+      Object.values(AtomType),
+    )
 
-    for (const atomType of Object.values(AtomType)) {
-      const result = await this.atomSeeder.seedAtomIfMissing({
-        input: {
-          type: atomType,
-          name: pascalCaseToWords(atomType),
-        },
-        currentUser,
-      })
-
-      results.push({ id: result, atomType })
-    }
-
-    return results
+    return atoms.map((atom) => ({ id: atom.id, atomType: atom.type }))
   }
 
   private atomIdByAtomType() {

@@ -20,6 +20,8 @@ import { GetAtomsService } from '../use-cases/get-atoms'
 import { GetAtomsInput } from '../use-cases/get-atoms/get-atoms.input'
 import { ImportAtomsInput, ImportAtomsService } from '../use-cases/import-atoms'
 import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
+import { CreateAtomsInput } from './../use-cases/create-atoms/create-atoms.input'
+import { CreateAtomsService } from './../use-cases/create-atoms/create-atoms.service'
 
 @Resolver(() => Atom)
 @Injectable()
@@ -32,6 +34,7 @@ export class AtomResolver {
     private updateAtomService: UpdateAtomService,
     private getTypeGraphService: GetTypeGraphService,
     private importAtomsService: ImportAtomsService,
+    private createAtomsService: CreateAtomsService,
   ) {}
 
   @Mutation(() => Atom)
@@ -112,6 +115,29 @@ export class AtomResolver {
     }
 
     return atom
+  }
+
+  @Mutation(() => [Atom])
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  @Roles(Role.Admin)
+  async createAtoms(
+    @Args('input') input: CreateAtomsInput,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    const results = await this.createAtomsService.execute({
+      input,
+      currentUser,
+    })
+
+    const atoms = await this.getAtomsService.execute({
+      where: { ids: results.map((r) => r.id) },
+    })
+
+    if (!atoms || atoms.length !== input.atoms.length) {
+      throw new Error('Atoms not found')
+    }
+
+    return atoms
   }
 
   @ResolveField('apiGraph', () => TypeGraph)

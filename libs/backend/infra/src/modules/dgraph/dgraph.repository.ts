@@ -24,7 +24,7 @@ export type QueryBuilderFactoryFn = () =>
 @Injectable()
 export class DgraphRepository {
   /* Turn on to log all queries/mutations*/
-  private readonly DEBUG_MODE = true
+  private readonly DEBUG_MODE = false
 
   constructor(
     protected readonly dgraphService: DgraphService,

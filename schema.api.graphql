@@ -823,8 +823,10 @@ input GetAtomsInput {
   where: AtomsWhereInput
 }
 
+"""Provide at most 1 filter"""
 input AtomsWhereInput {
   ids: [String!]
+  types: [AtomType!]
 }
 
 input GetAtomInput {
@@ -937,6 +939,7 @@ type Mutation {
   deleteAtom(input: DeleteAtomInput!): Atom
   importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Atom
+  createAtoms(input: CreateAtomsInput!): [Atom!]!
   seedBaseTypes: Void
   createType(input: CreateTypeInput!): Type!
   updateEnumType(input: UpdateEnumTypeInput!): EnumType
@@ -1174,6 +1177,10 @@ input ImportAtomsInput {
 input UpdateAtomInput {
   id: String!
   data: CreateAtomInput!
+}
+
+input CreateAtomsInput {
+  atoms: [CreateAtomInput!]!
 }
 
 """Provide one of the properties"""

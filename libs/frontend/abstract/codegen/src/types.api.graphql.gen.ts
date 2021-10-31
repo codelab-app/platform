@@ -428,8 +428,10 @@ export type AtomWhereUniqueInput = {
   type?: Maybe<AtomType>
 }
 
+/** Provide at most 1 filter */
 export type AtomsWhereInput = {
   ids?: Maybe<Array<Scalars['String']>>
+  types?: Maybe<Array<AtomType>>
 }
 
 export type BaseTypeEdge = TypeEdge & {
@@ -460,6 +462,10 @@ export type CreateAtomInput = {
   api?: Maybe<Scalars['String']>
   name: Scalars['String']
   type: AtomType
+}
+
+export type CreateAtomsInput = {
+  atoms: Array<CreateAtomInput>
 }
 
 export type CreateComponentInput = {
@@ -863,6 +869,7 @@ export type Mutation = {
   addHookToElement: CreateResponse
   createApp: App
   createAtom: Atom
+  createAtoms: Array<Atom>
   createComponent: Element
   createElement: Element
   createField: Field
@@ -916,6 +923,10 @@ export type MutationCreateAppArgs = {
 
 export type MutationCreateAtomArgs = {
   input: CreateAtomInput
+}
+
+export type MutationCreateAtomsArgs = {
+  input: CreateAtomsInput
 }
 
 export type MutationCreateComponentArgs = {

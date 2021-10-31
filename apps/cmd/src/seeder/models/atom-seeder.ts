@@ -2,10 +2,14 @@ import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import {
   CreateAtomRequest,
   CreateAtomService,
+  CreateAtomsService,
   GetAtomInput,
   GetAtomService,
+  GetAtomsService,
 } from '@codelab/backend/modules/atom'
 import { createIfMissing } from '@codelab/backend/shared/utils'
+import { AtomType, IUser, Role } from '@codelab/shared/abstract/core'
+import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable, Logger } from '@nestjs/common'
 
 /**
@@ -15,9 +19,37 @@ import { Inject, Injectable, Logger } from '@nestjs/common'
 export class AtomSeeder {
   constructor(
     private createAtomService: CreateAtomService,
+    private getAtomsService: GetAtomsService,
+    private createAtomsService: CreateAtomsService,
     private getAtomService: GetAtomService,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
+
+  async seedAtomsIfMissing(types: Array<AtomType>) {
+    const found = await this.getAtomsService.execute({ where: { types } })
+    const foundTypes = new Set(found.map((f) => f.type))
+    const missingTypes = types.filter((t) => !foundTypes.has(t))
+
+    const currentUser: IUser = {
+      id: '0x01',
+      auth0Id: '0x01',
+      roles: [Role.Admin],
+    }
+
+    const created = await this.createAtomsService.execute({
+      input: {
+        atoms: missingTypes.map((type) => ({
+          type,
+          name: pascalCaseToWords(type),
+        })),
+      },
+      currentUser,
+    })
+
+    return this.getAtomsService.execute({
+      where: { ids: created.map((c) => c.id) },
+    })
+  }
 
   /**
    * Checks if an Atom with the same AtomType exists, if not - creates it

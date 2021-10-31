@@ -3,6 +3,7 @@ import { TypeModule } from '@codelab/backend/modules/type'
 import { Module } from '@nestjs/common'
 import { AtomResolver } from './application/atom.resolver'
 import { CreateAtomService } from './use-cases/create-atom'
+import { CreateAtomsService } from './use-cases/create-atoms/create-atoms.service'
 import { DeleteAtomService } from './use-cases/delete-atom'
 import { GetAtomService } from './use-cases/get-atom'
 import { GetAtomsService } from './use-cases/get-atoms'
@@ -19,6 +20,7 @@ const services = [
   GetAtomService,
   UpdateAtomService,
   ImportAtomsService,
+  CreateAtomsService,
 ]
 
 @Module({
