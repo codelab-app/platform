@@ -78,19 +78,21 @@ export class SeederService {
   private async seedAtoms(currentUser: IUser) {
     await this.typeSeeder.seedBaseTypes(currentUser)
 
-    return Promise.all(
-      Object.values(AtomType).map((atomType) =>
-        this.atomSeeder
-          .seedAtomIfMissing({
-            input: {
-              type: atomType,
-              name: pascalCaseToWords(atomType),
-            },
-            currentUser,
-          })
-          .then((id) => ({ id, atomType })),
-      ),
-    )
+    const results: Array<AtomSeed> = []
+
+    for (const atomType of Object.values(AtomType)) {
+      const result = await this.atomSeeder.seedAtomIfMissing({
+        input: {
+          type: atomType,
+          name: pascalCaseToWords(atomType),
+        },
+        currentUser,
+      })
+
+      results.push({ id: result, atomType })
+    }
+
+    return results
   }
 
   private atomIdByAtomType() {
