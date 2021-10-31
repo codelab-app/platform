@@ -125,9 +125,10 @@ export const dgraphSchema = `
   type ${EnumTypeValue} {
     name
     stringValue
+    order
   }
   stringValue: string .
-
+  order: int .
 
   type ${Field} {
     type

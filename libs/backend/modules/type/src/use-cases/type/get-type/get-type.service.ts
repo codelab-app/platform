@@ -57,20 +57,60 @@ export class GetTypeService extends DgraphUseCase<
             ApiUid as uid
           }
         }
-        ${queryName}(func: uid(ApiUid))  @recurse(depth: 2) {
+        ${queryName}(func: uid(ApiUid)) {
           id: uid
-          expand(Type, Field)
-          value: stringValue
+          typeKind
+          owner {
+            id
+          }
+          primitiveKind
+          itemType {
+            uid
+          }
+          elementKind
+          fields {
+            id: uid
+            expand(Field)
+          }
+          typesOfUnionType {
+            id: uid
+          }
+          name
+          allowedValues (orderasc: order) {
+            id: uid
+            name
+            value: stringValue
+          }
         }
       }`
   }
 
   public static getTypeByIdQuery(typeId: string, queryName = 'query') {
     return `{
-        ${queryName}(func: type(Type)) @filter(uid(${typeId})) @recurse(depth: 2) {
+        ${queryName}(func: type(Type)) @filter(uid(${typeId})) {
           id: uid
-          expand(Type, Field)
-          value: stringValue
+          typeKind
+          owner {
+            id
+          }
+          primitiveKind
+          itemType {
+            uid
+          }
+          elementKind
+          fields {
+            id: uid
+            expand(Field)
+          }
+          typesOfUnionType {
+            id: uid
+          }
+          name
+          allowedValues (orderasc: order) {
+            id: uid
+            name
+            value: stringValue
+          }
         }
       }`
   }
@@ -79,8 +119,28 @@ export class GetTypeService extends DgraphUseCase<
     return `{
         ${queryName}(func: type(Type)) @filter(eq(name, "${typeName}")) @recurse(depth: 2) {
           id: uid
-          expand(Type, Field)
-          value: stringValue
+          typeKind
+          owner {
+            id
+          }
+          primitiveKind
+          itemType {
+            uid
+          }
+          elementKind
+          fields {
+            id: uid
+            expand(Field)
+          }
+          typesOfUnionType {
+            id: uid
+          }
+          name
+          allowedValues (orderasc: order) {
+            id: uid
+            name
+            value: stringValue
+          }
         }
       }`
   }

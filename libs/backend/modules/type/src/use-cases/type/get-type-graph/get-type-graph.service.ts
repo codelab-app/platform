@@ -82,10 +82,30 @@ export class GetTypeGraphService extends DgraphUseCase<
         expand(_all_)
       }
 
-      vertices(func: uid(UIDS)) @filter(type(Type))  @recurse(depth: 2) {
+      vertices(func: uid(UIDS)) @filter(type(Type)) {
         id: uid
-        expand(Type, Field)
-        value: stringValue
+        typeKind
+        owner {
+          id
+        }
+        primitiveKind
+        itemType {
+          uid
+        }
+        elementKind
+        fields {
+          id: uid
+          expand(Field)
+        }
+        typesOfUnionType {
+          id: uid
+        }
+        name
+        allowedValues (orderasc: order) {
+          id: uid
+          name
+          value: stringValue
+        }
       }
 
     edges(func: uid(UIDS))

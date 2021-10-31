@@ -79,10 +79,11 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
       typesOfUnionType:
         unionType?.typeIdsOfUnionType.map((id) => ({ uid: id })) || [],
       allowedValues:
-        enumType?.allowedValues.map((allowedValue) => ({
+        enumType?.allowedValues.map((allowedValue, i) => ({
           'dgraph.type': [DgraphEntityType.EnumTypeValue],
           name: allowedValue.name,
           stringValue: allowedValue.value,
+          order: i,
         })) ?? [],
     })
   }
