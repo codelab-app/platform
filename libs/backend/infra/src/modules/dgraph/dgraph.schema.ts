@@ -20,7 +20,7 @@ const {
 } = DgraphEntityType
 
 export const dgraphSchema = `
-  type Tag {
+  type ${Tag} {
     name
     owner
     parent
@@ -31,7 +31,7 @@ export const dgraphSchema = `
   isRoot: bool .
 
 
-  type User {
+  type ${User} {
     auth0Id
     apps
     roles
@@ -43,7 +43,7 @@ export const dgraphSchema = `
   types: [uid] @reverse .
 
 
-  type App {
+  type ${App} {
     owner
     name
     pages
@@ -51,12 +51,12 @@ export const dgraphSchema = `
   pages: [uid] @reverse .
 
 
-  type Page {
+  type ${Page} {
     name
     root
   }
 
-  type Library {
+  type ${Library} {
     ownerId
     name
     atoms
@@ -66,7 +66,7 @@ export const dgraphSchema = `
   components: [uid] @reverse .
 
 
-  type Element {
+  type ${Element} {
     component
     atom
     props
@@ -90,7 +90,7 @@ export const dgraphSchema = `
   propMapBindings: [uid] @reverse .
   componentTag: uid @reverse .
 
-  type Atom {
+  type ${Atom} {
     name
     atomType
     api
@@ -101,7 +101,7 @@ export const dgraphSchema = `
   library: uid .
 
 
-  type Type {
+  type ${Type} {
     owner
     name
     typeKind
@@ -122,7 +122,7 @@ export const dgraphSchema = `
   propTransformationJs: string .
 
 
-  type EnumTypeValue {
+  type ${EnumTypeValue} {
     name
     stringValue
     order
@@ -130,7 +130,7 @@ export const dgraphSchema = `
   stringValue: string .
   order: int .
 
-  type Field {
+  type ${Field} {
     type
     key
     name
@@ -141,7 +141,7 @@ export const dgraphSchema = `
   description: string .
 
 
-  type Lambda {
+  type ${Lambda} {
     ownerId
     name
     body
@@ -149,7 +149,7 @@ export const dgraphSchema = `
   body: string .
 
 
-  type Hook {
+  type ${Hook} {
     hookType
     configJson
   }
@@ -157,7 +157,7 @@ export const dgraphSchema = `
   configJson: string .
 
 
-  type PropMapBinding {
+  type ${PropMapBinding} {
     targetElement
     sourceKey
     targetKey

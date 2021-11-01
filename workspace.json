@@ -1638,7 +1638,8 @@
               "record": true
             },
             "test": {
-              "cypressConfig": "apps/web-e2e/cypress.ci.json",
+              "cypressConfig": "apps/web-e2e/cypress.test.json",
+              "devServerTarget": "web-e2e:serve:test",
               "headless": true,
               "record": false
             },
@@ -1697,7 +1698,7 @@
                   "forwardAllArgs": false
                 },
                 {
-                  "command": "echo 'READY'"
+                  "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
                 }
               ]
             },
