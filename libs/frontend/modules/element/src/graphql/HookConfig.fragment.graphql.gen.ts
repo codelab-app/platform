@@ -1,6 +1,5 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/codegen/graphql'
 
-import { gql } from '@apollo/client'
 export type QueryHookConfigFragment = {
   body?: string | null | undefined
   method?: Types.QueryMethod | null | undefined

@@ -1,8 +1,6 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/codegen/graphql'
 
 import { TestEnumTypeValueFragment } from './TestEnumTypeValue.fragment.graphql.gen'
-import { gql } from '@apollo/client'
-import { TestEnumTypeValueFragmentDoc } from './TestEnumTypeValue.fragment.graphql.gen'
 export type TestEnumTypeFragment = {
   id: string
   name: string

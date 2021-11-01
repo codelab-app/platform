@@ -26,8 +26,8 @@ export interface UseMutationCrudFormOptions<
     MutationFunctionOptions<TMutation, TMutationVariables>,
     'variables'
   >
-  useMutationFunction:
-    | ((
+  useMutationFunction: any
+  /*     | ((
         baseOptions?: Apollo.MutationHookOptions<TMutation, TMutationVariables>,
       ) => MutationTuple<TMutation, TMutationVariables>)
     | {
@@ -40,7 +40,7 @@ export interface UseMutationCrudFormOptions<
           >,
         ) => MutationTuple<TMutation, TMutationVariables>
       }
-  mapVariables: (
+ */ mapVariables: (
     formData: TSubmitData,
     crudModalState: CRUDModalState,
   ) => TMutationVariables
