@@ -16,9 +16,5 @@
   "pageLoadTimeout": 90000,
   "projectId": "86p5h3",
   "env": {},
-  "testFiles": "**/*.spec.*",
-  "retries": {
-    "runMode": 0,
-    "openMode": 0
-  }
+  "testFiles": "**/*.spec.*"
 }
