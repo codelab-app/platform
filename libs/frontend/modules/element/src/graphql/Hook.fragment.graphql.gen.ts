@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/codegen/graphql'
 
 import {
   HookConfig_GraphqlHookConfig_Fragment,
@@ -7,8 +7,6 @@ import {
   HookConfig_QueryPagesHookConfig_Fragment,
   HookConfig_RecoilStateHookConfig_Fragment,
 } from './HookConfig.fragment.graphql.gen'
-import { gql } from '@apollo/client'
-import { HookConfigFragmentDoc } from './HookConfig.fragment.graphql.gen'
 export type HookFragment = {
   id: string
   type: Types.HookType

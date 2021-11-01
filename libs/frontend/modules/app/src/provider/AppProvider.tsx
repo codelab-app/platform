@@ -23,7 +23,7 @@ export const _AppProvider = ({
 
   useEffect(() => {
     if (appId) {
-      load({ variables: { input: { byId: { appId } } } })
+      load({ input: { byId: { appId } } })
     }
   }, [appId, load])
 

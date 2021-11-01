@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/codegen/graphql'
 
 import {
   QueryHookConfigFragment,
@@ -6,14 +6,6 @@ import {
   RecoilStateHookConfigFragment,
   QueryPagesHookConfigFragment,
   QueryPageHookConfigFragment,
-} from '../../../../../../frontend/modules/element/src/graphql/HookConfig.fragment.graphql.gen'
-import { gql } from '@apollo/client'
-import {
-  QueryHookConfigFragmentDoc,
-  GraphqlHookConfigFragmentDoc,
-  RecoilStateHookConfigFragmentDoc,
-  QueryPagesHookConfigFragmentDoc,
-  QueryPageHookConfigFragmentDoc,
 } from '../../../../../../frontend/modules/element/src/graphql/HookConfig.fragment.graphql.gen'
 export type TestQueryHookConfigFragment = {
   body?: string | null | undefined
