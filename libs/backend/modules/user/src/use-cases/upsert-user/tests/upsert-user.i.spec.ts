@@ -43,7 +43,7 @@ describe('CreateUserUseCase', () => {
     })
 
     it('should update a user by id', async () => {
-      getDgraphProviderFromTestModule(testModule.userApp).resetData()
+      await getDgraphProviderFromTestModule(testModule.userApp).resetData()
 
       const upsertUser = await testModule.upsertUser(createUserInput)
 
@@ -76,7 +76,7 @@ describe('CreateUserUseCase', () => {
     })
 
     it('should update a user by auth0Id', async () => {
-      getDgraphProviderFromTestModule(testModule.userApp).resetData()
+      await getDgraphProviderFromTestModule(testModule.userApp).resetData()
 
       const upsertUser = await testModule.upsertUser(createUserInput)
 
