@@ -486,6 +486,7 @@ export interface GetAtomsInput {
 
 export interface AtomsWhereInput {
     ids?: Nullable<string[]>;
+    types?: Nullable<AtomType[]>;
 }
 
 export interface GetAtomInput {
@@ -751,6 +752,10 @@ export interface ImportAtomsInput {
 export interface UpdateAtomInput {
     id: string;
     data: CreateAtomInput;
+}
+
+export interface CreateAtomsInput {
+    atoms: CreateAtomInput[];
 }
 
 export interface CreateTypeInput {
@@ -1217,6 +1222,7 @@ export interface IMutation {
     deleteAtom(input: DeleteAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
     importAtoms(input: ImportAtomsInput): Nullable<Void> | Promise<Nullable<Void>>;
     updateAtom(input: UpdateAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
+    createAtoms(input: CreateAtomsInput): Atom[] | Promise<Atom[]>;
     seedBaseTypes(): Nullable<Void> | Promise<Nullable<Void>>;
     createType(input: CreateTypeInput): Type | Promise<Type>;
     updateEnumType(input: UpdateEnumTypeInput): Nullable<EnumType> | Promise<Nullable<EnumType>>;

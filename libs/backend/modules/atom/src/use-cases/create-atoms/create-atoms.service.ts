@@ -58,6 +58,8 @@ export class CreateAtomsService extends DgraphUseCase<
 
     const res = await txn.mutate({ setNquads: mutations })
 
+    await txn.commit()
+
     return blankUids.map((uid) => ({ id: this.dgraph.getUid(res, uid) }))
   }
 }
