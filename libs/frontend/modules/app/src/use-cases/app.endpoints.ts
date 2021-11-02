@@ -1,7 +1,13 @@
+import {
+  APP_CACHE_TAG,
+  invalidatesAll,
+  invalidatesById,
+  providesAll,
+  providesById,
+} from '@codelab/frontend/model/infra/api'
 import { api as generatedApi } from './app.endpoints.graphql.gen'
 
-// will add cache invalidation logic
-/* export const api = generatedApi.enhanceEndpoints({
+export const api = generatedApi.enhanceEndpoints({
   endpoints: {
     GetApps: {
       providesTags: (result) => providesAll(result?.apps, APP_CACHE_TAG),
@@ -21,7 +27,7 @@ import { api as generatedApi } from './app.endpoints.graphql.gen'
     },
   },
 })
- */
+
 export { generatedApi as appEndpoints }
 export const {
   useGetAppsQuery,
