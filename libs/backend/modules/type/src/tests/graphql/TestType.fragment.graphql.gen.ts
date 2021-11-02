@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/codegen/graphql'
 
 import { TestArrayTypeFragment } from './TestArrayType.fragment.graphql.gen'
 import { TestEnumTypeFragment } from './TestEnumType.fragment.graphql.gen'

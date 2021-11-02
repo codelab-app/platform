@@ -1,9 +1,6 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/codegen/graphql'
 
-import {
-  AtomBaseFragment,
-  AtomFragment,
-} from '../../../atom/src/Atom.fragment.graphql.gen'
+import { AtomBaseFragment } from '../../../atom/src/Atom.fragment.graphql.gen'
 import {
   TagFragment,
   TagEdgeFragment,
@@ -11,10 +8,7 @@ import {
 import { HookFragment } from './Hook.fragment.graphql.gen'
 import { PropMapBindingFragment } from './PropMapBinding.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import {
-  AtomBaseFragmentDoc,
-  AtomFragmentDoc,
-} from '../../../atom/src/Atom.fragment.graphql.gen'
+import { AtomBaseFragmentDoc } from '../../../atom/src/Atom.fragment.graphql.gen'
 import {
   TagFragmentDoc,
   TagEdgeFragmentDoc,
