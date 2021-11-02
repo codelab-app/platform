@@ -43,81 +43,83 @@ const selectPropsTab = () => {
   cy.get('.ant-tabs-tab-btn').contains('Props').click()
 }
 
-describe('Builder Props', () => {
-  before(() => {
-    cy.resetDgraphData().then(() => {
-      cy.runSeeder()
-      cy.login().then(() => {
-        cy.preserveAuthCookies()
-        cy.createApp().then((app: any) => {
-          appId = app.id
+before(() => {
+  cy.resetDgraphData().then(() => {
+    cy.runSeeder()
+    cy.login().then(() => {
+      cy.preserveAuthCookies()
+      cy.createApp().then((app: any) => {
+        appId = app.id
 
-          cy.createPage({
-            appId,
-            name: pageName,
-          })
+        cy.createPage({
+          appId,
+          name: pageName,
         })
       })
     })
   })
+  selectApp()
+  selectPage()
+})
 
-  beforeEach(() => {
-    cy.preserveAuthCookies()
-  })
+beforeEach(() => {
+  cy.preserveAuthCookies()
+})
 
-  describe('update props', () => {
-    before(() => {
-      selectApp()
-      selectPage()
+describe('Update props', () => {
+  it.only('should be able to update Props', () => {
+    // Add Button component
+    cy.findByRole('button', { name: /plus/ }).click()
+
+    cy.getOpenedModal().findByLabelText('Name').type(buttonComponent.name)
+    cy.getOpenedModal().findByLabelText('Atom').type(buttonComponent.atom)
+    cy.getOpenedModal().getOptionItem(buttonComponent.atom).first().click()
+    cy.getOpenedModal()
+      .findByLabelText('Parent element')
+      .type(buttonComponent.parentElement)
+    cy.getOpenedModal()
+      .getOptionItem(buttonComponent.parentElement)
+      .first()
+      .click()
+
+    cy.getOpenedModal()
+      .findByButtonText(/Create/)
+      .click()
+
+    cy.getOpenedModal().should('not.exist')
+
+    // Select button props tab
+    selectPropsTab()
+
+    // Update button props
+    formToggleButtons.forEach((btn) => {
+      cyFormToggleButton(btn).click()
     })
+    formTextInputs.forEach((item) => {
+      cy.findByLabelText(item.text).type(item.input)
+    })
+    cy.findByButtonText(/Submit/).click()
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
+  })
+})
 
-    it.only('should be able to update Props', () => {
-      // Add Button component
-      cy.findByRole('button', { name: /plus/ }).click()
-
-      cy.getOpenedModal().findByLabelText('Name').type(buttonComponent.name)
-      cy.getOpenedModal().findByLabelText('Atom').type(buttonComponent.atom)
-      cy.getOpenedModal().getOptionItem(buttonComponent.atom).first().click()
-      cy.getOpenedModal()
-        .findByLabelText('Parent element')
-        .type(buttonComponent.parentElement)
-      cy.getOpenedModal()
-        .getOptionItem(buttonComponent.parentElement)
-        .first()
-        .click()
-
-      cy.getOpenedModal()
-        .findByButtonText(/Create/)
-        .click()
-
-      cy.getOpenedModal().should('not.exist')
-
-      // Select button props tab
-      selectPropsTab()
-
-      // Update button props
-      formToggleButtons.forEach((btn) => {
-        cyFormToggleButton(btn).click()
-      })
-      formTextInputs.forEach((item) => {
-        cy.findByLabelText(item.text).type(item.input)
-      })
-      cy.findByButtonText(/Submit/).click()
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000)
-
-      // Reload page
-      selectApp()
-      selectPage()
-      selectPropsTab()
-
+describe('Render updated props', () => {
+  before(() => {
+    // Reload page
+    selectApp()
+    selectPage()
+    selectPropsTab()
+  })
+  formToggleButtons.forEach((btn) => {
+    it(`should render props for button ${btn} `, () => {
+      cyFormToggleButton(btn).should('have.class', 'ant-switch-checked')
+    })
+  })
+  formTextInputs.forEach((item) => {
+    it(`should render props for item ${item.text} `, () => {
       // Assert button props updated
-      formToggleButtons.forEach((btn) => {
-        cyFormToggleButton(btn).should('have.class', 'ant-switch-checked')
-      })
-      formTextInputs.forEach((item) => {
-        cy.findByLabelText(item.text).should('have.value', item.input)
-      })
+      cy.findByLabelText(item.text).should('have.value', item.input)
     })
   })
 })
