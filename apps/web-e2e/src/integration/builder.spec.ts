@@ -1,9 +1,6 @@
 import { AtomType } from '@codelab/shared/abstract/core'
 import { TIMEOUT } from '../support/timeout'
 
-// Text primitive type
-const textTypeName = 'Text'
-
 // Atoms
 const atoms = [
   { name: 'Col', type: AtomType.AntDesignGridCol },
@@ -24,13 +21,6 @@ const components = [
   { name: 'Button', atom: 'Button', parentElement: 'Col B' },
   { name: 'Text', atom: 'Text', parentElement: 'Button' },
 ]
-
-const findDeleteButtonByTypeName = (text: string) =>
-  cy
-    .findByText(text, { exact: true, timeout: TIMEOUT })
-    .closest('.ant-table-row')
-    .find('.anticon-delete')
-    .closest('button')
 
 const findDeleteButtonByAtomName = (text: string) =>
   cy
@@ -56,14 +46,14 @@ beforeEach(() => {
   cy.preserveAuthCookies()
 })
 
-atoms.forEach((atom) => {
-  describe(`Create atom ${atom.name ?? atom.type}`, () => {
-    before(() => {
-      cy.visit(`/atoms`)
-      cy.get('.ant-table-cell', { timeout: TIMEOUT })
-    })
+describe(`Create atoms`, () => {
+  before(() => {
+    cy.visit(`/atoms`)
+    cy.get('.ant-table-cell', { timeout: TIMEOUT })
+  })
 
-    it(`should be able to create atom ${atom.name}`, () => {
+  it(`should be able to create atoms`, () => {
+    cy.wrap(atoms).each((atom: { name: string; type: AtomType }) => {
       const atomName = atom.name
       const atomType = atom.type
 
@@ -112,29 +102,34 @@ describe('Create page', () => {
 })
 
 // Add Row component
-components.forEach((component) => {
-  describe(`Create component ${component.name}`, () => {
-    it(`should be able to add component ${component.name}`, () => {
-      const componentName = component.name
-      const componentAtom = component.atom
-      const componentParentElement = component.parentElement
+describe(`Create components`, () => {
+  it(`should be able to add component `, () => {
+    cy.wrap(components).each(
+      (component: { name: string; atom: string; parentElement: string }) => {
+        const componentName = component.name
+        const componentAtom = component.atom
+        const componentParentElement = component.parentElement
 
-      cy.findByRole('button', { name: /plus/ }).click()
+        cy.findByRole('button', { name: /plus/ }).click()
 
-      cy.getOpenedModal().findByLabelText('Name').type(componentName)
-      cy.getOpenedModal().findByLabelText('Atom').type(componentAtom)
-      cy.getOpenedModal().getOptionItem(componentAtom).first().click()
-      cy.getOpenedModal()
-        .findByLabelText('Parent element')
-        .type(componentParentElement)
-      cy.getOpenedModal().getOptionItem(componentParentElement).first().click()
+        cy.getOpenedModal().findByLabelText('Name').type(componentName)
+        cy.getOpenedModal().findByLabelText('Atom').type(componentAtom)
+        cy.getOpenedModal().getOptionItem(componentAtom).first().click()
+        cy.getOpenedModal()
+          .findByLabelText('Parent element')
+          .type(componentParentElement)
+        cy.getOpenedModal()
+          .getOptionItem(componentParentElement)
+          .first()
+          .click()
 
-      cy.getOpenedModal()
-        .findByButtonText(/Create/)
-        .click()
+        cy.getOpenedModal()
+          .findByButtonText(/Create/)
+          .click()
 
-      cy.getOpenedModal().should('not.exist')
-    })
+        cy.getOpenedModal().should('not.exist')
+      },
+    )
   })
 })
 
