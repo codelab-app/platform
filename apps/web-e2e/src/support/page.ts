@@ -3,20 +3,19 @@ import {
   CreateResponse,
   GetPageInput,
 } from '@codelab/frontend/abstract/codegen'
-import {
-  CreatePageGql,
-  GetPageGql,
-  PageBaseFragment,
-} from '@codelab/frontend/modules/page'
 import { print } from 'graphql'
+import {
+  E2eCreatePageGql,
+  E2eGetPageGql,
+} from '../graphql/page.api.graphql.gen'
 
 export const getPage = (input: GetPageInput) => {
   return cy
     .graphqlRequest({
-      query: print(GetPageGql),
+      query: print(E2eGetPageGql),
       variables: { input },
     })
-    .then((r) => r.body.data?.page as PageBaseFragment)
+    .then((r) => r.body.data?.page as { id: string; name: string })
 }
 
 export const defaultAppName = 'test'
@@ -24,7 +23,7 @@ export const defaultAppName = 'test'
 export const createPage = (input: Partial<CreatePageInput>) => {
   return cy
     .graphqlRequest({
-      query: print(CreatePageGql),
+      query: print(E2eCreatePageGql),
       variables: {
         input: { appId: input.appId, name: input.name || defaultAppName },
       },

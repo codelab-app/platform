@@ -1,8 +1,14 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AtomBaseFragment } from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
+import {
+  AtomBaseFragment,
+  AtomFragment,
+} from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { AtomBaseFragmentDoc } from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
+import {
+  AtomBaseFragmentDoc,
+  AtomFragmentDoc,
+} from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestDeleteAtomMutationVariables = Types.Exact<{

@@ -1,0 +1,5 @@
+mutation E2eCreateComponent($input: CreateComponentInput!) {
+  createComponent(input: $input) {
+    ...TestElement
+  }
+}

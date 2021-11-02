@@ -1,11 +1,11 @@
 import { CreateTypeInput } from '@codelab/frontend/abstract/codegen'
-import { CreateTypeGql } from '@codelab/frontend/modules/type'
 import { print } from 'graphql'
+import { E2eCreateTypeGql } from '../graphql/type.api.graphql.gen'
 
 export const createType = (input: CreateTypeInput) => {
   return cy
     .graphqlRequest({
-      query: print(CreateTypeGql),
+      query: print(E2eCreateTypeGql),
       variables: { input },
     })
     .then((r) => r.body.data?.createType)

@@ -3,8 +3,6 @@ import { TIMEOUT } from '../support/timeout'
 
 // Text primitive type
 const textTypeName = 'Text'
-const textTypeKind = 'Primitive'
-const textPrimitiveKind = 'String'
 
 // Atoms
 const atoms = [
@@ -14,9 +12,6 @@ const atoms = [
   { name: 'Text', type: AtomType.AntDesignTypographyText },
 ]
 
-// App
-const appName = 'New App'
-let appId: string
 // Page
 const pageName = 'Home Page'
 
@@ -29,13 +24,6 @@ const components = [
   { name: 'Button', atom: 'Button', parentElement: 'Col B' },
   { name: 'Text', atom: 'Text', parentElement: 'Button' },
 ]
-
-const findEditButtonByTypeName = (text: string) =>
-  cy
-    .findByText(text, { exact: true, timeout: TIMEOUT })
-    .closest('.ant-table-row')
-    .find('.anticon-edit')
-    .closest('button')
 
 const findDeleteButtonByTypeName = (text: string) =>
   cy
@@ -51,212 +39,164 @@ const findDeleteButtonByAtomName = (text: string) =>
     .find('.anticon-delete')
     .closest('button')
 
-const getComponentElementInTree = (label: string) =>
-  cy.findByTestId('pane-main').find('.ant-tree-list').findByText(label)
+let appId: string
 
-const getAndExpandElementInTree = (label: string) => {
-  getComponentElementInTree(label)
-    .first()
-    .closest('div')
-    .findByLabelText('caret-down') // Click on the caret next to the element in the tree to expand it
-    .click()
-
-  cy.findByTestId('pane-main')
-    .find('.ant-tree-list .ant-tree-treenode-motion')
-    .should('not.exist') // Wait for the expanding animation to finish
-}
-
-const getTreeItem = (label: string) =>
-  cy.get('.ant-page-header-content').findByText(label).first()
-
-describe('Types', () => {
-  before(() => {
-    cy.resetDgraphData().then(() => {
-      cy.login().then(() => {
-        cy.preserveAuthCookies()
-        cy.createApp().then((app: any) => {
-          appId = app.id
-        })
+before(() => {
+  cy.resetDgraphData().then(() => {
+    cy.login().then(() => {
+      cy.preserveAuthCookies()
+      cy.createApp().then((app: any) => {
+        appId = app.id
       })
     })
   })
+})
 
-  beforeEach(() => {
-    cy.preserveAuthCookies()
-  })
+beforeEach(() => {
+  cy.preserveAuthCookies()
+})
 
-  describe('create text primitive type', () => {
+atoms.forEach((atom) => {
+  describe(`Create atom ${atom.name ?? atom.type}`, () => {
     before(() => {
-      cy.visit(`/types`)
+      cy.visit(`/atoms`)
       cy.get('.ant-table-cell', { timeout: TIMEOUT })
     })
 
-    it('should be able to create text primitive type', () => {
-      cy.findAllByText(textTypeName, { exact: true, timeout: 0 }).should(
+    it(`should be able to create atom ${atom.name}`, () => {
+      const atomName = atom.name
+      const atomType = atom.type
+
+      cy.findAllByText(atomName, { exact: true, timeout: TIMEOUT }).should(
         'not.exist',
       )
 
       cy.findByRole('button', { name: /plus/ }).click()
 
-      cy.getOpenedModal().findByLabelText('Name').type(textTypeName)
-      cy.getOpenedModal().findByLabelText('Kind').click()
-      cy.getOpenedModal().getOptionItem(textTypeKind).first().click()
-      cy.getOpenedModal().findByLabelText('Primitive kind').click()
-      cy.getOpenedModal().getOptionItem(textPrimitiveKind).first().click()
+      cy.getOpenedModal().findByLabelText('Name').type(atomName)
+      cy.getOpenedModal().findByLabelText('Type').type(atomType)
+      cy.getSelectOptionItemByValue(atomType).first().click()
+      cy.getOpenedModal()
+        .findByButtonText(/Create Atom/)
+        .click()
+
+      cy.getOpenedModal().should('not.exist')
+      cy.findByText(atomName).should('exist')
+    })
+  })
+})
+
+describe('Create page', () => {
+  it('should create a page', () => {
+    cy.visit(`/apps/${appId}/pages`)
+    cy.getSpinner().should('not.exist')
+
+    cy.findAllByText(pageName, { exact: true, timeout: TIMEOUT }).should(
+      'not.exist',
+    )
+
+    cy.findByRole('button', { name: /plus/ }).click()
+
+    cy.getOpenedModal().findByLabelText('Name').type(pageName)
+    cy.getOpenedModal()
+      .findByButtonText(/Create Page/)
+      .click()
+
+    cy.getOpenedModal().should('not.exist')
+    cy.findByText(pageName).should('exist')
+
+    // Go to page
+    cy.findByText(pageName).click()
+    cy.contains(/Root element/)
+  })
+})
+
+// Add Row component
+components.forEach((component) => {
+  describe(`Create component ${component.name}`, () => {
+    it(`should be able to add component ${component.name}`, () => {
+      const componentName = component.name
+      const componentAtom = component.atom
+      const componentParentElement = component.parentElement
+
+      cy.findByRole('button', { name: /plus/ }).click()
+
+      cy.getOpenedModal().findByLabelText('Name').type(componentName)
+      cy.getOpenedModal().findByLabelText('Atom').type(componentAtom)
+      cy.getOpenedModal().getOptionItem(componentAtom).first().click()
+      cy.getOpenedModal()
+        .findByLabelText('Parent element')
+        .type(componentParentElement)
+      cy.getOpenedModal().getOptionItem(componentParentElement).first().click()
 
       cy.getOpenedModal()
         .findByButtonText(/Create/)
         .click()
 
       cy.getOpenedModal().should('not.exist')
-      cy.findByText(textTypeName).should('exist')
     })
   })
+})
 
-  describe('create atoms', () => {
-    before(() => {
-      cy.visit(`/atoms`)
-      cy.get('.ant-table-cell', { timeout: TIMEOUT })
-    })
-
-    it('should be able to create atoms', () => {
-      atoms.map((atom) => {
-        const atomName = atom.name
-        const atomType = atom.type
-        const atomLabel = atom.type
-
-        cy.findAllByText(atomName, { exact: true, timeout: TIMEOUT }).should(
-          'not.exist',
-        )
-
-        cy.findByRole('button', { name: /plus/ }).click()
-
-        cy.getOpenedModal().findByLabelText('Name').type(atomName)
-        cy.getOpenedModal().findByLabelText('Type').type(atomType)
-        cy.getSelectOptionItemByValue(atomType).first().click()
-        cy.getOpenedModal()
-          .findByButtonText(/Create Atom/)
-          .click()
-
-        cy.getOpenedModal().should('not.exist')
-        cy.findByText(atomName).should('exist')
-      })
-    })
+describe('Delete page', () => {
+  before(() => {
+    cy.visit(`/apps/${appId}/pages`)
+    cy.getSpinner().should('not.exist')
   })
 
-  describe('create page', () => {
-    before(() => {
-      cy.visit(`/apps/${appId}/pages`)
-      cy.getSpinner().should('not.exist')
-    })
+  it('should be able to delete home page', () => {
+    cy.findAllByText(pageName, { exact: true, timeout: TIMEOUT }).should(
+      'exist',
+    )
 
-    it('should be able to create home page', () => {
-      cy.findAllByText(pageName, { exact: true, timeout: TIMEOUT }).should(
-        'not.exist',
-      )
+    cy.findDeleteButtonByPageName(pageName).click()
 
-      cy.findByRole('button', { name: /plus/ }).click()
+    cy.getSpinner().should('not.exist')
+    cy.getOpenedModal()
+      .findByButtonText(/Delete Page/)
+      .click()
 
-      cy.getOpenedModal().findByLabelText('Name').type(pageName)
-      cy.getOpenedModal()
-        .findByButtonText(/Create Page/)
-        .click()
+    cy.findAllByText(pageName).should('not.exist')
+  })
+})
 
-      cy.getOpenedModal().should('not.exist')
-      cy.findByText(pageName).should('exist')
-
-      // Go to page
-      cy.findByText(pageName).click()
-      cy.contains(/Root element/)
-
-      // Add Row component
-      components.map((component) => {
-        const componentName = component.name
-        const componentAtom = component.atom
-        const componentParentElement = component.parentElement
-
-        cy.findByRole('button', { name: /plus/ }).click()
-
-        cy.getOpenedModal().findByLabelText('Name').type(componentName)
-        cy.getOpenedModal().findByLabelText('Atom').type(componentAtom)
-        cy.getOpenedModal().getOptionItem(componentAtom).first().click()
-        cy.getOpenedModal()
-          .findByLabelText('Parent element')
-          .type(componentParentElement)
-        cy.getOpenedModal()
-          .getOptionItem(componentParentElement)
-          .first()
-          .click()
-
-        cy.getOpenedModal()
-          .findByButtonText(/Create/)
-          .click()
-
-        cy.getOpenedModal().should('not.exist')
-      })
-    })
+describe('Delete atoms', () => {
+  before(() => {
+    cy.visit(`/atoms`)
+    cy.get('.ant-table-cell', { timeout: TIMEOUT })
   })
 
-  describe('delete page', () => {
-    before(() => {
-      cy.visit(`/apps/${appId}/pages`)
-      cy.getSpinner().should('not.exist')
-    })
+  it('should be able to delete atoms', () => {
+    cy.wrap(atoms).each((atom: { name: string; type: AtomType }) => {
+      const atomName = atom.name
+      const atomType = atom.type
 
-    it('should be able to delete home page', () => {
-      cy.findAllByText(pageName, { exact: true, timeout: TIMEOUT }).should(
-        'exist',
-      )
-
-      cy.findDeleteButtonByPageName(pageName).click()
+      findDeleteButtonByAtomName(atomName).click()
 
       cy.getSpinner().should('not.exist')
       cy.getOpenedModal()
-        .findByButtonText(/Delete Page/)
+        .findByButtonText(/Delete Atom/)
         .click()
 
-      cy.findAllByText(pageName).should('not.exist')
+      cy.findAllByText(atomName).should('not.exist')
     })
   })
+})
 
-  describe('delete atoms', () => {
-    before(() => {
-      cy.visit(`/atoms`)
-      cy.get('.ant-table-cell', { timeout: TIMEOUT })
-    })
-
-    it('should be able to delete atoms', () => {
-      atoms.map((atom) => {
-        const atomName = atom.name
-        const atomType = atom.type
-
-        findDeleteButtonByAtomName(atomName).click()
-
-        cy.getSpinner().should('not.exist')
-        cy.getOpenedModal()
-          .findByButtonText(/Delete Atom/)
-          .click()
-
-        cy.findAllByText(atomName).should('not.exist')
-      })
-    })
+describe('Delete text primitive type', () => {
+  before(() => {
+    cy.visit(`/types`)
+    cy.get('.ant-table-cell', { timeout: TIMEOUT })
   })
 
-  describe('delete text primitive type', () => {
-    before(() => {
-      cy.visit(`/types`)
-      cy.get('.ant-table-cell', { timeout: TIMEOUT })
-    })
+  it('should be able to delete text primitive', () => {
+    findDeleteButtonByTypeName(textTypeName).click()
 
-    it('should be able to delete text primitive', () => {
-      findDeleteButtonByTypeName(textTypeName).click()
+    cy.getSpinner().should('not.exist')
+    cy.getOpenedModal()
+      .findByButtonText(/Delete/)
+      .click()
 
-      cy.getSpinner().should('not.exist')
-      cy.getOpenedModal()
-        .findByButtonText(/Delete/)
-        .click()
-
-      cy.findAllByText(textTypeName).should('not.exist')
-    })
+    cy.findAllByText(textTypeName).should('not.exist')
   })
 })

@@ -259,6 +259,14 @@
                 "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
               },
               {
+                "sourceTag": "scope:e2e",
+                "onlyDependOnLibsWithTags": [
+                  "scope:frontend",
+                  "scope:backend",
+                  "scope:shared"
+                ]
+              },
+              {
                 "sourceTag": "scope:frontend",
                 "onlyDependOnLibsWithTags": ["scope:frontend", "scope:shared"]
               },

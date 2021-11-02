@@ -1,0 +1,11 @@
+mutation E2eCreateApp($input: CreateAppInput!) {
+  createApp(input: $input) {
+    ...AppBase
+  }
+}
+
+mutation E2eDeleteApp($input: DeleteAppInput!) {
+  deleteApp(input: $input) {
+    ...TestApp
+  }
+}

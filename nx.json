@@ -193,7 +193,7 @@
       "implicitDependencies": []
     },
     "web-e2e": {
-      "tags": ["scope:frontend"],
+      "tags": ["scope:e2e"],
       "implicitDependencies": ["web"]
     }
   },
