@@ -73,7 +73,6 @@
     "@nestjs/testing": "8.0.6",
     "@next/bundle-analyzer": "11.1.2",
     "@reduxjs/toolkit": "^1.6.2",
-    "@rtk-query/graphql-request-base-query": "^1.0.3",
     "@slack/web-api": "6.4.0",
     "adm-zip": "0.5.5",
     "ajv": "8.6.3",

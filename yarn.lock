@@ -4976,13 +4976,6 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@rtk-query/graphql-request-base-query@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@rtk-query/graphql-request-base-query/-/graphql-request-base-query-1.0.3.tgz#34f5cd65ac98187ade3044174228bde83d9eccb6"
-  integrity sha512-oL/cE4Nm3GXjpVpTaFD+THwY71Tpk2XjuwYDEL8xk8gkfsx3GWbKRgcBX7x8xnUNcKobHXejjxkw9n1k/RpAbA==
-  dependencies:
-    graphql-request "^3.4.0"
-
 "@rushstack/eslint-patch@^1.0.6":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.0.9.tgz#1168db664faab4c3bb82c76124b393970e80bf89"
@@ -15644,7 +15637,7 @@ graphql-language-service@^3.1.2:
     graphql-language-service-types "^1.8.2"
     graphql-language-service-utils "^2.5.3"
 
-graphql-request@3.6.1, graphql-request@^3.3.0, graphql-request@^3.4.0:
+graphql-request@3.6.1, graphql-request@^3.3.0:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-3.6.1.tgz#689cce1da990131b40b05651f9f32bff506a1d8e"
   integrity sha512-Nm1EasrAQVZllyNTlHDLnLZjlhC6eRWnWP6KH//ytnAL08pjlLkdI2K+s6OV92p45hn5b/kUlLbDwACmRoLwrQ==
