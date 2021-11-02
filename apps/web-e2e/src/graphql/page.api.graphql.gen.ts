@@ -11,7 +11,7 @@ export type E2eGetPageQueryVariables = Types.Exact<{
   input: Types.GetPageInput
 }>
 
-export type E2eGetPageQuery = { page?: Types.Maybe<PageFullFragment> }
+export type E2eGetPageQuery = { page?: PageFullFragment | null | undefined }
 
 export type E2eCreatePageMutationVariables = Types.Exact<{
   input: Types.CreatePageInput

@@ -10,19 +10,22 @@ export type TestGetElementGraphQueryVariables = Types.Exact<{
 export type TestGetElementGraphQuery = {
   getElementGraph: {
     edges: Array<{
-      order?: Types.Maybe<number>
+      order?: number | null | undefined
       source: string
       target: string
     }>
     vertices: Array<{
       id: string
-      name?: Types.Maybe<string>
-      css?: Types.Maybe<string>
+      name?: string | null | undefined
+      css?: string | null | undefined
       props: string
-      renderForEachPropKey?: Types.Maybe<string>
-      renderIfPropKey?: Types.Maybe<string>
-      componentTag?: Types.Maybe<{ name: string; id: string }>
-      atom?: Types.Maybe<{ id: string; name: string; type: Types.AtomType }>
+      renderForEachPropKey?: string | null | undefined
+      renderIfPropKey?: string | null | undefined
+      componentTag?: { name: string; id: string } | null | undefined
+      atom?:
+        | { id: string; name: string; type: Types.AtomType }
+        | null
+        | undefined
     }>
   }
 }

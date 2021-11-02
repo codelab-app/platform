@@ -9,7 +9,7 @@ export type TestGetTagQueryVariables = Types.Exact<{
   input: Types.GetTagInput
 }>
 
-export type TestGetTagQuery = { getTag?: Types.Maybe<TestTagFragment> }
+export type TestGetTagQuery = { getTag?: TestTagFragment | null | undefined }
 
 export const TestGetTagGql = gql`
   query TestGetTag($input: GetTagInput!) {

@@ -15,7 +15,9 @@ export type TestUpdateTagMutationVariables = Types.Exact<{
   input: Types.UpdateTagInput
 }>
 
-export type TestUpdateTagMutation = { updateTag?: Types.Maybe<TagFragment> }
+export type TestUpdateTagMutation = {
+  updateTag?: TagFragment | null | undefined
+}
 
 export const TestUpdateTagGql = gql`
   mutation TestUpdateTag($input: UpdateTagInput!) {

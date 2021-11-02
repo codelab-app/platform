@@ -15,7 +15,9 @@ export type E2eDeleteAppMutationVariables = Types.Exact<{
   input: Types.DeleteAppInput
 }>
 
-export type E2eDeleteAppMutation = { deleteApp?: Types.Maybe<TestAppFragment> }
+export type E2eDeleteAppMutation = {
+  deleteApp?: TestAppFragment | null | undefined
+}
 
 export const E2eCreateAppGql = gql`
   mutation E2eCreateApp($input: CreateAppInput!) {

@@ -21,7 +21,7 @@ export type TestUpdateEnumTypeMutationVariables = Types.Exact<{
 }>
 
 export type TestUpdateEnumTypeMutation = {
-  updateEnumType?: Types.Maybe<TestType_EnumType_Fragment>
+  updateEnumType?: TestType_EnumType_Fragment | null | undefined
 }
 
 export const TestUpdateEnumTypeGql = gql`

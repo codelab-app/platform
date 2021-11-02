@@ -21,7 +21,7 @@ export type DeleteTypeMutationVariables = Types.Exact<{
 }>
 
 export type DeleteTypeMutation = {
-  deleteType?: Types.Maybe<
+  deleteType?:
     | Type_ArrayType_Fragment
     | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
@@ -32,7 +32,8 @@ export type DeleteTypeMutation = {
     | Type_ReactNodeType_Fragment
     | Type_RenderPropsType_Fragment
     | Type_UnionType_Fragment
-  >
+    | null
+    | undefined
 }
 
 export const DeleteTypeGql = gql`

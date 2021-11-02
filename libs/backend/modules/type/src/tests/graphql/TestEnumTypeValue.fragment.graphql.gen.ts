@@ -3,7 +3,7 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 import { gql } from '@apollo/client'
 export type TestEnumTypeValueFragment = {
   id: string
-  name?: Types.Maybe<string>
+  name?: string | null | undefined
   value: string
 }
 

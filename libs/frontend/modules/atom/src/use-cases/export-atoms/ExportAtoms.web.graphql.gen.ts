@@ -10,7 +10,7 @@ export type ExportAtomsQueryVariables = Types.Exact<{
 }>
 
 export type ExportAtomsQuery = {
-  getAtoms?: Types.Maybe<Array<Export__AtomsFragment>>
+  getAtoms?: Array<Export__AtomsFragment> | null | undefined
 }
 
 export type Export__AtomsFragment = {

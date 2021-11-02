@@ -9,7 +9,7 @@ export type GetPageQueryVariables = Types.Exact<{
   input: Types.GetPageInput
 }>
 
-export type GetPageQuery = { page?: Types.Maybe<PageFullFragment> }
+export type GetPageQuery = { page?: PageFullFragment | null | undefined }
 
 export const GetPageGql = gql`
   query GetPage($input: GetPageInput!) {

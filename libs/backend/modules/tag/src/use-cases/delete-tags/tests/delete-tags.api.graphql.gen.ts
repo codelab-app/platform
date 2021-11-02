@@ -16,7 +16,7 @@ export type TestDeleteTagsMutationVariables = Types.Exact<{
 }>
 
 export type TestDeleteTagsMutation = {
-  deleteTags?: Types.Maybe<Array<TagFragment>>
+  deleteTags?: Array<TagFragment> | null | undefined
 }
 
 export const TestDeleteTagsGql = gql`

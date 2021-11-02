@@ -8,7 +8,7 @@ export type ExecuteLambdaForStateMutationVariables = Types.Exact<{
 }>
 
 export type ExecuteLambdaForStateMutation = {
-  executeLambda?: Types.Maybe<{ payload: string }>
+  executeLambda?: { payload: string } | null | undefined
 }
 
 export const ExecuteLambdaForStateGql = gql`

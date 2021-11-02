@@ -9,7 +9,9 @@ export type UpdateAppMutationVariables = Types.Exact<{
   input: Types.UpdateAppInput
 }>
 
-export type UpdateAppMutation = { updateApp?: Types.Maybe<AppBaseFragment> }
+export type UpdateAppMutation = {
+  updateApp?: AppBaseFragment | null | undefined
+}
 
 export const UpdateAppGql = gql`
   mutation UpdateApp($input: UpdateAppInput!) {

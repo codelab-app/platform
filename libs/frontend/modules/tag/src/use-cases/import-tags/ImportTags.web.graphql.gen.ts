@@ -7,7 +7,7 @@ export type ImportTagsMutationVariables = Types.Exact<{
   input: Types.ImportTagsInput
 }>
 
-export type ImportTagsMutation = { importTags?: Types.Maybe<void> }
+export type ImportTagsMutation = { importTags?: void | null | undefined }
 
 export const ImportTagsGql = gql`
   mutation ImportTags($input: ImportTagsInput!) {

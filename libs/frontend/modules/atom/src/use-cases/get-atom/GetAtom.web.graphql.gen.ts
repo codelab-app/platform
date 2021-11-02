@@ -9,7 +9,7 @@ export type GetAtomQueryVariables = Types.Exact<{
   input: Types.GetAtomInput
 }>
 
-export type GetAtomQuery = { getAtom?: Types.Maybe<AtomFragment> }
+export type GetAtomQuery = { getAtom?: AtomFragment | null | undefined }
 
 export const GetAtomGql = gql`
   query GetAtom($input: GetAtomInput!) {

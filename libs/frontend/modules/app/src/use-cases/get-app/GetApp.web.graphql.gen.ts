@@ -9,7 +9,7 @@ export type GetAppQueryVariables = Types.Exact<{
   input: Types.GetAppInput
 }>
 
-export type GetAppQuery = { app?: Types.Maybe<AppFragment> }
+export type GetAppQuery = { app?: AppFragment | null | undefined }
 
 export const GetAppGql = gql`
   query GetApp($input: GetAppInput!) {
