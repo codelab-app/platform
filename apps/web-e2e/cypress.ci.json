@@ -5,7 +5,7 @@
   "modifyObstructiveCode": false,
   "pluginsFile": "./src/plugins/index.ts",
   "supportFile": "./src/support/index.ts",
-  "video": false,
+  "video": true,
   "videosFolder": "./src/videos",
   "screenshotsFolder": "./src/screenshots",
   "chromeWebSecurity": false,
@@ -17,6 +17,7 @@
   "projectId": "86p5h3",
   "env": {},
   "testFiles": "**/*.spec.*",
+  "numTestsKeptInMemory": 1,
   "retries": {
     "runMode": 2,
     "openMode": 0
