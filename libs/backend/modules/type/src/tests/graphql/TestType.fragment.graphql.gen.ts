@@ -1,4 +1,4 @@
-import * as Types from '@codelab/shared/codegen/graphql'
+import * as Types from '@codelab/frontend/abstract/codegen'
 
 import { TestArrayTypeFragment } from './TestArrayType.fragment.graphql.gen'
 import { TestEnumTypeFragment } from './TestEnumType.fragment.graphql.gen'
@@ -9,6 +9,16 @@ import { TestLambdaTypeFragment } from './TestLambdaType.fragment.graphql.gen'
 import { TestComponentTypeFragment } from './TestComponentType.fragment.graphql.gen'
 import { TestRenderPropsTypeFragment } from './TestRenderProps.fragment.graphql.gen'
 import { TestUnionTypeFragment } from './TestUnionType.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TestArrayTypeFragmentDoc } from './TestArrayType.fragment.graphql.gen'
+import { TestEnumTypeFragmentDoc } from './TestEnumType.fragment.graphql.gen'
+import { TestInterfaceFragmentDoc } from './TestInterface.fragment.graphql.gen'
+import { TestPrimitiveTypeFragmentDoc } from './TestPrimitiveType.fragment.graphql.gen'
+import { TestElementTypeFragmentDoc } from './TestElementType.fragment.graphql.gen'
+import { TestLambdaTypeFragmentDoc } from './TestLambdaType.fragment.graphql.gen'
+import { TestComponentTypeFragmentDoc } from './TestComponentType.fragment.graphql.gen'
+import { TestRenderPropsTypeFragmentDoc } from './TestRenderProps.fragment.graphql.gen'
+import { TestUnionTypeFragmentDoc } from './TestUnionType.fragment.graphql.gen'
 export type TestType_ArrayType_Fragment = {
   __typename: 'ArrayType'
   id: string

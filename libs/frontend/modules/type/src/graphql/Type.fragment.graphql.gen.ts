@@ -1,4 +1,4 @@
-import * as Types from '@codelab/shared/codegen/graphql'
+import * as Types from '@codelab/frontend/abstract/codegen'
 
 import { ArrayTypeFragment } from './ArrayType.fragment.graphql.gen'
 import { EnumTypeFragment } from './EnumType.fragment.graphql.gen'
@@ -9,6 +9,16 @@ import { LambdaTypeFragment } from './LambdaType.fragment.graphql.gen'
 import { ComponentTypeFragment } from './ComponentType.fragment.graphql.gen'
 import { RenderPropsTypeFragment } from './RenderProps.fragment.graphql.gen'
 import { UnionTypeFragment } from './UnionType.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { ArrayTypeFragmentDoc } from './ArrayType.fragment.graphql.gen'
+import { EnumTypeFragmentDoc } from './EnumType.fragment.graphql.gen'
+import { InterfaceFragmentDoc } from './Interface.fragment.graphql.gen'
+import { PrimitiveTypeFragmentDoc } from './PrimitiveType.fragment.graphql.gen'
+import { ElementTypeFragmentDoc } from './ElementType.fragment.graphql.gen'
+import { LambdaTypeFragmentDoc } from './LambdaType.fragment.graphql.gen'
+import { ComponentTypeFragmentDoc } from './ComponentType.fragment.graphql.gen'
+import { RenderPropsTypeFragmentDoc } from './RenderProps.fragment.graphql.gen'
+import { UnionTypeFragmentDoc } from './UnionType.fragment.graphql.gen'
 export type Type_ArrayType_Fragment = {
   __typename: 'ArrayType'
   id: string

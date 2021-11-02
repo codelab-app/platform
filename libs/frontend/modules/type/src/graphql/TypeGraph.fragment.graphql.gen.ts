@@ -1,4 +1,4 @@
-import * as Types from '@codelab/shared/codegen/graphql'
+import * as Types from '@codelab/frontend/abstract/codegen'
 
 import {
   TypeEdge_BaseTypeEdge_Fragment,
@@ -16,6 +16,9 @@ import {
   Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
 } from './Type.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TypeEdgeFragmentDoc } from './TypeEdge.fragment.graphql.gen'
+import { TypeFragmentDoc } from './Type.fragment.graphql.gen'
 export type TypeGraphFragment = {
   edges: Array<TypeEdge_BaseTypeEdge_Fragment | TypeEdge_FieldTypeEdge_Fragment>
   vertices: Array<
