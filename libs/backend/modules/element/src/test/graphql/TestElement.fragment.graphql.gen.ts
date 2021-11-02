@@ -1,4 +1,4 @@
-import * as Types from '@codelab/shared/codegen/graphql'
+import * as Types from '@codelab/frontend/abstract/codegen'
 
 import { AtomBaseFragment } from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
 import { HookFragment } from '../../../../../../frontend/modules/element/src/graphql/Hook.fragment.graphql.gen'
