@@ -1,5 +1,6 @@
-import * as Types from '@codelab/shared/codegen/graphql'
+import * as Types from '@codelab/frontend/abstract/codegen'
 
+import { gql } from '@apollo/client'
 export type InterfaceFragment = {
   __typename: 'InterfaceType'
   id: string
