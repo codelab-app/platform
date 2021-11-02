@@ -3,6 +3,7 @@ import {
   CreateResponse,
   GetPageInput,
 } from '@codelab/frontend/abstract/codegen'
+import type { PageFullFragment } from '@codelab/frontend/modules/page'
 import { print } from 'graphql'
 import {
   E2eCreatePageGql,
@@ -15,7 +16,7 @@ export const getPage = (input: GetPageInput) => {
       query: print(E2eGetPageGql),
       variables: { input },
     })
-    .then((r) => r.body.data?.page as { id: string; name: string })
+    .then((r) => r.body.data?.page as PageFullFragment)
 }
 
 export const defaultAppName = 'test'

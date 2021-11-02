@@ -1,4 +1,5 @@
 export * from './graphql/PageBase.fragment.graphql.gen'
+export * from './graphql/PageFull.fragment.graphql.gen'
 export * from './main-pane'
 export * from './providers'
 export * from './use-cases/create-page'

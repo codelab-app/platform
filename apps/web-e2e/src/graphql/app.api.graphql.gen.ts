@@ -1,9 +1,7 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AppBaseFragment } from '../../../../libs/frontend/modules/app/src/App.fragment.graphql.gen'
 import { TestAppFragment } from '../../../../libs/backend/modules/app/src/test/test-app.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { AppBaseFragmentDoc } from '../../../../libs/frontend/modules/app/src/App.fragment.graphql.gen'
 import { TestAppFragmentDoc } from '../../../../libs/backend/modules/app/src/test/test-app.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
@@ -11,7 +9,7 @@ export type E2eCreateAppMutationVariables = Types.Exact<{
   input: Types.CreateAppInput
 }>
 
-export type E2eCreateAppMutation = { createApp: AppBaseFragment }
+export type E2eCreateAppMutation = { createApp: TestAppFragment }
 
 export type E2eDeleteAppMutationVariables = Types.Exact<{
   input: Types.DeleteAppInput
@@ -22,10 +20,10 @@ export type E2eDeleteAppMutation = { deleteApp?: Types.Maybe<TestAppFragment> }
 export const E2eCreateAppGql = gql`
   mutation E2eCreateApp($input: CreateAppInput!) {
     createApp(input: $input) {
-      ...AppBase
+      ...TestApp
     }
   }
-  ${AppBaseFragmentDoc}
+  ${TestAppFragmentDoc}
 `
 export type E2eCreateAppMutationFn = Apollo.MutationFunction<
   E2eCreateAppMutation,

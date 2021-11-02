@@ -1,8 +1,4 @@
-import {
-  CreateResponse,
-  Element,
-  Page,
-} from '@codelab/frontend/abstract/codegen'
+import { CreateResponse, Element } from '@codelab/frontend/abstract/codegen'
 import { AtomType, BaseTypeKind, TypeKind } from '@codelab/shared/abstract/core'
 
 const listElementName = 'List'
@@ -112,7 +108,7 @@ describe('render props', () => {
               })
             })
 
-            cy.createPageFromScratch().then((page: Page) => {
+            cy.createPageFromScratch().then((page) => {
               return cy
                 .getElementGraph({ where: { id: page.rootElementId } })
                 .then((elements) => {
