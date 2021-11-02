@@ -67,7 +67,6 @@ orbs:
   node: circleci/node@4.7.0
   aws-cli: circleci/aws-cli@2.0.3
   aws-ecs: circleci/aws-ecs@2.2.1
-  browser-tools: circleci/browser-tools@1.2.3
 
 executors:
   machine-ubuntu:
@@ -326,7 +325,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - browser-tools/install-firefox
       - run: |
           echo 'export CODELAB_DGRAPH_ENDPOINT=$CODELAB_DGRAPH_E2E_ENDPOINT' >> $BASH_ENV
           echo 'export DG_AUTH=$CODELAB_DGRAPH_E2E_DG_AUTH' >> $BASH_ENV
