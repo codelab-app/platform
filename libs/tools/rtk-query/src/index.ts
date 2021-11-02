@@ -43,13 +43,18 @@ export const plugin: PluginFunction<
   const visitor = new RTKQueryVisitor(schema, allFragments, config, documents)
   const visitorResult = visit(allAst, { leave: visitor })
 
+  const requiredSegment = [
+    visitor.fragments,
+    ...visitorResult.definitions.filter((t: any) => typeof t === 'string'),
+  ].join('\n')
+
+  const injectedEndpoints = visitor.getInjectCall()
+
   return {
     prepend: visitor.getImports(),
-    content: [
-      visitor.fragments,
-      ...visitorResult.definitions.filter((t: any) => typeof t === 'string'),
-      visitor.getInjectCall(),
-    ].join('\n'),
+    content: injectedEndpoints
+      ? [requiredSegment, injectedEndpoints].join('\n')
+      : requiredSegment,
   }
 }
 

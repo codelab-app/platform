@@ -9,8 +9,6 @@ import { pascalCase } from 'change-case-all'
 import { GraphQLSchema, OperationDefinitionNode } from 'graphql'
 import { RTKQueryPluginConfig, RTKQueryRawPluginConfig } from './config'
 
-const DEFAULT_GQL_IMPORT_PACKAGE = `@apollo/client#gql`
-
 export class RTKQueryVisitor extends ClientSideBaseVisitor<
   RTKQueryRawPluginConfig,
   RTKQueryPluginConfig
@@ -29,12 +27,8 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
   ) {
     super(schema, fragments, rawConfig, {
       exportHooks: getConfigValue(rawConfig.exportHooks, false),
-      overrideExisting: getConfigValue(rawConfig.overrideExisting, ''),
       importBaseApiFrom: getConfigValue(rawConfig.importBaseApiFrom, ''),
-      gqlImport: getConfigValue(
-        rawConfig.gqlImport,
-        `${DEFAULT_GQL_IMPORT_PACKAGE}`,
-      ),
+      overrideExisting: getConfigValue(rawConfig.overrideExisting, ''),
     })
     this._externalImportPrefix = this.config.importOperationTypesFrom
       ? `${this.config.importOperationTypesFrom}.`
@@ -66,6 +60,10 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
   }
 
   public getInjectCall() {
+    if (this._endpoints.length === 0) {
+      return
+    }
+
     return (
       `
   const injectedRtkApi = api.injectEndpoints({
