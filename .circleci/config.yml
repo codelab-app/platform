@@ -83,7 +83,7 @@ executors:
   cypress-node:
     <<: *executor-config
     docker:
-      - image: cypress/browsers:chrome77
+      - image: cypress/browsers:chrome94-ff93
     resource_class: large
   docker-python:
     <<: *executor-config
