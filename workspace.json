@@ -1483,6 +1483,39 @@
         }
       }
     },
+    "tools-rtk-query": {
+      "root": "libs/tools/rtk-query",
+      "sourceRoot": "libs/tools/rtk-query/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/tools/rtk-query",
+            "tsConfig": "libs/tools/rtk-query/tsconfig.lib.json",
+            "packageJson": "libs/tools/rtk-query/package.json",
+            "main": "libs/tools/rtk-query/src/index.ts",
+            "assets": ["libs/tools/rtk-query/*.md"]
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/tools/rtk-query/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tools/rtk-query"],
+          "options": {
+            "jestConfig": "libs/tools/rtk-query/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "tools-scripts": {
       "root": "libs/tools/scripts",
       "sourceRoot": "libs/tools/scripts/src",

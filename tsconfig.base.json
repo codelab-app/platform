@@ -177,7 +177,8 @@
         "libs/tools/plugins/codelab/src/index.ts"
       ],
       "@codelab/tools/scripts": ["libs/tools/scripts/src/index.ts"],
-      "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"]
+      "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"],
+      "@codelab/rtk-query": ["libs/tools/rtk-query/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist", ".gqlcodegen"]
