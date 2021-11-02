@@ -1,4 +1,4 @@
-import * as Types from '@codelab/shared/codegen/graphql'
+import * as Types from '@codelab/frontend/abstract/codegen'
 
 import { ElementFragment } from './Element.fragment.graphql.gen'
 import { ElementEdgeFragment } from './ElementEdge.fragment.graphql.gen'

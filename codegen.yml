@@ -73,7 +73,7 @@ generates:
     preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/shared/codegen/graphql
+      baseTypesPath: ~@codelab/frontend/abstract/codegen
     plugins:
       - typescript-operations
       - dist/libs/tools/rtk-query:
