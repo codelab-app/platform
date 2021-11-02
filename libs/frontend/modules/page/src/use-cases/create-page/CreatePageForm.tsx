@@ -31,7 +31,7 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
       // refetchQueries: [
       //   refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
       // ],
-      update: (cache, { data }) => {
+      update: (cache, { data }: any) => {
         const newPage = data?.createPage
 
         const variables = {

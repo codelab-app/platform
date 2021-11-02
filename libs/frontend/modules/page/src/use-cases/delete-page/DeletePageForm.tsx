@@ -35,7 +35,7 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
       // refetchQueries: [
       //   refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
       // ],
-      update: (cache, { data }) => {
+      update: (cache, { data }: any) => {
         const deletedPage = data?.deletePage
 
         console.log('deletedPage', data)
