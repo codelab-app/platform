@@ -1,4 +1,4 @@
-import { BaseNode } from '@codelab/shared/abstract/core'
+import { IBaseNode } from '@codelab/shared/abstract/core'
 import { MaybePromise } from '@codelab/shared/abstract/types'
 import cytoscape, { EdgeDataDefinition, NodeDataDefinition } from 'cytoscape'
 import { breadthFirstTraversal } from './breadthFirstTraversal'
@@ -7,7 +7,7 @@ export type StrippedNodeDefinition = Omit<NodeDataDefinition, 'id' | 'parent'>
 
 export type StrippedEdgeDefinition = Omit<EdgeDataDefinition, 'from' | 'to'>
 
-export interface TreeToCytoscapeOptions<TInput extends BaseNode<any>> {
+export interface TreeToCytoscapeOptions<TInput extends IBaseNode<any>> {
   /** A function that will get the id from any given node */
   extractId: (node: TInput) => string
 
@@ -31,7 +31,7 @@ export interface TreeToCytoscapeOptions<TInput extends BaseNode<any>> {
 }
 
 export class TreeService {
-  async toCytoscape<TInput extends BaseNode<any>>(
+  async toCytoscape<TInput extends IBaseNode<any>>(
     root: TInput,
     {
       mapNodeToEdgeData,

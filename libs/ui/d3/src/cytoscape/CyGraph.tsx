@@ -90,7 +90,7 @@ export const CyGraph = (props: ICyGraphProps) => {
       console.log('target', target)
       service
         .callServerWithEndpoint(endpoint as string, { source, target })
-        .then((res) => {
+        .then((res: any) => {
           cy.remove(cy.elements())
           cy.add(res.data['nodes'])
           cy.add(res.data['edges'])

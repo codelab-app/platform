@@ -1,24 +1,27 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type ExecuteLambdaForQueryMutationVariables = Types.Exact<{
-  input: Types.ExecuteLambdaInput;
-}>;
+  input: Types.ExecuteLambdaInput
+}>
 
-
-export type ExecuteLambdaForQueryMutation = { executeLambda?: Types.Maybe<{ payload: string }> };
-
+export type ExecuteLambdaForQueryMutation = {
+  executeLambda?: Types.Maybe<{ payload: string }>
+}
 
 export const ExecuteLambdaForQueryGql = gql`
-    mutation ExecuteLambdaForQuery($input: ExecuteLambdaInput!) {
-  executeLambda(input: $input) {
-    payload
+  mutation ExecuteLambdaForQuery($input: ExecuteLambdaInput!) {
+    executeLambda(input: $input) {
+      payload
+    }
   }
-}
-    `;
-export type ExecuteLambdaForQueryMutationFn = Apollo.MutationFunction<ExecuteLambdaForQueryMutation, ExecuteLambdaForQueryMutationVariables>;
+`
+export type ExecuteLambdaForQueryMutationFn = Apollo.MutationFunction<
+  ExecuteLambdaForQueryMutation,
+  ExecuteLambdaForQueryMutationVariables
+>
 
 /**
  * __useExecuteLambdaForQueryMutation__
@@ -37,10 +40,24 @@ export type ExecuteLambdaForQueryMutationFn = Apollo.MutationFunction<ExecuteLam
  *   },
  * });
  */
-export function useExecuteLambdaForQueryMutation(baseOptions?: Apollo.MutationHookOptions<ExecuteLambdaForQueryMutation, ExecuteLambdaForQueryMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<ExecuteLambdaForQueryMutation, ExecuteLambdaForQueryMutationVariables>(ExecuteLambdaForQueryGql, options);
-      }
-export type ExecuteLambdaForQueryMutationHookResult = ReturnType<typeof useExecuteLambdaForQueryMutation>;
-export type ExecuteLambdaForQueryMutationResult = Apollo.MutationResult<ExecuteLambdaForQueryMutation>;
-export type ExecuteLambdaForQueryMutationOptions = Apollo.BaseMutationOptions<ExecuteLambdaForQueryMutation, ExecuteLambdaForQueryMutationVariables>;
+export function useExecuteLambdaForQueryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ExecuteLambdaForQueryMutation,
+    ExecuteLambdaForQueryMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    ExecuteLambdaForQueryMutation,
+    ExecuteLambdaForQueryMutationVariables
+  >(ExecuteLambdaForQueryGql, options)
+}
+export type ExecuteLambdaForQueryMutationHookResult = ReturnType<
+  typeof useExecuteLambdaForQueryMutation
+>
+export type ExecuteLambdaForQueryMutationResult =
+  Apollo.MutationResult<ExecuteLambdaForQueryMutation>
+export type ExecuteLambdaForQueryMutationOptions = Apollo.BaseMutationOptions<
+  ExecuteLambdaForQueryMutation,
+  ExecuteLambdaForQueryMutationVariables
+>

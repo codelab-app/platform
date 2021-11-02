@@ -1,3 +1,5 @@
 mutation DeleteField($input: DeleteFieldInput!) {
-  deleteField(input: $input)
+  deleteField(input: $input) {
+    ...Field
+  }
 }

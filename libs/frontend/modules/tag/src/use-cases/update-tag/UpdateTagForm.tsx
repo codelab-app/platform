@@ -13,7 +13,10 @@ import { UpdateTagSchema, updateTagSchema } from './updateTagSchema'
 
 export const UpdateTagForm = (props: UniFormUseCaseProps<UpdateTagSchema>) => {
   const {
-    crudModal: { reset },
+    crudModal: {
+      reset,
+      state: { metadata },
+    },
     handleSubmit,
   } = useCrudModalMutationForm({
     entityType: EntityType.Tag,
@@ -28,6 +31,7 @@ export const UpdateTagForm = (props: UniFormUseCaseProps<UpdateTagSchema>) => {
     <FormUniforms<UpdateTagSchema>
       onSubmit={handleSubmit}
       schema={updateTagSchema}
+      model={metadata}
       onSubmitError={createNotificationHandler({
         title: 'Error while creating tag',
       })}

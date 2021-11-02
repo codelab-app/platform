@@ -1,22 +1,34 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import {
+  TagFragment,
+  TagEdgeFragment,
+} from '../../../../../../../frontend/modules/tag/src/use-cases/Tag.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import {
+  TagFragmentDoc,
+  TagEdgeFragmentDoc,
+} from '../../../../../../../frontend/modules/tag/src/use-cases/Tag.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestUpsertTagMutationVariables = Types.Exact<{
-  input: Types.UpsertTagInput;
-}>;
+  input: Types.UpsertTagInput
+}>
 
-
-export type TestUpsertTagMutation = { upsertTag: void };
-
+export type TestUpsertTagMutation = { upsertTag: TagFragment }
 
 export const TestUpsertTagGql = gql`
-    mutation TestUpsertTag($input: UpsertTagInput!) {
-  upsertTag(input: $input)
-}
-    `;
-export type TestUpsertTagMutationFn = Apollo.MutationFunction<TestUpsertTagMutation, TestUpsertTagMutationVariables>;
+  mutation TestUpsertTag($input: UpsertTagInput!) {
+    upsertTag(input: $input) {
+      ...Tag
+    }
+  }
+  ${TagFragmentDoc}
+`
+export type TestUpsertTagMutationFn = Apollo.MutationFunction<
+  TestUpsertTagMutation,
+  TestUpsertTagMutationVariables
+>
 
 /**
  * __useTestUpsertTagMutation__
@@ -35,10 +47,24 @@ export type TestUpsertTagMutationFn = Apollo.MutationFunction<TestUpsertTagMutat
  *   },
  * });
  */
-export function useTestUpsertTagMutation(baseOptions?: Apollo.MutationHookOptions<TestUpsertTagMutation, TestUpsertTagMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestUpsertTagMutation, TestUpsertTagMutationVariables>(TestUpsertTagGql, options);
-      }
-export type TestUpsertTagMutationHookResult = ReturnType<typeof useTestUpsertTagMutation>;
-export type TestUpsertTagMutationResult = Apollo.MutationResult<TestUpsertTagMutation>;
-export type TestUpsertTagMutationOptions = Apollo.BaseMutationOptions<TestUpsertTagMutation, TestUpsertTagMutationVariables>;
+export function useTestUpsertTagMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestUpsertTagMutation,
+    TestUpsertTagMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestUpsertTagMutation,
+    TestUpsertTagMutationVariables
+  >(TestUpsertTagGql, options)
+}
+export type TestUpsertTagMutationHookResult = ReturnType<
+  typeof useTestUpsertTagMutation
+>
+export type TestUpsertTagMutationResult =
+  Apollo.MutationResult<TestUpsertTagMutation>
+export type TestUpsertTagMutationOptions = Apollo.BaseMutationOptions<
+  TestUpsertTagMutation,
+  TestUpsertTagMutationVariables
+>

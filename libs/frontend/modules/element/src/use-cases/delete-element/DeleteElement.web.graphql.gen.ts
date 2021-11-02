@@ -1,22 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { ElementFragment } from '../../graphql/Element.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { ElementFragmentDoc } from '../../graphql/Element.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type DeleteElementMutationVariables = Types.Exact<{
-  input: Types.DeleteElementInput;
-}>;
+  input: Types.DeleteElementInput
+}>
 
-
-export type DeleteElementMutation = { deleteElement?: Types.Maybe<void> };
-
+export type DeleteElementMutation = { deleteElement: ElementFragment }
 
 export const DeleteElementGql = gql`
-    mutation DeleteElement($input: DeleteElementInput!) {
-  deleteElement(input: $input)
-}
-    `;
-export type DeleteElementMutationFn = Apollo.MutationFunction<DeleteElementMutation, DeleteElementMutationVariables>;
+  mutation DeleteElement($input: DeleteElementInput!) {
+    deleteElement(input: $input) {
+      ...Element
+    }
+  }
+  ${ElementFragmentDoc}
+`
+export type DeleteElementMutationFn = Apollo.MutationFunction<
+  DeleteElementMutation,
+  DeleteElementMutationVariables
+>
 
 /**
  * __useDeleteElementMutation__
@@ -35,10 +41,24 @@ export type DeleteElementMutationFn = Apollo.MutationFunction<DeleteElementMutat
  *   },
  * });
  */
-export function useDeleteElementMutation(baseOptions?: Apollo.MutationHookOptions<DeleteElementMutation, DeleteElementMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteElementMutation, DeleteElementMutationVariables>(DeleteElementGql, options);
-      }
-export type DeleteElementMutationHookResult = ReturnType<typeof useDeleteElementMutation>;
-export type DeleteElementMutationResult = Apollo.MutationResult<DeleteElementMutation>;
-export type DeleteElementMutationOptions = Apollo.BaseMutationOptions<DeleteElementMutation, DeleteElementMutationVariables>;
+export function useDeleteElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteElementMutation,
+    DeleteElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteElementMutation,
+    DeleteElementMutationVariables
+  >(DeleteElementGql, options)
+}
+export type DeleteElementMutationHookResult = ReturnType<
+  typeof useDeleteElementMutation
+>
+export type DeleteElementMutationResult =
+  Apollo.MutationResult<DeleteElementMutation>
+export type DeleteElementMutationOptions = Apollo.BaseMutationOptions<
+  DeleteElementMutation,
+  DeleteElementMutationVariables
+>

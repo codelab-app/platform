@@ -1,25 +1,24 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AtomFragment } from '../../Atom.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { AtomFragmentDoc } from '../../Atom.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { AtomFragment } from '../../Atom.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { AtomFragmentDoc } from '../../Atom.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type GetAtomsQueryVariables = Types.Exact<{
-  input?: Types.Maybe<Types.GetAtomsInput>;
-}>;
+  input?: Types.Maybe<Types.GetAtomsInput>
+}>
 
-
-export type GetAtomsQuery = { getAtoms?: Types.Maybe<Array<AtomFragment>> };
-
+export type GetAtomsQuery = { getAtoms?: Types.Maybe<Array<AtomFragment>> }
 
 export const GetAtomsGql = gql`
-    query GetAtoms($input: GetAtomsInput) {
-  getAtoms(input: $input) {
-    ...Atom
+  query GetAtoms($input: GetAtomsInput) {
+    getAtoms(input: $input) {
+      ...Atom
+    }
   }
-}
-    ${AtomFragmentDoc}`;
+  ${AtomFragmentDoc}
+`
 
 /**
  * __useGetAtomsQuery__
@@ -37,17 +36,35 @@ export const GetAtomsGql = gql`
  *   },
  * });
  */
-export function useGetAtomsQuery(baseOptions?: Apollo.QueryHookOptions<GetAtomsQuery, GetAtomsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAtomsQuery, GetAtomsQueryVariables>(GetAtomsGql, options);
-      }
-export function useGetAtomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAtomsQuery, GetAtomsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAtomsQuery, GetAtomsQueryVariables>(GetAtomsGql, options);
-        }
-export type GetAtomsQueryHookResult = ReturnType<typeof useGetAtomsQuery>;
-export type GetAtomsLazyQueryHookResult = ReturnType<typeof useGetAtomsLazyQuery>;
-export type GetAtomsQueryResult = Apollo.QueryResult<GetAtomsQuery, GetAtomsQueryVariables>;
+export function useGetAtomsQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetAtomsQuery, GetAtomsQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAtomsQuery, GetAtomsQueryVariables>(
+    GetAtomsGql,
+    options,
+  )
+}
+export function useGetAtomsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetAtomsQuery,
+    GetAtomsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAtomsQuery, GetAtomsQueryVariables>(
+    GetAtomsGql,
+    options,
+  )
+}
+export type GetAtomsQueryHookResult = ReturnType<typeof useGetAtomsQuery>
+export type GetAtomsLazyQueryHookResult = ReturnType<
+  typeof useGetAtomsLazyQuery
+>
+export type GetAtomsQueryResult = Apollo.QueryResult<
+  GetAtomsQuery,
+  GetAtomsQueryVariables
+>
 export function refetchGetAtomsQuery(variables?: GetAtomsQueryVariables) {
-      return { query: GetAtomsGql, variables: variables }
-    }
+  return { query: GetAtomsGql, variables: variables }
+}

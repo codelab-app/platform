@@ -1,8 +1,6 @@
-import { Void } from '@codelab/backend/abstract/types'
-import { CreateResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
-import type { User } from '@codelab/shared/abstract/core'
+import type { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Lambda, LambdaPayload } from '../domain/lambda.model'
@@ -21,7 +19,6 @@ import {
   UpdateLambdaInput,
   UpdateLambdaService,
 } from '../use-cases/update-lambda'
-import { LambdaAdapter } from './lambda.adapter'
 import { LambdaService } from './lambda.service'
 
 @Resolver(() => Lambda)
@@ -34,14 +31,13 @@ export class LambdaResolver {
     private readonly getLambdasService: GetLambdasService,
     private readonly getLambdaService: GetLambdaService,
     private readonly updateLambdaService: UpdateLambdaService,
-    private readonly lambdaAdapter: LambdaAdapter,
   ) {}
 
-  @Mutation(() => CreateResponse)
+  @Mutation(() => Lambda)
   @UseGuards(GqlAuthGuard)
   async createLambda(
     @Args('input') input: CreateLambdaInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     const { id } = await this.createLambdaService.execute({
       input,
@@ -53,47 +49,73 @@ export class LambdaResolver {
       ...input,
     })
 
-    return { id }
+    const lambda = await this.getLambdaService.execute({
+      lambdaId: id,
+    })
+
+    if (!lambda) {
+      throw new Error("Can't find created lambda")
+    }
+
+    return lambda
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Lambda)
   @UseGuards(GqlAuthGuard)
   async deleteLambda(@Args('input') input: DeleteLambdaInput) {
+    const lambda = await this.getLambdaService.execute({
+      lambdaId: input.lambdaId,
+    })
+
+    if (!lambda) {
+      throw new Error("Can't find lambda")
+    }
+
     await this.deleteLambdaService.execute(input)
 
-    return await this.lambdaService.deleteLambda({ id: input.lambdaId })
+    await this.lambdaService.deleteLambda({ id: input.lambdaId })
+
+    return lambda
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Lambda, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async updateLambda(@Args('input') input: UpdateLambdaInput) {
     await this.updateLambdaService.execute(input)
 
     await this.lambdaService.updateLambda(input)
+
+    const lambda = await this.getLambdaService.execute({
+      lambdaId: input.id,
+    })
+
+    if (!lambda) {
+      throw new Error("Can't find lambda")
+    }
+
+    return lambda
   }
 
   @Query(() => Lambda, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getLambda(@Args('input') input: GetLambdaInput) {
-    const dgraphLambda = await this.getLambdaService.execute(input)
+    const lambda = await this.getLambdaService.execute(input)
 
-    if (!dgraphLambda) {
+    if (!lambda) {
       return null
     }
 
-    return this.lambdaAdapter.mapItem(dgraphLambda)
+    return lambda
   }
 
   @Mutation(() => LambdaPayload, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async executeLambda(@Args('input') input: ExecuteLambdaInput) {
-    const dgraphLambda = await this.getLambdaService.execute(input)
+    const lambda = await this.getLambdaService.execute(input)
 
-    if (!dgraphLambda) {
+    if (!lambda) {
       return null
     }
-
-    const lambda = this.lambdaAdapter.mapItem(dgraphLambda)
 
     const results = await this.lambdaService.executeLambda(
       lambda,
@@ -105,9 +127,7 @@ export class LambdaResolver {
 
   @Query(() => [Lambda], { defaultValue: [] })
   @UseGuards(GqlAuthGuard)
-  async getLambdas(@CurrentUser() currentUser: User) {
-    const dgraphLambdas = await this.getLambdasService.execute({ currentUser })
-
-    return this.lambdaAdapter.map(dgraphLambdas)
+  async getLambdas(@CurrentUser() currentUser: IUser) {
+    return this.getLambdasService.execute({ currentUser })
   }
 }

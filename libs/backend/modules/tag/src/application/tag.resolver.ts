@@ -1,8 +1,7 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { CreateResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
-import type { User } from '@codelab/shared/abstract/core'
+import type { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Tag } from '../domain/tag.model'
@@ -15,18 +14,15 @@ import {
   GetTagGraphsInput,
   GetTagGraphsService,
 } from '../use-cases/get-tag-graphs'
-import { GetTagsService } from '../use-cases/get-tags'
+import { GetTagsInput, GetTagsService } from '../use-cases/get-tags'
 import { ImportTagsInput, ImportTagsService } from '../use-cases/import-tags'
 import { UpdateTagInput, UpdateTagService } from '../use-cases/update-tag'
 import { UpsertTagInput, UpsertTagService } from '../use-cases/upsert-tag'
-import { DgraphTagAdapter } from './dgraph-tag.adapter'
-import { TagAdapter } from './tag.adapter'
 
 @Resolver(() => Tag)
 @Injectable()
 export class TagResolver {
   constructor(
-    private readonly tagAdapter: TagAdapter,
     private readonly getTagService: GetTagService,
     private readonly createTagService: CreateTagService,
     private readonly deleteTagsService: DeleteTagsService,
@@ -34,61 +30,95 @@ export class TagResolver {
     private readonly getTagGraphService: GetTagGraphService,
     private readonly getTagGraphsService: GetTagGraphsService,
     private readonly getTagsService: GetTagsService,
-    private readonly tagTreeAdapter: DgraphTagAdapter,
     private readonly importTagsService: ImportTagsService,
     private readonly upsertTagService: UpsertTagService,
   ) {}
 
-  @Mutation(() => CreateResponse)
+  @Mutation(() => Tag)
   @UseGuards(GqlAuthGuard)
   async createTag(
     @Args('input') input: CreateTagInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    return await this.createTagService.execute({ input, currentUser })
+    const { id } = await this.createTagService.execute({ input, currentUser })
+    const tag = await this.getTagService.execute({ where: { id } })
+
+    if (!tag) {
+      throw new Error("Couldn't find created tag")
+    }
+
+    return tag
   }
 
   @Query(() => Tag, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getTag(@CurrentUser() user: User, @Args('input') input: GetTagInput) {
-    const tag = await this.getTagService.execute(input)
-
-    if (!tag) {
-      return null
-    }
-
-    return this.tagAdapter.mapItem(tag)
+  async getTag(@CurrentUser() user: IUser, @Args('input') input: GetTagInput) {
+    return this.getTagService.execute(input)
   }
 
   @Query(() => [Tag], {
     description: 'Get all Tag graphs',
   })
   @UseGuards(GqlAuthGuard)
-  async getTags(@CurrentUser() currentUser: User) {
-    const tags = await this.getTagsService.execute({ currentUser })
-
-    return this.tagAdapter.map(tags)
+  async getTags(
+    @Args('input', { nullable: true, type: () => GetTagsInput })
+    input: GetTagsInput | undefined,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    return this.getTagsService.execute({ currentUser })
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Tag, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  updateTag(@Args('input') input: UpdateTagInput) {
-    return this.updateTagService.execute({ input })
+  async updateTag(@Args('input') input: UpdateTagInput) {
+    await this.updateTagService.execute({ input })
+
+    const tag = await this.getTagService.execute({ where: { id: input.id } })
+
+    if (!tag) {
+      throw new Error("Couldn't find tag")
+    }
+
+    return tag
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => [Tag], { nullable: true })
   @UseGuards(GqlAuthGuard)
-  deleteTags(@Args('input') input: DeleteTagsInput) {
-    return this.deleteTagsService.execute({ input })
+  async deleteTags(
+    @Args('input') input: DeleteTagsInput,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    const tags = await this.getTagsService.execute({
+      input: { ids: input.ids },
+      currentUser,
+    })
+
+    if (!tags?.length) {
+      throw new Error("Couldn't find tag")
+    }
+
+    await this.deleteTagsService.execute({ input })
+
+    return tags
   }
 
-  @Mutation(() => Void)
+  @Mutation(() => Tag)
   @UseGuards(GqlAuthGuard)
   async upsertTag(
     @Args('input') input: UpsertTagInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    return this.upsertTagService.execute({ input, currentUser })
+    await this.upsertTagService.execute({ input, currentUser })
+
+    const tag = await this.getTagService.execute({
+      where: { id: input.where?.id },
+    })
+
+    if (!tag) {
+      throw new Error("Couldn't find tag")
+    }
+
+    return tag
   }
 
   @Query(() => TagGraph, {
@@ -97,16 +127,16 @@ export class TagResolver {
       'Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge',
   })
   @UseGuards(GqlAuthGuard)
-  async getTagGraph(@CurrentUser() currentUser: User) {
-    const dgraphTagTree = await this.getTagGraphService.execute({
+  async getTagGraph(@CurrentUser() currentUser: IUser) {
+    const tagGraph = await this.getTagGraphService.execute({
       currentUser,
     })
 
-    if (!dgraphTagTree) {
+    if (!tagGraph) {
       return null
     }
 
-    return this.tagTreeAdapter.mapItem(dgraphTagTree.root)
+    return new TagGraph(tagGraph)
   }
 
   @Query(() => TagGraph, {
@@ -116,7 +146,7 @@ export class TagResolver {
   })
   @UseGuards(GqlAuthGuard)
   async getTagGraphs(
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
     @Args('input', { nullable: true }) input?: GetTagGraphsInput,
   ) {
     const tagGraph = await this.getTagGraphsService.execute({
@@ -135,7 +165,7 @@ export class TagResolver {
   @UseGuards(GqlAuthGuard)
   async importTags(
     @Args('input') input: ImportTagsInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     return await this.importTagsService.execute({ input, currentUser })
   }

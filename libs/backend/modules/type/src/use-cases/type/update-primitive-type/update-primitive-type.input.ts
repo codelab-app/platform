@@ -1,10 +1,10 @@
-import { PrimitiveKind } from '@codelab/shared/abstract/core'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class UpdatePrimitiveKindData {
-  @Field(() => PrimitiveKind)
-  declare primitiveKind: PrimitiveKind
+  @Field(() => PrimitiveTypeKind)
+  declare primitiveKind: PrimitiveTypeKind
 
   @Field()
   declare name: string

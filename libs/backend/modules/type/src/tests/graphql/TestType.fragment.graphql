@@ -1,0 +1,15 @@
+fragment TestType on Type {
+  __typename
+  id
+  name
+  typeKind
+  ...TestArrayType
+  ...TestEnumType
+  ...TestInterface
+  ...TestPrimitiveType
+  ...TestElementType
+  ...TestLambdaType
+  ...TestComponentType
+  ...TestRenderPropsType
+  ...TestUnionType
+}

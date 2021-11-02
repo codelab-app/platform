@@ -26,7 +26,7 @@ describe('D3 Graph Nodes', () => {
     const { findByText } = render(<BasicGraph />)
     const A = await findByText('A')
 
-    expect(A.nodeName).toBe('text')
+    expect(A.nodeName).toStrictEqual('text')
     expect(Object.values(A.classList)).toEqual(
       expect.arrayContaining(['Node-text', 'Node-text--A']),
     )

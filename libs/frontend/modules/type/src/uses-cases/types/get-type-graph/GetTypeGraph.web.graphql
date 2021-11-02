@@ -1,4 +1,4 @@
-query GetTypeGraph($input: GetTypeInput!) {
+query GetTypeGraph($input: GetTypeGraphInput!) {
   getTypeGraph(input: $input) {
     ...TypeGraph
   }

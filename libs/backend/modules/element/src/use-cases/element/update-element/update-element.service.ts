@@ -1,9 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphElement,
-  DgraphRepository,
-  jsonMutation,
-} from '@codelab/backend/infra'
+import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
 import { GetAtomService } from '@codelab/backend/modules/atom'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -33,18 +29,16 @@ export class UpdateElementService extends DgraphUseCase<UpdateElementRequest> {
         atomId,
         css,
         name,
-        componentId,
         renderIfPropKey,
         renderForEachPropKey,
         propTransformationJs,
       },
     },
   }: UpdateElementRequest) {
-    return jsonMutation<DgraphElement>({
+    return jsonMutation<any>({
       uid: id,
       name,
       atom: atomId ? { uid: atomId } : null,
-      component: componentId ? { uid: componentId } : null,
       css: css || '',
       renderForEachPropKey,
       renderIfPropKey,

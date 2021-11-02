@@ -1,10 +1,8 @@
-import { CreateResponse } from '@codelab/backend/application'
 import { GqlAuthGuard, RolesGuard } from '@codelab/backend/infra'
-import type { User as IUser } from '@codelab/shared/abstract/core'
+import type { IUser } from '@codelab/shared/abstract/core'
 import { Role } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { UserAdapter } from '../domain/user.adapter'
 import { User } from '../domain/user.model'
 import { CurrentUser, Roles } from '../infra/auth'
 import { DeleteUserInput, DeleteUserService } from '../use-cases/delete-user'
@@ -20,44 +18,33 @@ export class UserResolver {
     private getUserService: GetUserService,
     private getUsersService: GetUsersService,
     private upsertUserService: UpsertUserService,
-    private userAdapter: UserAdapter,
   ) {}
 
   @Query(() => User, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getMe(@CurrentUser() currentUser: IUser) {
-    const user = await this.getUserService.execute({ id: currentUser.id })
-
-    if (!user) {
-      return null
-    }
-
-    return this.userAdapter.mapItem(user)
+  getMe(@CurrentUser() currentUser: IUser) {
+    return this.getUserService.execute({ id: currentUser.id })
   }
 
   @Query(() => User, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getUser(@Args('input') input: GetUserInput) {
-    const user = await this.getUserService.execute(input)
-
-    if (!user) {
-      return null
-    }
-
-    return this.userAdapter.mapItem(user)
+  getUser(@Args('input') input: GetUserInput) {
+    return this.getUserService.execute(input)
   }
 
   @Query(() => [User])
   @Roles(Role.Admin)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  async getUsers(@Args('input', { nullable: true }) input?: GetUsersInput) {
-    return await this.getUsersService.execute(input)
+  getUsers(@Args('input', { nullable: true }) input?: GetUsersInput) {
+    return this.getUsersService.execute(input)
   }
 
-  @Mutation(() => CreateResponse)
+  @Mutation(() => User)
   @UseGuards(GqlAuthGuard)
   async upsertUser(@Args('input') input: UpsertUserInput) {
-    return await this.upsertUserService.execute({ input })
+    const { id } = await this.upsertUserService.execute({ input })
+
+    return this.getUserService.execute({ id })
   }
 
   @Mutation(() => Boolean)

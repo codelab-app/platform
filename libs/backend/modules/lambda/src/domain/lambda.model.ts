@@ -1,7 +1,8 @@
+import { ILambda } from '@codelab/shared/abstract/core'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
-export class Lambda {
+export class Lambda implements Omit<ILambda, '__typename'> {
   @Field(() => ID)
   declare id: string
 

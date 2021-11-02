@@ -1,4 +1,4 @@
-import { ILambdaTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
+import { ILambdaType, TypeKind } from '@codelab/shared/abstract/core'
 import { ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 
@@ -12,7 +12,7 @@ import { Type } from './type.model'
 })
 export class LambdaType
   extends Type<TypeKind.LambdaType>
-  implements ILambdaTypeVertex
+  implements ILambdaType
 {
   constructor({ id, name }: Pick<LambdaType, 'id' | 'name'>) {
     super(TypeKind.LambdaType)

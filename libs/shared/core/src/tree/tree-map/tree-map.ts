@@ -1,9 +1,9 @@
-import { BaseNode } from '@codelab/shared/abstract/core'
+import { IBaseNode } from '@codelab/shared/abstract/core'
 import { omit } from 'lodash'
 import { hasChildren } from '../has-children'
 
 export const treeMap =
-  <P1 extends BaseNode<P1>, P2 extends BaseNode<P2> = any>(
+  <P1 extends IBaseNode<P1>, P2 extends IBaseNode<P2> = any>(
     mapFn: (node: P1) => P2,
     srcChildrenKey = 'children',
     targetChildrenKey = 'children',

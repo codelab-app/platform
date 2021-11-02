@@ -1,24 +1,25 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestCreateLambdaMutationVariables = Types.Exact<{
-  input: Types.CreateLambdaInput;
-}>;
+  input: Types.CreateLambdaInput
+}>
 
-
-export type TestCreateLambdaMutation = { createLambda: { id: string } };
-
+export type TestCreateLambdaMutation = { createLambda: { id: string } }
 
 export const TestCreateLambdaGql = gql`
-    mutation TestCreateLambda($input: CreateLambdaInput!) {
-  createLambda(input: $input) {
-    id
+  mutation TestCreateLambda($input: CreateLambdaInput!) {
+    createLambda(input: $input) {
+      id
+    }
   }
-}
-    `;
-export type TestCreateLambdaMutationFn = Apollo.MutationFunction<TestCreateLambdaMutation, TestCreateLambdaMutationVariables>;
+`
+export type TestCreateLambdaMutationFn = Apollo.MutationFunction<
+  TestCreateLambdaMutation,
+  TestCreateLambdaMutationVariables
+>
 
 /**
  * __useTestCreateLambdaMutation__
@@ -37,10 +38,24 @@ export type TestCreateLambdaMutationFn = Apollo.MutationFunction<TestCreateLambd
  *   },
  * });
  */
-export function useTestCreateLambdaMutation(baseOptions?: Apollo.MutationHookOptions<TestCreateLambdaMutation, TestCreateLambdaMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestCreateLambdaMutation, TestCreateLambdaMutationVariables>(TestCreateLambdaGql, options);
-      }
-export type TestCreateLambdaMutationHookResult = ReturnType<typeof useTestCreateLambdaMutation>;
-export type TestCreateLambdaMutationResult = Apollo.MutationResult<TestCreateLambdaMutation>;
-export type TestCreateLambdaMutationOptions = Apollo.BaseMutationOptions<TestCreateLambdaMutation, TestCreateLambdaMutationVariables>;
+export function useTestCreateLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestCreateLambdaMutation,
+    TestCreateLambdaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestCreateLambdaMutation,
+    TestCreateLambdaMutationVariables
+  >(TestCreateLambdaGql, options)
+}
+export type TestCreateLambdaMutationHookResult = ReturnType<
+  typeof useTestCreateLambdaMutation
+>
+export type TestCreateLambdaMutationResult =
+  Apollo.MutationResult<TestCreateLambdaMutation>
+export type TestCreateLambdaMutationOptions = Apollo.BaseMutationOptions<
+  TestCreateLambdaMutation,
+  TestCreateLambdaMutationVariables
+>

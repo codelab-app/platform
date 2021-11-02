@@ -1,17 +1,45 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { FieldFragment } from './Field.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { FieldFragmentDoc } from './Field.fragment.graphql.gen';
-export type TypeEdgeFragment = { source: string, target: string, kind: Types.TypeEdgeKind, field?: Types.Maybe<FieldFragment> };
-
-export const TypeEdgeFragmentDoc = gql`
-    fragment TypeEdge on TypeEdge {
-  source
-  target
-  kind
-  field {
-    ...Field
-  }
+import { gql } from '@apollo/client'
+export type FieldTypeEdgeFragment = {
+  description?: Types.Maybe<string>
+  id: string
+  key: string
+  name?: Types.Maybe<string>
+  source: string
+  target: string
 }
-    ${FieldFragmentDoc}`;
+
+export type TypeEdge_BaseTypeEdge_Fragment = { source: string; target: string }
+
+export type TypeEdge_FieldTypeEdge_Fragment = {
+  source: string
+  target: string
+} & FieldTypeEdgeFragment
+
+export type TypeEdgeFragment =
+  | TypeEdge_BaseTypeEdge_Fragment
+  | TypeEdge_FieldTypeEdge_Fragment
+
+export const FieldTypeEdgeFragmentDoc = gql`
+  fragment FieldTypeEdge on FieldTypeEdge {
+    description
+    id
+    key
+    name
+    source
+    target
+  }
+`
+export const TypeEdgeFragmentDoc = gql`
+  fragment TypeEdge on TypeEdge {
+    source
+    target
+    source
+    target
+    ... on FieldTypeEdge {
+      ...FieldTypeEdge
+    }
+  }
+  ${FieldTypeEdgeFragmentDoc}
+`

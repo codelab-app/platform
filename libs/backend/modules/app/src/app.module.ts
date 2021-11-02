@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common'
-import { AppAdapter } from './application/app.adapter'
 import { AppResolver } from './application/app.resolver'
 import { AppValidator } from './domain/app.validator'
 import { CreateAppService } from './use-cases/create-app'
@@ -17,10 +16,6 @@ const services = [
   GetAppsService,
   GetAppService,
   UpdateAppService,
-  /**
-   * Adapters
-   */
-  AppAdapter,
   /**
    * Validators
    */

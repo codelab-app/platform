@@ -1,0 +1,5 @@
+fragment TestPrimitiveType on PrimitiveType {
+  id
+  name
+  primitiveKind
+}

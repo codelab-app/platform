@@ -45,6 +45,7 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
           type: 'string',
         },
       },
+      required: ['appId'],
     },
     queryPageHook: {
       type: 'object',
@@ -54,6 +55,7 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
           type: 'string',
         },
       },
+      required: ['pageId'],
     },
     queryHookVariant: {
       type: 'string',
@@ -92,33 +94,35 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
       type: 'object',
       nullable: true,
       properties: {
-        url: {
+        graphqlUrl: {
           type: 'string',
         },
-        body: {
+        graphqlBody: {
           type: 'string',
         },
         dataKey: {
+          nullable: true,
           type: 'string',
         },
       },
-      required: ['body', 'url'],
+      required: ['graphqlUrl', 'graphqlBody'],
     },
     graphqlMutationHook: {
       type: 'object',
       nullable: true,
       properties: {
-        url: {
+        graphqlUrl: {
           type: 'string',
         },
-        body: {
+        graphqlBody: {
           type: 'string',
         },
         dataKey: {
           type: 'string',
+          nullable: true,
         },
       },
-      required: ['body', 'url'],
+      required: ['graphqlUrl', 'graphqlBody'],
     },
     recoilStateHook: {
       type: 'object',
@@ -129,6 +133,7 @@ export const addHookToElementSchema: JSONSchemaType<AddHookToElementSchema> = {
         },
         defaultValue: {
           type: 'string',
+          nullable: true,
         },
         persisted: {
           type: 'string',

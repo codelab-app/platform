@@ -1,23 +1,26 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { TestTagGraphFragment } from '../../../domain/tag-graph.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { TestTagGraphFragmentDoc } from '../../../domain/tag-graph.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
-export type TestGetTagGraphQueryVariables = Types.Exact<{ [key: string]: never; }>;
+import { TestTagGraphFragment } from '../../../test/graphql/tag-graph.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TestTagGraphFragmentDoc } from '../../../test/graphql/tag-graph.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
+export type TestGetTagGraphQueryVariables = Types.Exact<{
+  [key: string]: never
+}>
 
-
-export type TestGetTagGraphQuery = { getTagGraph?: Types.Maybe<TestTagGraphFragment> };
-
+export type TestGetTagGraphQuery = {
+  getTagGraph?: Types.Maybe<TestTagGraphFragment>
+}
 
 export const TestGetTagGraphGql = gql`
-    query TestGetTagGraph {
-  getTagGraph {
-    ...TestTagGraph
+  query TestGetTagGraph {
+    getTagGraph {
+      ...TestTagGraph
+    }
   }
-}
-    ${TestTagGraphFragmentDoc}`;
+  ${TestTagGraphFragmentDoc}
+`
 
 /**
  * __useTestGetTagGraphQuery__
@@ -34,17 +37,42 @@ export const TestGetTagGraphGql = gql`
  *   },
  * });
  */
-export function useTestGetTagGraphQuery(baseOptions?: Apollo.QueryHookOptions<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>(TestGetTagGraphGql, options);
-      }
-export function useTestGetTagGraphLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>(TestGetTagGraphGql, options);
-        }
-export type TestGetTagGraphQueryHookResult = ReturnType<typeof useTestGetTagGraphQuery>;
-export type TestGetTagGraphLazyQueryHookResult = ReturnType<typeof useTestGetTagGraphLazyQuery>;
-export type TestGetTagGraphQueryResult = Apollo.QueryResult<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>;
-export function refetchTestGetTagGraphQuery(variables?: TestGetTagGraphQueryVariables) {
-      return { query: TestGetTagGraphGql, variables: variables }
-    }
+export function useTestGetTagGraphQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    TestGetTagGraphQuery,
+    TestGetTagGraphQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TestGetTagGraphQuery, TestGetTagGraphQueryVariables>(
+    TestGetTagGraphGql,
+    options,
+  )
+}
+export function useTestGetTagGraphLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetTagGraphQuery,
+    TestGetTagGraphQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    TestGetTagGraphQuery,
+    TestGetTagGraphQueryVariables
+  >(TestGetTagGraphGql, options)
+}
+export type TestGetTagGraphQueryHookResult = ReturnType<
+  typeof useTestGetTagGraphQuery
+>
+export type TestGetTagGraphLazyQueryHookResult = ReturnType<
+  typeof useTestGetTagGraphLazyQuery
+>
+export type TestGetTagGraphQueryResult = Apollo.QueryResult<
+  TestGetTagGraphQuery,
+  TestGetTagGraphQueryVariables
+>
+export function refetchTestGetTagGraphQuery(
+  variables?: TestGetTagGraphQueryVariables,
+) {
+  return { query: TestGetTagGraphGql, variables: variables }
+}

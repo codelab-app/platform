@@ -1,12 +1,16 @@
-import { ElementTypeKind, PrimitiveKind } from '@codelab/shared/abstract/core'
-import { EnumTypeValueFragment } from '../graphql/EnumTypeValue.fragment.graphql.gen'
+import {
+  ElementTypeKind,
+  IEnumTypeValue,
+  PrimitiveTypeKind,
+} from '@codelab/shared/abstract/core'
+import { PrimitiveKind } from '@codelab/shared/codegen/graphql'
 import { TypeSelect } from './TypeSelect'
 
 export interface BaseTypeMutationSchema {
   name: string
-  primitiveKind?: PrimitiveKind
+  primitiveKind?: PrimitiveTypeKind
   elementKind: ElementTypeKind
-  allowedValues?: Array<EnumTypeValueFragment>
+  allowedValues?: Array<IEnumTypeValue>
   typeIdsOfUnionType?: Array<string>
 }
 

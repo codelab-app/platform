@@ -1,4 +1,4 @@
-import { IReactNodeTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
+import { IReactNodeType, TypeKind } from '@codelab/shared/abstract/core'
 import { ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 
@@ -7,7 +7,7 @@ import { Type } from './type.model'
 })
 export class ReactNodeType
   extends Type<TypeKind.ReactNodeType>
-  implements IReactNodeTypeVertex
+  implements IReactNodeType
 {
   constructor({ id, name }: Pick<ReactNodeType, 'id' | 'name'>) {
     super(TypeKind.ReactNodeType)

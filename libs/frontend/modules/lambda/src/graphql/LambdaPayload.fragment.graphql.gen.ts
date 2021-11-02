@@ -1,10 +1,10 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-export type LambdaPayloadFragment = { payload: string };
+import { gql } from '@apollo/client'
+export type LambdaPayloadFragment = { payload: string }
 
 export const LambdaPayloadFragmentDoc = gql`
-    fragment LambdaPayload on LambdaPayload {
-  payload
-}
-    `;
+  fragment LambdaPayload on LambdaPayload {
+    payload
+  }
+`

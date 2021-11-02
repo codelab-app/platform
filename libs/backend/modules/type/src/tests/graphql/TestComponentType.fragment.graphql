@@ -1,0 +1,4 @@
+fragment TestComponentType on ComponentType {
+  id
+  name
+}

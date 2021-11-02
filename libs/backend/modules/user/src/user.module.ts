@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common'
 import { UserResolver } from './application/user.resolver'
-import { UserAdapter } from './domain/user.adapter'
 import { DeleteUserService } from './use-cases/delete-user'
 import { GetUserService } from './use-cases/get-user'
 import { GetUsersService } from './use-cases/get-users'
@@ -14,10 +13,6 @@ const services = [
   GetUserService,
   DeleteUserService,
   GetUsersService,
-  /**
-   * Adapters
-   */
-  UserAdapter,
 ]
 
 @Module({

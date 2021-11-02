@@ -5,9 +5,9 @@ import {
   LoggerTokens,
 } from '@codelab/backend/infra'
 import { TreeProvider, TreeTokens } from '@codelab/backend/shared/generic'
-import { User } from '@codelab/shared/abstract/core'
+import { IUser } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
-import { TestTagGraphFragment } from '../../domain/tag-graph.fragment.graphql.gen'
+import { TestTagGraphFragment } from '../../test/graphql/tag-graph.fragment.graphql.gen'
 import { CreateTagService } from '../create-tag'
 import { UpsertTagService } from '../upsert-tag'
 import { ImportTagsRequest } from './import-tags.request'
@@ -35,13 +35,13 @@ export class ImportTagsService extends DgraphUseCase<ImportTagsRequest, any> {
     await this.createTags(tagGraph, currentUser)
   }
 
-  private async createTags(tagGraph: TestTagGraphFragment, currentUser: User) {
+  private async createTags(tagGraph: TestTagGraphFragment, currentUser: IUser) {
     return await this.createTagGraph(tagGraph, currentUser)
   }
 
   private async createTagGraph(
     tagGraph: TestTagGraphFragment,
-    currentUser: User,
+    currentUser: IUser,
   ) {
     const operations: Array<(_: Map<string, string>) => Promise<any>> = []
     const treeService = this.treeProvider(tagGraph)

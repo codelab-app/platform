@@ -1,6 +1,5 @@
 export * from './app.module'
-export * from './application/app.adapter'
-export * from './domain/app.model'
+export * from './application/app.model'
 export * from './domain/app.validator'
 export * from './use-cases/create-app'
 export * from './use-cases/delete-app'

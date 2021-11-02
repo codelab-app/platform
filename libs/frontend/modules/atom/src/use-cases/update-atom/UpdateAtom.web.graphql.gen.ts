@@ -1,26 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AtomBaseFragment } from '../../Atom.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { AtomBaseFragmentDoc } from '../../Atom.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { AtomBaseFragment } from '../../Atom.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { AtomBaseFragmentDoc } from '../../Atom.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type UpdateAtomMutationVariables = Types.Exact<{
-  input: Types.UpdateAtomInput;
-}>;
+  input: Types.UpdateAtomInput
+}>
 
-
-export type UpdateAtomMutation = { updateAtom?: Types.Maybe<AtomBaseFragment> };
-
+export type UpdateAtomMutation = { updateAtom?: Types.Maybe<AtomBaseFragment> }
 
 export const UpdateAtomGql = gql`
-    mutation UpdateAtom($input: UpdateAtomInput!) {
-  updateAtom(input: $input) {
-    ...AtomBase
+  mutation UpdateAtom($input: UpdateAtomInput!) {
+    updateAtom(input: $input) {
+      ...AtomBase
+    }
   }
-}
-    ${AtomBaseFragmentDoc}`;
-export type UpdateAtomMutationFn = Apollo.MutationFunction<UpdateAtomMutation, UpdateAtomMutationVariables>;
+  ${AtomBaseFragmentDoc}
+`
+export type UpdateAtomMutationFn = Apollo.MutationFunction<
+  UpdateAtomMutation,
+  UpdateAtomMutationVariables
+>
 
 /**
  * __useUpdateAtomMutation__
@@ -39,10 +41,23 @@ export type UpdateAtomMutationFn = Apollo.MutationFunction<UpdateAtomMutation, U
  *   },
  * });
  */
-export function useUpdateAtomMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAtomMutation, UpdateAtomMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateAtomMutation, UpdateAtomMutationVariables>(UpdateAtomGql, options);
-      }
-export type UpdateAtomMutationHookResult = ReturnType<typeof useUpdateAtomMutation>;
-export type UpdateAtomMutationResult = Apollo.MutationResult<UpdateAtomMutation>;
-export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<UpdateAtomMutation, UpdateAtomMutationVariables>;
+export function useUpdateAtomMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateAtomMutation,
+    UpdateAtomMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateAtomMutation, UpdateAtomMutationVariables>(
+    UpdateAtomGql,
+    options,
+  )
+}
+export type UpdateAtomMutationHookResult = ReturnType<
+  typeof useUpdateAtomMutation
+>
+export type UpdateAtomMutationResult = Apollo.MutationResult<UpdateAtomMutation>
+export type UpdateAtomMutationOptions = Apollo.BaseMutationOptions<
+  UpdateAtomMutation,
+  UpdateAtomMutationVariables
+>

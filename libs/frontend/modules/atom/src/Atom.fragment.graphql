@@ -17,5 +17,6 @@ fragment AtomBase on Atom {
   api {
     id
     name
+    typeKind
   }
 }

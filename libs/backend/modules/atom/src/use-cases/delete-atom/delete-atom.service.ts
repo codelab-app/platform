@@ -1,10 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphAtom,
-  DgraphEntityType,
-  DgraphInterfaceType,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetAtomService } from '../get-atom'
@@ -51,10 +46,7 @@ export class DeleteAtomService extends DgraphUseCase<DeleteAtomInput> {
       q
         .addTypeFilterDirective(DgraphEntityType.Atom)
         .setUidFunc(atomId)
-        .addJsonFields<DgraphAtom & DgraphInterfaceType>({
-          api: true,
-          fields: true,
-        }),
+        .addFields('api fields'),
     )
   }
 

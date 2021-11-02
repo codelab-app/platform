@@ -5,7 +5,6 @@ import { CreateElementInput } from '../create-element'
 export class UpdateElementData extends PickType(CreateElementInput, [
   'name',
   'atomId',
-  'componentId',
 ]) {
   @Field(() => String, { nullable: true })
   declare css?: string | null

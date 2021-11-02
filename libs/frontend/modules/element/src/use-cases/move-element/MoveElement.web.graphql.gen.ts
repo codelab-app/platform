@@ -1,22 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { ElementFragment } from '../../graphql/Element.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { ElementFragmentDoc } from '../../graphql/Element.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type MoveElementMutationVariables = Types.Exact<{
-  input: Types.MoveElementInput;
-}>;
+  input: Types.MoveElementInput
+}>
 
-
-export type MoveElementMutation = { moveElement?: Types.Maybe<void> };
-
+export type MoveElementMutation = { moveElement: ElementFragment }
 
 export const MoveElementGql = gql`
-    mutation MoveElement($input: MoveElementInput!) {
-  moveElement(input: $input)
-}
-    `;
-export type MoveElementMutationFn = Apollo.MutationFunction<MoveElementMutation, MoveElementMutationVariables>;
+  mutation MoveElement($input: MoveElementInput!) {
+    moveElement(input: $input) {
+      ...Element
+    }
+  }
+  ${ElementFragmentDoc}
+`
+export type MoveElementMutationFn = Apollo.MutationFunction<
+  MoveElementMutation,
+  MoveElementMutationVariables
+>
 
 /**
  * __useMoveElementMutation__
@@ -35,10 +41,24 @@ export type MoveElementMutationFn = Apollo.MutationFunction<MoveElementMutation,
  *   },
  * });
  */
-export function useMoveElementMutation(baseOptions?: Apollo.MutationHookOptions<MoveElementMutation, MoveElementMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MoveElementMutation, MoveElementMutationVariables>(MoveElementGql, options);
-      }
-export type MoveElementMutationHookResult = ReturnType<typeof useMoveElementMutation>;
-export type MoveElementMutationResult = Apollo.MutationResult<MoveElementMutation>;
-export type MoveElementMutationOptions = Apollo.BaseMutationOptions<MoveElementMutation, MoveElementMutationVariables>;
+export function useMoveElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    MoveElementMutation,
+    MoveElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<MoveElementMutation, MoveElementMutationVariables>(
+    MoveElementGql,
+    options,
+  )
+}
+export type MoveElementMutationHookResult = ReturnType<
+  typeof useMoveElementMutation
+>
+export type MoveElementMutationResult =
+  Apollo.MutationResult<MoveElementMutation>
+export type MoveElementMutationOptions = Apollo.BaseMutationOptions<
+  MoveElementMutation,
+  MoveElementMutationVariables
+>

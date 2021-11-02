@@ -3,17 +3,18 @@ import { CreateResponse } from '@codelab/backend/application'
 import {
   DgraphEntityType,
   DgraphRepository,
-  DgraphType,
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
 import {
-  ITypeEdge,
-  TypeEdgeKind,
+  IField,
+  IType,
+  IUser,
+  typeEdgeIsField,
   TypeKind,
-  User,
 } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
+import { Mutation } from 'dgraph-js-http'
 import { TypeVertex } from '../../../domain'
 import {
   CreateFieldRequest,
@@ -24,13 +25,13 @@ import {
   UpdateFieldRequest,
   UpdateFieldService,
 } from '../../field/update-field'
-import { CreateTypeInput, CreateTypeService } from '../create-type'
-import { CreateTypeFactory } from '../create-type/create-type.factory'
+import { CreateTypeService } from '../create-type'
+import { CreateTypeInputFactory } from '../create-type/create-type-input.factory'
 import { UpdateTypeService } from '../update-type'
 import { ImportApiRequest } from './import-api.request'
 
 // Stored by Name
-type TypesCache = Map<string, Pick<DgraphType<any>, 'name' | 'uid'>>
+type TypesCache = Map<string, Pick<IType, 'name' | 'id'>>
 
 /**
  * This service is essentially a wrapper around createField & createType. We transform the graph vertices/edges back into fields & types
@@ -57,6 +58,7 @@ export class ImportApiService
 
     const { vertices = [], edges = [] } = typeGraph
     const typesCache = await this.getTypesCache(vertices.map((v) => v.name))
+    const verticesMap = new Map(vertices.map((v) => [v.id, v]))
 
     /**
      * Create vertices and create a mapping of old to new id's
@@ -77,41 +79,69 @@ export class ImportApiService
 
     await Promise.all(
       edges.map(async (edge) => {
-        /**
-         * Edge could be either field or array
-         */
-        if (edge.kind === TypeEdgeKind.Field && edge.field) {
-          const interfaceId = verticesIdMap.get(edge.source)
-          const existingTypeId = verticesIdMap.get(edge.target)
+        const sourceTypeKind = verticesMap.get(edge.source)?.typeKind
+        const sourceTypeId = verticesIdMap.get(edge.source)
+        const targetTypeId = verticesIdMap.get(edge.target)
 
-          if (!interfaceId || !existingTypeId) {
+        if (!sourceTypeKind || !sourceTypeId) {
+          throw new Error("Can't find source type for edge")
+        }
+
+        if (!targetTypeId) {
+          throw new Error('Incorrect edge target type id')
+        }
+
+        // Add field if we have an interface type
+        if (
+          sourceTypeKind === TypeKind.InterfaceType &&
+          typeEdgeIsField(edge)
+        ) {
+          if (!sourceTypeId || !targetTypeId) {
             console.log(edge)
             throw new Error('Incorrect interface id to assign to')
           }
 
-          await this.upsertField(interfaceId, edge, existingTypeId, currentUser)
+          await this.upsertField(sourceTypeId, edge, targetTypeId, currentUser)
+
+          return
         }
 
-        if (edge.kind === TypeEdgeKind.ArrayItem) {
-          const arrayTypeId = verticesIdMap.get(edge.target)
+        // Add types for ArrayType and UnionType
 
-          if (!arrayTypeId) {
-            throw new Error('Incorrect array type id')
-          }
+        // update the types
+        let updateTypeMutation: Mutation
 
-          const createArrayTypeInput: CreateTypeInput = {
-            name: '// TODO: Add interface name here',
-            typeKind: TypeKind.ArrayType,
-            arrayType: {
-              itemTypeId: arrayTypeId,
+        if (sourceTypeKind === TypeKind.ArrayType) {
+          updateTypeMutation = CreateTypeService.createMutation(
+            {
+              input: {
+                arrayType: {
+                  itemTypeId: targetTypeId,
+                },
+              },
+              currentUser,
             },
-          }
-
-          await this.createTypeService.execute({
-            input: createArrayTypeInput,
-            currentUser,
-          })
+            sourceTypeId,
+          )
+        } else if (sourceTypeKind === TypeKind.UnionType) {
+          updateTypeMutation = CreateTypeService.createMutation(
+            {
+              input: {
+                unionType: {
+                  typeIdsOfUnionType: [targetTypeId],
+                },
+              },
+              currentUser,
+            },
+            sourceTypeId,
+          )
+        } else {
+          throw new Error(`Unknown source type kind of edge ${sourceTypeKind}`)
         }
+
+        await this.dgraph.transactionWrapper((txn) =>
+          txn.mutate(updateTypeMutation),
+        )
       }),
     )
 
@@ -126,15 +156,13 @@ export class ImportApiService
 
   private async getTypesCache(names: Array<string>): Promise<TypesCache> {
     return this.dgraph.transactionWrapper(async (txn) => {
-      const items = await this.dgraph.getAllNamed<
-        Pick<DgraphType<any>, 'name' | 'uid'>
-      >(
+      const items = await this.dgraph.getAllNamed<Pick<IType, 'name' | 'id'>>(
         txn,
         `{
            q(func: type(${
              DgraphEntityType.Type
-           })) @filter(eq(name, ["${names.join('","')}"]) AND has(name)) {
-              uid
+           })) @filter(has(name) AND eq(name, ["${names.join('","')}"])) {
+              id: uid
               name
            }
       }`,
@@ -150,17 +178,17 @@ export class ImportApiService
    */
   private async createTypeIfMissing(
     vertex: TypeVertex,
-    currentUser: User,
+    currentUser: IUser,
     typesCache: TypesCache,
   ) {
     // this.logger.debug(vertex, 'Create or Get')
 
-    const typeData = CreateTypeFactory.toCreateInput(vertex)
+    const typeData = CreateTypeInputFactory.toCreateInput(vertex)
     // We assume name is constant for primitive
     const existingType = typesCache.get(typeData.name)
 
     if (existingType) {
-      return existingType.uid
+      return existingType.id
     }
 
     const createdType = await this.createTypeService.execute({
@@ -175,11 +203,11 @@ export class ImportApiService
 
   private async upsertField(
     interfaceId: string,
-    edge: ITypeEdge,
+    edge: IField,
     existingTypeId: string,
-    currentUser: User,
+    currentUser: IUser,
   ) {
-    if (!edge?.field?.key) {
+    if (!edge?.key) {
       throw new Error('Missing key')
     }
 
@@ -188,7 +216,7 @@ export class ImportApiService
       input: {
         byInterface: {
           interfaceId,
-          fieldKey: edge.field?.key ?? '',
+          fieldKey: edge?.key ?? '',
         },
       },
     })
@@ -196,13 +224,13 @@ export class ImportApiService
     if (existingField) {
       const updateFieldInput: UpdateFieldRequest = {
         input: {
-          fieldId: existingField.uid,
+          fieldId: existingField.id,
           updateData: {
-            key: edge.field.key,
-            description: edge.field.description ?? '',
-            name: edge.field.name ?? '',
+            key: edge.key,
+            description: edge.description ?? '',
+            name: edge.name ?? '',
             type: {
-              existingTypeId: existingField.type.uid,
+              existingTypeId: existingField.target,
             },
           },
         },
@@ -211,14 +239,14 @@ export class ImportApiService
 
       await this.updateFieldService.execute(updateFieldInput)
 
-      return existingField.uid
+      return existingField.id
     }
 
     const createFieldInput: CreateFieldRequest = {
       input: {
-        key: edge.field?.key,
-        name: `${edge.field?.name}`,
-        description: `${edge.field?.description}`,
+        key: edge?.key,
+        name: `${edge?.name}`,
+        description: `${edge?.description}`,
         interfaceId,
         type: {
           existingTypeId,

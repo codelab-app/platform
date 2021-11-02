@@ -1,22 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { ElementFragment } from '../../graphql/Element.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { ElementFragmentDoc } from '../../graphql/Element.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type UpdateElementPropsMutationVariables = Types.Exact<{
-  input: Types.UpdateElementPropsInput;
-}>;
+  input: Types.UpdateElementPropsInput
+}>
 
-
-export type UpdateElementPropsMutation = { updateElementProps?: Types.Maybe<void> };
-
+export type UpdateElementPropsMutation = { updateElementProps: ElementFragment }
 
 export const UpdateElementPropsGql = gql`
-    mutation UpdateElementProps($input: UpdateElementPropsInput!) {
-  updateElementProps(input: $input)
-}
-    `;
-export type UpdateElementPropsMutationFn = Apollo.MutationFunction<UpdateElementPropsMutation, UpdateElementPropsMutationVariables>;
+  mutation UpdateElementProps($input: UpdateElementPropsInput!) {
+    updateElementProps(input: $input) {
+      ...Element
+    }
+  }
+  ${ElementFragmentDoc}
+`
+export type UpdateElementPropsMutationFn = Apollo.MutationFunction<
+  UpdateElementPropsMutation,
+  UpdateElementPropsMutationVariables
+>
 
 /**
  * __useUpdateElementPropsMutation__
@@ -35,10 +41,24 @@ export type UpdateElementPropsMutationFn = Apollo.MutationFunction<UpdateElement
  *   },
  * });
  */
-export function useUpdateElementPropsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateElementPropsMutation, UpdateElementPropsMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateElementPropsMutation, UpdateElementPropsMutationVariables>(UpdateElementPropsGql, options);
-      }
-export type UpdateElementPropsMutationHookResult = ReturnType<typeof useUpdateElementPropsMutation>;
-export type UpdateElementPropsMutationResult = Apollo.MutationResult<UpdateElementPropsMutation>;
-export type UpdateElementPropsMutationOptions = Apollo.BaseMutationOptions<UpdateElementPropsMutation, UpdateElementPropsMutationVariables>;
+export function useUpdateElementPropsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateElementPropsMutation,
+    UpdateElementPropsMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    UpdateElementPropsMutation,
+    UpdateElementPropsMutationVariables
+  >(UpdateElementPropsGql, options)
+}
+export type UpdateElementPropsMutationHookResult = ReturnType<
+  typeof useUpdateElementPropsMutation
+>
+export type UpdateElementPropsMutationResult =
+  Apollo.MutationResult<UpdateElementPropsMutation>
+export type UpdateElementPropsMutationOptions = Apollo.BaseMutationOptions<
+  UpdateElementPropsMutation,
+  UpdateElementPropsMutationVariables
+>

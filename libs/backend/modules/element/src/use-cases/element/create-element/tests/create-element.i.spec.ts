@@ -1,63 +1,40 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { ElementModule } from '../../../../element.module'
-import { GetElementInput } from '../../get-element'
-import {
-  TestGetElementGql,
-  TestGetElementQuery,
-} from '../../get-element/tests/get-element.api.graphql.gen'
-import { CreateElementInput } from '../create-element.input'
-import {
-  TestCreateElementGql,
-  TestCreateElementMutation,
-} from './create-element.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupElementTestModule } from '../../../../test/setupElementTestModule'
+import { TestCreateElementGql } from './create-element.api.graphql.gen'
 import { createElementInput } from './create-element.data'
 
 describe('CreateElement', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
-
-  beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], { role: Role.Guest })
-    userApp = await setupTestModule([ElementModule], { role: Role.User })
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
+  const testModule = setupElementTestModule()
 
   describe('Guest', () => {
     it('should fail to create an element', async () => {
-      await domainRequest(guestApp, TestCreateElementGql, createElementInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestCreateElementGql,
+        createElementInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
     it('should create an element', async () => {
-      const {
-        createElement: { id: elementId },
-      } = await domainRequest<CreateElementInput, TestCreateElementMutation>(
-        userApp,
-        TestCreateElementGql,
-        createElementInput,
-      )
+      const element = await testModule.createTestElement(createElementInput)
 
-      expect(elementId).toBeDefined()
+      expect(element).toBeDefined()
 
-      const { getElement: element } = await domainRequest<
-        GetElementInput,
-        TestGetElementQuery
-      >(userApp, TestGetElementGql, { elementId })
+      const match = (actual: any) =>
+        expect(actual).toMatchObject({ ...createElementInput, id: element.id })
 
-      expect(element).toMatchObject({ ...createElementInput, id: elementId })
+      match(element)
+
+      const getElement = await testModule.getElement({
+        where: { id: element.id },
+      })
+
+      match(getElement)
     })
   })
 })

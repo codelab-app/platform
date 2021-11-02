@@ -1,4 +1,3 @@
-import { ElementTreeGraphql } from '@codelab/frontend/modules/element'
 import { RenderContext } from '@codelab/frontend/presenter/container'
 import { mergeProps } from '@codelab/shared/utils'
 import * as _ from 'lodash'
@@ -6,7 +5,7 @@ import React from 'react'
 
 export const transformPropsToComponent = (
   props: Record<string, any>,
-  context: RenderContext<ElementTreeGraphql>,
+  context: RenderContext,
   isRender = false,
   allProps: Record<string, any>,
 ) => {
@@ -28,15 +27,13 @@ export const transformPropsToComponent = (
       return
     }
 
-    const rootElement = context.tree.getComponentRootElement(component.id)
-
     const RenderedPropsComponent = (...spreadComponentProps: Array<any>) => {
       const componentProps = mergeProps(allProps, ...spreadComponentProps)
 
       const result = context.renderFactory(component, {
         ...context,
         extraElementProps: mergeProps(context.extraElementProps, {
-          [rootElement.id]: componentProps,
+          [component.id]: componentProps,
         }),
       })
 

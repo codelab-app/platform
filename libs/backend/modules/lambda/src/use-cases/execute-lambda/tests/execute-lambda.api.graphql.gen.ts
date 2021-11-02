@@ -1,26 +1,30 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { TestLambdaPayloadFragment } from '../../../domain/lambda-payload.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { TestLambdaPayloadFragmentDoc } from '../../../domain/lambda-payload.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TestLambdaPayloadFragment } from '../../../domain/lambda-payload.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TestLambdaPayloadFragmentDoc } from '../../../domain/lambda-payload.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestExecuteLambdaMutationVariables = Types.Exact<{
-  input: Types.ExecuteLambdaInput;
-}>;
+  input: Types.ExecuteLambdaInput
+}>
 
-
-export type TestExecuteLambdaMutation = { executeLambda?: Types.Maybe<TestLambdaPayloadFragment> };
-
+export type TestExecuteLambdaMutation = {
+  executeLambda?: Types.Maybe<TestLambdaPayloadFragment>
+}
 
 export const TestExecuteLambdaGql = gql`
-    mutation TestExecuteLambda($input: ExecuteLambdaInput!) {
-  executeLambda(input: $input) {
-    ...TestLambdaPayload
+  mutation TestExecuteLambda($input: ExecuteLambdaInput!) {
+    executeLambda(input: $input) {
+      ...TestLambdaPayload
+    }
   }
-}
-    ${TestLambdaPayloadFragmentDoc}`;
-export type TestExecuteLambdaMutationFn = Apollo.MutationFunction<TestExecuteLambdaMutation, TestExecuteLambdaMutationVariables>;
+  ${TestLambdaPayloadFragmentDoc}
+`
+export type TestExecuteLambdaMutationFn = Apollo.MutationFunction<
+  TestExecuteLambdaMutation,
+  TestExecuteLambdaMutationVariables
+>
 
 /**
  * __useTestExecuteLambdaMutation__
@@ -39,10 +43,24 @@ export type TestExecuteLambdaMutationFn = Apollo.MutationFunction<TestExecuteLam
  *   },
  * });
  */
-export function useTestExecuteLambdaMutation(baseOptions?: Apollo.MutationHookOptions<TestExecuteLambdaMutation, TestExecuteLambdaMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestExecuteLambdaMutation, TestExecuteLambdaMutationVariables>(TestExecuteLambdaGql, options);
-      }
-export type TestExecuteLambdaMutationHookResult = ReturnType<typeof useTestExecuteLambdaMutation>;
-export type TestExecuteLambdaMutationResult = Apollo.MutationResult<TestExecuteLambdaMutation>;
-export type TestExecuteLambdaMutationOptions = Apollo.BaseMutationOptions<TestExecuteLambdaMutation, TestExecuteLambdaMutationVariables>;
+export function useTestExecuteLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestExecuteLambdaMutation,
+    TestExecuteLambdaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestExecuteLambdaMutation,
+    TestExecuteLambdaMutationVariables
+  >(TestExecuteLambdaGql, options)
+}
+export type TestExecuteLambdaMutationHookResult = ReturnType<
+  typeof useTestExecuteLambdaMutation
+>
+export type TestExecuteLambdaMutationResult =
+  Apollo.MutationResult<TestExecuteLambdaMutation>
+export type TestExecuteLambdaMutationOptions = Apollo.BaseMutationOptions<
+  TestExecuteLambdaMutation,
+  TestExecuteLambdaMutationVariables
+>

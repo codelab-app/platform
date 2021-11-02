@@ -2,7 +2,7 @@ import {
   <%= useCasePascalCase %>Input,
   refetchGet<%= modelPascalCase %>sQuery,
   use<%= useCasePascalCase %>Mutation,
-} from '@codelab/shared/codegen/graphql'
+} from '@codelab/frontend/abstract/codegen'
 import {
   createNotificationHandler,
   EntityType,

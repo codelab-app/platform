@@ -67,6 +67,7 @@ orbs:
   node: circleci/node@4.7.0
   aws-cli: circleci/aws-cli@2.0.3
   aws-ecs: circleci/aws-ecs@2.2.1
+  browser-tools: circleci/browser-tools@1.2.3
 
 executors:
   machine-ubuntu:
@@ -138,7 +139,7 @@ commands:
           keys:
             - dep-cache-staging-{{ checksum "yarn.lock" }}
             # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
-            - dep-cache-staging-
+            # - dep-cache-staging-
       - run:
           name: 'Install NPM packages'
           command: yarn install --frozen-lockfile --ignore-scripts --prod=false
@@ -305,6 +306,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - run: echo 'export TEST_ENV="unit"' >> $BASH_ENV
       - run: make unit-ci
       - notify-failure
 
@@ -313,8 +315,9 @@ jobs:
     steps:
       - setup-workspace
       # Since integration doesn't require frontend, we reserve 8081 for e2e & use 8082 here instead
-      - run: echo 'export CODELAB_DGRAPH_ENDPOINT=$CODELAB_DGRAPH_INTEGRATION_ENDPOINT' >> $BASH_ENV
-      - run: echo 'export DG_AUTH=$CODELAB_DGRAPH_INTEGRATION_DG_AUTH' >> $BASH_ENV
+      - run: |
+          echo 'export CODELAB_DGRAPH_ENDPOINT=$CODELAB_DGRAPH_INTEGRATION_ENDPOINT' >> $BASH_ENV
+          echo 'export DG_AUTH=$CODELAB_DGRAPH_INTEGRATION_DG_AUTH' >> $BASH_ENV
       - setup-dgraph
       - run: make integration-ci
       - notify-failure
@@ -323,16 +326,14 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      # Since e2e requires frontend, we use 8081 here
-      - run: echo 'export CODELAB_DGRAPH_ENDPOINT=$CODELAB_DGRAPH_E2E_ENDPOINT' >> $BASH_ENV
-      - run: echo 'export DG_AUTH=$CODELAB_DGRAPH_E2E_DG_AUTH' >> $BASH_ENV
+      - browser-tools/install-firefox
+      - run: |
+          echo 'export CODELAB_DGRAPH_ENDPOINT=$CODELAB_DGRAPH_E2E_ENDPOINT' >> $BASH_ENV
+          echo 'export DG_AUTH=$CODELAB_DGRAPH_E2E_DG_AUTH' >> $BASH_ENV
       - setup-dgraph
       - run: npx cypress install
       - run: npx cypress verify
       - run: make e2e-ci-affected
-      - run: |
-          ls .
-          ls ~/
       # - run:
       #     name: Store Cypress Artifacts
       #     command: |

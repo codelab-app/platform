@@ -1,3 +1,3 @@
-import { Edge } from '@codelab/shared/abstract/core'
+import { IEdge } from '@codelab/shared/abstract/core'
 
-export const edgeId = (edge: Edge) => `${edge.source}--${edge.target}`
+export const edgeId = (edge: IEdge) => `${edge.source}--${edge.target}`

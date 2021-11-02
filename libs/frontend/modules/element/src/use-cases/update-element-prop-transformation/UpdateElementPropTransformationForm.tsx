@@ -1,18 +1,18 @@
+import { IElement } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import {
   MonacoEditor,
   MonacoEditorProps,
   usePromisesLoadingIndicator,
 } from '@codelab/frontend/view/components'
+import { ElementTree } from '@codelab/shared/core'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ElementFragment } from '../../graphql'
-import { ElementTreeGraphql } from '../../tree'
 import { refetchGetElementQuery, useGetElementQuery } from '../get-element'
 import { useUpdateElementMutation } from '../update-element/UpdateElement.web.graphql.gen'
 
 interface InternalProps {
-  tree: ElementTreeGraphql
-  element: ElementFragment
+  tree: ElementTree
+  element: IElement
   loadingStateKey: string
   monacoProps?: Omit<MonacoEditorProps, 'value' | 'onChange'>
 }
@@ -36,7 +36,7 @@ const InternalForm = ({
     awaitRefetchQueries: true,
     refetchQueries: [
       refetchGetElementQuery({
-        input: { elementId: element.id },
+        input: { where: { id: element.id } },
       }),
     ],
   })
@@ -46,7 +46,8 @@ const InternalForm = ({
   const valueRef = useRef(value)
   valueRef.current = value
 
-  const componentId = tree.getComponentOfElement(element.id)?.id
+  // const componentId = tree.getComponentOfElement(element.id)?.id
+  const componentId = element.id
 
   const updateValue = useCallback(
     (newValue: string) => {
@@ -64,7 +65,6 @@ const InternalForm = ({
                 name: element.name,
                 renderIfPropKey: element.renderIfPropKey,
                 propTransformationJs: newValue,
-                componentId,
                 css: element.css,
                 renderForEachPropKey: element.renderForEachPropKey,
               },
@@ -131,7 +131,7 @@ export const UpdateElementPropTransformationForm = ({
 }: UpdateElementPropTransformationFormProp) => {
   const { data } = useGetElementQuery({
     fetchPolicy: 'cache-first',
-    variables: { input: { elementId } },
+    variables: { input: { where: { id: elementId } } },
   })
 
   const element = data?.getElement

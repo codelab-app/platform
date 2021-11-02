@@ -8,12 +8,6 @@ import {
   UpdateAtomButton,
   UpdateAtomModal,
 } from '@codelab/frontend/modules/atom'
-import {
-  CreateComponentButton,
-  CreateComponentModal,
-  DeleteComponentButton,
-  UpdateComponentModal,
-} from '@codelab/frontend/modules/component'
 import { LibraryContext } from '@codelab/frontend/presenter/container'
 import { CheckedKeys } from '@codelab/frontend/shared/types'
 import { Divider, Space, Tree } from 'antd'
@@ -134,19 +128,19 @@ export const LibraryExplorerTree = () => {
           <Link href={{}}>Components</Link>
         </h3>
         <Space align="center">
-          <CreateComponentButton />
+          {/* <CreateComponentButton />*/}
           {/* <UpdateComponentButton*/}
           {/*  id={selectedComponentId}*/}
           {/*  disabled={!selectedComponentId}*/}
           {/*/ >*/}
-          <DeleteComponentButton
-            disabled={checkedComponentIds?.length === 0}
-            ids={checkedComponentIds}
-          />
+          {/* <DeleteComponentButton*/}
+          {/*  disabled={checkedComponentIds?.length === 0}*/}
+          {/*  ids={checkedComponentIds}*/}
+          {/*/ >*/}
         </Space>
       </Space>
-      <CreateComponentModal />
-      <UpdateComponentModal />
+      {/* <CreateComponentModal />*/}
+      {/* <UpdateComponentModal />*/}
       {/* <DeleteComponentsModal />*/}
       <Tree
         onSelect={([checkedKey], e) => {

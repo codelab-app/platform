@@ -1,25 +1,24 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AppFragment } from '../../App.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { AppFragmentDoc } from '../../App.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { AppFragment } from '../../App.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { AppFragmentDoc } from '../../App.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type GetAppQueryVariables = Types.Exact<{
-  input: Types.GetAppInput;
-}>;
+  input: Types.GetAppInput
+}>
 
-
-export type GetAppQuery = { app?: Types.Maybe<AppFragment> };
-
+export type GetAppQuery = { app?: Types.Maybe<AppFragment> }
 
 export const GetAppGql = gql`
-    query GetApp($input: GetAppInput!) {
-  app: getApp(input: $input) {
-    ...App
+  query GetApp($input: GetAppInput!) {
+    app: getApp(input: $input) {
+      ...App
+    }
   }
-}
-    ${AppFragmentDoc}`;
+  ${AppFragmentDoc}
+`
 
 /**
  * __useGetAppQuery__
@@ -37,17 +36,27 @@ export const GetAppGql = gql`
  *   },
  * });
  */
-export function useGetAppQuery(baseOptions: Apollo.QueryHookOptions<GetAppQuery, GetAppQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAppQuery, GetAppQueryVariables>(GetAppGql, options);
-      }
-export function useGetAppLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAppQuery, GetAppQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAppQuery, GetAppQueryVariables>(GetAppGql, options);
-        }
-export type GetAppQueryHookResult = ReturnType<typeof useGetAppQuery>;
-export type GetAppLazyQueryHookResult = ReturnType<typeof useGetAppLazyQuery>;
-export type GetAppQueryResult = Apollo.QueryResult<GetAppQuery, GetAppQueryVariables>;
+export function useGetAppQuery(
+  baseOptions: Apollo.QueryHookOptions<GetAppQuery, GetAppQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetAppQuery, GetAppQueryVariables>(GetAppGql, options)
+}
+export function useGetAppLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<GetAppQuery, GetAppQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetAppQuery, GetAppQueryVariables>(
+    GetAppGql,
+    options,
+  )
+}
+export type GetAppQueryHookResult = ReturnType<typeof useGetAppQuery>
+export type GetAppLazyQueryHookResult = ReturnType<typeof useGetAppLazyQuery>
+export type GetAppQueryResult = Apollo.QueryResult<
+  GetAppQuery,
+  GetAppQueryVariables
+>
 export function refetchGetAppQuery(variables?: GetAppQueryVariables) {
-      return { query: GetAppGql, variables: variables }
-    }
+  return { query: GetAppGql, variables: variables }
+}

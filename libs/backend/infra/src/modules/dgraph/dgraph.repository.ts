@@ -23,6 +23,9 @@ export type QueryBuilderFactoryFn = () =>
  */
 @Injectable()
 export class DgraphRepository {
+  /* Turn on to log all queries/mutations*/
+  private readonly DEBUG_MODE = false
+
   constructor(
     protected readonly dgraphService: DgraphService,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
@@ -49,7 +52,7 @@ export class DgraphRepository {
           `Dgraph error "${e.message}". Retrying`,
           'DgraphRepository',
         )
-        txn.discard()
+        await txn.discard()
         txn = this.dgraphService.client.newTxn()
 
         return await action(txn)
@@ -88,6 +91,8 @@ export class DgraphRepository {
     mu: Mutation,
     blankNodeLabel?: TStringLabel,
   ): Promise<TStringLabel extends string ? string : void> {
+    this.logOperation(mu)
+
     const response = await txn.mutate(mu)
 
     await txn.commit()
@@ -111,6 +116,8 @@ export class DgraphRepository {
     vars?: TVars,
   ): Promise<TResult> {
     if (typeof qb === 'string') {
+      this.logOperation(qb)
+
       if (vars) {
         return (await txn.queryWithVars(qb, vars)).data as TResult
       }
@@ -118,7 +125,11 @@ export class DgraphRepository {
       return (await txn.query(qb)).data as TResult
     }
 
-    return this.executeNamedQuery<TResult>(txn, qb.build(), qb.queryName)
+    const query = qb.build()
+
+    this.logOperation(query)
+
+    return this.executeNamedQuery<TResult>(txn, query, qb.queryName)
   }
 
   /**
@@ -129,6 +140,8 @@ export class DgraphRepository {
     query: string,
     queryName: string,
   ): Promise<TResult> {
+    this.logOperation(query)
+
     return ((await txn.query(query)).data as any)[queryName]
   }
 
@@ -356,5 +369,15 @@ export class DgraphRepository {
         : queryOrFactory
 
     return this.executeQuery<Array<TResult>>(txn, query)
+  }
+
+  private logOperation(op: string | any) {
+    if (typeof op !== 'string') {
+      op = JSON.stringify(op, null, 2)
+    }
+
+    if (this.DEBUG_MODE && process.env.NODE_ENV !== 'production') {
+      this.logger.debug(op)
+    }
   }
 }

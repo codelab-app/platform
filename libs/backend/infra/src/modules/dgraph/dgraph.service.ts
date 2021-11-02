@@ -30,7 +30,7 @@ export class DgraphService {
     // https://discuss.dgraph.io/t/connection-management/11060 - it's safe to use a single client across the app
     this.dgraphClient = new DgraphClient(clientStub)
 
-    if (_dgraphConfig.apiKey && _dgraphConfig.apiKey !== 'empty') {
+    if (_dgraphConfig.apiKey) {
       this.dgraphClient.setCloudApiKey(_dgraphConfig.apiKey)
     }
   }
@@ -39,15 +39,6 @@ export class DgraphService {
     return await this.client.alter({
       schema: dgraphSchema,
     })
-  }
-
-  async resetDb() {
-    await this.client.alter({
-      dropAll: true,
-      schema: '{"drop_op": "DATA"}',
-    })
-
-    await this.updateDqlSchema()
   }
 
   async resetData() {

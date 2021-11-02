@@ -1,24 +1,25 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type CreateTagMutationVariables = Types.Exact<{
-  input: Types.CreateTagInput;
-}>;
+  input: Types.CreateTagInput
+}>
 
-
-export type CreateTagMutation = { createTag: { id: string } };
-
+export type CreateTagMutation = { createTag: { id: string } }
 
 export const CreateTagGql = gql`
-    mutation CreateTag($input: CreateTagInput!) {
-  createTag(input: $input) {
-    id
+  mutation CreateTag($input: CreateTagInput!) {
+    createTag(input: $input) {
+      id
+    }
   }
-}
-    `;
-export type CreateTagMutationFn = Apollo.MutationFunction<CreateTagMutation, CreateTagMutationVariables>;
+`
+export type CreateTagMutationFn = Apollo.MutationFunction<
+  CreateTagMutation,
+  CreateTagMutationVariables
+>
 
 /**
  * __useCreateTagMutation__
@@ -37,10 +38,23 @@ export type CreateTagMutationFn = Apollo.MutationFunction<CreateTagMutation, Cre
  *   },
  * });
  */
-export function useCreateTagMutation(baseOptions?: Apollo.MutationHookOptions<CreateTagMutation, CreateTagMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateTagMutation, CreateTagMutationVariables>(CreateTagGql, options);
-      }
-export type CreateTagMutationHookResult = ReturnType<typeof useCreateTagMutation>;
-export type CreateTagMutationResult = Apollo.MutationResult<CreateTagMutation>;
-export type CreateTagMutationOptions = Apollo.BaseMutationOptions<CreateTagMutation, CreateTagMutationVariables>;
+export function useCreateTagMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateTagMutation,
+    CreateTagMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<CreateTagMutation, CreateTagMutationVariables>(
+    CreateTagGql,
+    options,
+  )
+}
+export type CreateTagMutationHookResult = ReturnType<
+  typeof useCreateTagMutation
+>
+export type CreateTagMutationResult = Apollo.MutationResult<CreateTagMutation>
+export type CreateTagMutationOptions = Apollo.BaseMutationOptions<
+  CreateTagMutation,
+  CreateTagMutationVariables
+>

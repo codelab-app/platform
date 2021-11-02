@@ -1,4 +1,4 @@
-import { IRenderPropsTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
+import { IRenderPropsType, TypeKind } from '@codelab/shared/abstract/core'
 import { ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 
@@ -7,7 +7,7 @@ import { Type } from './type.model'
 })
 export class RenderPropsType
   extends Type<TypeKind.RenderPropsType>
-  implements IRenderPropsTypeVertex
+  implements IRenderPropsType
 {
   constructor({ id, name }: Pick<RenderPropsType, 'id' | 'name'>) {
     super(TypeKind.RenderPropsType)

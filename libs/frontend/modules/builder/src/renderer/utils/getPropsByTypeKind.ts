@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/shared/codegen/graphql'
+import { TypeKind } from '@codelab/frontend/abstract/codegen'
 import * as _ from 'lodash'
 
 export const getPropsByTypeKind = (

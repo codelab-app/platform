@@ -11,6 +11,6 @@ export const dgraphConfig = registerAs<DgraphConfig>(
   DgraphTokens.DgraphConfig.toString(),
   () => ({
     endpoint: get('CODELAB_DGRAPH_ENDPOINT').required().asUrlString(),
-    apiKey: get('CODELAB_DGRAPH_API_KEY').asString(),
+    apiKey: get('DG_AUTH').asString(),
   }),
 )

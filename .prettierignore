@@ -8,5 +8,5 @@ schema.api.graphql
 build
 
 # Graphql codegen files
-**/*.graphql.gen.ts
+# **/*.graphql.gen.ts
 

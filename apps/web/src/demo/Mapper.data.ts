@@ -69,4 +69,4 @@ export const mapperPageElements = {
       propMapBindings: [],
     },
   ],
-} as ElementGraphGraphql
+} as any

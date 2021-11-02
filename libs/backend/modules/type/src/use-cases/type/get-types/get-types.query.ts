@@ -1,7 +1,6 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
-import { typeDefinitionByTypeKind } from '../../../domain/type-definition-by-type-kind'
-import { getTypeQuery } from '../get-type'
-import { GetTypesInput, TypesByKindFilter } from './get-types.input'
+import { IType, TypeKind } from '@codelab/shared/abstract/core'
+import { GetTypesInput } from './get-types.input'
 
 /**
  * Based on current user role, we fetch differently.
@@ -13,44 +12,60 @@ import { GetTypesInput, TypesByKindFilter } from './get-types.input'
 export const getUserTypesQuery = (
   input: GetTypesInput | undefined = {},
   userId: string,
+  queryName = 'query',
 ) => {
   const { byIds, byKind, byName } = input
+  const ownerFilter = `((NOT has(owner)) OR uid_in(owner, ${userId}))`
+  const nameFilter = byName ? `match(name, "${byName.name}", 6)` : undefined
+  const byIdsFilter = byIds ? `uid(${byIds.typeIds.join(',')})` : undefined
+  const byKindFilter = byKind ? `eq(typeKind, "${byKind.kind}")` : undefined
 
-  const nameFilter = byName
-    ? `match(name, "${byName.name}", 6) AND uid_in(owner, ${userId})`
-    : `uid_in(owner, ${userId})`
+  const filters = [nameFilter, byIdsFilter, byKindFilter, ownerFilter]
+    .filter((f) => !!f)
+    .join(' AND ')
 
-  const qb = getTypeQuery(getType(byKind), nameFilter)
-
-  if (byIds) {
-    qb.setUidsFunc(byIds.typeIds)
-  } else {
-    qb.setTypeFunc(getType(byKind))
-  }
-
-  return qb
+  return `{
+        ${queryName}(func: type(${DgraphEntityType.Type})) @filter(${filters}) @recurse {
+          id: uid
+          expand(Type, Field)
+          value: stringValue
+        }
+      }`
 }
 
-export const getAdminTypesQuery = (input: GetTypesInput | undefined = {}) => {
+export const getAdminTypesQuery = (
+  input: GetTypesInput | undefined = {},
+  queryName = 'query',
+) => {
   const { byIds, byKind, byName } = input
-  const nameFilter = byName ? `match(name, "${byName.name}", 6)` : ``
-  const qb = getTypeQuery(getType(byKind), nameFilter)
+  const doesntHaveOwnerFilter = `NOT has(owner)`
+  const nameFilter = byName ? `match(name, "${byName.name}", 6)` : undefined
+  const byIdsFilter = byIds ? `uid(${byIds.typeIds.join(',')})` : undefined
+  const byKindFilter = byKind ? `eq(typeKind, "${byKind.kind}")` : undefined
 
-  if (byIds) {
-    qb.setUidsFunc(byIds.typeIds)
-  } else {
-    qb.setTypeFunc(getType(byKind))
-  }
+  const filters = [nameFilter, byIdsFilter, byKindFilter, doesntHaveOwnerFilter]
+    .filter((f) => !!f)
+    .join(' AND ')
 
-  return qb
+  return `{
+        ${queryName}(func: type(${DgraphEntityType.Type})) @filter(${filters}) @recurse {
+          id: uid
+          expand(Type, Field)
+          value: stringValue
+        }
+      }`
 }
 
-export const getType = (filter?: TypesByKindFilter): DgraphEntityType => {
-  if (!filter) {
-    return DgraphEntityType.Type
+export const mapType = (
+  dgraphType: IType & { typesOfUnionType?: Array<{ id: string }> },
+): IType => {
+  if (dgraphType.typeKind !== TypeKind.UnionType) {
+    return dgraphType
   }
 
-  const def = typeDefinitionByTypeKind(filter.kind)
-
-  return def.dgraphType
+  return {
+    ...dgraphType,
+    typeIdsOfUnionType:
+      dgraphType.typesOfUnionType?.map(({ id }: { id: string }) => id) ?? [],
+  }
 }

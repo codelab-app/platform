@@ -3,12 +3,13 @@ import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
 import { createApp, deleteApp } from './app'
 import { createAtom, getAtom } from './atom'
+import { createComponent, getElementGraph } from './component'
 import {
-  createComponent,
-  getComponentElements,
-  getComponentRootElementId,
-} from './component'
-import { createElement, createPropBinding, updateElementProps } from './element'
+  createElement,
+  createPropBinding,
+  updateElement,
+  updateElementProps,
+} from './element'
 import { createField } from './field'
 import {
   createPage,
@@ -36,10 +37,10 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable<Subject> {
-      getComponentRootElementId: typeof getComponentRootElementId
       updateElementProps: typeof updateElementProps
+      updateElement: typeof updateElement
       createType: typeof createType
-      getComponentElements: typeof getComponentElements
+      getElementGraph: typeof getElementGraph
       getAtom: typeof getAtom
       createField: typeof createField
       createPageFromScratch: typeof createPageFromScratch
@@ -108,10 +109,13 @@ declare global {
 }
 
 const preserveAuthCookies = () => {
-  cy.getCookies().then((cookies) => {
-    const namesOfCookies = cookies.map((c) => c.name)
-    Cypress.Cookies.preserveOnce(...namesOfCookies)
-  })
+  Cypress.Cookies.preserveOnce(
+    'appSession',
+    'appSession.0',
+    'appSession.1',
+    'appSession.2',
+    'appSession.3',
+  )
 }
 
 Cypress.Commands.add('preserveAuthCookies', preserveAuthCookies)
@@ -374,7 +378,10 @@ Cypress.Commands.add('getPaneMain', (): Cypress.Chainable<JQuery> => {
 const runSeeder = () => {
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(1000)
-  cy.exec(`yarn cli seed --env ${Cypress.env('env')}`)
+
+  return cy.exec(`yarn cli seed --env ${Cypress.env('env')}`, {
+    timeout: 270000,
+  })
 }
 
 Cypress.Commands.add('runSeeder', runSeeder)

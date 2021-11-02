@@ -1,21 +1,5 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { ElementModule } from '../../../../../element.module'
-import { CreateElementInput } from '../../../create-element'
-import {
-  TestCreateElementGql,
-  TestCreateElementMutation,
-} from '../../../create-element/tests/create-element.api.graphql.gen'
-import { GetElementInput } from '../../../get-element'
-import {
-  TestGetElementGql,
-  TestGetElementQuery,
-} from '../../../get-element/tests/get-element.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupElementTestModule } from '../../../../../test/setupElementTestModule'
 import { CreatePropMapBindingInput } from '../create-prop-map-binding.input'
 import {
   TestCreatePropMapBindingGql,
@@ -23,23 +7,17 @@ import {
 } from './create-prop-map-binding.api.graphql.gen'
 
 describe('CreatePropMapBindingUseCase', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupElementTestModule()
   let addPropMappinginput: CreatePropMapBindingInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], { role: Role.Guest })
-    userApp = await setupTestModule([ElementModule], { role: Role.User })
+    const createElement = await testModule.createTestElement({
+      name: 'Element',
+    })
 
-    const { createElement } = await domainRequest<
-      CreateElementInput,
-      TestCreateElementMutation
-    >(userApp, TestCreateElementGql, { name: 'Element' })
-
-    const { createElement: createElement2 } = await domainRequest<
-      CreateElementInput,
-      TestCreateElementMutation
-    >(userApp, TestCreateElementGql, { name: 'Element' })
+    const createElement2 = await testModule.createTestElement({
+      name: 'Element',
+    })
 
     addPropMappinginput = {
       elementId: createElement.id,
@@ -49,15 +27,10 @@ describe('CreatePropMapBindingUseCase', () => {
     }
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to create a PropMapBinding', async () => {
       await domainRequest(
-        guestApp,
+        testModule.guestApp,
         TestCreatePropMapBindingGql,
         addPropMappinginput,
         {
@@ -74,15 +47,14 @@ describe('CreatePropMapBindingUseCase', () => {
       } = await domainRequest<
         CreatePropMapBindingInput,
         TestCreatePropMapBindingMutation
-      >(userApp, TestCreatePropMapBindingGql, addPropMappinginput)
+      >(testModule.userApp, TestCreatePropMapBindingGql, addPropMappinginput)
 
       expect(id).toBeDefined()
 
-      const { getElement } = await domainRequest<
-        GetElementInput,
-        TestGetElementQuery
-      >(userApp, TestGetElementGql, {
-        elementId: addPropMappinginput.elementId,
+      const getElement = await testModule.getElement({
+        where: {
+          id: addPropMappinginput.elementId,
+        },
       })
 
       const found = getElement?.propMapBindings.find((b) => b.id === id)

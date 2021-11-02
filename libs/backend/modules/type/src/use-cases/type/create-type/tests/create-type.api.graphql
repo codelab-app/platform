@@ -1,5 +1,5 @@
 mutation TestCreateType($input: CreateTypeInput!) {
   createType(input: $input) {
-    id
+    ...TestType
   }
 }

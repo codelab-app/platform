@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
@@ -5,12 +6,12 @@ export class PropMapBinding {
   @Field(() => ID)
   id: string
 
-  @Field({
+  @Field(() => String, {
     nullable: true,
     description:
       'The ID of the target element, if omitted, the current element will be the target',
   })
-  targetElementId?: string
+  targetElementId?: Maybe<string>
 
   @Field({
     description: 'The key of the prop, as received in the source element',

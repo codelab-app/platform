@@ -2,12 +2,7 @@ import {
   CreateResponse,
   DgraphCreateUseCase,
 } from '@codelab/backend/application'
-import {
-  DgraphCreateMutationJson,
-  DgraphElement,
-  DgraphEntityType,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
 import { GetAtomService } from '@codelab/backend/modules/atom'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
@@ -44,22 +39,21 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
   }
 
   private static createMutation(
-    { parentElementId, order, name, atomId, componentId }: CreateElementInput,
+    { parentElementId, order, name, atomId, childrenIds }: CreateElementInput,
     blankNodeUid: string,
   ) {
     const mu: Mutation = {}
 
-    //
-    const createElementJson: DgraphCreateMutationJson<DgraphElement> = {
+    const createElementJson = {
       uid: blankNodeUid,
       name,
-      'dgraph.type': [DgraphEntityType.Node, DgraphEntityType.Element],
+      'dgraph.type': [DgraphEntityType.Element],
       'children|order': order ? order : 1,
-      children: [],
-      atom: atomId ? { uid: atomId } : null,
-      component: componentId ? { uid: componentId } : null,
+      children:
+        childrenIds?.map((c, i) => ({ uid: c, 'children|order': i })) ?? [],
+      atom: atomId ? { uid: atomId } : undefined,
       props: '{}',
-      propTransformationJs: null,
+      propTransformationJs: undefined,
     }
 
     if (parentElementId) {

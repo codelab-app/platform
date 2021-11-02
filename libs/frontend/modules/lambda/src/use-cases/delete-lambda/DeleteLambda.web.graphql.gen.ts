@@ -1,22 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { LambdaFragmentDoc } from '../../graphql/Lambda.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type DeleteLambdaMutationVariables = Types.Exact<{
-  input: Types.DeleteLambdaInput;
-}>;
+  input: Types.DeleteLambdaInput
+}>
 
-
-export type DeleteLambdaMutation = { deleteLambda?: Types.Maybe<void> };
-
+export type DeleteLambdaMutation = { deleteLambda: LambdaFragment }
 
 export const DeleteLambdaGql = gql`
-    mutation DeleteLambda($input: DeleteLambdaInput!) {
-  deleteLambda(input: $input)
-}
-    `;
-export type DeleteLambdaMutationFn = Apollo.MutationFunction<DeleteLambdaMutation, DeleteLambdaMutationVariables>;
+  mutation DeleteLambda($input: DeleteLambdaInput!) {
+    deleteLambda(input: $input) {
+      ...Lambda
+    }
+  }
+  ${LambdaFragmentDoc}
+`
+export type DeleteLambdaMutationFn = Apollo.MutationFunction<
+  DeleteLambdaMutation,
+  DeleteLambdaMutationVariables
+>
 
 /**
  * __useDeleteLambdaMutation__
@@ -35,10 +41,24 @@ export type DeleteLambdaMutationFn = Apollo.MutationFunction<DeleteLambdaMutatio
  *   },
  * });
  */
-export function useDeleteLambdaMutation(baseOptions?: Apollo.MutationHookOptions<DeleteLambdaMutation, DeleteLambdaMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteLambdaMutation, DeleteLambdaMutationVariables>(DeleteLambdaGql, options);
-      }
-export type DeleteLambdaMutationHookResult = ReturnType<typeof useDeleteLambdaMutation>;
-export type DeleteLambdaMutationResult = Apollo.MutationResult<DeleteLambdaMutation>;
-export type DeleteLambdaMutationOptions = Apollo.BaseMutationOptions<DeleteLambdaMutation, DeleteLambdaMutationVariables>;
+export function useDeleteLambdaMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteLambdaMutation,
+    DeleteLambdaMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    DeleteLambdaMutation,
+    DeleteLambdaMutationVariables
+  >(DeleteLambdaGql, options)
+}
+export type DeleteLambdaMutationHookResult = ReturnType<
+  typeof useDeleteLambdaMutation
+>
+export type DeleteLambdaMutationResult =
+  Apollo.MutationResult<DeleteLambdaMutation>
+export type DeleteLambdaMutationOptions = Apollo.BaseMutationOptions<
+  DeleteLambdaMutation,
+  DeleteLambdaMutationVariables
+>

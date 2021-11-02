@@ -1,10 +1,10 @@
-import { IElementVertex } from '@codelab/shared/abstract/core'
+import { IElement } from '@codelab/frontend/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { useEffect, useState } from 'react'
 
 export const useExpandedNodes = (
   tree: ElementTree,
-  selectedPageElement?: IElementVertex,
+  selectedPageElement?: IElement,
 ) => {
   const [expandedNodeIds, setExpandedNodeIds] = useState<
     Array<string | number>

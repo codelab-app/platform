@@ -1,12 +1,15 @@
+import {
+  HookDiscriminator,
+  IQueryPagesHookConfig,
+} from '@codelab/shared/abstract/core'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { QueryPagesHookConfig } from '../../domain'
 
-@ObjectType('QueryPagesHookConfig')
-export class QueryPagesHookConfigModel implements QueryPagesHookConfig {
+@ObjectType(HookDiscriminator.QueryPagesHookConfig)
+export class QueryPagesHookConfig implements IQueryPagesHookConfig {
   @Field()
   appId: string
 
-  constructor({ appId }: QueryPagesHookConfig) {
+  constructor({ appId }: IQueryPagesHookConfig) {
     this.appId = appId
   }
 }

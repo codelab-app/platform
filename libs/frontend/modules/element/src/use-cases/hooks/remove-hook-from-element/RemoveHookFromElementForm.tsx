@@ -31,7 +31,7 @@ export const RemoveHookFromElementForm = ({
     mutationOptions: {
       refetchQueries: [
         refetchGetElementQuery({
-          input: { elementId },
+          input: { where: { id: elementId } },
         }),
       ],
     },

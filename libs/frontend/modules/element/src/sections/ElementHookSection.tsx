@@ -17,7 +17,7 @@ export interface ElementHookSectionProps {
 export const ElementHookSection = ({ elementId }: ElementHookSectionProps) => {
   const { data } = useGetElementQuery({
     fetchPolicy: 'cache-first',
-    variables: { input: { elementId } },
+    variables: { input: { where: { id: elementId } } },
   })
 
   const element = data?.getElement

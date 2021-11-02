@@ -1,3 +1,5 @@
 mutation UpdateTag($input: UpdateTagInput!) {
-  updateTag(input: $input)
+  updateTag(input: $input) {
+    ...Tag
+  }
 }

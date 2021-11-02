@@ -1,0 +1,5 @@
+mutation E2eCreateField($input: CreateFieldInput!) {
+  createField(input: $input) {
+    ...TestField
+  }
+}

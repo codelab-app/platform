@@ -1,8 +1,6 @@
 import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
-import type { User } from '@codelab/shared/abstract/core'
+import { GetTagsInput } from './get-tags.input'
 
-export class GetTagsRequest implements WithCurrentUserRequest {
-  // declare input: GetTagsInput
-
-  declare currentUser: User
+export interface GetTagsRequest extends WithCurrentUserRequest {
+  input?: GetTagsInput
 }

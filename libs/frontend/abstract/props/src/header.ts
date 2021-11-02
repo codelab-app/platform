@@ -1,5 +1,5 @@
-import { App } from '@codelab/frontend/abstract/core'
+import { IApp } from '@codelab/shared/abstract/core'
 
 export interface HeaderProps {
-  app?: App | null
+  app?: Omit<IApp, 'ownerId'> | null
 }

@@ -64,28 +64,14 @@ export class MoveElementService extends DgraphUseCase<MoveElementRequest> {
     },
     currentUser,
   }: MoveElementRequest) {
-    const movedElementData = await this.elementValidator.existsAndIsOwnedBy(
-      elementId,
-      currentUser,
-    )
+    await this.elementValidator.existsAndIsOwnedBy(elementId, currentUser)
 
-    const targetParentData = await this.elementValidator.existsAndIsOwnedBy(
-      parentElementId,
-      currentUser,
-    )
+    await this.elementValidator.existsAndIsOwnedBy(parentElementId, currentUser)
 
     await this.elementValidator.isNotRoot(elementId)
 
     if (parentElementId === elementId) {
       throw new Error("Can't move element within itself")
-    }
-
-    if (
-      movedElementData.tree &&
-      targetParentData.tree &&
-      movedElementData.tree.uid !== targetParentData.tree.uid
-    ) {
-      throw new Error("Can't move element to a different tree")
     }
   }
 }

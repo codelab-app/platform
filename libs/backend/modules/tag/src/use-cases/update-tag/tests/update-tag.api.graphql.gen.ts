@@ -1,22 +1,34 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import {
+  TagFragment,
+  TagEdgeFragment,
+} from '../../../../../../../frontend/modules/tag/src/use-cases/Tag.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import {
+  TagFragmentDoc,
+  TagEdgeFragmentDoc,
+} from '../../../../../../../frontend/modules/tag/src/use-cases/Tag.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestUpdateTagMutationVariables = Types.Exact<{
-  input: Types.UpdateTagInput;
-}>;
+  input: Types.UpdateTagInput
+}>
 
-
-export type TestUpdateTagMutation = { updateTag?: Types.Maybe<void> };
-
+export type TestUpdateTagMutation = { updateTag?: Types.Maybe<TagFragment> }
 
 export const TestUpdateTagGql = gql`
-    mutation TestUpdateTag($input: UpdateTagInput!) {
-  updateTag(input: $input)
-}
-    `;
-export type TestUpdateTagMutationFn = Apollo.MutationFunction<TestUpdateTagMutation, TestUpdateTagMutationVariables>;
+  mutation TestUpdateTag($input: UpdateTagInput!) {
+    updateTag(input: $input) {
+      ...Tag
+    }
+  }
+  ${TagFragmentDoc}
+`
+export type TestUpdateTagMutationFn = Apollo.MutationFunction<
+  TestUpdateTagMutation,
+  TestUpdateTagMutationVariables
+>
 
 /**
  * __useTestUpdateTagMutation__
@@ -35,10 +47,24 @@ export type TestUpdateTagMutationFn = Apollo.MutationFunction<TestUpdateTagMutat
  *   },
  * });
  */
-export function useTestUpdateTagMutation(baseOptions?: Apollo.MutationHookOptions<TestUpdateTagMutation, TestUpdateTagMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestUpdateTagMutation, TestUpdateTagMutationVariables>(TestUpdateTagGql, options);
-      }
-export type TestUpdateTagMutationHookResult = ReturnType<typeof useTestUpdateTagMutation>;
-export type TestUpdateTagMutationResult = Apollo.MutationResult<TestUpdateTagMutation>;
-export type TestUpdateTagMutationOptions = Apollo.BaseMutationOptions<TestUpdateTagMutation, TestUpdateTagMutationVariables>;
+export function useTestUpdateTagMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestUpdateTagMutation,
+    TestUpdateTagMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestUpdateTagMutation,
+    TestUpdateTagMutationVariables
+  >(TestUpdateTagGql, options)
+}
+export type TestUpdateTagMutationHookResult = ReturnType<
+  typeof useTestUpdateTagMutation
+>
+export type TestUpdateTagMutationResult =
+  Apollo.MutationResult<TestUpdateTagMutation>
+export type TestUpdateTagMutationOptions = Apollo.BaseMutationOptions<
+  TestUpdateTagMutation,
+  TestUpdateTagMutationVariables
+>

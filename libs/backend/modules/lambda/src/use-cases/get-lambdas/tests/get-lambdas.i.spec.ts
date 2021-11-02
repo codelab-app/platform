@@ -4,19 +4,8 @@ import {
   AwsS3Service,
   AwsTokens,
 } from '@codelab/backend/infra'
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { LambdaModule } from '../../../lambda.module'
-import { CreateLambdaInput } from '../../create-lambda'
-import {
-  TestCreateLambdaGql,
-  TestCreateLambdaMutation,
-} from '../../create-lambda/tests/create-lambda.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupLambdaTestModule } from '../../../test/setupLambdaTestModule'
 import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 import {
   TestGetLambdasGql,
@@ -24,47 +13,30 @@ import {
 } from './get-lambdas.api.graphql.gen'
 
 describe('GetLambdas', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupLambdaTestModule()
   let lambdaAId: string
   let lambdaBId: string
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([LambdaModule], { role: Role.Guest })
-    userApp = await setupTestModule([LambdaModule], { role: Role.User })
-
-    const awsS3Service = userApp.get<AwsS3Service>(AwsTokens.S3)
-    const _awsConfig = userApp.get<AwsConfig>(awsConfig.KEY)
+    const awsS3Service = testModule.userApp.get<AwsS3Service>(AwsTokens.S3)
+    const _awsConfig = testModule.userApp.get<AwsConfig>(awsConfig.KEY)
     await awsS3Service.emptyBucket(_awsConfig.awsBucketName)
 
     const createLambdaInputA = createLambdaInput
     const createLambdaInputB = { ...createLambdaInput, name: 'HelloWorld2' }
+    const lambdaA = await testModule.createTestLambda(createLambdaInputA)
+    const lambdaB = await testModule.createTestLambda(createLambdaInputB)
 
-    const lambdaA = await domainRequest<
-      CreateLambdaInput,
-      TestCreateLambdaMutation
-    >(userApp, TestCreateLambdaGql, createLambdaInputA)
+    lambdaAId = lambdaA.id
+    lambdaBId = lambdaB.id
 
-    const lambdaB = await domainRequest<
-      CreateLambdaInput,
-      TestCreateLambdaMutation
-    >(userApp, TestCreateLambdaGql, createLambdaInputB)
-
-    lambdaAId = lambdaA.createLambda.id
-    lambdaBId = lambdaB.createLambda.id
-
-    expect(lambdaA.createLambda.id).toBeDefined()
-    expect(lambdaB.createLambda.id).toBeDefined()
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
+    expect(lambdaA.id).toBeDefined()
+    expect(lambdaB.id).toBeDefined()
   })
 
   describe('Guest', () => {
     it('should fail to get lambdas', async () => {
-      await domainRequest(guestApp, TestGetLambdasGql, null, {
+      await domainRequest(testModule.guestApp, TestGetLambdasGql, null, {
         message: 'Unauthorized',
       })
     })
@@ -73,7 +45,7 @@ describe('GetLambdas', () => {
   describe('User', () => {
     it('should get lambdas', async () => {
       const results = await domainRequest<null, TestGetLambdasQuery>(
-        userApp,
+        testModule.userApp,
         TestGetLambdasGql,
         null,
       )

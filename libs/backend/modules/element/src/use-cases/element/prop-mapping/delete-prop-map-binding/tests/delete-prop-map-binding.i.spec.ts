@@ -109,7 +109,9 @@ describe('DeletePropMapBindingUseCase', () => {
         GetElementInput,
         TestGetElementQuery
       >(userApp, TestGetElementGql, {
-        elementId,
+        where: {
+          id: elementId,
+        },
       })
 
       const found = getElement?.propMapBindings.find(

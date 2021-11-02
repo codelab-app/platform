@@ -1,15 +1,15 @@
+import { IElement } from '@codelab/frontend/abstract/core'
 import {
   EntityType,
   Key,
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
-import { IElementVertex } from '@codelab/shared/abstract/core'
 import { Menu } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 
 export interface ElementContextMenuProps {
-  element: IElementVertex
+  element: IElement
   onClick?: () => any
   onBlur?: () => any
 }

@@ -1,5 +1,6 @@
-import { QueryHookConfig } from '@codelab/backend/modules/hook'
-import { QueryMethod } from '@codelab/shared/abstract/core'
+import { Model } from '@codelab/backend/abstract/core'
+import { IQueryHookConfig, QueryMethod } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Field, InputType, registerEnumType } from '@nestjs/graphql'
 
 registerEnumType(QueryMethod, { name: 'QueryMethod' })
@@ -7,7 +8,7 @@ registerEnumType(QueryMethod, { name: 'QueryMethod' })
 @InputType({
   description: 'Provide either a lambdaId, or body/method/url',
 })
-export class QueryHookConfigInput implements QueryHookConfig {
+export class QueryHookConfigInput implements Model<IQueryHookConfig> {
   @Field()
   declare queryKey: string
 
@@ -15,11 +16,11 @@ export class QueryHookConfigInput implements QueryHookConfig {
   declare url?: string
 
   @Field(() => String, { nullable: true })
-  declare body?: string
+  declare body?: Maybe<string>
 
   @Field(() => QueryMethod, { nullable: true })
-  declare method?: QueryMethod
+  declare method?: Maybe<QueryMethod>
 
   @Field(() => String, { nullable: true })
-  declare lambdaId?: string
+  declare lambdaId?: Maybe<string>
 }

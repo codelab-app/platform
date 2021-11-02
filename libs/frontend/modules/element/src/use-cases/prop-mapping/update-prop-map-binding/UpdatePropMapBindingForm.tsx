@@ -8,9 +8,9 @@ import {
   UniFormUseCaseProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
+import { ElementTree } from '@codelab/shared/core'
 import React, { useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { ElementTreeGraphql } from '../../../tree'
 import { refetchGetElementQuery } from '../../get-element'
 import { TargetKeyField } from '../create-prop-map-binding/TargetKeyField'
 import { useUpdatePropMapBindingMutation } from './UpdatePropMapBinding.web.graphql.gen'
@@ -22,7 +22,7 @@ import {
 export interface UpdatePropMapBindingFormProps {
   elementId: string
   providePropCompletion?: (searchValue: string) => Array<string>
-  tree: ElementTreeGraphql
+  tree: ElementTree
 }
 
 export const UpdatePropMapBindingForm = ({
@@ -42,7 +42,9 @@ export const UpdatePropMapBindingForm = ({
     entityType: EntityType.App,
     useMutationFunction: useUpdatePropMapBindingMutation,
     mutationOptions: {
-      refetchQueries: [refetchGetElementQuery({ input: { elementId } })],
+      refetchQueries: [
+        refetchGetElementQuery({ input: { where: { id: elementId } } }),
+      ],
     },
     mapVariables: (
       { sourceKey, targetKey, targetElementId }: UpdatePropMapBindingSchema,

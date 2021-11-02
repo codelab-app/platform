@@ -1,52 +1,25 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { TypeModule } from '../../../../type.module'
-import { CreateTypeInput } from '../../create-type'
-import {
-  TestCreateTypeGql,
-  TestCreateTypeMutation,
-} from '../../create-type/tests/create-type.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupTypeTestModule } from '../../../../tests/setupTypeTestModule'
 import { createPrimitiveStringInput } from '../../create-type/tests/create-type.data'
 import { GetTypeInput } from '../get-type.input'
 import { TestGetTypeGql } from './get-type.api.graphql.gen'
 
 describe('GetType', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupTypeTestModule()
   let typeId: string
   let getTypeInput: GetTypeInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([TypeModule], {
-      role: Role.Guest,
-    })
-    userApp = await setupTestModule([TypeModule], {
-      role: Role.User,
-    })
+    const type = await testModule.createTestType(createPrimitiveStringInput)
 
-    const { createType } = await domainRequest<
-      CreateTypeInput,
-      TestCreateTypeMutation
-    >(userApp, TestCreateTypeGql, createPrimitiveStringInput)
-
-    typeId = createType.id
+    typeId = type.id
     getTypeInput = { where: { id: typeId } }
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
   })
 
   describe('Guest', () => {
     it('should not get type', async () => {
       await domainRequest<GetTypeInput>(
-        guestApp,
+        testModule.guestApp,
         TestGetTypeGql,
         getTypeInput,
         {

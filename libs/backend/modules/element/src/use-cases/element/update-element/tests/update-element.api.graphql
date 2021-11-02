@@ -1,3 +1,5 @@
 mutation TestUpdateElement($input: UpdateElementInput!) {
-  updateElement(input: $input)
+  updateElement(input: $input) {
+    ...TestElement
+  }
 }

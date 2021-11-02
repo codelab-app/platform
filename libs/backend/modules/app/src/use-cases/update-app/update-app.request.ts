@@ -1,8 +1,6 @@
-import type { User } from '@codelab/shared/abstract/core'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
 import { UpdateAppInput } from './update-app.input'
 
-export class UpdateAppRequest {
-  declare input: UpdateAppInput
-
-  declare currentUser: User
+export interface UpdateAppRequest extends WithCurrentUserRequest {
+  input: UpdateAppInput
 }

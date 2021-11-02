@@ -1,19 +1,20 @@
 import { createUnionType } from '@nestjs/graphql'
-import { GraphqlHookConfigModel } from './graphql-hook-config.model'
-import { QueryHookConfigModel } from './query-hook-config.model'
-import { QueryPageHookConfigModel } from './query-page-hook-config-model'
-import { QueryPagesHookConfigModel } from './query-pages-hook-config-model'
-import { RecoilStateHookConfigModel } from './recoil-state-hook-config.model'
+import { GraphqlHookConfig } from './graphql-hook-config.model'
+import { QueryHookConfig } from './query-hook-config.model'
+import { QueryPageHookConfig } from './query-page-hook-config-model'
+import { QueryPagesHookConfig } from './query-pages-hook-config-model'
+import { RecoilStateHookConfig } from './recoil-state-hook-config.model'
 
-export const HookConfigModel = createUnionType({
+export const HookConfig = createUnionType({
   name: 'HookConfig',
+
   types: () => [
-    QueryHookConfigModel,
-    GraphqlHookConfigModel,
-    RecoilStateHookConfigModel,
-    QueryPageHookConfigModel,
-    QueryPagesHookConfigModel,
+    QueryHookConfig,
+    GraphqlHookConfig,
+    RecoilStateHookConfig,
+    QueryPageHookConfig,
+    QueryPagesHookConfig,
   ],
 })
 
-export type HookConfigModel = typeof HookConfigModel
+export type HookConfig = typeof HookConfig

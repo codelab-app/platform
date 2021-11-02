@@ -1,8 +1,6 @@
-import { Void } from '@codelab/backend/abstract/types'
-import { CreateResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
-import { User } from '@codelab/shared/abstract/core'
+import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Field } from '../domain'
@@ -19,7 +17,6 @@ import {
   UpdateFieldInput,
   UpdateFieldService,
 } from '../use-cases/field/update-field'
-import { FieldAdapter } from './adapters'
 
 @Resolver(() => Field)
 @Injectable()
@@ -29,19 +26,28 @@ export class FieldResolver {
     private getFieldService: GetFieldService,
     private updateFieldService: UpdateFieldService,
     private deleteFieldService: DeleteFieldService,
-    private fieldMapper: FieldAdapter,
   ) {}
 
-  @Mutation(() => CreateResponse)
+  @Mutation(() => Field)
   @UseGuards(GqlAuthGuard)
-  createField(
+  async createField(
     @Args('input') input: CreateFieldInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    return this.createFieldService.execute({
+    const { id } = await this.createFieldService.execute({
       input,
       currentUser,
     })
+
+    const field = await this.getFieldService.execute({
+      input: { byId: { fieldId: id } },
+    })
+
+    if (!field) {
+      throw new Error("Couldn't find created field")
+    }
+
+    return field
   }
 
   @Query(() => Field, { nullable: true })
@@ -53,21 +59,41 @@ export class FieldResolver {
       return null
     }
 
-    return this.fieldMapper.mapItem(field)
+    return field
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Field, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  updateField(
+  async updateField(
     @Args('input') input: UpdateFieldInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    return this.updateFieldService.execute({ input, currentUser })
+    await this.updateFieldService.execute({ input, currentUser })
+
+    const field = await this.getFieldService.execute({
+      input: { byId: { fieldId: input.fieldId } },
+    })
+
+    if (!field) {
+      throw new Error("Couldn't find updated field")
+    }
+
+    return field
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Field, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async deleteField(@Args('input') input: DeleteFieldInput) {
+    const field = await this.getFieldService.execute({
+      input: { byId: { fieldId: input.fieldId } },
+    })
+
+    if (!field) {
+      throw new Error("Couldn't find  field")
+    }
+
     await this.deleteFieldService.execute({ input })
+
+    return field
   }
 }

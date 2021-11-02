@@ -1,22 +1,25 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestRemoveHookFromElementMutationVariables = Types.Exact<{
-  input: Types.RemoveHookFromElementInput;
-}>;
+  input: Types.RemoveHookFromElementInput
+}>
 
-
-export type TestRemoveHookFromElementMutation = { removeHookFromElement?: Types.Maybe<void> };
-
+export type TestRemoveHookFromElementMutation = {
+  removeHookFromElement?: Types.Maybe<void>
+}
 
 export const TestRemoveHookFromElementGql = gql`
-    mutation TestRemoveHookFromElement($input: RemoveHookFromElementInput!) {
-  removeHookFromElement(input: $input)
-}
-    `;
-export type TestRemoveHookFromElementMutationFn = Apollo.MutationFunction<TestRemoveHookFromElementMutation, TestRemoveHookFromElementMutationVariables>;
+  mutation TestRemoveHookFromElement($input: RemoveHookFromElementInput!) {
+    removeHookFromElement(input: $input)
+  }
+`
+export type TestRemoveHookFromElementMutationFn = Apollo.MutationFunction<
+  TestRemoveHookFromElementMutation,
+  TestRemoveHookFromElementMutationVariables
+>
 
 /**
  * __useTestRemoveHookFromElementMutation__
@@ -35,10 +38,25 @@ export type TestRemoveHookFromElementMutationFn = Apollo.MutationFunction<TestRe
  *   },
  * });
  */
-export function useTestRemoveHookFromElementMutation(baseOptions?: Apollo.MutationHookOptions<TestRemoveHookFromElementMutation, TestRemoveHookFromElementMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestRemoveHookFromElementMutation, TestRemoveHookFromElementMutationVariables>(TestRemoveHookFromElementGql, options);
-      }
-export type TestRemoveHookFromElementMutationHookResult = ReturnType<typeof useTestRemoveHookFromElementMutation>;
-export type TestRemoveHookFromElementMutationResult = Apollo.MutationResult<TestRemoveHookFromElementMutation>;
-export type TestRemoveHookFromElementMutationOptions = Apollo.BaseMutationOptions<TestRemoveHookFromElementMutation, TestRemoveHookFromElementMutationVariables>;
+export function useTestRemoveHookFromElementMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestRemoveHookFromElementMutation,
+    TestRemoveHookFromElementMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestRemoveHookFromElementMutation,
+    TestRemoveHookFromElementMutationVariables
+  >(TestRemoveHookFromElementGql, options)
+}
+export type TestRemoveHookFromElementMutationHookResult = ReturnType<
+  typeof useTestRemoveHookFromElementMutation
+>
+export type TestRemoveHookFromElementMutationResult =
+  Apollo.MutationResult<TestRemoveHookFromElementMutation>
+export type TestRemoveHookFromElementMutationOptions =
+  Apollo.BaseMutationOptions<
+    TestRemoveHookFromElementMutation,
+    TestRemoveHookFromElementMutationVariables
+  >

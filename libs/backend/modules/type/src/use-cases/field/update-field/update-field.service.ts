@@ -1,19 +1,19 @@
 import { NotFoundError } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import {
-  DgraphEntity,
   DgraphEntityType,
-  DgraphField,
   DgraphQueryBuilder,
   DgraphRepository,
   jsonMutation,
 } from '@codelab/backend/infra'
-import { User } from '@codelab/shared/abstract/core'
+import { IUser } from '@codelab/shared/abstract/core'
+import { TypeTree } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { FieldValidator } from '../../../domain/field.validator'
+import { FieldValidator } from '../../../domain/field/field.validator'
 import { TypeValidator } from '../../../domain/type.validator'
 import { CreateTypeService } from '../../type/create-type'
+import { GetTypeGraphService } from '../../type/get-type-graph'
 import { TypeRef } from '../create-field'
 import { GetFieldService } from '../get-field'
 import { UpdateFieldRequest } from './update-field.request'
@@ -26,6 +26,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
     private fieldValidator: FieldValidator,
     private typeValidator: TypeValidator,
     private createTypeService: CreateTypeService,
+    private getTypeGraphService: GetTypeGraphService,
   ) {
     super(dgraph)
   }
@@ -51,7 +52,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
     }: UpdateFieldRequest,
     typeId: string,
   ) {
-    return jsonMutation<DgraphField>({
+    return jsonMutation({
       uid: fieldId,
       name,
       key,
@@ -62,7 +63,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
     })
   }
 
-  private async getTypeId(type: TypeRef, currentUser: User) {
+  private async getTypeId(type: TypeRef, currentUser: IUser) {
     let typeId = type.existingTypeId
 
     // Check if we specify an existing type, if not - create a new one and get its ID
@@ -98,10 +99,11 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
         type: { existingTypeId, newType },
       },
     },
+    currentUser,
   }: UpdateFieldRequest): Promise<void> {
-    const field = await this.dgraph.transactionWrapper<
-      DgraphEntity<any> & { '~fields': [{ uid: string }] }
-    >((txn) =>
+    const field = await this.dgraph.transactionWrapper<{
+      '~fields': [{ uid: string }]
+    }>((txn) =>
       this.dgraph.getOneOrThrow(
         txn,
         new DgraphQueryBuilder()
@@ -122,10 +124,21 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
 
     if (existingTypeId) {
       // If we specify an existing type, check if it exists
-      const existingType = await this.typeValidator.typeExists(existingTypeId)
+      await this.typeValidator.typeExists(existingTypeId)
 
       // And it doesn't cause a recursive loop
-      this.typeValidator.notRecursive(interfaceId, existingType)
+      const graph = await this.getTypeGraphService.execute({
+        input: { where: { id: existingTypeId } },
+        currentUser,
+      })
+
+      if (!graph) {
+        // Shouldn't happen, we check in typeValidator.typeExists
+        throw new Error('Type graph not found')
+      }
+
+      const existingTypeTree = new TypeTree(graph)
+      this.typeValidator.notRecursive(interfaceId, existingTypeTree)
     }
   }
 }

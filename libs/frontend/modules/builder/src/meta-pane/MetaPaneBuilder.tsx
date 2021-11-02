@@ -1,13 +1,13 @@
+import { IElement } from '@codelab/frontend/abstract/core'
 import {
   ElementCssEditor,
   ElementHookSection,
-  ElementTreeGraphql,
   PropMapBindingSection,
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
 } from '@codelab/frontend/modules/element'
 import { LoadingIndicator } from '@codelab/frontend/view/components'
-import { IElementVertex } from '@codelab/shared/abstract/core'
+import { ElementTree } from '@codelab/shared/core'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'
@@ -52,10 +52,10 @@ const TabContainer = styled.div`
 
 export interface MetaPaneBuilderProps {
   renderUpdateElementContent: (
-    element: IElementVertex,
+    element: IElement,
     loadingIndicatorKey: string,
   ) => React.ReactNode
-  tree: ElementTreeGraphql
+  tree: ElementTree
 }
 
 const loadingKey = 'metaPaneBuilderLoadingState'

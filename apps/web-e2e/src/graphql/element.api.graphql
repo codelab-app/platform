@@ -1,0 +1,29 @@
+mutation E2eCreateElement($input: CreateElementInput!) {
+  createElement(input: $input) {
+    ...TestElement
+  }
+}
+
+mutation E2eUpdateElementProps($input: UpdateElementPropsInput!) {
+  updateElementProps(input: $input) {
+    ...TestElement
+  }
+}
+
+mutation E2eUpdateElement($input: UpdateElementInput!) {
+  updateElement(input: $input) {
+    ...TestElement
+  }
+}
+
+query E2eGetElementGraph($input: GetElementGraphInput!) {
+  getElementGraph(input: $input) {
+    ...TestElementGraph
+  }
+}
+
+mutation E2eCreatePropMapBinding($input: CreatePropMapBindingInput!) {
+  createPropMapBinding(input: $input) {
+    id
+  }
+}

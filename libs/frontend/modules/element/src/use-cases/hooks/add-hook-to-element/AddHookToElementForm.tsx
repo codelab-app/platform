@@ -83,7 +83,7 @@ export const AddHookToElementForm = ({
     mutationOptions: {
       refetchQueries: [
         refetchGetElementQuery({
-          input: { elementId },
+          input: { where: { id: elementId } },
         }),
       ],
     },

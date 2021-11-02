@@ -1,39 +1,40 @@
 import {
   DeleteElementButton,
+  MoveElementForm,
   UpdateElementForm,
+  useElementGraphContext,
 } from '@codelab/frontend/modules/element'
-import {
-  MovePageElementForm,
-  PageContext,
-  refetchGetPageQuery,
-} from '@codelab/frontend/modules/page'
 import { SelectElementProvider } from '@codelab/frontend/modules/type'
-import React, { useContext } from 'react'
+import React from 'react'
 import { usePropCompletion } from '../containers/usePropCompletion'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
 
 export const MetaPaneBuilderPage = () => {
-  const { tree, pageId } = useContext(PageContext)
   const { providePropCompletion } = usePropCompletion()
+  const { elementTree } = useElementGraphContext()
+
+  if (!elementTree) {
+    return null
+  }
 
   return (
-    <SelectElementProvider tree={tree}>
+    <SelectElementProvider tree={elementTree}>
       <MetaPaneBuilder
-        tree={tree}
+        tree={elementTree}
         renderUpdateElementContent={(element, loadingKey) => (
           <>
             <UpdateElementForm
               key={element.id + '_update_form'}
               elementId={element.id}
-              tree={tree}
+              tree={elementTree}
               loadingStateKey={loadingKey}
               providePropCompletion={(value) =>
                 providePropCompletion(value, element.id)
               }
-              refetchQueries={[refetchGetPageQuery({ input: { pageId } })]}
             />
 
-            <MovePageElementForm
+            <MoveElementForm
+              tree={elementTree}
               loadingStateKey={loadingKey}
               key={element.id + '_move_form'}
               elementId={element.id}

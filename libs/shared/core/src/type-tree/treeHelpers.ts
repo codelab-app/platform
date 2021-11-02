@@ -1,15 +1,15 @@
 import {
-  IField,
+  IEdge,
+  IType,
   ITypeEdge,
-  ITypeVertex,
-  TypeEdgeKind,
+  typeEdgeIsField,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { CollectionReturnValue, SingularElementArgument } from 'cytoscape'
 import { getCyElementData } from '../cytoscape/element'
 
 export const getTypeFromNode = (e: SingularElementArgument) =>
-  getCyElementData<ITypeVertex>(e)
+  getCyElementData<IType>(e)
 
 export const typeIsOfKind =
   (kind: TypeKind) => (node: SingularElementArgument) =>
@@ -22,16 +22,23 @@ export const edgeIsOfFieldKind = (e: SingularElementArgument) => {
     return false
   }
 
-  return edge?.kind === TypeEdgeKind.Field && !!edge.field
+  return typeEdgeIsField(edge)
 }
 
-export const getFieldFromEdge = (e: SingularElementArgument) =>
-  e.data().field as IField
+export const getFieldFromEdge = (e: SingularElementArgument) => {
+  const edge = getCyElementData<IEdge>(e)
+
+  if (edge && typeEdgeIsField(edge)) {
+    return edge
+  }
+
+  return null
+}
 
 export const getTypesOfUnionTypeFromNode = (
   TypesOfUnionType: CollectionReturnValue,
 ) =>
-  TypesOfUnionType.outgoers(unionItemEdgeSelector)
+  TypesOfUnionType.outgoers()
     .nodes()
     .map((node) => {
       const type = getTypeFromNode(node)
@@ -44,7 +51,4 @@ export const getTypesOfUnionTypeFromNode = (
     })
 
 export const getItemTypeFromNode = (arrayTypeNode: CollectionReturnValue) =>
-  getTypeFromNode(arrayTypeNode.outgoers(arrayItemEdgeSelector).nodes().first())
-
-export const arrayItemEdgeSelector = `[kind=${TypeEdgeKind.ArrayItem}]`
-export const unionItemEdgeSelector = `[kind=${TypeEdgeKind.Union}]`
+  getTypeFromNode(arrayTypeNode.outgoers().nodes().first())

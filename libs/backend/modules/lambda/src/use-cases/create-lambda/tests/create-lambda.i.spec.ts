@@ -4,66 +4,42 @@ import {
   AwsS3Service,
   AwsTokens,
 } from '@codelab/backend/infra'
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { LambdaModule } from '../../../lambda.module'
-import { GetLambdaInput } from '../../get-lambda'
-import {
-  TestGetLambdaGql,
-  TestGetLambdaQuery,
-} from '../../get-lambda/tests/get-lambda.api.graphql.gen'
-import { CreateLambdaInput } from '../create-lambda.input'
-import {
-  TestCreateLambdaGql,
-  TestCreateLambdaMutation,
-} from './create-lambda.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupLambdaTestModule } from '../../../test/setupLambdaTestModule'
+import { TestCreateLambdaGql } from './create-lambda.api.graphql.gen'
 import { createLambdaInput } from './create-lambda.data'
 
 describe('CreateLambda', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupLambdaTestModule()
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([LambdaModule], { role: Role.Guest })
-    userApp = await setupTestModule([LambdaModule], { role: Role.User })
-
-    const awsS3Service = userApp.get<AwsS3Service>(AwsTokens.S3)
-    const _awsConfig = userApp.get<AwsConfig>(awsConfig.KEY)
+    const awsS3Service = testModule.userApp.get<AwsS3Service>(AwsTokens.S3)
+    const _awsConfig = testModule.userApp.get<AwsConfig>(awsConfig.KEY)
     await awsS3Service.emptyBucket(_awsConfig.awsBucketName)
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
   })
 
   describe('Guest', () => {
     it('should fail to create a lambda', async () => {
-      await domainRequest(guestApp, TestCreateLambdaGql, createLambdaInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestCreateLambdaGql,
+        createLambdaInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
     it('should create a lambda', async () => {
-      const { createLambda } = await domainRequest<
-        CreateLambdaInput,
-        TestCreateLambdaMutation
-      >(userApp, TestCreateLambdaGql, createLambdaInput)
+      const createLambda = await testModule.createTestLambda(createLambdaInput)
 
-      const results = await domainRequest<GetLambdaInput, TestGetLambdaQuery>(
-        userApp,
-        TestGetLambdaGql,
-        { lambdaId: createLambda.id },
-      )
+      const getLambda = await testModule.getLambda({
+        lambdaId: createLambda.id,
+      })
 
-      expect(results.getLambda).toMatchObject(createLambdaInput)
+      expect(getLambda).toMatchObject(createLambdaInput)
     })
   })
 })

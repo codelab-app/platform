@@ -7,7 +7,7 @@ import tw from 'twin.macro'
 import { getTypeName } from '../../types'
 
 export interface FieldsTableProps {
-  tree: TypeTree<any, any>
+  tree: TypeTree
 }
 
 export const FieldsTable = ({ tree }: FieldsTableProps) => {

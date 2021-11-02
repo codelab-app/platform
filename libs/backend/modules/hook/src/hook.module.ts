@@ -1,8 +1,8 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { Module, Provider } from '@nestjs/common'
-import { HookAdapter } from './application'
+import { HookModelFactory } from './application'
 
-const services: Array<Provider> = [HookAdapter]
+const services: Array<Provider> = [HookModelFactory]
 
 @Module({
   imports: [],

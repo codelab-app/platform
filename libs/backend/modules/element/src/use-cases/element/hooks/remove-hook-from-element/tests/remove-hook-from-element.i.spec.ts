@@ -1,21 +1,6 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { QueryMethod, Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { ElementModule } from '../../../../../element.module'
-import { CreateElementInput } from '../../../create-element'
-import {
-  TestCreateElementGql,
-  TestCreateElementMutation,
-} from '../../../create-element/tests/create-element.api.graphql.gen'
-import { GetElementInput } from '../../../get-element'
-import {
-  TestGetElementGql,
-  TestGetElementQuery,
-} from '../../../get-element/tests/get-element.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { QueryMethod } from '@codelab/shared/abstract/core'
+import { setupElementTestModule } from '../../../../../test/setupElementTestModule'
 import { AddHookToElementInput } from '../../add-hook-to-element'
 import {
   TestAddHookToElementGql,
@@ -28,28 +13,23 @@ import {
 } from './remove-hook-from-element.api.graphql.gen'
 
 describe('RemoveHookFromElementUseCase', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupElementTestModule()
   let removeHookInput: RemoveHookFromElementInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], { role: Role.Guest })
-    userApp = await setupTestModule([ElementModule], { role: Role.User })
-
-    const { createElement } = await domainRequest<
-      CreateElementInput,
-      TestCreateElementMutation
-    >(userApp, TestCreateElementGql, { name: 'Element' })
+    const createElement = await testModule.createTestElement({
+      name: 'Element',
+    })
 
     const { addHookToElement } = await domainRequest<
       AddHookToElementInput,
       TestAddHookToElementMutation
-    >(userApp, TestAddHookToElementGql, {
+    >(testModule.userApp, TestAddHookToElementGql, {
       elementId: createElement.id,
       queryHook: {
         url: 'https://github.com',
         queryKey: 'My Query',
-        method: QueryMethod.GET,
+        method: QueryMethod.Get,
       },
     })
 
@@ -59,15 +39,10 @@ describe('RemoveHookFromElementUseCase', () => {
     }
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to create a Hook', async () => {
       await domainRequest(
-        guestApp,
+        testModule.guestApp,
         TestRemoveHookFromElementGql,
         removeHookInput,
         {
@@ -82,12 +57,11 @@ describe('RemoveHookFromElementUseCase', () => {
       await domainRequest<
         RemoveHookFromElementInput,
         TestRemoveHookFromElementMutation
-      >(userApp, TestRemoveHookFromElementGql, removeHookInput)
+      >(testModule.userApp, TestRemoveHookFromElementGql, removeHookInput)
 
-      const { getElement } = await domainRequest<
-        GetElementInput,
-        TestGetElementQuery
-      >(userApp, TestGetElementGql, { elementId: removeHookInput.elementId })
+      const getElement = await testModule.getElement({
+        where: { id: removeHookInput.elementId },
+      })
 
       expect(getElement?.hooks).toHaveLength(0)
     })

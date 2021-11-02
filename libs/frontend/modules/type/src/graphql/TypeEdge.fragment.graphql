@@ -1,8 +1,18 @@
+fragment FieldTypeEdge on FieldTypeEdge {
+  description
+  id
+  key
+  name
+  source
+  target
+}
+
 fragment TypeEdge on TypeEdge {
   source
   target
-  kind
-  field {
-    ...Field
+  source
+  target
+  ... on FieldTypeEdge {
+    ...FieldTypeEdge
   }
 }

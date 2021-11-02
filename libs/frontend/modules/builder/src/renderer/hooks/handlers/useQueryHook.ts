@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+
+import { QueryMethod } from '@codelab/frontend/abstract/codegen'
 import { QueryHookConfigFragment } from '@codelab/frontend/modules/element'
 import { useExecuteLambdaMutation } from '@codelab/frontend/modules/lambda'
-import axios from 'axios'
+import axios, { Method } from 'axios'
 import { useQuery } from 'react-query'
 import { HookHandler } from '../HookHandler'
 
@@ -72,7 +74,8 @@ export const useQueryHook: HookHandler = (config: QueryHookConfigFragment) => {
     axios({
       data: body,
       url,
-      method: method ?? 'GET',
+      // GraphQL Codegen is renaming enum
+      method: (method ?? QueryMethod.Get).toUpperCase() as Method,
       headers: {
         'Content-type': 'application/json',
       },

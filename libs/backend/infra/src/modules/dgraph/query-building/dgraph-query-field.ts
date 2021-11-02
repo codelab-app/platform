@@ -1,6 +1,4 @@
-import { DgraphEntity } from '../interfaces'
 import { IBuildable, IDgraphQueryFilter } from './i-query-builder'
-import { DgraphQueryJson, WithReverseFields } from './types'
 import { compileMultiple } from './utils'
 
 export class DgraphQueryField implements IBuildable {
@@ -88,28 +86,6 @@ export class DgraphQueryField implements IBuildable {
   addBaseInnerFields() {
     this._isDirty = true
     this._innerFields.push('uid', 'dgraph.type')
-
-    return this
-  }
-
-  addJsonReverseFields<TOtherEntity extends DgraphEntity<any>>(
-    json: WithReverseFields<TOtherEntity>,
-  ) {
-    return this.addJsonFields(json as any)
-  }
-
-  addJsonFields<TEntity extends DgraphEntity<any>>(
-    json: DgraphQueryJson<TEntity>,
-  ) {
-    Object.keys(json).forEach((key) => {
-      const value = (json as any)[key]
-
-      if (typeof value === 'object') {
-        this.addInnerFields(key + value)
-      } else if (value) {
-        this.addInnerFields(key)
-      }
-    })
 
     return this
   }

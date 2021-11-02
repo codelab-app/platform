@@ -1,41 +1,54 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { TypeGraphFragment } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { TypeGraphFragmentDoc } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TypeGraphFragment } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TypeGraphFragmentDoc } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestGetExportAtomsQueryVariables = Types.Exact<{
-  input?: Types.Maybe<Types.GetAtomsInput>;
-}>;
+  input?: Types.Maybe<Types.GetAtomsInput>
+}>
 
+export type TestGetExportAtomsQuery = {
+  getAtoms?: Types.Maybe<Array<TestGetExport__AtomsFragment>>
+}
 
-export type TestGetExportAtomsQuery = { getAtoms?: Types.Maybe<Array<TestGetExport__AtomsFragment>> };
-
-export type TestGetExport__AtomsFragment = { id: string, name: string, type: Types.AtomType, api: { id: string, name: string, typeKind: Types.TypeKind, typeGraph: TypeGraphFragment } };
+export type TestGetExport__AtomsFragment = {
+  id: string
+  name: string
+  type: Types.AtomType
+  api: {
+    id: string
+    name: string
+    typeKind: Types.TypeKind
+    typeGraph: TypeGraphFragment
+  }
+}
 
 export const TestGetExport__AtomsFragmentDoc = gql`
-    fragment TestGetExport__Atoms on Atom {
-  id
-  name
-  type
-  api {
+  fragment TestGetExport__Atoms on Atom {
     id
     name
-    typeKind
-    typeGraph {
-      ...TypeGraph
+    type
+    api {
+      id
+      name
+      typeKind
+      typeGraph {
+        ...TypeGraph
+      }
     }
   }
-}
-    ${TypeGraphFragmentDoc}`;
+  ${TypeGraphFragmentDoc}
+`
 export const TestGetExportAtomsGql = gql`
-    query TestGetExportAtoms($input: GetAtomsInput) {
-  getAtoms(input: $input) {
-    ...TestGetExport__Atoms
+  query TestGetExportAtoms($input: GetAtomsInput) {
+    getAtoms(input: $input) {
+      ...TestGetExport__Atoms
+    }
   }
-}
-    ${TestGetExport__AtomsFragmentDoc}`;
+  ${TestGetExport__AtomsFragmentDoc}
+`
 
 /**
  * __useTestGetExportAtomsQuery__
@@ -53,17 +66,42 @@ export const TestGetExportAtomsGql = gql`
  *   },
  * });
  */
-export function useTestGetExportAtomsQuery(baseOptions?: Apollo.QueryHookOptions<TestGetExportAtomsQuery, TestGetExportAtomsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetExportAtomsQuery, TestGetExportAtomsQueryVariables>(TestGetExportAtomsGql, options);
-      }
-export function useTestGetExportAtomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetExportAtomsQuery, TestGetExportAtomsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetExportAtomsQuery, TestGetExportAtomsQueryVariables>(TestGetExportAtomsGql, options);
-        }
-export type TestGetExportAtomsQueryHookResult = ReturnType<typeof useTestGetExportAtomsQuery>;
-export type TestGetExportAtomsLazyQueryHookResult = ReturnType<typeof useTestGetExportAtomsLazyQuery>;
-export type TestGetExportAtomsQueryResult = Apollo.QueryResult<TestGetExportAtomsQuery, TestGetExportAtomsQueryVariables>;
-export function refetchTestGetExportAtomsQuery(variables?: TestGetExportAtomsQueryVariables) {
-      return { query: TestGetExportAtomsGql, variables: variables }
-    }
+export function useTestGetExportAtomsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    TestGetExportAtomsQuery,
+    TestGetExportAtomsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    TestGetExportAtomsQuery,
+    TestGetExportAtomsQueryVariables
+  >(TestGetExportAtomsGql, options)
+}
+export function useTestGetExportAtomsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetExportAtomsQuery,
+    TestGetExportAtomsQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    TestGetExportAtomsQuery,
+    TestGetExportAtomsQueryVariables
+  >(TestGetExportAtomsGql, options)
+}
+export type TestGetExportAtomsQueryHookResult = ReturnType<
+  typeof useTestGetExportAtomsQuery
+>
+export type TestGetExportAtomsLazyQueryHookResult = ReturnType<
+  typeof useTestGetExportAtomsLazyQuery
+>
+export type TestGetExportAtomsQueryResult = Apollo.QueryResult<
+  TestGetExportAtomsQuery,
+  TestGetExportAtomsQueryVariables
+>
+export function refetchTestGetExportAtomsQuery(
+  variables?: TestGetExportAtomsQueryVariables,
+) {
+  return { query: TestGetExportAtomsGql, variables: variables }
+}

@@ -1,9 +1,9 @@
-import { Role, User } from '@codelab/shared/abstract/core'
+import { IUser, Role } from '@codelab/shared/abstract/core'
 
-export const isAdmin = (user: User) => {
+export const isAdmin = (user: IUser) => {
   return user.roles.includes(Role.Admin)
 }
 
-export const isUser = (user: User) => {
+export const isUser = (user: IUser) => {
   return user.roles.includes(Role.User)
 }

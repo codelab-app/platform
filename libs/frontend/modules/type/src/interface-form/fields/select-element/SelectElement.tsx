@@ -1,5 +1,6 @@
+import { IElement } from '@codelab/frontend/abstract/core'
 import { useElementIdContext } from '@codelab/frontend/presenter/container'
-import { ElementTypeKind, IElementVertex } from '@codelab/shared/abstract/core'
+import { ElementTypeKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
@@ -17,7 +18,7 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
     throw new Error('A SelectElementProvider is needed for SelectElement')
   }
 
-  let elements: Array<IElementVertex>
+  let elements: Array<IElement>
   const elementIdContext = useElementIdContext()
 
   if (!elementIdContext) {
@@ -28,19 +29,13 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
   } else {
     switch (kind) {
       case ElementTypeKind.AllElements:
-        elements = tree.getAllVertices(tree.isElementPredicate)
+        elements = tree.getAllVertices()
         break
       case ElementTypeKind.ChildrenOnly:
-        elements = tree.getChildren(
-          elementIdContext.elementId,
-          tree.isElementPredicate,
-        )
+        elements = tree.getChildren(elementIdContext.elementId)
         break
       case ElementTypeKind.DescendantsOnly:
-        elements = tree.getDescendants(
-          elementIdContext.elementId,
-          tree.isElementPredicate,
-        )
+        elements = tree.getDescendants(elementIdContext.elementId)
         break
       default:
         elements = []

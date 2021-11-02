@@ -31,7 +31,9 @@ export const DeletePropMapBindingForm = ({
     entityType: EntityType.PropMapBinding,
     useMutationFunction: useDeletePropMapBindingMutation,
     mutationOptions: {
-      refetchQueries: [refetchGetElementQuery({ input: { elementId } })],
+      refetchQueries: [
+        refetchGetElementQuery({ input: { where: { id: elementId } } }),
+      ],
     },
     mapVariables: (_, state) => ({
       input: { propMapBindingIds: state.deleteIds },

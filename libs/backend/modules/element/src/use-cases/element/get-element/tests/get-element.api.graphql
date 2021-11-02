@@ -30,9 +30,9 @@ query TestGetElement($input: GetElementInput!) {
           __typename
         }
         ... on GraphqlHookConfig {
-          graphqlBody: body
+          graphqlBody
           dataKey
-          graphqlUrl: url
+          graphqlUrl
           __typename
         }
       }

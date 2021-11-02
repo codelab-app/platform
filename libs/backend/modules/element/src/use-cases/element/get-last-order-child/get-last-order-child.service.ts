@@ -1,6 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import {
-  DgraphElement,
   DgraphEntityType,
   DgraphQueryBuilder,
   DgraphQueryField,
@@ -28,10 +27,7 @@ export class GetLastOrderChildService extends DgraphUseCase<
     request: GetLastOrderChildInput,
     txn: Txn,
   ) {
-    const result = await this.dgraph.getOne<DgraphElement>(
-      txn,
-      this.createQuery(request),
-    )
+    const result = await this.dgraph.getOne<any>(txn, this.createQuery(request))
 
     if (result) {
       const children = result.children

@@ -1,5 +1,5 @@
 mutation TestCreateTag($input: CreateTagInput!) {
   createTag(input: $input) {
-    id
+    ...TestTag
   }
 }

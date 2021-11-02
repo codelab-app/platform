@@ -1,26 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { PageBaseFragment } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { PageBaseFragmentDoc } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { PageBaseFragment } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { PageBaseFragmentDoc } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestDeletePageMutationVariables = Types.Exact<{
-  input: Types.DeletePageInput;
-}>;
+  input: Types.DeletePageInput
+}>
 
-
-export type TestDeletePageMutation = { deletePage?: Types.Maybe<PageBaseFragment> };
-
+export type TestDeletePageMutation = { deletePage: PageBaseFragment }
 
 export const TestDeletePageGql = gql`
-    mutation TestDeletePage($input: DeletePageInput!) {
-  deletePage(input: $input) {
-    ...PageBase
+  mutation TestDeletePage($input: DeletePageInput!) {
+    deletePage(input: $input) {
+      ...PageBase
+    }
   }
-}
-    ${PageBaseFragmentDoc}`;
-export type TestDeletePageMutationFn = Apollo.MutationFunction<TestDeletePageMutation, TestDeletePageMutationVariables>;
+  ${PageBaseFragmentDoc}
+`
+export type TestDeletePageMutationFn = Apollo.MutationFunction<
+  TestDeletePageMutation,
+  TestDeletePageMutationVariables
+>
 
 /**
  * __useTestDeletePageMutation__
@@ -39,10 +41,24 @@ export type TestDeletePageMutationFn = Apollo.MutationFunction<TestDeletePageMut
  *   },
  * });
  */
-export function useTestDeletePageMutation(baseOptions?: Apollo.MutationHookOptions<TestDeletePageMutation, TestDeletePageMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestDeletePageMutation, TestDeletePageMutationVariables>(TestDeletePageGql, options);
-      }
-export type TestDeletePageMutationHookResult = ReturnType<typeof useTestDeletePageMutation>;
-export type TestDeletePageMutationResult = Apollo.MutationResult<TestDeletePageMutation>;
-export type TestDeletePageMutationOptions = Apollo.BaseMutationOptions<TestDeletePageMutation, TestDeletePageMutationVariables>;
+export function useTestDeletePageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestDeletePageMutation,
+    TestDeletePageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestDeletePageMutation,
+    TestDeletePageMutationVariables
+  >(TestDeletePageGql, options)
+}
+export type TestDeletePageMutationHookResult = ReturnType<
+  typeof useTestDeletePageMutation
+>
+export type TestDeletePageMutationResult =
+  Apollo.MutationResult<TestDeletePageMutation>
+export type TestDeletePageMutationOptions = Apollo.BaseMutationOptions<
+  TestDeletePageMutation,
+  TestDeletePageMutationVariables
+>

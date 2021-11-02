@@ -1,0 +1,5 @@
+fragment TestUser on User {
+  id
+  auth0Id
+  roles
+}

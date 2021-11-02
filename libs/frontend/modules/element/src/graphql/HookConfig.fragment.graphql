@@ -7,8 +7,8 @@ fragment QueryHookConfig on QueryHookConfig {
 }
 
 fragment GraphqlHookConfig on GraphqlHookConfig {
-  graphqlBody: body
-  graphqlUrl: url
+  graphqlBody
+  graphqlUrl
   dataKey
 }
 

@@ -1,7 +1,6 @@
-import type { DgraphInterfaceType } from '@codelab/backend/infra'
 import { Tag } from '@codelab/backend/modules/tag'
 import { InterfaceType } from '@codelab/backend/modules/type'
-import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomType, IAtom } from '@codelab/shared/abstract/core'
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
 
 registerEnumType(AtomType, {
@@ -9,7 +8,7 @@ registerEnumType(AtomType, {
 })
 
 @ObjectType()
-export class Atom {
+export class Atom implements IAtom {
   @Field(() => ID)
   declare id: string
 
@@ -17,25 +16,14 @@ export class Atom {
   declare type: AtomType
 
   @Field({
-    description:
-      'This is a unique ID suitable for seeders to lookup, will rename to value',
+    description: 'This is a unique ID suitable for seeders to lookup',
   })
   declare name: string
 
   @Field(() => InterfaceType)
-  /**
-   *  Keep Dgraph context & resolve in GraphQL resolvers
-   */
-  declare api?: DgraphInterfaceType
+  declare api: InterfaceType
 
   declare tags?: Array<Tag>
-
-  constructor({ id, type, name, api }: Atom) {
-    this.id = id
-    this.type = type
-    this.name = name
-    this.api = api
-  }
 
   /**
    * The same export format should also act as input for seeding

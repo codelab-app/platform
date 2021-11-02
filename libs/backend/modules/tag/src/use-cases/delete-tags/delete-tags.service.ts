@@ -6,7 +6,7 @@ import { DeleteTagsRequest } from './delete-tags.request'
 @Injectable()
 export class DeleteTagsService extends DgraphUseCase<DeleteTagsRequest> {
   protected async executeTransaction(request: DeleteTagsRequest, txn: Txn) {
-    const results = await this.createMutation(txn, request)
+    await this.createMutation(txn, request)
   }
 
   private async createMutation(

@@ -3,4 +3,6 @@ fragment Field on Field {
   key
   name
   description
+  source
+  target
 }

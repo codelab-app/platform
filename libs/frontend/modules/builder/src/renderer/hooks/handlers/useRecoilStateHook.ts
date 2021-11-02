@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { PersistenceType } from '@codelab/frontend/abstract/codegen'
 import { RecoilStateHookConfigFragment } from '@codelab/frontend/modules/element'
-import { PersistenceType } from '@codelab/shared/codegen/graphql'
 import { capitalizeFirstLetter } from '@codelab/shared/utils'
 import { useCallback, useEffect, useState } from 'react'
 import { atomFamily, useRecoilState } from 'recoil'

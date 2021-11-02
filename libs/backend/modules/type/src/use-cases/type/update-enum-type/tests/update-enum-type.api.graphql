@@ -1,3 +1,5 @@
 mutation TestUpdateEnumType($input: UpdateEnumTypeInput!) {
-  updateEnumType(input: $input)
+  updateEnumType(input: $input) {
+    ...TestType
+  }
 }

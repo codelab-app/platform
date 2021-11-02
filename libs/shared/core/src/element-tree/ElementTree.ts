@@ -1,75 +1,60 @@
-import {
-  Graph,
-  IComponentVertex,
-  IElementEdge,
-  IElementVertex,
-} from '@codelab/shared/abstract/core'
+import { IElement, IElementEdge, IGraph } from '@codelab/shared/abstract/core'
 import { getCyElementData } from '../cytoscape/element'
-import { filterPredicate, InstancePredicate, TreeService } from '../tree'
+import { TreeService } from '../tree'
+import { isComponent, isElement } from './guards'
 
-/** Returns the component referenced by the specified element, or null if there isn't one */
-// getComponentOfElement: (elementId: string) => ComponentFragment | undefined
+export class ElementTree extends TreeService<IElement, IElementEdge> {
+  public static readonly isElement = isElement
 
-// getComponentById: (componentId: string) => ComponentFragment | undefined
+  public static readonly isComponent = isComponent
 
-export class ElementTree<
-  TElementVertex extends IElementVertex = IElementVertex,
-  TComponentVertex extends IComponentVertex = IComponentVertex,
-  TEdge extends IElementEdge = IElementEdge,
-> extends TreeService<TElementVertex | TComponentVertex, TEdge> {
   // We inject the predicates, because we don't know how the
   // concrete vertices are implemented
   constructor(
-    graph: Graph<TElementVertex | TComponentVertex, TEdge>,
-    extractEdgeId: ((edge: TEdge) => string) | undefined,
-    public readonly isElementPredicate: InstancePredicate<
-      TElementVertex | TComponentVertex,
-      TElementVertex
-    >,
-    public readonly isComponentPredicate: InstancePredicate<
-      TElementVertex | TComponentVertex,
-      TComponentVertex
-    >,
+    graph: IGraph<any, any>,
+    extractEdgeId?: ((edge: any) => string) | undefined,
   ) {
     super(graph, extractEdgeId)
-    this.predicate = isElementPredicate
   }
 
   /**
-   * Component methods
+   * Overrides the mapper for ant tree
    */
-
-  protected antdNodeMapper(element: TElementVertex | TComponentVertex) {
+  protected antdNodeMapper(element: any) {
     return {
       ...element,
       key: element.id,
-      name: element.name || (element as IElementVertex)?.atom?.type,
+      name:
+        element.name ||
+        (element as IElement)?.atom?.type ||
+        (element as IElement)?.componentTag?.name,
     }
   }
 
   /** Returns the root element of a component */
-  getComponentRootElement(componentId: string): TElementVertex {
-    return this.findChildVertex(
-      componentId,
-      this.isElementPredicate,
-    ) as TElementVertex
-  }
+  // getComponentRootElement(componentId: string): TElementVertex {
+  //   return this.findChildVertex(
+  //     componentId,
+  //     this.isElementPredicate,
+  //   ) as TElementVertex
+  // }
 
-  /** Returns a component by its id or undefined if not found */
-  getComponentById(componentId: string): TComponentVertex | undefined {
+  /**
+   * componentId is the root elementId of the element tree
+   */
+  getComponentById(componentId: string): IElement | undefined {
     return this.cy
       .getElementById(componentId)
-      .filter(filterPredicate(this.isComponentPredicate))
       .first()
-      .map<TComponentVertex | undefined>(getCyElementData)[0]
+      .map<IElement | undefined>(getCyElementData)[0]
   }
 
-  getComponentOfElement(elementId: string) {
-    return this.cy
-      .getElementById(elementId)
-      .outgoers()
-      .filter(filterPredicate(this.isComponentPredicate))
-      .first()
-      .map<TComponentVertex | undefined>(getCyElementData)[0]
-  }
+  // getComponentOfElement(elementId: string) {
+  //   return this.cy
+  //     .getElementById(elementId)
+  //     .outgoers()
+  //     .filter(filterPredicate(this.isComponentPredicate))
+  //     .first()
+  //     .map<TComponentVertex | undefined>(getCyElementData)[0]
+  // }
 }

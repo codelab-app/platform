@@ -1,22 +1,52 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import {
+  TestType_ArrayType_Fragment,
+  TestType_ComponentType_Fragment,
+  TestType_ElementType_Fragment,
+  TestType_EnumType_Fragment,
+  TestType_InterfaceType_Fragment,
+  TestType_LambdaType_Fragment,
+  TestType_PrimitiveType_Fragment,
+  TestType_ReactNodeType_Fragment,
+  TestType_RenderPropsType_Fragment,
+  TestType_UnionType_Fragment,
+} from '../../../../tests/graphql/TestType.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TestTypeFragmentDoc } from '../../../../tests/graphql/TestType.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestDeleteTypeMutationVariables = Types.Exact<{
-  input: Types.DeleteTypeInput;
-}>;
+  input: Types.DeleteTypeInput
+}>
 
-
-export type TestDeleteTypeMutation = { deleteType?: Types.Maybe<void> };
-
+export type TestDeleteTypeMutation = {
+  deleteType?: Types.Maybe<
+    | TestType_ArrayType_Fragment
+    | TestType_ComponentType_Fragment
+    | TestType_ElementType_Fragment
+    | TestType_EnumType_Fragment
+    | TestType_InterfaceType_Fragment
+    | TestType_LambdaType_Fragment
+    | TestType_PrimitiveType_Fragment
+    | TestType_ReactNodeType_Fragment
+    | TestType_RenderPropsType_Fragment
+    | TestType_UnionType_Fragment
+  >
+}
 
 export const TestDeleteTypeGql = gql`
-    mutation TestDeleteType($input: DeleteTypeInput!) {
-  deleteType(input: $input)
-}
-    `;
-export type TestDeleteTypeMutationFn = Apollo.MutationFunction<TestDeleteTypeMutation, TestDeleteTypeMutationVariables>;
+  mutation TestDeleteType($input: DeleteTypeInput!) {
+    deleteType(input: $input) {
+      ...TestType
+    }
+  }
+  ${TestTypeFragmentDoc}
+`
+export type TestDeleteTypeMutationFn = Apollo.MutationFunction<
+  TestDeleteTypeMutation,
+  TestDeleteTypeMutationVariables
+>
 
 /**
  * __useTestDeleteTypeMutation__
@@ -35,10 +65,24 @@ export type TestDeleteTypeMutationFn = Apollo.MutationFunction<TestDeleteTypeMut
  *   },
  * });
  */
-export function useTestDeleteTypeMutation(baseOptions?: Apollo.MutationHookOptions<TestDeleteTypeMutation, TestDeleteTypeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestDeleteTypeMutation, TestDeleteTypeMutationVariables>(TestDeleteTypeGql, options);
-      }
-export type TestDeleteTypeMutationHookResult = ReturnType<typeof useTestDeleteTypeMutation>;
-export type TestDeleteTypeMutationResult = Apollo.MutationResult<TestDeleteTypeMutation>;
-export type TestDeleteTypeMutationOptions = Apollo.BaseMutationOptions<TestDeleteTypeMutation, TestDeleteTypeMutationVariables>;
+export function useTestDeleteTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestDeleteTypeMutation,
+    TestDeleteTypeMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestDeleteTypeMutation,
+    TestDeleteTypeMutationVariables
+  >(TestDeleteTypeGql, options)
+}
+export type TestDeleteTypeMutationHookResult = ReturnType<
+  typeof useTestDeleteTypeMutation
+>
+export type TestDeleteTypeMutationResult =
+  Apollo.MutationResult<TestDeleteTypeMutation>
+export type TestDeleteTypeMutationOptions = Apollo.BaseMutationOptions<
+  TestDeleteTypeMutation,
+  TestDeleteTypeMutationVariables
+>

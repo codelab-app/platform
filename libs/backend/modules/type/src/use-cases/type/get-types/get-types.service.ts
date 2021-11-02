@@ -1,28 +1,40 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphType, sortByUids } from '@codelab/backend/infra'
-import { Role } from '@codelab/shared/abstract/core'
+import { sortByIds } from '@codelab/backend/infra'
+import { IType, Role, TypeSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { getAdminTypesQuery, getUserTypesQuery } from './get-types.query'
+import {
+  getAdminTypesQuery,
+  getUserTypesQuery,
+  mapType,
+} from './get-types.query'
 import { GetTypesRequest } from './get-types.request'
 
 @Injectable()
 export class GetTypesService extends DgraphUseCase<
   GetTypesRequest,
-  Array<DgraphType<any>>
+  Array<IType>
 > {
+  protected schema = TypeSchema.array()
+
   protected async executeTransaction(
     { input, currentUser }: GetTypesRequest,
     txn: Txn,
   ) {
     if (currentUser.roles.includes(Role.Admin)) {
       return await this.dgraph
-        .getAll<DgraphType<any>>(txn, getAdminTypesQuery(input))
-        .then(sortByUids)
+        .getAllNamed<IType>(txn, getAdminTypesQuery(input, 'query'), 'query')
+        .then(sortByIds)
+        .then((types) => types.map(mapType))
     }
 
     return await this.dgraph
-      .getAll<DgraphType<any>>(txn, getUserTypesQuery(input, currentUser.id))
-      .then(sortByUids)
+      .getAllNamed<IType>(
+        txn,
+        getUserTypesQuery(input, currentUser.id, 'query'),
+        'query',
+      )
+      .then(sortByIds)
+      .then((types) => types.map(mapType))
   }
 }

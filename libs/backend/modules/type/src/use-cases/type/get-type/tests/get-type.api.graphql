@@ -12,7 +12,7 @@ query TestGetType($input: GetTypeInput!) {
       }
     }
     ... on ElementType {
-      kind
+      elementKind
     }
     ... on PrimitiveType {
       primitiveKind

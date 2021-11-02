@@ -1,13 +1,8 @@
-import {
-  IComponentVertex,
-  IElementEdge,
-  IElementVertex,
-} from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React, { useContext } from 'react'
 
 export interface SelectElementContext {
-  tree: ElementTree<IElementVertex, IComponentVertex, IElementEdge>
+  tree: ElementTree
 }
 
 const SelectElementContext = React.createContext<SelectElementContext>({
@@ -18,7 +13,7 @@ const SelectElementContext = React.createContext<SelectElementContext>({
 export const SelectElementProvider = ({
   tree,
   children,
-}: React.PropsWithChildren<{ tree: ElementTree<any, any, any> }>) => (
+}: React.PropsWithChildren<{ tree: ElementTree }>) => (
   <SelectElementContext.Provider value={{ tree }}>
     {children}
   </SelectElementContext.Provider>

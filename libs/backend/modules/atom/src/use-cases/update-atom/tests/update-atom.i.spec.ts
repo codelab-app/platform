@@ -1,16 +1,6 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { AtomType, Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { AtomModule } from '../../../atom.module'
-import { CreateAtomInput } from '../../create-atom'
-import {
-  TestCreateAtomGql,
-  TestCreateAtomMutation,
-} from '../../create-atom/tests/create-atom.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { AtomType } from '@codelab/shared/abstract/core'
+import { setupAtomTestModule } from '../../../test/setupAtomTestModule'
 import { createAtomInput } from '../../create-atom/tests/create-atom.data'
 import { UpdateAtomInput } from '../update-atom.input'
 import {
@@ -19,23 +9,14 @@ import {
 } from './update-atom.api.graphql.gen'
 
 describe('UpdateAtom', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
-  let adminApp: INestApplication
+  const testModule = setupAtomTestModule(false)
   let atomId: string
   let updateAtomInput: UpdateAtomInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AtomModule], { role: Role.Guest })
-    userApp = await setupTestModule([AtomModule], { role: Role.User })
-    adminApp = await setupTestModule([AtomModule], { role: Role.Admin })
+    const createAtom = await testModule.createTestAtom(createAtomInput)
 
-    const results = await domainRequest<
-      CreateAtomInput,
-      TestCreateAtomMutation
-    >(adminApp, TestCreateAtomGql, createAtomInput)
-
-    atomId = results.createAtom.id
+    atomId = createAtom.id
     updateAtomInput = {
       id: atomId,
       data: {
@@ -47,25 +28,29 @@ describe('UpdateAtom', () => {
     expect(atomId).toBeDefined()
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-    await teardownTestModule(adminApp)
-  })
-
   describe('Guest', () => {
     it('should fail to update an atom', async () => {
-      await domainRequest(guestApp, TestUpdateAtomGql, updateAtomInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestUpdateAtomGql,
+        updateAtomInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
     it('should fail to update an atom', async () => {
-      await domainRequest(userApp, TestUpdateAtomGql, updateAtomInput, {
-        message: 'Admin access only',
-      })
+      await domainRequest(
+        testModule.userApp,
+        TestUpdateAtomGql,
+        updateAtomInput,
+        {
+          message: 'Admin access only',
+        },
+      )
     })
   })
 
@@ -74,7 +59,7 @@ describe('UpdateAtom', () => {
       const { updateAtom } = await domainRequest<
         UpdateAtomInput,
         TestUpdateAtomMutation
-      >(adminApp, TestUpdateAtomGql, updateAtomInput)
+      >(testModule.adminApp, TestUpdateAtomGql, updateAtomInput)
 
       expect(updateAtom).toBeDefined()
 

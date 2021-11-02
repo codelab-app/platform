@@ -1,6 +1,6 @@
-import { BaseNode } from '@codelab/shared/abstract/core'
+import { IBaseNode } from '@codelab/shared/abstract/core'
 
-export const treeData: BaseNode<any> = {
+export const treeData: IBaseNode<any> = {
   id: 'Root',
   children: [
     {

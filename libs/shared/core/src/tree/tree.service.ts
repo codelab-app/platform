@@ -1,4 +1,4 @@
-import { Edge, Graph, Vertex } from '@codelab/shared/abstract/core'
+import { IEdge, IGraph, IVertex } from '@codelab/shared/abstract/core'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, {
   SearchVisitFunction,
@@ -10,9 +10,10 @@ import { edgeId } from '../graph/edgeId'
 import { filterPredicate, InstancePredicate, Predicate } from './treePredicate'
 
 /**
- * The TreeAdapter implements the Graph port interface. Think of the GraphQL server data as the contract, and we're adapting to that.
+ * Builds up a Tree from a flattened and normalized representation ({@link IGraph})
+ * and provides node-traversal methods for it
  */
-export class TreeService<TVertex extends Vertex, TEdge extends Edge> {
+export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
   public readonly cy: cytoscape.Core
 
   root?: TVertex
@@ -23,7 +24,7 @@ export class TreeService<TVertex extends Vertex, TEdge extends Edge> {
   predicate: Predicate<TVertex> = () => true
 
   constructor(
-    { vertices, edges }: Graph<TVertex, TEdge> = { vertices: [], edges: [] },
+    { vertices, edges }: IGraph<TVertex, TEdge> = { vertices: [], edges: [] },
     extractEdgeId?: (edge: TEdge) => string,
   ) {
     const parentsMap = new Map<string, string>()
@@ -59,15 +60,15 @@ export class TreeService<TVertex extends Vertex, TEdge extends Edge> {
     getCyElementData<TVertex>(cyElement)
 
   getPathFromRoot(vertexId: string) {
-    const path = this.cy.elements().aStar({
+    const path = this.cy.elements()?.aStar({
       root: `#${this.cy.elements().roots().first().id()}`,
       directed: true,
       goal: `#${vertexId}`,
     })
 
     return {
-      found: path.found,
-      path: path.path.map((e) => e.id()),
+      found: path?.found ?? false,
+      path: path?.path.map((e) => e.id()),
     }
   }
 
@@ -92,11 +93,15 @@ export class TreeService<TVertex extends Vertex, TEdge extends Edge> {
     })
   }
 
-  getAntdTree(): DataNode {
+  getAntdTree(): DataNode | null {
     const root = this.cy.elements().roots().first()
     let tree: DataNode | null = null
     const nodes: Record<string, DataNode> = {}
     const nodeOrder: Record<string, number> = {}
+
+    if (!root) {
+      return null
+    }
 
     this.cy.elements().breadthFirstSearch({
       root,
@@ -176,8 +181,12 @@ export class TreeService<TVertex extends Vertex, TEdge extends Edge> {
       .map(this.getCyElementData)[0]
   }
 
-  getRootVertex() {
-    return this.cy.elements().roots().map(this.getCyElementData)[0]
+  getRootVertex(predicate?: Predicate<TVertex>): TVertex | undefined {
+    return this.cy
+      .elements()
+      .roots()
+      .filter(filterPredicate(predicate ?? this.predicate))
+      .map(this.getCyElementData)[0]
   }
 
   getChildren(

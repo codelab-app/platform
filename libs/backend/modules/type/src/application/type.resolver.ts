@@ -1,8 +1,7 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { CreateResponse } from '@codelab/backend/application'
-import { GqlAuthGuard, isDgraphInterfaceType } from '@codelab/backend/infra'
+import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
-import { User } from '@codelab/shared/abstract/core'
+import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -12,7 +11,14 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { InterfaceType, Type, TypeGraph } from '../domain'
+import {
+  EnumType,
+  InterfaceType,
+  PrimitiveType,
+  Type,
+  TypeGraph,
+  UnionType,
+} from '../domain'
 import {
   CreateTypeInput,
   CreateTypeService,
@@ -22,8 +28,11 @@ import {
   DeleteTypeService,
 } from '../use-cases/type/delete-type'
 import { GetTypeInput, GetTypeService } from '../use-cases/type/get-type'
+import {
+  GetTypeGraphInput,
+  GetTypeGraphService,
+} from '../use-cases/type/get-type-graph'
 import { GetTypesInput, GetTypesService } from '../use-cases/type/get-types'
-import { ImportApiService } from '../use-cases/type/import-api'
 import { SeedBaseTypesService } from '../use-cases/type/seed-base-types'
 import {
   UpdateEnumTypeInput,
@@ -41,7 +50,6 @@ import {
   UpdateUnionTypeInput,
   UpdateUnionTypeService,
 } from '../use-cases/type/update-union-type/'
-import { TypeAdapterFactory, TypeGraphAdapter } from './adapters'
 
 @Resolver(() => Type)
 @Injectable()
@@ -55,38 +63,9 @@ export class TypeResolver {
     private updateTypeService: UpdateTypeService,
     private createTypeService: CreateTypeService,
     private deleteTypeService: DeleteTypeService,
-    private typeAdapterFactory: TypeAdapterFactory,
-    private typeGraphAdapter: TypeGraphAdapter,
     private seedBaseTypesService: SeedBaseTypesService,
-    private importApiService: ImportApiService,
+    private getTypeGraphService: GetTypeGraphService,
   ) {}
-
-  /**
-   * Used by export to resolve the graph on the type
-   * @param api
-   */
-  @ResolveField('typeGraph', () => TypeGraph)
-  async typeGraph(
-    @Parent() api: InterfaceType,
-    @CurrentUser() currentUser: User,
-  ) {
-    const { id } = api
-
-    const type = await this.getTypeService.execute({
-      input: { where: { id } },
-      currentUser,
-    })
-
-    if (!type) {
-      return null
-    }
-
-    if (isDgraphInterfaceType(type)) {
-      return await this.typeGraphAdapter.mapItem(type)
-    }
-
-    throw new Error('Type graph can only be retrieved for an Interface Type')
-  }
 
   // @UseGuards(GqlAuthGuard)
   // @Mutation(() => Void, { nullable: true })
@@ -96,7 +75,7 @@ export class TypeResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })
-  async seedBaseTypes(@CurrentUser() currentUser: User) {
+  async seedBaseTypes(@CurrentUser() currentUser: IUser) {
     await this.seedBaseTypesService.execute({ currentUser })
   }
 
@@ -104,90 +83,124 @@ export class TypeResolver {
   @Query(() => Type, { nullable: true })
   async getType(
     @Args('input') input: GetTypeInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    const type = await this.getTypeService.execute({
+    return this.getTypeService.execute({
       input,
       currentUser,
     })
-
-    if (!type) {
-      return null
-    }
-
-    return this.typeAdapterFactory.getMapper(type).mapItem(type)
   }
 
   @UseGuards(GqlAuthGuard)
   @Query(() => TypeGraph, { nullable: true })
   async getTypeGraph(
-    @Args('input') input: GetTypeInput,
-    @CurrentUser() currentUser: User,
+    @Args('input') input: GetTypeGraphInput,
+    @CurrentUser() currentUser: IUser,
   ) {
-    const type = await this.getTypeService.execute({ input, currentUser })
-
-    if (!type) {
-      return null
-    }
-
-    if (isDgraphInterfaceType(type)) {
-      return this.typeGraphAdapter.mapItem(type)
-    }
-
-    throw new Error('Type graph can only be retrieved for an Interface Type')
+    return this.getTypeGraphService.execute({ input, currentUser })
   }
 
   @UseGuards(GqlAuthGuard)
   @Query(() => [Type])
   async getTypes(
     @Args('input', { nullable: true }) input: GetTypesInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    const types = await this.getTypesService.execute({ input, currentUser })
-
-    return Promise.all(
-      types.map((type) =>
-        this.typeAdapterFactory.getMapper(type).mapItem(type),
-      ),
-    )
+    return await this.getTypesService.execute({ input, currentUser })
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => CreateResponse)
+  @Mutation(() => Type)
   async createType(
     @Args('input') input: CreateTypeInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    return await this.createTypeService.execute({ input, currentUser })
+    const { id } = await this.createTypeService.execute({ input, currentUser })
+
+    return this.getTypeOrThrow(id, currentUser)
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => Void, { nullable: true })
-  async updateEnumType(@Args('input') input: UpdateEnumTypeInput) {
+  @Mutation(() => EnumType, { nullable: true })
+  async updateEnumType(
+    @Args('input') input: UpdateEnumTypeInput,
+    @CurrentUser() currentUser: IUser,
+  ) {
     await this.updateEnumTypeService.execute(input)
+
+    return this.getTypeOrThrow(input.typeId, currentUser)
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => Void, { nullable: true })
-  async updatePrimitiveType(@Args('input') input: UpdatePrimitiveTypeInput) {
+  @Mutation(() => PrimitiveType, { nullable: true })
+  async updatePrimitiveType(
+    @Args('input') input: UpdatePrimitiveTypeInput,
+    @CurrentUser() currentUser: IUser,
+  ) {
     await this.updatePrimitiveTypeService.execute(input)
+
+    return this.getTypeOrThrow(input.typeId, currentUser)
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => Void, { nullable: true })
-  async updateUnionType(@Args('input') input: UpdateUnionTypeInput) {
+  @Mutation(() => UnionType, { nullable: true })
+  async updateUnionType(
+    @Args('input') input: UpdateUnionTypeInput,
+    @CurrentUser() currentUser: IUser,
+  ) {
     await this.updateUnionTypeService.execute(input)
+
+    return this.getTypeOrThrow(input.typeId, currentUser)
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => Void, { nullable: true })
-  async updateType(@Args('input') input: UpdateTypeInput) {
+  @Mutation(() => Type, { nullable: true })
+  async updateType(
+    @Args('input') input: UpdateTypeInput,
+    @CurrentUser() currentUser: IUser,
+  ) {
     await this.updateTypeService.execute(input)
+
+    return this.getTypeOrThrow(input.typeId, currentUser)
   }
 
   @UseGuards(GqlAuthGuard)
-  @Mutation(() => Void, { nullable: true })
-  async deleteType(@Args('input') input: DeleteTypeInput) {
+  @Mutation(() => Type, { nullable: true })
+  async deleteType(
+    @Args('input') input: DeleteTypeInput,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    const type = await this.getTypeOrThrow(input.typeId, currentUser)
+
     await this.deleteTypeService.execute(input)
+
+    return type
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @ResolveField(() => TypeGraph)
+  async typeGraph(
+    @Parent() interfaceType: InterfaceType,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    return this.getTypeGraphService.execute({
+      input: {
+        where: { id: interfaceType.id },
+      },
+      currentUser,
+    })
+  }
+
+  private async getTypeOrThrow(typeId: string, currentUser: IUser) {
+    const type = await this.getTypeService.execute({
+      input: { where: { id: typeId } },
+      currentUser,
+    })
+
+    if (!type) {
+      throw new Error("Couldn't find type")
+    }
+
+    return type
   }
 }

@@ -1,11 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphApp,
-  DgraphElement,
-  DgraphEntityType,
-  DgraphPage,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { AppValidator } from '../../domain/app.validator'
@@ -34,12 +28,7 @@ export class DeleteAppService extends DgraphUseCase<DeleteAppRequest> {
 
     await this.dgraph.executeUpsertDeleteAll(txn, (q) =>
       q
-        .addJsonFields<DgraphApp & DgraphPage & DgraphElement>({
-          pages: true,
-          root: true,
-          children: true,
-          props: true,
-        })
+        .addFields('pages root children props')
         .addTypeFilterDirective(DgraphEntityType.App)
         .setUidFunc(appId),
     )

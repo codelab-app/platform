@@ -1,12 +1,7 @@
 import { testAuth0Id, testUserUid } from '@codelab/backend/shared/generic'
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
+import { domainRequest } from '@codelab/backend/shared/testing'
 import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { TagModule } from '../../../tag.module'
+import { setupTagTestModule } from '../../../test/setupTagTestModule'
 import {
   TestGetTagGraphGql,
   TestGetTagGraphQuery,
@@ -14,16 +9,11 @@ import {
 import { SeedTagTreeService } from '../seed-tag-tree.service'
 
 describe.skip('SeedTagTreeUseCase', () => {
-  let app: INestApplication
+  const testModule = setupTagTestModule()
   let seedTagTreeService: SeedTagTreeService
 
   beforeAll(async () => {
-    app = await setupTestModule([TagModule], { role: Role.User })
-    seedTagTreeService = app.get(SeedTagTreeService)
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(app)
+    seedTagTreeService = testModule.userApp.get(SeedTagTreeService)
   })
 
   describe('User', () => {
@@ -39,7 +29,7 @@ describe.skip('SeedTagTreeUseCase', () => {
       const { getTagGraph: tagGraph } = await domainRequest<
         undefined,
         TestGetTagGraphQuery
-      >(app, TestGetTagGraphGql)
+      >(testModule.userApp, TestGetTagGraphGql)
 
       expect(tagGraph).toMatchObject({
         vertices: [{ name: SeedTagTreeService.__TAG_ROOT }],

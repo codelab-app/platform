@@ -2,11 +2,9 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type App {
-  id: ID!
-  ownerId: String!
-  name: String!
-  pages: [Page!]!
+interface TypeEdge {
+  source: String!
+  target: String!
 }
 
 type CreateResponse {
@@ -25,31 +23,34 @@ enum Role {
   Guest
 }
 
+type App {
+  id: ID!
+  ownerId: String!
+  name: String!
+  pages: [Page!]!
+}
+
 type Field {
   id: ID!
   key: String!
   name: String
   description: String
+  target: String!
+  source: String!
 }
 
-"""
-A edge between types. Depending on the kind can mean a couple of things:
-  TypeEdgeKind.Field - it represents a Field object, the field property will contain the metadata;
-  TypeEdgeKind.ArrayItem - it represents the generic array item type of an array type. The field property will be empty
-"""
-type TypeEdge {
+type BaseTypeEdge implements TypeEdge {
   source: String!
   target: String!
-  kind: TypeEdgeKind!
-
-  """Empty if kind is not TypeEdgeKind.Field"""
-  field: Field
 }
 
-enum TypeEdgeKind {
-  Field
-  ArrayItem
-  Union
+type FieldTypeEdge implements TypeEdge {
+  source: String!
+  target: String!
+  id: ID!
+  key: String!
+  name: String
+  description: String
 }
 
 type ArrayType implements Type {
@@ -97,7 +98,7 @@ type ElementType implements Type {
   id: ID!
   name: String!
   typeGraph: TypeGraph!
-  kind: ElementTypeKind!
+  elementKind: ElementTypeKind!
 }
 
 enum ElementTypeKind {
@@ -125,7 +126,6 @@ type InterfaceType implements Type {
   id: ID!
   name: String!
   typeGraph: TypeGraph!
-  fields: [Field!]!
 }
 
 """
@@ -143,10 +143,10 @@ type PrimitiveType implements Type {
   id: ID!
   name: String!
   typeGraph: TypeGraph!
-  primitiveKind: PrimitiveKind!
+  primitiveKind: PrimitiveTypeKind!
 }
 
-enum PrimitiveKind {
+enum PrimitiveTypeKind {
   String
   Integer
   Float
@@ -186,11 +186,10 @@ type Atom {
   id: ID!
   type: AtomType!
 
-  """
-  This is a unique ID suitable for seeders to lookup, will rename to value
-  """
+  """This is a unique ID suitable for seeders to lookup"""
   name: String!
   api: InterfaceType!
+  apiGraph: TypeGraph!
 }
 
 enum AtomType {
@@ -579,21 +578,21 @@ type QueryHookConfig {
 }
 
 enum QueryMethod {
-  GET
-  DELETE
-  HEAD
-  OPTIONS
-  POST
-  PUT
-  PATCH
-  PURGE
-  LINK
-  UNLINK
+  Get
+  Delete
+  Head
+  Options
+  Post
+  Put
+  Patch
+  Purge
+  Link
+  Unlink
 }
 
 type GraphqlHookConfig {
-  body: String!
-  url: String!
+  graphqlBody: String!
+  graphqlUrl: String!
   dataKey: String
 }
 
@@ -615,90 +614,6 @@ type QueryPageHookConfig {
 
 type QueryPagesHookConfig {
   appId: String!
-}
-
-type PropMapBinding {
-  id: ID!
-
-  """
-  The ID of the target element, if omitted, the current element will be the target
-  """
-  targetElementId: String
-
-  """The key of the prop, as received in the source element"""
-  sourceKey: String!
-
-  """The key of the prop, that the target Element will receive"""
-  targetKey: String!
-}
-
-type Element {
-  id: ID!
-
-  """
-  Due to union nullability issue, we have to make this non-nullable. Defaults to atom type
-  """
-  name: String!
-  css: String
-
-  """Props in a json format"""
-  props: String!
-  hooks: [Hook!]!
-
-  """
-  If set, the element will get rendered for each item in the array found in its props by the given key, if it exists
-  """
-  renderForEachPropKey: String
-
-  """
-  If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)
-  """
-  renderIfPropKey: String
-  propMapBindings: [PropMapBinding!]!
-  propTransformationJs: String
-  atom: Atom
-}
-
-type Component {
-  id: ID!
-  name: String!
-}
-
-"""An edge between two element nodes"""
-type ElementEdge {
-  """The id of the source Element/Component"""
-  source: String!
-
-  """The id of the target Element/Component"""
-  target: String!
-  order: Int
-}
-
-type ElementGraph {
-  """All descendant Elements or Components, at any level"""
-  vertices: [ElementVertex!]!
-
-  """All the links connecting the descendant elements/components"""
-  edges: [ElementEdge!]!
-}
-
-union ElementVertex = Element | Component
-
-type Lambda {
-  id: ID!
-  ownerId: String!
-  name: String!
-  body: String!
-}
-
-type LambdaPayload {
-  payload: String!
-}
-
-type Page {
-  id: ID!
-  name: String!
-  elements: ElementGraph
 }
 
 type Tag {
@@ -729,6 +644,87 @@ type TagGraph {
 
 union TagVertex = Tag
 
+type PropMapBinding {
+  id: ID!
+
+  """
+  The ID of the target element, if omitted, the current element will be the target
+  """
+  targetElementId: String
+
+  """The key of the prop, as received in the source element"""
+  sourceKey: String!
+
+  """The key of the prop, that the target Element will receive"""
+  targetKey: String!
+}
+
+type Element {
+  id: ID!
+  name: String
+
+  """An Element tagged with componentTag is a reusable component"""
+  componentTag: Tag
+  css: String
+  atom: Atom
+
+  """Props in a json format"""
+  props: String!
+  hooks: [Hook!]!
+
+  """
+  If set, the element will get rendered for each item in the array found in its props by the given key, if it exists
+  """
+  renderForEachPropKey: String
+
+  """
+  If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)
+  """
+  renderIfPropKey: String
+  propMapBindings: [PropMapBinding!]!
+  propTransformationJs: String
+
+  """
+  Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
+  """
+  graph: ElementGraph!
+}
+
+"""An edge between two element nodes"""
+type ElementEdge {
+  """The id of the source Element"""
+  source: String!
+
+  """The id of the target Element"""
+  target: String!
+  order: Int
+}
+
+type ElementGraph {
+  vertices: [Element!]!
+
+  """All the links connecting the descendant elements"""
+  edges: [ElementEdge!]!
+}
+
+type Lambda {
+  id: ID!
+  ownerId: String!
+  name: String!
+  body: String!
+}
+
+type LambdaPayload {
+  payload: String!
+}
+
+type Page {
+  id: ID!
+  name: String!
+  elements: ElementGraph
+  rootElementId: String!
+}
+
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
@@ -741,17 +737,15 @@ type Query {
   """
   Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
   """
-  getElementGraph(input: GetElementGraphInput!): ElementGraph
+  getElementGraph(input: GetElementGraphInput!): ElementGraph!
 
   """Get a single element."""
   getElement(input: GetElementInput!): Element
-  getComponent(input: GetComponentInput!): Component
-  getComponentElements(input: GetComponentInput!): ElementGraph
-  getComponents(input: GetComponentsInput): [Component!]!
+  getComponents(input: GetComponentsInput): [Element!]!
   getAtoms(input: GetAtomsInput): [Atom!]
   getAtom(input: GetAtomInput!): Atom
   getType(input: GetTypeInput!): Type
-  getTypeGraph(input: GetTypeInput!): TypeGraph
+  getTypeGraph(input: GetTypeGraphInput!): TypeGraph
   getTypes(input: GetTypesInput): [Type!]!
   getField(input: GetFieldInput!): Field
   getLambda(input: GetLambdaInput!): Lambda
@@ -759,7 +753,7 @@ type Query {
   getTag(input: GetTagInput!): Tag
 
   """Get all Tag graphs"""
-  getTags: [Tag!]!
+  getTags(input: GetTagsInput): [Tag!]!
 
   """
   Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge
@@ -810,15 +804,15 @@ input GetPageInput {
 }
 
 input GetElementGraphInput {
-  elementId: String!
+  where: WhereUniqueElement!
+}
+
+input WhereUniqueElement {
+  id: String
 }
 
 input GetElementInput {
-  elementId: String!
-}
-
-input GetComponentInput {
-  componentId: String!
+  where: WhereUniqueElement!
 }
 
 input GetComponentsInput {
@@ -829,8 +823,10 @@ input GetAtomsInput {
   where: AtomsWhereInput
 }
 
+"""Provide at most 1 filter"""
 input AtomsWhereInput {
   ids: [String!]
+  types: [AtomType!]
 }
 
 input GetAtomInput {
@@ -847,10 +843,15 @@ input GetTypeInput {
   where: WhereUniqueType!
 }
 
+"""Provide exactly 1 field"""
 input WhereUniqueType {
   id: String
   name: String
   atomId: String
+}
+
+input GetTypeGraphInput {
+  where: WhereUniqueType!
 }
 
 """Filters are optional and you can provide all three of them together"""
@@ -899,6 +900,10 @@ input WhereUniqueTag {
   id: String
 }
 
+input GetTagsInput {
+  ids: [String!]
+}
+
 input GetTagGraphsInput {
   where: TagsWhereInput
 }
@@ -911,49 +916,48 @@ type Mutation {
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App
   deleteApp(input: DeleteAppInput!): App
-  upsertUser(input: UpsertUserInput!): CreateResponse!
+  upsertUser(input: UpsertUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
   resetData: Void
   createPage(input: CreatePageInput!): Page!
-  deletePage(input: DeletePageInput!): Page
-  updatePage(input: UpdatePageInput!): Page
+  deletePage(input: DeletePageInput!): Page!
+  updatePage(input: UpdatePageInput!): Page!
   createPropMapBinding(input: CreatePropMapBindingInput!): CreateResponse!
   updatePropMapBinding(input: UpdatePropMapBindingInput!): Void
   deletePropMapBinding(input: DeletePropMapBindingInput!): Void
   addHookToElement(input: AddHookToElementInput!): CreateResponse!
   removeHookFromElement(input: RemoveHookFromElementInput!): Void
-  createElement(input: CreateElementInput!): CreateResponse!
-  updateElement(input: UpdateElementInput!): Void
-  moveElement(input: MoveElementInput!): Void
-  updateElementProps(input: UpdateElementPropsInput!): Void
+  createElement(input: CreateElementInput!): Element!
+  updateElement(input: UpdateElementInput!): Element!
+  moveElement(input: MoveElementInput!): Element!
+  updateElementProps(input: UpdateElementPropsInput!): Element!
 
   """Deletes an element and all the descending elements"""
-  deleteElement(input: DeleteElementInput!): Void
-  createComponent(input: CreateComponentInput!): CreateResponse!
-  updateComponent(input: UpdateComponentInput!): Void
-  deleteComponent(input: DeleteComponentInput!): Void
+  deleteElement(input: DeleteElementInput!): Element!
+  createComponent(input: CreateComponentInput!): Element!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): Atom
   importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Atom
+  createAtoms(input: CreateAtomsInput!): [Atom!]!
   seedBaseTypes: Void
-  createType(input: CreateTypeInput!): CreateResponse!
-  updateEnumType(input: UpdateEnumTypeInput!): Void
-  updatePrimitiveType(input: UpdatePrimitiveTypeInput!): Void
-  updateUnionType(input: UpdateUnionTypeInput!): Void
-  updateType(input: UpdateTypeInput!): Void
-  deleteType(input: DeleteTypeInput!): Void
-  createField(input: CreateFieldInput!): CreateResponse!
-  updateField(input: UpdateFieldInput!): Void
-  deleteField(input: DeleteFieldInput!): Void
-  createLambda(input: CreateLambdaInput!): CreateResponse!
-  deleteLambda(input: DeleteLambdaInput!): Void
-  updateLambda(input: UpdateLambdaInput!): Void
+  createType(input: CreateTypeInput!): Type!
+  updateEnumType(input: UpdateEnumTypeInput!): EnumType
+  updatePrimitiveType(input: UpdatePrimitiveTypeInput!): PrimitiveType
+  updateUnionType(input: UpdateUnionTypeInput!): UnionType
+  updateType(input: UpdateTypeInput!): Type
+  deleteType(input: DeleteTypeInput!): Type
+  createField(input: CreateFieldInput!): Field!
+  updateField(input: UpdateFieldInput!): Field
+  deleteField(input: DeleteFieldInput!): Field
+  createLambda(input: CreateLambdaInput!): Lambda!
+  deleteLambda(input: DeleteLambdaInput!): Lambda!
+  updateLambda(input: UpdateLambdaInput!): Lambda
   executeLambda(input: ExecuteLambdaInput!): LambdaPayload
-  createTag(input: CreateTagInput!): CreateResponse!
-  updateTag(input: UpdateTagInput!): Void
-  deleteTags(input: DeleteTagsInput!): Void
-  upsertTag(input: UpsertTagInput!): Void!
+  createTag(input: CreateTagInput!): Tag!
+  updateTag(input: UpdateTagInput!): Tag
+  deleteTags(input: DeleteTagsInput!): [Tag!]
+  upsertTag(input: UpsertTagInput!): Tag!
   importTags(input: ImportTagsInput!): Void
 }
 
@@ -1073,8 +1077,8 @@ input QueryHookConfigInput {
 }
 
 input GraphqlHookConfigInput {
-  url: String!
-  body: String!
+  graphqlUrl: String!
+  graphqlBody: String!
   dataKey: String
 }
 
@@ -1100,13 +1104,13 @@ input RemoveHookFromElementInput {
 input CreateElementInput {
   name: String
   atomId: String
-  componentId: String
   parentElementId: String
 
   """
   Leave it out to automatically set it as the last order of all the children
   """
   order: Int
+  childrenIds: [String!]
 }
 
 input UpdateElementInput {
@@ -1117,7 +1121,6 @@ input UpdateElementInput {
 input UpdateElementData {
   name: String
   atomId: String
-  componentId: String
   css: String
 
   """
@@ -1155,19 +1158,6 @@ input CreateComponentInput {
   name: String!
 }
 
-input UpdateComponentInput {
-  componentId: String!
-  updateData: UpdateComponentData!
-}
-
-input UpdateComponentData {
-  name: String!
-}
-
-input DeleteComponentInput {
-  componentId: String!
-}
-
 input CreateAtomInput {
   name: String!
   type: AtomType!
@@ -1189,6 +1179,10 @@ input UpdateAtomInput {
   data: CreateAtomInput!
 }
 
+input CreateAtomsInput {
+  atoms: [CreateAtomInput!]!
+}
+
 """Provide one of the properties"""
 input CreateTypeInput {
   name: String!
@@ -1197,14 +1191,11 @@ input CreateTypeInput {
   arrayType: CreateArrayTypeInput
   enumType: CreateEnumTypeInput
   unionType: CreateUnionType
-  interfaceType: Boolean = false
-  lambdaType: Boolean = false
-  componentType: Boolean = false
   elementType: CreateElementTypeInput
 }
 
 input CreatePrimitiveTypeInput {
-  primitiveKind: PrimitiveKind!
+  primitiveKind: PrimitiveTypeKind!
 }
 
 input CreateArrayTypeInput {
@@ -1250,7 +1241,7 @@ input UpdatePrimitiveTypeInput {
 }
 
 input UpdatePrimitiveKindData {
-  primitiveKind: PrimitiveKind!
+  primitiveKind: PrimitiveTypeKind!
   name: String!
 }
 

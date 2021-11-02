@@ -10,5 +10,5 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true
   },
-  "include": ["./**/*.ts"]
+  "include": ["./**/*.(t|j)s"]
 }

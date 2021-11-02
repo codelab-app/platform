@@ -1,12 +1,13 @@
+import { PlusOutlined } from '@ant-design/icons'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
-  CreateComponentButton,
   CreateComponentModal,
-  DeleteComponentModal,
+  DeleteElementModal,
   GetComponentsTable,
-  UpdateComponentModal,
-} from '@codelab/frontend/modules/component'
+} from '@codelab/frontend/modules/element'
+import { UpdateTagModal } from '@codelab/frontend/modules/tag'
+import { CrudButton, EntityType } from '@codelab/frontend/view/components'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -17,7 +18,14 @@ import Head from 'next/head'
 import React from 'react'
 
 const Components: CodelabPage = () => {
-  const pageHeaderButtons = [<CreateComponentButton key={0} />]
+  const pageHeaderButtons = [
+    <CrudButton
+      entityType={EntityType.Component}
+      size={'small'}
+      icon={<PlusOutlined />}
+      key={0}
+    />,
+  ]
 
   return (
     <>
@@ -32,8 +40,8 @@ const Components: CodelabPage = () => {
         extra={pageHeaderButtons}
       />
       <CreateComponentModal />
-      <UpdateComponentModal />
-      <DeleteComponentModal />
+      <UpdateTagModal />
+      <DeleteElementModal />
       <ContentSection>
         <GetComponentsTable />
       </ContentSection>

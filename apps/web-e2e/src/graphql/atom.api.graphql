@@ -1,0 +1,11 @@
+mutation E2eCreateAtom($input: CreateAtomInput!) {
+  createAtom(input: $input) {
+    ...AtomBase
+  }
+}
+
+query E2eGetAtom($input: GetAtomInput!) {
+  getAtom(input: $input) {
+    ...Atom
+  }
+}

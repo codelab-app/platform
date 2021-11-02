@@ -1,22 +1,30 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { TestFieldFragment } from '../../../../tests/graphql/TestField.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TestFieldFragmentDoc } from '../../../../tests/graphql/TestField.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestDeleteFieldMutationVariables = Types.Exact<{
-  input: Types.DeleteFieldInput;
-}>;
+  input: Types.DeleteFieldInput
+}>
 
-
-export type TestDeleteFieldMutation = { deleteField?: Types.Maybe<void> };
-
+export type TestDeleteFieldMutation = {
+  deleteField?: Types.Maybe<TestFieldFragment>
+}
 
 export const TestDeleteFieldGql = gql`
-    mutation TestDeleteField($input: DeleteFieldInput!) {
-  deleteField(input: $input)
-}
-    `;
-export type TestDeleteFieldMutationFn = Apollo.MutationFunction<TestDeleteFieldMutation, TestDeleteFieldMutationVariables>;
+  mutation TestDeleteField($input: DeleteFieldInput!) {
+    deleteField(input: $input) {
+      ...TestField
+    }
+  }
+  ${TestFieldFragmentDoc}
+`
+export type TestDeleteFieldMutationFn = Apollo.MutationFunction<
+  TestDeleteFieldMutation,
+  TestDeleteFieldMutationVariables
+>
 
 /**
  * __useTestDeleteFieldMutation__
@@ -35,10 +43,24 @@ export type TestDeleteFieldMutationFn = Apollo.MutationFunction<TestDeleteFieldM
  *   },
  * });
  */
-export function useTestDeleteFieldMutation(baseOptions?: Apollo.MutationHookOptions<TestDeleteFieldMutation, TestDeleteFieldMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestDeleteFieldMutation, TestDeleteFieldMutationVariables>(TestDeleteFieldGql, options);
-      }
-export type TestDeleteFieldMutationHookResult = ReturnType<typeof useTestDeleteFieldMutation>;
-export type TestDeleteFieldMutationResult = Apollo.MutationResult<TestDeleteFieldMutation>;
-export type TestDeleteFieldMutationOptions = Apollo.BaseMutationOptions<TestDeleteFieldMutation, TestDeleteFieldMutationVariables>;
+export function useTestDeleteFieldMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestDeleteFieldMutation,
+    TestDeleteFieldMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestDeleteFieldMutation,
+    TestDeleteFieldMutationVariables
+  >(TestDeleteFieldGql, options)
+}
+export type TestDeleteFieldMutationHookResult = ReturnType<
+  typeof useTestDeleteFieldMutation
+>
+export type TestDeleteFieldMutationResult =
+  Apollo.MutationResult<TestDeleteFieldMutation>
+export type TestDeleteFieldMutationOptions = Apollo.BaseMutationOptions<
+  TestDeleteFieldMutation,
+  TestDeleteFieldMutationVariables
+>

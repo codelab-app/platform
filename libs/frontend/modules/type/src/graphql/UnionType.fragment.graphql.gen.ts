@@ -1,12 +1,16 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-export type UnionTypeFragment = { id: string, name: string, typeIdsOfUnionType: Array<string> };
+import { gql } from '@apollo/client'
+export type UnionTypeFragment = {
+  id: string
+  name: string
+  typeIdsOfUnionType: Array<string>
+}
 
 export const UnionTypeFragmentDoc = gql`
-    fragment UnionType on UnionType {
-  id
-  name
-  typeIdsOfUnionType
-}
-    `;
+  fragment UnionType on UnionType {
+    id
+    name
+    typeIdsOfUnionType
+  }
+`

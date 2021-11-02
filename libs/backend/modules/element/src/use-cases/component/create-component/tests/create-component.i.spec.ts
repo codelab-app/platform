@@ -1,16 +1,10 @@
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupElementTestModule } from '../../../../test/setupElementTestModule'
+import { GetElementGraphInput } from '../../../element/get-element-graph'
 import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { ElementModule } from '../../../../element.module'
-import { GetComponentInput } from '../../get-component'
-import {
-  TestGetComponentGql,
-  TestGetComponentQuery,
-} from '../../get-component/tests/get-component.api.graphql.gen'
+  TestGetElementGraphGql,
+  TestGetElementGraphQuery,
+} from '../../../element/get-element-graph/tests/get-element-graph.api.graphql.gen'
 import { CreateComponentInput } from '../create-component.input'
 import {
   TestCreateComponentGql,
@@ -19,23 +13,12 @@ import {
 import { createComponentInput } from './create-component.data'
 
 describe('CreateComponent', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
-
-  beforeAll(async () => {
-    guestApp = await setupTestModule([ElementModule], { role: Role.Guest })
-    userApp = await setupTestModule([ElementModule], { role: Role.User })
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
+  const testModule = setupElementTestModule()
 
   describe('Guest', () => {
     it('should fail to create an component', async () => {
       await domainRequest(
-        guestApp,
+        testModule.guestApp,
         TestCreateComponentGql,
         createComponentInput,
         {
@@ -52,19 +35,36 @@ describe('CreateComponent', () => {
       } = await domainRequest<
         CreateComponentInput,
         TestCreateComponentMutation
-      >(userApp, TestCreateComponentGql, createComponentInput)
+      >(testModule.userApp, TestCreateComponentGql, createComponentInput)
 
       expect(componentId).toBeDefined()
 
-      const { getComponent: element } = await domainRequest<
-        GetComponentInput,
-        TestGetComponentQuery
-      >(userApp, TestGetComponentGql, { componentId })
-
-      expect(element).toMatchObject({
-        ...createComponentInput,
-        id: componentId,
+      const { getElementGraph: elementGraph } = await domainRequest<
+        GetElementGraphInput,
+        TestGetElementGraphQuery
+      >(testModule.userApp, TestGetElementGraphGql, {
+        where: { id: componentId },
       })
+
+      expect(elementGraph).toStrictEqual(
+        expect.objectContaining({
+          vertices: [
+            expect.objectContaining({
+              id: expect.any(String),
+              name: expect.any(String),
+              componentTag: expect.objectContaining({
+                id: expect.any(String),
+                name: createComponentInput.name,
+              }),
+              css: null,
+              props: '{}',
+              renderForEachPropKey: null,
+              renderIfPropKey: null,
+            }),
+          ],
+          edges: [],
+        }),
+      )
     })
   })
 })

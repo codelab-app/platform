@@ -1,0 +1,4 @@
+fragment TestLambdaType on LambdaType {
+  id
+  name
+}

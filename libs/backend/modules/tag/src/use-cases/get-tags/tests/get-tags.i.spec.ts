@@ -1,34 +1,19 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { TagModule } from '../../../tag.module'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupTagTestModule } from '../../../test/setupTagTestModule'
 import { createTags, tagAData, tagBData } from '../../create-tag'
 import { TestGetTagsGql, TestGetTagsQuery } from './get-tags.api.graphql.gen'
 
 describe('GetTagsUseCase', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupTagTestModule()
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([TagModule], { role: Role.Guest })
-    userApp = await setupTestModule([TagModule], { role: Role.User })
-
-    await createTags(userApp)
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
+    await createTags(testModule.userApp)
   })
 
   describe('Guest', () => {
     it('should fail to create a Tag', async () => {
       await domainRequest<unknown, TestGetTagsQuery>(
-        guestApp,
+        testModule.guestApp,
         TestGetTagsGql,
         {},
         {
@@ -41,7 +26,7 @@ describe('GetTagsUseCase', () => {
   describe('User', () => {
     it('should get Tags', async () => {
       const { getTags } = await domainRequest<unknown, TestGetTagsQuery>(
-        userApp,
+        testModule.userApp,
         TestGetTagsGql,
       )
 

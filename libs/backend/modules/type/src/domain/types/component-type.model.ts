@@ -1,4 +1,4 @@
-import { IComponentTypeVertex, TypeKind } from '@codelab/shared/abstract/core'
+import { IComponentType, TypeKind } from '@codelab/shared/abstract/core'
 import { ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 
@@ -12,7 +12,7 @@ import { Type } from './type.model'
 })
 export class ComponentType
   extends Type<TypeKind.ComponentType>
-  implements IComponentTypeVertex
+  implements IComponentType
 {
   constructor({ id, name }: Pick<ComponentType, 'id' | 'name'>) {
     super(TypeKind.ComponentType)

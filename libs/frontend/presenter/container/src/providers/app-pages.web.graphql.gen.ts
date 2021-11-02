@@ -1,34 +1,39 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
-export type AppPages__AppFragment = { id: string, name: string, pages: Array<{ id: string, name: string }> };
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
+export type AppPages__AppFragment = {
+  id: string
+  name: string
+  pages: Array<{ id: string; name: string; rootElementId: string }>
+}
 
 export type AppPagesQueryVariables = Types.Exact<{
-  input: Types.GetAppInput;
-}>;
+  input: Types.GetAppInput
+}>
 
-
-export type AppPagesQuery = { app?: Types.Maybe<AppPages__AppFragment> };
+export type AppPagesQuery = { app?: Types.Maybe<AppPages__AppFragment> }
 
 export const AppPages__AppFragmentDoc = gql`
-    fragment AppPages__App on App {
-  id
-  name
-  pages {
+  fragment AppPages__App on App {
     id
     name
+    pages {
+      id
+      name
+      rootElementId
+    }
   }
-}
-    `;
+`
 export const AppPagesGql = gql`
-    query AppPages($input: GetAppInput!) {
-  app: getApp(input: $input) {
-    ...AppPages__App
+  query AppPages($input: GetAppInput!) {
+    app: getApp(input: $input) {
+      ...AppPages__App
+    }
   }
-}
-    ${AppPages__AppFragmentDoc}`;
+  ${AppPages__AppFragmentDoc}
+`
 
 /**
  * __useAppPagesQuery__
@@ -46,17 +51,35 @@ export const AppPagesGql = gql`
  *   },
  * });
  */
-export function useAppPagesQuery(baseOptions: Apollo.QueryHookOptions<AppPagesQuery, AppPagesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AppPagesQuery, AppPagesQueryVariables>(AppPagesGql, options);
-      }
-export function useAppPagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AppPagesQuery, AppPagesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AppPagesQuery, AppPagesQueryVariables>(AppPagesGql, options);
-        }
-export type AppPagesQueryHookResult = ReturnType<typeof useAppPagesQuery>;
-export type AppPagesLazyQueryHookResult = ReturnType<typeof useAppPagesLazyQuery>;
-export type AppPagesQueryResult = Apollo.QueryResult<AppPagesQuery, AppPagesQueryVariables>;
+export function useAppPagesQuery(
+  baseOptions: Apollo.QueryHookOptions<AppPagesQuery, AppPagesQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<AppPagesQuery, AppPagesQueryVariables>(
+    AppPagesGql,
+    options,
+  )
+}
+export function useAppPagesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    AppPagesQuery,
+    AppPagesQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<AppPagesQuery, AppPagesQueryVariables>(
+    AppPagesGql,
+    options,
+  )
+}
+export type AppPagesQueryHookResult = ReturnType<typeof useAppPagesQuery>
+export type AppPagesLazyQueryHookResult = ReturnType<
+  typeof useAppPagesLazyQuery
+>
+export type AppPagesQueryResult = Apollo.QueryResult<
+  AppPagesQuery,
+  AppPagesQueryVariables
+>
 export function refetchAppPagesQuery(variables?: AppPagesQueryVariables) {
-      return { query: AppPagesGql, variables: variables }
-    }
+  return { query: AppPagesGql, variables: variables }
+}

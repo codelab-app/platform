@@ -14,11 +14,6 @@ export const updateElementSchema: JSONSchemaType<UpdateElementSchema> = {
       label: 'Atom',
       nullable: true,
     },
-    componentId: {
-      type: 'string',
-      label: 'Component',
-      nullable: true,
-    },
     name: {
       type: 'string',
       nullable: true,
@@ -31,7 +26,7 @@ export const updateElementSchema: JSONSchemaType<UpdateElementSchema> = {
     renderForEachPropKey: {
       type: 'string',
       nullable: true,
-      label: 'Render for reach',
+      label: 'Render for each',
     },
     css: {
       type: 'string',

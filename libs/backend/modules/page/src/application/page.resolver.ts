@@ -1,11 +1,10 @@
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import {
   ElementGraph,
-  ElementTreeAdapter,
   GetElementGraphService,
 } from '@codelab/backend/modules/element'
 import { CurrentUser } from '@codelab/backend/modules/user'
-import type { User } from '@codelab/shared/abstract/core'
+import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -21,7 +20,6 @@ import { DeletePageInput, DeletePageService } from '../use-cases/delete-page'
 import { GetPageInput, GetPageService } from '../use-cases/get-page'
 import { GetPagesInput, GetPagesService } from '../use-cases/get-pages'
 import { UpdatePageInput, UpdatePageService } from '../use-cases/update-page'
-import { PageAdapter } from './page.adapter'
 
 @Resolver(() => Page)
 @Injectable()
@@ -32,57 +30,55 @@ export class PageResolver {
     private updatePageService: UpdatePageService,
     private getPageService: GetPageService,
     private deletePageService: DeletePageService,
-    private pageAdapter: PageAdapter,
-    private getElementService: GetElementGraphService,
-    private elementTreeAdapter: ElementTreeAdapter,
+    private getElementGraphService: GetElementGraphService,
   ) {}
 
   @Mutation(() => Page)
   @UseGuards(GqlAuthGuard)
   async createPage(
     @Args('input') input: CreatePageInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    const page = await this.createPageService.execute({ input, currentUser })
+    const { id } = await this.createPageService.execute({
+      input,
+      currentUser,
+    })
+
+    const page = await this.getPageService.execute({
+      input: { pageId: id },
+      currentUser,
+    })
 
     if (!page) {
-      return new Error('Page not created')
+      throw new Error('Page not created')
     }
 
-    return this.pageAdapter.mapItem(page)
+    return page
   }
 
   @Query(() => [Page])
   @UseGuards(GqlAuthGuard)
   async getPages(
     @Args('input') input: GetPagesInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    const pages = await this.getPagesService.execute({ input, currentUser })
-
-    return this.pageAdapter.map(pages)
+    return this.getPagesService.execute({ input, currentUser })
   }
 
   @Query(() => Page, { nullable: true })
   @UseGuards(GqlAuthGuard)
   async getPage(
     @Args('input') input: GetPageInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    const page = await this.getPageService.execute({ input, currentUser })
-
-    if (!page) {
-      return null
-    }
-
-    return this.pageAdapter.mapItem(page)
+    return this.getPageService.execute({ input, currentUser })
   }
 
-  @Mutation(() => Page, { nullable: true })
+  @Mutation(() => Page)
   @UseGuards(GqlAuthGuard)
   async deletePage(
     @Args('input') input: DeletePageInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     const { pageId } = input
 
@@ -97,14 +93,14 @@ export class PageResolver {
 
     await this.deletePageService.execute({ input, currentUser })
 
-    return this.pageAdapter.mapItem(page)
+    return page
   }
 
-  @Mutation(() => Page, { nullable: true })
+  @Mutation(() => Page)
   @UseGuards(GqlAuthGuard)
   async updatePage(
     @Args('input') input: UpdatePageInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     await this.updatePageService.execute({ input, currentUser })
 
@@ -119,13 +115,19 @@ export class PageResolver {
       throw new Error('Page not found')
     }
 
-    return this.pageAdapter.mapItem(page)
+    return page
   }
 
-  @ResolveField('elements', () => ElementGraph, { nullable: true })
+  @ResolveField('elements', () => ElementGraph, {
+    defaultValue: {
+      vertices: [],
+      edges: [],
+    },
+    nullable: true,
+  })
   async resolveElements(
     @Parent() page: Page,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ): Promise<ElementGraph | null> {
     const dgraphPage = await this.getPageService.execute({
       input: { pageId: page.id },
@@ -136,16 +138,10 @@ export class PageResolver {
       return null
     }
 
-    const element = await this.getElementService.execute({
-      input: { elementId: dgraphPage.root.uid },
+    return this.getElementGraphService.execute({
+      input: { where: { id: dgraphPage.rootElementId } },
       currentUser,
     })
-
-    if (!element) {
-      return null
-    }
-
-    return this.elementTreeAdapter.mapItem(element)
   }
 
   // The Page.app resolver is in app-api/../PageAppResolver

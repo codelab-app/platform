@@ -1,11 +1,5 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { AppModule } from '../../../app.module'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupAppTestModule } from '../../../test/setupAppTestModule'
 import { CreateAppInput } from '../../create-app'
 import {
   TestCreateAppGql,
@@ -13,10 +7,6 @@ import {
 } from '../../create-app/tests/create-app.api.graphql.gen'
 import { createAppInput } from '../../create-app/tests/create-app.data'
 import { GetAppInput } from '../../get-app/get-app.input'
-import {
-  TestGetAppGql,
-  TestGetAppQuery,
-} from '../../get-app/tests/get-app.api.graphql.gen'
 import { DeleteAppInput } from '../delete-app.input'
 import {
   TestDeleteAppGql,
@@ -24,18 +14,14 @@ import {
 } from './delete-app.api.graphql.gen'
 
 describe('DeleteApp', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupAppTestModule(false)
   let appId: string
   let deleteAppInput: DeleteAppInput
   let getAppInput: GetAppInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AppModule], { role: Role.Guest })
-    userApp = await setupTestModule([AppModule], { role: Role.User })
-
     const results = await domainRequest<CreateAppInput, TestCreateAppMutation>(
-      userApp,
+      testModule.userApp,
       TestCreateAppGql,
       createAppInput,
     )
@@ -47,16 +33,16 @@ describe('DeleteApp', () => {
     expect(appId).toBeDefined()
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to delete an app', async () => {
-      await domainRequest(guestApp, TestDeleteAppGql, deleteAppInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestDeleteAppGql,
+        deleteAppInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
@@ -65,15 +51,11 @@ describe('DeleteApp', () => {
       const { deleteApp } = await domainRequest<
         DeleteAppInput,
         TestDeleteAppMutation
-      >(userApp, TestDeleteAppGql, deleteAppInput)
+      >(testModule.userApp, TestDeleteAppGql, deleteAppInput)
 
       expect(deleteApp?.id).toBe(deleteAppInput.appId)
 
-      const { getApp } = await domainRequest<GetAppInput, TestGetAppQuery>(
-        userApp,
-        TestGetAppGql,
-        getAppInput,
-      )
+      const getApp = await testModule.getApp({ byId: { appId } })
 
       expect(getApp).toBeNull()
     })

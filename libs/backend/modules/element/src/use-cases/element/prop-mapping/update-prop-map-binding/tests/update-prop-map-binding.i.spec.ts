@@ -98,7 +98,9 @@ describe('UpdatePropMapBindingUseCase', () => {
         GetElementInput,
         TestGetElementQuery
       >(userApp, TestGetElementGql, {
-        elementId,
+        where: {
+          id: elementId,
+        },
       })
 
       const found = getElement?.propMapBindings.find(

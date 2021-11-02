@@ -1,9 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphRepository,
-  DgraphType,
-  jsonMutation,
-} from '@codelab/backend/infra'
+import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../domain/type.validator'
@@ -27,7 +23,7 @@ export class UpdateTypeService extends DgraphUseCase<UpdateTypeInput> {
     typeId,
     updateData: { name },
   }: UpdateTypeInput) {
-    return jsonMutation<DgraphType<any>>({
+    return jsonMutation({
       uid: typeId,
       name,
     })

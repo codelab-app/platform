@@ -1,23 +1,21 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type GetLambdaNameQueryVariables = Types.Exact<{
-  input: Types.GetLambdaInput;
-}>;
+  input: Types.GetLambdaInput
+}>
 
-
-export type GetLambdaNameQuery = { getLambda?: Types.Maybe<{ name: string }> };
-
+export type GetLambdaNameQuery = { getLambda?: Types.Maybe<{ name: string }> }
 
 export const GetLambdaNameGql = gql`
-    query GetLambdaName($input: GetLambdaInput!) {
-  getLambda(input: $input) {
-    name
+  query GetLambdaName($input: GetLambdaInput!) {
+    getLambda(input: $input) {
+      name
+    }
   }
-}
-    `;
+`
 
 /**
  * __useGetLambdaNameQuery__
@@ -35,17 +33,42 @@ export const GetLambdaNameGql = gql`
  *   },
  * });
  */
-export function useGetLambdaNameQuery(baseOptions: Apollo.QueryHookOptions<GetLambdaNameQuery, GetLambdaNameQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetLambdaNameQuery, GetLambdaNameQueryVariables>(GetLambdaNameGql, options);
-      }
-export function useGetLambdaNameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLambdaNameQuery, GetLambdaNameQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetLambdaNameQuery, GetLambdaNameQueryVariables>(GetLambdaNameGql, options);
-        }
-export type GetLambdaNameQueryHookResult = ReturnType<typeof useGetLambdaNameQuery>;
-export type GetLambdaNameLazyQueryHookResult = ReturnType<typeof useGetLambdaNameLazyQuery>;
-export type GetLambdaNameQueryResult = Apollo.QueryResult<GetLambdaNameQuery, GetLambdaNameQueryVariables>;
-export function refetchGetLambdaNameQuery(variables?: GetLambdaNameQueryVariables) {
-      return { query: GetLambdaNameGql, variables: variables }
-    }
+export function useGetLambdaNameQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetLambdaNameQuery,
+    GetLambdaNameQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<GetLambdaNameQuery, GetLambdaNameQueryVariables>(
+    GetLambdaNameGql,
+    options,
+  )
+}
+export function useGetLambdaNameLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetLambdaNameQuery,
+    GetLambdaNameQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<GetLambdaNameQuery, GetLambdaNameQueryVariables>(
+    GetLambdaNameGql,
+    options,
+  )
+}
+export type GetLambdaNameQueryHookResult = ReturnType<
+  typeof useGetLambdaNameQuery
+>
+export type GetLambdaNameLazyQueryHookResult = ReturnType<
+  typeof useGetLambdaNameLazyQuery
+>
+export type GetLambdaNameQueryResult = Apollo.QueryResult<
+  GetLambdaNameQuery,
+  GetLambdaNameQueryVariables
+>
+export function refetchGetLambdaNameQuery(
+  variables?: GetLambdaNameQueryVariables,
+) {
+  return { query: GetLambdaNameGql, variables: variables }
+}

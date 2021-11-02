@@ -1,9 +1,6 @@
-import { Void } from '@codelab/backend/abstract/types'
-import { CreateResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
-import { Atom, AtomAdapter } from '@codelab/backend/modules/atom'
 import { CurrentUser } from '@codelab/backend/modules/user'
-import type { User } from '@codelab/shared/abstract/core'
+import { IElement, IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -40,8 +37,6 @@ import {
   UpdateElementPropsInput,
   UpdateElementPropsService,
 } from '../use-cases/element/update-element-props'
-import { ElementAdapter } from './element.adapter'
-import { ElementTreeAdapter } from './element-tree.adapter'
 
 @Resolver(() => Element)
 @Injectable()
@@ -52,41 +47,42 @@ export class ElementResolver {
     private deleteElementService: DeleteElementService,
     private updateElementService: UpdateElementService,
     private moveElementService: MoveElementService,
-    private elementTreeAdapter: ElementTreeAdapter,
     private updateElementPropsService: UpdateElementPropsService,
-    private elementAdapter: ElementAdapter,
-    private atomAdapter: AtomAdapter,
   ) {}
 
-  @Mutation(() => CreateResponse)
+  @Mutation(() => Element)
   @UseGuards(GqlAuthGuard)
-  createElement(
+  async createElement(
     @Args('input') input: CreateElementInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    return this.createElementService.execute({ input, currentUser })
+    const { id } = await this.createElementService.execute({
+      input,
+      currentUser,
+    })
+
+    const element = await this.getElement({ where: { id } }, currentUser)
+
+    if (!element) {
+      throw new Error("Couldn't find created element")
+    }
+
+    return element
   }
 
   @Query(() => ElementGraph, {
-    nullable: true,
     description:
       'Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge',
   })
   @UseGuards(GqlAuthGuard)
   async getElementGraph(
     @Args('input') input: GetElementGraphInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    const dgraphElement = await this.getElementGraphService.execute({
+    return this.getElementGraphService.execute({
       input,
       currentUser,
     })
-
-    if (!dgraphElement) {
-      return null
-    }
-
-    return await this.elementTreeAdapter.mapItem(dgraphElement)
   }
 
   @Query(() => Element, {
@@ -99,65 +95,118 @@ export class ElementResolver {
    */
   async getElement(
     @Args('input') input: GetElementInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
-    const dgraphElement = await this.getElementGraphService.execute({
+    const elementGraph = await this.getElementGraphService.execute({
       input,
       currentUser,
     })
 
-    if (!dgraphElement) {
+    const element = elementGraph.vertices.filter(
+      (vertex: IElement) => vertex.id === input.where.id,
+    )[0]
+
+    if (!element) {
       return null
     }
 
-    return this.elementAdapter.mapItem(dgraphElement)
+    return new Element(element)
   }
 
-  @ResolveField('atom', () => Atom, { nullable: true })
-  async atom(@Parent() { atom }: Element) {
-    if (!atom) {
-      return null
-    }
-
-    return this.atomAdapter.mapItem(atom)
-  }
-
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Element)
   @UseGuards(GqlAuthGuard)
   async updateElement(
     @Args('input') input: UpdateElementInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     await this.updateElementService.execute({ input, currentUser })
+
+    const element = await this.getElement(
+      { where: { id: input.id } },
+      currentUser,
+    )
+
+    if (!element) {
+      throw new Error("Couldn't find element")
+    }
+
+    return element
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Element)
   @UseGuards(GqlAuthGuard)
   async moveElement(
     @Args('input') input: MoveElementInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     await this.moveElementService.execute({ input, currentUser })
+
+    const element = await this.getElement(
+      { where: { id: input.elementId } },
+      currentUser,
+    )
+
+    if (!element) {
+      throw new Error("Couldn't find element")
+    }
+
+    return element
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => Element)
   @UseGuards(GqlAuthGuard)
   async updateElementProps(
     @Args('input') input: UpdateElementPropsInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
     await this.updateElementPropsService.execute({ input, currentUser })
+
+    const element = await this.getElement(
+      { where: { id: input.elementId } },
+      currentUser,
+    )
+
+    if (!element) {
+      throw new Error("Couldn't find element")
+    }
+
+    return element
   }
 
-  @Mutation(() => Void, {
-    nullable: true,
+  @Mutation(() => Element, {
     description: 'Deletes an element and all the descending elements',
   })
   @UseGuards(GqlAuthGuard)
   async deleteElement(
     @Args('input') input: DeleteElementInput,
-    @CurrentUser() currentUser: User,
+    @CurrentUser() currentUser: IUser,
   ) {
+    const element = await this.getElement(
+      { where: { id: input.elementId } },
+      currentUser,
+    )
+
     await this.deleteElementService.execute({ input, currentUser })
+
+    if (!element) {
+      throw new Error("Couldn't find element")
+    }
+
+    return element
+  }
+
+  @ResolveField('graph', () => ElementGraph, {
+    description:
+      'Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge',
+  })
+  @UseGuards(GqlAuthGuard)
+  async elementGraphResolver(
+    @Parent() input: Element,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    return this.getElementGraphService.execute({
+      input: { where: { id: input.id } },
+      currentUser,
+    })
   }
 }

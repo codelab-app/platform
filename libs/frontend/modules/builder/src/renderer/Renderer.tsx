@@ -1,21 +1,21 @@
-import { ElementTreeGraphql } from '@codelab/frontend/modules/element'
 import { TypeKindsContext } from '@codelab/frontend/modules/type'
 import {
   RenderContext,
   RenderProvider,
 } from '@codelab/frontend/presenter/container'
+import { ElementTree } from '@codelab/shared/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { isEqual } from 'lodash'
 import React, { useContext } from 'react'
 import { defaultRenderContext } from './defaultRenderContext'
 
 export interface RendererProps {
-  tree: ElementTreeGraphql
-  context?: Omit<RenderContext<ElementTreeGraphql>, 'tree' | 'renderFactory'>
+  tree: ElementTree
+  context?: Omit<RenderContext, 'tree' | 'renderFactory'>
 }
 
 /**
- * The root render point. RendererProvider must be used first.
+ * Renders an ElementTree
  */
 export const Renderer = React.memo<RendererProps>(
   ({ tree, context: contextProp }: RendererProps) => {
@@ -39,7 +39,7 @@ export const Renderer = React.memo<RendererProps>(
 
     const rendered = (
       <ErrorBoundary>
-        <RenderProvider<ElementTreeGraphql> context={context}>
+        <RenderProvider context={context}>
           <div id="render-root">
             {context.renderFactory(root, {
               ...(context ?? {}),

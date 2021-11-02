@@ -1,6 +1,5 @@
 import { DgraphCreateUseCase } from '@codelab/backend/application'
 import {
-  DgraphElement,
   DgraphEntityType,
   DgraphRepository,
   DgraphUpdateMutationJson,
@@ -35,7 +34,7 @@ export class CreatePropMapBindingService extends DgraphCreateUseCase<CreatePropM
   private static createMutation({
     input: { elementId, targetElementId, targetKey, sourceKey },
   }: CreatePropMapBindingRequest): Mutation {
-    const setJson: DgraphUpdateMutationJson<DgraphElement> = {
+    const setJson: DgraphUpdateMutationJson<any> = {
       uid: elementId,
       propMapBindings: {
         uid: '_:binding',

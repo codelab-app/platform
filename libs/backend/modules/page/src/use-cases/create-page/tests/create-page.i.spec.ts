@@ -1,48 +1,17 @@
-import { AppModule, CreateAppInput } from '@codelab/backend/modules/app'
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { PageModule } from '../../../page.module'
-import { GetPageInput } from '../../get-page/get-page.input'
-import {
-  TestGetPageGql,
-  TestGetPageQuery,
-} from '../../get-page/tests/get-page.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupPageTestModule } from '../../../test/setupPageTestModule'
 import { CreatePageInput } from '../create-page.input'
-import {
-  TestCreateAppGql,
-  TestCreateAppMutation,
-} from './create-app.api.graphql.gen'
-import {
-  TestCreatePageGql,
-  TestCreatePageMutation,
-} from './create-page.api.graphql.gen'
+import { TestCreatePageGql } from './create-page.api.graphql.gen'
 
 describe('CreatePage', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupPageTestModule()
   let appId: string
   let createPageInput: CreatePageInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AppModule, PageModule], {
-      role: Role.Guest,
-    })
-    userApp = await setupTestModule([AppModule, PageModule], {
-      role: Role.User,
-    })
+    const result = await testModule.createTestApp({ name: 'App' })
 
-    const result = await domainRequest<CreateAppInput, TestCreateAppMutation>(
-      userApp,
-      TestCreateAppGql,
-      { name: 'App' },
-    )
-
-    appId = result.createApp.id
+    appId = result.id
 
     createPageInput = {
       name: 'My new page',
@@ -50,36 +19,26 @@ describe('CreatePage', () => {
     }
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to create a page', async () => {
-      await domainRequest(guestApp, TestCreatePageGql, createPageInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestCreatePageGql,
+        createPageInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
   describe('User', () => {
     it('should create a page', async () => {
-      const {
-        createPage: { id: pageId },
-      } = await domainRequest<CreatePageInput, TestCreatePageMutation>(
-        userApp,
-        TestCreatePageGql,
-        createPageInput,
-      )
+      const { id: pageId } = await testModule.createTestPage(createPageInput)
 
       expect(pageId).toBeDefined()
 
-      const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
-        userApp,
-        TestGetPageGql,
-        { pageId },
-      )
+      const page = await testModule.getPage({ pageId })
 
       expect(page).toBeDefined()
 

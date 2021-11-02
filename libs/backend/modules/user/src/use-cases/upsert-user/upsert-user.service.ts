@@ -2,7 +2,6 @@ import { DgraphCreateUseCase } from '@codelab/backend/application'
 import {
   DgraphEntityType,
   DgraphRepository,
-  DgraphUser,
   jsonMutation,
 } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
@@ -46,10 +45,10 @@ export class UpsertUserService extends DgraphCreateUseCase<UpsertUserRequest> {
       if (user) {
         await this.dgraph.executeMutation(
           txn,
-          this.createUpdateMutation(user.uid, request.input.data),
+          this.createUpdateMutation(user.id, request.input.data),
         )
 
-        return { id: user.uid }
+        return { id: user.id }
       }
     }
 
@@ -62,7 +61,7 @@ export class UpsertUserService extends DgraphCreateUseCase<UpsertUserRequest> {
     uid: string,
     data: UpsertUserDataInput,
   ): Mutation {
-    return jsonMutation<DgraphUser>({
+    return jsonMutation({
       uid,
       auth0Id: data.auth0Id,
       // TODO: Remove any cast
@@ -74,7 +73,7 @@ export class UpsertUserService extends DgraphCreateUseCase<UpsertUserRequest> {
     { input: { data } }: UpsertUserRequest,
     blandNodeUid: string,
   ): Mutation {
-    return jsonMutation<DgraphUser>({
+    return jsonMutation({
       uid: blandNodeUid,
       auth0Id: data.auth0Id,
       'dgraph.type': [DgraphEntityType.User],

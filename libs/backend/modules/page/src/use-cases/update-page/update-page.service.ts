@@ -1,9 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphPage,
-  DgraphRepository,
-  jsonMutation,
-} from '@codelab/backend/infra'
+import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { PageValidator } from '../../domain/page.validator'
@@ -46,7 +42,7 @@ export class UpdatePageService extends DgraphUseCase<UpdatePageRequest> {
     //   mu.deleteNquads = `<${existingAppId}> pages <${pageId}> .`
     // }
 
-    return jsonMutation<DgraphPage>({
+    return jsonMutation<any>({
       uid: pageId,
       name,
     })

@@ -1,3 +1,5 @@
 mutation TestDeleteType($input: DeleteTypeInput!) {
-  deleteType(input: $input)
+  deleteType(input: $input) {
+    ...TestType
+  }
 }

@@ -1,24 +1,24 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestGetPageQueryVariables = Types.Exact<{
-  input: Types.GetPageInput;
-}>;
+  input: Types.GetPageInput
+}>
 
-
-export type TestGetPageQuery = { page?: Types.Maybe<{ id: string, name: string }> };
-
+export type TestGetPageQuery = {
+  page?: Types.Maybe<{ id: string; name: string }>
+}
 
 export const TestGetPageGql = gql`
-    query TestGetPage($input: GetPageInput!) {
-  page: getPage(input: $input) {
-    id
-    name
+  query TestGetPage($input: GetPageInput!) {
+    page: getPage(input: $input) {
+      id
+      name
+    }
   }
-}
-    `;
+`
 
 /**
  * __useTestGetPageQuery__
@@ -36,17 +36,38 @@ export const TestGetPageGql = gql`
  *   },
  * });
  */
-export function useTestGetPageQuery(baseOptions: Apollo.QueryHookOptions<TestGetPageQuery, TestGetPageQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TestGetPageQuery, TestGetPageQueryVariables>(TestGetPageGql, options);
-      }
-export function useTestGetPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TestGetPageQuery, TestGetPageQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TestGetPageQuery, TestGetPageQueryVariables>(TestGetPageGql, options);
-        }
-export type TestGetPageQueryHookResult = ReturnType<typeof useTestGetPageQuery>;
-export type TestGetPageLazyQueryHookResult = ReturnType<typeof useTestGetPageLazyQuery>;
-export type TestGetPageQueryResult = Apollo.QueryResult<TestGetPageQuery, TestGetPageQueryVariables>;
+export function useTestGetPageQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TestGetPageQuery,
+    TestGetPageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TestGetPageQuery, TestGetPageQueryVariables>(
+    TestGetPageGql,
+    options,
+  )
+}
+export function useTestGetPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TestGetPageQuery,
+    TestGetPageQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TestGetPageQuery, TestGetPageQueryVariables>(
+    TestGetPageGql,
+    options,
+  )
+}
+export type TestGetPageQueryHookResult = ReturnType<typeof useTestGetPageQuery>
+export type TestGetPageLazyQueryHookResult = ReturnType<
+  typeof useTestGetPageLazyQuery
+>
+export type TestGetPageQueryResult = Apollo.QueryResult<
+  TestGetPageQuery,
+  TestGetPageQueryVariables
+>
 export function refetchTestGetPageQuery(variables?: TestGetPageQueryVariables) {
-      return { query: TestGetPageGql, variables: variables }
-    }
+  return { query: TestGetPageGql, variables: variables }
+}

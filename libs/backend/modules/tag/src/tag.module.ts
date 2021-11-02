@@ -1,8 +1,6 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { CytoscapeModule, TreeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
-import { DgraphTagAdapter } from './application/dgraph-tag.adapter'
-import { TagAdapter } from './application/tag.adapter'
 import { TagResolver } from './application/tag.resolver'
 import { CreateTagService } from './use-cases/create-tag'
 import { DeleteTagsService } from './use-cases/delete-tags'
@@ -29,11 +27,6 @@ const services = [
   SeedTagTreeService,
   ImportTagsService,
   UpsertTagService,
-  /**
-   * Adapters
-   */
-  TagAdapter,
-  DgraphTagAdapter,
 ]
 
 @Module({

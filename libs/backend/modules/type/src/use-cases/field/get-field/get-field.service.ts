@@ -1,10 +1,6 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphField,
-  DgraphQueryBuilder,
-  DgraphQueryField,
-} from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/infra'
+import { FieldSchema, IField } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { FieldByIdFilter, FieldByInterfaceFilter } from './get-field.input'
@@ -13,12 +9,15 @@ import { GetFieldRequest } from './get-field.request'
 @Injectable()
 export class GetFieldService extends DgraphUseCase<
   GetFieldRequest,
-  DgraphField | null
+  IField | null
 > {
+  protected schema = FieldSchema.optional().nullable()
+
   protected executeTransaction(request: GetFieldRequest, txn: Txn) {
-    return this.dgraph.getOne<DgraphField>(
+    return this.dgraph.getOneNamed<IField>(
       txn,
       GetFieldService.createQuery(request),
+      'query',
     )
   }
 
@@ -37,35 +36,34 @@ export class GetFieldService extends DgraphUseCase<
   }
 
   private static createByIdQuery(byId: FieldByIdFilter) {
-    return new DgraphQueryBuilder()
-      .addBaseFields()
-      .setUidFunc(byId.fieldId)
-      .addTypeFilterDirective(DgraphEntityType.Field)
-      .addExpandAll((f) => f.addExpandAllRecursive(2))
+    return GetFieldService.getFieldQuery(` @filter(uid(${byId.fieldId}))`)
   }
 
   private static createByInterfaceQuery({
     fieldKey,
     interfaceId,
   }: FieldByInterfaceFilter) {
-    /** {
-        q(func: type(Field)) @filter(eq(dgraph.type, ${DgraphEntityType.Field}) AND uid_in(~fields, ${interfaceId}) AND eq(key, ${fieldKey}))  {
-          uid
-          dgraph.type
-          expand(_all_)
+    return GetFieldService.getFieldQuery(
+      `@filter(uid_in(~fields, ${interfaceId}) AND eq(key, ${fieldKey}))`,
+    )
+  }
+
+  public static getFieldQuery(filter?: string) {
+    return `{
+        query(func: type(${DgraphEntityType.Field})) @normalize ${
+      filter ?? ''
+    } {
+          id: uid
+          key: key
+          name: name
+          description: description
+          type {
+            target: uid
+          }
           ~fields {
-            uid
+            source: uid
           }
         }
-      } */
-
-    return new DgraphQueryBuilder()
-      .addBaseFields()
-      .addExpandAll((f) => f.addExpandAllRecursive(2))
-      .setTypeFunc(DgraphEntityType.Field)
-      .addFields(new DgraphQueryField('~fields').addBaseInnerFields())
-      .addDirective(
-        `@filter(eq(dgraph.type, ${DgraphEntityType.Field}) AND uid_in(~fields, ${interfaceId}) AND eq(key, ${fieldKey}))`,
-      )
+      }`
   }
 }

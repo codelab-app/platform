@@ -1,3 +1,0 @@
-mutation TestUpdateComponent($input: UpdateComponentInput!) {
-  updateComponent(input: $input)
-}

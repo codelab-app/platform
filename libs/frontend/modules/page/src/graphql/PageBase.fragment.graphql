@@ -1,5 +1,6 @@
 fragment PageBase on Page {
   id
   name
+  rootElementId
   # Elements are expensive to get, don't query it every time
 }

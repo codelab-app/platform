@@ -1,13 +1,11 @@
 overwrite: true
-#hooks:
-#  afterAllFileWrite:
-#    - yarn prettier --write
-#    - yarn eslint --ext ts --fix
+hooks:
+  afterAllFileWrite:
+    - yarn prettier --write
+    #  - yarn eslint --ext ts --fix
 
 schema: schema.api.graphql
 config:
-  # defaultBaseOptions:
-  #   operationName: 'dgraph'
   scalars:
     uuid: string
     json: Record<string, any>
@@ -18,24 +16,25 @@ config:
     Void: void
 
 generates:
-  libs/shared/codegen/graphql/src/types.api.graphql.gen.ts:
+  libs/frontend/abstract/codegen/src/types.api.graphql.gen.ts:
     documents:
       - libs/**/*.{web,api,fragment}.graphql
       - apps/**/*.{web,api,fragment}.graphql
     plugins:
       - typescript
+    config:
+      namingConvention:
+        enumValues: keep
   ./:
     documents:
       - '{apps,libs}/**/*.{web,fragment}.graphql'
     preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/shared/codegen/graphql
+      baseTypesPath: ~@codelab/frontend/abstract/codegen
     plugins:
       - typescript-operations
       - typescript-react-apollo
-    #      - typescript-document-nodes
-    # Switch off if have deeply nested issues
     config:
       inlineFragmentTypes: combine
       documentVariableSuffix: Gql
@@ -51,13 +50,15 @@ generates:
     preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/shared/codegen/graphql
+      baseTypesPath: ~@codelab/frontend/abstract/codegen
     plugins:
       - typescript-operations
       - typescript-react-apollo
     #      - typescript-document-nodes
     # Switch off if have deeply nested issues
     config:
+      # namingConvention:
+      #   enumValues: keep
       inlineFragmentTypes: combine
       documentVariableSuffix: Gql
       gqlImport: '@apollo/client#gql'

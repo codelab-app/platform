@@ -1,55 +1,62 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import { CodelabPage, TemplateProps } from '@codelab/frontend/abstract/props'
 import {
   Builder,
-  defaultRenderContext,
   MainPaneBuilderComponent,
   MetaPaneBuilderComponent,
 } from '@codelab/frontend/modules/builder'
 import {
-  ComponentContext,
-  withComponentQueryProvider,
-} from '@codelab/frontend/modules/component'
-import {
-  TypeKindsContext,
-  withTypeKindProvider,
-} from '@codelab/frontend/modules/type'
-import {
-  RenderProvider,
-  withEditorProvider,
-} from '@codelab/frontend/presenter/container'
+  ElementGraphProvider,
+  useElementGraphContext,
+} from '@codelab/frontend/modules/element'
+import { withEditorProvider } from '@codelab/frontend/presenter/container'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { ElementTree } from '@codelab/shared/core'
 import { Empty } from 'antd'
 import Head from 'next/head'
-import React, { useContext } from 'react'
+import { useRouter } from 'next/router'
+import React from 'react'
 
 const ComponentDetail: CodelabPage = () => {
-  const { component, tree } = useContext(ComponentContext)
-  const { typeKindsById } = useContext(TypeKindsContext)
+  const { elementTree } = useElementGraphContext()
 
-  if (!tree || !component) {
+  if (!elementTree) {
     return <Empty />
   }
 
+  const root = elementTree.getRootVertex(ElementTree.isComponent)
+
   return (
-    <RenderProvider context={defaultRenderContext({ tree, typeKindsById })}>
+    <>
       <Head>
-        <title>{component.name} | Codelab</title>
+        <title>{root?.componentTag?.name} | Codelab</title>
       </Head>
 
-      <Builder tree={tree} />
-    </RenderProvider>
+      <Builder tree={elementTree} />
+    </>
   )
 }
 
 export const getServerSideProps = withPageAuthRequired()
 
-ComponentDetail.Template = withTypeKindProvider(
-  withEditorProvider(withComponentQueryProvider(DashboardTemplate)),
-)
+const Template = ({
+  children,
+  ...props
+}: React.PropsWithChildren<TemplateProps>) => {
+  const { query } = useRouter()
+  const componentId = query.componentId as string
+
+  return (
+    <ElementGraphProvider elementId={componentId}>
+      <DashboardTemplate {...props}>{children}</DashboardTemplate>
+    </ElementGraphProvider>
+  )
+}
+
+ComponentDetail.Template = withEditorProvider(Template)
 ComponentDetail.MainPane = MainPaneBuilderComponent
 ComponentDetail.MetaPane = MetaPaneBuilderComponent
 ComponentDetail.Header = null

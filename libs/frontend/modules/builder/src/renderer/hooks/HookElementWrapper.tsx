@@ -1,11 +1,11 @@
-import { HookFragment } from '@codelab/frontend/modules/element'
+import { IHook } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { useHookFactory } from './useHookFactory'
 
 export interface HookElementWrapperProps {
   children?: never
   inputProps?: Record<string, any>
-  hooks: Array<HookFragment>
+  hooks: Array<IHook>
   renderChildren: (hookProps: Record<string, any>) => React.ReactNode
 }
 

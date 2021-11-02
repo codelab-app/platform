@@ -22,7 +22,7 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
 
   const { data } = useGetElementQuery({
     fetchPolicy: 'cache-first',
-    variables: { input: { elementId } },
+    variables: { input: { where: { id: elementId } } },
   })
 
   const {
@@ -31,7 +31,9 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
   } = useBuilder()
 
   const [mutate, { loading }] = useUpdateElementPropsMutation({
-    refetchQueries: [refetchGetElementQuery({ input: { elementId } })],
+    refetchQueries: [
+      refetchGetElementQuery({ input: { where: { id: elementId } } }),
+    ],
   })
 
   const element = data?.getElement

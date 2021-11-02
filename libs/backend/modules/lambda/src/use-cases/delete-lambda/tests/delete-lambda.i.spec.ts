@@ -4,25 +4,10 @@ import {
   AwsS3Service,
   AwsTokens,
 } from '@codelab/backend/infra'
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { LambdaModule } from '../../../lambda.module'
-import { CreateLambdaInput } from '../../create-lambda'
-import {
-  TestCreateLambdaGql,
-  TestCreateLambdaMutation,
-} from '../../create-lambda/tests/create-lambda.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupLambdaTestModule } from '../../../test/setupLambdaTestModule'
 import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 import { GetLambdaInput } from '../../get-lambda'
-import {
-  TestGetLambdaGql,
-  TestGetLambdaQuery,
-} from '../../get-lambda/tests/get-lambda.api.graphql.gen'
 import { DeleteLambdaInput } from '../delete-lambda.input'
 import {
   TestDeleteLambdaGql,
@@ -30,22 +15,15 @@ import {
 } from './delete-lambda.api.graphql.gen'
 
 describe('DeleteLambda', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupLambdaTestModule()
   let deleteLambdaInput: DeleteLambdaInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([LambdaModule], { role: Role.Guest })
-    userApp = await setupTestModule([LambdaModule], { role: Role.User })
-
-    const awsS3Service = userApp.get<AwsS3Service>(AwsTokens.S3)
-    const _awsConfig = userApp.get<AwsConfig>(awsConfig.KEY)
+    const awsS3Service = testModule.userApp.get<AwsS3Service>(AwsTokens.S3)
+    const _awsConfig = testModule.userApp.get<AwsConfig>(awsConfig.KEY)
     await awsS3Service.emptyBucket(_awsConfig.awsBucketName)
 
-    const { createLambda } = await domainRequest<
-      CreateLambdaInput,
-      TestCreateLambdaMutation
-    >(userApp, TestCreateLambdaGql, createLambdaInput)
+    const createLambda = await testModule.createTestLambda(createLambdaInput)
 
     deleteLambdaInput = {
       lambdaId: createLambda.id,
@@ -54,16 +32,16 @@ describe('DeleteLambda', () => {
     expect(createLambda.id).toBeDefined()
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to delete a lambda', async () => {
-      await domainRequest(guestApp, TestDeleteLambdaGql, deleteLambdaInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestDeleteLambdaGql,
+        deleteLambdaInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
@@ -74,15 +52,12 @@ describe('DeleteLambda', () => {
       }
 
       await domainRequest<DeleteLambdaInput, TestDeleteLambdaMutation>(
-        userApp,
+        testModule.userApp,
         TestDeleteLambdaGql,
         deleteLambdaInput,
       )
 
-      const { getLambda } = await domainRequest<
-        GetLambdaInput,
-        TestGetLambdaQuery
-      >(userApp, TestGetLambdaGql, getLambdaInput)
+      const getLambda = await testModule.getLambda(getLambdaInput)
 
       expect(getLambda).toBeNull()
     })

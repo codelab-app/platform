@@ -1,0 +1,11 @@
+query E2eGetPage($input: GetPageInput!) {
+  page: getPage(input: $input) {
+    ...PageFull
+  }
+}
+
+mutation E2eCreatePage($input: CreatePageInput!) {
+  createPage(input: $input) {
+    ...PageBase
+  }
+}

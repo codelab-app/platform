@@ -1,5 +1,4 @@
 import { DgraphEntityType } from '../dgraph-entity-type'
-import { DgraphEntity } from '../interfaces'
 import { DgraphQueryField } from './dgraph-query-field'
 import { DgraphFilter, DgraphFilters, EqFilter } from './filters'
 import {
@@ -7,7 +6,6 @@ import {
   IDgraphQueryFilter,
   IQueryBuilder,
 } from './i-query-builder'
-import { DgraphQueryJson, WithReverseFields } from './types'
 import { compileMultiple } from './utils'
 
 /**
@@ -102,8 +100,8 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     return this
   }
 
-  addEqFilterDirective<TEntity extends DgraphEntity<any> | unknown = unknown>(
-    predicate: TEntity extends DgraphEntity<any> ? keyof TEntity : string,
+  addEqFilterDirective<TEntity extends any | unknown = unknown>(
+    predicate: string,
     value: string,
   ) {
     return this.addFilterDirective(new EqFilter<TEntity>(predicate, value))
@@ -142,33 +140,6 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     }
 
     this._fields.push(...fields)
-
-    return this
-  }
-
-  addJsonReverseFields<TOtherEntity extends DgraphEntity<any>>(
-    json: WithReverseFields<TOtherEntity>,
-  ) {
-    return this.addJsonFields(json as any)
-  }
-
-  addJsonFields<TEntity extends DgraphEntity<any>>(
-    json: DgraphQueryJson<TEntity>,
-  ) {
-    const jsonFieldsToString = (innerJson: DgraphQueryJson<TEntity>): string =>
-      Object.keys(innerJson).reduce((prev, key) => {
-        const value = (innerJson as any)[key]
-
-        if (typeof value === 'object') {
-          return prev + ` ${key} { ${jsonFieldsToString(value)} } `
-        } else if (value) {
-          return prev + ' ' + key
-        }
-
-        return ''
-      })
-
-    this.addFields(jsonFieldsToString(json))
 
     return this
   }

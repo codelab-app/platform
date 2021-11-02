@@ -43,15 +43,7 @@ export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
   // }
 
   const onSubmit = (submitData: DeepPartial<UpdateLibraryInput>) => {
-    // return mutate({
-    //   variables: {
-    //     input: {
-    //       user_id: userId,
-    //       ...(submitData as any),
-    //     },
-    //     libraryId: updateLibraryId,
-    //   },
-    // })
+    //
   }
 
   return (

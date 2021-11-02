@@ -1,22 +1,25 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestUpdatePropMapBindingMutationVariables = Types.Exact<{
-  input: Types.UpdatePropMapBindingInput;
-}>;
+  input: Types.UpdatePropMapBindingInput
+}>
 
-
-export type TestUpdatePropMapBindingMutation = { updatePropMapBinding?: Types.Maybe<void> };
-
+export type TestUpdatePropMapBindingMutation = {
+  updatePropMapBinding?: Types.Maybe<void>
+}
 
 export const TestUpdatePropMapBindingGql = gql`
-    mutation TestUpdatePropMapBinding($input: UpdatePropMapBindingInput!) {
-  updatePropMapBinding(input: $input)
-}
-    `;
-export type TestUpdatePropMapBindingMutationFn = Apollo.MutationFunction<TestUpdatePropMapBindingMutation, TestUpdatePropMapBindingMutationVariables>;
+  mutation TestUpdatePropMapBinding($input: UpdatePropMapBindingInput!) {
+    updatePropMapBinding(input: $input)
+  }
+`
+export type TestUpdatePropMapBindingMutationFn = Apollo.MutationFunction<
+  TestUpdatePropMapBindingMutation,
+  TestUpdatePropMapBindingMutationVariables
+>
 
 /**
  * __useTestUpdatePropMapBindingMutation__
@@ -35,10 +38,25 @@ export type TestUpdatePropMapBindingMutationFn = Apollo.MutationFunction<TestUpd
  *   },
  * });
  */
-export function useTestUpdatePropMapBindingMutation(baseOptions?: Apollo.MutationHookOptions<TestUpdatePropMapBindingMutation, TestUpdatePropMapBindingMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestUpdatePropMapBindingMutation, TestUpdatePropMapBindingMutationVariables>(TestUpdatePropMapBindingGql, options);
-      }
-export type TestUpdatePropMapBindingMutationHookResult = ReturnType<typeof useTestUpdatePropMapBindingMutation>;
-export type TestUpdatePropMapBindingMutationResult = Apollo.MutationResult<TestUpdatePropMapBindingMutation>;
-export type TestUpdatePropMapBindingMutationOptions = Apollo.BaseMutationOptions<TestUpdatePropMapBindingMutation, TestUpdatePropMapBindingMutationVariables>;
+export function useTestUpdatePropMapBindingMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestUpdatePropMapBindingMutation,
+    TestUpdatePropMapBindingMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestUpdatePropMapBindingMutation,
+    TestUpdatePropMapBindingMutationVariables
+  >(TestUpdatePropMapBindingGql, options)
+}
+export type TestUpdatePropMapBindingMutationHookResult = ReturnType<
+  typeof useTestUpdatePropMapBindingMutation
+>
+export type TestUpdatePropMapBindingMutationResult =
+  Apollo.MutationResult<TestUpdatePropMapBindingMutation>
+export type TestUpdatePropMapBindingMutationOptions =
+  Apollo.BaseMutationOptions<
+    TestUpdatePropMapBindingMutation,
+    TestUpdatePropMapBindingMutationVariables
+  >

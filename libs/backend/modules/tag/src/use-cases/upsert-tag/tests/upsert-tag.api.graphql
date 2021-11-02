@@ -1,3 +1,5 @@
 mutation TestUpsertTag($input: UpsertTagInput!) {
-  upsertTag(input: $input)
+  upsertTag(input: $input) {
+    ...Tag
+  }
 }

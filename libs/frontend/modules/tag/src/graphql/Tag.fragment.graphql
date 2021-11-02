@@ -1,4 +1,6 @@
 fragment Tag on Tag {
   id
   name
+  isRoot
+  children
 }

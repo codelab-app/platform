@@ -72,7 +72,7 @@ describe('ui-use-case generator', () => {
 
       const CreateUserForm = appTree.read(createUserFormPath)?.toString()
 
-      expect(CreateUserForm).toBe('Codelab')
+      expect(CreateUserForm).toStrictEqual('Codelab')
     })
   })
 })

@@ -1,9 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql'
 
-/**
- * This defaults to AND
- */
-@InputType()
+@InputType({
+  description: `Provide exactly 1 field`,
+})
 export class WhereUniqueType {
   @Field({ nullable: true })
   declare id?: string

@@ -1,54 +1,47 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphAtom,
-  DgraphEntityType,
-  DgraphQueryBuilder,
-  DgraphTag,
-} from '@codelab/backend/infra'
+import { ITag, TagSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetTagInput } from './get-tag.input'
+import { getTagQuery, mapDgraphTag } from './get-tag.query'
 
 @Injectable()
-export class GetTagService extends DgraphUseCase<
-  GetTagInput,
-  DgraphTag | null
-> {
+export class GetTagService extends DgraphUseCase<GetTagInput, ITag | null> {
+  protected schema = TagSchema.nullable().optional()
+
   protected async executeTransaction(request: GetTagInput, txn: Txn) {
     const {
       where: { id, name },
     } = request
 
     if (id) {
-      return this.dgraph.getOne<DgraphTag>(
+      const tag = await this.dgraph.getOneNamed<ITag>(
         txn,
         GetTagService.createWhereIdQuery(id),
+        'query',
       )
+
+      return mapDgraphTag(tag)
     }
 
     if (name) {
-      return this.dgraph.getOne<DgraphTag>(
+      const tag = await this.dgraph.getOneNamed<ITag>(
         txn,
         GetTagService.createWhereNameQuery(name),
+        'query',
       )
+
+      return mapDgraphTag(tag)
     }
 
     throw new Error('Invalid GetTagInput')
   }
 
   private static createWhereIdQuery(id: string) {
-    return new DgraphQueryBuilder()
-      .setUidFunc(id)
-      .addTypeFilterDirective(DgraphEntityType.Tag)
-      .addBaseFields()
-      .addExpandAll()
+    return getTagQuery(`@filter(uid(${id}))`)
   }
 
   private static createWhereNameQuery(name: string) {
-    return new DgraphQueryBuilder()
-      .setTypeFunc(DgraphEntityType.Tag)
-      .addEqFilterDirective<DgraphAtom>('name', name)
-      .addBaseFields()
-      .addExpandAll()
+    return getTagQuery(`@filter(eq(name, "${name}"))`)
   }
 }

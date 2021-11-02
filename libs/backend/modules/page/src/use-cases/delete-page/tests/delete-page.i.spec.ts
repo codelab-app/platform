@@ -1,26 +1,6 @@
-import { AppModule, CreateAppInput } from '@codelab/backend/modules/app'
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { PageModule } from '../../../page.module'
-import { CreatePageInput } from '../../create-page'
-import {
-  TestCreateAppGql,
-  TestCreateAppMutation,
-} from '../../create-page/tests/create-app.api.graphql.gen'
-import {
-  TestCreatePageGql,
-  TestCreatePageMutation,
-} from '../../create-page/tests/create-page.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupPageTestModule } from '../../../test/setupPageTestModule'
 import { GetPageInput } from '../../get-page/get-page.input'
-import {
-  TestGetPageGql,
-  TestGetPageQuery,
-} from '../../get-page/tests/get-page.api.graphql.gen'
 import { DeletePageInput } from '../delete-page.input'
 import {
   TestDeletePageGql,
@@ -28,50 +8,35 @@ import {
 } from './delete-page.api.graphql.gen'
 
 describe('DeletePage', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupPageTestModule()
   let pageId: string
   let appId: string
   let deletePageInput: DeletePageInput
   let getPageInput: GetPageInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AppModule, PageModule], {
-      role: Role.Guest,
-    })
-    userApp = await setupTestModule([AppModule, PageModule], {
-      role: Role.User,
-    })
+    const app = await testModule.createTestApp({ name: 'App' })
 
-    const result = await domainRequest<CreateAppInput, TestCreateAppMutation>(
-      userApp,
-      TestCreateAppGql,
-      { name: 'App' },
-    )
+    appId = app.id
 
-    appId = result.createApp.id
+    const page = await testModule.createTestPage({ name: 'My new page', appId })
 
-    const pageResult = await domainRequest<
-      CreatePageInput,
-      TestCreatePageMutation
-    >(userApp, TestCreatePageGql, { name: 'My new page', appId })
-
-    pageId = pageResult.createPage.id
+    pageId = page.id
 
     deletePageInput = { pageId }
     getPageInput = { pageId }
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to delete a page', async () => {
-      await domainRequest(guestApp, TestDeletePageGql, deletePageInput, {
-        message: 'Unauthorized',
-      })
+      await domainRequest(
+        testModule.guestApp,
+        TestDeletePageGql,
+        deletePageInput,
+        {
+          message: 'Unauthorized',
+        },
+      )
     })
   })
 
@@ -80,15 +45,11 @@ describe('DeletePage', () => {
       const { deletePage } = await domainRequest<
         DeletePageInput,
         TestDeletePageMutation
-      >(userApp, TestDeletePageGql, deletePageInput)
+      >(testModule.userApp, TestDeletePageGql, deletePageInput)
 
       expect(deletePage?.id).toEqual(deletePageInput.pageId)
 
-      const { page } = await domainRequest<GetPageInput, TestGetPageQuery>(
-        userApp,
-        TestGetPageGql,
-        getPageInput,
-      )
+      const page = await testModule.getPage(getPageInput)
 
       expect(page).toBeNull()
     })

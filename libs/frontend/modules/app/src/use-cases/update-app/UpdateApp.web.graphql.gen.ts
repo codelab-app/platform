@@ -1,26 +1,28 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AppBaseFragment } from '../../App.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { AppBaseFragmentDoc } from '../../App.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import { AppBaseFragment } from '../../App.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { AppBaseFragmentDoc } from '../../App.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type UpdateAppMutationVariables = Types.Exact<{
-  input: Types.UpdateAppInput;
-}>;
+  input: Types.UpdateAppInput
+}>
 
-
-export type UpdateAppMutation = { updateApp?: Types.Maybe<AppBaseFragment> };
-
+export type UpdateAppMutation = { updateApp?: Types.Maybe<AppBaseFragment> }
 
 export const UpdateAppGql = gql`
-    mutation UpdateApp($input: UpdateAppInput!) {
-  updateApp(input: $input) {
-    ...AppBase
+  mutation UpdateApp($input: UpdateAppInput!) {
+    updateApp(input: $input) {
+      ...AppBase
+    }
   }
-}
-    ${AppBaseFragmentDoc}`;
-export type UpdateAppMutationFn = Apollo.MutationFunction<UpdateAppMutation, UpdateAppMutationVariables>;
+  ${AppBaseFragmentDoc}
+`
+export type UpdateAppMutationFn = Apollo.MutationFunction<
+  UpdateAppMutation,
+  UpdateAppMutationVariables
+>
 
 /**
  * __useUpdateAppMutation__
@@ -39,10 +41,23 @@ export type UpdateAppMutationFn = Apollo.MutationFunction<UpdateAppMutation, Upd
  *   },
  * });
  */
-export function useUpdateAppMutation(baseOptions?: Apollo.MutationHookOptions<UpdateAppMutation, UpdateAppMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateAppMutation, UpdateAppMutationVariables>(UpdateAppGql, options);
-      }
-export type UpdateAppMutationHookResult = ReturnType<typeof useUpdateAppMutation>;
-export type UpdateAppMutationResult = Apollo.MutationResult<UpdateAppMutation>;
-export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<UpdateAppMutation, UpdateAppMutationVariables>;
+export function useUpdateAppMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateAppMutation,
+    UpdateAppMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<UpdateAppMutation, UpdateAppMutationVariables>(
+    UpdateAppGql,
+    options,
+  )
+}
+export type UpdateAppMutationHookResult = ReturnType<
+  typeof useUpdateAppMutation
+>
+export type UpdateAppMutationResult = Apollo.MutationResult<UpdateAppMutation>
+export type UpdateAppMutationOptions = Apollo.BaseMutationOptions<
+  UpdateAppMutation,
+  UpdateAppMutationVariables
+>

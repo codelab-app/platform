@@ -1,11 +1,5 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { TypeModule } from '../../../../type.module'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupTypeTestModule } from '../../../../tests/setupTypeTestModule'
 import { GetFieldInput } from '../../get-field'
 import {
   TestGetFieldGql,
@@ -20,20 +14,12 @@ import { createInterfaceType, createPrimitiveType } from './create-type-field'
 import { partialCreateFieldInput } from './data'
 
 describe('CreateField', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupTypeTestModule()
   let createFieldInput: CreateFieldInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([TypeModule], {
-      role: Role.Guest,
-    })
-    userApp = await setupTestModule([TypeModule], {
-      role: Role.User,
-    })
-
-    const primitiveTypeId = await createPrimitiveType(userApp)
-    const interfaceTypeId = await createInterfaceType(userApp)
+    const primitiveTypeId = await createPrimitiveType(testModule.userApp)
+    const interfaceTypeId = await createInterfaceType(testModule.userApp)
 
     createFieldInput = {
       name: partialCreateFieldInput.name,
@@ -46,15 +32,10 @@ describe('CreateField', () => {
     }
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should not create field', async () => {
       await domainRequest<CreateFieldInput>(
-        guestApp,
+        testModule.guestApp,
         TestCreateFieldGql,
         createFieldInput,
         { message: 'Unauthorized' },
@@ -64,24 +45,28 @@ describe('CreateField', () => {
 
   describe('User', () => {
     it('should create field', async () => {
-      const {
-        createField: { id: fieldId },
-      } = await domainRequest<CreateFieldInput, TestCreateFieldMutation>(
-        userApp,
-        TestCreateFieldGql,
-        createFieldInput,
-      )
+      const { createField } = await domainRequest<
+        CreateFieldInput,
+        TestCreateFieldMutation
+      >(testModule.userApp, TestCreateFieldGql, createFieldInput)
 
-      const { getField: field } = await domainRequest<
+      const matches = (actual: any) =>
+        expect(actual).toMatchObject({
+          name: createFieldInput.name,
+          key: createFieldInput.key,
+          description: createFieldInput.description,
+        })
+
+      matches(createField)
+
+      const { getField } = await domainRequest<
         GetFieldInput,
         TestGetFieldQuery
-      >(userApp, TestGetFieldGql, { byId: { fieldId } })
-
-      expect(field).toMatchObject({
-        name: createFieldInput.name,
-        key: createFieldInput.key,
-        description: createFieldInput.description,
+      >(testModule.userApp, TestGetFieldGql, {
+        byId: { fieldId: createField.id },
       })
+
+      matches(getField)
     })
   })
 })

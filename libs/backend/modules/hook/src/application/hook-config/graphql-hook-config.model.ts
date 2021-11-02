@@ -1,20 +1,23 @@
+import {
+  HookDiscriminator,
+  IGraphqlHookConfig,
+} from '@codelab/shared/abstract/core'
 import { Field, ObjectType } from '@nestjs/graphql'
-import { GraphqlHookConfig } from '../../domain'
 
-@ObjectType('GraphqlHookConfig')
-export class GraphqlHookConfigModel implements GraphqlHookConfig {
+@ObjectType(HookDiscriminator.GraphqlHookConfig)
+export class GraphqlHookConfig implements IGraphqlHookConfig {
   @Field()
-  body: string
+  graphqlBody: string
 
   @Field()
-  url: string
+  graphqlUrl: string
 
-  @Field({ nullable: true })
-  dataKey?: string
+  @Field(() => String, { nullable: true })
+  dataKey?: string | null
 
-  constructor({ body, url, dataKey }: GraphqlHookConfigModel) {
-    this.body = body
-    this.url = url
+  constructor({ graphqlBody, graphqlUrl, dataKey }: GraphqlHookConfig) {
+    this.graphqlBody = graphqlBody
+    this.graphqlUrl = graphqlUrl
     this.dataKey = dataKey
   }
 }

@@ -1,10 +1,10 @@
 import {
-  IEnumTypeVertex,
+  IEnumType,
   IField,
   IJsonSchemaOptions,
-  IPrimitiveTypeVertex,
-  ITypeVertex,
-  PrimitiveKind,
+  IPrimitiveType,
+  IType,
+  PrimitiveTypeKind,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import * as _ from 'lodash'
@@ -22,7 +22,7 @@ export class TypeTreeJsonSchemaTransformer {
   private readonly formModel: Record<string, any>
 
   constructor(
-    private typeTree: TypeTree<any, any>,
+    private typeTree: TypeTree,
     options: IJsonSchemaOptions = {},
     formModel?: any,
   ) {
@@ -46,29 +46,26 @@ export class TypeTreeJsonSchemaTransformer {
   }
 
   /**
-   * Converts a {@link PrimitiveKind} to a valid json schema type
+   * Converts a {@link PrimitiveTypeKind} to a valid json schema type
    * or throws an Error if the PrimitiveKind is not recognized
    * Handles: string, integer, number and boolean
    */
-  primitiveKindToJsonType(primitiveKind: PrimitiveKind) {
+  primitiveKindToJsonType(primitiveKind: PrimitiveTypeKind) {
     switch (primitiveKind) {
-      case PrimitiveKind.String:
+      case PrimitiveTypeKind.String:
         return 'string'
-      case PrimitiveKind.Integer:
+      case PrimitiveTypeKind.Integer:
         return 'integer'
-      case PrimitiveKind.Float:
+      case PrimitiveTypeKind.Float:
         return 'number'
-      case PrimitiveKind.Boolean:
+      case PrimitiveTypeKind.Boolean:
         return 'boolean'
       default:
         throw new Error('Primitive kind not recognized ' + primitiveKind)
     }
   }
 
-  private createValueFieldSchemaForUnionType(
-    fieldType: ITypeVertex,
-    field: IField,
-  ) {
+  private createValueFieldSchemaForUnionType(fieldType: IType, field: IField) {
     if (!fieldType) {
       return {}
     }
@@ -103,7 +100,7 @@ export class TypeTreeJsonSchemaTransformer {
    * Since the TypeFragment is flat, doesn't contain any nested types in itself, only references
    * them by id, an external source is needed for them to be transformed too
    */
-  typeToJsonProperty(type: ITypeVertex, field: IField): Record<string, any> {
+  typeToJsonProperty(type: IType, field: IField): Record<string, any> {
     this.iteration++
 
     if (this.iteration > (this.options.maxNesting || 100)) {
@@ -141,7 +138,9 @@ export class TypeTreeJsonSchemaTransformer {
       case TypeKind.UnionType: {
         const typesOfUnionType = this.typeTree.getUnionItemTypes(
           type.id,
-        ) as Array<ITypeVertex>
+        ) as Array<IType>
+
+        console.log(typesOfUnionType)
 
         const fieldLabel = field.name || field.key
         const fieldTypeId = _.get(this.formModel, `${field.key}.type`)
@@ -150,10 +149,13 @@ export class TypeTreeJsonSchemaTransformer {
           ? this.typeTree.getTypeById(fieldTypeId)
           : null
 
-        const valueFieldSchema = this.createValueFieldSchemaForUnionType(
-          fieldType,
-          field,
-        )
+        if (fieldTypeId && !fieldType) {
+          throw new Error(`Field type not found "${fieldTypeId}"`)
+        }
+
+        const valueFieldSchema = fieldType
+          ? this.createValueFieldSchemaForUnionType(fieldType, field)
+          : {}
 
         return {
           type: 'object',
@@ -177,7 +179,7 @@ export class TypeTreeJsonSchemaTransformer {
         return {
           ...extra,
           type: this.primitiveKindToJsonType(
-            (type as IPrimitiveTypeVertex).primitiveKind,
+            (type as IPrimitiveType).primitiveKind,
           ),
         }
 
@@ -186,7 +188,7 @@ export class TypeTreeJsonSchemaTransformer {
 
         if (!itemType) {
           throw new Error(
-            `Item type of ArayType ${type.id} not found in the Type Tree`,
+            `Item type of ArrayType ${type.id} not found in the Type Tree`,
           )
         }
 
@@ -198,7 +200,7 @@ export class TypeTreeJsonSchemaTransformer {
       }
 
       case TypeKind.EnumType: {
-        const enumType = type as IEnumTypeVertex
+        const enumType = type as IEnumType
 
         return {
           ...extra,
@@ -249,6 +251,11 @@ export class TypeTreeJsonSchemaTransformer {
 
     for (const field of fields) {
       const type = this.typeTree.getFieldType(field.id)
+
+      if (!type) {
+        throw new Error('Missing type')
+      }
+
       const fieldSchema = this.typeToJsonProperty(type, field) as any
 
       properties[field.key] = {

@@ -26,7 +26,7 @@ build-dev-affected:
 build-ci:
 	npx nx run-many \
 		--target=build \
-		--projects=api,web,cli \
+		--projects=api,web,cmd,cli \
 		--configuration ci \
 		--parallel \
 		--verbose

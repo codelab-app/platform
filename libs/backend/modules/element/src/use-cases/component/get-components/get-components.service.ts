@@ -1,20 +1,68 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphComponent, DgraphRepository } from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/infra'
+import { ElementsSchema, IElement } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import { GetComponentsInput } from './get-components.input'
-import { getComponentsQuery } from './get-components.query'
+import { GetComponentsRequest } from './get-components.request'
 
 @Injectable()
 export class GetComponentsService extends DgraphUseCase<
-  GetComponentsInput,
-  Array<DgraphComponent>
+  GetComponentsRequest,
+  Array<IElement>
 > {
-  constructor(dgraph: DgraphRepository) {
-    super(dgraph)
+  schema = ElementsSchema
+
+  protected async executeTransaction(request: GetComponentsRequest, txn: Txn) {
+    return this.dgraph.getAllNamed<IElement>(
+      txn,
+      this.getQuery(request),
+      'query',
+    )
   }
 
-  protected async executeTransaction(input: GetComponentsInput, txn: Txn) {
-    return this.dgraph.getAll<DgraphComponent>(txn, getComponentsQuery(input))
+  protected getQuery({ currentUser }: GetComponentsRequest) {
+    // Get all elements, that:
+    // - have a component tag
+    // - are either owned by the current user OR
+    //    - are not owned by anyone
+    return `{
+      query(func: type(${DgraphEntityType.Element}))
+        @filter((uid_in(owner, ${currentUser.id}) OR NOT has(owner)) AND has(componentTag)) {
+        id: uid
+        name
+        css
+        componentTag {
+          id: uid
+          expand(_all_)
+        }
+        atom {
+          id: uid
+          type: atomType
+          name
+          api {
+            id: uid
+            expand(_all_)
+          }
+        }
+        props
+        hooks {
+          id: uid
+          type: hookType
+          config: configJson
+        }
+        renderForEachPropKey
+        renderIfPropKey
+        propMapBindings @normalize {
+          id: uid
+          sourceKey: sourceKey
+          targetKey: targetKey
+          targetElement {
+            targetElementId: uid
+          }
+        }
+        propTransformationJs
+      }
+    }
+    `
   }
 }

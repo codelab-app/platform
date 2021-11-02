@@ -1,26 +1,36 @@
-import * as Types from '@codelab/shared/codegen/graphql';
+import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AtomBaseFragment } from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen';
-import { gql } from '@apollo/client';
-import { AtomBaseFragmentDoc } from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen';
-import * as Apollo from '@apollo/client';
-const defaultOptions =  {}
+import {
+  AtomBaseFragment,
+  AtomFragment,
+} from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import {
+  AtomBaseFragmentDoc,
+  AtomFragmentDoc,
+} from '../../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
+import * as Apollo from '@apollo/client'
+const defaultOptions = {}
 export type TestDeleteAtomMutationVariables = Types.Exact<{
-  input: Types.DeleteAtomInput;
-}>;
+  input: Types.DeleteAtomInput
+}>
 
-
-export type TestDeleteAtomMutation = { deleteAtom?: Types.Maybe<AtomBaseFragment> };
-
+export type TestDeleteAtomMutation = {
+  deleteAtom?: Types.Maybe<AtomBaseFragment>
+}
 
 export const TestDeleteAtomGql = gql`
-    mutation TestDeleteAtom($input: DeleteAtomInput!) {
-  deleteAtom(input: $input) {
-    ...AtomBase
+  mutation TestDeleteAtom($input: DeleteAtomInput!) {
+    deleteAtom(input: $input) {
+      ...AtomBase
+    }
   }
-}
-    ${AtomBaseFragmentDoc}`;
-export type TestDeleteAtomMutationFn = Apollo.MutationFunction<TestDeleteAtomMutation, TestDeleteAtomMutationVariables>;
+  ${AtomBaseFragmentDoc}
+`
+export type TestDeleteAtomMutationFn = Apollo.MutationFunction<
+  TestDeleteAtomMutation,
+  TestDeleteAtomMutationVariables
+>
 
 /**
  * __useTestDeleteAtomMutation__
@@ -39,10 +49,24 @@ export type TestDeleteAtomMutationFn = Apollo.MutationFunction<TestDeleteAtomMut
  *   },
  * });
  */
-export function useTestDeleteAtomMutation(baseOptions?: Apollo.MutationHookOptions<TestDeleteAtomMutation, TestDeleteAtomMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<TestDeleteAtomMutation, TestDeleteAtomMutationVariables>(TestDeleteAtomGql, options);
-      }
-export type TestDeleteAtomMutationHookResult = ReturnType<typeof useTestDeleteAtomMutation>;
-export type TestDeleteAtomMutationResult = Apollo.MutationResult<TestDeleteAtomMutation>;
-export type TestDeleteAtomMutationOptions = Apollo.BaseMutationOptions<TestDeleteAtomMutation, TestDeleteAtomMutationVariables>;
+export function useTestDeleteAtomMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    TestDeleteAtomMutation,
+    TestDeleteAtomMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    TestDeleteAtomMutation,
+    TestDeleteAtomMutationVariables
+  >(TestDeleteAtomGql, options)
+}
+export type TestDeleteAtomMutationHookResult = ReturnType<
+  typeof useTestDeleteAtomMutation
+>
+export type TestDeleteAtomMutationResult =
+  Apollo.MutationResult<TestDeleteAtomMutation>
+export type TestDeleteAtomMutationOptions = Apollo.BaseMutationOptions<
+  TestDeleteAtomMutation,
+  TestDeleteAtomMutationVariables
+>

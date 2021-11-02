@@ -1,16 +1,17 @@
 import {
-  Graph,
+  IBaseType,
   IField,
+  IGraph,
   IJsonSchemaOptions,
+  IType,
   ITypeEdge,
-  ITypeVertex,
   TypeKind,
 } from '@codelab/shared/abstract/core'
+import { isDefined } from '../cytoscape/element'
 import { edgeId } from '../graph/edgeId'
 import { TreeService } from '../tree'
 import { TypeTreeJsonSchemaTransformer } from './jsonSchema'
 import {
-  edgeIsOfFieldKind,
   getFieldFromEdge,
   getItemTypeFromNode,
   getTypeFromNode,
@@ -18,33 +19,32 @@ import {
   typeIsOfKind,
 } from './treeHelpers'
 
-export class TypeTree<
-  TVertex extends ITypeVertex,
-  TEdge extends ITypeEdge,
-> extends TreeService<TVertex, TEdge> {
-  constructor(graph: Graph<TVertex, TEdge>) {
-    const extractEdgeId = (e: TEdge) => {
-      if (!e.field?.id) {
-        return edgeId(e)
+export class TypeTree extends TreeService<IBaseType, ITypeEdge> {
+  constructor(graph: IGraph<IBaseType, ITypeEdge>) {
+    const extractEdgeId = (e: ITypeEdge) => {
+      const id = (e as any).id
+
+      if (id) {
+        return id
       }
 
-      return e.field.id
+      return edgeId(e)
     }
 
     super(graph, extractEdgeId)
   }
 
-  getTypeById(typeId: string): TVertex | null {
+  getTypeById(typeId: string): IType | null {
     const node = this.cy.getElementById(typeId).first()
 
-    return node ? (getTypeFromNode(node) as TVertex) ?? null : null
+    return node ? (getTypeFromNode(node) as IType) ?? null : null
   }
 
   /** Returns the type of the field or null if the field is not found */
-  getFieldType(fieldId: string): TVertex | null {
+  getFieldType(fieldId: string): IType | null {
     const node = this.cy.getElementById(fieldId).targets().first()
 
-    return node ? (getTypeFromNode(node) as TVertex) ?? null : null
+    return node ? (getTypeFromNode(node) as IType) ?? null : null
   }
 
   /** Returns all the root fields in the tree, or an empty array if none */
@@ -52,8 +52,8 @@ export class TypeTree<
     return this.cy
       .getElementById(typeId)
       .connectedEdges()
-      .filter(edgeIsOfFieldKind)
       .map(getFieldFromEdge)
+      .filter(isDefined)
   }
 
   getUnionTypeFieldContainingType(type: TypeKind) {
@@ -65,8 +65,8 @@ export class TypeTree<
           .nodes()
           .incomers()
           .edges()
-          .filter(edgeIsOfFieldKind)
           .map(getFieldFromEdge)
+          .filter(isDefined)
 
         const isUnionReactTypeNodeType = unionType
           .nodes()
@@ -95,8 +95,8 @@ export class TypeTree<
       .roots()
       .first()
       .connectedEdges()
-      .filter(edgeIsOfFieldKind)
       .map(getFieldFromEdge)
+      .filter(isDefined)
   }
 
   /** Returns all the fields with a type kind. Returns an empty array if the type doesn't have any fields (e.g.. if it's not an interface) */
@@ -106,33 +106,33 @@ export class TypeTree<
       .filter(typeIsOfKind(typeKind))
       .incomers()
       .edges()
-      .filter(edgeIsOfFieldKind)
       .map(getFieldFromEdge)
+      .filter(isDefined)
   }
 
-  getUnionItemTypes(unionTypeId: string): Array<TVertex> {
+  getUnionItemTypes(unionTypeId: string): Array<IType> {
     return getTypesOfUnionTypeFromNode(
       this.cy.getElementById(unionTypeId),
-    ) as Array<TVertex>
+    ) as Array<IType>
   }
 
   /** Returns the item type of an array or undefined if not found */
-  getArrayItemType(arrayTypeId: string): TVertex | undefined {
+  getArrayItemType(arrayTypeId: string): IType | undefined {
     return (
-      (getItemTypeFromNode(this.cy.getElementById(arrayTypeId)) as TVertex) ??
+      (getItemTypeFromNode(this.cy.getElementById(arrayTypeId)) as IType) ??
       undefined
     )
   }
 
   /** Returns all types, or all types by typeKind if provided */
-  getTypes(typeKind: TypeKind | undefined): Array<TVertex> {
+  getTypes(typeKind: TypeKind | undefined): Array<IType> {
     let vertices = this.cy.elements()
 
     if (typeKind) {
       vertices = vertices.filter(typeIsOfKind(typeKind))
     }
 
-    return vertices.map(getTypeFromNode).filter((v): v is TVertex => !!v)
+    return vertices.map(getTypeFromNode).filter((v): v is IType => !!v)
   }
 
   /** Creates a json schema from the type tree. Throws if the tree doesn't have fields */

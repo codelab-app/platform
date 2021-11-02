@@ -1,3 +1,5 @@
 mutation DeleteLambda($input: DeleteLambdaInput!) {
-  deleteLambda(input: $input)
+  deleteLambda(input: $input) {
+    ...Lambda
+  }
 }

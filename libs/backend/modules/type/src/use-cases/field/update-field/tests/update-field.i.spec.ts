@@ -1,11 +1,5 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { TypeModule } from '../../../../type.module'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupTypeTestModule } from '../../../../tests/setupTypeTestModule'
 import { CreateFieldInput } from '../../create-field'
 import {
   TestCreateFieldGql,
@@ -22,24 +16,19 @@ import {
   TestGetFieldQuery,
 } from '../../get-field/tests/get-field.api.graphql.gen'
 import { UpdateFieldInput } from '../update-field.input'
-import { TestUpdateFieldGql } from './update-field.api.graphql.gen'
+import {
+  TestUpdateFieldGql,
+  TestUpdateFieldMutation,
+} from './update-field.api.graphql.gen'
 
 describe('UpdateField', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupTypeTestModule()
   let fieldId: string
   let updateFieldInput: UpdateFieldInput
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([TypeModule], {
-      role: Role.Guest,
-    })
-    userApp = await setupTestModule([TypeModule], {
-      role: Role.User,
-    })
-
-    const primitiveTypeId = await createPrimitiveType(userApp)
-    const interfaceTypeId = await createInterfaceType(userApp)
+    const primitiveTypeId = await createPrimitiveType(testModule.userApp)
+    const interfaceTypeId = await createInterfaceType(testModule.userApp)
 
     const createFieldInput: CreateFieldInput = {
       name: partialCreateFieldInput.name,
@@ -55,7 +44,7 @@ describe('UpdateField', () => {
     const { createField } = await domainRequest<
       CreateFieldInput,
       TestCreateFieldMutation
-    >(userApp, TestCreateFieldGql, createFieldInput)
+    >(testModule.userApp, TestCreateFieldGql, createFieldInput)
 
     fieldId = createField.id
 
@@ -70,15 +59,10 @@ describe('UpdateField', () => {
     }
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should not update field', async () => {
       await domainRequest<UpdateFieldInput>(
-        guestApp,
+        testModule.guestApp,
         TestUpdateFieldGql,
         updateFieldInput,
         { message: 'Unauthorized' },
@@ -88,21 +72,25 @@ describe('UpdateField', () => {
 
   describe('User', () => {
     it('should update field', async () => {
-      await domainRequest<UpdateFieldInput>(
-        userApp,
-        TestUpdateFieldGql,
-        updateFieldInput,
-      )
+      const { updateField } = await domainRequest<
+        UpdateFieldInput,
+        TestUpdateFieldMutation
+      >(testModule.userApp, TestUpdateFieldGql, updateFieldInput)
 
-      const { getField: field } = await domainRequest<
+      const matches = (actual: any) =>
+        expect(actual).toMatchObject({
+          id: fieldId,
+          name: updateFieldInput.updateData.name,
+        })
+
+      matches(updateField)
+
+      const { getField } = await domainRequest<
         GetFieldInput,
         TestGetFieldQuery
-      >(userApp, TestGetFieldGql, { byId: { fieldId } })
+      >(testModule.userApp, TestGetFieldGql, { byId: { fieldId } })
 
-      expect(field).toMatchObject({
-        id: fieldId,
-        name: updateFieldInput.updateData.name,
-      })
+      matches(getField)
     })
   })
 })

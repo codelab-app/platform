@@ -1,47 +1,23 @@
-import {
-  domainRequest,
-  setupTestModule,
-  teardownTestModule,
-} from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
-import { INestApplication } from '@nestjs/common'
-import { AppModule } from '../../../app.module'
-import { CreateAppInput } from '../../create-app'
-import {
-  TestCreateAppGql,
-  TestCreateAppMutation,
-} from '../../create-app/tests/create-app.api.graphql.gen'
+import { domainRequest } from '@codelab/backend/shared/testing'
+import { setupAppTestModule } from '../../../test/setupAppTestModule'
 import { createAppInput } from '../../create-app/tests/create-app.data'
 import { TestGetAppsGql, TestGetAppsQuery } from './get-apps.api.graphql.gen'
 
 describe('GetApps', () => {
-  let guestApp: INestApplication
-  let userApp: INestApplication
+  const testModule = setupAppTestModule()
   let appId: string
 
   beforeAll(async () => {
-    guestApp = await setupTestModule([AppModule], { role: Role.Guest })
-    userApp = await setupTestModule([AppModule], { role: Role.User })
+    const results = await testModule.createTestApp(createAppInput)
 
-    const results = await domainRequest<CreateAppInput, TestCreateAppMutation>(
-      userApp,
-      TestCreateAppGql,
-      createAppInput,
-    )
-
-    appId = results.createApp.id
+    appId = results.id
 
     expect(appId).toBeDefined()
   })
 
-  afterAll(async () => {
-    await teardownTestModule(guestApp)
-    await teardownTestModule(userApp)
-  })
-
   describe('Guest', () => {
     it('should fail to get apps', async () => {
-      await domainRequest(guestApp, TestGetAppsGql, undefined, {
+      await domainRequest(testModule.guestApp, TestGetAppsGql, undefined, {
         message: 'Unauthorized',
       })
     })
@@ -50,7 +26,7 @@ describe('GetApps', () => {
   describe('User', () => {
     it('should get apps', async () => {
       const results = await domainRequest<any, TestGetAppsQuery>(
-        userApp,
+        testModule.userApp,
         TestGetAppsGql,
       )
 

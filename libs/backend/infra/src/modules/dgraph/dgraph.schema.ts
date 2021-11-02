@@ -1,45 +1,25 @@
 /**
- * !
- * If you change the schema - change the interfaces in ./interfaces too
  * If you add new types, add them to ./dgraph-entity-type
  */
 import { DgraphEntityType } from './dgraph-entity-type'
 
 const {
   Type,
-  Tree,
-  InterfaceType,
-  ArrayType,
   Element,
   Field,
-  Node,
-  EnumType,
   Page,
   Atom,
   Library,
-  PrimitiveType,
   EnumTypeValue,
-  LambdaType,
   User,
   App,
-  Component,
   Lambda,
-  ElementType,
-  ComponentType,
   Hook,
   PropMapBinding,
   Tag,
-  RenderPropsType,
-  ReactNodeType,
-  UnionType,
 } = DgraphEntityType
 
 export const dgraphSchema = `
-  type ${Tree} {
-    name
-    root
-  }
-
   type ${Tag} {
     name
     owner
@@ -50,10 +30,6 @@ export const dgraphSchema = `
   parent: uid .
   isRoot: bool .
 
-  type ${Node} {
-    name
-    children
-  }
 
   type ${User} {
     auth0Id
@@ -66,15 +42,19 @@ export const dgraphSchema = `
   roles: [string] .
   types: [uid] @reverse .
 
+
   type ${App} {
-    ownerId
+    owner
     name
     pages
   }
+  pages: [uid] @reverse .
 
-  type ${Page} {}
 
-  type ${Component} {}
+  type ${Page} {
+    name
+    root
+  }
 
   type ${Library} {
     ownerId
@@ -82,6 +62,9 @@ export const dgraphSchema = `
     atoms
     components
   }
+  atoms: [uid] @reverse .
+  components: [uid] @reverse .
+
 
   type ${Element} {
     component
@@ -93,7 +76,19 @@ export const dgraphSchema = `
     renderIfPropKey
     propMapBindings
     propTransformationJs
+    owner
+    children
+    componentTag
   }
+  component: uid @reverse .
+  atom: uid @reverse .
+  props: string .
+  hooks: [uid] @reverse .
+  css: string .
+  renderForEachPropKey: string .
+  renderIfPropKey: string .
+  propMapBindings: [uid] @reverse .
+  componentTag: uid @reverse .
 
   type ${Atom} {
     name
@@ -101,49 +96,39 @@ export const dgraphSchema = `
     api
     library
   }
+  atomType: string @index(term) .
+  api: uid @reverse .
   library: uid .
+
 
   type ${Type} {
     owner
     name
-  }
-
-  type ${PrimitiveType} {
+    typeKind
     primitiveKind
-  }
-
-  type ${ArrayType} {
     itemType
+    allowedValues
+    elementKind
+    fields
+    typesOfUnionType
   }
+  elementKind: string .
+  typeKind: string .
+  primitiveKind: string .
+  typesOfUnionType: [uid] .
+  itemType: uid .
+  allowedValues: [uid] @reverse .
+  fields: [uid] @reverse .
+  propTransformationJs: string .
+
 
   type ${EnumTypeValue} {
     name
     stringValue
+    order
   }
-
-  type ${EnumType} {
-    allowedValues
-  }
-
-  type ${LambdaType} {
-  }
-
-  type ${ComponentType} {
-  }
-
-  type ${ReactNodeType} {
-  }
-
-  type ${RenderPropsType} {
-  }
-
-  type ${ElementType} {
-    kind
-  }
-
-  type ${InterfaceType} {
-    fields
-  }
+  stringValue: string .
+  order: int .
 
   type ${Field} {
     type
@@ -151,87 +136,40 @@ export const dgraphSchema = `
     name
     description
   }
+  type: uid @reverse .
+  key: string @index(term) .
+  description: string .
+
 
   type ${Lambda} {
     ownerId
     name
     body
   }
+  body: string .
+
 
   type ${Hook} {
     hookType
     configJson
   }
+  hookType: string @index(hash)  .
+  configJson: string .
+
 
   type ${PropMapBinding} {
     targetElement
     sourceKey
     targetKey
   }
-
-  type ${UnionType} {
-    typesOfUnionType
-  }
-
-  name: string @index(term, trigram) .
-  description: string .
-
-  children: [uid] @reverse .
-
-  owner: uid @reverse .
-  ownerId: string @index(hash) .
-  pages: [uid] @reverse .
-
-  component: uid @reverse .
-  atom: uid @reverse .
-  props: string .
-  css: string .
-
-  root: uid @reverse .
-
-  atoms: [uid] @reverse .
-  components: [uid] @reverse .
-
-  atomType: string @index(term) .
-  api: uid @reverse .
-
-  typesOfUnionType: [uid] .
-  primitiveKind: string .
-  itemType: uid .
-
-  stringValue: string .
-  intValue: int .
-  floatValue: float .
-  booleanValue: bool .
-
-  values: [uid] .
-
-  allowedValues: [uid] @reverse .
-
-  fields: [uid] @reverse .
-
-  type: uid @reverse .
-  key: string @index(term) .
-
-  field: uid @reverse .
-  value: uid @reverse .
-
-  body: string .
-
-  kind: string .
-
-  hookType: string @index(hash)  .
-  configJson: string .
-
-  hooks: [uid] @reverse .
-
-  renderForEachPropKey: string .
-  renderIfPropKey: string .
-
   targetElement: uid .
   sourceKey: string .
   targetKey: string .
-  propMapBindings: [uid] @reverse .
 
-  propTransformationJs: string .
+
+  name: string @index(term, trigram) .
+  children: [uid] @reverse .
+  owner: uid @reverse .
+  ownerId: string @index(hash) .
+  root: uid @reverse .
 `

@@ -1,5 +1,5 @@
 import { ROLES_KEY } from '@codelab/backend/abstract/types'
-import { Role, User } from '@codelab/shared/abstract/core'
+import { IUser, Role } from '@codelab/shared/abstract/core'
 import {
   CanActivate,
   ExecutionContext,
@@ -28,7 +28,7 @@ export class RolesGuard implements CanActivate {
     }
 
     const ctx = GqlExecutionContext.create(context)
-    const user: User = ctx.getContext().req.user
+    const user: IUser = ctx.getContext().req.user
     const canActivate = requiredRoles.some((role) => user.roles?.includes(role))
 
     if (!canActivate) {

@@ -1,32 +1,15 @@
 import {
-  DgraphAtom,
   DgraphEntityType,
-  DgraphField,
-  DgraphInterfaceType,
-  DgraphQueryBuilder,
-  DgraphQueryField,
   DgraphRepository,
-  DgraphType,
-  isDgraphArrayType,
-  isDgraphFieldType,
-  isDgraphInterfaceType,
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { TypeId, TypeKind } from '@codelab/shared/abstract/core'
+import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
-import {
-  OverlyNestedTypeError,
-  RecursiveTypeError,
-} from '../application/errors'
+import { RecursiveTypeError } from '../application/errors'
 import { TypeUnusedError } from '../application/errors/type-unused.error'
 import { CreateTypeInput } from '../use-cases/type/create-type'
-import { MAX_TYPE_DEPTH } from './constants'
-
-export type QueryResult = DgraphType<any> & {
-  '~api'?: [DgraphAtom]
-  '~type'?: Array<DgraphField>
-}
 
 @Injectable()
 export class TypeValidator {
@@ -39,11 +22,12 @@ export class TypeValidator {
    * Throws error
    * if the type doesn't exist
    */
-  async typeExists(typeId: string) {
+  async typeExists(typeId: TypeId) {
     return await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getOneOrThrow<QueryResult>(
+      this.dgraph.getOneOrThrowNamed<QueryResult>(
         txn,
         TypeValidator.createGetTypeQuery(typeId),
+        'query',
         () => {
           throw new Error('Type does not exist')
         },
@@ -62,10 +46,10 @@ export class TypeValidator {
     }
 
     const results = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.executeNamedQuery<Array<DgraphType<any>>>(
+      this.dgraph.executeNamedQuery<Array<any>>(
         txn,
         `{
-          query(func: eq(dgraph.type, ${DgraphEntityType.PrimitiveType})) @filter(eq(primitiveKind, ${request.primitiveType?.primitiveKind})) {
+          query(func: eq(dgraph.type, ${DgraphEntityType.Type})) @filter(eq(typeKind, "${TypeKind.PrimitiveType}") AND eq(primitiveKind, ${request.primitiveType?.primitiveKind})) {
             uid
             primitiveKind
           }
@@ -89,8 +73,8 @@ export class TypeValidator {
       typeOrTypeId = await this.typeExists(typeOrTypeId)
     }
 
-    if (typeOrTypeId['~api']?.length && typeOrTypeId['~api'][0]) {
-      throw new TypeUnusedError(undefined, typeOrTypeId['~api'][0].name)
+    if (typeOrTypeId.atoms && typeOrTypeId.atoms.length > 0) {
+      throw new TypeUnusedError(undefined, typeOrTypeId.atoms[0].name)
     }
   }
 
@@ -103,12 +87,8 @@ export class TypeValidator {
       typeOrTypeId = await this.typeExists(typeOrTypeId)
     }
 
-    if (typeOrTypeId['~type']?.length) {
-      const fields = typeOrTypeId['~type'].filter((f) => isDgraphFieldType(f))
-
-      if (fields.length) {
-        throw new TypeUnusedError(fields.map((f) => `${f.name}`))
-      }
+    if (typeOrTypeId.fields && typeOrTypeId.fields.length > 0) {
+      throw new TypeUnusedError(typeOrTypeId.fields.map((f) => `${f.name}`))
     }
   }
 
@@ -128,62 +108,37 @@ export class TypeValidator {
    * Throws {@link OverlyNestedTypeError} if the type is too nested based on {@link MAX_TYPE_DEPTH}
    * Throws {@link RecursiveTypeError} if typeAId is referenced inside type B
    */
-  notRecursive(typeAId: string, typeB: DgraphType<any>) {
-    let itemCheckIteration = 0
-    const queue: Array<DgraphType<any>> = [typeB]
-
-    while (queue.length > 0) {
-      const next = queue.shift()
-
-      if (!next) {
-        continue
-      }
-
-      if (next.uid === typeAId) {
-        throw new RecursiveTypeError()
-      }
-
-      if (isDgraphArrayType(next)) {
-        queue.push(next.itemType)
-      } else if (isDgraphInterfaceType(next)) {
-        queue.push(...(next as DgraphInterfaceType).fields?.map((f) => f.type))
-      }
-
-      itemCheckIteration++
-
-      if (itemCheckIteration > MAX_TYPE_DEPTH) {
-        throw new OverlyNestedTypeError()
-      }
+  notRecursive(typeAId: TypeId, typeBTree: TypeTree) {
+    if (typeBTree.getTypeById(typeAId)) {
+      throw new RecursiveTypeError()
     }
   }
 
   private static createGetTypeQuery(typeId: string) {
-    /**
-     * 	q(func: uid(typeId)) {
-          uid
-          dgraph.type
-          expand(_all_)
-          ~api {
-            uid
-            dgraph.type
-            expand(_all_)
+    return `{
+      query(func: type(${DgraphEntityType.Type})) @filter(uid(${typeId})) {
+          id: uid
+          atoms: ~api @filter(type(Atom)) {
+						id: uid
+            name
           }
-          ~type {
-            uid
-            dgraph.type
-            expand(_all_)
+          fields:~type @filter(type(Field)) {
+						id: uid
+            name
           }
         }
-     */
-
-    return new DgraphQueryBuilder()
-      .addTypeFilterDirective(DgraphEntityType.Type)
-      .setUidFunc(typeId)
-      .addBaseFields()
-      .addFields(
-        new DgraphQueryField(`~api`).addBaseInnerFields().addExpandAll(),
-        new DgraphQueryField(`~type`).addBaseInnerFields().addExpandAll(),
-      )
-      .addExpandAll((f) => f.addExpandAllRecursive(2))
+    }`
   }
+}
+
+export type QueryResult = {
+  id: string
+  atoms?: Array<{
+    id: string
+    name: string
+  }>
+  fields?: Array<{
+    id: string
+    name: string
+  }>
 }
