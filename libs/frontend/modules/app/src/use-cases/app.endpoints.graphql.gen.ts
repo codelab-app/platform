@@ -1,6 +1,8 @@
 import * as Types from '@codelab/shared/codegen/graphql'
 
 import { AppBaseFragment, AppFragment } from '../App.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { AppBaseFragmentDoc, AppFragmentDoc } from '../App.fragment.graphql.gen'
 import { api } from '@codelab/frontend/model/infra/api'
 export type CreateAppMutationVariables = Types.Exact<{
   input: Types.CreateAppInput
