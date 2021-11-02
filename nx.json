@@ -188,6 +188,9 @@
     "tools-plugins-codelab": {
       "tags": ["scope:publishable"]
     },
+    "tools-rtk-query": {
+      "tags": []
+    },
     "tools-scripts": {
       "tags": []
     },

@@ -147,7 +147,7 @@
     "react-helmet": "6.1.0",
     "react-hotkeys-hook": "^3.4.3",
     "react-json-view": "1.21.3",
-    "react-query": "3.25.1",
+    "react-query": "^3.31.0",
     "react-redux": "^7.2.5",
     "react-resizable": "3.0.4",
     "recoil": "0.4.1",
