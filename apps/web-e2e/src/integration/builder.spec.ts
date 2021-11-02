@@ -182,21 +182,3 @@ describe('Delete atoms', () => {
     })
   })
 })
-
-describe('Delete text primitive type', () => {
-  before(() => {
-    cy.visit(`/types`)
-    cy.get('.ant-table-cell', { timeout: TIMEOUT })
-  })
-
-  it('should be able to delete text primitive', () => {
-    findDeleteButtonByTypeName(textTypeName).click()
-
-    cy.getSpinner().should('not.exist')
-    cy.getOpenedModal()
-      .findByButtonText(/Delete/)
-      .click()
-
-    cy.findAllByText(textTypeName).should('not.exist')
-  })
-})
