@@ -109,10 +109,13 @@ declare global {
 }
 
 const preserveAuthCookies = () => {
-  cy.getCookies().then((cookies) => {
-    const namesOfCookies = cookies.map((c) => c.name)
-    Cypress.Cookies.preserveOnce(...namesOfCookies)
-  })
+  Cypress.Cookies.preserveOnce(
+    'appSession',
+    'appSession.0',
+    'appSession.1',
+    'appSession.2',
+    'appSession.3',
+  )
 }
 
 Cypress.Commands.add('preserveAuthCookies', preserveAuthCookies)

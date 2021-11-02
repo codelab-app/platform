@@ -69,40 +69,52 @@ beforeEach(() => {
 })
 
 describe('Update props', () => {
-  it.only('should be able to update Props', () => {
+  it('should create element', () => {
     // Add Button component
     cy.findByRole('button', { name: /plus/ }).click()
 
-    cy.getOpenedModal().findByLabelText('Name').type(buttonComponent.name)
-    cy.getOpenedModal().findByLabelText('Atom').type(buttonComponent.atom)
-    cy.getOpenedModal().getOptionItem(buttonComponent.atom).first().click()
-    cy.getOpenedModal()
-      .findByLabelText('Parent element')
-      .type(buttonComponent.parentElement)
-    cy.getOpenedModal()
-      .getOptionItem(buttonComponent.parentElement)
-      .first()
-      .click()
+    cy.getOpenedModal().then((modal: JQuery) => {
+      cy.wrap(modal).findByLabelText('Name').type(buttonComponent.name)
+      cy.wrap(modal).findByLabelText('Atom').type(buttonComponent.atom)
+      cy.wrap(modal).getOptionItem(buttonComponent.atom).first().click()
+      cy.wrap(modal)
+        .findByLabelText('Parent element')
+        .type(buttonComponent.parentElement)
+      cy.wrap(modal)
+        .getOptionItem(buttonComponent.parentElement)
+        .first()
+        .click()
 
-    cy.getOpenedModal()
-      .findByButtonText(/Create/)
-      .click()
+      cy.wrap(modal)
+        .findByButtonText(/Create/)
+        .click()
 
-    cy.getOpenedModal().should('not.exist')
+      cy.getOpenedModal().should('not.exist')
+    })
+  })
 
-    // Select button props tab
-    selectPropsTab()
+  describe('Update elements props', () => {
+    before(() => {
+      // Select button props tab
+      selectPropsTab()
+    })
 
     // Update button props
     formToggleButtons.forEach((btn) => {
-      cyFormToggleButton(btn).click()
+      it(`should update props for button ${btn} `, () => {
+        cyFormToggleButton(btn).click()
+      })
     })
+
     formTextInputs.forEach((item) => {
-      cy.findByLabelText(item.text).type(item.input)
+      it(`should update props for item ${item.text} `, () => {
+        cy.findByLabelText(item.text).type(item.input)
+      })
     })
-    cy.findByButtonText(/Submit/).click()
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
+
+    it('should submit the update', () => {
+      cy.findByButtonText(/Submit/).click()
+    })
   })
 })
 
@@ -113,11 +125,13 @@ describe('Render updated props', () => {
     selectPage()
     selectPropsTab()
   })
+
   formToggleButtons.forEach((btn) => {
     it(`should render props for button ${btn} `, () => {
       cyFormToggleButton(btn).should('have.class', 'ant-switch-checked')
     })
   })
+
   formTextInputs.forEach((item) => {
     it(`should render props for item ${item.text} `, () => {
       // Assert button props updated
