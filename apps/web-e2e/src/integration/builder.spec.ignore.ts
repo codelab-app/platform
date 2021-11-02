@@ -1,3 +1,7 @@
+//
+// Ignored because of a cypress issue https://github.com/codelab-ai/codelab.ai/issues/1172
+//
+
 import { AtomType } from '@codelab/shared/abstract/core'
 import { TIMEOUT } from '../support/timeout'
 

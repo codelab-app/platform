@@ -1,3 +1,7 @@
+//
+// Ignored because of a cypress issue https://github.com/codelab-ai/codelab.ai/issues/1172
+//
+
 const pageName = 'Home Page'
 
 const buttonComponent = {
