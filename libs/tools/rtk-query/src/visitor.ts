@@ -9,6 +9,8 @@ import { pascalCase } from 'change-case-all'
 import { GraphQLSchema, OperationDefinitionNode } from 'graphql'
 import { RTKQueryPluginConfig, RTKQueryRawPluginConfig } from './config'
 
+const DEFAULT_GQL_IMPORT_PACKAGE = `@apollo/client#gql`
+
 export class RTKQueryVisitor extends ClientSideBaseVisitor<
   RTKQueryRawPluginConfig,
   RTKQueryPluginConfig
@@ -29,6 +31,11 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
       exportHooks: getConfigValue(rawConfig.exportHooks, false),
       importBaseApiFrom: getConfigValue(rawConfig.importBaseApiFrom, ''),
       overrideExisting: getConfigValue(rawConfig.overrideExisting, ''),
+      importBaseApiFrom: getConfigValue(rawConfig.importBaseApiFrom, ''),
+      gqlImport: getConfigValue(
+        rawConfig.gqlImport,
+        `${DEFAULT_GQL_IMPORT_PACKAGE}`,
+      ),
     })
     this._externalImportPrefix = this.config.importOperationTypesFrom
       ? `${this.config.importOperationTypesFrom}.`
