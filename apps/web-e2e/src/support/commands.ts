@@ -375,7 +375,10 @@ Cypress.Commands.add('getPaneMain', (): Cypress.Chainable<JQuery> => {
 const runSeeder = () => {
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(1000)
-  cy.exec(`yarn cli seed --env ${Cypress.env('env')}`, { timeout: 270000 })
+
+  return cy.exec(`yarn cli seed --env ${Cypress.env('env')}`, {
+    timeout: 270000,
+  })
 }
 
 Cypress.Commands.add('runSeeder', runSeeder)

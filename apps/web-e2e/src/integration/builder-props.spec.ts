@@ -45,21 +45,23 @@ const selectPropsTab = () => {
 
 before(() => {
   cy.resetDgraphData().then(() => {
-    cy.runSeeder()
-    cy.login().then(() => {
-      cy.preserveAuthCookies()
-      cy.createApp().then((app: any) => {
-        appId = app.id
+    cy.runSeeder().then(() => {
+      cy.login().then(() => {
+        cy.preserveAuthCookies()
+        cy.createApp().then((app: any) => {
+          appId = app.id
 
-        cy.createPage({
-          appId,
-          name: pageName,
+          cy.createPage({
+            appId,
+            name: pageName,
+          })
+
+          selectApp()
+          selectPage()
         })
       })
     })
   })
-  selectApp()
-  selectPage()
 })
 
 beforeEach(() => {
