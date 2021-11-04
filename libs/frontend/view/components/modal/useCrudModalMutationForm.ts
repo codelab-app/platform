@@ -90,13 +90,8 @@ export const useCrudModalMutationForm = <
     TSubmitData
   >,
 ): UseMutationCrudFormData<TSubmitData, TMutation, TMutationVariables> => {
-  const {
-    entityType,
-    useMutationFunction,
-    mutationOptions,
-    mapVariables,
-    mutationFunctionOptions,
-  } = options
+  const { entityType, useMutationFunction, mutationOptions, mapVariables } =
+    options
 
   const crudModal = useCrudModalForm(entityType)
   const { setLoading } = crudModal
@@ -118,19 +113,13 @@ export const useCrudModalMutationForm = <
       try {
         const variables = mapVariables(submitData, crudModal.state)
 
-        return mutate({ variables, ...(mutationFunctionOptions || {}) })
+        return mutate(variables)
       } catch (e) {
         console.error(`Error while mapping variables in ${entityType} form`, e)
         throw e
       }
     },
-    [
-      mapVariables,
-      crudModal.state,
-      mutate,
-      mutationFunctionOptions,
-      entityType,
-    ],
+    [mapVariables, crudModal.state, mutate, entityType],
   )
 
   return { crudModal, mutate, mutationData, handleSubmit }
