@@ -5,31 +5,11 @@ import { HookHandler } from '../HookHandler'
 export const useQueryPageHook: HookHandler = (
   config: QueryPageHookConfigFragment,
 ) => {
-  const {
-    data,
-    error,
-    called,
-    loading,
-    previousData,
-    networkStatus,
-    variables,
-  } = useGetPageQuery({
-    variables: {
-      input: {
-        pageId: config.pageId,
-      },
+  const output = useGetPageQuery({
+    input: {
+      pageId: config.pageId,
     },
   })
 
-  const res = {
-    data,
-    error,
-    called,
-    loading,
-    previousData,
-    networkStatus,
-    variables,
-  }
-
-  return { res }
+  return { res: output }
 }
