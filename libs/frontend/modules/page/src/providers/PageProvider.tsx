@@ -3,7 +3,7 @@ import { withProvider } from '@codelab/frontend/presenter/container'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 import { PageBaseFragment } from '../graphql/PageBase.fragment.graphql.gen'
-import { useGetPageQuery } from '../use-cases/get-page'
+import { useGetPageQuery } from '../use-cases/page.endpoints'
 
 export interface PageContextType {
   pageId: string
@@ -26,8 +26,8 @@ export const PageProvider = ({
   const { query } = useRouter()
   const pageId = query.pageId as string
 
-  const { data, loading } = useGetPageQuery({
-    variables: { input: { pageId } },
+  const { data, isLoading } = useGetPageQuery({
+    input: { pageId },
   })
 
   const page = pageId && data?.page ? data.page : null
@@ -37,7 +37,7 @@ export const PageProvider = ({
   }
 
   return (
-    <PageContext.Provider value={{ page, pageId, loading }}>
+    <PageContext.Provider value={{ page, pageId, loading: isLoading }}>
       <ElementGraphProvider elementId={page.rootElementId}>
         {children}
       </ElementGraphProvider>

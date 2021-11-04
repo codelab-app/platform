@@ -8,12 +8,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import {
-  GetPagesGql,
-  GetPagesQuery,
-  GetPagesQueryVariables,
-} from '../get-pages/GetPages.web.graphql.gen'
-import { useCreatePageMutation } from './CreatePage.web.graphql.gen'
+import { useCreatePageMutation } from '../page.endpoints'
 import { createPageSchema, CreatePageSchemaType } from './createPageSchema'
 
 type CreatePageFormProps = UniFormUseCaseProps<CreatePageSchemaType>
@@ -31,6 +26,7 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
       // refetchQueries: [
       //   refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
       // ],
+      /*      
       update: (cache, { data }: any) => {
         const newPage = data?.createPage
 
@@ -60,6 +56,7 @@ export const CreatePageForm = (props: CreatePageFormProps) => {
           })
         }
       },
+ */
     },
     mapVariables: (submitData: CreatePageSchemaType) => ({
       input: { ...submitData, appId: app.id },

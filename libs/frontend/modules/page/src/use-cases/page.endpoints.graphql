@@ -1,0 +1,45 @@
+mutation CreatePage($input: CreatePageInput!) {
+  createPage(input: $input) {
+    ...PageBase
+  }
+}
+
+mutation DeletePage($input: DeletePageInput!) {
+  deletePage(input: $input) {
+    ...PageBase
+  }
+}
+
+query GetPage($input: GetPageInput!) {
+  page: getPage(input: $input) {
+    ...PageFull
+  }
+}
+
+query GetPages($input: GetPagesInput!) {
+  pages: getPages(input: $input) {
+    ...PageBase
+  }
+}
+
+mutation UpdatePage($input: UpdatePageInput!) {
+  updatePage(input: $input) {
+    ...PageBase
+  }
+}
+
+query AppPages($input: GetAppInput!) {
+  app: getApp(input: $input) {
+    ...AppPages__App
+  }
+}
+
+fragment AppPages__App on App {
+  id
+  name
+  pages {
+    id
+    name
+    rootElementId
+  }
+}
