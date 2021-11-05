@@ -1,16 +1,19 @@
 import { ClientError } from 'graphql-request'
 import { RequestDocument } from 'graphql-request/dist/types'
 import { getGraphQLClient } from './client'
+import { GraphqlOperationOptions } from './GraphqlOperationOptions'
+
+export interface GraphqlQueryInput {
+  document: RequestDocument
+  options?: GraphqlOperationOptions
+}
 
 export const graphqlBaseQuery = async ({
   document,
-  variables,
-}: {
-  document: RequestDocument
-  variables: any
-}) => {
+  options: { variables, ...options } = {},
+}: GraphqlQueryInput) => {
   try {
-    const result = await getGraphQLClient().request(document, variables)
+    const result = await getGraphQLClient(options).request(document, variables)
 
     return { data: result }
   } catch (error) {

@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 import * as Types from '@codelab/frontend/abstract/codegen'
-import { api } from '@codelab/frontend/model/infra/api'
+import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 import {
   AppBaseFragment,
   AppBaseFragmentDoc,
@@ -83,24 +83,35 @@ export const UpdateAppGql = gql`
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    CreateApp: build.mutation<CreateAppMutation, CreateAppMutationVariables>({
-      query: (variables) => ({ document: CreateAppGql, variables }),
+    CreateApp: build.mutation<
+      CreateAppMutation,
+      GraphqlOperationOptions<CreateAppMutationVariables>
+    >({
+      query: (options) => ({ document: CreateAppGql, options }),
     }),
-    DeleteApp: build.mutation<DeleteAppMutation, DeleteAppMutationVariables>({
-      query: (variables) => ({ document: DeleteAppGql, variables }),
+    DeleteApp: build.mutation<
+      DeleteAppMutation,
+      GraphqlOperationOptions<DeleteAppMutationVariables>
+    >({
+      query: (options) => ({ document: DeleteAppGql, options }),
     }),
-    GetApp: build.query<GetAppQuery, GetAppQueryVariables>({
-      query: (variables) => ({ document: GetAppGql, variables }),
+    GetApp: build.query<
+      GetAppQuery,
+      GraphqlOperationOptions<GetAppQueryVariables>
+    >({
+      query: (options) => ({ document: GetAppGql, options }),
     }),
-    GetApps: build.query<GetAppsQuery, GetAppsQueryVariables | void>({
-      query: (variables) => ({ document: GetAppsGql, variables }),
+    GetApps: build.query<
+      GetAppsQuery,
+      GraphqlOperationOptions<GetAppsQueryVariables> | undefined
+    >({
+      query: (options) => ({ document: GetAppsGql, options }),
     }),
-    UpdateApp: build.mutation<UpdateAppMutation, UpdateAppMutationVariables>({
-      query: (variables) => {
-        console.log(variables)
-
-        return { document: UpdateAppGql, variables }
-      },
+    UpdateApp: build.mutation<
+      UpdateAppMutation,
+      GraphqlOperationOptions<UpdateAppMutationVariables>
+    >({
+      query: (options) => ({ document: UpdateAppGql, options }),
     }),
   }),
 })

@@ -11,6 +11,7 @@ type AppProviderProps = {
   appId?: string
 }
 
+// TODO remove context
 export const AppContext = React.createContext<IAppContext>(undefined!)
 
 export const _AppProvider = ({
@@ -22,7 +23,7 @@ export const _AppProvider = ({
 
   useEffect(() => {
     if (appId) {
-      load({ input: { byId: { appId } } })
+      load({ variables: { input: { byId: { appId } } } })
     }
   }, [appId, load])
 

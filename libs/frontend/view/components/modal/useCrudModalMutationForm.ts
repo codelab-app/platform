@@ -1,6 +1,7 @@
 import * as Apollo from '@apollo/client'
 import { MutationTuple } from '@apollo/client/react/types/types'
 import { Exact } from '@codelab/frontend/abstract/codegen'
+import { GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 import type { UseMutation } from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import { UseMutationStateOptions } from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import { MutationDefinition } from '@reduxjs/toolkit/query'
@@ -48,10 +49,13 @@ export interface UseMutationCrudFormOptions<
     | ((
         crudModalState: CRUDModalState,
       ) => Apollo.MutationHookOptions<TMutation, TMutationVariables>)
+  mutationFunctionOptions?: Omit<
+    GraphqlOperationOptions<TMutationVariables>,
+    'variables'
+  >
   useMutationFunction:
-    | any // TODO remove any type after we migrate to RTK query entirely
+    | any
     | UseMutation<CustomMutationDefinition<TMutation, TMutationVariables>>
-
   mapVariables: (
     formData: TSubmitData,
     crudModalState: CRUDModalState,
@@ -86,16 +90,21 @@ export const useCrudModalMutationForm = <
     TSubmitData
   >,
 ): UseMutationCrudFormData<TSubmitData, TMutation, TMutationVariables> => {
-  const { entityType, useMutationFunction, mutationOptions, mapVariables } =
-    options
+  const {
+    entityType,
+    useMutationFunction,
+    mutationOptions,
+    mapVariables,
+    mutationFunctionOptions,
+  } = options
 
   const crudModal = useCrudModalForm(entityType)
   const { setLoading } = crudModal
 
   const [mutate, mutationData] = useMutationFunction(
     typeof mutationOptions === 'function'
-      ? (mutationOptions(crudModal.state) as any)
-      : (mutationOptions as any),
+      ? mutationOptions(crudModal.state)
+      : mutationOptions,
   )
 
   const { loading } = mutationData
@@ -109,13 +118,19 @@ export const useCrudModalMutationForm = <
       try {
         const variables = mapVariables(submitData, crudModal.state)
 
-        return mutate(variables)
+        return mutate({ variables, ...(mutationFunctionOptions || {}) })
       } catch (e) {
         console.error(`Error while mapping variables in ${entityType} form`, e)
         throw e
       }
     },
-    [mapVariables, crudModal.state, mutate, entityType],
+    [
+      mapVariables,
+      crudModal.state,
+      mutate,
+      mutationFunctionOptions,
+      entityType,
+    ],
   )
 
   return { crudModal, mutate, mutationData, handleSubmit }

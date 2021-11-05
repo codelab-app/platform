@@ -11,8 +11,6 @@ import { useUpdateAppMutation } from '../app.endpoints'
 import { UpdateAppSchema, updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppSchema>) => {
-  useUpdateAppMutation()
-
   const {
     crudModal: {
       reset,
@@ -22,7 +20,6 @@ export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppSchema>) => {
   } = useCrudModalMutationForm({
     entityType: EntityType.App,
     useMutationFunction: useUpdateAppMutation,
-    //    mutationOptions: { refetchQueries: [refetchGetAppsQuery()] },
     mapVariables: ({ name }: UpdateAppSchema, state) => ({
       input: { data: { name }, id: state.updateId },
     }),

@@ -55,7 +55,7 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
 
     return [
       ...baseImports,
-      `import { api } from '${this.config.importBaseApiFrom}';`,
+      `import { api, GraphqlOperationOptions } from '${this.config.importBaseApiFrom}';`,
     ]
   }
 
@@ -102,14 +102,14 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
       return ''
     }
 
-    const Generics = `${operationResultType}, ${operationVariablesTypes}${
-      hasRequiredVariables ? '' : ' | void'
+    const Generics = `${operationResultType}, GraphqlOperationOptions<${operationVariablesTypes}>${
+      hasRequiredVariables ? '' : ' | undefined'
     }`
 
     if (operationType === 'Query') {
       this._endpoints.push(`
       ${operationName}: build.query<${Generics}>({
-        query: (variables) => ({ document: ${documentVariableName}, variables })
+        query: (options) => ({ document: ${documentVariableName}, options })
       }),`)
 
       if (this.config.exportHooks) {
@@ -119,7 +119,7 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
     } else if (operationType === 'Mutation') {
       this._endpoints.push(`
       ${operationName}: build.mutation<${Generics}>({
-        query: (variables) => ({ document: ${documentVariableName}, variables })
+        query: (options) => ({ document: ${documentVariableName}, options })
       }),`)
 
       if (this.config.exportHooks) {
