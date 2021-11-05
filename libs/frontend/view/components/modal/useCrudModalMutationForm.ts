@@ -1,46 +1,58 @@
 import * as Apollo from '@apollo/client'
-import {
-  MutationFunctionOptions,
-  MutationTuple,
-} from '@apollo/client/react/types/types'
+import { MutationTuple } from '@apollo/client/react/types/types'
+import { Exact } from '@codelab/frontend/abstract/codegen'
+import type { UseMutation } from '@reduxjs/toolkit/dist/query/react/buildHooks'
+import { UseMutationStateOptions } from '@reduxjs/toolkit/dist/query/react/buildHooks'
+import { MutationDefinition } from '@reduxjs/toolkit/query'
 import { FetchResult } from 'apollo-link'
+import type { RequestDocument } from 'graphql-request/dist/types'
 import { useCallback, useEffect } from 'react'
 import { CRUDModalState, EntityType } from './crudModalsState'
 import { useCrudModalForm, UseCRUDModalFormData } from './useCrudModalForm'
+
+type CustomMutationDefinition<
+  TMutation,
+  TMutationVariables extends { [key: string]: unknown },
+> = MutationDefinition<
+  Exact<TMutationVariables>,
+  ({
+    document,
+    variables,
+  }: {
+    document: RequestDocument
+    variables: any
+  }) => Promise<
+    | { data: any; error?: undefined }
+    | { error: { status: number; data: any }; data?: undefined }
+  >,
+  any,
+  TMutation,
+  any
+>
 
 /**
  * Input options for {@link useCrudModalMutationForm}
  */
 export interface UseMutationCrudFormOptions<
   TMutation,
-  TMutationVariables,
+  TMutationVariables extends { [key: string]: unknown },
   TSubmitData,
 > {
   entityType: EntityType
   mutationOptions?:
-    | Apollo.MutationHookOptions<TMutation, TMutationVariables>
+    | UseMutationStateOptions<
+        CustomMutationDefinition<TMutation, TMutationVariables>,
+        Record<string, any>
+      >
+    | Apollo.MutationHookOptions<TMutation, TMutationVariables> // TODO remove apollo types after we migrate to RTK query entirely
     | ((
         crudModalState: CRUDModalState,
       ) => Apollo.MutationHookOptions<TMutation, TMutationVariables>)
-  mutationFunctionOptions?: Omit<
-    MutationFunctionOptions<TMutation, TMutationVariables>,
-    'variables'
-  >
-  useMutationFunction: any
-  /*     | ((
-        baseOptions?: Apollo.MutationHookOptions<TMutation, TMutationVariables>,
-      ) => MutationTuple<TMutation, TMutationVariables>)
-    | {
-        provider: (
-          state: CRUDModalState,
-        ) => (
-          baseOptions?: Apollo.MutationHookOptions<
-            TMutation,
-            TMutationVariables
-          >,
-        ) => MutationTuple<TMutation, TMutationVariables>
-      }
- */ mapVariables: (
+  useMutationFunction:
+    | any // TODO remove any type after we migrate to RTK query entirely
+    | UseMutation<CustomMutationDefinition<TMutation, TMutationVariables>>
+
+  mapVariables: (
     formData: TSubmitData,
     crudModalState: CRUDModalState,
   ) => TMutationVariables
@@ -66,7 +78,7 @@ export interface UseMutationCrudFormData<
 export const useCrudModalMutationForm = <
   TSubmitData,
   TMutation,
-  TMutationVariables,
+  TMutationVariables extends { [key: string]: unknown },
 >(
   options: UseMutationCrudFormOptions<
     TMutation,
@@ -74,26 +86,16 @@ export const useCrudModalMutationForm = <
     TSubmitData
   >,
 ): UseMutationCrudFormData<TSubmitData, TMutation, TMutationVariables> => {
-  const {
-    entityType,
-    useMutationFunction,
-    mutationOptions,
-    mapVariables,
-    mutationFunctionOptions,
-  } = options
+  const { entityType, useMutationFunction, mutationOptions, mapVariables } =
+    options
 
   const crudModal = useCrudModalForm(entityType)
   const { setLoading } = crudModal
 
-  const mutationFn =
-    typeof useMutationFunction === 'function'
-      ? useMutationFunction
-      : useMutationFunction.provider(crudModal.state)
-
-  const [mutate, mutationData] = mutationFn(
+  const [mutate, mutationData] = useMutationFunction(
     typeof mutationOptions === 'function'
-      ? mutationOptions(crudModal.state)
-      : mutationOptions,
+      ? (mutationOptions(crudModal.state) as any)
+      : (mutationOptions as any),
   )
 
   const { loading } = mutationData
@@ -107,22 +109,13 @@ export const useCrudModalMutationForm = <
       try {
         const variables = mapVariables(submitData, crudModal.state)
 
-        return mutate({
-          ...mutationFunctionOptions,
-          variables,
-        })
+        return mutate(variables)
       } catch (e) {
         console.error(`Error while mapping variables in ${entityType} form`, e)
         throw e
       }
     },
-    [
-      mapVariables,
-      crudModal.state,
-      mutate,
-      mutationFunctionOptions,
-      entityType,
-    ],
+    [mapVariables, crudModal.state, mutate, entityType],
   )
 
   return { crudModal, mutate, mutationData, handleSubmit }

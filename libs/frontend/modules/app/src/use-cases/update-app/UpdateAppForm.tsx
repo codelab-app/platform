@@ -11,6 +11,8 @@ import { useUpdateAppMutation } from '../app.endpoints'
 import { UpdateAppSchema, updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppSchema>) => {
+  useUpdateAppMutation()
+
   const {
     crudModal: {
       reset,

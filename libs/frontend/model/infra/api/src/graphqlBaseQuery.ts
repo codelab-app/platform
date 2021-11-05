@@ -10,10 +10,7 @@ export const graphqlBaseQuery = async ({
   variables: any
 }) => {
   try {
-    const result = await getGraphQLClient().request(
-      document,
-      variables?.variables,
-    )
+    const result = await getGraphQLClient().request(document, variables)
 
     return { data: result }
   } catch (error) {

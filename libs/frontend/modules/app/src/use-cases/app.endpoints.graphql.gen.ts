@@ -1,9 +1,13 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
-
-import { AppBaseFragment, AppFragment } from '../App.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { AppBaseFragmentDoc, AppFragmentDoc } from '../App.fragment.graphql.gen'
+import * as Types from '@codelab/frontend/abstract/codegen'
 import { api } from '@codelab/frontend/model/infra/api'
+import {
+  AppBaseFragment,
+  AppBaseFragmentDoc,
+  AppFragment,
+  AppFragmentDoc,
+} from '../App.fragment.graphql.gen'
+
 export type CreateAppMutationVariables = Types.Exact<{
   input: Types.CreateAppInput
 }>
@@ -92,10 +96,15 @@ const injectedRtkApi = api.injectEndpoints({
       query: (variables) => ({ document: GetAppsGql, variables }),
     }),
     UpdateApp: build.mutation<UpdateAppMutation, UpdateAppMutationVariables>({
-      query: (variables) => ({ document: UpdateAppGql, variables }),
+      query: (variables) => {
+        console.log(variables)
+
+        return { document: UpdateAppGql, variables }
+      },
     }),
   }),
 })
+
 export { injectedRtkApi as api }
 export const {
   useCreateAppMutation,
