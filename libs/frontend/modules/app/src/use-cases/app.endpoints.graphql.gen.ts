@@ -1,13 +1,9 @@
-import { gql } from '@apollo/client'
 import * as Types from '@codelab/frontend/abstract/codegen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
-import {
-  AppBaseFragment,
-  AppBaseFragmentDoc,
-  AppFragment,
-  AppFragmentDoc,
-} from '../App.fragment.graphql.gen'
 
+import { AppBaseFragment, AppFragment } from '../App.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { AppBaseFragmentDoc, AppFragmentDoc } from '../App.fragment.graphql.gen'
+import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type CreateAppMutationVariables = Types.Exact<{
   input: Types.CreateAppInput
 }>
@@ -87,35 +83,49 @@ const injectedRtkApi = api.injectEndpoints({
       CreateAppMutation,
       GraphqlOperationOptions<CreateAppMutationVariables>
     >({
-      query: (options) => ({ document: CreateAppGql, options }),
+      query: (options) => ({
+        document: CreateAppGql,
+        options: options ?? undefined,
+      }),
     }),
     DeleteApp: build.mutation<
       DeleteAppMutation,
       GraphqlOperationOptions<DeleteAppMutationVariables>
     >({
-      query: (options) => ({ document: DeleteAppGql, options }),
+      query: (options) => ({
+        document: DeleteAppGql,
+        options: options ?? undefined,
+      }),
     }),
     GetApp: build.query<
       GetAppQuery,
       GraphqlOperationOptions<GetAppQueryVariables>
     >({
-      query: (options) => ({ document: GetAppGql, options }),
+      query: (options) => ({
+        document: GetAppGql,
+        options: options ?? undefined,
+      }),
     }),
     GetApps: build.query<
       GetAppsQuery,
-      GraphqlOperationOptions<GetAppsQueryVariables> | undefined
+      GraphqlOperationOptions<GetAppsQueryVariables> | void | undefined
     >({
-      query: (options) => ({ document: GetAppsGql, options }),
+      query: (options) => ({
+        document: GetAppsGql,
+        options: options ?? undefined,
+      }),
     }),
     UpdateApp: build.mutation<
       UpdateAppMutation,
       GraphqlOperationOptions<UpdateAppMutationVariables>
     >({
-      query: (options) => ({ document: UpdateAppGql, options }),
+      query: (options) => ({
+        document: UpdateAppGql,
+        options: options ?? undefined,
+      }),
     }),
   }),
 })
-
 export { injectedRtkApi as api }
 export const {
   useCreateAppMutation,

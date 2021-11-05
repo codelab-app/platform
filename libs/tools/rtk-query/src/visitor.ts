@@ -103,13 +103,13 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
     }
 
     const Generics = `${operationResultType}, GraphqlOperationOptions<${operationVariablesTypes}>${
-      hasRequiredVariables ? '' : ' | undefined'
+      hasRequiredVariables ? '' : ' | void | undefined'
     }`
 
     if (operationType === 'Query') {
       this._endpoints.push(`
       ${operationName}: build.query<${Generics}>({
-        query: (options) => ({ document: ${documentVariableName}, options })
+        query: (options) => ({ document: ${documentVariableName}, options: options ?? undefined })
       }),`)
 
       if (this.config.exportHooks) {
@@ -119,7 +119,7 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
     } else if (operationType === 'Mutation') {
       this._endpoints.push(`
       ${operationName}: build.mutation<${Generics}>({
-        query: (options) => ({ document: ${documentVariableName}, options })
+        query: (options) => ({ document: ${documentVariableName}, options: options ?? undefined })
       }),`)
 
       if (this.config.exportHooks) {
