@@ -5,7 +5,7 @@ import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type ComponentForSelectFragment = {
   id: string
-  name?: Types.Maybe<string>
+  name?: string | null | undefined
 }
 
 export type GetComponentsForSelectQueryVariables = Types.Exact<{

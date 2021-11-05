@@ -8,7 +8,7 @@ export type ExecuteLambdaForQueryMutationVariables = Types.Exact<{
 }>
 
 export type ExecuteLambdaForQueryMutation = {
-  executeLambda?: Types.Maybe<{ payload: string }>
+  executeLambda?: { payload: string } | null | undefined
 }
 
 export const ExecuteLambdaForQueryGql = gql`

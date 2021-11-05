@@ -7,7 +7,9 @@ import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type GetTagGraphQueryVariables = Types.Exact<{ [key: string]: never }>
 
-export type GetTagGraphQuery = { getTagGraph?: Types.Maybe<TagGraphFragment> }
+export type GetTagGraphQuery = {
+  getTagGraph?: TagGraphFragment | null | undefined
+}
 
 export const GetTagGraphGql = gql`
   query GetTagGraph {

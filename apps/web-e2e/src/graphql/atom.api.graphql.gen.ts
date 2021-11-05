@@ -21,7 +21,7 @@ export type E2eGetAtomQueryVariables = Types.Exact<{
   input: Types.GetAtomInput
 }>
 
-export type E2eGetAtomQuery = { getAtom?: Types.Maybe<AtomFragment> }
+export type E2eGetAtomQuery = { getAtom?: AtomFragment | null | undefined }
 
 export const E2eCreateAtomGql = gql`
   mutation E2eCreateAtom($input: CreateAtomInput!) {

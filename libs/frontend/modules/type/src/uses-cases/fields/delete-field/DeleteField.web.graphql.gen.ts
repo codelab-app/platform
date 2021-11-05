@@ -9,7 +9,9 @@ export type DeleteFieldMutationVariables = Types.Exact<{
   input: Types.DeleteFieldInput
 }>
 
-export type DeleteFieldMutation = { deleteField?: Types.Maybe<FieldFragment> }
+export type DeleteFieldMutation = {
+  deleteField?: FieldFragment | null | undefined
+}
 
 export const DeleteFieldGql = gql`
   mutation DeleteField($input: DeleteFieldInput!) {

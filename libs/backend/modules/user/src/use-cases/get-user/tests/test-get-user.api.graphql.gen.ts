@@ -9,7 +9,7 @@ export type TestGetUserQueryVariables = Types.Exact<{
   input: Types.GetUserInput
 }>
 
-export type TestGetUserQuery = { getUser?: Types.Maybe<TestUserFragment> }
+export type TestGetUserQuery = { getUser?: TestUserFragment | null | undefined }
 
 export const TestGetUserGql = gql`
   query TestGetUser($input: GetUserInput!) {

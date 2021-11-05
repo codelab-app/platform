@@ -9,7 +9,9 @@ export type GetElementQueryVariables = Types.Exact<{
   input: Types.GetElementInput
 }>
 
-export type GetElementQuery = { getElement?: Types.Maybe<ElementFragment> }
+export type GetElementQuery = {
+  getElement?: ElementFragment | null | undefined
+}
 
 export const GetElementGql = gql`
   query GetElement($input: GetElementInput!) {

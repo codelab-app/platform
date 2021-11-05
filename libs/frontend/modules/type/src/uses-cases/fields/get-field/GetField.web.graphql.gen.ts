@@ -9,7 +9,7 @@ export type GetFieldQueryVariables = Types.Exact<{
   input: Types.GetFieldInput
 }>
 
-export type GetFieldQuery = { getField?: Types.Maybe<FieldFragment> }
+export type GetFieldQuery = { getField?: FieldFragment | null | undefined }
 
 export const GetFieldGql = gql`
   query GetField($input: GetFieldInput!) {

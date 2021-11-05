@@ -24,14 +24,14 @@ import { PropMapBindingFragmentDoc } from './PropMapBinding.fragment.graphql.gen
 export type ElementFragment = {
   __typename: 'Element'
   id: string
-  name?: Types.Maybe<string>
-  css?: Types.Maybe<string>
+  name?: string | null | undefined
+  css?: string | null | undefined
   props: string
-  renderForEachPropKey?: Types.Maybe<string>
-  renderIfPropKey?: Types.Maybe<string>
-  propTransformationJs?: Types.Maybe<string>
-  atom?: Types.Maybe<AtomBaseFragment>
-  componentTag?: Types.Maybe<TagFragment>
+  renderForEachPropKey?: string | null | undefined
+  renderIfPropKey?: string | null | undefined
+  propTransformationJs?: string | null | undefined
+  atom?: AtomBaseFragment | null | undefined
+  componentTag?: TagFragment | null | undefined
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
 }

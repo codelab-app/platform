@@ -2,21 +2,21 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 
 import { gql } from '@apollo/client'
 export type QueryHookConfigFragment = {
-  body?: Types.Maybe<string>
-  method?: Types.Maybe<Types.QueryMethod>
+  body?: string | null | undefined
+  method?: Types.QueryMethod | null | undefined
   queryKey: string
-  url?: Types.Maybe<string>
-  lambdaId?: Types.Maybe<string>
+  url?: string | null | undefined
+  lambdaId?: string | null | undefined
 }
 
 export type GraphqlHookConfigFragment = {
   graphqlBody: string
   graphqlUrl: string
-  dataKey?: Types.Maybe<string>
+  dataKey?: string | null | undefined
 }
 
 export type RecoilStateHookConfigFragment = {
-  defaultValue?: Types.Maybe<string>
+  defaultValue?: string | null | undefined
   stateKey: string
   persisted: Types.PersistenceType
 }

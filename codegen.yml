@@ -66,3 +66,24 @@ generates:
       strictScalars: true
       defaultScalarType: unknown
       withRefetchFn: true
+
+  ./libs/frontend/:
+    documents:
+      - '**/*.{endpoints,fragment}.graphql'
+    preset: near-operation-file
+    presetConfig:
+      extension: .graphql.gen.ts
+      baseTypesPath: ~@codelab/frontend/abstract/codegen
+    plugins:
+      - typescript-operations
+      - dist/libs/tools/rtk-query:
+          importBaseApiFrom: '@codelab/frontend/model/infra/api'
+          exportHooks: true
+    config:
+      inlineFragmentTypes: combine
+      documentVariableSuffix: Gql
+      gqlImport: '@apollo/client#gql'
+      skipTypename: true
+      strictScalars: true
+      defaultScalarType: unknown
+      withRefetchFn: true

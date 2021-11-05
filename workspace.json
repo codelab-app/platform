@@ -813,6 +813,30 @@
         }
       }
     },
+    "frontend-model-infra-api": {
+      "root": "libs/frontend/model/infra/api",
+      "sourceRoot": "libs/frontend/model/infra/api/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend/model/infra/api/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/model/infra/api"],
+          "options": {
+            "jestConfig": "libs/frontend/model/infra/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "frontend-model-infra-apollo": {
       "root": "libs/frontend/model/infra/apollo",
       "sourceRoot": "libs/frontend/model/infra/apollo/src",
@@ -830,6 +854,30 @@
             "ci": {
               "eslintConfig": "libs/frontend/model/infra/apollo/.eslintrc.ci.json"
             }
+          }
+        }
+      }
+    },
+    "frontend-model-infra-redux": {
+      "root": "libs/frontend/model/infra/redux",
+      "sourceRoot": "libs/frontend/model/infra/redux/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/frontend/model/infra/redux/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/model/infra/redux"],
+          "options": {
+            "jestConfig": "libs/frontend/model/infra/redux/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
@@ -1431,6 +1479,39 @@
                 "output": "."
               }
             ]
+          }
+        }
+      }
+    },
+    "tools-rtk-query": {
+      "root": "libs/tools/rtk-query",
+      "sourceRoot": "libs/tools/rtk-query/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/tools/rtk-query",
+            "tsConfig": "libs/tools/rtk-query/tsconfig.lib.json",
+            "packageJson": "libs/tools/rtk-query/package.json",
+            "main": "libs/tools/rtk-query/src/index.ts",
+            "assets": ["libs/tools/rtk-query/*.md"]
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/tools/rtk-query/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/tools/rtk-query"],
+          "options": {
+            "jestConfig": "libs/tools/rtk-query/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

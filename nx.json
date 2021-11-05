@@ -104,8 +104,14 @@
     "frontend-model-domain": {
       "tags": ["layer:domain", "scope:frontend"]
     },
+    "frontend-model-infra-api": {
+      "tags": ["scope:frontend"]
+    },
     "frontend-model-infra-apollo": {
       "tags": ["layer:infra", "scope:frontend"]
+    },
+    "frontend-model-infra-redux": {
+      "tags": ["scope:frontend"]
     },
     "frontend-model-state": {
       "tags": ["scope:frontend"]
@@ -181,6 +187,9 @@
     },
     "tools-plugins-codelab": {
       "tags": ["scope:publishable"]
+    },
+    "tools-rtk-query": {
+      "tags": []
     },
     "tools-scripts": {
       "tags": []

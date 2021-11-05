@@ -6,7 +6,7 @@ import { gql } from '@apollo/client'
 import { PageBaseFragmentDoc } from './PageBase.fragment.graphql.gen'
 import { ElementGraphFragmentDoc } from '../../../element/src/graphql/ElementGraph.fragment.graphql.gen'
 export type PageFullFragment = {
-  elements?: Types.Maybe<ElementGraphFragment>
+  elements?: ElementGraphFragment | null | undefined
 } & PageBaseFragment
 
 export const PageFullFragmentDoc = gql`

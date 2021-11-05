@@ -10,7 +10,7 @@ export type TestUpdateFieldMutationVariables = Types.Exact<{
 }>
 
 export type TestUpdateFieldMutation = {
-  updateField?: Types.Maybe<TestFieldFragment>
+  updateField?: TestFieldFragment | null | undefined
 }
 
 export const TestUpdateFieldGql = gql`

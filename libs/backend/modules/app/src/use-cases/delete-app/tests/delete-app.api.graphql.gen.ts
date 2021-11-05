@@ -9,7 +9,9 @@ export type TestDeleteAppMutationVariables = Types.Exact<{
   input: Types.DeleteAppInput
 }>
 
-export type TestDeleteAppMutation = { deleteApp?: Types.Maybe<TestAppFragment> }
+export type TestDeleteAppMutation = {
+  deleteApp?: TestAppFragment | null | undefined
+}
 
 export const TestDeleteAppGql = gql`
   mutation TestDeleteApp($input: DeleteAppInput!) {
