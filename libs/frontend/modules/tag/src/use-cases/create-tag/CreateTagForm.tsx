@@ -9,9 +9,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { refetchGetTagGraphsQuery } from '../get-tag-graphs'
-import { useGetTagsQuery } from '../get-tags/GetTags.web.graphql.gen'
-import { useCreateTagMutation } from './CreateTag.web.graphql.gen'
+import { useCreateTagMutation, useGetTagsQuery } from '../tag.endpoints'
 import { createTagSchema } from './CreateTagSchema'
 
 export interface CreateTagFormProps
@@ -41,7 +39,7 @@ export const CreateTagForm = ({
   } = useCrudModalMutationForm({
     entityType: EntityType.Tag,
     useMutationFunction: useCreateTagMutation,
-    mutationOptions: { refetchQueries: [refetchGetTagGraphsQuery()] },
+    mutationOptions: { refetchQueries: [] },
     mapVariables: (input: CreateTagInput) => {
       console.log(input)
 

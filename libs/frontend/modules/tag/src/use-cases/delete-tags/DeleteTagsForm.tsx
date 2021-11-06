@@ -8,8 +8,6 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetTagGraphsQuery } from '../get-tag-graphs'
-import { useDeleteTagsMutation } from './DeleteTags.web.graphql.gen'
 import { DeleteTagsSchema, deleteTagsSchema } from './deleteTagsSchema'
 
 export const DeleteTagsForm = (

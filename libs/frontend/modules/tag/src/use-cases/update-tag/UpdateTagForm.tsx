@@ -7,8 +7,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetTagsQuery } from '../get-tags/GetTags.web.graphql.gen'
-import { useUpdateTagMutation } from './UpdateTag.web.graphql.gen'
+import { useUpdateTagMutation } from '../tag.endpoints'
 import { UpdateTagSchema, updateTagSchema } from './updateTagSchema'
 
 export const UpdateTagForm = (props: UniFormUseCaseProps<UpdateTagSchema>) => {
@@ -21,7 +20,7 @@ export const UpdateTagForm = (props: UniFormUseCaseProps<UpdateTagSchema>) => {
   } = useCrudModalMutationForm({
     entityType: EntityType.Tag,
     useMutationFunction: useUpdateTagMutation,
-    mutationOptions: { refetchQueries: [refetchGetTagsQuery()] },
+    mutationOptions: { refetchQueries: [] },
     mapVariables: ({ name }: UpdateTagSchema, state) => ({
       input: { data: { name }, id: state.updateId },
     }),

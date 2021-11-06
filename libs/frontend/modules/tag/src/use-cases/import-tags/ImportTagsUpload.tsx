@@ -1,8 +1,8 @@
 import { ImportUpload } from '@codelab/frontend/view/components'
-import { useImportTagsMutation } from './ImportTags.web.graphql.gen'
+import { useImportTagsMutation } from '../tag.endpoints'
 
 export const ImportTagsUpload = () => {
-  const [importAtoms, { loading }] = useImportTagsMutation()
+  const [importAtoms, { isLoading }] = useImportTagsMutation()
 
   const fetchFn = (data: any) =>
     importAtoms({
