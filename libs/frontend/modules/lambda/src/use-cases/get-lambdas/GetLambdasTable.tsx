@@ -1,8 +1,8 @@
 import { Space, Table } from 'antd'
 import React from 'react'
-import { useGetLambdasQuery } from '../'
 import { DeleteLambdaButton } from '../delete-lambda'
 import { ExecuteLambdaButton } from '../execute-lambda'
+import { useGetLambdasQuery } from '../lambda.endpoints'
 import { UpdateLambdaButton } from '../update-lambda'
 import { LambdaRecord } from './LambdaRecord'
 
@@ -22,7 +22,7 @@ export const GetLambdasTable = () => {
   //     libraryId: 'f70c9584-4b68-4999-a42e-1755d539b714',
   //   },
   // })
-  const { loading, data } = useGetLambdasQuery()
+  const { isLoading, data } = useGetLambdasQuery()
 
   const columns = [
     {
@@ -48,7 +48,7 @@ export const GetLambdasTable = () => {
     },
   ]
 
-  return loading ? (
+  return isLoading ? (
     <></>
   ) : (
     <Table

@@ -10,25 +10,20 @@ import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
 import { defaultLambdaBody } from '../../defaultLambdBody'
 import { lambdaState } from '../../state'
-import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.web.graphql.gen'
-import { useCreateLambdaMutation } from './CreateLambda.web.graphql.gen'
+import { useCreateLambdaMutation } from '../lambda.endpoints'
 import { CreateLambdaInput, createLambdaSchema } from './createLambdaSchema'
 
 export const CreateLambdaForm = (props: UniFormUseCaseProps<any>) => {
   const { reset, setLoading } = useCrudModalForm(EntityType.Lambda)
   // const { library } = useSelectedLibrary()
   const [, setLambdaState] = useRecoilState(lambdaState)
-
-  const [mutate, { loading }] = useCreateLambdaMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetLambdasQuery()],
-  })
+  const [mutate, { isLoading }] = useCreateLambdaMutation({})
 
   useEffect(() => {
     // Keep the loading state in recoil, so we can use it other components, like loading buttons, etc.
-    setLoading(loading)
-    setLambdaState((current) => ({ ...current, loading }))
-  }, [setLoading, loading, setLambdaState])
+    setLoading(isLoading)
+    setLambdaState((current) => ({ ...current, isLoading }))
+  }, [setLoading, isLoading, setLambdaState])
 
   const onSubmit = (submitData: CreateLambdaInput) => {
     return mutate({

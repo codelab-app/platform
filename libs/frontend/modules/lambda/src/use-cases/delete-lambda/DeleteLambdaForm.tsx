@@ -6,8 +6,7 @@ import {
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
 import React, { useEffect } from 'react'
-import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.web.graphql.gen'
-import { useDeleteLambdaMutation } from './DeleteLambda.web.graphql.gen'
+import { useDeleteLambdaMutation } from '../lambda.endpoints'
 import { DeleteLambdaSchema, deleteLambdaSchema } from './deleteLambdaSchema'
 
 type DeleteLambdaFormProps = UniFormUseCaseProps<DeleteLambdaSchema>
@@ -15,11 +14,7 @@ type DeleteLambdaFormProps = UniFormUseCaseProps<DeleteLambdaSchema>
 export const DeleteLambdaForm = (props: DeleteLambdaFormProps) => {
   const { reset, setLoading, state } = useCrudModalForm(EntityType.Lambda)
   const { deleteIds: lambdaDeleteIds, metadata } = state
-
-  const [mutate, { loading: deleting }] = useDeleteLambdaMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [refetchGetLambdasQuery()],
-  })
+  const [mutate, { isLoading: deleting }] = useDeleteLambdaMutation({})
 
   const onSubmit = (data: DeleteLambdaSchema) => {
     return mutate({
