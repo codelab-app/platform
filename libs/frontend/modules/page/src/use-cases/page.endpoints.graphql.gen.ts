@@ -5,7 +5,7 @@ import { PageFullFragment } from '../graphql/PageFull.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { PageBaseFragmentDoc } from '../graphql/PageBase.fragment.graphql.gen'
 import { PageFullFragmentDoc } from '../graphql/PageFull.fragment.graphql.gen'
-import { api } from '@codelab/frontend/model/infra/api'
+import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type CreatePageMutationVariables = Types.Exact<{
   input: Types.CreatePageInput
 }>
@@ -110,29 +110,59 @@ export const AppPagesGql = gql`
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    CreatePage: build.mutation<CreatePageMutation, CreatePageMutationVariables>(
-      {
-        query: (variables) => ({ document: CreatePageGql, variables }),
-      },
-    ),
-    DeletePage: build.mutation<DeletePageMutation, DeletePageMutationVariables>(
-      {
-        query: (variables) => ({ document: DeletePageGql, variables }),
-      },
-    ),
-    GetPage: build.query<GetPageQuery, GetPageQueryVariables>({
-      query: (variables) => ({ document: GetPageGql, variables }),
+    CreatePage: build.mutation<
+      CreatePageMutation,
+      GraphqlOperationOptions<CreatePageMutationVariables>
+    >({
+      query: (options) => ({
+        document: CreatePageGql,
+        options: options ?? undefined,
+      }),
     }),
-    GetPages: build.query<GetPagesQuery, GetPagesQueryVariables>({
-      query: (variables) => ({ document: GetPagesGql, variables }),
+    DeletePage: build.mutation<
+      DeletePageMutation,
+      GraphqlOperationOptions<DeletePageMutationVariables>
+    >({
+      query: (options) => ({
+        document: DeletePageGql,
+        options: options ?? undefined,
+      }),
     }),
-    UpdatePage: build.mutation<UpdatePageMutation, UpdatePageMutationVariables>(
-      {
-        query: (variables) => ({ document: UpdatePageGql, variables }),
-      },
-    ),
-    AppPages: build.query<AppPagesQuery, AppPagesQueryVariables>({
-      query: (variables) => ({ document: AppPagesGql, variables }),
+    GetPage: build.query<
+      GetPageQuery,
+      GraphqlOperationOptions<GetPageQueryVariables>
+    >({
+      query: (options) => ({
+        document: GetPageGql,
+        options: options ?? undefined,
+      }),
+    }),
+    GetPages: build.query<
+      GetPagesQuery,
+      GraphqlOperationOptions<GetPagesQueryVariables>
+    >({
+      query: (options) => ({
+        document: GetPagesGql,
+        options: options ?? undefined,
+      }),
+    }),
+    UpdatePage: build.mutation<
+      UpdatePageMutation,
+      GraphqlOperationOptions<UpdatePageMutationVariables>
+    >({
+      query: (options) => ({
+        document: UpdatePageGql,
+        options: options ?? undefined,
+      }),
+    }),
+    AppPages: build.query<
+      AppPagesQuery,
+      GraphqlOperationOptions<AppPagesQueryVariables>
+    >({
+      query: (options) => ({
+        document: AppPagesGql,
+        options: options ?? undefined,
+      }),
     }),
   }),
 })
