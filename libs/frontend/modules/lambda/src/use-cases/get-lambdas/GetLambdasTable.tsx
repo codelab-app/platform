@@ -1,9 +1,9 @@
 import { Space, Table } from 'antd'
 import React from 'react'
+import { useGetLambdasQuery } from '../'
 import { DeleteLambdaButton } from '../delete-lambda'
 import { ExecuteLambdaButton } from '../execute-lambda'
 import { UpdateLambdaButton } from '../update-lambda'
-import { useGetLambdasQuery } from './GetLambdas.web.graphql.gen'
 import { LambdaRecord } from './LambdaRecord'
 
 const mapDataSource = (lambdas: Array<LambdaRecord>) =>

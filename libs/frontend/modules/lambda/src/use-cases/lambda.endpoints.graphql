@@ -1,0 +1,35 @@
+mutation CreateLambda($input: CreateLambdaInput!) {
+  createLambda(input: $input) {
+    id
+  }
+}
+
+mutation DeleteLambda($input: DeleteLambdaInput!) {
+  deleteLambda(input: $input) {
+    ...Lambda
+  }
+}
+
+mutation ExecuteLambda($input: ExecuteLambdaInput!) {
+  executeLambda(input: $input) {
+    ...LambdaPayload
+  }
+}
+
+query GetLambda($input: GetLambdaInput!) {
+  getLambda(input: $input) {
+    ...Lambda
+  }
+}
+
+query GetLambdas {
+  getLambdas {
+    ...Lambda
+  }
+}
+
+mutation UpdateLambda($input: UpdateLambdaInput!) {
+  updateLambda(input: $input) {
+    ...Lambda
+  }
+}
