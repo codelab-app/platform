@@ -4,7 +4,7 @@ import { AtomBaseFragment } from '../../../atom/src/Atom.fragment.graphql.gen'
 import {
   TagFragment,
   TagGraphFragment,
-} from '../../../tag/src/use-cases/Tag.fragment.graphql.gen'
+} from '../../../tag/src/Tag.fragment.graphql.gen'
 import { HookFragment } from './Hook.fragment.graphql.gen'
 import { PropMapBindingFragment } from './PropMapBinding.fragment.graphql.gen'
 import { gql } from '@apollo/client'
@@ -12,7 +12,7 @@ import { AtomBaseFragmentDoc } from '../../../atom/src/Atom.fragment.graphql.gen
 import {
   TagFragmentDoc,
   TagGraphFragmentDoc,
-} from '../../../tag/src/use-cases/Tag.fragment.graphql.gen'
+} from '../../../tag/src/Tag.fragment.graphql.gen'
 import { HookFragmentDoc } from './Hook.fragment.graphql.gen'
 import { PropMapBindingFragmentDoc } from './PropMapBinding.fragment.graphql.gen'
 export type ElementFragment = {
