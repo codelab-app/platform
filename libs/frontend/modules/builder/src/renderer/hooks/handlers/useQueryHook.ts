@@ -31,7 +31,7 @@ export const useQueryHook: HookHandler = (config: QueryHookConfigFragment) => {
             payload: JSON.stringify(context),
           },
         },
-      }).then((r) => {
+      }).then((r: any) => {
         try {
           const payload = r.data?.executeLambda?.payload
 

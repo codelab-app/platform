@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { DeleteLambdaMutationVariables } from './DeleteLambda.web.graphql.gen'
+import { DeleteLambdaMutationVariables } from '../lambda.endpoints.graphql.gen'
 
 export type DeleteLambdaSchema = DeleteLambdaMutationVariables['input']
 
