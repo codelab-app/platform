@@ -1,5 +1,0 @@
-query GetAtom($input: GetAtomInput!) {
-  getAtom(input: $input) {
-    ...Atom
-  }
-}

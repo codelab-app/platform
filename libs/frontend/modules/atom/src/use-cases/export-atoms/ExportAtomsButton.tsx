@@ -1,14 +1,14 @@
 import { Button } from 'antd'
 import fileDownload from 'js-file-download'
 import React from 'react'
-import { useExportAtomsLazyQuery } from './ExportAtoms.web.graphql.gen'
+import { useLazyExportAtomsQuery } from '../atom.endpoints'
 
 type ExportAtomsButtonProps = {
   atomIds: Array<string>
 }
 
 export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
-  const [getExportAtoms, { loading, data }] = useExportAtomsLazyQuery()
+  const [getExportAtoms, { isLoading, data }] = useLazyExportAtomsQuery()
 
   return (
     <Button

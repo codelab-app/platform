@@ -8,8 +8,7 @@ import {
 import { AtomType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.web.graphql.gen'
-import { useCreateAtomMutation } from './create-atom.web.graphql.gen'
+import { useCreateAtomMutation } from '../atom.endpoints'
 import { CreateAtomSchema, createAtomSchema } from './createAtomSchema'
 
 type CreateAtomFormProps = UniFormUseCaseProps<CreateAtomSchema>
@@ -26,9 +25,7 @@ export const CreateAtomForm = ({ ...props }: CreateAtomFormProps) => {
   } = useCrudModalMutationForm({
     entityType: EntityType.Atom,
     useMutationFunction: useCreateAtomMutation,
-    mutationOptions: {
-      refetchQueries: [refetchGetAtomsQuery()],
-    },
+    mutationOptions: {},
     mapVariables: ({ name, type }: CreateAtomSchema) => ({
       input: { name, type },
     }),
