@@ -3,7 +3,6 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 import { AtomBaseFragment } from '../../../atom/src/Atom.fragment.graphql.gen'
 import {
   TagFragment,
-  TagEdgeFragment,
   TagGraphFragment,
 } from '../../../tag/src/use-cases/Tag.fragment.graphql.gen'
 import { HookFragment } from './Hook.fragment.graphql.gen'
@@ -12,7 +11,6 @@ import { gql } from '@apollo/client'
 import { AtomBaseFragmentDoc } from '../../../atom/src/Atom.fragment.graphql.gen'
 import {
   TagFragmentDoc,
-  TagEdgeFragmentDoc,
   TagGraphFragmentDoc,
 } from '../../../tag/src/use-cases/Tag.fragment.graphql.gen'
 import { HookFragmentDoc } from './Hook.fragment.graphql.gen'
