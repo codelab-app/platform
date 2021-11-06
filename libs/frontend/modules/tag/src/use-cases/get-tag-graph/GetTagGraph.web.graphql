@@ -1,5 +1,0 @@
-query GetTagGraph {
-  getTagGraph {
-    ...TagGraph
-  }
-}
