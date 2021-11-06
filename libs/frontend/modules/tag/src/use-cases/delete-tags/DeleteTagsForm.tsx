@@ -8,6 +8,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { useDeleteTagsMutation } from '../tag.endpoints'
 import { DeleteTagsSchema, deleteTagsSchema } from './deleteTagsSchema'
 
 export const DeleteTagsForm = (
@@ -19,7 +20,7 @@ export const DeleteTagsForm = (
   } = useCrudModalMutationForm({
     entityType: EntityType.Tag,
     useMutationFunction: useDeleteTagsMutation,
-    mutationOptions: { refetchQueries: [refetchGetTagGraphsQuery()] },
+    mutationOptions: { refetchQueries: [] },
     mapVariables: ({ ids }: DeleteTagsSchema) => ({ input: { ids } }),
   })
 
