@@ -49,11 +49,13 @@ const PageBuilder: CodelabPage<BuilderProps> = (props) => {
 }
 
 const BuilderHeader = (props: BuilderProps) => {
-  console.log(props)
-
   const { data, isLoading } = useAppPagesQuery({
-    input: {
-      byId: { appId: props.appId },
+    variables: {
+      input: {
+        byId: {
+          appId: props.appId,
+        },
+      },
     },
   })
 

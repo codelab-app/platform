@@ -6,8 +6,10 @@ export const useQueryPagesHook: HookHandler = (
   config: QueryPagesHookConfigFragment,
 ) => {
   const output = useGetPagesQuery({
-    input: {
-      byApp: { appId: config.appId },
+    variables: {
+      input: {
+        byApp: { appId: config.appId },
+      },
     },
   })
 

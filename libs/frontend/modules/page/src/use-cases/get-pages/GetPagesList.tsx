@@ -17,7 +17,9 @@ export const GetPagesList = () => {
   const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Page)
 
   const { data, isLoading } = useGetPagesQuery({
-    input: { byApp: { appId: app.id } },
+    variables: {
+      input: { byApp: { appId: app.id } },
+    },
   })
 
   const pages = data?.pages

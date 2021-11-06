@@ -23,7 +23,15 @@ export const _AppProvider = ({
 
   useEffect(() => {
     if (appId) {
-      load({ input: { byId: { appId } } })
+      load({
+        variables: {
+          input: {
+            byId: {
+              appId: appId,
+            },
+          },
+        },
+      })
     }
   }, [appId, load])
 

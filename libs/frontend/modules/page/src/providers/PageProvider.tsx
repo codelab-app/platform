@@ -27,7 +27,9 @@ export const PageProvider = ({
   const pageId = query.pageId as string
 
   const { data, isLoading } = useGetPageQuery({
-    input: { pageId },
+    variables: {
+      input: { pageId },
+    },
   })
 
   const page = pageId && data?.page ? data.page : null
