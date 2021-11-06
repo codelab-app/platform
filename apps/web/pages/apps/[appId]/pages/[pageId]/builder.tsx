@@ -1,6 +1,5 @@
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
-import { initializeApollo } from '@codelab/frontend/model/infra/apollo'
 import {
   Builder,
   MainPaneBuilderPage,
@@ -9,14 +8,9 @@ import {
 import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
   PageContext,
+  useAppPagesQuery,
   withPageQueryProvider,
 } from '@codelab/frontend/modules/page'
-import {
-  AppPagesGql,
-  AppPagesQuery,
-  AppPagesQueryVariables,
-  useAppPagesQuery,
-} from '@codelab/frontend/presenter/container'
 import { PageDetailHeader } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -55,10 +49,12 @@ const PageBuilder: CodelabPage<BuilderProps> = (props) => {
 }
 
 const BuilderHeader = (props: BuilderProps) => {
-  const { data, loading } = useAppPagesQuery({
+  const { data, isLoading } = useAppPagesQuery({
     variables: {
       input: {
-        byId: { appId: props.appId },
+        byId: {
+          appId: props.appId,
+        },
       },
     },
   })
@@ -68,9 +64,10 @@ const BuilderHeader = (props: BuilderProps) => {
 
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
-    const session = await getSession(context.req, context.res)
+    //  const session = await getSession(context.req, context.res)
     const appId = context.query.appId as string
 
+    /*     
     const apolloClient = initializeApollo({
       accessToken: session?.accessToken,
     })
@@ -83,6 +80,7 @@ export const getServerSideProps = withPageAuthRequired({
         },
       },
     })
+ */
 
     // TODO: Add typing to GetServerSideProps
     const props: BuilderProps = {

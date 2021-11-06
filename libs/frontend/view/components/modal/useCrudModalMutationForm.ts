@@ -118,19 +118,16 @@ export const useCrudModalMutationForm = <
       try {
         const variables = mapVariables(submitData, crudModal.state)
 
-        return mutate({ variables, ...(mutationFunctionOptions || {}) })
+        return mutate({
+          ...mutationFunctionOptions,
+          variables,
+        })
       } catch (e) {
         console.error(`Error while mapping variables in ${entityType} form`, e)
         throw e
       }
     },
-    [
-      mapVariables,
-      crudModal.state,
-      mutate,
-      mutationFunctionOptions,
-      entityType,
-    ],
+    [mapVariables, crudModal.state, mutate, entityType],
   )
 
   return { crudModal, mutate, mutationData, handleSubmit }

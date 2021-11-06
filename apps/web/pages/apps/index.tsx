@@ -55,10 +55,9 @@ export const getServerSideProps = withPageAuthRequired({
     const session = await getSession(context.req, context.res)
     const token = session?.accessToken || getAuthToken()
 
-    getGraphQLClient().setHeader(
-      'authorization',
-      token ? `Bearer ${token}` : '',
-    )
+    getGraphQLClient({
+      headers: { authorization: token ? `Bearer ${token}` : '' },
+    })
 
     const reduxStore = initializeStore(context)
     const props = { [REDUX_STATE_PROP_NAME]: reduxStore.getState() }

@@ -27,7 +27,6 @@ export const api = generatedApi.enhanceEndpoints({
     },
   },
 })
-
 export { generatedApi as appEndpoints }
 export const {
   useGetAppsQuery,

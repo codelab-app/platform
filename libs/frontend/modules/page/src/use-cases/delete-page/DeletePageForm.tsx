@@ -10,12 +10,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import {
-  GetPagesGql,
-  GetPagesQuery,
-  GetPagesQueryVariables,
-} from '../get-pages/GetPages.web.graphql.gen'
-import { useDeletePageMutation } from './DeletePage.web.graphql.gen'
+import { useDeletePageMutation } from '../page.endpoints'
 
 type DeletePageFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 
@@ -35,6 +30,7 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
       // refetchQueries: [
       //   refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
       // ],
+      /*      
       update: (cache, { data }: any) => {
         const deletedPage = data?.deletePage
 
@@ -70,6 +66,7 @@ export const DeletePageForm = (props: DeletePageFormProps) => {
           })
         }
       },
+   */
     },
     mapVariables: (_, state) => ({ input: { pageId: state.deleteIds[0] } }),
   })

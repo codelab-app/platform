@@ -8,8 +8,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetPagesQuery } from '../get-pages/GetPages.web.graphql.gen'
-import { useUpdatePageMutation } from './UpdatePage.web.graphql.gen'
+import { useUpdatePageMutation } from '../page.endpoints'
 import { updatePageSchema, UpdatePageSchemaType } from './updatePageSchema'
 
 type UpdatePageFormProps = UniFormUseCaseProps<UpdatePageSchemaType>
@@ -27,9 +26,11 @@ export const UpdatePageForm = (props: UpdatePageFormProps) => {
     entityType: EntityType.Page,
     useMutationFunction: useUpdatePageMutation,
     mutationOptions: {
+      /*      
       refetchQueries: [
         refetchGetPagesQuery({ input: { byApp: { appId: app.id } } }),
       ],
+     */
     },
     mapVariables: (submitData: UpdatePageSchemaType, state) => ({
       input: {

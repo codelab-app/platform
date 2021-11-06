@@ -10,13 +10,13 @@ import {
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
 import React, { useContext } from 'react'
-import { useGetPagesQuery } from './GetPages.web.graphql.gen'
+import { useGetPagesQuery } from '../page.endpoints'
 
 export const GetPagesList = () => {
   const { app } = useContext(AppContext)
   const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Page)
 
-  const { data, loading } = useGetPagesQuery({
+  const { data, isLoading } = useGetPagesQuery({
     variables: {
       input: { byApp: { appId: app.id } },
     },
@@ -24,7 +24,7 @@ export const GetPagesList = () => {
 
   const pages = data?.pages
 
-  return loading ? (
+  return isLoading ? (
     <Spin />
   ) : (
     <>
