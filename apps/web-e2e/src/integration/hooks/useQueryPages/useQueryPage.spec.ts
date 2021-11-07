@@ -27,6 +27,7 @@ describe('useQueryPageHook', () => {
     }
 
     // choose item {pageName} and create
+
     cy.getOptionItem(pageName).click()
     cy.getOpenedModal().findByText('Add hook').click()
     // // Assert the mapper value
