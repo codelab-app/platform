@@ -1,5 +1,0 @@
-mutation CreateAtom($input: CreateAtomInput!) {
-  createAtom(input: $input) {
-    ...AtomBase
-  }
-}

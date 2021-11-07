@@ -12,16 +12,16 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { AtomFragment } from '../../Atom.fragment.graphql.gen'
+import { useGetAtomsQuery } from '../atom.endpoints'
 import { ExportAtomsButton } from '../export-atoms/ExportAtomsButton'
 import { ImportAtomsUpload } from '../import-atoms'
-import { useGetAtomsQuery } from './GetAtoms.web.graphql.gen'
 
 export type Record = AtomFragment
 
 export const GetAtomsTable = () => {
   const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Atom)
   const [selectedIds, setSelectedIds] = useState<Array<string>>([])
-  const { data, loading } = useGetAtomsQuery()
+  const { data, isLoading } = useGetAtomsQuery()
 
   const columns: Array<TableColumnProps<Record>> = [
     {
@@ -86,7 +86,7 @@ export const GetAtomsTable = () => {
     },
   ]
 
-  if (loading) {
+  if (isLoading) {
     return <Spin />
   }
 

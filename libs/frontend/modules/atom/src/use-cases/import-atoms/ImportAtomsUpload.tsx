@@ -1,8 +1,8 @@
 import { ImportUpload } from '@codelab/frontend/view/components'
-import { useImportAtomsMutation } from './ImportAtoms.web.graphql.gen'
+import { useImportAtomsMutation } from '../atom.endpoints'
 
 export const ImportAtomsUpload = () => {
-  const [importAtoms, { loading }] = useImportAtomsMutation()
+  const [importAtoms, { isLoading }] = useImportAtomsMutation()
 
   const fetchFn = (data: any) =>
     importAtoms({

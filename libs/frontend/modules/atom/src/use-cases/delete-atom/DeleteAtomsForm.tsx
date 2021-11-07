@@ -9,8 +9,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.web.graphql.gen'
-import { useDeleteAtomMutation } from './DeleteAtoms.web.graphql.gen'
+import { useDeleteAtomMutation } from '../atom.endpoints'
 
 type DeleteAtomFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 
@@ -24,9 +23,7 @@ export const DeleteAtomsForm = (props: DeleteAtomFormProps) => {
   } = useCrudModalMutationForm({
     entityType: EntityType.Atom,
     useMutationFunction: useDeleteAtomMutation,
-    mutationOptions: {
-      refetchQueries: [refetchGetAtomsQuery()],
-    },
+    mutationOptions: {},
     mapVariables: (_, state) => ({
       input: { atomId: state.deleteIds[0] },
     }),

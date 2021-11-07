@@ -7,8 +7,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetAtomsQuery } from '../get-atoms/GetAtoms.web.graphql.gen'
-import { useUpdateAtomMutation } from './UpdateAtom.web.graphql.gen'
+import { useUpdateAtomMutation } from '../atom.endpoints'
 import { UpdateAtomSchema, updateAtomSchema } from './updateAtomSchema'
 
 export const UpdateAtomForm = (
@@ -23,9 +22,7 @@ export const UpdateAtomForm = (
   } = useCrudModalMutationForm({
     entityType: EntityType.Atom,
     useMutationFunction: useUpdateAtomMutation,
-    mutationOptions: {
-      refetchQueries: [refetchGetAtomsQuery()],
-    },
+    mutationOptions: {},
     mapVariables: ({ name, type }: UpdateAtomSchema, state) => ({
       input: { id: state.updateId, data: { name, type } },
     }),

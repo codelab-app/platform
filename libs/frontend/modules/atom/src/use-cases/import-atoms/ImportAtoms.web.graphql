@@ -1,3 +1,0 @@
-mutation ImportAtoms($input: ImportAtomsInput!) {
-  importAtoms(input: $input)
-}

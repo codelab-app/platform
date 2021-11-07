@@ -1,0 +1,40 @@
+mutation CreateAtom($input: CreateAtomInput!) {
+  createAtom(input: $input) {
+    ...AtomBase
+  }
+}
+
+mutation DeleteAtom($input: DeleteAtomInput!) {
+  deleteAtom(input: $input) {
+    ...AtomBase
+  }
+}
+
+# This is used solely on the backend. The frontend query wraps this query, and gets the payload string only
+query ExportAtoms($input: GetAtomsInput) {
+  getAtoms(input: $input) {
+    ...Export__Atoms
+  }
+}
+
+query GetAtom($input: GetAtomInput!) {
+  getAtom(input: $input) {
+    ...Atom
+  }
+}
+
+query GetAtoms($input: GetAtomsInput) {
+  getAtoms(input: $input) {
+    ...Atom
+  }
+}
+
+mutation ImportAtoms($input: ImportAtomsInput!) {
+  importAtoms(input: $input)
+}
+
+mutation UpdateAtom($input: UpdateAtomInput!) {
+  updateAtom(input: $input) {
+    ...AtomBase
+  }
+}
