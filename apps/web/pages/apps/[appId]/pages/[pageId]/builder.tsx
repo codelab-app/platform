@@ -64,7 +64,6 @@ const BuilderHeader = (props: BuilderProps) => {
 
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
-    // setup authentication for client
     const appId = context.query.appId as string
 
     // TODO: Add typing to GetServerSideProps
