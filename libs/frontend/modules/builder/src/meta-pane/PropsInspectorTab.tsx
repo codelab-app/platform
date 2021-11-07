@@ -1,5 +1,4 @@
 import {
-  refetchGetElementQuery,
   useGetElementQuery,
   useUpdateElementPropsMutation,
 } from '@codelab/frontend/modules/element'
@@ -30,12 +29,7 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
     setExtraPropsForElement,
   } = useBuilder()
 
-  const [mutate, { loading }] = useUpdateElementPropsMutation({
-    refetchQueries: [
-      refetchGetElementQuery({ input: { where: { id: elementId } } }),
-    ],
-  })
-
+  const [mutate, { isLoading }] = useUpdateElementPropsMutation({})
   const element = data?.getElement
 
   useEffect(() => {

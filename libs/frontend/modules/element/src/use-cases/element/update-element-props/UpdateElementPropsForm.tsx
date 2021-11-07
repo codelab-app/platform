@@ -8,10 +8,11 @@ import { usePromisesLoadingIndicator } from '@codelab/frontend/view/components'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Spin } from 'antd'
 import React, { useRef } from 'react'
-import { useElementGraphContext } from '../../providers'
-import { refetchGetElementQuery, useGetElementQuery } from '../get-element'
-import { refetchGetElementGraphQuery } from '../get-element-graph'
-import { useUpdateElementPropsMutation } from './UpdateElementProps.web.graphql.gen'
+import { useElementGraphContext } from '../../../providers'
+import {
+  useGetElementQuery,
+  useUpdateElementPropsMutation,
+} from '../../elementEndpoints'
 
 interface UpdateElementPropsFormInternalProps {
   elementId: string
@@ -50,13 +51,7 @@ const UpdateElementPropsFormInternal = ({
       variables: { input: { where: { id: interfaceId } } },
     })
 
-  const [mutate] = useUpdateElementPropsMutation({
-    refetchQueries: [
-      refetchGetElementQuery({ input: { where: { id: elementId } } }),
-      refetchGetElementGraphQuery({ input: { where: { id: rootElementId } } }),
-    ],
-  })
-
+  const [mutate] = useUpdateElementPropsMutation()
   const initialPropsRef = useRef(JSON.parse(existingProps))
   const tree = useTypeTree(interfaceData?.getTypeGraph)
 
@@ -103,7 +98,6 @@ export const UpdateElementPropsForm = ({
   loadingStateKey,
 }: UpdateElementPropsFormProps) => {
   const { data } = useGetElementQuery({
-    fetchPolicy: 'cache-first',
     variables: { input: { where: { id: elementId } } },
   })
 

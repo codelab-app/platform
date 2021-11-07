@@ -17,9 +17,8 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useElementGraphContext } from '../../providers'
-import { refetchGetElementGraphQuery } from '../get-element-graph'
-import { useCreateElementMutation } from './CreateElement.web.graphql.gen'
+import { useElementGraphContext } from '../../../providers'
+import { useCreateElementMutation } from '../../elementEndpoints'
 import { CreateElementSchema, createElementSchema } from './createElementSchema'
 
 export interface CreateElementFormProps
@@ -42,11 +41,6 @@ export const CreateElementForm = ({
     },
   } = useCrudModalMutationForm({
     entityType: EntityType.Element,
-    mutationOptions: {
-      refetchQueries: [
-        refetchGetElementGraphQuery({ input: { where: { id: elementId } } }),
-      ],
-    },
     useMutationFunction: useCreateElementMutation,
     mapVariables: ({ componentId, ...formData }: CreateElementSchema) => {
       if (formData.atomId && componentId) {

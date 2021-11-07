@@ -1,6 +1,3 @@
+export * from './element.endpoints.graphql.gen'
 export * from './Element.fragment.graphql.gen'
-export * from './ElementEdge.fragment.graphql.gen'
-export * from './ElementGraph.fragment.graphql.gen'
-export * from './Hook.fragment.graphql.gen'
 export * from './HookConfig.fragment.graphql.gen'
-export * from './PropMapBinding.fragment.graphql.gen'

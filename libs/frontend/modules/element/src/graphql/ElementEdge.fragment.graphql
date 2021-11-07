@@ -1,5 +1,0 @@
-fragment ElementEdge on ElementEdge {
-  order
-  source
-  target
-}

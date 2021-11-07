@@ -3,18 +3,22 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 import { AtomBaseFragment } from '../../../atom/src/Atom.fragment.graphql.gen'
 import {
   TagFragment,
-  TagGraphFragment,
-} from '../../../tag/src/Tag.fragment.graphql.gen'
-import { HookFragment } from './Hook.fragment.graphql.gen'
-import { PropMapBindingFragment } from './PropMapBinding.fragment.graphql.gen'
+  TagEdgeFragment,
+} from '../../../tag/src/use-cases/Tag.fragment.graphql.gen'
+import {
+  HookConfig_GraphqlHookConfig_Fragment,
+  HookConfig_QueryHookConfig_Fragment,
+  HookConfig_QueryPageHookConfig_Fragment,
+  HookConfig_QueryPagesHookConfig_Fragment,
+  HookConfig_RecoilStateHookConfig_Fragment,
+} from './HookConfig.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { AtomBaseFragmentDoc } from '../../../atom/src/Atom.fragment.graphql.gen'
 import {
   TagFragmentDoc,
-  TagGraphFragmentDoc,
-} from '../../../tag/src/Tag.fragment.graphql.gen'
-import { HookFragmentDoc } from './Hook.fragment.graphql.gen'
-import { PropMapBindingFragmentDoc } from './PropMapBinding.fragment.graphql.gen'
+  TagEdgeFragmentDoc,
+} from '../../../tag/src/use-cases/Tag.fragment.graphql.gen'
+import { HookConfigFragmentDoc } from './HookConfig.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
@@ -30,6 +34,53 @@ export type ElementFragment = {
   propMapBindings: Array<PropMapBindingFragment>
 }
 
+export type PropMapBindingFragment = {
+  id: string
+  sourceKey: string
+  targetElementId?: string | null | undefined
+  targetKey: string
+}
+
+export type ElementEdgeFragment = {
+  order?: number | null | undefined
+  source: string
+  target: string
+}
+
+export type ElementGraphFragment = {
+  vertices: Array<ElementFragment>
+  edges: Array<ElementEdgeFragment>
+}
+
+export type HookFragment = {
+  id: string
+  type: Types.HookType
+  config:
+    | HookConfig_GraphqlHookConfig_Fragment
+    | HookConfig_QueryHookConfig_Fragment
+    | HookConfig_QueryPageHookConfig_Fragment
+    | HookConfig_QueryPagesHookConfig_Fragment
+    | HookConfig_RecoilStateHookConfig_Fragment
+}
+
+export const HookFragmentDoc = gql`
+  fragment Hook on Hook {
+    id
+    type
+    config {
+      ...HookConfig
+    }
+  }
+  ${HookConfigFragmentDoc}
+`
+export const PropMapBindingFragmentDoc = gql`
+  fragment PropMapBinding on PropMapBinding {
+    id
+    sourceKey
+    targetElementId
+    targetKey
+  }
+`
 export const ElementFragmentDoc = gql`
   fragment Element on Element {
     __typename
@@ -57,4 +108,23 @@ export const ElementFragmentDoc = gql`
   ${TagFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
+`
+export const ElementEdgeFragmentDoc = gql`
+  fragment ElementEdge on ElementEdge {
+    order
+    source
+    target
+  }
+`
+export const ElementGraphFragmentDoc = gql`
+  fragment ElementGraph on ElementGraph {
+    vertices {
+      ...Element
+    }
+    edges {
+      ...ElementEdge
+    }
+  }
+  ${ElementFragmentDoc}
+  ${ElementEdgeFragmentDoc}
 `

@@ -10,8 +10,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetElementGraphQuery } from '../get-element-graph'
-import { useDeleteElementMutation } from './DeleteElement.web.graphql.gen'
+import { useDeleteElementMutation } from '../../elementEndpoints'
 
 export type DeleteElementFormProps =
   UniFormUseCaseProps<EmptyJsonSchemaType> & {
@@ -35,14 +34,6 @@ export const DeleteElementForm = ({
     useMutationFunction: useDeleteElementMutation,
     mapVariables: (_, state) => ({
       input: { elementId: state.deleteIds[0] },
-    }),
-    mutationOptions: (state) => ({
-      refetchQueries: [
-        refetchGetElementGraphQuery({
-          input: { where: { id: state.deleteIds[0] } },
-        }),
-        ...(refetchQueries ?? []),
-      ],
     }),
   })
 

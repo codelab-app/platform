@@ -14,6 +14,8 @@ let listItemRootElId: string
 describe('render props', () => {
   describe('render', () => {
     before(() => {
+      cy.intercept('POST', '**/graphql').as('graphql')
+
       cy.resetDgraphData()
 
       cy.login().then(async () => {
@@ -157,18 +159,23 @@ describe('render props', () => {
     })
 
     it('bind  render props prop correctly', () => {
-      cy.goToPageByAliasId()
+      cy.goToPageByAliasId().then(() => {
+        // Go to List component
+        cy.findByText('Root element').click()
 
-      // Go to List component
-      cy.findByText('Root element').click()
-      cy.findByText(listElementName).click()
+        cy.wait('@graphql')
 
-      // click on prop panel
-      cy.findByText('Props').click()
+        cy.findByText(listElementName).should('be.visible').click()
 
-      // Click on select renderItem which is render props type
-      cy.findByLabelText(renderItemFieldName).click()
-      cy.getOptionItem(listItemComponentName).first().click()
+        cy.wait('@graphql')
+
+        // click on prop panel
+        cy.findByText('Props').click()
+
+        // Click on select renderItem which is render props type
+        cy.findByLabelText(renderItemFieldName).click()
+        cy.getOptionItem(listItemComponentName).first().click()
+      })
     })
 
     it('bind react node prop correctly', () => {

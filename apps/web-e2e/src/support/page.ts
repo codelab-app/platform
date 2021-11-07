@@ -37,7 +37,8 @@ export const goToPageByAliasId = () => {
   let appId: string
   let pageId: string
 
-  cy.get('@appId')
+  return cy
+    .get('@appId')
     .then((_appId) => {
       appId = String(_appId)
     })

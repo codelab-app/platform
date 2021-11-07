@@ -7,8 +7,10 @@ import {
 } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { refetchGetElementQuery, useGetElementQuery } from '../get-element'
-import { useUpdateElementMutation } from '../update-element/UpdateElement.web.graphql.gen'
+import {
+  useGetElementQuery,
+  useUpdateElementMutation,
+} from '../../elementEndpoints'
 
 interface InternalProps {
   tree: ElementTree
@@ -31,16 +33,7 @@ const InternalForm = ({
   monacoProps,
 }: InternalProps) => {
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
-
-  const [mutate] = useUpdateElementMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [
-      refetchGetElementQuery({
-        input: { where: { id: element.id } },
-      }),
-    ],
-  })
-
+  const [mutate] = useUpdateElementMutation()
   const [value, setValue] = useState(element.propTransformationJs || defaultFn)
   // Keep the value string value in a ref so we can access it when unmounting the component
   const valueRef = useRef(value)
@@ -130,7 +123,6 @@ export const UpdateElementPropTransformationForm = ({
   tree,
 }: UpdateElementPropTransformationFormProp) => {
   const { data } = useGetElementQuery({
-    fetchPolicy: 'cache-first',
     variables: { input: { where: { id: elementId } } },
   })
 

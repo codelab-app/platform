@@ -10,9 +10,10 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { refetchGetElementQuery, useGetElementQuery } from '../get-element'
-import { refetchGetElementGraphQuery } from '../get-element-graph'
-import { useUpdateElementMutation } from './UpdateElement.web.graphql.gen'
+import {
+  useGetElementQuery,
+  useUpdateElementMutation,
+} from '../../elementEndpoints'
 import { UpdateElementSchema, updateElementSchema } from './updateElementSchema'
 
 type UpdateElementFormInternalProps =
@@ -42,13 +43,7 @@ const UpdateElementFormInternal = ({
     Array<{ label: string; value: string }>
   >([])
 
-  const [updateElement] = useUpdateElementMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [
-      refetchGetElementQuery({ input: { where: { id: element.id } } }),
-      refetchGetElementGraphQuery({ input: { where: { id: element.id } } }),
-    ],
-  })
+  const [updateElement] = useUpdateElementMutation()
 
   const onSubmit = (submitData: UpdateElementSchema) => {
     const promise = updateElement({
@@ -128,7 +123,6 @@ export const UpdateElementForm = ({
   ...props
 }: UpdateElementFormProps) => {
   const { data: getElementData } = useGetElementQuery({
-    fetchPolicy: 'cache-first',
     variables: { input: { where: { id: elementId } } },
   })
 
