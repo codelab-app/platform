@@ -6,8 +6,8 @@ import {
   HookConfigFragment,
   HookFragment,
 } from '../../../graphql'
+import { useLazyGetLambdaNameQuery } from '../../hookEndpoints'
 import { RemoveHookFromElementButton } from '../remove-hook-from-element'
-import { useGetLambdaNameLazyQuery } from './GetLambdaName.web.graphql.gen'
 
 export interface ElementHooksListProps {
   element: ElementFragment
@@ -51,7 +51,7 @@ const ElementHooksListItem = ({
 const ElementHooksListItemDescription = (config: HookConfigFragment) => {
   // FIXME optimize this if needed to either use getLambdas and fetch them all at once
   // or add a resolve field in the API to get the lambda along with the hook
-  const [getLambda, { data: lambda }] = useGetLambdaNameLazyQuery()
+  const [getLambda, { data: lambda }] = useLazyGetLambdaNameQuery()
 
   useEffect(() => {
     if (config.__typename === 'QueryHookConfig' && config.lambdaId) {
