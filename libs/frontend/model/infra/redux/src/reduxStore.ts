@@ -6,11 +6,12 @@ import { lambdaEndpoints } from '@codelab/frontend/modules/lambda'
 import { pageEndpoints } from '@codelab/frontend/modules/page'
 import { tagEndpoints } from '@codelab/frontend/modules/tag'
 import { combineReducers, configureStore, Store } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query'
 
 export const REDUX_STATE_PROP_NAME = '__REDUX_STATE__'
 
 const createStore = (preloadedState: any) => {
-  return configureStore({
+  const store = configureStore({
     reducer: combineReducers({
       [appEndpoints.reducerPath]: appEndpoints.reducer,
       [pageEndpoints.reducerPath]: pageEndpoints.reducer,
@@ -30,6 +31,10 @@ const createStore = (preloadedState: any) => {
         adminEndpoints.middleware,
       ),
   })
+
+  setupListeners(store.dispatch)
+
+  return store
 }
 
 let store: Store | undefined

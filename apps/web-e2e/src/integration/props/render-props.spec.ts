@@ -163,11 +163,11 @@ describe('render props', () => {
         // Go to List component
         cy.findByText('Root element').click()
 
-        cy.wait('@graphql')
+        // For some reason it gets an element right before re-rendering and then causes an error for it being detached
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(100)
 
         cy.findByText(listElementName).should('be.visible').click()
-
-        cy.wait('@graphql')
 
         // click on prop panel
         cy.findByText('Props').click()

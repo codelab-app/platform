@@ -9,17 +9,16 @@ export const useFetchElement = (
   // Doing this makes sure the selected/hovering element objects are updated whenever we mutate the actual element and refetch
   // it should be cached, so this shouldn't cause another api call
 
-  // TODO fix this
   const [fetchElement, { data: fetchedElement, isLoading }] =
-    useLazyGetElementQuery({})
+    useLazyGetElementQuery()
 
-  // useEffect(() => {
-  //   if (element) {
-  //     fetchElement({
-  //       variables: { input: { where: { id: element?.id } } },
-  //     })
-  //   }
-  // }, [fetchElement, element])
+  useEffect(() => {
+    if (element && fetchedElement?.getElement?.id !== element.id) {
+      fetchElement({
+        variables: { input: { where: { id: element?.id } } },
+      })
+    }
+  }, [fetchedElement?.getElement?.id, fetchElement, element])
 
   useEffect(() => {
     if (
