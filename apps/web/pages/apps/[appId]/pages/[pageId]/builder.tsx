@@ -1,6 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
-import { reduxStoreWrapper } from '@codelab/frontend/model/infra/redux'
 import {
   Builder,
   MainPaneBuilderPage,
@@ -9,7 +8,6 @@ import {
 import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
   PageContext,
-  pageEndpoints,
   useAppPagesQuery,
   withPageQueryProvider,
 } from '@codelab/frontend/modules/page'
@@ -64,34 +62,19 @@ const BuilderHeader = (props: BuilderProps) => {
   return <PageDetailHeader app={data?.app ?? null} />
 }
 
-export const preFetchPages = reduxStoreWrapper.getServerSideProps(
-  (store) => async (context) => {
-    const appId = context.query.appId as string
-
-    store.dispatch(
-      pageEndpoints.endpoints.GetPages.initiate({
-        variables: {
-          input: {
-            byApp: {
-              appId,
-            },
-          },
-        },
-      }),
-    )
-    await Promise.all(pageEndpoints.util.getRunningOperationPromises())
-
-    return {
-      props: {
-        appId,
-      },
-    }
-  },
-)
-
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
-    return await preFetchPages(context)
+    // setup authentication for client
+    const appId = context.query.appId as string
+
+    // TODO: Add typing to GetServerSideProps
+    const props: BuilderProps = {
+      appId,
+    }
+
+    return {
+      props,
+    }
   },
 })
 

@@ -1,5 +1,5 @@
 import { IElement } from '@codelab/frontend/abstract/core'
-import { useLazyGetElementQuery } from '@codelab/frontend/modules/element'
+import { useGetElementQuery } from '@codelab/frontend/modules/element'
 import { useEffect } from 'react'
 
 export const useFetchElement = (
@@ -9,16 +9,10 @@ export const useFetchElement = (
   // Doing this makes sure the selected/hovering element objects are updated whenever we mutate the actual element and refetch
   // it should be cached, so this shouldn't cause another api call
 
-  const [fetchElement, { data: fetchedElement, isLoading }] =
-    useLazyGetElementQuery()
-
-  useEffect(() => {
-    if (element && fetchedElement?.getElement?.id !== element.id) {
-      fetchElement({
-        variables: { input: { where: { id: element?.id } } },
-      })
-    }
-  }, [fetchedElement?.getElement?.id, fetchElement, element])
+  const { data: fetchedElement, isLoading } = useGetElementQuery(
+    { variables: { input: { where: { id: element?.id } } } },
+    { skip: !element },
+  )
 
   useEffect(() => {
     if (
