@@ -4901,15 +4901,15 @@
   resolved "https://registry.yarnpkg.com/@react-dnd/shallowequal/-/shallowequal-2.0.0.tgz#a3031eb54129f2c66b2753f8404266ec7bf67f0a"
   integrity sha512-Pc/AFTdwZwEKJxFJvlxrSmGe/di+aAOBn60sremrpLo6VI/6cmiUYNNwlI5KNYttg7uypzA3ILPMPgxB2GYZEg==
 
-"@reduxjs/toolkit@^1.6.2":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.6.2.tgz#2f2b5365df77dd6697da28fdf44f33501ed9ba37"
-  integrity sha512-HbfI/hOVrAcMGAYsMWxw3UJyIoAS9JTdwddsjlr5w3S50tXhWb+EMyhIw+IAvCVCLETkzdjgH91RjDSYZekVBA==
+"@reduxjs/toolkit@^1.7.0-beta.1":
+  version "1.7.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.7.0-beta.1.tgz#4f28d2c28ba40ec92fa69cebc44509590ed4a2bc"
+  integrity sha512-b7zwShxvCuwuuAObZZSFC9bt6qpw0RkKDUQPta+klC9jtAXxtvjzO4i55LRBQk9Yi+K+Btay0HgDnzzHuBA9lQ==
   dependencies:
     immer "^9.0.6"
-    redux "^4.1.0"
-    redux-thunk "^2.3.0"
-    reselect "^4.0.0"
+    redux "^4.1.2"
+    redux-thunk "^2.4.0"
+    reselect "^4.1.2"
 
 "@rollup/plugin-babel@^5.3.0":
   version "5.3.0"
@@ -20503,6 +20503,11 @@ next-compose-plugins@2.2.1:
   resolved "https://registry.yarnpkg.com/next-compose-plugins/-/next-compose-plugins-2.2.1.tgz#020fc53f275a7e719d62521bef4300fbb6fde5ab"
   integrity sha512-OjJ+fV15FXO2uQXQagLD4C0abYErBjyjE0I0FHpOEIB8upw0hg1ldFP6cqHTJBH1cZqy96OeR3u1dJ+Ez2D4Bg==
 
+next-redux-wrapper@^7.0.5:
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/next-redux-wrapper/-/next-redux-wrapper-7.0.5.tgz#109cd3fe02183b18fbd094924cfcbd21262039dc"
+  integrity sha512-UFXdAWG5i+GFT8+Hoqpx3GArkPh34fVWF9YoA2VSHlBzsrPtnRd7NWM6FNSYUennpommTpWJ09mu+r/1UxyIkg==
+
 next-tick@1, next-tick@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.1.0.tgz#1836ee30ad56d67ef281b22bd199f709449b35eb"
@@ -24127,12 +24132,12 @@ reduce-css-calc@^2.1.8:
     css-unit-converter "^1.1.1"
     postcss-value-parser "^3.3.0"
 
-redux-thunk@^2.3.0:
+redux-thunk@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.4.0.tgz#ac89e1d6b9bdb9ee49ce69a69071be41bbd82d67"
   integrity sha512-/y6ZKQNU/0u8Bm7ROLq9Pt/7lU93cT0IucYMrubo89ENjxPa7i8pqLKu6V4X7/TvYovQ6x01unTeyeZ9lgXiTA==
 
-redux@^4.0.0, redux@^4.0.4, redux@^4.0.5, redux@^4.1.0:
+redux@^4.0.0, redux@^4.0.4, redux@^4.0.5, redux@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.1.2.tgz#140f35426d99bb4729af760afcf79eaaac407104"
   integrity sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw==
@@ -24570,6 +24575,11 @@ reselect@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.1.tgz#7e2c110efbf3d70df3482604bcf2bc0ab571346a"
   integrity sha512-Jjt8Us6hAWJpjucyladHvUGR+q1mHHgWtGDXlhvvKyNyIeQ3bjuWLDX0bsTLhbm/gd4iXEACBlODUHBlLWiNnA==
+
+reselect@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.2.tgz#7bf642992d143d4f3b0f2dca8aa52018808a1d51"
+  integrity sha512-wg60ebcPOtxcptIUfrr7Jt3h4BR86cCW3R7y4qt65lnNb4yz4QgrXcbSioVsIOYguyz42+XTHIyJ5TEruzkFgQ==
 
 resize-observer-polyfill@^1.5.0, resize-observer-polyfill@^1.5.1:
   version "1.5.1"

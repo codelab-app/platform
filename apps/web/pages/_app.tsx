@@ -4,12 +4,11 @@ import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
 import { useApollo } from '@codelab/frontend/model/infra/apollo'
-import { initializeStore } from '@codelab/frontend/model/infra/redux'
+import { reduxStoreWrapper } from '@codelab/frontend/model/infra/redux'
 import { css, Global } from '@emotion/react'
 import { AppProps } from 'next/app'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { Provider } from 'react-redux'
 import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
@@ -33,43 +32,40 @@ const AppContainer = ({
     : null
 
   const client = useApollo(ssrPageProps)
-  const reduxStore = initializeStore(ssrPageProps)
 
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <ApolloProvider client={useApollo(ssrPageProps)}>
-          <Provider store={reduxStore}>
-            <UserProvider>
-              <GlobalStyles />
-              <Global
-                styles={[
-                  css({
-                    '#__next': {
-                      height: '100%',
-                    },
-                  }),
-                  ...globalTailwindFix,
-                ]}
-              />
-              {Template ? (
-                <Template
-                  MainPane={_MainPane}
-                  MetaPane={_MetaPane}
-                  SidebarNavigation={_SidebarNavigation}
-                  Header={_Header}
-                >
-                  <Component {...ssrPageProps} />
-                </Template>
-              ) : (
+          <UserProvider>
+            <GlobalStyles />
+            <Global
+              styles={[
+                css({
+                  '#__next': {
+                    height: '100%',
+                  },
+                }),
+                ...globalTailwindFix,
+              ]}
+            />
+            {Template ? (
+              <Template
+                MainPane={_MainPane}
+                MetaPane={_MetaPane}
+                SidebarNavigation={_SidebarNavigation}
+                Header={_Header}
+              >
                 <Component {...ssrPageProps} />
-              )}
-            </UserProvider>
-          </Provider>
+              </Template>
+            ) : (
+              <Component {...ssrPageProps} />
+            )}
+          </UserProvider>
         </ApolloProvider>
       </QueryClientProvider>
     </RecoilRoot>
   )
 }
 
-export default AppContainer
+export default reduxStoreWrapper.withRedux(AppContainer)
