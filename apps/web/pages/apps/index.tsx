@@ -1,11 +1,9 @@
 import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
 import { getGraphQLClient } from '@codelab/frontend/model/infra/api'
+import { reduxStoreWrapper } from '@codelab/frontend/model/infra/redux'
 import {
-  initializeStore,
-  REDUX_STATE_PROP_NAME,
-} from '@codelab/frontend/model/infra/redux'
-import {
+  appEndpoints,
   CreateAppButton,
   CreateAppModal,
   DeleteAppModal,
@@ -49,6 +47,17 @@ const AppsPage: CodelabPage = () => {
   )
 }
 
+export const preFetchApps = reduxStoreWrapper.getServerSideProps(
+  (store) => async (context) => {
+    store.dispatch(appEndpoints.endpoints.GetApps.initiate())
+    await Promise.all(appEndpoints.util.getRunningOperationPromises())
+
+    return {
+      props: {},
+    }
+  },
+)
+
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
     // setup authentication for client
@@ -59,11 +68,10 @@ export const getServerSideProps = withPageAuthRequired({
       headers: { authorization: token ? `Bearer ${token}` : '' },
     })
 
-    const reduxStore = initializeStore(context)
-    const props = { [REDUX_STATE_PROP_NAME]: reduxStore.getState() }
+    await preFetchApps(context)
 
     return {
-      props,
+      props: {},
     }
   },
 })

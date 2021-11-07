@@ -8,13 +8,11 @@ import {
   propMapBindingEndpoints,
 } from '@codelab/frontend/modules/element'
 import { pageEndpoints } from '@codelab/frontend/modules/page'
-import { combineReducers, configureStore, Store } from '@reduxjs/toolkit'
-import { setupListeners } from '@reduxjs/toolkit/query'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { createWrapper } from 'next-redux-wrapper'
 
-export const REDUX_STATE_PROP_NAME = '__REDUX_STATE__'
-
-const createStore = (preloadedState: any) => {
-  const store = configureStore({
+export const makeStore = () =>
+  configureStore({
     reducer: combineReducers({
       [appEndpoints.reducerPath]: appEndpoints.reducer,
       [pageEndpoints.reducerPath]: pageEndpoints.reducer,
@@ -25,7 +23,6 @@ const createStore = (preloadedState: any) => {
       [atomEndpoints.reducerPath]: atomEndpoints.reducer,
       [adminEndpoints.reducerPath]: adminEndpoints.reducer,
     }),
-    preloadedState,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         appEndpoints.middleware,
@@ -39,31 +36,10 @@ const createStore = (preloadedState: any) => {
       ),
   })
 
-  setupListeners(store.dispatch)
+export type AppStore = ReturnType<typeof makeStore>
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']
 
-  return store
-}
-
-let store: Store | undefined
-
-export const initializeStore = (context: any) => {
-  const preloadedState = context[REDUX_STATE_PROP_NAME]
-  let _store = store ?? createStore(preloadedState)
-
-  if (preloadedState && store) {
-    _store = createStore({ ...store.getState(), ...preloadedState })
-    store = undefined
-  }
-
-  // For SSG and SSR always create a new store
-  if (typeof window === 'undefined') {
-    return _store
-  }
-
-  // Create the store once in the client
-  if (!store) {
-    store = _store
-  }
-
-  return _store
-}
+export const reduxStoreWrapper = createWrapper<AppStore>(makeStore, {
+  debug: true,
+})
