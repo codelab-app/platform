@@ -1,3 +1,9 @@
+query GetComponents {
+  getComponents {
+    ...Element
+  }
+}
+
 mutation CreateComponent($input: CreateComponentInput!) {
   createComponent(input: $input) {
     ...Element
