@@ -13,28 +13,38 @@ export const api = generatedApi.enhanceEndpoints({
         providesById(result?.getElement?.id, ELEMENT_CACHE_TAG),
     },
     CreateElement: {
-      invalidatesTags: () => [ELEMENT_GRAPH_CACHE_TAG, ELEMENT_CACHE_TAG],
+      invalidatesTags: (result) => [
+        ELEMENT_GRAPH_CACHE_TAG,
+        providesById(result?.createElement?.id, ELEMENT_CACHE_TAG)[0],
+      ],
     },
     DeleteElement: {
       invalidatesTags: () =>
         invalidatesAll(ELEMENT_CACHE_TAG, ELEMENT_GRAPH_CACHE_TAG),
     },
     GetElementGraph: {
-      providesTags: (result, _, arg) =>
-        providesById(
-          arg.variables?.input.where.id ?? undefined,
-          ELEMENT_GRAPH_CACHE_TAG,
-        ),
+      providesTags: (result, _, arg) => [
+        {
+          type: ELEMENT_GRAPH_CACHE_TAG,
+          id: arg.variables?.input.where.id ?? undefined,
+        },
+        ...(result?.getElementGraph.vertices.map((v) => ({
+          type: ELEMENT_CACHE_TAG,
+          id: v.id,
+        })) ?? []),
+      ],
     },
     MoveElement: {
-      invalidatesTags: () =>
-        invalidatesAll(ELEMENT_CACHE_TAG, ELEMENT_GRAPH_CACHE_TAG),
+      invalidatesTags: (result) =>
+        providesById(result?.moveElement?.id, ELEMENT_CACHE_TAG),
     },
     UpdateElement: {
-      invalidatesTags: () => [ELEMENT_GRAPH_CACHE_TAG, ELEMENT_CACHE_TAG],
+      invalidatesTags: (result) =>
+        providesById(result?.updateElement?.id, ELEMENT_CACHE_TAG),
     },
     UpdateElementProps: {
-      invalidatesTags: () => [ELEMENT_GRAPH_CACHE_TAG, ELEMENT_CACHE_TAG],
+      invalidatesTags: (result) =>
+        providesById(result?.updateElementProps?.id, ELEMENT_CACHE_TAG),
     },
   },
 })
