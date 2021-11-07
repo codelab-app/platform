@@ -4,7 +4,7 @@ import {
   QueryMethod,
 } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import { AddHookToElementMutationVariables } from './AddHookToElement.web.graphql.gen'
+import { AddHookToElementMutationVariables } from '../../../graphql/hook.endpoints.graphql.gen'
 
 type AddHookToElementInput = AddHookToElementMutationVariables['input']
 type QueryHookConfigInput = AddHookToElementInput['queryHook']

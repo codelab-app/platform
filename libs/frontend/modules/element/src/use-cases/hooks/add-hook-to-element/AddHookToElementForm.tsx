@@ -14,7 +14,7 @@ import { css } from '@emotion/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { AutoField, AutoFields, HiddenField } from 'uniforms-antd'
-import { useAddHookToElementMutation } from './AddHookToElement.web.graphql.gen'
+import { useAddHookToElementMutation } from '../../hookEndpoints'
 import {
   AddHookToElementSchema,
   addHookToElementSchema,
