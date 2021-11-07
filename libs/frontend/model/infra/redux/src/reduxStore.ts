@@ -1,6 +1,7 @@
 import { adminEndpoints } from '@codelab/frontend/modules/admin'
 import { appEndpoints } from '@codelab/frontend/modules/app'
 import { atomEndpoints } from '@codelab/frontend/modules/atom'
+import { elementEndpoints } from '@codelab/frontend/modules/element'
 import { pageEndpoints } from '@codelab/frontend/modules/page'
 import { combineReducers, configureStore, Store } from '@reduxjs/toolkit'
 
@@ -11,6 +12,7 @@ const createStore = (preloadedState: any) => {
     reducer: combineReducers({
       [appEndpoints.reducerPath]: appEndpoints.reducer,
       [pageEndpoints.reducerPath]: pageEndpoints.reducer,
+      [elementEndpoints.reducerPath]: elementEndpoints.reducer,
       [atomEndpoints.reducerPath]: atomEndpoints.reducer,
       [adminEndpoints.reducerPath]: adminEndpoints.reducer,
     }),
@@ -19,6 +21,7 @@ const createStore = (preloadedState: any) => {
       getDefaultMiddleware().concat(
         appEndpoints.middleware,
         pageEndpoints.middleware,
+        elementEndpoints.middleware,
         atomEndpoints.middleware,
         adminEndpoints.middleware,
       ),

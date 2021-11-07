@@ -9,7 +9,6 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetElementQuery } from '../../get-element/GetElement.web.graphql.gen'
 import { useRemoveHookFromElementMutation } from './RemoveHookFromElement.web.graphql.gen'
 
 export type RemoveHookFromElementFormProps =
@@ -28,13 +27,6 @@ export const RemoveHookFromElementForm = ({
   } = useCrudModalMutationForm({
     entityType: EntityType.App,
     useMutationFunction: useRemoveHookFromElementMutation,
-    mutationOptions: {
-      refetchQueries: [
-        refetchGetElementQuery({
-          input: { where: { id: elementId } },
-        }),
-      ],
-    },
     mapVariables: (_, state) => ({
       input: {
         hookId: state.deleteIds[0],

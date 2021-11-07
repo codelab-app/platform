@@ -4,9 +4,11 @@ import {
   usePromisesLoadingIndicator,
 } from '@codelab/frontend/view/components'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { ElementFragment } from '../graphql'
-import { refetchGetElementQuery, useGetElementQuery } from '../use-cases'
-import { useUpdateElementMutation } from '../use-cases/update-element/UpdateElement.web.graphql.gen'
+import {
+  ElementFragment,
+  useGetElementQuery,
+  useUpdateElementMutation,
+} from '../graphql'
 
 export interface ElementCssEditorInternalProps {
   element: ElementFragment
@@ -18,16 +20,7 @@ const ElementCssEditorInternal = ({
   loadingStateKey,
 }: ElementCssEditorInternalProps) => {
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
-
-  const [mutate] = useUpdateElementMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [
-      refetchGetElementQuery({
-        input: { where: { id: element.id } },
-      }),
-    ],
-  })
-
+  const [mutate] = useUpdateElementMutation()
   const [cssString, setCssString] = useState(element.css || '')
   // Keep the css string value in a ref so we can access it when unmounting the component
   const cssStringRef = useRef(cssString)
@@ -100,7 +93,6 @@ export const ElementCssEditor = ({
   loadingStateKey,
 }: ElementCssEditorProps) => {
   const { data } = useGetElementQuery({
-    fetchPolicy: 'cache-first',
     variables: { input: { where: { id: elementId } } },
   })
 

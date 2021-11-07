@@ -1,5 +1,0 @@
-mutation DeleteElement($input: DeleteElementInput!) {
-  deleteElement(input: $input) {
-    ...Element
-  }
-}

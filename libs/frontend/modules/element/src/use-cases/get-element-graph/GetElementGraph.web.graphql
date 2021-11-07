@@ -1,5 +1,0 @@
-query GetElementGraph($input: GetElementGraphInput!) {
-  getElementGraph(input: $input) {
-    ...ElementGraph
-  }
-}

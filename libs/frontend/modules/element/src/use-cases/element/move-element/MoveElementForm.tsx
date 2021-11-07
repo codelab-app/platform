@@ -11,9 +11,8 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useElementGraphContext } from '../../providers'
-import { refetchGetElementGraphQuery } from '../get-element-graph'
-import { useMoveElementMutation } from './MoveElement.web.graphql.gen'
+import { useElementGraphContext } from '../../../providers'
+import { useMoveElementMutation } from '../../elementEndpoints'
 import { MoveElementSchema, moveElementSchema } from './moveElementSchema'
 
 export type MoveElementFormProps = UniFormUseCaseProps<MoveElementSchema> & {
@@ -40,14 +39,7 @@ export const MoveElementForm = ({
     order: tree.getOrderInParent(elementId),
   })
 
-  const [mutate] = useMoveElementMutation({
-    awaitRefetchQueries: true,
-    refetchQueries: [
-      refetchGetElementGraphQuery({
-        input: { where: { id: rootElementId } },
-      }),
-    ],
-  })
+  const [mutate] = useMoveElementMutation()
 
   const onSubmit = (submitData: MoveElementSchema) => {
     const promise = mutate({

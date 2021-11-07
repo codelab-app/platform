@@ -11,7 +11,6 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import React, { useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { refetchGetElementQuery } from '../../get-element'
 import { TargetKeyField } from '../create-prop-map-binding/TargetKeyField'
 import { useUpdatePropMapBindingMutation } from './UpdatePropMapBinding.web.graphql.gen'
 import {
@@ -41,11 +40,6 @@ export const UpdatePropMapBindingForm = ({
   } = useCrudModalMutationForm({
     entityType: EntityType.App,
     useMutationFunction: useUpdatePropMapBindingMutation,
-    mutationOptions: {
-      refetchQueries: [
-        refetchGetElementQuery({ input: { where: { id: elementId } } }),
-      ],
-    },
     mapVariables: (
       { sourceKey, targetKey, targetElementId }: UpdatePropMapBindingSchema,
       state,
