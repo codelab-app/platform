@@ -1,5 +1,5 @@
 import { Button } from 'antd'
-import { useResetDataMutation } from './ResetData.web.graphql.gen'
+import { useResetDataMutation } from '../admin.endpoints'
 
 export const ResetDataButton = () => {
   const [resetData] = useResetDataMutation()

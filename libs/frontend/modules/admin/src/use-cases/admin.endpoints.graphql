@@ -1,3 +1,7 @@
+mutation ResetData {
+  resetData
+}
+
 mutation SeedBaseTypes {
   seedBaseTypes
 }
