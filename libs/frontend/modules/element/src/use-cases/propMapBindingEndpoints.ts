@@ -4,7 +4,7 @@ import {
 } from '@codelab/frontend/model/infra/api'
 import { api as generatedApi } from '../graphql/prop-map-binding.endpoints.graphql.gen'
 
-export const api = generatedApi.enhanceEndpoints({
+export const propMapBindingApi = generatedApi.enhanceEndpoints({
   endpoints: {
     CreatePropMapBinding: {
       invalidatesTags: (result, _, args) =>
@@ -19,7 +19,7 @@ export const api = generatedApi.enhanceEndpoints({
   },
 })
 
-export { generatedApi as elementEndpoints }
+export { generatedApi as propMapBindingEndpoints }
 
 export const {
   useCreatePropMapBindingMutation,

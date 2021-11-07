@@ -4,7 +4,7 @@ import {
 } from '@codelab/frontend/model/infra/api'
 import { api as generatedApi } from '../graphql/hook.endpoints.graphql.gen'
 
-export const api = generatedApi.enhanceEndpoints({
+export const hookApi = generatedApi.enhanceEndpoints({
   endpoints: {
     AddHookToElement: {
       invalidatesTags: (result, _, args) =>
@@ -21,7 +21,7 @@ export const api = generatedApi.enhanceEndpoints({
   },
 })
 
-export { generatedApi as elementEndpoints }
+export { generatedApi as hookEndpoints }
 
 export const {
   useAddHookToElementMutation,

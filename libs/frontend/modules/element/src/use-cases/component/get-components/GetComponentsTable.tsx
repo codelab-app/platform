@@ -12,7 +12,7 @@ import { Space, Spin, Table, TableColumnProps } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import tw from 'twin.macro'
-import { useGetComponentsQuery } from './GetComponents.web.graphql.gen'
+import { useGetComponentsQuery } from '../../../graphql/component.endpoints.graphql.gen'
 
 export const GetComponentsTable = () => {
   const router = useRouter()
@@ -73,10 +73,10 @@ export const GetComponentsTable = () => {
     },
   ]
 
-  const { data, loading } = useGetComponentsQuery()
+  const { data, isLoading } = useGetComponentsQuery()
   const components = data?.getComponents
 
-  if (loading) {
+  if (isLoading) {
     return <Spin />
   }
 

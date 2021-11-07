@@ -1,7 +1,12 @@
 import { adminEndpoints } from '@codelab/frontend/modules/admin'
 import { appEndpoints } from '@codelab/frontend/modules/app'
 import { atomEndpoints } from '@codelab/frontend/modules/atom'
-import { elementEndpoints } from '@codelab/frontend/modules/element'
+import {
+  componentEndpoints,
+  elementEndpoints,
+  hookEndpoints,
+  propMapBindingEndpoints,
+} from '@codelab/frontend/modules/element'
 import { pageEndpoints } from '@codelab/frontend/modules/page'
 import { combineReducers, configureStore, Store } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
@@ -14,6 +19,9 @@ const createStore = (preloadedState: any) => {
       [appEndpoints.reducerPath]: appEndpoints.reducer,
       [pageEndpoints.reducerPath]: pageEndpoints.reducer,
       [elementEndpoints.reducerPath]: elementEndpoints.reducer,
+      [componentEndpoints.reducerPath]: componentEndpoints.reducer,
+      [hookEndpoints.reducerPath]: hookEndpoints.reducer,
+      [propMapBindingEndpoints.reducerPath]: propMapBindingEndpoints.reducer,
       [atomEndpoints.reducerPath]: atomEndpoints.reducer,
       [adminEndpoints.reducerPath]: adminEndpoints.reducer,
     }),
@@ -23,6 +31,9 @@ const createStore = (preloadedState: any) => {
         appEndpoints.middleware,
         pageEndpoints.middleware,
         elementEndpoints.middleware,
+        componentEndpoints.middleware,
+        hookEndpoints.middleware,
+        propMapBindingEndpoints.middleware,
         atomEndpoints.middleware,
         adminEndpoints.middleware,
       ),
