@@ -30,6 +30,9 @@ export const selectHook = ({ hook, childElementName }: selectHookParams) => {
 
   // click on created child element
   cy.findByText('Root element').click()
+  // For some reason it gets an element right before re-rendering and then causes an error for it being detached
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(100)
   cy.findByText(childElementName).click()
 
   // click on hooks panel
