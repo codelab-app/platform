@@ -1,0 +1,13 @@
+mutation CreatePropMapBinding($input: CreatePropMapBindingInput!) {
+  createPropMapBinding(input: $input) {
+    id
+  }
+}
+
+mutation DeletePropMapBinding($input: DeletePropMapBindingInput!) {
+  deletePropMapBinding(input: $input)
+}
+
+mutation UpdatePropMapBinding($input: UpdatePropMapBindingInput!) {
+  updatePropMapBinding(input: $input)
+}

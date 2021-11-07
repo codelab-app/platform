@@ -13,7 +13,11 @@ export const graphqlBaseQuery = async ({
   options: { variables, ...options } = {},
 }: GraphqlQueryInput) => {
   try {
-    const result = await getGraphQLClient(options).request(document, variables)
+    const result = await getGraphQLClient(options).request(
+      document,
+      variables,
+      options?.headers,
+    )
 
     return { data: result }
   } catch (error) {

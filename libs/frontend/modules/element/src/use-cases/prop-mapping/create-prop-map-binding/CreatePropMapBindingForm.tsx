@@ -11,7 +11,7 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import React, { useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useCreatePropMapBindingMutation } from './CreatePropMapBinding.web.graphql.gen'
+import { useCreatePropMapBindingMutation } from '../../propMapBindingEndpoints'
 import {
   CreatePropMapBindingSchema,
   createPropMapBindingSchema,
