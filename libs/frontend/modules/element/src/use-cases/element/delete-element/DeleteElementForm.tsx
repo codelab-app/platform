@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useDeleteElementMutation } from '../../elementEndpoints'
+import { useDeleteElementMutation } from '../elementEndpoints'
 
 export type DeleteElementFormProps =
   UniFormUseCaseProps<EmptyJsonSchemaType> & {

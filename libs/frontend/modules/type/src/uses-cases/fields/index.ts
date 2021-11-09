@@ -1,4 +1,5 @@
 export * from './create-field'
 export * from './delete-field'
+export * from './fieldEndpoints'
 export * from './get-fields'
 export * from './update-field'

@@ -13,10 +13,10 @@ import { ColumnsType } from 'antd/lib/table/interface'
 import Link from 'next/link'
 import React from 'react'
 import { TypeFragment } from '../../../graphql/Type.fragment.graphql.gen'
-import { useGetTypesQuery } from './GetTypes.web.graphql.gen'
+import { useGetTypesQuery } from '../typeEndpoints'
 
 export const GetTypesTable = () => {
-  const { data, loading } = useGetTypesQuery()
+  const { data } = useGetTypesQuery()
   const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Type)
 
   const columns: ColumnsType<TypeFragment> = [

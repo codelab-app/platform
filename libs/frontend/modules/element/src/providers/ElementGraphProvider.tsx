@@ -1,7 +1,7 @@
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import { ElementGraphFragment } from '../graphql'
-import { useGetElementGraphQuery } from '../use-cases/elementEndpoints'
+import { useGetElementGraphQuery } from '../use-cases/element/elementEndpoints'
 
 export interface ElementGraphContext {
   elementGraph?: ElementGraphFragment

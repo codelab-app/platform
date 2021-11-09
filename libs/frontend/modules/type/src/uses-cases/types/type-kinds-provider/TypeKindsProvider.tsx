@@ -1,7 +1,7 @@
 import { Type, TypeKind } from '@codelab/frontend/abstract/codegen'
 import { notify } from '@codelab/frontend/shared/utils'
 import React, { useEffect, useMemo } from 'react'
-import { useGetTypeKindsQuery } from '../get-type-kinds'
+import { useGetTypeKindsQuery } from '../typeEndpoints'
 
 export interface TypeKindsContextType {
   typeKindsById: Record<string, TypeKind>
@@ -32,10 +32,10 @@ const useTypeKindsProviderQueries = () => {
   }, [typeKindsQuery])
 
   useEffect(() => {
-    if (typeKindsQuery.error && !typeKindsQuery.loading) {
+    if (typeKindsQuery.error && !typeKindsQuery.isLoading) {
       notify({
         title: 'Error while getting interface',
-        content: typeKindsQuery.error?.message,
+        content: (typeKindsQuery.error as any)?.message,
         type: 'error',
       })
     }

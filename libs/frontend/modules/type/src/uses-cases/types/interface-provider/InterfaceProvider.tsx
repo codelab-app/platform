@@ -4,8 +4,7 @@ import { InterfaceFragment } from '../../../graphql/Interface.fragment.graphql.g
 import { TypeGraphFragment } from '../../../graphql/TypeGraph.fragment.graphql.gen'
 import { TypeTreeGraphql } from '../../../shared'
 import { useTypeTree } from '../../../type-tree'
-import { useGetTypeQuery } from '../get-type/GetType.web.graphql.gen'
-import { useGetTypeGraphQuery } from '../get-type-graph/GetTypeGraph.web.graphql.gen'
+import { useGetTypeGraphQuery, useGetTypeQuery } from '../typeEndpoints'
 
 export interface InterfaceContextType {
   interface: InterfaceFragment
@@ -38,20 +37,20 @@ const useInterfaceProviderQueries = (interfaceId: string) => {
   })
 
   useEffect(() => {
-    if (interfaceQuery.error && !interfaceQuery.loading) {
+    if (interfaceQuery.error && !interfaceQuery.isLoading) {
       notify({
         title: 'Error while getting interface',
-        content: interfaceQuery.error?.message,
+        content: (interfaceQuery.error as any)?.message,
         type: 'error',
       })
     }
   }, [interfaceQuery])
 
   useEffect(() => {
-    if (graphQuery.error && !graphQuery.loading) {
+    if (graphQuery.error && !graphQuery.isLoading) {
       notify({
         title: 'Error while getting interface graph',
-        content: graphQuery.error?.message,
+        content: (graphQuery.error as any)?.message,
         type: 'error',
       })
     }

@@ -9,7 +9,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useRemoveHookFromElementMutation } from '../../hookEndpoints'
+import { useRemoveHookFromElementMutation } from '../hookEndpoints'
 
 export type RemoveHookFromElementFormProps =
   UniFormUseCaseProps<EmptyJsonSchemaType> & { elementId: string }

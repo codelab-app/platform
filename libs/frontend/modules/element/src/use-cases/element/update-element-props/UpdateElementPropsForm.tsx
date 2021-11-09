@@ -12,7 +12,7 @@ import { useElementGraphContext } from '../../../providers'
 import {
   useGetElementQuery,
   useUpdateElementPropsMutation,
-} from '../../elementEndpoints'
+} from '../elementEndpoints'
 
 interface UpdateElementPropsFormInternalProps {
   elementId: string
@@ -46,7 +46,7 @@ const UpdateElementPropsFormInternal = ({
   const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
   const { elementId: rootElementId } = useElementGraphContext()
 
-  const { data: interfaceData, loading: interfaceLoading } =
+  const { data: interfaceData, isLoading: interfaceLoading } =
     useGetTypeGraphQuery({
       variables: { input: { where: { id: interfaceId } } },
     })

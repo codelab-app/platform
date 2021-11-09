@@ -8,8 +8,7 @@ import {
   useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { refetchGetTypesQuery } from '../get-types/GetTypes.web.graphql.gen'
-import { useDeleteTypeMutation } from './DeleteType.web.graphql.gen'
+import { useDeleteTypeMutation } from '../typeEndpoints'
 
 type DeleteTypeFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 
@@ -26,7 +25,6 @@ export const DeleteTypeForm = (props: DeleteTypeFormProps) => {
       input: { typeId: state.deleteIds[0] },
     }),
     useMutationFunction: useDeleteTypeMutation,
-    mutationOptions: { refetchQueries: [refetchGetTypesQuery()] },
   })
 
   return (

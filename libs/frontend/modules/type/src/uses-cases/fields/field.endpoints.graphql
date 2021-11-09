@@ -1,0 +1,23 @@
+mutation CreateField($input: CreateFieldInput!) {
+  createField(input: $input) {
+    id
+  }
+}
+
+mutation DeleteField($input: DeleteFieldInput!) {
+  deleteField(input: $input) {
+    ...Field
+  }
+}
+
+query GetField($input: GetFieldInput!) {
+  getField(input: $input) {
+    ...Field
+  }
+}
+
+mutation UpdateField($input: UpdateFieldInput!) {
+  updateField(input: $input) {
+    ...Field
+  }
+}

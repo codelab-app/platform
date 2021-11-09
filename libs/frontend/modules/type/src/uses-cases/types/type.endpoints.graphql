@@ -1,0 +1,62 @@
+mutation CreateType($input: CreateTypeInput!) {
+  createType(input: $input) {
+    id
+  }
+}
+
+mutation DeleteType($input: DeleteTypeInput!) {
+  deleteType(input: $input) {
+    ...Type
+  }
+}
+
+query GetType($input: GetTypeInput!) {
+  getType(input: $input) {
+    ...Type
+  }
+}
+
+query GetTypeGraph($input: GetTypeGraphInput!) {
+  getTypeGraph(input: $input) {
+    ...TypeGraph
+  }
+}
+
+query GetTypes($input: GetTypesInput) {
+  getTypes(input: $input) {
+    __typename
+    ...Type
+  }
+}
+
+mutation UpdateEnumType($input: UpdateEnumTypeInput!) {
+  updateEnumType(input: $input) {
+    ...EnumType
+  }
+}
+
+mutation UpdateType($input: UpdateTypeInput!) {
+  updateType(input: $input) {
+    ...Type
+  }
+}
+
+mutation UpdatePrimitiveType($input: UpdatePrimitiveTypeInput!) {
+  updatePrimitiveType(input: $input) {
+    ...PrimitiveType
+  }
+}
+
+mutation UpdateUnionType($input: UpdateUnionTypeInput!) {
+  updateUnionType(input: $input) {
+    ...UnionType
+  }
+}
+
+query GetTypeKinds($input: GetTypesInput) {
+  getTypes(input: $input) {
+    id
+    typeKind
+    __typename
+  }
+}

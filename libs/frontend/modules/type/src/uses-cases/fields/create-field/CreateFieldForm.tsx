@@ -9,8 +9,7 @@ import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
 import { InterfaceContext } from '../../types'
-import { refetchGetTypeGraphQuery } from '../../types/get-type-graph/GetTypeGraph.web.graphql.gen'
-import { useCreateFieldMutation } from './CreateField.web.graphql.gen'
+import { useCreateFieldMutation } from '../fieldEndpoints'
 import { CreateFieldSchema, createFieldSchema } from './createFieldSchema'
 
 export const CreateFieldForm = (
@@ -24,11 +23,6 @@ export const CreateFieldForm = (
     handleSubmit,
     crudModal: { reset },
   } = useCrudModalMutationForm({
-    mutationOptions: {
-      refetchQueries: [
-        refetchGetTypeGraphQuery({ input: { where: { id: interfaceId } } }),
-      ],
-    },
     useMutationFunction: useCreateFieldMutation,
     mapVariables: (formData: CreateFieldSchema) => ({
       input: {
