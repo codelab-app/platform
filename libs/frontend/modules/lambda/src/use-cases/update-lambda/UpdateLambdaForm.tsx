@@ -9,11 +9,9 @@ import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { AutoFields } from 'uniforms-antd'
 import { defaultLambdaBody } from '../../defaultLambdBody'
-import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen'
+import { LambdaFragment } from '../../Lambda.fragment.graphql.gen'
 import { lambdaState } from '../../state'
-import { useGetLambdaQuery } from '../get-lambda/GetLambda.web.graphql.gen'
-import { refetchGetLambdasQuery } from '../get-lambdas/GetLambdas.web.graphql.gen'
-import { useUpdateLambdaMutation } from './UpdateLambda.web.graphql.gen'
+import { useGetLambdaQuery, useUpdateLambdaMutation } from '../lambda.endpoints'
 import { UpdateLambdaSchema, updateLambdaSchema } from './updateLambdaSchema'
 
 type UpdateLambdaFormProps = {
@@ -29,13 +27,13 @@ export const UpdateLambdaForm = (
     state: { updateId: updateLambdaId },
   } = useCrudModalForm(EntityType.Lambda)
 
-  const [mutate, { loading: updateLambdaLoading }] = useUpdateLambdaMutation({
-    refetchQueries: [refetchGetLambdasQuery()],
-  })
+  const [mutate, { isLoading: updateLambdaLoading }] = useUpdateLambdaMutation(
+    {},
+  )
 
   const [, setLambdaState] = useRecoilState(lambdaState)
 
-  const { data, loading } = useGetLambdaQuery({
+  const { data, isLoading } = useGetLambdaQuery({
     variables: {
       input: {
         lambdaId: updateLambdaId,

@@ -1,5 +1,0 @@
-mutation CreateLambda($input: CreateLambdaInput!) {
-  createLambda(input: $input) {
-    id
-  }
-}

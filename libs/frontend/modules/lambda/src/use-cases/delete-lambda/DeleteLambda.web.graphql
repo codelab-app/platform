@@ -1,5 +1,0 @@
-mutation DeleteLambda($input: DeleteLambdaInput!) {
-  deleteLambda(input: $input) {
-    ...Lambda
-  }
-}
