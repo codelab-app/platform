@@ -12,11 +12,12 @@ interface selectHookParams {
   childElementName: string
 }
 
-export const selectHook = ({ hook, childElementName }: selectHookParams) => {
+export const visitPage = () => {
   let appId: string
   let pageId: string
 
-  cy.get('@appId')
+  return cy
+    .get('@appId')
     .then((_appId) => {
       appId = String(_appId)
     })
@@ -27,7 +28,9 @@ export const selectHook = ({ hook, childElementName }: selectHookParams) => {
     .then(() => {
       cy.visit(`/apps/${appId}/pages/${pageId}/builder`)
     })
+}
 
+export const selectHook = ({ hook, childElementName }: selectHookParams) => {
   // click on created child element
   cy.findByText('Root element').click()
   // For some reason it gets an element right before re-rendering and then causes an error for it being detached
@@ -109,6 +112,8 @@ export const beforeHook = ({
       },
     )
 
-    cy.getSpinner().should('not.exist')
+    visitPage().then(() => {
+      cy.getSpinner().should('not.exist')
+    })
   })
 }
