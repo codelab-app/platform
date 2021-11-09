@@ -1,14 +1,8 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import {
-  TagFragment,
-  TagEdgeFragment,
-} from '../../../../../../../frontend/modules/tag/src/use-cases/Tag.fragment.graphql.gen'
+import { TagFragment } from '../../../../../../../frontend/modules/tag/src/Tag.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import {
-  TagFragmentDoc,
-  TagEdgeFragmentDoc,
-} from '../../../../../../../frontend/modules/tag/src/use-cases/Tag.fragment.graphql.gen'
+import { TagFragmentDoc } from '../../../../../../../frontend/modules/tag/src/Tag.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestDeleteTagsMutationVariables = Types.Exact<{

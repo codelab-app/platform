@@ -1,14 +1,14 @@
 import { Button } from 'antd'
 import fileDownload from 'js-file-download'
 import { useTagState } from '../../domain/use-tag/useTagState'
-import { useExportTagsLazyQuery } from './ExportTags.web.graphql.gen'
+import { useLazyExportTagsQuery } from '../tag.endpoints'
 
 /**
  * Export should only allow root components to be checked
  */
 export const ExportTagsButton = () => {
   const { checkedTags } = useTagState()
-  const [getExportTags, { data }] = useExportTagsLazyQuery()
+  const [getExportTags, { data }] = useLazyExportTagsQuery()
 
   return (
     <Button

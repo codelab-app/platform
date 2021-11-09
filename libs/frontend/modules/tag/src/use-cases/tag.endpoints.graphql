@@ -1,0 +1,45 @@
+mutation CreateTag($input: CreateTagInput!) {
+  createTag(input: $input) {
+    id
+  }
+}
+
+mutation DeleteTags($input: DeleteTagsInput!) {
+  deleteTags(input: $input) {
+    ...Tag
+  }
+}
+
+query ExportTags($input: GetTagGraphsInput) {
+  getTagGraphs(input: $input) {
+    ...TagGraph
+  }
+}
+
+query GetTagGraph {
+  getTagGraph {
+    ...TagGraph
+  }
+}
+
+query GetTagGraphs {
+  getTagGraphs {
+    ...TagGraph
+  }
+}
+
+query GetTags {
+  getTags {
+    ...Tag
+  }
+}
+
+mutation ImportTags($input: ImportTagsInput!) {
+  importTags(input: $input)
+}
+
+mutation UpdateTag($input: UpdateTagInput!) {
+  updateTag(input: $input) {
+    ...Tag
+  }
+}

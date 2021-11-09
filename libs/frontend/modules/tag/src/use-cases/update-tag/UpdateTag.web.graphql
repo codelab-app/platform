@@ -1,5 +1,0 @@
-mutation UpdateTag($input: UpdateTagInput!) {
-  updateTag(input: $input) {
-    ...Tag
-  }
-}
