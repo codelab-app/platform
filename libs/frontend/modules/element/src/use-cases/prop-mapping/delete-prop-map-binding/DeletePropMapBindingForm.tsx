@@ -9,7 +9,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useDeletePropMapBindingMutation } from '../../propMapBindingEndpoints'
+import { useDeletePropMapBindingMutation } from '../propMapBindingEndpoints'
 
 export interface DeletePropMapBindingFormProps {
   elementId: string

@@ -3,7 +3,7 @@ import {
   ELEMENT_CACHE_TAG,
   providesAll,
 } from '@codelab/frontend/model/infra/api'
-import { api as generatedApi } from '../graphql/component.endpoints.graphql.gen'
+import { api as generatedApi } from '../../graphql/component.endpoints.graphql.gen'
 
 // TODO on update tag - refetch components
 export const componentApi = generatedApi.enhanceEndpoints({

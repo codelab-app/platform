@@ -10,6 +10,7 @@ import {
 import { lambdaEndpoints } from '@codelab/frontend/modules/lambda'
 import { pageEndpoints } from '@codelab/frontend/modules/page'
 import { tagEndpoints } from '@codelab/frontend/modules/tag'
+import { fieldEndpoints, typeEndpoints } from '@codelab/frontend/modules/type'
 import { userEndpoints } from '@codelab/frontend/modules/user'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
@@ -28,6 +29,8 @@ export const makeStore = () =>
       [tagEndpoints.reducerPath]: tagEndpoints.reducer,
       [lambdaEndpoints.reducerPath]: lambdaEndpoints.reducer,
       [userEndpoints.reducerPath]: userEndpoints.reducer,
+      [typeEndpoints.reducerPath]: typeEndpoints.reducer,
+      [fieldEndpoints.reducerPath]: fieldEndpoints.reducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
@@ -40,6 +43,8 @@ export const makeStore = () =>
         atomEndpoints.middleware,
         adminEndpoints.middleware,
         userEndpoints.middleware,
+        typeEndpoints.middleware,
+        fieldEndpoints.middleware,
       ),
   })
 

@@ -1,7 +1,0 @@
-query GetTypeKinds($input: GetTypesInput) {
-  getTypes(input: $input) {
-    id
-    typeKind
-    __typename
-  }
-}

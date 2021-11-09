@@ -11,8 +11,7 @@ import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
 import { createNonUnionTypeOptionsForTypeSelect } from '../../../shared/createNonUnionTypeOptionsForTypeSelect'
-import { refetchGetTypesQuery } from '../get-types/GetTypes.web.graphql.gen'
-import { useCreateTypeMutation } from './CreateType.web.graphql.gen'
+import { useCreateTypeMutation } from '../typeEndpoints'
 import {
   CreateTypeSchema,
   createTypeSchema,
@@ -35,7 +34,6 @@ export const CreateTypeForm = (
     handleSubmit,
     crudModal: { reset },
   } = useCrudModalMutationForm({
-    mutationOptions: { refetchQueries: [refetchGetTypesQuery()] },
     useMutationFunction: useCreateTypeMutation,
     mapVariables: (submitData: CreateTypeSchema) => ({
       input: mapCreateTypeSchemaToTypeInput(submitData),

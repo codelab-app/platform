@@ -10,8 +10,7 @@ import {
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { InterfaceContext } from '../../types'
-import { refetchGetTypeGraphQuery } from '../../types/get-type-graph/GetTypeGraph.web.graphql.gen'
-import { useDeleteFieldMutation } from './DeleteField.web.graphql.gen'
+import { useDeleteFieldMutation } from '../fieldEndpoints'
 
 type DeleteFieldFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 
@@ -28,11 +27,6 @@ export const DeleteFieldForm = (props: DeleteFieldFormProps) => {
     },
   } = useCrudModalMutationForm({
     entityType: EntityType.Field,
-    mutationOptions: {
-      refetchQueries: [
-        refetchGetTypeGraphQuery({ input: { where: { id: interfaceId } } }),
-      ],
-    },
     useMutationFunction: useDeleteFieldMutation,
     mapVariables: (_, crudModalState) => ({
       input: { fieldId: crudModalState.deleteIds[0] },

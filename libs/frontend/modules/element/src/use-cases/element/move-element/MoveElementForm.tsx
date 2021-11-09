@@ -12,7 +12,7 @@ import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useElementGraphContext } from '../../../providers'
-import { useMoveElementMutation } from '../../elementEndpoints'
+import { useMoveElementMutation } from '../elementEndpoints'
 import { MoveElementSchema, moveElementSchema } from './moveElementSchema'
 
 export type MoveElementFormProps = UniFormUseCaseProps<MoveElementSchema> & {

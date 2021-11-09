@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { CreateFieldMutationVariables } from './CreateField.web.graphql.gen'
+import { CreateFieldMutationVariables } from '../field.endpoints.graphql.gen'
 
 export type CreateFieldSchema = Pick<
   CreateFieldMutationVariables['input'],

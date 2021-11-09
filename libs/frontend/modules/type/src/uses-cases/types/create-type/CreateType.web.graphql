@@ -1,5 +1,0 @@
-mutation CreateType($input: CreateTypeInput!) {
-  createType(input: $input) {
-    id
-  }
-}

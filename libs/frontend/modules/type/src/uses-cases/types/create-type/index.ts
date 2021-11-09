@@ -1,4 +1,3 @@
-export * from './CreateType.web.graphql.gen'
 export * from './CreateTypeButton'
 export * from './CreateTypeForm'
 export * from './CreateTypeModal'

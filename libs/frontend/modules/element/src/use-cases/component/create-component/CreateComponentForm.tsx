@@ -7,7 +7,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useCreateComponentMutation } from '../../componentEndpoints'
+import { useCreateComponentMutation } from '../componentEndpoints'
 import {
   createComponentSchema,
   CreateComponentSchemaType,

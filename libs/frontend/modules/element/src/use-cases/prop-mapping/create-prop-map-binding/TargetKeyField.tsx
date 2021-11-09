@@ -1,4 +1,4 @@
-import { useGetTypeGraphLazyQuery } from '@codelab/frontend/modules/type'
+import { useLazyGetTypeGraphQuery } from '@codelab/frontend/modules/type'
 import { usePrevious } from '@codelab/frontend/shared/utils'
 import { ElementTree, TypeTree } from '@codelab/shared/core'
 import AutoComplete, { AutoCompleteProps } from 'antd/lib/auto-complete'
@@ -44,7 +44,7 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
     Array<{ value: string; label: string }>
   >([])
 
-  const [getType, { data }] = useGetTypeGraphLazyQuery()
+  const [getType, { data }] = useLazyGetTypeGraphQuery()
 
   // Every time the targetElementId changes, fetch the targetElement's api
   useEffect(() => {

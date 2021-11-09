@@ -13,7 +13,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import {
   useGetElementQuery,
   useUpdateElementMutation,
-} from '../../elementEndpoints'
+} from '../elementEndpoints'
 import { UpdateElementSchema, updateElementSchema } from './updateElementSchema'
 
 type UpdateElementFormInternalProps =

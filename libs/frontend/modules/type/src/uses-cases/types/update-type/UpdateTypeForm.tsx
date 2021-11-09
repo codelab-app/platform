@@ -11,47 +11,41 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeFragment } from '../../../graphql/Type.fragment.graphql.gen'
 import { createNonUnionTypeOptionsForTypeSelect } from '../../../shared/createNonUnionTypeOptionsForTypeSelect'
 import { typenameToTypeKind } from '../../../type-tree'
-import { refetchGetTypesQuery } from '../get-types/GetTypes.web.graphql.gen'
-import { TypeModels } from '../TypeModels'
 import {
   useUpdateEnumTypeMutation,
   useUpdatePrimitiveTypeMutation,
   useUpdateTypeMutation,
   useUpdateUnionTypeMutation,
-} from './UpdateType.web.graphql.gen'
+} from '../typeEndpoints'
+import { TypeModels } from '../TypeModels'
 import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
 
 export const UpdateTypeForm = (
   props: UniFormUseCaseProps<UpdateTypeSchema>,
 ) => {
   const { setLoading, state, reset } = useCrudModalForm(EntityType.Type)
-  const mutationOptions = { refetchQueries: [refetchGetTypesQuery()] }
-
-  const [mutateUnion, unionMutationData] =
-    useUpdateUnionTypeMutation(mutationOptions)
+  const [mutateUnion, unionMutationData] = useUpdateUnionTypeMutation()
 
   const [mutatePrimitive, primitiveMutationData] =
-    useUpdatePrimitiveTypeMutation(mutationOptions)
+    useUpdatePrimitiveTypeMutation()
 
-  const [mutateEnum, enumMutationData] =
-    useUpdateEnumTypeMutation(mutationOptions)
-
-  const [mutateType, typeMutationData] = useUpdateTypeMutation(mutationOptions)
+  const [mutateEnum, enumMutationData] = useUpdateEnumTypeMutation()
+  const [mutateType, typeMutationData] = useUpdateTypeMutation()
 
   useEffect(() => {
     const loading =
-      primitiveMutationData.loading ||
-      enumMutationData.loading ||
-      typeMutationData.loading ||
-      unionMutationData.loading
+      primitiveMutationData.isLoading ||
+      enumMutationData.isLoading ||
+      typeMutationData.isLoading ||
+      unionMutationData.isLoading
 
     setLoading(loading)
   }, [
-    primitiveMutationData.loading,
-    enumMutationData.loading,
-    typeMutationData.loading,
+    primitiveMutationData.isLoading,
+    enumMutationData.isLoading,
+    typeMutationData.isLoading,
     setLoading,
-    unionMutationData.loading,
+    unionMutationData.isLoading,
   ])
 
   const handleSubmit = useCallback(

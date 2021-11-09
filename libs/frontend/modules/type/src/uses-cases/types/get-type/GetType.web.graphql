@@ -1,5 +1,0 @@
-query GetType($input: GetTypeInput!) {
-  getType(input: $input) {
-    ...Type
-  }
-}

@@ -8,7 +8,7 @@ import {
   PropMapBindingsTable,
   UpdatePropMapBindingModal,
 } from '../use-cases'
-import { useGetElementQuery } from '../use-cases/elementEndpoints'
+import { useGetElementQuery } from '../use-cases/element/elementEndpoints'
 
 export interface PropMapBindingSectionProps {
   elementId: string

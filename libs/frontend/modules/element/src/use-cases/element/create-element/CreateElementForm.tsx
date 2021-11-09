@@ -18,7 +18,7 @@ import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useElementGraphContext } from '../../../providers'
-import { useCreateElementMutation } from '../../elementEndpoints'
+import { useCreateElementMutation } from '../elementEndpoints'
 import { CreateElementSchema, createElementSchema } from './createElementSchema'
 
 export interface CreateElementFormProps
