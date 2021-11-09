@@ -1,6 +1,0 @@
-fragment PropMapBinding on PropMapBinding {
-  id
-  sourceKey
-  targetElementId
-  targetKey
-}

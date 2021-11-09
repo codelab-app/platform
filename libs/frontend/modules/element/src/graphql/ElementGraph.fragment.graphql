@@ -1,8 +1,0 @@
-fragment ElementGraph on ElementGraph {
-  vertices {
-    ...Element
-  }
-  edges {
-    ...ElementEdge
-  }
-}

@@ -20,3 +20,33 @@ fragment Element on Element {
   }
   propTransformationJs
 }
+
+fragment PropMapBinding on PropMapBinding {
+  id
+  sourceKey
+  targetElementId
+  targetKey
+}
+
+fragment ElementEdge on ElementEdge {
+  order
+  source
+  target
+}
+
+fragment ElementGraph on ElementGraph {
+  vertices {
+    ...Element
+  }
+  edges {
+    ...ElementEdge
+  }
+}
+
+fragment Hook on Hook {
+  id
+  type
+  config {
+    ...HookConfig
+  }
+}

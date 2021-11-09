@@ -1,5 +1,4 @@
 import {
-  refetchGetElementQuery,
   useGetElementQuery,
   useUpdateElementPropsMutation,
 } from '@codelab/frontend/modules/element'
@@ -21,7 +20,6 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
   >()
 
   const { data } = useGetElementQuery({
-    fetchPolicy: 'cache-first',
     variables: { input: { where: { id: elementId } } },
   })
 
@@ -30,12 +28,7 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
     setExtraPropsForElement,
   } = useBuilder()
 
-  const [mutate, { loading }] = useUpdateElementPropsMutation({
-    refetchQueries: [
-      refetchGetElementQuery({ input: { where: { id: elementId } } }),
-    ],
-  })
-
+  const [mutate, { isLoading }] = useUpdateElementPropsMutation({})
   const element = data?.getElement
 
   useEffect(() => {
@@ -99,7 +92,7 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
       <div>
         <div css={tw`flex flex-row justify-between items-center px-8`}>
           <h3 css={tw`text-gray-700`}>Element props</h3>
-          <Button onClick={() => save()} loading={loading}>
+          <Button onClick={() => save()} loading={isLoading}>
             Save
           </Button>
         </div>

@@ -1,10 +1,7 @@
 import React from 'react'
 import tw from 'twin.macro'
-import {
-  ElementHooksList,
-  RemoveHookFromElementModal,
-  useGetElementQuery,
-} from '../use-cases'
+import { ElementHooksList, RemoveHookFromElementModal } from '../use-cases'
+import { useGetElementQuery } from '../use-cases/elementEndpoints'
 import {
   AddHookToElementButton,
   AddHookToElementModal,
@@ -16,7 +13,6 @@ export interface ElementHookSectionProps {
 
 export const ElementHookSection = ({ elementId }: ElementHookSectionProps) => {
   const { data } = useGetElementQuery({
-    fetchPolicy: 'cache-first',
     variables: { input: { where: { id: elementId } } },
   })
 

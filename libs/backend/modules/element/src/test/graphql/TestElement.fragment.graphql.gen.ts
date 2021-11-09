@@ -1,12 +1,22 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AtomBaseFragment } from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
-import { HookFragment } from '../../../../../../frontend/modules/element/src/graphql/Hook.fragment.graphql.gen'
-import { PropMapBindingFragment } from '../../../../../../frontend/modules/element/src/graphql/PropMapBinding.fragment.graphql.gen'
+import {
+  AtomBaseFragment,
+  AtomFragment,
+} from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
+import {
+  HookFragment,
+  PropMapBindingFragment,
+} from '../../../../../../frontend/modules/element/src/graphql/Element.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { AtomBaseFragmentDoc } from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
-import { HookFragmentDoc } from '../../../../../../frontend/modules/element/src/graphql/Hook.fragment.graphql.gen'
-import { PropMapBindingFragmentDoc } from '../../../../../../frontend/modules/element/src/graphql/PropMapBinding.fragment.graphql.gen'
+import {
+  AtomBaseFragmentDoc,
+  AtomFragmentDoc,
+} from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
+import {
+  HookFragmentDoc,
+  PropMapBindingFragmentDoc,
+} from '../../../../../../frontend/modules/element/src/graphql/Element.fragment.graphql.gen'
 export type TestElementFragment = {
   __typename: 'Element'
   id: string

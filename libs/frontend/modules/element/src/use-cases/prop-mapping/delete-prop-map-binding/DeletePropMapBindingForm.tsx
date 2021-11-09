@@ -9,8 +9,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { refetchGetElementQuery } from '../../get-element'
-import { useDeletePropMapBindingMutation } from './DeletePropMapBinding.web.graphql.gen'
+import { useDeletePropMapBindingMutation } from '../../propMapBindingEndpoints'
 
 export interface DeletePropMapBindingFormProps {
   elementId: string
@@ -30,11 +29,6 @@ export const DeletePropMapBindingForm = ({
   } = useCrudModalMutationForm({
     entityType: EntityType.PropMapBinding,
     useMutationFunction: useDeletePropMapBindingMutation,
-    mutationOptions: {
-      refetchQueries: [
-        refetchGetElementQuery({ input: { where: { id: elementId } } }),
-      ],
-    },
     mapVariables: (_, state) => ({
       input: { propMapBindingIds: state.deleteIds },
     }),

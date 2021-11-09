@@ -89,7 +89,7 @@ export class ElementValidator {
       this.dgraph.getOneNamed<{ containerId?: string }>(
         txn,
         `{
-          query(func: type(Element)) @normalize {
+          query(func: type(Element)) @filter(uid(${elementId})) @normalize {
             ~root {
               containerId: uid
             }

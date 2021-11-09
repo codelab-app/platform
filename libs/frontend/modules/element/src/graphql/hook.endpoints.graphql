@@ -1,0 +1,16 @@
+mutation AddHookToElement($input: AddHookToElementInput!) {
+  addHookToElement(input: $input) {
+    id
+  }
+}
+
+# TODO Look into using GetLambda
+query GetLambdaName($input: GetLambdaInput!) {
+  getLambda(input: $input) {
+    name
+  }
+}
+
+mutation RemoveHookFromElement($input: RemoveHookFromElementInput!) {
+  removeHookFromElement(input: $input)
+}

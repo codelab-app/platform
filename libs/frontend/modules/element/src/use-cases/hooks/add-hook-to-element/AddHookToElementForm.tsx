@@ -14,8 +14,7 @@ import { css } from '@emotion/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { AutoField, AutoFields, HiddenField } from 'uniforms-antd'
-import { refetchGetElementQuery } from '../../get-element/GetElement.web.graphql.gen'
-import { useAddHookToElementMutation } from './AddHookToElement.web.graphql.gen'
+import { useAddHookToElementMutation } from '../../hookEndpoints'
 import {
   AddHookToElementSchema,
   addHookToElementSchema,
@@ -80,13 +79,6 @@ export const AddHookToElementForm = ({
   } = useCrudModalMutationForm({
     entityType: EntityType.Hook,
     useMutationFunction: useAddHookToElementMutation,
-    mutationOptions: {
-      refetchQueries: [
-        refetchGetElementQuery({
-          input: { where: { id: elementId } },
-        }),
-      ],
-    },
     mapVariables: (data: AddHookToElementSchema, state) => ({
       input: mapDataToInput(elementId ?? state.metadata.element.id, data),
     }),

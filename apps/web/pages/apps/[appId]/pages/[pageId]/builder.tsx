@@ -64,23 +64,7 @@ const BuilderHeader = (props: BuilderProps) => {
 
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
-    //  const session = await getSession(context.req, context.res)
     const appId = context.query.appId as string
-
-    /*     
-    const apolloClient = initializeApollo({
-      accessToken: session?.accessToken,
-    })
-
-    await apolloClient.query<AppPagesQuery, AppPagesQueryVariables>({
-      query: AppPagesGql,
-      variables: {
-        input: {
-          byId: { appId: `${appId}` },
-        },
-      },
-    })
- */
 
     // TODO: Add typing to GetServerSideProps
     const props: BuilderProps = {

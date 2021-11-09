@@ -1,5 +1,0 @@
-mutation MoveElement($input: MoveElementInput!) {
-  moveElement(input: $input) {
-    ...Element
-  }
-}

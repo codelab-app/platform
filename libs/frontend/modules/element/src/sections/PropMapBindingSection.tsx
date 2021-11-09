@@ -7,8 +7,8 @@ import {
   DeletePropMapBindingModal,
   PropMapBindingsTable,
   UpdatePropMapBindingModal,
-  useGetElementQuery,
 } from '../use-cases'
+import { useGetElementQuery } from '../use-cases/elementEndpoints'
 
 export interface PropMapBindingSectionProps {
   elementId: string
@@ -22,7 +22,6 @@ export const PropMapBindingSection = ({
   providePropCompletion,
 }: PropMapBindingSectionProps) => {
   const { data } = useGetElementQuery({
-    fetchPolicy: 'cache-first',
     variables: { input: { where: { id: elementId } } },
   })
 

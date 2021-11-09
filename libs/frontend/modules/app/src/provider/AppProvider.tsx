@@ -1,6 +1,6 @@
-import React, { PropsWithChildren, useEffect } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { AppFragment } from '../App.fragment.graphql.gen'
-import { useLazyGetAppQuery } from '../use-cases/app.endpoints'
+import { useGetAppQuery } from '../use-cases/app.endpoints'
 
 type IAppContext = {
   app: AppFragment
@@ -18,22 +18,14 @@ export const _AppProvider = ({
   appId,
   children,
 }: PropsWithChildren<AppProviderProps>) => {
-  const [load, { data, isLoading }] = useLazyGetAppQuery()
-  const app = data?.app
+  const { data, isLoading } = useGetAppQuery(
+    {
+      variables: { input: { byId: { appId: appId as string } } },
+    },
+    { skip: !appId },
+  )
 
-  useEffect(() => {
-    if (appId) {
-      load({
-        variables: {
-          input: {
-            byId: {
-              appId: appId,
-            },
-          },
-        },
-      })
-    }
-  }, [appId, load])
+  const app = data?.app
 
   if (!app) {
     return null

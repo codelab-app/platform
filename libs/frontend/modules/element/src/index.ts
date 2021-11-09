@@ -1,5 +1,6 @@
 export * from './css-editor'
-export * from './graphql'
+export * from './graphql/Element.fragment.graphql.gen'
+export * from './graphql/HookConfig.fragment.graphql.gen'
 export * from './providers'
 export * from './sections'
 export * from './tree'

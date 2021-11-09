@@ -10,7 +10,7 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
-import { ElementFragment, PropMapBindingFragment } from '../../../graphql'
+import { PropMapBindingFragment } from '../../../graphql'
 
 export interface PropMapBindingsTableProps {
   element: IElement

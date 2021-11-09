@@ -1,54 +1,49 @@
 import { adminEndpoints } from '@codelab/frontend/modules/admin'
 import { appEndpoints } from '@codelab/frontend/modules/app'
 import { atomEndpoints } from '@codelab/frontend/modules/atom'
+import {
+  componentEndpoints,
+  elementEndpoints,
+  hookEndpoints,
+  propMapBindingEndpoints,
+} from '@codelab/frontend/modules/element'
 import { lambdaEndpoints } from '@codelab/frontend/modules/lambda'
 import { pageEndpoints } from '@codelab/frontend/modules/page'
 import { tagEndpoints } from '@codelab/frontend/modules/tag'
-import { combineReducers, configureStore, Store } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { createWrapper } from 'next-redux-wrapper'
 
-export const REDUX_STATE_PROP_NAME = '__REDUX_STATE__'
-
-const createStore = (preloadedState: any) => {
-  return configureStore({
+export const makeStore = () =>
+  configureStore({
     reducer: combineReducers({
-      [adminEndpoints.reducerPath]: adminEndpoints.reducer,
       [appEndpoints.reducerPath]: appEndpoints.reducer,
-      [atomEndpoints.reducerPath]: atomEndpoints.reducer,
       [pageEndpoints.reducerPath]: pageEndpoints.reducer,
-      [lambdaEndpoints.reducerPath]: lambdaEndpoints.reducer,
+      [elementEndpoints.reducerPath]: elementEndpoints.reducer,
+      [componentEndpoints.reducerPath]: componentEndpoints.reducer,
+      [hookEndpoints.reducerPath]: hookEndpoints.reducer,
+      [propMapBindingEndpoints.reducerPath]: propMapBindingEndpoints.reducer,
+      [atomEndpoints.reducerPath]: atomEndpoints.reducer,
+      [adminEndpoints.reducerPath]: adminEndpoints.reducer,
       [tagEndpoints.reducerPath]: tagEndpoints.reducer,
+      [lambdaEndpoints.reducerPath]: lambdaEndpoints.reducer,
     }),
-    preloadedState,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         appEndpoints.middleware,
         pageEndpoints.middleware,
+        elementEndpoints.middleware,
+        componentEndpoints.middleware,
+        hookEndpoints.middleware,
+        propMapBindingEndpoints.middleware,
         atomEndpoints.middleware,
         adminEndpoints.middleware,
       ),
   })
-}
 
-let store: Store | undefined
+export type AppStore = ReturnType<typeof makeStore>
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']
 
-export const initializeStore = (context: any) => {
-  const preloadedState = context[REDUX_STATE_PROP_NAME]
-  let _store = store ?? createStore(preloadedState)
-
-  if (preloadedState && store) {
-    _store = createStore({ ...store.getState(), ...preloadedState })
-    store = undefined
-  }
-
-  // For SSG and SSR always create a new store
-  if (typeof window === 'undefined') {
-    return _store
-  }
-
-  // Create the store once in the client
-  if (!store) {
-    store = _store
-  }
-
-  return _store
-}
+export const reduxStoreWrapper = createWrapper<AppStore>(makeStore, {
+  debug: true,
+})

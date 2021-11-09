@@ -1,5 +1,0 @@
-query GetLambdaName($input: GetLambdaInput!) {
-  getLambda(input: $input) {
-    name
-  }
-}

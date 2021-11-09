@@ -1,7 +1,6 @@
 import { IElement } from '@codelab/frontend/abstract/core'
 import {
   CreateElementModal,
-  refetchGetElementGraphQuery,
   useElementGraphContext,
   useMoveElementMutation,
 } from '@codelab/frontend/modules/element'
@@ -72,13 +71,8 @@ export const MainPaneBuilder = ({
 
   const antdTree = tree.getAntdTree()
 
-  const [moveElement, { loading: isLoadingMoveElement }] =
-    useMoveElementMutation({
-      awaitRefetchQueries: true,
-      refetchQueries: [
-        refetchGetElementGraphQuery({ input: { where: { id: elementId } } }),
-      ],
-    })
+  const [moveElement, { isLoading: isLoadingMoveElement }] =
+    useMoveElementMutation()
 
   const handleDrop: TreeProps['onDrop'] = (e) => {
     // This can be optimized to be handled in the API
