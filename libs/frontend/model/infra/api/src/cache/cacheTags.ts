@@ -8,3 +8,4 @@ export const ELEMENT_GRAPH_CACHE_TAG = 'ELEMENT_GRAPHS' as const
 export const ATOMS_CACHE_TAG = 'ATOMS' as const
 export const TAG_CACHE_TAG = 'TAGS' as const
 export const LAMBDA_CACHE_TAG = 'LAMBDAS' as const
+export const USER_CACHE_TAG = 'USERS' as const

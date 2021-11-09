@@ -8,17 +8,13 @@ import {
   useCrudModalForm,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { refetchGetUsersQuery } from '../get-users/GetUsers.web.graphql.gen'
-import { useDeleteUserMutation } from './DeleteUser.web.graphql.gen'
+import { useDeleteUserMutation } from '../userEndpoints'
 
 export const DeleteUserForm = (
   props: UniFormUseCaseProps<EmptyJsonSchemaType>,
 ) => {
   const { reset, state } = useCrudModalForm(EntityType.Atom)
-
-  const [mutate] = useDeleteUserMutation({
-    refetchQueries: [refetchGetUsersQuery()],
-  })
+  const [mutate] = useDeleteUserMutation()
 
   const onSubmit = async () => {
     for (const id of state.deleteIds) {

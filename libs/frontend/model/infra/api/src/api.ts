@@ -9,6 +9,7 @@ import {
   LAMBDA_CACHE_TAG,
   PAGE_CACHE_TAG,
   TAG_CACHE_TAG,
+  USER_CACHE_TAG,
 } from './cache'
 import { graphqlBaseQuery } from './graphqlBaseQuery'
 
@@ -30,6 +31,7 @@ export const api = createApi({
     ATOMS_CACHE_TAG,
     LAMBDA_CACHE_TAG,
     TAG_CACHE_TAG,
+    USER_CACHE_TAG,
   ],
   endpoints: () => ({}),
 })

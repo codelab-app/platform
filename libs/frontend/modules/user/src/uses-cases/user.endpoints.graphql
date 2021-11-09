@@ -1,0 +1,15 @@
+mutation DeleteUser($input: DeleteUserInput!) {
+  deleteUser(input: $input)
+}
+
+query GetMe {
+  getMe {
+    ...__User
+  }
+}
+
+query GetUsers($input: GetUsersInput) {
+  users: getUsers(input: $input) {
+    ...__User
+  }
+}
