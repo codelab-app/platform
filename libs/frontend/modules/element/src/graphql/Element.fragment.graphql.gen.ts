@@ -1,10 +1,10 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AtomBaseFragment } from '../../../atom/src/Atom.fragment.graphql.gen'
 import {
-  TagFragment,
-  TagEdgeFragment,
-} from '../../../tag/src/use-cases/Tag.fragment.graphql.gen'
+  AtomBaseFragment,
+  AtomFragment,
+} from '../../../atom/src/Atom.fragment.graphql.gen'
+import { TagFragment } from '../../../tag/src/Tag.fragment.graphql.gen'
 import {
   HookConfig_GraphqlHookConfig_Fragment,
   HookConfig_QueryHookConfig_Fragment,
@@ -13,11 +13,11 @@ import {
   HookConfig_RecoilStateHookConfig_Fragment,
 } from './HookConfig.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { AtomBaseFragmentDoc } from '../../../atom/src/Atom.fragment.graphql.gen'
 import {
-  TagFragmentDoc,
-  TagEdgeFragmentDoc,
-} from '../../../tag/src/use-cases/Tag.fragment.graphql.gen'
+  AtomBaseFragmentDoc,
+  AtomFragmentDoc,
+} from '../../../atom/src/Atom.fragment.graphql.gen'
+import { TagFragmentDoc } from '../../../tag/src/Tag.fragment.graphql.gen'
 import { HookConfigFragmentDoc } from './HookConfig.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'

@@ -1,12 +1,18 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AtomBaseFragment } from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
+import {
+  AtomBaseFragment,
+  AtomFragment,
+} from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
 import {
   HookFragment,
   PropMapBindingFragment,
 } from '../../../../../../frontend/modules/element/src/graphql/Element.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { AtomBaseFragmentDoc } from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
+import {
+  AtomBaseFragmentDoc,
+  AtomFragmentDoc,
+} from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
 import {
   HookFragmentDoc,
   PropMapBindingFragmentDoc,
