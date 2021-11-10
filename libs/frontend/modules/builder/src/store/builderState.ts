@@ -72,34 +72,24 @@ export const builderSlice = createSlice({
 export const builderActions = builderSlice.actions
 export const builderReducer = builderSlice.reducer
 
-export const builderSelector = (rootState: DefaultRootState) =>
-  rootState[builderSlice.name] as BuilderState
+export const selectBuilder = (rootState: DefaultRootState) => rootState.builder
 
 export const builderSelectors = {
-  selectedElementId: createSelector(
-    builderSelector,
-    (s) => s.selectedElementId,
-  ),
-  hoveringElementId: createSelector(
-    builderSelector,
-    (s) => s.hoveringElementId,
-  ),
-  lastRenderedProps: createSelector(
-    builderSelector,
-    (s) => s.lastRenderedProps,
-  ),
+  selectedElementId: createSelector(selectBuilder, (s) => s.selectedElementId),
+  hoveringElementId: createSelector(selectBuilder, (s) => s.hoveringElementId),
+  lastRenderedProps: createSelector(selectBuilder, (s) => s.lastRenderedProps),
   lastRenderedPropsForElement: createSelector(
     [
-      builderSelector,
+      selectBuilder,
       // Take the second arg, `category`, and forward to the output selector
       (state, elementId: string) => elementId,
     ],
     (s, elementId) => s.lastRenderedProps[elementId],
   ),
-  extraProps: createSelector(builderSelector, (s) => s.extraElementProps),
+  extraProps: createSelector(selectBuilder, (s) => s.extraElementProps),
   extraPropsForElement: createSelector(
     [
-      builderSelector,
+      selectBuilder,
       // Take the second arg, `category`, and forward to the output selector
       (state, elementId: string) => elementId,
     ],
