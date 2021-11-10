@@ -1,6 +1,7 @@
 import { adminEndpoints } from '@codelab/frontend/modules/admin'
 import { appEndpoints } from '@codelab/frontend/modules/app'
 import { atomEndpoints } from '@codelab/frontend/modules/atom'
+import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
   componentEndpoints,
   elementEndpoints,
@@ -15,9 +16,10 @@ import { userEndpoints } from '@codelab/frontend/modules/user'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
 
-export const makeStore = () =>
-  configureStore({
+export const makeStore = () => {
+  return configureStore({
     reducer: combineReducers({
+      // APIs:
       [appEndpoints.reducerPath]: appEndpoints.reducer,
       [pageEndpoints.reducerPath]: pageEndpoints.reducer,
       [elementEndpoints.reducerPath]: elementEndpoints.reducer,
@@ -31,6 +33,9 @@ export const makeStore = () =>
       [userEndpoints.reducerPath]: userEndpoints.reducer,
       [typeEndpoints.reducerPath]: typeEndpoints.reducer,
       [fieldEndpoints.reducerPath]: fieldEndpoints.reducer,
+
+      // Slices:
+      [builderSlice.name]: builderSlice.reducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
@@ -47,6 +52,7 @@ export const makeStore = () =>
         fieldEndpoints.middleware,
       ),
   })
+}
 
 export type AppStore = ReturnType<typeof makeStore>
 export type RootState = ReturnType<AppStore['getState']>

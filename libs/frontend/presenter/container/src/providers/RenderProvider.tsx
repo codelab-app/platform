@@ -1,6 +1,6 @@
 import { TypeKind } from '@codelab/frontend/abstract/codegen'
 import { IElement, RenderNode } from '@codelab/frontend/abstract/core'
-import { ElementId, IProps, TypeId } from '@codelab/shared/abstract/core'
+import { IProps, PropsByElementId, TypeId } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React, { useContext } from 'react'
 
@@ -14,7 +14,7 @@ export interface RenderContext {
   extraProps?: IProps
 
   /** Extra props keyed by element id, they override every other prop */
-  extraElementProps?: Record<ElementId, IProps>
+  extraElementProps?: PropsByElementId
 
   /**
    * A reference to the renderFactory which allows any custom component to render a node

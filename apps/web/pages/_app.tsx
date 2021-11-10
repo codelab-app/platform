@@ -20,6 +20,8 @@ const AppContainer = ({
   pageProps: ssrPageProps,
   Component,
 }: AppProps<any>) => {
+  console.log(ssrPageProps)
+
   const { Template, Header, MainPane, MetaPane, SidebarNavigation } =
     Component as CodelabPage
 

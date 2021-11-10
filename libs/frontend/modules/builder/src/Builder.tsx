@@ -5,15 +5,14 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import styled from '@emotion/styled'
 import React, { MouseEventHandler, useCallback, useContext } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import {
-  useBuilder,
-  useBuilderExtraProps,
-  useOnRendered,
-} from './containers/builderState'
-import { useBuilderHandlers } from './containers/useBuilderHandlers'
 import { BuilderClickOverlay, BuilderHoverOverlay } from './overlay-toolbar'
 import { Renderer } from './renderer'
+import { builderActions, builderSelectors } from './store/builderState'
+import { useBuilderHoverHandlers } from './store/useBuilderHoverHandlers'
+import { useOnRendered } from './store/useOnRendered'
+import { useBuilderHotkeys } from './useBuilderHotkeys'
 
 export type BuilderProps = {
   tree: ElementTree
@@ -51,10 +50,10 @@ const StyledBuilderInnerContainer = styled.div`
 `
 
 const BuilderRenderer = ({ tree }: { tree: ElementTree }) => {
-  const { handleMouseEnter, handleMouseLeave } = useBuilderHandlers(tree)
+  const { handleMouseEnter, handleMouseLeave } = useBuilderHoverHandlers(tree)
   const { typeKindsById } = useContext(TypeKindsContext)
   const { onRendered } = useOnRendered()
-  const extraProps = useBuilderExtraProps()
+  const extraProps = useSelector(builderSelectors.extraProps)
   const voidClick = useCallback(() => void 0, [])
 
   return (
@@ -81,8 +80,7 @@ export const Builder = ({
   children,
   tree,
 }: React.PropsWithChildren<BuilderProps>) => {
-  // TODO: Deal with context mapping
-  const { resetSelection, setSelectedElement } = useBuilder()
+  const dispatch = useDispatch()
 
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
@@ -95,7 +93,7 @@ export const Builder = ({
       const componentId = element.dataset?.componentId
 
       if (nodeId && !componentId) {
-        setSelectedElement(tree.getVertex(nodeId, ElementTree.isElement))
+        setSelectedElement(tree.getVertex(nodeId, ElementTree.isElement)?.id)
         e.stopPropagation()
       } else if (element.parentElement && element.id !== 'Builder') {
         // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent
@@ -107,6 +105,13 @@ export const Builder = ({
 
     visit(e.target as HTMLElement)
   }
+
+  const resetSelection = () => dispatch(builderActions.resetSelection)
+
+  const setSelectedElement = (elementId?: string) =>
+    dispatch(builderActions.selectElement({ elementId }))
+
+  useBuilderHotkeys()
 
   return (
     <StyledBuilderContainer

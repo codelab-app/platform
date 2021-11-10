@@ -1,8 +1,8 @@
-// Custom atom components
 import { AtomType } from '@codelab/shared/abstract/core'
 import dynamic from 'next/dynamic'
 import { AtomsRecord } from './atomFactoryType'
 
+// Custom atom components
 export const codelabAtoms: AtomsRecord = {
   [AtomType.Query]: dynamic(
     () =>

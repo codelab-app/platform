@@ -10,7 +10,8 @@
     "@emotion",
     "prettier",
     "jest-formatting",
-    "simple-import-sort"
+    "simple-import-sort",
+    "deprecate-import"
     // "@graphql-eslint",
     // "eslint-plugin-graphql"
   ],
@@ -342,7 +343,14 @@
             "next": ["const", "let", "var"]
           }
         ],
-        "lines-between-class-members": ["error", "always"]
+        "lines-between-class-members": ["error", "always"],
+        "deprecate-import/module": [
+          "warn",
+          {
+            "pattern": "^recoil.*",
+            "use": "@reduxjs/toolkit"
+          }
+        ]
       }
     },
     {
