@@ -1,5 +1,6 @@
 import { PropsByElementId } from '@codelab/shared/abstract/core'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { DefaultRootState } from 'react-redux'
 
 export interface BuilderState {
   selectedElementId?: string
@@ -71,9 +72,8 @@ export const builderSlice = createSlice({
 export const builderActions = builderSlice.actions
 export const builderReducer = builderSlice.reducer
 
-export const builderSelector = (rootState: {
-  [builderSlice.name]: BuilderState
-}) => rootState[builderSlice.name] as BuilderState
+export const builderSelector = (rootState: DefaultRootState) =>
+  rootState[builderSlice.name] as BuilderState
 
 export const builderSelectors = {
   selectedElementId: createSelector(
