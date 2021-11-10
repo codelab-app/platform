@@ -6,14 +6,14 @@ import { useGetElementGraphQuery } from '../use-cases/element/elementEndpoints'
 export interface ElementGraphContext {
   elementGraph?: ElementGraphFragment
   elementId: string
-  elementTree?: ElementTree
+  elementTree: ElementTree
 }
 
 const initialContext: ElementGraphContext = {
   elementGraph: undefined,
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   elementId: undefined!,
-  elementTree: undefined,
+  elementTree: new ElementTree({ edges: [], vertices: [] }),
 }
 
 const ElementGraphContext = React.createContext(initialContext)
@@ -37,7 +37,8 @@ export const ElementGraphProvider = (
       value={{
         elementId: props.elementId,
         elementGraph: data?.getElementGraph,
-        elementTree,
+        elementTree:
+          elementTree ?? new ElementTree({ edges: [], vertices: [] }),
       }}
     >
       {props.children}

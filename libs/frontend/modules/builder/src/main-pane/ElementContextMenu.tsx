@@ -14,6 +14,9 @@ export interface ElementContextMenuProps {
   onBlur?: () => any
 }
 
+/**
+ * The right-click menu in the element tree
+ */
 export const ElementContextMenu = ({
   element,
   onClick,
@@ -26,11 +29,7 @@ export const ElementContextMenu = ({
   return (
     <Menu
       onBlur={onBlur}
-      onClick={() => {
-        if (onClick) {
-          onClick()
-        }
-      }}
+      onClick={() => onClick?.()}
       css={tw`border border-gray-200 shadow-xl`}
     >
       <Menu.Item

@@ -1,12 +1,19 @@
 import { useCallback } from 'react'
-import { useBuilderCurrentProps } from './builderState'
+import { useSelector } from 'react-redux'
+import { builderSelectors } from './builderState'
 
+/**
+ * Provides a callback that takes in a search input value and a target element id
+ * and returns prop key completions based on the last rendered props of that element
+ * If the element hasn't been rendered it returns an empty array
+ * It returns nested keys in format parsable by lodash.get method, like 'data.item' or 'data.items[0].something'
+ */
 export const usePropCompletion = () => {
-  const currentProps = useBuilderCurrentProps()
+  const lastRenderedProps = useSelector(builderSelectors.lastRenderedProps)
 
   const providePropCompletion = useCallback(
     (value, elementId: string) => {
-      if (!currentProps || !currentProps[elementId]) {
+      if (!lastRenderedProps || !lastRenderedProps[elementId]) {
         return []
       }
 
@@ -14,6 +21,10 @@ export const usePropCompletion = () => {
       const visited: Array<any> = []
 
       const visitProp = (prop: any, key: string) => {
+        if (!prop) {
+          return
+        }
+
         if (key.startsWith('_')) {
           return
         }
@@ -42,15 +53,18 @@ export const usePropCompletion = () => {
         }
       }
 
-      for (const propKey in currentProps[elementId]) {
-        if (propKey.toLowerCase().startsWith(value.toLowerCase())) {
-          visitProp(currentProps[elementId][propKey], propKey)
+      for (const propKey in lastRenderedProps[elementId]) {
+        if (
+          propKey.toLowerCase().startsWith(value.toLowerCase()) &&
+          lastRenderedProps[elementId]
+        ) {
+          visitProp(lastRenderedProps[elementId]?.[propKey], propKey)
         }
       }
 
       return keys
     },
-    [currentProps],
+    [lastRenderedProps],
   )
 
   return {

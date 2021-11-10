@@ -6,7 +6,7 @@ import {
 } from '@codelab/frontend/modules/element'
 import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import React from 'react'
-import { usePropCompletion } from '../containers/usePropCompletion'
+import { usePropCompletion } from '../store/usePropCompletion'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
 
 export const MetaPaneBuilderPage = () => {

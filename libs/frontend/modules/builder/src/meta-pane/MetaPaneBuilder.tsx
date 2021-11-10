@@ -13,8 +13,8 @@ import { Tabs } from 'antd'
 import { Resizable } from 're-resizable'
 import React from 'react'
 import tw from 'twin.macro'
-import { useBuilderSelection } from '../containers/builderState'
-import { usePropCompletion } from '../containers/usePropCompletion'
+import { useBuilderSelectedElement } from '../store/useBuilderSelectedElement'
+import { usePropCompletion } from '../store/usePropCompletion'
 import { PropsInspectorTab } from './PropsInspectorTab'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
@@ -64,10 +64,7 @@ export const MetaPaneBuilder = ({
   renderUpdateElementContent,
   tree,
 }: MetaPaneBuilderProps) => {
-  const {
-    state: { selectedElement },
-  } = useBuilderSelection()
-
+  const { selectedElement } = useBuilderSelectedElement()
   const { providePropCompletion } = usePropCompletion()
 
   if (!selectedElement) {

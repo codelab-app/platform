@@ -3,7 +3,7 @@ import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
 import React from 'react'
-import { useBuilderSelection } from '../containers/builderState'
+import { useBuilderSelectedElement } from '../store/useBuilderSelectedElement'
 import { ClickOverlay } from './Overlay-click'
 
 const StyledOverlayContainer = styled.div`
@@ -30,9 +30,7 @@ const StyledOverlayButtonGroup = styled.div`
 `
 
 export const BuilderClickOverlay = () => {
-  const {
-    state: { selectedElement },
-  } = useBuilderSelection()
+  const { selectedElement } = useBuilderSelectedElement()
 
   const { openDeleteModal, openCreateModal } = useCrudModalForm(
     EntityType.Element,

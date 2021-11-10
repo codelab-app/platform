@@ -8,7 +8,7 @@ import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import { LoadingIndicator } from '@codelab/frontend/view/components'
 import React from 'react'
 import tw from 'twin.macro'
-import { usePropCompletion } from '../containers/usePropCompletion'
+import { usePropCompletion } from '../store/usePropCompletion'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
 
 export const MetaPaneBuilderComponent = () => {

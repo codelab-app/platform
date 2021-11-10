@@ -1,11 +1,9 @@
 import React from 'react'
-import { useBuilderSelection } from '../containers/builderState'
+import { useBuilderHoveringElement } from '../store/useBuilderHoveringElement'
 import { HoverOverlay } from './Overlay-hover'
 
 export const BuilderHoverOverlay = () => {
-  const {
-    state: { hoveringElement },
-  } = useBuilderSelection()
+  const { hoveringElement } = useBuilderHoveringElement()
 
   if (!hoveringElement) {
     return null
