@@ -2,7 +2,6 @@ import {
   COMPONENT_CACHE_TAG,
   ELEMENT_CACHE_TAG,
   ELEMENT_GRAPH_CACHE_TAG,
-  invalidatesAll,
   providesById,
 } from '@codelab/frontend/model/infra/api'
 import { api as generatedApi } from '../../graphql/element.endpoints.graphql.gen'
@@ -20,12 +19,11 @@ export const elementApi = generatedApi.enhanceEndpoints({
       ],
     },
     DeleteElement: {
-      invalidatesTags: () =>
-        invalidatesAll(
-          ELEMENT_CACHE_TAG,
-          ELEMENT_GRAPH_CACHE_TAG,
-          COMPONENT_CACHE_TAG, // The element could be a component too
-        ),
+      invalidatesTags: () => [
+        ELEMENT_CACHE_TAG,
+        ELEMENT_GRAPH_CACHE_TAG,
+        COMPONENT_CACHE_TAG, // The element could be a component too
+      ],
     },
     GetElementGraph: {
       providesTags: (result, _, arg) => [

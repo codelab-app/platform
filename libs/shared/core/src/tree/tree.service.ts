@@ -60,8 +60,18 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     getCyElementData<TVertex>(cyElement)
 
   getPathFromRoot(vertexId: string) {
+    const root = this.getRootVertex()
+    const target = this.getVertex(vertexId)
+
+    if (!root || !target) {
+      return {
+        found: false,
+        path: undefined,
+      }
+    }
+
     const path = this.cy.elements()?.aStar({
-      root: `#${this.cy.elements().roots().first().id()}`,
+      root: `#${root.id}`,
       directed: true,
       goal: `#${vertexId}`,
     })

@@ -67,6 +67,7 @@ export const dgraphSchema = `
 
 
   type ${Element} {
+    name
     component
     atom
     props
