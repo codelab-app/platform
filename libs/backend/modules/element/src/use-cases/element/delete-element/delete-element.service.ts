@@ -59,6 +59,7 @@ export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
 
     await this.elementValidator.isNotRoot(input.elementId)
 
-    await this.elementValidator.isOrphan(input.elementId)
+    // Prevent deleting components if they are used
+    await this.elementValidator.isOrphan(input.elementId, 'has(componentTag)')
   }
 }
