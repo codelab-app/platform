@@ -36,15 +36,22 @@ export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
       mutation: `
         upsert {
           query {
-           descendants(func: uid(${elementId}))  @filter(type(Element)) @recurse {
+            descendants(func: uid(${elementId}))  @filter(type(Element)) @recurse {
                 COMPONENT AS uid
                 DESCENDANTS AS children @filter(NOT has(componentTag))
             }
+            parent(func: uid(${elementId})) {
+              ~children {
+                PARENT as uid
+              }
+            }
           }
+
           mutation {
             delete {
               uid(COMPONENT) * * .
               uid(DESCENDANTS) * * .
+              uid(PARENT) <children> <${elementId}> .
             }
           }
         }
@@ -59,6 +66,7 @@ export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
 
     await this.elementValidator.isNotRoot(input.elementId)
 
-    await this.elementValidator.isOrphan(input.elementId)
+    // Prevent deleting components if they are used
+    await this.elementValidator.isOrphan(input.elementId, 'has(componentTag)')
   }
 }

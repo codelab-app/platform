@@ -110,16 +110,20 @@ export class ElementValidator {
    * Throws error
    * if the element has a parent element
    */
-  public async isOrphan(elementId: string) {
+  public async isOrphan(elementId: string, filter?: string) {
     if (!elementId) {
       throw new Error('elementId not provided')
     }
+
+    const combinedFilter = `@filter(uid(${elementId}) ${
+      filter ? ' AND ' + filter : ''
+    })`
 
     const response = await this.dgraph.transactionWrapper((txn) =>
       this.dgraph.getOneNamed<{ parentId?: string }>(
         txn,
         `{
-          query(func: type(${DgraphEntityType.Element})) @normalize @filter(uid(${elementId})) {
+          query(func: type(${DgraphEntityType.Element})) ${combinedFilter} @normalize  {
             ~children {
               parentId: uid
             }

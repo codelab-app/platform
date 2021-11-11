@@ -132,10 +132,10 @@ export class GetElementGraphService extends DgraphUseCase<
         @recurse
         @normalize {
           IDS AS uid
-          children
+          children @filter(type(${DgraphEntityType.Element}))
       }
 
-      vertices(func: uid(IDS)) {
+      vertices(func: uid(IDS)) @filter(type(${DgraphEntityType.Element})) {
         id: uid
         name
         css
