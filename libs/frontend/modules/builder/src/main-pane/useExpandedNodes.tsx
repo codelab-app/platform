@@ -25,9 +25,9 @@ export const useExpandedNodes = (tree: ElementTree) => {
 
     setExpandedNodeIds((prevState) => {
       const expandedSet = new Set(prevState)
-      const toExpand = pathResult.path.filter((id) => !expandedSet.has(id))
+      const toExpand = pathResult.path?.filter((id) => !expandedSet.has(id))
 
-      return [...prevState, ...toExpand]
+      return [...prevState, ...(toExpand ?? [])]
     })
   }, [tree, selectedElementId])
 
