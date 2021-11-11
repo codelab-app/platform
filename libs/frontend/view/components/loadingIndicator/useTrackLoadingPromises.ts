@@ -1,33 +1,28 @@
 import { useCallback, useEffect, useState } from 'react'
-import { atomFamily, useSetRecoilState } from 'recoil'
 
-export interface LoadingIndicatorState {
+export interface LoadingData {
   isLoading: boolean
-  isErrored: boolean
+  error: any
 }
 
-export const loadIndicatorState = atomFamily<LoadingIndicatorState, string>({
-  key: 'loading-indicator-state',
-  default: {
-    isLoading: false,
-    isErrored: false,
-  },
-})
+export interface UseTrackLoadingPromises extends LoadingData {
+  trackPromise: (promise: Promise<any>) => void
+}
 
 /**
  * Use this to track the loading state of multiple promises
- * @param key
  */
-export const usePromisesLoadingIndicator = (key: string | undefined) => {
-  const setState = useSetRecoilState(
-    loadIndicatorState(key ?? 'defaultLoadingState'),
-  )
+export const useTrackLoadingPromises = (): UseTrackLoadingPromises => {
+  const [state, setState] = useState<LoadingData>({
+    isLoading: false,
+    error: undefined,
+  })
 
   const [promises, setPromises] = useState<Array<Promise<any>>>([])
 
   useEffect(() => {
     setState((s) => ({ ...s, isLoading: promises.length !== 0 }))
-  }, [promises, setState])
+  }, [promises.length])
 
   const trackPromise = useCallback(
     (promise: Promise<any>) => {
@@ -36,14 +31,14 @@ export const usePromisesLoadingIndicator = (key: string | undefined) => {
 
       return promise
         .then((r) => {
-          setPromises((prs) => prs.filter((p) => p !== promise))
-          setState((s) => ({ ...s, isErrored: false }))
+          setPromises((previous) => previous.filter((p) => p !== promise))
+          setState((s) => ({ ...s, error: undefined }))
 
           return r
         })
         .catch((e) => {
           setPromises((prs) => prs.filter((p) => p !== promise))
-          setState((s) => ({ ...s, isErrored: true }))
+          setState((s) => ({ ...s, error: e }))
 
           return e
         })
@@ -52,6 +47,7 @@ export const usePromisesLoadingIndicator = (key: string | undefined) => {
   )
 
   return {
+    ...state,
     trackPromise,
   }
 }

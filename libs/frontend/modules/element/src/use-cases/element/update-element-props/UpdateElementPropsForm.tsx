@@ -4,7 +4,7 @@ import {
   useTypeTree,
 } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
-import { usePromisesLoadingIndicator } from '@codelab/frontend/view/components'
+import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Spin } from 'antd'
 import React, { useRef } from 'react'
@@ -18,7 +18,7 @@ interface UpdateElementPropsFormInternalProps {
   elementId: string
   interfaceId: string
   existingProps: string
-  loadingStateKey: string
+  trackPromises?: UseTrackLoadingPromises
 }
 
 const hasDataType = (
@@ -41,9 +41,9 @@ const UpdateElementPropsFormInternal = ({
   interfaceId,
   elementId,
   existingProps,
-  loadingStateKey,
+  trackPromises,
 }: UpdateElementPropsFormInternalProps) => {
-  const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
+  const { trackPromise } = trackPromises ?? {}
   const { elementId: rootElementId } = useElementGraphContext()
 
   const { data: interfaceData, isLoading: interfaceLoading } =
@@ -72,16 +72,16 @@ const UpdateElementPropsFormInternal = ({
         interfaceTree={tree}
         model={initialPropsRef.current}
         onSubmit={(data: any) => {
-          return trackPromise(
-            mutate({
-              variables: {
-                input: {
-                  elementId,
-                  props: JSON.stringify(data),
-                },
+          const promise = mutate({
+            variables: {
+              input: {
+                elementId,
+                props: JSON.stringify(data),
               },
-            }),
-          )
+            },
+          })
+
+          return trackPromise?.(promise) ?? promise
         }}
       />
     </div>
@@ -90,12 +90,12 @@ const UpdateElementPropsFormInternal = ({
 
 export interface UpdateElementPropsFormProps {
   elementId: string
-  loadingStateKey: string
+  trackPromises?: UseTrackLoadingPromises
 }
 
 export const UpdateElementPropsForm = ({
   elementId,
-  loadingStateKey,
+  trackPromises,
 }: UpdateElementPropsFormProps) => {
   const { data } = useGetElementQuery({
     variables: { input: { where: { id: elementId } } },
@@ -117,7 +117,7 @@ export const UpdateElementPropsForm = ({
         interfaceId={element.atom.api.id}
         elementId={element.id}
         existingProps={element.props}
-        loadingStateKey={loadingStateKey}
+        trackPromises={trackPromises}
       />
     </ElementIdProvider>
   )

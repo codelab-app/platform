@@ -1,46 +1,31 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Spin from 'antd/lib/spin'
 import React, { CSSProperties } from 'react'
-import { useRecoilValue } from 'recoil'
-import {
-  loadIndicatorState,
-  LoadingIndicatorState,
-} from './loadingIndicatorState'
+import { LoadingData } from './useTrackLoadingPromises'
 
-interface StatelessLoadIndicatorProps {
-  state: LoadingIndicatorState
-  render?: (state: LoadingIndicatorState) => React.ReactElement
-  renderErrored?: () => React.ReactElement
+interface LoadIndicatorProps extends LoadingData {
+  renderErrored?: (error: any) => React.ReactElement
   renderLoading?: () => React.ReactElement
   renderNotLoading?: () => React.ReactElement
-  style?: CSSProperties | ((state: LoadingIndicatorState) => CSSProperties)
+  style?: CSSProperties | ((state: LoadingData) => CSSProperties)
 }
 
-interface LoadIndicatorProps
-  extends Omit<StatelessLoadIndicatorProps, 'state'> {
-  recoilKey: string
-}
-
-export const StatelessLoadingIndicator = ({
-  state,
-  render,
+export const LoadingIndicator = ({
+  isLoading,
+  error,
   renderNotLoading,
   renderLoading,
   renderErrored,
   style: styleProp,
-}: StatelessLoadIndicatorProps) => {
-  if (render) {
-    return render(state)
-  }
-
-  const { isLoading, isErrored } = state
-
+}: LoadIndicatorProps) => {
   const elementStyle =
-    typeof styleProp === 'function' ? styleProp(state) : styleProp || {}
+    typeof styleProp === 'function'
+      ? styleProp({ isLoading, error })
+      : styleProp || {}
 
-  if (isErrored) {
+  if (error) {
     return renderErrored ? (
-      renderErrored()
+      renderErrored(error)
     ) : (
       <ExclamationCircleOutlined
         size={16}
@@ -54,13 +39,4 @@ export const StatelessLoadingIndicator = ({
   }
 
   return renderNotLoading ? renderNotLoading() : null
-}
-
-export const LoadingIndicator = ({
-  recoilKey,
-  ...props
-}: LoadIndicatorProps) => {
-  const state = useRecoilValue(loadIndicatorState(recoilKey))
-
-  return <StatelessLoadingIndicator state={state} {...props} />
 }

@@ -6,7 +6,11 @@ import {
   UpdateElementPropsForm,
   UpdateElementPropTransformationForm,
 } from '@codelab/frontend/modules/element'
-import { LoadingIndicator } from '@codelab/frontend/view/components'
+import {
+  LoadingIndicator,
+  UseTrackLoadingPromises,
+  useTrackLoadingPromises,
+} from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
@@ -53,12 +57,10 @@ const TabContainer = styled.div`
 export interface MetaPaneBuilderProps {
   renderUpdateElementContent: (
     element: IElement,
-    loadingIndicatorKey: string,
+    trackPromises: UseTrackLoadingPromises,
   ) => React.ReactNode
   tree: ElementTree
 }
-
-const loadingKey = 'metaPaneBuilderLoadingState'
 
 export const MetaPaneBuilder = ({
   renderUpdateElementContent,
@@ -66,6 +68,7 @@ export const MetaPaneBuilder = ({
 }: MetaPaneBuilderProps) => {
   const { selectedElement } = useBuilderSelectedElement()
   const { providePropCompletion } = usePropCompletion()
+  const trackPromises = useTrackLoadingPromises()
 
   if (!selectedElement) {
     return null
@@ -83,13 +86,13 @@ export const MetaPaneBuilder = ({
     >
       <TabContainer>
         <div css={tw`absolute bottom-0 right-0 m-8`}>
-          <LoadingIndicator recoilKey={loadingKey} />
+          <LoadingIndicator {...trackPromises} />
         </div>
 
         <Tabs defaultActiveKey={selectedElement.id + '_tab1'}>
           <Tabs.TabPane tab="Element" key={selectedElement.id + '_tab1'}>
             <FormsGrid>
-              {renderUpdateElementContent(selectedElement, loadingKey)}
+              {renderUpdateElementContent(selectedElement, trackPromises)}
             </FormsGrid>
           </Tabs.TabPane>
 
@@ -102,7 +105,7 @@ export const MetaPaneBuilder = ({
               <UpdateElementPropsForm
                 elementId={selectedElement.id}
                 key={selectedElement.id}
-                loadingStateKey={loadingKey}
+                trackPromises={trackPromises}
               />
             ) : (
               `Add an atom to this element to edit its props`
@@ -118,7 +121,7 @@ export const MetaPaneBuilder = ({
               <ElementCssEditor
                 key={selectedElement.id}
                 elementId={selectedElement.id}
-                loadingStateKey={loadingKey}
+                trackPromises={trackPromises}
               />
             ) : (
               `Add an atom to this page element to edit its CSS`
@@ -176,7 +179,7 @@ export const MetaPaneBuilder = ({
             <UpdateElementPropTransformationForm
               key={selectedElement.id}
               elementId={selectedElement.id}
-              loadingStateKey={loadingKey}
+              trackPromises={trackPromises}
               tree={tree}
             />
           </Tabs.TabPane>
