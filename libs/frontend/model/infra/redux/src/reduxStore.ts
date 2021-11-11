@@ -1,5 +1,5 @@
 import { adminEndpoints } from '@codelab/frontend/modules/admin'
-import { appEndpoints } from '@codelab/frontend/modules/app'
+import { appEndpoints, appSlice } from '@codelab/frontend/modules/app'
 import { atomEndpoints } from '@codelab/frontend/modules/atom'
 import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
@@ -36,6 +36,7 @@ export const makeStore = () => {
 
       // Slices:
       [builderSlice.name]: builderSlice.reducer,
+      [appSlice.name]: appSlice.reducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
