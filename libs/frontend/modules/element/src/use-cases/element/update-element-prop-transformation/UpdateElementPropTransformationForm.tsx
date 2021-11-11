@@ -3,7 +3,7 @@ import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import {
   MonacoEditor,
   MonacoEditorProps,
-  usePromisesLoadingIndicator,
+  UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
@@ -15,7 +15,7 @@ import {
 interface InternalProps {
   tree: ElementTree
   element: IElement
-  loadingStateKey: string
+  trackPromises?: UseTrackLoadingPromises
   monacoProps?: Omit<MonacoEditorProps, 'value' | 'onChange'>
 }
 
@@ -29,10 +29,10 @@ function transform(props){
 const InternalForm = ({
   element,
   tree,
-  loadingStateKey,
+  trackPromises,
   monacoProps,
 }: InternalProps) => {
-  const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
+  const { trackPromise } = trackPromises ?? {}
   const [mutate] = useUpdateElementMutation()
   const [value, setValue] = useState(element.propTransformationJs || defaultFn)
   // Keep the value string value in a ref so we can access it when unmounting the component
@@ -48,23 +48,23 @@ const InternalForm = ({
         return
       }
 
-      return trackPromise(
-        mutate({
-          variables: {
-            input: {
-              id: element.id,
-              data: {
-                atomId: element.atom?.id,
-                name: element.name,
-                renderIfPropKey: element.renderIfPropKey,
-                propTransformationJs: newValue,
-                css: element.css,
-                renderForEachPropKey: element.renderForEachPropKey,
-              },
+      const promise = mutate({
+        variables: {
+          input: {
+            id: element.id,
+            data: {
+              atomId: element.atom?.id,
+              name: element.name,
+              renderIfPropKey: element.renderIfPropKey,
+              propTransformationJs: newValue,
+              css: element.css,
+              renderForEachPropKey: element.renderForEachPropKey,
             },
           },
-        }),
-      )
+        },
+      })
+
+      return trackPromise?.(promise) ?? promise
     },
     [element, mutate, trackPromise],
   )
@@ -118,7 +118,7 @@ export type UpdateElementPropTransformationFormProp = Omit<
 
 export const UpdateElementPropTransformationForm = ({
   elementId,
-  loadingStateKey,
+  trackPromises,
   monacoProps,
   tree,
 }: UpdateElementPropTransformationFormProp) => {
@@ -135,7 +135,7 @@ export const UpdateElementPropTransformationForm = ({
   return (
     <InternalForm
       element={element}
-      loadingStateKey={loadingStateKey}
+      trackPromises={trackPromises}
       monacoProps={monacoProps}
       tree={tree}
     />

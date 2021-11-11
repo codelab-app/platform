@@ -6,7 +6,7 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   FormUniforms,
   UniFormUseCaseProps,
-  usePromisesLoadingIndicator,
+  UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
@@ -18,18 +18,18 @@ import { MoveElementSchema, moveElementSchema } from './moveElementSchema'
 export type MoveElementFormProps = UniFormUseCaseProps<MoveElementSchema> & {
   elementId: string
   tree: ElementTree
-  loadingStateKey?: string
+  trackPromises?: UseTrackLoadingPromises
 }
 
 /** Not intended to be used in a modal */
 export const MoveElementForm = ({
   elementId,
   tree,
-  loadingStateKey,
+  trackPromises,
   ...props
 }: MoveElementFormProps) => {
   const { elementTree, elementId: rootElementId } = useElementGraphContext()
-  const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
+  const { trackPromise } = trackPromises ?? {}
 
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving
   const {
@@ -48,7 +48,7 @@ export const MoveElementForm = ({
       },
     })
 
-    if (loadingStateKey) {
+    if (trackPromise) {
       trackPromise(promise)
     }
 

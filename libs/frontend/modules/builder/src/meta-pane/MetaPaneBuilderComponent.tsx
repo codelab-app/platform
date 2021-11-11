@@ -23,13 +23,13 @@ export const MetaPaneBuilderComponent = () => {
     <SelectElementProvider tree={elementTree}>
       <MetaPaneBuilder
         tree={elementTree}
-        renderUpdateElementContent={(element, loadingKey) => (
+        renderUpdateElementContent={(element, trackPromises) => (
           <>
             <UpdateElementForm
               key={element.id + '_update_form'}
               elementId={element.id}
               tree={elementTree}
-              loadingStateKey={loadingKey}
+              trackPromises={trackPromises}
               providePropCompletion={(value) =>
                 providePropCompletion(value, element.id)
               }
@@ -39,11 +39,11 @@ export const MetaPaneBuilderComponent = () => {
               tree={elementTree}
               key={element.id + '_move_form'}
               elementId={element.id}
-              loadingStateKey={loadingKey}
+              trackPromises={trackPromises}
             />
 
             <div css={tw`absolute bottom-0 right-0 m-8`}>
-              <LoadingIndicator recoilKey={loadingKey} />
+              <LoadingIndicator {...trackPromises} />
             </div>
 
             <DeleteElementButton

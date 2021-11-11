@@ -1,7 +1,7 @@
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import {
   EmotionCssEditor,
-  usePromisesLoadingIndicator,
+  UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
@@ -12,14 +12,14 @@ import {
 
 export interface ElementCssEditorInternalProps {
   element: ElementFragment
-  loadingStateKey: string
+  trackPromises?: UseTrackLoadingPromises
 }
 
 const ElementCssEditorInternal = ({
   element,
-  loadingStateKey,
+  trackPromises,
 }: ElementCssEditorInternalProps) => {
-  const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
+  const { trackPromise } = trackPromises ?? {}
   const [mutate] = useUpdateElementMutation()
   const [cssString, setCssString] = useState(element.css || '')
   // Keep the css string value in a ref so we can access it when unmounting the component
@@ -28,23 +28,23 @@ const ElementCssEditorInternal = ({
 
   const updateCss = useCallback(
     (newCss: string) => {
-      return trackPromise(
-        mutate({
-          variables: {
-            input: {
-              id: element.id,
-              data: {
-                atomId: element.atom?.id,
-                name: element.name,
-                css: newCss,
-                renderIfPropKey: element.renderIfPropKey,
-                // propTransformationJs: element.propTransformationJs,
-                renderForEachPropKey: element.renderForEachPropKey,
-              },
+      const promise = mutate({
+        variables: {
+          input: {
+            id: element.id,
+            data: {
+              atomId: element.atom?.id,
+              name: element.name,
+              css: newCss,
+              renderIfPropKey: element.renderIfPropKey,
+              // propTransformationJs: element.propTransformationJs,
+              renderForEachPropKey: element.renderForEachPropKey,
             },
           },
-        }),
-      )
+        },
+      })
+
+      return trackPromise?.(promise) ?? promise
     },
     [element.atom?.id, element.id, element.name, mutate, trackPromise],
   )
@@ -85,12 +85,12 @@ const ElementCssEditorInternal = ({
 
 export type ElementCssEditorProps = {
   elementId: string
-  loadingStateKey: string
+  trackPromises?: UseTrackLoadingPromises
 }
 
 export const ElementCssEditor = ({
   elementId,
-  loadingStateKey,
+  trackPromises,
 }: ElementCssEditorProps) => {
   const { data } = useGetElementQuery({
     variables: { input: { where: { id: elementId } } },
@@ -103,9 +103,6 @@ export const ElementCssEditor = ({
   }
 
   return (
-    <ElementCssEditorInternal
-      element={element}
-      loadingStateKey={loadingStateKey}
-    />
+    <ElementCssEditorInternal element={element} trackPromises={trackPromises} />
   )
 }

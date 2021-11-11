@@ -5,7 +5,7 @@ import {
   AutoCompleteField,
   FormUniforms,
   UniFormUseCaseProps,
-  usePromisesLoadingIndicator,
+  UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import React, { useRef, useState } from 'react'
@@ -21,7 +21,7 @@ type UpdateElementFormInternalProps =
     tree: ElementTree
     element: IElement
     providePropCompletion?: (searchValue: string) => Array<string>
-    loadingStateKey?: string
+    trackPromises?: UseTrackLoadingPromises
   }
 
 export type UpdateElementFormProps = Omit<
@@ -33,11 +33,11 @@ const UpdateElementFormInternal = ({
   element: elementProp,
   tree,
   providePropCompletion,
-  loadingStateKey,
+  trackPromises,
   ...props
 }: React.PropsWithChildren<UpdateElementFormInternalProps>) => {
   const { current: element } = useRef(elementProp) // Cache the initial element value, because when it updates it will interfere with what the user is typing
-  const { trackPromise } = usePromisesLoadingIndicator(loadingStateKey)
+  const { trackPromise } = trackPromises ?? {}
 
   const [propCompleteOptions, setPropCompleteOptions] = useState<
     Array<{ label: string; value: string }>
@@ -52,7 +52,7 @@ const UpdateElementFormInternal = ({
       },
     })
 
-    if (loadingStateKey) {
+    if (trackPromise) {
       trackPromise(promise)
     }
 
