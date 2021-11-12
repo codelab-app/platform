@@ -2,7 +2,7 @@ import { ModalProps } from 'antd/lib/modal'
 import React, { ReactElement } from 'react'
 import tw from 'twin.macro'
 import { FormUniformsModal } from '../form'
-import { ActionType, EntityType } from './crudModalsState'
+import { ActionType, EntityType } from './store/CrudModalState'
 import { useCrudModalForm } from './useCrudModalForm'
 
 export type CrudModalProps = {

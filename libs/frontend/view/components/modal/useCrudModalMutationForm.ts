@@ -8,8 +8,12 @@ import { MutationDefinition } from '@reduxjs/toolkit/query'
 import { FetchResult } from 'apollo-link'
 import type { RequestDocument } from 'graphql-request/dist/types'
 import { useCallback, useEffect } from 'react'
-import { CRUDModalState, EntityType } from './crudModalsState'
-import { useCrudModalForm, UseCRUDModalFormData } from './useCrudModalForm'
+import { EntityType } from './store/CrudModalState'
+import {
+  CRUDModalStateRecoil,
+  useCrudModalForm,
+  UseCRUDModalFormData,
+} from './useCrudModalForm'
 
 type CustomMutationDefinition<
   TMutation,
@@ -47,7 +51,7 @@ export interface UseMutationCrudFormOptions<
       >
     | Apollo.MutationHookOptions<TMutation, TMutationVariables> // TODO remove apollo types after we migrate to RTK query entirely
     | ((
-        crudModalState: CRUDModalState,
+        crudModalState: CRUDModalStateRecoil,
       ) => Apollo.MutationHookOptions<TMutation, TMutationVariables>)
   mutationFunctionOptions?: Omit<
     GraphqlOperationOptions<TMutationVariables>,
@@ -58,7 +62,7 @@ export interface UseMutationCrudFormOptions<
     | UseMutation<CustomMutationDefinition<TMutation, TMutationVariables>>
   mapVariables: (
     formData: TSubmitData,
-    crudModalState: CRUDModalState,
+    crudModalState: CRUDModalStateRecoil,
   ) => TMutationVariables
 }
 
