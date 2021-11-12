@@ -287,6 +287,9 @@ export enum AtomType {
   Text = 'Text',
   State = 'State',
 
+  // Next:
+  NextImage = 'NextImage',
+
   // React
   ReactFragment = 'ReactFragment',
 

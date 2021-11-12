@@ -471,6 +471,7 @@ enum AtomType {
   TextList
   Text
   State
+  NextImage
   ReactFragment
   HtmlA
   HtmlP

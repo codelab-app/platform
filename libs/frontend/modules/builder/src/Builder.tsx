@@ -2,6 +2,7 @@ import {
   TypeKindProvider,
   TypeKindsContext,
 } from '@codelab/frontend/modules/type'
+import { IFrame } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import styled from '@emotion/styled'
 import React, { MouseEventHandler, useCallback, useContext } from 'react'
@@ -57,19 +58,21 @@ const BuilderRenderer = ({ tree }: { tree: ElementTree }) => {
   const voidClick = useCallback(() => void 0, [])
 
   return (
-    <Renderer
-      tree={tree}
-      context={{
-        onRendered,
-        typeKindsById,
-        extraElementProps: extraProps,
-        extraProps: {
-          onMouseEnter: handleMouseEnter,
-          onMouseLeave: handleMouseLeave,
-          onClick: voidClick,
-        },
-      }}
-    />
+    <IFrame title="Codelab builder" style={{ width: '100%', height: '100%' }}>
+      <Renderer
+        tree={tree}
+        context={{
+          onRendered,
+          typeKindsById,
+          extraElementProps: extraProps,
+          extraProps: {
+            onMouseEnter: handleMouseEnter,
+            onMouseLeave: handleMouseLeave,
+            onClick: voidClick,
+          },
+        }}
+      />
+    </IFrame>
   )
 }
 

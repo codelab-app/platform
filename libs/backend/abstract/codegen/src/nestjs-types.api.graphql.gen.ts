@@ -318,6 +318,7 @@ export enum AtomType {
     TextList = "TextList",
     Text = "Text",
     State = "State",
+    NextImage = "NextImage",
     ReactFragment = "ReactFragment",
     HtmlA = "HtmlA",
     HtmlP = "HtmlP",
