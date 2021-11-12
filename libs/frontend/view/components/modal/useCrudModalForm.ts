@@ -1,15 +1,41 @@
 import { useCallback } from 'react'
-import { useRecoilState } from 'recoil'
-import {
-  ActionType,
-  crudModalAtom,
-  CRUDModalState,
-  defaultState,
-  EntityType,
-} from './crudModalsState'
+import { atom, useRecoilState } from 'recoil'
+import { ActionType, EntityType } from './store/CrudModalState'
+
+/**  @deprecated use createCrudSlice instead */
+export interface CRUDModalStateRecoil {
+  metadata: any
+  deleteIds: Array<string>
+  updateId: string
+  visibleForm: ActionType
+  type: EntityType
+  loading: boolean
+}
+
+/**  @deprecated use createCrudSlice instead */
+export const defaultState = {
+  visibleForm: ActionType.None,
+  type: EntityType.None,
+  loading: false,
+  deleteIds: [],
+  updateId: '',
+  metadata: undefined,
+}
+
+/**
+ * The base state for a crud modal. Use useCrudModalState or useMutationCrudForm for a simpler API
+ * @deprecated use createCrudSlice instead
+ */
+export const crudModalAtom = atom<CRUDModalStateRecoil>({
+  key: 'crud_modal',
+  default: {
+    ...defaultState,
+  },
+})
 
 /**
  * Data and methods returned from {@link useCrudModalForm}
+ * @deprecated use createCrudSlice instead
  */
 export interface UseCRUDModalFormData {
   /**
@@ -37,11 +63,12 @@ export interface UseCRUDModalFormData {
   setLoading: (loading: boolean) => void
 
   /** Reference to the current modal state */
-  state: CRUDModalState
+  state: CRUDModalStateRecoil
 }
 
 /**
  * Hook used for managing the state of a CRUD modal with a specific EntityType
+ * @deprecated use createCrudSlice instead
  */
 export const useCrudModalForm = (type: EntityType): UseCRUDModalFormData => {
   const [state, setState] = useRecoilState(crudModalAtom)
