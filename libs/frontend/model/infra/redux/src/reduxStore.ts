@@ -5,6 +5,7 @@ import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
   componentEndpoints,
   elementEndpoints,
+  elementSlice,
   hookEndpoints,
   propMapBindingEndpoints,
 } from '@codelab/frontend/modules/element'
@@ -37,6 +38,7 @@ export const makeStore = () => {
       // Slices:
       [builderSlice.name]: builderSlice.reducer,
       [appSlice.name]: appSlice.reducer,
+      [elementSlice.name]: appSlice.reducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(

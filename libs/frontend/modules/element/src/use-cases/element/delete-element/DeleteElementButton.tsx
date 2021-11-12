@@ -1,27 +1,27 @@
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button, ButtonProps } from 'antd'
 import React, { PropsWithChildren } from 'react'
+import { useDispatch } from 'react-redux'
+import { ElementFragment } from '../../../graphql'
+import { elementActions } from '../elementState'
 
 interface Props extends Omit<ButtonProps, 'onClick'> {
   elementId: string
-  metadata?: any
+  entity?: ElementFragment
 }
 
 export const DeleteElementButton = ({
   elementId,
   children,
-  metadata,
+  entity,
   ...props
 }: PropsWithChildren<Props>) => {
-  const { openDeleteModal } = useCrudModalForm(EntityType.Element)
+  const dispatch = useDispatch()
+
+  const openDeleteModal = () =>
+    dispatch(elementActions.openDeleteModal({ deleteIds: [elementId], entity }))
 
   return (
-    <Button
-      onClick={() => {
-        openDeleteModal([elementId], metadata)
-      }}
-      {...props}
-    >
+    <Button onClick={() => openDeleteModal()} {...props}>
       {children || (props?.icon ? '' : 'Delete')}
     </Button>
   )

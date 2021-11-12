@@ -31,7 +31,7 @@ export const CreateElementForm = ({
   ...props
 }: CreateElementFormProps) => {
   const initialDataRef = useRef(initialData)
-  const { elementId, elementTree } = useElementGraphContext()
+  const { elementTree } = useElementGraphContext()
 
   const {
     handleSubmit,

@@ -95,6 +95,25 @@ export const createCrudSlice = <
         isLoading: payload,
       }),
       reset: () => initialState,
+      resetModal: (s) => ({
+        ...s,
+        loading: false,
+        formAction: ActionType.None,
+        entity: undefined,
+        deleteIds: [],
+        updateId: '',
+      }),
       ...reducers,
     },
   })
+
+export type CRUDSlice = ReturnType<typeof createCrudSlice>
+export type CRUDActions = ReturnType<typeof createCrudSlice>['actions']
+
+export const initialCrudState: CRUDModalState<any> = {
+  actionType: ActionType.None,
+  loading: false,
+  deleteIds: [],
+  updateId: '',
+  entity: undefined,
+}

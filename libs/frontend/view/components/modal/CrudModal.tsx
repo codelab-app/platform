@@ -16,6 +16,7 @@ export type CrudModalProps = {
   >
 }
 
+/** @deprecated use CrudModalRedux instead */
 export const CrudModal = ({
   entityType,
   actionType,
