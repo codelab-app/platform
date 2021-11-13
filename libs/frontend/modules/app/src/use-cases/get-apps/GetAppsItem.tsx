@@ -8,7 +8,7 @@ import { useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button, Card, Dropdown, Menu } from 'antd'
 import Link from 'next/link'
 import React, { CSSProperties } from 'react'
-import { AppFragment } from '../../App.fragment.graphql.gen'
+import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
 
 export type GetAppsItemProps = {
   app: AppFragment

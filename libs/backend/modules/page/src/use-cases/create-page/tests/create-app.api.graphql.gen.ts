@@ -1,8 +1,8 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { AppBaseFragment } from '../../../../../../../frontend/modules/app/src/App.fragment.graphql.gen'
+import { AppBaseFragment } from '../../../../../../../frontend/modules/app/src/graphql/App.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { AppBaseFragmentDoc } from '../../../../../../../frontend/modules/app/src/App.fragment.graphql.gen'
+import { AppBaseFragmentDoc } from '../../../../../../../frontend/modules/app/src/graphql/App.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestCreateAppMutationVariables = Types.Exact<{

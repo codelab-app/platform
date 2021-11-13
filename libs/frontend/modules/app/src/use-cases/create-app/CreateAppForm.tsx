@@ -7,7 +7,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useCreateAppMutation } from '../app.endpoints'
+import { useCreateAppMutation } from '../../store/app.endpoints'
 import { CreateAppInput, createAppSchema } from './createAppSchema'
 
 export const CreateAppForm = (props: UniFormUseCaseProps<CreateAppInput>) => {
