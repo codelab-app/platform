@@ -1,10 +1,14 @@
 import { EditOutlined } from '@ant-design/icons'
 import { UpdateButtonProps } from '@codelab/frontend/abstract/props'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
+import { useDispatch } from 'react-redux'
+import { tagActions } from '../../store/tagState'
 
 export const UpdateTagButton = ({ id, disabled }: UpdateButtonProps) => {
-  const { openUpdateModal } = useCrudModalForm(EntityType.Tag)
+  const dispatch = useDispatch()
+
+  const openUpdateModal = () =>
+    dispatch(tagActions.openUpdateModal({ updateId: id }))
 
   return (
     <Button
@@ -17,7 +21,7 @@ export const UpdateTagButton = ({ id, disabled }: UpdateButtonProps) => {
           throw new Error('Tag ID is not valid')
         }
 
-        openUpdateModal(id)
+        openUpdateModal()
       }}
       icon={<EditOutlined />}
     >

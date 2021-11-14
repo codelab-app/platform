@@ -10,10 +10,7 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import {
-  useGetElementQuery,
-  useUpdateElementMutation,
-} from '../elementEndpoints'
+import { useGetElementQuery, useUpdateElementMutation } from '../../../store'
 import { UpdateElementSchema, updateElementSchema } from './updateElementSchema'
 
 type UpdateElementFormInternalProps =

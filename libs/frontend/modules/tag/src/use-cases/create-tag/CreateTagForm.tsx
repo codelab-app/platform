@@ -1,21 +1,18 @@
 import { CreateTagInput } from '@codelab/frontend/abstract/codegen'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
-  EntityType,
   FormUniforms,
-  UniFormUseCaseProps,
-  useCrudModalMutationForm,
+  FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { useCreateTagMutation, useGetTagsQuery } from '../tag.endpoints'
+import { useGetTagsQuery } from '../../store/tagEndpoints'
 import { createTagSchema } from './CreateTagSchema'
 
-export interface CreateTagFormProps
-  extends UniFormUseCaseProps<CreateTagInput> {
-  parentTagId?: string | null
-}
+export type CreateTagFormProps = Omit<
+  FormUniformsProps<CreateTagInput>,
+  'schema'
+>
 
 export const DisplayIfNotRoot = ({
   children,
@@ -29,39 +26,11 @@ export const DisplayIfNotRoot = ({
   </DisplayIfField>
 )
 
-export const CreateTagForm = ({
-  parentTagId,
-  ...props
-}: CreateTagFormProps) => {
-  const {
-    crudModal: { reset },
-    handleSubmit,
-  } = useCrudModalMutationForm({
-    entityType: EntityType.Tag,
-    useMutationFunction: useCreateTagMutation,
-    mutationOptions: { refetchQueries: [] },
-    mapVariables: (input: CreateTagInput) => {
-      console.log(input)
-
-      return { input }
-    },
-  })
-
+export const CreateTagForm = (props: CreateTagFormProps) => {
   const { data: tags } = useGetTagsQuery()
 
-  console.log(parentTagId)
-
   return (
-    <FormUniforms<CreateTagInput>
-      model={{ parentTagId }}
-      onSubmit={handleSubmit}
-      schema={createTagSchema}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while creating tag',
-      })}
-      onSubmitSuccess={() => reset()}
-      {...props}
-    >
+    <FormUniforms<CreateTagInput> schema={createTagSchema} {...props}>
       <AutoFields omitFields={['parentTagId']} />
       <DisplayIfNotRoot>
         <SelectField

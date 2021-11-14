@@ -1,52 +1,30 @@
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
   EmptyJsonSchemaType,
-  EntityType,
   FormUniforms,
-  UniFormUseCaseProps,
-  useCrudModalMutationForm,
+  FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { AutoFields } from 'uniforms-antd'
-import { useDeletePropMapBindingMutation } from '../propMapBindingEndpoints'
+import { selectPropMapBinding } from '../../../store'
 
-export interface DeletePropMapBindingFormProps {
+export interface DeletePropMapBindingFormProps
+  extends Omit<FormUniformsProps<EmptyJsonSchemaType>, 'schema'> {
   elementId: string
 }
 
 export const DeletePropMapBindingForm = ({
   elementId,
   ...props
-}: UniFormUseCaseProps<EmptyJsonSchemaType> &
-  DeletePropMapBindingFormProps) => {
-  const {
-    crudModal: {
-      reset,
-      state: { metadata },
-    },
-    handleSubmit,
-  } = useCrudModalMutationForm({
-    entityType: EntityType.PropMapBinding,
-    useMutationFunction: useDeletePropMapBindingMutation,
-    mapVariables: (_, state) => ({
-      input: { propMapBindingIds: state.deleteIds },
-    }),
-  })
+}: DeletePropMapBindingFormProps) => {
+  const { entity } = useSelector(selectPropMapBinding)
 
   return (
-    <FormUniforms<EmptyJsonSchemaType>
-      onSubmit={handleSubmit}
-      schema={emptyJsonSchema}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while deleting prop map binding',
-      })}
-      onSubmitSuccess={() => reset()}
-      {...props}
-    >
+    <FormUniforms<EmptyJsonSchemaType> schema={emptyJsonSchema} {...props}>
       <h4>
         Are you sure you want to delete the prop map binding "
-        {metadata?.sourceKey} - {metadata?.targetKey}"?
+        {entity?.sourceKey} - {entity?.targetKey}"?
       </h4>
       <AutoFields />
     </FormUniforms>

@@ -3,8 +3,12 @@ import { CreateElementMutationVariables } from '../../../graphql'
 
 export type CreateElementSchema = Omit<
   CreateElementMutationVariables['input'],
-  'childrenIds'
+  'childrenIds' | 'parentElementId'
 > & {
+  // in the input we don't require parentElementId, but in all purposes
+  // of the CreateElementForm, it's strongly advisable to have a parent, otherwise we will
+  // create a not attached element
+  parentElementId: string
   componentId?: string | null
 }
 
@@ -36,5 +40,5 @@ export const createElementSchema: JSONSchemaType<CreateElementSchema> = {
       label: 'Component',
     },
   },
-  required: [],
+  required: ['parentElementId'],
 }

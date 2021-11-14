@@ -12,7 +12,7 @@ import { useElementGraphContext } from '../../../providers'
 import {
   useGetElementQuery,
   useUpdateElementPropsMutation,
-} from '../elementEndpoints'
+} from '../../../store/elementEndpoints'
 
 interface UpdateElementPropsFormInternalProps {
   elementId: string

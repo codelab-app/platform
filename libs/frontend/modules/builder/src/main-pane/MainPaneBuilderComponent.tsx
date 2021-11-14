@@ -4,7 +4,6 @@ import {
   DeleteElementModal,
   useElementGraphContext,
 } from '@codelab/frontend/modules/element'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -14,7 +13,6 @@ export const MainPaneBuilderComponent = () => {
   const { elementTree } = useElementGraphContext()
   const root = elementTree?.getRootVertex(ElementTree.isComponent)
   const router = useRouter()
-  const { reset } = useCrudModalForm(EntityType.Component)
 
   if (!elementTree || !root || !root.componentTag) {
     return null
@@ -27,9 +25,9 @@ export const MainPaneBuilderComponent = () => {
       headerProps={{
         onBack: () => router.push({ pathname: PageType.ComponentList }),
       }}
-      header={<CreateElementButton key={0} />}
+      header={<CreateElementButton key={0} parentElementId={root.id} />}
     >
-      <DeleteElementModal formProps={{ onSubmitSuccess: () => reset() }} />
+      <DeleteElementModal />
     </MainPaneBuilder>
   )
 }

@@ -1,4 +1,5 @@
 import { PropsByElementId } from '@codelab/shared/abstract/core'
+import { propSafeStringify } from '@codelab/shared/utils'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { DefaultRootState } from 'react-redux'
 
@@ -63,7 +64,9 @@ export const builderSlice = createSlice({
       state,
       { payload }: PayloadAction<PropsPerElementIdPayload>,
     ) => {
-      state.lastRenderedProps[payload.elementId] = payload.props
+      state.lastRenderedProps[payload.elementId] = JSON.parse(
+        propSafeStringify(payload.props),
+      )
     },
   },
 })

@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { DeleteTagsMutationVariables } from '../tag.endpoints.graphql.gen'
+import { DeleteTagsMutationVariables } from '../../store/tag.endpoints.graphql.gen'
 
 export type DeleteTagsSchema = DeleteTagsMutationVariables['input']
 

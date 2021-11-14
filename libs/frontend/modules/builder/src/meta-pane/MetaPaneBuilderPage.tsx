@@ -43,7 +43,7 @@ export const MetaPaneBuilderPage = () => {
             <DeleteElementButton
               danger={true}
               elementId={element.id}
-              metadata={element}
+              entity={element}
             />
           </>
         )}

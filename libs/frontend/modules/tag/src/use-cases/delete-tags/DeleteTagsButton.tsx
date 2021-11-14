@@ -1,17 +1,21 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { DeleteButtonProps } from '@codelab/frontend/abstract/props'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
+import { useDispatch } from 'react-redux'
+import { tagActions } from '../../store/tagState'
 
 export const DeleteTagsButton = ({ disabled, ids }: DeleteButtonProps) => {
-  const { openDeleteModal } = useCrudModalForm(EntityType.Tag)
+  const dispatch = useDispatch()
+
+  const openDeleteModal = () =>
+    dispatch(tagActions.openDeleteModal({ deleteIds: ids }))
 
   return (
     <Button
       type="primary"
       danger
       onClick={() => {
-        openDeleteModal(ids)
+        openDeleteModal()
       }}
       disabled={disabled}
       icon={<DeleteOutlined />}

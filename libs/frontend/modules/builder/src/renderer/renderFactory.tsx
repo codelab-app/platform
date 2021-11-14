@@ -9,5 +9,7 @@ import { renderPipeline } from './renderPipeline'
 export const renderFactory = (node: RenderNode, context: RenderContext) => {
   const toRender: React.ReactNode = renderPipeline(node, context, {})
 
-  return Array.isArray(toRender) && toRender?.length ? toRender[0] : toRender
+  return Array.isArray(toRender) && toRender.length === 1
+    ? toRender[0]
+    : toRender
 }

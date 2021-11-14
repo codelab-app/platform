@@ -1,6 +1,6 @@
-import { IElement } from '@codelab/frontend/abstract/core'
 import {
   ElementCssEditor,
+  ElementFragment,
   ElementHookSection,
   PropMapBindingSection,
   UpdateElementPropsForm,
@@ -56,7 +56,7 @@ const TabContainer = styled.div`
 
 export interface MetaPaneBuilderProps {
   renderUpdateElementContent: (
-    element: IElement,
+    element: ElementFragment,
     trackPromises: UseTrackLoadingPromises,
   ) => React.ReactNode
   tree: ElementTree

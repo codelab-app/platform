@@ -5,7 +5,7 @@ import { Core, EdgeDataDefinition, NodeDataDefinition } from 'cytoscape'
 @Injectable()
 export class CytoscapeService {
   /**
-   * We're using elements in the cytoscape sense, not our domain sense.
+   * We're using elements in the cytoscape sense, not our hooks sense.
    */
   // fromElements({ nodes, edges }: CytoscapeGraph) {
   //   return cytoscape({

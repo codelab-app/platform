@@ -16,6 +16,7 @@ export type CrudModalProps = {
   >
 }
 
+/** @deprecated use regular FormUniformsModal instead */
 export const CrudModal = ({
   entityType,
   actionType,

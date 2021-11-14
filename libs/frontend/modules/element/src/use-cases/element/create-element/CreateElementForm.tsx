@@ -5,60 +5,22 @@ import {
   SelectElementProvider,
 } from '@codelab/frontend/modules/type'
 import {
-  createNotificationHandler,
-  notify,
-} from '@codelab/frontend/shared/utils'
-import {
-  EntityType,
   FormUniforms,
-  UniFormUseCaseProps,
-  useCrudModalMutationForm,
+  FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
-import React, { useRef } from 'react'
+import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useElementGraphContext } from '../../../providers'
-import { useCreateElementMutation } from '../elementEndpoints'
 import { CreateElementSchema, createElementSchema } from './createElementSchema'
 
-export interface CreateElementFormProps
-  extends UniFormUseCaseProps<CreateElementSchema> {
-  initialData: Partial<Pick<CreateElementSchema, 'parentElementId'>> | undefined
-}
+export type CreateElementFormProps = Omit<
+  FormUniformsProps<CreateElementSchema>,
+  'schema'
+>
 
-export const CreateElementForm = ({
-  initialData,
-  ...props
-}: CreateElementFormProps) => {
-  const initialDataRef = useRef(initialData)
-  const { elementId, elementTree } = useElementGraphContext()
-
-  const {
-    handleSubmit,
-    crudModal: {
-      reset,
-      state: { metadata },
-    },
-  } = useCrudModalMutationForm({
-    entityType: EntityType.Element,
-    useMutationFunction: useCreateElementMutation,
-    mapVariables: ({ componentId, ...formData }: CreateElementSchema) => {
-      if (formData.atomId && componentId) {
-        notify({
-          title: 'Set either atom or component, not both',
-          type: 'error',
-        })
-        throw new Error('Set either atom or component, not both')
-      }
-
-      return {
-        input: {
-          ...formData,
-          childrenIds: componentId ? [componentId] : undefined,
-        },
-      }
-    },
-  })
+export const CreateElementForm = (props: CreateElementFormProps) => {
+  const { elementTree } = useElementGraphContext()
 
   return (
     <SelectElementProvider
@@ -66,16 +28,6 @@ export const CreateElementForm = ({
     >
       <FormUniforms<CreateElementSchema>
         schema={createElementSchema}
-        onSubmitError={createNotificationHandler({
-          title: 'Error while creating element',
-        })}
-        onSubmit={handleSubmit}
-        onSubmitSuccess={() => reset()}
-        model={{
-          parentElementId:
-            initialDataRef.current?.parentElementId ??
-            metadata?.parentElementId,
-        }}
         {...props}
       >
         <AutoFields

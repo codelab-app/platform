@@ -1,2 +1,6 @@
-export * from './domain/use-tag/useTagState'
+export * from './hooks/use-tag/useTagState'
+export * from './store/tagEndpoints'
+export * from './store/tagState'
+export * from './Tag.fragment.graphql.gen'
+export * from './types/react-redux'
 export * from './use-cases'

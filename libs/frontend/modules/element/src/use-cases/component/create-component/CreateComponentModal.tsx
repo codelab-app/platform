@@ -1,18 +1,34 @@
 import {
   ActionType,
-  CrudModal,
-  EntityType,
+  FormUniformsModal,
 } from '@codelab/frontend/view/components'
-import React from 'react'
+import { useSelector } from 'react-redux'
+import tw from 'twin.macro'
+import { selectComponent } from '../../../store'
 import { CreateComponentForm } from './CreateComponentForm'
+import { useCreateComponentForm } from './useCreateComponentForm'
 
 export const CreateComponentModal = () => {
+  const { actionType } = useSelector(selectComponent)
+
+  const {
+    state: { isLoading },
+    formProps,
+    reset,
+  } = useCreateComponentForm()
+
   return (
-    <CrudModal
-      entityType={EntityType.Component}
-      actionType={ActionType.Create}
-      okText="Create Component"
-      renderForm={() => <CreateComponentForm />}
+    <FormUniformsModal
+      modalProps={{
+        okText: 'Create',
+        okButtonProps: {
+          loading: isLoading,
+        },
+        visible: actionType === ActionType.Create,
+        onCancel: () => reset(),
+        title: <span css={tw`font-semibold`}>Create component</span>,
+      }}
+      renderForm={() => <CreateComponentForm {...formProps} />}
     />
   )
 }

@@ -38,7 +38,6 @@ export interface CRUDModalState<TEntity> {
   deleteIds: Array<string>
   updateId: string
   actionType: ActionType
-  loading: boolean
 }
 
 export type OpenDeleteModalActionPayload<TEntity> = {
@@ -54,47 +53,60 @@ export type OpenUpdateModalActionPayload<TEntity> = {
 export const createCrudSlice = <
   TEntity,
   TState extends CRUDModalState<TEntity>,
-  Reducers extends SliceCaseReducers<CRUDModalState<TEntity>>,
+  Reducers extends SliceCaseReducers<TState>,
 >(
   name: string,
-  initialState: CRUDModalState<TEntity>,
-  reducers: ValidateSliceCaseReducers<CRUDModalState<TEntity>, Reducers>,
-) =>
-  createSlice({
+  initialState: TState,
+  reducers: ValidateSliceCaseReducers<TState, Reducers>,
+) => {
+  return createSlice({
     name,
     initialState,
     reducers: {
-      openCreateModal: (state: TState): TState => ({
+      openCreateModal: (state) => ({
         ...state,
-        formAction: ActionType.Create,
-        entity: {},
+        actionType: ActionType.Create,
+        entity: undefined,
       }),
       openUpdateModal: (
-        state: TState,
+        state,
         { payload }: PayloadAction<OpenUpdateModalActionPayload<TEntity>>,
-      ): TState => ({
+      ) => ({
         ...state,
         entity: payload.entity,
         updateId: payload.updateId,
-        formAction: ActionType.Update,
+        actionType: ActionType.Update,
       }),
       openDeleteModal: (
-        state: TState,
+        state,
         { payload }: PayloadAction<OpenDeleteModalActionPayload<TEntity>>,
-      ): TState => ({
+      ) => ({
         ...state,
         entity: payload.entity,
         deleteIds: payload.deleteIds,
-        formAction: ActionType.Delete,
-      }),
-      setLoading: (
-        state: TState,
-        { payload }: PayloadAction<boolean>,
-      ): TState => ({
-        ...state,
-        isLoading: payload,
+        actionType: ActionType.Delete,
       }),
       reset: () => initialState,
+      resetModal: (s) => {
+        return {
+          ...s,
+          actionType: ActionType.None,
+          entity: undefined,
+          deleteIds: [],
+          updateId: '',
+        }
+      },
       ...reducers,
     },
   })
+}
+
+export type CRUDSlice = ReturnType<typeof createCrudSlice>
+export type CRUDActions = ReturnType<typeof createCrudSlice>['actions']
+
+export const initialCrudState: CRUDModalState<any> = {
+  actionType: ActionType.None,
+  deleteIds: [],
+  updateId: '',
+  entity: undefined,
+}
