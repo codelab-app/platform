@@ -8,7 +8,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useCreatePageMutation } from '../page.endpoints'
+import { useCreatePageMutation } from '../../store/pageEndpoints'
 import { createPageSchema, CreatePageSchemaType } from './createPageSchema'
 
 type CreatePageFormProps = UniFormUseCaseProps<CreatePageSchemaType>

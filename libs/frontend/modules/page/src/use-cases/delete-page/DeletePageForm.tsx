@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React, { useContext } from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useDeletePageMutation } from '../page.endpoints'
+import { useDeletePageMutation } from '../../store/pageEndpoints'
 
 type DeletePageFormProps = UniFormUseCaseProps<EmptyJsonSchemaType>
 

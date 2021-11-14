@@ -3,7 +3,7 @@ import { withProvider } from '@codelab/frontend/presenter/container'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 import { PageBaseFragment } from '../graphql/PageBase.fragment.graphql.gen'
-import { useGetPageQuery } from '../use-cases/page.endpoints'
+import { useGetPageQuery } from '../store/pageEndpoints'
 
 export interface PageContextType {
   pageId: string

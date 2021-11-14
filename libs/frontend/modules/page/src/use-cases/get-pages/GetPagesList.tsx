@@ -10,7 +10,7 @@ import {
 import { List, Space, Spin } from 'antd'
 import Link from 'next/link'
 import React, { useContext } from 'react'
-import { useGetPagesQuery } from '../page.endpoints'
+import { useGetPagesQuery } from '../../store/pageEndpoints'
 
 export const GetPagesList = () => {
   const { app } = useContext(AppContext)
