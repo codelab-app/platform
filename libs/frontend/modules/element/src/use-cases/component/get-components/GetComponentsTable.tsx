@@ -1,6 +1,7 @@
 import { ApartmentOutlined } from '@ant-design/icons'
 import { IElement } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/model/state/router'
+import { tagActions, TagFragment } from '@codelab/frontend/modules/tag'
 import {
   ListItemButton,
   ListItemDeleteButton,
@@ -12,18 +13,25 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import tw from 'twin.macro'
 import { useGetComponentsQuery } from '../../../graphql/component.endpoints.graphql.gen'
-import { componentActions } from '../../../store'
+import { elementActions } from '../../../store'
 
 export const GetComponentsTable = () => {
   const router = useRouter()
-  // const { openUpdateModal } = useCrudModalForm(EntityType.Tag) // TODO
   const dispatch = useDispatch()
 
   const openDeleteModal = (record: IElement) =>
     dispatch(
-      componentActions.openDeleteModal({
+      elementActions.openDeleteModal({
         deleteIds: [record.id],
         entity: record as any,
+      }),
+    )
+
+  const openUpdateModal = (record: TagFragment) =>
+    dispatch(
+      tagActions.openUpdateModal({
+        updateId: record.id,
+        entity: record,
       }),
     )
 
@@ -68,7 +76,7 @@ export const GetComponentsTable = () => {
           <ListItemEditButton
             onClick={() => {
               if (record.componentTag) {
-                // openUpdateModal(record.componentTag.id, record.componentTag)
+                openUpdateModal(record.componentTag)
               }
             }}
           />

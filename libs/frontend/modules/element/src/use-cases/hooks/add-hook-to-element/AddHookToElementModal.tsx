@@ -5,7 +5,7 @@ import {
 import React from 'react'
 import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { selectHook } from '../../../store/hookState'
+import { selectHook } from '../../../store'
 import {
   AddHookToElementForm,
   AddHookToElementFormProps,

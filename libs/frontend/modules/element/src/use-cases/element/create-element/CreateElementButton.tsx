@@ -5,11 +5,19 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { elementActions } from '../../../store'
 
-export const CreateElementButton = (
-  props: Omit<ButtonProps, 'onClick' | 'icon'>,
-) => {
+export interface CreateElementButtonProps
+  extends Omit<ButtonProps, 'onClick' | 'icon'> {
+  parentElementId?: string
+}
+
+export const CreateElementButton = ({
+  parentElementId,
+  ...props
+}: CreateElementButtonProps) => {
   const dispatch = useDispatch()
-  const openCreateModal = () => dispatch(elementActions.openCreateModal())
+
+  const openCreateModal = () =>
+    dispatch(elementActions.openCreateModal({ parentElementId }))
 
   return (
     <Button

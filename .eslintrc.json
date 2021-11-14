@@ -249,7 +249,7 @@
               // This is a map of key & their possible values
               //
               // "scope": ["frontend", "backend", "shared", "codegen"]
-              // "layer": ["ui-domain", "api-domain", "app", "infra"]
+              // "layer": ["ui-hooks", "api-hooks", "app", "infra"]
               // "type": ["concrete", "abstract"]
               {
                 "sourceTag": "type:abstract",

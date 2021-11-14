@@ -9,7 +9,7 @@ import { DefaultRootState } from 'react-redux'
 import { ElementFragment } from '../graphql'
 
 export interface ElementStateCreateMetadata {
-  parentElementId: string
+  parentElementId?: string
 }
 
 export interface ElementState extends CRUDModalState<ElementFragment> {
@@ -24,7 +24,7 @@ export const initialState: ElementState = {
 export const elementSlice = createCrudSlice('element', initialState, {
   openCreateModal: (
     state,
-    { payload }: PayloadAction<ElementStateCreateMetadata>,
+    { payload }: PayloadAction<ElementStateCreateMetadata | undefined>,
   ) => {
     state.actionType = ActionType.Create
     state.entity = undefined

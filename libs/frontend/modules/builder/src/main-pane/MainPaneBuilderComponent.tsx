@@ -25,7 +25,7 @@ export const MainPaneBuilderComponent = () => {
       headerProps={{
         onBack: () => router.push({ pathname: PageType.ComponentList }),
       }}
-      header={<CreateElementButton key={0} />}
+      header={<CreateElementButton key={0} parentElementId={root.id} />}
     >
       <DeleteElementModal />
     </MainPaneBuilder>

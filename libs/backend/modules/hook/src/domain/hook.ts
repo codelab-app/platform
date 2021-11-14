@@ -3,7 +3,7 @@ import { ICreateHookInput, IUpdateHookInput } from './contracts'
 import { parseHookConfig } from './hook-config'
 
 /**
- * Hook domain entity
+ * Hook hooks entity
  */
 export class Hook {
   private readonly _id?: string

@@ -1,7 +1,7 @@
 import { Button } from 'antd'
 import fileDownload from 'js-file-download'
-import { useTagState } from '../../domain/use-tag/useTagState'
-import { useLazyExportTagsQuery } from '../tag.endpoints'
+import { useTagState } from '../../hooks/use-tag/useTagState'
+import { useLazyExportTagsQuery } from '../../store/tagEndpoints'
 
 /**
  * Export should only allow root components to be checked

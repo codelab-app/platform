@@ -95,7 +95,7 @@ export class TypeTreeJsonSchemaTransformer {
   }
 
   /**
-   * Converts a Type (as in - our domain model Type) to a json schema property
+   * Converts a Type (as in - our hooks model Type) to a json schema property
    * or throws an error if the type is not recognized.
    * Since the TypeFragment is flat, doesn't contain any nested types in itself, only references
    * them by id, an external source is needed for them to be transformed too

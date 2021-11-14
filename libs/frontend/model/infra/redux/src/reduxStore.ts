@@ -14,7 +14,7 @@ import {
 } from '@codelab/frontend/modules/element'
 import { lambdaEndpoints } from '@codelab/frontend/modules/lambda'
 import { pageEndpoints } from '@codelab/frontend/modules/page'
-import { tagEndpoints } from '@codelab/frontend/modules/tag'
+import { tagEndpoints, tagSlice } from '@codelab/frontend/modules/tag'
 import { fieldEndpoints, typeEndpoints } from '@codelab/frontend/modules/type'
 import { userEndpoints } from '@codelab/frontend/modules/user'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
@@ -45,6 +45,7 @@ export const makeStore = () => {
       [componentSlice.name]: componentSlice.reducer,
       [hookSlice.name]: hookSlice.reducer,
       [propMapBindingSlice.name]: propMapBindingSlice.reducer,
+      [tagSlice.name]: tagSlice.reducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(

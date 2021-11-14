@@ -1,5 +1,5 @@
 /**
- * This is the port that our domain needs to implement
+ * This is the port that our hooks needs to implement
  */
 export interface Lambda {
   id: string

@@ -24,7 +24,13 @@ export const MainPaneBuilderPage = () => {
             query: { appId },
           }),
       }}
-      header={<CreateElementButton loading={loading} key={0} />}
+      header={
+        <CreateElementButton
+          loading={loading}
+          key={0}
+          parentElementId={page.rootElementId}
+        />
+      }
     >
       <DeleteElementModal />
     </MainPaneBuilder>
