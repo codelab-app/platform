@@ -1,2 +1,2 @@
-export * from './app.endpoints'
+export * from './appEndpoints'
 export * from './appState'

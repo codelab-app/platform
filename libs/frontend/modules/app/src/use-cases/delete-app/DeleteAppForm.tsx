@@ -1,42 +1,49 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
-  EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { AutoFields } from 'uniforms-antd'
-import { useDeleteAppMutation } from '../../store/app.endpoints'
+import { useDeleteAppMutation } from '../../store/appEndpoints'
+import { appSelectors } from '../../store/appState'
+import { useApp } from '../../store/useApp'
 import { DeleteAppInput, DeleteAppSchema } from './deleteAppSchema'
 
-type DeleteAppFormProps = UniFormUseCaseProps<DeleteAppInput>
+export const DeleteAppForm = (props: UniFormUseCaseProps<DeleteAppInput>) => {
+  const deletedIds = useSelector(appSelectors.deleteIds)
+  const appName = useSelector(appSelectors.appName)
+  const { reset, setLoading } = useApp()
+  const [deleteApp] = useDeleteAppMutation()
 
-export const DeleteAppForm = (props: DeleteAppFormProps) => {
-  const {
-    crudModal: {
-      reset,
-      state: { metadata },
+  const mapVariables = () => ({
+    variables: {
+      input: {
+        appId: deletedIds[0],
+      },
     },
-    handleSubmit,
-  } = useCrudModalMutationForm({
-    entityType: EntityType.App,
-    useMutationFunction: useDeleteAppMutation,
-    //    mutationOptions: { refetchQueries: [refetchGetAppsQuery()] },
-    mapVariables: (_, state) => ({ input: { appId: state.deleteIds[0] } }),
+  })
+
+  const onSumbit = async () => {
+    setLoading(true)
+    await deleteApp(mapVariables())
+    setLoading(false)
+  }
+
+  const onSubmitError = createNotificationHandler({
+    title: 'Error while deleting app',
   })
 
   return (
     <FormUniforms<DeleteAppInput>
-      onSubmit={handleSubmit}
+      onSubmit={onSumbit}
       schema={DeleteAppSchema}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while deleting app',
-      })}
-      onSubmitSuccess={() => reset()}
+      onSubmitError={onSubmitError}
+      onSubmitSuccess={reset}
       {...props}
     >
-      <h4>Are you sure you want to delete app "{metadata?.name}"?</h4>
+      <h4>Are you sure you want to delete app "{appName}"?</h4>
       <AutoFields />
     </FormUniforms>
   )

@@ -1,28 +1,20 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
 import React from 'react'
+import { useApp } from '../../store/useApp'
 
-export const CreateAppButton = () => {
-  const { openCreateModal } = useCrudModalForm(EntityType.App)
-
-  return (
-    <Button
-      type="primary"
-      onClick={() => openCreateModal()}
-      icon={<PlusOutlined />}
-    >
-      Create App
-    </Button>
-  )
+export type CreateAppButton = {
+  createNow?: boolean
 }
 
-export const CreateAppButtonNow = () => {
-  const { openCreateModal } = useCrudModalForm(EntityType.App)
+export const CreateAppButton = ({ createNow }: CreateAppButton) => {
+  const { openCreateModal } = useApp()
+  const icon = !createNow && <PlusOutlined />
+  const onClick = () => openCreateModal()
 
   return (
-    <Button onClick={() => openCreateModal()} type="primary">
-      Create Now
+    <Button onClick={onClick} icon={icon} type="primary">
+      {createNow ? 'Create Now' : 'Create App'}
     </Button>
   )
 }

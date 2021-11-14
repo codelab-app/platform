@@ -1,5 +1,5 @@
 import { JSONSchemaType } from 'ajv'
-import { CreateAppMutationVariables } from './CreateApp.web.graphql.gen'
+import { CreateAppMutationVariables } from '../../graphql/app.endpoints.graphql.gen'
 
 export type CreateAppInput = CreateAppMutationVariables['input']
 

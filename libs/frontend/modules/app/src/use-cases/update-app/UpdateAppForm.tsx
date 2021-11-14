@@ -1,41 +1,49 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
-  EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { AutoFields } from 'uniforms-antd'
-import { useUpdateAppMutation } from '../../store/app.endpoints'
+import { appSelectors } from '../..'
+import { useUpdateAppMutation } from '../../store/appEndpoints'
+import { useApp } from '../../store/useApp'
 import { UpdateAppSchema, updateAppSchema } from './updateAppSchema'
 
 export const UpdateAppForm = (props: UniFormUseCaseProps<UpdateAppSchema>) => {
-  const {
-    crudModal: {
-      reset,
-      state: { metadata },
+  const appName = useSelector(appSelectors.appName)
+  const loading = useSelector(appSelectors.loading)
+  const updateId = useSelector(appSelectors.updateId)
+  const { setLoading, reset } = useApp()
+  const [updateApp] = useUpdateAppMutation()
+
+  const mapVariables = ({ name }: UpdateAppSchema) => ({
+    variables: {
+      input: {
+        data: { name },
+        id: updateId,
+      },
     },
-    handleSubmit,
-  } = useCrudModalMutationForm({
-    entityType: EntityType.App,
-    useMutationFunction: useUpdateAppMutation,
-    mapVariables: ({ name }: UpdateAppSchema, state) => ({
-      input: { data: { name }, id: state.updateId },
-    }),
+  })
+
+  const onSubmit = async (submittedData: UpdateAppSchema) => {
+    setLoading(true)
+    await updateApp(mapVariables(submittedData))
+    setLoading(false)
+  }
+
+  const onSubmitError = createNotificationHandler({
+    title: `Error while updating app '${appName}'`,
   })
 
   return (
     <FormUniforms<UpdateAppSchema>
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       schema={updateAppSchema}
-      model={{
-        name: metadata?.name,
-      }}
-      onSubmitError={createNotificationHandler({
-        title: `Error while updating app '${metadata?.name}'`,
-      })}
-      onSubmitSuccess={() => reset()}
+      onSubmitError={onSubmitError}
+      model={{ name: appName }}
+      onSubmitSuccess={reset}
       {...props}
     >
       <AutoFields />
