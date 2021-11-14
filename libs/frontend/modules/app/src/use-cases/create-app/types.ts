@@ -1,5 +1,5 @@
 import { FormUniformsProps } from '@codelab/frontend/view/components'
-import { CreateAppMutationVariables } from '../../graphql'
+import { CreateAppMutationVariables } from '../../graphql/App.endpoints.graphql.gen'
 
 export type CreateAppMutationInput = CreateAppMutationVariables['input']
 
