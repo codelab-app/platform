@@ -1,19 +1,15 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React from 'react'
-import { useApp } from '../../store/useApp'
+import { useAppDispatch } from '../../hooks'
+import { CreateAppButtonProps } from './types'
 
-export type CreateAppButton = {
-  createNow?: boolean
-}
-
-export const CreateAppButton = ({ createNow }: CreateAppButton) => {
-  const { openCreateModal } = useApp()
+export const CreateAppButton = ({ createNow }: CreateAppButtonProps) => {
+  const { openCreateModal } = useAppDispatch()
   const icon = !createNow && <PlusOutlined />
-  const onClick = () => openCreateModal()
 
   return (
-    <Button onClick={onClick} icon={icon} type="primary">
+    <Button onClick={openCreateModal} icon={icon} type="primary">
       {createNow ? 'Create Now' : 'Create App'}
     </Button>
   )

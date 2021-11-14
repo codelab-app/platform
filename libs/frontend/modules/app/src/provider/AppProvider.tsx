@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
-import { AppFragment } from '../graphql/App.fragment.graphql.gen'
-import { useGetAppQuery } from '../store/appEndpoints'
+import { AppFragment } from '../graphql'
+import { useGetAppQuery } from '../store'
 
 type IAppContext = {
   app: AppFragment

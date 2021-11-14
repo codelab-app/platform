@@ -3,27 +3,26 @@ import {
   FormUniformsModal,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { useApp } from '../..'
-import { appSelectors } from '../../store'
+import { useAppState } from '../../hooks'
 import { DeleteAppForm } from './DeleteAppForm'
+import { useDeleteAppForm } from './useDeleteAppForm'
 
 export const DeleteAppModal = () => {
-  const currentAction = useSelector(appSelectors.actionType)
-  const loading = useSelector(appSelectors.loading)
-  const { reset } = useApp()
+  const { actionType } = useAppState()
+  const { formProps, reset, state } = useDeleteAppForm()
+  const { isLoading } = state
 
   const modalProps = {
-    visible: currentAction === ActionType.Delete,
+    visible: actionType === ActionType.Delete,
     onCancel: reset,
     okText: 'Delete App',
-    okButtonProps: { loading },
+    okButtonProps: { loading: isLoading },
   }
 
   return (
     <FormUniformsModal
       modalProps={modalProps}
-      renderForm={() => <DeleteAppForm />}
+      renderForm={() => <DeleteAppForm {...formProps} />}
     />
   )
 }

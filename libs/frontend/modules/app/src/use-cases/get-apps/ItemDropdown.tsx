@@ -6,7 +6,7 @@ import {
 import { Button, Dropdown, Menu } from 'antd'
 import React, { CSSProperties } from 'react'
 import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
-import { useApp } from '../../store/useApp'
+import { useAppDispatch } from '../../hooks'
 
 export type ItemMenuProps = {
   app: AppFragment
@@ -25,7 +25,7 @@ const menuItemIconStyle: CSSProperties = {
 }
 
 export const ItemDropdown = ({ app }: ItemMenuProps) => {
-  const { openUpdateModal, openDeleteModal } = useApp()
+  const { openUpdateModal, openDeleteModal } = useAppDispatch()
 
   const onClickEdit = () =>
     openUpdateModal({

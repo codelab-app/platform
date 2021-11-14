@@ -3,27 +3,26 @@ import {
   FormUniformsModal,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { appSelectors } from '../../store'
-import { useApp } from '../../store/useApp'
+import { useAppState } from '../../hooks'
 import { UpdateAppForm } from './UpdateAppForm'
+import { useUpdateAppForm } from './useUpdateAppForm'
 
 export const UpdateAppModal = () => {
-  const currentAction = useSelector(appSelectors.actionType)
-  const loading = useSelector(appSelectors.loading)
-  const { reset } = useApp()
+  const { actionType } = useAppState()
+  const { formProps, state, reset } = useUpdateAppForm()
+  const { isLoading } = state
 
   const modalProps = {
-    visible: currentAction === ActionType.Update,
+    visible: actionType === ActionType.Update,
     onCancel: reset,
     okText: 'Update App',
-    okButtonProps: { loading },
+    okButtonProps: { loading: isLoading },
   }
 
   return (
     <FormUniformsModal
       modalProps={modalProps}
-      renderForm={() => <UpdateAppForm />}
+      renderForm={() => <UpdateAppForm {...formProps} />}
     />
   )
 }
