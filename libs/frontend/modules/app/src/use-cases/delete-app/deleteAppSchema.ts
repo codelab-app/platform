@@ -1,8 +1,6 @@
 import { JSONSchemaType } from 'ajv'
 
-export type DeleteAppInput = Record<string, unknown>
-
-export const DeleteAppSchema: JSONSchemaType<DeleteAppInput> = {
+export const deleteAppSchema: JSONSchemaType<Record<string, unknown>> = {
   title: 'Delete App',
   type: 'object',
   properties: {},

@@ -1,9 +1,7 @@
 import { JSONSchemaType } from 'ajv'
-import { UpdateAppMutationVariables } from './UpdateApp.web.graphql.gen'
+import { UpdateAppMutationInput } from './types'
 
-export type UpdateAppSchema = UpdateAppMutationVariables['input']['data']
-
-export const updateAppSchema: JSONSchemaType<UpdateAppSchema> = {
+export const updateAppSchema: JSONSchemaType<UpdateAppMutationInput> = {
   title: 'Edit App Input',
   type: 'object',
   properties: {

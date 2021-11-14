@@ -1,40 +1,37 @@
 import { padding, threeGridCol } from '@codelab/frontend/style'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
-import { Col, Empty, Row, Spin } from 'antd'
+import {
+  ConditionalView,
+  SpinnerWrapper,
+} from '@codelab/frontend/view/components'
+import { Col, Empty, Row } from 'antd'
 import React from 'react'
-import { useGetAppsQuery } from '../app.endpoints'
-import { CreateAppButtonNow } from '../create-app'
+import { useGetAppsQuery } from '../../store/appEndpoints'
+import { CreateAppButton } from '../create-app'
 import { GetAppsItem } from './GetAppsItem'
+
+const emptyImageStyle: React.CSSProperties = {
+  height: 60,
+}
 
 export const GetAppsList = () => {
   const { isLoading, data } = useGetAppsQuery()
-  const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.App)
   const appList = data?.apps
 
   return (
-    <>
-      {isLoading && <Spin />}
-      {!isLoading && (!appList || !appList.length) ? (
-        <Empty
-          imageStyle={{
-            height: 60,
-          }}
-          description={<span>No apps found</span>}
-        >
-          <CreateAppButtonNow />
+    <SpinnerWrapper isLoading={isLoading}>
+      <ConditionalView condition={!appList || !appList.length}>
+        <Empty description="No apps found" imageStyle={emptyImageStyle}>
+          <CreateAppButton createNow />
         </Empty>
-      ) : null}
+      </ConditionalView>
+
       <Row gutter={[padding.sm, padding.sm]}>
         {appList?.map((app) => (
           <Col key={app.id} {...threeGridCol}>
-            <GetAppsItem
-              app={app}
-              handleDeleteClick={(e, m) => openDeleteModal(e, m)}
-              handleEditClick={(e, m) => openUpdateModal(e, m)}
-            />
+            <GetAppsItem app={app} />
           </Col>
         ))}
       </Row>
-    </>
+    </SpinnerWrapper>
   )
 }

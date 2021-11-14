@@ -39,7 +39,7 @@ app.use('*', async (baseReq, baseRes, next) => {
       if (session) {
         proxyReq.setHeader('Authorization', `Bearer ${session.accessToken}`)
       } else if (req.headers.authorization) {
-        // For SSR session is null, so we instead we use getSession inside getServerSideProps to set apollo client auth headers
+        // For SSR session is null, so we instead we use getSession inside getServerSideProps to set graphql request client auth headers
         proxyReq.setHeader('Authorization', req.headers.authorization)
       }
 
