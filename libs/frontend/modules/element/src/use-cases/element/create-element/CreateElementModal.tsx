@@ -5,26 +5,35 @@ import {
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { elementActions, selectElement } from '../elementState'
-import { CreateElementForm, CreateElementFormProps } from './CreateElementForm'
+import { elementActions, selectElement } from '../../../store/elementState'
+import { CreateElementForm } from './CreateElementForm'
+import {
+  CreateElementInitialData,
+  useCreateElementForm,
+} from './useCreateElementForm'
 
 export const CreateElementModal = ({
-  formProps,
+  initialData,
 }: {
-  formProps: CreateElementFormProps
+  initialData?: CreateElementInitialData
 }) => {
-  const { loading, actionType } = useSelector(selectElement)
+  const { actionType } = useSelector(selectElement)
   const dispatch = useDispatch()
   const reset = () => dispatch(elementActions.resetModal())
+
+  const {
+    state: { isLoading },
+    formProps,
+  } = useCreateElementForm(initialData)
 
   return (
     <FormUniformsModal
       modalProps={{
         okText: 'Create',
         okButtonProps: {
-          loading,
+          loading: isLoading,
         },
-        visible: actionType !== ActionType.Create,
+        visible: actionType === ActionType.Create,
         onCancel: () => reset(),
         title: <span css={tw`font-semibold`}>Create element</span>,
       }}

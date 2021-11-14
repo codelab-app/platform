@@ -2,22 +2,30 @@ import { ApartmentOutlined } from '@ant-design/icons'
 import { IElement } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/model/state/router'
 import {
-  EntityType,
   ListItemButton,
   ListItemDeleteButton,
   ListItemEditButton,
-  useCrudModalForm,
 } from '@codelab/frontend/view/components'
 import { Space, Spin, Table, TableColumnProps } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 import tw from 'twin.macro'
 import { useGetComponentsQuery } from '../../../graphql/component.endpoints.graphql.gen'
+import { componentActions } from '../../../store'
 
 export const GetComponentsTable = () => {
   const router = useRouter()
-  const { openUpdateModal } = useCrudModalForm(EntityType.Tag)
-  const { openDeleteModal } = useCrudModalForm(EntityType.Element)
+  // const { openUpdateModal } = useCrudModalForm(EntityType.Tag) // TODO
+  const dispatch = useDispatch()
+
+  const openDeleteModal = (record: IElement) =>
+    dispatch(
+      componentActions.openDeleteModal({
+        deleteIds: [record.id],
+        entity: record as any,
+      }),
+    )
 
   const headerCellProps = () => ({
     style: tw`font-semibold text-gray-900`,
@@ -60,14 +68,12 @@ export const GetComponentsTable = () => {
           <ListItemEditButton
             onClick={() => {
               if (record.componentTag) {
-                openUpdateModal(record.componentTag.id, record.componentTag)
+                // openUpdateModal(record.componentTag.id, record.componentTag)
               }
             }}
           />
 
-          <ListItemDeleteButton
-            onClick={() => openDeleteModal([record.id], record)}
-          />
+          <ListItemDeleteButton onClick={() => openDeleteModal(record)} />
         </Space>
       ),
     },

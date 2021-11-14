@@ -1,10 +1,14 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { propMapBindingActions } from '../../../store'
 
 export const CreatePropMapBindingButton = () => {
-  const { openCreateModal } = useCrudModalForm(EntityType.PropMapBinding)
+  const dispatch = useDispatch()
+
+  const openCreateModal = () =>
+    dispatch(propMapBindingActions.openCreateModal())
 
   return (
     <Button

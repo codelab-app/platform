@@ -1,29 +1,26 @@
 import { SelectLambda, SelectPage } from '@codelab/frontend/modules/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
-  EntityType,
   FormUniforms,
+  FormUniformsProps,
   graphqlEditorFieldFactory,
   monacoFieldFactory,
-  UniFormUseCaseProps,
-  useCrudModalMutationForm,
 } from '@codelab/frontend/view/components'
 import { HookType } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { AutoField, AutoFields, HiddenField } from 'uniforms-antd'
-import { useAddHookToElementMutation } from '../hookEndpoints'
 import {
   AddHookToElementSchema,
   addHookToElementSchema,
-  mapDataToInput,
   QueryHookVariant,
 } from './addHookToElementSchema'
 
-export type AddHookToElementFormProps =
-  UniFormUseCaseProps<AddHookToElementSchema> & { elementId: string }
+export type AddHookToElementFormProps = Omit<
+  FormUniformsProps<AddHookToElementSchema>,
+  'schema'
+> & { elementId: string }
 
 export const DisplayIfType = ({
   type,
@@ -73,25 +70,9 @@ export const AddHookToElementForm = ({
 }: AddHookToElementFormProps) => {
   const router = useRouter()
 
-  const {
-    crudModal: { reset },
-    handleSubmit,
-  } = useCrudModalMutationForm({
-    entityType: EntityType.Hook,
-    useMutationFunction: useAddHookToElementMutation,
-    mapVariables: (data: AddHookToElementSchema, state) => ({
-      input: mapDataToInput(elementId ?? state.metadata.element.id, data),
-    }),
-  })
-
   return (
     <FormUniforms<AddHookToElementSchema>
-      onSubmit={handleSubmit}
       schema={addHookToElementSchema}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while creating app',
-      })}
-      onSubmitSuccess={() => reset()}
       {...props}
     >
       {/* Base fields */}
@@ -126,12 +107,12 @@ export const AddHookToElementForm = ({
             grid-template-rows: auto 26rem auto;
           `}
         >
-          <AutoFields fields={['graphqlQueryHook.url']} />
+          <AutoFields fields={['graphqlQueryHook.graphqlUrl']} />
 
           <AutoField
-            name={'graphqlQueryHook.body'}
+            name={'graphqlQueryHook.graphqlBody'}
             component={graphqlEditorFieldFactory({
-              schemaUrlFieldKey: 'graphqlQueryHook.url',
+              schemaUrlFieldKey: 'graphqlQueryHook.graphqlUrl',
               editorOptions: { lineNumbers: 'off' },
             })}
           />
@@ -147,12 +128,12 @@ export const AddHookToElementForm = ({
             grid-template-rows: auto 26rem auto;
           `}
         >
-          <AutoFields fields={['graphqlMutationHook.url']} />
+          <AutoFields fields={['graphqlMutationHook.graphqlUrl']} />
 
           <AutoField
-            name={'graphqlMutationHook.body'}
+            name={'graphqlMutationHook.graphqlBody'}
             component={graphqlEditorFieldFactory({
-              schemaUrlFieldKey: 'graphqlMutationHook.url',
+              schemaUrlFieldKey: 'graphqlMutationHook.graphqlUrl',
               editorOptions: { lineNumbers: 'off' },
             })}
           />
@@ -172,7 +153,6 @@ export const AddHookToElementForm = ({
           <AutoFields
             fields={['queryHook.queryKey', 'queryHook.url', 'queryHook.method']}
           />
-
           <QueryBodyField name={'queryHook.body'} />
         </DisplayIfField>
 

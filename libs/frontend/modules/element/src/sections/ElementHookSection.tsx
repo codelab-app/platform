@@ -1,10 +1,7 @@
 import React from 'react'
 import tw from 'twin.macro'
-import {
-  ElementHooksList,
-  RemoveHookFromElementModal,
-  useGetElementQuery,
-} from '../use-cases'
+import { useGetElementQuery } from '../store'
+import { ElementHooksList, RemoveHookFromElementModal } from '../use-cases'
 import {
   AddHookToElementButton,
   AddHookToElementModal,

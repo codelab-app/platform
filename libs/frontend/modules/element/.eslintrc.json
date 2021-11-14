@@ -8,7 +8,8 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {}
+      "rules": {},
+      "extends": ["plugin:@nrwl/nx/react"]
     },
     {
       "files": ["*.js", "*.jsx"],

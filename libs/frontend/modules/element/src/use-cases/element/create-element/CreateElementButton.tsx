@@ -3,7 +3,7 @@ import { Button } from 'antd'
 import { ButtonProps } from 'antd/lib/button/button'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { elementActions } from '../elementState'
+import { elementActions } from '../../../store'
 
 export const CreateElementButton = (
   props: Omit<ButtonProps, 'onClick' | 'icon'>,

@@ -1,15 +1,16 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
-import React from 'react'
+import { useDispatch } from 'react-redux'
+import { hookActions } from '../../../store'
 
-export const AddHookToElementButton = ({ metadata }: { metadata?: any }) => {
-  const { openCreateModal } = useCrudModalForm(EntityType.Hook)
+export const AddHookToElementButton = () => {
+  const dispatch = useDispatch()
+  const openCreateModal = () => dispatch(hookActions.openCreateModal())
 
   return (
     <Button
       type="primary"
-      onClick={() => openCreateModal(metadata)}
+      onClick={() => openCreateModal()}
       icon={<PlusOutlined />}
     >
       Add hook

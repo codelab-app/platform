@@ -1,22 +1,18 @@
 import {
-  ActionType,
   createCrudSlice,
   CRUDModalState,
+  initialCrudState,
 } from '@codelab/frontend/view/components'
 import { DefaultRootState } from 'react-redux'
 import { AppFragment } from '../App.fragment.graphql.gen'
 
 export type AppState = CRUDModalState<AppFragment>
 
-export const intialState: CRUDModalState<AppFragment> = {
-  actionType: ActionType.None,
-  loading: false,
-  deleteIds: [],
-  updateId: '',
-  entity: undefined,
+export const initialState: CRUDModalState<AppFragment> = {
+  ...initialCrudState,
 }
 
-export const appSlice = createCrudSlice('app', intialState, {})
+export const appSlice = createCrudSlice('app', initialState, {})
 
 // Action creators are generated for each case reducer function
 export const appActions = appSlice.actions

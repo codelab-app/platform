@@ -1,6 +1,7 @@
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import tw from 'twin.macro'
+import { useGetElementQuery } from '../store'
 import {
   CreatePropMapBindingButton,
   CreatePropMapBindingModal,
@@ -8,7 +9,6 @@ import {
   PropMapBindingsTable,
   UpdatePropMapBindingModal,
 } from '../use-cases'
-import { useGetElementQuery } from '../use-cases/element/elementEndpoints'
 
 export interface PropMapBindingSectionProps {
   elementId: string

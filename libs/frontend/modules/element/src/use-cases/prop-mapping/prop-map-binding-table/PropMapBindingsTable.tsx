@@ -1,16 +1,16 @@
 import { IElement } from '@codelab/frontend/abstract/core'
 import { headerCellProps } from '@codelab/frontend/style'
 import {
-  EntityType,
   ListItemDeleteButton,
   ListItemEditButton,
   useColumnSearchProps,
-  useCrudModalForm,
 } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { PropMapBindingFragment } from '../../../graphql'
+import { propMapBindingActions } from '../../../store'
 
 export interface PropMapBindingsTableProps {
   element: IElement
@@ -21,9 +21,7 @@ export const PropMapBindingsTable = ({
   tree,
   element,
 }: PropMapBindingsTableProps) => {
-  const { openUpdateModal, openDeleteModal } = useCrudModalForm(
-    EntityType.PropMapBinding,
-  )
+  const dispatch = useDispatch()
 
   const columns: Array<TableColumnProps<PropMapBindingFragment>> = [
     {
@@ -56,11 +54,25 @@ export const PropMapBindingsTable = ({
       render: (text, record) => (
         <Space size="middle">
           <ListItemEditButton
-            onClick={() => openUpdateModal(record.id, record)}
+            onClick={() =>
+              dispatch(
+                propMapBindingActions.openUpdateModal({
+                  updateId: record.id,
+                  entity: record,
+                }),
+              )
+            }
           />
 
           <ListItemDeleteButton
-            onClick={() => openDeleteModal([record.id], record)}
+            onClick={() =>
+              dispatch(
+                propMapBindingActions.openDeleteModal({
+                  deleteIds: [record.id],
+                  entity: record,
+                }),
+              )
+            }
           />
         </Space>
       ),

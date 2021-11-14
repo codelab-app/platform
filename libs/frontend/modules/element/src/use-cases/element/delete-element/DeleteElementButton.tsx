@@ -2,7 +2,7 @@ import { Button, ButtonProps } from 'antd'
 import React, { PropsWithChildren } from 'react'
 import { useDispatch } from 'react-redux'
 import { ElementFragment } from '../../../graphql'
-import { elementActions } from '../elementState'
+import { elementActions } from '../../../store'
 
 interface Props extends Omit<ButtonProps, 'onClick'> {
   elementId: string

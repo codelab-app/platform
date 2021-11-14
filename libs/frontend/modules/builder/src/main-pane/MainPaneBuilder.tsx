@@ -73,7 +73,7 @@ export const MainPaneBuilder = ({
         ) : null}
 
         <CreateElementModal
-          formProps={{ initialData: { parentElementId: selectedElement?.id } }}
+          initialData={{ parentElementId: selectedElement?.id }}
         />
 
         {children}

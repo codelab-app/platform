@@ -4,10 +4,13 @@ import { atomEndpoints } from '@codelab/frontend/modules/atom'
 import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
   componentEndpoints,
+  componentSlice,
   elementEndpoints,
   elementSlice,
   hookEndpoints,
+  hookSlice,
   propMapBindingEndpoints,
+  propMapBindingSlice,
 } from '@codelab/frontend/modules/element'
 import { lambdaEndpoints } from '@codelab/frontend/modules/lambda'
 import { pageEndpoints } from '@codelab/frontend/modules/page'
@@ -38,7 +41,10 @@ export const makeStore = () => {
       // Slices:
       [builderSlice.name]: builderSlice.reducer,
       [appSlice.name]: appSlice.reducer,
-      [elementSlice.name]: appSlice.reducer,
+      [elementSlice.name]: elementSlice.reducer,
+      [componentSlice.name]: componentSlice.reducer,
+      [hookSlice.name]: hookSlice.reducer,
+      [propMapBindingSlice.name]: propMapBindingSlice.reducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(

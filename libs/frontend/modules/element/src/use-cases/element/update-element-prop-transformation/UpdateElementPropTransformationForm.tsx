@@ -10,7 +10,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   useGetElementQuery,
   useUpdateElementMutation,
-} from '../elementEndpoints'
+} from '../../../store/elementEndpoints'
 
 interface InternalProps {
   tree: ElementTree

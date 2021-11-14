@@ -1,4 +1,5 @@
 import { IElement } from '@codelab/shared/abstract/core'
+import { propSafeStringify } from '@codelab/shared/utils'
 import { ReactNode, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { builderActions } from './builderState'
@@ -22,7 +23,7 @@ export const useOnRendered = (): UseOnRendered => {
           dispatch(
             builderActions.setLastRenderedPropsForElement({
               elementId: vertex.id,
-              props: { ...props },
+              props: JSON.parse(propSafeStringify(props)),
             }),
           )
         } else {

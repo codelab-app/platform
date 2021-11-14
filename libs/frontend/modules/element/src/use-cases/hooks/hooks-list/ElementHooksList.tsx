@@ -6,7 +6,7 @@ import {
   HookConfigFragment,
   HookFragment,
 } from '../../../graphql'
-import { useLazyGetLambdaNameQuery } from '../hookEndpoints'
+import { useLazyGetLambdaNameQuery } from '../../../store'
 import { RemoveHookFromElementButton } from '../remove-hook-from-element'
 
 export interface ElementHooksListProps {
@@ -37,7 +37,7 @@ const ElementHooksListItem = ({
       <RemoveHookFromElementButton
         key={'delete'}
         hookId={hook.id}
-        metadata={{ hook, element }}
+        entity={hook}
       />,
     ]}
   >

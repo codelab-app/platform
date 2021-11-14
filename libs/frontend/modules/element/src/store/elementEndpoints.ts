@@ -4,7 +4,7 @@ import {
   ELEMENT_GRAPH_CACHE_TAG,
   providesById,
 } from '@codelab/frontend/model/infra/api'
-import { api as generatedApi } from '../../graphql/element.endpoints.graphql.gen'
+import { api as generatedApi } from '../graphql/element.endpoints.graphql.gen'
 
 export const elementApi = generatedApi.enhanceEndpoints({
   endpoints: {
