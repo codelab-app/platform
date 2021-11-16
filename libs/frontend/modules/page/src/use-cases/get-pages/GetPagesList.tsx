@@ -20,7 +20,9 @@ export const GetPagesList = () => {
       <List
         size="small"
         dataSource={pages}
-        renderItem={(page) => <GetPagesItem page={page} appId={currentAppId} />}
+        renderItem={(page) => (
+          <GetPagesItem key={page.id} page={page} appId={currentAppId} />
+        )}
       />
     </SpinnerWrapper>
   )

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { pageSlice } from '../store'
+import { pageSlice, SetCurrentPageAction } from '../store'
 import { OpenDeletePageModalAction, OpenUpdatePageModalAction } from './types'
 
 export const usePageDispatch = () => {
@@ -21,10 +21,15 @@ export const usePageDispatch = () => {
     dispatch(actions.reset())
   }
 
+  const setCurrentPage = (payload: SetCurrentPageAction) => {
+    dispatch(actions.setCurrentPage(payload))
+  }
+
   return {
     openCreateModal,
     openDeleteModal,
     openUpdateModal,
+    setCurrentPage,
     reset,
   }
 }

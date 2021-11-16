@@ -1,4 +1,6 @@
+export * from './hooks'
 export * from './main-pane'
+export * from './providers'
 export * from './store'
 export * from './types'
 export * from './use-cases'

@@ -6,14 +6,17 @@ import {
   MetaPaneBuilderPage,
 } from '@codelab/frontend/modules/builder'
 import { useElementGraphContext } from '@codelab/frontend/modules/element'
-import { useAppPagesQuery } from '@codelab/frontend/modules/page'
+import {
+  useAppPagesQuery,
+  usePageState,
+  withPageQueryProvider,
+} from '@codelab/frontend/modules/page'
 import { PageDetailHeader } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
-import { usePageState } from 'frontend/modules/page/src/hooks'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
