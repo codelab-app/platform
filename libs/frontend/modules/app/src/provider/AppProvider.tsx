@@ -1,46 +1,15 @@
+import { ConditionalView } from '@codelab/frontend/view/components'
 import React, { PropsWithChildren } from 'react'
-import { AppFragment } from '../graphql/App.fragment.graphql.gen'
-import { useGetAppQuery } from '../store'
-
-type IAppContext = {
-  app: AppFragment
-  loading: boolean
-}
-
-type AppProviderProps = {
-  appId?: string
-}
-
-// TODO remove context
-export const AppContext = React.createContext<IAppContext>(undefined!)
+import { AppProviderProps } from './types'
+import { useProvideCurrentApp } from './useProvideCurrentApp'
 
 export const _AppProvider = ({
   appId,
   children,
 }: PropsWithChildren<AppProviderProps>) => {
-  const { data, isLoading } = useGetAppQuery(
-    {
-      variables: { input: { byId: { appId: appId as string } } },
-    },
-    { skip: !appId },
-  )
+  const { currentApp } = useProvideCurrentApp(appId)
 
-  const app = data?.app
-
-  if (!app) {
-    return null
-  }
-
-  return (
-    <AppContext.Provider
-      value={{
-        app,
-        loading: isLoading,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
-  )
+  return <ConditionalView condition={!!currentApp}>{children}</ConditionalView>
 }
 
 export const AppProvider = React.memo(_AppProvider, (prev, next) => {

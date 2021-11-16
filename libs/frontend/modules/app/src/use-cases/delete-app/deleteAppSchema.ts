@@ -1,8 +1,13 @@
 import { JSONSchemaType } from 'ajv'
+import { DeleteAppMutationInput } from './types'
 
-export const deleteAppSchema: JSONSchemaType<Record<string, unknown>> = {
+export const deleteAppSchema: JSONSchemaType<DeleteAppMutationInput> = {
   title: 'Delete App',
   type: 'object',
-  properties: {},
+  properties: {
+    appId: {
+      type: 'string',
+    },
+  },
   required: [],
 }

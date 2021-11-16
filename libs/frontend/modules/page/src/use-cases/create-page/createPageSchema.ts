@@ -1,16 +1,14 @@
 import { JSONSchemaType } from 'ajv'
-import { CreatePageMutationVariables } from '../page.endpoints.graphql.gen'
+import { CreatePageMutationInput } from './types'
 
-export type CreatePageSchemaType = Omit<
-  CreatePageMutationVariables['input'],
-  'appId'
->
-
-export const createPageSchema: JSONSchemaType<CreatePageSchemaType> = {
+export const createPageSchema: JSONSchemaType<CreatePageMutationInput> = {
   title: 'Create Page Input',
   type: 'object',
   properties: {
     name: {
+      type: 'string',
+    },
+    appId: {
       type: 'string',
     },
   },

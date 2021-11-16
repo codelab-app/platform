@@ -1,6 +1,5 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { DeleteAppMutationVariables } from '../../graphql/App.endpoints.graphql.gen'
 import { useAppDispatch, useAppState } from '../../hooks'
 import { useDeleteAppMutation } from '../../store'
 import { DeleteAppFormProps, DeleteAppMutationInput } from './types'
@@ -18,11 +17,7 @@ export const useDeleteAppForm = () => {
   })
 
   const onSubmit = useCallback(
-    (modal: DeleteAppMutationInput) => {
-      const input = modal as DeleteAppMutationVariables['input']
-
-      return mutate({ variables: { input: { appId: input.appId } } })
-    },
+    (input: DeleteAppMutationInput) => mutate({ variables: { input } }),
     [mutate],
   )
 
@@ -36,9 +31,7 @@ export const useDeleteAppForm = () => {
     onSubmit,
     onSubmitError,
     onSubmitSuccess,
-    model: {
-      appId: deleteIds[0],
-    },
+    model: { appId: deleteIds[0] },
     name: entity?.name,
   }
 

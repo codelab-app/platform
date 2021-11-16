@@ -1,6 +1,10 @@
 import { useDispatch } from 'react-redux'
-import { appSlice } from '../store'
-import { OpenDeleteAppModalAction, OpenUpdateAppModalAction } from './types'
+import {
+  appSlice,
+  OpenDeleteAppModalAction,
+  OpenUpdateAppModalAction,
+  SetCurrentAppAction,
+} from '../store'
 
 export const useAppDispatch = () => {
   const dispatch = useDispatch()
@@ -21,10 +25,15 @@ export const useAppDispatch = () => {
     dispatch(actions.reset())
   }
 
+  const setCurrentApp = (payload: SetCurrentAppAction) => {
+    dispatch(actions.setCurrentApp(payload))
+  }
+
   return {
     openCreateModal,
     openDeleteModal,
     openUpdateModal,
+    setCurrentApp,
     reset,
   }
 }

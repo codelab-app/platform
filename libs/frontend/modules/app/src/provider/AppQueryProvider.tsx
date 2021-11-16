@@ -3,9 +3,6 @@ import { useRouter } from 'next/router'
 import * as React from 'react'
 import { AppProvider } from './AppProvider'
 
-/**
- * Like AppProvider, but takes appId from the query
- */
 export const AppQueryProvider = ({
   children,
 }: React.PropsWithChildren<unknown>) => {

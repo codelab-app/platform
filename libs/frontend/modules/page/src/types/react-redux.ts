@@ -1,4 +1,4 @@
-import type { PageState } from '../store/pageState'
+import type { PageState } from '../store'
 
 declare module 'react-redux' {
   interface DefaultRootState {

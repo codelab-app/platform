@@ -6,41 +6,34 @@ import {
   MetaPaneBuilderPage,
 } from '@codelab/frontend/modules/builder'
 import { useElementGraphContext } from '@codelab/frontend/modules/element'
-import {
-  PageContext,
-  useAppPagesQuery,
-  withPageQueryProvider,
-} from '@codelab/frontend/modules/page'
+import { useAppPagesQuery } from '@codelab/frontend/modules/page'
 import { PageDetailHeader } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
+import { usePageState } from 'frontend/modules/page/src/hooks'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
-import React, { useContext } from 'react'
+import React from 'react'
 
 export interface BuilderProps {
   appId: string
 }
 
 const PageBuilder: CodelabPage<BuilderProps> = (props) => {
-  const { page, loading } = useContext(PageContext)
+  const { currentPage } = usePageState()
   const { elementTree } = useElementGraphContext()
 
-  if (loading) {
-    return null
-  }
-
-  if (!page || !elementTree) {
+  if (!currentPage || !elementTree) {
     return <Empty />
   }
 
   return (
     <>
       <Head>
-        <title>{page.name} | Builder | Codelab</title>
+        <title>{currentPage.name} | Builder | Codelab</title>
       </Head>
 
       <Builder tree={elementTree} />
