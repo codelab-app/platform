@@ -1,6 +1,10 @@
 import { useDispatch } from 'react-redux'
-import { pageSlice, SetCurrentPageAction } from '../store'
-import { OpenDeletePageModalAction, OpenUpdatePageModalAction } from './types'
+import {
+  OpenDeletePageModalAction,
+  OpenUpdatePageModalAction,
+  pageSlice,
+  SetCurrentPageAction,
+} from '../store'
 
 export const usePageDispatch = () => {
   const dispatch = useDispatch()
