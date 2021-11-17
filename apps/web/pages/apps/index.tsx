@@ -49,7 +49,7 @@ const AppsPage: CodelabPage = () => {
 
 export const preFetchApps = reduxStoreWrapper.getServerSideProps(
   (store) => async (context) => {
-    store.dispatch(appEndpoints.endpoints.GetApps.initiate())
+    store.dispatch(appEndpoints.endpoints.GetApps.initiate({}))
     await Promise.all(appEndpoints.util.getRunningOperationPromises())
 
     return {
