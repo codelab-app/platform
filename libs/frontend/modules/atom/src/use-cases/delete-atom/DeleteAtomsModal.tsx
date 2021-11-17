@@ -1,20 +1,30 @@
 import {
   ActionType,
-  CrudModal,
-  EntityType,
+  FormUniformsModal,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { DeleteAtomsForm } from './DeleteAtomsForm'
+import { useAtomState } from '../../hooks'
+import { DeleteAtomForm } from './DeleteAtomsForm'
+import { useDeleteAtomForm } from './useDeleteAtomForm'
 
-export const DeleteAtomsModal = () => (
-  <CrudModal
-    modalProps={{
-      className: 'delete-atoms-modal',
-      title: 'Delete Confirmation',
-    }}
-    entityType={EntityType.Atom}
-    actionType={ActionType.Delete}
-    okText="Delete Atom"
-    renderForm={() => <DeleteAtomsForm />}
-  />
-)
+export const DeleteAtomModal = () => {
+  const { actionType } = useAtomState()
+  const { formProps, reset, state } = useDeleteAtomForm()
+  const { isLoading } = state
+
+  const modalProps = {
+    visible: actionType === ActionType.Delete,
+    onCancel: reset,
+    okText: 'Delete Atom',
+    okButtonProps: { loading: isLoading },
+    className: 'delete-atoms-modal',
+    title: 'Delete Confirmation',
+  }
+
+  return (
+    <FormUniformsModal
+      modalProps={modalProps}
+      renderForm={() => <DeleteAtomForm {...formProps} />}
+    />
+  )
+}

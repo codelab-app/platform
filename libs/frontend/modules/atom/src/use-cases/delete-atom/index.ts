@@ -1,3 +1,6 @@
 export * from './DeleteAtomButton'
+export * from './deleteAtomSchema'
 export * from './DeleteAtomsForm'
 export * from './DeleteAtomsModal'
+export * from './types'
+export * from './useDeleteAtomForm'

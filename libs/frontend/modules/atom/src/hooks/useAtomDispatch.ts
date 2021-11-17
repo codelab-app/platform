@@ -3,6 +3,7 @@ import {
   atomSlice,
   OpenDeleteAtomModalAction,
   OpenUpdateAtomModalAction,
+  SetSelectedAtomIdsModalAction,
 } from '../store'
 
 export const useAtomDispatch = () => {
@@ -20,6 +21,10 @@ export const useAtomDispatch = () => {
     dispatch(actions.openUpdateModal(payload))
   }
 
+  const setSelectedIds = (payload: SetSelectedAtomIdsModalAction) => {
+    dispatch(actions.setSelectedIds(payload))
+  }
+
   const reset = () => {
     dispatch(actions.reset())
   }
@@ -28,6 +33,7 @@ export const useAtomDispatch = () => {
     openCreateModal,
     openDeleteModal,
     openUpdateModal,
+    setSelectedIds,
     reset,
   }
 }

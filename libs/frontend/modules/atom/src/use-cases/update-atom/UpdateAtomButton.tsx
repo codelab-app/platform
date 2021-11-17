@@ -1,11 +1,19 @@
 import { EditOutlined } from '@ant-design/icons'
 import { UpdateButtonProps } from '@codelab/frontend/abstract/props'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
 import React from 'react'
+import { useAtomDispatch } from '../../hooks'
 
 export const UpdateAtomButton = ({ id, disabled }: UpdateButtonProps) => {
-  const { openUpdateModal } = useCrudModalForm(EntityType.Atom)
+  const { openUpdateModal } = useAtomDispatch()
+
+  const onClick = () => {
+    if (!id) {
+      throw new Error('Atom ID is not valid')
+    }
+
+    openUpdateModal({ updateId: id })
+  }
 
   return (
     <Button
@@ -14,13 +22,7 @@ export const UpdateAtomButton = ({ id, disabled }: UpdateButtonProps) => {
       disabled={disabled}
       ghost
       icon={<EditOutlined />}
-      onClick={() => {
-        if (!id) {
-          throw new Error('Atom ID is not valid')
-        }
-
-        openUpdateModal(id)
-      }}
+      onClick={onClick}
     />
   )
 }

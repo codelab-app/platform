@@ -17,7 +17,7 @@ import Head from 'next/head'
 import React from 'react'
 
 const AtomsPage: CodelabPage = () => {
-  const pageHeaderButtons = [<CreateAtomButton key={0} />]
+  const pageHeaderButtons = [<CreateAtomButton key={0} centerIcon />]
 
   return (
     <>

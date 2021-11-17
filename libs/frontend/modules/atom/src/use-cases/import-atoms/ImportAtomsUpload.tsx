@@ -1,8 +1,8 @@
 import { ImportUpload } from '@codelab/frontend/view/components'
-import { useImportAtomsMutation } from '../atom.endpoints'
+import { useImportAtomsMutation } from '../../store'
 
 export const ImportAtomsUpload = () => {
-  const [importAtoms, { isLoading }] = useImportAtomsMutation()
+  const [importAtoms] = useImportAtomsMutation()
 
   const fetchFn = (data: any) =>
     importAtoms({
