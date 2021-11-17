@@ -1,23 +1,23 @@
 import { useDispatch } from 'react-redux'
 import {
-  appSlice,
-  OpenDeleteAppModalAction,
-  OpenUpdateAppModalAction,
-  SetCurrentAppAction,
+  OpenDeletePageModalAction,
+  OpenUpdatePageModalAction,
+  pageSlice,
+  SetCurrentPageAction,
 } from '../store'
 
-export const useAppDispatch = () => {
+export const usePageDispatch = () => {
   const dispatch = useDispatch()
-  const { actions } = appSlice
+  const { actions } = pageSlice
 
   const openCreateModal = () => {
     dispatch(actions.openCreateModal())
   }
 
-  const openDeleteModal = (payload: OpenDeleteAppModalAction) =>
+  const openDeleteModal = (payload: OpenDeletePageModalAction) =>
     dispatch(actions.openDeleteModal(payload))
 
-  const openUpdateModal = (payload: OpenUpdateAppModalAction) => {
+  const openUpdateModal = (payload: OpenUpdatePageModalAction) => {
     dispatch(actions.openUpdateModal(payload))
   }
 
@@ -25,15 +25,15 @@ export const useAppDispatch = () => {
     dispatch(actions.reset())
   }
 
-  const setCurrentApp = (payload: SetCurrentAppAction) => {
-    dispatch(actions.setCurrentApp(payload))
+  const setCurrentPage = (payload: SetCurrentPageAction) => {
+    dispatch(actions.setCurrentPage(payload))
   }
 
   return {
     openCreateModal,
     openDeleteModal,
     openUpdateModal,
-    setCurrentApp,
+    setCurrentPage,
     reset,
   }
 }

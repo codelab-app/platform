@@ -11,17 +11,17 @@ import {
   TagOutlined,
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/model/state/router'
-import { AppContext } from '@codelab/frontend/modules/app'
+import { useAppState } from '@codelab/frontend/modules/app'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 
 export const BuilderSidebarNavigation = () => {
   const router = useRouter()
   // const { libraries } = useContext(LibraryContext)
-  const { app } = useContext(AppContext)
+  const { currentApp } = useAppState()
 
   return (
     <Menu
@@ -47,7 +47,7 @@ export const BuilderSidebarNavigation = () => {
           href={{
             pathname: PageType.PageList,
             query: {
-              appId: app.id,
+              appId: currentApp?.id,
               // pageId,
             },
           }}
@@ -73,7 +73,7 @@ export const BuilderSidebarNavigation = () => {
           href={{
             pathname: PageType.LibraryList,
             query: {
-              appId: app.id,
+              appId: currentApp?.id,
             },
           }}
         >
@@ -139,7 +139,7 @@ export const BuilderSidebarNavigation = () => {
           href={{
             pathname: PageType.AtomList,
             query: {
-              appId: app.id,
+              appId: currentApp?.id,
             },
           }}
         >
@@ -152,7 +152,7 @@ export const BuilderSidebarNavigation = () => {
           href={{
             pathname: PageType.PropsInterface,
             query: {
-              appId: app.id,
+              appId: currentApp?.id,
             },
           }}
         >

@@ -1,17 +1,14 @@
 import { JSONSchemaType } from 'ajv'
-import { UpdatePageMutationVariables } from '../page.endpoints.graphql.gen'
+import { UpdatePageMutationInput } from './types'
 
-// Won't update appId for now, but might be useful in the future?
-export type UpdatePageSchemaType = Omit<
-  UpdatePageMutationVariables['input']['updateData'],
-  'appId'
->
-
-export const updatePageSchema: JSONSchemaType<UpdatePageSchemaType> = {
+export const updatePageSchema: JSONSchemaType<UpdatePageMutationInput> = {
   title: 'Update Page Input',
   type: 'object',
   properties: {
     name: {
+      type: 'string',
+    },
+    appId: {
       type: 'string',
     },
   },
