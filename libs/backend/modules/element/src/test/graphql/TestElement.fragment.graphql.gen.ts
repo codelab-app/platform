@@ -4,7 +4,7 @@ import {
   AtomBaseFragment,
   Export__AtomsFragment,
   AtomFragment,
-} from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
+} from '../../../../../../frontend/modules/atom/src/graphql/Atom.fragment.graphql.gen'
 import {
   HookFragment,
   PropMapBindingFragment,
@@ -14,7 +14,7 @@ import {
   AtomBaseFragmentDoc,
   Export__AtomsFragmentDoc,
   AtomFragmentDoc,
-} from '../../../../../../frontend/modules/atom/src/Atom.fragment.graphql.gen'
+} from '../../../../../../frontend/modules/atom/src/graphql/Atom.fragment.graphql.gen'
 import {
   HookFragmentDoc,
   PropMapBindingFragmentDoc,

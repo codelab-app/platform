@@ -4,13 +4,13 @@ import {
   AtomBaseFragment,
   Export__AtomsFragment,
   AtomFragment,
-} from '../Atom.fragment.graphql.gen'
+} from './Atom.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import {
   AtomBaseFragmentDoc,
   Export__AtomsFragmentDoc,
   AtomFragmentDoc,
-} from '../Atom.fragment.graphql.gen'
+} from './Atom.fragment.graphql.gen'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type CreateAtomMutationVariables = Types.Exact<{
   input: Types.CreateAtomInput

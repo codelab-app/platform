@@ -1,47 +1,15 @@
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  EntityType,
-  FormUniforms,
-  UniFormUseCaseProps,
-  useCrudModalMutationForm,
-} from '@codelab/frontend/view/components'
+import { FormUniforms } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useUpdateAtomMutation } from '../atom.endpoints'
-import { UpdateAtomSchema, updateAtomSchema } from './updateAtomSchema'
+import { UpdateAtomFormProps, UpdateAtomMutationInput } from './types'
+import { updateAtomSchema } from './updateAtomSchema'
 
-export const UpdateAtomForm = (
-  props: UniFormUseCaseProps<UpdateAtomSchema>,
-) => {
-  const {
-    handleSubmit,
-    crudModal: {
-      reset,
-      state: { metadata },
-    },
-  } = useCrudModalMutationForm({
-    entityType: EntityType.Atom,
-    useMutationFunction: useUpdateAtomMutation,
-    mutationOptions: {},
-    mapVariables: ({ name, type }: UpdateAtomSchema, state) => ({
-      input: { id: state.updateId, data: { name, type } },
-    }),
-  })
-
+export const UpdateAtomForm = (props: UpdateAtomFormProps) => {
   return (
-    <FormUniforms<UpdateAtomSchema>
+    <FormUniforms<UpdateAtomMutationInput>
       data-testid="update-atom-form"
       id="update-atom-form"
-      onSubmit={handleSubmit}
       schema={updateAtomSchema}
-      model={{
-        type: metadata?.type,
-        name: metadata?.name,
-      }}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while updating Atom',
-      })}
-      onSubmitSuccess={() => reset()}
       {...props}
     >
       <AutoFields omitFields={['api']} />

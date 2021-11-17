@@ -1,11 +1,12 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { DeleteButtonProps } from '@codelab/frontend/abstract/props'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
 import React from 'react'
+import { useAtomDispatch } from '../../hooks'
 
 export const DeleteAtomButton = ({ disabled, ids }: DeleteButtonProps) => {
-  const { openDeleteModal } = useCrudModalForm(EntityType.Atom)
+  const { openDeleteModal } = useAtomDispatch()
+  const onClick = () => openDeleteModal({ deleteIds: ids })
 
   return (
     <Button
@@ -13,7 +14,7 @@ export const DeleteAtomButton = ({ disabled, ids }: DeleteButtonProps) => {
       danger
       icon={<DeleteOutlined />}
       disabled={disabled}
-      onClick={() => openDeleteModal(ids)}
+      onClick={onClick}
     />
   )
 }

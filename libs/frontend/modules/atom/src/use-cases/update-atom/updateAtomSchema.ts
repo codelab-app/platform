@@ -1,10 +1,8 @@
 import { JSONSchemaType } from 'ajv'
-import { UpdateAtomMutationVariables } from '../atom.endpoints.graphql.gen'
 import { createAtomSchema } from '../create-atom'
+import { UpdateAtomMutationInput } from './types'
 
-export type UpdateAtomSchema = UpdateAtomMutationVariables['input']['data']
-
-export const updateAtomSchema: JSONSchemaType<UpdateAtomSchema> = {
+export const updateAtomSchema: JSONSchemaType<UpdateAtomMutationInput> = {
   ...createAtomSchema,
   title: 'Update Atom Input',
 } as const

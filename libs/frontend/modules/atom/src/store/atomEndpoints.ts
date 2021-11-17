@@ -5,7 +5,7 @@ import {
   providesAll,
   providesById,
 } from '@codelab/frontend/model/infra/api'
-import { api as generatedApi } from './atom.endpoints.graphql.gen'
+import { api as generatedApi } from '../graphql/Atom.endpoints.graphql.gen'
 
 export const api = generatedApi.enhanceEndpoints({
   endpoints: {

@@ -32,7 +32,7 @@ const AtomsPage: CodelabPage<HeaderProps> = () => {
                 Atom (Interface)
               </span>
             }
-            extra={[<CreateAtomButton key="create-atom-button" />]}
+            extra={[<CreateAtomButton key="create-atom-button" centerIcon />]}
           />
         </Card>
         <Card bodyStyle={tw`p-0`}>

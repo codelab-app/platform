@@ -1,7 +1,7 @@
 import { BookOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/model/state/router'
 import {
-  CreateAtomButtonIcon,
+  CreateAtomButton,
   CreateAtomModal,
   DeleteAtomButton,
   DeleteAtomsModal,
@@ -86,7 +86,7 @@ export const LibraryExplorerTree = () => {
           <Link href={{ pathname: PageType.AtomList }}>Atoms</Link>
         </h3>
         <Space align="center">
-          <CreateAtomButtonIcon />
+          <CreateAtomButton />
           <UpdateAtomButton
             id={selectedAtomId ?? ''}
             disabled={!selectedAtomId}
