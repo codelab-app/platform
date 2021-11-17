@@ -1,49 +1,15 @@
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  EntityType,
-  FormUniforms,
-  UniFormUseCaseProps,
-  useCrudModalForm,
-} from '@codelab/frontend/view/components'
-import React, { useEffect } from 'react'
-import { useDeleteLambdaMutation } from '../lambda.endpoints'
-import { DeleteLambdaSchema, deleteLambdaSchema } from './deleteLambdaSchema'
+import { FormUniforms } from '@codelab/frontend/view/components'
+import React from 'react'
+import { deleteLambdaSchema } from './deleteLambdaSchema'
+import { DeleteLambdaFormProps, DeleteLambdaMutationInput } from './types'
 
-type DeleteLambdaFormProps = UniFormUseCaseProps<DeleteLambdaSchema>
-
-export const DeleteLambdaForm = (props: DeleteLambdaFormProps) => {
-  const { reset, setLoading, state } = useCrudModalForm(EntityType.Lambda)
-  const { deleteIds: lambdaDeleteIds, metadata } = state
-  const [mutate, { isLoading: deleting }] = useDeleteLambdaMutation({})
-
-  const onSubmit = (data: DeleteLambdaSchema) => {
-    return mutate({
-      variables: {
-        input: {
-          lambdaId: data.lambdaId,
-        },
-      },
-    })
-  }
-
-  useEffect(() => {
-    setLoading(deleting)
-  }, [setLoading, deleting])
-
+export const DeleteLambdaForm = ({ name, ...props }: DeleteLambdaFormProps) => {
   return (
-    <FormUniforms<DeleteLambdaSchema>
-      model={{
-        lambdaId: lambdaDeleteIds[0],
-      }}
-      onSubmit={onSubmit}
+    <FormUniforms<DeleteLambdaMutationInput>
       schema={deleteLambdaSchema}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while deleting lambda',
-      })}
-      onSubmitSuccess={() => reset()}
       {...props}
     >
-      <h4>Are you sure you want to delete lambda "{metadata?.name}"?</h4>
+      <h4>Are you sure you want to delete lambda "{name}"?</h4>
     </FormUniforms>
   )
 }

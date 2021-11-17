@@ -1,19 +1,28 @@
 import {
   ActionType,
-  CrudModal,
-  EntityType,
+  FormUniformsModal,
 } from '@codelab/frontend/view/components'
 import React from 'react'
+import { useLambdaState } from '../../hooks'
 import { UpdateLambdaForm } from './UpdateLambdaForm'
+import { useUpdateLambdaForm } from './useUpdateLambdaForm'
 
 export const UpdateLambdaModal = () => {
+  const { actionType } = useLambdaState()
+  const { formProps, state, reset } = useUpdateLambdaForm()
+  const { isLoading } = state
+
+  const modalProps = {
+    visible: actionType === ActionType.Update,
+    onCancel: reset,
+    okText: 'Update Lambda',
+    okButtonProps: { loading: isLoading },
+  }
+
   return (
-    <CrudModal
-      entityType={EntityType.Lambda}
-      actionType={ActionType.Update}
-      okText="Update Lambda"
-      modalProps={{ width: '80vw' }}
-      renderForm={() => <UpdateLambdaForm />}
+    <FormUniformsModal
+      modalProps={modalProps}
+      renderForm={() => <UpdateLambdaForm {...formProps} />}
     />
   )
 }

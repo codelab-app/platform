@@ -1,17 +1,17 @@
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
 import React from 'react'
-import { LambdaRecord } from '../get-lambdas/LambdaRecord'
+import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen'
+import { useLambdaDispatch } from '../../hooks'
 
-export const DeleteLambdaButton = (props: LambdaRecord) => {
-  const { openDeleteModal } = useCrudModalForm(EntityType.Lambda)
+export const DeleteLambdaButton = (Lambda: LambdaFragment) => {
+  const { openDeleteModal } = useLambdaDispatch()
+
+  const onClick = () => {
+    openDeleteModal({ deleteIds: [Lambda.id], entity: Lambda })
+  }
 
   return (
-    <Button
-      type="primary"
-      danger
-      onClick={() => openDeleteModal([props.id], props)}
-    >
+    <Button type="primary" danger onClick={onClick}>
       Delete
     </Button>
   )
