@@ -4,10 +4,10 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { useAtomState } from '../../hooks'
-import { DeleteAtomForm } from './DeleteAtomsForm'
+import { DeleteAtomsForm } from './DeleteAtomsForm'
 import { useDeleteAtomForm } from './useDeleteAtomForm'
 
-export const DeleteAtomModal = () => {
+export const DeleteAtomsModal = () => {
   const { actionType } = useAtomState()
   const { formProps, reset, state } = useDeleteAtomForm()
   const { isLoading } = state
@@ -24,7 +24,7 @@ export const DeleteAtomModal = () => {
   return (
     <FormUniformsModal
       modalProps={modalProps}
-      renderForm={() => <DeleteAtomForm {...formProps} />}
+      renderForm={() => <DeleteAtomsForm {...formProps} />}
     />
   )
 }

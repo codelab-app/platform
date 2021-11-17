@@ -3,7 +3,7 @@ import { DeleteAtomMutationVariables } from '../../graphql/Atom.endpoints.graphq
 
 export type DeleteAtomMutationInput = DeleteAtomMutationVariables['input']
 
-export type DeleteAtomFormProps = Omit<
+export type DeleteAtomsFormProps = Omit<
   FormUniformsProps<DeleteAtomMutationInput>,
   'schema'
 > & {
