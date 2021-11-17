@@ -13,7 +13,7 @@ import {
   propMapBindingSlice,
 } from '@codelab/frontend/modules/element'
 import { lambdaEndpoints } from '@codelab/frontend/modules/lambda'
-import { pageEndpoints } from '@codelab/frontend/modules/page'
+import { pageEndpoints, pageSlice } from '@codelab/frontend/modules/page'
 import { tagEndpoints, tagSlice } from '@codelab/frontend/modules/tag'
 import { fieldEndpoints, typeEndpoints } from '@codelab/frontend/modules/type'
 import { userEndpoints, userSlice } from '@codelab/frontend/modules/user'
@@ -41,6 +41,7 @@ export const makeStore = () => {
       // Slices:
       [builderSlice.name]: builderSlice.reducer,
       [appSlice.name]: appSlice.reducer,
+      [pageSlice.name]: pageSlice.reducer,
       [elementSlice.name]: elementSlice.reducer,
       [componentSlice.name]: componentSlice.reducer,
       [hookSlice.name]: hookSlice.reducer,

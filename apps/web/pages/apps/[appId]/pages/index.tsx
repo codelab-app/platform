@@ -1,21 +1,24 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
-import { AppContext, withAppQueryProvider } from '@codelab/frontend/modules/app'
+import {
+  useAppState,
+  withAppQueryProvider,
+} from '@codelab/frontend/modules/app'
 import { PageMainPane } from '@codelab/frontend/modules/page'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import Head from 'next/head'
-import React, { useContext } from 'react'
+import React from 'react'
 
 const Pages: CodelabPage = () => {
-  const { app } = useContext(AppContext)
+  const { currentApp } = useAppState()
 
   return (
     <>
       <Head>
-        <title>Pages | {app.name} | Codelab</title>
+        <title>Pages | {currentApp?.name} | Codelab</title>
       </Head>
     </>
   )

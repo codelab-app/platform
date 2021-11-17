@@ -1,8 +1,9 @@
 import { Button } from 'antd'
-import { useSeedBaseTypesMutation } from '../admin.endpoints'
+import { useSeedBaseTypesMutation } from '../../store'
 
 export const SeedBaseTypesButton = () => {
   const [seedBaseTypes] = useSeedBaseTypesMutation()
+  const onClick = () => seedBaseTypes()
 
-  return <Button onClick={() => seedBaseTypes()}>Seed Base Types</Button>
+  return <Button onClick={onClick}>Seed Base Types</Button>
 }

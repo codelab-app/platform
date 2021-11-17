@@ -1,12 +1,8 @@
 import { PageType } from '@codelab/frontend/model/state/router'
 import { Card } from 'antd'
 import Link from 'next/link'
-import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
 import { ItemDropdown } from './ItemDropdown'
-
-export type GetAppsItemProps = {
-  app: AppFragment
-}
+import { GetAppsItemProps } from './types'
 
 export const GetAppsItem = ({ app }: GetAppsItemProps) => {
   const href = {

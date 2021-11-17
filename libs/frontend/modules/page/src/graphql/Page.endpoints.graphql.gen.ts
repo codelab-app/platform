@@ -1,10 +1,10 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { PageBaseFragment } from '../graphql/PageBase.fragment.graphql.gen'
-import { PageFullFragment } from '../graphql/PageFull.fragment.graphql.gen'
+import { PageBaseFragment } from './PageBase.fragment.graphql.gen'
+import { PageFullFragment } from './PageFull.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { PageBaseFragmentDoc } from '../graphql/PageBase.fragment.graphql.gen'
-import { PageFullFragmentDoc } from '../graphql/PageFull.fragment.graphql.gen'
+import { PageBaseFragmentDoc } from './PageBase.fragment.graphql.gen'
+import { PageFullFragmentDoc } from './PageFull.fragment.graphql.gen'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type CreatePageMutationVariables = Types.Exact<{
   input: Types.CreatePageInput
