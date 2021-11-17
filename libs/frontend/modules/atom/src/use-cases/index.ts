@@ -1,4 +1,3 @@
-export * from './atom.endpoints'
 export * from './create-atom'
 export * from './delete-atom'
 export * from './get-atoms'

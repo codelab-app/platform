@@ -1,6 +1,6 @@
 import { adminEndpoints } from '@codelab/frontend/modules/admin'
 import { appEndpoints, appSlice } from '@codelab/frontend/modules/app'
-import { atomEndpoints } from '@codelab/frontend/modules/atom'
+import { atomEndpoints, atomSlice } from '@codelab/frontend/modules/atom'
 import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
   componentEndpoints,
@@ -39,12 +39,14 @@ export const makeStore = () => {
       [fieldEndpoints.reducerPath]: fieldEndpoints.reducer,
 
       // Slices:
-      [builderSlice.name]: builderSlice.reducer,
       [appSlice.name]: appSlice.reducer,
-      [pageSlice.name]: pageSlice.reducer,
+      [atomSlice.name]: atomSlice.reducer,
       [elementSlice.name]: elementSlice.reducer,
+      [builderSlice.name]: builderSlice.reducer,
       [componentSlice.name]: componentSlice.reducer,
+      [elementSlice.name]: elementSlice.reducer,
       [hookSlice.name]: hookSlice.reducer,
+      [pageSlice.name]: pageSlice.reducer,
       [propMapBindingSlice.name]: propMapBindingSlice.reducer,
       [tagSlice.name]: tagSlice.reducer,
       [userSlice.name]: userSlice.reducer,
