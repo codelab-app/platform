@@ -12,7 +12,7 @@ import {
   propMapBindingEndpoints,
   propMapBindingSlice,
 } from '@codelab/frontend/modules/element'
-import { lambdaEndpoints } from '@codelab/frontend/modules/lambda'
+import { lambdaEndpoints, lambdaSlice } from '@codelab/frontend/modules/lambda'
 import { pageEndpoints, pageSlice } from '@codelab/frontend/modules/page'
 import { tagEndpoints, tagSlice } from '@codelab/frontend/modules/tag'
 import { fieldEndpoints, typeEndpoints } from '@codelab/frontend/modules/type'
@@ -47,6 +47,7 @@ export const makeStore = () => {
       [elementSlice.name]: elementSlice.reducer,
       [hookSlice.name]: hookSlice.reducer,
       [pageSlice.name]: pageSlice.reducer,
+      [lambdaSlice.name]: lambdaSlice.reducer,
       [propMapBindingSlice.name]: propMapBindingSlice.reducer,
       [tagSlice.name]: tagSlice.reducer,
       [userSlice.name]: userSlice.reducer,

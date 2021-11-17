@@ -2,7 +2,6 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 
 import {
   AtomBaseFragment,
-  Export__AtomsFragment,
   AtomFragment,
 } from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
 import {
@@ -19,7 +18,6 @@ import {
 import { gql } from '@apollo/client'
 import {
   AtomBaseFragmentDoc,
-  Export__AtomsFragmentDoc,
   AtomFragmentDoc,
 } from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
 import {

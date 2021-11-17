@@ -1,10 +1,11 @@
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
 import React from 'react'
-import { LambdaRecord } from '../get-lambdas/LambdaRecord'
+import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen'
+import { useLambdaDispatch } from '../../hooks'
 
-export const UpdateLambdaButton = (props: LambdaRecord) => {
-  const { openUpdateModal } = useCrudModalForm(EntityType.Lambda)
+export const UpdateLambdaButton = (lambda: LambdaFragment) => {
+  const { openUpdateModal } = useLambdaDispatch()
+  const onClick = () => openUpdateModal({ updateId: lambda.id, entity: lambda })
 
-  return <Button onClick={() => openUpdateModal(props.id)}>Edit</Button>
+  return <Button onClick={onClick}>Edit</Button>
 }

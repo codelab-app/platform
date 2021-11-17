@@ -3,12 +3,12 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 import {
   LambdaFragment,
   LambdaPayloadFragment,
-} from '../Lambda.fragment.graphql.gen'
+} from './Lambda.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import {
   LambdaFragmentDoc,
   LambdaPayloadFragmentDoc,
-} from '../Lambda.fragment.graphql.gen'
+} from './Lambda.fragment.graphql.gen'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type CreateLambdaMutationVariables = Types.Exact<{
   input: Types.CreateLambdaInput
