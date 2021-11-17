@@ -1,42 +1,23 @@
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   emptyJsonSchema,
   EmptyJsonSchemaType,
-  EntityType,
   FormUniforms,
-  UniFormUseCaseProps,
-  useCrudModalForm,
+  FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useDeleteUserMutation } from '../userEndpoints'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../../store/userState'
 
 export const DeleteUserForm = (
-  props: UniFormUseCaseProps<EmptyJsonSchemaType>,
+  props: Omit<FormUniformsProps<EmptyJsonSchemaType>, 'schema'>,
 ) => {
-  const { reset, state } = useCrudModalForm(EntityType.Atom)
-  const [mutate] = useDeleteUserMutation()
-
-  const onSubmit = async () => {
-    for (const id of state.deleteIds) {
-      await mutate({
-        variables: { input: { id } },
-      })
-    }
-  }
+  const usernames = useSelector(
+    (state) => selectUser(state).deleteMetadata?.userNames,
+  )
 
   return (
-    <FormUniforms<EmptyJsonSchemaType>
-      onSubmit={onSubmit}
-      schema={emptyJsonSchema}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while deleting ComponentElements',
-      })}
-      onSubmitSuccess={() => reset()}
-      {...props}
-    >
-      <h4>
-        Are you sure you want to delete Users {state.metadata?.userNames || ''}?
-      </h4>
+    <FormUniforms<EmptyJsonSchemaType> schema={emptyJsonSchema} {...props}>
+      <h4>Are you sure you want to delete Users {usernames || ''}?</h4>
     </FormUniforms>
   )
 }

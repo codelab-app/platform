@@ -32,8 +32,7 @@ const UsersPage: CodelabPage = () => {
         return (
           <Space>
             <DeleteUserButton
-              ids={[record.id]}
-              metadata={{ userNames: record.email }}
+              payload={{ deleteIds: [record.id], userNames: record.email }}
             />
           </Space>
         )
