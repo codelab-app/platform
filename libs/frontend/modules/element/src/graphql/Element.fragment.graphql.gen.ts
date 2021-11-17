@@ -4,7 +4,7 @@ import {
   AtomBaseFragment,
   Export__AtomsFragment,
   AtomFragment,
-} from '../../../atom/src/Atom.fragment.graphql.gen'
+} from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
 import {
   TagFragment,
   TagGraphFragment,
@@ -21,7 +21,7 @@ import {
   AtomBaseFragmentDoc,
   Export__AtomsFragmentDoc,
   AtomFragmentDoc,
-} from '../../../atom/src/Atom.fragment.graphql.gen'
+} from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
 import {
   TagFragmentDoc,
   TagGraphFragmentDoc,

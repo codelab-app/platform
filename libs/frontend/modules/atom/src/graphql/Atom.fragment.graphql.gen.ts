@@ -1,8 +1,8 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { TypeGraphFragment } from '../../type/src/graphql/TypeGraph.fragment.graphql.gen'
+import { TypeGraphFragment } from '../../../type/src/graphql/TypeGraph.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { TypeGraphFragmentDoc } from '../../type/src/graphql/TypeGraph.fragment.graphql.gen'
+import { TypeGraphFragmentDoc } from '../../../type/src/graphql/TypeGraph.fragment.graphql.gen'
 export type AtomFragment = {
   __typename: 'Atom'
   id: string
