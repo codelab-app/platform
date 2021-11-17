@@ -5,7 +5,7 @@ import {
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { elementActions, selectElement } from '../../../store/elementState'
+import { elementActions, selectElement } from '../../../store'
 import { CreateElementForm } from './CreateElementForm'
 import {
   CreateElementInitialData,

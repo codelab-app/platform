@@ -6,7 +6,8 @@
     "esModuleInterop": true,
     "strict": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "jsxImportSource": "@emotion/react"
   },
   "files": [
     "../../../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
