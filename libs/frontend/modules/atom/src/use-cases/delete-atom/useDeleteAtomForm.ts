@@ -2,7 +2,7 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
 import { useAtomDispatch, useAtomState } from '../../hooks'
 import { useDeleteAtomMutation } from '../../store'
-import { DeleteAtomFormProps, DeleteAtomMutationInput } from './types'
+import { DeleteAtomMutationInput, DeleteAtomsFormProps } from './types'
 
 export const useDeleteAtomForm = () => {
   const { deleteIds, entity } = useAtomState()
@@ -27,7 +27,7 @@ export const useDeleteAtomForm = () => {
 
   const onSubmitSuccess = () => reset()
 
-  const formProps: DeleteAtomFormProps = {
+  const formProps: DeleteAtomsFormProps = {
     onSubmit,
     onSubmitError,
     onSubmitSuccess,
