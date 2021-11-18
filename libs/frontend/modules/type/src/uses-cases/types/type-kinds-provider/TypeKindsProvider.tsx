@@ -1,7 +1,7 @@
 import { Type, TypeKind } from '@codelab/frontend/abstract/codegen'
 import { notify } from '@codelab/frontend/shared/utils'
 import React, { useEffect, useMemo } from 'react'
-import { useGetTypeKindsQuery } from '../typeEndpoints'
+import { useGetTypeKindsQuery } from '../../../store/typeEndpoints'
 
 export interface TypeKindsContextType {
   typeKindsById: Record<string, TypeKind>

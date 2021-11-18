@@ -1,13 +1,14 @@
 import { TypeFragment } from '../../graphql/Type.fragment.graphql.gen'
-/**
- * Those types make sure this enum matches the type names returned from the API
- */
+
 type TypeModelName = TypeFragment['__typename']
 
 type TypeModelsType = {
   [K in TypeModelName]: K
 }
 
+/**
+ * Pseudo-enum for referencing TypeFragment's typename with type-safe static constants
+ */
 export const TypeModels: TypeModelsType = {
   PrimitiveType: 'PrimitiveType',
   EnumType: 'EnumType',

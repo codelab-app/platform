@@ -1,7 +1,7 @@
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
-import { GetTypesQuery } from '../uses-cases/types/type.endpoints.graphql.gen'
-import { useGetTypesQuery } from '../uses-cases/types/typeEndpoints'
+import { GetTypesQuery } from '../graphql/type.endpoints.graphql.gen'
+import { useGetTypesQuery } from '../store/typeEndpoints'
 
 export type CreateTypeSelectOptions = (
   getTypesResult?: GetTypesQuery,

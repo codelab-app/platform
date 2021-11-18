@@ -12,6 +12,8 @@ export type {
 export type { TypeGraphFragment } from './graphql/TypeGraph.fragment.graphql.gen'
 export * from './interface-form'
 export * from './shared'
+export * from './store/typeState'
 export * from './type-tree'
+export * from './types/react-redux'
 export * from './uses-cases/fields'
 export * from './uses-cases/types'

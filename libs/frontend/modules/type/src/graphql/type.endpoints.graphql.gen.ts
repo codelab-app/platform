@@ -11,17 +11,17 @@ import {
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
-} from '../../graphql/Type.fragment.graphql.gen'
-import { EnumTypeFragment } from '../../graphql/EnumType.fragment.graphql.gen'
-import { PrimitiveTypeFragment } from '../../graphql/PrimitiveType.fragment.graphql.gen'
-import { UnionTypeFragment } from '../../graphql/UnionType.fragment.graphql.gen'
-import { TypeGraphFragment } from '../../graphql/TypeGraph.fragment.graphql.gen'
+} from './Type.fragment.graphql.gen'
+import { EnumTypeFragment } from './EnumType.fragment.graphql.gen'
+import { PrimitiveTypeFragment } from './PrimitiveType.fragment.graphql.gen'
+import { UnionTypeFragment } from './UnionType.fragment.graphql.gen'
+import { TypeGraphFragment } from './TypeGraph.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { TypeFragmentDoc } from '../../graphql/Type.fragment.graphql.gen'
-import { EnumTypeFragmentDoc } from '../../graphql/EnumType.fragment.graphql.gen'
-import { PrimitiveTypeFragmentDoc } from '../../graphql/PrimitiveType.fragment.graphql.gen'
-import { UnionTypeFragmentDoc } from '../../graphql/UnionType.fragment.graphql.gen'
-import { TypeGraphFragmentDoc } from '../../graphql/TypeGraph.fragment.graphql.gen'
+import { TypeFragmentDoc } from './Type.fragment.graphql.gen'
+import { EnumTypeFragmentDoc } from './EnumType.fragment.graphql.gen'
+import { PrimitiveTypeFragmentDoc } from './PrimitiveType.fragment.graphql.gen'
+import { UnionTypeFragmentDoc } from './UnionType.fragment.graphql.gen'
+import { TypeGraphFragmentDoc } from './TypeGraph.fragment.graphql.gen'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type CreateTypeMutationVariables = Types.Exact<{
   input: Types.CreateTypeInput
@@ -171,6 +171,57 @@ export type GetTypeKindsQuery = {
   >
 }
 
+export type GetPagesForSelectQueryVariables = Types.Exact<{
+  input: Types.GetPagesInput
+}>
+
+export type GetPagesForSelectQuery = {
+  pages: Array<{ id: string; name: string }>
+}
+
+export type GetLambdasForSelectQueryVariables = Types.Exact<{
+  [key: string]: never
+}>
+
+export type GetLambdasForSelectQuery = {
+  getLambdas: Array<{ id: string; name: string }>
+}
+
+export type ComponentForSelectFragment = {
+  id: string
+  name?: string | null | undefined
+}
+
+export type GetComponentsForSelectQueryVariables = Types.Exact<{
+  [key: string]: never
+}>
+
+export type GetComponentsForSelectQuery = {
+  getComponents: Array<ComponentForSelectFragment>
+}
+
+export type AtomForSelectFragment = { id: string; name: string }
+
+export type GetAtomsForSelectQueryVariables = Types.Exact<{
+  [key: string]: never
+}>
+
+export type GetAtomsForSelectQuery = {
+  getAtoms?: Array<AtomForSelectFragment> | null | undefined
+}
+
+export const ComponentForSelectFragmentDoc = gql`
+  fragment ComponentForSelect on Element {
+    id
+    name
+  }
+`
+export const AtomForSelectFragmentDoc = gql`
+  fragment AtomForSelect on Atom {
+    id
+    name
+  }
+`
 export const CreateTypeGql = gql`
   mutation CreateType($input: CreateTypeInput!) {
     createType(input: $input) {
@@ -251,6 +302,38 @@ export const GetTypeKindsGql = gql`
       __typename
     }
   }
+`
+export const GetPagesForSelectGql = gql`
+  query GetPagesForSelect($input: GetPagesInput!) {
+    pages: getPages(input: $input) {
+      id
+      name
+    }
+  }
+`
+export const GetLambdasForSelectGql = gql`
+  query GetLambdasForSelect {
+    getLambdas {
+      id
+      name
+    }
+  }
+`
+export const GetComponentsForSelectGql = gql`
+  query GetComponentsForSelect {
+    getComponents {
+      ...ComponentForSelect
+    }
+  }
+  ${ComponentForSelectFragmentDoc}
+`
+export const GetAtomsForSelectGql = gql`
+  query GetAtomsForSelect {
+    getAtoms {
+      ...AtomForSelect
+    }
+  }
+  ${AtomForSelectFragmentDoc}
 `
 
 const injectedRtkApi = api.injectEndpoints({
@@ -345,6 +428,48 @@ const injectedRtkApi = api.injectEndpoints({
         options: options ?? undefined,
       }),
     }),
+    GetPagesForSelect: build.query<
+      GetPagesForSelectQuery,
+      GraphqlOperationOptions<GetPagesForSelectQueryVariables>
+    >({
+      query: (options) => ({
+        document: GetPagesForSelectGql,
+        options: options ?? undefined,
+      }),
+    }),
+    GetLambdasForSelect: build.query<
+      GetLambdasForSelectQuery,
+      | GraphqlOperationOptions<GetLambdasForSelectQueryVariables>
+      | void
+      | undefined
+    >({
+      query: (options) => ({
+        document: GetLambdasForSelectGql,
+        options: options ?? undefined,
+      }),
+    }),
+    GetComponentsForSelect: build.query<
+      GetComponentsForSelectQuery,
+      | GraphqlOperationOptions<GetComponentsForSelectQueryVariables>
+      | void
+      | undefined
+    >({
+      query: (options) => ({
+        document: GetComponentsForSelectGql,
+        options: options ?? undefined,
+      }),
+    }),
+    GetAtomsForSelect: build.query<
+      GetAtomsForSelectQuery,
+      | GraphqlOperationOptions<GetAtomsForSelectQueryVariables>
+      | void
+      | undefined
+    >({
+      query: (options) => ({
+        document: GetAtomsForSelectGql,
+        options: options ?? undefined,
+      }),
+    }),
   }),
 })
 export { injectedRtkApi as api }
@@ -363,4 +488,12 @@ export const {
   useUpdateUnionTypeMutation,
   useGetTypeKindsQuery,
   useLazyGetTypeKindsQuery,
+  useGetPagesForSelectQuery,
+  useLazyGetPagesForSelectQuery,
+  useGetLambdasForSelectQuery,
+  useLazyGetLambdasForSelectQuery,
+  useGetComponentsForSelectQuery,
+  useLazyGetComponentsForSelectQuery,
+  useGetAtomsForSelectQuery,
+  useLazyGetAtomsForSelectQuery,
 } = injectedRtkApi

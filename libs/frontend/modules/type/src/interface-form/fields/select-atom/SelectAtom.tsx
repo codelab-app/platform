@@ -1,12 +1,12 @@
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
-import { useGetAtomsForSelectQuery } from './GetAtomsForSelect.web.graphql.gen'
+import { useGetAtomsForSelectQuery } from '../../../store/typeEndpoints'
 
 export type SelectAtomProps = HTMLFieldProps<string, SelectFieldProps>
 
 export const SelectAtom = ({ name }: SelectAtomProps) => {
-  const { data: atoms, loading } = useGetAtomsForSelectQuery()
+  const { data: atoms, isLoading } = useGetAtomsForSelectQuery()
 
   const componentOptions =
     atoms?.getAtoms?.map((atom) => ({
@@ -18,7 +18,7 @@ export const SelectAtom = ({ name }: SelectAtomProps) => {
     <SelectField
       options={componentOptions}
       name={name}
-      loading={loading}
+      loading={isLoading}
       showSearch={true}
       optionFilterProp="label"
     />

@@ -2,22 +2,22 @@ import { RightCircleOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/model/state/router'
 import { headerCellProps } from '@codelab/frontend/style'
 import {
-  EntityType,
   ListItemDeleteButton,
   ListItemEditButton,
   useColumnSearchProps,
-  useCrudModalForm,
 } from '@codelab/frontend/view/components'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table/interface'
 import Link from 'next/link'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { TypeFragment } from '../../../graphql/Type.fragment.graphql.gen'
-import { useGetTypesQuery } from '../typeEndpoints'
+import { useGetTypesQuery } from '../../../store/typeEndpoints'
+import { typeActions } from '../../../store/typeState'
 
 export const GetTypesTable = () => {
   const { data } = useGetTypesQuery()
-  const { openDeleteModal, openUpdateModal } = useCrudModalForm(EntityType.Type)
+  const dispatch = useDispatch()
 
   const columns: ColumnsType<TypeFragment> = [
     {
@@ -52,11 +52,22 @@ export const GetTypesTable = () => {
             </Link>
           ) : (
             <ListItemEditButton
-              onClick={() => openUpdateModal(record.id, record)}
+              onClick={() =>
+                dispatch(
+                  typeActions.openUpdateModal({
+                    updateId: record.id,
+                    entity: record,
+                  }),
+                )
+              }
             />
           )}
 
-          <ListItemDeleteButton onClick={() => openDeleteModal([record.id])} />
+          <ListItemDeleteButton
+            onClick={() =>
+              dispatch(typeActions.openDeleteModal({ deleteIds: [record.id] }))
+            }
+          />
         </Space>
       ),
     },

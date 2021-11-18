@@ -1,6 +1,0 @@
-query GetPagesForSelect($input: GetPagesInput!) {
-  pages: getPages(input: $input) {
-    id
-    name
-  }
-}

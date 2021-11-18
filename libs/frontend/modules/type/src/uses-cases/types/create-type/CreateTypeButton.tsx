@@ -1,11 +1,13 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import tw from 'twin.macro'
+import { typeActions } from '../../../store/typeState'
 
 export const CreateTypeButton = () => {
-  const { openCreateModal } = useCrudModalForm(EntityType.Type)
+  const dispatch = useDispatch()
+  const openCreateModal = () => dispatch(typeActions.openCreateModal())
 
   return (
     <Button

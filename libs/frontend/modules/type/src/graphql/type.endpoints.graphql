@@ -60,3 +60,39 @@ query GetTypeKinds($input: GetTypesInput) {
     __typename
   }
 }
+
+query GetPagesForSelect($input: GetPagesInput!) {
+  pages: getPages(input: $input) {
+    id
+    name
+  }
+}
+
+query GetLambdasForSelect {
+  getLambdas {
+    id
+    name
+  }
+}
+
+fragment ComponentForSelect on Element {
+  id
+  name
+}
+
+query GetComponentsForSelect {
+  getComponents {
+    ...ComponentForSelect
+  }
+}
+
+fragment AtomForSelect on Atom {
+  id
+  name
+}
+
+query GetAtomsForSelect {
+  getAtoms {
+    ...AtomForSelect
+  }
+}

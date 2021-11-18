@@ -1,11 +1,15 @@
 import {
+  ATOMS_CACHE_TAG,
+  ELEMENT_CACHE_TAG,
   invalidatesAll,
+  LAMBDA_CACHE_TAG,
+  PAGE_CACHE_TAG,
   providesAll,
   providesById,
   TYPE_CACHE_TAG,
   TYPE_GRAPH_CACHE_TAG,
 } from '@codelab/frontend/model/infra/api'
-import { api as generatedApi } from './type.endpoints.graphql.gen'
+import { api as generatedApi } from '../graphql/type.endpoints.graphql.gen'
 
 export const typeApi = generatedApi.enhanceEndpoints({
   endpoints: {
@@ -56,6 +60,20 @@ export const typeApi = generatedApi.enhanceEndpoints({
     GetTypeKinds: {
       providesTags: (result) => providesAll(result?.getTypes, TYPE_CACHE_TAG),
     },
+    GetAtomsForSelect: {
+      providesTags: (result) => providesAll(result?.getAtoms, ATOMS_CACHE_TAG),
+    },
+    GetComponentsForSelect: {
+      providesTags: (result) =>
+        providesAll(result?.getComponents, ELEMENT_CACHE_TAG),
+    },
+    GetLambdasForSelect: {
+      providesTags: (result) =>
+        providesAll(result?.getLambdas, LAMBDA_CACHE_TAG),
+    },
+    GetPagesForSelect: {
+      providesTags: (result) => providesAll(result?.pages, PAGE_CACHE_TAG),
+    },
   },
 })
 
@@ -76,4 +94,12 @@ export const {
   useUpdateUnionTypeMutation,
   useGetTypeKindsQuery,
   useLazyGetTypeKindsQuery,
+  useGetAtomsForSelectQuery,
+  useGetComponentsForSelectQuery,
+  useGetPagesForSelectQuery,
+  useGetLambdasForSelectQuery,
+  useLazyGetAtomsForSelectQuery,
+  useLazyGetComponentsForSelectQuery,
+  useLazyGetLambdasForSelectQuery,
+  useLazyGetPagesForSelectQuery,
 } = generatedApi

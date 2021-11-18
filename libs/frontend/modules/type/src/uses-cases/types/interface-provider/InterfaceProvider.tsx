@@ -3,8 +3,11 @@ import React, { useEffect } from 'react'
 import { InterfaceFragment } from '../../../graphql/Interface.fragment.graphql.gen'
 import { TypeGraphFragment } from '../../../graphql/TypeGraph.fragment.graphql.gen'
 import { TypeTreeGraphql } from '../../../shared'
+import {
+  useGetTypeGraphQuery,
+  useGetTypeQuery,
+} from '../../../store/typeEndpoints'
 import { useTypeTree } from '../../../type-tree'
-import { useGetTypeGraphQuery, useGetTypeQuery } from '../typeEndpoints'
 
 export interface InterfaceContextType {
   interface: InterfaceFragment

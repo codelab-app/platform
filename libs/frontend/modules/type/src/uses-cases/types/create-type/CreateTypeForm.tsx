@@ -1,22 +1,14 @@
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   DisplayIfField,
-  EntityType,
   FormUniforms,
-  UniFormUseCaseProps,
-  useCrudModalMutationForm,
+  FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
 import { createNonUnionTypeOptionsForTypeSelect } from '../../../shared/createNonUnionTypeOptionsForTypeSelect'
-import { useCreateTypeMutation } from '../typeEndpoints'
-import {
-  CreateTypeSchema,
-  createTypeSchema,
-  mapCreateTypeSchemaToTypeInput,
-} from './createTypeSchema'
+import { CreateTypeSchema, createTypeSchema } from './createTypeSchema'
 
 export const DisplayIfKind = ({
   kind,
@@ -28,29 +20,10 @@ export const DisplayIfKind = ({
 )
 
 export const CreateTypeForm = (
-  props: UniFormUseCaseProps<CreateTypeSchema>,
+  props: Omit<FormUniformsProps<CreateTypeSchema>, 'schema'>,
 ) => {
-  const {
-    handleSubmit,
-    crudModal: { reset },
-  } = useCrudModalMutationForm({
-    useMutationFunction: useCreateTypeMutation,
-    mapVariables: (submitData: CreateTypeSchema) => ({
-      input: mapCreateTypeSchemaToTypeInput(submitData),
-    }),
-    entityType: EntityType.Type,
-  })
-
   return (
-    <FormUniforms<CreateTypeSchema>
-      onSubmit={handleSubmit}
-      schema={createTypeSchema}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while creating type',
-      })}
-      onSubmitSuccess={() => reset()}
-      {...props}
-    >
+    <FormUniforms<CreateTypeSchema> schema={createTypeSchema} {...props}>
       <AutoFields fields={['name', 'kind']} />
       <DisplayIfKind kind={TypeKind.PrimitiveType}>
         <AutoField name={'primitiveKind'} />
