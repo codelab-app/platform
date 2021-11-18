@@ -17,6 +17,7 @@ import { pageEndpoints, pageSlice } from '@codelab/frontend/modules/page'
 import { tagEndpoints, tagSlice } from '@codelab/frontend/modules/tag'
 import {
   fieldEndpoints,
+  fieldSlice,
   typeEndpoints,
   typeSlice,
 } from '@codelab/frontend/modules/type'
@@ -56,6 +57,7 @@ export const makeStore = () => {
       [tagSlice.name]: tagSlice.reducer,
       [userSlice.name]: userSlice.reducer,
       [typeSlice.name]: typeSlice.reducer,
+      [fieldSlice.name]: fieldSlice.reducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(

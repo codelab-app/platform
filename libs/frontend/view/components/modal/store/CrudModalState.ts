@@ -12,27 +12,6 @@ export enum ActionType {
   Update = 'Update',
 }
 
-export enum EntityType {
-  Tag = 'Tag',
-  User = 'User',
-  None = 'None',
-  Page = 'Page',
-  Element = 'Element',
-  Atom = 'Atom',
-  AtomType = 'AtomType',
-  App = 'App',
-  Style = 'Style',
-  Library = 'Library',
-  Lambda = 'Lambda',
-  Component = 'Component',
-  ComponentElement = 'ComponentElement',
-  Prop = 'Prop',
-  Type = 'Type',
-  Field = 'Field',
-  Hook = 'Hook',
-  PropMapBinding = 'PropMapBinding',
-}
-
 export interface CRUDModalState<TEntity> {
   entity?: TEntity
   deleteIds: Array<string>

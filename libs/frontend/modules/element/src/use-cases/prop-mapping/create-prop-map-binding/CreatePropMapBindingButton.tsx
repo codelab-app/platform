@@ -1,14 +1,10 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { propMapBindingActions } from '../../../store'
+import { usePropMapBindingDispatch } from '../../../hooks'
 
 export const CreatePropMapBindingButton = () => {
-  const dispatch = useDispatch()
-
-  const openCreateModal = () =>
-    dispatch(propMapBindingActions.openCreateModal())
+  const { openCreateModal } = usePropMapBindingDispatch()
 
   return (
     <Button

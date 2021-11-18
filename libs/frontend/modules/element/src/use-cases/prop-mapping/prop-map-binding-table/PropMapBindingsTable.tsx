@@ -8,9 +8,8 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
-import { useDispatch } from 'react-redux'
 import { PropMapBindingFragment } from '../../../graphql'
-import { propMapBindingActions } from '../../../store'
+import { usePropMapBindingDispatch } from '../../../hooks'
 
 export interface PropMapBindingsTableProps {
   element: IElement
@@ -21,7 +20,7 @@ export const PropMapBindingsTable = ({
   tree,
   element,
 }: PropMapBindingsTableProps) => {
-  const dispatch = useDispatch()
+  const { openUpdateModal, openDeleteModal } = usePropMapBindingDispatch()
 
   const columns: Array<TableColumnProps<PropMapBindingFragment>> = [
     {
@@ -55,23 +54,19 @@ export const PropMapBindingsTable = ({
         <Space size="middle">
           <ListItemEditButton
             onClick={() =>
-              dispatch(
-                propMapBindingActions.openUpdateModal({
-                  updateId: record.id,
-                  entity: record,
-                }),
-              )
+              openUpdateModal({
+                updateId: record.id,
+                entity: record,
+              })
             }
           />
 
           <ListItemDeleteButton
             onClick={() =>
-              dispatch(
-                propMapBindingActions.openDeleteModal({
-                  deleteIds: [record.id],
-                  entity: record,
-                }),
-              )
+              openDeleteModal({
+                deleteIds: [record.id],
+                entity: record,
+              })
             }
           />
         </Space>

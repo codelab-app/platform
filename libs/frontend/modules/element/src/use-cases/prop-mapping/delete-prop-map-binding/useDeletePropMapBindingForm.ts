@@ -1,15 +1,14 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import {
-  propMapBindingActions,
-  selectPropMapBinding,
-  useDeletePropMapBindingMutation,
-} from '../../../store'
+  usePropMapBindingDispatch,
+  usePropMapBindingState,
+} from '../../../hooks'
+import { useDeletePropMapBindingMutation } from '../../../store'
 
 export const useDeletePropMapBindingForm = () => {
-  const { deleteIds } = useSelector(selectPropMapBinding)
-  const dispatch = useDispatch()
+  const { deleteIds } = usePropMapBindingState()
+  const { resetModal } = usePropMapBindingDispatch()
 
   const [mutate, state] = useDeletePropMapBindingMutation({
     selectFromResult: (r) => ({
@@ -18,8 +17,6 @@ export const useDeletePropMapBindingForm = () => {
       error: r.error,
     }),
   })
-
-  const reset = () => dispatch(propMapBindingActions.resetModal())
 
   const handleSubmit = useCallback(() => {
     return mutate({
@@ -35,9 +32,9 @@ export const useDeletePropMapBindingForm = () => {
       onSubmitError: createNotificationHandler({
         title: 'Error while deleting prop map binding',
       }),
-      onSubmitSuccess: () => reset(),
+      onSubmitSuccess: () => resetModal(),
     },
     state,
-    reset,
+    reset: resetModal,
   }
 }

@@ -1,4 +1,4 @@
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
+import { useElementDispatch } from '@codelab/frontend/modules/element'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { useDispatch } from 'react-redux'
 import { builderActions } from './store/builderState'
@@ -10,7 +10,7 @@ import { useBuilderSelectedElement } from './store/useBuilderSelectedElement'
  * - Esc -> de-selects element
  */
 export const useBuilderHotkeys = () => {
-  const { openDeleteModal } = useCrudModalForm(EntityType.Element)
+  const { openDeleteModal } = useElementDispatch()
   const { selectedElement, selectedElementId } = useBuilderSelectedElement()
   const dispatch = useDispatch()
 
@@ -18,7 +18,10 @@ export const useBuilderHotkeys = () => {
     'del,backspace',
     () => {
       if (selectedElement) {
-        openDeleteModal([selectedElement.id], selectedElement)
+        openDeleteModal({
+          deleteIds: [selectedElement.id],
+          entity: selectedElement,
+        })
       }
     },
     { enabled: !!selectedElement },

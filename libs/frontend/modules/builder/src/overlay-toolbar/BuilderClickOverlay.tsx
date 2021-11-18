@@ -1,5 +1,5 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
+import { useElementDispatch } from '@codelab/frontend/modules/element'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
 import React from 'react'
@@ -31,10 +31,7 @@ const StyledOverlayButtonGroup = styled.div`
 
 export const BuilderClickOverlay = () => {
   const { selectedElement } = useBuilderSelectedElement()
-
-  const { openDeleteModal, openCreateModal } = useCrudModalForm(
-    EntityType.Element,
-  )
+  const { openDeleteModal, openCreateModal } = useElementDispatch()
 
   if (!selectedElement) {
     return null
@@ -54,7 +51,7 @@ export const BuilderClickOverlay = () => {
           onClick={(e) => {
             e.stopPropagation()
 
-            return openCreateModal()
+            return openCreateModal({ parentElementId: selectedElement.id })
           }}
         />
 
@@ -66,7 +63,10 @@ export const BuilderClickOverlay = () => {
           onClick={(e) => {
             e.stopPropagation()
 
-            return openDeleteModal([selectedElement.id], selectedElement)
+            return openDeleteModal({
+              deleteIds: [selectedElement.id],
+              entity: selectedElement,
+            })
           }}
         />
       </StyledOverlayButtonGroup>

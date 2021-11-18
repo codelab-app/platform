@@ -1,12 +1,7 @@
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import React from 'react'
 
 export const LibraryExplorerList = () => {
   // const { data, loading } = useLibraryExplorerQuery()
-
-  const { openDeleteModal, openUpdateModal } = useCrudModalForm(
-    EntityType.Library,
-  )
 
   return <></>
 

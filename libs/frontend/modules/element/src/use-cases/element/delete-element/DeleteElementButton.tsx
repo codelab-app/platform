@@ -1,8 +1,7 @@
 import { Button, ButtonProps } from 'antd'
 import React, { PropsWithChildren } from 'react'
-import { useDispatch } from 'react-redux'
 import { ElementFragment } from '../../../graphql'
-import { elementActions } from '../../../store'
+import { useElementDispatch } from '../../../hooks'
 
 interface Props extends Omit<ButtonProps, 'onClick'> {
   elementId: string
@@ -15,13 +14,13 @@ export const DeleteElementButton = ({
   entity,
   ...props
 }: PropsWithChildren<Props>) => {
-  const dispatch = useDispatch()
-
-  const openDeleteModal = () =>
-    dispatch(elementActions.openDeleteModal({ deleteIds: [elementId], entity }))
+  const { openDeleteModal } = useElementDispatch()
 
   return (
-    <Button onClick={() => openDeleteModal()} {...props}>
+    <Button
+      onClick={() => openDeleteModal({ deleteIds: [elementId], entity })}
+      {...props}
+    >
       {children || (props?.icon ? '' : 'Delete')}
     </Button>
   )

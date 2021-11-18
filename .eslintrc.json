@@ -343,14 +343,7 @@
             "next": ["const", "let", "var"]
           }
         ],
-        "lines-between-class-members": ["error", "always"],
-        "deprecate-import/module": [
-          "warn",
-          {
-            "pattern": "^recoil.*",
-            "use": "@reduxjs/toolkit"
-          }
-        ]
+        "lines-between-class-members": ["error", "always"]
       }
     },
     {

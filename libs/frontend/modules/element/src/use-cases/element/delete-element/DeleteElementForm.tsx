@@ -5,9 +5,8 @@ import {
   FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { AutoFields } from 'uniforms-antd'
-import { selectElement } from '../../../store'
+import { useElementState } from '../../../hooks'
 
 export type DeleteElementFormProps = Omit<
   FormUniformsProps<EmptyJsonSchemaType>,
@@ -15,7 +14,7 @@ export type DeleteElementFormProps = Omit<
 >
 
 export const DeleteElementForm = (props: DeleteElementFormProps) => {
-  const { entity } = useSelector(selectElement)
+  const { entity } = useElementState()
 
   return (
     <FormUniforms<EmptyJsonSchemaType>

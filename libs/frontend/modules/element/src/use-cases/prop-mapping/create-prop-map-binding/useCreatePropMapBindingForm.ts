@@ -1,15 +1,10 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import {
-  propMapBindingActions,
-  useCreatePropMapBindingMutation,
-} from '../../../store'
+import { usePropMapBindingDispatch } from '../../../hooks'
+import { useCreatePropMapBindingMutation } from '../../../store'
 import { CreatePropMapBindingSchema } from './createPropMapBindingSchema'
 
 export const useCreatePropMapBindingForm = () => {
-  const dispatch = useDispatch()
-
   const [mutate, state] = useCreatePropMapBindingMutation({
     selectFromResult: (r) => ({
       hook: r.data?.createPropMapBinding,
@@ -18,7 +13,7 @@ export const useCreatePropMapBindingForm = () => {
     }),
   })
 
-  const reset = () => dispatch(propMapBindingActions.resetModal())
+  const { resetModal } = usePropMapBindingDispatch()
 
   const handleSubmit = useCallback(
     ({
@@ -47,9 +42,9 @@ export const useCreatePropMapBindingForm = () => {
       onSubmitError: createNotificationHandler({
         title: 'Error while creating prop binding',
       }),
-      onSubmitSuccess: () => reset(),
+      onSubmitSuccess: () => resetModal(),
     },
     state,
-    reset,
+    reset: resetModal,
   }
 }

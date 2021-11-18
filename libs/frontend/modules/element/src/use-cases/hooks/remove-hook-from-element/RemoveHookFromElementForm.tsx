@@ -5,9 +5,8 @@ import {
   FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { AutoFields } from 'uniforms-antd'
-import { selectHook } from '../../../store'
+import { useHookState } from '../../../hooks/useHookState'
 
 export type RemoveHookFromElementFormProps = Omit<
   FormUniformsProps<EmptyJsonSchemaType>,
@@ -17,7 +16,7 @@ export type RemoveHookFromElementFormProps = Omit<
 export const RemoveHookFromElementForm = (
   props: RemoveHookFromElementFormProps,
 ) => {
-  const { entity } = useSelector(selectHook)
+  const { entity } = useHookState()
 
   return (
     <FormUniforms<EmptyJsonSchemaType> schema={emptyJsonSchema} {...props}>

@@ -3,9 +3,8 @@ import {
   FormUniformsModal,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { selectPropMapBinding } from '../../../store'
+import { usePropMapBindingState } from '../../../hooks'
 import {
   CreatePropMapBindingForm,
   CreatePropMapBindingFormProps,
@@ -18,15 +17,13 @@ export const CreatePropMapBindingModal = (
     'elementId' | 'providePropCompletion' | 'tree'
   >,
 ) => {
-  const { actionType } = useSelector(selectPropMapBinding)
+  const { actionType } = usePropMapBindingState()
 
   const {
     formProps,
     state: { isLoading },
     reset,
   } = useCreatePropMapBindingForm()
-
-  console.log(actionType)
 
   return (
     <FormUniformsModal

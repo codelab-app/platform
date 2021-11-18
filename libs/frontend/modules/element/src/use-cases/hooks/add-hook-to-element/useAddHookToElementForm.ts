@@ -1,14 +1,14 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import { hookActions, useAddHookToElementMutation } from '../../../store'
+import { useHookDispatch } from '../../../hooks/useHookDispatch'
+import { useAddHookToElementMutation } from '../../../store'
 import {
   AddHookToElementSchema,
   mapDataToInput,
 } from './addHookToElementSchema'
 
 export const useAddHookToElementForm = (elementId: string) => {
-  const dispatch = useDispatch()
+  const { resetModal } = useHookDispatch()
 
   const [mutate, state] = useAddHookToElementMutation({
     selectFromResult: (r) => ({
@@ -17,8 +17,6 @@ export const useAddHookToElementForm = (elementId: string) => {
       error: r.error,
     }),
   })
-
-  const reset = () => dispatch(hookActions.resetModal())
 
   const handleSubmit = useCallback(
     (submitData: AddHookToElementSchema) => {
@@ -35,9 +33,9 @@ export const useAddHookToElementForm = (elementId: string) => {
       onSubmitError: createNotificationHandler({
         title: 'Error while creating hook',
       }),
-      onSubmitSuccess: () => reset(),
+      onSubmitSuccess: () => resetModal(),
     },
     state,
-    reset,
+    reset: resetModal,
   }
 }

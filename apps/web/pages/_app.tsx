@@ -9,7 +9,6 @@ import { css, Global } from '@emotion/react'
 import { AppProps } from 'next/app'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 
@@ -34,37 +33,35 @@ const AppContainer = ({
   const client = useApollo(ssrPageProps)
 
   return (
-    <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <ApolloProvider client={useApollo(ssrPageProps)}>
-          <UserProvider>
-            <GlobalStyles />
-            <Global
-              styles={[
-                css({
-                  '#__next': {
-                    height: '100%',
-                  },
-                }),
-                ...globalTailwindFix,
-              ]}
-            />
-            {Template ? (
-              <Template
-                MainPane={_MainPane}
-                MetaPane={_MetaPane}
-                SidebarNavigation={_SidebarNavigation}
-                Header={_Header}
-              >
-                <Component {...ssrPageProps} />
-              </Template>
-            ) : (
+    <QueryClientProvider client={queryClient}>
+      <ApolloProvider client={useApollo(ssrPageProps)}>
+        <UserProvider>
+          <GlobalStyles />
+          <Global
+            styles={[
+              css({
+                '#__next': {
+                  height: '100%',
+                },
+              }),
+              ...globalTailwindFix,
+            ]}
+          />
+          {Template ? (
+            <Template
+              MainPane={_MainPane}
+              MetaPane={_MetaPane}
+              SidebarNavigation={_SidebarNavigation}
+              Header={_Header}
+            >
               <Component {...ssrPageProps} />
-            )}
-          </UserProvider>
-        </ApolloProvider>
-      </QueryClientProvider>
-    </RecoilRoot>
+            </Template>
+          ) : (
+            <Component {...ssrPageProps} />
+          )}
+        </UserProvider>
+      </ApolloProvider>
+    </QueryClientProvider>
   )
 }
 

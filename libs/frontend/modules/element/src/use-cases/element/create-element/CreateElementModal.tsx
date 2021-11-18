@@ -3,9 +3,8 @@ import {
   FormUniformsModal,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { elementActions, selectElement } from '../../../store'
+import { useElementDispatch, useElementState } from '../../../hooks'
 import { CreateElementForm } from './CreateElementForm'
 import {
   CreateElementInitialData,
@@ -17,9 +16,8 @@ export const CreateElementModal = ({
 }: {
   initialData?: CreateElementInitialData
 }) => {
-  const { actionType } = useSelector(selectElement)
-  const dispatch = useDispatch()
-  const reset = () => dispatch(elementActions.resetModal())
+  const { actionType } = useElementState()
+  const { resetModal } = useElementDispatch()
 
   const {
     state: { isLoading },
@@ -34,7 +32,7 @@ export const CreateElementModal = ({
           loading: isLoading,
         },
         visible: actionType === ActionType.Create,
-        onCancel: () => reset(),
+        onCancel: () => resetModal(),
         title: <span css={tw`font-semibold`}>Create element</span>,
       }}
       renderForm={() => <CreateElementForm {...formProps} />}

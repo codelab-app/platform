@@ -1,9 +1,8 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
 import { CreateComponentMutationVariables } from '../../../graphql/component.endpoints.graphql.gen'
+import { useComponentDispatch } from '../../../hooks/useComponentDispatch'
 import { useCreateComponentMutation } from '../../../store/componentEndpoints'
-import { componentActions } from '../../../store/componentState'
 import { CreateComponentSchemaType } from './createComponentSchema'
 
 const mapVariables = (
@@ -13,8 +12,7 @@ const mapVariables = (
 })
 
 export const useCreateComponentForm = () => {
-  const dispatch = useDispatch()
-  const reset = () => dispatch(componentActions.resetModal())
+  const { resetModal } = useComponentDispatch()
 
   const [mutate, state] = useCreateComponentMutation({
     selectFromResult: (r) => ({
@@ -34,13 +32,13 @@ export const useCreateComponentForm = () => {
   )
 
   return {
-    reset,
+    reset: resetModal,
     formProps: {
       onSubmit: handleSubmit,
       onSubmitError: createNotificationHandler({
         title: 'Error while creating component',
       }),
-      onSubmitSuccess: () => reset(),
+      onSubmitSuccess: () => resetModal(),
     },
     state,
   }

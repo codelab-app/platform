@@ -1,17 +1,9 @@
-import { useUser } from '@auth0/nextjs-auth0'
-import {
-  EntityType,
-  UniFormUseCaseProps,
-  useCrudModalForm,
-} from '@codelab/frontend/view/components'
+import { UniFormUseCaseProps } from '@codelab/frontend/view/components'
 import { CreateLibraryInput } from './createLibrarySchema'
 
 type CreateLibraryFormProps = UniFormUseCaseProps<CreateLibraryInput>
 
 export const CreateLibraryForm = ({ ...props }: CreateLibraryFormProps) => {
-  const { reset, setLoading } = useCrudModalForm(EntityType.Library)
-  const { user } = useUser()
-
   return null
   // const [mutate, { loading: creating }] = useCreateLibraryMutation({
   //   awaitRefetchQueries: true,

@@ -12,7 +12,7 @@ import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useElementGraphContext } from '../../../providers'
-import { useMoveElementMutation } from '../../../store/elementEndpoints'
+import { useMoveElementMutation } from '../../../store'
 import { MoveElementSchema, moveElementSchema } from './moveElementSchema'
 
 export type MoveElementFormProps = UniFormUseCaseProps<MoveElementSchema> & {
@@ -28,7 +28,7 @@ export const MoveElementForm = ({
   trackPromises,
   ...props
 }: MoveElementFormProps) => {
-  const { elementTree, elementId: rootElementId } = useElementGraphContext()
+  const { elementTree } = useElementGraphContext()
   const { trackPromise } = trackPromises ?? {}
 
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when autosaving

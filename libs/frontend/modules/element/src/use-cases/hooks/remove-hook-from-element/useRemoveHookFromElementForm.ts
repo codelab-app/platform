@@ -1,15 +1,12 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  hookActions,
-  selectHook,
-  useRemoveHookFromElementMutation,
-} from '../../../store'
+import { useHookDispatch } from '../../../hooks/useHookDispatch'
+import { useHookState } from '../../../hooks/useHookState'
+import { useRemoveHookFromElementMutation } from '../../../store'
 
 export const useRemoveHookFromElementForm = (elementId: string) => {
-  const dispatch = useDispatch()
-  const { deleteIds } = useSelector(selectHook)
+  const { deleteIds } = useHookState()
+  const { resetModal } = useHookDispatch()
 
   const [mutate, state] = useRemoveHookFromElementMutation({
     selectFromResult: (r) => ({
@@ -18,8 +15,6 @@ export const useRemoveHookFromElementForm = (elementId: string) => {
       error: r.error,
     }),
   })
-
-  const reset = () => dispatch(hookActions.resetModal())
 
   const handleSubmit = useCallback(() => {
     return mutate({
@@ -33,9 +28,9 @@ export const useRemoveHookFromElementForm = (elementId: string) => {
       onSubmitError: createNotificationHandler({
         title: 'Error while deleting hook',
       }),
-      onSubmitSuccess: () => reset(),
+      onSubmitSuccess: () => resetModal(),
     },
     state,
-    reset,
+    reset: resetModal,
   }
 }

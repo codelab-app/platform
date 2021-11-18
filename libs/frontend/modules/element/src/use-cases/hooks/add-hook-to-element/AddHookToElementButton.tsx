@@ -1,11 +1,9 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
-import { useDispatch } from 'react-redux'
-import { hookActions } from '../../../store'
+import { useHookDispatch } from '../../../hooks/useHookDispatch'
 
 export const AddHookToElementButton = () => {
-  const dispatch = useDispatch()
-  const openCreateModal = () => dispatch(hookActions.openCreateModal())
+  const { openCreateModal } = useHookDispatch()
 
   return (
     <Button
