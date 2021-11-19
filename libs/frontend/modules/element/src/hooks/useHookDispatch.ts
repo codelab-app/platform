@@ -1,4 +1,4 @@
 import { crudModalDispatchFactory } from '@codelab/frontend/view/components'
-import { componentSlice } from '../store'
+import { hookSlice } from '../store'
 
-export const useHookDispatch = crudModalDispatchFactory(componentSlice.actions)
+export const useHookDispatch = crudModalDispatchFactory(hookSlice.actions)

@@ -1,6 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
-import { useHookDispatch } from '../../../hooks/useHookDispatch'
+import { useHookDispatch } from '../../../hooks'
 
 export const AddHookToElementButton = () => {
   const { openCreateModal } = useHookDispatch()

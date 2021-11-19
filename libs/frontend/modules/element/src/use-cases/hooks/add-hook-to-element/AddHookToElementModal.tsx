@@ -4,7 +4,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import tw from 'twin.macro'
-import { useHookState } from '../../../hooks/useHookState'
+import { useHookState } from '../../../hooks'
 import {
   AddHookToElementForm,
   AddHookToElementFormProps,

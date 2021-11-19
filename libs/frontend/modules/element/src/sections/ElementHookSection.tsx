@@ -1,11 +1,12 @@
 import React from 'react'
 import tw from 'twin.macro'
 import { useGetElementQuery } from '../store'
-import { ElementHooksList, RemoveHookFromElementModal } from '../use-cases'
 import {
   AddHookToElementButton,
   AddHookToElementModal,
-} from '../use-cases/hooks/add-hook-to-element'
+  ElementHooksList,
+  RemoveHookFromElementModal,
+} from '../use-cases'
 
 export interface ElementHookSectionProps {
   elementId: string
