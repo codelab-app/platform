@@ -1,17 +1,16 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { usePropMapBindingDispatch } from '../../../hooks'
 import {
-  propMapBindingActions,
   selectPropMapBinding,
   useUpdatePropMapBindingMutation,
 } from '../../../store'
 import { UpdatePropMapBindingSchema } from './updatePropMapBindingSchema'
 
 export const useUpdatePropMapBindingForm = () => {
-  const dispatch = useDispatch()
+  const { resetModal } = usePropMapBindingDispatch()
   const { updateId, entity } = useSelector(selectPropMapBinding)
-  const reset = () => dispatch(propMapBindingActions.resetModal())
 
   const [mutate, state] = useUpdatePropMapBindingMutation({
     selectFromResult: (r) => ({
@@ -45,10 +44,10 @@ export const useUpdatePropMapBindingForm = () => {
       onSubmitError: createNotificationHandler({
         title: 'Error while updating prop binding',
       }),
-      onSubmitSuccess: () => reset(),
+      onSubmitSuccess: () => resetModal(),
       model: entity,
     },
     state,
-    reset,
+    reset: resetModal,
   }
 }

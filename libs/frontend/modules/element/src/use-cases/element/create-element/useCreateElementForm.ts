@@ -3,13 +3,9 @@ import {
   notify,
 } from '@codelab/frontend/shared/utils'
 import { useCallback, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { CreateElementMutationVariables } from '../../../graphql'
-import {
-  elementActions,
-  selectElement,
-  useCreateElementMutation,
-} from '../../../store'
+import { useElementDispatch, useElementState } from '../../../hooks'
+import { useCreateElementMutation } from '../../../store'
 import { CreateElementSchema } from './createElementSchema'
 
 export type CreateElementInitialData = Partial<
@@ -37,9 +33,9 @@ const mapVariables = ({
 export const useCreateElementForm = (
   initialData?: CreateElementInitialData,
 ) => {
-  const { createMetadata } = useSelector(selectElement)
+  const { createMetadata } = useElementState()
   const initialDataRef = useRef(initialData)
-  const dispatch = useDispatch()
+  const { resetModal } = useElementDispatch()
 
   const [mutate, state] = useCreateElementMutation({
     selectFromResult: (r) => ({
@@ -48,8 +44,6 @@ export const useCreateElementForm = (
       error: r.error,
     }),
   })
-
-  const reset = () => dispatch(elementActions.resetModal())
 
   const handleSubmit = useCallback(
     (submitData: CreateElementSchema) => {
@@ -66,7 +60,7 @@ export const useCreateElementForm = (
       onSubmitError: createNotificationHandler({
         title: 'Error while creating element',
       }),
-      onSubmitSuccess: () => reset(),
+      onSubmitSuccess: () => resetModal(),
       model: {
         parentElementId:
           createMetadata?.parentElementId ??
@@ -76,5 +70,3 @@ export const useCreateElementForm = (
     state,
   }
 }
-
-export type UseCreateElementForm = ReturnType<typeof useCreateElementForm>

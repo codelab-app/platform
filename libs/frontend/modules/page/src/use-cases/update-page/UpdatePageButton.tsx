@@ -1,11 +1,11 @@
 import { EditOutlined } from '@ant-design/icons'
 import { UpdateButtonProps } from '@codelab/frontend/abstract/props'
-import { EntityType, useCrudModalForm } from '@codelab/frontend/view/components'
 import { Button } from 'antd'
 import React from 'react'
+import { usePageDispatch } from '../../hooks'
 
 export const UpdatePageButton = ({ id, disabled }: UpdateButtonProps) => {
-  const { openUpdateModal } = useCrudModalForm(EntityType.Page)
+  const { openUpdateModal } = usePageDispatch()
 
   return (
     <Button
@@ -19,7 +19,7 @@ export const UpdatePageButton = ({ id, disabled }: UpdateButtonProps) => {
           throw new Error('Page ID is not valid')
         }
 
-        openUpdateModal(id)
+        openUpdateModal({ updateId: id })
       }}
     />
   )

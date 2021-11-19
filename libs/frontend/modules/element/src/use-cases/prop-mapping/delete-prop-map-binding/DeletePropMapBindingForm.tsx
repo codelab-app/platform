@@ -5,9 +5,8 @@ import {
   FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { AutoFields } from 'uniforms-antd'
-import { selectPropMapBinding } from '../../../store'
+import { usePropMapBindingState } from '../../../hooks'
 
 export interface DeletePropMapBindingFormProps
   extends Omit<FormUniformsProps<EmptyJsonSchemaType>, 'schema'> {
@@ -18,7 +17,7 @@ export const DeletePropMapBindingForm = ({
   elementId,
   ...props
 }: DeletePropMapBindingFormProps) => {
-  const { entity } = useSelector(selectPropMapBinding)
+  const { entity } = usePropMapBindingState()
 
   return (
     <FormUniforms<EmptyJsonSchemaType> schema={emptyJsonSchema} {...props}>

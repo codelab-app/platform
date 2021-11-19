@@ -1,9 +1,8 @@
 import { ListItemDeleteButton } from '@codelab/frontend/view/components'
 import { ButtonProps } from 'antd'
 import React, { PropsWithChildren } from 'react'
-import { useDispatch } from 'react-redux'
 import { HookFragment } from '../../../graphql'
-import { hookActions } from '../../../store/hookState'
+import { useHookDispatch } from '../../../hooks/useHookDispatch'
 
 interface Props extends Omit<ButtonProps, 'onClick'> {
   hookId: string
@@ -16,13 +15,13 @@ export const RemoveHookFromElementButton = ({
   entity,
   ...props
 }: PropsWithChildren<Props>) => {
-  const dispatch = useDispatch()
-
-  const openDeleteModal = () =>
-    dispatch(hookActions.openDeleteModal({ deleteIds: [hookId], entity }))
+  const { openDeleteModal } = useHookDispatch()
 
   return (
-    <ListItemDeleteButton onClick={() => openDeleteModal()} {...props}>
+    <ListItemDeleteButton
+      onClick={() => openDeleteModal({ deleteIds: [hookId], entity })}
+      {...props}
+    >
       {children || (props?.icon ? '' : 'Delete')}
     </ListItemDeleteButton>
   )

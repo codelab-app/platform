@@ -7,6 +7,7 @@ import { ElementTree } from '@codelab/shared/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { isEqual } from 'lodash'
 import React, { useContext } from 'react'
+import { RecoilRoot } from 'recoil'
 import { defaultRenderContext } from './defaultRenderContext'
 
 export interface RendererProps {
@@ -40,13 +41,15 @@ export const Renderer = React.memo<RendererProps>(
     const rendered = (
       <ErrorBoundary>
         <RenderProvider context={context}>
-          <div id="render-root">
-            {context.renderFactory(root, {
-              ...(context ?? {}),
-              inspect: false,
-              tree,
-            })}
-          </div>
+          <RecoilRoot>
+            <div id="render-root">
+              {context.renderFactory(root, {
+                ...(context ?? {}),
+                inspect: false,
+                tree,
+              })}
+            </div>
+          </RecoilRoot>
         </RenderProvider>
       </ErrorBoundary>
     )

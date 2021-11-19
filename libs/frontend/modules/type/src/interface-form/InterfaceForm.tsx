@@ -7,10 +7,10 @@ import {
   IJsonSchemaOptions,
   TypeKind,
 } from '@codelab/shared/abstract/core'
+import { TypeTree } from '@codelab/shared/core'
 import * as _ from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
 import { Bridge, DeepPartial } from 'uniforms'
-import { TypeTreeGraphql } from '../shared'
 import {
   getSelectElementComponent,
   SelectComponent,
@@ -19,7 +19,7 @@ import {
 
 export interface InterfaceFormProps<TData>
   extends Omit<FormUniformsProps<TData>, 'schema'> {
-  interfaceTree: TypeTreeGraphql
+  interfaceTree: TypeTree
 }
 
 export const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (

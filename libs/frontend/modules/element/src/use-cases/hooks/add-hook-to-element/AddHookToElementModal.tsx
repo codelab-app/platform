@@ -3,9 +3,8 @@ import {
   FormUniformsModal,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { selectHook } from '../../../store'
+import { useHookState } from '../../../hooks'
 import {
   AddHookToElementForm,
   AddHookToElementFormProps,
@@ -15,7 +14,7 @@ import { useAddHookToElementForm } from './useAddHookToElementForm'
 export const AddHookToElementModal = ({
   elementId,
 }: Pick<AddHookToElementFormProps, 'elementId'>) => {
-  const { actionType } = useSelector(selectHook)
+  const { actionType } = useHookState()
 
   const {
     formProps,

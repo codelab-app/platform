@@ -1,17 +1,6 @@
 import { getApolloClient } from '@codelab/frontend/model/infra/apollo'
 import { notify } from '@codelab/frontend/shared/utils'
 import { useEffect } from 'react'
-import { atom, useRecoilState } from 'recoil'
-
-/**
- * This holds the currently selected library for the builder
- */
-const librarySelectionState = atom<{ selectedLibraryId: string | undefined }>({
-  key: 'librarySelectionState',
-  default: {
-    selectedLibraryId: undefined,
-  },
-})
 
 const SELECTED_LIBRARY_KEY = 'codelab_selected_library'
 
@@ -46,8 +35,6 @@ const fetchAndSelectFirstLibrary = (
  * show components/atoms/styles that are connected to it
  */
 export const useSelectedLibrary = () => {
-  const [state, setState] = useRecoilState(librarySelectionState)
-
   // const { data } = useGetLibraryQuery({
   //   skip: !state.selectedLibraryId,
   //   variables: {
@@ -56,9 +43,6 @@ export const useSelectedLibrary = () => {
   // })
 
   const selectLibrary = (libraryId: string) => {
-    setState({
-      selectedLibraryId: libraryId,
-    })
     localStorage.setItem(SELECTED_LIBRARY_KEY, libraryId)
   }
 
@@ -86,14 +70,14 @@ export const useSelectedLibrary = () => {
           }
         })
         .catch((err) => console.error(err))
-    } else if (!state.selectedLibraryId) {
-      fetchAndSelectFirstLibrary(selectLibrary).catch((e) => console.error(e))
     }
+    // else if (!state.selectedLibraryId) {
+    //   fetchAndSelectFirstLibrary(selectLibrary).catch((e) => console.error(e))
+    // }
   }, [])
 
   return {
     selectLibrary,
     library: null!,
-    state,
   }
 }

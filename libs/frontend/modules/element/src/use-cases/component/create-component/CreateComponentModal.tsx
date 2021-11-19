@@ -2,14 +2,13 @@ import {
   ActionType,
   FormUniformsModal,
 } from '@codelab/frontend/view/components'
-import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { selectComponent } from '../../../store'
+import { useComponentState } from '../../../hooks/useComponentState'
 import { CreateComponentForm } from './CreateComponentForm'
 import { useCreateComponentForm } from './useCreateComponentForm'
 
 export const CreateComponentModal = () => {
-  const { actionType } = useSelector(selectComponent)
+  const { actionType } = useComponentState()
 
   const {
     state: { isLoading },

@@ -1,7 +1,6 @@
 import { ApartmentOutlined } from '@ant-design/icons'
 import { IElement } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/model/state/router'
-import { tagActions, TagFragment } from '@codelab/frontend/modules/tag'
 import {
   ListItemButton,
   ListItemDeleteButton,
@@ -10,30 +9,13 @@ import {
 import { Space, Spin, Table, TableColumnProps } from 'antd'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 import tw from 'twin.macro'
 import { useGetComponentsQuery } from '../../../graphql/component.endpoints.graphql.gen'
-import { elementActions } from '../../../store'
+import { useComponentDispatch } from '../../../hooks/useComponentDispatch'
 
 export const GetComponentsTable = () => {
   const router = useRouter()
-  const dispatch = useDispatch()
-
-  const openDeleteModal = (record: IElement) =>
-    dispatch(
-      elementActions.openDeleteModal({
-        deleteIds: [record.id],
-        entity: record as any,
-      }),
-    )
-
-  const openUpdateModal = (record: TagFragment) =>
-    dispatch(
-      tagActions.openUpdateModal({
-        updateId: record.id,
-        entity: record,
-      }),
-    )
+  const { openUpdateModal, openDeleteModal } = useComponentDispatch()
 
   const headerCellProps = () => ({
     style: tw`font-semibold text-gray-900`,
@@ -76,12 +58,22 @@ export const GetComponentsTable = () => {
           <ListItemEditButton
             onClick={() => {
               if (record.componentTag) {
-                openUpdateModal(record.componentTag)
+                openUpdateModal({
+                  updateId: record.id,
+                  entity: record,
+                })
               }
             }}
           />
 
-          <ListItemDeleteButton onClick={() => openDeleteModal(record)} />
+          <ListItemDeleteButton
+            onClick={() =>
+              openDeleteModal({
+                deleteIds: [record.id],
+                entity: record as any,
+              })
+            }
+          />
         </Space>
       ),
     },

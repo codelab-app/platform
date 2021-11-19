@@ -1,0 +1,6 @@
+export * from './create-type'
+export * from './delete-type'
+export * from './get-types'
+export * from './interface-provider'
+export * from './type-kinds-provider'
+export * from './update-type'

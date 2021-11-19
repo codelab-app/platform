@@ -1,6 +1,0 @@
-query GetLambdasForSelect {
-  getLambdas {
-    id
-    name
-  }
-}

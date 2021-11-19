@@ -1,9 +1,7 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
-  EntityType,
   FormUniforms,
   UniFormUseCaseProps,
-  useCrudModalForm,
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { DeepPartial } from 'uniforms'
@@ -13,9 +11,6 @@ import { UpdateLibraryInput, UpdateLibrarySchema } from './updateLibrarySchema'
 type UpdateLibraryFormProps = UniFormUseCaseProps<UpdateLibraryInput>
 
 export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
-  const { reset, setLoading, state } = useCrudModalForm(EntityType.Library)
-  const { updateId: updateLibraryId } = state
-
   // const [mutate, { loading: updating }] = useUpdateLibraryMutation({
   //   refetchQueries: [
   //     refetchGetLibraryQuery({
@@ -54,7 +49,7 @@ export const UpdateLibraryForm = (props: UpdateLibraryFormProps) => {
       onSubmitError={createNotificationHandler({
         title: 'Error while updating library',
       })}
-      onSubmitSuccess={() => reset()}
+      // onSubmitSuccess={() => reset()}
       {...props}
     >
       <AutoFields />

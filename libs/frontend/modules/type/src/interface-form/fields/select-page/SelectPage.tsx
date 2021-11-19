@@ -2,14 +2,14 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
-import { useGetPagesForSelectQuery } from './GetPagesForSelect.web.graphql.gen'
+import { useGetPagesForSelectQuery } from '../../../store/typeEndpoints'
 
 export type SelectPageProps = HTMLFieldProps<string, SelectFieldProps>
 
 export const SelectPage = ({ name }: SelectPageProps) => {
   const router = useRouter()
 
-  const { data, loading } = useGetPagesForSelectQuery({
+  const { data, isLoading } = useGetPagesForSelectQuery({
     variables: { input: { byApp: { appId: String(router.query.appId) } } },
   })
 
@@ -24,7 +24,7 @@ export const SelectPage = ({ name }: SelectPageProps) => {
       label="Page"
       options={pageOptions}
       name={name}
-      loading={loading}
+      loading={isLoading}
       showSearch={true}
       optionFilterProp="label"
     />

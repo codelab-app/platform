@@ -3,9 +3,8 @@ import {
   FormUniformsModal,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { selectHook } from '../../../store'
+import { useHookState } from '../../../hooks'
 import { RemoveHookFromElementForm } from './RemoveHookFromElementForm'
 import { useRemoveHookFromElementForm } from './useRemoveHookFromElementForm'
 
@@ -16,7 +15,7 @@ export interface RemoveHookFromElementModalProps {
 export const RemoveHookFromElementModal = ({
   elementId,
 }: RemoveHookFromElementModalProps) => {
-  const { actionType } = useSelector(selectHook)
+  const { actionType } = useHookState()
 
   const {
     formProps,

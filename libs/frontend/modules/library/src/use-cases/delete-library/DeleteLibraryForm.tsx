@@ -1,16 +1,9 @@
-import {
-  EntityType,
-  UniFormUseCaseProps,
-  useCrudModalForm,
-} from '@codelab/frontend/view/components'
+import { UniFormUseCaseProps } from '@codelab/frontend/view/components'
 import { DeleteLibraryInput } from './deleteLibrarySchema'
 
 type DeleteLibraryFormProps = UniFormUseCaseProps<DeleteLibraryInput>
 
 export const DeleteLibraryForm = (props: DeleteLibraryFormProps) => {
-  const { reset, setLoading, state } = useCrudModalForm(EntityType.Library)
-  const { deleteIds: deleteLibraryIds } = state
-
   // const [mutate, { loading: deleting }] = useDeleteLibraryMutation({
   //   refetchQueries: [refetchLibraryExplorerQuery()],
   // })
