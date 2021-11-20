@@ -1,3 +1,4 @@
+import { PayloadResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import type { IUser } from '@codelab/shared/abstract/core'
@@ -5,6 +6,7 @@ import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateAppInput, CreateAppService } from '../use-cases/create-app'
 import { DeleteAppInput, DeleteAppService } from '../use-cases/delete-app'
+import { ExportAppInput, ExportAppService } from '../use-cases/export-app'
 import { GetAppInput, GetAppService } from '../use-cases/get-app'
 import { GetAppsService } from '../use-cases/get-apps'
 import { UpdateAppInput, UpdateAppService } from '../use-cases/update-app'
@@ -19,6 +21,7 @@ export class AppResolver {
     private readonly getAppService: GetAppService,
     private readonly updateAppService: UpdateAppService,
     private readonly deleteAppService: DeleteAppService,
+    private readonly exportAppService: ExportAppService,
   ) {}
 
   @Mutation(() => App)
@@ -101,5 +104,18 @@ export class AppResolver {
     await this.deleteAppService.execute({ input, currentUser })
 
     return app
+  }
+
+  @Query(() => PayloadResponse)
+  @UseGuards(GqlAuthGuard)
+  async exportApp(
+    @Args('input') input: ExportAppInput,
+    @CurrentUser() currentUser: IUser,
+  ): Promise<PayloadResponse> {
+    const payload = await this.exportAppService.execute({ input, currentUser })
+
+    return {
+      payload: JSON.stringify(payload),
+    }
   }
 }

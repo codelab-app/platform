@@ -1,5 +1,4 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { AppModule } from '@codelab/backend/modules/app'
 import { AtomModule } from '@codelab/backend/modules/atom'
 import { HookModule } from '@codelab/backend/modules/hook'
 import { TypeModule } from '@codelab/backend/modules/type'
@@ -63,7 +62,6 @@ const services = [
 
 @Module({
   imports: [
-    AppModule,
     AtomModule,
     TypeModule,
     CytoscapeModule,

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { PageModule } from '@codelab/backend/modules/page'
 import {
   domainRequest,
   setupTestModule,
@@ -38,11 +40,13 @@ export const setupAppTestModule = (resetDb = true) => {
   }
 
   beforeAll(async () => {
-    testModule.guestApp = await setupTestModule([AppModule], {
+    testModule.guestApp = await setupTestModule([AppModule, PageModule], {
       role: Role.Guest,
       resetDb,
     })
-    testModule.userApp = await setupTestModule([AppModule], { role: Role.User })
+    testModule.userApp = await setupTestModule([AppModule, PageModule], {
+      role: Role.User,
+    })
   })
 
   afterAll(async () => {

@@ -11,9 +11,12 @@ import { UpdateAtomService } from '../update-atom'
 import { ImportAtomsRequest } from './import-atoms.request'
 
 /**
- * This is the entry point to importing all atom related data. This function will call a basic seeder to seed all default data that belongs to the platform.
+ * This is the entry point to importing all atom related data.
+ * This function will call a basic seeder to seed all default data that belongs to the platform.
  *
  * The calls are idempotent
+ *
+ *
  *
  */
 @Injectable()
@@ -45,34 +48,30 @@ export class ImportAtomsService
   ) {
     await Promise.all(
       atoms.map(async (atom) => {
-        // this.logger.debug(
-        //   omit(atom.api, 'typeGraph'),
-        //   `Seeding Atom: ${atom.name}`,
-        // )
-
         // Seed api
-        const { id } = await this.importApiService.execute({
-          input: {
-            typeGraph: atom.api.typeGraph as any,
-            api: atom.api.id,
-          },
-          currentUser,
-        })
+        let apiId: string | undefined = undefined
+
+        if (atom.api) {
+          const { id } = await this.importApiService.execute({
+            input: {
+              typeGraph: atom.api.typeGraph as any,
+              api: atom.api.id,
+            },
+            currentUser,
+          })
+
+          apiId = id
+        }
 
         // Seed atom
-        const createdAtomId = await this.upsertAtom({
+        await this.upsertAtom({
           input: {
-            type: atom.type as any,
+            type: atom.type,
             name: atom.name,
-            api: id,
+            api: apiId,
           },
           currentUser,
         })
-
-        // this.logger.debug(
-        //   pick(atom, ['name', 'type']),
-        //   createdAtomId ? 'Atom Created' : 'Atom Exists',
-        // )
       }),
     )
   }
@@ -100,13 +99,15 @@ export class ImportAtomsService
     }
 
     // We don't update api here
-    await this.updateAtomService.execute({
-      id: atom.id,
-      data: {
-        name: input.name,
-        type: atom.type as AtomType,
-      },
-    })
+    if (atom.name !== input.name) {
+      await this.updateAtomService.execute({
+        id: atom.id,
+        data: {
+          name: input.name,
+          type: atom.type as AtomType,
+        },
+      })
+    }
 
     return atom.id
   }

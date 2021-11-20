@@ -464,10 +464,6 @@ export type CreateAtomInput = {
   type: AtomType
 }
 
-export type CreateAtomsInput = {
-  atoms: Array<CreateAtomInput>
-}
-
 export type CreateComponentInput = {
   name: Scalars['String']
 }
@@ -670,6 +666,10 @@ export type ExecuteLambdaInput = {
   payload?: Maybe<Scalars['String']>
 }
 
+export type ExportAppInput = {
+  appId: Scalars['String']
+}
+
 export type Field = {
   __typename?: 'Field'
   description?: Maybe<Scalars['String']>
@@ -869,7 +869,6 @@ export type Mutation = {
   addHookToElement: CreateResponse
   createApp: App
   createAtom: Atom
-  createAtoms: Array<Atom>
   createComponent: Element
   createElement: Element
   createField: Field
@@ -909,6 +908,7 @@ export type Mutation = {
   updateTag?: Maybe<Tag>
   updateType?: Maybe<Type>
   updateUnionType?: Maybe<UnionType>
+  upsertAtoms: Array<Atom>
   upsertTag: Tag
   upsertUser: User
 }
@@ -923,10 +923,6 @@ export type MutationCreateAppArgs = {
 
 export type MutationCreateAtomArgs = {
   input: CreateAtomInput
-}
-
-export type MutationCreateAtomsArgs = {
-  input: CreateAtomsInput
 }
 
 export type MutationCreateComponentArgs = {
@@ -1073,6 +1069,10 @@ export type MutationUpdateUnionTypeArgs = {
   input: UpdateUnionTypeInput
 }
 
+export type MutationUpsertAtomsArgs = {
+  input: UpsertAtomsInput
+}
+
 export type MutationUpsertTagArgs = {
   input: UpsertTagInput
 }
@@ -1091,6 +1091,11 @@ export type Page = {
 
 export type PageByAppFilter = {
   appId: Scalars['String']
+}
+
+export type PayloadResponse = {
+  __typename?: 'PayloadResponse'
+  payload: Scalars['String']
 }
 
 export enum PersistenceType {
@@ -1128,6 +1133,7 @@ export type PropMapBinding = {
 
 export type Query = {
   __typename?: 'Query'
+  exportApp: PayloadResponse
   getApp?: Maybe<App>
   getApps: Array<App>
   getAtom?: Maybe<Atom>
@@ -1155,6 +1161,10 @@ export type Query = {
   getTypes: Array<Type>
   getUser?: Maybe<User>
   getUsers: Array<User>
+}
+
+export type QueryExportAppArgs = {
+  input: ExportAppInput
 }
 
 export type QueryGetAppArgs = {
@@ -1556,6 +1566,18 @@ export type UpdateUnionTypeData = {
 export type UpdateUnionTypeInput = {
   typeId: Scalars['String']
   updateData: UpdateUnionTypeData
+}
+
+export type UpsertAtomInput = {
+  /** Pass in an existing interface ID to assign it to the atom */
+  api?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
+  name: Scalars['String']
+  type: AtomType
+}
+
+export type UpsertAtomsInput = {
+  atoms: Array<UpsertAtomInput>
 }
 
 export type UpsertTagInput = {

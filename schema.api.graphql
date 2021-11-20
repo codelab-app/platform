@@ -11,6 +11,10 @@ type CreateResponse {
   id: String!
 }
 
+type PayloadResponse {
+  payload: String!
+}
+
 type User {
   id: String!
   auth0Id: String!
@@ -23,11 +27,68 @@ enum Role {
   Guest
 }
 
-type App {
+type Hook {
   id: ID!
-  ownerId: String!
-  name: String!
-  pages: [Page!]!
+  type: HookType!
+  config: HookConfig!
+}
+
+enum HookType {
+  Query
+  GraphqlQuery
+  GraphqlMutation
+  RecoilState
+  QueryPage
+  QueryPages
+}
+
+union HookConfig = QueryHookConfig | GraphqlHookConfig | RecoilStateHookConfig | QueryPageHookConfig | QueryPagesHookConfig
+
+type QueryHookConfig {
+  queryKey: String!
+  url: String
+  body: String
+  method: QueryMethod
+  lambdaId: String
+}
+
+enum QueryMethod {
+  Get
+  Delete
+  Head
+  Options
+  Post
+  Put
+  Patch
+  Purge
+  Link
+  Unlink
+}
+
+type GraphqlHookConfig {
+  graphqlBody: String!
+  graphqlUrl: String!
+  dataKey: String
+}
+
+type RecoilStateHookConfig {
+  stateKey: String!
+  defaultValue: String
+  persisted: PersistenceType!
+}
+
+enum PersistenceType {
+  NotPersisted
+  LocalStorage
+  SessionStorage
+}
+
+type QueryPageHookConfig {
+  pageId: String!
+}
+
+type QueryPagesHookConfig {
+  appId: String!
 }
 
 type Field {
@@ -552,70 +613,6 @@ enum AtomType {
   HtmlSup
 }
 
-type Hook {
-  id: ID!
-  type: HookType!
-  config: HookConfig!
-}
-
-enum HookType {
-  Query
-  GraphqlQuery
-  GraphqlMutation
-  RecoilState
-  QueryPage
-  QueryPages
-}
-
-union HookConfig = QueryHookConfig | GraphqlHookConfig | RecoilStateHookConfig | QueryPageHookConfig | QueryPagesHookConfig
-
-type QueryHookConfig {
-  queryKey: String!
-  url: String
-  body: String
-  method: QueryMethod
-  lambdaId: String
-}
-
-enum QueryMethod {
-  Get
-  Delete
-  Head
-  Options
-  Post
-  Put
-  Patch
-  Purge
-  Link
-  Unlink
-}
-
-type GraphqlHookConfig {
-  graphqlBody: String!
-  graphqlUrl: String!
-  dataKey: String
-}
-
-type RecoilStateHookConfig {
-  stateKey: String!
-  defaultValue: String
-  persisted: PersistenceType!
-}
-
-enum PersistenceType {
-  NotPersisted
-  LocalStorage
-  SessionStorage
-}
-
-type QueryPageHookConfig {
-  pageId: String!
-}
-
-type QueryPagesHookConfig {
-  appId: String!
-}
-
 type Tag {
   id: String!
   name: String!
@@ -707,6 +704,13 @@ type ElementGraph {
   edges: [ElementEdge!]!
 }
 
+type App {
+  id: ID!
+  ownerId: String!
+  name: String!
+  pages: [Page!]!
+}
+
 type Lambda {
   id: ID!
   ownerId: String!
@@ -728,11 +732,7 @@ type Page {
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
-  getMe: User
-  getUser(input: GetUserInput!): User
-  getUsers(input: GetUsersInput): [User!]!
-  getPages(input: GetPagesInput!): [Page!]!
-  getPage(input: GetPageInput!): Page
+  exportApp(input: ExportAppInput!): PayloadResponse!
 
   """
   Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
@@ -748,6 +748,11 @@ type Query {
   getTypeGraph(input: GetTypeGraphInput!): TypeGraph
   getTypes(input: GetTypesInput): [Type!]!
   getField(input: GetFieldInput!): Field
+  getMe: User
+  getUser(input: GetUserInput!): User
+  getUsers(input: GetUsersInput): [User!]!
+  getPages(input: GetPagesInput!): [Page!]!
+  getPage(input: GetPageInput!): Page
   getLambda(input: GetLambdaInput!): Lambda
   getLambdas: [Lambda!]!
   getTag(input: GetTagInput!): Tag
@@ -779,28 +784,8 @@ input AppByPageFilter {
   pageId: String!
 }
 
-input GetUserInput {
-  id: String
-  auth0Id: String
-}
-
-input GetUsersInput {
-  page: Int!
-  perPage: Int!
-  query: String!
-  sort: String!
-}
-
-input GetPagesInput {
-  byApp: PageByAppFilter!
-}
-
-input PageByAppFilter {
+input ExportAppInput {
   appId: String!
-}
-
-input GetPageInput {
-  pageId: String!
 }
 
 input GetElementGraphInput {
@@ -887,6 +872,30 @@ input FieldByIdFilter {
   fieldId: String!
 }
 
+input GetUserInput {
+  id: String
+  auth0Id: String
+}
+
+input GetUsersInput {
+  page: Int!
+  perPage: Int!
+  query: String!
+  sort: String!
+}
+
+input GetPagesInput {
+  byApp: PageByAppFilter!
+}
+
+input PageByAppFilter {
+  appId: String!
+}
+
+input GetPageInput {
+  pageId: String!
+}
+
 input GetLambdaInput {
   lambdaId: String!
 }
@@ -916,12 +925,6 @@ type Mutation {
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App
   deleteApp(input: DeleteAppInput!): App
-  upsertUser(input: UpsertUserInput!): User!
-  deleteUser(input: DeleteUserInput!): Boolean!
-  resetData: Void
-  createPage(input: CreatePageInput!): Page!
-  deletePage(input: DeletePageInput!): Page!
-  updatePage(input: UpdatePageInput!): Page!
   createPropMapBinding(input: CreatePropMapBindingInput!): CreateResponse!
   updatePropMapBinding(input: UpdatePropMapBindingInput!): Void
   deletePropMapBinding(input: DeletePropMapBindingInput!): Void
@@ -939,7 +942,7 @@ type Mutation {
   deleteAtom(input: DeleteAtomInput!): Atom
   importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Atom
-  createAtoms(input: CreateAtomsInput!): [Atom!]!
+  upsertAtoms(input: UpsertAtomsInput!): [Atom!]!
   seedBaseTypes: Void
   createType(input: CreateTypeInput!): Type!
   updateEnumType(input: UpdateEnumTypeInput!): EnumType
@@ -950,6 +953,12 @@ type Mutation {
   createField(input: CreateFieldInput!): Field!
   updateField(input: UpdateFieldInput!): Field
   deleteField(input: DeleteFieldInput!): Field
+  upsertUser(input: UpsertUserInput!): User!
+  deleteUser(input: DeleteUserInput!): Boolean!
+  resetData: Void
+  createPage(input: CreatePageInput!): Page!
+  deletePage(input: DeletePageInput!): Page!
+  updatePage(input: UpdatePageInput!): Page!
   createLambda(input: CreateLambdaInput!): Lambda!
   deleteLambda(input: DeleteLambdaInput!): Lambda!
   updateLambda(input: UpdateLambdaInput!): Lambda
@@ -978,47 +987,6 @@ input DeleteAppInput {
   appId: String!
 }
 
-input UpsertUserInput {
-  data: UpsertUserDataInput!
-  where: UserWhereUniqueInput
-}
-
-input UpsertUserDataInput {
-  auth0Id: String!
-  roles: [Role!]!
-}
-
-input UserWhereUniqueInput {
-  id: String
-  auth0Id: String
-}
-
-input DeleteUserInput {
-  id: String!
-}
-
-"""Date custom scalar type"""
-scalar Void
-
-input CreatePageInput {
-  name: String!
-  appId: String!
-}
-
-input DeletePageInput {
-  pageId: String!
-}
-
-input UpdatePageInput {
-  pageId: String!
-  updateData: UpdatePageData!
-}
-
-input UpdatePageData {
-  name: String!
-  appId: String!
-}
-
 input CreatePropMapBindingInput {
   elementId: String!
 
@@ -1033,6 +1001,9 @@ input CreatePropMapBindingInput {
   """The key of the prop, that the target Element will receive"""
   targetKey: String!
 }
+
+"""Date custom scalar type"""
+scalar Void
 
 input UpdatePropMapBindingInput {
   propMapBindingId: String!
@@ -1179,8 +1150,17 @@ input UpdateAtomInput {
   data: CreateAtomInput!
 }
 
-input CreateAtomsInput {
-  atoms: [CreateAtomInput!]!
+input UpsertAtomsInput {
+  atoms: [UpsertAtomInput!]!
+}
+
+input UpsertAtomInput {
+  name: String!
+  type: AtomType!
+
+  """Pass in an existing interface ID to assign it to the atom"""
+  api: String
+  id: String
 }
 
 """Provide one of the properties"""
@@ -1297,6 +1277,44 @@ input UpdateFieldData {
 
 input DeleteFieldInput {
   fieldId: String!
+}
+
+input UpsertUserInput {
+  data: UpsertUserDataInput!
+  where: UserWhereUniqueInput
+}
+
+input UpsertUserDataInput {
+  auth0Id: String!
+  roles: [Role!]!
+}
+
+input UserWhereUniqueInput {
+  id: String
+  auth0Id: String
+}
+
+input DeleteUserInput {
+  id: String!
+}
+
+input CreatePageInput {
+  name: String!
+  appId: String!
+}
+
+input DeletePageInput {
+  pageId: String!
+}
+
+input UpdatePageInput {
+  pageId: String!
+  updateData: UpdatePageData!
+}
+
+input UpdatePageData {
+  name: String!
+  appId: String!
 }
 
 input CreateLambdaInput {
