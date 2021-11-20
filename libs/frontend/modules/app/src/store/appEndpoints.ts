@@ -25,6 +25,10 @@ export const api = generatedApi.enhanceEndpoints({
       invalidatesTags: (result) =>
         invalidatesById(result?.updateApp?.id, APP_CACHE_TAG),
     },
+    ExportApp: {
+      providesTags: (_, __, payload) =>
+        providesById(payload.variables?.input.appId, APP_CACHE_TAG),
+    },
   },
 })
 export { generatedApi as appEndpoints }
@@ -36,4 +40,6 @@ export const {
   useCreateAppMutation,
   useDeleteAppMutation,
   useUpdateAppMutation,
+  useExportAppQuery,
+  useLazyExportAppQuery,
 } = generatedApi

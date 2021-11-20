@@ -155,6 +155,7 @@
     "reflect-metadata": "0.1.13",
     "regenerator-runtime": "0.13.9",
     "rxjs": "7.3.0",
+    "sanitize-filename": "^1.6.3",
     "shelljs": "0.8.4",
     "supertest": "6.1.6",
     "ts-morph": "^12.0.0",

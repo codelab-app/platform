@@ -36,6 +36,12 @@ export type UpdateAppMutation = {
   updateApp?: AppBaseFragment | null | undefined
 }
 
+export type ExportAppQueryVariables = Types.Exact<{
+  input: Types.ExportAppInput
+}>
+
+export type ExportAppQuery = { exportApp: { payload: string } }
+
 export const CreateAppGql = gql`
   mutation CreateApp($input: CreateAppInput!) {
     createApp(input: $input) {
@@ -75,6 +81,13 @@ export const UpdateAppGql = gql`
     }
   }
   ${AppBaseFragmentDoc}
+`
+export const ExportAppGql = gql`
+  query ExportApp($input: ExportAppInput!) {
+    exportApp(input: $input) {
+      payload
+    }
+  }
 `
 
 const injectedRtkApi = api.injectEndpoints({
@@ -124,6 +137,15 @@ const injectedRtkApi = api.injectEndpoints({
         options: options ?? undefined,
       }),
     }),
+    ExportApp: build.query<
+      ExportAppQuery,
+      GraphqlOperationOptions<ExportAppQueryVariables>
+    >({
+      query: (options) => ({
+        document: ExportAppGql,
+        options: options ?? undefined,
+      }),
+    }),
   }),
 })
 export { injectedRtkApi as api }
@@ -135,4 +157,6 @@ export const {
   useGetAppsQuery,
   useLazyGetAppsQuery,
   useUpdateAppMutation,
+  useExportAppQuery,
+  useLazyExportAppQuery,
 } = injectedRtkApi
