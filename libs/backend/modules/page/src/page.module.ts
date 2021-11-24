@@ -1,9 +1,7 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { AppModule } from '@codelab/backend/modules/app'
 import { ElementModule } from '@codelab/backend/modules/element'
 import { CytoscapeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
-import { AppPagesResolver } from './application/app-pages.resolver'
 import { PageResolver } from './application/page.resolver'
 import { PageValidator } from './domain/page.validator'
 import { CreatePageService } from './use-cases/create-page'
@@ -28,8 +26,8 @@ const services = [
 ]
 
 @Module({
-  imports: [AppModule, ElementModule, CytoscapeModule],
-  providers: [PageResolver, AppPagesResolver, ...services, Void],
+  imports: [ElementModule, CytoscapeModule],
+  providers: [PageResolver, ...services, Void],
   exports: [...services],
 })
 export class PageModule {}

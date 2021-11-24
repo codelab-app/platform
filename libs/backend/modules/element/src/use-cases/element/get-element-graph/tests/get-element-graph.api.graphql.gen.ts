@@ -1,6 +1,10 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
+import { TestElementEdgeFragment } from '../../../../test/graphql/TestElementEdge.fragment.graphql.gen'
+import { TestElementFragment } from '../../../../test/graphql/TestElement.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import { TestElementEdgeFragmentDoc } from '../../../../test/graphql/TestElementEdge.fragment.graphql.gen'
+import { TestElementFragmentDoc } from '../../../../test/graphql/TestElement.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestGetElementGraphQueryVariables = Types.Exact<{
@@ -9,24 +13,8 @@ export type TestGetElementGraphQueryVariables = Types.Exact<{
 
 export type TestGetElementGraphQuery = {
   getElementGraph: {
-    edges: Array<{
-      order?: number | null | undefined
-      source: string
-      target: string
-    }>
-    vertices: Array<{
-      id: string
-      name?: string | null | undefined
-      css?: string | null | undefined
-      props: string
-      renderForEachPropKey?: string | null | undefined
-      renderIfPropKey?: string | null | undefined
-      componentTag?: { name: string; id: string } | null | undefined
-      atom?:
-        | { id: string; name: string; type: Types.AtomType }
-        | null
-        | undefined
-    }>
+    edges: Array<TestElementEdgeFragment>
+    vertices: Array<TestElementFragment>
   }
 }
 
@@ -34,31 +22,15 @@ export const TestGetElementGraphGql = gql`
   query TestGetElementGraph($input: GetElementGraphInput!) {
     getElementGraph(input: $input) {
       edges {
-        order
-        source
-        target
+        ...TestElementEdge
       }
       vertices {
-        ... on Element {
-          id
-          name
-          css
-          props
-          componentTag {
-            name
-            id
-          }
-          atom {
-            id
-            name
-            type
-          }
-          renderForEachPropKey
-          renderIfPropKey
-        }
+        ...TestElement
       }
     }
   }
+  ${TestElementEdgeFragmentDoc}
+  ${TestElementFragmentDoc}
 `
 
 /**

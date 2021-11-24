@@ -1,11 +1,13 @@
-import { Field, InputType, PickType } from '@nestjs/graphql'
-import { CreateElementInput } from '../create-element'
+import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class UpdateElementData extends PickType(CreateElementInput, [
-  'name',
-  'atomId',
-]) {
+export class UpdateElementData {
+  @Field({ nullable: true })
+  declare name?: string
+
+  @Field(() => String, { nullable: true })
+  declare atomId?: string
+
   @Field(() => String, { nullable: true })
   declare css?: string | null
 

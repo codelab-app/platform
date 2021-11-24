@@ -49,6 +49,9 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
       .map<IElement | undefined>(getCyElementData)[0]
   }
 
+  getAllComponents(): Array<IElement> {
+    return this.getAllVertices(ElementTree.isComponent)
+  }
   // getComponentOfElement(elementId: string) {
   //   return this.cy
   //     .getElementById(elementId)

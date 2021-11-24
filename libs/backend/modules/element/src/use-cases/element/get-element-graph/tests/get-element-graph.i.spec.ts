@@ -2,10 +2,7 @@ import { domainRequest } from '@codelab/backend/shared/testing'
 import { setupElementTestModule } from '../../../../test/setupElementTestModule'
 import { createElementInput } from '../../create-element/tests/create-element.data'
 import { GetElementGraphInput } from '../get-element-graph.input'
-import {
-  TestGetElementGraphGql,
-  TestGetElementGraphQuery,
-} from './get-element-graph.api.graphql.gen'
+import { TestGetElementGraphGql } from './get-element-graph.api.graphql.gen'
 
 describe.skip('GetElementGraph', () => {
   const testModule = setupElementTestModule()
@@ -36,12 +33,9 @@ describe.skip('GetElementGraph', () => {
 
   describe('User', () => {
     it('should get an element', async () => {
-      const results = await domainRequest<
-        GetElementGraphInput,
-        TestGetElementGraphQuery
-      >(testModule.userApp, TestGetElementGraphGql, getElementGraphInput)
+      const results = await testModule.getElementGraph(getElementGraphInput)
 
-      expect(results?.getElementGraph).toMatchObject({
+      expect(results).toMatchObject({
         vertices: [
           {
             id: elementId,

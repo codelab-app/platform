@@ -1,4 +1,5 @@
 import { ElementModule } from '@codelab/backend/modules/element'
+import { PageModule } from '@codelab/backend/modules/page'
 import { Module } from '@nestjs/common'
 import { AppResolver } from './application/app.resolver'
 import { AppValidator } from './domain/app.validator'
@@ -26,7 +27,7 @@ const services = [
 ]
 
 @Module({
-  imports: [ElementModule],
+  imports: [ElementModule, PageModule],
   providers: [AppResolver, ...services],
   exports: [...services],
 })

@@ -22,6 +22,11 @@ import {
   TestGetElementGql,
   TestGetElementQuery,
 } from '../use-cases/element/get-element/tests/get-element.api.graphql.gen'
+import {
+  GetElementGraphInput,
+  TestGetElementGraphGql,
+  TestGetElementGraphQuery,
+} from '../use-cases/element/get-element-graph'
 
 export const setupElementTestModule = (resetDb = true) => {
   const testModule = {
@@ -40,6 +45,13 @@ export const setupElementTestModule = (resetDb = true) => {
         TestGetElementGql,
         input,
       ).then((r) => r.getElement)
+    },
+    getElementGraph: (input: GetElementInput) => {
+      return domainRequest<GetElementGraphInput, TestGetElementGraphQuery>(
+        testModule.userApp,
+        TestGetElementGraphGql,
+        input,
+      ).then((r) => r.getElementGraph)
     },
     createComponent: (input: CreateComponentInput) => {
       return domainRequest<CreateComponentInput, TestCreateComponentMutation>(

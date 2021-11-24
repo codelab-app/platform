@@ -7,6 +7,7 @@ import {
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../../application/element.validator'
+import { CreatePropMapBindingInput } from './create-prop-map-binding.input'
 import { CreatePropMapBindingRequest } from './create-prop-map-binding.request'
 
 @Injectable()
@@ -26,30 +27,45 @@ export class CreatePropMapBindingService extends DgraphCreateUseCase<CreatePropM
 
     return this.dgraph.create(
       txn,
-      CreatePropMapBindingService.createMutation(request),
+      CreatePropMapBindingService.createMutation(request.input),
       'binding',
     )
   }
 
-  private static createMutation({
-    input: { elementId, targetElementId, targetKey, sourceKey },
-  }: CreatePropMapBindingRequest): Mutation {
+  public static createMutation({
+    elementId,
+    ...input
+  }: CreatePropMapBindingInput): Mutation {
     const setJson: DgraphUpdateMutationJson<any> = {
       uid: elementId,
-      propMapBindings: {
-        uid: '_:binding',
-        targetElement: targetElementId
-          ? {
-              uid: targetElementId,
-            }
-          : null,
-        targetKey,
-        sourceKey,
-        'dgraph.type': [DgraphEntityType.PropMapBinding],
-      },
+      propMapBindings: CreatePropMapBindingService.createPropMapBindingMutation(
+        input,
+        '_:binding',
+      ),
     }
 
     return { setJson }
+  }
+
+  public static createPropMapBindingMutation(
+    {
+      targetElementId,
+      targetKey,
+      sourceKey,
+    }: Omit<CreatePropMapBindingInput, 'elementId'>,
+    uid: string | undefined,
+  ) {
+    return {
+      uid,
+      targetElement: targetElementId
+        ? {
+            uid: targetElementId,
+          }
+        : null,
+      targetKey,
+      sourceKey,
+      'dgraph.type': [DgraphEntityType.PropMapBinding],
+    }
   }
 
   protected async validate({

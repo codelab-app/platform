@@ -1,5 +1,5 @@
+export * from './application/component.resolver'
 export * from './application/element.validator'
-export * from './domain/component/component.resolver'
 export * from './domain/element/element.model'
 export * from './domain/element/element-edge.model'
 export * from './domain/element/element-graph.model'

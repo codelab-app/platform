@@ -62,6 +62,12 @@ export type Atom = {
   type: AtomType
 }
 
+/** Provide either id or type */
+export type AtomRef = {
+  atomId?: Maybe<Scalars['String']>
+  atomType?: Maybe<AtomType>
+}
+
 export enum AtomType {
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
@@ -468,13 +474,48 @@ export type CreateComponentInput = {
   name: Scalars['String']
 }
 
-export type CreateElementInput = {
-  atomId?: Maybe<Scalars['String']>
+export type CreateElementChildInput = {
+  atom?: Maybe<AtomRef>
+  /** Creates new elements and attaches them, can be used to create a whole tree at once. Will get processed after childrenIds */
+  children?: Maybe<Array<CreateElementChildInput>>
+  /** Attaches child elements to the newly created element. Useful for adding component children */
   childrenIds?: Maybe<Array<Scalars['String']>>
+  css?: Maybe<Scalars['String']>
+  hooks?: Maybe<Array<NewHookRef>>
+  isComponent?: Maybe<Scalars['Boolean']>
   name?: Maybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */
   order?: Maybe<Scalars['Int']>
+  propMapBindings?: Maybe<Array<NewPropMapBindingRef>>
+  propTransformationJs?: Maybe<Scalars['String']>
+  props?: Maybe<Scalars['String']>
+  /** Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding */
+  refId?: Maybe<Scalars['String']>
+  renderForEachPropKey?: Maybe<Scalars['String']>
+  renderIfPropKey?: Maybe<Scalars['String']>
+}
+
+export type CreateElementInput = {
+  atom?: Maybe<AtomRef>
+  /** Creates new elements and attaches them, can be used to create a whole tree at once. Will get processed after childrenIds */
+  children?: Maybe<Array<CreateElementChildInput>>
+  /** Attaches child elements to the newly created element. Useful for adding component children */
+  childrenIds?: Maybe<Array<Scalars['String']>>
+  css?: Maybe<Scalars['String']>
+  hooks?: Maybe<Array<NewHookRef>>
+  isComponent?: Maybe<Scalars['Boolean']>
+  name?: Maybe<Scalars['String']>
+  /** Leave it out to automatically set it as the last order of all the children */
+  order?: Maybe<Scalars['Int']>
+  /** Attaches the newly created element to an existing element as child */
   parentElementId?: Maybe<Scalars['String']>
+  propMapBindings?: Maybe<Array<NewPropMapBindingRef>>
+  propTransformationJs?: Maybe<Scalars['String']>
+  props?: Maybe<Scalars['String']>
+  /** Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding */
+  refId?: Maybe<Scalars['String']>
+  renderForEachPropKey?: Maybe<Scalars['String']>
+  renderIfPropKey?: Maybe<Scalars['String']>
 }
 
 export type CreateElementTypeInput = {
@@ -869,6 +910,7 @@ export type Mutation = {
   addHookToElement: CreateResponse
   createApp: App
   createAtom: Atom
+  /** Facade for creating a element with component tag */
   createComponent: Element
   createElement: Element
   createField: Field
@@ -1079,6 +1121,24 @@ export type MutationUpsertTagArgs = {
 
 export type MutationUpsertUserArgs = {
   input: UpsertUserInput
+}
+
+export type NewHookRef = {
+  graphqlMutationHook?: Maybe<GraphqlHookConfigInput>
+  graphqlQueryHook?: Maybe<GraphqlHookConfigInput>
+  queryHook?: Maybe<QueryHookConfigInput>
+  queryPageHook?: Maybe<QueryPageHookConfigInput>
+  queryPagesHook?: Maybe<QueryPagesHookConfigInput>
+  recoilStateHook?: Maybe<RecoilStateHookConfigInput>
+}
+
+export type NewPropMapBindingRef = {
+  /** The key of the prop, as received in the source element */
+  sourceKey: Scalars['String']
+  /** The ID of the target element, if omitted, the current element will be the target */
+  targetElementId?: Maybe<Scalars['String']>
+  /** The key of the prop, that the target Element will receive */
+  targetKey: Scalars['String']
 }
 
 export type Page = {

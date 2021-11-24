@@ -1,4 +1,4 @@
-import { CreateAppInput } from '@codelab/backend/modules/app'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
 import {
   domainRequest,
   setupTestModule,
@@ -8,10 +8,6 @@ import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../page.module'
 import { CreatePageInput } from '../use-cases/create-page'
-import {
-  TestCreateAppGql,
-  TestCreateAppMutation,
-} from '../use-cases/create-page/tests/create-app.api.graphql.gen'
 import {
   TestCreatePageGql,
   TestCreatePageMutation,
@@ -26,12 +22,20 @@ export const setupPageTestModule = () => {
   const testModule = {
     guestApp: null! as INestApplication,
     userApp: null! as INestApplication,
-    createTestApp: (input: CreateAppInput) => {
-      return domainRequest<CreateAppInput, TestCreateAppMutation>(
-        testModule.userApp,
-        TestCreateAppGql,
-        input,
-      ).then((r) => r.createApp)
+    createTestApp: (input: { name: string }) => {
+      const dgraph = testModule.userApp.get<DgraphRepository>(DgraphRepository)
+      const blankNodeLabel = 'app'
+
+      // Manual mutation is needed to avoid circular dependency to app module
+      const mutation = {
+        uid: `_:${blankNodeLabel}`,
+        name: input.name,
+        'dgraph.type': [DgraphEntityType.App],
+      }
+
+      return dgraph.transactionWrapper((txn) =>
+        dgraph.create(txn, { setJson: mutation }, blankNodeLabel),
+      )
     },
     createTestPage: (input: CreatePageInput) => {
       return domainRequest<CreatePageInput, TestCreatePageMutation>(

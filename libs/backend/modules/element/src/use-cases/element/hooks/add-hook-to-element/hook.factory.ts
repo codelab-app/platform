@@ -9,7 +9,7 @@ export const hookFactory = ({
   queryPageHook,
   queryPagesHook,
   graphqlMutationHook,
-}: AddHookToElementInput) => {
+}: Omit<AddHookToElementInput, 'elementId'>) => {
   if (queryHook) {
     return new Hook({ type: HookType.Query, config: queryHook })
   }

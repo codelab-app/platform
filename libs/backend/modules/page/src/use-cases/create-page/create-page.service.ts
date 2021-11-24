@@ -5,14 +5,14 @@ import {
   DgraphRepository,
   DgraphUpdateMutationJson,
 } from '@codelab/backend/infra'
-import { AppValidator } from '@codelab/backend/modules/app'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
+import { PageValidator } from '../../domain/page.validator'
 import { CreatePageRequest } from './create-page.request'
 
 @Injectable()
 export class CreatePageService extends DgraphCreateUseCase<CreatePageRequest> {
-  constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
+  constructor(dgraph: DgraphRepository, private pageValidator: PageValidator) {
     super(dgraph)
   }
 
@@ -57,6 +57,6 @@ export class CreatePageService extends DgraphCreateUseCase<CreatePageRequest> {
     currentUser,
     input: { appId },
   }: CreatePageRequest): Promise<void> {
-    await this.appValidator.existsAndIsOwnedBy(appId, currentUser)
+    await this.pageValidator.validateApp(appId, currentUser)
   }
 }

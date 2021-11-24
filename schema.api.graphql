@@ -27,70 +27,6 @@ enum Role {
   Guest
 }
 
-type Hook {
-  id: ID!
-  type: HookType!
-  config: HookConfig!
-}
-
-enum HookType {
-  Query
-  GraphqlQuery
-  GraphqlMutation
-  RecoilState
-  QueryPage
-  QueryPages
-}
-
-union HookConfig = QueryHookConfig | GraphqlHookConfig | RecoilStateHookConfig | QueryPageHookConfig | QueryPagesHookConfig
-
-type QueryHookConfig {
-  queryKey: String!
-  url: String
-  body: String
-  method: QueryMethod
-  lambdaId: String
-}
-
-enum QueryMethod {
-  Get
-  Delete
-  Head
-  Options
-  Post
-  Put
-  Patch
-  Purge
-  Link
-  Unlink
-}
-
-type GraphqlHookConfig {
-  graphqlBody: String!
-  graphqlUrl: String!
-  dataKey: String
-}
-
-type RecoilStateHookConfig {
-  stateKey: String!
-  defaultValue: String
-  persisted: PersistenceType!
-}
-
-enum PersistenceType {
-  NotPersisted
-  LocalStorage
-  SessionStorage
-}
-
-type QueryPageHookConfig {
-  pageId: String!
-}
-
-type QueryPagesHookConfig {
-  appId: String!
-}
-
 type Field {
   id: ID!
   key: String!
@@ -613,6 +549,70 @@ enum AtomType {
   HtmlSup
 }
 
+type Hook {
+  id: ID!
+  type: HookType!
+  config: HookConfig!
+}
+
+enum HookType {
+  Query
+  GraphqlQuery
+  GraphqlMutation
+  RecoilState
+  QueryPage
+  QueryPages
+}
+
+union HookConfig = QueryHookConfig | GraphqlHookConfig | RecoilStateHookConfig | QueryPageHookConfig | QueryPagesHookConfig
+
+type QueryHookConfig {
+  queryKey: String!
+  url: String
+  body: String
+  method: QueryMethod
+  lambdaId: String
+}
+
+enum QueryMethod {
+  Get
+  Delete
+  Head
+  Options
+  Post
+  Put
+  Patch
+  Purge
+  Link
+  Unlink
+}
+
+type GraphqlHookConfig {
+  graphqlBody: String!
+  graphqlUrl: String!
+  dataKey: String
+}
+
+type RecoilStateHookConfig {
+  stateKey: String!
+  defaultValue: String
+  persisted: PersistenceType!
+}
+
+enum PersistenceType {
+  NotPersisted
+  LocalStorage
+  SessionStorage
+}
+
+type QueryPageHookConfig {
+  pageId: String!
+}
+
+type QueryPagesHookConfig {
+  appId: String!
+}
+
 type Tag {
   id: String!
   name: String!
@@ -704,6 +704,13 @@ type ElementGraph {
   edges: [ElementEdge!]!
 }
 
+type Page {
+  id: ID!
+  name: String!
+  elements: ElementGraph
+  rootElementId: String!
+}
+
 type App {
   id: ID!
   ownerId: String!
@@ -720,13 +727,6 @@ type Lambda {
 
 type LambdaPayload {
   payload: String!
-}
-
-type Page {
-  id: ID!
-  name: String!
-  elements: ElementGraph
-  rootElementId: String!
 }
 
 type Query {
@@ -748,11 +748,11 @@ type Query {
   getTypeGraph(input: GetTypeGraphInput!): TypeGraph
   getTypes(input: GetTypesInput): [Type!]!
   getField(input: GetFieldInput!): Field
+  getPages(input: GetPagesInput!): [Page!]!
+  getPage(input: GetPageInput!): Page
   getMe: User
   getUser(input: GetUserInput!): User
   getUsers(input: GetUsersInput): [User!]!
-  getPages(input: GetPagesInput!): [Page!]!
-  getPage(input: GetPageInput!): Page
   getLambda(input: GetLambdaInput!): Lambda
   getLambdas: [Lambda!]!
   getTag(input: GetTagInput!): Tag
@@ -872,18 +872,6 @@ input FieldByIdFilter {
   fieldId: String!
 }
 
-input GetUserInput {
-  id: String
-  auth0Id: String
-}
-
-input GetUsersInput {
-  page: Int!
-  perPage: Int!
-  query: String!
-  sort: String!
-}
-
 input GetPagesInput {
   byApp: PageByAppFilter!
 }
@@ -894,6 +882,18 @@ input PageByAppFilter {
 
 input GetPageInput {
   pageId: String!
+}
+
+input GetUserInput {
+  id: String
+  auth0Id: String
+}
+
+input GetUsersInput {
+  page: Int!
+  perPage: Int!
+  query: String!
+  sort: String!
 }
 
 input GetLambdaInput {
@@ -937,6 +937,8 @@ type Mutation {
 
   """Deletes an element and all the descending elements"""
   deleteElement(input: DeleteElementInput!): Element!
+
+  """Facade for creating a element with component tag"""
   createComponent(input: CreateComponentInput!): Element!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): Atom
@@ -953,12 +955,12 @@ type Mutation {
   createField(input: CreateFieldInput!): Field!
   updateField(input: UpdateFieldInput!): Field
   deleteField(input: DeleteFieldInput!): Field
-  upsertUser(input: UpsertUserInput!): User!
-  deleteUser(input: DeleteUserInput!): Boolean!
-  resetData: Void
   createPage(input: CreatePageInput!): Page!
   deletePage(input: DeletePageInput!): Page!
   updatePage(input: UpdatePageInput!): Page!
+  upsertUser(input: UpsertUserInput!): User!
+  deleteUser(input: DeleteUserInput!): Boolean!
+  resetData: Void
   createLambda(input: CreateLambdaInput!): Lambda!
   deleteLambda(input: DeleteLambdaInput!): Lambda!
   updateLambda(input: UpdateLambdaInput!): Lambda
@@ -1073,15 +1075,98 @@ input RemoveHookFromElementInput {
 }
 
 input CreateElementInput {
+  """
+  Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding
+  """
+  refId: String
   name: String
-  atomId: String
-  parentElementId: String
+  atom: AtomRef
 
   """
   Leave it out to automatically set it as the last order of all the children
   """
   order: Int
+
+  """
+  Attaches child elements to the newly created element. Useful for adding component children
+  """
   childrenIds: [String!]
+
+  """
+  Creates new elements and attaches them, can be used to create a whole tree at once. Will get processed after childrenIds
+  """
+  children: [CreateElementChildInput!]
+  css: String
+  props: String
+  renderForEachPropKey: String
+  renderIfPropKey: String
+  propTransformationJs: String
+  hooks: [NewHookRef!]
+  propMapBindings: [NewPropMapBindingRef!]
+  isComponent: Boolean
+
+  """Attaches the newly created element to an existing element as child"""
+  parentElementId: String
+}
+
+"""Provide either id or type"""
+input AtomRef {
+  atomId: String
+  atomType: AtomType
+}
+
+input CreateElementChildInput {
+  """
+  Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding
+  """
+  refId: String
+  name: String
+  atom: AtomRef
+
+  """
+  Leave it out to automatically set it as the last order of all the children
+  """
+  order: Int
+
+  """
+  Attaches child elements to the newly created element. Useful for adding component children
+  """
+  childrenIds: [String!]
+
+  """
+  Creates new elements and attaches them, can be used to create a whole tree at once. Will get processed after childrenIds
+  """
+  children: [CreateElementChildInput!]
+  css: String
+  props: String
+  renderForEachPropKey: String
+  renderIfPropKey: String
+  propTransformationJs: String
+  hooks: [NewHookRef!]
+  propMapBindings: [NewPropMapBindingRef!]
+  isComponent: Boolean
+}
+
+input NewHookRef {
+  queryHook: QueryHookConfigInput
+  graphqlQueryHook: GraphqlHookConfigInput
+  graphqlMutationHook: GraphqlHookConfigInput
+  recoilStateHook: RecoilStateHookConfigInput
+  queryPageHook: QueryPageHookConfigInput
+  queryPagesHook: QueryPagesHookConfigInput
+}
+
+input NewPropMapBindingRef {
+  """
+  The ID of the target element, if omitted, the current element will be the target
+  """
+  targetElementId: String
+
+  """The key of the prop, as received in the source element"""
+  sourceKey: String!
+
+  """The key of the prop, that the target Element will receive"""
+  targetKey: String!
 }
 
 input UpdateElementInput {
@@ -1279,25 +1364,6 @@ input DeleteFieldInput {
   fieldId: String!
 }
 
-input UpsertUserInput {
-  data: UpsertUserDataInput!
-  where: UserWhereUniqueInput
-}
-
-input UpsertUserDataInput {
-  auth0Id: String!
-  roles: [Role!]!
-}
-
-input UserWhereUniqueInput {
-  id: String
-  auth0Id: String
-}
-
-input DeleteUserInput {
-  id: String!
-}
-
 input CreatePageInput {
   name: String!
   appId: String!
@@ -1315,6 +1381,25 @@ input UpdatePageInput {
 input UpdatePageData {
   name: String!
   appId: String!
+}
+
+input UpsertUserInput {
+  data: UpsertUserDataInput!
+  where: UserWhereUniqueInput
+}
+
+input UpsertUserDataInput {
+  auth0Id: String!
+  roles: [Role!]!
+}
+
+input UserWhereUniqueInput {
+  id: String
+  auth0Id: String
+}
+
+input DeleteUserInput {
+  id: String!
 }
 
 input CreateLambdaInput {

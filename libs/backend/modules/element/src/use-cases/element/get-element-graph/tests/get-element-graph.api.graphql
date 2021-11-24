@@ -1,28 +1,10 @@
 query TestGetElementGraph($input: GetElementGraphInput!) {
   getElementGraph(input: $input) {
     edges {
-      order
-      source
-      target
+      ...TestElementEdge
     }
     vertices {
-      ... on Element {
-        id
-        name
-        css
-        props
-        componentTag {
-          name
-          id
-        }
-        atom {
-          id
-          name
-          type
-        }
-        renderForEachPropKey
-        renderIfPropKey
-      }
+      ...TestElement
     }
   }
 }

@@ -155,7 +155,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
 
   getAllVertices(predicate?: Predicate<TVertex>): Array<TVertex> {
     return this.cy
-      .elements()
+      .nodes()
       .filter(filterPredicate(predicate ?? this.predicate))
       .map(this.getCyElementData)
       .filter((v): v is TVertex => !!v)

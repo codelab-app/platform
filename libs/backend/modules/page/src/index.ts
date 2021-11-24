@@ -1,4 +1,3 @@
-export * from './application/app-pages.resolver'
 export * from './domain/page.model'
 export * from './domain/page.validator'
 export * from './page.module'

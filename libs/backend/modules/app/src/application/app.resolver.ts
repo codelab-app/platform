@@ -1,9 +1,17 @@
 import { PayloadResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
+import { GetPagesService, Page } from '@codelab/backend/modules/page'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import type { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 import { CreateAppInput, CreateAppService } from '../use-cases/create-app'
 import { DeleteAppInput, DeleteAppService } from '../use-cases/delete-app'
 import { ExportAppInput, ExportAppService } from '../use-cases/export-app'
@@ -22,6 +30,7 @@ export class AppResolver {
     private readonly updateAppService: UpdateAppService,
     private readonly deleteAppService: DeleteAppService,
     private readonly exportAppService: ExportAppService,
+    private readonly getPagesService: GetPagesService,
   ) {}
 
   @Mutation(() => App)
@@ -117,5 +126,14 @@ export class AppResolver {
     return {
       payload: JSON.stringify(payload),
     }
+  }
+
+  @ResolveField('pages', () => [Page])
+  @UseGuards(GqlAuthGuard)
+  async resolvePages(@Parent() parent: App, @CurrentUser() currentUser: IUser) {
+    return this.getPagesService.execute({
+      input: { byApp: { appId: parent.id } },
+      currentUser,
+    })
   }
 }
