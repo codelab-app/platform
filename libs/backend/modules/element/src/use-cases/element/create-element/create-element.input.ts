@@ -24,6 +24,21 @@ export class AtomRef {
   atomType?: AtomType
 }
 
+@InputType({
+  description: 'Provide either id or new element input',
+})
+// generic is needed to avoid circular dependency
+export class ElementRef<TInput = CreateElementChildInput> {
+  @Field(() => String, {
+    nullable: true,
+    description: 'Pass in either refId, or existing elementId',
+  })
+  elementId?: string
+
+  @Field(() => CreateElementChildInput, { nullable: true })
+  newElement?: TInput
+}
+
 @InputType()
 export class CreateElementChildInput {
   @Field(() => String, {
@@ -46,19 +61,12 @@ export class CreateElementChildInput {
   })
   declare order?: number | null
 
-  @Field(() => [String], {
+  @Field(() => [ElementRef], {
     nullable: true,
     description:
-      'Attaches child elements to the newly created element. Useful for adding component children',
+      'Creates new elements or attaches existing ones, can be used to create a whole tree at once',
   })
-  declare childrenIds?: Array<string>
-
-  @Field(() => [CreateElementChildInput], {
-    nullable: true,
-    description:
-      'Creates new elements and attaches them, can be used to create a whole tree at once. Will get processed after childrenIds',
-  })
-  declare children?: Array<CreateElementChildInput>
+  declare children?: Array<ElementRef<CreateElementChildInput>>
 
   @Field(() => String, { nullable: true })
   declare css?: string
@@ -82,7 +90,7 @@ export class CreateElementChildInput {
   declare propMapBindings?: Array<NewPropMapBindingRef>
 
   @Field(() => Boolean, { nullable: true })
-  declare isComponent?: true
+  declare isComponent?: boolean
 }
 
 @InputType()

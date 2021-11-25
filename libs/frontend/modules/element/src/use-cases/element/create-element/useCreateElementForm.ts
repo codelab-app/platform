@@ -26,7 +26,7 @@ const mapVariables = ({
     input: {
       ...formData,
       atom: formData.atomId ? { atomId: formData.atomId } : undefined,
-      childrenIds: componentId ? [componentId] : undefined,
+      children: componentId ? [{ elementId: componentId }] : undefined,
     },
   }
 }

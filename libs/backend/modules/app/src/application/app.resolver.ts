@@ -17,6 +17,7 @@ import { DeleteAppInput, DeleteAppService } from '../use-cases/delete-app'
 import { ExportAppInput, ExportAppService } from '../use-cases/export-app'
 import { GetAppInput, GetAppService } from '../use-cases/get-app'
 import { GetAppsService } from '../use-cases/get-apps'
+import { ImportAppInput, ImportAppService } from '../use-cases/import-app'
 import { UpdateAppInput, UpdateAppService } from '../use-cases/update-app'
 import { App } from './app.model'
 
@@ -30,6 +31,7 @@ export class AppResolver {
     private readonly updateAppService: UpdateAppService,
     private readonly deleteAppService: DeleteAppService,
     private readonly exportAppService: ExportAppService,
+    private readonly importAppService: ImportAppService,
     private readonly getPagesService: GetPagesService,
   ) {}
 
@@ -126,6 +128,29 @@ export class AppResolver {
     return {
       payload: JSON.stringify(payload),
     }
+  }
+
+  @Mutation(() => App)
+  @UseGuards(GqlAuthGuard)
+  async importApp(
+    @Args('input') input: ImportAppInput,
+    @CurrentUser() currentUser: IUser,
+  ): Promise<App> {
+    const { id } = await this.importAppService.execute({
+      input,
+      currentUser,
+    })
+
+    const app = await this.getAppService.execute({
+      input: { byId: { appId: id } },
+      currentUser: currentUser,
+    })
+
+    if (!app) {
+      throw new Error("Couldn't find imported app")
+    }
+
+    return app
   }
 
   @ResolveField('pages', () => [Page])

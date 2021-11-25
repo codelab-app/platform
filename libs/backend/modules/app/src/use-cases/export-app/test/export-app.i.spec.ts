@@ -94,7 +94,7 @@ describe('ExportApp', () => {
     const componentElement = await createTestElement({
       name: 'Component element',
       parentElementId: page1.rootElementId,
-      childrenIds: [component.id],
+      children: [{ elementId: component.id }],
     })
 
     page1ComponentElementId = componentElement.id
@@ -149,7 +149,7 @@ describe('ExportApp', () => {
                   target: page1ChildElementId,
                 },
                 {
-                  order: 0,
+                  order: 1,
                   source: page1ComponentElementId,
                   target: componentId,
                 },

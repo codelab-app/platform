@@ -925,6 +925,7 @@ type Mutation {
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App
   deleteApp(input: DeleteAppInput!): App
+  importApp(input: ImportAppInput!): App!
   createPropMapBinding(input: CreatePropMapBindingInput!): CreateResponse!
   updatePropMapBinding(input: UpdatePropMapBindingInput!): Void
   deletePropMapBinding(input: DeletePropMapBindingInput!): Void
@@ -987,6 +988,10 @@ input UpdateAppData {
 
 input DeleteAppInput {
   appId: String!
+}
+
+input ImportAppInput {
+  payload: String!
 }
 
 input CreatePropMapBindingInput {
@@ -1088,14 +1093,9 @@ input CreateElementInput {
   order: Int
 
   """
-  Attaches child elements to the newly created element. Useful for adding component children
+  Creates new elements or attaches existing ones, can be used to create a whole tree at once
   """
-  childrenIds: [String!]
-
-  """
-  Creates new elements and attaches them, can be used to create a whole tree at once. Will get processed after childrenIds
-  """
-  children: [CreateElementChildInput!]
+  children: [ElementRef!]
   css: String
   props: String
   renderForEachPropKey: String
@@ -1115,6 +1115,13 @@ input AtomRef {
   atomType: AtomType
 }
 
+"""Provide either id or new element input"""
+input ElementRef {
+  """Pass in either refId, or existing elementId"""
+  elementId: String
+  newElement: CreateElementChildInput
+}
+
 input CreateElementChildInput {
   """
   Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding
@@ -1129,14 +1136,9 @@ input CreateElementChildInput {
   order: Int
 
   """
-  Attaches child elements to the newly created element. Useful for adding component children
+  Creates new elements or attaches existing ones, can be used to create a whole tree at once
   """
-  childrenIds: [String!]
-
-  """
-  Creates new elements and attaches them, can be used to create a whole tree at once. Will get processed after childrenIds
-  """
-  children: [CreateElementChildInput!]
+  children: [ElementRef!]
   css: String
   props: String
   renderForEachPropKey: String
@@ -1367,6 +1369,7 @@ input DeleteFieldInput {
 input CreatePageInput {
   name: String!
   appId: String!
+  rootElement: CreateElementChildInput
 }
 
 input DeletePageInput {

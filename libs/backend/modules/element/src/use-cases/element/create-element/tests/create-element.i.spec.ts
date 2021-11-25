@@ -128,7 +128,7 @@ describe('CreateElement', () => {
         expect(textElement).toEqual({
           __typename: 'Element',
           id: propMapBindingResolvedId,
-          name: createComplexElementInput.children?.[0].name,
+          name: createComplexElementInput.children?.[0]?.newElement?.name,
           css: null,
           atom: {
             id: expect.stringContaining('0x'),
@@ -150,17 +150,17 @@ describe('CreateElement', () => {
         const component = tree.getAllVertices(ElementTree.isComponent)[0]
 
         const inputComponent =
-          createComplexElementInput.children?.[1].children?.[0]
+          createComplexElementInput.children?.[1]?.newElement?.children?.[0]
 
         expect(component).toEqual({
           __typename: 'Element',
           id: expect.stringContaining('0x'),
-          name: inputComponent?.name,
+          name: inputComponent?.newElement?.name,
           css: null,
           atom: null,
           componentTag: {
             id: expect.stringContaining('0x'),
-            name: inputComponent?.name,
+            name: inputComponent?.newElement?.name,
           },
           props: '{}',
           hooks: [],

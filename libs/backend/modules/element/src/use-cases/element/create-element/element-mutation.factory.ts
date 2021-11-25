@@ -1,12 +1,15 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
-import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomType, IUser } from '@codelab/shared/abstract/core'
+import { hexadecimalRegex } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
+import { slugify } from 'voca'
 import { AddHookToElementService } from '../hooks/add-hook-to-element'
 import { hookFactory } from '../hooks/add-hook-to-element/hook.factory'
 import { CreatePropMapBindingService } from '../prop-mapping/create-prop-map-binding'
 import {
   CreateElementChildInput,
   CreateElementInput,
+  ElementRef,
   NewHookRef,
   NewPropMapBindingRef,
 } from './create-element.input'
@@ -17,17 +20,44 @@ export type AtomIdResolver = (atomType: AtomType) => Promise<string> | string
  * Don't reuse, create new instance for each mutation
  */
 export class ElementMutationFactory {
-  private readonly elementRefIdMap: Map<string, string>
+  private readonly blankNodeByRefIsMap: Map<string, string>
 
   private iteration: number
 
-  constructor(private readonly atomIdResolver: AtomIdResolver) {
-    this.elementRefIdMap = new Map<string, string>()
+  constructor(
+    private readonly atomIdResolver: AtomIdResolver,
+    private readonly currentUser: IUser | undefined,
+  ) {
+    this.blankNodeByRefIsMap = new Map<string, string>()
     this.iteration = 0
   }
 
   public create(input: CreateElementInput, blankNodeUid: string) {
+    // Store all the element id refs from the start so that if any id is referenced
+    // before we visit it, we have it in the map
+    this.storeAllElementRefIds(input, blankNodeUid)
+
     return this.makeElementMutation(input, blankNodeUid)
+  }
+
+  private storeAllElementRefIds(
+    input: CreateElementInput,
+    blankNodeUid: string,
+  ) {
+    this.blankNodeFactory(input, blankNodeUid)
+
+    const visitChildren = (innerInput: CreateElementChildInput): void => {
+      if (innerInput.children) {
+        for (const child of innerInput.children) {
+          if (child.newElement) {
+            this.blankNodeFactory(child.newElement)
+            visitChildren(child.newElement)
+          }
+        }
+      }
+    }
+
+    visitChildren(input)
   }
 
   /** Stores the blank node to refId mapping and generates a new unique blank node id if one is not provided */
@@ -35,31 +65,35 @@ export class ElementMutationFactory {
     child: CreateElementChildInput,
     blankNode?: string,
   ): string {
-    blankNode = blankNode ?? `_:${v4()}`
+    blankNode = blankNode ?? `_:${child.refId ? slugify(child.refId) : v4()}`
 
     if (child.refId) {
-      const found = this.elementRefIdMap.get(child.refId)
+      const found = this.blankNodeByRefIsMap.get(child.refId)
 
       if (found) {
         return found
       }
 
-      this.elementRefIdMap.set(child.refId, blankNode)
+      this.blankNodeByRefIsMap.set(child.refId, blankNode)
     }
 
     return blankNode
   }
 
   private resolveElementRef(elementIdRef: string) {
-    const found = this.elementRefIdMap.get(elementIdRef)
+    const resolved = this.blankNodeByRefIsMap.get(elementIdRef)
 
-    if (found) {
-      return found
+    if (resolved) {
+      return resolved
     }
 
-    throw new Error(
-      `Unknown element id reference ${elementIdRef}. Set it to an existing element refId in the input or to an actual hexadecimal dgraph uid`,
-    )
+    if (!hexadecimalRegex.test(elementIdRef)) {
+      throw new Error(
+        `Unrecognized element ref id ${elementIdRef}. Provide either a reference to a element in the same input tree or a hexadecimal uid of an existing element`,
+      )
+    }
+
+    return elementIdRef
   }
 
   private async makeElementMutation(
@@ -70,7 +104,6 @@ export class ElementMutationFactory {
       order,
       name,
       atom,
-      childrenIds,
       children,
       css,
       props,
@@ -88,10 +121,7 @@ export class ElementMutationFactory {
       throw new Error('Element graph too nested or in infinite loop')
     }
 
-    const childrenMutations = await this.makeChildrenMutations(
-      childrenIds,
-      children,
-    )
+    const childrenMutations = await this.makeChildrenMutations(children)
 
     if (props) {
       try {
@@ -122,8 +152,13 @@ export class ElementMutationFactory {
 
     return {
       uid: this.blankNodeFactory(input, blankNodeUid),
-      name,
       'dgraph.type': [DgraphEntityType.Element],
+      name,
+      owner: this.currentUser
+        ? {
+            uid: this.currentUser.id,
+          }
+        : {},
       'children|order': order ? order : 1,
       children: childrenMutations,
       atom: atomId ? { uid: atomId } : undefined,
@@ -138,20 +173,25 @@ export class ElementMutationFactory {
     }
   }
 
-  private async makeChildrenMutations(
-    childrenIds: Array<string> | undefined,
-    children: Array<CreateElementChildInput> | undefined,
-  ) {
-    const childrenIdsMutations =
-      childrenIds?.map((c, i) => ({ uid: c, 'children|order': i })) ?? []
+  private makeChildrenMutations(children: Array<ElementRef> | undefined) {
+    return Promise.all(
+      children?.map((child, i) => {
+        if (child.elementId) {
+          const blankNode = this.resolveElementRef(child.elementId)
 
-    const childrenMutations = await Promise.all(
-      children?.map((child, i) =>
-        this.makeElementMutation({ ...child, order: child.order ?? i }),
-      ) ?? [],
+          return { uid: blankNode ?? child.elementId, 'children|order': i + 1 }
+        }
+
+        if (child.newElement) {
+          return this.makeElementMutation({
+            ...child.newElement,
+            order: child.newElement.order ?? i + 1,
+          })
+        }
+
+        throw new Error('Provide either elementId or newElement for ElementRef')
+      }) ?? [],
     )
-
-    return [...childrenIdsMutations, ...childrenMutations]
   }
 
   private makePropMapBindingMutations(
@@ -161,17 +201,29 @@ export class ElementMutationFactory {
       return []
     }
 
-    return propMapBindings.map((binding) =>
-      CreatePropMapBindingService.createPropMapBindingMutation(
+    return propMapBindings.map((binding) => {
+      let targetElementId
+
+      if (binding.targetElementId) {
+        targetElementId = this.resolveElementRef(binding.targetElementId)
+
+        // We want to make sure we resolve the ref here, because we don't want it to point to external element ids, but only ones inside the graph
+        // this minimizes risk of creating invalid references, in case an external element id is passed, which is not in the database where we're importing
+        if (!targetElementId) {
+          throw new Error(
+            `Could not resolve targetElementId ${binding.targetElementId}. Assign a refId to the element before binding.`,
+          )
+        }
+      }
+
+      return CreatePropMapBindingService.createPropMapBindingMutation(
         {
           ...binding,
-          targetElementId: binding.targetElementId
-            ? this.resolveElementRef(binding.targetElementId)
-            : undefined,
+          targetElementId,
         },
         undefined,
-      ),
-    )
+      )
+    })
   }
 
   private makeHookMutations(hooks: Array<NewHookRef> | undefined) {

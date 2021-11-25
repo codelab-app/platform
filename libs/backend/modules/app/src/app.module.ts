@@ -8,6 +8,7 @@ import { DeleteAppService } from './use-cases/delete-app'
 import { ExportAppService } from './use-cases/export-app'
 import { GetAppService } from './use-cases/get-app'
 import { GetAppsService } from './use-cases/get-apps'
+import { ImportAppService } from './use-cases/import-app'
 import { UpdateAppService } from './use-cases/update-app'
 
 const services = [
@@ -20,6 +21,7 @@ const services = [
   GetAppService,
   UpdateAppService,
   ExportAppService,
+  ImportAppService,
   /**
    * Validators
    */

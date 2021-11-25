@@ -42,12 +42,19 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
     const order = await this.getOrder(input)
 
     return await this.dgraph.create(txn, (blankNodeUid) =>
-      this.createMutation({ ...input, order }, blankNodeUid, atoms),
+      this.createMutation(
+        {
+          ...request,
+          input: { ...input, order },
+        },
+        blankNodeUid,
+        atoms,
+      ),
     )
   }
 
   private async createMutation(
-    input: CreateElementInput,
+    { input, currentUser }: CreateElementRequest,
     blankNodeUid: string,
     atoms: Array<IAtom>,
   ) {
@@ -66,6 +73,7 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
 
     const createElementJson = await new ElementMutationFactory(
       atomResolver,
+      currentUser,
     ).create(input, blankNodeUid)
 
     if (input.parentElementId) {
@@ -162,7 +170,9 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
 
     if (children) {
       for (const child of children) {
-        atomRefs.push(...this.getAllAtomRefs(child))
+        if (child.newElement) {
+          atomRefs.push(...this.getAllAtomRefs(child.newElement))
+        }
       }
     }
 

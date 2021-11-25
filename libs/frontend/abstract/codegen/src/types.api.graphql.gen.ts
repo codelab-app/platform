@@ -476,10 +476,8 @@ export type CreateComponentInput = {
 
 export type CreateElementChildInput = {
   atom?: Maybe<AtomRef>
-  /** Creates new elements and attaches them, can be used to create a whole tree at once. Will get processed after childrenIds */
-  children?: Maybe<Array<CreateElementChildInput>>
-  /** Attaches child elements to the newly created element. Useful for adding component children */
-  childrenIds?: Maybe<Array<Scalars['String']>>
+  /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
+  children?: Maybe<Array<ElementRef>>
   css?: Maybe<Scalars['String']>
   hooks?: Maybe<Array<NewHookRef>>
   isComponent?: Maybe<Scalars['Boolean']>
@@ -497,10 +495,8 @@ export type CreateElementChildInput = {
 
 export type CreateElementInput = {
   atom?: Maybe<AtomRef>
-  /** Creates new elements and attaches them, can be used to create a whole tree at once. Will get processed after childrenIds */
-  children?: Maybe<Array<CreateElementChildInput>>
-  /** Attaches child elements to the newly created element. Useful for adding component children */
-  childrenIds?: Maybe<Array<Scalars['String']>>
+  /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
+  children?: Maybe<Array<ElementRef>>
   css?: Maybe<Scalars['String']>
   hooks?: Maybe<Array<NewHookRef>>
   isComponent?: Maybe<Scalars['Boolean']>
@@ -550,6 +546,7 @@ export type CreateLambdaInput = {
 export type CreatePageInput = {
   appId: Scalars['String']
   name: Scalars['String']
+  rootElement?: Maybe<CreateElementChildInput>
 }
 
 export type CreatePrimitiveTypeInput = {
@@ -668,6 +665,13 @@ export type ElementGraph = {
   /** All the links connecting the descendant elements */
   edges: Array<ElementEdge>
   vertices: Array<Element>
+}
+
+/** Provide either id or new element input */
+export type ElementRef = {
+  /** Pass in either refId, or existing elementId */
+  elementId?: Maybe<Scalars['String']>
+  newElement?: Maybe<CreateElementChildInput>
 }
 
 /** The ElementType allows selecting an Element in the props form. The value is stored as the elementId  */
@@ -857,6 +861,10 @@ export enum HookType {
   RecoilState = 'RecoilState',
 }
 
+export type ImportAppInput = {
+  payload: Scalars['String']
+}
+
 export type ImportAtomsInput = {
   payload: Scalars['String']
 }
@@ -931,6 +939,7 @@ export type Mutation = {
   deleteType?: Maybe<Type>
   deleteUser: Scalars['Boolean']
   executeLambda?: Maybe<LambdaPayload>
+  importApp: App
   importAtoms?: Maybe<Scalars['Void']>
   importTags?: Maybe<Scalars['Void']>
   moveElement: Element
@@ -1041,6 +1050,10 @@ export type MutationDeleteUserArgs = {
 
 export type MutationExecuteLambdaArgs = {
   input: ExecuteLambdaInput
+}
+
+export type MutationImportAppArgs = {
+  input: ImportAppInput
 }
 
 export type MutationImportAtomsArgs = {

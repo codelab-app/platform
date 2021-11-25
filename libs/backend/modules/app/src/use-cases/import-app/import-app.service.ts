@@ -1,7 +1,19 @@
 import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository } from '@codelab/backend/infra'
+import {
+  CreateElementChildInput,
+  CreateElementService,
+  ElementRef,
+  NewHookRef,
+  NewPropMapBindingRef,
+} from '@codelab/backend/modules/element'
+import { Hook } from '@codelab/backend/modules/hook'
 import { CreatePageService } from '@codelab/backend/modules/page'
-import { ExportAppSchema } from '@codelab/shared/abstract/core'
+import {
+  ExportAppSchema,
+  HookType,
+  IPropMapBinding,
+} from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { AppValidator } from '../../domain/app.validator'
@@ -10,7 +22,7 @@ import { GetAppService } from '../get-app'
 import { ImportAppRequest } from './import-app.request'
 
 @Injectable()
-export class ExportAppService extends DgraphUseCase<
+export class ImportAppService extends DgraphUseCase<
   ImportAppRequest,
   CreateResponse
 > {
@@ -19,7 +31,8 @@ export class ExportAppService extends DgraphUseCase<
     protected appValidator: AppValidator,
     protected getAppService: GetAppService,
     protected createAppService: CreateAppService,
-    protected createPageService: CreatePageService, // protected createComponentService: CreateComponentService,
+    protected createPageService: CreatePageService,
+    protected createElementService: CreateElementService,
   ) {
     super(dgraph)
   }
@@ -28,7 +41,7 @@ export class ExportAppService extends DgraphUseCase<
     input,
     currentUser,
   }: ImportAppRequest): Promise<CreateResponse> {
-    const payload = ExportAppSchema.parse(input.payload)
+    const payload = ExportAppSchema.parse(JSON.parse(input.payload))
 
     const { id: appId } = await this.createAppService.execute({
       currentUser,
@@ -41,25 +54,134 @@ export class ExportAppService extends DgraphUseCase<
     const componentIdMap = new Map<string, string>()
 
     for (const payloadPage of payload.pages) {
-      const newPage = await this.createPageService.execute({
-        input: { appId, name: payloadPage.name },
+      const elementTree = new ElementTree(payloadPage.elements)
+      const rootElement = elementTree.getRootVertex(ElementTree.isElement)
+
+      if (!rootElement) {
+        throw new Error('No root element found')
+      }
+
+      const rootElementInput = this.createElementInput(
+        rootElement.id,
+        elementTree,
+        componentIdMap,
+      )
+
+      await this.createPageService.execute({
+        input: { appId, name: payloadPage.name, rootElement: rootElementInput },
         currentUser,
       })
+    }
 
-      const elementTree = new ElementTree(payloadPage.elements)
-      const components = elementTree.getAllComponents()
+    return { id: appId }
+  }
 
-      for (const component of components) {
-        // const { id: componentId } = await this.createComponentService.execute({
-        //   input: {
-        //     name: component.name,
-        //   },
-        //   currentUser,
-        // })
-        // componentIdMap.set(component.id, componentId)
+  protected createElementRef(
+    elementId: string,
+    tree: ElementTree,
+    componentIdMap: Map<string, string>,
+    iteration = 0,
+  ): ElementRef {
+    if (iteration > 100000) {
+      throw new Error('Infinite loop detected')
+    }
+
+    if (componentIdMap.has(elementId)) {
+      return {
+        elementId: componentIdMap.get(elementId),
       }
     }
 
-    return { id: '' }
+    return {
+      newElement: this.createElementInput(
+        elementId,
+        tree,
+        componentIdMap,
+        iteration,
+      ),
+    }
+  }
+
+  protected createElementInput(
+    elementId: string,
+    tree: ElementTree,
+    componentIdMap: Map<string, string>,
+    iteration = 0,
+  ): CreateElementChildInput {
+    if (iteration > 100000) {
+      throw new Error('Infinite loop detected')
+    }
+
+    const element = tree.getVertex(elementId)
+
+    if (!element) {
+      // Shouldn't happen
+      throw new Error(
+        `Invalid state, cant find element ${elementId} in the tree `,
+      )
+    }
+
+    return {
+      name: element.name ?? undefined,
+      css: element.css ?? undefined,
+      renderIfPropKey: element.renderIfPropKey ?? undefined,
+      props: element.props ?? undefined,
+      isComponent: !!element.componentTag,
+      refId: elementId, // This allows us to keep the same propMapBinding references
+      atom: element.atom ? { atomType: element.atom.type } : undefined,
+      order: tree.getOrderInParent(elementId),
+      renderForEachPropKey: element.renderForEachPropKey ?? undefined,
+      propTransformationJs: element.propTransformationJs ?? undefined,
+      hooks: element.hooks?.map<NewHookRef>((iHook) =>
+        this.hookToHookInput(new Hook(iHook)),
+      ),
+      propMapBindings: element.propMapBindings?.map((pmb) =>
+        this.propMapBindingInput(pmb),
+      ),
+      children: tree
+        .getChildren(elementId)
+        .map((child) =>
+          this.createElementRef(child.id, tree, componentIdMap, iteration + 1),
+        ),
+    }
+  }
+
+  protected hookToHookInput(hook: Hook): NewHookRef {
+    let key: keyof NewHookRef
+
+    switch (hook.type) {
+      case HookType.Query:
+        key = 'queryHook'
+        break
+      case HookType.GraphqlQuery:
+        key = 'graphqlQueryHook'
+        break
+      case HookType.GraphqlMutation:
+        key = 'graphqlMutationHook'
+        break
+      case HookType.RecoilState:
+        key = 'recoilStateHook'
+        break
+      case HookType.QueryPage:
+        key = 'queryPageHook'
+        break
+      case HookType.QueryPages:
+        key = 'queryPagesHook'
+        break
+      default:
+        throw new Error(`Invalid hook type ${hook.type}`)
+    }
+
+    return {
+      [key]: hook.config as any,
+    }
+  }
+
+  protected propMapBindingInput(pmb: IPropMapBinding): NewPropMapBindingRef {
+    return {
+      targetKey: pmb.targetKey,
+      sourceKey: pmb.sourceKey,
+      targetElementId: pmb.targetElementId ?? undefined,
+    }
   }
 }

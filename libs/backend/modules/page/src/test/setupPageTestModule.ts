@@ -1,4 +1,5 @@
 import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { testUserUid } from '@codelab/backend/shared/generic'
 import {
   domainRequest,
   setupTestModule,
@@ -31,6 +32,9 @@ export const setupPageTestModule = () => {
         uid: `_:${blankNodeLabel}`,
         name: input.name,
         'dgraph.type': [DgraphEntityType.App],
+        owner: {
+          uid: testUserUid,
+        },
       }
 
       return dgraph.transactionWrapper((txn) =>
