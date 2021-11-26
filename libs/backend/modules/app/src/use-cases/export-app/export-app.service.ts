@@ -35,10 +35,14 @@ export class ExportAppService extends DgraphUseCase<
       currentUser,
     } = req
 
-    const { name, pages: initialPages } = await this.getAppForExport(appId)
+    const app = await this.getAppForExport(appId)
+
+    if (!app.pages) {
+      app.pages = []
+    }
 
     const pages: Array<IPage> = await Promise.all(
-      initialPages.map(async (page: any) => ({
+      app.pages.map(async (page: any) => ({
         name: page.name,
         rootElementId: page.root.id,
         elements: await this.getElementGraphService.execute({
@@ -48,7 +52,7 @@ export class ExportAppService extends DgraphUseCase<
       })),
     )
 
-    return ExportAppSchema.parse({ name, pages })
+    return ExportAppSchema.parse({ name: app.name, pages })
   }
 
   protected getAppForExport(appId: string) {

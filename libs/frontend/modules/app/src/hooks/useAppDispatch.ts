@@ -21,6 +21,10 @@ export const useAppDispatch = () => {
     dispatch(actions.openUpdateModal(payload))
   }
 
+  const openImportModal = () => {
+    dispatch(actions.openImportModal())
+  }
+
   const reset = () => {
     dispatch(actions.reset())
   }
@@ -33,6 +37,7 @@ export const useAppDispatch = () => {
     openCreateModal,
     openDeleteModal,
     openUpdateModal,
+    openImportModal,
     setCurrentApp,
     reset,
   }

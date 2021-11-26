@@ -33,3 +33,9 @@ query ExportApp($input: ExportAppInput!) {
     payload
   }
 }
+
+mutation ImportApp($input: ImportAppInput!) {
+  importApp(input: $input) {
+    ...AppBase
+  }
+}

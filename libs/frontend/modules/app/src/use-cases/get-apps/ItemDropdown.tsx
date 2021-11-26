@@ -5,12 +5,10 @@ import {
   ExportOutlined,
 } from '@ant-design/icons'
 import { Button, Dropdown, Menu, Spin } from 'antd'
-import fileDownload from 'js-file-download'
-import React, { CSSProperties, useEffect, useState } from 'react'
-import sanitizeFilename from 'sanitize-filename'
+import React, { CSSProperties } from 'react'
 import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
 import { useAppDispatch } from '../../hooks'
-import { useLazyExportAppQuery } from '../../store'
+import { useExportApp } from '../export-app'
 
 export type ItemMenuProps = {
   app: AppFragment
@@ -30,23 +28,7 @@ const menuItemIconStyle: CSSProperties = {
 
 export const ItemDropdown = ({ app }: ItemMenuProps) => {
   const { openUpdateModal, openDeleteModal } = useAppDispatch()
-
-  const [exportApp, { isLoading: isExporting, data: exportData }] =
-    useLazyExportAppQuery()
-
-  const [hasExported, setHasExported] = useState(false)
-
-  const onClickExport = () => {
-    setHasExported(false)
-
-    return exportApp({
-      variables: {
-        input: {
-          appId: app.id,
-        },
-      },
-    })
-  }
+  const { exportApp, isExporting } = useExportApp(app)
 
   const onClickEdit = () =>
     openUpdateModal({
@@ -60,17 +42,9 @@ export const ItemDropdown = ({ app }: ItemMenuProps) => {
       entity: app,
     })
 
-  useEffect(() => {
-    if (exportData && !hasExported) {
-      const content = JSON.stringify(exportData.exportApp.payload)
-      fileDownload(content, sanitizeFilename(`${app.name}.codelab.json`))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [exportData, hasExported])
-
   const actionsMenu = (
     <Menu>
-      <Menu.Item key="export" style={menuItemStyle} onClick={onClickExport}>
+      <Menu.Item key="export" style={menuItemStyle} onClick={() => exportApp()}>
         Export
         {isExporting ? <Spin /> : <ExportOutlined style={menuItemIconStyle} />}
       </Menu.Item>

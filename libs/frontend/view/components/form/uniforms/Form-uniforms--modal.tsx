@@ -5,12 +5,12 @@ import React, {
   ReactElement,
   useRef,
 } from 'react'
-import { FormUniformsProps } from './Form-uniforms--types'
+import { ModalFormProps } from './Form-uniforms--types'
 import { SubmitController } from './submitController'
 
 export interface FormUniformsModalProps<TData extends Record<string, unknown>> {
   modalProps?: ModalProps
-  renderForm: () => ReactElement<Pick<FormUniformsProps<TData>, 'submitRef'>>
+  renderForm: () => ReactElement<Pick<ModalFormProps<TData>, 'submitRef'>>
 }
 
 /**

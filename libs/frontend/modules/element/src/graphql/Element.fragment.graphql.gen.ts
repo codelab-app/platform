@@ -2,13 +2,9 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 
 import {
   AtomBaseFragment,
-  Export__AtomsFragment,
   AtomFragment,
 } from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
-import {
-  TagFragment,
-  TagGraphFragment,
-} from '../../../tag/src/Tag.fragment.graphql.gen'
+import { TagFragment } from '../../../tag/src/Tag.fragment.graphql.gen'
 import {
   HookConfig_GraphqlHookConfig_Fragment,
   HookConfig_QueryHookConfig_Fragment,
@@ -19,13 +15,9 @@ import {
 import { gql } from '@apollo/client'
 import {
   AtomBaseFragmentDoc,
-  Export__AtomsFragmentDoc,
   AtomFragmentDoc,
 } from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
-import {
-  TagFragmentDoc,
-  TagGraphFragmentDoc,
-} from '../../../tag/src/Tag.fragment.graphql.gen'
+import { TagFragmentDoc } from '../../../tag/src/Tag.fragment.graphql.gen'
 import { HookConfigFragmentDoc } from './HookConfig.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'

@@ -6,7 +6,7 @@ import React from 'react'
 import { AutoFormProps, Bridge } from 'uniforms'
 import { SubmitController } from './submitController'
 
-export type FormUniformsProps<TData> = {
+export type ModalFormProps<TData> = {
   /** Use this to be able to hide the submit button and get a controller, which can trigger form submit */
   submitRef?: React.MutableRefObject<SubmitController | undefined>
 
@@ -16,6 +16,10 @@ export type FormUniformsProps<TData> = {
   /** Called after a failed submit */
   onSubmitError?: MaybeArray<Callback<any> | undefined>
 
+  onSubmit: (model: TData) => void | Promise<any>
+}
+
+export type FormUniformsProps<TData> = ModalFormProps<TData> & {
   /** Schema used for form generation.
    * If you pass a schema object a default {@see Ajv} validator is created from it.
    * Pass a Bridge to to customize the process of creating a bridge from a schema (custom validations, dynamic schema, etc)
@@ -24,8 +28,8 @@ export type FormUniformsProps<TData> = {
 
   schema: JSONSchemaType<TData> | Bridge
 } & /** Props that get passed down to the AutoForm component */ Partial<
-  Omit<AutoFormProps<TData>, 'schema' | 'onSubmit'>
-> & { onSubmit: (model: TData) => void | Promise<any> }
+    Omit<AutoFormProps<TData>, 'schema' | 'onSubmit'>
+  >
 // Pick<AutoFormProps<TData>, 'onSubmit'>
 //
 

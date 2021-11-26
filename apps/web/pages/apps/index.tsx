@@ -1,3 +1,4 @@
+import { EllipsisOutlined } from '@ant-design/icons'
 import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
 import { getGraphQLClient } from '@codelab/frontend/model/infra/api'
@@ -8,21 +9,36 @@ import {
   CreateAppModal,
   DeleteAppModal,
   GetAppsList,
+  ImportAppButton,
+  ImportAppModal,
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
 import { getAuthToken } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
-import { PageHeader } from 'antd'
+import { Button, Dropdown, Menu, PageHeader } from 'antd'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
+const menu = (
+  <Menu>
+    <Menu.Item key="1">
+      <ImportAppButton type="link" />
+    </Menu.Item>
+    <Menu.Item key="0">
+      <SignOutUserButton type="link" />
+    </Menu.Item>
+  </Menu>
+)
+
 const AppsPage: CodelabPage = () => {
   const pageHeaderButtons = [
     <CreateAppButton key={0} />,
-    <SignOutUserButton key={1} />,
+    <Dropdown key={1} overlay={menu} trigger={['click']}>
+      <Button icon={<EllipsisOutlined />} />
+    </Dropdown>,
   ]
 
   return (
@@ -40,6 +56,8 @@ const AppsPage: CodelabPage = () => {
       <CreateAppModal />
       <UpdateAppModal />
       <DeleteAppModal />
+      <ImportAppModal />
+
       <ContentSection>
         <GetAppsList />
       </ContentSection>

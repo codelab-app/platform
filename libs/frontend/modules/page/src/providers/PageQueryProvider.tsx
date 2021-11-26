@@ -1,3 +1,4 @@
+import { useProvideCurrentApp } from '@codelab/frontend/modules/app'
 import { withProvider } from '@codelab/frontend/presenter/container'
 import { useRouter } from 'next/router'
 import * as React from 'react'
@@ -8,6 +9,9 @@ export const PageQueryProvider = ({
 }: React.PropsWithChildren<unknown>) => {
   const { query } = useRouter()
   const pageId = query.pageId as string
+  const appId = query.appId as string
+
+  useProvideCurrentApp(appId)
 
   return <PageProvider pageId={pageId}>{children}</PageProvider>
 }

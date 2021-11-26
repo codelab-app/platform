@@ -1,10 +1,10 @@
 import { ApolloError } from '@apollo/client'
-import { formatError } from '@codelab/shared/utils'
 import { notification } from 'antd'
+import { extractErrorMessage } from './extractErrorMessage'
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error'
 
-export interface NotificationOptions<TEvent extends ApolloError> {
+export interface NotificationOptions<TEvent> {
   /** The type of notification. Default is error */
   type?: NotificationType
   /** Enter a custom title of the notification. If you don't, it will be "info" */
@@ -17,30 +17,19 @@ const defaultOptions: NotificationOptions<any> = {
   type: 'error',
 }
 
-const inferErrorMessage = (e: any) => {
-  /**
-   * Infer from error messages set in backend
-   */
-  if (e instanceof ApolloError) {
-    return formatError(e)
-  }
-
-  return e?.data?.message || e?.message
-}
-
-export const notify = <TEvent extends ApolloError>(
+export const notify = <TEvent>(
   options: NotificationOptions<TEvent>,
   e: TEvent | undefined = undefined,
 ) => {
   const { content, type, title } = { ...defaultOptions, ...options }
-  let titleString: string
-  let contentString: string
+  let titleString = ''
+  let contentString = ''
 
   if (typeof title === 'string') {
     titleString = title
   } else if (typeof title === 'function') {
     titleString = title(e)
-  } else {
+  } else if (options.type === 'error') {
     titleString = 'Error'
   }
 
@@ -48,8 +37,8 @@ export const notify = <TEvent extends ApolloError>(
     contentString = content
   } else if (typeof content === 'function') {
     contentString = content(e)
-  } else {
-    contentString = inferErrorMessage(e)
+  } else if (options.type === 'error') {
+    contentString = extractErrorMessage(e)
   }
 
   notification[type || 'info']({

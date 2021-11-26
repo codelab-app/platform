@@ -184,6 +184,10 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
     where: AtomsWhereInput,
     valueExtractor: (a: IAtom) => T,
   ) {
+    if (inputs.length === 0) {
+      return []
+    }
+
     const retrievedAtoms = await this.getAtomsService.execute({
       where,
     })
