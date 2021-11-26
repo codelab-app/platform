@@ -1,7 +1,11 @@
-import { domainRequest, env } from '@codelab/backend/shared/testing'
+import {
+  CreateAtomInput,
+  TestCreateAtomGql,
+  TestCreateAtomMutation,
+} from '@codelab/backend/modules/atom'
+import { domainRequest } from '@codelab/backend/shared/testing'
 import { AtomType, HookType } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
-import { execSync } from 'child_process'
 import { TestElementFragment } from '../../../../test/graphql'
 import { setupElementTestModule } from '../../../../test/setupElementTestModule'
 import { TestCreateElementGql } from './create-element.api.graphql.gen'
@@ -49,7 +53,11 @@ describe('CreateElement', () => {
       let tree: ElementTree
 
       beforeAll(async () => {
-        execSync(`yarn run cli seed --env ${env}`)
+        await domainRequest<CreateAtomInput, TestCreateAtomMutation>(
+          testModule.adminApp,
+          TestCreateAtomGql,
+          { name: 'Text', type: AtomType.Text },
+        ).then((r) => r?.createAtom)
 
         element = await testModule.createTestElement(createComplexElementInput)
 

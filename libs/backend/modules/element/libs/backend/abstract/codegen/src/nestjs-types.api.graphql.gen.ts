@@ -421,22 +421,6 @@ export enum PersistenceType {
     SessionStorage = "SessionStorage"
 }
 
-export interface GetElementGraphInput {
-    where: WhereUniqueElement;
-}
-
-export interface WhereUniqueElement {
-    id?: Nullable<string>;
-}
-
-export interface GetElementInput {
-    where: WhereUniqueElement;
-}
-
-export interface GetComponentsInput {
-    componentIds?: Nullable<string[]>;
-}
-
 export interface GetAtomsInput {
     where?: Nullable<AtomsWhereInput>;
 }
@@ -500,166 +484,6 @@ export interface FieldByInterfaceFilter {
 
 export interface FieldByIdFilter {
     fieldId: string;
-}
-
-export interface CreatePropMapBindingInput {
-    elementId: string;
-    targetElementId?: Nullable<string>;
-    sourceKey: string;
-    targetKey: string;
-}
-
-export interface UpdatePropMapBindingInput {
-    propMapBindingId: string;
-    data: UpdatePropMapBindingData;
-}
-
-export interface UpdatePropMapBindingData {
-    targetElementId?: Nullable<string>;
-    sourceKey: string;
-    targetKey: string;
-}
-
-export interface DeletePropMapBindingInput {
-    propMapBindingIds: string[];
-}
-
-export interface AddHookToElementInput {
-    elementId: string;
-    queryHook?: Nullable<QueryHookConfigInput>;
-    graphqlQueryHook?: Nullable<GraphqlHookConfigInput>;
-    graphqlMutationHook?: Nullable<GraphqlHookConfigInput>;
-    recoilStateHook?: Nullable<RecoilStateHookConfigInput>;
-    queryPageHook?: Nullable<QueryPageHookConfigInput>;
-    queryPagesHook?: Nullable<QueryPagesHookConfigInput>;
-}
-
-export interface QueryHookConfigInput {
-    queryKey: string;
-    url?: Nullable<string>;
-    body?: Nullable<string>;
-    method?: Nullable<QueryMethod>;
-    lambdaId?: Nullable<string>;
-}
-
-export interface GraphqlHookConfigInput {
-    graphqlUrl: string;
-    graphqlBody: string;
-    dataKey?: Nullable<string>;
-}
-
-export interface RecoilStateHookConfigInput {
-    stateKey: string;
-    defaultValue?: Nullable<string>;
-    persisted: PersistenceType;
-}
-
-export interface QueryPageHookConfigInput {
-    pageId: string;
-}
-
-export interface QueryPagesHookConfigInput {
-    appId: string;
-}
-
-export interface RemoveHookFromElementInput {
-    elementId: string;
-    hookId: string;
-}
-
-export interface CreateElementInput {
-    refId?: Nullable<string>;
-    name?: Nullable<string>;
-    atom?: Nullable<AtomRef>;
-    order?: Nullable<number>;
-    children?: Nullable<ElementRef[]>;
-    css?: Nullable<string>;
-    props?: Nullable<string>;
-    renderForEachPropKey?: Nullable<string>;
-    renderIfPropKey?: Nullable<string>;
-    propTransformationJs?: Nullable<string>;
-    hooks?: Nullable<NewHookRef[]>;
-    propMapBindings?: Nullable<NewPropMapBindingRef[]>;
-    isComponent?: Nullable<boolean>;
-    parentElementId?: Nullable<string>;
-}
-
-export interface AtomRef {
-    atomId?: Nullable<string>;
-    atomType?: Nullable<AtomType>;
-}
-
-export interface ElementRef {
-    elementId?: Nullable<string>;
-    newElement?: Nullable<CreateElementChildInput>;
-}
-
-export interface CreateElementChildInput {
-    refId?: Nullable<string>;
-    name?: Nullable<string>;
-    atom?: Nullable<AtomRef>;
-    order?: Nullable<number>;
-    children?: Nullable<ElementRef[]>;
-    css?: Nullable<string>;
-    props?: Nullable<string>;
-    renderForEachPropKey?: Nullable<string>;
-    renderIfPropKey?: Nullable<string>;
-    propTransformationJs?: Nullable<string>;
-    hooks?: Nullable<NewHookRef[]>;
-    propMapBindings?: Nullable<NewPropMapBindingRef[]>;
-    isComponent?: Nullable<boolean>;
-}
-
-export interface NewHookRef {
-    queryHook?: Nullable<QueryHookConfigInput>;
-    graphqlQueryHook?: Nullable<GraphqlHookConfigInput>;
-    graphqlMutationHook?: Nullable<GraphqlHookConfigInput>;
-    recoilStateHook?: Nullable<RecoilStateHookConfigInput>;
-    queryPageHook?: Nullable<QueryPageHookConfigInput>;
-    queryPagesHook?: Nullable<QueryPagesHookConfigInput>;
-}
-
-export interface NewPropMapBindingRef {
-    targetElementId?: Nullable<string>;
-    sourceKey: string;
-    targetKey: string;
-}
-
-export interface UpdateElementInput {
-    data: UpdateElementData;
-    id: string;
-}
-
-export interface UpdateElementData {
-    name?: Nullable<string>;
-    atomId?: Nullable<string>;
-    css?: Nullable<string>;
-    renderForEachPropKey?: Nullable<string>;
-    renderIfPropKey?: Nullable<string>;
-    propTransformationJs?: Nullable<string>;
-}
-
-export interface MoveElementInput {
-    elementId: string;
-    moveData: MoveData;
-}
-
-export interface MoveData {
-    order: number;
-    parentElementId: string;
-}
-
-export interface UpdateElementPropsInput {
-    props: string;
-    elementId: string;
-}
-
-export interface DeleteElementInput {
-    elementId: string;
-}
-
-export interface CreateComponentInput {
-    name: string;
 }
 
 export interface CreateAtomInput {
@@ -815,10 +639,6 @@ export interface Type {
     id: string;
     name: string;
     typeGraph: TypeGraph;
-}
-
-export interface CreateResponse {
-    id: string;
 }
 
 export interface Field {
@@ -1004,7 +824,6 @@ export interface Element {
     renderIfPropKey?: Nullable<string>;
     propMapBindings: PropMapBinding[];
     propTransformationJs?: Nullable<string>;
-    graph: ElementGraph;
 }
 
 export interface ElementEdge {
@@ -1013,15 +832,7 @@ export interface ElementEdge {
     order?: Nullable<number>;
 }
 
-export interface ElementGraph {
-    vertices: Element[];
-    edges: ElementEdge[];
-}
-
 export interface IQuery {
-    getElementGraph(input: GetElementGraphInput): ElementGraph | Promise<ElementGraph>;
-    getElement(input: GetElementInput): Nullable<Element> | Promise<Nullable<Element>>;
-    getComponents(input?: Nullable<GetComponentsInput>): Element[] | Promise<Element[]>;
     getAtoms(input?: Nullable<GetAtomsInput>): Nullable<Atom[]> | Promise<Nullable<Atom[]>>;
     getAtom(input: GetAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
     getType(input: GetTypeInput): Nullable<Type> | Promise<Nullable<Type>>;
@@ -1031,17 +842,6 @@ export interface IQuery {
 }
 
 export interface IMutation {
-    createPropMapBinding(input: CreatePropMapBindingInput): CreateResponse | Promise<CreateResponse>;
-    updatePropMapBinding(input: UpdatePropMapBindingInput): Nullable<Void> | Promise<Nullable<Void>>;
-    deletePropMapBinding(input: DeletePropMapBindingInput): Nullable<Void> | Promise<Nullable<Void>>;
-    addHookToElement(input: AddHookToElementInput): CreateResponse | Promise<CreateResponse>;
-    removeHookFromElement(input: RemoveHookFromElementInput): Nullable<Void> | Promise<Nullable<Void>>;
-    createElement(input: CreateElementInput): Element | Promise<Element>;
-    updateElement(input: UpdateElementInput): Element | Promise<Element>;
-    moveElement(input: MoveElementInput): Element | Promise<Element>;
-    updateElementProps(input: UpdateElementPropsInput): Element | Promise<Element>;
-    deleteElement(input: DeleteElementInput): Element | Promise<Element>;
-    createComponent(input: CreateComponentInput): Element | Promise<Element>;
     createAtom(input: CreateAtomInput): Atom | Promise<Atom>;
     deleteAtom(input: DeleteAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
     importAtoms(input: ImportAtomsInput): Nullable<Void> | Promise<Nullable<Void>>;
