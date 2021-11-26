@@ -1,3 +1,8 @@
+import {
+  CreateAtomInput,
+  TestCreateAtomGql,
+  TestCreateAtomMutation,
+} from '@codelab/backend/modules/atom'
 import { domainRequest } from '@codelab/backend/shared/testing'
 import { AtomType, HookType, QueryMethod } from '@codelab/shared/abstract/core'
 import { setupAppTestModule } from '../../../test/setupAppTestModule'
@@ -28,6 +33,13 @@ describe('ImportApp', () => {
   const testModule = setupAppTestModule(false)
   let importAppInput: ImportAppInput
 
+  const createAtom = (input: CreateAtomInput) =>
+    domainRequest<CreateAtomInput, TestCreateAtomMutation>(
+      testModule.adminApp,
+      TestCreateAtomGql,
+      input,
+    ).then((r) => r?.createAtom)
+
   const createTestPage = (
     input: TestCreatePageForAppExportMutationVariables['input'],
   ) => {
@@ -43,6 +55,9 @@ describe('ImportApp', () => {
     const app = await testModule.createTestApp({
       name: 'My awesome app',
     })
+
+    await createAtom({ type: AtomType.HtmlButton, name: 'Button' })
+    await createAtom({ type: AtomType.Text, name: 'Text' })
 
     await createTestPage({ ...createPageInput, appId: app.id })
 

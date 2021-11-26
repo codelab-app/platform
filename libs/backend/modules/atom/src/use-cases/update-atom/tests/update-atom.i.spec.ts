@@ -9,7 +9,7 @@ import {
 } from './update-atom.api.graphql.gen'
 
 describe('UpdateAtom', () => {
-  const testModule = setupAtomTestModule(false)
+  const testModule = setupAtomTestModule()
   let atomId: string
   let updateAtomInput: UpdateAtomInput
 

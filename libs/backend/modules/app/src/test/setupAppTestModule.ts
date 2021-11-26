@@ -1,4 +1,5 @@
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { AtomModule } from '@codelab/backend/modules/atom'
 import { PageModule } from '@codelab/backend/modules/page'
 import {
   domainRequest,
@@ -23,6 +24,7 @@ export const setupAppTestModule = (resetDb = true) => {
   const testModule = {
     guestApp: null! as INestApplication,
     userApp: null! as INestApplication,
+    adminApp: null! as INestApplication,
     createTestApp: (input: CreateAppInput) => {
       return domainRequest<CreateAppInput, TestCreateAppMutation>(
         testModule.userApp,
@@ -46,6 +48,9 @@ export const setupAppTestModule = (resetDb = true) => {
     })
     testModule.userApp = await setupTestModule([AppModule, PageModule], {
       role: Role.User,
+    })
+    testModule.adminApp = await setupTestModule([AtomModule], {
+      role: Role.Admin,
     })
   })
 
