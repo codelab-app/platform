@@ -28,20 +28,26 @@ export const createComplexElementInput: CreateElementInput = {
   props: '{"data": "Hello!"}',
   children: [
     {
-      refId: '0x1',
-      name: 'SomeText',
-      atom: {
-        atomType: AtomType.Text,
+      newElement: {
+        refId: '0x1',
+        name: 'SomeText',
+        atom: {
+          atomType: AtomType.Text,
+        },
       },
     },
     {
-      name: 'ComponentElement',
-      children: [
-        {
-          name: 'Some Component',
-          isComponent: true,
-        },
-      ],
+      newElement: {
+        name: 'ComponentElement',
+        children: [
+          {
+            newElement: {
+              name: 'Some Component',
+              isComponent: true,
+            },
+          },
+        ],
+      },
     },
   ],
 }
