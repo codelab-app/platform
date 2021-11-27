@@ -1,16 +1,15 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { AppModule } from '@codelab/backend/modules/app'
 import { AtomModule } from '@codelab/backend/modules/atom'
 import { HookModule } from '@codelab/backend/modules/hook'
 import { TypeModule } from '@codelab/backend/modules/type'
 import { CytoscapeModule, TreeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
+import { ComponentResolver } from './application/component.resolver'
 import { ElementResolver } from './application/element.resolver'
 import { ElementValidator } from './application/element.validator'
 import { HookResolver } from './application/hook.resolver'
 import { PropMapBindingResolver } from './application/prop-map.binding.resolver'
 import { ComponentModule } from './component.module'
-import { ComponentResolver } from './domain/component/component.resolver'
 import { PropMapBindingAdapter } from './domain/prop-mapping/prop-map-binding.adapter'
 import { CreateElementService } from './use-cases/element/create-element'
 import { DeleteElementService } from './use-cases/element/delete-element'
@@ -63,7 +62,6 @@ const services = [
 
 @Module({
   imports: [
-    AppModule,
     AtomModule,
     TypeModule,
     CytoscapeModule,

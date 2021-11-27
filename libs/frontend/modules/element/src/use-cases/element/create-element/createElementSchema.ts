@@ -1,19 +1,15 @@
 import { JSONSchemaType } from 'ajv'
-import { CreateElementMutationVariables } from '../../../graphql'
 
-export type CreateElementSchema = Omit<
-  CreateElementMutationVariables['input'],
-  'childrenIds' | 'parentElementId'
-> & {
-  // in the input we don't require parentElementId, but in all purposes
-  // of the CreateElementForm, it's strongly advisable to have a parent, otherwise we will
-  // create a not attached element
+export interface CreateElementSchema {
+  name?: string
   parentElementId: string
-  componentId?: string | null
+  atomId: string
+  componentId: string
+  order?: number
 }
 
 export const createElementSchema: JSONSchemaType<CreateElementSchema> = {
-  title: 'Create Page Element Input',
+  title: 'Create Element Input',
   type: 'object',
   properties: {
     name: {

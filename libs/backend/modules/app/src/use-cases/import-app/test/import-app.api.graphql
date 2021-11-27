@@ -1,0 +1,8 @@
+mutation TestImportApp($input: ImportAppInput!) {
+  importApp(input: $input) {
+    ...TestApp
+    pages {
+      ...PageFull
+    }
+  }
+}

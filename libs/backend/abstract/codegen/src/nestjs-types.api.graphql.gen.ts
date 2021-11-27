@@ -440,28 +440,8 @@ export interface AppByPageFilter {
     pageId: string;
 }
 
-export interface GetUserInput {
-    id?: Nullable<string>;
-    auth0Id?: Nullable<string>;
-}
-
-export interface GetUsersInput {
-    page: number;
-    perPage: number;
-    query: string;
-    sort: string;
-}
-
-export interface GetPagesInput {
-    byApp: PageByAppFilter;
-}
-
-export interface PageByAppFilter {
+export interface ExportAppInput {
     appId: string;
-}
-
-export interface GetPageInput {
-    pageId: string;
 }
 
 export interface GetElementGraphInput {
@@ -545,6 +525,30 @@ export interface FieldByIdFilter {
     fieldId: string;
 }
 
+export interface GetPagesInput {
+    byApp: PageByAppFilter;
+}
+
+export interface PageByAppFilter {
+    appId: string;
+}
+
+export interface GetPageInput {
+    pageId: string;
+}
+
+export interface GetUserInput {
+    id?: Nullable<string>;
+    auth0Id?: Nullable<string>;
+}
+
+export interface GetUsersInput {
+    page: number;
+    perPage: number;
+    query: string;
+    sort: string;
+}
+
 export interface GetLambdaInput {
     lambdaId: string;
 }
@@ -587,42 +591,8 @@ export interface DeleteAppInput {
     appId: string;
 }
 
-export interface UpsertUserInput {
-    data: UpsertUserDataInput;
-    where?: Nullable<UserWhereUniqueInput>;
-}
-
-export interface UpsertUserDataInput {
-    auth0Id: string;
-    roles: Role[];
-}
-
-export interface UserWhereUniqueInput {
-    id?: Nullable<string>;
-    auth0Id?: Nullable<string>;
-}
-
-export interface DeleteUserInput {
-    id: string;
-}
-
-export interface CreatePageInput {
-    name: string;
-    appId: string;
-}
-
-export interface DeletePageInput {
-    pageId: string;
-}
-
-export interface UpdatePageInput {
-    pageId: string;
-    updateData: UpdatePageData;
-}
-
-export interface UpdatePageData {
-    name: string;
-    appId: string;
+export interface ImportAppInput {
+    payload: string;
 }
 
 export interface CreatePropMapBindingInput {
@@ -691,11 +661,61 @@ export interface RemoveHookFromElementInput {
 }
 
 export interface CreateElementInput {
+    refId?: Nullable<string>;
     name?: Nullable<string>;
-    atomId?: Nullable<string>;
-    parentElementId?: Nullable<string>;
+    atom?: Nullable<AtomRef>;
     order?: Nullable<number>;
-    childrenIds?: Nullable<string[]>;
+    children?: Nullable<ElementRef[]>;
+    css?: Nullable<string>;
+    props?: Nullable<string>;
+    renderForEachPropKey?: Nullable<string>;
+    renderIfPropKey?: Nullable<string>;
+    propTransformationJs?: Nullable<string>;
+    hooks?: Nullable<NewHookRef[]>;
+    propMapBindings?: Nullable<NewPropMapBindingRef[]>;
+    isComponent?: Nullable<boolean>;
+    parentElementId?: Nullable<string>;
+}
+
+export interface AtomRef {
+    atomId?: Nullable<string>;
+    atomType?: Nullable<AtomType>;
+}
+
+export interface ElementRef {
+    elementId?: Nullable<string>;
+    newElement?: Nullable<CreateElementChildInput>;
+}
+
+export interface CreateElementChildInput {
+    refId?: Nullable<string>;
+    name?: Nullable<string>;
+    atom?: Nullable<AtomRef>;
+    order?: Nullable<number>;
+    children?: Nullable<ElementRef[]>;
+    css?: Nullable<string>;
+    props?: Nullable<string>;
+    renderForEachPropKey?: Nullable<string>;
+    renderIfPropKey?: Nullable<string>;
+    propTransformationJs?: Nullable<string>;
+    hooks?: Nullable<NewHookRef[]>;
+    propMapBindings?: Nullable<NewPropMapBindingRef[]>;
+    isComponent?: Nullable<boolean>;
+}
+
+export interface NewHookRef {
+    queryHook?: Nullable<QueryHookConfigInput>;
+    graphqlQueryHook?: Nullable<GraphqlHookConfigInput>;
+    graphqlMutationHook?: Nullable<GraphqlHookConfigInput>;
+    recoilStateHook?: Nullable<RecoilStateHookConfigInput>;
+    queryPageHook?: Nullable<QueryPageHookConfigInput>;
+    queryPagesHook?: Nullable<QueryPagesHookConfigInput>;
+}
+
+export interface NewPropMapBindingRef {
+    targetElementId?: Nullable<string>;
+    sourceKey: string;
+    targetKey: string;
 }
 
 export interface UpdateElementInput {
@@ -754,8 +774,15 @@ export interface UpdateAtomInput {
     data: CreateAtomInput;
 }
 
-export interface CreateAtomsInput {
-    atoms: CreateAtomInput[];
+export interface UpsertAtomsInput {
+    atoms: UpsertAtomInput[];
+}
+
+export interface UpsertAtomInput {
+    name: string;
+    type: AtomType;
+    api?: Nullable<string>;
+    id?: Nullable<string>;
 }
 
 export interface CreateTypeInput {
@@ -871,6 +898,45 @@ export interface DeleteFieldInput {
     fieldId: string;
 }
 
+export interface CreatePageInput {
+    name: string;
+    appId: string;
+    rootElement?: Nullable<CreateElementChildInput>;
+}
+
+export interface DeletePageInput {
+    pageId: string;
+}
+
+export interface UpdatePageInput {
+    pageId: string;
+    updateData: UpdatePageData;
+}
+
+export interface UpdatePageData {
+    name: string;
+    appId: string;
+}
+
+export interface UpsertUserInput {
+    data: UpsertUserDataInput;
+    where?: Nullable<UserWhereUniqueInput>;
+}
+
+export interface UpsertUserDataInput {
+    auth0Id: string;
+    roles: Role[];
+}
+
+export interface UserWhereUniqueInput {
+    id?: Nullable<string>;
+    auth0Id?: Nullable<string>;
+}
+
+export interface DeleteUserInput {
+    id: string;
+}
+
 export interface CreateLambdaInput {
     name: string;
     body: string;
@@ -939,17 +1005,14 @@ export interface CreateResponse {
     id: string;
 }
 
+export interface PayloadResponse {
+    payload: string;
+}
+
 export interface User {
     id: string;
     auth0Id: string;
     roles: Role[];
-}
-
-export interface App {
-    id: string;
-    ownerId: string;
-    name: string;
-    pages: Page[];
 }
 
 export interface Field {
@@ -1154,6 +1217,20 @@ export interface ElementGraph {
     edges: ElementEdge[];
 }
 
+export interface Page {
+    id: string;
+    name: string;
+    elements?: Nullable<ElementGraph>;
+    rootElementId: string;
+}
+
+export interface App {
+    id: string;
+    ownerId: string;
+    name: string;
+    pages: Page[];
+}
+
 export interface Lambda {
     id: string;
     ownerId: string;
@@ -1165,21 +1242,10 @@ export interface LambdaPayload {
     payload: string;
 }
 
-export interface Page {
-    id: string;
-    name: string;
-    elements?: Nullable<ElementGraph>;
-    rootElementId: string;
-}
-
 export interface IQuery {
     getApp(input: GetAppInput): Nullable<App> | Promise<Nullable<App>>;
     getApps(): App[] | Promise<App[]>;
-    getMe(): Nullable<User> | Promise<Nullable<User>>;
-    getUser(input: GetUserInput): Nullable<User> | Promise<Nullable<User>>;
-    getUsers(input?: Nullable<GetUsersInput>): User[] | Promise<User[]>;
-    getPages(input: GetPagesInput): Page[] | Promise<Page[]>;
-    getPage(input: GetPageInput): Nullable<Page> | Promise<Nullable<Page>>;
+    exportApp(input: ExportAppInput): PayloadResponse | Promise<PayloadResponse>;
     getElementGraph(input: GetElementGraphInput): ElementGraph | Promise<ElementGraph>;
     getElement(input: GetElementInput): Nullable<Element> | Promise<Nullable<Element>>;
     getComponents(input?: Nullable<GetComponentsInput>): Element[] | Promise<Element[]>;
@@ -1189,6 +1255,11 @@ export interface IQuery {
     getTypeGraph(input: GetTypeGraphInput): Nullable<TypeGraph> | Promise<Nullable<TypeGraph>>;
     getTypes(input?: Nullable<GetTypesInput>): Type[] | Promise<Type[]>;
     getField(input: GetFieldInput): Nullable<Field> | Promise<Nullable<Field>>;
+    getPages(input: GetPagesInput): Page[] | Promise<Page[]>;
+    getPage(input: GetPageInput): Nullable<Page> | Promise<Nullable<Page>>;
+    getMe(): Nullable<User> | Promise<Nullable<User>>;
+    getUser(input: GetUserInput): Nullable<User> | Promise<Nullable<User>>;
+    getUsers(input?: Nullable<GetUsersInput>): User[] | Promise<User[]>;
     getLambda(input: GetLambdaInput): Nullable<Lambda> | Promise<Nullable<Lambda>>;
     getLambdas(): Lambda[] | Promise<Lambda[]>;
     getTag(input: GetTagInput): Nullable<Tag> | Promise<Nullable<Tag>>;
@@ -1201,12 +1272,7 @@ export interface IMutation {
     createApp(input: CreateAppInput): App | Promise<App>;
     updateApp(input: UpdateAppInput): Nullable<App> | Promise<Nullable<App>>;
     deleteApp(input: DeleteAppInput): Nullable<App> | Promise<Nullable<App>>;
-    upsertUser(input: UpsertUserInput): User | Promise<User>;
-    deleteUser(input: DeleteUserInput): boolean | Promise<boolean>;
-    resetData(): Nullable<Void> | Promise<Nullable<Void>>;
-    createPage(input: CreatePageInput): Page | Promise<Page>;
-    deletePage(input: DeletePageInput): Page | Promise<Page>;
-    updatePage(input: UpdatePageInput): Page | Promise<Page>;
+    importApp(input: ImportAppInput): App | Promise<App>;
     createPropMapBinding(input: CreatePropMapBindingInput): CreateResponse | Promise<CreateResponse>;
     updatePropMapBinding(input: UpdatePropMapBindingInput): Nullable<Void> | Promise<Nullable<Void>>;
     deletePropMapBinding(input: DeletePropMapBindingInput): Nullable<Void> | Promise<Nullable<Void>>;
@@ -1222,7 +1288,7 @@ export interface IMutation {
     deleteAtom(input: DeleteAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
     importAtoms(input: ImportAtomsInput): Nullable<Void> | Promise<Nullable<Void>>;
     updateAtom(input: UpdateAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
-    createAtoms(input: CreateAtomsInput): Atom[] | Promise<Atom[]>;
+    upsertAtoms(input: UpsertAtomsInput): Atom[] | Promise<Atom[]>;
     seedBaseTypes(): Nullable<Void> | Promise<Nullable<Void>>;
     createType(input: CreateTypeInput): Type | Promise<Type>;
     updateEnumType(input: UpdateEnumTypeInput): Nullable<EnumType> | Promise<Nullable<EnumType>>;
@@ -1233,6 +1299,12 @@ export interface IMutation {
     createField(input: CreateFieldInput): Field | Promise<Field>;
     updateField(input: UpdateFieldInput): Nullable<Field> | Promise<Nullable<Field>>;
     deleteField(input: DeleteFieldInput): Nullable<Field> | Promise<Nullable<Field>>;
+    createPage(input: CreatePageInput): Page | Promise<Page>;
+    deletePage(input: DeletePageInput): Page | Promise<Page>;
+    updatePage(input: UpdatePageInput): Page | Promise<Page>;
+    upsertUser(input: UpsertUserInput): User | Promise<User>;
+    deleteUser(input: DeleteUserInput): boolean | Promise<boolean>;
+    resetData(): Nullable<Void> | Promise<Nullable<Void>>;
     createLambda(input: CreateLambdaInput): Lambda | Promise<Lambda>;
     deleteLambda(input: DeleteLambdaInput): Lambda | Promise<Lambda>;
     updateLambda(input: UpdateLambdaInput): Nullable<Lambda> | Promise<Nullable<Lambda>>;

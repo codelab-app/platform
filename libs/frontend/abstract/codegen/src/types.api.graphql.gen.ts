@@ -62,6 +62,12 @@ export type Atom = {
   type: AtomType
 }
 
+/** Provide either id or type */
+export type AtomRef = {
+  atomId?: Maybe<Scalars['String']>
+  atomType?: Maybe<AtomType>
+}
+
 export enum AtomType {
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
@@ -464,21 +470,48 @@ export type CreateAtomInput = {
   type: AtomType
 }
 
-export type CreateAtomsInput = {
-  atoms: Array<CreateAtomInput>
-}
-
 export type CreateComponentInput = {
   name: Scalars['String']
 }
 
-export type CreateElementInput = {
-  atomId?: Maybe<Scalars['String']>
-  childrenIds?: Maybe<Array<Scalars['String']>>
+export type CreateElementChildInput = {
+  atom?: Maybe<AtomRef>
+  /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
+  children?: Maybe<Array<ElementRef>>
+  css?: Maybe<Scalars['String']>
+  hooks?: Maybe<Array<NewHookRef>>
+  isComponent?: Maybe<Scalars['Boolean']>
   name?: Maybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */
   order?: Maybe<Scalars['Int']>
+  propMapBindings?: Maybe<Array<NewPropMapBindingRef>>
+  propTransformationJs?: Maybe<Scalars['String']>
+  props?: Maybe<Scalars['String']>
+  /** Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding */
+  refId?: Maybe<Scalars['String']>
+  renderForEachPropKey?: Maybe<Scalars['String']>
+  renderIfPropKey?: Maybe<Scalars['String']>
+}
+
+export type CreateElementInput = {
+  atom?: Maybe<AtomRef>
+  /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
+  children?: Maybe<Array<ElementRef>>
+  css?: Maybe<Scalars['String']>
+  hooks?: Maybe<Array<NewHookRef>>
+  isComponent?: Maybe<Scalars['Boolean']>
+  name?: Maybe<Scalars['String']>
+  /** Leave it out to automatically set it as the last order of all the children */
+  order?: Maybe<Scalars['Int']>
+  /** Attaches the newly created element to an existing element as child */
   parentElementId?: Maybe<Scalars['String']>
+  propMapBindings?: Maybe<Array<NewPropMapBindingRef>>
+  propTransformationJs?: Maybe<Scalars['String']>
+  props?: Maybe<Scalars['String']>
+  /** Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding */
+  refId?: Maybe<Scalars['String']>
+  renderForEachPropKey?: Maybe<Scalars['String']>
+  renderIfPropKey?: Maybe<Scalars['String']>
 }
 
 export type CreateElementTypeInput = {
@@ -513,6 +546,7 @@ export type CreateLambdaInput = {
 export type CreatePageInput = {
   appId: Scalars['String']
   name: Scalars['String']
+  rootElement?: Maybe<CreateElementChildInput>
 }
 
 export type CreatePrimitiveTypeInput = {
@@ -633,6 +667,13 @@ export type ElementGraph = {
   vertices: Array<Element>
 }
 
+/** Provide either id or new element input */
+export type ElementRef = {
+  /** Pass in either refId, or existing elementId */
+  elementId?: Maybe<Scalars['String']>
+  newElement?: Maybe<CreateElementChildInput>
+}
+
 /** The ElementType allows selecting an Element in the props form. The value is stored as the elementId  */
 export type ElementType = Type & {
   __typename?: 'ElementType'
@@ -668,6 +709,10 @@ export type EnumTypeValue = {
 export type ExecuteLambdaInput = {
   lambdaId: Scalars['String']
   payload?: Maybe<Scalars['String']>
+}
+
+export type ExportAppInput = {
+  appId: Scalars['String']
 }
 
 export type Field = {
@@ -816,6 +861,10 @@ export enum HookType {
   RecoilState = 'RecoilState',
 }
 
+export type ImportAppInput = {
+  payload: Scalars['String']
+}
+
 export type ImportAtomsInput = {
   payload: Scalars['String']
 }
@@ -869,7 +918,7 @@ export type Mutation = {
   addHookToElement: CreateResponse
   createApp: App
   createAtom: Atom
-  createAtoms: Array<Atom>
+  /** Facade for creating a element with component tag */
   createComponent: Element
   createElement: Element
   createField: Field
@@ -890,6 +939,7 @@ export type Mutation = {
   deleteType?: Maybe<Type>
   deleteUser: Scalars['Boolean']
   executeLambda?: Maybe<LambdaPayload>
+  importApp: App
   importAtoms?: Maybe<Scalars['Void']>
   importTags?: Maybe<Scalars['Void']>
   moveElement: Element
@@ -909,6 +959,7 @@ export type Mutation = {
   updateTag?: Maybe<Tag>
   updateType?: Maybe<Type>
   updateUnionType?: Maybe<UnionType>
+  upsertAtoms: Array<Atom>
   upsertTag: Tag
   upsertUser: User
 }
@@ -923,10 +974,6 @@ export type MutationCreateAppArgs = {
 
 export type MutationCreateAtomArgs = {
   input: CreateAtomInput
-}
-
-export type MutationCreateAtomsArgs = {
-  input: CreateAtomsInput
 }
 
 export type MutationCreateComponentArgs = {
@@ -1005,6 +1052,10 @@ export type MutationExecuteLambdaArgs = {
   input: ExecuteLambdaInput
 }
 
+export type MutationImportAppArgs = {
+  input: ImportAppInput
+}
+
 export type MutationImportAtomsArgs = {
   input: ImportAtomsInput
 }
@@ -1073,12 +1124,34 @@ export type MutationUpdateUnionTypeArgs = {
   input: UpdateUnionTypeInput
 }
 
+export type MutationUpsertAtomsArgs = {
+  input: UpsertAtomsInput
+}
+
 export type MutationUpsertTagArgs = {
   input: UpsertTagInput
 }
 
 export type MutationUpsertUserArgs = {
   input: UpsertUserInput
+}
+
+export type NewHookRef = {
+  graphqlMutationHook?: Maybe<GraphqlHookConfigInput>
+  graphqlQueryHook?: Maybe<GraphqlHookConfigInput>
+  queryHook?: Maybe<QueryHookConfigInput>
+  queryPageHook?: Maybe<QueryPageHookConfigInput>
+  queryPagesHook?: Maybe<QueryPagesHookConfigInput>
+  recoilStateHook?: Maybe<RecoilStateHookConfigInput>
+}
+
+export type NewPropMapBindingRef = {
+  /** The key of the prop, as received in the source element */
+  sourceKey: Scalars['String']
+  /** The ID of the target element, if omitted, the current element will be the target */
+  targetElementId?: Maybe<Scalars['String']>
+  /** The key of the prop, that the target Element will receive */
+  targetKey: Scalars['String']
 }
 
 export type Page = {
@@ -1091,6 +1164,11 @@ export type Page = {
 
 export type PageByAppFilter = {
   appId: Scalars['String']
+}
+
+export type PayloadResponse = {
+  __typename?: 'PayloadResponse'
+  payload: Scalars['String']
 }
 
 export enum PersistenceType {
@@ -1128,6 +1206,7 @@ export type PropMapBinding = {
 
 export type Query = {
   __typename?: 'Query'
+  exportApp: PayloadResponse
   getApp?: Maybe<App>
   getApps: Array<App>
   getAtom?: Maybe<Atom>
@@ -1155,6 +1234,10 @@ export type Query = {
   getTypes: Array<Type>
   getUser?: Maybe<User>
   getUsers: Array<User>
+}
+
+export type QueryExportAppArgs = {
+  input: ExportAppInput
 }
 
 export type QueryGetAppArgs = {
@@ -1556,6 +1639,18 @@ export type UpdateUnionTypeData = {
 export type UpdateUnionTypeInput = {
   typeId: Scalars['String']
   updateData: UpdateUnionTypeData
+}
+
+export type UpsertAtomInput = {
+  /** Pass in an existing interface ID to assign it to the atom */
+  api?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
+  name: Scalars['String']
+  type: AtomType
+}
+
+export type UpsertAtomsInput = {
+  atoms: Array<UpsertAtomInput>
 }
 
 export type UpsertTagInput = {

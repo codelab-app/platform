@@ -3,34 +3,37 @@ import { CurrentUser } from '@codelab/backend/modules/user'
 import { IElement, IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import {
-  CreateComponentInput,
-  CreateComponentService,
-} from '../../use-cases/component/create-component'
+import { Element } from '../domain/element/element.model'
+import { CreateComponentInput } from '../use-cases/component/create-component/create-component.input'
 import {
   GetComponentsInput,
   GetComponentsService,
-} from '../../use-cases/component/get-components'
-import { GetElementGraphService } from '../../use-cases/element/get-element-graph'
-import { Element } from '../element/element.model'
+} from '../use-cases/component/get-components'
+import { CreateElementService } from '../use-cases/element/create-element'
+import { GetElementGraphService } from '../use-cases/element/get-element-graph'
 
 @Resolver(() => Element)
 @Injectable()
 export class ComponentResolver {
   constructor(
-    private createComponentService: CreateComponentService,
+    private createElementService: CreateElementService,
     private getComponentsService: GetComponentsService,
     private getElementGraphService: GetElementGraphService,
   ) {}
 
-  @Mutation(() => Element)
+  @Mutation(() => Element, {
+    description: 'Facade for creating a element with component tag',
+  })
   @UseGuards(GqlAuthGuard)
   async createComponent(
     @Args('input') input: CreateComponentInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    const { id } = await this.createComponentService.execute({
-      input,
+    const { id } = await this.createElementService.execute({
+      input: {
+        isComponent: true,
+        name: input.name,
+      },
       currentUser,
     })
 

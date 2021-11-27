@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { IPage, PageSchema } from '../page/page.interface'
+import { PageSchema } from '../page'
 
 // export interface IApp {
 //   id: string

@@ -24,7 +24,7 @@ export class ElementValidator {
     const res = await this.dgraph.transactionWrapper((txn) =>
       this.dgraph.executeQuery<{
         owner?: { ownerId?: string }
-        element?: { id: string }
+        element?: { id: string; owner: { id: string } }
       }>(
         txn,
         `{
@@ -37,6 +37,9 @@ export class ElementValidator {
 
             element(func: type(${DgraphEntityType.Element})) @filter(uid(${elementId})){
               id: uid
+              owner {
+                id: uid
+              }
             }
 
             owner(func: uid(OWNER)) @filter(type(${DgraphEntityType.User})) {
@@ -46,19 +49,27 @@ export class ElementValidator {
       ),
     )
 
-    const { owner, element } = res
+    const { owner: rootOwner, element } = res
 
     if (!element) {
       throw new Error("Element doesn't exist")
     }
 
-    // If the element doesn't have an ownerId consider it valid for any user to access it
-    if (!owner?.ownerId) {
-      return res
-    }
+    // Check both the element owner and the root owner
 
-    if (owner.ownerId !== currentUser.id) {
-      throw new Error("You don't have access to this element")
+    const message = "You don't have access to this element"
+
+    if (rootOwner?.ownerId) {
+      if (rootOwner.ownerId !== currentUser.id) {
+        throw new Error(message)
+      }
+    } else if (element.owner?.id) {
+      if (element.owner.id !== currentUser.id) {
+        throw new Error(message)
+      }
+    } else {
+      // If the element doesn't have an ownerId consider it valid for any user to access it
+      return res
     }
 
     return res

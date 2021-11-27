@@ -1,9 +1,11 @@
-import { Button } from 'antd'
+import { Button, ButtonProps } from 'antd'
 import React from 'react'
 
-export const SignOutUserButton = () => {
+export const signoutHref = '/api/auth/logout'
+
+export const SignOutUserButton = (props: ButtonProps) => {
   return (
-    <Button type="primary" href="/api/auth/logout">
+    <Button type="primary" href={signoutHref} {...props}>
       Sign Out
     </Button>
   )

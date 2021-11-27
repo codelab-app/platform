@@ -12,11 +12,11 @@ export enum ActionType {
   Update = 'Update',
 }
 
-export interface CRUDModalState<TEntity> {
+export interface CRUDModalState<TEntity, TActionType = ActionType> {
   entity?: TEntity
   deleteIds: Array<string>
   updateId: string
-  actionType: ActionType
+  actionType: TActionType
 }
 
 export type OpenDeleteModalActionPayload<TEntity> = {
@@ -31,8 +31,9 @@ export type OpenUpdateModalActionPayload<TEntity> = {
 
 export const createCrudSlice = <
   TEntity,
-  TState extends CRUDModalState<TEntity>,
+  TState extends CRUDModalState<TEntity, TActionType>,
   Reducers extends SliceCaseReducers<TState>,
+  TActionType,
 >(
   name: string,
   initialState: TState,

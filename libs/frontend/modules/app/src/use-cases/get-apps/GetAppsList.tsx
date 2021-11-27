@@ -5,7 +5,7 @@ import {
 } from '@codelab/frontend/view/components'
 import { Col, Empty, Row } from 'antd'
 import React from 'react'
-import { useGetAppsQuery } from '../../store/appEndpoints'
+import { useGetAppsQuery } from '../../store'
 import { CreateAppButton } from '../create-app'
 import { GetAppsItem } from './GetAppsItem'
 

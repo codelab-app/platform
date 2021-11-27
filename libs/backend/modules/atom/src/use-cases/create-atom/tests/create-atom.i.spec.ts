@@ -4,7 +4,7 @@ import { TestCreateAtomGql } from './create-atom.api.graphql.gen'
 import { createAtomInput } from './create-atom.data'
 
 describe('CreateAtom', () => {
-  const testModule = setupAtomTestModule(false)
+  const testModule = setupAtomTestModule(true)
 
   describe('Guest', () => {
     it('should fail to create an atom', async () => {

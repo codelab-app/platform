@@ -36,6 +36,18 @@ export type UpdateAppMutation = {
   updateApp?: AppBaseFragment | null | undefined
 }
 
+export type ExportAppQueryVariables = Types.Exact<{
+  input: Types.ExportAppInput
+}>
+
+export type ExportAppQuery = { exportApp: { payload: string } }
+
+export type ImportAppMutationVariables = Types.Exact<{
+  input: Types.ImportAppInput
+}>
+
+export type ImportAppMutation = { importApp: AppBaseFragment }
+
 export const CreateAppGql = gql`
   mutation CreateApp($input: CreateAppInput!) {
     createApp(input: $input) {
@@ -71,6 +83,21 @@ export const GetAppsGql = gql`
 export const UpdateAppGql = gql`
   mutation UpdateApp($input: UpdateAppInput!) {
     updateApp(input: $input) {
+      ...AppBase
+    }
+  }
+  ${AppBaseFragmentDoc}
+`
+export const ExportAppGql = gql`
+  query ExportApp($input: ExportAppInput!) {
+    exportApp(input: $input) {
+      payload
+    }
+  }
+`
+export const ImportAppGql = gql`
+  mutation ImportApp($input: ImportAppInput!) {
+    importApp(input: $input) {
       ...AppBase
     }
   }
@@ -124,6 +151,24 @@ const injectedRtkApi = api.injectEndpoints({
         options: options ?? undefined,
       }),
     }),
+    ExportApp: build.query<
+      ExportAppQuery,
+      GraphqlOperationOptions<ExportAppQueryVariables>
+    >({
+      query: (options) => ({
+        document: ExportAppGql,
+        options: options ?? undefined,
+      }),
+    }),
+    ImportApp: build.mutation<
+      ImportAppMutation,
+      GraphqlOperationOptions<ImportAppMutationVariables>
+    >({
+      query: (options) => ({
+        document: ImportAppGql,
+        options: options ?? undefined,
+      }),
+    }),
   }),
 })
 export { injectedRtkApi as api }
@@ -135,4 +180,7 @@ export const {
   useGetAppsQuery,
   useLazyGetAppsQuery,
   useUpdateAppMutation,
+  useExportAppQuery,
+  useLazyExportAppQuery,
+  useImportAppMutation,
 } = injectedRtkApi

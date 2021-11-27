@@ -90,7 +90,9 @@ export const beforeHook = ({
                 )
 
                 return cy.createElement({
-                  atomId,
+                  atom: {
+                    atomId,
+                  },
                   name: childElementName,
                   parentElementId: rootElement?.id as string,
                 })

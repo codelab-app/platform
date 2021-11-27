@@ -1,8 +1,9 @@
 import { IEdge, IGraph, IVertex } from '@codelab/shared/abstract/core'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, {
+  EdgeSingular,
+  NodeSingular,
   SearchVisitFunction,
-  SingularElementArgument,
 } from 'cytoscape'
 import { getEdgeOrder } from '../cytoscape/edge'
 import { getCyElementData } from '../cytoscape/element'
@@ -52,12 +53,14 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
       },
     })
 
-    this.root = this.cy.elements().roots().map(this.getCyElementData)[0]
+    this.root = this.cy.elements().roots().map(this.getCyVertexData)[0]
   }
 
-  /** Extracts our custom data from a cytoscape element (node/edge) */
-  protected getCyElementData = (cyElement: SingularElementArgument) =>
+  public getCyVertexData = (cyElement: NodeSingular) =>
     getCyElementData<TVertex>(cyElement)
+
+  public getCyEdgeData = (cyElement: EdgeSingular) =>
+    getCyElementData<TEdge>(cyElement)
 
   getPathFromRoot(vertexId: string) {
     const root = this.getRootVertex()
@@ -116,7 +119,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     this.cy.elements().breadthFirstSearch({
       root,
       visit: (visitedNode, edge) => {
-        const element = this.getCyElementData(visitedNode)
+        const element = this.getCyVertexData(visitedNode)
 
         if (!element) {
           return
@@ -155,9 +158,9 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
 
   getAllVertices(predicate?: Predicate<TVertex>): Array<TVertex> {
     return this.cy
-      .elements()
+      .nodes()
       .filter(filterPredicate(predicate ?? this.predicate))
-      .map(this.getCyElementData)
+      .map(this.getCyVertexData)
       .filter((v): v is TVertex => !!v)
   }
 
@@ -187,8 +190,9 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
       .incomers()
       .nodes()
       .filter(filterPredicate(predicate ?? this.predicate))
+      .nodes()
       .first()
-      .map(this.getCyElementData)[0]
+      .map(this.getCyVertexData)[0]
   }
 
   getRootVertex(predicate?: Predicate<TVertex>): TVertex | undefined {
@@ -196,7 +200,16 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
       .elements()
       .roots()
       .filter(filterPredicate(predicate ?? this.predicate))
-      .map(this.getCyElementData)[0]
+      .map(this.getCyVertexData)[0]
+  }
+
+  getRootVertices(predicate?: Predicate<TVertex>): Array<TVertex> {
+    return this.cy
+      .elements()
+      .roots()
+      .filter(filterPredicate(predicate ?? this.predicate))
+      .map(this.getCyVertexData)
+      .filter((v): v is TVertex => !!v)
   }
 
   getChildren(
@@ -210,7 +223,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
       .sort((a, b) => getEdgeOrder(a) - getEdgeOrder(b))
       .targets()
       .filter(filterPredicate(this.predicate ?? predicate))
-      .map(this.getCyElementData)
+      .map(this.getCyVertexData)
       .filter((v): v is TVertex => !!v)
   }
 
@@ -223,8 +236,9 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
       .outgoers()
       .nodes()
       .filter(filterPredicate(predicate ?? this.predicate))
+      .nodes()
       .first()
-      .map(this.getCyElementData)[0]
+      .map(this.getCyVertexData)[0]
   }
 
   getDescendants(vertexId: string, predicate?: Predicate<TVertex>) {
@@ -232,7 +246,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
       .getElementById(vertexId)
       .descendants()
       .filter(filterPredicate(predicate ?? this.predicate))
-      .map(this.getCyElementData)
+      .map(this.getCyVertexData)
       .filter((e): e is TVertex => !!e)
   }
 
@@ -243,5 +257,41 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
       .edges()
       .first()
       .map(getEdgeOrder)[0]
+  }
+
+  /** Collects all descendants of the given vertex into a separate graph */
+  getSubgraph(vertexId: string): IGraph<TVertex, TEdge> {
+    const vertex = this.cy.getElementById(vertexId)
+    const rootData = this.getCyVertexData(vertex)
+
+    if (!rootData) {
+      throw new Error('Root vertex not found')
+    }
+
+    const subgraph: IGraph<TVertex, TEdge> = { vertices: [rootData], edges: [] }
+
+    vertex.descendants().forEach((node) => {
+      const element = this.getCyVertexData(node)
+
+      if (!element) {
+        return
+      }
+
+      subgraph.vertices.push(element)
+    })
+
+    vertex.edges().forEach((edge) => {
+      const source = this.getCyVertexData(edge.source())
+      const target = this.getCyVertexData(edge.target())
+      const edgeData = this.getCyEdgeData(edge)
+
+      if (!source || !target || !edgeData) {
+        return
+      }
+
+      subgraph.edges.push(edgeData)
+    })
+
+    return subgraph
   }
 }

@@ -1,9 +1,9 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository } from '@codelab/backend/infra'
-import { AppValidator } from '@codelab/backend/modules/app'
 import { IPage, PageSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { PageValidator } from '../../domain/page.validator'
 import { GetPagesRequest } from './get-pages.request'
 
 @Injectable()
@@ -13,7 +13,7 @@ export class GetPagesService extends DgraphUseCase<
 > {
   protected schema = PageSchema.array()
 
-  constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
+  constructor(dgraph: DgraphRepository, private pageValidator: PageValidator) {
     super(dgraph)
   }
 
@@ -42,7 +42,7 @@ export class GetPagesService extends DgraphUseCase<
     },
     currentUser,
   }: GetPagesRequest): Promise<void> {
-    await this.appValidator.existsAndIsOwnedBy(appId, currentUser)
+    await this.pageValidator.validateApp(appId, currentUser)
   }
 
   private static createQuery(appId: string) {

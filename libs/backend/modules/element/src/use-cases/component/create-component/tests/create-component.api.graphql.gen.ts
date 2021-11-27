@@ -1,23 +1,25 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { ElementFragment } from '../../../../../../../../frontend/modules/element/src/graphql/Element.fragment.graphql.gen'
+import { TestElementFragment } from '../../../../test/graphql/TestElement.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import { ElementFragmentDoc } from '../../../../../../../../frontend/modules/element/src/graphql/Element.fragment.graphql.gen'
+import { TestElementFragmentDoc } from '../../../../test/graphql/TestElement.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestCreateComponentMutationVariables = Types.Exact<{
   input: Types.CreateComponentInput
 }>
 
-export type TestCreateComponentMutation = { createComponent: ElementFragment }
+export type TestCreateComponentMutation = {
+  createComponent: TestElementFragment
+}
 
 export const TestCreateComponentGql = gql`
   mutation TestCreateComponent($input: CreateComponentInput!) {
     createComponent(input: $input) {
-      ...Element
+      ...TestElement
     }
   }
-  ${ElementFragmentDoc}
+  ${TestElementFragmentDoc}
 `
 export type TestCreateComponentMutationFn = Apollo.MutationFunction<
   TestCreateComponentMutation,

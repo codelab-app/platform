@@ -27,3 +27,15 @@ mutation UpdateApp($input: UpdateAppInput!) {
     ...AppBase
   }
 }
+
+query ExportApp($input: ExportAppInput!) {
+  exportApp(input: $input) {
+    payload
+  }
+}
+
+mutation ImportApp($input: ImportAppInput!) {
+  importApp(input: $input) {
+    ...AppBase
+  }
+}

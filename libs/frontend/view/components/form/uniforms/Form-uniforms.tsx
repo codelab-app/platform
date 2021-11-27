@@ -40,6 +40,8 @@ export const FormUniforms = <TData extends any>({
             }
           })
           .catch((err: Error) => {
+            console.error(err)
+
             if (typeof result === 'object') {
               callbackWithParams(onSubmitError, err)
             }

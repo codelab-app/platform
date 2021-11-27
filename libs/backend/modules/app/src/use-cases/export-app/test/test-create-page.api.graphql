@@ -1,0 +1,7 @@
+mutation TestCreatePageForAppExport($input: CreatePageInput!) {
+  createPage(input: $input) {
+    id
+    rootElementId
+    name
+  }
+}

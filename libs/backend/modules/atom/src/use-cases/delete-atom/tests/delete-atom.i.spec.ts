@@ -9,7 +9,7 @@ import {
 } from './delete-atom.api.graphql.gen'
 
 describe('DeleteAtom', () => {
-  const testModule = setupAtomTestModule(false)
+  const testModule = setupAtomTestModule(true)
   let atomId: string
   let deleteAtomInput: DeleteAtomInput
   let getAtomInput: GetAtomInput

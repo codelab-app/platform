@@ -20,8 +20,8 @@ import { GetAtomsService } from '../use-cases/get-atoms'
 import { GetAtomsInput } from '../use-cases/get-atoms/get-atoms.input'
 import { ImportAtomsInput, ImportAtomsService } from '../use-cases/import-atoms'
 import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
-import { CreateAtomsInput } from './../use-cases/create-atoms/create-atoms.input'
-import { CreateAtomsService } from './../use-cases/create-atoms/create-atoms.service'
+import { UpsertAtomsInput } from '../use-cases/upsert-atoms/upsert-atoms.input'
+import { UpsertAtomsService } from '../use-cases/upsert-atoms/upsert-atoms.service'
 
 @Resolver(() => Atom)
 @Injectable()
@@ -34,7 +34,7 @@ export class AtomResolver {
     private updateAtomService: UpdateAtomService,
     private getTypeGraphService: GetTypeGraphService,
     private importAtomsService: ImportAtomsService,
-    private createAtomsService: CreateAtomsService,
+    private createAtomsService: UpsertAtomsService,
   ) {}
 
   @Mutation(() => Atom)
@@ -120,8 +120,8 @@ export class AtomResolver {
   @Mutation(() => [Atom])
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
-  async createAtoms(
-    @Args('input') input: CreateAtomsInput,
+  async upsertAtoms(
+    @Args('input') input: UpsertAtomsInput,
     @CurrentUser() currentUser: IUser,
   ) {
     const results = await this.createAtomsService.execute({

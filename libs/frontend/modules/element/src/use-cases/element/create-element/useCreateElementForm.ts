@@ -14,9 +14,10 @@ export type CreateElementInitialData = Partial<
 
 const mapVariables = ({
   componentId,
-  ...formData
+  atomId,
+  ...data
 }: CreateElementSchema): CreateElementMutationVariables => {
-  if (formData.atomId && componentId) {
+  if (atomId && componentId) {
     const message = 'Set either atom or component, not both'
     notify({ title: message, type: 'error' })
     throw new Error(message)
@@ -24,8 +25,9 @@ const mapVariables = ({
 
   return {
     input: {
-      ...formData,
-      childrenIds: componentId ? [componentId] : undefined,
+      ...data,
+      atom: atomId ? { atomId: atomId } : undefined,
+      children: componentId ? [{ elementId: componentId }] : undefined,
     },
   }
 }

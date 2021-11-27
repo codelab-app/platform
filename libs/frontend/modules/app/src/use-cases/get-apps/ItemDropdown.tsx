@@ -2,11 +2,13 @@ import {
   DeleteOutlined,
   EditOutlined,
   EllipsisOutlined,
+  ExportOutlined,
 } from '@ant-design/icons'
-import { Button, Dropdown, Menu } from 'antd'
+import { Button, Dropdown, Menu, Spin } from 'antd'
 import React, { CSSProperties } from 'react'
 import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
 import { useAppDispatch } from '../../hooks'
+import { useExportApp } from '../export-app'
 
 export type ItemMenuProps = {
   app: AppFragment
@@ -26,6 +28,7 @@ const menuItemIconStyle: CSSProperties = {
 
 export const ItemDropdown = ({ app }: ItemMenuProps) => {
   const { openUpdateModal, openDeleteModal } = useAppDispatch()
+  const { exportApp, isExporting } = useExportApp(app)
 
   const onClickEdit = () =>
     openUpdateModal({
@@ -41,6 +44,11 @@ export const ItemDropdown = ({ app }: ItemMenuProps) => {
 
   const actionsMenu = (
     <Menu>
+      <Menu.Item key="export" style={menuItemStyle} onClick={() => exportApp()}>
+        Export
+        {isExporting ? <Spin /> : <ExportOutlined style={menuItemIconStyle} />}
+      </Menu.Item>
+
       <Menu.Item key="edit" style={menuItemStyle} onClick={onClickEdit}>
         Edit
         <EditOutlined style={menuItemIconStyle} />

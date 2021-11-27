@@ -1,12 +1,23 @@
+import { PayloadResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
+import { GetPagesService, Page } from '@codelab/backend/modules/page'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import type { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 import { CreateAppInput, CreateAppService } from '../use-cases/create-app'
 import { DeleteAppInput, DeleteAppService } from '../use-cases/delete-app'
+import { ExportAppInput, ExportAppService } from '../use-cases/export-app'
 import { GetAppInput, GetAppService } from '../use-cases/get-app'
 import { GetAppsService } from '../use-cases/get-apps'
+import { ImportAppInput, ImportAppService } from '../use-cases/import-app'
 import { UpdateAppInput, UpdateAppService } from '../use-cases/update-app'
 import { App } from './app.model'
 
@@ -19,6 +30,9 @@ export class AppResolver {
     private readonly getAppService: GetAppService,
     private readonly updateAppService: UpdateAppService,
     private readonly deleteAppService: DeleteAppService,
+    private readonly exportAppService: ExportAppService,
+    private readonly importAppService: ImportAppService,
+    private readonly getPagesService: GetPagesService,
   ) {}
 
   @Mutation(() => App)
@@ -101,5 +115,50 @@ export class AppResolver {
     await this.deleteAppService.execute({ input, currentUser })
 
     return app
+  }
+
+  @Query(() => PayloadResponse)
+  @UseGuards(GqlAuthGuard)
+  async exportApp(
+    @Args('input') input: ExportAppInput,
+    @CurrentUser() currentUser: IUser,
+  ): Promise<PayloadResponse> {
+    const payload = await this.exportAppService.execute({ input, currentUser })
+
+    return {
+      payload: JSON.stringify(payload),
+    }
+  }
+
+  @Mutation(() => App)
+  @UseGuards(GqlAuthGuard)
+  async importApp(
+    @Args('input') input: ImportAppInput,
+    @CurrentUser() currentUser: IUser,
+  ): Promise<App> {
+    const { id } = await this.importAppService.execute({
+      input,
+      currentUser,
+    })
+
+    const app = await this.getAppService.execute({
+      input: { byId: { appId: id } },
+      currentUser: currentUser,
+    })
+
+    if (!app) {
+      throw new Error("Couldn't find imported app")
+    }
+
+    return app
+  }
+
+  @ResolveField('pages', () => [Page])
+  @UseGuards(GqlAuthGuard)
+  async resolvePages(@Parent() parent: App, @CurrentUser() currentUser: IUser) {
+    return this.getPagesService.execute({
+      input: { byApp: { appId: parent.id } },
+      currentUser,
+    })
   }
 }

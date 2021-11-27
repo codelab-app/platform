@@ -2,10 +2,10 @@ import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import {
   CreateAtomRequest,
   CreateAtomService,
-  CreateAtomsService,
   GetAtomInput,
   GetAtomService,
   GetAtomsService,
+  UpsertAtomsService,
 } from '@codelab/backend/modules/atom'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { AtomType, IUser, Role } from '@codelab/shared/abstract/core'
@@ -20,7 +20,7 @@ export class AtomSeeder {
   constructor(
     private createAtomService: CreateAtomService,
     private getAtomsService: GetAtomsService,
-    private createAtomsService: CreateAtomsService,
+    private createAtomsService: UpsertAtomsService,
     private getAtomService: GetAtomService,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}

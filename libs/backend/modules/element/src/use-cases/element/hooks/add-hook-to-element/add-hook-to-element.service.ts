@@ -35,19 +35,26 @@ export class AddHookToElementService extends DgraphCreateUseCase<AddHookToElemen
     )
   }
 
-  private static createMutation(hook: Hook, elementId: string): Mutation {
+  public static createMutation(hook: Hook, elementId: string): Mutation {
     const setJson: DgraphUpdateMutationJson<any> = {
       uid: elementId,
-      hooks: {
-        uid: '_:hook',
-        'dgraph.type': [DgraphEntityType.Hook],
-        hookType: hook.type,
-        configJson: JSON.stringify(hook.config),
-        tags: [],
-      },
+      hooks: this.createHookMutation(hook, '_:hook'),
     }
 
     return { setJson }
+  }
+
+  public static createHookMutation(
+    hook: Hook,
+    uid: string | undefined,
+  ): Record<string, any> {
+    return {
+      uid,
+      'dgraph.type': [DgraphEntityType.Hook],
+      hookType: hook.type,
+      configJson: JSON.stringify(hook.config),
+      tags: [],
+    }
   }
 
   protected async validate({

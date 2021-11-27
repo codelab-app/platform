@@ -1,5 +1,5 @@
 mutation TestCreateComponent($input: CreateComponentInput!) {
   createComponent(input: $input) {
-    ...Element
+    ...TestElement
   }
 }

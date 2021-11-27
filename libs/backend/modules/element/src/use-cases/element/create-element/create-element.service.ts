@@ -2,15 +2,24 @@ import {
   CreateResponse,
   DgraphCreateUseCase,
 } from '@codelab/backend/application'
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
-import { GetAtomService } from '@codelab/backend/modules/atom'
+import { DgraphRepository } from '@codelab/backend/infra'
+import { AtomsWhereInput, GetAtomsService } from '@codelab/backend/modules/atom'
+import { AtomType, IAtom } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../application/element.validator'
 import { GetElementGraphService } from '../get-element-graph'
 import { GetLastOrderChildService } from '../get-last-order-child'
-import { CreateElementInput } from './create-element.input'
+import {
+  AtomRef,
+  CreateElementChildInput,
+  CreateElementInput,
+} from './create-element.input'
 import { CreateElementRequest } from './create-element.request'
+import {
+  AtomIdResolver,
+  ElementMutationFactory,
+} from './element-mutation.factory'
 
 @Injectable()
 export class CreateElementService extends DgraphCreateUseCase<CreateElementRequest> {
@@ -18,7 +27,7 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
     protected readonly dgraph: DgraphRepository,
     private getElementService: GetElementGraphService,
     private getLastOrderChildService: GetLastOrderChildService,
-    private getAtomService: GetAtomService,
+    private getAtomsService: GetAtomsService,
     private elementValidator: ElementValidator,
   ) {
     super(dgraph)
@@ -28,37 +37,48 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
     request: CreateElementRequest,
     txn: Txn,
   ): Promise<CreateResponse> {
-    await this.validate(request)
-
+    const { atoms } = await this.validate(request)
     const { input } = request
     const order = await this.getOrder(input)
 
     return await this.dgraph.create(txn, (blankNodeUid) =>
-      CreateElementService.createMutation({ ...input, order }, blankNodeUid),
+      this.createMutation(
+        {
+          ...request,
+          input: { ...input, order },
+        },
+        blankNodeUid,
+        atoms,
+      ),
     )
   }
 
-  private static createMutation(
-    { parentElementId, order, name, atomId, childrenIds }: CreateElementInput,
+  private async createMutation(
+    { input, currentUser }: CreateElementRequest,
     blankNodeUid: string,
+    atoms: Array<IAtom>,
   ) {
     const mu: Mutation = {}
+    const atomsByType = new Map(atoms.map((a) => [a.type, a]))
 
-    const createElementJson = {
-      uid: blankNodeUid,
-      name,
-      'dgraph.type': [DgraphEntityType.Element],
-      'children|order': order ? order : 1,
-      children:
-        childrenIds?.map((c, i) => ({ uid: c, 'children|order': i })) ?? [],
-      atom: atomId ? { uid: atomId } : undefined,
-      props: '{}',
-      propTransformationJs: undefined,
+    const atomResolver: AtomIdResolver = (type: AtomType) => {
+      const atom = atomsByType.get(type)
+
+      if (!atom) {
+        throw new Error(`Atom ${type} not found`)
+      }
+
+      return atom.id
     }
 
-    if (parentElementId) {
+    const createElementJson = await new ElementMutationFactory(
+      atomResolver,
+      currentUser,
+    ).create(input, blankNodeUid)
+
+    if (input.parentElementId) {
       mu.setJson = {
-        uid: parentElementId,
+        uid: input.parentElementId,
         children: createElementJson,
       }
     } else {
@@ -94,10 +114,9 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
     return 1
   }
 
-  protected async validate({
-    input: { parentElementId, atomId },
-    currentUser,
-  }: CreateElementRequest) {
+  protected async validate({ input, currentUser }: CreateElementRequest) {
+    const { parentElementId } = input
+
     if (parentElementId) {
       /** Validate the parent element exists and is owned by the current user */
       await this.elementValidator.existsAndIsOwnedBy(
@@ -106,13 +125,82 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
       )
     }
 
-    if (atomId) {
-      /** Validate the atom exists */
-      const atom = await this.getAtomService.execute({ where: { id: atomId } })
+    const atomRefs = this.getAllAtomRefs(input)
 
-      if (!atom) {
-        throw new Error('Atom not found')
+    if (atomRefs.length > 0) {
+      /** Validate the atoms exists */
+      const atomIds = new Array<string>()
+      const atomTypes = new Array<AtomType>()
+
+      for (const { atomId, atomType } of atomRefs) {
+        if (atomId) {
+          atomIds.push(atomId)
+        }
+
+        if (atomType) {
+          atomTypes.push(atomType)
+        }
+      }
+
+      const atomsByIds = await this.validateAtomsExist(
+        atomIds,
+        { ids: atomIds },
+        (a) => a.id,
+      )
+
+      const atomsByTypes = await this.validateAtomsExist(
+        atomTypes,
+        { types: atomTypes },
+        (a) => a.type,
+      )
+
+      return {
+        atoms: [...atomsByIds, ...atomsByTypes],
       }
     }
+
+    return { atoms: [] as Array<IAtom> }
+  }
+
+  private getAllAtomRefs({
+    atom,
+    children,
+  }: CreateElementChildInput): Array<AtomRef> {
+    const atomRefs: Array<AtomRef> = atom ? [atom] : []
+
+    if (children) {
+      for (const child of children) {
+        if (child.newElement) {
+          atomRefs.push(...this.getAllAtomRefs(child.newElement))
+        }
+      }
+    }
+
+    return atomRefs
+  }
+
+  private async validateAtomsExist<T extends string | AtomType>(
+    inputs: Array<T>,
+    where: AtomsWhereInput,
+    valueExtractor: (a: IAtom) => T,
+  ) {
+    if (inputs.length === 0) {
+      return []
+    }
+
+    const retrievedAtoms = await this.getAtomsService.execute({
+      where,
+    })
+
+    const foundAtomsSet = new Set(retrievedAtoms.map(valueExtractor))
+    const missingAtoms = inputs.filter((input) => !foundAtomsSet.has(input))
+
+    if (missingAtoms.length === 1) {
+      throw new Error(`Atom ${missingAtoms[0]} not found`)
+    } else if (missingAtoms.length > 1) {
+      throw new Error(`Atoms ${missingAtoms.join(', ')} not found`)
+    }
+
+    return retrievedAtoms
   }
 }

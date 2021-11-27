@@ -11,6 +11,10 @@ type CreateResponse {
   id: String!
 }
 
+type PayloadResponse {
+  payload: String!
+}
+
 type User {
   id: String!
   auth0Id: String!
@@ -21,13 +25,6 @@ enum Role {
   Admin
   User
   Guest
-}
-
-type App {
-  id: ID!
-  ownerId: String!
-  name: String!
-  pages: [Page!]!
 }
 
 type Field {
@@ -707,6 +704,20 @@ type ElementGraph {
   edges: [ElementEdge!]!
 }
 
+type Page {
+  id: ID!
+  name: String!
+  elements: ElementGraph
+  rootElementId: String!
+}
+
+type App {
+  id: ID!
+  ownerId: String!
+  name: String!
+  pages: [Page!]!
+}
+
 type Lambda {
   id: ID!
   ownerId: String!
@@ -718,21 +729,10 @@ type LambdaPayload {
   payload: String!
 }
 
-type Page {
-  id: ID!
-  name: String!
-  elements: ElementGraph
-  rootElementId: String!
-}
-
 type Query {
   getApp(input: GetAppInput!): App
   getApps: [App!]!
-  getMe: User
-  getUser(input: GetUserInput!): User
-  getUsers(input: GetUsersInput): [User!]!
-  getPages(input: GetPagesInput!): [Page!]!
-  getPage(input: GetPageInput!): Page
+  exportApp(input: ExportAppInput!): PayloadResponse!
 
   """
   Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
@@ -748,6 +748,11 @@ type Query {
   getTypeGraph(input: GetTypeGraphInput!): TypeGraph
   getTypes(input: GetTypesInput): [Type!]!
   getField(input: GetFieldInput!): Field
+  getPages(input: GetPagesInput!): [Page!]!
+  getPage(input: GetPageInput!): Page
+  getMe: User
+  getUser(input: GetUserInput!): User
+  getUsers(input: GetUsersInput): [User!]!
   getLambda(input: GetLambdaInput!): Lambda
   getLambdas: [Lambda!]!
   getTag(input: GetTagInput!): Tag
@@ -779,28 +784,8 @@ input AppByPageFilter {
   pageId: String!
 }
 
-input GetUserInput {
-  id: String
-  auth0Id: String
-}
-
-input GetUsersInput {
-  page: Int!
-  perPage: Int!
-  query: String!
-  sort: String!
-}
-
-input GetPagesInput {
-  byApp: PageByAppFilter!
-}
-
-input PageByAppFilter {
+input ExportAppInput {
   appId: String!
-}
-
-input GetPageInput {
-  pageId: String!
 }
 
 input GetElementGraphInput {
@@ -887,6 +872,30 @@ input FieldByIdFilter {
   fieldId: String!
 }
 
+input GetPagesInput {
+  byApp: PageByAppFilter!
+}
+
+input PageByAppFilter {
+  appId: String!
+}
+
+input GetPageInput {
+  pageId: String!
+}
+
+input GetUserInput {
+  id: String
+  auth0Id: String
+}
+
+input GetUsersInput {
+  page: Int!
+  perPage: Int!
+  query: String!
+  sort: String!
+}
+
 input GetLambdaInput {
   lambdaId: String!
 }
@@ -916,12 +925,7 @@ type Mutation {
   createApp(input: CreateAppInput!): App!
   updateApp(input: UpdateAppInput!): App
   deleteApp(input: DeleteAppInput!): App
-  upsertUser(input: UpsertUserInput!): User!
-  deleteUser(input: DeleteUserInput!): Boolean!
-  resetData: Void
-  createPage(input: CreatePageInput!): Page!
-  deletePage(input: DeletePageInput!): Page!
-  updatePage(input: UpdatePageInput!): Page!
+  importApp(input: ImportAppInput!): App!
   createPropMapBinding(input: CreatePropMapBindingInput!): CreateResponse!
   updatePropMapBinding(input: UpdatePropMapBindingInput!): Void
   deletePropMapBinding(input: DeletePropMapBindingInput!): Void
@@ -934,12 +938,14 @@ type Mutation {
 
   """Deletes an element and all the descending elements"""
   deleteElement(input: DeleteElementInput!): Element!
+
+  """Facade for creating a element with component tag"""
   createComponent(input: CreateComponentInput!): Element!
   createAtom(input: CreateAtomInput!): Atom!
   deleteAtom(input: DeleteAtomInput!): Atom
   importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Atom
-  createAtoms(input: CreateAtomsInput!): [Atom!]!
+  upsertAtoms(input: UpsertAtomsInput!): [Atom!]!
   seedBaseTypes: Void
   createType(input: CreateTypeInput!): Type!
   updateEnumType(input: UpdateEnumTypeInput!): EnumType
@@ -950,6 +956,12 @@ type Mutation {
   createField(input: CreateFieldInput!): Field!
   updateField(input: UpdateFieldInput!): Field
   deleteField(input: DeleteFieldInput!): Field
+  createPage(input: CreatePageInput!): Page!
+  deletePage(input: DeletePageInput!): Page!
+  updatePage(input: UpdatePageInput!): Page!
+  upsertUser(input: UpsertUserInput!): User!
+  deleteUser(input: DeleteUserInput!): Boolean!
+  resetData: Void
   createLambda(input: CreateLambdaInput!): Lambda!
   deleteLambda(input: DeleteLambdaInput!): Lambda!
   updateLambda(input: UpdateLambdaInput!): Lambda
@@ -978,45 +990,8 @@ input DeleteAppInput {
   appId: String!
 }
 
-input UpsertUserInput {
-  data: UpsertUserDataInput!
-  where: UserWhereUniqueInput
-}
-
-input UpsertUserDataInput {
-  auth0Id: String!
-  roles: [Role!]!
-}
-
-input UserWhereUniqueInput {
-  id: String
-  auth0Id: String
-}
-
-input DeleteUserInput {
-  id: String!
-}
-
-"""Date custom scalar type"""
-scalar Void
-
-input CreatePageInput {
-  name: String!
-  appId: String!
-}
-
-input DeletePageInput {
-  pageId: String!
-}
-
-input UpdatePageInput {
-  pageId: String!
-  updateData: UpdatePageData!
-}
-
-input UpdatePageData {
-  name: String!
-  appId: String!
+input ImportAppInput {
+  payload: String!
 }
 
 input CreatePropMapBindingInput {
@@ -1033,6 +1008,9 @@ input CreatePropMapBindingInput {
   """The key of the prop, that the target Element will receive"""
   targetKey: String!
 }
+
+"""Date custom scalar type"""
+scalar Void
 
 input UpdatePropMapBindingInput {
   propMapBindingId: String!
@@ -1102,15 +1080,95 @@ input RemoveHookFromElementInput {
 }
 
 input CreateElementInput {
+  """
+  Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding
+  """
+  refId: String
   name: String
-  atomId: String
-  parentElementId: String
+  atom: AtomRef
 
   """
   Leave it out to automatically set it as the last order of all the children
   """
   order: Int
-  childrenIds: [String!]
+
+  """
+  Creates new elements or attaches existing ones, can be used to create a whole tree at once
+  """
+  children: [ElementRef!]
+  css: String
+  props: String
+  renderForEachPropKey: String
+  renderIfPropKey: String
+  propTransformationJs: String
+  hooks: [NewHookRef!]
+  propMapBindings: [NewPropMapBindingRef!]
+  isComponent: Boolean
+
+  """Attaches the newly created element to an existing element as child"""
+  parentElementId: String
+}
+
+"""Provide either id or type"""
+input AtomRef {
+  atomId: String
+  atomType: AtomType
+}
+
+"""Provide either id or new element input"""
+input ElementRef {
+  """Pass in either refId, or existing elementId"""
+  elementId: String
+  newElement: CreateElementChildInput
+}
+
+input CreateElementChildInput {
+  """
+  Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding
+  """
+  refId: String
+  name: String
+  atom: AtomRef
+
+  """
+  Leave it out to automatically set it as the last order of all the children
+  """
+  order: Int
+
+  """
+  Creates new elements or attaches existing ones, can be used to create a whole tree at once
+  """
+  children: [ElementRef!]
+  css: String
+  props: String
+  renderForEachPropKey: String
+  renderIfPropKey: String
+  propTransformationJs: String
+  hooks: [NewHookRef!]
+  propMapBindings: [NewPropMapBindingRef!]
+  isComponent: Boolean
+}
+
+input NewHookRef {
+  queryHook: QueryHookConfigInput
+  graphqlQueryHook: GraphqlHookConfigInput
+  graphqlMutationHook: GraphqlHookConfigInput
+  recoilStateHook: RecoilStateHookConfigInput
+  queryPageHook: QueryPageHookConfigInput
+  queryPagesHook: QueryPagesHookConfigInput
+}
+
+input NewPropMapBindingRef {
+  """
+  The ID of the target element, if omitted, the current element will be the target
+  """
+  targetElementId: String
+
+  """The key of the prop, as received in the source element"""
+  sourceKey: String!
+
+  """The key of the prop, that the target Element will receive"""
+  targetKey: String!
 }
 
 input UpdateElementInput {
@@ -1179,8 +1237,17 @@ input UpdateAtomInput {
   data: CreateAtomInput!
 }
 
-input CreateAtomsInput {
-  atoms: [CreateAtomInput!]!
+input UpsertAtomsInput {
+  atoms: [UpsertAtomInput!]!
+}
+
+input UpsertAtomInput {
+  name: String!
+  type: AtomType!
+
+  """Pass in an existing interface ID to assign it to the atom"""
+  api: String
+  id: String
 }
 
 """Provide one of the properties"""
@@ -1297,6 +1364,45 @@ input UpdateFieldData {
 
 input DeleteFieldInput {
   fieldId: String!
+}
+
+input CreatePageInput {
+  name: String!
+  appId: String!
+  rootElement: CreateElementChildInput
+}
+
+input DeletePageInput {
+  pageId: String!
+}
+
+input UpdatePageInput {
+  pageId: String!
+  updateData: UpdatePageData!
+}
+
+input UpdatePageData {
+  name: String!
+  appId: String!
+}
+
+input UpsertUserInput {
+  data: UpsertUserDataInput!
+  where: UserWhereUniqueInput
+}
+
+input UpsertUserDataInput {
+  auth0Id: String!
+  roles: [Role!]!
+}
+
+input UserWhereUniqueInput {
+  id: String
+  auth0Id: String
+}
+
+input DeleteUserInput {
+  id: String!
 }
 
 input CreateLambdaInput {

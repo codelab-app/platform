@@ -1,5 +1,6 @@
-import { DgraphRepository } from '@codelab/backend/infra'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
 import type { IUser } from '@codelab/shared/abstract/core'
+import { IApp } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 export interface QueryResult {
@@ -31,6 +32,49 @@ export class PageValidator {
     }
 
     return result
+  }
+
+  /**
+   * Throws error
+   * if the app doesn't exists
+   * or if there's no current user
+   * or if the current user doesn't own the app
+   */
+  async validateApp(appId: string, currentUser?: IUser) {
+    // This is duplicated logic from AppValidator, but it's necessary to
+    // do it here to avoid circular dependency
+
+    const message = `You don't have access to this app`
+
+    if (!currentUser) {
+      throw new Error(message)
+    }
+
+    const app = await this.getApp(appId)
+
+    if (!app) {
+      throw new Error('App does not exist')
+    }
+
+    if (app.ownerId !== currentUser.id) {
+      throw new Error(message)
+    }
+  }
+
+  protected async getApp(appId: string): Promise<IApp> {
+    return this.dgraph.transactionWrapper(async (txn) => {
+      return await this.dgraph.getOneOrThrowNamed<IApp>(
+        txn,
+        `{
+            query(func: type(${DgraphEntityType.App})) @filter(uid(${appId})) @normalize {
+                owner {
+                   ownerId: uid
+                }
+            }
+        }`,
+        'query',
+      )
+    })
   }
 
   private static createGetOwnerRequest(pageId: string) {

@@ -1,3 +1,4 @@
+import { AtomModule } from '@codelab/backend/modules/atom'
 import {
   domainRequest,
   setupTestModule,
@@ -22,11 +23,17 @@ import {
   TestGetElementGql,
   TestGetElementQuery,
 } from '../use-cases/element/get-element/tests/get-element.api.graphql.gen'
+import {
+  GetElementGraphInput,
+  TestGetElementGraphGql,
+  TestGetElementGraphQuery,
+} from '../use-cases/element/get-element-graph'
 
 export const setupElementTestModule = (resetDb = true) => {
   const testModule = {
     guestApp: null! as INestApplication,
     userApp: null! as INestApplication,
+    adminApp: null! as INestApplication,
     createTestElement: (input: CreateElementInput) => {
       return domainRequest<CreateElementInput, TestCreateElementMutation>(
         testModule.userApp,
@@ -40,6 +47,13 @@ export const setupElementTestModule = (resetDb = true) => {
         TestGetElementGql,
         input,
       ).then((r) => r.getElement)
+    },
+    getElementGraph: (input: GetElementInput) => {
+      return domainRequest<GetElementGraphInput, TestGetElementGraphQuery>(
+        testModule.userApp,
+        TestGetElementGraphGql,
+        input,
+      ).then((r) => r.getElementGraph)
     },
     createComponent: (input: CreateComponentInput) => {
       return domainRequest<CreateComponentInput, TestCreateComponentMutation>(
@@ -64,6 +78,9 @@ export const setupElementTestModule = (resetDb = true) => {
         role: Role.User,
       },
     )
+    testModule.adminApp = await setupTestModule([AtomModule], {
+      role: Role.Admin,
+    })
   })
 
   afterAll(async () => {
