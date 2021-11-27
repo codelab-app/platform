@@ -59,14 +59,18 @@ describe('render props', () => {
               return cy
                 .createElement({
                   parentElementId: listItemRootElId,
-                  atomId: listItemAtom.id,
+                  atom: {
+                    atomId: listItemAtom.id,
+                  },
                 })
                 .then((listItemElement) => {
                   // create text element, attach to list item
                   return cy
                     .createElement({
                       parentElementId: listItemElement.id,
-                      atomId: textAtomId,
+                      atom: {
+                        atomId: textAtomId,
+                      },
                     })
                     .then((textElement: CreateResponse) => {
                       // create prop mapping from root to text
@@ -119,7 +123,9 @@ describe('render props', () => {
 
                     return cy
                       .createElement({
-                        atomId: listAtom.id,
+                        atom: {
+                          atomId: listAtom.id,
+                        },
                         name: listElementName,
                         parentElementId: String(rootElement?.id),
                       })
@@ -138,7 +144,9 @@ describe('render props', () => {
                   .then(({ id }) => {
                     return cy.createElement({
                       parentElementId: id,
-                      atomId: textAtomId,
+                      atom: {
+                        atomId: textAtomId,
+                      },
                     })
                   })
                   .then((textElement: CreateResponse) => {
