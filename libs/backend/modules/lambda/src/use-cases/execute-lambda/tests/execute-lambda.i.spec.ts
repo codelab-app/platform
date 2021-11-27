@@ -29,6 +29,9 @@ describe('ExecuteLambda', () => {
     }
 
     expect(createLambda.id).toBeDefined()
+
+    // Wait a bit for the lambda to be ready
+    await new Promise((r) => setTimeout(r, 5000))
   })
 
   describe('Guest', () => {

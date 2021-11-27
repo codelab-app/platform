@@ -9,10 +9,7 @@ import { setupLambdaTestModule } from '../../../test/setupLambdaTestModule'
 import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 import { GetLambdaInput } from '../../get-lambda'
 import { DeleteLambdaInput } from '../delete-lambda.input'
-import {
-  TestDeleteLambdaGql,
-  TestDeleteLambdaMutation,
-} from './delete-lambda.api.graphql.gen'
+import { TestDeleteLambdaGql } from './delete-lambda.api.graphql.gen'
 
 describe('DeleteLambda', () => {
   const testModule = setupLambdaTestModule()
@@ -51,11 +48,7 @@ describe('DeleteLambda', () => {
         lambdaId: deleteLambdaInput.lambdaId,
       }
 
-      await domainRequest<DeleteLambdaInput, TestDeleteLambdaMutation>(
-        testModule.userApp,
-        TestDeleteLambdaGql,
-        deleteLambdaInput,
-      )
+      await testModule.deleteLambda(deleteLambdaInput)
 
       const getLambda = await testModule.getLambda(getLambdaInput)
 
