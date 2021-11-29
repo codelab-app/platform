@@ -2,18 +2,16 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage, TemplateProps } from '@codelab/frontend/abstract/props'
 import {
   Builder,
-  MainPaneBuilderComponent,
+  BuilderSidebarNavigation,
+  MainPaneBuilder,
   MetaPaneBuilderComponent,
+  withBuilderContext,
 } from '@codelab/frontend/modules/builder'
 import {
   ElementGraphProvider,
   useElementGraphContext,
 } from '@codelab/frontend/modules/element'
-import { withEditorProvider } from '@codelab/frontend/presenter/container'
-import {
-  DashboardTemplate,
-  SidebarNavigation,
-} from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { ElementTree } from '@codelab/shared/core'
 import { Empty } from 'antd'
 import Head from 'next/head'
@@ -56,10 +54,10 @@ const Template = ({
   )
 }
 
-ComponentDetail.Template = withEditorProvider(Template)
-ComponentDetail.MainPane = MainPaneBuilderComponent
+ComponentDetail.Template = withBuilderContext(Template)
+ComponentDetail.MainPane = MainPaneBuilder
 ComponentDetail.MetaPane = MetaPaneBuilderComponent
 ComponentDetail.Header = null
-ComponentDetail.SidebarNavigation = SidebarNavigation
+ComponentDetail.SidebarNavigation = BuilderSidebarNavigation
 
 export default ComponentDetail

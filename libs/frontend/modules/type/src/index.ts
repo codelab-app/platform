@@ -1,4 +1,8 @@
 export type {
+  AtomForSelectFragment,
+  ComponentForSelectFragment,
+} from './graphql/type.endpoints.graphql.gen'
+export type {
   Type_ArrayType_Fragment,
   Type_ComponentType_Fragment,
   Type_ElementType_Fragment,
@@ -14,6 +18,6 @@ export * from './hooks'
 export * from './interface-form'
 export * from './shared'
 export * from './store'
-export * from './types/react-redux'
+export * from './store/types/react-redux'
 export * from './use-cases/fields'
 export * from './use-cases/types'

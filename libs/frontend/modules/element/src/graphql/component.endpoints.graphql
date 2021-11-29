@@ -1,5 +1,5 @@
-query GetComponents {
-  getComponents {
+query GetComponents($input: GetComponentsInput) {
+  getComponents(input: $input) {
     ...Element
   }
 }

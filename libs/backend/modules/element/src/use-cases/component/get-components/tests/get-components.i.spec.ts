@@ -1,6 +1,7 @@
 import { domainRequest } from '@codelab/backend/shared/testing'
 import { setupElementTestModule } from '../../../../test/setupElementTestModule'
 import { createComponentInput } from '../../create-component/tests/create-component.data'
+import { GetComponentsInput } from '../get-components.input'
 import {
   TestGetComponentsGql,
   TestGetComponentsQuery,
@@ -49,6 +50,15 @@ describe('GetComponents', () => {
         { id: componentAId },
         { id: componentBId },
       ])
+    })
+
+    it('should search components', async () => {
+      const results = await domainRequest<
+        GetComponentsInput,
+        TestGetComponentsQuery
+      >(testModule.userApp, TestGetComponentsGql, { searchQuery: 'HelloW' })
+
+      expect(results.getComponents).toMatchObject([{ id: componentBId }])
     })
   })
 })

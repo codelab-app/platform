@@ -5,6 +5,7 @@ import {
 import { AtomSchema, IAtom } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import Fuse from 'fuse.js'
 import { GetAtomService } from '../get-atom'
 import { GetAtomsInput } from './get-atoms.input'
 
@@ -15,9 +16,16 @@ export class GetAtomsService extends DgraphUseCase<
 > {
   protected schema = AtomSchema.array()
 
-  protected executeTransaction(request: GetAtomsInput | undefined, txn: Txn) {
+  protected async executeTransaction(
+    request: GetAtomsInput | undefined,
+    txn: Txn,
+  ) {
     if (request && request.where) {
-      exactlyOneWhereClause({ input: request as any }, ['ids', 'types'])
+      exactlyOneWhereClause({ input: { where: request.where } }, [
+        'ids',
+        'types',
+        'searchQuery',
+      ])
     }
 
     if (request?.where?.ids) {
@@ -38,6 +46,25 @@ export class GetAtomsService extends DgraphUseCase<
         ),
         'query',
       )
+    }
+
+    if (request?.where?.searchQuery) {
+      const results = await this.dgraph.getAllNamed<IAtom>(
+        txn,
+        GetAtomService.getAtomQuery(
+          `@filter(match(name, ${request.where.searchQuery}, 25))`,
+        ),
+        'query',
+      )
+
+      const fuse = new Fuse(results, {
+        keys: ['name', 'type'],
+      })
+
+      return fuse
+        .search(request.where.searchQuery)
+        .sort((a, b) => (a.score ?? 0) - (b.score ?? 0))
+        .map((r) => r.item)
     }
 
     return this.dgraph.getAllNamed<IAtom>(

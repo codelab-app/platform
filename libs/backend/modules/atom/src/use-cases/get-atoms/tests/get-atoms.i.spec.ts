@@ -60,5 +60,16 @@ describe('GetAtoms', () => {
 
       expect(getAtoms).toMatchObject([{ ...createAtomInput, id: atomAId }])
     })
+
+    it('should search atoms', async () => {
+      const { getAtoms } = await domainRequest<
+        GetAtomsInput,
+        TestGetAtomsQuery
+      >(testModule.userApp, TestGetAtomsGql, {
+        where: { searchQuery: 'Button' },
+      })
+
+      expect(getAtoms).toMatchObject([{ ...createAtomInput, id: atomAId }])
+    })
   })
 })

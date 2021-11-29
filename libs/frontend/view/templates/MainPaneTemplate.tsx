@@ -1,7 +1,8 @@
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { Divider, PageHeader, PageHeaderProps } from 'antd'
+import { PageHeader, PageHeaderProps } from 'antd'
 import React from 'react'
-import { GlobalStyles } from 'twin.macro'
+import tw, { GlobalStyles } from 'twin.macro'
 
 export type MainPaneTemplateProps = React.PropsWithChildren<{
   title: React.ReactNode
@@ -16,16 +17,24 @@ export type MainPaneTemplateProps = React.PropsWithChildren<{
 
 const StyledContainer = styled.div`
   height: 100%;
+  max-height: 100%;
 
   .ant-page-header {
     height: 100%;
+    max-height: 100%;
     display: grid;
     grid-template-rows: auto 1fr;
+    padding-left: 0;
+    padding-right: 0;
 
     .ant-page-header-content {
+      ${tw`px-4`}
+      max-height: 100%;
+      min-height: 0;
       overflow-y: auto;
     }
     .ant-page-header-heading {
+      ${tw`px-4 mt-2`}
       align-items: center;
     }
   }
@@ -41,11 +50,27 @@ export const MainPaneTemplate = ({
   const extra = header && Array.isArray(header) ? header : [header]
 
   return (
-    <StyledContainer {...containerProps}>
+    <StyledContainer
+      css={css`
+        max-height: 100%;
+        overflow: auto;
+      `}
+      {...containerProps}
+    >
       <GlobalStyles />
-      <PageHeader title={title} extra={[...extra]} {...(headerProps || {})}>
-        <Divider tw="mt-0" />
-        {children}
+      <PageHeader
+        title={title}
+        extra={[...extra]}
+        style={{ maxHeight: '100%', ...(headerProps?.style ?? {}) }}
+        {...(headerProps || {})}
+      >
+        <div
+          css={css`
+            max-height: 100%;
+          `}
+        >
+          {children}
+        </div>
       </PageHeader>
     </StyledContainer>
   )

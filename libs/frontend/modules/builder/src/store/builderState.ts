@@ -2,6 +2,12 @@ import { PropsByElementId } from '@codelab/shared/abstract/core'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { DefaultRootState } from 'react-redux'
+import { BuilderDragData } from '../dnd/BuilderDragData'
+
+export enum BuilderTab {
+  Tree = 'tree',
+  Toolbox = 'toolbox',
+}
 
 export interface BuilderState {
   selectedElementId?: string
@@ -12,6 +18,10 @@ export interface BuilderState {
 
   /** The last rendered props per element id */
   lastRenderedProps: PropsByElementId
+
+  /** Contrary to other tabs, the builder tab is part of the state as it is not related to routing */
+  tab: BuilderTab
+  currentlyDragging?: BuilderDragData
 }
 
 const initialState: BuilderState = {
@@ -19,6 +29,8 @@ const initialState: BuilderState = {
   lastRenderedProps: {},
   hoveringElementId: undefined,
   selectedElementId: undefined,
+  tab: BuilderTab.Tree,
+  currentlyDragging: undefined,
 }
 
 export interface ElementIdPayload {
@@ -67,6 +79,15 @@ export const builderSlice = createSlice({
       state.lastRenderedProps[payload.elementId] = JSON.parse(
         propSafeStringify(payload.props),
       )
+    },
+    setTab: (state, { payload }: PayloadAction<BuilderTab>) => {
+      state.tab = payload
+    },
+    setCurrentlyDragging: (
+      state,
+      { payload }: PayloadAction<BuilderDragData | undefined>,
+    ) => {
+      state.currentlyDragging = payload
     },
   },
 })
