@@ -2,8 +2,10 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   Builder,
-  MainPaneBuilderPage,
+  BuilderSidebarNavigation,
+  MainPaneBuilder,
   MetaPaneBuilderPage,
+  withBuilderContext,
 } from '@codelab/frontend/modules/builder'
 import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
@@ -12,10 +14,7 @@ import {
   withPageQueryProvider,
 } from '@codelab/frontend/modules/page'
 import { PageDetailHeader } from '@codelab/frontend/view/sections'
-import {
-  DashboardTemplate,
-  SidebarNavigation,
-} from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
@@ -74,9 +73,11 @@ export const getServerSideProps = withPageAuthRequired({
 })
 
 PageBuilder.Header = BuilderHeader
-PageBuilder.Template = withPageQueryProvider(DashboardTemplate)
-PageBuilder.SidebarNavigation = SidebarNavigation
-PageBuilder.MainPane = MainPaneBuilderPage
+PageBuilder.Template = withBuilderContext(
+  withPageQueryProvider(DashboardTemplate),
+)
+PageBuilder.SidebarNavigation = BuilderSidebarNavigation
+PageBuilder.MainPane = MainPaneBuilder
 PageBuilder.MetaPane = MetaPaneBuilderPage
 
 export default PageBuilder

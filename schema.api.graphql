@@ -801,6 +801,7 @@ input GetElementInput {
 }
 
 input GetComponentsInput {
+  searchQuery: String
   componentIds: [String!]
 }
 
@@ -808,10 +809,11 @@ input GetAtomsInput {
   where: AtomsWhereInput
 }
 
-"""Provide at most 1 filter"""
+"""Provide no more than 1 filter"""
 input AtomsWhereInput {
   ids: [String!]
   types: [AtomType!]
+  searchQuery: String
 }
 
 input GetAtomInput {

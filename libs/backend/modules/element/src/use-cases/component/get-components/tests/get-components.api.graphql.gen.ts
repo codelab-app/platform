@@ -4,7 +4,7 @@ import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestGetComponentsQueryVariables = Types.Exact<{
-  [key: string]: never
+  input?: Types.Maybe<Types.GetComponentsInput>
 }>
 
 export type TestGetComponentsQuery = {
@@ -12,8 +12,8 @@ export type TestGetComponentsQuery = {
 }
 
 export const TestGetComponentsGql = gql`
-  query TestGetComponents {
-    getComponents {
+  query TestGetComponents($input: GetComponentsInput) {
+    getComponents(input: $input) {
       id
       name
     }
@@ -32,6 +32,7 @@ export const TestGetComponentsGql = gql`
  * @example
  * const { data, loading, error } = useTestGetComponentsQuery({
  *   variables: {
+ *      input: // value for 'input'
  *   },
  * });
  */

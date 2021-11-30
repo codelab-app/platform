@@ -434,9 +434,10 @@ export type AtomWhereUniqueInput = {
   type?: Maybe<AtomType>
 }
 
-/** Provide at most 1 filter */
+/** Provide no more than 1 filter */
 export type AtomsWhereInput = {
   ids?: Maybe<Array<Scalars['String']>>
+  searchQuery?: Maybe<Scalars['String']>
   types?: Maybe<Array<AtomType>>
 }
 
@@ -759,6 +760,7 @@ export type GetAtomsInput = {
 
 export type GetComponentsInput = {
   componentIds?: Maybe<Array<Scalars['String']>>
+  searchQuery?: Maybe<Scalars['String']>
 }
 
 export type GetElementGraphInput = {

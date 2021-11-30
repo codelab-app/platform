@@ -3,6 +3,7 @@ import { DgraphEntityType } from '@codelab/backend/infra'
 import { ElementsSchema, IElement } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import Fuse from 'fuse.js'
 import { GetComponentsRequest } from './get-components.request'
 
 @Injectable()
@@ -13,21 +14,40 @@ export class GetComponentsService extends DgraphUseCase<
   schema = ElementsSchema
 
   protected async executeTransaction(request: GetComponentsRequest, txn: Txn) {
-    return this.dgraph.getAllNamed<IElement>(
+    const results = await this.dgraph.getAllNamed<IElement>(
       txn,
       this.getQuery(request),
       'query',
     )
+
+    if (request?.input?.searchQuery) {
+      const fuse = new Fuse(results, {
+        keys: ['name'],
+      })
+
+      return fuse
+        .search(request.input.searchQuery)
+        .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+        .map((r) => r.item)
+    }
+
+    return results
   }
 
-  protected getQuery({ currentUser }: GetComponentsRequest) {
+  protected getQuery({ currentUser, input }: GetComponentsRequest) {
+    const nameFilter = input?.searchQuery
+      ? ` AND match(name, ${input.searchQuery}, 25)`
+      : ''
+
     // Get all elements, that:
     // - have a component tag
     // - are either owned by the current user OR
     //    - are not owned by anyone
     return `{
       query(func: type(${DgraphEntityType.Element}))
-        @filter((uid_in(owner, ${currentUser.id}) OR NOT has(owner)) AND has(componentTag)) {
+        @filter((uid_in(owner, ${
+          currentUser.id
+        }) OR NOT has(owner)) AND has(componentTag) ${nameFilter ?? ''}) {
         id: uid
         name
         css

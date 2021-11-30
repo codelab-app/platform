@@ -190,10 +190,11 @@ export type GetLambdasForSelectQuery = {
 export type ComponentForSelectFragment = {
   id: string
   name?: string | null | undefined
+  componentTag?: { name: string } | null | undefined
 }
 
 export type GetComponentsForSelectQueryVariables = Types.Exact<{
-  [key: string]: never
+  input?: Types.Maybe<Types.GetComponentsInput>
 }>
 
 export type GetComponentsForSelectQuery = {
@@ -203,7 +204,7 @@ export type GetComponentsForSelectQuery = {
 export type AtomForSelectFragment = { id: string; name: string }
 
 export type GetAtomsForSelectQueryVariables = Types.Exact<{
-  [key: string]: never
+  input?: Types.Maybe<Types.GetAtomsInput>
 }>
 
 export type GetAtomsForSelectQuery = {
@@ -214,6 +215,9 @@ export const ComponentForSelectFragmentDoc = gql`
   fragment ComponentForSelect on Element {
     id
     name
+    componentTag {
+      name
+    }
   }
 `
 export const AtomForSelectFragmentDoc = gql`
@@ -320,16 +324,16 @@ export const GetLambdasForSelectGql = gql`
   }
 `
 export const GetComponentsForSelectGql = gql`
-  query GetComponentsForSelect {
-    getComponents {
+  query GetComponentsForSelect($input: GetComponentsInput) {
+    getComponents(input: $input) {
       ...ComponentForSelect
     }
   }
   ${ComponentForSelectFragmentDoc}
 `
 export const GetAtomsForSelectGql = gql`
-  query GetAtomsForSelect {
-    getAtoms {
+  query GetAtomsForSelect($input: GetAtomsInput) {
+    getAtoms(input: $input) {
       ...AtomForSelect
     }
   }

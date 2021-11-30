@@ -10,7 +10,9 @@ import {
   ElementGraphFragmentDoc,
 } from './Element.fragment.graphql.gen'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
-export type GetComponentsQueryVariables = Types.Exact<{ [key: string]: never }>
+export type GetComponentsQueryVariables = Types.Exact<{
+  input?: Types.Maybe<Types.GetComponentsInput>
+}>
 
 export type GetComponentsQuery = { getComponents: Array<ElementFragment> }
 
@@ -21,8 +23,8 @@ export type CreateComponentMutationVariables = Types.Exact<{
 export type CreateComponentMutation = { createComponent: ElementFragment }
 
 export const GetComponentsGql = gql`
-  query GetComponents {
-    getComponents {
+  query GetComponents($input: GetComponentsInput) {
+    getComponents(input: $input) {
       ...Element
     }
   }

@@ -7,12 +7,17 @@ import styled from '@emotion/styled'
 import React, { MouseEventHandler, useCallback, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { BuilderClickOverlay, BuilderHoverOverlay } from './overlay-toolbar'
+import { BuilderDropHandlers } from './dnd/BuilderDropHandlers'
+import { BuilderDropId } from './dnd/BuilderDropId'
+import { useCreateElementDroppable } from './dnd/useCreateElementDroppable'
+import {
+  useBuilderHotkeys,
+  useBuilderHoverHandlers,
+  useOnRendered,
+} from './hooks'
 import { Renderer } from './renderer'
-import { builderActions, builderSelectors } from './store/builderState'
-import { useBuilderHoverHandlers } from './store/useBuilderHoverHandlers'
-import { useOnRendered } from './store/useOnRendered'
-import { useBuilderHotkeys } from './useBuilderHotkeys'
+import { BuilderClickOverlay, BuilderHoverOverlay } from './sections'
+import { builderActions, builderSelectors } from './store'
 
 export type BuilderProps = {
   tree: ElementTree
@@ -82,6 +87,10 @@ export const Builder = ({
 }: React.PropsWithChildren<BuilderProps>) => {
   const dispatch = useDispatch()
 
+  const { setNodeRef } = useCreateElementDroppable(BuilderDropId.BuilderRoot, {
+    parentElementId: tree.getRootVertex(ElementTree.isElement)?.id,
+  })
+
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
     // be able to capture clicks on elements like disabled antd buttons and other ones that are designed not to emit clicks
@@ -115,12 +124,14 @@ export const Builder = ({
 
   return (
     <StyledBuilderContainer
+      ref={setNodeRef}
       onClick={handleContainerClick}
       id="Builder"
-      css={tw`relative w-full h-full`}
+      css={tw`relative w-full h-full bg-white`}
     >
       <TypeKindProvider>
         <StyledBuilderInnerContainer>
+          <BuilderDropHandlers tree={tree} />
           <BuilderRenderer tree={tree} />
           <BuilderHoverOverlay />
           <BuilderClickOverlay />

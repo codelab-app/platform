@@ -78,10 +78,13 @@ query GetLambdasForSelect {
 fragment ComponentForSelect on Element {
   id
   name
+  componentTag {
+    name
+  }
 }
 
-query GetComponentsForSelect {
-  getComponents {
+query GetComponentsForSelect($input: GetComponentsInput) {
+  getComponents(input: $input) {
     ...ComponentForSelect
   }
 }
@@ -91,8 +94,8 @@ fragment AtomForSelect on Atom {
   name
 }
 
-query GetAtomsForSelect {
-  getAtoms {
+query GetAtomsForSelect($input: GetAtomsInput) {
+  getAtoms(input: $input) {
     ...AtomForSelect
   }
 }
