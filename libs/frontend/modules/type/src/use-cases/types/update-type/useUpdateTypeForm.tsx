@@ -1,6 +1,6 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { useCallback, useRef } from 'react'
+import { useCallback } from 'react'
 import { useTypeDispatch, useTypeState } from '../../../hooks'
 import { typenameToTypeKind } from '../../../shared'
 import { TypeModels } from '../../../shared/TypeModels'
@@ -110,7 +110,7 @@ export const useUpdateTypeForm = () => {
     [entity, mutatePrimitive, updateId, mutateEnum, mutateType, mutateUnion],
   )
 
-  const modelRef = useRef({
+  const model = {
     name: entity?.name,
     primitiveKind:
       entity?.__typename === TypeModels.PrimitiveType
@@ -124,11 +124,11 @@ export const useUpdateTypeForm = () => {
       entity?.__typename === TypeModels.UnionType
         ? entity?.typeIdsOfUnionType
         : undefined,
-  })
+  }
 
   return {
     formProps: {
-      model: modelRef.current,
+      model: model,
       onSubmit: handleSubmit,
       onSubmitError: createNotificationHandler({
         title: 'Error while updating type',

@@ -1,6 +1,7 @@
 import {
   IElementType,
   IEnumType,
+  IMonacoType,
   IPrimitiveType,
   IType,
 } from '@codelab/shared/abstract/core'
@@ -42,6 +43,12 @@ export const getTypeName = (
       return `Element (${(type as IElementType).elementKind})`
     case TypeModels.LambdaType:
       return `Lambda`
+    case TypeModels.PageType:
+      return `Page`
+    case TypeModels.AppType:
+      return `App`
+    case TypeModels.MonacoType:
+      return `Monaco (${(type as IMonacoType).language})`
     case TypeModels.ComponentType:
       return `Component`
     default:

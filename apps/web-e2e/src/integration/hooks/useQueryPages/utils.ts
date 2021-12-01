@@ -58,6 +58,7 @@ export const beforeHook = ({
   sourceKey,
 }: beforeHookParams) => {
   cy.resetDgraphData()
+  cy.seedData()
 
   cy.login().then(async () => {
     cy.preserveAuthCookies()

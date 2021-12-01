@@ -3,7 +3,9 @@ query TestGetElement($input: GetElementInput!) {
     id
     name
     css
-    props
+    props {
+      ...Prop
+    }
     atom {
       id
       name
@@ -15,26 +17,7 @@ query TestGetElement($input: GetElementInput!) {
       id
       type
       config {
-        ... on QueryHookConfig {
-          __typename
-          body
-          lambdaId
-          method
-          queryKey
-          url
-        }
-        ... on RecoilStateHookConfig {
-          defaultValue
-          stateKey
-          persisted
-          __typename
-        }
-        ... on GraphqlHookConfig {
-          graphqlBody
-          dataKey
-          graphqlUrl
-          __typename
-        }
+        data
       }
     }
     propMapBindings {

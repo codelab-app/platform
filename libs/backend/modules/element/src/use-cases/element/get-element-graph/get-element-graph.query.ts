@@ -1,7 +1,11 @@
 import { DgraphQueryBuilder } from '@codelab/backend/infra'
 
 export const getElementGraphQuery = () =>
-  new DgraphQueryBuilder().addBaseFields().addRecurseDirective().addFields(`
+  new DgraphQueryBuilder()
+    .addBaseFields()
+    .addRecurseDirective()
+    .addFields(
+      `
           name
           root
           children @facets(order)
@@ -29,7 +33,8 @@ export const getElementGraphQuery = () =>
           api
           hooks
           hookType
-          configJson
+          hookConfig
+          data
           renderForEachPropKey
           renderIfPropKey
           propMapBindings
@@ -37,4 +42,5 @@ export const getElementGraphQuery = () =>
           sourceKey
           targetKey
           propTransformationJs
-      `)
+      `,
+    )

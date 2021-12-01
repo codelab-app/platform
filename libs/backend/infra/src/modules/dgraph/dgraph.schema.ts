@@ -17,9 +17,16 @@ const {
   Hook,
   PropMapBinding,
   Tag,
+  Prop,
 } = DgraphEntityType
 
 export const dgraphSchema = `
+  type ${Prop} {
+    data
+  }
+
+  data: string .
+
   type ${Tag} {
     name
     owner
@@ -70,9 +77,10 @@ export const dgraphSchema = `
     name
     component
     atom
-    props
+
     css
     hooks
+    props
     renderForEachPropKey
     renderIfPropKey
     propMapBindings
@@ -81,9 +89,10 @@ export const dgraphSchema = `
     children
     componentTag
   }
+
   component: uid @reverse .
   atom: uid @reverse .
-  props: string .
+  props: uid .
   hooks: [uid] @reverse .
   css: string .
   renderForEachPropKey: string .
@@ -110,10 +119,12 @@ export const dgraphSchema = `
     itemType
     allowedValues
     elementKind
+    language
     fields
     typesOfUnionType
   }
   elementKind: string .
+  language: string .
   typeKind: string .
   primitiveKind: string .
   typesOfUnionType: [uid] .
@@ -152,10 +163,10 @@ export const dgraphSchema = `
 
   type ${Hook} {
     hookType
-    configJson
+    hookConfig
   }
-  hookType: string @index(hash)  .
-  configJson: string .
+  hookType: string @index(term)  .
+  hookConfig: uid @reverse .
 
 
   type ${PropMapBinding} {

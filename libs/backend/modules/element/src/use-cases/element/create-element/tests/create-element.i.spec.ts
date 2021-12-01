@@ -4,7 +4,7 @@ import {
   TestCreateAtomMutation,
 } from '@codelab/backend/modules/atom'
 import { domainRequest } from '@codelab/backend/shared/testing'
-import { AtomType, HookType } from '@codelab/shared/abstract/core'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { TestElementFragment } from '../../../../test/graphql'
 import { setupElementTestModule } from '../../../../test/setupElementTestModule'
@@ -69,6 +69,11 @@ describe('CreateElement', () => {
       })
 
       it('should create a complex element', async () => {
+        const config =
+          createComplexElementInput &&
+          createComplexElementInput.hooks &&
+          createComplexElementInput.hooks[0].config
+
         expect(element).toEqual({
           __typename: 'Element',
           id: expect.stringContaining('0x'),
@@ -76,22 +81,17 @@ describe('CreateElement', () => {
           css: createComplexElementInput.css,
           atom: null,
           componentTag: null,
-          props: createComplexElementInput.props,
+          props: {
+            id: expect.stringContaining('0x'),
+            data: createComplexElementInput.props,
+          },
           hooks: [
             {
               id: expect.stringContaining('0x'),
-              type: HookType.RecoilState,
+              type: AtomType.HookRecoilState,
               config: {
-                __typename: 'RecoilStateHookConfig',
-                defaultValue:
-                  createComplexElementInput.hooks?.[0].recoilStateHook
-                    ?.defaultValue,
-                stateKey:
-                  createComplexElementInput.hooks?.[0].recoilStateHook
-                    ?.stateKey,
-                persisted:
-                  createComplexElementInput.hooks?.[0].recoilStateHook
-                    ?.persisted,
+                id: expect.stringContaining('0x'),
+                data: config,
               },
             },
           ],
@@ -145,7 +145,10 @@ describe('CreateElement', () => {
             api: expect.anything(),
           },
           componentTag: null,
-          props: '{}',
+          props: {
+            data: '{"data": "Hello!"}',
+            id: expect.stringContaining('0x'),
+          },
           hooks: [],
           renderForEachPropKey: null,
           renderIfPropKey: null,
@@ -170,7 +173,10 @@ describe('CreateElement', () => {
             id: expect.stringContaining('0x'),
             name: inputComponent?.newElement?.name,
           },
-          props: '{}',
+          props: {
+            id: expect.stringContaining('0x'),
+            data: '{"data": "Hello!"}',
+          },
           hooks: [],
           renderForEachPropKey: null,
           renderIfPropKey: null,

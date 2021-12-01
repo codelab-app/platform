@@ -229,6 +229,18 @@ export class TypeTreeJsonSchemaTransformer {
           type: 'string',
         }
 
+      case TypeKind.AppType:
+        return {
+          ...extra,
+          type: 'string',
+        }
+
+      case TypeKind.PageType:
+        return {
+          ...extra,
+          type: 'string',
+        }
+
       case TypeKind.ElementType:
         return {
           ...extra,
@@ -236,6 +248,12 @@ export class TypeTreeJsonSchemaTransformer {
         }
 
       case TypeKind.ComponentType:
+        return {
+          ...extra,
+          type: 'string',
+        }
+
+      case TypeKind.MonacoType:
         return {
           ...extra,
           type: 'string',

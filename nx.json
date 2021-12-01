@@ -65,6 +65,9 @@
     "backend-modules-page": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },
+    "backend-modules-prop": {
+      "tags": ["layer:domain:backend", "scope:backend"]
+    },
     "backend-modules-tag": {
       "tags": ["layer:domain:backend", "scope:backend"]
     },

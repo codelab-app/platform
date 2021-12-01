@@ -13,4 +13,11 @@ export enum BaseTypeKind {
   Integer = 'Integer',
   RenderProps = 'RenderProps',
   ReactNode = 'ReactNode',
+  MonacoTypeScript = 'MonacoTypeScript',
+  MonacoJavaScript = 'MonacoJavaScript',
+  MonacoCss = 'MonacoCss',
+  MonacoGraphql = 'MonacoGraphql',
+  MonacoJson = 'MonacoJson',
+  Page = 'Page',
+  App = 'App',
 }

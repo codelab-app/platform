@@ -450,6 +450,33 @@
         }
       }
     },
+    "backend-modules-prop": {
+      "root": "libs/backend/modules/prop",
+      "sourceRoot": "libs/backend/modules/prop/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/backend/modules/prop/**/*.ts"]
+          },
+          "outputs": ["{options.outputFile}"],
+          "configurations": {
+            "ci": {
+              "eslintConfig": "libs/backend/modules/prop/.eslintrc.ci.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/backend/modules/prop"],
+          "options": {
+            "jestConfig": "libs/backend/modules/prop/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "backend-modules-tag": {
       "root": "libs/backend/modules/tag",
       "sourceRoot": "libs/backend/modules/tag/src",

@@ -4,7 +4,7 @@ import { useGetElementQuery } from '../store'
 import {
   AddHookToElementButton,
   AddHookToElementModal,
-  ElementHooksList,
+  HooksList,
   RemoveHookFromElementModal,
 } from '../use-cases'
 
@@ -25,7 +25,7 @@ export const ElementHookSection = ({ elementId }: ElementHookSectionProps) => {
 
   return (
     <>
-      <ElementHooksList element={element} />
+      <HooksList element={element} />
       <div css={tw`text-center m-2`}>
         <AddHookToElementButton />
       </div>

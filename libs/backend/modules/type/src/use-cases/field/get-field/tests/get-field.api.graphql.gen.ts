@@ -73,7 +73,7 @@ export type TestGetFieldQueryResult = Apollo.QueryResult<
   TestGetFieldQueryVariables
 >
 export function refetchTestGetFieldQuery(
-  variables?: TestGetFieldQueryVariables,
+  variables: TestGetFieldQueryVariables,
 ) {
   return { query: TestGetFieldGql, variables: variables }
 }

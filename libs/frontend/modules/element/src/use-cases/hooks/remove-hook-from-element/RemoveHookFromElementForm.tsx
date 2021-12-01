@@ -2,16 +2,11 @@ import {
   emptyJsonSchema,
   EmptyJsonSchemaType,
   FormUniforms,
-  FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { useHookState } from '../../../hooks/useHookState'
-
-export type RemoveHookFromElementFormProps = Omit<
-  FormUniformsProps<EmptyJsonSchemaType>,
-  'schema'
->
+import { RemoveHookFromElementFormProps } from './types'
 
 export const RemoveHookFromElementForm = (
   props: RemoveHookFromElementFormProps,

@@ -6,6 +6,8 @@ import {
   DgraphUpdateMutationJson,
 } from '@codelab/backend/infra'
 import { CreateElementService } from '@codelab/backend/modules/element'
+import { CreatePropService } from '@codelab/backend/modules/prop'
+import { User } from '@codelab/backend/modules/user'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { PageValidator } from '../../domain/page.validator'
@@ -17,6 +19,7 @@ export class CreatePageService extends DgraphCreateUseCase<CreatePageRequest> {
     dgraph: DgraphRepository,
     private pageValidator: PageValidator,
     private createElementService: CreateElementService,
+    private createPropService: CreatePropService,
   ) {
     super(dgraph)
   }
@@ -32,16 +35,25 @@ export class CreatePageService extends DgraphCreateUseCase<CreatePageRequest> {
     )
   }
 
+  protected async getRoot(currentUser: User): Promise<Record<string, any>> {
+    const { id: propId } = await this.createPropService.execute({
+      currentUser,
+      input: { data: '{}' },
+    })
+
+    return {
+      'dgraph.type': [DgraphEntityType.Element],
+      name: 'Root element',
+      children: [],
+      props: { uid: propId, 'dgraph.type': [DgraphEntityType.Prop] },
+    }
+  }
+
   protected async createMutation(
     { input: { appId, name, rootElement }, currentUser }: CreatePageRequest,
     blankNodeUid: string,
   ): Promise<Mutation> {
-    let root: Record<string, any> = {
-      'dgraph.type': [DgraphEntityType.Element],
-      name: 'Root element',
-      children: [],
-      props: '{}',
-    }
+    let root = await this.getRoot(currentUser)
 
     if (rootElement) {
       const created = await this.createElementService.execute({

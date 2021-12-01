@@ -10,6 +10,12 @@ export type TestGetTypesQueryVariables = Types.Exact<{
 export type TestGetTypesQuery = {
   getTypes: Array<
     | {
+        __typename: 'AppType'
+        id: string
+        name: string
+        typeKind: Types.TypeKind
+      }
+    | {
         __typename: 'ArrayType'
         id: string
         name: string
@@ -41,6 +47,18 @@ export type TestGetTypesQuery = {
       }
     | {
         __typename: 'LambdaType'
+        id: string
+        name: string
+        typeKind: Types.TypeKind
+      }
+    | {
+        __typename: 'MonacoType'
+        id: string
+        name: string
+        typeKind: Types.TypeKind
+      }
+    | {
+        __typename: 'PageType'
         id: string
         name: string
         typeKind: Types.TypeKind

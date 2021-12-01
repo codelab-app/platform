@@ -1,3 +1,2 @@
-export * from './contracts'
-export * from './hook'
-export * from './hook-config'
+export * from './config'
+export * from './hook.model'

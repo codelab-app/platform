@@ -1,12 +1,15 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
 import {
+  Type_AppType_Fragment,
   Type_ArrayType_Fragment,
   Type_ComponentType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,
   Type_InterfaceType_Fragment,
   Type_LambdaType_Fragment,
+  Type_MonacoType_Fragment,
+  Type_PageType_Fragment,
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
@@ -39,6 +42,9 @@ export type CreateTypeMutation = {
     | { id: string }
     | { id: string }
     | { id: string }
+    | { id: string }
+    | { id: string }
+    | { id: string }
 }
 
 export type DeleteTypeMutationVariables = Types.Exact<{
@@ -47,12 +53,15 @@ export type DeleteTypeMutationVariables = Types.Exact<{
 
 export type DeleteTypeMutation = {
   deleteType?:
+    | Type_AppType_Fragment
     | Type_ArrayType_Fragment
     | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
     | Type_EnumType_Fragment
     | Type_InterfaceType_Fragment
     | Type_LambdaType_Fragment
+    | Type_MonacoType_Fragment
+    | Type_PageType_Fragment
     | Type_PrimitiveType_Fragment
     | Type_ReactNodeType_Fragment
     | Type_RenderPropsType_Fragment
@@ -67,12 +76,15 @@ export type GetTypeQueryVariables = Types.Exact<{
 
 export type GetTypeQuery = {
   getType?:
+    | Type_AppType_Fragment
     | Type_ArrayType_Fragment
     | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
     | Type_EnumType_Fragment
     | Type_InterfaceType_Fragment
     | Type_LambdaType_Fragment
+    | Type_MonacoType_Fragment
+    | Type_PageType_Fragment
     | Type_PrimitiveType_Fragment
     | Type_ReactNodeType_Fragment
     | Type_RenderPropsType_Fragment
@@ -95,12 +107,15 @@ export type GetTypesQueryVariables = Types.Exact<{
 
 export type GetTypesQuery = {
   getTypes: Array<
+    | ({ __typename: 'AppType' } & Type_AppType_Fragment)
     | ({ __typename: 'ArrayType' } & Type_ArrayType_Fragment)
     | ({ __typename: 'ComponentType' } & Type_ComponentType_Fragment)
     | ({ __typename: 'ElementType' } & Type_ElementType_Fragment)
     | ({ __typename: 'EnumType' } & Type_EnumType_Fragment)
     | ({ __typename: 'InterfaceType' } & Type_InterfaceType_Fragment)
     | ({ __typename: 'LambdaType' } & Type_LambdaType_Fragment)
+    | ({ __typename: 'MonacoType' } & Type_MonacoType_Fragment)
+    | ({ __typename: 'PageType' } & Type_PageType_Fragment)
     | ({ __typename: 'PrimitiveType' } & Type_PrimitiveType_Fragment)
     | ({ __typename: 'ReactNodeType' } & Type_ReactNodeType_Fragment)
     | ({ __typename: 'RenderPropsType' } & Type_RenderPropsType_Fragment)
@@ -122,12 +137,15 @@ export type UpdateTypeMutationVariables = Types.Exact<{
 
 export type UpdateTypeMutation = {
   updateType?:
+    | Type_AppType_Fragment
     | Type_ArrayType_Fragment
     | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
     | Type_EnumType_Fragment
     | Type_InterfaceType_Fragment
     | Type_LambdaType_Fragment
+    | Type_MonacoType_Fragment
+    | Type_PageType_Fragment
     | Type_PrimitiveType_Fragment
     | Type_ReactNodeType_Fragment
     | Type_RenderPropsType_Fragment
@@ -158,12 +176,15 @@ export type GetTypeKindsQueryVariables = Types.Exact<{
 
 export type GetTypeKindsQuery = {
   getTypes: Array<
+    | { __typename: 'AppType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'ArrayType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'ComponentType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'ElementType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'EnumType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'InterfaceType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'LambdaType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'MonacoType'; id: string; typeKind: Types.TypeKind }
+    | { __typename: 'PageType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'PrimitiveType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'ReactNodeType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'RenderPropsType'; id: string; typeKind: Types.TypeKind }
@@ -211,6 +232,20 @@ export type GetAtomsForSelectQuery = {
   getAtoms?: Array<AtomForSelectFragment> | null | undefined
 }
 
+export type AtomTypeHookForSelectFragment = {
+  id: string
+  name: string
+  type: Types.AtomType
+}
+
+export type GetAtomsTypeHookForSelectQueryVariables = Types.Exact<{
+  [key: string]: never
+}>
+
+export type GetAtomsTypeHookForSelectQuery = {
+  getAtomsTypeHook?: Array<AtomTypeHookForSelectFragment> | null | undefined
+}
+
 export const ComponentForSelectFragmentDoc = gql`
   fragment ComponentForSelect on Element {
     id
@@ -224,6 +259,13 @@ export const AtomForSelectFragmentDoc = gql`
   fragment AtomForSelect on Atom {
     id
     name
+  }
+`
+export const AtomTypeHookForSelectFragmentDoc = gql`
+  fragment AtomTypeHookForSelect on Atom {
+    id
+    name
+    type
   }
 `
 export const CreateTypeGql = gql`
@@ -338,6 +380,14 @@ export const GetAtomsForSelectGql = gql`
     }
   }
   ${AtomForSelectFragmentDoc}
+`
+export const GetAtomsTypeHookForSelectGql = gql`
+  query GetAtomsTypeHookForSelect {
+    getAtomsTypeHook {
+      ...AtomTypeHookForSelect
+    }
+  }
+  ${AtomTypeHookForSelectFragmentDoc}
 `
 
 const injectedRtkApi = api.injectEndpoints({
@@ -474,6 +524,17 @@ const injectedRtkApi = api.injectEndpoints({
         options: options ?? undefined,
       }),
     }),
+    GetAtomsTypeHookForSelect: build.query<
+      GetAtomsTypeHookForSelectQuery,
+      | GraphqlOperationOptions<GetAtomsTypeHookForSelectQueryVariables>
+      | void
+      | undefined
+    >({
+      query: (options) => ({
+        document: GetAtomsTypeHookForSelectGql,
+        options: options ?? undefined,
+      }),
+    }),
   }),
 })
 export { injectedRtkApi as api }
@@ -500,4 +561,6 @@ export const {
   useLazyGetComponentsForSelectQuery,
   useGetAtomsForSelectQuery,
   useLazyGetAtomsForSelectQuery,
+  useGetAtomsTypeHookForSelectQuery,
+  useLazyGetAtomsTypeHookForSelectQuery,
 } = injectedRtkApi

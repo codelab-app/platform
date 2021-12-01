@@ -28,10 +28,10 @@ export class GetTypeService extends DgraphUseCase<
 
   private static createQuery({
     input: {
-      where: { id, name, atomId },
+      where: { id, name, atomId, enumTypeValueId },
     },
   }: GetTypeRequest) {
-    if ([id, name, atomId].filter((x) => x).length > 1) {
+    if ([id, name, atomId, enumTypeValueId].filter((x) => x).length > 1) {
       throw new Error('Only 1 parameter is allowed')
     }
 
@@ -45,6 +45,14 @@ export class GetTypeService extends DgraphUseCase<
 
     if (name) {
       return GetTypeService.getTypeByName(name)
+    }
+
+    if (name) {
+      return GetTypeService.getEnumTypeValueByIdQuery(name)
+    }
+
+    if (enumTypeValueId) {
+      return GetTypeService.getEnumTypeValueByIdQuery(enumTypeValueId)
     }
 
     throw new Error('Missing where parameters')
@@ -68,6 +76,7 @@ export class GetTypeService extends DgraphUseCase<
             uid
           }
           elementKind
+          language
           fields {
             id: uid
             expand(Field)
@@ -98,6 +107,7 @@ export class GetTypeService extends DgraphUseCase<
             uid
           }
           elementKind
+          language
           fields {
             id: uid
             expand(Field)
@@ -115,6 +125,15 @@ export class GetTypeService extends DgraphUseCase<
       }`
   }
 
+  public static getEnumTypeValueByIdQuery(typeId: string, queryName = 'query') {
+    return `{
+        ${queryName}(func: type(EnumTypeValue)) @filter(uid(${typeId})) {
+            id: uid
+            name
+      }
+    }`
+  }
+
   public static getTypeByName(typeName: string, queryName = 'query') {
     return `{
         ${queryName}(func: type(Type)) @filter(eq(name, "${typeName}")) {
@@ -128,6 +147,7 @@ export class GetTypeService extends DgraphUseCase<
             uid
           }
           elementKind
+          language
           fields {
             id: uid
             expand(Field)

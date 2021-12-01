@@ -6,6 +6,7 @@ import { CreateAtomService } from './use-cases/create-atom'
 import { DeleteAtomService } from './use-cases/delete-atom'
 import { GetAtomService } from './use-cases/get-atom'
 import { GetAtomsService } from './use-cases/get-atoms'
+import { GetAtomsTypeHookService } from './use-cases/get-atoms-type-hook'
 import { ImportAtomsService } from './use-cases/import-atoms'
 import { UpdateAtomService } from './use-cases/update-atom'
 import { UpsertAtomsService } from './use-cases/upsert-atoms/upsert-atoms.service'
@@ -21,6 +22,8 @@ const services = [
   UpdateAtomService,
   ImportAtomsService,
   UpsertAtomsService,
+  CreateAtomService,
+  GetAtomsTypeHookService,
 ]
 
 @Module({

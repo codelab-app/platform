@@ -165,7 +165,6 @@ export const muiAtoms: AtomsRecord = {
   ),
   [AtomType.MuiLoadingButton]: dynamic(() => import('@mui/lab/LoadingButton')),
   [AtomType.MuiMasonry]: dynamic(() => import('@mui/lab/Masonry')),
-  [AtomType.MuiMasonryItem]: dynamic(() => import('@mui/lab/MasonryItem')),
   [AtomType.MuiMenu]: dynamic(() => import('@mui/material/Menu')),
   [AtomType.MuiMenuItem]: dynamic(() => import('@mui/material/MenuItem')),
   [AtomType.MuiMenuList]: dynamic(() => import('@mui/material/MenuList')),

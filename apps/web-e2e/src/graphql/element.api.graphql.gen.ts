@@ -256,7 +256,7 @@ export type E2eGetElementGraphQueryResult = Apollo.QueryResult<
   E2eGetElementGraphQueryVariables
 >
 export function refetchE2eGetElementGraphQuery(
-  variables?: E2eGetElementGraphQueryVariables,
+  variables: E2eGetElementGraphQueryVariables,
 ) {
   return { query: E2eGetElementGraphGql, variables: variables }
 }

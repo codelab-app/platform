@@ -4,16 +4,11 @@ import {
   CreateElementChildInput,
   CreateElementService,
   ElementRef,
-  NewHookRef,
+  HookRef,
   NewPropMapBindingRef,
 } from '@codelab/backend/modules/element'
-import { Hook } from '@codelab/backend/modules/hook'
 import { CreatePageService } from '@codelab/backend/modules/page'
-import {
-  ExportAppSchema,
-  HookType,
-  IPropMapBinding,
-} from '@codelab/shared/abstract/core'
+import { ExportAppSchema, IPropMapBinding } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { AppValidator } from '../../domain/app.validator'
@@ -125,16 +120,17 @@ export class ImportAppService extends DgraphUseCase<
       name: element.name ?? undefined,
       css: element.css ?? undefined,
       renderIfPropKey: element.renderIfPropKey ?? undefined,
-      props: element.props ?? undefined,
+      props: element.props.data,
       isComponent: !!element.componentTag,
       refId: elementId, // This allows us to keep the same propMapBinding references
       atom: element.atom ? { atomType: element.atom.type } : undefined,
       order: tree.getOrderInParent(elementId),
       renderForEachPropKey: element.renderForEachPropKey ?? undefined,
       propTransformationJs: element.propTransformationJs ?? undefined,
-      hooks: element.hooks?.map<NewHookRef>((iHook) =>
-        this.hookToHookInput(new Hook(iHook)),
-      ),
+      hooks: element.hooks.map<HookRef>((x) => ({
+        config: x.config.data,
+        type: x.type,
+      })),
       propMapBindings: element.propMapBindings?.map((pmb) =>
         this.propMapBindingInput(pmb),
       ),
@@ -143,37 +139,6 @@ export class ImportAppService extends DgraphUseCase<
         .map((child) =>
           this.createElementRef(child.id, tree, componentIdMap, iteration + 1),
         ),
-    }
-  }
-
-  protected hookToHookInput(hook: Hook): NewHookRef {
-    let key: keyof NewHookRef
-
-    switch (hook.type) {
-      case HookType.Query:
-        key = 'queryHook'
-        break
-      case HookType.GraphqlQuery:
-        key = 'graphqlQueryHook'
-        break
-      case HookType.GraphqlMutation:
-        key = 'graphqlMutationHook'
-        break
-      case HookType.RecoilState:
-        key = 'recoilStateHook'
-        break
-      case HookType.QueryPage:
-        key = 'queryPageHook'
-        break
-      case HookType.QueryPages:
-        key = 'queryPagesHook'
-        break
-      default:
-        throw new Error(`Invalid hook type ${hook.type}`)
-    }
-
-    return {
-      [key]: hook.config as any,
     }
   }
 

@@ -1,0 +1,143 @@
+{
+  "edges": [
+    {
+      "source": "0x4a77c",
+      "target": "0x4a776",
+      "kind": "Field",
+      "id": "0x4a825",
+      "key": "method",
+      "name": "Method",
+      "description": "",
+
+      "__typename": "TypeEdge"
+    },
+    {
+      "source": "0x4a77c",
+      "target": "0x4a49c",
+      "kind": "Field",
+      "id": "0x4a82c",
+      "key": "queryKey",
+      "name": "Query Key",
+      "description": "",
+
+      "__typename": "TypeEdge"
+    },
+    {
+      "source": "0x4a77c",
+      "target": "0x4a49c",
+      "kind": "Field",
+      "id": "0x4a832",
+      "key": "url",
+      "name": "Url",
+      "description": "",
+
+      "__typename": "TypeEdge"
+    },
+    {
+      "source": "0x4a77c",
+      "target": "0x4a49c",
+      "kind": "Field",
+      "id": "0x4a83a",
+      "key": "body",
+      "name": "Body",
+      "description": "",
+
+      "__typename": "TypeEdge"
+    },
+    {
+      "source": "0x4a77c",
+      "target": "0x4a49c",
+      "kind": "Field",
+      "id": "0x4a859",
+      "key": "lambdaId",
+      "name": "Lambda Id",
+      "description": "",
+
+      "__typename": "TypeEdge"
+    }
+  ],
+  "vertices": [
+    {
+      "__typename": "InterfaceType",
+      "id": "0x4a77c",
+      "name": "HookQuery API",
+      "typeKind": "InterfaceType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0x4a776",
+      "name": "HookQuery Method Enum",
+      "typeKind": "EnumType",
+      "allowedValues": [
+        {
+          "id": "0x4a770",
+          "name": "POST",
+          "value": "POST",
+          "__typename": "EnumTypeValue"
+        },
+        {
+          "id": "0x4a771",
+          "name": "PURGE",
+          "value": "PURGE",
+          "__typename": "EnumTypeValue"
+        },
+        {
+          "id": "0x4a772",
+          "name": "GET",
+          "value": "GET",
+          "__typename": "EnumTypeValue"
+        },
+        {
+          "id": "0x4a773",
+          "name": "HEAD",
+          "value": "HEAD",
+          "__typename": "EnumTypeValue"
+        },
+        {
+          "id": "0x4a774",
+          "name": "LINK",
+          "value": "LINK",
+          "__typename": "EnumTypeValue"
+        },
+        {
+          "id": "0x4a775",
+          "name": "OPTIONS",
+          "value": "OPTIONS",
+          "__typename": "EnumTypeValue"
+        },
+        {
+          "id": "0x4a777",
+          "name": "PUT",
+          "value": "PUT",
+          "__typename": "EnumTypeValue"
+        },
+        {
+          "id": "0x4a778",
+          "name": "PATCH",
+          "value": "PATCH",
+          "__typename": "EnumTypeValue"
+        },
+        {
+          "id": "0x4a779",
+          "name": "UNLINK",
+          "value": "UNLINK",
+          "__typename": "EnumTypeValue"
+        },
+        {
+          "id": "0x4a77a",
+          "name": "DELETE",
+          "value": "DELETE",
+          "__typename": "EnumTypeValue"
+        }
+      ]
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "0x4a49c",
+      "name": "String",
+      "typeKind": "PrimitiveType",
+      "primitiveKind": "String"
+    }
+  ],
+  "__typename": "TypeGraph"
+}

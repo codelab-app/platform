@@ -1,17 +1,11 @@
 import { z } from 'zod'
-import { HookConfigSchema } from './config/hook-config.interface'
-import { HookType } from './hook-type.enum'
-
-// export interface IHook {
-//   id: string
-//   type: HookType
-//   config: IHookConfig
-// }
+import { AtomType } from '../atom'
+import { PropSchema } from '../prop/prop.interface'
 
 export const HookSchema = z.object({
   id: z.string(),
-  type: z.nativeEnum(HookType),
-  config: HookConfigSchema,
+  type: z.nativeEnum(AtomType),
+  config: PropSchema,
 })
 
 export type IHook = z.infer<typeof HookSchema>

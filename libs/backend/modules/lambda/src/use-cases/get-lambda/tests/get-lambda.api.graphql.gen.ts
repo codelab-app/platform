@@ -73,7 +73,7 @@ export type TestGetLambdaQueryResult = Apollo.QueryResult<
   TestGetLambdaQueryVariables
 >
 export function refetchTestGetLambdaQuery(
-  variables?: TestGetLambdaQueryVariables,
+  variables: TestGetLambdaQueryVariables,
 ) {
   return { query: TestGetLambdaGql, variables: variables }
 }

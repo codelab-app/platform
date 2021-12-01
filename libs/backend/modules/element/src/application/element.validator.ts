@@ -79,7 +79,7 @@ export class ElementValidator {
    * Throws error
    * if the provided props don't match the interface of the element's atom
    */
-  async propsAreValid(elementId: string, props: string) {
+  async propsAreValid(elementId: string) {
     // const element =
     //   typeof elementOrId === 'string'
     //     ? await this.query(elementOrId)

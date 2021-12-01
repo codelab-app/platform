@@ -48,6 +48,7 @@ declare global {
       goToPageByAliasId: typeof goToPageByAliasId
       getByTestId: typeof getByTestId
       resetDgraphData: typeof resetDgraphData
+      seedData: typeof seedData
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
       graphqlRequest: typeof graphqlRequest
       /** Creates an app for the current logged in user */
@@ -139,7 +140,12 @@ const resetDgraphData = () => {
   // })
 }
 
+const seedData = () => {
+  return cy.exec(`yarn cli seed --env ${Cypress.env('env')}`)
+}
+
 Cypress.Commands.add('resetDgraphData', resetDgraphData)
+Cypress.Commands.add('seedData', seedData)
 
 const getByTestId = (testId: string, selectorAddon?: string) => {
   return cy.get(`[data-testid=${testId}]${selectorAddon || ''}`)
@@ -378,9 +384,19 @@ Cypress.Commands.add('getPaneMain', (): Cypress.Chainable<JQuery> => {
 const runSeeder = () => {
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(1000)
-
-  return cy.exec(`yarn cli seed --env ${Cypress.env('env')}`, {
+  // Add long timeout for seeder
+  cy.exec(`yarn cli seed --env ${Cypress.env('env')}`, {
     timeout: 270000,
+    failOnNonZeroExit: false,
+  }).then((result) => {
+    // https://github.com/cypress-io/cypress/issues/5470
+    // cypress not log full error...
+    if (result.code) {
+      throw new Error(`Seed failed
+      Exit code: ${result.code}
+      Stdout:\n${result.stdout}
+      Stderr:\n${result.stderr}`)
+    }
   })
 }
 

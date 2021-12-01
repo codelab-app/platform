@@ -60,6 +60,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
       primitiveType,
       elementType,
       unionType,
+      monacoType,
     } = input
 
     return jsonMutation({
@@ -76,6 +77,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
       itemType: arrayType ? { uid: arrayType.itemTypeId } : undefined,
       primitiveKind: primitiveType ? primitiveType.primitiveKind : undefined,
       elementKind: elementType ? elementType.kind : undefined,
+      language: monacoType ? monacoType.language : undefined,
       typesOfUnionType:
         unionType?.typeIdsOfUnionType.map((id) => ({ uid: id })) || [],
       allowedValues:

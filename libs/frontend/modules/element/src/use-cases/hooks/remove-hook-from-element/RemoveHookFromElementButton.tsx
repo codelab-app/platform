@@ -1,27 +1,18 @@
 import { ListItemDeleteButton } from '@codelab/frontend/view/components'
-import { ButtonProps } from 'antd'
-import React, { PropsWithChildren } from 'react'
-import { HookFragment } from '../../../graphql'
 import { useHookDispatch } from '../../../hooks/useHookDispatch'
-
-interface Props extends Omit<ButtonProps, 'onClick'> {
-  hookId: string
-  entity?: HookFragment
-}
+import { RemoveHookFromElementButtonProps } from './types'
 
 export const RemoveHookFromElementButton = ({
   hookId,
   children,
   entity,
   ...props
-}: PropsWithChildren<Props>) => {
+}: RemoveHookFromElementButtonProps) => {
   const { openDeleteModal } = useHookDispatch()
+  const onClick = () => openDeleteModal({ deleteIds: [hookId], entity })
 
   return (
-    <ListItemDeleteButton
-      onClick={() => openDeleteModal({ deleteIds: [hookId], entity })}
-      {...props}
-    >
+    <ListItemDeleteButton onClick={onClick} {...props}>
       {children || (props?.icon ? '' : 'Delete')}
     </ListItemDeleteButton>
   )

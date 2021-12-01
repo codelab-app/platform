@@ -1,5 +1,6 @@
 export enum AtomType {
-  HookQuery = 'HookQuery',
+  HookQueryLambda = 'HookQueryLambda',
+  HookQueryConfig = 'HookQueryConfig',
   HookGraphqlQuery = 'HookGraphqlQuery',
   HookGraphqlMutation = 'HookGraphqlMutation',
   HookRecoilState = 'HookRecoilState',
@@ -383,8 +384,11 @@ export const hookTypes = [
   AtomType.HookQueryPage,
   AtomType.HookQueryPages,
   AtomType.HookRecoilState,
-  AtomType.HookQuery,
+  AtomType.HookQueryConfig,
+  AtomType.HookQueryLambda,
 ]
 
 export const filterNotHookType = (atom: AtomType | string) =>
   !hookTypes.includes(atom as AtomType)
+export const isAtomTypeForTest = (atom: AtomType) =>
+  [AtomType.AntDesignButton, AtomType.AntDesignCard].includes(atom)

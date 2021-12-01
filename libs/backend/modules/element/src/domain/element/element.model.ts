@@ -1,7 +1,8 @@
 import { Atom } from '@codelab/backend/modules/atom'
-import { HookModel } from '@codelab/backend/modules/hook'
+import { Hook } from '@codelab/backend/modules/hook'
+import { Prop } from '@codelab/backend/modules/prop'
 import { Tag } from '@codelab/backend/modules/tag'
-import { IElement, IHook, IPropMapBinding } from '@codelab/shared/abstract/core'
+import { IElement, IPropMapBinding } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { PropMapBinding } from '../prop-mapping/prop-map-binding.model'
@@ -32,11 +33,11 @@ export class Element implements IElement {
   @Field(() => Atom, { nullable: true })
   atom?: Maybe<Atom>
 
-  @Field({ description: 'Props in a json format' })
-  props: string
+  @Field(() => Prop)
+  props: Prop
 
-  @Field(() => [HookModel])
-  hooks: Array<IHook>
+  @Field(() => [Hook])
+  hooks: Array<Hook>
 
   @Field(() => String, {
     description:
@@ -62,7 +63,7 @@ export class Element implements IElement {
     id,
     name = '',
     atom,
-    props = '{}',
+    props,
     css,
     hooks = [],
     componentTag,

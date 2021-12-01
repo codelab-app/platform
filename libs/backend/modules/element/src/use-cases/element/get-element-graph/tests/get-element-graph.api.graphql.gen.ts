@@ -84,7 +84,7 @@ export type TestGetElementGraphQueryResult = Apollo.QueryResult<
   TestGetElementGraphQueryVariables
 >
 export function refetchTestGetElementGraphQuery(
-  variables?: TestGetElementGraphQueryVariables,
+  variables: TestGetElementGraphQueryVariables,
 ) {
   return { query: TestGetElementGraphGql, variables: variables }
 }

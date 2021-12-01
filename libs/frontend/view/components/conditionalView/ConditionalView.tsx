@@ -1,10 +1,9 @@
 import React from 'react'
 
-export type ConditionalViewProps = {
+export type ConditionalViewProps = React.PropsWithChildren<{
   condition: boolean
-  children?: React.ReactNode
   falseView?: React.ReactElement
-}
+}>
 
 export const ConditionalView = ({
   condition,

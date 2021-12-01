@@ -1,0 +1,4 @@
+fragment Prop on Prop {
+  id
+  data
+}

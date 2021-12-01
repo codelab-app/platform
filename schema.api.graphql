@@ -75,6 +75,9 @@ enum TypeKind {
   RenderPropsType
   ReactNodeType
   UnionType
+  MonacoType
+  PageType
+  AppType
 }
 
 """
@@ -164,6 +167,45 @@ type RenderPropsType implements Type {
   typeGraph: TypeGraph!
 }
 
+"""
+The AppType allows selecting a App in the props form. The value is stored as the appId 
+"""
+type AppType implements Type {
+  typeKind: TypeKind!
+  id: ID!
+  name: String!
+  typeGraph: TypeGraph!
+}
+
+"""
+The MonacoType allows inserting code using Monaco Editor in the props form.
+"""
+type MonacoType implements Type {
+  typeKind: TypeKind!
+  id: ID!
+  name: String!
+  typeGraph: TypeGraph!
+  language: MonacoLanguage!
+}
+
+enum MonacoLanguage {
+  TypeScript
+  JavaScript
+  CSS
+  JSON
+  Graphql
+}
+
+"""
+The PageType allows selecting a Page in the props form. The value is stored as the pageId 
+"""
+type PageType implements Type {
+  typeKind: TypeKind!
+  id: ID!
+  name: String!
+  typeGraph: TypeGraph!
+}
+
 type UnionType implements Type {
   typeKind: TypeKind!
   id: ID!
@@ -177,7 +219,7 @@ type TypeGraph {
   edges: [TypeEdge!]!
 }
 
-union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | RenderPropsType | ReactNodeType | UnionType
+union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType
 
 type Atom {
   id: ID!
@@ -190,7 +232,8 @@ type Atom {
 }
 
 enum AtomType {
-  HookQuery
+  HookQueryLambda
+  HookQueryConfig
   HookGraphqlQuery
   HookGraphqlMutation
   HookRecoilState
@@ -555,68 +598,15 @@ enum AtomType {
   HtmlSup
 }
 
+type Prop {
+  id: ID!
+  data: String!
+}
+
 type Hook {
   id: ID!
-  type: HookType!
-  config: HookConfig!
-}
-
-enum HookType {
-  Query
-  GraphqlQuery
-  GraphqlMutation
-  RecoilState
-  QueryPage
-  QueryPages
-}
-
-union HookConfig = QueryHookConfig | GraphqlHookConfig | RecoilStateHookConfig | QueryPageHookConfig | QueryPagesHookConfig
-
-type QueryHookConfig {
-  queryKey: String!
-  url: String
-  body: String
-  method: QueryMethod
-  lambdaId: String
-}
-
-enum QueryMethod {
-  Get
-  Delete
-  Head
-  Options
-  Post
-  Put
-  Patch
-  Purge
-  Link
-  Unlink
-}
-
-type GraphqlHookConfig {
-  graphqlBody: String!
-  graphqlUrl: String!
-  dataKey: String
-}
-
-type RecoilStateHookConfig {
-  stateKey: String!
-  defaultValue: String
-  persisted: PersistenceType!
-}
-
-enum PersistenceType {
-  NotPersisted
-  LocalStorage
-  SessionStorage
-}
-
-type QueryPageHookConfig {
-  pageId: String!
-}
-
-type QueryPagesHookConfig {
-  appId: String!
+  type: AtomType!
+  config: Prop!
 }
 
 type Tag {
@@ -670,9 +660,7 @@ type Element {
   componentTag: Tag
   css: String
   atom: Atom
-
-  """Props in a json format"""
-  props: String!
+  props: Prop!
   hooks: [Hook!]!
 
   """
@@ -748,6 +736,7 @@ type Query {
   """Get a single element."""
   getElement(input: GetElementInput!): Element
   getComponents(input: GetComponentsInput): [Element!]!
+  getAtomsTypeHook: [Atom!]
   getAtoms(input: GetAtomsInput): [Atom!]
   getAtom(input: GetAtomInput!): Atom
   getType(input: GetTypeInput!): Type
@@ -841,6 +830,7 @@ input WhereUniqueType {
   id: String
   name: String
   atomId: String
+  enumTypeValueId: String
 }
 
 input GetTypeGraphInput {
@@ -1045,41 +1035,8 @@ input DeletePropMapBindingInput {
 """Provide exactly one of the config fields"""
 input AddHookToElementInput {
   elementId: String!
-  queryHook: QueryHookConfigInput
-  graphqlQueryHook: GraphqlHookConfigInput
-  graphqlMutationHook: GraphqlHookConfigInput
-  recoilStateHook: RecoilStateHookConfigInput
-  queryPageHook: QueryPageHookConfigInput
-  queryPagesHook: QueryPagesHookConfigInput
-}
-
-"""Provide either a lambdaId, or body/method/url"""
-input QueryHookConfigInput {
-  queryKey: String!
-  url: String
-  body: String
-  method: QueryMethod
-  lambdaId: String
-}
-
-input GraphqlHookConfigInput {
-  graphqlUrl: String!
-  graphqlBody: String!
-  dataKey: String
-}
-
-input RecoilStateHookConfigInput {
-  stateKey: String!
-  defaultValue: String
-  persisted: PersistenceType!
-}
-
-input QueryPageHookConfigInput {
-  pageId: String!
-}
-
-input QueryPagesHookConfigInput {
-  appId: String!
+  config: String!
+  type: AtomType!
 }
 
 input RemoveHookFromElementInput {
@@ -1109,7 +1066,7 @@ input CreateElementInput {
   renderForEachPropKey: String
   renderIfPropKey: String
   propTransformationJs: String
-  hooks: [NewHookRef!]
+  hooks: [HookRef!]
   propMapBindings: [NewPropMapBindingRef!]
   isComponent: Boolean
 
@@ -1152,18 +1109,14 @@ input CreateElementChildInput {
   renderForEachPropKey: String
   renderIfPropKey: String
   propTransformationJs: String
-  hooks: [NewHookRef!]
+  hooks: [HookRef!]
   propMapBindings: [NewPropMapBindingRef!]
   isComponent: Boolean
 }
 
-input NewHookRef {
-  queryHook: QueryHookConfigInput
-  graphqlQueryHook: GraphqlHookConfigInput
-  graphqlMutationHook: GraphqlHookConfigInput
-  recoilStateHook: RecoilStateHookConfigInput
-  queryPageHook: QueryPageHookConfigInput
-  queryPagesHook: QueryPagesHookConfigInput
+input HookRef {
+  config: String!
+  type: AtomType!
 }
 
 input NewPropMapBindingRef {
@@ -1212,7 +1165,8 @@ input MoveData {
 }
 
 input UpdateElementPropsInput {
-  props: String!
+  data: String!
+  propsId: String!
   elementId: String!
 }
 
@@ -1267,6 +1221,7 @@ input CreateTypeInput {
   enumType: CreateEnumTypeInput
   unionType: CreateUnionType
   elementType: CreateElementTypeInput
+  monacoType: CreateMonacoTypeInput
 }
 
 input CreatePrimitiveTypeInput {
@@ -1292,6 +1247,10 @@ input CreateUnionType {
 
 input CreateElementTypeInput {
   kind: ElementTypeKind!
+}
+
+input CreateMonacoTypeInput {
+  language: MonacoLanguage!
 }
 
 input UpdateEnumTypeInput {

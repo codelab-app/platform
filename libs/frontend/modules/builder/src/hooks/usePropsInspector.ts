@@ -35,12 +35,16 @@ export const usePropsInspector = (elementId: string) => {
       return
     }
 
+    const propsId = element?.props.id as string
+
     try {
       await mutate({
         variables: {
           input: {
             elementId,
-            props: JSON.stringify(JSON.parse(persistedProps)),
+            // TODO: find out where to get the id
+            propsId,
+            data: JSON.stringify(JSON.parse(persistedProps)),
           },
         },
       })
@@ -52,7 +56,9 @@ export const usePropsInspector = (elementId: string) => {
   useEffect(() => {
     if (element?.props) {
       try {
-        setPersistedProps(JSON.stringify(JSON.parse(element.props), null, 4))
+        setPersistedProps(
+          JSON.stringify(JSON.parse(element?.props.data), null, 4),
+        )
       } catch (e) {
         console.warn("Couldn't parse element props", element?.props)
       }

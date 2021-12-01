@@ -4,9 +4,7 @@ import { AddHookToElementInput } from '../hooks/add-hook-to-element'
 import { CreatePropMapBindingInput } from '../prop-mapping/create-prop-map-binding'
 
 @InputType()
-export class NewHookRef extends OmitType(AddHookToElementInput, [
-  'elementId',
-]) {}
+export class HookRef extends OmitType(AddHookToElementInput, ['elementId']) {}
 
 @InputType()
 export class NewPropMapBindingRef extends OmitType(CreatePropMapBindingInput, [
@@ -83,8 +81,8 @@ export class CreateElementChildInput {
   @Field(() => String, { nullable: true })
   declare propTransformationJs?: string
 
-  @Field(() => [NewHookRef], { nullable: true })
-  declare hooks?: Array<NewHookRef>
+  @Field(() => [HookRef], { nullable: true })
+  declare hooks?: Array<HookRef>
 
   @Field(() => [NewPropMapBindingRef], { nullable: true })
   declare propMapBindings?: Array<NewPropMapBindingRef>

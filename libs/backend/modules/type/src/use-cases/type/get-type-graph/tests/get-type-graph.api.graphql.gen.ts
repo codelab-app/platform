@@ -73,7 +73,7 @@ export type TestGetTypeGraphQueryResult = Apollo.QueryResult<
   TestGetTypeGraphQueryVariables
 >
 export function refetchTestGetTypeGraphQuery(
-  variables?: TestGetTypeGraphQueryVariables,
+  variables: TestGetTypeGraphQueryVariables,
 ) {
   return { query: TestGetTypeGraphGql, variables: variables }
 }

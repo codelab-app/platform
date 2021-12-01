@@ -14,6 +14,9 @@ query TestGetType($input: GetTypeInput!) {
     ... on ElementType {
       elementKind
     }
+    ... on MonacoType {
+      language
+    }
     ... on PrimitiveType {
       primitiveKind
     }

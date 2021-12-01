@@ -10,52 +10,40 @@
         "edges": [
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Vertical alignment",
-              "id": "0x63",
-              "key": "align",
-              "name": "Align"
-            },
+            "description": "Vertical alignment",
+            "id": "0x63",
+            "key": "align",
+            "name": "Align",
             "kind": "Field",
             "source": "0x62",
             "target": "0x67"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Spacing between grids, could be a number or a object like { xs: 8, sm: 16, md: 24}. Or you can use array to make horizontal and vertical spacing work at the same time [horizontal, vertical]\t",
-              "id": "0x64",
-              "key": "gutter",
-              "name": "Gutter"
-            },
+            "description": "Spacing between grids, could be a number or a object like { xs: 8, sm: 16, md: 24}. Or you can use array to make horizontal and vertical spacing work at the same time [horizontal, vertical]\t",
+            "id": "0x64",
+            "key": "gutter",
+            "name": "Gutter",
             "kind": "Field",
             "source": "0x62",
             "target": "0x32"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Horizontal arrangement",
-              "id": "0x65",
-              "key": "justify",
-              "name": "justify"
-            },
+            "description": "Horizontal arrangement",
+            "id": "0x65",
+            "key": "justify",
+            "name": "justify",
             "kind": "Field",
             "source": "0x62",
             "target": "0x6f"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Auto wrap line",
-              "id": "0x66",
-              "key": "wrap",
-              "name": "wrap"
-            },
+            "description": "Auto wrap line",
+            "id": "0x66",
+            "key": "wrap",
+            "name": "wrap",
             "kind": "Field",
             "source": "0x62",
             "target": "0x34"

@@ -2,6 +2,6 @@ fragment TestHook on Hook {
   id
   type
   config {
-    ...HookConfig
+    data
   }
 }

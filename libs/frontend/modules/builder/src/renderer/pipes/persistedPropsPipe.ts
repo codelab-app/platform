@@ -7,7 +7,7 @@ export const persistedPropsPipe: RenderPipeFactory =
       return next(
         element,
         context,
-        mergeProps(props, JSON.parse(element.props)),
+        mergeProps(props, JSON.parse(element.props.data)),
       )
     } catch (e) {
       console.warn("Couldn't parse element props", element.props)

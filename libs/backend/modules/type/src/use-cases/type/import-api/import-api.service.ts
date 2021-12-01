@@ -82,6 +82,7 @@ export class ImportApiService
         const sourceTypeKind = verticesMap.get(edge.source)?.typeKind
         const sourceTypeId = verticesIdMap.get(edge.source)
         const targetTypeId = verticesIdMap.get(edge.target)
+        let updateTypeMutation: Mutation
 
         if (!sourceTypeKind || !sourceTypeId) {
           throw new Error("Can't find source type for edge")
@@ -104,14 +105,7 @@ export class ImportApiService
           await this.upsertField(sourceTypeId, edge, targetTypeId, currentUser)
 
           return
-        }
-
-        // Add types for ArrayType and UnionType
-
-        // update the types
-        let updateTypeMutation: Mutation
-
-        if (sourceTypeKind === TypeKind.ArrayType) {
+        } else if (sourceTypeKind === TypeKind.ArrayType) {
           updateTypeMutation = CreateTypeService.createMutation(
             {
               input: {

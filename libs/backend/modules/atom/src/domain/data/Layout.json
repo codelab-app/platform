@@ -10,39 +10,30 @@
         "edges": [
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Container className",
-              "id": "0x24",
-              "key": "className",
-              "name": "ClassName"
-            },
+            "description": "Container className",
+            "id": "0x24",
+            "key": "className",
+            "name": "ClassName",
             "kind": "Field",
             "source": "0x23",
             "target": "0x8"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Whther contain Sider in children, don't have to assign it normally. Useful in ssr avoid style flickering",
-              "id": "0x25",
-              "key": "hasSider",
-              "name": "HasSider"
-            },
+            "description": "Whther contain Sider in children, don't have to assign it normally. Useful in ssr avoid style flickering",
+            "id": "0x25",
+            "key": "hasSider",
+            "name": "HasSider",
             "kind": "Field",
             "source": "0x23",
             "target": "0x9"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "To customize the styles",
-              "id": "0x26",
-              "key": "style",
-              "name": "Style"
-            },
+            "description": "To customize the styles",
+            "id": "0x26",
+            "key": "style",
+            "name": "Style",
             "kind": "Field",
             "source": "0x23",
             "target": "0x8"

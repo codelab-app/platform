@@ -69,7 +69,7 @@ export type TestGetPagesQueryResult = Apollo.QueryResult<
   TestGetPagesQueryVariables
 >
 export function refetchTestGetPagesQuery(
-  variables?: TestGetPagesQueryVariables,
+  variables: TestGetPagesQueryVariables,
 ) {
   return { query: TestGetPagesGql, variables: variables }
 }

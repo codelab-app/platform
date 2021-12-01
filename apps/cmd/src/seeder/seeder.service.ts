@@ -3,16 +3,18 @@ import {
   ServerConfig,
   serverConfig,
 } from '@codelab/backend/infra'
-import { SeedBaseTypesService } from '@codelab/backend/modules/type'
+import { User } from '@codelab/backend/modules/user'
 import {
   AtomType,
+  filterNotHookType,
+  isAtomTypeForTest,
   IUser,
   Role,
-  filterNotHookType,
 } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { Command, Console } from 'nestjs-console'
 import { envOption } from '../env-helper'
+import { Env } from '../environments/env'
 import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
 import { AtomSeeder, HookSeeder, TypeSeeder } from './models'
 import { iterateCsvs } from './utils/iterateCsvs'
@@ -21,6 +23,8 @@ interface AtomSeed {
   id: string
   atomType: AtomType
 }
+
+export const isSeedForTesting = (env: Env) => [Env.Test, Env.Ci].includes(env)
 
 @Console()
 @Injectable()
@@ -36,7 +40,6 @@ export class SeederService {
 
   constructor(
     @Inject(serverConfig.KEY) private readonly _serverConfig: ServerConfig,
-    private readonly seedBaseTypesService: SeedBaseTypesService,
     private readonly hookSeeder: HookSeeder,
     private readonly atomSeeder: AtomSeeder,
     private readonly typeSeeder: TypeSeeder,
@@ -46,8 +49,8 @@ export class SeederService {
     command: 'seed',
     options: [envOption],
   })
-  async seed() {
-    const currentUser: IUser = {
+  async seed({ env = Env.Dev }) {
+    const currentUser: User = {
       id: '0x01',
       auth0Id: '0x01',
       roles: [Role.Admin],
@@ -61,10 +64,10 @@ export class SeederService {
     /**
      * (2) Seed all Atoms
      */
-    this.atoms = await this.seedAtoms(currentUser)
+    this.atoms = await this.seedAtoms(currentUser, env)
 
     /**
-     * (3) Seed atoms api
+     * (3) Seed hooks api
      */
     await this.hookSeeder.seedHooks(currentUser)
 
@@ -73,20 +76,27 @@ export class SeederService {
      */
     await iterateCsvs(
       this.antdDataFolder,
-      this.handleCsv.bind(this, currentUser),
+      this.handleCsv.bind(this, currentUser, env),
     )
     await iterateCsvs(
       this.customComponentsDataFolder,
-      this.handleCsv.bind(this, currentUser),
+      this.handleCsv.bind(this, currentUser, env),
     )
   }
 
-  private async seedAtoms(currentUser: IUser): Promise<Array<AtomSeed>> {
+  private async seedAtoms(
+    currentUser: IUser,
+    env: Env,
+  ): Promise<Array<AtomSeed>> {
     await this.typeSeeder.seedBaseTypes(currentUser)
 
-    const atoms = await this.atomSeeder.seedAtomsIfMissing(
-      Object.values(AtomType).filter(filterNotHookType),
-    )
+    let atomTypes = Object.values(AtomType).filter(filterNotHookType)
+
+    if (isSeedForTesting(env)) {
+      atomTypes = atomTypes.filter(isAtomTypeForTest)
+    }
+
+    const atoms = await this.atomSeeder.seedAtomsIfMissing(atomTypes)
 
     return atoms.map((atom) => ({ id: atom.id, atomType: atom.type }))
   }
@@ -96,13 +106,18 @@ export class SeederService {
   }
 
   private handleCsv(
-    currentUser: IUser,
+    currentUser: User,
+    env: Env,
     data: Array<AntdDesignApi>,
     file: string,
   ) {
     const atomType = csvNameToAtomTypeMap[file.replace('.csv', '')]
 
     if (!atomType) {
+      return
+    }
+
+    if (isSeedForTesting(env) && !isAtomTypeForTest(atomType)) {
       return
     }
 

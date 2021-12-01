@@ -4,6 +4,7 @@ import {
   AtomBaseFragment,
   AtomFragment,
 } from '../../../../../../frontend/modules/atom/src/graphql/Atom.fragment.graphql.gen'
+import { PropFragment } from '../../../../prop/src/graphql/Prop.fragment.graphql.gen'
 import {
   HookFragment,
   PropMapBindingFragment,
@@ -13,6 +14,7 @@ import {
   AtomBaseFragmentDoc,
   AtomFragmentDoc,
 } from '../../../../../../frontend/modules/atom/src/graphql/Atom.fragment.graphql.gen'
+import { PropFragmentDoc } from '../../../../prop/src/graphql/Prop.fragment.graphql.gen'
 import {
   HookFragmentDoc,
   PropMapBindingFragmentDoc,
@@ -22,12 +24,12 @@ export type TestElementFragment = {
   id: string
   name?: string | null | undefined
   css?: string | null | undefined
-  props: string
   renderForEachPropKey?: string | null | undefined
   renderIfPropKey?: string | null | undefined
   propTransformationJs?: string | null | undefined
   atom?: AtomBaseFragment | null | undefined
   componentTag?: { id: string; name: string } | null | undefined
+  props: PropFragment
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
 }
@@ -45,7 +47,9 @@ export const TestElementFragmentDoc = gql`
       id
       name
     }
-    props
+    props {
+      ...Prop
+    }
     hooks {
       ...Hook
     }
@@ -57,6 +61,7 @@ export const TestElementFragmentDoc = gql`
     propTransformationJs
   }
   ${AtomBaseFragmentDoc}
+  ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
 `

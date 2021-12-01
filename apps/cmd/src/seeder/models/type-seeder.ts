@@ -388,6 +388,14 @@ export class TypeSeeder {
         return {
           existingTypeId: this.baseTypes.get(BaseTypeName.Lambda) as string,
         }
+      case 'PageType':
+        return {
+          existingTypeId: this.baseTypes.get(BaseTypeName.Page) as string,
+        }
+      case 'AppType':
+        return {
+          existingTypeId: this.baseTypes.get(BaseTypeName.App) as string,
+        }
       case 'ComponentType':
         return {
           existingTypeId: this.baseTypes.get(BaseTypeName.Component) as string,

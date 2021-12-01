@@ -1,12 +1,15 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
 import {
+  TestType_AppType_Fragment,
   TestType_ArrayType_Fragment,
   TestType_ComponentType_Fragment,
   TestType_ElementType_Fragment,
   TestType_EnumType_Fragment,
   TestType_InterfaceType_Fragment,
   TestType_LambdaType_Fragment,
+  TestType_MonacoType_Fragment,
+  TestType_PageType_Fragment,
   TestType_PrimitiveType_Fragment,
   TestType_ReactNodeType_Fragment,
   TestType_RenderPropsType_Fragment,
@@ -22,12 +25,15 @@ export type E2eCreateTypeMutationVariables = Types.Exact<{
 
 export type E2eCreateTypeMutation = {
   createType:
+    | TestType_AppType_Fragment
     | TestType_ArrayType_Fragment
     | TestType_ComponentType_Fragment
     | TestType_ElementType_Fragment
     | TestType_EnumType_Fragment
     | TestType_InterfaceType_Fragment
     | TestType_LambdaType_Fragment
+    | TestType_MonacoType_Fragment
+    | TestType_PageType_Fragment
     | TestType_PrimitiveType_Fragment
     | TestType_ReactNodeType_Fragment
     | TestType_RenderPropsType_Fragment

@@ -9,4 +9,7 @@ export enum TypeKind {
   RenderPropsType = 'RenderPropsType',
   ReactNodeType = 'ReactNodeType',
   UnionType = 'UnionType',
+  MonacoType = 'MonacoType',
+  PageType = 'PageType',
+  AppType = 'AppType',
 }

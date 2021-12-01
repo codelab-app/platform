@@ -133,7 +133,8 @@ describe('render props', () => {
                         // assign data source to list element
                         cy.updateElementProps({
                           elementId: listItemElement.id,
-                          props: JSON.stringify({ dataSource: listDataSource }),
+                          propsId: listItemElement.props.id,
+                          data: JSON.stringify({ dataSource: listDataSource }),
                         })
                       })
                   })
@@ -149,12 +150,13 @@ describe('render props', () => {
                       },
                     })
                   })
-                  .then((textElement: CreateResponse) => {
+                  .then((textElement: Element) => {
                     // create prop mapping from root to text
                     // bind prop "value" to element "text"'s text prop key
                     cy.updateElementProps({
                       elementId: textElement.id,
-                      props: JSON.stringify(reactNodeTextProp),
+                      propsId: textElement.props.id,
+                      data: JSON.stringify(reactNodeTextProp),
                     })
                   })
                   .then(() => cy.goToPageByAliasId())

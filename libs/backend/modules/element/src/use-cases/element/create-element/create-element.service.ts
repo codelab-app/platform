@@ -8,7 +8,6 @@ import { AtomType, IAtom } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../application/element.validator'
-import { GetElementGraphService } from '../get-element-graph'
 import { GetLastOrderChildService } from '../get-last-order-child'
 import {
   AtomRef,
@@ -25,7 +24,6 @@ import {
 export class CreateElementService extends DgraphCreateUseCase<CreateElementRequest> {
   constructor(
     protected readonly dgraph: DgraphRepository,
-    private getElementService: GetElementGraphService,
     private getLastOrderChildService: GetLastOrderChildService,
     private getAtomsService: GetAtomsService,
     private elementValidator: ElementValidator,

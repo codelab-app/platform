@@ -5,12 +5,15 @@ import {
   TestTypeEdge_FieldTypeEdge_Fragment,
 } from './TestTypeEdge.fragment.graphql.gen'
 import {
+  TestType_AppType_Fragment,
   TestType_ArrayType_Fragment,
   TestType_ComponentType_Fragment,
   TestType_ElementType_Fragment,
   TestType_EnumType_Fragment,
   TestType_InterfaceType_Fragment,
   TestType_LambdaType_Fragment,
+  TestType_MonacoType_Fragment,
+  TestType_PageType_Fragment,
   TestType_PrimitiveType_Fragment,
   TestType_ReactNodeType_Fragment,
   TestType_RenderPropsType_Fragment,
@@ -24,12 +27,15 @@ export type TestTypeGraphFragment = {
     TestTypeEdge_BaseTypeEdge_Fragment | TestTypeEdge_FieldTypeEdge_Fragment
   >
   vertices: Array<
+    | TestType_AppType_Fragment
     | TestType_ArrayType_Fragment
     | TestType_ComponentType_Fragment
     | TestType_ElementType_Fragment
     | TestType_EnumType_Fragment
     | TestType_InterfaceType_Fragment
     | TestType_LambdaType_Fragment
+    | TestType_MonacoType_Fragment
+    | TestType_PageType_Fragment
     | TestType_PrimitiveType_Fragment
     | TestType_ReactNodeType_Fragment
     | TestType_RenderPropsType_Fragment

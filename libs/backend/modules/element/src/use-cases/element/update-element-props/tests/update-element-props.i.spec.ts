@@ -7,18 +7,21 @@ import { TestUpdateElementPropsGql } from './update-element-props.api.graphql.ge
 describe('UpdateElementProps', () => {
   const testModule = setupElementTestModule()
   let elementId: string
+  let propsId: string
   let updatePropsInput: UpdateElementPropsInput
 
   beforeAll(async () => {
     const results = await testModule.createTestElement(createElementInput)
 
     elementId = results.id
+    propsId = results.props.id
 
     expect(elementId).toBeDefined()
 
     updatePropsInput = {
       elementId,
-      props: JSON.stringify({ someProp: true, otherProp: { hello: 'world' } }),
+      propsId,
+      data: JSON.stringify({ someProp: true, otherProp: { hello: 'world' } }),
     }
   })
 
@@ -46,7 +49,7 @@ describe('UpdateElementProps', () => {
       const element = await testModule.getElement({ where: { id: elementId } })
 
       expect(element).toBeDefined()
-      expect(element?.props).toStrictEqual(updatePropsInput.props)
+      expect(element?.props.data).toStrictEqual(updatePropsInput.data)
     })
   })
 })

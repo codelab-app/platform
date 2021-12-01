@@ -21,6 +21,10 @@ const resolveType: ResolveTypeFn = (value: Type<any>) => {
       return 'EnumType'
     case TypeKind.LambdaType:
       return 'LambdaType'
+    case TypeKind.AppType:
+      return 'AppType'
+    case TypeKind.PageType:
+      return 'PageType'
     case TypeKind.ElementType:
       return 'ElementType'
     case TypeKind.ComponentType:
@@ -31,6 +35,8 @@ const resolveType: ResolveTypeFn = (value: Type<any>) => {
       return 'ReactNodeType'
     case TypeKind.UnionType:
       return 'UnionType'
+    case TypeKind.MonacoType:
+      return 'MonacoType'
   }
 
   throw new Error(
