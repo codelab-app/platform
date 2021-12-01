@@ -1,6 +1,4 @@
 import { AppstoreAddOutlined, PartitionOutlined } from '@ant-design/icons'
-import { useAppState } from '@codelab/frontend/modules/app'
-import { usePageState } from '@codelab/frontend/modules/page'
 import {
   sidebarNavContainerStyle,
   SidebarNavigation,
@@ -13,8 +11,6 @@ import { useBuilderTab } from '../../hooks'
 import { BuilderTab } from '../../store'
 
 export const BuilderSidebarNavigation = () => {
-  const { currentApp } = useAppState()
-  const { currentPage } = usePageState()
   const { builderTab, setBuilderTab } = useBuilderTab()
 
   return (

@@ -46,7 +46,12 @@ export const DashboardTemplate = ({
       {...layoutProps}
     >
       {SidebarNavigation ? (
-        <Sider theme="light" collapsed collapsedWidth={40}>
+        <Sider
+          theme="light"
+          collapsed
+          collapsedWidth={40}
+          style={{ maxHeight: '100vh' }}
+        >
           <div data-testid="pane-main" css={tw`h-full`}>
             <SidebarNavigation />
           </div>

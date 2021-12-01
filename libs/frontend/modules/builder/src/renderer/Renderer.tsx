@@ -42,7 +42,7 @@ export const Renderer = React.memo<RendererProps>(
       <ErrorBoundary>
         <RenderProvider context={context}>
           <RecoilRoot>
-            <div id="render-root">
+            <div style={{ height: '100%' }} id="render-root">
               {context.renderFactory(root, {
                 ...(context ?? {}),
                 inspect: false,

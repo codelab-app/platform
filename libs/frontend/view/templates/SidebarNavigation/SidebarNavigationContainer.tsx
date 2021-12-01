@@ -12,6 +12,7 @@ export const sidebarNavContainerStyle = ({
 }: SidebarNavigationContainerProps) => ({
   width: '40px',
   height: fullHeight ? '100%' : undefined,
+  maxHeight: '100vh',
 })
 
 export const SidebarNavigationContainer = (
