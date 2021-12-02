@@ -48,7 +48,6 @@ declare global {
       goToPageByAliasId: typeof goToPageByAliasId
       getByTestId: typeof getByTestId
       resetDgraphData: typeof resetDgraphData
-      seedData: typeof seedData
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
       graphqlRequest: typeof graphqlRequest
       /** Creates an app for the current logged in user */
@@ -140,12 +139,7 @@ const resetDgraphData = () => {
   // })
 }
 
-const seedData = () => {
-  return cy.exec(`yarn cli seed --env ${Cypress.env('env')}`)
-}
-
 Cypress.Commands.add('resetDgraphData', resetDgraphData)
-Cypress.Commands.add('seedData', seedData)
 
 const getByTestId = (testId: string, selectorAddon?: string) => {
   return cy.get(`[data-testid=${testId}]${selectorAddon || ''}`)
