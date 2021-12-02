@@ -53,6 +53,8 @@ executor-config: &executor-config
     SLACK_ANTON_M: <@U01HWRY2USE>
     GITHUB_WEBBER: webberwang
     SLACK_WEBBER: <@U0J401GAH>
+    GITHUB_ASSIM: assimhabeek
+    SLACK_ASSIM: U02GJN72TKR
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
@@ -116,10 +118,8 @@ commands:
             # slack settings
             if [ $CIRCLE_USERNAME == $GITHUB_ANTON_M ]; then
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_ANTOM_M}' >> $BASH_ENV
-            elif [ $CIRCLE_USERNAME == $GITHUB_OLEK ]; then
-              echo 'export SLACK_PARAM_MENTIONS=${SLACK_OLEK}' >> $BASH_ENV
-            elif [ $CIRCLE_USERNAME == $GITHUB_ANGEL ]; then
-              echo 'export SLACK_PARAM_MENTIONS=${SLACK_ANGEL}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_ASSIM ]; then
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_ASSIM}' >> $BASH_ENV
             else
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_WEBBER}' >> $BASH_ENV
             fi
