@@ -13,6 +13,7 @@ export const deleteTagsSchema: JSONSchemaType<DeleteTagsSchema> = {
         type: 'string',
       },
       disabled: true,
+      autoFocus: true,
     },
   },
   required: ['ids'],

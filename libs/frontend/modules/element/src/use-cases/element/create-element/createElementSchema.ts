@@ -13,6 +13,7 @@ export const createElementSchema: JSONSchemaType<CreateElementSchema> = {
   type: 'object',
   properties: {
     name: {
+      autoFocus: true,
       type: 'string',
       nullable: true,
     },

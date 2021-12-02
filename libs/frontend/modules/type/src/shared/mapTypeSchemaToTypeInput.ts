@@ -28,6 +28,7 @@ export const baseTypeMutationSchemaProperties = {
   },
   name: {
     type: 'string',
+    autoFocus: true,
   },
   primitiveKind: {
     type: 'string',

@@ -7,6 +7,7 @@ export const createPageSchema: JSONSchemaType<CreatePageMutationInput> = {
   properties: {
     name: {
       type: 'string',
+      autoFocus: true,
     },
     appId: {
       type: 'string',

@@ -13,6 +13,7 @@ export const ownerDefinitions: JSONSchemaType<OwnerInput>['definitions'] = {
       email: {
         type: 'string',
         nullable: true,
+        autoFocus: true,
       },
     },
     required: ['email'],

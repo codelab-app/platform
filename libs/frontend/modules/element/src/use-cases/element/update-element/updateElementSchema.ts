@@ -17,6 +17,7 @@ export const updateElementSchema: JSONSchemaType<UpdateElementSchema> = {
     name: {
       type: 'string',
       nullable: true,
+      autoFocus: true,
     },
     renderIfPropKey: {
       type: 'string',

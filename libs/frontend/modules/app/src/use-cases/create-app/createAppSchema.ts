@@ -6,6 +6,7 @@ export const createAppSchema: JSONSchemaType<CreateAppMutationInput> = {
   type: 'object',
   properties: {
     name: {
+      autoFocus: true,
       type: 'string',
     },
   },

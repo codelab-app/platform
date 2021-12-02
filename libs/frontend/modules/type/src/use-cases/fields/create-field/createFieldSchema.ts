@@ -12,7 +12,7 @@ export const createFieldSchema: JSONSchemaType<CreateFieldSchema> = {
   title: 'Create Field Input',
   type: 'object',
   properties: {
-    key: { type: 'string' },
+    key: { type: 'string', autoFocus: true },
     name: { type: 'string', nullable: true },
     description: { type: 'string', nullable: true },
     typeId: { type: 'string' },

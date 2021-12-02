@@ -8,6 +8,7 @@ export const createAtomSchema: JSONSchemaType<CreateAtomMutationInput> = {
   properties: {
     name: {
       type: 'string',
+      autoFocus: true,
     },
     type: {
       type: 'string',

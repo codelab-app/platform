@@ -7,6 +7,7 @@ export const createTagSchema: JSONSchemaType<CreateTagInput> = {
   properties: {
     name: {
       type: 'string',
+      autoFocus: true,
     },
     parentTagId: {
       type: 'string',
