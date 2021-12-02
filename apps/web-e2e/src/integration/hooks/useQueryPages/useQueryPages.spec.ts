@@ -15,7 +15,7 @@ describe('useQueryPagesHook', () => {
   })
 
   it('run correctly', () => {
-    selectHook({ childElementName, hook: 'QueryPages' })
+    selectHook({ childElementName, hook: /HookQueryPages/ })
 
     cy.getOpenedModal().findByText('Add hook').click()
     // // Assert the mapper value

@@ -16,7 +16,7 @@ describe('useQueryPageHook', () => {
   })
 
   it('run correctly', () => {
-    selectHook({ hook: 'QueryPage', childElementName })
+    selectHook({ hook: /HookQueryPage$/, childElementName })
 
     // select page {pageName}
     cy.getOpenedModal().findByLabelText(/Page/).click()

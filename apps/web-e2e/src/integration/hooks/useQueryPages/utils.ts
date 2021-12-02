@@ -8,7 +8,7 @@ interface beforeHookParams {
 }
 
 interface selectHookParams {
-  hook: string
+  hook: string | RegExp
   childElementName: string
 }
 

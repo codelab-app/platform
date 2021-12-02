@@ -263,7 +263,9 @@ export const getSelectOptionItemByValue = (
 
 Cypress.Commands.add('getSelectOptionItemByValue', getSelectOptionItemByValue)
 
-export const getOptionItem = (text: string): Cypress.Chainable<JQuery> => {
+export const getOptionItem = (
+  text: string | RegExp,
+): Cypress.Chainable<JQuery> => {
   return cy
     .getSelectDropdown()
     .find('.rc-virtual-list')
