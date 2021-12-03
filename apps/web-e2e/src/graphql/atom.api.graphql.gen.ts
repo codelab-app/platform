@@ -131,6 +131,6 @@ export type E2eGetAtomQueryResult = Apollo.QueryResult<
   E2eGetAtomQuery,
   E2eGetAtomQueryVariables
 >
-export function refetchE2eGetAtomQuery(variables?: E2eGetAtomQueryVariables) {
+export function refetchE2eGetAtomQuery(variables: E2eGetAtomQueryVariables) {
   return { query: E2eGetAtomGql, variables: variables }
 }

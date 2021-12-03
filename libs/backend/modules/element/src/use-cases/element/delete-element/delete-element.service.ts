@@ -38,6 +38,7 @@ export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
           query {
             descendants(func: uid(${elementId}))  @filter(type(Element)) @recurse {
                 COMPONENT AS uid
+                PROP_UID as props.uid
                 DESCENDANTS AS children @filter(NOT has(componentTag))
             }
             parent(func: uid(${elementId})) {
@@ -49,6 +50,7 @@ export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
 
           mutation {
             delete {
+              uid(PROP_UID) * * .
               uid(COMPONENT) * * .
               uid(DESCENDANTS) * * .
               uid(PARENT) <children> <${elementId}> .

@@ -19,6 +19,13 @@ import { TestLambdaTypeFragmentDoc } from './TestLambdaType.fragment.graphql.gen
 import { TestComponentTypeFragmentDoc } from './TestComponentType.fragment.graphql.gen'
 import { TestRenderPropsTypeFragmentDoc } from './TestRenderProps.fragment.graphql.gen'
 import { TestUnionTypeFragmentDoc } from './TestUnionType.fragment.graphql.gen'
+export type TestType_AppType_Fragment = {
+  __typename: 'AppType'
+  id: string
+  name: string
+  typeKind: Types.TypeKind
+}
+
 export type TestType_ArrayType_Fragment = {
   __typename: 'ArrayType'
   id: string
@@ -61,6 +68,20 @@ export type TestType_LambdaType_Fragment = {
   typeKind: Types.TypeKind
 } & TestLambdaTypeFragment
 
+export type TestType_MonacoType_Fragment = {
+  __typename: 'MonacoType'
+  id: string
+  name: string
+  typeKind: Types.TypeKind
+}
+
+export type TestType_PageType_Fragment = {
+  __typename: 'PageType'
+  id: string
+  name: string
+  typeKind: Types.TypeKind
+}
+
 export type TestType_PrimitiveType_Fragment = {
   __typename: 'PrimitiveType'
   id: string
@@ -90,12 +111,15 @@ export type TestType_UnionType_Fragment = {
 } & TestUnionTypeFragment
 
 export type TestTypeFragment =
+  | TestType_AppType_Fragment
   | TestType_ArrayType_Fragment
   | TestType_ComponentType_Fragment
   | TestType_ElementType_Fragment
   | TestType_EnumType_Fragment
   | TestType_InterfaceType_Fragment
   | TestType_LambdaType_Fragment
+  | TestType_MonacoType_Fragment
+  | TestType_PageType_Fragment
   | TestType_PrimitiveType_Fragment
   | TestType_ReactNodeType_Fragment
   | TestType_RenderPropsType_Fragment

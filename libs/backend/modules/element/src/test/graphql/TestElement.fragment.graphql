@@ -10,7 +10,9 @@ fragment TestElement on Element {
     id
     name
   }
-  props
+  props {
+    ...Prop
+  }
   hooks {
     ...Hook
   }

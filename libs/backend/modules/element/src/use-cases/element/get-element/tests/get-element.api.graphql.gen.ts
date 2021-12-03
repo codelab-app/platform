@@ -1,6 +1,8 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
+import { PropFragment } from '../../../../../../prop/src/graphql/Prop.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import { PropFragmentDoc } from '../../../../../../prop/src/graphql/Prop.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestGetElementQueryVariables = Types.Exact<{
@@ -13,38 +15,17 @@ export type TestGetElementQuery = {
         id: string
         name?: string | null | undefined
         css?: string | null | undefined
-        props: string
         renderForEachPropKey?: string | null | undefined
         renderIfPropKey?: string | null | undefined
+        props: PropFragment
         atom?:
           | { id: string; name: string; type: Types.AtomType }
           | null
           | undefined
         hooks: Array<{
           id: string
-          type: Types.HookType
-          config:
-            | {
-                __typename: 'GraphqlHookConfig'
-                graphqlBody: string
-                dataKey?: string | null | undefined
-                graphqlUrl: string
-              }
-            | {
-                __typename: 'QueryHookConfig'
-                body?: string | null | undefined
-                lambdaId?: string | null | undefined
-                method?: Types.QueryMethod | null | undefined
-                queryKey: string
-                url?: string | null | undefined
-              }
-            | {
-                __typename: 'RecoilStateHookConfig'
-                defaultValue?: string | null | undefined
-                stateKey: string
-                persisted: Types.PersistenceType
-              }
-            | {}
+          type: Types.AtomType
+          config: { data: string }
         }>
         propMapBindings: Array<{
           id: string
@@ -63,7 +44,9 @@ export const TestGetElementGql = gql`
       id
       name
       css
-      props
+      props {
+        ...Prop
+      }
       atom {
         id
         name
@@ -75,26 +58,7 @@ export const TestGetElementGql = gql`
         id
         type
         config {
-          ... on QueryHookConfig {
-            __typename
-            body
-            lambdaId
-            method
-            queryKey
-            url
-          }
-          ... on RecoilStateHookConfig {
-            defaultValue
-            stateKey
-            persisted
-            __typename
-          }
-          ... on GraphqlHookConfig {
-            graphqlBody
-            dataKey
-            graphqlUrl
-            __typename
-          }
+          data
         }
       }
       propMapBindings {
@@ -105,6 +69,7 @@ export const TestGetElementGql = gql`
       }
     }
   }
+  ${PropFragmentDoc}
 `
 
 /**
@@ -158,7 +123,7 @@ export type TestGetElementQueryResult = Apollo.QueryResult<
   TestGetElementQueryVariables
 >
 export function refetchTestGetElementQuery(
-  variables?: TestGetElementQueryVariables,
+  variables: TestGetElementQueryVariables,
 ) {
   return { query: TestGetElementGql, variables: variables }
 }

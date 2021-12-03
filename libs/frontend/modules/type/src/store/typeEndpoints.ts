@@ -80,6 +80,7 @@ export const typeApi = generatedApi.enhanceEndpoints({
 export { generatedApi as typeEndpoints }
 
 export const {
+  useGetAtomsTypeHookForSelectQuery,
   useCreateTypeMutation,
   useDeleteTypeMutation,
   useGetTypeGraphQuery,

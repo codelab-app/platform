@@ -18,6 +18,7 @@ import { DeleteAtomInput, DeleteAtomService } from '../use-cases/delete-atom'
 import { GetAtomInput, GetAtomService } from '../use-cases/get-atom'
 import { GetAtomsService } from '../use-cases/get-atoms'
 import { GetAtomsInput } from '../use-cases/get-atoms/get-atoms.input'
+import { GetAtomsTypeHookService } from '../use-cases/get-atoms-type-hook'
 import { ImportAtomsInput, ImportAtomsService } from '../use-cases/import-atoms'
 import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
 import { UpsertAtomsInput } from '../use-cases/upsert-atoms/upsert-atoms.input'
@@ -33,6 +34,7 @@ export class AtomResolver {
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
     private getTypeGraphService: GetTypeGraphService,
+    private getAtomsTypeHookService: GetAtomsTypeHookService,
     private importAtomsService: ImportAtomsService,
     private createAtomsService: UpsertAtomsService,
   ) {}
@@ -74,6 +76,12 @@ export class AtomResolver {
     await this.deleteAtomService.execute(input)
 
     return atom
+  }
+
+  @Query(() => [Atom], { nullable: true })
+  @UseGuards(GqlAuthGuard)
+  async getAtomsTypeHook() {
+    return this.getAtomsTypeHookService.execute({})
   }
 
   @Query(() => [Atom], { nullable: true })

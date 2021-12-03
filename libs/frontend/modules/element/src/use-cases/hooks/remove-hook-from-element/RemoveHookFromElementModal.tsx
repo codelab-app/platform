@@ -2,6 +2,7 @@ import {
   ActionType,
   FormUniformsModal,
 } from '@codelab/frontend/view/components'
+import { ModalProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 import { useHookState } from '../../../hooks'
@@ -16,24 +17,22 @@ export const RemoveHookFromElementModal = ({
   elementId,
 }: RemoveHookFromElementModalProps) => {
   const { actionType } = useHookState()
+  const { formProps, state, reset } = useRemoveHookFromElementForm(elementId)
+  const { isLoading } = state
 
-  const {
-    formProps,
-    reset,
-    state: { isLoading },
-  } = useRemoveHookFromElementForm(elementId)
+  const modalProps: ModalProps = {
+    okText: 'Remove',
+    okButtonProps: {
+      loading: isLoading,
+    },
+    visible: actionType === ActionType.Delete,
+    onCancel: () => reset(),
+    title: <span css={tw`font-semibold`}>Remove hook</span>,
+  }
 
   return (
     <FormUniformsModal
-      modalProps={{
-        okText: 'Remove',
-        okButtonProps: {
-          loading: isLoading,
-        },
-        visible: actionType === ActionType.Delete,
-        onCancel: () => reset(),
-        title: <span css={tw`font-semibold`}>Remove hook</span>,
-      }}
+      modalProps={modalProps}
       renderForm={() => <RemoveHookFromElementForm {...formProps} />}
     />
   )

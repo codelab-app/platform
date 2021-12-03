@@ -8,7 +8,7 @@ interface beforeHookParams {
 }
 
 interface selectHookParams {
-  hook: string
+  hook: string | RegExp
   childElementName: string
 }
 
@@ -58,6 +58,8 @@ export const beforeHook = ({
   sourceKey,
 }: beforeHookParams) => {
   cy.resetDgraphData()
+  // seed hooks
+  cy.runSeeder()
 
   cy.login().then(async () => {
     cy.preserveAuthCookies()

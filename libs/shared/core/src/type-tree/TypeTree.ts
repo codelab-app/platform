@@ -73,12 +73,9 @@ export class TypeTree extends TreeService<IBaseType, ITypeEdge> {
           .outgoers()
           .some((e) => {
             const parsedElement = e.first().data()
-            console.log({ parsedElement })
 
             return parsedElement?.typeKind === type
           })
-
-        console.log({ fields, isUnionReactTypeNodeType })
 
         return { fields, isUnionReactTypeNodeType }
       })

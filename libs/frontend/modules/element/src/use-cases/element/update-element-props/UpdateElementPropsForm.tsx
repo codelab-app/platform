@@ -1,3 +1,4 @@
+import { Prop } from '@codelab/frontend/abstract/codegen'
 import {
   InterfaceForm,
   useGetTypeGraphQuery,
@@ -7,7 +8,7 @@ import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Spin } from 'antd'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { useElementGraphContext } from '../../../providers'
 import {
   useGetElementQuery,
@@ -17,7 +18,7 @@ import {
 interface UpdateElementPropsFormInternalProps {
   elementId: string
   interfaceId: string
-  existingProps: string
+  existingProps: Prop
   trackPromises?: UseTrackLoadingPromises
 }
 
@@ -52,7 +53,7 @@ const UpdateElementPropsFormInternal = ({
     })
 
   const [mutate] = useUpdateElementPropsMutation()
-  const initialPropsRef = useRef(JSON.parse(existingProps))
+  const initialPropsRef = useRef(JSON.parse(existingProps.data))
   const tree = useTypeTree(interfaceData?.getTypeGraph)
 
   if (interfaceLoading) {
@@ -76,7 +77,8 @@ const UpdateElementPropsFormInternal = ({
             variables: {
               input: {
                 elementId,
-                props: JSON.stringify(data),
+                data: JSON.stringify(data),
+                propsId: existingProps.id,
               },
             },
           })

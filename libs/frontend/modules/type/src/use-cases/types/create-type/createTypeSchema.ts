@@ -95,6 +95,22 @@ export const mapCreateTypeSchemaToTypeInput = (
       return {
         ...baseCreateTypeInput,
       }
+    case TypeKind.AppType:
+      return {
+        ...baseCreateTypeInput,
+      }
+    case TypeKind.PageType:
+      return {
+        ...baseCreateTypeInput,
+      }
+    case TypeKind.MonacoType:
+      return {
+        ...baseCreateTypeInput,
+        monacoType: {
+          ...baseCreateTypeInput,
+          language: formData.language,
+        },
+      }
     case TypeKind.ComponentType:
       return {
         ...baseCreateTypeInput,

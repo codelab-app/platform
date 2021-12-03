@@ -5,12 +5,15 @@ import {
   TypeEdge_FieldTypeEdge_Fragment,
 } from './TypeEdge.fragment.graphql.gen'
 import {
+  Type_AppType_Fragment,
   Type_ArrayType_Fragment,
   Type_ComponentType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,
   Type_InterfaceType_Fragment,
   Type_LambdaType_Fragment,
+  Type_MonacoType_Fragment,
+  Type_PageType_Fragment,
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
   Type_RenderPropsType_Fragment,
@@ -22,12 +25,15 @@ import { TypeFragmentDoc } from './Type.fragment.graphql.gen'
 export type TypeGraphFragment = {
   edges: Array<TypeEdge_BaseTypeEdge_Fragment | TypeEdge_FieldTypeEdge_Fragment>
   vertices: Array<
+    | Type_AppType_Fragment
     | Type_ArrayType_Fragment
     | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
     | Type_EnumType_Fragment
     | Type_InterfaceType_Fragment
     | Type_LambdaType_Fragment
+    | Type_MonacoType_Fragment
+    | Type_PageType_Fragment
     | Type_PrimitiveType_Fragment
     | Type_ReactNodeType_Fragment
     | Type_RenderPropsType_Fragment

@@ -10,182 +10,140 @@
         "edges": [
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Breakpoints of the responsive layout",
-              "id": "0x82",
-              "key": "breakpoint",
-              "name": "breakpoint"
-            },
+            "description": "Breakpoints of the responsive layout",
+            "id": "0x82",
+            "key": "breakpoint",
+            "name": "breakpoint",
             "kind": "Field",
             "source": "0x81",
             "target": "0x94"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Container className",
-              "id": "0x83",
-              "key": "className",
-              "name": "ClassName"
-            },
+            "description": "Container className",
+            "id": "0x83",
+            "key": "className",
+            "name": "ClassName",
             "kind": "Field",
             "source": "0x81",
             "target": "0x32"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "To set the current status",
-              "id": "0x84",
-              "key": "collapsed",
-              "name": "Collapsed"
-            },
+            "description": "To set the current status",
+            "id": "0x84",
+            "key": "collapsed",
+            "name": "Collapsed",
             "kind": "Field",
             "source": "0x81",
             "target": "0x34"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Width of the collapsed sidebar, by setting to 0 a special trigger will appear",
-              "id": "0x85",
-              "key": "collapsedWidth",
-              "name": "Collapsed Width"
-            },
+            "description": "Width of the collapsed sidebar, by setting to 0 a special trigger will appear",
+            "id": "0x85",
+            "key": "collapsedWidth",
+            "name": "Collapsed Width",
             "kind": "Field",
             "source": "0x81",
             "target": "0x75"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Whether can be collapsed",
-              "id": "0x86",
-              "key": "collapsible",
-              "name": "Collapsible"
-            },
+            "description": "Whether can be collapsed",
+            "id": "0x86",
+            "key": "collapsible",
+            "name": "Collapsible",
             "kind": "Field",
             "source": "0x81",
             "target": "0x34"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "To set the initial status",
-              "id": "0x87",
-              "key": "defaultCollapsed",
-              "name": "Default Collapsed"
-            },
+            "description": "To set the initial status",
+            "id": "0x87",
+            "key": "defaultCollapsed",
+            "name": "Default Collapsed",
             "kind": "Field",
             "source": "0x81",
             "target": "0x34"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Reverse direction of arrow, for a sider that expands from the right\t",
-              "id": "0x88",
-              "key": "reverseArrow",
-              "name": "Reverse Arrow"
-            },
+            "description": "Reverse direction of arrow, for a sider that expands from the right\t",
+            "id": "0x88",
+            "key": "reverseArrow",
+            "name": "Reverse Arrow",
             "kind": "Field",
             "source": "0x81",
             "target": "0x34"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "To customize the styles",
-              "id": "0x89",
-              "key": "style",
-              "name": "Style"
-            },
+            "description": "To customize the styles",
+            "id": "0x89",
+            "key": "style",
+            "name": "Style",
             "kind": "Field",
             "source": "0x81",
             "target": "0x32"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Color theme of the sidebar",
-              "id": "0x8a",
-              "key": "theme",
-              "name": "Theme"
-            },
+            "description": "Color theme of the sidebar",
+            "id": "0x8a",
+            "key": "theme",
+            "name": "Theme",
             "kind": "Field",
             "source": "0x81",
             "target": "0x91"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Specify the customized trigger, set to null to hide the trigger",
-              "id": "0x8b",
-              "key": "trigger",
-              "name": "Trigger"
-            },
+            "description": "Specify the customized trigger, set to null to hide the trigger",
+            "id": "0x8b",
+            "key": "trigger",
+            "name": "Trigger",
             "kind": "Field",
             "source": "0x81",
             "target": "0x2a"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Width of the sidebar",
-              "id": "0x8c",
-              "key": "width",
-              "name": "Width"
-            },
+            "description": "Width of the sidebar",
+            "id": "0x8c",
+            "key": "width",
+            "name": "Width",
             "kind": "Field",
             "source": "0x81",
             "target": "0x32"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "To customize the styles of the special trigger that appears when collapsedWidth is 0",
-              "id": "0x8d",
-              "key": "zeroWidthTriggerStyle",
-              "name": "Zero Width Trigger Style"
-            },
+            "description": "To customize the styles of the special trigger that appears when collapsedWidth is 0",
+            "id": "0x8d",
+            "key": "zeroWidthTriggerStyle",
+            "name": "Zero Width Trigger Style",
             "kind": "Field",
             "source": "0x81",
             "target": "0x32"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "The callback function, executed when breakpoints changed",
-              "id": "0x8e",
-              "key": "onBreakpoint",
-              "name": "On Breakpoint"
-            },
+            "description": "The callback function, executed when breakpoints changed",
+            "id": "0x8e",
+            "key": "onBreakpoint",
+            "name": "On Breakpoint",
             "kind": "Field",
             "source": "0x81",
             "target": "0x33"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "The callback function, executed by clicking the trigger or activating the responsive layout",
-              "id": "0x8f",
-              "key": "onCollapse",
-              "name": "On Collapse"
-            },
+            "description": "The callback function, executed by clicking the trigger or activating the responsive layout",
+            "id": "0x8f",
+            "key": "onCollapse",
+            "name": "On Collapse",
             "kind": "Field",
             "source": "0x81",
             "target": "0x33"

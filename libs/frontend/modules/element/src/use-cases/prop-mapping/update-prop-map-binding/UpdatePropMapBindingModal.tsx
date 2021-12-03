@@ -9,7 +9,7 @@ import {
   UpdatePropMapBindingForm,
   UpdatePropMapBindingFormProps,
 } from './UpdatePropMapBindingForm'
-import { useUpdatePropMapBindingForm } from './updatePropMapBindingForm'
+import { useUpdatePropMapBindingForm } from './useUpdatePropMapBindingForm'
 
 export const UpdatePropMapBindingModal = (
   props: Pick<

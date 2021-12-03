@@ -9,7 +9,9 @@ fragment Element on Element {
   componentTag {
     ...Tag
   }
-  props
+  props {
+    ...Prop
+  }
   hooks {
     ...Hook
   }
@@ -47,6 +49,7 @@ fragment Hook on Hook {
   id
   type
   config {
-    ...HookConfig
+    id
+    data
   }
 }

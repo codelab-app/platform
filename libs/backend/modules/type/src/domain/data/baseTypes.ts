@@ -1,6 +1,7 @@
 import {
   BaseTypeKind,
   ElementTypeKind,
+  MonacoLanguage,
   PrimitiveTypeKind,
   TypeKind,
 } from '@codelab/shared/abstract/core'
@@ -68,5 +69,48 @@ export const baseTypes: Array<CreateTypeInput> = [
   {
     name: BaseTypeKind.ReactNode,
     typeKind: TypeKind.ReactNodeType,
+  },
+  {
+    name: BaseTypeKind.MonacoCss,
+    typeKind: TypeKind.MonacoType,
+    monacoType: {
+      language: MonacoLanguage.CSS,
+    },
+  },
+  {
+    name: BaseTypeKind.MonacoJavaScript,
+    typeKind: TypeKind.MonacoType,
+    monacoType: {
+      language: MonacoLanguage.JavaScript,
+    },
+  },
+  {
+    name: BaseTypeKind.MonacoJson,
+    typeKind: TypeKind.MonacoType,
+    monacoType: {
+      language: MonacoLanguage.JSON,
+    },
+  },
+  {
+    name: BaseTypeKind.MonacoGraphql,
+    typeKind: TypeKind.MonacoType,
+    monacoType: {
+      language: MonacoLanguage.Graphql,
+    },
+  },
+  {
+    name: BaseTypeKind.MonacoTypeScript,
+    typeKind: TypeKind.MonacoType,
+    monacoType: {
+      language: MonacoLanguage.TypeScript,
+    },
+  },
+  {
+    name: BaseTypeKind.Page,
+    typeKind: TypeKind.PageType,
+  },
+  {
+    name: BaseTypeKind.App,
+    typeKind: TypeKind.AppType,
   },
 ]

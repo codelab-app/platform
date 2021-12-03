@@ -160,7 +160,10 @@ describe('ExportApp', () => {
                   id: page1.rootElementId,
                   name: 'Root element',
                   propMapBindings: [],
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                 },
                 {
                   componentTag: {
@@ -173,28 +176,40 @@ describe('ExportApp', () => {
                   id: componentId,
                   name: 'Test component',
                   propMapBindings: [],
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                 },
                 {
                   hooks: [],
                   id: page1ParentElementId,
                   name: 'Some element',
                   propMapBindings: [],
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                 },
                 {
                   hooks: [],
                   id: page1ChildElementId,
                   name: 'Some child',
                   propMapBindings: [],
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                 },
                 {
                   hooks: [],
                   id: page1ComponentElementId,
                   name: 'Component element',
                   propMapBindings: [],
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                 },
               ],
             },
@@ -210,7 +225,10 @@ describe('ExportApp', () => {
                   id: expect.stringContaining('0x'),
                   name: 'Root element',
                   propMapBindings: [],
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                 },
               ],
             },

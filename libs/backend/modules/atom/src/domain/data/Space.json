@@ -10,65 +10,50 @@
         "edges": [
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Align items",
-              "id": "0x9d",
-              "key": "align",
-              "name": "Align"
-            },
+            "description": "Align items",
+            "id": "0x9d",
+            "key": "align",
+            "name": "Align",
             "kind": "Field",
             "source": "0x9c",
             "target": "0xa3"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "The space direction",
-              "id": "0x9e",
-              "key": "direction",
-              "name": "Direction"
-            },
+            "description": "The space direction",
+            "id": "0x9e",
+            "key": "direction",
+            "name": "Direction",
             "kind": "Field",
             "source": "0x9c",
             "target": "0x5e"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "The space size",
-              "id": "0x9f",
-              "key": "size",
-              "name": "Size"
-            },
+            "description": "The space size",
+            "id": "0x9f",
+            "key": "size",
+            "name": "Size",
             "kind": "Field",
             "source": "0x9c",
             "target": "0x32"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Set split",
-              "id": "0xa0",
-              "key": "split",
-              "name": "Split"
-            },
+            "description": "Set split",
+            "id": "0xa0",
+            "key": "split",
+            "name": "Split",
             "kind": "Field",
             "source": "0x9c",
             "target": "0x2a"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Auto wrap line, when horizontal effective",
-              "id": "0xa1",
-              "key": "wrap",
-              "name": "Wrap"
-            },
+            "description": "Auto wrap line, when horizontal effective",
+            "id": "0xa1",
+            "key": "wrap",
+            "name": "Wrap",
             "kind": "Field",
             "source": "0x9c",
             "target": "0x34"

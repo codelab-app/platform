@@ -9,11 +9,12 @@ export const createComplexElementInput: CreateElementInput = {
   name: 'Example element',
   hooks: [
     {
-      recoilStateHook: {
+      type: AtomType.HookRecoilState,
+      config: JSON.stringify({
         stateKey: 'someState',
         defaultValue: "'someValue'",
         persisted: PersistenceType.NotPersisted,
-      },
+      }),
     },
   ],
   renderIfPropKey: 'data',

@@ -4,12 +4,13 @@ import {
   DgraphRepository,
   DgraphUpdateMutationJson,
 } from '@codelab/backend/infra'
-import { Hook } from '@codelab/backend/modules/hook'
+import { CreatePropService } from '@codelab/backend/modules/prop'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../../application/element.validator'
+import { HookRef } from '../../create-element'
+import { AddHookToElementInput } from './add-hook-to-element.input'
 import { AddHookToElementRequest } from './add-hook-to-element.request'
-import { hookFactory } from './hook.factory'
 
 @Injectable()
 export class AddHookToElementService extends DgraphCreateUseCase<AddHookToElementRequest> {
@@ -26,62 +27,46 @@ export class AddHookToElementService extends DgraphCreateUseCase<AddHookToElemen
   ) {
     await this.validate(request)
 
-    const hook = hookFactory(request.input)
+    const { input } = request
 
     return await this.dgraph.create(
       txn,
-      AddHookToElementService.createMutation(hook, request.input.elementId),
+      AddHookToElementService.createMutation(input),
       'hook',
     )
   }
 
-  public static createMutation(hook: Hook, elementId: string): Mutation {
+  public static createMutation(input: AddHookToElementInput): Mutation {
     const setJson: DgraphUpdateMutationJson<any> = {
-      uid: elementId,
-      hooks: this.createHookMutation(hook, '_:hook'),
+      uid: input.elementId,
+      hooks: this.createHookMutation(input, '_:hook'),
     }
 
     return { setJson }
   }
 
   public static createHookMutation(
-    hook: Hook,
+    input: HookRef,
     uid: string | undefined,
   ): Record<string, any> {
+    const { config } = input
+
+    const propsMutation = CreatePropService.createPropsMutation(
+      config,
+      undefined,
+    )
+
     return {
       uid,
       'dgraph.type': [DgraphEntityType.Hook],
-      hookType: hook.type,
-      configJson: JSON.stringify(hook.config),
+      hookType: input.type,
+      hookConfig: propsMutation,
       tags: [],
     }
   }
 
-  protected async validate({
-    input: {
-      elementId,
-      queryHook,
-      graphqlQueryHook,
-      recoilStateHook,
-      graphqlMutationHook,
-      queryPageHook,
-      queryPagesHook,
-    },
-    currentUser,
-  }: AddHookToElementRequest) {
-    if (
-      [
-        queryHook,
-        graphqlQueryHook,
-        recoilStateHook,
-        graphqlMutationHook,
-        queryPageHook,
-        queryPagesHook,
-      ].filter((f) => !!f).length !== 1
-    ) {
-      throw new Error('Provide exactly 1 config type to addHookToElement')
-    }
-
+  protected async validate({ input, currentUser }: AddHookToElementRequest) {
+    const { elementId } = input
     await this.elementValidator.existsAndIsOwnedBy(elementId, currentUser)
   }
 }

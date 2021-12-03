@@ -10,6 +10,12 @@ export type TestGetTypeQueryVariables = Types.Exact<{
 export type TestGetTypeQuery = {
   getType?:
     | {
+        __typename: 'AppType'
+        id: string
+        name: string
+        typeKind: Types.TypeKind
+      }
+    | {
         __typename: 'ArrayType'
         id: string
         name: string
@@ -47,6 +53,19 @@ export type TestGetTypeQuery = {
       }
     | {
         __typename: 'LambdaType'
+        id: string
+        name: string
+        typeKind: Types.TypeKind
+      }
+    | {
+        __typename: 'MonacoType'
+        language: Types.MonacoLanguage
+        id: string
+        name: string
+        typeKind: Types.TypeKind
+      }
+    | {
+        __typename: 'PageType'
         id: string
         name: string
         typeKind: Types.TypeKind
@@ -96,6 +115,9 @@ export const TestGetTypeGql = gql`
       }
       ... on ElementType {
         elementKind
+      }
+      ... on MonacoType {
+        language
       }
       ... on PrimitiveType {
         primitiveKind
@@ -152,6 +174,6 @@ export type TestGetTypeQueryResult = Apollo.QueryResult<
   TestGetTypeQuery,
   TestGetTypeQueryVariables
 >
-export function refetchTestGetTypeQuery(variables?: TestGetTypeQueryVariables) {
+export function refetchTestGetTypeQuery(variables: TestGetTypeQueryVariables) {
   return { query: TestGetTypeGql, variables: variables }
 }

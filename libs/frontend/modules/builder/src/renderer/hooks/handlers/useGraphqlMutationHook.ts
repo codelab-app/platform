@@ -1,11 +1,11 @@
 import { gql, useMutation } from '@apollo/client'
-import { GraphqlHookConfigFragment } from '@codelab/frontend/modules/element'
+import { IGraphqlHookConfig } from '@codelab/shared/abstract/core'
 import { capitalizeFirstLetter } from '@codelab/shared/utils'
 import { HookHandler } from '../HookHandler'
 import { apolloClient } from '../utils/apolloClient'
 
 export const useGraphqlMutationHook: HookHandler = (
-  config: GraphqlHookConfigFragment,
+  config: IGraphqlHookConfig,
   inputProps,
 ) => {
   const [mutate, { data, error, called, loading }] = useMutation(

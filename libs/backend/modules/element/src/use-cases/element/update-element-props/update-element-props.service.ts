@@ -1,8 +1,7 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
-import { GetAtomService } from '@codelab/backend/modules/atom'
+import { DgraphRepository } from '@codelab/backend/infra'
+import { UpdatePropService } from '@codelab/backend/modules/prop'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../application/element.validator'
 import { UpdateElementPropsRequest } from './update-element-props.request'
 
@@ -10,32 +9,21 @@ import { UpdateElementPropsRequest } from './update-element-props.request'
 export class UpdateElementPropsService extends DgraphUseCase<UpdateElementPropsRequest> {
   constructor(
     dgraph: DgraphRepository,
-    private getAtomService: GetAtomService,
+    private updatePropService: UpdatePropService,
     private elementValidator: ElementValidator,
   ) {
     super(dgraph)
   }
 
-  protected async executeTransaction(
-    request: UpdateElementPropsRequest,
-    txn: Txn,
-  ) {
+  protected async executeTransaction(request: UpdateElementPropsRequest) {
     await this.validate(request)
 
-    await this.dgraph.executeMutation(txn, this.createMutation(request))
-  }
-
-  protected createMutation({
-    input: { elementId, props },
-  }: UpdateElementPropsRequest) {
-    return jsonMutation<any>({
-      uid: elementId,
-      props,
-    })
+    const { data, propsId } = request.input
+    this.updatePropService.execute({ input: { id: propsId, data } })
   }
 
   protected async validate({
-    input: { elementId, props },
+    input: { elementId },
     currentUser,
   }: UpdateElementPropsRequest): Promise<void> {
     const result = await this.elementValidator.existsAndIsOwnedBy(
@@ -43,6 +31,8 @@ export class UpdateElementPropsService extends DgraphUseCase<UpdateElementPropsR
       currentUser,
     )
 
-    await this.elementValidator.propsAreValid(elementId, props)
+    // TODO, we didn't validate props here
+
+    await this.elementValidator.propsAreValid(elementId)
   }
 }

@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { AtomSchema } from '../atom'
 import { HookSchema } from '../hook'
+import { PropSchema } from '../prop/prop.interface'
 import { TagSchema } from '../tag'
 
 export const PropMapBindingSchema = z.object({
@@ -18,7 +19,7 @@ export const ElementSchema = z.object({
   id: z.string(),
   name: z.string().nullish(),
   css: z.string().nullish(),
-  props: z.string().default('{}'),
+  props: PropSchema,
   atom: z.optional(AtomSchema).nullable(),
   componentTag: TagSchema.nullish(),
   hooks: z.array(HookSchema).default([]),

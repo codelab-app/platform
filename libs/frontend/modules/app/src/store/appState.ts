@@ -18,7 +18,8 @@ export const appSlice = createCrudSlice('app', initialState, {
     ...state,
     currentApp: payload.currentApp,
   }),
-  openImportModal: (state) => {
-    state.actionType = AppActionType.Import
-  },
+  openImportModal: (state) => ({
+    ...state,
+    actionType: AppActionType.Import,
+  }),
 })

@@ -4,13 +4,12 @@ import { hexadecimalRegex } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { slugify } from 'voca'
 import { AddHookToElementService } from '../hooks/add-hook-to-element'
-import { hookFactory } from '../hooks/add-hook-to-element/hook.factory'
 import { CreatePropMapBindingService } from '../prop-mapping/create-prop-map-binding'
 import {
   CreateElementChildInput,
   CreateElementInput,
   ElementRef,
-  NewHookRef,
+  HookRef,
   NewPropMapBindingRef,
 } from './create-element.input'
 
@@ -123,9 +122,15 @@ export class ElementMutationFactory {
 
     const childrenMutations = await this.makeChildrenMutations(children)
 
+    const propsMutation = {
+      uid: '_:props',
+      data: '{}',
+    }
+
     if (props) {
       try {
         JSON.parse(props)
+        propsMutation.data = props
       } catch (e) {
         throw new Error(`Props must be valid JSON, got ${props}`)
       }
@@ -162,7 +167,7 @@ export class ElementMutationFactory {
       'children|order': order ? order : 1,
       children: childrenMutations,
       atom: atomId ? { uid: atomId } : undefined,
-      props: props ?? '{}',
+      props: propsMutation,
       css,
       hooks: hookMutations,
       renderForEachPropKey,
@@ -226,16 +231,13 @@ export class ElementMutationFactory {
     })
   }
 
-  private makeHookMutations(hooks: Array<NewHookRef> | undefined) {
+  private makeHookMutations(hooks: Array<HookRef> | undefined) {
     if (!hooks) {
       return []
     }
 
     return hooks.map((hookInput) => {
-      return AddHookToElementService.createHookMutation(
-        hookFactory(hookInput),
-        undefined,
-      )
+      return AddHookToElementService.createHookMutation(hookInput, undefined)
     })
   }
 }

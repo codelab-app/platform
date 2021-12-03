@@ -29,6 +29,24 @@ export class CreateTypeInputFactory {
           name: vertex.name,
           typeKind: TypeKind.LambdaType,
         }
+      case TypeKind.AppType:
+        return {
+          name: vertex.name,
+          typeKind: TypeKind.AppType,
+        }
+      case TypeKind.PageType:
+        return {
+          name: vertex.name,
+          typeKind: TypeKind.PageType,
+        }
+      case TypeKind.MonacoType:
+        return {
+          name: vertex.name,
+          typeKind: TypeKind.MonacoType,
+          monacoType: {
+            language: vertex.language,
+          },
+        }
       case TypeKind.ArrayType:
         return {
           name: vertex.name,

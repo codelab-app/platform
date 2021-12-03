@@ -1,7 +1,9 @@
-import { HookType, IHook } from '@codelab/shared/abstract/core'
+import { IHook } from '@codelab/shared/abstract/core'
+import { AtomType } from '@codelab/shared/codegen/graphql'
 import { useGraphqlMutationHook } from './handlers/useGraphqlMutationHook'
 import { useGraphqlQueryHook } from './handlers/useGraphqlQueryHook'
-import { useQueryHook } from './handlers/useQueryHook'
+import { useQueryConfigHook } from './handlers/useQueryConfigHook'
+import { useQueryLambdaHook } from './handlers/useQueryLambdaHook'
 import { useQueryPageHook } from './handlers/useQueryPage'
 import { useQueryPagesHook } from './handlers/useQueryPages'
 import { useRecoilStateHook } from './handlers/useRecoilStateHook'
@@ -25,27 +27,30 @@ const getHookData: HookHandler = (
   let handler: HookHandler
 
   switch (type) {
-    case HookType.Query:
-      handler = useQueryHook
+    case AtomType.HookQueryConfig:
+      handler = useQueryConfigHook
+      break
+    case AtomType.HookQueryLambda:
+      handler = useQueryLambdaHook
       break
 
-    case HookType.GraphqlQuery:
+    case AtomType.HookGraphqlQuery:
       handler = useGraphqlQueryHook
       break
 
-    case HookType.GraphqlMutation:
+    case AtomType.HookGraphqlMutation:
       handler = useGraphqlMutationHook
       break
 
-    case HookType.RecoilState:
+    case AtomType.HookRecoilState:
       handler = useRecoilStateHook
       break
 
-    case HookType.QueryPage:
+    case AtomType.HookQueryPage:
       handler = useQueryPageHook
       break
 
-    case HookType.QueryPages:
+    case AtomType.HookQueryPages:
       handler = useQueryPagesHook
       break
 
@@ -53,5 +58,7 @@ const getHookData: HookHandler = (
       return undefined
   }
 
-  return handler(config, inputProps)
+  const parsedHookConfig = JSON.parse(config.data)
+
+  return handler(parsedHookConfig, inputProps)
 }

@@ -12,6 +12,9 @@ export class WhereUniqueType {
 
   @Field({ nullable: true })
   declare atomId?: string
+
+  @Field({ nullable: true })
+  declare enumTypeValueId?: string
 }
 
 @InputType()

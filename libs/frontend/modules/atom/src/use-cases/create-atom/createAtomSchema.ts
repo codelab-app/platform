@@ -1,4 +1,4 @@
-import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { CreateAtomMutationInput } from './types'
 
@@ -12,7 +12,7 @@ export const createAtomSchema: JSONSchemaType<CreateAtomMutationInput> = {
     },
     type: {
       type: 'string',
-      enum: Object.keys(AtomType) as Array<AtomType>,
+      enum: Object.keys(AtomType).filter(filterNotHookType) as Array<AtomType>,
     },
     api: {
       type: 'string',

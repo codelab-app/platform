@@ -44,6 +44,9 @@ export const CreateTypeForm = (
       <DisplayIfKind kind={TypeKind.ElementType}>
         <AutoField name={'elementKind'} label="Element kind" />
       </DisplayIfKind>
+      <DisplayIfKind kind={TypeKind.MonacoType}>
+        <AutoField name={'language'} label="Language" />
+      </DisplayIfKind>
     </FormUniforms>
   )
 }

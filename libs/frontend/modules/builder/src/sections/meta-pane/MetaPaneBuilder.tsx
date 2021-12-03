@@ -143,14 +143,10 @@ export const MetaPaneBuilder = ({
             tab="Hooks"
             key={selectedElement.id + '_tab4'}
           >
-            {selectedElement.atom ? (
-              <ElementHookSection
-                key={selectedElement.id}
-                elementId={selectedElement.id}
-              />
-            ) : (
-              `Add an atom to this page element to edit its hooks`
-            )}
+            <ElementHookSection
+              key={selectedElement.id}
+              elementId={selectedElement.id}
+            />
           </Tabs.TabPane>
 
           <Tabs.TabPane

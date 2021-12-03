@@ -36,20 +36,21 @@ export const secondButtonInput = {
   },
 }
 
+export const hookQueryConfig = {
+  type: AtomType.HookQueryConfig,
+  config: JSON.stringify({
+    queryKey: 'getProducts',
+    url: 'https://api.com/products',
+    method: QueryMethod.Get,
+  }),
+}
+
 export const createPageInput: Omit<CreatePageInput, 'appId'> = {
   name: 'My awesome page',
   rootElement: {
     name: 'Root element',
     css: 'display: block;',
-    hooks: [
-      {
-        queryHook: {
-          queryKey: 'getProducts',
-          url: 'https://api.com/products',
-          method: QueryMethod.Get,
-        },
-      },
-    ],
+    hooks: [hookQueryConfig],
     propMapBindings: [
       {
         targetElementId: '0x299', // resolves to the actual ID of the created 'Text' element

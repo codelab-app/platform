@@ -3,6 +3,7 @@ import { Field, InputType } from '@nestjs/graphql'
 import { CreateArrayTypeInput } from './create-array-type.input'
 import { CreateElementTypeInput } from './create-element-type.input'
 import { CreateEnumTypeInput } from './create-enum-type.input'
+import { CreateMonacoTypeInput } from './create-monaco-type.input'
 import { CreatePrimitiveTypeInput } from './create-primitive-type.input'
 import { CreateUnionType } from './create-union-type-input'
 
@@ -35,4 +36,7 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
 
   @Field(() => CreateElementTypeInput, { nullable: true })
   declare elementType?: CreateElementTypeInput | null
+
+  @Field(() => CreateMonacoTypeInput, { nullable: true })
+  declare monacoType?: CreateMonacoTypeInput | null
 }

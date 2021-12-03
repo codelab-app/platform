@@ -1,3 +1,4 @@
+import { MonacoLanguage } from '@codelab/frontend/abstract/codegen'
 import {
   ElementTypeKind,
   IEnumTypeValue,
@@ -10,6 +11,7 @@ export interface BaseTypeMutationSchema {
   name: string
   primitiveKind?: PrimitiveTypeKind
   elementKind: ElementTypeKind
+  language: MonacoLanguage
   allowedValues?: Array<IEnumTypeValue>
   typeIdsOfUnionType?: Array<string>
 }
@@ -39,6 +41,11 @@ export const baseTypeMutationSchemaProperties = {
     type: 'string',
     nullable: true,
     enum: Object.values(ElementTypeKind),
+  },
+  language: {
+    type: 'string',
+    nullable: true,
+    enum: Object.values(MonacoLanguage),
   },
   allowedValues: {
     type: 'array',

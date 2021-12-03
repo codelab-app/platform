@@ -47,6 +47,9 @@
       "@codelab/backend/modules/page": [
         "libs/backend/modules/page/src/index.ts"
       ],
+      "@codelab/backend/modules/prop": [
+        "libs/backend/modules/prop/src/index.ts"
+      ],
       "@codelab/backend/modules/tag": ["libs/backend/modules/tag/src/index.ts"],
       "@codelab/backend/modules/type": [
         "libs/backend/modules/type/src/index.ts"
@@ -131,6 +134,9 @@
       "@codelab/frontend/modules/page": [
         "libs/frontend/modules/page/src/index.ts"
       ],
+      "@codelab/frontend/modules/props": [
+        "libs/frontend/modules/prop/src/index.ts"
+      ],
       "@codelab/frontend/modules/style": [
         "libs/frontend/modules/style/src/index.ts"
       ],
@@ -162,6 +168,7 @@
       "@codelab/frontend/view/templates": [
         "libs/frontend/view/templates/index.ts"
       ],
+      "@codelab/rtk-query": ["libs/tools/rtk-query/src/index.ts"],
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"
       ],
@@ -177,8 +184,7 @@
         "libs/tools/plugins/codelab/src/index.ts"
       ],
       "@codelab/tools/scripts": ["libs/tools/scripts/src/index.ts"],
-      "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"],
-      "@codelab/rtk-query": ["libs/tools/rtk-query/src/index.ts"]
+      "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist", ".gqlcodegen"]

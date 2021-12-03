@@ -1,36 +1,30 @@
 import { z } from 'zod'
+import { GraphqlHookConfigSchema, IGraphqlHookConfig } from './graphql'
+import { IQueryPageHookConfig, QueryPageHookConfigSchema } from './page'
+import { IQueryPagesHookConfig, QueryPagesHookConfigSchema } from './pages'
 import {
-  GraphqlHookConfigSchema,
-  IGraphqlHookConfig,
-} from './graphql/graphql-hook-config.interface'
+  IQueryConfigHookConfig,
+  QueryConfigHookConfigSchema,
+} from './query-config'
 import {
-  IQueryPageHookConfig,
-  QueryPageHookConfigSchema,
-} from './page/query-page-hook-config.interface'
-import {
-  IQueryPagesHookConfig,
-  QueryPagesHookConfigSchema,
-} from './pages/query-pages-hook-config.interface'
-import {
-  IQueryHookConfig,
-  QueryHookConfigSchema,
-} from './query/query-hook-config.interface'
-import {
-  IRecoilStateHookConfig,
-  RecoilStateHookConfigSchema,
-} from './recoil/recoil-state-hook-config.interface'
+  IQueryLambdaHookConfig,
+  QueryLambdaHookConfigSchema,
+} from './query-lambda'
+import { IRecoilStateHookConfig, RecoilStateHookConfigSchema } from './recoil'
 
 export type IHookConfig =
   | IGraphqlHookConfig
-  | IQueryHookConfig
+  | IQueryConfigHookConfig
+  | IQueryLambdaHookConfig
   | IQueryPageHookConfig
   | IQueryPagesHookConfig
   | IRecoilStateHookConfig
 
 export const HookConfigSchema: z.ZodSchema<IHookConfig> = z.union([
   GraphqlHookConfigSchema,
-  QueryHookConfigSchema,
+  QueryConfigHookConfigSchema,
   QueryPageHookConfigSchema,
   QueryPagesHookConfigSchema,
   RecoilStateHookConfigSchema,
+  QueryLambdaHookConfigSchema,
 ])

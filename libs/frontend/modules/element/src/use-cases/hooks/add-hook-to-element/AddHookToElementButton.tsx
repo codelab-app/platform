@@ -4,13 +4,10 @@ import { useHookDispatch } from '../../../hooks'
 
 export const AddHookToElementButton = () => {
   const { openCreateModal } = useHookDispatch()
+  const onClick = () => openCreateModal()
 
   return (
-    <Button
-      type="primary"
-      onClick={() => openCreateModal()}
-      icon={<PlusOutlined />}
-    >
+    <Button type="primary" onClick={onClick} icon={<PlusOutlined />}>
       Add hook
     </Button>
   )

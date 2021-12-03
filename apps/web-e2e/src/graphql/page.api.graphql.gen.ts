@@ -76,7 +76,7 @@ export type E2eGetPageQueryResult = Apollo.QueryResult<
   E2eGetPageQuery,
   E2eGetPageQueryVariables
 >
-export function refetchE2eGetPageQuery(variables?: E2eGetPageQueryVariables) {
+export function refetchE2eGetPageQuery(variables: E2eGetPageQueryVariables) {
   return { query: E2eGetPageGql, variables: variables }
 }
 export const E2eCreatePageGql = gql`

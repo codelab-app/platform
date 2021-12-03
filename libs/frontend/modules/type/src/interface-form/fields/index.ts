@@ -1,4 +1,5 @@
-export * from './select-atom/SelectAtom'
+export * from './select-atom'
+export * from './select-atom-type-hook'
 export * from './select-component/SelectComponent'
 export * from './select-element/SelectElement'
 export * from './select-element/SelectElementContext'

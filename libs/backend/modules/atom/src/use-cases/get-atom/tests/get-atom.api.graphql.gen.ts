@@ -75,6 +75,6 @@ export type TestGetAtomQueryResult = Apollo.QueryResult<
   TestGetAtomQuery,
   TestGetAtomQueryVariables
 >
-export function refetchTestGetAtomQuery(variables?: TestGetAtomQueryVariables) {
+export function refetchTestGetAtomQuery(variables: TestGetAtomQueryVariables) {
   return { query: TestGetAtomGql, variables: variables }
 }

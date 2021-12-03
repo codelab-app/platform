@@ -68,6 +68,6 @@ export type TestGetAppQueryResult = Apollo.QueryResult<
   TestGetAppQuery,
   TestGetAppQueryVariables
 >
-export function refetchTestGetAppQuery(variables?: TestGetAppQueryVariables) {
+export function refetchTestGetAppQuery(variables: TestGetAppQueryVariables) {
   return { query: TestGetAppGql, variables: variables }
 }

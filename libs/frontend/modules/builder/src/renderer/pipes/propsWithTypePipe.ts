@@ -13,8 +13,11 @@ export const propsWithTypePipe: RenderPipeFactory =
       TypeKind.InterfaceType,
       TypeKind.EnumType,
       TypeKind.LambdaType,
+      TypeKind.AppType,
+      TypeKind.PageType,
       TypeKind.ElementType,
       TypeKind.ComponentType,
+      TypeKind.MonacoType,
     ])
 
     const propsWithType = _.pickBy(props, (value) => {

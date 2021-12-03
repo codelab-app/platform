@@ -1,5 +1,6 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { ElementModule } from '@codelab/backend/modules/element'
+import { PropModule } from '@codelab/backend/modules/prop'
 import { CytoscapeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
 import { PageResolver } from './application/page.resolver'
@@ -26,7 +27,7 @@ const services = [
 ]
 
 @Module({
-  imports: [ElementModule, CytoscapeModule],
+  imports: [ElementModule, CytoscapeModule, PropModule],
   providers: [PageResolver, ...services, Void],
   exports: [...services],
 })

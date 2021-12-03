@@ -1,6 +1,7 @@
 import { Void } from '@codelab/backend/abstract/types'
 import { AtomModule } from '@codelab/backend/modules/atom'
 import { HookModule } from '@codelab/backend/modules/hook'
+import { PropModule } from '@codelab/backend/modules/prop'
 import { TypeModule } from '@codelab/backend/modules/type'
 import { CytoscapeModule, TreeModule } from '@codelab/backend/shared/generic'
 import { Module } from '@nestjs/common'
@@ -68,6 +69,7 @@ const services = [
     TreeModule,
     ComponentModule,
     HookModule,
+    PropModule,
   ],
   providers: [...services, ElementResolver, ComponentResolver, Void],
   exports: [...services],

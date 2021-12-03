@@ -80,6 +80,6 @@ export type AppPagesQueryResult = Apollo.QueryResult<
   AppPagesQuery,
   AppPagesQueryVariables
 >
-export function refetchAppPagesQuery(variables?: AppPagesQueryVariables) {
+export function refetchAppPagesQuery(variables: AppPagesQueryVariables) {
   return { query: AppPagesGql, variables: variables }
 }

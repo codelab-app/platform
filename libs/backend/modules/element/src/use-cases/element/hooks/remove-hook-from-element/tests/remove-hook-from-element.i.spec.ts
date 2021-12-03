@@ -1,5 +1,5 @@
 import { domainRequest } from '@codelab/backend/shared/testing'
-import { QueryMethod } from '@codelab/shared/abstract/core'
+import { AtomType, QueryMethod } from '@codelab/shared/abstract/core'
 import { setupElementTestModule } from '../../../../../test/setupElementTestModule'
 import { AddHookToElementInput } from '../../add-hook-to-element'
 import {
@@ -26,11 +26,12 @@ describe('RemoveHookFromElementUseCase', () => {
       TestAddHookToElementMutation
     >(testModule.userApp, TestAddHookToElementGql, {
       elementId: createElement.id,
-      queryHook: {
+      type: AtomType.HookQueryConfig,
+      config: JSON.stringify({
         url: 'https://github.com',
         queryKey: 'My Query',
         method: QueryMethod.Get,
-      },
+      }),
     })
 
     removeHookInput = {

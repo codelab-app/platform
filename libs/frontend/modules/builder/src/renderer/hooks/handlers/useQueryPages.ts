@@ -1,9 +1,9 @@
-import { QueryPagesHookConfigFragment } from '@codelab/frontend/modules/element'
 import { useGetPagesQuery } from '@codelab/frontend/modules/page'
+import { IQueryPagesHookConfig } from '@codelab/shared/abstract/core'
 import { HookHandler } from '../HookHandler'
 
 export const useQueryPagesHook: HookHandler = (
-  config: QueryPagesHookConfigFragment,
+  config: IQueryPagesHookConfig,
 ) => {
   const output = useGetPagesQuery({
     variables: {

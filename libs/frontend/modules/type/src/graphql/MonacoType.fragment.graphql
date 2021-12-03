@@ -1,0 +1,5 @@
+fragment MonacoType on MonacoType {
+  id
+  name
+  language
+}

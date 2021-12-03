@@ -64,11 +64,14 @@ export class GetComponentsService extends DgraphUseCase<
             expand(_all_)
           }
         }
-        props
+        props {
+          id: uid
+          data
+        }
         hooks {
           id: uid
           type: hookType
-          config: configJson
+          config: hookConfig
         }
         renderForEachPropKey
         renderIfPropKey

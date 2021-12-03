@@ -68,6 +68,6 @@ export type TestGetTagQueryResult = Apollo.QueryResult<
   TestGetTagQuery,
   TestGetTagQueryVariables
 >
-export function refetchTestGetTagQuery(variables?: TestGetTagQueryVariables) {
+export function refetchTestGetTagQuery(variables: TestGetTagQueryVariables) {
   return { query: TestGetTagGql, variables: variables }
 }

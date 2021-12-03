@@ -93,6 +93,7 @@ export class GetTypeGraphService extends DgraphUseCase<
           uid
         }
         elementKind
+        language
         fields {
           id: uid
           expand(Field)

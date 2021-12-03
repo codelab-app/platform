@@ -1,6 +1,7 @@
 import { CreateTypeInput } from '@codelab/backend/modules/type'
 import {
   ElementTypeKind,
+  MonacoLanguage,
   PrimitiveTypeKind,
   TypeKind,
 } from '@codelab/shared/abstract/core'
@@ -18,6 +19,13 @@ export enum BaseTypeName {
   RenderProps = 'RenderProps',
   ReactNode = 'ReactNode',
   Union = 'Union',
+  MonacoTypeScript = 'MonacoTypeScript',
+  MonacoJavaScript = 'MonacoJavaScript',
+  MonacoCss = 'MonacoCss',
+  MonacoGraphql = 'MonacoGraphql',
+  MonacoJson = 'MonacoJson',
+  Page = 'Page',
+  App = 'App',
 }
 
 export const baseTypes: Array<CreateTypeInput> = [
@@ -83,5 +91,48 @@ export const baseTypes: Array<CreateTypeInput> = [
   {
     name: BaseTypeName.Component,
     typeKind: TypeKind.ComponentType,
+  },
+  {
+    name: BaseTypeName.MonacoCss,
+    typeKind: TypeKind.MonacoType,
+    monacoType: {
+      language: MonacoLanguage.CSS,
+    },
+  },
+  {
+    name: BaseTypeName.MonacoJavaScript,
+    typeKind: TypeKind.MonacoType,
+    monacoType: {
+      language: MonacoLanguage.JavaScript,
+    },
+  },
+  {
+    name: BaseTypeName.MonacoJson,
+    typeKind: TypeKind.MonacoType,
+    monacoType: {
+      language: MonacoLanguage.JSON,
+    },
+  },
+  {
+    name: BaseTypeName.MonacoGraphql,
+    typeKind: TypeKind.MonacoType,
+    monacoType: {
+      language: MonacoLanguage.Graphql,
+    },
+  },
+  {
+    name: BaseTypeName.MonacoTypeScript,
+    typeKind: TypeKind.MonacoType,
+    monacoType: {
+      language: MonacoLanguage.TypeScript,
+    },
+  },
+  {
+    name: BaseTypeName.Page,
+    typeKind: TypeKind.PageType,
+  },
+  {
+    name: BaseTypeName.App,
+    typeKind: TypeKind.AppType,
   },
 ]

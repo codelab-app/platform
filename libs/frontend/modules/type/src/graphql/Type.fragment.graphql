@@ -12,4 +12,7 @@ fragment Type on Type {
   ...ComponentType
   ...RenderPropsType
   ...UnionType
+  ...MonacoType
+  ...PageType
+  ...AppType
 }

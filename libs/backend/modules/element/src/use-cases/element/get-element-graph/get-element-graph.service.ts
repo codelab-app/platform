@@ -3,7 +3,6 @@ import {
   exactlyOneWhereClause,
 } from '@codelab/backend/application'
 import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
-import { HookModelFactory } from '@codelab/backend/modules/hook'
 import {
   ElementGraphSchema,
   IElement,
@@ -30,7 +29,6 @@ export class GetElementGraphService extends DgraphUseCase<
   constructor(
     protected readonly dgraph: DgraphRepository,
     private elementGuardService: ElementValidator,
-    private hookFactory: HookModelFactory,
   ) {
     super(dgraph)
   }
@@ -84,21 +82,19 @@ export class GetElementGraphService extends DgraphUseCase<
         return {
           ...e,
           propMapBindings: e.propMapBindings ?? [],
-          // TODO remove this once we change hooks to use interface
-          // Make sure the hook configs are instances of Hook config objects, otherwise graphql won't figure out which type to use
-          hooks: this.hookFactory.map(e.hooks ?? []),
+          hooks: e.hooks ?? [],
         }
       }),
     }
   }
 
   private getComponentIdFromProps(element: IElement, ids: Set<string>) {
-    if (!element?.props) {
+    if (!element?.props?.data) {
       return
     }
 
     try {
-      const props = JSON.parse(element.props)
+      const props = JSON.parse(element.props.data)
 
       // Get all values that look like dgraph ids
       // It's way simpler than previous attempts to parse the type tree
@@ -152,11 +148,17 @@ export class GetElementGraphService extends DgraphUseCase<
             expand(_all_)
           }
         }
-        props
+        props {
+          data
+          id: uid
+        }
         hooks {
           id: uid
           type: hookType
-          config: configJson
+          config: hookConfig {
+            id: uid
+            expand(_all_)
+          }
         }
         renderForEachPropKey
         renderIfPropKey

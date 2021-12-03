@@ -4,7 +4,7 @@ import {
   TestCreateAtomMutation,
 } from '@codelab/backend/modules/atom'
 import { domainRequest } from '@codelab/backend/shared/testing'
-import { AtomType, HookType, QueryMethod } from '@codelab/shared/abstract/core'
+import { AtomType } from '@codelab/shared/abstract/core'
 import { setupAppTestModule } from '../../../test/setupAppTestModule'
 import { ExportAppInput } from '../../export-app'
 import {
@@ -25,6 +25,7 @@ import {
   buttonComponentInput,
   createPageInput,
   firstButtonInput,
+  hookQueryConfig,
   secondButtonInput,
   textElementInput,
 } from './import-app.data'
@@ -139,7 +140,10 @@ describe('ImportApp', () => {
                     isRoot: true,
                     id: expect.stringContaining('0x'),
                   },
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                   hooks: [],
                   renderForEachPropKey: null,
                   renderIfPropKey: null,
@@ -153,7 +157,10 @@ describe('ImportApp', () => {
                   css: null,
                   atom: null,
                   componentTag: null,
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                   hooks: [],
                   renderForEachPropKey: null,
                   renderIfPropKey: null,
@@ -167,19 +174,18 @@ describe('ImportApp', () => {
                   css: createPageInput.rootElement?.css,
                   atom: null,
                   componentTag: null,
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                   hooks: [
                     {
                       config: {
-                        __typename: 'QueryHookConfig',
-                        body: null,
-                        lambdaId: null,
-                        method: QueryMethod.Get,
-                        queryKey: 'getProducts',
-                        url: expect.stringContaining('https://'),
+                        id: expect.stringContaining('0x'),
+                        data: hookQueryConfig.config,
                       },
+                      type: AtomType.HookQueryConfig,
                       id: expect.stringContaining('0x'),
-                      type: HookType.Query,
                     },
                   ],
                   renderForEachPropKey: null,
@@ -205,7 +211,10 @@ describe('ImportApp', () => {
                   css: null,
                   atom: null,
                   componentTag: null,
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                   hooks: [],
                   renderForEachPropKey: null,
                   renderIfPropKey: null,
@@ -219,7 +228,10 @@ describe('ImportApp', () => {
                   css: null,
                   atom: expect.objectContaining({ type: AtomType.Text }),
                   componentTag: null,
-                  props: '{}',
+                  props: {
+                    data: '{}',
+                    id: expect.stringContaining('0x'),
+                  },
                   hooks: [],
                   renderForEachPropKey: null,
                   renderIfPropKey: null,

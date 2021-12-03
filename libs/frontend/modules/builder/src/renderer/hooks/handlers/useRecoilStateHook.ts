@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { PersistenceType } from '@codelab/frontend/abstract/codegen'
-import { RecoilStateHookConfigFragment } from '@codelab/frontend/modules/element'
+import {
+  IRecoilStateHookConfig,
+  PersistenceType,
+} from '@codelab/shared/abstract/core'
 import { capitalizeFirstLetter } from '@codelab/shared/utils'
 import { useCallback, useEffect, useState } from 'react'
 import { atomFamily, useRecoilState } from 'recoil'
@@ -12,7 +14,7 @@ export const stateAtomFamily = atomFamily<any, any>({
 })
 
 export const useRecoilStateHook: HookHandler = (
-  config: RecoilStateHookConfigFragment,
+  config: IRecoilStateHookConfig,
 ) => {
   if (!config.stateKey) {
     return undefined

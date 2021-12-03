@@ -99,3 +99,15 @@ query GetAtomsForSelect($input: GetAtomsInput) {
     ...AtomForSelect
   }
 }
+
+fragment AtomTypeHookForSelect on Atom {
+  id
+  name
+  type
+}
+
+query GetAtomsTypeHookForSelect {
+  getAtomsTypeHook {
+    ...AtomTypeHookForSelect
+  }
+}

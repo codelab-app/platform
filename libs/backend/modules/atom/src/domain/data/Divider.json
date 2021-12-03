@@ -10,78 +10,60 @@
         "edges": [
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "The className of container",
-              "id": "0x4a",
-              "key": "className",
-              "name": "ClassName"
-            },
+            "description": "The className of container",
+            "id": "0x4a",
+            "key": "className",
+            "name": "ClassName",
             "kind": "Field",
             "source": "0x49",
             "target": "0x32"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Whether line is dashed",
-              "id": "0x4b",
-              "key": "dashed",
-              "name": "Dashed"
-            },
+            "description": "Whether line is dashed",
+            "id": "0x4b",
+            "key": "dashed",
+            "name": "Dashed",
             "kind": "Field",
             "source": "0x49",
             "target": "0x34"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "The position of title inside divider",
-              "id": "0x53",
-              "key": "orientation",
-              "name": "Orientation"
-            },
+            "description": "The position of title inside divider",
+            "id": "0x53",
+            "key": "orientation",
+            "name": "Orientation",
             "kind": "Field",
             "source": "0x49",
             "target": "0x5e"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "Divider text show as plain style",
-              "id": "0x54",
-              "key": "plain",
-              "name": "Plain"
-            },
+            "description": "Divider text show as plain style",
+            "id": "0x54",
+            "key": "plain",
+            "name": "Plain",
             "kind": "Field",
             "source": "0x49",
             "target": "0x34"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "The style object of container",
-              "id": "0x55",
-              "key": "style",
-              "name": "Style"
-            },
+            "description": "The style object of container",
+            "id": "0x55",
+            "key": "style",
+            "name": "Style",
             "kind": "Field",
             "source": "0x49",
             "target": "0x32"
           },
           {
             "__typename": "TypeEdge",
-            "field": {
-              "__typename": "Field",
-              "description": "The direction type of divider",
-              "id": "0x56",
-              "key": "type",
-              "name": "Type"
-            },
+            "description": "The direction type of divider",
+            "id": "0x56",
+            "key": "type",
+            "name": "Type",
             "kind": "Field",
             "source": "0x49",
             "target": "0x57"
