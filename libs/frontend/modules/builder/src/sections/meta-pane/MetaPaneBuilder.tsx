@@ -51,7 +51,13 @@ const TabContainer = styled.div`
   .tab-panel,
   .ant-tabs-content {
     ${tw`px-4 py-2`}
-    overflow: auto;
+  }
+
+  .suggest-details-container,
+  .editor-widget,
+  .monaco-sash,
+  .monaco-list {
+    z-index: 1000;
   }
 `
 
@@ -100,13 +106,18 @@ export const MetaPaneBuilder = ({
         </div>
 
         <Tabs defaultActiveKey={selectedElement.id + '_tab1'}>
-          <Tabs.TabPane tab="Element" key={selectedElement.id + '_tab1'}>
+          <Tabs.TabPane
+            style={{ overflow: 'auto' }}
+            tab="Element"
+            key={selectedElement.id + '_tab1'}
+          >
             <FormsGrid>
               {renderUpdateElementContent(selectedElement, trackPromises)}
             </FormsGrid>
           </Tabs.TabPane>
 
           <Tabs.TabPane
+            style={{ overflow: 'auto' }}
             tab="Props"
             key={selectedElement.id + '_tab2'}
             destroyInactiveTabPane // needed to update props if we change them in the prop inspector tab
@@ -139,7 +150,7 @@ export const MetaPaneBuilder = ({
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            style={{ overflow: 'visible' }}
+            style={{ overflow: 'auto' }}
             tab="Hooks"
             key={selectedElement.id + '_tab4'}
           >
@@ -150,7 +161,7 @@ export const MetaPaneBuilder = ({
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            style={{ overflow: 'visible' }}
+            style={{ overflow: 'auto' }}
             tab="Props Inspector"
             key={selectedElement.id + '_tab5'}
           >
@@ -161,7 +172,7 @@ export const MetaPaneBuilder = ({
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            style={{ overflow: 'visible' }}
+            style={{ overflow: 'auto' }}
             tab="Prop mapping"
             key={selectedElement.id + '_tab6'}
           >
@@ -178,7 +189,7 @@ export const MetaPaneBuilder = ({
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            style={{ overflow: 'visible' }}
+            style={{ overflow: 'auto' }}
             tab="Prop transformation"
             key={selectedElement.id + '_tab7'}
           >

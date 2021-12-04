@@ -17,7 +17,7 @@ export const initialState: SchemaState = {
 }
 
 export type SchemaHandlers = {
-  loadCurrentSchema: (state: SchemaState) => Promise<void>
+  loadCurrentSchema: () => Promise<void>
   setConfig: (config: SchemaConfig) => void
 }
 
