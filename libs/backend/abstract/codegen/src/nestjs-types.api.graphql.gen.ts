@@ -879,6 +879,7 @@ export interface UpdatePageInput {
 export interface UpdatePageData {
     name: string;
     appId: string;
+    rootElement?: Nullable<CreateElementChildInput>;
 }
 
 export interface UpsertUserInput {

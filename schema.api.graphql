@@ -1351,6 +1351,7 @@ input UpdatePageInput {
 input UpdatePageData {
   name: String!
   appId: String!
+  rootElement: CreateElementChildInput
 }
 
 input UpsertUserInput {

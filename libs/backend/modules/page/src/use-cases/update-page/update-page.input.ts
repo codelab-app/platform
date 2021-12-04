@@ -5,6 +5,7 @@ import { CreatePageInput } from '../create-page'
 export class UpdatePageData extends PickType(CreatePageInput, [
   'appId',
   'name',
+  'rootElement',
 ]) {}
 
 @InputType()
