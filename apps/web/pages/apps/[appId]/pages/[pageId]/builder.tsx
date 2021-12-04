@@ -73,12 +73,16 @@ export const getServerSideProps = withPageAuthRequired({
   },
 })
 
+const MainPane = () => (
+  <MainPaneBuilder treeTab={{ restrictComponentEditing: true }} />
+)
+
 PageBuilder.Header = BuilderHeader
 PageBuilder.Template = withBuilderContext(
   withAppProvider(withPageProvider(DashboardTemplate)),
 )
 PageBuilder.SidebarNavigation = BuilderSidebarNavigation
-PageBuilder.MainPane = MainPaneBuilder
+PageBuilder.MainPane = MainPane
 PageBuilder.MetaPane = MetaPaneBuilderPage
 
 export default PageBuilder
