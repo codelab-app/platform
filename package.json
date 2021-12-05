@@ -297,7 +297,7 @@
     "concurrently": "6.2.2",
     "cross-env": "7.0.3",
     "css-loader": "5.2.6",
-    "cypress": "8.7.0",
+    "cypress": "^9.1.1",
     "cypress-nextjs-auth0": "2.0.1",
     "cz-customizable": "6.3.0",
     "dotenv": "10.0.0",
