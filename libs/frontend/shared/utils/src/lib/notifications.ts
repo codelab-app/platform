@@ -4,7 +4,7 @@ import { extractErrorMessage } from './extractErrorMessage'
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error'
 
-export interface NotificationOptions<TEvent> {
+export interface NotificationOptions<TEvent = any> {
   /** The type of notification. Default is error */
   type?: NotificationType
   /** Enter a custom title of the notification. If you don't, it will be "info" */
@@ -54,6 +54,21 @@ export const notify = <TEvent>(
   } else {
     console.log(titleString, contentString)
   }
+}
+
+type UseNotifyReturnType = {
+  onSuccess: () => void
+  onError: () => void
+}
+
+export const useNotify = (
+  success: Omit<NotificationOptions, 'type'>,
+  error: Omit<NotificationOptions, 'type'>,
+): UseNotifyReturnType => {
+  const onSuccess = () => notify({ ...success, type: 'success' })
+  const onError = () => notify({ ...error, type: 'error' })
+
+  return { onSuccess, onError }
 }
 
 /**

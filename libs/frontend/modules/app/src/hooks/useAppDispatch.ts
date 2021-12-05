@@ -1,32 +1,14 @@
+import { crudModalDispatchFactory } from '@codelab/frontend/view/components'
 import { useDispatch } from 'react-redux'
-import {
-  appSlice,
-  OpenDeleteAppModalAction,
-  OpenUpdateAppModalAction,
-  SetCurrentAppAction,
-} from '../store'
+import { appSlice, SetCurrentAppAction } from '../store'
 
 export const useAppDispatch = () => {
   const dispatch = useDispatch()
   const { actions } = appSlice
-
-  const openCreateModal = () => {
-    dispatch(actions.openCreateModal())
-  }
-
-  const openDeleteModal = (payload: OpenDeleteAppModalAction) =>
-    dispatch(actions.openDeleteModal(payload))
-
-  const openUpdateModal = (payload: OpenUpdateAppModalAction) => {
-    dispatch(actions.openUpdateModal(payload))
-  }
+  const curdDispatch = crudModalDispatchFactory(appSlice.actions)()
 
   const openImportModal = () => {
     dispatch(actions.openImportModal())
-  }
-
-  const reset = () => {
-    dispatch(actions.reset())
   }
 
   const setCurrentApp = (payload: SetCurrentAppAction) => {
@@ -34,11 +16,8 @@ export const useAppDispatch = () => {
   }
 
   return {
-    openCreateModal,
-    openDeleteModal,
-    openUpdateModal,
     openImportModal,
     setCurrentApp,
-    reset,
+    ...curdDispatch,
   }
 }

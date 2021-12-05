@@ -6,7 +6,7 @@ import { UpdateAtomFormProps, UpdateAtomMutationInput } from './types'
 
 export const useUpdateAtomForm = () => {
   const { updateId, entity } = useAtomState()
-  const { reset } = useAtomDispatch()
+  const { resetModal } = useAtomDispatch()
 
   const [mutate, state] = useUpdateAtomMutation({
     selectFromResult: (r) => ({
@@ -17,11 +17,10 @@ export const useUpdateAtomForm = () => {
   })
 
   const onSubmit = useCallback(
-    (data: UpdateAtomMutationInput) => {
-      return mutate({
+    (data: UpdateAtomMutationInput) =>
+      mutate({
         variables: { input: { data, id: updateId } },
-      })
-    },
+      }).unwrap(),
     [mutate, updateId],
   )
 
@@ -29,7 +28,7 @@ export const useUpdateAtomForm = () => {
     title: 'Error while updateing atom',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: UpdateAtomFormProps = {
     onSubmit,
@@ -44,6 +43,6 @@ export const useUpdateAtomForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

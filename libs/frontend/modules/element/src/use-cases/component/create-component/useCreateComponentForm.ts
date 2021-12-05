@@ -26,7 +26,7 @@ export const useCreateComponentForm = () => {
     (submitData: CreateComponentSchemaType) => {
       const variables = mapVariables(submitData)
 
-      return mutate({ variables })
+      return mutate({ variables }).unwrap()
     },
     [mutate],
   )

@@ -1,3 +1,4 @@
+import { notify } from '@codelab/frontend/shared/utils'
 import { Button } from 'antd'
 import fileDownload from 'js-file-download'
 import React from 'react'
@@ -5,7 +6,7 @@ import { useLazyExportAtomsQuery } from '../../store'
 import { ExportAtomsButtonProps } from './types'
 
 export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
-  const [getExportAtoms, { isLoading, data }] = useLazyExportAtomsQuery()
+  const [getExportAtoms, { isLoading, data, error }] = useLazyExportAtomsQuery()
 
   const onClick = async () => {
     await getExportAtoms({
@@ -20,8 +21,11 @@ export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
 
     if (data) {
       const content = JSON.stringify(data.getAtoms)
-      console.log(content)
       fileDownload(content, 'atoms.json')
+    }
+
+    if (error) {
+      notify({ title: 'Error while exporting atoms', type: 'error' })
     }
   }
 

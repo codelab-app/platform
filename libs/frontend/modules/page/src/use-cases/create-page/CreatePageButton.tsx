@@ -6,12 +6,16 @@ import { usePageDispatch } from '../../hooks'
 export const CreatePageButton = () => {
   const { openCreateModal } = usePageDispatch()
 
+  const onClick = () => {
+    openCreateModal()
+  }
+
   return (
     <Button
       type="primary"
       size="small"
       icon={<PlusOutlined />}
-      onClick={openCreateModal}
+      onClick={onClick}
     />
   )
 }

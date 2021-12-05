@@ -31,7 +31,7 @@ export const useCreatePropMapBindingForm = () => {
             elementId,
           },
         },
-      })
+      }).unwrap()
     },
     [mutate],
   )

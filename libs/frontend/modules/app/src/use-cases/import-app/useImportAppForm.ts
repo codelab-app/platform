@@ -6,7 +6,7 @@ import { ImportAppFormProps } from './ImportAppForm'
 import { ImportAppSchema } from './importAppSchema'
 
 export const useImportAppForm = () => {
-  const { reset } = useAppDispatch()
+  const { resetModal } = useAppDispatch()
 
   const [mutate, state] = useImportAppMutation({
     selectFromResult: (r) => ({
@@ -25,12 +25,12 @@ export const useImportAppForm = () => {
         throw new Error("Can't parse file") // shouldn't happen, we test in the form
       }
 
-      return mutate({ variables: { input: { payload: text } } })
+      return mutate({ variables: { input: { payload: text } } }).unwrap()
     },
     [mutate],
   )
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while importing app',
@@ -45,6 +45,6 @@ export const useImportAppForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

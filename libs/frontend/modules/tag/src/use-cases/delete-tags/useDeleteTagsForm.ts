@@ -20,7 +20,7 @@ export const useDeleteTagForm = () => {
 
   const handleSubmit = useCallback(
     ({ ids }: DeleteTagsSchema) => {
-      return mutate({ variables: { input: { ids } } })
+      return mutate({ variables: { input: { ids } } }).unwrap()
     },
     [mutate],
   )

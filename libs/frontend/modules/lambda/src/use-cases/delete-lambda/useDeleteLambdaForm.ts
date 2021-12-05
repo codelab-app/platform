@@ -6,7 +6,7 @@ import { DeleteLambdaFormProps, DeleteLambdaMutationInput } from './types'
 
 export const useDeleteLambdaForm = () => {
   const { deleteIds, entity } = useLambdaState()
-  const { reset } = useLambdaDispatch()
+  const { resetModal } = useLambdaDispatch()
 
   const [mutate, state] = useDeleteLambdaMutation({
     selectFromResult: (r) => ({
@@ -17,7 +17,8 @@ export const useDeleteLambdaForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: DeleteLambdaMutationInput) => mutate({ variables: { input } }),
+    (input: DeleteLambdaMutationInput) =>
+      mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 
@@ -25,7 +26,7 @@ export const useDeleteLambdaForm = () => {
     title: 'Error while deleting lambda',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: DeleteLambdaFormProps = {
     onSubmit,
@@ -38,6 +39,6 @@ export const useDeleteLambdaForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

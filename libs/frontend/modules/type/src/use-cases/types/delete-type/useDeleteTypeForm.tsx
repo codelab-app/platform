@@ -17,7 +17,7 @@ export const useDeleteTypeForm = () => {
   })
 
   const handleSubmit = useCallback(() => {
-    return mutate({ variables: { input: { typeId } } })
+    return mutate({ variables: { input: { typeId } } }).unwrap()
   }, [mutate, typeId])
 
   return {

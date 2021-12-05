@@ -30,7 +30,7 @@ export const useUpdateFieldForm = () => {
         },
       }
 
-      return mutate({ variables: { input } })
+      return mutate({ variables: { input } }).unwrap()
     },
     [updateId, mutate],
   )

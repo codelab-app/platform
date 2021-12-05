@@ -22,7 +22,7 @@ export const useCreateTypeForm = () => {
     (submitData: CreateTypeSchema) => {
       const input = mapCreateTypeSchemaToTypeInput(submitData)
 
-      return mutate({ variables: { input } })
+      return mutate({ variables: { input } }).unwrap()
     },
     [mutate],
   )

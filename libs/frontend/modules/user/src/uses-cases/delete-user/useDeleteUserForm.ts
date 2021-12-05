@@ -22,7 +22,7 @@ export const useDeleteUserForm = () => {
     for (const id of deleteIds) {
       await mutate({
         variables: { input: { id } },
-      })
+      }).unwrap()
     }
   }, [mutate])
 

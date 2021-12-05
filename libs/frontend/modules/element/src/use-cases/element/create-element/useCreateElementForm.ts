@@ -51,7 +51,7 @@ export const useCreateElementForm = (
     (submitData: CreateElementSchema) => {
       const variables = mapVariables(submitData)
 
-      return mutate({ variables })
+      return mutate({ variables }).unwrap()
     },
     [mutate],
   )

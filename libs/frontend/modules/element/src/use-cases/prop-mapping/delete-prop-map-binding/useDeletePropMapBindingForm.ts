@@ -23,7 +23,7 @@ export const useDeletePropMapBindingForm = () => {
       variables: {
         input: { propMapBindingIds: deleteIds },
       },
-    })
+    }).unwrap()
   }, [mutate, deleteIds])
 
   return {

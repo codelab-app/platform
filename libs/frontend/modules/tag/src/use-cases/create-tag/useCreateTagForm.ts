@@ -20,7 +20,7 @@ export const useCreateTagForm = (parentTagId?: string) => {
 
   const handleSubmit = useCallback(
     (input: CreateTagInput) => {
-      return mutate({ variables: { input } })
+      return mutate({ variables: { input } }).unwrap()
     },
     [mutate],
   )

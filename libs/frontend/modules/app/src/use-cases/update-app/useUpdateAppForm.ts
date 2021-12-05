@@ -6,7 +6,7 @@ import { UpdateAppFormProps, UpdateAppMutationInput } from './types'
 
 export const useUpdateAppForm = () => {
   const { updateId, entity } = useAppState()
-  const { reset } = useAppDispatch()
+  const { resetModal } = useAppDispatch()
 
   const [mutate, state] = useUpdateAppMutation({
     selectFromResult: (r) => ({
@@ -20,7 +20,7 @@ export const useUpdateAppForm = () => {
     (data: UpdateAppMutationInput) => {
       return mutate({
         variables: { input: { data, id: updateId } },
-      })
+      }).unwrap()
     },
     [mutate, updateId],
   )
@@ -29,7 +29,7 @@ export const useUpdateAppForm = () => {
     title: 'Error while updateing app',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: UpdateAppFormProps = {
     onSubmit,
@@ -43,6 +43,6 @@ export const useUpdateAppForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }
