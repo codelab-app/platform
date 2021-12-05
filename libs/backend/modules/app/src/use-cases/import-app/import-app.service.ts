@@ -3,12 +3,19 @@ import { DgraphRepository } from '@codelab/backend/infra'
 import {
   CreateElementChildInput,
   CreateElementService,
-  ElementRef,
   HookRef,
   NewPropMapBindingRef,
 } from '@codelab/backend/modules/element'
-import { CreatePageService } from '@codelab/backend/modules/page'
-import { ExportAppSchema, IPropMapBinding } from '@codelab/shared/abstract/core'
+import {
+  CreatePageService,
+  UpdatePageService,
+} from '@codelab/backend/modules/page'
+import {
+  ExportAppSchema,
+  IExportPage,
+  IPropMapBinding,
+  IUser,
+} from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { AppValidator } from '../../domain/app.validator'
@@ -28,6 +35,7 @@ export class ImportAppService extends DgraphUseCase<
     protected createAppService: CreateAppService,
     protected createPageService: CreatePageService,
     protected createElementService: CreateElementService,
+    protected updatePageService: UpdatePageService,
   ) {
     super(dgraph)
   }
@@ -45,25 +53,39 @@ export class ImportAppService extends DgraphUseCase<
       },
     })
 
-    // Keep a map of created component ids to payload component ids, in case there's duplicates
-    const componentIdMap = new Map<string, string>()
+    const pageIdMap = await this.createEmptyPages(
+      payload.pages,
+      appId,
+      currentUser,
+    )
 
     for (const payloadPage of payload.pages) {
       const elementTree = new ElementTree(payloadPage.elements)
-      const rootElement = elementTree.getRootVertex(ElementTree.isElement)
+      const treeRoot = elementTree.getRootVertex(ElementTree.isElement)
+      const newPageId = pageIdMap.get(payloadPage.id) ?? ''
 
-      if (!rootElement) {
+      if (!treeRoot) {
         throw new Error('No root element found')
       }
 
-      const rootElementInput = this.createElementInput(
-        rootElement.id,
+      const rootElement = this.createElementInput(
+        treeRoot.id,
         elementTree,
-        componentIdMap,
+        payloadPage.id,
+        newPageId,
+        payload.id,
+        appId,
       )
 
-      await this.createPageService.execute({
-        input: { appId, name: payloadPage.name, rootElement: rootElementInput },
+      await this.updatePageService.execute({
+        input: {
+          pageId: newPageId,
+          updateData: {
+            appId,
+            name: payloadPage.name,
+            rootElement,
+          },
+        },
         currentUser,
       })
     }
@@ -71,36 +93,34 @@ export class ImportAppService extends DgraphUseCase<
     return { id: appId }
   }
 
-  protected createElementRef(
-    elementId: string,
-    tree: ElementTree,
-    componentIdMap: Map<string, string>,
-    iteration = 0,
-  ): ElementRef {
-    if (iteration > 100000) {
-      throw new Error('Infinite loop detected')
+  protected async createEmptyPages(
+    pagesPayload: Array<IExportPage>,
+    appId: string,
+    currentUser: IUser,
+  ) {
+    const pageIdMap = new Map<string, string>()
+
+    for (const payloadPage of pagesPayload) {
+      const input = { appId, name: payloadPage.name }
+
+      const { id } = await this.createPageService.execute({
+        input,
+        currentUser,
+      })
+
+      pageIdMap.set(payloadPage.id, id)
     }
 
-    if (componentIdMap.has(elementId)) {
-      return {
-        elementId: componentIdMap.get(elementId),
-      }
-    }
-
-    return {
-      newElement: this.createElementInput(
-        elementId,
-        tree,
-        componentIdMap,
-        iteration,
-      ),
-    }
+    return pageIdMap
   }
 
   protected createElementInput(
     elementId: string,
     tree: ElementTree,
-    componentIdMap: Map<string, string>,
+    oldPageId: string,
+    newPageId: string,
+    oldAppId: string,
+    newAppId: string,
     iteration = 0,
   ): CreateElementChildInput {
     if (iteration > 100000) {
@@ -116,6 +136,29 @@ export class ImportAppService extends DgraphUseCase<
       )
     }
 
+    const children = tree.getChildren(elementId).map((child) => ({
+      newElement: this.createElementInput(
+        child.id,
+        tree,
+        oldPageId,
+        newPageId,
+        oldAppId,
+        newAppId,
+        iteration + 1,
+      ),
+    }))
+
+    const hooks = element.hooks.map<HookRef>((x) => ({
+      config: x.config.data
+        .replace(oldPageId, newPageId)
+        .replace(oldAppId, newAppId),
+      type: x.type,
+    }))
+
+    const propMapBindings = element.propMapBindings?.map((pmb) =>
+      this.propMapBindingInput(pmb),
+    )
+
     return {
       name: element.name ?? undefined,
       css: element.css ?? undefined,
@@ -127,18 +170,9 @@ export class ImportAppService extends DgraphUseCase<
       order: tree.getOrderInParent(elementId),
       renderForEachPropKey: element.renderForEachPropKey ?? undefined,
       propTransformationJs: element.propTransformationJs ?? undefined,
-      hooks: element.hooks.map<HookRef>((x) => ({
-        config: x.config.data,
-        type: x.type,
-      })),
-      propMapBindings: element.propMapBindings?.map((pmb) =>
-        this.propMapBindingInput(pmb),
-      ),
-      children: tree
-        .getChildren(elementId)
-        .map((child) =>
-          this.createElementRef(child.id, tree, componentIdMap, iteration + 1),
-        ),
+      hooks,
+      propMapBindings,
+      children,
     }
   }
 

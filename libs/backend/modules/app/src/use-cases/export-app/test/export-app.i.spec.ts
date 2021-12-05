@@ -126,9 +126,11 @@ describe('ExportApp', () => {
       const parsedPayload = ExportAppSchema.parse(JSON.parse(payload))
 
       expect(parsedPayload).toEqual<IExportApp>({
+        id: expect.stringContaining('0x'),
         name: 'My awesome app',
         pages: [
           {
+            id: page1.id,
             name: page1.name,
             rootElementId: page1.rootElementId,
             elements: {
@@ -215,6 +217,7 @@ describe('ExportApp', () => {
             },
           },
           {
+            id: page2.id,
             name: page2.name,
             rootElementId: page2.rootElementId,
             elements: {
