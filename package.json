@@ -127,7 +127,7 @@
     "logform": "^2.3.0",
     "material-ui-colors": "1.0.0",
     "monaco-editor": "0.30.1",
-    "monaco-graphql": "^0.5.1",
+    "monaco-graphql": "0.5.1",
     "nest-winston": "^1.6.0",
     "nestjs-console": "7.0.1",
     "next": "11.1.2",
@@ -359,5 +359,8 @@
     "why-is-node-running": "2.2.0",
     "yargs": "17.3.0"
   },
-  "resolutions": {}
+  "resolutions": {
+    "graphql-language-service": "3.1.6",
+    "graphql-language-service-interface": "2.8.4"
+  }
 }

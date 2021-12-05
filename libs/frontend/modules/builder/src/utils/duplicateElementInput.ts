@@ -1,39 +1,15 @@
 import {
   CreateElementInput,
   ElementRef,
-  NewHookRef,
+  HookRef,
 } from '@codelab/frontend/abstract/codegen'
-import { HookType, IElement, IHook } from '@codelab/shared/abstract/core'
+import { IElement, IHook } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 
-const hookToHookInput = (hook: IHook): NewHookRef => {
-  let key: keyof NewHookRef
-
-  switch (hook.type) {
-    case HookType.Query:
-      key = 'queryHook'
-      break
-    case HookType.GraphqlQuery:
-      key = 'graphqlQueryHook'
-      break
-    case HookType.GraphqlMutation:
-      key = 'graphqlMutationHook'
-      break
-    case HookType.RecoilState:
-      key = 'recoilStateHook'
-      break
-    case HookType.QueryPage:
-      key = 'queryPageHook'
-      break
-    case HookType.QueryPages:
-      key = 'queryPagesHook'
-      break
-    default:
-      throw new Error(`Invalid hook type ${hook.type}`)
-  }
-
+const hookToHookInput = (hook: IHook): HookRef => {
   return {
-    [key]: hook.config as any,
+    type: hook.type,
+    config: hook.config.data,
   }
 }
 
@@ -57,7 +33,7 @@ export const duplicateElementInput = (
     name: element.name,
     order: order,
     propTransformationJs: element.propTransformationJs,
-    props: element.props,
+    props: element.props.data,
     refId: element.id,
     renderForEachPropKey: element.renderForEachPropKey,
     renderIfPropKey: element.renderIfPropKey,
