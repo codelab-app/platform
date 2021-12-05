@@ -1,19 +1,31 @@
 import { loadFilesSync } from '@graphql-tools/load-files'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { DocumentNode, EnumTypeDefinitionNode } from 'graphql'
+import type { DgraphConfig } from '../dgraph'
+import { dgraphConfig } from '../dgraph'
+import type { GraphqlSchemaConfig } from './config/graphql-schema.config'
+import { graphqlSchemaConfig } from './config/graphql-schema.config'
 
 @Injectable()
 export class GraphqlSchemaService {
-  getEnumTypeDef(enumType: string, schema: string) {
-    const regex = new RegExp(`(?:enum)\\s${enumType}\\s(.+?)}`, 'gs')
+  constructor(
+    @Inject(dgraphConfig.KEY) private readonly _dgraphConfig: DgraphConfig,
+    @Inject(graphqlSchemaConfig.KEY)
+    private readonly _graphqlSchemaConfig: GraphqlSchemaConfig,
+  ) {}
 
-    return schema.match(regex)?.[0] ?? ''
+  getEnumTypeDef(
+    enumType: string,
+    schema: DocumentNode,
+  ): EnumTypeDefinitionNode | undefined {
+    return schema.definitions.find(
+      (def): def is EnumTypeDefinitionNode =>
+        def.kind === 'EnumTypeDefinition' && def.name.value === enumType,
+    )
   }
 
-  /**
-   * Load *.graphql file as string
-   */
   loadGraphqlSchema(schemaPath: string) {
-    return loadFilesSync<string>(schemaPath, {
+    return loadFilesSync<DocumentNode>(schemaPath, {
       extensions: ['graphql'],
     })
   }

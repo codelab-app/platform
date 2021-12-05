@@ -17,5 +17,5 @@ enum AtomTypeAnother {
 
 input AppFilter {
   id: [ID!]
-  ownerId: StringHashFilter
+  ownerId: String
 }

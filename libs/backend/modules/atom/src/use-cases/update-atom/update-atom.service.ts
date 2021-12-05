@@ -41,6 +41,7 @@ export class UpdateAtomService extends DgraphUseCase<UpdateAtomInput> {
           }
         : atom.api
         ? {
+            uid: atom.api.id,
             name: `${name} API`,
           }
         : null,
