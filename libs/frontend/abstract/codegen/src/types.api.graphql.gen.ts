@@ -22,13 +22,9 @@ export type Scalars = {
 
 /** Provide exactly one of the config fields */
 export type AddHookToElementInput = {
+  config: Scalars['String']
   elementId: Scalars['String']
-  graphqlMutationHook?: InputMaybe<GraphqlHookConfigInput>
-  graphqlQueryHook?: InputMaybe<GraphqlHookConfigInput>
-  queryHook?: InputMaybe<QueryHookConfigInput>
-  queryPageHook?: InputMaybe<QueryPageHookConfigInput>
-  queryPagesHook?: InputMaybe<QueryPagesHookConfigInput>
-  recoilStateHook?: InputMaybe<RecoilStateHookConfigInput>
+  type: AtomType
 }
 
 export type App = {
@@ -45,6 +41,15 @@ export type AppByIdFilter = {
 
 export type AppByPageFilter = {
   pageId: Scalars['String']
+}
+
+/** The AppType allows selecting a App in the props form. The value is stored as the appId  */
+export type AppType = Type & {
+  __typename?: 'AppType'
+  id: Scalars['ID']
+  name: Scalars['String']
+  typeGraph: TypeGraph
+  typeKind: TypeKind
 }
 
 export type ArrayType = Type & {
@@ -170,6 +175,13 @@ export enum AtomType {
   AntDesignTypographyText = 'AntDesignTypographyText',
   AntDesignTypographyTitle = 'AntDesignTypographyTitle',
   AntDesignUpload = 'AntDesignUpload',
+  HookGraphqlMutation = 'HookGraphqlMutation',
+  HookGraphqlQuery = 'HookGraphqlQuery',
+  HookQueryConfig = 'HookQueryConfig',
+  HookQueryLambda = 'HookQueryLambda',
+  HookQueryPage = 'HookQueryPage',
+  HookQueryPages = 'HookQueryPages',
+  HookRecoilState = 'HookRecoilState',
   HtmlA = 'HtmlA',
   HtmlArea = 'HtmlArea',
   HtmlAside = 'HtmlAside',
@@ -487,7 +499,7 @@ export type CreateElementChildInput = {
   /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
   children?: InputMaybe<Array<ElementRef>>
   css?: InputMaybe<Scalars['String']>
-  hooks?: InputMaybe<Array<NewHookRef>>
+  hooks?: InputMaybe<Array<HookRef>>
   isComponent?: InputMaybe<Scalars['Boolean']>
   name?: InputMaybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */
@@ -506,7 +518,7 @@ export type CreateElementInput = {
   /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
   children?: InputMaybe<Array<ElementRef>>
   css?: InputMaybe<Scalars['String']>
-  hooks?: InputMaybe<Array<NewHookRef>>
+  hooks?: InputMaybe<Array<HookRef>>
   isComponent?: InputMaybe<Scalars['Boolean']>
   name?: InputMaybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */
@@ -551,6 +563,10 @@ export type CreateLambdaInput = {
   name: Scalars['String']
 }
 
+export type CreateMonacoTypeInput = {
+  language: MonacoLanguage
+}
+
 export type CreatePageInput = {
   appId: Scalars['String']
   name: Scalars['String']
@@ -587,6 +603,7 @@ export type CreateTypeInput = {
   arrayType?: InputMaybe<CreateArrayTypeInput>
   elementType?: InputMaybe<CreateElementTypeInput>
   enumType?: InputMaybe<CreateEnumTypeInput>
+  monacoType?: InputMaybe<CreateMonacoTypeInput>
   name: Scalars['String']
   primitiveType?: InputMaybe<CreatePrimitiveTypeInput>
   typeKind: TypeKind
@@ -650,8 +667,7 @@ export type Element = {
   name?: Maybe<Scalars['String']>
   propMapBindings: Array<PropMapBinding>
   propTransformationJs?: Maybe<Scalars['String']>
-  /** Props in a json format */
-  props: Scalars['String']
+  props: Prop
   /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
   renderForEachPropKey?: Maybe<Scalars['String']>
   /** If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy) */
@@ -834,40 +850,16 @@ export type GetUsersInput = {
   sort: Scalars['String']
 }
 
-export type GraphqlHookConfig = {
-  __typename?: 'GraphqlHookConfig'
-  dataKey?: Maybe<Scalars['String']>
-  graphqlBody: Scalars['String']
-  graphqlUrl: Scalars['String']
-}
-
-export type GraphqlHookConfigInput = {
-  dataKey?: InputMaybe<Scalars['String']>
-  graphqlBody: Scalars['String']
-  graphqlUrl: Scalars['String']
-}
-
 export type Hook = {
   __typename?: 'Hook'
-  config: HookConfig
+  config: Prop
   id: Scalars['ID']
-  type: HookType
+  type: AtomType
 }
 
-export type HookConfig =
-  | GraphqlHookConfig
-  | QueryHookConfig
-  | QueryPageHookConfig
-  | QueryPagesHookConfig
-  | RecoilStateHookConfig
-
-export enum HookType {
-  GraphqlMutation = 'GraphqlMutation',
-  GraphqlQuery = 'GraphqlQuery',
-  Query = 'Query',
-  QueryPage = 'QueryPage',
-  QueryPages = 'QueryPages',
-  RecoilState = 'RecoilState',
+export type HookRef = {
+  config: Scalars['String']
+  type: AtomType
 }
 
 export type ImportAppInput = {
@@ -907,6 +899,24 @@ export type LambdaPayload = {
 export type LambdaType = Type & {
   __typename?: 'LambdaType'
   id: Scalars['ID']
+  name: Scalars['String']
+  typeGraph: TypeGraph
+  typeKind: TypeKind
+}
+
+export enum MonacoLanguage {
+  CSS = 'CSS',
+  Graphql = 'Graphql',
+  JSON = 'JSON',
+  JavaScript = 'JavaScript',
+  TypeScript = 'TypeScript',
+}
+
+/** The MonacoType allows inserting code using Monaco Editor in the props form. */
+export type MonacoType = Type & {
+  __typename?: 'MonacoType'
+  id: Scalars['ID']
+  language: MonacoLanguage
   name: Scalars['String']
   typeGraph: TypeGraph
   typeKind: TypeKind
@@ -1150,15 +1160,6 @@ export type MutationUpsertUserArgs = {
   input: UpsertUserInput
 }
 
-export type NewHookRef = {
-  graphqlMutationHook?: InputMaybe<GraphqlHookConfigInput>
-  graphqlQueryHook?: InputMaybe<GraphqlHookConfigInput>
-  queryHook?: InputMaybe<QueryHookConfigInput>
-  queryPageHook?: InputMaybe<QueryPageHookConfigInput>
-  queryPagesHook?: InputMaybe<QueryPagesHookConfigInput>
-  recoilStateHook?: InputMaybe<RecoilStateHookConfigInput>
-}
-
 export type NewPropMapBindingRef = {
   /** The key of the prop, as received in the source element */
   sourceKey: Scalars['String']
@@ -1180,15 +1181,18 @@ export type PageByAppFilter = {
   appId: Scalars['String']
 }
 
+/** The PageType allows selecting a Page in the props form. The value is stored as the pageId  */
+export type PageType = Type & {
+  __typename?: 'PageType'
+  id: Scalars['ID']
+  name: Scalars['String']
+  typeGraph: TypeGraph
+  typeKind: TypeKind
+}
+
 export type PayloadResponse = {
   __typename?: 'PayloadResponse'
   payload: Scalars['String']
-}
-
-export enum PersistenceType {
-  LocalStorage = 'LocalStorage',
-  NotPersisted = 'NotPersisted',
-  SessionStorage = 'SessionStorage',
 }
 
 export type PrimitiveType = Type & {
@@ -1205,6 +1209,12 @@ export enum PrimitiveTypeKind {
   Float = 'Float',
   Integer = 'Integer',
   String = 'String',
+}
+
+export type Prop = {
+  __typename?: 'Prop'
+  data: Scalars['String']
+  id: Scalars['ID']
 }
 
 export type PropMapBinding = {
@@ -1225,6 +1235,7 @@ export type Query = {
   getApps: Array<App>
   getAtom?: Maybe<Atom>
   getAtoms?: Maybe<Array<Atom>>
+  getAtomsTypeHook?: Maybe<Array<Atom>>
   getComponents: Array<Element>
   /** Get a single element. */
   getElement?: Maybe<Element>
@@ -1326,74 +1337,12 @@ export type QueryGetUsersArgs = {
   input?: InputMaybe<GetUsersInput>
 }
 
-export type QueryHookConfig = {
-  __typename?: 'QueryHookConfig'
-  body?: Maybe<Scalars['String']>
-  lambdaId?: Maybe<Scalars['String']>
-  method?: Maybe<QueryMethod>
-  queryKey: Scalars['String']
-  url?: Maybe<Scalars['String']>
-}
-
-/** Provide either a lambdaId, or body/method/url */
-export type QueryHookConfigInput = {
-  body?: InputMaybe<Scalars['String']>
-  lambdaId?: InputMaybe<Scalars['String']>
-  method?: InputMaybe<QueryMethod>
-  queryKey: Scalars['String']
-  url?: InputMaybe<Scalars['String']>
-}
-
-export enum QueryMethod {
-  Delete = 'Delete',
-  Get = 'Get',
-  Head = 'Head',
-  Link = 'Link',
-  Options = 'Options',
-  Patch = 'Patch',
-  Post = 'Post',
-  Purge = 'Purge',
-  Put = 'Put',
-  Unlink = 'Unlink',
-}
-
-export type QueryPageHookConfig = {
-  __typename?: 'QueryPageHookConfig'
-  pageId: Scalars['String']
-}
-
-export type QueryPageHookConfigInput = {
-  pageId: Scalars['String']
-}
-
-export type QueryPagesHookConfig = {
-  __typename?: 'QueryPagesHookConfig'
-  appId: Scalars['String']
-}
-
-export type QueryPagesHookConfigInput = {
-  appId: Scalars['String']
-}
-
 export type ReactNodeType = Type & {
   __typename?: 'ReactNodeType'
   id: Scalars['ID']
   name: Scalars['String']
   typeGraph: TypeGraph
   typeKind: TypeKind
-}
-
-export type RecoilStateHookConfig = {
-  __typename?: 'RecoilStateHookConfig'
-  defaultValue?: Maybe<Scalars['String']>
-  persisted: PersistenceType
-  stateKey: Scalars['String']
-}
-
-export type RecoilStateHookConfigInput = {
-  defaultValue?: InputMaybe<Scalars['String']>
-  persisted: PersistenceType
-  stateKey: Scalars['String']
 }
 
 export type RemoveHookFromElementInput = {
@@ -1472,12 +1421,15 @@ export type TypeGraph = {
 }
 
 export enum TypeKind {
+  AppType = 'AppType',
   ArrayType = 'ArrayType',
   ComponentType = 'ComponentType',
   ElementType = 'ElementType',
   EnumType = 'EnumType',
   InterfaceType = 'InterfaceType',
   LambdaType = 'LambdaType',
+  MonacoType = 'MonacoType',
+  PageType = 'PageType',
   PrimitiveType = 'PrimitiveType',
   ReactNodeType = 'ReactNodeType',
   RenderPropsType = 'RenderPropsType',
@@ -1490,12 +1442,15 @@ export type TypeRef = {
 }
 
 export type TypeVertex =
+  | AppType
   | ArrayType
   | ComponentType
   | ElementType
   | EnumType
   | InterfaceType
   | LambdaType
+  | MonacoType
+  | PageType
   | PrimitiveType
   | ReactNodeType
   | RenderPropsType
@@ -1553,8 +1508,9 @@ export type UpdateElementInput = {
 }
 
 export type UpdateElementPropsInput = {
+  data: Scalars['String']
   elementId: Scalars['String']
-  props: Scalars['String']
+  propsId: Scalars['String']
 }
 
 export type UpdateEnumTypeData = {
@@ -1707,6 +1663,7 @@ export type WhereUniqueTag = {
 /** Provide exactly 1 field */
 export type WhereUniqueType = {
   atomId?: InputMaybe<Scalars['String']>
+  enumTypeValueId?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
 }

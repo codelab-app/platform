@@ -23,7 +23,10 @@ export enum TypeKind {
     ComponentType = "ComponentType",
     RenderPropsType = "RenderPropsType",
     ReactNodeType = "ReactNodeType",
-    UnionType = "UnionType"
+    UnionType = "UnionType",
+    MonacoType = "MonacoType",
+    PageType = "PageType",
+    AppType = "AppType"
 }
 
 export enum ElementTypeKind {
@@ -39,7 +42,22 @@ export enum PrimitiveTypeKind {
     Boolean = "Boolean"
 }
 
+export enum MonacoLanguage {
+    TypeScript = "TypeScript",
+    JavaScript = "JavaScript",
+    CSS = "CSS",
+    JSON = "JSON",
+    Graphql = "Graphql"
+}
+
 export enum AtomType {
+    HookQueryLambda = "HookQueryLambda",
+    HookQueryConfig = "HookQueryConfig",
+    HookGraphqlQuery = "HookGraphqlQuery",
+    HookGraphqlMutation = "HookGraphqlMutation",
+    HookRecoilState = "HookRecoilState",
+    HookQueryPage = "HookQueryPage",
+    HookQueryPages = "HookQueryPages",
     AntDesignAffix = "AntDesignAffix",
     AntDesignAlert = "AntDesignAlert",
     AntDesignAnchor = "AntDesignAnchor",
@@ -399,34 +417,6 @@ export enum AtomType {
     HtmlSup = "HtmlSup"
 }
 
-export enum HookType {
-    Query = "Query",
-    GraphqlQuery = "GraphqlQuery",
-    GraphqlMutation = "GraphqlMutation",
-    RecoilState = "RecoilState",
-    QueryPage = "QueryPage",
-    QueryPages = "QueryPages"
-}
-
-export enum QueryMethod {
-    Get = "Get",
-    Delete = "Delete",
-    Head = "Head",
-    Options = "Options",
-    Post = "Post",
-    Put = "Put",
-    Patch = "Patch",
-    Purge = "Purge",
-    Link = "Link",
-    Unlink = "Unlink"
-}
-
-export enum PersistenceType {
-    NotPersisted = "NotPersisted",
-    LocalStorage = "LocalStorage",
-    SessionStorage = "SessionStorage"
-}
-
 export interface GetAppInput {
     byId?: Nullable<AppByIdFilter>;
     byPage?: Nullable<AppByPageFilter>;
@@ -489,6 +479,7 @@ export interface WhereUniqueType {
     id?: Nullable<string>;
     name?: Nullable<string>;
     atomId?: Nullable<string>;
+    enumTypeValueId?: Nullable<string>;
 }
 
 export interface GetTypeGraphInput {
@@ -621,40 +612,8 @@ export interface DeletePropMapBindingInput {
 
 export interface AddHookToElementInput {
     elementId: string;
-    queryHook?: Nullable<QueryHookConfigInput>;
-    graphqlQueryHook?: Nullable<GraphqlHookConfigInput>;
-    graphqlMutationHook?: Nullable<GraphqlHookConfigInput>;
-    recoilStateHook?: Nullable<RecoilStateHookConfigInput>;
-    queryPageHook?: Nullable<QueryPageHookConfigInput>;
-    queryPagesHook?: Nullable<QueryPagesHookConfigInput>;
-}
-
-export interface QueryHookConfigInput {
-    queryKey: string;
-    url?: Nullable<string>;
-    body?: Nullable<string>;
-    method?: Nullable<QueryMethod>;
-    lambdaId?: Nullable<string>;
-}
-
-export interface GraphqlHookConfigInput {
-    graphqlUrl: string;
-    graphqlBody: string;
-    dataKey?: Nullable<string>;
-}
-
-export interface RecoilStateHookConfigInput {
-    stateKey: string;
-    defaultValue?: Nullable<string>;
-    persisted: PersistenceType;
-}
-
-export interface QueryPageHookConfigInput {
-    pageId: string;
-}
-
-export interface QueryPagesHookConfigInput {
-    appId: string;
+    config: string;
+    type: AtomType;
 }
 
 export interface RemoveHookFromElementInput {
@@ -673,7 +632,7 @@ export interface CreateElementInput {
     renderForEachPropKey?: Nullable<string>;
     renderIfPropKey?: Nullable<string>;
     propTransformationJs?: Nullable<string>;
-    hooks?: Nullable<NewHookRef[]>;
+    hooks?: Nullable<HookRef[]>;
     propMapBindings?: Nullable<NewPropMapBindingRef[]>;
     isComponent?: Nullable<boolean>;
     parentElementId?: Nullable<string>;
@@ -700,18 +659,14 @@ export interface CreateElementChildInput {
     renderForEachPropKey?: Nullable<string>;
     renderIfPropKey?: Nullable<string>;
     propTransformationJs?: Nullable<string>;
-    hooks?: Nullable<NewHookRef[]>;
+    hooks?: Nullable<HookRef[]>;
     propMapBindings?: Nullable<NewPropMapBindingRef[]>;
     isComponent?: Nullable<boolean>;
 }
 
-export interface NewHookRef {
-    queryHook?: Nullable<QueryHookConfigInput>;
-    graphqlQueryHook?: Nullable<GraphqlHookConfigInput>;
-    graphqlMutationHook?: Nullable<GraphqlHookConfigInput>;
-    recoilStateHook?: Nullable<RecoilStateHookConfigInput>;
-    queryPageHook?: Nullable<QueryPageHookConfigInput>;
-    queryPagesHook?: Nullable<QueryPagesHookConfigInput>;
+export interface HookRef {
+    config: string;
+    type: AtomType;
 }
 
 export interface NewPropMapBindingRef {
@@ -745,7 +700,8 @@ export interface MoveData {
 }
 
 export interface UpdateElementPropsInput {
-    props: string;
+    data: string;
+    propsId: string;
     elementId: string;
 }
 
@@ -799,6 +755,7 @@ export interface CreateTypeInput {
     enumType?: Nullable<CreateEnumTypeInput>;
     unionType?: Nullable<CreateUnionType>;
     elementType?: Nullable<CreateElementTypeInput>;
+    monacoType?: Nullable<CreateMonacoTypeInput>;
 }
 
 export interface CreatePrimitiveTypeInput {
@@ -824,6 +781,10 @@ export interface CreateUnionType {
 
 export interface CreateElementTypeInput {
     kind: ElementTypeKind;
+}
+
+export interface CreateMonacoTypeInput {
+    language: MonacoLanguage;
 }
 
 export interface UpdateEnumTypeInput {
@@ -1117,6 +1078,28 @@ export interface RenderPropsType extends Type {
     typeGraph: TypeGraph;
 }
 
+export interface AppType extends Type {
+    typeKind: TypeKind;
+    id: string;
+    name: string;
+    typeGraph: TypeGraph;
+}
+
+export interface MonacoType extends Type {
+    typeKind: TypeKind;
+    id: string;
+    name: string;
+    typeGraph: TypeGraph;
+    language: MonacoLanguage;
+}
+
+export interface PageType extends Type {
+    typeKind: TypeKind;
+    id: string;
+    name: string;
+    typeGraph: TypeGraph;
+}
+
 export interface UnionType extends Type {
     typeKind: TypeKind;
     id: string;
@@ -1138,38 +1121,15 @@ export interface Atom {
     apiGraph: TypeGraph;
 }
 
+export interface Prop {
+    id: string;
+    data: string;
+}
+
 export interface Hook {
     id: string;
-    type: HookType;
-    config: HookConfig;
-}
-
-export interface QueryHookConfig {
-    queryKey: string;
-    url?: Nullable<string>;
-    body?: Nullable<string>;
-    method?: Nullable<QueryMethod>;
-    lambdaId?: Nullable<string>;
-}
-
-export interface GraphqlHookConfig {
-    graphqlBody: string;
-    graphqlUrl: string;
-    dataKey?: Nullable<string>;
-}
-
-export interface RecoilStateHookConfig {
-    stateKey: string;
-    defaultValue?: Nullable<string>;
-    persisted: PersistenceType;
-}
-
-export interface QueryPageHookConfig {
-    pageId: string;
-}
-
-export interface QueryPagesHookConfig {
-    appId: string;
+    type: AtomType;
+    config: Prop;
 }
 
 export interface Tag {
@@ -1204,7 +1164,7 @@ export interface Element {
     componentTag?: Nullable<Tag>;
     css?: Nullable<string>;
     atom?: Nullable<Atom>;
-    props: string;
+    props: Prop;
     hooks: Hook[];
     renderForEachPropKey?: Nullable<string>;
     renderIfPropKey?: Nullable<string>;
@@ -1256,6 +1216,7 @@ export interface IQuery {
     getElementGraph(input: GetElementGraphInput): ElementGraph | Promise<ElementGraph>;
     getElement(input: GetElementInput): Nullable<Element> | Promise<Nullable<Element>>;
     getComponents(input?: Nullable<GetComponentsInput>): Element[] | Promise<Element[]>;
+    getAtomsTypeHook(): Nullable<Atom[]> | Promise<Nullable<Atom[]>>;
     getAtoms(input?: Nullable<GetAtomsInput>): Nullable<Atom[]> | Promise<Nullable<Atom[]>>;
     getAtom(input: GetAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
     getType(input: GetTypeInput): Nullable<Type> | Promise<Nullable<Type>>;
@@ -1325,7 +1286,6 @@ export interface IMutation {
 }
 
 export type Void = any;
-export type TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | RenderPropsType | ReactNodeType | UnionType;
-export type HookConfig = QueryHookConfig | GraphqlHookConfig | RecoilStateHookConfig | QueryPageHookConfig | QueryPagesHookConfig;
+export type TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType;
 export type TagVertex = Tag;
 type Nullable<T> = T | null;

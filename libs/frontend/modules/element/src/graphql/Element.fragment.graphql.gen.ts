@@ -2,42 +2,28 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 
 import {
   AtomBaseFragment,
-  Export__AtomsFragment,
   AtomFragment,
 } from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
-import {
-  TagFragment,
-  TagGraphFragment,
-} from '../../../tag/src/Tag.fragment.graphql.gen'
-import {
-  HookConfig_GraphqlHookConfig_Fragment,
-  HookConfig_QueryHookConfig_Fragment,
-  HookConfig_QueryPageHookConfig_Fragment,
-  HookConfig_QueryPagesHookConfig_Fragment,
-  HookConfig_RecoilStateHookConfig_Fragment,
-} from './HookConfig.fragment.graphql.gen'
+import { TagFragment } from '../../../tag/src/Tag.fragment.graphql.gen'
+import { PropFragment } from '../../../../../backend/modules/prop/src/graphql/Prop.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import {
   AtomBaseFragmentDoc,
-  Export__AtomsFragmentDoc,
   AtomFragmentDoc,
 } from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
-import {
-  TagFragmentDoc,
-  TagGraphFragmentDoc,
-} from '../../../tag/src/Tag.fragment.graphql.gen'
-import { HookConfigFragmentDoc } from './HookConfig.fragment.graphql.gen'
+import { TagFragmentDoc } from '../../../tag/src/Tag.fragment.graphql.gen'
+import { PropFragmentDoc } from '../../../../../backend/modules/prop/src/graphql/Prop.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
   name?: string | null | undefined
   css?: string | null | undefined
-  props: string
   renderForEachPropKey?: string | null | undefined
   renderIfPropKey?: string | null | undefined
   propTransformationJs?: string | null | undefined
   atom?: AtomBaseFragment | null | undefined
   componentTag?: TagFragment | null | undefined
+  props: PropFragment
   hooks: Array<HookFragment>
   propMapBindings: Array<PropMapBindingFragment>
 }
@@ -62,13 +48,8 @@ export type ElementGraphFragment = {
 
 export type HookFragment = {
   id: string
-  type: Types.HookType
-  config:
-    | HookConfig_GraphqlHookConfig_Fragment
-    | HookConfig_QueryHookConfig_Fragment
-    | HookConfig_QueryPageHookConfig_Fragment
-    | HookConfig_QueryPagesHookConfig_Fragment
-    | HookConfig_RecoilStateHookConfig_Fragment
+  type: Types.AtomType
+  config: { id: string; data: string }
 }
 
 export const HookFragmentDoc = gql`
@@ -76,10 +57,10 @@ export const HookFragmentDoc = gql`
     id
     type
     config {
-      ...HookConfig
+      id
+      data
     }
   }
-  ${HookConfigFragmentDoc}
 `
 export const PropMapBindingFragmentDoc = gql`
   fragment PropMapBinding on PropMapBinding {
@@ -101,7 +82,9 @@ export const ElementFragmentDoc = gql`
     componentTag {
       ...Tag
     }
-    props
+    props {
+      ...Prop
+    }
     hooks {
       ...Hook
     }
@@ -114,6 +97,7 @@ export const ElementFragmentDoc = gql`
   }
   ${AtomBaseFragmentDoc}
   ${TagFragmentDoc}
+  ${PropFragmentDoc}
   ${HookFragmentDoc}
   ${PropMapBindingFragmentDoc}
 `
