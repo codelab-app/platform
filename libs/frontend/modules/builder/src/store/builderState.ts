@@ -9,6 +9,9 @@ export enum BuilderTab {
   Toolbox = 'toolbox',
 }
 
+export type SelectElementActionPayload = Partial<ElementIdPayload>
+export type HoverElementActionPayload = Partial<ElementIdPayload>
+
 export interface BuilderState {
   selectedElementId?: string
   hoveringElementId?: string
@@ -47,13 +50,13 @@ export const builderSlice = createSlice({
   reducers: {
     selectElement: (
       state,
-      { payload }: PayloadAction<Partial<ElementIdPayload>>,
+      { payload }: PayloadAction<SelectElementActionPayload>,
     ) => {
       state.selectedElementId = payload.elementId
     },
     hoverElement: (
       state,
-      { payload }: PayloadAction<Partial<ElementIdPayload>>,
+      { payload }: PayloadAction<HoverElementActionPayload>,
     ) => {
       state.hoveringElementId = payload.elementId
     },

@@ -1,16 +1,17 @@
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { builderActions, BuilderTab } from '../store'
+import { useSelector } from 'react-redux'
+import { BuilderTab } from '../store'
+import { useBuilderDispatch } from './useBuilderDispatch'
 
 export const useBuilderTab = () => {
-  const dispatch = useDispatch()
+  const { setTab } = useBuilderDispatch()
   const builderTab = useSelector((s) => s.builder.tab)
 
   const setBuilderTab = useCallback(
     (tab: BuilderTab) => {
-      dispatch(builderActions.setTab(tab))
+      setTab(tab)
     },
-    [dispatch],
+    [setTab],
   )
 
   return { builderTab, setBuilderTab }

@@ -2,22 +2,18 @@ import {
   emptyJsonSchema,
   EmptyJsonSchemaType,
   FormUniforms,
-  FormUniformsProps,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectUser } from '../../store/userState'
+import { useUserState } from '../../hooks'
+import { DeleteUserFromProps } from './types'
 
-export const DeleteUserForm = (
-  props: Omit<FormUniformsProps<EmptyJsonSchemaType>, 'schema'>,
-) => {
-  const usernames = useSelector(
-    (state) => selectUser(state).deleteMetadata?.userNames,
-  )
+export const DeleteUserForm = (props: DeleteUserFromProps) => {
+  const { deleteMetadata } = useUserState()
+  const { userNames } = deleteMetadata || { userNames: '' }
 
   return (
     <FormUniforms<EmptyJsonSchemaType> schema={emptyJsonSchema} {...props}>
-      <h4>Are you sure you want to delete Users {usernames || ''}?</h4>
+      <h4>Are you sure you want to delete Users {userNames}?</h4>
     </FormUniforms>
   )
 }

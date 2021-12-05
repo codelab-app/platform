@@ -3,8 +3,9 @@ import {
   useGetElementQuery,
 } from '@codelab/frontend/modules/element'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { builderActions, builderSelectors } from '../store'
+import { useSelector } from 'react-redux'
+import { builderSelectors } from '../store'
+import { useBuilderDispatch } from './useBuilderDispatch'
 
 export interface UseBuilderHoveringElement {
   hoveringElement: ElementFragment | null
@@ -16,17 +17,11 @@ export interface UseBuilderHoveringElement {
 
 export const useBuilderHoveringElement = (): UseBuilderHoveringElement => {
   const hoveringElementId = useSelector(builderSelectors.hoveringElementId)
-  const dispatch = useDispatch()
+  const { hoverElement, resetSelection } = useBuilderDispatch()
 
   const setHoveringElement = useCallback(
-    (elementId?: string) =>
-      dispatch(builderActions.hoverElement({ elementId })),
-    [dispatch],
-  )
-
-  const resetSelection = useCallback(
-    () => dispatch(builderActions.resetSelection),
-    [dispatch],
+    (elementId?: string) => hoverElement({ elementId }),
+    [hoverElement],
   )
 
   const state = useGetElementQuery(

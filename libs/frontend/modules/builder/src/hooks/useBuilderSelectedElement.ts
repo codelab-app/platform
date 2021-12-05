@@ -3,8 +3,9 @@ import {
   useGetElementQuery,
 } from '@codelab/frontend/modules/element'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { builderActions, builderSelectors } from '../store'
+import { useSelector } from 'react-redux'
+import { builderSelectors } from '../store'
+import { useBuilderDispatch } from './useBuilderDispatch'
 
 export interface UseBuilderSelectedElement {
   selectedElement: ElementFragment | null
@@ -16,17 +17,11 @@ export interface UseBuilderSelectedElement {
 
 export const useBuilderSelectedElement = (): UseBuilderSelectedElement => {
   const selectedElementId = useSelector(builderSelectors.selectedElementId)
-  const dispatch = useDispatch()
+  const { selectElement, resetSelection } = useBuilderDispatch()
 
   const setSelectedElement = useCallback(
-    (elementId?: string) =>
-      dispatch(builderActions.selectElement({ elementId })),
-    [dispatch],
-  )
-
-  const resetSelection = useCallback(
-    () => dispatch(builderActions.resetSelection),
-    [dispatch],
+    (elementId?: string) => selectElement({ elementId }),
+    [selectElement],
   )
 
   const state = useGetElementQuery(

@@ -1,9 +1,8 @@
 import { useCreateElementMutation } from '@codelab/frontend/modules/element'
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useBuilderSelectedElement } from '../hooks'
-import { builderSlice } from '../store'
+import { useSelector } from 'react-redux'
+import { useBuilderDispatch, useBuilderSelectedElement } from '../hooks'
 import { BuilderDndType } from './BuilderDndType'
 import { BuilderDragData } from './BuilderDragData'
 
@@ -14,7 +13,7 @@ export interface UseBuilderDnd {
 }
 
 export const useBuilderDnd = (): UseBuilderDnd => {
-  const dispatch = useDispatch()
+  const { setCurrentlyDragging } = useBuilderDispatch()
   const state = useSelector((s) => s.builder.currentlyDragging)
   const [createElement] = useCreateElementMutation()
   const { setSelectedElement } = useBuilderSelectedElement()
@@ -24,10 +23,10 @@ export const useBuilderDnd = (): UseBuilderDnd => {
       const data = e.active.data.current as BuilderDragData | undefined
 
       if (data?.type === BuilderDndType.CreateElement) {
-        dispatch(builderSlice.actions.setCurrentlyDragging(data))
+        setCurrentlyDragging(data)
       }
     },
-    [dispatch],
+    [setCurrentlyDragging],
   )
 
   const onDragEnd = useCallback(
@@ -52,9 +51,9 @@ export const useBuilderDnd = (): UseBuilderDnd => {
         }
       }
 
-      dispatch(builderSlice.actions.setCurrentlyDragging(undefined))
+      setCurrentlyDragging(undefined)
     },
-    [createElement, dispatch, setSelectedElement],
+    [createElement, setCurrentlyDragging, setSelectedElement],
   )
 
   return {

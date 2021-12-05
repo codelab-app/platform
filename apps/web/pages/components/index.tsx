@@ -2,10 +2,10 @@ import { PlusOutlined } from '@ant-design/icons'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
-  componentActions,
   CreateComponentModal,
   DeleteElementModal,
   GetComponentsTable,
+  useComponentDispatch,
 } from '@codelab/frontend/modules/element'
 import { UpdateTagModal } from '@codelab/frontend/modules/tag'
 import { ContentSection } from '@codelab/frontend/view/sections'
@@ -17,11 +17,9 @@ import { Button } from 'antd'
 import PageHeader from 'antd/lib/page-header'
 import Head from 'next/head'
 import React from 'react'
-import { useDispatch } from 'react-redux'
 
 const Components: CodelabPage = () => {
-  const dispatch = useDispatch()
-  const openCreateModal = () => dispatch(componentActions.openCreateModal())
+  const { openCreateModal } = useComponentDispatch()
 
   const pageHeaderButtons = [
     <Button
