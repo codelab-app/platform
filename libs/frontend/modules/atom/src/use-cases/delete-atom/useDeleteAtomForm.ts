@@ -6,7 +6,7 @@ import { DeleteAtomMutationInput, DeleteAtomsFormProps } from './types'
 
 export const useDeleteAtomForm = () => {
   const { deleteIds, entity } = useAtomState()
-  const { reset } = useAtomDispatch()
+  const { resetModal } = useAtomDispatch()
 
   const [mutate, state] = useDeleteAtomMutation({
     selectFromResult: (r) => ({
@@ -17,7 +17,8 @@ export const useDeleteAtomForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: DeleteAtomMutationInput) => mutate({ variables: { input } }),
+    (input: DeleteAtomMutationInput) =>
+      mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 
@@ -25,7 +26,7 @@ export const useDeleteAtomForm = () => {
     title: 'Error while deleting atom',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: DeleteAtomsFormProps = {
     onSubmit,
@@ -38,6 +39,6 @@ export const useDeleteAtomForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

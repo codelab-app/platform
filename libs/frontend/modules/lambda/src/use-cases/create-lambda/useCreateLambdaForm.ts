@@ -18,9 +18,7 @@ export const useCreateLambdaForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: CreateLambdaInput) => {
-      return mutate({ variables: { input } })
-    },
+    (input: CreateLambdaInput) => mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 

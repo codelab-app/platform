@@ -6,7 +6,7 @@ import { useCreateAtomMutation } from '../../store'
 import { CreateAtomFormProps } from './types'
 
 export const useCreateAtomForm = () => {
-  const { reset } = useAtomDispatch()
+  const { resetModal } = useAtomDispatch()
 
   const [mutate, state] = useCreateAtomMutation({
     selectFromResult: (r) => ({
@@ -18,7 +18,7 @@ export const useCreateAtomForm = () => {
 
   const onSubmit = useCallback(
     (input: CreateAtomInput) => {
-      return mutate({ variables: { input } })
+      return mutate({ variables: { input } }).unwrap()
     },
     [mutate],
   )
@@ -27,7 +27,7 @@ export const useCreateAtomForm = () => {
     title: 'Error while creating atom',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: CreateAtomFormProps = {
     onSubmit,
@@ -39,6 +39,6 @@ export const useCreateAtomForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

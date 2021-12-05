@@ -17,7 +17,8 @@ export const useDeleteLambdaForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: DeleteLambdaMutationInput) => mutate({ variables: { input } }),
+    (input: DeleteLambdaMutationInput) =>
+      mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 

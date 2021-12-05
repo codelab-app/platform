@@ -17,11 +17,8 @@ export const useUpdateLambdaForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: UpdateLambdaMutationInput) => {
-      return mutate({
-        variables: { input },
-      })
-    },
+    (input: UpdateLambdaMutationInput) =>
+      mutate({ variables: { input } }).unwrap(),
     [mutate, updateId],
   )
 

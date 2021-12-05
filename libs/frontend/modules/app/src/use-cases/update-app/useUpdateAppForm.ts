@@ -20,7 +20,7 @@ export const useUpdateAppForm = () => {
     (data: UpdateAppMutationInput) => {
       return mutate({
         variables: { input: { data, id: updateId } },
-      })
+      }).unwrap()
     },
     [mutate, updateId],
   )

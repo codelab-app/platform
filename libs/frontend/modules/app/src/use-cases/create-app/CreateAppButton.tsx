@@ -7,9 +7,10 @@ import { CreateAppButtonProps } from './types'
 export const CreateAppButton = ({ createNow }: CreateAppButtonProps) => {
   const { openCreateModal } = useAppDispatch()
   const icon = !createNow && <PlusOutlined />
+  const onClick = () => openCreateModal()
 
   return (
-    <Button onClick={openCreateModal} icon={icon} type="primary">
+    <Button onClick={onClick} icon={icon} type="primary">
       {createNow ? 'Create Now' : 'Create App'}
     </Button>
   )
