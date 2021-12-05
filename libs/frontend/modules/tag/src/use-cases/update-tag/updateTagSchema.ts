@@ -1,9 +1,7 @@
 import { JSONSchemaType } from 'ajv'
-import { UpdateTagMutationVariables } from '../../graphql/tag.endpoints.graphql.gen'
+import { UpdateTagMutationInput } from './types'
 
-export type UpdateTagSchema = UpdateTagMutationVariables['input']['data']
-
-export const updateTagSchema: JSONSchemaType<UpdateTagSchema> = {
+export const updateTagSchema: JSONSchemaType<UpdateTagMutationInput> = {
   title: 'Update Tag Input',
   type: 'object',
   properties: {

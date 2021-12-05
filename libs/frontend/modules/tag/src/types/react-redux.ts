@@ -1,4 +1,4 @@
-import type { TagState } from '../store/tagState'
+import type { TagState } from '../store'
 
 declare module 'react-redux' {
   interface DefaultRootState {

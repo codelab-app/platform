@@ -1,16 +1,12 @@
-import {
-  FormUniforms,
-  FormUniformsProps,
-} from '@codelab/frontend/view/components'
+import { FormUniforms } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { UpdateTagSchema, updateTagSchema } from './updateTagSchema'
+import { UpdateTagFormProps, UpdateTagMutationInput } from './types'
+import { updateTagSchema } from './updateTagSchema'
 
-export const UpdateTagForm = (
-  props: Omit<FormUniformsProps<UpdateTagSchema>, 'schema'>,
-) => {
+export const UpdateTagForm = (props: UpdateTagFormProps) => {
   return (
-    <FormUniforms<UpdateTagSchema> schema={updateTagSchema} {...props}>
+    <FormUniforms<UpdateTagMutationInput> schema={updateTagSchema} {...props}>
       <AutoFields />
     </FormUniforms>
   )
