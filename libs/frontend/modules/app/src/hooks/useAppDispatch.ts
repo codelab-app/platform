@@ -7,11 +7,16 @@ export const useAppDispatch = () => {
   const { actions } = appSlice
   const curdDispatch = crudModalDispatchFactory(appSlice.actions)()
 
+  const openImportModal = () => {
+    dispatch(actions.openImportModal())
+  }
+
   const setCurrentApp = (payload: SetCurrentAppAction) => {
     dispatch(actions.setCurrentApp(payload))
   }
 
   return {
+    openImportModal,
     setCurrentApp,
     ...curdDispatch,
   }
