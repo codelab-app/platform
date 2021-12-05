@@ -39,6 +39,6 @@ export const useDeleteLambdaForm = () => {
   return {
     formProps,
     state,
-    resetModal,
+    reset: resetModal,
   }
 }
