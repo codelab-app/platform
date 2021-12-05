@@ -6,7 +6,7 @@ import { DeleteAppFormProps, DeleteAppMutationInput } from './types'
 
 export const useDeleteAppForm = () => {
   const { deleteIds, entity } = useAppState()
-  const { reset } = useAppDispatch()
+  const { resetModal } = useAppDispatch()
 
   const [mutate, state] = useDeleteAppMutation({
     selectFromResult: (r) => ({
@@ -17,7 +17,8 @@ export const useDeleteAppForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: DeleteAppMutationInput) => mutate({ variables: { input } }),
+    (input: DeleteAppMutationInput) =>
+      mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 
@@ -25,7 +26,7 @@ export const useDeleteAppForm = () => {
     title: 'Error while deleting app',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: DeleteAppFormProps = {
     onSubmit,
@@ -38,6 +39,6 @@ export const useDeleteAppForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

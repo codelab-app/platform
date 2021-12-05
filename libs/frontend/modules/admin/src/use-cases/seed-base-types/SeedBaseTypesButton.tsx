@@ -6,14 +6,8 @@ export const SeedBaseTypesButton = () => {
   const [seedBaseTypes] = useSeedBaseTypesMutation()
 
   const { onSuccess, onError } = useNotify(
-    {
-      title: 'BaseTypes has been seeded successfully',
-      type: 'success',
-    },
-    {
-      title: 'Failed to seed BaseTypes',
-      type: 'error',
-    },
+    { title: 'BaseTypes has been seeded successfully' },
+    { title: 'Failed to seed BaseTypes' },
   )
 
   const onClick = () => seedBaseTypes().unwrap().then(onSuccess).catch(onError)

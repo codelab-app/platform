@@ -8,7 +8,7 @@ import { UpdatePageFormProps, UpdatePageMutationInput } from './types'
 export const useUpdatePageForm = () => {
   const { currentApp } = useAppState()
   const { updateId, entity } = usePageState()
-  const { reset } = usePageDispatch()
+  const { resetModal } = usePageDispatch()
 
   const [mutate, state] = useUpdatePageMutation({
     selectFromResult: (r) => ({
@@ -31,7 +31,7 @@ export const useUpdatePageForm = () => {
     title: 'Error while updateing page',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: UpdatePageFormProps = {
     onSubmit,
@@ -46,6 +46,6 @@ export const useUpdatePageForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

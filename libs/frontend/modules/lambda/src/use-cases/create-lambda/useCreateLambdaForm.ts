@@ -7,7 +7,7 @@ import { defaultLambdaBody } from './defaultLambdBody'
 import { CreateLambdaFormProps } from './types'
 
 export const useCreateLambdaForm = () => {
-  const { reset } = useLambdaDispatch()
+  const { resetModal } = useLambdaDispatch()
 
   const [mutate, state] = useCreateLambdaMutation({
     selectFromResult: (r) => ({
@@ -28,7 +28,7 @@ export const useCreateLambdaForm = () => {
     title: 'Error while creating lambda',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: CreateLambdaFormProps = {
     onSubmit,
@@ -42,6 +42,6 @@ export const useCreateLambdaForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

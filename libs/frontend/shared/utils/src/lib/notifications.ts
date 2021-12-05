@@ -62,11 +62,11 @@ type UseNotifyReturnType = {
 }
 
 export const useNotify = (
-  success: NotificationOptions,
-  error: NotificationOptions,
+  success: Omit<NotificationOptions, 'type'>,
+  error: Omit<NotificationOptions, 'type'>,
 ): UseNotifyReturnType => {
-  const onSuccess = () => notify(success)
-  const onError = () => notify(error)
+  const onSuccess = () => notify({ ...success, type: 'success' })
+  const onError = () => notify({ ...error, type: 'error' })
 
   return { onSuccess, onError }
 }

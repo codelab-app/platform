@@ -6,7 +6,7 @@ import { DeletePageFormProps, DeletePageMutationInput } from './types'
 
 export const useDeletePageForm = () => {
   const { deleteIds, entity } = usePageState()
-  const { reset } = usePageDispatch()
+  const { resetModal } = usePageDispatch()
 
   const [mutate, state] = useDeletePageMutation({
     selectFromResult: (r) => ({
@@ -25,7 +25,7 @@ export const useDeletePageForm = () => {
     title: 'Error while deleting page',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: DeletePageFormProps = {
     onSubmit,
@@ -38,6 +38,6 @@ export const useDeletePageForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

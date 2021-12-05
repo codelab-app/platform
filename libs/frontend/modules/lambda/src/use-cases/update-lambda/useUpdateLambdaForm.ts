@@ -6,7 +6,7 @@ import { UpdateLambdaFormProps, UpdateLambdaMutationInput } from './types'
 
 export const useUpdateLambdaForm = () => {
   const { updateId, entity } = useLambdaState()
-  const { reset } = useLambdaDispatch()
+  const { resetModal } = useLambdaDispatch()
 
   const [mutate, state] = useUpdateLambdaMutation({
     selectFromResult: (r) => ({
@@ -29,7 +29,7 @@ export const useUpdateLambdaForm = () => {
     title: 'Error while updateing lambda',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: UpdateLambdaFormProps = {
     onSubmit,
@@ -45,6 +45,6 @@ export const useUpdateLambdaForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

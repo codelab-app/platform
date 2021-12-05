@@ -8,7 +8,7 @@ import { CreatePageFormProps } from './types'
 
 export const useCreatePageForm = () => {
   const { currentApp } = useAppState()
-  const { reset } = usePageDispatch()
+  const { resetModal } = usePageDispatch()
 
   const [mutate, state] = useCreatePageMutation({
     selectFromResult: (r) => ({
@@ -19,7 +19,7 @@ export const useCreatePageForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: CreatePageInput) => mutate({ variables: { input } }),
+    (input: CreatePageInput) => mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 
@@ -27,7 +27,7 @@ export const useCreatePageForm = () => {
     title: 'Error while creating page',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: CreatePageFormProps = {
     onSubmit,
@@ -39,6 +39,6 @@ export const useCreatePageForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

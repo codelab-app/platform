@@ -6,7 +6,7 @@ import { useCreateAppMutation } from '../../store'
 import { CreateAppFormProps } from './types'
 
 export const useCreateAppForm = () => {
-  const { reset } = useAppDispatch()
+  const { resetModal } = useAppDispatch()
 
   const [mutate, state] = useCreateAppMutation({
     selectFromResult: (r) => ({
@@ -18,7 +18,7 @@ export const useCreateAppForm = () => {
 
   const onSubmit = useCallback(
     (input: CreateAppInput) => {
-      return mutate({ variables: { input } })
+      return mutate({ variables: { input } }).unwrap()
     },
     [mutate],
   )
@@ -27,7 +27,7 @@ export const useCreateAppForm = () => {
     title: 'Error while creating app',
   })
 
-  const onSubmitSuccess = () => reset()
+  const onSubmitSuccess = () => resetModal()
 
   const formProps: CreateAppFormProps = {
     onSubmit,
@@ -39,6 +39,6 @@ export const useCreateAppForm = () => {
   return {
     formProps,
     state,
-    reset,
+    reset: resetModal,
   }
 }

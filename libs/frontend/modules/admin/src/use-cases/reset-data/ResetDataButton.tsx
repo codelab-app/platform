@@ -6,14 +6,8 @@ export const ResetDataButton = () => {
   const [resetData] = useResetDataMutation()
 
   const { onSuccess, onError } = useNotify(
-    {
-      title: 'Data has been reset successfully',
-      type: 'success',
-    },
-    {
-      title: 'Failed to reset Data',
-      type: 'error',
-    },
+    { title: 'Data has been reset successfully' },
+    { title: 'Failed to reset Data' },
   )
 
   const onClick = () => resetData().unwrap().then(onSuccess).catch(onError)
