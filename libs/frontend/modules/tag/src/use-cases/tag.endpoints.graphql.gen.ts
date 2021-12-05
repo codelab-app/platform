@@ -1,11 +1,10 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
-import { TagFragment, TagGraphFragment } from '../Tag.fragment.graphql.gen'
+import { TagFragment } from '../graphql/Tag.fragment.graphql.gen'
+import { TagGraphFragment } from '../graphql/TagGraph.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import {
-  TagFragmentDoc,
-  TagGraphFragmentDoc,
-} from '../Tag.fragment.graphql.gen'
+import { TagFragmentDoc } from '../graphql/Tag.fragment.graphql.gen'
+import { TagGraphFragmentDoc } from '../graphql/TagGraph.fragment.graphql.gen'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type CreateTagMutationVariables = Types.Exact<{
   input: Types.CreateTagInput
