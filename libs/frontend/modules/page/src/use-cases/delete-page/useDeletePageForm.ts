@@ -17,7 +17,8 @@ export const useDeletePageForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: DeletePageMutationInput) => mutate({ variables: { input } }),
+    (input: DeletePageMutationInput) =>
+      mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 

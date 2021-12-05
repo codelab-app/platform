@@ -19,7 +19,7 @@ export const useRemoveHookFromElementForm = (elementId: string) => {
   const handleSubmit = useCallback(() => {
     return mutate({
       variables: { input: { elementId, hookId: deleteIds[0] } },
-    })
+    }).unwrap()
   }, [mutate, elementId, deleteIds])
 
   return {

@@ -16,7 +16,9 @@ export const useDeleteElementForm = () => {
   })
 
   const handleSubmit = useCallback(() => {
-    return mutate({ variables: { input: { elementId: deleteIds[0] } } })
+    return mutate({
+      variables: { input: { elementId: deleteIds[0] } },
+    }).unwrap()
   }, [mutate, deleteIds])
 
   return {

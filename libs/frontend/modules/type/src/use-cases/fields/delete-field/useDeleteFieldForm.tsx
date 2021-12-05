@@ -16,7 +16,7 @@ export const useDeleteFieldForm = () => {
   })
 
   const handleSubmit = useCallback(() => {
-    return mutate({ variables: { input: { fieldId: deleteIds[0] } } })
+    return mutate({ variables: { input: { fieldId: deleteIds[0] } } }).unwrap()
   }, [deleteIds, mutate])
 
   return {

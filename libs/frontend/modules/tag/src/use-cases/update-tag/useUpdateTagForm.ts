@@ -23,7 +23,7 @@ export const useUpdateTagForm = () => {
     ({ name }: UpdateTagSchema) => {
       return mutate({
         variables: { input: { data: { name }, id: updateId } },
-      })
+      }).unwrap()
     },
     [mutate, updateId],
   )

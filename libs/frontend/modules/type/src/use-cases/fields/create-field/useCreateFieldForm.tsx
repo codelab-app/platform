@@ -34,7 +34,7 @@ export const useCreateFieldForm = () => {
         },
       }
 
-      return mutate({ variables })
+      return mutate({ variables }).unwrap()
     },
     [interfaceId, mutate],
   )

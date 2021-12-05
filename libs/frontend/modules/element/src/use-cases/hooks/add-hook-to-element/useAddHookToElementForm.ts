@@ -53,7 +53,7 @@ export const useAddHookToElementForm = (elementId: string) => {
       return
     }
 
-    return mutate({ variables: { input } })
+    return mutate({ variables: { input } }).unwrap()
   }
 
   const reset = () => {

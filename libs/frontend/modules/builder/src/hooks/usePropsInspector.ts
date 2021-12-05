@@ -47,7 +47,7 @@ export const usePropsInspector = (elementId: string) => {
             data: JSON.stringify(JSON.parse(persistedProps)),
           },
         },
-      })
+      }).unwrap()
     } catch (e) {
       notify({ title: 'Invalid json', type: 'warning' })
     }

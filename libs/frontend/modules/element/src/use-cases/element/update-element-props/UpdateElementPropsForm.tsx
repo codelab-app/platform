@@ -81,7 +81,7 @@ const UpdateElementPropsFormInternal = ({
                 propsId: existingProps.id,
               },
             },
-          })
+          }).unwrap()
 
           return trackPromise?.(promise) ?? promise
         }}

@@ -46,7 +46,7 @@ export const MoveElementForm = ({
       variables: {
         input: { elementId, moveData: { ...submitData } },
       },
-    })
+    }).unwrap()
 
     if (trackPromise) {
       trackPromise(promise)

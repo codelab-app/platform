@@ -19,11 +19,10 @@ export const useUpdatePageForm = () => {
   })
 
   const onSubmit = useCallback(
-    (data: UpdatePageMutationInput) => {
-      return mutate({
+    (data: UpdatePageMutationInput) =>
+      mutate({
         variables: { input: { updateData: data, pageId: updateId } },
-      })
-    },
+      }).unwrap(),
     [mutate, updateId],
   )
 

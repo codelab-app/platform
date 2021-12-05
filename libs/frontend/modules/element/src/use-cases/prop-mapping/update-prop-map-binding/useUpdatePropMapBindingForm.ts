@@ -33,7 +33,7 @@ export const useUpdatePropMapBindingForm = () => {
             propMapBindingId: updateId,
           },
         },
-      })
+      }).unwrap()
     },
     [mutate, updateId],
   )
