@@ -49,6 +49,13 @@ export const elementApi = generatedApi.enhanceEndpoints({
       invalidatesTags: (result) =>
         providesById(result?.updateElementProps?.id, ELEMENT_CACHE_TAG),
     },
+    ConvertElementToComponent: {
+      invalidatesTags: () => [
+        ELEMENT_CACHE_TAG,
+        ELEMENT_GRAPH_CACHE_TAG,
+        COMPONENT_CACHE_TAG,
+      ],
+    },
   },
 })
 
@@ -64,4 +71,5 @@ export const {
   useMoveElementMutation,
   useUpdateElementMutation,
   useUpdateElementPropsMutation,
+  useConvertElementToComponentMutation,
 } = generatedApi

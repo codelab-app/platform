@@ -45,7 +45,7 @@ export class DgraphRepository {
 
     try {
       return await action(txn)
-    } catch (e) {
+    } catch (e: any) {
       // Retry
       if (e.message?.includes('Please retry')) {
         this.logger.log(

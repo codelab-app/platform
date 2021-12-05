@@ -1,5 +1,6 @@
 import { IElement } from '@codelab/frontend/abstract/core'
 import {
+  useConvertElementToComponentMutation,
   useCreateElementMutation,
   useElementDispatch,
 } from '@codelab/frontend/modules/element'
@@ -27,6 +28,7 @@ export const ElementContextMenu = ({
   onBlur,
 }: ElementContextMenuProps) => {
   const [createElement] = useCreateElementMutation()
+  const [convertToComponent] = useConvertElementToComponentMutation()
   const { openCreateModal, openDeleteModal } = useElementDispatch()
   const onAddChild = () => openCreateModal({ parentElementId: element.id })
 
@@ -44,19 +46,28 @@ export const ElementContextMenu = ({
     })
   }
 
+  const onConvert = () => {
+    return convertToComponent({
+      variables: { input: { elementId: element.id } },
+    })
+  }
+
   return (
     <Menu
       onBlur={onBlur}
       onClick={() => onClick?.()}
       css={tw`border border-gray-200 shadow-xl`}
     >
-      <Menu.Item onClick={() => onAddChild()} key="1">
+      <Menu.Item onClick={() => onAddChild()} key="addchild">
         Add child
       </Menu.Item>
       <Menu.Item onClick={() => onDuplicate()} key="duplicate">
         Duplicate
       </Menu.Item>
-      <Menu.Item danger onClick={() => onDelete()} key="2">
+      <Menu.Item onClick={() => onConvert()} key="convert">
+        Convert to component
+      </Menu.Item>
+      <Menu.Item danger onClick={() => onDelete()} key="delete">
         <span>Delete `{element.name}` </span>{' '}
         <span>
           <Key>del</Key> <Key>{'\u232B'}</Key>

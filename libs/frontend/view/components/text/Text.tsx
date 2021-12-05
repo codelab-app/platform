@@ -18,7 +18,10 @@ export const List = ({
   // We'll do our conversion here, we can be specfic because we know which type it needs to be
   const _renderItem = renderItem
 
-  return React.createElement(AntList, { ...props, renderItem: _renderItem })
+  return React.createElement(AntList, {
+    ...props,
+    renderItem: _renderItem,
+  } as any)
 }
 
 Text.displayName = 'Text'

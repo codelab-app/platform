@@ -41,7 +41,7 @@ export const plugin: PluginFunction<
   ]
 
   const visitor = new RTKQueryVisitor(schema, allFragments, config, documents)
-  const visitorResult = visit(allAst, { leave: visitor })
+  const visitorResult = visit(allAst, visitor)
 
   const requiredSegment = [
     visitor.fragments,

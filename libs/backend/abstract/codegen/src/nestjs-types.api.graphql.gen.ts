@@ -753,6 +753,10 @@ export interface DeleteElementInput {
     elementId: string;
 }
 
+export interface ConvertElementToComponentInput {
+    elementId: string;
+}
+
 export interface CreateComponentInput {
     name: string;
 }
@@ -1286,6 +1290,7 @@ export interface IMutation {
     moveElement(input: MoveElementInput): Element | Promise<Element>;
     updateElementProps(input: UpdateElementPropsInput): Element | Promise<Element>;
     deleteElement(input: DeleteElementInput): Element | Promise<Element>;
+    convertElementToComponent(input: ConvertElementToComponentInput): Element | Promise<Element>;
     createComponent(input: CreateComponentInput): Element | Promise<Element>;
     createAtom(input: CreateAtomInput): Atom | Promise<Atom>;
     deleteAtom(input: DeleteAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;

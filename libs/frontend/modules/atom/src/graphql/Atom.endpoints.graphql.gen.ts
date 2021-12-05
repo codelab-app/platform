@@ -24,7 +24,7 @@ export type DeleteAtomMutation = {
 }
 
 export type ExportAtomsQueryVariables = Types.Exact<{
-  input?: Types.Maybe<Types.GetAtomsInput>
+  input?: Types.InputMaybe<Types.GetAtomsInput>
 }>
 
 export type ExportAtomsQuery = {
@@ -38,7 +38,7 @@ export type GetAtomQueryVariables = Types.Exact<{
 export type GetAtomQuery = { getAtom?: AtomFragment | null | undefined }
 
 export type GetAtomsQueryVariables = Types.Exact<{
-  input?: Types.Maybe<Types.GetAtomsInput>
+  input?: Types.InputMaybe<Types.GetAtomsInput>
 }>
 
 export type GetAtomsQuery = {

@@ -12,7 +12,9 @@ export const extractErrorMessage = (e: any): string => {
   if (typeof e === 'object') {
     if (e instanceof ApolloError) {
       return e.graphQLErrors[0].extensions
-        ? `[${e.message}]: ${e.graphQLErrors[0].extensions.response.error}`
+        ? `[${e.message}]: ${
+            (e.graphQLErrors[0].extensions.response as any)?.error
+          }`
         : e.message
     }
 

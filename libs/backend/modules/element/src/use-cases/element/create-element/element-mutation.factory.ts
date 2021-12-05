@@ -149,12 +149,6 @@ export class ElementMutationFactory {
       atomId = atom.atomId
     }
 
-    const createTagJson = {
-      'dgraph.type': [DgraphEntityType.Tag],
-      name,
-      isRoot: true,
-    }
-
     return {
       uid: this.blankNodeFactory(input, blankNodeUid),
       'dgraph.type': [DgraphEntityType.Element],
@@ -174,7 +168,17 @@ export class ElementMutationFactory {
       renderIfPropKey,
       propTransformationJs,
       propMapBindings: propMapBindingMutations,
-      componentTag: isComponent ? createTagJson : undefined,
+      componentTag: isComponent
+        ? ElementMutationFactory.componentTagJson(name)
+        : undefined,
+    }
+  }
+
+  public static componentTagJson(name?: string) {
+    return {
+      'dgraph.type': [DgraphEntityType.Tag],
+      name,
+      isRoot: true,
     }
   }
 
