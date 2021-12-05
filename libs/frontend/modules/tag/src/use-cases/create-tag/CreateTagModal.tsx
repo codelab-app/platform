@@ -5,7 +5,7 @@ import {
 import React from 'react'
 import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { useTagState } from '../../hooks/use-tag/useTagState'
+import { useTagState } from '../../hooks/useTagState'
 import { selectTag } from '../../store/tagState'
 import { CreateTagForm } from './CreateTagForm'
 import { useCreateTagForm } from './useCreateTagForm'

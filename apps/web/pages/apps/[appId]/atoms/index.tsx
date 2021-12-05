@@ -1,6 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage, HeaderProps } from '@codelab/frontend/abstract/props'
-import { withAppQueryProvider } from '@codelab/frontend/modules/app'
+import { withAppProvider } from '@codelab/frontend/modules/app'
 import {
   CreateAtomButton,
   CreateAtomModal,
@@ -48,7 +48,7 @@ const AtomsPage: CodelabPage<HeaderProps> = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-AtomsPage.Template = withAppQueryProvider(DashboardTemplate)
+AtomsPage.Template = withAppProvider(DashboardTemplate)
 AtomsPage.SidebarNavigation = BuilderSidebarNavigation
 AtomsPage.Header = DashboardHeader
 AtomsPage.MetaPane = null

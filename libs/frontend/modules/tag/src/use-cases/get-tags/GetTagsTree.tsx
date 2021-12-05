@@ -1,7 +1,7 @@
 import { CheckedKeys } from '@codelab/frontend/shared/types'
 import { Tree, TreeProps } from 'antd'
-import { useTagState } from '../../hooks/use-tag/useTagState'
-import { useTagTree } from '../../hooks/use-tag/useTagTree'
+import { useTagState } from '../../hooks/useTagState'
+import { useTagTree } from '../../hooks/useTagTree'
 import { useGetTagGraphsQuery } from '../../store/tagEndpoints'
 
 export const GetTagsTree = () => {

@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 import fileDownload from 'js-file-download'
-import { useTagState } from '../../hooks/use-tag/useTagState'
+import { useTagState } from '../../hooks/useTagState'
 import { useLazyExportTagsQuery } from '../../store/tagEndpoints'
 
 /**

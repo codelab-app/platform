@@ -1,9 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
-import {
-  useAppState,
-  withAppQueryProvider,
-} from '@codelab/frontend/modules/app'
+import { useAppState, withAppProvider } from '@codelab/frontend/modules/app'
 import { PageMainPane } from '@codelab/frontend/modules/page'
 import {
   DashboardTemplate,
@@ -26,7 +23,7 @@ const Pages: CodelabPage = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-Pages.Template = withAppQueryProvider(DashboardTemplate)
+Pages.Template = withAppProvider(DashboardTemplate)
 Pages.MainPane = PageMainPane
 Pages.Header = null
 Pages.SidebarNavigation = SidebarNavigation

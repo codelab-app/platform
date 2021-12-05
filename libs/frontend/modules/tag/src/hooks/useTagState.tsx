@@ -1,6 +1,6 @@
 import { Key, useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectTag, tagActions, TagState } from '../../store/tagState'
+import { selectTag, tagActions, TagState } from '../store/tagState'
 
 export interface UseTagState {
   selectedTag: TagState['selectedTag']

@@ -1,17 +1,15 @@
+import { withProvider } from '@codelab/frontend/presenter/container'
 import { ConditionalView } from '@codelab/frontend/view/components'
+import { useRouter } from 'next/router'
 import React, { PropsWithChildren } from 'react'
-import { AppProviderProps } from './types'
 import { useProvideCurrentApp } from './useProvideCurrentApp'
 
-export const _AppProvider = ({
-  appId,
-  children,
-}: PropsWithChildren<AppProviderProps>) => {
+export const AppProvider = ({ children }: PropsWithChildren<unknown>) => {
+  const { query } = useRouter()
+  const appId = query.appId as string
   const { currentApp } = useProvideCurrentApp(appId)
 
   return <ConditionalView condition={!!currentApp}>{children}</ConditionalView>
 }
 
-export const AppProvider = React.memo(_AppProvider, (prev, next) => {
-  return prev.appId !== next.appId
-})
+export const withAppProvider = withProvider(AppProvider)

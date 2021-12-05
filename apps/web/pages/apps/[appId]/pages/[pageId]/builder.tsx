@@ -1,6 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
-import { withAppQueryProvider } from '@codelab/frontend/modules/app'
+import { withAppProvider } from '@codelab/frontend/modules/app'
 import {
   Builder,
   BuilderSidebarNavigation,
@@ -12,7 +12,7 @@ import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
   useAppPagesQuery,
   usePageState,
-  withPageQueryProvider,
+  withPageProvider,
 } from '@codelab/frontend/modules/page'
 import { PageDetailHeader } from '@codelab/frontend/view/sections'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
@@ -75,7 +75,7 @@ export const getServerSideProps = withPageAuthRequired({
 
 PageBuilder.Header = BuilderHeader
 PageBuilder.Template = withBuilderContext(
-  withAppQueryProvider(withPageQueryProvider(DashboardTemplate)),
+  withAppProvider(withPageProvider(DashboardTemplate)),
 )
 PageBuilder.SidebarNavigation = BuilderSidebarNavigation
 PageBuilder.MainPane = MainPaneBuilder

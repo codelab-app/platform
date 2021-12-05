@@ -6,7 +6,7 @@ import {
 import { PayloadAction } from '@reduxjs/toolkit'
 import { Key } from 'react'
 import { DefaultRootState } from 'react-redux'
-import { TagFragment } from '../Tag.fragment.graphql.gen'
+import { TagFragment } from '../graphql/Tag.fragment.graphql.gen'
 
 export interface TagState extends CRUDModalState<TagFragment> {
   selectedTag?: Key
