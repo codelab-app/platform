@@ -9,6 +9,9 @@ import { api as generatedApi } from '../graphql/Atom.endpoints.graphql.gen'
 
 export const api = generatedApi.enhanceEndpoints({
   endpoints: {
+    ExportAtoms: {
+      providesTags: (result) => providesAll(result?.getAtoms, ATOMS_CACHE_TAG),
+    },
     GetAtoms: {
       providesTags: (result) => providesAll(result?.getAtoms, ATOMS_CACHE_TAG),
     },
@@ -25,6 +28,9 @@ export const api = generatedApi.enhanceEndpoints({
     UpdateAtom: {
       invalidatesTags: (result) =>
         invalidatesById(result?.updateAtom?.id, ATOMS_CACHE_TAG),
+    },
+    ImportAtoms: {
+      invalidatesTags: () => invalidatesAll(ATOMS_CACHE_TAG),
     },
   },
 })
