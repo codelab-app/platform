@@ -117,7 +117,7 @@ export const MetaPaneBuilder = ({
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            style={{ overflow: 'auto' }}
+            style={{ overflow: 'auto', maxHeight: '100%' }}
             tab="Props"
             key={selectedElement.id + '_tab2'}
             destroyInactiveTabPane // needed to update props if we change them in the prop inspector tab
