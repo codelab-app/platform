@@ -107,7 +107,7 @@ export const MetaPaneBuilder = ({
 
         <Tabs defaultActiveKey={selectedElement.id + '_tab1'}>
           <Tabs.TabPane
-            style={{ overflow: 'auto' }}
+            style={{ overflow: 'auto', maxHeight: '100%' }}
             tab="Element"
             key={selectedElement.id + '_tab1'}
           >
@@ -150,7 +150,7 @@ export const MetaPaneBuilder = ({
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            style={{ overflow: 'auto' }}
+            style={{ overflow: 'auto', maxHeight: '100%' }}
             tab="Hooks"
             key={selectedElement.id + '_tab4'}
           >
@@ -161,7 +161,7 @@ export const MetaPaneBuilder = ({
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            style={{ overflow: 'auto' }}
+            style={{ overflow: 'auto', maxHeight: '100%' }}
             tab="Props Inspector"
             key={selectedElement.id + '_tab5'}
           >
@@ -172,7 +172,7 @@ export const MetaPaneBuilder = ({
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            style={{ overflow: 'auto' }}
+            style={{ overflow: 'auto', maxHeight: '100%' }}
             tab="Prop mapping"
             key={selectedElement.id + '_tab6'}
           >
@@ -189,7 +189,7 @@ export const MetaPaneBuilder = ({
           </Tabs.TabPane>
 
           <Tabs.TabPane
-            style={{ overflow: 'auto' }}
+            style={{ overflow: 'auto', maxHeight: '100%' }}
             tab="Prop transformation"
             key={selectedElement.id + '_tab7'}
           >
