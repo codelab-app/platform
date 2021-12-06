@@ -6,6 +6,7 @@ import { CodelabPage } from '@codelab/frontend/abstract/props'
 import { useApollo } from '@codelab/frontend/model/infra/apollo'
 import { reduxStoreWrapper } from '@codelab/frontend/model/infra/redux'
 import { css, Global } from '@emotion/react'
+import { ConfigProvider } from 'antd'
 import { AppProps } from 'next/app'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -36,29 +37,31 @@ const AppContainer = ({
     <QueryClientProvider client={queryClient}>
       <ApolloProvider client={useApollo(ssrPageProps)}>
         <UserProvider>
-          <GlobalStyles />
-          <Global
-            styles={[
-              css({
-                '#__next': {
-                  height: '100%',
-                },
-              }),
-              ...globalTailwindFix,
-            ]}
-          />
-          {Template ? (
-            <Template
-              MainPane={_MainPane}
-              MetaPane={_MetaPane}
-              SidebarNavigation={_SidebarNavigation}
-              Header={_Header}
-            >
+          <ConfigProvider>
+            <GlobalStyles />
+            <Global
+              styles={[
+                css({
+                  '#__next': {
+                    height: '100%',
+                  },
+                }),
+                ...globalTailwindFix,
+              ]}
+            />
+            {Template ? (
+              <Template
+                MainPane={_MainPane}
+                MetaPane={_MetaPane}
+                SidebarNavigation={_SidebarNavigation}
+                Header={_Header}
+              >
+                <Component {...ssrPageProps} />
+              </Template>
+            ) : (
               <Component {...ssrPageProps} />
-            </Template>
-          ) : (
-            <Component {...ssrPageProps} />
-          )}
+            )}
+          </ConfigProvider>
         </UserProvider>
       </ApolloProvider>
     </QueryClientProvider>
