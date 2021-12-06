@@ -121,9 +121,10 @@ export class ElementMutationFactory {
     }
 
     const childrenMutations = await this.makeChildrenMutations(children)
+    const elementUid = this.blankNodeFactory(input, blankNodeUid)
 
     const propsMutation = {
-      uid: '_:props',
+      uid: `_:props${elementUid}`,
       data: '{}',
     }
 
@@ -150,7 +151,7 @@ export class ElementMutationFactory {
     }
 
     return {
-      uid: this.blankNodeFactory(input, blankNodeUid),
+      uid: elementUid,
       'dgraph.type': [DgraphEntityType.Element],
       name,
       owner: this.currentUser
