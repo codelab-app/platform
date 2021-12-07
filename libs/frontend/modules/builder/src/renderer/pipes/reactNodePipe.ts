@@ -1,6 +1,6 @@
 import { TypeKind } from '@codelab/frontend/abstract/codegen'
 import { mergeProps } from '@codelab/shared/utils'
-import { RenderPipeFactory } from '../types/RenderPipe'
+import { RenderPipeFactory } from '../types/RenderTypes'
 import { getPropsByTypeKind } from '../utils/getPropsByTypeKind'
 import { transformPropsToComponent } from '../utils/tranformPropsToComponent'
 

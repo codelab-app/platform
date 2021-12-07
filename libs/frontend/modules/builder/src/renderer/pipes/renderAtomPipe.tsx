@@ -2,7 +2,7 @@ import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import React from 'react'
 import { reactComponentFactory } from '../reactComponentFactory'
-import { RenderPipeFactory } from '../types/RenderPipe'
+import { RenderPipeFactory } from '../types/RenderTypes'
 import { evalCss } from '../utils/evalCss'
 import { onRendered } from '../utils/onRendered'
 

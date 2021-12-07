@@ -1,10 +1,10 @@
 import { ReactElement } from 'react'
-import { RenderPipe } from '../types/RenderPipe'
+import { RenderTypes } from '../types/RenderTypes'
 
 /**
  * Renders the elements children, this should be the last pipe
  */
-export const renderChildrenPipe: RenderPipe = (element, context, props) => {
+export const renderChildrenPipe: RenderTypes = (element, context, props) => {
   const childVertices = context.tree.getChildren(element.id)
 
   if (!childVertices || childVertices?.length === 0) {
@@ -19,7 +19,7 @@ export const renderChildrenPipe: RenderPipe = (element, context, props) => {
   }
 
   const rendered = childVertices
-    .map((child) => context.renderFactory(child, context))
+    .map((child) => context.render(child, context, {}))
     .filter((c): c is ReactElement => !!c)
 
   if (!rendered?.length) {

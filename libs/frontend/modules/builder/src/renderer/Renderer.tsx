@@ -1,17 +1,14 @@
 import { TypeKindsContext } from '@codelab/frontend/modules/type'
-import {
-  RenderContext,
-  RenderProvider,
-} from '@codelab/frontend/presenter/container'
 import { ElementTree } from '@codelab/shared/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import React, { useContext } from 'react'
 import { RecoilRoot } from 'recoil'
 import { defaultRenderContext } from './defaultRenderContext'
+import { RenderContext } from './types/RenderTypes'
 
 export interface RendererProps {
   tree: ElementTree
-  context?: Omit<RenderContext, 'tree' | 'renderFactory'>
+  context?: Omit<RenderContext, 'tree' | 'render'>
 }
 
 /**
@@ -38,17 +35,19 @@ export const Renderer = ({ tree, context: contextProp }: RendererProps) => {
 
   const rendered = (
     <ErrorBoundary>
-      <RenderProvider context={context}>
-        <RecoilRoot>
-          <div style={{ height: '100%' }} id="render-root">
-            {context.renderFactory(root, {
+      <RecoilRoot>
+        <div style={{ height: '100%' }} id="render-root">
+          {context.render(
+            root,
+            {
               ...(context ?? {}),
               inspect: false,
               tree,
-            })}
-          </div>
-        </RecoilRoot>
-      </RenderProvider>
+            },
+            {},
+          )}
+        </div>
+      </RecoilRoot>
     </ErrorBoundary>
   )
 

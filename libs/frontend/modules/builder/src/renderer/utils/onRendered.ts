@@ -1,9 +1,6 @@
-import {
-  RenderContext,
-  RenderOutput,
-} from '@codelab/frontend/presenter/container'
 import { IElement } from '@codelab/shared/abstract/core'
 import { ReactNode } from 'react'
+import { RenderContext, RenderOutput } from '../types/RenderTypes'
 
 export const onRendered = (
   rendered: RenderOutput,

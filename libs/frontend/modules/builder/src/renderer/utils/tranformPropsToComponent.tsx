@@ -1,7 +1,7 @@
-import { RenderContext } from '@codelab/frontend/presenter/container'
 import { mergeProps } from '@codelab/shared/utils'
 import * as _ from 'lodash'
 import React from 'react'
+import { RenderContext } from '../types/RenderTypes'
 
 export const transformPropsToComponent = (
   props: Record<string, any>,
@@ -29,13 +29,7 @@ export const transformPropsToComponent = (
 
     const RenderedPropsComponent = (...spreadComponentProps: Array<any>) => {
       const componentProps = mergeProps(allProps, ...spreadComponentProps)
-
-      const result = context.renderFactory(component, {
-        ...context,
-        extraElementProps: mergeProps(context.extraElementProps, {
-          [component.id]: componentProps,
-        }),
-      })
+      const result = context.render(component, context, componentProps)
 
       return <>{result}</>
     }

@@ -1,6 +1,6 @@
-import { RenderContext } from '@codelab/frontend/presenter/container'
-import { renderFactory } from './renderFactory'
+import { renderPipeline } from './renderPipeline'
+import { RenderContext } from './types/RenderTypes'
 
 export const defaultRenderContext = (
-  context: Omit<RenderContext, 'renderFactory'>,
-): RenderContext => ({ ...context, renderFactory })
+  context: Omit<RenderContext, 'render'>,
+): RenderContext => ({ ...context, render: renderPipeline })

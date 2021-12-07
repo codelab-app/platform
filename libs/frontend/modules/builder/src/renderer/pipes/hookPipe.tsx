@@ -1,7 +1,7 @@
 import { mergeProps } from '@codelab/shared/utils'
 import React from 'react'
 import { HookElementWrapper } from '../hooks/HookElementWrapper'
-import { RenderPipeFactory } from '../types/RenderPipe'
+import { RenderPipeFactory } from '../types/RenderTypes'
 
 /**
  * Adds in props from element.hooks

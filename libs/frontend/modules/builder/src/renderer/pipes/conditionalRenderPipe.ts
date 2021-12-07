@@ -1,4 +1,4 @@
-import { RenderPipeFactory } from '../types/RenderPipe'
+import { RenderPipeFactory } from '../types/RenderTypes'
 import { evaluateRenderIfPropKey } from '../utils/evaluateRenderIfPropKey'
 import { onRendered } from '../utils/onRendered'
 

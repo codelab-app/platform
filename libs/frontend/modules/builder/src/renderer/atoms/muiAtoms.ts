@@ -1,4 +1,5 @@
 import { AtomType } from '@codelab/shared/abstract/core'
+import Input from '@mui/material/Input'
 import dynamic from 'next/dynamic'
 import { AtomsRecord } from './atomFactoryType'
 
@@ -133,7 +134,7 @@ export const muiAtoms: AtomsRecord = {
   [AtomType.MuiImageListItemBar]: dynamic(
     () => import('@mui/material/ImageListItemBar'),
   ),
-  [AtomType.MuiInput]: dynamic(() => import('@mui/material/Input')),
+  [AtomType.MuiInput]: Input,
   [AtomType.MuiInputAdornment]: dynamic(
     () => import('@mui/material/InputAdornment'),
   ),
