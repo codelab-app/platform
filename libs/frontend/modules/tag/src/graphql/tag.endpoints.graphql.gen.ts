@@ -1,13 +1,11 @@
-import { gql } from '@apollo/client'
 import * as Types from '@codelab/frontend/abstract/codegen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
-import {
-  TagFragment,
-  TagFragmentDoc,
-  TagGraphFragment,
-  TagGraphFragmentDoc,
-} from '../Tag.fragment.graphql.gen'
 
+import { TagFragment } from './Tag.fragment.graphql.gen'
+import { TagGraphFragment } from './TagGraph.fragment.graphql.gen'
+import { gql } from '@apollo/client'
+import { TagFragmentDoc } from './Tag.fragment.graphql.gen'
+import { TagGraphFragmentDoc } from './TagGraph.fragment.graphql.gen'
+import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type CreateTagMutationVariables = Types.Exact<{
   input: Types.CreateTagInput
 }>
@@ -191,7 +189,6 @@ const injectedRtkApi = api.injectEndpoints({
     }),
   }),
 })
-
 export { injectedRtkApi as api }
 export const {
   useCreateTagMutation,

@@ -1,0 +1,14 @@
+fragment Export__Atoms on Atom {
+  id
+  name
+  type
+  api {
+    id
+    name
+    # These are resolved using @ResolveField
+    typeKind
+    typeGraph {
+      ...TypeGraph
+    }
+  }
+}

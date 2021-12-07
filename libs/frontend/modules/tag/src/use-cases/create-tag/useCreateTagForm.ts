@@ -1,12 +1,11 @@
 import { CreateTagInput } from '@codelab/frontend/abstract/codegen'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import { useCreateTagMutation } from '../../store/tagEndpoints'
-import { tagActions } from '../../store/tagState'
+import { useTagDispatch } from '../../hooks'
+import { useCreateTagMutation } from '../../store'
 
 export const useCreateTagForm = (parentTagId?: string) => {
-  const dispatch = useDispatch()
+  const { resetModal } = useTagDispatch()
 
   const [mutate, state] = useCreateTagMutation({
     selectFromResult: (r) => ({
@@ -15,8 +14,6 @@ export const useCreateTagForm = (parentTagId?: string) => {
       error: r.error,
     }),
   })
-
-  const reset = () => dispatch(tagActions.resetModal())
 
   const handleSubmit = useCallback(
     (input: CreateTagInput) => {
@@ -31,10 +28,10 @@ export const useCreateTagForm = (parentTagId?: string) => {
       onSubmitError: createNotificationHandler({
         title: 'Error while creating tag',
       }),
-      onSubmitSuccess: () => reset(),
+      onSubmitSuccess: () => resetModal(),
       model: { parentTagId },
     },
     state,
-    reset,
+    reset: resetModal,
   }
 }

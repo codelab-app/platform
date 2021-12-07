@@ -1,14 +1,18 @@
 import { EditOutlined } from '@ant-design/icons'
 import { UpdateButtonProps } from '@codelab/frontend/abstract/props'
 import { Button } from 'antd'
-import { useDispatch } from 'react-redux'
-import { tagActions } from '../../store/tagState'
+import { useTagDispatch } from '../../hooks'
 
 export const UpdateTagButton = ({ id, disabled }: UpdateButtonProps) => {
-  const dispatch = useDispatch()
+  const { openUpdateModal } = useTagDispatch()
 
-  const openUpdateModal = () =>
-    dispatch(tagActions.openUpdateModal({ updateId: id }))
+  const onClick = () => {
+    if (!id) {
+      throw new Error('Tag ID is not valid')
+    }
+
+    openUpdateModal({ updateId: id })
+  }
 
   return (
     <Button
@@ -16,13 +20,7 @@ export const UpdateTagButton = ({ id, disabled }: UpdateButtonProps) => {
       type="primary"
       disabled={disabled}
       ghost
-      onClick={() => {
-        if (!id) {
-          throw new Error('Tag ID is not valid')
-        }
-
-        openUpdateModal()
-      }}
+      onClick={onClick}
       icon={<EditOutlined />}
     >
       Update Tag

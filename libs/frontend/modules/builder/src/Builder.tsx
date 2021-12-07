@@ -5,19 +5,20 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import styled from '@emotion/styled'
 import React, { MouseEventHandler, useCallback, useContext } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
 import { BuilderDropHandlers } from './dnd/BuilderDropHandlers'
 import { BuilderDropId } from './dnd/BuilderDropId'
 import { useCreateElementDroppable } from './dnd/useCreateElementDroppable'
 import {
+  useBuilderDispatch,
   useBuilderHotkeys,
   useBuilderHoverHandlers,
   useOnRendered,
 } from './hooks'
 import { Renderer } from './renderer'
 import { BuilderClickOverlay, BuilderHoverOverlay } from './sections'
-import { builderActions, builderSelectors } from './store'
+import { builderSelectors } from './store'
 
 export type BuilderProps = {
   tree: ElementTree
@@ -85,7 +86,7 @@ export const Builder = ({
   children,
   tree,
 }: React.PropsWithChildren<BuilderProps>) => {
-  const dispatch = useDispatch()
+  const { selectElement, resetSelection } = useBuilderDispatch()
 
   const { setNodeRef } = useCreateElementDroppable(BuilderDropId.BuilderRoot, {
     parentElementId: tree.getRootVertex(ElementTree.isElement)?.id,
@@ -115,10 +116,9 @@ export const Builder = ({
     visit(e.target as HTMLElement)
   }
 
-  const resetSelection = () => dispatch(builderActions.resetSelection)
-
-  const setSelectedElement = (elementId?: string) =>
-    dispatch(builderActions.selectElement({ elementId }))
+  const setSelectedElement = (elementId?: string) => {
+    selectElement({ elementId })
+  }
 
   useBuilderHotkeys()
 

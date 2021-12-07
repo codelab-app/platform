@@ -1,13 +1,12 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useTagDispatch, useTagState } from '../../hooks'
 import { useUpdateTagMutation } from '../../store/tagEndpoints'
-import { selectTag, tagActions } from '../../store/tagState'
-import { UpdateTagSchema } from './updateTagSchema'
+import { UpdateTagMutationInput } from './types'
 
 export const useUpdateTagForm = () => {
-  const dispatch = useDispatch()
-  const { updateId, entity } = useSelector(selectTag)
+  const { resetModal } = useTagDispatch()
+  const { updateId, entity } = useTagState()
 
   const [mutate, state] = useUpdateTagMutation({
     selectFromResult: (r) => ({
@@ -17,10 +16,10 @@ export const useUpdateTagForm = () => {
     }),
   })
 
-  const reset = () => dispatch(tagActions.resetModal())
+  const reset = () => resetModal()
 
   const handleSubmit = useCallback(
-    ({ name }: UpdateTagSchema) => {
+    ({ name }: UpdateTagMutationInput) => {
       return mutate({
         variables: { input: { data: { name }, id: updateId } },
       }).unwrap()

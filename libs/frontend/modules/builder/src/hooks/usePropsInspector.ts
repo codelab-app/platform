@@ -5,12 +5,13 @@ import {
 import { notify } from '@codelab/frontend/shared/utils'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { builderActions, builderSelectors } from '../store/builderState'
+import { useSelector } from 'react-redux'
+import { builderSelectors } from '../store/builderState'
+import { useBuilderDispatch } from './useBuilderDispatch'
 
 export const usePropsInspector = (elementId: string) => {
   const [persistedProps, setPersistedProps] = useState<string | undefined>()
-  const dispatch = useDispatch()
+  const { setExtraPropsForElement } = useBuilderDispatch()
   const [mutate, { isLoading }] = useUpdateElementPropsMutation({})
 
   const { element } = useGetElementQuery(
@@ -22,10 +23,10 @@ export const usePropsInspector = (elementId: string) => {
     builderSelectors.lastRenderedPropsForElement(s, elementId),
   )
 
-  const setExtraPropsForElement = useCallback(
+  const setExtraProps = useCallback(
     (props: Record<string, any>) =>
-      dispatch(builderActions.setExtraPropsForElement({ elementId, props })),
-    [dispatch, elementId],
+      setExtraPropsForElement({ elementId, props }),
+    [setExtraPropsForElement, elementId],
   )
 
   const save = async () => {
@@ -67,9 +68,9 @@ export const usePropsInspector = (elementId: string) => {
 
   useEffect(() => {
     return () => {
-      setExtraPropsForElement({})
+      setExtraProps({})
     }
-  }, [elementId, setExtraPropsForElement])
+  }, [elementId, setExtraProps])
 
   const lastRenderedPropsString = propSafeStringify(lastRenderedProps ?? {})
 
@@ -79,6 +80,6 @@ export const usePropsInspector = (elementId: string) => {
     isLoading,
     persistedProps,
     setPersistedProps,
-    setExtraPropsForElement,
+    setExtraPropsForElement: setExtraProps,
   }
 }

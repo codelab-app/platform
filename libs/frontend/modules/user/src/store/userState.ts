@@ -42,8 +42,5 @@ export const userSlice = createCrudSlice('user', initialState, {
   }),
 })
 
-export const userActions = userSlice.actions
-export const userReducer = userSlice.reducer
-
 export const selectUser = (rootState: DefaultRootState): UserState =>
   rootState.user

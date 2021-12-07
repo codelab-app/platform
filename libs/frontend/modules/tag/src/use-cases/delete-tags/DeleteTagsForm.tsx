@@ -1,15 +1,11 @@
 import { DeleteTagsInput } from '@codelab/frontend/abstract/codegen'
-import {
-  FormUniforms,
-  FormUniformsProps,
-} from '@codelab/frontend/view/components'
+import { FormUniforms } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { DeleteTagsSchema, deleteTagsSchema } from './deleteTagsSchema'
+import { deleteTagsSchema } from './deleteTagsSchema'
+import { DeleteFromProps } from './types'
 
-export const DeleteTagsForm = (
-  props: Omit<FormUniformsProps<DeleteTagsSchema>, 'schema'>,
-) => {
+export const DeleteTagsForm = (props: DeleteFromProps) => {
   return (
     <FormUniforms<DeleteTagsInput> schema={deleteTagsSchema} {...props}>
       <AutoFields />

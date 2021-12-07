@@ -2,35 +2,29 @@ import {
   ActionType,
   FormUniformsModal,
 } from '@codelab/frontend/view/components'
+import { ModalProps } from 'antd'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
-import { useTagState } from '../../hooks/use-tag/useTagState'
-import { selectTag } from '../../store/tagState'
+import { useTagState } from '../../hooks'
 import { CreateTagForm } from './CreateTagForm'
 import { useCreateTagForm } from './useCreateTagForm'
 
 export const CreateTagModal = () => {
-  const { selectedTag } = useTagState()
-  const { actionType } = useSelector(selectTag)
+  const { selectedTag, actionType } = useTagState()
+  const { formProps, reset, state } = useCreateTagForm(selectedTag?.toString())
+  const { isLoading } = state
 
-  const {
-    formProps,
-    reset,
-    state: { isLoading },
-  } = useCreateTagForm(selectedTag?.toString())
+  const modalProps: ModalProps = {
+    okText: 'Create Tag',
+    okButtonProps: { loading: isLoading },
+    visible: actionType === ActionType.Create,
+    onCancel: () => reset(),
+    title: <span css={tw`font-semibold`}>Add hook to element</span>,
+  }
 
   return (
     <FormUniformsModal
-      modalProps={{
-        okText: 'Create Tag',
-        okButtonProps: {
-          loading: isLoading,
-        },
-        visible: actionType === ActionType.Create,
-        onCancel: () => reset(),
-        title: <span css={tw`font-semibold`}>Add hook to element</span>,
-      }}
+      modalProps={modalProps}
       renderForm={() => <CreateTagForm {...formProps} />}
     />
   )

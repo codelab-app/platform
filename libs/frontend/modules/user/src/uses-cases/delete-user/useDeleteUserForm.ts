@@ -1,12 +1,11 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useUserDispatch, useUserState } from '../../hooks'
 import { useDeleteUserMutation } from '../../store/userEndpoints'
-import { selectUser, userActions } from '../../store/userState'
 
 export const useDeleteUserForm = () => {
-  const dispatch = useDispatch()
-  const deleteIds = useSelector((state) => selectUser(state).deleteIds)
+  const { resetModal } = useUserDispatch()
+  const { deleteIds } = useUserState()
 
   const [mutate, state] = useDeleteUserMutation({
     selectFromResult: (r) => ({
@@ -16,7 +15,7 @@ export const useDeleteUserForm = () => {
     }),
   })
 
-  const reset = () => dispatch(userActions.resetModal())
+  const reset = () => resetModal()
 
   const handleSubmit = useCallback(async () => {
     for (const id of deleteIds) {

@@ -1540,6 +1540,7 @@ export type UpdateLambdaInput = {
 export type UpdatePageData = {
   appId: Scalars['String']
   name: Scalars['String']
+  rootElement?: Maybe<CreateElementChildInput>
 }
 
 export type UpdatePageInput = {

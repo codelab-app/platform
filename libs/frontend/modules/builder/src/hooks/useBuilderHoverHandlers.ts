@@ -1,21 +1,20 @@
 import { ElementTree } from '@codelab/shared/core'
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import { builderActions } from '../store'
+import { useBuilderDispatch } from './useBuilderDispatch'
 
 /**
  * Provides mouseEnter and mouseLeave handlers for builder elements, connecting
  * them to the builder redux state for hovering elements
  */
 export const useBuilderHoverHandlers = (tree: ElementTree) => {
-  const dispatch = useDispatch()
+  const { hoverElement } = useBuilderDispatch()
 
   const handleMouseEnter = useCallback(
     (e: MouseEvent) => {
       const target = e.target as HTMLElement
 
       if (!target) {
-        dispatch(builderActions.hoverElement({ elementId: undefined }))
+        hoverElement({ elementId: undefined })
 
         return
       }
@@ -35,17 +34,17 @@ export const useBuilderHoverHandlers = (tree: ElementTree) => {
       const element = tree.getVertex(elementId, ElementTree.isElement)
 
       if (element && ElementTree.isElement(element)) {
-        dispatch(builderActions.hoverElement({ elementId }))
+        hoverElement({ elementId })
       } else {
-        dispatch(builderActions.hoverElement({ elementId: undefined }))
+        hoverElement({ elementId: undefined })
       }
     },
-    [dispatch, tree],
+    [hoverElement, tree],
   )
 
   const handleMouseLeave = useCallback(() => {
-    dispatch(builderActions.hoverElement({ elementId: undefined }))
-  }, [dispatch])
+    hoverElement({ elementId: undefined })
+  }, [hoverElement])
 
   return {
     handleMouseEnter,

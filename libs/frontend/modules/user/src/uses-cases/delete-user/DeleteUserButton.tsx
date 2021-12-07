@@ -1,23 +1,14 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { userActions, UserStateDeletePayload } from '../../store/userState'
-
-export interface DeleteUserButtonProps {
-  payload: UserStateDeletePayload
-}
+import { useUserDispatch } from '../../hooks'
+import { DeleteUserButtonProps } from './types'
 
 export const DeleteUserButton = ({ payload }: DeleteUserButtonProps) => {
-  const dispatch = useDispatch()
-  const openDeleteModal = () => dispatch(userActions.openDeleteModal(payload))
+  const { openDeleteModal } = useUserDispatch()
+  const onClick = () => openDeleteModal(payload)
 
   return (
-    <Button
-      size="small"
-      danger
-      icon={<DeleteOutlined />}
-      onClick={() => openDeleteModal()}
-    />
+    <Button size="small" danger icon={<DeleteOutlined />} onClick={onClick} />
   )
 }

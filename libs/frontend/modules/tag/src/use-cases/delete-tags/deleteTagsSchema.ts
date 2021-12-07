@@ -1,9 +1,7 @@
 import { JSONSchemaType } from 'ajv'
-import { DeleteTagsMutationVariables } from '../../store/tag.endpoints.graphql.gen'
+import { DeleteTagsMutationInput } from './types'
 
-export type DeleteTagsSchema = DeleteTagsMutationVariables['input']
-
-export const deleteTagsSchema: JSONSchemaType<DeleteTagsSchema> = {
+export const deleteTagsSchema: JSONSchemaType<DeleteTagsMutationInput> = {
   title: 'Delete Tag Input',
   type: 'object',
   properties: {

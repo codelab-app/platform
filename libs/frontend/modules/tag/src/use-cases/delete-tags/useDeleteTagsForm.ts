@@ -1,14 +1,12 @@
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useTagDispatch, useTagState } from '../../hooks'
 import { useDeleteTagsMutation } from '../../store/tagEndpoints'
-import { selectTag, tagActions } from '../../store/tagState'
-import { DeleteTagsSchema } from './deleteTagsSchema'
+import { DeleteTagsMutationInput } from './types'
 
 export const useDeleteTagForm = () => {
-  const dispatch = useDispatch()
-  const { deleteIds } = useSelector(selectTag)
-  const reset = () => dispatch(tagActions.resetModal())
+  const { deleteIds } = useTagState()
+  const { resetModal } = useTagDispatch()
 
   const [mutate, state] = useDeleteTagsMutation({
     selectFromResult: (r) => ({
@@ -19,9 +17,8 @@ export const useDeleteTagForm = () => {
   })
 
   const handleSubmit = useCallback(
-    ({ ids }: DeleteTagsSchema) => {
-      return mutate({ variables: { input: { ids } } }).unwrap()
-    },
+    ({ ids }: DeleteTagsMutationInput) =>
+      mutate({ variables: { input: { ids } } }).unwrap(),
     [mutate],
   )
 
@@ -31,10 +28,10 @@ export const useDeleteTagForm = () => {
       onSubmitError: createNotificationHandler({
         title: 'Error while deleting tags',
       }),
-      onSubmitSuccess: () => reset(),
+      onSubmitSuccess: () => resetModal(),
       model: { ids: deleteIds },
     },
     state,
-    reset,
+    reset: resetModal,
   }
 }
