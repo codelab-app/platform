@@ -4,14 +4,14 @@ import {
   AtomBaseFragment,
   AtomFragment,
 } from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
-import { TagFragment } from '../../../tag/src/Tag.fragment.graphql.gen'
+import { TagFragment } from '../../../tag/src/graphql/Tag.fragment.graphql.gen'
 import { PropFragment } from '../../../../../backend/modules/prop/src/graphql/Prop.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import {
   AtomBaseFragmentDoc,
   AtomFragmentDoc,
 } from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
-import { TagFragmentDoc } from '../../../tag/src/Tag.fragment.graphql.gen'
+import { TagFragmentDoc } from '../../../tag/src/graphql/Tag.fragment.graphql.gen'
 import { PropFragmentDoc } from '../../../../../backend/modules/prop/src/graphql/Prop.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'

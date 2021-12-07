@@ -1,14 +1,11 @@
 export type Maybe<T> = T | null
-export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
 }
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>
-}
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>
-}
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> }
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -72,8 +69,8 @@ export type Atom = {
 
 /** Provide either id or type */
 export type AtomRef = {
-  atomId?: InputMaybe<Scalars['String']>
-  atomType?: InputMaybe<AtomType>
+  atomId?: Maybe<Scalars['String']>
+  atomType?: Maybe<AtomType>
 }
 
 export enum AtomType {
@@ -444,16 +441,16 @@ export enum AtomType {
 }
 
 export type AtomWhereUniqueInput = {
-  element?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['String']>
-  type?: InputMaybe<AtomType>
+  element?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
+  type?: Maybe<AtomType>
 }
 
 /** Provide no more than 1 filter */
 export type AtomsWhereInput = {
-  ids?: InputMaybe<Array<Scalars['String']>>
-  searchQuery?: InputMaybe<Scalars['String']>
-  types?: InputMaybe<Array<AtomType>>
+  ids?: Maybe<Array<Scalars['String']>>
+  searchQuery?: Maybe<Scalars['String']>
+  types?: Maybe<Array<AtomType>>
 }
 
 export type BaseTypeEdge = TypeEdge & {
@@ -485,7 +482,7 @@ export type CreateArrayTypeInput = {
 
 export type CreateAtomInput = {
   /** Pass in an existing interface ID to assign it to the atom */
-  api?: InputMaybe<Scalars['String']>
+  api?: Maybe<Scalars['String']>
   name: Scalars['String']
   type: AtomType
 }
@@ -495,43 +492,43 @@ export type CreateComponentInput = {
 }
 
 export type CreateElementChildInput = {
-  atom?: InputMaybe<AtomRef>
+  atom?: Maybe<AtomRef>
   /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
-  children?: InputMaybe<Array<ElementRef>>
-  css?: InputMaybe<Scalars['String']>
-  hooks?: InputMaybe<Array<HookRef>>
-  isComponent?: InputMaybe<Scalars['Boolean']>
-  name?: InputMaybe<Scalars['String']>
+  children?: Maybe<Array<ElementRef>>
+  css?: Maybe<Scalars['String']>
+  hooks?: Maybe<Array<HookRef>>
+  isComponent?: Maybe<Scalars['Boolean']>
+  name?: Maybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */
-  order?: InputMaybe<Scalars['Int']>
-  propMapBindings?: InputMaybe<Array<NewPropMapBindingRef>>
-  propTransformationJs?: InputMaybe<Scalars['String']>
-  props?: InputMaybe<Scalars['String']>
+  order?: Maybe<Scalars['Int']>
+  propMapBindings?: Maybe<Array<NewPropMapBindingRef>>
+  propTransformationJs?: Maybe<Scalars['String']>
+  props?: Maybe<Scalars['String']>
   /** Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding */
-  refId?: InputMaybe<Scalars['String']>
-  renderForEachPropKey?: InputMaybe<Scalars['String']>
-  renderIfPropKey?: InputMaybe<Scalars['String']>
+  refId?: Maybe<Scalars['String']>
+  renderForEachPropKey?: Maybe<Scalars['String']>
+  renderIfPropKey?: Maybe<Scalars['String']>
 }
 
 export type CreateElementInput = {
-  atom?: InputMaybe<AtomRef>
+  atom?: Maybe<AtomRef>
   /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
-  children?: InputMaybe<Array<ElementRef>>
-  css?: InputMaybe<Scalars['String']>
-  hooks?: InputMaybe<Array<HookRef>>
-  isComponent?: InputMaybe<Scalars['Boolean']>
-  name?: InputMaybe<Scalars['String']>
+  children?: Maybe<Array<ElementRef>>
+  css?: Maybe<Scalars['String']>
+  hooks?: Maybe<Array<HookRef>>
+  isComponent?: Maybe<Scalars['Boolean']>
+  name?: Maybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */
-  order?: InputMaybe<Scalars['Int']>
+  order?: Maybe<Scalars['Int']>
   /** Attaches the newly created element to an existing element as child */
-  parentElementId?: InputMaybe<Scalars['String']>
-  propMapBindings?: InputMaybe<Array<NewPropMapBindingRef>>
-  propTransformationJs?: InputMaybe<Scalars['String']>
-  props?: InputMaybe<Scalars['String']>
+  parentElementId?: Maybe<Scalars['String']>
+  propMapBindings?: Maybe<Array<NewPropMapBindingRef>>
+  propTransformationJs?: Maybe<Scalars['String']>
+  props?: Maybe<Scalars['String']>
   /** Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding */
-  refId?: InputMaybe<Scalars['String']>
-  renderForEachPropKey?: InputMaybe<Scalars['String']>
-  renderIfPropKey?: InputMaybe<Scalars['String']>
+  refId?: Maybe<Scalars['String']>
+  renderForEachPropKey?: Maybe<Scalars['String']>
+  renderIfPropKey?: Maybe<Scalars['String']>
 }
 
 export type CreateElementTypeInput = {
@@ -543,16 +540,16 @@ export type CreateEnumTypeInput = {
 }
 
 export type CreateEnumTypeValueInput = {
-  name?: InputMaybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
   value: Scalars['String']
 }
 
 export type CreateFieldInput = {
-  description?: InputMaybe<Scalars['String']>
+  description?: Maybe<Scalars['String']>
   /** The interface to add fields to */
   interfaceId: Scalars['String']
   key: Scalars['String']
-  name?: InputMaybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
   type: TypeRef
 }
 
@@ -570,7 +567,7 @@ export type CreateMonacoTypeInput = {
 export type CreatePageInput = {
   appId: Scalars['String']
   name: Scalars['String']
-  rootElement?: InputMaybe<CreateElementChildInput>
+  rootElement?: Maybe<CreateElementChildInput>
 }
 
 export type CreatePrimitiveTypeInput = {
@@ -582,7 +579,7 @@ export type CreatePropMapBindingInput = {
   /** The key of the prop, as received in the source element */
   sourceKey: Scalars['String']
   /** The ID of the target element, if omitted, the current element will be the target */
-  targetElementId?: InputMaybe<Scalars['String']>
+  targetElementId?: Maybe<Scalars['String']>
   /** The key of the prop, that the target Element will receive */
   targetKey: Scalars['String']
 }
@@ -595,19 +592,19 @@ export type CreateResponse = {
 export type CreateTagInput = {
   name: Scalars['String']
   /** Parent tag id, empty parent means it's root */
-  parentTagId?: InputMaybe<Scalars['String']>
+  parentTagId?: Maybe<Scalars['String']>
 }
 
 /** Provide one of the properties */
 export type CreateTypeInput = {
-  arrayType?: InputMaybe<CreateArrayTypeInput>
-  elementType?: InputMaybe<CreateElementTypeInput>
-  enumType?: InputMaybe<CreateEnumTypeInput>
-  monacoType?: InputMaybe<CreateMonacoTypeInput>
+  arrayType?: Maybe<CreateArrayTypeInput>
+  elementType?: Maybe<CreateElementTypeInput>
+  enumType?: Maybe<CreateEnumTypeInput>
+  monacoType?: Maybe<CreateMonacoTypeInput>
   name: Scalars['String']
-  primitiveType?: InputMaybe<CreatePrimitiveTypeInput>
+  primitiveType?: Maybe<CreatePrimitiveTypeInput>
   typeKind: TypeKind
-  unionType?: InputMaybe<CreateUnionType>
+  unionType?: Maybe<CreateUnionType>
 }
 
 export type CreateUnionType = {
@@ -694,8 +691,8 @@ export type ElementGraph = {
 /** Provide either id or new element input */
 export type ElementRef = {
   /** Pass in either refId, or existing elementId */
-  elementId?: InputMaybe<Scalars['String']>
-  newElement?: InputMaybe<CreateElementChildInput>
+  elementId?: Maybe<Scalars['String']>
+  newElement?: Maybe<CreateElementChildInput>
 }
 
 /** The ElementType allows selecting an Element in the props form. The value is stored as the elementId  */
@@ -732,7 +729,7 @@ export type EnumTypeValue = {
 
 export type ExecuteLambdaInput = {
   lambdaId: Scalars['String']
-  payload?: InputMaybe<Scalars['String']>
+  payload?: Maybe<Scalars['String']>
 }
 
 export type ExportAppInput = {
@@ -769,8 +766,8 @@ export type FieldTypeEdge = TypeEdge & {
 }
 
 export type GetAppInput = {
-  byId?: InputMaybe<AppByIdFilter>
-  byPage?: InputMaybe<AppByPageFilter>
+  byId?: Maybe<AppByIdFilter>
+  byPage?: Maybe<AppByPageFilter>
 }
 
 export type GetAtomInput = {
@@ -778,12 +775,12 @@ export type GetAtomInput = {
 }
 
 export type GetAtomsInput = {
-  where?: InputMaybe<AtomsWhereInput>
+  where?: Maybe<AtomsWhereInput>
 }
 
 export type GetComponentsInput = {
-  componentIds?: InputMaybe<Array<Scalars['String']>>
-  searchQuery?: InputMaybe<Scalars['String']>
+  componentIds?: Maybe<Array<Scalars['String']>>
+  searchQuery?: Maybe<Scalars['String']>
 }
 
 export type GetElementGraphInput = {
@@ -795,8 +792,8 @@ export type GetElementInput = {
 }
 
 export type GetFieldInput = {
-  byId?: InputMaybe<FieldByIdFilter>
-  byInterface?: InputMaybe<FieldByInterfaceFilter>
+  byId?: Maybe<FieldByIdFilter>
+  byInterface?: Maybe<FieldByInterfaceFilter>
 }
 
 export type GetLambdaInput = {
@@ -812,7 +809,7 @@ export type GetPagesInput = {
 }
 
 export type GetTagGraphsInput = {
-  where?: InputMaybe<TagsWhereInput>
+  where?: Maybe<TagsWhereInput>
 }
 
 export type GetTagInput = {
@@ -820,7 +817,7 @@ export type GetTagInput = {
 }
 
 export type GetTagsInput = {
-  ids?: InputMaybe<Array<Scalars['String']>>
+  ids?: Maybe<Array<Scalars['String']>>
 }
 
 export type GetTypeGraphInput = {
@@ -833,14 +830,14 @@ export type GetTypeInput = {
 
 /** Filters are optional and you can provide all three of them together */
 export type GetTypesInput = {
-  byIds?: InputMaybe<TypesByIdsFilter>
-  byKind?: InputMaybe<TypesByKindFilter>
-  byName?: InputMaybe<TypesByNameFilter>
+  byIds?: Maybe<TypesByIdsFilter>
+  byKind?: Maybe<TypesByKindFilter>
+  byName?: Maybe<TypesByNameFilter>
 }
 
 export type GetUserInput = {
-  auth0Id?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['String']>
+  auth0Id?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
 }
 
 export type GetUsersInput = {
@@ -1164,7 +1161,7 @@ export type NewPropMapBindingRef = {
   /** The key of the prop, as received in the source element */
   sourceKey: Scalars['String']
   /** The ID of the target element, if omitted, the current element will be the target */
-  targetElementId?: InputMaybe<Scalars['String']>
+  targetElementId?: Maybe<Scalars['String']>
   /** The key of the prop, that the target Element will receive */
   targetKey: Scalars['String']
 }
@@ -1274,11 +1271,11 @@ export type QueryGetAtomArgs = {
 }
 
 export type QueryGetAtomsArgs = {
-  input?: InputMaybe<GetAtomsInput>
+  input?: Maybe<GetAtomsInput>
 }
 
 export type QueryGetComponentsArgs = {
-  input?: InputMaybe<GetComponentsInput>
+  input?: Maybe<GetComponentsInput>
 }
 
 export type QueryGetElementArgs = {
@@ -1310,11 +1307,11 @@ export type QueryGetTagArgs = {
 }
 
 export type QueryGetTagGraphsArgs = {
-  input?: InputMaybe<GetTagGraphsInput>
+  input?: Maybe<GetTagGraphsInput>
 }
 
 export type QueryGetTagsArgs = {
-  input?: InputMaybe<GetTagsInput>
+  input?: Maybe<GetTagsInput>
 }
 
 export type QueryGetTypeArgs = {
@@ -1326,7 +1323,7 @@ export type QueryGetTypeGraphArgs = {
 }
 
 export type QueryGetTypesArgs = {
-  input?: InputMaybe<GetTypesInput>
+  input?: Maybe<GetTypesInput>
 }
 
 export type QueryGetUserArgs = {
@@ -1334,7 +1331,7 @@ export type QueryGetUserArgs = {
 }
 
 export type QueryGetUsersArgs = {
-  input?: InputMaybe<GetUsersInput>
+  input?: Maybe<GetUsersInput>
 }
 
 export type ReactNodeType = Type & {
@@ -1394,12 +1391,12 @@ export type TagGraph = {
 export type TagVertex = Tag
 
 export type TagWhereUniqueInput = {
-  id?: InputMaybe<Scalars['String']>
-  name?: InputMaybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
 }
 
 export type TagsWhereInput = {
-  ids?: InputMaybe<Array<Scalars['String']>>
+  ids?: Maybe<Array<Scalars['String']>>
 }
 
 export type Type = {
@@ -1437,8 +1434,8 @@ export enum TypeKind {
 }
 
 export type TypeRef = {
-  existingTypeId?: InputMaybe<Scalars['String']>
-  newType?: InputMaybe<CreateTypeInput>
+  existingTypeId?: Maybe<Scalars['String']>
+  newType?: Maybe<CreateTypeInput>
 }
 
 export type TypeVertex =
@@ -1492,14 +1489,14 @@ export type UpdateAtomInput = {
 }
 
 export type UpdateElementData = {
-  atomId?: InputMaybe<Scalars['String']>
-  css?: InputMaybe<Scalars['String']>
-  name?: InputMaybe<Scalars['String']>
-  propTransformationJs?: InputMaybe<Scalars['String']>
+  atomId?: Maybe<Scalars['String']>
+  css?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
+  propTransformationJs?: Maybe<Scalars['String']>
   /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
-  renderForEachPropKey?: InputMaybe<Scalars['String']>
+  renderForEachPropKey?: Maybe<Scalars['String']>
   /** If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy) */
-  renderIfPropKey?: InputMaybe<Scalars['String']>
+  renderIfPropKey?: Maybe<Scalars['String']>
 }
 
 export type UpdateElementInput = {
@@ -1524,15 +1521,15 @@ export type UpdateEnumTypeInput = {
 }
 
 export type UpdateEnumTypeValueData = {
-  id?: InputMaybe<Scalars['String']>
-  name?: InputMaybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
   value: Scalars['String']
 }
 
 export type UpdateFieldData = {
-  description?: InputMaybe<Scalars['String']>
+  description?: Maybe<Scalars['String']>
   key: Scalars['String']
-  name?: InputMaybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
   type: TypeRef
 }
 
@@ -1574,7 +1571,7 @@ export type UpdatePropMapBindingData = {
   /** The key of the prop, as received in the source element */
   sourceKey: Scalars['String']
   /** The ID of the target element, if omitted, the current element will be the target */
-  targetElementId?: InputMaybe<Scalars['String']>
+  targetElementId?: Maybe<Scalars['String']>
   /** The key of the prop, that the target Element will receive */
   targetKey: Scalars['String']
 }
@@ -1614,8 +1611,8 @@ export type UpdateUnionTypeInput = {
 
 export type UpsertAtomInput = {
   /** Pass in an existing interface ID to assign it to the atom */
-  api?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['String']>
+  api?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
   name: Scalars['String']
   type: AtomType
 }
@@ -1626,7 +1623,7 @@ export type UpsertAtomsInput = {
 
 export type UpsertTagInput = {
   data: CreateTagInput
-  where?: InputMaybe<TagWhereUniqueInput>
+  where?: Maybe<TagWhereUniqueInput>
 }
 
 export type UpsertUserDataInput = {
@@ -1636,7 +1633,7 @@ export type UpsertUserDataInput = {
 
 export type UpsertUserInput = {
   data: UpsertUserDataInput
-  where?: InputMaybe<UserWhereUniqueInput>
+  where?: Maybe<UserWhereUniqueInput>
 }
 
 export type User = {
@@ -1647,23 +1644,23 @@ export type User = {
 }
 
 export type UserWhereUniqueInput = {
-  auth0Id?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['String']>
+  auth0Id?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
 }
 
 export type WhereUniqueElement = {
-  id?: InputMaybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
 }
 
 export type WhereUniqueTag = {
-  id?: InputMaybe<Scalars['String']>
-  name?: InputMaybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
 }
 
 /** Provide exactly 1 field */
 export type WhereUniqueType = {
-  atomId?: InputMaybe<Scalars['String']>
-  enumTypeValueId?: InputMaybe<Scalars['String']>
-  id?: InputMaybe<Scalars['String']>
-  name?: InputMaybe<Scalars['String']>
+  atomId?: Maybe<Scalars['String']>
+  enumTypeValueId?: Maybe<Scalars['String']>
+  id?: Maybe<Scalars['String']>
+  name?: Maybe<Scalars['String']>
 }

@@ -15,7 +15,7 @@ export type GetMeQueryVariables = Types.Exact<{ [key: string]: never }>
 export type GetMeQuery = { getMe?: __UserFragment | null | undefined }
 
 export type GetUsersQueryVariables = Types.Exact<{
-  input?: Types.InputMaybe<Types.GetUsersInput>
+  input?: Types.Maybe<Types.GetUsersInput>
 }>
 
 export type GetUsersQuery = { users: Array<__UserFragment> }

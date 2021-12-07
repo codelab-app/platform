@@ -102,7 +102,7 @@ export type GetTypeGraphQuery = {
 }
 
 export type GetTypesQueryVariables = Types.Exact<{
-  input?: Types.InputMaybe<Types.GetTypesInput>
+  input?: Types.Maybe<Types.GetTypesInput>
 }>
 
 export type GetTypesQuery = {
@@ -171,7 +171,7 @@ export type UpdateUnionTypeMutation = {
 }
 
 export type GetTypeKindsQueryVariables = Types.Exact<{
-  input?: Types.InputMaybe<Types.GetTypesInput>
+  input?: Types.Maybe<Types.GetTypesInput>
 }>
 
 export type GetTypeKindsQuery = {
@@ -215,7 +215,7 @@ export type ComponentForSelectFragment = {
 }
 
 export type GetComponentsForSelectQueryVariables = Types.Exact<{
-  input?: Types.InputMaybe<Types.GetComponentsInput>
+  input?: Types.Maybe<Types.GetComponentsInput>
 }>
 
 export type GetComponentsForSelectQuery = {
@@ -225,7 +225,7 @@ export type GetComponentsForSelectQuery = {
 export type AtomForSelectFragment = { id: string; name: string }
 
 export type GetAtomsForSelectQueryVariables = Types.Exact<{
-  input?: Types.InputMaybe<Types.GetAtomsInput>
+  input?: Types.Maybe<Types.GetAtomsInput>
 }>
 
 export type GetAtomsForSelectQuery = {
