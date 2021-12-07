@@ -1,3 +1,4 @@
+import { filterNotHookType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
@@ -9,10 +10,12 @@ export const SelectAtom = ({ name }: SelectAtomProps) => {
   const { data: atoms, isLoading } = useGetAtomsForSelectQuery()
 
   const componentOptions =
-    atoms?.getAtoms?.map((atom) => ({
-      label: atom.name,
-      value: atom.id,
-    })) ?? []
+    atoms?.getAtoms
+      ?.filter((x) => filterNotHookType(x.type))
+      .map((atom) => ({
+        label: atom.name,
+        value: atom.id,
+      })) ?? []
 
   return (
     <SelectField

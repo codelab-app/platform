@@ -5,6 +5,7 @@ import {
   QueryConfigDescription,
   QueryLambdaDescription,
   RecoilStateDescription,
+  RouterDescription,
 } from './hook-description'
 import { HooksListItemDescriptionProps } from './types'
 
@@ -24,6 +25,8 @@ export const HooksListItemDescription = ({
       return <GraphqlDescription config={configJson} />
     case AtomType.HookRecoilState:
       return <RecoilStateDescription config={configJson} />
+    case AtomType.HookRouter:
+      return <RouterDescription config={configJson} />
     default:
       return null
   }

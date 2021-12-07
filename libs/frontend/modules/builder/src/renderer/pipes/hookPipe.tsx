@@ -12,6 +12,7 @@ export const hookPipe: RenderPipeFactory =
       return (
         // the key will cause the wrapper to be destroyed and re-rendered when we add/remove hooks, which will avoid react's error
         <HookElementWrapper
+          elementId={element.id}
           key={`${props.key ?? element.id}-${element.hooks.length}`}
           hooks={element.hooks}
           inputProps={props}

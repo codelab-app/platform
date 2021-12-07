@@ -182,6 +182,7 @@ export enum AtomType {
   HookQueryPage = 'HookQueryPage',
   HookQueryPages = 'HookQueryPages',
   HookRecoilState = 'HookRecoilState',
+  HookRouter = 'HookRouter',
   HtmlA = 'HtmlA',
   HtmlArea = 'HtmlArea',
   HtmlAside = 'HtmlAside',

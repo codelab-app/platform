@@ -1,20 +1,49 @@
 import { IHook } from '@codelab/shared/abstract/core'
 import { AtomType } from '@codelab/shared/codegen/graphql'
-import { useGraphqlMutationHook } from './handlers/useGraphqlMutationHook'
-import { useGraphqlQueryHook } from './handlers/useGraphqlQueryHook'
-import { useQueryConfigHook } from './handlers/useQueryConfigHook'
-import { useQueryLambdaHook } from './handlers/useQueryLambdaHook'
-import { useQueryPageHook } from './handlers/useQueryPage'
-import { useQueryPagesHook } from './handlers/useQueryPages'
+import { useSelector } from 'react-redux'
+import { builderSelectors } from '../../store'
+import {
+  useGraphqlMutationHook,
+  useGraphqlQueryHook,
+  useQueryConfigHook,
+  useQueryLambdaHook,
+  useQueryPageHook,
+  useQueryPagesHook,
+  useRouterHook,
+} from './handlers'
 import { useRecoilStateHook } from './handlers/useRecoilStateHook'
 import { HookHandler } from './HookHandler'
 
 export const useHookFactory = (
+  elementId: string,
   hooks: Array<IHook>,
   inputProps?: Record<string, any>,
 ) => {
+  const lastRenderedPropsForElement =
+    useSelector((state) =>
+      builderSelectors.lastRenderedPropsForElement(state, elementId),
+    ) || {}
+
   return hooks.reduce<Record<string, any>>((queryProps, hook) => {
-    const hookData = getHookData(hook, inputProps) ?? {}
+    const { config } = hook
+    const { data } = config
+
+    const dataWithValues = data.replace(
+      /^${..*}$/,
+      (string: string, propKey: string) => {
+        return lastRenderedPropsForElement[propKey]
+      },
+    )
+
+    const newHook = {
+      ...hook,
+      config: {
+        ...config,
+        data: dataWithValues,
+      },
+    }
+
+    const hookData = getHookData(newHook, inputProps) ?? {}
 
     return Object.assign(queryProps, hookData)
   }, {})
@@ -52,6 +81,10 @@ const getHookData: HookHandler = (
 
     case AtomType.HookQueryPages:
       handler = useQueryPagesHook
+      break
+
+    case AtomType.HookRouter:
+      handler = useRouterHook
       break
 
     default:

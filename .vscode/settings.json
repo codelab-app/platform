@@ -13,5 +13,8 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "json.format.enable": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

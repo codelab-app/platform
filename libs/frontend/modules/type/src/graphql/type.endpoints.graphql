@@ -92,6 +92,7 @@ query GetComponentsForSelect($input: GetComponentsInput) {
 fragment AtomForSelect on Atom {
   id
   name
+  type
 }
 
 query GetAtomsForSelect($input: GetAtomsInput) {
@@ -100,14 +101,8 @@ query GetAtomsForSelect($input: GetAtomsInput) {
   }
 }
 
-fragment AtomTypeHookForSelect on Atom {
-  id
-  name
-  type
-}
-
 query GetAtomsTypeHookForSelect {
   getAtomsTypeHook {
-    ...AtomTypeHookForSelect
+    ...AtomForSelect
   }
 }

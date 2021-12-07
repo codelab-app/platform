@@ -222,7 +222,11 @@ export type GetComponentsForSelectQuery = {
   getComponents: Array<ComponentForSelectFragment>
 }
 
-export type AtomForSelectFragment = { id: string; name: string }
+export type AtomForSelectFragment = {
+  id: string
+  name: string
+  type: Types.AtomType
+}
 
 export type GetAtomsForSelectQueryVariables = Types.Exact<{
   input?: Types.InputMaybe<Types.GetAtomsInput>
@@ -232,18 +236,12 @@ export type GetAtomsForSelectQuery = {
   getAtoms?: Array<AtomForSelectFragment> | null | undefined
 }
 
-export type AtomTypeHookForSelectFragment = {
-  id: string
-  name: string
-  type: Types.AtomType
-}
-
 export type GetAtomsTypeHookForSelectQueryVariables = Types.Exact<{
   [key: string]: never
 }>
 
 export type GetAtomsTypeHookForSelectQuery = {
-  getAtomsTypeHook?: Array<AtomTypeHookForSelectFragment> | null | undefined
+  getAtomsTypeHook?: Array<AtomForSelectFragment> | null | undefined
 }
 
 export const ComponentForSelectFragmentDoc = gql`
@@ -257,12 +255,6 @@ export const ComponentForSelectFragmentDoc = gql`
 `
 export const AtomForSelectFragmentDoc = gql`
   fragment AtomForSelect on Atom {
-    id
-    name
-  }
-`
-export const AtomTypeHookForSelectFragmentDoc = gql`
-  fragment AtomTypeHookForSelect on Atom {
     id
     name
     type
@@ -384,10 +376,10 @@ export const GetAtomsForSelectGql = gql`
 export const GetAtomsTypeHookForSelectGql = gql`
   query GetAtomsTypeHookForSelect {
     getAtomsTypeHook {
-      ...AtomTypeHookForSelect
+      ...AtomForSelect
     }
   }
-  ${AtomTypeHookForSelectFragmentDoc}
+  ${AtomForSelectFragmentDoc}
 `
 
 const injectedRtkApi = api.injectEndpoints({

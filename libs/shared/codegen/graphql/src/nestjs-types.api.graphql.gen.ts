@@ -53,6 +53,7 @@ export enum AtomType {
   HookRecoilState = 'HookRecoilState',
   HookQueryPage = 'HookQueryPage',
   HookQueryPages = 'HookQueryPages',
+  HookRouter = 'HookRouter',
 
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
