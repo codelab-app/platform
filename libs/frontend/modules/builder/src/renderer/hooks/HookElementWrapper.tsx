@@ -3,10 +3,10 @@ import React from 'react'
 import { useHookFactory } from './useHookFactory'
 
 export interface HookElementWrapperProps {
+  elementId: string
   children?: never
   inputProps?: Record<string, any>
   hooks: Array<IHook>
-  elementId: string
   renderChildren: (hookProps: Record<string, any>) => React.ReactNode
 }
 
