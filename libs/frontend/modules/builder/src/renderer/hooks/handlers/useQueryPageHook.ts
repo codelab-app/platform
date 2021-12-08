@@ -11,5 +11,5 @@ export const useQueryPageHook: HookHandler = (config: IQueryPageHookConfig) => {
     },
   })
 
-  return { res: output }
+  return { queryPageHook: output }
 }

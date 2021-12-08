@@ -28,83 +28,70 @@ export const useRecoilStateHook: HookHandler = (
     stateAtomFamily(config.stateKey),
   )
 
+  const getStorage = (): Storage =>
+    config.persisted === PersistenceType.LocalStorage
+      ? localStorage
+      : sessionStorage
+
+  const isPersisted = (): boolean =>
+    [PersistenceType.SessionStorage, PersistenceType.LocalStorage].includes(
+      config.persisted,
+    )
+
+  const logError = (message: string, e: any): void => {
+    console.error(message, config.stateKey, config.persisted, e)
+  }
+
   // Stores the value in the configured storage
   const store = useCallback(
     (value: any) => {
-      if (
-        config.persisted === PersistenceType.SessionStorage ||
-        config.persisted === PersistenceType.LocalStorage
-      ) {
-        try {
-          const storage =
-            config.persisted === PersistenceType.LocalStorage
-              ? localStorage
-              : sessionStorage
+      if (!isPersisted()) {
+        return
+      }
 
-          console.log(JSON.stringify(value))
-          storage.setItem(storageKey, JSON.stringify(value))
-        } catch (e) {
-          console.error(
-            'Error while persisting state',
-            config.stateKey,
-            config.persisted,
-            e,
-          )
-        }
+      try {
+        console.log(JSON.stringify(value))
+        getStorage().setItem(storageKey, JSON.stringify(value))
+      } catch (e) {
+        logError('Error while persisting state', e)
       }
     },
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [config.persisted, storageKey],
   )
 
   useEffect(() => {
-    if (!isInitialized) {
-      // Set the default value on mount
-      let defaultValue: any | null
+    if (isInitialized) {
+      return
+    }
 
-      if (
-        config.persisted === PersistenceType.SessionStorage ||
-        config.persisted === PersistenceType.LocalStorage
-      ) {
-        const storage =
-          config.persisted === PersistenceType.LocalStorage
-            ? localStorage
-            : sessionStorage
+    // Set the default value on mount
+    let defaultValue: any | null
 
-        try {
-          const item = storage.getItem(storageKey)
-          defaultValue = item ? JSON.parse(item) : null
-        } catch (e) {
-          console.error(
-            'Error while loading persisted state value',
-            config.stateKey,
-            config.persisted,
-            e,
-          )
-        }
+    if (isPersisted()) {
+      try {
+        const item = getStorage().getItem(storageKey)
+        defaultValue = item ? JSON.parse(item) : null
+      } catch (e) {
+        logError('Error while loading persisted state value', e)
       }
+    }
 
-      if (!defaultValue && typeof config.defaultValue !== 'undefined') {
-        try {
-          if (config.defaultValue) {
-            defaultValue = JSON.parse(config.defaultValue)
-          } else {
-            defaultValue = config.defaultValue
-          }
-        } catch (e) {
+    if (!defaultValue && typeof config.defaultValue !== 'undefined') {
+      try {
+        if (config.defaultValue) {
+          defaultValue = JSON.parse(config.defaultValue)
+        } else {
           defaultValue = config.defaultValue
         }
+      } catch (e) {
+        defaultValue = config.defaultValue
       }
-
-      setState((s: any) => {
-        if (s) {
-          return s
-        }
-
-        return defaultValue
-      })
-
-      setIsInitialized(true)
     }
+
+    setState((s: any) => s || defaultValue)
+    setIsInitialized(true)
   }, [setState])
 
   // Store the vlaue whenever it changes, that way we need to set the storage config on only 1 hook
@@ -112,8 +99,10 @@ export const useRecoilStateHook: HookHandler = (
     store(state)
   }, [store, state])
 
-  return {
+  const output = {
     [config.stateKey]: state,
     [`set${capitalizeFirstLetter(config.stateKey)}`]: setState,
   }
+
+  return { recoilStateHook: output }
 }

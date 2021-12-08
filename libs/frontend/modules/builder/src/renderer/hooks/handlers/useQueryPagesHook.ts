@@ -13,5 +13,5 @@ export const useQueryPagesHook: HookHandler = (
     },
   })
 
-  return { res: output }
+  return { queryPagesHook: output }
 }

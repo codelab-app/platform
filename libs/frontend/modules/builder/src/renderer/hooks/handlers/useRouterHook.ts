@@ -5,5 +5,5 @@ import { HookHandler } from '../HookHandler'
 export const useRouterHook: HookHandler = (config: IQueryPageHookConfig) => {
   const output = useRouter()
 
-  return { res: output }
+  return { routerHook: output }
 }
