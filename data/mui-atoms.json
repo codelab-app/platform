@@ -78,6 +78,41 @@
     }
   },
   {
+    "id": "c3ca9425-61ac-4c7b-8d8c-eddb2f16e913",
+    "name": "MUI Date picker",
+    "type": "MuiDatePicker",
+    "api": {
+      "id": "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a",
+      "name": "Date picker API",
+      "typeKind": "InterfaceType",
+      "typeGraph": {
+        "vertices": [
+          {
+            "id": "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a",
+            "name": "Date picker API",
+            "typeKind": "InterfaceType",
+            "__typename": "InterfaceType"
+          },
+          {
+            "id": "80b63f8f-fcd9-4226-8b2c-b2f37a758150",
+            "__typename": "RenderPropsType",
+            "name": "Render props",
+            "typeKind": "RenderPropsType"
+          }
+        ],
+        "edges": [
+          {
+            "target": "80b63f8f-fcd9-4226-8b2c-b2f37a758150",
+            "source": "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a",
+            "id": "b7c7d2ab-afdd-4040-aa01-2sec3cb1bfas",
+            "name": "Render input",
+            "key": "renderInput"
+          }
+        ]
+      }
+    }
+  },
+  {
     "id": "f95ec3a5-c498-469d-915b-5cda4c7d13bd",
     "name": "MUI AccordionActions",
     "type": "MuiAccordionActions",

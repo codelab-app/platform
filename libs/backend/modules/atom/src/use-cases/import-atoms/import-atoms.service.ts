@@ -87,10 +87,6 @@ export class ImportAtomsService
       where: { type: input.type },
     })
 
-    if (input.name.includes('Container')) {
-      console.log('asdasd')
-    }
-
     if (!atom) {
       const { id } = await this.createAtomService.execute({
         input,
