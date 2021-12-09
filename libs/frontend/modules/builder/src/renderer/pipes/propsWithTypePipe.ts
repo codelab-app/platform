@@ -1,7 +1,7 @@
 import { TypeKind } from '@codelab/frontend/abstract/codegen'
 import { mergeProps } from '@codelab/shared/utils'
 import * as _ from 'lodash'
-import { RenderPipeFactory } from '../types/RenderPipe'
+import { RenderPipeFactory } from '../types/RenderTypes'
 
 export const propsWithTypePipe: RenderPipeFactory =
   (next) => (element, context, props) => {

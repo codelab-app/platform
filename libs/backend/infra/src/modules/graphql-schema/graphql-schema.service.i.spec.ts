@@ -25,28 +25,7 @@ describe('GraphqlService', () => {
       path.resolve(__dirname, 'test/demo.graphql'),
     )
 
-    expect(testSchema[0]).toStrictEqual(`type atom {
-  id: ID!
-}
-
-enum AtomTypeAnother {
-  AntDesignAffix
-}
-
-enum AtomType {
-  AntDesignAffix
-  AntDesignAlert
-}
-
-enum AtomTypeAnother {
-  AntDesignAffix
-}
-
-input AppFilter {
-  id: [ID!]
-  ownerId: StringHashFilter
-}
-`)
+    expect(testSchema[0].definitions).toHaveLength(5)
   })
 
   it('should get enum typeDef from a string', () => {
@@ -54,13 +33,8 @@ input AppFilter {
       path.resolve(__dirname, 'test/demo.graphql'),
     )
 
-    const enumType = service.getEnumTypeDef('AtomType', testSchema[0])
+    const enumType = service.getEnumTypeDef('AtomType', testSchema[0] as any)
 
-    const expectedEnumType = `enum AtomType {
-  AntDesignAffix
-  AntDesignAlert
-}`
-
-    expect(enumType).toStrictEqual(expectedEnumType)
+    expect(enumType?.name.value).toBe('AtomType')
   })
 })

@@ -1,6 +1,7 @@
 import { ApartmentOutlined } from '@ant-design/icons'
 import { IElement } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/model/state/router'
+import { useTagDispatch } from '@codelab/frontend/modules/tag'
 import {
   ListItemButton,
   ListItemDeleteButton,
@@ -11,11 +12,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import tw from 'twin.macro'
 import { useGetComponentsQuery } from '../../../graphql/component.endpoints.graphql.gen'
-import { useComponentDispatch } from '../../../hooks/useComponentDispatch'
+import { useElementDispatch } from '../../../hooks'
 
 export const GetComponentsTable = () => {
   const router = useRouter()
-  const { openUpdateModal, openDeleteModal } = useComponentDispatch()
+  const { openUpdateModal } = useTagDispatch() // We use delete element modal, because all we can change about it here is the tag's properties
+  const { openDeleteModal } = useElementDispatch() // We use delete element modal, because components are essentially elements
 
   const headerCellProps = () => ({
     style: tw`font-semibold text-gray-900`,

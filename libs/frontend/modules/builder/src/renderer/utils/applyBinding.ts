@@ -8,8 +8,20 @@ export const applyBinding = (
   binding: PropMapBindingFragment,
 ): Record<string, any> => {
   // get and set allow . and [1] expressions
-  const value = get(sourceProps, binding.sourceKey)
+  let value: any
+
+  if (binding.sourceKey === '*') {
+    value = sourceProps
+  } else {
+    value = get(sourceProps, binding.sourceKey)
+  }
+
+  if (binding.targetKey === '*' && typeof value === 'object') {
+    return { ...targetProps, ...value }
+  }
+
   const newProps = { ...targetProps }
+
   set(newProps, binding.targetKey, value)
 
   return newProps

@@ -78,6 +78,41 @@
     }
   },
   {
+    "id": "c3ca9425-61ac-4c7b-8d8c-eddb2f16e913",
+    "name": "MUI Date picker",
+    "type": "MuiDatePicker",
+    "api": {
+      "id": "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a",
+      "name": "Date picker API",
+      "typeKind": "InterfaceType",
+      "typeGraph": {
+        "vertices": [
+          {
+            "id": "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a",
+            "name": "Date picker API",
+            "typeKind": "InterfaceType",
+            "__typename": "InterfaceType"
+          },
+          {
+            "id": "80b63f8f-fcd9-4226-8b2c-b2f37a758150",
+            "__typename": "RenderPropsType",
+            "name": "Render props",
+            "typeKind": "RenderPropsType"
+          }
+        ],
+        "edges": [
+          {
+            "target": "80b63f8f-fcd9-4226-8b2c-b2f37a758150",
+            "source": "dc0b9f6a-0928-47A3-8fdS-6bc8f4ac196a",
+            "id": "b7c7d2ab-afdd-4040-aa01-2sec3cb1bfas",
+            "name": "Render input",
+            "key": "renderInput"
+          }
+        ]
+      }
+    }
+  },
+  {
     "id": "f95ec3a5-c498-469d-915b-5cda4c7d13bd",
     "name": "MUI AccordionActions",
     "type": "MuiAccordionActions",
@@ -502,6 +537,12 @@
             "__typename": "InterfaceType"
           },
           {
+            "id": "80b63f8f-fcd9-4226-8b2c-b2f37a758151",
+            "__typename": "RenderPropsType",
+            "name": "RenderPropsType",
+            "typeKind": "RenderPropsType"
+          },
+          {
             "id": "80b63f8f-fcd9-4226-8b2c-b2f37a758150",
             "__typename": "PrimitiveType",
             "name": "Boolean",
@@ -705,6 +746,13 @@
             "id": "186628fd-b33f-49db-9ccb-1c13a4e95412",
             "name": "Disabled",
             "key": "disabled"
+          },
+          {
+            "target": "80b63f8f-fcd9-4226-8b2c-b2f37a758151",
+            "source": "0a03310b-46fe-47f5-9da8-0ea573a31ca5",
+            "id": "186628fd-b33f-49db-9ccb-1c13a4e95413",
+            "name": "Input",
+            "key": "renderInput"
           },
           {
             "target": "80b63f8f-fcd9-4226-8b2c-b2f37a758150",

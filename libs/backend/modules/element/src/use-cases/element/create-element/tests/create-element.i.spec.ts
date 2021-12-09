@@ -146,7 +146,7 @@ describe('CreateElement', () => {
           },
           componentTag: null,
           props: {
-            data: '{"data": "Hello!"}',
+            data: '{}',
             id: expect.stringContaining('0x'),
           },
           hooks: [],
@@ -175,7 +175,7 @@ describe('CreateElement', () => {
           },
           props: {
             id: expect.stringContaining('0x'),
-            data: '{"data": "Hello!"}',
+            data: '{}',
           },
           hooks: [],
           renderForEachPropKey: null,

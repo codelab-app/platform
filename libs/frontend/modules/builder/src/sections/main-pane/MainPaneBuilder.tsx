@@ -13,7 +13,10 @@ import React, { useCallback, useState } from 'react'
 import { useBuilderSelectedElement, useBuilderTab } from '../../hooks'
 import { BuilderTab } from '../../store'
 import { MainPaneBuilderToolboxTab } from './tabs/MainPaneBuilderToolboxTab'
-import { MainPaneBuilderTreeTab } from './tabs/MainPaneBuilderTreeTab'
+import {
+  MainPaneBuilderTreeTab,
+  MainPaneBuilderTreeTabProps,
+} from './tabs/MainPaneBuilderTreeTab'
 
 const { Search } = Input
 
@@ -45,8 +48,12 @@ const headerFactory = (
   return undefined
 }
 
+export interface MainPaneBuilderProps {
+  treeTab?: MainPaneBuilderTreeTabProps
+}
+
 /** Requires ElementGraphContext */
-export const MainPaneBuilder = () => {
+export const MainPaneBuilder = ({ treeTab }: MainPaneBuilderProps) => {
   const { selectedElement, resetSelection } = useBuilderSelectedElement()
   const { builderTab } = useBuilderTab()
   const { elementTree } = useElementGraphContext()
@@ -70,7 +77,7 @@ export const MainPaneBuilder = () => {
         value={builderTab}
         expectedValue={BuilderTab.Tree}
       >
-        <MainPaneBuilderTreeTab />
+        <MainPaneBuilderTreeTab {...treeTab} />
       </EqualityConditionalView>
 
       <EqualityConditionalView

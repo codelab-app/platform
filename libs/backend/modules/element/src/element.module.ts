@@ -12,6 +12,7 @@ import { HookResolver } from './application/hook.resolver'
 import { PropMapBindingResolver } from './application/prop-map.binding.resolver'
 import { ComponentModule } from './component.module'
 import { PropMapBindingAdapter } from './domain/prop-mapping/prop-map-binding.adapter'
+import { ConvertElementToComponentService } from './use-cases/element/convert-element-to-component'
 import { CreateElementService } from './use-cases/element/create-element'
 import { DeleteElementService } from './use-cases/element/delete-element'
 import { GetElementGraphService } from './use-cases/element/get-element-graph'
@@ -38,6 +39,7 @@ const services = [
   UpdateElementService,
   MoveElementService,
   UpdateElementPropsService,
+  ConvertElementToComponentService,
 
   /**
    * Validators

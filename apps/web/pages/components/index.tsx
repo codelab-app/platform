@@ -13,8 +13,7 @@ import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
-import { Button } from 'antd'
-import PageHeader from 'antd/lib/page-header'
+import { Button, PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 

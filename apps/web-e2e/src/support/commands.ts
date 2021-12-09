@@ -382,7 +382,7 @@ const runSeeder = () => {
   cy.wait(1000)
   // Add long timeout for seeder
   cy.exec(`yarn cli seed --env ${Cypress.env('env')}`, {
-    timeout: 270000,
+    timeout: 500000,
     failOnNonZeroExit: false,
   }).then((result) => {
     // https://github.com/cypress-io/cypress/issues/5470

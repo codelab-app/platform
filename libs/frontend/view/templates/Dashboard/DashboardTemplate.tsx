@@ -46,7 +46,12 @@ export const DashboardTemplate = ({
       {...layoutProps}
     >
       {SidebarNavigation ? (
-        <Sider theme="light" collapsed collapsedWidth={40}>
+        <Sider
+          theme="light"
+          collapsed
+          collapsedWidth={40}
+          style={{ maxHeight: '100vh' }}
+        >
           <div data-testid="pane-main" css={tw`h-full`}>
             <SidebarNavigation />
           </div>
@@ -93,7 +98,7 @@ export const DashboardTemplate = ({
                   style={{ position: 'absolute' }}
                   css={tw`right-4 -top-3 z-10`}
                 />
-                <div style={{ overflow: 'hidden', maxHeight: '100%' }}>
+                <div style={{ maxHeight: '100%' }}>
                   <MetaPane />
                 </div>
               </MetaPaneSection>

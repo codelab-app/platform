@@ -121,9 +121,10 @@ export class ElementMutationFactory {
     }
 
     const childrenMutations = await this.makeChildrenMutations(children)
+    const elementUid = this.blankNodeFactory(input, blankNodeUid)
 
     const propsMutation = {
-      uid: '_:props',
+      uid: `_:props${elementUid}`,
       data: '{}',
     }
 
@@ -149,14 +150,8 @@ export class ElementMutationFactory {
       atomId = atom.atomId
     }
 
-    const createTagJson = {
-      'dgraph.type': [DgraphEntityType.Tag],
-      name,
-      isRoot: true,
-    }
-
     return {
-      uid: this.blankNodeFactory(input, blankNodeUid),
+      uid: elementUid,
       'dgraph.type': [DgraphEntityType.Element],
       name,
       owner: this.currentUser
@@ -174,7 +169,17 @@ export class ElementMutationFactory {
       renderIfPropKey,
       propTransformationJs,
       propMapBindings: propMapBindingMutations,
-      componentTag: isComponent ? createTagJson : undefined,
+      componentTag: isComponent
+        ? ElementMutationFactory.componentTagJson(name)
+        : undefined,
+    }
+  }
+
+  public static componentTagJson(name?: string) {
+    return {
+      'dgraph.type': [DgraphEntityType.Tag],
+      name,
+      isRoot: true,
     }
   }
 

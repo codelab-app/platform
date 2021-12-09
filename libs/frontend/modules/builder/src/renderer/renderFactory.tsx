@@ -1,7 +1,7 @@
 import { RenderNode } from '@codelab/frontend/abstract/core'
-import { RenderContext } from '@codelab/frontend/presenter/container'
 import React from 'react'
 import { renderPipeline } from './renderPipeline'
+import { RenderContext } from './types/RenderTypes'
 
 /**
  * Creates a React Component from a {@link RenderNode}

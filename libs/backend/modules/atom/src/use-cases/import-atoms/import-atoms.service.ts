@@ -16,8 +16,6 @@ import { ImportAtomsRequest } from './import-atoms.request'
  *
  * The calls are idempotent
  *
- *
- *
  */
 @Injectable()
 export class ImportAtomsService
@@ -98,13 +96,13 @@ export class ImportAtomsService
       return id
     }
 
-    // We don't update api here
-    if (atom.name !== input.name) {
+    if (atom.name !== input.name || input.api) {
       await this.updateAtomService.execute({
         id: atom.id,
         data: {
           name: input.name,
           type: atom.type as AtomType,
+          api: input.api ?? undefined,
         },
       })
     }

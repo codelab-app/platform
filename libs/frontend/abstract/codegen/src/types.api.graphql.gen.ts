@@ -468,6 +468,10 @@ export type ComponentType = Type & {
   typeKind: TypeKind
 }
 
+export type ConvertElementToComponentInput = {
+  elementId: Scalars['String']
+}
+
 export type CreateAppInput = {
   name: Scalars['String']
 }
@@ -928,6 +932,7 @@ export type MoveElementInput = {
 export type Mutation = {
   __typename?: 'Mutation'
   addHookToElement: CreateResponse
+  convertElementToComponent: Element
   createApp: App
   createAtom: Atom
   /** Facade for creating a element with component tag */
@@ -978,6 +983,10 @@ export type Mutation = {
 
 export type MutationAddHookToElementArgs = {
   input: AddHookToElementInput
+}
+
+export type MutationConvertElementToComponentArgs = {
+  input: ConvertElementToComponentInput
 }
 
 export type MutationCreateAppArgs = {

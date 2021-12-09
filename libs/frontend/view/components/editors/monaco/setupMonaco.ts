@@ -1,5 +1,11 @@
+// eslint-disable-next-line simple-import-sort/imports
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
+// eslint-disable-next-line import/first
+import './cssInJs/monaco.contribution'
+// eslint-disable-next-line import/first
+import { api as GraphqlApi } from 'monaco-graphql/dist/monaco.contribution'
 /* eslint-disable import/no-webpack-loader-syntax, @typescript-eslint/ban-ts-comment */
+import CSSInJsWorker from 'worker-loader!./cssInJs/css-in-js.worker'
 import GraphQLWorker from 'worker-loader!./graphql.worker'
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 import CssWorker from 'worker-loader!monaco-editor/esm/vs/language/css/css.worker'
@@ -8,8 +14,6 @@ import TsWorker from 'worker-loader!monaco-editor/esm/vs/language/typescript/ts.
 
 // @ts-ignore
 window.monaco = monaco
-// eslint-disable-next-line import/first
-import { api as GraphqlApi } from 'monaco-graphql/esm/monaco.contribution'
 
 /**
  * Removed monaco-editor/react because it didn't work with GraphQL. Didn’t work with the css-in-js modification too, had to remove the workers from it.
@@ -36,6 +40,10 @@ window.MonacoEnvironment = {
 
     if (label === 'css') {
       return new CssWorker()
+    }
+
+    if (label === 'cssInJs') {
+      return new CSSInJsWorker()
     }
 
     if (label === 'javascript' || label === 'typescript') {

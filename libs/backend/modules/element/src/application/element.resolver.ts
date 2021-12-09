@@ -13,6 +13,10 @@ import {
 import { Element } from '../domain/element/element.model'
 import { ElementGraph } from '../domain/element/element-graph.model'
 import {
+  ConvertElementToComponentInput,
+  ConvertElementToComponentService,
+} from '../use-cases/element/convert-element-to-component'
+import {
   CreateElementInput,
   CreateElementService,
 } from '../use-cases/element/create-element'
@@ -48,6 +52,7 @@ export class ElementResolver {
     private updateElementService: UpdateElementService,
     private moveElementService: MoveElementService,
     private updateElementPropsService: UpdateElementPropsService,
+    private convertElementToComponentService: ConvertElementToComponentService,
   ) {}
 
   @Mutation(() => Element)
@@ -187,6 +192,29 @@ export class ElementResolver {
     )
 
     await this.deleteElementService.execute({ input, currentUser })
+
+    if (!element) {
+      throw new Error("Couldn't find element")
+    }
+
+    return element
+  }
+
+  @Mutation(() => Element)
+  @UseGuards(GqlAuthGuard)
+  async convertElementToComponent(
+    @Args('input') input: ConvertElementToComponentInput,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    await this.convertElementToComponentService.execute({
+      input,
+      currentUser,
+    })
+
+    const element = await this.getElement(
+      { where: { id: input.elementId } },
+      currentUser,
+    )
 
     if (!element) {
       throw new Error("Couldn't find element")
