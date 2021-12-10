@@ -16,7 +16,7 @@ import { ElementContextMenu } from '../ElementContextMenu'
 export const MainPaneBuilderTreeTab = () => {
   const { elementTree } = useElementGraphContext()
   const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(elementTree)
-  const antdTree = elementTree.getAntdTree()
+  const antdTree = elementTree.getAntdTree(ElementTree.isElement)
   const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
   const { selectedElement, setSelectedElement } = useBuilderSelectedElement()
   const { setHoveringElement } = useBuilderHoveringElement()

@@ -106,8 +106,12 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     })
   }
 
-  getAntdTree(): DataNode | null {
-    const root = this.cy.elements().roots().first()
+  getAntdTree(rootPredicate?: Predicate<TVertex>): DataNode | null {
+    const root = this.cy
+      .elements()
+      .roots()
+      .filter(filterPredicate(rootPredicate ?? this.predicate))
+
     let tree: DataNode | null = null
     const nodes: Record<string, DataNode> = {}
     const nodeOrder: Record<string, number> = {}
