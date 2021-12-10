@@ -35,6 +35,10 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
     return this.getRootVertex(ElementTree.isElement)
   }
 
+  getRootComponent(): IElement | undefined {
+    return this.getRootVertex(ElementTree.isComponent)
+  }
+
   /** Returns the root element of a component */
   // getComponentRootElement(componentId: string): TElementVertex {
   //   return this.findChildVertex(

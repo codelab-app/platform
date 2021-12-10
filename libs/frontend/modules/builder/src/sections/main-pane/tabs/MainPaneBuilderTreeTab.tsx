@@ -13,10 +13,18 @@ import {
 } from '../../../hooks'
 import { ElementContextMenu } from '../ElementContextMenu'
 
-export const MainPaneBuilderTreeTab = () => {
+export const MainPaneBuilderTreeTab = ({
+  isComponentBuilder,
+}: {
+  isComponentBuilder?: boolean
+}) => {
   const { elementTree } = useElementGraphContext()
   const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(elementTree)
-  const antdTree = elementTree.getAntdTree(ElementTree.isElement)
+
+  const antdTree = elementTree.getAntdTree(
+    isComponentBuilder ? ElementTree.isComponent : ElementTree.isElement,
+  )
+
   const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
   const { selectedElement, setSelectedElement } = useBuilderSelectedElement()
   const { setHoveringElement } = useBuilderHoveringElement()

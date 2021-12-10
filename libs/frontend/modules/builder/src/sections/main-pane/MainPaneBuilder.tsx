@@ -45,12 +45,22 @@ const headerFactory = (
   return undefined
 }
 
+export interface MainPaneBuilderProps {
+  isComponentBuilder?: boolean
+}
+
 /** Requires ElementGraphContext */
-export const MainPaneBuilder = () => {
+export const MainPaneBuilder = ({
+  isComponentBuilder,
+}: MainPaneBuilderProps) => {
   const { selectedElement, resetSelection } = useBuilderSelectedElement()
   const { builderTab } = useBuilderTab()
   const { elementTree } = useElementGraphContext()
-  const root = elementTree?.getRootElement()
+
+  const root = isComponentBuilder
+    ? elementTree.getRootComponent()
+    : elementTree.getRootElement()
+
   const [searchValue, setSearchValue] = useState('')
 
   const debouncedSearch = useCallback(
@@ -70,7 +80,7 @@ export const MainPaneBuilder = () => {
         value={builderTab}
         expectedValue={BuilderTab.Tree}
       >
-        <MainPaneBuilderTreeTab />
+        <MainPaneBuilderTreeTab isComponentBuilder={isComponentBuilder} />
       </EqualityConditionalView>
 
       <EqualityConditionalView

@@ -22,6 +22,7 @@ import { builderSelectors } from './store'
 
 export type BuilderProps = {
   tree: ElementTree
+  isComponentBuilder?: boolean
 }
 
 const StyledBuilderContainer = styled.div`
@@ -55,7 +56,13 @@ const StyledBuilderInnerContainer = styled.div`
   overflow: auto;
 `
 
-const BuilderRenderer = ({ tree }: { tree: ElementTree }) => {
+const BuilderRenderer = ({
+  tree,
+  isComponentBuilder,
+}: {
+  tree: ElementTree
+  isComponentBuilder?: boolean
+}) => {
   const { handleMouseEnter, handleMouseLeave } = useBuilderHoverHandlers(tree)
   const { typeKindsById } = useContext(TypeKindsContext)
   const { onRendered } = useOnRendered()
@@ -64,6 +71,7 @@ const BuilderRenderer = ({ tree }: { tree: ElementTree }) => {
 
   return (
     <Renderer
+      isComponentRenderer={isComponentBuilder}
       tree={tree}
       context={{
         onRendered,
@@ -85,11 +93,16 @@ const BuilderRenderer = ({ tree }: { tree: ElementTree }) => {
 export const Builder = ({
   children,
   tree,
+  isComponentBuilder,
 }: React.PropsWithChildren<BuilderProps>) => {
   const { selectElement, resetSelection } = useBuilderDispatch()
 
+  const root = isComponentBuilder
+    ? tree.getRootComponent()
+    : tree.getRootElement()
+
   const { setNodeRef } = useCreateElementDroppable(BuilderDropId.BuilderRoot, {
-    parentElementId: tree.getRootElement()?.id,
+    parentElementId: root?.id,
   })
 
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -132,7 +145,10 @@ export const Builder = ({
       <TypeKindProvider>
         <StyledBuilderInnerContainer>
           <BuilderDropHandlers tree={tree} />
-          <BuilderRenderer tree={tree} />
+          <BuilderRenderer
+            isComponentBuilder={isComponentBuilder}
+            tree={tree}
+          />
           <BuilderHoverOverlay />
           <BuilderClickOverlay />
           {children}

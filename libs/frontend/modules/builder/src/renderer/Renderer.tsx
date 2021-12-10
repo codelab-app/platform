@@ -8,13 +8,18 @@ import { RenderContext } from './types/RenderTypes'
 
 export interface RendererProps {
   tree: ElementTree
+  isComponentRenderer?: boolean
   context?: Omit<RenderContext, 'tree' | 'render'>
 }
 
 /**
  * Renders an ElementTree
  */
-export const Renderer = ({ tree, context: contextProp }: RendererProps) => {
+export const Renderer = ({
+  tree,
+  context: contextProp,
+  isComponentRenderer,
+}: RendererProps) => {
   const { typeKindsById } = useContext(TypeKindsContext)
 
   const context = defaultRenderContext({
@@ -23,7 +28,9 @@ export const Renderer = ({ tree, context: contextProp }: RendererProps) => {
     tree,
   })
 
-  const root = tree.getRootElement()
+  const root = isComponentRenderer
+    ? tree.getRootComponent()
+    : tree.getRootElement()
 
   if (!root) {
     return null
