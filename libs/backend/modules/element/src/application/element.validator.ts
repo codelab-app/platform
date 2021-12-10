@@ -119,7 +119,7 @@ export class ElementValidator {
 
   /**
    * Throws error
-   * if the element has a parent element
+   * if the element has a parent element or a ~instanceOfComponent reference
    */
   public async isOrphan(elementId: string, filter?: string) {
     if (!elementId) {
@@ -131,12 +131,22 @@ export class ElementValidator {
     })`
 
     const response = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getOneNamed<{ parentId?: string }>(
+      this.dgraph.getOneNamed<{
+        parentId?: string
+        parentName?: string
+        refElementId?: string
+        refElementName?: string
+      }>(
         txn,
         `{
           query(func: type(${DgraphEntityType.Element})) ${combinedFilter} @normalize  {
             ~children {
               parentId: uid
+              parentName: name
+            }
+            ~instanceOfComponent {
+              refElementId: uid
+              refElementName: name
             }
           }
         }`,
@@ -144,8 +154,12 @@ export class ElementValidator {
       ),
     )
 
-    if (response?.parentId) {
-      throw new Error('Element is referenced')
+    if (response?.parentId || response?.refElementId) {
+      throw new Error(
+        `Element is referenced in ${
+          response?.parentName ?? response?.refElementName
+        }`,
+      )
     }
 
     return response

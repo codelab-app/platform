@@ -635,6 +635,7 @@ export interface CreateElementInput {
     hooks?: Nullable<HookRef[]>;
     propMapBindings?: Nullable<NewPropMapBindingRef[]>;
     isComponent?: Nullable<boolean>;
+    instanceOfComponentId?: Nullable<string>;
     parentElementId?: Nullable<string>;
 }
 
@@ -662,6 +663,7 @@ export interface CreateElementChildInput {
     hooks?: Nullable<HookRef[]>;
     propMapBindings?: Nullable<NewPropMapBindingRef[]>;
     isComponent?: Nullable<boolean>;
+    instanceOfComponentId?: Nullable<string>;
 }
 
 export interface HookRef {
@@ -696,7 +698,7 @@ export interface MoveElementInput {
 
 export interface MoveData {
     order: number;
-    parentElementId: string;
+    parentElementId?: Nullable<string>;
 }
 
 export interface UpdateElementPropsInput {
@@ -1158,6 +1160,10 @@ export interface PropMapBinding {
     targetKey: string;
 }
 
+export interface ComponentRef {
+    id: string;
+}
+
 export interface Element {
     id: string;
     name?: Nullable<string>;
@@ -1170,6 +1176,7 @@ export interface Element {
     renderIfPropKey?: Nullable<string>;
     propMapBindings: PropMapBinding[];
     propTransformationJs?: Nullable<string>;
+    instanceOfComponent?: Nullable<ComponentRef>;
     graph: ElementGraph;
 }
 

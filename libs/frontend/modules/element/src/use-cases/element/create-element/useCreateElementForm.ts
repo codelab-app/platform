@@ -1,7 +1,4 @@
-import {
-  createNotificationHandler,
-  notify,
-} from '@codelab/frontend/shared/utils'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback, useRef } from 'react'
 import { CreateElementMutationVariables } from '../../../graphql'
 import { useElementDispatch, useElementState } from '../../../hooks'
@@ -17,17 +14,11 @@ const mapVariables = ({
   atomId,
   ...data
 }: CreateElementSchema): CreateElementMutationVariables => {
-  if (atomId && componentId) {
-    const message = 'Set either atom or component, not both'
-    notify({ title: message, type: 'error' })
-    throw new Error(message)
-  }
-
   return {
     input: {
       ...data,
       atom: atomId ? { atomId: atomId } : undefined,
-      children: componentId ? [{ elementId: componentId }] : undefined,
+      instanceOfComponentId: componentId,
     },
   }
 }

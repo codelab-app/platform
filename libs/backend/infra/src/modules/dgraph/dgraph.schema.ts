@@ -77,7 +77,7 @@ export const dgraphSchema = `
     name
     component
     atom
-
+    instanceOfComponent
     css
     hooks
     props
@@ -99,6 +99,7 @@ export const dgraphSchema = `
   renderIfPropKey: string .
   propMapBindings: [uid] @reverse .
   componentTag: uid @reverse .
+  instanceOfComponent: uid @reverse .
 
   type ${Atom} {
     name

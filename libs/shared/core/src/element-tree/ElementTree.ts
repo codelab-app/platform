@@ -1,6 +1,6 @@
 import { IElement, IElementEdge, IGraph } from '@codelab/shared/abstract/core'
 import { getCyElementData } from '../cytoscape/element'
-import { TreeService } from '../tree'
+import { filterPredicate, TreeService } from '../tree'
 import { isComponent, isElement } from './guards'
 
 export class ElementTree extends TreeService<IElement, IElementEdge> {
@@ -31,6 +31,10 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
     }
   }
 
+  getRootElement(): IElement | undefined {
+    return this.getRootVertex(ElementTree.isElement)
+  }
+
   /** Returns the root element of a component */
   // getComponentRootElement(componentId: string): TElementVertex {
   //   return this.findChildVertex(
@@ -44,6 +48,8 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
    */
   getComponentById(componentId: string): IElement | undefined {
     return this.cy
+      .nodes()
+      .filter(filterPredicate(ElementTree.isComponent))
       .getElementById(componentId)
       .first()
       .map<IElement | undefined>(getCyElementData)[0]

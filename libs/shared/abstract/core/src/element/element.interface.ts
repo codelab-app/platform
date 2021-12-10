@@ -13,15 +13,14 @@ export const PropMapBindingSchema = z.object({
 
 export type IPropMapBinding = z.infer<typeof PropMapBindingSchema>
 
-export type ElementId = string
-
 export const ElementSchema = z.object({
   id: z.string(),
   name: z.string().nullish(),
   css: z.string().nullish(),
   props: PropSchema,
+  instanceOfComponent: z.object({ id: z.string() }).nullish(), // Marks the element as an instance of a specific component
   atom: z.optional(AtomSchema).nullable(),
-  componentTag: TagSchema.nullish(),
+  componentTag: TagSchema.nullish(), // Marks this element as a component
   hooks: z.array(HookSchema).default([]),
   renderForEachPropKey: z.string().nullish(),
   renderIfPropKey: z.string().nullish(),

@@ -170,6 +170,7 @@ export class GetElementGraphService extends DgraphUseCase<
         @normalize {
           IDS AS uid
           children @filter(type(${DgraphEntityType.Element}))
+          instanceOfComponent @filter(type(${DgraphEntityType.Element}))
       }
 
       ${GetElementGraphService.singleElementQuery(`uid(IDS)`, 'vertices')}
@@ -190,6 +191,9 @@ export class GetElementGraphService extends DgraphUseCase<
         id: uid
         name
         css
+        instanceOfComponent {
+          id: uid
+        }
         componentTag {
           id: uid
           expand(_all_)

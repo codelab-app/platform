@@ -28,6 +28,7 @@ export class MoveElementService extends DgraphUseCase<MoveElementRequest> {
 
     // Delete the old parent-child edge and create a new one
     const mu: Mutation = {}
+
     mu.setNquads = MoveElementService.createSetMutation(input)
 
     if (
@@ -47,6 +48,10 @@ export class MoveElementService extends DgraphUseCase<MoveElementRequest> {
     elementId,
     moveData: { parentElementId, order },
   }: MoveElementInput) {
+    if (!parentElementId) {
+      return undefined
+    }
+
     return `<${parentElementId}> <children> <${elementId}> (order=${order}) .`
   }
 
@@ -66,7 +71,12 @@ export class MoveElementService extends DgraphUseCase<MoveElementRequest> {
   }: MoveElementRequest) {
     await this.elementValidator.existsAndIsOwnedBy(elementId, currentUser)
 
-    await this.elementValidator.existsAndIsOwnedBy(parentElementId, currentUser)
+    if (parentElementId) {
+      await this.elementValidator.existsAndIsOwnedBy(
+        parentElementId,
+        currentUser,
+      )
+    }
 
     await this.elementValidator.isNotRoot(elementId)
 

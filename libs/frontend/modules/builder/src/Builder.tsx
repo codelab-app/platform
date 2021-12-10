@@ -89,7 +89,7 @@ export const Builder = ({
   const { selectElement, resetSelection } = useBuilderDispatch()
 
   const { setNodeRef } = useCreateElementDroppable(BuilderDropId.BuilderRoot, {
-    parentElementId: tree.getRootVertex(ElementTree.isElement)?.id,
+    parentElementId: tree.getRootElement()?.id,
   })
 
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {

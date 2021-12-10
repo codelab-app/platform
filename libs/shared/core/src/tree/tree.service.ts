@@ -62,8 +62,8 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
   public getCyEdgeData = (cyElement: EdgeSingular) =>
     getCyElementData<TEdge>(cyElement)
 
-  getPathFromRoot(vertexId: string) {
-    const root = this.getRootVertex()
+  getPathFromRoot(vertexId: string, predicate?: Predicate<TVertex>) {
+    const root = this.getRootVertex(predicate)
     const target = this.getVertex(vertexId)
 
     if (!root || !target) {
@@ -81,7 +81,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
 
     return {
       found: path?.found ?? false,
-      path: path?.path.map((e) => e.id()),
+      path: path?.path?.map((e) => e.id()),
     }
   }
 

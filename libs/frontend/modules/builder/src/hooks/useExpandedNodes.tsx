@@ -15,7 +15,10 @@ export const useExpandedNodes = (tree: ElementTree) => {
       return
     }
 
-    const pathResult = tree.getPathFromRoot(selectedElementId)
+    const pathResult = tree.getPathFromRoot(
+      selectedElementId,
+      ElementTree.isElement,
+    )
 
     // If there is a path (there should always be, it's a tree after all), go through each node
     // of the path and keep track of all nodes that need to get expanded

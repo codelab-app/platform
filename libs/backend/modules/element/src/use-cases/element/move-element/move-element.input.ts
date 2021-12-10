@@ -5,8 +5,8 @@ export class MoveData {
   @Field(() => Int)
   declare order: number
 
-  @Field()
-  declare parentElementId: string
+  @Field({ nullable: true })
+  declare parentElementId?: string
 }
 
 @InputType()

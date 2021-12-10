@@ -20,5 +20,16 @@ export const componentPipe: RenderPipeFactory =
       )
     }
 
+    if (element.instanceOfComponent?.id) {
+      const component = context.tree.getComponentById(
+        element.instanceOfComponent.id,
+      )
+
+      if (component) {
+        // We override the component props with the element instance props
+        return context.render(component, context, props)
+      }
+    }
+
     return next(element, context, props)
   }

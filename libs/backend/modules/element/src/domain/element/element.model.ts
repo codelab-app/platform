@@ -7,6 +7,12 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { PropMapBinding } from '../prop-mapping/prop-map-binding.model'
 
+@ObjectType()
+export class ComponentRef {
+  @Field(() => ID)
+  declare id: string
+}
+
 /**
  * The Element is our base renderable unit
  *
@@ -59,6 +65,9 @@ export class Element implements IElement {
   @Field(() => String, { nullable: true })
   propTransformationJs?: Maybe<string>
 
+  @Field(() => ComponentRef, { nullable: true })
+  instanceOfComponent?: ComponentRef
+
   constructor({
     id,
     name = '',
@@ -70,6 +79,7 @@ export class Element implements IElement {
     renderForEachPropKey,
     renderIfPropKey,
     propMapBindings = [],
+    instanceOfComponent,
     propTransformationJs,
   }: IElement) {
     this.id = id!
@@ -83,5 +93,6 @@ export class Element implements IElement {
     this.renderForEachPropKey = renderForEachPropKey
     this.propMapBindings = propMapBindings
     this.propTransformationJs = propTransformationJs
+    this.instanceOfComponent = instanceOfComponent ?? undefined
   }
 }

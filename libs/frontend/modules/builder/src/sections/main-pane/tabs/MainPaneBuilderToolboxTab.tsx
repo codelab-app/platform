@@ -10,14 +10,11 @@ import { ConditionalView } from '@codelab/frontend/view/components'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import { Button } from 'antd'
-import Input from 'antd/lib/input'
 import Spin from 'antd/lib/spin'
 import React from 'react'
 import tw from 'twin.macro'
 import { BuilderDropId } from '../../../dnd/BuilderDropId'
 import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable'
-
-const { Search } = Input
 
 export interface ToolboxItem {
   id: string
@@ -33,7 +30,6 @@ const atomToolboxItemFactory = (atom: AtomForSelectFragment): ToolboxItem => ({
   id: atom.id,
   createElementInputFactory: () => ({
     name: atom.name,
-
     atom: {
       atomId: atom.id,
     },
@@ -50,7 +46,7 @@ const componentToolboxItemFactory = (
     id: component.id,
     createElementInputFactory: () => ({
       name,
-      children: [{ elementId: component.id }],
+      instanceOfComponentId: component.id,
     }),
   }
 }

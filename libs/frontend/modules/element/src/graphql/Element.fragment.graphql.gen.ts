@@ -21,6 +21,7 @@ export type ElementFragment = {
   renderForEachPropKey?: string | null | undefined
   renderIfPropKey?: string | null | undefined
   propTransformationJs?: string | null | undefined
+  instanceOfComponent?: { id: string } | null | undefined
   atom?: AtomBaseFragment | null | undefined
   componentTag?: TagFragment | null | undefined
   props: PropFragment
@@ -76,6 +77,9 @@ export const ElementFragmentDoc = gql`
     id
     name
     css
+    instanceOfComponent {
+      id
+    }
     atom {
       ...AtomBase
     }

@@ -120,7 +120,7 @@ describe('CreateElement', () => {
       })
 
       it('should assign correct ref ids', async () => {
-        const root = tree.getRootVertex()
+        const root = tree.getRootElement()
 
         expect(root?.id).toBe(element.id)
 

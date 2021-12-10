@@ -23,7 +23,7 @@ export const Renderer = ({ tree, context: contextProp }: RendererProps) => {
     tree,
   })
 
-  const root = tree.getRootVertex()
+  const root = tree.getRootElement()
 
   if (!root) {
     return null

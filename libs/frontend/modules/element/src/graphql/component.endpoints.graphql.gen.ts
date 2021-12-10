@@ -11,7 +11,7 @@ import {
 } from './Element.fragment.graphql.gen'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type GetComponentsQueryVariables = Types.Exact<{
-  input?: Types.Maybe<Types.GetComponentsInput>
+  input?: Types.InputMaybe<Types.GetComponentsInput>
 }>
 
 export type GetComponentsQuery = { getComponents: Array<ElementFragment> }

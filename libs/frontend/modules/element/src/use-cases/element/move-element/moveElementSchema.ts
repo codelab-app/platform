@@ -14,6 +14,7 @@ export const moveElementSchema: JSONSchemaType<MoveElementSchema> = {
     parentElementId: {
       type: 'string',
       label: 'Parent Element',
+      nullable: true,
     },
   },
   required: [],
