@@ -172,7 +172,21 @@ export class GetElementGraphService extends DgraphUseCase<
           children @filter(type(${DgraphEntityType.Element}))
       }
 
-      vertices(func: uid(IDS)) @filter(type(${DgraphEntityType.Element})) {
+      ${GetElementGraphService.singleElementQuery(`uid(IDS)`, 'vertices')}
+
+      edges(func: uid(IDS))
+        @normalize
+        @cascade {
+          source: uid
+          children @facets(order: order) {
+          target: uid
+        }
+      }
+    }`
+  }
+
+  static singleElementQuery(func: string, queryName = 'query') {
+    return `${queryName}(func: ${func}) @filter(type(${DgraphEntityType.Element})) {
         id: uid
         name
         css
@@ -212,16 +226,6 @@ export class GetElementGraphService extends DgraphUseCase<
           }
         }
         propTransformationJs
-      }
-
-      edges(func: uid(IDS))
-        @normalize
-        @cascade {
-          source: uid
-          children @facets(order: order) {
-          target: uid
-        }
-      }
-    }`
+      }`
   }
 }

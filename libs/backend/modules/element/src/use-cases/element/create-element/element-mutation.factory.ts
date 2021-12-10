@@ -1,6 +1,6 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
 import { AtomType, IUser } from '@codelab/shared/abstract/core'
-import { hexadecimalRegex } from '@codelab/shared/utils'
+import { hexadecimalRegex, pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { slugify } from 'voca'
 import { AddHookToElementService } from '../hooks/add-hook-to-element'
@@ -150,10 +150,16 @@ export class ElementMutationFactory {
       atomId = atom.atomId
     }
 
+    let elementName = name
+
+    if (!elementName && atom?.atomType) {
+      elementName = pascalCaseToWords(atom.atomType)
+    }
+
     return {
       uid: elementUid,
       'dgraph.type': [DgraphEntityType.Element],
-      name,
+      name: elementName,
       owner: this.currentUser
         ? {
             uid: this.currentUser.id,
@@ -170,7 +176,7 @@ export class ElementMutationFactory {
       propTransformationJs,
       propMapBindings: propMapBindingMutations,
       componentTag: isComponent
-        ? ElementMutationFactory.componentTagJson(name)
+        ? ElementMutationFactory.componentTagJson(elementName)
         : undefined,
     }
   }

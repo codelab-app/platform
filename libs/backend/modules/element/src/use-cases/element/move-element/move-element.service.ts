@@ -31,12 +31,12 @@ export class MoveElementService extends DgraphUseCase<MoveElementRequest> {
     mu.setNquads = MoveElementService.createSetMutation(input)
 
     if (
-      existingParent?.uid &&
-      existingParent.uid !== input.moveData.parentElementId
+      existingParent?.parentId &&
+      existingParent.parentId !== input.moveData.parentElementId
     ) {
       mu.deleteNquads = MoveElementService.createDeleteMutation(
         input,
-        existingParent.uid,
+        existingParent.parentId,
       )
     }
 
