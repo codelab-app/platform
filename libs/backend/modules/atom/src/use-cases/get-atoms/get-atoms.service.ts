@@ -52,19 +52,18 @@ export class GetAtomsService extends DgraphUseCase<
       const results = await this.dgraph.getAllNamed<IAtom>(
         txn,
         GetAtomService.getAtomQuery(
-          `@filter(match(name, ${request.where.searchQuery}, 25))`,
+          `@filter(match(name, "${request.where.searchQuery}", 10))`,
         ),
         'query',
       )
 
       const fuse = new Fuse(results, {
         keys: ['name', 'type'],
+        shouldSort: true,
+        isCaseSensitive: false,
       })
 
-      return fuse
-        .search(request.where.searchQuery)
-        .sort((a, b) => (a.score ?? 0) - (b.score ?? 0))
-        .map((r) => r.item)
+      return fuse.search(request.where.searchQuery).map((r) => r.item)
     }
 
     return this.dgraph.getAllNamed<IAtom>(
