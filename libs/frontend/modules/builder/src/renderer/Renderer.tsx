@@ -1,7 +1,6 @@
-import { TypeKindsContext } from '@codelab/frontend/modules/type'
 import { ElementTree } from '@codelab/shared/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
-import React, { ReactElement, ReactNode, useContext, useEffect } from 'react'
+import React from 'react'
 import { RecoilRoot } from 'recoil'
 import { defaultRenderContext } from './defaultRenderContext'
 import { RenderContext } from './types/RenderTypes'
@@ -15,16 +14,9 @@ export interface RendererProps {
 /**
  * Renders an ElementTree
  */
-export const Renderer = ({
-  tree,
-  context: contextProp,
-  isComponentRenderer,
-}: RendererProps) => {
-  const { typeKindsById } = useContext(TypeKindsContext)
-
+export const Renderer = ({ tree, context: contextProp }: RendererProps) => {
   const context = defaultRenderContext({
     ...contextProp,
-    typeKindsById,
     tree,
   })
 
