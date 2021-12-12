@@ -62,8 +62,8 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
   public getCyEdgeData = (cyElement: EdgeSingular) =>
     getCyElementData<TEdge>(cyElement)
 
-  getPathFromRoot(vertexId: string) {
-    const root = this.getRootVertex()
+  getPathFromRoot(vertexId: string, predicate?: Predicate<TVertex>) {
+    const root = this.getRootVertex(predicate)
     const target = this.getVertex(vertexId)
 
     if (!root || !target) {
@@ -81,7 +81,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
 
     return {
       found: path?.found ?? false,
-      path: path?.path.map((e) => e.id()),
+      path: path?.path?.map((e) => e.id()),
     }
   }
 
@@ -106,8 +106,12 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     })
   }
 
-  getAntdTree(): DataNode | null {
-    const root = this.cy.elements().roots().first()
+  getAntdTree(rootPredicate?: Predicate<TVertex>): DataNode | null {
+    const root = this.cy
+      .elements()
+      .roots()
+      .filter(filterPredicate(rootPredicate ?? this.predicate))
+
     let tree: DataNode | null = null
     const nodes: Record<string, DataNode> = {}
     const nodeOrder: Record<string, number> = {}

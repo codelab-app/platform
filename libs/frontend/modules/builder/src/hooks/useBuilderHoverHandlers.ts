@@ -1,5 +1,6 @@
 import { ElementTree } from '@codelab/shared/core'
-import { useCallback } from 'react'
+import { MouseEvent, useCallback } from 'react'
+import { useBuilderDnd } from '../dnd'
 import { useBuilderDispatch } from './useBuilderDispatch'
 
 /**
@@ -8,9 +9,14 @@ import { useBuilderDispatch } from './useBuilderDispatch'
  */
 export const useBuilderHoverHandlers = (tree: ElementTree) => {
   const { hoverElement } = useBuilderDispatch()
+  const { currentlyDragging } = useBuilderDnd()
 
-  const handleMouseEnter = useCallback(
+  const handleMouseOver = useCallback(
     (e: MouseEvent) => {
+      if (currentlyDragging) {
+        return
+      }
+
       const target = e.target as HTMLElement
 
       if (!target) {
@@ -39,7 +45,7 @@ export const useBuilderHoverHandlers = (tree: ElementTree) => {
         hoverElement({ elementId: undefined })
       }
     },
-    [hoverElement, tree],
+    [currentlyDragging, hoverElement, tree],
   )
 
   const handleMouseLeave = useCallback(() => {
@@ -47,7 +53,7 @@ export const useBuilderHoverHandlers = (tree: ElementTree) => {
   }, [hoverElement])
 
   return {
-    handleMouseEnter,
+    handleMouseOver,
     handleMouseLeave,
   }
 }

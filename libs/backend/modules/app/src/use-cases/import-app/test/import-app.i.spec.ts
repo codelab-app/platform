@@ -131,6 +131,7 @@ describe('ImportApp', () => {
                 {
                   __typename: 'Element',
                   id: buttonComponentId,
+                  instanceOfComponent: null,
                   name: buttonComponentInput.newElement.name,
                   css: buttonComponentInput.newElement.css,
                   atom: expect.objectContaining({ type: AtomType.HtmlButton }),
@@ -154,6 +155,7 @@ describe('ImportApp', () => {
                   __typename: 'Element',
                   id: firstButtonId,
                   name: firstButtonInput.newElement.name,
+                  instanceOfComponent: null,
                   css: null,
                   atom: null,
                   componentTag: null,
@@ -170,6 +172,7 @@ describe('ImportApp', () => {
                 {
                   __typename: 'Element',
                   id: rootElementId,
+                  instanceOfComponent: null,
                   name: createPageInput.rootElement?.name,
                   css: createPageInput.rootElement?.css,
                   atom: null,
@@ -207,6 +210,7 @@ describe('ImportApp', () => {
                 {
                   __typename: 'Element',
                   id: secondButtonId,
+                  instanceOfComponent: null,
                   name: secondButtonInput.newElement.name,
                   css: null,
                   atom: null,
@@ -224,6 +228,7 @@ describe('ImportApp', () => {
                 {
                   __typename: 'Element',
                   id: textElementId,
+                  instanceOfComponent: null,
                   name: textElementInput.newElement.name,
                   css: null,
                   atom: expect.objectContaining({ type: AtomType.Text }),

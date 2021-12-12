@@ -73,9 +73,7 @@ export const getServerSideProps = withPageAuthRequired({
   },
 })
 
-const MainPane = () => (
-  <MainPaneBuilder treeTab={{ restrictComponentEditing: true }} />
-)
+const MainPane = () => <MainPaneBuilder />
 
 PageBuilder.Header = BuilderHeader
 PageBuilder.Template = withBuilderContext(

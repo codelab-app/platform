@@ -652,6 +652,10 @@ type PropMapBinding {
   targetKey: String!
 }
 
+type ComponentRef {
+  id: ID!
+}
+
 type Element {
   id: ID!
   name: String
@@ -674,6 +678,7 @@ type Element {
   renderIfPropKey: String
   propMapBindings: [PropMapBinding!]!
   propTransformationJs: String
+  instanceOfComponent: ComponentRef
 
   """
   Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
@@ -1070,6 +1075,7 @@ input CreateElementInput {
   hooks: [HookRef!]
   propMapBindings: [NewPropMapBindingRef!]
   isComponent: Boolean
+  instanceOfComponentId: String
 
   """Attaches the newly created element to an existing element as child"""
   parentElementId: String
@@ -1113,6 +1119,7 @@ input CreateElementChildInput {
   hooks: [HookRef!]
   propMapBindings: [NewPropMapBindingRef!]
   isComponent: Boolean
+  instanceOfComponentId: String
 }
 
 input HookRef {
@@ -1162,7 +1169,7 @@ input MoveElementInput {
 
 input MoveData {
   order: Int!
-  parentElementId: String!
+  parentElementId: String
 }
 
 input UpdateElementPropsInput {

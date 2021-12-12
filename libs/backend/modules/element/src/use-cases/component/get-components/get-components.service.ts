@@ -22,13 +22,12 @@ export class GetComponentsService extends DgraphUseCase<
 
     if (request?.input?.searchQuery) {
       const fuse = new Fuse(results, {
-        keys: ['name'],
+        keys: ['name', 'componentTag.name'],
+        shouldSort: true,
+        isCaseSensitive: false,
       })
 
-      return fuse
-        .search(request.input.searchQuery)
-        .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-        .map((r) => r.item)
+      return fuse.search(request.input.searchQuery).map((r) => r.item)
     }
 
     return results
@@ -36,7 +35,7 @@ export class GetComponentsService extends DgraphUseCase<
 
   protected getQuery({ currentUser, input }: GetComponentsRequest) {
     const nameFilter = input?.searchQuery
-      ? ` AND match(name, ${input.searchQuery}, 25)`
+      ? ` AND match(name, "${input.searchQuery}", 14)`
       : ''
 
     // Get all elements, that:

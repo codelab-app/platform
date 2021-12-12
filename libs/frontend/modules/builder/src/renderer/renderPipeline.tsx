@@ -40,8 +40,8 @@ const elementPipeline = compose(
   renderPropsPipe,
   reactNodePipe,
   conditionalRenderPipe,
-  componentPipe,
   renderAtomPipe,
+  componentPipe,
 )
 
 // (4). Combine the pipelines and add the final renderChildrenPipe

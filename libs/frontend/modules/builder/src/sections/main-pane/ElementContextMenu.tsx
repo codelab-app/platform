@@ -1,4 +1,5 @@
 import { IElement } from '@codelab/frontend/abstract/core'
+import { PageType } from '@codelab/frontend/model/state/router'
 import {
   useConvertElementToComponentMutation,
   useCreateElementMutation,
@@ -7,6 +8,7 @@ import {
 import { Key } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import { Menu } from 'antd'
+import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
 import { duplicateElementInput } from '../../utils/duplicateElementInput'
@@ -31,6 +33,7 @@ export const ElementContextMenu = ({
   const [convertToComponent] = useConvertElementToComponentMutation()
   const { openCreateModal, openDeleteModal } = useElementDispatch()
   const onAddChild = () => openCreateModal({ parentElementId: element.id })
+  const { push } = useRouter()
 
   const onDelete = () =>
     openDeleteModal({
@@ -64,9 +67,23 @@ export const ElementContextMenu = ({
       <Menu.Item onClick={() => onDuplicate()} key="duplicate">
         Duplicate
       </Menu.Item>
-      <Menu.Item onClick={() => onConvert()} key="convert">
-        Convert to component
-      </Menu.Item>
+      {element.instanceOfComponent ? (
+        <Menu.Item
+          onClick={() =>
+            push({
+              pathname: PageType.ComponentDetail,
+              query: { componentId: element.instanceOfComponent?.id },
+            })
+          }
+          key="1"
+        >
+          Edit component
+        </Menu.Item>
+      ) : (
+        <Menu.Item onClick={() => onConvert()} key="convert">
+          Convert to component
+        </Menu.Item>
+      )}
       <Menu.Item danger onClick={() => onDelete()} key="delete">
         <span>Delete `{element.name}` </span>{' '}
         <span>

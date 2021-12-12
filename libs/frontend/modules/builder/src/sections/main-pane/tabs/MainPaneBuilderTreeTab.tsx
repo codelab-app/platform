@@ -11,19 +11,20 @@ import {
   useElementTreeDrop,
   useExpandedNodes,
 } from '../../../hooks'
-import { ComponentContextMenu } from '../ComponentContextMenu'
 import { ElementContextMenu } from '../ElementContextMenu'
 
-export interface MainPaneBuilderTreeTabProps {
-  restrictComponentEditing?: boolean
-}
-
 export const MainPaneBuilderTreeTab = ({
-  restrictComponentEditing,
-}: MainPaneBuilderTreeTabProps) => {
+  isComponentBuilder,
+}: {
+  isComponentBuilder?: boolean
+}) => {
   const { elementTree } = useElementGraphContext()
   const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(elementTree)
-  const antdTree = elementTree.getAntdTree()
+
+  const antdTree = elementTree.getAntdTree(
+    isComponentBuilder ? ElementTree.isComponent : ElementTree.isElement,
+  )
+
   const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
   const { selectedElement, setSelectedElement } = useBuilderSelectedElement()
   const { setHoveringElement } = useBuilderHoveringElement()
@@ -43,26 +44,16 @@ export const MainPaneBuilderTreeTab = ({
       onDrop={handleDrop}
       selectedKeys={selectedElement ? [selectedElement.id] : []}
       onMouseEnter={({ node }: any) => {
-        if (!restrictComponentEditing || ElementTree.isElement(node)) {
-          setHoveringElement(node.id)
-        }
+        setHoveringElement(node.id)
       }}
       onMouseLeave={() => setHoveringElement(undefined)}
       onClick={(e) => e.stopPropagation()}
       onSelect={([id], { nativeEvent, node }) => {
         nativeEvent.stopPropagation()
 
-        if (!restrictComponentEditing || ElementTree.isElement(node as any)) {
-          setSelectedElement(id?.toString())
-        }
+        setSelectedElement(id?.toString())
       }}
-      titleRender={(node) => (
-        <TreeItemTitle
-          tree={elementTree}
-          restrictComponentEditing={restrictComponentEditing}
-          node={node}
-        />
-      )}
+      titleRender={(node) => <TreeItemTitle tree={elementTree} node={node} />}
       treeData={antdTree ? [antdTree] : undefined}
     />
   )
@@ -73,8 +64,10 @@ MainPaneBuilderTreeTab.displayName = 'MainPaneBuilderTreeTab'
 const TreeItemTitle = ({
   node,
   tree,
-  restrictComponentEditing,
-}: { node: DataNode; tree: ElementTree } & MainPaneBuilderTreeTabProps) => {
+}: {
+  node: DataNode
+  tree: ElementTree
+}) => {
   const [contextMenuItemId, setContextMenuNodeId] = useState<string | null>(
     null,
   )
@@ -82,27 +75,22 @@ const TreeItemTitle = ({
   const element = node as any as IElement
   const { name, id: nodeId, atom } = element
   const atomName = atom?.name || atom?.type
-  const isComponent = ElementTree.isComponent(element)
+  const isComponentInstance = !!element.instanceOfComponent
 
-  const contextMenu =
-    restrictComponentEditing && isComponent ? (
-      <ComponentContextMenu
-        // We need to manually hide the context menu, otherwise it stays open
-        onClick={() => setContextMenuNodeId(null)}
-        element={node as any}
-      />
-    ) : (
-      <ElementContextMenu
-        tree={tree}
-        onClick={() => setContextMenuNodeId(null)}
-        element={node as any}
-      />
-    )
+  const contextMenu = (
+    <ElementContextMenu
+      tree={tree}
+      onClick={() => setContextMenuNodeId(null)}
+      element={node as any}
+    />
+  )
 
-  const label = isComponent ? element.componentTag?.name ?? name : name
+  const componentInstanceName = element.instanceOfComponent
+    ? tree.getComponentById(element.instanceOfComponent.id)?.name
+    : undefined
 
   return (
-    <div data-cy={`atom-${label}`}>
+    <div>
       <Dropdown
         onVisibleChange={() => setContextMenuNodeId(nodeId)}
         visible={contextMenuItemId === nodeId}
@@ -120,16 +108,14 @@ const TreeItemTitle = ({
         }
         trigger={['contextMenu']}
       >
-        <div
-          css={
-            restrictComponentEditing && isComponent
-              ? tw`text-blue-400`
-              : `text-gray-400`
-          }
-        >
-          {label}{' '}
+        <div css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}>
+          {name}{' '}
           <span css={tw` text-xs`}>
-            {isComponent ? '(Component)' : atomName ? `(${atomName})` : ''}
+            {isComponentInstance
+              ? `(instance of ${componentInstanceName ?? 'a Component'})`
+              : atomName
+              ? `(${atomName})`
+              : ''}
           </span>
         </div>
       </Dropdown>

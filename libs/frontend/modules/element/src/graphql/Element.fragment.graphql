@@ -3,6 +3,9 @@ fragment Element on Element {
   id
   name
   css
+  instanceOfComponent {
+    id
+  }
   atom {
     ...AtomBase
   }

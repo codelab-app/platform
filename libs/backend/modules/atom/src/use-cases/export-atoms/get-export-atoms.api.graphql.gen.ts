@@ -6,7 +6,7 @@ import { TypeGraphFragmentDoc } from '../../../../../../frontend/modules/type/sr
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestGetExportAtomsQueryVariables = Types.Exact<{
-  input?: Types.Maybe<Types.GetAtomsInput>
+  input?: Types.InputMaybe<Types.GetAtomsInput>
 }>
 
 export type TestGetExportAtomsQuery = {

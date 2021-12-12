@@ -89,6 +89,9 @@ export class CreateElementChildInput {
 
   @Field(() => Boolean, { nullable: true })
   declare isComponent?: boolean
+
+  @Field(() => String, { nullable: true })
+  declare instanceOfComponentId?: string
 }
 
 @InputType()

@@ -1,3 +1,5 @@
+import { PropsByElementId } from '@codelab/shared/abstract/core'
+import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { BuilderDragData } from '../dnd/BuilderDragData'
 import {
@@ -8,49 +10,74 @@ import {
   SelectElementActionPayload,
 } from '../store'
 
+const { actions } = builderSlice
+
 export const useBuilderDispatch = () => {
   const dispatch = useDispatch()
-  const { actions } = builderSlice
 
-  const selectElement = (payload: SelectElementActionPayload) => {
-    dispatch(actions.selectElement(payload))
-  }
+  const selectElement = useCallback(
+    (payload: SelectElementActionPayload) => {
+      dispatch(actions.selectElement(payload))
+    },
+    [dispatch],
+  )
 
-  const hoverElement = (payload: HoverElementActionPayload) => {
-    dispatch(actions.hoverElement(payload))
-  }
+  const hoverElement = useCallback(
+    (payload: HoverElementActionPayload) => {
+      dispatch(actions.hoverElement(payload))
+    },
+    [dispatch],
+  )
 
-  const resetSelection = () => {
+  const resetSelection = useCallback(() => {
     dispatch(actions.resetSelection)
-  }
+  }, [dispatch])
 
-  const reset = () => {
+  const reset = useCallback(() => {
     dispatch(actions.reset())
-  }
+  }, [dispatch])
 
-  const setExtraPropsForElement = (payload: PropsPerElementIdPayload) => {
-    dispatch(actions.setExtraPropsForElement(payload))
-  }
+  const setExtraPropsForElement = useCallback(
+    (payload: PropsPerElementIdPayload) => {
+      dispatch(actions.setExtraPropsForElement(payload))
+    },
+    [dispatch],
+  )
 
-  const setLastRenderedPropsForElement = (
-    payload: PropsPerElementIdPayload,
-  ) => {
-    dispatch(actions.setLastRenderedPropsForElement(payload))
-  }
+  const setLastRenderedPropsForElement = useCallback(
+    (payload: PropsPerElementIdPayload) => {
+      dispatch(actions.setLastRenderedPropsForElement(payload))
+    },
+    [dispatch],
+  )
 
-  const setTab = (payload: BuilderTab) => {
-    dispatch(actions.setTab(payload))
-  }
+  const setLastRenderedProps = useCallback(
+    (payload: PropsByElementId) => {
+      dispatch(actions.setLastRenderedProps(payload))
+    },
+    [dispatch],
+  )
 
-  const setCurrentlyDragging = (payload: BuilderDragData | undefined) => {
-    dispatch(actions.setCurrentlyDragging(payload))
-  }
+  const setTab = useCallback(
+    (payload: BuilderTab) => {
+      dispatch(actions.setTab(payload))
+    },
+    [dispatch],
+  )
+
+  const setCurrentlyDragging = useCallback(
+    (payload: BuilderDragData | undefined) => {
+      dispatch(actions.setCurrentlyDragging(payload))
+    },
+    [dispatch],
+  )
 
   return {
     selectElement,
     setCurrentlyDragging,
     setTab,
     setLastRenderedPropsForElement,
+    setLastRenderedProps,
     setExtraPropsForElement,
     reset,
     resetSelection,

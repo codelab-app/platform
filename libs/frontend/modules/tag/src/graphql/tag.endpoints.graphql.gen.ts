@@ -21,7 +21,7 @@ export type DeleteTagsMutation = {
 }
 
 export type ExportTagsQueryVariables = Types.Exact<{
-  input?: Types.Maybe<Types.GetTagGraphsInput>
+  input?: Types.InputMaybe<Types.GetTagGraphsInput>
 }>
 
 export type ExportTagsQuery = { getTagGraphs: TagGraphFragment }

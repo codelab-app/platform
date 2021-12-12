@@ -33,7 +33,7 @@ const ComponentDetail: CodelabPage = () => {
         <title>{root?.componentTag?.name} | Codelab</title>
       </Head>
 
-      <Builder tree={elementTree} />
+      <Builder tree={elementTree} isComponentBuilder />
     </>
   )
 }
@@ -55,7 +55,7 @@ const Template = ({
 }
 
 ComponentDetail.Template = withBuilderContext(Template)
-ComponentDetail.MainPane = MainPaneBuilder
+ComponentDetail.MainPane = () => <MainPaneBuilder isComponentBuilder />
 ComponentDetail.MetaPane = MetaPaneBuilderComponent
 ComponentDetail.Header = null
 ComponentDetail.SidebarNavigation = BuilderSidebarNavigation

@@ -1,6 +1,7 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
 import { AtomType, IUser } from '@codelab/shared/abstract/core'
-import { hexadecimalRegex } from '@codelab/shared/utils'
+import { isAdmin } from '@codelab/shared/core'
+import { hexadecimalRegex, pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { slugify } from 'voca'
 import { AddHookToElementService } from '../hooks/add-hook-to-element'
@@ -112,7 +113,14 @@ export class ElementMutationFactory {
       renderIfPropKey,
       propMapBindings,
       isComponent,
+      instanceOfComponentId,
     } = input
+
+    if (instanceOfComponentId && isComponent) {
+      throw new Error(
+        'Cannot set instanceOfComponentId and isComponent to true at the same time',
+      )
+    }
 
     this.iteration++
 
@@ -150,10 +158,16 @@ export class ElementMutationFactory {
       atomId = atom.atomId
     }
 
+    let elementName = name
+
+    if (!elementName && atom?.atomType) {
+      elementName = pascalCaseToWords(atom.atomType)
+    }
+
     return {
       uid: elementUid,
       'dgraph.type': [DgraphEntityType.Element],
-      name,
+      name: elementName,
       owner: this.currentUser
         ? {
             uid: this.currentUser.id,
@@ -168,16 +182,22 @@ export class ElementMutationFactory {
       renderForEachPropKey,
       renderIfPropKey,
       propTransformationJs,
+      instanceOfComponent: instanceOfComponentId
+        ? {
+            uid: instanceOfComponentId,
+          }
+        : undefined,
       propMapBindings: propMapBindingMutations,
       componentTag: isComponent
-        ? ElementMutationFactory.componentTagJson(name)
+        ? ElementMutationFactory.componentTagJson(this.currentUser, elementName)
         : undefined,
     }
   }
 
-  public static componentTagJson(name?: string) {
+  public static componentTagJson(currentUser?: IUser, name?: string) {
     return {
       'dgraph.type': [DgraphEntityType.Tag],
+      owner: isAdmin(currentUser) ? null : { uid: currentUser?.id },
       name,
       isRoot: true,
     }

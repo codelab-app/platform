@@ -30,15 +30,14 @@ export const ElementGraphProvider = (
 
   const elementTree = data?.getElementGraph
     ? new ElementTree(data?.getElementGraph)
-    : undefined
+    : new ElementTree({ edges: [], vertices: [] })
 
   return (
     <ElementGraphContext.Provider
       value={{
         elementId: props.elementId,
         elementGraph: data?.getElementGraph,
-        elementTree:
-          elementTree ?? new ElementTree({ edges: [], vertices: [] }),
+        elementTree: elementTree,
       }}
     >
       {props.children}
