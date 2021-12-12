@@ -28,7 +28,7 @@ const hasDataType = (
 ) => {
   return Object.values(data).some((value) => {
     // should have either typekind directly or id as value.type
-    const propTypeKind = value?.typekind || typeKindsById[value?.type]
+    const valueTypeKind = value?.typekind || typeKindsById[value?.type]
 
     if (!valueTypeKind) {
       return false
