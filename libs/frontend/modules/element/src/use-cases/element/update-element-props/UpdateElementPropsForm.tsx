@@ -27,10 +27,8 @@ const hasDataType = (
   typeKindsById: Record<string, TypeKind>,
 ) => {
   return Object.values(data).some((value) => {
-    // should have either (id as value.type) or directly typekind
-    const valueTypeKind = value?.type
-      ? typeKindsById[value?.type]
-      : value?.typeKind
+    // should have either typekind directly or id as value.type
+    const propTypeKind = value?.typekind || typeKindsById[value?.type]
 
     if (!valueTypeKind) {
       return false
