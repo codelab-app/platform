@@ -441,6 +441,7 @@ export interface GetElementGraphInput {
 
 export interface WhereUniqueElement {
     id?: Nullable<string>;
+    componentFixedId?: Nullable<string>;
 }
 
 export interface GetElementInput {
@@ -717,7 +718,21 @@ export interface ConvertElementToComponentInput {
 }
 
 export interface CreateComponentInput {
-    name: string;
+    refId?: Nullable<string>;
+    name?: Nullable<string>;
+    atom?: Nullable<AtomRef>;
+    order?: Nullable<number>;
+    children?: Nullable<ElementRef[]>;
+    css?: Nullable<string>;
+    props?: Nullable<string>;
+    renderForEachPropKey?: Nullable<string>;
+    renderIfPropKey?: Nullable<string>;
+    propTransformationJs?: Nullable<string>;
+    hooks?: Nullable<HookRef[]>;
+    propMapBindings?: Nullable<NewPropMapBindingRef[]>;
+    isComponent?: Nullable<boolean>;
+    parentElementId?: Nullable<string>;
+    componentFixedId?: Nullable<string>;
 }
 
 export interface CreateAtomInput {
@@ -1169,6 +1184,7 @@ export interface Element {
     id: string;
     name?: Nullable<string>;
     componentTag?: Nullable<Tag>;
+    componentFixedId?: Nullable<string>;
     css?: Nullable<string>;
     atom?: Nullable<Atom>;
     props: Prop;

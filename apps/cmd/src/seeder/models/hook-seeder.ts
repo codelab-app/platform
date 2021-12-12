@@ -8,7 +8,6 @@ export class HookSeeder {
   constructor(private importAtomsService: ImportAtomsService) {}
 
   public async seedHooks(currentUser: User) {
-    console.log('Seeding hooks...')
     await this.importAtomsService.execute({
       currentUser,
       input: { payload: JSON.stringify(hookAtomData) },

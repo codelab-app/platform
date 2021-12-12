@@ -41,7 +41,7 @@ export class GetElementGraphService extends DgraphUseCase<
     request: GetElementGraphRequest,
     txn: Txn,
   ) {
-    exactlyOneWhereClause(request, ['id'])
+    exactlyOneWhereClause(request, ['id', 'componentFixedId'])
 
     let results: IElementGraph | undefined
 
@@ -49,6 +49,15 @@ export class GetElementGraphService extends DgraphUseCase<
       results = await this.dgraph.executeQuery<IElementGraph>(
         txn,
         GetElementGraphService.queryById(request.input.where.id),
+      )
+    }
+
+    if (request.input.where.componentFixedId) {
+      results = await this.dgraph.executeQuery<IElementGraph>(
+        txn,
+        GetElementGraphService.queryByComponentFixedId(
+          request.input.where.componentFixedId,
+        ),
       )
     }
 
@@ -231,5 +240,73 @@ export class GetElementGraphService extends DgraphUseCase<
         }
         propTransformationJs
       }`
+  }
+
+  static queryByComponentFixedId(
+    componentFixedId: string,
+    extraQuery?: string,
+  ) {
+    return `{
+      ${extraQuery ?? ''}
+
+      var(func: type(${DgraphEntityType.Element}))
+        @filter(eq(componentFixedId,"${componentFixedId}"))
+        @recurse
+        @normalize {
+          IDS AS uid
+          children @filter(type(${DgraphEntityType.Element}))
+      }
+
+      vertices(func: uid(IDS)) @filter(type(${DgraphEntityType.Element})) {
+        id: uid
+        name
+        css
+        componentTag {
+          id: uid
+          expand(_all_)
+        }
+        atom {
+          id: uid
+          type: atomType
+          name
+          api {
+            id: uid
+            expand(_all_)
+          }
+        }
+        props {
+          data
+          id: uid
+        }
+        hooks {
+          id: uid
+          type: hookType
+          config: hookConfig {
+            id: uid
+            expand(_all_)
+          }
+        }
+        renderForEachPropKey
+        renderIfPropKey
+        propMapBindings @normalize {
+          id: uid
+          sourceKey: sourceKey
+          targetKey: targetKey
+          targetElement {
+            targetElementId: uid
+          }
+        }
+        propTransformationJs
+      }
+
+      edges(func: uid(IDS))
+        @normalize
+        @cascade {
+          source: uid
+          children @facets(order: order) {
+          target: uid
+        }
+      }
+    }`
   }
 }

@@ -1,6 +1,7 @@
 import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository } from '@codelab/backend/infra'
 import {
+  CreateComponentService,
   CreateElementChildInput,
   CreateElementService,
   HookRef,
@@ -37,6 +38,7 @@ export class ImportAppService extends DgraphUseCase<
     protected createAppService: CreateAppService,
     protected createPageService: CreatePageService,
     protected createElementService: CreateElementService,
+    protected createComponentService: CreateComponentService,
     protected updatePageService: UpdatePageService,
   ) {
     super(dgraph)
@@ -101,7 +103,7 @@ export class ImportAppService extends DgraphUseCase<
         elementTree,
       )
 
-      const { id } = await this.createElementService.execute({
+      const { id } = await this.createComponentService.execute({
         currentUser,
         input: componentChildInput,
       })

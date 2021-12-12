@@ -663,6 +663,7 @@ type Element {
 
   """An Element tagged with componentTag is a reusable component"""
   componentTag: Tag
+  componentFixedId: String
   css: String
   atom: Atom
   props: Prop!
@@ -795,6 +796,7 @@ input GetElementGraphInput {
 
 input WhereUniqueElement {
   id: String
+  componentFixedId: String
 }
 
 input GetElementInput {
@@ -1188,7 +1190,34 @@ input ConvertElementToComponentInput {
 }
 
 input CreateComponentInput {
-  name: String!
+  """
+  Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding
+  """
+  refId: String
+  name: String
+  atom: AtomRef
+
+  """
+  Leave it out to automatically set it as the last order of all the children
+  """
+  order: Int
+
+  """
+  Creates new elements or attaches existing ones, can be used to create a whole tree at once
+  """
+  children: [ElementRef!]
+  css: String
+  props: String
+  renderForEachPropKey: String
+  renderIfPropKey: String
+  propTransformationJs: String
+  hooks: [HookRef!]
+  propMapBindings: [NewPropMapBindingRef!]
+  isComponent: Boolean
+
+  """Attaches the newly created element to an existing element as child"""
+  parentElementId: String
+  componentFixedId: String
 }
 
 input CreateAtomInput {
