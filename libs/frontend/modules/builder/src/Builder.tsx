@@ -95,6 +95,7 @@ const BuilderDropHandler = ({ root }: { root?: IElement }) => {
 
   return (
     <div
+      id="builder-drop-handler"
       css={css`
         ${tw`absolute inset-0`}
         z-index: -1;

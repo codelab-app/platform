@@ -19,6 +19,13 @@ export const BuilderContext = ({
       onDragStart={(e) => {
         onDragStart(e)
       }}
+      autoScroll={{
+        canScroll: (e) => {
+          const renderRoot = document.getElementById('render-root')
+
+          return e.contains(renderRoot)
+        },
+      }}
     >
       {children}
 

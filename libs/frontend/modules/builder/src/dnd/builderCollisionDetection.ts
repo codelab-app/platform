@@ -8,6 +8,8 @@ import { BuilderDndType } from './BuilderDndType'
 import { BuilderDragData } from './BuilderDragData'
 import { BuilderDropId } from './BuilderDropId'
 
+// There is an issue with collision detection where it doesn't recognize the targets
+// properly if the container is scrolled https://github.com/clauderic/dnd-kit/pull/518
 export const builderCollisionDetection: CollisionDetection = (props) => {
   const { droppableContainers } = props
   const containersById: Record<string, DroppableContainer> = {}
@@ -54,6 +56,8 @@ export const builderCollisionDetection: CollisionDetection = (props) => {
     : null
 
   if (!rectIntersectBuilder) {
+    // Remove all 'CreateElement' containers, i.e. rendered elements
+    // if we are not intersecting with the builder
     return closestCorners({
       ...props,
       droppableContainers: droppableContainers.filter((c) => {

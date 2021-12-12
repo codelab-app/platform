@@ -88,7 +88,7 @@ export const Renderer = ({
   return (
     <ErrorBoundary>
       <RecoilRoot>
-        <div style={{ height: '100%' }} id="render-root">
+        <div style={{ minHeight: '100%' }} id="render-root">
           {rendered}
         </div>
       </RecoilRoot>
