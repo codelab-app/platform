@@ -183,7 +183,7 @@ export class ImportAppService extends DgraphUseCase<
       order: tree.getOrderInParent(elementId),
       renderForEachPropKey: element.renderForEachPropKey ?? undefined,
       propTransformationJs: element.propTransformationJs ?? undefined,
-      componentFixedId: element.componentFixedId,
+      componentFixedId: element.componentFixedId || '',
       hooks,
       propMapBindings,
       children,

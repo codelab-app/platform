@@ -733,6 +733,7 @@ export interface CreateComponentInput {
     hooks?: Nullable<HookRef[]>;
     propMapBindings?: Nullable<NewPropMapBindingRef[]>;
     isComponent?: Nullable<boolean>;
+    instanceOfComponentId?: Nullable<string>;
     componentFixedId?: Nullable<string>;
     parentElementId?: Nullable<string>;
 }

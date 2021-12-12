@@ -1216,6 +1216,7 @@ input CreateComponentInput {
   hooks: [HookRef!]
   propMapBindings: [NewPropMapBindingRef!]
   isComponent: Boolean
+  instanceOfComponentId: String
   componentFixedId: String
 
   """Attaches the newly created element to an existing element as child"""

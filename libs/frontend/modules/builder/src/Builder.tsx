@@ -2,6 +2,7 @@ import {
   TypeKindProvider,
   TypeKindsContext,
 } from '@codelab/frontend/modules/type'
+import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
@@ -31,16 +32,13 @@ const StyledBuilderContainer = styled.div`
   [data-id]:hover {
     cursor: pointer;
   }
-
   [data-id] {
     // Force all pointer events to be on, because otherwise we won't be able to click to inspect
     // elements that have it disabled by design, like disabled buttons
     pointer-events: all !important;
   }
-
   position: relative;
   max-height: 100%;
-
   .ant-modal-mask,
   .ant-modal-wrap {
     position: absolute;
@@ -67,7 +65,7 @@ const BuilderRenderer = ({
       context={{
         onRendered,
         typeKindsById,
-        extraElementProps: extraProps,
+        extraElementProps,
         extraProps: {
           onClick: voidClick,
         },

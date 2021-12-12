@@ -1,4 +1,4 @@
-import { IElement } from '@codelab/shared/abstract/core'
+import { PropsByElementId } from '@codelab/shared/abstract/core'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { ReactNode, useCallback } from 'react'
 import { useBuilderDispatch } from './useBuilderDispatch'
@@ -14,20 +14,14 @@ export const useOnRendered = (): UseOnRendered => {
   const { setLastRenderedProps } = useBuilderDispatch()
 
   const onRendered: UseOnRendered['onRendered'] = useCallback(
-    (renderedElement, vertex) => {
-      setTimeout(() => {
-        const props = (renderedElement as any)?.props
+    (renderMap) => {
+      const propMap: PropsByElementId = {}
+
+      Object.keys(renderMap).forEach((key) => {
+        const props = (renderMap[key] as any)?.props
 
         if (props && typeof props === 'object') {
-          setLastRenderedPropsForElement({
-            elementId: vertex.id,
-            props: JSON.parse(propSafeStringify(props)),
-          })
-        } else {
-          setLastRenderedPropsForElement({
-            elementId: vertex.id,
-            props: {},
-          })
+          propMap[key] = props
         }
       })
 
