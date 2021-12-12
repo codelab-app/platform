@@ -503,6 +503,7 @@ export type CreateComponentInput = {
   componentFixedId?: InputMaybe<Scalars['String']>
   css?: InputMaybe<Scalars['String']>
   hooks?: InputMaybe<Array<HookRef>>
+  instanceOfComponentId?: InputMaybe<Scalars['String']>
   isComponent?: InputMaybe<Scalars['Boolean']>
   name?: InputMaybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */
