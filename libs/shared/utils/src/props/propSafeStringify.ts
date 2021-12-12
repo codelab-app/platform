@@ -1,3 +1,4 @@
+import isPlainObject from 'lodash/isPlainObject'
 import React from 'react'
 
 export const propSafeStringify = (props: any, maskFunctions = true) => {
@@ -11,7 +12,7 @@ export const propSafeStringify = (props: any, maskFunctions = true) => {
     obj[k] = props[k]
   }
 
-  const cache: Array<any> | null = []
+  const cache = new WeakMap<any, boolean>()
 
   const result = JSON.stringify(
     obj,
@@ -22,17 +23,21 @@ export const propSafeStringify = (props: any, maskFunctions = true) => {
 
       // handle ReactNodetype
       if (React.isValidElement(v)) {
-        return
+        return 'React element'
       }
 
       if (typeof v === 'object' && v !== null) {
+        if (!isPlainObject(v)) {
+          return `${v.constructor.name} instance`
+        }
+
         // Duplicate reference found, discard key
-        if (cache.includes(v)) {
+        if (cache.get(v)) {
           return
         }
 
         // Store value in our collection
-        cache.push(v)
+        cache.set(v, true)
       }
 
       if (maskFunctions && typeof v === 'function') {
