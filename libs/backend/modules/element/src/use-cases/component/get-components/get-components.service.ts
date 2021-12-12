@@ -35,7 +35,7 @@ export class GetComponentsService extends DgraphUseCase<
 
   protected getQuery({ currentUser, input }: GetComponentsRequest) {
     const nameFilter = input?.searchQuery
-      ? ` AND match(name, "${input.searchQuery}", 10)`
+      ? ` AND match(name, "${input.searchQuery}", 14)`
       : ''
 
     // Get all elements, that:
