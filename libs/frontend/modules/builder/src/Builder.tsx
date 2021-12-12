@@ -1,8 +1,11 @@
-import { TypeKindProvider } from '@codelab/frontend/modules/type'
+import {
+  TypeKindProvider,
+  TypeKindsContext,
+} from '@codelab/frontend/modules/type'
 import { ElementTree } from '@codelab/shared/core'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import React, { MouseEventHandler, useCallback } from 'react'
+import React, { MouseEventHandler, useCallback, useContext } from 'react'
 import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
 import { BuilderDropHandlers } from './dnd/BuilderDropHandlers'
@@ -63,6 +66,7 @@ const BuilderRenderer = ({
       tree={tree}
       context={{
         onRendered,
+        typeKindsById,
         extraElementProps: extraProps,
         extraProps: {
           onClick: voidClick,

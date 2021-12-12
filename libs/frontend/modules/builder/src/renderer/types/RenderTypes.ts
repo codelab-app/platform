@@ -1,5 +1,6 @@
+import { TypeKind } from '@codelab/frontend/abstract/codegen'
 import { IElement } from '@codelab/frontend/abstract/core'
-import { IProps, PropsByElementId } from '@codelab/shared/abstract/core'
+import { IProps, PropsByElementId, TypeId } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 
@@ -28,6 +29,7 @@ export interface RenderContext {
 
   /** Set to true to log rendering information */
   inspect?: boolean
+  typeKindsById: Record<TypeId, TypeKind>
 }
 
 export type RenderTypes = (

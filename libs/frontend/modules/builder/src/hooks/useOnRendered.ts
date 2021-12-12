@@ -1,4 +1,5 @@
 import { IElement } from '@codelab/shared/abstract/core'
+import { propSafeStringify } from '@codelab/shared/utils'
 import { ReactNode, useCallback } from 'react'
 import { useBuilderDispatch } from './useBuilderDispatch'
 
@@ -15,17 +16,19 @@ export const useOnRendered = (): UseOnRendered => {
   const onRendered: UseOnRendered['onRendered'] = useCallback(
     (renderedElement, vertex) => {
       setTimeout(() => {
-        const elementProps = (renderedElement as any)?.props.data
+        const props = (renderedElement as any)?.props
 
-        const props =
-          elementProps && typeof elementProps === 'object'
-            ? JSON.parse(elementProps)
-            : {}
-
-        setLastRenderedPropsForElement({
-          elementId: vertex.id,
-          props,
-        })
+        if (props && typeof props === 'object') {
+          setLastRenderedPropsForElement({
+            elementId: vertex.id,
+            props: JSON.parse(propSafeStringify(props)),
+          })
+        } else {
+          setLastRenderedPropsForElement({
+            elementId: vertex.id,
+            props: {},
+          })
+        }
       })
 
       setLastRenderedProps(JSON.parse(propSafeStringify(propMap)))

@@ -21,9 +21,16 @@ interface UpdateElementPropsFormInternalProps {
   trackPromises?: UseTrackLoadingPromises
 }
 
-const hasDataType = (data: Record<string, any>, typeKinds: Array<TypeKind>) => {
+const hasDataType = (
+  data: Record<string, any>,
+  typeKinds: Array<TypeKind>,
+  typeKindsById: Record<string, TypeKind>,
+) => {
   return Object.values(data).some((value) => {
-    const valueTypeKind = value?.typekind
+    // should have either (id as value.type) or directly typekind
+    const valueTypeKind = value?.type
+      ? typeKindsById[value?.type]
+      : value?.typeKind
 
     if (!valueTypeKind) {
       return false

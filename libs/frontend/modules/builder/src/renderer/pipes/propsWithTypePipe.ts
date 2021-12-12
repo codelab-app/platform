@@ -5,6 +5,8 @@ import { RenderPipeFactory } from '../types/RenderTypes'
 
 export const propsWithTypePipe: RenderPipeFactory =
   (next) => (element, context, props) => {
+    const { typeKindsById } = context
+
     const handledTypeKinds = new Set([
       TypeKind.PrimitiveType,
       TypeKind.ArrayType,
@@ -19,7 +21,10 @@ export const propsWithTypePipe: RenderPipeFactory =
     ])
 
     const propsWithType = _.pickBy(props, (value) => {
-      const propTypeKind = value?.typeKind
+      // should have either (id as value.type) or directly typekind
+      const propTypeKind = value?.type
+        ? typeKindsById[value?.type]
+        : value?.typekind
 
       return handledTypeKinds.has(propTypeKind)
     })
