@@ -2,7 +2,9 @@ import {
   TypeKindProvider,
   TypeKindsContext,
 } from '@codelab/frontend/modules/type'
+import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import React, { MouseEventHandler, useCallback, useContext } from 'react'
 import { useSelector } from 'react-redux'
@@ -63,10 +65,9 @@ const BuilderRenderer = ({
   tree: ElementTree
   isComponentBuilder?: boolean
 }) => {
-  const { handleMouseEnter, handleMouseLeave } = useBuilderHoverHandlers(tree)
   const { typeKindsById } = useContext(TypeKindsContext)
   const { onRendered } = useOnRendered()
-  const extraProps = useSelector(builderSelectors.extraProps)
+  const extraElementProps = useSelector(builderSelectors.extraProps)
   const voidClick = useCallback(() => void 0, [])
 
   return (
@@ -76,13 +77,29 @@ const BuilderRenderer = ({
       context={{
         onRendered,
         typeKindsById,
-        extraElementProps: extraProps,
+        extraElementProps,
         extraProps: {
-          onMouseEnter: handleMouseEnter,
-          onMouseLeave: handleMouseLeave,
           onClick: voidClick,
         },
       }}
+    />
+  )
+}
+
+// That's a separate component in order to not re-render the builder whenever
+// the dnd position is changed, it causes massive lag
+const BuilderDropHandler = ({ root }: { root?: IElement }) => {
+  const { setNodeRef } = useCreateElementDroppable(BuilderDropId.BuilderRoot, {
+    parentElementId: root?.id,
+  })
+
+  return (
+    <div
+      css={css`
+        ${tw`absolute inset-0`}
+        z-index: -1;
+      `}
+      ref={setNodeRef}
     />
   )
 }
@@ -96,14 +113,11 @@ export const Builder = ({
   isComponentBuilder,
 }: React.PropsWithChildren<BuilderProps>) => {
   const { selectElement, resetSelection } = useBuilderDispatch()
+  const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(tree)
 
   const root = isComponentBuilder
     ? tree.getRootComponent()
     : tree.getRootElement()
-
-  const { setNodeRef } = useCreateElementDroppable(BuilderDropId.BuilderRoot, {
-    parentElementId: root?.id,
-  })
 
   const handleContainerClick: MouseEventHandler<HTMLDivElement> = (e) => {
     // Handle the click-to-select element here, because if we handled it at the react element props level, we won't
@@ -137,11 +151,13 @@ export const Builder = ({
 
   return (
     <StyledBuilderContainer
-      ref={setNodeRef}
       onClick={handleContainerClick}
       id="Builder"
       css={tw`relative w-full h-full bg-white`}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
     >
+      <BuilderDropHandler root={root} />
       <TypeKindProvider>
         <StyledBuilderInnerContainer>
           <BuilderDropHandlers tree={tree} />
