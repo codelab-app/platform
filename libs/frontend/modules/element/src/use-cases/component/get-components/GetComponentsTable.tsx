@@ -61,8 +61,8 @@ export const GetComponentsTable = () => {
             onClick={() => {
               if (record.componentTag) {
                 openUpdateModal({
-                  updateId: record.id,
-                  entity: record,
+                  updateId: record.componentTag.id,
+                  entity: record.componentTag,
                 })
               }
             }}

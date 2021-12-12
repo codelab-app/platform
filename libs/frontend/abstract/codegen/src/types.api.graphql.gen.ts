@@ -522,8 +522,10 @@ export type CreateElementChildInput = {
   atom?: InputMaybe<AtomRef>
   /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
   children?: InputMaybe<Array<ElementRef>>
+  componentFixedId?: InputMaybe<Scalars['String']>
   css?: InputMaybe<Scalars['String']>
   hooks?: InputMaybe<Array<HookRef>>
+  instanceOfComponentId?: InputMaybe<Scalars['String']>
   isComponent?: InputMaybe<Scalars['Boolean']>
   name?: InputMaybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */
@@ -541,8 +543,10 @@ export type CreateElementInput = {
   atom?: InputMaybe<AtomRef>
   /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
   children?: InputMaybe<Array<ElementRef>>
+  componentFixedId?: InputMaybe<Scalars['String']>
   css?: InputMaybe<Scalars['String']>
   hooks?: InputMaybe<Array<HookRef>>
+  instanceOfComponentId?: InputMaybe<Scalars['String']>
   isComponent?: InputMaybe<Scalars['Boolean']>
   name?: InputMaybe<Scalars['String']>
   /** Leave it out to automatically set it as the last order of all the children */

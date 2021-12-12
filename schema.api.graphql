@@ -1079,6 +1079,7 @@ input CreateElementInput {
   propMapBindings: [NewPropMapBindingRef!]
   isComponent: Boolean
   instanceOfComponentId: String
+  componentFixedId: String
 
   """Attaches the newly created element to an existing element as child"""
   parentElementId: String
@@ -1123,6 +1124,7 @@ input CreateElementChildInput {
   propMapBindings: [NewPropMapBindingRef!]
   isComponent: Boolean
   instanceOfComponentId: String
+  componentFixedId: String
 }
 
 input HookRef {
@@ -1214,10 +1216,10 @@ input CreateComponentInput {
   hooks: [HookRef!]
   propMapBindings: [NewPropMapBindingRef!]
   isComponent: Boolean
+  componentFixedId: String
 
   """Attaches the newly created element to an existing element as child"""
   parentElementId: String
-  componentFixedId: String
 }
 
 input CreateAtomInput {

@@ -21,7 +21,7 @@ export const UpdateTagModal = () => {
     },
     visible: actionType === ActionType.Update,
     onCancel: () => reset(),
-    title: <span css={tw`font-semibold`}>Add hook to element</span>,
+    title: <span css={tw`font-semibold`}>Update Component</span>,
   }
 
   return (

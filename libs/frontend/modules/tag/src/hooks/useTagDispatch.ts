@@ -1,4 +1,5 @@
 import { crudModalDispatchFactory } from '@codelab/frontend/view/components'
+import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { KeyPayload, KeysPayload, tagSlice } from '../store'
 
@@ -7,16 +8,26 @@ export const useTagDispatch = () => {
   const dispatch = useDispatch()
   const curdDispatch = crudModalDispatchFactory(tagSlice.actions)()
 
-  const setSelectedTag = (payload: KeyPayload) =>
-    dispatch(actions.selectTag(payload))
+  const setSelectedTag = useCallback(
+    (payload: KeyPayload) => {
+      dispatch(actions.selectTag(payload))
+    },
+    [dispatch],
+  )
 
-  const setCheckedTags = (payload: KeysPayload) => {
-    dispatch(actions.setCheckedTags(payload))
-  }
+  const setCheckedTags = useCallback(
+    (payload: KeysPayload) => {
+      dispatch(actions.setCheckedTags(payload))
+    },
+    [dispatch],
+  )
 
-  const resetSelection = (payload: KeysPayload) => {
-    dispatch(actions.resetSelection())
-  }
+  const resetSelection = useCallback(
+    (payload: KeysPayload) => {
+      dispatch(actions.resetSelection())
+    },
+    [dispatch],
+  )
 
   return {
     setCheckedTags,

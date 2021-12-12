@@ -228,6 +228,7 @@ export class GetElementGraphService extends DgraphUseCase<
             expand(_all_)
           }
         }
+        componentFixedId
         renderForEachPropKey
         renderIfPropKey
         propMapBindings @normalize {
@@ -286,6 +287,7 @@ export class GetElementGraphService extends DgraphUseCase<
             expand(_all_)
           }
         }
+        componentFixedId
         renderForEachPropKey
         renderIfPropKey
         propMapBindings @normalize {

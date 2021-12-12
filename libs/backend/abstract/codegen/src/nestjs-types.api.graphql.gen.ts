@@ -638,6 +638,7 @@ export interface CreateElementInput {
     propMapBindings?: Nullable<NewPropMapBindingRef[]>;
     isComponent?: Nullable<boolean>;
     instanceOfComponentId?: Nullable<string>;
+    componentFixedId?: Nullable<string>;
     parentElementId?: Nullable<string>;
 }
 
@@ -666,6 +667,7 @@ export interface CreateElementChildInput {
     propMapBindings?: Nullable<NewPropMapBindingRef[]>;
     isComponent?: Nullable<boolean>;
     instanceOfComponentId?: Nullable<string>;
+    componentFixedId?: Nullable<string>;
 }
 
 export interface HookRef {
@@ -731,8 +733,8 @@ export interface CreateComponentInput {
     hooks?: Nullable<HookRef[]>;
     propMapBindings?: Nullable<NewPropMapBindingRef[]>;
     isComponent?: Nullable<boolean>;
-    parentElementId?: Nullable<string>;
     componentFixedId?: Nullable<string>;
+    parentElementId?: Nullable<string>;
 }
 
 export interface CreateAtomInput {
