@@ -33,16 +33,18 @@ const selectPage = () => {
 }
 
 const selectPropsTab = () => {
-  cy.get(`[data-cy='atom-${buttonComponent.parentElement}']`).click()
-  cy.get(`[data-cy='atom-${buttonComponent.name}']`).should('be.visible')
+  cy.findByText(buttonComponent.parentElement).click()
+  cy.findByText(buttonComponent.name).should('be.visible')
   // Event button is visible, somehow it is still unclickable without this timeout
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(1000)
-  cy.get(`[data-cy='atom-${buttonComponent.name}']`).click()
+  cy.findByText(buttonComponent.name).click()
   cy.get('.ant-tabs-tab-btn').contains('Props').click()
 }
 
 before(() => {
+  cy.intercept('/api/graphql').as('graphql')
+
   cy.resetDgraphData().then(() => {
     cy.runSeeder().then(() => {
       cy.login().then(() => {
@@ -64,10 +66,6 @@ before(() => {
             cy.wrap(modal).findByLabelText('Name').type(buttonComponent.name)
             cy.wrap(modal).findByLabelText('Atom').type(buttonComponent.atom)
             cy.getOptionItem(buttonComponent.atom).first().click()
-            cy.wrap(modal)
-              .findByLabelText('Parent element')
-              .type(buttonComponent.parentElement)
-            cy.getOptionItem(buttonComponent.parentElement).first().click()
 
             cy.wrap(modal)
               .findByButtonText(/Create/)
@@ -102,8 +100,7 @@ describe('Update props', () => {
     cy.findByButtonText(/Submit/).click()
 
     // Reload page
-    selectApp()
-    selectPage()
+    cy.wait('@graphql')
     selectPropsTab()
 
     cy.wrap(formToggleButtons).each((btn: string) => {

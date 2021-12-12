@@ -380,20 +380,23 @@ Cypress.Commands.add('getPaneMain', (): Cypress.Chainable<JQuery> => {
 const runSeeder = () => {
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(1000)
+
   // Add long timeout for seeder
-  cy.exec(`yarn cli seed --env ${Cypress.env('env')}`, {
-    timeout: 500000,
-    failOnNonZeroExit: false,
-  }).then((result) => {
-    // https://github.com/cypress-io/cypress/issues/5470
-    // cypress not log full error...
-    if (result.code) {
-      throw new Error(`Seed failed
+  return cy
+    .exec(`yarn cli seed --env ${Cypress.env('env')}`, {
+      timeout: 500000,
+      failOnNonZeroExit: false,
+    })
+    .then((result) => {
+      // https://github.com/cypress-io/cypress/issues/5470
+      // cypress not log full error...
+      if (result.code) {
+        throw new Error(`Seed failed
       Exit code: ${result.code}
       Stdout:\n${result.stdout}
       Stderr:\n${result.stderr}`)
-    }
-  })
+      }
+    })
 }
 
 Cypress.Commands.add('runSeeder', runSeeder)
