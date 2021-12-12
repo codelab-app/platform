@@ -83,6 +83,12 @@ export const builderSlice = createSlice({
         propSafeStringify(payload.props),
       )
     },
+    setLastRenderedProps: (
+      state,
+      { payload }: PayloadAction<PropsByElementId>,
+    ) => {
+      state.lastRenderedProps = payload
+    },
     setTab: (state, { payload }: PayloadAction<BuilderTab>) => {
       state.tab = payload
     },

@@ -23,9 +23,9 @@ export interface RenderContext {
   render: RenderTypes
 
   /**
-   * Called after the element is rendered
+   * Called after the element tree is re-rendered
    */
-  onRendered?: (renderedElement: RenderOutput, vertex: IElement) => void
+  onRendered?: (renderedElementsById: Record<string, RenderOutput>) => void
 
   /** Set to true to log rendering information */
   inspect?: boolean

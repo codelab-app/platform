@@ -1,3 +1,4 @@
+import { PropsByElementId } from '@codelab/shared/abstract/core'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { BuilderDragData } from '../dnd/BuilderDragData'
@@ -50,6 +51,13 @@ export const useBuilderDispatch = () => {
     [dispatch],
   )
 
+  const setLastRenderedProps = useCallback(
+    (payload: PropsByElementId) => {
+      dispatch(actions.setLastRenderedProps(payload))
+    },
+    [dispatch],
+  )
+
   const setTab = useCallback(
     (payload: BuilderTab) => {
       dispatch(actions.setTab(payload))
@@ -69,6 +77,7 @@ export const useBuilderDispatch = () => {
     setCurrentlyDragging,
     setTab,
     setLastRenderedPropsForElement,
+    setLastRenderedProps,
     setExtraPropsForElement,
     reset,
     resetSelection,
