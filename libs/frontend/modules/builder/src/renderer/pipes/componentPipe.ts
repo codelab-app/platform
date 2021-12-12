@@ -27,7 +27,18 @@ export const componentPipe: RenderPipeFactory =
 
       if (component) {
         // We override the component props with the element instance props
-        return context.render(component, context, props)
+        return context.render(
+          component,
+          {
+            ...context,
+            extraElementProps: {
+              //
+              ...context.extraElementProps,
+              [component.id]: props,
+            },
+          },
+          props, // just this won't work, because it's the first props in the pipe and everything else will override it
+        )
       }
     }
 
