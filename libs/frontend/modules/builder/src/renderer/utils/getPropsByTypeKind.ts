@@ -11,8 +11,9 @@ export const getPropsByTypeKind = (
   }
 
   return _.pickBy(props, (value) => {
-    // should have either typekind directly or id as value.type
-    const propTypeKind = value?.typekind || typeKindsById[value?.type]
+    const propTypeKind = value?.type
+      ? typeKindsById[value?.type]
+      : (value?.typeKind as TypeKind)
 
     if (!propTypeKind) {
       return false
