@@ -24,13 +24,11 @@ app.use('*', async (baseReq, baseRes, next) => {
     },
     cookieDomainRewrite: 'localhost',
     onError: (err, req, res) => {
-      // console.log('err', err, res.statusCode)
+      console.error(err, res.statusCode)
       res.writeHead(500, {
         'Content-Type': 'text/plain',
       })
-      res.end(
-        'Something went wrong. And we are reporting a custom error message.',
-      )
+      res.end('Something went wrong.')
     },
     onProxyReq: (proxyReq, req, res) => {
       // console.log(req.headers.authorization)

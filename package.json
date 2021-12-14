@@ -107,6 +107,7 @@
     "env-var": "7.1.1",
     "express": "4.17.1",
     "fp-ts": "2.11.5",
+    "framer-motion": "^5.4.5",
     "fuse.js": "^6.4.6",
     "graphql": "15.7.2",
     "graphql-iso-date": "3.6.1",

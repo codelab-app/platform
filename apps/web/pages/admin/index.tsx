@@ -7,31 +7,32 @@ import {
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader, Space } from 'antd'
 import React from 'react'
+import tw from 'twin.macro'
 
-const AdminPage: CodelabPage = () => {
+const AdminPage: CodelabPage<DashboardTemplateProps> = () => {
   return (
-    <>
-      <PageHeader ghost={false} title="Admin" />
-      <ContentSection>
-        <Space>
-          <ResetDataButton />
-          <SeedBaseTypesButton />
-        </Space>
-      </ContentSection>
-    </>
+    <ContentSection css={tw`p-4 bg-white`}>
+      <Space>
+        <ResetDataButton />
+        <SeedBaseTypesButton />
+      </Space>
+    </ContentSection>
   )
 }
+
+const AdminHeader = () => <PageHeader ghost={false} title="Admin" />
 
 export const getServerSideProps = withPageAuthRequired()
 
 AdminPage.Template = DashboardTemplate
-AdminPage.Header = null
-AdminPage.MetaPane = null
-AdminPage.MainPane = null
-AdminPage.SidebarNavigation = SidebarNavigation
+AdminPage.templateProps = {
+  SidebarNavigation,
+  Header: AdminHeader,
+}
 
 export default AdminPage

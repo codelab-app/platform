@@ -1,5 +1,6 @@
+import { DownloadOutlined } from '@ant-design/icons'
 import { notify } from '@codelab/frontend/shared/utils'
-import { Button } from 'antd'
+import { Button, Tooltip } from 'antd'
 import fileDownload from 'js-file-download'
 import React from 'react'
 import { useLazyExportAtomsQuery } from '../../store'
@@ -30,8 +31,15 @@ export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
   }
 
   return (
-    <Button loading={isLoading} onClick={onClick}>
-      Export
-    </Button>
+    <Tooltip title="Export atoms" arrowPointAtCenter>
+      <Button
+        disabled={atomIds.length === 0}
+        icon={<DownloadOutlined />}
+        loading={isLoading}
+        onClick={onClick}
+      >
+        Export
+      </Button>
+    </Tooltip>
   )
 }

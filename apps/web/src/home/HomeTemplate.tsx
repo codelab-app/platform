@@ -1,4 +1,3 @@
-import { TemplateProps } from '@codelab/frontend/abstract/props'
 import { contentStyle } from '@codelab/frontend/style'
 import { Layout } from 'antd'
 import React from 'react'
@@ -6,7 +5,9 @@ import { HomeMenuHeader } from './HomeMenuHeader'
 
 const { Content, Header, Footer } = Layout
 
-export const HomeTemplate = ({ children }: TemplateProps) => {
+export type HomeTemplateProps = React.PropsWithChildren<never>
+
+export const HomeTemplate = ({ children }: HomeTemplateProps) => {
   return (
     <Layout style={{ height: '100%' }}>
       <Header>

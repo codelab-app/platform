@@ -49,15 +49,6 @@ const StyledBuilderContainer = styled.div`
   }
 `
 
-const StyledBuilderInnerContainer = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow: auto;
-`
-
 const BuilderRenderer = ({
   tree,
   isComponentBuilder,
@@ -160,16 +151,11 @@ export const Builder = ({
     >
       <BuilderDropHandler root={root} />
       <TypeKindProvider>
-        <StyledBuilderInnerContainer>
-          <BuilderDropHandlers tree={tree} />
-          <BuilderRenderer
-            isComponentBuilder={isComponentBuilder}
-            tree={tree}
-          />
-          <BuilderHoverOverlay />
-          <BuilderClickOverlay />
-          {children}
-        </StyledBuilderInnerContainer>
+        <BuilderDropHandlers tree={tree} />
+        <BuilderRenderer isComponentBuilder={isComponentBuilder} tree={tree} />
+        <BuilderHoverOverlay />
+        <BuilderClickOverlay />
+        {children}
       </TypeKindProvider>
     </StyledBuilderContainer>
   )

@@ -16,7 +16,11 @@ import {
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
 import { getAuthToken } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  DashboardTemplateProps,
+  SidebarNavigation,
+} from '@codelab/frontend/view/templates'
 import { Button, Dropdown, Menu, PageHeader } from 'antd'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
@@ -33,7 +37,7 @@ const menu = (
   </Menu>
 )
 
-const AppsPage: CodelabPage = () => {
+const AppsPageHeader = () => {
   const pageHeaderButtons = [
     <CreateAppButton key={0} />,
     <Dropdown key={1} overlay={menu} trigger={['click']}>
@@ -42,17 +46,22 @@ const AppsPage: CodelabPage = () => {
   ]
 
   return (
+    <PageHeader
+      ghost={false}
+      // onBack={() => router.back()}
+      title="Apps"
+      extra={pageHeaderButtons}
+    />
+  )
+}
+
+const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
+  return (
     <>
       <Head>
         <title>Apps | Codelab</title>
       </Head>
 
-      <PageHeader
-        ghost={false}
-        // onBack={() => router.back()}
-        title="Apps"
-        extra={pageHeaderButtons}
-      />
       <CreateAppModal />
       <UpdateAppModal />
       <DeleteAppModal />
@@ -95,9 +104,9 @@ export const getServerSideProps = withPageAuthRequired({
 })
 
 AppsPage.Template = DashboardTemplate
-AppsPage.SidebarNavigation = null
-AppsPage.Header = null
-AppsPage.MetaPane = null
-AppsPage.MainPane = null
+AppsPage.templateProps = {
+  Header: AppsPageHeader,
+  SidebarNavigation,
+}
 
 export default AppsPage

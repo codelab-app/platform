@@ -22,7 +22,6 @@ import {
   typeSlice,
 } from '@codelab/frontend/modules/type'
 import { userEndpoints, userSlice } from '@codelab/frontend/modules/user'
-import { dashboardLayoutSlice } from '@codelab/frontend/view/templates'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
 
@@ -59,7 +58,6 @@ export const makeStore = () => {
       [userSlice.name]: userSlice.reducer,
       [typeSlice.name]: typeSlice.reducer,
       [fieldSlice.name]: fieldSlice.reducer,
-      [dashboardLayoutSlice.name]: dashboardLayoutSlice.reducer,
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(

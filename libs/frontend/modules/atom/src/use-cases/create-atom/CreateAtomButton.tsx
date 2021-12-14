@@ -10,11 +10,12 @@ export const CreateAtomButton = ({ centerIcon }: CreateAtomButtonProps) => {
 
   return (
     <Button
-      size="small"
       type="primary"
       css={centerIcon ? tw`flex justify-center items-center` : undefined}
       icon={<PlusOutlined />}
       onClick={openCreateModal}
-    />
+    >
+      Create
+    </Button>
   )
 }

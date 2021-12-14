@@ -1,31 +1,26 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
-import { withAppProvider } from '@codelab/frontend/modules/app'
+import { AppProvider } from '@codelab/frontend/modules/app'
 import {
   Builder,
+  BuilderContext,
+  BuilderDashboardTemplate,
   BuilderSidebarNavigation,
   MainPaneBuilder,
   MetaPaneBuilderPage,
-  withBuilderContext,
 } from '@codelab/frontend/modules/builder'
 import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
-  useAppPagesQuery,
+  PageDetailHeader,
+  PageProvider,
   usePageState,
-  withPageProvider,
 } from '@codelab/frontend/modules/page'
-import { PageDetailHeader } from '@codelab/frontend/view/sections'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import { DashboardTemplateProps } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
-import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
-export interface BuilderProps {
-  appId: string
-}
-
-const PageBuilder: CodelabPage<BuilderProps> = (props) => {
+const PageBuilder: CodelabPage<DashboardTemplateProps> = () => {
   const { currentPage } = usePageState()
   const { elementTree } = useElementGraphContext()
 
@@ -44,43 +39,18 @@ const PageBuilder: CodelabPage<BuilderProps> = (props) => {
   )
 }
 
-const BuilderHeader = (props: BuilderProps) => {
-  const { data, isLoading } = useAppPagesQuery({
-    variables: {
-      input: {
-        byId: {
-          appId: props.appId,
-        },
-      },
-    },
-  })
-
-  return <PageDetailHeader app={data?.app ?? null} />
-}
-
-export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async (context: GetServerSidePropsContext) => {
-    const appId = context.query.appId as string
-
-    // TODO: Add typing to GetServerSideProps
-    const props: BuilderProps = {
-      appId,
-    }
-
-    return {
-      props,
-    }
-  },
-})
+export const getServerSideProps = withPageAuthRequired()
 
 const MainPane = () => <MainPaneBuilder />
 
-PageBuilder.Header = BuilderHeader
-PageBuilder.Template = withBuilderContext(
-  withAppProvider(withPageProvider(DashboardTemplate)),
-)
-PageBuilder.SidebarNavigation = BuilderSidebarNavigation
-PageBuilder.MainPane = MainPane
-PageBuilder.MetaPane = MetaPaneBuilderPage
+PageBuilder.Template = BuilderDashboardTemplate
+PageBuilder.templateProps = {
+  MainPane,
+  Header: PageDetailHeader,
+  SidebarNavigation: BuilderSidebarNavigation,
+  MetaPane: MetaPaneBuilderPage,
+  headerHeight: 38,
+}
+PageBuilder.providers = [BuilderContext, AppProvider, PageProvider]
 
 export default PageBuilder
