@@ -256,50 +256,10 @@ export class GetElementGraphService extends DgraphUseCase<
         @normalize {
           IDS AS uid
           children @filter(type(${DgraphEntityType.Element}))
+          instanceOfComponent @filter(type(${DgraphEntityType.Element}))
       }
 
-      vertices(func: uid(IDS)) @filter(type(${DgraphEntityType.Element})) {
-        id: uid
-        name
-        css
-        componentTag {
-          id: uid
-          expand(_all_)
-        }
-        atom {
-          id: uid
-          type: atomType
-          name
-          api {
-            id: uid
-            expand(_all_)
-          }
-        }
-        props {
-          data
-          id: uid
-        }
-        hooks {
-          id: uid
-          type: hookType
-          config: hookConfig {
-            id: uid
-            expand(_all_)
-          }
-        }
-        componentFixedId
-        renderForEachPropKey
-        renderIfPropKey
-        propMapBindings @normalize {
-          id: uid
-          sourceKey: sourceKey
-          targetKey: targetKey
-          targetElement {
-            targetElementId: uid
-          }
-        }
-        propTransformationJs
-      }
+      ${GetElementGraphService.singleElementQuery(`uid(IDS)`, 'vertices')}
 
       edges(func: uid(IDS))
         @normalize

@@ -114,6 +114,7 @@ export class ElementMutationFactory {
       propMapBindings,
       isComponent,
       instanceOfComponentId,
+      componentFixedId,
     } = input
 
     if (instanceOfComponentId && isComponent) {
@@ -187,7 +188,7 @@ export class ElementMutationFactory {
       componentTag: isComponent
         ? ElementMutationFactory.componentTagJson(this.currentUser, elementName)
         : undefined,
-      componentFixedId: isComponent ? v4() : null,
+      componentFixedId: isComponent ? componentFixedId ?? v4() : null,
     }
   }
 
