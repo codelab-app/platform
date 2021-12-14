@@ -13,13 +13,29 @@ import {
 } from '@codelab/frontend/modules/tag'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const TagPage: CodelabPage = () => {
+const TagPage: CodelabPage<DashboardTemplateProps> = () => {
+  return (
+    <>
+      <Head>
+        <title>Tags | Codelab</title>
+      </Head>
+
+      <CreateTagModal />
+      <UpdateTagModal />
+      <DeleteTagsModal />
+      <GetTagsTree />
+    </>
+  )
+}
+
+const TagPageHeader = () => {
   const { checkedTags } = useTagState()
 
   const pageHeaderButtons = [
@@ -29,27 +45,16 @@ const TagPage: CodelabPage = () => {
     <ImportTagsUpload key={3} />,
   ]
 
-  return (
-    <>
-      <Head>
-        <title>Tags | Codelab</title>
-      </Head>
-
-      <PageHeader ghost={false} title="Tags" extra={pageHeaderButtons} />
-      <CreateTagModal />
-      <UpdateTagModal />
-      <DeleteTagsModal />
-      <GetTagsTree />
-    </>
-  )
+  return <PageHeader ghost={false} title="Tags" extra={pageHeaderButtons} />
 }
 
 export const getServerSideProps = withPageAuthRequired()
 
 TagPage.Template = DashboardTemplate
-TagPage.MainPane = () => <GetTagsTree />
-TagPage.Header = null
-TagPage.MetaPane = null
-TagPage.SidebarNavigation = SidebarNavigation
+TagPage.templateProps = {
+  MainPane: GetTagsTree,
+  SidebarNavigation,
+  Header: TagPageHeader,
+}
 
 export default TagPage

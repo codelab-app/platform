@@ -11,36 +11,20 @@ import { UpdateTagModal } from '@codelab/frontend/modules/tag'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { Button, PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const Components: CodelabPage = () => {
-  const { openCreateModal } = useComponentDispatch()
-
-  const pageHeaderButtons = [
-    <Button
-      onClick={() => openCreateModal()}
-      size={'small'}
-      icon={<PlusOutlined />}
-      key={0}
-    />,
-  ]
-
+const Components: CodelabPage<DashboardTemplateProps> = () => {
   return (
     <>
       <Head>
         <title>Components | Codelab</title>
       </Head>
 
-      <PageHeader
-        ghost={false}
-        // onBack={() => router.back()}
-        title="Components"
-        extra={pageHeaderButtons}
-      />
       <CreateComponentModal />
       <UpdateTagModal />
       <DeleteElementModal />
@@ -53,10 +37,29 @@ const Components: CodelabPage = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
+const Header = () => {
+  const { openCreateModal } = useComponentDispatch()
+
+  return (
+    <PageHeader
+      ghost={false}
+      title="Components"
+      extra={[
+        <Button
+          onClick={() => openCreateModal()}
+          size={'small'}
+          icon={<PlusOutlined />}
+          key={0}
+        />,
+      ]}
+    />
+  )
+}
+
 Components.Template = DashboardTemplate
-Components.Header = null
-Components.MetaPane = null
-Components.MainPane = null
-Components.SidebarNavigation = SidebarNavigation
+Components.templateProps = {
+  SidebarNavigation,
+  Header,
+}
 
 export default Components

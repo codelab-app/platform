@@ -4,12 +4,13 @@ import { useAppState, withAppProvider } from '@codelab/frontend/modules/app'
 import { PageMainPane } from '@codelab/frontend/modules/page'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import Head from 'next/head'
 import React from 'react'
 
-const Pages: CodelabPage = () => {
+const Pages: CodelabPage<DashboardTemplateProps> = () => {
   const { currentApp } = useAppState()
 
   return (
@@ -24,9 +25,9 @@ const Pages: CodelabPage = () => {
 export const getServerSideProps = withPageAuthRequired()
 
 Pages.Template = withAppProvider(DashboardTemplate)
-Pages.MainPane = PageMainPane
-Pages.Header = null
-Pages.SidebarNavigation = SidebarNavigation
-Pages.MetaPane = null
+Pages.templateProps = {
+  MainPane: PageMainPane,
+  SidebarNavigation,
+}
 
 export default Pages

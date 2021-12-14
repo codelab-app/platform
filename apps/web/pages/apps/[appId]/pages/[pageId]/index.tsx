@@ -1,17 +1,23 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/props'
-import { withAppProvider } from '@codelab/frontend/modules/app'
+import { AppProvider } from '@codelab/frontend/modules/app'
 import { Renderer } from '@codelab/frontend/modules/builder'
 import { useElementGraphContext } from '@codelab/frontend/modules/element'
-import { usePageState, withPageProvider } from '@codelab/frontend/modules/page'
+import {
+  PageDetailHeader,
+  PageProvider,
+  usePageState,
+} from '@codelab/frontend/modules/page'
 import { TypeKindProvider } from '@codelab/frontend/modules/type'
-import { PageDetailHeader } from '@codelab/frontend/view/sections'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  DashboardTemplateProps,
+} from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const PageRenderer: CodelabPage<any> = () => {
+const PageRenderer: CodelabPage<DashboardTemplateProps> = () => {
   const { currentPage } = usePageState()
   const { elementTree } = useElementGraphContext()
 
@@ -34,10 +40,11 @@ const PageRenderer: CodelabPage<any> = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-PageRenderer.Template = withAppProvider(withPageProvider(DashboardTemplate))
-PageRenderer.Header = PageDetailHeader
-PageRenderer.SidebarNavigation = null
-PageRenderer.MainPane = null
-PageRenderer.MetaPane = null
+PageRenderer.Template = DashboardTemplate
+PageRenderer.templateProps = {
+  Header: PageDetailHeader,
+  headerHeight: 38,
+}
+PageRenderer.providers = [AppProvider, PageProvider]
 
 export default PageRenderer

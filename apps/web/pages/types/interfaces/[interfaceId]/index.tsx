@@ -6,12 +6,13 @@ import {
   DeleteFieldModal,
   FieldsTable,
   InterfaceContext,
+  InterfaceQueryProvider,
   UpdateFieldModal,
-  withInterfaceQueryProvider,
 } from '@codelab/frontend/modules/type'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
@@ -19,14 +20,11 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 
-const InterfaceDetailPage: CodelabPage = () => {
+const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = () => {
   const {
     interface: { name },
     tree,
   } = useContext(InterfaceContext)
-
-  const headerButtons = [<CreateFieldButton key={0} />]
-  const router = useRouter()
 
   return (
     <>
@@ -34,12 +32,6 @@ const InterfaceDetailPage: CodelabPage = () => {
         <title>{name} | Codelab</title>
       </Head>
 
-      <PageHeader
-        ghost={false}
-        onBack={() => router.back()}
-        title={name}
-        extra={headerButtons}
-      />
       <CreateFieldModal />
       <UpdateFieldModal />
       <DeleteFieldModal />
@@ -52,10 +44,30 @@ const InterfaceDetailPage: CodelabPage = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
-InterfaceDetailPage.Template = withInterfaceQueryProvider(DashboardTemplate)
-InterfaceDetailPage.MainPane = null
-InterfaceDetailPage.MetaPane = null
-InterfaceDetailPage.SidebarNavigation = SidebarNavigation
-InterfaceDetailPage.Header = null
+const Header = () => {
+  const headerButtons = [<CreateFieldButton key={0} />]
+  const router = useRouter()
+
+  const {
+    interface: { name },
+    tree,
+  } = useContext(InterfaceContext)
+
+  return (
+    <PageHeader
+      ghost={false}
+      onBack={() => router.back()}
+      title={name}
+      extra={headerButtons}
+    />
+  )
+}
+
+InterfaceDetailPage.Template = DashboardTemplate
+InterfaceDetailPage.templateProps = {
+  SidebarNavigation,
+  Header,
+}
+InterfaceDetailPage.providers = [InterfaceQueryProvider]
 
 export default InterfaceDetailPage

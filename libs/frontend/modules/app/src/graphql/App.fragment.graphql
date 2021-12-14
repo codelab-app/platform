@@ -2,6 +2,11 @@ fragment App on App {
   id
   ownerId
   name
+  pages {
+    id
+    name
+    rootElementId
+  }
 }
 
 fragment AppBase on App {

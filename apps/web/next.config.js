@@ -45,6 +45,12 @@ module.exports = withPlugins(
         }),
       )
 
+      config.module.rules.push({
+        type: 'javascript/auto',
+        test: /\.mjs$/,
+        include: /node_modules/,
+      })
+
       return config
     },
   }),

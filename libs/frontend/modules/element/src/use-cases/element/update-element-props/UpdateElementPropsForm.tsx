@@ -9,7 +9,6 @@ import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Spin } from 'antd'
 import { useRef } from 'react'
-import { useElementGraphContext } from '../../../providers'
 import {
   useGetElementQuery,
   useUpdateElementPropsMutation,
@@ -45,7 +44,6 @@ const UpdateElementPropsFormInternal = ({
   trackPromises,
 }: UpdateElementPropsFormInternalProps) => {
   const { trackPromise } = trackPromises ?? {}
-  const { elementId: rootElementId } = useElementGraphContext()
 
   const { data: interfaceData, isLoading: interfaceLoading } =
     useGetTypeGraphQuery({
@@ -65,28 +63,26 @@ const UpdateElementPropsFormInternal = ({
   }
 
   return (
-    <div>
-      <InterfaceForm
-        autosave
-        autosaveDelay={500}
-        key={elementId}
-        interfaceTree={tree}
-        model={initialPropsRef.current}
-        onSubmit={(data: any) => {
-          const promise = mutate({
-            variables: {
-              input: {
-                elementId,
-                data: JSON.stringify(data),
-                propsId: existingProps.id,
-              },
+    <InterfaceForm
+      autosave
+      autosaveDelay={500}
+      key={elementId}
+      interfaceTree={tree}
+      model={initialPropsRef.current}
+      onSubmit={(data: any) => {
+        const promise = mutate({
+          variables: {
+            input: {
+              elementId,
+              data: JSON.stringify(data),
+              propsId: existingProps.id,
             },
-          }).unwrap()
+          },
+        }).unwrap()
 
-          return trackPromise?.(promise) ?? promise
-        }}
-      />
-    </div>
+        return trackPromise?.(promise) ?? promise
+      }}
+    />
   )
 }
 

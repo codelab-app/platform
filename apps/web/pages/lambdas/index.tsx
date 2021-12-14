@@ -10,27 +10,20 @@ import {
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const LambdasPage: CodelabPage = () => {
-  const pageHeaderButtons = [<CreateLambdaButton key={0} />]
-
+const LambdasPage: CodelabPage<DashboardTemplateProps> = () => {
   return (
     <>
       <Head>
         <title>Lambdas | Codelab</title>
       </Head>
 
-      <PageHeader
-        ghost={false}
-        // onBack={() => router.back()}
-        title="Lambdas"
-        extra={pageHeaderButtons}
-      />
       <CreateLambdaModal />
       <UpdateLambdaModal />
       <DeleteLambdaModal />
@@ -43,10 +36,23 @@ const LambdasPage: CodelabPage = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
+const Header = () => {
+  const pageHeaderButtons = [<CreateLambdaButton key={0} />]
+
+  return (
+    <PageHeader
+      ghost={false}
+      // onBack={() => router.back()}
+      title="Lambdas"
+      extra={pageHeaderButtons}
+    />
+  )
+}
+
 LambdasPage.Template = DashboardTemplate
-LambdasPage.Header = null
-LambdasPage.MetaPane = null
-LambdasPage.MainPane = null
-LambdasPage.SidebarNavigation = SidebarNavigation
+LambdasPage.templateProps = {
+  SidebarNavigation,
+  Header,
+}
 
 export default LambdasPage

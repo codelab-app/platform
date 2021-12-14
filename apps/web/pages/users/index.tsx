@@ -5,12 +5,15 @@ import {
   DeleteUserModal,
   useGetUsersQuery,
 } from '@codelab/frontend/modules/user'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
+import {
+  DashboardTemplate,
+  DashboardTemplateProps,
+} from '@codelab/frontend/view/templates'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import React from 'react'
 
-const UsersPage: CodelabPage = () => {
+const UsersPage: CodelabPage<DashboardTemplateProps> = () => {
   const { data } = useGetUsersQuery()
 
   const dataSource = data?.users?.map((user) => ({
@@ -51,9 +54,5 @@ const UsersPage: CodelabPage = () => {
 export const getServerSideProps = withPageAuthRequired()
 
 UsersPage.Template = DashboardTemplate
-UsersPage.Header = null
-UsersPage.MetaPane = null
-UsersPage.MainPane = null
-UsersPage.SidebarNavigation = null
 
 export default UsersPage

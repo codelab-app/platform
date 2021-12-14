@@ -10,27 +10,20 @@ import {
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
+  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const TypesPage: CodelabPage = () => {
-  const headerButtons = [<CreateTypeButton key={0} />]
-
+const TypesPage: CodelabPage<DashboardTemplateProps> = () => {
   return (
     <>
       <Head>
         <title>Types | Codelab</title>
       </Head>
 
-      <PageHeader
-        ghost={false}
-        // onBack={() => router.back()}
-        title="Types"
-        extra={headerButtons}
-      />
       <CreateTypeModal />
       <DeleteTypeModal />
       <UpdateTypeModal />
@@ -43,10 +36,23 @@ const TypesPage: CodelabPage = () => {
 
 export const getServerSideProps = withPageAuthRequired()
 
+const Header = () => {
+  const headerButtons = [<CreateTypeButton key={0} />]
+
+  return (
+    <PageHeader
+      ghost={false}
+      // onBack={() => router.back()}
+      title="Types"
+      extra={headerButtons}
+    />
+  )
+}
+
 TypesPage.Template = DashboardTemplate
-TypesPage.Header = null
-TypesPage.MetaPane = null
-TypesPage.MainPane = null
-TypesPage.SidebarNavigation = SidebarNavigation
+TypesPage.templateProps = {
+  SidebarNavigation,
+  Header,
+}
 
 export default TypesPage
