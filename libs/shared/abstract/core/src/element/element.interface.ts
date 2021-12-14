@@ -21,6 +21,7 @@ export const ElementSchema = z.object({
   instanceOfComponent: z.object({ id: z.string() }).nullish(), // Marks the element as an instance of a specific component
   atom: z.optional(AtomSchema).nullable(),
   componentTag: TagSchema.nullish(), // Marks this element as a component
+  componentFixedId: z.string().nullish(),
   hooks: z.array(HookSchema).default([]),
   renderForEachPropKey: z.string().nullish(),
   renderIfPropKey: z.string().nullish(),

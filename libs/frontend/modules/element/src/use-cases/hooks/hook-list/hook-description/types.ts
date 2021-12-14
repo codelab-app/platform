@@ -3,6 +3,7 @@ import {
   IQueryConfigHookConfig,
   IQueryLambdaHookConfig,
   IRecoilStateHookConfig,
+  IRouterHookConfig,
 } from '@codelab/shared/abstract/core'
 
 export type LambdaDescriptionProps = {
@@ -19,4 +20,8 @@ export type GraphqlDescriptionProps = {
 
 export type RecoilStateDescriptionProps = {
   config: IRecoilStateHookConfig
+}
+
+export type RouterDescriptionProps = {
+  config: IRouterHookConfig
 }

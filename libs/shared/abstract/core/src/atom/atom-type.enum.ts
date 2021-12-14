@@ -6,6 +6,7 @@ export enum AtomType {
   HookRecoilState = 'HookRecoilState',
   HookQueryPage = 'HookQueryPage',
   HookQueryPages = 'HookQueryPages',
+  HookRouter = 'HookRouter',
   // Ant Design
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
@@ -386,6 +387,7 @@ export const hookTypes = [
   AtomType.HookRecoilState,
   AtomType.HookQueryConfig,
   AtomType.HookQueryLambda,
+  AtomType.HookRouter,
 ]
 
 export const filterNotHookType = (atom: AtomType | string) =>

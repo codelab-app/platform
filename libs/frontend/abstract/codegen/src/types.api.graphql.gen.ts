@@ -182,6 +182,7 @@ export enum AtomType {
   HookQueryPage = 'HookQueryPage',
   HookQueryPages = 'HookQueryPages',
   HookRecoilState = 'HookRecoilState',
+  HookRouter = 'HookRouter',
   HtmlA = 'HtmlA',
   HtmlArea = 'HtmlArea',
   HtmlAside = 'HtmlAside',
@@ -496,13 +497,33 @@ export type CreateAtomInput = {
 }
 
 export type CreateComponentInput = {
-  name: Scalars['String']
+  atom?: InputMaybe<AtomRef>
+  /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
+  children?: InputMaybe<Array<ElementRef>>
+  componentFixedId?: InputMaybe<Scalars['String']>
+  css?: InputMaybe<Scalars['String']>
+  hooks?: InputMaybe<Array<HookRef>>
+  instanceOfComponentId?: InputMaybe<Scalars['String']>
+  isComponent?: InputMaybe<Scalars['Boolean']>
+  name?: InputMaybe<Scalars['String']>
+  /** Leave it out to automatically set it as the last order of all the children */
+  order?: InputMaybe<Scalars['Int']>
+  /** Attaches the newly created element to an existing element as child */
+  parentElementId?: InputMaybe<Scalars['String']>
+  propMapBindings?: InputMaybe<Array<NewPropMapBindingRef>>
+  propTransformationJs?: InputMaybe<Scalars['String']>
+  props?: InputMaybe<Scalars['String']>
+  /** Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding */
+  refId?: InputMaybe<Scalars['String']>
+  renderForEachPropKey?: InputMaybe<Scalars['String']>
+  renderIfPropKey?: InputMaybe<Scalars['String']>
 }
 
 export type CreateElementChildInput = {
   atom?: InputMaybe<AtomRef>
   /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
   children?: InputMaybe<Array<ElementRef>>
+  componentFixedId?: InputMaybe<Scalars['String']>
   css?: InputMaybe<Scalars['String']>
   hooks?: InputMaybe<Array<HookRef>>
   instanceOfComponentId?: InputMaybe<Scalars['String']>
@@ -523,6 +544,7 @@ export type CreateElementInput = {
   atom?: InputMaybe<AtomRef>
   /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
   children?: InputMaybe<Array<ElementRef>>
+  componentFixedId?: InputMaybe<Scalars['String']>
   css?: InputMaybe<Scalars['String']>
   hooks?: InputMaybe<Array<HookRef>>
   instanceOfComponentId?: InputMaybe<Scalars['String']>
@@ -664,6 +686,7 @@ export type DeleteUserInput = {
 export type Element = {
   __typename?: 'Element'
   atom?: Maybe<Atom>
+  componentFixedId?: Maybe<Scalars['String']>
   /** An Element tagged with componentTag is a reusable component */
   componentTag?: Maybe<Tag>
   css?: Maybe<Scalars['String']>
@@ -1660,6 +1683,7 @@ export type UserWhereUniqueInput = {
 }
 
 export type WhereUniqueElement = {
+  componentFixedId?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['String']>
 }
 

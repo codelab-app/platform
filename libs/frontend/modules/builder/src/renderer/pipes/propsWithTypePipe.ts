@@ -21,7 +21,8 @@ export const propsWithTypePipe: RenderPipeFactory =
     ])
 
     const propsWithType = _.pickBy(props, (value) => {
-      const propTypeKind = typeKindsById[value?.type]
+      // should have either typekind directly or id as value.type
+      const propTypeKind = value?.typekind || typeKindsById[value?.type]
 
       return handledTypeKinds.has(propTypeKind)
     })

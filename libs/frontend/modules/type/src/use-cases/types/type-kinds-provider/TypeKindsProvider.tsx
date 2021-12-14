@@ -1,5 +1,6 @@
-import { Type, TypeKind } from '@codelab/frontend/abstract/codegen'
+import { Type } from '@codelab/frontend/abstract/codegen'
 import { notify } from '@codelab/frontend/shared/utils'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import React, { useEffect, useMemo } from 'react'
 import { useGetTypeKindsQuery } from '../../../store/typeEndpoints'
 

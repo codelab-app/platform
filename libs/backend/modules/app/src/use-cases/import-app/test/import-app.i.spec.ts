@@ -146,6 +146,7 @@ describe('ImportApp', () => {
                     id: expect.stringContaining('0x'),
                   },
                   hooks: [],
+                  componentFixedId: expect.any(String),
                   renderForEachPropKey: null,
                   renderIfPropKey: null,
                   propMapBindings: [],
@@ -159,6 +160,7 @@ describe('ImportApp', () => {
                   css: null,
                   atom: null,
                   componentTag: null,
+                  componentFixedId: null,
                   props: {
                     data: '{}',
                     id: expect.stringContaining('0x'),
@@ -177,6 +179,7 @@ describe('ImportApp', () => {
                   css: createPageInput.rootElement?.css,
                   atom: null,
                   componentTag: null,
+                  componentFixedId: null,
                   props: {
                     data: '{}',
                     id: expect.stringContaining('0x'),
@@ -215,6 +218,7 @@ describe('ImportApp', () => {
                   css: null,
                   atom: null,
                   componentTag: null,
+                  componentFixedId: null,
                   props: {
                     data: '{}',
                     id: expect.stringContaining('0x'),
@@ -233,6 +237,7 @@ describe('ImportApp', () => {
                   css: null,
                   atom: expect.objectContaining({ type: AtomType.Text }),
                   componentTag: null,
+                  componentFixedId: null,
                   props: {
                     data: '{}',
                     id: expect.stringContaining('0x'),

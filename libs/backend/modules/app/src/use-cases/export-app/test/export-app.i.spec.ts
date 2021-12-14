@@ -168,6 +168,7 @@ describe('ExportApp', () => {
                   },
                 },
                 {
+                  componentFixedId: expect.any(String),
                   componentTag: {
                     children: [],
                     id: expect.stringContaining('0x'),

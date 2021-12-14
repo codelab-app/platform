@@ -4,6 +4,9 @@ import { Field, InputType } from '@nestjs/graphql'
 export class WhereUniqueElement {
   @Field({ nullable: true })
   declare id?: string
+
+  @Field({ nullable: true })
+  declare componentFixedId?: string
 }
 
 @InputType()

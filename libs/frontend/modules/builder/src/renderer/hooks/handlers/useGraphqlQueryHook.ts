@@ -15,21 +15,12 @@ export const useGraphqlQueryHook: HookHandler = (
       context: { uri: config.graphqlUrl },
     })
 
-  const res = {
-    data,
-    error,
-    called,
-    loading,
-    previousData,
-    networkStatus,
-  }
+  const response = { data, error, called, loading, previousData, networkStatus }
 
-  if (config.dataKey && res.data && res.data[config.dataKey]) {
-    return {
-      ...res,
-      data: res.data[config.dataKey],
-    }
-  }
+  const output =
+    config.dataKey && response.data && response.data[config.dataKey]
+      ? { ...response, data: response.data[config.dataKey] }
+      : response
 
-  return res
+  return { graphqlQueryHook: output }
 }

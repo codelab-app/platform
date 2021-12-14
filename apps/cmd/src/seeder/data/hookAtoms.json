@@ -1,19 +1,19 @@
 [
   {
-    "id": "0x758b",
+    "id": "0x276c",
     "name": "HookQueryPage",
     "type": "HookQueryPage",
     "api": {
-      "id": "0x7564",
+      "id": "0x275a",
       "name": "HookQueryPage API",
       "typeKind": "InterfaceType",
       "typeGraph": {
         "edges": [
           {
-            "source": "0x7564",
-            "target": "0x755b",
+            "source": "0x275a",
+            "target": "0x271e",
             "description": "",
-            "id": "0x757a",
+            "id": "0x275f",
             "key": "pageId",
             "name": "Page Id"
           }
@@ -21,13 +21,13 @@
         "vertices": [
           {
             "__typename": "PageType",
-            "id": "0x755b",
+            "id": "0x271e",
             "name": "Page",
             "typeKind": "PageType"
           },
           {
             "__typename": "InterfaceType",
-            "id": "0x7564",
+            "id": "0x275a",
             "name": "HookQueryPage API",
             "typeKind": "InterfaceType"
           }
@@ -36,300 +36,20 @@
     }
   },
   {
-    "id": "0x758c",
-    "name": "HookGraphqlQuery",
-    "type": "HookGraphqlQuery",
-    "api": {
-      "id": "0x7574",
-      "name": "HookGraphqlQuery API",
-      "typeKind": "InterfaceType",
-      "typeGraph": {
-        "edges": [
-          {
-            "source": "0x7574",
-            "target": "0x7562",
-            "description": "",
-            "id": "0x757c",
-            "key": "graphqlBody",
-            "name": "Body"
-          },
-          {
-            "source": "0x7574",
-            "target": "0x755a",
-            "description": "",
-            "id": "0x757d",
-            "key": "dataKey",
-            "name": "Data Key"
-          },
-          {
-            "source": "0x7574",
-            "target": "0x755a",
-            "description": "",
-            "id": "0x7582",
-            "key": "graphqlUrl",
-            "name": "Url"
-          }
-        ],
-        "vertices": [
-          {
-            "__typename": "PrimitiveType",
-            "id": "0x755a",
-            "name": "String",
-            "typeKind": "PrimitiveType",
-            "primitiveKind": "String"
-          },
-          {
-            "__typename": "MonacoType",
-            "id": "0x7562",
-            "name": "MonacoGraphql",
-            "typeKind": "MonacoType",
-            "language": "Graphql"
-          },
-          {
-            "__typename": "InterfaceType",
-            "id": "0x7574",
-            "name": "HookGraphqlQuery API",
-            "typeKind": "InterfaceType"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "id": "0x758d",
-    "name": "HookRecoilState",
-    "type": "HookRecoilState",
-    "api": {
-      "id": "0x7570",
-      "name": "HookRecoilState API",
-      "typeKind": "InterfaceType",
-      "typeGraph": {
-        "edges": [
-          {
-            "source": "0x7570",
-            "target": "0x7563",
-            "description": "",
-            "id": "0x7585",
-            "key": "defaultValue",
-            "name": "Default Value"
-          },
-          {
-            "source": "0x7570",
-            "target": "0x755a",
-            "description": "",
-            "id": "0x7586",
-            "key": "stateKey",
-            "name": "State Key"
-          },
-          {
-            "source": "0x7570",
-            "target": "0x7578",
-            "description": "",
-            "id": "0x7589",
-            "key": "persisted",
-            "name": "Persisted"
-          }
-        ],
-        "vertices": [
-          {
-            "__typename": "PrimitiveType",
-            "id": "0x755a",
-            "name": "String",
-            "typeKind": "PrimitiveType",
-            "primitiveKind": "String"
-          },
-          {
-            "__typename": "MonacoType",
-            "id": "0x7563",
-            "name": "MonacoJson",
-            "typeKind": "MonacoType",
-            "language": "JSON"
-          },
-          {
-            "__typename": "InterfaceType",
-            "id": "0x7570",
-            "name": "HookRecoilState API",
-            "typeKind": "InterfaceType"
-          },
-          {
-            "__typename": "EnumType",
-            "id": "0x7578",
-            "name": "HookRecoilState Persisted Enum",
-            "typeKind": "EnumType",
-            "allowedValues": [
-              {
-                "id": "0x7577",
-                "name": "Not Persisted",
-                "value": "NotPersisted"
-              },
-              {
-                "id": "0x7575",
-                "name": "Local Storage",
-                "value": "LocalStorage"
-              },
-              {
-                "id": "0x7576",
-                "name": "Session Storage",
-                "value": "SessionStorage"
-              }
-            ]
-          }
-        ]
-      }
-    }
-  },
-  {
-    "id": "0x758e",
-    "name": "HookQueryConfig",
-    "type": "HookQueryConfig",
-    "api": {
-      "id": "0x7572",
-      "name": "HookQueryConfig API",
-      "typeKind": "InterfaceType",
-      "typeGraph": {
-        "edges": [
-          {
-            "source": "0x7572",
-            "target": "0x7563",
-            "description": "",
-            "id": "0x757b",
-            "key": "body",
-            "name": "Body"
-          },
-          {
-            "source": "0x7572",
-            "target": "0x755a",
-            "description": "",
-            "id": "0x757e",
-            "key": "queryKey",
-            "name": "Query Key"
-          },
-          {
-            "source": "0x7572",
-            "target": "0x755a",
-            "description": "",
-            "id": "0x7584",
-            "key": "url",
-            "name": "Url"
-          },
-          {
-            "source": "0x7572",
-            "target": "0x756c",
-            "description": "",
-            "id": "0x7587",
-            "key": "method",
-            "name": "Method"
-          }
-        ],
-        "vertices": [
-          {
-            "__typename": "PrimitiveType",
-            "id": "0x755a",
-            "name": "String",
-            "typeKind": "PrimitiveType",
-            "primitiveKind": "String"
-          },
-          {
-            "__typename": "MonacoType",
-            "id": "0x7563",
-            "name": "MonacoJson",
-            "typeKind": "MonacoType",
-            "language": "JSON"
-          },
-          {
-            "__typename": "EnumType",
-            "id": "0x756c",
-            "name": "HookQueryConfig Method Enum",
-            "typeKind": "EnumType",
-            "allowedValues": [
-              { "id": "0x7567", "name": "OPTIONS", "value": "OPTIONS" },
-              { "id": "0x7568", "name": "POST", "value": "POST" },
-              { "id": "0x756d", "name": "PUT", "value": "PUT" },
-              { "id": "0x756e", "name": "PURGE", "value": "PURGE" },
-              { "id": "0x7569", "name": "GET", "value": "GET" },
-              { "id": "0x756f", "name": "HEAD", "value": "HEAD" },
-              { "id": "0x756a", "name": "PATCH", "value": "PATCH" },
-              { "id": "0x7565", "name": "LINK", "value": "LINK" },
-              { "id": "0x7566", "name": "UNLINK", "value": "UNLINK" },
-              { "id": "0x756b", "name": "DELETE", "value": "DELETE" }
-            ]
-          },
-          {
-            "__typename": "InterfaceType",
-            "id": "0x7572",
-            "name": "HookQueryConfig API",
-            "typeKind": "InterfaceType"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "id": "0x758f",
-    "name": "HookQueryLambda",
-    "type": "HookQueryLambda",
-    "api": {
-      "id": "0x7573",
-      "name": "HookQueryLambda API",
-      "typeKind": "InterfaceType",
-      "typeGraph": {
-        "edges": [
-          {
-            "source": "0x7573",
-            "target": "0x7553",
-            "description": "",
-            "id": "0x7580",
-            "key": "lambdaId",
-            "name": "Lambda Id"
-          },
-          {
-            "source": "0x7573",
-            "target": "0x755a",
-            "description": "",
-            "id": "0x758a",
-            "key": "queryKey",
-            "name": "Query Key"
-          }
-        ],
-        "vertices": [
-          {
-            "__typename": "LambdaType",
-            "id": "0x7553",
-            "name": "Lambda",
-            "typeKind": "LambdaType"
-          },
-          {
-            "__typename": "PrimitiveType",
-            "id": "0x755a",
-            "name": "String",
-            "typeKind": "PrimitiveType",
-            "primitiveKind": "String"
-          },
-          {
-            "__typename": "InterfaceType",
-            "id": "0x7573",
-            "name": "HookQueryLambda API",
-            "typeKind": "InterfaceType"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "id": "0x7590",
+    "id": "0x276d",
     "name": "HookQueryPages",
     "type": "HookQueryPages",
     "api": {
-      "id": "0x7579",
+      "id": "0x2757",
       "name": "HookQueryPages API",
       "typeKind": "InterfaceType",
       "typeGraph": {
         "edges": [
           {
-            "source": "0x7579",
-            "target": "0x755a",
+            "source": "0x2757",
+            "target": "0x2719",
             "description": "",
-            "id": "0x7581",
+            "id": "0x275e",
             "key": "appId",
             "name": "App Id"
           }
@@ -337,14 +57,14 @@
         "vertices": [
           {
             "__typename": "PrimitiveType",
-            "id": "0x755a",
+            "id": "0x2719",
             "name": "String",
             "typeKind": "PrimitiveType",
             "primitiveKind": "String"
           },
           {
             "__typename": "InterfaceType",
-            "id": "0x7579",
+            "id": "0x2757",
             "name": "HookQueryPages API",
             "typeKind": "InterfaceType"
           }
@@ -353,59 +73,360 @@
     }
   },
   {
-    "id": "0x7591",
-    "name": "HookGraphqlMutation",
-    "type": "HookGraphqlMutation",
+    "id": "0x276e",
+    "name": "HookGraphqlQuery",
+    "type": "HookGraphqlQuery",
     "api": {
-      "id": "0x7571",
-      "name": "HookGraphqlMutation API",
+      "id": "0x2755",
+      "name": "HookGraphqlQuery API",
       "typeKind": "InterfaceType",
       "typeGraph": {
         "edges": [
           {
-            "source": "0x7571",
-            "target": "0x755a",
+            "source": "0x2755",
+            "target": "0x2719",
             "description": "",
-            "id": "0x757f",
-            "key": "graphqlUrl",
-            "name": "Url"
-          },
-          {
-            "source": "0x7571",
-            "target": "0x755a",
-            "description": "",
-            "id": "0x7583",
+            "id": "0x2761",
             "key": "dataKey",
             "name": "Data Key"
           },
           {
-            "source": "0x7571",
-            "target": "0x7562",
+            "source": "0x2755",
+            "target": "0x271d",
             "description": "",
-            "id": "0x7588",
+            "id": "0x2763",
             "key": "graphqlBody",
             "name": "Body"
+          },
+          {
+            "source": "0x2755",
+            "target": "0x2719",
+            "description": "",
+            "id": "0x2765",
+            "key": "graphqlUrl",
+            "name": "Url"
           }
         ],
         "vertices": [
           {
             "__typename": "PrimitiveType",
-            "id": "0x755a",
+            "id": "0x2719",
             "name": "String",
             "typeKind": "PrimitiveType",
             "primitiveKind": "String"
           },
           {
             "__typename": "MonacoType",
-            "id": "0x7562",
+            "id": "0x271d",
             "name": "MonacoGraphql",
             "typeKind": "MonacoType",
             "language": "Graphql"
           },
           {
             "__typename": "InterfaceType",
-            "id": "0x7571",
+            "id": "0x2755",
+            "name": "HookGraphqlQuery API",
+            "typeKind": "InterfaceType"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "0x276f",
+    "name": "HookQueryLambda",
+    "type": "HookQueryLambda",
+    "api": {
+      "id": "0x2754",
+      "name": "HookQueryLambda API",
+      "typeKind": "InterfaceType",
+      "typeGraph": {
+        "edges": [
+          {
+            "source": "0x2754",
+            "target": "0x2719",
+            "description": "",
+            "id": "0x275b",
+            "key": "queryKey",
+            "name": "Query Key"
+          },
+          {
+            "source": "0x2754",
+            "target": "0x2717",
+            "description": "",
+            "id": "0x2768",
+            "key": "lambdaId",
+            "name": "Lambda Id"
+          }
+        ],
+        "vertices": [
+          {
+            "__typename": "LambdaType",
+            "id": "0x2717",
+            "name": "Lambda",
+            "typeKind": "LambdaType"
+          },
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x2719",
+            "name": "String",
+            "typeKind": "PrimitiveType",
+            "primitiveKind": "String"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "0x2754",
+            "name": "HookQueryLambda API",
+            "typeKind": "InterfaceType"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "0x2770",
+    "name": "HookQueryConfig",
+    "type": "HookQueryConfig",
+    "api": {
+      "id": "0x2756",
+      "name": "HookQueryConfig API",
+      "typeKind": "InterfaceType",
+      "typeGraph": {
+        "edges": [
+          {
+            "source": "0x2756",
+            "target": "0x2737",
+            "description": "",
+            "id": "0x2760",
+            "key": "method",
+            "name": "Method"
+          },
+          {
+            "source": "0x2756",
+            "target": "0x2719",
+            "description": "",
+            "id": "0x2766",
+            "key": "queryKey",
+            "name": "Query Key"
+          },
+          {
+            "source": "0x2756",
+            "target": "0x2719",
+            "description": "",
+            "id": "0x2767",
+            "key": "url",
+            "name": "Url"
+          },
+          {
+            "source": "0x2756",
+            "target": "0x271c",
+            "description": "",
+            "id": "0x2769",
+            "key": "body",
+            "name": "Body"
+          }
+        ],
+        "vertices": [
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x2719",
+            "name": "String",
+            "typeKind": "PrimitiveType",
+            "primitiveKind": "String"
+          },
+          {
+            "__typename": "MonacoType",
+            "id": "0x271c",
+            "name": "MonacoJson",
+            "typeKind": "MonacoType",
+            "language": "JSON"
+          },
+          {
+            "__typename": "EnumType",
+            "id": "0x2737",
+            "name": "HookQueryConfig Method Enum",
+            "typeKind": "EnumType",
+            "allowedValues": [
+              { "id": "0x2731", "name": "OPTIONS", "value": "OPTIONS" },
+              { "id": "0x2732", "name": "POST", "value": "POST" },
+              { "id": "0x2738", "name": "PUT", "value": "PUT" },
+              { "id": "0x2733", "name": "PURGE", "value": "PURGE" },
+              { "id": "0x2739", "name": "GET", "value": "GET" },
+              { "id": "0x2734", "name": "HEAD", "value": "HEAD" },
+              { "id": "0x2735", "name": "PATCH", "value": "PATCH" },
+              { "id": "0x2736", "name": "LINK", "value": "LINK" },
+              { "id": "0x273a", "name": "UNLINK", "value": "UNLINK" },
+              { "id": "0x273b", "name": "DELETE", "value": "DELETE" }
+            ]
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "0x2756",
+            "name": "HookQueryConfig API",
+            "typeKind": "InterfaceType"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "0x2771",
+    "name": "HookGraphqlMutation",
+    "type": "HookGraphqlMutation",
+    "api": {
+      "id": "0x2759",
+      "name": "HookGraphqlMutation API",
+      "typeKind": "InterfaceType",
+      "typeGraph": {
+        "edges": [
+          {
+            "source": "0x2759",
+            "target": "0x2719",
+            "description": "",
+            "id": "0x275d",
+            "key": "dataKey",
+            "name": "Data Key"
+          },
+          {
+            "source": "0x2759",
+            "target": "0x271d",
+            "description": "",
+            "id": "0x2762",
+            "key": "graphqlBody",
+            "name": "Body"
+          },
+          {
+            "source": "0x2759",
+            "target": "0x2719",
+            "description": "",
+            "id": "0x2764",
+            "key": "graphqlUrl",
+            "name": "Url"
+          }
+        ],
+        "vertices": [
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x2719",
+            "name": "String",
+            "typeKind": "PrimitiveType",
+            "primitiveKind": "String"
+          },
+          {
+            "__typename": "MonacoType",
+            "id": "0x271d",
+            "name": "MonacoGraphql",
+            "typeKind": "MonacoType",
+            "language": "Graphql"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "0x2759",
             "name": "HookGraphqlMutation API",
+            "typeKind": "InterfaceType"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "0x2772",
+    "name": "HookRecoilState",
+    "type": "HookRecoilState",
+    "api": {
+      "id": "0x2758",
+      "name": "HookRecoilState API",
+      "typeKind": "InterfaceType",
+      "typeGraph": {
+        "edges": [
+          {
+            "source": "0x2758",
+            "target": "0x271c",
+            "description": "",
+            "id": "0x275c",
+            "key": "defaultValue",
+            "name": "Default Value"
+          },
+          {
+            "source": "0x2758",
+            "target": "0x2719",
+            "description": "",
+            "id": "0x276a",
+            "key": "stateKey",
+            "name": "State Key"
+          },
+          {
+            "source": "0x2758",
+            "target": "0x2728",
+            "description": "",
+            "id": "0x276b",
+            "key": "persisted",
+            "name": "Persisted"
+          }
+        ],
+        "vertices": [
+          {
+            "__typename": "PrimitiveType",
+            "id": "0x2719",
+            "name": "String",
+            "typeKind": "PrimitiveType",
+            "primitiveKind": "String"
+          },
+          {
+            "__typename": "MonacoType",
+            "id": "0x271c",
+            "name": "MonacoJson",
+            "typeKind": "MonacoType",
+            "language": "JSON"
+          },
+          {
+            "__typename": "EnumType",
+            "id": "0x2728",
+            "name": "HookRecoilState Persisted Enum",
+            "typeKind": "EnumType",
+            "allowedValues": [
+              {
+                "id": "0x2729",
+                "name": "Not Persisted",
+                "value": "NotPersisted"
+              },
+              {
+                "id": "0x272a",
+                "name": "Local Storage",
+                "value": "LocalStorage"
+              },
+              {
+                "id": "0x272b",
+                "name": "Session Storage",
+                "value": "SessionStorage"
+              }
+            ]
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "0x2758",
+            "name": "HookRecoilState API",
+            "typeKind": "InterfaceType"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "0x2774",
+    "name": "HookRouter",
+    "type": "HookRouter",
+    "api": {
+      "id": "0x2775",
+      "name": "HookRouter API",
+      "typeKind": "InterfaceType",
+      "typeGraph": {
+        "edges": [],
+        "vertices": [
+          {
+            "__typename": "InterfaceType",
+            "id": "0x2775",
+            "name": "HookRouter API",
             "typeKind": "InterfaceType"
           }
         ]

@@ -41,7 +41,7 @@ export class GetElementGraphService extends DgraphUseCase<
     request: GetElementGraphRequest,
     txn: Txn,
   ) {
-    exactlyOneWhereClause(request, ['id'])
+    exactlyOneWhereClause(request, ['id', 'componentFixedId'])
 
     let results: IElementGraph | undefined
 
@@ -49,6 +49,15 @@ export class GetElementGraphService extends DgraphUseCase<
       results = await this.dgraph.executeQuery<IElementGraph>(
         txn,
         GetElementGraphService.queryById(request.input.where.id),
+      )
+    }
+
+    if (request.input.where.componentFixedId) {
+      results = await this.dgraph.executeQuery<IElementGraph>(
+        txn,
+        GetElementGraphService.queryByComponentFixedId(
+          request.input.where.componentFixedId,
+        ),
       )
     }
 
@@ -219,6 +228,7 @@ export class GetElementGraphService extends DgraphUseCase<
             expand(_all_)
           }
         }
+        componentFixedId
         renderForEachPropKey
         renderIfPropKey
         propMapBindings @normalize {
@@ -231,5 +241,34 @@ export class GetElementGraphService extends DgraphUseCase<
         }
         propTransformationJs
       }`
+  }
+
+  static queryByComponentFixedId(
+    componentFixedId: string,
+    extraQuery?: string,
+  ) {
+    return `{
+      ${extraQuery ?? ''}
+
+      var(func: type(${DgraphEntityType.Element}))
+        @filter(eq(componentFixedId,"${componentFixedId}"))
+        @recurse
+        @normalize {
+          IDS AS uid
+          children @filter(type(${DgraphEntityType.Element}))
+          instanceOfComponent @filter(type(${DgraphEntityType.Element}))
+      }
+
+      ${GetElementGraphService.singleElementQuery(`uid(IDS)`, 'vertices')}
+
+      edges(func: uid(IDS))
+        @normalize
+        @cascade {
+          source: uid
+          children @facets(order: order) {
+          target: uid
+        }
+      }
+    }`
   }
 }

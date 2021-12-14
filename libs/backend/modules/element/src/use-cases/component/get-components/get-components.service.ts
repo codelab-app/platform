@@ -72,6 +72,7 @@ export class GetComponentsService extends DgraphUseCase<
           type: hookType
           config: hookConfig
         }
+        componentFixedId
         renderForEachPropKey
         renderIfPropKey
         propMapBindings @normalize {

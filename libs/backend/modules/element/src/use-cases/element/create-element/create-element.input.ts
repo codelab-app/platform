@@ -92,6 +92,9 @@ export class CreateElementChildInput {
 
   @Field(() => String, { nullable: true })
   declare instanceOfComponentId?: string
+
+  @Field(() => String, { nullable: true })
+  declare componentFixedId?: string
 }
 
 @InputType()

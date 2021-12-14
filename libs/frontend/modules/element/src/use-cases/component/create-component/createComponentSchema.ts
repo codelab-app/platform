@@ -1,8 +1,8 @@
 import { JSONSchemaType } from 'ajv'
-import { CreateComponentMutationVariables } from '../../../graphql/component.endpoints.graphql.gen'
 
-export type CreateComponentSchemaType =
-  CreateComponentMutationVariables['input']
+export interface CreateComponentSchemaType {
+  name: string
+}
 
 export const createComponentSchema: JSONSchemaType<CreateComponentSchemaType> =
   {
@@ -15,4 +15,4 @@ export const createComponentSchema: JSONSchemaType<CreateComponentSchemaType> =
       },
     },
     required: ['name'],
-  } as const
+  }

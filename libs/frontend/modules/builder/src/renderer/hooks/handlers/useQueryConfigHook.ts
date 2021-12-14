@@ -11,71 +11,21 @@ import { HookHandler } from '../HookHandler'
 export const useQueryConfigHook: HookHandler = (
   config: IQueryConfigHookConfig,
 ) => {
-  let body = config.body ?? undefined
-
-  try {
-    if (body) {
-      body = JSON.parse(body)
-    }
-  } catch (e) {
-    //
-  }
-
-  const { method, url } = config
+  const { method, url, body } = config
 
   if (!url) {
     return
   }
 
-  const {
-    data,
-    dataUpdatedAt,
-    error,
-    errorUpdatedAt,
-    failureCount,
-    isError,
-    isFetched,
-    isFetchedAfterMount,
-    isFetching,
-    isIdle,
-    isLoading,
-    isLoadingError,
-    isPlaceholderData,
-    isPreviousData,
-    isRefetchError,
-    isStale,
-    isSuccess,
-    status,
-  } = useQuery(config.queryKey, (context) =>
+  const output = useQuery(config.queryKey, (context) =>
     axios({
       data: body,
       url,
       // GraphQL Codegen is renaming enum
       method: (method ?? QueryMethod.Get).toUpperCase() as Method,
-      headers: {
-        'Content-type': 'application/json',
-      },
+      headers: { 'Content-type': 'application/json' },
     }).then((r) => r.data),
   )
 
-  return {
-    data,
-    dataUpdatedAt,
-    error,
-    errorUpdatedAt,
-    failureCount,
-    isError,
-    isFetched,
-    isFetchedAfterMount,
-    isFetching,
-    isIdle,
-    isLoading,
-    isLoadingError,
-    isPlaceholderData,
-    isPreviousData,
-    isRefetchError,
-    isStale,
-    isSuccess,
-    status,
-  }
+  return { queryConfigHook: output }
 }

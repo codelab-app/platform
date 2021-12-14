@@ -33,6 +33,9 @@ export class Element implements IElement {
   componentTag?: Maybe<Tag>
 
   @Field(() => String, { nullable: true })
+  componentFixedId: Maybe<string>
+
+  @Field(() => String, { nullable: true })
   /** The CSS string that gets passed down to emotion */
   css?: Maybe<string>
 
@@ -76,6 +79,7 @@ export class Element implements IElement {
     css,
     hooks = [],
     componentTag,
+    componentFixedId = null,
     renderForEachPropKey,
     renderIfPropKey,
     propMapBindings = [],
@@ -87,6 +91,7 @@ export class Element implements IElement {
     this.atom = atom as any
     this.css = css
     this.componentTag = componentTag
+    this.componentFixedId = componentFixedId
     this.props = props
     this.hooks = hooks
     this.renderIfPropKey = renderIfPropKey

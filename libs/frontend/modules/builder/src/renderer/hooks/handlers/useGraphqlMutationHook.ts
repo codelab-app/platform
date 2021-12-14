@@ -6,18 +6,18 @@ import { apolloClient } from '../utils/apolloClient'
 
 export const useGraphqlMutationHook: HookHandler = (
   config: IGraphqlHookConfig,
-  inputProps,
+  props,
 ) => {
   const [mutate, { data, error, called, loading }] = useMutation(
     gql(config.graphqlBody),
     {
       client: apolloClient,
       context: { uri: config.graphqlUrl },
-      variables: inputProps ?? undefined,
+      variables: props ?? undefined,
     },
   )
 
-  const res = {
+  const response = {
     data,
     error,
     called,
@@ -27,12 +27,10 @@ export const useGraphqlMutationHook: HookHandler = (
       : 'mutate']: mutate,
   }
 
-  if (config.dataKey && res.data && res.data[config.dataKey]) {
-    return {
-      ...res,
-      data: res.data[config.dataKey],
-    }
-  }
+  const output =
+    config.dataKey && response.data && response.data[config.dataKey]
+      ? { ...response, data: response.data[config.dataKey] }
+      : response
 
-  return res
+  return { graphqlMutationHook: output }
 }

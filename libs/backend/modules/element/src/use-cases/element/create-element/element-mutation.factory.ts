@@ -114,6 +114,7 @@ export class ElementMutationFactory {
       propMapBindings,
       isComponent,
       instanceOfComponentId,
+      componentFixedId,
     } = input
 
     if (instanceOfComponentId && isComponent) {
@@ -167,12 +168,8 @@ export class ElementMutationFactory {
     return {
       uid: elementUid,
       'dgraph.type': [DgraphEntityType.Element],
-      name: elementName,
-      owner: this.currentUser
-        ? {
-            uid: this.currentUser.id,
-          }
-        : {},
+      name,
+      owner: this.currentUser ? { uid: this.currentUser.id } : {},
       'children|order': order ? order : 1,
       children: childrenMutations,
       atom: atomId ? { uid: atomId } : undefined,
@@ -191,6 +188,7 @@ export class ElementMutationFactory {
       componentTag: isComponent
         ? ElementMutationFactory.componentTagJson(this.currentUser, elementName)
         : undefined,
+      componentFixedId: isComponent ? componentFixedId ?? v4() : null,
     }
   }
 

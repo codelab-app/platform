@@ -21,7 +21,7 @@ export const useQueryLambdaHook: HookHandler = (
       try {
         const payload = r.data?.executeLambda?.payload
 
-        return payload ? JSON.parse(payload) : undefined
+        return payload ? { queryLambdaHook: JSON.parse(payload) } : undefined
       } catch (e) {
         console.warn('Error while processing lambda payload: ', e)
       }

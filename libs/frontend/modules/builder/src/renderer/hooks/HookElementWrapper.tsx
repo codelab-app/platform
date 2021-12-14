@@ -3,6 +3,7 @@ import React from 'react'
 import { useHookFactory } from './useHookFactory'
 
 export interface HookElementWrapperProps {
+  elementId: string
   children?: never
   inputProps?: Record<string, any>
   hooks: Array<IHook>
@@ -16,11 +17,12 @@ export interface HookElementWrapperProps {
  * It receives the hookProps and should return the children that will get rendered inside this component
  */
 export const HookElementWrapper = ({
+  elementId,
   hooks,
   inputProps,
   renderChildren,
 }: HookElementWrapperProps) => {
-  const hookProps = useHookFactory(hooks, inputProps)
+  const hookProps = useHookFactory(elementId, hooks, inputProps)
 
   if (!renderChildren) {
     return null
