@@ -53,7 +53,6 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
           <Button
             size="small"
             type="primary"
-            tw="flex justify-center items-center"
             icon={<EditFilled />}
             onClick={() =>
               openUpdateModal({
@@ -69,7 +68,6 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
             size="small"
             type="primary"
             danger
-            tw="flex justify-center items-center"
             icon={<DeleteFilled />}
             onClick={() =>
               openDeleteModal({

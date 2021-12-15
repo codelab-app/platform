@@ -1,5 +1,7 @@
 // import '../src/wdyr'
 import '../src/styles/antd-theme.less'
+import 'animate.css'
+import '../src/styles/app.scss'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/props'

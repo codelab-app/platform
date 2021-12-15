@@ -5,8 +5,11 @@
 // @import '~react-resizable/css/styles.css';
 
 // https://stackoverflow.com/questions/60853067/how-to-solve-ant-design-base-css-and-tailwindcss-base-css-alignments-problem
-.anticon svg {
-  vertical-align: initial !important;
+span.anticon {
+  vertical-align: middle;
+  svg {
+    vertical-align: initial !important;
+  }
 }
 
 // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
@@ -15,6 +18,10 @@
 // @gray: rgb(65, 64, 77);
 
 // @component-background: @gray;
+
+@font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
 // Menu
 @menu-item-height: calc(@layout-header-height - 1px);
