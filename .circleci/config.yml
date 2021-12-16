@@ -111,6 +111,10 @@ commands:
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
       - run:
+          name: 'Install Bower'
+          command: |
+            npm install bower
+      - run:
           name: 'Setup env'
           command: |
             # git settings
