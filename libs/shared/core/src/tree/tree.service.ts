@@ -38,10 +38,16 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     this.cy = cytoscape({
       headless: true,
       elements: {
-        nodes: vertices.map((v) => ({
-          // Parent is needed for .children() to work (and some other cy methods too)
-          data: { ...v, id: v.id, data: v, parent: parentsMap.get(v.id) },
-        })),
+        nodes: vertices.map((v) => {
+          if (!v.id) {
+            throw new Error('Vertex must have an id')
+          }
+
+          return {
+            // Parent is needed for .children() to work (and some other cy methods too)
+            data: { ...v, id: v.id, data: v, parent: parentsMap.get(v.id) },
+          }
+        }),
         edges: edges.map((e) => ({
           data: {
             ...e,
@@ -90,6 +96,10 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
    * Override to customize antd tree node mapping behavior
    */
   protected antdNodeMapper(element: TVertex): DataNode {
+    if (!element.id) {
+      throw new Error('Element must have an id')
+    }
+
     return {
       ...element,
       key: element.id,
@@ -100,11 +110,16 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
   /**
    * Wrapper around bfs visit function
    */
-  bfsVisit(visit: SearchVisitFunction) {
-    return this.cy.elements().bfs({
-      root: this.cy.elements().roots().first(),
-      visit,
-    })
+  bfsVisit(visit: SearchVisitFunction, rootId?: string) {
+    const root = rootId
+      ? this.cy.getElementById(rootId)
+      : this.cy.elements().roots().filter(filterPredicate(this.predicate))[0]
+
+    if (!root) {
+      throw new Error('No root element or component found')
+    }
+
+    return this.cy.elements().bfs({ root, visit })
   }
 
   getAntdTree(rootPredicate?: Predicate<TVertex>): Nullable<DataNode> {
@@ -132,6 +147,10 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
 
         const order = getEdgeOrder(edge)
         const node = this.antdNodeMapper(element)
+
+        if (!element.id) {
+          throw new Error('Element must have an id')
+        }
 
         nodes[element.id] = node
         nodeOrder[element.id] = order
@@ -298,5 +317,20 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     })
 
     return subgraph
+  }
+}
+
+export interface TreeDiff<TVertex, TEdge> {
+  edges: {
+    added: Array<TEdge>
+    updated: Array<TEdge>
+    unchanged: Array<TEdge>
+    removed: Array<TEdge>
+  }
+  vertices: {
+    added: Array<TVertex>
+    updated: Array<TVertex>
+    unchanged: Array<TVertex>
+    removed: Array<TVertex>
   }
 }

@@ -22,6 +22,7 @@ export class GraphqlOptions implements GqlOptionsFactory {
           'libs/backend/abstract/codegen/src/nestjs-types.api.graphql.gen.ts',
         ),
       },
+      fieldResolverEnhancers: ['interceptors'],
       installSubscriptionHandlers: true,
       path: '/graphql',
       debug: true,

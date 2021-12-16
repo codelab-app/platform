@@ -1,48 +1,29 @@
-import { CreateResponsePort } from '@codelab/backend/abstract/core'
-import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphCreateMutationJson,
-  DgraphEntityType,
-  DgraphRepository,
-} from '@codelab/backend/infra'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
-import { CreatePropInput } from './create-prop.input'
+import { CreateResponsePort, UseCasePort } from '@codelab/backend/abstract/core'
+import { IProp, PropSchema } from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
+import { IPropRepository, IPropRepositoryToken } from '../../infrastructure'
 import { CreatePropRequest } from './create-prop.request'
 
 @Injectable()
-export class CreatePropService extends DgraphUseCase<
-  CreatePropRequest,
-  CreateResponsePort
-> {
-  constructor(dgraph: DgraphRepository) {
-    super(dgraph)
-  }
+export class CreatePropService
+  implements UseCasePort<CreatePropRequest, CreateResponsePort>
+{
+  constructor(
+    @Inject(IPropRepositoryToken)
+    private readonly propsRepository: IPropRepository,
+  ) {}
 
-  protected async executeTransaction(
-    request: CreatePropRequest,
-    txn: Txn,
-  ): Promise<CreateResponsePort> {
-    const res = await this.dgraph.create(txn, (blankNodeUid) =>
-      this.createMutation(request.input, blankNodeUid),
-    )
-
-    return res
-  }
-
-  protected createMutation(input: CreatePropInput, uid: string): Mutation {
-    const { data } = input
-
-    const setJson: DgraphCreateMutationJson<any> =
-      CreatePropService.createPropsMutation(data, uid)
-
-    return {
-      setJson,
+  async execute({
+    input,
+    transaction,
+  }: CreatePropRequest): Promise<CreateResponsePort> {
+    const inputProp: IProp = {
+      id: '',
+      data: input.data,
     }
-  }
 
-  public static createPropsMutation(data: string, uid: Maybe<string>) {
-    return { uid, 'dgraph.type': [DgraphEntityType.Prop], data }
+    const prop = PropSchema.parse(inputProp)
+
+    return this.propsRepository.create(prop, transaction)
   }
 }

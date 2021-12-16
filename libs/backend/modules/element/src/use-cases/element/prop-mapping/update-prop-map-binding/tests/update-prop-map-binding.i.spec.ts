@@ -60,6 +60,7 @@ describe('UpdatePropMapBindingUseCase', () => {
     })
 
     updatePropMappingInput = {
+      elementId,
       propMapBindingId: createPropMapBinding.id,
       data: {
         sourceKey: 'data',
@@ -104,16 +105,13 @@ describe('UpdatePropMapBindingUseCase', () => {
       })
 
       const found = getElement?.propMapBindings.find(
-        (b) => b.id === updatePropMappingInput.propMapBindingId,
+        (b) =>
+          b.targetElementId === updatePropMappingInput.data.targetElementId &&
+          b.targetKey === updatePropMappingInput.data.targetKey &&
+          b.sourceKey === updatePropMappingInput.data.sourceKey,
       )
 
-      expect(found).toBeDefined()
-      expect(found).toMatchObject({
-        id: updatePropMappingInput.propMapBindingId,
-        targetKey: updatePropMappingInput.data.targetKey,
-        sourceKey: updatePropMappingInput.data.sourceKey,
-        targetElementId: updatePropMappingInput.data.targetElementId,
-      })
+      expect(found).toBeTruthy()
     })
   })
 })

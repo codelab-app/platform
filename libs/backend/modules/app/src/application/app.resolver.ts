@@ -1,5 +1,9 @@
-import { PayloadResponse } from '@codelab/backend/application'
-import { GqlAuthGuard } from '@codelab/backend/infra'
+import {
+  PayloadResponse,
+  Transaction,
+  Transactional,
+} from '@codelab/backend/application'
+import { GqlAuthGuard, ITransaction } from '@codelab/backend/infra'
 import { GetPagesService, Page } from '@codelab/backend/modules/page'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import type { IUser } from '@codelab/shared/abstract/core'
@@ -119,11 +123,17 @@ export class AppResolver {
 
   @Query(() => PayloadResponse)
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async exportApp(
     @Args('input') input: ExportAppInput,
     @CurrentUser() currentUser: IUser,
+    @Transaction() transaction: ITransaction,
   ): Promise<PayloadResponse> {
-    const payload = await this.exportAppService.execute({ input, currentUser })
+    const payload = await this.exportAppService.execute({
+      input,
+      currentUser,
+      transaction,
+    })
 
     return {
       payload: JSON.stringify(payload),
@@ -132,13 +142,16 @@ export class AppResolver {
 
   @Mutation(() => App)
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async importApp(
     @Args('input') input: ImportAppInput,
     @CurrentUser() currentUser: IUser,
-  ): Promise<App> {
+    @Transaction() transaction: ITransaction,
+  ) {
     const { id } = await this.importAppService.execute({
       input,
       currentUser,
+      transaction,
     })
 
     const app = await this.getAppService.execute({

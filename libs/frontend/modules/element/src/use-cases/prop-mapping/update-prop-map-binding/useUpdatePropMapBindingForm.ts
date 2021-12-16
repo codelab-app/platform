@@ -8,7 +8,7 @@ import {
 } from '../../../store'
 import { UpdatePropMapBindingSchema } from './updatePropMapBindingSchema'
 
-export const useUpdatePropMapBindingForm = () => {
+export const useUpdatePropMapBindingForm = (elementId: string) => {
   const { resetModal } = usePropMapBindingDispatch()
   const { updateId, entity } = useSelector(selectPropMapBinding)
 
@@ -25,6 +25,7 @@ export const useUpdatePropMapBindingForm = () => {
       return mutate({
         variables: {
           input: {
+            elementId,
             data: {
               sourceKey: sourceKey.trim(),
               targetKey: targetKey.trim(),
@@ -35,7 +36,7 @@ export const useUpdatePropMapBindingForm = () => {
         },
       }).unwrap()
     },
-    [mutate, updateId],
+    [elementId, mutate, updateId],
   )
 
   return {

@@ -3,7 +3,7 @@ import { BaseTypeSchema } from '../base-type/base-type.interface'
 import { TypeKind } from '../base-type/type-kind.enum'
 
 export const EnumTypeValue = z.object({
-  id: z.string(),
+  id: z.string().default(''),
   name: z.string().optional().nullable(),
   value: z.string(),
 })

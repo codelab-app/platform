@@ -38,8 +38,11 @@ export const elementApi = generatedApi.enhanceEndpoints({
       ],
     },
     MoveElement: {
-      invalidatesTags: (result) =>
-        providesById(result?.moveElement?.id, ELEMENT_CACHE_TAG),
+      invalidatesTags: (result) => [
+        ELEMENT_CACHE_TAG,
+        ELEMENT_GRAPH_CACHE_TAG,
+        COMPONENT_CACHE_TAG,
+      ],
     },
     UpdateElement: {
       invalidatesTags: (result) =>
@@ -50,6 +53,13 @@ export const elementApi = generatedApi.enhanceEndpoints({
         providesById(result?.updateElementProps?.id, ELEMENT_CACHE_TAG),
     },
     ConvertElementToComponent: {
+      invalidatesTags: () => [
+        ELEMENT_CACHE_TAG,
+        ELEMENT_GRAPH_CACHE_TAG,
+        COMPONENT_CACHE_TAG,
+      ],
+    },
+    DuplicateElement: {
       invalidatesTags: () => [
         ELEMENT_CACHE_TAG,
         ELEMENT_GRAPH_CACHE_TAG,
@@ -72,4 +82,5 @@ export const {
   useUpdateElementMutation,
   useUpdateElementPropsMutation,
   useConvertElementToComponentMutation,
+  useDuplicateElementMutation,
 } = generatedApi

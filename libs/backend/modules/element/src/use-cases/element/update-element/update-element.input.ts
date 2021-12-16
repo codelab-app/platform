@@ -10,6 +10,9 @@ export class UpdateElementData {
   declare atomId?: string
 
   @Field(() => String, { nullable: true })
+  declare instanceOfComponentId?: string
+
+  @Field(() => String, { nullable: true })
   declare css?: Nullable<string>
 
   @Field(() => String, {

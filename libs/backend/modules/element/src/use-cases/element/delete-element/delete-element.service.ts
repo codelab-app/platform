@@ -1,8 +1,10 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository } from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../application/element.validator'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../../../infrastructure/repositories/abstract/element-repository.interface'
 import { DeleteElementRequest } from './delete-element.request'
 
 /**
@@ -10,65 +12,44 @@ import { DeleteElementRequest } from './delete-element.request'
  * Doesn't delete descendant component elements
  */
 @Injectable()
-export class DeleteElementService extends DgraphUseCase<DeleteElementRequest> {
+export class DeleteElementService
+  implements UseCasePort<DeleteElementRequest, void>
+{
   constructor(
-    dgraph: DgraphRepository,
+    @Inject(IElementRepositoryToken)
+    private readonly elementRepository: IElementRepository,
     private readonly elementValidator: ElementValidator,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(
-    request: DeleteElementRequest,
-    txn: Txn,
-  ): Promise<void> {
+  async execute(request: DeleteElementRequest): Promise<void> {
     await this.validate(request)
-    await this.dgraph.executeMutation(
-      txn,
-      DeleteElementService.getMutation(request),
+    await this.elementRepository.delete(
+      request.input.elementId,
+      request.transaction,
     )
   }
 
-  private static getMutation({ input }: DeleteElementRequest) {
-    const { elementId } = input
+  private async validate({
+    input,
+    currentUser,
+    transaction,
+  }: DeleteElementRequest) {
+    await this.elementValidator.existsAndIsOwnedBy(
+      input.elementId,
+      currentUser,
+      transaction,
+    )
 
-    const mutation: Mutation = {
-      mutation: `
-        upsert {
-          query {
-            descendants(func: uid(${elementId}))  @filter(type(Element)) @recurse {
-                COMPONENT AS uid
-                PROP_UID as props.uid
-                DESCENDANTS AS children @filter(NOT has(componentTag))
-            }
-            parent(func: uid(${elementId})) {
-              ~children {
-                PARENT as uid
-              }
-            }
-          }
-
-          mutation {
-            delete {
-              uid(PROP_UID) * * .
-              uid(COMPONENT) * * .
-              uid(DESCENDANTS) * * .
-              uid(PARENT) <children> <${elementId}> .
-            }
-          }
-        }
-      `,
-    }
-
-    return mutation
-  }
-
-  private async validate({ input, currentUser }: DeleteElementRequest) {
-    await this.elementValidator.existsAndIsOwnedBy(input.elementId, currentUser)
-
-    await this.elementValidator.isNotRoot(input.elementId)
+    await this.elementValidator.isNotRoot(input.elementId, transaction)
 
     // Prevent deleting components if they are used
-    await this.elementValidator.isOrphan(input.elementId, 'has(componentTag)')
+    const element = await this.elementRepository.getOne(
+      input.elementId,
+      transaction,
+    )
+
+    if (element?.componentTag) {
+      await this.elementValidator.isNotReferenced(input.elementId, transaction)
+    }
   }
 }

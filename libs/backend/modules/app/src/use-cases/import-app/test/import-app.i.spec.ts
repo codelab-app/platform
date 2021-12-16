@@ -3,8 +3,30 @@ import {
   TestCreateAtomGql,
   TestCreateAtomMutation,
 } from '@codelab/backend/modules/atom'
+import {
+  AddHookToElementInput,
+  CreateComponentInput,
+  CreateElementInput,
+  CreatePropMapBindingInput,
+  TestAddHookToElementGql,
+  TestAddHookToElementMutation,
+  TestCreateComponentGql,
+  TestCreateComponentMutation,
+  TestCreateElementGql,
+  TestCreateElementMutation,
+  TestCreatePropMapBindingGql,
+  TestCreatePropMapBindingMutation,
+} from '@codelab/backend/modules/element'
 import { domainRequest } from '@codelab/backend/shared/testing'
-import { AtomType } from '@codelab/shared/abstract/core'
+import {
+  AtomType,
+  IApp,
+  IAtom,
+  IElement,
+  IHook,
+  IPage,
+  IPropMapBinding,
+} from '@codelab/shared/abstract/core'
 import { setupAppTestModule } from '../../../test/setupAppTestModule'
 import { ExportAppInput } from '../../export-app'
 import {
@@ -22,54 +44,106 @@ import {
   TestImportAppMutation,
 } from './import-app.api.graphql.gen'
 import {
-  buttonComponentInput,
-  createPageInput,
+  buttonAtomInput,
+  buttonTextElementInput,
+  containerElementInput,
   firstButtonInput,
-  hookQueryConfig,
+  redButtonComponentInput,
   secondButtonInput,
+  testAppInput,
+  testHookInput,
+  testPageInput,
+  testPmbInput,
+  textAtomInput,
   textElementInput,
 } from './import-app.data'
 
 describe('ImportApp', () => {
-  const testModule = setupAppTestModule(false)
+  const testModule = setupAppTestModule()
   let importAppInput: ImportAppInput
 
-  const createAtom = (input: CreateAtomInput) =>
-    domainRequest<CreateAtomInput, TestCreateAtomMutation>(
-      testModule.adminApp,
-      TestCreateAtomGql,
-      input,
-    ).then((r) => r?.createAtom)
-
-  const createTestPage = (
-    input: TestCreatePageForAppExportMutationVariables['input'],
-  ) => {
-    return domainRequest<
-      TestCreatePageForAppExportMutationVariables['input'],
-      TestCreatePageForAppExportMutation
-    >(testModule.userApp, TestCreatePageForAppExportGql, input).then(
-      (r) => r.createPage,
-    )
+  const elements: Record<
+    | 'container'
+    | 'text'
+    | 'firstButton'
+    | 'buttonComponent'
+    | 'buttonText'
+    | 'secondButton',
+    IElement
+  > = {
+    buttonComponent: undefined!,
+    buttonText: undefined!,
+    firstButton: undefined!,
+    secondButton: undefined!,
+    text: undefined!,
+    container: undefined!,
   }
 
+  let app: Omit<IApp, 'pages'>
+  let containerHook: IHook
+  let page: IPage
+  let btnAtom: IAtom
+  let textAtom: IAtom
+  let containerPmb: IPropMapBinding
+
   beforeAll(async () => {
-    const app = await testModule.createTestApp({
-      name: 'My awesome app',
+    app = await testModule.createTestApp(testAppInput)
+    btnAtom = await createAtom(buttonAtomInput)
+    textAtom = await createAtom(textAtomInput)
+
+    elements.buttonComponent = await createComponent({
+      ...redButtonComponentInput,
+      atomId: btnAtom.id,
     })
 
-    await createAtom({ type: AtomType.HtmlButton, name: 'Button' })
-    await createAtom({ type: AtomType.Text, name: 'Text' })
+    elements.buttonText = await createElement({
+      ...buttonTextElementInput,
+      atomId: textAtom.id,
+      parentElementId: elements.buttonComponent.id,
+    })
 
-    await createTestPage({ ...createPageInput, appId: app.id })
+    page = await createTestPage({ appId: app.id, ...testPageInput })
+
+    elements.container = await createElement({
+      ...containerElementInput,
+      parentElementId: page.rootElementId,
+    })
+
+    containerHook = await addHook({
+      ...testHookInput,
+      elementId: elements.container.id,
+    })
+
+    elements.firstButton = await createElement({
+      ...firstButtonInput,
+      instanceOfComponentId: elements.buttonComponent.id,
+      parentElementId: elements.container.id,
+    })
+
+    elements.secondButton = await createElement({
+      ...secondButtonInput,
+      instanceOfComponentId: elements.buttonComponent.id,
+      parentElementId: elements.container.id,
+    })
+
+    elements.text = await createElement({
+      ...textElementInput,
+      atomId: textAtom.id,
+      parentElementId: elements.container.id,
+    })
+
+    containerPmb = await createPmb({
+      ...testPmbInput,
+      elementId: elements.container.id,
+      targetElementId: elements.text.id,
+    })
 
     const { exportApp } = await domainRequest<
       ExportAppInput,
       TestExportAppQuery
     >(testModule.userApp, TestExportAppGql, { appId: app.id })
 
-    importAppInput = {
-      payload: exportApp.payload,
-    }
+    importAppInput = { payload: exportApp.payload }
   })
 
   describe('Guest', () => {
@@ -86,7 +160,8 @@ describe('ImportApp', () => {
   })
 
   describe('User', () => {
-    it('should import an App', async () => {
+    // The operation should be idempotent, so two imports should be the same
+    it.each([1, 2])('should import an App %i', async () => {
       const { importApp } = await domainRequest<
         ImportAppInput,
         TestImportAppMutation
@@ -99,13 +174,16 @@ describe('ImportApp', () => {
         importApp.pages[0].elements?.vertices.find((v) => v.id === elId)?.name
 
       const rootElementId = importApp.pages[0].rootElementId
-      const textElementId = getElId(textElementInput.newElement.name)
-      const firstButtonId = getElId(firstButtonInput.newElement.name)
-      const secondButtonId = getElId(secondButtonInput.newElement.name)
-      const buttonComponentId = getElId(buttonComponentInput.newElement.name)
+      const containerElementId = getElId(elements.container.name as string)
+      const textElementId = getElId(elements.text.name as string)
+      const buttonTextId = getElId(elements.buttonText.name as string)
+      const firstButtonId = getElId(elements.firstButton.name as string)
+      const secondButtonId = getElId(elements.secondButton.name as string)
+      const buttonComponentId = getElId(elements.buttonComponent.name as string)
 
       expect(textElementId).toBeTruthy()
 
+      // Sort by name so that we get consistent results
       importApp.pages[0].elements?.vertices?.sort((a, b) =>
         (a.name ?? '').localeCompare(b.name || ''),
       )
@@ -121,145 +199,237 @@ describe('ImportApp', () => {
         id: expect.stringContaining('0x'),
         name: 'My awesome app',
         ownerId: '0x1',
-        pages: [
-          {
-            id: expect.stringContaining('0x'),
-            name: createPageInput.name,
-            rootElementId: expect.stringContaining('0x'),
-            elements: {
-              vertices: [
-                {
-                  __typename: 'Element',
-                  id: buttonComponentId,
-                  instanceOfComponent: null,
-                  name: buttonComponentInput.newElement.name,
-                  css: buttonComponentInput.newElement.css,
-                  atom: expect.objectContaining({ type: AtomType.HtmlButton }),
-                  componentTag: {
-                    name: buttonComponentInput.newElement.name,
-                    children: [],
-                    isRoot: true,
-                    id: expect.stringContaining('0x'),
-                  },
-                  props: {
-                    data: '{}',
-                    id: expect.stringContaining('0x'),
-                  },
-                  hooks: [],
-                  componentFixedId: expect.any(String),
-                  renderForEachPropKey: null,
-                  renderIfPropKey: null,
-                  propMapBindings: [],
-                  propTransformationJs: null,
-                },
-                {
-                  __typename: 'Element',
-                  id: firstButtonId,
-                  name: firstButtonInput.newElement.name,
-                  instanceOfComponent: null,
-                  css: null,
-                  atom: null,
-                  componentTag: null,
-                  componentFixedId: null,
-                  props: {
-                    data: '{}',
-                    id: expect.stringContaining('0x'),
-                  },
-                  hooks: [],
-                  renderForEachPropKey: null,
-                  renderIfPropKey: null,
-                  propMapBindings: [],
-                  propTransformationJs: null,
-                },
-                {
-                  __typename: 'Element',
-                  id: rootElementId,
-                  instanceOfComponent: null,
-                  name: createPageInput.rootElement?.name,
-                  css: createPageInput.rootElement?.css,
-                  atom: null,
-                  componentTag: null,
-                  componentFixedId: null,
-                  props: {
-                    data: '{}',
-                    id: expect.stringContaining('0x'),
-                  },
-                  hooks: [
-                    {
-                      config: {
-                        id: expect.stringContaining('0x'),
-                        data: hookQueryConfig.config,
-                      },
-                      type: AtomType.HookQueryConfig,
-                      id: expect.stringContaining('0x'),
-                    },
-                  ],
-                  renderForEachPropKey: null,
-                  renderIfPropKey: null,
-                  propMapBindings: [
-                    {
-                      id: expect.stringContaining('0x'),
-                      targetElementId: textElementId,
-                      targetKey:
-                        createPageInput.rootElement?.propMapBindings?.[0]
-                          .targetKey,
-                      sourceKey:
-                        createPageInput.rootElement?.propMapBindings?.[0]
-                          .sourceKey,
-                    },
-                  ],
-                  propTransformationJs: null,
-                },
-                {
-                  __typename: 'Element',
-                  id: secondButtonId,
-                  instanceOfComponent: null,
-                  name: secondButtonInput.newElement.name,
-                  css: null,
-                  atom: null,
-                  componentTag: null,
-                  componentFixedId: null,
-                  props: {
-                    data: '{}',
-                    id: expect.stringContaining('0x'),
-                  },
-                  hooks: [],
-                  renderForEachPropKey: null,
-                  renderIfPropKey: null,
-                  propMapBindings: [],
-                  propTransformationJs: null,
-                },
-                {
-                  __typename: 'Element',
-                  id: textElementId,
-                  instanceOfComponent: null,
-                  name: textElementInput.newElement.name,
-                  css: null,
-                  atom: expect.objectContaining({ type: AtomType.Text }),
-                  componentTag: null,
-                  componentFixedId: null,
-                  props: {
-                    data: '{}',
-                    id: expect.stringContaining('0x'),
-                  },
-                  hooks: [],
-                  renderForEachPropKey: null,
-                  renderIfPropKey: null,
-                  propMapBindings: [],
-                  propTransformationJs: null,
-                },
-              ],
-              edges: [
-                { order: 1, source: firstButtonId, target: buttonComponentId },
-                { order: 1, source: rootElementId, target: textElementId },
-                { order: 2, source: rootElementId, target: firstButtonId },
-                { order: 3, source: rootElementId, target: secondButtonId },
-                { order: 1, source: secondButtonId, target: buttonComponentId },
-              ],
-            },
-          },
-        ],
+        pages: expect.any(Array),
       })
+
+      const importedPage = importApp.pages[0]
+
+      expect(importedPage).toEqual({
+        id: expect.stringContaining('0x'),
+        name: page.name,
+        rootElementId: expect.stringContaining('0x'),
+        elements: {
+          vertices: expect.any(Array),
+          edges: expect.any(Array),
+        },
+      })
+
+      const importedGraph = importedPage.elements
+
+      expect(importedGraph?.vertices).toHaveLength(7)
+      expect(importedGraph?.edges).toHaveLength(5)
+
+      expect(importedGraph?.vertices).toEqual([
+        {
+          __typename: 'Element',
+          id: buttonTextId,
+          instanceOfComponent: null,
+          name: elements.buttonText.name,
+          css: null,
+          atom: expect.objectContaining({ type: AtomType.Text }),
+          componentTag: null,
+          fixedId: expect.any(String),
+          props: {
+            data: buttonTextElementInput.props,
+            id: expect.any(String),
+          },
+          hooks: [],
+          renderForEachPropKey: null,
+          renderIfPropKey: null,
+          propMapBindings: [],
+          propTransformationJs: null,
+        },
+        {
+          __typename: 'Element',
+          id: firstButtonId,
+          name: elements.firstButton.name,
+          instanceOfComponent: { id: buttonComponentId },
+          css: null,
+          atom: null,
+          componentTag: null,
+          fixedId: expect.any(String),
+          props: expect.objectContaining({ data: '{}' }),
+          hooks: [],
+          renderForEachPropKey: null,
+          renderIfPropKey: null,
+          propMapBindings: [],
+          propTransformationJs: null,
+        },
+        {
+          __typename: 'Element',
+          id: buttonComponentId,
+          instanceOfComponent: null,
+          name: elements.buttonComponent.name,
+          css: elements.buttonComponent.css,
+          atom: expect.objectContaining({
+            type: AtomType.HtmlButton,
+            api: expect.any(Object),
+            id: expect.stringContaining('0x'),
+            name: buttonAtomInput.name,
+          }),
+          componentTag: expect.objectContaining({
+            name: elements.buttonComponent.name,
+            children: [],
+            isRoot: true,
+          }),
+          props: expect.objectContaining({ data: '{}' }),
+          hooks: [],
+          fixedId: expect.any(String),
+          renderForEachPropKey: null,
+          renderIfPropKey: null,
+          propMapBindings: [],
+          propTransformationJs: null,
+        },
+        {
+          __typename: 'Element',
+          id: rootElementId,
+          instanceOfComponent: null,
+          name: 'Root element',
+          css: null,
+          atom: null,
+          componentTag: null,
+          fixedId: expect.any(String),
+          props: expect.objectContaining({ data: '{}' }),
+          hooks: [],
+          renderForEachPropKey: null,
+          renderIfPropKey: null,
+          propMapBindings: [],
+          propTransformationJs: null,
+        },
+        {
+          __typename: 'Element',
+          id: secondButtonId,
+          instanceOfComponent: { id: buttonComponentId },
+          name: elements.secondButton.name,
+          css: null,
+          atom: null,
+          componentTag: null,
+          fixedId: expect.any(String),
+          props: expect.objectContaining({ data: '{}' }),
+          hooks: [],
+          renderForEachPropKey: null,
+          renderIfPropKey: null,
+          propMapBindings: [],
+          propTransformationJs: null,
+        },
+        {
+          __typename: 'Element',
+          id: containerElementId,
+          instanceOfComponent: null,
+          name: elements.container.name,
+          css: elements.container.css,
+          atom: null,
+          componentTag: null,
+          fixedId: expect.any(String),
+          props: expect.objectContaining({ data: '{}' }),
+          hooks: [
+            {
+              config: {
+                id: expect.stringContaining('0x'),
+                data: testHookInput.config,
+              },
+              type: testHookInput.type,
+              id: expect.stringContaining('0x'),
+            },
+          ],
+          renderForEachPropKey: null,
+          renderIfPropKey: null,
+          propMapBindings: [
+            {
+              id: expect.stringContaining('0x'),
+              targetElementId: textElementId,
+              targetKey: testPmbInput.targetKey,
+              sourceKey: testPmbInput.sourceKey,
+            },
+          ],
+          propTransformationJs: null,
+        },
+        {
+          __typename: 'Element',
+          id: textElementId,
+          instanceOfComponent: null,
+          name: elements.text.name,
+          css: null,
+          atom: expect.objectContaining({ type: AtomType.Text }),
+          componentTag: null,
+          fixedId: expect.any(String),
+          props: { data: '{}', id: expect.any(String) },
+          hooks: [],
+          renderForEachPropKey: null,
+          renderIfPropKey: null,
+          propMapBindings: [],
+          propTransformationJs: null,
+        },
+      ])
+
+      expect(importedGraph?.edges).toEqual([
+        {
+          order: 1,
+          source: buttonComponentId,
+          target: buttonTextId,
+        },
+        { order: 1, source: rootElementId, target: containerElementId },
+        {
+          order: textElementInput.order,
+          source: containerElementId,
+          target: textElementId,
+        },
+        {
+          order: firstButtonInput.order,
+          source: containerElementId,
+          target: firstButtonId,
+        },
+        {
+          order: secondButtonInput.order,
+          source: containerElementId,
+          target: secondButtonId,
+        },
+      ])
     })
   })
+
+  const createAtom = (input: CreateAtomInput) =>
+    domainRequest<CreateAtomInput, TestCreateAtomMutation>(
+      testModule.adminApp,
+      TestCreateAtomGql,
+      input,
+    ).then((r) => r?.createAtom)
+
+  const createComponent = (input: CreateComponentInput) =>
+    domainRequest<CreateComponentInput, TestCreateComponentMutation>(
+      testModule.userApp,
+      TestCreateComponentGql,
+      input,
+    ).then((r) => r?.createComponent)
+
+  const createElement = (input: CreateElementInput) =>
+    domainRequest<CreateElementInput, TestCreateElementMutation>(
+      testModule.userApp,
+      TestCreateElementGql,
+      input,
+    ).then((r) => r?.createElement)
+
+  const addHook = (input: AddHookToElementInput) =>
+    domainRequest<AddHookToElementInput, TestAddHookToElementMutation>(
+      testModule.userApp,
+      TestAddHookToElementGql,
+      input,
+    ).then((r) => r?.addHookToElement)
+
+  const createPmb = (input: CreatePropMapBindingInput) =>
+    domainRequest<CreatePropMapBindingInput, TestCreatePropMapBindingMutation>(
+      testModule.userApp,
+      TestCreatePropMapBindingGql,
+      input,
+    ).then((r) => r?.createPropMapBinding)
+
+  const createTestPage = (
+    input: TestCreatePageForAppExportMutationVariables['input'],
+  ) =>
+    domainRequest<
+      TestCreatePageForAppExportMutationVariables['input'],
+      TestCreatePageForAppExportMutation
+    >(testModule.userApp, TestCreatePageForAppExportGql, input).then(
+      (r) => r.createPage,
+    )
 })

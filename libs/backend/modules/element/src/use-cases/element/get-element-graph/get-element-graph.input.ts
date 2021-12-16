@@ -6,7 +6,7 @@ export class WhereUniqueElement {
   declare id?: string
 
   @Field({ nullable: true })
-  declare componentFixedId?: string
+  declare fixedId?: string
 }
 
 @InputType()

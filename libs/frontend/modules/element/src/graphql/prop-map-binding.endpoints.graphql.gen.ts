@@ -1,6 +1,8 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
+import { PropMapBindingFragment } from './Element.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import { PropMapBindingFragmentDoc } from './Element.fragment.graphql.gen'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type CreatePropMapBindingMutationVariables = Types.Exact<{
   input: Types.CreatePropMapBindingInput
@@ -15,7 +17,7 @@ export type DeletePropMapBindingMutationVariables = Types.Exact<{
 }>
 
 export type DeletePropMapBindingMutation = {
-  deletePropMapBinding?: void | null | undefined
+  deletePropMapBinding?: Array<PropMapBindingFragment> | null | undefined
 }
 
 export type UpdatePropMapBindingMutationVariables = Types.Exact<{
@@ -23,7 +25,7 @@ export type UpdatePropMapBindingMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePropMapBindingMutation = {
-  updatePropMapBinding?: void | null | undefined
+  updatePropMapBinding?: PropMapBindingFragment | null | undefined
 }
 
 export const CreatePropMapBindingGql = gql`
@@ -35,13 +37,19 @@ export const CreatePropMapBindingGql = gql`
 `
 export const DeletePropMapBindingGql = gql`
   mutation DeletePropMapBinding($input: DeletePropMapBindingInput!) {
-    deletePropMapBinding(input: $input)
+    deletePropMapBinding(input: $input) {
+      ...PropMapBinding
+    }
   }
+  ${PropMapBindingFragmentDoc}
 `
 export const UpdatePropMapBindingGql = gql`
   mutation UpdatePropMapBinding($input: UpdatePropMapBindingInput!) {
-    updatePropMapBinding(input: $input)
+    updatePropMapBinding(input: $input) {
+      ...PropMapBinding
+    }
   }
+  ${PropMapBindingFragmentDoc}
 `
 
 const injectedRtkApi = api.injectEndpoints({

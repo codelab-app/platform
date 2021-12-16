@@ -1,11 +1,35 @@
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
-import type { IUser } from '@codelab/shared/abstract/core'
-import { Entity } from '@codelab/shared/abstract/types'
-import { Injectable } from '@nestjs/common'
+import { ITransaction } from '@codelab/backend/infra'
+import type { IElement, IUser } from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../infrastructure/repositories/abstract/element-repository.interface'
 
 @Injectable()
 export class ElementValidator {
-  constructor(private dgraph: DgraphRepository) {}
+  constructor(
+    @Inject(IElementRepositoryToken)
+    private readonly elementRepository: IElementRepository,
+  ) {}
+
+  public static validateElementIsOwned(
+    element: Pick<IElement, 'owner'>,
+    currentUser: IUser | undefined,
+  ) {
+    if (!currentUser) {
+      throw new Error("You don't have access to this element")
+    }
+
+    const ownerId = element.owner?.id
+    const message = "You don't have access to this element"
+
+    if (ownerId) {
+      if (ownerId !== currentUser.id) {
+        throw new Error(message)
+      }
+    }
+  }
 
   /**
    * Throws error
@@ -13,7 +37,11 @@ export class ElementValidator {
    * if no currentUser is not provided
    * if the currentUser doesn't have ownership rights over the element
    */
-  async existsAndIsOwnedBy(elementId?: string, currentUser?: IUser) {
+  async existsAndIsOwnedBy(
+    elementId: string | undefined,
+    currentUser: IUser | undefined,
+    transaction: ITransaction,
+  ): Promise<void> {
     if (!elementId || elementId === 'undefined') {
       throw new Error('elementId not provided')
     }
@@ -22,65 +50,27 @@ export class ElementValidator {
       throw new Error("You don't have access to this element")
     }
 
-    const res = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.executeQuery<{
-        owner?: { ownerId?: string }
-        element?: Entity & { owner: Entity }
-      }>(
-        txn,
-        `{
-            var(func: type(${DgraphEntityType.Element})) @filter(uid(${elementId}))  @recurse {
-              OWNER as owner
-              ~children
-              ~root
-              ~pages
-            }
+    const { elementExists, ownerId } =
+      await this.elementRepository.elementExistsAndGetOwner(
+        elementId,
+        transaction,
+      )
 
-            element(func: type(${DgraphEntityType.Element})) @filter(uid(${elementId})){
-              id: uid
-              owner {
-                id: uid
-              }
-            }
-
-            owner(func: uid(OWNER)) @filter(type(${DgraphEntityType.User})) {
-              ownerId: uid
-            }
-          }`,
-      ),
-    )
-
-    const { owner: rootOwner, element } = res
-
-    if (!element) {
+    if (!elementExists) {
       throw new Error("Element doesn't exist")
     }
 
-    // Check both the element owner and the root owner
-
-    const message = "You don't have access to this element"
-
-    if (rootOwner?.ownerId) {
-      if (rootOwner.ownerId !== currentUser.id) {
-        throw new Error(message)
-      }
-    } else if (element.owner?.id) {
-      if (element.owner.id !== currentUser.id) {
-        throw new Error(message)
-      }
-    } else {
-      // If the element doesn't have an ownerId consider it valid for any user to access it
-      return res
-    }
-
-    return res
+    ElementValidator.validateElementIsOwned(
+      { owner: ownerId ? { id: ownerId } : undefined },
+      currentUser,
+    )
   }
 
   /**
    * Throws error
    * if the provided props don't match the interface of the element's atom
    */
-  async propsAreValid(elementId: string) {
+  async propsAreValid(elementId: string): Promise<void> {
     // const element =
     //   typeof elementOrId === 'string'
     //     ? await this.query(elementOrId)
@@ -92,77 +82,51 @@ export class ElementValidator {
    * Throws error
    * if the element is the root element of its tree
    */
-  async isNotRoot(elementId: string) {
+  async isNotRoot(elementId: string, transaction: ITransaction): Promise<void> {
     if (!elementId) {
       throw new Error('elementId not provided')
     }
 
-    const response = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getOneNamed<{ containerId?: string }>(
-        txn,
-        `{
-          query(func: type(Element)) @filter(uid(${elementId})) @normalize {
-            ~root {
-              containerId: uid
-            }
-          }
-        }`,
-        'query',
-      ),
+    const rootContainerId = await this.elementRepository.isElementRoot(
+      elementId,
+      transaction,
     )
 
-    if (response?.containerId) {
+    if (rootContainerId) {
       throw new Error('Element is root')
     }
-
-    return response
   }
 
   /**
    * Throws error
    * if the element has a parent element or a ~instanceOfComponent reference
    */
-  public async isOrphan(elementId: string, filter?: string) {
+  public async isNotReferenced(
+    elementId: string,
+    transaction: ITransaction,
+  ): Promise<void> {
     if (!elementId) {
       throw new Error('elementId not provided')
     }
 
-    const combinedFilter = `@filter(uid(${elementId}) ${
-      filter ? ' AND ' + filter : ''
-    })`
-
-    const response = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getOneNamed<{
-        parentId?: string
-        parentName?: string
-        refElementId?: string
-        refElementName?: string
-      }>(
-        txn,
-        `{
-          query(func: type(${DgraphEntityType.Element})) ${combinedFilter} @normalize  {
-            ~children {
-              parentId: uid
-              parentName: name
-            }
-            ~instanceOfComponent {
-              refElementId: uid
-              refElementName: name
-            }
-          }
-        }`,
-        'query',
-      ),
+    const response = await this.elementRepository.getReferences(
+      elementId,
+      transaction,
     )
 
-    if (response?.parentId || response?.refElementId) {
+    const hasParent = !!response?.parentId
+    const hasInstances = !!response?.componentInstances?.length
+    const parentName = response?.parentName
+
+    const instancesNames = response?.componentInstances?.reduce(
+      (acc, instance) => acc + instance.name + ', ',
+      '',
+    )
+
+    if (hasParent || hasInstances) {
       throw new Error(
-        `Element is referenced in ${
-          response?.parentName ?? response?.refElementName
-        }`,
+        `Element is referenced in ${parentName ?? instancesNames ?? ''}`,
       )
     }
-
-    return response
   }
 }

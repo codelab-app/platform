@@ -1,31 +1,20 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { IProp, PropSchema } from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
+import { IPropRepository, IPropRepositoryToken } from '../../infrastructure'
 import { UpdatePropRequest } from './update-prop.request'
 
 @Injectable()
-export class UpdatePropService extends DgraphUseCase<UpdatePropRequest> {
-  constructor(dgraph: DgraphRepository) {
-    super(dgraph)
-  }
+export class UpdatePropService implements UseCasePort<UpdatePropRequest, void> {
+  constructor(
+    @Inject(IPropRepositoryToken)
+    private readonly propsRepository: IPropRepository,
+  ) {}
 
-  protected async executeTransaction(request: UpdatePropRequest, txn: Txn) {
-    await this.validate(request)
+  async execute({ input, transaction }: UpdatePropRequest): Promise<void> {
+    const inputProp: IProp = { id: input.id, data: input.data }
+    const prop = PropSchema.parse(inputProp)
 
-    await this.dgraph.executeMutation(txn, this.createMutation(request))
-  }
-
-  protected createMutation({ input: { data, id } }: UpdatePropRequest) {
-    return jsonMutation<any>({
-      uid: id,
-      data,
-    })
-  }
-
-  protected async validate({
-    input: { data },
-  }: UpdatePropRequest): Promise<void> {
-    JSON.parse(data)
+    await this.propsRepository.update(prop, transaction)
   }
 }

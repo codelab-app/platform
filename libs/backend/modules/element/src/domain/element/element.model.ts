@@ -1,3 +1,4 @@
+import { ObjectRef } from '@codelab/backend/abstract/core'
 import { Atom } from '@codelab/backend/modules/atom'
 import { Hook } from '@codelab/backend/modules/hook'
 import { Prop } from '@codelab/backend/modules/prop'
@@ -6,12 +7,6 @@ import { IElement, IPropMapBinding } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { PropMapBinding } from '../prop-mapping/prop-map-binding.model'
-
-@ObjectType()
-export class ComponentRef {
-  @Field(() => ID)
-  declare id: string
-}
 
 /**
  * The Element is our base renderable unit
@@ -33,7 +28,7 @@ export class Element implements IElement {
   componentTag?: Nullable<Tag>
 
   @Field(() => String, { nullable: true })
-  componentFixedId: Nullable<string>
+  fixedId: Nullable<string>
 
   @Field(() => String, { nullable: true })
   /** The CSS string that gets passed down to emotion */
@@ -68,8 +63,14 @@ export class Element implements IElement {
   @Field(() => String, { nullable: true })
   propTransformationJs?: Nullable<string>
 
-  @Field(() => ComponentRef, { nullable: true })
-  instanceOfComponent?: ComponentRef
+  @Field(() => ObjectRef, { nullable: true })
+  instanceOfComponent?: ObjectRef
+
+  @Field(() => ObjectRef, { nullable: true })
+  parentElement?: ObjectRef
+
+  @Field(() => ObjectRef, { nullable: true })
+  owner?: ObjectRef
 
   constructor({
     id,
@@ -79,25 +80,29 @@ export class Element implements IElement {
     css,
     hooks = [],
     componentTag,
-    componentFixedId = null,
+    fixedId = null,
     renderForEachPropKey,
     renderIfPropKey,
     propMapBindings = [],
     instanceOfComponent,
     propTransformationJs,
+    parentElement,
+    owner,
   }: IElement) {
     this.id = id!
     this.name = name
     this.atom = atom as any
     this.css = css
-    this.componentTag = componentTag
-    this.componentFixedId = componentFixedId
+    this.componentTag = componentTag ?? undefined
+    this.fixedId = fixedId
     this.props = props
     this.hooks = hooks
     this.renderIfPropKey = renderIfPropKey
     this.renderForEachPropKey = renderForEachPropKey
     this.propMapBindings = propMapBindings
     this.propTransformationJs = propTransformationJs
+    this.owner = owner ?? undefined
+    this.parentElement = parentElement ?? undefined
     this.instanceOfComponent = instanceOfComponent ?? undefined
   }
 }

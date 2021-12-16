@@ -6,6 +6,7 @@ import { AppSchema } from '../app.interface'
 export const ExportPageSchema = PageSchema.omit({
   elements: true,
 }).extend({
+  id: z.string(),
   elements: ElementGraphSchema, // make it non-optional
 })
 
@@ -13,6 +14,7 @@ export const ExportAppSchema = AppSchema.omit({
   ownerId: true,
   pages: true,
 }).extend({
+  id: z.string(),
   pages: ExportPageSchema.array(),
 })
 

@@ -1,8 +1,11 @@
-import type { IUser } from '@codelab/shared/abstract/core'
+import {
+  WithCurrentUserRequest,
+  WithTransactionRequest,
+} from '@codelab/backend/abstract/core'
 import { DeletePropMapBindingInput } from './delete-prop-map-binding.input'
 
-export class DeletePropMapBindingRequest {
-  declare currentUser: IUser
-
-  declare input: DeletePropMapBindingInput
+export interface DeletePropMapBindingRequest
+  extends WithCurrentUserRequest,
+    WithTransactionRequest {
+  input: DeletePropMapBindingInput
 }

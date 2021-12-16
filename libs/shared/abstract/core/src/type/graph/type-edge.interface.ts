@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { EdgeSchema, IEdge } from '../../graph'
 
 const FieldDataSchema = z.object({
-  id: z.string(),
+  id: z.string().default(''),
   name: z.string().optional().nullable(),
   key: z.string(),
   description: z.string().optional().nullable(),

@@ -1,11 +1,12 @@
-import { PropMapBindingFragment } from '@codelab/frontend/modules/element'
+import { IPropMapBinding } from '@codelab/shared/abstract/core'
 import { PropsData } from '@codelab/shared/abstract/core'
-import { get, set } from 'lodash'
+import get from 'lodash/get'
+import set from 'lodash/set'
 
 export const applyBinding = (
   targetProps: PropsData,
   sourceProps: PropsData,
-  binding: PropMapBindingFragment,
+  binding: IPropMapBinding,
 ): PropsData => {
   const isSourceKeyWildcard = binding.sourceKey === '*'
   const isTargetKeyWildcard = binding.targetKey === '*'
@@ -18,7 +19,7 @@ export const applyBinding = (
     return { ...targetProps, ...value }
   }
 
-  const newProps = targetProps
+  const newProps = { ...targetProps }
 
   set(newProps, binding.targetKey, value)
 

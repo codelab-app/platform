@@ -6,8 +6,8 @@ import { useProvideCurrentApp } from './useProvideCurrentApp'
 
 export const AppProvider = ({ children }: PropsWithChildren<unknown>) => {
   const { query } = useRouter()
-  const appId = query.appId as string
-  const { currentApp } = useProvideCurrentApp(appId)
+  const appId = query.appId
+  const { currentApp } = useProvideCurrentApp(appId as string)
 
   return <ConditionalView condition={!!currentApp}>{children}</ConditionalView>
 }

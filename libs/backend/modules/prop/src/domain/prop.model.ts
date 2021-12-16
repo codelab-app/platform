@@ -1,12 +1,13 @@
+import { IProp } from '@codelab/shared/abstract/core'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType('Prop')
-export class Prop {
+export class Prop implements IProp {
   @Field(() => ID)
-  declare id: string
+  id: string
 
   @Field()
-  declare data: string
+  data: string
 
   constructor(id: string, data: string) {
     this.id = id

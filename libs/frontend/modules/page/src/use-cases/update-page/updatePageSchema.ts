@@ -9,9 +9,6 @@ export const updatePageSchema: JSONSchemaType<UpdatePageMutationInput> = {
       type: 'string',
       autoFocus: true,
     },
-    appId: {
-      type: 'string',
-    },
   },
   required: ['name'],
 }

@@ -1,42 +1,35 @@
+import { CreateAtomInput } from '@codelab/backend/modules/atom'
+import {
+  AddHookToElementInput,
+  CreateComponentInput,
+  CreateElementInput,
+  CreatePropMapBindingInput,
+} from '@codelab/backend/modules/element'
 import { CreatePageInput } from '@codelab/backend/modules/page'
 import { AtomType, QueryMethod } from '@codelab/shared/abstract/core'
+import { CreateAppInput } from '../../create-app'
 
-export const textElementInput = {
-  newElement: {
-    refId: '0x299',
-    name: 'Text',
-    atom: { atomType: AtomType.Text },
-  },
+export const testAppInput: CreateAppInput = { name: 'My awesome app' }
+
+export const testPageInput: Omit<CreatePageInput, 'appId'> = {
+  name: 'Test page',
 }
 
-export const buttonComponentInput = {
-  newElement: {
-    // Button component
-    refId: 'button_ref', // Used for referencing the component
-    name: 'Button',
-    css: 'color: red',
-    atom: { atomType: AtomType.HtmlButton },
-    isComponent: true,
-  },
+export const textAtomInput: CreateAtomInput = {
+  type: AtomType.Text,
+  name: 'Text',
 }
 
-export const firstButtonInput = {
-  newElement: {
-    // Element + button component
-    name: 'First button',
-    children: [buttonComponentInput],
-  },
+export const buttonAtomInput: CreateAtomInput = {
+  type: AtomType.HtmlButton,
+  name: 'Button',
 }
 
-export const secondButtonInput = {
-  // Second element + existing button component ref
-  newElement: {
-    name: 'Second button',
-    children: [{ elementId: 'button_ref' }], // Resolves to adding the component we created above
-  },
+export const redButtonComponentInput: CreateComponentInput = {
+  name: 'Red button component',
 }
 
-export const hookQueryConfig = {
+export const testHookInput: Omit<AddHookToElementInput, 'elementId'> = {
   type: AtomType.HookQueryConfig,
   config: JSON.stringify({
     queryKey: 'getProducts',
@@ -45,19 +38,31 @@ export const hookQueryConfig = {
   }),
 }
 
-export const createPageInput: Omit<CreatePageInput, 'appId'> = {
-  name: 'My awesome page',
-  rootElement: {
-    name: 'Root element',
-    css: 'display: block;',
-    hooks: [hookQueryConfig],
-    propMapBindings: [
-      {
-        targetElementId: '0x299', // resolves to the actual ID of the created 'Text' element
-        targetKey: 'text',
-        sourceKey: 'products[0].name',
-      },
-    ],
-    children: [textElementInput, firstButtonInput, secondButtonInput],
-  },
+export const testPmbInput: Omit<
+  CreatePropMapBindingInput,
+  'elementId' | 'targetElementId'
+> = {
+  targetKey: 'text',
+  sourceKey: 'products[0].name',
+}
+
+export const containerElementInput: CreateElementInput = {
+  name: 'Test container',
+  css: 'display: block;',
+}
+
+export const textElementInput: CreateElementInput = { name: 'Text', order: 1 }
+export const buttonTextElementInput: CreateElementInput = {
+  name: 'Button text',
+  props: '{"text": "Click me"}',
+}
+
+export const firstButtonInput: CreateElementInput = {
+  name: 'First button',
+  order: 2,
+}
+
+export const secondButtonInput: CreateElementInput = {
+  name: 'Second button',
+  order: 3,
 }

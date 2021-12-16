@@ -1,6 +1,8 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
+import { TestPropMapBindingFragment } from '../../../../../test/graphql/TestPropMapBinding.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import { TestPropMapBindingFragmentDoc } from '../../../../../test/graphql/TestPropMapBinding.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestDeletePropMapBindingMutationVariables = Types.Exact<{
@@ -8,13 +10,16 @@ export type TestDeletePropMapBindingMutationVariables = Types.Exact<{
 }>
 
 export type TestDeletePropMapBindingMutation = {
-  deletePropMapBinding?: void | null | undefined
+  deletePropMapBinding?: Array<TestPropMapBindingFragment> | null | undefined
 }
 
 export const TestDeletePropMapBindingGql = gql`
   mutation TestDeletePropMapBinding($input: DeletePropMapBindingInput!) {
-    deletePropMapBinding(input: $input)
+    deletePropMapBinding(input: $input) {
+      ...TestPropMapBinding
+    }
   }
+  ${TestPropMapBindingFragmentDoc}
 `
 export type TestDeletePropMapBindingMutationFn = Apollo.MutationFunction<
   TestDeletePropMapBindingMutation,

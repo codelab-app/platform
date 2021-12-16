@@ -1,5 +1,5 @@
 import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType } from '@codelab/backend/infra'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
 import { Role, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -79,7 +79,7 @@ export class UpsertAtomsService extends DgraphUseCase<
     await txn.commit()
 
     return [
-      ...blankUids.map((uid) => ({ id: this.dgraph.getUid(res, uid) })),
+      ...blankUids.map((uid) => ({ id: DgraphRepository.getUid(res, uid) })),
       ...uids.map((uid) => ({ id: uid })),
     ]
   }

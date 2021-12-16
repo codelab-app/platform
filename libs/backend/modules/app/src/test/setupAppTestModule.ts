@@ -57,6 +57,7 @@ export const setupAppTestModule = (resetDb = true) => {
   afterAll(async () => {
     await teardownTestModule(testModule.guestApp)
     await teardownTestModule(testModule.userApp)
+    await teardownTestModule(testModule.adminApp)
   })
 
   return testModule

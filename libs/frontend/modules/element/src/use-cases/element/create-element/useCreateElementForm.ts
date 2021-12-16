@@ -17,7 +17,7 @@ const mapVariables = ({
   return {
     input: {
       ...data,
-      atom: atomId ? { atomId: atomId } : undefined,
+      atomId,
       instanceOfComponentId: componentId,
     },
   }

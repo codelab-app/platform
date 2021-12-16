@@ -21,6 +21,12 @@ export class LambdaService {
   ) {}
 
   async createLambda(lambda: Lambda) {
+    if (!lambda.id) {
+      throw new Error(
+        'Lambda has to be persisted in the db before creating in AWS',
+      )
+    }
+
     await this.awsS3Service.createBucket(this._awsConfig.awsBucketName)
 
     await this.awsS3Service.uploadObject(this._awsConfig.awsBucketName, lambda)
@@ -34,16 +40,34 @@ export class LambdaService {
   }
 
   async getLambda(lambda: Lambda) {
+    if (!lambda.id) {
+      throw new Error(
+        'Lambda has to be persisted in the db before getting it from AWS',
+      )
+    }
+
     return await this.awsLambdaService.getFunction(lambda)
   }
 
   async deleteLambda(lambda: Pick<Lambda, 'id'>) {
+    if (!lambda.id) {
+      throw new Error(
+        'Lambda has to be persisted in the db before deleting it from AWS',
+      )
+    }
+
     await this.awsS3Service.removeObject(this._awsConfig.awsBucketName, lambda)
 
     await this.awsLambdaService.removeFunction(lambda)
   }
 
   async updateLambda(lambda: Lambda) {
+    if (!lambda.id) {
+      throw new Error(
+        'Lambda has to be persisted in the db before updating it in AWS',
+      )
+    }
+
     await this.awsS3Service.uploadObject(this._awsConfig.awsBucketName, lambda)
 
     await this.awsLambdaService.updateFunction(
@@ -53,6 +77,12 @@ export class LambdaService {
   }
 
   async executeLambda(lambda: Lambda, payload?: LambdaPayload) {
+    if (!lambda.id) {
+      throw new Error(
+        'Lambda has to be persisted in the db before executing it',
+      )
+    }
+
     return await this.awsLambdaService.executeFunction(lambda, payload)
   }
 

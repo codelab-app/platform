@@ -1,20 +1,29 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
+import {
+  HookFragment,
+  PropMapBindingFragment,
+} from '../../../../../../../../../frontend/modules/element/src/graphql/Element.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import {
+  HookFragmentDoc,
+  PropMapBindingFragmentDoc,
+} from '../../../../../../../../../frontend/modules/element/src/graphql/Element.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestAddHookToElementMutationVariables = Types.Exact<{
   input: Types.AddHookToElementInput
 }>
 
-export type TestAddHookToElementMutation = { addHookToElement: { id: string } }
+export type TestAddHookToElementMutation = { addHookToElement: HookFragment }
 
 export const TestAddHookToElementGql = gql`
   mutation TestAddHookToElement($input: AddHookToElementInput!) {
     addHookToElement(input: $input) {
-      id
+      ...Hook
     }
   }
+  ${HookFragmentDoc}
 `
 export type TestAddHookToElementMutationFn = Apollo.MutationFunction<
   TestAddHookToElementMutation,

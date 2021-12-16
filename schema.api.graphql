@@ -7,24 +7,8 @@ interface TypeEdge {
   target: String!
 }
 
-type CreateResponse {
-  id: String!
-}
-
-type PayloadResponse {
-  payload: String!
-}
-
-type User {
-  id: String!
-  auth0Id: String!
-  roles: [Role!]!
-}
-
-enum Role {
-  Admin
-  User
-  Guest
+type ObjectRef {
+  id: ID!
 }
 
 type Field {
@@ -220,6 +204,22 @@ type TypeGraph {
 }
 
 union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType
+
+type PayloadResponse {
+  payload: String!
+}
+
+type User {
+  id: ID!
+  auth0Id: String!
+  roles: [Role!]!
+}
+
+enum Role {
+  Admin
+  User
+  Guest
+}
 
 type Atom {
   id: ID!
@@ -611,8 +611,9 @@ type Hook {
 }
 
 type Tag {
-  id: String!
+  id: ID!
   name: String!
+  owner: ObjectRef
   parent: String
   children: [String!]!
   isRoot: Boolean!
@@ -653,17 +654,13 @@ type PropMapBinding {
   targetKey: String!
 }
 
-type ComponentRef {
-  id: ID!
-}
-
 type Element {
   id: ID!
   name: String
 
   """An Element tagged with componentTag is a reusable component"""
   componentTag: Tag
-  componentFixedId: String
+  fixedId: String
   css: String
   atom: Atom
   props: Prop!
@@ -680,7 +677,9 @@ type Element {
   renderIfPropKey: String
   propMapBindings: [PropMapBinding!]!
   propTransformationJs: String
-  instanceOfComponent: ComponentRef
+  instanceOfComponent: ObjectRef
+  parentElement: ObjectRef
+  owner: ObjectRef
 
   """
   Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge
@@ -750,6 +749,7 @@ type Query {
   getTypeGraph(input: GetTypeGraphInput!): TypeGraph
   getTypes(input: GetTypesInput): [Type!]!
   getField(input: GetFieldInput!): Field
+  getProp: Prop!
   getPages(input: GetPagesInput!): [Page!]!
   getPage(input: GetPageInput!): Page
   getMe: User
@@ -796,7 +796,7 @@ input GetElementGraphInput {
 
 input WhereUniqueElement {
   id: String
-  componentFixedId: String
+  fixedId: String
 }
 
 input GetElementInput {
@@ -932,14 +932,15 @@ type Mutation {
   updateApp(input: UpdateAppInput!): App
   deleteApp(input: DeleteAppInput!): App
   importApp(input: ImportAppInput!): App!
-  createPropMapBinding(input: CreatePropMapBindingInput!): CreateResponse!
-  updatePropMapBinding(input: UpdatePropMapBindingInput!): Void
-  deletePropMapBinding(input: DeletePropMapBindingInput!): Void
-  addHookToElement(input: AddHookToElementInput!): CreateResponse!
-  removeHookFromElement(input: RemoveHookFromElementInput!): Void
+  createPropMapBinding(input: CreatePropMapBindingInput!): PropMapBinding!
+  updatePropMapBinding(input: UpdatePropMapBindingInput!): PropMapBinding
+  deletePropMapBinding(input: DeletePropMapBindingInput!): [PropMapBinding!]
+  addHookToElement(input: AddHookToElementInput!): Hook!
+  removeHookFromElement(input: RemoveHookFromElementInput!): Hook
   createElement(input: CreateElementInput!): Element!
   updateElement(input: UpdateElementInput!): Element!
   moveElement(input: MoveElementInput!): Element!
+  duplicateElement(input: DuplicateElementInput!): Element!
   updateElementProps(input: UpdateElementPropsInput!): Element!
 
   """Deletes an element and all the descending elements"""
@@ -1016,11 +1017,9 @@ input CreatePropMapBindingInput {
   targetKey: String!
 }
 
-"""Date custom scalar type"""
-scalar Void
-
 input UpdatePropMapBindingInput {
   propMapBindingId: String!
+  elementId: String!
   data: UpdatePropMapBindingData!
 }
 
@@ -1038,12 +1037,14 @@ input UpdatePropMapBindingData {
 }
 
 input DeletePropMapBindingInput {
+  elementId: String!
   propMapBindingIds: [String!]!
 }
 
-"""Provide exactly one of the config fields"""
 input AddHookToElementInput {
   elementId: String!
+
+  """JSON string"""
   config: String!
   type: AtomType!
 }
@@ -1054,95 +1055,22 @@ input RemoveHookFromElementInput {
 }
 
 input CreateElementInput {
-  """
-  Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding
-  """
-  refId: String
-  name: String
-  atom: AtomRef
-
-  """
-  Leave it out to automatically set it as the last order of all the children
-  """
-  order: Int
-
-  """
-  Creates new elements or attaches existing ones, can be used to create a whole tree at once
-  """
-  children: [ElementRef!]
-  css: String
-  props: String
-  renderForEachPropKey: String
-  renderIfPropKey: String
-  propTransformationJs: String
-  hooks: [HookRef!]
-  propMapBindings: [NewPropMapBindingRef!]
-  isComponent: Boolean
-  instanceOfComponentId: String
-  componentFixedId: String
-
-  """Attaches the newly created element to an existing element as child"""
+  """Attaches the newly created element as child of an existing element"""
   parentElementId: String
-}
-
-"""Provide either id or type"""
-input AtomRef {
-  atomId: String
-  atomType: AtomType
-}
-
-"""Provide either id or new element input"""
-input ElementRef {
-  """Pass in either refId, or existing elementId"""
-  elementId: String
-  newElement: CreateElementChildInput
-}
-
-input CreateElementChildInput {
-  """
-  Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding
-  """
-  refId: String
   name: String
-  atom: AtomRef
+  css: String
+  atomId: String
 
   """
-  Leave it out to automatically set it as the last order of all the children
+  The order in parent. Leave it out to automatically set it as the last order of all the children
   """
   order: Int
-
-  """
-  Creates new elements or attaches existing ones, can be used to create a whole tree at once
-  """
-  children: [ElementRef!]
-  css: String
   props: String
-  renderForEachPropKey: String
-  renderIfPropKey: String
-  propTransformationJs: String
-  hooks: [HookRef!]
-  propMapBindings: [NewPropMapBindingRef!]
-  isComponent: Boolean
+
+  """
+  Set to a elementId with component tag, which will be used as a component template for this element. isComponent and instanceOfComponentId are mutually exclusive
+  """
   instanceOfComponentId: String
-  componentFixedId: String
-}
-
-input HookRef {
-  config: String!
-  type: AtomType!
-}
-
-input NewPropMapBindingRef {
-  """
-  The ID of the target element, if omitted, the current element will be the target
-  """
-  targetElementId: String
-
-  """The key of the prop, as received in the source element"""
-  sourceKey: String!
-
-  """The key of the prop, that the target Element will receive"""
-  targetKey: String!
 }
 
 input UpdateElementInput {
@@ -1153,6 +1081,7 @@ input UpdateElementInput {
 input UpdateElementData {
   name: String
   atomId: String
+  instanceOfComponentId: String
   css: String
 
   """
@@ -1177,9 +1106,12 @@ input MoveData {
   parentElementId: String
 }
 
+input DuplicateElementInput {
+  elementId: String!
+}
+
 input UpdateElementPropsInput {
   data: String!
-  propsId: String!
   elementId: String!
 }
 
@@ -1189,38 +1121,15 @@ input DeleteElementInput {
 
 input ConvertElementToComponentInput {
   elementId: String!
+
+  """Leave out to infer it automatically"""
+  componentName: String
 }
 
 input CreateComponentInput {
-  """
-  Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding
-  """
-  refId: String
   name: String
-  atom: AtomRef
-
-  """
-  Leave it out to automatically set it as the last order of all the children
-  """
-  order: Int
-
-  """
-  Creates new elements or attaches existing ones, can be used to create a whole tree at once
-  """
-  children: [ElementRef!]
-  css: String
   props: String
-  renderForEachPropKey: String
-  renderIfPropKey: String
-  propTransformationJs: String
-  hooks: [HookRef!]
-  propMapBindings: [NewPropMapBindingRef!]
-  isComponent: Boolean
-  instanceOfComponentId: String
-  componentFixedId: String
-
-  """Attaches the newly created element to an existing element as child"""
-  parentElementId: String
+  atomId: String
 }
 
 input CreateAtomInput {
@@ -1234,6 +1143,9 @@ input CreateAtomInput {
 input DeleteAtomInput {
   atomId: String!
 }
+
+"""Date custom scalar type"""
+scalar Void
 
 input ImportAtomsInput {
   payload: String!
@@ -1381,7 +1293,6 @@ input DeleteFieldInput {
 input CreatePageInput {
   name: String!
   appId: String!
-  rootElement: CreateElementChildInput
 }
 
 input DeletePageInput {
@@ -1395,8 +1306,6 @@ input UpdatePageInput {
 
 input UpdatePageData {
   name: String!
-  appId: String!
-  rootElement: CreateElementChildInput
 }
 
 input UpsertUserInput {

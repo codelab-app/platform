@@ -1,59 +1,49 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { GetAtomService } from '@codelab/backend/modules/atom'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../application/element.validator'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../../../infrastructure/repositories/abstract/element-repository.interface'
 import { UpdateElementRequest } from './update-element.request'
 
 @Injectable()
-export class UpdateElementService extends DgraphUseCase<UpdateElementRequest> {
+export class UpdateElementService
+  implements UseCasePort<UpdateElementRequest, void>
+{
   constructor(
-    dgraph: DgraphRepository,
+    @Inject(IElementRepositoryToken)
+    protected readonly elementRepository: IElementRepository,
     private getAtomService: GetAtomService,
     private elementValidator: ElementValidator,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(request: UpdateElementRequest, txn: Txn) {
+  async execute(request: UpdateElementRequest) {
     await this.validate(request)
 
-    await this.dgraph.executeMutation(txn, this.createMutation(request))
-  }
-
-  protected createMutation({
-    input: {
-      id,
-      data: {
-        atomId,
-        css,
-        name,
-        renderIfPropKey,
-        renderForEachPropKey,
-        propTransformationJs,
+    const {
+      input: {
+        id,
+        data: {
+          atomId,
+          css,
+          name,
+          renderIfPropKey,
+          renderForEachPropKey,
+          propTransformationJs,
+          instanceOfComponentId,
+        },
       },
-    },
-  }: UpdateElementRequest) {
-    return jsonMutation<any>({
-      uid: id,
-      name,
-      atom: atomId ? { uid: atomId } : null,
-      css: css || '',
-      renderForEachPropKey,
-      renderIfPropKey,
-      propTransformationJs,
-    })
-  }
+      transaction,
+    } = request
 
-  protected async validate({
-    input: {
-      id,
-      data: { atomId },
-    },
-    currentUser,
-  }: UpdateElementRequest): Promise<void> {
-    await this.elementValidator.existsAndIsOwnedBy(id, currentUser)
+    const element = await this.elementRepository.getOne(id, transaction)
+
+    if (!element) {
+      // Should never happen, we check in .validate()
+      throw new Error('Element not found')
+    }
 
     if (atomId) {
       const atom = await this.getAtomService.execute({ where: { id: atomId } })
@@ -61,6 +51,35 @@ export class UpdateElementService extends DgraphUseCase<UpdateElementRequest> {
       if (!atom) {
         throw new Error('Atom not found')
       }
+
+      element.atom = atom
     }
+
+    element.css = css
+    element.renderIfPropKey = renderIfPropKey
+    element.renderForEachPropKey = renderForEachPropKey
+    element.propTransformationJs = propTransformationJs
+    element.name = name
+    element.instanceOfComponent = instanceOfComponentId
+      ? { id: instanceOfComponentId }
+      : undefined
+
+    if (
+      element.componentTag &&
+      element.componentTag.name === element.name &&
+      name
+    ) {
+      element.componentTag.name = name
+    }
+
+    await this.elementRepository.update(element, transaction)
+  }
+
+  protected async validate({
+    input: { id },
+    transaction,
+    currentUser,
+  }: UpdateElementRequest): Promise<void> {
+    await this.elementValidator.existsAndIsOwnedBy(id, currentUser, transaction)
   }
 }

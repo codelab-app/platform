@@ -73,11 +73,7 @@ const UpdateElementPropsFormInternal = ({
       onSubmit={(data: any) => {
         const promise = mutate({
           variables: {
-            input: {
-              elementId,
-              data: JSON.stringify(data),
-              propsId: existingProps.id,
-            },
+            input: { elementId, data: JSON.stringify(data) },
           },
         }).unwrap()
 

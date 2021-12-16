@@ -7,6 +7,8 @@ export type TestTagFragment = {
   name: string
   isRoot: boolean
   children: Array<string>
+  parent?: string | null | undefined
+  owner?: { id: string } | null | undefined
 }
 
 export const TestTagFragmentDoc = gql`
@@ -16,5 +18,9 @@ export const TestTagFragmentDoc = gql`
     name
     isRoot
     children
+    owner {
+      id
+    }
+    parent
   }
 `

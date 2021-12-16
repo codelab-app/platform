@@ -1,6 +1,14 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
+import {
+  HookFragment,
+  PropMapBindingFragment,
+} from '../../../../../../../../../frontend/modules/element/src/graphql/Element.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import {
+  HookFragmentDoc,
+  PropMapBindingFragmentDoc,
+} from '../../../../../../../../../frontend/modules/element/src/graphql/Element.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestRemoveHookFromElementMutationVariables = Types.Exact<{
@@ -8,13 +16,16 @@ export type TestRemoveHookFromElementMutationVariables = Types.Exact<{
 }>
 
 export type TestRemoveHookFromElementMutation = {
-  removeHookFromElement?: void | null | undefined
+  removeHookFromElement?: HookFragment | null | undefined
 }
 
 export const TestRemoveHookFromElementGql = gql`
   mutation TestRemoveHookFromElement($input: RemoveHookFromElementInput!) {
-    removeHookFromElement(input: $input)
+    removeHookFromElement(input: $input) {
+      ...Hook
+    }
   }
+  ${HookFragmentDoc}
 `
 export type TestRemoveHookFromElementMutationFn = Apollo.MutationFunction<
   TestRemoveHookFromElementMutation,

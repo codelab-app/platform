@@ -41,7 +41,7 @@ describe('RemoveHookFromElementUseCase', () => {
   })
 
   describe('Guest', () => {
-    it('should fail to create a Hook', async () => {
+    it('should fail to remove a Hook', async () => {
       await domainRequest(
         testModule.guestApp,
         TestRemoveHookFromElementGql,
@@ -54,7 +54,7 @@ describe('RemoveHookFromElementUseCase', () => {
   })
 
   describe('User', () => {
-    it('should create an App', async () => {
+    it('should remove a hook', async () => {
       await domainRequest<
         RemoveHookFromElementInput,
         TestRemoveHookFromElementMutation

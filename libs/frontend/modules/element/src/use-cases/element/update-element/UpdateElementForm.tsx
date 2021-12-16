@@ -1,5 +1,5 @@
 import { IElement } from '@codelab/frontend/abstract/core'
-import { SelectAtom } from '@codelab/frontend/modules/type'
+import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   AutoCompleteField,
@@ -94,10 +94,12 @@ const UpdateElementFormInternal = ({
             'renderIfPropKey',
             'renderForEachPropKey',
             'propTransformationJs',
+            'instanceOfComponentId',
             'css', // We edit it in the css tab
           ]}
         />
 
+        <AutoField name="instanceOfComponentId" component={SelectComponent} />
         <AutoField name="atomId" component={SelectAtom} />
         <AutoCompleteField
           name="renderIfPropKey"

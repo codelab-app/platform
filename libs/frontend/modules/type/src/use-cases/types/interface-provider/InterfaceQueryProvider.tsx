@@ -6,16 +6,14 @@ export const InterfaceQueryProvider = ({
   children,
 }: PropsWithChildren<unknown>) => {
   const { query } = useRouter()
-  const interfaceId = query.interfaceId
+  const interfaceId = query.interfaceId as string
 
   if (!interfaceId) {
     throw new Error('InterfaceId not found in query')
   }
 
   return (
-    <InterfaceProvider interfaceId={interfaceId as string}>
-      {children}
-    </InterfaceProvider>
+    <InterfaceProvider interfaceId={interfaceId}>{children}</InterfaceProvider>
   )
 }
 

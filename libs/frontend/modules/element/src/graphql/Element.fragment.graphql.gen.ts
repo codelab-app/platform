@@ -18,7 +18,7 @@ export type ElementFragment = {
   id: string
   name?: string | null | undefined
   css?: string | null | undefined
-  componentFixedId?: string | null | undefined
+  fixedId?: string | null | undefined
   renderForEachPropKey?: string | null | undefined
   renderIfPropKey?: string | null | undefined
   propTransformationJs?: string | null | undefined
@@ -81,7 +81,7 @@ export const ElementFragmentDoc = gql`
     instanceOfComponent {
       id
     }
-    componentFixedId
+    fixedId
     atom {
       ...AtomBase
     }

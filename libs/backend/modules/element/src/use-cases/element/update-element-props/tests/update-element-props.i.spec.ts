@@ -7,26 +7,23 @@ import { TestUpdateElementPropsGql } from './update-element-props.api.graphql.ge
 describe('UpdateElementProps', () => {
   const testModule = setupElementTestModule()
   let elementId: string
-  let propsId: string
   let updatePropsInput: UpdateElementPropsInput
 
   beforeAll(async () => {
     const results = await testModule.createTestElement(createElementInput)
 
     elementId = results.id
-    propsId = results.props.id
 
     expect(elementId).toBeDefined()
 
     updatePropsInput = {
       elementId,
-      propsId,
       data: JSON.stringify({ someProp: true, otherProp: { hello: 'world' } }),
     }
   })
 
   describe('Guest', () => {
-    it('should fail to update an element', async () => {
+    it('should fail to update an elements props', async () => {
       await domainRequest(
         testModule.guestApp,
         TestUpdateElementPropsGql,
@@ -39,7 +36,7 @@ describe('UpdateElementProps', () => {
   })
 
   describe('User', () => {
-    it('should update an element', async () => {
+    it('should update an elements props', async () => {
       await domainRequest<UpdateElementPropsInput>(
         testModule.userApp,
         TestUpdateElementPropsGql,

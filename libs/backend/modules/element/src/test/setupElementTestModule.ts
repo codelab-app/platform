@@ -6,7 +6,6 @@ import {
 } from '@codelab/backend/shared/testing'
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
-import { ComponentModule } from '../component.module'
 import { ElementModule } from '../element.module'
 import { CreateComponentInput } from '../use-cases/component/create-component/create-component.input'
 import {
@@ -29,7 +28,11 @@ import {
   TestGetElementGraphQuery,
 } from '../use-cases/element/get-element-graph'
 
-export const setupElementTestModule = (resetDb = true) => {
+/**
+ * Sets up apps and helper methods needed for integration tests of the Element module
+ * @param resetDb Whether to reset the database before all tests
+ */
+export const setupElementTestModule = () => {
   const testModule = {
     guestApp: null! as INestApplication,
     userApp: null! as INestApplication,
@@ -65,19 +68,13 @@ export const setupElementTestModule = (resetDb = true) => {
   }
 
   beforeAll(async () => {
-    testModule.guestApp = await setupTestModule(
-      [ElementModule, ComponentModule],
-      {
-        role: Role.Guest,
-        resetDb,
-      },
-    )
-    testModule.userApp = await setupTestModule(
-      [ElementModule, ComponentModule],
-      {
-        role: Role.User,
-      },
-    )
+    testModule.guestApp = await setupTestModule([ElementModule], {
+      role: Role.Guest,
+      resetDb: true,
+    })
+    testModule.userApp = await setupTestModule([ElementModule], {
+      role: Role.User,
+    })
     testModule.adminApp = await setupTestModule([AtomModule], {
       role: Role.Admin,
     })
@@ -86,6 +83,7 @@ export const setupElementTestModule = (resetDb = true) => {
   afterAll(async () => {
     await teardownTestModule(testModule.guestApp)
     await teardownTestModule(testModule.userApp)
+    await teardownTestModule(testModule.adminApp)
   })
 
   return testModule

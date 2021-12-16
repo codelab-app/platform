@@ -1,4 +1,10 @@
-import { DgraphService, GqlAuthGuard } from '@codelab/backend/infra'
+import {
+  DgraphService,
+  GqlAuthGuard,
+  LoggerModule,
+  TestTransactionManager,
+  TransactionManager,
+} from '@codelab/backend/infra'
 import { testAuth0Id, testUserUid } from '@codelab/backend/shared/generic'
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { NestjsModule } from '@codelab/backend/shared/nestjs'
@@ -25,8 +31,35 @@ type NestModule =
 
 interface TestOptions {
   role: Role
+  mockTransaction?: boolean
   resetDb?: boolean
 }
+
+export const setupSimpleTestModule = async (
+  nestModules: Array<NestModule>,
+  testModuleCallback: (
+    testModule: TestingModuleBuilder,
+  ) => TestingModuleBuilder = (x) => x,
+) => {
+  let testModuleBuilder: TestingModuleBuilder = Test.createTestingModule({
+    imports: [LoggerModule, ...nestModules],
+  })
+
+  testModuleBuilder = testModuleCallback(testModuleBuilder)
+
+  const testModule = await testModuleBuilder.compile()
+  const app = testModule.createNestApplication()
+
+  await app.init()
+
+  return app
+}
+
+export const makeTestUser = (role: Role): IUser => ({
+  id: testUserUid,
+  auth0Id: testAuth0Id,
+  roles: [role],
+})
 
 export const setupTestModule = async (
   nestModules: Array<NestModule>,
@@ -35,53 +68,49 @@ export const setupTestModule = async (
     testModule: TestingModuleBuilder,
   ) => TestingModuleBuilder = (x) => x,
 ): Promise<INestApplication> => {
-  const { role, resetDb } = options
+  const { role, resetDb, mockTransaction } = options
 
-  let testModuleBuilder: TestingModuleBuilder = await Test.createTestingModule({
-    imports: [NestjsModule, ...nestModules],
-  })
+  const app = await setupSimpleTestModule(
+    [NestjsModule, ...nestModules],
+    (testModuleBuilder) => {
+      testModuleBuilder = testModuleCallback(testModuleBuilder)
 
-  testModuleBuilder = testModuleCallback(testModuleBuilder)
-
-  const username = process.env.AUTH0_CYPRESS_USERNAME
-  const userUid = testUserUid
-  const auth0Id = testAuth0Id
-
-  if (!username) {
-    throw new Error('Missing Auth0 username')
-  }
-
-  /**
-   * Override Auth guard to mock authorization
-   *
-   * // TODO: Look into circular dependency
-   */
-  testModuleBuilder.overrideGuard(GqlAuthGuard).useValue({
-    canActivate: (context: ExecutionContext) => {
-      const ctx = GqlExecutionContext.create(context)
-
-      if (role === Role.Guest) {
-        // If we return false, we default to guard's error message. But AuthGuard('jwt), the class we're mocking, returns UnauthorizedException instead
-        throw new UnauthorizedException()
+      if (mockTransaction) {
+        testModuleBuilder
+          .overrideProvider(TransactionManager)
+          .useClass(TestTransactionManager)
       }
 
-      const user: IUser = {
-        id: userUid,
-        auth0Id: auth0Id,
-        roles: [role],
+      const username = process.env.AUTH0_CYPRESS_USERNAME
+
+      if (!username) {
+        throw new Error('Missing Auth0 username')
       }
 
-      // This will override our @CurrentUser annotation
-      ctx.getContext().req.user = user
+      /**
+       * Override Auth guard to mock authorization
+       *
+       * // TODO: Look into circular dependency
+       */
+      testModuleBuilder.overrideGuard(GqlAuthGuard).useValue({
+        canActivate: (context: ExecutionContext) => {
+          const ctx = GqlExecutionContext.create(context)
 
-      return true
+          if (role === Role.Guest) {
+            // If we return false, we default to guard's error message. But AuthGuard('jwt), the class we're mocking, returns UnauthorizedException instead
+            throw new UnauthorizedException()
+          }
+
+          // This will override our @CurrentUser annotation
+          ctx.getContext().req.user = makeTestUser(role)
+
+          return true
+        },
+      })
+
+      return testModuleBuilder
     },
-  })
-
-  const testModule = await testModuleBuilder.compile()
-  const app = testModule.createNestApplication()
-
-  await app.init()
+  )
 
   if (resetDb) {
     await getDgraphProviderFromTestModule(app).resetData()
@@ -97,6 +126,12 @@ export const getDgraphProviderFromTestModule = (app: INestApplication) => {
 
 export const teardownTestModule = async (app: INestApplication) => {
   await app.close()
+}
+
+export const getTestTransaction = async (app: INestApplication) => {
+  const tm = await app.get(TransactionManager)
+
+  return tm.generateTransaction() // In TestTransactionManager, this will resolve the static transaction
 }
 
 export const resetData = () => {

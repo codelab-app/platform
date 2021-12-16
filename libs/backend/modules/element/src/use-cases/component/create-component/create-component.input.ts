@@ -1,5 +1,13 @@
-import { InputType } from '@nestjs/graphql'
-import { CreateElementInput } from '../../../use-cases/element/create-element'
+import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class CreateComponentInput extends CreateElementInput {}
+export class CreateComponentInput {
+  @Field({ nullable: true })
+  declare name?: string
+
+  @Field(() => String, { nullable: true })
+  declare props?: string
+
+  @Field(() => String, { nullable: true })
+  declare atomId?: string
+}

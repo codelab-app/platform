@@ -1,6 +1,14 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
+import {
+  HookFragment,
+  PropMapBindingFragment,
+} from './Element.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import {
+  HookFragmentDoc,
+  PropMapBindingFragmentDoc,
+} from './Element.fragment.graphql.gen'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
 export type AddHookToElementMutationVariables = Types.Exact<{
   input: Types.AddHookToElementInput
@@ -21,7 +29,7 @@ export type RemoveHookFromElementMutationVariables = Types.Exact<{
 }>
 
 export type RemoveHookFromElementMutation = {
-  removeHookFromElement?: void | null | undefined
+  removeHookFromElement?: HookFragment | null | undefined
 }
 
 export const AddHookToElementGql = gql`
@@ -40,8 +48,11 @@ export const GetLambdaNameGql = gql`
 `
 export const RemoveHookFromElementGql = gql`
   mutation RemoveHookFromElement($input: RemoveHookFromElementInput!) {
-    removeHookFromElement(input: $input)
+    removeHookFromElement(input: $input) {
+      ...Hook
+    }
   }
+  ${HookFragmentDoc}
 `
 
 const injectedRtkApi = api.injectEndpoints({

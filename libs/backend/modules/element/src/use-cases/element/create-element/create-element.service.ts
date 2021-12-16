@@ -1,204 +1,113 @@
-import {
-  CreateResponse,
-  DgraphCreateUseCase,
-} from '@codelab/backend/application'
-import { DgraphRepository } from '@codelab/backend/infra'
-import { AtomsWhereInput, GetAtomsService } from '@codelab/backend/modules/atom'
-import { AtomType, IAtom } from '@codelab/shared/abstract/core'
-import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { CreateResponse } from '@codelab/backend/application'
+import { GetAtomService } from '@codelab/backend/modules/atom'
+import { createElement } from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../application/element.validator'
-import { GetLastOrderChildService } from '../get-last-order-child'
 import {
-  AtomRef,
-  CreateElementChildInput,
-  CreateElementInput,
-} from './create-element.input'
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../../../infrastructure/repositories/abstract/element-repository.interface'
 import { CreateElementRequest } from './create-element.request'
-import {
-  AtomIdResolver,
-  ElementMutationFactory,
-} from './element-mutation.factory'
 
 @Injectable()
-export class CreateElementService extends DgraphCreateUseCase<CreateElementRequest> {
+export class CreateElementService
+  implements UseCasePort<CreateElementRequest, CreateResponse>
+{
   constructor(
-    protected readonly dgraph: DgraphRepository,
-    private getLastOrderChildService: GetLastOrderChildService,
-    private getAtomsService: GetAtomsService,
+    @Inject(IElementRepositoryToken)
+    private readonly elementRepository: IElementRepository,
+    private getAtomService: GetAtomService,
     private elementValidator: ElementValidator,
-  ) {
-    super(dgraph)
+  ) {}
+
+  async execute(request: CreateElementRequest): Promise<CreateResponse> {
+    const { foundAtom } = await this.validate(request)
+    const order = await this.getOrder(request)
+    const { input, currentUser } = request
+
+    const element = createElement({
+      parentElement: input.parentElementId
+        ? { id: input.parentElementId, order }
+        : undefined,
+      componentTag: undefined,
+      instanceOfComponent: input.instanceOfComponentId
+        ? { id: input.instanceOfComponentId }
+        : undefined,
+      fixedId: undefined,
+      props: { data: input.props ?? '{}' },
+      name: input.name,
+      atom: foundAtom,
+      owner: currentUser?.id ? { id: currentUser.id } : undefined,
+      css: input.css,
+      propTransformationJs: undefined,
+      renderForEachPropKey: undefined,
+      renderIfPropKey: undefined,
+      propMapBindings: [],
+      hooks: [],
+    })
+
+    return this.elementRepository.create(element, request.transaction)
   }
 
-  protected async executeTransaction(
-    request: CreateElementRequest,
-    txn: Txn,
-  ): Promise<CreateResponse> {
-    const { atoms } = await this.validate(request)
-    const { input } = request
-    const order = await this.getOrder(input)
-
-    return this.dgraph.create(txn, (blankNodeUid) =>
-      this.createMutation(
-        {
-          ...request,
-          input: { ...input, order },
-        },
-        blankNodeUid,
-        atoms,
-      ),
-    )
-  }
-
-  private async createMutation(
-    { input, currentUser }: CreateElementRequest,
-    blankNodeUid: string,
-    atoms: Array<IAtom>,
-  ) {
-    const mu: Mutation = {}
-    const atomsByType = new Map(atoms.map((a) => [a.type, a]))
-
-    const atomResolver: AtomIdResolver = (type: AtomType) => {
-      const atom = atomsByType.get(type)
-
-      if (!atom) {
-        throw new Error(`Atom ${type} not found`)
-      }
-
-      return atom.id
-    }
-
-    const createElementJson = await new ElementMutationFactory(
-      atomResolver,
-      currentUser,
-    ).create(input, blankNodeUid)
-
-    if (input.parentElementId) {
-      mu.setJson = {
-        uid: input.parentElementId,
-        children: createElementJson,
-      }
-    } else {
-      mu.setJson = createElementJson
-    }
-
-    return mu
-  }
-
-  /**
-   * Returns the order from the request if defined, if not - gets the order of the last child of the same parent
-   * and returns it + 1
-   */
-  private async getOrder(request: CreateElementInput): Promise<number> {
-    const { order, parentElementId } = request
-
-    if (order) {
+  private async getOrder({
+    input: { order, parentElementId },
+    transaction,
+  }: CreateElementRequest): Promise<number> {
+    if (typeof order === 'number') {
       return order
     }
 
     if (parentElementId) {
-      // if we don't have order - put it last
-      const lastOrderChild = await this.getLastOrderChildService.execute({
-        elementId: parentElementId,
-      })
+      const lastOrder = await this.elementRepository.getLastOrderInParent(
+        parentElementId,
+        transaction,
+      )
 
-      if (lastOrderChild && typeof lastOrderChild.order === 'number') {
-        return lastOrderChild.order + 1
+      if (typeof lastOrder === 'number') {
+        return lastOrder + 1
       }
     }
 
-    // If nothing else - put it by default as 1
     return 1
   }
 
-  protected async validate({ input, currentUser }: CreateElementRequest) {
-    const { parentElementId } = input
+  protected async validate({
+    input: { parentElementId, instanceOfComponentId, atomId },
+    currentUser,
+    transaction,
+  }: CreateElementRequest) {
+    if (instanceOfComponentId) {
+      const components = await this.elementRepository.getComponents(
+        { uids: [instanceOfComponentId] },
+        transaction,
+      )
+
+      if (components.length === 0) {
+        throw new Error('Component not found')
+      }
+    }
 
     if (parentElementId) {
-      /** Validate the parent element exists and is owned by the current user */
       await this.elementValidator.existsAndIsOwnedBy(
         parentElementId,
         currentUser,
+        transaction,
       )
     }
 
-    const atomRefs = this.getAllAtomRefs(input)
+    if (atomId) {
+      const foundAtom = await this.getAtomService.execute({
+        where: { id: atomId },
+      })
 
-    if (atomRefs.length > 0) {
-      /** Validate the atoms exists */
-      const atomIds = new Array<string>()
-      const atomTypes = new Array<AtomType>()
-
-      for (const { atomId, atomType } of atomRefs) {
-        if (atomId) {
-          atomIds.push(atomId)
-        }
-
-        if (atomType) {
-          atomTypes.push(atomType)
-        }
+      if (!foundAtom) {
+        throw new Error(`Atom with id ${atomId} not found`)
       }
 
-      const atomsByIds = await this.validateAtomsExist(
-        atomIds,
-        { ids: atomIds },
-        (a) => a.id,
-      )
-
-      const atomsByTypes = await this.validateAtomsExist(
-        atomTypes,
-        { types: atomTypes },
-        (a) => a.type,
-      )
-
-      return {
-        atoms: [...atomsByIds, ...atomsByTypes],
-      }
+      return { foundAtom }
     }
 
-    return { atoms: [] as Array<IAtom> }
-  }
-
-  private getAllAtomRefs({
-    atom,
-    children,
-  }: CreateElementChildInput): Array<AtomRef> {
-    const atomRefs: Array<AtomRef> = atom ? [atom] : []
-
-    if (children) {
-      for (const child of children) {
-        if (child.newElement) {
-          atomRefs.push(...this.getAllAtomRefs(child.newElement))
-        }
-      }
-    }
-
-    return atomRefs
-  }
-
-  private async validateAtomsExist<T extends string | AtomType>(
-    inputs: Array<T>,
-    where: AtomsWhereInput,
-    valueExtractor: (a: IAtom) => T,
-  ) {
-    if (inputs.length === 0) {
-      return []
-    }
-
-    const retrievedAtoms = await this.getAtomsService.execute({
-      where,
-    })
-
-    const foundAtomsSet = new Set(retrievedAtoms.map(valueExtractor))
-    const missingAtoms = inputs.filter((input) => !foundAtomsSet.has(input))
-
-    if (missingAtoms.length === 1) {
-      throw new Error(`Atom ${missingAtoms[0]} not found`)
-    } else if (missingAtoms.length > 1) {
-      throw new Error(`Atoms ${missingAtoms.join(', ')} not found`)
-    }
-
-    return retrievedAtoms
+    return { foundAtom: undefined }
   }
 }

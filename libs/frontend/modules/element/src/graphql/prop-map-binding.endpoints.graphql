@@ -5,9 +5,13 @@ mutation CreatePropMapBinding($input: CreatePropMapBindingInput!) {
 }
 
 mutation DeletePropMapBinding($input: DeletePropMapBindingInput!) {
-  deletePropMapBinding(input: $input)
+  deletePropMapBinding(input: $input) {
+    ...PropMapBinding
+  }
 }
 
 mutation UpdatePropMapBinding($input: UpdatePropMapBindingInput!) {
-  updatePropMapBinding(input: $input)
+  updatePropMapBinding(input: $input) {
+    ...PropMapBinding
+  }
 }

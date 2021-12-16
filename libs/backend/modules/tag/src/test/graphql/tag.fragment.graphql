@@ -4,4 +4,8 @@ fragment TestTag on Tag {
   name
   isRoot
   children
+  owner {
+    id
+  }
+  parent
 }

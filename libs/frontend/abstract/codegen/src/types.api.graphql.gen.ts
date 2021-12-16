@@ -20,8 +20,8 @@ export type Scalars = {
   Void: void
 }
 
-/** Provide exactly one of the config fields */
 export type AddHookToElementInput = {
+  /** JSON string */
   config: Scalars['String']
   elementId: Scalars['String']
   type: AtomType
@@ -68,12 +68,6 @@ export type Atom = {
   /** This is a unique ID suitable for seeders to lookup */
   name: Scalars['String']
   type: AtomType
-}
-
-/** Provide either id or type */
-export type AtomRef = {
-  atomId?: InputMaybe<Scalars['String']>
-  atomType?: InputMaybe<AtomType>
 }
 
 export enum AtomType {
@@ -463,11 +457,6 @@ export type BaseTypeEdge = TypeEdge & {
   target: Scalars['String']
 }
 
-export type ComponentRef = {
-  __typename?: 'ComponentRef'
-  id: Scalars['ID']
-}
-
 /** The ComponentType allows selecting a Component in the props form. The value is stored as the componentId  */
 export type ComponentType = Type & {
   __typename?: 'ComponentType'
@@ -478,6 +467,8 @@ export type ComponentType = Type & {
 }
 
 export type ConvertElementToComponentInput = {
+  /** Leave out to infer it automatically */
+  componentName?: InputMaybe<Scalars['String']>
   elementId: Scalars['String']
 }
 
@@ -497,70 +488,22 @@ export type CreateAtomInput = {
 }
 
 export type CreateComponentInput = {
-  atom?: InputMaybe<AtomRef>
-  /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
-  children?: InputMaybe<Array<ElementRef>>
-  componentFixedId?: InputMaybe<Scalars['String']>
-  css?: InputMaybe<Scalars['String']>
-  hooks?: InputMaybe<Array<HookRef>>
-  instanceOfComponentId?: InputMaybe<Scalars['String']>
-  isComponent?: InputMaybe<Scalars['Boolean']>
+  atomId?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
-  /** Leave it out to automatically set it as the last order of all the children */
-  order?: InputMaybe<Scalars['Int']>
-  /** Attaches the newly created element to an existing element as child */
-  parentElementId?: InputMaybe<Scalars['String']>
-  propMapBindings?: InputMaybe<Array<NewPropMapBindingRef>>
-  propTransformationJs?: InputMaybe<Scalars['String']>
   props?: InputMaybe<Scalars['String']>
-  /** Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding */
-  refId?: InputMaybe<Scalars['String']>
-  renderForEachPropKey?: InputMaybe<Scalars['String']>
-  renderIfPropKey?: InputMaybe<Scalars['String']>
-}
-
-export type CreateElementChildInput = {
-  atom?: InputMaybe<AtomRef>
-  /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
-  children?: InputMaybe<Array<ElementRef>>
-  componentFixedId?: InputMaybe<Scalars['String']>
-  css?: InputMaybe<Scalars['String']>
-  hooks?: InputMaybe<Array<HookRef>>
-  instanceOfComponentId?: InputMaybe<Scalars['String']>
-  isComponent?: InputMaybe<Scalars['Boolean']>
-  name?: InputMaybe<Scalars['String']>
-  /** Leave it out to automatically set it as the last order of all the children */
-  order?: InputMaybe<Scalars['Int']>
-  propMapBindings?: InputMaybe<Array<NewPropMapBindingRef>>
-  propTransformationJs?: InputMaybe<Scalars['String']>
-  props?: InputMaybe<Scalars['String']>
-  /** Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding */
-  refId?: InputMaybe<Scalars['String']>
-  renderForEachPropKey?: InputMaybe<Scalars['String']>
-  renderIfPropKey?: InputMaybe<Scalars['String']>
 }
 
 export type CreateElementInput = {
-  atom?: InputMaybe<AtomRef>
-  /** Creates new elements or attaches existing ones, can be used to create a whole tree at once */
-  children?: InputMaybe<Array<ElementRef>>
-  componentFixedId?: InputMaybe<Scalars['String']>
+  atomId?: InputMaybe<Scalars['String']>
   css?: InputMaybe<Scalars['String']>
-  hooks?: InputMaybe<Array<HookRef>>
+  /** Set to a elementId with component tag, which will be used as a component template for this element. isComponent and instanceOfComponentId are mutually exclusive */
   instanceOfComponentId?: InputMaybe<Scalars['String']>
-  isComponent?: InputMaybe<Scalars['Boolean']>
   name?: InputMaybe<Scalars['String']>
-  /** Leave it out to automatically set it as the last order of all the children */
+  /** The order in parent. Leave it out to automatically set it as the last order of all the children */
   order?: InputMaybe<Scalars['Int']>
-  /** Attaches the newly created element to an existing element as child */
+  /** Attaches the newly created element as child of an existing element */
   parentElementId?: InputMaybe<Scalars['String']>
-  propMapBindings?: InputMaybe<Array<NewPropMapBindingRef>>
-  propTransformationJs?: InputMaybe<Scalars['String']>
   props?: InputMaybe<Scalars['String']>
-  /** Set to any unique value and use that to identify the created element in other references in the same input, like targetId in Prop Map Binding */
-  refId?: InputMaybe<Scalars['String']>
-  renderForEachPropKey?: InputMaybe<Scalars['String']>
-  renderIfPropKey?: InputMaybe<Scalars['String']>
 }
 
 export type CreateElementTypeInput = {
@@ -599,7 +542,6 @@ export type CreateMonacoTypeInput = {
 export type CreatePageInput = {
   appId: Scalars['String']
   name: Scalars['String']
-  rootElement?: InputMaybe<CreateElementChildInput>
 }
 
 export type CreatePrimitiveTypeInput = {
@@ -614,11 +556,6 @@ export type CreatePropMapBindingInput = {
   targetElementId?: InputMaybe<Scalars['String']>
   /** The key of the prop, that the target Element will receive */
   targetKey: Scalars['String']
-}
-
-export type CreateResponse = {
-  __typename?: 'CreateResponse'
-  id: Scalars['String']
 }
 
 export type CreateTagInput = {
@@ -668,6 +605,7 @@ export type DeletePageInput = {
 }
 
 export type DeletePropMapBindingInput = {
+  elementId: Scalars['String']
   propMapBindingIds: Array<Scalars['String']>
 }
 
@@ -683,19 +621,25 @@ export type DeleteUserInput = {
   id: Scalars['String']
 }
 
+export type DuplicateElementInput = {
+  elementId: Scalars['String']
+}
+
 export type Element = {
   __typename?: 'Element'
   atom?: Maybe<Atom>
-  componentFixedId?: Maybe<Scalars['String']>
   /** An Element tagged with componentTag is a reusable component */
   componentTag?: Maybe<Tag>
   css?: Maybe<Scalars['String']>
+  fixedId?: Maybe<Scalars['String']>
   /** Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge */
   graph: ElementGraph
   hooks: Array<Hook>
   id: Scalars['ID']
-  instanceOfComponent?: Maybe<ComponentRef>
+  instanceOfComponent?: Maybe<ObjectRef>
   name?: Maybe<Scalars['String']>
+  owner?: Maybe<ObjectRef>
+  parentElement?: Maybe<ObjectRef>
   propMapBindings: Array<PropMapBinding>
   propTransformationJs?: Maybe<Scalars['String']>
   props: Prop
@@ -720,13 +664,6 @@ export type ElementGraph = {
   /** All the links connecting the descendant elements */
   edges: Array<ElementEdge>
   vertices: Array<Element>
-}
-
-/** Provide either id or new element input */
-export type ElementRef = {
-  /** Pass in either refId, or existing elementId */
-  elementId?: InputMaybe<Scalars['String']>
-  newElement?: InputMaybe<CreateElementChildInput>
 }
 
 /** The ElementType allows selecting an Element in the props form. The value is stored as the elementId  */
@@ -888,11 +825,6 @@ export type Hook = {
   type: AtomType
 }
 
-export type HookRef = {
-  config: Scalars['String']
-  type: AtomType
-}
-
 export type ImportAppInput = {
   payload: Scalars['String']
 }
@@ -965,7 +897,7 @@ export type MoveElementInput = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  addHookToElement: CreateResponse
+  addHookToElement: Hook
   convertElementToComponent: Element
   createApp: App
   createAtom: Atom
@@ -975,7 +907,7 @@ export type Mutation = {
   createField: Field
   createLambda: Lambda
   createPage: Page
-  createPropMapBinding: CreateResponse
+  createPropMapBinding: PropMapBinding
   createTag: Tag
   createType: Type
   deleteApp?: Maybe<App>
@@ -985,16 +917,17 @@ export type Mutation = {
   deleteField?: Maybe<Field>
   deleteLambda: Lambda
   deletePage: Page
-  deletePropMapBinding?: Maybe<Scalars['Void']>
+  deletePropMapBinding?: Maybe<Array<PropMapBinding>>
   deleteTags?: Maybe<Array<Tag>>
   deleteType?: Maybe<Type>
   deleteUser: Scalars['Boolean']
+  duplicateElement: Element
   executeLambda?: Maybe<LambdaPayload>
   importApp: App
   importAtoms?: Maybe<Scalars['Void']>
   importTags?: Maybe<Scalars['Void']>
   moveElement: Element
-  removeHookFromElement?: Maybe<Scalars['Void']>
+  removeHookFromElement?: Maybe<Hook>
   resetData?: Maybe<Scalars['Void']>
   seedBaseTypes?: Maybe<Scalars['Void']>
   updateApp?: Maybe<App>
@@ -1006,7 +939,7 @@ export type Mutation = {
   updateLambda?: Maybe<Lambda>
   updatePage: Page
   updatePrimitiveType?: Maybe<PrimitiveType>
-  updatePropMapBinding?: Maybe<Scalars['Void']>
+  updatePropMapBinding?: Maybe<PropMapBinding>
   updateTag?: Maybe<Tag>
   updateType?: Maybe<Type>
   updateUnionType?: Maybe<UnionType>
@@ -1103,6 +1036,10 @@ export type MutationDeleteUserArgs = {
   input: DeleteUserInput
 }
 
+export type MutationDuplicateElementArgs = {
+  input: DuplicateElementInput
+}
+
 export type MutationExecuteLambdaArgs = {
   input: ExecuteLambdaInput
 }
@@ -1191,13 +1128,9 @@ export type MutationUpsertUserArgs = {
   input: UpsertUserInput
 }
 
-export type NewPropMapBindingRef = {
-  /** The key of the prop, as received in the source element */
-  sourceKey: Scalars['String']
-  /** The ID of the target element, if omitted, the current element will be the target */
-  targetElementId?: InputMaybe<Scalars['String']>
-  /** The key of the prop, that the target Element will receive */
-  targetKey: Scalars['String']
+export type ObjectRef = {
+  __typename?: 'ObjectRef'
+  id: Scalars['ID']
 }
 
 export type Page = {
@@ -1278,6 +1211,7 @@ export type Query = {
   getMe?: Maybe<User>
   getPage?: Maybe<Page>
   getPages: Array<Page>
+  getProp: Prop
   getTag?: Maybe<Tag>
   /** Aggregates the requested tags and all of its descendant tags (infinitely deep) in the form of a flat array of TagVertex (alias of Tag) and array of TagEdge */
   getTagGraph?: Maybe<TagGraph>
@@ -1398,9 +1332,10 @@ export enum Role {
 export type Tag = {
   __typename?: 'Tag'
   children: Array<Scalars['String']>
-  id: Scalars['String']
+  id: Scalars['ID']
   isRoot: Scalars['Boolean']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   parent?: Maybe<Scalars['String']>
 }
 
@@ -1525,6 +1460,7 @@ export type UpdateAtomInput = {
 export type UpdateElementData = {
   atomId?: InputMaybe<Scalars['String']>
   css?: InputMaybe<Scalars['String']>
+  instanceOfComponentId?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   propTransformationJs?: InputMaybe<Scalars['String']>
   /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
@@ -1541,7 +1477,6 @@ export type UpdateElementInput = {
 export type UpdateElementPropsInput = {
   data: Scalars['String']
   elementId: Scalars['String']
-  propsId: Scalars['String']
 }
 
 export type UpdateEnumTypeData = {
@@ -1581,9 +1516,7 @@ export type UpdateLambdaInput = {
 }
 
 export type UpdatePageData = {
-  appId: Scalars['String']
   name: Scalars['String']
-  rootElement?: InputMaybe<CreateElementChildInput>
 }
 
 export type UpdatePageInput = {
@@ -1612,6 +1545,7 @@ export type UpdatePropMapBindingData = {
 
 export type UpdatePropMapBindingInput = {
   data: UpdatePropMapBindingData
+  elementId: Scalars['String']
   propMapBindingId: Scalars['String']
 }
 
@@ -1673,7 +1607,7 @@ export type UpsertUserInput = {
 export type User = {
   __typename?: 'User'
   auth0Id: Scalars['String']
-  id: Scalars['String']
+  id: Scalars['ID']
   roles: Array<Role>
 }
 
@@ -1683,7 +1617,7 @@ export type UserWhereUniqueInput = {
 }
 
 export type WhereUniqueElement = {
-  componentFixedId?: InputMaybe<Scalars['String']>
+  fixedId?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['String']>
 }
 

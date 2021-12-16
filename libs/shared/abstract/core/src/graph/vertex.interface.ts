@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const VertexSchema = z.object({
-  id: z.string(),
+  id: z.string().default(''),
   name: z.string().nullish(),
 })
 

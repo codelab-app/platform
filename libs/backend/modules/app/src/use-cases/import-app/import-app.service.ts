@@ -1,230 +1,400 @@
-import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository } from '@codelab/backend/infra'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { CreateResponse } from '@codelab/backend/application'
 import {
-  CreateComponentService,
-  CreateElementChildInput,
-  CreateElementService,
-  HookRef,
-  NewPropMapBindingRef,
+  DgraphEntityType,
+  DgraphRepository,
+  DgraphUpdateMutationJson,
+  ITransaction,
+} from '@codelab/backend/infra'
+import { GetAtomsService } from '@codelab/backend/modules/atom'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
 } from '@codelab/backend/modules/element'
 import {
-  CreatePageService,
-  UpdatePageService,
-} from '@codelab/backend/modules/page'
-import {
-  ExportAppSchema,
-  ExportPageSchema,
+  IAtom,
+  IElement,
   IExportApp,
-  IExportPage,
-  IPropMapBinding,
   IUser,
 } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
-import { Injectable } from '@nestjs/common'
-import { AppValidator } from '../../domain/app.validator'
+import { Inject, Injectable } from '@nestjs/common'
+import { Mutation } from 'dgraph-js-http'
+import { omit } from 'lodash'
 import { CreateAppService } from '../create-app'
-import { GetAppService } from '../get-app'
 import { ImportAppRequest } from './import-app.request'
+import {
+  collectAllEdges,
+  collectAllElements,
+  createPlaceholderElement,
+  parsePayload,
+  PayloadIdToExistingIdMap,
+  replaceIdInPayload,
+  replaceManyIdsInPayload,
+  splitElementsByFixedId,
+} from './utils'
 
 @Injectable()
-export class ImportAppService extends DgraphUseCase<
-  ImportAppRequest,
-  CreateResponse
-> {
+export class ImportAppService
+  implements UseCasePort<ImportAppRequest, CreateResponse>
+{
   constructor(
-    dgraph: DgraphRepository,
-    protected appValidator: AppValidator,
-    protected getAppService: GetAppService,
     protected createAppService: CreateAppService,
-    protected createPageService: CreatePageService,
-    protected createElementService: CreateElementService,
-    protected createComponentService: CreateComponentService,
-    protected updatePageService: UpdatePageService,
-  ) {
-    super(dgraph)
-  }
+    protected getAtomsService: GetAtomsService,
+    @Inject(IElementRepositoryToken) protected elementRepo: IElementRepository,
+  ) {}
 
-  private prasePayload(payload: string): IExportApp {
-    return ExportAppSchema.parse(JSON.parse(payload))
-  }
+  async execute({
+    input: { payload },
+    currentUser,
+    transaction,
+  }: ImportAppRequest): Promise<CreateResponse> {
+    let parsedPayload: IExportApp = parsePayload(payload)
 
-  private async createApp(
-    payload: string,
-    currentUser: IUser,
-  ): Promise<{ appId: string; payload: string }> {
-    const prasedPayload = this.prasePayload(payload)
-
-    const { id: appId } = await this.createAppService.execute({
+    parsedPayload = await this.createAppAndReplaceIdReferences(
+      parsedPayload,
       currentUser,
-      input: { name: prasedPayload.name },
-    })
+    )
 
-    return {
-      appId,
-      payload: payload.replace(new RegExp(prasedPayload.id, 'g'), appId),
-    }
+    parsedPayload = await this.replaceAtomIdReferences(parsedPayload)
+
+    // Create placeholder elements first, we update them later with the content
+    // That way we can resolve all references (app, atom, pages, other elements)
+    // Before writing the actual element data, where those are likely referenced in the props
+    parsedPayload = await this.replaceElementIdReferences(
+      parsedPayload,
+      transaction,
+      currentUser,
+    )
+
+    parsedPayload = await this.createPagesAndReplaceIdReferences(
+      parsedPayload,
+      currentUser,
+      transaction,
+    )
+
+    await this.updatePlaceholderElements(parsedPayload, transaction)
+
+    return { id: parsedPayload.id }
   }
 
-  protected async createPages(
-    payload: string,
-    appId: string,
+  /** Creates the app and returns the payload with replaced appId everywhere in the payload */
+  protected async createAppAndReplaceIdReferences(
+    payload: IExportApp,
     currentUser: IUser,
   ): Promise<IExportApp> {
-    const prasedPayload = this.prasePayload(payload)
-
-    for (const payloadPage of prasedPayload.pages) {
-      const input = {
-        appId,
-        name: payloadPage.name,
-      }
-
-      const { id } = await this.createPageService.execute({
-        input,
-        currentUser,
-      })
-
-      payload = payload.replace(new RegExp(payloadPage.id, 'g'), id)
-    }
-
-    return ExportAppSchema.parse(JSON.parse(payload))
-  }
-
-  protected async createComponents(
-    currentUser: IUser,
-    pagePayload: IExportPage,
-  ): Promise<IExportPage> {
-    let payloadStr = JSON.stringify(pagePayload)
-    const elementTree = new ElementTree(pagePayload.elements)
-    const components = elementTree.getAllVertices(ElementTree.isComponent)
-
-    for (const component of components) {
-      const componentChildInput = this.createElementInput(
-        component.id,
-        elementTree,
-      )
-
-      const { id } = await this.createComponentService.execute({
-        currentUser,
-        input: componentChildInput,
-      })
-
-      payloadStr = payloadStr.replace(new RegExp(component.id, 'g'), id)
-    }
-
-    return ExportPageSchema.parse(JSON.parse(payloadStr))
-  }
-
-  protected async createElements(
-    currentUser: IUser,
-    pagePayload: IExportPage,
-    appId: string,
-  ): Promise<void> {
-    const elementTree = new ElementTree(pagePayload.elements)
-    const treeRoot = elementTree.getRootVertex(ElementTree.isElement)
-
-    if (!treeRoot) {
-      throw new Error('No root element found')
-    }
-
-    const rootElement = this.createElementInput(treeRoot.id, elementTree)
-
-    await this.updatePageService.execute({
-      input: {
-        pageId: pagePayload.id,
-        updateData: {
-          appId,
-          name: pagePayload.name,
-          rootElement,
-        },
-      },
+    const { id: appId } = await this.createAppService.execute({
       currentUser,
+      input: { name: payload.name },
+    })
+
+    return replaceIdInPayload(payload, {
+      payloadId: payload.id,
+      existingId: appId,
     })
   }
 
-  protected createElementInput(
-    elementId: string,
-    tree: ElementTree,
-    iteration = 0,
-  ): CreateElementChildInput {
-    if (iteration > 100000) {
-      throw new Error('Infinite loop detected')
+  protected async createPagesAndReplaceIdReferences(
+    payload: IExportApp,
+    currentUser: IUser,
+    transaction: ITransaction,
+  ): Promise<IExportApp> {
+    const pageIdMap = new PayloadIdToExistingIdMap()
+
+    // TODO use page repository after implementing it
+    for (const page of payload.pages) {
+      // the root id is replaced by the earlier stage, so we can reliably use it as an existing element reference
+      if (!page.rootElementId) {
+        throw new Error(`Root element id for page ${page.id} is missing`)
+      }
+
+      const pageBlankNode = '_:page'
+
+      const createPageJson = {
+        uid: pageBlankNode,
+        'dgraph.type': [DgraphEntityType.Page],
+        name: page.name,
+        root: { uid: page.rootElementId },
+      }
+
+      const updateAppJson: DgraphUpdateMutationJson<any> = {
+        uid: payload.id, // this is updated earlier too, so it's the one we want
+        pages: { uid: pageBlankNode },
+      }
+
+      const mutation: Mutation = { setJson: [createPageJson, updateAppJson] }
+      const response = await transaction.mutate(mutation)
+      const newId = DgraphRepository.getUid(response, pageBlankNode)
+
+      pageIdMap.set({ existingId: newId, payloadId: page.id })
     }
 
-    const element = tree.getVertex(elementId)
+    return replaceManyIdsInPayload(payload, pageIdMap)
+  }
 
-    if (!element) {
-      // Shouldn't happen
-      throw new Error(
-        `Invalid state, cant find element ${elementId} in the tree `,
-      )
-    }
+  protected async updatePlaceholderElements(
+    payload: IExportApp,
+    transaction: ITransaction,
+  ): Promise<void> {
+    // All the elements have their ids replaced by their placeholder id, so we can just run an update on them
+    // And we must make sure the links are updated too
 
-    const children = tree.getChildren(elementId).map((child) => ({
-      newElement: this.createElementInput(child.id, tree, iteration + 1),
-    }))
+    for (const page of payload.pages) {
+      const tree = new ElementTree(page.elements)
+      const roots = tree.getRootVertices()
+      const updates: Array<IElement> = []
 
-    const hooks = element.hooks.map<HookRef>((x) => ({
-      config: x.config.data,
-      type: x.type,
-    }))
+      const makeUpdateForElement = (
+        element: IElement,
+        parentId?: string,
+        order?: number,
+      ): void => {
+        if (!element.id) {
+          throw new Error('Element has no id')
+        }
 
-    const propMapBindings = element.propMapBindings?.map((pmb) =>
-      this.propMapBindingInput(pmb),
-    )
+        // All the placeholder elements are completely empty except for the id (ofc), the fixedId and the owner
+        updates.push({
+          ...omit(element, 'fixedId', 'owner'),
+          componentTag: element.componentTag
+            ? { ...element.componentTag, id: '' }
+            : undefined,
+          atom: element.atom ? { ...element.atom } : undefined, // atom ids are replaced too in a prev step
+          props: { ...element.props, id: '' },
+          propMapBindings:
+            element.propMapBindings?.map((pmb) => ({ ...pmb, id: '' })) ?? [],
+          hooks: element.hooks?.map((hook) => ({ ...hook, id: '' })) ?? [],
+          parentElement: parentId ? { id: parentId, order } : undefined,
+        })
 
-    return {
-      name: element.name ?? undefined,
-      css: element.css ?? undefined,
-      renderIfPropKey: element.renderIfPropKey ?? undefined,
-      props: element.props.data,
-      isComponent: !!element.componentTag,
-      refId: elementId, // This allows us to keep the same propMapBinding references
-      atom: element.atom ? { atomType: element.atom.type } : undefined,
-      order: tree.getOrderInParent(elementId),
-      renderForEachPropKey: element.renderForEachPropKey ?? undefined,
-      propTransformationJs: element.propTransformationJs ?? undefined,
-      componentFixedId: element.componentFixedId || '',
-      hooks,
-      propMapBindings,
-      children,
+        const children = tree.getChildren(element.id)
+
+        for (const child of children) {
+          makeUpdateForElement(
+            child,
+            element.id,
+            tree.getOrderInParent(child.id),
+          )
+        }
+      }
+
+      for (const root of roots) {
+        makeUpdateForElement(root, undefined)
+      }
+
+      await this.elementRepo.updateAll(updates, transaction)
     }
   }
 
-  protected propMapBindingInput(pmb: IPropMapBinding): NewPropMapBindingRef {
-    return {
-      targetKey: pmb.targetKey,
-      sourceKey: pmb.sourceKey,
-      targetElementId: pmb.targetElementId ?? undefined,
-    }
-  }
+  /**
+   * Replaces all the ids in the payload with existing ones.
+   * For components with a fixedId, if its found - it will be used.
+   * For everything else - an empty placeholder element is created.
+   */
+  private async replaceElementIdReferences(
+    payload: IExportApp,
+    transaction: ITransaction,
+    currentUser: IUser,
+  ): Promise<IExportApp> {
+    const allElements: Array<IElement> = collectAllElements(payload)
+    const elementsIdMap = new PayloadIdToExistingIdMap()
+    const importedElements = splitElementsByFixedId(allElements)
 
-  protected async executeTransaction({
-    input,
-    currentUser,
-  }: ImportAppRequest): Promise<CreateResponse> {
-    // payload with updated appId
-    const { appId, payload: payloadWithApp } = await this.createApp(
-      input.payload,
-      currentUser,
-    )
+    // Find out all the existing components by fixedId. We will update them instead of creating new ones
+    const fixedIds = importedElements.withFixedId
+      .map((c) => c.fixedId)
+      .filter((id): id is string => !!id)
 
-    // payload with updated pagesIds
-    const payloadWithPages = await this.createPages(
-      payloadWithApp,
-      appId,
-      currentUser,
-    )
+    const existingComponentsByFixedId: Map<string, IElement> =
+      await this.elementRepo
+        .getComponents({ fixedIds }, transaction)
+        .then(
+          (r) =>
+            new Map(
+              r
+                .filter((ec) => !!ec.fixedId)
+                .map((ec) => [ec.fixedId as string, ec]),
+            ),
+        )
 
-    for (const pagePayload of payloadWithPages.pages) {
-      // update components references
-      const pagePayloadWithComponents = await this.createComponents(
-        currentUser,
-        pagePayload,
+    for (const payloadComponent of importedElements.withFixedId) {
+      const existingComponent = existingComponentsByFixedId.get(
+        payloadComponent.fixedId,
       )
 
-      await this.createElements(currentUser, pagePayloadWithComponents, appId)
+      if (!existingComponent?.id || !payloadComponent?.id) {
+        continue
+      }
+
+      elementsIdMap.set({
+        existingId: existingComponent.id,
+        payloadId: payloadComponent.id,
+      })
     }
 
-    return { id: appId }
+    // Go through all the components and see if we are to create some elements or update and delete old ones
+    if (existingComponentsByFixedId.size > 0) {
+      const allEdges = collectAllEdges(payload)
+
+      const appTree = new ElementTree({
+        vertices: allElements,
+        edges: allEdges,
+      })
+
+      const importedVertexIdByFixedId: Map<string, string> = new Map(
+        allElements
+          .filter((e) => e.fixedId)
+          .map((e) => [e.fixedId as string, e.id]),
+      )
+
+      for (const existingComponent of existingComponentsByFixedId.values()) {
+        const existingComponentGraph = await this.elementRepo.getGraph(
+          existingComponent.id,
+          transaction,
+        )
+
+        const rootImportedId = importedVertexIdByFixedId.get(
+          existingComponent.fixedId as string,
+        ) as string
+
+        const importedTree = new ElementTree(
+          appTree.getSubgraph(rootImportedId),
+        )
+
+        const existingComponentTree = new ElementTree(existingComponentGraph)
+        const toDelete: Array<string> = []
+
+        // TLDR: compare by fixedId child by child each element in the existing tree with the same element in the imported tree
+        // If we find a child that is not in the imported tree, we will delete it
+        // If we find a child that is in both, we will update it
+        const compareLevel = async (
+          payloadParentId: string,
+          existingParentId: string,
+        ) => {
+          const payloadChildren = importedTree.getChildren(payloadParentId)
+
+          const existingChildren =
+            existingComponentTree.getChildren(existingParentId)
+
+          const payloadChildrenByFixedId = new Map(
+            payloadChildren.map((c) => [c.fixedId, c]),
+          )
+
+          for (const existingChild of existingChildren) {
+            const foundPayloadChild = payloadChildrenByFixedId.get(
+              existingChild.fixedId,
+            )
+
+            if (!foundPayloadChild) {
+              // Element found in existing tree but not in payload tree. Delete it
+              toDelete.push(existingChild.id)
+            } else {
+              // Element found in both trees. Mark it for update
+              elementsIdMap.set({
+                existingId: existingChild.id,
+                payloadId: foundPayloadChild.id,
+              })
+
+              // Recurse
+              await compareLevel(foundPayloadChild?.id, existingChild.id)
+            }
+          }
+        }
+
+        await compareLevel(rootImportedId, existingComponent.id)
+
+        if (toDelete.length > 0) {
+          await this.elementRepo.deleteAll(toDelete, transaction)
+        }
+      }
+    }
+
+    // For the rest - create placeholder elements, so we can update them later
+    const elementsToCreate = [
+      ...importedElements.withoutFixedId, // all without fixed id
+      ...importedElements.withFixedId.filter(
+        // all with fixed id, which we couldn't find earlier
+        (c) => !existingComponentsByFixedId.has(c.fixedId),
+      ),
+    ].filter((c) => !elementsIdMap.hasPayloadId(c.id))
+
+    const placeholderElements = await this.elementRepo.createAll(
+      elementsToCreate.map((e) => createPlaceholderElement(e, currentUser)),
+      transaction,
+    )
+
+    if (placeholderElements.length !== elementsToCreate.length) {
+      throw new Error('Failed to create placeholder elements')
+    }
+
+    // Go through all elements and assign the new placeholder id in the map
+    // Right now order doesn't matter, since they're all just placeholders
+    for (const [i, placeholderElement] of placeholderElements.entries()) {
+      const importedId = elementsToCreate[i].id
+
+      if (!importedId) {
+        continue
+      }
+
+      elementsIdMap.set({
+        existingId: placeholderElement.id,
+        payloadId: importedId,
+      })
+    }
+
+    return replaceManyIdsInPayload(payload, elementsIdMap)
+  }
+
+  /**
+   * Finds all the existing atoms that are referenced by the elements - either by id or by Atom.type
+   * Replaces all the atom references in the payload with the existing ones
+   * Throws error if some atoms are not found
+   * Returns the replaced payload
+   */
+  private async replaceAtomIdReferences(
+    payload: IExportApp,
+  ): Promise<IExportApp> {
+    const allElements: Array<IElement> = collectAllElements(payload)
+    const atomIdsMap = new PayloadIdToExistingIdMap()
+
+    const allInputAtoms = allElements
+      .map((e) => e.atom)
+      .filter((a): a is IAtom => !!a)
+
+    const inputAtomIds =
+      allInputAtoms.map((a) => a.id).filter((id): id is string => !!id) ?? []
+
+    // Fetch the existing atoms
+    const existingAtomsById: Map<string, IAtom> = await this.getAtomsService
+      .execute({ where: { ids: inputAtomIds } })
+      .then((r) => new Map(r.map((a) => [a.id, a])))
+
+    const inputAtomTypes = allInputAtoms.map((a) => a.type) ?? []
+
+    const existingAtomsByType: Map<string, IAtom> = await this.getAtomsService
+      .execute({ where: { types: inputAtomTypes } })
+      .then((r) => new Map(r.map((a) => [a.type, a])))
+
+    // Store the old -> new map pairs
+    for (const inputAtom of allInputAtoms) {
+      if (!inputAtom.id) {
+        throw new Error(`Atom id is not defined for ${inputAtom.id}`)
+      }
+
+      let existingAtom = existingAtomsById.get(inputAtom.id)
+
+      if (!existingAtom?.id || existingAtom.type !== inputAtom.type) {
+        // Checking by type ensures that it's not a coincidental match of ids
+        existingAtom = existingAtomsByType.get(inputAtom.type)
+      }
+
+      if (!existingAtom?.id) {
+        throw new Error(`Atom ${inputAtom.id} - ${inputAtom.type} is not found`)
+      }
+
+      atomIdsMap.set({ payloadId: inputAtom.id, existingId: existingAtom.id })
+    }
+
+    return replaceManyIdsInPayload(payload, atomIdsMap)
   }
 }

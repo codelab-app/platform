@@ -27,6 +27,10 @@ export class GetAtomsService extends DgraphUseCase<
     }
 
     if (request?.where?.ids) {
+      if (!request.where.ids.length) {
+        return []
+      }
+
       return this.dgraph.getAllNamed<IAtom>(
         txn,
         GetAtomService.getAtomQuery(
@@ -37,6 +41,10 @@ export class GetAtomsService extends DgraphUseCase<
     }
 
     if (request?.where?.types) {
+      if (!request.where.types.length) {
+        return []
+      }
+
       return this.dgraph.getAllNamed<IAtom>(
         txn,
         GetAtomService.getAtomQuery(

@@ -4,6 +4,7 @@ import { Entity, Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { atomFactory } from '../atoms/atomFactory'
 
+
 interface AtomElementFactoryInput<TNode extends Entity = Entity> {
   atomType: AtomType
   node: TNode

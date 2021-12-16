@@ -62,6 +62,12 @@ export type ConvertElementToComponentMutation = {
   convertElementToComponent: ElementFragment
 }
 
+export type DuplicateElementMutationVariables = Types.Exact<{
+  input: Types.DuplicateElementInput
+}>
+
+export type DuplicateElementMutation = { duplicateElement: ElementFragment }
+
 export const CreateElementGql = gql`
   mutation CreateElement($input: CreateElementInput!) {
     createElement(input: $input) {
@@ -121,6 +127,14 @@ export const UpdateElementPropsGql = gql`
 export const ConvertElementToComponentGql = gql`
   mutation ConvertElementToComponent($input: ConvertElementToComponentInput!) {
     convertElementToComponent(input: $input) {
+      ...Element
+    }
+  }
+  ${ElementFragmentDoc}
+`
+export const DuplicateElementGql = gql`
+  mutation DuplicateElement($input: DuplicateElementInput!) {
+    duplicateElement(input: $input) {
       ...Element
     }
   }
@@ -201,6 +215,15 @@ const injectedRtkApi = api.injectEndpoints({
         options: options ?? undefined,
       }),
     }),
+    DuplicateElement: build.mutation<
+      DuplicateElementMutation,
+      GraphqlOperationOptions<DuplicateElementMutationVariables>
+    >({
+      query: (options) => ({
+        document: DuplicateElementGql,
+        options: options ?? undefined,
+      }),
+    }),
   }),
 })
 export { injectedRtkApi as api }
@@ -215,4 +238,5 @@ export const {
   useUpdateElementMutation,
   useUpdateElementPropsMutation,
   useConvertElementToComponentMutation,
+  useDuplicateElementMutation,
 } = injectedRtkApi
