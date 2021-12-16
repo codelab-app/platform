@@ -113,7 +113,7 @@ commands:
       - run:
           name: 'Install Bower'
           command: |
-            npm install bower
+            npm install -g bower
       - run:
           name: 'Setup env'
           command: |
