@@ -1,25 +1,29 @@
 import { CodelabPage } from '@codelab/frontend/abstract/props'
-import { useGetMeQuery } from '@codelab/frontend/modules/user'
+import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import React from 'react'
 import {
   HomeClients,
   HomeFeatures,
-  HomeJumbo,
   HomeTemplate,
   HomeTemplateProps,
 } from '../src/home'
 
-const HomePage: CodelabPage<HomeTemplateProps> = () => {
-  const { data } = useGetMeQuery()
+/**
+ * We are using some jQuery components, so SSR can't work because jQuery needs to be loaded first
+ */
+const DynamicHomeJumbo = dynamic<any>(
+  () => import('../src/home').then((mod) => mod.HomeJumbo),
+  { ssr: false },
+)
 
+const HomePage: CodelabPage<HomeTemplateProps> = () => {
   return (
     <>
       <Head>
         <title>Codelab</title>
       </Head>
-
-      <HomeJumbo />
+      <DynamicHomeJumbo />
       <HomeClients />
       <HomeFeatures />
     </>

@@ -1,0 +1,17 @@
+{
+  "name": "codelab",
+  "description": "",
+  "main": "",
+  "authors": ["Webber Wang <webber@codelab.ai>"],
+  "license": "MIT",
+  "homepage": "https://github.com/codelab-ai/codelab.ai",
+  "private": true,
+  "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"],
+  "dependencies": {
+    "Morphext": "^2.4.4",
+    "jquery": "^3.6.0"
+  },
+  "resolutions": {
+    "jquery": "^3.6.0"
+  }
+}

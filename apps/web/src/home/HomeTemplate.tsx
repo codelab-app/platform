@@ -13,7 +13,9 @@ export const HomeTemplate = ({ children }: HomeTemplateProps) => {
       <Header>
         <HomeMenuHeader />
       </Header>
-      <Content style={contentStyle}>{children}</Content>
+      <Content style={contentStyle} className="container">
+        {children}
+      </Content>
       <Footer>
         <span>Codelab.ai ©2020</span>
       </Footer>

@@ -8,7 +8,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["node", "worker-loader", "window"],
+    "types": ["node", "worker-loader", "window", "@fancyapps/ui"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": false,
