@@ -8,7 +8,7 @@ import { ComponentModule } from '../component.module'
 import { ElementCoreModule } from '../element.module'
 import { ElementTestModule } from '../infrastructure/element-test-infrastructure.module'
 
-export const setupElementTestModule = (resetDb = true) => {
+export const setupElementUnitTestModule = (resetDb = true) => {
   const testModule = {
     app: null! as INestApplication,
   }
