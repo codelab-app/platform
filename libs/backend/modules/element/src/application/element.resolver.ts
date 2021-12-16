@@ -1,4 +1,5 @@
-import { GqlAuthGuard } from '@codelab/backend/infra'
+import { Transaction, Transactional } from '@codelab/backend/application'
+import { GqlAuthGuard, ITransaction } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import { IElement, IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
@@ -57,13 +58,16 @@ export class ElementResolver {
 
   @Mutation(() => Element)
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async createElement(
     @Args('input') input: CreateElementInput,
     @CurrentUser() currentUser: IUser,
+    @Transaction() transaction: ITransaction,
   ) {
     const { id } = await this.createElementService.execute({
       input,
       currentUser,
+      transaction,
     })
 
     const element = await this.getElement({ where: { id } }, currentUser)

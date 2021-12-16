@@ -12,6 +12,7 @@ import { HookResolver } from './application/hook.resolver'
 import { PropMapBindingResolver } from './application/prop-map.binding.resolver'
 import { ComponentModule } from './component.module'
 import { PropMapBindingAdapter } from './domain/prop-mapping/prop-map-binding.adapter'
+import { ElementInfrastructureModule } from './infrastructure/element-infrastructure.module'
 import { CreateComponentService } from './use-cases/component/create-component/create-component.service'
 import { ConvertElementToComponentService } from './use-cases/element/convert-element-to-component'
 import { CreateElementService } from './use-cases/element/create-element'
@@ -77,5 +78,12 @@ const services = [
   ],
   providers: [...services, ElementResolver, ComponentResolver, Void],
   exports: [...services],
+})
+export class ElementCoreModule {}
+
+@Module({
+  imports: [ElementCoreModule, ElementInfrastructureModule],
+  providers: [],
+  exports: [],
 })
 export class ElementModule {}

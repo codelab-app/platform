@@ -4,6 +4,7 @@ import {
 } from '@codelab/backend/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { Mutation, Response, Txn } from 'dgraph-js-http'
+import { v4 } from 'uuid'
 import { LoggerService, LoggerTokens } from '../logger'
 import { DgraphService } from './dgraph.service'
 import { DgraphQueryBuilder } from './query-building'
@@ -33,6 +34,10 @@ export class DgraphRepository {
 
   get client() {
     return this.dgraphService.client
+  }
+
+  public static randomBlankNode() {
+    return `_:${v4()}`
   }
 
   /**
@@ -69,9 +74,13 @@ export class DgraphRepository {
    * Throws error if the uid is not found
    *
    * @param response the response from the dgraph mutation
-   * @param blankNodeLabel the label of the blank node (not the blank node itself: INCORRECT - '_:item', CORRECT - 'item')
+   * @param blankNodeLabel the label of the blank node
    */
   getUid(response: Response, blankNodeLabel: string) {
+    if (blankNodeLabel.startsWith('_:')) {
+      blankNodeLabel = blankNodeLabel.substring(2)
+    }
+
     const id = (response.data as any).uids[blankNodeLabel] as string
 
     if (!id) {

@@ -117,6 +117,7 @@ export class ElementMutationFactory {
       componentFixedId,
     } = input
 
+    // To service
     if (instanceOfComponentId && isComponent) {
       throw new Error(
         'Cannot set instanceOfComponentId and isComponent to true at the same time',
@@ -132,11 +133,13 @@ export class ElementMutationFactory {
     const childrenMutations = await this.makeChildrenMutations(children)
     const elementUid = this.blankNodeFactory(input, blankNodeUid)
 
+    // Handled
     const propsMutation = {
       uid: `_:props${elementUid}`,
       data: '{}',
     }
 
+    // Handled
     if (props) {
       try {
         JSON.parse(props)
@@ -146,6 +149,7 @@ export class ElementMutationFactory {
       }
     }
 
+    // Handled
     const hookMutations = this.makeHookMutations(hooks)
 
     const propMapBindingMutations =
@@ -159,6 +163,7 @@ export class ElementMutationFactory {
       atomId = atom.atomId
     }
 
+    // Handled
     let elementName = name
 
     if (!elementName && atom?.atomType) {

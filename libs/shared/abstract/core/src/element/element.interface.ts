@@ -1,12 +1,12 @@
 import { z } from 'zod'
 import { AtomSchema } from '../atom'
 import { HookSchema } from '../hook'
-import { PropSchema } from '../prop/prop.interface'
+import { PropSchema } from '../prop'
 import { TagSchema } from '../tag'
 
 export const PropMapBindingSchema = z.object({
-  id: z.string(),
-  targetElementId: z.string().optional().nullable(),
+  id: z.string().nullish(),
+  targetElementId: z.string().nullish(),
   sourceKey: z.string(),
   targetKey: z.string(),
 })
@@ -14,7 +14,7 @@ export const PropMapBindingSchema = z.object({
 export type IPropMapBinding = z.infer<typeof PropMapBindingSchema>
 
 export const ElementSchema = z.object({
-  id: z.string(),
+  id: z.string().nullish(),
   name: z.string().nullish(),
   css: z.string().nullish(),
   props: PropSchema,
@@ -27,6 +27,9 @@ export const ElementSchema = z.object({
   renderIfPropKey: z.string().nullish(),
   propMapBindings: z.array(PropMapBindingSchema).default([]),
   propTransformationJs: z.string().nullish(),
+  parentElementId: z.string().nullish(),
+  order: z.number().nullish(),
+  ownerId: z.string().nullish(),
 })
 
 export type IElement = z.infer<typeof ElementSchema>
