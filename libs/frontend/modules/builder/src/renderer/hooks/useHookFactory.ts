@@ -1,8 +1,7 @@
 import { IHook } from '@codelab/shared/abstract/core'
 import { AtomType } from '@codelab/shared/codegen/graphql'
+import { mergeProps } from '@codelab/shared/utils'
 import { get } from 'lodash'
-import { useSelector } from 'react-redux'
-import { builderSelectors } from '../..'
 import {
   useGraphqlMutationHook,
   useGraphqlQueryHook,
@@ -20,10 +19,6 @@ export const useHookFactory = (
   hooks: Array<IHook>,
   inputProps?: Record<string, any>,
 ) => {
-  const lastRenderedPropsForElement = useSelector((s) =>
-    builderSelectors.lastRenderedPropsForElement(s, elementId),
-  )
-
   return hooks.reduce<Record<string, any>>((queryProps, hook) => {
     const { config } = hook
     const { data } = config
@@ -31,7 +26,7 @@ export const useHookFactory = (
     const dataWithValues = data.replace(
       /\$\{([^}]*)\}/,
       (string: string, propKey: string) => {
-        return get(lastRenderedPropsForElement, propKey)
+        return get(mergeProps(inputProps, queryProps), propKey)
       },
     )
 

@@ -1,7 +1,7 @@
 import { TypeKindsContext } from '@codelab/frontend/modules/type'
 import { ElementTree } from '@codelab/shared/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
-import React, { ReactElement, ReactNode, useContext, useEffect } from 'react'
+import React, { ReactNode, useContext } from 'react'
 import { RecoilRoot } from 'recoil'
 import { defaultRenderContext } from './defaultRenderContext'
 import { RenderContext } from './types/RenderTypes'
@@ -53,37 +53,6 @@ export const Renderer = ({
       console.groupEnd()
     }
   }
-
-  useEffect(() => {
-    if (context.onRendered) {
-      const renderMap: Record<string, ReactElement> = {}
-      const queue = [rendered]
-
-      while (queue.length) {
-        const element = queue.shift()
-
-        if (element) {
-          if (Array.isArray(element)) {
-            queue.push(...element)
-            continue
-          }
-
-          const props = (element as ReactElement)?.props
-          const id = props?.['data-id']
-
-          if (id) {
-            renderMap[id] = element as ReactElement
-          }
-
-          if (props.children) {
-            queue.push(props.children)
-          }
-        }
-      }
-
-      context.onRendered(renderMap)
-    }
-  }, [context, rendered])
 
   return (
     <ErrorBoundary>
