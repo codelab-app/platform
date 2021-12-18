@@ -1,7 +1,7 @@
 import { TypeKindsContext } from '@codelab/frontend/modules/type'
 import { ElementTree } from '@codelab/shared/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
-import React, { ReactElement, ReactNode, useContext, useEffect } from 'react'
+import React, { ReactElement, useContext, useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import { defaultRenderContext } from './defaultRenderContext'
 import { RenderContext } from './types/RenderTypes'
@@ -9,51 +9,10 @@ import { RenderContext } from './types/RenderTypes'
 export interface RendererProps {
   tree: ElementTree
   isComponentRenderer?: boolean
-  context?: Omit<RenderContext, 'tree' | 'render'>
+  parentContext?: Omit<RenderContext, 'tree' | 'render'>
 }
 
-/**
- * Renders an ElementTree
- */
-export const Renderer = ({
-  tree,
-  context: contextProp,
-  isComponentRenderer,
-}: RendererProps) => {
-  const { typeKindsById } = useContext(TypeKindsContext)
-
-  const context = defaultRenderContext({
-    ...contextProp,
-    typeKindsById,
-    tree,
-  })
-
-  const root = isComponentRenderer
-    ? tree.getRootComponent()
-    : tree.getRootElement()
-
-  if (context.inspect) {
-    console.group('Root')
-  }
-
-  let rendered: ReactNode = null
-
-  if (root) {
-    rendered = context.render(
-      root,
-      {
-        ...(context ?? {}),
-        inspect: false,
-        tree,
-      },
-      {},
-    )
-
-    if (context.inspect) {
-      console.groupEnd()
-    }
-  }
-
+export const RendererRoot = ({ context, rendered }: any) => {
   useEffect(() => {
     if (context.onRendered) {
       const renderMap: Record<string, ReactElement> = {}
@@ -86,11 +45,59 @@ export const Renderer = ({
   }, [context, rendered])
 
   return (
+    <div style={{ minHeight: '100%' }} id="render-root">
+      {rendered}
+    </div>
+  )
+}
+
+/**
+ * Renders an ElementTree
+ */
+export const Renderer = ({
+  tree,
+  parentContext,
+  isComponentRenderer,
+}: RendererProps) => {
+  const { typeKindsById } = useContext(TypeKindsContext)
+
+  const root = isComponentRenderer
+    ? tree.getRootComponent()
+    : tree.getRootElement()
+
+  if (!root) {
+    return null
+  }
+
+  const defaultContext = defaultRenderContext({
+    ...parentContext,
+    typeKindsById,
+    tree,
+  })
+
+  const renderContext: RenderContext = {
+    ...defaultContext,
+    inspect: false,
+    tree,
+  }
+
+  if (renderContext.inspect) {
+    console.group('Root')
+  }
+
+  const rendered = renderContext.render(root, renderContext, {})
+
+  if (renderContext.inspect) {
+    console.groupEnd()
+  }
+
+  return (
     <ErrorBoundary>
       <RecoilRoot>
-        <div style={{ minHeight: '100%' }} id="render-root">
-          {rendered}
-        </div>
+        <RendererRoot
+          context={defaultContext}
+          rendered={rendered}
+        ></RendererRoot>
       </RecoilRoot>
     </ErrorBoundary>
   )
