@@ -50,16 +50,8 @@ export const Renderer = ({
   }
 
   return (
-    <ErrorBoundary>
-      <div style={{ minHeight: '100%' }} id="render-root">
-        <RenderContainer
-          context={renderContext}
-          key={containerKey(root)}
-          isRoot
-        >
-          {rendered}
-        </RenderContainer>
-      </div>
-    </ErrorBoundary>
+    <div style={{ minHeight: '100%' }} id="render-root">
+      {rendered}
+    </div>
   )
 }
