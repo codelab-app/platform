@@ -62,7 +62,7 @@ const BuilderRenderer = ({
     <Renderer
       isComponentRenderer={isComponentBuilder}
       tree={tree}
-      context={{
+      parentContext={{
         onRendered,
         typeKindsById,
         extraElementProps,

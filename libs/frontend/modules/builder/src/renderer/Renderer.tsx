@@ -50,6 +50,53 @@ export const Renderer = ({
   }
 
   return (
+    <div style={{ minHeight: '100%' }} id="render-root">
+      {rendered}
+    </div>
+  )
+}
+
+/**
+ * Renders an ElementTree
+ */
+export const Renderer = ({
+  tree,
+  parentContext,
+  isComponentRenderer,
+}: RendererProps) => {
+  const { typeKindsById } = useContext(TypeKindsContext)
+
+  const root = isComponentRenderer
+    ? tree.getRootComponent()
+    : tree.getRootElement()
+
+  if (!root) {
+    return null
+  }
+
+  const defaultContext = defaultRenderContext({
+    ...parentContext,
+    typeKindsById,
+    tree,
+  })
+
+  const renderContext: RenderContext = {
+    ...defaultContext,
+    inspect: false,
+    tree,
+  }
+
+  if (renderContext.inspect) {
+    console.group('Root')
+  }
+
+  const rendered = renderContext.render(root, renderContext, {})
+
+  if (renderContext.inspect) {
+    console.groupEnd()
+  }
+
+  return (
     <ErrorBoundary>
       <div style={{ minHeight: '100%' }} id="render-root">
         <RenderContainer
