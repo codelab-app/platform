@@ -1,5 +1,5 @@
 import { mergeProps } from '@codelab/shared/utils'
-import { RenderPipeFactory } from '../types/RenderTypes'
+import { RenderPipeFactory } from '../types'
 
 export const persistedPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {

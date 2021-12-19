@@ -1,4 +1,4 @@
-import { RenderPipeFactory } from '../types/RenderTypes'
+import { RenderPipeFactory } from '../types'
 
 /**
  * Adds in props from element.hooks
