@@ -1,6 +1,6 @@
 import { mergeProps } from '@codelab/shared/utils'
-import { RenderPipeFactory } from '../types'
 import { applyBinding } from '../utils/applyBinding'
+import { RenderPipeFactory } from './types'
 
 /**
  * Adds the prop map bindings to the context

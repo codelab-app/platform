@@ -1,5 +1,5 @@
 import { mergeProps } from '@codelab/shared/utils'
-import { RenderPipeFactory } from '../types'
+import { RenderPipeFactory } from './types'
 
 /** If the element is a component add 'data-component-id' to the extra props */
 export const componentPipe: RenderPipeFactory =

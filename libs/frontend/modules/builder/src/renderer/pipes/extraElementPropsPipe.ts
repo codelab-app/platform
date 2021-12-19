@@ -1,5 +1,5 @@
 import { mergeProps } from '@codelab/shared/utils'
-import { RenderPipeFactory } from '../types'
+import { RenderPipeFactory } from './types'
 
 /**
  * Adds context.extraElementProps

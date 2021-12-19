@@ -1,8 +1,8 @@
 import { TypeKind } from '@codelab/frontend/abstract/codegen'
 import { mergeProps } from '@codelab/shared/utils'
-import { RenderPipeFactory } from '../types'
 import { getPropsByTypeKind } from '../utils/getPropsByTypeKind'
 import { transformPropsToComponent } from '../utils/tranformPropsToComponent'
+import { RenderPipeFactory } from './types'
 
 export const renderPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
