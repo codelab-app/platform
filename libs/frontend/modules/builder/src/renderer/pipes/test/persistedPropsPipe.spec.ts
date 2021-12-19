@@ -1,7 +1,7 @@
 import { IElement } from '@codelab/shared/abstract/core'
-import { persistedPropsPipe } from './persistedPropsPipe'
-import { elementToRender } from './test'
-import { RenderContext } from './types'
+import { persistedPropsPipe } from '../persistedPropsPipe'
+import { RenderContext } from '../types'
+import { elementToRender } from './data'
 
 const defaultContext = {} as RenderContext
 const initialProps = {}
@@ -40,6 +40,13 @@ describe('PersistedPropsPipe', () => {
       initialProps,
     )
 
-    expect(restful).toStrictEqual(JSON.parse(elementToRender.props.data))
+    expect(restful).toStrictEqual({
+      prop01: 'prop01Value',
+      prop02: 'prop02Value',
+      prop03: {
+        typeKind: 'PrimitiveType',
+        value: 'prop03Value',
+      },
+    })
   })
 })

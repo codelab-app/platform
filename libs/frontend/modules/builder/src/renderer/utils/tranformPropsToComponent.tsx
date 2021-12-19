@@ -1,7 +1,7 @@
 import { mergeProps } from '@codelab/shared/utils'
 import * as _ from 'lodash'
 import React from 'react'
-import { RenderContext } from '../types/RenderTypes'
+import { RenderContext } from '../pipes'
 
 export const transformPropsToComponent = (
   props: Record<string, any>,

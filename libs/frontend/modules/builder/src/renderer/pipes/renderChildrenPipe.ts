@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { RenderTypes } from '../types/RenderTypes'
+import { RenderTypes } from './types'
 
 /**
  * Renders the elements children, this should be the last pipe

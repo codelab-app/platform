@@ -1,6 +1,6 @@
 import { IElement } from '@codelab/shared/abstract/core'
 import { ReactNode } from 'react'
-import { RenderContext, RenderOutput } from '../types/RenderTypes'
+import { RenderContext, RenderOutput } from '../pipes'
 
 export const onRendered = (
   rendered: RenderOutput,
