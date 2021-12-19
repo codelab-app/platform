@@ -20,7 +20,7 @@ import { renderPropsPipe } from './renderPropsPipe'
 //
 
 // (1). Base props
-const propsPipeline = compose(
+export const propsPipeline = compose(
   basePropsPipe,
   persistedPropsPipe,
   extraElementPropsPipe,
@@ -28,7 +28,7 @@ const propsPipeline = compose(
 )
 
 // (2).Prop transformers
-const propModifiersPipeline = compose(
+export const propModifiersPipeline = compose(
   hookPipe,
   propTransformationJsPipe,
   loopingRenderPipe,
@@ -36,7 +36,7 @@ const propModifiersPipeline = compose(
 )
 
 // (3). All the pipes that output ReactElements
-const elementPipeline = compose(
+export const elementPipeline = compose(
   renderPropsPipe,
   reactNodePipe,
   conditionalRenderPipe,
