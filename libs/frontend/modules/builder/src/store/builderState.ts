@@ -1,4 +1,3 @@
-import { PropsByElementId } from '@codelab/shared/abstract/core'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { DefaultRootState } from 'react-redux'
@@ -11,16 +10,22 @@ export enum BuilderTab {
 
 export type SelectElementActionPayload = Partial<ElementIdPayload>
 export type HoverElementActionPayload = Partial<ElementIdPayload>
+export type RenderPipelineProps = Record<string, unknown>
+
+export type RenderPipelinePropsByElementId = Record<
+  string,
+  RenderPipelineProps | undefined
+>
 
 export interface BuilderState {
   selectedElementId?: string
   hoveringElementId?: string
 
   /** Add props here to be added to the elements when rendered */
-  extraElementProps: PropsByElementId
+  extraElementProps: RenderPipelinePropsByElementId
 
   /** The last rendered props per element id */
-  lastRenderedProps: PropsByElementId
+  lastRenderedProps: RenderPipelinePropsByElementId
 
   /** Contrary to other tabs, the builder tab is part of the state as it is not related to routing */
   tab: BuilderTab
@@ -41,7 +46,7 @@ export interface ElementIdPayload {
 }
 
 export interface PropsPerElementIdPayload extends ElementIdPayload {
-  props: Record<string, any>
+  props: RenderPipelineProps
 }
 
 export const builderSlice = createSlice({
@@ -85,7 +90,7 @@ export const builderSlice = createSlice({
     },
     setLastRenderedProps: (
       state,
-      { payload }: PayloadAction<PropsByElementId>,
+      { payload }: PayloadAction<RenderPipelinePropsByElementId>,
     ) => {
       state.lastRenderedProps = payload
     },

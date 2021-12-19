@@ -1,8 +1,12 @@
 import { TypeKind } from '@codelab/frontend/abstract/codegen'
 import { IElement } from '@codelab/frontend/abstract/core'
-import { IProps, PropsByElementId, TypeId } from '@codelab/shared/abstract/core'
+import { TypeId } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
+import {
+  RenderPipelineProps,
+  RenderPipelinePropsByElementId,
+} from '../../store'
 
 export type RenderOutput = React.ReactNode
 
@@ -11,10 +15,10 @@ export interface RenderContext {
   tree: ElementTree
 
   /** Extra props passed to all element. They override the common props, but props from the node instance override the extraProps */
-  extraProps?: IProps
+  extraProps?: RenderPipelineProps
 
   /** Extra props keyed by element id, they override every other prop */
-  extraElementProps?: PropsByElementId
+  extraElementProps?: RenderPipelinePropsByElementId
 
   /**
    * A reference to the render pipeline which allows any custom component to render a node
@@ -35,7 +39,7 @@ export interface RenderContext {
 export type RenderTypes = (
   element: IElement,
   context: RenderContext,
-  props: Record<string, any>,
+  props: RenderPipelineProps,
 ) => RenderOutput
 
 export type RenderPipeFactory = (next: RenderTypes) => RenderTypes

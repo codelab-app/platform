@@ -1,6 +1,6 @@
-import { PropsByElementId } from '@codelab/shared/abstract/core'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { ReactNode, useCallback } from 'react'
+import { RenderPipelinePropsByElementId } from '../store'
 import { useBuilderDispatch } from './useBuilderDispatch'
 
 export interface UseOnRendered {
@@ -15,7 +15,7 @@ export const useOnRendered = (): UseOnRendered => {
 
   const onRendered: UseOnRendered['onRendered'] = useCallback(
     (renderMap) => {
-      const propMap: PropsByElementId = {}
+      const propMap: RenderPipelinePropsByElementId = {}
 
       Object.keys(renderMap).forEach((key) => {
         const props = (renderMap[key] as any)?.props
