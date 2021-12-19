@@ -1,7 +1,7 @@
 import { IElement } from '@codelab/shared/abstract/core'
-import { extraElementPropsPipe } from './extraElementPropsPipe'
-import { elementToRender } from './test'
-import { RenderContext } from './types'
+import { extraElementPropsPipe } from '../extraElementPropsPipe'
+import { RenderContext } from '../types'
+import { elementToRender } from './data'
 
 const extraElementProps: RenderContext['extraElementProps'] = {
   [elementToRender.id]: {

@@ -3,8 +3,8 @@ import { ElementTree } from '@codelab/shared/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
-import { defaultRenderContext } from './defaultRenderContext'
-import { RenderContext } from './types/RenderTypes'
+import { RenderContext } from './pipes'
+import { defaultRenderContext } from './utils/defaultRenderContext'
 
 export interface RendererProps {
   tree: ElementTree

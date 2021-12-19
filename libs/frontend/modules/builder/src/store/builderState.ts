@@ -10,7 +10,7 @@ export enum BuilderTab {
 
 export type SelectElementActionPayload = Partial<ElementIdPayload>
 export type HoverElementActionPayload = Partial<ElementIdPayload>
-export type RenderPipelineProps = Record<string, unknown>
+export type RenderPipelineProps = Record<string, any>
 
 export type RenderPipelinePropsByElementId = Record<
   string,

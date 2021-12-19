@@ -1,7 +1,7 @@
 import { IElement } from '@codelab/shared/abstract/core'
-import { basePropsPipe } from './basePropsPipe'
-import { elementToRender } from './test'
-import { RenderContext } from './types'
+import { basePropsPipe } from '../basePropsPipe'
+import { RenderContext } from '../types'
+import { elementToRender } from './data'
 
 const defaultContext = {} as RenderContext
 const initialProps = {}
