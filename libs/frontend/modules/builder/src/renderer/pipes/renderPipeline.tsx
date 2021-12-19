@@ -8,27 +8,27 @@ import { hookPipe } from './hookPipe'
 import { loopingRenderPipe } from './loopRenderingPipe'
 import { persistedPropsPipe } from './persistedPropsPipe'
 import { propMapBindingsPipe } from './propMapBindingsPipe'
+import { propsWithTypePipe } from './propsWithTypePipe'
 import { propTransformationJsPipe } from './propTransformationJsPipe'
 import { reactNodePipe } from './reactNodePipe'
 import { renderAtomPipe } from './renderAtomPipe'
 import { renderChildrenPipe } from './renderChildrenPipe'
 import { renderPropsPipe } from './renderPropsPipe'
-import { typedPropsPipe } from './typedPropsPipe'
 
 //
 // Construct the pipeline:
 //
 
 // (1). Base props
-export const propsPipeline = compose(
+const propsPipeline = compose(
   basePropsPipe,
   persistedPropsPipe,
   extraElementPropsPipe,
-  typedPropsPipe,
+  propsWithTypePipe,
 )
 
 // (2).Prop transformers
-export const propModifiersPipeline = compose(
+const propModifiersPipeline = compose(
   hookPipe,
   propTransformationJsPipe,
   loopingRenderPipe,
@@ -36,7 +36,7 @@ export const propModifiersPipeline = compose(
 )
 
 // (3). All the pipes that output ReactElements
-export const elementPipeline = compose(
+const elementPipeline = compose(
   renderPropsPipe,
   reactNodePipe,
   conditionalRenderPipe,
