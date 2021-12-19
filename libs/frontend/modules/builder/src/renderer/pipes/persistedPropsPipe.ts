@@ -2,6 +2,9 @@ import { mergeProps } from '@codelab/shared/utils'
 import { attempt, isError } from 'lodash'
 import { RenderPipeFactory } from './types'
 
+/**
+ * Adds in props from element.props.data
+ */
 export const persistedPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
     const persistedProps = attempt(JSON.parse, element.props.data)
