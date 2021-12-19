@@ -19,7 +19,7 @@ export const elementToRender: IElement = {
   componentTag: null,
   props: {
     id: '0x27868',
-    data: '{}',
+    data: '{"prop01":"prop01Value","prop02":"prop02Value", "prop03":{"typeKind":"PrimitiveType","value": "prop03Value"}}',
   },
   hooks: [
     {
