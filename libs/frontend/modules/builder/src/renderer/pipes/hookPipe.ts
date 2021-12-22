@@ -6,6 +6,10 @@ import { RenderPipeFactory } from './types'
  */
 export const hookPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
+    if (!context.getHooksResponse) {
+      return next(element, context, props)
+    }
+
     const { getHooksResponse } = context
     const { hooks } = element
     const hooksResponse = getHooksResponse(hooks, props)

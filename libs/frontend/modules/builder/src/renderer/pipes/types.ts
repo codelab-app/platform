@@ -4,6 +4,7 @@ import { IHook, TypeId } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import {
+  PropsPerElementIdPayload,
   RenderPipelineProps,
   RenderPipelinePropsByElementId,
 } from '../../store'
@@ -13,7 +14,7 @@ export type RenderOutput = React.ReactNode
 export interface RendererProps {
   tree: ElementTree
   isComponentRenderer?: boolean
-  parentContext: Omit<RenderContext, 'tree'>
+  parentContext?: Omit<RenderContext, 'tree'>
 }
 
 export interface RenderContext {
@@ -26,14 +27,14 @@ export interface RenderContext {
   /** Extra props keyed by element id, they override every other prop */
   extraElementProps?: RenderPipelinePropsByElementId
 
-  getHooksResponse: (
+  getHooksResponse?: (
     hooks: Array<IHook>,
     props: RenderPipelineProps,
   ) => RenderPipelineProps
   /**
    * Called after the element tree is re-rendered
    */
-  onRendered: (renderedElementsById: Record<string, RenderOutput>) => void
+  onRendered?: (renderedElementsById: PropsPerElementIdPayload) => void
 
   /** Set to true to log rendering information */
   inspect?: boolean
