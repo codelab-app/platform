@@ -1,5 +1,5 @@
 import { IElement } from '@codelab/shared/abstract/core'
-import { propsWithTypePipe } from '../propsWithTypePipe'
+import { typedPropsPipe } from '../typedPropsPipe'
 import { RenderContext } from '../types'
 import { elementToRender } from './data'
 
@@ -12,9 +12,9 @@ const restfulPipe = (
   props: Record<string, unknown>,
 ) => props
 
-describe('PropsWithTypePipe', () => {
+describe('typedPropsPipe', () => {
   it('should transform props with type', () => {
-    const restful = propsWithTypePipe(restfulPipe)(
+    const restful = typedPropsPipe(restfulPipe)(
       elementToRender,
       defaultContext,
       initialProps,
