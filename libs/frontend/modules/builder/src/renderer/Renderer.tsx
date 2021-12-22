@@ -1,10 +1,7 @@
 import { TypeKindsContext } from '@codelab/frontend/modules/type'
-import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import React, { useContext } from 'react'
 import { useHookResponse } from './hooks/useHookResponse'
 import { RenderContext, RendererProps, renderPipeline } from './pipes'
-import { RenderContainer } from './renderContainer'
-import { containerKey } from './utils'
 
 /**
  * Renders an ElementTree

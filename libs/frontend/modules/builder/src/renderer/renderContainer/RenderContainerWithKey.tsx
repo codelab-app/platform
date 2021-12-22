@@ -26,6 +26,10 @@ export const RenderContainerWithKey = ({
   }
 
   useEffect(() => {
+    if (!context.onRendered) {
+      return
+    }
+
     const renderedElement = rendered as ReactElement
     const elementId = getElementId(renderedElement)
     const renderedElementProps = renderedElement.props
