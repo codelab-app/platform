@@ -1,3 +1,4 @@
+import { IElement } from '@codelab/shared/abstract/core'
 import { RenderPipelineProps } from '../../../store'
 import { propTransformationJsPipe } from '../propTransformationJsPipe'
 import { RenderContext } from '../types'
