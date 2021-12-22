@@ -75,7 +75,7 @@ export const Renderer = ({
     return null
   }
 
-  const defaultContext: RenderContext = {
+  const defaultContext = {
     ...parentContext,
     typeKindsById,
     tree,
