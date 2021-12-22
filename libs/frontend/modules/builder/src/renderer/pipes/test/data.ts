@@ -49,5 +49,6 @@ export const elementToRender: IElement = {
       targetKey: 'randomProp',
     },
   ],
-  propTransformationJs: null,
+  propTransformationJs:
+    '// Write a transformer function, you get the input props as parameter\n// All returned props will get merged with the original ones\nfunction transform(props){\n  return Object.keys(props)\n        .map((x)=> ({\n          [`${x}-edited`] : props[x]\n        }))\n        .reduce((total,current) => \n          ({...total,...current}),\n          {}\n        )\n}',
 }
