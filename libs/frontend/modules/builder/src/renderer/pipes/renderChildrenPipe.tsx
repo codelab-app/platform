@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import { RenderContainer } from '../renderContainer'
 import { RenderTypes } from './types'
 
 /**
@@ -19,7 +20,14 @@ export const renderChildrenPipe: RenderTypes = (element, context, props) => {
   }
 
   const rendered = childVertices
-    .map((child) => context.render(child, context, {}))
+    .map((child) => (
+      <RenderContainer
+        element={child}
+        context={context}
+        props={{}}
+        key={child.id}
+      />
+    ))
     .filter((c): c is ReactElement => !!c)
 
   if (!rendered?.length) {

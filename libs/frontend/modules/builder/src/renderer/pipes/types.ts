@@ -1,6 +1,6 @@
 import { TypeKind } from '@codelab/frontend/abstract/codegen'
 import { IElement } from '@codelab/frontend/abstract/core'
-import { TypeId } from '@codelab/shared/abstract/core'
+import { IHook, TypeId } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import {
@@ -9,6 +9,12 @@ import {
 } from '../../store'
 
 export type RenderOutput = React.ReactNode
+
+export interface RendererProps {
+  tree: ElementTree
+  isComponentRenderer?: boolean
+  parentContext: Omit<RenderContext, 'tree'>
+}
 
 export interface RenderContext {
   /** The rendered tree */
@@ -20,16 +26,14 @@ export interface RenderContext {
   /** Extra props keyed by element id, they override every other prop */
   extraElementProps?: RenderPipelinePropsByElementId
 
-  /**
-   * A reference to the render pipeline which allows any custom component to render a node
-   * It's needed in the context, because rendered components can't import it directly, because it will cause a circular dependency
-   * */
-  render: RenderTypes
-
+  getHooksResponse: (
+    hooks: Array<IHook>,
+    props: RenderPipelineProps,
+  ) => RenderPipelineProps
   /**
    * Called after the element tree is re-rendered
    */
-  onRendered?: (renderedElementsById: Record<string, RenderOutput>) => void
+  onRendered: (renderedElementsById: Record<string, RenderOutput>) => void
 
   /** Set to true to log rendering information */
   inspect?: boolean

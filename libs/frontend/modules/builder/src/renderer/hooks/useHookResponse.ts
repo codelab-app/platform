@@ -1,6 +1,7 @@
 import { IHook } from '@codelab/shared/abstract/core'
 import { AtomType } from '@codelab/shared/codegen/graphql'
-import { attempt, get, isError, keys } from 'lodash'
+import { attempt, get, isError, keys, merge } from 'lodash'
+import { RenderPipelineProps } from '../../store'
 import {
   useGraphqlMutationHook,
   useGraphqlQueryHook,
@@ -29,12 +30,35 @@ const hookHandlers = {
 }
 
 export const useHookResponse = () => {
-  // TODO: implement useHookResponse
+  const getHooksResponse = (
+    hooks: Array<IHook>,
+    props: RenderPipelineProps,
+  ) => {
+    return hooks.reduce((responses, hook: IHook): RenderPipelineProps => {
+      const mergedProps = merge(responses, props)
+      const hookConfig = getHookConfig(hook, mergedProps)
+      const hookResponse = executeHook(hookConfig, mergedProps)
+
+      return merge(responses, hookResponse)
+    }, {})
+  }
+
+  return { getHooksResponse }
 }
 
-const withValues = (data: string, props: Props = {}): string => {
+const getHookConfig = (hook: IHook, props: RenderPipelineProps): IHook => {
+  return {
+    ...hook,
+    config: {
+      ...hook.config,
+      data: withValues(hook.config.data, props),
+    },
+  }
+}
+
+const withValues = (data: string, props: RenderPipelineProps = {}): string => {
   return data.replace(HOOK_VARIABLE_REGEXP, (_: string, propKey: string) =>
-    get(props, propKey),
+    get(props, propKey, `Prop ${propKey} not found`),
   )
 }
 

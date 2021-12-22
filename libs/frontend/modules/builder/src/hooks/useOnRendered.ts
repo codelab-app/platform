@@ -1,33 +1,26 @@
 import { propSafeStringify } from '@codelab/shared/utils'
-import { ReactNode, useCallback } from 'react'
-import { RenderPipelinePropsByElementId } from '../store'
+import { useCallback } from 'react'
+import { PropsPerElementIdPayload } from '../store'
 import { useBuilderDispatch } from './useBuilderDispatch'
 
 export interface UseOnRendered {
-  onRendered: (renderMap: Record<string, ReactNode>) => void
+  onRendered: (props: PropsPerElementIdPayload) => void
 }
 
 /**
  * Provides a handler that updates the lastRenderedProps in the builder state
  */
 export const useOnRendered = (): UseOnRendered => {
-  const { setLastRenderedProps } = useBuilderDispatch()
+  const { setLastRenderedPropsForElement } = useBuilderDispatch()
 
   const onRendered: UseOnRendered['onRendered'] = useCallback(
-    (renderMap) => {
-      const propMap: RenderPipelinePropsByElementId = {}
-
-      Object.keys(renderMap).forEach((key) => {
-        const props = (renderMap[key] as any)?.props
-
-        if (props && typeof props === 'object') {
-          propMap[key] = props
-        }
+    ({ elementId, props }) => {
+      setLastRenderedPropsForElement({
+        elementId,
+        props: JSON.parse(propSafeStringify(props)),
       })
-
-      setLastRenderedProps(JSON.parse(propSafeStringify(propMap)))
     },
-    [setLastRenderedProps],
+    [setLastRenderedPropsForElement],
   )
 
   return { onRendered }
