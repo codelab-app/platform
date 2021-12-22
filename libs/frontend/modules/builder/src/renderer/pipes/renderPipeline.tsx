@@ -8,12 +8,12 @@ import { hookPipe } from './hookPipe'
 import { loopingRenderPipe } from './loopRenderingPipe'
 import { persistedPropsPipe } from './persistedPropsPipe'
 import { propMapBindingsPipe } from './propMapBindingsPipe'
-import { propsWithTypePipe } from './propsWithTypePipe'
 import { propTransformationJsPipe } from './propTransformationJsPipe'
 import { reactNodePipe } from './reactNodePipe'
 import { renderAtomPipe } from './renderAtomPipe'
 import { renderChildrenPipe } from './renderChildrenPipe'
 import { renderPropsPipe } from './renderPropsPipe'
+import { typedPropsPipe } from './typedPropsPipe'
 
 //
 // Construct the pipeline:
@@ -24,7 +24,7 @@ export const propsPipeline = compose(
   basePropsPipe,
   persistedPropsPipe,
   extraElementPropsPipe,
-  propsWithTypePipe,
+  typedPropsPipe,
 )
 
 // (2).Prop transformers
