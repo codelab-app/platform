@@ -28,22 +28,12 @@ export const Renderer = ({
     tree,
   }
 
-  const renderContext: RenderContext = {
+  const context: RenderContext = {
     ...defaultContext,
     getHooksResponse,
     render: renderPipeline,
     inspect: false,
     tree,
-  }
-
-  if (renderContext.inspect) {
-    console.group('Root')
-  }
-
-  const rendered = renderContext.render(root, renderContext, {})
-
-  if (renderContext.inspect) {
-    console.groupEnd()
   }
 
   return (
