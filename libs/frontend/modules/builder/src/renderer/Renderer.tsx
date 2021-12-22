@@ -65,6 +65,7 @@ export const Renderer = ({
   isComponentRenderer,
 }: RendererProps) => {
   const { typeKindsById } = useContext(TypeKindsContext)
+  const { getHooksResponse } = useHookResponse()
 
   const root = isComponentRenderer
     ? tree.getRootComponent()
@@ -74,26 +75,17 @@ export const Renderer = ({
     return null
   }
 
-  const defaultContext = defaultRenderContext({
+  const defaultContext: RenderContext = {
     ...parentContext,
     typeKindsById,
     tree,
-  })
+  }
 
-  const renderContext: RenderContext = {
+  const context: RenderContext = {
     ...defaultContext,
+    getHooksResponse,
     inspect: false,
     tree,
-  }
-
-  if (renderContext.inspect) {
-    console.group('Root')
-  }
-
-  const rendered = renderContext.render(root, renderContext, {})
-
-  if (renderContext.inspect) {
-    console.groupEnd()
   }
 
   return (
