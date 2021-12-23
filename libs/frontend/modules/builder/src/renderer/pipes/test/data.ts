@@ -39,7 +39,7 @@ export const elementToRender: IElement = {
       },
     },
   ],
-  renderForEachPropKey: null,
+  renderForEachPropKey: 'renderForEachProp',
   renderIfPropKey: null,
   propMapBindings: [
     {
