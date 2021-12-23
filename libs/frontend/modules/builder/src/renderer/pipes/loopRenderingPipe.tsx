@@ -1,5 +1,7 @@
 import { mergeProps } from '@codelab/shared/utils'
+import { isArray, isObjectLike } from 'lodash'
 import React from 'react'
+import { RenderPipelineProps } from '../../store'
 import { RenderPipeFactory } from './types'
 
 /**
@@ -8,31 +10,20 @@ import { RenderPipeFactory } from './types'
  */
 export const loopingRenderPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    if (!element.renderForEachPropKey) {
-      return next(element, context, props)
+    const { renderForEachPropKey } = element
+    const value = renderForEachPropKey ? props[renderForEachPropKey] : null
+
+    if (!isObjectLike(value) || !isArray(value)) {
+      const nextProps = isObjectLike(value) ? mergeProps(props, value) : props
+
+      return next(element, context, nextProps)
     }
 
-    const value = props[element.renderForEachPropKey]
+    const renderProp = (valueProp: RenderPipelineProps, index: number) => {
+      const key = `${props.key || element.id}-${index}`
 
-    if (typeof value !== 'object') {
-      return next(element, context, props)
+      return next(element, context, mergeProps(props, valueProp, { key }))
     }
 
-    if (!Array.isArray(value)) {
-      return next(element, context, mergeProps(props, value))
-    }
-
-    return (
-      <>
-        {value.map((valueProps, i) => {
-          return next(
-            element,
-            context,
-            mergeProps(props, valueProps, {
-              key: `${props.key || element.id}-${i}`,
-            }),
-          )
-        })}
-      </>
-    )
+    return <>{value.map(renderProp)}</>
   }
