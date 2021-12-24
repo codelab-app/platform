@@ -17,7 +17,7 @@ const getHooksResponse = (hooks: Array<IHook>, props: RenderPipelineProps) =>
 const defaultContext = { getHooksResponse } as RenderContext
 const initialProps = {}
 
-const restfulPipe = (
+const resultPipe = (
   element: IElement,
   context: RenderContext,
   props: Record<string, unknown>,
@@ -25,7 +25,7 @@ const restfulPipe = (
 
 describe('HookPipe', () => {
   it('should hooks responses to props', () => {
-    const restful = hookPipe(restfulPipe)(
+    const restful = hookPipe(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,

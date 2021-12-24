@@ -15,7 +15,7 @@ const initialProps = {
   ],
 }
 
-const restfulPipe = (
+const resultPipe = (
   element: IElement,
   context: RenderContext,
   props: Record<string, unknown>,
@@ -23,7 +23,7 @@ const restfulPipe = (
 
 describe('LoopingRenderPipe', () => {
   it('should add renderForEachPropKey props', () => {
-    const restful = loopingRenderPipe(restfulPipe)(
+    const restful = loopingRenderPipe(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,

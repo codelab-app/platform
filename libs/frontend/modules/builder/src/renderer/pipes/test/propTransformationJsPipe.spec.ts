@@ -12,7 +12,7 @@ const initialProps: RenderPipelineProps = {
   prop03: 'prop03Value',
 }
 
-const restfulPipe = (
+const resultPipe = (
   element: IElement,
   context: RenderContext,
   props: Record<string, unknown>,
@@ -20,7 +20,7 @@ const restfulPipe = (
 
 describe('PropTransformationJsPipe', () => {
   it('should apply transformation function', () => {
-    const restful = propTransformationJsPipe(restfulPipe)(
+    const restful = propTransformationJsPipe(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,
@@ -40,7 +40,7 @@ describe('PropTransformationJsPipe', () => {
       propTransformationJs: 'invalid function',
     }
 
-    const restful = propTransformationJsPipe(restfulPipe)(
+    const restful = propTransformationJsPipe(resultPipe)(
       elementWithInvalidTransformFn,
       defaultContext,
       initialProps,
