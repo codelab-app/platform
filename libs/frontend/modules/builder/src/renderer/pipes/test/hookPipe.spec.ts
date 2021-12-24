@@ -1,8 +1,10 @@
-import { IElement, IHook } from '@codelab/shared/abstract/core'
+import { IHook } from '@codelab/shared/abstract/core'
 import { RenderPipelineProps } from '../../../store'
 import { hookPipe } from '../hookPipe'
 import { RenderContext } from '../types'
 import { elementToRender } from './data'
+import { ResultPipeOutput } from './types'
+import { resultPipe } from './utils'
 
 const testHookResponse: RenderPipelineProps = {
   testHookResponse: {
@@ -17,20 +19,14 @@ const getHooksResponse = (hooks: Array<IHook>, props: RenderPipelineProps) =>
 const defaultContext = { getHooksResponse } as RenderContext
 const initialProps = {}
 
-const resultPipe = (
-  element: IElement,
-  context: RenderContext,
-  props: Record<string, unknown>,
-) => props
-
 describe('HookPipe', () => {
   it('should hooks responses to props', () => {
-    const restful = hookPipe(resultPipe)(
+    const { props } = hookPipe(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,
-    )
+    ) as ResultPipeOutput
 
-    expect(restful).toStrictEqual(testHookResponse)
+    expect(props).toStrictEqual(testHookResponse)
   })
 })

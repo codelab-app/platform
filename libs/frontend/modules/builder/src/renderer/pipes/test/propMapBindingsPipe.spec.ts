@@ -1,15 +1,11 @@
-import { IElement } from '@codelab/shared/abstract/core'
 import { RenderPipelineProps } from '../../../store'
 import { propMapBindingsPipe } from '../propMapBindingsPipe'
 import { RenderContext } from '../types'
 import { elementToRender } from './data'
+import { ResultPipeOutput } from './types'
+import { resultPipe } from './utils'
 
 const defaultContext = {} as RenderContext
-
-type ResultPipeOutput = {
-  props: RenderPipelineProps
-  extraElementProps?: RenderPipelineProps
-}
 
 const initialProps: RenderPipelineProps = {
   test: {
@@ -19,19 +15,6 @@ const initialProps: RenderPipelineProps = {
       '03': 'random-value-03',
     },
   },
-}
-
-const resultPipe = (
-  element: IElement,
-  context: RenderContext,
-  props: Record<string, unknown>,
-): ResultPipeOutput => {
-  const { extraElementProps } = context
-
-  return {
-    props,
-    extraElementProps,
-  }
 }
 
 describe('PropMapBindingsPipe', () => {
