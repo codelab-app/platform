@@ -13,7 +13,7 @@ const extraElementProps: RenderContext['extraElementProps'] = {
 const defaultContext = { extraElementProps } as RenderContext
 const initialProps = {}
 
-const restfulPipe = (
+const resultPipe = (
   element: IElement,
   context: RenderContext,
   props: Record<string, unknown>,
@@ -21,7 +21,7 @@ const restfulPipe = (
 
 describe('ExtraElementPropsPipe', () => {
   it('should add element extra props', () => {
-    const restful = extraElementPropsPipe(restfulPipe)(
+    const restful = extraElementPropsPipe(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,

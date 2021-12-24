@@ -6,7 +6,7 @@ import { elementToRender } from './data'
 const defaultContext = {} as RenderContext
 const initialProps = JSON.parse(elementToRender.props.data)
 
-const restfulPipe = (
+const resultPipe = (
   element: IElement,
   context: RenderContext,
   props: Record<string, unknown>,
@@ -14,7 +14,7 @@ const restfulPipe = (
 
 describe('typedPropsPipe', () => {
   it('should transform props with type', () => {
-    const restful = typedPropsPipe(restfulPipe)(
+    const restful = typedPropsPipe(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,

@@ -44,9 +44,21 @@ export const elementToRender: IElement = {
   propMapBindings: [
     {
       id: '0x2bf22',
-      sourceKey: 'routerHook.query.test',
+      sourceKey: 'test.source.01',
       targetElementId: null,
-      targetKey: 'randomProp',
+      targetKey: 'testTarget01',
+    },
+    {
+      id: '0x2bf23',
+      sourceKey: 'test.source.02',
+      targetElementId: '0x2786f',
+      targetKey: 'testTarget02',
+    },
+    {
+      id: '0x2bf24',
+      sourceKey: 'test.source.03',
+      targetElementId: '0x2786h',
+      targetKey: 'testTarget03',
     },
   ],
   propTransformationJs:

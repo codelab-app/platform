@@ -6,7 +6,7 @@ import { elementToRender } from './data'
 const defaultContext = {} as RenderContext
 const initialProps = {}
 
-const restfulPipe = (
+const resultPipe = (
   element: IElement,
   context: RenderContext,
   props: Record<string, unknown>,
@@ -24,7 +24,7 @@ describe('PersistedPropsPipe', () => {
       props: propsWithInvalidData,
     }
 
-    const restful = persistedPropsPipe(restfulPipe)(
+    const restful = persistedPropsPipe(resultPipe)(
       elementWithInvalidPropsData,
       defaultContext,
       initialProps,
@@ -34,7 +34,7 @@ describe('PersistedPropsPipe', () => {
   })
 
   it('should add persisted props', () => {
-    const restful = persistedPropsPipe(restfulPipe)(
+    const restful = persistedPropsPipe(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,

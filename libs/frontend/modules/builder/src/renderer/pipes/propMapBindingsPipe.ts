@@ -1,4 +1,5 @@
 import { mergeProps } from '@codelab/shared/utils'
+import { merge } from 'lodash'
 import { applyBinding } from '../utils/applyBinding'
 import { RenderPipeFactory } from './types'
 
@@ -7,36 +8,29 @@ import { RenderPipeFactory } from './types'
  */
 export const propMapBindingsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    const extraProps = {
-      ...context.extraElementProps,
-    }
+    const { extraElementProps } = context
+    const { propMapBindings } = element
 
-    let currentElementProps: Record<string, any> = {}
+    const toTargetElements = propMapBindings
+      .filter((x) => x.targetElementId)
+      .reduce((all, current) => {
+        const targetId = current.targetElementId as keyof typeof all
+        const targetElementBinding = all[targetId] ?? {}
+        const bindings = applyBinding(targetElementBinding, props, current)
 
-    if (element.propMapBindings && element.propMapBindings.length > 0) {
-      for (const binding of element.propMapBindings) {
-        if (binding.targetElementId) {
-          extraProps[binding.targetElementId] = applyBinding(
-            extraProps[binding.targetElementId] ?? {},
-            props,
-            binding,
-          )
-        } else {
-          currentElementProps = applyBinding(
-            currentElementProps,
-            props,
-            binding,
-          )
-        }
-      }
-    }
+        return { ...all, [targetId]: bindings }
+      }, extraElementProps ?? {})
 
-    return next(
-      element,
-      {
-        ...context,
-        extraElementProps: extraProps,
-      },
-      mergeProps(props, currentElementProps),
-    )
+    const toCurrentElement = propMapBindings
+      .filter((x) => !x.targetElementId)
+      .reduce((all, current) => {
+        const bindings = applyBinding(all, props, current)
+
+        return merge(all, bindings)
+      }, {})
+
+    const updatedContext = { ...context, extraElementProps: toTargetElements }
+    const updatedProps = mergeProps(props, toCurrentElement)
+
+    return next(element, updatedContext, updatedProps)
   }

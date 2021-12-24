@@ -6,7 +6,7 @@ import { elementToRender } from './data'
 const defaultContext = {} as RenderContext
 const initialProps = {}
 
-const restfulPipe = (
+const resultPipe = (
   element: IElement,
   context: RenderContext,
   props: Record<string, unknown>,
@@ -14,7 +14,7 @@ const restfulPipe = (
 
 describe('PropsPipe', () => {
   it('should add props with type', () => {
-    const restful = propsPipeline(restfulPipe)(
+    const restful = propsPipeline(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,
