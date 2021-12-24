@@ -8,36 +8,36 @@ type TransformFn = (props: RenderPipelineProps) => RenderPipelineProps
 
 const getTransformFn = (transformationJs: string): TransformFn | undefined => {
   // eslint-disable-next-line no-eval
-  const restful = attempt(eval, `(${transformationJs})`) // the parentheses allow us to return a function from eval
+  const result = attempt(eval, `(${transformationJs})`) // the parentheses allow us to return a function from eval
 
-  if (isError(restful)) {
-    console.warn('Error while evaluating prop transformation', restful)
+  if (isError(result)) {
+    console.warn('Error while evaluating prop transformation', result)
 
     return undefined
   }
 
-  if (typeof restful != 'function') {
+  if (typeof result != 'function') {
     console.warn('Invalid transformation function')
 
     return undefined
   }
 
-  return restful
+  return result
 }
 
 const getTransformedProps = (
   transformFn: TransformFn,
   props: RenderPipelineProps,
 ): RenderPipelineProps | undefined => {
-  const restful = attempt(transformFn, props)
+  const result = attempt(transformFn, props)
 
-  if (isError(restful)) {
+  if (isError(result)) {
     console.warn('Unable to transform props')
 
     return undefined
   }
 
-  return restful
+  return result
 }
 
 /*
