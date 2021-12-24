@@ -24,9 +24,7 @@ describe('LoopingRenderPipe', () => {
       initialProps,
     ) as ReactElement
 
-    const props = (output as ReactElement).props.children.map(
-      (x: ResultPipeOutput) => x.props,
-    )
+    const props = output.props.children.map((x: ResultPipeOutput) => x.props)
 
     expect(props).toStrictEqual([
       {
