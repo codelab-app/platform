@@ -1,8 +1,9 @@
-import { IElement } from '@codelab/shared/abstract/core'
 import { ReactElement } from 'react'
 import { loopingRenderPipe } from '../loopRenderingPipe'
 import { RenderContext } from '../types'
 import { elementToRender } from './data'
+import { ResultPipeOutput } from './types'
+import { resultPipe } from './utils'
 
 const defaultContext = {} as RenderContext
 
@@ -15,21 +16,19 @@ const initialProps = {
   ],
 }
 
-const resultPipe = (
-  element: IElement,
-  context: RenderContext,
-  props: Record<string, unknown>,
-) => props
-
 describe('LoopingRenderPipe', () => {
   it('should add renderForEachPropKey props', () => {
-    const restful = loopingRenderPipe(resultPipe)(
+    const output = loopingRenderPipe(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,
+    ) as ReactElement
+
+    const props = (output as ReactElement).props.children.map(
+      (x: ResultPipeOutput) => x.props,
     )
 
-    expect((restful as ReactElement).props.children).toStrictEqual([
+    expect(props).toStrictEqual([
       {
         key: `${elementToRender.id}-0`,
         prop01: 'prop01Value',
