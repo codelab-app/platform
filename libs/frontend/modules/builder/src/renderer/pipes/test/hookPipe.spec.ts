@@ -1,19 +1,19 @@
 import { IHook } from '@codelab/shared/abstract/core'
-import { RenderPipelineProps } from '../../../store'
+import { RenderProps } from '../../../store'
 import { hookPipe } from '../hookPipe'
 import { RenderContext } from '../types'
 import { elementToRender } from './data'
-import { ResultPipeOutput } from './types'
-import { resultPipe } from './utils'
+import { EndPipeOutput } from './types'
+import { endPipe } from './utils'
 
-const testHookResponse: RenderPipelineProps = {
+const testHookResponse: RenderProps = {
   testHookResponse: {
     prop01: 'value01',
     prop02: 'value02',
   },
 }
 
-const getHooksResponse = (hooks: Array<IHook>, props: RenderPipelineProps) =>
+const getHooksResponse = (hooks: Array<IHook>, props: RenderProps) =>
   testHookResponse
 
 const defaultContext = { getHooksResponse } as RenderContext
@@ -21,11 +21,11 @@ const initialProps = {}
 
 describe('HookPipe', () => {
   it('should hooks responses to props', () => {
-    const { props } = hookPipe(resultPipe)(
+    const { props } = hookPipe(endPipe)(
       elementToRender,
       defaultContext,
       initialProps,
-    ) as ResultPipeOutput
+    ) as EndPipeOutput
 
     expect(props).toStrictEqual(testHookResponse)
   })
