@@ -31,6 +31,7 @@ export const Renderer = ({
   const renderContext: RenderContext = {
     ...defaultContext,
     getHooksResponse,
+    render: renderPipeline,
     inspect: false,
     render: renderPipeline,
     tree,

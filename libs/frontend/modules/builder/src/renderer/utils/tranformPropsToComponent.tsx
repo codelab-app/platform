@@ -13,7 +13,7 @@ const getComponent = (value: RenderProps, tree: ElementTree) => {
   const component = id ? tree.getComponentById(id) : undefined
 
   if (!component) {
-    console.warn('transformPropsToComponent', `Cant find component id ${id}`)
+    console.warn('transformPropsToComponent', `Cant find component id : ${id}`)
 
     return undefined
   }
@@ -21,17 +21,14 @@ const getComponent = (value: RenderProps, tree: ElementTree) => {
   return component
 }
 
-const getRenderedPropsComponent = (
-  allProps: RenderProps,
-  component: IElement,
-  context: RenderContext,
-) => {
-  return (...spreadComponentProps: Array<any>) => {
-    const componentProps = mergeProps(allProps, ...spreadComponentProps)
-    console.log(context)
+const getRenderedComponent =
+  (component: IElement, context: RenderContext, props: RenderProps) =>
+  (...spreadComponentProps: Array<any>) => {
+    const componentProps = mergeProps(props, ...spreadComponentProps)
 
     return (
       <RenderContainer
+        key={containerKey(component)}
         context={context}
       >
         {context.render(component,context,componentProps)}
@@ -39,13 +36,12 @@ const getRenderedPropsComponent = (
       
     )
   }
-}
 
 export const transformPropsToComponent = (
-  props: Record<string, any>,
+  props: RenderProps,
   context: RenderContext,
   isRender = false,
-  allProps: Record<string, any>,
+  allProps: RenderProps,
 ) => {
   return mapValues(props, (value) => {
     const { tree } = context
@@ -55,22 +51,12 @@ export const transformPropsToComponent = (
       return undefined
     }
 
-    const RenderedPropsComponent = (...spreadComponentProps: Array<any>) => {
-      const componentProps = mergeProps(allProps, ...spreadComponentProps)
-
-      const result = (
-        <RenderContainer key={containerKey(component)}>
-          {context.render(component, context, componentProps)}
-        </RenderContainer>
-      )
-
-      return <>{result}</>
-    }
+    const RenderedComponent = getRenderedComponent(component, context, allProps)
 
     if (!isRender) {
-      return RenderedPropsComponent
+      return RenderedComponent
     }
 
-    return <RenderedPropsComponent />
+    return <RenderedComponent />
   })
 }

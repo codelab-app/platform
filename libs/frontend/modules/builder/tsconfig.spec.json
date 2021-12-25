@@ -6,9 +6,11 @@
     "types": ["jest", "node"],
     "esModuleInterop": true,
     "strict": true,
+    "traceResolution": false,
     "composite": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "jsx": "react"
   },
   "include": [
     "**/*.spec.ts",
