@@ -1,12 +1,12 @@
 import { IElement } from '@codelab/shared/abstract/core'
-import { RenderPipelineProps } from '../../../store'
+import { RenderProps } from '../../../store'
 import { propTransformationJsPipe } from '../propTransformationJsPipe'
 import { RenderContext } from '../types'
-import { elementToRender } from './data'
+import { elementToRender } from './renderData'
 
 const defaultContext = {} as RenderContext
 
-const initialProps: RenderPipelineProps = {
+const initialProps: RenderProps = {
   prop01: 'prop01Value',
   prop02: 'prop02Value',
   prop03: 'prop03Value',
