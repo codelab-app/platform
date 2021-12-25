@@ -161,6 +161,11 @@ export const elementGraph = {
       source: elementToRender.id,
       target: elementToRender03.id,
     },
+    {
+      order: 1,
+      source: componentToRender.id,
+      target: elementToRender02.id,
+    },
   ],
 }
 
