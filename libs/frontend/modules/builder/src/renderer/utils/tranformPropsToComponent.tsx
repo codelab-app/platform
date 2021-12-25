@@ -1,9 +1,45 @@
+import { IElement } from '@codelab/shared/abstract/core'
+import { ElementTree } from '@codelab/shared/core'
 import { mergeProps } from '@codelab/shared/utils'
-import * as _ from 'lodash'
+import { mapValues } from 'lodash'
 import React from 'react'
+import { RenderProps } from '../../store'
 import { RenderContext } from '../pipes'
 import { RenderContainer } from '../renderContainer'
 import { containerKey } from './containerKey'
+
+const getComponent = (value: RenderProps, tree: ElementTree) => {
+  const { id } = value
+  const component = id ? tree.getComponentById(id) : undefined
+
+  if (!component) {
+    console.warn('transformPropsToComponent', `Cant find component id ${id}`)
+
+    return undefined
+  }
+
+  return component
+}
+
+const getRenderedPropsComponent = (
+  allProps: RenderProps,
+  component: IElement,
+  context: RenderContext,
+) => {
+  return (...spreadComponentProps: Array<any>) => {
+    const componentProps = mergeProps(allProps, ...spreadComponentProps)
+    console.log(context)
+
+    return (
+      <RenderContainer
+        context={context}
+      >
+        {context.render(component,context,componentProps)}
+        </RenderContainer>
+      
+    )
+  }
+}
 
 export const transformPropsToComponent = (
   props: Record<string, any>,
@@ -11,22 +47,12 @@ export const transformPropsToComponent = (
   isRender = false,
   allProps: Record<string, any>,
 ) => {
-  return _.mapValues(props, (value) => {
-    const componentId = value?.id
-
-    if (!componentId) {
-      return
-    }
-
-    const component = context.tree.getComponentById(componentId)
+  return mapValues(props, (value) => {
+    const { tree } = context
+    const component = getComponent(value, tree)
 
     if (!component) {
-      console.warn(
-        'transformPropsToComponent',
-        `Cant find component id ${componentId}`,
-      )
-
-      return
+      return undefined
     }
 
     const RenderedPropsComponent = (...spreadComponentProps: Array<any>) => {
@@ -43,8 +69,8 @@ export const transformPropsToComponent = (
 
     if (!isRender) {
       return RenderedPropsComponent
-    } else {
-      return <RenderedPropsComponent />
     }
+
+    return <RenderedPropsComponent />
   })
 }

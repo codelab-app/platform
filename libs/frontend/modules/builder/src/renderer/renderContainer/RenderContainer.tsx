@@ -1,6 +1,6 @@
 import { get, isArray, merge } from 'lodash'
 import React, { ReactElement, useCallback, useEffect } from 'react'
-import { RenderPipelinePropsByElementId } from '../../store'
+import { RenderPropsByElementId } from '../../store'
 import { RenderContainerProps } from './types'
 
 export const RenderContainer = ({
@@ -13,7 +13,7 @@ export const RenderContainer = ({
   }
 
   const treeToObject = useCallback(
-    (renderElement: ReactElement): RenderPipelinePropsByElementId | null => {
+    (renderElement: ReactElement): RenderPropsByElementId | null => {
       if (!renderElement) {
         return null
       }

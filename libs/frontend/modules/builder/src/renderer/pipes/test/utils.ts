@@ -1,12 +1,12 @@
 import { IElement } from '@codelab/shared/abstract/core'
 import { RenderContext } from '../types'
-import { ResultPipeOutput } from './types'
+import { EndPipeOutput } from './types'
 
-export const resultPipe = (
+export const endPipe = (
   element: IElement,
   context: RenderContext,
   props: Record<string, unknown>,
-): ResultPipeOutput => {
+): EndPipeOutput => {
   const { extraElementProps } = context
 
   return {

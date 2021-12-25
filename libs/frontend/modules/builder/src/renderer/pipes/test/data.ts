@@ -64,3 +64,97 @@ export const elementToRender: IElement = {
   propTransformationJs:
     '// Write a transformer function, you get the input props as parameter\n// All returned props will get merged with the original ones\nfunction transform(props){\n  return Object.keys(props)\n        .map((x)=> ({\n          [`${x}-edited`] : props[x]\n        }))\n        .reduce((total,current) => \n          ({...total,...current}),\n          {}\n        )\n}',
 }
+
+export const elementToRender01: IElement = {
+  id: '0x3a981',
+  name: '01',
+  css: '',
+  instanceOfComponent: null,
+  componentFixedId: null,
+  atom: {
+    id: '0x27150',
+    name: 'Text',
+    type: AtomType.Text,
+    api: {
+      id: '0x27145',
+      name: 'Text API',
+      typeKind: TypeKind.InterfaceType,
+    },
+  },
+  componentTag: {
+    id: '0x3a983',
+    name: '01',
+    isRoot: true,
+    children: [],
+  },
+  props: {
+    id: '0x3a982',
+    data: '{}',
+  },
+  hooks: [],
+  renderForEachPropKey: null,
+  renderIfPropKey: null,
+  propMapBindings: [],
+  propTransformationJs: null,
+}
+
+export const elementToRender03: IElement = {
+  id: '0x3a985',
+  name: '01',
+  css: null,
+  instanceOfComponent: {
+    id: '0x3a981',
+  },
+  componentFixedId: null,
+  atom: null,
+  componentTag: null,
+  props: {
+    id: '0x3a984',
+    data: '{}',
+  },
+  hooks: [],
+  renderForEachPropKey: null,
+  renderIfPropKey: null,
+  propMapBindings: [],
+  propTransformationJs: null,
+}
+
+export const elementToRender04: IElement = {
+  id: '0x3a986',
+  name: '02',
+  css: null,
+  instanceOfComponent: null,
+  componentFixedId: null,
+  atom: null,
+  componentTag: null,
+  props: {
+    id: '0x3a987',
+    data: '{}',
+  },
+  hooks: [],
+  renderForEachPropKey: null,
+  renderIfPropKey: null,
+  propMapBindings: [],
+  propTransformationJs: null,
+}
+
+export const elementGraph = {
+  vertices: [
+    elementToRender,
+    elementToRender01,
+    elementToRender03,
+    elementToRender04,
+  ],
+  edges: [
+    {
+      order: 0,
+      source: elementToRender.id,
+      target: elementToRender03.id,
+    },
+    {
+      order: 1,
+      source: elementToRender01.id,
+      target: elementToRender04.id,
+    },
+  ],
+}

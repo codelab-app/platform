@@ -6,7 +6,7 @@ import {
   BuilderTab,
   HoverElementActionPayload,
   PropsPerElementIdPayload,
-  RenderPipelinePropsByElementId,
+  RenderPropsByElementId,
   SelectElementActionPayload,
 } from '../store'
 
@@ -52,7 +52,7 @@ export const useBuilderDispatch = () => {
   )
 
   const setLastRenderedProps = useCallback(
-    (payload: RenderPipelinePropsByElementId) => {
+    (payload: RenderPropsByElementId) => {
       dispatch(actions.setLastRenderedProps(payload))
     },
     [dispatch],

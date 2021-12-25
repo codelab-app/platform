@@ -1,28 +1,11 @@
 import { TypeKind } from '@codelab/frontend/abstract/codegen'
-import * as _ from 'lodash'
+import { pickBy } from 'lodash'
+import { RenderProps } from '../../store'
 
-export const getPropsByTypeKind = (
-  props: Record<string, any>,
-  typeKind: TypeKind,
-  typeKindsById: Record<string, TypeKind>,
-) => {
-  if (!typeKindsById) {
-    return {}
-  }
+export const getPropsByTypeKind = (props: RenderProps, typeKind: TypeKind) => {
+  return pickBy(props, (value: RenderProps) => {
+    const { typeKind: propTypeKind } = value
 
-  return _.pickBy(props, (value) => {
-    const propTypeKind = value?.type
-      ? typeKindsById[value?.type]
-      : (value?.typeKind as TypeKind)
-
-    if (!propTypeKind) {
-      return false
-    }
-
-    if (propTypeKind === typeKind) {
-      return true
-    }
-
-    return false
+    return Boolean(propTypeKind) && typeKind === propTypeKind
   })
 }

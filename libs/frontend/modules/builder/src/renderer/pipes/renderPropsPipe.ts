@@ -6,13 +6,7 @@ import { RenderPipeFactory } from './types'
 
 export const renderPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    const { typeKindsById } = context
-
-    const renderProps = getPropsByTypeKind(
-      props,
-      TypeKind.RenderPropsType,
-      typeKindsById,
-    )
+    const renderProps = getPropsByTypeKind(props, TypeKind.RenderPropsType)
 
     const transformedRenderProps = transformPropsToComponent(
       renderProps,

@@ -10,22 +10,19 @@ export enum BuilderTab {
 
 export type SelectElementActionPayload = Partial<ElementIdPayload>
 export type HoverElementActionPayload = Partial<ElementIdPayload>
-export type RenderPipelineProps = Record<string, any>
+export type RenderProps = Record<string, any>
 
-export type RenderPipelinePropsByElementId = Record<
-  string,
-  RenderPipelineProps | undefined
->
+export type RenderPropsByElementId = Record<string, RenderProps | undefined>
 
 export interface BuilderState {
   selectedElementId?: string
   hoveringElementId?: string
 
   /** Add props here to be added to the elements when rendered */
-  extraElementProps: RenderPipelinePropsByElementId
+  extraElementProps: RenderPropsByElementId
 
   /** The last rendered props per element id */
-  lastRenderedProps: RenderPipelinePropsByElementId
+  lastRenderedProps: RenderPropsByElementId
 
   /** Contrary to other tabs, the builder tab is part of the state as it is not related to routing */
   tab: BuilderTab
@@ -46,7 +43,7 @@ export interface ElementIdPayload {
 }
 
 export interface PropsPerElementIdPayload extends ElementIdPayload {
-  props: RenderPipelineProps
+  props: RenderProps
 }
 
 export const builderSlice = createSlice({
@@ -90,7 +87,7 @@ export const builderSlice = createSlice({
     },
     setLastRenderedProps: (
       state,
-      { payload }: PayloadAction<RenderPipelinePropsByElementId>,
+      { payload }: PayloadAction<RenderPropsByElementId>,
     ) => {
       state.lastRenderedProps = payload
     },

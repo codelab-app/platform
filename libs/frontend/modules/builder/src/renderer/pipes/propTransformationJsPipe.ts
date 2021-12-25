@@ -1,10 +1,10 @@
 import { mergeProps } from '@codelab/shared/utils'
 import { attempt } from 'lodash'
 import { isError } from 'react-query'
-import { RenderPipelineProps } from '../../store'
+import { RenderProps } from '../../store'
 import { RenderPipeFactory } from './types'
 
-type TransformFn = (props: RenderPipelineProps) => RenderPipelineProps
+type TransformFn = (props: RenderProps) => RenderProps
 
 const getTransformFn = (transformationJs: string): TransformFn | undefined => {
   // eslint-disable-next-line no-eval
@@ -27,8 +27,8 @@ const getTransformFn = (transformationJs: string): TransformFn | undefined => {
 
 const getTransformedProps = (
   transformFn: TransformFn,
-  props: RenderPipelineProps,
-): RenderPipelineProps | undefined => {
+  props: RenderProps,
+): RenderProps | undefined => {
   const result = attempt(transformFn, props)
 
   if (isError(result)) {

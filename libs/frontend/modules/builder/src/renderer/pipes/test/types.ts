@@ -1,6 +1,6 @@
-import { RenderPipelineProps } from '../../../store'
+import { RenderProps } from '../../../store'
 
-export type ResultPipeOutput = {
-  props: RenderPipelineProps
-  extraElementProps?: RenderPipelineProps
+export type EndPipeOutput = {
+  props: RenderProps
+  extraElementProps?: RenderProps
 }
