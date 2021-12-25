@@ -65,7 +65,26 @@ export const elementToRender: IElement = {
     '// Write a transformer function, you get the input props as parameter\n// All returned props will get merged with the original ones\nfunction transform(props){\n  return Object.keys(props)\n        .map((x)=> ({\n          [`${x}-edited`] : props[x]\n        }))\n        .reduce((total,current) => \n          ({...total,...current}),\n          {}\n        )\n}',
 }
 
-export const elementToRender01: IElement = {
+export const elementToRender02: IElement = {
+  id: '0x3a986',
+  name: '02',
+  css: null,
+  instanceOfComponent: null,
+  componentFixedId: null,
+  atom: null,
+  componentTag: null,
+  props: {
+    id: '0x3a987',
+    data: '{}',
+  },
+  hooks: [],
+  renderForEachPropKey: null,
+  renderIfPropKey: null,
+  propMapBindings: [],
+  propTransformationJs: null,
+}
+
+export const componentToRender: IElement = {
   id: '0x3a981',
   name: '01',
   css: '',
@@ -119,31 +138,12 @@ export const elementToRender03: IElement = {
   propTransformationJs: null,
 }
 
-export const elementToRender04: IElement = {
-  id: '0x3a986',
-  name: '02',
-  css: null,
-  instanceOfComponent: null,
-  componentFixedId: null,
-  atom: null,
-  componentTag: null,
-  props: {
-    id: '0x3a987',
-    data: '{}',
-  },
-  hooks: [],
-  renderForEachPropKey: null,
-  renderIfPropKey: null,
-  propMapBindings: [],
-  propTransformationJs: null,
-}
-
 export const elementGraph = {
   vertices: [
     elementToRender,
-    elementToRender01,
+    componentToRender,
     elementToRender03,
-    elementToRender04,
+    elementToRender02,
   ],
   edges: [
     {
@@ -153,8 +153,8 @@ export const elementGraph = {
     },
     {
       order: 1,
-      source: elementToRender01.id,
-      target: elementToRender04.id,
+      source: componentToRender.id,
+      target: elementToRender02.id,
     },
   ],
 }
