@@ -14,13 +14,7 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {},
-      "parserOptions": {
-        "project": [
-          "apps/web/tsconfig.*?.json",
-          "apps/web/.storybook/tsconfig.json"
-        ]
-      }
+      "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],
