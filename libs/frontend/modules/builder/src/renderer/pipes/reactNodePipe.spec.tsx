@@ -1,22 +1,19 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { ElementTree } from '@codelab/shared/core'
 import { render, waitFor } from '@testing-library/react'
 import { RenderProps } from '../../store'
 import { reactNodePipe } from './reactNodePipe'
 import { renderPipeline } from './renderPipeline'
 import {
   componentToRender,
-  elementGraph,
   elementToRender,
   endPipe,
   EndPipeOutput,
+  treeToRender,
 } from './test'
 import { RenderContext } from './types'
 
-const tree = new ElementTree(elementGraph)
-
 const defaultContext = {
-  tree,
+  tree: treeToRender,
   render: renderPipeline,
 } as RenderContext
 
