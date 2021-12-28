@@ -1,4 +1,5 @@
 import { AtomType, IElement, TypeKind } from '@codelab/shared/abstract/core'
+import { ElementTree } from '@codelab/shared/core'
 
 export const elementToRender: IElement = {
   id: '0x2786a',
@@ -151,10 +152,7 @@ export const elementGraph = {
       source: elementToRender.id,
       target: elementToRender03.id,
     },
-    {
-      order: 1,
-      source: componentToRender.id,
-      target: elementToRender02.id,
-    },
   ],
 }
+
+export const treeToRender = new ElementTree(elementGraph)

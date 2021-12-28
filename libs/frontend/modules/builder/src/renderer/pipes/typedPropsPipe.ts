@@ -35,7 +35,7 @@ const handledTypeKinds = [
 ]
 
 const isHandledTypeKind = (prop: RenderProps) => {
-  return handledTypeKinds.includes(prop.typeKind)
+  return handledTypeKinds.includes(prop?.typeKind)
 }
 
 const getPropValue = (prop: RenderProps) => prop.value

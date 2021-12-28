@@ -21,11 +21,7 @@ export interface RenderContext {
   /** The rendered tree */
   tree: ElementTree
 
-  render: (
-    element: IElement,
-    context: RenderContext,
-    props: RenderProps,
-  ) => RenderOutput
+  render: RenderTypes
 
   /** Extra props passed to all element. They override the common props, but props from the node instance override the extraProps */
   extraProps?: RenderProps
