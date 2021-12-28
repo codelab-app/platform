@@ -1,8 +1,6 @@
-import { propsPipeline } from '../renderPipeline'
-import { RenderContext } from '../types'
-import { elementToRender } from './renderData'
-import { EndPipeOutput } from './types'
-import { endPipe } from './utils'
+import { propsPipeline } from './renderPipeline'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 const initialProps = {}

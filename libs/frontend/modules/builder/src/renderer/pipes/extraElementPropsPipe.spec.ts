@@ -1,8 +1,6 @@
-import { extraElementPropsPipe } from '../extraElementPropsPipe'
-import { RenderContext } from '../types'
-import { elementToRender } from './renderData'
-import { EndPipeOutput } from './types'
-import { endPipe } from './utils'
+import { extraElementPropsPipe } from './extraElementPropsPipe'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { RenderContext } from './types'
 
 const extraElementProps: RenderContext['extraElementProps'] = {
   [elementToRender.id]: {

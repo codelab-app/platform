@@ -2,13 +2,17 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { render, waitFor } from '@testing-library/react'
 import React from 'react'
-import { RenderProps } from '../../../store'
-import { renderPipeline } from '../renderPipeline'
-import { renderPropsPipe } from '../renderPropsPipe'
-import { RenderContext } from '../types'
-import { componentToRender, elementGraph, elementToRender } from './renderData'
-import { EndPipeOutput } from './types'
-import { endPipe } from './utils'
+import { RenderProps } from '../../store'
+import { renderPipeline } from './renderPipeline'
+import { renderPropsPipe } from './renderPropsPipe'
+import {
+  componentToRender,
+  elementGraph,
+  elementToRender,
+  endPipe,
+  EndPipeOutput,
+} from './test'
+import { RenderContext } from './types'
 
 const tree = new ElementTree(elementGraph)
 

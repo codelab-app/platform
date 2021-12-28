@@ -1,9 +1,7 @@
-import { RenderProps } from '../../../store'
-import { propMapBindingsPipe } from '../propMapBindingsPipe'
-import { RenderContext } from '../types'
-import { elementToRender } from './renderData'
-import { EndPipeOutput } from './types'
-import { endPipe } from './utils'
+import { RenderProps } from '../../store'
+import { propMapBindingsPipe } from './propMapBindingsPipe'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 

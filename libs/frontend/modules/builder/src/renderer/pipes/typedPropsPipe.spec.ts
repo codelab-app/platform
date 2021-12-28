@@ -1,8 +1,6 @@
-import { typedPropsPipe } from '../typedPropsPipe'
-import { RenderContext } from '../types'
-import { elementToRender } from './renderData'
-import { EndPipeOutput } from './types'
-import { endPipe } from './utils'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { typedPropsPipe } from './typedPropsPipe'
+import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 const initialProps = JSON.parse(elementToRender.props.data)

@@ -1,8 +1,6 @@
-import { persistedPropsPipe } from '../persistedPropsPipe'
-import { RenderContext } from '../types'
-import { elementToRender } from './renderData'
-import { EndPipeOutput } from './types'
-import { endPipe } from './utils'
+import { persistedPropsPipe } from './persistedPropsPipe'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 const initialProps = {}
