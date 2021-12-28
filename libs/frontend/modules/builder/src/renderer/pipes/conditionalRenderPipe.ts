@@ -1,5 +1,4 @@
-import { evaluateRenderIfPropKey } from '../utils/evaluateRenderIfPropKey'
-import { onRendered } from '../utils/onRendered'
+import { logRendered, shouldStopRendering } from '../utils'
 import { RenderPipeFactory } from './types'
 
 /**
@@ -7,8 +6,8 @@ import { RenderPipeFactory } from './types'
  */
 export const conditionalRenderPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    if (!evaluateRenderIfPropKey(element.renderIfPropKey, props)) {
-      onRendered(null, element, context)
+    if (shouldStopRendering(element, props)) {
+      logRendered(null, element, context)
 
       return null
     }

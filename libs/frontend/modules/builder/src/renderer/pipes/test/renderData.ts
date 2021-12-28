@@ -41,7 +41,7 @@ export const elementToRender: IElement = {
     },
   ],
   renderForEachPropKey: 'renderForEachProp',
-  renderIfPropKey: null,
+  renderIfPropKey: 'shouldRender',
   propMapBindings: [
     {
       id: '0x2bf22',
