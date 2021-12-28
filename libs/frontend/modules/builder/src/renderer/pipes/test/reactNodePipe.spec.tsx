@@ -5,7 +5,7 @@ import { RenderProps } from '../../../store'
 import { reactNodePipe } from '../reactNodePipe'
 import { renderPipeline } from '../renderPipeline'
 import { RenderContext } from '../types'
-import { componentToRender, elementGraph, elementToRender } from './data'
+import { componentToRender, elementGraph, elementToRender } from './renderData'
 import { EndPipeOutput } from './types'
 import { endPipe } from './utils'
 

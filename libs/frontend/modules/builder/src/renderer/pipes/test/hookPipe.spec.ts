@@ -2,7 +2,7 @@ import { IHook } from '@codelab/shared/abstract/core'
 import { RenderProps } from '../../../store'
 import { hookPipe } from '../hookPipe'
 import { RenderContext } from '../types'
-import { elementToRender } from './data'
+import { elementToRender } from './renderData'
 import { EndPipeOutput } from './types'
 import { endPipe } from './utils'
 
