@@ -126,7 +126,16 @@ export const elementToRender03: IElement = {
     id: '0x3a981',
   },
   componentFixedId: null,
-  atom: null,
+  atom: {
+    id: '0x27150',
+    name: 'Text',
+    type: AtomType.Text,
+    api: {
+      id: '0x27145',
+      name: 'Text API',
+      typeKind: TypeKind.InterfaceType,
+    },
+  },
   componentTag: null,
   props: {
     id: '0x3a984',

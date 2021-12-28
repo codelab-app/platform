@@ -1,8 +1,8 @@
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import React from 'react'
+import { logRendered } from '../utils'
 import { evalCss } from '../utils/evalCss'
-import { logRendered } from '../utils/logRendered'
 import { reactComponentFactory } from '../utils/reactComponentFactory'
 import { RenderPipeFactory } from './types'
 
