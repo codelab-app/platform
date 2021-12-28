@@ -1,13 +1,10 @@
-import { ElementTree } from '@codelab/shared/core'
 import { conditionalRenderPipe } from './conditionalRenderPipe'
 import { renderPipeline } from './renderPipeline'
-import { elementGraph, elementToRender, endPipe, EndPipeOutput } from './test'
+import { elementToRender, endPipe, EndPipeOutput, treeToRender } from './test'
 import { RenderContext } from './types'
 
-const tree = new ElementTree(elementGraph)
-
 const defaultContext = {
-  tree,
+  tree: treeToRender,
   render: renderPipeline,
 } as RenderContext
 
