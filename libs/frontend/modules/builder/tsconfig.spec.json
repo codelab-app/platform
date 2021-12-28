@@ -7,7 +7,6 @@
     "allowSyntheticDefaultImports": true,
     "types": ["jest", "node", "@types/testing-library__jest-dom"],
     "traceResolution": false,
-    "composite": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
