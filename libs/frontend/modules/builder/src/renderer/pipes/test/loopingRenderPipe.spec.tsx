@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { loopingRenderPipe } from '../loopRenderingPipe'
 import { RenderContext } from '../types'
-import { elementToRender } from './data'
+import { elementToRender } from './renderData'
 import { EndPipeOutput } from './types'
 import { endPipe } from './utils'
 
