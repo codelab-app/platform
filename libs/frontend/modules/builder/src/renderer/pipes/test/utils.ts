@@ -7,10 +7,11 @@ export const endPipe = (
   context: RenderContext,
   props: Record<string, unknown>,
 ): EndPipeOutput => {
-  const { extraElementProps } = context
+  const { extraElementProps, extraProps } = context
 
   return {
     props,
     extraElementProps,
+    extraProps,
   }
 }
