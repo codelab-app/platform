@@ -1,5 +1,3 @@
-require('@testing-library/jest-dom')
-
 const shell = require('shelljs')
 const { env } = require('../env-config')
 
