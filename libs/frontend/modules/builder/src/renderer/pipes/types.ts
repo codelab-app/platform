@@ -1,5 +1,5 @@
 import { IElement } from '@codelab/frontend/abstract/core'
-import { IHook } from '@codelab/shared/abstract/core'
+import { IHook, TypeId, TypeKind } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import {
@@ -37,6 +37,7 @@ export interface RenderContext {
 
   /** Set to true to log rendering information */
   inspect?: boolean
+  typeKindsById: Record<TypeId, TypeKind>
 }
 
 export type RenderTypes = (
