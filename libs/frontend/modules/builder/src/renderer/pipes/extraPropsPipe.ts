@@ -6,9 +6,8 @@ import { RenderPipeFactory } from './types'
  */
 export const extraPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    return next(
-      element,
-      context,
-      context.extraProps ? mergeProps(props, context.extraProps) : props,
-    )
+    const { extraProps } = context
+    const mergedProps = extraProps ? mergeProps(props, extraProps) : props
+
+    return next(element, context, mergedProps)
   }
