@@ -32,6 +32,7 @@ export interface RenderContext {
 
   /** Set to true to log rendering information */
   inspect?: boolean
+  typeKindsById: Record<TypeId, TypeKind>
 }
 
 export type RenderTypes = (
