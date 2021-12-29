@@ -16,8 +16,6 @@ import { HookHandler } from './HookHandler'
 
 const HOOK_VARIABLE_REGEXP = /\$\{([^}]*)\}/
 
-type Props = Record<string, any>
-
 const hookHandlers = {
   [AtomType.HookQueryConfig]: useQueryConfigHook,
   [AtomType.HookQueryLambda]: useQueryLambdaHook,
@@ -44,13 +42,11 @@ export const useHookResponse = () => {
 }
 
 const getHookConfig = (hook: IHook, props: RenderProps): IHook => {
-  return {
-    ...hook,
+  return merge(hook, {
     config: {
-      ...hook.config,
       data: withValues(hook.config.data, props),
     },
-  }
+  })
 }
 
 const withValues = (data: string, props: RenderProps = {}): string => {
@@ -67,7 +63,7 @@ const getHookHandler = (type: IHook['type']): HookHandler => {
   return hookHandlers[type as keyof typeof hookHandlers]
 }
 
-const parseHookData = (data: string): Props => {
+const parseHookData = (data: string): RenderProps => {
   const dataJson = attempt(JSON.parse, data)
 
   if (isError(dataJson)) {
@@ -77,7 +73,7 @@ const parseHookData = (data: string): Props => {
   return dataJson
 }
 
-const executeHook = (hook: IHook, props?: Props) => {
+const executeHook = (hook: IHook, props?: RenderProps) => {
   const { type, config } = hook
   const handler = getHookHandler(type)
 
