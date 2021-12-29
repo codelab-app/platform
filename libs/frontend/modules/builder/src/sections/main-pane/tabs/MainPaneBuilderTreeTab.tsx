@@ -51,7 +51,9 @@ export const MainPaneBuilderTreeTab = ({
       onSelect={([id], { nativeEvent, node }) => {
         nativeEvent.stopPropagation()
 
-        setSelectedElement(id?.toString())
+        if (id) {
+          setSelectedElement(id.toString())
+        }
       }}
       titleRender={(node) => <TreeItemTitle tree={elementTree} node={node} />}
       treeData={antdTree ? [antdTree] : undefined}
