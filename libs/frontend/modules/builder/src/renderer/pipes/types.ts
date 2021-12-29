@@ -16,8 +16,6 @@ export interface RenderContext {
   /** The rendered tree */
   tree: ElementTree
 
-  render: RenderTypes
-
   /** Extra props passed to all element. They override the common props, but props from the node instance override the extraProps */
   extraProps?: RenderProps
 
@@ -34,7 +32,6 @@ export interface RenderContext {
 
   /** Set to true to log rendering information */
   inspect?: boolean
-  typeKindsById: Record<TypeId, TypeKind>
 }
 
 export type RenderTypes = (
