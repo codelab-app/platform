@@ -1,5 +1,5 @@
 import { IElement } from '@codelab/frontend/abstract/core'
-import { IHook, TypeId, TypeKind } from '@codelab/shared/abstract/core'
+import { IHook } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import { RenderProps, RenderPropsByElementId } from '../../store'
@@ -15,8 +15,6 @@ export interface RendererProps {
 export interface RenderContext {
   /** The rendered tree */
   tree: ElementTree
-
-  render: RenderTypes
 
   /** Extra props passed to all element. They override the common props, but props from the node instance override the extraProps */
   extraProps?: RenderProps
@@ -34,7 +32,6 @@ export interface RenderContext {
 
   /** Set to true to log rendering information */
   inspect?: boolean
-  typeKindsById: Record<TypeId, TypeKind>
 }
 
 export type RenderTypes = (
