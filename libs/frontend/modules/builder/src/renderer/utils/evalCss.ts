@@ -1,13 +1,12 @@
-export const evalCss = (props: Record<string, any>, cssString?: string) => {
-  if (!cssString) {
-    return ''
+import { attempt, isError } from 'lodash'
+
+export const evalCss = (cssString: string) => {
+  // eslint-disable-next-line no-eval
+  const result = attempt(eval, `\`${cssString}\``)
+
+  if (isError(result)) {
+    console.warn(`Couldn't parse css`, cssString, result)
   }
 
-  try {
-    return eval(`\`${cssString}\``)
-  } catch (e) {
-    console.warn(`Couldn't parse css`, cssString, e)
-  }
-
-  return ''
+  return result
 }

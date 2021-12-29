@@ -33,7 +33,7 @@ export const renderAtomPipe: RenderPipeFactory =
     const rendered = (
       <RootComponent
         {...mergedProps}
-        css={element.css ? css(evalCss(mergedProps, element.css)) : undefined}
+        css={element.css ? css(evalCss(element.css)) : undefined}
       >
         {next(element, context, mergedProps)}
       </RootComponent>
