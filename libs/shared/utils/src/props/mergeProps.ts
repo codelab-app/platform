@@ -1,75 +1,15 @@
-import { MaybeOrNullable, Nullable } from '@codelab/shared/abstract/types'
+import { MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { mergeWith } from 'lodash'
 
-export const mergeTwoPropObjects = (
-  propsA?: Nullable<Record<string, any>>,
-  propsB?: Nullable<Record<string, any>>,
-  aggregate?: Record<string, any>,
-): Record<string, any> => {
-  if (!aggregate) {
-    aggregate = {}
+export const mergeTwoPropObjects = (value: any, srcValue: any, key: string) => {
+  if (key === 'className') {
+    const classList = value ? value.split(' ') : []
+    classList.push(srcValue)
+
+    return classList.join(' ')
   }
 
-  if (!propsA) {
-    if (propsB) {
-      return { ...propsB }
-    }
-
-    return {}
-  }
-
-  if (!propsB) {
-    return { ...propsA }
-  }
-
-  for (const key of Object.keys(propsB)) {
-    const valueA = propsA[key]
-    const valueB = propsB[key]
-
-    if (key === 'className') {
-      aggregate.className = `${valueA ?? ''} ${valueB ?? ''}`
-      continue
-    }
-
-    if (key.toLowerCase().endsWith('ref')) {
-      if (valueA) {
-        aggregate[key] = valueA // keep the valueA, don't want to clone refs
-        continue
-      } else {
-        aggregate[key] = valueB
-        continue
-      }
-    }
-
-    if (key === '__node') {
-      aggregate[key] = valueA || valueB
-      continue
-    }
-
-    if (Array.isArray(valueB)) {
-      aggregate[key] = [...valueB]
-      continue
-    }
-
-    if (Array.isArray(valueA)) {
-      // A is array, B is not. Not sure what is right to do here
-      aggregate[key] = valueB
-      continue
-    }
-
-    if (
-      typeof valueA === 'object' &&
-      typeof valueB === 'object' &&
-      valueA &&
-      valueB
-    ) {
-      aggregate[key] = mergeTwoPropObjects(valueA, valueB, aggregate[key])
-      continue
-    }
-
-    aggregate[key] = valueB
-  }
-
-  return aggregate
+  return undefined
 }
 
 /**
@@ -82,7 +22,7 @@ export const mergeProps = (
 ): Record<string, any> => {
   return propArray.reduce<Record<string, any>>(
     (mergedProps, nextProps) =>
-      mergeTwoPropObjects(mergedProps, nextProps, mergedProps),
+      mergeWith(mergedProps, nextProps, mergeTwoPropObjects),
     {},
   )
 }
