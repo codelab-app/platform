@@ -11,16 +11,29 @@ interface AtomElementFactoryInput<TNode extends Identifiable = Identifiable> {
   node: TNode
 }
 
+type IElementPropTransformerFn = (
+  input: AtomElementFactoryInput & { props: Record<string, any> },
+) => any
+
+type IElementsPropTransformers = Partial<
+  Record<AtomType, IElementPropTransformerFn>
+>
+
+export type ReactComponentFactoryResult = [
+  Nullable<React.ComponentType<any> | string>,
+  Record<string, any>,
+]
+
+export const commonProps = (id: string) => ({
+  'data-id': id,
+  className: 'Builder-none',
+})
+
 /**
  * This is a mapping of prop transformers for certain elements.
  * Add a transformer here if you want to modify or add props to a specific element type
  */
-export const elementsPropTransformers: Partial<
-  Record<
-    AtomType,
-    (input: AtomElementFactoryInput & { props: Record<string, any> }) => any
-  >
-> = {
+export const elementsPropTransformers: IElementsPropTransformers = {
   [AtomType.AntDesignRglItem]: ({ node, props }) => {
     // Currently the react-grid-layout library, for some reason, re-renders the layout
     // only if it detects a change in the key of the child, and doesn't care about the data-grid property
@@ -48,16 +61,6 @@ export const elementsPropTransformers: Partial<
   [AtomType.ReactFragment]: ({ props: { key } }) => ({ key }), // Do not pass in any props for fragments, except key, because it creates an error
   [AtomType.HtmlImage]: (input) => ({ src: '', alt: '' }),
 }
-
-const commonProps = (id: string) => ({
-  'data-id': id,
-  className: 'Builder-none',
-})
-
-export type ReactComponentFactoryResult = [
-  React.ComponentType<any> | Nullable<string>,
-  Record<string, any>,
-]
 
 /**
  * Creates a React Component and default props for it out of an node and an atom
