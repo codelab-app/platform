@@ -1,26 +1,24 @@
 import { PropMapBindingFragment } from '@codelab/frontend/modules/element'
-import get from 'lodash/get'
-import set from 'lodash/set'
+import { get, isObjectLike, merge, set } from 'lodash'
+import { RenderProps } from '../../store'
 
 export const applyBinding = (
-  targetProps: Record<string, any>,
-  sourceProps: Record<string, any>,
+  targetProps: RenderProps,
+  sourceProps: RenderProps,
   binding: PropMapBindingFragment,
-): Record<string, any> => {
-  // get and set allow . and [1] expressions
-  let value: any
+): RenderProps => {
+  const isSourceKeyWildcard = binding.sourceKey === '*'
+  const isTargetKeyWildcard = binding.targetKey === '*'
 
-  if (binding.sourceKey === '*') {
-    value = sourceProps
-  } else {
-    value = get(sourceProps, binding.sourceKey)
+  const value = isSourceKeyWildcard
+    ? sourceProps
+    : get(sourceProps, binding.sourceKey)
+
+  if (isTargetKeyWildcard && isObjectLike(value)) {
+    return merge(targetProps, value)
   }
 
-  if (binding.targetKey === '*' && typeof value === 'object') {
-    return { ...targetProps, ...value }
-  }
-
-  const newProps = { ...targetProps }
+  const newProps = targetProps
 
   set(newProps, binding.targetKey, value)
 
