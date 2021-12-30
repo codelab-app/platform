@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/frontend/abstract/codegen'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { pickBy } from 'lodash'
 import { RenderProps } from '../../store'
 
