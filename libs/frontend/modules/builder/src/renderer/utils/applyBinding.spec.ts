@@ -45,7 +45,7 @@ describe('ApplyBinding', () => {
     expect(output).toStrictEqual(expectedProps)
   })
 
-  it('should bind source prop to target prop', () => {
+  it('should bind source prop keeping same naming and structure', () => {
     const bindings = {
       sourceKey: 'sourceProp.nestedSourceProp.sourcePropValue01',
       targetKey: '*',
@@ -54,6 +54,18 @@ describe('ApplyBinding', () => {
 
     const output = applyBinding(targetProps, sourceProps, bindings)
 
-    expect(output).toStrictEqual(merge(targetProps, { sourceProps }))
+    expect(output).toStrictEqual(merge(targetProps, sourceProps))
+  })
+
+  it('should bind all source props to target prop', () => {
+    const bindings = {
+      sourceKey: '*',
+      targetKey: 'someProp',
+      id: '',
+    }
+
+    const output = applyBinding(targetProps, sourceProps, bindings)
+
+    expect(output).toStrictEqual(merge(targetProps, { someProp: sourceProps }))
   })
 })
