@@ -9,6 +9,14 @@ export const mergeTwoPropObjects = (value: any, srcValue: any, key: string) => {
     return classList.join(' ')
   }
 
+  if (key.toLowerCase().endsWith('ref')) {
+    return value || srcValue // keep the value, don't want to clone refs
+  }
+
+  if (key === '__node') {
+    return value || srcValue
+  }
+
   return undefined
 }
 
