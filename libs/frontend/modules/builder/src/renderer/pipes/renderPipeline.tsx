@@ -6,6 +6,7 @@ import { extraElementPropsPipe } from './extraElementPropsPipe'
 import { extraPropsPipe } from './extraPropsPipe'
 import { hookPipe } from './hookPipe'
 import { loopingRenderPipe } from './loopRenderingPipe'
+import { overrideComponentPropsPipe } from './overrideComponentPropsPipe'
 import { persistedPropsPipe } from './persistedPropsPipe'
 import { propMapBindingsPipe } from './propMapBindingsPipe'
 import { propTransformationJsPipe } from './propTransformationJsPipe'
@@ -14,7 +15,6 @@ import { renderAtomPipe } from './renderAtomPipe'
 import { renderChildrenPipe } from './renderChildrenPipe'
 import { renderPropsPipe } from './renderPropsPipe'
 import { typedPropsPipe } from './typedPropsPipe'
-
 //
 // Construct the pipeline:
 //
@@ -42,6 +42,7 @@ export const elementPipeline = compose(
   conditionalRenderPipe,
   renderAtomPipe,
   componentPipe,
+  overrideComponentPropsPipe,
 )
 
 // (4). Combine the pipelines and add the final renderChildrenPipe
