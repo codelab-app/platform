@@ -11,9 +11,9 @@ export enum BuilderTab {
 
 export type SelectElementActionPayload = Partial<ElementIdPayload>
 export type HoverElementActionPayload = Partial<ElementIdPayload>
-export type RenderProps = Record<string, any>
+export type RenderPipeProps = Record<string, any>
 
-export type RenderPropsByElementId = Record<string, Maybe<RenderProps>>
+export type RenderPropsByElementId = Record<string, Maybe<RenderPipeProps>>
 
 export interface BuilderState {
   selectedElementId?: string
@@ -44,7 +44,7 @@ export interface ElementIdPayload {
 }
 
 export interface PropsPerElementIdPayload extends ElementIdPayload {
-  props: RenderProps
+  props: RenderPipeProps
 }
 
 export const builderSlice = createSlice({

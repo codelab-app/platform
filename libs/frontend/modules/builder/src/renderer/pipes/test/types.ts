@@ -1,7 +1,7 @@
-import { RenderProps } from '../../../store'
+import { RenderPipeProps } from '../../../store'
 
 export type EndPipeOutput = {
-  props: RenderProps
-  extraProps?: RenderProps
-  extraElementProps?: RenderProps
+  props: RenderPipeProps
+  extraProps?: RenderPipeProps
+  extraElementProps?: RenderPipeProps
 }

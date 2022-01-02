@@ -1,8 +1,11 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { pickBy } from 'lodash'
-import { RenderProps } from '../../store'
+import { RenderPipeProps } from '../../store'
 
-export const getPropsByTypeKind = (props: RenderProps, typeKind: TypeKind) =>
-  pickBy(props, (value: RenderProps) => {
+export const getPropsByTypeKind = (
+  props: RenderPipeProps,
+  typeKind: TypeKind,
+) =>
+  pickBy(props, (value: RenderPipeProps) => {
     return Boolean(value?.typeKind) && typeKind === value?.typeKind
   })

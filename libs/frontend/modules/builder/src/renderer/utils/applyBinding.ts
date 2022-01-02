@@ -1,12 +1,12 @@
 import { PropMapBindingFragment } from '@codelab/frontend/modules/element'
 import { get, isObjectLike, merge, set } from 'lodash'
-import { RenderProps } from '../../store'
+import { RenderPipeProps } from '../../store'
 
 export const applyBinding = (
-  targetProps: RenderProps,
-  sourceProps: RenderProps,
+  targetProps: RenderPipeProps,
+  sourceProps: RenderPipeProps,
   binding: PropMapBindingFragment,
-): RenderProps => {
+): RenderPipeProps => {
   const isSourceKeyWildcard = binding.sourceKey === '*'
   const isTargetKeyWildcard = binding.targetKey === '*'
 

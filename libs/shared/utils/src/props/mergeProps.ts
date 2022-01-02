@@ -1,7 +1,10 @@
+import { IPropData } from '@codelab/shared/abstract/core'
 import { MaybeOrNullable } from '@codelab/shared/abstract/types'
 import { mergeWith } from 'lodash'
 
-export const mergeTwoPropObjects = (value: any, srcValue: any, key: string) => {
+type PropsArray = Array<MaybeOrNullable<IPropData>>
+
+const propsCustomizer = (value: any, srcValue: any, key: string) => {
   if (key === 'className') {
     const classList = value ? value.split(' ') : []
     classList.push(srcValue)
@@ -25,12 +28,9 @@ export const mergeTwoPropObjects = (value: any, srcValue: any, key: string) => {
  * The following edge cases are handled:
  * - Merging className strings together
  */
-export const mergeProps = (
-  ...propArray: Array<MaybeOrNullable<Record<string, any>>>
-): Record<string, any> => {
-  return propArray.reduce<Record<string, any>>(
-    (mergedProps, nextProps) =>
-      mergeWith(mergedProps, nextProps, mergeTwoPropObjects),
-    {},
-  )
+
+export const mergeProps = (...propsArray: PropsArray): IPropData => {
+  return propsArray.reduce<IPropData>((mergedProps, nextProps) => {
+    return mergeWith(mergedProps, nextProps, propsCustomizer)
+  }, {})
 }

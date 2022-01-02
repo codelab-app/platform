@@ -1,6 +1,6 @@
 import { IElement } from '@codelab/shared/abstract/core'
 import { get, isString } from 'lodash'
-import { RenderProps } from '../../store'
+import { RenderPipeProps } from '../../store'
 
 const toBoolean = (value: any): boolean => {
   if (isString(value) && value.trim().toLowerCase() === 'false') {
@@ -10,7 +10,10 @@ const toBoolean = (value: any): boolean => {
   return !!value
 }
 
-export const shouldStopRendering = (element: IElement, props: RenderProps) => {
+export const shouldStopRendering = (
+  element: IElement,
+  props: RenderPipeProps,
+) => {
   const { renderIfPropKey } = element
 
   if (!renderIfPropKey) {
