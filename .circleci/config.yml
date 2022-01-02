@@ -54,7 +54,7 @@ executor-config: &executor-config
     GITHUB_WEBBER: webberwang
     SLACK_WEBBER: <@U0J401GAH>
     GITHUB_ASSIM: assimhabeek
-    SLACK_ASSIM: U02GJN72TKR
+    SLACK_ASSIM: <@U02GJN72TKR>
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
@@ -119,6 +119,7 @@ commands:
           command: |
             # git settings
             echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
+
             # slack settings
             if [ $CIRCLE_USERNAME == $GITHUB_ANTON_M ]; then
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_ANTOM_M}' >> $BASH_ENV
@@ -127,6 +128,7 @@ commands:
             else
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_WEBBER}' >> $BASH_ENV
             fi
+
             # finally import bash env
             source $BASH_ENV
       - run:

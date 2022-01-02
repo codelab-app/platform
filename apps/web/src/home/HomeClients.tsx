@@ -3,6 +3,10 @@ import { Col, Image, Row, Space, Typography } from 'antd'
 import { range } from 'lodash'
 import React from 'react'
 
+const Testimonial = () => {
+  return null
+}
+
 export const HomeClients = () => {
   const imageUrl = 'http://via.placeholder.com/80x30'
 
@@ -16,7 +20,7 @@ export const HomeClients = () => {
             style={{ display: 'flex' }}
           >
             <Typography.Title level={4}>
-              Serving small businesses all around the world
+              Serving startups all around the world
             </Typography.Title>
             <Space align="center" size={50}>
               {range(0, 5).map((_, i) => (
