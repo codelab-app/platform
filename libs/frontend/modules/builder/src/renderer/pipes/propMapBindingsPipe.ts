@@ -1,5 +1,5 @@
 import { mergeProps } from '@codelab/shared/utils'
-import { merge } from 'lodash'
+import { merge, partition } from 'lodash'
 import { applyBinding } from '../utils/applyBinding'
 import { RenderPipeFactory } from './types'
 
@@ -11,23 +11,24 @@ export const propMapBindingsPipe: RenderPipeFactory =
     const { extraElementProps } = context
     const { propMapBindings } = element
 
-    const toTargetElements = propMapBindings
-      .filter((x) => x.targetElementId)
-      .reduce((all, current) => {
-        const targetId = current.targetElementId as keyof typeof all
-        const targetElementBinding = all[targetId] ?? {}
-        const bindings = applyBinding(targetElementBinding, props, current)
+    const [childBindings, localBindings] = partition(
+      propMapBindings,
+      (x) => x.targetElementId,
+    )
 
-        return { ...all, [targetId]: bindings }
-      }, extraElementProps ?? {})
+    const toTargetElements = childBindings.reduce((all, current) => {
+      const targetElementId = current.targetElementId as string
+      const previousBinding = all[targetElementId] ?? {}
+      const newBindings = applyBinding(previousBinding, props, current)
 
-    const toCurrentElement = propMapBindings
-      .filter((x) => !x.targetElementId)
-      .reduce((all, current) => {
-        const bindings = applyBinding(all, props, current)
+      return { ...all, [targetElementId]: newBindings }
+    }, extraElementProps ?? {})
 
-        return merge(all, bindings)
-      }, {})
+    const toCurrentElement = localBindings.reduce((all, current) => {
+      const bindings = applyBinding(all, props, current)
+
+      return merge(all, bindings)
+    }, {})
 
     const updatedContext = { ...context, extraElementProps: toTargetElements }
     const updatedProps = mergeProps(props, toCurrentElement)
