@@ -1,10 +1,10 @@
 import { TestGetExport__AtomsFragment } from '@codelab/backend/modules/atom'
 import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { writeFileSync } from 'fs'
-import { Maybe } from 'graphql/jsutils/Maybe'
 import { Command, Console } from 'nestjs-console'
 import { compose } from 'ramda'
 import {
