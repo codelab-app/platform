@@ -1,6 +1,6 @@
 import { RenderProps } from '../../store'
-import { renderPipeline } from '.'
 import { extraPropsPipe } from './extraPropsPipe'
+import { renderPipeline } from './renderPipeline'
 import { elementToRender, endPipe, EndPipeOutput, treeToRender } from './test'
 import { RenderContext } from './types'
 
