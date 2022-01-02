@@ -6,20 +6,18 @@ import { AtomSchema, IAtom } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import Fuse from 'fuse.js'
+import { Maybe } from 'graphql/jsutils/Maybe'
 import { GetAtomService } from '../get-atom'
 import { GetAtomsInput } from './get-atoms.input'
 
 @Injectable()
 export class GetAtomsService extends DgraphUseCase<
-  GetAtomsInput | undefined,
+  Maybe<GetAtomsInput>,
   Array<IAtom>
 > {
   protected schema = AtomSchema.array()
 
-  protected async executeTransaction(
-    request: GetAtomsInput | undefined,
-    txn: Txn,
-  ) {
+  protected async executeTransaction(request: Maybe<GetAtomsInput>, txn: Txn) {
     if (request && request.where) {
       exactlyOneWhereClause({ input: { where: request.where } }, [
         'ids',

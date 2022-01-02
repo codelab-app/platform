@@ -1,5 +1,5 @@
 import { IBaseNode } from '@codelab/shared/abstract/core'
-import { MaybePromise } from '@codelab/shared/abstract/types'
+import { MaybePromise, Nullable } from '@codelab/shared/abstract/types'
 import cytoscape, { EdgeDataDefinition, NodeDataDefinition } from 'cytoscape'
 import { breadthFirstTraversal } from './breadthFirstTraversal'
 
@@ -18,7 +18,7 @@ export interface TreeToCytoscapeOptions<TInput extends IBaseNode<any>> {
   mapNodeToData: (
     node: TInput,
     parentNode?: TInput,
-  ) => MaybePromise<StrippedNodeDefinition | null>
+  ) => MaybePromise<Nullable<StrippedNodeDefinition>>
 
   /**
    * A function that will transform a node and parent pair to a cytoscape edge definition.
@@ -27,7 +27,7 @@ export interface TreeToCytoscapeOptions<TInput extends IBaseNode<any>> {
   mapNodeToEdgeData: (
     node: TInput,
     parentNode: TInput,
-  ) => MaybePromise<StrippedEdgeDefinition | null>
+  ) => MaybePromise<Nullable<StrippedEdgeDefinition>>
 }
 
 export class TreeService {

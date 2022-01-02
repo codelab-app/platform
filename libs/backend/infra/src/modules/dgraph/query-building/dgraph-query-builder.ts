@@ -1,3 +1,4 @@
+import { Maybe } from 'graphql/jsutils/Maybe'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphQueryField } from './dgraph-query-field'
 import { DgraphFilter, DgraphFilters, EqFilter } from './filters'
@@ -31,7 +32,7 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     this._fields = []
   }
 
-  public getField(name: string): DgraphQueryField | undefined {
+  public getField(name: string): Maybe<DgraphQueryField> {
     return this._fields.find(
       (f): f is DgraphQueryField => typeof f === 'object' && f.name == name,
     )

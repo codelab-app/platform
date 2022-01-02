@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { BuilderDragData } from '../dnd/BuilderDragData'
@@ -66,7 +67,7 @@ export const useBuilderDispatch = () => {
   )
 
   const setCurrentlyDragging = useCallback(
-    (payload: BuilderDragData | undefined) => {
+    (payload: Maybe<BuilderDragData>) => {
       dispatch(actions.setCurrentlyDragging(payload))
     },
     [dispatch],

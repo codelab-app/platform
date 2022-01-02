@@ -1,4 +1,5 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, InputType } from '@nestjs/graphql'
 import { CreateArrayTypeInput } from './create-array-type.input'
 import { CreateElementTypeInput } from './create-element-type.input'
@@ -23,20 +24,20 @@ export class CreateTypeInput<T = CreateArrayTypeInput> {
   declare typeKind: TypeKind
 
   @Field(() => CreatePrimitiveTypeInput, { nullable: true })
-  declare primitiveType?: CreatePrimitiveTypeInput | null
+  declare primitiveType?: Nullable<CreatePrimitiveTypeInput>
 
   @Field(() => CreateArrayTypeInput, { nullable: true })
-  declare arrayType?: T | null
+  declare arrayType?: Nullable<T>
 
   @Field(() => CreateEnumTypeInput, { nullable: true })
-  declare enumType?: CreateEnumTypeInput | null
+  declare enumType?: Nullable<CreateEnumTypeInput>
 
   @Field(() => CreateUnionType, { nullable: true })
-  declare unionType?: CreateUnionType | null
+  declare unionType?: Nullable<CreateUnionType>
 
   @Field(() => CreateElementTypeInput, { nullable: true })
-  declare elementType?: CreateElementTypeInput | null
+  declare elementType?: Nullable<CreateElementTypeInput>
 
   @Field(() => CreateMonacoTypeInput, { nullable: true })
-  declare monacoType?: CreateMonacoTypeInput | null
+  declare monacoType?: Nullable<CreateMonacoTypeInput>
 }

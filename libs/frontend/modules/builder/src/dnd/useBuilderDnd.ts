@@ -1,4 +1,5 @@
 import { useCreateElementMutation } from '@codelab/frontend/modules/element'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
@@ -20,7 +21,7 @@ export const useBuilderDnd = (): UseBuilderDnd => {
 
   const onDragStart = useCallback(
     (e: DragStartEvent) => {
-      const data = e.active.data.current as BuilderDragData | undefined
+      const data = e.active.data.current as Maybe<BuilderDragData>
 
       if (data?.type === BuilderDndType.CreateElement) {
         setCurrentlyDragging(data)
@@ -31,8 +32,8 @@ export const useBuilderDnd = (): UseBuilderDnd => {
 
   const onDragEnd = useCallback(
     (e: DragEndEvent) => {
-      const data = e.active.data.current as BuilderDragData | undefined
-      const overData = e.over?.data.current as BuilderDragData | undefined
+      const data = e.active.data.current as Maybe<BuilderDragData>
+      const overData = e.over?.data.current as Maybe<BuilderDragData>
 
       if (data?.type === BuilderDndType.CreateElement) {
         if (overData?.type === BuilderDndType.CreateElement) {

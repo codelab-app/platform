@@ -1,3 +1,4 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
@@ -6,7 +7,7 @@ export class UpdateEnumTypeValueData {
   declare id?: string
 
   @Field(() => String, { nullable: true })
-  declare name: string | null
+  declare name: Nullable<string>
 
   @Field()
   declare value: string

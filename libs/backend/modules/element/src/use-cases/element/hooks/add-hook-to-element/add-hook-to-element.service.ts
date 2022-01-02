@@ -5,6 +5,7 @@ import {
   DgraphUpdateMutationJson,
 } from '@codelab/backend/infra'
 import { CreatePropService } from '@codelab/backend/modules/prop'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../../application/element.validator'
@@ -47,7 +48,7 @@ export class AddHookToElementService extends DgraphCreateUseCase<AddHookToElemen
 
   public static createHookMutation(
     input: HookRef,
-    uid: string | undefined,
+    uid: Maybe<string>,
   ): Record<string, any> {
     const { config } = input
 

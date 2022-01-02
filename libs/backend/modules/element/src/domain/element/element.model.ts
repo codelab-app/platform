@@ -3,7 +3,7 @@ import { Hook } from '@codelab/backend/modules/hook'
 import { Prop } from '@codelab/backend/modules/prop'
 import { Tag } from '@codelab/backend/modules/tag'
 import { IElement, IPropMapBinding } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 import { PropMapBinding } from '../prop-mapping/prop-map-binding.model'
 
@@ -24,23 +24,23 @@ export class Element implements IElement {
   id: string
 
   @Field(() => String, { nullable: true })
-  name: Maybe<string>
+  name: Nullable<string>
 
   @Field(() => Tag, {
     nullable: true,
     description: 'An Element tagged with componentTag is a reusable component',
   })
-  componentTag?: Maybe<Tag>
+  componentTag?: Nullable<Tag>
 
   @Field(() => String, { nullable: true })
-  componentFixedId: Maybe<string>
+  componentFixedId: Nullable<string>
 
   @Field(() => String, { nullable: true })
   /** The CSS string that gets passed down to emotion */
-  css?: Maybe<string>
+  css?: Nullable<string>
 
   @Field(() => Atom, { nullable: true })
-  atom?: Maybe<Atom>
+  atom?: Nullable<Atom>
 
   @Field(() => Prop)
   props: Prop
@@ -53,20 +53,20 @@ export class Element implements IElement {
       'If set, the element will get rendered for each item in the array found in its props by the given key, if it exists',
     nullable: true,
   })
-  renderForEachPropKey?: Maybe<string>
+  renderForEachPropKey?: Nullable<string>
 
   @Field(() => String, {
     description:
       'If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)',
     nullable: true,
   })
-  renderIfPropKey?: Maybe<string>
+  renderIfPropKey?: Nullable<string>
 
   @Field(() => [PropMapBinding])
   propMapBindings: Array<IPropMapBinding>
 
   @Field(() => String, { nullable: true })
-  propTransformationJs?: Maybe<string>
+  propTransformationJs?: Nullable<string>
 
   @Field(() => ComponentRef, { nullable: true })
   instanceOfComponent?: ComponentRef

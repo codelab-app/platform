@@ -1,5 +1,5 @@
 import { IField } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field as GraphqlField, ID, ObjectType } from '@nestjs/graphql'
 
 /**
@@ -14,10 +14,10 @@ export class Field implements IField {
   declare key: string
 
   @GraphqlField(() => String, { nullable: true })
-  declare name?: Maybe<string>
+  declare name?: Nullable<string>
 
   @GraphqlField(() => String, { nullable: true })
-  declare description?: Maybe<string>
+  declare description?: Nullable<string>
 
   @GraphqlField()
   declare target: string

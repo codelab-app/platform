@@ -1,18 +1,22 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphEntityType } from '@codelab/backend/infra'
 import { AtomSchema, IAtom } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetAtomInput } from './get-atom.input'
 
 @Injectable()
-export class GetAtomService extends DgraphUseCase<GetAtomInput, IAtom | null> {
+export class GetAtomService extends DgraphUseCase<
+  GetAtomInput,
+  Nullable<IAtom>
+> {
   protected schema = AtomSchema.nullable()
 
   protected async executeTransaction(
     input: GetAtomInput,
     txn: Txn,
-  ): Promise<IAtom | null> {
+  ): Promise<Nullable<IAtom>> {
     GetAtomService.validate(input)
 
     const {

@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Injectable, Logger } from '@nestjs/common'
 import fs from 'fs'
 import { parse } from 'json2csv'
@@ -74,7 +75,7 @@ export class PuppeteerService {
       )
       await page.goto(url)
 
-      const tableData: Array<ComponentData | undefined> = await page.evaluate(
+      const tableData: Array<Maybe<ComponentData>> = await page.evaluate(
         (_tableKeys, _pageName) => {
           const extractPropsFromTable = (tableToExtract: HTMLTableElement) => {
             const rows = Array.from<HTMLTableRowElement>(
@@ -133,7 +134,7 @@ export class PuppeteerService {
 
           // Multiple tables (components)
           return Array.from(tables).map((table) => {
-            let name: string | undefined = undefined
+            let name: Maybe<string> = undefined
 
             if (table.tagName !== 'TABLE') {
               return

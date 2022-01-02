@@ -3,6 +3,7 @@ import {
   IRecoilStateHookConfig,
   PersistenceType,
 } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { capitalizeFirstLetter } from '@codelab/shared/utils'
 import { useCallback, useEffect, useState } from 'react'
 import { atomFamily, useRecoilState } from 'recoil'
@@ -67,7 +68,7 @@ export const useRecoilStateHook: HookHandler = (
     }
 
     // Set the default value on mount
-    let defaultValue: any | null
+    let defaultValue: Nullable<any>
 
     if (isPersisted()) {
       try {

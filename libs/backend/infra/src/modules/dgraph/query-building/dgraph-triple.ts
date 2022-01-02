@@ -1,3 +1,4 @@
+import { MaybeOrNullable } from '@codelab/shared/abstract/types'
 import { IBuildable } from './i-query-builder'
 
 export type TripleValue = string | boolean | number | IBuildable
@@ -73,7 +74,7 @@ export class DgraphTriple implements IBuildable {
     return this
   }
 
-  setValue(value: string | null | undefined) {
+  setValue(value: MaybeOrNullable<string>) {
     this._value = value || ''
 
     return this

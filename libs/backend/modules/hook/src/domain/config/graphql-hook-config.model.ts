@@ -2,6 +2,7 @@ import {
   HookDiscriminator,
   IGraphqlHookConfig,
 } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType(HookDiscriminator.GraphqlHookConfig)
@@ -13,7 +14,7 @@ export class GraphqlHookConfig implements IGraphqlHookConfig {
   graphqlUrl: string
 
   @Field(() => String, { nullable: true })
-  dataKey?: string | null
+  dataKey?: Nullable<string>
 
   constructor({ graphqlBody, graphqlUrl, dataKey }: GraphqlHookConfig) {
     this.graphqlBody = graphqlBody

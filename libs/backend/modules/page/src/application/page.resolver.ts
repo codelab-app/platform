@@ -5,6 +5,7 @@ import {
 } from '@codelab/backend/modules/element'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import { IUser } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -128,7 +129,7 @@ export class PageResolver {
   async resolveElements(
     @Parent() page: Page,
     @CurrentUser() currentUser: IUser,
-  ): Promise<ElementGraph | null> {
+  ): Promise<Nullable<ElementGraph>> {
     const dgraphPage = await this.getPageService.execute({
       input: { pageId: page.id },
       currentUser,

@@ -29,7 +29,7 @@ const verifyHookIsAdded = async (
   hookId: string,
   type: AtomType,
   elementId: string,
-  config: string | undefined,
+  config: Maybe<string>,
 ) => {
   expect(hookId).toBeDefined()
 

@@ -7,6 +7,7 @@ import {
 import { EqualityConditionalView } from '@codelab/frontend/view/components'
 import { MainPaneTemplate } from '@codelab/frontend/view/templates'
 import { IElement } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import Input from 'antd/lib/input'
 import { debounce } from 'lodash'
 import React, { useCallback, useState } from 'react'
@@ -24,7 +25,7 @@ const paneTitles: Record<BuilderTab, string> = {
 
 const headerFactory = (
   tab: BuilderTab,
-  root: IElement | undefined,
+  root: Maybe<IElement>,
   onSearch: (input: string) => void,
 ) => {
   if (tab === BuilderTab.Tree && root) {

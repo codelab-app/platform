@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import Modal, { ModalProps } from 'antd/lib/modal'
 import React, {
   cloneElement,
@@ -35,7 +36,7 @@ export const FormUniformsModal = <TData extends Record<string, unknown>>({
   ...props
 }: PropsWithChildren<FormUniformsModalProps<TData>>): ReactElement => {
   // This is the controller that will do the form submission. Set by the GeneratedForm component
-  const submitRef = useRef<SubmitController | undefined>()
+  const submitRef = useRef<Maybe<SubmitController>>()
 
   const form = cloneElement(renderForm(), {
     submitRef,

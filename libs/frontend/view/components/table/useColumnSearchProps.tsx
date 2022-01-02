@@ -1,4 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Button, Input, Space, TableColumnProps } from 'antd'
 import React, { useRef, useState } from 'react'
 
@@ -21,7 +22,7 @@ export const useColumnSearchProps = (dataIndex: string) => {
     })
   }
 
-  const handleReset = (clearFilters: (() => void) | undefined) => {
+  const handleReset = (clearFilters: Maybe<() => void>) => {
     if (clearFilters !== undefined) {
       clearFilters()
     }

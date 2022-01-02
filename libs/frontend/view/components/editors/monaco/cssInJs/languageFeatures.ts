@@ -1,3 +1,4 @@
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import {
   CancellationToken,
   editor,
@@ -126,7 +127,7 @@ export class DiagnosticsAdapter<T extends ILanguageWorkerWithDiagnostics> {
   }
 }
 
-const toSeverity = (lsSeverity: number | undefined): MarkerSeverity => {
+const toSeverity = (lsSeverity: Maybe<number>): MarkerSeverity => {
   switch (lsSeverity) {
     case lsTypes.DiagnosticSeverity.Error:
       return MarkerSeverity.Error
@@ -168,7 +169,7 @@ export interface ILanguageWorkerWithCompletions {
   doComplete(
     uri: string,
     position: lsTypes.Position,
-  ): Promise<lsTypes.CompletionList | null>
+  ): Promise<Nullable<lsTypes.CompletionList>>
 }
 
 export class CompletionAdapter<T extends ILanguageWorkerWithCompletions>
@@ -188,7 +189,7 @@ export class CompletionAdapter<T extends ILanguageWorkerWithCompletions>
     position: Position,
     context: languages.CompletionContext,
     token: CancellationToken,
-  ): PromiseLike<languages.CompletionList | undefined> {
+  ): PromiseLike<Maybe<languages.CompletionList>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -261,7 +262,7 @@ export class CompletionAdapter<T extends ILanguageWorkerWithCompletions>
   }
 }
 
-export const fromPosition = <T extends Position | undefined>(
+export const fromPosition = <T extends Maybe<Position>>(
   position: T,
 ): T extends undefined ? undefined : lsTypes.Position => {
   if (!position) {
@@ -274,9 +275,7 @@ export const fromPosition = <T extends Position | undefined>(
   } as any
 }
 
-export const fromRange = (
-  range: IRange | undefined,
-): lsTypes.Range | undefined => {
+export const fromRange = (range: Maybe<IRange>): Maybe<lsTypes.Range> => {
   if (!range) {
     return void 0
   }
@@ -290,7 +289,7 @@ export const fromRange = (
   }
 }
 
-export const toRange = <TRange extends lsTypes.Range | undefined>(
+export const toRange = <TRange extends Maybe<lsTypes.Range>>(
   range: TRange,
 ): TRange extends undefined ? undefined : Range => {
   if (!range) {
@@ -312,7 +311,7 @@ const isInsertReplaceEdit = (
   typeof (<lsTypes.InsertReplaceEdit>edit).replace !== 'undefined'
 
 const toCompletionItemKind = (
-  kind: number | undefined,
+  kind: Maybe<number>,
 ): languages.CompletionItemKind => {
   const mItemKind = languages.CompletionItemKind
 
@@ -405,7 +404,7 @@ const fromCompletionItemKind = (
   return lsTypes.CompletionItemKind.Property
 }
 
-export const toTextEdit = <T extends lsTypes.TextEdit | undefined>(
+export const toTextEdit = <T extends Maybe<lsTypes.TextEdit>>(
   textEdit: T,
 ): T extends undefined ? undefined : languages.TextEdit => {
   if (!textEdit) {
@@ -418,9 +417,7 @@ export const toTextEdit = <T extends lsTypes.TextEdit | undefined>(
   } as any
 }
 
-const toCommand = (
-  c: lsTypes.Command | undefined,
-): languages.Command | undefined =>
+const toCommand = (c: Maybe<lsTypes.Command>): Maybe<languages.Command> =>
   c && c.command === 'editor.action.triggerSuggest'
     ? { id: c.command, title: c.title, arguments: c.arguments }
     : undefined
@@ -433,7 +430,7 @@ export interface ILanguageWorkerWithHover {
   doHover(
     uri: string,
     position: lsTypes.Position,
-  ): Promise<lsTypes.Hover | null>
+  ): Promise<Nullable<lsTypes.Hover>>
 }
 
 export class HoverAdapter<T extends ILanguageWorkerWithHover>
@@ -445,7 +442,7 @@ export class HoverAdapter<T extends ILanguageWorkerWithHover>
     model: editor.IReadOnlyModel,
     position: Position,
     token: CancellationToken,
-  ): Thenable<languages.Hover | undefined> {
+  ): Thenable<Maybe<languages.Hover>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -499,7 +496,7 @@ const toMarkedStringArray = (
     | lsTypes.MarkupContent
     | lsTypes.MarkedString
     | Array<lsTypes.MarkedString>,
-): Array<IMarkdownString> | undefined => {
+): Maybe<Array<IMarkdownString>> => {
   if (!contents) {
     return void 0
   }
@@ -532,7 +529,7 @@ export class DocumentHighlightAdapter<
     model: editor.IReadOnlyModel,
     position: Position,
     token: CancellationToken,
-  ): Thenable<Array<languages.DocumentHighlight> | undefined> {
+  ): Thenable<Maybe<Array<languages.DocumentHighlight>>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -558,7 +555,7 @@ export class DocumentHighlightAdapter<
 }
 
 const toDocumentHighlightKind = (
-  kind: lsTypes.DocumentHighlightKind | undefined,
+  kind: Maybe<lsTypes.DocumentHighlightKind>,
 ): languages.DocumentHighlightKind => {
   switch (kind) {
     case lsTypes.DocumentHighlightKind.Read:
@@ -580,7 +577,7 @@ export interface ILanguageWorkerWithDefinitions {
   findDefinition(
     uri: string,
     position: lsTypes.Position,
-  ): Promise<lsTypes.Location | null>
+  ): Promise<Nullable<lsTypes.Location>>
 }
 
 export class DefinitionAdapter<T extends ILanguageWorkerWithDefinitions>
@@ -592,7 +589,7 @@ export class DefinitionAdapter<T extends ILanguageWorkerWithDefinitions>
     model: editor.IReadOnlyModel,
     position: Position,
     token: CancellationToken,
-  ): Thenable<languages.Definition | undefined> {
+  ): Thenable<Maybe<languages.Definition>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -638,7 +635,7 @@ export class ReferenceAdapter<T extends ILanguageWorkerWithReferences>
     position: Position,
     context: languages.ReferenceContext,
     token: CancellationToken,
-  ): Thenable<Array<languages.Location> | undefined> {
+  ): Thenable<Maybe<Array<languages.Location>>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -667,7 +664,7 @@ export interface ILanguageWorkerWithRename {
     uri: string,
     position: lsTypes.Position,
     newName: string,
-  ): Promise<lsTypes.WorkspaceEdit | null>
+  ): Promise<Nullable<lsTypes.WorkspaceEdit>>
 }
 
 export class RenameAdapter<T extends ILanguageWorkerWithRename>
@@ -680,7 +677,7 @@ export class RenameAdapter<T extends ILanguageWorkerWithRename>
     position: Position,
     newName: string,
     token: CancellationToken,
-  ): Thenable<languages.WorkspaceEdit | undefined> {
+  ): Thenable<Maybe<languages.WorkspaceEdit>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -698,8 +695,8 @@ export class RenameAdapter<T extends ILanguageWorkerWithRename>
 }
 
 const toWorkspaceEdit = (
-  edit: lsTypes.WorkspaceEdit | null,
-): languages.WorkspaceEdit | undefined => {
+  edit: Nullable<lsTypes.WorkspaceEdit>,
+): Maybe<languages.WorkspaceEdit> => {
   if (!edit || !edit.changes) {
     return void 0
   }
@@ -741,7 +738,7 @@ export class DocumentSymbolAdapter<T extends ILanguageWorkerWithDocumentSymbols>
   public provideDocumentSymbols(
     model: editor.IReadOnlyModel,
     token: CancellationToken,
-  ): Thenable<Array<languages.DocumentSymbol> | undefined> {
+  ): Thenable<Maybe<Array<languages.DocumentSymbol>>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -825,7 +822,7 @@ export class DocumentLinkAdapter<T extends ILanguageWorkerWithDocumentLinks>
   public provideLinks(
     model: editor.IReadOnlyModel,
     token: CancellationToken,
-  ): Thenable<languages.ILinksList | undefined> {
+  ): Thenable<Maybe<languages.ILinksList>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -852,7 +849,7 @@ export class DocumentLinkAdapter<T extends ILanguageWorkerWithDocumentLinks>
 export interface ILanguageWorkerWithFormat {
   format(
     uri: string,
-    range: lsTypes.Range | null,
+    range: Nullable<lsTypes.Range>,
     options: lsTypes.FormattingOptions,
   ): Promise<Array<lsTypes.TextEdit>>
 }
@@ -866,7 +863,7 @@ export class DocumentFormattingEditProvider<T extends ILanguageWorkerWithFormat>
     model: editor.IReadOnlyModel,
     options: languages.FormattingOptions,
     token: CancellationToken,
-  ): Thenable<Array<languages.TextEdit> | undefined> {
+  ): Thenable<Maybe<Array<languages.TextEdit>>> {
     const resource = model.uri
 
     return this._worker(resource).then((worker) => {
@@ -894,7 +891,7 @@ export class DocumentRangeFormattingEditProvider<
     range: Range,
     options: languages.FormattingOptions,
     token: CancellationToken,
-  ): Thenable<Array<languages.TextEdit> | undefined> {
+  ): Thenable<Maybe<Array<languages.TextEdit>>> {
     const resource = model.uri
 
     return this._worker(resource).then((worker) => {
@@ -943,7 +940,7 @@ export class DocumentColorAdapter<T extends ILanguageWorkerWithDocumentColors>
   public provideDocumentColors(
     model: editor.IReadOnlyModel,
     token: CancellationToken,
-  ): Thenable<Array<languages.IColorInformation> | undefined> {
+  ): Thenable<Maybe<Array<languages.IColorInformation>>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -964,7 +961,7 @@ export class DocumentColorAdapter<T extends ILanguageWorkerWithDocumentColors>
     model: editor.IReadOnlyModel,
     info: languages.IColorInformation,
     token: CancellationToken,
-  ): Thenable<Array<languages.IColorPresentation> | undefined> {
+  ): Thenable<Maybe<Array<languages.IColorPresentation>>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -1025,7 +1022,7 @@ export class FoldingRangeAdapter<T extends ILanguageWorkerWithFoldingRanges>
     model: editor.IReadOnlyModel,
     context: languages.FoldingContext,
     token: CancellationToken,
-  ): Thenable<Array<languages.FoldingRange> | undefined> {
+  ): Thenable<Maybe<Array<languages.FoldingRange>>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -1055,7 +1052,7 @@ export class FoldingRangeAdapter<T extends ILanguageWorkerWithFoldingRanges>
 
 const toFoldingRangeKind = (
   kind: lsTypes.FoldingRangeKind,
-): languages.FoldingRangeKind | undefined => {
+): Maybe<languages.FoldingRangeKind> => {
   switch (kind) {
     case lsTypes.FoldingRangeKind.Comment:
       return languages.FoldingRangeKind.Comment
@@ -1088,7 +1085,7 @@ export class SelectionRangeAdapter<T extends ILanguageWorkerWithSelectionRanges>
     model: editor.IReadOnlyModel,
     positions: Array<Position>,
     token: CancellationToken,
-  ): Thenable<Array<Array<languages.SelectionRange>> | undefined> {
+  ): Thenable<Maybe<Array<Array<languages.SelectionRange>>>> {
     const resource = model.uri
 
     return this._worker(resource)
@@ -1104,7 +1101,7 @@ export class SelectionRangeAdapter<T extends ILanguageWorkerWithSelectionRanges>
         }
 
         return selectionRanges.map(
-          (selectionRange: lsTypes.SelectionRange | undefined) => {
+          (selectionRange: Maybe<lsTypes.SelectionRange>) => {
             const result: Array<languages.SelectionRange> = []
 
             while (selectionRange) {

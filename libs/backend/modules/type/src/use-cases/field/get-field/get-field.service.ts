@@ -1,6 +1,7 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphEntityType } from '@codelab/backend/infra'
 import { FieldSchema, IField } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { FieldByIdFilter, FieldByInterfaceFilter } from './get-field.input'
@@ -9,7 +10,7 @@ import { GetFieldRequest } from './get-field.request'
 @Injectable()
 export class GetFieldService extends DgraphUseCase<
   GetFieldRequest,
-  IField | null
+  Nullable<IField>
 > {
   protected schema = FieldSchema.optional().nullable()
 

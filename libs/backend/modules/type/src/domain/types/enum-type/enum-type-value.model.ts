@@ -1,5 +1,5 @@
 import { IEnumTypeValue } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
@@ -8,7 +8,7 @@ export class EnumTypeValue implements IEnumTypeValue {
   declare id: string
 
   @Field(() => String, { nullable: true })
-  declare name?: Maybe<string>
+  declare name?: Nullable<string>
 
   @Field(() => String)
   declare value: string

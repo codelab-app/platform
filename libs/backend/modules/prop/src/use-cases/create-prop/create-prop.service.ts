@@ -5,6 +5,7 @@ import {
   DgraphEntityType,
   DgraphRepository,
 } from '@codelab/backend/infra'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { CreatePropInput } from './create-prop.input'
@@ -41,7 +42,7 @@ export class CreatePropService extends DgraphUseCase<
     }
   }
 
-  public static createPropsMutation(data: string, uid: string | undefined) {
+  public static createPropsMutation(data: string, uid: Maybe<string>) {
     return { uid, 'dgraph.type': [DgraphEntityType.Prop], data }
   }
 }

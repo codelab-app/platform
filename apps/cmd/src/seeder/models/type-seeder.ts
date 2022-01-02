@@ -16,6 +16,7 @@ import {
 } from '@codelab/backend/modules/type'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { IUser, TypeKind } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { BaseTypeName, baseTypes } from '../data/baseTypes'
@@ -34,7 +35,7 @@ import { AtomSeeder } from './atom-seeder'
  */
 @Injectable()
 export class TypeSeeder {
-  private baseTypes: Map<BaseTypeName, string> | undefined
+  private baseTypes: Maybe<Map<BaseTypeName, string>>
 
   constructor(
     private createTypeService: CreateTypeService,
@@ -340,7 +341,7 @@ export class TypeSeeder {
   private getTypeForApi(
     apiField: AntdDesignApi,
     atomName: string,
-  ): TypeRef | undefined {
+  ): Maybe<TypeRef> {
     if (apiField.isEnum) {
       const enumValues = apiField.type.split('|').map((v) => v.trim())
 

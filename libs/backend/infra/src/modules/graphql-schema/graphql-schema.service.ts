@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { loadFilesSync } from '@graphql-tools/load-files'
 import { Inject, Injectable } from '@nestjs/common'
 import { DocumentNode, EnumTypeDefinitionNode } from 'graphql'
@@ -17,7 +18,7 @@ export class GraphqlSchemaService {
   getEnumTypeDef(
     enumType: string,
     schema: DocumentNode,
-  ): EnumTypeDefinitionNode | undefined {
+  ): Maybe<EnumTypeDefinitionNode> {
     return schema.definitions.find(
       (def): def is EnumTypeDefinitionNode =>
         def.kind === 'EnumTypeDefinition' && def.name.value === enumType,

@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { DefaultRootState } from 'react-redux'
@@ -12,7 +13,7 @@ export type SelectElementActionPayload = Partial<ElementIdPayload>
 export type HoverElementActionPayload = Partial<ElementIdPayload>
 export type RenderProps = Record<string, any>
 
-export type RenderPropsByElementId = Record<string, RenderProps | undefined>
+export type RenderPropsByElementId = Record<string, Maybe<RenderProps>>
 
 export interface BuilderState {
   selectedElementId?: string
@@ -96,7 +97,7 @@ export const builderSlice = createSlice({
     },
     setCurrentlyDragging: (
       state,
-      { payload }: PayloadAction<BuilderDragData | undefined>,
+      { payload }: PayloadAction<Maybe<BuilderDragData>>,
     ) => {
       state.currentlyDragging = payload
     },

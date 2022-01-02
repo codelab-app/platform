@@ -1,4 +1,5 @@
 import { IElement, IElementEdge, IGraph } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { getCyElementData } from '../cytoscape/element'
 import { filterPredicate, TreeService } from '../tree'
 import { isComponent, isElement } from './guards'
@@ -12,7 +13,7 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
   // concrete vertices are implemented
   constructor(
     graph: IGraph<any, any>,
-    extractEdgeId?: ((edge: any) => string) | undefined,
+    extractEdgeId?: Maybe<(edge: any) => string>,
   ) {
     super(graph, extractEdgeId)
   }
@@ -31,11 +32,11 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
     }
   }
 
-  getRootElement(): IElement | undefined {
+  getRootElement(): Maybe<IElement> {
     return this.getRootVertex(ElementTree.isElement)
   }
 
-  getRootComponent(): IElement | undefined {
+  getRootComponent(): Maybe<IElement> {
     return this.getRootVertex(ElementTree.isComponent)
   }
 
@@ -50,13 +51,13 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
   /**
    * componentId is the root elementId of the element tree
    */
-  getComponentById(componentId: string): IElement | undefined {
+  getComponentById(componentId: string): Maybe<IElement> {
     return this.cy
       .nodes()
       .filter(filterPredicate(ElementTree.isComponent))
       .getElementById(componentId)
       .first()
-      .map<IElement | undefined>(getCyElementData)[0]
+      .map<Maybe<IElement>>(getCyElementData)[0]
   }
 
   getAllComponents(): Array<IElement> {

@@ -8,6 +8,7 @@ import {
   IElement,
   IElementGraph,
 } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import {
   deepLoopObjectValues,
   deepReplaceObjectValues,
@@ -43,7 +44,7 @@ export class GetElementGraphService extends DgraphUseCase<
   ) {
     exactlyOneWhereClause(request, ['id', 'componentFixedId'])
 
-    let results: IElementGraph | undefined
+    let results: Maybe<IElementGraph>
 
     if (request.input.where.id) {
       results = await this.dgraph.executeQuery<IElementGraph>(

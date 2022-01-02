@@ -2,8 +2,10 @@ import {
   CreateResponsePort,
   NotFoundError,
 } from '@codelab/backend/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
 import { Mutation, Response, Txn } from 'dgraph-js-http'
+import { Maybe } from 'graphql/jsutils/Maybe'
 import { LoggerService, LoggerTokens } from '../logger'
 import { DgraphService } from './dgraph.service'
 import { DgraphQueryBuilder } from './query-building'
@@ -86,7 +88,7 @@ export class DgraphRepository {
   /**
    * Performs a mutation, commits the transaction and returns the UID of the labeled blank node (if supplied)
    */
-  async executeMutation<TStringLabel extends string | undefined>(
+  async executeMutation<TStringLabel extends Maybe<string>>(
     txn: Txn,
     mu: Mutation,
     blankNodeLabel?: TStringLabel,
@@ -270,7 +272,7 @@ export class DgraphRepository {
   async getOne<T>(
     txn: Txn,
     queryOrFactory: DgraphQueryBuilder | QueryBuilderFactoryFn,
-  ): Promise<T | null> {
+  ): Promise<Nullable<T>> {
     const query =
       typeof queryOrFactory === 'function'
         ? await queryOrFactory()
@@ -325,7 +327,7 @@ export class DgraphRepository {
     txn: Txn,
     queryOrFactory: string | QueryFactoryFn,
     queryName: string,
-  ): Promise<TResponse | null> {
+  ): Promise<Nullable<TResponse>> {
     const query =
       typeof queryOrFactory === 'function'
         ? await queryOrFactory()

@@ -1,6 +1,6 @@
 import { FetchResult } from '@apollo/client'
 import { Callback } from '@codelab/frontend/shared/utils'
-import { MaybeArray } from '@codelab/shared/abstract/types'
+import { Maybe, MaybeArray } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
 import React from 'react'
 import { AutoFormProps, Bridge } from 'uniforms'
@@ -8,13 +8,13 @@ import { SubmitController } from './submitController'
 
 export type ModalFormProps<TData> = {
   /** Use this to be able to hide the submit button and get a controller, which can trigger form submit */
-  submitRef?: React.MutableRefObject<SubmitController | undefined>
+  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
 
   /** Called after a successful submit */
-  onSubmitSuccess?: MaybeArray<Callback<FetchResult<any>> | undefined>
+  onSubmitSuccess?: MaybeArray<Maybe<Callback<FetchResult<any>>>>
 
   /** Called after a failed submit */
-  onSubmitError?: MaybeArray<Callback<any> | undefined>
+  onSubmitError?: MaybeArray<Maybe<Callback<any>>>
 
   onSubmit: (model: TData) => void | Promise<any>
 }

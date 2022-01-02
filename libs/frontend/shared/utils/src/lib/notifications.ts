@@ -1,4 +1,5 @@
 import { ApolloError } from '@apollo/client'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { notification } from 'antd'
 import { extractErrorMessage } from './extractErrorMessage'
 
@@ -8,9 +9,9 @@ export interface NotificationOptions<TEvent = any> {
   /** The type of notification. Default is error */
   type?: NotificationType
   /** Enter a custom title of the notification. If you don't, it will be "info" */
-  title?: string | ((e: TEvent | undefined) => string)
+  title?: string | ((e: Maybe<TEvent>) => string)
   /** Enter a custom content of the notification. If you don't, it will be inferred from the error message, if found */
-  content?: string | ((e: TEvent | undefined) => string)
+  content?: string | ((e: Maybe<TEvent>) => string)
 }
 
 const defaultOptions: NotificationOptions<any> = {
@@ -19,7 +20,7 @@ const defaultOptions: NotificationOptions<any> = {
 
 export const notify = <TEvent>(
   options: NotificationOptions<TEvent>,
-  e: TEvent | undefined = undefined,
+  e: Maybe<TEvent> = undefined,
 ) => {
   const { content, type, title } = { ...defaultOptions, ...options }
   let titleString = ''
@@ -83,7 +84,7 @@ export const useNotify = (
 export const createNotificationHandler = <TEvent extends ApolloError>(
   o: NotificationOptions<TEvent> = defaultOptions,
 ) => {
-  return (e: TEvent | undefined = undefined) => {
+  return (e: Maybe<TEvent> = undefined) => {
     notify(o, e)
   }
 }

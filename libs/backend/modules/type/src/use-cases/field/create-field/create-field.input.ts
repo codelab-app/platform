@@ -1,13 +1,14 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, InputType } from '@nestjs/graphql'
 import { CreateTypeInput } from '../../type/create-type'
 
 @InputType()
 export class TypeRef {
   @Field(() => String, { nullable: true })
-  declare existingTypeId?: string | null
+  declare existingTypeId?: Nullable<string>
 
   @Field(() => CreateTypeInput, { nullable: true })
-  declare newType?: CreateTypeInput | null
+  declare newType?: Nullable<CreateTypeInput>
 }
 
 @InputType()

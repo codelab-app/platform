@@ -3,6 +3,7 @@ import {
   IQueryLambdaHookConfig,
   QueryMethod,
 } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, ObjectType } from '@nestjs/graphql'
 
 @ObjectType(HookDiscriminator.QueryHookConfig)
@@ -11,16 +12,16 @@ export class QueryLambdaConfigHookConfig implements IQueryLambdaHookConfig {
   queryKey: string
 
   @Field(() => String, { nullable: true })
-  url?: string | null
+  url?: Nullable<string>
 
   @Field(() => String, { nullable: true })
-  body?: string | null
+  body?: Nullable<string>
 
   @Field(() => QueryMethod, { nullable: true })
-  method?: QueryMethod | null
+  method?: Nullable<QueryMethod>
 
   @Field(() => String, { nullable: true })
-  lambdaId?: string | null
+  lambdaId: string
 
   constructor({
     queryKey,

@@ -1,4 +1,5 @@
 import { DgraphUseCase } from '@codelab/backend/application'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TagGraph } from '../../domain/tag-graph.model'
@@ -10,7 +11,7 @@ import { GetTagGraphsRequest } from './get-tag-graphs.request'
 @Injectable()
 export class GetTagGraphsService extends DgraphUseCase<
   GetTagGraphsRequest,
-  TagGraph | null
+  Nullable<TagGraph>
 > {
   protected async executeTransaction(request: GetTagGraphsRequest, txn: Txn) {
     const tagGraph = await this.dgraph.executeQuery<TagGraph>(

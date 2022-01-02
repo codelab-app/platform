@@ -3,6 +3,7 @@ import {
   IRecoilStateHookConfig,
   PersistenceType,
 } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
 
 registerEnumType(PersistenceType, {
@@ -15,7 +16,7 @@ export class RecoilStateHookConfig implements IRecoilStateHookConfig {
   stateKey: string
 
   @Field(() => String, { nullable: true })
-  defaultValue?: string | null
+  defaultValue?: Nullable<string>
 
   @Field(() => PersistenceType)
   declare persisted: PersistenceType

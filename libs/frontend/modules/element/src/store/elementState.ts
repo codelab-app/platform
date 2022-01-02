@@ -4,6 +4,7 @@ import {
   CRUDModalState,
   initialCrudState,
 } from '@codelab/frontend/view/components'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { DefaultRootState } from 'react-redux'
 import { ElementFragment } from '../graphql'
@@ -24,7 +25,7 @@ export const initialState: ElementState = {
 export const elementSlice = createCrudSlice('element', initialState, {
   openCreateModal: (
     state,
-    { payload }: PayloadAction<ElementStateCreateMetadata | undefined>,
+    { payload }: PayloadAction<Maybe<ElementStateCreateMetadata>>,
   ) => {
     state.actionType = ActionType.Create
     state.entity = undefined

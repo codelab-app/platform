@@ -2,6 +2,7 @@ import {
   componentLikeDestructure,
   ComponentTypeLike,
 } from '@codelab/frontend/shared/utils'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { css } from '@emotion/react'
 import { Layout } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -15,10 +16,10 @@ import { DashboardTemplateMetaPane } from './DashboardTemplateMetaPane'
 const { Sider, Header: AntDesignHeader } = Layout
 
 export interface DashboardTemplateProps {
-  Header?: ComponentTypeLike | null
-  MetaPane?: ComponentTypeLike | null
-  MainPane?: ComponentTypeLike | null
-  SidebarNavigation?: ComponentTypeLike | null
+  Header?: Nullable<ComponentTypeLike>
+  MetaPane?: Nullable<ComponentTypeLike>
+  MainPane?: Nullable<ComponentTypeLike>
+  SidebarNavigation?: Nullable<ComponentTypeLike>
   headerHeight?: number
 }
 

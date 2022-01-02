@@ -4,6 +4,7 @@ import { CurrentUser } from '@codelab/backend/modules/user'
 import type { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Maybe } from 'graphql/jsutils/Maybe'
 import { Tag } from '../domain/tag.model'
 import { TagGraph } from '../domain/tag-graph.model'
 import { CreateTagInput, CreateTagService } from '../use-cases/create-tag'
@@ -62,7 +63,7 @@ export class TagResolver {
   @UseGuards(GqlAuthGuard)
   async getTags(
     @Args('input', { nullable: true, type: () => GetTagsInput })
-    input: GetTagsInput | undefined,
+    input: Maybe<GetTagsInput>,
     @CurrentUser() currentUser: IUser,
   ) {
     return this.getTagsService.execute({ currentUser })

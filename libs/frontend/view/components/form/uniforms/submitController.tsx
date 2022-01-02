@@ -1,3 +1,4 @@
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 
 /** This object is used to control form submission imperatively */
@@ -6,12 +7,8 @@ export interface SubmitController {
 }
 
 export const setSubmitControllerRef =
-  (
-    submitButtonRef:
-      | React.MutableRefObject<SubmitController | undefined>
-      | undefined,
-  ) =>
-  (submitButton: HTMLButtonElement | null) => {
+  (submitButtonRef: Maybe<React.MutableRefObject<Maybe<SubmitController>>>) =>
+  (submitButton: Nullable<HTMLButtonElement>) => {
     if (!submitButtonRef) {
       return
     }

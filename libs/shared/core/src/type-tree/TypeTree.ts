@@ -7,6 +7,7 @@ import {
   ITypeEdge,
   TypeKind,
 } from '@codelab/shared/abstract/core'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { isDefined } from '../cytoscape/element'
 import { edgeId } from '../graph/edgeId'
 import { TreeService } from '../tree'
@@ -34,14 +35,14 @@ export class TypeTree extends TreeService<IBaseType, ITypeEdge> {
     super(graph, extractEdgeId)
   }
 
-  getTypeById(typeId: string): IType | null {
+  getTypeById(typeId: string): Nullable<IType> {
     const node = this.cy.getElementById(typeId).first()
 
     return node ? (getTypeFromNode(node) as IType) ?? null : null
   }
 
   /** Returns the type of the field or null if the field is not found */
-  getFieldType(fieldId: string): IType | null {
+  getFieldType(fieldId: string): Nullable<IType> {
     const node = this.cy.getElementById(fieldId).targets().first()
 
     return node ? (getTypeFromNode(node) as IType) ?? null : null
@@ -114,7 +115,7 @@ export class TypeTree extends TreeService<IBaseType, ITypeEdge> {
   }
 
   /** Returns the item type of an array or undefined if not found */
-  getArrayItemType(arrayTypeId: string): IType | undefined {
+  getArrayItemType(arrayTypeId: string): Maybe<IType> {
     return (
       (getItemTypeFromNode(this.cy.getElementById(arrayTypeId)) as IType) ??
       undefined
@@ -122,7 +123,7 @@ export class TypeTree extends TreeService<IBaseType, ITypeEdge> {
   }
 
   /** Returns all types, or all types by typeKind if provided */
-  getTypes(typeKind: TypeKind | undefined): Array<IType> {
+  getTypes(typeKind: Maybe<TypeKind>): Array<IType> {
     let vertices = this.cy.elements()
 
     if (typeKind) {

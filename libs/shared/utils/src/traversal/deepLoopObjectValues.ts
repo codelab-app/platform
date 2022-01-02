@@ -1,5 +1,7 @@
+import { Nullable } from '@codelab/shared/abstract/types'
+
 export const deepLoopObjectValues = (
-  obj: Record<string, any> | undefined | null,
+  obj: Nullable<Record<string, any>>,
   fn: (value: any, key: string) => void,
 ) => {
   if (!obj) {

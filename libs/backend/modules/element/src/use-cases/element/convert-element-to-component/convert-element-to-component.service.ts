@@ -1,6 +1,7 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository } from '@codelab/backend/infra'
 import { IElement, IUser } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -84,7 +85,7 @@ export class ConvertElementToComponentService extends DgraphUseCase<ConvertEleme
 
   protected async attachComponentTag(
     element: IElement,
-    currentUser: IUser | undefined,
+    currentUser: Maybe<IUser>,
     txn: Txn,
   ) {
     const name =

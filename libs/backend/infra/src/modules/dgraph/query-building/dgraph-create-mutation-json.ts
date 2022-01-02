@@ -1,9 +1,10 @@
+import { Maybe, MaybeOrNullable } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
 import forOwn from 'lodash/forOwn'
 import { DgraphEntityType } from '../dgraph-entity-type'
 
-export type MutationJsonValue<TValue> = TValue extends any | undefined
-  ? TValue | null | undefined
+export type MutationJsonValue<TValue> = TValue extends Maybe<any>
+  ? MaybeOrNullable<TValue>
   : TValue
 
 type DgraphEntity = Record<string, any>
@@ -20,22 +21,18 @@ export type DgraphCreateMutationJson<TEntity extends DgraphEntity> = Omit<
           | DgraphUpdateMutationJson<TEntity[key]>
           | DgraphCreateMutationJson<TEntity[key]>
           | UidRef
-      : TEntity[key] extends
-          | DgraphEntity
-          | Array<DgraphEntity>
-          | null
-          | undefined // DgraphEntity or DgraphEntityArray[], nullable?
-      ? TEntity[key] extends infer TValue | null | undefined
+      : TEntity[key] extends MaybeOrNullable<DgraphEntity | Array<DgraphEntity>>
+      ? // DgraphEntity or DgraphEntityArray[], nullable?
+        TEntity[key] extends infer TValue | null | undefined
         ? TValue extends DgraphEntity
-          ?
+          ? MaybeOrNullable<
               | DgraphUpdateMutationJson<TValue>
               | DgraphCreateMutationJson<TValue>
               | UidRef
-              | undefined
-              | null
+            >
           : TValue extends Array<infer TItem>
           ? TItem extends DgraphEntity
-            ?
+            ? MaybeOrNullable<
                 | Array<
                     | DgraphUpdateMutationJson<TItem>
                     | DgraphCreateMutationJson<TItem>
@@ -43,8 +40,7 @@ export type DgraphCreateMutationJson<TEntity extends DgraphEntity> = Omit<
                 | UidRef
                 | DgraphUpdateMutationJson<TItem>
                 | DgraphCreateMutationJson<TItem>
-                | undefined
-                | null
+              >
             : MutationJsonValue<TEntity[key]>
           : MutationJsonValue<TEntity[key]>
         : never
