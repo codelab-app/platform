@@ -102,4 +102,4 @@ unit-ci:
 		--parallel \
 		--verbose \
 		--color
-
+		--unitSpecSetup
