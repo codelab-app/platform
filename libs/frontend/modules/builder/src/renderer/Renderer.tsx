@@ -10,7 +10,7 @@ import { RenderContainer } from './renderContainer'
  */
 export const Renderer = ({
   tree,
-  parentContext,
+  context,
   isComponentRenderer,
 }: RendererProps) => {
   const { typeKindsById } = useContext(TypeKindsContext)
@@ -25,12 +25,12 @@ export const Renderer = ({
   }
 
   const defaultContext = {
-    ...parentContext,
+    ...context,
     typeKindsById,
     tree,
   }
 
-  const context: RenderContext = {
+  const renderContext: RenderContext = {
     ...defaultContext,
     getHooksResponse,
     inspect: false,
@@ -40,7 +40,12 @@ export const Renderer = ({
   return (
     <ErrorBoundary>
       <div style={{ minHeight: '100%' }} id="render-root">
-        <RenderContainer element={root} context={context} props={{}} isRoot />
+        <RenderContainer
+          element={root}
+          context={renderContext}
+          props={{}}
+          isRoot
+        />
       </div>
     </ErrorBoundary>
   )
