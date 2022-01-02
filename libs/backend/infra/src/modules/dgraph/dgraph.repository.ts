@@ -5,7 +5,6 @@ import {
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
 import { Mutation, Response, Txn } from 'dgraph-js-http'
-import { Maybe } from 'graphql/jsutils/Maybe'
 import { LoggerService, LoggerTokens } from '../logger'
 import { DgraphService } from './dgraph.service'
 import { DgraphQueryBuilder } from './query-building'
