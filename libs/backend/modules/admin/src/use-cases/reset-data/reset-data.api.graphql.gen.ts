@@ -2,12 +2,13 @@ import * as Types from '@codelab/frontend/abstract/codegen'
 
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
+import { MaybeOrNullable } from '@codelab/shared/abstract/types'
 const defaultOptions = {}
 export type TestResetDataMutationVariables = Types.Exact<{
   [key: string]: never
 }>
 
-export type TestResetDataMutation = { resetData?: void | null | undefined }
+export type TestResetDataMutation = { resetData?: MaybeOrNullable<void> }
 
 export const TestResetDataGql = gql`
   mutation TestResetData {

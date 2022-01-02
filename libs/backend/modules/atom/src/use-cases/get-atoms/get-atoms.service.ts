@@ -7,6 +7,7 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import Fuse from 'fuse.js'
+import { Maybe } from 'graphql/jsutils/Maybe'
 import { GetAtomService } from '../get-atom'
 import { GetAtomsInput } from './get-atoms.input'
 
