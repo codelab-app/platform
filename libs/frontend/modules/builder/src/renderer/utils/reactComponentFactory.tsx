@@ -1,12 +1,10 @@
 import { notify } from '@codelab/frontend/shared/utils'
 import { AtomType } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { Entity, Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { atomFactory } from '../atoms/atomFactory'
 
-type Identifiable = { id: string }
-
-interface AtomElementFactoryInput<TNode extends Identifiable = Identifiable> {
+interface AtomElementFactoryInput<TNode extends Entity = Entity> {
   atomType: AtomType
   node: TNode
 }
@@ -65,9 +63,7 @@ export const elementsPropTransformers: IElementsPropTransformers = {
 /**
  * Creates a React Component and default props for it out of an node and an atom
  */
-export const reactComponentFactory = <
-  TNode extends Identifiable = Identifiable,
->(
+export const reactComponentFactory = <TNode extends Entity = Entity>(
   input: AtomElementFactoryInput<TNode>,
 ): ReactComponentFactoryResult => {
   const { atomType, node } = input

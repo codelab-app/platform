@@ -1,6 +1,6 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
 import { IType, TypeKind } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Entity, Maybe } from '@codelab/shared/abstract/types'
 import { GetTypesInput } from './get-types.input'
 
 /**
@@ -58,7 +58,7 @@ export const getAdminTypesQuery = (
 }
 
 export const mapType = (
-  dgraphType: IType & { typesOfUnionType?: Array<{ id: string }> },
+  dgraphType: IType & { typesOfUnionType?: Array<Entity> },
 ): IType => {
   if (dgraphType.typeKind !== TypeKind.UnionType) {
     return dgraphType
@@ -67,6 +67,6 @@ export const mapType = (
   return {
     ...dgraphType,
     typeIdsOfUnionType:
-      dgraphType.typesOfUnionType?.map(({ id }: { id: string }) => id) ?? [],
+      dgraphType.typesOfUnionType?.map(({ id }: Entity) => id) ?? [],
   }
 }

@@ -4,6 +4,7 @@ import {
   DgraphRepository,
   DgraphUpdateMutationJson,
 } from '@codelab/backend/infra'
+import { DgraphEntity } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../../application/element.validator'
@@ -59,7 +60,7 @@ export class UpdatePropMapBindingService extends DgraphUseCase<UpdatePropMapBind
   }: UpdatePropMapBindingRequest) {
     const binding = await this.dgraph.transactionWrapper((txn) =>
       this.dgraph.getOneOrThrowNamed<
-        any & { '~propMapBindings': [{ uid: string }] }
+        any & { '~propMapBindings': [DgraphEntity] }
       >(
         txn,
         `

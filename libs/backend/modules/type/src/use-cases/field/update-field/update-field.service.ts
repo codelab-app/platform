@@ -7,6 +7,7 @@ import {
   jsonMutation,
 } from '@codelab/backend/infra'
 import { IUser } from '@codelab/shared/abstract/core'
+import { DgraphEntity } from '@codelab/shared/abstract/types'
 import { TypeTree } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -102,7 +103,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
     currentUser,
   }: UpdateFieldRequest): Promise<void> {
     const field = await this.dgraph.transactionWrapper<{
-      '~fields': [{ uid: string }]
+      '~fields': [DgraphEntity]
     }>((txn) =>
       this.dgraph.getOneOrThrow(
         txn,

@@ -8,7 +8,7 @@ import {
   IElement,
   IElementGraph,
 } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Entity, Maybe } from '@codelab/shared/abstract/types'
 import {
   deepLoopObjectValues,
   deepReplaceObjectValues,
@@ -84,7 +84,7 @@ export class GetElementGraphService extends DgraphUseCase<
 
     const result = await this.dgraph.transactionWrapper((txn) =>
       this.dgraph.executeQuery<
-        IElementGraph & { enumValues: Array<{ id: string; value: string }> }
+        IElementGraph & { enumValues: Array<Entity & { value: string }> }
       >(
         txn,
         GetElementGraphService.queryById(

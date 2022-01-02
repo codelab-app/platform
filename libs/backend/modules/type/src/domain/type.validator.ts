@@ -5,6 +5,7 @@ import {
   LoggerTokens,
 } from '@codelab/backend/infra'
 import { TypeId, TypeKind } from '@codelab/shared/abstract/core'
+import { Entity } from '@codelab/shared/abstract/types'
 import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { RecursiveTypeError } from '../application/errors'
@@ -131,14 +132,15 @@ export class TypeValidator {
   }
 }
 
-export type QueryResult = {
-  id: string
-  atoms?: Array<{
-    id: string
-    name: string
-  }>
-  fields?: Array<{
-    id: string
-    name: string
-  }>
+export type QueryResult = Entity & {
+  atoms?: Array<
+    Entity & {
+      name: string
+    }
+  >
+  fields?: Array<
+    Entity & {
+      name: string
+    }
+  >
 }

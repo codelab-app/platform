@@ -1,5 +1,6 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { DgraphEntity } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../../application/element.validator'
@@ -41,10 +42,11 @@ export class DeletePropMapBindingService extends DgraphUseCase<DeletePropMapBind
     const ids = propMapBindingIds.join(',')
 
     const propMappings = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getAllNamed<{
-        '~propMapBindings': [{ uid: string }]
-        uid: string
-      }>(
+      this.dgraph.getAllNamed<
+        {
+          '~propMapBindings': [DgraphEntity]
+        } & DgraphEntity
+      >(
         txn,
         `
           {
