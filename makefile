@@ -101,5 +101,5 @@ unit-ci:
 		--all \
 		--parallel \
 		--verbose \
-		--color
+		--color \
 		--unitSpecSetup
