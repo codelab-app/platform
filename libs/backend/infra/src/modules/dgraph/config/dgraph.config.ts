@@ -10,7 +10,8 @@ export interface DgraphConfig {
 export const dgraphConfig = registerAs<DgraphConfig>(
   DgraphTokens.DgraphConfig.toString(),
   () => ({
-    endpoint: get('CODELAB_DGRAPH_ENDPOINT').required().asUrlString(),
+    // We set DG_AUTH inside CircleCI config with CODELAB_DGRAPH_INTEGRATION_ENDPOINT or CODELAB_DGRAPH_INTEGRATION_DG_AUTH
+    endpoint: '',
     apiKey: get('DG_AUTH').asString(),
   }),
 )
