@@ -61,7 +61,7 @@ export const Renderer = ({
  */
 export const Renderer = ({
   tree,
-  parentContext,
+  context,
   isComponentRenderer,
 }: RendererProps) => {
   const { typeKindsById } = useContext(TypeKindsContext)
@@ -76,12 +76,12 @@ export const Renderer = ({
   }
 
   const defaultContext = {
-    ...parentContext,
+    ...context,
     typeKindsById,
     tree,
   }
 
-  const context: RenderContext = {
+  const renderContext: RenderContext = {
     ...defaultContext,
     getHooksResponse,
     inspect: false,
