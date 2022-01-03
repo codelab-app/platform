@@ -1,6 +1,6 @@
 const nxPreset = require('@nrwl/jest/preset')
 
-const testTimeout = process.env.CI ? 30000 : 300000
+const testTimeout = process.env.CI ? 30000 : 500000
 
 const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`
 
