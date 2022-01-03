@@ -1,11 +1,11 @@
-import { RenderProps } from '../../store'
+import { RenderPipeProps } from '../../store'
 import { propMapBindingsPipe } from './propMapBindingsPipe'
 import { elementToRender, endPipe, EndPipeOutput } from './test'
 import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 
-const initialProps: RenderProps = {
+const initialProps: RenderPipeProps = {
   test: {
     source: {
       '01': 'random-value-01',

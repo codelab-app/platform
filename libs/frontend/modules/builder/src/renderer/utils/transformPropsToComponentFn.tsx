@@ -1,4 +1,5 @@
 import { IElement } from '@codelab/shared/abstract/core'
+import { Entity } from '@codelab/shared/abstract/types'
 import { ElementTree } from '@codelab/shared/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { mapValues, merge, transform } from 'lodash'

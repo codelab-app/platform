@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import React from 'react'
-import { RenderProps } from '../../store'
+import { RenderPipeProps } from '../../store'
 import {
   componentToRender,
   RenderContext,
@@ -9,7 +9,7 @@ import {
 } from '../pipes'
 import { transformPropsToComponentFn } from './transformPropsToComponentFn'
 
-const propsToRender: RenderProps = {
+const propsToRender: RenderPipeProps = {
   renderText: { id: componentToRender.id },
 }
 

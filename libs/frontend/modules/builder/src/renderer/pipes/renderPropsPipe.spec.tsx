@@ -1,7 +1,7 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import React from 'react'
-import { RenderProps } from '../../store'
+import { RenderPipeProps } from '../../store'
 import { renderPipeline } from './renderPipeline'
 import { renderPropsPipe } from './renderPropsPipe'
 import {
@@ -18,7 +18,7 @@ const defaultContext = {
   render: renderPipeline,
 } as RenderContext
 
-const initialProps: RenderProps = {
+const initialProps: RenderPipeProps = {
   renderText: {
     typeKind: TypeKind.RenderPropsType,
     id: componentToRender.id,

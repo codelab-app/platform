@@ -1,17 +1,17 @@
 import { IHook } from '@codelab/shared/abstract/core'
-import { RenderProps } from '../../store'
+import { RenderPipeProps } from '../../store'
 import { hookPipe } from './hookPipe'
 import { elementToRender, endPipe, EndPipeOutput } from './test'
 import { RenderContext } from './types'
 
-const testHookResponse: RenderProps = {
+const testHookResponse: RenderPipeProps = {
   testHookResponse: {
     prop01: 'value01',
     prop02: 'value02',
   },
 }
 
-const getHooksResponse = (hooks: Array<IHook>, props: RenderProps) =>
+const getHooksResponse = (hooks: Array<IHook>, props: RenderPipeProps) =>
   testHookResponse
 
 const defaultContext = { getHooksResponse } as RenderContext

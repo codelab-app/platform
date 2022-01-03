@@ -1,10 +1,10 @@
-import { RenderProps } from '../../store'
+import { RenderPipeProps } from '../../store'
 import { extraPropsPipe } from './extraPropsPipe'
 import { renderPipeline } from './renderPipeline'
 import { elementToRender, endPipe, EndPipeOutput, treeToRender } from './test'
 import { RenderContext } from './types'
 
-const extraProps: RenderProps = {
+const extraProps: RenderPipeProps = {
   extra1: '01',
   extra2: '02',
 }

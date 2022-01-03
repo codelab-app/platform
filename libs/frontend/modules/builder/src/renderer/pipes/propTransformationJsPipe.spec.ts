@@ -1,11 +1,11 @@
-import { RenderProps } from '../../store'
+import { RenderPipeProps } from '../../store'
 import { propTransformationJsPipe } from './propTransformationJsPipe'
 import { elementToRender, endPipe, EndPipeOutput } from './test'
 import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 
-const initialProps: RenderProps = {
+const initialProps: RenderPipeProps = {
   prop01: 'prop01Value',
   prop02: 'prop02Value',
   prop03: 'prop03Value',
