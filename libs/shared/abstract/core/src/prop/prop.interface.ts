@@ -8,6 +8,6 @@ export const PropSchema = z.object({
 
 export type IProp = z.infer<typeof PropSchema>
 
-export type IPropData = Record<string, any>
+export type PropData = Record<string, any>
 
-export type IPropDataByElementId = { [id: IElement['id']]: IPropData }
+export type PropDataByElementId = { [id: IElement['id']]: PropData }

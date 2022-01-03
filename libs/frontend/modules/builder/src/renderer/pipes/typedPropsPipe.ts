@@ -1,7 +1,7 @@
 import { TypeKind } from '@codelab/frontend/abstract/codegen'
+import { PropData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { mapValues, pickBy } from 'lodash'
-import { RenderPipeProps } from '../../store'
 import { RenderPipeFactory } from './types'
 
 /**
@@ -34,11 +34,11 @@ const handledTypeKinds = [
   TypeKind.PrimitiveType,
 ]
 
-const isHandledTypeKind = (prop: RenderPipeProps) => {
+const isHandledTypeKind = (prop: PropData) => {
   return handledTypeKinds.includes(prop?.typeKind)
 }
 
-const getPropValue = (prop: RenderPipeProps) => prop.value
+const getPropValue = (prop: PropData) => prop.value
 
 export const typedPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {

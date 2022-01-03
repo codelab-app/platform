@@ -1,5 +1,5 @@
 import { notify } from '@codelab/frontend/shared/utils'
-import { AtomType } from '@codelab/shared/abstract/core'
+import { AtomType, PropData } from '@codelab/shared/abstract/core'
 import { Entity, Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { atomFactory } from '../atoms/atomFactory'
@@ -10,7 +10,7 @@ interface AtomElementFactoryInput<TNode extends Entity = Entity> {
 }
 
 type IElementPropTransformerFn = (
-  input: AtomElementFactoryInput & { props: Record<string, any> },
+  input: AtomElementFactoryInput & { props: PropData },
 ) => any
 
 type IElementsPropTransformers = Partial<
@@ -19,7 +19,7 @@ type IElementsPropTransformers = Partial<
 
 export type ReactComponentFactoryResult = [
   Nullable<React.ComponentType<any> | string>,
-  Record<string, any>,
+  PropData,
 ]
 
 export const commonProps = (id: string) => ({

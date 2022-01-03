@@ -1,11 +1,11 @@
+import { PropData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { attempt } from 'lodash'
 import { isError } from 'react-query'
-import { RenderPipeProps } from '../../store'
 import { RenderPipeFactory } from './types'
 
-type TransformFn = (props: RenderPipeProps) => RenderPipeProps
+type TransformFn = (props: PropData) => PropData
 
 const getTransformFn = (transformationJs: string): Maybe<TransformFn> => {
   // eslint-disable-next-line no-eval
@@ -28,8 +28,8 @@ const getTransformFn = (transformationJs: string): Maybe<TransformFn> => {
 
 const getTransformedProps = (
   transformFn: TransformFn,
-  props: RenderPipeProps,
-): Maybe<RenderPipeProps> => {
+  props: PropData,
+): Maybe<PropData> => {
   const result = attempt(transformFn, props)
 
   if (isError(result)) {

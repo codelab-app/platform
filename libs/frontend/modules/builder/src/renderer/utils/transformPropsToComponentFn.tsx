@@ -1,10 +1,9 @@
-import { IElement } from '@codelab/shared/abstract/core'
+import { IElement, PropData } from '@codelab/shared/abstract/core'
 import { Entity } from '@codelab/shared/abstract/types'
 import { ElementTree } from '@codelab/shared/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { mapValues, merge, transform } from 'lodash'
 import React from 'react'
-import { RenderPipeProps } from '../../store'
 import { RenderContext } from '../pipes'
 import { RenderContainer } from '../renderContainer'
 import { containerKey } from './containerKey'
@@ -32,7 +31,7 @@ const createTransformFn = (tree: ElementTree) => {
   }
 }
 
-const mapPropsToComponents = (props: RenderPipeProps, tree: ElementTree) => {
+const mapPropsToComponents = (props: PropData, tree: ElementTree) => {
   const transformFn = createTransformFn(tree)
   const initialMap: ComponentMap = {}
 
@@ -40,7 +39,7 @@ const mapPropsToComponents = (props: RenderPipeProps, tree: ElementTree) => {
 }
 
 const getRenderedComponentFn =
-  (component: IElement, context: RenderContext, props: RenderPipeProps) =>
+  (component: IElement, context: RenderContext, props: PropData) =>
   (spreadComponentProps: any) => {
     const componentProps = mergeProps(props, spreadComponentProps)
 
@@ -52,9 +51,9 @@ const getRenderedComponentFn =
   }
 
 export const transformPropsToComponentFn = (
-  props: RenderPipeProps,
+  props: PropData,
   context: RenderContext,
-  allProps: RenderPipeProps,
+  allProps: PropData,
 ) => {
   const { tree } = context
   const propsComponents = mapPropsToComponents(props, tree)
