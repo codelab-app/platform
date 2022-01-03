@@ -24,7 +24,7 @@ describe('MergeProps', () => {
       },
       propB01: 'propB01',
       propA01: 'propA01',
-      className: 'classA classB',
+      className: ' classA classB',
     }
 
     expect(mergeProps(propsA, propsB)).toEqual(merged)

@@ -6,10 +6,7 @@ type PropsArray = Array<MaybeOrNullable<IPropData>>
 
 const propsCustomizer = (value: any, srcValue: any, key: string) => {
   if (key === 'className') {
-    const classList = value ? value.split(' ') : []
-    classList.push(srcValue)
-
-    return classList.join(' ')
+    return `${value || ''} ${srcValue || ''}`
   }
 
   if (key.toLowerCase().endsWith('ref')) {
