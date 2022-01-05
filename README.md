@@ -25,3 +25,10 @@ The end product is a highly configurable UI layer that competes with writing cod
 ## E2e
 
 1. `yarn e2e`
+
+## Vercel settings
+
+We use [Vercel](https://vercel.com/) for app preview/deployment.
+Vercel will help to run custom command and also install dependencies for the app before compiling/running.
+
+In case you want to modify that, check `scripts/vercel` for proper requirements update.
