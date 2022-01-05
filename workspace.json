@@ -1,9 +1,5 @@
 {
   "version": 1,
-  "cli": {
-    "defaultCollection": "@nrwl/next"
-  },
-  "defaultProject": "web",
   "schematics": {
     "@nrwl/workspace": {
       "library": {
@@ -131,7 +127,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:backend"]
     },
     "backend-abstract-codegen": {
       "root": "libs/backend/abstract/codegen",
@@ -150,7 +147,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["type:abstract", "scope:backend"]
     },
     "backend-abstract-core": {
       "root": "libs/backend/abstract/core",
@@ -177,7 +175,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["type:abstract", "scope:backend"]
     },
     "backend-abstract-types": {
       "root": "libs/backend/abstract/types",
@@ -204,7 +203,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["type:abstract", "scope:backend"]
     },
     "backend-application": {
       "root": "libs/backend/application",
@@ -231,7 +231,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:application:backend", "scope:backend"]
     },
     "backend-infra": {
       "root": "libs/backend/infra",
@@ -259,7 +260,8 @@
           },
           "outputs": ["coverage/libs/backend/infra"]
         }
-      }
+      },
+      "tags": ["layer:infra", "scope:backend", "scope:shared"]
     },
     "backend-modules-admin": {
       "root": "libs/backend/modules/admin",
@@ -286,7 +288,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-app": {
       "root": "libs/backend/modules/app",
@@ -313,7 +316,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-atom": {
       "root": "libs/backend/modules/atom",
@@ -340,7 +344,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-element": {
       "root": "libs/backend/modules/element",
@@ -367,7 +372,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-hook": {
       "root": "libs/backend/modules/hook",
@@ -394,7 +400,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-lambda": {
       "root": "libs/backend/modules/lambda",
@@ -421,7 +428,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-page": {
       "root": "libs/backend/modules/page",
@@ -448,7 +456,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-prop": {
       "root": "libs/backend/modules/prop",
@@ -475,7 +484,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-tag": {
       "root": "libs/backend/modules/tag",
@@ -502,7 +512,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-type": {
       "root": "libs/backend/modules/type",
@@ -531,7 +542,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-modules-user": {
       "root": "libs/backend/modules/user",
@@ -558,7 +570,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:backend", "scope:backend"]
     },
     "backend-shared-generic": {
       "root": "libs/backend/shared/generic",
@@ -585,7 +598,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:shared", "scope:backend"]
     },
     "backend-shared-nestjs": {
       "root": "libs/backend/shared/nestjs",
@@ -599,7 +613,8 @@
             "lintFilePatterns": ["libs/backend/shared/nestjs/**/*.ts"]
           }
         }
-      }
+      },
+      "tags": ["scope:backend", "scope:shared"]
     },
     "backend-shared-testing": {
       "root": "libs/backend/shared/testing",
@@ -613,7 +628,8 @@
             "lintFilePatterns": ["libs/backend/shared/testing/**/*.ts"]
           }
         }
-      }
+      },
+      "tags": ["scope:shared", "scope:backend"]
     },
     "backend-shared-utils": {
       "root": "libs/backend/shared/utils",
@@ -632,7 +648,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["scope:shared", "scope:backend"]
     },
     "cli": {
       "root": "apps/cli",
@@ -680,7 +697,8 @@
             }
           }
         }
-      }
+      },
+      "tags": []
     },
     "cmd": {
       "root": "apps/cmd",
@@ -738,7 +756,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:backend"]
     },
     "frontend-abstract-codegen": {
       "root": "libs/frontend/abstract/codegen",
@@ -767,7 +786,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:frontend", "type:abstract"]
     },
     "frontend-abstract-core": {
       "root": "libs/frontend/abstract/core",
@@ -796,7 +816,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["type:abstract", "scope:frontend"]
     },
     "frontend-abstract-props": {
       "root": "libs/frontend/abstract/props",
@@ -817,7 +838,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["type:abstract", "scope:frontend"]
     },
     "frontend-model-domain": {
       "root": "libs/frontend/model/domain",
@@ -838,7 +860,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain", "scope:frontend"]
     },
     "frontend-model-infra-api": {
       "root": "libs/frontend/model/infra/api",
@@ -862,7 +885,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:frontend"]
     },
     "frontend-model-infra-apollo": {
       "root": "libs/frontend/model/infra/apollo",
@@ -883,7 +907,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:infra", "scope:frontend"]
     },
     "frontend-model-infra-redux": {
       "root": "libs/frontend/model/infra/redux",
@@ -907,7 +932,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:frontend"]
     },
     "frontend-model-state": {
       "root": "libs/frontend/model/state",
@@ -928,7 +954,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["scope:frontend"]
     },
     "frontend-modules-admin": {
       "root": "libs/frontend/modules/admin",
@@ -957,7 +984,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-app": {
       "root": "libs/frontend/modules/app",
@@ -978,7 +1006,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-atom": {
       "root": "libs/frontend/modules/atom",
@@ -999,7 +1028,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-builder": {
       "root": "libs/frontend/modules/builder",
@@ -1028,7 +1058,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-category": {
       "root": "libs/frontend/modules/category",
@@ -1049,7 +1080,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-element": {
       "root": "libs/frontend/modules/element",
@@ -1068,7 +1100,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-lambda": {
       "root": "libs/frontend/modules/lambda",
@@ -1089,7 +1122,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-library": {
       "root": "libs/frontend/modules/library",
@@ -1110,7 +1144,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-page": {
       "root": "libs/frontend/modules/page",
@@ -1131,7 +1166,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-style": {
       "root": "libs/frontend/modules/style",
@@ -1152,7 +1188,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-tag": {
       "root": "libs/frontend/modules/tag",
@@ -1181,7 +1218,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-type": {
       "root": "libs/frontend/modules/type",
@@ -1202,7 +1240,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-modules-user": {
       "root": "libs/frontend/modules/user",
@@ -1223,7 +1262,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["layer:domain:frontend", "scope:frontend"]
     },
     "frontend-presenter-container": {
       "root": "libs/frontend/presenter/container",
@@ -1244,7 +1284,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["scope:frontend"]
     },
     "frontend-shared-types": {
       "root": "libs/frontend/shared/types",
@@ -1265,7 +1306,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["scope:frontend"]
     },
     "frontend-shared-utils": {
       "root": "libs/frontend/shared/utils",
@@ -1294,7 +1336,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:frontend"]
     },
     "frontend-style": {
       "root": "libs/frontend/style",
@@ -1313,7 +1356,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["scope:frontend"]
     },
     "frontend-view": {
       "root": "libs/frontend/view",
@@ -1332,7 +1376,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["scope:frontend"]
     },
     "shared-abstract-core": {
       "root": "libs/shared/abstract/core",
@@ -1359,7 +1404,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:shared", "type:abstract"]
     },
     "shared-abstract-types": {
       "root": "libs/shared/abstract/types",
@@ -1378,7 +1424,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["scope:shared", "type:abstract"]
     },
     "shared-codegen-graphql": {
       "root": "libs/shared/codegen/graphql",
@@ -1405,7 +1452,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:shared", "type:abstract"]
     },
     "shared-core": {
       "root": "libs/shared/core",
@@ -1424,7 +1472,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["scope:shared"]
     },
     "shared-utils": {
       "root": "libs/shared/utils",
@@ -1451,7 +1500,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:shared"]
     },
     "tools-plugins-codelab": {
       "root": "libs/tools/plugins/codelab",
@@ -1516,7 +1566,8 @@
             ]
           }
         }
-      }
+      },
+      "tags": ["scope:publishable"]
     },
     "tools-rtk-query": {
       "root": "libs/tools/rtk-query",
@@ -1549,7 +1600,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "tools-scripts": {
       "root": "libs/tools/scripts",
@@ -1568,7 +1620,8 @@
             }
           }
         }
-      }
+      },
+      "tags": []
     },
     "ui-d3": {
       "root": "libs/ui/d3",
@@ -1626,7 +1679,8 @@
             }
           }
         }
-      }
+      },
+      "tags": []
     },
     "web": {
       "root": "apps/web",
@@ -1732,7 +1786,9 @@
             }
           }
         }
-      }
+      },
+      "tags": ["scope:frontend"],
+      "implicitDependencies": []
     },
     "web-e2e": {
       "root": "apps/web-e2e",
@@ -1852,7 +1908,9 @@
             }
           }
         }
-      }
+      },
+      "tags": ["scope:e2e"],
+      "implicitDependencies": ["web"]
     }
   }
 }

@@ -25,190 +25,6 @@
       }
     }
   },
-  "projects": {
-    "api": {
-      "tags": ["scope:backend"]
-    },
-    "backend-abstract-codegen": {
-      "tags": ["type:abstract", "scope:backend"]
-    },
-    "backend-abstract-core": {
-      "tags": ["type:abstract", "scope:backend"]
-    },
-    "backend-abstract-types": {
-      "tags": ["type:abstract", "scope:backend"]
-    },
-    "backend-application": {
-      "tags": ["layer:application:backend", "scope:backend"]
-    },
-    "backend-infra": {
-      "tags": ["layer:infra", "scope:backend", "scope:shared"]
-    },
-    "backend-modules-admin": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-modules-app": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-modules-atom": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-modules-element": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-modules-hook": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-modules-lambda": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-modules-page": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-modules-prop": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-modules-tag": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-modules-type": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-modules-user": {
-      "tags": ["layer:domain:backend", "scope:backend"]
-    },
-    "backend-shared-generic": {
-      "tags": ["scope:shared", "scope:backend"]
-    },
-    "backend-shared-nestjs": {
-      "tags": ["scope:backend", "scope:shared"]
-    },
-    "backend-shared-testing": {
-      "tags": ["scope:shared", "scope:backend"]
-    },
-    "backend-shared-utils": {
-      "tags": ["scope:shared", "scope:backend"]
-    },
-    "cli": {
-      "tags": []
-    },
-    "cmd": {
-      "tags": ["scope:backend"]
-    },
-    "frontend-abstract-codegen": {
-      "tags": ["scope:frontend", "type:abstract"]
-    },
-    "frontend-abstract-core": {
-      "tags": ["type:abstract", "scope:frontend"]
-    },
-    "frontend-abstract-props": {
-      "tags": ["type:abstract", "scope:frontend"]
-    },
-    "frontend-model-domain": {
-      "tags": ["layer:domain", "scope:frontend"]
-    },
-    "frontend-model-infra-api": {
-      "tags": ["scope:frontend"]
-    },
-    "frontend-model-infra-apollo": {
-      "tags": ["layer:infra", "scope:frontend"]
-    },
-    "frontend-model-infra-redux": {
-      "tags": ["scope:frontend"]
-    },
-    "frontend-model-state": {
-      "tags": ["scope:frontend"]
-    },
-    "frontend-modules-admin": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-app": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-atom": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-builder": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-category": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-element": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-lambda": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-library": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-page": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-style": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-tag": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-type": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-modules-user": {
-      "tags": ["layer:domain:frontend", "scope:frontend"]
-    },
-    "frontend-presenter-container": {
-      "tags": ["scope:frontend"]
-    },
-    "frontend-shared-types": {
-      "tags": ["scope:frontend"]
-    },
-    "frontend-shared-utils": {
-      "tags": ["scope:frontend"]
-    },
-    "frontend-style": {
-      "tags": ["scope:frontend"]
-    },
-    "frontend-view": {
-      "tags": ["scope:frontend"]
-    },
-    "shared-abstract-core": {
-      "tags": ["scope:shared", "type:abstract"]
-    },
-    "shared-abstract-types": {
-      "tags": ["scope:shared", "type:abstract"]
-    },
-    "shared-codegen-graphql": {
-      "tags": ["scope:shared", "type:abstract"]
-    },
-    "shared-core": {
-      "tags": ["scope:shared"]
-    },
-    "shared-utils": {
-      "tags": ["scope:shared"]
-    },
-    "tools-plugins-codelab": {
-      "tags": ["scope:publishable"]
-    },
-    "tools-rtk-query": {
-      "tags": []
-    },
-    "tools-scripts": {
-      "tags": []
-    },
-    "ui-d3": {
-      "tags": []
-    },
-    "web": {
-      "tags": ["scope:frontend"],
-      "implicitDependencies": []
-    },
-    "web-e2e": {
-      "tags": ["scope:e2e"],
-      "implicitDependencies": ["web"]
-    }
-  },
   "targetDependencies": {
     "build": [
       {
@@ -216,5 +32,80 @@
         "projects": "dependencies"
       }
     ]
-  }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/next"
+  },
+  "generators": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "css",
+        "linter": "eslint",
+        "babel": true
+      },
+      "library": {
+        "style": "css",
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      },
+      "component": {
+        "style": "css"
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "@emotion/styled",
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/web": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nx-plugin": {
+      "plugin": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/gatsby": {
+      "application": {
+        "style": "@emotion/styled"
+      }
+    }
+  },
+  "defaultProject": "web"
 }

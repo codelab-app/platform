@@ -2,8 +2,9 @@
 // Comment out in favor of compiled css file
 // import '../src/styles/antd-theme.less'
 // import '../src/styles/app.scss'
-import 'animate.css'
-import '../src/styles/styles.chunk.css'
+// import 'animate.css'
+// revert me if
+// import '../src/styles/styles.chunk.css'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/props'
