@@ -13,7 +13,7 @@ export type RenderOutput = React.ReactNode
 export interface RendererProps {
   tree: ElementTree
   isComponentRenderer?: boolean
-  context?: Omit<RenderContext, 'tree'>
+  context?: Omit<RenderContext, 'tree' | 'render'>
 }
 
 export interface RenderContext {
