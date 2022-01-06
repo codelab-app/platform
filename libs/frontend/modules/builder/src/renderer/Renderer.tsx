@@ -36,6 +36,16 @@ export const Renderer = ({
     tree,
   }
 
+  if (renderContext.inspect) {
+    console.group('Root')
+  }
+
+  const rendered = renderContext.render(root, renderContext, {})
+
+  if (renderContext.inspect) {
+    console.groupEnd()
+  }
+
   return (
     <div style={{ minHeight: '100%' }} id="render-root">
       {rendered}

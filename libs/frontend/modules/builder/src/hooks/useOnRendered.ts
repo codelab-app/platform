@@ -12,7 +12,7 @@ export interface UseOnRendered {
  * Provides a handler that updates the lastRenderedProps in the builder state
  */
 export const useOnRendered = (): UseOnRendered => {
-  const { setLastRenderedPropsForElement } = useBuilderDispatch()
+  const { setLastRenderedProps } = useBuilderDispatch()
 
   const onRendered: UseOnRendered['onRendered'] = useCallback(
     (props) => {
@@ -20,7 +20,7 @@ export const useOnRendered = (): UseOnRendered => {
         mapValues(props, (x) => JSON.parse(propSafeStringify(x))),
       )
     },
-    [setLastRenderedPropsForElement],
+    [setLastRenderedProps],
   )
 
   return { onRendered }
