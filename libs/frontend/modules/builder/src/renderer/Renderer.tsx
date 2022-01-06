@@ -2,8 +2,9 @@ import { TypeKindsContext } from '@codelab/frontend/modules/type'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import React, { useContext } from 'react'
 import { useHookResponse } from './hooks/useHookResponse'
-import { RenderContext, RendererProps } from './pipes'
+import { RenderContext, RendererProps, renderPipeline } from './pipes'
 import { RenderContainer } from './renderContainer'
+import { containerKey } from './utils'
 
 /**
  * Renders an ElementTree
@@ -34,18 +35,30 @@ export const Renderer = ({
     ...defaultContext,
     getHooksResponse,
     inspect: false,
+    render: renderPipeline,
     tree,
+  }
+
+  if (renderContext.inspect) {
+    console.group('Root')
+  }
+
+  const rendered = renderContext.render(root, renderContext, {})
+
+  if (renderContext.inspect) {
+    console.groupEnd()
   }
 
   return (
     <ErrorBoundary>
       <div style={{ minHeight: '100%' }} id="render-root">
         <RenderContainer
-          element={root}
           context={renderContext}
-          props={{}}
+          key={containerKey(root)}
           isRoot
-        />
+        >
+          {rendered}
+        </RenderContainer>
       </div>
     </ErrorBoundary>
   )

@@ -1,5 +1,6 @@
 import { mergeProps } from '@codelab/shared/utils'
 import { RenderContainer } from '../renderContainer'
+import { containerKey } from '../utils'
 import { RenderPipeFactory } from './types'
 
 /** If the element is a component add 'data-component-id' to the extra props */
@@ -28,19 +29,19 @@ export const componentPipe: RenderPipeFactory =
 
       if (component) {
         // We override the component props with the element instance props
+        const updateContext = {
+          ...context,
+          extraElementProps: {
+            //
+            ...context.extraElementProps,
+            [component.id]: props,
+          },
+        }
+
         return (
-          <RenderContainer
-            element={component}
-            context={{
-              ...context,
-              extraElementProps: {
-                //
-                ...context.extraElementProps,
-                [component.id]: props,
-              },
-            }}
-            props={props} // just this won't work, because it's the first props in the pipe and everything else will override it
-          />
+          <RenderContainer key={containerKey(component)}>
+            {context.render(component, updateContext, props)}
+          </RenderContainer>
         )
       }
     }

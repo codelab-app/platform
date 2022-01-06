@@ -1,22 +1,49 @@
-import { RenderContainerWithKey } from './RenderContainerWithKey'
+import { get, isArray, merge } from 'lodash'
+import React, { ReactElement, useCallback, useEffect } from 'react'
+import { RenderPipelinePropsByElementId } from '../../store'
 import { RenderContainerProps } from './types'
 
 export const RenderContainer = ({
-  appendToKey,
-  element,
   context,
-  props,
+  children: rendered,
   isRoot = false,
 }: RenderContainerProps) => {
-  const baseKey = `${element.id}-${element.hooks.length}`
-  const key = appendToKey ? `${baseKey}-${appendToKey}` : baseKey
+  const getElementId = (renderedElement: ReactElement): string | undefined => {
+    return get(renderedElement, 'props.data-id', undefined)
+  }
 
-  return (
-    <RenderContainerWithKey
-      element={element}
-      context={context}
-      props={props}
-      key={key}
-    />
+  const treeToObject = useCallback(
+    (renderElement: ReactElement): RenderPipelinePropsByElementId | null => {
+      if (!renderElement) {
+        return null
+      }
+
+      const { children } = renderElement?.props || {}
+
+      const chidlrenQueue =
+        children && isArray(children) ? children : [children]
+
+      const childrenProps = chidlrenQueue
+        .filter((x) => !!x)
+        .map(treeToObject)
+        .reduce(merge, {})
+
+      const elementId = getElementId(renderElement)
+      const elementProps = elementId ? { [elementId]: renderElement.props } : {}
+
+      return { ...elementProps, ...childrenProps }
+    },
+    [],
   )
+
+  useEffect(() => {
+    if (!context?.onRendered || !isRoot) {
+      return
+    }
+
+    const renderMap = treeToObject(rendered as ReactElement)
+    context.onRendered(renderMap || {})
+  }, [context, rendered, isRoot, treeToObject])
+
+  return <>{rendered}</>
 }

@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { RenderContainer } from '../renderContainer'
+import { containerKey } from '../utils'
 import { RenderTypes } from './types'
 
 /**
@@ -21,12 +22,9 @@ export const renderChildrenPipe: RenderTypes = (element, context, props) => {
 
   const rendered = childVertices
     .map((child) => (
-      <RenderContainer
-        element={child}
-        context={context}
-        props={{}}
-        key={child.id}
-      />
+      <RenderContainer key={containerKey(child)}>
+        {context.render(child, context, {})}
+      </RenderContainer>
     ))
     .filter((c): c is ReactElement => !!c)
 

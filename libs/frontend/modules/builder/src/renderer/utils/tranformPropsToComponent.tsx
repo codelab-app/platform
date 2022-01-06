@@ -3,6 +3,7 @@ import * as _ from 'lodash'
 import React from 'react'
 import { RenderContext } from '../pipes'
 import { RenderContainer } from '../renderContainer'
+import { containerKey } from './containerKey'
 
 export const transformPropsToComponent = (
   props: Record<string, any>,
@@ -32,11 +33,9 @@ export const transformPropsToComponent = (
       const componentProps = mergeProps(allProps, ...spreadComponentProps)
 
       const result = (
-        <RenderContainer
-          element={component}
-          context={context}
-          props={componentProps}
-        />
+        <RenderContainer key={containerKey(component)}>
+          {context.render(component, context, componentProps)}
+        </RenderContainer>
       )
 
       return <>{result}</>

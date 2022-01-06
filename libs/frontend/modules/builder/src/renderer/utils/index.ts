@@ -1,4 +1,5 @@
 export * from './applyBinding'
+export * from './containerKey'
 export * from './evalCss'
 export * from './evaluateRenderIfPropKey'
 export * from './getPropsByTypeKind'
