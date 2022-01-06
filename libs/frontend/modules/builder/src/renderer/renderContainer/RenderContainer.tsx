@@ -18,10 +18,13 @@ export const RenderContainer = ({
         return null
       }
 
+<<<<<<< HEAD
       if (isArray(renderElement)) {
         return renderElement.map(treeToObject).reduce(merge)
       }
 
+=======
+>>>>>>> 0825900f (fix: update LastRenderProps one time)
       const { children } = renderElement?.props || {}
 
       const chidlrenQueue =

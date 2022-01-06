@@ -5,6 +5,7 @@ import { useHookResponse } from './hooks/useHookResponse'
 import { RenderContext, RendererProps, renderPipeline } from './pipes'
 import { RenderContainer } from './renderContainer'
 import { containerKey } from './utils'
+<<<<<<< HEAD
 
 /**
  * Renders an ElementTree
@@ -55,6 +56,8 @@ export const Renderer = ({
     </div>
   )
 }
+=======
+>>>>>>> 0825900f (fix: update LastRenderProps one time)
 
 /**
  * Renders an ElementTree
@@ -85,7 +88,18 @@ export const Renderer = ({
     ...defaultContext,
     getHooksResponse,
     inspect: false,
+    render: renderPipeline,
     tree,
+  }
+
+  if (renderContext.inspect) {
+    console.group('Root')
+  }
+
+  const rendered = renderContext.render(root, renderContext, {})
+
+  if (renderContext.inspect) {
+    console.groupEnd()
   }
 
   return (

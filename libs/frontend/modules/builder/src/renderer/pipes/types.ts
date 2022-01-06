@@ -4,7 +4,6 @@ import { IHook, TypeId } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import {
-  PropsPerElementIdPayload,
   RenderPipelineProps,
   RenderPipelinePropsByElementId,
 } from '../../store'
