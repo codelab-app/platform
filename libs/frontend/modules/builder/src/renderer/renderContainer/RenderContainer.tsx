@@ -18,6 +18,10 @@ export const RenderContainer = ({
         return null
       }
 
+      if (isArray(renderElement)) {
+        return renderElement.map(treeToObject).reduce(merge)
+      }
+
       const { children } = renderElement?.props || {}
 
       const chidlrenQueue =

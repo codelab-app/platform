@@ -16,7 +16,9 @@ export const useOnRendered = (): UseOnRendered => {
 
   const onRendered: UseOnRendered['onRendered'] = useCallback(
     (props) => {
-      setLastRenderedProps(mapValues(props, propSafeStringify(props)))
+      setLastRenderedProps(
+        mapValues(props, (x) => JSON.parse(propSafeStringify(x))),
+      )
     },
     [setLastRenderedProps],
   )
