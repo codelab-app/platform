@@ -3,6 +3,7 @@ import { ElementTree } from '@codelab/shared/core'
 import { merge } from 'lodash'
 import React from 'react'
 import { RenderContainer } from '../renderContainer'
+import { containerKey } from '../utils'
 import { RenderPipeFactory } from './types'
 
 const getComponentInstance = (element: IElement, tree: ElementTree) => {
@@ -32,10 +33,8 @@ export const overrideComponentProps: RenderPipeFactory =
     })
 
     return (
-      <RenderContainer
-        element={componentInstance}
-        context={updateContext}
-        props={props} // just this won't work, because it's the first props in the pipe and everything else will override it
-      />
+      <RenderContainer key={containerKey(componentInstance)} context={context}>
+        {updateContext.render(componentInstance, updateContext, props)}
+      </RenderContainer>
     )
   }

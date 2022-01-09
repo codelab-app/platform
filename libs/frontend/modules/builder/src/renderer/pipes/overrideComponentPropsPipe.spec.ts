@@ -1,9 +1,11 @@
+import { renderPipeline } from '.'
 import { overrideComponentProps } from './overrideComponentPropsPipe'
 import { elementToRender03, endPipe, EndPipeOutput, treeToRender } from './test'
 import { RenderContext } from './types'
 
 const defaultContext = {
   tree: treeToRender,
+  render: renderPipeline,
 } as RenderContext
 
 const initialProps = {
