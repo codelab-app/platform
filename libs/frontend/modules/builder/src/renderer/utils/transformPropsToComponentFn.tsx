@@ -6,6 +6,7 @@ import React from 'react'
 import { RenderProps } from '../../store'
 import { RenderContext } from '../pipes'
 import { RenderContainer } from '../renderContainer'
+import { containerKey } from './containerKey'
 
 type ComponentMap = {
   [key: string]: IElement
@@ -43,11 +44,9 @@ const getRenderedComponentFn =
     const componentProps = mergeProps(props, spreadComponentProps)
 
     return (
-      <RenderContainer
-        element={component}
-        context={context}
-        props={componentProps}
-      />
+      <RenderContainer key={containerKey(component)} context={context}>
+        {context.render(component, context, componentProps)}
+      </RenderContainer>
     )
   }
 
