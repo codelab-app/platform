@@ -33,7 +33,6 @@ export const Renderer = ({
     getHooksResponse,
     render: renderPipeline,
     inspect: false,
-    render: renderPipeline,
     tree,
   }
 
