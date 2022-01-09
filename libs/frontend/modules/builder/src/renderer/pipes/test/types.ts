@@ -1,7 +1,7 @@
-import { PropData } from '@codelab/shared/abstract/core'
+import { PropsData } from '@codelab/shared/abstract/core'
 
 export type EndPipeOutput = {
-  props: PropData
-  extraProps?: PropData
-  extraElementProps?: PropData
+  props: PropsData
+  extraProps?: PropsData
+  extraElementProps?: PropsData
 }

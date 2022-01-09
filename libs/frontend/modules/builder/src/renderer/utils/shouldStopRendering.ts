@@ -1,4 +1,4 @@
-import { IElement, PropData } from '@codelab/shared/abstract/core'
+import { IElement, PropsData } from '@codelab/shared/abstract/core'
 import { get, isString } from 'lodash'
 
 const toBoolean = (value: any): boolean => {
@@ -9,7 +9,7 @@ const toBoolean = (value: any): boolean => {
   return !!value
 }
 
-export const shouldStopRendering = (element: IElement, props: PropData) => {
+export const shouldStopRendering = (element: IElement, props: PropsData) => {
   const { renderIfPropKey } = element
 
   if (!renderIfPropKey) {

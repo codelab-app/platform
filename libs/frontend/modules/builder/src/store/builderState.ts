@@ -1,4 +1,4 @@
-import { PropData } from '@codelab/shared/abstract/core'
+import { PropsData, PropsDataByElementId } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
@@ -12,8 +12,6 @@ export enum BuilderTab {
 
 export type SelectElementActionPayload = Partial<ElementIdPayload>
 export type HoverElementActionPayload = Partial<ElementIdPayload>
-
-export type PropsDataByElementId = Record<string, Maybe<PropData>>
 
 export interface BuilderState {
   selectedElementId?: string
@@ -44,7 +42,7 @@ export interface ElementIdPayload {
 }
 
 export interface PropsPerElementIdPayload extends ElementIdPayload {
-  props: PropData
+  props: PropsData
 }
 
 export const builderSlice = createSlice({

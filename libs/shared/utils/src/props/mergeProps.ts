@@ -1,8 +1,8 @@
-import { PropData } from '@codelab/shared/abstract/core'
+import { PropsData } from '@codelab/shared/abstract/core'
 import { MaybeOrNullable } from '@codelab/shared/abstract/types'
 import { mergeWith } from 'lodash'
 
-type PropsArray = Array<MaybeOrNullable<PropData>>
+type PropsArray = Array<MaybeOrNullable<PropsData>>
 
 const propsCustomizer = (value: any, srcValue: any, key: string) => {
   if (key === 'className') {
@@ -26,8 +26,8 @@ const propsCustomizer = (value: any, srcValue: any, key: string) => {
  * - Merging className strings together
  */
 
-export const mergeProps = (...propsArray: PropsArray): PropData => {
-  return propsArray.reduce<PropData>((mergedProps, nextProps) => {
+export const mergeProps = (...propsArray: PropsArray): PropsData => {
+  return propsArray.reduce<PropsData>((mergedProps, nextProps) => {
     return mergeWith(mergedProps, nextProps, propsCustomizer)
   }, {})
 }

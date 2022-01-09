@@ -1,8 +1,8 @@
 import { IElement } from '@codelab/frontend/abstract/core'
 import {
   IHook,
-  PropData,
-  PropDataByElementId,
+  PropsData,
+  PropsDataByElementId,
 } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
@@ -20,18 +20,18 @@ export interface RenderContext {
   tree: ElementTree
 
   /** Extra props passed to all element. They override the common props, but props from the node instance override the extraProps */
-  extraProps?: PropData
+  extraProps?: PropsData
 
   /** Extra props keyed by element id, they override every other prop */
-  extraElementProps?: PropDataByElementId
+  extraElementProps?: PropsDataByElementId
 
   render: RenderTypes
 
-  getHooksResponse?: (hooks: Array<IHook>, props: PropData) => PropData
+  getHooksResponse?: (hooks: Array<IHook>, props: PropsData) => PropsData
   /**
    * Called after the element tree is re-rendered
    */
-  onRendered?: (renderedProps: PropData) => void
+  onRendered?: (renderedProps: PropsData) => void
 
   /** Set to true to log rendering information */
   inspect?: boolean
@@ -40,7 +40,7 @@ export interface RenderContext {
 export type RenderTypes = (
   element: IElement,
   context: RenderContext,
-  props: PropData,
+  props: PropsData,
 ) => RenderOutput
 
 export type RenderPipeFactory = (next: RenderTypes) => RenderTypes
