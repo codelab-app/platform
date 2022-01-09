@@ -3,6 +3,7 @@ import {
   IHook,
   PropsData,
   PropsDataByElementId,
+  TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
@@ -35,6 +36,8 @@ export interface RenderContext {
 
   /** Set to true to log rendering information */
   inspect?: boolean
+
+  typeKindsById: Record<string, TypeKind>
 }
 
 export type RenderTypes = (

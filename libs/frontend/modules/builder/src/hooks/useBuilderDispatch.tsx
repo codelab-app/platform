@@ -1,3 +1,4 @@
+import { PropsDataByElementId } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
@@ -6,7 +7,6 @@ import {
   builderSlice,
   BuilderTab,
   HoverElementActionPayload,
-  PropsDataByElementId,
   PropsPerElementIdPayload,
   SelectElementActionPayload,
 } from '../store'

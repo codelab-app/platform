@@ -1,11 +1,11 @@
+import { PropsDataByElementId } from '@codelab/shared/abstract/core'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { mapValues } from 'lodash'
 import { useCallback } from 'react'
-import { RenderPropsByElementId } from '../store'
 import { useBuilderDispatch } from './useBuilderDispatch'
 
 export interface UseOnRendered {
-  onRendered: (props: RenderPropsByElementId) => void
+  onRendered: (props: PropsDataByElementId) => void
 }
 
 /**
