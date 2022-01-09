@@ -1,6 +1,7 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
 import { AppSchema, IApp } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { AppValidator } from '../../domain/app.validator'
@@ -8,7 +9,10 @@ import { AppByIdFilter, AppByPageFilter } from './get-app.input'
 import { GetAppRequest } from './get-app.request'
 
 @Injectable()
-export class GetAppService extends DgraphUseCase<GetAppRequest, IApp | null> {
+export class GetAppService extends DgraphUseCase<
+  GetAppRequest,
+  Nullable<IApp>
+> {
   constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
     super(dgraph)
   }
@@ -22,7 +26,7 @@ export class GetAppService extends DgraphUseCase<GetAppRequest, IApp | null> {
 
     GetAppService.validate(request)
 
-    let app: IApp | null
+    let app: Nullable<IApp>
 
     if (byId) {
       app = await this.getAppById(txn, byId)

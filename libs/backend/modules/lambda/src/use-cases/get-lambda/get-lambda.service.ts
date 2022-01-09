@@ -1,5 +1,6 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { ILambda, LambdaSchema } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetLambdaInput } from './get-lambda.input'
@@ -8,7 +9,7 @@ import { getLambdaQuery } from './get-lambda.query'
 @Injectable()
 export class GetLambdaService extends DgraphUseCase<
   GetLambdaInput,
-  ILambda | null
+  Nullable<ILambda>
 > {
   protected schema = LambdaSchema.nullable().optional()
 

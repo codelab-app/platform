@@ -1,5 +1,6 @@
 import { IElement } from '@codelab/frontend/abstract/core'
 import { useElementGraphContext } from '@codelab/frontend/modules/element'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { ElementTree } from '@codelab/shared/core'
 import { Dropdown, Tree as AntdTree } from 'antd'
 import { DataNode } from 'rc-tree/lib/interface'
@@ -51,7 +52,9 @@ export const MainPaneBuilderTreeTab = ({
       onSelect={([id], { nativeEvent, node }) => {
         nativeEvent.stopPropagation()
 
-        setSelectedElement(id?.toString())
+        if (id) {
+          setSelectedElement(id.toString())
+        }
       }}
       titleRender={(node) => <TreeItemTitle tree={elementTree} node={node} />}
       treeData={antdTree ? [antdTree] : undefined}
@@ -68,9 +71,8 @@ const TreeItemTitle = ({
   node: DataNode
   tree: ElementTree
 }) => {
-  const [contextMenuItemId, setContextMenuNodeId] = useState<string | null>(
-    null,
-  )
+  const [contextMenuItemId, setContextMenuNodeId] =
+    useState<Nullable<string>>(null)
 
   const element = node as any as IElement
   const { name, id: nodeId, atom } = element

@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { IBuildable, IDgraphQueryFilter } from '../i-query-builder'
 
 export class DgraphFilter implements IDgraphQueryFilter {
@@ -17,7 +18,7 @@ export class DgraphFilter implements IDgraphQueryFilter {
   }
 
   /** https://dgraph.io/docs/query-language/connecting-filters/ */
-  setConnectionPrefix(connectionPrefix: FilterConnection | undefined) {
+  setConnectionPrefix(connectionPrefix: Maybe<FilterConnection>) {
     this._connectionPrefix = connectionPrefix
 
     return this

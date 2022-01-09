@@ -1,3 +1,4 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
@@ -10,7 +11,7 @@ export class CreateTagInput {
     defaultValue: null,
     description: "Parent tag id, empty parent means it's root",
   })
-  declare parentTagId?: string | null
+  declare parentTagId?: Nullable<string>
 
   // @Field({
   //   nullable: true,

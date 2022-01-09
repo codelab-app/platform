@@ -1,5 +1,6 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphEntityType } from '@codelab/backend/infra'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetElementParentInput } from './get-element-parent.input'
@@ -10,12 +11,12 @@ import { GetElementParentInput } from './get-element-parent.input'
 @Injectable()
 export class GetElementParentService extends DgraphUseCase<
   GetElementParentInput,
-  { parentId: string } | null
+  Nullable<{ parentId: string }>
 > {
   protected executeTransaction(
     request: GetElementParentInput,
     txn: Txn,
-  ): Promise<{ parentId: string } | null> {
+  ): Promise<Nullable<{ parentId: string }>> {
     return this.dgraph.getOneNamed<{ parentId: string }>(
       txn,
       this.createQuery(request),

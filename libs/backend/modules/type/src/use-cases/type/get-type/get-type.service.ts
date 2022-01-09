@@ -1,5 +1,6 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { IType, TypeKind, TypeSchema } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { mapType } from '../get-types'
@@ -8,7 +9,7 @@ import { GetTypeRequest } from './get-type.request'
 @Injectable()
 export class GetTypeService extends DgraphUseCase<
   GetTypeRequest,
-  IType | null
+  Nullable<IType>
 > {
   protected schema = TypeSchema.optional().nullable()
 

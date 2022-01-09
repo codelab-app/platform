@@ -1,7 +1,7 @@
 import { IHook } from '@codelab/shared/abstract/core'
 import { AtomType } from '@codelab/shared/codegen/graphql'
 import { attempt, get, isError, keys, merge } from 'lodash'
-import { RenderPipelineProps } from '../../store'
+import { RenderProps } from '../../store'
 import {
   useGraphqlMutationHook,
   useGraphqlQueryHook,
@@ -16,8 +16,6 @@ import { HookHandler } from './HookHandler'
 
 const HOOK_VARIABLE_REGEXP = /\$\{([^}]*)\}/
 
-type Props = Record<string, any>
-
 const hookHandlers = {
   [AtomType.HookQueryConfig]: useQueryConfigHook,
   [AtomType.HookQueryLambda]: useQueryLambdaHook,
@@ -30,11 +28,8 @@ const hookHandlers = {
 }
 
 export const useHookResponse = () => {
-  const getHooksResponse = (
-    hooks: Array<IHook>,
-    props: RenderPipelineProps,
-  ) => {
-    return hooks.reduce((responses, hook: IHook): RenderPipelineProps => {
+  const getHooksResponse = (hooks: Array<IHook>, props: RenderProps) => {
+    return hooks.reduce((responses, hook: IHook): RenderProps => {
       const mergedProps = merge(responses, props)
       const hookConfig = getHookConfig(hook, mergedProps)
       const hookResponse = executeHook(hookConfig, mergedProps)
@@ -46,17 +41,15 @@ export const useHookResponse = () => {
   return { getHooksResponse }
 }
 
-const getHookConfig = (hook: IHook, props: RenderPipelineProps): IHook => {
-  return {
-    ...hook,
+const getHookConfig = (hook: IHook, props: RenderProps): IHook => {
+  return merge(hook, {
     config: {
-      ...hook.config,
       data: withValues(hook.config.data, props),
     },
-  }
+  })
 }
 
-const withValues = (data: string, props: RenderPipelineProps = {}): string => {
+const withValues = (data: string, props: RenderProps = {}): string => {
   return data.replace(HOOK_VARIABLE_REGEXP, (_: string, propKey: string) =>
     get(props, propKey, `Prop ${propKey} not found`),
   )
@@ -70,7 +63,7 @@ const getHookHandler = (type: IHook['type']): HookHandler => {
   return hookHandlers[type as keyof typeof hookHandlers]
 }
 
-const parseHookData = (data: string): Props => {
+const parseHookData = (data: string): RenderProps => {
   const dataJson = attempt(JSON.parse, data)
 
   if (isError(dataJson)) {
@@ -80,7 +73,7 @@ const parseHookData = (data: string): Props => {
   return dataJson
 }
 
-const executeHook = (hook: IHook, props?: Props) => {
+const executeHook = (hook: IHook, props?: RenderProps) => {
   const { type, config } = hook
   const handler = getHookHandler(type)
 

@@ -1,6 +1,7 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphEntityType, DgraphQueryBuilder } from '@codelab/backend/infra'
 import { IGraph } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TagEdge } from '../../domain/tag-edge.model'
@@ -10,7 +11,7 @@ import { GetTagGraphRequest } from './get-tag-graph.request'
 @Injectable()
 export class GetTagGraphService extends DgraphUseCase<
   GetTagGraphRequest,
-  IGraph<TagVertex, TagEdge> | null
+  Nullable<IGraph<TagVertex, TagEdge>>
 > {
   protected async executeTransaction(request: GetTagGraphRequest, txn: Txn) {
     return await this.dgraph.getOne<IGraph<TagVertex, TagEdge>>(

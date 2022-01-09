@@ -2,6 +2,7 @@ import { Void } from '@codelab/backend/abstract/types'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import type { IUser } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { Tag } from '../domain/tag.model'
@@ -62,7 +63,7 @@ export class TagResolver {
   @UseGuards(GqlAuthGuard)
   async getTags(
     @Args('input', { nullable: true, type: () => GetTagsInput })
-    input: GetTagsInput | undefined,
+    input: Maybe<GetTagsInput>,
     @CurrentUser() currentUser: IUser,
   ) {
     return this.getTagsService.execute({ currentUser })

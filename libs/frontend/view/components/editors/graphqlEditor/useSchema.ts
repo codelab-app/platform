@@ -1,3 +1,4 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { GraphQLSchema } from 'graphql'
 import { defaultSchemaBuilder } from 'graphql-language-service'
 import type { SchemaConfig } from 'monaco-graphql/esm/typings'
@@ -5,9 +6,9 @@ import { useCallback, useEffect, useState } from 'react'
 import { GraphqlApi } from '../monaco/setupMonaco'
 
 export type SchemaState = {
-  schema: GraphQLSchema | null
+  schema: Nullable<GraphQLSchema>
   isLoading: boolean
-  errors: Array<Error> | null
+  errors: Nullable<Array<Error>>
 }
 
 export const initialState: SchemaState = {

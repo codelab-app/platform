@@ -1,3 +1,4 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Uri } from 'monaco-editor'
 import {
   editor,
@@ -17,9 +18,9 @@ export class WorkerManager {
 
   private _configChangeListener: IDisposable
 
-  private _worker: editor.MonacoWebWorker<CSSInJsWorker> | null
+  private _worker: Nullable<editor.MonacoWebWorker<CSSInJsWorker>>
 
-  private _client: Promise<CSSInJsWorker> | null
+  private _client: Nullable<Promise<CSSInJsWorker>>
 
   constructor(defaults: LanguageServiceDefaults) {
     this._defaults = defaults

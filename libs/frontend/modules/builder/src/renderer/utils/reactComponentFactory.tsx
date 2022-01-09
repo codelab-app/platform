@@ -1,5 +1,6 @@
 import { notify } from '@codelab/frontend/shared/utils'
 import { AtomType } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { atomFactory } from '../atoms/atomFactory'
 
@@ -54,7 +55,7 @@ const commonProps = (id: string) => ({
 })
 
 export type ReactComponentFactoryResult = [
-  React.ComponentType<any> | string | null,
+  React.ComponentType<any> | Nullable<string>,
   Record<string, any>,
 ]
 

@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { BuilderDragData } from '../dnd/BuilderDragData'
@@ -6,7 +7,7 @@ import {
   BuilderTab,
   HoverElementActionPayload,
   PropsPerElementIdPayload,
-  RenderPipelinePropsByElementId,
+  RenderPropsByElementId,
   SelectElementActionPayload,
 } from '../store'
 
@@ -52,7 +53,7 @@ export const useBuilderDispatch = () => {
   )
 
   const setLastRenderedProps = useCallback(
-    (payload: RenderPipelinePropsByElementId) => {
+    (payload: RenderPropsByElementId) => {
       dispatch(actions.setLastRenderedProps(payload))
     },
     [dispatch],
@@ -66,7 +67,7 @@ export const useBuilderDispatch = () => {
   )
 
   const setCurrentlyDragging = useCallback(
-    (payload: BuilderDragData | undefined) => {
+    (payload: Maybe<BuilderDragData>) => {
       dispatch(actions.setCurrentlyDragging(payload))
     },
     [dispatch],

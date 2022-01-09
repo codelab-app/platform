@@ -2,6 +2,7 @@ import { UseCasePort } from '@codelab/backend/abstract/core'
 import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import { ImportApiService } from '@codelab/backend/modules/type'
 import { AtomType, IUser } from '@codelab/shared/abstract/core'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
 import { CreateAtomService } from '../create-atom'
 import { CreateAtomRequest } from '../create-atom/create-atom.request'
@@ -47,7 +48,7 @@ export class ImportAtomsService
     await Promise.all(
       atoms.map(async (atom) => {
         // Seed api
-        let apiId: string | undefined = undefined
+        let apiId: Maybe<string> = undefined
 
         if (atom.api) {
           const { id } = await this.importApiService.execute({
@@ -82,7 +83,7 @@ export class ImportAtomsService
   private async upsertAtom({
     input,
     currentUser,
-  }: CreateAtomRequest): Promise<string | null> {
+  }: CreateAtomRequest): Promise<Nullable<string>> {
     const atom = await this.getAtomService.execute({
       where: { type: input.type },
     })

@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { IBuildable, IDgraphQueryFilter } from './i-query-builder'
 import { compileMultiple } from './utils'
 
@@ -31,7 +32,7 @@ export class DgraphQueryField implements IBuildable {
     return newField
   }
 
-  constructor(name: string | undefined = undefined) {
+  constructor(name: Maybe<string> = undefined) {
     this._isDirty = true
     this._innerFields = []
     this._filters = []

@@ -1,3 +1,4 @@
+import { Maybe, MaybeOrNullable } from '@codelab/shared/abstract/types'
 import Ajv, { JSONSchemaType } from 'ajv'
 import { Children, MutableRefObject, ReactElement } from 'react'
 import { Context, useForm } from 'uniforms'
@@ -5,8 +6,8 @@ import JSONSchemaBridge from 'uniforms-bridge-json-schema'
 import { SubmitController } from './submitController'
 
 export const connectUniformSubmitRef =
-  (submitRef: MutableRefObject<SubmitController | undefined> | undefined) =>
-  (r: { submit: () => any } | undefined | null) => {
+  (submitRef: Maybe<MutableRefObject<Maybe<SubmitController>>>) =>
+  (r: MaybeOrNullable<{ submit: () => any }>) => {
     if (submitRef && r) {
       // eslint-disable-next-line no-param-reassign
       submitRef.current = {

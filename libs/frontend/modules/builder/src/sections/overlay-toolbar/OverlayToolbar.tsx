@@ -1,4 +1,5 @@
 import { useScroll } from '@codelab/frontend/shared/utils'
+import { MaybeOrNullable } from '@codelab/shared/abstract/types'
 import React, { CSSProperties, RefObject } from 'react'
 import useResizeObserver from 'use-resize-observer/polyfilled'
 
@@ -25,7 +26,7 @@ export const OverlayToolbar = <TMetaData extends any>({
   } = {},
   toolbarProps: { style: toolbarStyle, ...toolbarProps } = {},
 }: OverlayToolbarProps<TMetaData>) => {
-  let element: HTMLElement | null | undefined
+  let element: MaybeOrNullable<HTMLElement>
 
   if (overlayElement) {
     element = Object.hasOwnProperty.call(overlayElement, 'current')

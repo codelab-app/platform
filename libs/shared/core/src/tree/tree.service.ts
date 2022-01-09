@@ -1,4 +1,5 @@
 import { IEdge, IGraph, IVertex } from '@codelab/shared/abstract/core'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, {
   EdgeSingular,
@@ -106,13 +107,13 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     })
   }
 
-  getAntdTree(rootPredicate?: Predicate<TVertex>): DataNode | null {
+  getAntdTree(rootPredicate?: Predicate<TVertex>): Nullable<DataNode> {
     const root = this.cy
       .elements()
       .roots()
       .filter(filterPredicate(rootPredicate ?? this.predicate))
 
-    let tree: DataNode | null = null
+    let tree: Nullable<DataNode> = null
     const nodes: Record<string, DataNode> = {}
     const nodeOrder: Record<string, number> = {}
 
@@ -177,18 +178,18 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
   getVertex<TExpected extends TVertex>(
     vertexId: string,
     predicate?: InstancePredicate<TVertex, TExpected>,
-  ): TExpected | undefined {
+  ): Maybe<TExpected> {
     return this.cy
       .getElementById(vertexId)
       .filter(filterPredicate(this.predicate ?? predicate ?? (() => true)))
       .first()
-      .map<TExpected | undefined>(getCyElementData)[0]
+      .map<Maybe<TExpected>>(getCyElementData)[0]
   }
 
   getParentOf(
     elementId: string,
     predicate?: Predicate<TVertex>,
-  ): TVertex | undefined {
+  ): Maybe<TVertex> {
     return this.cy
       .getElementById(elementId)
       .incomers()
@@ -199,7 +200,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
       .map(this.getCyVertexData)[0]
   }
 
-  getRootVertex(predicate?: Predicate<TVertex>): TVertex | undefined {
+  getRootVertex(predicate?: Predicate<TVertex>): Maybe<TVertex> {
     return this.cy
       .elements()
       .roots()

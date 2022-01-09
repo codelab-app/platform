@@ -1,7 +1,8 @@
+import { Maybe, MaybeOrNullable } from '@codelab/shared/abstract/types'
 import { WILDCARD_ID } from './cacheTags'
 
 export const providesAll = <
-  R extends Array<{ id: string | number }> | null | undefined,
+  R extends MaybeOrNullable<Array<{ id: string | number }>>,
   T extends string,
 >(
   resultsWithIds: R,
@@ -16,7 +17,7 @@ export const providesAll = <
 }
 
 export const providesById = <
-  R extends string | number | null | undefined,
+  R extends MaybeOrNullable<string | number>,
   T extends string,
 >(
   id: R,
@@ -29,7 +30,7 @@ export const invalidatesAll = <T extends string>(...types: Array<T>) =>
   types.map((type) => ({ type, id: WILDCARD_ID }))
 
 export const invalidatesById = <
-  R extends string | number | undefined,
+  R extends string | Maybe<number>,
   T extends string,
 >(
   id: R,

@@ -1,5 +1,7 @@
+import { MaybeOrNullable } from '@codelab/shared/abstract/types'
+
 export const deepReplaceObjectValues = <
-  TIn extends Record<string, any> | Array<any> | undefined | null,
+  TIn extends MaybeOrNullable<Record<string, any> | Array<any>>,
 >(
   obj: TIn,
   fn: (value: any, key: string, innerObj: Record<string, any>) => any,

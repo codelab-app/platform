@@ -1,8 +1,9 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 export const useDebouncedState = <T>(
   delay: number,
-  initialValue: T | undefined = undefined,
+  initialValue: Maybe<T> = undefined,
 ): [T, Dispatch<SetStateAction<T>>] => {
   // State and setters for debounced value
   const [value, setValue] = useState<T>(initialValue as T)

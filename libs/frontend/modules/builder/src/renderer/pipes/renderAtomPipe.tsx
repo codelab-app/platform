@@ -1,8 +1,8 @@
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import React from 'react'
+import { logRendered } from '../utils'
 import { evalCss } from '../utils/evalCss'
-import { onRendered } from '../utils/onRendered'
 import { reactComponentFactory } from '../utils/reactComponentFactory'
 import { RenderPipeFactory } from './types'
 
@@ -39,7 +39,7 @@ export const renderAtomPipe: RenderPipeFactory =
       </RootComponent>
     )
 
-    onRendered(rendered, element, context)
+    logRendered(rendered, element, context)
 
     if (context.inspect) {
       console.groupEnd()

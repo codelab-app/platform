@@ -3,6 +3,7 @@ import {
   exactlyOneWhereClause,
 } from '@codelab/backend/application'
 import { AtomSchema, IAtom } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import Fuse from 'fuse.js'
@@ -11,15 +12,12 @@ import { GetAtomsInput } from './get-atoms.input'
 
 @Injectable()
 export class GetAtomsService extends DgraphUseCase<
-  GetAtomsInput | undefined,
+  Maybe<GetAtomsInput>,
   Array<IAtom>
 > {
   protected schema = AtomSchema.array()
 
-  protected async executeTransaction(
-    request: GetAtomsInput | undefined,
-    txn: Txn,
-  ) {
+  protected async executeTransaction(request: Maybe<GetAtomsInput>, txn: Txn) {
     if (request && request.where) {
       exactlyOneWhereClause({ input: { where: request.where } }, [
         'ids',

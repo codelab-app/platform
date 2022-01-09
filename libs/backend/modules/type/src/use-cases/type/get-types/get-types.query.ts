@@ -1,5 +1,6 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
 import { IType, TypeKind } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { GetTypesInput } from './get-types.input'
 
 /**
@@ -10,7 +11,7 @@ import { GetTypesInput } from './get-types.input'
  * If current user role is user -> get types without any owner + types from current user
  */
 export const getUserTypesQuery = (
-  input: GetTypesInput | undefined = {},
+  input: Maybe<GetTypesInput> = {},
   userId: string,
   queryName = 'query',
 ) => {
@@ -34,7 +35,7 @@ export const getUserTypesQuery = (
 }
 
 export const getAdminTypesQuery = (
-  input: GetTypesInput | undefined = {},
+  input: Maybe<GetTypesInput> = {},
   queryName = 'query',
 ) => {
   const { byIds, byKind, byName } = input

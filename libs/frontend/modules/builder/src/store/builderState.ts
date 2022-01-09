@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { DefaultRootState } from 'react-redux'
@@ -10,22 +11,19 @@ export enum BuilderTab {
 
 export type SelectElementActionPayload = Partial<ElementIdPayload>
 export type HoverElementActionPayload = Partial<ElementIdPayload>
-export type RenderPipelineProps = Record<string, any>
+export type RenderProps = Record<string, any>
 
-export type RenderPipelinePropsByElementId = Record<
-  string,
-  RenderPipelineProps | undefined
->
+export type RenderPropsByElementId = Record<string, Maybe<RenderProps>>
 
 export interface BuilderState {
   selectedElementId?: string
   hoveringElementId?: string
 
   /** Add props here to be added to the elements when rendered */
-  extraElementProps: RenderPipelinePropsByElementId
+  extraElementProps: RenderPropsByElementId
 
   /** The last rendered props per element id */
-  lastRenderedProps: RenderPipelinePropsByElementId
+  lastRenderedProps: RenderPropsByElementId
 
   /** Contrary to other tabs, the builder tab is part of the state as it is not related to routing */
   tab: BuilderTab
@@ -46,7 +44,7 @@ export interface ElementIdPayload {
 }
 
 export interface PropsPerElementIdPayload extends ElementIdPayload {
-  props: RenderPipelineProps
+  props: RenderProps
 }
 
 export const builderSlice = createSlice({
@@ -90,7 +88,7 @@ export const builderSlice = createSlice({
     },
     setLastRenderedProps: (
       state,
-      { payload }: PayloadAction<RenderPipelinePropsByElementId>,
+      { payload }: PayloadAction<RenderPropsByElementId>,
     ) => {
       state.lastRenderedProps = payload
     },
@@ -99,7 +97,7 @@ export const builderSlice = createSlice({
     },
     setCurrentlyDragging: (
       state,
-      { payload }: PayloadAction<BuilderDragData | undefined>,
+      { payload }: PayloadAction<Maybe<BuilderDragData>>,
     ) => {
       state.currentlyDragging = payload
     },

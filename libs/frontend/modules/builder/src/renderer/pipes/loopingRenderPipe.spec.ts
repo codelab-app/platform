@@ -1,9 +1,7 @@
 import { ReactElement } from 'react'
-import { loopingRenderPipe } from '../loopRenderingPipe'
-import { RenderContext } from '../types'
-import { elementToRender } from './data'
-import { ResultPipeOutput } from './types'
-import { resultPipe } from './utils'
+import { loopingRenderPipe } from './loopRenderingPipe'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 
@@ -18,13 +16,13 @@ const initialProps = {
 
 describe('LoopingRenderPipe', () => {
   it('should add renderForEachPropKey props', () => {
-    const output = loopingRenderPipe(resultPipe)(
+    const output = loopingRenderPipe(endPipe)(
       elementToRender,
       defaultContext,
       initialProps,
     ) as ReactElement
 
-    const props = output.props.children.map((x: ResultPipeOutput) => x.props)
+    const props = output.props.children.map((x: EndPipeOutput) => x.props)
 
     expect(props).toStrictEqual([
       {

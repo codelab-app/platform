@@ -1,3 +1,4 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { ClientError } from 'graphql-request'
 import { RequestDocument } from 'graphql-request/dist/types'
 import { getGraphQLClient } from './client'
@@ -5,7 +6,7 @@ import { GraphqlOperationOptions } from './GraphqlOperationOptions'
 
 export interface GraphqlQueryInput {
   document: RequestDocument
-  options?: GraphqlOperationOptions | null
+  options?: Nullable<GraphqlOperationOptions>
 }
 
 export const graphqlBaseQuery = async ({

@@ -5,11 +5,12 @@ import {
   IPrimitiveType,
   IType,
 } from '@codelab/shared/abstract/core'
+import { MaybeOrNullable } from '@codelab/shared/abstract/types'
 import { TypeTree } from '@codelab/shared/core'
 import { TypeModels } from './TypeModels'
 
 export const getTypeName = (
-  type: IType | null | undefined,
+  type: MaybeOrNullable<IType>,
   typeTree: TypeTree,
   iteration = 0,
 ): string => {

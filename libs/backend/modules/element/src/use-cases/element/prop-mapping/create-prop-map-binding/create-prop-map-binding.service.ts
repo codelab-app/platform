@@ -4,6 +4,7 @@ import {
   DgraphRepository,
   DgraphUpdateMutationJson,
 } from '@codelab/backend/infra'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { ElementValidator } from '../../../../application/element.validator'
@@ -53,7 +54,7 @@ export class CreatePropMapBindingService extends DgraphCreateUseCase<CreatePropM
       targetKey,
       sourceKey,
     }: Omit<CreatePropMapBindingInput, 'elementId'>,
-    uid: string | undefined,
+    uid: Maybe<string>,
   ) {
     return {
       uid,

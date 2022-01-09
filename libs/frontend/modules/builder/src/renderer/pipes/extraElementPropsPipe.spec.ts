@@ -1,8 +1,6 @@
-import { extraElementPropsPipe } from '../extraElementPropsPipe'
-import { RenderContext } from '../types'
-import { elementToRender } from './data'
-import { ResultPipeOutput } from './types'
-import { resultPipe } from './utils'
+import { extraElementPropsPipe } from './extraElementPropsPipe'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { RenderContext } from './types'
 
 const extraElementProps: RenderContext['extraElementProps'] = {
   [elementToRender.id]: {
@@ -16,11 +14,11 @@ const initialProps = {}
 
 describe('ExtraElementPropsPipe', () => {
   it('should add element extra props', () => {
-    const { props } = extraElementPropsPipe(resultPipe)(
+    const { props } = extraElementPropsPipe(endPipe)(
       elementToRender,
       defaultContext,
       initialProps,
-    ) as ResultPipeOutput
+    ) as EndPipeOutput
 
     expect(props).toStrictEqual(extraElementProps[elementToRender.id])
   })

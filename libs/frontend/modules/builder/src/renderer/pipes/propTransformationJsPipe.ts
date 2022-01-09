@@ -1,12 +1,13 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { attempt } from 'lodash'
 import { isError } from 'react-query'
-import { RenderPipelineProps } from '../../store'
+import { RenderProps } from '../../store'
 import { RenderPipeFactory } from './types'
 
-type TransformFn = (props: RenderPipelineProps) => RenderPipelineProps
+type TransformFn = (props: RenderProps) => RenderProps
 
-const getTransformFn = (transformationJs: string): TransformFn | undefined => {
+const getTransformFn = (transformationJs: string): Maybe<TransformFn> => {
   // eslint-disable-next-line no-eval
   const result = attempt(eval, `(${transformationJs})`) // the parentheses allow us to return a function from eval
 
@@ -27,8 +28,8 @@ const getTransformFn = (transformationJs: string): TransformFn | undefined => {
 
 const getTransformedProps = (
   transformFn: TransformFn,
-  props: RenderPipelineProps,
-): RenderPipelineProps | undefined => {
+  props: RenderProps,
+): Maybe<RenderProps> => {
   const result = attempt(transformFn, props)
 
   if (isError(result)) {

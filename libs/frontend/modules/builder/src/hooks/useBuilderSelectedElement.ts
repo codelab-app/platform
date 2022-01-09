@@ -2,14 +2,15 @@ import {
   ElementFragment,
   useGetElementQuery,
 } from '@codelab/frontend/modules/element'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { builderSelectors } from '../store'
 import { useBuilderDispatch } from './useBuilderDispatch'
 
 export interface UseBuilderSelectedElement {
-  selectedElement: ElementFragment | null
-  selectedElementId: string | undefined
+  selectedElement: Nullable<ElementFragment>
+  selectedElementId: Maybe<string>
   isLoading: boolean
   setSelectedElement: (elementId?: string) => void
   resetSelection: () => void

@@ -5,6 +5,7 @@ import {
   DgraphQueryField,
   DgraphRepository,
 } from '@codelab/backend/infra'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetLastOrderChildInput } from './get-last-order-child.input'
@@ -17,7 +18,7 @@ import { GetLastOrderChildResponse } from './get-last-order-child.response'
 @Injectable()
 export class GetLastOrderChildService extends DgraphUseCase<
   GetLastOrderChildInput,
-  GetLastOrderChildResponse | null
+  Nullable<GetLastOrderChildResponse>
 > {
   constructor(protected readonly dgraph: DgraphRepository) {
     super(dgraph)

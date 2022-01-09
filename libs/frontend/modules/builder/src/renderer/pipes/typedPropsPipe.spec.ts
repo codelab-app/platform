@@ -1,19 +1,17 @@
-import { typedPropsPipe } from '../typedPropsPipe'
-import { RenderContext } from '../types'
-import { elementToRender } from './data'
-import { ResultPipeOutput } from './types'
-import { resultPipe } from './utils'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { typedPropsPipe } from './typedPropsPipe'
+import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 const initialProps = JSON.parse(elementToRender.props.data)
 
-describe('typedPropsPipe', () => {
+describe('TypedPropsPipe', () => {
   it('should transform props with type', () => {
-    const { props } = typedPropsPipe(resultPipe)(
+    const { props } = typedPropsPipe(endPipe)(
       elementToRender,
       defaultContext,
       initialProps,
-    ) as ResultPipeOutput
+    ) as EndPipeOutput
 
     expect(props).toStrictEqual({
       prop01: 'prop01Value',

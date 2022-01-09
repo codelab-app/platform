@@ -1,12 +1,13 @@
 import { DgraphUseCase } from '@codelab/backend/application'
 import { ITag, TagSchema } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetTagInput } from './get-tag.input'
 import { getTagQuery, mapDgraphTag } from './get-tag.query'
 
 @Injectable()
-export class GetTagService extends DgraphUseCase<GetTagInput, ITag | null> {
+export class GetTagService extends DgraphUseCase<GetTagInput, Nullable<ITag>> {
   protected schema = TagSchema.nullable().optional()
 
   protected async executeTransaction(request: GetTagInput, txn: Txn) {

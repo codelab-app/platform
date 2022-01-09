@@ -1,6 +1,8 @@
+import { MaybeOrNullable, Nullable } from '@codelab/shared/abstract/types'
+
 export const mergeTwoPropObjects = (
-  propsA?: Record<string, any> | null,
-  propsB?: Record<string, any> | null,
+  propsA?: Nullable<Record<string, any>>,
+  propsB?: Nullable<Record<string, any>>,
   aggregate?: Record<string, any>,
 ): Record<string, any> => {
   if (!aggregate) {
@@ -76,7 +78,7 @@ export const mergeTwoPropObjects = (
  * - Merging className strings together
  */
 export const mergeProps = (
-  ...propArray: Array<Record<string, any> | null | undefined>
+  ...propArray: Array<MaybeOrNullable<Record<string, any>>>
 ): Record<string, any> => {
   return propArray.reduce<Record<string, any>>(
     (mergedProps, nextProps) =>

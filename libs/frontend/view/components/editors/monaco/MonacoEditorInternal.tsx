@@ -1,3 +1,4 @@
+import { Maybe } from '@codelab/shared/abstract/types'
 import { useEffect, useRef, useState } from 'react'
 import { MonacoEditorProps } from './MonacoEditorProps'
 import { monaco } from './setupMonaco'
@@ -19,7 +20,7 @@ const MonacoEditorInternal = ({
   const divRef = useRef<HTMLDivElement>(null)
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>()
   const cachedValueRef = useRef<string>(value ?? initialValue ?? '')
-  const changeHandlerRef = useRef<monaco.IDisposable | undefined>(undefined)
+  const changeHandlerRef = useRef<Maybe<monaco.IDisposable>>(undefined)
 
   useEffect(() => {
     if (onBeforeMount) {

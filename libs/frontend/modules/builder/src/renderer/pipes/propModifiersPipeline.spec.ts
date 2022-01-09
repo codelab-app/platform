@@ -1,21 +1,19 @@
 import { IHook } from '@codelab/shared/abstract/core'
 import { merge } from 'lodash'
 import { ReactElement } from 'react'
-import { RenderPipelineProps } from '../../../store'
-import { propModifiersPipeline } from '../renderPipeline'
-import { RenderContext } from '../types'
-import { elementToRender } from './data'
-import { ResultPipeOutput } from './types'
-import { resultPipe } from './utils'
+import { RenderProps } from '../../store'
+import { propModifiersPipeline } from './renderPipeline'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { RenderContext } from './types'
 
-const testHookResponse: RenderPipelineProps = {
+const testHookResponse: RenderProps = {
   testHookResponse: {
     prop01: 'value01',
     prop02: 'value02',
   },
 }
 
-const getHooksResponse = (hooks: Array<IHook>, props: RenderPipelineProps) =>
+const getHooksResponse = (hooks: Array<IHook>, props: RenderProps) =>
   testHookResponse
 
 const defaultContext = { getHooksResponse } as RenderContext
@@ -41,13 +39,13 @@ const initialProps = {
 
 describe('PropModifiersPipeline', () => {
   it('should apply modifiers to props', () => {
-    const output = propModifiersPipeline(resultPipe)(
+    const output = propModifiersPipeline(endPipe)(
       elementToRender,
       defaultContext,
       initialProps,
     ) as ReactElement
 
-    const props = output.props.children.map((x: ResultPipeOutput) => x.props)[0] // compare only first element
+    const props = output.props.children.map((x: EndPipeOutput) => x.props)[0] // compare only first element
 
     expect(props).toStrictEqual({
       key: '0x2786a-0',
@@ -113,14 +111,14 @@ describe('PropModifiersPipeline', () => {
   })
 
   it('should apply modifiers to context', () => {
-    const output = propModifiersPipeline(resultPipe)(
+    const output = propModifiersPipeline(endPipe)(
       elementToRender,
       defaultContext,
       initialProps,
     ) as ReactElement
 
     const extraElementProps = output.props.children
-      .map((x: ResultPipeOutput) => x.extraElementProps)
+      .map((x: EndPipeOutput) => x.extraElementProps)
       .reduce(merge, {})
 
     expect(extraElementProps).toStrictEqual({

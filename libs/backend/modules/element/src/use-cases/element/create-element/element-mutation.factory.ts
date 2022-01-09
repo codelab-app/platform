@@ -1,5 +1,6 @@
 import { DgraphEntityType } from '@codelab/backend/infra'
 import { AtomType, IUser } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { isAdmin } from '@codelab/shared/core'
 import { hexadecimalRegex, pascalCaseToWords } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
@@ -26,7 +27,7 @@ export class ElementMutationFactory {
 
   constructor(
     private readonly atomIdResolver: AtomIdResolver,
-    private readonly currentUser: IUser | undefined,
+    private readonly currentUser: Maybe<IUser>,
   ) {
     this.blankNodeByRefIsMap = new Map<string, string>()
     this.iteration = 0
@@ -192,7 +193,7 @@ export class ElementMutationFactory {
     }
   }
 
-  public static componentTagJson(currentUser?: IUser, name?: string) {
+  public static componentTagJson(currentUser?: Maybe<IUser>, name?: string) {
     return {
       'dgraph.type': [DgraphEntityType.Tag],
       owner: isAdmin(currentUser) ? null : { uid: currentUser?.id },
@@ -201,7 +202,7 @@ export class ElementMutationFactory {
     }
   }
 
-  private makeChildrenMutations(children: Array<ElementRef> | undefined) {
+  private makeChildrenMutations(children: Maybe<Array<ElementRef>>) {
     return Promise.all(
       children?.map((child, i) => {
         if (child.elementId) {
@@ -223,7 +224,7 @@ export class ElementMutationFactory {
   }
 
   private makePropMapBindingMutations(
-    propMapBindings: Array<NewPropMapBindingRef> | undefined,
+    propMapBindings: Maybe<Array<NewPropMapBindingRef>>,
   ) {
     if (!propMapBindings) {
       return []
@@ -254,7 +255,7 @@ export class ElementMutationFactory {
     })
   }
 
-  private makeHookMutations(hooks: Array<HookRef> | undefined) {
+  private makeHookMutations(hooks: Maybe<Array<HookRef>>) {
     if (!hooks) {
       return []
     }

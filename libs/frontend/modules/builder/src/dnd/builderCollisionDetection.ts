@@ -1,3 +1,4 @@
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import {
   closestCorners,
   CollisionDetection,
@@ -28,7 +29,7 @@ export const builderCollisionDetection: CollisionDetection = (props) => {
   for (const container of droppableContainers) {
     containersById[container.id] = container
 
-    const data = container.data.current as BuilderDragData | undefined
+    const data = container.data.current as Maybe<BuilderDragData>
 
     if (data?.type) {
       containersByType[data.type].push(container)
@@ -51,7 +52,7 @@ export const builderCollisionDetection: CollisionDetection = (props) => {
 
   const builder = containersById[BuilderDropId.BuilderRoot]
 
-  const rectIntersectBuilder: string | null = builder
+  const rectIntersectBuilder: Nullable<string> = builder
     ? isRectIntersectingWith(builder)
     : null
 
@@ -61,7 +62,7 @@ export const builderCollisionDetection: CollisionDetection = (props) => {
     return closestCorners({
       ...props,
       droppableContainers: droppableContainers.filter((c) => {
-        const cData = c.data.current as BuilderDragData | undefined
+        const cData = c.data.current as Maybe<BuilderDragData>
 
         return !(cData && cData.type === BuilderDndType.CreateElement)
       }),

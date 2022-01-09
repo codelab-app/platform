@@ -3,6 +3,7 @@ import {
   useUpdateElementPropsMutation,
 } from '@codelab/frontend/modules/element'
 import { notify } from '@codelab/frontend/shared/utils'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -10,7 +11,7 @@ import { builderSelectors } from '../store/builderState'
 import { useBuilderDispatch } from './useBuilderDispatch'
 
 export const usePropsInspector = (elementId: string) => {
-  const [persistedProps, setPersistedProps] = useState<string | undefined>()
+  const [persistedProps, setPersistedProps] = useState<Maybe<string>>()
   const { setExtraPropsForElement } = useBuilderDispatch()
   const [mutate, { isLoading }] = useUpdateElementPropsMutation({})
 

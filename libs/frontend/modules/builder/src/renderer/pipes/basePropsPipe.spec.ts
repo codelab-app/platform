@@ -1,19 +1,17 @@
-import { basePropsPipe } from '../basePropsPipe'
-import { RenderContext } from '../types'
-import { elementToRender } from './data'
-import { ResultPipeOutput } from './types'
-import { resultPipe } from './utils'
+import { basePropsPipe } from './basePropsPipe'
+import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 const initialProps = {}
 
 describe('BasePropsPipe', () => {
   it('should add base props', () => {
-    const { props } = basePropsPipe(resultPipe)(
+    const { props } = basePropsPipe(endPipe)(
       elementToRender,
       defaultContext,
       initialProps,
-    ) as ResultPipeOutput
+    ) as EndPipeOutput
 
     expect(props).toStrictEqual({
       nodeid: elementToRender.id,

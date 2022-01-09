@@ -2,19 +2,23 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
-    "module": "commonjs",
-    "types": ["jest", "node"],
-    "esModuleInterop": true,
+    "jsxImportSource": "@emotion/react",
     "strict": true,
-    "composite": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["jest", "node", "@types/testing-library__jest-dom"],
+    "traceResolution": false,
+    "noImplicitAny": false,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "**/*.spec.js",
     "**/*.spec.jsx",
-    "**/*.ts"
+    "**/*.d.ts"
   ]
 }

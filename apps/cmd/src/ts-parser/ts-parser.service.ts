@@ -1,5 +1,6 @@
 import { TestGetExport__AtomsFragment } from '@codelab/backend/modules/atom'
 import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
@@ -136,7 +137,7 @@ export class TsParserService {
 type TypeNodePipe = (
   typeNode: TypeNode | UnionNode,
   name: string,
-) => Array<TypeFragment> | TypeFragment | undefined
+) => Maybe<Array<TypeFragment> | TypeFragment>
 
 type TypeNodePipeFactory = (next: TypeNodePipe) => TypeNodePipe
 

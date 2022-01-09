@@ -1,4 +1,4 @@
-import { MaybePromise } from '@codelab/shared/abstract/types'
+import { Maybe, MaybePromise } from '@codelab/shared/abstract/types'
 
 export interface BfsOptions<TNode> {
   /**
@@ -8,7 +8,7 @@ export interface BfsOptions<TNode> {
   visit: (
     node: TNode,
     parentNode?: TNode,
-  ) => MaybePromise<Array<TNode> | undefined | void>
+  ) => MaybePromise<Maybe<Array<TNode> | void>>
 
   /** The root node(s), traversal will start from it */
   root: TNode | Array<TNode>

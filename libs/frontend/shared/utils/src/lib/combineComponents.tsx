@@ -1,12 +1,11 @@
+import { MaybeOrNullable } from '@codelab/shared/abstract/types'
 import React, { ComponentProps, ComponentType, PropsWithChildren } from 'react'
 
 export type ComponentTypeWithProps<TProps> = [ComponentType<TProps>, TProps]
 
-export type ComponentTypeLike =
-  | ComponentType
-  | ComponentTypeWithProps<any>
-  | undefined
-  | null
+export type ComponentTypeLike = MaybeOrNullable<
+  ComponentType | ComponentTypeWithProps<any>
+>
 
 export type ComponentTypeLikeArray = Array<ComponentTypeLike>
 

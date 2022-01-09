@@ -1,4 +1,5 @@
 import { AtomType } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, InputType, Int, OmitType } from '@nestjs/graphql'
 import { AddHookToElementInput } from '../hooks/add-hook-to-element'
 import { CreatePropMapBindingInput } from '../prop-mapping/create-prop-map-binding'
@@ -57,7 +58,7 @@ export class CreateElementChildInput {
     description:
       'Leave it out to automatically set it as the last order of all the children',
   })
-  declare order?: number | null
+  declare order?: Nullable<number>
 
   @Field(() => [ElementRef], {
     nullable: true,

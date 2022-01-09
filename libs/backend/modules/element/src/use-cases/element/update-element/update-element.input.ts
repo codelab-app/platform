@@ -1,3 +1,4 @@
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
@@ -9,7 +10,7 @@ export class UpdateElementData {
   declare atomId?: string
 
   @Field(() => String, { nullable: true })
-  declare css?: string | null
+  declare css?: Nullable<string>
 
   @Field(() => String, {
     description:
