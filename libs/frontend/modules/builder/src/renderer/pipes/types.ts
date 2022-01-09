@@ -2,11 +2,7 @@ import { IElement } from '@codelab/frontend/abstract/core'
 import { IHook, TypeId, TypeKind } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
-import {
-  PropsPerElementIdPayload,
-  RenderProps,
-  RenderPropsByElementId,
-} from '../../store'
+import { RenderProps, RenderPropsByElementId } from '../../store'
 
 export type RenderOutput = React.ReactNode
 
@@ -19,7 +15,6 @@ export interface RendererProps {
 export interface RenderContext {
   /** The rendered tree */
   tree: ElementTree
-
 
   /** Extra props passed to all element. They override the common props, but props from the node instance override the extraProps */
   extraProps?: RenderProps
