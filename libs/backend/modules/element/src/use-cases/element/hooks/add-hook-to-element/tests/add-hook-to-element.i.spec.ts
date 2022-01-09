@@ -4,6 +4,7 @@ import {
   PersistenceType,
   QueryMethod,
 } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { INestApplication } from '@nestjs/common'
 import { setupElementTestModule } from '../../../../../test/setupElementTestModule'
 import { GetElementInput } from '../../../get-element'
