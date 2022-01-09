@@ -1,4 +1,5 @@
 import { mergeProps } from '@codelab/shared/utils'
+import React from 'react'
 import { RenderContainer } from '../renderContainer'
 import { containerKey } from '../utils'
 import { RenderPipeFactory } from './types'

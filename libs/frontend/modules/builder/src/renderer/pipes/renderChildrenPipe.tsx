@@ -1,4 +1,4 @@
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { RenderContainer } from '../renderContainer'
 import { containerKey } from '../utils'
 import { RenderTypes } from './types'

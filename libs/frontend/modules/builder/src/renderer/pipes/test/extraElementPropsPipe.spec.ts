@@ -1,7 +1,8 @@
-import { IElement } from '@codelab/shared/abstract/core'
 import { extraElementPropsPipe } from '../extraElementPropsPipe'
 import { RenderContext } from '../types'
 import { elementToRender } from './data'
+import { ResultPipeOutput } from './types'
+import { resultPipe } from './utils'
 
 const extraElementProps: RenderContext['extraElementProps'] = {
   [elementToRender.id]: {
@@ -13,20 +14,14 @@ const extraElementProps: RenderContext['extraElementProps'] = {
 const defaultContext = { extraElementProps } as RenderContext
 const initialProps = {}
 
-const restfulPipe = (
-  element: IElement,
-  context: RenderContext,
-  props: Record<string, unknown>,
-) => props
-
 describe('ExtraElementPropsPipe', () => {
   it('should add element extra props', () => {
-    const restful = extraElementPropsPipe(restfulPipe)(
+    const { props } = extraElementPropsPipe(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,
-    )
+    ) as ResultPipeOutput
 
-    expect(restful).toStrictEqual(extraElementProps[elementToRender.id])
+    expect(props).toStrictEqual(extraElementProps[elementToRender.id])
   })
 })

@@ -39,15 +39,28 @@ export const elementToRender: IElement = {
       },
     },
   ],
-  renderForEachPropKey: null,
+  renderForEachPropKey: 'renderForEachProp',
   renderIfPropKey: null,
   propMapBindings: [
     {
       id: '0x2bf22',
-      sourceKey: 'routerHook.query.test',
+      sourceKey: 'test.source.01',
       targetElementId: null,
-      targetKey: 'randomProp',
+      targetKey: 'testTarget01',
+    },
+    {
+      id: '0x2bf23',
+      sourceKey: 'test.source.02',
+      targetElementId: '0x2786f',
+      targetKey: 'testTarget02',
+    },
+    {
+      id: '0x2bf24',
+      sourceKey: 'test.source.03',
+      targetElementId: '0x2786h',
+      targetKey: 'testTarget03',
     },
   ],
-  propTransformationJs: null,
+  propTransformationJs:
+    '// Write a transformer function, you get the input props as parameter\n// All returned props will get merged with the original ones\nfunction transform(props){\n  return Object.keys(props)\n        .map((x)=> ({\n          [`${x}-edited`] : props[x]\n        }))\n        .reduce((total,current) => \n          ({...total,...current}),\n          {}\n        )\n}',
 }

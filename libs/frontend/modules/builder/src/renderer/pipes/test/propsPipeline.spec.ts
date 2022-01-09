@@ -1,26 +1,21 @@
-import { IElement } from '@codelab/shared/abstract/core'
 import { propsPipeline } from '../renderPipeline'
 import { RenderContext } from '../types'
 import { elementToRender } from './data'
+import { ResultPipeOutput } from './types'
+import { resultPipe } from './utils'
 
 const defaultContext = {} as RenderContext
-const initialProps = JSON.parse(elementToRender.props.data)
+const initialProps = {}
 
-const restfulPipe = (
-  element: IElement,
-  context: RenderContext,
-  props: Record<string, unknown>,
-) => props
-
-describe('propsPipe', () => {
+describe('PropsPipe', () => {
   it('should add props with type', () => {
-    const restful = propsPipeline(restfulPipe)(
+    const { props } = propsPipeline(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,
-    )
+    ) as ResultPipeOutput
 
-    expect(restful).toStrictEqual({
+    expect(props).toStrictEqual({
       __node: elementToRender,
       nodeid: elementToRender.id,
       key: elementToRender.id,

@@ -1,16 +1,11 @@
-import { IElement } from '@codelab/shared/abstract/core'
 import { persistedPropsPipe } from '../persistedPropsPipe'
 import { RenderContext } from '../types'
 import { elementToRender } from './data'
+import { ResultPipeOutput } from './types'
+import { resultPipe } from './utils'
 
 const defaultContext = {} as RenderContext
 const initialProps = {}
-
-const restfulPipe = (
-  element: IElement,
-  context: RenderContext,
-  props: Record<string, unknown>,
-) => props
 
 describe('PersistedPropsPipe', () => {
   it('should not add invalid data', () => {
@@ -24,23 +19,23 @@ describe('PersistedPropsPipe', () => {
       props: propsWithInvalidData,
     }
 
-    const restful = persistedPropsPipe(restfulPipe)(
+    const { props } = persistedPropsPipe(resultPipe)(
       elementWithInvalidPropsData,
       defaultContext,
       initialProps,
-    )
+    ) as ResultPipeOutput
 
-    expect(restful).toStrictEqual({})
+    expect(props).toStrictEqual({})
   })
 
   it('should add persisted props', () => {
-    const restful = persistedPropsPipe(restfulPipe)(
+    const { props } = persistedPropsPipe(resultPipe)(
       elementToRender,
       defaultContext,
       initialProps,
-    )
+    ) as ResultPipeOutput
 
-    expect(restful).toStrictEqual({
+    expect(props).toStrictEqual({
       prop01: 'prop01Value',
       prop02: 'prop02Value',
       prop03: {

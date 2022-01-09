@@ -1,4 +1,5 @@
 import { mergeProps } from '@codelab/shared/utils'
+import { merge, partition } from 'lodash'
 import { applyBinding } from '../utils/applyBinding'
 import { RenderPipeFactory } from './types'
 
@@ -7,36 +8,30 @@ import { RenderPipeFactory } from './types'
  */
 export const propMapBindingsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    const extraProps = {
-      ...context.extraElementProps,
-    }
+    const { extraElementProps } = context
+    const { propMapBindings } = element
 
-    let currentElementProps: Record<string, any> = {}
-
-    if (element.propMapBindings && element.propMapBindings.length > 0) {
-      for (const binding of element.propMapBindings) {
-        if (binding.targetElementId) {
-          extraProps[binding.targetElementId] = applyBinding(
-            extraProps[binding.targetElementId] ?? {},
-            props,
-            binding,
-          )
-        } else {
-          currentElementProps = applyBinding(
-            currentElementProps,
-            props,
-            binding,
-          )
-        }
-      }
-    }
-
-    return next(
-      element,
-      {
-        ...context,
-        extraElementProps: extraProps,
-      },
-      mergeProps(props, currentElementProps),
+    const [childBindings, localBindings] = partition(
+      propMapBindings,
+      (x) => x.targetElementId,
     )
+
+    const toTargetElements = childBindings.reduce((all, current) => {
+      const targetElementId = current.targetElementId as string
+      const previousBinding = all[targetElementId] ?? {}
+      const newBindings = applyBinding(previousBinding, props, current)
+
+      return { ...all, [targetElementId]: newBindings }
+    }, extraElementProps ?? {})
+
+    const toCurrentElement = localBindings.reduce((all, current) => {
+      const bindings = applyBinding(all, props, current)
+
+      return merge(all, bindings)
+    }, {})
+
+    const updatedContext = { ...context, extraElementProps: toTargetElements }
+    const updatedProps = mergeProps(props, toCurrentElement)
+
+    return next(element, updatedContext, updatedProps)
   }
