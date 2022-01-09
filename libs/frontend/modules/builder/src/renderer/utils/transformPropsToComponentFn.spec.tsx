@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import React from 'react'
 import { RenderProps } from '../../store'
 import {
@@ -29,10 +29,8 @@ describe('TransformPropsToComponentFn', () => {
     )
 
     const RenderFn = renderText as React.ComponentType<any>
-    const rendered = render(<RenderFn />)
+    const { findByText } = render(<RenderFn />)
 
-    await waitFor(() => {
-      expect(rendered.getByText(initialProps.text)).toBeInTheDocument()
-    })
+    expect(await findByText(initialProps.text)).toBeInTheDocument()
   })
 })

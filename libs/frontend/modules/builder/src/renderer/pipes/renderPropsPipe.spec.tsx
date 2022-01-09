@@ -1,5 +1,5 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { render, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import React from 'react'
 import { RenderProps } from '../../store'
 import { renderPipeline } from './renderPipeline'
@@ -35,10 +35,8 @@ describe('RenderPropsPipe', () => {
     ) as EndPipeOutput
 
     const { renderText: RenderFn } = props
-    const renderer = render(<RenderFn />)
+    const { findByText } = render(<RenderFn />)
 
-    await waitFor(() =>
-      expect(renderer.getByText(initialProps.text)).toBeInTheDocument(),
-    )
+    expect(await findByText(initialProps.text)).toBeInTheDocument()
   })
 })

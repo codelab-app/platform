@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { ReactElement } from 'react'
 import { RenderProps } from '../../store'
 import { renderAtomPipe } from './renderAtomPipe'
@@ -23,10 +23,8 @@ describe('RenderAtomPipe', () => {
       initialProps,
     ) as ReactElement
 
-    const renderer = render(output)
+    const { findByText } = render(output)
 
-    await waitFor(() =>
-      expect(renderer.getByText(initialProps.text)).toBeInTheDocument(),
-    )
+    expect(await findByText(initialProps.text)).toBeInTheDocument()
   })
 })
