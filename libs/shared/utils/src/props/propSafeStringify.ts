@@ -1,53 +1,42 @@
-import isPlainObject from 'lodash/isPlainObject'
+import { isArray, isObjectLike, isPlainObject, pickBy } from 'lodash'
 import React from 'react'
 
 export const propSafeStringify = (props: any, maskFunctions = true) => {
-  const obj: Record<string, any> = {}
-
-  for (const k in props) {
-    if (k.startsWith('_')) {
-      continue
-    }
-
-    obj[k] = props[k]
-  }
-
+  const obj = pickBy(props, (value, key) => !key.startsWith('_'))
   const cache = new WeakMap<any, boolean>()
 
-  const result = JSON.stringify(
-    obj,
-    (k, v) => {
-      if (k === 'children' && typeof v === 'object') {
+  const replacer = (key: string, value: any) => {
+    if (key === 'children' && typeof value === 'object') {
+      return
+    }
+
+    // handle ReactNodeType
+    if (React.isValidElement(value)) {
+      return 'React element'
+    }
+
+    if (isObjectLike(value)) {
+      if (!isArray(value) && !isPlainObject(value)) {
+        return `${value.constructor.name} instance`
+      }
+
+      // Duplicate reference found, discard key
+      if (cache.get(value)) {
         return
       }
 
-      // handle ReactNodetype
-      if (React.isValidElement(v)) {
-        return 'React element'
-      }
+      // Store value in our collection
+      cache.set(value, true)
+    }
 
-      if (typeof v === 'object' && v !== null) {
-        if (!isPlainObject(v)) {
-          return `${v.constructor.name} instance`
-        }
+    if (maskFunctions && typeof value === 'function') {
+      return 'function'
+    }
 
-        // Duplicate reference found, discard key
-        if (cache.get(v)) {
-          return
-        }
+    return value
+  }
 
-        // Store value in our collection
-        cache.set(v, true)
-      }
-
-      if (maskFunctions && typeof v === 'function') {
-        return 'function'
-      }
-
-      return v
-    },
-    4,
-  )
+  const result = JSON.stringify(obj, replacer, 4)
 
   return result
 }

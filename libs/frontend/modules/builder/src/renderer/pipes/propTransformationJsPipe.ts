@@ -1,5 +1,5 @@
 import { mergeProps } from '@codelab/shared/utils'
-import { RenderPipeFactory } from '../types/RenderTypes'
+import { RenderPipeFactory } from './types'
 
 /*
  * Evaluates the prop transformation js

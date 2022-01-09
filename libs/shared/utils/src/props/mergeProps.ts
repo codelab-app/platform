@@ -39,7 +39,7 @@ export const mergeTwoPropObjects = (
     }
 
     if (key === '__node') {
-      aggregate[key] = valueA
+      aggregate[key] = valueA || valueB
       continue
     }
 

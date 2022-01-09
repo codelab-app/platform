@@ -1019,6 +1019,14 @@
               "eslintConfig": "libs/frontend/modules/builder/.eslintrc.ci.json"
             }
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/frontend/modules/builder"],
+          "options": {
+            "jestConfig": "libs/frontend/modules/builder/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },

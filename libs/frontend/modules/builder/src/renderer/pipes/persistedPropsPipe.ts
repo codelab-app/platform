@@ -1,17 +1,20 @@
 import { mergeProps } from '@codelab/shared/utils'
-import { RenderPipeFactory } from '../types/RenderTypes'
+import { attempt, isError } from 'lodash'
+import { RenderPipeFactory } from './types'
 
+/**
+ * Adds in props from element.props.data
+ */
 export const persistedPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    try {
-      return next(
-        element,
-        context,
-        mergeProps(props, JSON.parse(element.props.data)),
-      )
-    } catch (e) {
+    const persistedProps = attempt(JSON.parse, element.props.data)
+
+    if (isError(persistedProps)) {
+      // TODO: should notify user via notification
       console.warn("Couldn't parse element props", element.props)
 
       return next(element, context, props)
     }
+
+    return next(element, context, mergeProps(props, persistedProps))
   }

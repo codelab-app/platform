@@ -1,6 +1,6 @@
-import { RenderPipeFactory } from '../types/RenderTypes'
 import { evaluateRenderIfPropKey } from '../utils/evaluateRenderIfPropKey'
 import { onRendered } from '../utils/onRendered'
+import { RenderPipeFactory } from './types'
 
 /**
  * Evaluates the renderIfPropKey and stops the render pipeline if it evaluates to falsy

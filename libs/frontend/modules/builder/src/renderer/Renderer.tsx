@@ -1,97 +1,65 @@
 import { TypeKindsContext } from '@codelab/frontend/modules/type'
-import { ElementTree } from '@codelab/shared/core'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
-import React, { ReactElement, ReactNode, useContext, useEffect } from 'react'
-import { RecoilRoot } from 'recoil'
-import { defaultRenderContext } from './defaultRenderContext'
-import { RenderContext } from './types/RenderTypes'
-
-export interface RendererProps {
-  tree: ElementTree
-  isComponentRenderer?: boolean
-  context?: Omit<RenderContext, 'tree' | 'render'>
-}
+import React, { useContext } from 'react'
+import { useHookResponse } from './hooks/useHookResponse'
+import { RenderContext, RendererProps, renderPipeline } from './pipes'
+import { RenderContainer } from './renderContainer'
+import { containerKey } from './utils'
 
 /**
  * Renders an ElementTree
  */
 export const Renderer = ({
   tree,
-  context: contextProp,
+  context,
   isComponentRenderer,
 }: RendererProps) => {
   const { typeKindsById } = useContext(TypeKindsContext)
-
-  const context = defaultRenderContext({
-    ...contextProp,
-    typeKindsById,
-    tree,
-  })
+  const { getHooksResponse } = useHookResponse()
 
   const root = isComponentRenderer
     ? tree.getRootComponent()
     : tree.getRootElement()
 
-  if (context.inspect) {
+  if (!root) {
+    return null
+  }
+
+  const defaultContext = {
+    ...context,
+    typeKindsById,
+    tree,
+  }
+
+  const renderContext: RenderContext = {
+    ...defaultContext,
+    getHooksResponse,
+    inspect: false,
+    render: renderPipeline,
+    tree,
+  }
+
+  if (renderContext.inspect) {
     console.group('Root')
   }
 
-  let rendered: ReactNode = null
+  const rendered = renderContext.render(root, renderContext, {})
 
-  if (root) {
-    rendered = context.render(
-      root,
-      {
-        ...(context ?? {}),
-        inspect: false,
-        tree,
-      },
-      {},
-    )
-
-    if (context.inspect) {
-      console.groupEnd()
-    }
+  if (renderContext.inspect) {
+    console.groupEnd()
   }
-
-  useEffect(() => {
-    if (context.onRendered) {
-      const renderMap: Record<string, ReactElement> = {}
-      const queue = [rendered]
-
-      while (queue.length) {
-        const element = queue.shift()
-
-        if (element) {
-          if (Array.isArray(element)) {
-            queue.push(...element)
-            continue
-          }
-
-          const props = (element as ReactElement)?.props
-          const id = props?.['data-id']
-
-          if (id) {
-            renderMap[id] = element as ReactElement
-          }
-
-          if (props.children) {
-            queue.push(props.children)
-          }
-        }
-      }
-
-      context.onRendered(renderMap)
-    }
-  }, [context, rendered])
 
   return (
     <ErrorBoundary>
-      <RecoilRoot>
-        <div style={{ minHeight: '100%' }} id="render-root">
+      <div style={{ minHeight: '100%' }} id="render-root">
+        <RenderContainer
+          context={renderContext}
+          key={containerKey(root)}
+          isRoot
+        >
           {rendered}
-        </div>
-      </RecoilRoot>
+        </RenderContainer>
+      </div>
     </ErrorBoundary>
   )
 }

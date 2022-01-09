@@ -3,10 +3,8 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
-    "jsxImportSource": "@emotion/react",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "module": "esnext",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,
@@ -17,6 +15,9 @@
   "references": [
     {
       "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
     }
   ]
 }

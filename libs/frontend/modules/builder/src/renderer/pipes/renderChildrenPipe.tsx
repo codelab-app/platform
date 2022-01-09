@@ -1,5 +1,7 @@
 import { ReactElement } from 'react'
-import { RenderTypes } from '../types/RenderTypes'
+import { RenderContainer } from '../renderContainer'
+import { containerKey } from '../utils'
+import { RenderTypes } from './types'
 
 /**
  * Renders the elements children, this should be the last pipe
@@ -19,7 +21,11 @@ export const renderChildrenPipe: RenderTypes = (element, context, props) => {
   }
 
   const rendered = childVertices
-    .map((child) => context.render(child, context, {}))
+    .map((child) => (
+      <RenderContainer key={containerKey(child)}>
+        {context.render(child, context, {})}
+      </RenderContainer>
+    ))
     .filter((c): c is ReactElement => !!c)
 
   if (!rendered?.length) {

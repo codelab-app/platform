@@ -1,10 +1,10 @@
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import React from 'react'
-import { reactComponentFactory } from '../reactComponentFactory'
-import { RenderPipeFactory } from '../types/RenderTypes'
 import { evalCss } from '../utils/evalCss'
 import { onRendered } from '../utils/onRendered'
+import { reactComponentFactory } from '../utils/reactComponentFactory'
+import { RenderPipeFactory } from './types'
 
 /**
  * If the element has an atom it renders it, if not - calls next

@@ -1,6 +1,6 @@
 import { mergeProps } from '@codelab/shared/utils'
 import React from 'react'
-import { RenderPipeFactory } from '../types/RenderTypes'
+import { RenderPipeFactory } from './types'
 
 /**
  *  If element.renderForEachPropKey is defined, it maps the corresponding prop and calls next
