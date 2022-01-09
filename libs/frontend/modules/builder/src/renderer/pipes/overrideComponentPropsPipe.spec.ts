@@ -1,4 +1,4 @@
-import { renderPipeline } from '.'
+import { renderPipeline } from '../pipes'
 import { overrideComponentProps } from './overrideComponentPropsPipe'
 import { elementToRender03, endPipe, EndPipeOutput, treeToRender } from './test'
 import { RenderContext } from './types'
