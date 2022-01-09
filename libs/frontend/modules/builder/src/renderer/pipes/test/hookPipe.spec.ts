@@ -2,7 +2,7 @@ import { IElement, IHook } from '@codelab/shared/abstract/core'
 import { RenderProps } from '../../../store'
 import { hookPipe } from '../hookPipe'
 import { RenderContext } from '../types'
-import { elementToRender } from './data'
+import { elementToRender } from './renderData'
 
 const testHookResponse: RenderProps = {
   testHookResponse: {
