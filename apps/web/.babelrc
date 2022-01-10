@@ -24,13 +24,13 @@
       {
         "loose": false
       }
-    ],
-    [
-      "import",
-      {
-        "libraryName": "antd",
-        "style": true
-      }
     ]
+    // [
+    //   "import",
+    //   {
+    //     "libraryName": "antd",
+    //     "style": true
+    //   }
+    // ]
   ]
 }

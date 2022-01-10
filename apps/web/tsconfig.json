@@ -2,20 +2,18 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "allowJs": true,
     "jsxImportSource": "@emotion/react",
+    "allowJs": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "types": ["node", "worker-loader", "window", "@fancyapps/ui"],
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": false,
+    "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "module": "ESNext",
-    "incremental": true
+    "incremental": true,
+    "module": "esnext"
   },
   "include": [
     "**/*.ts",
@@ -31,10 +29,5 @@
     "**/*.stories.js",
     "**/*.stories.jsx",
     "**/*.stories.tsx"
-  ],
-  "references": [
-    // {
-    //   "path": "./.storybook/tsconfig.json"
-    // }
   ]
 }
