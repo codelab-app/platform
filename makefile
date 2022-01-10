@@ -99,5 +99,6 @@ unit-ci:
 		--testPathPattern=[^i].spec.ts \
 		--target=test \
 		--all \
+		--parallel \
 		--verbose \
 		--color

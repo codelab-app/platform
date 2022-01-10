@@ -1,3 +1,4 @@
+import { PropsDataByElementId } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
@@ -7,7 +8,6 @@ import {
   BuilderTab,
   HoverElementActionPayload,
   PropsPerElementIdPayload,
-  RenderPropsByElementId,
   SelectElementActionPayload,
 } from '../store'
 
@@ -53,7 +53,7 @@ export const useBuilderDispatch = () => {
   )
 
   const setLastRenderedProps = useCallback(
-    (payload: RenderPropsByElementId) => {
+    (payload: PropsDataByElementId) => {
       dispatch(actions.setLastRenderedProps(payload))
     },
     [dispatch],

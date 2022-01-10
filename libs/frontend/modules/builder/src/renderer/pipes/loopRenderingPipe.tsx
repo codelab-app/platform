@@ -1,7 +1,7 @@
+import { PropsData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { isArray, isObjectLike } from 'lodash'
 import React from 'react'
-import { RenderProps } from '../../store'
 import { RenderPipeFactory } from './types'
 
 /**
@@ -19,7 +19,7 @@ export const loopingRenderPipe: RenderPipeFactory =
       return next(element, context, nextProps)
     }
 
-    const renderProp = (valueProp: RenderProps, index: number) => {
+    const renderProp = (valueProp: PropsData, index: number) => {
       const key = `${props.key || element.id}-${index}`
 
       return next(element, context, mergeProps(props, valueProp, { key }))

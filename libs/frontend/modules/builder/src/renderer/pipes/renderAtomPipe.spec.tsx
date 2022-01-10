@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react'
 import { ReactElement } from 'react'
-import { RenderProps } from '../../store'
 import { renderAtomPipe } from './renderAtomPipe'
 import { renderPipeline } from './renderPipeline'
 import { elementToRender03, endPipe, treeToRender } from './test'
@@ -11,7 +10,7 @@ const defaultContext = {
   render: renderPipeline,
 } as RenderContext
 
-const initialProps: RenderProps = {
+const initialProps: PropData = {
   text: 'a text to render',
 }
 

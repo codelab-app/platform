@@ -1,5 +1,6 @@
 import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
 import type { IUser } from '@codelab/shared/abstract/core'
+import { Entity } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -24,7 +25,7 @@ export class ElementValidator {
     const res = await this.dgraph.transactionWrapper((txn) =>
       this.dgraph.executeQuery<{
         owner?: { ownerId?: string }
-        element?: { id: string; owner: { id: string } }
+        element?: Entity & { owner: Entity }
       }>(
         txn,
         `{

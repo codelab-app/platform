@@ -1,6 +1,7 @@
+import { PropsDataByElementId } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { get, isArray, merge } from 'lodash'
 import React, { ReactElement, useCallback, useEffect } from 'react'
-import { RenderPropsByElementId } from '../../store'
 import { RenderContainerProps } from './types'
 
 export const RenderContainer = ({
@@ -13,7 +14,7 @@ export const RenderContainer = ({
   }
 
   const treeToObject = useCallback(
-    (renderElement: ReactElement): RenderPropsByElementId | null => {
+    (renderElement: ReactElement): Nullable<PropsDataByElementId> => {
       if (!renderElement) {
         return null
       }

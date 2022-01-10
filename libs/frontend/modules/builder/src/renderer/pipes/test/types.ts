@@ -1,7 +1,7 @@
-import { RenderProps } from '../../../store'
+import { PropsData } from '@codelab/shared/abstract/core'
 
 export type EndPipeOutput = {
-  props: RenderProps
-  extraProps?: RenderProps
-  extraElementProps?: RenderProps
+  props: PropsData
+  extraProps?: PropsData
+  extraElementProps?: PropsData
 }

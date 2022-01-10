@@ -1,5 +1,5 @@
 import { renderPipeline } from '../pipes'
-import { overrideComponentProps } from './overrideComponentPropsPipe'
+import { overrideComponentPropsPipe } from './overrideComponentPropsPipe'
 import { elementToRender03, endPipe, EndPipeOutput, treeToRender } from './test'
 import { RenderContext } from './types'
 
@@ -14,7 +14,7 @@ const initialProps = {
 
 describe('OverrideComponentPropsPipe', () => {
   it('should add component id with props to context.extraElementProps', () => {
-    const { props } = overrideComponentProps(endPipe)(
+    const { props } = overrideComponentPropsPipe(endPipe)(
       elementToRender03,
       defaultContext,
       initialProps,

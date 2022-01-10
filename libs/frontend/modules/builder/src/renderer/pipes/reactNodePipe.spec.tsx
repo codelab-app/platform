@@ -17,7 +17,7 @@ const defaultContext = {
   render: renderPipeline,
 } as RenderContext
 
-const initialProps: RenderProps = {
+const initialProps: PropData = {
   renderText: {
     typeKind: TypeKind.ReactNodeType,
     id: componentToRender.id,

@@ -1,7 +1,6 @@
-import { IHook } from '@codelab/shared/abstract/core'
+import { IHook, PropsData } from '@codelab/shared/abstract/core'
 import { AtomType } from '@codelab/shared/codegen/graphql'
 import { attempt, get, isError, keys, merge } from 'lodash'
-import { RenderProps } from '../../store'
 import {
   useGraphqlMutationHook,
   useGraphqlQueryHook,
@@ -28,8 +27,8 @@ const hookHandlers = {
 }
 
 export const useHookResponse = () => {
-  const getHooksResponse = (hooks: Array<IHook>, props: RenderProps) => {
-    return hooks.reduce((responses, hook: IHook): RenderProps => {
+  const getHooksResponse = (hooks: Array<IHook>, props: PropsData) => {
+    return hooks.reduce((responses, hook: IHook): PropsData => {
       const mergedProps = merge(responses, props)
       const hookConfig = getHookConfig(hook, mergedProps)
       const hookResponse = executeHook(hookConfig, mergedProps)
@@ -41,7 +40,7 @@ export const useHookResponse = () => {
   return { getHooksResponse }
 }
 
-const getHookConfig = (hook: IHook, props: RenderProps): IHook => {
+const getHookConfig = (hook: IHook, props: PropsData): IHook => {
   return merge(hook, {
     config: {
       data: withValues(hook.config.data, props),
@@ -49,7 +48,7 @@ const getHookConfig = (hook: IHook, props: RenderProps): IHook => {
   })
 }
 
-const withValues = (data: string, props: RenderProps = {}): string => {
+const withValues = (data: string, props: PropsData = {}): string => {
   return data.replace(HOOK_VARIABLE_REGEXP, (_: string, propKey: string) =>
     get(props, propKey, `Prop ${propKey} not found`),
   )
@@ -63,7 +62,7 @@ const getHookHandler = (type: IHook['type']): HookHandler => {
   return hookHandlers[type as keyof typeof hookHandlers]
 }
 
-const parseHookData = (data: string): RenderProps => {
+const parseHookData = (data: string): PropsData => {
   const dataJson = attempt(JSON.parse, data)
 
   if (isError(dataJson)) {
@@ -73,7 +72,7 @@ const parseHookData = (data: string): RenderProps => {
   return dataJson
 }
 
-const executeHook = (hook: IHook, props?: RenderProps) => {
+const executeHook = (hook: IHook, props?: PropsData) => {
   const { type, config } = hook
   const handler = getHookHandler(type)
 

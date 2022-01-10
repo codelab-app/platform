@@ -54,7 +54,7 @@ executor-config: &executor-config
     GITHUB_WEBBER: webberwang
     SLACK_WEBBER: <@U0J401GAH>
     GITHUB_ASSIM: assimhabeek
-    SLACK_ASSIM: U02GJN72TKR
+    SLACK_ASSIM: <@U02GJN72TKR>
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'

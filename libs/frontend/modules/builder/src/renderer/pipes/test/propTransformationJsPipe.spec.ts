@@ -1,25 +1,32 @@
-import { PropData } from '@codelab/shared/abstract/core'
-import { propTransformationJsPipe } from './propTransformationJsPipe'
-import { elementToRender, endPipe, EndPipeOutput } from './test'
-import { RenderContext } from './types'
+import { IElement } from '@codelab/shared/abstract/core'
+import { RenderProps } from '../../../store'
+import { propTransformationJsPipe } from '../propTransformationJsPipe'
+import { RenderContext } from '../types'
+import { elementToRender } from './renderData'
 
 const defaultContext = {} as RenderContext
 
-const initialProps: PropData = {
+const initialProps: RenderProps = {
   prop01: 'prop01Value',
   prop02: 'prop02Value',
   prop03: 'prop03Value',
 }
 
+const restfulPipe = (
+  element: IElement,
+  context: RenderContext,
+  props: Record<string, unknown>,
+) => props
+
 describe('PropTransformationJsPipe', () => {
   it('should apply transformation function', () => {
-    const { props } = propTransformationJsPipe(endPipe)(
+    const restful = propTransformationJsPipe(restfulPipe)(
       elementToRender,
       defaultContext,
       initialProps,
-    ) as EndPipeOutput
+    )
 
-    expect(props).toStrictEqual({
+    expect(restful).toStrictEqual({
       ...initialProps,
       'prop01-edited': 'prop01Value',
       'prop02-edited': 'prop02Value',
@@ -33,12 +40,12 @@ describe('PropTransformationJsPipe', () => {
       propTransformationJs: 'invalid function',
     }
 
-    const { props } = propTransformationJsPipe(endPipe)(
+    const restful = propTransformationJsPipe(restfulPipe)(
       elementWithInvalidTransformFn,
       defaultContext,
       initialProps,
-    ) as EndPipeOutput
+    )
 
-    expect(props).toStrictEqual(initialProps)
+    expect(restful).toStrictEqual(initialProps)
   })
 })
