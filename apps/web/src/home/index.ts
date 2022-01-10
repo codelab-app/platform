@@ -1,4 +1,5 @@
 export * from './HomeClients'
+export * from './HomeConcept'
 export * from './HomeFeatures'
 export * from './HomeJumbo'
 export * from './HomeMenuHeader'

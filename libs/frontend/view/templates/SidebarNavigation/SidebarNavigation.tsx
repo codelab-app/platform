@@ -14,7 +14,7 @@ export const SidebarNavigation = (props: SidebarNavigationProps) => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'end',
+        justifyContent: 'start',
         height: '100%',
         ...(props.style ?? {}),
       }}
