@@ -12,8 +12,10 @@
     "esModuleInterop": true
   },
   "include": [
-    "**/*.ts",
-    "../../../frontend/modules/element/src/use-cases/hooks/hook-data.parser.ts"
+    "**/*.ts"
   ],
-  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }

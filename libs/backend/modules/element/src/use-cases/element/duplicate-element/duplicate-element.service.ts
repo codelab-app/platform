@@ -1,7 +1,6 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import {
-  attachComponentTag,
   IElement,
   IElementGraph,
   IHook,
@@ -10,6 +9,7 @@ import {
 import { Inject, Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 import { ElementValidator } from '../../../application/element.validator'
+import { attachComponentTag } from '../../../domain/service-helpers'
 import {
   IElementRepository,
   IElementRepositoryToken,

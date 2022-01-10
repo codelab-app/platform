@@ -1,6 +1,9 @@
+import { IElement } from '@codelab/shared/abstract/core'
 import { pascalCaseToWords } from '@codelab/shared/utils'
-import { IElement } from '../element.interface'
 
+/**
+ * Generates a default element name based on the element's name or atom
+ */
 export const defaultElementName = (element: IElement) => {
   if (element.name) {
     return element.name

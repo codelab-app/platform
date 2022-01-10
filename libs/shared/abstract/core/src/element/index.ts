@@ -1,5 +1,2 @@
 export * from './element.interface'
 export * from './element-graph.interface'
-export * from './elementServices/attach-component-tag'
-export * from './elementServices/create-element'
-export * from './elementServices/defaultElementName'

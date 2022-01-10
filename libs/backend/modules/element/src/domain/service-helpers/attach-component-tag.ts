@@ -1,9 +1,15 @@
-import { TagSchema } from '../../tag'
-import { isAdmin, IUser } from '../../user'
-import { IElement } from '../element.interface'
+import {
+  IElement,
+  isAdmin,
+  IUser,
+  TagSchema,
+} from '@codelab/shared/abstract/core'
 import { defaultElementName } from './defaultElementName'
 
-/** TODO move to element module */
+/**
+ * Sets the componentTag of the element with the provided name or a default one.
+ * Sets the owner of the tag to the current user, unless it's an admin
+ */
 export const attachComponentTag = (
   element: IElement,
   currentUser: IUser | undefined,

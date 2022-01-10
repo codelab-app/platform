@@ -1,7 +1,7 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
-import { attachComponentTag } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../application/element.validator'
+import { attachComponentTag } from '../../../domain/service-helpers'
 import {
   IElementRepository,
   IElementRepositoryToken,

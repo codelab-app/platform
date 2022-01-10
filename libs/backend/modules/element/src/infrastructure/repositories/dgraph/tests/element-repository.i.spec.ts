@@ -7,13 +7,15 @@ import {
 } from '@codelab/backend/shared/testing'
 import {
   AtomType,
-  attachComponentTag,
-  createElement,
   IElement,
   IElementGraph,
   Role,
 } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
+import {
+  attachComponentTag,
+  createElement,
+} from '../../../../domain/service-helpers'
 import { ElementModule } from '../../../../element.module'
 import {
   ElementExistsAndOwnerResponse,

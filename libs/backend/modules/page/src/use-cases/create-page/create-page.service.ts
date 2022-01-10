@@ -6,11 +6,12 @@ import {
   DgraphUpdateMutationJson,
 } from '@codelab/backend/infra'
 import {
+  createElement,
   IElementRepository,
   IElementRepositoryToken,
 } from '@codelab/backend/modules/element'
 import { CreatePropService } from '@codelab/backend/modules/prop'
-import { createElement, IUser } from '@codelab/shared/abstract/core'
+import { IUser } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { PageValidator } from '../../domain/page.validator'
