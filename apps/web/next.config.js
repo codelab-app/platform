@@ -28,6 +28,9 @@ module.exports = withPlugins(
     withBundleAnalyzer,
   ],
   withNx({
+    experimental: {
+      esmExternals: false,
+    },
     cssModules: false,
     webpack(config, options) {
       const isServer = options.isServer
