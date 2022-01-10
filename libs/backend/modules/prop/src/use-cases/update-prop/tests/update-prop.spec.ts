@@ -1,5 +1,5 @@
-import { UpdatePropService } from '@codelab/backend/modules/prop'
 import { setupPropUnitTestModule } from '../../../test/setupPropUnitTestModule'
+import { UpdatePropService } from '../update-prop.service'
 
 describe('Update prop unit test', function () {
   const testModule = setupPropUnitTestModule()
@@ -11,6 +11,7 @@ describe('Update prop unit test', function () {
 
     const prop = await testModule.propRepo.create({
       data: '{"hello": "world"}',
+      id: '',
     })
 
     propId = prop.id

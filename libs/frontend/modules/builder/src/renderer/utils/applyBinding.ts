@@ -1,5 +1,4 @@
-import { IPropMapBinding } from '@codelab/shared/abstract/core'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { IPropMapBinding, PropsData } from '@codelab/shared/abstract/core'
 import get from 'lodash/get'
 import set from 'lodash/set'
 
