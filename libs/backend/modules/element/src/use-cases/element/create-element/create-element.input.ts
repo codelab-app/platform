@@ -3,9 +3,9 @@ import { InputType } from '@nestjs/graphql'
 @InputType()
 export class CreateElementInput {
   @Field({
-    nullable: true,
     description:
       'Attaches the newly created element as child of an existing element',
+    nullable: true,
   })
   declare parentElementId?: string
 
