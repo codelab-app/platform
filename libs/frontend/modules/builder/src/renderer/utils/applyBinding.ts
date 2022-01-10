@@ -18,7 +18,7 @@ export const applyBinding = (
     return { ...targetProps, ...value }
   }
 
-  const newProps = { ...targetProps }
+  const newProps = targetProps
 
   set(newProps, binding.targetKey, value)
 
