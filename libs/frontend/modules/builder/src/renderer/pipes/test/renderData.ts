@@ -6,7 +6,7 @@ export const elementToRender: IElement = {
   name: 'Root element',
   css: '',
   instanceOfComponent: null,
-  componentFixedId: null,
+  fixedId: null,
   atom: {
     id: '0x27254',
     name: 'Html Div',
@@ -71,7 +71,7 @@ export const elementToRender02: IElement = {
   name: '02',
   css: null,
   instanceOfComponent: null,
-  componentFixedId: null,
+  fixedId: null,
   atom: null,
   componentTag: null,
   props: {
@@ -90,7 +90,7 @@ export const componentToRender: IElement = {
   name: '01',
   css: '',
   instanceOfComponent: null,
-  componentFixedId: null,
+  fixedId: null,
   atom: {
     id: '0x27150',
     name: 'Text',
@@ -125,7 +125,7 @@ export const elementToRender03: IElement = {
   instanceOfComponent: {
     id: '0x3a981',
   },
-  componentFixedId: null,
+  fixedId: null,
   atom: {
     id: '0x27150',
     name: 'Text',
