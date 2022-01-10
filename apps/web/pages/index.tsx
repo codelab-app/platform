@@ -4,6 +4,7 @@ import Head from 'next/head'
 import React from 'react'
 import {
   HomeClients,
+  HomeConcept,
   HomeFeatures,
   HomeTemplate,
   HomeTemplateProps,
@@ -25,6 +26,7 @@ const HomePage: CodelabPage<HomeTemplateProps> = () => {
       </Head>
       <DynamicHomeJumbo />
       <HomeClients />
+      <HomeConcept />
       <HomeFeatures />
     </>
   )

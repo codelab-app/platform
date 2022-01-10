@@ -1,7 +1,11 @@
 // import '../src/wdyr'
+// Comment out in favor of compiled css file
+// import 'slick-carousel/slick/slick.css'
+// import 'slick-carousel/slick/slick-theme.css'
 import '../src/styles/antd-theme.less'
-import 'animate.css'
 import '../src/styles/app.scss'
+import 'animate.css'
+// import '../src/styles/styles.chunk.css'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/props'
@@ -17,6 +21,7 @@ import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
+import { slickCssFix } from '../src/styles/slick/Slick'
 
 const queryClient = new QueryClient()
 
@@ -52,6 +57,7 @@ const AppContainer = ({
                 height: '100%',
               },
             }),
+            slickCssFix,
             ...globalTailwindFix,
           ]}
         />
