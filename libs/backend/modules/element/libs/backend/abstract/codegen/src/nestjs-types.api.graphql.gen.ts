@@ -567,6 +567,10 @@ export interface MoveData {
     parentElementId?: Nullable<string>;
 }
 
+export interface DuplicateElementInput {
+    elementId: string;
+}
+
 export interface UpdateElementPropsInput {
     data: string;
     elementId: string;
@@ -975,6 +979,7 @@ export interface IMutation {
     createElement(input: CreateElementInput): Element | Promise<Element>;
     updateElement(input: UpdateElementInput): Element | Promise<Element>;
     moveElement(input: MoveElementInput): Element | Promise<Element>;
+    duplicateElement(input: DuplicateElementInput): Element | Promise<Element>;
     updateElementProps(input: UpdateElementPropsInput): Element | Promise<Element>;
     deleteElement(input: DeleteElementInput): Element | Promise<Element>;
     convertElementToComponent(input: ConvertElementToComponentInput): Element | Promise<Element>;

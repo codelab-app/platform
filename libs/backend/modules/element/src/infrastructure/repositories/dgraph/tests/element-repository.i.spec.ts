@@ -292,11 +292,35 @@ describe('Element repository test', function () {
       transaction,
     )
 
-    const expectedShared = { ...testComponentInput, id: sharedComponent.id }
+    const expectTestComponent = {
+      ...testComponentInput,
+      componentTag: {
+        ...testComponentInput.componentTag,
+        id: expect.any(String),
+      },
+      props: {
+        ...testComponentInput.props,
+        id: expect.any(String),
+      },
+      hooks: testComponentInput.hooks.map((h) => ({
+        ...h,
+        id: expect.any(String),
+        config: { ...h.config, id: expect.any(String) },
+      })),
+      propMapBindings: testComponentInput.propMapBindings.map((pmb) => ({
+        ...pmb,
+        id: expect.any(String),
+      })),
+    }
+
+    const expectedShared = { ...expectTestComponent, id: sharedComponent.id }
     delete expectedShared.owner
 
     expect(components).toMatchObject([
-      { ...testComponentInput, id: usersComponent.id },
+      {
+        ...expectTestComponent,
+        id: usersComponent.id,
+      },
       expectedShared,
     ])
   })
@@ -355,22 +379,38 @@ describe('Element repository test', function () {
       (v) => v.name === grandChild.name,
     )?.id
 
+    // Sort the graph so that we get consistent results which we can test with .toEqual
+    createdGraph.vertices = createdGraph.vertices.sort((a, b) =>
+      (a.name as string).localeCompare(b.name as string),
+    )
+
+    createdGraph.edges = createdGraph.edges.sort((a, b) =>
+      (
+        createdGraph.vertices.find((v) => v.id === a.target)?.name as string
+      ).localeCompare(
+        createdGraph.vertices.find((v) => v.id === b.target)?.name as string,
+      ),
+    )
+
     expect(createdGraph).toEqual({
       vertices: [
         {
-          ...parent,
-          id: created.id,
-          parentElement: { ...parent.parentElement, order: 1 },
-          props: { ...parent.props, id: expect.any(String) },
-        },
-        {
           ...child,
+          fixedId: expect.any(String),
           id: createdChildId,
           parentElement: { id: created.id, order: 1 },
           props: { ...parent.props, id: expect.any(String) },
         },
         {
+          ...parent,
+          fixedId: expect.any(String),
+          id: created.id,
+          parentElement: { ...parent.parentElement, order: 1 },
+          props: { ...parent.props, id: expect.any(String) },
+        },
+        {
           ...grandChild,
+          fixedId: expect.any(String),
           id: createdGcId,
           parentElement: { id: createdChildId, order: 1 },
           props: { ...parent.props, id: expect.any(String) },
