@@ -6,7 +6,6 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
-    "traceResolution": false,
     "strict": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
