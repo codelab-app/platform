@@ -81,7 +81,7 @@ executors:
   docker-node:
     <<: *executor-config
     docker:
-      - image: cimg/node:14.16.0-browsers
+      - image: cimg/node:14.17.0-browsers
     resource_class: large
   cypress-node:
     <<: *executor-config
@@ -134,8 +134,8 @@ commands:
       - run:
           name: 'Set node version'
           command: |
-            nvm install 14.16.0
-            nvm alias default 14.16.0
+            nvm install 14.17.0
+            nvm alias default 14.17.0
             node -v
 
   package-install-dev:
