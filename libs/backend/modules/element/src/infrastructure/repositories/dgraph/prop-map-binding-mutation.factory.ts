@@ -1,7 +1,7 @@
 import {
   BaseMutationFactory,
   DgraphEntityType,
-  DgraphRepository,
+  randomBlankNode,
 } from '@codelab/backend/infra'
 import { IPropMapBinding } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -18,7 +18,7 @@ export class PropMapBindingMutationFactory extends BaseMutationFactory<IPropMapB
   public forCreate(entity: IPropMapBinding, uid?: string): Mutation {
     return {
       setJson: {
-        uid: uid || entity.id || DgraphRepository.randomBlankNode(),
+        uid: uid || entity.id || randomBlankNode(),
         'dgraph.type': [DgraphEntityType.PropMapBinding],
         targetElement: entity.targetElementId
           ? { uid: entity.targetElementId }

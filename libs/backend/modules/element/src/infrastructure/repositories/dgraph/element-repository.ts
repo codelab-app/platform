@@ -2,10 +2,14 @@ import { CreateResponsePort } from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import {
   BaseRepository,
+  combineFilters,
   DgraphEntityType,
   DgraphRepository,
   ITransaction,
-  mergeMutations,
+  makeCreateResponse,
+  makeCreateResponses,
+  mergeAndMutate,
+  randomBlankNode,
 } from '@codelab/backend/infra'
 import { HookMutationFactory } from '@codelab/backend/modules/hook'
 import {
@@ -17,6 +21,7 @@ import {
   IHook,
   IPropMapBinding,
 } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { ElementTree, getCyElementData } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
@@ -39,8 +44,9 @@ import {
 } from './element-query.factory'
 import { PropMapBindingMutationFactory } from './prop-map-binding-mutation.factory'
 
-// Treat the element a bit different, since we retrieve the parentElement as an array
-// This transforms it to a singular value
+// Validates the Element (extending from the base ElementSchema)
+// and transforms parentElement from an array to a singular object, since ([parent] => parent)
+// since dgraph returns it as an array from the query
 const ElementRepoSchema = ElementSchema.or(
   ElementSchema.extend({
     parentElement: z
@@ -81,16 +87,11 @@ export class ElementRepository
       return
     }
 
-    const updatedEntities = this.schema
-      ? ElementSchema.array().parse(elements)
-      : elements
+    elements = this.parseArray(elements)
 
-    const updatedById = new Map(updatedEntities.map((e) => [e.id, e]))
-
-    const existingElements = await this.getAllByIds(
-      elements.map((e) => e.id),
-      transaction,
-    )
+    const updatedById = new Map(elements.map((e) => [e.id, e]))
+    const elementIds = Array.from(updatedById.keys())
+    const existingElements = await this.getAllByIds(elementIds, transaction)
 
     const mutations = existingElements.map((existing) => {
       const updated = updatedById.get(existing.id)
@@ -103,9 +104,7 @@ export class ElementRepository
       return this.mutationFactory.forUpdate(updated, existing)
     })
 
-    const merged = mergeMutations(...mutations)
-
-    await transaction.mutate(merged)
+    await mergeAndMutate(transaction, ...mutations)
   }
 
   async createAll(
@@ -116,34 +115,34 @@ export class ElementRepository
       return []
     }
 
-    elements = this.schema
-      ? ElementRepoSchema.array().parse(elements)
-      : elements
+    elements = this.parseArray(elements)
 
     const blankNodes: Array<string> = []
 
     const mutations = elements.map((e) => {
-      const uid = DgraphRepository.randomBlankNode()
+      const uid = randomBlankNode()
       blankNodes.push(uid)
 
       return this.mutationFactory.forCreate(e, uid)
     })
 
-    const merged = mergeMutations(...mutations)
-    const res = await transaction.mutate(merged)
+    const res = await mergeAndMutate(transaction, ...mutations)
 
-    return blankNodes.map((uid) => ({ id: DgraphRepository.getUid(res, uid) }))
+    return makeCreateResponses(res, blankNodes)
   }
 
   async getLastOrderInParent(
     parentId: string,
     transaction: ITransaction,
-  ): Promise<number | undefined> {
+  ): Promise<Maybe<number>> {
+    const queryName = 'order'
+    const query = this.queryFactory.forGetLastOrderInParent(parentId, queryName)
+
     const result =
       await this.dgraph.getOneNamed<GetLastOrderInParentQueryResult>(
         transaction,
-        this.queryFactory.forGetLastOrderInParent(parentId, 'order'),
-        'order',
+        query,
+        queryName,
       )
 
     return result?.lastOrder ?? undefined
@@ -153,25 +152,34 @@ export class ElementRepository
     elementId: string,
     transaction: Txn,
   ): Promise<ElementExistsAndOwnerResponse> {
+    const query = this.queryFactory.forElementAndOwner(elementId)
+
     const result = await this.dgraph.executeQuery<ElementAndOwnerQueryResult>(
       transaction,
-      this.queryFactory.forElementAndOwner(elementId),
+      query,
     )
 
-    return {
-      elementExists: !!result.element?.[0]?.id,
-      ownerId: result.rootOwner?.[0]?.id ?? result.element?.[0]?.owner?.id,
-    }
+    const elementExists = !!result.element?.[0]?.id
+    const ownerId = result.rootOwner?.[0]?.id ?? result.element?.[0]?.owner?.id
+
+    return { elementExists, ownerId }
   }
 
   async isElementRoot(
     elementId: string,
     transaction: Txn,
-  ): Promise<boolean | undefined> {
+  ): Promise<Maybe<boolean>> {
+    const queryName = 'rootContainerId'
+
+    const query: string = this.queryFactory.forGetRootContainerId(
+      elementId,
+      queryName,
+    )
+
     const result = await this.dgraph.getOneNamed<GetRootContainerQueryResult>(
       transaction,
-      this.queryFactory.forGetRootContainerId(elementId, 'rootContainerId'),
-      'rootContainerId',
+      query,
+      queryName,
     )
 
     return !!result?.containerId
@@ -180,11 +188,18 @@ export class ElementRepository
   async getReferences(
     elementId: string,
     transaction: ITransaction,
-  ): Promise<GetReferencesResponse | undefined> {
+  ): Promise<Maybe<GetReferencesResponse>> {
+    const queryName = 'getReferences'
+
+    const query: string = this.queryFactory.forGetReferences(
+      elementId,
+      queryName,
+    )
+
     const result = await this.dgraph.getOneNamed<GetReferencesQueryResult>(
       transaction,
-      this.queryFactory.forGetReferences(elementId, 'getReferences'),
-      'getReferences',
+      query,
+      queryName,
     )
 
     return {
@@ -195,32 +210,31 @@ export class ElementRepository
   }
 
   async getComponents(
-    where: ComponentWhere | undefined,
+    where: Maybe<ComponentWhere>,
     transaction: ITransaction,
   ): Promise<Array<IElement>> {
     const queryName = `getComponents`
+    const isComponentFilter = 'has(componentTag)'
+    const nameFilter = where?.name && `match(name, "${where.name}", 14)`
 
-    const nameFilter = where?.name
-      ? ` AND match(name, "${where.name}", 14)`
-      : ''
+    const ownerFilter =
+      where?.ownerId && `(uid_in(owner, ${where.ownerId}) OR NOT has(owner))`
 
-    const ownerFilter = where?.ownerId
-      ? ` AND (uid_in(owner, ${where.ownerId}) OR NOT has(owner))`
-      : ''
+    const uidsFilter = !!where?.uids?.length && `(uid(${where.uids.join(',')}))`
 
-    const uidsFilter = where?.uids?.length
-      ? ` AND (uid(${where.uids.join(',')}))`
-      : ''
+    const fixedIdsFilter =
+      !!where?.fixedIds?.length && `(eq(fixedId, ${where.fixedIds.join(',')}))`
 
-    const fixedIdsFilter = where?.fixedIds?.length
-      ? ` AND (eq(fixedId, ${where.fixedIds.join(',')}))`
-      : ''
+    const filter = combineFilters(
+      [isComponentFilter, nameFilter, ownerFilter, uidsFilter, fixedIdsFilter],
+      'AND',
+    )
 
-    const dynamicFilter = ` ${ownerFilter} ${uidsFilter} ${nameFilter} ${fixedIdsFilter} `
+    const query = this.queryFactory.forGet(filter, queryName)
 
     const result = await this.dgraph.getAllNamed<IElement>(
       transaction,
-      this.queryFactory.forGet(`has(componentTag) ${dynamicFilter}`, queryName),
+      query,
       queryName,
     )
 
@@ -235,36 +249,47 @@ export class ElementRepository
       return fuse.search(where.name).map((r) => r.item)
     }
 
-    return ElementRepoSchema.array().parse(result ?? [])
+    return this.parseArray(result)
   }
 
   async getOneByFixedId(
     fixedId: string,
     transaction: ITransaction,
-  ): Promise<IElement | undefined> {
+  ): Promise<Maybe<IElement>> {
     const queryName = `getElementByFixedId`
 
-    const result = await this.dgraph.getOneNamed<IElement>(
-      transaction,
-      this.queryFactory.forGet(`eq(fixedId, "${fixedId}")`, queryName),
+    const query: string = this.queryFactory.forGet(
+      `eq(fixedId, "${fixedId}")`,
       queryName,
     )
 
-    return result ? ElementRepoSchema.parse(result) : undefined
+    const result = await this.dgraph.getOneNamed<IElement>(
+      transaction,
+      query,
+      queryName,
+    )
+
+    if (!result) {
+      return undefined
+    }
+
+    return this.parse(result)
   }
 
   async getGraph(
     rootElementId: string,
     transaction: ITransaction,
   ): Promise<IElementGraph> {
+    const query: string = this.queryFactory.forGetGraphByRootId(rootElementId)
+
     const result = await this.dgraph.executeQuery<IElementGraph>(
       transaction,
-      this.queryFactory.forGetGraphByRootId(rootElementId),
+      query,
     )
 
     return {
       edges: result.edges ?? [],
-      vertices: ElementRepoSchema.array().parse(result.vertices ?? []),
+      vertices: this.parseArray(result.vertices),
     }
   }
 
@@ -276,14 +301,16 @@ export class ElementRepository
       return { edges: [], vertices: [] }
     }
 
+    const query: string = this.queryFactory.forGetGraphByRootIds(rootElementIds)
+
     const result = await this.dgraph.executeQuery<IElementGraph>(
       transaction,
-      this.queryFactory.forGetGraphByRootIds(rootElementIds),
+      query,
     )
 
     return {
       edges: result.edges ?? [],
-      vertices: ElementRepoSchema.array().parse(result.vertices ?? []),
+      vertices: this.parseArray(result.vertices),
     }
   }
 
@@ -291,14 +318,16 @@ export class ElementRepository
     fixedId: string,
     transaction: ITransaction,
   ): Promise<IElementGraph> {
+    const query: string = this.queryFactory.forGetGraphByFixedId(fixedId)
+
     const result = await this.dgraph.executeQuery<IElementGraph>(
       transaction,
-      this.queryFactory.forGetGraphByFixedId(fixedId),
+      query,
     )
 
     return {
       edges: result.edges ?? [],
-      vertices: ElementRepoSchema.array().parse(result.vertices ?? []),
+      vertices: this.parseArray(result.vertices),
     }
   }
 
@@ -307,15 +336,20 @@ export class ElementRepository
     enumValueIds: Array<string>,
     transaction: ITransaction,
   ): Promise<Array<IEnumTypeValue>> {
-    const queryName = 'getEnumValues'
-
     if (!enumValueIds?.length) {
       return []
     }
 
+    const queryName = 'getEnumValues'
+
+    const query: string = this.queryFactory.forEnumValues(
+      enumValueIds,
+      queryName,
+    )
+
     const result = await this.dgraph.getAllNamed<IEnumTypeValue>(
       transaction,
-      this.queryFactory.forEnumValues(enumValueIds, queryName),
+      query,
       queryName,
     )
 
@@ -326,7 +360,7 @@ export class ElementRepository
     elementId: string,
     hook: IHook,
     transaction: ITransaction,
-  ): Promise<CreateResponse> {
+  ): Promise<CreateResponsePort> {
     const hookUid = '_:theHook'
     const hookMutation = this.hookMutationFactory.forCreate(hook, hookUid)
 
@@ -335,13 +369,13 @@ export class ElementRepository
       hookUid,
     )
 
-    const res = await transaction.mutate(
-      mergeMutations(hookMutation, elementHookMutation),
+    const res = await mergeAndMutate(
+      transaction,
+      hookMutation,
+      elementHookMutation,
     )
 
-    return {
-      id: DgraphRepository.getUid(res, hookUid),
-    }
+    return makeCreateResponse(res, hookUid)
   }
 
   async removeHook(
@@ -362,7 +396,7 @@ export class ElementRepository
       hook.id,
     )
 
-    await transaction.mutate(mergeMutations(hookMutation, elementHookMutation))
+    await mergeAndMutate(transaction, hookMutation, elementHookMutation)
   }
 
   async addPropMapBinding(
@@ -382,13 +416,13 @@ export class ElementRepository
       pmbUid,
     )
 
-    const res = await transaction.mutate(
-      mergeMutations(hookMutation, elementPmbMutation),
+    const res = await mergeAndMutate(
+      transaction,
+      hookMutation,
+      elementPmbMutation,
     )
 
-    return {
-      id: DgraphRepository.getUid(res, pmbUid) as string,
-    }
+    return makeCreateResponse(res, pmbUid)
   }
 
   async removePropMapBinding(
@@ -409,7 +443,7 @@ export class ElementRepository
       propMapBinding.id,
     )
 
-    await transaction.mutate(mergeMutations(pmbMutation, edgeDeleteMutation))
+    await mergeAndMutate(transaction, pmbMutation, edgeDeleteMutation)
   }
 
   async deleteAll(ids: Array<string>, transaction: Txn): Promise<void> {
@@ -449,7 +483,7 @@ export class ElementRepository
         throw new Error('Vertex is not defined')
       }
 
-      let parentId: string | undefined = vertex?.parentElement?.id
+      let parentId = vertex?.parentElement?.id
 
       if (parent?.id) {
         if (!idMap.has(parent.id)) {
@@ -476,9 +510,8 @@ export class ElementRepository
       mutations.push(mutation)
     }, root.id)
 
-    const merged = mergeMutations(...mutations)
-    const res = await transaction.mutate(merged)
+    const res = await mergeAndMutate(transaction, ...mutations)
 
-    return { id: DgraphRepository.getUid(res, idMap.get(root.id) as string) }
+    return makeCreateResponse(res, idMap.get(root.id) as string)
   }
 }

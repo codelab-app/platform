@@ -5,6 +5,7 @@ import {
   IElementGraph,
   IHook,
   IPropMapBinding,
+  IUser,
 } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
@@ -44,52 +45,47 @@ export class DuplicateElementService
       throw new Error('Element not found')
     }
 
-    const cloneElement = (toClone: IElement): IElement | undefined => {
-      // Don't clone components except the root if it is one
-      if (toClone.componentTag && toClone.id !== elementId) {
-        return undefined
-      }
-
-      const newElement: IElement = {
-        ...toClone,
-        props: { id: '', data: toClone.props.data },
-        componentTag: null,
-        fixedId: v4(),
-        hooks:
-          toClone.hooks?.map(
-            (hook) =>
-              ({
-                ...hook,
-                id: '',
-                config: { ...hook.config, id: '' },
-              } as IHook),
-          ) ?? [],
-        propMapBindings:
-          toClone.propMapBindings?.map(
-            (pmb) => ({ ...pmb, id: '' } as IPropMapBinding),
-          ) ?? [],
-        owner: currentUser?.id ? { id: currentUser.id } : undefined,
-      }
-
-      if (newElement.componentTag) {
-        attachComponentTag(
-          newElement,
-          currentUser,
-          newElement.componentTag.name,
-        )
-      }
-
-      return newElement
-    }
-
     const newGraph: IElementGraph = {
       vertices: elementGraph.vertices
-        .map(cloneElement)
+        .map((e) => this.cloneElement(e, elementId, currentUser))
         .filter((e): e is IElement => !!e),
       edges: elementGraph.edges,
     }
 
     return this.elementRepository.createGraph(newGraph, request.transaction)
+  }
+
+  private cloneElement(
+    toClone: IElement,
+    elementId: string,
+    currentUser: IUser,
+  ): IElement | undefined {
+    // Don't clone components except the root if it is one
+    if (toClone.componentTag && toClone.id !== elementId) {
+      return undefined
+    }
+
+    const cloneHook = (h: IHook) =>
+      ({ ...h, id: '', config: { ...h.config, id: '' } } as IHook)
+
+    const clonePmb = (pmb: IPropMapBinding) =>
+      ({ ...pmb, id: '' } as IPropMapBinding)
+
+    const newElement: IElement = {
+      ...toClone,
+      props: { id: '', data: toClone.props.data },
+      componentTag: null,
+      fixedId: v4(),
+      hooks: toClone.hooks?.map(cloneHook) ?? [],
+      propMapBindings: toClone.propMapBindings?.map(clonePmb) ?? [],
+      owner: currentUser?.id ? { id: currentUser.id } : undefined,
+    }
+
+    if (newElement.componentTag) {
+      attachComponentTag(newElement, currentUser, newElement.componentTag.name)
+    }
+
+    return newElement
   }
 
   protected async validate({

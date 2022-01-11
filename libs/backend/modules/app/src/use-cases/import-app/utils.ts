@@ -5,10 +5,11 @@ import {
   IExportApp,
   IUser,
 } from '@codelab/shared/abstract/core'
+import { Entity, MaybeOrNullable } from '@codelab/shared/abstract/types'
 import { flatMap } from 'lodash'
 
 export interface PayloadAndExistingPair {
-  existingId: string // the id of the existing matching entity in the current database
+  newId: string // the id of the existing matching entity in the current database
   payloadId: string // the id we're from the payload we're importing
 }
 
@@ -17,16 +18,11 @@ export class PayloadIdToExistingIdMap {
   private readonly map: Map<string, string>
 
   constructor(importedAndExistingPairs?: Array<PayloadAndExistingPair>) {
-    if (importedAndExistingPairs) {
-      this.map = new Map<string, string>(
-        importedAndExistingPairs.map((pair) => [
-          pair.payloadId,
-          pair.existingId,
-        ]),
-      )
-    } else {
-      this.map = new Map()
-    }
+    this.map = importedAndExistingPairs
+      ? new Map<string, string>(
+          importedAndExistingPairs.map((pair) => [pair.payloadId, pair.newId]),
+        )
+      : new Map()
   }
 
   getExisting(imported: string): string | undefined {
@@ -34,7 +30,7 @@ export class PayloadIdToExistingIdMap {
   }
 
   set(pair: PayloadAndExistingPair) {
-    this.map.set(pair.payloadId, pair.existingId)
+    this.map.set(pair.payloadId, pair.newId)
   }
 
   entries() {
@@ -101,17 +97,19 @@ export const createPlaceholderElement = (
   } as IElement)
 }
 
-export const splitElementsByFixedId = (input: Array<IElement>) => {
-  const componentsWithFixedId: Array<IElement & { fixedId: string }> = []
-  const elements: Array<IElement> = []
-
-  for (const e of input) {
-    if (e.componentTag && e.fixedId) {
-      componentsWithFixedId.push(e as any)
-    } else {
-      elements.push(e)
-    }
-  }
-
-  return { withFixedId: componentsWithFixedId, withoutFixedId: elements }
+export interface ElementsByFixedIdStatus {
+  componentsWithFixedId: Array<IElement & { fixedId: string }>
+  withoutFixedId: Array<IElement>
 }
+
+export const collectAllFixedIds = (elements: Array<IElement>) =>
+  elements.map((c) => c.fixedId).filter((id): id is string => !!id)
+
+export const createMapByFixedId = (elements: Array<IElement>) =>
+  new Map(
+    elements.filter((e) => !!e.fixedId).map((e) => [e.fixedId as string, e]),
+  )
+
+export const collectEntityIds = (
+  entities: MaybeOrNullable<Array<MaybeOrNullable<Entity>>>,
+) => entities?.filter((e): e is Entity => !!e?.id).map((e) => e.id) ?? []

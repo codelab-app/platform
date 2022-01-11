@@ -1,15 +1,15 @@
 import {
   DgraphEntityType,
-  DgraphRepository,
   IMutationFactory,
   makeArrayUpdateMutation,
   makeDeleteJsonMutationForUpdates,
   mergeMutations,
   NullablePredicates,
+  randomBlankNode,
 } from '@codelab/backend/infra'
 import { HookMutationFactory } from '@codelab/backend/modules/hook'
 import { PropMutationFactory } from '@codelab/backend/modules/prop'
-import { IElement, ITag } from '@codelab/shared/abstract/core'
+import { IElement, IHook, ITag } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Mutation } from 'dgraph-js-http'
 import { v4 } from 'uuid'
@@ -58,11 +58,11 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
   // Common ground between element update and create mutations
   // Needed, because we handle the 1-M relations differently in both (hooks and propMapBindings)
   baseSetJsonMutation(element: IElement, uid?: string): Mutation {
-    const propUid = element.props.id || DgraphRepository.randomBlankNode()
+    const propUid = element.props.id || randomBlankNode()
 
     const core = {
       setJson: {
-        uid: uid || element.id || DgraphRepository.randomBlankNode(),
+        uid: uid || element.id || randomBlankNode(),
         'dgraph.type': [DgraphEntityType.Element],
         fixedId: element.fixedId ?? v4(),
         name: element.name,
@@ -92,37 +92,22 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
   }
 
   forCreate(entity: IElement, uid?: string): Mutation {
-    uid = uid || DgraphRepository.randomBlankNode()
+    uid = uid || randomBlankNode()
 
     const base = this.baseSetJsonMutation(entity, uid)
     const relationshipMutations: Array<Mutation> = []
+    this.hookMutationsForCreate(entity, relationshipMutations, uid)
+    this.pmbMutationsForCreate(entity, relationshipMutations, uid)
+    this.parentChildMutationForCreate(entity, relationshipMutations, uid)
 
-    if (entity.hooks) {
-      for (const hook of entity.hooks) {
-        const hookUid = DgraphRepository.randomBlankNode()
+    return mergeMutations(base, ...relationshipMutations)
+  }
 
-        relationshipMutations.push(
-          this.hookMutationFactory.forCreate(hook, hookUid),
-        )
-        relationshipMutations.push({
-          setJson: { uid, hooks: [{ uid: hookUid }] },
-        })
-      }
-    }
-
-    if (entity.propMapBindings) {
-      for (const pmb of entity.propMapBindings) {
-        const pmbUid = DgraphRepository.randomBlankNode()
-
-        relationshipMutations.push(
-          this.pmbMutationFactory.forCreate(pmb, pmbUid),
-        )
-        relationshipMutations.push({
-          setJson: { uid, propMapBindings: [{ uid: pmbUid }] },
-        })
-      }
-    }
-
+  private parentChildMutationForCreate(
+    entity: IElement,
+    relationshipMutations: Array<Mutation>,
+    uid: string,
+  ): void {
     if (entity.parentElement) {
       relationshipMutations.push({
         setJson: {
@@ -138,8 +123,44 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
         },
       })
     }
+  }
 
-    return mergeMutations(base, ...relationshipMutations)
+  private pmbMutationsForCreate(
+    entity: IElement,
+    relationshipMutations: Array<Mutation>,
+    uid: string,
+  ): void {
+    if (entity.propMapBindings) {
+      for (const pmb of entity.propMapBindings) {
+        const pmbUid = randomBlankNode()
+
+        relationshipMutations.push(
+          this.pmbMutationFactory.forCreate(pmb, pmbUid),
+        )
+        relationshipMutations.push({
+          setJson: { uid, propMapBindings: [{ uid: pmbUid }] },
+        })
+      }
+    }
+  }
+
+  private hookMutationsForCreate(
+    entity: IElement,
+    relationshipMutations: Array<Mutation>,
+    uid: string,
+  ): void {
+    if (entity.hooks) {
+      for (const hook of entity.hooks) {
+        const hookUid = randomBlankNode()
+
+        relationshipMutations.push(
+          this.hookMutationFactory.forCreate(hook, hookUid),
+        )
+        relationshipMutations.push({
+          setJson: { uid, hooks: [{ uid: hookUid }] },
+        })
+      }
+    }
   }
 
   forUpdate(entity: IElement, oldEntity: IElement): Mutation {
@@ -207,26 +228,30 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
 
     // Creates/Deletes/Updates hooks as necessary to match the newly provided hooks
     // This could be abstracted, but it's a bit more readable this way
-    const hookMutation = makeArrayUpdateMutation(
+    const hookMutation = makeArrayUpdateMutation<IHook>(
       oldEntity.hooks,
       entity.hooks,
-      (hook) => {
-        const hookId = DgraphRepository.randomBlankNode()
-        relationshipMutations.push({
-          setJson: { uid: entity.id, hooks: { uid: hookId } },
-        })
+      {
+        forCreate: (hook) => {
+          const hookId = randomBlankNode()
+          relationshipMutations.push({
+            setJson: { uid: entity.id, hooks: { uid: hookId } },
+          })
 
-        return this.hookMutationFactory.forCreate(hook, hookId)
-      },
-      (hook, oldHook) => this.hookMutationFactory.forUpdate(hook, oldHook),
-      (hook) => {
-        const baseDelete = this.hookMutationFactory.forDelete(hook)
+          return this.hookMutationFactory.forCreate(hook, hookId)
+        },
+        forUpdate: (hook: IHook, oldHook: IHook): Mutation => {
+          return this.hookMutationFactory.forUpdate(hook, oldHook)
+        },
+        forDelete: (hook: IHook): Mutation => {
+          const baseDelete = this.hookMutationFactory.forDelete(hook)
 
-        const relDelete: Mutation = {
-          deleteJson: { uid: entity.id, hooks: { uid: hook.id } },
-        }
+          const relDelete: Mutation = {
+            deleteJson: { uid: entity.id, hooks: { uid: hook.id } },
+          }
 
-        return mergeMutations(baseDelete, relDelete)
+          return mergeMutations(baseDelete, relDelete)
+        },
       },
     )
 
@@ -234,23 +259,26 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
     const pmbMutations = makeArrayUpdateMutation(
       oldEntity.propMapBindings,
       entity.propMapBindings,
-      (pmb) => {
-        const pmbId = DgraphRepository.randomBlankNode()
-        relationshipMutations.push({
-          setJson: { uid: entity.id, propMapBindings: { uid: pmbId } },
-        })
+      {
+        forCreate: (pmb) => {
+          const pmbId = randomBlankNode()
+          relationshipMutations.push({
+            setJson: { uid: entity.id, propMapBindings: { uid: pmbId } },
+          })
 
-        return this.pmbMutationFactory.forCreate(pmb, pmbId)
-      },
-      (pmb, oldPmb) => this.pmbMutationFactory.forUpdate(pmb, oldPmb),
-      (pmb) => {
-        const baseDelete = this.pmbMutationFactory.forDelete(pmb)
+          return this.pmbMutationFactory.forCreate(pmb, pmbId)
+        },
+        forUpdate: (pmb, oldPmb) =>
+          this.pmbMutationFactory.forUpdate(pmb, oldPmb),
+        forDelete: (pmb) => {
+          const baseDelete = this.pmbMutationFactory.forDelete(pmb)
 
-        const relDelete: Mutation = {
-          deleteJson: { uid: entity.id, propMapBindings: { uid: pmb.id } },
-        }
+          const relDelete: Mutation = {
+            deleteJson: { uid: entity.id, propMapBindings: { uid: pmb.id } },
+          }
 
-        return mergeMutations(baseDelete, relDelete)
+          return mergeMutations(baseDelete, relDelete)
+        },
       },
     )
 

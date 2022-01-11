@@ -1,5 +1,6 @@
 export * from './buffer'
 export * from './comparison'
+export * from './entity'
 export * from './logger'
 export * from './props'
 export * from './regex'

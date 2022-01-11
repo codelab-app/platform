@@ -1,3 +1,4 @@
+import { MaybeOrNullable } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
 
 const addOneOrArray = (val: any, array: Array<any>) => {
@@ -6,6 +7,17 @@ const addOneOrArray = (val: any, array: Array<any>) => {
   } else if (val) {
     array.push(val)
   }
+}
+
+const mergeNQuads = (
+  a: MaybeOrNullable<string>,
+  b: MaybeOrNullable<string>,
+) => {
+  if (a && b) {
+    return a + '\n' + b
+  }
+
+  return a || b || undefined
 }
 
 export const mergeMutations = (
@@ -34,17 +46,11 @@ export const mergeMutations = (
     addOneOrArray(mutation.setJson, merged.setJson)
     addOneOrArray(mutation.deleteJson, merged.deleteJson)
 
-    if (mutation.setNquads) {
-      merged.setNquads = `
-      ${merged.setNquads || ''}
-      ${mutation.setNquads || ''}`
-    }
-
-    if (mutation.deleteNquads) {
-      merged.deleteNquads = `
-      ${merged.deleteNquads || ''}
-      ${mutation.deleteNquads || ''}`
-    }
+    merged.setNquads = mergeNQuads(merged.setNquads, mutation.setNquads)
+    merged.deleteNquads = mergeNQuads(
+      merged.deleteNquads,
+      mutation.deleteNquads,
+    )
 
     if (mutation.commitNow) {
       merged.commitNow = mutation.commitNow

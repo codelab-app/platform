@@ -7,7 +7,18 @@ import {
 } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { ERR_ABORTED } from 'dgraph-js-http'
-import { catchError, finalize, map, Observable } from 'rxjs'
+import {
+  concatMap,
+  delay,
+  finalize,
+  map,
+  mergeMap,
+  Observable,
+  of,
+  retryWhen,
+  take,
+  throwError,
+} from 'rxjs'
 
 @Injectable()
 export class TransactionInterceptor implements NestInterceptor {
@@ -34,13 +45,21 @@ export class TransactionInterceptor implements NestInterceptor {
 
         return r
       }),
-      catchError(async (err) => {
-        if (err === ERR_ABORTED) {
-          // TODO handle retry
-          throw err
-        } else {
-          throw err
-        }
+      retryWhen((errors) => {
+        return errors.pipe(
+          mergeMap((errorRes) => {
+            // Retry if aborted
+            if (errorRes === ERR_ABORTED) {
+              return of(errorRes).pipe(
+                delay(100), // Delay between retries
+                take(5), // Number of retries
+                concatMap(throwError), // Let the error bubble up again
+              )
+            }
+
+            return throwError(errorRes)
+          }),
+        )
       }),
       finalize(async () => {
         await this.transactionManager.discardTransaction(req.transaction)

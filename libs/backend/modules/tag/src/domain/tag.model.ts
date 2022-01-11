@@ -1,5 +1,6 @@
 import { ObjectRef } from '@codelab/backend/abstract/core'
 import { ITag } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import { Field, ID, ObjectType } from '@nestjs/graphql'
 
 @ObjectType()
@@ -11,10 +12,10 @@ export class Tag implements ITag {
   name: string
 
   @Field(() => ObjectRef, { nullable: true })
-  owner?: ObjectRef | null
+  owner?: Nullable<ObjectRef>
 
   @Field(() => String, { nullable: true })
-  parent?: string | null
+  parent?: Nullable<string>
 
   @Field(() => [String], { defaultValue: [] })
   children: Array<string>

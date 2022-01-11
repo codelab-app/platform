@@ -1,9 +1,10 @@
 import { CreateResponsePort } from '@codelab/backend/abstract/core'
+import { Entity } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { IBaseRepository } from './base-repository.interface'
 
 @Injectable()
-export class InMemoryRepository<T extends { id?: string | null }>
+export class InMemoryRepository<T extends Entity>
   implements IBaseRepository<T>
 {
   protected generateId(): string {

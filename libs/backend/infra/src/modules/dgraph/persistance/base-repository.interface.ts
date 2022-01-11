@@ -1,4 +1,5 @@
 import { CreateResponsePort } from '@codelab/backend/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { ITransaction } from '../transaction-manager'
 
 export interface IWriteRepository<T> {
@@ -9,7 +10,7 @@ export interface IWriteRepository<T> {
 }
 
 export interface IReadRepository<T> {
-  getOne(id: string, transaction: ITransaction): Promise<T | undefined>
+  getOne(id: string, transaction: ITransaction): Promise<Maybe<T>>
   getAll(transaction: ITransaction): Promise<Array<T>>
   getAllByIds(ids: Array<string>, transaction: ITransaction): Promise<Array<T>>
 }

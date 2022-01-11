@@ -1,8 +1,8 @@
 import {
   BaseMutationFactory,
   DgraphEntityType,
-  DgraphRepository,
   mergeMutations,
+  randomBlankNode,
 } from '@codelab/backend/infra'
 import { PropMutationFactory } from '@codelab/backend/modules/prop'
 import { IHook } from '@codelab/shared/abstract/core'
@@ -18,7 +18,7 @@ export class HookMutationFactory extends BaseMutationFactory<IHook> {
   }
 
   override forCreate(entity: IHook, uid?: string) {
-    const configUid = entity.config.id || DgraphRepository.randomBlankNode()
+    const configUid = entity.config.id || randomBlankNode()
 
     const configMutation = this.propMutationFactory.forCreate(
       entity.config,

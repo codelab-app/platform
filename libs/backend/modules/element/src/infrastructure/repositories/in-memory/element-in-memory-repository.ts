@@ -7,6 +7,7 @@ import {
   IHook,
   IPropMapBinding,
 } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import Fuse from 'fuse.js'
 import {
   ComponentWhere,
@@ -30,7 +31,7 @@ export class ElementInMemoryRepository
     return Promise.all(elements.map((element) => this.create(element)))
   }
 
-  async getLastOrderInParent(parentId: string): Promise<number | undefined> {
+  async getLastOrderInParent(parentId: string): Promise<Maybe<number>> {
     const children = this.data.filter((c) => c.parentElement?.id === parentId)
 
     const lastChild = children
@@ -84,9 +85,7 @@ export class ElementInMemoryRepository
     }
   }
 
-  async getComponents(
-    where: ComponentWhere | undefined,
-  ): Promise<Array<IElement>> {
+  async getComponents(where: Maybe<ComponentWhere>): Promise<Array<IElement>> {
     const all = await this.getAll()
     let results = all.filter((e) => !!e.componentTag)
 
@@ -138,7 +137,7 @@ export class ElementInMemoryRepository
     throw new Error('Not implemented')
   }
 
-  async getOneByFixedId(fixedId: string): Promise<IElement | undefined> {
+  async getOneByFixedId(fixedId: string): Promise<Maybe<IElement>> {
     const all = await this.getAll()
 
     return all.find((e) => e.fixedId === fixedId)
@@ -146,11 +145,11 @@ export class ElementInMemoryRepository
 
   async getReferences(
     elementId: string,
-  ): Promise<GetReferencesResponse | undefined> {
+  ): Promise<Maybe<GetReferencesResponse>> {
     throw new Error('Not implemented')
   }
 
-  async isElementRoot(elementId: string): Promise<boolean | undefined> {
+  async isElementRoot(elementId: string): Promise<Maybe<boolean>> {
     throw new Error('Not implemented')
   }
 

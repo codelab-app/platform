@@ -59,18 +59,18 @@ export class CreateComponentService
   }
 
   protected async validate({ input: { atomId } }: CreateComponentRequest) {
-    if (atomId) {
-      const foundAtom = await this.getAtomService.execute({
-        where: { id: atomId },
-      })
-
-      if (!foundAtom) {
-        throw new Error(`Atom with id ${atomId} not found`)
-      }
-
-      return { foundAtom }
+    if (!atomId) {
+      return { foundAtom: undefined }
     }
 
-    return { foundAtom: undefined }
+    const foundAtom = await this.getAtomService.execute({
+      where: { id: atomId },
+    })
+
+    if (!foundAtom) {
+      throw new Error(`Atom with id ${atomId} not found`)
+    }
+
+    return { foundAtom }
   }
 }

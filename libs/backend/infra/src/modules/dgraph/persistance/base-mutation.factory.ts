@@ -1,5 +1,5 @@
+import { Entity } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
-import { DgraphRepository } from '../dgraph.repository'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import {
   makeDeleteJsonMutationForUpdates,
@@ -7,6 +7,7 @@ import {
 } from '../utils/makeDeleteJsonMutationForUpdates'
 import { mergeMutations } from '../utils/mergeMutations'
 import { IMutationFactory } from './mutation-factory.interface'
+import { randomBlankNode } from './repository-utils'
 
 /**
  * Provides boilerplate for a base set of dgraph mutations and serves as example of integrating a repository with dgraph mutations
@@ -15,7 +16,7 @@ import { IMutationFactory } from './mutation-factory.interface'
  *
  * {@see NullablePredicates} for how to construct the predicate array
  */
-export class BaseMutationFactory<T extends { id?: string | null }>
+export class BaseMutationFactory<T extends Entity>
   implements IMutationFactory<T>
 {
   constructor(
@@ -35,7 +36,7 @@ export class BaseMutationFactory<T extends { id?: string | null }>
 
     return {
       setJson: {
-        uid: uid || DgraphRepository.randomBlankNode(),
+        uid: uid || randomBlankNode(),
         'dgraph.type': this.entityType,
         ...data,
       },

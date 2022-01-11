@@ -7,6 +7,7 @@ import {
   IHook,
   IPropMapBinding,
 } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 
 export interface IElementRepository extends IBaseRepository<IElement> {
   updateAll(elements: Array<IElement>, transaction: ITransaction): Promise<void>
@@ -18,13 +19,13 @@ export interface IElementRepository extends IBaseRepository<IElement> {
   getOneByFixedId(
     fixedId: string,
     transaction: ITransaction,
-  ): Promise<IElement | undefined>
+  ): Promise<Maybe<IElement>>
 
   /** Returns the largest order number in  the child elements of the given element, or undefined if none found */
   getLastOrderInParent(
     parentId: string,
     transaction: ITransaction,
-  ): Promise<number | undefined>
+  ): Promise<Maybe<number>>
 
   /**
    * Get all elements, that:
@@ -32,7 +33,7 @@ export interface IElementRepository extends IBaseRepository<IElement> {
    *   - are either owned by the ownerId OR  are not owned by anyone
    */
   getComponents(
-    where: ComponentWhere | undefined,
+    where: Maybe<ComponentWhere>,
     transaction: ITransaction,
   ): Promise<Array<IElement>>
 
@@ -46,12 +47,12 @@ export interface IElementRepository extends IBaseRepository<IElement> {
   isElementRoot(
     elementId: string,
     transaction: ITransaction,
-  ): Promise<boolean | undefined>
+  ): Promise<Maybe<boolean>>
 
   getReferences(
     elementId: string,
     transaction: ITransaction,
-  ): Promise<GetReferencesResponse | undefined>
+  ): Promise<Maybe<GetReferencesResponse>>
 
   getGraph(
     rootElementId: string,
@@ -119,7 +120,7 @@ export interface ComponentWhere {
 
 export interface ElementExistsAndOwnerResponse {
   elementExists: boolean
-  ownerId: string | undefined
+  ownerId: Maybe<string>
 }
 
 export interface GetReferencesResponse {
