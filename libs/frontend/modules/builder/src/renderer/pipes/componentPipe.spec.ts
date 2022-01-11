@@ -1,3 +1,4 @@
+import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { componentPipe } from './componentPipe'
 import { componentToRender, endPipe, EndPipeOutput } from './test'
 import { RenderContext } from './types'
@@ -6,25 +7,23 @@ const defaultContext = {} as RenderContext
 const initialProps = {}
 
 describe('ComponentPipe', () => {
-  it('should add data-component-id to prop', () => {
+  it(`should add ${DATA_COMPONENT_ID} to prop`, () => {
     const { props } = componentPipe(endPipe)(
       componentToRender,
       defaultContext,
       initialProps,
     ) as EndPipeOutput
 
-    expect(props['data-component-id']).toEqual(componentToRender.id)
+    expect(props[DATA_COMPONENT_ID]).toEqual(componentToRender.id)
   })
 
-  it('should add data-component-id to context.extraProp', () => {
+  it(`should add ${DATA_COMPONENT_ID} to context.extraProp`, () => {
     const { extraProps } = componentPipe(endPipe)(
       componentToRender,
       defaultContext,
       initialProps,
     ) as EndPipeOutput
 
-    expect((extraProps || {})['data-component-id']).toEqual(
-      componentToRender.id,
-    )
+    expect((extraProps || {})[DATA_COMPONENT_ID]).toEqual(componentToRender.id)
   })
 })

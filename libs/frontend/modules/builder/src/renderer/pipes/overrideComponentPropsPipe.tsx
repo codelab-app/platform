@@ -14,7 +14,7 @@ const getComponentInstance = (element: IElement, tree: ElementTree) => {
   return tree.getComponentById(element.instanceOfComponent.id)
 }
 
-/** If the element is a component add 'data-component-id' to the extra props */
+/** If the element is a component add ${DATA_COMPONENT_ID} to the extra props */
 export const overrideComponentPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
     const componentInstance = getComponentInstance(element, context.tree)

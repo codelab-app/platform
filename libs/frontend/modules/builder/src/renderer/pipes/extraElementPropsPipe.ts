@@ -1,5 +1,4 @@
 import { mergeProps } from '@codelab/shared/utils'
-import { get } from 'lodash'
 import { RenderPipeFactory } from './types'
 
 /**
@@ -7,8 +6,7 @@ import { RenderPipeFactory } from './types'
  */
 export const extraElementPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    const propsPath = `extraElementProps.${element.id}`
-    const elementExtraProps = get(context, propsPath, {})
+    const elementExtraProps = context?.extraElementProps?.[element.id] || {}
 
     return next(element, context, mergeProps(props, elementExtraProps))
   }
