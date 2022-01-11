@@ -2,7 +2,6 @@ const withNx = require('@nrwl/next/plugins/with-nx')
 const withCSS = require('@zeit/next-css')
 const withPlugins = require('next-compose-plugins')
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
-const util = require('util')
 
 // const nodeExternals = require('webpack-node-externals')
 
