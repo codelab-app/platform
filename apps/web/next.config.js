@@ -62,9 +62,9 @@ module.exports = withPlugins(
          *
          * Cause: https://github.com/vercel/next.js/issues/30330#issuecomment-952847838
          */
-        experimental: {
-          esmExternals: false,
-        },
+        // experimental: {
+        //   esmExternals: false,
+        // },
         cssModules: false,
         webpack5: false,
       },
