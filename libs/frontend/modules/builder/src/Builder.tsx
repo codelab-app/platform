@@ -7,7 +7,7 @@ import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import React, { MouseEventHandler, useCallback, useContext } from 'react'
+import React, { MouseEventHandler, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
 import { BuilderDropHandlers } from './dnd/BuilderDropHandlers'
@@ -54,7 +54,6 @@ const BuilderRenderer = ({
   tree: ElementTree
   isComponentBuilder?: boolean
 }) => {
-  const { typeKindsById } = useContext(TypeKindsContext)
   const { onRendered } = useOnRendered()
   const extraElementProps = useSelector(builderSelectors.extraProps)
   const voidClick = useCallback(() => void 0, [])
