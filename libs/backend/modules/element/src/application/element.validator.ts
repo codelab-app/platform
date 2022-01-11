@@ -24,10 +24,8 @@ export class ElementValidator {
     const ownerId = element.owner?.id
     const message = "You don't have access to this element"
 
-    if (ownerId) {
-      if (ownerId !== currentUser.id) {
-        throw new Error(message)
-      }
+    if (ownerId && ownerId !== currentUser.id) {
+      throw new Error(message)
     }
   }
 

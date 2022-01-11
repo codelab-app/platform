@@ -130,17 +130,17 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
     relationshipMutations: Array<Mutation>,
     uid: string,
   ): void {
-    if (entity.propMapBindings) {
-      for (const pmb of entity.propMapBindings) {
-        const pmbUid = randomBlankNode()
+    if (!entity.propMapBindings) {
+      return
+    }
 
-        relationshipMutations.push(
-          this.pmbMutationFactory.forCreate(pmb, pmbUid),
-        )
-        relationshipMutations.push({
-          setJson: { uid, propMapBindings: [{ uid: pmbUid }] },
-        })
-      }
+    for (const pmb of entity.propMapBindings) {
+      const pmbUid = randomBlankNode()
+
+      relationshipMutations.push(this.pmbMutationFactory.forCreate(pmb, pmbUid))
+      relationshipMutations.push({
+        setJson: { uid, propMapBindings: [{ uid: pmbUid }] },
+      })
     }
   }
 
@@ -149,17 +149,19 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
     relationshipMutations: Array<Mutation>,
     uid: string,
   ): void {
-    if (entity.hooks) {
-      for (const hook of entity.hooks) {
-        const hookUid = randomBlankNode()
+    if (!entity.hooks) {
+      return
+    }
 
-        relationshipMutations.push(
-          this.hookMutationFactory.forCreate(hook, hookUid),
-        )
-        relationshipMutations.push({
-          setJson: { uid, hooks: [{ uid: hookUid }] },
-        })
-      }
+    for (const hook of entity.hooks) {
+      const hookUid = randomBlankNode()
+
+      relationshipMutations.push(
+        this.hookMutationFactory.forCreate(hook, hookUid),
+      )
+      relationshipMutations.push({
+        setJson: { uid, hooks: [{ uid: hookUid }] },
+      })
     }
   }
 

@@ -1,6 +1,6 @@
-import { MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Maybe, MaybeOrNullable } from '@codelab/shared/abstract/types'
 
-export const makeUidsFilter = (uids: Array<string>): string | undefined => {
+export const makeUidsFilter = (uids: Array<string>): Maybe<string> => {
   return makeUidFilter(uids.length > 0 ? uids.join(',') : undefined)
 }
 
