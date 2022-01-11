@@ -1,3 +1,7 @@
+import {
+  BUILDER_NONE_CLASS_NAME,
+  DATA_ID,
+} from '@codelab/frontend/abstract/core'
 import { notify } from '@codelab/frontend/shared/utils'
 import { AtomType, PropsData } from '@codelab/shared/abstract/core'
 import { Entity, Nullable } from '@codelab/shared/abstract/types'
@@ -23,8 +27,8 @@ export type ReactComponentFactoryResult = [
 ]
 
 export const commonProps = (id: string) => ({
-  'data-id': id,
-  className: 'Builder-none',
+  [DATA_ID]: id,
+  className: BUILDER_NONE_CLASS_NAME,
 })
 
 /**
@@ -41,7 +45,7 @@ export const elementsPropTransformers: IElementsPropTransformers = {
     return {
       ...props,
       key: props['data-grid'] ? JSON.stringify(props['data-grid']) : node.id,
-      'data-id': node.id,
+      [DATA_ID]: node.id,
     }
   },
   [AtomType.AntDesignRglResponsiveContainer]: ({ props }) => ({

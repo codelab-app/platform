@@ -3,10 +3,7 @@ const deleteAllComponents = () => {
 }
 
 const getComponentGridItemByTestId = (id?: string) =>
-  cy.getByTestId(
-    'component-grid-item',
-    id ? `[data-component-id=${id}]` : undefined,
-  )
+  cy.getByTestId('component-grid-item', id ? `[=${id}]` : undefined)
 
 const getComponentGridItemByLabel = (label: string) =>
   cy.findByRole('tabpanel').findByText(label)

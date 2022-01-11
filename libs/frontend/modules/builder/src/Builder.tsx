@@ -1,12 +1,10 @@
-import {
-  TypeKindProvider,
-  TypeKindsContext,
-} from '@codelab/frontend/modules/type'
+import { DATA_ID } from '@codelab/frontend/abstract/core'
+import { TypeKindProvider } from '@codelab/frontend/modules/type'
 import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import React, { MouseEventHandler, useCallback, useContext } from 'react'
+import React, { MouseEventHandler, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import tw from 'twin.macro'
 import { BuilderDropHandlers } from './dnd/BuilderDropHandlers'
@@ -28,11 +26,11 @@ export type BuilderProps = {
 }
 
 const StyledBuilderContainer = styled.div`
-  // [data-id] is a selector for all rendered elements
-  [data-id]:hover {
+  // [${DATA_ID}] is a selector for all rendered elements
+  [${DATA_ID}]:hover {
     cursor: pointer;
   }
-  [data-id] {
+  [${DATA_ID}] {
     // Force all pointer events to be on, because otherwise we won't be able to click to inspect
     // elements that have it disabled by design, like disabled buttons
     pointer-events: all !important;
@@ -53,7 +51,6 @@ const BuilderRenderer = ({
   tree: ElementTree
   isComponentBuilder?: boolean
 }) => {
-  const { typeKindsById } = useContext(TypeKindsContext)
   const { onRendered } = useOnRendered()
   const extraElementProps = useSelector(builderSelectors.extraProps)
   const voidClick = useCallback(() => void 0, [])

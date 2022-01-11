@@ -1,8 +1,9 @@
+import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { merge } from 'lodash'
 import { RenderPipeFactory } from './types'
 
-/** If the element is a component add 'data-component-id' to the extra props */
+/** If the element is a component add ${DATA_COMPONENT_ID} to the extra props */
 export const componentPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
     const isComponent = !!element.componentTag
@@ -11,7 +12,7 @@ export const componentPipe: RenderPipeFactory =
       return next(element, context, props)
     }
 
-    const componentProp = { 'data-component-id': element.id }
+    const componentProp = { [DATA_COMPONENT_ID]: element.id }
     const updateContext = merge(context, { extraProps: componentProp })
     const mergedProps = mergeProps(props, componentProp)
 
