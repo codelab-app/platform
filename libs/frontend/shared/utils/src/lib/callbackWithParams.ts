@@ -3,7 +3,7 @@ import { Maybe, MaybeArray } from '@codelab/shared/abstract/types'
 export type Callback<TParam> = (param: TParam) => any
 
 export const callbackWithParams = <
-  T extends any,
+  T,
   TCb extends (prop: T) => any = (prop: T) => any,
 >(
   cbOrArray: Maybe<MaybeArray<Maybe<TCb>>>,
@@ -25,7 +25,7 @@ export const callbackWithParams = <
 }
 
 export const createCallbackHandler =
-  <T extends any, TCb extends Callback<T> = (prop: T) => any>(
+  <T, TCb extends Callback<T> = (prop: T) => any>(
     cbOrArray: Maybe<MaybeArray<Maybe<TCb>>>,
   ) =>
   (param: T) => {

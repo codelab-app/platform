@@ -16,7 +16,7 @@ interface OverlayToolbarProps<TMetaData> {
   overlayElement: HTMLElement | React.RefObject<HTMLElement>
 }
 
-export const OverlayToolbar = <TMetaData extends any>({
+export const OverlayToolbar = <TMetaData,>({
   content,
   overlayElement,
   containerProps: {

@@ -5,7 +5,7 @@ import { AutoForm } from 'uniforms-antd'
 import { FormUniformsProps } from './Form-uniforms--types'
 import { connectUniformSubmitRef, createBridge } from './uniformUtils'
 
-export const FormUniforms = <TData extends any>({
+export const FormUniforms = <TData,>({
   submitRef,
   onSubmitSuccess,
   onSubmitError,

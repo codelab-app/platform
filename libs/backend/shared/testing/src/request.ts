@@ -46,10 +46,7 @@ export const request = (app: INestApplication) =>
  * @param expectError Allow us to skip the results mapping, so we can assert the error message
  * @returns
  */
-export const domainRequest = async <
-  TInput extends any,
-  TResults extends any = void,
->(
+export const domainRequest = async <TInput, TResults = void>(
   app: INestApplication,
   gql: ASTNode,
   input?: TInput,

@@ -19,7 +19,7 @@ export const InterfaceQueryProvider = ({
   )
 }
 
-export const withInterfaceQueryProvider = <TProps extends any>(
+export const withInterfaceQueryProvider = <TProps,>(
   Component: React.ComponentType<TProps>,
 ) => {
   return (props: TProps) => (
