@@ -20,8 +20,8 @@ terraform-lint:
 build-dev-affected:
 	 ./scripts/nx.sh affected:build \
 		--configuration test \
-		--parallel \
-		--verbose \
+		--parallel
+#		--verbose \
 
 build-ci:
 	npx nx run-many \
