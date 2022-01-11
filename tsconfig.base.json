@@ -183,7 +183,6 @@
       "@codelab/tools/plugins/codelab": [
         "libs/tools/plugins/codelab/src/index.ts"
       ],
-      "@codelab/tools/scripts": ["libs/tools/scripts/src/index.ts"],
       "@codelab/ui/d3": ["libs/ui/d3/src/index.ts"]
     }
   },

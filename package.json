@@ -15,7 +15,7 @@
     "postinstall": "./scripts/postinstall.sh",
     "e2e": "env-cmd -f .env.test nx e2e web-e2e -c dev",
     "cli": "node dist/apps/cli/main.js",
-    "docker:up": "libs/tools/scripts/src/docker/up.sh",
+    "docker:up": "scripts/docker/up.sh",
     "codegen": "yarn graphql-codegen",
     "nx": "nx",
     "build": "nx run-many --all --target=build",
