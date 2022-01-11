@@ -1,10 +1,13 @@
+// enable this to debug :)
 // import '../src/wdyr'
-// Comment out in favor of compiled css file
+
+// Webpack4 + next 11 + nx13 don't play ell with less
+// we complile the style.chunk.css
+
 // import '../src/styles/antd-theme.less'
 // import '../src/styles/app.scss'
-// import 'animate.css'
-// revert me if
-// import '../src/styles/styles.chunk.css'
+import '../src/styles/styles.chunk.css'
+import 'animate.css'
 import { ApolloProvider } from '@apollo/client'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/props'

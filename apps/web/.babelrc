@@ -8,6 +8,15 @@
     "@emotion",
     "macros",
     [
+      "import",
+      {
+        "libraryName": "antd",
+        // we disable using less style from antd
+        // set to true if we find something to fix LESS
+        "style": false
+      }
+    ],
+    [
       "@babel/plugin-proposal-class-properties",
       {
         "loose": false
@@ -23,13 +32,6 @@
       "@babel/plugin-proposal-private-property-in-object",
       {
         "loose": false
-      }
-    ],
-    [
-      "import",
-      {
-        "libraryName": "antd",
-        "style": true
       }
     ]
   ]

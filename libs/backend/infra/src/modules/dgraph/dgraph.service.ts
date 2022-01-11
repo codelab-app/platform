@@ -25,6 +25,8 @@ export class DgraphService {
 
     // console.log('Dgraph endpoint using', _dgraphConfig.endpoint)
 
+    console.log({ _dgraphConfig })
+
     const clientStub = new DgraphClientStub(_dgraphConfig.endpoint)
 
     // https://discuss.dgraph.io/t/connection-management/11060 - it's safe to use a single client across the app
