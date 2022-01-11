@@ -1,0 +1,20 @@
+{
+  "root": "libs/frontend/modules/app",
+  "sourceRoot": "libs/frontend/modules/app/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/frontend/modules/app/**/*.{ts,tsx,js,jsx}"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/frontend/modules/app/.eslintrc.ci.json"
+        }
+      }
+    }
+  },
+  "tags": ["layer:domain:frontend", "scope:frontend"]
+}

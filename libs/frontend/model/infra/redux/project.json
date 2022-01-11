@@ -1,0 +1,25 @@
+{
+  "root": "libs/frontend/model/infra/redux",
+  "sourceRoot": "libs/frontend/model/infra/redux/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/model/infra/redux/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/frontend/model/infra/redux"],
+      "options": {
+        "jestConfig": "libs/frontend/model/infra/redux/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:frontend"]
+}

@@ -1,0 +1,15 @@
+{
+  "root": "libs/backend/shared/testing",
+  "sourceRoot": "libs/backend/shared/testing/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/shared/testing/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:shared", "scope:backend"]
+}

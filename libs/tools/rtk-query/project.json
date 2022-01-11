@@ -1,0 +1,34 @@
+{
+  "root": "libs/tools/rtk-query",
+  "sourceRoot": "libs/tools/rtk-query/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/tools/rtk-query",
+        "tsConfig": "libs/tools/rtk-query/tsconfig.lib.json",
+        "packageJson": "libs/tools/rtk-query/package.json",
+        "main": "libs/tools/rtk-query/src/index.ts",
+        "assets": ["libs/tools/rtk-query/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/tools/rtk-query/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/tools/rtk-query"],
+      "options": {
+        "jestConfig": "libs/tools/rtk-query/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

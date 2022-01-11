@@ -1,0 +1,22 @@
+{
+  "root": "libs/frontend/presenter/container",
+  "sourceRoot": "libs/frontend/presenter/container/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/presenter/container/**/*.{ts,tsx,js,jsx}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/frontend/presenter/container/.eslintrc.ci.json"
+        }
+      }
+    }
+  },
+  "tags": ["scope:frontend"]
+}

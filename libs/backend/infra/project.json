@@ -1,0 +1,29 @@
+{
+  "root": "libs/backend/infra",
+  "sourceRoot": "libs/backend/infra/src",
+  "projectType": "library",
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/backend/infra/**/*.{ts,tsx,js,jsx}"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/backend/infra/.eslintrc.ci.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "libs/backend/infra/jest.config.js",
+        "passWithNoTests": true
+      },
+      "outputs": ["coverage/libs/backend/infra"]
+    }
+  },
+  "tags": ["layer:infra", "scope:backend", "scope:shared"]
+}

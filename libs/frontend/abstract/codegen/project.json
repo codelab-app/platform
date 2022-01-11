@@ -1,0 +1,30 @@
+{
+  "root": "libs/frontend/abstract/codegen",
+  "sourceRoot": "libs/frontend/abstract/codegen/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/abstract/codegen/**/*.{ts,tsx,js,jsx}"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/frontend/abstract/codegen/.eslintrc.ci.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/frontend/abstract/codegen"],
+      "options": {
+        "jestConfig": "libs/frontend/abstract/codegen/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:frontend", "type:abstract"]
+}

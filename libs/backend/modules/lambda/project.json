@@ -1,0 +1,28 @@
+{
+  "root": "libs/backend/modules/lambda",
+  "sourceRoot": "libs/backend/modules/lambda/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/backend/modules/lambda/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/backend/modules/lambda/.eslintrc.ci.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/backend/modules/lambda"],
+      "options": {
+        "jestConfig": "libs/backend/modules/lambda/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["layer:domain:backend", "scope:backend"]
+}

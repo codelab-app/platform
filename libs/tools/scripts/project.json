@@ -1,0 +1,20 @@
+{
+  "root": "libs/tools/scripts",
+  "sourceRoot": "libs/tools/scripts/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/tools/scripts/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/tools/scripts/.eslintrc.ci.json"
+        }
+      }
+    }
+  },
+  "tags": []
+}

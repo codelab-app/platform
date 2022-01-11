@@ -1,0 +1,20 @@
+{
+  "root": "libs/shared/core",
+  "sourceRoot": "libs/shared/core/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/shared/core/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/shared/core/.eslintrc.ci.json"
+        }
+      }
+    }
+  },
+  "tags": ["scope:shared"]
+}

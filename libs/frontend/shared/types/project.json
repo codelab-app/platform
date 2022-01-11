@@ -1,0 +1,20 @@
+{
+  "root": "libs/frontend/shared/types",
+  "sourceRoot": "libs/frontend/shared/types/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/frontend/shared/types/**/*.{ts,tsx,js,jsx}"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/frontend/shared/types/.eslintrc.ci.json"
+        }
+      }
+    }
+  },
+  "tags": ["scope:frontend"]
+}

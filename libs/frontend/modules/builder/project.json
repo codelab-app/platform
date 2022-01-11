@@ -1,0 +1,30 @@
+{
+  "root": "libs/frontend/modules/builder",
+  "sourceRoot": "libs/frontend/modules/builder/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/modules/builder/**/*.{ts,tsx,js,jsx}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/frontend/modules/builder/.eslintrc.ci.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/frontend/modules/builder"],
+      "options": {
+        "jestConfig": "libs/frontend/modules/builder/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["layer:domain:frontend", "scope:frontend"]
+}

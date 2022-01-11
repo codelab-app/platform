@@ -1,0 +1,28 @@
+{
+  "root": "libs/backend/abstract/core",
+  "sourceRoot": "libs/backend/abstract/core/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/backend/abstract/core/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/backend/abstract/core/.eslintrc.ci.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/backend/abstract/core"],
+      "options": {
+        "jestConfig": "libs/backend/abstract/core/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["type:abstract", "scope:backend"]
+}
