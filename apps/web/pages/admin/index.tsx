@@ -3,6 +3,7 @@ import { CodelabPage } from '@codelab/frontend/abstract/props'
 import {
   ResetDataButton,
   SeedBaseTypesButton,
+  SyncAtoms,
 } from '@codelab/frontend/modules/admin'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -20,6 +21,7 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = () => {
       <Space>
         <ResetDataButton />
         <SeedBaseTypesButton />
+        <SyncAtoms />
       </Space>
     </ContentSection>
   )
