@@ -1,5 +1,5 @@
 const withNx = require('@nrwl/next/plugins/with-nx')
-const withLess = require('@zeit/next-less')
+const withLess = require('@nrwl/next/plugins/with-less')
 const withSass = require('@zeit/next-sass')
 const withCSS = require('@zeit/next-css')
 const withPlugins = require('next-compose-plugins')
@@ -37,7 +37,7 @@ module.exports = withPlugins(
   ],
   withNx({
     cssModules: false,
-    webpack5: false,
+    webpack5: true,
     webpack(config, options) {
       // https://github.com/prettier/prettier/issues/4959#issuecomment-416834237
       config.plugins.push(

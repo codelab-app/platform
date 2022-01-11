@@ -15,5 +15,5 @@
     "**/*.ts",
     "../../../frontend/modules/element/src/use-cases/hooks/hook-data.parser.ts"
   ],
-  "exclude": ["**/*.spec.ts"]
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }
