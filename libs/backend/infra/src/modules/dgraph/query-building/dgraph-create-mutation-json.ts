@@ -1,5 +1,6 @@
 import { Maybe, MaybeOrNullable } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
+import { isObjectLike } from 'lodash'
 import forOwn from 'lodash/forOwn'
 import { DgraphEntityType } from '../dgraph-entity-type'
 
@@ -105,7 +106,7 @@ export const mapIdToUid = <TObject>(
   forOwn(obj, (value, key) => {
     if (key === 'id' && !(obj as any).uid) {
       result.uid = value
-    } else if (typeof value === 'object' && value) {
+    } else if (value && isObjectLike(value)) {
       result[key] = mapIdToUid(value, iteration + 1)
     } else {
       result[key] = value

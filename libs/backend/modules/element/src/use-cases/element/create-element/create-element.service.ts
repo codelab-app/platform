@@ -2,12 +2,13 @@ import { UseCasePort } from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import { GetAtomService } from '@codelab/backend/modules/atom'
 import { Inject, Injectable } from '@nestjs/common'
+import { isNumber } from 'lodash'
 import { ElementValidator } from '../../../application/element.validator'
 import { createElement } from '../../../domain/service-helpers'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../infrastructure/repositories/abstract/element-repository.interface'
+} from '../../../infrastructure'
 import { CreateElementRequest } from './create-element.request'
 
 @Injectable()
@@ -54,7 +55,7 @@ export class CreateElementService
     input: { order, parentElementId },
     transaction,
   }: CreateElementRequest): Promise<number> {
-    if (typeof order === 'number') {
+    if (isNumber(order)) {
       return order
     }
 
@@ -64,7 +65,7 @@ export class CreateElementService
         transaction,
       )
 
-      if (typeof lastOrder === 'number') {
+      if (isNumber(lastOrder)) {
         return lastOrder + 1
       }
     }

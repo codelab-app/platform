@@ -1,15 +1,16 @@
 import { ApolloError } from '@apollo/client'
+import { isObjectLike, isString } from 'lodash'
 
 export const extractErrorMessage = (e: any): string => {
   if (!e) {
     return ''
   }
 
-  if (typeof e === 'string') {
+  if (isString(e)) {
     return e
   }
 
-  if (typeof e === 'object') {
+  if (isObjectLike(e)) {
     if (e instanceof ApolloError) {
       return e.graphQLErrors[0].extensions
         ? `[${e.message}]: ${

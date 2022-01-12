@@ -6,13 +6,14 @@ import {
   IElement,
   IElementGraph,
 } from '@codelab/shared/abstract/core'
-import { Entity, Maybe } from '@codelab/shared/abstract/types'
+import { Maybe } from '@codelab/shared/abstract/types'
 import {
   deepLoopObjectValues,
   deepReplaceObjectValues,
   hexadecimalRegex,
 } from '@codelab/shared/utils'
 import { Inject, Injectable, Logger } from '@nestjs/common'
+import { isString } from 'lodash'
 import { ElementValidator } from '../../../application/element.validator'
 import {
   IElementRepository,
@@ -137,7 +138,7 @@ export class GetElementGraphService
       // And way faster, since we don't need to fetch the whole type tree
 
       deepLoopObjectValues(props, (value) => {
-        if (typeof value === 'string' && hexadecimalRegex.test(value)) {
+        if (isString(value) && hexadecimalRegex.test(value)) {
           ids.add(value)
         }
       })

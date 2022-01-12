@@ -1,6 +1,7 @@
 import { ApolloError } from '@apollo/client'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { notification } from 'antd'
+import { isFunction, isString } from 'lodash'
 import { extractErrorMessage } from './extractErrorMessage'
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error'
@@ -26,17 +27,17 @@ export const notify = <TEvent>(
   let titleString = ''
   let contentString = ''
 
-  if (typeof title === 'string') {
+  if (isString(title)) {
     titleString = title
-  } else if (typeof title === 'function') {
+  } else if (isFunction(title)) {
     titleString = title(e)
   } else if (options.type === 'error') {
     titleString = 'Error'
   }
 
-  if (typeof content === 'string') {
+  if (isString(content)) {
     contentString = content
-  } else if (typeof content === 'function') {
+  } else if (isFunction(content)) {
     contentString = content(e)
   } else if (options.type === 'error') {
     contentString = extractErrorMessage(e)

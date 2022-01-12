@@ -1,4 +1,5 @@
 import { Nullable } from '@codelab/shared/abstract/types'
+import { isObjectLike } from 'lodash'
 
 export const deepLoopObjectValues = (
   obj: Nullable<Record<string, any>>,
@@ -22,7 +23,7 @@ export const deepLoopObjectValues = (
   entries.forEach(([key, value]) => {
     fn(value, key)
 
-    if (typeof value === 'object') {
+    if (isObjectLike(value)) {
       deepLoopObjectValues(value, fn)
     }
   })

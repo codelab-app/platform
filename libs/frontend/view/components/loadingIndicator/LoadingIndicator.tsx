@@ -1,5 +1,6 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import Spin from 'antd/lib/spin'
+import { isFunction } from 'lodash'
 import React, { CSSProperties } from 'react'
 import { LoadingData } from './useTrackLoadingPromises'
 
@@ -18,10 +19,9 @@ export const LoadingIndicator = ({
   renderErrored,
   style: styleProp,
 }: LoadIndicatorProps) => {
-  const elementStyle =
-    typeof styleProp === 'function'
-      ? styleProp({ isLoading, error })
-      : styleProp || {}
+  const elementStyle = isFunction(styleProp)
+    ? styleProp({ isLoading, error })
+    : styleProp || {}
 
   if (error) {
     return renderErrored ? (

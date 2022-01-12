@@ -199,6 +199,7 @@ const unionPipe: TypeNodePipeFactory = (next) => (typeNode, name) => {
             }
 
             // the string values are stored as '"something"', booleans as 'true', etc.
+            // did not use lodash isString for smart cast
             if (typeof t.value !== 'string') {
               return null
             }

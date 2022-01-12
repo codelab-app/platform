@@ -3,6 +3,7 @@ import {
   EmotionCssEditor,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import { isString } from 'lodash'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   ElementFragment,
@@ -66,7 +67,7 @@ const ElementCssEditorInternal = ({
   }, [cssString, setCssDebounced])
 
   useEffect(() => {
-    if (typeof cssDebounced === 'string') {
+    if (isString(cssDebounced)) {
       updateCss(cssDebounced)
     }
   }, [cssDebounced, updateCss])

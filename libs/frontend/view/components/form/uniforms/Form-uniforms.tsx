@@ -1,4 +1,5 @@
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
+import { isObjectLike } from 'lodash'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
@@ -35,14 +36,14 @@ export const FormUniforms = <TData,>({
 
         return result
           .then((r: any) => {
-            if (typeof result === 'object') {
+            if (isObjectLike(result)) {
               callbackWithParams(onSubmitSuccess, r)
             }
           })
           .catch((err: Error) => {
             console.error(err)
 
-            if (typeof result === 'object') {
+            if (isObjectLike(result)) {
               callbackWithParams(onSubmitError, err)
             }
           })
