@@ -1,4 +1,5 @@
 import { testUserUid } from '@codelab/backend/shared/generic'
+import { teardownTestModule } from '@codelab/backend/shared/testing'
 import {
   IElementRepository,
   IElementRepositoryToken,
@@ -14,6 +15,10 @@ describe('Create element unit test', function () {
   beforeAll(() => {
     createElementService = testModule.app.get(CreateElementService)
     repository = testModule.app.get(IElementRepositoryToken)
+  })
+
+  afterAll(async () => {
+    await teardownTestModule(testModule.app)
   })
 
   it('should be injected', () => {

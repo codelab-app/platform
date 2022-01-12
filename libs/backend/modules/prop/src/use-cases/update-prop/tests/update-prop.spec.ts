@@ -1,3 +1,4 @@
+import { teardownTestModule } from '@codelab/backend/shared/testing'
 import { setupPropUnitTestModule } from '../../../test/setupPropUnitTestModule'
 import { UpdatePropService } from '../update-prop.service'
 
@@ -15,6 +16,10 @@ describe('Update prop unit test', function () {
     })
 
     propId = prop.id
+  })
+
+  afterAll(async () => {
+    await teardownTestModule(testModule.app)
   })
 
   it('should inject UpdatePropService', async function () {
