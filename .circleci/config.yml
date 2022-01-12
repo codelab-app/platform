@@ -317,7 +317,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run: echo 'export TEST_ENV="unit"' >> $BASH_ENV
+      # - run: echo 'export TEST_ENV="unit"' >> $BASH_ENV
       - run: make unit-ci
       - notify-failure
 
