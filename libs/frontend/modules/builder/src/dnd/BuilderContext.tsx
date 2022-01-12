@@ -21,7 +21,7 @@ export const BuilderContext = ({
       }}
       autoScroll={{
         canScroll: (e) => {
-          const renderRoot = document.getElementById('render-root')
+          const renderRoot = document.getElementById(ROOT_RENDER_CONTAINER_ID)
 
           return e.contains(renderRoot)
         },

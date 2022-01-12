@@ -1,3 +1,4 @@
+import { PropsData } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import React from 'react'
 import {
@@ -8,7 +9,7 @@ import {
 } from '../pipes'
 import { transformPropsToComponentFn } from './transformPropsToComponentFn'
 
-const propsToRender: PropData = {
+const propsToRender: PropsData = {
   renderText: { id: componentToRender.id },
 }
 

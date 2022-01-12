@@ -1,5 +1,5 @@
 import React from 'react'
-import { querySelectorRenderedElement } from '../../renderer'
+import { queryRenderedElementById } from '../../renderer'
 import { OverlayToolbar } from './OverlayToolbar'
 
 interface Props {
@@ -12,7 +12,7 @@ export const HoverOverlay = ({ nodeId, content }: Props) => {
     return null
   }
 
-  const element = querySelectorRenderedElement(nodeId)
+  const element = queryRenderedElementById(nodeId)
 
   if (!element) {
     return null
