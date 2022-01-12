@@ -318,7 +318,17 @@ jobs:
     steps:
       - setup-workspace
       # - run: echo 'export TEST_ENV="unit"' >> $BASH_ENV
-      - run: make unit-ci
+      - run:
+          name: 'Unit Specs'
+          command: |
+            npx nx run-many \
+              --testPathPattern=[^i].spec.ts \
+              --target=test \
+              --all \
+              --parallel \
+              --verbose \
+              --color
+      # make unit-ci
       - notify-failure
 
   integration:
