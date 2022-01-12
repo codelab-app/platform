@@ -7,7 +7,7 @@ const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`
 module.exports = {
   ...nxPreset,
   setupFiles: [`${JEST_CONFIG_PATH}/setupFiles.js`],
-  // globalSetup: `${JEST_CONFIG_PATH}/globalSetup.js`,
+  globalSetup: `${JEST_CONFIG_PATH}/globalSetup.js`,
   setupFilesAfterEnv: [
     '@testing-library/jest-dom',
     // `${JEST_CONFIG_PATH}/setupFilesAfterEnv.js`,
