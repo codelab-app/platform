@@ -101,4 +101,5 @@ unit-ci:
 		--all \
 		--parallel \
 		--verbose \
-		--color
+		--color \
+		--skip-nx-cache
