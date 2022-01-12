@@ -1,4 +1,5 @@
 import { Maybe, MaybeArray } from '@codelab/shared/abstract/types'
+import { isFunction } from 'lodash'
 
 export type Callback<TParam> = (param: TParam) => any
 
@@ -19,7 +20,7 @@ export const callbackWithParams = <
         c(param)
       }
     })
-  } else if (typeof cbOrArray === 'function') {
+  } else if (isFunction(cbOrArray)) {
     cbOrArray(param)
   }
 }

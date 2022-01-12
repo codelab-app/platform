@@ -6,6 +6,7 @@ import { setContext } from '@apollo/client/link/context'
 import { ApolloLink } from '@apollo/client/link/core'
 import { Maybe, MaybeOrNullable } from '@codelab/shared/abstract/types'
 import merge from 'deepmerge'
+import { isUndefined } from 'lodash'
 import isEqual from 'lodash/isEqual'
 import { useMemo } from 'react'
 import { authLink } from './links/authLink'
@@ -68,7 +69,7 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
       },
     }),
     // Disables forceFetch on the server (so queries are only run once)
-    ssrMode: typeof window === 'undefined',
+    ssrMode: isUndefined(window),
   })
 }
 
@@ -99,7 +100,7 @@ export const initializeApollo = (
   }
 
   // For SSG and SSR always create a new Apollo Client
-  if (typeof window === 'undefined') {
+  if (isUndefined(window)) {
     return _apolloClient
   }
 

@@ -1,4 +1,5 @@
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { isNumber, isObjectLike, isString } from 'lodash'
 import {
   CancellationToken,
   editor,
@@ -146,8 +147,7 @@ const toDiagnostics = (
   resource: Uri,
   diag: lsTypes.Diagnostic,
 ): editor.IMarkerData => {
-  const code =
-    typeof diag.code === 'number' ? String(diag.code) : <string>diag.code
+  const code = isNumber(diag.code) ? String(diag.code) : <string>diag.code
 
   return {
     severity: toSeverity(diag.severity),
@@ -463,14 +463,13 @@ export class HoverAdapter<T extends ILanguageWorkerWithHover>
 }
 
 const isMarkupContent = (thing: any): thing is lsTypes.MarkupContent =>
-  thing &&
-  typeof thing === 'object' &&
-  typeof (<lsTypes.MarkupContent>thing).kind === 'string'
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  thing && isObjectLike(thing) && isString((<lsTypes.MarkupContent>thing).kind)
 
 const toMarkdownString = (
   entry: lsTypes.MarkupContent | lsTypes.MarkedString,
 ): IMarkdownString => {
-  if (typeof entry === 'string') {
+  if (isString(entry)) {
     return {
       value: entry,
     }

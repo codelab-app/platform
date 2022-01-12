@@ -8,6 +8,7 @@ import {
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { isNumber } from 'lodash'
 import { GetLastOrderChildInput } from './get-last-order-child.input'
 import { GetLastOrderChildResponse } from './get-last-order-child.response'
 
@@ -37,7 +38,7 @@ export class GetLastOrderChildService extends DgraphUseCase<
         const uid = children[0].uid
         const order = children[0]['children|order']
 
-        if (uid && typeof order === 'number') {
+        if (uid && isNumber(order)) {
           return new GetLastOrderChildResponse(uid, order)
         }
       }

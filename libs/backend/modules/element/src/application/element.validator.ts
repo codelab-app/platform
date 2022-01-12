@@ -82,7 +82,7 @@ export class ElementValidator {
    */
   async propsAreValid(elementId: string) {
     // const element =
-    //   typeof elementOrId === 'string'
+    //   isString(elementOrId)
     //     ? await this.query(elementOrId)
     //     : elementOrId
     // TODO validate props string, could use TypeTree.toJsonSchema?

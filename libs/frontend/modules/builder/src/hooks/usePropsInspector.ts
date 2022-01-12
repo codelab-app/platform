@@ -3,6 +3,7 @@ import {
   useUpdateElementPropsMutation,
 } from '@codelab/frontend/modules/element'
 import { notify } from '@codelab/frontend/shared/utils'
+import { PropsData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { propSafeStringify } from '@codelab/shared/utils'
 import { useCallback, useEffect, useState } from 'react'
@@ -25,8 +26,7 @@ export const usePropsInspector = (elementId: string) => {
   )
 
   const setExtraProps = useCallback(
-    (props: Record<string, any>) =>
-      setExtraPropsForElement({ elementId, props }),
+    (props: PropsData) => setExtraPropsForElement({ elementId, props }),
     [setExtraPropsForElement, elementId],
   )
 

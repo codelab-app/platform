@@ -1,7 +1,7 @@
 import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
 import { PropMapBindingFragment } from '@codelab/frontend/modules/element'
 import { PropsData } from '@codelab/shared/abstract/core'
-import { get, set } from 'lodash'
+import { get, isObjectLike, set } from 'lodash'
 
 export const applyBinding = (
   targetProps: PropsData,
@@ -15,7 +15,7 @@ export const applyBinding = (
     ? sourceProps
     : get(sourceProps, binding.sourceKey)
 
-  if (isTargetKeyWildcard && typeof value === 'object') {
+  if (isTargetKeyWildcard && (value === null || isObjectLike(value))) {
     return { ...targetProps, ...value }
   }
 

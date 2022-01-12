@@ -1,1 +1,3 @@
-export const isServer = typeof window === 'undefined'
+import { isUndefined } from 'lodash'
+
+export const isServer = isUndefined(window)

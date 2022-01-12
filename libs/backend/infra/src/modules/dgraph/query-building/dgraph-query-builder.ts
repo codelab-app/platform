@@ -1,4 +1,5 @@
 import { Maybe } from '@codelab/shared/abstract/types'
+import { isArray, isObject, isString } from 'lodash'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphQueryField } from './dgraph-query-field'
 import { DgraphFilter, DgraphFilters, EqFilter } from './filters'
@@ -34,7 +35,7 @@ export class DgraphQueryBuilder implements IQueryBuilder {
 
   public getField(name: string): Maybe<DgraphQueryField> {
     return this._fields.find(
-      (f): f is DgraphQueryField => typeof f === 'object' && f.name == name,
+      (f): f is DgraphQueryField => isObject(f) && f.name == name,
     )
   }
 
@@ -50,11 +51,11 @@ export class DgraphQueryBuilder implements IQueryBuilder {
 
   /** Sets the func to a new value */
   setFunc(func: string | IDgraphQueryFilter | Array<IDgraphQueryFilter>) {
-    if (typeof func === 'string') {
+    if (isString(func)) {
       return this.setFilterFuncString(func)
     }
 
-    if (Array.isArray(func)) {
+    if (isArray(func)) {
       return this.setFiltersFunc(func)
     }
 
@@ -95,7 +96,7 @@ export class DgraphQueryBuilder implements IQueryBuilder {
 
   addFilterDirective(filter: string | DgraphFilter | IBuildable) {
     this._directive.push(
-      `@filter(${typeof filter === 'string' ? filter : filter.build()})`,
+      `@filter(${isString(filter) ? filter : filter.build()})`,
     )
 
     return this
@@ -135,7 +136,7 @@ export class DgraphQueryBuilder implements IQueryBuilder {
   /** Appends fields to the current field selection */
   addFields(...fields: Array<DgraphQueryField | string>) {
     for (const f of fields) {
-      if (typeof f === 'object') {
+      if (isObject(f)) {
         f.compile()
       }
     }
@@ -180,7 +181,7 @@ export class DgraphQueryBuilder implements IQueryBuilder {
     }
 
     const fieldsSet = new Set(
-      this._fields.map((f) => (typeof f === 'string' ? f : f.name)),
+      this._fields.map((f) => (isString(f) ? f : f.name)),
     )
 
     // Check if there are duplicate fields, otherwise it's very hard to track down the error dgraph gives you if there are duplicate fields

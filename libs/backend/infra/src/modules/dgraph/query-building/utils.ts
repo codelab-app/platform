@@ -1,3 +1,4 @@
+import { isString } from 'lodash'
 import { IBuildable } from './i-query-builder'
 
 export interface CompileMultipleOptions {
@@ -22,8 +23,9 @@ export const compileMultiple = (
   let compilation = ''
 
   for (const buildable of buildables) {
-    const addition =
-      typeof buildable === 'string' ? buildable + ' ' : buildable.build() + ' '
+    const addition = isString(buildable)
+      ? buildable + ' '
+      : buildable.build() + ' '
 
     compilation = options?.multiline
       ? `

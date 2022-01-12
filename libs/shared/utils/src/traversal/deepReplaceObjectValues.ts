@@ -1,4 +1,5 @@
 import { MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { isObjectLike } from 'lodash'
 
 export const deepReplaceObjectValues = <
   TIn extends MaybeOrNullable<Record<string, any> | Array<any>>,
@@ -24,7 +25,7 @@ export const deepReplaceObjectValues = <
   for (const [key, value] of entries) {
     let newValue
 
-    if (typeof value === 'object') {
+    if (isObjectLike(value)) {
       newValue = deepReplaceObjectValues(value, fn)
     } else {
       newValue = fn(value, key, obj)

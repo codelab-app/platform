@@ -12,6 +12,7 @@ import {
   Kind,
   visit,
 } from 'graphql'
+import { isString } from 'lodash'
 import { extname } from 'path'
 import { RTKQueryRawPluginConfig } from './config'
 import { RTKQueryVisitor } from './visitor'
@@ -45,7 +46,7 @@ export const plugin: PluginFunction<
 
   const requiredSegment = [
     visitor.fragments,
-    ...visitorResult.definitions.filter((t: any) => typeof t === 'string'),
+    ...visitorResult.definitions.filter((t: any) => isString(t)),
   ].join('\n')
 
   const injectedEndpoints = visitor.getInjectCall()

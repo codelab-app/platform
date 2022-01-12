@@ -16,6 +16,7 @@ import {
 } from '@codelab/shared/utils'
 import { Injectable, Logger } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { isString } from 'lodash'
 import { ElementValidator } from '../../../application/element.validator'
 import { GetElementGraphRequest } from './get-element-graph.request'
 
@@ -141,7 +142,7 @@ export class GetElementGraphService extends DgraphUseCase<
       // And way faster, since we don't need to fetch the whole type tree
 
       deepLoopObjectValues(props, (value) => {
-        if (typeof value === 'string' && hexadecimalRegex.test(value)) {
+        if (isString(value) && hexadecimalRegex.test(value)) {
           ids.add(value)
         }
       })
@@ -175,7 +176,7 @@ export class GetElementGraphService extends DgraphUseCase<
       ${extraQuery ?? ''}
 
       var(func: type(${DgraphEntityType.Element}))
-        @filter(uid(${typeof id === 'string' ? id : id.join(',')}))
+        @filter(uid(${isString(id) ? id : id.join(',')}))
         @recurse
         @normalize {
           IDS AS uid

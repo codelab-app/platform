@@ -8,6 +8,7 @@ import { TypeId, TypeKind } from '@codelab/shared/abstract/core'
 import { Entity } from '@codelab/shared/abstract/types'
 import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
+import { isString } from 'lodash'
 import { RecursiveTypeError } from '../application/errors'
 import { TypeUnusedError } from '../application/errors/type-unused.error'
 import { CreateTypeInput } from '../use-cases/type/create-type'
@@ -70,7 +71,7 @@ export class TypeValidator {
    * @param typeOrTypeId the type id or the result of {@link typeExists}
    */
   async typeIsNotApiOfAtom(typeOrTypeId: string | QueryResult) {
-    if (typeof typeOrTypeId === 'string') {
+    if (isString(typeOrTypeId)) {
       typeOrTypeId = await this.typeExists(typeOrTypeId)
     }
 
@@ -84,7 +85,7 @@ export class TypeValidator {
    * @param typeOrTypeId the type id or the result of {@link typeExists}
    */
   async typeIsNotReferencedInFields(typeOrTypeId: string | QueryResult) {
-    if (typeof typeOrTypeId === 'string') {
+    if (isString(typeOrTypeId)) {
       typeOrTypeId = await this.typeExists(typeOrTypeId)
     }
 

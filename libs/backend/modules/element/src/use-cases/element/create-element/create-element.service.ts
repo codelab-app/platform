@@ -7,6 +7,7 @@ import { AtomsWhereInput, GetAtomsService } from '@codelab/backend/modules/atom'
 import { AtomType, IAtom } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
+import { isNumber } from 'lodash'
 import { ElementValidator } from '../../../application/element.validator'
 import { GetLastOrderChildService } from '../get-last-order-child'
 import {
@@ -103,7 +104,7 @@ export class CreateElementService extends DgraphCreateUseCase<CreateElementReque
         elementId: parentElementId,
       })
 
-      if (lastOrderChild && typeof lastOrderChild.order === 'number') {
+      if (lastOrderChild && isNumber(lastOrderChild.order)) {
         return lastOrderChild.order + 1
       }
     }
