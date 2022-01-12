@@ -81,7 +81,7 @@ executors:
   docker-node:
     <<: *executor-config
     docker:
-      - image: cimg/node:14.17.0-browsers
+      - image: cimg/node:14.18.0-browsers
     resource_class: large
   cypress-node:
     <<: *executor-config
@@ -106,10 +106,10 @@ commands:
           command: |
             # Set path before install, otherwise paths will be different in the executors
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
+            source $BASH_ENV
+
             echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-
-            source $BASH_ENV
 
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
       - run:
@@ -136,8 +136,8 @@ commands:
       - run:
           name: 'Set node version'
           command: |
-            nvm install 14.17.0
-            nvm alias default 14.17.0
+            nvm install 14.18.0
+            nvm alias default 14.18.0
             node -v
 
   package-install-dev:
