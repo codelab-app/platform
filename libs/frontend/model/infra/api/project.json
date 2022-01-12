@@ -1,0 +1,25 @@
+{
+  "root": "libs/frontend/model/infra/api",
+  "sourceRoot": "libs/frontend/model/infra/api/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/model/infra/api/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/frontend/model/infra/api"],
+      "options": {
+        "jestConfig": "libs/frontend/model/infra/api/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:frontend"]
+}

@@ -1,0 +1,15 @@
+{
+  "root": "libs/backend/shared/nestjs",
+  "sourceRoot": "libs/backend/shared/nestjs/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/shared/nestjs/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:backend", "scope:shared"]
+}

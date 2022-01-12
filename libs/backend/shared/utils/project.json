@@ -1,0 +1,20 @@
+{
+  "root": "libs/backend/shared/utils",
+  "sourceRoot": "libs/backend/shared/utils/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/backend/shared/utils/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/backend/shared/utils/.eslintrc.ci.json"
+        }
+      }
+    }
+  },
+  "tags": ["scope:shared", "scope:backend"]
+}

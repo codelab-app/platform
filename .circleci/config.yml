@@ -81,7 +81,7 @@ executors:
   docker-node:
     <<: *executor-config
     docker:
-      - image: cimg/node:14.16.0-browsers
+      - image: cimg/node:14.18-browsers
     resource_class: large
   cypress-node:
     <<: *executor-config
@@ -107,9 +107,17 @@ commands:
             # Set path before install, otherwise paths will be different in the executors
             echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
             source $BASH_ENV
+
             echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+      - run:
+          name: 'Set node version'
+          command: |
+            nvm install 14.18.0
+            nvm alias default 14.18.0
+            node -v
       - run:
           name: 'Install Bower'
           command: |
@@ -131,12 +139,6 @@ commands:
 
             # finally import bash env
             source $BASH_ENV
-      - run:
-          name: 'Set node version'
-          command: |
-            nvm install 14.16.0
-            nvm alias default 14.16.0
-            node -v
 
   package-install-dev:
     steps:
@@ -315,7 +317,17 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run: echo 'export TEST_ENV="unit"' >> $BASH_ENV
+      # - run: echo 'export TEST_ENV="unit"' >> $BASH_ENV
+      # - run:
+      #     name: 'Unit Specs'
+      #     command: |
+      #       npx nx run-many \
+      #         --testPathPattern=[^i].spec.ts \
+      #         --target=test \
+      #         --all \
+      #         --parallel \
+      #         --verbose \
+      #         --color
       - run: make unit-ci
       - notify-failure
 

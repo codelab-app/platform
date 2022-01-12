@@ -20,8 +20,8 @@ terraform-lint:
 build-dev-affected:
 	 ./scripts/nx.sh affected:build \
 		--configuration test \
-		--parallel \
-		--verbose \
+		--parallel
+#		--verbose \
 
 build-ci:
 	npx nx run-many \
@@ -61,14 +61,14 @@ e2e-ci-affected:
 #
 integration-dev-affected:
 	nx affected:test \
-		--testPathPattern=i.spec.ts \
+		--testPathPattern="i.spec.ts" \
 		--memoryLimit=4096 \
 		--runInBand
 
 integration-ci:
 	npx nx affected \
 		--target=test \
-		--testPathPattern=i.spec.ts \
+		--testPathPattern="i.spec.ts" \
 		--runInBand \
 		--verbose
 # --maxWorkers=8 \
@@ -88,15 +88,24 @@ test-dev-affected:
 #
 unit-dev-affected:
 	npx nx affected:test \
-		--testPathPattern=[^i].spec.ts \
+		--testPathPattern="[^i].spec.ts" \
 		--silent \
 		--memoryLimit=4096 \
 		--parallel \
 		--color
 
 unit-ci:
+	npx nx affected:test \
+		--testPathPattern="[^i].spec.ts" \
+		--target=test \
+		--parallel \
+		--verbose \
+		--color
+
+unit-debug:
 	npx nx run-many \
-		--testPathPattern=[^i].spec.ts \
+		--skip-nx-cache \
+		--testPathPattern="[^i].spec.ts" \
 		--target=test \
 		--all \
 		--parallel \

@@ -153,7 +153,7 @@ export const LibraryExplorerTree = () => {
             checkedKeys as CheckedKeys
 
           setCheckedComponentIds([
-            ..._checkedComponentIds?.map((id) => id.toString()),
+            ...(_checkedComponentIds?.map((id) => id.toString()) ?? []),
           ])
         }}
         draggable

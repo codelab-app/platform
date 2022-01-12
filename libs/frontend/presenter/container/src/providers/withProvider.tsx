@@ -4,7 +4,7 @@ import React from 'react'
  * Curry with a custom provider, intended to wrap around a Template component
  */
 export const withProvider =
-  <P extends any = any>(ProviderComponent: React.ComponentType<any>) =>
+  <P,>(ProviderComponent: React.ComponentType<any>) =>
   (Component: React.ComponentType<P>) => {
     return (props: P) => {
       return (

@@ -5,7 +5,7 @@ export interface DisplayIfFieldProps<T> {
   condition: (context: Context<T>) => boolean
 }
 
-export const DisplayIfField = <T extends any>({
+export const DisplayIfField = <T,>({
   condition,
   children,
 }: React.PropsWithChildren<DisplayIfFieldProps<T>>) => {

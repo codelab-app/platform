@@ -3,9 +3,12 @@
 
 yarn codegen
 
+# We update dgraph schema once only here
+./scripts/dgraph/update-schema.js
+
 make build-dev-affected
 make test-dev-affected
 make e2e-dev-affected
 # make build-storybook
 
-./libs/tools/scripts/src/lint/git.sh
+./scripts/git.sh

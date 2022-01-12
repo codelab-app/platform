@@ -10,7 +10,7 @@ module.exports = {
   globalSetup: `${JEST_CONFIG_PATH}/globalSetup.js`,
   setupFilesAfterEnv: [
     '@testing-library/jest-dom',
-    `${JEST_CONFIG_PATH}/setupFilesAfterEnv.js`,
+    // `${JEST_CONFIG_PATH}/setupFilesAfterEnv.js`,
   ],
   testTimeout,
   /**

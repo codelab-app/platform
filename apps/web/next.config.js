@@ -1,9 +1,11 @@
 const withNx = require('@nrwl/next/plugins/with-nx')
-const withLess = require('@zeit/next-less')
+// const withLess = require('@nrwl/next/plugins/with-less')
+const withAntdLess = require('next-plugin-antd-less')
 const withSass = require('@zeit/next-sass')
 const withCSS = require('@zeit/next-css')
 const withPlugins = require('next-compose-plugins')
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
+const withLess = require('next-with-less')
 
 // const nodeExternals = require('webpack-node-externals')
 
@@ -32,12 +34,43 @@ module.exports = withPlugins(
         },
       },
     ],
-    withLess,
+    // [
+    //   withAntdLess,
+    //   {
+    //     modifyVars: { '@primary-color': '#04f' }, // optional
+    //     // lessVarsFilePath: './src/styles/antd-theme.less',
+    //     // lessVarsFilePathAppendToEndOfContent: false,
+    //     // lessLoaderOptions: {
+    //     //   javascriptEnabled: true,
+    //     // },
+    //   },
+    // ],
+    // [
+    //   withLess,
+    //   {
+    //     lessLoaderOptions: {},
+    //   },
+    // ],
     withBundleAnalyzer,
+    [
+      withNx,
+      {
+        /**
+         * Issue with importing ESM modules from node_modules
+         *
+         * Solution: https://github.com/vercel/next.js/issues/30330#issuecomment-952172377
+         *
+         * Cause: https://github.com/vercel/next.js/issues/30330#issuecomment-952847838
+         */
+        // experimental: {
+        //   esmExternals: false,
+        // },
+        cssModules: false,
+        webpack5: false,
+      },
+    ],
   ],
-  withNx({
-    cssModules: false,
-    webpack5: false,
+  {
     webpack(config, options) {
       // https://github.com/prettier/prettier/issues/4959#issuecomment-416834237
       config.plugins.push(
@@ -55,5 +88,5 @@ module.exports = withPlugins(
 
       return config
     },
-  }),
+  },
 )

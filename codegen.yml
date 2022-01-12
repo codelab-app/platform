@@ -66,7 +66,7 @@ generates:
       strictScalars: true
       defaultScalarType: unknown
       withRefetchFn: true
-      
+
   ./libs/frontend/:
     documents:
       - '**/*.{endpoints,fragment}.graphql'
@@ -76,6 +76,13 @@ generates:
       baseTypesPath: ~@codelab/frontend/abstract/codegen
     plugins:
       - typescript-operations
+      # rqk-query generates string gql only, which prevents fragments from getting resolved
+      # this custom packages wraps the generated query with gql
+      # gql`
+      #  mutation query {
+      #    ...App
+      #   }
+      #`
       - dist/libs/tools/rtk-query:
           importBaseApiFrom: '@codelab/frontend/model/infra/api'
           exportHooks: true

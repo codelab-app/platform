@@ -1,0 +1,22 @@
+{
+  "root": "libs/frontend/modules/lambda",
+  "sourceRoot": "libs/frontend/modules/lambda/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/modules/lambda/**/*.{ts,tsx,js,jsx}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/frontend/modules/lambda/.eslintrc.ci.json"
+        }
+      }
+    }
+  },
+  "tags": ["layer:domain:frontend", "scope:frontend"]
+}

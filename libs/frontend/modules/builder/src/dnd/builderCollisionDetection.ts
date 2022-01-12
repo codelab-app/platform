@@ -1,4 +1,4 @@
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { Maybe } from '@codelab/shared/abstract/types'
 import {
   closestCorners,
   CollisionDetection,
@@ -51,10 +51,7 @@ export const builderCollisionDetection: CollisionDetection = (props) => {
   )
 
   const builder = containersById[BuilderDropId.BuilderRoot]
-
-  const rectIntersectBuilder: Nullable<string> = builder
-    ? isRectIntersectingWith(builder)
-    : null
+  const rectIntersectBuilder = builder ? isRectIntersectingWith(builder) : null
 
   if (!rectIntersectBuilder) {
     // Remove all 'CreateElement' containers, i.e. rendered elements

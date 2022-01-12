@@ -2,7 +2,7 @@
 name: '🐞 Bug Report'
 about: Report Current Behavior that is believed to be unintentional or unexpected.
 labels: 'bug'
-projects: 'Dev, dev'
+projects: 'Dev'
 ---
 
 ## Current Behavior

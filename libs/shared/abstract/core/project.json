@@ -1,0 +1,28 @@
+{
+  "root": "libs/shared/abstract/core",
+  "sourceRoot": "libs/shared/abstract/core/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/shared/abstract/core/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/shared/abstract/core/.eslintrc.ci.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/abstract/core"],
+      "options": {
+        "jestConfig": "libs/shared/abstract/core/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:abstract"]
+}

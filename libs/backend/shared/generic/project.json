@@ -1,0 +1,28 @@
+{
+  "root": "libs/backend/shared/generic",
+  "sourceRoot": "libs/backend/shared/generic/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/backend/shared/generic/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/backend/shared/generic/.eslintrc.ci.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/backend/shared/generic"],
+      "options": {
+        "jestConfig": "libs/backend/shared/generic/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "scope:backend"]
+}

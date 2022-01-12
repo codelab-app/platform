@@ -1,7 +1,7 @@
 ---
 name: "\U0001F680 Feature Request"
 about: Request Behavior that does not currently exist in Codelab
-labels: 'type: feature'
+labels: 'feature'
 projects: 'Dev'
 ---
 

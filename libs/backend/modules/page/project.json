@@ -1,0 +1,28 @@
+{
+  "root": "libs/backend/modules/page",
+  "sourceRoot": "libs/backend/modules/page/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/backend/modules/page/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/backend/modules/page/.eslintrc.ci.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/backend/modules/page"],
+      "options": {
+        "jestConfig": "libs/backend/modules/page/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["layer:domain:backend", "scope:backend"]
+}

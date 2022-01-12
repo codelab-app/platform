@@ -1,0 +1,28 @@
+{
+  "root": "libs/shared/codegen/graphql",
+  "sourceRoot": "libs/shared/codegen/graphql/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/shared/codegen/graphql/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/shared/codegen/graphql/.eslintrc.ci.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/codegen/graphql"],
+      "options": {
+        "jestConfig": "libs/shared/codegen/graphql/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:abstract"]
+}

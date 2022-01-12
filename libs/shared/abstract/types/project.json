@@ -1,0 +1,20 @@
+{
+  "root": "libs/shared/abstract/types",
+  "sourceRoot": "libs/shared/abstract/types/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/shared/abstract/types/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/shared/abstract/types/.eslintrc.ci.json"
+        }
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:abstract"]
+}

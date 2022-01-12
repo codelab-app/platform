@@ -1,0 +1,66 @@
+{
+  "root": "libs/tools/plugins/codelab",
+  "sourceRoot": "libs/tools/plugins/codelab/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/tools/plugins/codelab/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/tools/plugins/codelab/.eslintrc.ci.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/tools/plugins/codelab"],
+      "options": {
+        "jestConfig": "libs/tools/plugins/codelab/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/tools/plugins/codelab",
+        "tsConfig": "libs/tools/plugins/codelab/tsconfig.lib.json",
+        "packageJson": "libs/tools/plugins/codelab/package.json",
+        "main": "libs/tools/plugins/codelab/src/index.ts",
+        "assets": [
+          "libs/tools/plugins/codelab/*.md",
+          {
+            "input": "./libs/tools/plugins/codelab/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/tools/plugins/codelab/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./libs/tools/plugins/codelab",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./libs/tools/plugins/codelab",
+            "glob": "executors.json",
+            "output": "."
+          },
+          {
+            "input": "./libs/tools/plugins/codelab",
+            "glob": "migrations.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  },
+  "tags": ["scope:publishable"]
+}

@@ -1,0 +1,22 @@
+{
+  "root": "libs/frontend/model/infra/apollo",
+  "sourceRoot": "libs/frontend/model/infra/apollo/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/model/infra/apollo/**/*.{ts,tsx,js,jsx}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "eslintConfig": "libs/frontend/model/infra/apollo/.eslintrc.ci.json"
+        }
+      }
+    }
+  },
+  "tags": ["layer:infra", "scope:frontend"]
+}
