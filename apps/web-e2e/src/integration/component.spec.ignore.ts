@@ -1,9 +1,14 @@
+import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
+
 const deleteAllComponents = () => {
   return new Promise((resolve, reject) => reject('not implemeneted'))
 }
 
 const getComponentGridItemByTestId = (id?: string) =>
-  cy.getByTestId('component-grid-item', id ? `[=${id}]` : undefined)
+  cy.getByTestId(
+    'component-grid-item',
+    id ? `[${DATA_COMPONENT_ID}=${id}]` : undefined,
+  )
 
 const getComponentGridItemByLabel = (label: string) =>
   cy.findByRole('tabpanel').findByText(label)
