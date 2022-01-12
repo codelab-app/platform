@@ -1,9 +1,9 @@
 import { z } from 'zod'
 import { AtomType } from '../atom'
-import { PropSchema } from '../prop/prop.interface'
+import { PropSchema } from '../prop'
 
 export const HookSchema = z.object({
-  id: z.string(),
+  id: z.string().default(''),
   type: z.nativeEnum(AtomType),
   config: PropSchema,
 })

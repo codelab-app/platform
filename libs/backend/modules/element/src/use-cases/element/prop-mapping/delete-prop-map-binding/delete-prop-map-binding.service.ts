@@ -1,74 +1,63 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
-import { DgraphEntity } from '@codelab/shared/abstract/types'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../../application/element.validator'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../../../../infrastructure/repositories/abstract/element-repository.interface'
 import { DeletePropMapBindingRequest } from './delete-prop-map-binding.request'
 
 @Injectable()
-export class DeletePropMapBindingService extends DgraphUseCase<DeletePropMapBindingRequest> {
+export class DeletePropMapBindingService
+  implements UseCasePort<DeletePropMapBindingRequest, void>
+{
   constructor(
-    dgraph: DgraphRepository,
+    @Inject(IElementRepositoryToken)
+    private readonly elementRepository: IElementRepository,
     private readonly elementValidator: ElementValidator,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(
-    request: DeletePropMapBindingRequest,
-    txn: Txn,
-  ) {
-    const mappings = await this.validate(request)
+  async execute(request: DeletePropMapBindingRequest) {
+    await this.validate(request)
 
-    const deleteElementEdges = mappings
-      .map(
-        (mapping) =>
-          ` <${mapping['~propMapBindings'][0].uid}> <propMapBindings> <${mapping.uid}> . `,
+    const {
+      input: { propMapBindingIds, elementId },
+      transaction,
+    } = request
+
+    const element = await this.elementRepository.getOne(elementId, transaction)
+
+    if (!element) {
+      // Should not happen, we check in .validate()
+      throw new Error('Element not found')
+    }
+
+    for (const propMapBindingId of propMapBindingIds) {
+      const pmb = element.propMapBindings.find((p) => p.id === propMapBindingId)
+
+      if (!pmb) {
+        throw new Error(
+          `Prop map binding ${propMapBindingId} not found in the element ${elementId}`,
+        )
+      }
+
+      await this.elementRepository.removePropMapBinding(
+        elementId,
+        pmb,
+        transaction,
       )
-      .join('\n')
-
-    await this.dgraph.deleteEntities(
-      txn,
-      request.input.propMapBindingIds,
-      deleteElementEdges,
-    )
+    }
   }
 
   protected async validate({
-    input: { propMapBindingIds },
+    input: { elementId },
     currentUser,
+    transaction,
   }: DeletePropMapBindingRequest) {
-    const ids = propMapBindingIds.join(',')
-
-    const propMappings = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getAllNamed<
-        {
-          '~propMapBindings': [DgraphEntity]
-        } & DgraphEntity
-      >(
-        txn,
-        `
-          {
-            query(func: uid(${ids})) @filter(eq(dgraph.type, "${DgraphEntityType.PropMapBinding}")) {
-              uid
-              ~propMapBindings {
-                uid
-              }
-            }
-          }
-    `,
-        'query',
-      ),
+    await this.elementValidator.existsAndIsOwnedBy(
+      elementId,
+      currentUser,
+      transaction,
     )
-
-    for (const propMapping of propMappings) {
-      await this.elementValidator.existsAndIsOwnedBy(
-        propMapping['~propMapBindings'][0].uid,
-        currentUser,
-      )
-    }
-
-    return propMappings
   }
 }

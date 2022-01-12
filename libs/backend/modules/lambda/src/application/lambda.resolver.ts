@@ -1,3 +1,4 @@
+import { Transactional } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import type { IUser } from '@codelab/shared/abstract/core'
@@ -35,6 +36,7 @@ export class LambdaResolver {
 
   @Mutation(() => Lambda)
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async createLambda(
     @Args('input') input: CreateLambdaInput,
     @CurrentUser() currentUser: IUser,
@@ -62,6 +64,7 @@ export class LambdaResolver {
 
   @Mutation(() => Lambda)
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async deleteLambda(@Args('input') input: DeleteLambdaInput) {
     const lambda = await this.getLambdaService.execute({
       lambdaId: input.lambdaId,
@@ -80,6 +83,7 @@ export class LambdaResolver {
 
   @Mutation(() => Lambda, { nullable: true })
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async updateLambda(@Args('input') input: UpdateLambdaInput) {
     await this.updateLambdaService.execute(input)
 
@@ -98,6 +102,7 @@ export class LambdaResolver {
 
   @Query(() => Lambda, { nullable: true })
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async getLambda(@Args('input') input: GetLambdaInput) {
     const lambda = await this.getLambdaService.execute(input)
 
@@ -118,7 +123,7 @@ export class LambdaResolver {
     }
 
     const results = await this.lambdaService.executeLambda(
-      lambda,
+      lambda as Lambda,
       JSON.parse(input.payload || '{}'),
     )
 

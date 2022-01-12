@@ -29,6 +29,11 @@ export const updateElementSchema: JSONSchemaType<UpdateElementSchema> = {
       nullable: true,
       label: 'Render for each',
     },
+    instanceOfComponentId: {
+      type: 'string',
+      nullable: true,
+      label: 'Component',
+    },
     css: {
       type: 'string',
       nullable: true,

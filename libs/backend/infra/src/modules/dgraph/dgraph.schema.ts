@@ -78,7 +78,7 @@ export const dgraphSchema = `
     component
     atom
     instanceOfComponent
-    componentFixedId
+    fixedId
     css
     hooks
     props
@@ -95,7 +95,7 @@ export const dgraphSchema = `
   atom: uid @reverse .
   props: uid .
   hooks: [uid] @reverse .
-  componentFixedId: string .
+  fixedId: string .
   css: string .
   renderForEachPropKey: string .
   renderIfPropKey: string .

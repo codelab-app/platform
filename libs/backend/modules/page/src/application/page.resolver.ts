@@ -1,11 +1,12 @@
-import { GqlAuthGuard } from '@codelab/backend/infra'
+import { Transaction, Transactional } from '@codelab/backend/application'
+import { GqlAuthGuard, ITransaction } from '@codelab/backend/infra'
 import {
   ElementGraph,
   GetElementGraphService,
 } from '@codelab/backend/modules/element'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import { IUser } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,
@@ -126,22 +127,25 @@ export class PageResolver {
     },
     nullable: true,
   })
+  @Transactional()
   async resolveElements(
     @Parent() page: Page,
     @CurrentUser() currentUser: IUser,
-  ): Promise<Nullable<ElementGraph>> {
+    @Transaction() transaction: ITransaction,
+  ): Promise<Maybe<ElementGraph>> {
     const dgraphPage = await this.getPageService.execute({
       input: { pageId: page.id },
       currentUser,
     })
 
     if (!dgraphPage) {
-      return null
+      return undefined
     }
 
     return this.getElementGraphService.execute({
       input: { where: { id: dgraphPage.rootElementId } },
       currentUser,
+      transaction,
     })
   }
 

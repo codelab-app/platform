@@ -20,7 +20,7 @@ export const DeletePropMapBindingModal = (
     formProps,
     state: { isLoading },
     reset,
-  } = useDeletePropMapBindingForm()
+  } = useDeletePropMapBindingForm(props.elementId)
 
   return (
     <FormUniformsModal

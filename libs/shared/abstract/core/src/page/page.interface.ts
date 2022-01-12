@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { ElementGraphSchema } from '../element'
 
 export const PageSchema = z.object({
-  id: z.string(),
+  id: z.string().default(''),
   name: z.string(),
   elements: z.optional(ElementGraphSchema),
   rootElementId: z.string(),

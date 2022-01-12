@@ -3,7 +3,7 @@ import { BaseTypeSchema } from '../type'
 import { AtomType } from './atom-type.enum'
 
 export const AtomSchema = z.object({
-  id: z.string(),
+  id: z.string().default(''),
   type: z.nativeEnum(AtomType),
   name: z.string(),
   api: BaseTypeSchema,

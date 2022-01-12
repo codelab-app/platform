@@ -1,73 +1,48 @@
-import { DgraphCreateUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphRepository,
-  DgraphUpdateMutationJson,
-} from '@codelab/backend/infra'
-import { CreatePropService } from '@codelab/backend/modules/prop'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { CreateResponse } from '@codelab/backend/application'
+import { HookSchema, IHook } from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../../application/element.validator'
-import { HookRef } from '../../create-element'
-import { AddHookToElementInput } from './add-hook-to-element.input'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../../../../infrastructure/repositories/abstract/element-repository.interface'
 import { AddHookToElementRequest } from './add-hook-to-element.request'
 
 @Injectable()
-export class AddHookToElementService extends DgraphCreateUseCase<AddHookToElementRequest> {
+export class AddHookToElementService
+  implements UseCasePort<AddHookToElementRequest, CreateResponse>
+{
   constructor(
-    dgraph: DgraphRepository,
+    @Inject(IElementRepositoryToken)
+    private readonly elementRepository: IElementRepository,
     private readonly elementValidator: ElementValidator,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(
-    request: AddHookToElementRequest,
-    txn: Txn,
-  ) {
+  async execute(request: AddHookToElementRequest) {
     await this.validate(request)
 
-    const { input } = request
+    const { input, transaction } = request
 
-    return await this.dgraph.create(
-      txn,
-      AddHookToElementService.createMutation(input),
-      'hook',
+    const hook = HookSchema.parse({
+      config: {
+        data: input.config,
+      },
+      type: input.type,
+    } as IHook)
+
+    return this.elementRepository.addHook(input.elementId, hook, transaction)
+  }
+
+  protected async validate({
+    input: { elementId },
+    currentUser,
+    transaction,
+  }: AddHookToElementRequest) {
+    await this.elementValidator.existsAndIsOwnedBy(
+      elementId,
+      currentUser,
+      transaction,
     )
-  }
-
-  public static createMutation(input: AddHookToElementInput): Mutation {
-    const setJson: DgraphUpdateMutationJson<any> = {
-      uid: input.elementId,
-      hooks: this.createHookMutation(input, '_:hook'),
-    }
-
-    return { setJson }
-  }
-
-  public static createHookMutation(
-    input: HookRef,
-    uid: Maybe<string>,
-  ): Record<string, any> {
-    const { config } = input
-
-    const propsMutation = CreatePropService.createPropsMutation(
-      config,
-      undefined,
-    )
-
-    return {
-      uid,
-      'dgraph.type': [DgraphEntityType.Hook],
-      hookType: input.type,
-      hookConfig: propsMutation,
-      tags: [],
-    }
-  }
-
-  protected async validate({ input, currentUser }: AddHookToElementRequest) {
-    const { elementId } = input
-    await this.elementValidator.existsAndIsOwnedBy(elementId, currentUser)
   }
 }

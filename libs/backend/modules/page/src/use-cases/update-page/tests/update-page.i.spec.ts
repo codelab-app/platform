@@ -25,7 +25,7 @@ describe('UpdatePage', () => {
 
     pageId = pageResult.id
 
-    updatePageInput = { pageId, updateData: { name: 'New name', appId } }
+    updatePageInput = { pageId, updateData: { name: 'New name' } }
   })
 
   describe('Guest', () => {

@@ -1,59 +1,36 @@
-import { DgraphUseCase } from '@codelab/backend/application'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import {
-  DgraphEntityType,
-  DgraphFilters,
-  DgraphQueryBuilder,
-  DgraphQueryField,
-} from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../../../../infrastructure/repositories/abstract/element-repository.interface'
 import { RemoveHookFromElementRequest } from './remove-hook-from-element.request'
 
 @Injectable()
-export class RemoveHookFromElementService extends DgraphUseCase<RemoveHookFromElementRequest> {
-  protected async executeTransaction(
-    request: RemoveHookFromElementRequest,
-    txn: Txn,
-  ) {
-    await this.validate(request)
+export class RemoveHookFromElementService
+  implements UseCasePort<RemoveHookFromElementRequest, void>
+{
+  constructor(
+    @Inject(IElementRepositoryToken)
+    private readonly elementRepository: IElementRepository,
+  ) {}
 
-    const { elementId, hookId } = request.input
-    await this.dgraph.deleteEntity(
-      txn,
-      hookId,
-      `<${elementId}> <hooks> <${hookId}> .`,
-    )
-  }
+  async execute({
+    input: { hookId, elementId },
+    transaction,
+  }: RemoveHookFromElementRequest) {
+    const element = await this.elementRepository.getOne(elementId, transaction)
 
-  protected async validate(request: RemoveHookFromElementRequest) {
-    const { elementId, hookId } = request.input
-
-    const elementWithHook = await this.dgraph.transactionWrapper((txn) => {
-      return this.dgraph.getOneOrThrow<{
-        hooks: Array<Pick<any, 'uid'>>
-      }>(
-        txn,
-        new DgraphQueryBuilder()
-          .addTypeFilterDirective(DgraphEntityType.Element)
-          .setUidFunc(elementId)
-          .addFields(
-            new DgraphQueryField('hooks')
-              .addFilter(
-                DgraphFilters.Uid(hookId).and(
-                  DgraphFilters.Type(DgraphEntityType.Hook),
-                ),
-              )
-              .addBaseInnerFields(),
-          ),
-        () => new Error('Element not found'),
-      )
-    })
-
-    if (
-      elementWithHook.hooks.length === 0 ||
-      elementWithHook.hooks[0].uid !== hookId
-    ) {
-      throw new Error('Invalid hook id')
+    if (!element) {
+      throw new Error('Element not found')
     }
+
+    const hook = element.hooks.find(({ id }) => id === hookId)
+
+    if (!hook) {
+      throw new Error('Hook not found or not attached to the element')
+    }
+
+    await this.elementRepository.removeHook(elementId, hook, transaction)
   }
 }

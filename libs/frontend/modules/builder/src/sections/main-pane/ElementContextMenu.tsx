@@ -2,20 +2,17 @@ import { IElement } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/model/store/router'
 import {
   useConvertElementToComponentMutation,
-  useCreateElementMutation,
+  useDuplicateElementMutation,
   useElementDispatch,
 } from '@codelab/frontend/modules/element'
 import { Key } from '@codelab/frontend/view/components'
-import { ElementTree } from '@codelab/shared/core'
 import { Menu } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
 import tw from 'twin.macro'
-import { duplicateElementInput } from '../../utils/duplicateElementInput'
 
 export interface ElementContextMenuProps {
   element: IElement
-  tree: ElementTree
   onClick?: () => any
   onBlur?: () => any
 }
@@ -25,12 +22,11 @@ export interface ElementContextMenuProps {
  */
 export const ElementContextMenu = ({
   element,
-  tree,
   onClick,
   onBlur,
 }: ElementContextMenuProps) => {
-  const [createElement] = useCreateElementMutation()
   const [convertToComponent] = useConvertElementToComponentMutation()
+  const [duplicateElement] = useDuplicateElementMutation()
   const { openCreateModal, openDeleteModal } = useElementDispatch()
   const onAddChild = () => openCreateModal({ parentElementId: element.id })
   const { push } = useRouter()
@@ -41,13 +37,8 @@ export const ElementContextMenu = ({
       entity: element,
     })
 
-  const onDuplicate = () => {
-    return createElement({
-      variables: {
-        input: duplicateElementInput(element, tree),
-      },
-    })
-  }
+  const onDuplicate = () =>
+    duplicateElement({ variables: { input: { elementId: element.id } } })
 
   const onConvert = () => {
     return convertToComponent({

@@ -6,7 +6,7 @@ import {
 } from '../../../hooks'
 import { useDeletePropMapBindingMutation } from '../../../store'
 
-export const useDeletePropMapBindingForm = () => {
+export const useDeletePropMapBindingForm = (elementId: string) => {
   const { deleteIds } = usePropMapBindingState()
   const { resetModal } = usePropMapBindingDispatch()
 
@@ -21,7 +21,7 @@ export const useDeletePropMapBindingForm = () => {
   const handleSubmit = useCallback(() => {
     return mutate({
       variables: {
-        input: { propMapBindingIds: deleteIds },
+        input: { elementId, propMapBindingIds: deleteIds },
       },
     }).unwrap()
   }, [mutate, deleteIds])

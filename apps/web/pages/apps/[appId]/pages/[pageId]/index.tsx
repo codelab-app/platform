@@ -21,7 +21,7 @@ const PageRenderer: CodelabPage<DashboardTemplateProps> = () => {
   const { currentPage } = usePageState()
   const { elementTree } = useElementGraphContext()
 
-  if (!elementTree || !currentPage) {
+  if (!currentPage || !elementTree) {
     return <Empty />
   }
 

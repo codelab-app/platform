@@ -7,7 +7,7 @@ import { updatePageSchema } from './updatePageSchema'
 export const UpdatePageForm = (props: UpdatePageFormProps) => {
   return (
     <FormUniforms<UpdatePageMutationInput> schema={updatePageSchema} {...props}>
-      <AutoFields omitFields={['appId']} />
+      <AutoFields />
     </FormUniforms>
   )
 }

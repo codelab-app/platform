@@ -3,12 +3,18 @@ fragment TestElement on Element {
   id
   name
   css
+  fixedId
+  instanceOfComponent {
+    id
+  }
+  parentElement {
+    id
+  }
   atom {
     ...AtomBase
   }
   componentTag {
-    id
-    name
+    ...TestTag
   }
   props {
     ...Prop

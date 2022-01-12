@@ -1,8 +1,11 @@
-import type { IUser } from '@codelab/shared/abstract/core'
+import {
+  WithCurrentUserRequest,
+  WithTransactionRequest,
+} from '@codelab/backend/abstract/core'
 import { UpdatePropMapBindingInput } from './update-prop-map-binding.input'
 
-export class UpdatePropMapBindingRequest {
-  declare currentUser: IUser
-
-  declare input: UpdatePropMapBindingInput
+export interface UpdatePropMapBindingRequest
+  extends WithCurrentUserRequest,
+    WithTransactionRequest {
+  input: UpdatePropMapBindingInput
 }

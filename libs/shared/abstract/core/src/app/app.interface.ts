@@ -9,7 +9,7 @@ import { PageSchema } from '../page'
 // }
 
 export const AppSchema = z.object({
-  id: z.string(),
+  id: z.string().default(''),
   ownerId: z.string(),
   name: z.string(),
   pages: z.array(PageSchema).default([]),

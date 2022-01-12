@@ -1,5 +1,5 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { DgraphEntityType } from '@codelab/backend/infra'
 import { GetElementGraphService } from '@codelab/backend/modules/element'
 import {
   ExportAppSchema,
@@ -7,27 +7,22 @@ import {
   IPage,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
+import { Txn } from 'dgraph-js-http'
 import { AppValidator } from '../../domain/app.validator'
 import { GetAppService } from '../get-app'
 import { ExportAppRequest } from './export-app.request'
 
 @Injectable()
-export class ExportAppService extends DgraphUseCase<
-  ExportAppRequest,
-  IExportApp
-> {
+export class ExportAppService
+  implements UseCasePort<ExportAppRequest, IExportApp>
+{
   constructor(
-    dgraph: DgraphRepository,
     protected appValidator: AppValidator,
     protected getAppService: GetAppService,
     private getElementGraphService: GetElementGraphService,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(
-    req: ExportAppRequest,
-  ): Promise<IExportApp> {
+  async execute(req: ExportAppRequest): Promise<IExportApp> {
     await this.validate(req)
 
     const {
@@ -35,7 +30,7 @@ export class ExportAppService extends DgraphUseCase<
       currentUser,
     } = req
 
-    const app = await this.getAppForExport(appId)
+    const app = await this.getAppForExport(appId, req.transaction)
 
     if (!app.pages) {
       app.pages = []
@@ -49,6 +44,7 @@ export class ExportAppService extends DgraphUseCase<
         elements: await this.getElementGraphService.execute({
           currentUser,
           input: { where: { id: page.root.id } },
+          transaction: req.transaction,
         }),
       })),
     )
@@ -56,19 +52,21 @@ export class ExportAppService extends DgraphUseCase<
     return ExportAppSchema.parse({ id: app.id, name: app.name, pages })
   }
 
-  protected getAppForExport(appId: string) {
-    return this.dgraph.transactionWrapper<any>((txn) =>
-      this.dgraph.getOneOrThrowNamed(
-        txn,
-        `{
+  protected async getAppForExport(appId: string, txn: Txn) {
+    const query = `{
                   q(func: uid(${appId})) @filter(type(${DgraphEntityType.App})) @recurse {
                     id: uid
                     expand(App, Page)
                   }
-               }`,
-        'q',
-      ),
-    )
+               }`
+
+    const data = ((await txn.query(query)).data as any)['q'][0]
+
+    if (!data) {
+      new Error('Not found')
+    }
+
+    return data
   }
 
   protected validate(request: ExportAppRequest) {

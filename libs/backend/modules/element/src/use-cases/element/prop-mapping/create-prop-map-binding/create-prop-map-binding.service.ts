@@ -1,84 +1,60 @@
-import { DgraphCreateUseCase } from '@codelab/backend/application'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { CreateResponse } from '@codelab/backend/application'
 import {
-  DgraphEntityType,
-  DgraphRepository,
-  DgraphUpdateMutationJson,
-} from '@codelab/backend/infra'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+  IPropMapBinding,
+  PropMapBindingSchema,
+} from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../../application/element.validator'
-import { CreatePropMapBindingInput } from './create-prop-map-binding.input'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../../../../infrastructure/repositories/abstract/element-repository.interface'
 import { CreatePropMapBindingRequest } from './create-prop-map-binding.request'
 
 @Injectable()
-export class CreatePropMapBindingService extends DgraphCreateUseCase<CreatePropMapBindingRequest> {
+export class CreatePropMapBindingService
+  implements UseCasePort<CreatePropMapBindingRequest, CreateResponse>
+{
   constructor(
-    dgraph: DgraphRepository,
+    @Inject(IElementRepositoryToken)
+    private readonly elementRepository: IElementRepository,
     private readonly elementValidator: ElementValidator,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(
-    request: CreatePropMapBindingRequest,
-    txn: Txn,
-  ) {
+  async execute(request: CreatePropMapBindingRequest) {
     await this.validate(request)
 
-    return this.dgraph.create(
-      txn,
-      CreatePropMapBindingService.createMutation(request.input),
-      'binding',
-    )
-  }
+    const {
+      input: { targetElementId, elementId, targetKey, sourceKey },
+      transaction,
+    } = request
 
-  public static createMutation({
-    elementId,
-    ...input
-  }: CreatePropMapBindingInput): Mutation {
-    const setJson: DgraphUpdateMutationJson<any> = {
-      uid: elementId,
-      propMapBindings: CreatePropMapBindingService.createPropMapBindingMutation(
-        input,
-        '_:binding',
-      ),
-    }
-
-    return { setJson }
-  }
-
-  public static createPropMapBindingMutation(
-    {
+    const pmb = PropMapBindingSchema.parse({
       targetElementId,
       targetKey,
       sourceKey,
-    }: Omit<CreatePropMapBindingInput, 'elementId'>,
-    uid: Maybe<string>,
-  ) {
-    return {
-      uid,
-      targetElement: targetElementId
-        ? {
-            uid: targetElementId,
-          }
-        : null,
-      targetKey,
-      sourceKey,
-      'dgraph.type': [DgraphEntityType.PropMapBinding],
-    }
+    } as IPropMapBinding)
+
+    return this.elementRepository.addPropMapBinding(elementId, pmb, transaction)
   }
 
   protected async validate({
     input: { elementId, targetElementId },
     currentUser,
+    transaction,
   }: CreatePropMapBindingRequest) {
-    await this.elementValidator.existsAndIsOwnedBy(elementId, currentUser)
+    await this.elementValidator.existsAndIsOwnedBy(
+      elementId,
+      currentUser,
+      transaction,
+    )
 
     if (targetElementId) {
       await this.elementValidator.existsAndIsOwnedBy(
         targetElementId,
         currentUser,
+        transaction,
       )
     }
   }

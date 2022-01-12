@@ -1,14 +1,14 @@
-import { Role } from '@codelab/shared/abstract/core'
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { IUser, Role } from '@codelab/shared/abstract/core'
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
 
 registerEnumType(Role, { name: 'Role' })
 
 @ObjectType()
-export class User {
+export class User implements IUser {
   // We can type and query app metadata if we need it too
   // app_metadata: AppMetadata
 
-  @Field()
+  @Field(() => ID)
   declare id: string
 
   @Field()

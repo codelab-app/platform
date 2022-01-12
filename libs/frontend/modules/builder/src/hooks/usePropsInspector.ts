@@ -37,15 +37,11 @@ export const usePropsInspector = (elementId: string) => {
       return
     }
 
-    const propsId = element?.props.id as string
-
     try {
       await mutate({
         variables: {
           input: {
             elementId,
-            // TODO: find out where to get the id
-            propsId,
             data: JSON.stringify(JSON.parse(persistedProps)),
           },
         },

@@ -28,7 +28,7 @@ export const QueryConfigHookConfigSchema = z.object({
 //   .and(
 //     z
 //       .object({
-//         lambdaId: z.string(),
+//         lambdaid: z.string().nullish(),
 //       })
 //       .or(
 //         z.object({

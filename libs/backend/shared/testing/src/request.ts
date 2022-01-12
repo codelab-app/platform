@@ -23,7 +23,7 @@ export const graphqlRequest = <TOperationVariables>(
         variables,
       })
       // This helps us log error
-      .expect((res) => {
+      .expect((res: any) => {
         if (res.status != 200) {
           console.error(JSON.stringify(res.body, null, 2))
         }
@@ -71,7 +71,7 @@ export const domainRequest = async <TInput, TResults = void>(
 
       return res.body.data
     })
-    .catch((e) => {
+    .catch((e: any) => {
       console.error(e)
     })
 

@@ -119,7 +119,7 @@ export const Builder = ({
       const componentId = element.dataset?.componentId
 
       if (nodeId && !componentId) {
-        setSelectedElement(tree.getVertex(nodeId, ElementTree.isElement)?.id)
+        setSelectedElement(nodeId)
         e.stopPropagation()
       } else if (element.parentElement && element.id !== 'Builder') {
         // Unless we've reached the top element, or if the next parent is the Builder container, visit the parent

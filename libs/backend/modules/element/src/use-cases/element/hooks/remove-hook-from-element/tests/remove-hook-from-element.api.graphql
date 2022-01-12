@@ -1,3 +1,5 @@
 mutation TestRemoveHookFromElement($input: RemoveHookFromElementInput!) {
-  removeHookFromElement(input: $input)
+  removeHookFromElement(input: $input) {
+    ...Hook
+  }
 }

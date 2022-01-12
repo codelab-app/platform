@@ -6,7 +6,7 @@ fragment Element on Element {
   instanceOfComponent {
     id
   }
-  componentFixedId
+  fixedId
   atom {
     ...AtomBase
   }

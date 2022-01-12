@@ -6,8 +6,5 @@ export class UpdateElementPropsInput {
   declare data: string
 
   @Field()
-  declare propsId: string
-
-  @Field()
   declare elementId: string
 }

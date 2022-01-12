@@ -1,5 +1,6 @@
+import { WithTransactionRequest } from '@codelab/backend/abstract/core'
 import { UpdatePropInput } from './update-prop.input'
 
-export class UpdatePropRequest {
-  declare input: UpdatePropInput
+export interface UpdatePropRequest extends WithTransactionRequest {
+  input: UpdatePropInput
 }

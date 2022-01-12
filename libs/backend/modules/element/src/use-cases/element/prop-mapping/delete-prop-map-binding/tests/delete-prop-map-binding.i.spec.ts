@@ -76,6 +76,7 @@ describe('DeletePropMapBindingUseCase', () => {
     propMapBindingId2 = createPropMapBinding2.id
 
     deletePropMapBindingInput = {
+      elementId,
       propMapBindingIds: [createPropMapBinding.id, createPropMapBinding2.id],
     }
   })

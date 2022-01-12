@@ -1,3 +1,4 @@
+import { AtomModule } from '@codelab/backend/modules/atom'
 import { ElementModule } from '@codelab/backend/modules/element'
 import { PageModule } from '@codelab/backend/modules/page'
 import { Module } from '@nestjs/common'
@@ -29,7 +30,7 @@ const services = [
 ]
 
 @Module({
-  imports: [ElementModule, PageModule],
+  imports: [ElementModule, PageModule, AtomModule],
   providers: [AppResolver, ...services],
   exports: [...services],
 })

@@ -1,8 +1,6 @@
-import type { IUser } from '@codelab/shared/abstract/core'
+import { WithTransactionRequest } from '@codelab/backend/abstract/core'
 import { CreatePropInput } from './create-prop.input'
 
-export class CreatePropRequest {
-  declare input: CreatePropInput
-
-  declare currentUser: IUser
+export interface CreatePropRequest extends WithTransactionRequest {
+  input: CreatePropInput
 }

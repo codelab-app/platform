@@ -1,65 +1,44 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository } from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../application/element.validator'
-import { GetElementParentService } from '../get-element-parent'
-import { MoveElementInput } from './move-element.input'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../../../infrastructure/repositories/abstract/element-repository.interface'
 import { MoveElementRequest } from './move-element.request'
 
 @Injectable()
-export class MoveElementService extends DgraphUseCase<MoveElementRequest> {
+export class MoveElementService
+  implements UseCasePort<MoveElementRequest, void>
+{
   constructor(
-    protected readonly dgraph: DgraphRepository,
-    private getElementParentService: GetElementParentService,
+    @Inject(IElementRepositoryToken)
+    private readonly elementRepository: IElementRepository,
     private elementValidator: ElementValidator,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(request: MoveElementRequest, txn: Txn) {
-    const { input } = request
+  async execute(request: MoveElementRequest): Promise<void> {
+    const {
+      input: { elementId, moveData },
+      transaction,
+    } = request
 
     await this.validate(request)
 
-    const existingParent = await this.getElementParentService.execute({
-      elementId: input.elementId,
-    })
+    const element = await this.elementRepository.getOne(elementId, transaction)
 
-    // Delete the old parent-child edge and create a new one
-    const mu: Mutation = {}
-
-    mu.setNquads = MoveElementService.createSetMutation(input)
-
-    if (
-      existingParent?.parentId &&
-      existingParent.parentId !== input.moveData.parentElementId
-    ) {
-      mu.deleteNquads = MoveElementService.createDeleteMutation(
-        input,
-        existingParent.parentId,
-      )
+    if (!element) {
+      throw new Error('Element not found')
     }
 
-    await this.dgraph.executeMutation(txn, mu)
-  }
+    element.parentElement = moveData.parentElementId
+      ? {
+          id: moveData.parentElementId,
+          order: moveData.order,
+        }
+      : undefined
 
-  private static createSetMutation({
-    elementId,
-    moveData: { parentElementId, order },
-  }: MoveElementInput) {
-    if (!parentElementId) {
-      return undefined
-    }
-
-    return `<${parentElementId}> <children> <${elementId}> (order=${order}) .`
-  }
-
-  private static createDeleteMutation(
-    { elementId }: MoveElementInput,
-    existingParentId: string,
-  ) {
-    return `<${existingParentId}> <children> <${elementId}> .`
+    await this.elementRepository.update(element, transaction)
   }
 
   protected async validate({
@@ -67,21 +46,27 @@ export class MoveElementService extends DgraphUseCase<MoveElementRequest> {
       moveData: { parentElementId },
       elementId,
     },
+    transaction,
     currentUser,
   }: MoveElementRequest) {
-    await this.elementValidator.existsAndIsOwnedBy(elementId, currentUser)
+    if (parentElementId === elementId) {
+      throw new Error("Can't move element within itself")
+    }
+
+    await this.elementValidator.existsAndIsOwnedBy(
+      elementId,
+      currentUser,
+      transaction,
+    )
 
     if (parentElementId) {
       await this.elementValidator.existsAndIsOwnedBy(
         parentElementId,
         currentUser,
+        transaction,
       )
     }
 
-    await this.elementValidator.isNotRoot(elementId)
-
-    if (parentElementId === elementId) {
-      throw new Error("Can't move element within itself")
-    }
+    await this.elementValidator.isNotRoot(elementId, transaction)
   }
 }

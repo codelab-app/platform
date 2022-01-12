@@ -1,6 +1,6 @@
 import { DgraphCreateUseCase } from '@codelab/backend/application'
 import { DgraphEntityType, jsonMutation } from '@codelab/backend/infra'
-import { isAdmin } from '@codelab/shared/core'
+import { isAdmin } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { CreateTagRequest } from './create-tag.request'

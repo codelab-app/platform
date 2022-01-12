@@ -11,9 +11,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": [
-    "**/*.ts",
-    "../../../frontend/modules/element/src/use-cases/hooks/hook-data.parser.ts"
-  ],
+  "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }

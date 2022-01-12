@@ -23,7 +23,7 @@ export const UpdatePropMapBindingModal = (
     state: { isLoading },
     reset,
     formProps,
-  } = useUpdatePropMapBindingForm()
+  } = useUpdatePropMapBindingForm(props.elementId)
 
   return (
     <FormUniformsModal

@@ -27,31 +27,20 @@ const addHook = (app: INestApplication, input: AddHookToElementInput) =>
 
 const verifyHookIsAdded = async (
   app: INestApplication,
-  hookId: string,
   type: AtomType,
   elementId: string,
   config: Maybe<string>,
 ) => {
-  expect(hookId).toBeDefined()
-
   const { getElement } = await domainRequest<
     GetElementInput,
     TestGetElementQuery
   >(app, TestGetElementGql, { where: { id: elementId } })
 
-  expect(
-    getElement?.hooks
-      .map((hook: any) => ({
-        id: hook.id,
-        type: hook.type,
-        config: hook.config.data,
-      }))
-      ?.find((h) => h.id === hookId),
-  ).toMatchObject({
-    id: hookId,
-    type,
-    config,
-  })
+  const foundHook = getElement?.hooks?.find(
+    (h) => h.type === type && h.config.data === config,
+  )
+
+  expect(foundHook).toBeTruthy()
 }
 
 describe('AddHookToElementUseCase', () => {
@@ -123,13 +112,10 @@ describe('AddHookToElementUseCase', () => {
 
   describe('User', () => {
     it('should add a query config Hook to an Element', async () => {
-      const {
-        addHookToElement: { id },
-      } = await addHook(elementTestModule.userApp, addQueryConfigHookInput)
+      await addHook(elementTestModule.userApp, addQueryConfigHookInput)
 
       await verifyHookIsAdded(
         elementTestModule.userApp,
-        id,
         AtomType.HookQueryConfig,
         addQueryConfigHookInput.elementId,
         addQueryConfigHookInput.config,
@@ -137,13 +123,10 @@ describe('AddHookToElementUseCase', () => {
     })
 
     it('should add a graphql query Hook to an Element', async () => {
-      const {
-        addHookToElement: { id },
-      } = await addHook(elementTestModule.userApp, addGraphqlQueryHookInput)
+      await addHook(elementTestModule.userApp, addGraphqlQueryHookInput)
 
       await verifyHookIsAdded(
         elementTestModule.userApp,
-        id,
         AtomType.HookGraphqlQuery,
         addGraphqlQueryHookInput.elementId,
         addGraphqlQueryHookInput.config,
@@ -151,13 +134,10 @@ describe('AddHookToElementUseCase', () => {
     })
 
     it('should add a graphql mutation Hook to an Element', async () => {
-      const {
-        addHookToElement: { id },
-      } = await addHook(elementTestModule.userApp, addGraphqlMutationHookInput)
+      await addHook(elementTestModule.userApp, addGraphqlMutationHookInput)
 
       await verifyHookIsAdded(
         elementTestModule.userApp,
-        id,
         AtomType.HookGraphqlMutation,
         addGraphqlMutationHookInput.elementId,
         addGraphqlMutationHookInput.config,
@@ -165,13 +145,10 @@ describe('AddHookToElementUseCase', () => {
     })
 
     it('should add a recoil state Hook to an Element', async () => {
-      const {
-        addHookToElement: { id },
-      } = await addHook(elementTestModule.userApp, addRecoilStateHookInput)
+      await addHook(elementTestModule.userApp, addRecoilStateHookInput)
 
       await verifyHookIsAdded(
         elementTestModule.userApp,
-        id,
         AtomType.HookRecoilState,
         addRecoilStateHookInput.elementId,
         addRecoilStateHookInput.config,

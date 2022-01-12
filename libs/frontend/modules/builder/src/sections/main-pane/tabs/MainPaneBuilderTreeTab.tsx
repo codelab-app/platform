@@ -81,7 +81,6 @@ const TreeItemTitle = ({
 
   const contextMenu = (
     <ElementContextMenu
-      tree={tree}
       onClick={() => setContextMenuNodeId(null)}
       element={node as any}
     />

@@ -1,9 +1,11 @@
-import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
-import type { IUser } from '@codelab/shared/abstract/core'
+import {
+  WithCurrentUserRequest,
+  WithTransactionRequest,
+} from '@codelab/backend/abstract/core'
 import { DeleteElementInput } from './delete-element.input'
 
-export class DeleteElementRequest implements WithCurrentUserRequest {
-  declare input: DeleteElementInput
-
-  declare currentUser: IUser
+export interface DeleteElementRequest
+  extends WithCurrentUserRequest,
+    WithTransactionRequest {
+  input: DeleteElementInput
 }

@@ -100,7 +100,7 @@ unit-ci:
 		--target=test \
 		--parallel \
 		--verbose \
-		--color
+		--color --detectOpenHandles
 
 unit-debug:
 	npx nx run-many \

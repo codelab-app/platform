@@ -10,15 +10,16 @@ import { ElementResolver } from './application/element.resolver'
 import { ElementValidator } from './application/element.validator'
 import { HookResolver } from './application/hook.resolver'
 import { PropMapBindingResolver } from './application/prop-map.binding.resolver'
-import { ComponentModule } from './component.module'
 import { PropMapBindingAdapter } from './domain/prop-mapping/prop-map-binding.adapter'
+import { ElementInfrastructureModule } from './infrastructure/modules/element-infrastructure.module'
 import { CreateComponentService } from './use-cases/component/create-component/create-component.service'
+import { GetComponentsService } from './use-cases/component/get-components'
 import { ConvertElementToComponentService } from './use-cases/element/convert-element-to-component'
 import { CreateElementService } from './use-cases/element/create-element'
 import { DeleteElementService } from './use-cases/element/delete-element'
+import { DuplicateElementService } from './use-cases/element/duplicate-element'
+import { GetElementService } from './use-cases/element/get-element/get-element.service'
 import { GetElementGraphService } from './use-cases/element/get-element-graph'
-import { GetElementParentService } from './use-cases/element/get-element-parent'
-import { GetLastOrderChildService } from './use-cases/element/get-last-order-child'
 import { AddHookToElementService } from './use-cases/element/hooks/add-hook-to-element'
 import { RemoveHookFromElementService } from './use-cases/element/hooks/remove-hook-from-element'
 import { MoveElementService } from './use-cases/element/move-element'
@@ -34,20 +35,15 @@ const services = [
    */
   CreateElementService,
   CreateComponentService,
+  GetComponentsService,
+  GetElementService,
   GetElementGraphService,
-  GetLastOrderChildService,
   DeleteElementService,
-  GetElementParentService,
+  DuplicateElementService,
   UpdateElementService,
   MoveElementService,
   UpdateElementPropsService,
   ConvertElementToComponentService,
-
-  /**
-   * Validators
-   */
-  ElementValidator,
-
   /**
    * Prop Map Bindings
    */
@@ -63,6 +59,11 @@ const services = [
   AddHookToElementService,
   RemoveHookFromElementService,
   HookResolver,
+
+  /**
+   * Validators
+   */
+  ElementValidator,
 ]
 
 @Module({
@@ -71,11 +72,17 @@ const services = [
     TypeModule,
     CytoscapeModule,
     TreeModule,
-    ComponentModule,
     HookModule,
     PropModule,
   ],
   providers: [...services, ElementResolver, ComponentResolver, Void],
   exports: [...services],
+})
+export class ElementCoreModule {}
+
+@Module({
+  imports: [ElementCoreModule, ElementInfrastructureModule],
+  providers: [],
+  exports: [ElementCoreModule, ElementInfrastructureModule],
 })
 export class ElementModule {}

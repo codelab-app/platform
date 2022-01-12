@@ -379,7 +379,7 @@ export enum AtomType {
   HtmlSup = 'HtmlSup',
 }
 
-export const hookTypes = [
+export const hookTypes = new Set([
   AtomType.HookGraphqlQuery,
   AtomType.HookGraphqlMutation,
   AtomType.HookQueryPage,
@@ -388,9 +388,10 @@ export const hookTypes = [
   AtomType.HookQueryConfig,
   AtomType.HookQueryLambda,
   AtomType.HookRouter,
-]
+])
 
 export const filterNotHookType = (atom: AtomType | string) =>
-  !hookTypes.includes(atom as AtomType)
+  !hookTypes.has(atom as AtomType)
+
 export const isAtomTypeForTest = (atom: AtomType) =>
   [AtomType.AntDesignButton, AtomType.AntDesignCard].includes(atom)

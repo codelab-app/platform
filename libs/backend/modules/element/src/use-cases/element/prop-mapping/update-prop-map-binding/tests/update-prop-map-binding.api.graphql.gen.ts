@@ -1,6 +1,8 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
+import { TestPropMapBindingFragment } from '../../../../../test/graphql/TestPropMapBinding.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import { TestPropMapBindingFragmentDoc } from '../../../../../test/graphql/TestPropMapBinding.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type TestUpdatePropMapBindingMutationVariables = Types.Exact<{
@@ -8,13 +10,16 @@ export type TestUpdatePropMapBindingMutationVariables = Types.Exact<{
 }>
 
 export type TestUpdatePropMapBindingMutation = {
-  updatePropMapBinding?: void | null | undefined
+  updatePropMapBinding?: TestPropMapBindingFragment | null | undefined
 }
 
 export const TestUpdatePropMapBindingGql = gql`
   mutation TestUpdatePropMapBinding($input: UpdatePropMapBindingInput!) {
-    updatePropMapBinding(input: $input)
+    updatePropMapBinding(input: $input) {
+      ...TestPropMapBinding
+    }
   }
+  ${TestPropMapBindingFragmentDoc}
 `
 export type TestUpdatePropMapBindingMutationFn = Apollo.MutationFunction<
   TestUpdatePropMapBindingMutation,

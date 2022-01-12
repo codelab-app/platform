@@ -25,6 +25,9 @@ export class UpdatePropMapBindingInput {
   @Field()
   declare propMapBindingId: string
 
+  @Field()
+  declare elementId: string
+
   @Field(() => UpdatePropMapBindingData)
   declare data: UpdatePropMapBindingData
 }

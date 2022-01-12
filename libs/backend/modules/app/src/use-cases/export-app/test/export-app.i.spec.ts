@@ -6,6 +6,7 @@ import {
   TestCreateElementGql,
   TestCreateElementMutation,
 } from '@codelab/backend/modules/element'
+import { testUserUid } from '@codelab/backend/shared/generic'
 import { domainRequest } from '@codelab/backend/shared/testing'
 import {
   ExportAppSchema,
@@ -33,34 +34,6 @@ describe('ExportApp', () => {
   let page1ComponentElementId: string
   let page2: Omit<IPage, 'elements'>
   let componentId: string
-
-  const createTestPage = () => {
-    return domainRequest<
-      TestCreatePageForAppExportMutationVariables['input'],
-      TestCreatePageForAppExportMutation
-    >(testModule.userApp, TestCreatePageForAppExportGql, {
-      appId: exportAppInput.appId,
-      name: 'Test page',
-    }).then((r) => r.createPage)
-  }
-
-  const createTestComponent = () => {
-    return domainRequest<CreateComponentInput, TestCreateComponentMutation>(
-      testModule.userApp,
-      TestCreateComponentGql,
-      {
-        name: 'Test component',
-      },
-    ).then((r) => r.createComponent)
-  }
-
-  const createTestElement = (input: CreateElementInput) => {
-    return domainRequest<CreateElementInput, TestCreateElementMutation>(
-      testModule.userApp,
-      TestCreateElementGql,
-      input,
-    ).then((r) => r.createElement)
-  }
 
   beforeAll(async () => {
     const app = await testModule.createTestApp({
@@ -94,7 +67,7 @@ describe('ExportApp', () => {
     const componentElement = await createTestElement({
       name: 'Component element',
       parentElementId: page1.rootElementId,
-      children: [{ elementId: component.id }],
+      instanceOfComponentId: component.id,
     })
 
     page1ComponentElementId = componentElement.id
@@ -150,14 +123,10 @@ describe('ExportApp', () => {
                   source: page1ParentElementId,
                   target: page1ChildElementId,
                 },
-                {
-                  order: 1,
-                  source: page1ComponentElementId,
-                  target: componentId,
-                },
               ],
               vertices: [
                 {
+                  fixedId: expect.any(String),
                   hooks: [],
                   id: page1.rootElementId,
                   name: 'Root element',
@@ -166,14 +135,20 @@ describe('ExportApp', () => {
                     data: '{}',
                     id: expect.stringContaining('0x'),
                   },
+                  owner: {
+                    id: testUserUid,
+                  },
                 },
                 {
-                  componentFixedId: expect.any(String),
+                  fixedId: expect.any(String),
                   componentTag: {
                     children: [],
                     id: expect.stringContaining('0x'),
                     isRoot: true,
                     name: 'Test component',
+                    owner: {
+                      id: testUserUid,
+                    },
                   },
                   hooks: [],
                   id: componentId,
@@ -183,8 +158,12 @@ describe('ExportApp', () => {
                     data: '{}',
                     id: expect.stringContaining('0x'),
                   },
+                  owner: {
+                    id: testUserUid,
+                  },
                 },
                 {
+                  fixedId: expect.any(String),
                   hooks: [],
                   id: page1ParentElementId,
                   name: 'Some element',
@@ -193,8 +172,16 @@ describe('ExportApp', () => {
                     data: '{}',
                     id: expect.stringContaining('0x'),
                   },
+                  owner: {
+                    id: testUserUid,
+                  },
+                  parentElement: {
+                    id: page1.rootElementId,
+                    order: 1,
+                  },
                 },
                 {
+                  fixedId: expect.any(String),
                   hooks: [],
                   id: page1ChildElementId,
                   name: 'Some child',
@@ -203,15 +190,33 @@ describe('ExportApp', () => {
                     data: '{}',
                     id: expect.stringContaining('0x'),
                   },
+                  owner: {
+                    id: testUserUid,
+                  },
+                  parentElement: {
+                    id: page1ParentElementId,
+                    order: 1,
+                  },
                 },
                 {
+                  fixedId: expect.any(String),
                   hooks: [],
                   id: page1ComponentElementId,
+                  instanceOfComponent: {
+                    id: componentId,
+                  },
                   name: 'Component element',
                   propMapBindings: [],
                   props: {
                     data: '{}',
                     id: expect.stringContaining('0x'),
+                  },
+                  owner: {
+                    id: testUserUid,
+                  },
+                  parentElement: {
+                    id: page1.rootElementId,
+                    order: 2,
                   },
                 },
               ],
@@ -225,6 +230,7 @@ describe('ExportApp', () => {
               edges: [],
               vertices: [
                 {
+                  fixedId: expect.any(String),
                   hooks: [],
                   id: expect.stringContaining('0x'),
                   name: 'Root element',
@@ -232,6 +238,9 @@ describe('ExportApp', () => {
                   props: {
                     data: '{}',
                     id: expect.stringContaining('0x'),
+                  },
+                  owner: {
+                    id: testUserUid,
                   },
                 },
               ],
@@ -241,4 +250,32 @@ describe('ExportApp', () => {
       })
     })
   })
+
+  const createTestPage = () => {
+    return domainRequest<
+      TestCreatePageForAppExportMutationVariables['input'],
+      TestCreatePageForAppExportMutation
+    >(testModule.userApp, TestCreatePageForAppExportGql, {
+      appId: exportAppInput.appId,
+      name: 'Test page',
+    }).then((r) => r.createPage)
+  }
+
+  const createTestComponent = () => {
+    return domainRequest<CreateComponentInput, TestCreateComponentMutation>(
+      testModule.userApp,
+      TestCreateComponentGql,
+      {
+        name: 'Test component',
+      },
+    ).then((r) => r.createComponent)
+  }
+
+  const createTestElement = (input: CreateElementInput) => {
+    return domainRequest<CreateElementInput, TestCreateElementMutation>(
+      testModule.userApp,
+      TestCreateElementGql,
+      input,
+    ).then((r) => r.createElement)
+  }
 })

@@ -1,98 +1,77 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphRepository,
-  DgraphUpdateMutationJson,
-} from '@codelab/backend/infra'
-import { DgraphEntity } from '@codelab/shared/abstract/types'
-import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../../application/element.validator'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../../../../infrastructure/repositories/abstract/element-repository.interface'
+import {
+  IPropMapBindingsRepository,
+  IPropMapBindingsRepositoryToken,
+} from '../../../../infrastructure/repositories/abstract/prop-map-binding-repository.interface'
 import { UpdatePropMapBindingRequest } from './update-prop-map-binding.request'
 
 @Injectable()
-export class UpdatePropMapBindingService extends DgraphUseCase<UpdatePropMapBindingRequest> {
+export class UpdatePropMapBindingService
+  implements UseCasePort<UpdatePropMapBindingRequest, void>
+{
   constructor(
-    dgraph: DgraphRepository,
+    @Inject(IElementRepositoryToken)
+    private readonly elementRepository: IElementRepository,
+    @Inject(IPropMapBindingsRepositoryToken)
+    private readonly pmbRepository: IPropMapBindingsRepository,
     private readonly elementValidator: ElementValidator,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(
-    request: UpdatePropMapBindingRequest,
-    txn: Txn,
-  ) {
+  async execute(request: UpdatePropMapBindingRequest) {
     await this.validate(request)
 
-    await this.dgraph.executeMutation(
-      txn,
-      UpdatePropMapBindingService.createMutation(request),
-    )
-  }
+    const {
+      input: { propMapBindingId, data, elementId },
+      transaction,
+    } = request
 
-  private static createMutation({
-    input: {
-      propMapBindingId,
-      data: { targetElementId, targetKey, sourceKey },
-    },
-  }: UpdatePropMapBindingRequest): Mutation {
-    const setJson: DgraphUpdateMutationJson<any> = {
-      uid: propMapBindingId,
-      targetElement: targetElementId
-        ? {
-            uid: targetElementId,
-          }
-        : null,
-      targetKey,
-      sourceKey,
+    const element = await this.elementRepository.getOne(elementId, transaction)
+
+    if (!element) {
+      // Should not happen, we check in .validate()
+      throw new Error('Element not found')
     }
 
-    return { setJson }
+    const pmb = element.propMapBindings.find((p) => p.id === propMapBindingId)
+
+    if (!pmb) {
+      throw new Error(
+        `Prop map binding ${propMapBindingId} not found in the element ${elementId}`,
+      )
+    }
+
+    pmb.targetElementId = data.targetElementId
+    pmb.targetKey = data.targetKey
+    pmb.sourceKey = data.sourceKey
+
+    await this.pmbRepository.update(pmb, transaction)
   }
 
   protected async validate({
     input: {
-      propMapBindingId,
+      elementId,
       data: { targetElementId },
     },
+    transaction,
     currentUser,
   }: UpdatePropMapBindingRequest) {
-    const binding = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getOneOrThrowNamed<
-        any & { '~propMapBindings': [DgraphEntity] }
-      >(
-        txn,
-        `
-          {
-            query(func: uid(${propMapBindingId})) @filter(eq(dgraph.type, "${DgraphEntityType.PropMapBinding}")) {
-              uid
-              dgraph.type
-              targetElement {
-                uid
-              }
-              sourceKey
-              targetKey
-              ~propMapBindings {
-                uid
-              }
-            }
-          }
-    `,
-        'query',
-        () => new Error("Prop map binding doesn't exist"),
-      ),
-    )
-
     await this.elementValidator.existsAndIsOwnedBy(
-      binding['~propMapBindings'][0].uid,
+      elementId,
       currentUser,
+      transaction,
     )
 
-    if (targetElementId && targetElementId !== binding.targetElement?.uid) {
+    if (targetElementId) {
       await this.elementValidator.existsAndIsOwnedBy(
         targetElementId,
         currentUser,
+        transaction,
       )
     }
   }

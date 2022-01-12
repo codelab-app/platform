@@ -4,9 +4,10 @@ import {
 } from '@codelab/backend/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
-import { Mutation, Response, Txn } from 'dgraph-js-http'
+import { Mutation, Txn } from 'dgraph-js-http'
 import { LoggerService, LoggerTokens } from '../logger'
 import { DgraphService } from './dgraph.service'
+import { getUidFromResponse } from './persistance'
 import { DgraphQueryBuilder } from './query-building'
 
 export type MutationFactoryFn = (
@@ -22,6 +23,8 @@ export type QueryBuilderFactoryFn = () =>
 /**
  * Handles dgraph queries and mutations
  */
+// TODO integrate the repositories with this after all of them are done, so that we can log all operations with DEBUG_MODE
+// TODO rename - confusing with the other repositories
 @Injectable()
 export class DgraphRepository {
   /* Turn on to log all queries/mutations*/
@@ -66,25 +69,6 @@ export class DgraphRepository {
   }
 
   /**
-   * Extracts the uid out of the uidsMap of a response
-   * Throws error if the uid is not found
-   *
-   * @param response the response from the dgraph mutation
-   * @param blankNodeLabel the label of the blank node (not the blank node itself: INCORRECT - '_:item', CORRECT - 'item')
-   */
-  getUid(response: Response, blankNodeLabel: string) {
-    const id = (response.data as any).uids[blankNodeLabel] as string
-
-    if (!id) {
-      throw new Error(
-        `Error while processing dgraph response, uid with label ${blankNodeLabel} not found`,
-      )
-    }
-
-    return id
-  }
-
-  /**
    * Performs a mutation, commits the transaction and returns the UID of the labeled blank node (if supplied)
    */
   async executeMutation<TStringLabel extends Maybe<string>>(
@@ -99,7 +83,7 @@ export class DgraphRepository {
     await txn.commit()
 
     if (typeof blankNodeLabel === 'string') {
-      return this.getUid(
+      return getUidFromResponse(
         response,
         blankNodeLabel,
       ) as TStringLabel extends string ? string : void

@@ -12,5 +12,7 @@ query GetLambdaName($input: GetLambdaInput!) {
 }
 
 mutation RemoveHookFromElement($input: RemoveHookFromElementInput!) {
-  removeHookFromElement(input: $input)
+  removeHookFromElement(input: $input) {
+    ...Hook
+  }
 }

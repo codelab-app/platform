@@ -1,8 +1,6 @@
-import type { IUser } from '@codelab/shared/abstract/core'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
 import { CreatePageInput } from './create-page.input'
 
-export class CreatePageRequest {
-  declare input: CreatePageInput
-
-  declare currentUser: IUser
+export interface CreatePageRequest extends WithCurrentUserRequest {
+  input: CreatePageInput
 }

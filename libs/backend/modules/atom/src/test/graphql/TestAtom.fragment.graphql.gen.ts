@@ -6,14 +6,19 @@ export type TestAtomFragment = {
   id: string
   name: string
   type: Types.AtomType
-  api: { __typename: 'InterfaceType'; id: string; name: string }
+  api: {
+    __typename: 'InterfaceType'
+    id: string
+    name: string
+    typeKind: Types.TypeKind
+  }
 }
 
 export type TestAtomBaseFragment = {
   id: string
   name: string
   type: Types.AtomType
-  api: { id: string; name: string }
+  api: { id: string; name: string; typeKind: Types.TypeKind }
 }
 
 export const TestAtomFragmentDoc = gql`
@@ -26,6 +31,7 @@ export const TestAtomFragmentDoc = gql`
       __typename
       id
       name
+      typeKind
     }
   }
 `
@@ -37,6 +43,7 @@ export const TestAtomBaseFragmentDoc = gql`
     api {
       id
       name
+      typeKind
     }
   }
 `

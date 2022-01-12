@@ -1,4 +1,3 @@
-import { useAppState } from '@codelab/frontend/modules/app'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
 import { usePageDispatch, usePageState } from '../../hooks'
@@ -6,7 +5,6 @@ import { useUpdatePageMutation } from '../../store'
 import { UpdatePageFormProps, UpdatePageMutationInput } from './types'
 
 export const useUpdatePageForm = () => {
-  const { currentApp } = useAppState()
   const { updateId, entity } = usePageState()
   const { resetModal } = usePageDispatch()
 
@@ -27,7 +25,7 @@ export const useUpdatePageForm = () => {
   )
 
   const onSubmitError = createNotificationHandler({
-    title: 'Error while updateing page',
+    title: 'Error while updating page',
   })
 
   const onSubmitSuccess = () => resetModal()
@@ -36,10 +34,7 @@ export const useUpdatePageForm = () => {
     onSubmit,
     onSubmitError,
     onSubmitSuccess,
-    model: {
-      name: entity?.name,
-      appId: currentApp?.id,
-    },
+    model: { name: entity?.name },
   }
 
   return {

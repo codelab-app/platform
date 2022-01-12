@@ -356,6 +356,7 @@
         "curly": "error",
         "@typescript-eslint/no-explicit-any": "off",
         "import/no-cycle": "error",
+        "@typescript-eslint/no-unnecessary-type-constraint": "off",
         "@typescript-eslint/ban-types": [
           "error",
           {

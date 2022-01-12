@@ -96,7 +96,7 @@ export const beforeHook = ({
                     atomId,
                   },
                   name: childElementName,
-                  parentElementId: rootElement?.id as string,
+                  parentElementId: rootElement?.id,
                 })
               })
               .then((element: CreateResponse) => {

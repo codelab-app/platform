@@ -1,8 +1,6 @@
-import {
-  DgraphUseCase,
-  exactlyOneWhereClause,
-} from '@codelab/backend/application'
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { exactlyOneWhereClause } from '@codelab/backend/application'
+import { ITransaction } from '@codelab/backend/infra'
 import {
   ElementGraphSchema,
   IElement,
@@ -14,63 +12,61 @@ import {
   deepReplaceObjectValues,
   hexadecimalRegex,
 } from '@codelab/shared/utils'
-import { Injectable, Logger } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 import { ElementValidator } from '../../../application/element.validator'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+} from '../../../infrastructure/repositories/abstract/element-repository.interface'
 import { GetElementGraphRequest } from './get-element-graph.request'
 
 @Injectable()
-/**
- * Recursively gets the entire tree starting from the root Element node
- */
-export class GetElementGraphService extends DgraphUseCase<
-  GetElementGraphRequest,
-  IElementGraph
-> {
+export class GetElementGraphService
+  implements UseCasePort<GetElementGraphRequest, IElementGraph | undefined>
+{
   schema = ElementGraphSchema
 
   returnParsed = false
 
   constructor(
-    protected readonly dgraph: DgraphRepository,
+    @Inject(IElementRepositoryToken)
+    protected readonly elementRepository: IElementRepository,
     private elementGuardService: ElementValidator,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(
+  async execute(
     request: GetElementGraphRequest,
-    txn: Txn,
-  ) {
-    exactlyOneWhereClause(request, ['id', 'componentFixedId'])
+  ): Promise<IElementGraph | undefined> {
+    exactlyOneWhereClause(request, ['id', 'fixedId'])
+
+    const {
+      input: { where },
+      transaction,
+    } = request
 
     let results: Maybe<IElementGraph>
 
-    if (request.input.where.id) {
-      results = await this.dgraph.executeQuery<IElementGraph>(
-        txn,
-        GetElementGraphService.queryById(request.input.where.id),
-      )
+    if (where.id) {
+      results = await this.elementRepository.getGraph(where.id, transaction)
     }
 
-    if (request.input.where.componentFixedId) {
-      results = await this.dgraph.executeQuery<IElementGraph>(
-        txn,
-        GetElementGraphService.queryByComponentFixedId(
-          request.input.where.componentFixedId,
-        ),
+    if (where.fixedId) {
+      results = await this.elementRepository.getGraphByFixedId(
+        where.fixedId,
+        transaction,
       )
     }
 
     if (!results) {
-      throw new Error('Missing params')
+      throw new Error('Invalid request, exactly one where clause required')
     }
 
-    return this.postProcessResults(results)
+    return this.postProcessResults(results, transaction)
   }
 
   private async postProcessResults(
     graph: IElementGraph,
+    transaction: ITransaction,
   ): Promise<IElementGraph> {
     // We can provide Component ids as props. Since they are likely outside the tree, we need
     // to fetch them and put them in there, so they're available
@@ -82,23 +78,22 @@ export class GetElementGraphService extends DgraphUseCase<
 
     const idRefsInPropsArray = Array.from(idRefsInProps)
 
-    const result = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.executeQuery<
-        IElementGraph & { enumValues: Array<Entity & { value: string }> }
-      >(
-        txn,
-        GetElementGraphService.queryById(
-          idRefsInPropsArray,
-          GetElementGraphService.enumValuesExtraQuery(idRefsInPropsArray),
-        ),
-      ),
+    const extraElementsGraph = await this.elementRepository.getGraphByRootIds(
+      idRefsInPropsArray,
+      transaction,
     )
 
-    const enumValuesMap = new Map(result.enumValues.map((e) => [e.id, e.value]))
+    const enumValues = await this.elementRepository.getEnumValues(
+      idRefsInPropsArray,
+      transaction,
+    )
+
+    const enumValuesMap = new Map(enumValues.map((e) => [e.id, e.value]))
 
     if (enumValuesMap?.size > 0) {
       graph.vertices.forEach((el) => {
         try {
+          // Replace the enum values with the actual values
           el.props.data = JSON.stringify(
             deepReplaceObjectValues(JSON.parse(el.props.data), (value) => {
               if (enumValuesMap.has(value)) {
@@ -115,16 +110,17 @@ export class GetElementGraphService extends DgraphUseCase<
     }
 
     return {
-      edges: [...(graph.edges ?? []), ...(result.edges ?? [])],
-      vertices: [...(graph.vertices ?? []), ...(result.vertices ?? [])].map(
-        (e) => {
-          return {
-            ...e,
-            propMapBindings: e.propMapBindings ?? [],
-            hooks: e.hooks ?? [],
-          }
-        },
-      ),
+      edges: [...(graph.edges ?? []), ...(extraElementsGraph.edges ?? [])],
+      vertices: [
+        ...(graph.vertices ?? []),
+        ...(extraElementsGraph.vertices ?? []),
+      ].map((e) => {
+        return {
+          ...e,
+          propMapBindings: e.propMapBindings ?? [],
+          hooks: e.hooks ?? [],
+        }
+      }),
     }
   }
 
@@ -152,124 +148,15 @@ export class GetElementGraphService extends DgraphUseCase<
 
   protected async validate({
     currentUser,
+    transaction,
     input: {
       where: { id },
     },
   }: GetElementGraphRequest): Promise<void> {
-    await this.elementGuardService.existsAndIsOwnedBy(id, currentUser)
-  }
-
-  static enumValuesExtraQuery(ids: Array<string>) {
-    return `
-      enumValues(func: type(${
-        DgraphEntityType.EnumTypeValue
-      })) @filter(uid(${ids.join(',')})) {
-        id: uid
-        value: stringValue
-      }
-    `
-  }
-
-  static queryById(id: string | Array<string>, extraQuery?: string) {
-    return `{
-      ${extraQuery ?? ''}
-
-      var(func: type(${DgraphEntityType.Element}))
-        @filter(uid(${typeof id === 'string' ? id : id.join(',')}))
-        @recurse
-        @normalize {
-          IDS AS uid
-          children @filter(type(${DgraphEntityType.Element}))
-          instanceOfComponent @filter(type(${DgraphEntityType.Element}))
-      }
-
-      ${GetElementGraphService.singleElementQuery(`uid(IDS)`, 'vertices')}
-
-      edges(func: uid(IDS))
-        @normalize
-        @cascade {
-          source: uid
-          children @facets(order: order) {
-          target: uid
-        }
-      }
-    }`
-  }
-
-  static singleElementQuery(func: string, queryName = 'query') {
-    return `${queryName}(func: ${func}) @filter(type(${DgraphEntityType.Element})) {
-        id: uid
-        name
-        css
-        instanceOfComponent {
-          id: uid
-        }
-        componentTag {
-          id: uid
-          expand(_all_)
-        }
-        atom {
-          id: uid
-          type: atomType
-          name
-          api {
-            id: uid
-            expand(_all_)
-          }
-        }
-        props {
-          data
-          id: uid
-        }
-        hooks {
-          id: uid
-          type: hookType
-          config: hookConfig {
-            id: uid
-            expand(_all_)
-          }
-        }
-        componentFixedId
-        renderForEachPropKey
-        renderIfPropKey
-        propMapBindings @normalize {
-          id: uid
-          sourceKey: sourceKey
-          targetKey: targetKey
-          targetElement {
-            targetElementId: uid
-          }
-        }
-        propTransformationJs
-      }`
-  }
-
-  static queryByComponentFixedId(
-    componentFixedId: string,
-    extraQuery?: string,
-  ) {
-    return `{
-      ${extraQuery ?? ''}
-
-      var(func: type(${DgraphEntityType.Element}))
-        @filter(eq(componentFixedId,"${componentFixedId}"))
-        @recurse
-        @normalize {
-          IDS AS uid
-          children @filter(type(${DgraphEntityType.Element}))
-          instanceOfComponent @filter(type(${DgraphEntityType.Element}))
-      }
-
-      ${GetElementGraphService.singleElementQuery(`uid(IDS)`, 'vertices')}
-
-      edges(func: uid(IDS))
-        @normalize
-        @cascade {
-          source: uid
-          children @facets(order: order) {
-          target: uid
-        }
-      }
-    }`
+    await this.elementGuardService.existsAndIsOwnedBy(
+      id,
+      currentUser,
+      transaction,
+    )
   }
 }

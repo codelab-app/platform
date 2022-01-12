@@ -102,7 +102,7 @@ export class TsParserService {
 
         api.typeGraph.vertices.push(type as any)
         api.typeGraph.edges.push({
-          target: (type as any).id as string,
+          target: (type as any).id,
           source: api.id,
           id: v4(),
           name: pascalCaseToWords(typeNode.name),

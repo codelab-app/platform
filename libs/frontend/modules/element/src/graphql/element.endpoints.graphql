@@ -45,3 +45,9 @@ mutation ConvertElementToComponent($input: ConvertElementToComponentInput!) {
     ...Element
   }
 }
+
+mutation DuplicateElement($input: DuplicateElementInput!) {
+  duplicateElement(input: $input) {
+    ...Element
+  }
+}

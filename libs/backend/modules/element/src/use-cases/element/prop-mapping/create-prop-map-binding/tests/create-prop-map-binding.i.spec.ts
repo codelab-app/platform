@@ -42,14 +42,10 @@ describe('CreatePropMapBindingUseCase', () => {
 
   describe('User', () => {
     it('should create a PropMapBinding', async () => {
-      const {
-        createPropMapBinding: { id },
-      } = await domainRequest<
+      await domainRequest<
         CreatePropMapBindingInput,
         TestCreatePropMapBindingMutation
       >(testModule.userApp, TestCreatePropMapBindingGql, addPropMappinginput)
-
-      expect(id).toBeDefined()
 
       const getElement = await testModule.getElement({
         where: {
@@ -57,15 +53,14 @@ describe('CreatePropMapBindingUseCase', () => {
         },
       })
 
-      const found = getElement?.propMapBindings.find((b) => b.id === id)
+      const found = getElement?.propMapBindings.find(
+        (b) =>
+          b.targetElementId === addPropMappinginput.targetElementId &&
+          b.sourceKey === addPropMappinginput.sourceKey &&
+          b.targetKey === addPropMappinginput.targetKey,
+      )
 
-      expect(found).toBeDefined()
-      expect(found).toMatchObject({
-        id,
-        targetKey: addPropMappinginput.targetKey,
-        sourceKey: addPropMappinginput.sourceKey,
-        targetElementId: addPropMappinginput.targetElementId,
-      })
+      expect(found).toBeTruthy()
     })
   })
 })
