@@ -1,3 +1,4 @@
+import { isObjectLike } from 'lodash'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { builderSelectors } from '../store/builderState'
@@ -46,7 +47,7 @@ export const usePropCompletion = () => {
           }
         }
 
-        if (typeof prop === 'object') {
+        if (isObjectLike(prop)) {
           for (const innerKey in prop) {
             visitProp(prop[innerKey], `${key}.${innerKey}`)
           }

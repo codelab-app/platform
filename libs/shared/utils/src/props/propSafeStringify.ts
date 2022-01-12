@@ -1,4 +1,10 @@
-import { isArray, isObjectLike, isPlainObject, pickBy } from 'lodash'
+import {
+  isArray,
+  isFunction,
+  isObjectLike,
+  isPlainObject,
+  pickBy,
+} from 'lodash'
 import React from 'react'
 
 export const propSafeStringify = (props: any, maskFunctions = true) => {
@@ -6,7 +12,7 @@ export const propSafeStringify = (props: any, maskFunctions = true) => {
   const cache = new WeakMap<any, boolean>()
 
   const replacer = (key: string, value: any) => {
-    if (key === 'children' && typeof value === 'object') {
+    if (key === 'children' && isObjectLike(value)) {
       return
     }
 
@@ -29,7 +35,7 @@ export const propSafeStringify = (props: any, maskFunctions = true) => {
       cache.set(value, true)
     }
 
-    if (maskFunctions && typeof value === 'function') {
+    if (maskFunctions && isFunction(value)) {
       return 'function'
     }
 

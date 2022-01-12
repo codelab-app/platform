@@ -1,4 +1,5 @@
 import { Maybe } from '@codelab/shared/abstract/types'
+import { isString } from 'lodash'
 import { IBuildable, IDgraphQueryFilter } from '../i-query-builder'
 
 export class DgraphFilter implements IDgraphQueryFilter {
@@ -40,8 +41,7 @@ export class DgraphFilter implements IDgraphQueryFilter {
       this._additionalString += ' ' + otherFilter.build()
     } else {
       this._additionalString +=
-        ' and ' +
-        (typeof otherFilter === 'string' ? otherFilter : otherFilter.build())
+        ' and ' + (isString(otherFilter) ? otherFilter : otherFilter.build())
     }
 
     return this

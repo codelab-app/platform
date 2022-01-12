@@ -1,3 +1,4 @@
+import { isString } from 'lodash'
 import React, { ReactElement } from 'react'
 import { RenderContainer } from '../renderContainer'
 import { containerKey } from '../utils'
@@ -11,7 +12,7 @@ export const renderChildrenPipe: RenderTypes = (element, context, props) => {
 
   if (!childVertices || childVertices?.length === 0) {
     // Allow for a 'children' prop, but only if we have no regular children
-    if (typeof props.children === 'string' && childVertices?.length === 0) {
+    if (isString(props.children) && childVertices?.length === 0) {
       return props.children
     }
 

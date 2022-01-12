@@ -5,6 +5,7 @@ import {
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
+import { isFunction, isString } from 'lodash'
 import { LoggerService, LoggerTokens } from '../logger'
 import { DgraphService } from './dgraph.service'
 import { getUidFromResponse } from './persistance'
@@ -82,7 +83,7 @@ export class DgraphRepository {
 
     await txn.commit()
 
-    if (typeof blankNodeLabel === 'string') {
+    if (isString(blankNodeLabel)) {
       return getUidFromResponse(
         response,
         blankNodeLabel,
@@ -100,7 +101,7 @@ export class DgraphRepository {
     qb: DgraphQueryBuilder | string,
     vars?: TVars,
   ): Promise<TResult> {
-    if (typeof qb === 'string') {
+    if (isString(qb)) {
       this.logOperation(qb)
 
       if (vars) {
@@ -142,10 +143,9 @@ export class DgraphRepository {
     mutationOrFactory: Mutation | MutationFactoryFn,
     blankNodeLabel = 'entity',
   ): Promise<CreateResponsePort> {
-    const mutation =
-      typeof mutationOrFactory === 'function'
-        ? await mutationOrFactory(`_:${blankNodeLabel}`)
-        : mutationOrFactory
+    const mutation = isFunction(mutationOrFactory)
+      ? await mutationOrFactory(`_:${blankNodeLabel}`)
+      : mutationOrFactory
 
     const id = await this.executeMutation(txn, mutation, blankNodeLabel)
 
@@ -160,7 +160,7 @@ export class DgraphRepository {
     query: string | DgraphQueryBuilder,
     mutation: string | Mutation,
   ) {
-    if (typeof query === 'string' && !query.trim().startsWith('{')) {
+    if (isString(query) && !query.trim().startsWith('{')) {
       query = `{ ${query}`
     }
 
@@ -256,10 +256,9 @@ export class DgraphRepository {
     txn: Txn,
     queryOrFactory: DgraphQueryBuilder | QueryBuilderFactoryFn,
   ): Promise<Nullable<T>> {
-    const query =
-      typeof queryOrFactory === 'function'
-        ? await queryOrFactory()
-        : queryOrFactory
+    const query = isFunction(queryOrFactory)
+      ? await queryOrFactory()
+      : queryOrFactory
 
     return this.getOneNamed<T>(txn, query.build(), query.queryName)
   }
@@ -311,10 +310,9 @@ export class DgraphRepository {
     queryOrFactory: string | QueryFactoryFn,
     queryName: string,
   ): Promise<Nullable<TResponse>> {
-    const query =
-      typeof queryOrFactory === 'function'
-        ? await queryOrFactory()
-        : queryOrFactory
+    const query = isFunction(queryOrFactory)
+      ? await queryOrFactory()
+      : queryOrFactory
 
     const response = await this.executeNamedQuery<Array<TResponse>>(
       txn,
@@ -335,10 +333,9 @@ export class DgraphRepository {
     queryOrFactory: string | QueryFactoryFn,
     queryName: string,
   ) {
-    const query =
-      typeof queryOrFactory === 'function'
-        ? await queryOrFactory()
-        : queryOrFactory
+    const query = isFunction(queryOrFactory)
+      ? await queryOrFactory()
+      : queryOrFactory
 
     return this.executeNamedQuery<Array<TResult>>(txn, query, queryName)
   }
@@ -348,10 +345,9 @@ export class DgraphRepository {
     txn: Txn,
     queryOrFactory: DgraphQueryBuilder | QueryBuilderFactoryFn,
   ) {
-    const query =
-      typeof queryOrFactory === 'function'
-        ? await queryOrFactory()
-        : queryOrFactory
+    const query = isFunction(queryOrFactory)
+      ? await queryOrFactory()
+      : queryOrFactory
 
     return this.executeQuery<Array<TResult>>(txn, query)
   }

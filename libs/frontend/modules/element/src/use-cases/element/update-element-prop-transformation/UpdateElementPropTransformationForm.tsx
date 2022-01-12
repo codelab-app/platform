@@ -6,6 +6,7 @@ import {
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
+import { isString } from 'lodash'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   useGetElementQuery,
@@ -86,7 +87,7 @@ const InternalForm = ({
   }, [value, setValueDebounced])
 
   useEffect(() => {
-    if (typeof valueDebounced === 'string') {
+    if (isString(valueDebounced)) {
       updateValue(valueDebounced)
     }
   }, [valueDebounced, updateValue])

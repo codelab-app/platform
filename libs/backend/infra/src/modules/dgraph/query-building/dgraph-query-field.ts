@@ -1,4 +1,5 @@
 import { Maybe } from '@codelab/shared/abstract/types'
+import { isObject } from 'lodash'
 import { IBuildable, IDgraphQueryFilter } from './i-query-builder'
 import { compileMultiple } from './utils'
 
@@ -24,7 +25,7 @@ export class DgraphQueryField implements IBuildable {
     newField._isDirty = true
     newField._fieldName = this._fieldName
     newField._innerFields = this._innerFields.map((f) =>
-      typeof f === 'object' ? f.clone() : f,
+      isObject(f) ? f.clone() : f,
     )
     newField._filters = this._filters
     newField._facets = this._facets

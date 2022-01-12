@@ -6,7 +6,7 @@ import {
 } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { Spin } from 'antd'
 import { useRef } from 'react'
 import {
@@ -22,7 +22,7 @@ interface UpdateElementPropsFormInternalProps {
 }
 
 const hasDataType = (
-  data: Record<string, any>,
+  data: PropsData,
   typeKinds: Array<TypeKind>,
   typeKindsById: Record<string, TypeKind>,
 ) => {

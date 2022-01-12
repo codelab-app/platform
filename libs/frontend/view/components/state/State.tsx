@@ -1,3 +1,4 @@
+import { isFunction } from 'lodash'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { useExecuteLambdaForStateMutation } from './ExecuteLambdaForState.web.graphql.gen'
@@ -80,7 +81,7 @@ export const State = ({
       }
 
       // Pass the event up, so that we can nest State elements
-      if (props[eventKey] && typeof props[eventKey] === 'function') {
+      if (props[eventKey] && isFunction(props[eventKey])) {
         props[eventKey](e)
       }
     }
