@@ -81,7 +81,7 @@ executors:
   docker-node:
     <<: *executor-config
     docker:
-      - image: cimg/node:14.18.0-browsers
+      - image: cimg/node:14.18-browsers
     resource_class: large
   cypress-node:
     <<: *executor-config
