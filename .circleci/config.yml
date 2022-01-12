@@ -113,6 +113,12 @@ commands:
 
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
       - run:
+          name: 'Set node version'
+          command: |
+            nvm install 14.18.0
+            nvm alias default 14.18.0
+            node -v
+      - run:
           name: 'Install Bower'
           command: |
             npm install -g bower
@@ -133,12 +139,6 @@ commands:
 
             # finally import bash env
             source $BASH_ENV
-      - run:
-          name: 'Set node version'
-          command: |
-            nvm install 14.18.0
-            nvm alias default 14.18.0
-            node -v
 
   package-install-dev:
     steps:
