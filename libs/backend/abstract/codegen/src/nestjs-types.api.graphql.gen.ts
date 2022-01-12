@@ -7,12 +7,6 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export enum Role {
-    Admin = "Admin",
-    User = "User",
-    Guest = "Guest"
-}
-
 export enum TypeKind {
     PrimitiveType = "PrimitiveType",
     ArrayType = "ArrayType",
@@ -48,6 +42,12 @@ export enum MonacoLanguage {
     CSS = "CSS",
     JSON = "JSON",
     Graphql = "Graphql"
+}
+
+export enum Role {
+    Admin = "Admin",
+    User = "User",
+    Guest = "Guest"
 }
 
 export enum AtomType {
@@ -441,7 +441,7 @@ export interface GetElementGraphInput {
 
 export interface WhereUniqueElement {
     id?: Nullable<string>;
-    componentFixedId?: Nullable<string>;
+    fixedId?: Nullable<string>;
 }
 
 export interface GetElementInput {
@@ -599,6 +599,7 @@ export interface CreatePropMapBindingInput {
 
 export interface UpdatePropMapBindingInput {
     propMapBindingId: string;
+    elementId: string;
     data: UpdatePropMapBindingData;
 }
 
@@ -609,6 +610,7 @@ export interface UpdatePropMapBindingData {
 }
 
 export interface DeletePropMapBindingInput {
+    elementId: string;
     propMapBindingIds: string[];
 }
 
@@ -624,61 +626,13 @@ export interface RemoveHookFromElementInput {
 }
 
 export interface CreateElementInput {
-    refId?: Nullable<string>;
-    name?: Nullable<string>;
-    atom?: Nullable<AtomRef>;
-    order?: Nullable<number>;
-    children?: Nullable<ElementRef[]>;
-    css?: Nullable<string>;
-    props?: Nullable<string>;
-    renderForEachPropKey?: Nullable<string>;
-    renderIfPropKey?: Nullable<string>;
-    propTransformationJs?: Nullable<string>;
-    hooks?: Nullable<HookRef[]>;
-    propMapBindings?: Nullable<NewPropMapBindingRef[]>;
-    isComponent?: Nullable<boolean>;
-    instanceOfComponentId?: Nullable<string>;
-    componentFixedId?: Nullable<string>;
     parentElementId?: Nullable<string>;
-}
-
-export interface AtomRef {
-    atomId?: Nullable<string>;
-    atomType?: Nullable<AtomType>;
-}
-
-export interface ElementRef {
-    elementId?: Nullable<string>;
-    newElement?: Nullable<CreateElementChildInput>;
-}
-
-export interface CreateElementChildInput {
-    refId?: Nullable<string>;
     name?: Nullable<string>;
-    atom?: Nullable<AtomRef>;
-    order?: Nullable<number>;
-    children?: Nullable<ElementRef[]>;
     css?: Nullable<string>;
+    atomId?: Nullable<string>;
+    order?: Nullable<number>;
     props?: Nullable<string>;
-    renderForEachPropKey?: Nullable<string>;
-    renderIfPropKey?: Nullable<string>;
-    propTransformationJs?: Nullable<string>;
-    hooks?: Nullable<HookRef[]>;
-    propMapBindings?: Nullable<NewPropMapBindingRef[]>;
-    isComponent?: Nullable<boolean>;
     instanceOfComponentId?: Nullable<string>;
-    componentFixedId?: Nullable<string>;
-}
-
-export interface HookRef {
-    config: string;
-    type: AtomType;
-}
-
-export interface NewPropMapBindingRef {
-    targetElementId?: Nullable<string>;
-    sourceKey: string;
-    targetKey: string;
 }
 
 export interface UpdateElementInput {
@@ -689,6 +643,7 @@ export interface UpdateElementInput {
 export interface UpdateElementData {
     name?: Nullable<string>;
     atomId?: Nullable<string>;
+    instanceOfComponentId?: Nullable<string>;
     css?: Nullable<string>;
     renderForEachPropKey?: Nullable<string>;
     renderIfPropKey?: Nullable<string>;
@@ -705,9 +660,12 @@ export interface MoveData {
     parentElementId?: Nullable<string>;
 }
 
+export interface DuplicateElementInput {
+    elementId: string;
+}
+
 export interface UpdateElementPropsInput {
     data: string;
-    propsId: string;
     elementId: string;
 }
 
@@ -717,25 +675,13 @@ export interface DeleteElementInput {
 
 export interface ConvertElementToComponentInput {
     elementId: string;
+    componentName?: Nullable<string>;
 }
 
 export interface CreateComponentInput {
-    refId?: Nullable<string>;
     name?: Nullable<string>;
-    atom?: Nullable<AtomRef>;
-    order?: Nullable<number>;
-    children?: Nullable<ElementRef[]>;
-    css?: Nullable<string>;
     props?: Nullable<string>;
-    renderForEachPropKey?: Nullable<string>;
-    renderIfPropKey?: Nullable<string>;
-    propTransformationJs?: Nullable<string>;
-    hooks?: Nullable<HookRef[]>;
-    propMapBindings?: Nullable<NewPropMapBindingRef[]>;
-    isComponent?: Nullable<boolean>;
-    instanceOfComponentId?: Nullable<string>;
-    componentFixedId?: Nullable<string>;
-    parentElementId?: Nullable<string>;
+    atomId?: Nullable<string>;
 }
 
 export interface CreateAtomInput {
@@ -889,7 +835,6 @@ export interface DeleteFieldInput {
 export interface CreatePageInput {
     name: string;
     appId: string;
-    rootElement?: Nullable<CreateElementChildInput>;
 }
 
 export interface DeletePageInput {
@@ -903,8 +848,6 @@ export interface UpdatePageInput {
 
 export interface UpdatePageData {
     name: string;
-    appId: string;
-    rootElement?: Nullable<CreateElementChildInput>;
 }
 
 export interface UpsertUserInput {
@@ -990,18 +933,8 @@ export interface Type {
     typeGraph: TypeGraph;
 }
 
-export interface CreateResponse {
+export interface ObjectRef {
     id: string;
-}
-
-export interface PayloadResponse {
-    payload: string;
-}
-
-export interface User {
-    id: string;
-    auth0Id: string;
-    roles: Role[];
 }
 
 export interface Field {
@@ -1134,6 +1067,16 @@ export interface TypeGraph {
     edges: TypeEdge[];
 }
 
+export interface PayloadResponse {
+    payload: string;
+}
+
+export interface User {
+    id: string;
+    auth0Id: string;
+    roles: Role[];
+}
+
 export interface Atom {
     id: string;
     type: AtomType;
@@ -1156,6 +1099,7 @@ export interface Hook {
 export interface Tag {
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     parent?: Nullable<string>;
     children: string[];
     isRoot: boolean;
@@ -1179,15 +1123,11 @@ export interface PropMapBinding {
     targetKey: string;
 }
 
-export interface ComponentRef {
-    id: string;
-}
-
 export interface Element {
     id: string;
     name?: Nullable<string>;
     componentTag?: Nullable<Tag>;
-    componentFixedId?: Nullable<string>;
+    fixedId?: Nullable<string>;
     css?: Nullable<string>;
     atom?: Nullable<Atom>;
     props: Prop;
@@ -1196,7 +1136,9 @@ export interface Element {
     renderIfPropKey?: Nullable<string>;
     propMapBindings: PropMapBinding[];
     propTransformationJs?: Nullable<string>;
-    instanceOfComponent?: Nullable<ComponentRef>;
+    instanceOfComponent?: Nullable<ObjectRef>;
+    parentElement?: Nullable<ObjectRef>;
+    owner?: Nullable<ObjectRef>;
     graph: ElementGraph;
 }
 
@@ -1250,6 +1192,7 @@ export interface IQuery {
     getTypeGraph(input: GetTypeGraphInput): Nullable<TypeGraph> | Promise<Nullable<TypeGraph>>;
     getTypes(input?: Nullable<GetTypesInput>): Type[] | Promise<Type[]>;
     getField(input: GetFieldInput): Nullable<Field> | Promise<Nullable<Field>>;
+    getProp(): Prop | Promise<Prop>;
     getPages(input: GetPagesInput): Page[] | Promise<Page[]>;
     getPage(input: GetPageInput): Nullable<Page> | Promise<Nullable<Page>>;
     getMe(): Nullable<User> | Promise<Nullable<User>>;
@@ -1268,14 +1211,15 @@ export interface IMutation {
     updateApp(input: UpdateAppInput): Nullable<App> | Promise<Nullable<App>>;
     deleteApp(input: DeleteAppInput): Nullable<App> | Promise<Nullable<App>>;
     importApp(input: ImportAppInput): App | Promise<App>;
-    createPropMapBinding(input: CreatePropMapBindingInput): CreateResponse | Promise<CreateResponse>;
-    updatePropMapBinding(input: UpdatePropMapBindingInput): Nullable<Void> | Promise<Nullable<Void>>;
-    deletePropMapBinding(input: DeletePropMapBindingInput): Nullable<Void> | Promise<Nullable<Void>>;
-    addHookToElement(input: AddHookToElementInput): CreateResponse | Promise<CreateResponse>;
-    removeHookFromElement(input: RemoveHookFromElementInput): Nullable<Void> | Promise<Nullable<Void>>;
+    createPropMapBinding(input: CreatePropMapBindingInput): PropMapBinding | Promise<PropMapBinding>;
+    updatePropMapBinding(input: UpdatePropMapBindingInput): Nullable<PropMapBinding> | Promise<Nullable<PropMapBinding>>;
+    deletePropMapBinding(input: DeletePropMapBindingInput): Nullable<PropMapBinding[]> | Promise<Nullable<PropMapBinding[]>>;
+    addHookToElement(input: AddHookToElementInput): Hook | Promise<Hook>;
+    removeHookFromElement(input: RemoveHookFromElementInput): Nullable<Hook> | Promise<Nullable<Hook>>;
     createElement(input: CreateElementInput): Element | Promise<Element>;
     updateElement(input: UpdateElementInput): Element | Promise<Element>;
     moveElement(input: MoveElementInput): Element | Promise<Element>;
+    duplicateElement(input: DuplicateElementInput): Element | Promise<Element>;
     updateElementProps(input: UpdateElementPropsInput): Element | Promise<Element>;
     deleteElement(input: DeleteElementInput): Element | Promise<Element>;
     convertElementToComponent(input: ConvertElementToComponentInput): Element | Promise<Element>;
