@@ -4,7 +4,6 @@
  *    const { scrollX, scrollY, scrollDirection } = useScroll();
  * Original Source: https://gist.github.com/joshuacerbito/ea318a6a7ca4336e9fadb9ae5bbb87f4
  */
-import { isUndefined } from 'lodash'
 import { useEffect, useState } from 'react'
 
 type SSRRect = {
@@ -33,7 +32,7 @@ const useScroll = () => {
   const [lastScrollTop, setLastScrollTop] = useState<number>(0)
 
   const [bodyOffset, setBodyOffset] = useState<DOMRect | SSRRect>(
-    isUndefined(window) || !window.document
+    typeof window === 'undefined' || !window.document
       ? EmptySSRRect
       : document.body.getBoundingClientRect(),
   )
@@ -47,7 +46,7 @@ const useScroll = () => {
 
   const listener = () => {
     setBodyOffset(
-      isUndefined(window) || !window.document
+      typeof window === 'undefined' || !window.document
         ? EmptySSRRect
         : document.body.getBoundingClientRect(),
     )
