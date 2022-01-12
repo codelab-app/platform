@@ -1,3 +1,4 @@
+import { DATA_ID } from '@codelab/frontend/abstract/core'
 import {
   TypeKindProvider,
   TypeKindsContext,
@@ -28,11 +29,11 @@ export type BuilderProps = {
 }
 
 const StyledBuilderContainer = styled.div`
-  // [data-id] is a selector for all rendered elements
-  [data-id]:hover {
+  // [${DATA_ID}] is a selector for all rendered elements
+  [${DATA_ID}]:hover {
     cursor: pointer;
   }
-  [data-id] {
+  [${DATA_ID}] {
     // Force all pointer events to be on, because otherwise we won't be able to click to inspect
     // elements that have it disabled by design, like disabled buttons
     pointer-events: all !important;

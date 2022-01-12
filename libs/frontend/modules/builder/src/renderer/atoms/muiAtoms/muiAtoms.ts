@@ -1,7 +1,7 @@
 import { AtomType } from '@codelab/shared/abstract/core'
 import Input from '@mui/material/Input'
 import dynamic from 'next/dynamic'
-import { AtomsRecord } from './atomFactoryType'
+import { AtomsRecord } from '../types'
 
 export const muiAtoms: AtomsRecord = {
   [AtomType.MuiAccordion]: dynamic(() => import('@mui/material/Accordion')),

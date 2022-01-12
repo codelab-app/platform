@@ -1,3 +1,4 @@
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
 import { withProvider } from '@codelab/frontend/presenter/container'
 import { DndContext, DragOverlay } from '@dnd-kit/core'
 import React, { PropsWithChildren } from 'react'
@@ -21,7 +22,7 @@ export const BuilderContext = ({
       }}
       autoScroll={{
         canScroll: (e) => {
-          const renderRoot = document.getElementById('render-root')
+          const renderRoot = document.getElementById(ROOT_RENDER_CONTAINER_ID)
 
           return e.contains(renderRoot)
         },

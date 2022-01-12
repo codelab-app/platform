@@ -1,6 +1,7 @@
+import { DATA_ID } from '@codelab/frontend/abstract/core'
 import { PropsDataByElementId } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
-import { get, isArray, merge } from 'lodash'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { isArray, merge } from 'lodash'
 import React, { ReactElement, useCallback, useEffect } from 'react'
 import { RenderContainerProps } from './types'
 
@@ -9,9 +10,8 @@ export const RenderContainer = ({
   children: rendered,
   isRoot = false,
 }: RenderContainerProps) => {
-  const getElementId = (renderedElement: ReactElement): string | undefined => {
-    return get(renderedElement, 'props.data-id', undefined)
-  }
+  const getElementId = (renderedElement: ReactElement): Maybe<string> =>
+    renderedElement?.props?.[DATA_ID]
 
   const treeToObject = useCallback(
     (renderElement: ReactElement): Nullable<PropsDataByElementId> => {
