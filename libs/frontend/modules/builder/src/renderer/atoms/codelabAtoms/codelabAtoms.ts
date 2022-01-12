@@ -1,6 +1,6 @@
 import { AtomType } from '@codelab/shared/abstract/core'
 import dynamic from 'next/dynamic'
-import { AtomsRecord } from './atomFactoryType'
+import { AtomsRecord } from '../types'
 
 // Custom atom components
 export const codelabAtoms: AtomsRecord = {

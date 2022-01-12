@@ -1,9 +1,9 @@
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import React from 'react'
+import { atomFactory } from '../atoms'
 import { logRendered } from '../utils'
 import { evalCss } from '../utils/evalCss'
-import { reactComponentFactory } from '../utils/reactComponentFactory'
 import { RenderPipeFactory } from './types'
 
 /**
@@ -15,7 +15,7 @@ export const renderAtomPipe: RenderPipeFactory =
       return next(element, context, props)
     }
 
-    const [RootComponent, atomProps] = reactComponentFactory({
+    const [RootComponent, atomProps] = atomFactory({
       atomType: element.atom.type,
       node: element,
     })

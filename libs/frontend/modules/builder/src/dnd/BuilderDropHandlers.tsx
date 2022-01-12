@@ -1,7 +1,7 @@
 import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
-import { querySelectorRenderedElement } from '../renderer'
+import { queryRenderedElementById } from '../renderer'
 import { HoverOverlay } from '../sections'
 import { useCreateElementDroppable } from './useCreateElementDroppable'
 
@@ -44,7 +44,7 @@ export const BuilderDropHandlers = React.memo(
     return (
       <>
         {tree.getAllVertices(ElementTree.isElement).map((e) => {
-          const target = querySelectorRenderedElement(e.id)
+          const target = queryRenderedElementById(e.id)
 
           if (!target) {
             return null

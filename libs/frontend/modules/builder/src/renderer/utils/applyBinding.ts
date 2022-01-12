@@ -1,3 +1,4 @@
+import { BINDING_WILDCARD } from '@codelab/frontend/abstract/core'
 import { PropMapBindingFragment } from '@codelab/frontend/modules/element'
 import { PropsData } from '@codelab/shared/abstract/core'
 import { get, set } from 'lodash'
@@ -7,8 +8,8 @@ export const applyBinding = (
   sourceProps: PropsData,
   binding: PropMapBindingFragment,
 ): PropsData => {
-  const isSourceKeyWildcard = binding.sourceKey === '*'
-  const isTargetKeyWildcard = binding.targetKey === '*'
+  const isSourceKeyWildcard = binding.sourceKey === BINDING_WILDCARD
+  const isTargetKeyWildcard = binding.targetKey === BINDING_WILDCARD
 
   const value = isSourceKeyWildcard
     ? sourceProps

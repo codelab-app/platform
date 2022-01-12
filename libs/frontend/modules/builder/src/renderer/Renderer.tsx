@@ -1,3 +1,4 @@
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
 import { TypeKindsContext } from '@codelab/frontend/modules/type'
 import React, { useContext } from 'react'
 import { useHookResponse } from './hooks/useHookResponse'
@@ -47,7 +48,7 @@ export const Renderer = ({
   }
 
   return (
-    <div style={{ minHeight: '100%' }} id="render-root">
+    <div style={{ minHeight: '100%' }} id={ROOT_RENDER_CONTAINER_ID}>
       {rendered}
     </div>
   )
