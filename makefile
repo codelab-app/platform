@@ -95,11 +95,9 @@ unit-dev-affected:
 		--color
 
 unit-ci:
-	npx nx run-many \
+	npx nx affected:test
 		--testPathPattern=[^i].spec.ts \
 		--target=test \
-		--all \
 		--parallel \
 		--verbose \
-		--color \
-		--skip-nx-cache
+		--color
