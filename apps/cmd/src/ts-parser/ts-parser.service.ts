@@ -5,6 +5,7 @@ import { TypeKind } from '@codelab/shared/codegen/graphql'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { writeFileSync } from 'fs'
+import { isString } from 'lodash'
 import { Command, Console } from 'nestjs-console'
 import { compose } from 'ramda'
 import {
@@ -199,8 +200,7 @@ const unionPipe: TypeNodePipeFactory = (next) => (typeNode, name) => {
             }
 
             // the string values are stored as '"something"', booleans as 'true', etc.
-            // did not use lodash isString for smart cast
-            if (typeof t.value !== 'string') {
+            if (!isString(t.value)) {
               return null
             }
 
