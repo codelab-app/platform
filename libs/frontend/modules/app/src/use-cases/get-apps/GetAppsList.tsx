@@ -1,8 +1,8 @@
-import { padding, threeGridCol } from '@codelab/frontend/style'
 import {
   ConditionalView,
   SpinnerWrapper,
 } from '@codelab/frontend/view/components'
+import { padding, threeGridCol } from '@codelab/frontend/view/style'
 import { Col, Empty, Row } from 'antd'
 import React from 'react'
 import { useGetAppsQuery } from '../../store'

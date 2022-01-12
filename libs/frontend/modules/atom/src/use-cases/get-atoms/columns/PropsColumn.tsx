@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/model/state/router'
+import { PageType } from '@codelab/frontend/model/store/router'
 import Link from 'next/link'
 import tw from 'twin.macro'
 import { PropsColumnProps } from './types'

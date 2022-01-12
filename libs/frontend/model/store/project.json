@@ -1,17 +1,17 @@
 {
-  "root": "libs/frontend/style",
-  "sourceRoot": "libs/frontend/style/src",
+  "root": "libs/frontend/model/store",
+  "sourceRoot": "libs/frontend/model/store/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/frontend/style/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/frontend/model/store/**/*.{ts,tsx,js,jsx}"]
       },
       "outputs": ["{options.outputFile}"],
       "configurations": {
         "ci": {
-          "eslintConfig": "libs/frontend/style/.eslintrc.ci.json"
+          "eslintConfig": "libs/frontend/model/store/.eslintrc.ci.json"
         }
       }
     }

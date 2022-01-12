@@ -79,6 +79,7 @@
         "libs/frontend/abstract/props/src/index.ts"
       ],
       "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
+      "@codelab/frontend/model/store": ["libs/frontend/model/store/index.ts"],
       "@codelab/frontend/model/domain": [
         "libs/frontend/model/domain/src/index.ts"
       ],
@@ -91,21 +92,20 @@
       "@codelab/frontend/model/infra/redux": [
         "libs/frontend/model/infra/redux/src/index.ts"
       ],
-      "@codelab/frontend/model/state": ["libs/frontend/model/state/index.ts"],
-      "@codelab/frontend/model/state/local": [
-        "libs/frontend/model/state/local/index.ts"
+      "@codelab/frontend/model/store/local": [
+        "libs/frontend/model/store/local/index.ts"
       ],
-      "@codelab/frontend/model/state/meta": [
-        "libs/frontend/model/state/meta/index.ts"
+      "@codelab/frontend/model/store/meta": [
+        "libs/frontend/model/store/meta/index.ts"
       ],
-      "@codelab/frontend/model/state/remote": [
-        "libs/frontend/model/state/remote/index.ts"
+      "@codelab/frontend/model/store/remote": [
+        "libs/frontend/model/store/remote/index.ts"
       ],
-      "@codelab/frontend/model/state/router": [
-        "libs/frontend/model/state/router/index.ts"
+      "@codelab/frontend/model/store/router": [
+        "libs/frontend/model/store/router/index.ts"
       ],
-      "@codelab/frontend/model/state/shared": [
-        "libs/frontend/model/state/shared/index.ts"
+      "@codelab/frontend/model/store/shared": [
+        "libs/frontend/model/store/shared/index.ts"
       ],
       "@codelab/frontend/modules/admin": [
         "libs/frontend/modules/admin/src/index.ts"
@@ -158,13 +158,13 @@
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],
-      "@codelab/frontend/style": ["libs/frontend/style/src/index.ts"],
       "@codelab/frontend/view/components": [
         "libs/frontend/view/components/index.ts"
       ],
       "@codelab/frontend/view/sections": [
         "libs/frontend/view/sections/index.ts"
       ],
+      "@codelab/frontend/view/style": ["libs/frontend/view/style/index.ts"],
       "@codelab/frontend/view/templates": [
         "libs/frontend/view/templates/index.ts"
       ],

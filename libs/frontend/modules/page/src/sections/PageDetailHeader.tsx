@@ -1,5 +1,5 @@
 import { EyeOutlined, FileOutlined, ToolOutlined } from '@ant-design/icons'
-import { PageType } from '@codelab/frontend/model/state/router'
+import { PageType } from '@codelab/frontend/model/store/router'
 import { useAppState } from '@codelab/frontend/modules/app'
 import { Menu } from 'antd'
 import SubMenu from 'antd/lib/menu/SubMenu'

@@ -11,7 +11,7 @@ import {
   cardStyle,
   padding,
   threeGridCol,
-} from '@codelab/frontend/style'
+} from '@codelab/frontend/view/style'
 import { Card, Col, Row } from 'antd'
 import React from 'react'
 

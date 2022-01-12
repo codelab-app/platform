@@ -1,6 +1,6 @@
 import { ApartmentOutlined } from '@ant-design/icons'
 import { IElement } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/model/state/router'
+import { PageType } from '@codelab/frontend/model/store/router'
 import { useTagDispatch } from '@codelab/frontend/modules/tag'
 import {
   ListItemButton,

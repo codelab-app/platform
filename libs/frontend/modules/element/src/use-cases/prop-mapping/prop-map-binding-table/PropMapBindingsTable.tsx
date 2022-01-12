@@ -1,10 +1,10 @@
 import { IElement } from '@codelab/frontend/abstract/core'
-import { headerCellProps } from '@codelab/frontend/style'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
+import { headerCellProps } from '@codelab/frontend/view/style'
 import { ElementTree } from '@codelab/shared/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import React from 'react'

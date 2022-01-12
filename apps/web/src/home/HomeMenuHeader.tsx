@@ -1,12 +1,12 @@
 import { HomeOutlined, UserOutlined } from '@ant-design/icons'
 import { useUser } from '@auth0/nextjs-auth0'
-import { PageType } from '@codelab/frontend/model/state/router'
+import { PageType } from '@codelab/frontend/model/store/router'
 import {
   LoginUserButton,
   RegisterUserButton,
   SignOutUserButton,
 } from '@codelab/frontend/modules/user'
-import { disableMenuHoverEffects } from '@codelab/frontend/style'
+import { disableMenuHoverEffects } from '@codelab/frontend/view/style'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'

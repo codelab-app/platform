@@ -1,11 +1,11 @@
 import { RightCircleOutlined } from '@ant-design/icons'
-import { PageType } from '@codelab/frontend/model/state/router'
-import { headerCellProps } from '@codelab/frontend/style'
+import { PageType } from '@codelab/frontend/model/store/router'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
+import { headerCellProps } from '@codelab/frontend/view/style'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table/interface'
 import Link from 'next/link'

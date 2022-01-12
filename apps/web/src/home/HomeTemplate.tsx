@@ -1,4 +1,4 @@
-import { contentStyle } from '@codelab/frontend/style'
+import { contentStyle } from '@codelab/frontend/view/style'
 import { Layout } from 'antd'
 import React from 'react'
 import { HomeMenuHeader } from './HomeMenuHeader'

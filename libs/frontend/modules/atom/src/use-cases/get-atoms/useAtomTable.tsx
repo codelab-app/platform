@@ -1,5 +1,5 @@
-import { headerCellProps } from '@codelab/frontend/style'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
+import { headerCellProps } from '@codelab/frontend/view/style'
 import { TableColumnProps } from 'antd'
 import {
   TablePaginationConfig,

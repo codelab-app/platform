@@ -1,5 +1,5 @@
 import { IElement } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/model/state/router'
+import { PageType } from '@codelab/frontend/model/store/router'
 import {
   useConvertElementToComponentMutation,
   useCreateElementMutation,

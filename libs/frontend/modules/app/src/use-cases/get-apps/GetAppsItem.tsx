@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/model/state/router'
+import { PageType } from '@codelab/frontend/model/store/router'
 import { Card } from 'antd'
 import Link from 'next/link'
 import { ItemDropdown } from './ItemDropdown'

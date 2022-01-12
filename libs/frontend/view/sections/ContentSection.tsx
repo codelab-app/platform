@@ -1,5 +1,5 @@
-import { padding } from '@codelab/frontend/style'
 import React, { PropsWithChildren } from 'react'
+import { padding } from '../style'
 
 // export const StyledSection = styled.section(() => [tw`mt-4`])
 

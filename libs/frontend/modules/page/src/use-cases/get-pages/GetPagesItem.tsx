@@ -1,5 +1,5 @@
 import { FileOutlined } from '@ant-design/icons'
-import { PageType } from '@codelab/frontend/model/state/router'
+import { PageType } from '@codelab/frontend/model/store/router'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
