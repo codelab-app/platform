@@ -1,12 +1,12 @@
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
 import { TypeKindsContext } from '@codelab/frontend/modules/type'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
+import { sum } from 'lodash'
 import React, { useContext } from 'react'
 import { RecoilRoot } from 'recoil'
 import { useHookResponse } from './hooks/useHookResponse'
 import { RenderContext, RendererProps, renderPipeline } from './pipes'
 import { RenderContainer } from './renderContainer'
-import { containerKey } from './utils'
 
 /**
  * Renders an ElementTree
@@ -18,6 +18,7 @@ export const Renderer = ({
 }: RendererProps) => {
   const { typeKindsById } = useContext(TypeKindsContext)
   const { getHooksResponse } = useHookResponse()
+  const hooksCount = sum(tree.getAllVertices().map((v) => v.hooks.length))
 
   const root = isComponentRenderer
     ? tree.getRootComponent()
@@ -42,31 +43,16 @@ export const Renderer = ({
     tree,
   }
 
-  if (renderContext.inspect) {
-    console.group('Root')
-  }
-
-  const rendered = renderContext.render(root, renderContext, {})
-
-  if (renderContext.inspect) {
-    console.groupEnd()
-  }
-
   return (
     <ErrorBoundary>
       <RecoilRoot>
-        <div
-          style={{ minHeight: '100%' }}
-          id={ROOT_RENDER_CONTAINER_ID}
-          key={containerKey(root)}
-        >
+        <div style={{ minHeight: '100%' }} id={ROOT_RENDER_CONTAINER_ID}>
           <RenderContainer
-            key={containerKey(root)}
+            key={hooksCount}
             context={renderContext}
-            isRoot
-          >
-            {rendered}
-          </RenderContainer>
+            root={root}
+            props={{}}
+          />
         </div>
       </RecoilRoot>
     </ErrorBoundary>
