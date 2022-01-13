@@ -110,6 +110,7 @@
     "deepmerge": "4.2.2",
     "dgraph-js-http": "21.3.1",
     "env-var": "7.1.1",
+    "enzyme": "3.11.0",
     "express": "4.17.2",
     "fp-ts": "2.11.7",
     "framer-motion": "5.5.7",
@@ -179,9 +180,8 @@
     "why-is-node-running": "2.2.0",
     "winston": "3.4.0",
     "worker-loader": "3.0.8",
-    "zod": "3.11.6",
-    "enzyme": "3.11.0",
-    "yargs": "17.3.1"
+    "yargs": "17.3.1",
+    "zod": "3.11.6"
   },
   "devDependencies": {
     "@apollo/graphql": "14.5.0",
@@ -307,6 +307,7 @@
     "babel-plugin-import": "1.13.3",
     "babel-runtime": "6.26.0",
     "benchmark": "^2.1.4",
+    "bower": "^1.8.13",
     "chokidar": "3.5.2",
     "commitizen": "4.2.4",
     "concurrently": "7.0.0",
