@@ -1,10 +1,10 @@
-import { PropData } from '@codelab/shared/abstract/core'
+import { PropsData } from '@codelab/shared/abstract/core'
 import { extraPropsPipe } from './extraPropsPipe'
 import { renderPipeline } from './renderPipeline'
 import { elementToRender, endPipe, EndPipeOutput, treeToRender } from './test'
 import { RenderContext } from './types'
 
-const extraProps: PropData = {
+const extraProps: PropsData = {
   extra1: '01',
   extra2: '02',
 }

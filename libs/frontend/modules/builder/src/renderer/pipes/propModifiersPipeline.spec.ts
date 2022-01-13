@@ -1,18 +1,18 @@
-import { IHook, PropData } from '@codelab/shared/abstract/core'
+import { IHook, PropsData } from '@codelab/shared/abstract/core'
 import { merge } from 'lodash'
 import { ReactElement } from 'react'
 import { propModifiersPipeline } from './renderPipeline'
 import { elementToRender, endPipe, EndPipeOutput } from './test'
 import { RenderContext } from './types'
 
-const testHookResponse: PropData = {
+const testHookResponse: PropsData = {
   testHookResponse: {
     prop01: 'value01',
     prop02: 'value02',
   },
 }
 
-const getHooksResponse = (hooks: Array<IHook>, props: PropData) =>
+const getHooksResponse = (hooks: Array<IHook>, props: PropsData) =>
   testHookResponse
 
 const defaultContext = { getHooksResponse } as RenderContext

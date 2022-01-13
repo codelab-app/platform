@@ -1,11 +1,11 @@
-import { PropData } from '@codelab/shared/abstract/core'
+import { PropsData } from '@codelab/shared/abstract/core'
 import { propTransformationJsPipe } from './propTransformationJsPipe'
 import { elementToRender, endPipe, EndPipeOutput } from './test'
 import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 
-const initialProps: PropData = {
+const initialProps: PropsData = {
   prop01: 'prop01Value',
   prop02: 'prop02Value',
   prop03: 'prop03Value',

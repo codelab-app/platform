@@ -1,7 +1,5 @@
 import { isString } from 'lodash'
-import React, { ReactElement } from 'react'
-import { RenderContainer } from '../renderContainer'
-import { containerKey } from '../utils'
+import { ReactElement } from 'react'
 import { RenderTypes } from './types'
 
 /**
@@ -22,11 +20,7 @@ export const renderChildrenPipe: RenderTypes = (element, context, props) => {
   }
 
   const rendered = childVertices
-    .map((child) => (
-      <RenderContainer key={containerKey(child)}>
-        {context.render(child, context, {})}
-      </RenderContainer>
-    ))
+    .map((child) => context.render(child, context, {}))
     .filter((c): c is ReactElement => !!c)
 
   if (!rendered?.length) {

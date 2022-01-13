@@ -15,12 +15,12 @@ export const renderAtomPipe: RenderPipeFactory =
       return next(element, context, props)
     }
 
-    const [RootComponent, atomProps] = atomFactory({
+    const [ReactComponent, atomProps] = atomFactory({
       atomType: element.atom.type,
       node: element,
     })
 
-    if (!RootComponent) {
+    if (!ReactComponent) {
       return next(element, context, props)
     }
 
@@ -30,14 +30,11 @@ export const renderAtomPipe: RenderPipeFactory =
       console.group(element.id, element.name)
     }
 
-    const rendered = (
-      <RootComponent
-        {...mergedProps}
-        css={element.css ? css(evalCss(element.css)) : undefined}
-      >
-        {next(element, context, mergedProps)}
-      </RootComponent>
-    )
+    const rendered = React.createElement(ReactComponent, {
+      ...mergedProps,
+      css: element.css ? css(evalCss(element.css)) : undefined,
+      children: next(element, context, mergedProps),
+    })
 
     logRendered(rendered, element, context)
 

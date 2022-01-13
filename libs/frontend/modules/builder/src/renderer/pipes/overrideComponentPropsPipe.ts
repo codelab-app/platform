@@ -1,9 +1,6 @@
 import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { merge } from 'lodash'
-import React from 'react'
-import { RenderContainer } from '../renderContainer'
-import { containerKey } from '../utils'
 import { RenderPipeFactory } from './types'
 
 const getComponentInstance = (element: IElement, tree: ElementTree) => {
@@ -32,9 +29,5 @@ export const overrideComponentPropsPipe: RenderPipeFactory =
       extraElementProps,
     })
 
-    return (
-      <RenderContainer key={containerKey(componentInstance)} context={context}>
-        {updateContext.render(componentInstance, updateContext, props)}
-      </RenderContainer>
-    )
+    return updateContext.render(componentInstance, updateContext, props)
   }

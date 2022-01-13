@@ -1,7 +1,7 @@
 import { PropsData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { isArray, isObjectLike } from 'lodash'
-import React from 'react'
+import { Fragment } from 'react'
 import { RenderPipeFactory } from './types'
 
 /**
@@ -25,5 +25,5 @@ export const loopingRenderPipe: RenderPipeFactory =
       return next(element, context, mergeProps(props, valueProp, { key }))
     }
 
-    return <>{value.map(renderProp)}</>
+    return Fragment({ children: value.map(renderProp) })
   }

@@ -1,11 +1,11 @@
-import { PropData } from '@codelab/shared/abstract/core'
+import { PropsData } from '@codelab/shared/abstract/core'
 import { propMapBindingsPipe } from './propMapBindingsPipe'
 import { elementToRender, endPipe, EndPipeOutput } from './test'
 import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
 
-const initialProps: PropData = {
+const initialProps: PropsData = {
   test: {
     source: {
       '01': 'random-value-01',
