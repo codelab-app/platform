@@ -179,7 +179,9 @@
     "why-is-node-running": "2.2.0",
     "winston": "3.4.0",
     "worker-loader": "3.0.8",
-    "zod": "3.11.6"
+    "zod": "3.11.6",
+    "enzyme": "3.11.0",
+    "yargs": "17.3.1"
   },
   "devDependencies": {
     "@apollo/graphql": "14.5.0",
@@ -316,7 +318,6 @@
     "dotenv": "11.0.0",
     "dotenv-webpack": "7.0.3",
     "env-cmd": "10.1.0",
-    "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.6",
     "eslint": "8.6.0",
     "eslint-config-airbnb": "19.0.4",
@@ -366,8 +367,7 @@
     "wait-on": "6.0.0",
     "webpack": "4.46.0",
     "webpack-filter-warnings-plugin": "1.2.1",
-    "why-is-node-running": "2.2.0",
-    "yargs": "17.3.1"
+    "why-is-node-running": "2.2.0"
   },
   "resolutions": {
     "graphql-language-service": "3.1.6",

@@ -44,8 +44,14 @@ export class ImportTagsService extends DgraphUseCase<ImportTagsRequest, any> {
     currentUser: IUser,
   ) {
     const operations: Array<(_: Map<string, string>) => Promise<any>> = []
+    /**
+     * This creates a Cytoscape tree/graph object, so we can use BFS on it
+     */
     const treeService = this.treeProvider(tagGraph)
 
+    /**
+     * BFS should always be called instead of manually looping through descendants
+     */
     treeService.bfsVisit((v, e, u, i, depth) => {
       const vertex = v?.data()
       const edge = e?.data()

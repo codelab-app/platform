@@ -1,42 +1,15 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
-# https://circleci.com/docs/2.0/env-vars/#built-in-environment-variables
-
-# Success notification is added to end of workflow, while failure notification is added to end of each job.
-
 filters-dev-pr: &filters-dev-pr
   filters:
     branches:
       ignore:
         - master
-        - production
-        - staging
 
 filters-master: &filters-master
   filters:
     branches:
       only:
         - master
-
-filters-staging: &filters-staging
-  filters:
-    tags:
-      only:
-        - /^(stag-)(\d|[1-9]\d*)\.(\d|[1-9]\d*)\.(\d|[1-9]\d*)$/
-    branches:
-      only:
-        - staging
-
-filters-prod: &filters-prod
-  filters:
-    tags:
-      only:
-        - /^(prod-)(\d|[1-9]\d*)\.(\d|[1-9]\d*)\.(\d|[1-9]\d*)$/
-    branches:
-      only:
-        - production
+        - 1226-trunk-base
 
 executor-params: &executor-params
   parameters:
@@ -155,27 +128,6 @@ commands:
           name: 'Install Bower packages'
           command: bower install --no-interactive
 
-  package-install-prod:
-    description: 'Install prod dependencies'
-    steps:
-      - run:
-          name: 'Install Yarn'
-          command: npm install --global yarn
-      - restore_cache:
-          name: 'Restore Yarn cache'
-          keys:
-            - dep-cache-prod-{{ checksum "yarn.lock" }}
-            - dep-cache-prod-
-      - run:
-          name: 'Install NPM packages'
-          command: yarn install --frozen-lockfile --ignore-scripts --prod=true
-      - save_cache:
-          name: 'Save cache'
-          key: dep-cache-prod-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-            - ~/.cache/Cypress
-
   notify-failure:
     steps:
       - slack/notify:
@@ -193,74 +145,28 @@ commands:
           name: 'Reset Dgraph Data'
           command: yarn cli dgraph reset-data --env ci
 
-  build-docker-image:
+  build-push-docker-image:
     description: 'Build docker image'
     steps:
       - setup-workspace
       - setup_remote_docker:
+          docker_layer_caching: true
           version: 19.03.8
       - aws-cli/setup
       - run:
           name: 'Setup common environment variables'
           command: |
-            echo 'export ECR_REPOSITORY_NAME="${APP_PREFIX}-api"' >> $BASH_ENV
+            echo 'export ECR_REPOSITORY_NAME="clab-api"' >> $BASH_ENV
             echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY_NAME}:${CIRCLE_SHA1}"' >> $BASH_ENV
       - run:
           name: 'Build Docker image'
           command: |
             docker build -t $FULL_IMAGE_NAME -f .docker/Dockerfile .
       - run:
-          name: Save image to an archive
+          name: 'Push image to ECR'
           command: |
-            mkdir docker-image
-            docker save -o docker-image/image.tar $FULL_IMAGE_NAME
-      - persist_to_workspace:
-          root: .
-          paths:
-            - docker-image
-
-  deploy-to-ecs:
-    description: 'Deploy the docker to ecs instance'
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: 19.03.8
-      - attach_workspace:
-          at: workspace
-      - aws-cli/setup
-      - run:
-          name: Load image
-          command: |
-            docker load --input workspace/docker-image/image.tar
-      - run:
-          name: Setup common environment variables
-          command: |
-            echo 'export ECS_CLUSTER_NAME="${APP_PREFIX}-cluster"' >> $BASH_ENV
-            echo 'export ECS_SERVICE_NAME="${APP_PREFIX}-service"' >> $BASH_ENV
-            echo 'export ECS_TASK_FAMILTY="${APP_PREFIX}-app-task"' >> $BASH_ENV
-            echo 'export FULL_IMAGE_NAME="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${APP_PREFIX}-api:${CIRCLE_SHA1}"' >> $BASH_ENV
-      - run:
-          name: Push image
-          command: |
-            aws ecr get-login-password | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${APP_PREFIX}-api"
+            aws ecr get-login-password | docker login --username AWS --password-stdin "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/clab-api"
             docker push $FULL_IMAGE_NAME
-      - aws-ecs/update-service:
-          family: '${ECS_TASK_FAMILTY}'
-          cluster-name: '${ECS_CLUSTER_NAME}'
-          service-name: '${ECS_SERVICE_NAME}'
-          container-image-name-updates: 'container=${APP_PREFIX}-app,tag=${CIRCLE_SHA1}'
-          force-new-deployment: true
-          verify-revision-is-deployed: true
-
-  setup-staging:
-    description: 'Setup staging deployment'
-    steps:
-      - run: echo 'export APP_PREFIX="${APP_STAGING_PREFIX}"' >> $BASH_ENV
-
-  setup-prod:
-    description: 'Setup prod deployment'
-    steps:
-      - run: echo 'export APP_PREFIX="${APP_PROD_PREFIX}"' >> $BASH_ENV
 
 jobs:
   install-and-build-workspace:
@@ -276,21 +182,17 @@ jobs:
           command: |
             npx cypress cache path
             rm -rf ~/project/node_modules/.cache
-      #            npx cypress cache prune
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-            # - ~/.cache/Cypress
             - ~/project/node_modules
-            # - ~/project/dist/apps/web/.next/cache
       - persist_to_workspace:
           root: ~/
           paths:
             - project/node_modules
             - project/dist
-            # - .cache/Cypress
       - notify-failure
 
   lint:
@@ -317,17 +219,6 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      # - run: echo 'export TEST_ENV="unit"' >> $BASH_ENV
-      # - run:
-      #     name: 'Unit Specs'
-      #     command: |
-      #       npx nx run-many \
-      #         --testPathPattern=[^i].spec.ts \
-      #         --target=test \
-      #         --all \
-      #         --parallel \
-      #         --verbose \
-      #         --color
       - run: make unit-ci
       - notify-failure
 
@@ -355,10 +246,6 @@ jobs:
       - run: npx cypress install
       - run: npx cypress verify
       - run: make e2e-ci-affected
-      # - run:
-      #     name: Store Cypress Artifacts
-      #     command: |
-      #       c
       - store_artifacts:
           path: ~/project/apps/web-e2e/src/videos
           destination: cypress-videos
@@ -446,29 +333,10 @@ jobs:
             	]
             }
 
-  build-docker-staging:
+  build-push-docker-image-ecr:
     <<: *executor-params
     steps:
-      - setup-staging
-      - build-docker-image
-
-  deploy-to-staging:
-    <<: *executor-params
-    steps:
-      - setup-staging
-      - deploy-to-ecs
-
-  build-docker-prod:
-    <<: *executor-params
-    steps:
-      - setup-prod
-      - build-docker-image
-
-  deploy-to-prod:
-    <<: *executor-params
-    steps:
-      - setup-prod
-      - deploy-to-ecs
+      - build-push-docker-image
 
 workflows:
   app-dev-pr:
@@ -517,118 +385,15 @@ workflows:
           <<: *filters-master
           e: docker-node
           context: CI
-      - lint:
+      - build-push-docker-image-ecr:
           <<: *filters-master
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - notify-success:
-          <<: *filters-master
+          <<: *filters-dev-pr
           context: CI
           e: docker-node
           requires:
-            - lint
-
-  app-staging:
-    jobs:
-      - install-and-build-workspace:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-      - lint:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - unit:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - integration:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - e2e:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - build-docker-staging:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-          requires:
-            - unit
-            - e2e
-            - integration
-      - deploy-to-staging:
-          <<: *filters-staging
-          e: docker-python
-          context: CI
-          requires:
-            - build-docker-staging
-      - notify-success:
-          <<: *filters-staging
-          e: docker-node
-          context: CI
-          requires:
-            - deploy-to-staging
-
-  app-prod:
-    jobs:
-      - install-and-build-workspace:
-          <<: *filters-prod
-          e: docker-node
-          context: CI
-      - lint:
-          <<: *filters-prod
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - unit:
-          <<: *filters-prod
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - integration:
-          <<: *filters-prod
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - e2e:
-          <<: *filters-prod
-          e: docker-node
-          context: CI
-          requires:
-            - install-and-build-workspace
-      - build-docker-prod:
-          <<: *filters-prod
-          e: docker-node
-          context: CI
-          requires:
-            - lint
-            - unit
-            - integration
-            - e2e
-      - deploy-to-prod:
-          <<: *filters-prod
-          e: docker-python
-          context: CI
-          requires:
-            - build-docker-prod
-      - notify-success:
-          <<: *filters-prod
-          e: docker-node
-          context: CI
-          requires:
-            - deploy-to-prod
+            - build-push-docker-image-ecr

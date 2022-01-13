@@ -3,11 +3,7 @@
 #
 # We build `dist` with CI first before building our image, installing NPM here is require due to some packages that require native bindings.
 #
-
-#
-# (1) Build
-#
-FROM node:14.15.0-alpine AS build
+FROM node:14.18.0-alpine AS build
 
 RUN apk add bash make nasm autoconf automake libtool dpkg pkgconfig libpng libpng-dev g++
 
@@ -18,24 +14,29 @@ COPY yarn.lock yarn.lock
 
 RUN yarn --prod --frozen-lockfile --ignore-scripts
 
+
 #
 # (2) Prod
 #
-FROM node:14.15.0-alpine AS prod
+FROM node:14.18.0-alpine AS prod
 
 RUN apk add curl
 
 WORKDIR /usr/local/codelab
 
 # Ignore specs from image
-RUN rm **/tests
 
 COPY package.json package.json
 COPY dist dist
 COPY scripts scripts
 COPY .docker .docker
-COPY --from=build /usr/local/codelab/node_modules ./node_modules
+COPY --from=build /usr/local/codelab/node_modules node_modules
 
+# RUN ls node_modules
+
+# default commands and/or parameters for a container
 CMD ["node", "dist/apps/api/main.js"]
 
-# At runtime need to specify `EXPOSE`, `ENTRYPOINT`
+# is preferred when you want to define a container with a specific executable
+# You cannot override the ENTRYPOINT instruction by adding command-line parameters, but rather append to it
+# ENTRYPOINT
