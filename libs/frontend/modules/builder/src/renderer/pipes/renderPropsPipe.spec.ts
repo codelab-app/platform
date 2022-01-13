@@ -1,5 +1,6 @@
 import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
+import React from 'react'
 import { renderPipeline } from './renderPipeline'
 import { renderPropsPipe } from './renderPropsPipe'
 import {
@@ -14,6 +15,7 @@ import { RenderContext } from './types'
 const defaultContext = {
   tree: treeToRender,
   render: renderPipeline,
+  reactRender: React.createElement,
 } as RenderContext
 
 const initialProps: PropsData = {
@@ -33,7 +35,7 @@ describe('RenderPropsPipe', () => {
     ) as EndPipeOutput
 
     const { renderText: RenderFn } = props
-    const { findByText } = render(RenderFn({}))
+    const { findByText } = render(React.createElement(RenderFn, {}))
 
     expect(await findByText(initialProps.text)).toBeInTheDocument()
   })

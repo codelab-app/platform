@@ -1,9 +1,11 @@
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { loopingRenderPipe } from './loopRenderingPipe'
 import { elementToRender, endPipe, EndPipeOutput } from './test'
 import { RenderContext } from './types'
 
-const defaultContext = {} as RenderContext
+const defaultContext = {
+  reactRender: React.createElement,
+} as RenderContext
 
 const initialProps = {
   [elementToRender.renderForEachPropKey as string]: [

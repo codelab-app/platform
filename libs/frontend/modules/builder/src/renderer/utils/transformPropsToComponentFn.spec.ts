@@ -16,6 +16,7 @@ const propsToRender: PropsData = {
 const defaultContext = {
   tree: treeToRender,
   render: renderPipeline,
+  reactRender: React.createElement,
 } as RenderContext
 
 const initialProps = { text: 'text to render' }
@@ -29,7 +30,7 @@ describe('TransformPropsToComponentFn', () => {
     )
 
     const RenderFn = renderText as React.ComponentType<any>
-    const { findByText } = render(<RenderFn />)
+    const { findByText } = render(React.createElement(RenderFn, {}))
 
     expect(await findByText(initialProps.text)).toBeInTheDocument()
   })

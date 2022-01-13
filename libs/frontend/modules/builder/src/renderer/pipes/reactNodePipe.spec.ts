@@ -1,5 +1,6 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
+import React from 'react'
 import { reactNodePipe } from './reactNodePipe'
 import { renderPipeline } from './renderPipeline'
 import {
@@ -14,6 +15,7 @@ import { RenderContext } from './types'
 const defaultContext = {
   tree: treeToRender,
   render: renderPipeline,
+  reactRender: React.createElement,
 } as RenderContext
 
 const initialProps: PropsData = {
