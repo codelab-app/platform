@@ -86,6 +86,7 @@ export class TypeSeeder {
     request: CreateTypeRequest,
   ): Promise<string> {
     const { input, currentUser } = request
+    console.log({ input })
 
     return createIfMissing(
       () => this.getTypeByName(input.name, currentUser),
@@ -303,7 +304,11 @@ export class TypeSeeder {
   private getTypeByName(name: string, currentUser: IUser) {
     return this.getTypeService
       .execute({ input: { where: { name } }, currentUser })
-      .then((r) => r?.id)
+      .then((r) => {
+        console.log({ r })
+
+        return r?.id
+      })
   }
 
   private getField(input: GetFieldInput) {

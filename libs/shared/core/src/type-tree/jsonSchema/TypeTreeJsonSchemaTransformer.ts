@@ -140,8 +140,6 @@ export class TypeTreeJsonSchemaTransformer {
           type.id,
         ) as Array<IType>
 
-        console.log(typesOfUnionType)
-
         const fieldLabel = field.name || field.key
         const fieldTypeId = _.get(this.formModel, `${field.key}.type`)
 

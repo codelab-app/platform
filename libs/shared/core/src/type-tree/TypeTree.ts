@@ -52,7 +52,7 @@ export class TypeTree extends TreeService<IBaseType, ITypeEdge> {
   getFields(typeId: string): Array<IField> {
     return this.cy
       .getElementById(typeId)
-      .connectedEdges()
+      .outgoers()
       .map(getFieldFromEdge)
       .filter(isDefined)
   }

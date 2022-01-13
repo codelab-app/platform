@@ -67,6 +67,13 @@ export interface MetaPaneBuilderProps {
   tree: ElementTree
 }
 
+/**
+ *  the props form,
+ * a component will have an interface.
+ * The process to transform an interface (typeGraph) into a form is fetching the typeGraph of an interface,
+ * transforming it to TypeTree using useTypeTree,
+ * and passing the tree to the InterfaceForm
+ */
 export const MetaPaneBuilder = ({
   renderUpdateElementContent,
   tree,
