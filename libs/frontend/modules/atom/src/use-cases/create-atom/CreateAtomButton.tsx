@@ -13,7 +13,7 @@ export const CreateAtomButton = ({ centerIcon }: CreateAtomButtonProps) => {
       type="primary"
       css={centerIcon ? tw`flex justify-center items-center` : undefined}
       icon={<PlusOutlined />}
-      onClick={openCreateModal}
+      onClick={() => openCreateModal()}
     >
       Create
     </Button>

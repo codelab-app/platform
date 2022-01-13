@@ -7,10 +7,10 @@ import { useLazyExportAtomsQuery } from '../../store'
 import { ExportAtomsButtonProps } from './types'
 
 export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
-  const [getExportAtoms, { isLoading, data, error }] = useLazyExportAtomsQuery()
+  const [getExportAtoms, { isLoading }] = useLazyExportAtomsQuery()
 
   const onClick = async () => {
-    await getExportAtoms({
+    const { data, error } = await getExportAtoms({
       variables: {
         input: {
           where: {
