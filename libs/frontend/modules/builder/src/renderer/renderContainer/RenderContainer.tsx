@@ -2,6 +2,9 @@ import React, { ReactElement, useEffect } from 'react'
 import { getRenderedProps } from '../utils'
 import { RenderContainerProps } from './types'
 
+/**
+ * A global wrapper to register props when render is done
+ */
 export const RenderContainer = ({ context, root }: RenderContainerProps) => {
   if (context?.inspect) {
     console.group('Root')

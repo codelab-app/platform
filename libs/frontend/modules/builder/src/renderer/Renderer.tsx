@@ -18,6 +18,7 @@ export const Renderer = ({
 }: RendererProps) => {
   const { typeKindsById } = useContext(TypeKindsContext)
   const { getHooksResponse } = useHookResponse()
+  // calculate number of hooks attached to the tree
   const hooksCount = sum(tree.getAllVertices().map((v) => v.hooks.length))
 
   const root = isComponentRenderer
@@ -37,6 +38,7 @@ export const Renderer = ({
   const renderContext: RenderContext = {
     ...defaultContext,
     getHooksResponse,
+    // use to avoid jsx syntax
     reactRender: React.createElement,
     render: renderPipeline,
     inspect: false,
@@ -48,6 +50,7 @@ export const Renderer = ({
       <RecoilRoot>
         <div style={{ minHeight: '100%' }} id={ROOT_RENDER_CONTAINER_ID}>
           <RenderContainer
+            // re-create the tree when a hook is added/deleted
             key={hooksCount}
             context={renderContext}
             root={root}
