@@ -25,10 +25,10 @@ export const RenderContainer = ({
 
       const { children } = renderElement?.props || {}
 
-      const chidlrenQueue =
+      const childrenQueue =
         children && isArray(children) ? children : [children]
 
-      const childrenProps = chidlrenQueue
+      const childrenProps = childrenQueue
         .filter((x) => !!x)
         .map(treeToObject)
         .reduce(merge, {})

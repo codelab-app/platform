@@ -1,8 +1,12 @@
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
 import { TypeKindsContext } from '@codelab/frontend/modules/type'
+import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import React, { useContext } from 'react'
+import { RecoilRoot } from 'recoil'
 import { useHookResponse } from './hooks/useHookResponse'
 import { RenderContext, RendererProps, renderPipeline } from './pipes'
+import { RenderContainer } from './renderContainer'
+import { containerKey } from './utils'
 
 /**
  * Renders an ElementTree
@@ -48,8 +52,22 @@ export const Renderer = ({
   }
 
   return (
-    <div style={{ minHeight: '100%' }} id={ROOT_RENDER_CONTAINER_ID}>
-      {rendered}
-    </div>
+    <ErrorBoundary>
+      <RecoilRoot>
+        <div
+          style={{ minHeight: '100%' }}
+          id={ROOT_RENDER_CONTAINER_ID}
+          key={containerKey(root)}
+        >
+          <RenderContainer
+            key={containerKey(root)}
+            context={renderContext}
+            isRoot
+          >
+            {rendered}
+          </RenderContainer>
+        </div>
+      </RecoilRoot>
+    </ErrorBoundary>
   )
 }
