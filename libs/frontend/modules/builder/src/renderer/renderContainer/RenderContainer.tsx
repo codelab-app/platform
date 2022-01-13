@@ -22,6 +22,7 @@ export const RenderContainer = ({ context, root }: RenderContainerProps) => {
     }
 
     const renderMap = getRenderedProps(rendered as ReactElement)
+    // register props into redux
     context.onRendered(renderMap || {})
   }, [rendered, context])
 
