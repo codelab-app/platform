@@ -19,7 +19,7 @@ export const reactNodePipe: RenderPipeFactory =
     )
 
     const components = mapValues(transformedProps, (RenderedComponent) =>
-      RenderedComponent({}),
+      context.reactRender(RenderedComponent, {}),
     )
 
     return next(element, context, mergeProps(props, components))

@@ -23,6 +23,8 @@ export interface RenderContext {
   /** Extra props passed to all element. They override the common props, but props from the node instance override the extraProps */
   extraProps?: PropsData
 
+  reactRender: typeof React.createElement
+
   /** Extra props keyed by element id, they override every other prop */
   extraElementProps?: PropsDataByElementId
 

@@ -36,6 +36,7 @@ export const Renderer = ({
   const renderContext: RenderContext = {
     ...defaultContext,
     getHooksResponse,
+    reactRender: React.createElement,
     render: renderPipeline,
     inspect: false,
     tree,
