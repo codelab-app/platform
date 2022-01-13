@@ -1,6 +1,6 @@
 ---
-name: "\U0001F680 Feature Request"
-about: Request Behavior that does not currently exist in Codelab
+name: '🔨 Refactor'
+about: Refactor existing code or add new architecture
 labels: 'refactor'
 projects: 'Dev'
 ---

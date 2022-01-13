@@ -1,10 +1,15 @@
-#!/usr/bin/env bash
+#! /bin/bash
+
+# Debugging
+
+echo "Starting..."
+
+ls
+ls node_modules
 
 # This script is called by ECS
 
-yarn cli dgraph update-schema --env ci
-yarn cli dgraph reset-data --env ci
-
+# node dist/apps/cli/main.js dgraph update-schema --env ci
 # node dist/apps/cli/main.js dgraph reset-data --env ci
 
-node dist/apps/api/main.js
+# node dist/apps/api/main.js
