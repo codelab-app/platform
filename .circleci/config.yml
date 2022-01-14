@@ -228,7 +228,7 @@ jobs:
       # Since integration doesn't require frontend, we reserve 8081 for e2e & use 8082 here instead
       - run: |
           echo 'export CODELAB_DG_ENDPOINT=$CODELAB_INT_DG_ENDPOINT' >> $BASH_ENV
-          echo 'export DG_AUTH=$CODELAB_INT_DG_ADMIN_API_KEY' >> $BASH_ENV
+          echo 'export DG_ADMIN_API_KEY=$CODELAB_INT_DG_ADMIN_API_KEY' >> $BASH_ENV
       - setup-dgraph
       - run: make integration-ci
       - notify-failure
@@ -240,7 +240,7 @@ jobs:
       - browser-tools/install-firefox
       - run: |
           echo 'export CODELAB_DG_ENDPOINT=$CODELAB_E2E_DG_ENDPOINT' >> $BASH_ENV
-          echo 'export DG_AUTH=$CODELAB_E2E_DG_ADMIN_API_KEY' >> $BASH_ENV
+          echo 'export DG_ADMIN_API_KEY=$CODELAB_E2E_DG_ADMIN_API_KEY' >> $BASH_ENV
       - setup-dgraph
       - run: npx cypress install
       - run: npx cypress verify
