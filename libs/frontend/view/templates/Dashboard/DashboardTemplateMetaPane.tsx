@@ -44,7 +44,7 @@ export const DashboardTemplateMetaPane = ({
         css={[tw`bg-gray-200 w-full z-10`, `min-height: 2px`]}
         {...resizable.yDragHandleProps}
       />
-      <div css={tw`flex-1`}>
+      <div css={tw`flex-1 overflow-y-auto`}>
         <MetaPane {...metaPaneProps} />
       </div>
     </motion.div>

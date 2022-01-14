@@ -20,6 +20,9 @@ import { Empty } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
+const BuilderTemplate = (props: any) => null
+const Sidebar = () => null
+
 const PageBuilder: CodelabPage<DashboardTemplateProps> = () => {
   const { currentPage } = usePageState()
   const { elementTree } = useElementGraphContext()
@@ -33,8 +36,10 @@ const PageBuilder: CodelabPage<DashboardTemplateProps> = () => {
       <Head>
         <title>{currentPage.name} | Builder | Codelab</title>
       </Head>
-
       <Builder tree={elementTree} />
+      <BuilderTemplate>
+        <Sidebar />
+      </BuilderTemplate>
     </>
   )
 }
