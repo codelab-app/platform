@@ -41,8 +41,8 @@ app.use('*', async (baseReq, baseRes, next) => {
         proxyReq.setHeader('Authorization', req.headers.authorization)
       }
 
-      if (process.env.DG_AUTH) {
-        proxyReq.setHeader('Dg-Auth', process.env.DG_AUTH)
+      if (process.env.DG_ADMIN_API_KEY) {
+        proxyReq.setHeader('Dg-Auth', process.env.DG_ADMIN_API_KEY)
       }
     },
   })(baseReq, baseRes, next)
