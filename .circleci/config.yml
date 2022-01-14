@@ -9,7 +9,6 @@ filters-master: &filters-master
     branches:
       only:
         - master
-        - 1226-trunk-base
 
 executor-params: &executor-params
   parameters:
