@@ -1,5 +1,6 @@
+import { PropsData } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { renderAtomPipe } from './renderAtomPipe'
 import { renderPipeline } from './renderPipeline'
 import { elementToRender03, endPipe, treeToRender } from './test'
@@ -8,9 +9,10 @@ import { RenderContext } from './types'
 const defaultContext = {
   tree: treeToRender,
   render: renderPipeline,
+  reactRender: React.createElement,
 } as RenderContext
 
-const initialProps: PropData = {
+const initialProps: PropsData = {
   text: 'a text to render',
 }
 

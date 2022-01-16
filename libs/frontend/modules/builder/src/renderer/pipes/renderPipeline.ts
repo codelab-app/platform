@@ -37,9 +37,6 @@ export const propModifiersPipeline = compose(
 
 // (3). All the pipes that output ReactElements
 export const elementPipeline = compose(
-  renderPropsPipe,
-  reactNodePipe,
-  conditionalRenderPipe,
   renderAtomPipe,
   componentPipe,
   overrideComponentPropsPipe,
@@ -50,5 +47,8 @@ export const renderPipeline = compose(
   propsPipeline,
   propModifiersPipeline,
   extraPropsPipe, // here are our 'global' builder props, which must override all other props, since we override onClick here
+  renderPropsPipe,
+  reactNodePipe,
+  conditionalRenderPipe,
   elementPipeline,
 )(renderChildrenPipe)

@@ -1,8 +1,8 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import React from 'react'
+import { reactNodePipe } from './reactNodePipe'
 import { renderPipeline } from './renderPipeline'
-import { renderPropsPipe } from './renderPropsPipe'
 import {
   componentToRender,
   elementToRender,
@@ -15,26 +15,27 @@ import { RenderContext } from './types'
 const defaultContext = {
   tree: treeToRender,
   render: renderPipeline,
+  reactRender: React.createElement,
 } as RenderContext
 
-const initialProps: PropData = {
+const initialProps: PropsData = {
   renderText: {
-    typeKind: TypeKind.RenderPropsType,
+    typeKind: TypeKind.ReactNodeType,
     id: componentToRender.id,
   },
   text: 'a random text to render',
 }
 
-describe('RenderPropsPipe', () => {
-  it('should transform props to a react component function when typeKind is RenderPropsType ', async () => {
-    const { props } = renderPropsPipe(endPipe)(
+describe('ReactNodePipe', () => {
+  it('should render props when typeKind is ReactNodeType', async () => {
+    const { props } = reactNodePipe(endPipe)(
       elementToRender,
       defaultContext,
       initialProps,
     ) as EndPipeOutput
 
-    const { renderText: RenderFn } = props
-    const { findByText } = render(<RenderFn />)
+    const { renderText } = props
+    const { findByText } = render(renderText)
 
     expect(await findByText(initialProps.text)).toBeInTheDocument()
   })

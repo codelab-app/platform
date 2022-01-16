@@ -1,8 +1,8 @@
-import { PropsWithChildren } from 'react'
+import { IElement, PropsData } from '@codelab/shared/abstract/core'
 import { RenderContext } from '../pipes'
 
-export type RenderContainerProps = PropsWithChildren<{
+export type RenderContainerProps = {
+  root: IElement
+  props: PropsData
   context?: RenderContext
-  /** Used for inspecting root element */
-  isRoot?: boolean
-}>
+}

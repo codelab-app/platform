@@ -5,8 +5,6 @@ import { mergeProps } from '@codelab/shared/utils'
 import { mapValues, merge, transform } from 'lodash'
 import React from 'react'
 import { RenderContext } from '../pipes'
-import { RenderContainer } from '../renderContainer'
-import { containerKey } from './containerKey'
 
 type ComponentMap = {
   [key: string]: IElement
@@ -43,11 +41,7 @@ const getRenderedComponentFn =
   (spreadComponentProps: any) => {
     const componentProps = mergeProps(props, spreadComponentProps)
 
-    return (
-      <RenderContainer key={containerKey(component)} context={context}>
-        {context.render(component, context, componentProps)}
-      </RenderContainer>
-    )
+    return context.render(component, context, componentProps)
   }
 
 export const transformPropsToComponentFn = (
@@ -59,6 +53,10 @@ export const transformPropsToComponentFn = (
   const propsComponents = mapPropsToComponents(props, tree)
 
   return mapValues(propsComponents, (value) => {
-    return getRenderedComponentFn(value, context, allProps)
+    return getRenderedComponentFn(
+      value,
+      context,
+      allProps,
+    ) as React.ComponentType<any>
   })
 }
