@@ -7,7 +7,11 @@ export const CreateLambdaButton = () => {
   const { openCreateModal } = useLambdaDispatch()
 
   return (
-    <Button type="primary" icon={<PlusOutlined />} onClick={openCreateModal}>
+    <Button
+      type="primary"
+      icon={<PlusOutlined />}
+      onClick={() => openCreateModal()}
+    >
       Add
     </Button>
   )
