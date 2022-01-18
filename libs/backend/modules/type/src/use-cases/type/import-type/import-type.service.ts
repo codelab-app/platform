@@ -27,8 +27,7 @@ import {
 } from '../../field/update-field'
 import { CreateTypeService } from '../create-type'
 import { CreateTypeInputFactory } from '../create-type/create-type-input.factory'
-import { UpdateTypeService } from '../update-type'
-import { ImportApiRequest } from './import-api.request'
+import { ImportTypeRequest } from './import-type.request'
 
 // Stored by Name
 type TypesCache = Map<string, Pick<IType, 'name' | 'id'>>
@@ -37,22 +36,21 @@ type TypesCache = Map<string, Pick<IType, 'name' | 'id'>>
  * This service is essentially a wrapper around createField & createType. We transform the graph vertices/edges back into fields & types
  */
 @Injectable()
-export class ImportApiService
-  implements UseCasePort<ImportApiRequest, CreateResponse>
+export class ImportTypeservice
+  implements UseCasePort<ImportTypeRequest, CreateResponse>
 {
   constructor(
     private dgraph: DgraphRepository,
     private createTypeService: CreateTypeService,
     private getFieldService: GetFieldService,
     private createFieldService: CreateFieldService,
-    private updateTypeService: UpdateTypeService,
     private updateFieldService: UpdateFieldService,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
 
-  async execute(request: ImportApiRequest): Promise<CreateResponse> {
+  async execute(request: ImportTypeRequest): Promise<CreateResponse> {
     const {
-      input: { api, typeGraph },
+      input: { id, typeGraph },
       currentUser,
     } = request
 
@@ -133,13 +131,17 @@ export class ImportApiService
           throw new Error(`Unknown source type kind of edge ${sourceTypeKind}`)
         }
 
-        await this.dgraph.transactionWrapper((txn) =>
-          txn.mutate(updateTypeMutation),
-        )
+        const res = await this.dgraph.transactionWrapper(async (txn) => {
+          await txn.mutate(updateTypeMutation)
+
+          await txn.commit()
+        })
+
+        console.log(JSON.stringify(res))
       }),
     )
 
-    const interfaceId = verticesIdMap.get(api)
+    const interfaceId = verticesIdMap.get(id)
 
     if (!interfaceId) {
       throw new Error('Seeder not returning an interface')

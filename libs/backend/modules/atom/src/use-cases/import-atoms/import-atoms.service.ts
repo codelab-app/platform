@@ -1,6 +1,6 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
-import { ImportApiService } from '@codelab/backend/modules/type'
+import { ImportTypeservice } from '@codelab/backend/modules/type'
 import { AtomType, IUser } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
@@ -25,7 +25,7 @@ export class ImportAtomsService
   constructor(
     private getAtomService: GetAtomService,
     private createAtomService: CreateAtomService,
-    private importApiService: ImportApiService,
+    private importTypeservice: ImportTypeservice,
     private updateAtomService: UpdateAtomService,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
@@ -51,10 +51,10 @@ export class ImportAtomsService
         let apiId: Maybe<string> = undefined
 
         if (atom.api) {
-          const { id } = await this.importApiService.execute({
+          const { id } = await this.importTypeservice.execute({
             input: {
               typeGraph: atom.api.typeGraph as any,
-              api: atom.api.id,
+              id: atom.api.id,
             },
             currentUser,
           })

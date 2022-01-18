@@ -5,5 +5,6 @@ declare module 'react-redux' {
   interface DefaultRootState {
     type: TypeState
     field: FieldState
+    selectedIds: Array<string>
   }
 }

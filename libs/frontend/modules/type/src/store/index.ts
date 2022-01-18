@@ -1,4 +1,5 @@
 export * from './fieldEndpoints'
 export * from './fieldState'
 export * from './typeEndpoints'
+export * from './types'
 export * from './typeState'

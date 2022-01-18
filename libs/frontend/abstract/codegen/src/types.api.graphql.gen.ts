@@ -558,6 +558,11 @@ export type CreatePropMapBindingInput = {
   targetKey: Scalars['String']
 }
 
+export type CreateResponse = {
+  __typename?: 'CreateResponse'
+  id: Scalars['String']
+}
+
 export type CreateTagInput = {
   name: Scalars['String']
   /** Parent tag id, empty parent means it's root */
@@ -837,6 +842,10 @@ export type ImportTagsInput = {
   payload: Scalars['String']
 }
 
+export type ImportTypesInput = {
+  payload: Scalars['String']
+}
+
 export type InterfaceType = Type & {
   __typename?: 'InterfaceType'
   id: Scalars['ID']
@@ -926,6 +935,7 @@ export type Mutation = {
   importApp: App
   importAtoms?: Maybe<Scalars['Void']>
   importTags?: Maybe<Scalars['Void']>
+  importTypes?: Maybe<Array<CreateResponse>>
   moveElement: Element
   removeHookFromElement?: Maybe<Hook>
   resetData?: Maybe<Scalars['Void']>
@@ -1054,6 +1064,10 @@ export type MutationImportAtomsArgs = {
 
 export type MutationImportTagsArgs = {
   input: ImportTagsInput
+}
+
+export type MutationImportTypesArgs = {
+  input: ImportTypesInput
 }
 
 export type MutationMoveElementArgs = {
