@@ -1,5 +1,5 @@
 import { IEdge, IGraph, IVertex } from '@codelab/shared/abstract/core'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, {
   EdgeSingular,
@@ -122,18 +122,18 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     return this.cy.elements().bfs({ root, visit })
   }
 
-  getAntdTree(rootPredicate?: Predicate<TVertex>): Nullable<DataNode> {
+  getAntdTree(rootPredicate?: Predicate<TVertex>): Array<DataNode> {
     const root = this.cy
       .elements()
       .roots()
       .filter(filterPredicate(rootPredicate ?? this.predicate))
 
-    let tree: Nullable<DataNode> = null
+    const tree: Array<DataNode> = []
     const nodes: Record<string, DataNode> = {}
     const nodeOrder: Record<string, number> = {}
 
     if (!root) {
-      return null
+      return []
     }
 
     this.cy.elements().breadthFirstSearch({
@@ -159,8 +159,8 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
           return
         }
 
-        if (tree === null) {
-          tree = node
+        if (node.isRoot) {
+          tree.push(node)
         }
 
         if (edge) {
@@ -177,7 +177,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
       },
     })
 
-    return tree as unknown as DataNode
+    return tree as unknown as Array<DataNode>
   }
 
   getAllVertices(predicate?: Predicate<TVertex>): Array<TVertex> {

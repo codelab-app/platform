@@ -12,9 +12,7 @@ export const GetTagsTree = () => {
     return null
   }
 
-  // const tagTreesData = tagTree.map((tagTree) => tagTree.getAntdTree())
-
-  console.log(tagTree.getAntdTree())
+  const tagTreesData = tagTree.getAntdTree()
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     setSelectedTag({ key: selectedKeys[0] })
@@ -37,13 +35,7 @@ export const GetTagsTree = () => {
       /**
        * The root is a system root & shouldn't be shown
        */
-      treeData={[]}
-      // treeData={tagTreesData}
-      // treeData={tags.map((tag) => ({
-      //   key: tag.id,
-      //   title: tag.name,
-      //   children: [],
-      // }))}
+      treeData={tagTreesData}
     />
   )
 }
