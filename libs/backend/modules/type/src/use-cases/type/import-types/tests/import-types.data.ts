@@ -1,59 +1,60 @@
-export const testDataByTypeName: any = {
+import {
+  IType,
+  PrimitiveTypeKind,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
+
+export const testDataByTypeName: Record<
+  string,
+  Array<{ vertex?: Partial<IType>; parent?: Partial<IType> }>
+> = {
   test1: [
     {
       vertex: {
-        __typename: 'ArrayType',
         name: 'test1',
-        typeKind: 'ArrayType',
+        typeKind: TypeKind.ArrayType,
       },
       parent: undefined,
     },
     {
       parent: {
-        __typename: 'ArrayType',
         name: 'test1',
-        typeKind: 'ArrayType',
+        typeKind: TypeKind.ArrayType,
       },
       vertex: {
-        __typename: 'PrimitiveType',
-        name: 'String',
-        typeKind: 'PrimitiveType',
-        primitiveKind: 'String',
+        name: PrimitiveTypeKind.String,
+        typeKind: TypeKind.PrimitiveType,
+        primitiveKind: PrimitiveTypeKind.String,
       },
     },
   ],
   test2: [
     {
       vertex: {
-        __typename: 'InterfaceType',
         name: 'test2',
-        typeKind: 'InterfaceType',
+        typeKind: TypeKind.InterfaceType,
       },
       parent: undefined,
     },
     {
       vertex: {
-        __typename: 'ArrayType',
         name: 'test1',
-        typeKind: 'ArrayType',
+        typeKind: TypeKind.ArrayType,
       },
       parent: {
-        __typename: 'InterfaceType',
         name: 'test2',
-        typeKind: 'InterfaceType',
+        typeKind: TypeKind.InterfaceType,
       },
     },
     {
       parent: {
-        __typename: 'ArrayType',
         name: 'test1',
-        typeKind: 'ArrayType',
+        typeKind: TypeKind.ArrayType,
       },
       vertex: {
-        __typename: 'PrimitiveType',
-        name: 'String',
-        typeKind: 'PrimitiveType',
-        primitiveKind: 'String',
+        name: PrimitiveTypeKind.String,
+        typeKind: TypeKind.PrimitiveType,
+        primitiveKind: PrimitiveTypeKind.String,
       },
     },
   ],
@@ -63,7 +64,7 @@ export const importTypesData = [
   {
     id: '0x57e67',
     name: 'test1',
-    typeKind: 'ArrayType',
+    typeKind: TypeKind.ArrayType,
     typeGraph: {
       edges: [
         {
@@ -73,17 +74,17 @@ export const importTypesData = [
       ],
       vertices: [
         {
-          __typename: 'ArrayType',
+          __typename: TypeKind.ArrayType,
           id: '0x57e67',
           name: 'test1',
-          typeKind: 'ArrayType',
+          typeKind: TypeKind.ArrayType,
         },
         {
-          __typename: 'PrimitiveType',
+          __typename: TypeKind.PrimitiveType,
           id: '0x5574f',
-          name: 'String',
-          typeKind: 'PrimitiveType',
-          primitiveKind: 'String',
+          name: PrimitiveTypeKind.String,
+          typeKind: TypeKind.PrimitiveType,
+          primitiveKind: PrimitiveTypeKind.String,
         },
       ],
     },
@@ -109,23 +110,23 @@ export const importTypesData = [
       ],
       vertices: [
         {
-          __typename: 'PrimitiveType',
+          __typename: TypeKind.PrimitiveType,
           id: '0x5574f',
-          name: 'String',
-          typeKind: 'PrimitiveType',
-          primitiveKind: 'String',
+          name: PrimitiveTypeKind.String,
+          typeKind: TypeKind.PrimitiveType,
+          primitiveKind: PrimitiveTypeKind.String,
         },
         {
-          __typename: 'ArrayType',
+          __typename: TypeKind.ArrayType,
           id: '0x57e67',
           name: 'test1',
-          typeKind: 'ArrayType',
+          typeKind: TypeKind.ArrayType,
         },
         {
-          __typename: 'InterfaceType',
+          __typename: TypeKind.InterfaceType,
           id: '0x57e6a',
           name: 'test2',
-          typeKind: 'InterfaceType',
+          typeKind: TypeKind.InterfaceType,
         },
       ],
     },

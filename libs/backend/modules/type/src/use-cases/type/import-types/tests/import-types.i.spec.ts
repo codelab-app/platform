@@ -57,12 +57,16 @@ describe('ImportTypes', () => {
           const testDataI = testData[i]
           const { vertex: testVertex, parent: testParent } = testDataI
 
-          expect(vertex).toMatchObject(testVertex)
-
-          if (parent === undefined) {
-            expect(parent).toBe(testParent as any)
+          if (testVertex) {
+            expect(vertex).toMatchObject(testVertex)
           } else {
-            expect(parent).toMatchObject(testParent as any)
+            throw new Error('testVertex is falsy')
+          }
+
+          if (testParent) {
+            expect(parent).toMatchObject(testParent)
+          } else {
+            expect(parent).toBe(testParent)
           }
         })
       })

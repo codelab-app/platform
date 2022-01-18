@@ -131,13 +131,11 @@ export class ImportTypeservice
           throw new Error(`Unknown source type kind of edge ${sourceTypeKind}`)
         }
 
-        const res = await this.dgraph.transactionWrapper(async (txn) => {
+        await this.dgraph.transactionWrapper(async (txn) => {
           await txn.mutate(updateTypeMutation)
 
           await txn.commit()
         })
-
-        console.log(JSON.stringify(res))
       }),
     )
 

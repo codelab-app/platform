@@ -3,7 +3,7 @@ import { CreateResponse } from '@codelab/backend/application'
 import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import { Inject, Injectable } from '@nestjs/common'
 import { ImportTypeservice } from '../import-type'
-import { ImportTypeserviceInput } from '../import-type/import-type.input'
+import { ImportTypeServiceInput } from '../import-type/import-type.input'
 import { ImportTypesRequest } from './import-types.request'
 
 @Injectable()
@@ -21,7 +21,7 @@ export class ImportTypesService
       currentUser,
     } = request
 
-    const data = JSON.parse(payload) as Array<ImportTypeserviceInput>
+    const data = JSON.parse(payload) as Array<ImportTypeServiceInput>
 
     const promises = data.map((api) =>
       this.importTypeservice.execute({
