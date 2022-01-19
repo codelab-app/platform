@@ -22,5 +22,5 @@
     "runMode": 2,
     "openMode": 0
   },
-  "browser": "firefox"
+  "userAgent": "Firefox/94.0"
 }
