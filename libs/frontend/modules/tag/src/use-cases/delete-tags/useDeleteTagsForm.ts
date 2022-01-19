@@ -12,8 +12,8 @@ export const useDeleteTagForm: UseEntityUseCaseForm<
   CRUDActionType,
   TagFragment
 > = () => {
-  const { deleteIds, entity, actionType } = useTagState()
-  const { resetModal } = useTagDispatch()
+  const { deleteIds, entity, actionType, selectedTag } = useTagState()
+  const { resetModal, resetSelection } = useTagDispatch()
 
   const [mutate, { isLoading }] = useDeleteTagsMutation({
     selectFromResult: (r) => ({
@@ -36,7 +36,10 @@ export const useDeleteTagForm: UseEntityUseCaseForm<
         title: 'Error while deleting tags',
       }),
     ],
-    onSubmitSuccess: [() => resetModal()],
+    onSubmitSuccess: () => {
+      resetModal()
+      resetSelection({ keys: selectedTag ? [selectedTag] : [] })
+    },
     model: { ids: deleteIds },
     entity,
     isLoading,
