@@ -47,6 +47,9 @@ export const typeApi = generatedApi.enhanceEndpoints({
       invalidatesTags: (result) =>
         providesById(result?.updatePrimitiveType?.id, TYPE_CACHE_TAG),
     },
+    ExportTypes: {
+      providesTags: (result) => providesAll(result?.getTypes, TYPE_CACHE_TAG),
+    },
     UpdateType: {
       invalidatesTags: (result) =>
         providesById(result?.updateType?.id, TYPE_CACHE_TAG),
@@ -74,12 +77,17 @@ export const typeApi = generatedApi.enhanceEndpoints({
     GetPagesForSelect: {
       providesTags: (result) => providesAll(result?.pages, PAGE_CACHE_TAG),
     },
+    ImportTypes: {
+      invalidatesTags: () =>
+        invalidatesAll(TYPE_CACHE_TAG, TYPE_GRAPH_CACHE_TAG),
+    },
   },
 })
 
 export { generatedApi as typeEndpoints }
 
 export const {
+  useImportTypesMutation,
   useGetAtomsTypeHookForSelectQuery,
   useCreateTypeMutation,
   useDeleteTypeMutation,
@@ -103,4 +111,5 @@ export const {
   useLazyGetComponentsForSelectQuery,
   useLazyGetLambdasForSelectQuery,
   useLazyGetPagesForSelectQuery,
+  useLazyExportTypesQuery,
 } = generatedApi

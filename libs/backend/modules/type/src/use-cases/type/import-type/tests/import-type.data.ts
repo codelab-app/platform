@@ -1,4 +1,4 @@
-export const importApiData = {
+export const importTypeData = {
   id: '0xea82',
   name: 'Ant Design Card API',
   typeKind: 'InterfaceType',

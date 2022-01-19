@@ -7,7 +7,7 @@ import {
 } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { Space, Table } from 'antd'
-import { ColumnsType } from 'antd/lib/table/interface'
+import { ColumnsType, TableRowSelection } from 'antd/lib/table/interface'
 import Link from 'next/link'
 import React from 'react'
 import { TypeFragment } from '../../../graphql/Type.fragment.graphql.gen'
@@ -16,7 +16,7 @@ import { useGetTypesQuery } from '../../../store/typeEndpoints'
 
 export const GetTypesTable = () => {
   const { data } = useGetTypesQuery()
-  const { openDeleteModal, openUpdateModal } = useTypeDispatch()
+  const { openDeleteModal, openUpdateModal, setSelectedIds } = useTypeDispatch()
 
   const columns: ColumnsType<TypeFragment> = [
     {
@@ -68,8 +68,16 @@ export const GetTypesTable = () => {
     },
   ]
 
+  const rowSelection: TableRowSelection<TypeFragment> = {
+    type: 'checkbox',
+    onChange: (_: Array<React.Key>, selectedRows: Array<TypeFragment>) => {
+      setSelectedIds({ selectedIds: selectedRows.map(({ id }) => id) })
+    },
+  }
+
   return (
     <Table<TypeFragment>
+      rowSelection={rowSelection}
       size="small"
       pagination={{ position: ['bottomCenter'] }}
       dataSource={data?.getTypes ?? []}

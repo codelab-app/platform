@@ -5,7 +5,9 @@ import {
   CreateTypeModal,
   DeleteTypeModal,
   GetTypesTable,
+  ImportTypesUpload,
   UpdateTypeModal,
+  useTypeState,
 } from '@codelab/frontend/modules/type'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -16,6 +18,8 @@ import {
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
+import tw from 'twin.macro'
+import { ExportTypesButton } from '../../../../libs/frontend/modules/type/src/use-cases/types'
 
 const TypesPage: CodelabPage<DashboardTemplateProps> = () => {
   return (
@@ -37,7 +41,15 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = () => {
 export const getServerSideProps = withPageAuthRequired()
 
 const Header = () => {
-  const headerButtons = [<CreateTypeButton key={0} />]
+  const { selectedIds } = useTypeState()
+
+  const headerButtons = [
+    <div css={tw`flex flex-row items-center justify-center gap-2`}>
+      <ExportTypesButton typeIds={selectedIds} />
+      <ImportTypesUpload />
+      <CreateTypeButton key={0} />
+    </div>,
+  ]
 
   return (
     <PageHeader

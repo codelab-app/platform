@@ -205,6 +205,10 @@ type TypeGraph {
 
 union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType
 
+type CreateResponse {
+  id: String!
+}
+
 type PayloadResponse {
   payload: String!
 }
@@ -954,6 +958,7 @@ type Mutation {
   importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Atom
   upsertAtoms(input: UpsertAtomsInput!): [Atom!]!
+  importTypes(input: ImportTypesInput!): [CreateResponse!]
   seedBaseTypes: Void
   createType(input: CreateTypeInput!): Type!
   updateEnumType(input: UpdateEnumTypeInput!): EnumType
@@ -1167,6 +1172,10 @@ input UpsertAtomInput {
   """Pass in an existing interface ID to assign it to the atom"""
   api: String
   id: String
+}
+
+input ImportTypesInput {
+  payload: String!
 }
 
 """Provide one of the properties"""

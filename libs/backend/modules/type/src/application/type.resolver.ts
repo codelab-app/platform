@@ -1,4 +1,5 @@
 import { Void } from '@codelab/backend/abstract/types'
+import { CreateResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import { IUser } from '@codelab/shared/abstract/core'
@@ -33,6 +34,8 @@ import {
   GetTypeGraphService,
 } from '../use-cases/type/get-type-graph'
 import { GetTypesInput, GetTypesService } from '../use-cases/type/get-types'
+import { ImportTypesInput } from '../use-cases/type/import-types/import-types.input'
+import { ImportTypesService } from '../use-cases/type/import-types/import-types.service'
 import { SeedBaseTypesService } from '../use-cases/type/seed-base-types'
 import {
   UpdateEnumTypeInput,
@@ -65,13 +68,20 @@ export class TypeResolver {
     private deleteTypeService: DeleteTypeService,
     private seedBaseTypesService: SeedBaseTypesService,
     private getTypeGraphService: GetTypeGraphService,
+    private importTypesService: ImportTypesService,
   ) {}
 
-  // @UseGuards(GqlAuthGuard)
-  // @Mutation(() => Void, { nullable: true })
-  // async importApi(@Args('input') input: ImportApiInput) {
-  //   await this.importApiService.execute(input)
-  // }
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => [CreateResponse], { nullable: true })
+  async importTypes(
+    @Args('input') input: ImportTypesInput,
+    @CurrentUser() currentUser: IUser,
+  ) {
+    return this.importTypesService.execute({
+      input,
+      currentUser,
+    })
+  }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })

@@ -1,0 +1,11 @@
+mutation ImportTypes($input: ImportTypesInput!) {
+  importTypes(input: $input) {
+    id
+  }
+}
+
+query ExportTypes($input: GetTypesInput) {
+  getTypes(input: $input) {
+    ...Export__Types
+  }
+}

@@ -1,12 +1,12 @@
-describe('ImportApi', () => {
+describe('ImportType', () => {
   // const testModule = setupTypeTestModule()
 
   describe('Guest', () => {
     it.skip('should not import api', async () => {
-      // await domainRequest<ImportApiInput>(
+      // await domainRequest<ImportTypeInput>(
       //   guestApp,
-      //   ImportApiGql,
-      //   importApiInput,
+      //   ImportTypeGql,
+      //   ImportTypeInput,
       //   {
       //     message: 'Unauthorized',
       //   },
@@ -16,7 +16,7 @@ describe('ImportApi', () => {
 
   // describe('User', () => {
   //   it('should import api', async () => {
-  //     await domainRequest<ImportApiInput>(userApp, ImportApiGql, importApiInput)
+  //     await domainRequest<ImportTypeInput>(userApp, ImportTypeGql, ImportTypeInput)
   //
   //     const { getAtom } = await domainRequest<GetAtomInput, GetAtomQuery>(
   //       userApp,

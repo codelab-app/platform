@@ -1,6 +1,22 @@
 import * as Types from '@codelab/frontend/abstract/codegen'
 
 import {
+  Export__Types_AppType_Fragment,
+  Export__Types_ArrayType_Fragment,
+  Export__Types_ComponentType_Fragment,
+  Export__Types_ElementType_Fragment,
+  Export__Types_EnumType_Fragment,
+  Export__Types_InterfaceType_Fragment,
+  Export__Types_LambdaType_Fragment,
+  Export__Types_MonacoType_Fragment,
+  Export__Types_PageType_Fragment,
+  Export__Types_PrimitiveType_Fragment,
+  Export__Types_ReactNodeType_Fragment,
+  Export__Types_RenderPropsType_Fragment,
+  Export__Types_UnionType_Fragment,
+} from './TypeExport.fragment.graphql.gen'
+import { TypeGraphFragment } from './TypeGraph.fragment.graphql.gen'
+import {
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
   Type_ComponentType_Fragment,
@@ -18,14 +34,44 @@ import {
 import { EnumTypeFragment } from './EnumType.fragment.graphql.gen'
 import { PrimitiveTypeFragment } from './PrimitiveType.fragment.graphql.gen'
 import { UnionTypeFragment } from './UnionType.fragment.graphql.gen'
-import { TypeGraphFragment } from './TypeGraph.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import { Export__TypesFragmentDoc } from './TypeExport.fragment.graphql.gen'
+import { TypeGraphFragmentDoc } from './TypeGraph.fragment.graphql.gen'
 import { TypeFragmentDoc } from './Type.fragment.graphql.gen'
 import { EnumTypeFragmentDoc } from './EnumType.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from './PrimitiveType.fragment.graphql.gen'
 import { UnionTypeFragmentDoc } from './UnionType.fragment.graphql.gen'
-import { TypeGraphFragmentDoc } from './TypeGraph.fragment.graphql.gen'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+export type ImportTypesMutationVariables = Types.Exact<{
+  input: Types.ImportTypesInput
+}>
+
+export type ImportTypesMutation = {
+  importTypes?: Array<{ id: string }> | null | undefined
+}
+
+export type ExportTypesQueryVariables = Types.Exact<{
+  input?: Types.InputMaybe<Types.GetTypesInput>
+}>
+
+export type ExportTypesQuery = {
+  getTypes: Array<
+    | Export__Types_AppType_Fragment
+    | Export__Types_ArrayType_Fragment
+    | Export__Types_ComponentType_Fragment
+    | Export__Types_ElementType_Fragment
+    | Export__Types_EnumType_Fragment
+    | Export__Types_InterfaceType_Fragment
+    | Export__Types_LambdaType_Fragment
+    | Export__Types_MonacoType_Fragment
+    | Export__Types_PageType_Fragment
+    | Export__Types_PrimitiveType_Fragment
+    | Export__Types_ReactNodeType_Fragment
+    | Export__Types_RenderPropsType_Fragment
+    | Export__Types_UnionType_Fragment
+  >
+}
+
 export type CreateTypeMutationVariables = Types.Exact<{
   input: Types.CreateTypeInput
 }>
@@ -260,6 +306,21 @@ export const AtomForSelectFragmentDoc = gql`
     type
   }
 `
+export const ImportTypesGql = gql`
+  mutation ImportTypes($input: ImportTypesInput!) {
+    importTypes(input: $input) {
+      id
+    }
+  }
+`
+export const ExportTypesGql = gql`
+  query ExportTypes($input: GetTypesInput) {
+    getTypes(input: $input) {
+      ...Export__Types
+    }
+  }
+  ${Export__TypesFragmentDoc}
+`
 export const CreateTypeGql = gql`
   mutation CreateType($input: CreateTypeInput!) {
     createType(input: $input) {
@@ -384,6 +445,24 @@ export const GetAtomsTypeHookForSelectGql = gql`
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
+    ImportTypes: build.mutation<
+      ImportTypesMutation,
+      GraphqlOperationOptions<ImportTypesMutationVariables>
+    >({
+      query: (options) => ({
+        document: ImportTypesGql,
+        options: options ?? undefined,
+      }),
+    }),
+    ExportTypes: build.query<
+      ExportTypesQuery,
+      GraphqlOperationOptions<ExportTypesQueryVariables> | void | undefined
+    >({
+      query: (options) => ({
+        document: ExportTypesGql,
+        options: options ?? undefined,
+      }),
+    }),
     CreateType: build.mutation<
       CreateTypeMutation,
       GraphqlOperationOptions<CreateTypeMutationVariables>
@@ -531,6 +610,9 @@ const injectedRtkApi = api.injectEndpoints({
 })
 export { injectedRtkApi as api }
 export const {
+  useImportTypesMutation,
+  useExportTypesQuery,
+  useLazyExportTypesQuery,
   useCreateTypeMutation,
   useDeleteTypeMutation,
   useGetTypeQuery,

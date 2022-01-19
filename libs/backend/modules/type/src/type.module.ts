@@ -15,7 +15,8 @@ import { DeleteTypeService } from './use-cases/type/delete-type'
 import { GetTypeService } from './use-cases/type/get-type'
 import { GetTypeGraphService } from './use-cases/type/get-type-graph'
 import { GetTypesService } from './use-cases/type/get-types'
-import { ImportApiService } from './use-cases/type/import-api'
+import { ImportTypeservice } from './use-cases/type/import-type'
+import { ImportTypesService } from './use-cases/type/import-types/import-types.service'
 import { SeedBaseTypesService } from './use-cases/type/seed-base-types'
 import { UpdateEnumTypeService } from './use-cases/type/update-enum-type'
 import { UpdatePrimitiveTypeService } from './use-cases/type/update-primitive-type'
@@ -49,7 +50,8 @@ const typeServices = [
   UpdatePrimitiveTypeService,
   UpdateUnionTypeService,
   UpdateTypeService,
-  ImportApiService,
+  ImportTypeservice,
+  ImportTypesService,
   SeedBaseTypesService,
   GetTypeGraphService,
   /**

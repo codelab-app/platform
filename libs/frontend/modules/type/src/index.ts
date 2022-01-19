@@ -13,6 +13,7 @@ export type {
   TypeFragment,
   TypeFragmentDoc,
 } from './graphql/Type.fragment.graphql.gen'
+export type { Export__TypesFragment } from './graphql/TypeExport.fragment.graphql.gen'
 export type { TypeGraphFragment } from './graphql/TypeGraph.fragment.graphql.gen'
 export * from './hooks'
 export * from './interface-form'
