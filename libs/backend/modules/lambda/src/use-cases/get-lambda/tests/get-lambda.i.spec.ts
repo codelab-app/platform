@@ -10,7 +10,7 @@ import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 import { GetLambdaInput } from '../get-lambda.input'
 import { TestGetLambdaGql } from './get-lambda.api.graphql.gen'
 
-describe.skip('GetLambda', () => {
+describe('GetLambda', () => {
   const testModule = setupLambdaTestModule()
   let getLambdaInput: GetLambdaInput
 
@@ -44,6 +44,7 @@ describe.skip('GetLambda', () => {
   describe('User', () => {
     it('should get an existing lambda', async () => {
       const getLambda = await testModule.getLambda(getLambdaInput)
+      console.log({ getLambda })
 
       expect(getLambda).toMatchObject({
         ...createLambdaInput,

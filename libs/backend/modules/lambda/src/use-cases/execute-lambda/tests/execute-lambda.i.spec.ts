@@ -13,7 +13,7 @@ import {
   TestExecuteLambdaMutation,
 } from './execute-lambda.api.graphql.gen'
 
-describe.skip('ExecuteLambda', () => {
+describe('ExecuteLambda', () => {
   const testModule = setupLambdaTestModule()
   let executeLambdaInput: ExecuteLambdaInput
 

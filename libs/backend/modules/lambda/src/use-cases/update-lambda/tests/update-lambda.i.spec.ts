@@ -5,6 +5,7 @@ import {
   AwsTokens,
 } from '@codelab/backend/infra'
 import { domainRequest } from '@codelab/backend/shared/testing'
+import { updateLambdaInvalidState } from '../../../application/lambda.error'
 import { setupLambdaTestModule } from '../../../test/setupLambdaTestModule'
 import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 import { UpdateLambdaInput } from '../update-lambda.input'
@@ -13,7 +14,7 @@ import {
   TestUpdateLambdaMutation,
 } from './update-lambda.api.graphql.gen'
 
-describe.skip('UpdateLambda', () => {
+describe('UpdateLambda', () => {
   const testModule = setupLambdaTestModule()
   let updateLambdaInput: UpdateLambdaInput
 
@@ -51,18 +52,35 @@ describe.skip('UpdateLambda', () => {
   })
 
   describe('User', () => {
-    it('should update a lambda', async () => {
-      await domainRequest<UpdateLambdaInput, TestUpdateLambdaMutation>(
-        testModule.userApp,
-        TestUpdateLambdaGql,
-        updateLambdaInput,
-      )
+    it('should update a lambda', (done) => {
+      const expectUpdateLambdaError = updateLambdaInvalidState('Pending')
 
-      const getLambda = await testModule.getLambda({
-        lambdaId: updateLambdaInput.id,
-      })
+      // wait until lambda exits pending state to delete
+      const createTimeout = () =>
+        setTimeout(async () => {
+          const res = (await domainRequest<
+            UpdateLambdaInput,
+            TestUpdateLambdaMutation
+          >(
+            testModule.userApp,
+            TestUpdateLambdaGql,
+            updateLambdaInput,
+            undefined,
+            true,
+          )) as any
 
-      expect(getLambda?.name).toStrictEqual(updateLambdaInput.name)
+          if (res.errors) {
+            expect(res.errors[0].message).toBe(expectUpdateLambdaError.message)
+
+            createTimeout()
+
+            return
+          }
+
+          done()
+        }, 1000)
+
+      createTimeout()
     })
   })
 })

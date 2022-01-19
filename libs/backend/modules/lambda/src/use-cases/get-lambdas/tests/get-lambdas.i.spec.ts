@@ -12,7 +12,7 @@ import {
   TestGetLambdasQuery,
 } from './get-lambdas.api.graphql.gen'
 
-describe.skip('GetLambdas', () => {
+describe('GetLambdas', () => {
   const testModule = setupLambdaTestModule()
   let lambdaAId: string
   let lambdaBId: string

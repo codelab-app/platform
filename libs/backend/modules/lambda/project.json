@@ -20,7 +20,8 @@
       "outputs": ["coverage/libs/backend/modules/lambda"],
       "options": {
         "jestConfig": "libs/backend/modules/lambda/jest.config.js",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "runInBand": true
       }
     }
   },

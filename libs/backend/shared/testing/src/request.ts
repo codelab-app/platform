@@ -51,6 +51,7 @@ export const domainRequest = async <TInput, TResults = void>(
   gql: ASTNode,
   input?: TInput,
   expectedError?: ExpectedError,
+  returnError?: boolean,
 ): Promise<TResults> => {
   const response = graphqlRequest(app, gql, {
     input,
@@ -65,11 +66,17 @@ export const domainRequest = async <TInput, TResults = void>(
 
         // Satisfy return type
         return {} as any
-      } else if (res.body.errors) {
+      }
+
+      if (!res.body.errors) {
+        return res.body.data
+      }
+
+      if (!returnError) {
         throw new Error(JSON.stringify(res.body.errors, undefined, 2))
       }
 
-      return res.body.data
+      return { errors: res.body.errors }
     })
     .catch((e: any) => {
       console.error(e)
