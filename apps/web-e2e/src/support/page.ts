@@ -1,9 +1,9 @@
+import type { PageFullFragment } from '@codelab/frontend/modules/page'
 import {
   CreatePageInput,
   CreateResponse,
   GetPageInput,
-} from '@codelab/frontend/abstract/codegen'
-import type { PageFullFragment } from '@codelab/frontend/modules/page'
+} from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import {
   E2eCreatePageGql,

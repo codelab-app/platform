@@ -1,8 +1,8 @@
-import { MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { isObjectLike } from 'lodash'
 
 export const deepReplaceObjectValues = <
-  TIn extends MaybeOrNullable<Record<string, any> | Array<any>>,
+  TIn extends Nullish<Record<string, any> | Array<any>>,
 >(
   obj: TIn,
   fn: (value: any, key: string, innerObj: Record<string, any>) => any,

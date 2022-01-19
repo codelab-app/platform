@@ -9,7 +9,8 @@ export const ComponentDomainStories = () => {
     <Layout>
       <Row style={{ width: '100%' }}>
         <Col span={12}>
-          <D3Graph {...componentSchema} width={400} height={400} />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <D3Graph {...componentSchema} height={400} width={400} />
         </Col>
         <Col span={12}>
           <D3Tree data={componentData} />

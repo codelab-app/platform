@@ -1,14 +1,28 @@
+import { AppActionType } from '@codelab/frontend/abstract/core'
+import {
+  UseEntityUseCaseForm,
+  UseUseCaseForm,
+} from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { DeleteAppInput } from '@codelab/shared/abstract/codegen'
+import { Maybe } from '@codelab/shared/abstract/types'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
+import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
 import { useAppDispatch, useAppState } from '../../hooks'
 import { useDeleteAppMutation } from '../../store'
-import { DeleteAppFormProps, DeleteAppMutationInput } from './types'
 
-export const useDeleteAppForm = () => {
-  const { deleteIds, entity } = useAppState()
+export const useDeleteAppForm: UseEntityUseCaseForm<
+  DeleteAppInput,
+  AppActionType,
+  AppFragment
+> = () => {
+  const { deleteIds, entity, actionType } = useAppState()
   const { resetModal } = useAppDispatch()
 
-  const [mutate, state] = useDeleteAppMutation({
+  assertIsDefined<Maybe<AppFragment>>(entity)
+
+  const [mutate, { isLoading }] = useDeleteAppMutation({
     selectFromResult: (r) => ({
       hook: r.data?.deleteApp,
       isLoading: r.isLoading,
@@ -17,28 +31,22 @@ export const useDeleteAppForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: DeleteAppMutationInput) =>
-      mutate({ variables: { input } }).unwrap(),
+    (input: DeleteAppInput) => mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while deleting app',
-  })
-
-  const onSubmitSuccess = () => resetModal()
-
-  const formProps: DeleteAppFormProps = {
-    onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
-    model: { appId: deleteIds[0] },
-    name: entity?.name,
-  }
-
   return {
-    formProps,
-    state,
+    onSubmit,
+    onSubmitError: [
+      createNotificationHandler({
+        title: 'Error while deleting app',
+      }),
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    model: { appId: deleteIds[0] },
+    entity,
+    isLoading,
     reset: resetModal,
+    actionType,
   }
 }

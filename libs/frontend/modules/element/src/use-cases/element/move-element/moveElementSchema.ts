@@ -1,10 +1,7 @@
+import { MoveData } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { MoveElementMutationVariables } from '../../../graphql'
 
-export type MoveElementSchema =
-  MoveElementMutationVariables['input']['moveData']
-
-export const moveElementSchema: JSONSchemaType<MoveElementSchema> = {
+export const moveElementSchema: JSONSchemaType<MoveData> = {
   title: 'Update Element Input',
   type: 'object',
   properties: {

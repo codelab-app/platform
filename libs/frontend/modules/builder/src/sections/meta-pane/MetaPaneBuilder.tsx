@@ -21,8 +21,8 @@ import { PropsInspectorTab } from './PropsInspectorTab'
 
 const FormsGrid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
-    tw="grid grid-cols-2 grid-rows-2 gap-4"
     style={{ gridTemplateRows: '1fr auto' }}
+    tw="grid grid-cols-2 grid-rows-2 gap-4"
   >
     {children}
   </div>
@@ -55,7 +55,7 @@ const TabContainer = styled.div`
   .editor-widget,
   .monaco-sash,
   .monaco-list {
-    z-index: 1000;
+    z-index: 50;
   }
 `
 
@@ -83,14 +83,17 @@ export const MetaPaneBuilder = ({
   return (
     <TabContainer>
       <div css={tw`absolute bottom-0 right-0 m-8`}>
-        <LoadingIndicator {...trackPromises} />
+        <LoadingIndicator
+          error={trackPromises.error}
+          isLoading={trackPromises.isLoading}
+        />
       </div>
 
       <Tabs defaultActiveKey={selectedElement.id + '_tab1'}>
         <Tabs.TabPane
+          key={selectedElement.id + '_tab1'}
           style={{ overflow: 'auto', maxHeight: '100%' }}
           tab="Element"
-          key={selectedElement.id + '_tab1'}
         >
           <FormsGrid>
             {renderUpdateElementContent(selectedElement, trackPromises)}
@@ -98,10 +101,10 @@ export const MetaPaneBuilder = ({
         </Tabs.TabPane>
 
         <Tabs.TabPane
-          style={{ overflow: 'auto', maxHeight: '100%' }}
-          tab="Props"
+          destroyInactiveTabPane
           key={selectedElement.id + '_tab2'}
-          destroyInactiveTabPane // needed to update props if we change them in the prop inspector tab
+          style={{ overflow: 'auto', maxHeight: '100%' }}
+          tab="Props" // needed to update props if we change them in the prop inspector tab
         >
           {selectedElement.atom ? (
             <UpdateElementPropsForm
@@ -115,14 +118,14 @@ export const MetaPaneBuilder = ({
         </Tabs.TabPane>
 
         <Tabs.TabPane
+          key={selectedElement.id + '_tab3'}
           style={{ overflow: 'visible' }}
           tab="CSS"
-          key={selectedElement.id + '_tab3'}
         >
           {selectedElement.atom ? (
             <ElementCssEditor
-              key={selectedElement.id}
               elementId={selectedElement.id}
+              key={selectedElement.id}
               trackPromises={trackPromises}
             />
           ) : (
@@ -131,52 +134,52 @@ export const MetaPaneBuilder = ({
         </Tabs.TabPane>
 
         <Tabs.TabPane
+          key={selectedElement.id + '_tab4'}
           style={{ overflow: 'auto', maxHeight: '100%' }}
           tab="Hooks"
-          key={selectedElement.id + '_tab4'}
         >
           <ElementHookSection
-            key={selectedElement.id}
             elementId={selectedElement.id}
+            key={selectedElement.id}
           />
         </Tabs.TabPane>
 
         <Tabs.TabPane
+          key={selectedElement.id + '_tab5'}
           style={{ overflow: 'auto', maxHeight: '100%' }}
           tab="Props Inspector"
-          key={selectedElement.id + '_tab5'}
         >
           <PropsInspectorTab
-            key={selectedElement.id}
             elementId={selectedElement.id}
+            key={selectedElement.id}
           />
         </Tabs.TabPane>
 
         <Tabs.TabPane
+          key={selectedElement.id + '_tab6'}
           style={{ overflow: 'auto', maxHeight: '100%' }}
           tab="Prop mapping"
-          key={selectedElement.id + '_tab6'}
         >
           <PropMapBindingSection
-            key={selectedElement.id}
             elementId={selectedElement.id}
-            tree={tree}
+            key={selectedElement.id}
             providePropCompletion={(searchValue) =>
               selectedElement
                 ? providePropCompletion(searchValue, selectedElement.id)
                 : []
             }
+            tree={tree}
           />
         </Tabs.TabPane>
 
         <Tabs.TabPane
+          key={selectedElement.id + '_tab7'}
           style={{ overflow: 'auto', maxHeight: '100%' }}
           tab="Prop transformation"
-          key={selectedElement.id + '_tab7'}
         >
           <UpdateElementPropTransformationForm
-            key={selectedElement.id}
             elementId={selectedElement.id}
+            key={selectedElement.id}
             trackPromises={trackPromises}
             tree={tree}
           />

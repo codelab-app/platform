@@ -1,6 +1,9 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import {
+  CodelabPage,
+  DashboardTemplateProps,
+} from '@codelab/frontend/abstract/props'
 import {
   CreateComponentModal,
   DeleteElementModal,
@@ -11,7 +14,6 @@ import { UpdateTagModal } from '@codelab/frontend/modules/tag'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
-  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { Button, PageHeader } from 'antd'
@@ -35,31 +37,33 @@ const Components: CodelabPage<DashboardTemplateProps> = () => {
   )
 }
 
-export const getServerSideProps = withPageAuthRequired()
-
 const Header = () => {
   const { openCreateModal } = useComponentDispatch()
 
   return (
     <PageHeader
-      ghost={false}
-      title="Components"
       extra={[
         <Button
-          onClick={() => openCreateModal()}
-          size={'small'}
           icon={<PlusOutlined />}
           key={0}
+          onClick={() => openCreateModal()}
+          size="small"
         />,
       ]}
+      ghost={false}
+      title="Components"
     />
   )
 }
 
-Components.Template = DashboardTemplate
-Components.templateProps = {
-  SidebarNavigation,
-  Header,
-}
-
 export default Components
+
+export const getServerSideProps = withPageAuthRequired()
+
+Components.Layout = (page) => {
+  return (
+    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+      {page.children}
+    </DashboardTemplate>
+  )
+}

@@ -10,11 +10,11 @@ export const DeleteAtomButton = ({ disabled, ids }: DeleteButtonProps) => {
 
   return (
     <Button
-      size="small"
       danger
-      icon={<DeleteOutlined />}
       disabled={disabled}
+      icon={<DeleteOutlined />}
       onClick={onClick}
+      size="small"
     />
   )
 }

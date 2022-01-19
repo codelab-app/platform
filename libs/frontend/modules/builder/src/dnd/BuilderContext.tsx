@@ -6,26 +6,24 @@ import tw from 'twin.macro'
 import { builderCollisionDetection } from './builderCollisionDetection'
 import { useBuilderDnd } from './useBuilderDnd'
 
-export const BuilderContext = ({
-  children,
-}: PropsWithChildren<Record<string, unknown>>) => {
+export const BuilderContext = ({ children }: PropsWithChildren<unknown>) => {
   const { onDragEnd, onDragStart, currentlyDragging } = useBuilderDnd()
 
   return (
     <DndContext
-      collisionDetection={builderCollisionDetection}
-      onDragEnd={(e) => {
-        onDragEnd(e)
-      }}
-      onDragStart={(e) => {
-        onDragStart(e)
-      }}
       autoScroll={{
         canScroll: (e) => {
           const renderRoot = document.getElementById(ROOT_RENDER_CONTAINER_ID)
 
           return e.contains(renderRoot)
         },
+      }}
+      collisionDetection={builderCollisionDetection}
+      onDragEnd={(e) => {
+        onDragEnd(e)
+      }}
+      onDragStart={(e) => {
+        onDragStart(e)
       }}
     >
       {children}

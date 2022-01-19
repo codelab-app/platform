@@ -1,11 +1,16 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { CreatePropMapBindingInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import { usePropMapBindingDispatch } from '../../../hooks'
+import {
+  usePropMapBindingDispatch,
+  usePropMapBindingState,
+} from '../../../hooks'
 import { useCreatePropMapBindingMutation } from '../../../store'
-import { CreatePropMapBindingSchema } from './createPropMapBindingSchema'
 
 export const useCreatePropMapBindingForm = () => {
-  const [mutate, state] = useCreatePropMapBindingMutation({
+  const [mutate, { isLoading }] = useCreatePropMapBindingMutation({
     selectFromResult: (r) => ({
       hook: r.data?.createPropMapBinding,
       isLoading: r.isLoading,
@@ -13,6 +18,7 @@ export const useCreatePropMapBindingForm = () => {
     }),
   })
 
+  const { actionType } = usePropMapBindingState()
   const { resetModal } = usePropMapBindingDispatch()
 
   const handleSubmit = useCallback(
@@ -21,7 +27,7 @@ export const useCreatePropMapBindingForm = () => {
       targetKey,
       targetElementId,
       elementId,
-    }: CreatePropMapBindingSchema) => {
+    }: CreatePropMapBindingInput) => {
       return mutate({
         variables: {
           input: {
@@ -37,14 +43,15 @@ export const useCreatePropMapBindingForm = () => {
   )
 
   return {
-    formProps: {
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while creating prop binding',
       }),
-      onSubmitSuccess: () => resetModal(),
-    },
-    state,
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    isLoading,
     reset: resetModal,
+    actionType,
   }
 }

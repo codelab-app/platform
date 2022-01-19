@@ -12,10 +12,10 @@ export const CreatePageButton = () => {
 
   return (
     <Button
-      type="primary"
-      size="small"
       icon={<PlusOutlined />}
       onClick={onClick}
+      size="small"
+      type="primary"
     />
   )
 }

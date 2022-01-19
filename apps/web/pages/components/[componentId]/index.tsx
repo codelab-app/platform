@@ -1,5 +1,8 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import {
+  CodelabPage,
+  DashboardTemplateProps,
+} from '@codelab/frontend/abstract/props'
 import {
   Builder,
   BuilderDashboardTemplate,
@@ -11,7 +14,6 @@ import {
   ElementGraphProvider,
   useElementGraphContext,
 } from '@codelab/frontend/modules/element'
-import { DashboardTemplateProps } from '@codelab/frontend/view/templates'
 import { ElementTree } from '@codelab/shared/core'
 import { Empty } from 'antd'
 import Head from 'next/head'
@@ -33,16 +35,14 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = () => {
         <title>{root?.componentTag?.name} | Codelab</title>
       </Head>
 
-      <Builder tree={elementTree} isComponentBuilder />
+      <Builder isComponentBuilder tree={elementTree} />
     </>
   )
 }
 
-export const getServerSideProps = withPageAuthRequired()
-
 const ComponentElementGraphProvider = ({
   children,
-}: React.PropsWithChildren<any>) => {
+}: React.PropsWithChildren<unknown>) => {
   const { query } = useRouter()
   const componentId = query.componentId as string
 
@@ -53,12 +53,20 @@ const ComponentElementGraphProvider = ({
   )
 }
 
-ComponentDetail.Template = BuilderDashboardTemplate
-ComponentDetail.templateProps = {
-  MainPane: () => <MainPaneBuilder isComponentBuilder />,
-  MetaPane: MetaPaneBuilderComponent,
-  SidebarNavigation: BuilderSidebarNavigation,
-}
-ComponentDetail.providers = [ComponentElementGraphProvider]
-
 export default ComponentDetail
+
+export const getServerSideProps = withPageAuthRequired()
+
+ComponentDetail.Layout = (page) => {
+  return (
+    <BuilderDashboardTemplate
+      MainPane={() => <MainPaneBuilder isComponentBuilder />}
+      MetaPane={MetaPaneBuilderComponent}
+      SidebarNavigation={BuilderSidebarNavigation}
+    >
+      <ComponentElementGraphProvider>
+        {page.children}
+      </ComponentElementGraphProvider>
+    </BuilderDashboardTemplate>
+  )
+}

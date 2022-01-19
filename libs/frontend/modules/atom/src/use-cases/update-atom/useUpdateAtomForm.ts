@@ -1,14 +1,19 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { CreateAtomInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { useAtomDispatch, useAtomState } from '../../hooks'
 import { useUpdateAtomMutation } from '../../store'
-import { UpdateAtomFormProps, UpdateAtomMutationInput } from './types'
 
-export const useUpdateAtomForm = () => {
-  const { updateId, entity } = useAtomState()
+export const useUpdateAtomForm: UseUseCaseForm<
+  CreateAtomInput,
+  CRUDActionType
+> = () => {
+  const { updateId, entity, actionType } = useAtomState()
   const { resetModal } = useAtomDispatch()
 
-  const [mutate, state] = useUpdateAtomMutation({
+  const [mutate, { isLoading }] = useUpdateAtomMutation({
     selectFromResult: (r) => ({
       hook: r.data?.updateAtom,
       isLoading: r.isLoading,
@@ -17,7 +22,7 @@ export const useUpdateAtomForm = () => {
   })
 
   const onSubmit = useCallback(
-    (data: UpdateAtomMutationInput) =>
+    (data: CreateAtomInput) =>
       mutate({
         variables: { input: { data, id: updateId } },
       }).unwrap(),
@@ -25,24 +30,19 @@ export const useUpdateAtomForm = () => {
   )
 
   const onSubmitError = createNotificationHandler({
-    title: 'Error while updateing atom',
+    title: 'Error while updating atom',
   })
 
-  const onSubmitSuccess = () => resetModal()
-
-  const formProps: UpdateAtomFormProps = {
+  return {
     onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
+    onSubmitError: [onSubmitError],
+    onSubmitSuccess: [() => resetModal()],
     model: {
       name: entity?.name,
       type: entity?.type,
     },
-  }
-
-  return {
-    formProps,
-    state,
+    isLoading,
+    actionType,
     reset: resetModal,
   }
 }

@@ -1,5 +1,5 @@
 import { AtomType, PropsData } from '@codelab/shared/abstract/core'
-import { Entity, Nullable } from '@codelab/shared/abstract/types'
+import { EntityLike, Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 
 export type AtomsRecord = Partial<
@@ -8,7 +8,7 @@ export type AtomsRecord = Partial<
 
 export type AtomFactoryInput = {
   atomType: AtomType
-  node: Entity
+  node: EntityLike
 }
 
 export type AtomFactoryResult = [

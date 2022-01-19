@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestPropMapBindingFragment } from '../../../../../test/graphql/TestPropMapBinding.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TestPropMapBindingFragmentDoc } from '../../../../../test/graphql/TestPropMapBinding.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestDeletePropMapBindingMutationVariables = Types.Exact<{
   input: Types.DeletePropMapBindingInput
 }>

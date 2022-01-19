@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { gql } from '@apollo/client'
 import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'

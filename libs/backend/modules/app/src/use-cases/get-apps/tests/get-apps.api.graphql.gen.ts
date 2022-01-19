@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestAppFragment } from '../../../test/test-app.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TestAppFragmentDoc } from '../../../test/test-app.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestGetAppsQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type TestGetAppsQuery = { apps: Array<TestAppFragment> }

@@ -49,25 +49,28 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
 
   return (
     <SelectField
-      options={elementOptions}
       name={name}
-      showSearch={true}
       optionFilterProp="label"
+      options={elementOptions}
+      showSearch={true}
     />
   )
 }
 
 export const SelectChildElement = (props: Omit<SelectElementProps, 'kind'>) => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
   <SelectElement kind={ElementTypeKind.ChildrenOnly} {...props} />
 )
 
 export const SelectDescendantElement = (
   props: Omit<SelectElementProps, 'kind'>,
 ) => {
+  // eslint-disable-next-line react/jsx-props-no-spreading
   return <SelectElement kind={ElementTypeKind.DescendantsOnly} {...props} />
 }
 
 export const SelectAnyElement = (props: Omit<SelectElementProps, 'kind'>) => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
   <SelectElement kind={ElementTypeKind.AllElements} {...props} />
 )
 

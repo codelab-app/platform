@@ -1,7 +1,8 @@
 import { InterfaceFormProps } from '@codelab/frontend/modules/type'
+import { TypeTree } from '@codelab/shared/core'
 
-export type AddHookToElementFormProps = InterfaceFormProps<any> & {
-  interfaceLoading: boolean
+export interface InterfaceProps {
+  interfaceTree: TypeTree
 }
 
 export type AddHookToElementMutationInput = {

@@ -1,7 +1,9 @@
-export type Entity = {
+export type EntityLike = {
   id: string
 }
 
-export type DgraphEntity = {
+export type DgraphEntityLike = {
   uid: string
 }
+
+export type EntityRecord = Record<string, unknown>

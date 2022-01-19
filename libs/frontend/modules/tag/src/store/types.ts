@@ -1,4 +1,4 @@
-import { CRUDModalState } from '@codelab/frontend/view/components'
+import { CRUDModalState } from '@codelab/frontend/abstract/core'
 import { Key } from 'react'
 import { TagFragment } from '../graphql/Tag.fragment.graphql.gen'
 

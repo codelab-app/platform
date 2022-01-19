@@ -1,13 +1,23 @@
-import { CreateTagInput } from '@codelab/frontend/abstract/codegen'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { CreateTagInput } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
-import { useTagDispatch } from '../../hooks'
+import { useTagDispatch, useTagState } from '../../hooks'
 import { useCreateTagMutation } from '../../store'
 
-export const useCreateTagForm = (parentTagId?: string) => {
+export const useCreateTagForm: UseUseCaseForm<
+  CreateTagInput,
+  CRUDActionType,
+  string
+> = (parentTagId) => {
   const { resetModal } = useTagDispatch()
+  const { actionType } = useTagState()
 
-  const [mutate, state] = useCreateTagMutation({
+  assertIsDefined(parentTagId)
+
+  const [mutate, { isLoading }] = useCreateTagMutation({
     selectFromResult: (r) => ({
       hook: r.data?.createTag,
       isLoading: r.isLoading,
@@ -23,15 +33,16 @@ export const useCreateTagForm = (parentTagId?: string) => {
   )
 
   return {
-    formProps: {
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while creating tag',
       }),
-      onSubmitSuccess: () => resetModal(),
-      model: { parentTagId },
-    },
-    state,
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    model: { parentTagId },
+    isLoading,
+    actionType,
     reset: resetModal,
   }
 }

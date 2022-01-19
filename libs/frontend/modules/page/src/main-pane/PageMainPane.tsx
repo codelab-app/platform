@@ -18,9 +18,9 @@ export const PageMainPane = () => {
 
   return (
     <MainPaneTemplate
+      header={<CreatePageButton key={0} />}
       headerProps={headerProps}
       title="Pages"
-      header={<CreatePageButton key={0} />}
     >
       <GetPagesList />
       <CreatePageModal />

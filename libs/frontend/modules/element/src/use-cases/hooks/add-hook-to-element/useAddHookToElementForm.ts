@@ -1,3 +1,5 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { useAppState } from '@codelab/frontend/modules/app'
 import {
   useGetAtomsTypeHookForSelectQuery,
@@ -5,19 +7,24 @@ import {
   useTypeTree,
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { useHookDispatch, useHookState } from '../../../hooks'
 import { useAddHookToElementMutation } from '../../../store'
-import {
-  AddHookToElementFormProps,
-  AddHookToElementMutationInput,
-} from './types'
+import { AddHookToElementMutationInput, InterfaceProps } from './types'
 
-export const useAddHookToElementForm = (elementId: string) => {
+export const useAddHookToElementForm: UseUseCaseForm<
+  any,
+  CRUDActionType,
+  string,
+  InterfaceProps
+> = (elementId) => {
   const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
-  const { selectedType } = useHookState()
+  const { selectedType, actionType } = useHookState()
   const { data: atomsData } = useGetAtomsTypeHookForSelectQuery()
   const atoms = atomsData?.getAtomsTypeHook || []
   const { currentApp } = useAppState()
+
+  assertIsDefined(elementId)
 
   const [getTypeGraph, { data: interfaceData, isLoading: interfaceLoading }] =
     useLazyGetTypeGraphQuery()
@@ -28,7 +35,7 @@ export const useAddHookToElementForm = (elementId: string) => {
     selectedType ? interfaceData?.getTypeGraph : undefined,
   )
 
-  const [mutate, state] = useAddHookToElementMutation({
+  const [mutate, { isLoading }] = useAddHookToElementMutation({
     selectFromResult: (r) => ({
       hook: r.data?.addHookToElement,
       isLoading: r.isLoading,
@@ -61,18 +68,7 @@ export const useAddHookToElementForm = (elementId: string) => {
     resetSelectedType()
   }
 
-  const formProps: AddHookToElementFormProps = {
-    onSubmit: handleSubmit,
-    onSubmitError: createNotificationHandler({
-      title: 'Error while creating hook',
-    }),
-    interfaceTree,
-    interfaceLoading,
-    model: {
-      typeId: selectedType,
-      appId: currentApp?.id,
-    },
-    onSubmitSuccess: reset,
+  return {
     onChange: (key: string, value: any) => {
       if (key === 'typeId') {
         setSelectedType({ selectedType: value })
@@ -87,11 +83,21 @@ export const useAddHookToElementForm = (elementId: string) => {
         })
       }
     },
-  }
-
-  return {
+    interfaceTree,
     reset,
-    formProps,
-    state,
+    onSubmit: handleSubmit,
+    onSubmitSuccess: [reset],
+    onSubmitError: [
+      createNotificationHandler({
+        title: 'Error while creating hook',
+      }),
+    ],
+    model: {
+      typeId: selectedType,
+      appId: currentApp?.id,
+    },
+    actionType,
+    isLoading,
+    interfaceLoading,
   }
 }

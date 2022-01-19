@@ -1,11 +1,11 @@
-import { Maybe, MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
 import { isObjectLike } from 'lodash'
 import forOwn from 'lodash/forOwn'
 import { DgraphEntityType } from '../dgraph-entity-type'
 
 export type MutationJsonValue<TValue> = TValue extends Maybe<any>
-  ? MaybeOrNullable<TValue>
+  ? Nullish<TValue>
   : TValue
 
 type DgraphEntity = Record<string, any>
@@ -22,18 +22,18 @@ export type DgraphCreateMutationJson<TEntity extends DgraphEntity> = Omit<
           | DgraphUpdateMutationJson<TEntity[key]>
           | DgraphCreateMutationJson<TEntity[key]>
           | UidRef
-      : TEntity[key] extends MaybeOrNullable<DgraphEntity | Array<DgraphEntity>>
+      : TEntity[key] extends Nullish<DgraphEntity | Array<DgraphEntity>>
       ? // DgraphEntity or DgraphEntityArray[], nullable?
         TEntity[key] extends infer TValue | null | undefined
         ? TValue extends DgraphEntity
-          ? MaybeOrNullable<
+          ? Nullish<
               | DgraphUpdateMutationJson<TValue>
               | DgraphCreateMutationJson<TValue>
               | UidRef
             >
           : TValue extends Array<infer TItem>
           ? TItem extends DgraphEntity
-            ? MaybeOrNullable<
+            ? Nullish<
                 | Array<
                     | DgraphUpdateMutationJson<TItem>
                     | DgraphCreateMutationJson<TItem>

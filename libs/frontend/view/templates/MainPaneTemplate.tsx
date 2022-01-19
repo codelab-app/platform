@@ -59,9 +59,9 @@ export const MainPaneTemplate = ({
     >
       <GlobalStyles />
       <PageHeader
-        title={title}
         extra={[...extra]}
         style={{ maxHeight: '100%', ...(headerProps?.style ?? {}) }}
+        title={title}
         {...(headerProps || {})}
       >
         <div

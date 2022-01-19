@@ -21,14 +21,8 @@ describe('Atoms', () => {
 
   before(() => {
     cy.resetDgraphData().then(() => {
-      cy.login().then(() => {
-        cy.preserveAuthCookies()
-      })
+      cy.login()
     })
-  })
-
-  beforeEach(() => {
-    cy.preserveAuthCookies()
   })
 
   describe('create', () => {

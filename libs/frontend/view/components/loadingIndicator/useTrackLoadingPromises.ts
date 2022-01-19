@@ -13,7 +13,7 @@ export interface UseTrackLoadingPromises extends LoadingData {
  * Use this to track the loading state of multiple promises
  */
 export const useTrackLoadingPromises = (): UseTrackLoadingPromises => {
-  const [state, setState] = useState<LoadingData>({
+  const [{ isLoading, error }, setState] = useState<LoadingData>({
     isLoading: false,
     error: undefined,
   })
@@ -47,7 +47,8 @@ export const useTrackLoadingPromises = (): UseTrackLoadingPromises => {
   )
 
   return {
-    ...state,
+    isLoading,
+    error,
     trackPromise,
   }
 }

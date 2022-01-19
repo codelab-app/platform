@@ -1,20 +1,22 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import {
+  CreateComponentInput,
+  CreateElementInput,
+} from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import { CreateComponentMutationVariables } from '../../../graphql/component.endpoints.graphql.gen'
-import { useComponentDispatch } from '../../../hooks/useComponentDispatch'
-import { useCreateComponentMutation } from '../../../store/componentEndpoints'
-import { CreateComponentSchemaType } from './createComponentSchema'
+import { useComponentDispatch, useComponentState } from '../../../hooks'
+import { useCreateComponentMutation } from '../../../store'
 
-const mapVariables = (
-  submitData: CreateComponentSchemaType,
-): CreateComponentMutationVariables => ({
-  input: { ...submitData },
-})
-
-export const useCreateComponentForm = () => {
+export const useCreateComponentForm: UseUseCaseForm<
+  CreateComponentInput,
+  CRUDActionType
+> = () => {
   const { resetModal } = useComponentDispatch()
+  const { actionType } = useComponentState()
 
-  const [mutate, state] = useCreateComponentMutation({
+  const [mutate, { isLoading }] = useCreateComponentMutation({
     selectFromResult: (r) => ({
       component: r.data?.createComponent,
       isLoading: r.isLoading,
@@ -23,23 +25,23 @@ export const useCreateComponentForm = () => {
   })
 
   const handleSubmit = useCallback(
-    (submitData: CreateComponentSchemaType) => {
-      const variables = mapVariables(submitData)
-
-      return mutate({ variables }).unwrap()
+    (input: CreateComponentInput) => {
+      return mutate({ variables: { input } }).unwrap()
     },
     [mutate],
   )
 
   return {
+    model: {},
     reset: resetModal,
-    formProps: {
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while creating component',
       }),
-      onSubmitSuccess: () => resetModal(),
-    },
-    state,
+    ],
+    actionType,
+    onSubmitSuccess: [() => resetModal()],
+    isLoading,
   }
 }

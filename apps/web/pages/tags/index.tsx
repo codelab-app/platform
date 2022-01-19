@@ -1,5 +1,8 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import {
+  CodelabPage,
+  DashboardTemplateProps,
+} from '@codelab/frontend/abstract/props'
 import {
   CreateTagButton,
   CreateTagModal,
@@ -13,7 +16,6 @@ import {
 } from '@codelab/frontend/modules/tag'
 import {
   DashboardTemplate,
-  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
@@ -40,21 +42,26 @@ const TagPageHeader = () => {
 
   const pageHeaderButtons = [
     <CreateTagButton key={0} />,
-    <DeleteTagsButton key={1} ids={checkedTags.map((tag) => tag.toString())} />,
+    <DeleteTagsButton ids={checkedTags.map((tag) => tag.toString())} key={1} />,
     <ExportTagsButton key={2} />,
     <ImportTagsUpload key={3} />,
   ]
 
-  return <PageHeader ghost={false} title="Tags" extra={pageHeaderButtons} />
+  return <PageHeader extra={pageHeaderButtons} ghost={false} title="Tags" />
 }
 
 export const getServerSideProps = withPageAuthRequired()
 
-TagPage.Template = DashboardTemplate
-TagPage.templateProps = {
-  MainPane: GetTagsTree,
-  SidebarNavigation,
-  Header: TagPageHeader,
-}
-
 export default TagPage
+
+TagPage.Layout = (page) => {
+  return (
+    <DashboardTemplate
+      Header={TagPageHeader}
+      MainPane={GetTagsTree}
+      SidebarNavigation={SidebarNavigation}
+    >
+      {page.children}
+    </DashboardTemplate>
+  )
+}

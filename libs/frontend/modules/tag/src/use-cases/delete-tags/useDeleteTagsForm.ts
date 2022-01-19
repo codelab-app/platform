@@ -1,14 +1,24 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { DeleteTagsInput } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
+import { TagFragment } from '../../graphql/Tag.fragment.graphql.gen'
 import { useTagDispatch, useTagState } from '../../hooks'
-import { useDeleteTagsMutation } from '../../store/tagEndpoints'
-import { DeleteTagsMutationInput } from './types'
+import { useDeleteTagsMutation } from '../../store'
 
-export const useDeleteTagForm = () => {
-  const { deleteIds } = useTagState()
+export const useDeleteTagForm: UseEntityUseCaseForm<
+  DeleteTagsInput,
+  CRUDActionType,
+  TagFragment
+> = () => {
+  const { deleteIds, entity, actionType } = useTagState()
   const { resetModal } = useTagDispatch()
 
-  const [mutate, state] = useDeleteTagsMutation({
+  assertIsDefined(entity)
+
+  const [mutate, { isLoading }] = useDeleteTagsMutation({
     selectFromResult: (r) => ({
       hook: r.data?.deleteTags,
       isLoading: r.isLoading,
@@ -17,21 +27,23 @@ export const useDeleteTagForm = () => {
   })
 
   const handleSubmit = useCallback(
-    ({ ids }: DeleteTagsMutationInput) =>
+    ({ ids }: DeleteTagsInput) =>
       mutate({ variables: { input: { ids } } }).unwrap(),
     [mutate],
   )
 
   return {
-    formProps: {
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while deleting tags',
       }),
-      onSubmitSuccess: () => resetModal(),
-      model: { ids: deleteIds },
-    },
-    state,
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    model: { ids: deleteIds },
+    entity,
+    isLoading,
     reset: resetModal,
+    actionType,
   }
 }

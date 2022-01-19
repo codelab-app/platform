@@ -6,8 +6,13 @@ import {
 } from '@codelab/frontend/view/components'
 import { List, Space } from 'antd'
 import Link from 'next/link'
+import { PageBaseFragment } from '../../graphql/PageBase.fragment.graphql.gen'
 import { usePageDispatch } from '../../hooks'
-import { GetPagesItemProps } from './types'
+
+export type GetPagesItemProps = {
+  page: PageBaseFragment
+  appId: string
+}
 
 export const GetPagesItem = ({ page, appId }: GetPagesItemProps) => {
   const { openDeleteModal, openUpdateModal } = usePageDispatch()

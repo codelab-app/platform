@@ -1,8 +1,8 @@
-import { Type } from '@codelab/frontend/abstract/codegen'
 import { notify } from '@codelab/frontend/shared/utils'
+import { Type } from '@codelab/shared/abstract/codegen'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import React, { useEffect, useMemo } from 'react'
-import { useGetTypeKindsQuery } from '../../../store/typeEndpoints'
+import { useGetTypeKindsQuery } from '../../../store'
 
 export interface TypeKindsContextType {
   typeKindsById: Record<string, TypeKind>
@@ -47,7 +47,7 @@ const useTypeKindsProviderQueries = () => {
 
 export const TypeKindProvider = ({
   children,
-}: React.PropsWithChildren<any>) => {
+}: React.PropsWithChildren<unknown>) => {
   const { typeKindsById, typeKindsQuery } = useTypeKindsProviderQueries()
 
   if (!typeKindsQuery.data || !typeKindsQuery.data.getTypes) {

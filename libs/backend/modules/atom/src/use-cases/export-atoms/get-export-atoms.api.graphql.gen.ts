@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TypeGraphFragment } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TypeGraphFragmentDoc } from '../../../../../../frontend/modules/type/src/graphql/TypeGraph.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestGetExportAtomsQueryVariables = Types.Exact<{
   input?: Types.InputMaybe<Types.GetAtomsInput>
 }>

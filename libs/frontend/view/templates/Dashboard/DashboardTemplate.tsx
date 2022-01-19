@@ -1,8 +1,4 @@
-import {
-  componentLikeDestructure,
-  ComponentTypeLike,
-} from '@codelab/frontend/shared/utils'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { BuilderDashboardTemplateProps } from '@codelab/frontend/abstract/props'
 import { css } from '@emotion/react'
 import { Layout } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -15,14 +11,6 @@ import { DashboardTemplateMetaPane } from './DashboardTemplateMetaPane'
 
 const { Sider, Header: AntDesignHeader } = Layout
 
-export interface DashboardTemplateProps {
-  Header?: Nullable<ComponentTypeLike>
-  MetaPane?: Nullable<ComponentTypeLike>
-  MainPane?: Nullable<ComponentTypeLike>
-  SidebarNavigation?: Nullable<ComponentTypeLike>
-  headerHeight?: number
-}
-
 export const DashboardTemplate = ({
   children,
   Header,
@@ -30,12 +18,8 @@ export const DashboardTemplate = ({
   SidebarNavigation,
   MainPane,
   headerHeight,
-}: React.PropsWithChildren<DashboardTemplateProps>) => {
-  const [HeaderComponent, headerProps] = componentLikeDestructure(Header)
-
-  const [SidebarNavigationComponent, sidebarNavigationProps] =
-    componentLikeDestructure(SidebarNavigation)
-
+  contentStyles,
+}: React.PropsWithChildren<BuilderDashboardTemplateProps>) => {
   const mainPaneResizable = useResizable({
     width: { default: 300, max: 600, min: 300 },
   })
@@ -52,7 +36,6 @@ export const DashboardTemplate = ({
     >
       {SidebarNavigation && (
         <Sider
-          theme="light"
           collapsed
           collapsedWidth={40}
           style={{
@@ -63,9 +46,10 @@ export const DashboardTemplate = ({
             left: 0,
             bottom: 0,
           }}
+          theme="light"
         >
           <div css={tw`h-full`}>
-            <SidebarNavigationComponent {...sidebarNavigationProps} />
+            <SidebarNavigation />
           </div>
         </Sider>
       )}
@@ -86,17 +70,17 @@ export const DashboardTemplate = ({
               marginLeft: SidebarNavigation ? sidebarNavigationWidth : 0,
             }}
           >
-            <HeaderComponent {...headerProps} />
+            <Header />
           </AntDesignHeader>
         )}
 
-        <Layout>
+        <Layout style={contentStyles}>
           {MainPane && (
             <DashboardTemplateMainPane
-              headerHeight={headerHeight ?? defaultHeaderHeight}
               MainPane={MainPane}
               hasHeader={!!Header}
               hasSidebarNavigation={!!SidebarNavigation}
+              headerHeight={headerHeight ?? defaultHeaderHeight}
               resizable={mainPaneResizable}
             />
           )}
@@ -120,11 +104,11 @@ export const DashboardTemplate = ({
           <AnimatePresence initial={false}>
             {MetaPane && (
               <DashboardTemplateMetaPane
-                hasSidebarNavigation={!!SidebarNavigation}
                 MetaPane={MetaPane}
-                resizable={metaPaneResizable}
                 hasMainPane={!!MainPane}
+                hasSidebarNavigation={!!SidebarNavigation}
                 mainPaneWidth={mainPaneResizable.width}
+                resizable={metaPaneResizable}
               />
             )}
           </AnimatePresence>

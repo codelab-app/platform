@@ -1,125 +1,37 @@
 import { IElement } from '@codelab/frontend/abstract/core'
+import { UseCaseFormWithRef } from '@codelab/frontend/abstract/props'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   AutoCompleteField,
-  FormUniforms,
-  UniFormUseCaseProps,
+  Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import { UpdateElementData } from '@codelab/shared/abstract/codegen'
 import { ElementTree } from '@codelab/shared/core'
 import React, { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useGetElementQuery, useUpdateElementMutation } from '../../../store'
-import { UpdateElementSchema, updateElementSchema } from './updateElementSchema'
-
-type UpdateElementFormInternalProps =
-  UniFormUseCaseProps<UpdateElementSchema> & {
-    tree: ElementTree
-    element: IElement
-    providePropCompletion?: (searchValue: string) => Array<string>
-    trackPromises?: UseTrackLoadingPromises
-  }
+import {
+  UpdateElementFormInternal,
+  UpdateElementFormInternalProps,
+} from './UpdateELementFormInternal'
 
 export type UpdateElementFormProps = Omit<
   UpdateElementFormInternalProps,
   'element'
-> & { elementId: string }
-
-const UpdateElementFormInternal = ({
-  element: elementProp,
-  tree,
-  providePropCompletion,
-  trackPromises,
-  ...props
-}: React.PropsWithChildren<UpdateElementFormInternalProps>) => {
-  const { current: element } = useRef(elementProp) // Cache the initial element value, because when it updates it will interfere with what the user is typing
-  const { trackPromise } = trackPromises ?? {}
-
-  const [propCompleteOptions, setPropCompleteOptions] = useState<
-    Array<{ label: string; value: string }>
-  >([])
-
-  const [updateElement] = useUpdateElementMutation()
-
-  const onSubmit = (submitData: UpdateElementSchema) => {
-    const promise = updateElement({
-      variables: {
-        input: { id: element.id, data: { ...submitData } },
-      },
-    })
-
-    if (trackPromise) {
-      trackPromise(promise)
-    }
-
-    return promise
-  }
-
-  const handlePropSearch = (value: string) => {
-    if (providePropCompletion) {
-      setPropCompleteOptions(
-        providePropCompletion(value).map((option) => ({
-          value: option,
-          label: option,
-        })),
-      )
-    }
-  }
-
-  return (
-    <div>
-      <FormUniforms<UpdateElementSchema>
-        key={element.id}
-        autosave={true}
-        autosaveDelay={500}
-        schema={updateElementSchema}
-        model={{
-          atomId: element.atom?.id,
-          name: element.name,
-          renderForEachPropKey: element.renderForEachPropKey,
-          renderIfPropKey: element.renderIfPropKey,
-          propTransformationJs: element.propTransformationJs,
-          css: element.css,
-        }}
-        onSubmitError={createNotificationHandler({
-          title: 'Error while updating element',
-        })}
-        onSubmit={onSubmit}
-        {...props}
-      >
-        <AutoFields
-          omitFields={[
-            'atomId',
-            'renderIfPropKey',
-            'renderForEachPropKey',
-            'propTransformationJs',
-            'instanceOfComponentId',
-            'css', // We edit it in the css tab
-          ]}
-        />
-
-        <AutoField name="instanceOfComponentId" component={SelectComponent} />
-        <AutoField name="atomId" component={SelectAtom} />
-        <AutoCompleteField
-          name="renderIfPropKey"
-          onSearch={handlePropSearch}
-          options={propCompleteOptions}
-        />
-        <AutoCompleteField
-          name="renderForEachPropKey"
-          onSearch={handlePropSearch}
-          options={propCompleteOptions}
-        />
-      </FormUniforms>
-    </div>
-  )
+> & {
+  elementId: string
+  key: React.Key
 }
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = ({
+  key,
   elementId,
-  ...props
+  tree,
+  trackPromises,
+  providePropCompletion,
 }: UpdateElementFormProps) => {
   const { data: getElementData } = useGetElementQuery({
     variables: { input: { where: { id: elementId } } },
@@ -131,5 +43,15 @@ export const UpdateElementForm = ({
     return null
   }
 
-  return <UpdateElementFormInternal element={element} {...props} />
+  return (
+    <UpdateElementFormInternal
+      element={element}
+      key={key}
+      model={{}}
+      providePropCompletion={providePropCompletion}
+      submitRef={undefined}
+      trackPromises={trackPromises}
+      tree={tree}
+    />
+  )
 }

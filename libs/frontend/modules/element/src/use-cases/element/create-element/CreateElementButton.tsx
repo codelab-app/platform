@@ -11,7 +11,6 @@ export interface CreateElementButtonProps
 
 export const CreateElementButton = ({
   parentElementId,
-  ...props
 }: CreateElementButtonProps) => {
   const { openCreateModal } = useElementDispatch()
 
@@ -19,7 +18,6 @@ export const CreateElementButton = ({
     <Button
       icon={<PlusOutlined data-testid="create-page-element-button" />}
       onClick={() => openCreateModal({ parentElementId })}
-      {...props}
     />
   )
 }

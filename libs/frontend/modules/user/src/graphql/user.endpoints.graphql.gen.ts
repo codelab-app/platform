@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { __UserFragment } from './User.fragment.graphql.gen'
 import { gql } from '@apollo/client'

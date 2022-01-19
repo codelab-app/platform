@@ -1,21 +1,17 @@
 import {
-  ActionType,
+  AppActionType,
   CRUDModalState,
   OpenDeleteModalActionPayload,
   OpenUpdateModalActionPayload,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/abstract/core'
 import { AppFragment } from '../graphql/App.fragment.graphql.gen'
 
-export enum AppActionType {
-  Import = 'Import',
-}
-
-export type AppState = CRUDModalState<
-  AppFragment,
-  ActionType | AppActionType
-> & {
+export type AppState = CRUDModalState<AppFragment, AppActionType> & {
   currentApp?: AppFragment
 }
+
 export type OpenDeleteAppModalAction = OpenDeleteModalActionPayload<AppFragment>
+
 export type OpenUpdateAppModalAction = OpenUpdateModalActionPayload<AppFragment>
+
 export type SetCurrentAppAction = { currentApp: AppFragment }

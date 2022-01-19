@@ -22,11 +22,11 @@ export const SelectPage = ({ name }: SelectPageProps) => {
   return (
     <SelectField
       label="Page"
-      options={pageOptions}
-      name={name}
       loading={isLoading}
-      showSearch={true}
+      name={name}
       optionFilterProp="label"
+      options={pageOptions}
+      showSearch={true}
     />
   )
 }

@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { AppBaseFragment } from '../../../../../../../frontend/modules/app/src/graphql/App.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { AppBaseFragmentDoc } from '../../../../../../../frontend/modules/app/src/graphql/App.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestCreateAppMutationVariables = Types.Exact<{
   input: Types.CreateAppInput
 }>

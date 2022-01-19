@@ -1,9 +1,10 @@
+import { ImportAppActionType } from '@codelab/frontend/abstract/core'
 import {
   createCrudSlice,
   initialCrudState,
 } from '@codelab/frontend/view/components'
 import { PayloadAction } from '@reduxjs/toolkit'
-import { AppActionType, AppState, SetCurrentAppAction } from './types'
+import { AppState, SetCurrentAppAction } from './types'
 
 export const initialState: AppState = {
   ...initialCrudState,
@@ -20,6 +21,6 @@ export const appSlice = createCrudSlice('app', initialState, {
   }),
   openImportModal: (state) => ({
     ...state,
-    actionType: AppActionType.Import,
+    actionType: ImportAppActionType.Import,
   }),
 })

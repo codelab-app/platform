@@ -1,7 +1,7 @@
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 import { GetTypesQuery } from '../graphql/type.endpoints.graphql.gen'
-import { useGetTypesQuery } from '../store/typeEndpoints'
+import { useGetTypesQuery } from '../store'
 
 export type CreateTypeSelectOptions = (
   getTypesResult?: GetTypesQuery,
@@ -19,9 +19,12 @@ const defaultCreateTypeOptions: CreateTypeSelectOptions = (getTypesResult) =>
     value: i.id,
   })) || []
 
-export const TypeSelect = (props: TypeSelectProps) => {
+export const TypeSelect = ({
+  name,
+  label,
+  createTypeOptions,
+}: TypeSelectProps) => {
   const { data: types } = useGetTypesQuery()
-  const { createTypeOptions, ...rest } = props
 
   const typeOptions = createTypeOptions
     ? createTypeOptions(types)
@@ -29,10 +32,11 @@ export const TypeSelect = (props: TypeSelectProps) => {
 
   return (
     <SelectField
+      label={label}
+      name={name}
+      optionFilterProp="label"
       options={typeOptions}
       showSearch={true}
-      optionFilterProp="label"
-      {...rest}
     />
   )
 }

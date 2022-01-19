@@ -38,9 +38,9 @@ const DashboardTemplateMainPane = ({
       }}
     >
       <Sider
+        css={tw`w-auto border-r border-gray-200 max-h-full h-full overflow-x-hidden overflow-y-auto`}
         theme="light"
         width="auto"
-        css={tw`w-auto border-r border-gray-200 max-h-full h-full overflow-x-hidden overflow-y-auto`}
       >
         <div css={tw`relative max-h-full h-full flex flex-row`}>
           <motion.div css={tw`h-full flex-1`}>

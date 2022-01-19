@@ -24,13 +24,13 @@ export const PageDetailHeader = () => {
 
   return (
     <Menu
-      theme="light"
       mode="horizontal"
       selectable={false}
+      theme="light"
       triggerSubMenuAction="click"
     >
       {currentApp && (
-        <SubMenu key="sub1" icon={<FileOutlined />} title={currentPage?.name}>
+        <SubMenu icon={<FileOutlined />} key="sub1" title={currentPage?.name}>
           {currentApp?.pages.map((page) => (
             <Menu.Item key={page.id}>
               <Link
@@ -46,12 +46,12 @@ export const PageDetailHeader = () => {
         </SubMenu>
       )}
       <Menu.Item
-        key="1"
         icon={isBuilder ? <EyeOutlined /> : <ToolOutlined />}
+        key="1"
+        onClick={switchPreviewMode}
         style={{
           backgroundColor: 'initial',
         }}
-        onClick={switchPreviewMode}
       />
     </Menu>
   )

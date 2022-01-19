@@ -18,11 +18,11 @@ export const GetPagesList = () => {
   return (
     <SpinnerWrapper isLoading={isLoading}>
       <List
-        size="small"
         dataSource={pages}
         renderItem={(page) => (
-          <GetPagesItem key={page.id} page={page} appId={currentAppId} />
+          <GetPagesItem appId={currentAppId} key={page.id} page={page} />
         )}
+        size="small"
       />
     </SpinnerWrapper>
   )

@@ -2,8 +2,8 @@ import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
 export class CreateComponentInput {
-  @Field({ nullable: true })
-  declare name?: string
+  @Field()
+  declare name: string
 
   @Field(() => String, { nullable: true })
   declare props?: string

@@ -25,6 +25,6 @@ export class CreateFieldInput {
   @Field({ description: 'The interface to add fields to' })
   declare interfaceId: string
 
-  @Field(() => TypeRef)
+  @Field(() => TypeRef, { description: "The type of the field we're adding" })
   declare type: TypeRef
 }

@@ -1,5 +1,5 @@
+import { AtomType } from '@codelab/shared/abstract/codegen'
 import { IHook, PropsData } from '@codelab/shared/abstract/core'
-import { AtomType } from '@codelab/shared/codegen/graphql'
 import { attempt, get, isError, keys, merge } from 'lodash'
 import {
   useGraphqlMutationHook,

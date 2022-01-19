@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestElementEdgeFragment } from '../../../../test/graphql/TestElementEdge.fragment.graphql.gen'
 import { TestElementFragment } from '../../../../test/graphql/TestElement.fragment.graphql.gen'
@@ -6,7 +6,7 @@ import { gql } from '@apollo/client'
 import { TestElementEdgeFragmentDoc } from '../../../../test/graphql/TestElementEdge.fragment.graphql.gen'
 import { TestElementFragmentDoc } from '../../../../test/graphql/TestElement.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestGetElementGraphQueryVariables = Types.Exact<{
   input: Types.GetElementGraphInput
 }>

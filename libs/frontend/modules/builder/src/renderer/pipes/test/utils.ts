@@ -1,3 +1,4 @@
+import { Props } from '@codelab/frontend/abstract/props'
 import { IElement } from '@codelab/shared/abstract/core'
 import { RenderContext } from '../types'
 import { EndPipeOutput } from './types'
@@ -5,7 +6,7 @@ import { EndPipeOutput } from './types'
 export const endPipe = (
   element: IElement,
   context: RenderContext,
-  props: Record<string, unknown>,
+  props: Props,
 ): EndPipeOutput => {
   const { extraElementProps, extraProps } = context
 

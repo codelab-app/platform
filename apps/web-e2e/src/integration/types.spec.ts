@@ -40,14 +40,12 @@ describe('Types', () => {
   before(() => {
     cy.resetDgraphData().then(() => {
       cy.login().then(() => {
-        cy.preserveAuthCookies()
         cy.visit(`/types`)
       })
     })
   })
 
   beforeEach(() => {
-    cy.preserveAuthCookies()
     cy.get('.ant-table-cell', { timeout: 5000 })
   })
 

@@ -1,8 +1,11 @@
+import {
+  CreateAtomInput,
+  UpdateAtomInput,
+} from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 import { createAtomSchema } from '../create-atom'
-import { UpdateAtomMutationInput } from './types'
 
-export const updateAtomSchema: JSONSchemaType<UpdateAtomMutationInput> = {
+export const updateAtomSchema: JSONSchemaType<CreateAtomInput> = {
   ...createAtomSchema,
   title: 'Update Atom Input',
 } as const

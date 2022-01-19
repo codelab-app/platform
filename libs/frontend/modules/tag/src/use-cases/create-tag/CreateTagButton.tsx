@@ -7,7 +7,7 @@ export const CreateTagButton = () => {
   const onClick = () => openCreateModal()
 
   return (
-    <Button type="primary" onClick={onClick} icon={<PlusOutlined />}>
+    <Button icon={<PlusOutlined />} onClick={onClick} type="primary">
       Create Tag
     </Button>
   )

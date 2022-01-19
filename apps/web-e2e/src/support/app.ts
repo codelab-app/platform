@@ -1,7 +1,7 @@
 import {
   CreateAppInput,
   DeleteAppInput,
-} from '@codelab/frontend/abstract/codegen'
+} from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import {
   E2eCreateAppGql,

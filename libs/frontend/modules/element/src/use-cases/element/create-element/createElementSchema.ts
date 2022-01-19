@@ -1,14 +1,7 @@
+import { CreateElementInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 
-export interface CreateElementSchema {
-  name?: string
-  parentElementId: string
-  atomId: string
-  componentId: string
-  order?: number
-}
-
-export const createElementSchema: JSONSchemaType<CreateElementSchema> = {
+export const createElementSchema: JSONSchemaType<CreateElementInput> = {
   title: 'Create Element Input',
   type: 'object',
   properties: {
@@ -31,11 +24,20 @@ export const createElementSchema: JSONSchemaType<CreateElementSchema> = {
       nullable: true,
       label: 'Atom',
     },
-    componentId: {
+    instanceOfComponentId: {
       type: 'string',
       nullable: true,
       label: 'Component',
     },
+    // Added only to satisfy interface
+    css: {
+      type: 'string',
+      nullable: true,
+    },
+    props: {
+      type: 'string',
+      nullable: true,
+    },
   },
-  required: ['parentElementId'],
+  required: [],
 }

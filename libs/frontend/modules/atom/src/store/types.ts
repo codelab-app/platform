@@ -2,7 +2,7 @@ import {
   CRUDModalState,
   OpenDeleteModalActionPayload,
   OpenUpdateModalActionPayload,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/abstract/core'
 import {
   AtomBaseFragment,
   AtomFragment,

@@ -35,10 +35,10 @@ const headerFactory = (
   if (tab === BuilderTab.Toolbox) {
     return (
       <Search
-        key={1}
-        placeholder="Search toolbox"
         allowClear
+        key={1}
         onChange={(e) => onSearch(e.target.value)}
+        placeholder="Search toolbox"
       />
     )
   }
@@ -72,28 +72,26 @@ export const MainPaneBuilder = ({
 
   return (
     <MainPaneTemplate
+      containerProps={{ onClick: () => resetSelection() }}
+      header={headerFactory(builderTab, root, debouncedSearch)}
       key={root?.id ?? 'main-pane-builder'}
       title={paneTitles[builderTab]}
-      header={headerFactory(builderTab, root, debouncedSearch)}
-      containerProps={{ onClick: () => resetSelection() }}
     >
       <EqualityConditionalView
-        value={builderTab}
         expectedValue={BuilderTab.Tree}
+        value={builderTab}
       >
         <MainPaneBuilderTreeTab isComponentBuilder={isComponentBuilder} />
       </EqualityConditionalView>
 
       <EqualityConditionalView
-        value={builderTab}
         expectedValue={BuilderTab.Toolbox}
+        value={builderTab}
       >
         <MainPaneBuilderToolboxTab searchQuery={searchValue} />
       </EqualityConditionalView>
 
-      <CreateElementModal
-        initialData={{ parentElementId: selectedElement?.id }}
-      />
+      <CreateElementModal parentElementId={selectedElement?.id} />
       <DeleteElementModal />
     </MainPaneTemplate>
   )

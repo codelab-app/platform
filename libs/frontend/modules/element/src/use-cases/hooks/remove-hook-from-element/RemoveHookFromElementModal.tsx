@@ -1,12 +1,14 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import {
-  ActionType,
-  FormUniformsModal,
+  emptyJsonSchema,
+  EmptyJsonSchemaType,
+  Form,
+  FormModal,
 } from '@codelab/frontend/view/components'
-import { ModalProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
+import { AutoFields } from 'uniforms-antd'
 import { useHookState } from '../../../hooks'
-import { RemoveHookFromElementForm } from './RemoveHookFromElementForm'
 import { useRemoveHookFromElementForm } from './useRemoveHookFromElementForm'
 
 export interface RemoveHookFromElementModalProps {
@@ -16,24 +18,40 @@ export interface RemoveHookFromElementModalProps {
 export const RemoveHookFromElementModal = ({
   elementId,
 }: RemoveHookFromElementModalProps) => {
-  const { actionType } = useHookState()
-  const { formProps, state, reset } = useRemoveHookFromElementForm(elementId)
-  const { isLoading } = state
-
-  const modalProps: ModalProps = {
-    okText: 'Remove',
-    okButtonProps: {
-      loading: isLoading,
-    },
-    visible: actionType === ActionType.Delete,
-    onCancel: () => reset(),
-    title: <span css={tw`font-semibold`}>Remove hook</span>,
-  }
+  const {
+    onSubmit,
+    onSubmitSuccess,
+    actionType,
+    onSubmitError,
+    isLoading,
+    model,
+    reset,
+    entity,
+  } = useRemoveHookFromElementForm(elementId)
 
   return (
-    <FormUniformsModal
-      modalProps={modalProps}
-      renderForm={() => <RemoveHookFromElementForm {...formProps} />}
-    />
+    <FormModal
+      okButtonProps={{
+        loading: isLoading,
+      }}
+      okText="Remove"
+      onCancel={() => reset()}
+      title={<span css={tw`font-semibold`}>Remove hook</span>}
+      visible={actionType === CRUDActionType.Delete}
+    >
+      {({ submitRef }) => (
+        <Form<EmptyJsonSchemaType>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={emptyJsonSchema}
+          submitRef={submitRef}
+        >
+          <h4>Are you sure you want to remove the hook "{entity?.type}"</h4>
+          <AutoFields />
+        </Form>
+      )}
+    </FormModal>
   )
 }

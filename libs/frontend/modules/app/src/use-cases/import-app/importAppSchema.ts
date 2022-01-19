@@ -1,10 +1,11 @@
+import { JSONSchemaType } from 'ajv'
 import type { UploadFile } from 'antd/lib/upload/interface'
 
 export interface ImportAppSchema {
   file: UploadFile
 }
 
-export const createAppSchema = {
+export const importAppSchema = {
   title: 'Import App Input',
   type: 'object',
   properties: {

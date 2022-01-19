@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestLambdaFragment } from '../../../domain/lambda.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TestLambdaFragmentDoc } from '../../../domain/lambda.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestGetLambdaQueryVariables = Types.Exact<{
   input: Types.GetLambdaInput
 }>

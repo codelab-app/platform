@@ -9,11 +9,11 @@ export const CreateFieldButton = () => {
 
   return (
     <Button
-      size="small"
-      type="primary"
       css={tw`flex justify-center items-center`}
       icon={<PlusOutlined />}
       onClick={() => openCreateModal()}
+      size="small"
+      type="primary"
     />
   )
 }

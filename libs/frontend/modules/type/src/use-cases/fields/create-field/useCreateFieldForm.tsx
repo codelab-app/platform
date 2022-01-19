@@ -1,18 +1,24 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback, useContext } from 'react'
-import { useFieldDispatch } from '../../../hooks'
-import { useCreateFieldMutation } from '../../../store/fieldEndpoints'
-import { InterfaceContext } from '../../types/interface-provider'
-import { CreateFieldSchema } from './createFieldSchema'
+import { useFieldDispatch, useFieldState } from '../../../hooks'
+import { useCreateFieldMutation } from '../../../store'
+import { InterfaceContext } from '../../types'
+import { CreateFieldInput } from './createFieldSchema'
 
-export const useCreateFieldForm = () => {
+export const useCreateFieldForm: UseUseCaseForm<
+  CreateFieldInput,
+  CRUDActionType
+> = () => {
   const { resetModal } = useFieldDispatch()
+  const { actionType } = useFieldState()
 
   const {
     interface: { id: interfaceId },
   } = useContext(InterfaceContext)
 
-  const [mutate, state] = useCreateFieldMutation({
+  const [mutate, { isLoading }] = useCreateFieldMutation({
     selectFromResult: (r) => ({
       element: r.data?.createField,
       isLoading: r.isLoading,
@@ -21,12 +27,12 @@ export const useCreateFieldForm = () => {
   })
 
   const handleSubmit = useCallback(
-    (formData: CreateFieldSchema) => {
+    (formData: CreateFieldInput) => {
       const variables = {
         input: {
           interfaceId,
           type: {
-            existingTypeId: formData.typeId,
+            existingTypeId: formData.existingTypeId,
           },
           name: formData.name,
           key: formData.key,
@@ -40,13 +46,16 @@ export const useCreateFieldForm = () => {
   )
 
   return {
-    formProps: {
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while creating field',
       }),
-      onSubmitSuccess: () => resetModal(),
-    },
-    state,
+    ],
+    model: {},
+    onSubmitSuccess: [() => resetModal()],
+    isLoading,
+    actionType,
+    reset: resetModal,
   }
 }

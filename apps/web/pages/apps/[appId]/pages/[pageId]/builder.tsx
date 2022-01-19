@@ -15,15 +15,11 @@ import {
   PageProvider,
   usePageState,
 } from '@codelab/frontend/modules/page'
-import { DashboardTemplateProps } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 
-const BuilderTemplate = (props: any) => null
-const Sidebar = () => null
-
-const PageBuilder: CodelabPage<DashboardTemplateProps> = () => {
+const PageBuilder: CodelabPage<any> = () => {
   const { currentPage } = usePageState()
   const { elementTree } = useElementGraphContext()
 
@@ -37,25 +33,30 @@ const PageBuilder: CodelabPage<DashboardTemplateProps> = () => {
         <title>{currentPage.name} | Builder | Codelab</title>
       </Head>
       <Builder tree={elementTree} />
-      <BuilderTemplate>
-        <Sidebar />
-      </BuilderTemplate>
     </>
   )
 }
 
+export default PageBuilder
+
 export const getServerSideProps = withPageAuthRequired()
 
-const MainPane = () => <MainPaneBuilder />
-
-PageBuilder.Template = BuilderDashboardTemplate
-PageBuilder.templateProps = {
-  MainPane,
-  Header: PageDetailHeader,
-  SidebarNavigation: BuilderSidebarNavigation,
-  MetaPane: MetaPaneBuilderPage,
-  headerHeight: 38,
+PageBuilder.Layout = (page) => {
+  return (
+    <BuilderContext>
+      <AppProvider>
+        <PageProvider>
+          <BuilderDashboardTemplate
+            Header={PageDetailHeader}
+            MainPane={MainPaneBuilder}
+            MetaPane={MetaPaneBuilderPage}
+            SidebarNavigation={BuilderSidebarNavigation}
+            headerHeight={38}
+          >
+            {page.children}
+          </BuilderDashboardTemplate>
+        </PageProvider>
+      </AppProvider>
+    </BuilderContext>
+  )
 }
-PageBuilder.providers = [BuilderContext, AppProvider, PageProvider]
-
-export default PageBuilder

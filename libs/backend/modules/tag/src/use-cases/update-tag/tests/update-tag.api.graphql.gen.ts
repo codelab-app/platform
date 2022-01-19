@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TagFragment } from '../../../../../../../frontend/modules/tag/src/graphql/Tag.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TagFragmentDoc } from '../../../../../../../frontend/modules/tag/src/graphql/Tag.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestUpdateTagMutationVariables = Types.Exact<{
   input: Types.UpdateTagInput
 }>

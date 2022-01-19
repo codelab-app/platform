@@ -44,17 +44,17 @@ export const ItemDropdown = ({ app }: ItemMenuProps) => {
 
   const actionsMenu = (
     <Menu>
-      <Menu.Item key="export" style={menuItemStyle} onClick={() => exportApp()}>
+      <Menu.Item key="export" onClick={() => exportApp()} style={menuItemStyle}>
         Export
         {isExporting ? <Spin /> : <ExportOutlined style={menuItemIconStyle} />}
       </Menu.Item>
 
-      <Menu.Item key="edit" style={menuItemStyle} onClick={onClickEdit}>
+      <Menu.Item key="edit" onClick={onClickEdit} style={menuItemStyle}>
         Edit
         <EditOutlined style={menuItemIconStyle} />
       </Menu.Item>
 
-      <Menu.Item key="delete" style={menuItemStyle} onClick={onClickDelete}>
+      <Menu.Item key="delete" onClick={onClickDelete} style={menuItemStyle}>
         Delete
         <DeleteOutlined style={menuItemIconStyle} />
       </Menu.Item>
@@ -63,7 +63,7 @@ export const ItemDropdown = ({ app }: ItemMenuProps) => {
 
   return (
     <Dropdown overlay={actionsMenu} trigger={['click']}>
-      <Button type="text" shape="circle" icon={<EllipsisOutlined />} />
+      <Button icon={<EllipsisOutlined />} shape="circle" type="text" />
     </Dropdown>
   )
 }

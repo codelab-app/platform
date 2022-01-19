@@ -1,8 +1,8 @@
 import { monacoFieldFactory } from '@codelab/frontend/view/components'
+import { CreateLambdaInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { CreateLambdaMutationInput } from './types'
 
-export const createLambdaSchema: JSONSchemaType<CreateLambdaMutationInput> = {
+export const createLambdaSchema: JSONSchemaType<CreateLambdaInput> = {
   title: 'Create Lambda Input',
   type: 'object',
   properties: {

@@ -1,7 +1,4 @@
-import {
-  ElementFragment,
-  HookFragment,
-} from '../../../graphql/Element.fragment.graphql.gen'
+import { ElementFragment, HookFragment } from '../../../graphql'
 
 export type HooksListItemDescriptionProps = { hook: HookFragment }
 

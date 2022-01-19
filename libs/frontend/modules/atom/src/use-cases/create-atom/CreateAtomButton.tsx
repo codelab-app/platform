@@ -3,17 +3,16 @@ import { Button } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 import { useAtomDispatch } from '../../hooks'
-import { CreateAtomButtonProps } from './types'
 
-export const CreateAtomButton = ({ centerIcon }: CreateAtomButtonProps) => {
+export const CreateAtomButton = () => {
   const { openCreateModal } = useAtomDispatch()
 
   return (
     <Button
-      type="primary"
-      css={centerIcon ? tw`flex justify-center items-center` : undefined}
+      css={tw`flex justify-center items-center`}
       icon={<PlusOutlined />}
       onClick={() => openCreateModal()}
+      type="primary"
     >
       Create
     </Button>

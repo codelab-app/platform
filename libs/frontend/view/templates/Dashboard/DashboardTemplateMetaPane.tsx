@@ -29,10 +29,10 @@ export const DashboardTemplateMetaPane = ({
 
   return (
     <motion.div
-      initial={{ y: 0 }}
       animate={{ y: 0 }}
-      exit={{ y: 400 }}
       css={tw`fixed left-0 right-0 bottom-0 bg-white z-50 flex flex-col`}
+      exit={{ y: 400 }}
+      initial={{ y: 0 }}
       {...resizable.containerProps}
       style={{
         ...resizable.containerProps.style,

@@ -1,7 +1,6 @@
+import { Callback } from '@codelab/frontend/abstract/props'
 import { Maybe, MaybeArray } from '@codelab/shared/abstract/types'
 import { isFunction } from 'lodash'
-
-export type Callback<TParam> = (param: TParam) => any
 
 export const callbackWithParams = <
   T,

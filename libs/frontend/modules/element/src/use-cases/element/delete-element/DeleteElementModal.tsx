@@ -1,38 +1,52 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { DeleteUseCaseFormWithRef } from '@codelab/frontend/abstract/props'
+import { Form, FormModal } from '@codelab/frontend/view/components'
+import { DeleteElementInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import tw from 'twin.macro'
+import { AutoFields } from 'uniforms-antd'
 import { useElementDispatch, useElementState } from '../../../hooks'
-import { DeleteElementForm, DeleteElementFormProps } from './DeleteElementForm'
+import { deleteElementSchema } from './deleteElementSchema'
 import { useDeleteElementForm } from './useDeleteElementForm'
 
-interface Props {
-  formProps?: Partial<DeleteElementFormProps>
-}
-
-export const DeleteElementModal = ({ formProps }: Props) => {
-  const { actionType } = useElementState()
-  const { resetModal } = useElementDispatch()
-
+export const DeleteElementModal = () => {
   const {
-    state: { isLoading },
-    formProps: hookFormProps,
+    isLoading,
+    actionType,
+    reset,
+    onSubmit,
+    entity,
+    onSubmitError,
+    onSubmitSuccess,
+    model,
   } = useDeleteElementForm()
 
   return (
-    <FormUniformsModal
-      modalProps={{
-        okText: 'Delete',
-        okButtonProps: {
-          loading: isLoading,
-        },
-        visible: actionType === ActionType.Delete,
-        onCancel: () => resetModal(),
-        title: <span css={tw`font-semibold`}>Delete element</span>,
+    <FormModal
+      okButtonProps={{
+        loading: isLoading,
       }}
-      renderForm={() => <DeleteElementForm {...formProps} {...hookFormProps} />}
-    />
+      okText="Delete"
+      onCancel={() => reset()}
+      title={<span css={tw`font-semibold`}>Delete element</span>}
+      visible={actionType === CRUDActionType.Delete}
+    >
+      {({ submitRef }) => (
+        <Form<DeleteElementInput>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={deleteElementSchema}
+          submitRef={submitRef}
+        >
+          <h4>
+            Are you sure you want to delete
+            {entity?.name ? `the element "${entity?.name}"` : 'that element'}?
+          </h4>
+          <AutoFields />
+        </Form>
+      )}
+    </FormModal>
   )
 }

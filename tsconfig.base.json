@@ -69,9 +69,6 @@
       "@codelab/backend/shared/utils": [
         "libs/backend/shared/utils/src/index.ts"
       ],
-      "@codelab/frontend/abstract/codegen": [
-        "libs/frontend/abstract/codegen/src/index.ts"
-      ],
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
       ],
@@ -79,7 +76,6 @@
         "libs/frontend/abstract/props/src/index.ts"
       ],
       "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
-      "@codelab/frontend/model/store": ["libs/frontend/model/store/index.ts"],
       "@codelab/frontend/model/domain": [
         "libs/frontend/model/domain/src/index.ts"
       ],
@@ -92,6 +88,7 @@
       "@codelab/frontend/model/infra/redux": [
         "libs/frontend/model/infra/redux/src/index.ts"
       ],
+      "@codelab/frontend/model/store": ["libs/frontend/model/store/index.ts"],
       "@codelab/frontend/model/store/local": [
         "libs/frontend/model/store/local/index.ts"
       ],
@@ -119,17 +116,11 @@
       "@codelab/frontend/modules/builder": [
         "libs/frontend/modules/builder/src/index.ts"
       ],
-      "@codelab/frontend/modules/category": [
-        "libs/frontend/modules/category/src/index.ts"
-      ],
       "@codelab/frontend/modules/element": [
         "libs/frontend/modules/element/src/index.ts"
       ],
       "@codelab/frontend/modules/lambda": [
         "libs/frontend/modules/lambda/src/index.ts"
-      ],
-      "@codelab/frontend/modules/library": [
-        "libs/frontend/modules/library/src/index.ts"
       ],
       "@codelab/frontend/modules/page": [
         "libs/frontend/modules/page/src/index.ts"
@@ -152,9 +143,6 @@
       "@codelab/frontend/presenter/container": [
         "libs/frontend/presenter/container/src/index.ts"
       ],
-      "@codelab/frontend/shared/types": [
-        "libs/frontend/shared/types/src/index.ts"
-      ],
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],
@@ -169,14 +157,14 @@
         "libs/frontend/view/templates/index.ts"
       ],
       "@codelab/rtk-query": ["libs/tools/rtk-query/src/index.ts"],
+      "@codelab/shared/abstract/codegen": [
+        "libs/shared/abstract/codegen/src/index.ts"
+      ],
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"
       ],
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
-      ],
-      "@codelab/shared/codegen/graphql": [
-        "libs/shared/codegen/graphql/src/index.ts"
       ],
       "@codelab/shared/core": ["libs/shared/core/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],

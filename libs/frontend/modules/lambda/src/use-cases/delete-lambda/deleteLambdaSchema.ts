@@ -1,7 +1,7 @@
+import { DeleteLambdaInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { DeleteLambdaMutationInput } from './types'
 
-export const deleteLambdaSchema: JSONSchemaType<DeleteLambdaMutationInput> = {
+export const deleteLambdaSchema: JSONSchemaType<DeleteLambdaInput> = {
   title: 'Delete Lambda',
   type: 'object',
   properties: {

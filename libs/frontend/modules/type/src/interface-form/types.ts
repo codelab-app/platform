@@ -1,8 +1,11 @@
-import { FormUniformsProps } from '@codelab/frontend/view/components'
+import { FormProps } from '@codelab/frontend/abstract/props'
 import { TypeTree } from '@codelab/shared/core'
+import { Assign, Overwrite } from 'utility-types'
 
-export interface InterfaceFormProps<TData>
-  extends Omit<FormUniformsProps<TData>, 'schema'> {
-  interfaceTree: TypeTree
-  schema?: any
-}
+export type InterfaceFormProps<TData> = Assign<
+  FormProps<TData>,
+  {
+    interfaceTree: TypeTree
+    schema?: any
+  }
+>

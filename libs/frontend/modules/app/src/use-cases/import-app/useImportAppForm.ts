@@ -1,14 +1,22 @@
+import { AppActionType } from '@codelab/frontend/abstract/core'
+import {
+  UseCaseFormWithRef,
+  UseUseCaseForm,
+} from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useAppDispatch } from '../../hooks'
+import { useAppDispatch, useAppState } from '../../hooks'
 import { useImportAppMutation } from '../../store'
-import { ImportAppFormProps } from './ImportAppForm'
 import { ImportAppSchema } from './importAppSchema'
 
-export const useImportAppForm = () => {
+export const useImportAppForm: UseUseCaseForm<
+  ImportAppSchema,
+  AppActionType
+> = () => {
   const { resetModal } = useAppDispatch()
+  const { actionType } = useAppState()
 
-  const [mutate, state] = useImportAppMutation({
+  const [mutate, { isLoading }] = useImportAppMutation({
     selectFromResult: (r) => ({
       hook: r.data?.importApp,
       isLoading: r.isLoading,
@@ -30,21 +38,17 @@ export const useImportAppForm = () => {
     [mutate],
   )
 
-  const onSubmitSuccess = () => resetModal()
-
   const onSubmitError = createNotificationHandler({
     title: 'Error while importing app',
   })
 
-  const formProps: ImportAppFormProps = {
-    onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
-  }
-
   return {
-    formProps,
-    state,
+    onSubmit,
+    onSubmitError: [onSubmitError],
+    onSubmitSuccess: [() => resetModal()],
     reset: resetModal,
+    isLoading,
+    actionType,
+    model: {},
   }
 }

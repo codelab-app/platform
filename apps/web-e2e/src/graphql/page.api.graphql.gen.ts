@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PageFullFragment } from '../../../../libs/frontend/modules/page/src/graphql/PageFull.fragment.graphql.gen'
 import { PageBaseFragment } from '../../../../libs/frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen'
@@ -6,7 +6,7 @@ import { gql } from '@apollo/client'
 import { PageFullFragmentDoc } from '../../../../libs/frontend/modules/page/src/graphql/PageFull.fragment.graphql.gen'
 import { PageBaseFragmentDoc } from '../../../../libs/frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type E2eGetPageQueryVariables = Types.Exact<{
   input: Types.GetPageInput
 }>

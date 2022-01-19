@@ -1,13 +1,25 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
+import { DeleteFieldInput } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
+import { FieldFragment } from '../../../graphql/Field.fragment.graphql.gen'
 import { useFieldDispatch, useFieldState } from '../../../hooks'
-import { useDeleteFieldMutation } from '../../../store/fieldEndpoints'
+import { useDeleteFieldMutation } from '../../../store'
 
-export const useDeleteFieldForm = () => {
-  const { deleteIds } = useFieldState()
+export const useDeleteFieldForm: UseEntityUseCaseForm<
+  EmptyJsonSchemaType,
+  CRUDActionType,
+  FieldFragment
+> = () => {
+  const { deleteIds, entity, actionType } = useFieldState()
   const { resetModal } = useFieldDispatch()
 
-  const [mutate, state] = useDeleteFieldMutation({
+  assertIsDefined(entity)
+
+  const [mutate, { isLoading }] = useDeleteFieldMutation({
     selectFromResult: (r) => ({
       element: r.data?.deleteField,
       isLoading: r.isLoading,
@@ -15,18 +27,27 @@ export const useDeleteFieldForm = () => {
     }),
   })
 
-  const handleSubmit = useCallback(() => {
-    return mutate({ variables: { input: { fieldId: deleteIds[0] } } }).unwrap()
-  }, [deleteIds, mutate])
+  const onSubmit = useCallback(
+    (input: EmptyJsonSchemaType) => {
+      return mutate({
+        variables: { input: { fieldId: deleteIds[0] } },
+      }).unwrap()
+    },
+    [deleteIds, mutate],
+  )
 
   return {
-    formProps: {
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    onSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while deleting field',
       }),
-      onSubmitSuccess: () => resetModal(),
-    },
-    state,
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    isLoading,
+    model: {},
+    actionType,
+    reset: resetModal,
+    entity,
   }
 }

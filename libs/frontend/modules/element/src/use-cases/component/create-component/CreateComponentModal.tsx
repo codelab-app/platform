@@ -1,33 +1,40 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { Form, FormModal } from '@codelab/frontend/view/components'
+import { CreateComponentInput } from '@codelab/shared/abstract/codegen'
 import tw from 'twin.macro'
-import { useComponentState } from '../../../hooks/useComponentState'
-import { CreateComponentForm } from './CreateComponentForm'
+import { AutoFields } from 'uniforms-antd'
+import { useComponentState } from '../../../hooks'
+import { createComponentSchema } from './createComponentSchema'
 import { useCreateComponentForm } from './useCreateComponentForm'
 
 export const CreateComponentModal = () => {
   const { actionType } = useComponentState()
 
-  const {
-    state: { isLoading },
-    formProps,
-    reset,
-  } = useCreateComponentForm()
+  const { isLoading, onSubmit, onSubmitSuccess, onSubmitError, reset } =
+    useCreateComponentForm()
 
   return (
-    <FormUniformsModal
-      modalProps={{
-        okText: 'Create',
-        okButtonProps: {
-          loading: isLoading,
-        },
-        visible: actionType === ActionType.Create,
-        onCancel: () => reset(),
-        title: <span css={tw`font-semibold`}>Create component</span>,
+    <FormModal
+      okButtonProps={{
+        loading: isLoading,
       }}
-      renderForm={() => <CreateComponentForm {...formProps} />}
-    />
+      okText="Create"
+      onCancel={() => reset()}
+      title={<span css={tw`font-semibold`}>Create component</span>}
+      visible={actionType === CRUDActionType.Create}
+    >
+      {({ submitRef }) => (
+        <Form<CreateComponentInput>
+          model={{}}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={createComponentSchema}
+          submitRef={submitRef}
+        >
+          <AutoFields />
+        </Form>
+      )}
+    </FormModal>
   )
 }

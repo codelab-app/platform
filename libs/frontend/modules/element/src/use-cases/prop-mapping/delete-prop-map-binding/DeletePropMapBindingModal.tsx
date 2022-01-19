@@ -1,39 +1,42 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { FormModal } from '@codelab/frontend/view/components'
 import React from 'react'
 import tw from 'twin.macro'
 import { usePropMapBindingState } from '../../../hooks'
-import {
-  DeletePropMapBindingForm,
-  DeletePropMapBindingFormProps,
-} from './DeletePropMapBindingForm'
+import { DeletePropMapBindingForm, ElementId } from './DeletePropMapBindingForm'
 import { useDeletePropMapBindingForm } from './useDeletePropMapBindingForm'
 
-export const DeletePropMapBindingModal = (
-  props: Pick<DeletePropMapBindingFormProps, 'elementId'>,
-) => {
-  const { actionType } = usePropMapBindingState()
-
+export const DeletePropMapBindingModal = (props: ElementId) => {
   const {
-    formProps,
-    state: { isLoading },
+    onSubmit,
+    actionType,
+    onSubmitError,
+    entity,
+    onSubmitSuccess,
+    isLoading,
     reset,
   } = useDeletePropMapBindingForm(props.elementId)
 
   return (
-    <FormUniformsModal
-      modalProps={{
-        okText: 'Delete',
-        okButtonProps: {
-          loading: isLoading,
-        },
-        visible: actionType === ActionType.Delete,
-        onCancel: () => reset(),
-        title: <span css={tw`font-semibold`}>Delete prop binding</span>,
+    <FormModal
+      okButtonProps={{
+        loading: isLoading,
       }}
-      renderForm={() => <DeletePropMapBindingForm {...props} {...formProps} />}
-    />
+      okText="Delete"
+      onCancel={() => reset()}
+      title={<span css={tw`font-semibold`}>Delete prop binding</span>}
+      visible={actionType === CRUDActionType.Delete}
+    >
+      {({ submitRef }) => (
+        <DeletePropMapBindingForm
+          entity={entity}
+          model={{}}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          submitRef={submitRef}
+        />
+      )}
+    </FormModal>
   )
 }

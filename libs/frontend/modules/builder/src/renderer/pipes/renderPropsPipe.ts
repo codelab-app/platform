@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/frontend/abstract/codegen'
+import { TypeKind } from '@codelab/shared/abstract/codegen'
 import { mergeProps } from '@codelab/shared/utils'
 import { transformPropsToComponentFn } from '../utils'
 import { getPropsByTypeKind } from '../utils/getPropsByTypeKind'

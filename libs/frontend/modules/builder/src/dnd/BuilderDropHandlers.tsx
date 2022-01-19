@@ -1,8 +1,8 @@
+import { HoverOverlay } from '@codelab/frontend/view/components'
 import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import { queryRenderedElementById } from '../renderer'
-import { HoverOverlay } from '../sections'
 import { useCreateElementDroppable } from './useCreateElementDroppable'
 
 export interface BuilderDropHandlersProps {
@@ -30,7 +30,13 @@ const BuilderDropHandler = React.memo(
         element.atom ? `(${element.atom.name})` : ''
       }`
 
-      return <HoverOverlay nodeId={element.id} content={content} />
+      return (
+        <HoverOverlay
+          content={content}
+          getOverlayElement={queryRenderedElementById}
+          nodeId={element.id}
+        />
+      )
     }
 
     setNodeRef(target)

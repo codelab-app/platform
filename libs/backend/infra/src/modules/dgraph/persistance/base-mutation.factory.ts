@@ -1,4 +1,4 @@
-import { Entity } from '@codelab/shared/abstract/types'
+import { EntityLike } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
 import { DgraphEntityType } from '../dgraph-entity-type'
 import {
@@ -16,7 +16,7 @@ import { randomBlankNode } from './repository-utils'
  *
  * {@see NullablePredicates} for how to construct the predicate array
  */
-export class BaseMutationFactory<T extends Entity>
+export class BaseMutationFactory<T extends EntityLike>
   implements IMutationFactory<T>
 {
   constructor(

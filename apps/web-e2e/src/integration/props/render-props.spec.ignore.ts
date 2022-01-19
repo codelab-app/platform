@@ -1,4 +1,4 @@
-import { CreateResponse, Element } from '@codelab/frontend/abstract/codegen'
+import { CreateResponse, Element } from '@codelab/shared/abstract/codegen'
 import { AtomType, BaseTypeKind, TypeKind } from '@codelab/shared/abstract/core'
 
 const listElementName = 'List'
@@ -19,8 +19,6 @@ describe('render props', () => {
       cy.resetDgraphData()
 
       cy.login().then(async () => {
-        cy.preserveAuthCookies()
-
         cy.createType({
           name: BaseTypeKind.ReactNode,
           typeKind: TypeKind.ReactNodeType,
@@ -166,10 +164,6 @@ describe('render props', () => {
 
         cy.getSpinner().should('not.exist')
       })
-    })
-
-    beforeEach(() => {
-      cy.preserveAuthCookies()
     })
 
     it('bind  render props prop correctly', () => {

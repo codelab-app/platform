@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { __UserFragment } from '../../../../../../frontend/modules/user/src/graphql/User.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { __UserFragmentDoc } from '../../../../../../frontend/modules/user/src/graphql/User.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type GetMeQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetMeQuery = { getMe?: __UserFragment | null | undefined }

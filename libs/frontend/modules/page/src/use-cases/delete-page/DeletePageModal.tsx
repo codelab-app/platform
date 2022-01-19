@@ -1,28 +1,44 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { Form, FormModal } from '@codelab/frontend/view/components'
+import { DeletePageInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
+import { AutoFields } from 'uniforms-antd'
 import { usePageState } from '../../hooks'
-import { DeletePageForm } from './DeletePageForm'
+import { deletePageSchema } from './deletePageSchema'
 import { useDeletePageForm } from './useDeletePageForm'
 
 export const DeletePageModal = () => {
-  const { actionType } = usePageState()
-  const { formProps, reset, state } = useDeletePageForm()
-  const { isLoading } = state
-
-  const modalProps = {
-    visible: actionType === ActionType.Delete,
-    onCancel: reset,
-    okText: 'Delete Page',
-    okButtonProps: { loading: isLoading },
-  }
+  const {
+    actionType,
+    onSubmit,
+    entity,
+    onSubmitSuccess,
+    onSubmitError,
+    reset,
+    isLoading,
+    model,
+  } = useDeletePageForm()
 
   return (
-    <FormUniformsModal
-      modalProps={modalProps}
-      renderForm={() => <DeletePageForm {...formProps} />}
-    />
+    <FormModal
+      okButtonProps={{ loading: isLoading }}
+      okText="Delete Page"
+      onCancel={reset}
+      visible={actionType === CRUDActionType.Delete}
+    >
+      {({ submitRef }) => (
+        <Form<DeletePageInput>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={deletePageSchema}
+          submitRef={submitRef}
+        >
+          <h4>Are you sure you want to delete page "{entity}"?</h4>
+          <AutoFields omitFields={['pageId']} />
+        </Form>
+      )}
+    </FormModal>
   )
 }

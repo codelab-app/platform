@@ -1,4 +1,4 @@
-import { Entity, MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { EntityLike, Nullish } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
 import { IMutationFactory } from '../persistance'
 import { mergeMutations } from './mergeMutations'
@@ -9,7 +9,7 @@ interface ItemsByStatus<T> {
   toCreate: Array<T>
 }
 
-const groupItemsByStatus = <T extends Entity>(
+const groupItemsByStatus = <T extends EntityLike>(
   a: Array<T>,
   b: Array<T>,
 ): ItemsByStatus<T> => {
@@ -48,9 +48,9 @@ const groupItemsByStatus = <T extends Entity>(
  * If b contains items that are in a, they are updated
  * If a contains items that are not in b, they are deleted
  * */
-export const makeArrayUpdateMutation = <T extends Entity>(
-  a: MaybeOrNullable<Array<T>>,
-  b: MaybeOrNullable<Array<T>>,
+export const makeArrayUpdateMutation = <T extends EntityLike>(
+  a: Nullish<Array<T>>,
+  b: Nullish<Array<T>>,
   mutationFactory: IMutationFactory<T>,
 ): Mutation => {
   const items = groupItemsByStatus(a ?? [], b ?? [])

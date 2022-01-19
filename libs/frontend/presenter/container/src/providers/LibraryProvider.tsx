@@ -8,9 +8,7 @@ type ILibraryContext = {
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 export const LibraryContext = React.createContext<ILibraryContext>(undefined!)
 
-export const LibraryProvider = ({
-  children,
-}: PropsWithChildren<Record<string, unknown>>) => {
+export const LibraryProvider = ({ children }: PropsWithChildren<never>) => {
   // const { data, loading } = useLibraryExplorerQuery()
   const loading = false
 

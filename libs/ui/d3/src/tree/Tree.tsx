@@ -53,7 +53,7 @@ export const D3Tree = ({
   }, [data, d3Container, ref, refCurrent, root])
 
   return (
-    <svg width={width} height={height} ref={d3Container}>
+    <svg height={height} ref={d3Container} width={width}>
       <g transform="translate(5, 5)">
         <g className="nodes" />
         <g className="links" />

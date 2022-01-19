@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestUserFragment } from '../../../test/test-user.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TestUserFragmentDoc } from '../../../test/test-user.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestUpsertUserMutationVariables = Types.Exact<{
   input: Types.UpsertUserInput
 }>

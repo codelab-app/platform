@@ -1,4 +1,4 @@
-import { Maybe, MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { SingularElementArgument } from 'cytoscape'
 
 /**
@@ -9,5 +9,4 @@ export const getCyElementData = <TData = any>(
   cyElement?: SingularElementArgument,
 ): Maybe<TData> => cyElement?.data()?.data
 
-export const isDefined = <TData>(item: MaybeOrNullable<TData>): item is TData =>
-  !!item
+export const isDefined = <TData>(item: Nullish<TData>): item is TData => !!item

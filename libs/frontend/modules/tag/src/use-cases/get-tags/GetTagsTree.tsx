@@ -1,7 +1,7 @@
-import { CheckedKeys } from '@codelab/frontend/shared/types'
+import { CheckedKeys } from '@codelab/frontend/abstract/props'
 import { Tree, TreeProps } from 'antd'
 import { useTagDispatch, useTagTree } from '../../hooks'
-import { useGetTagGraphsQuery } from '../../store/tagEndpoints'
+import { useGetTagGraphsQuery } from '../../store'
 
 export const GetTagsTree = () => {
   const { data, isLoading } = useGetTagGraphsQuery()
@@ -27,13 +27,13 @@ export const GetTagsTree = () => {
 
   return (
     <Tree
-      checkable
+      checkStrictly
       // defaultExpandedKeys={['0-0-0', '0-0-1']}
       // defaultSelectedKeys={['0-0-0', '0-0-1']}
       // defaultCheckedKeys={['0-0-0', '0-0-1']}
-      onSelect={onSelect}
+      checkable
       onCheck={onCheck}
-      checkStrictly
+      onSelect={onSelect}
       /**
        * The root is a system root & shouldn't be shown
        */

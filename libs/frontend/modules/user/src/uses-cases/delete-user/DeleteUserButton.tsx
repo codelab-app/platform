@@ -9,6 +9,6 @@ export const DeleteUserButton = ({ payload }: DeleteUserButtonProps) => {
   const onClick = () => openDeleteModal(payload)
 
   return (
-    <Button size="small" danger icon={<DeleteOutlined />} onClick={onClick} />
+    <Button danger icon={<DeleteOutlined />} onClick={onClick} size="small" />
   )
 }

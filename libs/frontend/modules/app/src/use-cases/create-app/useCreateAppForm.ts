@@ -1,14 +1,19 @@
-import { CreateAppInput } from '@codelab/frontend/abstract/codegen'
+import { AppActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import { useAppDispatch } from '../../hooks'
+import { useAppDispatch, useAppState } from '../../hooks'
 import { useCreateAppMutation } from '../../store'
-import { CreateAppFormProps } from './types'
 
-export const useCreateAppForm = () => {
+export const useCreateAppForm: UseUseCaseForm<
+  CreateAppInput,
+  AppActionType
+> = () => {
   const { resetModal } = useAppDispatch()
+  const { actionType } = useAppState()
 
-  const [mutate, state] = useCreateAppMutation({
+  const [mutate, { isLoading }] = useCreateAppMutation({
     selectFromResult: (r) => ({
       hook: r.data?.createApp,
       isLoading: r.isLoading,
@@ -27,18 +32,13 @@ export const useCreateAppForm = () => {
     title: 'Error while creating app',
   })
 
-  const onSubmitSuccess = () => resetModal()
-
-  const formProps: CreateAppFormProps = {
-    onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
-    model: {},
-  }
-
   return {
-    formProps,
-    state,
+    onSubmit,
+    onSubmitSuccess: [() => resetModal()],
+    onSubmitError: [onSubmitError],
+    model: {},
+    isLoading,
     reset: resetModal,
+    actionType: actionType,
   }
 }

@@ -2,7 +2,7 @@ import {
   CRUDModalState,
   OpenDeleteModalActionPayload,
   OpenUpdateModalActionPayload,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/abstract/core'
 import { PageBaseFragment } from '../graphql/PageBase.fragment.graphql.gen'
 
 export type PageState = CRUDModalState<PageBaseFragment> & {

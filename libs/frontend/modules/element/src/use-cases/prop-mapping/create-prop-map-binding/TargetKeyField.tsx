@@ -92,6 +92,7 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
       value={props.value ?? ''}
       options={options}
       onSearch={setSearchInput}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...filterDOMProps(props)}
     />,
   )

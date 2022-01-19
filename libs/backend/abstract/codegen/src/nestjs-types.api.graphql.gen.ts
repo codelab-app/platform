@@ -479,6 +479,170 @@ export interface FieldByIdFilter {
     fieldId: string;
 }
 
+export interface GetPagesInput {
+    byApp: PageByAppFilter;
+}
+
+export interface PageByAppFilter {
+    appId: string;
+}
+
+export interface GetPageInput {
+    pageId: string;
+}
+
+export interface GetUserInput {
+    id?: Nullable<string>;
+    auth0Id?: Nullable<string>;
+}
+
+export interface GetUsersInput {
+    page: number;
+    perPage: number;
+    query: string;
+    sort: string;
+}
+
+export interface GetLambdaInput {
+    lambdaId: string;
+}
+
+export interface GetTagInput {
+    where: WhereUniqueTag;
+}
+
+export interface WhereUniqueTag {
+    name?: Nullable<string>;
+    id?: Nullable<string>;
+}
+
+export interface GetTagsInput {
+    ids?: Nullable<string[]>;
+}
+
+export interface GetTagGraphsInput {
+    where?: Nullable<TagsWhereInput>;
+}
+
+export interface TagsWhereInput {
+    ids?: Nullable<string[]>;
+}
+
+export interface CreateAppInput {
+    name: string;
+}
+
+export interface UpdateAppInput {
+    id: string;
+    data: UpdateAppData;
+}
+
+export interface UpdateAppData {
+    name: string;
+}
+
+export interface DeleteAppInput {
+    appId: string;
+}
+
+export interface ImportAppInput {
+    payload: string;
+}
+
+export interface CreatePropMapBindingInput {
+    elementId: string;
+    targetElementId?: Nullable<string>;
+    sourceKey: string;
+    targetKey: string;
+}
+
+export interface UpdatePropMapBindingInput {
+    propMapBindingId: string;
+    elementId: string;
+    data: UpdatePropMapBindingData;
+}
+
+export interface UpdatePropMapBindingData {
+    targetElementId?: Nullable<string>;
+    sourceKey: string;
+    targetKey: string;
+}
+
+export interface DeletePropMapBindingInput {
+    elementId: string;
+    propMapBindingIds: string[];
+}
+
+export interface AddHookToElementInput {
+    elementId: string;
+    config: string;
+    type: AtomType;
+}
+
+export interface RemoveHookFromElementInput {
+    elementId: string;
+    hookId: string;
+}
+
+export interface CreateElementInput {
+    parentElementId?: Nullable<string>;
+    name?: Nullable<string>;
+    css?: Nullable<string>;
+    atomId?: Nullable<string>;
+    order?: Nullable<number>;
+    props?: Nullable<string>;
+    instanceOfComponentId?: Nullable<string>;
+}
+
+export interface UpdateElementInput {
+    data: UpdateElementData;
+    id: string;
+}
+
+export interface UpdateElementData {
+    name?: Nullable<string>;
+    atomId?: Nullable<string>;
+    instanceOfComponentId?: Nullable<string>;
+    css?: Nullable<string>;
+    renderForEachPropKey?: Nullable<string>;
+    renderIfPropKey?: Nullable<string>;
+    propTransformationJs?: Nullable<string>;
+}
+
+export interface MoveElementInput {
+    elementId: string;
+    moveData: MoveData;
+}
+
+export interface MoveData {
+    order: number;
+    parentElementId?: Nullable<string>;
+}
+
+export interface DuplicateElementInput {
+    elementId: string;
+}
+
+export interface UpdateElementPropsInput {
+    data: string;
+    elementId: string;
+}
+
+export interface DeleteElementInput {
+    elementId: string;
+}
+
+export interface ConvertElementToComponentInput {
+    elementId: string;
+    componentName?: Nullable<string>;
+}
+
+export interface CreateComponentInput {
+    name: string;
+    props?: Nullable<string>;
+    atomId?: Nullable<string>;
+}
+
 export interface CreateAtomInput {
     name: string;
     type: AtomType;

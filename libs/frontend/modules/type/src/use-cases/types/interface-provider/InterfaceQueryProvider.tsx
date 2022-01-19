@@ -22,7 +22,8 @@ export const withInterfaceQueryProvider = <TProps,>(
 ) => {
   return (props: TProps) => (
     <InterfaceQueryProvider>
-      <Component {...(props as any)} />
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      <Component {...props} />
     </InterfaceQueryProvider>
   )
 }

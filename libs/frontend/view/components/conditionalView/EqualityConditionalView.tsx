@@ -12,5 +12,5 @@ export const EqualityConditionalView = <T extends string>({
   value,
   children,
 }: EqualityConditionalViewProps<T>) => (
-  <ConditionalView condition={expectedValue === value} children={children} />
+  <ConditionalView children={children} condition={expectedValue === value} />
 )

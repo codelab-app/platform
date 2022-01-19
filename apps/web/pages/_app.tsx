@@ -1,7 +1,4 @@
 // import '../src/wdyr'
-// Comment out in favor of compiled css file
-// import 'slick-carousel/slick/slick.css'
-// import 'slick-carousel/slick/slick-theme.css'
 import '../src/styles/app.scss'
 import 'animate.css'
 import '../src/styles/styles.chunk.css'
@@ -10,7 +7,6 @@ import { UserProvider } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/props'
 import { useApollo } from '@codelab/frontend/model/infra/apollo'
 import { reduxStoreWrapper } from '@codelab/frontend/model/infra/redux'
-import { combineComponents } from '@codelab/frontend/shared/utils'
 import { css, Global } from '@emotion/react'
 import DateFnsAdapter from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
@@ -22,50 +18,42 @@ import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 import { slickCssFix } from '../src/styles/slick/Slick'
 
-// require('../src/styles/antd-theme.less')
-
 const queryClient = new QueryClient()
 
-const AppProviders = combineComponents(
-  [QueryClientProvider, { client: queryClient }],
-  UserProvider,
-  [LocalizationProvider, { dateAdapter: DateFnsAdapter }],
-  ConfigProvider,
-)
+const App = ({ pageProps: getServerSideProps, Component }: AppProps<any>) => {
+  const { Layout = ({ children }: any) => <>{children}</> } =
+    Component as CodelabPage<any>
 
-const AppContainer = ({
-  // Props come from getServerSideProps
-  pageProps: ssrPageProps,
-  Component,
-}: AppProps<any>) => {
-  const { Template, templateProps, providers } = Component as CodelabPage<any>
-  const client = useApollo(ssrPageProps)
-
-  const Content = combineComponents(
-    ...(providers ?? []),
-    Template ? [Template, templateProps] : undefined,
-    [Component, ssrPageProps],
-  )
+  const client = useApollo(getServerSideProps)
 
   return (
-    <AppProviders>
-      <ApolloProvider client={client}>
-        <GlobalStyles />
-        <Global
-          styles={[
-            css({
-              '#__next': {
-                height: '100%',
-              },
-            }),
-            slickCssFix,
-            ...globalTailwindFix,
-          ]}
-        />
-        <Content />
-      </ApolloProvider>
-    </AppProviders>
+    <QueryClientProvider client={queryClient}>
+      <UserProvider>
+        <LocalizationProvider dateAdapter={DateFnsAdapter}>
+          <ConfigProvider>
+            <ApolloProvider client={client}>
+              <GlobalStyles />
+              <Global
+                styles={[
+                  css({
+                    '#__next': {
+                      height: '100%',
+                    },
+                  }),
+                  slickCssFix,
+                  ...globalTailwindFix,
+                ]}
+              />
+              <Layout>
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+                <Component {...getServerSideProps} />
+              </Layout>
+            </ApolloProvider>
+          </ConfigProvider>
+        </LocalizationProvider>
+      </UserProvider>
+    </QueryClientProvider>
   )
 }
 
-export default reduxStoreWrapper.withRedux(AppContainer)
+export default reduxStoreWrapper.withRedux(App)

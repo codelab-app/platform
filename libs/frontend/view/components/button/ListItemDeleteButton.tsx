@@ -8,5 +8,5 @@ export type ListItemDeleteButtonProps = Omit<
 >
 
 export const ListItemDeleteButton = (props: ListItemDeleteButtonProps) => {
-  return <ListItemButton icon={<DeleteOutlined />} danger={true} {...props} />
+  return <ListItemButton danger={true} icon={<DeleteOutlined />} {...props} />
 }

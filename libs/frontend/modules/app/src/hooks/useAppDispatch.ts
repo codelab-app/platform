@@ -5,7 +5,7 @@ import { appSlice, SetCurrentAppAction } from '../store'
 export const useAppDispatch = () => {
   const dispatch = useDispatch()
   const { actions } = appSlice
-  const curdDispatch = crudModalDispatchFactory(appSlice.actions)()
+  const crudDispatch = crudModalDispatchFactory(appSlice.actions)()
 
   const openImportModal = () => {
     dispatch(actions.openImportModal())
@@ -18,6 +18,6 @@ export const useAppDispatch = () => {
   return {
     openImportModal,
     setCurrentApp,
-    ...curdDispatch,
+    ...crudDispatch,
   }
 }

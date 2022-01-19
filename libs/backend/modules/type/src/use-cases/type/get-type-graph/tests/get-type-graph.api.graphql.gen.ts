@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestTypeGraphFragment } from '../../../../tests/graphql/TestTypeGraph.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TestTypeGraphFragmentDoc } from '../../../../tests/graphql/TestTypeGraph.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestGetTypeGraphQueryVariables = Types.Exact<{
   input: Types.GetTypeGraphInput
 }>

@@ -40,8 +40,8 @@ export const HomeJumbo = () => {
           Build using&nbsp;
           <span css={tw`bg-red-100 inline-block`} style={{ minWidth: '20rem' }}>
             <span
-              ref={jsRotatingRef}
               className="animate__animated animate__fadeIn"
+              ref={jsRotatingRef}
             >
               Ant Design, Material UI, Semantic UI, HTML tags
             </span>
@@ -54,7 +54,7 @@ export const HomeJumbo = () => {
           Nest components or HTML to construct the DOM tree as you would in
           code. Configure props provided by UI frameworks so you can save time.
         </Paragraph>
-        <Space css={tw`w-full justify-center`} align="center" size="large">
+        <Space align="center" css={tw`w-full justify-center`} size="large">
           <Fancybox
             options={{
               infinite: false,
@@ -63,10 +63,10 @@ export const HomeJumbo = () => {
           >
             <p>
               <Button
-                size="large"
-                icon={<ArrowRightOutlined />}
                 data-fancybox="gallery"
                 data-src="https://www.youtube.com/watch?v=OrmhGmr0iTA"
+                icon={<ArrowRightOutlined />}
+                size="large"
                 type="primary"
               >
                 Watch Tutorial
@@ -74,10 +74,10 @@ export const HomeJumbo = () => {
             </p>
           </Fancybox>
           <Button
-            size="large"
-            icon={<ArrowRightOutlined />}
-            type="primary"
             ghost
+            icon={<ArrowRightOutlined />}
+            size="large"
+            type="primary"
           >
             Log In
           </Button>
@@ -103,7 +103,7 @@ export const HomeJumbo = () => {
           tw`hover:cursor-pointer relative`,
         ]}
       >
-        <Image src="/banner-screenshot.png" preview={false} css={tw`mt-8 `} />
+        <Image css={tw`mt-8 `} preview={false} src="/banner-screenshot.png" />
         <div
           className="watch-content"
           css={[

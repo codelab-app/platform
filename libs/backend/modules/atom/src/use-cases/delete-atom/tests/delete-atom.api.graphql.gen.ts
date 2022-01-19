@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
   AtomBaseFragment,
@@ -10,7 +10,7 @@ import {
   AtomFragmentDoc,
 } from '../../../../../../../frontend/modules/atom/src/graphql/Atom.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestDeleteAtomMutationVariables = Types.Exact<{
   input: Types.DeleteAtomInput
 }>

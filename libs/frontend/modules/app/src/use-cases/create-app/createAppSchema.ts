@@ -1,7 +1,7 @@
+import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { CreateAppMutationInput } from './types'
 
-export const createAppSchema: JSONSchemaType<CreateAppMutationInput> = {
+export const createAppSchema: JSONSchemaType<CreateAppInput> = {
   title: 'Create App Input',
   type: 'object',
   properties: {

@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PropMapBindingFragment } from './Element.fragment.graphql.gen'
 import { gql } from '@apollo/client'

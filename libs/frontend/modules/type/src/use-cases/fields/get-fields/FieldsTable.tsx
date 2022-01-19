@@ -51,8 +51,6 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
       render: (text, record) => (
         <Space size="middle">
           <Button
-            size="small"
-            type="primary"
             icon={<EditFilled />}
             onClick={() =>
               openUpdateModal({
@@ -63,10 +61,10 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
                 },
               })
             }
-          />
-          <Button
             size="small"
             type="primary"
+          />
+          <Button
             danger
             icon={<DeleteFilled />}
             onClick={() =>
@@ -78,6 +76,8 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
                 },
               })
             }
+            size="small"
+            type="primary"
           />
         </Space>
       ),
@@ -86,11 +86,11 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
 
   return (
     <Table
-      size="small"
-      pagination={{ position: ['bottomCenter'], pageSize: 25 }}
-      dataSource={tree.getRootFields()}
       columns={columns}
+      dataSource={tree.getRootFields()}
+      pagination={{ position: ['bottomCenter'], pageSize: 25 }}
       rowKey={(atom) => atom.id}
+      size="small"
     />
   )
 }

@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestFieldFragment } from '../../../../libs/backend/modules/type/src/tests/graphql/TestField.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TestFieldFragmentDoc } from '../../../../libs/backend/modules/type/src/tests/graphql/TestField.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type E2eCreateFieldMutationVariables = Types.Exact<{
   input: Types.CreateFieldInput
 }>

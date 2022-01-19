@@ -1,4 +1,3 @@
-import { Prop } from '@codelab/frontend/abstract/codegen'
 import {
   InterfaceForm,
   useGetTypeGraphQuery,
@@ -6,6 +5,7 @@ import {
 } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
+import { Prop } from '@codelab/shared/abstract/codegen'
 import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { Spin } from 'antd'
 import { useRef } from 'react'
@@ -66,9 +66,8 @@ const UpdateElementPropsFormInternal = ({
   return (
     <InterfaceForm
       autosave
-      autosaveDelay={500}
-      key={elementId}
       interfaceTree={tree}
+      key={elementId}
       model={initialPropsRef.current}
       onSubmit={(data: any) => {
         const promise = mutate({
@@ -79,6 +78,7 @@ const UpdateElementPropsFormInternal = ({
 
         return trackPromise?.(promise) ?? promise
       }}
+      submitRef={undefined}
     />
   )
 }
@@ -109,9 +109,9 @@ export const UpdateElementPropsForm = ({
   return (
     <ElementIdProvider elementId={element.id}>
       <UpdateElementPropsFormInternal
-        interfaceId={element.atom.api.id}
         elementId={element.id}
         existingProps={element.props}
+        interfaceId={element.atom.api.id}
         trackPromises={trackPromises}
       />
     </ElementIdProvider>

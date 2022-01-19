@@ -5,7 +5,7 @@ import { atomSlice, SetSelectedAtomIdsModalAction } from '../store'
 export const useAtomDispatch = () => {
   const dispatch = useDispatch()
   const { actions } = atomSlice
-  const curdDispatch = crudModalDispatchFactory(atomSlice.actions)()
+  const crudDispatch = crudModalDispatchFactory(atomSlice.actions)()
 
   const setSelectedIds = (payload: SetSelectedAtomIdsModalAction) => {
     dispatch(actions.setSelectedIds(payload))
@@ -13,6 +13,6 @@ export const useAtomDispatch = () => {
 
   return {
     setSelectedIds,
-    ...curdDispatch,
+    ...crudDispatch,
   }
 }

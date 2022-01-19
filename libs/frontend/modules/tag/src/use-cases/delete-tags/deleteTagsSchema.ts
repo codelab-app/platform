@@ -1,7 +1,7 @@
+import { DeleteTagsInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { DeleteTagsMutationInput } from './types'
 
-export const deleteTagsSchema: JSONSchemaType<DeleteTagsMutationInput> = {
+export const deleteTagsSchema: JSONSchemaType<DeleteTagsInput> = {
   title: 'Delete Tag Input',
   type: 'object',
   properties: {

@@ -1,6 +1,7 @@
+import { HoverOverlay } from '@codelab/frontend/view/components'
 import React from 'react'
 import { useBuilderHoveringElement } from '../../hooks'
-import { HoverOverlay } from './Overlay-hover'
+import { queryRenderedElementById } from '../../renderer'
 
 export const BuilderHoverOverlay = () => {
   const { hoveringElement } = useBuilderHoveringElement()
@@ -13,7 +14,13 @@ export const BuilderHoverOverlay = () => {
     hoveringElement.atom ? `(${hoveringElement.atom.name})` : ''
   }`
 
-  return <HoverOverlay nodeId={hoveringElement.id} content={content} />
+  return (
+    <HoverOverlay
+      content={content}
+      getOverlayElement={queryRenderedElementById}
+      nodeId={hoveringElement.id}
+    />
+  )
 }
 
 BuilderHoverOverlay.displayName = 'ElementBuilderHoverOverlay'

@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestAtomBaseFragment } from '../../../test/graphql/TestAtom.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TestAtomBaseFragmentDoc } from '../../../test/graphql/TestAtom.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestCreateAtomMutationVariables = Types.Exact<{
   input: Types.CreateAtomInput
 }>
