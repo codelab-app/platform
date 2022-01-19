@@ -77,14 +77,11 @@ export const GetTypesTable = () => {
 
   return (
     <Table<TypeFragment>
-      rowSelection={rowSelection}
-      size="small"
-      pagination={{ position: ['bottomCenter'] }}
-      dataSource={data?.getTypes ?? []}
       columns={columns}
       dataSource={data?.getTypes ?? []}
       pagination={{ position: ['bottomCenter'] }}
       rowKey={(type) => type.id}
+      rowSelection={rowSelection}
       size="small"
     />
   )
