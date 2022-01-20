@@ -1,4 +1,4 @@
-filters-dev-pr: &filters-dev-pr
+filters-pr: &filters-pr
   filters:
     branches:
       ignore:
@@ -345,38 +345,38 @@ jobs:
       - build-push-docker-image
 
 workflows:
-  app-dev-pr:
+  app-pr:
     jobs:
       - install-and-build-workspace:
-          <<: *filters-dev-pr
+          <<: *filters-pr
           e: docker-node
           context: CI
       - lint:
-          <<: *filters-dev-pr
+          <<: *filters-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - unit:
-          <<: *filters-dev-pr
+          <<: *filters-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - integration:
-          <<: *filters-dev-pr
+          <<: *filters-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - e2e:
-          <<: *filters-dev-pr
+          <<: *filters-pr
           e: docker-node
           context: CI
           requires:
             - install-and-build-workspace
       - notify-success:
-          <<: *filters-dev-pr
+          <<: *filters-pr
           context: CI
           e: docker-node
           requires:
@@ -398,7 +398,7 @@ workflows:
           requires:
             - install-and-build-workspace
       - notify-success:
-          <<: *filters-dev-pr
+          <<: *filters-pr
           context: CI
           e: docker-node
           requires:
