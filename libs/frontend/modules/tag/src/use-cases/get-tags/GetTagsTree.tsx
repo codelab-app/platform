@@ -1,11 +1,12 @@
 import { CheckedKeys } from '@codelab/frontend/abstract/props'
 import { Tree, TreeProps } from 'antd'
-import { useTagDispatch, useTagTree } from '../../hooks'
+import { useTagDispatch, useTagState, useTagTree } from '../../hooks'
 import { useGetTagGraphsQuery } from '../../store'
 
 export const GetTagsTree = () => {
   const { data, isLoading } = useGetTagGraphsQuery()
   const { setSelectedTag, setCheckedTags } = useTagDispatch()
+  const { checkedTags } = useTagState()
   const tagTree = useTagTree(data?.getTagGraphs)
 
   if (!data) {
@@ -30,6 +31,7 @@ export const GetTagsTree = () => {
       // defaultSelectedKeys={['0-0-0', '0-0-1']}
       // defaultCheckedKeys={['0-0-0', '0-0-1']}
       checkable
+      checkedKeys={checkedTags}
       onCheck={onCheck}
       onSelect={onSelect}
       /**
