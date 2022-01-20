@@ -178,6 +178,7 @@ enum MonacoLanguage {
   CSS
   JSON
   Graphql
+  CSSINJS
 }
 
 """

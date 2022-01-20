@@ -41,7 +41,8 @@ export enum MonacoLanguage {
     JavaScript = "JavaScript",
     CSS = "CSS",
     JSON = "JSON",
-    Graphql = "Graphql"
+    Graphql = "Graphql",
+    CSSINJS = "CSSINJS"
 }
 
 export enum Role {
