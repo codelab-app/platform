@@ -1,3 +1,4 @@
+import { NotFoundError } from '@codelab/backend/abstract/core'
 import type { AwsConfig, LambdaPayload } from '@codelab/backend/infra'
 import {
   awsConfig,
@@ -7,6 +8,7 @@ import {
   Lambda,
 } from '@codelab/backend/infra'
 import { Inject, Injectable } from '@nestjs/common'
+import { updateLambdaInvalidState } from './lambda.error'
 
 /**
  * This is a wrapper around AWS S3 & Lambda services, to easily help us create functions
@@ -66,6 +68,18 @@ export class LambdaService {
       throw new Error(
         'Lambda has to be persisted in the db before updating it in AWS',
       )
+    }
+
+    const currentLambda = await this.awsLambdaService.getFunction(lambda)
+
+    if (!currentLambda) {
+      throw new NotFoundError('lambda not found')
+    }
+
+    const state = String(currentLambda.Configuration?.State)
+
+    if (['Pending', 'Failed'].includes(state)) {
+      throw updateLambdaInvalidState(state)
     }
 
     await this.awsS3Service.uploadObject(this._awsConfig.awsBucketName, lambda)
