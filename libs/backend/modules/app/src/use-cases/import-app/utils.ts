@@ -110,5 +110,6 @@ export const createMapByFixedId = (elements: Array<IElement>) =>
     elements.filter((e) => !!e.fixedId).map((e) => [e.fixedId as string, e]),
   )
 
-export const collectEntityIds = (entities: Nullish<Array<Nullish<EntityLike>>>) =>
-  entities?.filter((e): e is EntityLike => !!e?.id).map((e) => e.id) ?? []
+export const collectEntityIds = (
+  entities: Nullish<Array<Nullish<EntityLike>>>,
+) => entities?.filter((e): e is EntityLike => !!e?.id).map((e) => e.id) ?? []

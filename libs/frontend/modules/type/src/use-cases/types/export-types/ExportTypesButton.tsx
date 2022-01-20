@@ -27,7 +27,7 @@ export const ExportTypesButton = ({ typeIds }: ExportTypesButtonProps) => {
   }
 
   return (
-    <Tooltip title="Export types" arrowPointAtCenter>
+    <Tooltip arrowPointAtCenter title="Export types">
       <Button
         disabled={typeIds.length === 0}
         icon={<DownloadOutlined />}
