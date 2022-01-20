@@ -1,7 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn codegen
+#yarn codegen
 
 # We update dgraph schema once only here
 ./scripts/dgraph/update-schema.js
