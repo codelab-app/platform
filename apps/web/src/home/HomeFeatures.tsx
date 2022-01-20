@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {
   ApiOutlined,
   AppstoreOutlined,
@@ -24,13 +25,13 @@ export const HomeFeatures = () => {
   }
 
   return (
-    <Row gutter={[padding.sm, padding.sm]} align="middle">
+    <Row align="middle" gutter={[padding.sm, padding.sm]}>
       <Col {...colProps}>
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<AppstoreOutlined />}
-            title="UI for Developers"
             description="Create your own component tree and configure with props as you would in React or Angular"
+            title="UI for Developers"
           />
         </Card>
       </Col>
@@ -38,8 +39,8 @@ export const HomeFeatures = () => {
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<ApiOutlined />}
-            title="Component Data Binding"
             description="Render components with data fetched from remote API's"
+            title="Component Data Binding"
           />
         </Card>
       </Col>
@@ -47,8 +48,8 @@ export const HomeFeatures = () => {
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<KeyOutlined />}
-            title="Sandboxed Functions"
             description="Attach secure custom handlers to components to handle more complex interactions"
+            title="Sandboxed Functions"
           />
         </Card>
       </Col>
@@ -56,8 +57,8 @@ export const HomeFeatures = () => {
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<FolderOpenOutlined />}
-            title="Component Frameworks"
             description="We've wrapped popular frameworks like Antd Design or Material UI so you can configure them without having to code"
+            title="Component Frameworks"
           />
         </Card>
       </Col>
@@ -65,8 +66,8 @@ export const HomeFeatures = () => {
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<SettingOutlined />}
-            title="Custom Components"
             description="Compose new components from base components and reuse them across your application"
+            title="Custom Components"
           />
         </Card>
       </Col>
@@ -74,8 +75,8 @@ export const HomeFeatures = () => {
         <Card style={cardStyle}>
           <Card.Meta
             avatar={<EditOutlined />}
-            title="Low-level Building Block"
             description="Without being confined to pre-made templates, you as a developer can build complex user interface without a code editor"
+            title="Low-level Building Block"
           />
         </Card>
       </Col>

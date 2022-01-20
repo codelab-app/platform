@@ -1,7 +1,7 @@
+import { DeleteAtomInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { DeleteAtomMutationInput } from './types'
 
-export const deleteAtomSchema: JSONSchemaType<DeleteAtomMutationInput> = {
+export const deleteAtomSchema: JSONSchemaType<DeleteAtomInput> = {
   title: 'Delete Atom',
   type: 'object',
   properties: {

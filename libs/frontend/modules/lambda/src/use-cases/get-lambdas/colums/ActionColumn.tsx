@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { Space } from 'antd'
 import { DeleteLambdaButton } from '../../delete-lambda'
 import { ExecuteLambdaButton } from '../../execute-lambda'

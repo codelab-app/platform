@@ -1,8 +1,8 @@
 import { PropsData } from '@codelab/shared/abstract/core'
-import { MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { mergeWith } from 'lodash'
 
-type PropsArray = Array<MaybeOrNullable<PropsData>>
+type PropsArray = Array<Nullish<PropsData>>
 
 const propsCustomizer = (value: any, srcValue: any, key: string) => {
   if (key === 'className') {

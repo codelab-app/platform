@@ -1,7 +1,6 @@
+import { CRUDActionType, CRUDModalState } from '@codelab/frontend/abstract/core'
 import {
-  ActionType,
   createCrudSlice,
-  CRUDModalState,
   initialCrudState,
 } from '@codelab/frontend/view/components'
 import { Maybe } from '@codelab/shared/abstract/types'
@@ -27,13 +26,13 @@ export const elementSlice = createCrudSlice('element', initialState, {
     state,
     { payload }: PayloadAction<Maybe<ElementStateCreateMetadata>>,
   ) => {
-    state.actionType = ActionType.Create
+    state.actionType = CRUDActionType.Create
     state.entity = undefined
     state.createMetadata = payload
   },
   resetModal: (s) => ({
     ...s,
-    actionType: ActionType.None,
+    actionType: CRUDActionType.None,
     entity: undefined,
     deleteIds: [],
     updateId: '',

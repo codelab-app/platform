@@ -23,14 +23,14 @@ export const SidebarNavigationContainer = (
 
   return (
     <Menu
-      defaultSelectedKeys={[PageType.AppList]}
-      selectedKeys={[router.pathname]}
       defaultOpenKeys={[]}
+      defaultSelectedKeys={[PageType.AppList]}
+      mode="inline"
+      selectedKeys={[router.pathname]}
       style={{
         ...sidebarNavContainerStyle(props),
         ...(props.style ?? {}),
       }}
-      mode="inline"
       {...rest}
     >
       {children}

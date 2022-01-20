@@ -1,28 +1,41 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { Form, FormModal } from '@codelab/frontend/view/components'
+import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
+import { AutoFields } from 'uniforms-antd'
 import { useAppState } from '../../hooks'
-import { CreateAppForm } from './CreateAppForm'
+import { createAppSchema } from './createAppSchema'
 import { useCreateAppForm } from './useCreateAppForm'
 
 export const CreateAppModal = () => {
-  const { actionType } = useAppState()
-  const { formProps, reset, state } = useCreateAppForm()
-  const { isLoading } = state
-
-  const modalProps = {
-    visible: actionType === ActionType.Create,
-    onCancel: reset,
-    okText: 'Create App',
-    okButtonProps: { loading: isLoading },
-  }
+  const {
+    onSubmit,
+    onSubmitSuccess,
+    onSubmitError,
+    reset,
+    isLoading,
+    actionType,
+  } = useCreateAppForm()
 
   return (
-    <FormUniformsModal
-      modalProps={modalProps}
-      renderForm={() => <CreateAppForm {...formProps} />}
-    />
+    <FormModal
+      okButtonProps={{ loading: isLoading }}
+      okText="Create App"
+      onCancel={() => reset()}
+      visible={actionType === CRUDActionType.Create}
+    >
+      {({ submitRef }) => (
+        <Form<CreateAppInput>
+          model={{}}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={createAppSchema}
+          submitRef={submitRef}
+        >
+          <AutoFields />
+        </Form>
+      )}
+    </FormModal>
   )
 }

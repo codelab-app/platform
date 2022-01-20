@@ -1,14 +1,14 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import {
+  CodelabPage,
+  DashboardTemplateProps,
+} from '@codelab/frontend/abstract/props'
 import {
   DeleteUserButton,
   DeleteUserModal,
   useGetUsersQuery,
 } from '@codelab/frontend/modules/user'
-import {
-  DashboardTemplate,
-  DashboardTemplateProps,
-} from '@codelab/frontend/view/templates'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Space, Table } from 'antd'
 import { ColumnsType } from 'antd/lib/table'
 import React from 'react'
@@ -46,13 +46,13 @@ const UsersPage: CodelabPage<DashboardTemplateProps> = () => {
   return (
     <>
       <DeleteUserModal />
-      <Table dataSource={dataSource} columns={columns} />;
+      <Table columns={columns} dataSource={dataSource} />;
     </>
   )
 }
 
+export default UsersPage
+
 export const getServerSideProps = withPageAuthRequired()
 
-UsersPage.Template = DashboardTemplate
-
-export default UsersPage
+UsersPage.Layout = DashboardTemplate

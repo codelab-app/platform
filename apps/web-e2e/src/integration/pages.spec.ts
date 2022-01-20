@@ -15,10 +15,6 @@ describe('Pages', () => {
     })
   })
 
-  beforeEach(() => {
-    cy.preserveAuthCookies()
-  })
-
   describe('create', () => {
     before(() => {
       cy.visit(`/apps/${appId}/pages`)

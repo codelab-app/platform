@@ -1,8 +1,8 @@
-import { MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { errorIfNotFound } from './errorIfNotFound'
 
 export const createIfMissing = async <TOut>(
-  get: () => Promise<MaybeOrNullable<TOut>>,
+  get: () => Promise<Nullish<TOut>>,
   create: () => Promise<TOut>,
 ): Promise<TOut> => {
   try {

@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { AtomBaseFragment, AtomFragment } from './Atom.fragment.graphql.gen'
 import { Export__AtomsFragment } from './AtomExport.fragment.graphql.gen'

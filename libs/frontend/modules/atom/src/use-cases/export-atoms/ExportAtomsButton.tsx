@@ -31,7 +31,7 @@ export const ExportAtomsButton = ({ atomIds }: ExportAtomsButtonProps) => {
   }
 
   return (
-    <Tooltip title="Export atoms" arrowPointAtCenter>
+    <Tooltip arrowPointAtCenter title="Export atoms">
       <Button
         disabled={atomIds.length === 0}
         icon={<DownloadOutlined />}

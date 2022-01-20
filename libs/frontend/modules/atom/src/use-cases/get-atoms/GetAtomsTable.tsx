@@ -12,11 +12,11 @@ export const GetAtomsTable = () => {
   return (
     <SpinnerWrapper isLoading={isLoading}>
       <Table
-        rowSelection={rowSelection}
-        pagination={pagination}
-        dataSource={atoms}
         columns={columns}
+        dataSource={atoms}
+        pagination={pagination}
         rowKey={(atom) => atom.id}
+        rowSelection={rowSelection}
       />
     </SpinnerWrapper>
   )

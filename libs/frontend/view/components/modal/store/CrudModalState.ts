@@ -1,33 +1,15 @@
 import {
+  CRUDActionType,
+  CRUDModalState,
+  OpenDeleteModalActionPayload,
+  OpenUpdateModalActionPayload,
+} from '@codelab/frontend/abstract/core'
+import {
   createSlice,
   PayloadAction,
   SliceCaseReducers,
   ValidateSliceCaseReducers,
 } from '@reduxjs/toolkit'
-
-export enum ActionType {
-  None = 'None',
-  Create = 'Create',
-  Delete = 'Delete',
-  Update = 'Update',
-}
-
-export interface CRUDModalState<TEntity, TActionType = ActionType> {
-  entity?: TEntity
-  deleteIds: Array<string>
-  updateId: string
-  actionType: TActionType
-}
-
-export type OpenDeleteModalActionPayload<TEntity> = {
-  deleteIds: Array<string>
-  entity?: TEntity
-}
-
-export type OpenUpdateModalActionPayload<TEntity> = {
-  updateId: string
-  entity?: TEntity
-}
 
 export const createCrudSlice = <
   TEntity,
@@ -45,7 +27,7 @@ export const createCrudSlice = <
     reducers: {
       openCreateModal: (state) => ({
         ...state,
-        actionType: ActionType.Create,
+        actionType: CRUDActionType.Create,
         entity: undefined,
       }),
       openUpdateModal: (
@@ -55,7 +37,7 @@ export const createCrudSlice = <
         ...state,
         entity: payload.entity,
         updateId: payload.updateId,
-        actionType: ActionType.Update,
+        actionType: CRUDActionType.Update,
       }),
       openDeleteModal: (
         state,
@@ -64,13 +46,13 @@ export const createCrudSlice = <
         ...state,
         entity: payload.entity,
         deleteIds: payload.deleteIds,
-        actionType: ActionType.Delete,
+        actionType: CRUDActionType.Delete,
       }),
       reset: () => initialState,
       resetModal: (s) => {
         return {
           ...s,
-          actionType: ActionType.None,
+          actionType: CRUDActionType.None,
           entity: undefined,
           deleteIds: [],
           updateId: '',
@@ -85,7 +67,7 @@ export type CRUDSlice = ReturnType<typeof createCrudSlice>
 export type CRUDActions = ReturnType<typeof createCrudSlice>['actions']
 
 export const initialCrudState: CRUDModalState<any> = {
-  actionType: ActionType.None,
+  actionType: CRUDActionType.None,
   deleteIds: [],
   updateId: '',
   entity: undefined,

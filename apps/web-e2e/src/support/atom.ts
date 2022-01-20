@@ -1,11 +1,8 @@
-import {
-  CreateAtomInput,
-  GetAtomInput,
-} from '@codelab/frontend/abstract/codegen'
 import type {
   AtomBaseFragment,
   AtomFragment,
 } from '@codelab/frontend/modules/atom'
+import { CreateAtomInput, GetAtomInput } from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import {
   E2eCreateAtomGql,

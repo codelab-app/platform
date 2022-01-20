@@ -4,10 +4,7 @@ import React, { useEffect } from 'react'
 import { InterfaceFragment } from '../../../graphql/Interface.fragment.graphql.gen'
 import { TypeGraphFragment } from '../../../graphql/TypeGraph.fragment.graphql.gen'
 import { useTypeTree } from '../../../hooks'
-import {
-  useGetTypeGraphQuery,
-  useGetTypeQuery,
-} from '../../../store/typeEndpoints'
+import { useGetTypeGraphQuery, useGetTypeQuery } from '../../../store'
 
 export interface InterfaceContextType {
   interface: InterfaceFragment

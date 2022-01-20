@@ -1132,7 +1132,7 @@ input ConvertElementToComponentInput {
 }
 
 input CreateComponentInput {
-  name: String
+  name: String!
   props: String
   atomId: String
 }
@@ -1275,6 +1275,8 @@ input CreateFieldInput {
 
   """The interface to add fields to"""
   interfaceId: String!
+
+  """The type of the field we're adding"""
   type: TypeRef!
 }
 
@@ -1292,6 +1294,8 @@ input UpdateFieldData {
   key: String!
   name: String
   description: String
+
+  """The type of the field we're adding"""
   type: TypeRef!
 }
 

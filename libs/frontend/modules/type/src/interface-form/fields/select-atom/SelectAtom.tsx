@@ -19,11 +19,11 @@ export const SelectAtom = ({ name }: SelectAtomProps) => {
 
   return (
     <SelectField
-      options={componentOptions}
-      name={name}
       loading={isLoading}
-      showSearch={true}
+      name={name}
       optionFilterProp="label"
+      options={componentOptions}
+      showSearch={true}
     />
   )
 }

@@ -30,3 +30,17 @@ Cypress.on('uncaught:exception', (err) => {
   /* returning false here prevents Cypress from failing the test */
   return !resizeObserverLoopErrRe.test(err.message)
 })
+
+/**
+ * Preserve cookies globally here
+ * https://docs.cypress.io/api/cypress-api/cookies#Defaults
+ */
+beforeEach(() => {
+  Cypress.Cookies.preserveOnce(
+    'appSession',
+    'appSession.0',
+    'appSession.1',
+    'appSession.2',
+    'appSession.3',
+  )
+})

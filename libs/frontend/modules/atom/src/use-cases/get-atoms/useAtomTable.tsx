@@ -11,9 +11,9 @@ import { ActionColumn, LibraryColumn, PropsColumn } from './columns'
 
 const onLibraryFilter = (value: any, atom: AtomFragment): boolean => {
   const list = [atom.name, atom.type].map((x) => x.toLowerCase())
-  const serach = value.toString().toLowerCase()
+  const search = value.toString().toLowerCase()
 
-  return list.some((x) => x.startsWith(serach))
+  return list.some((x) => x.startsWith(search))
 }
 
 export const useAtomTable = () => {

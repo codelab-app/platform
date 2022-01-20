@@ -12,7 +12,7 @@ import Link from 'next/link'
 import React from 'react'
 import { TypeFragment } from '../../../graphql/Type.fragment.graphql.gen'
 import { useTypeDispatch } from '../../../hooks'
-import { useGetTypesQuery } from '../../../store/typeEndpoints'
+import { useGetTypesQuery } from '../../../store'
 
 export const GetTypesTable = () => {
   const { data } = useGetTypesQuery()
@@ -77,12 +77,12 @@ export const GetTypesTable = () => {
 
   return (
     <Table<TypeFragment>
+      columns={columns}
+      dataSource={data?.getTypes ?? []}
+      pagination={{ position: ['bottomCenter'] }}
+      rowKey={(type) => type.id}
       rowSelection={rowSelection}
       size="small"
-      pagination={{ position: ['bottomCenter'] }}
-      dataSource={data?.getTypes ?? []}
-      columns={columns}
-      rowKey={(type) => type.id}
     />
   )
 }

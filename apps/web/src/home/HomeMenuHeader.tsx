@@ -20,15 +20,15 @@ export const HomeMenuHeader = () => {
   const authenticatedUserMenu = (
     <>
       <Menu.Item
+        icon={<SignOutUserButton />}
         key="3"
         style={{ order: 6, ...disableMenuHoverEffects }}
-        icon={<SignOutUserButton />}
       />
       <Menu.SubMenu
-        popupClassName="h-auto"
-        key="4"
-        style={{ order: 5 }}
         icon={<UserOutlined />}
+        key="4"
+        popupClassName="h-auto"
+        style={{ order: 5 }}
       >
         <Menu.Item>Email {user?.email}</Menu.Item>
       </Menu.SubMenu>
@@ -45,20 +45,20 @@ export const HomeMenuHeader = () => {
   const guestUserMenu = (
     <>
       <Menu.Item
+        icon={<RegisterUserButton />}
         key="3"
         style={{
           order: 6,
           ...disableMenuHoverEffects,
         }}
-        icon={<RegisterUserButton />}
       />
       <Menu.Item
+        icon={<LoginUserButton />}
         key="4"
         style={{
           order: 5,
           ...disableMenuHoverEffects,
         }}
-        icon={<LoginUserButton />}
       />
       {/* Empty filler */}
       {/* <Menu.Item*/}
@@ -75,18 +75,18 @@ export const HomeMenuHeader = () => {
     <>
       <div className="logo" />
       <Menu
-        theme="dark"
         mode="horizontal"
+        theme="dark"
         // defaultSelectedKeys={['2']}
         triggerSubMenuAction="click"
       >
         <Menu.Item
-          key="1"
           icon={
             <Link href={PageType.Home}>
               <HomeOutlined />
             </Link>
           }
+          key="1"
         />
         <Menu.Item key="2">
           <Link href={PageType.AppList}>

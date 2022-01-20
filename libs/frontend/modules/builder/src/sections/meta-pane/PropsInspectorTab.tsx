@@ -32,14 +32,13 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
       <div>
         <div css={tw`flex flex-row justify-between items-center px-8`}>
           <h3 css={tw`text-gray-700`}>Element props</h3>
-          <Button onClick={() => save()} loading={isLoading}>
+          <Button loading={isLoading} onClick={() => save()}>
             Save
           </Button>
         </div>
         <MonacoEditor
           containerProps={{ style: { height: '100%' } }}
           editorOptions={{ language: 'json' }}
-          value={persistedProps}
           onChange={(v) => {
             setPersistedProps(v)
 
@@ -49,6 +48,7 @@ const PropsInspectorTab = ({ elementId }: ElementPropsSectionProps) => {
               //
             }
           }}
+          value={persistedProps}
         />
       </div>
     </div>

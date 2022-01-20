@@ -5,7 +5,7 @@ import { hookSlice, SetSelectedTypeAction } from '../store'
 export const useHookDispatch = () => {
   const dispatch = useDispatch()
   const { actions } = hookSlice
-  const curdDispatch = crudModalDispatchFactory(hookSlice.actions)()
+  const crudDispatch = crudModalDispatchFactory(hookSlice.actions)()
 
   const setSelectedType = (payload: SetSelectedTypeAction) => {
     dispatch(actions.setSelectedType(payload))
@@ -18,6 +18,6 @@ export const useHookDispatch = () => {
   return {
     setSelectedType,
     resetSelectedType,
-    ...curdDispatch,
+    ...crudDispatch,
   }
 }

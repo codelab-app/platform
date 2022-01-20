@@ -1,14 +1,22 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
 import { useCallback } from 'react'
+import { TypeFragment } from '../../../graphql/Type.fragment.graphql.gen'
 import { useTypeDispatch, useTypeState } from '../../../hooks'
-import { useDeleteTypeMutation } from '../../../store/typeEndpoints'
+import { useDeleteTypeMutation } from '../../../store'
 
-export const useDeleteTypeForm = () => {
+export const useDeleteTypeForm: UseEntityUseCaseForm<
+  EmptyJsonSchemaType,
+  CRUDActionType,
+  TypeFragment
+> = () => {
   const { resetModal } = useTypeDispatch()
-  const { deleteIds } = useTypeState()
+  const { deleteIds, entity, actionType } = useTypeState()
   const typeId = deleteIds?.[0]
 
-  const [mutate, state] = useDeleteTypeMutation({
+  const [mutate, { isLoading }] = useDeleteTypeMutation({
     selectFromResult: (r) => ({
       element: r.data?.deleteType,
       isLoading: r.isLoading,
@@ -21,13 +29,17 @@ export const useDeleteTypeForm = () => {
   }, [mutate, typeId])
 
   return {
-    formProps: {
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while deleting type',
       }),
-      onSubmitSuccess: () => resetModal(),
-    },
-    state,
+    ],
+    model: { ...entity },
+    actionType,
+    onSubmitSuccess: [() => resetModal()],
+    isLoading,
+    entity,
+    reset: resetModal,
   }
 }

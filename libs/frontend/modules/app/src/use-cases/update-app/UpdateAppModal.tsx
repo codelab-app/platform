@@ -1,28 +1,37 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { Form, FormModal } from '@codelab/frontend/view/components'
+import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
+import { AutoFields } from 'uniforms-antd'
 import { useAppState } from '../../hooks'
-import { UpdateAppForm } from './UpdateAppForm'
+import { updateAppSchema } from './updateAppSchema'
 import { useUpdateAppForm } from './useUpdateAppForm'
 
 export const UpdateAppModal = () => {
   const { actionType } = useAppState()
-  const { formProps, state, reset } = useUpdateAppForm()
-  const { isLoading } = state
 
-  const modalProps = {
-    visible: actionType === ActionType.Update,
-    onCancel: reset,
-    okText: 'Update App',
-    okButtonProps: { loading: isLoading },
-  }
+  const { onSubmit, onSubmitSuccess, model, onSubmitError, isLoading, reset } =
+    useUpdateAppForm()
 
   return (
-    <FormUniformsModal
-      modalProps={modalProps}
-      renderForm={() => <UpdateAppForm {...formProps} />}
-    />
+    <FormModal
+      okButtonProps={{ loading: isLoading }}
+      okText="Update App"
+      onCancel={() => reset()}
+      visible={actionType === CRUDActionType.Update}
+    >
+      {({ submitRef }) => (
+        <Form<CreateAppInput>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={updateAppSchema}
+          submitRef={submitRef}
+        >
+          <AutoFields />
+        </Form>
+      )}
+    </FormModal>
   )
 }

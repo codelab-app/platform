@@ -1,14 +1,21 @@
+import { AppActionType } from '@codelab/frontend/abstract/core'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
+import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
 import { useAppDispatch, useAppState } from '../../hooks'
 import { useUpdateAppMutation } from '../../store'
-import { UpdateAppFormProps, UpdateAppMutationInput } from './types'
 
-export const useUpdateAppForm = () => {
-  const { updateId, entity } = useAppState()
+export const useUpdateAppForm: UseEntityUseCaseForm<
+  CreateAppInput,
+  AppActionType,
+  AppFragment
+> = () => {
+  const { updateId, entity, actionType } = useAppState()
   const { resetModal } = useAppDispatch()
 
-  const [mutate, state] = useUpdateAppMutation({
+  const [mutate, { isLoading }] = useUpdateAppMutation({
     selectFromResult: (r) => ({
       hook: r.data?.updateApp,
       isLoading: r.isLoading,
@@ -17,7 +24,7 @@ export const useUpdateAppForm = () => {
   })
 
   const onSubmit = useCallback(
-    (data: UpdateAppMutationInput) => {
+    (data: CreateAppInput) => {
       return mutate({
         variables: { input: { data, id: updateId } },
       }).unwrap()
@@ -25,24 +32,20 @@ export const useUpdateAppForm = () => {
     [mutate, updateId],
   )
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while updateing app',
-  })
-
-  const onSubmitSuccess = () => resetModal()
-
-  const formProps: UpdateAppFormProps = {
+  return {
     onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
+    onSubmitError: [
+      createNotificationHandler({
+        title: 'Error while updating app',
+      }),
+    ],
+    onSubmitSuccess: [() => resetModal()],
     model: {
       name: entity?.name,
     },
-  }
-
-  return {
-    formProps,
-    state,
+    entity,
+    isLoading,
     reset: resetModal,
+    actionType,
   }
 }

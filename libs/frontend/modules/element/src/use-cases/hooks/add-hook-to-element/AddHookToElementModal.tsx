@@ -1,34 +1,51 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
-import { ModalProps } from 'antd'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { InterfaceForm } from '@codelab/frontend/modules/type'
+import { FormModal } from '@codelab/frontend/view/components'
 import React from 'react'
 import tw from 'twin.macro'
+import { AutoFields } from 'uniforms-antd'
 import { useHookState } from '../../../hooks'
-import { AddHookToElementForm } from './AddHookToElementForm'
+import { addHookToElementSchema } from './addHookToElementSchema'
 import { AddHookToElementModalProps } from './types'
 import { useAddHookToElementForm } from './useAddHookToElementForm'
 
 export const AddHookToElementModal = ({
   elementId,
 }: AddHookToElementModalProps) => {
-  const { actionType } = useHookState()
-  const { formProps, reset, state } = useAddHookToElementForm(elementId)
-  const { isLoading } = state
-
-  const modalProps: ModalProps = {
-    visible: actionType === ActionType.Create,
-    onCancel: reset,
-    okText: 'Add hook',
-    title: <span css={tw`font-semibold`}>Add hook to element</span>,
-    okButtonProps: { loading: isLoading },
-  }
+  const {
+    onSubmitSuccess,
+    onSubmit,
+    onSubmitError,
+    reset,
+    actionType,
+    interfaceTree,
+    isLoading,
+    onChange,
+    model,
+  } = useAddHookToElementForm(elementId)
 
   return (
-    <FormUniformsModal
-      modalProps={modalProps}
-      renderForm={() => <AddHookToElementForm {...formProps} />}
-    />
+    <FormModal
+      okButtonProps={{ loading: isLoading }}
+      okText="Add hook"
+      onCancel={reset}
+      title={<span css={tw`font-semibold`}>Add hook to element</span>}
+      visible={actionType === CRUDActionType.Create}
+    >
+      {({ submitRef }) => (
+        <InterfaceForm
+          interfaceTree={interfaceTree}
+          model={model}
+          onChange={onChange}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={addHookToElementSchema}
+          submitRef={submitRef}
+        >
+          <AutoFields omitFields={['appId']} />
+        </InterfaceForm>
+      )}
+    </FormModal>
   )
 }

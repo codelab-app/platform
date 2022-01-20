@@ -1,6 +1,6 @@
+import { CRUDModalState } from '@codelab/frontend/abstract/core'
 import {
   createCrudSlice,
-  CRUDModalState,
   initialCrudState,
 } from '@codelab/frontend/view/components'
 import { PayloadAction } from '@reduxjs/toolkit'

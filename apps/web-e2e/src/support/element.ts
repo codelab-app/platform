@@ -2,9 +2,9 @@ import type { TestElementFragment } from '@codelab/backend/modules/element'
 import {
   CreateElementInput,
   CreatePropMapBindingInput,
+  UpdateElementInput,
   UpdateElementPropsInput,
-} from '@codelab/frontend/abstract/codegen'
-import { UpdateElementInput } from '@codelab/shared/codegen/graphql'
+} from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import {
   E2eCreateElementGql,

@@ -1,5 +1,5 @@
 import { CreateResponsePort } from '@codelab/backend/abstract/core'
-import { Entity } from '@codelab/shared/abstract/types'
+import { EntityLike } from '@codelab/shared/abstract/types'
 import { Txn } from 'dgraph-js-http'
 import { ZodSchema } from 'zod'
 import { DgraphRepository } from '../dgraph.repository'
@@ -21,7 +21,7 @@ import {
  * Or add new ones to extend the functionality of the repository.
  */
 export class BaseRepository<
-  T extends Entity,
+  T extends EntityLike,
   TQueryFactory extends IQueryFactory,
   TMutationFactory extends IMutationFactory<T>,
 > implements IBaseRepository<T>

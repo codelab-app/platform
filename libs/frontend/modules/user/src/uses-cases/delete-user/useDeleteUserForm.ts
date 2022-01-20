@@ -1,13 +1,22 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import {
+  UseEntityUseCaseForm,
+  UseUseCaseForm,
+} from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
 import { useCallback } from 'react'
 import { useUserDispatch, useUserState } from '../../hooks'
-import { useDeleteUserMutation } from '../../store/userEndpoints'
+import { useDeleteUserMutation } from '../../store'
 
-export const useDeleteUserForm = () => {
+export const useDeleteUserForm: UseUseCaseForm<
+  EmptyJsonSchemaType,
+  CRUDActionType
+> = () => {
   const { resetModal } = useUserDispatch()
-  const { deleteIds } = useUserState()
+  const { deleteIds, actionType, entity } = useUserState()
 
-  const [mutate, state] = useDeleteUserMutation({
+  const [mutate, { isLoading }] = useDeleteUserMutation({
     selectFromResult: (r) => ({
       user: r.data?.deleteUser,
       isLoading: r.isLoading,
@@ -26,13 +35,16 @@ export const useDeleteUserForm = () => {
   }, [mutate])
 
   return {
-    formProps: {
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while deleting user',
       }),
-      onSubmitSuccess: () => reset(),
-    },
-    state,
+    ],
+    onSubmitSuccess: [() => reset()],
+    isLoading,
+    model: {},
+    actionType,
+    reset: resetModal,
   }
 }

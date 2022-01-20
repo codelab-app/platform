@@ -1,6 +1,9 @@
 import { EllipsisOutlined } from '@ant-design/icons'
 import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import {
+  CodelabPage,
+  DashboardTemplateProps,
+} from '@codelab/frontend/abstract/props'
 import { getGraphQLClient } from '@codelab/frontend/model/infra/api'
 import { reduxStoreWrapper } from '@codelab/frontend/model/infra/redux'
 import {
@@ -18,7 +21,6 @@ import { getAuthToken } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
-  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { Button, Dropdown, Menu, PageHeader } from 'antd'
@@ -29,7 +31,7 @@ import React from 'react'
 const menu = (
   <Menu>
     <Menu.Item key="1">
-      <ImportAppButton type="link" />
+      <ImportAppButton />
     </Menu.Item>
     <Menu.Item key="0">
       <SignOutUserButton type="link" />
@@ -47,10 +49,10 @@ const AppsPageHeader = () => {
 
   return (
     <PageHeader
-      ghost={false}
-      // onBack={() => router.back()}
-      title="Apps"
       extra={pageHeaderButtons}
+      // onBack={() => router.back()}
+      ghost={false}
+      title="Apps"
     />
   )
 }
@@ -74,16 +76,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
   )
 }
 
-export const preFetchApps = reduxStoreWrapper.getServerSideProps(
-  (store) => async (context) => {
-    store.dispatch(appEndpoints.endpoints.GetApps.initiate({}))
-    await Promise.all(appEndpoints.util.getRunningOperationPromises())
-
-    return {
-      props: {},
-    }
-  },
-)
+export default AppsPage
 
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: async (context: GetServerSidePropsContext) => {
@@ -103,10 +96,24 @@ export const getServerSideProps = withPageAuthRequired({
   },
 })
 
-AppsPage.Template = DashboardTemplate
-AppsPage.templateProps = {
-  Header: AppsPageHeader,
-  SidebarNavigation,
-}
+export const preFetchApps = reduxStoreWrapper.getServerSideProps(
+  (store) => async (context) => {
+    store.dispatch(appEndpoints.endpoints.GetApps.initiate({}))
+    await Promise.all(appEndpoints.util.getRunningOperationPromises())
 
-export default AppsPage
+    return {
+      props: {},
+    }
+  },
+)
+
+AppsPage.Layout = (page) => {
+  return (
+    <DashboardTemplate
+      Header={AppsPageHeader}
+      SidebarNavigation={SidebarNavigation}
+    >
+      {page.children}
+    </DashboardTemplate>
+  )
+}

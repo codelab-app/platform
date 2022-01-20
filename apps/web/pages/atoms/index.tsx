@@ -1,5 +1,8 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import {
+  CodelabPage,
+  DashboardTemplateProps,
+} from '@codelab/frontend/abstract/props'
 import {
   CreateAtomButton,
   CreateAtomModal,
@@ -13,7 +16,6 @@ import {
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
-  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
@@ -38,29 +40,31 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = () => {
   )
 }
 
-export const getServerSideProps = withPageAuthRequired()
-
 const Header = () => {
   const { selectedIds } = useAtomState()
 
   const pageHeaderButtons = [
     <div
-      key="export_import"
       css={tw`flex flex-row items-center justify-center gap-2`}
+      key="export_import"
     >
       <ExportAtomsButton atomIds={selectedIds} />
       <ImportAtomsUpload />
-      <CreateAtomButton key="create" centerIcon />
+      <CreateAtomButton key="create" />
     </div>,
   ]
 
-  return <PageHeader ghost={false} title="Atom" extra={pageHeaderButtons} />
-}
-
-AtomsPage.Template = DashboardTemplate
-AtomsPage.templateProps = {
-  SidebarNavigation,
-  Header,
+  return <PageHeader extra={pageHeaderButtons} ghost={false} title="Atom" />
 }
 
 export default AtomsPage
+
+export const getServerSideProps = withPageAuthRequired()
+
+AtomsPage.Layout = (page) => {
+  return (
+    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+      {page.children}
+    </DashboardTemplate>
+  )
+}

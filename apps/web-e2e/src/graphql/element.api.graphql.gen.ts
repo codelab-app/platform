@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestElementFragment } from '../../../../libs/backend/modules/element/src/test/graphql/TestElement.fragment.graphql.gen'
 import { TestElementGraphFragment } from '../../../../libs/backend/modules/element/src/test/graphql/TestElementGraph.fragment.graphql.gen'
@@ -6,7 +6,7 @@ import { gql } from '@apollo/client'
 import { TestElementFragmentDoc } from '../../../../libs/backend/modules/element/src/test/graphql/TestElement.fragment.graphql.gen'
 import { TestElementGraphFragmentDoc } from '../../../../libs/backend/modules/element/src/test/graphql/TestElementGraph.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type E2eCreateElementMutationVariables = Types.Exact<{
   input: Types.CreateElementInput
 }>

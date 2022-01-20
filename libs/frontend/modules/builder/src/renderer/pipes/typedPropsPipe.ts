@@ -1,4 +1,4 @@
-import { TypeKind } from '@codelab/frontend/abstract/codegen'
+import { TypeKind } from '@codelab/shared/abstract/codegen'
 import { PropsData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { mapValues, pickBy } from 'lodash'

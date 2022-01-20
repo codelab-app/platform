@@ -1,30 +1,45 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { Form, FormModal } from '@codelab/frontend/view/components'
+import { DeleteAtomInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
-import { useAtomState } from '../../hooks'
-import { DeleteAtomsForm } from './DeleteAtomsForm'
+import { AutoFields } from 'uniforms-antd'
+import { deleteAtomSchema } from './deleteAtomSchema'
 import { useDeleteAtomForm } from './useDeleteAtomForm'
 
 export const DeleteAtomsModal = () => {
-  const { actionType } = useAtomState()
-  const { formProps, reset, state } = useDeleteAtomForm()
-  const { isLoading } = state
-
-  const modalProps = {
-    visible: actionType === ActionType.Delete,
-    onCancel: reset,
-    okText: 'Delete Atom',
-    okButtonProps: { loading: isLoading },
-    className: 'delete-atoms-modal',
-    title: 'Delete Confirmation',
-  }
+  const {
+    onSubmit,
+    actionType,
+    onSubmitError,
+    onSubmitSuccess,
+    reset,
+    isLoading,
+    entity,
+    model,
+  } = useDeleteAtomForm()
 
   return (
-    <FormUniformsModal
-      modalProps={modalProps}
-      renderForm={() => <DeleteAtomsForm {...formProps} />}
-    />
+    <FormModal
+      className="delete-atoms-modal"
+      okButtonProps={{ loading: isLoading }}
+      okText="Delete Atom"
+      onCancel={reset}
+      title="Delete Confirmation"
+      visible={actionType === CRUDActionType.Delete}
+    >
+      {({ submitRef }) => (
+        <Form<DeleteAtomInput>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={deleteAtomSchema}
+          submitRef={submitRef}
+        >
+          <h4>Are you sure you want to delete atom "{entity?.name}"?</h4>
+          <AutoFields omitFields={['atomId']} />
+        </Form>
+      )}
+    </FormModal>
   )
 }

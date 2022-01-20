@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestAppFragment } from '../../../test/test-app.fragment.graphql.gen'
 import { PageFullFragment } from '../../../../../../../frontend/modules/page/src/graphql/PageFull.fragment.graphql.gen'
@@ -6,7 +6,7 @@ import { gql } from '@apollo/client'
 import { TestAppFragmentDoc } from '../../../test/test-app.fragment.graphql.gen'
 import { PageFullFragmentDoc } from '../../../../../../../frontend/modules/page/src/graphql/PageFull.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestImportAppMutationVariables = Types.Exact<{
   input: Types.ImportAppInput
 }>

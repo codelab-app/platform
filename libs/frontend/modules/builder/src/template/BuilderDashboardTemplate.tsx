@@ -1,24 +1,35 @@
-import {
-  DashboardTemplate,
-  DashboardTemplateProps,
-} from '@codelab/frontend/view/templates'
+import { DashboardTemplateProps } from '@codelab/frontend/abstract/props'
+import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import React, { PropsWithChildren } from 'react'
 import { useBuilderSelectedElement } from '../hooks'
 
-export type BuilderDashboardTemplateProps = DashboardTemplateProps
-
 export const BuilderDashboardTemplate = ({
   children,
+  MainPane,
   MetaPane,
-  ...props
-}: PropsWithChildren<BuilderDashboardTemplateProps>) => {
+  Header,
+  SidebarNavigation,
+  headerHeight,
+}: PropsWithChildren<DashboardTemplateProps>) => {
+  /**
+   * TODO todo to issue title
+   *
+   * Some description here!
+   *
+   * labels: feature
+   * assignees: webberwang
+   * milestone: 3
+   */
   const { selectedElementId } = useBuilderSelectedElement()
 
   return (
     <DashboardTemplate
-      headerHeight={props.headerHeight ?? 38}
-      {...props}
+      Header={Header}
+      MainPane={MainPane}
       MetaPane={selectedElementId ? MetaPane : undefined}
+      SidebarNavigation={SidebarNavigation}
+      contentStyles={{ paddingTop: '3rem' }}
+      headerHeight={headerHeight ?? 38}
     >
       {children}
     </DashboardTemplate>

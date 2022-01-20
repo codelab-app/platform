@@ -29,7 +29,7 @@ export const ExecuteLambdaButton = ({ id }: LambdaFragment) => {
   }
 
   return (
-    <Button type="primary" loading={isLoading} onClick={onClick}>
+    <Button loading={isLoading} onClick={onClick} type="primary">
       Execute
     </Button>
   )

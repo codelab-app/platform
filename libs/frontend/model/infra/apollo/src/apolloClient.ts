@@ -4,7 +4,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import { ApolloLink } from '@apollo/client/link/core'
-import { Maybe, MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import merge from 'deepmerge'
 import isEqual from 'lodash/isEqual'
 import { useMemo } from 'react'
@@ -74,7 +74,7 @@ export const getApolloClient = (ctx: ApolloContext = {}) => {
 
 export const initializeApollo = (
   ctx: ApolloContext = {},
-  initialState: MaybeOrNullable<Record<string, any>> = null,
+  initialState: Nullish<Record<string, any>> = null,
 ) => {
   const _apolloClient = apolloClient ?? getApolloClient(ctx)
 

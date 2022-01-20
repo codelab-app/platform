@@ -1,14 +1,19 @@
-import { CreateAtomInput } from '@codelab/frontend/abstract/codegen'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { CreateAtomInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import { useAtomDispatch } from '../../hooks'
+import { useAtomDispatch, useAtomState } from '../../hooks'
 import { useCreateAtomMutation } from '../../store'
-import { CreateAtomFormProps } from './types'
 
-export const useCreateAtomForm = () => {
+export const useCreateAtomForm: UseUseCaseForm<
+  CreateAtomInput,
+  CRUDActionType
+> = () => {
   const { resetModal } = useAtomDispatch()
+  const { actionType } = useAtomState()
 
-  const [mutate, state] = useCreateAtomMutation({
+  const [mutate, { isLoading }] = useCreateAtomMutation({
     selectFromResult: (r) => ({
       hook: r.data?.createAtom,
       isLoading: r.isLoading,
@@ -27,18 +32,13 @@ export const useCreateAtomForm = () => {
     title: 'Error while creating atom',
   })
 
-  const onSubmitSuccess = () => resetModal()
-
-  const formProps: CreateAtomFormProps = {
-    onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
-    model: {},
-  }
-
   return {
-    formProps,
-    state,
+    onSubmit,
+    onSubmitError: [onSubmitError],
+    onSubmitSuccess: [() => resetModal()],
+    model: {},
+    isLoading,
     reset: resetModal,
+    actionType,
   }
 }

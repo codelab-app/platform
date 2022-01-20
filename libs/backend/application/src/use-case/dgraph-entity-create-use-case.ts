@@ -3,13 +3,13 @@ import {
   DgraphEntityType,
   mapIdToUid,
 } from '@codelab/backend/infra'
-import { Entity } from '@codelab/shared/abstract/types'
+import { EntityLike } from '@codelab/shared/abstract/types'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { DgraphCreateUseCase } from './dgraph-create-use-case'
 
 export abstract class DgraphEntityCreateUseCase<
   TUseCaseRequestPort,
-  TEntity extends Entity,
+  TEntity extends EntityLike,
 > extends DgraphCreateUseCase<TUseCaseRequestPort> {
   protected abstract entityType: DgraphEntityType | Array<DgraphEntityType>
 

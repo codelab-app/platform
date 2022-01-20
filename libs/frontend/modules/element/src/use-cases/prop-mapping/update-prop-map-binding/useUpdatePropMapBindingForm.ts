@@ -1,18 +1,31 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { UpdatePropMapBindingData } from '@codelab/shared/abstract/codegen'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import { usePropMapBindingDispatch } from '../../../hooks'
+import {
+  usePropMapBindingDispatch,
+  usePropMapBindingState,
+} from '../../../hooks'
 import {
   selectPropMapBinding,
   useUpdatePropMapBindingMutation,
 } from '../../../store'
-import { UpdatePropMapBindingSchema } from './updatePropMapBindingSchema'
 
-export const useUpdatePropMapBindingForm = (elementId: string) => {
+export const useUpdatePropMapBindingForm: UseUseCaseForm<
+  UpdatePropMapBindingData,
+  CRUDActionType,
+  string
+> = (elementId) => {
   const { resetModal } = usePropMapBindingDispatch()
   const { updateId, entity } = useSelector(selectPropMapBinding)
+  const { actionType } = usePropMapBindingState()
 
-  const [mutate, state] = useUpdatePropMapBindingMutation({
+  assertIsDefined(elementId)
+
+  const [mutate, { isLoading }] = useUpdatePropMapBindingMutation({
     selectFromResult: (r) => ({
       hook: r.data?.updatePropMapBinding,
       isLoading: r.isLoading,
@@ -21,7 +34,11 @@ export const useUpdatePropMapBindingForm = (elementId: string) => {
   })
 
   const handleSubmit = useCallback(
-    ({ sourceKey, targetKey, targetElementId }: UpdatePropMapBindingSchema) => {
+    ({ sourceKey, targetKey, targetElementId }: UpdatePropMapBindingData) => {
+      if (!elementId) {
+        throw new Error('Missing elementId')
+      }
+
       return mutate({
         variables: {
           input: {
@@ -40,15 +57,16 @@ export const useUpdatePropMapBindingForm = (elementId: string) => {
   )
 
   return {
-    formProps: {
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while updating prop binding',
       }),
-      onSubmitSuccess: () => resetModal(),
-      model: entity,
-    },
-    state,
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    model: { ...entity },
+    isLoading,
     reset: resetModal,
+    actionType,
   }
 }

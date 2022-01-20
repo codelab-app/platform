@@ -1,9 +1,9 @@
+import { CreateAtomInput } from '@codelab/shared/abstract/codegen'
 import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
-import { CreateAtomMutationInput } from './types'
 
-export const createAtomSchema: JSONSchemaType<CreateAtomMutationInput> = {
-  title: 'Create Atom Input',
+export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
+  title: 'Create Atom',
   type: 'object',
   properties: {
     name: {

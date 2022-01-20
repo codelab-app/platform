@@ -1,10 +1,17 @@
 import { PageType } from '@codelab/frontend/model/store/router'
 import { Card } from 'antd'
 import Link from 'next/link'
+import {
+  GetAppQuery,
+  GetAppsQuery,
+} from '../../graphql/App.endpoints.graphql.gen'
 import { ItemDropdown } from './ItemDropdown'
-import { GetAppsItemProps } from './types'
 
-export const GetAppsItem = ({ app }: GetAppsItemProps) => {
+export const GetAppsItem = ({ app }: GetAppQuery) => {
+  if (!app) {
+    return null
+  }
+
   const href = {
     pathname: PageType.PageList,
     query: { appId: app.id },
@@ -16,5 +23,5 @@ export const GetAppsItem = ({ app }: GetAppsItemProps) => {
     </Link>
   )
 
-  return <Card title={Title} extra={<ItemDropdown app={app} />} />
+  return <Card extra={<ItemDropdown app={app} />} title={Title} />
 }

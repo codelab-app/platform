@@ -1,4 +1,4 @@
-import { FormUniforms } from '@codelab/frontend/view/components'
+import { Form } from '@codelab/frontend/view/components'
 import * as _ from 'lodash'
 import { mergeDeepRight } from 'ramda'
 import React, { useEffect, useRef, useState } from 'react'
@@ -16,7 +16,6 @@ export const InterfaceForm = <TData,>({
   onSubmit,
   schema,
   onChange,
-  ...props
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
   const formChangedKey = useRef('')
   const [formSchema, setFormSchema] = useState<Bridge>(schema)
@@ -66,16 +65,16 @@ export const InterfaceForm = <TData,>({
   }
 
   return (
-    <FormUniforms
-      schema={formSchema}
+    <Form
       model={model}
-      onChangeModel={onChangeModel}
       onChange={onFormChange}
+      onChangeModel={onChangeModel}
       onSubmit={onSubmit}
-      {...props}
+      schema={formSchema}
+      submitRef={undefined}
     >
       {children}
-    </FormUniforms>
+    </Form>
   )
 }
 

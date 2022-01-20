@@ -21,14 +21,8 @@ describe('Atoms', () => {
 
   before(() => {
     cy.resetDgraphData().then(() => {
-      cy.login().then(() => {
-        cy.preserveAuthCookies()
-      })
+      cy.login()
     })
-  })
-
-  beforeEach(() => {
-    cy.preserveAuthCookies()
   })
 
   describe('create', () => {
@@ -73,7 +67,7 @@ describe('Atoms', () => {
   })
 
   describe('delete', () => {
-    it('should be able to delete page', () => {
+    it('should be able to delete an atom', () => {
       findDeleteButtonByAtomName(updatedAtomName).click()
 
       cy.getSpinner().should('not.exist')
@@ -81,6 +75,7 @@ describe('Atoms', () => {
         .findByButtonText(/Delete Atom/)
         .click()
 
+      cy.getOpenedModal().should('not.exist')
       cy.findAllByText(updatedAtomName).should('not.exist')
     })
   })

@@ -1,8 +1,8 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestExportAppQueryVariables = Types.Exact<{
   input: Types.ExportAppInput
 }>

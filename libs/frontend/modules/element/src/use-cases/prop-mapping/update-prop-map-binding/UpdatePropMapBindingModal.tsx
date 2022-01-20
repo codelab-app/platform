@@ -1,42 +1,52 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { FormModal } from '@codelab/frontend/view/components'
 import React from 'react'
 import tw from 'twin.macro'
 import { usePropMapBindingState } from '../../../hooks'
+import { PropMapBindingProps } from '../create-prop-map-binding'
 import {
   UpdatePropMapBindingForm,
   UpdatePropMapBindingFormProps,
 } from './UpdatePropMapBindingForm'
 import { useUpdatePropMapBindingForm } from './useUpdatePropMapBindingForm'
 
-export const UpdatePropMapBindingModal = (
-  props: Pick<
-    UpdatePropMapBindingFormProps,
-    'elementId' | 'providePropCompletion' | 'tree'
-  >,
-) => {
-  const { actionType } = usePropMapBindingState()
-
+export const UpdatePropMapBindingModal = ({
+  elementId,
+  providePropCompletion,
+  tree,
+}: PropMapBindingProps) => {
   const {
-    state: { isLoading },
+    isLoading,
     reset,
-    formProps,
-  } = useUpdatePropMapBindingForm(props.elementId)
+    actionType,
+    onSubmitError,
+    onSubmitSuccess,
+    onSubmit,
+    model,
+  } = useUpdatePropMapBindingForm(elementId)
 
   return (
-    <FormUniformsModal
-      modalProps={{
-        okText: 'Update',
-        okButtonProps: {
-          loading: isLoading,
-        },
-        visible: actionType === ActionType.Update,
-        onCancel: () => reset(),
-        title: <span css={tw`font-semibold`}>Update prop binding</span>,
+    <FormModal
+      okButtonProps={{
+        loading: isLoading,
       }}
-      renderForm={() => <UpdatePropMapBindingForm {...props} {...formProps} />}
-    />
+      okText="Update"
+      onCancel={() => reset()}
+      title={<span css={tw`font-semibold`}>Update prop binding</span>}
+      visible={actionType === CRUDActionType.Update}
+    >
+      {({ submitRef }) => (
+        <UpdatePropMapBindingForm
+          elementId={elementId}
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          providePropCompletion={providePropCompletion}
+          submitRef={submitRef}
+          tree={tree}
+        />
+      )}
+    </FormModal>
   )
 }

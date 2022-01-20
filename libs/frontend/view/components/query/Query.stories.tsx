@@ -31,5 +31,5 @@ export const basic = () => {
       return data.listings
     })
 
-  return <Query name="getListings" fetchCallback={fetchListings} />
+  return <Query fetchCallback={fetchListings} name="getListings" />
 }

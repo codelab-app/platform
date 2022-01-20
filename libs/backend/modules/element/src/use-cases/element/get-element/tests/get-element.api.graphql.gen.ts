@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PropFragment } from '../../../../../../prop/src/graphql/Prop.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { PropFragmentDoc } from '../../../../../../prop/src/graphql/Prop.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestGetElementQueryVariables = Types.Exact<{
   input: Types.GetElementInput
 }>

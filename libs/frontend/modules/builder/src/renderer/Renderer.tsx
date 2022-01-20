@@ -48,13 +48,13 @@ export const Renderer = ({
   return (
     <ErrorBoundary>
       <RecoilRoot>
-        <div style={{ minHeight: '100%' }} id={ROOT_RENDER_CONTAINER_ID}>
+        <div id={ROOT_RENDER_CONTAINER_ID} style={{ minHeight: '100%' }}>
           <RenderContainer
             // re-create the tree when a hook is added/deleted
-            key={hooksCount}
             context={renderContext}
-            root={root}
+            key={hooksCount}
             props={{}}
+            root={root}
           />
         </div>
       </RecoilRoot>

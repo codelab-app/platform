@@ -5,7 +5,7 @@ import { HomeMenuHeader } from './HomeMenuHeader'
 
 const { Content, Header, Footer } = Layout
 
-export type HomeTemplateProps = React.PropsWithChildren<never>
+export type HomeTemplateProps = React.PropsWithChildren<unknown>
 
 export const HomeTemplate = ({ children }: HomeTemplateProps) => {
   return (
@@ -13,7 +13,7 @@ export const HomeTemplate = ({ children }: HomeTemplateProps) => {
       <Header>
         <HomeMenuHeader />
       </Header>
-      <Content style={contentStyle} className="container">
+      <Content className="container" style={contentStyle}>
         {children}
       </Content>
       <Footer>

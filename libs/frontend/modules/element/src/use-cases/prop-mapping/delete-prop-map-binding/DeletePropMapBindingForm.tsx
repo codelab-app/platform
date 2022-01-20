@@ -1,31 +1,43 @@
 import {
+  DeleteUseCaseFormWithRef,
+  FormProps,
+} from '@codelab/frontend/abstract/props'
+import {
   emptyJsonSchema,
   EmptyJsonSchemaType,
-  FormUniforms,
-  FormUniformsProps,
+  Form,
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { PropMapBindingFragment } from '../../../graphql'
 import { usePropMapBindingState } from '../../../hooks'
 
-export interface DeletePropMapBindingFormProps
-  extends Omit<FormUniformsProps<EmptyJsonSchemaType>, 'schema'> {
+export type DeletePropMapBindingFormProps = Omit<
+  FormProps<EmptyJsonSchemaType>,
+  'schema'
+>
+
+export interface ElementId {
   elementId: string
 }
 
-export const DeletePropMapBindingForm = ({
-  elementId,
-  ...props
-}: DeletePropMapBindingFormProps) => {
-  const { entity } = usePropMapBindingState()
-
+export const DeletePropMapBindingForm = (
+  props: DeleteUseCaseFormWithRef<EmptyJsonSchemaType, PropMapBindingFragment>,
+) => {
   return (
-    <FormUniforms<EmptyJsonSchemaType> schema={emptyJsonSchema} {...props}>
+    <Form<EmptyJsonSchemaType>
+      model={props.model}
+      onSubmit={props.onSubmit}
+      onSubmitError={props.onSubmitError}
+      onSubmitSuccess={props.onSubmitSuccess}
+      schema={emptyJsonSchema}
+      submitRef={props.submitRef}
+    >
       <h4>
         Are you sure you want to delete the prop map binding "
-        {entity?.sourceKey} - {entity?.targetKey}"?
+        {props.entity?.sourceKey} - {props.entity?.targetKey}"?
       </h4>
       <AutoFields />
-    </FormUniforms>
+    </Form>
   )
 }

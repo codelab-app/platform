@@ -6,7 +6,7 @@ import {
 } from '@codelab/frontend/modules/element'
 import { SelectElementProvider } from '@codelab/frontend/modules/type'
 import React from 'react'
-import { usePropCompletion } from '../../hooks/usePropCompletion'
+import { usePropCompletion } from '../../hooks'
 import { MetaPaneBuilder } from './MetaPaneBuilder'
 
 export const MetaPaneBuilderPage = () => {
@@ -20,33 +20,33 @@ export const MetaPaneBuilderPage = () => {
   return (
     <SelectElementProvider tree={elementTree}>
       <MetaPaneBuilder
-        tree={elementTree}
         renderUpdateElementContent={(element, trackPromises) => (
           <>
             <UpdateElementForm
-              key={element.id + '_update_form'}
               elementId={element.id}
-              tree={elementTree}
-              trackPromises={trackPromises}
+              key={element.id + '_update_form'}
+              model={{}}
               providePropCompletion={(value) =>
                 providePropCompletion(value, element.id)
               }
+              submitRef={undefined}
+              trackPromises={trackPromises}
+              tree={elementTree}
             />
 
             <MoveElementForm
-              tree={elementTree}
-              trackPromises={trackPromises}
-              key={element.id + '_move_form'}
               elementId={element.id}
+              key={element.id + '_move_form'}
+              model={{}}
+              submitRef={undefined}
+              trackPromises={trackPromises}
+              tree={elementTree}
             />
 
-            <DeleteElementButton
-              danger={true}
-              elementId={element.id}
-              entity={element}
-            />
+            <DeleteElementButton elementId={element.id} entity={element} />
           </>
         )}
+        tree={elementTree}
       />
     </SelectElementProvider>
   )

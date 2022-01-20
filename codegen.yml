@@ -16,22 +16,23 @@ config:
     Void: void
 
 generates:
-  libs/frontend/abstract/codegen/src/types.api.graphql.gen.ts:
+  # Generate Typescript types to be imported by other generators
+  libs/shared/abstract/codegen/src/types.api.graphql.gen.ts:
     documents:
-      - libs/**/*.{web,api,fragment}.graphql
-      - apps/**/*.{web,api,fragment}.graphql
+      - '{apps,libs}/**/*.{web,api,fragment}.graphql'
     plugins:
       - typescript
     config:
       namingConvention:
         enumValues: keep
+
   ./:
     documents:
       - '{apps,libs}/**/*.{web,fragment}.graphql'
     preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/frontend/abstract/codegen
+      baseTypesPath: ~@codelab/shared/abstract/codegen
     plugins:
       - typescript-operations
       - typescript-react-apollo
@@ -43,6 +44,7 @@ generates:
       strictScalars: true
       defaultScalarType: unknown
       withRefetchFn: true
+
   # We allow backend to import fragments from frontend
   ./libs/backend/:
     documents:
@@ -50,7 +52,7 @@ generates:
     preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/frontend/abstract/codegen
+      baseTypesPath: ~@codelab/shared/abstract/codegen
     plugins:
       - typescript-operations
       - typescript-react-apollo
@@ -73,7 +75,7 @@ generates:
     preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/frontend/abstract/codegen
+      baseTypesPath: ~@codelab/shared/abstract/codegen
     plugins:
       - typescript-operations
       # rqk-query generates string gql only, which prevents fragments from getting resolved

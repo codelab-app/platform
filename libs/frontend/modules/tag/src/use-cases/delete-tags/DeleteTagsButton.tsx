@@ -9,11 +9,11 @@ export const DeleteTagsButton = ({ disabled, ids }: DeleteButtonProps) => {
 
   return (
     <Button
-      type="primary"
       danger
-      onClick={onClick}
       disabled={disabled}
       icon={<DeleteOutlined />}
+      onClick={onClick}
+      type="primary"
     >
       Delete Tags
     </Button>

@@ -1,15 +1,20 @@
-import { CreateLambdaInput } from '@codelab/frontend/abstract/codegen'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { CreateLambdaInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import { useLambdaDispatch } from '../../hooks'
+import { useLambdaDispatch, useLambdaState } from '../../hooks'
 import { useCreateLambdaMutation } from '../../store'
 import { defaultLambdaBody } from './defaultLambdBody'
-import { CreateLambdaFormProps } from './types'
 
-export const useCreateLambdaForm = () => {
+export const useCreateLambdaForm: UseUseCaseForm<
+  CreateLambdaInput,
+  CRUDActionType
+> = () => {
   const { resetModal } = useLambdaDispatch()
+  const { actionType } = useLambdaState()
 
-  const [mutate, state] = useCreateLambdaMutation({
+  const [mutate, { isLoading }] = useCreateLambdaMutation({
     selectFromResult: (r) => ({
       hook: r.data?.createLambda,
       isLoading: r.isLoading,
@@ -22,24 +27,19 @@ export const useCreateLambdaForm = () => {
     [mutate],
   )
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while creating lambda',
-  })
-
-  const onSubmitSuccess = () => resetModal()
-
-  const formProps: CreateLambdaFormProps = {
+  return {
     onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
+    onSubmitError: [
+      createNotificationHandler({
+        title: 'Error while creating lambda',
+      }),
+    ],
+    onSubmitSuccess: [() => resetModal()],
     model: {
       body: defaultLambdaBody,
     },
-  }
-
-  return {
-    formProps,
-    state,
+    isLoading,
+    actionType,
     reset: resetModal,
   }
 }

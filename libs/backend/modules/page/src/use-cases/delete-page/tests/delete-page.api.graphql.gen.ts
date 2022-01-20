@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PageBaseFragment } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { PageBaseFragmentDoc } from '../../../../../../../frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestDeletePageMutationVariables = Types.Exact<{
   input: Types.DeletePageInput
 }>

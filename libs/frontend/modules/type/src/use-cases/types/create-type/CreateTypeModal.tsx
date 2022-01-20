@@ -1,35 +1,71 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { Form, FormModal } from '@codelab/frontend/view/components'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 import tw from 'twin.macro'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { useTypeDispatch, useTypeState } from '../../../hooks'
-import { CreateTypeForm } from './CreateTypeForm'
+import { TypeSelect } from '../../../shared'
+import { createNonUnionTypeOptionsForTypeSelect } from '../../../shared/createNonUnionTypeOptionsForTypeSelect'
+import { CreateTypeSchema, createTypeSchema } from './createTypeSchema'
+import { DisplayIfKind } from './DisplayIfKind'
 import { useCreateTypeForm } from './useCreateTypeForm'
 
 export const CreateTypeModal = () => {
-  const { actionType } = useTypeState()
-  const { resetModal } = useTypeDispatch()
-
   const {
-    state: { isLoading },
-    formProps,
+    isLoading,
+    onSubmit,
+    reset,
+    actionType,
+    onSubmitSuccess,
+    onSubmitError,
   } = useCreateTypeForm()
 
   return (
-    <FormUniformsModal
-      modalProps={{
-        className: 'create-type-modal',
-        okText: 'Create',
-        okButtonProps: {
-          loading: isLoading,
-        },
-        visible: actionType === ActionType.Create,
-        onCancel: () => resetModal(),
-        title: <span css={tw`font-semibold`}>Create type</span>,
+    <FormModal
+      className="create-type-modal"
+      okButtonProps={{
+        loading: isLoading,
       }}
-      renderForm={() => <CreateTypeForm {...formProps} />}
-    />
+      okText="Create"
+      onCancel={() => reset()}
+      title={<span css={tw`font-semibold`}>Create type</span>}
+      visible={actionType === CRUDActionType.Create}
+    >
+      {({ submitRef }) => (
+        <Form<CreateTypeSchema>
+          model={{}}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={createTypeSchema}
+          submitRef={submitRef}
+        >
+          <AutoFields fields={['name', 'kind']} />
+          <DisplayIfKind kind={TypeKind.PrimitiveType}>
+            <AutoField name="primitiveKind" />
+          </DisplayIfKind>
+          <DisplayIfKind kind={TypeKind.UnionType}>
+            <AutoField
+              createTypeOptions={createNonUnionTypeOptionsForTypeSelect}
+              name="typeIdsOfUnionType"
+            />
+          </DisplayIfKind>
+          {/* <ListField name="unionTypes" />; */}
+          <DisplayIfKind kind={TypeKind.EnumType}>
+            <AutoField name="allowedValues" />
+          </DisplayIfKind>
+          <DisplayIfKind kind={TypeKind.ArrayType}>
+            <TypeSelect label="Array item type" name="arrayItemTypeId" />
+          </DisplayIfKind>
+          <DisplayIfKind kind={TypeKind.ElementType}>
+            <AutoField label="Element kind" name="elementKind" />
+          </DisplayIfKind>
+          <DisplayIfKind kind={TypeKind.MonacoType}>
+            <AutoField label="Language" name="language" />
+          </DisplayIfKind>
+        </Form>
+      )}
+    </FormModal>
   )
 }

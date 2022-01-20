@@ -1,41 +1,67 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+  SelectAnyElement,
+  SelectAtom,
+  SelectComponent,
+  SelectElementProvider,
+} from '@codelab/frontend/modules/type'
+import { Form, FormModal } from '@codelab/frontend/view/components'
+import { CreateElementInput } from '@codelab/shared/abstract/codegen'
+import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import tw from 'twin.macro'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { useElementDispatch, useElementState } from '../../../hooks'
-import { CreateElementForm } from './CreateElementForm'
-import {
-  CreateElementInitialData,
-  useCreateElementForm,
-} from './useCreateElementForm'
+import { useElementGraphContext } from '../../../providers'
+import { createElementSchema } from './createElementSchema'
+import { ParentElementId, useCreateElementForm } from './useCreateElementForm'
 
+/**
+ * Initial data used to determine the parent element
+ * @param initialData
+ * @constructor
+ */
 export const CreateElementModal = ({
-  initialData,
-}: {
-  initialData?: CreateElementInitialData
-}) => {
-  const { actionType } = useElementState()
+  parentElementId,
+}: Pick<CreateElementInput, 'parentElementId'>) => {
   const { resetModal } = useElementDispatch()
+  const { elementTree } = useElementGraphContext()
 
-  const {
-    state: { isLoading },
-    formProps,
-  } = useCreateElementForm(initialData)
+  const { onSubmit, actionType, onSubmitSuccess, onSubmitError, isLoading } =
+    useCreateElementForm({ parentElementId })
 
   return (
-    <FormUniformsModal
-      modalProps={{
-        okText: 'Create',
-        okButtonProps: {
-          loading: isLoading,
-        },
-        visible: actionType === ActionType.Create,
-        onCancel: () => resetModal(),
-        title: <span css={tw`font-semibold`}>Create element</span>,
+    <FormModal
+      okButtonProps={{
+        loading: isLoading,
       }}
-      renderForm={() => <CreateElementForm {...formProps} />}
-    />
+      okText="Create"
+      onCancel={() => resetModal()}
+      title={<span css={tw`font-semibold`}>Create element</span>}
+      visible={actionType === CRUDActionType.Create}
+    >
+      {({ submitRef }) => (
+        <SelectElementProvider
+          tree={elementTree ?? new ElementTree({ edges: [], vertices: [] })}
+        >
+          <Form<CreateElementInput>
+            model={{}}
+            onSubmit={onSubmit}
+            onSubmitError={onSubmitError}
+            onSubmitSuccess={onSubmitSuccess}
+            schema={createElementSchema}
+            submitRef={submitRef}
+          >
+            <AutoFields
+              omitFields={['parentElementId', 'atomId', 'componentId', 'order']}
+            />
+            <AutoField component={SelectAnyElement} name="parentElementId" />
+            <AutoField name="order" />
+            <AutoField component={SelectAtom} name="atomId" />
+            <AutoField component={SelectComponent} name="componentId" />
+          </Form>
+        </SelectElementProvider>
+      )}
+    </FormModal>
   )
 }

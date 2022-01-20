@@ -1,5 +1,8 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import {
+  CodelabPage,
+  DashboardTemplateProps,
+} from '@codelab/frontend/abstract/props'
 import {
   ResetDataButton,
   SeedBaseTypesButton,
@@ -7,7 +10,6 @@ import {
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
-  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader, Space } from 'antd'
@@ -25,14 +27,19 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = () => {
   )
 }
 
-const AdminHeader = () => <PageHeader ghost={false} title="Admin" />
+export default AdminPage
 
 export const getServerSideProps = withPageAuthRequired()
 
-AdminPage.Template = DashboardTemplate
-AdminPage.templateProps = {
-  SidebarNavigation,
-  Header: AdminHeader,
-}
+AdminPage.Layout = (page) => {
+  const AdminHeader = () => <PageHeader ghost={false} title="Admin" />
 
-export default AdminPage
+  return (
+    <DashboardTemplate
+      Header={AdminHeader}
+      SidebarNavigation={SidebarNavigation}
+    >
+      {page.children}
+    </DashboardTemplate>
+  )
+}

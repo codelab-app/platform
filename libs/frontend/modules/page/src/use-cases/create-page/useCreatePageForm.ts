@@ -1,16 +1,21 @@
-import { CreatePageInput } from '@codelab/frontend/abstract/codegen'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { useAppState } from '@codelab/frontend/modules/app'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { CreatePageInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import { usePageDispatch } from '../../hooks'
+import { usePageDispatch, usePageState } from '../../hooks'
 import { useCreatePageMutation } from '../../store'
-import { CreatePageFormProps } from './types'
 
-export const useCreatePageForm = () => {
-  const { currentApp } = useAppState()
+export const useCreatePageForm: UseUseCaseForm<
+  CreatePageInput,
+  CRUDActionType
+> = () => {
   const { resetModal } = usePageDispatch()
+  const { currentApp } = useAppState()
+  const { actionType } = usePageState()
 
-  const [mutate, state] = useCreatePageMutation({
+  const [mutate, { isLoading }] = useCreatePageMutation({
     selectFromResult: (r) => ({
       hook: r.data?.createPage,
       isLoading: r.isLoading,
@@ -23,22 +28,17 @@ export const useCreatePageForm = () => {
     [mutate],
   )
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while creating page',
-  })
-
-  const onSubmitSuccess = () => resetModal()
-
-  const formProps: CreatePageFormProps = {
-    onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
-    model: { appId: currentApp?.id },
-  }
-
   return {
-    formProps,
-    state,
+    onSubmit,
+    onSubmitError: [
+      createNotificationHandler({
+        title: 'Error while creating page',
+      }),
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    model: { appId: currentApp?.id },
+    isLoading,
+    actionType,
     reset: resetModal,
   }
 }

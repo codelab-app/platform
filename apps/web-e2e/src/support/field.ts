@@ -1,4 +1,4 @@
-import { CreateFieldInput } from '@codelab/frontend/abstract/codegen'
+import { CreateFieldInput } from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import { E2eCreateFieldGql } from '../graphql/field.api.graphql.gen'
 

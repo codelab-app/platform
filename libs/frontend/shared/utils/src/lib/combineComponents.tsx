@@ -1,17 +1,17 @@
-import { MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 import React, { ComponentProps, ComponentType, PropsWithChildren } from 'react'
 
 export type ComponentTypeWithProps<TProps> = [ComponentType<TProps>, TProps]
 
-export type ComponentTypeLike = MaybeOrNullable<
+export type ComponentTypeLike = Nullish<
   ComponentType | ComponentTypeWithProps<any>
 >
 
 export type ComponentTypeLikeArray = Array<ComponentTypeLike>
 
-const ChildrenRender = ({ children }: PropsWithChildren<any>): JSX.Element => (
-  <>{children}</>
-)
+const ChildrenRender = ({
+  children,
+}: PropsWithChildren<unknown>): JSX.Element => <>{children}</>
 
 export const componentLikeDestructure = (
   comp: ComponentTypeLike,
@@ -27,6 +27,15 @@ export const componentLikeDestructure = (
   return [ChildrenRender, {}]
 }
 
+/**
+ * A functional way to compose components and their props.
+ *
+ * combineComponents(
+ *  [...providers],
+ *  [Outer, outerProps],
+ *  [Inner, innerProps],
+ * )
+ */
 export const combineComponents = (
   ...components: ComponentTypeLikeArray
 ): ComponentType => {

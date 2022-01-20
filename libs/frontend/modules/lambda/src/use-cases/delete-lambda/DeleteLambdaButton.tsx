@@ -11,7 +11,7 @@ export const DeleteLambdaButton = (Lambda: LambdaFragment) => {
   }
 
   return (
-    <Button type="primary" danger onClick={onClick}>
+    <Button danger onClick={onClick} type="primary">
       Delete
     </Button>
   )

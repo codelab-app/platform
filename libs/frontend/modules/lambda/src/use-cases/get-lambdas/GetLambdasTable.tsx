@@ -11,8 +11,8 @@ export const GetLambdasTable = () => {
   return (
     <SpinnerWrapper isLoading={isLoading}>
       <Table
-        dataSource={data?.getLambdas}
         columns={columns}
+        dataSource={data?.getLambdas}
         rowKey={(lambda) => lambda.id}
       />
     </SpinnerWrapper>

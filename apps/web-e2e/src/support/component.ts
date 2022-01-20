@@ -2,8 +2,10 @@ import {
   TestElementFragment,
   TestElementGraphFragment,
 } from '@codelab/backend/modules/element'
-import { CreateComponentInput } from '@codelab/frontend/abstract/codegen'
-import { GetElementGraphInput } from '@codelab/shared/codegen/graphql'
+import {
+  CreateComponentInput,
+  GetElementGraphInput,
+} from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import { E2eCreateComponentGql } from '../graphql/component.api.graphql.gen'
 import { E2eGetElementGraphGql } from '../graphql/element.api.graphql.gen'

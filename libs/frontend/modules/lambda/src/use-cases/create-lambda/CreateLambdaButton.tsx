@@ -8,9 +8,9 @@ export const CreateLambdaButton = () => {
 
   return (
     <Button
-      type="primary"
       icon={<PlusOutlined />}
       onClick={() => openCreateModal()}
+      type="primary"
     >
       Add
     </Button>

@@ -1,3 +1,4 @@
+import { Props } from '@codelab/frontend/abstract/props'
 import { PropsData } from '@codelab/shared/abstract/core'
 
 // Reduce the array of key value css props to a simple object
@@ -17,7 +18,7 @@ export const reduceStyleProps = (props?: Array<any>) => {
 }
 
 export const reverseReduceStyleProps = (props?: any) => {
-  const propsArray: Array<Record<string, unknown>> = []
+  const propsArray: Array<Props> = []
 
   for (const propsKey in props) {
     if (Object.prototype.hasOwnProperty.call(props, propsKey)) {

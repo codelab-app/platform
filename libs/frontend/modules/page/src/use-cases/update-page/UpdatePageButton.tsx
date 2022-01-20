@@ -9,8 +9,6 @@ export const UpdatePageButton = ({ id, disabled }: UpdateButtonProps) => {
 
   return (
     <Button
-      size="small"
-      type="primary"
       disabled={disabled}
       ghost
       icon={<EditOutlined />}
@@ -21,6 +19,8 @@ export const UpdatePageButton = ({ id, disabled }: UpdateButtonProps) => {
 
         openUpdateModal({ updateId: id })
       }}
+      size="small"
+      type="primary"
     />
   )
 }

@@ -17,12 +17,12 @@ export const UpdateAtomButton = ({ id, disabled }: UpdateButtonProps) => {
 
   return (
     <Button
-      size="small"
-      type="primary"
       disabled={disabled}
       ghost
       icon={<EditOutlined />}
       onClick={onClick}
+      size="small"
+      type="primary"
     />
   )
 }

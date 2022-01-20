@@ -1,9 +1,9 @@
-import { MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { List as AntList, ListProps } from 'antd'
 import React from 'react'
 
 export interface TextProps {
-  text: MaybeOrNullable<string>
+  text: Nullish<string>
 }
 
 export const Text = ({ text }: TextProps) => {

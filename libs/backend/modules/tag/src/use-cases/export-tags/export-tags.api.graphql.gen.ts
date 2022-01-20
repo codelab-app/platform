@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestTagGraphFragment } from '../../test/graphql/tag-graph.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TestTagGraphFragmentDoc } from '../../test/graphql/tag-graph.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestExportTagsQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type TestExportTagsQuery = { getTagGraphs: TestTagGraphFragment }

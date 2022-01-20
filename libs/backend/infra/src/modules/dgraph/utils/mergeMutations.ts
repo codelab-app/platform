@@ -1,4 +1,4 @@
-import { MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
 
 const addOneOrArray = (val: any, array: Array<any>) => {
@@ -9,10 +9,7 @@ const addOneOrArray = (val: any, array: Array<any>) => {
   }
 }
 
-const mergeNQuads = (
-  a: MaybeOrNullable<string>,
-  b: MaybeOrNullable<string>,
-) => {
+const mergeNQuads = (a: Nullish<string>, b: Nullish<string>) => {
   if (a && b) {
     return a + '\n' + b
   }

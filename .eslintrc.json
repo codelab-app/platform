@@ -5,6 +5,7 @@
     "@nrwl/nx",
     "import",
     "unused-imports",
+    "react",
     "react-hooks",
     "graphql",
     "@emotion",
@@ -30,7 +31,17 @@
         //     "enforceForRenamedProperties": false
         //   }
         // ],
-        // "react/jsx-props-no-spreading": "error",
+        "react/jsx-sort-props": "error",
+        "react/jsx-props-no-spreading": [
+          "error",
+          {
+            "html": "enforce",
+            "custom": "enforce",
+            "explicitSpread": "enforce",
+            "exceptions": []
+          }
+        ],
+        "react/jsx-curly-brace-presence": "error",
         // https://github.com/microsoft/TypeScript/issues/14306
         "no-restricted-globals": [
           "error",
@@ -356,7 +367,6 @@
         "curly": "error",
         "@typescript-eslint/no-explicit-any": "off",
         "import/no-cycle": "error",
-        "@typescript-eslint/no-unnecessary-type-constraint": "off",
         "@typescript-eslint/ban-types": [
           "error",
           {
@@ -383,6 +393,12 @@
       }
     },
     {
+      "files": ["*.stories.jsx", "*.stories.tsx"],
+      "rules": {
+        "react/jsx-props-no-spreading": "off"
+      }
+    },
+    {
       "files": ["*.jsx", "*.tsx"],
       "extends": ["plugin:react-hooks/recommended"]
     },
@@ -403,7 +419,7 @@
       // been merged and released, it can be deleted safely
       "rules": {
         "prettier/prettier": [
-          2,
+          "error",
           {
             "parser": "graphql"
           }
@@ -416,7 +432,7 @@
     {
       "files": ["*.js/*.graphql"],
       "rules": {
-        "prettier/prettier": 0
+        "prettier/prettier": "off"
       }
     }
   ]

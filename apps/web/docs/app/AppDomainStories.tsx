@@ -8,11 +8,12 @@ export const AppDomainStories = () => {
   return (
     <Layout>
       A user creates apps for end-users to access. Apps created here are full
-      fledges web applications. Just like Next.js, an app could have many pages.
+      fledged web applications. Just like Next.js, an app could have many pages.
       We currently don't support nested pages, but will soon get to that.
       <Row style={{ width: '100%' }}>
         <Col span={12}>
-          <D3Graph {...appSchema} width={400} height={400} />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <D3Graph {...appSchema} height={400} width={400} />
         </Col>
         <Col span={12}>
           <D3Tree data={appData} />

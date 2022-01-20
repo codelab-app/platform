@@ -1,8 +1,7 @@
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
 import { atomFactory } from '../atoms'
-import { logRendered } from '../utils'
-import { evalCss } from '../utils/evalCss'
+import { evalCss, logRendered } from '../utils'
 import { RenderPipeFactory } from './types'
 
 /**

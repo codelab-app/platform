@@ -38,16 +38,11 @@ let appId: string
 before(() => {
   cy.resetDgraphData().then(() => {
     cy.login().then(() => {
-      cy.preserveAuthCookies()
       cy.createApp().then((app: any) => {
         appId = app.id
       })
     })
   })
-})
-
-beforeEach(() => {
-  cy.preserveAuthCookies()
 })
 
 describe(`Create atoms`, () => {

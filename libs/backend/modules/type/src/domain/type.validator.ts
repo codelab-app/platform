@@ -5,7 +5,7 @@ import {
   LoggerTokens,
 } from '@codelab/backend/infra'
 import { TypeId, TypeKind } from '@codelab/shared/abstract/core'
-import { Entity } from '@codelab/shared/abstract/types'
+import { EntityLike } from '@codelab/shared/abstract/types'
 import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { isString } from 'lodash'
@@ -133,14 +133,14 @@ export class TypeValidator {
   }
 }
 
-export type QueryResult = Entity & {
+export type QueryResult = EntityLike & {
   atoms?: Array<
-    Entity & {
+    EntityLike & {
       name: string
     }
   >
   fields?: Array<
-    Entity & {
+    EntityLike & {
       name: string
     }
   >

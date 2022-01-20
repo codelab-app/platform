@@ -1,4 +1,4 @@
-import { CreateTypeInput } from '@codelab/frontend/abstract/codegen'
+import { CreateTypeInput } from '@codelab/shared/abstract/codegen'
 import { print } from 'graphql'
 import { E2eCreateTypeGql } from '../graphql/type.api.graphql.gen'
 

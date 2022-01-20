@@ -15,25 +15,25 @@ export const BuilderSidebarNavigation = () => {
 
   return (
     <div
-      style={sidebarNavContainerStyle({ fullHeight: true })}
       css={tw`flex flex-col justify-between`}
+      style={sidebarNavContainerStyle({ fullHeight: true })}
     >
       <SidebarNavigationContainer
-        fullHeight={false}
         defaultSelectedKeys={[BuilderTab.Tree]}
+        fullHeight={false}
         selectedKeys={[builderTab]}
       >
         <Menu.Item
-          onClick={() => setBuilderTab(BuilderTab.Tree)}
-          key={BuilderTab.Tree}
           icon={<PartitionOutlined title="Tree" />}
+          key={BuilderTab.Tree}
+          onClick={() => setBuilderTab(BuilderTab.Tree)}
         >
           Tree
         </Menu.Item>
         <Menu.Item
-          onClick={() => setBuilderTab(BuilderTab.Toolbox)}
-          key={BuilderTab.Toolbox}
           icon={<AppstoreAddOutlined title="Toolbox" />}
+          key={BuilderTab.Toolbox}
+          onClick={() => setBuilderTab(BuilderTab.Toolbox)}
         >
           Toolbox
         </Menu.Item>

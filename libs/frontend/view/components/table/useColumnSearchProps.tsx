@@ -39,17 +39,17 @@ export const useColumnSearchProps = (dataIndex: string) => {
     }) => (
       <div style={{ padding: 8 }}>
         <Input
-          ref={(node) => {
-            searchInputRef.current = node
-          }}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
           onChange={(e) => {
             setSelectedKeys(e.target.value ? [e.target.value] : [])
             handleSearch(selectedKeys, confirm)
           }}
           onPressEnter={() => handleSearch(selectedKeys, confirm)}
+          placeholder={`Search ${dataIndex}`}
+          ref={(node) => {
+            searchInputRef.current = node
+          }}
           style={{ marginBottom: 8, display: 'block' }}
+          value={selectedKeys[0]}
         />
         <Space>
           {/* <Button*/}

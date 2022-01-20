@@ -1,4 +1,4 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PageBaseFragment } from './PageBase.fragment.graphql.gen'
 import { PageFullFragment } from './PageFull.fragment.graphql.gen'

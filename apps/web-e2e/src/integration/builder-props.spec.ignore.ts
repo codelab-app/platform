@@ -48,7 +48,6 @@ before(() => {
   cy.resetDgraphData().then(() => {
     cy.runSeeder().then(() => {
       cy.login().then(() => {
-        cy.preserveAuthCookies()
         cy.createApp().then((app: any) => {
           cy.wrap(app.id).as('appId')
           cy.createPage({
@@ -77,10 +76,6 @@ before(() => {
       })
     })
   })
-})
-
-beforeEach(() => {
-  cy.preserveAuthCookies()
 })
 
 describe('Update props', () => {

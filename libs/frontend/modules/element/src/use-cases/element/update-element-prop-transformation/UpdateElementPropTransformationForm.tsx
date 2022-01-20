@@ -8,10 +8,7 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import { isString } from 'lodash'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import {
-  useGetElementQuery,
-  useUpdateElementMutation,
-} from '../../../store/elementEndpoints'
+import { useGetElementQuery, useUpdateElementMutation } from '../../../store'
 
 interface InternalProps {
   tree: ElementTree
@@ -94,17 +91,18 @@ const InternalForm = ({
 
   return (
     <MonacoEditor
+      containerProps={{
+        style: { height: '100%' },
+        ...(monacoProps?.containerProps || {}),
+      }}
       editorOptions={{
         language: 'javascript',
         lineNumbers: 'off',
         ...(monacoProps?.editorOptions || {}),
       }}
-      containerProps={{
-        style: { height: '100%' },
-        ...(monacoProps?.containerProps || {}),
-      }}
-      value={value}
       onChange={(v) => setValue(v || '')}
+      value={value}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...monacoProps}
     />
   )
@@ -136,8 +134,8 @@ export const UpdateElementPropTransformationForm = ({
   return (
     <InternalForm
       element={element}
-      trackPromises={trackPromises}
       monacoProps={monacoProps}
+      trackPromises={trackPromises}
       tree={tree}
     />
   )

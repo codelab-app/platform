@@ -1,7 +1,0 @@
-mutation CreateLibrary($input: [AddLibraryInput!]!) {
-  libraries: addLibrary(input: $input) {
-    library {
-      ...__Library
-    }
-  }
-}

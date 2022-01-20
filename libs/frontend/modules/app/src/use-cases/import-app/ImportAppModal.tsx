@@ -1,27 +1,60 @@
-import { FormUniformsModal } from '@codelab/frontend/view/components'
+import { InboxOutlined } from '@ant-design/icons'
+import { ImportAppActionType } from '@codelab/frontend/abstract/core'
+import {
+  emptyJsonSchema,
+  Form,
+  FormModal,
+  UploadField,
+} from '@codelab/frontend/view/components'
 import React from 'react'
 import { useAppState } from '../../hooks'
-import { AppActionType } from '../../store'
-import { ImportAppForm } from './ImportAppForm'
+import { ImportAppSchema } from './importAppSchema'
 import { useImportAppForm } from './useImportAppForm'
+import { validateFile } from './validateFile'
 
 export const ImportAppModal = () => {
   const { actionType } = useAppState()
-  const { formProps, reset, state } = useImportAppForm()
-  const { isLoading } = state
+
+  const { onSubmit, onSubmitSuccess, onSubmitError, reset, isLoading } =
+    useImportAppForm()
 
   return (
-    <FormUniformsModal
-      modalProps={{
-        visible: actionType === AppActionType.Import,
-        onCancel: reset,
-        okText: 'Import App',
-        okButtonProps: { loading: isLoading },
-        bodyStyle: {
-          paddingTop: '3rem',
-        },
+    <FormModal
+      bodyStyle={{
+        paddingTop: '3rem',
       }}
-      renderForm={() => <ImportAppForm {...formProps} />}
-    />
+      okButtonProps={{ loading: isLoading }}
+      okText="Import App"
+      onCancel={reset}
+      visible={actionType === ImportAppActionType.Import}
+    >
+      {({ submitRef }) => (
+        <Form<ImportAppSchema>
+          model={{}}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={emptyJsonSchema as any}
+          submitRef={submitRef}
+        >
+          <UploadField
+            beforeUpload={validateFile}
+            maxCount={1}
+            multiple={false}
+            name="file"
+          >
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined />
+            </p>
+            <p className="ant-upload-text">
+              Click or drag file to this area to upload
+            </p>
+            <p className="ant-upload-hint">
+              Support for a single upload. Supported format: json
+            </p>
+          </UploadField>
+        </Form>
+      )}
+    </FormModal>
   )
 }

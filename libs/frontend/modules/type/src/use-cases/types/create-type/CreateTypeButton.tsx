@@ -9,10 +9,10 @@ export const CreateTypeButton = () => {
 
   return (
     <Button
-      type="primary"
       css={tw`flex justify-center items-center`}
       icon={<PlusOutlined />}
       onClick={() => openCreateModal()}
+      type="primary"
     >
       Create
     </Button>

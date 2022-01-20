@@ -1,10 +1,7 @@
+import { UpdatePropMapBindingData } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { UpdatePropMapBindingMutationVariables } from '../../../graphql/prop-map-binding.endpoints.graphql.gen'
 
-export type UpdatePropMapBindingSchema =
-  UpdatePropMapBindingMutationVariables['input']['data']
-
-export const updatePropMapBindingSchema: JSONSchemaType<UpdatePropMapBindingSchema> =
+export const updatePropMapBindingSchema: JSONSchemaType<UpdatePropMapBindingData> =
   {
     title: 'Update Prop Map Binding Input',
     type: 'object',

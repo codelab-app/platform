@@ -22,7 +22,8 @@ export const PageDomainStories = () => {
       </p>
       <Row style={{ width: '100%' }}>
         <Col span={12}>
-          <D3Graph {...pageSchema} width={400} height={400} />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <D3Graph {...pageSchema} height={400} width={400} />
         </Col>
         <Col span={12}>
           <p>
@@ -30,7 +31,7 @@ export const PageDomainStories = () => {
             type (not pictured here to save space) <br />
             The Component node gives the Element the type
           </p>
-          <D3Tree data={pageData} width={400} height={400} />
+          <D3Tree data={pageData} height={400} width={400} />
         </Col>
       </Row>
     </Layout>

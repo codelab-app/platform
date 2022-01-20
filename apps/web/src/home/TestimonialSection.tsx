@@ -34,8 +34,6 @@ export const TestimonialItem = ({
       ]}
     >
       <Rate
-        disabled
-        value={5}
         css={[
           css`
             div:hover {
@@ -44,24 +42,26 @@ export const TestimonialItem = ({
           `,
           tw`mb-2`,
         ]}
+        disabled
+        value={5}
       />
       <div
         css={css`
           min-height: 150px;
         `}
       >
-        <Text italic css={tw`text-base`}>{`"${review}"`}</Text>
+        <Text css={tw`text-base`} italic>{`"${review}"`}</Text>
       </div>
       <Divider />
       <Meta
+        avatar={<Avatar size={48}>{initials(stakeholder)}</Avatar>}
         css={css`
           .ant-card-meta-title {
             margin-bottom: 0 !important;
           }
         `}
-        avatar={<Avatar size={48}>{initials(stakeholder)}</Avatar>}
-        title={stakeholder}
         description={role}
+        title={stakeholder}
       />
     </Card>
   )
@@ -82,21 +82,22 @@ export const TestimonialSection = () => {
       <Title css={tw`text-center !font-extrabold`} level={2}>
         Loved by startups
       </Title>
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Slider {...settings} css={tw`my-8`}>
         <TestimonialItem
-          stakeholder="Wesley Ko"
-          role="Co-Founder @ Mrhost"
           review="We tried Wix and some other platforms but couldn't create what we wanted. With this platform, we were able to build some complex user interface without any restrictions for Online Travel Agency (OTA)."
+          role="Co-Founder @ Mrhost"
+          stakeholder="Wesley Ko"
         />
         <TestimonialItem
-          stakeholder="Kevin Zhao"
-          role="Founder @ Glosku"
           review="We have created our custom backend API for our E-Commerce wholesale integration business, but our frontend was lacking from the constantly changing requirements. Our single frontend developer was much more productive using this no-code platform."
+          role="Founder @ Glosku"
+          stakeholder="Kevin Zhao"
         />
         <TestimonialItem
-          stakeholder="Shelby Lewis"
-          role="CEO @ KonvertLab"
           review="We were able to build our own in-house mini app to help automate some of our PPC marketing flow. Lots of time were saved using these internal tools, and we couldn't do this with traditional website builders."
+          role="CEO @ KonvertLab"
+          stakeholder="Shelby Lewis"
         />
       </Slider>
     </div>

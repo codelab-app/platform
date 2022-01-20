@@ -1,14 +1,21 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { DeletePageInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
+import { PageBaseFragment } from '../../graphql/PageBase.fragment.graphql.gen'
 import { usePageDispatch, usePageState } from '../../hooks'
 import { useDeletePageMutation } from '../../store'
-import { DeletePageFormProps, DeletePageMutationInput } from './types'
 
-export const useDeletePageForm = () => {
-  const { deleteIds, entity } = usePageState()
+export const useDeletePageForm: UseEntityUseCaseForm<
+  DeletePageInput,
+  CRUDActionType,
+  PageBaseFragment
+> = () => {
+  const { deleteIds, entity, actionType } = usePageState()
   const { resetModal } = usePageDispatch()
 
-  const [mutate, state] = useDeletePageMutation({
+  const [mutate, { isLoading }] = useDeletePageMutation({
     selectFromResult: (r) => ({
       hook: r.data?.deletePage,
       isLoading: r.isLoading,
@@ -17,28 +24,22 @@ export const useDeletePageForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: DeletePageMutationInput) =>
-      mutate({ variables: { input } }).unwrap(),
+    (input: DeletePageInput) => mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while deleting page',
-  })
-
-  const onSubmitSuccess = () => resetModal()
-
-  const formProps: DeletePageFormProps = {
-    onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
-    model: { pageId: deleteIds[0] },
-    name: entity?.name,
-  }
-
   return {
-    formProps,
-    state,
+    onSubmit,
+    onSubmitError: [
+      createNotificationHandler({
+        title: 'Error while deleting page',
+      }),
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    model: { pageId: deleteIds[0] },
+    entity,
+    isLoading,
     reset: resetModal,
+    actionType,
   }
 }

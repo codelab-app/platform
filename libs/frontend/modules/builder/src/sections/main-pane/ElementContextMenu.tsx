@@ -48,34 +48,34 @@ export const ElementContextMenu = ({
 
   return (
     <Menu
+      css={tw`border border-gray-200 shadow-xl`}
       onBlur={onBlur}
       onClick={() => onClick?.()}
-      css={tw`border border-gray-200 shadow-xl`}
     >
-      <Menu.Item onClick={() => onAddChild()} key="addchild">
+      <Menu.Item key="addchild" onClick={() => onAddChild()}>
         Add child
       </Menu.Item>
-      <Menu.Item onClick={() => onDuplicate()} key="duplicate">
+      <Menu.Item key="duplicate" onClick={() => onDuplicate()}>
         Duplicate
       </Menu.Item>
       {element.instanceOfComponent ? (
         <Menu.Item
+          key="1"
           onClick={() =>
             push({
               pathname: PageType.ComponentDetail,
               query: { componentId: element.instanceOfComponent?.id },
             })
           }
-          key="1"
         >
           Edit component
         </Menu.Item>
       ) : (
-        <Menu.Item onClick={() => onConvert()} key="convert">
+        <Menu.Item key="convert" onClick={() => onConvert()}>
           Convert to component
         </Menu.Item>
       )}
-      <Menu.Item danger onClick={() => onDelete()} key="delete">
+      <Menu.Item danger key="delete" onClick={() => onDelete()}>
         <span>Delete `{element.name}` </span>{' '}
         <span>
           <Key>del</Key> <Key>{'\u232B'}</Key>

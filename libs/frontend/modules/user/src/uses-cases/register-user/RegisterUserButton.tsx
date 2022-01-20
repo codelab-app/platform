@@ -3,7 +3,7 @@ import React from 'react'
 
 export const RegisterUserButton = () => {
   return (
-    <Button type="primary" href="/api/auth/login">
+    <Button href="/api/auth/login" type="primary">
       Register
     </Button>
   )

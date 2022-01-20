@@ -1,9 +1,9 @@
-import { AtomType } from '@codelab/frontend/abstract/codegen'
+import { CRUDModalState } from '@codelab/frontend/abstract/core'
 import {
   createCrudSlice,
-  CRUDModalState,
   initialCrudState,
 } from '@codelab/frontend/view/components'
+import { AtomType } from '@codelab/shared/abstract/codegen'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { DefaultRootState } from 'react-redux'
 import { HookFragment } from '../graphql'

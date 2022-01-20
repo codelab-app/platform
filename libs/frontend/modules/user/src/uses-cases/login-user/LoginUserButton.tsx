@@ -3,7 +3,7 @@ import React from 'react'
 
 export const LoginUserButton = () => {
   return (
-    <Button className="login-button" type="link" href="/api/auth/login">
+    <Button className="login-button" href="/api/auth/login" type="link">
       Login
     </Button>
   )

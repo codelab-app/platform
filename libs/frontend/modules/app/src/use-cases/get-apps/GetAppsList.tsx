@@ -21,12 +21,12 @@ export const GetAppsList = () => {
     <SpinnerWrapper isLoading={isLoading}>
       <ConditionalView condition={!appList || !appList.length}>
         <Empty description="No apps found" imageStyle={emptyImageStyle}>
-          <CreateAppButton createNow />
+          <CreateAppButton text="Create Now" />
         </Empty>
       </ConditionalView>
-
       <Row gutter={[padding.sm, padding.sm]}>
         {appList?.map((app) => (
+          // eslint-disable-next-line react/jsx-props-no-spreading
           <Col key={app.id} {...threeGridCol}>
             <GetAppsItem app={app} />
           </Col>

@@ -1,35 +1,49 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import {
-  ActionType,
-  FormUniformsModal,
+  emptyJsonSchema,
+  EmptyJsonSchemaType,
+  Form,
+  FormModal,
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import tw from 'twin.macro'
 import { useTypeDispatch, useTypeState } from '../../../hooks'
-import { DeleteTypeForm } from './DeleteTypeForm'
 import { useDeleteTypeForm } from './useDeleteTypeForm'
 
 export const DeleteTypeModal = () => {
-  const { actionType } = useTypeState()
-  const { resetModal } = useTypeDispatch()
-
   const {
-    state: { isLoading },
-    formProps,
+    onSubmit,
+    entity,
+    onSubmitSuccess,
+    onSubmitError,
+    reset,
+    model,
+    isLoading,
+    actionType,
   } = useDeleteTypeForm()
 
   return (
-    <FormUniformsModal
-      modalProps={{
-        className: 'delete-type-modal',
-        okText: 'Delete',
-        okButtonProps: {
-          loading: isLoading,
-        },
-        visible: actionType === ActionType.Delete,
-        onCancel: () => resetModal(),
-        title: <span css={tw`font-semibold`}>Delete type</span>,
+    <FormModal
+      okButtonProps={{
+        loading: isLoading,
       }}
-      renderForm={() => <DeleteTypeForm {...formProps} />}
-    />
+      okText="Delete"
+      onCancel={() => reset()}
+      title={<span css={tw`font-semibold`}>Delete type</span>}
+      visible={actionType === CRUDActionType.Delete}
+    >
+      {({ submitRef }) => (
+        <Form<EmptyJsonSchemaType>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={emptyJsonSchema}
+          submitRef={submitRef}
+        >
+          <h4>Are you sure you want to delete type "{entity}"?</h4>
+        </Form>
+      )}
+    </FormModal>
   )
 }

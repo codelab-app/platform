@@ -1,8 +1,8 @@
-import { Maybe, MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { WILDCARD_ID } from './cacheTags'
 
 export const providesAll = <
-  R extends MaybeOrNullable<Array<{ id: string | number }>>,
+  R extends Nullish<Array<{ id: string | number }>>,
   T extends string,
 >(
   resultsWithIds: R,
@@ -17,7 +17,7 @@ export const providesAll = <
 }
 
 export const providesById = <
-  R extends MaybeOrNullable<string | number>,
+  R extends Nullish<string | number>,
   T extends string,
 >(
   id: R,

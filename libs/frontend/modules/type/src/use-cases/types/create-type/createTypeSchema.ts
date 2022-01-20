@@ -1,4 +1,4 @@
-import { CreateTypeInput } from '@codelab/frontend/abstract/codegen'
+import { CreateTypeInput } from '@codelab/shared/abstract/codegen'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import {

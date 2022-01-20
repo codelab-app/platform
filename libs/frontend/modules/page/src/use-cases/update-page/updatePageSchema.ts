@@ -1,14 +1,20 @@
+import {
+  CreatePageInput,
+  UpdatePageInput,
+} from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { UpdatePageMutationInput } from './types'
 
-export const updatePageSchema: JSONSchemaType<UpdatePageMutationInput> = {
+export const updatePageSchema: JSONSchemaType<CreatePageInput> = {
   title: 'Update Page Input',
   type: 'object',
   properties: {
+    appId: {
+      type: 'string',
+    },
     name: {
       type: 'string',
       autoFocus: true,
     },
   },
   required: ['name'],
-}
+} as const

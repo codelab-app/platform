@@ -36,19 +36,18 @@ export const MainPaneBuilderTreeTab = ({
 
   return (
     <AntdTree
-      disabled={isMoving}
-      className="draggable-tree"
       blockNode
-      expandedKeys={expandedNodeIds}
+      className="draggable-tree"
+      disabled={isMoving}
       draggable
-      onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
+      expandedKeys={expandedNodeIds}
+      onClick={(e) => e.stopPropagation()}
       onDrop={handleDrop}
-      selectedKeys={selectedElement ? [selectedElement.id] : []}
+      onExpand={(expandedKeys) => setExpandedNodeIds(expandedKeys)}
       onMouseEnter={({ node }: any) => {
         setHoveringElement(node.id)
       }}
       onMouseLeave={() => setHoveringElement(undefined)}
-      onClick={(e) => e.stopPropagation()}
       onSelect={([id], { nativeEvent, node }) => {
         nativeEvent.stopPropagation()
 
@@ -56,7 +55,8 @@ export const MainPaneBuilderTreeTab = ({
           setSelectedElement(id.toString())
         }
       }}
-      titleRender={(node) => <TreeItemTitle tree={elementTree} node={node} />}
+      selectedKeys={selectedElement ? [selectedElement.id] : []}
+      titleRender={(node) => <TreeItemTitle node={node} tree={elementTree} />}
       treeData={antdTree ? [antdTree] : undefined}
     />
   )
@@ -81,8 +81,8 @@ const TreeItemTitle = ({
 
   const contextMenu = (
     <ElementContextMenu
-      onClick={() => setContextMenuNodeId(null)}
       element={node as any}
+      onClick={() => setContextMenuNodeId(null)}
     />
   )
 
@@ -94,7 +94,6 @@ const TreeItemTitle = ({
     <div>
       <Dropdown
         onVisibleChange={() => setContextMenuNodeId(nodeId)}
-        visible={contextMenuItemId === nodeId}
         overlay={
           <>
             <div
@@ -108,6 +107,7 @@ const TreeItemTitle = ({
           </>
         }
         trigger={['contextMenu']}
+        visible={contextMenuItemId === nodeId}
       >
         <div css={isComponentInstance ? tw`text-blue-400` : `text-gray-400`}>
           {name}{' '}

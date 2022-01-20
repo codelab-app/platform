@@ -1,21 +1,18 @@
+import { FormProps, UseCaseFormWithRef } from '@codelab/frontend/abstract/props'
 import { SelectDescendantElement } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
-import {
-  AutoCompleteField,
-  FormUniforms,
-  FormUniformsProps,
-} from '@codelab/frontend/view/components'
+import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
+import { CreatePropMapBindingInput } from '@codelab/shared/abstract/codegen'
 import { ElementTree } from '@codelab/shared/core'
 import React, { useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import {
-  CreatePropMapBindingSchema,
-  createPropMapBindingSchema,
-} from './createPropMapBindingSchema'
+import { createPropMapBindingSchema } from './createPropMapBindingSchema'
 import { TargetKeyField } from './TargetKeyField'
 
-export interface CreatePropMapBindingFormProps
-  extends Omit<FormUniformsProps<CreatePropMapBindingSchema>, 'schema'> {
+export type CreatePropMapBindingFormProps =
+  UseCaseFormWithRef<CreatePropMapBindingInput> & PropMapBindingProps
+
+export interface PropMapBindingProps {
   elementId: string
   providePropCompletion?: (searchValue: string) => Array<string>
   tree: ElementTree
@@ -25,7 +22,9 @@ export const CreatePropMapBindingForm = ({
   elementId: initialElementId,
   providePropCompletion,
   tree,
-  ...props
+  onSubmit,
+  onSubmitSuccess,
+  onSubmitError,
 }: CreatePropMapBindingFormProps) => {
   const [propCompleteOptions, setPropCompleteOptions] = useState<
     Array<{ label: string; value: string }>
@@ -47,10 +46,13 @@ export const CreatePropMapBindingForm = ({
   }
 
   return (
-    <FormUniforms<CreatePropMapBindingSchema>
+    <Form<CreatePropMapBindingInput>
       model={{ elementId: initialElementId }}
+      onSubmit={onSubmit}
+      onSubmitError={onSubmitError}
+      onSubmitSuccess={onSubmitSuccess}
       schema={createPropMapBindingSchema}
-      {...props}
+      submitRef={undefined}
     >
       <AutoFields omitFields={['sourceKey', 'targetElementId', 'targetKey']} />
 
@@ -61,10 +63,10 @@ export const CreatePropMapBindingForm = ({
       />
 
       <ElementIdProvider elementId={initialElementId}>
-        <AutoField name="targetElementId" component={SelectDescendantElement} />
+        <AutoField component={SelectDescendantElement} name="targetElementId" />
       </ElementIdProvider>
 
       <TargetKeyField name="targetKey" tree={tree} />
-    </FormUniforms>
+    </Form>
   )
 }

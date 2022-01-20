@@ -1,14 +1,21 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { CreateTagInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
+import { TagFragment } from '../../graphql/Tag.fragment.graphql.gen'
 import { useTagDispatch, useTagState } from '../../hooks'
-import { useUpdateTagMutation } from '../../store/tagEndpoints'
-import { UpdateTagMutationInput } from './types'
+import { useUpdateTagMutation } from '../../store'
 
-export const useUpdateTagForm = () => {
+export const useUpdateTagForm: UseEntityUseCaseForm<
+  CreateTagInput,
+  CRUDActionType,
+  TagFragment
+> = () => {
   const { resetModal } = useTagDispatch()
-  const { updateId, entity } = useTagState()
+  const { updateId, entity, actionType } = useTagState()
 
-  const [mutate, state] = useUpdateTagMutation({
+  const [mutate, { isLoading }] = useUpdateTagMutation({
     selectFromResult: (r) => ({
       hook: r.data?.updateTag,
       isLoading: r.isLoading,
@@ -16,10 +23,8 @@ export const useUpdateTagForm = () => {
     }),
   })
 
-  const reset = () => resetModal()
-
   const handleSubmit = useCallback(
-    ({ name }: UpdateTagMutationInput) => {
+    ({ name }: CreateTagInput) => {
       return mutate({
         variables: { input: { data: { name }, id: updateId } },
       }).unwrap()
@@ -28,15 +33,17 @@ export const useUpdateTagForm = () => {
   )
 
   return {
-    formProps: {
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while updating tag',
       }),
-      onSubmitSuccess: () => reset(),
-      model: entity,
-    },
-    state,
-    reset,
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    model: {},
+    entity,
+    isLoading,
+    actionType,
+    reset: resetModal,
   }
 }

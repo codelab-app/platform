@@ -16,12 +16,12 @@ export const UpdateTagButton = ({ id, disabled }: UpdateButtonProps) => {
 
   return (
     <Button
-      size="small"
-      type="primary"
       disabled={disabled}
       ghost
-      onClick={onClick}
       icon={<EditOutlined />}
+      onClick={onClick}
+      size="small"
+      type="primary"
     >
       Update Tag
     </Button>

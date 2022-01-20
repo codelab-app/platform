@@ -1,4 +1,4 @@
-import { AtomType, CreateResponse } from '@codelab/frontend/abstract/codegen'
+import { AtomType, CreateResponse } from '@codelab/shared/abstract/codegen'
 
 interface beforeHookParams {
   pageName: string
@@ -62,7 +62,6 @@ export const beforeHook = ({
   cy.runSeeder()
 
   cy.login().then(async () => {
-    cy.preserveAuthCookies()
     cy.createAtom({ name: 'test', type: AtomType.Text }).then(
       (atom: CreateResponse) => {
         const atomId = atom.id

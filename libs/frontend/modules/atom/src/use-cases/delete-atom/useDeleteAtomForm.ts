@@ -1,14 +1,21 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { DeleteAtomInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
+import { AtomBaseFragment } from '../../graphql/Atom.fragment.graphql.gen'
 import { useAtomDispatch, useAtomState } from '../../hooks'
 import { useDeleteAtomMutation } from '../../store'
-import { DeleteAtomMutationInput, DeleteAtomsFormProps } from './types'
 
-export const useDeleteAtomForm = () => {
-  const { deleteIds, entity } = useAtomState()
+export const useDeleteAtomForm: UseEntityUseCaseForm<
+  DeleteAtomInput,
+  CRUDActionType,
+  AtomBaseFragment
+> = () => {
+  const { deleteIds, entity, actionType } = useAtomState()
   const { resetModal } = useAtomDispatch()
 
-  const [mutate, state] = useDeleteAtomMutation({
+  const [mutate, { isLoading }] = useDeleteAtomMutation({
     selectFromResult: (r) => ({
       hook: r.data?.deleteAtom,
       isLoading: r.isLoading,
@@ -17,8 +24,7 @@ export const useDeleteAtomForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: DeleteAtomMutationInput) =>
-      mutate({ variables: { input } }).unwrap(),
+    (input: DeleteAtomInput) => mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 
@@ -26,19 +32,14 @@ export const useDeleteAtomForm = () => {
     title: 'Error while deleting atom',
   })
 
-  const onSubmitSuccess = () => resetModal()
-
-  const formProps: DeleteAtomsFormProps = {
-    onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
-    model: { atomId: deleteIds[0] },
-    name: entity?.name,
-  }
-
   return {
-    formProps,
-    state,
+    onSubmit,
+    onSubmitError: [onSubmitError],
+    onSubmitSuccess: [() => resetModal()],
+    model: { atomId: deleteIds[0] },
+    entity,
     reset: resetModal,
+    isLoading,
+    actionType,
   }
 }

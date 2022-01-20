@@ -1,14 +1,21 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { DeleteLambdaInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
+import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen'
 import { useLambdaDispatch, useLambdaState } from '../../hooks'
 import { useDeleteLambdaMutation } from '../../store'
-import { DeleteLambdaFormProps, DeleteLambdaMutationInput } from './types'
 
-export const useDeleteLambdaForm = () => {
-  const { deleteIds, entity } = useLambdaState()
+export const useDeleteLambdaForm: UseEntityUseCaseForm<
+  DeleteLambdaInput,
+  CRUDActionType,
+  LambdaFragment
+> = () => {
+  const { deleteIds, entity, actionType } = useLambdaState()
   const { resetModal } = useLambdaDispatch()
 
-  const [mutate, state] = useDeleteLambdaMutation({
+  const [mutate, { isLoading }] = useDeleteLambdaMutation({
     selectFromResult: (r) => ({
       hook: r.data?.deleteLambda,
       isLoading: r.isLoading,
@@ -17,28 +24,22 @@ export const useDeleteLambdaForm = () => {
   })
 
   const onSubmit = useCallback(
-    (input: DeleteLambdaMutationInput) =>
-      mutate({ variables: { input } }).unwrap(),
+    (input: DeleteLambdaInput) => mutate({ variables: { input } }).unwrap(),
     [mutate],
   )
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while deleting lambda',
-  })
-
-  const onSubmitSuccess = () => resetModal()
-
-  const formProps: DeleteLambdaFormProps = {
-    onSubmit,
-    onSubmitError,
-    onSubmitSuccess,
-    model: { lambdaId: deleteIds[0] },
-    name: entity?.name,
-  }
-
   return {
-    formProps,
-    state,
+    onSubmit,
+    onSubmitError: [
+      createNotificationHandler({
+        title: 'Error while deleting lambda',
+      }),
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    model: { lambdaId: deleteIds[0] },
+    entity,
+    isLoading,
     reset: resetModal,
+    actionType,
   }
 }

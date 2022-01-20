@@ -7,7 +7,7 @@ export const AddHookToElementButton = () => {
   const onClick = () => openCreateModal()
 
   return (
-    <Button type="primary" onClick={onClick} icon={<PlusOutlined />}>
+    <Button icon={<PlusOutlined />} onClick={onClick} type="primary">
       Add hook
     </Button>
   )

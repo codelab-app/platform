@@ -1,7 +1,7 @@
+import { CreatePageInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { CreatePageMutationInput } from './types'
 
-export const createPageSchema: JSONSchemaType<CreatePageMutationInput> = {
+export const createPageSchema: JSONSchemaType<CreatePageInput> = {
   title: 'Create Page Input',
   type: 'object',
   properties: {

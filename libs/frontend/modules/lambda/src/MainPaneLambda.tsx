@@ -9,7 +9,7 @@ import { UpdateLambdaModal } from './use-cases/update-lambda'
 
 export const MainPaneLambda = () => {
   return (
-    <MainPaneTemplate title="Lambda" header={<CreateLambdaButton key={1} />}>
+    <MainPaneTemplate header={<CreateLambdaButton key={1} />} title="Lambda">
       <GetLambdasTable />
       <CreateLambdaModal />
       <UpdateLambdaModal />

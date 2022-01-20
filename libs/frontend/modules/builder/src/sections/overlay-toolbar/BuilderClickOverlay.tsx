@@ -1,10 +1,11 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import { useElementDispatch } from '@codelab/frontend/modules/element'
+import { ClickOverlay } from '@codelab/frontend/view/components'
 import styled from '@emotion/styled'
 import { Button } from 'antd'
 import React from 'react'
-import { useBuilderSelectedElement } from '../../hooks/useBuilderSelectedElement'
-import { ClickOverlay } from './Overlay-click'
+import { useBuilderSelectedElement } from '../../hooks'
+import { queryRenderedElementById } from '../../renderer'
 
 const StyledOverlayContainer = styled.div`
   display: flex;
@@ -45,20 +46,18 @@ export const BuilderClickOverlay = () => {
       </span>
       <StyledOverlayButtonGroup>
         <Button
-          size="small"
-          type="text"
           icon={<PlusOutlined />}
           onClick={(e) => {
             e.stopPropagation()
 
             return openCreateModal({ parentElementId: selectedElement.id })
           }}
+          size="small"
+          type="text"
         />
 
         <Button
-          size="small"
           danger
-          type="text"
           icon={<DeleteOutlined />}
           onClick={(e) => {
             e.stopPropagation()
@@ -68,12 +67,20 @@ export const BuilderClickOverlay = () => {
               entity: selectedElement,
             })
           }}
+          size="small"
+          type="text"
         />
       </StyledOverlayButtonGroup>
     </StyledOverlayContainer>
   )
 
-  return <ClickOverlay nodeId={selectedElement.id} content={content} />
+  return (
+    <ClickOverlay
+      content={content}
+      getOverlayElement={queryRenderedElementById}
+      nodeId={selectedElement.id}
+    />
+  )
 }
 
 BuilderClickOverlay.displayName = 'BuilderClickOverlay'

@@ -16,11 +16,11 @@ export const SelectLambda = ({ name }: SelectLambdaProps) => {
 
   return (
     <SelectField
-      options={lambdaOptions}
-      name={name}
       loading={isLoading}
-      showSearch={true}
+      name={name}
       optionFilterProp="label"
+      options={lambdaOptions}
+      showSearch={true}
     />
   )
 }

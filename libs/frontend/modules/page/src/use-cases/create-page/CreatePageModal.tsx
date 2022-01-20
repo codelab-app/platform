@@ -1,28 +1,41 @@
-import {
-  ActionType,
-  FormUniformsModal,
-} from '@codelab/frontend/view/components'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { Form, FormModal } from '@codelab/frontend/view/components'
+import { CreatePageInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
-import { usePageState } from '../../hooks'
-import { CreatePageForm } from './CreatePageForm'
+import { AutoFields } from 'uniforms-antd'
+import { createPageSchema } from './createPageSchema'
 import { useCreatePageForm } from './useCreatePageForm'
 
 export const CreatePageModal = () => {
-  const { actionType } = usePageState()
-  const { formProps, reset, state } = useCreatePageForm()
-  const { isLoading } = state
-
-  const modalProps = {
-    visible: actionType === ActionType.Create,
-    onCancel: reset,
-    okText: 'Create Page',
-    okButtonProps: { loading: isLoading },
-  }
+  const {
+    onSubmit,
+    onSubmitSuccess,
+    actionType,
+    onSubmitError,
+    reset,
+    model,
+    isLoading,
+  } = useCreatePageForm()
 
   return (
-    <FormUniformsModal
-      modalProps={modalProps}
-      renderForm={() => <CreatePageForm {...formProps} />}
-    />
+    <FormModal
+      okButtonProps={{ loading: isLoading }}
+      okText="Create Page"
+      onCancel={() => reset()}
+      visible={actionType === CRUDActionType.Create}
+    >
+      {({ submitRef }) => (
+        <Form<CreatePageInput>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={createPageSchema}
+          submitRef={submitRef}
+        >
+          <AutoFields omitFields={['appId']} />
+        </Form>
+      )}
+    </FormModal>
   )
 }

@@ -6,7 +6,7 @@ import { KeyPayload, KeysPayload, tagSlice } from '../store'
 export const useTagDispatch = () => {
   const { actions } = tagSlice
   const dispatch = useDispatch()
-  const curdDispatch = crudModalDispatchFactory(tagSlice.actions)()
+  const crudDispatch = crudModalDispatchFactory(tagSlice.actions)()
 
   const setSelectedTag = useCallback(
     (payload: KeyPayload) => {
@@ -33,6 +33,6 @@ export const useTagDispatch = () => {
     setCheckedTags,
     setSelectedTag,
     resetSelection,
-    ...curdDispatch,
+    ...crudDispatch,
   }
 }

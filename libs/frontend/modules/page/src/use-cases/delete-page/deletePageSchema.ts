@@ -1,7 +1,7 @@
+import { DeletePageInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { DeletePageMutationInput } from './types'
 
-export const deletePageSchema: JSONSchemaType<DeletePageMutationInput> = {
+export const deletePageSchema: JSONSchemaType<DeletePageInput> = {
   title: 'Delete Page',
   type: 'object',
   properties: {
@@ -10,4 +10,4 @@ export const deletePageSchema: JSONSchemaType<DeletePageMutationInput> = {
     },
   },
   required: [],
-}
+} as const

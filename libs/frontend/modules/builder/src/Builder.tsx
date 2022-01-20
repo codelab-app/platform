@@ -43,7 +43,7 @@ const StyledBuilderContainer = styled.div`
   .ant-modal-mask,
   .ant-modal-wrap {
     position: absolute;
-    z-index: 99;
+    z-index: 10;
   }
 `
 
@@ -61,8 +61,6 @@ const BuilderRenderer = ({
 
   return (
     <Renderer
-      isComponentRenderer={isComponentBuilder}
-      tree={tree}
       context={{
         onRendered,
         typeKindsById,
@@ -71,6 +69,8 @@ const BuilderRenderer = ({
           onClick: voidClick,
         },
       }}
+      isComponentRenderer={isComponentBuilder}
+      tree={tree}
     />
   )
 }
@@ -84,11 +84,11 @@ const BuilderDropHandler = ({ root }: { root?: IElement }) => {
 
   return (
     <div
-      id="builder-drop-handler"
       css={css`
         ${tw`absolute inset-0`}
         z-index: -1;
       `}
+      id="builder-drop-handler"
       ref={setNodeRef}
     />
   )
@@ -102,6 +102,8 @@ export const Builder = ({
   tree,
   isComponentBuilder,
 }: React.PropsWithChildren<BuilderProps>) => {
+  console.log('builder')
+
   const { selectElement, resetSelection } = useBuilderDispatch()
   const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(tree)
 
@@ -141,11 +143,11 @@ export const Builder = ({
 
   return (
     <StyledBuilderContainer
-      onClick={handleContainerClick}
-      id="Builder"
       css={tw`relative w-full h-full bg-white`}
-      onMouseOver={handleMouseOver}
+      id="Builder"
+      onClick={handleContainerClick}
       onMouseLeave={handleMouseLeave}
+      onMouseOver={handleMouseOver}
     >
       <BuilderDropHandler root={root} />
       <TypeKindProvider>

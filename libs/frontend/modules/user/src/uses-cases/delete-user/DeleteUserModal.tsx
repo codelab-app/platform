@@ -1,32 +1,48 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import {
-  ActionType,
-  FormUniformsModal,
+  emptyJsonSchema,
+  EmptyJsonSchemaType,
+  Form,
+  FormModal,
 } from '@codelab/frontend/view/components'
-import { ModalProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 import { useUserDispatch, useUserState } from '../../hooks'
-import { DeleteUserForm } from './DeleteUserForm'
 import { useDeleteUserForm } from './useDeleteUserForm'
 
 export const DeleteUserModal = () => {
-  const { actionType } = useUserState()
-  const { resetModal } = useUserDispatch()
-  const { formProps, state } = useDeleteUserForm()
-  const { isLoading } = state
+  const {
+    onSubmit,
+    onSubmitSuccess,
+    reset,
+    actionType,
+    onSubmitError,
+    isLoading,
+  } = useDeleteUserForm()
 
-  const modalProps: ModalProps = {
-    okText: 'Delete User',
-    okButtonProps: { loading: isLoading },
-    visible: actionType === ActionType.Delete,
-    onCancel: () => resetModal(),
-    title: <span css={tw`font-semibold`}>Delete user</span>,
-  }
+  const { deleteMetadata } = useUserState()
+  const { userNames } = deleteMetadata || { userNames: '' }
 
   return (
-    <FormUniformsModal
-      modalProps={modalProps}
-      renderForm={() => <DeleteUserForm {...formProps} />}
-    />
+    <FormModal
+      okButtonProps={{ loading: isLoading }}
+      okText="Delete User"
+      onCancel={() => reset()}
+      title={<span css={tw`font-semibold`}>Delete user</span>}
+      visible={actionType === CRUDActionType.Delete}
+    >
+      {({ submitRef }) => (
+        <Form<EmptyJsonSchemaType>
+          model={{}}
+          onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
+          schema={emptyJsonSchema}
+          submitRef={submitRef}
+        >
+          <h4>Are you sure you want to delete Users {userNames}?</h4>
+        </Form>
+      )}
+    </FormModal>
   )
 }

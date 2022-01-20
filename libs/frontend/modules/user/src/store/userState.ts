@@ -1,9 +1,11 @@
 import {
-  ActionType,
-  createCrudSlice,
+  CRUDActionType,
   CRUDModalState,
-  initialCrudState,
   OpenDeleteModalActionPayload,
+} from '@codelab/frontend/abstract/core'
+import {
+  createCrudSlice,
+  initialCrudState,
 } from '@codelab/frontend/view/components'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { DefaultRootState } from 'react-redux'
@@ -33,7 +35,7 @@ export const userSlice = createCrudSlice('user', initialState, {
     ...state,
     entity: payload.entity,
     deleteIds: payload.deleteIds,
-    actionType: ActionType.Delete,
+    actionType: CRUDActionType.Delete,
     deleteMetadata: { userNames: payload.userNames },
   }),
   resetModal: (s) => ({

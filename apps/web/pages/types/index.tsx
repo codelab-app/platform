@@ -1,5 +1,8 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import {
+  CodelabPage,
+  DashboardTemplateProps,
+} from '@codelab/frontend/abstract/props'
 import {
   CreateTypeButton,
   CreateTypeModal,
@@ -12,7 +15,6 @@ import {
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
-  DashboardTemplateProps,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader } from 'antd'
@@ -38,8 +40,6 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = () => {
   )
 }
 
-export const getServerSideProps = withPageAuthRequired()
-
 const Header = () => {
   const { selectedIds } = useTypeState()
 
@@ -53,18 +53,22 @@ const Header = () => {
 
   return (
     <PageHeader
-      ghost={false}
-      // onBack={() => router.back()}
-      title="Types"
       extra={headerButtons}
+      // onBack={() => router.back()}
+      ghost={false}
+      title="Types"
     />
   )
 }
 
-TypesPage.Template = DashboardTemplate
-TypesPage.templateProps = {
-  SidebarNavigation,
-  Header,
-}
-
 export default TypesPage
+
+export const getServerSideProps = withPageAuthRequired()
+
+TypesPage.Layout = (page) => {
+  return (
+    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+      {page.children}
+    </DashboardTemplate>
+  )
+}

@@ -1,5 +1,0 @@
-mutation DeleteLibrary($libraryId: uuid!) {
-  delete_library_by_pk(id: $libraryId) {
-    id
-  }
-}

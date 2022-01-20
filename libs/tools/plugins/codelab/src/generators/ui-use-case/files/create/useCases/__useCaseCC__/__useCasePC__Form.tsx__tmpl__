@@ -2,19 +2,19 @@ import {
   <%= inputType %>,
   refetchGet<%= modelPC %>sQuery,
   use<%= useCasePC %>Mutation,
-} from '@codelab/frontend/abstract/codegen'
+} from '@codelab/shared/abstract/codegen'
 import {
   createNotificationHandler,
   EntityType,
   FormUniforms,
-  UniFormUseCaseProps,
+  UseCaseFormProps,
   useCrudModalMutationForm,
 } from '@codelab/frontend/utils'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { <%= useCaseCC %>Schema } from './<%= useCaseCC %>Schema'
 
-export const <%= useCasePC %>Form = (props: UniFormUseCaseProps<<%= inputType %>>) => {
+export const <%= useCasePC %>Form = (props: UseCaseFormProps<<%= inputType %>>) => {
   const {
     crudModal: { reset, state: { metadata } },
     handleSubmit,

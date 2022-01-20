@@ -130,10 +130,10 @@ export const D3Graph = ({
 
   return (
     <svg
-      style={{ border: '1px solid black' }}
-      width={width ?? '100%'}
       height={height}
       ref={d3Container}
+      style={{ border: '1px solid black' }}
+      width={width ?? '100%'}
     >
       <g className="nodes" />
       <g className="links" />

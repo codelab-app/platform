@@ -113,5 +113,5 @@ export const CyGraph = (props: ICyGraphProps) => {
     cy.on('cdnddrop', onNodeDrop)
   }, [cyContainer, nodes, edges, endpoint])
 
-  return <div style={divStyle} ref={cyContainer} />
+  return <div ref={cyContainer} style={divStyle} />
 }

@@ -1,5 +1,5 @@
 import { ImportUpload } from '@codelab/frontend/view/components'
-import { useImportTagsMutation } from '../../store/tagEndpoints'
+import { useImportTagsMutation } from '../../store'
 
 export const ImportTagsUpload = () => {
   const [importAtoms] = useImportTagsMutation()

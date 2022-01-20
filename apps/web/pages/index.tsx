@@ -7,7 +7,6 @@ import {
   HomeConcept,
   HomeFeatures,
   HomeTemplate,
-  HomeTemplateProps,
 } from '../src/home'
 
 /**
@@ -18,7 +17,7 @@ const DynamicHomeJumbo = dynamic<any>(
   { ssr: false },
 )
 
-const HomePage: CodelabPage<HomeTemplateProps> = () => {
+const HomePage: CodelabPage<any> = () => {
   return (
     <>
       <Head>
@@ -32,6 +31,6 @@ const HomePage: CodelabPage<HomeTemplateProps> = () => {
   )
 }
 
-HomePage.Template = HomeTemplate
+HomePage.Layout = HomeTemplate
 
 export default HomePage

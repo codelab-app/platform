@@ -1,10 +1,10 @@
-import * as Types from '@codelab/frontend/abstract/codegen'
+import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TestLambdaPayloadFragment } from '../../../domain/lambda-payload.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TestLambdaPayloadFragmentDoc } from '../../../domain/lambda-payload.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
-const defaultOptions = {}
+const defaultOptions = {} as const
 export type TestExecuteLambdaMutationVariables = Types.Exact<{
   input: Types.ExecuteLambdaInput
 }>

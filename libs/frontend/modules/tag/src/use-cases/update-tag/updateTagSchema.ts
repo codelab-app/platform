@@ -1,7 +1,10 @@
+import {
+  CreateTagInput,
+  UpdateTagInput,
+} from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-import { UpdateTagMutationInput } from './types'
 
-export const updateTagSchema: JSONSchemaType<UpdateTagMutationInput> = {
+export const updateTagSchema: JSONSchemaType<CreateTagInput> = {
   title: 'Update Tag Input',
   type: 'object',
   properties: {
@@ -9,6 +12,10 @@ export const updateTagSchema: JSONSchemaType<UpdateTagMutationInput> = {
       type: 'string',
       autoFocus: true,
     },
+    parentTagId: {
+      type: 'string',
+      nullable: true,
+    },
   },
   required: ['name'],
-}
+} as const

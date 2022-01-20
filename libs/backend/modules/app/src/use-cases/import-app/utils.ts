@@ -5,7 +5,7 @@ import {
   IExportApp,
   IUser,
 } from '@codelab/shared/abstract/core'
-import { Entity, MaybeOrNullable } from '@codelab/shared/abstract/types'
+import { EntityLike, Nullish } from '@codelab/shared/abstract/types'
 import { flatMap } from 'lodash'
 
 export interface PayloadAndExistingPair {
@@ -111,5 +111,5 @@ export const createMapByFixedId = (elements: Array<IElement>) =>
   )
 
 export const collectEntityIds = (
-  entities: MaybeOrNullable<Array<MaybeOrNullable<Entity>>>,
-) => entities?.filter((e): e is Entity => !!e?.id).map((e) => e.id) ?? []
+  entities: Nullish<Array<Nullish<EntityLike>>>,
+) => entities?.filter((e): e is EntityLike => !!e?.id).map((e) => e.id) ?? []

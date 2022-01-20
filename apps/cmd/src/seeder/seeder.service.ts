@@ -11,7 +11,7 @@ import {
   IUser,
   Role,
 } from '@codelab/shared/abstract/core'
-import { Entity } from '@codelab/shared/abstract/types'
+import { EntityLike } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
 import { Command, Console } from 'nestjs-console'
 import { envOption } from '../env-helper'
@@ -20,7 +20,7 @@ import { csvNameToAtomTypeMap } from './data/csvNameToAtomTypeMap'
 import { AtomSeeder, HookSeeder, TypeSeeder } from './models'
 import { iterateCsvs } from './utils/iterateCsvs'
 
-interface AtomSeed extends Entity {
+interface AtomSeed extends EntityLike {
   atomType: AtomType
 }
 

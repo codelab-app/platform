@@ -5,7 +5,7 @@ import { pageSlice, SetCurrentPageAction } from '../store'
 export const usePageDispatch = () => {
   const dispatch = useDispatch()
   const { actions } = pageSlice
-  const curdDispatch = crudModalDispatchFactory(pageSlice.actions)()
+  const crudDispatch = crudModalDispatchFactory(pageSlice.actions)()
 
   const setCurrentPage = (payload: SetCurrentPageAction) => {
     dispatch(actions.setCurrentPage(payload))
@@ -13,6 +13,6 @@ export const usePageDispatch = () => {
 
   return {
     setCurrentPage,
-    ...curdDispatch,
+    ...crudDispatch,
   }
 }

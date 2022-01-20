@@ -1,6 +1,9 @@
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { useCallback } from 'react'
+import { TypeFragment } from '../../../graphql/Type.fragment.graphql.gen'
 import { useTypeDispatch, useTypeState } from '../../../hooks'
 import { typenameToTypeKind } from '../../../shared'
 import { TypeModels } from '../../../shared/TypeModels'
@@ -9,11 +12,15 @@ import {
   useUpdatePrimitiveTypeMutation,
   useUpdateTypeMutation,
   useUpdateUnionTypeMutation,
-} from '../../../store/typeEndpoints'
+} from '../../../store'
 import { UpdateTypeSchema } from './updateTypeSchema'
 
-export const useUpdateTypeForm = () => {
-  const { entity, updateId } = useTypeState()
+export const useUpdateTypeForm: UseEntityUseCaseForm<
+  UpdateTypeSchema,
+  CRUDActionType,
+  TypeFragment
+> = () => {
+  const { entity, updateId, actionType } = useTypeState()
   const { resetModal } = useTypeDispatch()
   const [mutateUnion, unionMutationData] = useUpdateUnionTypeMutation()
   const [mutateEnum, enumMutationData] = useUpdateEnumTypeMutation()
@@ -127,14 +134,17 @@ export const useUpdateTypeForm = () => {
   }
 
   return {
-    formProps: {
-      model: model,
-      onSubmit: handleSubmit,
-      onSubmitError: createNotificationHandler({
+    model: model,
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
         title: 'Error while updating type',
       }),
-      onSubmitSuccess: () => resetModal(),
-    },
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    reset: resetModal,
     isLoading,
+    actionType,
+    entity,
   }
 }

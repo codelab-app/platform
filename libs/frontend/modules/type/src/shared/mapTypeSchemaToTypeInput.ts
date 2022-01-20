@@ -1,10 +1,9 @@
-import { MonacoLanguage } from '@codelab/frontend/abstract/codegen'
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import {
   ElementTypeKind,
   IEnumTypeValue,
   PrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'
-import { PrimitiveKind } from '@codelab/shared/codegen/graphql'
 import { TypeSelect } from './TypeSelect'
 
 export interface BaseTypeMutationSchema {
@@ -35,7 +34,7 @@ export const baseTypeMutationSchemaProperties = {
   primitiveKind: {
     type: 'string',
     nullable: true,
-    enum: Object.values(PrimitiveKind),
+    enum: Object.values(PrimitiveTypeKind),
   },
   elementKind: {
     type: 'string',
