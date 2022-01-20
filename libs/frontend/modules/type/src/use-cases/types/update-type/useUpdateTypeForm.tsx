@@ -1,12 +1,7 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import {
-  UseEntityUseCaseForm,
-  UseUseCaseForm,
-} from '@codelab/frontend/abstract/props'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { CreateTypeInput } from '@codelab/shared/abstract/codegen'
 import { TypeKind } from '@codelab/shared/abstract/core'
-import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { TypeFragment } from '../../../graphql/Type.fragment.graphql.gen'
 import { useTypeDispatch, useTypeState } from '../../../hooks'
@@ -18,7 +13,6 @@ import {
   useUpdateTypeMutation,
   useUpdateUnionTypeMutation,
 } from '../../../store'
-import { CreateTypeSchema } from '../create-type'
 import { UpdateTypeSchema } from './updateTypeSchema'
 
 export const useUpdateTypeForm: UseEntityUseCaseForm<
@@ -31,8 +25,6 @@ export const useUpdateTypeForm: UseEntityUseCaseForm<
   const [mutateUnion, unionMutationData] = useUpdateUnionTypeMutation()
   const [mutateEnum, enumMutationData] = useUpdateEnumTypeMutation()
   const [mutateType, typeMutationData] = useUpdateTypeMutation()
-
-  assertIsDefined(entity)
 
   const [mutatePrimitive, primitiveMutationData] =
     useUpdatePrimitiveTypeMutation()

@@ -3,7 +3,6 @@ import { Form, FormModal } from '@codelab/frontend/view/components'
 import { DeleteAtomInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useAtomState } from '../../hooks'
 import { deleteAtomSchema } from './deleteAtomSchema'
 import { useDeleteAtomForm } from './useDeleteAtomForm'
 
@@ -36,7 +35,7 @@ export const DeleteAtomsModal = () => {
           schema={deleteAtomSchema}
           submitRef={submitRef}
         >
-          <h4>Are you sure you want to delete atom "{entity.name}"?</h4>
+          <h4>Are you sure you want to delete atom "{entity?.name}"?</h4>
           <AutoFields omitFields={['atomId']} />
         </Form>
       )}

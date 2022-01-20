@@ -3,7 +3,6 @@ import { Form, FormModal } from '@codelab/frontend/view/components'
 import { DeleteAppInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useAppState } from '../../hooks'
 import { deleteAppSchema } from './deleteAppSchema'
 import { useDeleteAppForm } from './useDeleteAppForm'
 
@@ -26,19 +25,21 @@ export const DeleteAppModal = () => {
       onCancel={reset}
       visible={actionType === CRUDActionType.Delete}
     >
-      {({ submitRef }) => (
-        <Form<DeleteAppInput>
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
-          schema={deleteAppSchema}
-          submitRef={submitRef}
-        >
-          <h4>Are you sure you want to delete app "{entity}"?</h4>
-          <AutoFields omitFields={['appId']} />
-        </Form>
-      )}
+      {({ submitRef }) => {
+        return (
+          <Form<DeleteAppInput>
+            model={model}
+            onSubmit={onSubmit}
+            onSubmitError={onSubmitError}
+            onSubmitSuccess={onSubmitSuccess}
+            schema={deleteAppSchema}
+            submitRef={submitRef}
+          >
+            <h4>Are you sure you want to delete app "{entity?.name}"?</h4>
+            <AutoFields omitFields={['appId']} />
+          </Form>
+        )
+      }}
     </FormModal>
   )
 }

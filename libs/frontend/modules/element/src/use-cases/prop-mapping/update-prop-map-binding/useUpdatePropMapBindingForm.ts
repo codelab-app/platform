@@ -23,7 +23,6 @@ export const useUpdatePropMapBindingForm: UseUseCaseForm<
   const { updateId, entity } = useSelector(selectPropMapBinding)
   const { actionType } = usePropMapBindingState()
 
-  assertIsDefined(entity)
   assertIsDefined(elementId)
 
   const [mutate, { isLoading }] = useUpdatePropMapBindingMutation({
@@ -65,7 +64,7 @@ export const useUpdatePropMapBindingForm: UseUseCaseForm<
       }),
     ],
     onSubmitSuccess: [() => resetModal()],
-    model: entity,
+    model: { ...entity },
     isLoading,
     reset: resetModal,
     actionType,

@@ -35,7 +35,7 @@ type FormHookState<TData, TAction extends CombinedActionType> = {
 }
 
 type Entity<TEntity> = {
-  entity: TEntity
+  entity: Maybe<TEntity>
 }
 
 /**

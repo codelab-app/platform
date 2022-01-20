@@ -1,14 +1,7 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import {
-  UseEntityUseCaseForm,
-  UseUseCaseForm,
-} from '@codelab/frontend/abstract/props'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  CreateTagInput,
-  UpdateTagInput,
-} from '@codelab/shared/abstract/codegen'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { CreateTagInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { TagFragment } from '../../graphql/Tag.fragment.graphql.gen'
 import { useTagDispatch, useTagState } from '../../hooks'
@@ -21,8 +14,6 @@ export const useUpdateTagForm: UseEntityUseCaseForm<
 > = () => {
   const { resetModal } = useTagDispatch()
   const { updateId, entity, actionType } = useTagState()
-
-  assertIsDefined(entity)
 
   const [mutate, { isLoading }] = useUpdateTagMutation({
     selectFromResult: (r) => ({

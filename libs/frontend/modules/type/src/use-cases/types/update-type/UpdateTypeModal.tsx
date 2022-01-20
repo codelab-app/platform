@@ -4,9 +4,7 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useTypeDispatch, useTypeState } from '../../../hooks'
 import { typenameToTypeKind } from '../../../shared'
-import { createNonUnionTypeOptionsForTypeSelect } from '../../../shared/createNonUnionTypeOptionsForTypeSelect'
 import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
 import { useUpdateTypeForm } from './useUpdateTypeForm'
 
@@ -22,7 +20,7 @@ export const UpdateTypeModal = () => {
     actionType,
   } = useUpdateTypeForm()
 
-  const kind = typenameToTypeKind(entity.__typename)
+  const kind = typenameToTypeKind(entity?.__typename ?? '')
 
   return (
     <FormModal

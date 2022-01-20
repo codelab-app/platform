@@ -1,12 +1,7 @@
 import { AppActionType } from '@codelab/frontend/abstract/core'
-import {
-  UseEntityUseCaseForm,
-  UseUseCaseForm,
-} from '@codelab/frontend/abstract/props'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeleteAppInput } from '@codelab/shared/abstract/codegen'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
 import { useAppDispatch, useAppState } from '../../hooks'
@@ -17,10 +12,8 @@ export const useDeleteAppForm: UseEntityUseCaseForm<
   AppActionType,
   AppFragment
 > = () => {
-  const { deleteIds, entity, actionType } = useAppState()
   const { resetModal } = useAppDispatch()
-
-  assertIsDefined<Maybe<AppFragment>>(entity)
+  const { deleteIds, entity, actionType } = useAppState()
 
   const [mutate, { isLoading }] = useDeleteAppMutation({
     selectFromResult: (r) => ({

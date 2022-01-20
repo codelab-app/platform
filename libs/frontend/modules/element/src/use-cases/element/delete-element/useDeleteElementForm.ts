@@ -2,7 +2,6 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeleteElementInput } from '@codelab/shared/abstract/codegen'
-import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { ElementFragment } from '../../../graphql'
 import { useElementDispatch, useElementState } from '../../../hooks'
@@ -15,8 +14,6 @@ export const useDeleteElementForm: UseEntityUseCaseForm<
 > = () => {
   const { resetModal } = useElementDispatch()
   const { deleteIds, entity, actionType } = useElementState()
-
-  assertIsDefined(entity)
 
   const [mutate, { isLoading }] = useDeleteElementMutation({
     selectFromResult: (r) => ({

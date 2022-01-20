@@ -1,11 +1,7 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import {
-  UseEntityUseCaseForm,
-  UseUseCaseForm,
-} from '@codelab/frontend/abstract/props'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
-import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { HookFragment } from '../../../graphql'
 import { useHookDispatch, useHookState } from '../../../hooks'
@@ -19,9 +15,6 @@ export const useRemoveHookFromElementForm: UseEntityUseCaseForm<
 > = (elementId) => {
   const { deleteIds, entity, actionType } = useHookState()
   const { resetModal } = useHookDispatch()
-
-  assertIsDefined(entity)
-  assertIsDefined(elementId)
 
   const [mutate, { isLoading }] = useRemoveHookFromElementMutation({
     selectFromResult: (r) => ({

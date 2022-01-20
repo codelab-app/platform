@@ -1,9 +1,7 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { CRUDActions } from '@codelab/frontend/view/components'
 import { DeleteLambdaInput } from '@codelab/shared/abstract/codegen'
-import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { LambdaFragment } from '../../graphql/Lambda.fragment.graphql.gen'
 import { useLambdaDispatch, useLambdaState } from '../../hooks'
@@ -16,8 +14,6 @@ export const useDeleteLambdaForm: UseEntityUseCaseForm<
 > = () => {
   const { deleteIds, entity, actionType } = useLambdaState()
   const { resetModal } = useLambdaDispatch()
-
-  assertIsDefined(entity)
 
   const [mutate, { isLoading }] = useDeleteLambdaMutation({
     selectFromResult: (r) => ({

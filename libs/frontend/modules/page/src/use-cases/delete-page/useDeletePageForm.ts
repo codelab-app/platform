@@ -2,7 +2,6 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeletePageInput } from '@codelab/shared/abstract/codegen'
-import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { PageBaseFragment } from '../../graphql/PageBase.fragment.graphql.gen'
 import { usePageDispatch, usePageState } from '../../hooks'
@@ -15,8 +14,6 @@ export const useDeletePageForm: UseEntityUseCaseForm<
 > = () => {
   const { deleteIds, entity, actionType } = usePageState()
   const { resetModal } = usePageDispatch()
-
-  assertIsDefined(entity)
 
   const [mutate, { isLoading }] = useDeletePageMutation({
     selectFromResult: (r) => ({

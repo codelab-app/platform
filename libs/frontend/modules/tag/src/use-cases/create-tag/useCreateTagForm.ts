@@ -2,7 +2,6 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CreateTagInput } from '@codelab/shared/abstract/codegen'
-import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { useTagDispatch, useTagState } from '../../hooks'
 import { useCreateTagMutation } from '../../store'
@@ -14,8 +13,6 @@ export const useCreateTagForm: UseUseCaseForm<
 > = (parentTagId) => {
   const { resetModal } = useTagDispatch()
   const { actionType } = useTagState()
-
-  assertIsDefined(parentTagId)
 
   const [mutate, { isLoading }] = useCreateTagMutation({
     selectFromResult: (r) => ({

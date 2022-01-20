@@ -1,14 +1,7 @@
 import { AppActionType } from '@codelab/frontend/abstract/core'
-import {
-  UseEntityUseCaseForm,
-  UseUseCaseForm,
-} from '@codelab/frontend/abstract/props'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  CreateAppInput,
-  UpdateAppInput,
-} from '@codelab/shared/abstract/codegen'
-import { assertIsDefined } from '@codelab/shared/utils'
+import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
 import { useAppDispatch, useAppState } from '../../hooks'
@@ -21,8 +14,6 @@ export const useUpdateAppForm: UseEntityUseCaseForm<
 > = () => {
   const { updateId, entity, actionType } = useAppState()
   const { resetModal } = useAppDispatch()
-
-  assertIsDefined(entity)
 
   const [mutate, { isLoading }] = useUpdateAppMutation({
     selectFromResult: (r) => ({

@@ -24,7 +24,6 @@ export const GetAppsList = () => {
           <CreateAppButton text="Create Now" />
         </Empty>
       </ConditionalView>
-
       <Row gutter={[padding.sm, padding.sm]}>
         {appList?.map((app) => (
           // eslint-disable-next-line react/jsx-props-no-spreading

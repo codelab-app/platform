@@ -1,11 +1,7 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import {
-  UseEntityUseCaseForm,
-  UseUseCaseForm,
-} from '@codelab/frontend/abstract/props'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { PropMapBindingFragment } from '../../../graphql'
@@ -24,7 +20,6 @@ export const useDeletePropMapBindingForm: UseEntityUseCaseForm<
   const { deleteIds, entity, actionType } = usePropMapBindingState()
   const { resetModal } = usePropMapBindingDispatch()
 
-  assertIsDefined(entity)
   assertIsDefined(elementId)
 
   const [mutate, { isLoading }] = useDeletePropMapBindingMutation({

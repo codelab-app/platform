@@ -1,11 +1,7 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import {
-  UseEntityUseCaseForm,
-  UseUseCaseForm,
-} from '@codelab/frontend/abstract/props'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
-import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { TypeFragment } from '../../../graphql/Type.fragment.graphql.gen'
 import { useTypeDispatch, useTypeState } from '../../../hooks'
@@ -19,8 +15,6 @@ export const useDeleteTypeForm: UseEntityUseCaseForm<
   const { resetModal } = useTypeDispatch()
   const { deleteIds, entity, actionType } = useTypeState()
   const typeId = deleteIds?.[0]
-
-  assertIsDefined(entity)
 
   const [mutate, { isLoading }] = useDeleteTypeMutation({
     selectFromResult: (r) => ({
@@ -41,7 +35,7 @@ export const useDeleteTypeForm: UseEntityUseCaseForm<
         title: 'Error while deleting type',
       }),
     ],
-    model: entity,
+    model: { ...entity },
     actionType,
     onSubmitSuccess: [() => resetModal()],
     isLoading,
