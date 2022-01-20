@@ -3,7 +3,8 @@ import { Form, FormModal } from '@codelab/frontend/view/components'
 import { DeleteTagsInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import tw from 'twin.macro'
-import { AutoFields } from 'uniforms-antd'
+import { AutoFields, ListField } from 'uniforms-antd'
+import { useGetTagsQuery } from '../../store'
 import { deleteTagsSchema } from './deleteTagsSchema'
 import { useDeleteTagForm } from './useDeleteTagsForm'
 
@@ -18,6 +19,14 @@ export const DeleteTagsModal = () => {
     isLoading,
     model,
   } = useDeleteTagForm()
+
+  const { data } = useGetTagsQuery()
+  const deleteIds = model?.ids
+
+  const deleteTags = data?.getTags
+    .filter((tag) => deleteIds?.includes(tag.id))
+    .map((tag) => tag.name)
+    .sort()
 
   return (
     <FormModal
@@ -38,7 +47,9 @@ export const DeleteTagsModal = () => {
           schema={deleteTagsSchema}
           submitRef={submitRef}
         >
-          <AutoFields />
+          Are you sure you want to delete {deleteTags?.join(', ')}?
+          <AutoFields omitFields={['ids']} />
+          <ListField hidden={true} itemProps={{}} name="ids" />
         </Form>
       )}
     </FormModal>
