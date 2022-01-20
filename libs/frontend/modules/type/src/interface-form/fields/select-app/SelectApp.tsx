@@ -18,11 +18,11 @@ export const SelectApp = ({ name }: SelectAppProps) => {
 
   return (
     <SelectField
-      options={appOptions}
-      name={name}
       loading={isLoading}
-      showSearch={true}
+      name={name}
       optionFilterProp="label"
+      options={appOptions}
+      showSearch={true}
     />
   )
 }

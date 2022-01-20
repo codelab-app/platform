@@ -5,6 +5,7 @@ import {
   useTypeTree,
 } from '@codelab/frontend/modules/type'
 import { ElementTree } from '@codelab/shared/core'
+import { useRef } from 'react'
 import tw from 'twin.macro'
 import { DemoFormAtomData } from './DemoFormFieldTypes'
 import { mapperPageElements } from './Mapper.data'
@@ -12,15 +13,18 @@ import { mapperPageElements } from './Mapper.data'
 const DemoFormRender = () => {
   const elementTree = new ElementTree(mapperPageElements)
   const typeTree = useTypeTree(DemoFormAtomData.typeGraph as TypeGraphFragment)
+  const initialPropsRef = useRef(null)
 
   return (
     <div css={tw`p-10`}>
       <SelectElementProvider tree={elementTree}>
         <InterfaceForm
           interfaceTree={typeTree}
+          model={initialPropsRef}
           onSubmit={(data: any) => {
             console.log(data)
           }}
+          submitRef={undefined}
         />
       </SelectElementProvider>
     </div>
