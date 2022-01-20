@@ -21,6 +21,5 @@
   "retries": {
     "runMode": 2,
     "openMode": 0
-  },
-  "userAgent": "Firefox/94.0"
+  }
 }

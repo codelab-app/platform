@@ -14,12 +14,14 @@
         "ci": {
           "cypressConfig": "apps/web-e2e/cypress.ci.json",
           "devServerTarget": "web-e2e:serve:ci",
+          "headless": true,
           "record": true,
           "browser": "firefox"
         },
         "test": {
           "cypressConfig": "apps/web-e2e/cypress.test.json",
           "devServerTarget": "web-e2e:serve:test",
+          "headless": true,
           "record": false
         },
         "dev": {
@@ -88,7 +90,7 @@
               "forwardAllArgs": false
             },
             {
-              "command": "nx run web:build:test && next start dist/apps/web-test --port 3001",
+              "command": "next start dist/apps/web-test --port 3001",
               "forwardAllArgs": false
             },
             {
