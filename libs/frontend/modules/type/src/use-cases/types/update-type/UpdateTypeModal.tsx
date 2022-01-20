@@ -20,8 +20,6 @@ export const UpdateTypeModal = () => {
     actionType,
   } = useUpdateTypeForm()
 
-  const kind = typenameToTypeKind(entity?.__typename ?? '')
-
   return (
     <FormModal
       className="update-type-modal"
@@ -33,25 +31,33 @@ export const UpdateTypeModal = () => {
       title={<span css={tw`font-semibold`}>Update type</span>}
       visible={actionType === CRUDActionType.Update}
     >
-      {({ submitRef }) => (
-        <Form<UpdateTypeSchema>
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
-          schema={updateTypeSchema}
-          submitRef={submitRef}
-        >
-          <AutoFields fields={['name']} />
-          {kind === TypeKind.UnionType && (
-            <AutoField name="typeIdsOfUnionType" />
-          )}
-          {kind === TypeKind.PrimitiveType && (
-            <AutoField name="primitiveKind" />
-          )}
-          {kind === TypeKind.EnumType && <AutoField name="allowedValues" />}
-        </Form>
-      )}
+      {({ submitRef }) => {
+        if (!entity) {
+          return <></>
+        }
+
+        const kind = typenameToTypeKind(entity?.__typename)
+
+        return (
+          <Form<UpdateTypeSchema>
+            model={model}
+            onSubmit={onSubmit}
+            onSubmitError={onSubmitError}
+            onSubmitSuccess={onSubmitSuccess}
+            schema={updateTypeSchema}
+            submitRef={submitRef}
+          >
+            <AutoFields fields={['name']} />
+            {kind === TypeKind.UnionType && (
+              <AutoField name="typeIdsOfUnionType" />
+            )}
+            {kind === TypeKind.PrimitiveType && (
+              <AutoField name="primitiveKind" />
+            )}
+            {kind === TypeKind.EnumType && <AutoField name="allowedValues" />}
+          </Form>
+        )
+      }}
     </FormModal>
   )
 }

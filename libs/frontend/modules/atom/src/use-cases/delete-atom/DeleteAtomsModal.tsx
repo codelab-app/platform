@@ -15,6 +15,7 @@ export const DeleteAtomsModal = () => {
     reset,
     isLoading,
     entity,
+    model,
   } = useDeleteAtomForm()
 
   return (
@@ -28,7 +29,7 @@ export const DeleteAtomsModal = () => {
     >
       {({ submitRef }) => (
         <Form<DeleteAtomInput>
-          model={{}}
+          model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={onSubmitSuccess}

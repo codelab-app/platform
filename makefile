@@ -51,10 +51,10 @@ lint-circular-dep:
 # E2E
 #
 e2e-dev-affected:
-	./scripts/nx.sh affected:e2e --configuration test
+	./scripts/nx.sh affected:e2e --configuration test --browser firefox
 
 e2e-ci-affected:
-	yarn affected:e2e --configuration ci --record
+	yarn affected:e2e --configuration ci --record --browser firefox
 
 #
 # INTEGRATION TESTS

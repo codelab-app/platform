@@ -3,7 +3,6 @@ import { Form, FormModal } from '@codelab/frontend/view/components'
 import { CreatePageInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { usePageState } from '../../hooks'
 import { createPageSchema } from './createPageSchema'
 import { useCreatePageForm } from './useCreatePageForm'
 
@@ -14,6 +13,7 @@ export const CreatePageModal = () => {
     actionType,
     onSubmitError,
     reset,
+    model,
     isLoading,
   } = useCreatePageForm()
 
@@ -26,7 +26,7 @@ export const CreatePageModal = () => {
     >
       {({ submitRef }) => (
         <Form<CreatePageInput>
-          model={{}}
+          model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={onSubmitSuccess}

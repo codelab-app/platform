@@ -3,7 +3,6 @@ import { Form, FormModal } from '@codelab/frontend/view/components'
 import { DeletePageInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { usePageState } from '../../hooks'
 import { deletePageSchema } from './deletePageSchema'
 import { useDeletePageForm } from './useDeletePageForm'
 
@@ -35,7 +34,7 @@ export const DeletePageModal = () => {
           schema={deletePageSchema}
           submitRef={submitRef}
         >
-          <h4>Are you sure you want to delete page "{entity}"?</h4>
+          <h4>Are you sure you want to delete page "{entity?.name}"?</h4>
           <AutoFields omitFields={['pageId']} />
         </Form>
       )}

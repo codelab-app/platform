@@ -29,7 +29,7 @@ export const UpdatePageModal = () => {
           schema={updatePageSchema}
           submitRef={submitRef}
         >
-          <AutoFields />
+          <AutoFields omitFields={['appId']} />
         </Form>
       )}
     </FormModal>

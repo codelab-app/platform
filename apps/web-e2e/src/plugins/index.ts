@@ -26,16 +26,16 @@ const pluginConfig: Cypress.PluginConfig = async (on, config) => {
   // }
 
   // https://mrjean.be/posts/cypress-samesite-cookie-issue-when-running-chromium-based-browsers/
-  on('before:browser:launch', (browser = {} as any, launchOptions) => {
-    if (browser.name === 'chrome' || browser.name === 'edge') {
-      // bypass 401 unauthorised access on chromium-based browsers
-      launchOptions.args.push('--disable-features=SameSiteByDefaultCookies')
-
-      return launchOptions
-    }
-
-    return
-  })
+  // on('before:browser:launch', (browser = {} as any, launchOptions) => {
+  //   if (browser.name === 'chrome' || browser.name === 'edge') {
+  //     // bypass 401 unauthorised access on chromium-based browsers
+  //     launchOptions.args.push('--disable-features=SameSiteByDefaultCookies')
+  //
+  //     return launchOptions
+  //   }
+  //
+  //   return
+  // })
 
   // on('file:preprocessor', webpackPreprocessor(options))
   on('task', { encrypt })

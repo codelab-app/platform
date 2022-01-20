@@ -69,8 +69,10 @@ export const getServerSideProps = withPageAuthRequired()
 
 InterfaceDetailPage.Layout = (page) => {
   return (
-    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
-      <InterfaceQueryProvider>{page.children}</InterfaceQueryProvider>
-    </DashboardTemplate>
+    <InterfaceQueryProvider>
+      <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+        {page.children}
+      </DashboardTemplate>
+    </InterfaceQueryProvider>
   )
 }

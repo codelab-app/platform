@@ -35,10 +35,12 @@ Cypress.on('uncaught:exception', (err) => {
  * Preserve cookies globally here
  * https://docs.cypress.io/api/cypress-api/cookies#Defaults
  */
-Cypress.Cookies.preserveOnce(
-  'appSession',
-  'appSession.0',
-  'appSession.1',
-  'appSession.2',
-  'appSession.3',
-)
+beforeEach(() => {
+  Cypress.Cookies.preserveOnce(
+    'appSession',
+    'appSession.0',
+    'appSession.1',
+    'appSession.2',
+    'appSession.3',
+  )
+})
