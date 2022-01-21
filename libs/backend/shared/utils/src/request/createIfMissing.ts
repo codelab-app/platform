@@ -7,6 +7,7 @@ export const createIfMissing = async <TOut>(
 ): Promise<TOut> => {
   try {
     const found = await get()
+    console.log({ found })
 
     if (!found) {
       return create()

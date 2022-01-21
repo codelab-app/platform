@@ -7,6 +7,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import {
   getSelectElementComponent,
+  SelectApp,
   SelectComponent,
   SelectLambda,
   SelectPage,
@@ -41,7 +42,7 @@ export const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (
     case TypeKind.AppType:
       return {
         uniforms: {
-          component: () => null,
+          component: SelectApp,
         },
       }
 
