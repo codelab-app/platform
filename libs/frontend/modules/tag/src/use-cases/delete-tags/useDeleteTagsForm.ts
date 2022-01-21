@@ -36,10 +36,12 @@ export const useDeleteTagForm: UseEntityUseCaseForm<
         title: 'Error while deleting tags',
       }),
     ],
-    onSubmitSuccess: () => {
-      resetModal()
-      resetSelection({ keys: selectedTag ? [selectedTag] : [] })
-    },
+    onSubmitSuccess: [
+      () => {
+        resetModal()
+        resetSelection({ keys: selectedTag ? [selectedTag] : [] })
+      },
+    ],
     model: { ids: deleteIds },
     entity,
     isLoading,
