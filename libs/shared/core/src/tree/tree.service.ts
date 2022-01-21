@@ -11,6 +11,9 @@ import { getCyElementData } from '../cytoscape/element'
 import { edgeId } from '../graph/edgeId'
 import { filterPredicate, InstancePredicate, Predicate } from './treePredicate'
 
+interface TreeDataNode extends DataNode {
+  isRoot?: boolean | undefined
+}
 /**
  * Builds up a Tree from a flattened and normalized representation ({@link IGraph})
  * and provides node-traversal methods for it
@@ -159,7 +162,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
           return
         }
 
-        if (node.isRoot) {
+        if ((node as TreeDataNode).isRoot === true) {
           tree.push(node)
         }
 
