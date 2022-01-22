@@ -57,7 +57,7 @@ export const MainPaneBuilderTreeTab = ({
       }}
       selectedKeys={selectedElement ? [selectedElement.id] : []}
       titleRender={(node) => <TreeItemTitle node={node} tree={elementTree} />}
-      treeData={antdTree ? [antdTree] : undefined}
+      treeData={antdTree ? antdTree : undefined}
     />
   )
 }

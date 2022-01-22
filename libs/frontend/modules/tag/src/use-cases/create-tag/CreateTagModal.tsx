@@ -35,7 +35,7 @@ export const CreateTagModal = () => {
       okButtonProps={{ loading: isLoading }}
       okText="Create Tag"
       onCancel={() => reset()}
-      title={<span css={tw`font-semibold`}>Add hook to element</span>}
+      title={<span css={tw`font-semibold`}>Create tag</span>}
       visible={actionType === CRUDActionType.Create}
     >
       {({ submitRef }) => (
