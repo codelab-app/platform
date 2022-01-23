@@ -7,7 +7,6 @@ import {
   LoggerTokens,
 } from '@codelab/backend/infra'
 import { Role } from '@codelab/shared/abstract/core'
-import { Optional } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { TypeValidator } from '../../../domain/type.validator'
@@ -49,7 +48,7 @@ export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
     {
       input,
       currentUser,
-    }: Omit<CreateTypeRequest, 'input'> & { input: Optional<CreateTypeInput> },
+    }: Omit<CreateTypeRequest, 'input'> & { input: Partial<CreateTypeInput> },
     blankNodeUid: string,
   ) {
     const {

@@ -1,4 +1,4 @@
-import { Props } from '@codelab/frontend/abstract/props'
+import { Props } from '@codelab/frontend/abstract/types'
 import { IElement } from '@codelab/shared/abstract/core'
 import { RenderContext } from '../types'
 import { EndPipeOutput } from './types'

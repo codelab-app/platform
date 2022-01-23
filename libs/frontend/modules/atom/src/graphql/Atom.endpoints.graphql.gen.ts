@@ -8,7 +8,10 @@ import {
   AtomFragmentDoc,
 } from './Atom.fragment.graphql.gen'
 import { Export__AtomsFragmentDoc } from './AtomExport.fragment.graphql.gen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+import {
+  api,
+  GraphqlOperationOptions,
+} from '@codelab/frontend/model/infra/redux'
 export type CreateAtomMutationVariables = Types.Exact<{
   input: Types.CreateAtomInput
 }>

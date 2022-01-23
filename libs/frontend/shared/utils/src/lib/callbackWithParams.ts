@@ -1,4 +1,4 @@
-import { Callback } from '@codelab/frontend/abstract/props'
+import { Callback } from '@codelab/frontend/abstract/types'
 import { Maybe, MaybeArray } from '@codelab/shared/abstract/types'
 import { isFunction } from 'lodash'
 

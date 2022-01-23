@@ -4,10 +4,10 @@ import {
   invalidatesById,
   providesAll,
   providesById,
-} from '@codelab/frontend/model/infra/api'
+} from '@codelab/frontend/model/infra/redux'
 import { api as generatedApi } from '../graphql/App.endpoints.graphql.gen'
 
-export const api = generatedApi.enhanceEndpoints({
+generatedApi.enhanceEndpoints({
   endpoints: {
     GetApps: {
       providesTags: (result) => providesAll(result?.apps, APP_CACHE_TAG),
@@ -34,7 +34,9 @@ export const api = generatedApi.enhanceEndpoints({
     },
   },
 })
+
 export { generatedApi as appEndpoints }
+
 export const {
   useGetAppsQuery,
   useLazyGetAppsQuery,

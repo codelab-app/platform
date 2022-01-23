@@ -1,5 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import { DeleteButtonProps } from '@codelab/frontend/abstract/props'
+import { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import React from 'react'
 import { useAtomDispatch } from '../../hooks'

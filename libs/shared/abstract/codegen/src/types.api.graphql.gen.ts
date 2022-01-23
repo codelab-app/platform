@@ -704,6 +704,10 @@ export type EnumTypeValue = {
   value: Scalars['String']
 }
 
+export type ExecuteCommandInput = {
+  command: Scalars['String']
+}
+
 export type ExecuteLambdaInput = {
   lambdaId: Scalars['String']
   payload?: InputMaybe<Scalars['String']>
@@ -932,6 +936,7 @@ export type Mutation = {
   deleteType?: Maybe<Type>
   deleteUser: Scalars['Boolean']
   duplicateElement: Element
+  executeCommand: Scalars['Void']
   executeLambda?: Maybe<LambdaPayload>
   importApp: App
   importAtoms?: Maybe<Scalars['Void']>
@@ -1049,6 +1054,10 @@ export type MutationDeleteUserArgs = {
 
 export type MutationDuplicateElementArgs = {
   input: DuplicateElementInput
+}
+
+export type MutationExecuteCommandArgs = {
+  input: ExecuteCommandInput
 }
 
 export type MutationExecuteLambdaArgs = {

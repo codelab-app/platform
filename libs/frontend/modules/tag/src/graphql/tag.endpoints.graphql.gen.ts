@@ -5,7 +5,10 @@ import { TagGraphFragment } from './TagGraph.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { TagFragmentDoc } from './Tag.fragment.graphql.gen'
 import { TagGraphFragmentDoc } from './TagGraph.fragment.graphql.gen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+import {
+  api,
+  GraphqlOperationOptions,
+} from '@codelab/frontend/model/infra/redux'
 export type CreateTagMutationVariables = Types.Exact<{
   input: Types.CreateTagInput
 }>

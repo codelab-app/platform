@@ -1,4 +1,4 @@
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import React from 'react'

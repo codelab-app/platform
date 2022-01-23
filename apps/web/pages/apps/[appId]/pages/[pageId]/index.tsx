@@ -2,7 +2,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   CodelabPage,
   DashboardTemplateProps,
-} from '@codelab/frontend/abstract/props'
+} from '@codelab/frontend/abstract/types'
 import { AppProvider } from '@codelab/frontend/modules/app'
 import { Renderer } from '@codelab/frontend/modules/builder'
 import { useElementGraphContext } from '@codelab/frontend/modules/element'

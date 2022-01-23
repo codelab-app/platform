@@ -1,8 +1,15 @@
 import { Module } from '@nestjs/common'
 import { AdminResolver } from './application/admin.resolver'
+import { ExecuteCommandService } from './use-cases/execute-command'
 import { ResetDataService } from './use-cases/reset-data'
 
-const services = [ResetDataService]
+const services = [
+  /**
+   * Use Cases
+   */
+  ResetDataService,
+  ExecuteCommandService,
+]
 
 @Module({
   providers: [AdminResolver, ...services],

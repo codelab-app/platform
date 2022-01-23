@@ -3,7 +3,10 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { PropMapBindingFragment } from './Element.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { PropMapBindingFragmentDoc } from './Element.fragment.graphql.gen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+import {
+  api,
+  GraphqlOperationOptions,
+} from '@codelab/frontend/model/infra/redux'
 export type CreatePropMapBindingMutationVariables = Types.Exact<{
   input: Types.CreatePropMapBindingInput
 }>

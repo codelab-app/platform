@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { ButtonProps } from '@codelab/frontend/abstract/props'
+import { ButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import React from 'react'
 import { useAppDispatch } from '../../hooks'

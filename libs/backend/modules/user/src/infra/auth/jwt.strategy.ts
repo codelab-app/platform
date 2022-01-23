@@ -24,6 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         jwksUri: new URL('.well-known/jwks.json', _auth0Config.issuer).href,
         handleSigningKeyError: (err) => console.error(err), // do it better in real app!
       }),
+      ignoreExpiration: false,
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       audience: _auth0Config?.audience,
       scope: 'openid email profile roles',

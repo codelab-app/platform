@@ -1,4 +1,4 @@
-import { Props } from '@codelab/frontend/abstract/props'
+import { Props } from '@codelab/frontend/abstract/types'
 import { PropsData } from '@codelab/shared/abstract/core'
 
 // Reduce the array of key value css props to a simple object

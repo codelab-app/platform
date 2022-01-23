@@ -1,5 +1,5 @@
 import { RightCircleOutlined } from '@ant-design/icons'
-import { PageType } from '@codelab/frontend/model/store/router'
+import { PageType } from '@codelab/frontend/abstract/types'
 import {
   ListItemDeleteButton,
   ListItemEditButton,

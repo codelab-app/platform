@@ -1,4 +1,4 @@
-import { FormProps } from '@codelab/frontend/abstract/props'
+import { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import { isObjectLike } from 'lodash'
 import React, { ReactElement, useEffect, useState } from 'react'

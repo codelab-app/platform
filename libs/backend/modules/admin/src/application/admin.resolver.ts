@@ -1,13 +1,33 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { Mutation, Resolver } from '@nestjs/graphql'
+import { GqlAuthGuard } from '@codelab/backend/infra'
+import { Roles } from '@codelab/backend/modules/user'
+import { Role } from '@codelab/shared/abstract/core'
+import { UseGuards } from '@nestjs/common'
+import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import {
+  ExecuteCommandInput,
+  ExecuteCommandService,
+} from '../use-cases/execute-command'
 import { ResetDataService } from '../use-cases/reset-data'
 
 @Resolver()
 export class AdminResolver {
-  constructor(private resetDataService: ResetDataService) {}
+  constructor(
+    private resetDataService: ResetDataService,
+    private executeCommandService: ExecuteCommandService,
+  ) {}
 
   @Mutation(() => Void, { nullable: true })
   async resetData() {
-    await this.resetDataService.execute()
+    return await this.resetDataService.execute()
+  }
+
+  @Mutation(() => Void)
+  @Roles(Role.Admin)
+  @UseGuards(GqlAuthGuard)
+  async executeCommand(@Args('input') input: ExecuteCommandInput) {
+    console.log(input)
+
+    return this.executeCommandService.execute(input)
   }
 }

@@ -1,7 +1,7 @@
 import {
   DeleteUseCaseFormWithRef,
   FormProps,
-} from '@codelab/frontend/abstract/props'
+} from '@codelab/frontend/abstract/types'
 import {
   emptyJsonSchema,
   EmptyJsonSchemaType,

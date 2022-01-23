@@ -4,7 +4,7 @@ import {
   RenderChildren,
   SubmitController,
   SubmitRef,
-} from '@codelab/frontend/abstract/props'
+} from '@codelab/frontend/abstract/types'
 import { useHookWithRefCallback } from '@codelab/frontend/shared/utils'
 import { Maybe } from '@codelab/shared/abstract/types'
 import Modal, { ModalProps } from 'antd/lib/modal'

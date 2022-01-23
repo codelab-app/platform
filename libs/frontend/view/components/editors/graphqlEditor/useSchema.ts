@@ -11,7 +11,7 @@ export type SchemaState = {
   errors: Nullable<Array<Error>>
 }
 
-export const initialState: SchemaState = {
+const initialState: SchemaState = {
   isLoading: false,
   schema: null,
   errors: null,

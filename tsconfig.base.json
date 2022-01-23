@@ -72,37 +72,18 @@
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
       ],
-      "@codelab/frontend/abstract/props": [
-        "libs/frontend/abstract/props/src/index.ts"
+      "@codelab/frontend/abstract/types": [
+        "libs/frontend/abstract/types/src/index.ts"
       ],
       "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
       "@codelab/frontend/model/domain": [
         "libs/frontend/model/domain/src/index.ts"
-      ],
-      "@codelab/frontend/model/infra/api": [
-        "libs/frontend/model/infra/api/src/index.ts"
       ],
       "@codelab/frontend/model/infra/apollo": [
         "libs/frontend/model/infra/apollo/src/index.ts"
       ],
       "@codelab/frontend/model/infra/redux": [
         "libs/frontend/model/infra/redux/src/index.ts"
-      ],
-      "@codelab/frontend/model/store": ["libs/frontend/model/store/index.ts"],
-      "@codelab/frontend/model/store/local": [
-        "libs/frontend/model/store/local/index.ts"
-      ],
-      "@codelab/frontend/model/store/meta": [
-        "libs/frontend/model/store/meta/index.ts"
-      ],
-      "@codelab/frontend/model/store/remote": [
-        "libs/frontend/model/store/remote/index.ts"
-      ],
-      "@codelab/frontend/model/store/router": [
-        "libs/frontend/model/store/router/index.ts"
-      ],
-      "@codelab/frontend/model/store/shared": [
-        "libs/frontend/model/store/shared/index.ts"
       ],
       "@codelab/frontend/modules/admin": [
         "libs/frontend/modules/admin/src/index.ts"

@@ -2,10 +2,13 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   CodelabPage,
   DashboardTemplateProps,
-} from '@codelab/frontend/abstract/props'
+} from '@codelab/frontend/abstract/types'
 import {
+  ExecuteCommandButton,
+  ExecuteCommandModal,
   ResetDataButton,
   SeedBaseTypesButton,
+  SyncAtomsButton,
 } from '@codelab/frontend/modules/admin'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -13,17 +16,28 @@ import {
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { PageHeader, Space } from 'antd'
+import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
 
 const AdminPage: CodelabPage<DashboardTemplateProps> = () => {
   return (
-    <ContentSection css={tw`p-4 bg-white`}>
-      <Space>
-        <ResetDataButton />
-        <SeedBaseTypesButton />
-      </Space>
-    </ContentSection>
+    <>
+      <Head>
+        <title>Apps | Codelab</title>
+      </Head>
+
+      <ExecuteCommandModal />
+
+      <ContentSection css={tw`p-4 bg-white`}>
+        <Space>
+          <ResetDataButton />
+          <SeedBaseTypesButton />
+          <SyncAtomsButton />
+          <ExecuteCommandButton />
+        </Space>
+      </ContentSection>
+    </>
   )
 }
 

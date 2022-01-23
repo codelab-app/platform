@@ -1,7 +1,7 @@
 import {
   ELEMENT_CACHE_TAG,
   providesById,
-} from '@codelab/frontend/model/infra/api'
+} from '@codelab/frontend/model/infra/redux'
 import { api as generatedApi } from '../graphql/hook.endpoints.graphql.gen'
 
 export const hookApi = generatedApi.enhanceEndpoints({

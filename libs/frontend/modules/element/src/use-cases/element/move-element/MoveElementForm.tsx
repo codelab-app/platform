@@ -1,4 +1,4 @@
-import { UseCaseFormWithRef } from '@codelab/frontend/abstract/props'
+import { UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
 import {
   SelectAnyElement,
   SelectElementProvider,

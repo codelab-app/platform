@@ -6,7 +6,7 @@ import { PayloadAction } from '@reduxjs/toolkit'
 import { SetSelectedAtomIdsModalAction } from '.'
 import { AtomState } from './types'
 
-export const initialState: AtomState = {
+const initialState: AtomState = {
   ...initialCrudState,
   selectedIds: [],
 }

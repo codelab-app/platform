@@ -2,7 +2,7 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import {
   UseEntityUseCaseForm,
   UseUseCaseForm,
-} from '@codelab/frontend/abstract/props'
+} from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
 import { useCallback } from 'react'

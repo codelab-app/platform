@@ -7,7 +7,7 @@ import {
   TagOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { PageType } from '@codelab/frontend/model/store/router'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { Menu } from 'antd'
 import Link from 'next/link'
 import React from 'react'

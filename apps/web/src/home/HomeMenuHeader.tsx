@@ -1,6 +1,6 @@
 import { HomeOutlined, UserOutlined } from '@ant-design/icons'
 import { useUser } from '@auth0/nextjs-auth0'
-import { PageType } from '@codelab/frontend/model/store/router'
+import { PageType } from '@codelab/frontend/abstract/types'
 import {
   LoginUserButton,
   RegisterUserButton,

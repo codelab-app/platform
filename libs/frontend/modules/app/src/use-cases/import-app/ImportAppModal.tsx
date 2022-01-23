@@ -7,16 +7,19 @@ import {
   UploadField,
 } from '@codelab/frontend/view/components'
 import React from 'react'
-import { useAppState } from '../../hooks'
 import { ImportAppSchema } from './importAppSchema'
 import { useImportAppForm } from './useImportAppForm'
 import { validateFile } from './validateFile'
 
 export const ImportAppModal = () => {
-  const { actionType } = useAppState()
-
-  const { onSubmit, onSubmitSuccess, onSubmitError, reset, isLoading } =
-    useImportAppForm()
+  const {
+    onSubmit,
+    actionType,
+    onSubmitSuccess,
+    onSubmitError,
+    reset,
+    isLoading,
+  } = useImportAppForm()
 
   return (
     <FormModal

@@ -7,6 +7,12 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export enum Role {
+    Admin = "Admin",
+    User = "User",
+    Guest = "Guest"
+}
+
 export enum TypeKind {
     PrimitiveType = "PrimitiveType",
     ArrayType = "ArrayType",
@@ -43,12 +49,6 @@ export enum MonacoLanguage {
     JSON = "JSON",
     Graphql = "Graphql",
     CSSINJS = "CSSINJS"
-}
-
-export enum Role {
-    Admin = "Admin",
-    User = "User",
-    Guest = "Guest"
 }
 
 export enum AtomType {
@@ -874,6 +874,10 @@ export interface DeleteUserInput {
     id: string;
 }
 
+export interface ExecuteCommandInput {
+    command: string;
+}
+
 export interface CreateLambdaInput {
     name: string;
     body: string;
@@ -940,6 +944,20 @@ export interface Type {
 
 export interface ObjectRef {
     id: string;
+}
+
+export interface CreateResponse {
+    id: string;
+}
+
+export interface PayloadResponse {
+    payload: string;
+}
+
+export interface User {
+    id: string;
+    auth0Id: string;
+    roles: Role[];
 }
 
 export interface Field {
@@ -1070,20 +1088,6 @@ export interface UnionType extends Type {
 export interface TypeGraph {
     vertices: TypeVertex[];
     edges: TypeEdge[];
-}
-
-export interface CreateResponse {
-    id: string;
-}
-
-export interface PayloadResponse {
-    payload: string;
-}
-
-export interface User {
-    id: string;
-    auth0Id: string;
-    roles: Role[];
 }
 
 export interface Atom {
@@ -1255,6 +1259,7 @@ export interface IMutation {
     upsertUser(input: UpsertUserInput): User | Promise<User>;
     deleteUser(input: DeleteUserInput): boolean | Promise<boolean>;
     resetData(): Nullable<Void> | Promise<Nullable<Void>>;
+    executeCommand(input: ExecuteCommandInput): Void | Promise<Void>;
     createLambda(input: CreateLambdaInput): Lambda | Promise<Lambda>;
     deleteLambda(input: DeleteLambdaInput): Lambda | Promise<Lambda>;
     updateLambda(input: UpdateLambdaInput): Nullable<Lambda> | Promise<Nullable<Lambda>>;

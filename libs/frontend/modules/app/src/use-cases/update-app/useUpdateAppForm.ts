@@ -1,5 +1,5 @@
 import { AppActionType } from '@codelab/frontend/abstract/core'
-import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/props'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'

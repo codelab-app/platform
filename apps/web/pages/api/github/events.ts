@@ -34,22 +34,22 @@ const handler: NextApiHandler = async ({ body }, res) => {
     ? 'New Comment Added'
     : 'New Discussion Created'
 
-  const result = await web.chat.postMessage({
-    text: discussion_title,
-    blocks: [
-      {
-        type: 'divider',
-      },
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `*${webhook_event}*\n*Author*: ${webhook_user}\n*Title*: ${discussion_title}\n*Category*: ${category_name}\n\n${webhook_body}`,
-        },
-      },
-    ],
-    channel: SLACK_CHANNEL,
-  })
+  // await web.chat.postMessage({
+  //   text: discussion_title,
+  //   blocks: [
+  //     {
+  //       type: 'divider',
+  //     },
+  //     {
+  //       type: 'section',
+  //       text: {
+  //         type: 'mrkdwn',
+  //         text: `*${webhook_event}*\n*Author*: ${webhook_user}\n*Title*: ${discussion_title}\n*Category*: ${category_name}\n\n${webhook_body}`,
+  //       },
+  //     },
+  //   ],
+  //   channel: SLACK_CHANNEL,
+  // })
 
   return res.json({})
 }

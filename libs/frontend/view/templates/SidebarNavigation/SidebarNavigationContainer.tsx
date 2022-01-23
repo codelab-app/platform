@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/model/store/router'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { Menu, MenuProps } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'

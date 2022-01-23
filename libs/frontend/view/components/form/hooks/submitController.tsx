@@ -1,4 +1,4 @@
-import { SubmitController } from '@codelab/frontend/abstract/props'
+import { SubmitController } from '@codelab/frontend/abstract/types'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import React from 'react'
 

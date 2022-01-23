@@ -1,5 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { CodelabPage } from '@codelab/frontend/abstract/props'
+import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { AppProvider } from '@codelab/frontend/modules/app'
 import {
   Builder,

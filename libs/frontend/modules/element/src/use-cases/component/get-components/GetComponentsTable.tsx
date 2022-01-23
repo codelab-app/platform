@@ -1,6 +1,6 @@
 import { ApartmentOutlined } from '@ant-design/icons'
 import { IElement } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/model/store/router'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { useTagDispatch } from '@codelab/frontend/modules/tag'
 import {
   ListItemButton,
@@ -48,13 +48,13 @@ export const GetComponentsTable = () => {
       render: (_, record) => (
         <Space size="middle">
           <ListItemButton
+            icon={<ApartmentOutlined />}
             onClick={() =>
               router.push({
                 pathname: PageType.ComponentDetail,
                 query: { componentId: record.id },
               })
             }
-            icon={<ApartmentOutlined />}
           />
 
           <ListItemEditButton
@@ -90,9 +90,9 @@ export const GetComponentsTable = () => {
 
   return (
     <Table
-      pagination={{ position: ['bottomCenter'] }}
-      dataSource={components}
       columns={columns}
+      dataSource={components}
+      pagination={{ position: ['bottomCenter'] }}
       rowKey={(component) => component.id}
     />
   )

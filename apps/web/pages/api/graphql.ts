@@ -1,4 +1,5 @@
 import { getSession } from '@auth0/nextjs-auth0'
+import { getGraphQLClient } from '@codelab/frontend/model/infra/redux'
 import express from 'express'
 import { ServerResponse } from 'http'
 import { createProxyMiddleware } from 'http-proxy-middleware'
@@ -11,7 +12,7 @@ app.use('*', async (baseReq, baseRes, next) => {
   // Need to use 127.0.0.1
   // https://github.com/chimurai/http-proxy-middleware/issues/171
   return createProxyMiddleware({
-    target: process.env.CODELAB_API_ENDPOINT + '/graphql',
+    target: `${process.env.CODELAB_API_ENDPOINT}/graphql`,
     changeOrigin: true,
     proxyTimeout: 30000,
     secure: false,
@@ -31,14 +32,8 @@ app.use('*', async (baseReq, baseRes, next) => {
       res.end('Something went wrong.')
     },
     onProxyReq: (proxyReq, req, res) => {
-      // console.log(req.headers.authorization)
-      // console.log(session?.accessToken)
-
       if (session) {
         proxyReq.setHeader('Authorization', `Bearer ${session.accessToken}`)
-      } else if (req.headers.authorization) {
-        // For SSR session is null, so we instead we use getSession inside getServerSideProps to set graphql request client auth headers
-        proxyReq.setHeader('Authorization', req.headers.authorization)
       }
 
       if (process.env.DG_ADMIN_API_KEY) {
