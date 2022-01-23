@@ -936,7 +936,7 @@ export type Mutation = {
   deleteType?: Maybe<Type>
   deleteUser: Scalars['Boolean']
   duplicateElement: Element
-  executeCommand: Scalars['Void']
+  executeCommand?: Maybe<Scalars['Void']>
   executeLambda?: Maybe<LambdaPayload>
   importApp: App
   importAtoms?: Maybe<Scalars['Void']>

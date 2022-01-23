@@ -86,7 +86,7 @@ generates:
       #   }
       #`
       - dist/libs/tools/rtk-query:
-          importBaseApiFrom: '@codelab/frontend/model/infra/api'
+          importBaseApiFrom: '@codelab/frontend/model/infra/redux'
           exportHooks: true
     config:
       inlineFragmentTypes: combine

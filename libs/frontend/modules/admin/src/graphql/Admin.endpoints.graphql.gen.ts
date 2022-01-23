@@ -19,7 +19,9 @@ export type ExecuteCommandMutationVariables = Types.Exact<{
   input: Types.ExecuteCommandInput
 }>
 
-export type ExecuteCommandMutation = { executeCommand: void }
+export type ExecuteCommandMutation = {
+  executeCommand?: void | null | undefined
+}
 
 export const ResetDataGql = gql`
   mutation ResetData {
