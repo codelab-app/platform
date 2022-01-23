@@ -1,4 +1,4 @@
-import { adminEndpoints } from '@codelab/frontend/modules/admin'
+import { adminEndpoints, adminSlice } from '@codelab/frontend/modules/admin'
 import { appEndpoints, appSlice } from '@codelab/frontend/modules/app'
 import { atomEndpoints, atomSlice } from '@codelab/frontend/modules/atom'
 import { builderSlice } from '@codelab/frontend/modules/builder'
@@ -30,13 +30,13 @@ export const makeStore = () => {
     reducer: combineReducers({
       // APIs:
       [appEndpoints.reducerPath]: appEndpoints.reducer,
+      [adminEndpoints.reducerPath]: adminEndpoints.reducer,
       [pageEndpoints.reducerPath]: pageEndpoints.reducer,
       [elementEndpoints.reducerPath]: elementEndpoints.reducer,
       [componentEndpoints.reducerPath]: componentEndpoints.reducer,
       [hookEndpoints.reducerPath]: hookEndpoints.reducer,
       [propMapBindingEndpoints.reducerPath]: propMapBindingEndpoints.reducer,
       [atomEndpoints.reducerPath]: atomEndpoints.reducer,
-      [adminEndpoints.reducerPath]: adminEndpoints.reducer,
       [tagEndpoints.reducerPath]: tagEndpoints.reducer,
       [lambdaEndpoints.reducerPath]: lambdaEndpoints.reducer,
       [userEndpoints.reducerPath]: userEndpoints.reducer,
@@ -45,6 +45,7 @@ export const makeStore = () => {
 
       // Slices:
       [appSlice.name]: appSlice.reducer,
+      [adminSlice.name]: adminSlice.reducer,
       [atomSlice.name]: atomSlice.reducer,
       [elementSlice.name]: elementSlice.reducer,
       [builderSlice.name]: builderSlice.reducer,
@@ -62,22 +63,29 @@ export const makeStore = () => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         appEndpoints.middleware,
+        adminEndpoints.middleware,
         pageEndpoints.middleware,
         elementEndpoints.middleware,
         componentEndpoints.middleware,
         hookEndpoints.middleware,
         propMapBindingEndpoints.middleware,
         atomEndpoints.middleware,
-        adminEndpoints.middleware,
         userEndpoints.middleware,
         typeEndpoints.middleware,
         fieldEndpoints.middleware,
       ),
+    devTools: process.env.NODE_ENV !== 'production',
   })
 }
 
-export type AppStore = ReturnType<typeof makeStore>
-export type RootState = ReturnType<AppStore['getState']>
-export type AppDispatch = AppStore['dispatch']
+export type RootStore = ReturnType<typeof makeStore>
+export type RootState = ReturnType<RootStore['getState']>
+export type RootDispatch = RootStore['dispatch']
 
-export const reduxStoreWrapper = createWrapper<AppStore>(makeStore)
+export const reduxStoreWrapper = createWrapper<RootStore>(makeStore, {
+  debug: true,
+  // Solve the issue where values in Next.js SSR can't be undefined
+  // https://github.com/vercel/next.js/discussions/11209#discussioncomment-1779113
+  serializeState: (state) => JSON.stringify(state),
+  deserializeState: (state) => JSON.parse(state),
+})
