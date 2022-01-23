@@ -16,7 +16,7 @@ export interface ElementState extends CRUDModalState<ElementFragment> {
   createMetadata?: ElementStateCreateMetadata
 }
 
-export const initialState: ElementState = {
+const initialState: ElementState = {
   ...initialCrudState,
   createMetadata: undefined,
 }

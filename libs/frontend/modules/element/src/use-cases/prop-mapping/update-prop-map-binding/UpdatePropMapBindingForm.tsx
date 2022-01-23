@@ -1,4 +1,4 @@
-import { FormProps, UseCaseFormWithRef } from '@codelab/frontend/abstract/props'
+import { FormProps, UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
 import { SelectDescendantElement } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { AutoCompleteField, Form } from '@codelab/frontend/view/components'

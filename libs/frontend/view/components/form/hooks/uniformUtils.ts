@@ -1,4 +1,4 @@
-import { SubmitController } from '@codelab/frontend/abstract/props'
+import { SubmitController } from '@codelab/frontend/abstract/types'
 import { EntityRecord, Maybe, Nullish } from '@codelab/shared/abstract/types'
 import Ajv, { JSONSchemaType } from 'ajv'
 import { Children, MutableRefObject, ReactElement } from 'react'

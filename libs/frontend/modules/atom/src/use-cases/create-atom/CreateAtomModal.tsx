@@ -4,7 +4,6 @@ import { CreateAtomInput } from '@codelab/shared/abstract/codegen'
 import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { useAtomState } from '../../hooks'
 import { createAtomSchema } from './createAtomSchema'
 import { useCreateAtomForm } from './useCreateAtomForm'
 
@@ -16,10 +15,14 @@ const atomTypeOptions = Object.keys(AtomType)
   }))
 
 export const CreateAtomModal = () => {
-  const { actionType } = useAtomState()
-
-  const { onSubmit, onSubmitSuccess, onSubmitError, reset, isLoading } =
-    useCreateAtomForm()
+  const {
+    onSubmit,
+    actionType,
+    onSubmitSuccess,
+    onSubmitError,
+    reset,
+    isLoading,
+  } = useCreateAtomForm()
 
   return (
     <FormModal

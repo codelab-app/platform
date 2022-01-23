@@ -3,9 +3,11 @@ import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   CodelabPage,
   DashboardTemplateProps,
-} from '@codelab/frontend/abstract/props'
-import { getGraphQLClient } from '@codelab/frontend/model/infra/api'
-import { reduxStoreWrapper } from '@codelab/frontend/model/infra/redux'
+} from '@codelab/frontend/abstract/types'
+import {
+  getGraphQLClient,
+  setClientAuthHeaders,
+} from '@codelab/frontend/model/infra/redux'
 import {
   appEndpoints,
   CreateAppButton,
@@ -17,7 +19,6 @@ import {
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
 import { SignOutUserButton } from '@codelab/frontend/modules/user'
-import { getAuthToken } from '@codelab/frontend/shared/utils'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -27,6 +28,7 @@ import { Button, Dropdown, Menu, PageHeader } from 'antd'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
+import { reduxStoreWrapper } from '../../src/store/reduxStoreWrapper'
 
 const menu = (
   <Menu>
@@ -79,33 +81,20 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
 export default AppsPage
 
 export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: async (context: GetServerSidePropsContext) => {
-    // setup authentication for client
-    const session = await getSession(context.req, context.res)
-    const token = session?.accessToken || getAuthToken()
+  getServerSideProps: reduxStoreWrapper.getServerSideProps(
+    (store) => async (context: GetServerSidePropsContext) => {
+      await setClientAuthHeaders(context)
 
-    getGraphQLClient({
-      headers: { authorization: token ? `Bearer ${token}` : '' },
-    })
+      store.dispatch(appEndpoints.endpoints.GetApps.initiate({}))
 
-    await preFetchApps(context)
+      await Promise.all(appEndpoints.util.getRunningOperationPromises())
 
-    return {
-      props: {},
-    }
-  },
+      return {
+        props: {},
+      }
+    },
+  ),
 })
-
-export const preFetchApps = reduxStoreWrapper.getServerSideProps(
-  (store) => async (context) => {
-    store.dispatch(appEndpoints.endpoints.GetApps.initiate({}))
-    await Promise.all(appEndpoints.util.getRunningOperationPromises())
-
-    return {
-      props: {},
-    }
-  },
-)
 
 AppsPage.Layout = (page) => {
   return (

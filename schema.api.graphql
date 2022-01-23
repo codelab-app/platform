@@ -11,6 +11,26 @@ type ObjectRef {
   id: ID!
 }
 
+type CreateResponse {
+  id: String!
+}
+
+type PayloadResponse {
+  payload: String!
+}
+
+type User {
+  id: ID!
+  auth0Id: String!
+  roles: [Role!]!
+}
+
+enum Role {
+  Admin
+  User
+  Guest
+}
+
 type Field {
   id: ID!
   key: String!
@@ -178,7 +198,6 @@ enum MonacoLanguage {
   CSS
   JSON
   Graphql
-  CSSINJS
 }
 
 """
@@ -205,26 +224,6 @@ type TypeGraph {
 }
 
 union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType
-
-type CreateResponse {
-  id: String!
-}
-
-type PayloadResponse {
-  payload: String!
-}
-
-type User {
-  id: ID!
-  auth0Id: String!
-  roles: [Role!]!
-}
-
-enum Role {
-  Admin
-  User
-  Guest
-}
 
 type Atom {
   id: ID!
@@ -976,6 +975,7 @@ type Mutation {
   upsertUser(input: UpsertUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
   resetData: Void
+  executeCommand(input: ExecuteCommandInput!): Void
   createLambda(input: CreateLambdaInput!): Lambda!
   deleteLambda(input: DeleteLambdaInput!): Lambda!
   updateLambda(input: UpdateLambdaInput!): Lambda
@@ -1339,6 +1339,10 @@ input UserWhereUniqueInput {
 
 input DeleteUserInput {
   id: String!
+}
+
+input ExecuteCommandInput {
+  command: String!
 }
 
 input CreateLambdaInput {

@@ -5,12 +5,12 @@ import {
 import { PayloadAction } from '@reduxjs/toolkit'
 import { PageState, SetCurrentPageAction } from './types'
 
-export const intialState: PageState = {
+const initialState: PageState = {
   ...initialCrudState,
   currentPage: undefined,
 }
 
-export const pageSlice = createCrudSlice('page', intialState, {
+export const pageSlice = createCrudSlice('page', initialState, {
   setCurrentPage: (
     state: PageState,
     { payload }: PayloadAction<SetCurrentPageAction>,

@@ -3,7 +3,10 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { FieldFragment } from './Field.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { FieldFragmentDoc } from './Field.fragment.graphql.gen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+import {
+  api,
+  GraphqlOperationOptions,
+} from '@codelab/frontend/model/infra/redux'
 export type CreateFieldMutationVariables = Types.Exact<{
   input: Types.CreateFieldInput
 }>

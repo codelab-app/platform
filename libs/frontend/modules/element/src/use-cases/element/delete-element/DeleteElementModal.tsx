@@ -1,5 +1,5 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { DeleteUseCaseFormWithRef } from '@codelab/frontend/abstract/props'
+import { DeleteUseCaseFormWithRef } from '@codelab/frontend/abstract/types'
 import { Form, FormModal } from '@codelab/frontend/view/components'
 import { DeleteElementInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'

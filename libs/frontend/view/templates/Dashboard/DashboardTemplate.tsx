@@ -1,4 +1,4 @@
-import { BuilderDashboardTemplateProps } from '@codelab/frontend/abstract/props'
+import { BuilderDashboardTemplateProps } from '@codelab/frontend/abstract/types'
 import { css } from '@emotion/react'
 import { Layout } from 'antd'
 import { AnimatePresence, motion } from 'framer-motion'

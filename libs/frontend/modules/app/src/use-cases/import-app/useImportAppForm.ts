@@ -2,7 +2,7 @@ import { AppActionType } from '@codelab/frontend/abstract/core'
 import {
   UseCaseFormWithRef,
   UseUseCaseForm,
-} from '@codelab/frontend/abstract/props'
+} from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
 import { useAppDispatch, useAppState } from '../../hooks'

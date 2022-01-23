@@ -9,7 +9,10 @@ import {
   ElementFragmentDoc,
   ElementGraphFragmentDoc,
 } from './Element.fragment.graphql.gen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+import {
+  api,
+  GraphqlOperationOptions,
+} from '@codelab/frontend/model/infra/redux'
 export type CreateElementMutationVariables = Types.Exact<{
   input: Types.CreateElementInput
 }>

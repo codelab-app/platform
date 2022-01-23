@@ -1,7 +1,6 @@
 import { crudModalDispatchFactory } from '@codelab/frontend/view/components'
 import { useDispatch } from 'react-redux'
-import { SetSelectedTypeIdsModalAction } from '../store/types'
-import { typeSlice } from '../store/typeState'
+import { SetSelectedTypeIdsModalAction, typeSlice } from '../store'
 
 export const useTypeDispatch = () => {
   const dispatch = useDispatch()

@@ -5,7 +5,10 @@ import { PageFullFragment } from './PageFull.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { PageBaseFragmentDoc } from './PageBase.fragment.graphql.gen'
 import { PageFullFragmentDoc } from './PageFull.fragment.graphql.gen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+import {
+  api,
+  GraphqlOperationOptions,
+} from '@codelab/frontend/model/infra/redux'
 export type CreatePageMutationVariables = Types.Exact<{
   input: Types.CreatePageInput
 }>

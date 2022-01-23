@@ -6,7 +6,7 @@ import {
 import { PayloadAction } from '@reduxjs/toolkit'
 import { AppState, SetCurrentAppAction } from './types'
 
-export const initialState: AppState = {
+const initialState: AppState = {
   ...initialCrudState,
   currentApp: undefined,
 }

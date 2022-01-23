@@ -11,7 +11,6 @@ import { UpsertUserService } from './use-cases/upsert-user'
   imports: [
     Auth0Module,
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    // JwtModule.register({}),
     ConfigModule.forFeature(auth0Config),
   ],
   providers: [JwtStrategy, GetUserService, UpsertUserService],

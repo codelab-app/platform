@@ -20,6 +20,10 @@ export const runCli = (env?: Env, cmd = '') => {
   }
 }
 
+/**
+ * Test loads from `.env.test` locally
+ * @param cmd
+ */
 const runTestCli = (cmd: string) => {
   if (
     shell.exec(
@@ -30,6 +34,9 @@ const runTestCli = (cmd: string) => {
   }
 }
 
+/**
+ * Dev loads from `.env` locally
+ */
 const runDevCli = (cmd: string) => {
   if (
     shell.exec(`npx env-cmd -f .env node ${CMD_APP_DIST_PATH}/main.js ${cmd}`)
@@ -39,6 +46,9 @@ const runDevCli = (cmd: string) => {
   }
 }
 
+/**
+ * CI assumes env are pre-injected
+ */
 const runCiCli = (cmd: string) => {
   if (shell.exec(`node ${CMD_APP_DIST_PATH}/main.js ${cmd}`).code !== 0) {
     shell.exit(1)

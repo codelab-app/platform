@@ -1,17 +1,16 @@
 export type AppActionType = CRUDActionType | `${ImportAppActionType.Import}`
 
+export type AdminActionType =
+  | CRUDActionType
+  | `${ExecuteCommandActionType.Execute}`
+
 export enum ImportAppActionType {
   Import = 'Import',
 }
 
-/**
- * Use literal for easier composition
- */
-// export type CRUDActionType =
-//   | `${CRUDActionTypeKind.None}`
-//   | `${CRUDActionTypeKind.Create}`
-//   | `${CRUDActionTypeKind.Delete}`
-//   | `${CRUDActionTypeKind.Update}`
+export enum ExecuteCommandActionType {
+  Execute = 'Execute',
+}
 
 export enum CRUDActionType {
   None = 'None',

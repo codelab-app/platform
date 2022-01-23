@@ -8,7 +8,7 @@ import {
   providesById,
   TYPE_CACHE_TAG,
   TYPE_GRAPH_CACHE_TAG,
-} from '@codelab/frontend/model/infra/api'
+} from '@codelab/frontend/model/infra/redux'
 import { api as generatedApi } from '../graphql/type.endpoints.graphql.gen'
 
 export const typeApi = generatedApi.enhanceEndpoints({

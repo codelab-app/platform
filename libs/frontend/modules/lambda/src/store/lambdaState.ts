@@ -4,7 +4,7 @@ import {
 } from '@codelab/frontend/view/components'
 import { LambdaState } from './types'
 
-export const initialState: LambdaState = {
+const initialState: LambdaState = {
   ...initialCrudState,
 }
 

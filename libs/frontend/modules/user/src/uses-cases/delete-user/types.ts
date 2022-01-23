@@ -1,4 +1,4 @@
-import { FormProps } from '@codelab/frontend/abstract/props'
+import { FormProps } from '@codelab/frontend/abstract/types'
 import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
 import { UserStateDeletePayload } from '../../store'
 

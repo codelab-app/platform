@@ -3,7 +3,7 @@ import {
   ELEMENT_CACHE_TAG,
   ELEMENT_GRAPH_CACHE_TAG,
   providesById,
-} from '@codelab/frontend/model/infra/api'
+} from '@codelab/frontend/model/infra/redux'
 import { api as generatedApi } from '../graphql/element.endpoints.graphql.gen'
 
 export const elementApi = generatedApi.enhanceEndpoints({

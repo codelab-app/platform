@@ -3,7 +3,10 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { __UserFragment } from './User.fragment.graphql.gen'
 import { gql } from '@apollo/client'
 import { __UserFragmentDoc } from './User.fragment.graphql.gen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+import {
+  api,
+  GraphqlOperationOptions,
+} from '@codelab/frontend/model/infra/redux'
 export type DeleteUserMutationVariables = Types.Exact<{
   input: Types.DeleteUserInput
 }>

@@ -1,5 +1,5 @@
 import { EditOutlined } from '@ant-design/icons'
-import { UpdateButtonProps } from '@codelab/frontend/abstract/props'
+import { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { useTagDispatch } from '../../hooks'
 

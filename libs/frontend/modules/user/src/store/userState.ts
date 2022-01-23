@@ -22,7 +22,7 @@ export interface UserStateDeletePayload
   userNames: string
 }
 
-export const initialState: UserState = {
+const initialState: UserState = {
   ...initialCrudState,
   deleteMetadata: undefined,
 }

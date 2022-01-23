@@ -9,7 +9,10 @@ import {
   HookFragmentDoc,
   PropMapBindingFragmentDoc,
 } from './Element.fragment.graphql.gen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+import {
+  api,
+  GraphqlOperationOptions,
+} from '@codelab/frontend/model/infra/redux'
 export type AddHookToElementMutationVariables = Types.Exact<{
   input: Types.AddHookToElementInput
 }>

@@ -4,7 +4,7 @@ import {
   LAMBDA_CACHE_TAG,
   providesAll,
   providesById,
-} from '@codelab/frontend/model/infra/api'
+} from '@codelab/frontend/model/infra/redux'
 import { api as generatedApi } from '../graphql/Lambda.endpoints.graphql.gen'
 
 export const api = generatedApi.enhanceEndpoints({

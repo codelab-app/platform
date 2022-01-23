@@ -1,5 +1,5 @@
 import { IElement } from '@codelab/frontend/abstract/core'
-import { UseCaseFormWithRef } from '@codelab/frontend/abstract/props'
+import { UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {

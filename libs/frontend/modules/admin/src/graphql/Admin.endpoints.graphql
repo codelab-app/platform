@@ -5,3 +5,7 @@ mutation ResetData {
 mutation SeedBaseTypes {
   seedBaseTypes
 }
+
+mutation executeCommand($input: ExecuteCommandInput!) {
+  executeCommand(input: $input)
+}

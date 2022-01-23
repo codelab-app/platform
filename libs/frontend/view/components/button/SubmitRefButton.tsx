@@ -1,4 +1,4 @@
-import { SubmitController } from '@codelab/frontend/abstract/props'
+import { SubmitController } from '@codelab/frontend/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
 import Button from 'antd/lib/button/button'
 import React, { MutableRefObject } from 'react'

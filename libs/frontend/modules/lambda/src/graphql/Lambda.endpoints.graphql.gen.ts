@@ -9,7 +9,10 @@ import {
   LambdaFragmentDoc,
   LambdaPayloadFragmentDoc,
 } from './Lambda.fragment.graphql.gen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+import {
+  api,
+  GraphqlOperationOptions,
+} from '@codelab/frontend/model/infra/redux'
 export type CreateLambdaMutationVariables = Types.Exact<{
   input: Types.CreateLambdaInput
 }>

@@ -1,5 +1,5 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { UseUseCaseForm } from '@codelab/frontend/abstract/props'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { useAppState } from '@codelab/frontend/modules/app'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CreatePageInput } from '@codelab/shared/abstract/codegen'

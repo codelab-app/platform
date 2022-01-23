@@ -1,4 +1,4 @@
-import { DashboardTemplateProps } from '@codelab/frontend/abstract/props'
+import { DashboardTemplateProps } from '@codelab/frontend/abstract/types'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import React, { PropsWithChildren } from 'react'
 import { useBuilderSelectedElement } from '../hooks'

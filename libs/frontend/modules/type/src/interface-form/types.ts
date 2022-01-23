@@ -1,4 +1,4 @@
-import { FormProps } from '@codelab/frontend/abstract/props'
+import { FormProps } from '@codelab/frontend/abstract/types'
 import { TypeTree } from '@codelab/shared/core'
 import { Assign, Overwrite } from 'utility-types'
 

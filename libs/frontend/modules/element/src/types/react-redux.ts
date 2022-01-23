@@ -1,7 +1,9 @@
-import { ComponentState } from '../store/componentState'
-import { ElementState } from '../store/elementState'
-import { HookState } from '../store/hookState'
-import { PropMapBindingState } from '../store/propMapBindingState'
+import {
+  ComponentState,
+  ElementState,
+  HookState,
+  PropMapBindingState,
+} from '../store'
 
 declare module 'react-redux' {
   interface DefaultRootState {

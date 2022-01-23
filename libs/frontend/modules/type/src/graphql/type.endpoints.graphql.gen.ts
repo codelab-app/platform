@@ -41,7 +41,10 @@ import { TypeFragmentDoc } from './Type.fragment.graphql.gen'
 import { EnumTypeFragmentDoc } from './EnumType.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from './PrimitiveType.fragment.graphql.gen'
 import { UnionTypeFragmentDoc } from './UnionType.fragment.graphql.gen'
-import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/api'
+import {
+  api,
+  GraphqlOperationOptions,
+} from '@codelab/frontend/model/infra/redux'
 export type ImportTypesMutationVariables = Types.Exact<{
   input: Types.ImportTypesInput
 }>

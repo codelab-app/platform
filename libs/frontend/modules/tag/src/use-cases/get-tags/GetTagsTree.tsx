@@ -1,4 +1,4 @@
-import { CheckedKeys } from '@codelab/frontend/abstract/props'
+import { CheckedKeys } from '@codelab/frontend/abstract/types'
 import { Tree, TreeProps } from 'antd'
 import { useTagDispatch, useTagState, useTagTree } from '../../hooks'
 import { useGetTagGraphsQuery } from '../../store'

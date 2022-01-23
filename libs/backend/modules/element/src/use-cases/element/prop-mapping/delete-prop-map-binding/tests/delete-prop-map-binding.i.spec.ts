@@ -6,21 +6,21 @@ import {
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { ElementModule } from '../../../../../element.module'
-import { CreateElementInput } from '../../../create-element'
 import {
+  CreateElementInput,
   TestCreateElementGql,
   TestCreateElementMutation,
-} from '../../../create-element/tests/create-element.api.graphql.gen'
-import { GetElementInput } from '../../../get-element'
+} from '../../../create-element'
 import {
+  GetElementInput,
   TestGetElementGql,
   TestGetElementQuery,
-} from '../../../get-element/tests/get-element.api.graphql.gen'
-import { CreatePropMapBindingInput } from '../../create-prop-map-binding'
+} from '../../../get-element'
 import {
+  CreatePropMapBindingInput,
   TestCreatePropMapBindingGql,
   TestCreatePropMapBindingMutation,
-} from '../../create-prop-map-binding/tests/create-prop-map-binding.api.graphql.gen'
+} from '../../create-prop-map-binding'
 import { DeletePropMapBindingInput } from '../delete-prop-map-binding.input'
 import {
   TestDeletePropMapBindingGql,

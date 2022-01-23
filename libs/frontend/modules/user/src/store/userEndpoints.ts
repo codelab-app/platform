@@ -3,7 +3,7 @@ import {
   providesAll,
   providesById,
   USER_CACHE_TAG,
-} from '@codelab/frontend/model/infra/api'
+} from '@codelab/frontend/model/infra/redux'
 import { api as generatedApi } from '../graphql/user.endpoints.graphql.gen'
 
 export const api = generatedApi.enhanceEndpoints({
