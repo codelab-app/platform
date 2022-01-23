@@ -47,8 +47,7 @@ export enum MonacoLanguage {
     JavaScript = "JavaScript",
     CSS = "CSS",
     JSON = "JSON",
-    Graphql = "Graphql",
-    CSSINJS = "CSSINJS"
+    Graphql = "Graphql"
 }
 
 export enum AtomType {
@@ -1259,7 +1258,7 @@ export interface IMutation {
     upsertUser(input: UpsertUserInput): User | Promise<User>;
     deleteUser(input: DeleteUserInput): boolean | Promise<boolean>;
     resetData(): Nullable<Void> | Promise<Nullable<Void>>;
-    executeCommand(input: ExecuteCommandInput): Void | Promise<Void>;
+    executeCommand(input: ExecuteCommandInput): Nullable<Void> | Promise<Nullable<Void>>;
     createLambda(input: CreateLambdaInput): Lambda | Promise<Lambda>;
     deleteLambda(input: DeleteLambdaInput): Lambda | Promise<Lambda>;
     updateLambda(input: UpdateLambdaInput): Nullable<Lambda> | Promise<Nullable<Lambda>>;

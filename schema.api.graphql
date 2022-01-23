@@ -198,7 +198,6 @@ enum MonacoLanguage {
   CSS
   JSON
   Graphql
-  CSSINJS
 }
 
 """
@@ -976,7 +975,7 @@ type Mutation {
   upsertUser(input: UpsertUserInput!): User!
   deleteUser(input: DeleteUserInput!): Boolean!
   resetData: Void
-  executeCommand(input: ExecuteCommandInput!): Void!
+  executeCommand(input: ExecuteCommandInput!): Void
   createLambda(input: CreateLambdaInput!): Lambda!
   deleteLambda(input: DeleteLambdaInput!): Lambda!
   updateLambda(input: UpdateLambdaInput!): Lambda

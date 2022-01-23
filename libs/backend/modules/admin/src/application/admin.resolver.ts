@@ -22,7 +22,7 @@ export class AdminResolver {
     return await this.resetDataService.execute()
   }
 
-  @Mutation(() => Void)
+  @Mutation(() => Void, { nullable: true })
   @Roles(Role.Admin)
   @UseGuards(GqlAuthGuard)
   async executeCommand(@Args('input') input: ExecuteCommandInput) {

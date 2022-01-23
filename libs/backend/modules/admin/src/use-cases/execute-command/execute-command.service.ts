@@ -15,11 +15,12 @@ export class ExecuteCommandService
   execute(input: ExecuteCommandInput): Promise<void> {
     const results = shell.exec(input.command)
 
-    this.logger.log(results, 'Execute Command')
-
     if (results.code !== 0) {
-      throw new Error('Execute command failed')
+      this.logger.error(results.stderr, 'Execute Command')
+      // throw new Error('Execute command failed')
     }
+
+    this.logger.log(results.stdout, 'Execute Command')
 
     return Promise.resolve()
   }

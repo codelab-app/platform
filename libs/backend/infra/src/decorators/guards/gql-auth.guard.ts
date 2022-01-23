@@ -17,7 +17,7 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
     return ctx.getContext().req
   }
 
-  handleRequest(err, user, info) {
+  handleRequest(err: any, user: any, info: any) {
     console.log(err, user, info)
 
     // You can throw an exception based on either "info" or "err" arguments
