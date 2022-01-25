@@ -11,10 +11,10 @@ import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useElementDispatch, useElementState } from '../../../hooks'
+import { useElementDispatch } from '../../../hooks'
 import { useElementGraphContext } from '../../../providers'
 import { createElementSchema } from './createElementSchema'
-import { ParentElementId, useCreateElementForm } from './useCreateElementForm'
+import { useCreateElementForm } from './useCreateElementForm'
 
 /**
  * Initial data used to determine the parent element
@@ -27,8 +27,14 @@ export const CreateElementModal = ({
   const { resetModal } = useElementDispatch()
   const { elementTree } = useElementGraphContext()
 
-  const { onSubmit, actionType, onSubmitSuccess, onSubmitError, isLoading } =
-    useCreateElementForm({ parentElementId })
+  const {
+    onSubmit,
+    actionType,
+    onSubmitSuccess,
+    onSubmitError,
+    isLoading,
+    model,
+  } = useCreateElementForm({ parentElementId })
 
   return (
     <FormModal
@@ -45,7 +51,7 @@ export const CreateElementModal = ({
           tree={elementTree ?? new ElementTree({ edges: [], vertices: [] })}
         >
           <Form<CreateElementInput>
-            model={{}}
+            model={model}
             onSubmit={onSubmit}
             onSubmitError={onSubmitError}
             onSubmitSuccess={onSubmitSuccess}
@@ -53,12 +59,20 @@ export const CreateElementModal = ({
             submitRef={submitRef}
           >
             <AutoFields
-              omitFields={['parentElementId', 'atomId', 'componentId', 'order']}
+              omitFields={[
+                'parentElementId',
+                'atomId',
+                'instanceOfComponentId',
+                'order',
+              ]}
             />
             <AutoField component={SelectAnyElement} name="parentElementId" />
             <AutoField name="order" />
             <AutoField component={SelectAtom} name="atomId" />
-            <AutoField component={SelectComponent} name="componentId" />
+            <AutoField
+              component={SelectComponent}
+              name="instanceOfComponentId"
+            />
           </Form>
         </SelectElementProvider>
       )}

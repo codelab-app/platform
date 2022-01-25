@@ -28,8 +28,6 @@ export const ElementGraphProvider = (
     variables: { input: { where: { id: props.elementId } } },
   })
 
-  console.log({ data })
-
   const elementTree = data?.getElementGraph
     ? new ElementTree(data?.getElementGraph)
     : new ElementTree({ edges: [], vertices: [] })
