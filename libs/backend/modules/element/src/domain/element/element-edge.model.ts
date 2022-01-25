@@ -1,5 +1,5 @@
 import { IElementEdge } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { Field, Int, ObjectType } from '@nestjs/graphql'
 
 @ObjectType({ description: 'An edge between two element nodes' })
@@ -11,9 +11,9 @@ export class ElementEdge implements IElementEdge {
   declare target: string
 
   @Field(() => Int, { nullable: true })
-  declare order: Nullable<number>
+  declare order: Nullish<number>
 
-  constructor({ source, target, order }: ElementEdge) {
+  constructor({ source, target, order }: IElementEdge) {
     this.source = source
     this.target = target
     this.order = order

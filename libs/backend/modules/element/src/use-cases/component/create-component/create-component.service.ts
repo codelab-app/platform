@@ -11,7 +11,7 @@ import {
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../infrastructure/repositories/abstract/element-repository.interface'
+} from '../../../infrastructure'
 import { UpdateElementService } from '../../element/update-element'
 import { CreateComponentRequest } from './create-component.request'
 
@@ -58,13 +58,17 @@ export class CreateComponentService
     return this.elementRepository.create(element, transaction)
   }
 
-  protected async validate({ input: { atomId } }: CreateComponentRequest) {
+  protected async validate({
+    input: { atomId },
+    transaction,
+  }: CreateComponentRequest) {
     if (!atomId) {
       return { foundAtom: undefined }
     }
 
     const foundAtom = await this.getAtomService.execute({
-      where: { id: atomId },
+      input: { where: { id: atomId } },
+      transaction,
     })
 
     if (!foundAtom) {

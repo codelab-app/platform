@@ -5,7 +5,7 @@ import { ElementValidator } from '../../../application/element.validator'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../infrastructure/repositories/abstract/element-repository.interface'
+} from '../../../infrastructure'
 import { UpdateElementRequest } from './update-element.request'
 
 @Injectable()
@@ -46,7 +46,10 @@ export class UpdateElementService
     }
 
     if (atomId) {
-      const atom = await this.getAtomService.execute({ where: { id: atomId } })
+      const atom = await this.getAtomService.execute({
+        input: { where: { id: atomId } },
+        transaction: request.transaction,
+      })
 
       if (!atom) {
         throw new Error('Atom not found')

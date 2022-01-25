@@ -1,7 +1,7 @@
 import {
   DgraphEntityType,
   IMutationFactory,
-  makeArrayUpdateMutation,
+  makeArrayDiffMutation,
   makeDeleteJsonMutationForUpdates,
   mergeMutations,
   NullablePredicates,
@@ -216,7 +216,9 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
 
     // Delete owned relations if they've changed
     if (entity.props.id !== oldEntity.props.id) {
-      relationshipMutations.push({ deleteJson: { uid: oldEntity.props.id } })
+      relationshipMutations.push(
+        this.propMutationFactory.forDelete(oldEntity.props),
+      )
     }
 
     if (
@@ -230,7 +232,7 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
 
     // Creates/Deletes/Updates hooks as necessary to match the newly provided hooks
     // This could be abstracted, but it's a bit more readable this way
-    const hookMutation = makeArrayUpdateMutation<IHook>(
+    const hookMutation = makeArrayDiffMutation<IHook>(
       oldEntity.hooks,
       entity.hooks,
       {
@@ -258,7 +260,7 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
     )
 
     // Creates/Deletes/Updates prop map bindings as necessary to match the newly provided hooks
-    const pmbMutations = makeArrayUpdateMutation(
+    const pmbMutations = makeArrayDiffMutation(
       oldEntity.propMapBindings,
       entity.propMapBindings,
       {
