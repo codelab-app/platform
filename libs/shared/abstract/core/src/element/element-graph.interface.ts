@@ -1,11 +1,8 @@
 import { z } from 'zod'
+import { EdgeSchema } from '../graph'
 import { ElementSchema } from './element.interface'
 
-export const ElementEdgeSchema = z.object({
-  source: z.string(),
-  target: z.string(),
-  order: z.number().nullable(),
-})
+export const ElementEdgeSchema = EdgeSchema
 
 export type IElementEdge = z.infer<typeof ElementEdgeSchema>
 
