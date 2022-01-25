@@ -38,14 +38,14 @@ export const PropMapBindingSection = ({
         <CreatePropMapBindingButton />
       </div>
       <CreatePropMapBindingModal
-        tree={tree}
         elementId={elementId}
         providePropCompletion={providePropCompletion}
+        tree={tree}
       />
       <UpdatePropMapBindingModal
-        tree={tree}
         elementId={elementId}
         providePropCompletion={providePropCompletion}
+        tree={tree}
       />
       <DeletePropMapBindingModal elementId={elementId} />
     </>

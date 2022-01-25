@@ -3,7 +3,6 @@ import { Form, FormModal } from '@codelab/frontend/view/components'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { useFieldDispatch, useFieldState } from '../../../hooks'
 import { TypeSelect } from '../../../shared'
 import { CreateFieldInput, createFieldSchema } from './createFieldSchema'
 import { useCreateFieldForm } from './useCreateFieldForm'
@@ -38,8 +37,8 @@ export const CreateFieldModal = () => {
           schema={createFieldSchema}
           submitRef={submitRef}
         >
-          <AutoFields omitFields={['typeId']} />
-          <TypeSelect label="Type" name="typeId" />
+          <AutoFields omitFields={['existingTypeId', 'interfaceId']} />
+          <TypeSelect label="Type" name="existingTypeId" />
         </Form>
       )}
     </FormModal>

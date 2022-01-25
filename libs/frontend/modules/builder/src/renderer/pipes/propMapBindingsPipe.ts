@@ -1,6 +1,6 @@
 import { mergeProps } from '@codelab/shared/utils'
 import { merge, partition } from 'lodash'
-import { applyBinding } from '../utils/applyBinding'
+import { applyBinding } from '../utils'
 import { RenderPipeFactory } from './types'
 
 /**

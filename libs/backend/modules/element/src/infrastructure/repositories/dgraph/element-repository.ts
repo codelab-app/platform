@@ -305,7 +305,6 @@ export class ElementRepository
     }
   }
 
-  // TODO move to type repository?
   async getEnumValues(
     enumValueIds: Array<string>,
     transaction: ITransaction,

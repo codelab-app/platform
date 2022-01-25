@@ -14,6 +14,15 @@
           "eslintConfig": "libs/shared/core/.eslintrc.ci.json"
         }
       }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/shared/core"],
+      "options": {
+        "jestConfig": "libs/shared/core/jest.config.js",
+        "passWithNoTests": true,
+        "runInBand": true
+      }
     }
   },
   "tags": ["scope:shared"]

@@ -11,7 +11,7 @@ const getComponentInstance = (element: IElement, tree: ElementTree) => {
   return tree.getComponentById(element.instanceOfComponent.id)
 }
 
-/** If the element is a component add ${DATA_COMPONENT_ID} to the extra props */
+/** Overrides the component props with the component instance props */
 export const overrideComponentPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
     const componentInstance = getComponentInstance(element, context.tree)
@@ -20,9 +20,7 @@ export const overrideComponentPropsPipe: RenderPipeFactory =
       return next(element, context, props)
     }
 
-    const extraElementProps = {
-      [componentInstance.id]: props,
-    }
+    const extraElementProps = { [componentInstance.id]: props }
 
     // We override the component props with the element instance props
     const updateContext = merge(context, {

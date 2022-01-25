@@ -44,7 +44,6 @@ export class ElementMutationFactory implements IMutationFactory<IElement> {
     this.pmbMutationFactory = new PropMapBindingMutationFactory()
   }
 
-  // TODO: move to tag module
   componentTagMutation = (input: ITag, uid?: string) => {
     return {
       uid,

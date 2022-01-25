@@ -1,9 +1,8 @@
 import { FetchResult } from '@apollo/client'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
-import { ModalProps } from 'antd/lib/modal'
-import React, { ReactElement } from 'react'
-import { AutoFormProps, Bridge, DeepPartial } from 'uniforms'
+import React from 'react'
+import { AutoFormProps, Bridge } from 'uniforms'
 import { Callback } from '../utils'
 
 export type FormProps<TData> = {
@@ -44,7 +43,7 @@ export type FormProps<TData> = {
   Partial<Pick<AutoFormProps<TData>, 'autosave' | 'onChange' | 'onChangeModel'>>
 
 export type SubmitRef = {
-  submitRef: React.MutableRefObject<Maybe<SubmitController>> | undefined
+  submitRef?: React.MutableRefObject<Maybe<SubmitController>> | undefined
 }
 
 /** This object is used to control form submission imperatively */

@@ -40,7 +40,7 @@ export const UpdateFieldModal = ({ interfaceId }: UpdateFieldModalProps) => {
           submitRef={submitRef}
         >
           <AutoFields fields={['key', 'name', 'description']} />
-          <TypeSelect label="Type" name="typeId" />
+          <TypeSelect label="Type" name="existingTypeId" />
         </Form>
       )}
     </FormModal>

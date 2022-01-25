@@ -1,7 +1,6 @@
 import {
   IField,
   IGraph,
-  IJsonSchemaOptions,
   IType,
   ITypeEdge,
   TypeKind,
@@ -9,8 +8,12 @@ import {
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { isDefined } from '../cytoscape/element'
 import { edgeId } from '../graph/edgeId'
-import { TreeService } from '../tree'
-import { TypeTreeJsonSchemaTransformer } from './jsonSchema'
+import { NodeMapperFn, TreeService } from '../tree'
+import {
+  addTypeToJsonSchema,
+  TransformTypeOptions,
+  transformTypeToJsonSchema,
+} from './json-schema-transform'
 import {
   getFieldFromEdge,
   getItemTypeFromNode,
@@ -132,15 +135,17 @@ export class TypeTree extends TreeService<IType, ITypeEdge> {
     return vertices.map(getTypeFromNode).filter((v): v is IType => !!v)
   }
 
-  /** Creates a json schema from the type tree. Throws if the tree doesn't have fields */
+  /** Creates a json schema from the type tree */
   toJsonSchema(
-    options: IJsonSchemaOptions,
-    formModel?: any,
+    options?: Omit<TransformTypeOptions, 'label'>,
   ): Record<string, any> {
-    return new TypeTreeJsonSchemaTransformer(
-      this,
-      options,
-      formModel,
-    ).transform()
+    const nodeMapper: NodeMapperFn<IType, Record<string, any>> = (type) => {
+      return transformTypeToJsonSchema(type, options)
+    }
+
+    return this.reduceToNested({
+      nodeMapper,
+      addChildToNode: addTypeToJsonSchema,
+    })[0]
   }
 }

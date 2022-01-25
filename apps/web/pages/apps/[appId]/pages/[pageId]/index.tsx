@@ -11,7 +11,6 @@ import {
   PageProvider,
   usePageState,
 } from '@codelab/frontend/modules/page'
-import { TypeKindProvider } from '@codelab/frontend/modules/type'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { Empty } from 'antd'
 import Head from 'next/head'
@@ -31,9 +30,7 @@ const PageRenderer: CodelabPage<DashboardTemplateProps> = () => {
         <title>{currentPage.name}</title>
       </Head>
 
-      <TypeKindProvider>
-        <Renderer tree={elementTree} />
-      </TypeKindProvider>
+      <Renderer tree={elementTree} />
     </>
   )
 }

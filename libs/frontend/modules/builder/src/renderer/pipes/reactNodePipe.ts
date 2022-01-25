@@ -9,7 +9,11 @@ import { RenderPipeFactory } from './types'
  */
 export const reactNodePipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    const reactNodeProps = getPropsByTypeKind(props, TypeKind.ReactNodeType)
+    const reactNodeProps = getPropsByTypeKind(
+      props,
+      TypeKind.ReactNodeType,
+      context,
+    )
 
     const transformedProps = transformPropsToComponentFn(
       reactNodeProps,

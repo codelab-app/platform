@@ -64,6 +64,8 @@ export const CreateElementModal = ({
                 'atomId',
                 'instanceOfComponentId',
                 'order',
+                'css',
+                'props',
               ]}
             />
             <AutoField component={SelectAnyElement} name="parentElementId" />

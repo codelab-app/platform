@@ -22,6 +22,5 @@ export const ElementTypeSchema = BaseTypeSchema.extend({
  *
  * @property {ElementTypeKind} elementKind Allows scoping the type of element to only descendants, children or all elements
  *
- * TODO: add a render pipe to transform the element
  */
 export type IElementType = z.infer<typeof ElementTypeSchema>

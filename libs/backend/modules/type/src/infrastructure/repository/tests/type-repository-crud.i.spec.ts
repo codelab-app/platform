@@ -139,7 +139,6 @@ describe('Type repository', () => {
         id: expect.stringContaining('0x'),
         // For some reason the order is not the same sometimes
         // can't figure out why, but this is a workaround for the test
-        // TODO figure out why the order of allowedValues is not deterministic
         allowedValues: expect.arrayContaining(
           initialType.allowedValues.map((av) => ({
             ...av,

@@ -1,5 +1,4 @@
 import { IElement, PropsData } from '@codelab/shared/abstract/core'
-import { EntityLike } from '@codelab/shared/abstract/types'
 import { ElementTree } from '@codelab/shared/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { mapValues, merge, transform } from 'lodash'
@@ -10,8 +9,8 @@ type ComponentMap = {
   [key: string]: IElement
 }
 
-const getComponent = (value: EntityLike, tree: ElementTree) => {
-  const { id } = value
+const getComponent = (value: any, tree: ElementTree) => {
+  const { value: id } = value
   const component = id ? tree.getComponentById(id) : undefined
 
   if (!component) {

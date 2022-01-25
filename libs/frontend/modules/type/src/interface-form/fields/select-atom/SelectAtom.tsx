@@ -2,7 +2,7 @@ import { filterNotHookType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
-import { useGetAtomsForSelectQuery } from '../../../store/typeEndpoints'
+import { useGetAtomsForSelectQuery } from '../../../store'
 
 export type SelectAtomProps = HTMLFieldProps<string, SelectFieldProps>
 

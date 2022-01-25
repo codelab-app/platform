@@ -59,14 +59,14 @@ export const getServerSideProps = withPageAuthRequired()
 
 ComponentDetail.Layout = (page) => {
   return (
-    <BuilderDashboardTemplate
-      MainPane={() => <MainPaneBuilder isComponentBuilder />}
-      MetaPane={MetaPaneBuilderComponent}
-      SidebarNavigation={BuilderSidebarNavigation}
-    >
-      <ComponentElementGraphProvider>
+    <ComponentElementGraphProvider>
+      <BuilderDashboardTemplate
+        MainPane={() => <MainPaneBuilder isComponentBuilder />}
+        MetaPane={MetaPaneBuilderComponent}
+        SidebarNavigation={BuilderSidebarNavigation}
+      >
         {page.children}
-      </ComponentElementGraphProvider>
-    </BuilderDashboardTemplate>
+      </BuilderDashboardTemplate>
+    </ComponentElementGraphProvider>
   )
 }

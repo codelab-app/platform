@@ -65,7 +65,6 @@ export interface IElementRepository extends IBaseRepository<IElement> {
     transaction: ITransaction,
   ): Promise<IElementGraph>
 
-  // TODO move to type repository
   getEnumValues(
     enumValueIds: Array<string>,
     transaction: ITransaction,

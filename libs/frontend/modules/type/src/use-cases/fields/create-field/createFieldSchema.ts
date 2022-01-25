@@ -4,7 +4,7 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 
-export type CreateFieldInput = Omit<_CreateFieldInput, 'type'> &
+export type CreateFieldInput = Omit<_CreateFieldInput, 'type' | 'interfaceId'> &
   Omit<TypeRef, 'newType'>
 
 export const createFieldSchema: JSONSchemaType<CreateFieldInput> = {
@@ -14,12 +14,11 @@ export const createFieldSchema: JSONSchemaType<CreateFieldInput> = {
     key: { type: 'string', autoFocus: true },
     name: { type: 'string', nullable: true },
     description: { type: 'string', nullable: true },
-    interfaceId: { type: 'string' },
     /**
      * TODO: Refactor to match interface
      * Could somehow modify the form so we can accept an object of TypeRef, then the interface would match up better
      */
     existingTypeId: { type: 'string', nullable: true },
   },
-  required: ['key', 'interfaceId'],
+  required: ['key'],
 }

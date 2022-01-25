@@ -204,7 +204,6 @@ export class AppImporter {
   private async createPagesAndReplaceIdReferences() {
     const pageIdMap = new PayloadIdToExistingIdMap()
 
-    // TODO use page repository after implementing it
     for (const page of this.payload.pages) {
       // the root id is replaced by the earlier stage, so we can reliably use it as an existing element reference
       if (!page.rootElementId) {

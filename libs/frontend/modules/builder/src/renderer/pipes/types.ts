@@ -1,9 +1,9 @@
 import { IElement } from '@codelab/frontend/abstract/core'
 import {
   IHook,
+  IType,
   PropsData,
   PropsDataByElementId,
-  TypeKind,
 } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
@@ -13,7 +13,7 @@ export type RenderOutput = React.ReactNode
 export interface RendererProps {
   tree: ElementTree
   isComponentRenderer?: boolean
-  context?: Omit<RenderContext, 'tree' | 'render' | 'reactRender'>
+  context?: Omit<RenderContext, 'tree' | 'render' | 'reactRender' | 'typesById'>
 }
 
 export interface RenderContext {
@@ -31,15 +31,14 @@ export interface RenderContext {
   render: RenderTypes
 
   getHooksResponse?: (hooks: Array<IHook>, props: PropsData) => PropsData
-  /**
-   * Called after the element tree is re-rendered
-   */
+
+  /**  Called after the element tree is re-rendered  */
   onRendered?: (renderedProps: PropsData) => void
 
   /** Set to true to log rendering information */
   inspect?: boolean
 
-  typeKindsById: Record<string, TypeKind>
+  typesById: Record<string, IType>
 }
 
 export type RenderTypes = (
