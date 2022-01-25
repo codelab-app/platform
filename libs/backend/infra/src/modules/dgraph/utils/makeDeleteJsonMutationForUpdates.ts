@@ -5,7 +5,7 @@
  * For non-matching keys, use an array with format [entityKey, dgraphSchemaKey]:
  * Entity: {name?: string}, dgraphSchema: {specialName?: string}, NullablePredicates = [['name', 'specialName']]
  * */
-export type NullablePredicates<T> = Array<
+export type NullablePredicates<T> = ReadonlyArray<
   keyof T | string | [keyof T | string, string]
 >
 

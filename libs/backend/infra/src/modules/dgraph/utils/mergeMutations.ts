@@ -1,4 +1,4 @@
-import { Nullish } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
 
 const addOneOrArray = (val: any, array: Array<any>) => {
@@ -18,13 +18,13 @@ const mergeNQuads = (a: Nullish<string>, b: Nullish<string>) => {
 }
 
 export const mergeMutations = (
-  ...mutations: Array<Mutation | undefined | null>
+  ...mutations: Array<Nullish<Mutation>>
 ): Mutation => {
   const merged = {
     setJson: [] as Array<any>,
     deleteJson: [] as Array<any>,
-    setNquads: undefined as string | undefined,
-    deleteNquads: undefined as string | undefined,
+    setNquads: undefined as Maybe<string>,
+    deleteNquads: undefined as Maybe<string>,
     commitNow: false,
   }
 

@@ -65,4 +65,8 @@ export class InMemoryRepository<T extends EntityLike>
   async deleteAll(ids: Array<string>): Promise<void> {
     await Promise.all(ids.map((id) => this.delete(id)))
   }
+
+  async createAll(entities: Array<T>): Promise<Array<CreateResponsePort>> {
+    return Promise.all(entities.map((entity) => this.create(entity)))
+  }
 }
