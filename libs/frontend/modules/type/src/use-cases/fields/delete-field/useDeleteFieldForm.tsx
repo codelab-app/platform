@@ -7,11 +7,16 @@ import { FieldFragment } from '../../../graphql/Field.fragment.graphql.gen'
 import { useFieldDispatch, useFieldState } from '../../../hooks'
 import { useDeleteFieldMutation } from '../../../store'
 
+export interface UseDeleteFieldFormInput {
+  interfaceId: string
+}
+
 export const useDeleteFieldForm: UseEntityUseCaseForm<
   EmptyJsonSchemaType,
   CRUDActionType,
-  FieldFragment
-> = () => {
+  FieldFragment,
+  UseDeleteFieldFormInput
+> = ({ interfaceId }) => {
   const { deleteIds, entity, actionType } = useFieldState()
   const { resetModal } = useFieldDispatch()
 
@@ -24,12 +29,12 @@ export const useDeleteFieldForm: UseEntityUseCaseForm<
   })
 
   const onSubmit = useCallback(
-    (input: EmptyJsonSchemaType) => {
+    (_: EmptyJsonSchemaType) => {
       return mutate({
-        variables: { input: { fieldId: deleteIds[0] } },
+        variables: { input: { fieldId: deleteIds[0], interfaceId } },
       }).unwrap()
     },
-    [deleteIds, mutate],
+    [deleteIds, interfaceId, mutate],
   )
 
   return {

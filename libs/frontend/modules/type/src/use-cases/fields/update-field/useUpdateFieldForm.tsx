@@ -7,11 +7,16 @@ import { useFieldDispatch, useFieldState } from '../../../hooks'
 import { useUpdateFieldMutation } from '../../../store'
 import { CreateFieldInput } from '../create-field'
 
+export interface UseUpdateFieldFormInput {
+  interfaceId: string
+}
+
 export const useUpdateFieldForm: UseEntityUseCaseForm<
   CreateFieldInput,
   CRUDActionType,
-  FieldFragment
-> = () => {
+  FieldFragment,
+  UseUpdateFieldFormInput
+> = ({ interfaceId }) => {
   const { updateId, entity, actionType } = useFieldState()
   const { resetModal } = useFieldDispatch()
 
@@ -27,10 +32,9 @@ export const useUpdateFieldForm: UseEntityUseCaseForm<
     (formData: CreateFieldInput) => {
       const input = {
         fieldId: updateId,
+        interfaceId,
         updateData: {
-          type: {
-            existingTypeId: formData.existingTypeId,
-          },
+          type: { existingTypeId: formData.existingTypeId },
           name: formData.name,
           key: formData.key,
           description: formData.description,
@@ -39,7 +43,7 @@ export const useUpdateFieldForm: UseEntityUseCaseForm<
 
       return mutate({ variables: { input } }).unwrap()
     },
-    [updateId, mutate],
+    [updateId, interfaceId, mutate],
   )
 
   return {

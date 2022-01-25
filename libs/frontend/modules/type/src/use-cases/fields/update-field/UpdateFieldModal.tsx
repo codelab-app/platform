@@ -3,16 +3,21 @@ import { Form, FormModal } from '@codelab/frontend/view/components'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { useFieldDispatch, useFieldState } from '../../../hooks'
+import { useFieldState } from '../../../hooks'
 import { TypeSelect } from '../../../shared'
 import { CreateFieldInput, createFieldSchema } from '../create-field'
-import { useUpdateFieldForm } from './useUpdateFieldForm'
+import {
+  useUpdateFieldForm,
+  UseUpdateFieldFormInput,
+} from './useUpdateFieldForm'
 
-export const UpdateFieldModal = () => {
+export type UpdateFieldModalProps = UseUpdateFieldFormInput
+
+export const UpdateFieldModal = ({ interfaceId }: UpdateFieldModalProps) => {
   const { actionType } = useFieldState()
 
   const { onSubmit, model, onSubmitSuccess, onSubmitError, isLoading, reset } =
-    useUpdateFieldForm()
+    useUpdateFieldForm({ interfaceId })
 
   return (
     <FormModal
