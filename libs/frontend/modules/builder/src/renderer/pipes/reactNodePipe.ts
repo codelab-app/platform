@@ -1,12 +1,11 @@
-import { TypeKind } from '@codelab/shared/abstract/codegen'
+import { TypeKind } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { mapValues } from 'lodash'
-import { transformPropsToComponentFn } from '../utils'
-import { getPropsByTypeKind } from '../utils/getPropsByTypeKind'
+import { getPropsByTypeKind, transformPropsToComponentFn } from '../utils'
 import { RenderPipeFactory } from './types'
 
 /**
- * Transforms the react node props
+ * Transforms the React node props
  */
 export const reactNodePipe: RenderPipeFactory =
   (next) => (element, context, props) => {

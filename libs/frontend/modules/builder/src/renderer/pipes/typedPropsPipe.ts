@@ -24,7 +24,6 @@ import { RenderPipeFactory } from './types'
 const handledTypeKinds = [
   TypeKind.AppType,
   TypeKind.ArrayType,
-  TypeKind.ComponentType,
   TypeKind.EnumType,
   TypeKind.ElementType,
   TypeKind.InterfaceType,

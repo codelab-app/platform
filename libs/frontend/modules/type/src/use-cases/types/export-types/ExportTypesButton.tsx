@@ -12,7 +12,7 @@ export const ExportTypesButton = ({ typeIds }: ExportTypesButtonProps) => {
   const onClick = async () => {
     const { data, error } = await getExportTypes({
       variables: {
-        input: { byIds: { typeIds } },
+        input: { where: { ids: typeIds } },
       },
     })
 
