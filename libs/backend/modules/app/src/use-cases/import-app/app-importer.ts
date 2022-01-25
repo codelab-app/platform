@@ -14,7 +14,7 @@ import {
   IUser,
 } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
-import { createEntityMapById } from '@codelab/shared/utils'
+import { entityMapById } from '@codelab/shared/utils'
 import { Mutation } from 'dgraph-js-http'
 import { omit, partition } from 'lodash'
 import { CreateAppService } from '../create-app'
@@ -125,7 +125,7 @@ export class AppImporter {
     // Fetch the existing atoms
     const existingAtomsById: Map<string, IAtom> = await this.getAtomsService
       .execute({ where: { ids: payloadAtomIds } })
-      .then(createEntityMapById)
+      .then(entityMapById)
 
     const payloadAtomTypes = allPayloadAtoms.map((a) => a.type)
 

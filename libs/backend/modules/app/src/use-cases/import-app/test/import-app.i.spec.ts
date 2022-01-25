@@ -17,6 +17,7 @@ import {
   TestCreatePropMapBindingGql,
   TestCreatePropMapBindingMutation,
 } from '@codelab/backend/modules/element'
+import { testUserUid } from '@codelab/backend/shared/generic'
 import { domainRequest } from '@codelab/backend/shared/testing'
 import {
   AtomType,
@@ -238,6 +239,7 @@ describe('ImportApp', () => {
           renderIfPropKey: null,
           propMapBindings: [],
           propTransformationJs: null,
+          owner: { id: testUserUid },
         },
         {
           __typename: 'Element',
@@ -254,6 +256,7 @@ describe('ImportApp', () => {
           renderIfPropKey: null,
           propMapBindings: [],
           propTransformationJs: null,
+          owner: { id: testUserUid },
         },
         {
           __typename: 'Element',
@@ -279,6 +282,7 @@ describe('ImportApp', () => {
           renderIfPropKey: null,
           propMapBindings: [],
           propTransformationJs: null,
+          owner: { id: testUserUid },
         },
         {
           __typename: 'Element',
@@ -295,6 +299,7 @@ describe('ImportApp', () => {
           renderIfPropKey: null,
           propMapBindings: [],
           propTransformationJs: null,
+          owner: { id: testUserUid },
         },
         {
           __typename: 'Element',
@@ -311,6 +316,7 @@ describe('ImportApp', () => {
           renderIfPropKey: null,
           propMapBindings: [],
           propTransformationJs: null,
+          owner: { id: testUserUid },
         },
         {
           __typename: 'Element',
@@ -343,6 +349,7 @@ describe('ImportApp', () => {
             },
           ],
           propTransformationJs: null,
+          owner: { id: testUserUid },
         },
         {
           __typename: 'Element',
@@ -359,6 +366,7 @@ describe('ImportApp', () => {
           renderIfPropKey: null,
           propMapBindings: [],
           propTransformationJs: null,
+          owner: { id: testUserUid },
         },
       ])
 
