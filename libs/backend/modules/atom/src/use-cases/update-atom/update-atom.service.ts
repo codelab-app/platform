@@ -19,7 +19,7 @@ export class UpdateAtomService extends DgraphUseCase<UpdateAtomInput> {
     request: UpdateAtomInput,
     txn: Txn,
   ): Promise<void> {
-    const { atom } = await this.validate(request)
+    const { atom } = await this.validate(request, txn)
 
     await this.dgraph.executeMutation(
       txn,
@@ -48,8 +48,11 @@ export class UpdateAtomService extends DgraphUseCase<UpdateAtomInput> {
     })
   }
 
-  private async validate({ id }: UpdateAtomInput) {
-    const atom = await this.getAtomService.execute({ where: { id } })
+  private async validate({ id }: UpdateAtomInput, txn: Txn) {
+    const atom = await this.getAtomService.execute({
+      input: { where: { id } },
+      transaction: txn,
+    })
 
     if (!atom) {
       throw new Error("Atom doesn't exist")

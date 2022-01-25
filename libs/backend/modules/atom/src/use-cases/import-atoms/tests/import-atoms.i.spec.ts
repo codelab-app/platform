@@ -33,6 +33,29 @@ const sortedAtoms = (atoms: Array<TestGetExport__AtomsFragment>) => {
   })
 }
 
+const expectedAtoms = (
+  atoms: Array<TestGetExport__AtomsFragment>,
+  idMap: Map<string, string>,
+) => {
+  return atoms?.map((atom) => {
+    return merge(atom, {
+      api: {
+        typeGraph: {
+          vertices: atom.api.typeGraph.vertices.map((v) => ({
+            ...v,
+            id: idMap.get(v.id),
+          })),
+          edges: atom.api.typeGraph.edges.map((e) => ({
+            ...e,
+            target: idMap.get(e.target),
+            source: idMap.get(e.source),
+          })),
+        },
+      },
+    })
+  })
+}
+
 describe('ImportAtoms', () => {
   const testModule = setupAtomTestModule(true)
   let importAtomsInput: ImportAtomsInput
@@ -101,12 +124,23 @@ describe('ImportAtoms', () => {
         TestGetExportAtomsQuery
       >(testModule.userApp, TestGetExportAtomsGql, getAtomsInput)
 
+      const newVertices = getAtoms?.[0].api.typeGraph.vertices ?? []
+      const oldVertices = exportAtomsData[0].api.typeGraph.vertices
+
+      const idMap = new Map(
+        newVertices.map((nv) => [
+          oldVertices.find((v2) => v2.name === nv.name)?.id as string,
+          nv.id,
+        ]),
+      )
+
       /**
        * Let's sort the vertices/edges by name so order isn't considered
        *
        */
-      // TODO: Need to check source & target as well
-      expect(sortedAtoms(getAtoms!)).toMatchObject(sortedAtoms(exportAtomsData))
+      expect(sortedAtoms(getAtoms!)).toMatchObject(
+        expectedAtoms(sortedAtoms(exportAtomsData as any), idMap),
+      )
     })
 
     it.todo('should update existing atoms & types')

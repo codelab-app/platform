@@ -1,22 +1,23 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType } from '@codelab/backend/infra'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
 import { AtomSchema, IAtom } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
 import { GetAtomInput } from './get-atom.input'
+import { GetAtomRequest } from './get-atom.request'
 
 @Injectable()
-export class GetAtomService extends DgraphUseCase<
-  GetAtomInput,
-  Nullable<IAtom>
-> {
+export class GetAtomService
+  implements UseCasePort<GetAtomRequest, Nullable<IAtom>>
+{
+  constructor(protected readonly dgraph: DgraphRepository) {}
+
   protected schema = AtomSchema.nullable()
 
-  protected async executeTransaction(
-    input: GetAtomInput,
-    txn: Txn,
-  ): Promise<Nullable<IAtom>> {
+  async execute({
+    input,
+    transaction,
+  }: GetAtomRequest): Promise<Nullable<IAtom>> {
     GetAtomService.validate(input)
 
     const {
@@ -25,7 +26,7 @@ export class GetAtomService extends DgraphUseCase<
 
     if (id) {
       return this.dgraph.getOneNamed(
-        txn,
+        transaction,
         GetAtomService.createGetByIdQuery(id),
         'query',
       )
@@ -33,7 +34,7 @@ export class GetAtomService extends DgraphUseCase<
 
     if (type) {
       return this.dgraph.getOneNamed<IAtom>(
-        txn,
+        transaction,
         GetAtomService.createGetByType(type),
         'query',
       )
@@ -41,7 +42,7 @@ export class GetAtomService extends DgraphUseCase<
 
     if (element) {
       return this.dgraph.getOneNamed<IAtom>(
-        txn,
+        transaction,
         GetAtomService.getAtomByElementQuery(element),
         'query',
       )

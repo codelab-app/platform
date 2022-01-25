@@ -19,7 +19,7 @@ export class DeleteAtomService extends DgraphUseCase<DeleteAtomInput> {
     txn: Txn,
   ): Promise<void> {
     const { atomId } = request
-    await this.validate(request)
+    await this.validate(request, txn)
 
     // const mu: Mutation = {
     //   mutation: `
@@ -50,8 +50,11 @@ export class DeleteAtomService extends DgraphUseCase<DeleteAtomInput> {
     )
   }
 
-  protected async validate({ atomId }: DeleteAtomInput) {
-    const atom = await this.getAtomService.execute({ where: { id: atomId } })
+  protected async validate({ atomId }: DeleteAtomInput, txn: Txn) {
+    const atom = await this.getAtomService.execute({
+      input: { where: { id: atomId } },
+      transaction: txn,
+    })
 
     if (!atom) {
       throw new Error("Can't delete, atom not found")

@@ -1,6 +1,10 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
-import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
-import { ImportTypeservice } from '@codelab/backend/modules/type'
+import {
+  ITransaction,
+  LoggerService,
+  LoggerTokens,
+} from '@codelab/backend/infra'
+import { ImportTypeService } from '@codelab/backend/modules/type'
 import { AtomType, IUser } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
@@ -25,7 +29,7 @@ export class ImportAtomsService
   constructor(
     private getAtomService: GetAtomService,
     private createAtomService: CreateAtomService,
-    private importTypeservice: ImportTypeservice,
+    private importTypeservice: ImportTypeService,
     private updateAtomService: UpdateAtomService,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
@@ -34,16 +38,18 @@ export class ImportAtomsService
     const {
       input: { payload },
       currentUser,
+      transaction,
     } = request
 
     const atoms = JSON.parse(payload)
 
-    await this.createAtoms(atoms ?? [], currentUser)
+    await this.createAtoms(atoms ?? [], currentUser, transaction)
   }
 
   private async createAtoms(
     atoms: Array<TestGetExport__AtomsFragment>,
     currentUser: IUser,
+    transaction: ITransaction,
   ) {
     await Promise.all(
       atoms.map(async (atom) => {
@@ -57,6 +63,7 @@ export class ImportAtomsService
               id: atom.api.id,
             },
             currentUser,
+            transaction,
           })
 
           apiId = id
@@ -70,6 +77,7 @@ export class ImportAtomsService
             api: apiId,
           },
           currentUser,
+          transaction,
         })
       }),
     )
@@ -83,15 +91,18 @@ export class ImportAtomsService
   private async upsertAtom({
     input,
     currentUser,
+    transaction,
   }: CreateAtomRequest): Promise<Nullable<string>> {
     const atom = await this.getAtomService.execute({
-      where: { type: input.type },
+      input: { where: { type: input.type } },
+      transaction,
     })
 
     if (!atom) {
       const { id } = await this.createAtomService.execute({
         input,
         currentUser,
+        transaction,
       })
 
       return id
