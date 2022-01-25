@@ -1,5 +1,6 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { GqlAuthGuard, RolesGuard } from '@codelab/backend/infra'
+import { Transaction, Transactional } from '@codelab/backend/application'
+import { GqlAuthGuard, ITransaction, RolesGuard } from '@codelab/backend/infra'
 import { GetTypeGraphService, TypeGraph } from '@codelab/backend/modules/type'
 import { CurrentUser, Roles } from '@codelab/backend/modules/user'
 import { IUser, Role } from '@codelab/shared/abstract/core'
@@ -16,13 +17,11 @@ import { Atom } from '../domain/atom.model'
 import { CreateAtomInput, CreateAtomService } from '../use-cases/create-atom'
 import { DeleteAtomInput, DeleteAtomService } from '../use-cases/delete-atom'
 import { GetAtomInput, GetAtomService } from '../use-cases/get-atom'
-import { GetAtomsService } from '../use-cases/get-atoms'
-import { GetAtomsInput } from '../use-cases/get-atoms/get-atoms.input'
+import { GetAtomsInput, GetAtomsService } from '../use-cases/get-atoms'
 import { GetAtomsTypeHookService } from '../use-cases/get-atoms-type-hook'
 import { ImportAtomsInput, ImportAtomsService } from '../use-cases/import-atoms'
 import { UpdateAtomInput, UpdateAtomService } from '../use-cases/update-atom'
-import { UpsertAtomsInput } from '../use-cases/upsert-atoms/upsert-atoms.input'
-import { UpsertAtomsService } from '../use-cases/upsert-atoms/upsert-atoms.service'
+import { UpsertAtomsInput, UpsertAtomsService } from '../use-cases/upsert-atoms'
 
 @Resolver(() => Atom)
 @Injectable()
@@ -42,14 +41,21 @@ export class AtomResolver {
   @Mutation(() => Atom)
   @Roles(Role.Admin)
   @UseGuards(GqlAuthGuard, RolesGuard)
+  @Transactional()
   async createAtom(
     @Args('input') input: CreateAtomInput,
     @CurrentUser() currentUser: IUser,
+    @Transaction() transaction: ITransaction,
   ) {
-    const { id } = await this.createAtomService.execute({ input, currentUser })
+    const { id } = await this.createAtomService.execute({
+      input,
+      currentUser,
+      transaction,
+    })
 
     const atom = await this.getAtomService.execute({
-      where: { id },
+      input: { where: { id } },
+      transaction,
     })
 
     if (!atom) {
@@ -62,11 +68,16 @@ export class AtomResolver {
   @Mutation(() => Atom, { nullable: true })
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
-  async deleteAtom(@Args('input') input: DeleteAtomInput) {
+  @Transactional()
+  async deleteAtom(
+    @Args('input') input: DeleteAtomInput,
+    @Transaction() transaction: ITransaction,
+  ) {
     const { atomId } = input
 
     const atom = await this.getAtomService.execute({
-      where: { id: atomId },
+      input: { where: { id: atomId } },
+      transaction,
     })
 
     if (!atom) {
@@ -93,29 +104,40 @@ export class AtomResolver {
   @Mutation(() => Void, { nullable: true })
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
+  @Transactional()
   async importAtoms(
     @Args('input') input: ImportAtomsInput,
     @CurrentUser() currentUser: IUser,
+    @Transaction() transaction: ITransaction,
   ) {
-    await this.importAtomsService.execute({ input, currentUser })
+    await this.importAtomsService.execute({ input, currentUser, transaction })
   }
 
   @Query(() => Atom, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getAtom(@Args('input') input: GetAtomInput) {
-    return this.getAtomService.execute(input)
+  @Transactional()
+  async getAtom(
+    @Args('input') input: GetAtomInput,
+    @Transaction() transaction: ITransaction,
+  ) {
+    return this.getAtomService.execute({ input, transaction })
   }
 
   @Mutation(() => Atom, { nullable: true })
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
-  async updateAtom(@Args('input') input: UpdateAtomInput) {
+  @Transactional()
+  async updateAtom(
+    @Args('input') input: UpdateAtomInput,
+    @Transaction() transaction: ITransaction,
+  ) {
     await this.updateAtomService.execute(input)
 
     const { id } = input
 
     const atom = await this.getAtomService.execute({
-      where: { id },
+      input: { where: { id } },
+      transaction,
     })
 
     if (!atom) {
@@ -150,13 +172,15 @@ export class AtomResolver {
 
   @ResolveField('apiGraph', () => TypeGraph)
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async apiGraphResolver(
     @Parent() input: Atom,
     @CurrentUser() currentUser: IUser,
+    @Transaction() transaction: ITransaction,
   ) {
     return this.getTypeGraphService.execute({
       input: { where: { atomId: input.id } },
-      currentUser,
+      transaction,
     })
   }
 }
