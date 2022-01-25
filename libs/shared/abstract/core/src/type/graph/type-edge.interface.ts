@@ -10,6 +10,12 @@ const FieldDataSchema = z.object({
 
 export const FieldSchema = z.intersection(EdgeSchema, FieldDataSchema)
 
+/**
+ * Type edge can be:
+ * - Interface -> Field relation - IField is used then
+ * - Array -> Array Item Type relation - IEdge
+ * - Union -> Union Item Type relation - IEdge
+ */
 export const TypeEdgeSchema = z.union([FieldSchema, EdgeSchema])
 
 export type IField = z.infer<typeof FieldSchema>

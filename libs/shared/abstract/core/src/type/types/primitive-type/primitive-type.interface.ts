@@ -8,4 +8,10 @@ export const PrimitiveTypeSchema = BaseTypeSchema.extend({
   primitiveKind: z.nativeEnum(PrimitiveTypeKind),
 })
 
+/**
+ * Base atomic building block of the type system.
+ * Represents primitive types - String, Integer, Float, Boolean
+ *
+ * @property {PrimitiveTypeKind} primitiveKind - concrete primitive kind
+ */
 export type IPrimitiveType = z.infer<typeof PrimitiveTypeSchema>
