@@ -67,13 +67,6 @@ export const uniformsFactory: IJsonSchemaOptions['jsonPropertiesMapper'] = (
           ),
         },
       }
-    case TypeKind.ComponentType:
-      return {
-        type: 'string',
-        uniforms: {
-          component: SelectComponent,
-        },
-      }
   }
 
   return {}

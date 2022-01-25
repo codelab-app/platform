@@ -1,5 +1,4 @@
 import {
-  IBaseType,
   IField,
   IGraph,
   IJsonSchemaOptions,
@@ -20,8 +19,8 @@ import {
   typeIsOfKind,
 } from './treeHelpers'
 
-export class TypeTree extends TreeService<IBaseType, ITypeEdge> {
-  constructor(graph: IGraph<IBaseType, ITypeEdge>) {
+export class TypeTree extends TreeService<IType, ITypeEdge> {
+  constructor(graph: IGraph<IType, ITypeEdge>) {
     const extractEdgeId = (e: ITypeEdge) => {
       const id = (e as any).id
 
