@@ -24,7 +24,7 @@ import React, { useContext } from 'react'
 
 const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = () => {
   const {
-    interface: { name },
+    interface: { name, id },
     tree,
   } = useContext(InterfaceContext)
 
@@ -35,8 +35,8 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = () => {
       </Head>
 
       <CreateFieldModal />
-      <UpdateFieldModal />
-      <DeleteFieldModal />
+      <UpdateFieldModal interfaceId={id} />
+      <DeleteFieldModal interfaceId={id} />
       <ContentSection>
         <FieldsTable tree={tree} />
       </ContentSection>
