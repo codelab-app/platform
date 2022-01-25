@@ -1,39 +1,36 @@
 import {
-  DgraphEntityType,
-  DgraphRepository,
+  ITransaction,
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
 import { TypeId, TypeKind } from '@codelab/shared/abstract/core'
-import { EntityLike } from '@codelab/shared/abstract/types'
 import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
-import { isString } from 'lodash'
 import { RecursiveTypeError } from '../application/errors'
 import { TypeUnusedError } from '../application/errors/type-unused.error'
-import { CreateTypeInput } from '../use-cases/type/create-type'
+import { ITypeRepository, ITypeRepositoryToken } from '../infrastructure'
+import {
+  CreateTypeInput,
+  CreateTypeRequest,
+} from '../use-cases/type/create-type'
 
 @Injectable()
 export class TypeValidator {
   constructor(
-    private dgraph: DgraphRepository,
+    @Inject(ITypeRepositoryToken)
+    private typeRepository: ITypeRepository,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
 
   /**
    * Throws error if the type doesn't exist
    */
-  async typeExists(typeId: TypeId) {
-    return await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.getOneOrThrowNamed<QueryResult>(
-        txn,
-        TypeValidator.createGetTypeQuery(typeId),
-        'query',
-        () => {
-          throw new Error('Type does not exist')
-        },
-      ),
-    )
+  async typeExists(typeId: TypeId, transaction: ITransaction) {
+    const type = await this.typeRepository.getOne(typeId, transaction)
+
+    if (!type) {
+      throw new Error('Type does not exist')
+    }
   }
 
   /**
@@ -41,72 +38,69 @@ export class TypeValidator {
    *
    * We query for primitive types only first, then check the kind. If it already exists, we don't allow creation
    */
-  async primitiveIsNotDuplicated(request: CreateTypeInput): Promise<void> {
-    if (request.typeKind !== TypeKind.PrimitiveType) {
+  async primitiveIsNotDuplicated(request: CreateTypeRequest): Promise<void> {
+    const { transaction, input, currentUser } = request
+
+    if (input.typeKind !== TypeKind.PrimitiveType || !input.primitiveType) {
       return
     }
 
-    const results = await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.executeNamedQuery<Array<any>>(
-        txn,
-        `{
-          query(func: eq(dgraph.type, ${DgraphEntityType.Type})) @filter(eq(typeKind, "${TypeKind.PrimitiveType}") AND eq(primitiveKind, ${request.primitiveType?.primitiveKind})) {
-            uid
-            primitiveKind
-          }
-        }`,
-        'query',
-      ),
+    const where = {
+      kind: TypeKind.PrimitiveType,
+      primitiveKind: input.primitiveType.primitiveKind,
+    }
+
+    const primitives = currentUser
+      ? await this.typeRepository.getUserTypes(
+          currentUser.id,
+          where,
+          transaction,
+        )
+      : await this.typeRepository.getAdminTypes(where, transaction)
+
+    if (
+      primitives.length &&
+      primitives.find((p) => p.typeKind === input.typeKind)
+    ) {
+      this.logger.debug(request, 'Type Exists')
+      throw new Error(`${input.primitiveType.primitiveKind} already exists`)
+    }
+  }
+
+  /**
+   * Throws {@link TypeUnusedError} if the type is referenced in any fields or if it's the api of an atom
+   */
+  async typeIsNotReferenced(typeId: string, transaction: ITransaction) {
+    const references = await this.typeRepository.getTypeReferences(
+      typeId,
+      transaction,
     )
 
-    if (results?.length) {
-      this.logger.debug(request, 'Type Exists')
-      throw new Error(`${request.primitiveType?.primitiveKind} already exists`)
+    if (references.atoms?.length) {
+      throw new TypeUnusedError(undefined, references.atoms[0].name)
+    }
+
+    if (references.fields?.length) {
+      throw new TypeUnusedError(references.fields.map((f) => `${f.name}`))
     }
   }
 
-  /**
-   * Throws {@link TypeUnusedError} if the type is the api of an atom
-   * @param typeOrTypeId the type id or the result of {@link typeExists}
-   */
-  async typeIsNotApiOfAtom(typeOrTypeId: string | QueryResult) {
-    if (isString(typeOrTypeId)) {
-      typeOrTypeId = await this.typeExists(typeOrTypeId)
-    }
-
-    if (typeOrTypeId.atoms && typeOrTypeId.atoms.length > 0) {
-      throw new TypeUnusedError(undefined, typeOrTypeId.atoms[0].name)
-    }
-  }
-
-  /**
-   * Throws {@link TypeUnusedError} if the type is referenced in any fields
-   * @param typeOrTypeId the type id or the result of {@link typeExists}
-   */
-  async typeIsNotReferencedInFields(typeOrTypeId: string | QueryResult) {
-    if (isString(typeOrTypeId)) {
-      typeOrTypeId = await this.typeExists(typeOrTypeId)
-    }
-
-    if (typeOrTypeId.fields && typeOrTypeId.fields.length > 0) {
-      throw new TypeUnusedError(typeOrTypeId.fields.map((f) => `${f.name}`))
-    }
-  }
-
-  async validateCreateTypeInput({ typeKind, arrayType }: CreateTypeInput) {
+  async validateCreateTypeInput(
+    { typeKind, arrayType }: CreateTypeInput,
+    transaction: ITransaction,
+  ) {
     if (!typeKind) {
       throw new Error('Missing type kind')
     }
 
     if (arrayType) {
-      await this.typeExists(arrayType.itemTypeId)
+      await this.typeExists(arrayType.itemTypeId, transaction)
     }
   }
 
   /**
    * Checks if the id of type A is referenced anywhere, at any depth, inside type B
    *
-   * Throws {@link OverlyNestedTypeError} if the type is too nested based on {@link MAX_TYPE_DEPTH}
    * Throws {@link RecursiveTypeError} if typeAId is referenced inside type B
    */
   notRecursive(typeAId: TypeId, typeBTree: TypeTree) {
@@ -114,33 +108,4 @@ export class TypeValidator {
       throw new RecursiveTypeError()
     }
   }
-
-  private static createGetTypeQuery(typeId: string) {
-    return `{
-      query(func: type(${DgraphEntityType.Type})) @filter(uid(${typeId})) {
-          id: uid
-          atoms: ~api @filter(type(Atom)) {
-						id: uid
-            name
-          }
-          fields:~type @filter(type(Field)) {
-						id: uid
-            name
-          }
-        }
-    }`
-  }
-}
-
-export type QueryResult = EntityLike & {
-  atoms?: Array<
-    EntityLike & {
-      name: string
-    }
-  >
-  fields?: Array<
-    EntityLike & {
-      name: string
-    }
-  >
 }

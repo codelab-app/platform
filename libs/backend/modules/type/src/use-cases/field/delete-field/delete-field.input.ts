@@ -4,4 +4,7 @@ import { Field, InputType } from '@nestjs/graphql'
 export class DeleteFieldInput {
   @Field()
   declare fieldId: string
+
+  @Field()
+  declare interfaceId: string
 }

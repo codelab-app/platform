@@ -24,15 +24,8 @@ export class PrimitiveType
   @Field(() => PrimitiveTypeKind)
   declare primitiveKind: PrimitiveTypeKind
 
-  constructor({
-    id,
-    name,
-    primitiveKind,
-  }: Pick<PrimitiveType, 'id' | 'name' | 'primitiveKind'>) {
-    super(TypeKind.PrimitiveType)
-
-    this.id = id
-    this.name = name
+  constructor({ primitiveKind, ...type }: Omit<PrimitiveType, 'typeKind'>) {
+    super({ typeKind: TypeKind.PrimitiveType, ...type })
     this.primitiveKind = primitiveKind
   }
 }

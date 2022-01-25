@@ -1,39 +1,24 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
+import { IType, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
-import { TypeValidator } from '../../../domain/type.validator'
-import { UpdatePrimitiveTypeInput } from './update-primitive-type.input'
+import { UpdateTypeService } from '../update-type'
+import { UpdatePrimitiveTypeRequest } from './update-primitive-type.request'
 
 @Injectable()
-export class UpdatePrimitiveTypeService extends DgraphUseCase<UpdatePrimitiveTypeInput> {
-  constructor(dgraph: DgraphRepository, private typeValidator: TypeValidator) {
-    super(dgraph)
-  }
+export class UpdatePrimitiveTypeService extends UpdateTypeService<UpdatePrimitiveTypeRequest> {
+  protected override doUpdate(
+    type: IType,
+    request: UpdatePrimitiveTypeRequest,
+  ): void {
+    super.doUpdate(type, request)
 
-  protected async executeTransaction(
-    request: UpdatePrimitiveTypeInput,
-    txn: Txn,
-  ) {
-    await this.validate(request)
-    await this.dgraph.executeMutation(
-      txn,
-      UpdatePrimitiveTypeService.createMutation(request),
-    )
-  }
+    if (type.typeKind !== TypeKind.PrimitiveType) {
+      throw new Error('Type is not a primitive type')
+    }
 
-  private async validate(request: UpdatePrimitiveTypeInput) {
-    await this.typeValidator.typeExists(request.typeId)
-  }
+    const {
+      input: { updateData },
+    } = request
 
-  private static createMutation({
-    typeId,
-    updateData: { name, primitiveKind },
-  }: UpdatePrimitiveTypeInput) {
-    return jsonMutation({
-      uid: typeId,
-      name,
-      primitiveKind,
-    })
+    type.primitiveKind = updateData.primitiveKind
   }
 }

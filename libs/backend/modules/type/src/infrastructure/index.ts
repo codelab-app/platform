@@ -1,0 +1,6 @@
+export * from './modules/type-infrastructure.module'
+export * from './modules/type-test-infrastructure.module'
+export * from './repository/type/type-mutation.factory'
+export * from './repository/type/type-query.factory'
+export * from './repository/type/type-repository'
+export * from './repository/type/type-repository.interface'

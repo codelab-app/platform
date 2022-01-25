@@ -63,5 +63,5 @@ export const createField = async (nestApp: INestApplication) => {
     createFieldInput,
   )
 
-  return fieldId
+  return { fieldId, interfaceTypeId }
 }

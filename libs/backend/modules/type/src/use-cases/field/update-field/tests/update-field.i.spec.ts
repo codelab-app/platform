@@ -1,10 +1,10 @@
 import { domainRequest } from '@codelab/backend/shared/testing'
 import { setupTypeTestModule } from '../../../../tests/setupTypeTestModule'
-import { CreateFieldInput } from '../../create-field'
 import {
+  CreateFieldInput,
   TestCreateFieldGql,
   TestCreateFieldMutation,
-} from '../../create-field/tests/create-field.api.graphql.gen'
+} from '../../create-field'
 import {
   createInterfaceType,
   createPrimitiveType,
@@ -51,6 +51,7 @@ describe('UpdateField', () => {
     // Prepare update field input
     updateFieldInput = {
       fieldId,
+      interfaceId: interfaceTypeId,
       updateData: {
         name: 'Updated Field Name',
         key: createFieldInput.key,

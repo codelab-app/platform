@@ -11,8 +11,8 @@ describe('GetField', () => {
   let getFieldInput: GetFieldInput
 
   beforeAll(async () => {
-    fieldId = await createField(testModule.userApp)
-
+    const res = await createField(testModule.userApp)
+    fieldId = res.fieldId
     getFieldInput = { byId: { fieldId } }
   })
 

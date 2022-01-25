@@ -1,22 +1,23 @@
 import {
   domainRequest,
+  ExpectedError,
   setupTestModule,
   teardownTestModule,
 } from '@codelab/backend/shared/testing'
-import { Role } from '@codelab/shared/abstract/core'
+import { IType, Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../type.module'
-import { CreateFieldInput } from '../use-cases/field/create-field'
 import {
+  CreateFieldInput,
   TestCreateFieldGql,
   TestCreateFieldMutation,
-} from '../use-cases/field/create-field/tests/create-field.api.graphql.gen'
-import { CreateTypeInput } from '../use-cases/type/create-type/inputs/create-type.input'
+} from '../use-cases/field/create-field'
 import {
+  CreateTypeInput,
   TestCreateTypeGql,
   TestCreateTypeMutation,
-} from '../use-cases/type/create-type/tests/create-type.api.graphql.gen'
-import { GetTypeInput } from '../use-cases/type/get-type/get-type.input'
+} from '../use-cases/type/create-type'
+import { GetTypeInput } from '../use-cases/type/get-type'
 import {
   TestGetTypeGql,
   TestGetTypeQuery,
@@ -32,12 +33,13 @@ export const setupTypeTestModule = () => {
         TestCreateFieldGql,
         input,
       ).then((r) => r.createField),
-    createTestType: (input: CreateTypeInput) => {
+    createTestType: (input: CreateTypeInput, expectedError?: ExpectedError) => {
       return domainRequest<CreateTypeInput, TestCreateTypeMutation>(
         testModule.userApp,
         TestCreateTypeGql,
         input,
-      ).then((r) => r.createType)
+        expectedError,
+      ).then((r) => r?.createType as IType)
     },
     getType: (input: GetTypeInput) => {
       return domainRequest<GetTypeInput, TestGetTypeQuery>(

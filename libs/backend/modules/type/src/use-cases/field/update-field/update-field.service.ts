@@ -1,70 +1,70 @@
-import { NotFoundError } from '@codelab/backend/abstract/core'
-import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphQueryBuilder,
-  DgraphRepository,
-  jsonMutation,
-} from '@codelab/backend/infra'
-import { IUser } from '@codelab/shared/abstract/core'
-import { DgraphEntityLike } from '@codelab/shared/abstract/types'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { ITransaction } from '@codelab/backend/infra'
+import { IInterfaceType, IUser, TypeKind } from '@codelab/shared/abstract/core'
 import { TypeTree } from '@codelab/shared/core'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Inject, Injectable } from '@nestjs/common'
 import { FieldValidator } from '../../../domain/field/field.validator'
 import { TypeValidator } from '../../../domain/type.validator'
+import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { CreateTypeService } from '../../type/create-type'
 import { GetTypeGraphService } from '../../type/get-type-graph'
 import { TypeRef } from '../create-field'
-import { GetFieldService } from '../get-field'
 import { UpdateFieldRequest } from './update-field.request'
 
 @Injectable()
-export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
+export class UpdateFieldService
+  implements UseCasePort<UpdateFieldRequest, void>
+{
   constructor(
-    dgraph: DgraphRepository,
-    private getFieldService: GetFieldService,
+    @Inject(ITypeRepositoryToken)
+    private typeRepository: ITypeRepository,
     private fieldValidator: FieldValidator,
     private typeValidator: TypeValidator,
     private createTypeService: CreateTypeService,
     private getTypeGraphService: GetTypeGraphService,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(request: UpdateFieldRequest, txn: Txn) {
-    const { currentUser, input } = request
-    await this.validate(request)
+  async execute(request: UpdateFieldRequest) {
+    const { currentUser, input, transaction } = request
 
-    const typeId = await this.getTypeId(input.updateData.type, currentUser)
-
-    await this.dgraph.executeMutation(
-      txn,
-      UpdateFieldService.createMutation(request, typeId),
+    const theInterface = await this.typeRepository.getOne(
+      input.interfaceId,
+      transaction,
     )
+
+    if (!theInterface) {
+      throw new Error('Interface not found')
+    }
+
+    if (theInterface.typeKind !== TypeKind.InterfaceType) {
+      throw new Error("Type is not interface, can't add field to it")
+    }
+
+    await this.validate(request, theInterface)
+
+    const field = theInterface.fields.find((f) => f.id === input.fieldId)
+
+    if (!field) {
+      throw new Error('Field not found')
+    }
+
+    field.target = await this.getTypeId(
+      input.updateData.type,
+      currentUser,
+      transaction,
+    )
+    field.name = input.updateData.name
+    field.description = input.updateData.description
+    field.key = input.updateData.key
+
+    await this.typeRepository.update(theInterface, transaction)
   }
 
-  private static createMutation(
-    {
-      input: {
-        fieldId,
-        updateData: { name, description, key },
-      },
-    }: UpdateFieldRequest,
-    typeId: string,
+  private async getTypeId(
+    type: TypeRef,
+    currentUser: IUser,
+    transaction: ITransaction,
   ) {
-    return jsonMutation({
-      uid: fieldId,
-      name,
-      key,
-      description: description ?? undefined,
-      type: {
-        uid: typeId,
-      },
-    })
-  }
-
-  private async getTypeId(type: TypeRef, currentUser: IUser) {
     let typeId = type.existingTypeId
 
     // Check if we specify an existing type, if not - create a new one and get its ID
@@ -76,6 +76,7 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
       const createdType = await this.createTypeService.execute({
         input: type.newType,
         currentUser,
+        transaction,
       })
 
       typeId = createdType.id
@@ -92,32 +93,21 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
    * - The specified existingTypeId causes a recursive type reference
    * - Neither existingTypeId nor newType are provided
    */
-  protected async validate({
-    input: {
-      fieldId,
-      updateData: {
-        key,
-        type: { existingTypeId, newType },
+  protected async validate(
+    {
+      input: {
+        fieldId,
+        updateData: {
+          key,
+          type: { existingTypeId, newType },
+        },
+        interfaceId,
       },
-    },
-    currentUser,
-  }: UpdateFieldRequest): Promise<void> {
-    const field = await this.dgraph.transactionWrapper<{
-      '~fields': [DgraphEntityLike]
-    }>((txn) =>
-      this.dgraph.getOneOrThrow(
-        txn,
-        new DgraphQueryBuilder()
-          .addTypeFilterDirective(DgraphEntityType.Field)
-          .setUidFunc(fieldId)
-          .addFields(`~fields { uid }`),
-        () => new NotFoundError('Field not found'),
-      ),
-    )
-
-    const interfaceId = field['~fields'][0].uid
-
-    await this.fieldValidator.keyIsUnique(interfaceId, key, fieldId)
+      transaction,
+    }: UpdateFieldRequest,
+    theInterface: IInterfaceType,
+  ): Promise<void> {
+    await this.fieldValidator.keyIsUnique(theInterface, key, fieldId)
 
     if ((!existingTypeId && !newType) || (existingTypeId && newType)) {
       throw new Error('Either existingTypeId or newType must be provided')
@@ -125,12 +115,12 @@ export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
 
     if (existingTypeId) {
       // If we specify an existing type, check if it exists
-      await this.typeValidator.typeExists(existingTypeId)
+      await this.typeValidator.typeExists(existingTypeId, transaction)
 
       // And it doesn't cause a recursive loop
       const graph = await this.getTypeGraphService.execute({
         input: { where: { id: existingTypeId } },
-        currentUser,
+        transaction,
       })
 
       if (!graph) {

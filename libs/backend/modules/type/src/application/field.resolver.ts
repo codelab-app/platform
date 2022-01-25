@@ -1,4 +1,5 @@
-import { GqlAuthGuard } from '@codelab/backend/infra'
+import { Transaction, Transactional } from '@codelab/backend/application'
+import { GqlAuthGuard, ITransaction } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
@@ -30,30 +31,27 @@ export class FieldResolver {
 
   @Mutation(() => Field)
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async createField(
     @Args('input') input: CreateFieldInput,
     @CurrentUser() currentUser: IUser,
-  ) {
-    const { id } = await this.createFieldService.execute({
+    @Transaction() transaction: ITransaction,
+  ): Promise<Field> {
+    return this.createFieldService.execute({
       input,
       currentUser,
+      transaction,
     })
-
-    const field = await this.getFieldService.execute({
-      input: { byId: { fieldId: id } },
-    })
-
-    if (!field) {
-      throw new Error("Couldn't find created field")
-    }
-
-    return field
   }
 
   @Query(() => Field, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async getField(@Args('input') input: GetFieldInput) {
-    const field = await this.getFieldService.execute({ input })
+  @Transactional()
+  async getField(
+    @Args('input') input: GetFieldInput,
+    @Transaction() transaction: ITransaction,
+  ) {
+    const field = await this.getFieldService.execute({ input, transaction })
 
     if (!field) {
       return null
@@ -64,14 +62,17 @@ export class FieldResolver {
 
   @Mutation(() => Field, { nullable: true })
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async updateField(
     @Args('input') input: UpdateFieldInput,
     @CurrentUser() currentUser: IUser,
+    @Transaction() transaction: ITransaction,
   ) {
-    await this.updateFieldService.execute({ input, currentUser })
+    await this.updateFieldService.execute({ input, currentUser, transaction })
 
     const field = await this.getFieldService.execute({
       input: { byId: { fieldId: input.fieldId } },
+      transaction,
     })
 
     if (!field) {
@@ -83,16 +84,21 @@ export class FieldResolver {
 
   @Mutation(() => Field, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async deleteField(@Args('input') input: DeleteFieldInput) {
+  @Transactional()
+  async deleteField(
+    @Args('input') input: DeleteFieldInput,
+    @Transaction() transaction: ITransaction,
+  ) {
     const field = await this.getFieldService.execute({
       input: { byId: { fieldId: input.fieldId } },
+      transaction,
     })
 
     if (!field) {
       throw new Error("Couldn't find  field")
     }
 
-    await this.deleteFieldService.execute({ input })
+    await this.deleteFieldService.execute({ input, transaction })
 
     return field
   }

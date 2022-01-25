@@ -15,12 +15,12 @@ describe('GetTypes', () => {
     const type = await testModule.createTestType(createPrimitiveStringInput)
 
     typeId = type.id
-    getTypesByIdInput = { byIds: { typeIds: [typeId] } }
+    getTypesByIdInput = { where: { ids: [typeId] } }
 
     getTypesByKindInput = {
-      byKind: { kind: createPrimitiveStringInput.typeKind },
+      where: { kind: createPrimitiveStringInput.typeKind },
     }
-    getTypesByNameInput = { byName: { name: createPrimitiveStringInput.name } }
+    getTypesByNameInput = { where: { name: createPrimitiveStringInput.name } }
   })
 
   describe('Guest', () => {

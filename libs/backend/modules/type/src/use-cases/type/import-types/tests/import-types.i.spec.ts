@@ -45,10 +45,10 @@ describe('ImportTypes', () => {
       const { getTypes } = await domainRequest<
         GetTypesInput,
         { getTypes: Array<Export__TypesFragment> }
-      >(testModule.userApp, ExportTypesGql, { byIds: { typeIds: ids } })
+      >(testModule.userApp, ExportTypesGql, { where: { ids: ids } })
 
       getTypes.forEach((type) => {
-        const tree = new TypeTree(type.typeGraph)
+        const tree = new TypeTree(type.typeGraph as any)
         const testData = testDataByTypeName[type.name]
 
         tree.bfsVisit((v, _, u, i) => {

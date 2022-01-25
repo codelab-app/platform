@@ -1,58 +1,52 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphQueryBuilder,
-  DgraphRepository,
-} from '@codelab/backend/infra'
-import { DgraphEntityLike } from '@codelab/shared/abstract/types'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { TypeKind } from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { FieldValidator } from '../../../domain/field/field.validator'
+import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { DeleteFieldRequest } from './delete-field.request'
 
 @Injectable()
-export class DeleteFieldService extends DgraphUseCase<DeleteFieldRequest> {
+export class DeleteFieldService
+  implements UseCasePort<DeleteFieldRequest, void>
+{
   constructor(
-    dgraph: DgraphRepository,
+    @Inject(ITypeRepositoryToken)
+    private typeRepository: ITypeRepository,
     private fieldValidator: FieldValidator,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(request: DeleteFieldRequest, txn: Txn) {
+  async execute(request: DeleteFieldRequest) {
     const {
-      input: { fieldId },
+      input: { fieldId, interfaceId },
+      transaction,
     } = request
 
     await this.validate(request)
 
-    const interfaceId = await this.getInterfaceId(fieldId)
-
-    await this.dgraph.deleteEntity(
-      txn,
-      fieldId,
-      `<${interfaceId}> <fields> <${fieldId}> .`,
-    )
-  }
-
-  private async getInterfaceId(fieldId: string) {
-    const field = await this.dgraph.transactionWrapper<{
-      '~fields': [DgraphEntityLike]
-    }>((txn2) =>
-      this.dgraph.getOneOrThrow(
-        txn2,
-        new DgraphQueryBuilder()
-          .addTypeFilterDirective(DgraphEntityType.Field)
-          .setUidFunc(fieldId)
-          .addFields(`~fields { uid }`),
-        () => new Error("Field doesn't exist"),
-      ),
+    const theInterface = await this.typeRepository.getOne(
+      interfaceId,
+      transaction,
     )
 
-    return field['~fields'][0].uid
+    if (!theInterface) {
+      throw new Error('Interface not found')
+    }
+
+    if (theInterface.typeKind !== TypeKind.InterfaceType) {
+      throw new Error("Type is not interface, can't add field to it")
+    }
+
+    theInterface.fields = theInterface.fields.filter(
+      (field) => field.id !== fieldId,
+    )
+
+    await this.typeRepository.update(theInterface, transaction)
   }
 
-  private async validate({ input: { fieldId } }: DeleteFieldRequest) {
-    await this.fieldValidator.exists(fieldId)
+  private async validate({
+    input: { fieldId },
+    transaction,
+  }: DeleteFieldRequest) {
+    await this.fieldValidator.exists(fieldId, transaction)
   }
 }

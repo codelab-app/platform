@@ -2,7 +2,7 @@ import { UseCasePort } from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import { Inject, Injectable } from '@nestjs/common'
-import { ImportTypeservice } from '../import-type'
+import { ImportTypeService } from '../import-type'
 import { ImportTypeServiceInput } from '../import-type/import-type.input'
 import { ImportTypesRequest } from './import-types.request'
 
@@ -11,7 +11,7 @@ export class ImportTypesService
   implements UseCasePort<ImportTypesRequest, Array<CreateResponse>>
 {
   constructor(
-    private importTypeservice: ImportTypeservice,
+    private importTypeService: ImportTypeService,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
 
@@ -19,17 +19,22 @@ export class ImportTypesService
     const {
       input: { payload },
       currentUser,
+      transaction,
     } = request
 
     const data = JSON.parse(payload) as Array<ImportTypeServiceInput>
+    const result: Array<CreateResponse> = []
 
-    const promises = data.map((api) =>
-      this.importTypeservice.execute({
+    for (const api of data) {
+      const apiRes = await this.importTypeService.execute({
         input: api,
         currentUser,
-      }),
-    )
+        transaction,
+      })
 
-    return Promise.all(promises)
+      result.push(apiRes)
+    }
+
+    return result
   }
 }

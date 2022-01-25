@@ -1,67 +1,99 @@
-import { DgraphCreateUseCase } from '@codelab/backend/application'
+import { UseCasePort } from '@codelab/backend/abstract/core'
+import { ITransaction } from '@codelab/backend/infra'
 import {
-  DgraphEntityType,
-  DgraphRepository,
-  jsonMutation,
-} from '@codelab/backend/infra'
-import { IUser } from '@codelab/shared/abstract/core'
+  FieldSchema,
+  IField,
+  IInterfaceType,
+  IUser,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { TypeTree } from '@codelab/shared/core'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { Inject, Injectable } from '@nestjs/common'
+import { Field } from '../../../domain'
 import { FieldValidator } from '../../../domain/field/field.validator'
 import { TypeValidator } from '../../../domain/type.validator'
+import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { CreateTypeService } from '../../type/create-type'
 import { GetTypeGraphService } from '../../type/get-type-graph'
 import { TypeRef } from './create-field.input'
 import { CreateFieldRequest } from './create-field.request'
 
 @Injectable()
-export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> {
+export class CreateFieldService
+  implements UseCasePort<CreateFieldRequest, Field>
+{
   constructor(
-    dgraph: DgraphRepository,
+    @Inject(ITypeRepositoryToken)
+    private typeRepository: ITypeRepository,
     private fieldValidator: FieldValidator,
     private typeValidator: TypeValidator,
     private createTypeService: CreateTypeService,
     private getTypeGraphService: GetTypeGraphService,
-  ) {
-    super(dgraph)
-  }
+  ) {}
 
-  protected async executeTransaction(request: CreateFieldRequest, txn: Txn) {
+  async execute(request: CreateFieldRequest) {
     const {
-      input: { type },
+      input: { type, interfaceId, key, name, description },
       currentUser,
+      transaction,
     } = request
 
-    await this.validate(request)
+    const theInterface = await this.typeRepository.getOne(
+      interfaceId,
+      transaction,
+    )
 
-    const typeId = await this.getTypeId(type, currentUser)
+    if (!theInterface) {
+      throw new Error('Interface not found')
+    }
 
-    return this.dgraph.create(txn, (blankNodeUid) =>
-      CreateFieldService.createMutation(request, typeId, blankNodeUid),
+    if (theInterface.typeKind !== TypeKind.InterfaceType) {
+      throw new Error("Type is not interface, can't add field to it")
+    }
+
+    await this.validate(request, theInterface)
+
+    const typeId = await this.getTypeId(type, currentUser, transaction)
+
+    const field = FieldSchema.parse({
+      id: '',
+      name,
+      key,
+      description,
+      target: typeId,
+      source: interfaceId,
+    } as IField)
+
+    theInterface.fields.push(field)
+
+    await this.typeRepository.update(theInterface, transaction)
+
+    const updatedInterface = await this.typeRepository.getOne(
+      interfaceId,
+      transaction,
+    )
+
+    if (
+      !updatedInterface ||
+      updatedInterface.typeKind !== TypeKind.InterfaceType
+    ) {
+      throw new Error(
+        'Something went wrong. Interface not found after updating it',
+      )
+    }
+
+    return new Field(
+      updatedInterface.fields.find(
+        (f) => f.key === key && f.name === name,
+      ) as IField,
     )
   }
 
-  private static createMutation(
-    { input: { key, interfaceId, name, description } }: CreateFieldRequest,
-    typeId: string,
-    blankNodeUid: string,
+  private async getTypeId(
+    type: TypeRef,
+    currentUser: IUser,
+    transaction: ITransaction,
   ) {
-    return jsonMutation({
-      uid: interfaceId,
-      fields: {
-        uid: blankNodeUid,
-        'dgraph.type': [DgraphEntityType.Field],
-        name,
-        key,
-        description: description ?? undefined,
-        type: { uid: typeId },
-      },
-    })
-  }
-
-  // TODO make this in one txn
-  private async getTypeId(type: TypeRef, currentUser: IUser) {
     let typeId = type.existingTypeId
 
     // Check if we specify an existing type, if not - create a new one and get its ID
@@ -73,6 +105,7 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
       const createdType = await this.createTypeService.execute({
         input: type.newType,
         currentUser,
+        transaction,
       })
 
       typeId = createdType.id
@@ -88,15 +121,18 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
    * - The specified existingTypeId causes a recursive type reference
    * - Neither existingTypeId nor newType are provided
    */
-  protected async validate({
-    input: {
-      interfaceId, // the interface we're adding the field to
-      key,
-      type: { existingTypeId, newType }, // the type of the field we're creating now
-    },
-    currentUser,
-  }: CreateFieldRequest): Promise<void> {
-    await this.fieldValidator.keyIsUnique(interfaceId, key)
+  protected async validate(
+    {
+      input: {
+        interfaceId, // the interface we're adding the field to
+        key,
+        type: { existingTypeId, newType }, // the type of the field we're creating now
+      },
+      transaction,
+    }: CreateFieldRequest,
+    theInterface: IInterfaceType,
+  ): Promise<void> {
+    await this.fieldValidator.keyIsUnique(theInterface, key)
 
     if ((!existingTypeId && !newType) || (existingTypeId && newType)) {
       throw new Error('Either existingTypeId or newType must be provided')
@@ -105,16 +141,15 @@ export class CreateFieldService extends DgraphCreateUseCase<CreateFieldRequest> 
     /**
      * {type: Interface, id: 01, fields: [{type: }]}
      * {type: Array, id: 02, itemType: 01}
-     *
      */
 
     // If we specify an existing type, check if it exists and that we don't cause a recursive type reference
     if (existingTypeId) {
-      await this.typeValidator.typeExists(existingTypeId)
+      await this.typeValidator.typeExists(existingTypeId, transaction)
 
       const graph = await this.getTypeGraphService.execute({
         input: { where: { id: existingTypeId } },
-        currentUser,
+        transaction,
       })
 
       if (!graph) {

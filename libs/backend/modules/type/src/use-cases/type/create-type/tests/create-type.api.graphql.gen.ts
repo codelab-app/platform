@@ -3,7 +3,6 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   TestType_AppType_Fragment,
   TestType_ArrayType_Fragment,
-  TestType_ComponentType_Fragment,
   TestType_ElementType_Fragment,
   TestType_EnumType_Fragment,
   TestType_InterfaceType_Fragment,
@@ -27,7 +26,6 @@ export type TestCreateTypeMutation = {
   createType:
     | TestType_AppType_Fragment
     | TestType_ArrayType_Fragment
-    | TestType_ComponentType_Fragment
     | TestType_ElementType_Fragment
     | TestType_EnumType_Fragment
     | TestType_InterfaceType_Fragment

@@ -15,9 +15,9 @@ describe('DeleteField', () => {
   let deleteFieldInput: DeleteFieldInput
 
   beforeAll(async () => {
-    fieldId = await createField(testModule.userApp)
-
-    deleteFieldInput = { fieldId }
+    const res = await createField(testModule.userApp)
+    fieldId = res.fieldId
+    deleteFieldInput = { fieldId, interfaceId: res.interfaceTypeId }
   })
 
   describe('Guest', () => {

@@ -1,5 +1,6 @@
+import { WithTransactionRequest } from '@codelab/backend/abstract/core'
 import { DeleteFieldInput } from './delete-field.input'
 
-export class DeleteFieldRequest {
-  declare input: DeleteFieldInput
+export interface DeleteFieldRequest extends WithTransactionRequest {
+  input: DeleteFieldInput
 }

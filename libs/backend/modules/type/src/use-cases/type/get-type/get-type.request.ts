@@ -1,6 +1,6 @@
-import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
+import { WithTransactionRequest } from '@codelab/backend/abstract/core'
 import { GetTypeInput } from './get-type.input'
 
-export interface GetTypeRequest extends WithCurrentUserRequest {
+export interface GetTypeRequest extends WithTransactionRequest {
   input: GetTypeInput
 }

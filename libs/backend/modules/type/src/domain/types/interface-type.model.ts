@@ -1,5 +1,6 @@
 import { IInterfaceType, TypeKind } from '@codelab/shared/abstract/core'
-import { ObjectType } from '@nestjs/graphql'
+import { Field as GqlField, ObjectType } from '@nestjs/graphql'
+import { Field } from '../field/field.model'
 import { Type } from './type.model'
 
 /**
@@ -12,10 +13,11 @@ export class InterfaceType
   extends Type<TypeKind.InterfaceType>
   implements IInterfaceType
 {
-  constructor({ id, name }: Pick<InterfaceType, 'id' | 'name'>) {
-    super(TypeKind.InterfaceType)
+  @GqlField(() => [Field])
+  fields: Array<Field>
 
-    this.id = id
-    this.name = name
+  constructor({ fields, ...type }: Omit<InterfaceType, 'typeKind'>) {
+    super({ typeKind: TypeKind.InterfaceType, ...type })
+    this.fields = fields
   }
 }

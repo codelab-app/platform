@@ -3,7 +3,6 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   Export__Types_AppType_Fragment,
   Export__Types_ArrayType_Fragment,
-  Export__Types_ComponentType_Fragment,
   Export__Types_ElementType_Fragment,
   Export__Types_EnumType_Fragment,
   Export__Types_InterfaceType_Fragment,
@@ -35,7 +34,6 @@ export type ExportTypesQuery = {
   getTypes: Array<
     | Export__Types_AppType_Fragment
     | Export__Types_ArrayType_Fragment
-    | Export__Types_ComponentType_Fragment
     | Export__Types_ElementType_Fragment
     | Export__Types_EnumType_Fragment
     | Export__Types_InterfaceType_Fragment

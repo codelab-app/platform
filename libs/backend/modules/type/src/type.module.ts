@@ -6,6 +6,7 @@ import { TypeResolver } from './application/type.resolver'
 import { TypeGraphResolver } from './application/type-graph.resolver'
 import { FieldValidator } from './domain/field/field.validator'
 import { TypeValidator } from './domain/type.validator'
+import { TypeInfrastructureModule } from './infrastructure'
 import { CreateFieldService } from './use-cases/field/create-field'
 import { DeleteFieldService } from './use-cases/field/delete-field'
 import { GetFieldService } from './use-cases/field/get-field'
@@ -15,7 +16,7 @@ import { DeleteTypeService } from './use-cases/type/delete-type'
 import { GetTypeService } from './use-cases/type/get-type'
 import { GetTypeGraphService } from './use-cases/type/get-type-graph'
 import { GetTypesService } from './use-cases/type/get-types'
-import { ImportTypeservice } from './use-cases/type/import-type'
+import { ImportTypeService } from './use-cases/type/import-type'
 import { ImportTypesService } from './use-cases/type/import-types/import-types.service'
 import { SeedBaseTypesService } from './use-cases/type/seed-base-types'
 import { UpdateEnumTypeService } from './use-cases/type/update-enum-type'
@@ -50,7 +51,7 @@ const typeServices = [
   UpdatePrimitiveTypeService,
   UpdateUnionTypeService,
   UpdateTypeService,
-  ImportTypeservice,
+  ImportTypeService,
   ImportTypesService,
   SeedBaseTypesService,
   GetTypeGraphService,
@@ -72,5 +73,11 @@ const services = [...fieldServices, ...typeServices]
     ...services,
   ],
   exports: [...services],
+})
+export class TypeCoreModule {}
+
+@Module({
+  imports: [TypeCoreModule, TypeInfrastructureModule],
+  exports: [TypeCoreModule, TypeInfrastructureModule],
 })
 export class TypeModule {}

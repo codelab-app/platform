@@ -12,6 +12,9 @@ export class UpdateFieldData extends PickType(CreateFieldInput, [
 @InputType()
 export class UpdateFieldInput {
   @Field()
+  declare interfaceId: string
+
+  @Field()
   declare fieldId: string
 
   @Field(() => UpdateFieldData)

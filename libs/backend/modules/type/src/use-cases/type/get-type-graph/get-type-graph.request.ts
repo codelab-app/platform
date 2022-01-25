@@ -1,3 +1,6 @@
-import { GetTypeRequest } from '../get-type/get-type.request'
+import { WithTransactionRequest } from '@codelab/backend/abstract/core'
+import { GetTypeGraphInput } from './get-type-graph.input'
 
-export type GetTypeGraphRequest = GetTypeRequest
+export interface GetTypeGraphRequest extends WithTransactionRequest {
+  input: GetTypeGraphInput
+}

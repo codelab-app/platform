@@ -9,10 +9,7 @@ export class RenderPropsType
   extends Type<TypeKind.RenderPropsType>
   implements IRenderPropsType
 {
-  constructor({ id, name }: Pick<RenderPropsType, 'id' | 'name'>) {
-    super(TypeKind.RenderPropsType)
-
-    this.id = id
-    this.name = name
+  constructor(type: Omit<RenderPropsType, 'typeKind'>) {
+    super({ typeKind: TypeKind.RenderPropsType, ...type })
   }
 }
