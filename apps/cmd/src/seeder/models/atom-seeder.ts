@@ -1,4 +1,8 @@
-import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
+import {
+  ITransaction,
+  LoggerService,
+  LoggerTokens,
+} from '@codelab/backend/infra'
 import {
   CreateAtomRequest,
   CreateAtomService,
@@ -60,9 +64,12 @@ export class AtomSeeder {
 
     return await createIfMissing(
       () => {
-        const found = this.getAtom({
-          where: { type: request.input.type },
-        }).then((_atom) => _atom?.id)
+        const found = this.getAtom(
+          {
+            where: { type: request.input.type },
+          },
+          request.transaction,
+        ).then((_atom) => _atom?.id)
 
         this.logger.log('Found')
 
@@ -76,8 +83,8 @@ export class AtomSeeder {
     )
   }
 
-  async getAtom(input: GetAtomInput) {
-    return await this.getAtomService.execute(input)
+  async getAtom(input: GetAtomInput, transaction: ITransaction) {
+    return await this.getAtomService.execute({ input, transaction })
   }
 
   private async createAtom(request: CreateAtomRequest) {

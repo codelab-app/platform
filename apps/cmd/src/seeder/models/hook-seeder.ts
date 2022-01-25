@@ -1,3 +1,4 @@
+import { ITransaction } from '@codelab/backend/infra'
 import { ImportAtomsService } from '@codelab/backend/modules/atom'
 import { User } from '@codelab/backend/modules/user'
 import { Injectable } from '@nestjs/common'
@@ -7,10 +8,11 @@ import hookAtomData from '../data/hookAtoms.json'
 export class HookSeeder {
   constructor(private importAtomsService: ImportAtomsService) {}
 
-  public async seedHooks(currentUser: User) {
+  public async seedHooks(currentUser: User, transaction: ITransaction) {
     await this.importAtomsService.execute({
       currentUser,
       input: { payload: JSON.stringify(hookAtomData) },
+      transaction,
     })
   }
 }

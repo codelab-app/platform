@@ -1,6 +1,9 @@
 import { TestGetExport__AtomsFragment } from '@codelab/backend/modules/atom'
-import { TypeKind } from '@codelab/shared/abstract/codegen'
-import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import {
+  AtomType,
+  PrimitiveTypeKind,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'

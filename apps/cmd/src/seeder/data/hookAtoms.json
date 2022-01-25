@@ -120,7 +120,7 @@
             "id": "0x271d",
             "name": "MonacoGraphql",
             "typeKind": "MonacoType",
-            "language": "Graphql"
+            "language": "graphqlDev"
           },
           {
             "__typename": "InterfaceType",
@@ -239,7 +239,7 @@
             "id": "0x271c",
             "name": "MonacoJson",
             "typeKind": "MonacoType",
-            "language": "JSON"
+            "language": "json"
           },
           {
             "__typename": "EnumType",
@@ -317,7 +317,7 @@
             "id": "0x271d",
             "name": "MonacoGraphql",
             "typeKind": "MonacoType",
-            "language": "Graphql"
+            "language": "graphqlDev"
           },
           {
             "__typename": "InterfaceType",
@@ -377,7 +377,7 @@
             "id": "0x271c",
             "name": "MonacoJson",
             "typeKind": "MonacoType",
-            "language": "JSON"
+            "language": "json"
           },
           {
             "__typename": "EnumType",

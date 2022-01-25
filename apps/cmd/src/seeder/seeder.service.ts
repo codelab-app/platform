@@ -1,7 +1,9 @@
 import {
   AntdDesignApi,
+  ITransaction,
   ServerConfig,
   serverConfig,
+  TransactionManager,
 } from '@codelab/backend/infra'
 import { User } from '@codelab/backend/modules/user'
 import {
@@ -41,6 +43,7 @@ export class SeederService {
   constructor(
     @Inject(serverConfig.KEY) private readonly _serverConfig: ServerConfig,
     private readonly hookSeeder: HookSeeder,
+    private readonly transactionManager: TransactionManager,
     private readonly atomSeeder: AtomSeeder,
     private readonly typeSeeder: TypeSeeder,
   ) {}
@@ -50,45 +53,54 @@ export class SeederService {
     options: [envOption],
   })
   async seed({ env = Env.Dev }) {
-    const currentUser: User = {
-      id: '0x01',
-      auth0Id: '0x01',
-      roles: [Role.Admin],
+    const transaction = await this.transactionManager.generateTransaction()
+
+    try {
+      const currentUser: User = {
+        id: '0x01',
+        auth0Id: '0x01',
+        roles: [Role.Admin],
+      }
+
+      /**
+       * (1) Seed base types like String, Boolean, Integer so other types can use them
+       */
+      // await this.seedBaseTypesService.execute({ currentUser })
+
+      /**
+       * (2) Seed all Atoms
+       */
+      this.atoms = await this.seedAtoms(currentUser, env, transaction)
+
+      /**
+       * (3) Seed hooks api
+       */
+      await this.hookSeeder.seedHooks(currentUser, transaction)
+
+      /**
+       * (4) Seed all Atoms API's that we have data for
+       */
+      await iterateCsvs(
+        this.antdDataFolder,
+        this.handleCsv.bind(this, currentUser, env, transaction),
+      )
+      await iterateCsvs(
+        this.customComponentsDataFolder,
+        this.handleCsv.bind(this, currentUser, env, transaction),
+      )
+
+      await transaction.commit()
+    } finally {
+      await transaction.discard()
     }
-
-    /**
-     * (1) Seed base types like String, Boolean, Integer so other types can use them
-     */
-    // await this.seedBaseTypesService.execute({ currentUser })
-
-    /**
-     * (2) Seed all Atoms
-     */
-    this.atoms = await this.seedAtoms(currentUser, env)
-
-    /**
-     * (3) Seed hooks api
-     */
-    await this.hookSeeder.seedHooks(currentUser)
-
-    /**
-     * (4) Seed all Atoms API's that we have data for
-     */
-    await iterateCsvs(
-      this.antdDataFolder,
-      this.handleCsv.bind(this, currentUser, env),
-    )
-    await iterateCsvs(
-      this.customComponentsDataFolder,
-      this.handleCsv.bind(this, currentUser, env),
-    )
   }
 
   private async seedAtoms(
     currentUser: IUser,
     env: Env,
+    transaction: ITransaction,
   ): Promise<Array<AtomSeed>> {
-    await this.typeSeeder.seedBaseTypes(currentUser)
+    await this.typeSeeder.seedBaseTypes(currentUser, transaction)
 
     let atomTypes = Object.values(AtomType).filter(filterNotHookType)
 
@@ -108,6 +120,7 @@ export class SeederService {
   private handleCsv(
     currentUser: User,
     env: Env,
+    transaction: ITransaction,
     data: Array<AntdDesignApi>,
     file: string,
   ) {
@@ -127,6 +140,6 @@ export class SeederService {
       return
     }
 
-    return this.typeSeeder.seedAtomApi(atomId, data, currentUser)
+    return this.typeSeeder.seedAtomApi(atomId, data, currentUser, transaction)
   }
 }

@@ -1,5 +1,6 @@
 import {
   AntdDesignApi,
+  ITransaction,
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
@@ -46,8 +47,12 @@ export class TypeSeeder {
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
 
-  public async seedBaseTypes(currentUser: IUser) {
-    this.baseTypes = await this.seedAllIfMissing(baseTypes, currentUser)
+  public async seedBaseTypes(currentUser: IUser, transaction: ITransaction) {
+    this.baseTypes = await this.seedAllIfMissing(
+      baseTypes,
+      currentUser,
+      transaction,
+    )
 
     return this.baseTypes
   }
@@ -60,6 +65,7 @@ export class TypeSeeder {
   private async seedAllIfMissing(
     inputs: Array<CreateTypeInput>,
     currentUser: IUser,
+    transaction: ITransaction,
   ): Promise<Map<BaseTypeName, string>> {
     const results: Map<BaseTypeName, string> = new Map()
 
@@ -67,6 +73,7 @@ export class TypeSeeder {
       const result = await this.seedTypeIfNotExisting({
         input,
         currentUser,
+        transaction,
       }).then((id) => ({
         key: input.name,
         id,
@@ -85,11 +92,11 @@ export class TypeSeeder {
   private async seedTypeIfNotExisting(
     request: CreateTypeRequest,
   ): Promise<string> {
-    const { input, currentUser } = request
+    const { input, transaction } = request
     console.log({ input })
 
     return createIfMissing(
-      () => this.getTypeByName(input.name, currentUser),
+      () => this.getTypeByName(input.name, transaction),
       () => this.createType(request),
     )
   }
@@ -98,10 +105,14 @@ export class TypeSeeder {
     atomId: string,
     data: Array<AntdDesignApi>,
     currentUser: IUser,
+    transaction: ITransaction,
   ) {
     this.logger.log('Seeding atom api...')
 
-    const atom = await this.atomSeeder.getAtom({ where: { id: atomId } })
+    const atom = await this.atomSeeder.getAtom(
+      { where: { id: atomId } },
+      transaction,
+    )
 
     if (!atom) {
       throw new Error(`Atom ${atomId} doesn't exist`)
@@ -128,6 +139,7 @@ export class TypeSeeder {
             type,
           },
           currentUser,
+          transaction,
         })
 
         continue
@@ -147,6 +159,7 @@ export class TypeSeeder {
             apiField.property,
             unionTypeData.enumValues,
           ),
+          transaction,
         })
 
         unionTypeData.newType.unionType.typeIdsOfUnionType.push(enumTypeId)
@@ -161,6 +174,7 @@ export class TypeSeeder {
           type: { newType: unionTypeData.newType },
         },
         currentUser,
+        transaction,
       })
     }
   }
@@ -245,12 +259,15 @@ export class TypeSeeder {
       }
 
       // field already exists with this key
-      const foundField = await this.getField({
-        byInterface: {
-          interfaceId: request.input.interfaceId,
-          fieldKey: request.input.key,
+      const foundField = await this.getField(
+        {
+          byInterface: {
+            interfaceId: request.input.interfaceId,
+            fieldKey: request.input.key,
+          },
         },
-      })
+        request.transaction,
+      )
 
       return foundField?.id as string
     }
@@ -259,6 +276,7 @@ export class TypeSeeder {
   public async seedCustomAtomApis(
     allCustomAtomApiFactories: Array<CustomAtomApiFactory>,
     currentUser: IUser,
+    transaction: ITransaction,
   ) {
     if (!this.baseTypes) {
       throw new Error("call seedBaseTypes before seeding Atom's API")
@@ -267,17 +285,26 @@ export class TypeSeeder {
     const factoryInput: CustomAtomApiFactoryInput = {
       baseTypeIdsByName: this.baseTypes,
       createTypeIfMissing: (typeInput) =>
-        this.seedTypeIfNotExisting({ input: typeInput, currentUser }),
+        this.seedTypeIfNotExisting({
+          input: typeInput,
+          currentUser,
+          transaction,
+        }),
       createFieldIfMissing: (fieldInput) =>
-        this.createFieldIfMissing({ input: fieldInput, currentUser }),
+        this.createFieldIfMissing({
+          input: fieldInput,
+          currentUser,
+          transaction,
+        }),
     }
 
     for (const apiFactory of allCustomAtomApiFactories) {
       const api = await apiFactory(factoryInput)
 
-      const atom = await this.atomSeeder.getAtom({
-        where: { type: api.atomType },
-      })
+      const atom = await this.atomSeeder.getAtom(
+        { where: { type: api.atomType } },
+        transaction,
+      )
 
       if (!atom) {
         throw new Error(
@@ -296,14 +323,15 @@ export class TypeSeeder {
             interfaceId: atom.api.id,
           },
           currentUser,
+          transaction,
         })
       }
     }
   }
 
-  private getTypeByName(name: string, currentUser: IUser) {
+  private getTypeByName(name: string, transaction: ITransaction) {
     return this.getTypeService
-      .execute({ input: { where: { name } }, currentUser })
+      .execute({ input: { where: { name } }, transaction })
       .then((r) => {
         console.log({ r })
 
@@ -311,8 +339,8 @@ export class TypeSeeder {
       })
   }
 
-  private getField(input: GetFieldInput) {
-    return this.getFieldService.execute({ input })
+  private getField(input: GetFieldInput, transaction: ITransaction) {
+    return this.getFieldService.execute({ input, transaction })
   }
 
   private async createType(request: CreateTypeRequest) {
@@ -401,10 +429,6 @@ export class TypeSeeder {
       case 'AppType':
         return {
           existingTypeId: this.baseTypes.get(BaseTypeName.App) as string,
-        }
-      case 'ComponentType':
-        return {
-          existingTypeId: this.baseTypes.get(BaseTypeName.Component) as string,
         }
       case 'number | string':
       case 'string | number':
