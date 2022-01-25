@@ -90,13 +90,6 @@ export const DemoFormAtomData = {
       },
       {
         source: '0x5e005',
-        target: '0x5d8c0',
-        id: '0x5e016',
-        key: 'ComponentTypeField',
-        name: 'Component Type',
-      },
-      {
-        source: '0x5e005',
         target: '0x5d8c7',
         id: '0x5e019',
         key: 'AppTypeField',
@@ -229,12 +222,6 @@ export const DemoFormAtomData = {
         name: 'Element',
         typeKind: TypeKind.ElementType,
         elementKind: 'AllElements',
-      },
-      {
-        __typename: TypeKind.ComponentType,
-        id: '0x5d8c0',
-        name: 'Component',
-        typeKind: TypeKind.ComponentType,
       },
       {
         __typename: TypeKind.AppType,
