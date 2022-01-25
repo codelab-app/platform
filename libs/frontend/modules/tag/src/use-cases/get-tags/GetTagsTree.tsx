@@ -37,7 +37,7 @@ export const GetTagsTree = () => {
       /**
        * The root is a system root & shouldn't be shown
        */
-      treeData={tagTreesData}
+      treeData={tagTreesData ? [tagTreesData] : undefined}
     />
   )
 }

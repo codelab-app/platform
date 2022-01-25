@@ -1,5 +1,5 @@
 import { IEdge, IGraph, IVertex } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, {
   EdgeSingular,
@@ -11,9 +11,6 @@ import { getCyElementData } from '../cytoscape/element'
 import { edgeId } from '../graph/edgeId'
 import { filterPredicate, InstancePredicate, Predicate } from './treePredicate'
 
-interface TreeDataNode extends DataNode {
-  isRoot?: boolean | undefined
-}
 /**
  * Builds up a Tree from a flattened and normalized representation ({@link IGraph})
  * and provides node-traversal methods for it
@@ -125,18 +122,18 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     return this.cy.elements().bfs({ root, visit })
   }
 
-  getAntdTree(rootPredicate?: Predicate<TVertex>): Array<DataNode> {
+  getAntdTree(rootPredicate?: Predicate<TVertex>): Nullable<DataNode> {
     const root = this.cy
       .elements()
       .roots()
       .filter(filterPredicate(rootPredicate ?? this.predicate))
 
-    const tree: Array<DataNode> = []
+    let tree: Nullable<DataNode> = null
     const nodes: Record<string, DataNode> = {}
     const nodeOrder: Record<string, number> = {}
 
     if (!root) {
-      return []
+      return null
     }
 
     this.cy.elements().breadthFirstSearch({
@@ -162,8 +159,8 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
           return
         }
 
-        if ((node as TreeDataNode).isRoot === true) {
-          tree.push(node)
+        if (tree === null) {
+          tree = node
         }
 
         if (edge) {
@@ -180,7 +177,7 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
       },
     })
 
-    return tree as unknown as Array<DataNode>
+    return tree as unknown as DataNode
   }
 
   getAllVertices(predicate?: Predicate<TVertex>): Array<TVertex> {

@@ -27,8 +27,14 @@ export const CreateElementModal = ({
   const { resetModal } = useElementDispatch()
   const { elementTree } = useElementGraphContext()
 
-  const { onSubmit, actionType, onSubmitSuccess, onSubmitError, isLoading } =
-    useCreateElementForm({ parentElementId })
+  const {
+    onSubmit,
+    actionType,
+    onSubmitSuccess,
+    onSubmitError,
+    isLoading,
+    model,
+  } = useCreateElementForm({ parentElementId })
 
   return (
     <FormModal
@@ -45,7 +51,7 @@ export const CreateElementModal = ({
           tree={elementTree ?? new ElementTree({ edges: [], vertices: [] })}
         >
           <Form<CreateElementInput>
-            model={{}}
+            model={model}
             onSubmit={onSubmit}
             onSubmitError={onSubmitError}
             onSubmitSuccess={onSubmitSuccess}
