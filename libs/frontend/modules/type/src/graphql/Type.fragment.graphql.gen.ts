@@ -6,7 +6,6 @@ import { InterfaceFragment } from './Interface.fragment.graphql.gen'
 import { PrimitiveTypeFragment } from './PrimitiveType.fragment.graphql.gen'
 import { ElementTypeFragment } from './ElementType.fragment.graphql.gen'
 import { LambdaTypeFragment } from './LambdaType.fragment.graphql.gen'
-import { ComponentTypeFragment } from './ComponentType.fragment.graphql.gen'
 import { RenderPropsTypeFragment } from './RenderProps.fragment.graphql.gen'
 import { UnionTypeFragment } from './UnionType.fragment.graphql.gen'
 import { MonacoTypeFragment } from './MonacoType.fragment.graphql.gen'
@@ -19,7 +18,6 @@ import { InterfaceFragmentDoc } from './Interface.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from './PrimitiveType.fragment.graphql.gen'
 import { ElementTypeFragmentDoc } from './ElementType.fragment.graphql.gen'
 import { LambdaTypeFragmentDoc } from './LambdaType.fragment.graphql.gen'
-import { ComponentTypeFragmentDoc } from './ComponentType.fragment.graphql.gen'
 import { RenderPropsTypeFragmentDoc } from './RenderProps.fragment.graphql.gen'
 import { UnionTypeFragmentDoc } from './UnionType.fragment.graphql.gen'
 import { MonacoTypeFragmentDoc } from './MonacoType.fragment.graphql.gen'
@@ -38,13 +36,6 @@ export type Type_ArrayType_Fragment = {
   name: string
   typeKind: Types.TypeKind
 } & ArrayTypeFragment
-
-export type Type_ComponentType_Fragment = {
-  __typename: 'ComponentType'
-  id: string
-  name: string
-  typeKind: Types.TypeKind
-} & ComponentTypeFragment
 
 export type Type_ElementType_Fragment = {
   __typename: 'ElementType'
@@ -121,7 +112,6 @@ export type Type_UnionType_Fragment = {
 export type TypeFragment =
   | Type_AppType_Fragment
   | Type_ArrayType_Fragment
-  | Type_ComponentType_Fragment
   | Type_ElementType_Fragment
   | Type_EnumType_Fragment
   | Type_InterfaceType_Fragment
@@ -145,7 +135,6 @@ export const TypeFragmentDoc = gql`
     ...PrimitiveType
     ...ElementType
     ...LambdaType
-    ...ComponentType
     ...RenderPropsType
     ...UnionType
     ...MonacoType
@@ -158,7 +147,6 @@ export const TypeFragmentDoc = gql`
   ${PrimitiveTypeFragmentDoc}
   ${ElementTypeFragmentDoc}
   ${LambdaTypeFragmentDoc}
-  ${ComponentTypeFragmentDoc}
   ${RenderPropsTypeFragmentDoc}
   ${UnionTypeFragmentDoc}
   ${MonacoTypeFragmentDoc}

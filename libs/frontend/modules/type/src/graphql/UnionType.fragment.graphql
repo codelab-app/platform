@@ -1,5 +1,7 @@
 fragment UnionType on UnionType {
   id
   name
-  typeIdsOfUnionType
+  typesOfUnionType {
+    id
+  }
 }

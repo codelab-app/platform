@@ -48,6 +48,7 @@ export type AppType = Type & {
   __typename?: 'AppType'
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -55,7 +56,9 @@ export type AppType = Type & {
 export type ArrayType = Type & {
   __typename?: 'ArrayType'
   id: Scalars['ID']
+  itemType: ObjectRef
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -459,15 +462,6 @@ export type BaseTypeEdge = TypeEdge & {
   target: Scalars['String']
 }
 
-/** The ComponentType allows selecting a Component in the props form. The value is stored as the componentId  */
-export type ComponentType = Type & {
-  __typename?: 'ComponentType'
-  id: Scalars['ID']
-  name: Scalars['String']
-  typeGraph: TypeGraph
-  typeKind: TypeKind
-}
-
 export type ConvertElementToComponentInput = {
   /** Leave out to infer it automatically */
   componentName?: InputMaybe<Scalars['String']>
@@ -602,6 +596,7 @@ export type DeleteElementInput = {
 
 export type DeleteFieldInput = {
   fieldId: Scalars['String']
+  interfaceId: Scalars['String']
 }
 
 export type DeleteLambdaInput = {
@@ -686,6 +681,7 @@ export type ElementType = Type & {
   elementKind: ElementTypeKind
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -701,6 +697,7 @@ export type EnumType = Type & {
   allowedValues: Array<EnumTypeValue>
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -810,18 +807,15 @@ export type GetTagsInput = {
 }
 
 export type GetTypeGraphInput = {
-  where: WhereUniqueType
+  where: WhereUniqueTypeGraph
 }
 
 export type GetTypeInput = {
   where: WhereUniqueType
 }
 
-/** Filters are optional and you can provide all three of them together */
 export type GetTypesInput = {
-  byIds?: InputMaybe<TypesByIdsFilter>
-  byKind?: InputMaybe<TypesByKindFilter>
-  byName?: InputMaybe<TypesByNameFilter>
+  where?: InputMaybe<TypesWhereInput>
 }
 
 export type GetUserInput = {
@@ -861,8 +855,10 @@ export type ImportTypesInput = {
 
 export type InterfaceType = Type & {
   __typename?: 'InterfaceType'
+  fields: Array<Field>
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -885,6 +881,7 @@ export type LambdaType = Type & {
   __typename?: 'LambdaType'
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -904,6 +901,7 @@ export type MonacoType = Type & {
   id: Scalars['ID']
   language: MonacoLanguage
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -1183,6 +1181,7 @@ export type PageType = Type & {
   __typename?: 'PageType'
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -1196,6 +1195,7 @@ export type PrimitiveType = Type & {
   __typename?: 'PrimitiveType'
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   primitiveKind: PrimitiveTypeKind
   typeGraph: TypeGraph
   typeKind: TypeKind
@@ -1339,6 +1339,7 @@ export type ReactNodeType = Type & {
   __typename?: 'ReactNodeType'
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -1352,6 +1353,7 @@ export type RenderPropsType = Type & {
   __typename?: 'RenderPropsType'
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -1404,6 +1406,7 @@ export type TagsWhereInput = {
 export type Type = {
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
   typeKind: TypeKind
 }
@@ -1422,7 +1425,6 @@ export type TypeGraph = {
 export enum TypeKind {
   AppType = 'AppType',
   ArrayType = 'ArrayType',
-  ComponentType = 'ComponentType',
   ElementType = 'ElementType',
   EnumType = 'EnumType',
   InterfaceType = 'InterfaceType',
@@ -1443,7 +1445,6 @@ export type TypeRef = {
 export type TypeVertex =
   | AppType
   | ArrayType
-  | ComponentType
   | ElementType
   | EnumType
   | InterfaceType
@@ -1455,25 +1456,21 @@ export type TypeVertex =
   | RenderPropsType
   | UnionType
 
-export type TypesByIdsFilter = {
-  typeIds: Array<Scalars['String']>
-}
-
-export type TypesByKindFilter = {
-  kind: TypeKind
-}
-
-export type TypesByNameFilter = {
-  name: Scalars['String']
+/** Provide exactly no more than 1 filter */
+export type TypesWhereInput = {
+  ids?: InputMaybe<Array<Scalars['String']>>
+  kind?: InputMaybe<TypeKind>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type UnionType = Type & {
   __typename?: 'UnionType'
   id: Scalars['ID']
   name: Scalars['String']
+  owner?: Maybe<ObjectRef>
   typeGraph: TypeGraph
-  typeIdsOfUnionType: Array<Scalars['String']>
   typeKind: TypeKind
+  typesOfUnionType: Array<ObjectRef>
 }
 
 export type UpdateAppData = {
@@ -1538,6 +1535,7 @@ export type UpdateFieldData = {
 
 export type UpdateFieldInput = {
   fieldId: Scalars['String']
+  interfaceId: Scalars['String']
   updateData: UpdateFieldData
 }
 
@@ -1664,6 +1662,13 @@ export type WhereUniqueTag = {
 export type WhereUniqueType = {
   atomId?: InputMaybe<Scalars['String']>
   enumTypeValueId?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['String']>
+  name?: InputMaybe<Scalars['String']>
+}
+
+/** Provide exactly 1 field */
+export type WhereUniqueTypeGraph = {
+  atomId?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
 }

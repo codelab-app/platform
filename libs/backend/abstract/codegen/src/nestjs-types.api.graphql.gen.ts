@@ -20,7 +20,6 @@ export enum TypeKind {
     EnumType = "EnumType",
     LambdaType = "LambdaType",
     ElementType = "ElementType",
-    ComponentType = "ComponentType",
     RenderPropsType = "RenderPropsType",
     ReactNodeType = "ReactNodeType",
     UnionType = "UnionType",
@@ -486,25 +485,23 @@ export interface WhereUniqueType {
 }
 
 export interface GetTypeGraphInput {
-    where: WhereUniqueType;
+    where: WhereUniqueTypeGraph;
+}
+
+export interface WhereUniqueTypeGraph {
+    id?: Nullable<string>;
+    name?: Nullable<string>;
+    atomId?: Nullable<string>;
 }
 
 export interface GetTypesInput {
-    byIds?: Nullable<TypesByIdsFilter>;
-    byKind?: Nullable<TypesByKindFilter>;
-    byName?: Nullable<TypesByNameFilter>;
+    where?: Nullable<TypesWhereInput>;
 }
 
-export interface TypesByIdsFilter {
-    typeIds: string[];
-}
-
-export interface TypesByKindFilter {
-    kind: TypeKind;
-}
-
-export interface TypesByNameFilter {
-    name: string;
+export interface TypesWhereInput {
+    ids?: Nullable<string[]>;
+    kind?: Nullable<TypeKind>;
+    name?: Nullable<string>;
 }
 
 export interface GetFieldInput {
@@ -822,6 +819,7 @@ export interface TypeRef {
 }
 
 export interface UpdateFieldInput {
+    interfaceId: string;
     fieldId: string;
     updateData: UpdateFieldData;
 }
@@ -835,6 +833,7 @@ export interface UpdateFieldData {
 
 export interface DeleteFieldInput {
     fieldId: string;
+    interfaceId: string;
 }
 
 export interface CreatePageInput {
@@ -939,6 +938,7 @@ export interface Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
 }
 
@@ -987,20 +987,16 @@ export interface ArrayType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
-}
-
-export interface ComponentType extends Type {
-    typeKind: TypeKind;
-    id: string;
-    name: string;
-    typeGraph: TypeGraph;
+    itemType: ObjectRef;
 }
 
 export interface ElementType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
     elementKind: ElementTypeKind;
 }
@@ -1015,6 +1011,7 @@ export interface EnumType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
     allowedValues: EnumTypeValue[];
 }
@@ -1023,13 +1020,16 @@ export interface InterfaceType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
+    fields: Field[];
 }
 
 export interface LambdaType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
 }
 
@@ -1037,6 +1037,7 @@ export interface PrimitiveType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
     primitiveKind: PrimitiveTypeKind;
 }
@@ -1045,6 +1046,7 @@ export interface ReactNodeType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
 }
 
@@ -1052,6 +1054,7 @@ export interface RenderPropsType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
 }
 
@@ -1059,6 +1062,7 @@ export interface AppType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
 }
 
@@ -1066,6 +1070,7 @@ export interface MonacoType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
     language: MonacoLanguage;
 }
@@ -1074,6 +1079,7 @@ export interface PageType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
 }
 
@@ -1081,8 +1087,9 @@ export interface UnionType extends Type {
     typeKind: TypeKind;
     id: string;
     name: string;
+    owner?: Nullable<ObjectRef>;
     typeGraph: TypeGraph;
-    typeIdsOfUnionType: string[];
+    typesOfUnionType: ObjectRef[];
 }
 
 export interface TypeGraph {
@@ -1272,6 +1279,6 @@ export interface IMutation {
 }
 
 export type Void = any;
-export type TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType;
+export type TypeVertex = EnumType | PrimitiveType | ArrayType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType;
 export type TagVertex = Tag;
 type Nullable<T> = T | null;
