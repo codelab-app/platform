@@ -38,6 +38,7 @@ executor-config: &executor-config
     COLOR_FAILURE: '#ffccc7'
     NODE_OPTIONS: --max_old_space_size=16384
     NODE_ENV: production
+    CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
   working_directory: ~/project
 
 version: 2.1
@@ -118,6 +119,8 @@ commands:
 
             # finally import bash env
             source $BASH_ENV
+      - nx/set-shas:
+          main-branch-name: master
 
   package-install-dev:
     steps:
@@ -180,6 +183,12 @@ jobs:
     steps:
       - setup-workspace
       - package-install-dev
+      - run:
+          name: 'NX_BASE'
+          command: echo $NX_BASE
+      - run:
+          name: 'NX_HEAD'
+          command: echo $NX_HEAD
       - run:
           name: 'Build CI'
           command: make build-ci
@@ -252,7 +261,7 @@ jobs:
       - setup-dgraph
       - run: npx cypress install
       - run: npx cypress verify
-      - run: make e2e-ci-affected
+      - run: make e2e-ci
       - store_artifacts:
           path: ~/project/apps/web-e2e/src/videos
           destination: cypress-videos

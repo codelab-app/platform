@@ -24,11 +24,11 @@ build-dev-affected:
 #		--verbose \
 
 build-ci:
-	npx nx run-many \
-		--target=build \
+	npx nx affected:build \
 		--projects=api,web,cmd,cli,tools-rtk-query \
-		--configuration ci \
+		--configuration=ci \
 		--parallel \
+		--max-parallel=3 \
 		--verbose
 
 build-storybook:
@@ -39,10 +39,17 @@ build-storybook:
 #
 
 lint-commit-ci:
-	npx commitlint --from="${CIRCLE_BASE_REVISION}" --to="${CIRCLE_REVISION}"
+	npx commitlint \
+		--from="${CIRCLE_BASE_REVISION}" \
+		--to="${CIRCLE_REVISION}"
 
 lint-eslint-ci:
-	yarn affected:lint --configuration ci --parallel --maxParallel=5 --quiet && npx prettier --check '**/*.{graphql,yaml,json}'
+	yarn nx affected:lint \
+		--configuration=ci \
+		--parallel \
+		--maxParallel=5 \
+		--quiet && \
+		npx prettier --check '**/*.{graphql,yaml,json}'
 
 lint-circular-dep:
 	yarn madge --circular apps libs --extensions ts,tsx,js,jsx
@@ -53,7 +60,7 @@ lint-circular-dep:
 e2e-dev-affected:
 	./scripts/nx.sh affected:e2e --configuration test --browser firefox
 
-e2e-ci-affected:
+e2e-ci:
 	yarn affected:e2e --configuration ci --record --browser firefox
 
 #
@@ -66,8 +73,7 @@ integration-dev-affected:
 		--runInBand
 
 integration-ci:
-	npx nx affected \
-		--target=test \
+	npx nx affected:test \
 		--testPathPattern="i.spec.ts" \
 		--runInBand \
 		--verbose
@@ -97,10 +103,11 @@ unit-dev-affected:
 unit-ci:
 	npx nx affected:test \
 		--testPathPattern="[^i].spec.ts" \
-		--target=test \
 		--parallel \
+		--max-parallel=3 \
 		--verbose \
-		--color --detectOpenHandles
+		--color
+# --detectOpenHandles
 
 unit-debug:
 	npx nx run-many \
