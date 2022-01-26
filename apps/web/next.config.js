@@ -1,13 +1,9 @@
+const util = require('util')
 const withNx = require('@nrwl/next/plugins/with-nx')
-// const withLess = require('@nrwl/next/plugins/with-less')
-const withAntdLess = require('next-plugin-antd-less')
-const withSass = require('@zeit/next-sass')
-const withCSS = require('@zeit/next-css')
 const withPlugins = require('next-compose-plugins')
-const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
-const withLess = require('next-with-less')
+const { withGlobalCss, patchWebpackConfig } = require('next-global-css')
 
-// const nodeExternals = require('webpack-node-externals')
+const cLog = (obj) => console.log(util.inspect(obj, false, null, true))
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
@@ -18,39 +14,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
  */
 module.exports = withPlugins(
   [
-    [
-      withCSS,
-      {
-        cssLoaderOptions: {
-          url: false,
-        },
-      },
-    ],
-    [
-      withSass,
-      {
-        lessLoaderOptions: {
-          javascriptEnabled: true,
-        },
-      },
-    ],
-    // [
-    //   withAntdLess,
-    //   {
-    //     modifyVars: { '@primary-color': '#04f' }, // optional
-    //     // lessVarsFilePath: './src/styles/antd-theme.less',
-    //     // lessVarsFilePathAppendToEndOfContent: false,
-    //     // lessLoaderOptions: {
-    //     //   javascriptEnabled: true,
-    //     // },
-    //   },
-    // ],
-    // [
-    //   withLess,
-    //   {
-    //     lessLoaderOptions: {},
-    //   },
-    // ],
+    // withGlobalCss,
     withBundleAnalyzer,
     [
       withNx,
@@ -62,31 +26,22 @@ module.exports = withPlugins(
          *
          * Cause: https://github.com/vercel/next.js/issues/30330#issuecomment-952847838
          */
-        // experimental: {
-        //   esmExternals: false,
-        // },
+        experimental: {
+          esmExternals: false,
+        },
+        // staticPageGenerationTimeout: 150,
         cssModules: false,
-        webpack5: false,
       },
     ],
   ],
   {
     webpack(config, options) {
-      // https://github.com/prettier/prettier/issues/4959#issuecomment-416834237
-      config.plugins.push(
-        new FilterWarningsPlugin({
-          exclude:
-            /Critical dependency: the request of a dependency is an expression/,
-        }),
-      )
+      /**
+       * Debugging idea came from here https://github.com/nrwl/nx/issues/5370#issuecomment-847676139
+       */
 
-      config.module.rules.push({
-        type: 'javascript/auto',
-        test: /\.mjs$/,
-        include: /node_modules/,
-      })
-
-      return config
+      return patchWebpackConfig(config, options)
+      // return config
     },
   },
 )

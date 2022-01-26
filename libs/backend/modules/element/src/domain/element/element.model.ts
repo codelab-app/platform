@@ -18,26 +18,34 @@ export class Element implements IElement {
   @Field(() => ID)
   id: string
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String, {
+    nullable: true,
+    description: 'We default the Element name to the Atom type',
+  })
   name: Nullable<string>
 
   @Field(() => Tag, {
     nullable: true,
-    description: 'An Element tagged with componentTag is a reusable component',
+    description:
+      "A tag for components, we can't help but put it on the same model as element",
   })
   componentTag?: Nullable<Tag>
 
   @Field(() => String, { nullable: true })
   fixedId: Nullable<string>
 
-  @Field(() => String, { nullable: true })
-  /** The CSS string that gets passed down to emotion */
+  @Field(() => String, {
+    nullable: true,
+    description: 'The CSS string that gets passed down to emotion',
+  })
   css?: Nullable<string>
 
   @Field(() => Atom, { nullable: true })
   atom?: Nullable<Atom>
 
-  @Field(() => Prop)
+  @Field(() => Prop, {
+    description: 'These are the prop data that we bind with',
+  })
   props: Prop
 
   @Field(() => [Hook])
@@ -57,13 +65,22 @@ export class Element implements IElement {
   })
   renderIfPropKey?: Nullable<string>
 
-  @Field(() => [PropMapBinding])
+  @Field(() => [PropMapBinding], {
+    description:
+      'Maps external object data to their property keys in the Element',
+  })
   propMapBindings: Array<IPropMapBinding>
 
-  @Field(() => String, { nullable: true })
+  @Field(() => String, {
+    nullable: true,
+    description: 'Allows transformation of external props data',
+  })
   propTransformationJs?: Nullable<string>
 
-  @Field(() => ObjectRef, { nullable: true })
+  @Field(() => ObjectRef, {
+    nullable: true,
+    description: 'Tells what type of Component this Element is using',
+  })
   instanceOfComponent?: ObjectRef
 
   @Field(() => ObjectRef, { nullable: true })

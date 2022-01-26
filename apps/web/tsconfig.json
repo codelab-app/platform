@@ -14,8 +14,8 @@
     "noEmit": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "module": "ESNext",
-    "incremental": true
+    "incremental": true,
+    "module": "esnext"
   },
   "include": [
     "**/*.ts",

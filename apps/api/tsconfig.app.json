@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "types": ["node"],
+    "module": "commonjs",
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",

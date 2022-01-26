@@ -16,6 +16,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
+import { App } from '../domain/app.model'
 import { CreateAppInput, CreateAppService } from '../use-cases/create-app'
 import { DeleteAppInput, DeleteAppService } from '../use-cases/delete-app'
 import { ExportAppInput, ExportAppService } from '../use-cases/export-app'
@@ -23,7 +24,6 @@ import { GetAppInput, GetAppService } from '../use-cases/get-app'
 import { GetAppsService } from '../use-cases/get-apps'
 import { ImportAppInput, ImportAppService } from '../use-cases/import-app'
 import { UpdateAppInput, UpdateAppService } from '../use-cases/update-app'
-import { App } from './app.model'
 
 @Resolver(() => App)
 @Injectable()

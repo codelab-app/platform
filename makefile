@@ -98,6 +98,7 @@ unit-dev-affected:
 		--silent \
 		--memoryLimit=4096 \
 		--parallel \
+		--maxParallel=3 \
 		--color
 
 unit-ci:
