@@ -10,7 +10,7 @@ import { createLambdaInput } from '../../create-lambda/tests/create-lambda.data'
 import { GetLambdaInput } from '../get-lambda.input'
 import { TestGetLambdaGql } from './get-lambda.api.graphql.gen'
 
-describe('GetLambda', () => {
+describe.skip('GetLambda', () => {
   const testModule = setupLambdaTestModule()
   let getLambdaInput: GetLambdaInput
 
