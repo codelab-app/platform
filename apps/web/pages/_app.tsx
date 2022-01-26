@@ -1,7 +1,7 @@
 // import '../src/wdyr'
 import '../src/styles/app.css'
 import 'animate.css'
-// import '../src/styles/styles.chunk.css'
+import '../src/styles/styles.chunk.css'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { useApollo } from '@codelab/frontend/model/infra/apollo'

@@ -10,26 +10,24 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 /**
- * Webpack 5 causes next-less to break, so we require custom css-loader. Would also cause issue with monaco-editor, which requires ESM loader for Next.js (but has some issues)
+ * Next.js doesn't work well with LESS so we use CSS instead.
  */
 module.exports = withPlugins(
   [
-    // withGlobalCss,
     withBundleAnalyzer,
     [
-      withNx,
       {
         /**
-         * Issue with importing ESM modules from node_modules
+         * Issue with importing ESM modules from node_modules, such as monaco-editor
          *
          * Solution: https://github.com/vercel/next.js/issues/30330#issuecomment-952172377
          *
          * Cause: https://github.com/vercel/next.js/issues/30330#issuecomment-952847838
          */
+        nx: { svgr: true },
         experimental: {
           esmExternals: false,
         },
-        // staticPageGenerationTimeout: 150,
         cssModules: false,
       },
     ],
@@ -37,11 +35,9 @@ module.exports = withPlugins(
   {
     webpack(config, options) {
       /**
-       * Debugging idea came from here https://github.com/nrwl/nx/issues/5370#issuecomment-847676139
+       * Use this to patch Global CSS issue https://github.com/vercel/next.js/issues/19936
        */
-
       return patchWebpackConfig(config, options)
-      // return config
     },
   },
 )
