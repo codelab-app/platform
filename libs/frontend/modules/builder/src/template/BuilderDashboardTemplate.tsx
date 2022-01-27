@@ -11,15 +11,6 @@ export const BuilderDashboardTemplate = ({
   SidebarNavigation,
   headerHeight,
 }: PropsWithChildren<DashboardTemplateProps>) => {
-  /**
-   * TODO todo to issue title
-   *
-   * Some description here!
-   *
-   * labels: feature
-   * assignees: webberwang
-   * milestone: 3
-   */
   const { selectedElementId } = useBuilderSelectedElement()
 
   return (

@@ -23,6 +23,27 @@ import React from 'react'
 import tw from 'twin.macro'
 import { ExportTypesButton } from '../../../../libs/frontend/modules/type/src/use-cases/types'
 
+const Header = () => {
+  const { selectedIds } = useTypeState()
+
+  const headerButtons = [
+    <div css={tw`flex flex-row items-center justify-center gap-2`} key={0}>
+      <ExportTypesButton typeIds={selectedIds} />
+      <ImportTypesUpload />
+      <CreateTypeButton key={0} />
+    </div>,
+  ]
+
+  return (
+    <PageHeader
+      extra={headerButtons}
+      // onBack={() => router.back()}
+      ghost={false}
+      title="Types"
+    />
+  )
+}
+
 const TypesPage: CodelabPage<DashboardTemplateProps> = () => {
   return (
     <>
@@ -37,27 +58,6 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = () => {
         <GetTypesTable />
       </ContentSection>
     </>
-  )
-}
-
-const Header = () => {
-  const { selectedIds } = useTypeState()
-
-  const headerButtons = [
-    <div css={tw`flex flex-row items-center justify-center gap-2`}>
-      <ExportTypesButton typeIds={selectedIds} />
-      <ImportTypesUpload />
-      <CreateTypeButton key={0} />
-    </div>,
-  ]
-
-  return (
-    <PageHeader
-      extra={headerButtons}
-      // onBack={() => router.back()}
-      ghost={false}
-      title="Types"
-    />
   )
 }
 

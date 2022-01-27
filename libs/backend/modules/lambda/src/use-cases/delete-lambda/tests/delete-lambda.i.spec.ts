@@ -11,7 +11,7 @@ import { GetLambdaInput } from '../../get-lambda'
 import { DeleteLambdaInput } from '../delete-lambda.input'
 import { TestDeleteLambdaGql } from './delete-lambda.api.graphql.gen'
 
-describe('DeleteLambda', () => {
+describe.skip('DeleteLambda', () => {
   const testModule = setupLambdaTestModule()
   let deleteLambdaInput: DeleteLambdaInput
 

@@ -228,10 +228,18 @@ union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | Elemen
 
 type Atom {
   id: ID!
+
+  """
+  An Atom could be of HTML type <button> or <a>, or a component type of <Button> or <Link>
+  """
   type: AtomType!
 
-  """This is a unique ID suitable for seeders to lookup"""
+  """This acts as unique ID suitable for seeder lookup"""
   name: String!
+
+  """
+  Similar to props for a React component, it tells us which kind of configurations it can take
+  """
   api: InterfaceType!
   apiGraph: TypeGraph!
 }
@@ -661,13 +669,21 @@ type PropMapBinding {
 
 type Element {
   id: ID!
+
+  """We default the Element name to the Atom type"""
   name: String
 
-  """An Element tagged with componentTag is a reusable component"""
+  """
+  A tag for components, we can't help but put it on the same model as element
+  """
   componentTag: Tag
   fixedId: String
+
+  """The CSS string that gets passed down to emotion"""
   css: String
   atom: Atom
+
+  """These are the prop data that we bind with"""
   props: Prop!
   hooks: [Hook!]!
 
@@ -680,8 +696,14 @@ type Element {
   If set, the element will get rendered only if the prop with the given key exists and is evaluated as truthy (exception - the string "false" will evaluate to falsy)
   """
   renderIfPropKey: String
+
+  """Maps external object data to their property keys in the Element"""
   propMapBindings: [PropMapBinding!]!
+
+  """Allows transformation of external props data"""
   propTransformationJs: String
+
+  """Tells what type of Component this Element is using"""
   instanceOfComponent: ObjectRef
   parentElement: ObjectRef
   owner: ObjectRef

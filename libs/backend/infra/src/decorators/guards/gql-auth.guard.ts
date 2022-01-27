@@ -18,10 +18,10 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
   }
 
   handleRequest(err: any, user: any, info: any) {
-    console.log(err, user, info)
-
     // You can throw an exception based on either "info" or "err" arguments
     if (err || !user) {
+      console.error(err, user, info)
+
       throw err || new UnauthorizedException()
     }
 

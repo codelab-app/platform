@@ -1,6 +1,8 @@
-$min-width: 1600px;
+:root {
+  --min-width: 1600px;
+}
 
-@media (min-width: $min-width) {
+@media (min-width: var(__min-width)) {
   .container {
     max-width: 1460px;
     margin-left: auto;

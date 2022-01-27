@@ -58,7 +58,6 @@ export class Auth0Controller {
   async roles() {
     const client = await this.auth0Service.getManagementClient()
     const roles = await client.getRoles()
-    console.log(roles)
   }
 
   @Get('grants')

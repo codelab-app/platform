@@ -5,7 +5,7 @@ set -x
 husky install
 
 # Build only required projects
-nx run-many --target=build --projects=cli,cmd,tools-plugins-codelab,tools-rtk-query
+nx run-many --target=build --projects=cli,cmd,tools-rtk-query --parallel
 
 # Update Dgraph Schema
 yarn cli dgraph update-schema --env dev

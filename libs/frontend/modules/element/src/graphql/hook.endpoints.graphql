@@ -4,7 +4,6 @@ mutation AddHookToElement($input: AddHookToElementInput!) {
   }
 }
 
-# TODO Look into using GetLambda
 query GetLambdaName($input: GetLambdaInput!) {
   getLambda(input: $input) {
     name

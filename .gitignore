@@ -3,6 +3,7 @@
 .env
 .env.*
 !.env.example
+nx-cloud.env
 
 # compiled output
 dist/

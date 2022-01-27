@@ -21,8 +21,7 @@ export class TypeValidator {
   ) {}
 
   /**
-   * Throws error
-   * if the type doesn't exist
+   * Throws error if the type doesn't exist
    */
   async typeExists(typeId: TypeId) {
     return await this.dgraph.transactionWrapper((txn) =>

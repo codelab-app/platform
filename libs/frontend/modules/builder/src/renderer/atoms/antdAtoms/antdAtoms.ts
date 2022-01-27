@@ -53,9 +53,10 @@ export const antdAtoms: AtomsRecord = {
   [AtomType.AntDesignRglContainer]: dynamic(() => import('react-grid-layout')),
   [AtomType.AntDesignRglResponsiveContainer]: dynamic(
     () =>
-      import('react-grid-layout').then(({ WidthProvider, Responsive }) =>
-        WidthProvider(Responsive),
-      ) as any,
+      import('react-grid-layout').then(({ WidthProvider, Responsive }) => {
+        // return WidthProvider(Responsive)
+        return null
+      }) as any,
   ),
   [AtomType.AntDesignModal]: dynamic(() => import('antd/lib/modal')),
   [AtomType.AntDesignRadioGroup]: dynamic(() => import('antd/lib/radio/group')),

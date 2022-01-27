@@ -1,4 +1,3 @@
-import 'bower_components/Morphext/dist/morphext.css'
 import { ArrowRightOutlined, PlayCircleOutlined } from '@ant-design/icons'
 import { Fancybox } from '@codelab/frontend/view/components'
 import { css } from '@emotion/react'

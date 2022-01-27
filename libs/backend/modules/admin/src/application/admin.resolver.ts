@@ -26,8 +26,6 @@ export class AdminResolver {
   @Roles(Role.Admin)
   @UseGuards(GqlAuthGuard)
   async executeCommand(@Args('input') input: ExecuteCommandInput) {
-    console.log(input)
-
     return this.executeCommandService.execute(input)
   }
 }

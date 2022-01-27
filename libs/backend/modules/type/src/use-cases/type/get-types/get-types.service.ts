@@ -17,6 +17,7 @@ export class GetTypesService extends DgraphUseCase<
 > {
   protected schema = TypeSchema.array()
 
+  //
   protected async executeTransaction(
     { input, currentUser }: GetTypesRequest,
     txn: Txn,
