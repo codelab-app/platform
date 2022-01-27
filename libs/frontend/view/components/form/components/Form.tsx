@@ -15,6 +15,8 @@ export const Form = <TData,>({
   onSubmit,
   children,
   model,
+  onChangeModel,
+  onChange,
 }: React.PropsWithChildren<FormProps<TData>>): ReactElement => {
   const [bridge, setBridge] = useState(
     schema instanceof Bridge ? schema : createBridge(schema),
@@ -29,6 +31,8 @@ export const Form = <TData,>({
       autosave={autosave}
       autosaveDelay={500}
       model={model}
+      onChange={onChange}
+      onChangeModel={onChangeModel}
       onSubmit={(formData) => {
         const result = onSubmit(formData as TData)
 
