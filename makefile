@@ -57,6 +57,7 @@ lint-circular-dep:
 #
 # E2E
 #
+
 e2e-dev-affected:
 	./scripts/nx.sh affected:e2e --configuration test --browser firefox
 
@@ -66,15 +67,18 @@ e2e-ci:
 #
 # INTEGRATION TESTS
 #
+
 integration-dev-affected:
-	nx affected:test \
+	./scripts/nx.sh affected:test \
 		--testPathPattern="i.spec.ts" \
+		--parallel=1 \
 		--memoryLimit=4096 \
 		--runInBand
 
 integration-ci:
 	npx nx affected:test \
 		--testPathPattern="i.spec.ts" \
+		--parallel=1 \
 		--skip-nx-cache \
 		--runInBand \
 		--verbose
@@ -94,19 +98,17 @@ test-dev-affected:
 # UNIT TEST
 #
 unit-dev-affected:
-	npx nx affected:test \
+	./scripts/nx.sh affected:test \
 		--testPathPattern="[^i].spec.ts" \
 		--silent \
 		--memoryLimit=4096 \
-		--parallel \
-		--maxParallel=3 \
+		--parallel=3 \
 		--color
 
 unit-ci:
 	npx nx affected:test \
 		--testPathPattern="[^i].spec.ts" \
 		--parallel \
-		--max-parallel=3 \
 		--verbose \
 		--color
 # --detectOpenHandles
