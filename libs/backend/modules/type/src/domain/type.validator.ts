@@ -38,8 +38,11 @@ export class TypeValidator {
    *
    * We query for primitive types only first, then check the kind. If it already exists, we don't allow creation
    */
-  async primitiveIsNotDuplicated(request: CreateTypeRequest): Promise<void> {
-    const { transaction, input, currentUser } = request
+  async primitiveIsNotDuplicated(
+    request: CreateTypeRequest,
+    txn: ITransaction,
+  ): Promise<void> {
+    const { input, currentUser } = request
 
     if (input.typeKind !== TypeKind.PrimitiveType || !input.primitiveType) {
       return
@@ -51,12 +54,8 @@ export class TypeValidator {
     }
 
     const primitives = currentUser
-      ? await this.typeRepository.getUserTypes(
-          currentUser.id,
-          where,
-          transaction,
-        )
-      : await this.typeRepository.getAdminTypes(where, transaction)
+      ? await this.typeRepository.getUserTypes(currentUser.id, where, txn)
+      : await this.typeRepository.getAdminTypes(where, txn)
 
     if (
       primitives.length &&

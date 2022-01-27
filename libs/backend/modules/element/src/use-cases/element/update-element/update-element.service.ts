@@ -48,7 +48,6 @@ export class UpdateElementService
     if (atomId) {
       const atom = await this.getAtomService.execute({
         input: { where: { id: atomId } },
-        transaction: request.transaction,
       })
 
       if (!atom) {

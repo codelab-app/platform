@@ -1,4 +1,3 @@
-import { ITransaction } from '@codelab/backend/infra'
 import { IInterfaceType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { GetFieldService } from '../../use-cases/field/get-field'
@@ -8,10 +7,9 @@ export class FieldValidator {
   constructor(private getFieldService: GetFieldService) {}
 
   /** Throws error if the field doesn't exist */
-  async exists(fieldId: string, transaction: ITransaction) {
+  async exists(fieldId: string) {
     const field = await this.getFieldService.execute({
       input: { byId: { fieldId } },
-      transaction,
     })
 
     if (!field) {

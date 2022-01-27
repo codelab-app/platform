@@ -1,5 +1,8 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { exactlyOneWhereClause } from '@codelab/backend/application'
+import {
+  DgraphUseCase,
+  exactlyOneWhereClause,
+} from '@codelab/backend/application'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
 import { ITypeGraph } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
@@ -7,23 +10,31 @@ import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { GetTypeGraphRequest } from './get-type-graph.request'
 
 @Injectable()
-export class GetTypeGraphService
-  implements UseCasePort<GetTypeGraphRequest, Maybe<ITypeGraph>>
-{
+export class GetTypeGraphService extends DgraphUseCase<
+  GetTypeGraphRequest,
+  Maybe<ITypeGraph>
+> {
+  protected override autoCommit = true
+
   constructor(
+    dgraph: DgraphRepository,
     @Inject(ITypeRepositoryToken)
     private typeRepository: ITypeRepository,
-  ) {}
+  ) {
+    super(dgraph)
+  }
 
-  async execute(request: GetTypeGraphRequest): Promise<Maybe<ITypeGraph>> {
+  protected async executeTransaction(
+    request: GetTypeGraphRequest,
+    txn: ITransaction,
+  ): Promise<Maybe<ITypeGraph>> {
     this.validate(request)
 
     const {
       input: { where },
-      transaction,
     } = request
 
-    return this.typeRepository.getGraphWhere(where, transaction)
+    return this.typeRepository.getGraphWhere(where, txn)
   }
 
   private validate(request: GetTypeGraphRequest) {

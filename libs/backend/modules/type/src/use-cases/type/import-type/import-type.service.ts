@@ -1,6 +1,6 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { CreateResponse } from '@codelab/backend/application'
+import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import {
+  DgraphRepository,
   ITransaction,
   LoggerService,
   LoggerTokens,
@@ -32,25 +32,33 @@ const makePlaceholder = R.pipe(
  * This service is essentially a wrapper around createField & createType. We transform the graph vertices/edges back into fields & types
  */
 @Injectable()
-export class ImportTypeService
-  implements UseCasePort<ImportTypeRequest, CreateResponse>
-{
+export class ImportTypeService extends DgraphUseCase<
+  ImportTypeRequest,
+  CreateResponse
+> {
+  protected override autoCommit = true
+
   constructor(
+    dgraph: DgraphRepository,
     @Inject(ITypeRepositoryToken)
     private typeRepository: ITypeRepository,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
-  ) {}
+  ) {
+    super(dgraph)
+  }
 
-  async execute(request: ImportTypeRequest): Promise<CreateResponse> {
+  protected async executeTransaction(
+    request: ImportTypeRequest,
+    txn: ITransaction,
+  ): Promise<CreateResponse> {
     const {
       input: { id, typeGraph },
-      transaction,
     } = request
 
     // Get all types that we already have and create placeholders for the ones we don't
     const { payloadIdToType } = await this.getExistingTypesOrCreatePlaceholders(
       typeGraph.vertices ?? [],
-      transaction,
+      txn,
     )
 
     // Update all existing and placeholder types as needed
@@ -100,7 +108,7 @@ export class ImportTypeService
           })),
         }
 
-        await this.typeRepository.update(updated, transaction)
+        await this.typeRepository.update(updated, txn)
         continue
       }
 
@@ -117,7 +125,7 @@ export class ImportTypeService
           itemType: { id: actualItemId },
         }
 
-        await this.typeRepository.update(updated, transaction)
+        await this.typeRepository.update(updated, txn)
         continue
       }
 
@@ -138,7 +146,7 @@ export class ImportTypeService
           })),
         }
 
-        await this.typeRepository.update(updated, transaction)
+        await this.typeRepository.update(updated, txn)
         continue
       }
 

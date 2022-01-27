@@ -1,7 +1,3 @@
-import {
-  WithCurrentUserRequest,
-  WithTransactionRequest,
-} from '@codelab/backend/abstract/core'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
 
-export type SeedBaseTypesRequest = WithCurrentUserRequest &
-  WithTransactionRequest
+export type SeedBaseTypesRequest = WithCurrentUserRequest

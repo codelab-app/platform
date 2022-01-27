@@ -1,10 +1,6 @@
 import { Void } from '@codelab/backend/abstract/types'
-import {
-  CreateResponse,
-  Transaction,
-  Transactional,
-} from '@codelab/backend/application'
-import { GqlAuthGuard, ITransaction } from '@codelab/backend/infra'
+import { CreateResponse, Transactional } from '@codelab/backend/application'
+import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
@@ -77,116 +73,88 @@ export class TypeResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => [CreateResponse], { nullable: true })
-  @Transactional()
   async importTypes(
     @Args('input') input: ImportTypesInput,
     @CurrentUser() currentUser: IUser,
-    @Transaction() transaction: ITransaction,
   ) {
     return this.importTypesService.execute({
       input,
       currentUser,
-      transaction,
     })
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Void, { nullable: true })
-  @Transactional()
-  async seedBaseTypes(
-    @CurrentUser() currentUser: IUser,
-    @Transaction() transaction: ITransaction,
-  ) {
-    await this.seedBaseTypesService.execute({ currentUser, transaction })
+  async seedBaseTypes(@CurrentUser() currentUser: IUser) {
+    await this.seedBaseTypesService.execute({ currentUser })
   }
 
   @UseGuards(GqlAuthGuard)
   @Query(() => Type, { nullable: true })
-  @Transactional()
-  async getType(
-    @Args('input') input: GetTypeInput,
-    @Transaction() transaction: ITransaction,
-  ) {
+  async getType(@Args('input') input: GetTypeInput) {
     return this.getTypeService.execute({
       input,
-      transaction,
     })
   }
 
   @UseGuards(GqlAuthGuard)
   @Query(() => TypeGraph, { nullable: true })
-  @Transactional()
-  async getTypeGraph(
-    @Args('input') input: GetTypeGraphInput,
-    @Transaction() transaction: ITransaction,
-  ) {
-    return this.getTypeGraphService.execute({ input, transaction })
+  async getTypeGraph(@Args('input') input: GetTypeGraphInput) {
+    return this.getTypeGraphService.execute({ input })
   }
 
   @UseGuards(GqlAuthGuard)
   @Query(() => [Type])
-  @Transactional()
   async getTypes(
     @Args('input', { nullable: true }) input: GetTypesInput,
     @CurrentUser() currentUser: IUser,
-    @Transaction() transaction: ITransaction,
   ) {
     return await this.getTypesService.execute({
       input,
       currentUser,
-      transaction,
     })
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Type)
-  @Transactional()
   async createType(
     @Args('input') input: CreateTypeInput,
     @CurrentUser() currentUser: IUser,
-    @Transaction() transaction: ITransaction,
   ) {
     const { id } = await this.createTypeService.execute({
       input,
       currentUser,
-      transaction,
     })
 
-    return this.getTypeOrThrow(id, transaction)
+    return this.getTypeOrThrow(id)
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => EnumType, { nullable: true })
-  @Transactional()
   async updateEnumType(
     @Args('input') input: UpdateEnumTypeInput,
     @CurrentUser() currentUser: IUser,
-    @Transaction() transaction: ITransaction,
   ) {
     await this.updateEnumTypeService.execute({
       input,
       currentUser,
-      transaction,
     })
 
-    return this.getTypeOrThrow(input.typeId, transaction)
+    return this.getTypeOrThrow(input.typeId)
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => PrimitiveType, { nullable: true })
-  @Transactional()
   async updatePrimitiveType(
     @Args('input') input: UpdatePrimitiveTypeInput,
     @CurrentUser() currentUser: IUser,
-    @Transaction() transaction: ITransaction,
   ) {
     await this.updatePrimitiveTypeService.execute({
       input,
-      transaction,
       currentUser,
     })
 
-    return this.getTypeOrThrow(input.typeId, transaction)
+    return this.getTypeOrThrow(input.typeId)
   }
 
   @UseGuards(GqlAuthGuard)
@@ -195,66 +163,53 @@ export class TypeResolver {
   async updateUnionType(
     @Args('input') input: UpdateUnionTypeInput,
     @CurrentUser() currentUser: IUser,
-    @Transaction() transaction: ITransaction,
   ) {
     await this.updateUnionTypeService.execute({
       input,
-      transaction,
       currentUser,
     })
 
-    return this.getTypeOrThrow(input.typeId, transaction)
+    return this.getTypeOrThrow(input.typeId)
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Type, { nullable: true })
-  @Transactional()
   async updateType(
     @Args('input') input: UpdateTypeInput,
     @CurrentUser() currentUser: IUser,
-    @Transaction() transaction: ITransaction,
   ) {
     await this.updateTypeService.execute({
       input,
-      transaction,
       currentUser,
     })
 
-    return this.getTypeOrThrow(input.typeId, transaction)
+    return this.getTypeOrThrow(input.typeId)
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Type, { nullable: true })
-  @Transactional()
   async deleteType(
     @Args('input') input: DeleteTypeInput,
     @CurrentUser() currentUser: IUser,
-    @Transaction() transaction: ITransaction,
   ) {
-    const type = await this.getTypeOrThrow(input.typeId, transaction)
+    const type = await this.getTypeOrThrow(input.typeId)
 
-    await this.deleteTypeService.execute({ input, currentUser, transaction })
+    await this.deleteTypeService.execute({ input, currentUser })
 
     return type
   }
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => TypeGraph)
-  @Transactional()
-  async typeGraph(
-    @Parent() interfaceType: InterfaceType,
-    @Transaction() transaction: ITransaction,
-  ) {
+  async typeGraph(@Parent() interfaceType: InterfaceType) {
     return this.getTypeGraphService.execute({
       input: { where: { id: interfaceType.id } },
-      transaction,
     })
   }
 
-  private async getTypeOrThrow(typeId: string, transaction: ITransaction) {
+  private async getTypeOrThrow(typeId: string) {
     const type = await this.getTypeService.execute({
       input: { where: { id: typeId } },
-      transaction,
     })
 
     if (!type) {

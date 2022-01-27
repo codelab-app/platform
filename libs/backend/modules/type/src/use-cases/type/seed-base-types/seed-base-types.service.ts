@@ -1,5 +1,5 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { ITransaction } from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -16,35 +16,34 @@ import { SeedBaseTypesRequest } from './seed-base-types.request'
  * Seeds all default types like primitives
  */
 @Injectable()
-export class SeedBaseTypesService
-  implements UseCasePort<SeedBaseTypesRequest, void>
-{
+export class SeedBaseTypesService extends DgraphUseCase<SeedBaseTypesRequest> {
+  protected override autoCommit = true
+
   constructor(
+    dgraph: DgraphRepository,
     private getTypeService: GetTypeService,
     private createTypeService: CreateTypeService,
-  ) {}
+  ) {
+    super(dgraph)
+  }
 
-  async execute(request: SeedBaseTypesRequest): Promise<void> {
-    await this.seedTypesIfMissing(
-      baseTypes,
-      request.currentUser,
-      request.transaction,
-    )
+  protected async executeTransaction(
+    request: SeedBaseTypesRequest,
+    txn: ITransaction,
+  ): Promise<void> {
+    await this.seedTypesIfMissing(baseTypes, request.currentUser)
   }
 
   private async seedTypesIfMissing(
     types: Array<CreateTypeInput>,
     currentUser: IUser,
-    transaction: ITransaction,
   ) {
     await Promise.all(
       types.map((type) =>
-        this.seedTypeIfMissing({ input: type, currentUser, transaction }).then(
-          (id) => ({
-            key: type.name,
-            id,
-          }),
-        ),
+        this.seedTypeIfMissing({ input: type, currentUser }).then((id) => ({
+          key: type.name,
+          id,
+        })),
       ),
     )
   }
@@ -52,27 +51,22 @@ export class SeedBaseTypesService
   private async seedTypeIfMissing({
     input,
     currentUser,
-    transaction,
   }: CreateTypeRequest): Promise<string> {
     return await createIfMissing(
-      () => this.getTypeByName(input.name, transaction),
-      () => this.createType({ input, currentUser, transaction }),
+      () => this.getTypeByName(input.name),
+      () => this.createType({ input, currentUser }),
     )
   }
 
-  private async getTypeByName(name: string, transaction: ITransaction) {
+  private async getTypeByName(name: string) {
     return await this.getTypeService
-      .execute({ input: { where: { name } }, transaction })
+      .execute({ input: { where: { name } } })
       .then((type) => type?.name)
   }
 
-  private async createType({
-    input,
-    currentUser,
-    transaction,
-  }: CreateTypeRequest) {
+  private async createType({ input, currentUser }: CreateTypeRequest) {
     return await this.createTypeService
-      .execute({ input, currentUser, transaction })
+      .execute({ input, currentUser })
       .then((r) => {
         if (!r.id) {
           throw new Error(

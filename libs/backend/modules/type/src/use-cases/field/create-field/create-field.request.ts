@@ -1,11 +1,6 @@
-import {
-  WithCurrentUserRequest,
-  WithTransactionRequest,
-} from '@codelab/backend/abstract/core'
+import { WithCurrentUserRequest } from '@codelab/backend/abstract/core'
 import { CreateFieldInput } from './create-field.input'
 
-export interface CreateFieldRequest
-  extends WithCurrentUserRequest,
-    WithTransactionRequest {
+export interface CreateFieldRequest extends WithCurrentUserRequest {
   input: CreateFieldInput
 }

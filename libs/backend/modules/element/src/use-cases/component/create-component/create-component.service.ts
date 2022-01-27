@@ -58,17 +58,13 @@ export class CreateComponentService
     return this.elementRepository.create(element, transaction)
   }
 
-  protected async validate({
-    input: { atomId },
-    transaction,
-  }: CreateComponentRequest) {
+  protected async validate({ input: { atomId } }: CreateComponentRequest) {
     if (!atomId) {
       return { foundAtom: undefined }
     }
 
     const foundAtom = await this.getAtomService.execute({
       input: { where: { id: atomId } },
-      transaction,
     })
 
     if (!foundAtom) {

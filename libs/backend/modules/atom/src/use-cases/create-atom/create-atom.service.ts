@@ -1,5 +1,4 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { CreateResponse } from '@codelab/backend/application'
+import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphEntityType,
   DgraphRepository,
@@ -18,41 +17,38 @@ import { CreateAtomInput } from './create-atom.input'
 import { CreateAtomRequest } from './create-atom.request'
 
 @Injectable()
-export class CreateAtomService
-  implements UseCasePort<CreateAtomRequest, CreateResponse>
-{
+export class CreateAtomService extends DgraphUseCase<
+  CreateAtomRequest,
+  CreateResponse
+> {
+  protected override autoCommit = true
+
   constructor(
-    private dgraph: DgraphRepository,
+    dgraph: DgraphRepository,
     private createTypeService: CreateTypeService,
     private getAtomService: GetAtomService,
     private getTypeService: GetTypeService,
-  ) {}
+  ) {
+    super(dgraph)
+  }
 
-  async execute(request: CreateAtomRequest) {
+  async executeTransaction(request: CreateAtomRequest, txn: ITransaction) {
     await this.validate(request)
 
-    const { input, currentUser, transaction } = request
-
-    const { apiId } = await this.createInterfaceIfMissing(
-      input,
-      transaction,
-      currentUser,
-    )
-
-    const { atomId } = await this.createAtom(input, transaction, apiId)
+    const { input, currentUser } = request
+    const { apiId } = await this.createInterfaceIfMissing(input, currentUser)
+    const { atomId } = await this.createAtom(input, txn, apiId)
 
     return { id: atomId }
   }
 
   private async createInterfaceIfMissing(
     input: CreateAtomInput,
-    transaction: ITransaction,
     currentUser: IUser,
   ) {
     if (!input.api) {
       const { id } = await this.createTypeService.execute({
         input: { name: `${input.name} API`, typeKind: TypeKind.InterfaceType },
-        transaction,
         currentUser,
       })
 
@@ -96,7 +92,6 @@ export class CreateAtomService
   private async validate(request: CreateAtomRequest) {
     const atom = await this.getAtomService.execute({
       input: { where: { type: request.input.type } },
-      transaction: request.transaction,
     })
 
     if (atom) {
@@ -106,7 +101,6 @@ export class CreateAtomService
     if (request.input.api) {
       const type = await this.getTypeService.execute({
         input: { where: { id: request.input.api } },
-        transaction: request.transaction,
       })
 
       if (!type) {

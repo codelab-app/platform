@@ -7,6 +7,8 @@ import { DeleteAtomInput } from './delete-atom.input'
 
 @Injectable()
 export class DeleteAtomService extends DgraphUseCase<DeleteAtomInput> {
+  protected override autoCommit = true
+
   constructor(
     dgraph: DgraphRepository,
     private getAtomService: GetAtomService,
@@ -19,7 +21,7 @@ export class DeleteAtomService extends DgraphUseCase<DeleteAtomInput> {
     txn: Txn,
   ): Promise<void> {
     const { atomId } = request
-    await this.validate(request, txn)
+    await this.validate(request)
 
     // const mu: Mutation = {
     //   mutation: `
@@ -50,10 +52,9 @@ export class DeleteAtomService extends DgraphUseCase<DeleteAtomInput> {
     )
   }
 
-  protected async validate({ atomId }: DeleteAtomInput, txn: Txn) {
+  protected async validate({ atomId }: DeleteAtomInput) {
     const atom = await this.getAtomService.execute({
       input: { where: { id: atomId } },
-      transaction: txn,
     })
 
     if (!atom) {

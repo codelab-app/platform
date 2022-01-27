@@ -20,6 +20,8 @@ export abstract class DgraphUseCase<
    */
   protected schema?: z.ZodSchema<any>
 
+  protected autoCommit = false
+
   /**
    * Override to false to not return the parsed zod result, but the original object
    * Useful for when you want to return class instances, since zod strips them out
@@ -27,9 +29,15 @@ export abstract class DgraphUseCase<
   protected returnParsed = true
 
   async execute(request: TUseCaseRequestPort): Promise<TUseCaseDtoResponse> {
-    const results = await this.dgraph.transactionWrapper((txn) =>
-      this.executeTransaction(request, txn),
-    )
+    const results = await this.dgraph.transactionWrapper(async (txn) => {
+      const r = await this.executeTransaction(request, txn)
+
+      if (this.autoCommit) {
+        await txn.commit()
+      }
+
+      return r
+    })
 
     if (this.schema) {
       const parseResult = this.schema.parse(results)

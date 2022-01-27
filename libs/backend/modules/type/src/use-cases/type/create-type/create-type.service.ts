@@ -1,5 +1,5 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { CreateResponse } from '@codelab/backend/application'
+import { DgraphCreateUseCase } from '@codelab/backend/application'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
 import { Inject, Injectable } from '@nestjs/common'
 import { TypeValidator } from '../../../domain/type.validator'
 import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
@@ -15,29 +15,35 @@ import { CreateTypeInputFactory } from './create-type-input.factory'
  * TLDR: Admin created types don't have owners, while users do
  */
 @Injectable()
-export class CreateTypeService
-  implements UseCasePort<CreateTypeRequest, CreateResponse>
-{
+export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
+  protected override autoCommit = true
+
   constructor(
+    dgraph: DgraphRepository,
     @Inject(ITypeRepositoryToken)
     private typeRepository: ITypeRepository,
     private typeValidator: TypeValidator,
-  ) {}
+  ) {
+    super(dgraph)
+  }
 
-  async execute(request: CreateTypeRequest) {
-    await this.validate(request)
+  protected async executeTransaction(
+    request: CreateTypeRequest,
+    txn: ITransaction,
+  ) {
+    await this.validate(request, txn)
 
     const inputType = CreateTypeInputFactory.toType(request.input)
     const type = createType(inputType)
 
-    return this.typeRepository.create(type, request.transaction)
+    return this.typeRepository.create(type, txn)
   }
 
-  private async validate(request: CreateTypeRequest): Promise<void> {
-    await this.typeValidator.validateCreateTypeInput(
-      request.input,
-      request.transaction,
-    )
-    await this.typeValidator.primitiveIsNotDuplicated(request)
+  private async validate(
+    request: CreateTypeRequest,
+    txn: ITransaction,
+  ): Promise<void> {
+    await this.typeValidator.validateCreateTypeInput(request.input, txn)
+    await this.typeValidator.primitiveIsNotDuplicated(request, txn)
   }
 }

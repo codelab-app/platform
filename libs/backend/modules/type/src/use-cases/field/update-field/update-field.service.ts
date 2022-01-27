@@ -1,5 +1,5 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { ITransaction } from '@codelab/backend/infra'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
 import { IInterfaceType, IUser, TypeKind } from '@codelab/shared/abstract/core'
 import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
@@ -12,24 +12,30 @@ import { TypeRef } from '../create-field'
 import { UpdateFieldRequest } from './update-field.request'
 
 @Injectable()
-export class UpdateFieldService
-  implements UseCasePort<UpdateFieldRequest, void>
-{
+export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
+  protected override autoCommit = true
+
   constructor(
+    dgraph: DgraphRepository,
     @Inject(ITypeRepositoryToken)
     private typeRepository: ITypeRepository,
     private fieldValidator: FieldValidator,
     private typeValidator: TypeValidator,
     private createTypeService: CreateTypeService,
     private getTypeGraphService: GetTypeGraphService,
-  ) {}
+  ) {
+    super(dgraph)
+  }
 
-  async execute(request: UpdateFieldRequest) {
-    const { currentUser, input, transaction } = request
+  protected async executeTransaction(
+    request: UpdateFieldRequest,
+    txn: ITransaction,
+  ) {
+    const { currentUser, input } = request
 
     const theInterface = await this.typeRepository.getOne(
       input.interfaceId,
-      transaction,
+      txn,
     )
 
     if (!theInterface) {
@@ -40,7 +46,7 @@ export class UpdateFieldService
       throw new Error("Type is not interface, can't add field to it")
     }
 
-    await this.validate(request, theInterface)
+    await this.validate(request, theInterface, txn)
 
     const field = theInterface.fields.find((f) => f.id === input.fieldId)
 
@@ -48,23 +54,15 @@ export class UpdateFieldService
       throw new Error('Field not found')
     }
 
-    field.target = await this.getTypeId(
-      input.updateData.type,
-      currentUser,
-      transaction,
-    )
+    field.target = await this.getTypeId(input.updateData.type, currentUser)
     field.name = input.updateData.name
     field.description = input.updateData.description
     field.key = input.updateData.key
 
-    await this.typeRepository.update(theInterface, transaction)
+    await this.typeRepository.update(theInterface, txn)
   }
 
-  private async getTypeId(
-    type: TypeRef,
-    currentUser: IUser,
-    transaction: ITransaction,
-  ) {
+  private async getTypeId(type: TypeRef, currentUser: IUser) {
     let typeId = type.existingTypeId
 
     // Check if we specify an existing type, if not - create a new one and get its ID
@@ -76,7 +74,6 @@ export class UpdateFieldService
       const createdType = await this.createTypeService.execute({
         input: type.newType,
         currentUser,
-        transaction,
       })
 
       typeId = createdType.id
@@ -103,9 +100,9 @@ export class UpdateFieldService
         },
         interfaceId,
       },
-      transaction,
     }: UpdateFieldRequest,
     theInterface: IInterfaceType,
+    txn: ITransaction,
   ): Promise<void> {
     await this.fieldValidator.keyIsUnique(theInterface, key, fieldId)
 
@@ -115,12 +112,11 @@ export class UpdateFieldService
 
     if (existingTypeId) {
       // If we specify an existing type, check if it exists
-      await this.typeValidator.typeExists(existingTypeId, transaction)
+      await this.typeValidator.typeExists(existingTypeId, txn)
 
       // And it doesn't cause a recursive loop
       const graph = await this.getTypeGraphService.execute({
         input: { where: { id: existingTypeId } },
-        transaction,
       })
 
       if (!graph) {

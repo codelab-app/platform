@@ -1,4 +1,5 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
 import { IField, TypeKind } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
@@ -6,26 +7,32 @@ import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { GetFieldRequest } from './get-field.request'
 
 @Injectable()
-export class GetFieldService
-  implements UseCasePort<GetFieldRequest, Maybe<IField>>
-{
+export class GetFieldService extends DgraphUseCase<
+  GetFieldRequest,
+  Maybe<IField>
+> {
+  protected override autoCommit = true
+
   constructor(
+    dgraph: DgraphRepository,
     @Inject(ITypeRepositoryToken)
     private typeRepository: ITypeRepository,
-  ) {}
+  ) {
+    super(dgraph)
+  }
 
-  async execute({
-    input: { byId, byInterface },
-    transaction,
-  }: GetFieldRequest): Promise<Maybe<IField>> {
+  protected async executeTransaction(
+    { input: { byId, byInterface } }: GetFieldRequest,
+    txn: ITransaction,
+  ): Promise<Maybe<IField>> {
     if (byId) {
-      return this.typeRepository.getField(byId.fieldId, transaction)
+      return this.typeRepository.getField(byId.fieldId, txn)
     }
 
     if (byInterface) {
       const theInterface = await this.typeRepository.getOneWhere(
         { id: byInterface.interfaceId },
-        transaction,
+        txn,
       )
 
       if (!theInterface || theInterface.typeKind !== TypeKind.InterfaceType) {

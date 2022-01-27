@@ -100,7 +100,6 @@ export class CreateElementService
     if (atomId) {
       const foundAtom = await this.getAtomService.execute({
         input: { where: { id: atomId } },
-        transaction,
       })
 
       if (!foundAtom) {

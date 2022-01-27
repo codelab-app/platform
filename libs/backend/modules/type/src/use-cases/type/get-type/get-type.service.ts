@@ -1,5 +1,8 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { exactlyOneWhereClause } from '@codelab/backend/application'
+import {
+  DgraphUseCase,
+  exactlyOneWhereClause,
+} from '@codelab/backend/application'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
 import { IType } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
@@ -7,23 +10,31 @@ import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { GetTypeRequest } from './get-type.request'
 
 @Injectable()
-export class GetTypeService
-  implements UseCasePort<GetTypeRequest, Maybe<IType>>
-{
+export class GetTypeService extends DgraphUseCase<
+  GetTypeRequest,
+  Maybe<IType>
+> {
+  protected override autoCommit = true
+
   constructor(
+    dgraph: DgraphRepository,
     @Inject(ITypeRepositoryToken)
     private typeRepository: ITypeRepository,
-  ) {}
+  ) {
+    super(dgraph)
+  }
 
-  async execute(request: GetTypeRequest) {
+  protected async executeTransaction(
+    request: GetTypeRequest,
+    txn: ITransaction,
+  ) {
     this.validate(request)
 
     const {
       input: { where },
-      transaction,
     } = request
 
-    return this.typeRepository.getOneWhere(where, transaction)
+    return this.typeRepository.getOneWhere(where, txn)
   }
 
   private validate(request: GetTypeRequest) {
