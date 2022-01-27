@@ -79,7 +79,6 @@ integration-ci:
 	npx nx affected:test \
 		--testPathPattern="i.spec.ts" \
 		--parallel=1 \
-		--skip-nx-cache \
 		--runInBand \
 		--verbose
 # --maxWorkers=8 \
