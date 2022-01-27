@@ -62,11 +62,13 @@ export type ArrayType = Type & {
 
 export type Atom = {
   __typename?: 'Atom'
+  /** Similar to props for a React component, it tells us which kind of configurations it can take */
   api: InterfaceType
   apiGraph: TypeGraph
   id: Scalars['ID']
-  /** This is a unique ID suitable for seeders to lookup */
+  /** This acts as unique ID suitable for seeder lookup */
   name: Scalars['String']
+  /** An Atom could be of HTML type <button> or <a>, or a component type of <Button> or <Link> */
   type: AtomType
 }
 
@@ -634,20 +636,26 @@ export type DuplicateElementInput = {
 export type Element = {
   __typename?: 'Element'
   atom?: Maybe<Atom>
-  /** An Element tagged with componentTag is a reusable component */
+  /** A tag for components, we can't help but put it on the same model as element */
   componentTag?: Maybe<Tag>
+  /** The CSS string that gets passed down to emotion */
   css?: Maybe<Scalars['String']>
   fixedId?: Maybe<Scalars['String']>
   /** Aggregates the requested element and all of its descendant elements (infinitely deep) in the form of a flat array of Element and array of ElementEdge */
   graph: ElementGraph
   hooks: Array<Hook>
   id: Scalars['ID']
+  /** Tells what type of Component this Element is using */
   instanceOfComponent?: Maybe<ObjectRef>
+  /** We default the Element name to the Atom type */
   name?: Maybe<Scalars['String']>
   owner?: Maybe<ObjectRef>
   parentElement?: Maybe<ObjectRef>
+  /** Maps external object data to their property keys in the Element */
   propMapBindings: Array<PropMapBinding>
+  /** Allows transformation of external props data */
   propTransformationJs?: Maybe<Scalars['String']>
+  /** These are the prop data that we bind with */
   props: Prop
   /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */
   renderForEachPropKey?: Maybe<Scalars['String']>
@@ -883,6 +891,7 @@ export type LambdaType = Type & {
 
 export enum MonacoLanguage {
   CSS = 'CSS',
+  CSSINJS = 'CSSINJS',
   Graphql = 'Graphql',
   JSON = 'JSON',
   JavaScript = 'JavaScript',
