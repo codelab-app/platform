@@ -116,9 +116,7 @@ export class TypeResolver {
     @Args('input', { nullable: true }) input: GetTypesInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    const types = await this.getTypesService.execute({ input, currentUser })
-
-    return types
+    return await this.getTypesService.execute({ input, currentUser })
   }
 
   @UseGuards(GqlAuthGuard)

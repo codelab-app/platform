@@ -114,6 +114,8 @@ describe('GetTypeGraph', () => {
 
     createdFields.push(arrayField)
 
+    console.log('Created fields', createdFields)
+
     getTypeInput = { where: { id: interfaceType.id } }
 
     const { getTypeGraph } = await domainRequest<
