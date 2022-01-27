@@ -203,12 +203,12 @@ jobs:
       - run:
           name: 'Build CI'
           command: make build-ci
-      # - run:
-      #     name: 'Remove Unused Cache'
-      #     command: |
-      #       npx cypress cache path
-      #       rm -rf ~/project/node_modules/nx/.cache
-      #       rm -rf ~/project/node_modules/.cache
+      - run:
+          name: 'Clear Cache'
+          command: |
+            # npx cypress cache path
+            rm -rf ~/project/node_modules/nx/.cache
+            npx jest --clearCache
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
