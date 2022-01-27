@@ -24,7 +24,7 @@ build-dev-affected:
 #		--verbose \
 
 build-ci:
-	npx nx affected:build \
+	npx nx run-many --target=build \
 		--projects=api,web,cmd,cli,tools-rtk-query \
 		--configuration=ci \
 		--parallel \
