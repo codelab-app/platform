@@ -1,13 +1,8 @@
 import { InboxOutlined } from '@ant-design/icons'
 import { ImportAppActionType } from '@codelab/frontend/abstract/core'
-import {
-  emptyJsonSchema,
-  Form,
-  FormModal,
-  UploadField,
-} from '@codelab/frontend/view/components'
+import { Form, FormModal, UploadField } from '@codelab/frontend/view/components'
 import React from 'react'
-import { ImportAppSchema } from './importAppSchema'
+import { ImportAppSchema, importAppSchema } from './importAppSchema'
 import { useImportAppForm } from './useImportAppForm'
 import { validateFile } from './validateFile'
 
@@ -37,7 +32,7 @@ export const ImportAppModal = () => {
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={onSubmitSuccess}
-          schema={emptyJsonSchema as any}
+          schema={importAppSchema as any}
           submitRef={submitRef}
         >
           <UploadField
