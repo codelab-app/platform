@@ -7,8 +7,6 @@ import { DeleteAtomInput } from './delete-atom.input'
 
 @Injectable()
 export class DeleteAtomService extends DgraphUseCase<DeleteAtomInput> {
-  protected override autoCommit = true
-
   constructor(
     dgraph: DgraphRepository,
     private getAtomService: GetAtomService,
