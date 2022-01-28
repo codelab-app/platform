@@ -44,34 +44,32 @@ export class ImportAtomsService
     atoms: Array<TestGetExport__AtomsFragment>,
     currentUser: IUser,
   ) {
-    await Promise.all(
-      atoms.map(async (atom) => {
-        // Seed api
-        let apiId: Maybe<string> = undefined
+    for (const atom of atoms) {
+      // Seed api
+      let apiId: Maybe<string> = undefined
 
-        if (atom.api) {
-          const { id } = await this.importTypeservice.execute({
-            input: {
-              typeGraph: atom.api.typeGraph as any,
-              id: atom.api.id,
-            },
-            currentUser,
-          })
-
-          apiId = id
-        }
-
-        // Seed atom
-        await this.upsertAtom({
+      if (atom.api) {
+        const { id } = await this.importTypeservice.execute({
           input: {
-            type: atom.type,
-            name: atom.name,
-            api: apiId,
+            typeGraph: atom.api.typeGraph as any,
+            id: atom.api.id,
           },
           currentUser,
         })
-      }),
-    )
+
+        apiId = id
+      }
+
+      // Seed atom
+      await this.upsertAtom({
+        input: {
+          type: atom.type,
+          name: atom.name,
+          api: apiId,
+        },
+        currentUser,
+      })
+    }
   }
 
   /**

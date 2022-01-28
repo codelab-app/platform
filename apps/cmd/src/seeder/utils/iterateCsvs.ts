@@ -8,27 +8,29 @@ export const iterateCsvs = async (
   iterator: (data: Array<AntdDesignApi>, file: string) => Promise<void> | void,
 ) => {
   const csvFiles = fs.readdirSync(folder)
-  const promises: Array<Promise<void>> = []
 
-  csvFiles.forEach((file) => {
-    const results: Array<AntdDesignApi> = []
+  for (const file of csvFiles) {
+    const results = await new Promise<Array<AntdDesignApi>>(
+      (resolve, reject) => {
+        const r: Array<AntdDesignApi> = []
 
-    fs.createReadStream(path.resolve(folder, file))
-      .pipe(csv())
-      .on('data', (data) => results.push(data))
-      .on('end', () => {
-        const res = iterator(
-          results.map((api) => ({
-            ...api,
-            isEnum: JSON.parse(api.isEnum as any),
-          })),
-          file,
-        )
+        fs.createReadStream(path.resolve(folder, file))
+          .pipe(csv())
+          .on('data', (data) => r.push(data))
+          .on('end', () => {
+            resolve(r)
+          })
+          .on('error', reject)
+      },
+    )
 
-        if (res) {
-          promises.push(res)
-        }
-      })
+    await iterator(
+      results.map((api) => ({
+        ...api,
+        isEnum: JSON.parse(api.isEnum as any),
+      })),
+      file,
+    )
 
     /*
     Run this to print the file contents
@@ -42,9 +44,7 @@ export const iterateCsvs = async (
     // } catch (err) {
     //   console.error(err)
     // }
-  })
-
-  await Promise.all(promises)
+  }
 
   // // but if your goal is just to print the file name you can do this
   // fs.readFileSync('.levels/').forEach(console.log)
