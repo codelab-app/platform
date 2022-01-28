@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
 import { IAtom } from '@codelab/shared/abstract/core'
@@ -7,7 +8,10 @@ import { GetAtomService } from '../get-atom'
 import { UpdateAtomInput } from './update-atom.input'
 
 @Injectable()
-export class UpdateAtomService extends DgraphUseCase<UpdateAtomInput> {
+export class UpdateAtomService
+  extends DgraphUseCase<UpdateAtomInput>
+  implements UseCasePort<UpdateAtomInput, void>
+{
   constructor(
     dgraph: DgraphRepository,
     private getAtomService: GetAtomService,

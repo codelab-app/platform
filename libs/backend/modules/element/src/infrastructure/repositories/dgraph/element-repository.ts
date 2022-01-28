@@ -1,11 +1,17 @@
-import { CreateResponsePort } from '@codelab/backend/abstract/core'
+import {
+  ComponentWhere,
+  CreateResponsePort,
+  DgraphEntityType,
+  ElementExistsAndOwnerResponse,
+  GetReferencesResponse,
+  IElementRepository,
+  ITransaction,
+} from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import {
   BaseRepository,
   combineFilters,
-  DgraphEntityType,
   DgraphRepository,
-  ITransaction,
   makeCreateResponse,
   mergeAndMutate,
 } from '@codelab/backend/infra'
@@ -26,12 +32,6 @@ import { Mutation, Txn } from 'dgraph-js-http'
 import Fuse from 'fuse.js'
 import { v4 } from 'uuid'
 import { z } from 'zod'
-import {
-  ComponentWhere,
-  ElementExistsAndOwnerResponse,
-  GetReferencesResponse,
-  IElementRepository,
-} from '../abstract/element-repository.interface'
 import { ElementMutationFactory } from './element-mutation.factory'
 import {
   ElementAndOwnerQueryResult,

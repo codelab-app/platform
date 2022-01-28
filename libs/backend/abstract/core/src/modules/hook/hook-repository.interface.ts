@@ -1,5 +1,5 @@
-import { IBaseRepository } from '@codelab/backend/infra'
 import { IHook } from '@codelab/shared/abstract/core'
+import { IBaseRepository } from '../../secondary'
 
 export type IHookRepository = IBaseRepository<IHook>
 

@@ -1,13 +1,12 @@
 import {
-  BaseRepository,
   DgraphEntityType,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+  IHookRepository,
+} from '@codelab/backend/abstract/core'
+import { BaseRepository, DgraphRepository } from '@codelab/backend/infra'
 import { IHook } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { HookMutationFactory } from './hook-mutation.factory'
 import { HookQueryFactory } from './hook-query.factory'
-import { IHookRepository } from './hook-repository.interface'
 
 @Injectable()
 export class HookRepository

@@ -1,5 +1,5 @@
-import { IBaseRepository } from '@codelab/backend/infra'
 import { IPropMapBinding } from '@codelab/shared/abstract/core'
+import { IBaseRepository } from '../../secondary'
 
 export type IPropMapBindingsRepository = IBaseRepository<IPropMapBinding>
 

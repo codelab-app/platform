@@ -1,6 +1,10 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+  ITransaction,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { exactlyOneWhereClause } from '@codelab/backend/application'
-import { ITransaction } from '@codelab/backend/infra'
 import {
   ElementGraphSchema,
   IElement,
@@ -15,10 +19,6 @@ import {
 import { Inject, Injectable, Logger } from '@nestjs/common'
 import { isString } from 'lodash'
 import { ElementValidator } from '../../../application/element.validator'
-import {
-  IElementRepository,
-  IElementRepositoryToken,
-} from '../../../infrastructure/repositories/abstract/element-repository.interface'
 import { GetElementGraphRequest } from './get-element-graph.request'
 
 @Injectable()

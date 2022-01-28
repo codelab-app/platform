@@ -7,6 +7,12 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export enum Role {
+    Admin = "Admin",
+    User = "User",
+    Guest = "Guest"
+}
+
 export enum TypeKind {
     PrimitiveType = "PrimitiveType",
     ArrayType = "ArrayType",
@@ -743,6 +749,99 @@ export interface DeleteFieldInput {
     interfaceId: string;
 }
 
+export interface CreatePageInput {
+    name: string;
+    appId: string;
+}
+
+export interface DeletePageInput {
+    pageId: string;
+}
+
+export interface UpdatePageInput {
+    pageId: string;
+    updateData: UpdatePageData;
+}
+
+export interface UpdatePageData {
+    name: string;
+}
+
+export interface UpsertUserInput {
+    data: UpsertUserDataInput;
+    where?: Nullable<UserWhereUniqueInput>;
+}
+
+export interface UpsertUserDataInput {
+    auth0Id: string;
+    roles: Role[];
+}
+
+export interface UserWhereUniqueInput {
+    id?: Nullable<string>;
+    auth0Id?: Nullable<string>;
+}
+
+export interface DeleteUserInput {
+    id: string;
+}
+
+export interface ExecuteCommandInput {
+    command: string;
+}
+
+export interface CreateLambdaInput {
+    name: string;
+    body: string;
+}
+
+export interface DeleteLambdaInput {
+    lambdaId: string;
+}
+
+export interface UpdateLambdaInput {
+    name: string;
+    body: string;
+    id: string;
+}
+
+export interface ExecuteLambdaInput {
+    lambdaId: string;
+    payload?: Nullable<string>;
+}
+
+export interface CreateTagInput {
+    name: string;
+    parentTagId?: Nullable<string>;
+}
+
+export interface UpdateTagInput {
+    id: string;
+    data: UpdateTagData;
+}
+
+export interface UpdateTagData {
+    name: string;
+}
+
+export interface DeleteTagsInput {
+    ids: string[];
+}
+
+export interface UpsertTagInput {
+    data: CreateTagInput;
+    where?: Nullable<TagWhereUniqueInput>;
+}
+
+export interface TagWhereUniqueInput {
+    id?: Nullable<string>;
+    name?: Nullable<string>;
+}
+
+export interface ImportTagsInput {
+    payload: string;
+}
+
 export interface TypeEdge {
     source: string;
     target: string;
@@ -762,6 +861,16 @@ export interface ObjectRef {
 
 export interface CreateResponse {
     id: string;
+}
+
+export interface PayloadResponse {
+    payload: string;
+}
+
+export interface User {
+    id: string;
+    auth0Id: string;
+    roles: Role[];
 }
 
 export interface Field {
@@ -1036,4 +1145,5 @@ export interface IMutation {
 
 export type Void = any;
 export type TypeVertex = EnumType | PrimitiveType | ArrayType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType;
+export type TagVertex = Tag;
 type Nullable<T> = T | null;

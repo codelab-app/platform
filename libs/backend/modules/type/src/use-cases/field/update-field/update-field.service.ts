@@ -1,18 +1,26 @@
+import {
+  ITransaction,
+  ITypeRepository,
+  ITypeRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { IInterfaceType, IUser, TypeKind } from '@codelab/shared/abstract/core'
 import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { FieldValidator } from '../../../domain/field/field.validator'
 import { TypeValidator } from '../../../domain/type.validator'
-import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { CreateTypeService } from '../../type/create-type'
 import { GetTypeGraphService } from '../../type/get-type-graph'
 import { TypeRef } from '../create-field'
 import { UpdateFieldRequest } from './update-field.request'
 
 @Injectable()
-export class UpdateFieldService extends DgraphUseCase<UpdateFieldRequest> {
+export class UpdateFieldService
+  extends DgraphUseCase<UpdateFieldRequest>
+  implements UseCasePort<UpdateFieldRequest, void>
+{
   protected override autoCommit = true
 
   constructor(

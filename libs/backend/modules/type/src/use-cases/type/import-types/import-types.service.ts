@@ -1,7 +1,7 @@
+import { ITransaction, UseCasePort } from '@codelab/backend/abstract/core'
 import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphRepository,
-  ITransaction,
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
@@ -11,10 +11,10 @@ import { ImportTypeServiceInput } from '../import-type/import-type.input'
 import { ImportTypesRequest } from './import-types.request'
 
 @Injectable()
-export class ImportTypesService extends DgraphUseCase<
-  ImportTypesRequest,
-  Array<CreateResponse>
-> {
+export class ImportTypesService
+  extends DgraphUseCase<ImportTypesRequest, Array<CreateResponse>>
+  implements UseCasePort<ImportTypesRequest, Array<CreateResponse>>
+{
   protected override autoCommit = true
 
   constructor(

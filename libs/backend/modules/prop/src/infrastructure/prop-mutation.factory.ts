@@ -1,4 +1,5 @@
-import { BaseMutationFactory, DgraphEntityType } from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
+import { BaseMutationFactory } from '@codelab/backend/infra'
 import { IProp } from '@codelab/shared/abstract/core'
 
 // The prop entity is simple, no need for custom mutations, the default ones will do the job

@@ -1,9 +1,9 @@
-import { InMemoryRepository } from '@codelab/backend/infra'
-import { Global, Module, Provider } from '@nestjs/common'
 import {
   IHookRepository,
   IHookRepositoryToken,
-} from '../hook-repository.interface'
+} from '@codelab/backend/abstract/core'
+import { InMemoryRepository } from '@codelab/backend/infra'
+import { Global, Module, Provider } from '@nestjs/common'
 
 const repositories: Array<Provider> = [
   {

@@ -2,23 +2,23 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { FieldFragment } from '../../../graphql/Field.fragment.graphql.gen'
 import { useFieldDispatch, useFieldState } from '../../../hooks'
 import { useDeleteFieldMutation } from '../../../store'
 
-export interface UseDeleteFieldFormInput {
-  interfaceId: string
-}
-
 export const useDeleteFieldForm: UseEntityUseCaseForm<
   EmptyJsonSchemaType,
   CRUDActionType,
   FieldFragment,
-  UseDeleteFieldFormInput
-> = ({ interfaceId }) => {
+  unknown,
+  string
+> = (interfaceId) => {
   const { deleteIds, entity, actionType } = useFieldState()
   const { resetModal } = useFieldDispatch()
+
+  assertIsDefined(interfaceId)
 
   const [mutate, { isLoading }] = useDeleteFieldMutation({
     selectFromResult: (r) => ({

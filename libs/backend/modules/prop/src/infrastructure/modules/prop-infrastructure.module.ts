@@ -1,7 +1,7 @@
+import { IPropRepositoryToken } from '@codelab/backend/abstract/core'
 import { DgraphModule } from '@codelab/backend/infra'
 import { Global, Module, Provider } from '@nestjs/common'
 import { PropRepository } from '../prop-repository'
-import { IPropRepositoryToken } from '../props-repository.interface'
 
 const repositories: Array<Provider> = [
   {

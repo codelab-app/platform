@@ -1,14 +1,14 @@
 import {
   ITransaction,
-  LoggerService,
-  LoggerTokens,
-} from '@codelab/backend/infra'
+  ITypeRepository,
+  ITypeRepositoryToken,
+} from '@codelab/backend/abstract/core'
+import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
 import { TypeId, TypeKind } from '@codelab/shared/abstract/core'
 import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { RecursiveTypeError } from '../application/errors'
 import { TypeUnusedError } from '../application/errors/type-unused.error'
-import { ITypeRepository, ITypeRepositoryToken } from '../infrastructure'
 import {
   CreateTypeInput,
   CreateTypeRequest,

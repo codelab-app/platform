@@ -1,5 +1,6 @@
+import { ITransaction, UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -16,7 +17,10 @@ import { SeedBaseTypesRequest } from './seed-base-types.request'
  * Seeds all default types like primitives
  */
 @Injectable()
-export class SeedBaseTypesService extends DgraphUseCase<SeedBaseTypesRequest> {
+export class SeedBaseTypesService
+  extends DgraphUseCase<SeedBaseTypesRequest>
+  implements UseCasePort<SeedBaseTypesRequest, void>
+{
   protected override autoCommit = true
 
   constructor(

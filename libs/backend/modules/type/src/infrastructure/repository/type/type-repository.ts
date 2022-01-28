@@ -1,9 +1,16 @@
 import {
+  DgraphEntityType,
+  ITransaction,
+  ITypeGraphWhereUnique,
+  ITypeRepository,
+  ITypesWhere,
+  ITypeWhereUnique,
+  TypeReferencesResponse,
+} from '@codelab/backend/abstract/core'
+import {
   BaseRepository,
   combineFilters,
-  DgraphEntityType,
   DgraphRepository,
-  ITransaction,
   makeUidFilter,
 } from '@codelab/backend/infra'
 import {
@@ -17,13 +24,6 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 import { TypeMutationFactory } from './type-mutation.factory'
 import { TypeQueryFactory } from './type-query.factory'
-import {
-  ITypeGraphWhereUnique,
-  ITypeRepository,
-  ITypesWhere,
-  ITypeWhereUnique,
-  TypeReferencesResponse,
-} from './type-repository.interface'
 
 @Injectable()
 export class TypeRepository

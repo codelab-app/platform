@@ -1,10 +1,14 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { IEnumTypeValue, IType, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { UpdateTypeService } from '../update-type'
 import { UpdateEnumTypeRequest } from './update-enum-type.request'
 
 @Injectable()
-export class UpdateEnumTypeService extends UpdateTypeService<UpdateEnumTypeRequest> {
+export class UpdateEnumTypeService
+  extends UpdateTypeService<UpdateEnumTypeRequest>
+  implements UseCasePort<UpdateEnumTypeRequest, void>
+{
   protected override doUpdate(
     type: IType,
     request: UpdateEnumTypeRequest,

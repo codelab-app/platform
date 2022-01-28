@@ -1,5 +1,4 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { DgraphEntityType } from '@codelab/backend/infra'
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import { GetElementGraphService } from '@codelab/backend/modules/element'
 import {
   ExportAppSchema,

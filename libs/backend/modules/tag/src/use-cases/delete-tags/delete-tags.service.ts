@@ -1,10 +1,14 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { DeleteTagsRequest } from './delete-tags.request'
 
 @Injectable()
-export class DeleteTagsService extends DgraphUseCase<DeleteTagsRequest> {
+export class DeleteTagsService
+  extends DgraphUseCase<DeleteTagsRequest>
+  implements UseCasePort<DeleteTagsRequest, void>
+{
   protected async executeTransaction(request: DeleteTagsRequest, txn: Txn) {
     await this.createMutation(txn, request)
   }

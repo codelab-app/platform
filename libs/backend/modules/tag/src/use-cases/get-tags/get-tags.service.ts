@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { ITag, TagSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -6,7 +7,10 @@ import { getTagQuery, mapDgraphTag } from '../get-tag/get-tag.query'
 import { GetTagsRequest } from './get-tags.request'
 
 @Injectable()
-export class GetTagsService extends DgraphUseCase<GetTagsRequest, Array<ITag>> {
+export class GetTagsService
+  extends DgraphUseCase<GetTagsRequest, Array<ITag>>
+  implements UseCasePort<GetTagsRequest, Array<ITag>>
+{
   protected schema = TagSchema.array()
 
   protected async executeTransaction(request: GetTagsRequest, txn: Txn) {

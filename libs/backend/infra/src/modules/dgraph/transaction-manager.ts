@@ -1,8 +1,6 @@
+import { ITransaction } from '@codelab/backend/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
 import { DgraphService } from './dgraph.service'
-
-export type ITransaction = Txn
 
 @Injectable()
 export class TransactionManager {

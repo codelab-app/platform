@@ -1,6 +1,8 @@
 import {
   DgraphEntityType,
   IMutationFactory,
+} from '@codelab/backend/abstract/core'
+import {
   makeArrayDiffMutation,
   makeDeleteJsonMutationForUpdates,
   mergeMutations,

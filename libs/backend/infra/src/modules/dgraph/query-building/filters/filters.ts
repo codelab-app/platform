@@ -1,10 +1,9 @@
-import { DgraphEntityType } from '../../dgraph-entity-type'
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
 import { DgraphFilter } from './dgraph-filter'
 import { EqFilter } from './eq-filter'
 
 export const DgraphFilters = {
-  Eq: <TEntity>(predicate: string, value: string) =>
-    new EqFilter(predicate, value),
+  Eq: (predicate: string, value: string) => new EqFilter(predicate, value),
 
   Uid: (uid: string) => new DgraphFilter().withFilter(`uid(${uid})`),
 

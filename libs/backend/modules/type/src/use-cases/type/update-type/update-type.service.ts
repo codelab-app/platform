@@ -1,15 +1,23 @@
+import {
+  ITransaction,
+  ITypeRepository,
+  ITypeRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { IType } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { TypeValidator } from '../../../domain/type.validator'
-import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { UpdateTypeRequest } from './update-type.request'
 
 @Injectable()
 export class UpdateTypeService<
-  TReq extends UpdateTypeRequest = UpdateTypeRequest,
-> extends DgraphUseCase<TReq> {
+    TRequest extends UpdateTypeRequest = UpdateTypeRequest,
+  >
+  extends DgraphUseCase<TRequest>
+  implements UseCasePort<TRequest, void>
+{
   protected override autoCommit = true
 
   constructor(
@@ -21,7 +29,7 @@ export class UpdateTypeService<
     super(dgraph)
   }
 
-  protected async executeTransaction(request: TReq, txn: ITransaction) {
+  protected async executeTransaction(request: TRequest, txn: ITransaction) {
     await this.validate(request, txn)
 
     const {
@@ -47,7 +55,7 @@ export class UpdateTypeService<
     await this.typeValidator.typeExists(typeId, txn)
   }
 
-  protected doUpdate(type: IType, { input: { updateData } }: TReq) {
+  protected doUpdate(type: IType, { input: { updateData } }: TRequest) {
     type.name = updateData.name
   }
 }

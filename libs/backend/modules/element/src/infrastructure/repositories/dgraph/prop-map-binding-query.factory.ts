@@ -1,8 +1,5 @@
-import {
-  DgraphEntityType,
-  IQueryFactory,
-  makeFilterString,
-} from '@codelab/backend/infra'
+import { DgraphEntityType, IQueryFactory } from '@codelab/backend/abstract/core'
+import { makeFilterString } from '@codelab/backend/infra'
 
 export class PropMapBindingQueryFactory implements IQueryFactory {
   /** Use with @normalize */

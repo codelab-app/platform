@@ -1,5 +1,5 @@
+import { ITypeGraphWhereUnique } from '@codelab/backend/abstract/core'
 import { Field, InputType } from '@nestjs/graphql'
-import { ITypeGraphWhereUnique } from '../../../infrastructure'
 
 @InputType({
   description: `Provide exactly 1 field`,

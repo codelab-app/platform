@@ -1,12 +1,13 @@
+import { ITransaction } from '@codelab/backend/abstract/core'
 import {
   PayloadResponse,
   Transaction,
   Transactional,
 } from '@codelab/backend/application'
-import { GqlAuthGuard, ITransaction } from '@codelab/backend/infra'
+import { GqlAuthGuard } from '@codelab/backend/infra'
 import { GetPagesService, Page } from '@codelab/backend/modules/page'
 import { CurrentUser } from '@codelab/backend/modules/user'
-import type { IUser } from '@codelab/shared/abstract/core'
+import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
 import {
   Args,

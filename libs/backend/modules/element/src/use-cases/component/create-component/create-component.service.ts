@@ -1,4 +1,8 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import { GetAtomService } from '@codelab/backend/modules/atom'
 import { isAdmin } from '@codelab/shared/abstract/core'
@@ -8,10 +12,6 @@ import {
   attachComponentTag,
   createElement,
 } from '../../../domain/service-helpers'
-import {
-  IElementRepository,
-  IElementRepositoryToken,
-} from '../../../infrastructure'
 import { UpdateElementService } from '../../element/update-element'
 import { CreateComponentRequest } from './create-component.request'
 

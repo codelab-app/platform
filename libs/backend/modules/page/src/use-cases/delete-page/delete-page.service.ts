@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
@@ -6,7 +7,10 @@ import { PageValidator } from '../../domain/page.validator'
 import { DeletePageRequest } from './delete-page.request'
 
 @Injectable()
-export class DeletePageService extends DgraphUseCase<DeletePageRequest> {
+export class DeletePageService
+  extends DgraphUseCase<DeletePageRequest>
+  implements UseCasePort<DeletePageRequest, void>
+{
   constructor(
     protected readonly dgraph: DgraphRepository,
     private pageValidator: PageValidator,

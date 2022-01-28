@@ -1,4 +1,5 @@
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
+import { DgraphRepository } from '@codelab/backend/infra'
 import type { IApp, IUser } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 

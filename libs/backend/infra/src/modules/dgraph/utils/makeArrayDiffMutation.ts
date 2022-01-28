@@ -1,8 +1,8 @@
+import { IMutationFactory } from '@codelab/backend/abstract/core'
 import { EntityLike, Nullish } from '@codelab/shared/abstract/types'
 import { entityIdSet, entityMapById } from '@codelab/shared/utils'
 import { Mutation } from 'dgraph-js-http'
 import R from 'ramda'
-import { IMutationFactory } from '../persistance'
 import { mergeMutations } from './mergeMutations'
 
 interface ItemsByStatus<T> {

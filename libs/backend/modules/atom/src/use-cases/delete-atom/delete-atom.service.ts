@@ -1,12 +1,16 @@
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetAtomService } from '../get-atom'
 import { DeleteAtomInput } from './delete-atom.input'
 
 @Injectable()
-export class DeleteAtomService extends DgraphUseCase<DeleteAtomInput> {
+export class DeleteAtomService
+  extends DgraphUseCase<DeleteAtomInput>
+  implements UseCasePort<DeleteAtomInput, void>
+{
   constructor(
     dgraph: DgraphRepository,
     private getAtomService: GetAtomService,

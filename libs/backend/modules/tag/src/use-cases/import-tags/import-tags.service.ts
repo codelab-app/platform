@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphRepository,
@@ -16,7 +17,10 @@ import { ImportTagsRequest } from './import-tags.request'
  * We take an array of tag graphs and import them, import performs upsert as usual.
  */
 @Injectable()
-export class ImportTagsService extends DgraphUseCase<ImportTagsRequest, any> {
+export class ImportTagsService
+  extends DgraphUseCase<ImportTagsRequest>
+  implements UseCasePort<ImportTagsRequest, void>
+{
   constructor(
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
     dgraph: DgraphRepository,

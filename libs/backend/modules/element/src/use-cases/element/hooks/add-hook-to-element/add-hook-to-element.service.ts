@@ -1,12 +1,12 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import { HookSchema, IHook } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../../application/element.validator'
-import {
-  IElementRepository,
-  IElementRepositoryToken,
-} from '../../../../infrastructure/repositories/abstract/element-repository.interface'
 import { AddHookToElementRequest } from './add-hook-to-element.request'
 
 @Injectable()

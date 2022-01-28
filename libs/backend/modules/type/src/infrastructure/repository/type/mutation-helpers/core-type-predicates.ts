@@ -1,4 +1,4 @@
-import { DgraphEntityType } from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
 import {
   IArrayType,
   IElementType,

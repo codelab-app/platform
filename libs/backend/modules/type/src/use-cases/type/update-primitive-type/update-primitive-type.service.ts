@@ -1,10 +1,14 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { IType, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { UpdateTypeService } from '../update-type'
 import { UpdatePrimitiveTypeRequest } from './update-primitive-type.request'
 
 @Injectable()
-export class UpdatePrimitiveTypeService extends UpdateTypeService<UpdatePrimitiveTypeRequest> {
+export class UpdatePrimitiveTypeService
+  extends UpdateTypeService<UpdatePrimitiveTypeRequest>
+  implements UseCasePort<UpdatePrimitiveTypeRequest, void>
+{
   protected override doUpdate(
     type: IType,
     request: UpdatePrimitiveTypeRequest,

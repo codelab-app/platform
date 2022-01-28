@@ -1,12 +1,14 @@
-import { CreateResponsePort } from '@codelab/backend/abstract/core'
 import {
+  CreateResponsePort,
   DgraphEntityType,
+  IElementRepository,
+  ITransaction,
+} from '@codelab/backend/abstract/core'
+import {
   DgraphUpdateMutationJson,
   getUidFromResponse,
-  ITransaction,
 } from '@codelab/backend/infra'
 import { GetAtomsService } from '@codelab/backend/modules/atom'
-import { IElementRepository } from '@codelab/backend/modules/element'
 import {
   IAtom,
   IElement,

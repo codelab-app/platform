@@ -1,4 +1,3 @@
-import { IBaseRepository, ITransaction } from '@codelab/backend/infra'
 import {
   IField,
   IType,
@@ -7,6 +6,7 @@ import {
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { EntityLike, Maybe } from '@codelab/shared/abstract/types'
+import { IBaseRepository, ITransaction } from '../../secondary'
 
 export interface ITypesWhere {
   ids?: Array<string>
@@ -66,5 +66,3 @@ export interface TypeReferencesResponse {
   fields?: Array<EntityLike & { name?: string }>
   atoms?: Array<EntityLike & { name?: string }>
 }
-
-export const ITypeRepositoryToken = Symbol('TypeRepository')

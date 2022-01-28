@@ -1,10 +1,11 @@
-import { Transaction, Transactional } from '@codelab/backend/application'
-import { GqlAuthGuard, ITransaction } from '@codelab/backend/infra'
 import {
-  Hook,
   IHookRepository,
   IHookRepositoryToken,
-} from '@codelab/backend/modules/hook'
+  ITransaction,
+} from '@codelab/backend/abstract/core'
+import { Transaction, Transactional } from '@codelab/backend/application'
+import { GqlAuthGuard } from '@codelab/backend/infra'
+import { Hook } from '@codelab/backend/modules/hook'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import type { IUser } from '@codelab/shared/abstract/core'
 import { Inject, Injectable, UseGuards } from '@nestjs/common'

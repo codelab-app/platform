@@ -1,5 +1,3 @@
-import { CreateResponsePort } from '@codelab/backend/abstract/core'
-import { IBaseRepository, ITransaction } from '@codelab/backend/infra'
 import {
   IElement,
   IElementGraph,
@@ -8,6 +6,8 @@ import {
   IPropMapBinding,
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
+import { CreateResponsePort } from '../../primary'
+import { IBaseRepository, ITransaction } from '../../secondary'
 
 export interface IElementRepository extends IBaseRepository<IElement> {
   updateAll(elements: Array<IElement>, transaction: ITransaction): Promise<void>

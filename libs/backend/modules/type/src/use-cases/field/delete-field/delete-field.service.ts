@@ -1,13 +1,21 @@
+import {
+  ITransaction,
+  ITypeRepository,
+  ITypeRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { FieldValidator } from '../../../domain/field/field.validator'
-import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { DeleteFieldRequest } from './delete-field.request'
 
 @Injectable()
-export class DeleteFieldService extends DgraphUseCase<DeleteFieldRequest> {
+export class DeleteFieldService
+  extends DgraphUseCase<DeleteFieldRequest>
+  implements UseCasePort<DeleteFieldRequest, void>
+{
   protected override autoCommit = true
 
   constructor(

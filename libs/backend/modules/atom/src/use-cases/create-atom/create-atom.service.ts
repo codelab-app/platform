@@ -1,9 +1,12 @@
-import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphEntityType,
+  ITransaction,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
+import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
+import {
   DgraphRepository,
   getUidFromResponse,
-  ITransaction,
   jsonMutation,
 } from '@codelab/backend/infra'
 import {
@@ -17,10 +20,10 @@ import { CreateAtomInput } from './create-atom.input'
 import { CreateAtomRequest } from './create-atom.request'
 
 @Injectable()
-export class CreateAtomService extends DgraphUseCase<
-  CreateAtomRequest,
-  CreateResponse
-> {
+export class CreateAtomService
+  extends DgraphUseCase<CreateAtomRequest, CreateResponse>
+  implements UseCasePort<CreateAtomRequest, CreateResponse>
+{
   protected override autoCommit = true
 
   constructor(

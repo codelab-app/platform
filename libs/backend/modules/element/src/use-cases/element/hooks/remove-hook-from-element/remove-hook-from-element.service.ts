@@ -1,9 +1,9 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { Inject, Injectable } from '@nestjs/common'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../../infrastructure/repositories/abstract/element-repository.interface'
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { RemoveHookFromElementRequest } from './remove-hook-from-element.request'
 
 @Injectable()

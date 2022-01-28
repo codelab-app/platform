@@ -1,8 +1,14 @@
+import {
+  CreateResponsePort,
+  ITransaction,
+  ITypeRepository,
+  ITypeRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { DgraphCreateUseCase } from '@codelab/backend/application'
-import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { Inject, Injectable } from '@nestjs/common'
 import { TypeValidator } from '../../../domain/type.validator'
-import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { createType } from './create-type'
 import { CreateTypeRequest } from './create-type.request'
 import { CreateTypeInputFactory } from './create-type-input.factory'
@@ -15,7 +21,10 @@ import { CreateTypeInputFactory } from './create-type-input.factory'
  * TLDR: Admin created types don't have owners, while users do
  */
 @Injectable()
-export class CreateTypeService extends DgraphCreateUseCase<CreateTypeRequest> {
+export class CreateTypeService
+  extends DgraphCreateUseCase<CreateTypeRequest>
+  implements UseCasePort<CreateTypeRequest, CreateResponsePort>
+{
   protected override autoCommit = true
 
   constructor(

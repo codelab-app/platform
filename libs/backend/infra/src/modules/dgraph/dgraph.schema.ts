@@ -1,7 +1,6 @@
 /**
  * If you add new types, add them to ./dgraph-entity-type
- */
-import { DgraphEntityType } from './dgraph-entity-type'
+ */ import { DgraphEntityType } from '@codelab/backend/abstract/core'
 
 const {
   Type,

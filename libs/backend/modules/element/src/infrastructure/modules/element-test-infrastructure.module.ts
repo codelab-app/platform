@@ -1,13 +1,11 @@
-import { InMemoryRepository } from '@codelab/backend/infra'
-import { Global, Module, Provider } from '@nestjs/common'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../repositories/abstract/element-repository.interface'
-import {
   IPropMapBindingsRepository,
   IPropMapBindingsRepositoryToken,
-} from '../repositories/abstract/prop-map-binding-repository.interface'
+} from '@codelab/backend/abstract/core'
+import { InMemoryRepository } from '@codelab/backend/infra'
+import { Global, Module, Provider } from '@nestjs/common'
 import { ElementInMemoryRepository } from '../repositories/in-memory/element-in-memory-repository'
 
 const repositories: Array<Provider> = [

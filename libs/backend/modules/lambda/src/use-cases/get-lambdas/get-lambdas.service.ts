@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { LambdaSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -6,10 +7,10 @@ import { getLambdaQuery } from '../get-lambda/get-lambda.query'
 import { GetLambdasRequest } from './get-lambdas.request'
 
 @Injectable()
-export class GetLambdasService extends DgraphUseCase<
-  GetLambdasRequest,
-  Array<any>
-> {
+export class GetLambdasService
+  extends DgraphUseCase<GetLambdasRequest, Array<any>>
+  implements UseCasePort<GetLambdasRequest, Array<any>>
+{
   protected schema = LambdaSchema.array()
 
   async executeTransaction(request: GetLambdasRequest, txn: Txn) {

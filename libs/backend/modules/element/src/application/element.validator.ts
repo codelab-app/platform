@@ -1,10 +1,10 @@
-import { ITransaction } from '@codelab/backend/infra'
-import type { IElement, IUser } from '@codelab/shared/abstract/core'
-import { Inject, Injectable } from '@nestjs/common'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../infrastructure/repositories/abstract/element-repository.interface'
+  ITransaction,
+} from '@codelab/backend/abstract/core'
+import type { IElement, IUser } from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ElementValidator {

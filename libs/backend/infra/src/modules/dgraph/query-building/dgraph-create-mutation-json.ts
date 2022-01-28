@@ -1,8 +1,8 @@
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
 import { isObjectLike } from 'lodash'
 import forOwn from 'lodash/forOwn'
-import { DgraphEntityType } from '../dgraph-entity-type'
 
 export type MutationJsonValue<TValue> = TValue extends Maybe<any>
   ? Nullish<TValue>

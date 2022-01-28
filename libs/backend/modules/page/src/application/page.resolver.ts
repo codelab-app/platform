@@ -1,5 +1,6 @@
+import { ITransaction } from '@codelab/backend/abstract/core'
 import { Transaction, Transactional } from '@codelab/backend/application'
-import { GqlAuthGuard, ITransaction } from '@codelab/backend/infra'
+import { GqlAuthGuard } from '@codelab/backend/infra'
 import {
   ElementGraph,
   GetElementGraphService,

@@ -1,4 +1,8 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import {
   IPropMapBinding,
@@ -6,10 +10,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { ElementValidator } from '../../../../application/element.validator'
-import {
-  IElementRepository,
-  IElementRepositoryToken,
-} from '../../../../infrastructure/repositories/abstract/element-repository.interface'
 import { CreatePropMapBindingRequest } from './create-prop-map-binding.request'
 
 @Injectable()

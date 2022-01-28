@@ -1,11 +1,11 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { GetAtomService } from '@codelab/backend/modules/atom'
-import { Inject, Injectable } from '@nestjs/common'
-import { ElementValidator } from '../../../application/element.validator'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../infrastructure'
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
+import { GetAtomService } from '@codelab/backend/modules/atom'
+import { Inject, Injectable } from '@nestjs/common'
+import { ElementValidator } from '../../../application/element.validator'
 import { UpdateElementRequest } from './update-element.request'
 
 @Injectable()

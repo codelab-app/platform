@@ -1,6 +1,6 @@
+import { ITypesWhere } from '@codelab/backend/abstract/core'
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Field, InputType, registerEnumType } from '@nestjs/graphql'
-import { ITypesWhere } from '../../../infrastructure'
 
 registerEnumType(TypeKind, { name: 'TypeKind' })
 

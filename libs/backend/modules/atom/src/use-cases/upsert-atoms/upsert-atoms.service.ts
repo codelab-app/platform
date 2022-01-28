@@ -1,5 +1,6 @@
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, getUidFromResponse } from '@codelab/backend/infra'
+import { getUidFromResponse } from '@codelab/backend/infra'
 import { Role, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -11,10 +12,10 @@ import { UpsertAtomsRequest } from './upsert-atoms.request'
  *   - Updated if ID is provided. If api is provided too, it will get replaced. If it's not, it's left as it is
  *   - Created if ID is not provided. If api is provided, it  will get assigned. If it's not - an automatic one will get generated
  */
-export class UpsertAtomsService extends DgraphUseCase<
-  UpsertAtomsRequest,
-  Array<CreateResponse>
-> {
+export class UpsertAtomsService
+  extends DgraphUseCase<UpsertAtomsRequest, Array<CreateResponse>>
+  implements UseCasePort<UpsertAtomsRequest, Array<CreateResponse>>
+{
   protected async executeTransaction(
     request: UpsertAtomsRequest,
     txn: Txn,

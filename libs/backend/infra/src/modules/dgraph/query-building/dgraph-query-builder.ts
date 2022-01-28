@@ -1,6 +1,6 @@
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { isArray, isObject, isString } from 'lodash'
-import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphQueryField } from './dgraph-query-field'
 import { DgraphFilter, DgraphFilters, EqFilter } from './filters'
 import {

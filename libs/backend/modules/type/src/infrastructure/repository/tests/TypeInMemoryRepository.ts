@@ -1,13 +1,13 @@
-import { InMemoryRepository } from '@codelab/backend/infra'
-import { IField, IType, ITypeGraph } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
 import {
   ITypeGraphWhereUnique,
   ITypeRepository,
   ITypesWhere,
   ITypeWhereUnique,
   TypeReferencesResponse,
-} from '../type/type-repository.interface'
+} from '@codelab/backend/abstract/core'
+import { InMemoryRepository } from '@codelab/backend/infra'
+import { IField, IType, ITypeGraph } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 
 export class TypeInMemoryRepository
   extends InMemoryRepository<IType>

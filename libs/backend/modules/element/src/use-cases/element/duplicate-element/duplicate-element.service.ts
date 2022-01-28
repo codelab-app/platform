@@ -1,4 +1,8 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  IElementRepository,
+  IElementRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { CreateResponse } from '@codelab/backend/application'
 import {
   IElement,
@@ -11,10 +15,6 @@ import { Inject, Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 import { ElementValidator } from '../../../application/element.validator'
 import { attachComponentTag } from '../../../domain/service-helpers'
-import {
-  IElementRepository,
-  IElementRepositoryToken,
-} from '../../../infrastructure/repositories/abstract/element-repository.interface'
 import { DuplicateElementRequest } from './duplicate-element.request'
 
 @Injectable()

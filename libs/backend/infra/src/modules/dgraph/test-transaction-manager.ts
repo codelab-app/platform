@@ -1,6 +1,6 @@
+import { ITransaction } from '@codelab/backend/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { DgraphService } from './dgraph.service'
-import { ITransaction } from './transaction-manager'
 
 @Injectable()
 /**

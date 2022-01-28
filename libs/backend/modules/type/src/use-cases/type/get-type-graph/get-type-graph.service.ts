@@ -1,19 +1,24 @@
 import {
+  ITransaction,
+  ITypeRepository,
+  ITypeRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
+import {
   DgraphUseCase,
   exactlyOneWhereClause,
 } from '@codelab/backend/application'
-import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { ITypeGraph } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
-import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { GetTypeGraphRequest } from './get-type-graph.request'
 
 @Injectable()
-export class GetTypeGraphService extends DgraphUseCase<
-  GetTypeGraphRequest,
-  Maybe<ITypeGraph>
-> {
+export class GetTypeGraphService
+  extends DgraphUseCase<GetTypeGraphRequest, Maybe<ITypeGraph>>
+  implements UseCasePort<GetTypeGraphRequest, Maybe<ITypeGraph>>
+{
   protected override autoCommit = true
 
   constructor(

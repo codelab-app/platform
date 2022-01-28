@@ -1,10 +1,14 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { IType, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { UpdateTypeService } from '../update-type'
 import { UpdateUnionRequest } from './update-union.request'
 
 @Injectable()
-export class UpdateUnionTypeService extends UpdateTypeService<UpdateUnionRequest> {
+export class UpdateUnionTypeService
+  extends UpdateTypeService<UpdateUnionRequest>
+  implements UseCasePort<UpdateUnionRequest, void>
+{
   protected override doUpdate(type: IType, request: UpdateUnionRequest): void {
     super.doUpdate(type, request)
 

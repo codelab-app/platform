@@ -1,9 +1,9 @@
-import { DgraphCreateUseCase } from '@codelab/backend/application'
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import {
-  DgraphEntityType,
-  DgraphRepository,
-  jsonMutation,
-} from '@codelab/backend/infra'
+  CreateResponse,
+  DgraphCreateUseCase,
+} from '@codelab/backend/application'
+import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { GetUserService } from '../get-user'
@@ -11,7 +11,10 @@ import { UpsertUserDataInput } from './upsert-user.input'
 import { UpsertUserRequest } from './upsert-user.request'
 
 @Injectable()
-export class UpsertUserService extends DgraphCreateUseCase<UpsertUserRequest> {
+export class UpsertUserService
+  extends DgraphCreateUseCase<UpsertUserRequest>
+  implements UseCasePort<UpsertUserRequest, CreateResponse>
+{
   constructor(
     dgraph: DgraphRepository,
     private getUserService: GetUserService,

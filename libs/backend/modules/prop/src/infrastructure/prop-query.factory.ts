@@ -1,4 +1,5 @@
-import { BaseQueryFactory, DgraphEntityType } from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
+import { BaseQueryFactory } from '@codelab/backend/infra'
 
 // The prop entity is simple, no need for custom queries, the default ones will do the job
 export class PropQueryFactory extends BaseQueryFactory {
