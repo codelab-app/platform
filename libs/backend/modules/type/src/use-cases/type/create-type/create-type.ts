@@ -1,4 +1,9 @@
-import { isUser, IType, IUser, TypeSchema } from '@codelab/shared/abstract/core'
+import {
+  isAdmin,
+  IType,
+  IUser,
+  TypeSchema,
+} from '@codelab/shared/abstract/core'
 
 export const createType = <TType extends IType>(
   input: TType,
@@ -8,6 +13,7 @@ export const createType = <TType extends IType>(
     ...input,
     id: input.id ?? '',
     /** We use owner field to determine policy */
-    owner: isUser(currentUser) ? { id: currentUser.id } : undefined,
+    owner:
+      isAdmin(currentUser) || !currentUser ? undefined : { id: currentUser.id },
   } as IType) as TType
 }
