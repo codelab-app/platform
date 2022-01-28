@@ -1,39 +1,49 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { Inject, Injectable } from '@nestjs/common'
 import { TypeUnusedError } from '../../../application/errors/type-unused.error'
 import { TypeValidator } from '../../../domain/type.validator'
-import { DeleteTypeInput } from './delete-type.input'
+import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
+import { DeleteTypeRequest } from './delete-type.request'
 
 @Injectable()
-export class DeleteTypeService extends DgraphUseCase<DeleteTypeInput> {
-  constructor(dgraph: DgraphRepository, private typeValidator: TypeValidator) {
+export class DeleteTypeService extends DgraphUseCase<DeleteTypeRequest> {
+  protected override autoCommit = true
+
+  constructor(
+    dgraph: DgraphRepository,
+    @Inject(ITypeRepositoryToken)
+    private typeRepository: ITypeRepository,
+    private typeValidator: TypeValidator,
+  ) {
     super(dgraph)
   }
 
-  protected async executeTransaction(request: DeleteTypeInput, txn: Txn) {
-    await this.validate(request)
+  protected async executeTransaction(
+    request: DeleteTypeRequest,
+    txn: ITransaction,
+  ) {
+    await this.validate(request, txn)
 
-    await this.dgraph.executeUpsertDeleteAll(txn, (q) =>
-      q
-        .addTypeFilterDirective(DgraphEntityType.Type)
-        .setUidFunc(request.typeId)
-        .addFields(`fields`),
-    )
+    const {
+      input: { typeId },
+    } = request
+
+    await this.typeRepository.delete(typeId, txn)
   }
 
-  protected async validate({ typeId }: DeleteTypeInput) {
+  protected async validate(
+    { input: { typeId } }: DeleteTypeRequest,
+    txn: ITransaction,
+  ) {
     // Check if the deleted type exists
-    const type = await this.typeValidator.typeExists(typeId)
+    await this.typeValidator.typeExists(typeId, txn)
 
     try {
       // If the deleted type is the propTypes of an atom, return an Error
       // the user needs to delete the atom first, otherwise our data will be corrupt (propTypes is a required field of Atom)
-      await this.typeValidator.typeIsNotApiOfAtom(type)
-
-      // Check if any fields reference it. If there are any - prevent deleting it
-      await this.typeValidator.typeIsNotReferencedInFields(type)
+      // Also if any fields reference it. If there are any - prevent deleting it
+      await this.typeValidator.typeIsNotReferenced(typeId, txn)
     } catch (e) {
       if (e instanceof TypeUnusedError) {
         throw new TypeUnusedError(

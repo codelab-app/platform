@@ -11,10 +11,6 @@ import { Maybe } from '@codelab/shared/abstract/types'
 
 export interface IElementRepository extends IBaseRepository<IElement> {
   updateAll(elements: Array<IElement>, transaction: ITransaction): Promise<void>
-  createAll(
-    elements: Array<IElement>,
-    transaction: ITransaction,
-  ): Promise<Array<CreateResponsePort>>
 
   getOneByFixedId(
     fixedId: string,

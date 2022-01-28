@@ -14,10 +14,7 @@ export class LambdaType
   extends Type<TypeKind.LambdaType>
   implements ILambdaType
 {
-  constructor({ id, name }: Pick<LambdaType, 'id' | 'name'>) {
-    super(TypeKind.LambdaType)
-
-    this.id = id
-    this.name = name
+  constructor(type: Omit<LambdaType, 'typeKind'>) {
+    super({ typeKind: TypeKind.LambdaType, ...type })
   }
 }

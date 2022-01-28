@@ -99,7 +99,7 @@ export class CreateElementService
 
     if (atomId) {
       const foundAtom = await this.getAtomService.execute({
-        where: { id: atomId },
+        input: { where: { id: atomId } },
       })
 
       if (!foundAtom) {

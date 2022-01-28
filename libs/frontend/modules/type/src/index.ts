@@ -4,7 +4,6 @@ export type {
 } from './graphql/type.endpoints.graphql.gen'
 export type {
   Type_ArrayType_Fragment,
-  Type_ComponentType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,
   Type_InterfaceType_Fragment,

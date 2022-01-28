@@ -1,5 +1,6 @@
+import { ObjectRef } from '@codelab/backend/abstract/core'
 import { IArrayType, TypeKind } from '@codelab/shared/abstract/core'
-import { ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType } from '@nestjs/graphql'
 import { Type } from './type.model'
 
 /**
@@ -7,10 +8,11 @@ import { Type } from './type.model'
  */
 @ObjectType({ implements: () => [Type] })
 export class ArrayType extends Type<TypeKind.ArrayType> implements IArrayType {
-  constructor({ id, name }: IArrayType) {
-    super(TypeKind.ArrayType)
+  @Field(() => ObjectRef)
+  itemType: ObjectRef
 
-    this.id = id
-    this.name = name
+  constructor({ itemType, ...type }: Omit<IArrayType, 'typeKind'>) {
+    super({ typeKind: TypeKind.ArrayType, ...type })
+    this.itemType = itemType
   }
 }

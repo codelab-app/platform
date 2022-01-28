@@ -1,4 +1,3 @@
-import { teardownTestModule } from '@codelab/backend/shared/testing'
 import { setupPropUnitTestModule } from '../../../test/setupPropUnitTestModule'
 import { CreatePropService } from '../create-prop.service'
 
@@ -8,10 +7,6 @@ describe('Create prop unit test', function () {
 
   beforeAll(() => {
     createPropService = testModule.app.get(CreatePropService)
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(testModule.app)
   })
 
   it('should inject CreatePropService', async function () {

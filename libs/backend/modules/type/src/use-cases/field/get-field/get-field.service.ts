@@ -1,70 +1,47 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType } from '@codelab/backend/infra'
-import { FieldSchema, IField } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
-import { FieldByIdFilter, FieldByInterfaceFilter } from './get-field.input'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { IField, TypeKind } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
+import { Inject, Injectable } from '@nestjs/common'
+import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { GetFieldRequest } from './get-field.request'
 
 @Injectable()
 export class GetFieldService extends DgraphUseCase<
   GetFieldRequest,
-  Nullable<IField>
+  Maybe<IField>
 > {
-  protected schema = FieldSchema.optional().nullable()
+  protected override autoCommit = true
 
-  protected executeTransaction(request: GetFieldRequest, txn: Txn) {
-    return this.dgraph.getOneNamed<IField>(
-      txn,
-      GetFieldService.createQuery(request),
-      'query',
-    )
+  constructor(
+    dgraph: DgraphRepository,
+    @Inject(ITypeRepositoryToken)
+    private typeRepository: ITypeRepository,
+  ) {
+    super(dgraph)
   }
 
-  private static createQuery({
-    input: { byId, byInterface },
-  }: GetFieldRequest) {
+  protected async executeTransaction(
+    { input: { byId, byInterface } }: GetFieldRequest,
+    txn: ITransaction,
+  ): Promise<Maybe<IField>> {
     if (byId) {
-      return GetFieldService.createByIdQuery(byId)
+      return this.typeRepository.getField(byId.fieldId, txn)
     }
 
     if (byInterface) {
-      return GetFieldService.createByInterfaceQuery(byInterface)
+      const theInterface = await this.typeRepository.getOneWhere(
+        { id: byInterface.interfaceId },
+        txn,
+      )
+
+      if (!theInterface || theInterface.typeKind !== TypeKind.InterfaceType) {
+        return undefined
+      }
+
+      return theInterface.fields.find((f) => byInterface.fieldKey === f.key)
     }
 
     throw new Error('At least one filter must be provided to GetField')
-  }
-
-  private static createByIdQuery(byId: FieldByIdFilter) {
-    return GetFieldService.getFieldQuery(` @filter(uid(${byId.fieldId}))`)
-  }
-
-  private static createByInterfaceQuery({
-    fieldKey,
-    interfaceId,
-  }: FieldByInterfaceFilter) {
-    return GetFieldService.getFieldQuery(
-      `@filter(uid_in(~fields, ${interfaceId}) AND eq(key, ${fieldKey}))`,
-    )
-  }
-
-  public static getFieldQuery(filter?: string) {
-    return `{
-        query(func: type(${DgraphEntityType.Field})) @normalize ${
-      filter ?? ''
-    } {
-          id: uid
-          key: key
-          name: name
-          description: description
-          type {
-            target: uid
-          }
-          ~fields {
-            source: uid
-          }
-        }
-      }`
   }
 }

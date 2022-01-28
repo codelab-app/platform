@@ -1,4 +1,3 @@
-import { teardownTestModule } from '@codelab/backend/shared/testing'
 import { PropSchema } from '@codelab/shared/abstract/core'
 import { setupPropUnitTestModule } from '../../../test/setupPropUnitTestModule'
 import { GetPropService } from '../get-prop.service'
@@ -9,10 +8,6 @@ describe('Get prop unit test', function () {
 
   beforeAll(() => {
     getPropService = testModule.app.get(GetPropService)
-  })
-
-  afterAll(async () => {
-    await teardownTestModule(testModule.app)
   })
 
   it('should inject GetPropService', async function () {

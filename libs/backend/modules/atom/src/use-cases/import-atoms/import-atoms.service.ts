@@ -1,12 +1,11 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
 import { LoggerService, LoggerTokens } from '@codelab/backend/infra'
-import { ImportTypeservice } from '@codelab/backend/modules/type'
+import { ImportTypeService } from '@codelab/backend/modules/type'
 import { AtomType, IUser } from '@codelab/shared/abstract/core'
 import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Inject, Injectable } from '@nestjs/common'
-import { CreateAtomService } from '../create-atom'
-import { CreateAtomRequest } from '../create-atom/create-atom.request'
-import { TestGetExport__AtomsFragment } from '../export-atoms/get-export-atoms.api.graphql.gen'
+import { CreateAtomRequest, CreateAtomService } from '../create-atom'
+import { TestGetExport__AtomsFragment } from '../export-atoms'
 import { GetAtomService } from '../get-atom'
 import { UpdateAtomService } from '../update-atom'
 import { ImportAtomsRequest } from './import-atoms.request'
@@ -25,7 +24,7 @@ export class ImportAtomsService
   constructor(
     private getAtomService: GetAtomService,
     private createAtomService: CreateAtomService,
-    private importTypeservice: ImportTypeservice,
+    private importTypeservice: ImportTypeService,
     private updateAtomService: UpdateAtomService,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
   ) {}
@@ -85,7 +84,7 @@ export class ImportAtomsService
     currentUser,
   }: CreateAtomRequest): Promise<Nullable<string>> {
     const atom = await this.getAtomService.execute({
-      where: { type: input.type },
+      input: { where: { type: input.type } },
     })
 
     if (!atom) {

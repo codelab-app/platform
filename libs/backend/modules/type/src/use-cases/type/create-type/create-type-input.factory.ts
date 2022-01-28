@@ -1,12 +1,92 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
-import { TypeVertex } from '../../../domain/'
+import { IType, TypeKind } from '@codelab/shared/abstract/core'
 import { CreateTypeInput } from './inputs/create-type.input'
 
 /**
- * Used to convert a {@link TypeVertex} into {@link CreateTypeInput}
+ * Used to convert a {@link TypeVertex} into {@link CreateTypeInput} and vice-versa
  */
 export class CreateTypeInputFactory {
-  static toCreateInput(vertex: TypeVertex): CreateTypeInput {
+  /** Creates an IType from a CreateTypeInput */
+  static toType({
+    name,
+    typeKind,
+    elementType,
+    monacoType,
+    enumType,
+    primitiveType,
+    unionType,
+    arrayType,
+  }: CreateTypeInput): IType {
+    const common = { id: '', name, owner: null }
+
+    const newVarReqError = (varName: string, kind: TypeKind) =>
+      new Error(`${varName} is required for type kind ${kind}`)
+
+    switch (typeKind) {
+      case TypeKind.PrimitiveType:
+        if (!primitiveType) {
+          throw newVarReqError('primitiveType', TypeKind.PrimitiveType)
+        }
+
+        return {
+          ...common,
+          typeKind,
+          primitiveKind: primitiveType.primitiveKind,
+        }
+      case TypeKind.ArrayType:
+        if (!arrayType) {
+          throw newVarReqError('arrayType', TypeKind.ArrayType)
+        }
+
+        return { ...common, typeKind, itemType: { id: arrayType.itemTypeId } }
+      case TypeKind.EnumType:
+        if (!enumType) {
+          throw newVarReqError('enumType', TypeKind.EnumType)
+        }
+
+        return {
+          ...common,
+          typeKind,
+          allowedValues: enumType.allowedValues.map((av) => ({
+            name: av.name,
+            value: av.value,
+            id: '',
+          })),
+        }
+
+      case TypeKind.ElementType:
+        if (!elementType) {
+          throw newVarReqError('elementType', TypeKind.ElementType)
+        }
+
+        return { ...common, typeKind, elementKind: elementType.kind }
+
+      case TypeKind.UnionType:
+        if (!unionType) {
+          throw newVarReqError('unionType', TypeKind.UnionType)
+        }
+
+        return {
+          ...common,
+          typeKind,
+          typesOfUnionType: unionType.typeIdsOfUnionType.map((id) => ({ id })),
+        }
+      case TypeKind.MonacoType:
+        if (!monacoType) {
+          throw newVarReqError('monacoType', TypeKind.MonacoType)
+        }
+
+        return { ...common, typeKind, language: monacoType.language }
+      case TypeKind.InterfaceType:
+      case TypeKind.LambdaType:
+      case TypeKind.RenderPropsType:
+      case TypeKind.ReactNodeType:
+      case TypeKind.PageType:
+      case TypeKind.AppType:
+        return { ...common, typeKind } as IType
+    }
+  }
+
+  static toCreateInput(vertex: IType): CreateTypeInput {
     switch (vertex.typeKind) {
       case TypeKind.InterfaceType:
         return {
@@ -51,6 +131,9 @@ export class CreateTypeInputFactory {
         return {
           name: vertex.name,
           typeKind: TypeKind.ArrayType,
+          arrayType: {
+            itemTypeId: vertex.itemType?.id ?? '',
+          },
         }
       case TypeKind.EnumType:
         return {
@@ -59,11 +142,6 @@ export class CreateTypeInputFactory {
           enumType: {
             allowedValues: vertex.allowedValues,
           },
-        }
-      case TypeKind.ComponentType:
-        return {
-          name: vertex.name,
-          typeKind: TypeKind.ComponentType,
         }
       case TypeKind.ElementType:
         return {

@@ -1,57 +1,21 @@
-import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
+import { IType, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
-import { UpdateUnionTypeInput } from './update-union-type.input'
+import { UpdateTypeService } from '../update-type'
+import { UpdateUnionRequest } from './update-union.request'
 
 @Injectable()
-export class UpdateUnionTypeService extends DgraphUseCase<UpdateUnionTypeInput> {
-  constructor(dgraph: DgraphRepository) {
-    super(dgraph)
-  }
+export class UpdateUnionTypeService extends UpdateTypeService<UpdateUnionRequest> {
+  protected override doUpdate(type: IType, request: UpdateUnionRequest): void {
+    super.doUpdate(type, request)
 
-  protected async executeTransaction(request: UpdateUnionTypeInput, txn: Txn) {
-    await this.getOldValuesToDelete(request)
-    await this.dgraph.executeMutation(txn, this.createMutation(request))
-  }
+    if (type.typeKind !== TypeKind.UnionType) {
+      throw new Error('Type is not a union type')
+    }
 
-  private async getOldValuesToDelete({
-    typeId,
-    updateData: { typeIdsOfUnionType },
-  }: UpdateUnionTypeInput) {
-    await this.dgraph.transactionWrapper((txn) =>
-      this.dgraph.executeUpsert(
-        txn,
-        `
-          {
-            query(func: uid(${typeId})) @normalize {
-              typesOfUnionType ${
-                typeIdsOfUnionType && typeIdsOfUnionType.length
-                  ? `@filter(NOT uid(${typeIdsOfUnionType}))`
-                  : ''
-              } {
-                idToDelete as uid
-              }
-            }
-        }
-       `,
-        `
-          delete {
-            <${typeId}> <typesOfUnionType> uid(idToDelete) .
-          }
-        `,
-      ),
-    )
-  }
+    const {
+      input: { updateData },
+    } = request
 
-  private createMutation({
-    typeId,
-    updateData: { name, typeIdsOfUnionType },
-  }: UpdateUnionTypeInput) {
-    return jsonMutation({
-      uid: typeId,
-      name,
-      typesOfUnionType: typeIdsOfUnionType.map((id) => ({ uid: id })),
-    })
+    type.typesOfUnionType = updateData.typeIdsOfUnionType.map((id) => ({ id }))
   }
 }

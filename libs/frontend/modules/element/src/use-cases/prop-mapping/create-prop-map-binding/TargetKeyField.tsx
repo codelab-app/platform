@@ -1,5 +1,6 @@
 import { useLazyGetTypeGraphQuery } from '@codelab/frontend/modules/type'
 import { usePrevious } from '@codelab/frontend/shared/utils'
+import { ITypeGraph } from '@codelab/shared/abstract/core'
 import { ElementTree, TypeTree } from '@codelab/shared/core'
 import AutoComplete, { AutoCompleteProps } from 'antd/lib/auto-complete'
 import { RefSelectProps } from 'antd/lib/select'
@@ -66,7 +67,7 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
     if (!data?.getTypeGraph) {
       setOptions([])
     } else {
-      const typeTree = new TypeTree(data.getTypeGraph)
+      const typeTree = new TypeTree(data.getTypeGraph as ITypeGraph)
       setOptions(
         typeTree.getRootFields().map((f) => ({ label: f.key, value: f.key })),
       )
@@ -85,13 +86,13 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
     props,
     <AutoComplete
       disabled={props.disabled}
-      showAction={['focus', 'click']}
       onChange={(v) => props.onChange(v)}
+      onSearch={setSearchInput}
+      options={options}
       placeholder={props.placeholder}
       ref={props.inputRef}
+      showAction={['focus', 'click']}
       value={props.value ?? ''}
-      options={options}
-      onSearch={setSearchInput}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...filterDOMProps(props)}
     />,

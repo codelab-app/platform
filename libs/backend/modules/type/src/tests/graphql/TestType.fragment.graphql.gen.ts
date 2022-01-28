@@ -6,7 +6,6 @@ import { TestInterfaceFragment } from './TestInterface.fragment.graphql.gen'
 import { TestPrimitiveTypeFragment } from './TestPrimitiveType.fragment.graphql.gen'
 import { TestElementTypeFragment } from './TestElementType.fragment.graphql.gen'
 import { TestLambdaTypeFragment } from './TestLambdaType.fragment.graphql.gen'
-import { TestComponentTypeFragment } from './TestComponentType.fragment.graphql.gen'
 import { TestRenderPropsTypeFragment } from './TestRenderProps.fragment.graphql.gen'
 import { TestUnionTypeFragment } from './TestUnionType.fragment.graphql.gen'
 import { gql } from '@apollo/client'
@@ -16,7 +15,6 @@ import { TestInterfaceFragmentDoc } from './TestInterface.fragment.graphql.gen'
 import { TestPrimitiveTypeFragmentDoc } from './TestPrimitiveType.fragment.graphql.gen'
 import { TestElementTypeFragmentDoc } from './TestElementType.fragment.graphql.gen'
 import { TestLambdaTypeFragmentDoc } from './TestLambdaType.fragment.graphql.gen'
-import { TestComponentTypeFragmentDoc } from './TestComponentType.fragment.graphql.gen'
 import { TestRenderPropsTypeFragmentDoc } from './TestRenderProps.fragment.graphql.gen'
 import { TestUnionTypeFragmentDoc } from './TestUnionType.fragment.graphql.gen'
 export type TestType_AppType_Fragment = {
@@ -32,13 +30,6 @@ export type TestType_ArrayType_Fragment = {
   name: string
   typeKind: Types.TypeKind
 } & TestArrayTypeFragment
-
-export type TestType_ComponentType_Fragment = {
-  __typename: 'ComponentType'
-  id: string
-  name: string
-  typeKind: Types.TypeKind
-} & TestComponentTypeFragment
 
 export type TestType_ElementType_Fragment = {
   __typename: 'ElementType'
@@ -113,7 +104,6 @@ export type TestType_UnionType_Fragment = {
 export type TestTypeFragment =
   | TestType_AppType_Fragment
   | TestType_ArrayType_Fragment
-  | TestType_ComponentType_Fragment
   | TestType_ElementType_Fragment
   | TestType_EnumType_Fragment
   | TestType_InterfaceType_Fragment
@@ -137,7 +127,6 @@ export const TestTypeFragmentDoc = gql`
     ...TestPrimitiveType
     ...TestElementType
     ...TestLambdaType
-    ...TestComponentType
     ...TestRenderPropsType
     ...TestUnionType
   }
@@ -147,7 +136,6 @@ export const TestTypeFragmentDoc = gql`
   ${TestPrimitiveTypeFragmentDoc}
   ${TestElementTypeFragmentDoc}
   ${TestLambdaTypeFragmentDoc}
-  ${TestComponentTypeFragmentDoc}
   ${TestRenderPropsTypeFragmentDoc}
   ${TestUnionTypeFragmentDoc}
 `

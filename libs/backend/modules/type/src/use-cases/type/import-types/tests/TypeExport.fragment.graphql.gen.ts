@@ -17,13 +17,6 @@ export type Export__Types_ArrayType_Fragment = {
   typeGraph: TypeGraphFragment
 }
 
-export type Export__Types_ComponentType_Fragment = {
-  id: string
-  name: string
-  typeKind: Types.TypeKind
-  typeGraph: TypeGraphFragment
-}
-
 export type Export__Types_ElementType_Fragment = {
   id: string
   name: string
@@ -97,7 +90,6 @@ export type Export__Types_UnionType_Fragment = {
 export type Export__TypesFragment =
   | Export__Types_AppType_Fragment
   | Export__Types_ArrayType_Fragment
-  | Export__Types_ComponentType_Fragment
   | Export__Types_ElementType_Fragment
   | Export__Types_EnumType_Fragment
   | Export__Types_InterfaceType_Fragment

@@ -1,79 +1,83 @@
-import { DgraphCreateUseCase } from '@codelab/backend/application'
+import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphEntityType,
   DgraphRepository,
+  getUidFromResponse,
+  ITransaction,
   jsonMutation,
 } from '@codelab/backend/infra'
 import {
   CreateTypeService,
   GetTypeService,
 } from '@codelab/backend/modules/type'
-import { TypeKind } from '@codelab/shared/abstract/core'
+import { IUser, TypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { Mutation, Txn } from 'dgraph-js-http'
 import { GetAtomService } from '../get-atom'
 import { CreateAtomInput } from './create-atom.input'
 import { CreateAtomRequest } from './create-atom.request'
 
 @Injectable()
-export class CreateAtomService extends DgraphCreateUseCase<CreateAtomRequest> {
+export class CreateAtomService extends DgraphUseCase<
+  CreateAtomRequest,
+  CreateResponse
+> {
+  protected override autoCommit = true
+
   constructor(
-    dgraphRepository: DgraphRepository,
+    dgraph: DgraphRepository,
     private createTypeService: CreateTypeService,
     private getAtomService: GetAtomService,
     private getTypeService: GetTypeService,
   ) {
-    super(dgraphRepository)
+    super(dgraph)
   }
 
-  protected async executeTransaction(request: CreateAtomRequest, txn: Txn) {
+  async executeTransaction(request: CreateAtomRequest, txn: ITransaction) {
     await this.validate(request)
 
-    const {
-      input: { name, api },
-      currentUser,
-    } = request
-
-    /**
-     * (1) Create atom
-     */
-    const { id: atomId } = await this.dgraph.create(txn, (blankNodeUid) =>
-      CreateAtomService.createMutation(request.input, blankNodeUid),
-    )
-
-    let interfaceId = api
-
-    /**
-     * (2) Create interface if not existing
-     */
-    if (!api) {
-      const { id } = await this.createTypeService.execute({
-        input: {
-          name: `${name} API`,
-          typeKind: TypeKind.InterfaceType,
-        },
-        currentUser,
-      })
-
-      interfaceId = id
-    }
-
-    /**
-     * (3) Assign interface
-     */
-    const mu: Mutation = {
-      setNquads: `<${atomId}> <api> <${interfaceId}> .`,
-    }
-
-    await this.dgraph.transactionWrapper(async (_txn) => {
-      await this.dgraph.executeMutation(_txn, mu)
-    })
+    const { input, currentUser } = request
+    const { apiId } = await this.createInterfaceIfMissing(input, currentUser)
+    const { atomId } = await this.createAtom(input, txn, apiId)
 
     return { id: atomId }
   }
 
+  private async createInterfaceIfMissing(
+    input: CreateAtomInput,
+    currentUser: IUser,
+  ) {
+    if (!input.api) {
+      const { id } = await this.createTypeService.execute({
+        input: { name: `${input.name} API`, typeKind: TypeKind.InterfaceType },
+        currentUser,
+      })
+
+      return { apiId: id }
+    }
+
+    return { apiId: input.api }
+  }
+
+  private async createAtom(
+    input: CreateAtomInput,
+    transaction: ITransaction,
+    apiId: string,
+  ) {
+    const blankNodeLabel = `atom`
+    const blankNodeUid = `_:${blankNodeLabel}`
+
+    const res = await transaction.mutate(
+      CreateAtomService.createMutation(input, apiId, blankNodeUid),
+    )
+
+    const atomId = getUidFromResponse(res, blankNodeLabel)
+
+    return { atomId }
+  }
+
   private static createMutation(
     { type, name }: CreateAtomInput,
+    apiId: string,
     blankNodeUid: string,
   ) {
     return jsonMutation({
@@ -81,12 +85,13 @@ export class CreateAtomService extends DgraphCreateUseCase<CreateAtomRequest> {
       'dgraph.type': [DgraphEntityType.Atom],
       atomType: type,
       name,
+      api: { uid: apiId },
     })
   }
 
   private async validate(request: CreateAtomRequest) {
     const atom = await this.getAtomService.execute({
-      where: { type: request.input.type },
+      input: { where: { type: request.input.type } },
     })
 
     if (atom) {
@@ -96,7 +101,6 @@ export class CreateAtomService extends DgraphCreateUseCase<CreateAtomRequest> {
     if (request.input.api) {
       const type = await this.getTypeService.execute({
         input: { where: { id: request.input.api } },
-        currentUser: request.currentUser,
       })
 
       if (!type) {

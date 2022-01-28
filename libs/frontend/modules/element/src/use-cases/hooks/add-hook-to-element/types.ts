@@ -1,4 +1,3 @@
-import { InterfaceFormProps } from '@codelab/frontend/modules/type'
 import { TypeTree } from '@codelab/shared/core'
 
 export interface InterfaceProps {

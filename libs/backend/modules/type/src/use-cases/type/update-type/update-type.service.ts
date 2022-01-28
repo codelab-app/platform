@@ -1,35 +1,53 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { IType } from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { TypeValidator } from '../../../domain/type.validator'
-import { UpdateTypeInput } from './update-type.input'
+import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
+import { UpdateTypeRequest } from './update-type.request'
 
 @Injectable()
-export class UpdateTypeService extends DgraphUseCase<UpdateTypeInput> {
-  constructor(dgraph: DgraphRepository, private typeValidator: TypeValidator) {
+export class UpdateTypeService<
+  TReq extends UpdateTypeRequest = UpdateTypeRequest,
+> extends DgraphUseCase<TReq> {
+  protected override autoCommit = true
+
+  constructor(
+    dgraph: DgraphRepository,
+    @Inject(ITypeRepositoryToken)
+    private typeRepository: ITypeRepository,
+    private typeValidator: TypeValidator,
+  ) {
     super(dgraph)
   }
 
-  protected async executeTransaction(request: UpdateTypeInput, txn: Txn) {
-    await this.validate(request)
-    await this.dgraph.executeMutation(
-      txn,
-      UpdateTypeService.createMutation(request),
-    )
+  protected async executeTransaction(request: TReq, txn: ITransaction) {
+    await this.validate(request, txn)
+
+    const {
+      input: { typeId },
+    } = request
+
+    const type = await this.typeRepository.getOne(typeId, txn)
+
+    if (!type) {
+      // Shouldn't happen, we check in .validate
+      throw new Error('Type not found')
+    }
+
+    this.doUpdate(type, request)
+
+    await this.typeRepository.update(type, txn)
   }
 
-  private static createMutation({
-    typeId,
-    updateData: { name },
-  }: UpdateTypeInput) {
-    return jsonMutation({
-      uid: typeId,
-      name,
-    })
+  protected async validate(
+    { input: { typeId } }: UpdateTypeRequest,
+    txn: ITransaction,
+  ) {
+    await this.typeValidator.typeExists(typeId, txn)
   }
 
-  private async validate(request: UpdateTypeInput) {
-    await this.typeValidator.typeExists(request.typeId)
+  protected doUpdate(type: IType, { input: { updateData } }: TReq) {
+    type.name = updateData.name
   }
 }

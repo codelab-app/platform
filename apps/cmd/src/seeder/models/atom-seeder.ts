@@ -77,7 +77,7 @@ export class AtomSeeder {
   }
 
   async getAtom(input: GetAtomInput) {
-    return await this.getAtomService.execute(input)
+    return await this.getAtomService.execute({ input })
   }
 
   private async createAtom(request: CreateAtomRequest) {

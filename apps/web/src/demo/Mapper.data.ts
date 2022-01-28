@@ -1,5 +1,3 @@
-import { ElementGraphGraphql } from '@codelab/frontend/modules/element'
-
 /**
  * We first build a page using the web builder, then we copy the data for the renderer.
  */

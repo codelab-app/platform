@@ -85,11 +85,11 @@ export class TypeSeeder {
   private async seedTypeIfNotExisting(
     request: CreateTypeRequest,
   ): Promise<string> {
-    const { input, currentUser } = request
+    const { input } = request
     console.log({ input })
 
     return createIfMissing(
-      () => this.getTypeByName(input.name, currentUser),
+      () => this.getTypeByName(input.name),
       () => this.createType(request),
     )
   }
@@ -267,9 +267,15 @@ export class TypeSeeder {
     const factoryInput: CustomAtomApiFactoryInput = {
       baseTypeIdsByName: this.baseTypes,
       createTypeIfMissing: (typeInput) =>
-        this.seedTypeIfNotExisting({ input: typeInput, currentUser }),
+        this.seedTypeIfNotExisting({
+          input: typeInput,
+          currentUser,
+        }),
       createFieldIfMissing: (fieldInput) =>
-        this.createFieldIfMissing({ input: fieldInput, currentUser }),
+        this.createFieldIfMissing({
+          input: fieldInput,
+          currentUser,
+        }),
     }
 
     for (const apiFactory of allCustomAtomApiFactories) {
@@ -301,9 +307,9 @@ export class TypeSeeder {
     }
   }
 
-  private getTypeByName(name: string, currentUser: IUser) {
+  private getTypeByName(name: string) {
     return this.getTypeService
-      .execute({ input: { where: { name } }, currentUser })
+      .execute({ input: { where: { name } } })
       .then((r) => {
         console.log({ r })
 
@@ -401,10 +407,6 @@ export class TypeSeeder {
       case 'AppType':
         return {
           existingTypeId: this.baseTypes.get(BaseTypeName.App) as string,
-        }
-      case 'ComponentType':
-        return {
-          existingTypeId: this.baseTypes.get(BaseTypeName.Component) as string,
         }
       case 'number | string':
       case 'string | number':

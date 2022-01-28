@@ -11,7 +11,7 @@ import {
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../infrastructure/repositories/abstract/element-repository.interface'
+} from '../../../infrastructure'
 import { UpdateElementService } from '../../element/update-element'
 import { CreateComponentRequest } from './create-component.request'
 
@@ -64,7 +64,7 @@ export class CreateComponentService
     }
 
     const foundAtom = await this.getAtomService.execute({
-      where: { id: atomId },
+      input: { where: { id: atomId } },
     })
 
     if (!foundAtom) {

@@ -1,5 +1,5 @@
 import { GetFieldInput } from './get-field.input'
 
-export class GetFieldRequest {
-  declare input: GetFieldInput
+export interface GetFieldRequest {
+  input: GetFieldInput
 }

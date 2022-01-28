@@ -1,3 +1,4 @@
+import { Transactional } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import { IUser } from '@codelab/shared/abstract/core'
@@ -33,21 +34,11 @@ export class FieldResolver {
   async createField(
     @Args('input') input: CreateFieldInput,
     @CurrentUser() currentUser: IUser,
-  ) {
-    const { id } = await this.createFieldService.execute({
+  ): Promise<Field> {
+    return this.createFieldService.execute({
       input,
       currentUser,
     })
-
-    const field = await this.getFieldService.execute({
-      input: { byId: { fieldId: id } },
-    })
-
-    if (!field) {
-      throw new Error("Couldn't find created field")
-    }
-
-    return field
   }
 
   @Query(() => Field, { nullable: true })
@@ -64,6 +55,7 @@ export class FieldResolver {
 
   @Mutation(() => Field, { nullable: true })
   @UseGuards(GqlAuthGuard)
+  @Transactional()
   async updateField(
     @Args('input') input: UpdateFieldInput,
     @CurrentUser() currentUser: IUser,

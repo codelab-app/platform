@@ -129,7 +129,7 @@ export const useUpdateTypeForm: UseEntityUseCaseForm<
         : undefined,
     typeIdsOfUnionType:
       entity?.__typename === TypeModels.UnionType
-        ? entity?.typeIdsOfUnionType
+        ? entity?.typesOfUnionType.map((t) => t.id)
         : undefined,
   }
 

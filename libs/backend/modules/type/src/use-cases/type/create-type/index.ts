@@ -1,3 +1,4 @@
+export * from './create-type'
 export * from './create-type.request'
 export * from './create-type.service'
 export * from './inputs/create-array-type.input'

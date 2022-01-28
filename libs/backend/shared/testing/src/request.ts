@@ -32,7 +32,7 @@ export const graphqlRequest = <TOperationVariables>(
   )
 }
 
-type ExpectedError = {
+export type ExpectedError = {
   message: string
 }
 

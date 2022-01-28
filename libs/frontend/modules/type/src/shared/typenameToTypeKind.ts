@@ -21,8 +21,6 @@ export const typenameToTypeKind = (typename: string) => {
       return TypeKind.MonacoType
     case TypeModels.ElementType:
       return TypeKind.ElementType
-    case TypeModels.ComponentType:
-      return TypeKind.ComponentType
     case TypeModels.ReactNodeType:
       return TypeKind.ReactNodeType
     case TypeModels.RenderPropsType:

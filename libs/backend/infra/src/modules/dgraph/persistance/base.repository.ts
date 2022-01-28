@@ -11,6 +11,7 @@ import { IQueryFactory } from './query-factory.interface'
 import { makeUidFilter, makeUidsFilter } from './query-utils'
 import {
   makeCreateResponse,
+  makeCreateResponses,
   mergeAndMutate,
   randomBlankNode,
 } from './repository-utils'
@@ -59,6 +60,30 @@ export class BaseRepository<
     const response = await transaction.mutate(mutation)
 
     return makeCreateResponse(response, uid)
+  }
+
+  async createAll(
+    entities: Array<T>,
+    transaction: ITransaction,
+  ): Promise<Array<CreateResponsePort>> {
+    if (!entities?.length) {
+      return []
+    }
+
+    entities = this.parseArray(entities)
+
+    const blankNodes: Array<string> = []
+
+    const mutations = entities.map((e) => {
+      const uid = randomBlankNode()
+      blankNodes.push(uid)
+
+      return this.mutationFactory.forCreate(e, uid)
+    })
+
+    const res = await mergeAndMutate(transaction, ...mutations)
+
+    return makeCreateResponses(res, blankNodes)
   }
 
   protected async getExistingForUpdate(
@@ -127,17 +152,7 @@ export class BaseRepository<
     const queryName = `getOne${this.entityType}`
     const query = this.queryFactory.forGet(makeUidFilter(id), queryName)
 
-    const result = await this.dgraph.getOneNamed<T>(
-      transaction,
-      query,
-      queryName,
-    )
-
-    if (!result) {
-      return undefined
-    }
-
-    return this.parse(result)
+    return this.getHelper(query, transaction, queryName)
   }
 
   async getAllByIds(ids: Array<string>, transaction: Txn): Promise<Array<T>> {
@@ -157,5 +172,41 @@ export class BaseRepository<
     entities = entities ?? []
 
     return this.schema?.array().parse(entities) ?? entities
+  }
+
+  protected async getAllHelper(
+    query: string,
+    transaction: ITransaction,
+    queryName = `getAll${this.entityType}`,
+  ) {
+    const result = await this.dgraph.getAllNamed<T>(
+      transaction,
+      query,
+      queryName,
+    )
+
+    if (!result) {
+      return [] as Array<T>
+    }
+
+    return this.parseArray(result)
+  }
+
+  protected async getHelper(
+    query: string,
+    transaction: ITransaction,
+    queryName = `get${this.entityType}`,
+  ) {
+    const result = await this.dgraph.getOneNamed<T>(
+      transaction,
+      query,
+      queryName,
+    )
+
+    if (!result) {
+      return undefined
+    }
+
+    return this.parse(result)
   }
 }

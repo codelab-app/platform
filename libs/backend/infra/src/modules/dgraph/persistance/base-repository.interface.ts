@@ -4,6 +4,10 @@ import { ITransaction } from '../transaction-manager'
 
 export interface IWriteRepository<T> {
   create(entity: T, transaction: ITransaction): Promise<CreateResponsePort>
+  createAll(
+    entities: Array<T>,
+    transaction: ITransaction,
+  ): Promise<Array<CreateResponsePort>>
   update(updatedEntity: T, transaction: ITransaction): Promise<void>
   delete(id: string, transaction: ITransaction): Promise<void>
   deleteAll(ids: Array<string>, transaction: ITransaction): Promise<void>

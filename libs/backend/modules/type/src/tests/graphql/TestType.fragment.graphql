@@ -9,7 +9,6 @@ fragment TestType on Type {
   ...TestPrimitiveType
   ...TestElementType
   ...TestLambdaType
-  ...TestComponentType
   ...TestRenderPropsType
   ...TestUnionType
 }

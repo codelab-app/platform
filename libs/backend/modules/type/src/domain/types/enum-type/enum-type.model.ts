@@ -11,15 +11,9 @@ export class EnumType extends Type<TypeKind.EnumType> implements IEnumType {
   @Field(() => [EnumTypeValue])
   declare allowedValues: Array<EnumTypeValue>
 
-  constructor({
-    id,
-    name,
-    allowedValues,
-  }: Pick<EnumType, 'id' | 'name' | 'allowedValues'>) {
-    super(TypeKind.EnumType)
+  constructor({ allowedValues, ...type }: Omit<EnumType, 'typeKind'>) {
+    super({ typeKind: TypeKind.EnumType, ...type })
 
-    this.id = id
-    this.name = name
     this.allowedValues = allowedValues
   }
 }

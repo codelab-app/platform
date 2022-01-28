@@ -58,13 +58,16 @@ type ArrayType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
+  itemType: ObjectRef!
 }
 
 interface Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
 }
 
@@ -75,7 +78,6 @@ enum TypeKind {
   EnumType
   LambdaType
   ElementType
-  ComponentType
   RenderPropsType
   ReactNodeType
   UnionType
@@ -85,22 +87,13 @@ enum TypeKind {
 }
 
 """
-The ComponentType allows selecting a Component in the props form. The value is stored as the componentId 
-"""
-type ComponentType implements Type {
-  typeKind: TypeKind!
-  id: ID!
-  name: String!
-  typeGraph: TypeGraph!
-}
-
-"""
 The ElementType allows selecting an Element in the props form. The value is stored as the elementId 
 """
 type ElementType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
   elementKind: ElementTypeKind!
 }
@@ -121,6 +114,7 @@ type EnumType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
   allowedValues: [EnumTypeValue!]!
 }
@@ -129,7 +123,9 @@ type InterfaceType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
+  fields: [Field!]!
 }
 
 """
@@ -139,6 +135,7 @@ type LambdaType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
 }
 
@@ -146,6 +143,7 @@ type PrimitiveType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
   primitiveKind: PrimitiveTypeKind!
 }
@@ -161,6 +159,7 @@ type ReactNodeType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
 }
 
@@ -168,6 +167,7 @@ type RenderPropsType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
 }
 
@@ -178,6 +178,7 @@ type AppType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
 }
 
@@ -188,6 +189,7 @@ type MonacoType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
   language: MonacoLanguage!
 }
@@ -208,6 +210,7 @@ type PageType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
 }
 
@@ -215,8 +218,9 @@ type UnionType implements Type {
   typeKind: TypeKind!
   id: ID!
   name: String!
+  owner: ObjectRef
   typeGraph: TypeGraph!
-  typeIdsOfUnionType: [String!]!
+  typesOfUnionType: [ObjectRef!]!
 }
 
 type TypeGraph {
@@ -224,7 +228,7 @@ type TypeGraph {
   edges: [TypeEdge!]!
 }
 
-union TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType
+union TypeVertex = EnumType | PrimitiveType | ArrayType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType
 
 type Atom {
   id: ID!
@@ -869,26 +873,25 @@ input WhereUniqueType {
 }
 
 input GetTypeGraphInput {
-  where: WhereUniqueType!
+  where: WhereUniqueTypeGraph!
 }
 
-"""Filters are optional and you can provide all three of them together"""
+"""Provide exactly 1 field"""
+input WhereUniqueTypeGraph {
+  id: String
+  name: String
+  atomId: String
+}
+
 input GetTypesInput {
-  byIds: TypesByIdsFilter
-  byKind: TypesByKindFilter
-  byName: TypesByNameFilter
+  where: TypesWhereInput
 }
 
-input TypesByIdsFilter {
-  typeIds: [String!]!
-}
-
-input TypesByKindFilter {
-  kind: TypeKind!
-}
-
-input TypesByNameFilter {
-  name: String!
+"""Provide exactly no more than 1 filter"""
+input TypesWhereInput {
+  ids: [String!]
+  kind: TypeKind
+  name: String
 }
 
 input GetFieldInput {
@@ -1310,6 +1313,7 @@ input TypeRef {
 }
 
 input UpdateFieldInput {
+  interfaceId: String!
   fieldId: String!
   updateData: UpdateFieldData!
 }
@@ -1325,6 +1329,7 @@ input UpdateFieldData {
 
 input DeleteFieldInput {
   fieldId: String!
+  interfaceId: String!
 }
 
 input CreatePageInput {

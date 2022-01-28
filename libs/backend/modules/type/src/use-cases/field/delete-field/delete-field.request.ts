@@ -1,5 +1,5 @@
 import { DeleteFieldInput } from './delete-field.input'
 
-export class DeleteFieldRequest {
-  declare input: DeleteFieldInput
+export interface DeleteFieldRequest {
+  input: DeleteFieldInput
 }

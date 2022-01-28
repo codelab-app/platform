@@ -12,14 +12,18 @@ import { mapperPageElements } from './Mapper.data'
 
 const DemoFormRender = () => {
   const elementTree = new ElementTree(mapperPageElements)
-  const typeTree = useTypeTree(DemoFormAtomData.typeGraph as TypeGraphFragment)
+
+  const interfaceTree = useTypeTree(
+    DemoFormAtomData.typeGraph as TypeGraphFragment,
+  )
+
   const initialPropsRef = useRef(null)
 
   return (
     <div css={tw`p-10`}>
       <SelectElementProvider tree={elementTree}>
         <InterfaceForm
-          interfaceTree={typeTree}
+          interfaceTree={interfaceTree}
           model={initialPropsRef}
           onSubmit={(data: any) => {
             console.log(data)

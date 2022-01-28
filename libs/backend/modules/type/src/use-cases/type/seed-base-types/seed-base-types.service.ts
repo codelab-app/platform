@@ -1,4 +1,5 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
 import { createIfMissing } from '@codelab/backend/shared/utils'
 import { IUser } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -15,15 +16,21 @@ import { SeedBaseTypesRequest } from './seed-base-types.request'
  * Seeds all default types like primitives
  */
 @Injectable()
-export class SeedBaseTypesService
-  implements UseCasePort<SeedBaseTypesRequest, void>
-{
+export class SeedBaseTypesService extends DgraphUseCase<SeedBaseTypesRequest> {
+  protected override autoCommit = true
+
   constructor(
+    dgraph: DgraphRepository,
     private getTypeService: GetTypeService,
     private createTypeService: CreateTypeService,
-  ) {}
+  ) {
+    super(dgraph)
+  }
 
-  async execute(request: SeedBaseTypesRequest): Promise<void> {
+  protected async executeTransaction(
+    request: SeedBaseTypesRequest,
+    txn: ITransaction,
+  ): Promise<void> {
     await this.seedTypesIfMissing(baseTypes, request.currentUser)
   }
 
@@ -46,14 +53,14 @@ export class SeedBaseTypesService
     currentUser,
   }: CreateTypeRequest): Promise<string> {
     return await createIfMissing(
-      () => this.getTypeByName(input.name, currentUser),
+      () => this.getTypeByName(input.name),
       () => this.createType({ input, currentUser }),
     )
   }
 
-  private async getTypeByName(name: string, currentUser: IUser) {
+  private async getTypeByName(name: string) {
     return await this.getTypeService
-      .execute({ input: { where: { name } }, currentUser })
+      .execute({ input: { where: { name } } })
       .then((type) => type?.name)
   }
 

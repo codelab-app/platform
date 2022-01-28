@@ -44,6 +44,13 @@ describe('CreateType', () => {
       doMatch(getType)
     })
 
+    it('should not create two primitives of the same kind', async () => {
+      await testModule.createTestType(createPrimitiveStringInput)
+      await testModule.createTestType(createPrimitiveStringInput, {
+        message: 'String already exists',
+      })
+    })
+
     it('should create interface type', async () => {
       const type = await testModule.createTestType(createInterfaceTypeInput)
 

@@ -14,6 +14,9 @@ import { randomBlankNode } from './repository-utils'
  * Override any methods you need to customize.
  * Or add new ones if new mutations are needed.
  *
+ * The nullablePredicates are used to determine which predicates should get deleted
+ * if missing/are null/are undefined in the update object.
+ *
  * {@see NullablePredicates} for how to construct the predicate array
  */
 export class BaseMutationFactory<T extends EntityLike>
@@ -33,21 +36,15 @@ export class BaseMutationFactory<T extends EntityLike>
    * */
   forCreate(entity: T, uid?: string): Mutation {
     const { id, ...data } = entity // removes the id property from the data we put in dgraph
+    uid = uid || randomBlankNode()
 
     return {
-      setJson: {
-        uid: uid || randomBlankNode(),
-        'dgraph.type': this.entityType,
-        ...data,
-      },
+      setJson: { uid, 'dgraph.type': this.entityType, ...data },
     }
   }
 
   /**
-   * Override this method to update related entities or if the forCreate is overridden with custom keys.
-   *
-   * If forCreate is overridden with custom keys, which don't match the dgraph schema, this won't work properly,
-   * since it relies on the entity to match the dgraph schema for makeDeleteJsonMutationForUpdates to work
+   * Override this method to update related entities
    *
    * Override this method if there are any 1-M relationships
    * */

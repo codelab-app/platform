@@ -7,7 +7,6 @@ import {
 import {
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
-  Type_ComponentType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,
   Type_InterfaceType_Fragment,
@@ -27,7 +26,6 @@ export type TypeGraphFragment = {
   vertices: Array<
     | Type_AppType_Fragment
     | Type_ArrayType_Fragment
-    | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
     | Type_EnumType_Fragment
     | Type_InterfaceType_Fragment

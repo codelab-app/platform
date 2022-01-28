@@ -15,6 +15,7 @@ export const elementToRender: IElement = {
       id: '0x27182',
       name: 'Html Div API',
       typeKind: TypeKind.InterfaceType,
+      owner: null,
     },
   },
   componentTag: null,
@@ -99,6 +100,7 @@ export const componentToRender: IElement = {
       id: '0x27145',
       name: 'Text API',
       typeKind: TypeKind.InterfaceType,
+      owner: null,
     },
   },
   componentTag: {
@@ -134,6 +136,7 @@ export const elementToRender03: IElement = {
       id: '0x27145',
       name: 'Text API',
       typeKind: TypeKind.InterfaceType,
+      owner: null,
     },
   },
   componentTag: null,

@@ -59,10 +59,6 @@ export const baseTypes: Array<CreateTypeInput> = [
     },
   },
   {
-    name: BaseTypeKind.Component,
-    typeKind: TypeKind.ComponentType,
-  },
-  {
     name: BaseTypeKind.RenderProps,
     typeKind: TypeKind.RenderPropsType,
   },

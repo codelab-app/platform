@@ -245,12 +245,6 @@ export class TypeTreeJsonSchemaTransformer {
           type: 'string',
         }
 
-      case TypeKind.ComponentType:
-        return {
-          ...extra,
-          type: 'string',
-        }
-
       case TypeKind.MonacoType:
         return {
           ...extra,

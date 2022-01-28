@@ -1,4 +1,6 @@
+import { ObjectRef } from '@codelab/backend/abstract/core'
 import { IBaseType, IVertex, TypeKind } from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import {
   Field,
   ID,
@@ -27,8 +29,6 @@ const resolveType: ResolveTypeFn = (value: Type<any>) => {
       return 'PageType'
     case TypeKind.ElementType:
       return 'ElementType'
-    case TypeKind.ComponentType:
-      return 'ComponentType'
     case TypeKind.RenderPropsType:
       return 'RenderPropsType'
     case TypeKind.ReactNodeType:
@@ -55,7 +55,13 @@ export class Type<TTypeKind extends TypeKind> implements IVertex, IBaseType {
   @Field()
   declare name: string
 
-  constructor(typeKind: TTypeKind) {
-    this.typeKind = typeKind
+  @Field(() => ObjectRef, { nullable: true })
+  declare owner: Nullish<ObjectRef>
+
+  constructor({ typeKind, name, owner, id }: IBaseType) {
+    this.typeKind = typeKind as TTypeKind
+    this.name = name
+    this.owner = owner
+    this.id = id
   }
 }

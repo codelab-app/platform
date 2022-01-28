@@ -3,7 +3,6 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   Export__Types_AppType_Fragment,
   Export__Types_ArrayType_Fragment,
-  Export__Types_ComponentType_Fragment,
   Export__Types_ElementType_Fragment,
   Export__Types_EnumType_Fragment,
   Export__Types_InterfaceType_Fragment,
@@ -19,7 +18,6 @@ import { TypeGraphFragment } from './TypeGraph.fragment.graphql.gen'
 import {
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
-  Type_ComponentType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,
   Type_InterfaceType_Fragment,
@@ -61,7 +59,6 @@ export type ExportTypesQuery = {
   getTypes: Array<
     | Export__Types_AppType_Fragment
     | Export__Types_ArrayType_Fragment
-    | Export__Types_ComponentType_Fragment
     | Export__Types_ElementType_Fragment
     | Export__Types_EnumType_Fragment
     | Export__Types_InterfaceType_Fragment
@@ -93,7 +90,6 @@ export type CreateTypeMutation = {
     | { id: string }
     | { id: string }
     | { id: string }
-    | { id: string }
 }
 
 export type DeleteTypeMutationVariables = Types.Exact<{
@@ -104,7 +100,6 @@ export type DeleteTypeMutation = {
   deleteType?:
     | Type_AppType_Fragment
     | Type_ArrayType_Fragment
-    | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
     | Type_EnumType_Fragment
     | Type_InterfaceType_Fragment
@@ -127,7 +122,6 @@ export type GetTypeQuery = {
   getType?:
     | Type_AppType_Fragment
     | Type_ArrayType_Fragment
-    | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
     | Type_EnumType_Fragment
     | Type_InterfaceType_Fragment
@@ -158,7 +152,6 @@ export type GetTypesQuery = {
   getTypes: Array<
     | ({ __typename: 'AppType' } & Type_AppType_Fragment)
     | ({ __typename: 'ArrayType' } & Type_ArrayType_Fragment)
-    | ({ __typename: 'ComponentType' } & Type_ComponentType_Fragment)
     | ({ __typename: 'ElementType' } & Type_ElementType_Fragment)
     | ({ __typename: 'EnumType' } & Type_EnumType_Fragment)
     | ({ __typename: 'InterfaceType' } & Type_InterfaceType_Fragment)
@@ -188,7 +181,6 @@ export type UpdateTypeMutation = {
   updateType?:
     | Type_AppType_Fragment
     | Type_ArrayType_Fragment
-    | Type_ComponentType_Fragment
     | Type_ElementType_Fragment
     | Type_EnumType_Fragment
     | Type_InterfaceType_Fragment
@@ -227,7 +219,6 @@ export type GetTypeKindsQuery = {
   getTypes: Array<
     | { __typename: 'AppType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'ArrayType'; id: string; typeKind: Types.TypeKind }
-    | { __typename: 'ComponentType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'ElementType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'EnumType'; id: string; typeKind: Types.TypeKind }
     | { __typename: 'InterfaceType'; id: string; typeKind: Types.TypeKind }

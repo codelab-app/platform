@@ -9,7 +9,6 @@ fragment Type on Type {
   ...PrimitiveType
   ...ElementType
   ...LambdaType
-  ...ComponentType
   ...RenderPropsType
   ...UnionType
   ...MonacoType

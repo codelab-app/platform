@@ -5,7 +5,6 @@ export enum TypeKind {
   EnumType = 'EnumType',
   LambdaType = 'LambdaType',
   ElementType = 'ElementType',
-  ComponentType = 'ComponentType',
   RenderPropsType = 'RenderPropsType',
   ReactNodeType = 'ReactNodeType',
   UnionType = 'UnionType',

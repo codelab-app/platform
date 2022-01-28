@@ -1,5 +1,5 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { CreateResponse } from '@codelab/backend/application'
+import { CreateResponse, Transactional } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import { IUser } from '@codelab/shared/abstract/core'
@@ -91,23 +91,16 @@ export class TypeResolver {
 
   @UseGuards(GqlAuthGuard)
   @Query(() => Type, { nullable: true })
-  async getType(
-    @Args('input') input: GetTypeInput,
-    @CurrentUser() currentUser: IUser,
-  ) {
+  async getType(@Args('input') input: GetTypeInput) {
     return this.getTypeService.execute({
       input,
-      currentUser,
     })
   }
 
   @UseGuards(GqlAuthGuard)
   @Query(() => TypeGraph, { nullable: true })
-  async getTypeGraph(
-    @Args('input') input: GetTypeGraphInput,
-    @CurrentUser() currentUser: IUser,
-  ) {
-    return this.getTypeGraphService.execute({ input, currentUser })
+  async getTypeGraph(@Args('input') input: GetTypeGraphInput) {
+    return this.getTypeGraphService.execute({ input })
   }
 
   @UseGuards(GqlAuthGuard)
@@ -116,7 +109,10 @@ export class TypeResolver {
     @Args('input', { nullable: true }) input: GetTypesInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    return await this.getTypesService.execute({ input, currentUser })
+    return await this.getTypesService.execute({
+      input,
+      currentUser,
+    })
   }
 
   @UseGuards(GqlAuthGuard)
@@ -125,9 +121,12 @@ export class TypeResolver {
     @Args('input') input: CreateTypeInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    const { id } = await this.createTypeService.execute({ input, currentUser })
+    const { id } = await this.createTypeService.execute({
+      input,
+      currentUser,
+    })
 
-    return this.getTypeOrThrow(id, currentUser)
+    return this.getTypeOrThrow(id)
   }
 
   @UseGuards(GqlAuthGuard)
@@ -136,9 +135,12 @@ export class TypeResolver {
     @Args('input') input: UpdateEnumTypeInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    await this.updateEnumTypeService.execute(input)
+    await this.updateEnumTypeService.execute({
+      input,
+      currentUser,
+    })
 
-    return this.getTypeOrThrow(input.typeId, currentUser)
+    return this.getTypeOrThrow(input.typeId)
   }
 
   @UseGuards(GqlAuthGuard)
@@ -147,20 +149,27 @@ export class TypeResolver {
     @Args('input') input: UpdatePrimitiveTypeInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    await this.updatePrimitiveTypeService.execute(input)
+    await this.updatePrimitiveTypeService.execute({
+      input,
+      currentUser,
+    })
 
-    return this.getTypeOrThrow(input.typeId, currentUser)
+    return this.getTypeOrThrow(input.typeId)
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => UnionType, { nullable: true })
+  @Transactional()
   async updateUnionType(
     @Args('input') input: UpdateUnionTypeInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    await this.updateUnionTypeService.execute(input)
+    await this.updateUnionTypeService.execute({
+      input,
+      currentUser,
+    })
 
-    return this.getTypeOrThrow(input.typeId, currentUser)
+    return this.getTypeOrThrow(input.typeId)
   }
 
   @UseGuards(GqlAuthGuard)
@@ -169,9 +178,12 @@ export class TypeResolver {
     @Args('input') input: UpdateTypeInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    await this.updateTypeService.execute(input)
+    await this.updateTypeService.execute({
+      input,
+      currentUser,
+    })
 
-    return this.getTypeOrThrow(input.typeId, currentUser)
+    return this.getTypeOrThrow(input.typeId)
   }
 
   @UseGuards(GqlAuthGuard)
@@ -180,31 +192,24 @@ export class TypeResolver {
     @Args('input') input: DeleteTypeInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    const type = await this.getTypeOrThrow(input.typeId, currentUser)
+    const type = await this.getTypeOrThrow(input.typeId)
 
-    await this.deleteTypeService.execute(input)
+    await this.deleteTypeService.execute({ input, currentUser })
 
     return type
   }
 
   @UseGuards(GqlAuthGuard)
   @ResolveField(() => TypeGraph)
-  async typeGraph(
-    @Parent() interfaceType: InterfaceType,
-    @CurrentUser() currentUser: IUser,
-  ) {
+  async typeGraph(@Parent() interfaceType: InterfaceType) {
     return this.getTypeGraphService.execute({
-      input: {
-        where: { id: interfaceType.id },
-      },
-      currentUser,
+      input: { where: { id: interfaceType.id } },
     })
   }
 
-  private async getTypeOrThrow(typeId: string, currentUser: IUser) {
+  private async getTypeOrThrow(typeId: string) {
     const type = await this.getTypeService.execute({
       input: { where: { id: typeId } },
-      currentUser,
     })
 
     if (!type) {

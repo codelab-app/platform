@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { AppTypeSchema } from './app-type/app-type.interface'
 import { ArrayTypeSchema } from './array-type/array-type.interface'
-import { ComponentTypeSchema } from './component-type/component-type.interface'
+import { TypeKind } from './base-type/type-kind.enum'
 import { ElementTypeSchema } from './element-type/element-type.interface'
 import { EnumTypeSchema } from './enum-type/enum-type.interface'
 import { InterfaceTypeSchema } from './interface-type/interface-type.interface'
@@ -15,7 +15,6 @@ import { UnionTypeSchema } from './union-type/union-type.interface'
 
 export const TypeSchema = z.union([
   ArrayTypeSchema,
-  ComponentTypeSchema,
   ElementTypeSchema,
   EnumTypeSchema,
   InterfaceTypeSchema,
@@ -32,3 +31,9 @@ export const TypeSchema = z.union([
 export type TypeId = string
 
 export type IType = z.infer<typeof TypeSchema>
+
+export type SpecificIType<TKind extends TypeKind> = IType extends {
+  typeKind: TKind
+}
+  ? IType
+  : never

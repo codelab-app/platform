@@ -22,12 +22,6 @@ export type TestGetTypesQuery = {
         typeKind: Types.TypeKind
       }
     | {
-        __typename: 'ComponentType'
-        id: string
-        name: string
-        typeKind: Types.TypeKind
-      }
-    | {
         __typename: 'ElementType'
         id: string
         name: string

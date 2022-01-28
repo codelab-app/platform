@@ -38,10 +38,6 @@ export const baseTypes: Array<CreateTypeInput> = [
     typeKind: TypeKind.RenderPropsType,
   },
   {
-    name: BaseTypeName.Union,
-    typeKind: TypeKind.UnionType,
-  },
-  {
     name: BaseTypeName.String,
     typeKind: TypeKind.PrimitiveType,
     primitiveType: {
@@ -87,10 +83,6 @@ export const baseTypes: Array<CreateTypeInput> = [
     elementType: {
       kind: ElementTypeKind.AllElements,
     },
-  },
-  {
-    name: BaseTypeName.Component,
-    typeKind: TypeKind.ComponentType,
   },
   {
     name: BaseTypeName.MonacoCss,

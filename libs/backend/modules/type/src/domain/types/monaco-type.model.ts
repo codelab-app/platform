@@ -23,15 +23,9 @@ export class MonacoType
   @Field(() => MonacoLanguage)
   declare language: MonacoLanguage
 
-  constructor({
-    id,
-    name,
-    language,
-  }: Pick<MonacoType, 'id' | 'name' | 'language'>) {
-    super(TypeKind.MonacoType)
+  constructor({ language, ...type }: Omit<MonacoType, 'typeKind'>) {
+    super({ typeKind: TypeKind.MonacoType, ...type })
 
-    this.id = id
-    this.name = name
     this.language = language
   }
 }

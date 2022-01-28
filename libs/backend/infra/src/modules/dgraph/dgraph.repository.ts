@@ -24,8 +24,7 @@ export type QueryBuilderFactoryFn = () =>
 /**
  * Handles dgraph queries and mutations
  */
-// TODO integrate the repositories with this after all of them are done, so that we can log all operations with DEBUG_MODE
-// TODO rename - confusing with the other repositories
+// TODO integrate the repositories with this after all of them are done, so that we can log all operations with DEBUG_MODE and rename it
 @Injectable()
 export class DgraphRepository {
   /* Turn on to log all queries/mutations*/

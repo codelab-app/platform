@@ -8,8 +8,7 @@ import { PropMapBindingQueryFactory } from './prop-map-binding-query.factory'
 
 export class ElementQueryFactory implements IQueryFactory {
   /** Core inner fragment for all Element-related queries */
-  static queryFragment() {
-    return `
+  static readonly elementFragment = `
         id: uid
         fixedId
         name
@@ -54,13 +53,12 @@ export class ElementQueryFactory implements IQueryFactory {
           expand(_all_)
         }
         hooks {
-          ${HookQueryFactory.queryFragment()}
+          ${HookQueryFactory.hookFragment}
         }
         propMapBindings @normalize {
-          ${PropMapBindingQueryFactory.queryFragment()}
+          ${PropMapBindingQueryFactory.pmbFragment}
         }
         `
-  }
 
   /** Response is of type {@see IElement} */
   forGet(filter?: string, queryName = 'getElement'): string {
@@ -68,7 +66,7 @@ export class ElementQueryFactory implements IQueryFactory {
 
     return `{
       ${queryName}(func: type(${DgraphEntityType.Element})) ${filterString} {
-        ${ElementQueryFactory.queryFragment()}
+        ${ElementQueryFactory.elementFragment}
       }
     }`
   }
@@ -158,7 +156,7 @@ export class ElementQueryFactory implements IQueryFactory {
       }
 
       vertices(func: type(${DgraphEntityType.Element})) @filter(uid(IDS)) {
-        ${ElementQueryFactory.queryFragment()}
+        ${ElementQueryFactory.elementFragment}
       }
 
       edges(func: uid(IDS))

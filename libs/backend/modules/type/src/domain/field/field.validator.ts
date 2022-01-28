@@ -1,5 +1,6 @@
+import { IInterfaceType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { GetFieldService } from '../../use-cases/field/get-field/get-field.service'
+import { GetFieldService } from '../../use-cases/field/get-field'
 
 @Injectable()
 export class FieldValidator {
@@ -22,15 +23,15 @@ export class FieldValidator {
    * Throws Error if there is a field with the same key in that interface
    */
   async keyIsUnique(
-    interfaceId: string,
+    theInterface: IInterfaceType,
     key: string,
     existingFieldId?: string,
   ) {
-    const foundDuplicate = await this.getFieldService.execute({
-      input: { byInterface: { interfaceId, fieldKey: key } },
-    })
+    const foundDuplicate = theInterface.fields.find(
+      (f) => f.key === key && f.id !== existingFieldId,
+    )
 
-    if (foundDuplicate && foundDuplicate.id !== existingFieldId) {
+    if (foundDuplicate) {
       throw new Error(`Field with key ${key} already exists`)
     }
   }

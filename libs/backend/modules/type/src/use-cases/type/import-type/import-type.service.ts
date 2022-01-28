@@ -1,145 +1,159 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { CreateResponse } from '@codelab/backend/application'
+import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import {
-  DgraphEntityType,
   DgraphRepository,
+  ITransaction,
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
 import {
+  IArrayType,
   IField,
+  IInterfaceType,
   IType,
-  IUser,
-  typeEdgeIsField,
+  IUnionType,
   TypeKind,
+  TypeSchema,
 } from '@codelab/shared/abstract/core'
+import { EntityLike } from '@codelab/shared/abstract/types'
+import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
-import { Mutation } from 'dgraph-js-http'
-import { TypeVertex } from '../../../domain'
-import {
-  CreateFieldRequest,
-  CreateFieldService,
-} from '../../field/create-field'
-import { GetFieldService } from '../../field/get-field'
-import {
-  UpdateFieldRequest,
-  UpdateFieldService,
-} from '../../field/update-field'
-import { CreateTypeService } from '../create-type'
+import R from 'ramda'
+import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { CreateTypeInputFactory } from '../create-type/create-type-input.factory'
 import { ImportTypeRequest } from './import-type.request'
 
-// Stored by Name
-type TypesCache = Map<string, Pick<IType, 'name' | 'id'>>
+const makePlaceholder = R.pipe(
+  CreateTypeInputFactory.toCreateInput,
+  CreateTypeInputFactory.toType,
+  TypeSchema.parse.bind(TypeSchema),
+)
 
 /**
  * This service is essentially a wrapper around createField & createType. We transform the graph vertices/edges back into fields & types
  */
 @Injectable()
-export class ImportTypeservice
-  implements UseCasePort<ImportTypeRequest, CreateResponse>
-{
-  constructor(
-    private dgraph: DgraphRepository,
-    private createTypeService: CreateTypeService,
-    private getFieldService: GetFieldService,
-    private createFieldService: CreateFieldService,
-    private updateFieldService: UpdateFieldService,
-    @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
-  ) {}
+export class ImportTypeService extends DgraphUseCase<
+  ImportTypeRequest,
+  CreateResponse
+> {
+  protected override autoCommit = true
 
-  async execute(request: ImportTypeRequest): Promise<CreateResponse> {
+  constructor(
+    dgraph: DgraphRepository,
+    @Inject(ITypeRepositoryToken)
+    private typeRepository: ITypeRepository,
+    @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
+  ) {
+    super(dgraph)
+  }
+
+  protected async executeTransaction(
+    request: ImportTypeRequest,
+    txn: ITransaction,
+  ): Promise<CreateResponse> {
     const {
       input: { id, typeGraph },
-      currentUser,
     } = request
 
-    const { vertices = [], edges = [] } = typeGraph
-    const typesCache = await this.getTypesCache(vertices.map((v) => v.name))
-    const verticesMap = new Map(vertices.map((v) => [v.id, v]))
-
-    /**
-     * Create vertices and create a mapping of old to new id's
-     */
-    const verticesIdMap = await vertices.reduce(async (vertexIdMap, vertex) => {
-      // We would want to map the old vertex ids to current ids
-
-      const currentVertexId = await this.createTypeIfMissing(
-        vertex as TypeVertex,
-        currentUser,
-        typesCache,
-      )
-
-      ;(await vertexIdMap).set(vertex.id, currentVertexId)
-
-      return vertexIdMap
-    }, Promise.resolve(new Map<string, string>()))
-
-    await Promise.all(
-      edges.map(async (edge) => {
-        const sourceTypeKind = verticesMap.get(edge.source)?.typeKind
-        const sourceTypeId = verticesIdMap.get(edge.source)
-        const targetTypeId = verticesIdMap.get(edge.target)
-        let updateTypeMutation: Mutation
-
-        if (!sourceTypeKind || !sourceTypeId) {
-          throw new Error("Can't find source type for edge")
-        }
-
-        if (!targetTypeId) {
-          throw new Error('Incorrect edge target type id')
-        }
-
-        // Add field if we have an interface type
-        if (
-          sourceTypeKind === TypeKind.InterfaceType &&
-          typeEdgeIsField(edge)
-        ) {
-          if (!sourceTypeId || !targetTypeId) {
-            console.log(edge)
-            throw new Error('Incorrect interface id to assign to')
-          }
-
-          await this.upsertField(sourceTypeId, edge, targetTypeId, currentUser)
-
-          return
-        } else if (sourceTypeKind === TypeKind.ArrayType) {
-          updateTypeMutation = CreateTypeService.createMutation(
-            {
-              input: {
-                arrayType: {
-                  itemTypeId: targetTypeId,
-                },
-              },
-              currentUser,
-            },
-            sourceTypeId,
-          )
-        } else if (sourceTypeKind === TypeKind.UnionType) {
-          updateTypeMutation = CreateTypeService.createMutation(
-            {
-              input: {
-                unionType: {
-                  typeIdsOfUnionType: [targetTypeId],
-                },
-              },
-              currentUser,
-            },
-            sourceTypeId,
-          )
-        } else {
-          throw new Error(`Unknown source type kind of edge ${sourceTypeKind}`)
-        }
-
-        await this.dgraph.transactionWrapper(async (txn) => {
-          await txn.mutate(updateTypeMutation)
-
-          await txn.commit()
-        })
-      }),
+    // Get all types that we already have and create placeholders for the ones we don't
+    const { payloadIdToType } = await this.getExistingTypesOrCreatePlaceholders(
+      typeGraph.vertices ?? [],
+      txn,
     )
 
-    const interfaceId = verticesIdMap.get(id)
+    // Update all existing and placeholder types as needed
+    const tree = new TypeTree(typeGraph)
+
+    // We need to update only types that have relationships to other types
+    // the rest is handled by the placeholder creation
+    const typesToUpdate = tree.getAllVertices(
+      (t) =>
+        t.typeKind === TypeKind.UnionType ||
+        t.typeKind === TypeKind.InterfaceType ||
+        t.typeKind === TypeKind.ArrayType,
+    )
+
+    const getActualId = (typeId: string) => {
+      const actualId = payloadIdToType.get(typeId)?.id
+
+      if (!actualId) {
+        throw new Error(
+          `Type ${typeId} not found and a placeholder was not created`,
+        )
+      }
+
+      return actualId
+    }
+
+    for (const typeToUpdate of typesToUpdate) {
+      const actualTypeToUpdateId = getActualId(typeToUpdate.id)
+      const kind = typeToUpdate.typeKind
+
+      if (kind === TypeKind.InterfaceType) {
+        let newFields: Array<IField> = typeToUpdate.fields
+
+        if (!newFields?.length) {
+          // for backwards compatibility
+          newFields = tree.getFields(typeToUpdate.id)
+        }
+
+        const updated: IInterfaceType = {
+          ...typeToUpdate,
+          id: actualTypeToUpdateId,
+          fields: newFields.map((f) => ({
+            ...f,
+            source: getActualId(f.source),
+            target: getActualId(f.target),
+            id: '',
+          })),
+        }
+
+        await this.typeRepository.update(updated, txn)
+        continue
+      }
+
+      if (kind === TypeKind.ArrayType) {
+        const itemId =
+          typeToUpdate.itemType?.id ??
+          tree.getArrayItemType(typeToUpdate.id)?.id // for backwards compatibility
+
+        const actualItemId = getActualId(itemId)
+
+        const updated: IArrayType = {
+          ...typeToUpdate,
+          id: actualTypeToUpdateId,
+          itemType: { id: actualItemId },
+        }
+
+        await this.typeRepository.update(updated, txn)
+        continue
+      }
+
+      if (kind === TypeKind.UnionType) {
+        let newTypesOfUnionType: Array<EntityLike> =
+          typeToUpdate.typesOfUnionType
+
+        if (!newTypesOfUnionType?.length) {
+          // for backwards compatibility
+          newTypesOfUnionType = tree.getUnionItemTypes(typeToUpdate.id)
+        }
+
+        const updated: IUnionType = {
+          ...typeToUpdate,
+          id: actualTypeToUpdateId,
+          typesOfUnionType: newTypesOfUnionType.map((t) => ({
+            id: getActualId(t.id),
+          })),
+        }
+
+        await this.typeRepository.update(updated, txn)
+        continue
+      }
+
+      throw new Error(`Unknown source type kind of edge ${kind}`)
+    }
+
+    const interfaceId = payloadIdToType.get(id)?.id
 
     if (!interfaceId) {
       throw new Error('Seeder not returning an interface')
@@ -148,109 +162,78 @@ export class ImportTypeservice
     return { id: interfaceId }
   }
 
-  private async getTypesCache(names: Array<string>): Promise<TypesCache> {
-    return this.dgraph.transactionWrapper(async (txn) => {
-      const items = await this.dgraph.getAllNamed<Pick<IType, 'name' | 'id'>>(
-        txn,
-        `{
-           q(func: type(${
-             DgraphEntityType.Type
-           })) @filter(has(name) AND eq(name, ["${names.join('","')}"])) {
-              id: uid
-              name
-           }
-      }`,
-        'q',
-      )
-
-      return new Map(items.map((item) => [item.name, item]))
-    })
-  }
-
   /**
-   * Returns existing type id if already existing, otherwise return created id
+   * Gets all existing types by name
+   * Creates placeholder types for missing types
+   * Placeholder types are created with the minimal required fields for the given type
+   *
+   * @returns a map of the payload type id and the placeholder/existing type
    */
-  private async createTypeIfMissing(
-    vertex: TypeVertex,
-    currentUser: IUser,
-    typesCache: TypesCache,
+  private async getExistingTypesOrCreatePlaceholders(
+    payloadTypes: Array<IType>,
+    transaction: ITransaction,
   ) {
-    // this.logger.debug(vertex, 'Create or Get')
+    const existingByName = await this.getExistingTypesByName(
+      payloadTypes,
+      transaction,
+    )
 
-    const typeData = CreateTypeInputFactory.toCreateInput(vertex)
-    // We assume name is constant for primitive
-    const existingType = typesCache.get(typeData.name)
+    const payloadIdToType = await this.createTypesIfMissing(
+      payloadTypes,
+      existingByName,
+      transaction,
+    )
 
-    if (existingType) {
-      return existingType.id
-    }
-
-    const createdType = await this.createTypeService.execute({
-      input: typeData,
-      currentUser,
-    })
-
-    // this.logger.debug(createdType.id, 'Type Created')
-
-    return createdType.id
+    return { payloadIdToType }
   }
 
-  private async upsertField(
-    interfaceId: string,
-    edge: IField,
-    existingTypeId: string,
-    currentUser: IUser,
-  ) {
-    if (!edge?.key) {
-      throw new Error('Missing key')
-    }
+  private async createTypesIfMissing(
+    payloadTypes: Array<IType>,
+    existingByName: Map<string, IType>,
+    transaction: ITransaction,
+  ): Promise<Map<string, IType>> {
+    const payloadIdToType = new Map<string, IType>()
+    const getExisting = (type: IType) => existingByName.get(type.name)
 
-    // Check if field exists already
-    const existingField = await this.getFieldService.execute({
-      input: {
-        byInterface: {
-          interfaceId,
-          fieldKey: edge?.key ?? '',
-        },
-      },
-    })
+    await Promise.all(
+      payloadTypes.map(async (payloadType) => {
+        const existing = getExisting(payloadType)
 
-    if (existingField) {
-      const updateFieldInput: UpdateFieldRequest = {
-        input: {
-          fieldId: existingField.id,
-          updateData: {
-            key: edge.key,
-            description: edge.description ?? '',
-            name: edge.name ?? '',
-            type: {
-              existingTypeId: existingField.target,
-            },
-          },
-        },
-        currentUser,
-      }
+        if (existing) {
+          payloadIdToType.set(payloadType.id, existing)
 
-      await this.updateFieldService.execute(updateFieldInput)
+          return
+        }
 
-      return existingField.id
-    }
+        const placeholder = makePlaceholder(payloadType)
 
-    const createFieldInput: CreateFieldRequest = {
-      input: {
-        key: edge?.key,
-        name: `${edge?.name}`,
-        description: `${edge?.description}`,
-        interfaceId,
-        type: {
-          existingTypeId,
-        },
-      },
-      currentUser,
-    }
+        const { id } = await this.typeRepository.create(
+          placeholder,
+          transaction,
+        )
 
-    const { id } = await this.createFieldService.execute(createFieldInput)
+        const created = await this.typeRepository.getOne(id, transaction)
 
-    return id
+        if (!created) {
+          throw new Error('Type not created')
+        }
+
+        payloadIdToType.set(payloadType.id, created)
+      }),
+    )
+
+    return payloadIdToType
+  }
+
+  private async getExistingTypesByName(
+    payloadTypes: Array<IType>,
+    transaction: ITransaction,
+  ): Promise<Map<string, IType>> {
+    const existingTypes = await this.typeRepository.getTypesByExactNames(
+      payloadTypes.map((type) => type.name),
+      transaction,
+    )
+
+    return new Map(existingTypes.map((e) => [e.name, e]))
   }
 }

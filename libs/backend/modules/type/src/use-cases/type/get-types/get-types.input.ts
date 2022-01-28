@@ -1,37 +1,25 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { Field, InputType, registerEnumType } from '@nestjs/graphql'
-
-@InputType()
-export class TypesByIdsFilter {
-  @Field(() => [String])
-  declare typeIds: Array<string>
-}
+import { ITypesWhere } from '../../../infrastructure'
 
 registerEnumType(TypeKind, { name: 'TypeKind' })
 
-@InputType()
-export class TypesByKindFilter {
-  @Field(() => TypeKind)
-  declare kind: TypeKind
-}
-
-@InputType()
-export class TypesByNameFilter {
-  @Field()
-  declare name: string
-}
-
 @InputType({
-  description:
-    'Filters are optional and you can provide all three of them together',
+  description: 'Provide exactly no more than 1 filter',
 })
+export class TypesWhereInput implements ITypesWhere {
+  @Field(() => [String], { nullable: true })
+  declare ids?: Array<string>
+
+  @Field(() => TypeKind, { nullable: true })
+  declare kind?: TypeKind
+
+  @Field(() => String, { nullable: true })
+  declare name?: string
+}
+
+@InputType()
 export class GetTypesInput {
-  @Field(() => TypesByIdsFilter, { nullable: true })
-  declare byIds?: TypesByIdsFilter
-
-  @Field(() => TypesByKindFilter, { nullable: true })
-  declare byKind?: TypesByKindFilter
-
-  @Field(() => TypesByNameFilter, { nullable: true })
-  declare byName?: TypesByNameFilter
+  @Field(() => TypesWhereInput, { nullable: true })
+  declare where?: TypesWhereInput
 }

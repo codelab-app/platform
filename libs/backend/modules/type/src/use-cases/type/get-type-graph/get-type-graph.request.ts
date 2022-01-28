@@ -1,3 +1,5 @@
-import { GetTypeRequest } from '../get-type/get-type.request'
+import { GetTypeGraphInput } from './get-type-graph.input'
 
-export type GetTypeGraphRequest = GetTypeRequest
+export interface GetTypeGraphRequest {
+  input: GetTypeGraphInput
+}

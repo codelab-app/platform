@@ -2,7 +2,6 @@ import { IType, TypeKind } from '@codelab/shared/abstract/core'
 import { createUnionType } from '@nestjs/graphql'
 import { AppType } from './app-type.model'
 import { ArrayType } from './array-type.model'
-import { ComponentType } from './component-type.model'
 import { ElementType } from './element-type.model'
 import { EnumType } from './enum-type'
 import { InterfaceType } from './interface-type.model'
@@ -23,7 +22,6 @@ const typeKindMap: Record<TypeKind, any> = {
   [TypeKind.PageType]: PageType,
   [TypeKind.LambdaType]: LambdaType,
   [TypeKind.ElementType]: ElementType,
-  [TypeKind.ComponentType]: ComponentType,
   [TypeKind.ArrayType]: ArrayType,
   [TypeKind.PrimitiveType]: PrimitiveType,
   [TypeKind.ReactNodeType]: ReactNodeType,
@@ -37,7 +35,6 @@ export const TypeVertex = createUnionType({
     EnumType,
     PrimitiveType,
     ArrayType,
-    ComponentType,
     ElementType,
     InterfaceType,
     LambdaType,

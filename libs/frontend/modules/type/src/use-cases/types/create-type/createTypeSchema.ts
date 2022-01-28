@@ -111,10 +111,6 @@ export const mapCreateTypeSchemaToTypeInput = (
           language: formData.language,
         },
       }
-    case TypeKind.ComponentType:
-      return {
-        ...baseCreateTypeInput,
-      }
     case TypeKind.ElementType:
       return {
         ...baseCreateTypeInput,

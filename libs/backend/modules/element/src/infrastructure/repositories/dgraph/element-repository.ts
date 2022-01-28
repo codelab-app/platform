@@ -7,9 +7,7 @@ import {
   DgraphRepository,
   ITransaction,
   makeCreateResponse,
-  makeCreateResponses,
   mergeAndMutate,
-  randomBlankNode,
 } from '@codelab/backend/infra'
 import { HookMutationFactory } from '@codelab/backend/modules/hook'
 import {
@@ -105,30 +103,6 @@ export class ElementRepository
     })
 
     await mergeAndMutate(transaction, ...mutations)
-  }
-
-  async createAll(
-    elements: Array<IElement>,
-    transaction: ITransaction,
-  ): Promise<Array<CreateResponse>> {
-    if (!elements?.length) {
-      return []
-    }
-
-    elements = this.parseArray(elements)
-
-    const blankNodes: Array<string> = []
-
-    const mutations = elements.map((e) => {
-      const uid = randomBlankNode()
-      blankNodes.push(uid)
-
-      return this.mutationFactory.forCreate(e, uid)
-    })
-
-    const res = await mergeAndMutate(transaction, ...mutations)
-
-    return makeCreateResponses(res, blankNodes)
   }
 
   async getLastOrderInParent(

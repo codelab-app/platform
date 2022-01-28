@@ -70,8 +70,8 @@ describe('Element repository test', function () {
     transaction = transactionManager.generateTransaction()
   })
 
-  afterEach(() => {
-    transaction.discard()
+  afterEach(async () => {
+    await transaction.discard()
   })
 
   it('should be injected', () => {

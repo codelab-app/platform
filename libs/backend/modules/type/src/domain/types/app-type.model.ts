@@ -11,10 +11,7 @@ import { Type } from './type.model'
     'The AppType allows selecting a App in the props form. The value is stored as the appId ',
 })
 export class AppType extends Type<TypeKind.AppType> implements IAppType {
-  constructor({ id, name }: Pick<AppType, 'id' | 'name'>) {
-    super(TypeKind.AppType)
-
-    this.id = id
-    this.name = name
+  constructor(type: Omit<AppType, 'typeKind'>) {
+    super({ typeKind: TypeKind.AppType, ...type })
   }
 }

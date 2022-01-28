@@ -6,14 +6,24 @@ export type AtomFragment = {
   id: string
   name: string
   type: Types.AtomType
-  api: { __typename: 'InterfaceType'; id: string; name: string }
+  api: {
+    __typename: 'InterfaceType'
+    id: string
+    name: string
+    owner?: { id: string } | null | undefined
+  }
 }
 
 export type AtomBaseFragment = {
   id: string
   name: string
   type: Types.AtomType
-  api: { id: string; name: string; typeKind: Types.TypeKind }
+  api: {
+    id: string
+    name: string
+    typeKind: Types.TypeKind
+    owner?: { id: string } | null | undefined
+  }
 }
 
 export const AtomFragmentDoc = gql`
@@ -26,6 +36,9 @@ export const AtomFragmentDoc = gql`
       __typename
       id
       name
+      owner {
+        id
+      }
     }
   }
 `
@@ -38,6 +51,9 @@ export const AtomBaseFragmentDoc = gql`
       id
       name
       typeKind
+      owner {
+        id
+      }
     }
   }
 `

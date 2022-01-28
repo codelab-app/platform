@@ -64,8 +64,8 @@ export type UseEntityUseCaseForm<
   TData,
   TAction extends CombinedActionType,
   TEntity extends EntityRecord,
-  TInput = unknown,
-> = (props?: TInput) => //
+  TInput = never,
+> = (...params: TInput extends never ? [] : [TInput]) => //
 // Get form props without schema,
 Omit<FormProps<TData>, 'schema' | 'submitRef'> &
   // and form hook state

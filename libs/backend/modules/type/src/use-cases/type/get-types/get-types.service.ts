@@ -1,13 +1,8 @@
 import { DgraphUseCase } from '@codelab/backend/application'
-import { sortByIds } from '@codelab/backend/infra'
-import { IType, Role, TypeSchema } from '@codelab/shared/abstract/core'
-import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
-import {
-  getAdminTypesQuery,
-  getUserTypesQuery,
-  mapType,
-} from './get-types.query'
+import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { isAdmin, IType } from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
+import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { GetTypesRequest } from './get-types.request'
 
 @Injectable()
@@ -15,27 +10,26 @@ export class GetTypesService extends DgraphUseCase<
   GetTypesRequest,
   Array<IType>
 > {
-  protected schema = TypeSchema.array()
+  protected override autoCommit = true
 
-  //
-  protected async executeTransaction(
-    { input, currentUser }: GetTypesRequest,
-    txn: Txn,
+  constructor(
+    dgraph: DgraphRepository,
+    @Inject(ITypeRepositoryToken)
+    private typeRepository: ITypeRepository,
   ) {
-    if (currentUser.roles.includes(Role.Admin)) {
-      return await this.dgraph
-        .getAllNamed<IType>(txn, getAdminTypesQuery(input, 'query'), 'query')
-        .then(sortByIds)
-        .then((types) => types.map(mapType))
+    super(dgraph)
+  }
+
+  protected async executeTransaction(
+    request: GetTypesRequest,
+    txn: ITransaction,
+  ): Promise<Array<IType>> {
+    const { input, currentUser } = request
+
+    if (isAdmin(currentUser) || !currentUser) {
+      return this.typeRepository.getAdminTypes(input?.where, txn)
     }
 
-    return await this.dgraph
-      .getAllNamed<IType>(
-        txn,
-        getUserTypesQuery(input, currentUser.id, 'query'),
-        'query',
-      )
-      .then(sortByIds)
-      .then((types) => types.map(mapType))
+    return this.typeRepository.getUserTypes(currentUser.id, input?.where, txn)
   }
 }
