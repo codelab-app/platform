@@ -22,7 +22,6 @@ export const CreatePropMapBindingForm = ({
   elementId: initialElementId,
   providePropCompletion,
   tree,
-  submitRef,
   onSubmit,
   onSubmitSuccess,
   onSubmitError,
