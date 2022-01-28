@@ -86,7 +86,7 @@ export const useAddHookToElementForm: UseUseCaseForm<
     interfaceTree,
     reset,
     onSubmit: handleSubmit,
-    onSubmitSuccess: [reset],
+    onSubmitSuccess: [() => reset()],
     onSubmitError: [
       createNotificationHandler({
         title: 'Error while creating hook',
