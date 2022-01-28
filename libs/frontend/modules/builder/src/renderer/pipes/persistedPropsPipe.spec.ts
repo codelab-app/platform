@@ -1,5 +1,5 @@
 import { persistedPropsPipe } from './persistedPropsPipe'
-import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { elementToRender, endPipe, EndPipeOutput, primitiveType } from './test'
 import { RenderContext } from './types'
 
 const defaultContext = {} as RenderContext
@@ -36,10 +36,7 @@ describe('PersistedPropsPipe', () => {
     expect(props).toStrictEqual({
       prop01: 'prop01Value',
       prop02: 'prop02Value',
-      prop03: {
-        typeKind: 'PrimitiveType',
-        value: 'prop03Value',
-      },
+      prop03: { type: primitiveType.id, value: 'prop03Value' },
     })
   })
 })

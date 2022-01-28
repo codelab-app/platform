@@ -29,8 +29,6 @@ export const addChildToUnionType: AddTypeToSchemaFn = (
   const labelWithQuotes = label ? `"${label}" ` : ''
   const typeLabel = `${labelWithQuotes}Type`
 
-  childSchema.label = `${labelWithQuotes}Value`
-
   parentSchema.oneOf.push({
     type: 'object',
     label: '',

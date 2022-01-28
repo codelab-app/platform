@@ -8,7 +8,7 @@ export const renderPropsPipe: RenderPipeFactory =
     const renderProps = getPropsByTypeKind(
       props,
       TypeKind.RenderPropsType,
-      context,
+      context.typesById,
     )
 
     const transformedRenderProps = transformPropsToComponentFn(

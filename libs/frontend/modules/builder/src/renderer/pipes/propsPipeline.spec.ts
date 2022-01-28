@@ -1,8 +1,11 @@
 import { propsPipeline } from './renderPipeline'
-import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { elementToRender, endPipe, EndPipeOutput, primitiveType } from './test'
 import { RenderContext } from './types'
 
-const defaultContext = {} as RenderContext
+const defaultContext = {
+  typesById: { [primitiveType.id]: primitiveType },
+} as RenderContext
+
 const initialProps = {}
 
 describe('PropsPipe', () => {

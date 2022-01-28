@@ -1,8 +1,9 @@
-import { elementToRender, endPipe, EndPipeOutput } from './test'
+import { elementToRender, endPipe, EndPipeOutput, primitiveType } from './test'
 import { typedPropsPipe } from './typedPropsPipe'
 import { RenderContext } from './types'
 
-const defaultContext = {} as RenderContext
+const typesById = { [primitiveType.id]: primitiveType }
+const defaultContext = { typesById } as RenderContext
 const initialProps = JSON.parse(elementToRender.props.data)
 
 describe('TypedPropsPipe', () => {

@@ -1,11 +1,10 @@
-import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
+import { IType, PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { pickBy } from 'lodash'
-import { RenderContext } from '../pipes'
 
 export const getPropsByTypeKind = (
   props: PropsData,
   typeKind: TypeKind,
-  context: RenderContext,
+  typesById: Record<string, IType>,
 ) =>
   pickBy(props, (value: PropsData) => {
     const typeId = value?.type
@@ -14,7 +13,7 @@ export const getPropsByTypeKind = (
       return false
     }
 
-    const kind = context.typesById[typeId]?.typeKind
+    const kind = typesById[typeId]?.typeKind
 
     return kind && typeKind === kind
   })

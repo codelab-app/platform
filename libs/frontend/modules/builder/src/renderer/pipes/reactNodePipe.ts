@@ -12,7 +12,7 @@ export const reactNodePipe: RenderPipeFactory =
     const reactNodeProps = getPropsByTypeKind(
       props,
       TypeKind.ReactNodeType,
-      context,
+      context.typesById,
     )
 
     const transformedProps = transformPropsToComponentFn(

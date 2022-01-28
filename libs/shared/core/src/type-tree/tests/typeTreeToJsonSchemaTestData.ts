@@ -16,7 +16,7 @@ export const stringType = PrimitiveTypeSchema.parse({
   primitiveKind: PrimitiveTypeKind.String,
 })
 
-export const stringTypeExpectedSchema = { type: 'string', label: undefined }
+export const stringTypeExpectedSchema = { type: 'string' }
 
 export const intType = PrimitiveTypeSchema.parse({
   id: '0x3',
@@ -25,7 +25,7 @@ export const intType = PrimitiveTypeSchema.parse({
   primitiveKind: PrimitiveTypeKind.Integer,
 })
 
-export const intTypeExpectedSchema = { type: 'integer', label: undefined }
+export const intTypeExpectedSchema = { type: 'integer' }
 
 export const unionType = UnionTypeSchema.parse({
   id: '0x1',
@@ -40,10 +40,11 @@ export const unionGraph = TypeGraphFactory.unionType(unionType, [
 ])
 
 export const unionTypeExpectedSchema = {
-  label: undefined,
   oneOf: [
     {
       type: 'object',
+      typeName: stringType.name,
+      label: '',
       properties: {
         value: stringTypeExpectedSchema,
         type: {
@@ -57,6 +58,8 @@ export const unionTypeExpectedSchema = {
     },
     {
       type: 'object',
+      label: '',
+      typeName: intType.name,
       properties: {
         value: intTypeExpectedSchema,
         type: {
