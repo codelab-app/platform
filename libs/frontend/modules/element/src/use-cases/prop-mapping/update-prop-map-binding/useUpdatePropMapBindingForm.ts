@@ -17,6 +17,7 @@ import {
 export const useUpdatePropMapBindingForm: UseUseCaseForm<
   UpdatePropMapBindingData,
   CRUDActionType,
+  unknown,
   string
 > = (elementId) => {
   const { resetModal } = usePropMapBindingDispatch()

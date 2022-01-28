@@ -28,6 +28,7 @@ const mapVariables = ({
 export const useCreateElementForm: UseUseCaseForm<
   CreateElementInput,
   CRUDActionType,
+  unknown,
   ParentElementId
 > = (initialData) => {
   const { createMetadata, actionType } = useElementState()

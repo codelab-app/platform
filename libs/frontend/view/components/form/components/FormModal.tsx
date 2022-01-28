@@ -1,23 +1,14 @@
 import {
   FormModalProps,
-  PropsWithRenderChildren,
-  RenderChildren,
   SubmitController,
-  SubmitRef,
 } from '@codelab/frontend/abstract/types'
-import { useHookWithRefCallback } from '@codelab/frontend/shared/utils'
 import { Maybe } from '@codelab/shared/abstract/types'
-import Modal, { ModalProps } from 'antd/lib/modal'
-import React, {
-  cloneElement,
-  forwardRef,
-  PropsWithChildren,
-  ReactElement,
-  useImperativeHandle,
-  useRef,
-} from 'react'
+import Modal from 'antd/lib/modal'
+import React, { PropsWithChildren, useRef } from 'react'
 
-export const FormModal = <TData extends Record<string, unknown>>({
+export const FormModal = <
+  TData extends Record<string, unknown> = Record<string, unknown>,
+>({
   okButtonProps,
   onOk,
   onCancel,

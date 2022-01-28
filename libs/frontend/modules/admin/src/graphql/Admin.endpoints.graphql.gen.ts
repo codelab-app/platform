@@ -19,9 +19,7 @@ export type ExecuteCommandMutationVariables = Types.Exact<{
   input: Types.ExecuteCommandInput
 }>
 
-export type ExecuteCommandMutation = {
-  executeCommand?: void | null | undefined
-}
+export type ExecuteCommandMutation = { executeCommand: { payload: string } }
 
 export const ResetDataGql = gql`
   mutation ResetData {
@@ -35,7 +33,9 @@ export const SeedBaseTypesGql = gql`
 `
 export const ExecuteCommandGql = gql`
   mutation executeCommand($input: ExecuteCommandInput!) {
-    executeCommand(input: $input)
+    executeCommand(input: $input) {
+      payload
+    }
   }
 `
 

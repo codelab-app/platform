@@ -1016,6 +1016,22 @@ export interface IMutation {
     createField(input: CreateFieldInput): Field | Promise<Field>;
     updateField(input: UpdateFieldInput): Nullable<Field> | Promise<Nullable<Field>>;
     deleteField(input: DeleteFieldInput): Nullable<Field> | Promise<Nullable<Field>>;
+    createPage(input: CreatePageInput): Page | Promise<Page>;
+    deletePage(input: DeletePageInput): Page | Promise<Page>;
+    updatePage(input: UpdatePageInput): Page | Promise<Page>;
+    upsertUser(input: UpsertUserInput): User | Promise<User>;
+    deleteUser(input: DeleteUserInput): boolean | Promise<boolean>;
+    resetData(): Nullable<Void> | Promise<Nullable<Void>>;
+    executeCommand(input: ExecuteCommandInput): PayloadResponse | Promise<PayloadResponse>;
+    createLambda(input: CreateLambdaInput): Lambda | Promise<Lambda>;
+    deleteLambda(input: DeleteLambdaInput): Lambda | Promise<Lambda>;
+    updateLambda(input: UpdateLambdaInput): Nullable<Lambda> | Promise<Nullable<Lambda>>;
+    executeLambda(input: ExecuteLambdaInput): Nullable<LambdaPayload> | Promise<Nullable<LambdaPayload>>;
+    createTag(input: CreateTagInput): Tag | Promise<Tag>;
+    updateTag(input: UpdateTagInput): Nullable<Tag> | Promise<Nullable<Tag>>;
+    deleteTags(input: DeleteTagsInput): Nullable<Tag[]> | Promise<Nullable<Tag[]>>;
+    upsertTag(input: UpsertTagInput): Tag | Promise<Tag>;
+    importTags(input: ImportTagsInput): Nullable<Void> | Promise<Nullable<Void>>;
 }
 
 export type Void = any;

@@ -1,10 +1,9 @@
 import { ExecuteCommandActionType } from '@codelab/frontend/abstract/core'
 import { Form, FormModal } from '@codelab/frontend/view/components'
+import { ExecuteCommandInput } from '@codelab/shared/abstract/codegen'
 import { AutoFields } from 'uniforms-antd'
-import {
-  ExecuteCommandInput,
-  executeCommandSchema,
-} from './executeCommandSchema'
+import { executeCommandSchema } from './executeCommandSchema'
+import { ExecuteCommandResponse } from './types'
 import { useExecuteCommandForm } from './useExecuteCommandForm'
 
 /**
@@ -29,9 +28,11 @@ export const ExecuteCommandModal = () => {
       visible={actionType === ExecuteCommandActionType.Execute}
     >
       {({ submitRef }) => (
-        <Form<ExecuteCommandInput>
+        <Form<ExecuteCommandInput, ExecuteCommandResponse>
           model={{}}
           onSubmit={onSubmit}
+          onSubmitError={onSubmitError}
+          onSubmitSuccess={onSubmitSuccess}
           schema={executeCommandSchema}
           submitRef={submitRef}
         >

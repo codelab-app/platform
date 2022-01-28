@@ -1,14 +1,16 @@
 import { AdminActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ExecuteCommandInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { useAdminDispatch, useAdminState } from '../../hooks'
 import { useExecuteCommandMutation } from '../../store'
-import { ExecuteCommandInput } from './executeCommandSchema'
+import { ExecuteCommandResponse } from './types'
 
 export const useExecuteCommandForm: UseUseCaseForm<
   ExecuteCommandInput,
-  AdminActionType
+  AdminActionType,
+  ExecuteCommandResponse
 > = () => {
   const { openExecuteCommandModal, resetModal } = useAdminDispatch()
   const { actionType } = useAdminState()
@@ -23,21 +25,35 @@ export const useExecuteCommandForm: UseUseCaseForm<
 
   const onSubmit = useCallback(
     (input: ExecuteCommandInput) => {
-      console.log(input)
+      createNotificationHandler({
+        title: 'Executing Command',
+        type: 'info',
+        content: input.command,
+      })()
 
       return mutate({ variables: { input } }).unwrap()
     },
     [mutate],
   )
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while creating atom',
-  })
-
   return {
     onSubmit,
-    onSubmitError: [onSubmitError],
-    onSubmitSuccess: [() => resetModal()],
+    onSubmitError: [
+      createNotificationHandler({
+        title: 'Error while creating atom',
+        type: 'error',
+      }),
+    ],
+    onSubmitSuccess: [
+      () => resetModal(),
+      (data) => {
+        createNotificationHandler({
+          title: 'Command Executed',
+          type: 'success',
+          content: data.executeCommand.payload,
+        })()
+      },
+    ],
     model: {},
     entity: undefined,
     isLoading: false,

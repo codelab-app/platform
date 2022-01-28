@@ -1,4 +1,3 @@
-import { ApolloError } from '@apollo/client'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { notification } from 'antd'
 import { isFunction, isString } from 'lodash'
@@ -82,7 +81,7 @@ export const useNotify = (
  * e.g.:
  *  .catch(getNotificationHandler({...options}))
  */
-export const createNotificationHandler = <TEvent extends ApolloError>(
+export const createNotificationHandler = <TEvent>(
   o: NotificationOptions<TEvent> = defaultOptions,
 ) => {
   return (e: Maybe<TEvent> = undefined) => {

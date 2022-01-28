@@ -12,12 +12,12 @@ import { useHookDispatch, useHookState } from '../../../hooks'
 import { useAddHookToElementMutation } from '../../../store'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'
 
-export const useAddHookToElementForm: UseUseCaseForm<
-  any,
-  CRUDActionType,
-  string,
+type UseAddHookToElementForm = (
+  elementId: string,
+) => ReturnType<UseUseCaseForm<any, CRUDActionType, unknown, string>> &
   InterfaceProps
-> = (elementId) => {
+
+export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
   const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
   const { selectedType, actionType } = useHookState()
   const { data: atomsData } = useGetAtomsTypeHookForSelectQuery()
@@ -53,11 +53,11 @@ export const useAddHookToElementForm: UseUseCaseForm<
     return type ? { elementId, type, config } : undefined
   }
 
-  const handleSubmit = (submitData: AddHookToElementMutationInput) => {
+  const onSubmit = (submitData: AddHookToElementMutationInput) => {
     const input = mapFormDataToMutationInput(submitData)
 
     if (!input) {
-      return
+      return Promise.resolve()
     }
 
     return mutate({ variables: { input } }).unwrap()
@@ -85,8 +85,8 @@ export const useAddHookToElementForm: UseUseCaseForm<
     },
     interfaceTree,
     reset,
-    onSubmit: handleSubmit,
-    onSubmitSuccess: [() => reset()],
+    onSubmit,
+    onSubmitSuccess: [() => resetModal()],
     onSubmitError: [
       createNotificationHandler({
         title: 'Error while creating hook',

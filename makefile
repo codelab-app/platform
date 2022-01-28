@@ -20,15 +20,12 @@ terraform-lint:
 build-dev-affected:
 	 ./scripts/nx.sh affected:build \
 		--configuration test \
-		--parallel
 #		--verbose \
 
 build-ci:
 	npx nx run-many --target=build \
 		--projects=api,web,cmd,cli,tools-rtk-query \
 		--configuration=ci \
-		--parallel \
-		--max-parallel=3 \
 		--verbose
 
 build-storybook:
@@ -46,8 +43,6 @@ lint-commit-ci:
 lint-eslint-ci:
 	yarn nx affected:lint \
 		--configuration=ci \
-		--parallel \
-		--maxParallel=5 \
 		--quiet && \
 		npx prettier --check '**/*.{graphql,yaml,json}'
 
@@ -99,15 +94,12 @@ test-dev-affected:
 unit-dev-affected:
 	./scripts/nx.sh affected:test \
 		--testPathPattern="[^i].spec.ts" \
-		--silent \
 		--memoryLimit=4096 \
-		--parallel=3 \
 		--color
 
 unit-ci:
 	npx nx affected:test \
 		--testPathPattern="[^i].spec.ts" \
-		--parallel \
 		--verbose \
 		--color
 # --detectOpenHandles
@@ -118,6 +110,5 @@ unit-debug:
 		--testPathPattern="[^i].spec.ts" \
 		--target=test \
 		--all \
-		--parallel \
 		--verbose \
 		--color

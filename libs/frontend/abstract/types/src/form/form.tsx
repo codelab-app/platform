@@ -1,22 +1,21 @@
-import { FetchResult } from '@apollo/client'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
 import React from 'react'
 import { AutoFormProps, Bridge } from 'uniforms'
 import { Callback } from '../utils'
 
-export type FormProps<TData> = {
+export type FormProps<TData, TResponse = unknown> = {
   /**
    * Called after a successful submit
    */
-  onSubmitSuccess?: Array<Maybe<Callback<FetchResult<any>>>>
+  onSubmitSuccess?: Array<Callback<TResponse, void>>
 
   /**
    * Called after a failed submit
    */
-  onSubmitError?: Array<Maybe<Callback<any>>>
+  onSubmitError?: Array<Callback<TResponse, void>>
 
-  onSubmit: (model: TData) => Promise<any> | void
+  onSubmit: (model: TData) => Promise<TResponse | void>
 
   /**
    * Schema used for form generation.
