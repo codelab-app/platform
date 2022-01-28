@@ -16,6 +16,9 @@ export const InterfaceForm = <TData,>({
   onSubmit,
   schema,
   onChange,
+  submitRef,
+  onSubmitError,
+  onSubmitSuccess,
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
   const formChangedKey = useRef('')
   const [formSchema, setFormSchema] = useState<Bridge>(schema)
@@ -70,8 +73,10 @@ export const InterfaceForm = <TData,>({
       onChange={onFormChange}
       onChangeModel={onChangeModel}
       onSubmit={onSubmit}
+      onSubmitError={onSubmitError}
+      onSubmitSuccess={onSubmitSuccess}
       schema={formSchema}
-      submitRef={undefined}
+      submitRef={submitRef}
     >
       {children}
     </Form>

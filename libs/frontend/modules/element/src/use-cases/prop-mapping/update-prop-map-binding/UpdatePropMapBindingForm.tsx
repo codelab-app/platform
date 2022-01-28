@@ -1,13 +1,8 @@
-import { FormProps, UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
+import { UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
 import { SelectDescendantElement } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
-import {
-  CreatePropMapBindingInput,
-  UpdatePropMapBindingData,
-  UpdatePropMapBindingInput,
-} from '@codelab/shared/abstract/codegen'
-import { ElementTree } from '@codelab/shared/core'
+import { UpdatePropMapBindingData } from '@codelab/shared/abstract/codegen'
 import React, { useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { PropMapBindingProps } from '../create-prop-map-binding'
@@ -25,6 +20,7 @@ export const UpdatePropMapBindingForm = ({
   model,
   onSubmitSuccess,
   onSubmitError,
+  submitRef,
 }: UpdatePropMapBindingFormProps) => {
   const [propCompleteOptions, setPropCompleteOptions] = useState<
     Array<{ label: string; value: string }>
@@ -48,7 +44,7 @@ export const UpdatePropMapBindingForm = ({
       onSubmitError={onSubmitError}
       onSubmitSuccess={onSubmitSuccess}
       schema={updatePropMapBindingSchema}
-      submitRef={undefined}
+      submitRef={submitRef}
     >
       <AutoFields omitFields={['sourceKey', 'targetElementId', 'targetKey']} />
       <AutoCompleteField

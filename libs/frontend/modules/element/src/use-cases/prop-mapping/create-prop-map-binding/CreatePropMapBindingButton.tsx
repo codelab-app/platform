@@ -8,9 +8,9 @@ export const CreatePropMapBindingButton = () => {
 
   return (
     <Button
-      type="primary"
-      onClick={() => openCreateModal()}
       icon={<PlusOutlined />}
+      onClick={() => openCreateModal()}
+      type="primary"
     >
       Add Map Binding
     </Button>

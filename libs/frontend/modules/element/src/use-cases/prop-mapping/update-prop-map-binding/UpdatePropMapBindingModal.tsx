@@ -2,12 +2,8 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { FormModal } from '@codelab/frontend/view/components'
 import React from 'react'
 import tw from 'twin.macro'
-import { usePropMapBindingState } from '../../../hooks'
 import { PropMapBindingProps } from '../create-prop-map-binding'
-import {
-  UpdatePropMapBindingForm,
-  UpdatePropMapBindingFormProps,
-} from './UpdatePropMapBindingForm'
+import { UpdatePropMapBindingForm } from './UpdatePropMapBindingForm'
 import { useUpdatePropMapBindingForm } from './useUpdatePropMapBindingForm'
 
 export const UpdatePropMapBindingModal = ({

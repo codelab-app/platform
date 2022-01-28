@@ -1,4 +1,4 @@
-import { FormProps, UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
+import { UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
 import { SelectDescendantElement } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { AutoCompleteField, Form } from '@codelab/frontend/view/components'
@@ -25,6 +25,7 @@ export const CreatePropMapBindingForm = ({
   onSubmit,
   onSubmitSuccess,
   onSubmitError,
+  submitRef,
 }: CreatePropMapBindingFormProps) => {
   const [propCompleteOptions, setPropCompleteOptions] = useState<
     Array<{ label: string; value: string }>
@@ -52,7 +53,7 @@ export const CreatePropMapBindingForm = ({
       onSubmitError={onSubmitError}
       onSubmitSuccess={onSubmitSuccess}
       schema={createPropMapBindingSchema}
-      submitRef={undefined}
+      submitRef={submitRef}
     >
       <AutoFields omitFields={['sourceKey', 'targetElementId', 'targetKey']} />
 
