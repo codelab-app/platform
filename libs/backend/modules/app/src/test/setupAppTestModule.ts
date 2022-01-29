@@ -1,4 +1,3 @@
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { AtomModule } from '@codelab/backend/modules/atom'
 import { PageModule } from '@codelab/backend/modules/page'
 import {

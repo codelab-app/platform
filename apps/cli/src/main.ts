@@ -3,8 +3,11 @@
  */
 import { hideBin } from 'yargs/helpers'
 import yargs from 'yargs/yargs'
-import { Env, ENV_FLAG, envOption } from './utils/env'
+import { Env } from './utils/env'
+import { requireEnvOptions, requireTestEnvOptions } from './utils/options'
 import { runCli } from './utils/run-cli'
+import { runTasks } from './utils/run-tasks'
+import { Tasks } from './utils/tasks'
 
 /**
  * We create wrapper around our cli commands so we can load env vars as needed. Calling nx will automatically load `.env`, we'll have to wait until this PR gets published to nrwl https://github.com/nrwl/nx/issues/5426
@@ -14,28 +17,48 @@ import { runCli } from './utils/run-cli'
 yargs(hideBin(process.argv))
   .scriptName('cli')
   //
+  // Test
+  //
+  .command(
+    'tasks',
+    'Run tests',
+    (_yargs) =>
+      _yargs
+        .command(Tasks.Unit, 'Run unit tests', requireTestEnvOptions, (argv) =>
+          runTasks(argv.env, `${argv._[1]}`),
+        )
+        .command(
+          Tasks.Int,
+          'Run integration tests',
+          requireTestEnvOptions,
+          (argv) => runTasks(argv.env, `${argv._[1]}`),
+        )
+        .command(Tasks.E2e, 'Run e2e tests', requireTestEnvOptions, (argv) =>
+          runTasks(argv.env, `${argv._[1]}`),
+        )
+        .command(Tasks.Lint, 'Lint projects', requireTestEnvOptions, (argv) =>
+          runTasks(argv.env, `${argv._[1]}`),
+        )
+        .command(
+          Tasks.Commitlint,
+          'Commitlint projects',
+          requireTestEnvOptions,
+          (argv) => runTasks(argv.env, `${argv._[1]}`, `${argv._[2]}`),
+        )
+        .command(Tasks.Build, 'Build projects', requireTestEnvOptions, (argv) =>
+          runTasks(argv.env, `${argv._[1]}`),
+        )
+        .demandCommand(1, 'Please provide a task').argv,
+  )
+
+  //
   // Codegen
   //
   .command(
     'codegen',
     'Generate typescript types from GraphQL files',
-    (_yargs) =>
-      _yargs
-        .option(ENV_FLAG, envOption)
-        .demandOption([ENV_FLAG], 'Please provide an environment'),
-    (argv) => runCli(argv.env as any, `${argv._[0]} --env ${argv.env}`),
-  )
-  //
-  // E2e
-  //
-  .command(
-    'e2e',
-    'Run Cypress e2e specs, will start servers as needed',
-    (_yargs) =>
-      _yargs
-        .option(ENV_FLAG, envOption)
-        .demandOption([ENV_FLAG], 'Please provide an environment'),
-    (argv) => runCli(argv.env as any, `${argv._[0]} --env ${argv.env}`),
+    requireEnvOptions,
+    (argv) => runCli(argv.env, `${argv._[0]} --env ${argv.env}`),
   )
   //
   // Scrape
@@ -56,15 +79,6 @@ yargs(hideBin(process.argv))
     (argv) => runCli(Env.Dev, `${argv._[0]} --env ${Env.Dev}`),
   )
   //
-  // Start
-  //
-  .command(
-    'start',
-    'Start running development environment',
-    (_yargs) => _yargs,
-    (argv) => runCli(Env.Dev, `${argv._[0]}`),
-  )
-  //
   // Dgraph
   //
   .command(
@@ -72,34 +86,15 @@ yargs(hideBin(process.argv))
     'Run dgraph related command',
     (_yargs) =>
       _yargs
-        // .check((argv, options) => {
-        //   console.log(argv, options)
-        // })
         .command(
           'update-schema',
           'Update dgraph scheme',
-          (__yargs) =>
-            __yargs
-              .option(ENV_FLAG, envOption)
-              .demandOption([ENV_FLAG], 'Please provide an environment'),
+          requireEnvOptions,
           (argv) =>
-            runCli(
-              argv.env as any,
-              `${argv._[0]} ${argv._[1]} --env ${argv.env}`,
-            ),
+            runCli(argv.env, `${argv._[0]} ${argv._[1]} --env ${argv.env}`),
         )
-        .command(
-          'reset-data',
-          'Reset dgraph data',
-          (__yargs) =>
-            __yargs
-              .option(ENV_FLAG, envOption)
-              .demandOption([ENV_FLAG], 'Please provide an environment'),
-          (argv) =>
-            runCli(
-              argv.env as any,
-              `${argv._[0]} ${argv._[1]} --env ${argv.env}`,
-            ),
+        .command('reset-data', 'Reset dgraph data', requireEnvOptions, (argv) =>
+          runCli(argv.env, `${argv._[0]} ${argv._[1]} --env ${argv.env}`),
         )
         .demandCommand(1, 'Please provide a dgraph command').argv,
   )

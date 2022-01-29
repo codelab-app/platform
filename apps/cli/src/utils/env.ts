@@ -8,8 +8,25 @@ export enum Env {
   Ci = 'ci',
 }
 
-export const envOption: Options = {
+/**
+ * Environment for running commands
+ */
+export const envOptions: Options = {
   type: 'string',
   choices: Object.values(Env),
+  describe: 'Used to load proper `.env`',
+}
+
+export enum TaskEnv {
+  Test = 'test',
+  Ci = 'ci',
+}
+
+/**
+ * Environment for running tests
+ */
+export const taskEnvOptions: Options = {
+  type: 'string',
+  choices: Object.values(TaskEnv),
   describe: 'Used to load proper `.env`',
 }

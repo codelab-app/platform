@@ -39,6 +39,7 @@ executor-config: &executor-config
     NODE_OPTIONS: --max_old_space_size=16384
     NODE_ENV: production
     CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
+    NX_CLOUD_DISTRIBUTED_EXECUTION: 'true'
   working_directory: ~/project
 
 version: 2.1
@@ -132,6 +133,9 @@ commands:
             source $BASH_ENV
       - nx/set-shas:
           main-branch-name: master
+      - run:
+          command: npx nx-cloud start-agent
+          no_output_timeout: 60m
 
   package-install-dev:
     steps:
@@ -202,7 +206,7 @@ jobs:
           command: echo $NX_HEAD
       - run:
           name: 'Build CI'
-          command: make build-ci
+          command: yarn cli tasks build --env ci
       # - run:
       #     name: 'Clear Cache'
       #     command: |
@@ -222,6 +226,13 @@ jobs:
             - project/dist
       - notify-failure
 
+  agent:
+    <<: *executor-params
+    steps:
+      - run:
+          command: npx nx-cloud start-agent
+          no_output_timeout: 60m
+
   lint:
     <<: *executor-params
     environment:
@@ -229,14 +240,14 @@ jobs:
       CIRCLE_REVISION: << pipeline.git.revision >>
     steps:
       - setup-workspace
-      - run: make lint-eslint-ci
+      - run: yarn cli tasks eslint --env ci
       # Check to see if codegen works, all files should be committed locally
       - run:
           name: 'GraphQL Codegen'
           command: yarn codegen
       - run:
           name: 'Circular Dependencies Check'
-          command: make lint-circular-dep
+          command: yarn cli tasks circular-lint --env ci
       - run:
           name: 'Commitlint'
           command: ./scripts/lint/commitlint-ci.sh
@@ -246,7 +257,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
-      - run: make unit-ci
+      - run: yarn cli tasks unit --env ci
       - notify-failure
 
   integration:
@@ -258,7 +269,7 @@ jobs:
           echo 'export CODELAB_DG_ENDPOINT=$CODELAB_INT_DG_ENDPOINT' >> $BASH_ENV
           echo 'export DG_ADMIN_API_KEY=$CODELAB_INT_DG_ADMIN_API_KEY' >> $BASH_ENV
       - setup-dgraph
-      - run: make integration-ci
+      - run: yarn cli tasks int --env ci
       - notify-failure
 
   e2e:
@@ -272,7 +283,7 @@ jobs:
       - setup-dgraph
       - run: npx cypress install
       - run: npx cypress verify
-      - run: make e2e-ci
+      - run: yarn cli tasks e2e --env ci
       - store_artifacts:
           path: ~/project/apps/web-e2e/src/videos
           destination: cypress-videos
@@ -360,6 +371,8 @@ jobs:
             	]
             }
 
+      - run: npx nx-cloud stop-all-agents
+
   build-push-docker-image-ecr:
     <<: *executor-params
     steps:
@@ -372,6 +385,12 @@ workflows:
           <<: *filters-pr
           e: docker-node
           context: CI
+      - agent:
+          name: 'agent1'
+      - agent:
+          name: 'agent2'
+      - agent:
+          name: 'agent3'
       - lint:
           <<: *filters-pr
           e: docker-node

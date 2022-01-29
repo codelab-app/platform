@@ -1,3 +1,4 @@
+import { IPropRepositoryToken } from '@codelab/backend/abstract/core'
 import { InMemoryRepository } from '@codelab/backend/infra'
 import {
   setupSimpleTestModule,
@@ -5,10 +6,7 @@ import {
 } from '@codelab/backend/shared/testing'
 import { IProp } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
-import {
-  IPropRepositoryToken,
-  PropTestInfrastructureModule,
-} from '../infrastructure'
+import { PropTestInfrastructureModule } from '../infrastructure'
 import { PropCoreModule } from '../prop.module'
 
 export const setupPropUnitTestModule = () => {

@@ -1,4 +1,11 @@
-import { ITransaction, TransactionManager } from '@codelab/backend/infra'
+import {
+  ElementExistsAndOwnerResponse,
+  GetReferencesResponse,
+  IElementRepository,
+  IElementRepositoryToken,
+  ITransaction,
+} from '@codelab/backend/abstract/core'
+import { TransactionManager } from '@codelab/backend/infra'
 import { testUserUid } from '@codelab/backend/shared/generic'
 import {
   makeTestUser,
@@ -17,12 +24,6 @@ import {
   createElement,
 } from '../../../../domain/service-helpers'
 import { ElementModule } from '../../../../element.module'
-import {
-  ElementExistsAndOwnerResponse,
-  GetReferencesResponse,
-  IElementRepository,
-  IElementRepositoryToken,
-} from '../../abstract/element-repository.interface'
 
 const testHookInput = {
   type: AtomType.HookGraphqlQuery,

@@ -1,4 +1,5 @@
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { testUserUid } from '@codelab/backend/shared/generic'
 import {
   domainRequest,
@@ -8,16 +9,16 @@ import {
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { PageModule } from '../page.module'
-import { CreatePageInput } from '../use-cases/create-page'
 import {
+  CreatePageInput,
   TestCreatePageGql,
   TestCreatePageMutation,
-} from '../use-cases/create-page/tests/create-page.api.graphql.gen'
-import { GetPageInput } from '../use-cases/get-page/get-page.input'
+} from '../use-cases/create-page'
 import {
+  GetPageInput,
   TestGetPageGql,
   TestGetPageQuery,
-} from '../use-cases/get-page/tests/get-page.api.graphql.gen'
+} from '../use-cases/get-page'
 
 export const setupPageTestModule = () => {
   const testModule = {
