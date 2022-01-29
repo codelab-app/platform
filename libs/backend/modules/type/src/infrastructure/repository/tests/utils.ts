@@ -1,6 +1,5 @@
-import { ITransaction } from '@codelab/backend/infra'
+import { ITransaction, ITypeRepository } from '@codelab/backend/abstract/core'
 import { IType } from '@codelab/shared/abstract/core'
-import { ITypeRepository } from '../type/type-repository.interface'
 
 export const typeCrudTest = async <TType extends IType>({
   initialType,
