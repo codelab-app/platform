@@ -39,7 +39,6 @@ executor-config: &executor-config
     NODE_OPTIONS: --max_old_space_size=16384
     NODE_ENV: production
     CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
-    NX_CLOUD_DISTRIBUTED_EXECUTION: 'true'
   working_directory: ~/project
 
 version: 2.1
@@ -203,7 +202,7 @@ jobs:
           command: echo $NX_HEAD
       - run:
           name: 'Build CI'
-          command: yarn cli tasks build --env ci
+          command: npx nx run-many --target=build --projects=api,web,cmd,cli,tools-rtk-query --configuration-ci --verbose
       # - run:
       #     name: 'Clear Cache'
       #     command: |
@@ -222,15 +221,6 @@ jobs:
             - project/node_modules
             - project/dist
       - notify-failure
-
-  agent:
-    <<: *executor-params
-    steps:
-      - setup-workspace
-      - package-install-dev
-      - run:
-          command: npx nx-cloud start-agent
-          no_output_timeout: 60m
 
   lint:
     <<: *executor-params
@@ -370,8 +360,6 @@ jobs:
             	]
             }
 
-      - run: npx nx-cloud stop-all-agents
-
   build-push-docker-image-ecr:
     <<: *executor-params
     steps:
@@ -384,12 +372,6 @@ workflows:
           <<: *filters-pr
           e: docker-node
           context: CI
-      - agent:
-          name: 'agent1'
-      - agent:
-          name: 'agent2'
-      - agent:
-          name: 'agent3'
       - lint:
           <<: *filters-pr
           e: docker-node
