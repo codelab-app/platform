@@ -133,9 +133,6 @@ commands:
             source $BASH_ENV
       - nx/set-shas:
           main-branch-name: master
-      - run:
-          command: npx nx-cloud start-agent
-          no_output_timeout: 60m
 
   package-install-dev:
     steps:
@@ -229,6 +226,8 @@ jobs:
   agent:
     <<: *executor-params
     steps:
+      - setup-workspace
+      - package-install-dev
       - run:
           command: npx nx-cloud start-agent
           no_output_timeout: 60m

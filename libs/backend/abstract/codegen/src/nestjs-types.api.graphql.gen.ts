@@ -418,6 +418,23 @@ export enum AtomType {
     HtmlSup = "HtmlSup"
 }
 
+export interface GetAppInput {
+    byId?: Nullable<AppByIdFilter>;
+    byPage?: Nullable<AppByPageFilter>;
+}
+
+export interface AppByIdFilter {
+    appId: string;
+}
+
+export interface AppByPageFilter {
+    pageId: string;
+}
+
+export interface ExportAppInput {
+    appId: string;
+}
+
 export interface GetElementGraphInput {
     where: WhereUniqueElement;
 }
@@ -499,6 +516,76 @@ export interface FieldByInterfaceFilter {
 
 export interface FieldByIdFilter {
     fieldId: string;
+}
+
+export interface GetPagesInput {
+    byApp: PageByAppFilter;
+}
+
+export interface PageByAppFilter {
+    appId: string;
+}
+
+export interface GetPageInput {
+    pageId: string;
+}
+
+export interface GetUserInput {
+    id?: Nullable<string>;
+    auth0Id?: Nullable<string>;
+}
+
+export interface GetUsersInput {
+    page: number;
+    perPage: number;
+    query: string;
+    sort: string;
+}
+
+export interface GetLambdaInput {
+    lambdaId: string;
+}
+
+export interface GetTagInput {
+    where: WhereUniqueTag;
+}
+
+export interface WhereUniqueTag {
+    name?: Nullable<string>;
+    id?: Nullable<string>;
+}
+
+export interface GetTagsInput {
+    ids?: Nullable<string[]>;
+}
+
+export interface GetTagGraphsInput {
+    where?: Nullable<TagsWhereInput>;
+}
+
+export interface TagsWhereInput {
+    ids?: Nullable<string[]>;
+}
+
+export interface CreateAppInput {
+    name: string;
+}
+
+export interface UpdateAppInput {
+    id: string;
+    data: UpdateAppData;
+}
+
+export interface UpdateAppData {
+    name: string;
+}
+
+export interface DeleteAppInput {
+    appId: string;
+}
+
+export interface ImportAppInput {
+    payload: string;
 }
 
 export interface CreatePropMapBindingInput {
@@ -1044,6 +1131,11 @@ export interface TagEdge {
     order?: Nullable<number>;
 }
 
+export interface TagGraph {
+    vertices: TagVertex[];
+    edges: TagEdge[];
+}
+
 export interface PropMapBinding {
     id: string;
     targetElementId?: Nullable<string>;
@@ -1081,7 +1173,35 @@ export interface ElementGraph {
     edges: ElementEdge[];
 }
 
+export interface Page {
+    id: string;
+    name: string;
+    elements?: Nullable<ElementGraph>;
+    rootElementId: string;
+}
+
+export interface App {
+    id: string;
+    ownerId: string;
+    name: string;
+    pages: Page[];
+}
+
+export interface Lambda {
+    id: string;
+    ownerId: string;
+    name: string;
+    body: string;
+}
+
+export interface LambdaPayload {
+    payload: string;
+}
+
 export interface IQuery {
+    getApp(input: GetAppInput): Nullable<App> | Promise<Nullable<App>>;
+    getApps(): App[] | Promise<App[]>;
+    exportApp(input: ExportAppInput): PayloadResponse | Promise<PayloadResponse>;
     getElementGraph(input: GetElementGraphInput): ElementGraph | Promise<ElementGraph>;
     getElement(input: GetElementInput): Nullable<Element> | Promise<Nullable<Element>>;
     getComponents(input?: Nullable<GetComponentsInput>): Element[] | Promise<Element[]>;
@@ -1093,9 +1213,24 @@ export interface IQuery {
     getTypes(input?: Nullable<GetTypesInput>): Type[] | Promise<Type[]>;
     getField(input: GetFieldInput): Nullable<Field> | Promise<Nullable<Field>>;
     getProp(): Prop | Promise<Prop>;
+    getPages(input: GetPagesInput): Page[] | Promise<Page[]>;
+    getPage(input: GetPageInput): Nullable<Page> | Promise<Nullable<Page>>;
+    getMe(): Nullable<User> | Promise<Nullable<User>>;
+    getUser(input: GetUserInput): Nullable<User> | Promise<Nullable<User>>;
+    getUsers(input?: Nullable<GetUsersInput>): User[] | Promise<User[]>;
+    getLambda(input: GetLambdaInput): Nullable<Lambda> | Promise<Nullable<Lambda>>;
+    getLambdas(): Lambda[] | Promise<Lambda[]>;
+    getTag(input: GetTagInput): Nullable<Tag> | Promise<Nullable<Tag>>;
+    getTags(input?: Nullable<GetTagsInput>): Tag[] | Promise<Tag[]>;
+    getTagGraph(): Nullable<TagGraph> | Promise<Nullable<TagGraph>>;
+    getTagGraphs(input?: Nullable<GetTagGraphsInput>): TagGraph | Promise<TagGraph>;
 }
 
 export interface IMutation {
+    createApp(input: CreateAppInput): App | Promise<App>;
+    updateApp(input: UpdateAppInput): Nullable<App> | Promise<Nullable<App>>;
+    deleteApp(input: DeleteAppInput): Nullable<App> | Promise<Nullable<App>>;
+    importApp(input: ImportAppInput): App | Promise<App>;
     createPropMapBinding(input: CreatePropMapBindingInput): PropMapBinding | Promise<PropMapBinding>;
     updatePropMapBinding(input: UpdatePropMapBindingInput): Nullable<PropMapBinding> | Promise<Nullable<PropMapBinding>>;
     deletePropMapBinding(input: DeletePropMapBindingInput): Nullable<PropMapBinding[]> | Promise<Nullable<PropMapBinding[]>>;
