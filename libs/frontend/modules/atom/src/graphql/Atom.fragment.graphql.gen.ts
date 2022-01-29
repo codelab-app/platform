@@ -6,6 +6,7 @@ export type AtomFragment = {
   id: string
   name: string
   type: Types.AtomType
+  tags: Array<string>
   api: {
     __typename: 'InterfaceType'
     id: string
@@ -18,6 +19,7 @@ export type AtomBaseFragment = {
   id: string
   name: string
   type: Types.AtomType
+  tags: Array<string>
   api: {
     id: string
     name: string
@@ -40,6 +42,7 @@ export const AtomFragmentDoc = gql`
         id
       }
     }
+    tags
   }
 `
 export const AtomBaseFragmentDoc = gql`
@@ -55,5 +58,6 @@ export const AtomBaseFragmentDoc = gql`
         id
       }
     }
+    tags
   }
 `

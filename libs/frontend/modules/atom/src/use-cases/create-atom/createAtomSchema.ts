@@ -1,6 +1,7 @@
 import { CreateAtomInput } from '@codelab/shared/abstract/codegen'
 import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
+import TreeSelectField from './helpers/TreeSelectField'
 
 export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
   title: 'Create Atom',
@@ -16,6 +17,14 @@ export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
     },
     api: {
       type: 'string',
+      nullable: true,
+    },
+    tags: {
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+      unfiorms: { component: TreeSelectField },
       nullable: true,
     },
   },

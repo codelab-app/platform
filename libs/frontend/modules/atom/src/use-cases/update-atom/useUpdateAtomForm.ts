@@ -40,6 +40,7 @@ export const useUpdateAtomForm: UseUseCaseForm<
     model: {
       name: entity?.name,
       type: entity?.type,
+      tags: entity?.tags,
     },
     isLoading,
     actionType,

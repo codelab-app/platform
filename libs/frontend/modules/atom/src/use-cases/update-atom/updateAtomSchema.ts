@@ -1,7 +1,4 @@
-import {
-  CreateAtomInput,
-  UpdateAtomInput,
-} from '@codelab/shared/abstract/codegen'
+import { CreateAtomInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 import { createAtomSchema } from '../create-atom'
 

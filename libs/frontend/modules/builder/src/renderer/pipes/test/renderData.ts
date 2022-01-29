@@ -31,6 +31,7 @@ export const elementToRender: IElement = {
       typeKind: TypeKind.InterfaceType,
       owner: null,
     },
+    tags: [],
   },
   componentTag: null,
   props: {
@@ -116,6 +117,7 @@ export const componentToRender: IElement = {
       typeKind: TypeKind.InterfaceType,
       owner: null,
     },
+    tags: [],
   },
   componentTag: {
     id: '0x3a983',
@@ -152,6 +154,7 @@ export const elementToRender03: IElement = {
       typeKind: TypeKind.InterfaceType,
       owner: null,
     },
+    tags: [],
   },
   componentTag: null,
   props: {

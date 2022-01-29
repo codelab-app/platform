@@ -30,6 +30,9 @@ export class Atom implements IAtom {
   })
   declare api: InterfaceType
 
+  @Field(() => [String], { defaultValue: [] })
+  declare tags: Array<string>
+
   /**
    * Any tags that allow us to filter, based on which UI framework for example.
    */

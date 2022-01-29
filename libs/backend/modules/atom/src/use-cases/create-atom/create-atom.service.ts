@@ -79,7 +79,7 @@ export class CreateAtomService
   }
 
   private static createMutation(
-    { type, name }: CreateAtomInput,
+    { type, name, tags }: CreateAtomInput,
     apiId: string,
     blankNodeUid: string,
   ) {
@@ -88,6 +88,7 @@ export class CreateAtomService
       'dgraph.type': [DgraphEntityType.Atom],
       atomType: type,
       name,
+      tags,
       api: { uid: apiId },
     })
   }

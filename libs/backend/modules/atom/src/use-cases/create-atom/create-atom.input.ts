@@ -14,4 +14,7 @@ export class CreateAtomInput {
     nullable: true,
   })
   declare api?: string
+
+  @Field(() => [String], { defaultValue: [], nullable: true })
+  declare tags?: Array<string>
 }

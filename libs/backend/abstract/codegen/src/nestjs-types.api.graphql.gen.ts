@@ -593,6 +593,7 @@ export interface CreateAtomInput {
     name: string;
     type: AtomType;
     api?: Nullable<string>;
+    tags?: Nullable<string[]>;
 }
 
 export interface DeleteAtomInput {
@@ -616,6 +617,7 @@ export interface UpsertAtomInput {
     name: string;
     type: AtomType;
     api?: Nullable<string>;
+    tags?: Nullable<string[]>;
     id?: Nullable<string>;
 }
 
@@ -906,6 +908,7 @@ export interface Atom {
     type: AtomType;
     name: string;
     api: InterfaceType;
+    tags: string[];
     apiGraph: TypeGraph;
 }
 

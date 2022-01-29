@@ -25,6 +25,23 @@ export class UpdateAtomService
   ): Promise<void> {
     const { atom } = await this.validate(request)
 
+    await txn.mutate({
+      mutation: `
+          upsert {
+            query {
+              getTag(func: uid(${atom.id})) {
+                tags
+              }
+            }
+            mutation {
+              delete {
+                <${atom.id}> <tags> * .
+              }
+            }
+          }
+        `,
+    })
+
     await this.dgraph.executeMutation(
       txn,
       UpdateAtomService.createMutation(request, atom),
@@ -32,13 +49,14 @@ export class UpdateAtomService
   }
 
   private static createMutation(
-    { id, data: { name, type, api } }: UpdateAtomInput,
+    { id, data: { name, type, api, tags } }: UpdateAtomInput,
     atom: IAtom,
   ) {
     return jsonMutation({
       uid: id,
       atomType: type,
       name,
+      tags,
       api: api
         ? {
             uid: api,

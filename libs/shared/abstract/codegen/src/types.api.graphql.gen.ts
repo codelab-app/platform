@@ -71,6 +71,7 @@ export type Atom = {
   id: Scalars['ID']
   /** This acts as unique ID suitable for seeder lookup */
   name: Scalars['String']
+  tags: Array<Scalars['String']>
   /** An Atom could be of HTML type <button> or <a>, or a component type of <Button> or <Link> */
   type: AtomType
 }
@@ -480,6 +481,7 @@ export type CreateAtomInput = {
   /** Pass in an existing interface ID to assign it to the atom */
   api?: InputMaybe<Scalars['String']>
   name: Scalars['String']
+  tags?: InputMaybe<Array<Scalars['String']>>
   type: AtomType
 }
 
@@ -1614,6 +1616,7 @@ export type UpsertAtomInput = {
   api?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['String']>
   name: Scalars['String']
+  tags?: InputMaybe<Array<Scalars['String']>>
   type: AtomType
 }
 

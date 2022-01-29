@@ -1,3 +1,4 @@
+import { useGetTagGraphsQuery } from '@codelab/frontend/modules/tag'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { TableColumnProps } from 'antd'
@@ -7,7 +8,7 @@ import {
 } from 'antd/lib/table/interface'
 import { AtomFragment } from '../../graphql/Atom.fragment.graphql.gen'
 import { useAtomDispatch, useAtomState } from '../../hooks'
-import { ActionColumn, LibraryColumn, PropsColumn } from './columns'
+import { ActionColumn, PropsColumn, TagsColumn } from './columns'
 
 const onLibraryFilter = (value: any, atom: AtomFragment): boolean => {
   const list = [atom.name, atom.type].map((x) => x.toLowerCase())
@@ -19,6 +20,8 @@ const onLibraryFilter = (value: any, atom: AtomFragment): boolean => {
 export const useAtomTable = () => {
   const { selectedIds } = useAtomState()
   const { setSelectedIds } = useAtomDispatch()
+  const { data } = useGetTagGraphsQuery()
+  const tagData = data?.getTagGraphs?.vertices || []
 
   const columns: Array<TableColumnProps<AtomFragment>> = [
     {
@@ -29,12 +32,12 @@ export const useAtomTable = () => {
       ...useColumnSearchProps('name'),
     },
     {
-      title: 'Library',
-      dataIndex: 'library',
-      key: 'library',
+      title: 'Tags',
+      dataIndex: 'tags',
+      key: 'tags',
       onHeaderCell: headerCellProps,
       onFilter: onLibraryFilter,
-      render: (library) => <LibraryColumn library={library} />,
+      render: (tags) => <TagsColumn tagData={tagData} tags={tags} />,
     },
     {
       title: 'Props API',

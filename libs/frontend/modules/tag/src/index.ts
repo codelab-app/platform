@@ -1,3 +1,4 @@
+export type { TagFragment } from './graphql/Tag.fragment.graphql.gen'
 export * from './hooks'
 export * from './store'
 export * from './types'

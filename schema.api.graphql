@@ -245,6 +245,7 @@ type Atom {
   Similar to props for a React component, it tells us which kind of configurations it can take
   """
   api: InterfaceType!
+  tags: [String!]!
   apiGraph: TypeGraph!
 }
 
@@ -1170,6 +1171,7 @@ input CreateAtomInput {
 
   """Pass in an existing interface ID to assign it to the atom"""
   api: String
+  tags: [String!] = []
 }
 
 input DeleteAtomInput {
@@ -1198,6 +1200,7 @@ input UpsertAtomInput {
 
   """Pass in an existing interface ID to assign it to the atom"""
   api: String
+  tags: [String!] = []
   id: String
 }
 

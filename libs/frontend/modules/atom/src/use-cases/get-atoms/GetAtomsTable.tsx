@@ -5,7 +5,7 @@ import { useGetAtomsQuery } from '../../store'
 import { useAtomTable } from './useAtomTable'
 
 export const GetAtomsTable = () => {
-  const { columns, rowSelection, pagination, selectedIds } = useAtomTable()
+  const { columns, rowSelection, pagination } = useAtomTable()
   const { data, isLoading } = useGetAtomsQuery()
   const atoms = data?.getAtoms ?? []
 

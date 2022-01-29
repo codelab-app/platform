@@ -11,6 +11,7 @@ fragment Atom on Atom {
       id
     }
   }
+  tags
 }
 
 fragment AtomBase on Atom {
@@ -25,4 +26,5 @@ fragment AtomBase on Atom {
       id
     }
   }
+  tags
 }

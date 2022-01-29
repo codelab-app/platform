@@ -7,6 +7,7 @@ export const AtomSchema = z.object({
   type: z.nativeEnum(AtomType),
   name: z.string(),
   api: BaseTypeSchema,
+  tags: z.array(z.string()).default([]),
 })
 
 export type IAtom = z.infer<typeof AtomSchema>

@@ -90,6 +90,7 @@ export class GetAtomService
           id: uid
           expand(_all_)
         }
+        tags
       }
     }`
   }
