@@ -1,8 +1,10 @@
-import { CreateResponsePort } from '@codelab/backend/abstract/core'
+import {
+  CreateResponsePort,
+  ITransaction,
+} from '@codelab/backend/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { Mutation, Response } from 'dgraph-js-http'
 import { v4 } from 'uuid'
-import { ITransaction } from '../transaction-manager'
 import { mergeMutations } from '../utils/mergeMutations'
 
 /**

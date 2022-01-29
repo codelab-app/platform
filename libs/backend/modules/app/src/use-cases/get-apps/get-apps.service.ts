@@ -1,12 +1,15 @@
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType } from '@codelab/backend/infra'
 import { AppSchema, IApp } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetAppsRequest } from './get-apps.request'
 
 @Injectable()
-export class GetAppsService extends DgraphUseCase<GetAppsRequest, Array<IApp>> {
+export class GetAppsService
+  extends DgraphUseCase<GetAppsRequest, Array<IApp>>
+  implements UseCasePort<GetAppsRequest, Array<IApp>>
+{
   protected schema = AppSchema.array()
 
   protected async executeTransaction(

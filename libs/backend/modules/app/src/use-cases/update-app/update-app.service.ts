@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
@@ -6,7 +7,10 @@ import { AppValidator } from '../../domain/app.validator'
 import { UpdateAppRequest } from './update-app.request'
 
 @Injectable()
-export class UpdateAppService extends DgraphUseCase<UpdateAppRequest> {
+export class UpdateAppService
+  extends DgraphUseCase<UpdateAppRequest>
+  implements UseCasePort<UpdateAppRequest, void>
+{
   constructor(
     protected readonly dgraphRepository: DgraphRepository,
     private appValidator: AppValidator,

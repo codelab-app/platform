@@ -1,5 +1,6 @@
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { IPage, PageSchema } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
@@ -8,10 +9,10 @@ import { PageValidator } from '../../domain/page.validator'
 import { GetPageRequest } from './get-page.request'
 
 @Injectable()
-export class GetPageService extends DgraphUseCase<
-  GetPageRequest,
-  Nullable<IPage>
-> {
+export class GetPageService
+  extends DgraphUseCase<GetPageRequest, Nullable<IPage>>
+  implements UseCasePort<GetPageRequest, Nullable<IPage>>
+{
   protected schema = PageSchema.nullable().optional()
 
   constructor(dgraph: DgraphRepository, private pageValidator: PageValidator) {

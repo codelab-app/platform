@@ -86,7 +86,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
             context.onChange(valueFieldName, formData.value)
           }}
           onSubmit={() => {
-            // ignore
+            return Promise.resolve()
           }}
           schema={valueSchema as any}
         >

@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import {
   DgraphUseCase,
   exactlyOneWhereClause,
@@ -11,10 +12,10 @@ import { GetAtomService } from '../get-atom'
 import { GetAtomsInput } from './get-atoms.input'
 
 @Injectable()
-export class GetAtomsService extends DgraphUseCase<
-  Maybe<GetAtomsInput>,
-  Array<IAtom>
-> {
+export class GetAtomsService
+  extends DgraphUseCase<Maybe<GetAtomsInput>, Array<IAtom>>
+  implements UseCasePort<Maybe<GetAtomsInput>, Array<IAtom>>
+{
   protected schema = AtomSchema.array()
 
   protected async executeTransaction(request: Maybe<GetAtomsInput>, txn: Txn) {

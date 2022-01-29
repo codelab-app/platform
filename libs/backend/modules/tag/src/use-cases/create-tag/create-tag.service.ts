@@ -1,12 +1,19 @@
-import { DgraphCreateUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, jsonMutation } from '@codelab/backend/infra'
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  CreateResponse,
+  DgraphCreateUseCase,
+} from '@codelab/backend/application'
+import { jsonMutation } from '@codelab/backend/infra'
 import { isAdmin } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { CreateTagRequest } from './create-tag.request'
 
 @Injectable()
-export class CreateTagService extends DgraphCreateUseCase<CreateTagRequest> {
+export class CreateTagService
+  extends DgraphCreateUseCase<CreateTagRequest>
+  implements UseCasePort<CreateTagRequest, CreateResponse>
+{
   protected async executeTransaction(request: CreateTagRequest, txn: Txn) {
     if (request.input.parentTagId) {
       return await this.dgraph.create(txn, (blankNodeUid) =>

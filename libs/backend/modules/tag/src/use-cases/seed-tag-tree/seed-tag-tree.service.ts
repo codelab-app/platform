@@ -1,9 +1,6 @@
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphEntityType,
-  DgraphRepository,
-  jsonMutation,
-} from '@codelab/backend/infra'
+import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
 import { TreeService } from '@codelab/shared/core'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
@@ -18,10 +15,10 @@ import { SeedTagTreeRequest } from './seed-tag-tree.request'
  *
  * @return Return existing or created tag root uid
  */
-export class SeedTagTreeService extends DgraphUseCase<
-  SeedTagTreeRequest,
-  string
-> {
+export class SeedTagTreeService
+  extends DgraphUseCase<SeedTagTreeRequest, string>
+  implements UseCasePort<SeedTagTreeRequest, string>
+{
   /**
    * Name of the Tag root, will be created via seed once.
    */

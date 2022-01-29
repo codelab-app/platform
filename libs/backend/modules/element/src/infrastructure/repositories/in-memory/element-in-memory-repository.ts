@@ -1,4 +1,10 @@
-import { CreateResponsePort } from '@codelab/backend/abstract/core'
+import {
+  ComponentWhere,
+  CreateResponsePort,
+  ElementExistsAndOwnerResponse,
+  GetReferencesResponse,
+  IElementRepository,
+} from '@codelab/backend/abstract/core'
 import { InMemoryRepository } from '@codelab/backend/infra'
 import {
   IElement,
@@ -9,12 +15,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import Fuse from 'fuse.js'
-import {
-  ComponentWhere,
-  ElementExistsAndOwnerResponse,
-  GetReferencesResponse,
-  IElementRepository,
-} from '../abstract/element-repository.interface'
 
 /**
  * In-memory implementation of {@see IElementRepository}.

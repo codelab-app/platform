@@ -1,13 +1,15 @@
-import { CreateResponsePort } from '@codelab/backend/abstract/core'
+import {
+  CreateResponsePort,
+  DgraphEntityType,
+  IBaseRepository,
+  IMutationFactory,
+  IQueryFactory,
+  ITransaction,
+} from '@codelab/backend/abstract/core'
 import { EntityLike } from '@codelab/shared/abstract/types'
 import { Txn } from 'dgraph-js-http'
 import { ZodSchema } from 'zod'
 import { DgraphRepository } from '../dgraph.repository'
-import { DgraphEntityType } from '../dgraph-entity-type'
-import { ITransaction } from '../transaction-manager'
-import { IBaseRepository } from './base-repository.interface'
-import { IMutationFactory } from './mutation-factory.interface'
-import { IQueryFactory } from './query-factory.interface'
 import { makeUidFilter, makeUidsFilter } from './query-utils'
 import {
   makeCreateResponse,

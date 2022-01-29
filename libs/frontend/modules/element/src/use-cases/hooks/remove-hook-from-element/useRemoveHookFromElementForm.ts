@@ -11,6 +11,7 @@ export const useRemoveHookFromElementForm: UseEntityUseCaseForm<
   EmptyJsonSchemaType,
   CRUDActionType,
   HookFragment,
+  unknown,
   string
 > = (elementId) => {
   const { deleteIds, entity, actionType } = useHookState()

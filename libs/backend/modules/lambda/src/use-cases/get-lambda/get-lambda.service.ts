@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { ILambda, LambdaSchema } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
@@ -7,10 +8,10 @@ import { GetLambdaInput } from './get-lambda.input'
 import { getLambdaQuery } from './get-lambda.query'
 
 @Injectable()
-export class GetLambdaService extends DgraphUseCase<
-  GetLambdaInput,
-  Nullable<ILambda>
-> {
+export class GetLambdaService
+  extends DgraphUseCase<GetLambdaInput, Nullable<ILambda>>
+  implements UseCasePort<GetLambdaInput, Nullable<ILambda>>
+{
   protected schema = LambdaSchema.nullable().optional()
 
   async executeTransaction(input: GetLambdaInput, txn: Txn) {

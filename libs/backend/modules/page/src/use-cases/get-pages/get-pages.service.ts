@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository } from '@codelab/backend/infra'
 import { IPage, PageSchema } from '@codelab/shared/abstract/core'
@@ -7,10 +8,10 @@ import { PageValidator } from '../../domain/page.validator'
 import { GetPagesRequest } from './get-pages.request'
 
 @Injectable()
-export class GetPagesService extends DgraphUseCase<
-  GetPagesRequest,
-  Array<IPage>
-> {
+export class GetPagesService
+  extends DgraphUseCase<GetPagesRequest, Array<IPage>>
+  implements UseCasePort<GetPagesRequest, Array<IPage>>
+{
   protected schema = PageSchema.array()
 
   constructor(dgraph: DgraphRepository, private pageValidator: PageValidator) {

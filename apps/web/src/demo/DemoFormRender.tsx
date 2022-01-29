@@ -25,8 +25,10 @@ const DemoFormRender = () => {
         <InterfaceForm
           interfaceTree={interfaceTree}
           model={initialPropsRef}
-          onSubmit={(data: any) => {
+          onSubmit={(data) => {
             console.log(data)
+
+            return Promise.resolve()
           }}
           submitRef={undefined}
         />

@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
@@ -5,7 +6,10 @@ import { Mutation, Txn } from 'dgraph-js-http'
 import { UpdateTagRequest } from './update-tag.request'
 
 @Injectable()
-export class UpdateTagService extends DgraphUseCase<UpdateTagRequest> {
+export class UpdateTagService
+  extends DgraphUseCase<UpdateTagRequest>
+  implements UseCasePort<UpdateTagRequest, void>
+{
   protected async executeTransaction(request: UpdateTagRequest, txn: Txn) {
     await this.dgraph.executeMutation(
       txn,

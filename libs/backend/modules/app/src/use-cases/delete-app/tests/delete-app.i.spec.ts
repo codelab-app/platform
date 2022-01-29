@@ -6,7 +6,7 @@ import {
   TestCreateAppMutation,
 } from '../../create-app/tests/create-app.api.graphql.gen'
 import { createAppInput } from '../../create-app/tests/create-app.data'
-import { GetAppInput } from '../../get-app/get-app.input'
+import { GetAppInput } from '../../get-app'
 import { DeleteAppInput } from '../delete-app.input'
 import {
   TestDeleteAppGql,

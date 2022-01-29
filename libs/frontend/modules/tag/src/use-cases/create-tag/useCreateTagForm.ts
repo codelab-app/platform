@@ -9,6 +9,7 @@ import { useCreateTagMutation } from '../../store'
 export const useCreateTagForm: UseUseCaseForm<
   CreateTagInput,
   CRUDActionType,
+  unknown,
   string
 > = (parentTagId) => {
   const { resetModal } = useTagDispatch()
@@ -22,7 +23,7 @@ export const useCreateTagForm: UseUseCaseForm<
     }),
   })
 
-  const handleSubmit = useCallback(
+  const onSubmit = useCallback(
     (input: CreateTagInput) => {
       return mutate({ variables: { input } }).unwrap()
     },
@@ -30,7 +31,7 @@ export const useCreateTagForm: UseUseCaseForm<
   )
 
   return {
-    onSubmit: handleSubmit,
+    onSubmit,
     onSubmitError: [
       createNotificationHandler({
         title: 'Error while creating tag',

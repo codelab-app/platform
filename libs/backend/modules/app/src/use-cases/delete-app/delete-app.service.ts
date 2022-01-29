@@ -1,5 +1,6 @@
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { AppValidator } from '../../domain/app.validator'
@@ -7,7 +8,10 @@ import { GetAppService } from '../get-app'
 import { DeleteAppRequest } from './delete-app.request'
 
 @Injectable()
-export class DeleteAppService extends DgraphUseCase<DeleteAppRequest> {
+export class DeleteAppService
+  extends DgraphUseCase<DeleteAppRequest>
+  implements UseCasePort<DeleteAppRequest, void>
+{
   constructor(
     protected readonly dgraph: DgraphRepository,
     private appValidator: AppValidator,

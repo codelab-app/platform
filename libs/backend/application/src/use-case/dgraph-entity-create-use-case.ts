@@ -1,8 +1,5 @@
-import {
-  createEntityMutation,
-  DgraphEntityType,
-  mapIdToUid,
-} from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
+import { createEntityMutation, mapIdToUid } from '@codelab/backend/infra'
 import { EntityLike } from '@codelab/shared/abstract/types'
 import { Mutation, Txn } from 'dgraph-js-http'
 import { DgraphCreateUseCase } from './dgraph-create-use-case'

@@ -25,6 +25,3 @@ export const typeSlice = createCrudSlice('type', initialState, {
     selectedIds: payload.selectedIds,
   }),
 })
-
-export const typeActions = typeSlice.actions
-export const typeReducer = typeSlice.reducer

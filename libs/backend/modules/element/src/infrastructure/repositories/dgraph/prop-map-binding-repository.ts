@@ -1,8 +1,5 @@
-import {
-  BaseRepository,
-  DgraphEntityType,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
+import { BaseRepository, DgraphRepository } from '@codelab/backend/infra'
 import { IPropMapBinding } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { PropMapBindingMutationFactory } from './prop-map-binding-mutation.factory'

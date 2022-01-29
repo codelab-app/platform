@@ -1,11 +1,11 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { exactlyOneWhereClause } from '@codelab/backend/application'
-import { IElement } from '@codelab/shared/abstract/core'
-import { Inject, Injectable } from '@nestjs/common'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../infrastructure'
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
+import { exactlyOneWhereClause } from '@codelab/backend/application'
+import { IElement } from '@codelab/shared/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
 import { GetElementRequest } from './get-element.request'
 
 @Injectable()

@@ -15,6 +15,7 @@ export const useDeletePropMapBindingForm: UseEntityUseCaseForm<
   EmptyJsonSchemaType,
   CRUDActionType,
   PropMapBindingFragment,
+  unknown,
   string
 > = (elementId) => {
   const { deleteIds, entity, actionType } = usePropMapBindingState()

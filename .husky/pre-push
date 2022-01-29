@@ -1,14 +1,16 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-#yarn codegen
+# yarn codegen
 
 # We update dgraph schema once only here
-./scripts/dgraph/update-schema.js
+yarn cli dgraph update-schema --env test
 
-make build-dev-affected
-make test-dev-affected
-make e2e-dev-affected
-# make build-storybook
+yarn cli tasks build --env test
+yarn cli tasks unit --env test
+echo 'Running int'
+yarn cli tasks int --env test
+echo 'Running e2e'
+yarn cli tasks e2e --env test
 
 ./scripts/git.sh

@@ -1,1 +1,1 @@
-export type Callback<TParam> = (param: TParam) => any
+export type Callback<TIn, TOut = unknown> = (param: TIn) => TOut

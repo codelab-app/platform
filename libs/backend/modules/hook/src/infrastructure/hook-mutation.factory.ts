@@ -1,6 +1,6 @@
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
 import {
   BaseMutationFactory,
-  DgraphEntityType,
   mergeMutations,
   randomBlankNode,
 } from '@codelab/backend/infra'

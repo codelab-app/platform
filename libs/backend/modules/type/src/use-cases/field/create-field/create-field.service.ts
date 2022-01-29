@@ -1,5 +1,11 @@
+import {
+  ITransaction,
+  ITypeRepository,
+  ITypeRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import {
   FieldSchema,
   IField,
@@ -12,17 +18,16 @@ import { Inject, Injectable } from '@nestjs/common'
 import { Field } from '../../../domain'
 import { FieldValidator } from '../../../domain/field/field.validator'
 import { TypeValidator } from '../../../domain/type.validator'
-import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { CreateTypeService } from '../../type/create-type'
 import { GetTypeGraphService } from '../../type/get-type-graph'
 import { TypeRef } from './create-field.input'
 import { CreateFieldRequest } from './create-field.request'
 
 @Injectable()
-export class CreateFieldService extends DgraphUseCase<
-  CreateFieldRequest,
-  Field
-> {
+export class CreateFieldService
+  extends DgraphUseCase<CreateFieldRequest, Field>
+  implements UseCasePort<CreateFieldRequest, Field>
+{
   protected override autoCommit = true
 
   constructor(

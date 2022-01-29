@@ -1,15 +1,20 @@
+import {
+  ITransaction,
+  ITypeRepository,
+  ITypeRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, ITransaction } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { isAdmin, IType } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
-import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { GetTypesRequest } from './get-types.request'
 
 @Injectable()
-export class GetTypesService extends DgraphUseCase<
-  GetTypesRequest,
-  Array<IType>
-> {
+export class GetTypesService
+  extends DgraphUseCase<GetTypesRequest, Array<IType>>
+  implements UseCasePort<GetTypesRequest, Array<IType>>
+{
   protected override autoCommit = true
 
   constructor(

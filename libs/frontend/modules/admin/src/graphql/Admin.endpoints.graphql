@@ -7,5 +7,7 @@ mutation SeedBaseTypes {
 }
 
 mutation executeCommand($input: ExecuteCommandInput!) {
-  executeCommand(input: $input)
+  executeCommand(input: $input) {
+    payload
+  }
 }

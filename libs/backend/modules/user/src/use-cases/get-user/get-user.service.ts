@@ -1,5 +1,5 @@
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType } from '@codelab/backend/infra'
 import { IUser, UserSchema } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
@@ -7,10 +7,10 @@ import { Txn } from 'dgraph-js-http'
 import { GetUserInput } from './get-user.input'
 
 @Injectable()
-export class GetUserService extends DgraphUseCase<
-  GetUserInput,
-  Nullable<IUser>
-> {
+export class GetUserService
+  extends DgraphUseCase<GetUserInput, Nullable<IUser>>
+  implements UseCasePort<GetUserInput, Nullable<IUser>>
+{
   protected schema = UserSchema.nullable().optional()
 
   async executeTransaction(request: GetUserInput, txn: Txn) {

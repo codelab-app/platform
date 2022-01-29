@@ -1,11 +1,11 @@
 import { domainRequest } from '@codelab/backend/shared/testing'
 import { TestElementFragment } from '../../../../test/graphql'
 import { setupElementTestModule } from '../../../../test/setupElementTestModule'
-import { GetElementGraphInput } from '../../get-element-graph'
 import {
+  GetElementGraphInput,
   TestGetElementGraphGql,
   TestGetElementGraphQuery,
-} from '../../get-element-graph/tests/get-element-graph.api.graphql.gen'
+} from '../../get-element-graph'
 import { MoveElementInput } from '../move-element.input'
 import {
   TestMoveElementGql,

@@ -1,23 +1,22 @@
 import { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
-import { isObjectLike } from 'lodash'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { connectUniformSubmitRef, createBridge } from '../hooks/uniformUtils'
 
-export const Form = <TData,>({
+export const Form = <TData, TResponse = unknown>({
   submitRef,
-  onSubmitSuccess,
-  onSubmitError,
+  onSubmitSuccess = [],
+  onSubmitError = [],
   autosave = false,
   schema,
-  onSubmit,
+  onSubmit = (model: TData) => Promise.resolve(),
   children,
   model,
   onChangeModel,
   onChange,
-}: React.PropsWithChildren<FormProps<TData>>): ReactElement => {
+}: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
   const [bridge, setBridge] = useState(
     schema instanceof Bridge ? schema : createBridge(schema),
   )
@@ -41,17 +40,15 @@ export const Form = <TData,>({
         }
 
         return result
-          .then((r: any) => {
-            if (isObjectLike(result)) {
+          .then((r) => {
+            if (r) {
               callbackWithParams(onSubmitSuccess, r)
             }
           })
-          .catch((err: Error) => {
+          .catch((err) => {
             console.error(err)
 
-            if (isObjectLike(result)) {
-              callbackWithParams(onSubmitError, err)
-            }
+            callbackWithParams(onSubmitError, err)
           })
       }}
       ref={connectUniformSubmitRef(submitRef)}

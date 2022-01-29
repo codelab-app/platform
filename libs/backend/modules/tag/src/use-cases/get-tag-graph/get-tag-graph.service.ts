@@ -1,5 +1,6 @@
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, DgraphQueryBuilder } from '@codelab/backend/infra'
+import { DgraphQueryBuilder } from '@codelab/backend/infra'
 import { IGraph } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
@@ -9,10 +10,14 @@ import { TagVertex } from '../../domain/tag-vertex.model'
 import { GetTagGraphRequest } from './get-tag-graph.request'
 
 @Injectable()
-export class GetTagGraphService extends DgraphUseCase<
-  GetTagGraphRequest,
-  Nullable<IGraph<TagVertex, TagEdge>>
-> {
+export class GetTagGraphService
+  extends DgraphUseCase<
+    GetTagGraphRequest,
+    Nullable<IGraph<TagVertex, TagEdge>>
+  >
+  implements
+    UseCasePort<GetTagGraphRequest, Nullable<IGraph<TagVertex, TagEdge>>>
+{
   protected async executeTransaction(request: GetTagGraphRequest, txn: Txn) {
     return await this.dgraph.getOne<IGraph<TagVertex, TagEdge>>(
       txn,

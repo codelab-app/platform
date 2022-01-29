@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
@@ -9,10 +10,10 @@ import { GetTagGraphsRequest } from './get-tag-graphs.request'
  * Get multiple graphs in a since graph
  */
 @Injectable()
-export class GetTagGraphsService extends DgraphUseCase<
-  GetTagGraphsRequest,
-  Nullable<TagGraph>
-> {
+export class GetTagGraphsService
+  extends DgraphUseCase<GetTagGraphsRequest, Nullable<TagGraph>>
+  implements UseCasePort<GetTagGraphsRequest, Nullable<TagGraph>>
+{
   protected async executeTransaction(request: GetTagGraphsRequest, txn: Txn) {
     const tagGraph = await this.dgraph.executeQuery<TagGraph>(
       txn,

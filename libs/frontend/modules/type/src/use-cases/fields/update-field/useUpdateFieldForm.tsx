@@ -1,24 +1,24 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
 import { FieldFragment } from '../../../graphql/Field.fragment.graphql.gen'
 import { useFieldDispatch, useFieldState } from '../../../hooks'
 import { useUpdateFieldMutation } from '../../../store'
 import { CreateFieldInput } from '../create-field'
 
-export interface UseUpdateFieldFormInput {
-  interfaceId: string
-}
-
 export const useUpdateFieldForm: UseEntityUseCaseForm<
   CreateFieldInput,
   CRUDActionType,
   FieldFragment,
-  UseUpdateFieldFormInput
-> = ({ interfaceId }) => {
+  unknown,
+  string
+> = (interfaceId) => {
   const { updateId, entity, actionType } = useFieldState()
   const { resetModal } = useFieldDispatch()
+
+  assertIsDefined(interfaceId)
 
   const [mutate, { isLoading }] = useUpdateFieldMutation({
     selectFromResult: (r) => ({

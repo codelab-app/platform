@@ -46,16 +46,19 @@ type Entity<TEntity> = {
  * An general use case version of hooks for using form state
  */
 export type UseUseCaseForm<
+  // Data for the form submission
   TData,
+  // Action type of the domain
   TAction extends CombinedActionType,
+  // Additional props to return
+  TResponse = unknown,
+  // Optional input data into the hook
   TInput = unknown,
-  TProps = unknown,
 > = (props?: TInput) => //
 // Get form props without schema,
-Omit<FormProps<TData>, 'schema' | 'submitRef'> &
+Omit<FormProps<TData, TResponse>, 'schema' | 'submitRef'> &
   // and form hook state
-  FormHookState<TData, TAction> &
-  TProps
+  FormHookState<TData, TAction>
 
 /**
  * An use case version of hooks for using form state with entity
@@ -64,10 +67,11 @@ export type UseEntityUseCaseForm<
   TData,
   TAction extends CombinedActionType,
   TEntity extends EntityRecord,
-  TInput = never,
-> = (...params: TInput extends never ? [] : [TInput]) => //
+  TResponse = unknown,
+  TInput = unknown,
+> = (props?: TInput) => //
 // Get form props without schema,
-Omit<FormProps<TData>, 'schema' | 'submitRef'> &
+Omit<FormProps<TData, TResponse>, 'schema' | 'submitRef'> &
   // and form hook state
   FormHookState<TData, TAction> &
   Entity<TEntity>

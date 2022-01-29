@@ -1,10 +1,10 @@
-import { InMemoryRepository } from '@codelab/backend/infra'
-import { IProp } from '@codelab/shared/abstract/core'
-import { Global, Module, Provider } from '@nestjs/common'
 import {
   IPropRepository,
   IPropRepositoryToken,
-} from '../props-repository.interface'
+} from '@codelab/backend/abstract/core'
+import { InMemoryRepository } from '@codelab/backend/infra'
+import { IProp } from '@codelab/shared/abstract/core'
+import { Global, Module, Provider } from '@nestjs/common'
 
 const repositories: Array<Provider> = [
   {

@@ -1,10 +1,10 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { Inject, Injectable } from '@nestjs/common'
-import { ElementValidator } from '../../../application/element.validator'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../infrastructure/repositories/abstract/element-repository.interface'
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
+import { ElementValidator } from '../../../application/element.validator'
 import { MoveElementRequest } from './move-element.request'
 
 @Injectable()

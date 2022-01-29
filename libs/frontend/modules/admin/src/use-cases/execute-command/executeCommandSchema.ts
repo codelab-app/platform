@@ -1,8 +1,5 @@
+import { ExecuteCommandInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
-
-export interface ExecuteCommandInput {
-  command: string
-}
 
 export const executeCommandSchema: JSONSchemaType<ExecuteCommandInput> = {
   title: 'Execute Command',

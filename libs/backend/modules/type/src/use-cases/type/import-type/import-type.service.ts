@@ -1,7 +1,12 @@
+import {
+  ITransaction,
+  ITypeRepository,
+  ITypeRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphRepository,
-  ITransaction,
   LoggerService,
   LoggerTokens,
 } from '@codelab/backend/infra'
@@ -18,7 +23,6 @@ import { EntityLike } from '@codelab/shared/abstract/types'
 import { TypeTree } from '@codelab/shared/core'
 import { Inject, Injectable } from '@nestjs/common'
 import R from 'ramda'
-import { ITypeRepository, ITypeRepositoryToken } from '../../../infrastructure'
 import { CreateTypeInputFactory } from '../create-type/create-type-input.factory'
 import { ImportTypeRequest } from './import-type.request'
 
@@ -32,10 +36,10 @@ const makePlaceholder = R.pipe(
  * This service is essentially a wrapper around createField & createType. We transform the graph vertices/edges back into fields & types
  */
 @Injectable()
-export class ImportTypeService extends DgraphUseCase<
-  ImportTypeRequest,
-  CreateResponse
-> {
+export class ImportTypeService
+  extends DgraphUseCase<ImportTypeRequest, CreateResponse>
+  implements UseCasePort<ImportTypeRequest, CreateResponse>
+{
   protected override autoCommit = true
 
   constructor(

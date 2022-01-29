@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
@@ -6,7 +7,10 @@ import { PageValidator } from '../../domain/page.validator'
 import { UpdatePageRequest } from './update-page.request'
 
 @Injectable()
-export class UpdatePageService extends DgraphUseCase<UpdatePageRequest> {
+export class UpdatePageService
+  extends DgraphUseCase<UpdatePageRequest>
+  implements UseCasePort<UpdatePageRequest, void>
+{
   constructor(dgraph: DgraphRepository, private pageValidator: PageValidator) {
     super(dgraph)
   }

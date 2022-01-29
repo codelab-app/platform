@@ -1,33 +1,13 @@
 import { Callback } from '@codelab/frontend/abstract/types'
-import { Maybe, MaybeArray } from '@codelab/shared/abstract/types'
-import { isFunction } from 'lodash'
+import { isFunction, isObjectLike } from 'lodash'
 
-export const callbackWithParams = <
-  T,
-  TCb extends (prop: T) => any = (prop: T) => any,
->(
-  cbOrArray: Maybe<MaybeArray<Maybe<TCb>>>,
+export const callbackWithParams = <T, TCb extends Callback<T> = Callback<T>>(
+  callbacks: Array<TCb> = [],
   param: T,
 ) => {
-  if (!cbOrArray) {
-    return
-  }
-
-  if (Array.isArray(cbOrArray)) {
-    cbOrArray.forEach((c) => {
-      if (c) {
-        c(param)
-      }
-    })
-  } else if (isFunction(cbOrArray)) {
-    cbOrArray(param)
-  }
+  callbacks.forEach((cb) => {
+    if (isFunction(cb) && isObjectLike(param)) {
+      cb(param)
+    }
+  })
 }
-
-export const createCallbackHandler =
-  <T, TCb extends Callback<T> = (prop: T) => any>(
-    cbOrArray: Maybe<MaybeArray<Maybe<TCb>>>,
-  ) =>
-  (param: T) => {
-    callbackWithParams(cbOrArray, param)
-  }

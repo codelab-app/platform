@@ -1,9 +1,9 @@
-import { testUserUid } from '@codelab/backend/shared/generic'
-import { teardownTestModule } from '@codelab/backend/shared/testing'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../../infrastructure/repositories/abstract/element-repository.interface'
+} from '@codelab/backend/abstract/core'
+import { testUserUid } from '@codelab/backend/shared/generic'
+import { teardownTestModule } from '@codelab/backend/shared/testing'
 import { setupElementUnitTestModule } from '../../../../test/setupElementUnitTestModule'
 import { CreateElementService } from '../create-element.service'
 

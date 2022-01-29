@@ -1,5 +1,5 @@
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
 import { Mutation } from 'dgraph-js-http'
-import { DgraphEntityType } from '../dgraph-entity-type'
 import { DgraphTriple } from './dgraph-triple'
 import { IQueryBuilder } from './i-query-builder'
 import { compileMultiple } from './utils'

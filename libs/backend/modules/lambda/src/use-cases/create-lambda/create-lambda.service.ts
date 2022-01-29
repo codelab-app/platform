@@ -1,11 +1,18 @@
-import { DgraphCreateUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, jsonMutation } from '@codelab/backend/infra'
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  CreateResponse,
+  DgraphCreateUseCase,
+} from '@codelab/backend/application'
+import { jsonMutation } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { CreateLambdaRequest } from './create-lambda.request'
 
 @Injectable()
-export class CreateLambdaService extends DgraphCreateUseCase<CreateLambdaRequest> {
+export class CreateLambdaService
+  extends DgraphCreateUseCase<CreateLambdaRequest>
+  implements UseCasePort<CreateLambdaRequest, CreateResponse>
+{
   async executeTransaction(request: CreateLambdaRequest, txn: Txn) {
     return this.dgraph.create(txn, (blankNodeUid) =>
       this.createMutation(request, blankNodeUid),

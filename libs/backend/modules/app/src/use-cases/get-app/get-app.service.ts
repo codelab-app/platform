@@ -1,5 +1,6 @@
+import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphEntityType, DgraphRepository } from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { AppSchema, IApp } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
@@ -9,10 +10,10 @@ import { AppByIdFilter, AppByPageFilter } from './get-app.input'
 import { GetAppRequest } from './get-app.request'
 
 @Injectable()
-export class GetAppService extends DgraphUseCase<
-  GetAppRequest,
-  Nullable<IApp>
-> {
+export class GetAppService
+  extends DgraphUseCase<GetAppRequest, Nullable<IApp>>
+  implements UseCasePort<GetAppRequest, Nullable<IApp>>
+{
   constructor(dgraph: DgraphRepository, private appValidator: AppValidator) {
     super(dgraph)
   }

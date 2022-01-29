@@ -1,5 +1,4 @@
-import { DgraphEntityType } from '../dgraph-entity-type'
-import { IQueryFactory } from './query-factory.interface'
+import { DgraphEntityType, IQueryFactory } from '@codelab/backend/abstract/core'
 
 export const makeFilterString = (filter?: string) =>
   filter ? `@filter(${filter})` : ''

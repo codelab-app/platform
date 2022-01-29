@@ -1,4 +1,4 @@
-import { DgraphEntityType } from '../../dgraph-entity-type'
+import { DgraphEntityType } from '@codelab/backend/abstract/core'
 import { DgraphFilter } from './dgraph-filter'
 
 /** https://dgraph.io/docs/query-language/functions/#inequality */

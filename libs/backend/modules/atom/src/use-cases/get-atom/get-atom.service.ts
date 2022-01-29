@@ -1,9 +1,10 @@
-import { DgraphUseCase } from '@codelab/backend/application'
 import {
   DgraphEntityType,
-  DgraphRepository,
   ITransaction,
-} from '@codelab/backend/infra'
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
+import { DgraphUseCase } from '@codelab/backend/application'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { AtomSchema, IAtom } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
@@ -11,10 +12,10 @@ import { GetAtomInput } from './get-atom.input'
 import { GetAtomRequest } from './get-atom.request'
 
 @Injectable()
-export class GetAtomService extends DgraphUseCase<
-  GetAtomRequest,
-  Nullable<IAtom>
-> {
+export class GetAtomService
+  extends DgraphUseCase<GetAtomRequest, Nullable<IAtom>>
+  implements UseCasePort<GetAtomRequest, Nullable<IAtom>>
+{
   constructor(dgraph: DgraphRepository) {
     super(dgraph)
   }

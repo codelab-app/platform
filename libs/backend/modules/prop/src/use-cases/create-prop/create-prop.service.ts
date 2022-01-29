@@ -1,7 +1,11 @@
-import { CreateResponsePort, UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  CreateResponsePort,
+  IPropRepository,
+  IPropRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { IProp, PropSchema } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
-import { IPropRepository, IPropRepositoryToken } from '../../infrastructure'
 import { CreatePropRequest } from './create-prop.request'
 
 @Injectable()

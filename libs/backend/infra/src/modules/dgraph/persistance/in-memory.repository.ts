@@ -1,7 +1,9 @@
-import { CreateResponsePort } from '@codelab/backend/abstract/core'
+import {
+  CreateResponsePort,
+  IBaseRepository,
+} from '@codelab/backend/abstract/core'
 import { EntityLike } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
-import { IBaseRepository } from './base-repository.interface'
 
 @Injectable()
 export class InMemoryRepository<T extends EntityLike>

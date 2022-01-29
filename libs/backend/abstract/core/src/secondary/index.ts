@@ -1,1 +1,2 @@
-export * from './persistence'
+export * from './dgraph'
+export * from './repository'

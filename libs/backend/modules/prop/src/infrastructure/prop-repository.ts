@@ -1,13 +1,12 @@
 import {
-  BaseRepository,
   DgraphEntityType,
-  DgraphRepository,
-} from '@codelab/backend/infra'
+  IPropRepository,
+} from '@codelab/backend/abstract/core'
+import { BaseRepository, DgraphRepository } from '@codelab/backend/infra'
 import { IProp, PropSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { PropMutationFactory } from './prop-mutation.factory'
 import { PropQueryFactory } from './prop-query.factory'
-import { IPropRepository } from './props-repository.interface'
 
 @Injectable()
 export class PropRepository

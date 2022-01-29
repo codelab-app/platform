@@ -1,3 +1,4 @@
+import { UseCasePort } from '@codelab/backend/abstract/core'
 import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository } from '@codelab/backend/infra'
 import { Injectable } from '@nestjs/common'
@@ -8,10 +9,10 @@ import { UpdateTagService } from '../update-tag'
 import { UpsertTagRequest } from './upsert-tag.request'
 
 @Injectable()
-export class UpsertTagService extends DgraphUseCase<
-  UpsertTagRequest,
-  CreateResponse
-> {
+export class UpsertTagService
+  extends DgraphUseCase<UpsertTagRequest, CreateResponse>
+  implements UseCasePort<UpsertTagRequest, CreateResponse>
+{
   constructor(
     dgraph: DgraphRepository,
     private getTagService: GetTagService,

@@ -1,4 +1,9 @@
-import { ITransaction, TransactionManager } from '@codelab/backend/infra'
+import {
+  ITransaction,
+  ITypeRepository,
+  ITypeRepositoryToken,
+} from '@codelab/backend/abstract/core'
+import { TransactionManager } from '@codelab/backend/infra'
 import {
   setupTestModule,
   teardownTestModule,
@@ -6,10 +11,6 @@ import {
 import { Role } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
 import { TypeModule } from '../../../type.module'
-import {
-  ITypeRepository,
-  ITypeRepositoryToken,
-} from '../type/type-repository.interface'
 
 export const setupTypeRepositoryTest = () => {
   const module: {

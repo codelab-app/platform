@@ -1,12 +1,14 @@
+import {
+  DgraphEntityType,
+  IMutationFactory,
+} from '@codelab/backend/abstract/core'
 import { EntityLike } from '@codelab/shared/abstract/types'
 import { Mutation } from 'dgraph-js-http'
-import { DgraphEntityType } from '../dgraph-entity-type'
 import {
   makeDeleteJsonMutationForUpdates,
   NullablePredicates,
 } from '../utils/makeDeleteJsonMutationForUpdates'
 import { mergeMutations } from '../utils/mergeMutations'
-import { IMutationFactory } from './mutation-factory.interface'
 import { randomBlankNode } from './repository-utils'
 
 /**

@@ -1,15 +1,19 @@
-import { DgraphCreateUseCase } from '@codelab/backend/application'
+import {
+  DgraphEntityType,
+  IElementRepository,
+  IElementRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
+import {
+  CreateResponse,
+  DgraphCreateUseCase,
+} from '@codelab/backend/application'
 import {
   DgraphCreateMutationJson,
-  DgraphEntityType,
   DgraphRepository,
   DgraphUpdateMutationJson,
 } from '@codelab/backend/infra'
-import {
-  createElement,
-  IElementRepository,
-  IElementRepositoryToken,
-} from '@codelab/backend/modules/element'
+import { createElement } from '@codelab/backend/modules/element'
 import { CreatePropService } from '@codelab/backend/modules/prop'
 import { IUser } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
@@ -18,7 +22,10 @@ import { PageValidator } from '../../domain/page.validator'
 import { CreatePageRequest } from './create-page.request'
 
 @Injectable()
-export class CreatePageService extends DgraphCreateUseCase<CreatePageRequest> {
+export class CreatePageService
+  extends DgraphCreateUseCase<CreatePageRequest>
+  implements UseCasePort<CreatePageRequest, CreateResponse>
+{
   constructor(
     dgraph: DgraphRepository,
     private pageValidator: PageValidator,

@@ -8,12 +8,11 @@ import {
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import {
-  useDeleteFieldForm,
-  UseDeleteFieldFormInput,
-} from './useDeleteFieldForm'
+import { useDeleteFieldForm } from './useDeleteFieldForm'
 
-export type DeleteFieldModalProps = UseDeleteFieldFormInput
+type DeleteFieldModalProps = {
+  interfaceId: string
+}
 
 export const DeleteFieldModal = ({ interfaceId }: DeleteFieldModalProps) => {
   const {
@@ -24,7 +23,7 @@ export const DeleteFieldModal = ({ interfaceId }: DeleteFieldModalProps) => {
     onSubmitSuccess,
     onSubmitError,
     reset,
-  } = useDeleteFieldForm({ interfaceId })
+  } = useDeleteFieldForm(interfaceId)
 
   return (
     <FormModal

@@ -1,14 +1,15 @@
+import {
+  IPropMapBindingsRepository,
+  IPropMapBindingsRepositoryToken,
+  ITransaction,
+} from '@codelab/backend/abstract/core'
 import { Transaction, Transactional } from '@codelab/backend/application'
-import { GqlAuthGuard, ITransaction } from '@codelab/backend/infra'
+import { GqlAuthGuard } from '@codelab/backend/infra'
 import { CurrentUser } from '@codelab/backend/modules/user'
 import type { IUser } from '@codelab/shared/abstract/core'
 import { Inject, Injectable, UseGuards } from '@nestjs/common'
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { PropMapBinding } from '../domain/prop-mapping/prop-map-binding.model'
-import {
-  IPropMapBindingsRepository,
-  IPropMapBindingsRepositoryToken,
-} from '../infrastructure/repositories/abstract/prop-map-binding-repository.interface'
 import {
   CreatePropMapBindingInput,
   CreatePropMapBindingService,

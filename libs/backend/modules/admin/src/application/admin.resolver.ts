@@ -1,4 +1,5 @@
 import { Void } from '@codelab/backend/abstract/types'
+import { PayloadResponse } from '@codelab/backend/application'
 import { GqlAuthGuard } from '@codelab/backend/infra'
 import { Roles } from '@codelab/backend/modules/user'
 import { Role } from '@codelab/shared/abstract/core'
@@ -22,7 +23,7 @@ export class AdminResolver {
     return await this.resetDataService.execute()
   }
 
-  @Mutation(() => Void, { nullable: true })
+  @Mutation(() => PayloadResponse)
   @Roles(Role.Admin)
   @UseGuards(GqlAuthGuard)
   async executeCommand(@Args('input') input: ExecuteCommandInput) {

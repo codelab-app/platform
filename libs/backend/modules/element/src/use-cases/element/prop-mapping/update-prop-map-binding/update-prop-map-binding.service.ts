@@ -1,14 +1,12 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
-import { Inject, Injectable } from '@nestjs/common'
-import { ElementValidator } from '../../../../application/element.validator'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../../infrastructure/repositories/abstract/element-repository.interface'
-import {
   IPropMapBindingsRepository,
   IPropMapBindingsRepositoryToken,
-} from '../../../../infrastructure/repositories/abstract/prop-map-binding-repository.interface'
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
+import { Inject, Injectable } from '@nestjs/common'
+import { ElementValidator } from '../../../../application/element.validator'
 import { UpdatePropMapBindingRequest } from './update-prop-map-binding.request'
 
 @Injectable()

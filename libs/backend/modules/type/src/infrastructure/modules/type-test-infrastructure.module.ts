@@ -1,9 +1,9 @@
-import { Global, Module, Provider } from '@nestjs/common'
-import { TypeInMemoryRepository } from '../repository/tests/TypeInMemoryRepository'
 import {
   ITypeRepository,
   ITypeRepositoryToken,
-} from '../repository/type/type-repository.interface'
+} from '@codelab/backend/abstract/core'
+import { Global, Module, Provider } from '@nestjs/common'
+import { TypeInMemoryRepository } from '../repository/tests/TypeInMemoryRepository'
 
 const repositories: Array<Provider> = [
   {
