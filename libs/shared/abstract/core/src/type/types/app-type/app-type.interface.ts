@@ -8,7 +8,5 @@ export const AppTypeSchema = BaseTypeSchema.extend({
 
 /**
  * Allows choosing an app from the list of apps.
- *
- * TODO see how the app is handled in the render process
  */
 export type IAppType = z.infer<typeof AppTypeSchema>

@@ -27,7 +27,7 @@ export const renderChildrenPipe: RenderTypes = (element, context, props) => {
     return undefined
   }
 
-  // If we have only one children, just return it.
+  // If we have only one child, just return it.
   // Ant Design doesn't handle array children well in some cases, like Forms
   if (rendered.length === 1) {
     return rendered[0]

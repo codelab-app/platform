@@ -20,8 +20,6 @@ export const EnumTypeSchema = BaseTypeSchema.extend({
  * The value gets passed to the render pipe as a Enum Type Value id.
  * The actual value must be de-referenced by the id.
  *
- * TODO - make sure the render pipeline handles the id -> value de-referencing
- *
  * @property {IEnumTypeValue[]} allowedValues - The list of allowed values.
  */
 export type IEnumType = z.infer<typeof EnumTypeSchema>

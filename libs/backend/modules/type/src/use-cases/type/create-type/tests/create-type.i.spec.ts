@@ -23,8 +23,6 @@ describe('CreateType', () => {
   })
 
   describe('User', () => {
-    // TODO add for other types
-
     it('should create a primitive type', async () => {
       const type = await testModule.createTestType(createPrimitiveStringInput)
 

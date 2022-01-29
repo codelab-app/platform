@@ -1,7 +1,6 @@
 import { CreatePropMapBindingInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
 import { HiddenField } from 'uniforms-antd'
-import { CreatePropMapBindingMutationVariables } from '../../../graphql/prop-map-binding.endpoints.graphql.gen'
 
 export const createPropMapBindingSchema: JSONSchemaType<CreatePropMapBindingInput> =
   {

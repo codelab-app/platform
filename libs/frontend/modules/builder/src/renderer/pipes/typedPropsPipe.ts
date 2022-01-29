@@ -2,7 +2,7 @@ import { TypeKind } from '@codelab/shared/abstract/codegen'
 import { PropsData } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { mapValues, pickBy } from 'lodash'
-import { RenderPipeFactory } from './types'
+import { RenderContext, RenderPipeFactory } from './types'
 
 /**
  * Transforms props with the following format
@@ -21,7 +21,7 @@ import { RenderPipeFactory } from './types'
  *     }
  */
 
-const handledTypeKinds = [
+const handledTypeKinds = new Set([
   TypeKind.AppType,
   TypeKind.ArrayType,
   TypeKind.EnumType,
@@ -31,17 +31,26 @@ const handledTypeKinds = [
   TypeKind.MonacoType,
   TypeKind.PageType,
   TypeKind.PrimitiveType,
-]
+])
 
-const isHandledTypeKind = (prop: PropsData) => {
-  return handledTypeKinds.includes(prop?.typeKind)
+const isHandledTypeKind = (context: RenderContext) => (prop: PropsData) => {
+  const typeId = prop?.type
+
+  if (typeof typeId !== 'string') {
+    return false
+  }
+
+  const typeKind = context.typesById[typeId]?.typeKind
+
+  return typeKind && handledTypeKinds.has(typeKind)
 }
 
 const getPropValue = (prop: PropsData) => prop.value
 
+/** Transforms the {@see handledTypeKinds} from the shape of `field: {type: x, value: y}`, aka {@see TypedValue} to `field: value` */
 export const typedPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    const typedProps = pickBy(props, isHandledTypeKind)
+    const typedProps = pickBy(props, isHandledTypeKind(context))
     const transformedProps = mapValues(typedProps, getPropValue)
 
     return next(element, context, mergeProps(props, transformedProps))

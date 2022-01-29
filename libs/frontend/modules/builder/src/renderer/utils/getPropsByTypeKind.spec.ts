@@ -1,28 +1,51 @@
-import { TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IEnumType,
+  IMonacoType,
+  IType,
+  IUnionType,
+  MonacoLanguage,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
+import { entityRecordById } from '@codelab/shared/utils'
 import { getPropsByTypeKind } from './getPropsByTypeKind'
 
+const enumType: IEnumType = {
+  name: 'EnumType',
+  typeKind: TypeKind.EnumType,
+  allowedValues: [],
+  owner: null,
+  id: '0x123',
+}
+
+const monacoType: IMonacoType = {
+  name: 'MonacoType',
+  typeKind: TypeKind.MonacoType,
+  language: MonacoLanguage.TypeScript,
+  owner: null,
+  id: '0x124',
+}
+
+const unionType: IUnionType = {
+  name: 'UnionType',
+  typeKind: TypeKind.UnionType,
+  typesOfUnionType: [],
+  owner: null,
+  id: '0x125',
+}
+
+const types = [enumType, monacoType, unionType]
+const typesById: Record<string, IType> = entityRecordById(types)
+
 const initialProps = {
-  prop01: {
-    typeKind: TypeKind.EnumType,
-    value: 'prop01-value',
-  },
-  prop02: {
-    typeKind: TypeKind.MonacoType,
-    value: 'prop02-value',
-  },
-  prop03: {
-    typeKind: TypeKind.UnionType,
-    value: 'prop03-value',
-  },
+  prop01: { type: enumType.id, value: 'prop01-value' },
+  prop02: { type: monacoType.id, value: 'prop02-value' },
+  prop03: { type: unionType.id, value: 'prop03-value' },
 }
 
 describe('GetPropsByTypeKind', () => {
   it('should filter props with typeKind', () => {
-    expect(getPropsByTypeKind(initialProps, TypeKind.UnionType)).toStrictEqual({
-      prop03: {
-        typeKind: TypeKind.UnionType,
-        value: 'prop03-value',
-      },
-    })
+    expect(
+      getPropsByTypeKind(initialProps, TypeKind.UnionType, typesById),
+    ).toStrictEqual({ prop03: initialProps.prop03 })
   })
 })

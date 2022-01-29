@@ -5,7 +5,7 @@ import {
 } from '@codelab/frontend/view/components'
 import { FieldFragment } from '../graphql/Field.fragment.graphql.gen'
 
-export type FieldState = CRUDModalState<FieldFragment & { typeId?: string }>
+export type FieldState = CRUDModalState<FieldFragment>
 
 const initialState: FieldState = {
   ...initialCrudState,

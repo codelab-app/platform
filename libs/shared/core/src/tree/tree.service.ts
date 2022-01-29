@@ -1,5 +1,5 @@
 import { IEdge, IGraph, IVertex } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Maybe, MaybePromise } from '@codelab/shared/abstract/types'
 import { DataNode } from 'antd/lib/tree'
 import cytoscape, {
   EdgeSingular,
@@ -9,7 +9,9 @@ import cytoscape, {
 import { getEdgeOrder } from '../cytoscape/edge'
 import { getCyElementData } from '../cytoscape/element'
 import { edgeId } from '../graph/edgeId'
+import { reduceToNested } from './reduce-to-nested/reduce-to-nested'
 import { filterPredicate, InstancePredicate, Predicate } from './treePredicate'
+import { AddChildToNodeFn, BfsReduceInput } from './types'
 
 /**
  * Builds up a Tree from a flattened and normalized representation ({@link IGraph})
@@ -96,10 +98,6 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
    * Override to customize antd tree node mapping behavior
    */
   protected antdNodeMapper(element: TVertex): DataNode {
-    if (!element.id) {
-      throw new Error('Element must have an id')
-    }
-
     return {
       ...element,
       key: element.id,
@@ -122,64 +120,79 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     return this.cy.elements().bfs({ root, visit })
   }
 
-  getAntdTree(rootPredicate?: Predicate<TVertex>): Array<DataNode> {
-    const root = this.cy
-      .elements()
-      .roots()
-      .filter(filterPredicate(rootPredicate ?? this.predicate))
+  /**
+   * Wrapper around bfs visit function that parses the node data and adds ability to execute promises
+   *
+   * @param visit the visit function
+   * @param rootId the root node from which to start the search
+   * @param sequential if true, the promises will be awaited sequentially. If false - they will be awaited in parallel
+   */
+  async bfsDataVisitAsync(
+    visit: (
+      vertex: TVertex,
+      edge: TEdge | undefined,
+      parent: TVertex | undefined,
+      i: number,
+      depth: number,
+    ) => MaybePromise<void>,
+    rootId?: string,
+    sequential?: boolean,
+  ) {
+    const promises: Array<MaybePromise<boolean | void>> = []
 
-    const tree: Array<DataNode> = []
-    const nodes: Record<string, DataNode> = {}
-    const nodeOrder: Record<string, number> = {}
+    const visitWrapped: SearchVisitFunction = (v, e, u, i, d) => {
+      const vertex = this.getCyVertexData(v)
 
-    if (!root) {
-      return []
+      if (!vertex) {
+        throw new Error('Vertex not found')
+      }
+
+      const edge = e ? this.getCyEdgeData(e) : undefined
+      const parent = u ? this.getCyVertexData(u) : undefined
+      const promise = visit(vertex, edge, parent, i, d)
+
+      promises.push(promise)
     }
 
-    this.cy.elements().breadthFirstSearch({
-      root,
-      visit: (visitedNode, edge) => {
-        const element = this.getCyVertexData(visitedNode)
+    this.bfsVisit(visitWrapped, rootId)
 
-        if (!element) {
-          return
-        }
+    if (sequential) {
+      for (const promise of promises) {
+        await promise
+      }
+    } else {
+      await Promise.all(promises)
+    }
+  }
 
-        const order = getEdgeOrder(edge)
-        const node = this.antdNodeMapper(element)
+  /**
+   * Transforms the {@link IGraph} into a nested tree structure of the type {children: [{children: [...]}]}
+   * The nodeMapper and addChildToNode are called with every possible combination of parent-child exactly once
+   */
+  reduceToNested<TOut>(input: BfsReduceInput<TVertex, TEdge, TOut>) {
+    return reduceToNested<TVertex, TEdge, TOut>(this.cy)(input)
+  }
 
-        if (!element.id) {
-          throw new Error('Element must have an id')
-        }
+  getAntdTree(): Array<DataNode> {
+    const nodeMapper = (node: TVertex) => this.antdNodeMapper(node)
 
-        nodes[element.id] = node
-        nodeOrder[element.id] = order
+    const addChildToNode: AddChildToNodeFn<TVertex, TEdge, DataNode> = (
+      parent,
+      child,
+    ) => {
+      const existingChildren = parent.children
 
-        if (!this.predicate(element)) {
-          return
-        }
+      parent.children = Array.isArray(existingChildren)
+        ? [...existingChildren, child]
+        : [child]
+    }
 
-        // If edge is undefined, it means the current node is root element.
-        if (!edge) {
-          tree.push(node)
-        }
-
-        // Populates children of each node
-        if (edge) {
-          const parent = edge.source()
-          const parentNode = nodes[parent.id()]
-          const existingChildren = parentNode.children
-
-          parentNode.children = Array.isArray(existingChildren)
-            ? [...existingChildren, node].sort(
-                (a, b) => nodeOrder[a.key] - nodeOrder[b.key],
-              )
-            : [node]
-        }
-      },
+    const root = this.reduceToNested({
+      nodeMapper,
+      addChildToNode,
     })
 
-    return tree as unknown as Array<DataNode>
+    return root ?? []
   }
 
   getAllVertices(predicate?: Predicate<TVertex>): Array<TVertex> {
@@ -268,6 +281,8 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
   }
 
   getDescendants(vertexId: string, predicate?: Predicate<TVertex>) {
+    console.log(this.cy.getElementById(vertexId).map(this.getCyVertexData))
+
     return this.cy
       .getElementById(vertexId)
       .descendants()
@@ -319,20 +334,5 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
     })
 
     return subgraph
-  }
-}
-
-export interface TreeDiff<TVertex, TEdge> {
-  edges: {
-    added: Array<TEdge>
-    updated: Array<TEdge>
-    unchanged: Array<TEdge>
-    removed: Array<TEdge>
-  }
-  vertices: {
-    added: Array<TVertex>
-    updated: Array<TVertex>
-    unchanged: Array<TVertex>
-    removed: Array<TVertex>
   }
 }

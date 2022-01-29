@@ -1,5 +1,19 @@
-import { AtomType, IElement, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  AtomType,
+  IElement,
+  IPrimitiveType,
+  PrimitiveTypeKind,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
+
+export const primitiveType: IPrimitiveType = {
+  id: '0x092',
+  name: 'primitiveType',
+  typeKind: TypeKind.PrimitiveType,
+  owner: null,
+  primitiveKind: PrimitiveTypeKind.Integer,
+}
 
 export const elementToRender: IElement = {
   id: '0x2786a',
@@ -21,7 +35,7 @@ export const elementToRender: IElement = {
   componentTag: null,
   props: {
     id: '0x27868',
-    data: '{"prop01":"prop01Value","prop02":"prop02Value", "prop03":{"typeKind":"PrimitiveType","value": "prop03Value"}}',
+    data: `{"prop01":"prop01Value","prop02":"prop02Value", "prop03":{"type":"${primitiveType.id}","value": "prop03Value"}}`,
   },
   hooks: [
     {

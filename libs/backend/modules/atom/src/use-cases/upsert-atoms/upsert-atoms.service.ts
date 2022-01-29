@@ -15,8 +15,6 @@ export class UpsertAtomsService extends DgraphUseCase<
   UpsertAtomsRequest,
   Array<CreateResponse>
 > {
-  protected override autoCommit = true
-
   protected async executeTransaction(
     request: UpsertAtomsRequest,
     txn: Txn,

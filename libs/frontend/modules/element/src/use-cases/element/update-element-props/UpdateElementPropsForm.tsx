@@ -6,7 +6,6 @@ import {
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { Prop } from '@codelab/shared/abstract/codegen'
-import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { Spin } from 'antd'
 import { useRef } from 'react'
 import {
@@ -19,23 +18,6 @@ interface UpdateElementPropsFormInternalProps {
   interfaceId: string
   existingProps: Prop
   trackPromises?: UseTrackLoadingPromises
-}
-
-const hasDataType = (
-  data: PropsData,
-  typeKinds: Array<TypeKind>,
-  typeKindsById: Record<string, TypeKind>,
-) => {
-  return Object.values(data).some((value) => {
-    // should have either typekind directly or id as value.type
-    const valueTypeKind = value?.typekind || typeKindsById[value?.type]
-
-    if (!valueTypeKind) {
-      return false
-    }
-
-    return typeKinds.includes(valueTypeKind)
-  })
 }
 
 const UpdateElementPropsFormInternal = ({

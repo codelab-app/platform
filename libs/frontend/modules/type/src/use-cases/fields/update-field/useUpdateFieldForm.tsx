@@ -51,7 +51,7 @@ export const useUpdateFieldForm: UseEntityUseCaseForm<
       ? ({
           name: entity.name,
           key: entity.key,
-          typeId: entity.typeId ?? '',
+          existingTypeId: entity.target ?? '',
           description: entity.description,
         } as any)
       : undefined,

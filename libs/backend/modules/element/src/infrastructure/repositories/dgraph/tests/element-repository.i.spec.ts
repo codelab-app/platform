@@ -221,7 +221,6 @@ describe('Element repository test', function () {
     } as ElementExistsAndOwnerResponse)
   })
 
-  // TODO check if component is root in page module's tests
   it('should check if component is not root', async () => {
     const element = await repo.create(testElementInput, transaction)
     const isRoot = await repo.isElementRoot(element.id, transaction)

@@ -12,17 +12,22 @@ import {
 } from './test'
 import { RenderContext } from './types'
 
+const reactNodeType = {
+  id: '0x12335',
+  typeKind: TypeKind.ReactNodeType,
+  owner: null,
+  name: 'ReactNodeType',
+}
+
 const defaultContext = {
   tree: treeToRender,
   render: renderPipeline,
   reactRender: React.createElement,
+  typesById: { [reactNodeType.id]: reactNodeType },
 } as RenderContext
 
 const initialProps: PropsData = {
-  renderText: {
-    typeKind: TypeKind.ReactNodeType,
-    id: componentToRender.id,
-  },
+  renderText: { type: reactNodeType.id, id: componentToRender.id },
   text: 'a random text to render',
 }
 

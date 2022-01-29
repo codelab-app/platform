@@ -51,8 +51,6 @@ export class UpdateElementPropsService
       transaction,
     )
 
-    // TODO, we didn't validate props here
-
     await this.elementValidator.propsAreValid(elementId)
   }
 }

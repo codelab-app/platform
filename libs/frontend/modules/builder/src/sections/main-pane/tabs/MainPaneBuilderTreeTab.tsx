@@ -21,11 +21,7 @@ export const MainPaneBuilderTreeTab = ({
 }) => {
   const { elementTree } = useElementGraphContext()
   const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(elementTree)
-
-  const antdTree = elementTree.getAntdTree(
-    isComponentBuilder ? ElementTree.isComponent : ElementTree.isElement,
-  )
-
+  const [antdTree] = elementTree.getAntdTree()
   const { isMoving, handleDrop } = useElementTreeDrop(elementTree)
   const { selectedElement, setSelectedElement } = useBuilderSelectedElement()
   const { setHoveringElement } = useBuilderHoveringElement()
@@ -57,7 +53,7 @@ export const MainPaneBuilderTreeTab = ({
       }}
       selectedKeys={selectedElement ? [selectedElement.id] : []}
       titleRender={(node) => <TreeItemTitle node={node} tree={elementTree} />}
-      treeData={antdTree}
+      treeData={antdTree ? [antdTree] : []}
     />
   )
 }

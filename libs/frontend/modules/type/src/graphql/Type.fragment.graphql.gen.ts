@@ -28,6 +28,7 @@ export type Type_AppType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 }
 
 export type Type_ArrayType_Fragment = {
@@ -35,6 +36,7 @@ export type Type_ArrayType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 } & ArrayTypeFragment
 
 export type Type_ElementType_Fragment = {
@@ -42,6 +44,7 @@ export type Type_ElementType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 } & ElementTypeFragment
 
 export type Type_EnumType_Fragment = {
@@ -49,6 +52,7 @@ export type Type_EnumType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 } & EnumTypeFragment
 
 export type Type_InterfaceType_Fragment = {
@@ -56,6 +60,7 @@ export type Type_InterfaceType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 } & InterfaceFragment
 
 export type Type_LambdaType_Fragment = {
@@ -63,6 +68,7 @@ export type Type_LambdaType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 } & LambdaTypeFragment &
   PageTypeFragment &
   AppTypeFragment
@@ -72,6 +78,7 @@ export type Type_MonacoType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 } & MonacoTypeFragment
 
 export type Type_PageType_Fragment = {
@@ -79,6 +86,7 @@ export type Type_PageType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 }
 
 export type Type_PrimitiveType_Fragment = {
@@ -86,6 +94,7 @@ export type Type_PrimitiveType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 } & PrimitiveTypeFragment
 
 export type Type_ReactNodeType_Fragment = {
@@ -93,6 +102,7 @@ export type Type_ReactNodeType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 }
 
 export type Type_RenderPropsType_Fragment = {
@@ -100,6 +110,7 @@ export type Type_RenderPropsType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 } & RenderPropsTypeFragment
 
 export type Type_UnionType_Fragment = {
@@ -107,6 +118,7 @@ export type Type_UnionType_Fragment = {
   id: string
   name: string
   typeKind: Types.TypeKind
+  owner?: { id: string } | null | undefined
 } & UnionTypeFragment
 
 export type TypeFragment =
@@ -129,6 +141,9 @@ export const TypeFragmentDoc = gql`
     id
     name
     typeKind
+    owner {
+      id
+    }
     ...ArrayType
     ...EnumType
     ...Interface

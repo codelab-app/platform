@@ -5,7 +5,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import {
   IElementRepository,
   IElementRepositoryToken,
-} from '../../../infrastructure/repositories/abstract/element-repository.interface'
+} from '../../../infrastructure'
 import { GetElementRequest } from './get-element.request'
 
 @Injectable()
@@ -17,7 +17,6 @@ export class GetElementService
     private readonly elementRepository: IElementRepository,
   ) {}
 
-  // TODO add enum value mapping
   execute(request: GetElementRequest): Promise<IElement | undefined> {
     exactlyOneWhereClause(request, ['id', 'fixedId'])
 

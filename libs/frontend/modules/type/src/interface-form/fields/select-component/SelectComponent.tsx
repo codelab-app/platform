@@ -1,7 +1,7 @@
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
-import { useGetComponentsForSelectQuery } from '../../../store/typeEndpoints'
+import { useGetComponentsForSelectQuery } from '../../../store'
 
 export type SelectComponentProps = HTMLFieldProps<string, SelectFieldProps>
 

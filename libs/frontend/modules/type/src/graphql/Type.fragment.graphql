@@ -3,6 +3,9 @@ fragment Type on Type {
   id
   name
   typeKind
+  owner {
+    id
+  }
   ...ArrayType
   ...EnumType
   ...Interface
