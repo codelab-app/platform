@@ -3,7 +3,7 @@
 set -x
 
 # Yarn 3 have trouble disabling scripts
-if [ "$CI" != true]: then
+if [ "$CI" != true ]; then
 
   husky install
 

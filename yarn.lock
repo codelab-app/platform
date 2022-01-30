@@ -14346,7 +14346,6 @@ __metadata:
     fp-ts: 2.11.7
     framer-motion: 5.5.7
     fuse.js: 6.5.3
-    get-folder-size: ^2
     glob: 7.2.0
     graphql: 15.7.2
     graphql-iso-date: 3.6.1
@@ -14381,7 +14380,7 @@ __metadata:
     next-redux-wrapper: 7.0.5
     next-with-less: 2.0.4
     node-fetch: 3.1.0
-    nx: 13.4.6
+    nx: 13.7.1
     passport: 0.5.2
     passport-jwt: 4.0.0
     portfinder: 1.0.28
@@ -14405,7 +14404,6 @@ __metadata:
     recoil: 0.5.2
     reflect-metadata: 0.1.13
     regenerator-runtime: 0.13.9
-    rimraf: ^3.0.2
     rxjs: 7.5.2
     sanitize-filename: 1.6.3
     shelljs: 0.8.5
@@ -19773,13 +19771,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gar@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "gar@npm:1.0.4"
-  checksum: 6b1010b5c17056526298734bfa08716f111cd023394dbe32496841e2f7b0dfe9e742b8ddb56103c0867f2ae80f5f069262916e5398ac982467be4da240ba7bb9
-  languageName: node
-  linkType: hard
-
 "gatsby-cli@npm:^4.2.0":
   version: 4.6.0
   resolution: "gatsby-cli@npm:4.6.0"
@@ -19973,18 +19964,6 @@ __metadata:
   version: 2.0.5
   resolution: "get-caller-file@npm:2.0.5"
   checksum: b9769a836d2a98c3ee734a88ba712e62703f1df31b94b784762c433c27a386dd6029ff55c2a920c392e33657d80191edbf18c61487e198844844516f843496b9
-  languageName: node
-  linkType: hard
-
-"get-folder-size@npm:^2":
-  version: 2.0.1
-  resolution: "get-folder-size@npm:2.0.1"
-  dependencies:
-    gar: ^1.0.4
-    tiny-each-async: 2.0.3
-  bin:
-    get-folder-size: bin/get-folder-size
-  checksum: f6bc0fe8dda84aa15ca2170ffbeefde99870e6f6cfc807bd6eb035163b53c3266e41be66ea34b181a296a535dd976d7f26eff2bbaf6d1d6e8833d6634032549a
   languageName: node
   linkType: hard
 
@@ -33848,13 +33827,6 @@ __metadata:
   version: 0.3.0
   resolution: "timsort@npm:0.3.0"
   checksum: 1a66cb897dacabd7dd7c91b7e2301498ca9e224de2edb9e42d19f5b17c4b6dc62a8d4cbc64f28be82aaf1541cb5a78ab49aa818f42a2989ebe049a64af731e2a
-  languageName: node
-  linkType: hard
-
-"tiny-each-async@npm:2.0.3":
-  version: 2.0.3
-  resolution: "tiny-each-async@npm:2.0.3"
-  checksum: 363511e6dd1dd9eadee4809d8a3485783f24579ae464c7b0768bb48047e6eaae3360cfe72b2ba345523d1d4033b5542129771c320bfb756abcf4918824511624
   languageName: node
   linkType: hard
 
