@@ -245,6 +245,7 @@ type Atom {
   Similar to props for a React component, it tells us which kind of configurations it can take
   """
   api: InterfaceType!
+  tags: [String!]!
   apiGraph: TypeGraph!
 }
 

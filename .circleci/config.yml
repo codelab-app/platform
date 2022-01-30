@@ -143,7 +143,7 @@ commands:
             # - dep-cache-staging-
       - run:
           name: 'Install NPM packages'
-          command: yarn install --frozen-lockfile --ignore-scripts --prod=false
+          command: yarn install --immutable
       - run:
           name: 'Install Bower packages'
           command: bower install --no-interactive
@@ -201,19 +201,21 @@ jobs:
           name: 'NX_HEAD'
           command: echo $NX_HEAD
       - run:
+          name: 'Clear Cache'
+          command: |
+            rm -rf ~/project/node_modules/nx/.cache
+          # npx cypress cache path
+          # npx jest --clearCache
+      - run:
           name: 'Build CI'
           command: npx nx run-many --target=build --projects=api,web,cmd,cli,tools-rtk-query --configuration-ci --verbose
-      # - run:
-      #     name: 'Clear Cache'
-      #     command: |
-      #       # npx cypress cache path
-      #       rm -rf ~/project/node_modules/nx/.cache
-      #       npx jest --clearCache
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-staging-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.cache/yarn
+            - ~/.yarn
+            # - ~/.cache/yarn
+            # Not required since yarn cache can easily build this
             - ~/project/node_modules
       - persist_to_workspace:
           root: ~/

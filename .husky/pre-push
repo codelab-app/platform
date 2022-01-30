@@ -8,9 +8,7 @@ yarn cli dgraph update-schema --env test
 
 yarn cli tasks build --env test
 yarn cli tasks unit --env test
-echo 'Running int'
 yarn cli tasks int --env test
-echo 'Running e2e'
 yarn cli tasks e2e --env test
 
 ./scripts/git.sh

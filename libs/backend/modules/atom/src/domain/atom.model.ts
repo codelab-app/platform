@@ -1,4 +1,3 @@
-import { Tag } from '@codelab/backend/modules/tag'
 import { InterfaceType } from '@codelab/backend/modules/type'
 import { AtomType, IAtom } from '@codelab/shared/abstract/core'
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
@@ -33,7 +32,8 @@ export class Atom implements IAtom {
   /**
    * Any tags that allow us to filter, based on which UI framework for example.
    */
-  declare tags?: Array<Tag>
+  @Field(() => [String], { defaultValue: [] })
+  declare tags: Array<string>
 }
 
 registerEnumType(AtomType, {
