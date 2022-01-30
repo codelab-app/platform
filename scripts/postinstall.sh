@@ -2,15 +2,18 @@
 
 set -x
 
-husky install
+# Yarn 3 have trouble disabling scripts
+if [ "$CI" != true]: then
 
-# Build only required projects
-nx run-many --target=build --projects=cli,cmd,tools-rtk-query
+  husky install
 
-# Update Dgraph Schema
-yarn cli dgraph update-schema --env dev
+  # Build only required projects
+  nx run-many --target=build --projects=cli,cmd,tools-rtk-query
 
-# Install bower components for animation related libs
-bower install --no-interactive
+  # Update Dgraph Schema
+  yarn cli dgraph update-schema --env dev
 
+  # Install bower components for animation related libs
+  bower install --no-interactive
 
+fi
