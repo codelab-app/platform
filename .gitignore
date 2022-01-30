@@ -5,6 +5,15 @@
 !.env.example
 nx-cloud.env
 
+#
+.yarn/*
+#!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 # compiled output
 dist/
 tmp/

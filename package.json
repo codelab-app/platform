@@ -1,13 +1,8 @@
 {
   "name": "codelab",
-  "workspaces": {
-    "packages": [
-      "dist/libs/tools/plugins/*"
-    ]
-  },
+  "packageManager": "yarn@3.1.1",
   "engines": {
-    "node": "^12.22.0 || ^14.17.0 || >=16.0.0",
-    "yarn": ">=1.20.0"
+    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
   },
   "version": "0.0.0",
   "license": "MIT",
@@ -17,7 +12,6 @@
     "cli": "node dist/apps/cli/main.js",
     "docker:up": "scripts/docker/up.sh",
     "codegen": "yarn graphql-codegen",
-    "nx": "nx",
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test --testPathPattern=[^i].spec.ts --parallel && nx run-many --all --target=test --testPathPattern=i.spec.ts --runInBand",
     "lint": "nx workspace-lint && nx run-many --all --target=lint",
@@ -351,7 +345,7 @@
     "rimraf": "^3.0.2",
     "speed-measure-webpack-plugin": "^1.5.0",
     "supertest": "6.2.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "terser-webpack-plugin": "^5.3.0",
     "ts-essentials": "9.1.2",
     "ts-jest": "27.1.2",
@@ -366,6 +360,7 @@
   },
   "resolutions": {
     "graphql-language-service": "3.1.6",
-    "graphql-language-service-interface": "2.8.4"
+    "graphql-language-service-interface": "2.8.4",
+    "resolve": "1.20.0"
   }
 }
