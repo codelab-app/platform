@@ -11,8 +11,8 @@ module.exports = {
     'ts-jest': {
       ...nxPreset.globals?.['ts-jest'],
       // Speeds up tests by turning off type checking
-      isolatedModules: true
-    }
+      isolatedModules: true,
+    },
   },
   setupFiles: [`${JEST_CONFIG_PATH}/setupFiles.js`],
   // globalSetup: `${JEST_CONFIG_PATH}/globalSetup.js`,
