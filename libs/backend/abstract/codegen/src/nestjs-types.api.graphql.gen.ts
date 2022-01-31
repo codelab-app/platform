@@ -810,7 +810,7 @@ export interface IQuery {
 
 export interface IMutation {
     createAtom(input: CreateAtomInput): Atom | Promise<Atom>;
-    deleteAtom(input: DeleteAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
+    deleteAtom(input: DeleteAtomInput): Atom | Promise<Atom>;
     importAtoms(input: ImportAtomsInput): Nullable<Void> | Promise<Nullable<Void>>;
     updateAtom(input: UpdateAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
     upsertAtoms(input: UpsertAtomsInput): Atom[] | Promise<Atom[]>;

@@ -977,7 +977,7 @@ type Mutation {
   """Facade for creating a element with component tag"""
   createComponent(input: CreateComponentInput!): Element!
   createAtom(input: CreateAtomInput!): Atom!
-  deleteAtom(input: DeleteAtomInput!): Atom
+  deleteAtom(input: DeleteAtomInput!): Atom!
   importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Atom
   upsertAtoms(input: UpsertAtomsInput!): [Atom!]!

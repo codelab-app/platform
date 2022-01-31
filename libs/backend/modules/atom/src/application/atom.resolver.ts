@@ -174,6 +174,10 @@ export class AtomResolver {
   @ResolveField('api', () => InterfaceType)
   @UseGuards(GqlAuthGuard)
   async apiResolver(@Parent() input: Atom) {
+    if (Object.keys(input.api).length !== 1) {
+      return input.api
+    }
+
     return this.getTypeService.execute({
       input: { where: { atomId: input.id } },
     })
