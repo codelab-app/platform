@@ -174,6 +174,7 @@ export class AtomResolver {
   @ResolveField('api', () => InterfaceType)
   @UseGuards(GqlAuthGuard)
   async apiResolver(@Parent() input: Atom) {
+    // That's a hack that allows to return the API of the atom inside the deleteAtom mutation resolver
     if (Object.keys(input.api).length !== 1) {
       return input.api
     }
