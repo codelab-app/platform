@@ -10,7 +10,6 @@ import {
 import {
   BaseRepository,
   combineFilters,
-  DgraphRepository,
   makeUidFilter,
 } from '@codelab/backend/infra'
 import {
@@ -27,18 +26,16 @@ import { TypeQueryFactory } from './type-query.factory'
 
 @Injectable()
 export class TypeRepository
-  extends BaseRepository<IType, TypeQueryFactory, TypeMutationFactory>
+  extends BaseRepository<IType>
   implements ITypeRepository
 {
-  constructor(dgraph: DgraphRepository) {
-    super(
-      dgraph,
-      DgraphEntityType.Type,
-      new TypeQueryFactory(),
-      new TypeMutationFactory(),
-      TypeSchema,
-    )
-  }
+  protected readonly entityType = DgraphEntityType.Type
+
+  protected readonly queryFactory = new TypeQueryFactory()
+
+  protected readonly mutationFactory = new TypeMutationFactory()
+
+  protected readonly schema = TypeSchema
 
   async getOneWhere(
     where: ITypeWhereUnique,

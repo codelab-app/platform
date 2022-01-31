@@ -23,33 +23,32 @@ import {
  * Override any methods you need to customize.
  * Or add new ones to extend the functionality of the repository.
  */
-export class BaseRepository<
-  T extends EntityLike,
-  TQueryFactory extends IQueryFactory,
-  TMutationFactory extends IMutationFactory<T>,
-> implements IBaseRepository<T>
+export abstract class BaseRepository<T extends EntityLike>
+  implements IBaseRepository<T>
 {
-  constructor(
-    protected readonly dgraph: DgraphRepository,
-    /**
-     * The type of the entity being persisted. Used mostly for throwing better error messages and for
-     * creating more descriptive query names
-     */
-    protected readonly entityType: DgraphEntityType,
-    /**
-     * The query factory used to create queries for this entity
-     */
-    protected readonly queryFactory: TQueryFactory,
-    /**
-     * The mutation factory used to create mutations for this entity
-     */
-    protected readonly mutationFactory: TMutationFactory,
-    /**
-     * Optional zod schema - both for validation and for common transformations,
-     * like transforming object to array, or mismatched dgraph to entity fields.
-     * */
-    protected readonly schema?: ZodSchema<any>,
-  ) {}
+  /**
+   * The type of the entity being persisted. Used mostly for throwing better error messages and for
+   * creating more descriptive query names
+   */
+  protected abstract readonly entityType: DgraphEntityType
+
+  /**
+   * The query factory used to create queries for this entity
+   */
+  protected abstract readonly queryFactory: IQueryFactory
+
+  /**
+   * The mutation factory used to create mutations for this entity
+   */
+  protected abstract readonly mutationFactory: IMutationFactory<T>
+
+  /**
+   * Optional zod schema - both for validation and for common transformations,
+   * like transforming object to array, or mismatched dgraph to entity fields.
+   * */
+  protected abstract readonly schema?: ZodSchema<any>
+
+  constructor(protected readonly dgraph: DgraphRepository) {}
 
   async create(
     entity: T,
