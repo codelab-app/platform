@@ -111,7 +111,7 @@ describe('Atom repository', function () {
       transaction,
     )
 
-    await atomRepo.create(
+    const { id: id2 } = await atomRepo.create(
       { ...testAtom, type: AtomType.AntDesignCardMeta, api: { id: apiId } },
       transaction,
     )
@@ -127,7 +127,29 @@ describe('Atom repository', function () {
 
     expect(foundAll.sort(compareIds)).toEqual([
       { ...testAtom, api: { id: apiId }, id },
-      { ...testAtom, type: AtomType.AntDesignCardMeta, api: { id: apiId } },
+      {
+        ...testAtom,
+        type: AtomType.AntDesignCardMeta,
+        api: { id: apiId },
+        id: id2,
+      },
+    ])
+  })
+
+  it('should search atom by name', async () => {
+    await atomRepo.create({ ...testAtom, api: { id: apiId } }, transaction)
+
+    const name = 'Some random name'
+
+    const { id: id2 } = await atomRepo.create(
+      { ...testAtom, name, api: { id: apiId } },
+      transaction,
+    )
+
+    const found = await atomRepo.searchAtomsByName('random', transaction)
+
+    expect(found.sort(compareIds)).toEqual([
+      { ...testAtom, name, api: { id: apiId }, id: id2 },
     ])
   })
 })

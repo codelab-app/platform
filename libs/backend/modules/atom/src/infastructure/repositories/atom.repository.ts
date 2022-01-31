@@ -46,13 +46,14 @@ export class AtomRepository
     super(dgraph)
   }
 
-  getAtomByType(atomType: AtomType, transaction: Txn): Promise<Maybe<IAtom>> {
-    const queryName = `getAtomByType`
-
-    const query = this.queryFactory.forGet(
-      `eq(atomType, "${atomType}")`,
-      queryName,
-    )
+  async getAtomByType(
+    atomType: AtomType,
+    transaction: Txn,
+  ): Promise<Maybe<IAtom>> {
+    const queryName = `getOne`
+    // eq doesn't work for some reason https://discuss.dgraph.io/t/query-based-on-eq-stopped-working-for-one-predicate/5939/10
+    const filter = `regexp(atomType,/^${atomType}$/i)`
+    const query = this.queryFactory.forGet(filter, queryName)
 
     return this.getHelper(query, transaction, queryName)
   }
@@ -61,7 +62,7 @@ export class AtomRepository
     atomTypes: Array<AtomType>,
     transaction: Txn,
   ): Promise<Array<IAtom>> {
-    const filter = `eq(atomType, ["${atomTypes.join('","')}"])`
+    const filter = `regexp(atomType,/(^${atomTypes.join('$)|(^')}$)/i)`
     const queryName = `getAtomsByTypes`
     const query = this.queryFactory.forGet(filter, queryName)
 
