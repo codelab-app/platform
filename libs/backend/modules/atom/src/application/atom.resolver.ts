@@ -1,7 +1,11 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { Transactional } from '@codelab/backend/application'
 import { GqlAuthGuard, RolesGuard } from '@codelab/backend/infra'
-import { GetTypeGraphService, TypeGraph } from '@codelab/backend/modules/type'
+import {
+  GetTypeGraphService,
+  GetTypeService,
+  InterfaceType,
+  TypeGraph,
+} from '@codelab/backend/modules/type'
 import { CurrentUser, Roles } from '@codelab/backend/modules/user'
 import { IUser, Role } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
@@ -33,6 +37,7 @@ export class AtomResolver {
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
     private getTypeGraphService: GetTypeGraphService,
+    private getTypeService: GetTypeService,
     private getAtomsTypeHookService: GetAtomsTypeHookService,
     private importAtomsService: ImportAtomsService,
     private upsertAtomsService: UpsertAtomsService,
@@ -103,7 +108,6 @@ export class AtomResolver {
   }
 
   @Query(() => Atom, { nullable: true })
-  @Transactional()
   async getAtom(@Args('input') input: GetAtomInput) {
     return this.getAtomService.execute({ input })
   }
@@ -157,6 +161,14 @@ export class AtomResolver {
     @CurrentUser() currentUser: IUser,
   ) {
     return this.getTypeGraphService.execute({
+      input: { where: { atomId: input.id } },
+    })
+  }
+
+  @ResolveField('api', () => InterfaceType)
+  @UseGuards(GqlAuthGuard)
+  async apiResolver(@Parent() input: Atom, @CurrentUser() currentUser: IUser) {
+    return this.getTypeService.execute({
       input: { where: { atomId: input.id } },
     })
   }

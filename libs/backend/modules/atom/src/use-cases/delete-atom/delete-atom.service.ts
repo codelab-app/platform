@@ -15,6 +15,8 @@ export class DeleteAtomService
   extends DgraphUseCase<DeleteAtomInput>
   implements UseCasePort<DeleteAtomInput, void>
 {
+  protected autoCommit = true
+
   constructor(
     dgraph: DgraphRepository,
     @Inject(IAtomRepositoryToken)

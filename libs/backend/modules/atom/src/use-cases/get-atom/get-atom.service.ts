@@ -26,7 +26,7 @@ export class GetAtomService
     super(dgraph)
   }
 
-  protected schema = AtomSchema.nullable()
+  protected schema = AtomSchema.nullish()
 
   async executeTransaction(
     { input }: GetAtomRequest,

@@ -21,6 +21,8 @@ export class CreateAtomService
   extends DgraphUseCase<CreateAtomRequest, CreateResponse>
   implements UseCasePort<CreateAtomRequest, CreateResponse>
 {
+  protected autoCommit = true
+
   constructor(
     dgraph: DgraphRepository,
     @Inject(IAtomRepositoryToken)
