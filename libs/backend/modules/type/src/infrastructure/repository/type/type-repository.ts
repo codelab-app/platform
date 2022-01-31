@@ -10,6 +10,7 @@ import {
 import {
   BaseRepository,
   combineFilters,
+  DgraphRepository,
   makeUidFilter,
 } from '@codelab/backend/infra'
 import {
@@ -36,6 +37,10 @@ export class TypeRepository
   protected readonly mutationFactory = new TypeMutationFactory()
 
   protected readonly schema = TypeSchema
+
+  constructor(dgraph: DgraphRepository) {
+    super(dgraph)
+  }
 
   async getOneWhere(
     where: ITypeWhereUnique,

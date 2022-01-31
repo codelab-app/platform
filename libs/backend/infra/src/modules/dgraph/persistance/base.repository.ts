@@ -144,9 +144,8 @@ export abstract class BaseRepository<T extends EntityLike>
   async getAll(transaction: ITransaction): Promise<Array<T>> {
     const queryName = `getAll${this.entityType}`
     const query = this.queryFactory.forGet(undefined, queryName)
-    const all = await this.dgraph.getAllNamed<T>(transaction, query, queryName)
 
-    return this.parseArray(all)
+    return this.getAllHelper(query, transaction)
   }
 
   async getOne(id: string, transaction: ITransaction): Promise<T | undefined> {
@@ -160,9 +159,8 @@ export abstract class BaseRepository<T extends EntityLike>
     const queryName = `get${this.entityType}ByIds`
     const filter = makeUidsFilter(ids)
     const query = this.queryFactory.forGet(filter, queryName)
-    const all = await this.dgraph.getAllNamed<T>(transaction, query, queryName)
 
-    return this.parseArray(all)
+    return this.getAllHelper(query, transaction, queryName)
   }
 
   protected parse(entity: T): T {
@@ -172,7 +170,7 @@ export abstract class BaseRepository<T extends EntityLike>
   protected parseArray(entities: Array<T>): Array<T> {
     entities = entities ?? []
 
-    return this.schema?.array().parse(entities) ?? entities
+    return entities.map((e) => this.parse(e))
   }
 
   protected async getAllHelper(

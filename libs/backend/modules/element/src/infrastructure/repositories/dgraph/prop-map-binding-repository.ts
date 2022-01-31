@@ -1,5 +1,5 @@
 import { DgraphEntityType } from '@codelab/backend/abstract/core'
-import { BaseRepository } from '@codelab/backend/infra'
+import { BaseRepository, DgraphRepository } from '@codelab/backend/infra'
 import {
   IPropMapBinding,
   PropMapBindingSchema,
@@ -17,4 +17,8 @@ export class PropMapBindingRepository extends BaseRepository<IPropMapBinding> {
   protected readonly mutationFactory = new PropMapBindingMutationFactory()
 
   protected readonly schema = PropMapBindingSchema
+
+  constructor(dgraph: DgraphRepository) {
+    super(dgraph)
+  }
 }

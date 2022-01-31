@@ -1,20 +1,19 @@
 import { UseCasePort } from '@codelab/backend/abstract/core'
-import { DgraphUseCase } from '@codelab/backend/application'
 import { IAtom } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
-import { GetAtomService } from '../get-atom'
+import { GetAtomsService } from '../get-atoms'
+
+const hookRegex = /^Hook.+/i
 
 @Injectable()
-export class GetAtomsTypeHookService
-  extends DgraphUseCase<any, Array<IAtom>>
-  implements UseCasePort<any, Array<IAtom>>
-{
-  protected executeTransaction(_: any, txn: Txn) {
-    return this.dgraph.getAllNamed<IAtom>(
-      txn,
-      GetAtomService.getAtomQuery(`@filter(regexp(name, /^Hook.+/i))`),
-      'query',
-    )
+export class GetAtomsTypeHookService implements UseCasePort<any, Array<IAtom>> {
+  constructor(private readonly getAtomsService: GetAtomsService) {}
+
+  async execute(_: any) {
+    const atoms = await this.getAtomsService.execute({
+      where: { searchQuery: 'Hook' },
+    })
+
+    return atoms.filter((a) => hookRegex.test(a.name))
   }
 }

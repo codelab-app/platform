@@ -2,7 +2,7 @@ import {
   DgraphEntityType,
   IHookRepository,
 } from '@codelab/backend/abstract/core'
-import { BaseRepository } from '@codelab/backend/infra'
+import { BaseRepository, DgraphRepository } from '@codelab/backend/infra'
 import { HookSchema, IHook } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { HookMutationFactory } from './hook-mutation.factory'
@@ -20,4 +20,8 @@ export class HookRepository
   protected readonly mutationFactory = new HookMutationFactory()
 
   protected readonly schema = HookSchema
+
+  constructor(dgraph: DgraphRepository) {
+    super(dgraph)
+  }
 }

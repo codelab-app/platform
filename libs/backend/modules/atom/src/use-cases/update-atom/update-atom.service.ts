@@ -1,8 +1,11 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  IAtomRepository,
+  IAtomRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
-import { DgraphRepository, jsonMutation } from '@codelab/backend/infra'
-import { IAtom } from '@codelab/shared/abstract/core'
-import { Injectable } from '@nestjs/common'
+import { DgraphRepository } from '@codelab/backend/infra'
+import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetAtomService } from '../get-atom'
 import { UpdateAtomInput } from './update-atom.input'
@@ -12,9 +15,12 @@ export class UpdateAtomService
   extends DgraphUseCase<UpdateAtomInput>
   implements UseCasePort<UpdateAtomInput, void>
 {
+  protected autoCommit = true
+
   constructor(
     dgraph: DgraphRepository,
     private getAtomService: GetAtomService,
+    @Inject(IAtomRepositoryToken) private atomRepo: IAtomRepository,
   ) {
     super(dgraph)
   }
@@ -23,33 +29,17 @@ export class UpdateAtomService
     request: UpdateAtomInput,
     txn: Txn,
   ): Promise<void> {
+    const { name, type, api } = request.data
     const { atom } = await this.validate(request)
 
-    await this.dgraph.executeMutation(
-      txn,
-      UpdateAtomService.createMutation(request, atom),
-    )
-  }
+    atom.name = name
+    atom.type = type
 
-  private static createMutation(
-    { id, data: { name, type, api } }: UpdateAtomInput,
-    atom: IAtom,
-  ) {
-    return jsonMutation({
-      uid: id,
-      atomType: type,
-      name,
-      api: api
-        ? {
-            uid: api,
-          }
-        : atom.api
-        ? {
-            uid: atom.api.id,
-            name: `${name} API`,
-          }
-        : null,
-    })
+    if (api) {
+      atom.api.id = api
+    }
+
+    await this.atomRepo.update(atom, txn)
   }
 
   private async validate({ id }: UpdateAtomInput) {

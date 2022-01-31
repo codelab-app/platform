@@ -1,7 +1,11 @@
-import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  IAtomRepository,
+  IAtomRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { DgraphUseCase } from '@codelab/backend/application'
 import { DgraphRepository } from '@codelab/backend/infra'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
 import { GetAtomService } from '../get-atom'
 import { DeleteAtomInput } from './delete-atom.input'
@@ -13,6 +17,8 @@ export class DeleteAtomService
 {
   constructor(
     dgraph: DgraphRepository,
+    @Inject(IAtomRepositoryToken)
+    private atomRepo: IAtomRepository,
     private getAtomService: GetAtomService,
   ) {
     super(dgraph)
@@ -24,34 +30,7 @@ export class DeleteAtomService
   ): Promise<void> {
     const { atomId } = request
     await this.validate(request)
-
-    // const mu: Mutation = {
-    //   mutation: `
-    //     upsert {
-    //       query {
-    //         q(func: uid(${atomId}) @filter(eq(dgraph.type, ${DgraphEntityType.Atom}) @recurse {
-    //           ATOM as uid
-    //           API as api
-    //           fields
-    //         }
-    //       }
-    //       mutation {
-    //         delete {
-    //           uid(ATOM) * * .
-    //         }
-    //       }
-    //     }
-    //   `,
-    // }
-
-    // await this.dgraph.executeMutation(txn, mu)
-
-    await this.dgraph.executeUpsertDeleteAll(txn, (q) =>
-      q
-        .addTypeFilterDirective(DgraphEntityType.Atom)
-        .setUidFunc(atomId)
-        .addFields('api fields'),
-    )
+    await this.atomRepo.delete(atomId, txn)
   }
 
   protected async validate({ atomId }: DeleteAtomInput) {

@@ -2,7 +2,7 @@ import {
   DgraphEntityType,
   IPropRepository,
 } from '@codelab/backend/abstract/core'
-import { BaseRepository } from '@codelab/backend/infra'
+import { BaseRepository, DgraphRepository } from '@codelab/backend/infra'
 import { IProp, PropSchema } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { PropMutationFactory } from './prop-mutation.factory'
@@ -20,4 +20,8 @@ export class PropRepository
   protected readonly mutationFactory = new PropMutationFactory()
 
   protected readonly schema = PropSchema
+
+  constructor(dgraph: DgraphRepository) {
+    super(dgraph)
+  }
 }

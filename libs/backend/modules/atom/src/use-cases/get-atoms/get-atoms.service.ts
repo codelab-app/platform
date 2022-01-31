@@ -1,14 +1,17 @@
-import { UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  IAtomRepository,
+  IAtomRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import {
   DgraphUseCase,
   exactlyOneWhereClause,
 } from '@codelab/backend/application'
+import { DgraphRepository } from '@codelab/backend/infra'
 import { AtomSchema, IAtom } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
-import Fuse from 'fuse.js'
-import { GetAtomService } from '../get-atom'
 import { GetAtomsInput } from './get-atoms.input'
 
 @Injectable()
@@ -17,6 +20,15 @@ export class GetAtomsService
   implements UseCasePort<Maybe<GetAtomsInput>, Array<IAtom>>
 {
   protected schema = AtomSchema.array()
+
+  protected autoCommit = true
+
+  constructor(
+    dgraph: DgraphRepository,
+    @Inject(IAtomRepositoryToken) private atomRepo: IAtomRepository,
+  ) {
+    super(dgraph)
+  }
 
   protected async executeTransaction(request: Maybe<GetAtomsInput>, txn: Txn) {
     if (request && request.where) {
@@ -28,56 +40,17 @@ export class GetAtomsService
     }
 
     if (request?.where?.ids) {
-      if (!request.where.ids.length) {
-        return []
-      }
-
-      return this.dgraph.getAllNamed<IAtom>(
-        txn,
-        GetAtomService.getAtomQuery(
-          `@filter(uid(${request.where.ids.join(',')}))`,
-        ),
-        'query',
-      )
+      return this.atomRepo.getAllByIds(request.where.ids, txn)
     }
 
     if (request?.where?.types) {
-      if (!request.where.types.length) {
-        return []
-      }
-
-      return this.dgraph.getAllNamed<IAtom>(
-        txn,
-        GetAtomService.getAtomQuery(
-          `@filter(eq(atomType, ${request.where.types.join(',')}))`,
-        ),
-        'query',
-      )
+      return this.atomRepo.getAtomsByTypes(request.where.types, txn)
     }
 
     if (request?.where?.searchQuery) {
-      const results = await this.dgraph.getAllNamed<IAtom>(
-        txn,
-        GetAtomService.getAtomQuery(
-          `@filter(match(name, "${request.where.searchQuery}", 14))`,
-        ),
-        'query',
-      )
-
-      const fuse = new Fuse(results, {
-        keys: ['name', 'type'],
-        shouldSort: true,
-        isCaseSensitive: false,
-        threshold: 0.4,
-      })
-
-      return fuse.search(request.where.searchQuery).map((r) => r.item)
+      return this.atomRepo.searchAtomsByName(request.where.searchQuery, txn)
     }
 
-    return this.dgraph.getAllNamed<IAtom>(
-      txn,
-      GetAtomService.getAtomQuery(),
-      'query',
-    )
+    return this.atomRepo.getAll(txn)
   }
 }

@@ -35,7 +35,7 @@ export class AtomResolver {
     private getTypeGraphService: GetTypeGraphService,
     private getAtomsTypeHookService: GetAtomsTypeHookService,
     private importAtomsService: ImportAtomsService,
-    private createAtomsService: UpsertAtomsService,
+    private upsertAtomsService: UpsertAtomsService,
   ) {}
 
   @Mutation(() => Atom)
@@ -134,7 +134,7 @@ export class AtomResolver {
     @Args('input') input: UpsertAtomsInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    const results = await this.createAtomsService.execute({
+    const results = await this.upsertAtomsService.execute({
       input,
       currentUser,
     })

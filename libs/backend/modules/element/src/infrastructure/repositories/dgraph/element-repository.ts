@@ -11,6 +11,7 @@ import { CreateResponse } from '@codelab/backend/application'
 import {
   BaseRepository,
   combineFilters,
+  DgraphRepository,
   makeCreateResponse,
   mergeAndMutate,
 } from '@codelab/backend/infra'
@@ -71,6 +72,10 @@ export class ElementRepository
   protected readonly mutationFactory = new ElementMutationFactory()
 
   protected readonly schema = ElementRepoSchema
+
+  constructor(dgraph: DgraphRepository) {
+    super(dgraph)
+  }
 
   async updateAll(
     elements: Array<IElement>,
