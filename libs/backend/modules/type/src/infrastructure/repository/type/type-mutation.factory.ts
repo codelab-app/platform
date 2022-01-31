@@ -41,18 +41,16 @@ import {
  * Note: this is not designed to handle updating a typeKind
  */
 export class TypeMutationFactory extends BaseMutationFactory<IType> {
+  public readonly entityType = DgraphEntityType.Type
+
   // Add nullable/optional predicates of any type here
-  static readonly TypeNullables: NullablePredicates<IType> = []
+  public readonly nullablePredicates: NullablePredicates<IType> = []
 
-  private readonly fieldMutationFactory: FieldMutationFactory
+  static readonly TypeNullables: NullablePredicates<IType>
 
-  private readonly etvMutationFactory: EnumTypeValueMutationFactory
+  private readonly fieldMutationFactory = new FieldMutationFactory()
 
-  constructor() {
-    super(DgraphEntityType.Type, TypeMutationFactory.TypeNullables)
-    this.fieldMutationFactory = new FieldMutationFactory()
-    this.etvMutationFactory = new EnumTypeValueMutationFactory()
-  }
+  private readonly etvMutationFactory = new EnumTypeValueMutationFactory()
 
   /**
    * Converts a IType entity to a dgraph mutation
