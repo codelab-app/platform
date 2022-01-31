@@ -46,8 +46,6 @@ export class TypeMutationFactory extends BaseMutationFactory<IType> {
   // Add nullable/optional predicates of any type here
   public readonly nullablePredicates: NullablePredicates<IType> = []
 
-  static readonly TypeNullables: NullablePredicates<IType>
-
   private readonly fieldMutationFactory = new FieldMutationFactory()
 
   private readonly etvMutationFactory = new EnumTypeValueMutationFactory()
@@ -126,7 +124,7 @@ export class TypeMutationFactory extends BaseMutationFactory<IType> {
     const deleteNullPredicatesMutation = makeDeleteJsonMutationForUpdates(
       entity,
       entity.id,
-      TypeMutationFactory.TypeNullables,
+      this.nullablePredicates,
     )
 
     // Handle the array relationships, because they are not included in the core mutation
