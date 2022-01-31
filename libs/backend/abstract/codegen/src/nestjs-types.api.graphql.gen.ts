@@ -793,9 +793,9 @@ export interface Atom {
     id: string;
     type: AtomType;
     name: string;
-    api: ObjectRef;
     tags: string[];
     apiGraph: TypeGraph;
+    api: InterfaceType;
 }
 
 export interface IQuery {

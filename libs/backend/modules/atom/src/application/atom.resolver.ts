@@ -66,7 +66,7 @@ export class AtomResolver {
     return atom
   }
 
-  @Mutation(() => Atom, { nullable: true })
+  @Mutation(() => Atom)
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   async deleteAtom(@Args('input') input: DeleteAtomInput) {
@@ -80,9 +80,15 @@ export class AtomResolver {
       throw new Error('Atom not found')
     }
 
+    const api = await this.getTypeService.execute({
+      input: { where: { atomId } },
+    })
+
+    console.log({ api })
+
     await this.deleteAtomService.execute(input)
 
-    return atom
+    return { ...atom, api }
   }
 
   @Query(() => [Atom], { nullable: true })
@@ -167,7 +173,7 @@ export class AtomResolver {
 
   @ResolveField('api', () => InterfaceType)
   @UseGuards(GqlAuthGuard)
-  async apiResolver(@Parent() input: Atom, @CurrentUser() currentUser: IUser) {
+  async apiResolver(@Parent() input: Atom) {
     return this.getTypeService.execute({
       input: { where: { atomId: input.id } },
     })

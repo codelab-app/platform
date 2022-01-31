@@ -240,13 +240,9 @@ type Atom {
 
   """This acts as unique ID suitable for seeder lookup"""
   name: String!
-
-  """
-  Similar to props for a React component, it tells us which kind of configurations it can take
-  """
-  api: InterfaceType!
   tags: [String!]!
   apiGraph: TypeGraph!
+  api: InterfaceType!
 }
 
 enum AtomType {
