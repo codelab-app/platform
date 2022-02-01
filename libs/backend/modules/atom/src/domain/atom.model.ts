@@ -1,4 +1,4 @@
-import { InterfaceType } from '@codelab/backend/modules/type'
+import { ObjectRef } from '@codelab/backend/abstract/core'
 import { AtomType, IAtom } from '@codelab/shared/abstract/core'
 import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql'
 
@@ -23,11 +23,7 @@ export class Atom implements IAtom {
   })
   declare name: string
 
-  @Field(() => InterfaceType, {
-    description:
-      'Similar to props for a React component, it tells us which kind of configurations it can take',
-  })
-  declare api: InterfaceType
+  declare api: ObjectRef // resolved using field resolver
 
   /**
    * Any tags that allow us to filter, based on which UI framework for example.

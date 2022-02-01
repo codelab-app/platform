@@ -1,16 +1,21 @@
 import { DgraphEntityType } from '@codelab/backend/abstract/core'
-import { BaseMutationFactory, randomBlankNode } from '@codelab/backend/infra'
+import {
+  BaseMutationFactory,
+  NullablePredicates,
+  randomBlankNode,
+} from '@codelab/backend/infra'
 import { IPropMapBinding } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { Mutation } from 'dgraph-js-http'
 
 @Injectable()
 export class PropMapBindingMutationFactory extends BaseMutationFactory<IPropMapBinding> {
-  constructor() {
-    super(DgraphEntityType.PropMapBinding, [
-      ['targetElementId', 'targetElement'],
-    ])
-  }
+  public readonly entityType = DgraphEntityType.PropMapBinding
+
+  public readonly nullablePredicates: NullablePredicates<IPropMapBinding> = [
+    'targetElementId',
+    'targetElement',
+  ]
 
   public forCreate(entity: IPropMapBinding, uid?: string): Mutation {
     return {

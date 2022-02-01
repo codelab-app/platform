@@ -25,12 +25,7 @@ export const elementToRender: IElement = {
     id: '0x27254',
     name: 'Html Div',
     type: AtomType.HtmlDiv,
-    api: {
-      id: '0x27182',
-      name: 'Html Div API',
-      typeKind: TypeKind.InterfaceType,
-      owner: null,
-    },
+    api: { id: '0x27182' },
   },
   componentTag: null,
   props: {
@@ -110,12 +105,7 @@ export const componentToRender: IElement = {
     id: '0x27150',
     name: 'Text',
     type: AtomType.Text,
-    api: {
-      id: '0x27145',
-      name: 'Text API',
-      typeKind: TypeKind.InterfaceType,
-      owner: null,
-    },
+    api: { id: '0x27145' },
   },
   componentTag: {
     id: '0x3a983',
@@ -146,12 +136,7 @@ export const elementToRender03: IElement = {
     id: '0x27150',
     name: 'Text',
     type: AtomType.Text,
-    api: {
-      id: '0x27145',
-      name: 'Text API',
-      typeKind: TypeKind.InterfaceType,
-      owner: null,
-    },
+    api: { id: '0x27145' },
   },
   componentTag: null,
   props: {

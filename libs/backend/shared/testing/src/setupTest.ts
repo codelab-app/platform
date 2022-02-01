@@ -61,6 +61,12 @@ export const makeTestUser = (role: Role): IUser => ({
   roles: [role],
 })
 
+if (typeof jest !== 'undefined') {
+  const testTimeout = process.env.CI ? 60000 : 500000
+  // https://github.com/facebook/jest/issues/11607
+  jest.setTimeout(testTimeout)
+}
+
 export const setupTestModule = async (
   nestModules: Array<NestModule>,
   options: TestOptions,

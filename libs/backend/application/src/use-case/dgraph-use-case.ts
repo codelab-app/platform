@@ -40,12 +40,20 @@ export abstract class DgraphUseCase<
     })
 
     if (this.schema) {
-      const parseResult = this.schema.parse(results)
+      try {
+        const parseResult = this.schema.parse(results)
 
-      if (this.returnParsed) {
-        return parseResult
-      } else {
-        return results
+        if (this.returnParsed) {
+          return parseResult
+        } else {
+          return results
+        }
+      } catch (e) {
+        console.error(
+          `Error while validating the schema in ${this.constructor.name}`,
+          e,
+        )
+        throw e
       }
     }
 

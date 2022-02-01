@@ -240,13 +240,9 @@ type Atom {
 
   """This acts as unique ID suitable for seeder lookup"""
   name: String!
-
-  """
-  Similar to props for a React component, it tells us which kind of configurations it can take
-  """
-  api: InterfaceType!
   tags: [String!]!
   apiGraph: TypeGraph!
+  api: InterfaceType!
 }
 
 enum AtomType {
@@ -981,7 +977,7 @@ type Mutation {
   """Facade for creating a element with component tag"""
   createComponent(input: CreateComponentInput!): Element!
   createAtom(input: CreateAtomInput!): Atom!
-  deleteAtom(input: DeleteAtomInput!): Atom
+  deleteAtom(input: DeleteAtomInput!): Atom!
   importAtoms(input: ImportAtomsInput!): Void
   updateAtom(input: UpdateAtomInput!): Atom
   upsertAtoms(input: UpsertAtomsInput!): [Atom!]!

@@ -21,13 +21,12 @@ import { randomBlankNode } from './repository-utils'
  *
  * {@see NullablePredicates} for how to construct the predicate array
  */
-export class BaseMutationFactory<T extends EntityLike>
+export abstract class BaseMutationFactory<T extends EntityLike>
   implements IMutationFactory<T>
 {
-  constructor(
-    public readonly entityType: DgraphEntityType,
-    protected readonly nullablePredicates: NullablePredicates<T>,
-  ) {}
+  public abstract readonly entityType: DgraphEntityType
+
+  protected abstract readonly nullablePredicates: NullablePredicates<T>
 
   /**
    * Override this method if the entity has different predicates keys

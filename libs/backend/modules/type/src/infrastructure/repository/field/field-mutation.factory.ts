@@ -13,14 +13,12 @@ import { Mutation } from 'dgraph-js-http'
 export class FieldMutationFactory extends BaseMutationFactory<
   IField & WithOrder
 > {
-  static readonly FieldNullables: NullablePredicates<IField> = [
+  public readonly entityType = DgraphEntityType.Field
+
+  public readonly nullablePredicates: NullablePredicates<IField> = [
     'name',
     'description',
   ]
-
-  constructor() {
-    super(DgraphEntityType.Field, FieldMutationFactory.FieldNullables)
-  }
 
   forCreate(entity: IField & WithOrder, uid?: string): Mutation {
     const { id, target, source, ...data } = entity

@@ -793,9 +793,66 @@ export interface Atom {
     id: string;
     type: AtomType;
     name: string;
-    api: InterfaceType;
     tags: string[];
     apiGraph: TypeGraph;
+    api: InterfaceType;
+}
+
+export interface Prop {
+    id: string;
+    data: string;
+}
+
+export interface Hook {
+    id: string;
+    type: AtomType;
+    config: Prop;
+}
+
+export interface Tag {
+    id: string;
+    name: string;
+    owner?: Nullable<ObjectRef>;
+    parent?: Nullable<string>;
+    children: string[];
+    isRoot: boolean;
+}
+
+export interface TagEdge {
+    source: string;
+    target: string;
+    order?: Nullable<number>;
+}
+
+export interface PropMapBinding {
+    id: string;
+    targetElementId?: Nullable<string>;
+    sourceKey: string;
+    targetKey: string;
+}
+
+export interface Element {
+    id: string;
+    name?: Nullable<string>;
+    componentTag?: Nullable<Tag>;
+    fixedId?: Nullable<string>;
+    css?: Nullable<string>;
+    atom?: Nullable<Atom>;
+    props: Prop;
+    hooks: Hook[];
+    renderForEachPropKey?: Nullable<string>;
+    renderIfPropKey?: Nullable<string>;
+    propMapBindings: PropMapBinding[];
+    propTransformationJs?: Nullable<string>;
+    instanceOfComponent?: Nullable<ObjectRef>;
+    parentElement?: Nullable<ObjectRef>;
+    owner?: Nullable<ObjectRef>;
+}
+
+export interface ElementEdge {
+    source: string;
+    target: string;
+    order?: Nullable<number>;
 }
 
 export interface IQuery {
@@ -810,7 +867,7 @@ export interface IQuery {
 
 export interface IMutation {
     createAtom(input: CreateAtomInput): Atom | Promise<Atom>;
-    deleteAtom(input: DeleteAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
+    deleteAtom(input: DeleteAtomInput): Atom | Promise<Atom>;
     importAtoms(input: ImportAtomsInput): Nullable<Void> | Promise<Nullable<Void>>;
     updateAtom(input: UpdateAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
     upsertAtoms(input: UpsertAtomsInput): Atom[] | Promise<Atom[]>;

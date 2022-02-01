@@ -1,20 +1,17 @@
 import {
-  DgraphEntityType,
+  IAtomRepository,
+  IAtomRepositoryToken,
   ITransaction,
   UseCasePort,
 } from '@codelab/backend/abstract/core'
 import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
-import {
-  DgraphRepository,
-  getUidFromResponse,
-  jsonMutation,
-} from '@codelab/backend/infra'
+import { DgraphRepository } from '@codelab/backend/infra'
 import {
   CreateTypeService,
   GetTypeService,
 } from '@codelab/backend/modules/type'
 import { IUser, TypeKind } from '@codelab/shared/abstract/core'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { GetAtomService } from '../get-atom'
 import { CreateAtomInput } from './create-atom.input'
 import { CreateAtomRequest } from './create-atom.request'
@@ -24,10 +21,12 @@ export class CreateAtomService
   extends DgraphUseCase<CreateAtomRequest, CreateResponse>
   implements UseCasePort<CreateAtomRequest, CreateResponse>
 {
-  protected override autoCommit = true
+  protected autoCommit = true
 
   constructor(
     dgraph: DgraphRepository,
+    @Inject(IAtomRepositoryToken)
+    private atomRepo: IAtomRepository,
     private createTypeService: CreateTypeService,
     private getAtomService: GetAtomService,
     private getTypeService: GetTypeService,
@@ -35,14 +34,19 @@ export class CreateAtomService
     super(dgraph)
   }
 
-  async executeTransaction(request: CreateAtomRequest, txn: ITransaction) {
+  protected async executeTransaction(
+    request: CreateAtomRequest,
+    txn: ITransaction,
+  ) {
     await this.validate(request)
 
     const { input, currentUser } = request
     const { apiId } = await this.createInterfaceIfMissing(input, currentUser)
-    const { atomId } = await this.createAtom(input, txn, apiId)
 
-    return { id: atomId }
+    return this.atomRepo.create(
+      { id: '', name: input.name, type: input.type, api: { id: apiId } },
+      txn,
+    )
   }
 
   private async createInterfaceIfMissing(
@@ -59,37 +63,6 @@ export class CreateAtomService
     }
 
     return { apiId: input.api }
-  }
-
-  private async createAtom(
-    input: CreateAtomInput,
-    transaction: ITransaction,
-    apiId: string,
-  ) {
-    const blankNodeLabel = `atom`
-    const blankNodeUid = `_:${blankNodeLabel}`
-
-    const res = await transaction.mutate(
-      CreateAtomService.createMutation(input, apiId, blankNodeUid),
-    )
-
-    const atomId = getUidFromResponse(res, blankNodeLabel)
-
-    return { atomId }
-  }
-
-  private static createMutation(
-    { type, name }: CreateAtomInput,
-    apiId: string,
-    blankNodeUid: string,
-  ) {
-    return jsonMutation({
-      uid: blankNodeUid,
-      'dgraph.type': [DgraphEntityType.Atom],
-      atomType: type,
-      name,
-      api: { uid: apiId },
-    })
   }
 
   private async validate(request: CreateAtomRequest) {

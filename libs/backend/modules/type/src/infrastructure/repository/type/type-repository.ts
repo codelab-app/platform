@@ -27,17 +27,19 @@ import { TypeQueryFactory } from './type-query.factory'
 
 @Injectable()
 export class TypeRepository
-  extends BaseRepository<IType, TypeQueryFactory, TypeMutationFactory>
+  extends BaseRepository<IType>
   implements ITypeRepository
 {
+  protected readonly entityType = DgraphEntityType.Type
+
+  protected readonly queryFactory = new TypeQueryFactory()
+
+  protected readonly mutationFactory = new TypeMutationFactory()
+
+  protected readonly schema = TypeSchema
+
   constructor(dgraph: DgraphRepository) {
-    super(
-      dgraph,
-      DgraphEntityType.Type,
-      new TypeQueryFactory(),
-      new TypeMutationFactory(),
-      TypeSchema,
-    )
+    super(dgraph)
   }
 
   async getOneWhere(

@@ -1,7 +1,11 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { Transactional } from '@codelab/backend/application'
 import { GqlAuthGuard, RolesGuard } from '@codelab/backend/infra'
-import { GetTypeGraphService, TypeGraph } from '@codelab/backend/modules/type'
+import {
+  GetTypeGraphService,
+  GetTypeService,
+  InterfaceType,
+  TypeGraph,
+} from '@codelab/backend/modules/type'
 import { CurrentUser, Roles } from '@codelab/backend/modules/user'
 import { IUser, Role } from '@codelab/shared/abstract/core'
 import { Injectable, UseGuards } from '@nestjs/common'
@@ -33,9 +37,10 @@ export class AtomResolver {
     private deleteAtomService: DeleteAtomService,
     private updateAtomService: UpdateAtomService,
     private getTypeGraphService: GetTypeGraphService,
+    private getTypeService: GetTypeService,
     private getAtomsTypeHookService: GetAtomsTypeHookService,
     private importAtomsService: ImportAtomsService,
-    private createAtomsService: UpsertAtomsService,
+    private upsertAtomsService: UpsertAtomsService,
   ) {}
 
   @Mutation(() => Atom)
@@ -61,7 +66,7 @@ export class AtomResolver {
     return atom
   }
 
-  @Mutation(() => Atom, { nullable: true })
+  @Mutation(() => Atom)
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(Role.Admin)
   async deleteAtom(@Args('input') input: DeleteAtomInput) {
@@ -75,9 +80,15 @@ export class AtomResolver {
       throw new Error('Atom not found')
     }
 
+    const api = await this.getTypeService.execute({
+      input: { where: { atomId } },
+    })
+
+    console.log({ api })
+
     await this.deleteAtomService.execute(input)
 
-    return atom
+    return { ...atom, api }
   }
 
   @Query(() => [Atom], { nullable: true })
@@ -103,7 +114,6 @@ export class AtomResolver {
   }
 
   @Query(() => Atom, { nullable: true })
-  @Transactional()
   async getAtom(@Args('input') input: GetAtomInput) {
     return this.getAtomService.execute({ input })
   }
@@ -134,7 +144,7 @@ export class AtomResolver {
     @Args('input') input: UpsertAtomsInput,
     @CurrentUser() currentUser: IUser,
   ) {
-    const results = await this.createAtomsService.execute({
+    const results = await this.upsertAtomsService.execute({
       input,
       currentUser,
     })
@@ -157,6 +167,19 @@ export class AtomResolver {
     @CurrentUser() currentUser: IUser,
   ) {
     return this.getTypeGraphService.execute({
+      input: { where: { atomId: input.id } },
+    })
+  }
+
+  @ResolveField('api', () => InterfaceType)
+  @UseGuards(GqlAuthGuard)
+  async apiResolver(@Parent() input: Atom) {
+    // That's a hack that allows to return the API of the atom inside the deleteAtom mutation resolver
+    if (Object.keys(input.api).length !== 1) {
+      return input.api
+    }
+
+    return this.getTypeService.execute({
       input: { where: { atomId: input.id } },
     })
   }

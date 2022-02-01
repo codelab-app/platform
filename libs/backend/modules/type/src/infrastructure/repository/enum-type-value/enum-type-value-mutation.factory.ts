@@ -13,14 +13,11 @@ import { Mutation } from 'dgraph-js-http'
 export class EnumTypeValueMutationFactory extends BaseMutationFactory<
   IEnumTypeValue & WithOrder
 > {
-  static readonly ETVNullables: NullablePredicates<IEnumTypeValue> = ['name']
+  public readonly entityType = DgraphEntityType.EnumTypeValue
 
-  constructor() {
-    super(
-      DgraphEntityType.EnumTypeValue,
-      EnumTypeValueMutationFactory.ETVNullables,
-    )
-  }
+  public readonly nullablePredicates: NullablePredicates<IEnumTypeValue> = [
+    'name',
+  ]
 
   forCreate(entity: IEnumTypeValue & WithOrder, uid?: string): Mutation {
     const { id, value, ...data } = entity

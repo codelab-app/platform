@@ -2,6 +2,7 @@ import { DgraphEntityType } from '@codelab/backend/abstract/core'
 import {
   BaseMutationFactory,
   mergeMutations,
+  NullablePredicates,
   randomBlankNode,
 } from '@codelab/backend/infra'
 import { PropMutationFactory } from '@codelab/backend/modules/prop'
@@ -10,12 +11,11 @@ import { Mutation } from 'dgraph-js-http'
 
 // The prop entity is simple, no need for custom mutations, the default ones will do the job
 export class HookMutationFactory extends BaseMutationFactory<IHook> {
-  private readonly propMutationFactory: PropMutationFactory
+  public readonly entityType = DgraphEntityType.Hook
 
-  constructor() {
-    super(DgraphEntityType.Hook, []) // Edit this if any of the hook fields are nullable
-    this.propMutationFactory = new PropMutationFactory()
-  }
+  public readonly nullablePredicates: NullablePredicates<IHook> = []
+
+  private readonly propMutationFactory = new PropMutationFactory()
 
   override forCreate(entity: IHook, uid?: string) {
     const configUid = entity.config.id || randomBlankNode()

@@ -1,9 +1,13 @@
-import { DgraphEntityType, UseCasePort } from '@codelab/backend/abstract/core'
+import {
+  IAtomRepository,
+  IAtomRepositoryToken,
+  UseCasePort,
+} from '@codelab/backend/abstract/core'
 import { CreateResponse, DgraphUseCase } from '@codelab/backend/application'
-import { getUidFromResponse } from '@codelab/backend/infra'
-import { Role, TypeKind } from '@codelab/shared/abstract/core'
-import { Injectable } from '@nestjs/common'
+import { DgraphRepository } from '@codelab/backend/infra'
+import { Inject, Injectable } from '@nestjs/common'
 import { Txn } from 'dgraph-js-http'
+import { GetAtomService } from '../get-atom'
 import { UpsertAtomsRequest } from './upsert-atoms.request'
 
 @Injectable()
@@ -16,6 +20,16 @@ export class UpsertAtomsService
   extends DgraphUseCase<UpsertAtomsRequest, Array<CreateResponse>>
   implements UseCasePort<UpsertAtomsRequest, Array<CreateResponse>>
 {
+  protected autoCommit = true
+
+  constructor(
+    dgraph: DgraphRepository,
+    private getAtomService: GetAtomService,
+    @Inject(IAtomRepositoryToken) private atomRepo: IAtomRepository,
+  ) {
+    super(dgraph)
+  }
+
   protected async executeTransaction(
     request: UpsertAtomsRequest,
     txn: Txn,
@@ -26,62 +40,14 @@ export class UpsertAtomsService
       currentUser,
     } = request
 
-    const blankUids: Array<string> = []
-    const uids: Array<string> = []
-
-    const mutations = atoms.reduce((mutation, { type, name, api, id }, i) => {
-      let apiUid
-
-      if (api) {
-        apiUid = `<${api}>`
-      } else if (!id) {
-        // Only create a new blank node if we're creating atom (ie no id)
-        apiUid = `_:api${i}`
-      }
-
-      let atomId: string
-
-      if (id) {
-        // Update
-        atomId = id
-        uids.push(atomId)
-      } else {
-        // Create
-        const blankUidLabel = `atom${i}`
-        blankUids.push(blankUidLabel)
-        atomId = `_:${blankUidLabel}`
-      }
-
-      return `
-        ${mutation}
-        ${atomId} <dgraph.type> "${DgraphEntityType.Atom}" .
-        ${atomId} <atomType> "${type}" .
-        ${atomId} <name> "${name}" .
-        ${apiUid ? `${atomId} <api> ${apiUid} .` : ''}
-        ${
-          api
-            ? ''
-            : `
-                  ${apiUid} <dgraph.type> "${DgraphEntityType.Type}" .
-                  ${apiUid} <name> "${name} API" .
-                  ${apiUid} <typeKind> "${TypeKind.InterfaceType}" .
-                  ${
-                    currentUser.roles.includes(Role.User)
-                      ? `${apiUid} <owner> <${currentUser.id}> .`
-                      : ''
-                  }
-              `
-        }
-      `
-    }, '')
-
-    const res = await txn.mutate({ setNquads: mutations })
-
-    await txn.commit()
-
-    return [
-      ...blankUids.map((uid) => ({ id: getUidFromResponse(res, uid) })),
-      ...uids.map((uid) => ({ id: uid })),
-    ]
+    return this.atomRepo.upsertAtoms(
+      atoms.map((a) => ({
+        ...a,
+        id: '',
+        api: a.api ? { id: a.api } : { id: '' },
+      })),
+      currentUser,
+      txn,
+    )
   }
 }

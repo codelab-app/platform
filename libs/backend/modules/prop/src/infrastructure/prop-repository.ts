@@ -10,16 +10,18 @@ import { PropQueryFactory } from './prop-query.factory'
 
 @Injectable()
 export class PropRepository
-  extends BaseRepository<IProp, PropQueryFactory, PropMutationFactory>
+  extends BaseRepository<IProp>
   implements IPropRepository
 {
-  constructor(protected dgraph: DgraphRepository) {
-    super(
-      dgraph,
-      DgraphEntityType.Prop,
-      new PropQueryFactory(),
-      new PropMutationFactory(),
-      PropSchema,
-    )
+  protected readonly entityType = DgraphEntityType.Prop
+
+  protected readonly queryFactory = new PropQueryFactory()
+
+  protected readonly mutationFactory = new PropMutationFactory()
+
+  protected readonly schema = PropSchema
+
+  constructor(dgraph: DgraphRepository) {
+    super(dgraph)
   }
 }
