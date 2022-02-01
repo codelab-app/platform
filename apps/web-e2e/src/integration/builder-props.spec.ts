@@ -38,12 +38,16 @@ const selectPropsTab = () => {
     .click()
   cy.findByText(buttonComponent.name).should('be.visible')
 
+  cy.findByText(buttonComponent.name).click()
+
   // Event button is visible, somehow it is still unclickable without this timeout
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(1000)
+  cy.wait(3000)
 
-  cy.findByText(buttonComponent.name).click()
   cy.get('.ant-tabs-tab-btn').contains('Props').click()
+
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(1000)
 }
 
 before(() => {
