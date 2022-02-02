@@ -1,0 +1,365 @@
+type Query {
+  users(where: UserWhere, options: UserOptions): [User!]!
+  usersCount(where: UserWhere): Int!
+  usersAggregate(where: UserWhere): UserAggregateSelection!
+  apps(where: AppWhere, options: AppOptions): [App!]!
+  appsCount(where: AppWhere): Int!
+  appsAggregate(where: AppWhere): AppAggregateSelection!
+}
+
+type Mutation {
+  createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
+  deleteApps(where: AppWhere, delete: AppDeleteInput): DeleteInfo!
+  updateApps(where: AppWhere, update: AppUpdateInput, connect: AppConnectInput, disconnect: AppDisconnectInput, create: AppRelationInput, delete: AppDeleteInput): UpdateAppsMutationResponse!
+}
+
+enum SortDirection {
+  """Sort by field values in ascending order."""
+  ASC
+
+  """Sort by field values in descending order."""
+  DESC
+}
+
+type App {
+  name: String!
+  owner(where: UserWhere, options: UserOptions): [User]
+  ownerAggregate(where: UserWhere): AppUserOwnerAggregationSelection
+  ownerConnection(where: AppOwnerConnectionWhere, first: Int, after: String): AppOwnerConnection!
+}
+
+type AppAggregateSelection {
+  count: Int!
+  name: StringAggregateSelection!
+}
+
+type AppOwnerConnection {
+  edges: [AppOwnerRelationship!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+type AppOwnerRelationship {
+  cursor: String!
+  node: User!
+}
+
+type AppUserOwnerAggregationSelection {
+  count: Int!
+}
+
+type CreateAppsMutationResponse {
+  info: CreateInfo!
+  apps: [App!]!
+}
+
+type CreateInfo {
+  bookmark: String
+  nodesCreated: Int!
+  relationshipsCreated: Int!
+}
+
+type DeleteInfo {
+  bookmark: String
+  nodesDeleted: Int!
+  relationshipsDeleted: Int!
+}
+
+"""Pagination information (Relay)"""
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type StringAggregateSelection {
+  shortest: String
+  longest: String
+}
+
+type UpdateAppsMutationResponse {
+  info: UpdateInfo!
+  apps: [App!]!
+}
+
+type UpdateInfo {
+  bookmark: String
+  nodesCreated: Int!
+  nodesDeleted: Int!
+  relationshipsCreated: Int!
+  relationshipsDeleted: Int!
+}
+
+type User {
+  apps(where: AppWhere, options: AppOptions): [App]
+  appsAggregate(where: AppWhere): UserAppAppsAggregationSelection
+  appsConnection(where: UserAppsConnectionWhere, sort: [UserAppsConnectionSort!], first: Int, after: String): UserAppsConnection!
+}
+
+type UserAggregateSelection {
+  count: Int!
+}
+
+type UserAppAppsAggregationSelection {
+  count: Int!
+  node: UserAppAppsNodeAggregateSelection
+}
+
+type UserAppAppsNodeAggregateSelection {
+  name: StringAggregateSelection!
+}
+
+type UserAppsConnection {
+  edges: [UserAppsRelationship!]!
+  totalCount: Int!
+  pageInfo: PageInfo!
+}
+
+type UserAppsRelationship {
+  cursor: String!
+  node: App!
+}
+
+input AppConnectInput {
+  owner: [AppOwnerConnectFieldInput!]
+}
+
+input AppConnectWhere {
+  node: AppWhere!
+}
+
+input AppCreateInput {
+  name: String!
+  owner: AppOwnerFieldInput
+}
+
+input AppDeleteInput {
+  owner: [AppOwnerDeleteFieldInput!]
+}
+
+input AppDisconnectInput {
+  owner: [AppOwnerDisconnectFieldInput!]
+}
+
+input AppOptions {
+  """
+  Specify one or more AppSort objects to sort Apps by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [AppSort]
+  limit: Int
+  offset: Int
+}
+
+input AppOwnerAggregateInput {
+  count: Int
+  count_LT: Int
+  count_LTE: Int
+  count_GT: Int
+  count_GTE: Int
+  AND: [AppOwnerAggregateInput!]
+  OR: [AppOwnerAggregateInput!]
+}
+
+input AppOwnerConnectFieldInput {
+  where: UserConnectWhere
+  connect: [UserConnectInput!]
+}
+
+input AppOwnerConnectionWhere {
+  AND: [AppOwnerConnectionWhere!]
+  OR: [AppOwnerConnectionWhere!]
+  node: UserWhere
+  node_NOT: UserWhere
+}
+
+input AppOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input AppOwnerDeleteFieldInput {
+  where: AppOwnerConnectionWhere
+  delete: UserDeleteInput
+}
+
+input AppOwnerDisconnectFieldInput {
+  where: AppOwnerConnectionWhere
+  disconnect: UserDisconnectInput
+}
+
+input AppOwnerFieldInput {
+  create: [AppOwnerCreateFieldInput!]
+  connect: [AppOwnerConnectFieldInput!]
+}
+
+input AppOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input AppOwnerUpdateFieldInput {
+  where: AppOwnerConnectionWhere
+  update: AppOwnerUpdateConnectionInput
+  connect: [AppOwnerConnectFieldInput!]
+  disconnect: [AppOwnerDisconnectFieldInput!]
+  create: [AppOwnerCreateFieldInput!]
+  delete: [AppOwnerDeleteFieldInput!]
+}
+
+input AppRelationInput {
+  owner: [AppOwnerCreateFieldInput!]
+}
+
+"""
+Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object.
+"""
+input AppSort {
+  name: SortDirection
+}
+
+input AppUpdateInput {
+  name: String
+  owner: [AppOwnerUpdateFieldInput!]
+}
+
+input AppWhere {
+  OR: [AppWhere!]
+  AND: [AppWhere!]
+  name: String
+  name_NOT: String
+  name_IN: [String]
+  name_NOT_IN: [String]
+  name_CONTAINS: String
+  name_NOT_CONTAINS: String
+  name_STARTS_WITH: String
+  name_NOT_STARTS_WITH: String
+  name_ENDS_WITH: String
+  name_NOT_ENDS_WITH: String
+  owner: UserWhere
+  owner_NOT: UserWhere
+  ownerAggregate: AppOwnerAggregateInput
+  ownerConnection: AppOwnerConnectionWhere
+  ownerConnection_NOT: AppOwnerConnectionWhere
+}
+
+input UserAppsAggregateInput {
+  count: Int
+  count_LT: Int
+  count_LTE: Int
+  count_GT: Int
+  count_GTE: Int
+  AND: [UserAppsAggregateInput!]
+  OR: [UserAppsAggregateInput!]
+  node: UserAppsNodeAggregationWhereInput
+}
+
+input UserAppsConnectFieldInput {
+  where: AppConnectWhere
+  connect: [AppConnectInput!]
+}
+
+input UserAppsConnectionSort {
+  node: AppSort
+}
+
+input UserAppsConnectionWhere {
+  AND: [UserAppsConnectionWhere!]
+  OR: [UserAppsConnectionWhere!]
+  node: AppWhere
+  node_NOT: AppWhere
+}
+
+input UserAppsCreateFieldInput {
+  node: AppCreateInput!
+}
+
+input UserAppsDeleteFieldInput {
+  where: UserAppsConnectionWhere
+  delete: AppDeleteInput
+}
+
+input UserAppsDisconnectFieldInput {
+  where: UserAppsConnectionWhere
+  disconnect: AppDisconnectInput
+}
+
+input UserAppsFieldInput {
+  create: [UserAppsCreateFieldInput!]
+  connect: [UserAppsConnectFieldInput!]
+}
+
+input UserAppsNodeAggregationWhereInput {
+  AND: [UserAppsNodeAggregationWhereInput!]
+  OR: [UserAppsNodeAggregationWhereInput!]
+  name_EQUAL: String
+  name_AVERAGE_EQUAL: Float
+  name_LONGEST_EQUAL: Int
+  name_SHORTEST_EQUAL: Int
+  name_GT: Int
+  name_AVERAGE_GT: Float
+  name_LONGEST_GT: Int
+  name_SHORTEST_GT: Int
+  name_GTE: Int
+  name_AVERAGE_GTE: Float
+  name_LONGEST_GTE: Int
+  name_SHORTEST_GTE: Int
+  name_LT: Int
+  name_AVERAGE_LT: Float
+  name_LONGEST_LT: Int
+  name_SHORTEST_LT: Int
+  name_LTE: Int
+  name_AVERAGE_LTE: Float
+  name_LONGEST_LTE: Int
+  name_SHORTEST_LTE: Int
+}
+
+input UserAppsUpdateConnectionInput {
+  node: AppUpdateInput
+}
+
+input UserAppsUpdateFieldInput {
+  where: UserAppsConnectionWhere
+  update: UserAppsUpdateConnectionInput
+  connect: [UserAppsConnectFieldInput!]
+  disconnect: [UserAppsDisconnectFieldInput!]
+  create: [UserAppsCreateFieldInput!]
+  delete: [UserAppsDeleteFieldInput!]
+}
+
+input UserConnectInput {
+  apps: [UserAppsConnectFieldInput!]
+}
+
+input UserConnectWhere {
+  node: UserWhere!
+}
+
+input UserCreateInput {
+  apps: UserAppsFieldInput
+}
+
+input UserDeleteInput {
+  apps: [UserAppsDeleteFieldInput!]
+}
+
+input UserDisconnectInput {
+  apps: [UserAppsDisconnectFieldInput!]
+}
+
+input UserOptions {
+  limit: Int
+  offset: Int
+}
+
+input UserUpdateInput {
+  apps: [UserAppsUpdateFieldInput!]
+}
+
+input UserWhere {
+  OR: [UserWhere!]
+  AND: [UserWhere!]
+  apps: AppWhere
+  apps_NOT: AppWhere
+  appsAggregate: UserAppsAggregateInput
+  appsConnection: UserAppsConnectionWhere
+  appsConnection_NOT: UserAppsConnectionWhere
+}

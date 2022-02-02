@@ -12,7 +12,7 @@ WORKDIR /usr/local/codelab
 COPY package.json package.json
 COPY yarn.lock yarn.lock
 
-RUN yarn --prod --frozen-lockfile --ignore-scripts
+RUN yarn --immutable
 
 
 #

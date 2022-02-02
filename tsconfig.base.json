@@ -76,9 +76,6 @@
         "libs/frontend/abstract/types/src/index.ts"
       ],
       "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
-      "@codelab/frontend/model/domain": [
-        "libs/frontend/model/domain/src/index.ts"
-      ],
       "@codelab/frontend/model/infra/apollo": [
         "libs/frontend/model/infra/apollo/src/index.ts"
       ],
@@ -140,6 +137,9 @@
       "@codelab/rtk-query": ["libs/tools/rtk-query/src/index.ts"],
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"
+      ],
+      "@codelab/shared/abstract/codegen-v2": [
+        "libs/shared/abstract/codegen-v2/src/index.ts"
       ],
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"
