@@ -21,7 +21,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       if (env === TaskEnv.Ci) {
         execCommand(
-          'npx nx run-many --target=build --projects=api,web,cmd,cli,tools-rtk-query --configuration-ci --verbose',
+          'npx nx run-many --target=build --projects=api,web,cmd,cli,tools-rtk-query --configuration=ci --verbose',
         )
       }
 
@@ -75,7 +75,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       if (env === TaskEnv.Ci) {
         execCommand(
-          `yarn affected:e2e --configuration ci --record --browser firefox`,
+          `yarn affected:e2e --configuration=ci --record --browser firefox`,
         )
       }
 
@@ -87,7 +87,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       if (env === TaskEnv.Ci) {
         execCommand(
-          `yarn affected:e2e --configuration ci --record --browser firefox`,
+          `yarn affected:e2e --configuration=ci --record --browser firefox`,
         )
       }
 

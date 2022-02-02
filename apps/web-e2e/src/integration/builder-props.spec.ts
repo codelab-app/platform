@@ -51,8 +51,6 @@ const selectPropsTab = () => {
 }
 
 before(() => {
-  cy.intercept('/api/graphql').as('graphql')
-
   cy.resetDgraphData().then(() => {
     cy.runSeeder().then(() => {
       cy.login().then(() => {
@@ -103,7 +101,8 @@ describe('Update props', () => {
     cy.findByButtonText(/Submit/).click()
 
     // Reload page
-    cy.wait('@graphql')
+    cy.reload()
+
     selectPropsTab()
 
     cy.wrap(formToggleButtons).each((btn: string) => {
