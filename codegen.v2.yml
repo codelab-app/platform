@@ -47,6 +47,10 @@ generates:
       - dist/libs/tools/rtk-query:
           importBaseApiFrom: '@codelab/frontend/model/infra/redux'
           exportHooks: true
+          extraOptions:
+            context:
+              env: 'v2'
+
     config:
       inlineFragmentTypes: combine
       documentVariableSuffix: Gql
