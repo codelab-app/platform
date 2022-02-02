@@ -1,3 +1,4 @@
+import { ITypeRepositoryToken } from '@codelab/backend/abstract/core'
 import { InMemoryRepository } from '@codelab/backend/infra'
 import {
   setupSimpleTestModule,
@@ -5,10 +6,7 @@ import {
 } from '@codelab/backend/shared/testing'
 import { IType } from '@codelab/shared/abstract/core'
 import { INestApplication } from '@nestjs/common'
-import {
-  ITypeRepositoryToken,
-  TypeTestInfrastructureModule,
-} from '../infrastructure'
+import { TypeTestInfrastructureModule } from '../infrastructure'
 import { TypeCoreModule } from '../Type.module'
 
 export const setupTypeUnitTestModule = () => {

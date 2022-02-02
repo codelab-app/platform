@@ -1,5 +1,5 @@
-export * from './modules/type-infrastructure.module'
-export * from './modules/type-test-infrastructure.module'
+export * from './framework/type-infrastructure.module'
+export * from './framework/type-test-infrastructure.module'
 export * from './repository/type/type-mutation.factory'
 export * from './repository/type/type-query.factory'
 export * from './repository/type/type-repository'

@@ -1,0 +1,24 @@
+{
+  "start": {
+    "identity": 0,
+    "labels": ["Type"],
+    "properties": {
+      "typeKind": "PrimitiveType",
+      "name": "string",
+      "id": "some-id",
+      "primitiveKind": "String"
+    }
+  },
+  "end": {
+    "identity": 0,
+    "labels": ["Type"],
+    "properties": {
+      "typeKind": "PrimitiveType",
+      "name": "string",
+      "id": "some-id",
+      "primitiveKind": "String"
+    }
+  },
+  "segments": [],
+  "length": 0.0
+}

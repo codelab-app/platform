@@ -1,5 +1,13 @@
 import { ObjectRef } from '@codelab/backend/abstract/core'
-import { IBaseType, IVertex, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  IBaseType,
+  isAdmin,
+  IType,
+  IUser,
+  IVertex,
+  TypeKind,
+  TypeSchema,
+} from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
   Field,
@@ -8,35 +16,37 @@ import {
   registerEnumType,
   ResolveTypeFn,
 } from '@nestjs/graphql'
+import { CreateTypeInput } from '../..'
+import { CreateTypeInputFactory } from '../../use-cases/type/create-type/create-type-input.factory'
 
 registerEnumType(TypeKind, { name: 'TypeKind' })
 
-const resolveType: ResolveTypeFn = (value: Type<any>) => {
+const resolveType: ResolveTypeFn = (value: Type<TypeKind>) => {
   switch (value.typeKind) {
     case TypeKind.PrimitiveType:
-      return 'PrimitiveType'
+      return `${TypeKind.PrimitiveType}`
     case TypeKind.ArrayType:
-      return 'ArrayType'
+      return `${TypeKind.ArrayType}`
     case TypeKind.InterfaceType:
-      return 'InterfaceType'
+      return `${TypeKind.InterfaceType}`
     case TypeKind.EnumType:
-      return 'EnumType'
+      return `${TypeKind.EnumType}`
     case TypeKind.LambdaType:
-      return 'LambdaType'
+      return `${TypeKind.LambdaType}`
     case TypeKind.AppType:
-      return 'AppType'
+      return `${TypeKind.AppType}`
     case TypeKind.PageType:
-      return 'PageType'
+      return `${TypeKind.PageType}`
     case TypeKind.ElementType:
-      return 'ElementType'
+      return `${TypeKind.ElementType}`
     case TypeKind.RenderPropsType:
-      return 'RenderPropsType'
+      return `${TypeKind.RenderPropsType}`
     case TypeKind.ReactNodeType:
-      return 'ReactNodeType'
+      return `${TypeKind.ReactNodeType}`
     case TypeKind.UnionType:
-      return 'UnionType'
+      return `${TypeKind.UnionType}`
     case TypeKind.MonacoType:
-      return 'MonacoType'
+      return `${TypeKind.MonacoType}`
   }
 
   throw new Error(
@@ -63,5 +73,19 @@ export class Type<TTypeKind extends TypeKind> implements IVertex, IBaseType {
     this.name = name
     this.owner = owner
     this.id = id
+  }
+
+  static create(data: CreateTypeInput, currentUser?: IUser): IType {
+    const type = CreateTypeInputFactory.toType(data)
+
+    return TypeSchema.parse({
+      ...type,
+      id: type.id ?? '',
+      /** We use owner field to determine policy */
+      owner:
+        isAdmin(currentUser) || !currentUser
+          ? undefined
+          : { id: currentUser.id },
+    })
   }
 }
