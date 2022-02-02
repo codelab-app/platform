@@ -1,7 +1,19 @@
 mutation CreateApps($input: [AppCreateInput!]!) {
   createApps(input: $input) {
     apps {
-      name
+      ...App
     }
+  }
+}
+
+mutation DeleteApps($where: AppWhere, $delete: AppDeleteInput) {
+  deleteApps(where: $where, delete: $delete) {
+    nodesDeleted
+  }
+}
+
+query GetApps {
+  apps: apps {
+    ...App
   }
 }

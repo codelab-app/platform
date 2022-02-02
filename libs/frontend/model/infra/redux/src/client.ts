@@ -37,8 +37,6 @@ export const getGraphQLClient = ({
   const env = context?.env ?? API_ENV.local
   const apiUrl = apiUrlsByEnv[env]
 
-  console.log(apiUrl)
-
   return env === API_ENV.production
     ? (productionGraphqlClient ??= new GraphQLClient(apiUrl, options))
     : env === API_ENV.v2

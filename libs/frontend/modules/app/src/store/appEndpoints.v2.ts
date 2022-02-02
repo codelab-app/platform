@@ -10,9 +10,16 @@ generatedApi.enhanceEndpoints({
     CreateApps: {
       invalidatesTags: (result) => invalidatesAll(APP_CACHE_TAG),
     },
+    GetApps: {
+      providesTags: (result) => providesAll(result?.apps, APP_CACHE_TAG),
+    },
+    DeleteApps: {
+      invalidatesTags: () => invalidatesAll(APP_CACHE_TAG),
+    },
   },
 })
 
-export { generatedApi as appEndpointsV2 }
+export { generatedApi as appEndpoints }
 
-export const { useCreateAppsMutation } = generatedApi
+export const { useCreateAppsMutation, useGetAppsQuery, useDeleteAppsMutation } =
+  generatedApi

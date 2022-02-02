@@ -1,5 +1,5 @@
-import { DeleteAppInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
+import { DeleteAppInput } from './types'
 
 export const deleteAppSchema: JSONSchemaType<DeleteAppInput> = {
   title: 'Delete App',
