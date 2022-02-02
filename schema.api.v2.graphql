@@ -1,0 +1,2011 @@
+type App {
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): [User]
+  ownerAggregate(where: UserWhere): AppUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [AppOwnerConnectionSort!]
+    where: AppOwnerConnectionWhere
+  ): AppOwnerConnection!
+  pages(options: PageOptions, where: PageWhere): [Page]
+  pagesAggregate(where: PageWhere): AppPagePagesAggregationSelection
+  pagesConnection(
+    after: String
+    first: Int
+    sort: [AppPagesConnectionSort!]
+    where: AppPagesConnectionWhere
+  ): AppPagesConnection!
+}
+
+type AppAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input AppConnectInput {
+  owner: [AppOwnerConnectFieldInput!]
+  pages: [AppPagesConnectFieldInput!]
+}
+
+input AppConnectOrCreateInput {
+  pages: [AppPagesConnectOrCreateFieldInput!]
+}
+
+input AppConnectOrCreateWhere {
+  node: AppUniqueWhere!
+}
+
+input AppConnectWhere {
+  node: AppWhere!
+}
+
+input AppCreateInput {
+  name: String!
+  owner: AppOwnerFieldInput
+  pages: AppPagesFieldInput
+}
+
+input AppDeleteInput {
+  owner: [AppOwnerDeleteFieldInput!]
+  pages: [AppPagesDeleteFieldInput!]
+}
+
+input AppDisconnectInput {
+  owner: [AppOwnerDisconnectFieldInput!]
+  pages: [AppPagesDisconnectFieldInput!]
+}
+
+input AppOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more AppSort objects to sort Apps by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [AppSort]
+}
+
+input AppOwnerAggregateInput {
+  AND: [AppOwnerAggregateInput!]
+  OR: [AppOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AppOwnerNodeAggregationWhereInput
+}
+
+input AppOwnerConnectFieldInput {
+  connect: [UserConnectInput!]
+  where: UserConnectWhere
+}
+
+type AppOwnerConnection {
+  edges: [AppOwnerRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AppOwnerConnectionSort {
+  node: UserSort
+}
+
+input AppOwnerConnectionWhere {
+  AND: [AppOwnerConnectionWhere!]
+  OR: [AppOwnerConnectionWhere!]
+  node: UserWhere
+  node_NOT: UserWhere
+}
+
+input AppOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input AppOwnerDeleteFieldInput {
+  delete: UserDeleteInput
+  where: AppOwnerConnectionWhere
+}
+
+input AppOwnerDisconnectFieldInput {
+  disconnect: UserDisconnectInput
+  where: AppOwnerConnectionWhere
+}
+
+input AppOwnerFieldInput {
+  connect: [AppOwnerConnectFieldInput!]
+  create: [AppOwnerCreateFieldInput!]
+}
+
+input AppOwnerNodeAggregationWhereInput {
+  AND: [AppOwnerNodeAggregationWhereInput!]
+  OR: [AppOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+}
+
+type AppOwnerRelationship {
+  cursor: String!
+  node: User!
+}
+
+input AppOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input AppOwnerUpdateFieldInput {
+  connect: [AppOwnerConnectFieldInput!]
+  create: [AppOwnerCreateFieldInput!]
+  delete: [AppOwnerDeleteFieldInput!]
+  disconnect: [AppOwnerDisconnectFieldInput!]
+  update: AppOwnerUpdateConnectionInput
+  where: AppOwnerConnectionWhere
+}
+
+type AppPagePagesAggregationSelection {
+  count: Int!
+  node: AppPagePagesNodeAggregateSelection
+}
+
+type AppPagePagesNodeAggregateSelection {
+  createdAt: DateTimeAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+  ownerId: StringAggregateSelection!
+  updatedAt: DateTimeAggregateSelection!
+}
+
+input AppPagesAggregateInput {
+  AND: [AppPagesAggregateInput!]
+  OR: [AppPagesAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AppPagesNodeAggregationWhereInput
+}
+
+input AppPagesConnectFieldInput {
+  connect: [PageConnectInput!]
+  where: PageConnectWhere
+}
+
+input AppPagesConnectOrCreateFieldInput {
+  onCreate: AppPagesConnectOrCreateFieldInputOnCreate!
+  where: PageConnectOrCreateWhere!
+}
+
+input AppPagesConnectOrCreateFieldInputOnCreate {
+  node: PageCreateInput!
+}
+
+type AppPagesConnection {
+  edges: [AppPagesRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AppPagesConnectionSort {
+  node: PageSort
+}
+
+input AppPagesConnectionWhere {
+  AND: [AppPagesConnectionWhere!]
+  OR: [AppPagesConnectionWhere!]
+  node: PageWhere
+  node_NOT: PageWhere
+}
+
+input AppPagesCreateFieldInput {
+  node: PageCreateInput!
+}
+
+input AppPagesDeleteFieldInput {
+  delete: PageDeleteInput
+  where: AppPagesConnectionWhere
+}
+
+input AppPagesDisconnectFieldInput {
+  disconnect: PageDisconnectInput
+  where: AppPagesConnectionWhere
+}
+
+input AppPagesFieldInput {
+  connect: [AppPagesConnectFieldInput!]
+  connectOrCreate: [AppPagesConnectOrCreateFieldInput!]
+  create: [AppPagesCreateFieldInput!]
+}
+
+input AppPagesNodeAggregationWhereInput {
+  AND: [AppPagesNodeAggregationWhereInput!]
+  OR: [AppPagesNodeAggregationWhereInput!]
+  createdAt_EQUAL: DateTime
+  createdAt_GT: DateTime
+  createdAt_GTE: DateTime
+  createdAt_LT: DateTime
+  createdAt_LTE: DateTime
+  createdAt_MAX_EQUAL: DateTime
+  createdAt_MAX_GT: DateTime
+  createdAt_MAX_GTE: DateTime
+  createdAt_MAX_LT: DateTime
+  createdAt_MAX_LTE: DateTime
+  createdAt_MIN_EQUAL: DateTime
+  createdAt_MIN_GT: DateTime
+  createdAt_MIN_GTE: DateTime
+  createdAt_MIN_LT: DateTime
+  createdAt_MIN_LTE: DateTime
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+  ownerId_AVERAGE_EQUAL: Float
+  ownerId_AVERAGE_GT: Float
+  ownerId_AVERAGE_GTE: Float
+  ownerId_AVERAGE_LT: Float
+  ownerId_AVERAGE_LTE: Float
+  ownerId_EQUAL: String
+  ownerId_GT: Int
+  ownerId_GTE: Int
+  ownerId_LONGEST_EQUAL: Int
+  ownerId_LONGEST_GT: Int
+  ownerId_LONGEST_GTE: Int
+  ownerId_LONGEST_LT: Int
+  ownerId_LONGEST_LTE: Int
+  ownerId_LT: Int
+  ownerId_LTE: Int
+  ownerId_SHORTEST_EQUAL: Int
+  ownerId_SHORTEST_GT: Int
+  ownerId_SHORTEST_GTE: Int
+  ownerId_SHORTEST_LT: Int
+  ownerId_SHORTEST_LTE: Int
+  updatedAt_EQUAL: DateTime
+  updatedAt_GT: DateTime
+  updatedAt_GTE: DateTime
+  updatedAt_LT: DateTime
+  updatedAt_LTE: DateTime
+  updatedAt_MAX_EQUAL: DateTime
+  updatedAt_MAX_GT: DateTime
+  updatedAt_MAX_GTE: DateTime
+  updatedAt_MAX_LT: DateTime
+  updatedAt_MAX_LTE: DateTime
+  updatedAt_MIN_EQUAL: DateTime
+  updatedAt_MIN_GT: DateTime
+  updatedAt_MIN_GTE: DateTime
+  updatedAt_MIN_LT: DateTime
+  updatedAt_MIN_LTE: DateTime
+}
+
+type AppPagesRelationship {
+  cursor: String!
+  node: Page!
+}
+
+input AppPagesUpdateConnectionInput {
+  node: PageUpdateInput
+}
+
+input AppPagesUpdateFieldInput {
+  connect: [AppPagesConnectFieldInput!]
+  connectOrCreate: [AppPagesConnectOrCreateFieldInput!]
+  create: [AppPagesCreateFieldInput!]
+  delete: [AppPagesDeleteFieldInput!]
+  disconnect: [AppPagesDisconnectFieldInput!]
+  update: AppPagesUpdateConnectionInput
+  where: AppPagesConnectionWhere
+}
+
+input AppRelationInput {
+  owner: [AppOwnerCreateFieldInput!]
+  pages: [AppPagesCreateFieldInput!]
+}
+
+"""
+Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object.
+"""
+input AppSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input AppUniqueWhere {
+  id: ID
+}
+
+input AppUpdateInput {
+  name: String
+  owner: [AppOwnerUpdateFieldInput!]
+  pages: [AppPagesUpdateFieldInput!]
+}
+
+type AppUserOwnerAggregationSelection {
+  count: Int!
+  node: AppUserOwnerNodeAggregateSelection
+}
+
+type AppUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+}
+
+input AppWhere {
+  AND: [AppWhere!]
+  OR: [AppWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: AppOwnerAggregateInput
+  ownerConnection: AppOwnerConnectionWhere
+  ownerConnection_NOT: AppOwnerConnectionWhere
+  owner_NOT: UserWhere
+  pages: PageWhere
+  pagesAggregate: AppPagesAggregateInput
+  pagesConnection: AppPagesConnectionWhere
+  pagesConnection_NOT: AppPagesConnectionWhere
+  pages_NOT: PageWhere
+}
+
+type Atom {
+  id: ID!
+  name: String!
+  type: AtomType!
+}
+
+type AtomAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input AtomCreateInput {
+  name: String!
+  type: AtomType!
+}
+
+input AtomOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more AtomSort objects to sort Atoms by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [AtomSort]
+}
+
+"""
+Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object.
+"""
+input AtomSort {
+  id: SortDirection
+  name: SortDirection
+  type: SortDirection
+}
+
+enum AtomType {
+  AntDesignAffix
+  AntDesignAlert
+  AntDesignAnchor
+  AntDesignAnchorLink
+  AntDesignAutoComplete
+  AntDesignAvatar
+  AntDesignBackTop
+  AntDesignBadge
+  AntDesignBreadcrumb
+  AntDesignBreadcrumbItem
+  AntDesignButton
+  AntDesignCalendar
+  AntDesignCard
+  AntDesignCardGrid
+  AntDesignCardMeta
+  AntDesignCarousel
+  AntDesignCascader
+  AntDesignCheckbox
+  AntDesignCollapse
+  AntDesignCollapsePanel
+  AntDesignComment
+  AntDesignConfigProvider
+  AntDesignDatePicker
+  AntDesignDescriptions
+  AntDesignDescriptionsItem
+  AntDesignDivider
+  AntDesignDrawer
+  AntDesignDropdown
+  AntDesignEmpty
+  AntDesignForm
+  AntDesignFormItem
+  AntDesignFormItemHook
+  AntDesignFormList
+  AntDesignGridCol
+  AntDesignGridRow
+  AntDesignIcon
+  AntDesignImage
+  AntDesignInput
+  AntDesignInputNumber
+  AntDesignLayout
+  AntDesignLayoutContent
+  AntDesignLayoutFooter
+  AntDesignLayoutHeader
+  AntDesignLayoutSider
+  AntDesignList
+  AntDesignListItem
+  AntDesignListItemMeta
+  AntDesignMapper
+  AntDesignMentions
+  AntDesignMentionsOption
+  AntDesignMenu
+  AntDesignMenuItem
+  AntDesignMenuItemGroup
+  AntDesignMenuSubMenu
+  AntDesignModal
+  AntDesignPageContainer
+  AntDesignPageHeader
+  AntDesignPagination
+  AntDesignPopconfirm
+  AntDesignPopover
+  AntDesignProgress
+  AntDesignProvider
+  AntDesignRadio
+  AntDesignRadioGroup
+  AntDesignRate
+  AntDesignRenderComponent
+  AntDesignRenderContainer
+  AntDesignResult
+  AntDesignRglContainer
+  AntDesignRglItem
+  AntDesignRglResponsiveContainer
+  AntDesignSelect
+  AntDesignSelectOption
+  AntDesignSkeleton
+  AntDesignSlider
+  AntDesignSpace
+  AntDesignSpin
+  AntDesignStatistic
+  AntDesignSteps
+  AntDesignStepsStep
+  AntDesignSwitch
+  AntDesignTable
+  AntDesignTabs
+  AntDesignTabsTabPane
+  AntDesignTag
+  AntDesignTimePicker
+  AntDesignTimeline
+  AntDesignTimelineItem
+  AntDesignTooltip
+  AntDesignTransfer
+  AntDesignTree
+  AntDesignTreeNode
+  AntDesignTreeSelect
+  AntDesignTypography
+  AntDesignTypographyParagraph
+  AntDesignTypographyText
+  AntDesignTypographyTitle
+  AntDesignUpload
+  HookGraphqlMutation
+  HookGraphqlQuery
+  HookQueryConfig
+  HookQueryLambda
+  HookQueryPage
+  HookQueryPages
+  HookRecoilState
+  HookRouter
+  HtmlA
+  HtmlArea
+  HtmlAside
+  HtmlAudio
+  HtmlBase
+  HtmlBr
+  HtmlButton
+  HtmlCanvas
+  HtmlCode
+  HtmlDList
+  HtmlData
+  HtmlDatalist
+  HtmlDetails
+  HtmlDialog
+  HtmlDiv
+  HtmlEm
+  HtmlEmbed
+  HtmlFieldset
+  HtmlFont
+  HtmlFooter
+  HtmlForm
+  HtmlFrame
+  HtmlFrameset
+  HtmlH1
+  HtmlH2
+  HtmlH3
+  HtmlH4
+  HtmlH5
+  HtmlH6
+  HtmlHead
+  HtmlHeader
+  HtmlHr
+  HtmlI
+  HtmlIframe
+  HtmlImage
+  HtmlInput
+  HtmlLabel
+  HtmlLegend
+  HtmlLi
+  HtmlLink
+  HtmlMain
+  HtmlMap
+  HtmlMeta
+  HtmlMeter
+  HtmlNav
+  HtmlOList
+  HtmlObject
+  HtmlOptgroup
+  HtmlOption
+  HtmlOutput
+  HtmlP
+  HtmlParam
+  HtmlPicture
+  HtmlPre
+  HtmlProgress
+  HtmlQuote
+  HtmlS
+  HtmlSection
+  HtmlSelect
+  HtmlSmall
+  HtmlSource
+  HtmlSpan
+  HtmlStrong
+  HtmlStyle
+  HtmlSub
+  HtmlSup
+  HtmlTable
+  HtmlTableCaption
+  HtmlTableCell
+  HtmlTableCol
+  HtmlTableRow
+  HtmlTemplate
+  HtmlTextarea
+  HtmlTime
+  HtmlTitle
+  HtmlTrack
+  HtmlUList
+  HtmlVideo
+  MuiAccordion
+  MuiAccordionActions
+  MuiAccordionDetails
+  MuiAccordionSummary
+  MuiAlert
+  MuiAlertTitle
+  MuiAppBar
+  MuiAutocomplete
+  MuiAvatar
+  MuiAvatarGroup
+  MuiBackdrop
+  MuiBackdropUnstyled
+  MuiBadge
+  MuiBadgeUnstyled
+  MuiBottomNavigation
+  MuiBottomNavigationAction
+  MuiBox
+  MuiBreadcrumbs
+  MuiButton
+  MuiButtonBase
+  MuiButtonGroup
+  MuiButtonUnstyled
+  MuiCalendarPicker
+  MuiCalendarPickerSkeleton
+  MuiCard
+  MuiCardActionArea
+  MuiCardActions
+  MuiCardContent
+  MuiCardHeader
+  MuiCardMedia
+  MuiCheckbox
+  MuiChip
+  MuiCircularProgress
+  MuiClickAwayListener
+  MuiClockPicker
+  MuiCollapse
+  MuiContainer
+  MuiCssBaseline
+  MuiDataGrid
+  MuiDatePicker
+  MuiDateRangePicker
+  MuiDateRangePickerDay
+  MuiDateTimePicker
+  MuiDesktopDatePicker
+  MuiDesktopDateRangePicker
+  MuiDesktopDateTimePicker
+  MuiDesktopTimePicker
+  MuiDialog
+  MuiDialogActions
+  MuiDialogContent
+  MuiDialogContentText
+  MuiDialogTitle
+  MuiDivider
+  MuiDrawer
+  MuiFab
+  MuiFade
+  MuiFilledInput
+  MuiFormControl
+  MuiFormControlLabel
+  MuiFormControlUnstyled
+  MuiFormGroup
+  MuiFormHelperText
+  MuiFormLabel
+  MuiGlobalStyles
+  MuiGrid
+  MuiGridColDef
+  MuiGrow
+  MuiHidden
+  MuiIcon
+  MuiIconButton
+  MuiImageList
+  MuiImageListItem
+  MuiImageListItemBar
+  MuiInput
+  MuiInputAdornment
+  MuiInputBase
+  MuiInputLabel
+  MuiLinearProgress
+  MuiLink
+  MuiList
+  MuiListItem
+  MuiListItemAvatar
+  MuiListItemButton
+  MuiListItemIcon
+  MuiListItemSecondaryAction
+  MuiListItemText
+  MuiListSubheader
+  MuiLoadingButton
+  MuiMasonry
+  MuiMasonryItem
+  MuiMenu
+  MuiMenuItem
+  MuiMenuList
+  MuiMobileDatePicker
+  MuiMobileDateRangePicker
+  MuiMobileDateTimePicker
+  MuiMobileStepper
+  MuiMobileTimePicker
+  MuiModal
+  MuiModalUnstyled
+  MuiMonthPicker
+  MuiNativeSelect
+  MuiNoSsr
+  MuiOutlinedInput
+  MuiPagination
+  MuiPaginationItem
+  MuiPaper
+  MuiPickersDay
+  MuiPopover
+  MuiPopper
+  MuiPortal
+  MuiRadio
+  MuiRadioGroup
+  MuiRating
+  MuiScopedCssBaseline
+  MuiSelect
+  MuiSkeleton
+  MuiSlide
+  MuiSlider
+  MuiSliderUnstyled
+  MuiSnackbar
+  MuiSnackbarContent
+  MuiSpeedDial
+  MuiSpeedDialAction
+  MuiSpeedDialIcon
+  MuiStack
+  MuiStaticDatePicker
+  MuiStaticDateRangePicker
+  MuiStaticDateTimePicker
+  MuiStaticTimePicker
+  MuiStep
+  MuiStepButton
+  MuiStepConnector
+  MuiStepContent
+  MuiStepIcon
+  MuiStepLabel
+  MuiStepper
+  MuiSvgIcon
+  MuiSwipeableDrawer
+  MuiSwitch
+  MuiSwitchUnstyled
+  MuiTab
+  MuiTabContext
+  MuiTabList
+  MuiTabPanel
+  MuiTabScrollButton
+  MuiTable
+  MuiTableBody
+  MuiTableCell
+  MuiTableContainer
+  MuiTableFooter
+  MuiTableHead
+  MuiTablePagination
+  MuiTableRow
+  MuiTableSortLabel
+  MuiTabs
+  MuiTextField
+  MuiTextareaAutosize
+  MuiTimePicker
+  MuiTimeline
+  MuiTimelineConnector
+  MuiTimelineContent
+  MuiTimelineDot
+  MuiTimelineItem
+  MuiTimelineOppositeContent
+  MuiTimelineSeparator
+  MuiToggleButton
+  MuiToggleButtonGroup
+  MuiToolbar
+  MuiTooltip
+  MuiTreeItem
+  MuiTreeView
+  MuiTypography
+  MuiUnstableTrapFocus
+  MuiYearPicker
+  MuiZoom
+  Query
+  ReactFragment
+  State
+  Text
+  TextList
+}
+
+input AtomUpdateInput {
+  name: String
+  type: AtomType
+}
+
+input AtomWhere {
+  AND: [AtomWhere!]
+  OR: [AtomWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  type: AtomType
+  type_IN: [AtomType]
+  type_NOT: AtomType
+  type_NOT_IN: [AtomType]
+}
+
+type CreateAppsMutationResponse {
+  apps: [App!]!
+  info: CreateInfo!
+}
+
+type CreateAtomsMutationResponse {
+  atoms: [Atom!]!
+  info: CreateInfo!
+}
+
+type CreateElementsMutationResponse {
+  elements: [Element!]!
+  info: CreateInfo!
+}
+
+type CreateInfo {
+  bookmark: String
+  nodesCreated: Int!
+  relationshipsCreated: Int!
+}
+
+type CreatePagesMutationResponse {
+  info: CreateInfo!
+  pages: [Page!]!
+}
+
+"""
+A date and time, represented as an ISO-8601 string
+"""
+scalar DateTime
+
+type DateTimeAggregateSelection {
+  max: DateTime
+  min: DateTime
+}
+
+type DeleteInfo {
+  bookmark: String
+  nodesDeleted: Int!
+  relationshipsDeleted: Int!
+}
+
+type Element {
+  children(options: ElementOptions, where: ElementWhere): [Element!]
+  childrenAggregate(
+    where: ElementWhere
+  ): ElementElementChildrenAggregationSelection
+  childrenConnection(
+    after: String
+    first: Int
+    sort: [ElementChildrenConnectionSort!]
+    where: ElementChildrenConnectionWhere
+  ): ElementChildrenConnection!
+  createdAt: DateTime!
+  graph: IElementGraph!
+  id: ID!
+  name: String!
+  ownerId: String!
+  parent(options: ElementOptions, where: ElementWhere): Element
+  parentAggregate(where: ElementWhere): ElementElementParentAggregationSelection
+  parentConnection(
+    after: String
+    first: Int
+    sort: [ElementParentConnectionSort!]
+    where: ElementParentConnectionWhere
+  ): ElementParentConnection!
+  updatedAt: DateTime
+}
+
+type ElementAggregateSelection {
+  count: Int!
+  createdAt: DateTimeAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+  ownerId: StringAggregateSelection!
+  updatedAt: DateTimeAggregateSelection!
+}
+
+input ElementChildrenAggregateInput {
+  AND: [ElementChildrenAggregateInput!]
+  OR: [ElementChildrenAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementChildrenNodeAggregationWhereInput
+}
+
+input ElementChildrenConnectFieldInput {
+  connect: [ElementConnectInput!]
+  where: ElementConnectWhere
+}
+
+input ElementChildrenConnectOrCreateFieldInput {
+  onCreate: ElementChildrenConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input ElementChildrenConnectOrCreateFieldInputOnCreate {
+  node: ElementCreateInput!
+}
+
+type ElementChildrenConnection {
+  edges: [ElementChildrenRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementChildrenConnectionSort {
+  node: ElementSort
+}
+
+input ElementChildrenConnectionWhere {
+  AND: [ElementChildrenConnectionWhere!]
+  OR: [ElementChildrenConnectionWhere!]
+  node: ElementWhere
+  node_NOT: ElementWhere
+}
+
+input ElementChildrenCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input ElementChildrenDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: ElementChildrenConnectionWhere
+}
+
+input ElementChildrenDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: ElementChildrenConnectionWhere
+}
+
+input ElementChildrenFieldInput {
+  connect: [ElementChildrenConnectFieldInput!]
+  connectOrCreate: [ElementChildrenConnectOrCreateFieldInput!]
+  create: [ElementChildrenCreateFieldInput!]
+}
+
+input ElementChildrenNodeAggregationWhereInput {
+  AND: [ElementChildrenNodeAggregationWhereInput!]
+  OR: [ElementChildrenNodeAggregationWhereInput!]
+  createdAt_EQUAL: DateTime
+  createdAt_GT: DateTime
+  createdAt_GTE: DateTime
+  createdAt_LT: DateTime
+  createdAt_LTE: DateTime
+  createdAt_MAX_EQUAL: DateTime
+  createdAt_MAX_GT: DateTime
+  createdAt_MAX_GTE: DateTime
+  createdAt_MAX_LT: DateTime
+  createdAt_MAX_LTE: DateTime
+  createdAt_MIN_EQUAL: DateTime
+  createdAt_MIN_GT: DateTime
+  createdAt_MIN_GTE: DateTime
+  createdAt_MIN_LT: DateTime
+  createdAt_MIN_LTE: DateTime
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+  ownerId_AVERAGE_EQUAL: Float
+  ownerId_AVERAGE_GT: Float
+  ownerId_AVERAGE_GTE: Float
+  ownerId_AVERAGE_LT: Float
+  ownerId_AVERAGE_LTE: Float
+  ownerId_EQUAL: String
+  ownerId_GT: Int
+  ownerId_GTE: Int
+  ownerId_LONGEST_EQUAL: Int
+  ownerId_LONGEST_GT: Int
+  ownerId_LONGEST_GTE: Int
+  ownerId_LONGEST_LT: Int
+  ownerId_LONGEST_LTE: Int
+  ownerId_LT: Int
+  ownerId_LTE: Int
+  ownerId_SHORTEST_EQUAL: Int
+  ownerId_SHORTEST_GT: Int
+  ownerId_SHORTEST_GTE: Int
+  ownerId_SHORTEST_LT: Int
+  ownerId_SHORTEST_LTE: Int
+  updatedAt_EQUAL: DateTime
+  updatedAt_GT: DateTime
+  updatedAt_GTE: DateTime
+  updatedAt_LT: DateTime
+  updatedAt_LTE: DateTime
+  updatedAt_MAX_EQUAL: DateTime
+  updatedAt_MAX_GT: DateTime
+  updatedAt_MAX_GTE: DateTime
+  updatedAt_MAX_LT: DateTime
+  updatedAt_MAX_LTE: DateTime
+  updatedAt_MIN_EQUAL: DateTime
+  updatedAt_MIN_GT: DateTime
+  updatedAt_MIN_GTE: DateTime
+  updatedAt_MIN_LT: DateTime
+  updatedAt_MIN_LTE: DateTime
+}
+
+type ElementChildrenRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input ElementChildrenUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input ElementChildrenUpdateFieldInput {
+  connect: [ElementChildrenConnectFieldInput!]
+  connectOrCreate: [ElementChildrenConnectOrCreateFieldInput!]
+  create: [ElementChildrenCreateFieldInput!]
+  delete: [ElementChildrenDeleteFieldInput!]
+  disconnect: [ElementChildrenDisconnectFieldInput!]
+  update: ElementChildrenUpdateConnectionInput
+  where: ElementChildrenConnectionWhere
+}
+
+input ElementConnectInput {
+  children: [ElementChildrenConnectFieldInput!]
+  parent: ElementParentConnectFieldInput
+}
+
+input ElementConnectOrCreateInput {
+  children: [ElementChildrenConnectOrCreateFieldInput!]
+  parent: ElementParentConnectOrCreateFieldInput
+}
+
+input ElementConnectOrCreateWhere {
+  node: ElementUniqueWhere!
+}
+
+input ElementConnectWhere {
+  node: ElementWhere!
+}
+
+input ElementCreateInput {
+  children: ElementChildrenFieldInput
+  name: String!
+  ownerId: String!
+  parent: ElementParentFieldInput
+}
+
+input ElementDeleteInput {
+  children: [ElementChildrenDeleteFieldInput!]
+  parent: ElementParentDeleteFieldInput
+}
+
+input ElementDisconnectInput {
+  children: [ElementChildrenDisconnectFieldInput!]
+  parent: ElementParentDisconnectFieldInput
+}
+
+type ElementElementChildrenAggregationSelection {
+  count: Int!
+  node: ElementElementChildrenNodeAggregateSelection
+}
+
+type ElementElementChildrenNodeAggregateSelection {
+  createdAt: DateTimeAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+  ownerId: StringAggregateSelection!
+  updatedAt: DateTimeAggregateSelection!
+}
+
+type ElementElementParentAggregationSelection {
+  count: Int!
+  node: ElementElementParentNodeAggregateSelection
+}
+
+type ElementElementParentNodeAggregateSelection {
+  createdAt: DateTimeAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+  ownerId: StringAggregateSelection!
+  updatedAt: DateTimeAggregateSelection!
+}
+
+input ElementOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ElementSort objects to sort Elements by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ElementSort]
+}
+
+input ElementParentAggregateInput {
+  AND: [ElementParentAggregateInput!]
+  OR: [ElementParentAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementParentNodeAggregationWhereInput
+}
+
+input ElementParentConnectFieldInput {
+  connect: ElementConnectInput
+  where: ElementConnectWhere
+}
+
+input ElementParentConnectOrCreateFieldInput {
+  onCreate: ElementParentConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input ElementParentConnectOrCreateFieldInputOnCreate {
+  node: ElementCreateInput!
+}
+
+type ElementParentConnection {
+  edges: [ElementParentRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementParentConnectionSort {
+  node: ElementSort
+}
+
+input ElementParentConnectionWhere {
+  AND: [ElementParentConnectionWhere!]
+  OR: [ElementParentConnectionWhere!]
+  node: ElementWhere
+  node_NOT: ElementWhere
+}
+
+input ElementParentCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input ElementParentDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: ElementParentConnectionWhere
+}
+
+input ElementParentDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: ElementParentConnectionWhere
+}
+
+input ElementParentFieldInput {
+  connect: ElementParentConnectFieldInput
+  connectOrCreate: ElementParentConnectOrCreateFieldInput
+  create: ElementParentCreateFieldInput
+}
+
+input ElementParentNodeAggregationWhereInput {
+  AND: [ElementParentNodeAggregationWhereInput!]
+  OR: [ElementParentNodeAggregationWhereInput!]
+  createdAt_EQUAL: DateTime
+  createdAt_GT: DateTime
+  createdAt_GTE: DateTime
+  createdAt_LT: DateTime
+  createdAt_LTE: DateTime
+  createdAt_MAX_EQUAL: DateTime
+  createdAt_MAX_GT: DateTime
+  createdAt_MAX_GTE: DateTime
+  createdAt_MAX_LT: DateTime
+  createdAt_MAX_LTE: DateTime
+  createdAt_MIN_EQUAL: DateTime
+  createdAt_MIN_GT: DateTime
+  createdAt_MIN_GTE: DateTime
+  createdAt_MIN_LT: DateTime
+  createdAt_MIN_LTE: DateTime
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+  ownerId_AVERAGE_EQUAL: Float
+  ownerId_AVERAGE_GT: Float
+  ownerId_AVERAGE_GTE: Float
+  ownerId_AVERAGE_LT: Float
+  ownerId_AVERAGE_LTE: Float
+  ownerId_EQUAL: String
+  ownerId_GT: Int
+  ownerId_GTE: Int
+  ownerId_LONGEST_EQUAL: Int
+  ownerId_LONGEST_GT: Int
+  ownerId_LONGEST_GTE: Int
+  ownerId_LONGEST_LT: Int
+  ownerId_LONGEST_LTE: Int
+  ownerId_LT: Int
+  ownerId_LTE: Int
+  ownerId_SHORTEST_EQUAL: Int
+  ownerId_SHORTEST_GT: Int
+  ownerId_SHORTEST_GTE: Int
+  ownerId_SHORTEST_LT: Int
+  ownerId_SHORTEST_LTE: Int
+  updatedAt_EQUAL: DateTime
+  updatedAt_GT: DateTime
+  updatedAt_GTE: DateTime
+  updatedAt_LT: DateTime
+  updatedAt_LTE: DateTime
+  updatedAt_MAX_EQUAL: DateTime
+  updatedAt_MAX_GT: DateTime
+  updatedAt_MAX_GTE: DateTime
+  updatedAt_MAX_LT: DateTime
+  updatedAt_MAX_LTE: DateTime
+  updatedAt_MIN_EQUAL: DateTime
+  updatedAt_MIN_GT: DateTime
+  updatedAt_MIN_GTE: DateTime
+  updatedAt_MIN_LT: DateTime
+  updatedAt_MIN_LTE: DateTime
+}
+
+type ElementParentRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input ElementParentUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input ElementParentUpdateFieldInput {
+  connect: ElementParentConnectFieldInput
+  connectOrCreate: ElementParentConnectOrCreateFieldInput
+  create: ElementParentCreateFieldInput
+  delete: ElementParentDeleteFieldInput
+  disconnect: ElementParentDisconnectFieldInput
+  update: ElementParentUpdateConnectionInput
+  where: ElementParentConnectionWhere
+}
+
+input ElementRelationInput {
+  children: [ElementChildrenCreateFieldInput!]
+  parent: ElementParentCreateFieldInput
+}
+
+"""
+Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object.
+"""
+input ElementSort {
+  createdAt: SortDirection
+  id: SortDirection
+  name: SortDirection
+  ownerId: SortDirection
+  updatedAt: SortDirection
+}
+
+input ElementUniqueWhere {
+  id: ID
+}
+
+input ElementUpdateInput {
+  children: [ElementChildrenUpdateFieldInput!]
+  name: String
+  ownerId: String
+  parent: ElementParentUpdateFieldInput
+}
+
+input ElementWhere {
+  AND: [ElementWhere!]
+  OR: [ElementWhere!]
+  children: ElementWhere
+  childrenAggregate: ElementChildrenAggregateInput
+  childrenConnection: ElementChildrenConnectionWhere
+  childrenConnection_NOT: ElementChildrenConnectionWhere
+  children_NOT: ElementWhere
+  createdAt: DateTime
+  createdAt_GT: DateTime
+  createdAt_GTE: DateTime
+  createdAt_IN: [DateTime]
+  createdAt_LT: DateTime
+  createdAt_LTE: DateTime
+  createdAt_NOT: DateTime
+  createdAt_NOT_IN: [DateTime]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  ownerId: String
+  ownerId_CONTAINS: String
+  ownerId_ENDS_WITH: String
+  ownerId_IN: [String]
+  ownerId_NOT: String
+  ownerId_NOT_CONTAINS: String
+  ownerId_NOT_ENDS_WITH: String
+  ownerId_NOT_IN: [String]
+  ownerId_NOT_STARTS_WITH: String
+  ownerId_STARTS_WITH: String
+  parent: ElementWhere
+  parentAggregate: ElementParentAggregateInput
+  parentConnection: ElementParentConnectionWhere
+  parentConnection_NOT: ElementParentConnectionWhere
+  parent_NOT: ElementWhere
+  updatedAt: DateTime
+  updatedAt_GT: DateTime
+  updatedAt_GTE: DateTime
+  updatedAt_IN: [DateTime]
+  updatedAt_LT: DateTime
+  updatedAt_LTE: DateTime
+  updatedAt_NOT: DateTime
+  updatedAt_NOT_IN: [DateTime]
+}
+
+type IDAggregateSelection {
+  longest: ID
+  shortest: ID
+}
+
+interface IElementGraph {
+  root: Element
+  vertices: [Element!]
+}
+
+type Mutation {
+  createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
+  createAtoms(input: [AtomCreateInput!]!): CreateAtomsMutationResponse!
+  createElements(input: [ElementCreateInput!]!): CreateElementsMutationResponse!
+  createPages(input: [PageCreateInput!]!): CreatePagesMutationResponse!
+  deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
+  deleteAtoms(where: AtomWhere): DeleteInfo!
+  deleteElements(delete: ElementDeleteInput, where: ElementWhere): DeleteInfo!
+  deletePages(delete: PageDeleteInput, where: PageWhere): DeleteInfo!
+  updateApps(
+    connect: AppConnectInput
+    connectOrCreate: AppConnectOrCreateInput
+    create: AppRelationInput
+    delete: AppDeleteInput
+    disconnect: AppDisconnectInput
+    update: AppUpdateInput
+    where: AppWhere
+  ): UpdateAppsMutationResponse!
+  updateAtoms(
+    update: AtomUpdateInput
+    where: AtomWhere
+  ): UpdateAtomsMutationResponse!
+  updateElements(
+    connect: ElementConnectInput
+    connectOrCreate: ElementConnectOrCreateInput
+    create: ElementRelationInput
+    delete: ElementDeleteInput
+    disconnect: ElementDisconnectInput
+    update: ElementUpdateInput
+    where: ElementWhere
+  ): UpdateElementsMutationResponse!
+  updatePages(
+    connect: PageConnectInput
+    connectOrCreate: PageConnectOrCreateInput
+    create: PageRelationInput
+    delete: PageDeleteInput
+    disconnect: PageDisconnectInput
+    update: PageUpdateInput
+    where: PageWhere
+  ): UpdatePagesMutationResponse!
+}
+
+type Page {
+  app(options: AppOptions, where: AppWhere): App
+  appAggregate(where: AppWhere): PageAppAppAggregationSelection
+  appConnection(
+    after: String
+    first: Int
+    sort: [PageAppConnectionSort!]
+    where: PageAppConnectionWhere
+  ): PageAppConnection!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  ownerId: String!
+  updatedAt: DateTime
+}
+
+type PageAggregateSelection {
+  count: Int!
+  createdAt: DateTimeAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+  ownerId: StringAggregateSelection!
+  updatedAt: DateTimeAggregateSelection!
+}
+
+input PageAppAggregateInput {
+  AND: [PageAppAggregateInput!]
+  OR: [PageAppAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: PageAppNodeAggregationWhereInput
+}
+
+type PageAppAppAggregationSelection {
+  count: Int!
+  node: PageAppAppNodeAggregateSelection
+}
+
+type PageAppAppNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input PageAppConnectFieldInput {
+  connect: AppConnectInput
+  where: AppConnectWhere
+}
+
+input PageAppConnectOrCreateFieldInput {
+  onCreate: PageAppConnectOrCreateFieldInputOnCreate!
+  where: AppConnectOrCreateWhere!
+}
+
+input PageAppConnectOrCreateFieldInputOnCreate {
+  node: AppCreateInput!
+}
+
+type PageAppConnection {
+  edges: [PageAppRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input PageAppConnectionSort {
+  node: AppSort
+}
+
+input PageAppConnectionWhere {
+  AND: [PageAppConnectionWhere!]
+  OR: [PageAppConnectionWhere!]
+  node: AppWhere
+  node_NOT: AppWhere
+}
+
+input PageAppCreateFieldInput {
+  node: AppCreateInput!
+}
+
+input PageAppDeleteFieldInput {
+  delete: AppDeleteInput
+  where: PageAppConnectionWhere
+}
+
+input PageAppDisconnectFieldInput {
+  disconnect: AppDisconnectInput
+  where: PageAppConnectionWhere
+}
+
+input PageAppFieldInput {
+  connect: PageAppConnectFieldInput
+  connectOrCreate: PageAppConnectOrCreateFieldInput
+  create: PageAppCreateFieldInput
+}
+
+input PageAppNodeAggregationWhereInput {
+  AND: [PageAppNodeAggregationWhereInput!]
+  OR: [PageAppNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type PageAppRelationship {
+  cursor: String!
+  node: App!
+}
+
+input PageAppUpdateConnectionInput {
+  node: AppUpdateInput
+}
+
+input PageAppUpdateFieldInput {
+  connect: PageAppConnectFieldInput
+  connectOrCreate: PageAppConnectOrCreateFieldInput
+  create: PageAppCreateFieldInput
+  delete: PageAppDeleteFieldInput
+  disconnect: PageAppDisconnectFieldInput
+  update: PageAppUpdateConnectionInput
+  where: PageAppConnectionWhere
+}
+
+input PageConnectInput {
+  app: PageAppConnectFieldInput
+}
+
+input PageConnectOrCreateInput {
+  app: PageAppConnectOrCreateFieldInput
+}
+
+input PageConnectOrCreateWhere {
+  node: PageUniqueWhere!
+}
+
+input PageConnectWhere {
+  node: PageWhere!
+}
+
+input PageCreateInput {
+  app: PageAppFieldInput
+  name: String!
+  ownerId: String!
+}
+
+input PageDeleteInput {
+  app: PageAppDeleteFieldInput
+}
+
+input PageDisconnectInput {
+  app: PageAppDisconnectFieldInput
+}
+
+"""
+Pagination information (Relay)
+"""
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+input PageOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more PageSort objects to sort Pages by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [PageSort]
+}
+
+input PageRelationInput {
+  app: PageAppCreateFieldInput
+}
+
+"""
+Fields to sort Pages by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageSort object.
+"""
+input PageSort {
+  createdAt: SortDirection
+  id: SortDirection
+  name: SortDirection
+  ownerId: SortDirection
+  updatedAt: SortDirection
+}
+
+input PageUniqueWhere {
+  id: ID
+}
+
+input PageUpdateInput {
+  app: PageAppUpdateFieldInput
+  name: String
+  ownerId: String
+}
+
+input PageWhere {
+  AND: [PageWhere!]
+  OR: [PageWhere!]
+  app: AppWhere
+  appAggregate: PageAppAggregateInput
+  appConnection: PageAppConnectionWhere
+  appConnection_NOT: PageAppConnectionWhere
+  app_NOT: AppWhere
+  createdAt: DateTime
+  createdAt_GT: DateTime
+  createdAt_GTE: DateTime
+  createdAt_IN: [DateTime]
+  createdAt_LT: DateTime
+  createdAt_LTE: DateTime
+  createdAt_NOT: DateTime
+  createdAt_NOT_IN: [DateTime]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  ownerId: String
+  ownerId_CONTAINS: String
+  ownerId_ENDS_WITH: String
+  ownerId_IN: [String]
+  ownerId_NOT: String
+  ownerId_NOT_CONTAINS: String
+  ownerId_NOT_ENDS_WITH: String
+  ownerId_NOT_IN: [String]
+  ownerId_NOT_STARTS_WITH: String
+  ownerId_STARTS_WITH: String
+  updatedAt: DateTime
+  updatedAt_GT: DateTime
+  updatedAt_GTE: DateTime
+  updatedAt_IN: [DateTime]
+  updatedAt_LT: DateTime
+  updatedAt_LTE: DateTime
+  updatedAt_NOT: DateTime
+  updatedAt_NOT_IN: [DateTime]
+}
+
+type Query {
+  apps(options: AppOptions, where: AppWhere): [App!]!
+  appsAggregate(where: AppWhere): AppAggregateSelection!
+  appsCount(where: AppWhere): Int!
+  atoms(options: AtomOptions, where: AtomWhere): [Atom!]!
+  atomsAggregate(where: AtomWhere): AtomAggregateSelection!
+  atomsCount(where: AtomWhere): Int!
+  elements(options: ElementOptions, where: ElementWhere): [Element!]!
+  elementsAggregate(where: ElementWhere): ElementAggregateSelection!
+  elementsCount(where: ElementWhere): Int!
+  pages(options: PageOptions, where: PageWhere): [Page!]!
+  pagesAggregate(where: PageWhere): PageAggregateSelection!
+  pagesCount(where: PageWhere): Int!
+  users(options: UserOptions, where: UserWhere): [User!]!
+  usersAggregate(where: UserWhere): UserAggregateSelection!
+  usersCount(where: UserWhere): Int!
+}
+
+enum SortDirection {
+  """
+  Sort by field values in ascending order.
+  """
+  ASC
+
+  """
+  Sort by field values in descending order.
+  """
+  DESC
+}
+
+type StringAggregateSelection {
+  longest: String
+  shortest: String
+}
+
+type UpdateAppsMutationResponse {
+  apps: [App!]!
+  info: UpdateInfo!
+}
+
+type UpdateAtomsMutationResponse {
+  atoms: [Atom!]!
+  info: UpdateInfo!
+}
+
+type UpdateElementsMutationResponse {
+  elements: [Element!]!
+  info: UpdateInfo!
+}
+
+type UpdateInfo {
+  bookmark: String
+  nodesCreated: Int!
+  nodesDeleted: Int!
+  relationshipsCreated: Int!
+  relationshipsDeleted: Int!
+}
+
+type UpdatePagesMutationResponse {
+  info: UpdateInfo!
+  pages: [Page!]!
+}
+
+type User {
+  apps(options: AppOptions, where: AppWhere): [App]
+  appsAggregate(where: AppWhere): UserAppAppsAggregationSelection
+  appsConnection(
+    after: String
+    first: Int
+    sort: [UserAppsConnectionSort!]
+    where: UserAppsConnectionWhere
+  ): UserAppsConnection!
+  auth0Id: String!
+  email: String!
+}
+
+type UserAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  count: Int!
+  email: StringAggregateSelection!
+}
+
+type UserAppAppsAggregationSelection {
+  count: Int!
+  node: UserAppAppsNodeAggregateSelection
+}
+
+type UserAppAppsNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input UserAppsAggregateInput {
+  AND: [UserAppsAggregateInput!]
+  OR: [UserAppsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: UserAppsNodeAggregationWhereInput
+}
+
+input UserAppsConnectFieldInput {
+  connect: [AppConnectInput!]
+  where: AppConnectWhere
+}
+
+input UserAppsConnectOrCreateFieldInput {
+  onCreate: UserAppsConnectOrCreateFieldInputOnCreate!
+  where: AppConnectOrCreateWhere!
+}
+
+input UserAppsConnectOrCreateFieldInputOnCreate {
+  node: AppCreateInput!
+}
+
+type UserAppsConnection {
+  edges: [UserAppsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input UserAppsConnectionSort {
+  node: AppSort
+}
+
+input UserAppsConnectionWhere {
+  AND: [UserAppsConnectionWhere!]
+  OR: [UserAppsConnectionWhere!]
+  node: AppWhere
+  node_NOT: AppWhere
+}
+
+input UserAppsCreateFieldInput {
+  node: AppCreateInput!
+}
+
+input UserAppsDeleteFieldInput {
+  delete: AppDeleteInput
+  where: UserAppsConnectionWhere
+}
+
+input UserAppsDisconnectFieldInput {
+  disconnect: AppDisconnectInput
+  where: UserAppsConnectionWhere
+}
+
+input UserAppsFieldInput {
+  connect: [UserAppsConnectFieldInput!]
+  connectOrCreate: [UserAppsConnectOrCreateFieldInput!]
+  create: [UserAppsCreateFieldInput!]
+}
+
+input UserAppsNodeAggregationWhereInput {
+  AND: [UserAppsNodeAggregationWhereInput!]
+  OR: [UserAppsNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type UserAppsRelationship {
+  cursor: String!
+  node: App!
+}
+
+input UserAppsUpdateConnectionInput {
+  node: AppUpdateInput
+}
+
+input UserAppsUpdateFieldInput {
+  connect: [UserAppsConnectFieldInput!]
+  connectOrCreate: [UserAppsConnectOrCreateFieldInput!]
+  create: [UserAppsCreateFieldInput!]
+  delete: [UserAppsDeleteFieldInput!]
+  disconnect: [UserAppsDisconnectFieldInput!]
+  update: UserAppsUpdateConnectionInput
+  where: UserAppsConnectionWhere
+}
+
+input UserConnectInput {
+  apps: [UserAppsConnectFieldInput!]
+}
+
+input UserConnectWhere {
+  node: UserWhere!
+}
+
+input UserCreateInput {
+  apps: UserAppsFieldInput
+  auth0Id: String!
+  email: String!
+}
+
+input UserDeleteInput {
+  apps: [UserAppsDeleteFieldInput!]
+}
+
+input UserDisconnectInput {
+  apps: [UserAppsDisconnectFieldInput!]
+}
+
+input UserOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more UserSort objects to sort Users by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [UserSort]
+}
+
+"""
+Fields to sort Users by. The order in which sorts are applied is not guaranteed when specifying many fields in one UserSort object.
+"""
+input UserSort {
+  auth0Id: SortDirection
+  email: SortDirection
+}
+
+input UserUpdateInput {
+  apps: [UserAppsUpdateFieldInput!]
+  auth0Id: String
+  email: String
+}
+
+input UserWhere {
+  AND: [UserWhere!]
+  OR: [UserWhere!]
+  apps: AppWhere
+  appsAggregate: UserAppsAggregateInput
+  appsConnection: UserAppsConnectionWhere
+  appsConnection_NOT: UserAppsConnectionWhere
+  apps_NOT: AppWhere
+  auth0Id: String
+  auth0Id_CONTAINS: String
+  auth0Id_ENDS_WITH: String
+  auth0Id_IN: [String]
+  auth0Id_NOT: String
+  auth0Id_NOT_CONTAINS: String
+  auth0Id_NOT_ENDS_WITH: String
+  auth0Id_NOT_IN: [String]
+  auth0Id_NOT_STARTS_WITH: String
+  auth0Id_STARTS_WITH: String
+  email: String
+  email_CONTAINS: String
+  email_ENDS_WITH: String
+  email_IN: [String]
+  email_NOT: String
+  email_NOT_CONTAINS: String
+  email_NOT_ENDS_WITH: String
+  email_NOT_IN: [String]
+  email_NOT_STARTS_WITH: String
+  email_STARTS_WITH: String
+}

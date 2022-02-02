@@ -1,6 +1,7 @@
 import { gql } from 'apollo-server-micro'
+import { print } from 'graphql'
 
-export default gql`
+export default print(gql`
   type User @exclude(operations: [CREATE, UPDATE, DELETE]) {
     auth0Id: String!
     email: String!
@@ -53,4 +54,4 @@ export default gql`
         """
       )
   }
-`
+`)
