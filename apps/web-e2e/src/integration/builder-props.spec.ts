@@ -42,12 +42,9 @@ const selectPropsTab = () => {
 
   // Event button is visible, somehow it is still unclickable without this timeout
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(3000)
+  cy.wait(1000)
 
   cy.get('.ant-tabs-tab-btn').contains('Props').click()
-
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(1000)
 }
 
 before(() => {
@@ -100,8 +97,9 @@ describe('Update props', () => {
 
     cy.findByButtonText(/Submit/).click()
 
-    // Reload page
-    cy.reload()
+    // For some reason it gets an element right before re-rendering and then causes an error for it being detached
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
 
     selectPropsTab()
 
