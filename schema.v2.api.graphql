@@ -44,14 +44,11 @@ interface IElementGraph {
 type App {
   id: ID!
   name: String!
-  ownerId: String!
-  createdAt: DateTime!
-  updatedAt: DateTime
   owner(where: UserWhere, options: UserOptions): [User]
   ownerAggregate(where: UserWhere): AppUserOwnerAggregationSelection
   pages(where: PageWhere, options: PageOptions): [Page]
   pagesAggregate(where: PageWhere): AppPagePagesAggregationSelection
-  ownerConnection(where: AppOwnerConnectionWhere, first: Int, after: String): AppOwnerConnection!
+  ownerConnection(where: AppOwnerConnectionWhere, sort: [AppOwnerConnectionSort!], first: Int, after: String): AppOwnerConnection!
   pagesConnection(where: AppPagesConnectionWhere, sort: [AppPagesConnectionSort!], first: Int, after: String): AppPagesConnection!
 }
 
@@ -59,9 +56,6 @@ type AppAggregateSelection {
   count: Int!
   id: IDAggregateSelection!
   name: StringAggregateSelection!
-  ownerId: StringAggregateSelection!
-  createdAt: DateTimeAggregateSelection!
-  updatedAt: DateTimeAggregateSelection!
 }
 
 type AppOwnerConnection {
@@ -101,6 +95,12 @@ type AppPagesRelationship {
 
 type AppUserOwnerAggregationSelection {
   count: Int!
+  node: AppUserOwnerNodeAggregateSelection
+}
+
+type AppUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
 }
 
 type CreateAppsMutationResponse {
@@ -240,9 +240,6 @@ type PageAppAppAggregationSelection {
 type PageAppAppNodeAggregateSelection {
   id: IDAggregateSelection!
   name: StringAggregateSelection!
-  ownerId: StringAggregateSelection!
-  createdAt: DateTimeAggregateSelection!
-  updatedAt: DateTimeAggregateSelection!
 }
 
 type PageAppConnection {
@@ -293,6 +290,8 @@ type UpdatePagesMutationResponse {
 }
 
 type User {
+  auth0Id: String!
+  email: String!
   apps(where: AppWhere, options: AppOptions): [App]
   appsAggregate(where: AppWhere): UserAppAppsAggregationSelection
   appsConnection(where: UserAppsConnectionWhere, sort: [UserAppsConnectionSort!], first: Int, after: String): UserAppsConnection!
@@ -300,6 +299,8 @@ type User {
 
 type UserAggregateSelection {
   count: Int!
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
 }
 
 type UserAppAppsAggregationSelection {
@@ -310,9 +311,6 @@ type UserAppAppsAggregationSelection {
 type UserAppAppsNodeAggregateSelection {
   id: IDAggregateSelection!
   name: StringAggregateSelection!
-  ownerId: StringAggregateSelection!
-  createdAt: DateTimeAggregateSelection!
-  updatedAt: DateTimeAggregateSelection!
 }
 
 type UserAppsConnection {
@@ -345,7 +343,6 @@ input AppConnectWhere {
 
 input AppCreateInput {
   name: String!
-  ownerId: String!
   owner: AppOwnerFieldInput
   pages: AppPagesFieldInput
 }
@@ -377,11 +374,16 @@ input AppOwnerAggregateInput {
   count_GTE: Int
   AND: [AppOwnerAggregateInput!]
   OR: [AppOwnerAggregateInput!]
+  node: AppOwnerNodeAggregationWhereInput
 }
 
 input AppOwnerConnectFieldInput {
   where: UserConnectWhere
   connect: [UserConnectInput!]
+}
+
+input AppOwnerConnectionSort {
+  node: UserSort
 }
 
 input AppOwnerConnectionWhere {
@@ -408,6 +410,51 @@ input AppOwnerDisconnectFieldInput {
 input AppOwnerFieldInput {
   create: [AppOwnerCreateFieldInput!]
   connect: [AppOwnerConnectFieldInput!]
+}
+
+input AppOwnerNodeAggregationWhereInput {
+  AND: [AppOwnerNodeAggregationWhereInput!]
+  OR: [AppOwnerNodeAggregationWhereInput!]
+  auth0Id_EQUAL: String
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_GT: Int
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_LONGEST_GT: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_LT: Int
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_LONGEST_LT: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_EQUAL: String
+  email_AVERAGE_EQUAL: Float
+  email_LONGEST_EQUAL: Int
+  email_SHORTEST_EQUAL: Int
+  email_GT: Int
+  email_AVERAGE_GT: Float
+  email_LONGEST_GT: Int
+  email_SHORTEST_GT: Int
+  email_GTE: Int
+  email_AVERAGE_GTE: Float
+  email_LONGEST_GTE: Int
+  email_SHORTEST_GTE: Int
+  email_LT: Int
+  email_AVERAGE_LT: Float
+  email_LONGEST_LT: Int
+  email_SHORTEST_LT: Int
+  email_LTE: Int
+  email_AVERAGE_LTE: Float
+  email_LONGEST_LTE: Int
+  email_SHORTEST_LTE: Int
 }
 
 input AppOwnerUpdateConnectionInput {
@@ -580,9 +627,6 @@ Fields to sort Apps by. The order in which sorts are applied is not guaranteed w
 input AppSort {
   id: SortDirection
   name: SortDirection
-  ownerId: SortDirection
-  createdAt: SortDirection
-  updatedAt: SortDirection
 }
 
 input AppUniqueWhere {
@@ -591,7 +635,6 @@ input AppUniqueWhere {
 
 input AppUpdateInput {
   name: String
-  ownerId: String
   owner: [AppOwnerUpdateFieldInput!]
   pages: [AppPagesUpdateFieldInput!]
 }
@@ -619,32 +662,6 @@ input AppWhere {
   name_NOT_STARTS_WITH: String
   name_ENDS_WITH: String
   name_NOT_ENDS_WITH: String
-  ownerId: String
-  ownerId_NOT: String
-  ownerId_IN: [String]
-  ownerId_NOT_IN: [String]
-  ownerId_CONTAINS: String
-  ownerId_NOT_CONTAINS: String
-  ownerId_STARTS_WITH: String
-  ownerId_NOT_STARTS_WITH: String
-  ownerId_ENDS_WITH: String
-  ownerId_NOT_ENDS_WITH: String
-  createdAt: DateTime
-  createdAt_NOT: DateTime
-  createdAt_IN: [DateTime]
-  createdAt_NOT_IN: [DateTime]
-  createdAt_LT: DateTime
-  createdAt_LTE: DateTime
-  createdAt_GT: DateTime
-  createdAt_GTE: DateTime
-  updatedAt: DateTime
-  updatedAt_NOT: DateTime
-  updatedAt_IN: [DateTime]
-  updatedAt_NOT_IN: [DateTime]
-  updatedAt_LT: DateTime
-  updatedAt_LTE: DateTime
-  updatedAt_GT: DateTime
-  updatedAt_GTE: DateTime
   owner: UserWhere
   owner_NOT: UserWhere
   ownerAggregate: AppOwnerAggregateInput
@@ -1161,56 +1178,6 @@ input PageAppNodeAggregationWhereInput {
   name_AVERAGE_LTE: Float
   name_LONGEST_LTE: Int
   name_SHORTEST_LTE: Int
-  ownerId_EQUAL: String
-  ownerId_AVERAGE_EQUAL: Float
-  ownerId_LONGEST_EQUAL: Int
-  ownerId_SHORTEST_EQUAL: Int
-  ownerId_GT: Int
-  ownerId_AVERAGE_GT: Float
-  ownerId_LONGEST_GT: Int
-  ownerId_SHORTEST_GT: Int
-  ownerId_GTE: Int
-  ownerId_AVERAGE_GTE: Float
-  ownerId_LONGEST_GTE: Int
-  ownerId_SHORTEST_GTE: Int
-  ownerId_LT: Int
-  ownerId_AVERAGE_LT: Float
-  ownerId_LONGEST_LT: Int
-  ownerId_SHORTEST_LT: Int
-  ownerId_LTE: Int
-  ownerId_AVERAGE_LTE: Float
-  ownerId_LONGEST_LTE: Int
-  ownerId_SHORTEST_LTE: Int
-  createdAt_EQUAL: DateTime
-  createdAt_MIN_EQUAL: DateTime
-  createdAt_MAX_EQUAL: DateTime
-  createdAt_GT: DateTime
-  createdAt_MIN_GT: DateTime
-  createdAt_MAX_GT: DateTime
-  createdAt_GTE: DateTime
-  createdAt_MIN_GTE: DateTime
-  createdAt_MAX_GTE: DateTime
-  createdAt_LT: DateTime
-  createdAt_MIN_LT: DateTime
-  createdAt_MAX_LT: DateTime
-  createdAt_LTE: DateTime
-  createdAt_MIN_LTE: DateTime
-  createdAt_MAX_LTE: DateTime
-  updatedAt_EQUAL: DateTime
-  updatedAt_MIN_EQUAL: DateTime
-  updatedAt_MAX_EQUAL: DateTime
-  updatedAt_GT: DateTime
-  updatedAt_MIN_GT: DateTime
-  updatedAt_MAX_GT: DateTime
-  updatedAt_GTE: DateTime
-  updatedAt_MIN_GTE: DateTime
-  updatedAt_MAX_GTE: DateTime
-  updatedAt_LT: DateTime
-  updatedAt_MIN_LT: DateTime
-  updatedAt_MAX_LT: DateTime
-  updatedAt_LTE: DateTime
-  updatedAt_MIN_LTE: DateTime
-  updatedAt_MAX_LTE: DateTime
 }
 
 input PageAppUpdateConnectionInput {
@@ -1427,56 +1394,6 @@ input UserAppsNodeAggregationWhereInput {
   name_AVERAGE_LTE: Float
   name_LONGEST_LTE: Int
   name_SHORTEST_LTE: Int
-  ownerId_EQUAL: String
-  ownerId_AVERAGE_EQUAL: Float
-  ownerId_LONGEST_EQUAL: Int
-  ownerId_SHORTEST_EQUAL: Int
-  ownerId_GT: Int
-  ownerId_AVERAGE_GT: Float
-  ownerId_LONGEST_GT: Int
-  ownerId_SHORTEST_GT: Int
-  ownerId_GTE: Int
-  ownerId_AVERAGE_GTE: Float
-  ownerId_LONGEST_GTE: Int
-  ownerId_SHORTEST_GTE: Int
-  ownerId_LT: Int
-  ownerId_AVERAGE_LT: Float
-  ownerId_LONGEST_LT: Int
-  ownerId_SHORTEST_LT: Int
-  ownerId_LTE: Int
-  ownerId_AVERAGE_LTE: Float
-  ownerId_LONGEST_LTE: Int
-  ownerId_SHORTEST_LTE: Int
-  createdAt_EQUAL: DateTime
-  createdAt_MIN_EQUAL: DateTime
-  createdAt_MAX_EQUAL: DateTime
-  createdAt_GT: DateTime
-  createdAt_MIN_GT: DateTime
-  createdAt_MAX_GT: DateTime
-  createdAt_GTE: DateTime
-  createdAt_MIN_GTE: DateTime
-  createdAt_MAX_GTE: DateTime
-  createdAt_LT: DateTime
-  createdAt_MIN_LT: DateTime
-  createdAt_MAX_LT: DateTime
-  createdAt_LTE: DateTime
-  createdAt_MIN_LTE: DateTime
-  createdAt_MAX_LTE: DateTime
-  updatedAt_EQUAL: DateTime
-  updatedAt_MIN_EQUAL: DateTime
-  updatedAt_MAX_EQUAL: DateTime
-  updatedAt_GT: DateTime
-  updatedAt_MIN_GT: DateTime
-  updatedAt_MAX_GT: DateTime
-  updatedAt_GTE: DateTime
-  updatedAt_MIN_GTE: DateTime
-  updatedAt_MAX_GTE: DateTime
-  updatedAt_LT: DateTime
-  updatedAt_MIN_LT: DateTime
-  updatedAt_MAX_LT: DateTime
-  updatedAt_LTE: DateTime
-  updatedAt_MIN_LTE: DateTime
-  updatedAt_MAX_LTE: DateTime
 }
 
 input UserAppsUpdateConnectionInput {
@@ -1502,6 +1419,8 @@ input UserConnectWhere {
 }
 
 input UserCreateInput {
+  auth0Id: String!
+  email: String!
   apps: UserAppsFieldInput
 }
 
@@ -1514,17 +1433,51 @@ input UserDisconnectInput {
 }
 
 input UserOptions {
+  """
+  Specify one or more UserSort objects to sort Users by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [UserSort]
   limit: Int
   offset: Int
 }
 
+"""
+Fields to sort Users by. The order in which sorts are applied is not guaranteed when specifying many fields in one UserSort object.
+"""
+input UserSort {
+  auth0Id: SortDirection
+  email: SortDirection
+}
+
 input UserUpdateInput {
+  auth0Id: String
+  email: String
   apps: [UserAppsUpdateFieldInput!]
 }
 
 input UserWhere {
   OR: [UserWhere!]
   AND: [UserWhere!]
+  auth0Id: String
+  auth0Id_NOT: String
+  auth0Id_IN: [String]
+  auth0Id_NOT_IN: [String]
+  auth0Id_CONTAINS: String
+  auth0Id_NOT_CONTAINS: String
+  auth0Id_STARTS_WITH: String
+  auth0Id_NOT_STARTS_WITH: String
+  auth0Id_ENDS_WITH: String
+  auth0Id_NOT_ENDS_WITH: String
+  email: String
+  email_NOT: String
+  email_IN: [String]
+  email_NOT_IN: [String]
+  email_CONTAINS: String
+  email_NOT_CONTAINS: String
+  email_STARTS_WITH: String
+  email_NOT_STARTS_WITH: String
+  email_ENDS_WITH: String
+  email_NOT_ENDS_WITH: String
   apps: AppWhere
   apps_NOT: AppWhere
   appsAggregate: UserAppsAggregateInput

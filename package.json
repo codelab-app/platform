@@ -61,6 +61,7 @@
     "@mui/material": "5.2.8",
     "@mui/x-data-grid": "5.2.2",
     "@neo4j/graphql": "^2.5.6",
+    "@neo4j/graphql-ogm": "^2.5.6",
     "@nestjs/common": "8.2.4",
     "@nestjs/config": "1.1.6",
     "@nestjs/core": "8.2.4",
