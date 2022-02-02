@@ -1,5 +1,6 @@
 import { gql } from 'apollo-server-micro'
 import { print } from 'graphql'
+import { atomSchema } from './type-defs/atomSchema'
 
 export default print(gql`
   type User @exclude(operations: [CREATE, UPDATE, DELETE]) {
@@ -17,6 +18,8 @@ export default print(gql`
     # createdAt: DateTime! @readonly @timestamp(operations: [CREATE])
     # updatedAt: DateTime @readonly @timestamp(operations: [UPDATE])
   }
+
+  ${atomSchema}
 
   type Page {
     id: ID! @id

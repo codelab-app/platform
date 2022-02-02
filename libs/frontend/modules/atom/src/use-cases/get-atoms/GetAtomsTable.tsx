@@ -7,7 +7,7 @@ import { useAtomTable } from './useAtomTable'
 export const GetAtomsTable = () => {
   const { columns, rowSelection, pagination, selectedIds } = useAtomTable()
   const { data, isLoading } = useGetAtomsQuery()
-  const atoms = data?.getAtoms ?? []
+  const atoms = data?.atoms ?? []
 
   return (
     <SpinnerWrapper isLoading={isLoading}>

@@ -5,7 +5,7 @@ import { DeleteAtomInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { AtomBaseFragment } from '../../graphql/Atom.fragment.graphql.gen'
 import { useAtomDispatch, useAtomState } from '../../hooks'
-import { useDeleteAtomMutation } from '../../store'
+import { useDeleteAtomsMutation } from '../../store'
 
 export const useDeleteAtomForm: UseEntityUseCaseForm<
   DeleteAtomInput,
@@ -15,16 +15,17 @@ export const useDeleteAtomForm: UseEntityUseCaseForm<
   const { deleteIds, entity, actionType } = useAtomState()
   const { resetModal } = useAtomDispatch()
 
-  const [mutate, { isLoading }] = useDeleteAtomMutation({
+  const [mutate, { isLoading }] = useDeleteAtomsMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.deleteAtom,
+      nodesDeleted: r.data?.deleteAtoms.nodesDeleted,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
   const onSubmit = useCallback(
-    (input: DeleteAtomInput) => mutate({ variables: { input } }).unwrap(),
+    (input: DeleteAtomInput) =>
+      mutate({ variables: { where: { id: input.atomId } } }).unwrap(),
     [mutate],
   )
 
