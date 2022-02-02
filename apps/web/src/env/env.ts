@@ -1,0 +1,10 @@
+const { NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, AUTH0_ISSUER_BASE_URL } =
+  process.env as any
+
+if (!NEO4J_URI || !NEO4J_USER || !NEO4J_PASSWORD || !AUTH0_ISSUER_BASE_URL) {
+  throw new Error('Missing env')
+}
+
+console.log(NEO4J_USER)
+
+export { AUTH0_ISSUER_BASE_URL, NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER }

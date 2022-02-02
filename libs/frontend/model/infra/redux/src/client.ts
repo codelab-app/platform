@@ -3,7 +3,7 @@ import { Maybe } from '@codelab/shared/abstract/types'
 import { GraphQLClient } from 'graphql-request'
 import { RequestInit } from 'graphql-request/dist/types.dom'
 import { GetServerSidePropsContext } from 'next'
-import { API_ENV } from './GraphqlOperationOptions'
+import { API_ENV, GraphqlOperationOptions } from './GraphqlOperationOptions'
 
 const apiUrlsByEnv: Record<API_ENV, string> = {
   local: `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/graphql`,
@@ -31,9 +31,10 @@ export const setClientAuthHeaders = async (
 }
 
 export const getGraphQLClient = ({
-  env = API_ENV.local,
+  context,
   ...options
-}: Partial<RequestInit & { env: API_ENV }>) => {
+}: RequestInit & GraphqlOperationOptions) => {
+  const env = context?.env ?? API_ENV.local
   const apiUrl = apiUrlsByEnv[env]
 
   console.log(apiUrl)
