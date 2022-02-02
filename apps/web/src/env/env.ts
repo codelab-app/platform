@@ -1,10 +1,23 @@
-const { NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, AUTH0_ISSUER_BASE_URL } =
-  process.env as any
+import * as env from 'env-var'
 
-if (!NEO4J_URI || !NEO4J_USER || !NEO4J_PASSWORD || !AUTH0_ISSUER_BASE_URL) {
-  throw new Error('Missing env')
+interface Config {
+  neo4j: {
+    password: string
+    uri: string
+    user: string
+  }
+  auth0: {
+    issuer_base_url: string
+  }
 }
 
-console.log(NEO4J_USER)
-
-export { AUTH0_ISSUER_BASE_URL, NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER }
+export const Config: Config = {
+  neo4j: {
+    password: env.get('NEO4J_PASSWORD').required().asString(),
+    uri: env.get('NEO4J_URI').required().asString(),
+    user: env.get('NEO4J_USER').required().asString(),
+  },
+  auth0: {
+    issuer_base_url: env.get('AUTH0_ISSUER_BASE_URL').required().asString(),
+  },
+}
