@@ -8,10 +8,12 @@ import { API_ENV } from './GraphqlOperationOptions'
 const apiUrlsByEnv: Record<API_ENV, string> = {
   local: `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/graphql`,
   production: `${process.env.NEXT_PUBLIC_PRODUCTION_API_ORIGIN}/api/graphql`,
+  v2: `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/v2/graphql`,
 }
 
 let localGraphqlClient: Maybe<GraphQLClient>
 let productionGraphqlClient: Maybe<GraphQLClient>
+let v2GraphqlClient: Maybe<GraphQLClient>
 
 /**
  * Help extract JWT access token from SSR session and set authorization header on our client
@@ -34,10 +36,11 @@ export const getGraphQLClient = ({
 }: Partial<RequestInit & { env: API_ENV }>) => {
   const apiUrl = apiUrlsByEnv[env]
 
+  console.log(apiUrl)
+
   return env === API_ENV.production
-    ? (productionGraphqlClient ??= new GraphQLClient(
-        apiUrl,
-        options ?? undefined,
-      ))
-    : (localGraphqlClient ??= new GraphQLClient(apiUrl, options ?? undefined))
+    ? (productionGraphqlClient ??= new GraphQLClient(apiUrl, options))
+    : env === API_ENV.v2
+    ? (v2GraphqlClient ??= new GraphQLClient(apiUrl, options))
+    : (localGraphqlClient ??= new GraphQLClient(apiUrl, options))
 }
