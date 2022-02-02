@@ -1,8 +1,13 @@
 import { gql } from 'apollo-server-micro'
 
 export default gql`
+  type User @exclude(operations: [CREATE, UPDATE, DELETE]) {
+    apps: [App] @relationship(type: "OWNED_BY", direction: IN)
+  }
+
   type App {
     id: ID! @id
+    owner: [User] @relationship(type: "OWNED_BY", direction: OUT)
     createdAt: DateTime! @readonly @timestamp(operations: [CREATE])
     updatedAt: DateTime @readonly @timestamp(operations: [UPDATE])
 
@@ -23,8 +28,9 @@ export default gql`
     app: App @relationship(type: "PAGES", direction: OUT)
   }
 
-  interface ElementGraph {
+  interface IElementGraph {
     root: Element
+    vertices: [Element!]
   }
 
   type Element {
@@ -37,7 +43,8 @@ export default gql`
     parent: Element @relationship(type: "PARENT", direction: IN)
     children: [Element!] @relationship(type: "PARENT", direction: OUT)
 
-    graph: ElementGraph!
+    # Experimental, does not work
+    graph: IElementGraph!
       @cypher(
         statement: """
         MATCH p = (this)-[r:PARENT 0..]->(x)

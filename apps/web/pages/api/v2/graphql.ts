@@ -1,5 +1,4 @@
-import { Neo4jGraphQL } from '@neo4j/graphql'
-import { ApolloServer, gql } from 'apollo-server-micro'
+import { ApolloServer } from 'apollo-server-micro'
 import fs from 'fs'
 import {
   buildClientSchema,
@@ -7,40 +6,14 @@ import {
   IntrospectionQuery,
   printSchema,
 } from 'graphql'
-import neo4j from 'neo4j-driver'
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import { NextApiHandler } from 'next'
+import { getDriver } from '../../../src/neo4j-graphql/getDriver'
+import { getSchema } from '../../../src/neo4j-graphql/getSchema'
 
-const typeDefs = gql`
-  type User @exclude(operations: [CREATE, UPDATE, DELETE]) {
-    apps: [App] @relationship(type: "OWNED_BY", direction: IN)
-  }
-  type App {
-    owner: [User] @relationship(type: "OWNED_BY", direction: OUT)
-    name: String!
-  }
-  # type Movie @exclude(operations: [CREATE, UPDATE, DELETE]) {
-  #   title: String!
-  #   actors: [Actor] @relationship(type: "ACTED_IN", direction: IN)
-  # }
-  # type Actor @exclude(operations: [UPDATE, DELETE]) {
-  #   name: String!
-  #   actedIn: [Movie] @relationship(type: "ACTED_IN", direction: OUT)
-  # }
-`
-
-const { NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD } = process.env
-
-if (!NEO4J_URI || !NEO4J_USER || !NEO4J_PASSWORD) {
-  throw new Error('Missing "NEO4J_URI", "NEO4J_USER", or "NEO4J_PASSWORD"')
-}
-
-const driver = neo4j.driver(
-  NEO4J_URI,
-  neo4j.auth.basic(NEO4J_USER, NEO4J_PASSWORD),
-)
-
-const neoSchema = new Neo4jGraphQL({ typeDefs, driver })
+const driver = getDriver()
+const neoSchema = getSchema(driver)
 const apolloServer = new ApolloServer({ schema: neoSchema.schema })
+const path = '/api/v2/graphql'
 
 const startServer = apolloServer.start().then(async () => {
   /**
@@ -63,14 +36,9 @@ const startServer = apolloServer.start().then(async () => {
 
 const handler: NextApiHandler = async (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', 'true')
-  res.setHeader(
-    'Access-Control-Allow-Origin',
-    'https://studio.apollographql.com',
-  )
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept',
-  )
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Headers', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
 
   if (req.method === 'OPTIONS') {
     res.end()
@@ -81,7 +49,7 @@ const handler: NextApiHandler = async (req, res) => {
   await startServer
 
   await apolloServer.createHandler({
-    path: '/api/v2/graphql',
+    path,
   })(req, res)
 }
 
