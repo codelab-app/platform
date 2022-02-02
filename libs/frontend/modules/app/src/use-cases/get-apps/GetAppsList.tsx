@@ -1,3 +1,4 @@
+import { API_ENV } from '@codelab/frontend/model/infra/redux'
 import {
   ConditionalView,
   SpinnerWrapper,
@@ -14,8 +15,15 @@ const emptyImageStyle: React.CSSProperties = {
 }
 
 export const GetAppsList = () => {
-  const { isLoading, data } = useGetAppsQuery()
+  const { isLoading, data } = useGetAppsQuery({
+    context: {
+      env: API_ENV.v2,
+    },
+  })
+
   const appList = data?.apps
+
+  console.log(appList)
 
   return (
     <SpinnerWrapper isLoading={isLoading}>

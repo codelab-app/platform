@@ -67,11 +67,13 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
       </Head>
 
       <CreateAppModal />
-      {/* <UpdateAppModal />
+      {/* <UpdateAppModal /> */}
       <DeleteAppModal />
-      <ImportAppModal /> */}
+      {/* <ImportAppModal /> */}
 
-      <ContentSection>{/* <GetAppsList /> */}</ContentSection>
+      <ContentSection>
+        <GetAppsList />
+      </ContentSection>
     </>
   )
 }

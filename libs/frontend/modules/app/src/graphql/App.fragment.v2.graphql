@@ -1,0 +1,4 @@
+fragment App on App {
+  id
+  name
+}
