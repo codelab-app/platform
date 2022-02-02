@@ -139,7 +139,7 @@ export class AtomRepository
     const mutations = atoms.reduce((mutation, { type, name, api, id }, i) => {
       let apiUid
 
-      if (api) {
+      if (api?.id) {
         apiUid = `<${api.id}>`
       } else if (!id) {
         // Only create a new blank node if we're creating atom (ie no id)
@@ -166,7 +166,7 @@ export class AtomRepository
         ${atomId} <name> "${name}" .
         ${apiUid ? `${atomId} <api> ${apiUid} .` : ''}
         ${
-          api
+          api?.id
             ? ''
             : `
                   ${apiUid} <dgraph.type> "${DgraphEntityType.Type}" .
