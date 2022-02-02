@@ -14468,7 +14468,7 @@ __metadata:
     dotenv: ^15.0.0
     dotenv-webpack: 7.0.3
     env-cmd: 10.1.0
-    env-var: 7.1.1
+    env-var: ^7.1.1
     enzyme: 3.11.0
     enzyme-adapter-react-16: 1.15.6
     eslint: 8.7.0
@@ -17685,7 +17685,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"env-var@npm:7.1.1":
+"env-var@npm:^7.1.1":
   version: 7.1.1
   resolution: "env-var@npm:7.1.1"
   checksum: 3392870deeb7241590cdf80214642ac2193dbdf10fa31af22dfb01d5d4a22b0f04798874020975fa7d1ef9ed685618f1cf06085b997f92f7f3f85f27ea658d4d

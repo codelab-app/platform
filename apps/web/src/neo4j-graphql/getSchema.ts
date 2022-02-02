@@ -1,7 +1,7 @@
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import { JWT_CLAIMS } from 'libs/backend/modules/user/src/infra/auth/jwt.interface'
 import { Driver } from 'neo4j-driver'
-import { AUTH0_ISSUER_BASE_URL } from '../env/env'
+import { Config } from '../env/env'
 import typeDefs from './type-defs'
 
 export const getSchema = (driver: Driver) =>
@@ -10,8 +10,10 @@ export const getSchema = (driver: Driver) =>
     driver,
     config: {
       jwt: {
-        jwksEndpoint: new URL('.well-known/jwks.json', AUTH0_ISSUER_BASE_URL)
-          .href,
+        jwksEndpoint: new URL(
+          '.well-known/jwks.json',
+          Config.auth0.issuer_base_url,
+        ).href,
         rolesPath: JWT_CLAIMS,
         // jwksEndpoint: 'https://YOUR_DOMAIN/.well-known/jwks.json',
         // rolesPath:
