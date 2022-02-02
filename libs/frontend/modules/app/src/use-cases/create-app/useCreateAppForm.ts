@@ -1,5 +1,6 @@
 import { AppActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
+import { API_ENV } from '@codelab/frontend/model/infra/redux'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
 import { useAppDispatch, useAppState } from '../../hooks'
@@ -23,7 +24,12 @@ export const useCreateAppForm: UseUseCaseForm<
 
   const onSubmit = useCallback(
     (input: CreateAppInput) => {
-      return mutate({ variables: { input } }).unwrap()
+      return mutate({
+        variables: { input },
+        context: {
+          env: API_ENV.v2,
+        },
+      }).unwrap()
     },
     [mutate],
   )

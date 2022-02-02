@@ -67,13 +67,11 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
       </Head>
 
       <CreateAppModal />
-      <UpdateAppModal />
+      {/* <UpdateAppModal />
       <DeleteAppModal />
-      <ImportAppModal />
+      <ImportAppModal /> */}
 
-      <ContentSection>
-        <GetAppsList />
-      </ContentSection>
+      <ContentSection>{/* <GetAppsList /> */}</ContentSection>
     </>
   )
 }
@@ -85,9 +83,9 @@ export const getServerSideProps = withPageAuthRequired({
     (store) => async (context: GetServerSidePropsContext) => {
       await setClientAuthHeaders(context)
 
-      store.dispatch(appEndpoints.endpoints.GetApps.initiate({}))
+      // store.dispatch(appEndpoints.endpoints.GetApps.initiate({}))
 
-      await Promise.all(appEndpoints.util.getRunningOperationPromises())
+      // await Promise.all(appEndpoints.util.getRunningOperationPromises())
 
       return {
         props: {},
