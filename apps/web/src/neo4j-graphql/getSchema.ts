@@ -2,7 +2,7 @@ import { Neo4jGraphQL } from '@neo4j/graphql'
 import { JWT_CLAIMS } from 'libs/backend/modules/user/src/infra/auth/jwt.interface'
 import { Driver } from 'neo4j-driver'
 import { Config } from '../env/env'
-import typeDefs from './type-defs'
+import typeDefs from './typeDefs'
 
 export const getSchema = (driver: Driver) =>
   new Neo4jGraphQL({

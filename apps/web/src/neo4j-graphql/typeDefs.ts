@@ -2,19 +2,19 @@ import { gql } from 'apollo-server-micro'
 
 export default gql`
   type User @exclude(operations: [CREATE, UPDATE, DELETE]) {
+    auth0Id: String!
+    email: String!
     apps: [App] @relationship(type: "OWNED_BY", direction: IN)
   }
 
   type App {
     id: ID! @id
     owner: [User] @relationship(type: "OWNED_BY", direction: OUT)
-    createdAt: DateTime! @readonly @timestamp(operations: [CREATE])
-    updatedAt: DateTime @readonly @timestamp(operations: [UPDATE])
-
     name: String!
-    ownerId: String!
-
     pages: [Page] @relationship(type: "PAGES", direction: IN)
+
+    # createdAt: DateTime! @readonly @timestamp(operations: [CREATE])
+    # updatedAt: DateTime @readonly @timestamp(operations: [UPDATE])
   }
 
   type Page {
