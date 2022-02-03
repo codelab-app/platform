@@ -102,6 +102,12 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
       return ''
     }
 
+    const optionsString = this.rawConfig.extraOptions
+      ? `options: {...${JSON.stringify(
+          this.rawConfig.extraOptions,
+        )}, ...options},`
+      : `options: options ?? undefined`
+
     const Generics = `${operationResultType}, GraphqlOperationOptions<${operationVariablesTypes}>${
       hasRequiredVariables ? '' : ' | void | undefined'
     }`
@@ -109,7 +115,7 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
     if (operationType === 'Query') {
       this._endpoints.push(`
       ${operationName}: build.query<${Generics}>({
-        query: (options) => ({ document: ${documentVariableName}, options: options ?? undefined })
+        query: (options) => ({ document: ${documentVariableName}, ${optionsString} })
       }),`)
 
       if (this.config.exportHooks) {
@@ -119,7 +125,7 @@ export class RTKQueryVisitor extends ClientSideBaseVisitor<
     } else if (operationType === 'Mutation') {
       this._endpoints.push(`
       ${operationName}: build.mutation<${Generics}>({
-        query: (options) => ({ document: ${documentVariableName}, options: options ?? undefined })
+        query: (options) => ({ document: ${documentVariableName}, ${optionsString} })
       }),`)
 
       if (this.config.exportHooks) {

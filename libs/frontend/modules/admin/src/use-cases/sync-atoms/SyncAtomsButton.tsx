@@ -1,8 +1,3 @@
-import { API_ENV } from '@codelab/frontend/model/infra/redux'
-import {
-  useImportAtomsMutation,
-  useLazyExportAtomsQuery,
-} from '@codelab/frontend/modules/atom'
 import { notify, useNotify } from '@codelab/frontend/shared/utils'
 import { Button } from 'antd'
 
@@ -10,13 +5,15 @@ const hardCodedAtomIds = ['0x551ac']
 
 /**
  * Sync atoms remotely to local (or current) url.
+ *
+ * Not functional right now, need to figure out a import strategy for neo4j
  */
 export const SyncAtomsButton = () => {
-  const [getExportAtoms, { isLoading: isLoadingDownAtoms }] =
-    useLazyExportAtomsQuery()
-
-  const [importAtom, { isLoading: isLoadingImportAtoms }] =
-    useImportAtomsMutation()
+  // const [getExportAtoms, { isLoading: isLoadingDownAtoms }] =
+  //   useLazyExportAtomsQuery()
+  //
+  // const [importAtom, { isLoading: isLoadingImportAtoms }] =
+  //   useImportAtomsMutation()
 
   const { onSuccess, onError } = useNotify(
     { title: 'Atoms has been synced successfully' },
@@ -27,10 +24,10 @@ export const SyncAtomsButton = () => {
     let atomData
 
     try {
-      atomData = await getExportAtoms({
-        env: API_ENV.production,
-        variables: { input: { where: { ids: hardCodedAtomIds } } },
-      }).unwrap()
+      // atomData = await getExportAtoms({
+      //   env: API_ENV.production,
+      //   variables: { input: { where: { ids: hardCodedAtomIds } } },
+      // }).unwrap()
     } catch {
       notify({ title: 'Failed to down atoms', type: 'error' })
 
@@ -47,7 +44,7 @@ export const SyncAtomsButton = () => {
 
   return (
     <Button
-      loading={isLoadingDownAtoms || isLoadingImportAtoms}
+      // loading={isLoadingDownAtoms || isLoadingImportAtoms}
       onClick={onClick}
     >
       Sync Atoms

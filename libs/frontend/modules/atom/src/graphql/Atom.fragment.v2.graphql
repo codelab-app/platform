@@ -1,0 +1,6 @@
+fragment Atom on Atom {
+  __typename
+  id
+  name
+  type
+}

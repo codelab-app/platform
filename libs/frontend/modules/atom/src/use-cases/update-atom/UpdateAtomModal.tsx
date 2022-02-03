@@ -1,8 +1,8 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { Form, FormModal } from '@codelab/frontend/view/components'
-import { CreateAtomInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
+import { CreateAtomInput } from '../create-atom'
 import { updateAtomSchema } from './updateAtomSchema'
 import { useUpdateAtomForm } from './useUpdateAtomForm'
 

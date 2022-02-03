@@ -470,9 +470,450 @@ export type AppWhere = {
   pages_NOT?: InputMaybe<PageWhere>
 }
 
+export type Atom = {
+  __typename?: 'Atom'
+  id: Scalars['ID']
+  name: Scalars['String']
+  type: AtomType
+}
+
+export type AtomAggregateSelection = {
+  __typename?: 'AtomAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type AtomCreateInput = {
+  name: Scalars['String']
+  type: AtomType
+}
+
+export type AtomOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more AtomSort objects to sort Atoms by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<InputMaybe<AtomSort>>>
+}
+
+/** Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object. */
+export type AtomSort = {
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  type?: InputMaybe<SortDirection>
+}
+
+export enum AtomType {
+  AntDesignAffix = 'AntDesignAffix',
+  AntDesignAlert = 'AntDesignAlert',
+  AntDesignAnchor = 'AntDesignAnchor',
+  AntDesignAnchorLink = 'AntDesignAnchorLink',
+  AntDesignAutoComplete = 'AntDesignAutoComplete',
+  AntDesignAvatar = 'AntDesignAvatar',
+  AntDesignBackTop = 'AntDesignBackTop',
+  AntDesignBadge = 'AntDesignBadge',
+  AntDesignBreadcrumb = 'AntDesignBreadcrumb',
+  AntDesignBreadcrumbItem = 'AntDesignBreadcrumbItem',
+  AntDesignButton = 'AntDesignButton',
+  AntDesignCalendar = 'AntDesignCalendar',
+  AntDesignCard = 'AntDesignCard',
+  AntDesignCardGrid = 'AntDesignCardGrid',
+  AntDesignCardMeta = 'AntDesignCardMeta',
+  AntDesignCarousel = 'AntDesignCarousel',
+  AntDesignCascader = 'AntDesignCascader',
+  AntDesignCheckbox = 'AntDesignCheckbox',
+  AntDesignCollapse = 'AntDesignCollapse',
+  AntDesignCollapsePanel = 'AntDesignCollapsePanel',
+  AntDesignComment = 'AntDesignComment',
+  AntDesignConfigProvider = 'AntDesignConfigProvider',
+  AntDesignDatePicker = 'AntDesignDatePicker',
+  AntDesignDescriptions = 'AntDesignDescriptions',
+  AntDesignDescriptionsItem = 'AntDesignDescriptionsItem',
+  AntDesignDivider = 'AntDesignDivider',
+  AntDesignDrawer = 'AntDesignDrawer',
+  AntDesignDropdown = 'AntDesignDropdown',
+  AntDesignEmpty = 'AntDesignEmpty',
+  AntDesignForm = 'AntDesignForm',
+  AntDesignFormItem = 'AntDesignFormItem',
+  AntDesignFormItemHook = 'AntDesignFormItemHook',
+  AntDesignFormList = 'AntDesignFormList',
+  AntDesignGridCol = 'AntDesignGridCol',
+  AntDesignGridRow = 'AntDesignGridRow',
+  AntDesignIcon = 'AntDesignIcon',
+  AntDesignImage = 'AntDesignImage',
+  AntDesignInput = 'AntDesignInput',
+  AntDesignInputNumber = 'AntDesignInputNumber',
+  AntDesignLayout = 'AntDesignLayout',
+  AntDesignLayoutContent = 'AntDesignLayoutContent',
+  AntDesignLayoutFooter = 'AntDesignLayoutFooter',
+  AntDesignLayoutHeader = 'AntDesignLayoutHeader',
+  AntDesignLayoutSider = 'AntDesignLayoutSider',
+  AntDesignList = 'AntDesignList',
+  AntDesignListItem = 'AntDesignListItem',
+  AntDesignListItemMeta = 'AntDesignListItemMeta',
+  AntDesignMapper = 'AntDesignMapper',
+  AntDesignMentions = 'AntDesignMentions',
+  AntDesignMentionsOption = 'AntDesignMentionsOption',
+  AntDesignMenu = 'AntDesignMenu',
+  AntDesignMenuItem = 'AntDesignMenuItem',
+  AntDesignMenuItemGroup = 'AntDesignMenuItemGroup',
+  AntDesignMenuSubMenu = 'AntDesignMenuSubMenu',
+  AntDesignModal = 'AntDesignModal',
+  AntDesignPageContainer = 'AntDesignPageContainer',
+  AntDesignPageHeader = 'AntDesignPageHeader',
+  AntDesignPagination = 'AntDesignPagination',
+  AntDesignPopconfirm = 'AntDesignPopconfirm',
+  AntDesignPopover = 'AntDesignPopover',
+  AntDesignProgress = 'AntDesignProgress',
+  AntDesignProvider = 'AntDesignProvider',
+  AntDesignRadio = 'AntDesignRadio',
+  AntDesignRadioGroup = 'AntDesignRadioGroup',
+  AntDesignRate = 'AntDesignRate',
+  AntDesignRenderComponent = 'AntDesignRenderComponent',
+  AntDesignRenderContainer = 'AntDesignRenderContainer',
+  AntDesignResult = 'AntDesignResult',
+  AntDesignRglContainer = 'AntDesignRglContainer',
+  AntDesignRglItem = 'AntDesignRglItem',
+  AntDesignRglResponsiveContainer = 'AntDesignRglResponsiveContainer',
+  AntDesignSelect = 'AntDesignSelect',
+  AntDesignSelectOption = 'AntDesignSelectOption',
+  AntDesignSkeleton = 'AntDesignSkeleton',
+  AntDesignSlider = 'AntDesignSlider',
+  AntDesignSpace = 'AntDesignSpace',
+  AntDesignSpin = 'AntDesignSpin',
+  AntDesignStatistic = 'AntDesignStatistic',
+  AntDesignSteps = 'AntDesignSteps',
+  AntDesignStepsStep = 'AntDesignStepsStep',
+  AntDesignSwitch = 'AntDesignSwitch',
+  AntDesignTable = 'AntDesignTable',
+  AntDesignTabs = 'AntDesignTabs',
+  AntDesignTabsTabPane = 'AntDesignTabsTabPane',
+  AntDesignTag = 'AntDesignTag',
+  AntDesignTimePicker = 'AntDesignTimePicker',
+  AntDesignTimeline = 'AntDesignTimeline',
+  AntDesignTimelineItem = 'AntDesignTimelineItem',
+  AntDesignTooltip = 'AntDesignTooltip',
+  AntDesignTransfer = 'AntDesignTransfer',
+  AntDesignTree = 'AntDesignTree',
+  AntDesignTreeNode = 'AntDesignTreeNode',
+  AntDesignTreeSelect = 'AntDesignTreeSelect',
+  AntDesignTypography = 'AntDesignTypography',
+  AntDesignTypographyParagraph = 'AntDesignTypographyParagraph',
+  AntDesignTypographyText = 'AntDesignTypographyText',
+  AntDesignTypographyTitle = 'AntDesignTypographyTitle',
+  AntDesignUpload = 'AntDesignUpload',
+  HookGraphqlMutation = 'HookGraphqlMutation',
+  HookGraphqlQuery = 'HookGraphqlQuery',
+  HookQueryConfig = 'HookQueryConfig',
+  HookQueryLambda = 'HookQueryLambda',
+  HookQueryPage = 'HookQueryPage',
+  HookQueryPages = 'HookQueryPages',
+  HookRecoilState = 'HookRecoilState',
+  HookRouter = 'HookRouter',
+  HtmlA = 'HtmlA',
+  HtmlArea = 'HtmlArea',
+  HtmlAside = 'HtmlAside',
+  HtmlAudio = 'HtmlAudio',
+  HtmlBase = 'HtmlBase',
+  HtmlBr = 'HtmlBr',
+  HtmlButton = 'HtmlButton',
+  HtmlCanvas = 'HtmlCanvas',
+  HtmlCode = 'HtmlCode',
+  HtmlDList = 'HtmlDList',
+  HtmlData = 'HtmlData',
+  HtmlDatalist = 'HtmlDatalist',
+  HtmlDetails = 'HtmlDetails',
+  HtmlDialog = 'HtmlDialog',
+  HtmlDiv = 'HtmlDiv',
+  HtmlEm = 'HtmlEm',
+  HtmlEmbed = 'HtmlEmbed',
+  HtmlFieldset = 'HtmlFieldset',
+  HtmlFont = 'HtmlFont',
+  HtmlFooter = 'HtmlFooter',
+  HtmlForm = 'HtmlForm',
+  HtmlFrame = 'HtmlFrame',
+  HtmlFrameset = 'HtmlFrameset',
+  HtmlH1 = 'HtmlH1',
+  HtmlH2 = 'HtmlH2',
+  HtmlH3 = 'HtmlH3',
+  HtmlH4 = 'HtmlH4',
+  HtmlH5 = 'HtmlH5',
+  HtmlH6 = 'HtmlH6',
+  HtmlHead = 'HtmlHead',
+  HtmlHeader = 'HtmlHeader',
+  HtmlHr = 'HtmlHr',
+  HtmlI = 'HtmlI',
+  HtmlIframe = 'HtmlIframe',
+  HtmlImage = 'HtmlImage',
+  HtmlInput = 'HtmlInput',
+  HtmlLabel = 'HtmlLabel',
+  HtmlLegend = 'HtmlLegend',
+  HtmlLi = 'HtmlLi',
+  HtmlLink = 'HtmlLink',
+  HtmlMain = 'HtmlMain',
+  HtmlMap = 'HtmlMap',
+  HtmlMeta = 'HtmlMeta',
+  HtmlMeter = 'HtmlMeter',
+  HtmlNav = 'HtmlNav',
+  HtmlOList = 'HtmlOList',
+  HtmlObject = 'HtmlObject',
+  HtmlOptgroup = 'HtmlOptgroup',
+  HtmlOption = 'HtmlOption',
+  HtmlOutput = 'HtmlOutput',
+  HtmlP = 'HtmlP',
+  HtmlParam = 'HtmlParam',
+  HtmlPicture = 'HtmlPicture',
+  HtmlPre = 'HtmlPre',
+  HtmlProgress = 'HtmlProgress',
+  HtmlQuote = 'HtmlQuote',
+  HtmlS = 'HtmlS',
+  HtmlSection = 'HtmlSection',
+  HtmlSelect = 'HtmlSelect',
+  HtmlSmall = 'HtmlSmall',
+  HtmlSource = 'HtmlSource',
+  HtmlSpan = 'HtmlSpan',
+  HtmlStrong = 'HtmlStrong',
+  HtmlStyle = 'HtmlStyle',
+  HtmlSub = 'HtmlSub',
+  HtmlSup = 'HtmlSup',
+  HtmlTable = 'HtmlTable',
+  HtmlTableCaption = 'HtmlTableCaption',
+  HtmlTableCell = 'HtmlTableCell',
+  HtmlTableCol = 'HtmlTableCol',
+  HtmlTableRow = 'HtmlTableRow',
+  HtmlTemplate = 'HtmlTemplate',
+  HtmlTextarea = 'HtmlTextarea',
+  HtmlTime = 'HtmlTime',
+  HtmlTitle = 'HtmlTitle',
+  HtmlTrack = 'HtmlTrack',
+  HtmlUList = 'HtmlUList',
+  HtmlVideo = 'HtmlVideo',
+  MuiAccordion = 'MuiAccordion',
+  MuiAccordionActions = 'MuiAccordionActions',
+  MuiAccordionDetails = 'MuiAccordionDetails',
+  MuiAccordionSummary = 'MuiAccordionSummary',
+  MuiAlert = 'MuiAlert',
+  MuiAlertTitle = 'MuiAlertTitle',
+  MuiAppBar = 'MuiAppBar',
+  MuiAutocomplete = 'MuiAutocomplete',
+  MuiAvatar = 'MuiAvatar',
+  MuiAvatarGroup = 'MuiAvatarGroup',
+  MuiBackdrop = 'MuiBackdrop',
+  MuiBackdropUnstyled = 'MuiBackdropUnstyled',
+  MuiBadge = 'MuiBadge',
+  MuiBadgeUnstyled = 'MuiBadgeUnstyled',
+  MuiBottomNavigation = 'MuiBottomNavigation',
+  MuiBottomNavigationAction = 'MuiBottomNavigationAction',
+  MuiBox = 'MuiBox',
+  MuiBreadcrumbs = 'MuiBreadcrumbs',
+  MuiButton = 'MuiButton',
+  MuiButtonBase = 'MuiButtonBase',
+  MuiButtonGroup = 'MuiButtonGroup',
+  MuiButtonUnstyled = 'MuiButtonUnstyled',
+  MuiCalendarPicker = 'MuiCalendarPicker',
+  MuiCalendarPickerSkeleton = 'MuiCalendarPickerSkeleton',
+  MuiCard = 'MuiCard',
+  MuiCardActionArea = 'MuiCardActionArea',
+  MuiCardActions = 'MuiCardActions',
+  MuiCardContent = 'MuiCardContent',
+  MuiCardHeader = 'MuiCardHeader',
+  MuiCardMedia = 'MuiCardMedia',
+  MuiCheckbox = 'MuiCheckbox',
+  MuiChip = 'MuiChip',
+  MuiCircularProgress = 'MuiCircularProgress',
+  MuiClickAwayListener = 'MuiClickAwayListener',
+  MuiClockPicker = 'MuiClockPicker',
+  MuiCollapse = 'MuiCollapse',
+  MuiContainer = 'MuiContainer',
+  MuiCssBaseline = 'MuiCssBaseline',
+  MuiDataGrid = 'MuiDataGrid',
+  MuiDatePicker = 'MuiDatePicker',
+  MuiDateRangePicker = 'MuiDateRangePicker',
+  MuiDateRangePickerDay = 'MuiDateRangePickerDay',
+  MuiDateTimePicker = 'MuiDateTimePicker',
+  MuiDesktopDatePicker = 'MuiDesktopDatePicker',
+  MuiDesktopDateRangePicker = 'MuiDesktopDateRangePicker',
+  MuiDesktopDateTimePicker = 'MuiDesktopDateTimePicker',
+  MuiDesktopTimePicker = 'MuiDesktopTimePicker',
+  MuiDialog = 'MuiDialog',
+  MuiDialogActions = 'MuiDialogActions',
+  MuiDialogContent = 'MuiDialogContent',
+  MuiDialogContentText = 'MuiDialogContentText',
+  MuiDialogTitle = 'MuiDialogTitle',
+  MuiDivider = 'MuiDivider',
+  MuiDrawer = 'MuiDrawer',
+  MuiFab = 'MuiFab',
+  MuiFade = 'MuiFade',
+  MuiFilledInput = 'MuiFilledInput',
+  MuiFormControl = 'MuiFormControl',
+  MuiFormControlLabel = 'MuiFormControlLabel',
+  MuiFormControlUnstyled = 'MuiFormControlUnstyled',
+  MuiFormGroup = 'MuiFormGroup',
+  MuiFormHelperText = 'MuiFormHelperText',
+  MuiFormLabel = 'MuiFormLabel',
+  MuiGlobalStyles = 'MuiGlobalStyles',
+  MuiGrid = 'MuiGrid',
+  MuiGridColDef = 'MuiGridColDef',
+  MuiGrow = 'MuiGrow',
+  MuiHidden = 'MuiHidden',
+  MuiIcon = 'MuiIcon',
+  MuiIconButton = 'MuiIconButton',
+  MuiImageList = 'MuiImageList',
+  MuiImageListItem = 'MuiImageListItem',
+  MuiImageListItemBar = 'MuiImageListItemBar',
+  MuiInput = 'MuiInput',
+  MuiInputAdornment = 'MuiInputAdornment',
+  MuiInputBase = 'MuiInputBase',
+  MuiInputLabel = 'MuiInputLabel',
+  MuiLinearProgress = 'MuiLinearProgress',
+  MuiLink = 'MuiLink',
+  MuiList = 'MuiList',
+  MuiListItem = 'MuiListItem',
+  MuiListItemAvatar = 'MuiListItemAvatar',
+  MuiListItemButton = 'MuiListItemButton',
+  MuiListItemIcon = 'MuiListItemIcon',
+  MuiListItemSecondaryAction = 'MuiListItemSecondaryAction',
+  MuiListItemText = 'MuiListItemText',
+  MuiListSubheader = 'MuiListSubheader',
+  MuiLoadingButton = 'MuiLoadingButton',
+  MuiMasonry = 'MuiMasonry',
+  MuiMasonryItem = 'MuiMasonryItem',
+  MuiMenu = 'MuiMenu',
+  MuiMenuItem = 'MuiMenuItem',
+  MuiMenuList = 'MuiMenuList',
+  MuiMobileDatePicker = 'MuiMobileDatePicker',
+  MuiMobileDateRangePicker = 'MuiMobileDateRangePicker',
+  MuiMobileDateTimePicker = 'MuiMobileDateTimePicker',
+  MuiMobileStepper = 'MuiMobileStepper',
+  MuiMobileTimePicker = 'MuiMobileTimePicker',
+  MuiModal = 'MuiModal',
+  MuiModalUnstyled = 'MuiModalUnstyled',
+  MuiMonthPicker = 'MuiMonthPicker',
+  MuiNativeSelect = 'MuiNativeSelect',
+  MuiNoSsr = 'MuiNoSsr',
+  MuiOutlinedInput = 'MuiOutlinedInput',
+  MuiPagination = 'MuiPagination',
+  MuiPaginationItem = 'MuiPaginationItem',
+  MuiPaper = 'MuiPaper',
+  MuiPickersDay = 'MuiPickersDay',
+  MuiPopover = 'MuiPopover',
+  MuiPopper = 'MuiPopper',
+  MuiPortal = 'MuiPortal',
+  MuiRadio = 'MuiRadio',
+  MuiRadioGroup = 'MuiRadioGroup',
+  MuiRating = 'MuiRating',
+  MuiScopedCssBaseline = 'MuiScopedCssBaseline',
+  MuiSelect = 'MuiSelect',
+  MuiSkeleton = 'MuiSkeleton',
+  MuiSlide = 'MuiSlide',
+  MuiSlider = 'MuiSlider',
+  MuiSliderUnstyled = 'MuiSliderUnstyled',
+  MuiSnackbar = 'MuiSnackbar',
+  MuiSnackbarContent = 'MuiSnackbarContent',
+  MuiSpeedDial = 'MuiSpeedDial',
+  MuiSpeedDialAction = 'MuiSpeedDialAction',
+  MuiSpeedDialIcon = 'MuiSpeedDialIcon',
+  MuiStack = 'MuiStack',
+  MuiStaticDatePicker = 'MuiStaticDatePicker',
+  MuiStaticDateRangePicker = 'MuiStaticDateRangePicker',
+  MuiStaticDateTimePicker = 'MuiStaticDateTimePicker',
+  MuiStaticTimePicker = 'MuiStaticTimePicker',
+  MuiStep = 'MuiStep',
+  MuiStepButton = 'MuiStepButton',
+  MuiStepConnector = 'MuiStepConnector',
+  MuiStepContent = 'MuiStepContent',
+  MuiStepIcon = 'MuiStepIcon',
+  MuiStepLabel = 'MuiStepLabel',
+  MuiStepper = 'MuiStepper',
+  MuiSvgIcon = 'MuiSvgIcon',
+  MuiSwipeableDrawer = 'MuiSwipeableDrawer',
+  MuiSwitch = 'MuiSwitch',
+  MuiSwitchUnstyled = 'MuiSwitchUnstyled',
+  MuiTab = 'MuiTab',
+  MuiTabContext = 'MuiTabContext',
+  MuiTabList = 'MuiTabList',
+  MuiTabPanel = 'MuiTabPanel',
+  MuiTabScrollButton = 'MuiTabScrollButton',
+  MuiTable = 'MuiTable',
+  MuiTableBody = 'MuiTableBody',
+  MuiTableCell = 'MuiTableCell',
+  MuiTableContainer = 'MuiTableContainer',
+  MuiTableFooter = 'MuiTableFooter',
+  MuiTableHead = 'MuiTableHead',
+  MuiTablePagination = 'MuiTablePagination',
+  MuiTableRow = 'MuiTableRow',
+  MuiTableSortLabel = 'MuiTableSortLabel',
+  MuiTabs = 'MuiTabs',
+  MuiTextField = 'MuiTextField',
+  MuiTextareaAutosize = 'MuiTextareaAutosize',
+  MuiTimePicker = 'MuiTimePicker',
+  MuiTimeline = 'MuiTimeline',
+  MuiTimelineConnector = 'MuiTimelineConnector',
+  MuiTimelineContent = 'MuiTimelineContent',
+  MuiTimelineDot = 'MuiTimelineDot',
+  MuiTimelineItem = 'MuiTimelineItem',
+  MuiTimelineOppositeContent = 'MuiTimelineOppositeContent',
+  MuiTimelineSeparator = 'MuiTimelineSeparator',
+  MuiToggleButton = 'MuiToggleButton',
+  MuiToggleButtonGroup = 'MuiToggleButtonGroup',
+  MuiToolbar = 'MuiToolbar',
+  MuiTooltip = 'MuiTooltip',
+  MuiTreeItem = 'MuiTreeItem',
+  MuiTreeView = 'MuiTreeView',
+  MuiTypography = 'MuiTypography',
+  MuiUnstableTrapFocus = 'MuiUnstableTrapFocus',
+  MuiYearPicker = 'MuiYearPicker',
+  MuiZoom = 'MuiZoom',
+  Query = 'Query',
+  ReactFragment = 'ReactFragment',
+  State = 'State',
+  Text = 'Text',
+  TextList = 'TextList',
+}
+
+export type AtomUpdateInput = {
+  name?: InputMaybe<Scalars['String']>
+  type?: InputMaybe<AtomType>
+}
+
+export type AtomWhere = {
+  AND?: InputMaybe<Array<AtomWhere>>
+  OR?: InputMaybe<Array<AtomWhere>>
+  id?: InputMaybe<Scalars['ID']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  type?: InputMaybe<AtomType>
+  type_IN?: InputMaybe<Array<InputMaybe<AtomType>>>
+  type_NOT?: InputMaybe<AtomType>
+  type_NOT_IN?: InputMaybe<Array<InputMaybe<AtomType>>>
+}
+
 export type CreateAppsMutationResponse = {
   __typename?: 'CreateAppsMutationResponse'
   apps: Array<App>
+  info: CreateInfo
+}
+
+export type CreateAtomsMutationResponse = {
+  __typename?: 'CreateAtomsMutationResponse'
+  atoms: Array<Atom>
   info: CreateInfo
 }
 
@@ -1056,18 +1497,25 @@ export type IElementGraph = {
 export type Mutation = {
   __typename?: 'Mutation'
   createApps: CreateAppsMutationResponse
+  createAtoms: CreateAtomsMutationResponse
   createElements: CreateElementsMutationResponse
   createPages: CreatePagesMutationResponse
   deleteApps: DeleteInfo
+  deleteAtoms: DeleteInfo
   deleteElements: DeleteInfo
   deletePages: DeleteInfo
   updateApps: UpdateAppsMutationResponse
+  updateAtoms: UpdateAtomsMutationResponse
   updateElements: UpdateElementsMutationResponse
   updatePages: UpdatePagesMutationResponse
 }
 
 export type MutationCreateAppsArgs = {
   input: Array<AppCreateInput>
+}
+
+export type MutationCreateAtomsArgs = {
+  input: Array<AtomCreateInput>
 }
 
 export type MutationCreateElementsArgs = {
@@ -1081,6 +1529,10 @@ export type MutationCreatePagesArgs = {
 export type MutationDeleteAppsArgs = {
   delete?: InputMaybe<AppDeleteInput>
   where?: InputMaybe<AppWhere>
+}
+
+export type MutationDeleteAtomsArgs = {
+  where?: InputMaybe<AtomWhere>
 }
 
 export type MutationDeleteElementsArgs = {
@@ -1101,6 +1553,11 @@ export type MutationUpdateAppsArgs = {
   disconnect?: InputMaybe<AppDisconnectInput>
   update?: InputMaybe<AppUpdateInput>
   where?: InputMaybe<AppWhere>
+}
+
+export type MutationUpdateAtomsArgs = {
+  update?: InputMaybe<AtomUpdateInput>
+  where?: InputMaybe<AtomWhere>
 }
 
 export type MutationUpdateElementsArgs = {
@@ -1412,6 +1869,9 @@ export type Query = {
   apps: Array<App>
   appsAggregate: AppAggregateSelection
   appsCount: Scalars['Int']
+  atoms: Array<Atom>
+  atomsAggregate: AtomAggregateSelection
+  atomsCount: Scalars['Int']
   elements: Array<Element>
   elementsAggregate: ElementAggregateSelection
   elementsCount: Scalars['Int']
@@ -1434,6 +1894,19 @@ export type QueryAppsAggregateArgs = {
 
 export type QueryAppsCountArgs = {
   where?: InputMaybe<AppWhere>
+}
+
+export type QueryAtomsArgs = {
+  options?: InputMaybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type QueryAtomsAggregateArgs = {
+  where?: InputMaybe<AtomWhere>
+}
+
+export type QueryAtomsCountArgs = {
+  where?: InputMaybe<AtomWhere>
 }
 
 export type QueryElementsArgs = {
@@ -1491,6 +1964,12 @@ export type StringAggregateSelection = {
 export type UpdateAppsMutationResponse = {
   __typename?: 'UpdateAppsMutationResponse'
   apps: Array<App>
+  info: UpdateInfo
+}
+
+export type UpdateAtomsMutationResponse = {
+  __typename?: 'UpdateAtomsMutationResponse'
+  atoms: Array<Atom>
   info: UpdateInfo
 }
 

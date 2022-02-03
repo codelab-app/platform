@@ -1,22 +1,13 @@
-import {
-  CreateResponsePort,
-  IBaseRepository,
-  ITypeNeo4jRepository,
-  ITypeRepository,
-} from '@codelab/backend/abstract/core'
+import { ITypeNeo4jRepository } from '@codelab/backend/abstract/core'
 import { IType } from '@codelab/shared/abstract/core'
 import { EntityLike } from '@codelab/shared/abstract/types'
 import {
-  CypherStatement,
-  InjectCypher,
   InjectPersistenceManager,
   ObjectUtils,
   PersistenceManager,
-  QuerySpecification,
   Transactional,
 } from '@liberation-data/drivine'
 import { Injectable } from '@nestjs/common'
-import { Txn } from 'dgraph-js-http'
 import path from 'path'
 
 @Injectable()
@@ -45,10 +36,10 @@ export class TypeNeo4jRepository implements ITypeNeo4jRepository {
       typeProps,
     }
 
-    const statement = new QuerySpecification(this.saveType).bind(parameters)
-    const results = await this.persistenceManager.execute(statement)
-
-    console.log(results)
+    // const statement = new QuerySpecification(this.saveType).bind(parameters)
+    // const results = await this.persistenceManager.execute(statement)
+    //
+    // console.log(results)
 
     return Promise.resolve()
   }
