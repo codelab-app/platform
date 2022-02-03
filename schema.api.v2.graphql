@@ -189,11 +189,8 @@ type AppPagePagesAggregationSelection {
 }
 
 type AppPagePagesNodeAggregateSelection {
-  createdAt: DateTimeAggregateSelection!
   id: IDAggregateSelection!
   name: StringAggregateSelection!
-  ownerId: StringAggregateSelection!
-  updatedAt: DateTimeAggregateSelection!
 }
 
 input AppPagesAggregateInput {
@@ -261,21 +258,6 @@ input AppPagesFieldInput {
 input AppPagesNodeAggregationWhereInput {
   AND: [AppPagesNodeAggregationWhereInput!]
   OR: [AppPagesNodeAggregationWhereInput!]
-  createdAt_EQUAL: DateTime
-  createdAt_GT: DateTime
-  createdAt_GTE: DateTime
-  createdAt_LT: DateTime
-  createdAt_LTE: DateTime
-  createdAt_MAX_EQUAL: DateTime
-  createdAt_MAX_GT: DateTime
-  createdAt_MAX_GTE: DateTime
-  createdAt_MAX_LT: DateTime
-  createdAt_MAX_LTE: DateTime
-  createdAt_MIN_EQUAL: DateTime
-  createdAt_MIN_GT: DateTime
-  createdAt_MIN_GTE: DateTime
-  createdAt_MIN_LT: DateTime
-  createdAt_MIN_LTE: DateTime
   id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
@@ -297,41 +279,6 @@ input AppPagesNodeAggregationWhereInput {
   name_SHORTEST_GTE: Int
   name_SHORTEST_LT: Int
   name_SHORTEST_LTE: Int
-  ownerId_AVERAGE_EQUAL: Float
-  ownerId_AVERAGE_GT: Float
-  ownerId_AVERAGE_GTE: Float
-  ownerId_AVERAGE_LT: Float
-  ownerId_AVERAGE_LTE: Float
-  ownerId_EQUAL: String
-  ownerId_GT: Int
-  ownerId_GTE: Int
-  ownerId_LONGEST_EQUAL: Int
-  ownerId_LONGEST_GT: Int
-  ownerId_LONGEST_GTE: Int
-  ownerId_LONGEST_LT: Int
-  ownerId_LONGEST_LTE: Int
-  ownerId_LT: Int
-  ownerId_LTE: Int
-  ownerId_SHORTEST_EQUAL: Int
-  ownerId_SHORTEST_GT: Int
-  ownerId_SHORTEST_GTE: Int
-  ownerId_SHORTEST_LT: Int
-  ownerId_SHORTEST_LTE: Int
-  updatedAt_EQUAL: DateTime
-  updatedAt_GT: DateTime
-  updatedAt_GTE: DateTime
-  updatedAt_LT: DateTime
-  updatedAt_LTE: DateTime
-  updatedAt_MAX_EQUAL: DateTime
-  updatedAt_MAX_GT: DateTime
-  updatedAt_MAX_GTE: DateTime
-  updatedAt_MAX_LT: DateTime
-  updatedAt_MAX_LTE: DateTime
-  updatedAt_MIN_EQUAL: DateTime
-  updatedAt_MIN_GT: DateTime
-  updatedAt_MIN_GTE: DateTime
-  updatedAt_MIN_LT: DateTime
-  updatedAt_MIN_LTE: DateTime
 }
 
 type AppPagesRelationship {
@@ -1471,20 +1418,24 @@ type Page {
     sort: [PageAppConnectionSort!]
     where: PageAppConnectionWhere
   ): PageAppConnection!
-  createdAt: DateTime!
   id: ID!
   name: String!
-  ownerId: String!
-  updatedAt: DateTime
+  rootElement(options: ElementOptions, where: ElementWhere): Element
+  rootElementAggregate(
+    where: ElementWhere
+  ): PageElementRootElementAggregationSelection
+  rootElementConnection(
+    after: String
+    first: Int
+    sort: [PageRootElementConnectionSort!]
+    where: PageRootElementConnectionWhere
+  ): PageRootElementConnection!
 }
 
 type PageAggregateSelection {
   count: Int!
-  createdAt: DateTimeAggregateSelection!
   id: IDAggregateSelection!
   name: StringAggregateSelection!
-  ownerId: StringAggregateSelection!
-  updatedAt: DateTimeAggregateSelection!
 }
 
 input PageAppAggregateInput {
@@ -1606,10 +1557,12 @@ input PageAppUpdateFieldInput {
 
 input PageConnectInput {
   app: PageAppConnectFieldInput
+  rootElement: PageRootElementConnectFieldInput
 }
 
 input PageConnectOrCreateInput {
   app: PageAppConnectOrCreateFieldInput
+  rootElement: PageRootElementConnectOrCreateFieldInput
 }
 
 input PageConnectOrCreateWhere {
@@ -1623,15 +1576,30 @@ input PageConnectWhere {
 input PageCreateInput {
   app: PageAppFieldInput
   name: String!
-  ownerId: String!
+  rootElement: PageRootElementFieldInput
 }
 
 input PageDeleteInput {
   app: PageAppDeleteFieldInput
+  rootElement: PageRootElementDeleteFieldInput
 }
 
 input PageDisconnectInput {
   app: PageAppDisconnectFieldInput
+  rootElement: PageRootElementDisconnectFieldInput
+}
+
+type PageElementRootElementAggregationSelection {
+  count: Int!
+  node: PageElementRootElementNodeAggregateSelection
+}
+
+type PageElementRootElementNodeAggregateSelection {
+  createdAt: DateTimeAggregateSelection!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+  ownerId: StringAggregateSelection!
+  updatedAt: DateTimeAggregateSelection!
 }
 
 """
@@ -1656,17 +1624,172 @@ input PageOptions {
 
 input PageRelationInput {
   app: PageAppCreateFieldInput
+  rootElement: PageRootElementCreateFieldInput
+}
+
+input PageRootElementAggregateInput {
+  AND: [PageRootElementAggregateInput!]
+  OR: [PageRootElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: PageRootElementNodeAggregationWhereInput
+}
+
+input PageRootElementConnectFieldInput {
+  connect: ElementConnectInput
+  where: ElementConnectWhere
+}
+
+input PageRootElementConnectOrCreateFieldInput {
+  onCreate: PageRootElementConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input PageRootElementConnectOrCreateFieldInputOnCreate {
+  node: ElementCreateInput!
+}
+
+type PageRootElementConnection {
+  edges: [PageRootElementRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input PageRootElementConnectionSort {
+  node: ElementSort
+}
+
+input PageRootElementConnectionWhere {
+  AND: [PageRootElementConnectionWhere!]
+  OR: [PageRootElementConnectionWhere!]
+  node: ElementWhere
+  node_NOT: ElementWhere
+}
+
+input PageRootElementCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input PageRootElementDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: PageRootElementConnectionWhere
+}
+
+input PageRootElementDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: PageRootElementConnectionWhere
+}
+
+input PageRootElementFieldInput {
+  connect: PageRootElementConnectFieldInput
+  connectOrCreate: PageRootElementConnectOrCreateFieldInput
+  create: PageRootElementCreateFieldInput
+}
+
+input PageRootElementNodeAggregationWhereInput {
+  AND: [PageRootElementNodeAggregationWhereInput!]
+  OR: [PageRootElementNodeAggregationWhereInput!]
+  createdAt_EQUAL: DateTime
+  createdAt_GT: DateTime
+  createdAt_GTE: DateTime
+  createdAt_LT: DateTime
+  createdAt_LTE: DateTime
+  createdAt_MAX_EQUAL: DateTime
+  createdAt_MAX_GT: DateTime
+  createdAt_MAX_GTE: DateTime
+  createdAt_MAX_LT: DateTime
+  createdAt_MAX_LTE: DateTime
+  createdAt_MIN_EQUAL: DateTime
+  createdAt_MIN_GT: DateTime
+  createdAt_MIN_GTE: DateTime
+  createdAt_MIN_LT: DateTime
+  createdAt_MIN_LTE: DateTime
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+  ownerId_AVERAGE_EQUAL: Float
+  ownerId_AVERAGE_GT: Float
+  ownerId_AVERAGE_GTE: Float
+  ownerId_AVERAGE_LT: Float
+  ownerId_AVERAGE_LTE: Float
+  ownerId_EQUAL: String
+  ownerId_GT: Int
+  ownerId_GTE: Int
+  ownerId_LONGEST_EQUAL: Int
+  ownerId_LONGEST_GT: Int
+  ownerId_LONGEST_GTE: Int
+  ownerId_LONGEST_LT: Int
+  ownerId_LONGEST_LTE: Int
+  ownerId_LT: Int
+  ownerId_LTE: Int
+  ownerId_SHORTEST_EQUAL: Int
+  ownerId_SHORTEST_GT: Int
+  ownerId_SHORTEST_GTE: Int
+  ownerId_SHORTEST_LT: Int
+  ownerId_SHORTEST_LTE: Int
+  updatedAt_EQUAL: DateTime
+  updatedAt_GT: DateTime
+  updatedAt_GTE: DateTime
+  updatedAt_LT: DateTime
+  updatedAt_LTE: DateTime
+  updatedAt_MAX_EQUAL: DateTime
+  updatedAt_MAX_GT: DateTime
+  updatedAt_MAX_GTE: DateTime
+  updatedAt_MAX_LT: DateTime
+  updatedAt_MAX_LTE: DateTime
+  updatedAt_MIN_EQUAL: DateTime
+  updatedAt_MIN_GT: DateTime
+  updatedAt_MIN_GTE: DateTime
+  updatedAt_MIN_LT: DateTime
+  updatedAt_MIN_LTE: DateTime
+}
+
+type PageRootElementRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input PageRootElementUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input PageRootElementUpdateFieldInput {
+  connect: PageRootElementConnectFieldInput
+  connectOrCreate: PageRootElementConnectOrCreateFieldInput
+  create: PageRootElementCreateFieldInput
+  delete: PageRootElementDeleteFieldInput
+  disconnect: PageRootElementDisconnectFieldInput
+  update: PageRootElementUpdateConnectionInput
+  where: PageRootElementConnectionWhere
 }
 
 """
 Fields to sort Pages by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageSort object.
 """
 input PageSort {
-  createdAt: SortDirection
   id: SortDirection
   name: SortDirection
-  ownerId: SortDirection
-  updatedAt: SortDirection
 }
 
 input PageUniqueWhere {
@@ -1676,7 +1799,7 @@ input PageUniqueWhere {
 input PageUpdateInput {
   app: PageAppUpdateFieldInput
   name: String
-  ownerId: String
+  rootElement: PageRootElementUpdateFieldInput
 }
 
 input PageWhere {
@@ -1687,14 +1810,6 @@ input PageWhere {
   appConnection: PageAppConnectionWhere
   appConnection_NOT: PageAppConnectionWhere
   app_NOT: AppWhere
-  createdAt: DateTime
-  createdAt_GT: DateTime
-  createdAt_GTE: DateTime
-  createdAt_IN: [DateTime]
-  createdAt_LT: DateTime
-  createdAt_LTE: DateTime
-  createdAt_NOT: DateTime
-  createdAt_NOT_IN: [DateTime]
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -1715,24 +1830,11 @@ input PageWhere {
   name_NOT_IN: [String]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  ownerId: String
-  ownerId_CONTAINS: String
-  ownerId_ENDS_WITH: String
-  ownerId_IN: [String]
-  ownerId_NOT: String
-  ownerId_NOT_CONTAINS: String
-  ownerId_NOT_ENDS_WITH: String
-  ownerId_NOT_IN: [String]
-  ownerId_NOT_STARTS_WITH: String
-  ownerId_STARTS_WITH: String
-  updatedAt: DateTime
-  updatedAt_GT: DateTime
-  updatedAt_GTE: DateTime
-  updatedAt_IN: [DateTime]
-  updatedAt_LT: DateTime
-  updatedAt_LTE: DateTime
-  updatedAt_NOT: DateTime
-  updatedAt_NOT_IN: [DateTime]
+  rootElement: ElementWhere
+  rootElementAggregate: PageRootElementAggregateInput
+  rootElementConnection: PageRootElementConnectionWhere
+  rootElementConnection_NOT: PageRootElementConnectionWhere
+  rootElement_NOT: ElementWhere
 }
 
 type Query {

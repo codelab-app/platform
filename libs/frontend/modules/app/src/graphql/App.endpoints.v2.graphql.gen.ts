@@ -20,7 +20,10 @@ export type DeleteAppsMutationVariables = Types.Exact<{
 
 export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
 
-export type GetAppsQueryVariables = Types.Exact<{ [key: string]: never }>
+export type GetAppsQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.AppOptions>
+  where?: Types.InputMaybe<Types.AppWhere>
+}>
 
 export type GetAppsQuery = { apps: Array<AppFragment> }
 
@@ -42,8 +45,8 @@ export const DeleteAppsGql = gql`
   }
 `
 export const GetAppsGql = gql`
-  query GetApps {
-    apps: apps {
+  query GetApps($options: AppOptions, $where: AppWhere) {
+    apps: apps(options: $options, where: $where) {
       ...App
     }
   }

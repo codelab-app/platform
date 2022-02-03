@@ -1,30 +1,36 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { DeletePageInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import { PageBaseFragment } from '../../graphql/PageBase.fragment.graphql.gen'
+import { PageFragment } from '../../graphql'
 import { usePageDispatch, usePageState } from '../../hooks'
-import { useDeletePageMutation } from '../../store'
+import { useDeletePagesMutation } from '../../store'
+import { DeletePageInput } from './types'
 
 export const useDeletePageForm: UseEntityUseCaseForm<
   DeletePageInput,
   CRUDActionType,
-  PageBaseFragment
+  PageFragment
 > = () => {
   const { deleteIds, entity, actionType } = usePageState()
   const { resetModal } = usePageDispatch()
 
-  const [mutate, { isLoading }] = useDeletePageMutation({
+  const [mutate, { isLoading }] = useDeletePagesMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.deletePage,
+      hook: r.data?.deletePages,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
   const onSubmit = useCallback(
-    (input: DeletePageInput) => mutate({ variables: { input } }).unwrap(),
+    ({ pageId }: DeletePageInput) =>
+      mutate({
+        variables: {
+          where: { id: pageId },
+          delete: { rootElement: { where: {} } },
+        },
+      }).unwrap(),
     [mutate],
   )
 

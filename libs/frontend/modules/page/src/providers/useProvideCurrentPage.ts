@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { usePageDispatch, usePageState } from '../hooks'
-import { useGetPageQuery } from '../store'
+import { useGetPagesQuery } from '../store'
 import { UseProvideCurrentPage } from './types'
 
 export const useProvideCurrentPage = (
@@ -9,14 +9,16 @@ export const useProvideCurrentPage = (
   const { setCurrentPage } = usePageDispatch()
   const { currentPage } = usePageState()
 
-  const { data, isLoading } = useGetPageQuery(
-    { variables: { input: { pageId } } },
+  const { data, isLoading } = useGetPagesQuery(
+    { variables: { where: { id: pageId } } },
     { skip: !pageId },
   )
 
   useEffect(() => {
-    if (data?.page) {
-      setCurrentPage({ currentPage: data?.page })
+    const loadedPage = data?.pages[0]
+
+    if (loadedPage) {
+      setCurrentPage({ currentPage: loadedPage })
     }
   }, [isLoading])
 

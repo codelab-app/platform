@@ -1,0 +1,26 @@
+mutation CreatePages($input: [PageCreateInput!]!) {
+  createPages(input: $input) {
+    pages {
+      ...Page
+    }
+  }
+}
+
+mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
+  deletePages(where: $where, delete: $delete) {
+    nodesDeleted
+  }
+}
+mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
+  updatePages(where: $where, update: $update) {
+    pages {
+      ...Page
+    }
+  }
+}
+
+query GetPages($options: PageOptions, $where: PageWhere) {
+  pages: pages(options: $options, where: $where) {
+    ...Page
+  }
+}

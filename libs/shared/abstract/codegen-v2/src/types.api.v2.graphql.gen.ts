@@ -236,11 +236,8 @@ export type AppPagePagesAggregationSelection = {
 
 export type AppPagePagesNodeAggregateSelection = {
   __typename?: 'AppPagePagesNodeAggregateSelection'
-  createdAt: DateTimeAggregateSelection
   id: IdAggregateSelection
   name: StringAggregateSelection
-  ownerId: StringAggregateSelection
-  updatedAt: DateTimeAggregateSelection
 }
 
 export type AppPagesAggregateInput = {
@@ -309,21 +306,6 @@ export type AppPagesFieldInput = {
 export type AppPagesNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<AppPagesNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<AppPagesNodeAggregationWhereInput>>
-  createdAt_EQUAL?: InputMaybe<Scalars['DateTime']>
-  createdAt_GT?: InputMaybe<Scalars['DateTime']>
-  createdAt_GTE?: InputMaybe<Scalars['DateTime']>
-  createdAt_LT?: InputMaybe<Scalars['DateTime']>
-  createdAt_LTE?: InputMaybe<Scalars['DateTime']>
-  createdAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']>
-  createdAt_MAX_GT?: InputMaybe<Scalars['DateTime']>
-  createdAt_MAX_GTE?: InputMaybe<Scalars['DateTime']>
-  createdAt_MAX_LT?: InputMaybe<Scalars['DateTime']>
-  createdAt_MAX_LTE?: InputMaybe<Scalars['DateTime']>
-  createdAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']>
-  createdAt_MIN_GT?: InputMaybe<Scalars['DateTime']>
-  createdAt_MIN_GTE?: InputMaybe<Scalars['DateTime']>
-  createdAt_MIN_LT?: InputMaybe<Scalars['DateTime']>
-  createdAt_MIN_LTE?: InputMaybe<Scalars['DateTime']>
   id_EQUAL?: InputMaybe<Scalars['ID']>
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
@@ -345,41 +327,6 @@ export type AppPagesNodeAggregationWhereInput = {
   name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  ownerId_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  ownerId_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  ownerId_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  ownerId_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  ownerId_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  ownerId_EQUAL?: InputMaybe<Scalars['String']>
-  ownerId_GT?: InputMaybe<Scalars['Int']>
-  ownerId_GTE?: InputMaybe<Scalars['Int']>
-  ownerId_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  ownerId_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  ownerId_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  ownerId_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  ownerId_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  ownerId_LT?: InputMaybe<Scalars['Int']>
-  ownerId_LTE?: InputMaybe<Scalars['Int']>
-  ownerId_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  ownerId_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  ownerId_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  ownerId_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  ownerId_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  updatedAt_EQUAL?: InputMaybe<Scalars['DateTime']>
-  updatedAt_GT?: InputMaybe<Scalars['DateTime']>
-  updatedAt_GTE?: InputMaybe<Scalars['DateTime']>
-  updatedAt_LT?: InputMaybe<Scalars['DateTime']>
-  updatedAt_LTE?: InputMaybe<Scalars['DateTime']>
-  updatedAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']>
-  updatedAt_MAX_GT?: InputMaybe<Scalars['DateTime']>
-  updatedAt_MAX_GTE?: InputMaybe<Scalars['DateTime']>
-  updatedAt_MAX_LT?: InputMaybe<Scalars['DateTime']>
-  updatedAt_MAX_LTE?: InputMaybe<Scalars['DateTime']>
-  updatedAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']>
-  updatedAt_MIN_GT?: InputMaybe<Scalars['DateTime']>
-  updatedAt_MIN_GTE?: InputMaybe<Scalars['DateTime']>
-  updatedAt_MIN_LT?: InputMaybe<Scalars['DateTime']>
-  updatedAt_MIN_LTE?: InputMaybe<Scalars['DateTime']>
 }
 
 export type AppPagesRelationship = {
@@ -1585,11 +1532,11 @@ export type Page = {
   app?: Maybe<App>
   appAggregate?: Maybe<PageAppAppAggregationSelection>
   appConnection: PageAppConnection
-  createdAt: Scalars['DateTime']
   id: Scalars['ID']
   name: Scalars['String']
-  ownerId: Scalars['String']
-  updatedAt?: Maybe<Scalars['DateTime']>
+  rootElement?: Maybe<Element>
+  rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>
+  rootElementConnection: PageRootElementConnection
 }
 
 export type PageAppArgs = {
@@ -1608,14 +1555,27 @@ export type PageAppConnectionArgs = {
   where?: InputMaybe<PageAppConnectionWhere>
 }
 
+export type PageRootElementArgs = {
+  options?: InputMaybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+}
+
+export type PageRootElementAggregateArgs = {
+  where?: InputMaybe<ElementWhere>
+}
+
+export type PageRootElementConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<PageRootElementConnectionSort>>
+  where?: InputMaybe<PageRootElementConnectionWhere>
+}
+
 export type PageAggregateSelection = {
   __typename?: 'PageAggregateSelection'
   count: Scalars['Int']
-  createdAt: DateTimeAggregateSelection
   id: IdAggregateSelection
   name: StringAggregateSelection
-  ownerId: StringAggregateSelection
-  updatedAt: DateTimeAggregateSelection
 }
 
 export type PageAppAggregateInput = {
@@ -1741,10 +1701,12 @@ export type PageAppUpdateFieldInput = {
 
 export type PageConnectInput = {
   app?: InputMaybe<PageAppConnectFieldInput>
+  rootElement?: InputMaybe<PageRootElementConnectFieldInput>
 }
 
 export type PageConnectOrCreateInput = {
   app?: InputMaybe<PageAppConnectOrCreateFieldInput>
+  rootElement?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
 }
 
 export type PageConnectOrCreateWhere = {
@@ -1758,15 +1720,32 @@ export type PageConnectWhere = {
 export type PageCreateInput = {
   app?: InputMaybe<PageAppFieldInput>
   name: Scalars['String']
-  ownerId: Scalars['String']
+  rootElement?: InputMaybe<PageRootElementFieldInput>
 }
 
 export type PageDeleteInput = {
   app?: InputMaybe<PageAppDeleteFieldInput>
+  rootElement?: InputMaybe<PageRootElementDeleteFieldInput>
 }
 
 export type PageDisconnectInput = {
   app?: InputMaybe<PageAppDisconnectFieldInput>
+  rootElement?: InputMaybe<PageRootElementDisconnectFieldInput>
+}
+
+export type PageElementRootElementAggregationSelection = {
+  __typename?: 'PageElementRootElementAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<PageElementRootElementNodeAggregateSelection>
+}
+
+export type PageElementRootElementNodeAggregateSelection = {
+  __typename?: 'PageElementRootElementNodeAggregateSelection'
+  createdAt: DateTimeAggregateSelection
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+  ownerId: StringAggregateSelection
+  updatedAt: DateTimeAggregateSelection
 }
 
 /** Pagination information (Relay) */
@@ -1787,15 +1766,172 @@ export type PageOptions = {
 
 export type PageRelationInput = {
   app?: InputMaybe<PageAppCreateFieldInput>
+  rootElement?: InputMaybe<PageRootElementCreateFieldInput>
+}
+
+export type PageRootElementAggregateInput = {
+  AND?: InputMaybe<Array<PageRootElementAggregateInput>>
+  OR?: InputMaybe<Array<PageRootElementAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<PageRootElementNodeAggregationWhereInput>
+}
+
+export type PageRootElementConnectFieldInput = {
+  connect?: InputMaybe<ElementConnectInput>
+  where?: InputMaybe<ElementConnectWhere>
+}
+
+export type PageRootElementConnectOrCreateFieldInput = {
+  onCreate: PageRootElementConnectOrCreateFieldInputOnCreate
+  where: ElementConnectOrCreateWhere
+}
+
+export type PageRootElementConnectOrCreateFieldInputOnCreate = {
+  node: ElementCreateInput
+}
+
+export type PageRootElementConnection = {
+  __typename?: 'PageRootElementConnection'
+  edges: Array<PageRootElementRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type PageRootElementConnectionSort = {
+  node?: InputMaybe<ElementSort>
+}
+
+export type PageRootElementConnectionWhere = {
+  AND?: InputMaybe<Array<PageRootElementConnectionWhere>>
+  OR?: InputMaybe<Array<PageRootElementConnectionWhere>>
+  node?: InputMaybe<ElementWhere>
+  node_NOT?: InputMaybe<ElementWhere>
+}
+
+export type PageRootElementCreateFieldInput = {
+  node: ElementCreateInput
+}
+
+export type PageRootElementDeleteFieldInput = {
+  delete?: InputMaybe<ElementDeleteInput>
+  where?: InputMaybe<PageRootElementConnectionWhere>
+}
+
+export type PageRootElementDisconnectFieldInput = {
+  disconnect?: InputMaybe<ElementDisconnectInput>
+  where?: InputMaybe<PageRootElementConnectionWhere>
+}
+
+export type PageRootElementFieldInput = {
+  connect?: InputMaybe<PageRootElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
+  create?: InputMaybe<PageRootElementCreateFieldInput>
+}
+
+export type PageRootElementNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PageRootElementNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PageRootElementNodeAggregationWhereInput>>
+  createdAt_EQUAL?: InputMaybe<Scalars['DateTime']>
+  createdAt_GT?: InputMaybe<Scalars['DateTime']>
+  createdAt_GTE?: InputMaybe<Scalars['DateTime']>
+  createdAt_LT?: InputMaybe<Scalars['DateTime']>
+  createdAt_LTE?: InputMaybe<Scalars['DateTime']>
+  createdAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']>
+  createdAt_MAX_GT?: InputMaybe<Scalars['DateTime']>
+  createdAt_MAX_GTE?: InputMaybe<Scalars['DateTime']>
+  createdAt_MAX_LT?: InputMaybe<Scalars['DateTime']>
+  createdAt_MAX_LTE?: InputMaybe<Scalars['DateTime']>
+  createdAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']>
+  createdAt_MIN_GT?: InputMaybe<Scalars['DateTime']>
+  createdAt_MIN_GTE?: InputMaybe<Scalars['DateTime']>
+  createdAt_MIN_LT?: InputMaybe<Scalars['DateTime']>
+  createdAt_MIN_LTE?: InputMaybe<Scalars['DateTime']>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  ownerId_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  ownerId_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  ownerId_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  ownerId_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  ownerId_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  ownerId_EQUAL?: InputMaybe<Scalars['String']>
+  ownerId_GT?: InputMaybe<Scalars['Int']>
+  ownerId_GTE?: InputMaybe<Scalars['Int']>
+  ownerId_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  ownerId_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  ownerId_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  ownerId_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  ownerId_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  ownerId_LT?: InputMaybe<Scalars['Int']>
+  ownerId_LTE?: InputMaybe<Scalars['Int']>
+  ownerId_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  ownerId_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  ownerId_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  ownerId_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  ownerId_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  updatedAt_EQUAL?: InputMaybe<Scalars['DateTime']>
+  updatedAt_GT?: InputMaybe<Scalars['DateTime']>
+  updatedAt_GTE?: InputMaybe<Scalars['DateTime']>
+  updatedAt_LT?: InputMaybe<Scalars['DateTime']>
+  updatedAt_LTE?: InputMaybe<Scalars['DateTime']>
+  updatedAt_MAX_EQUAL?: InputMaybe<Scalars['DateTime']>
+  updatedAt_MAX_GT?: InputMaybe<Scalars['DateTime']>
+  updatedAt_MAX_GTE?: InputMaybe<Scalars['DateTime']>
+  updatedAt_MAX_LT?: InputMaybe<Scalars['DateTime']>
+  updatedAt_MAX_LTE?: InputMaybe<Scalars['DateTime']>
+  updatedAt_MIN_EQUAL?: InputMaybe<Scalars['DateTime']>
+  updatedAt_MIN_GT?: InputMaybe<Scalars['DateTime']>
+  updatedAt_MIN_GTE?: InputMaybe<Scalars['DateTime']>
+  updatedAt_MIN_LT?: InputMaybe<Scalars['DateTime']>
+  updatedAt_MIN_LTE?: InputMaybe<Scalars['DateTime']>
+}
+
+export type PageRootElementRelationship = {
+  __typename?: 'PageRootElementRelationship'
+  cursor: Scalars['String']
+  node: Element
+}
+
+export type PageRootElementUpdateConnectionInput = {
+  node?: InputMaybe<ElementUpdateInput>
+}
+
+export type PageRootElementUpdateFieldInput = {
+  connect?: InputMaybe<PageRootElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
+  create?: InputMaybe<PageRootElementCreateFieldInput>
+  delete?: InputMaybe<PageRootElementDeleteFieldInput>
+  disconnect?: InputMaybe<PageRootElementDisconnectFieldInput>
+  update?: InputMaybe<PageRootElementUpdateConnectionInput>
+  where?: InputMaybe<PageRootElementConnectionWhere>
 }
 
 /** Fields to sort Pages by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageSort object. */
 export type PageSort = {
-  createdAt?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
-  ownerId?: InputMaybe<SortDirection>
-  updatedAt?: InputMaybe<SortDirection>
 }
 
 export type PageUniqueWhere = {
@@ -1805,7 +1941,7 @@ export type PageUniqueWhere = {
 export type PageUpdateInput = {
   app?: InputMaybe<PageAppUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
-  ownerId?: InputMaybe<Scalars['String']>
+  rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
 }
 
 export type PageWhere = {
@@ -1816,14 +1952,6 @@ export type PageWhere = {
   appConnection?: InputMaybe<PageAppConnectionWhere>
   appConnection_NOT?: InputMaybe<PageAppConnectionWhere>
   app_NOT?: InputMaybe<AppWhere>
-  createdAt?: InputMaybe<Scalars['DateTime']>
-  createdAt_GT?: InputMaybe<Scalars['DateTime']>
-  createdAt_GTE?: InputMaybe<Scalars['DateTime']>
-  createdAt_IN?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>
-  createdAt_LT?: InputMaybe<Scalars['DateTime']>
-  createdAt_LTE?: InputMaybe<Scalars['DateTime']>
-  createdAt_NOT?: InputMaybe<Scalars['DateTime']>
-  createdAt_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -1844,24 +1972,11 @@ export type PageWhere = {
   name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  ownerId?: InputMaybe<Scalars['String']>
-  ownerId_CONTAINS?: InputMaybe<Scalars['String']>
-  ownerId_ENDS_WITH?: InputMaybe<Scalars['String']>
-  ownerId_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  ownerId_NOT?: InputMaybe<Scalars['String']>
-  ownerId_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  ownerId_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  ownerId_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  ownerId_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  ownerId_STARTS_WITH?: InputMaybe<Scalars['String']>
-  updatedAt?: InputMaybe<Scalars['DateTime']>
-  updatedAt_GT?: InputMaybe<Scalars['DateTime']>
-  updatedAt_GTE?: InputMaybe<Scalars['DateTime']>
-  updatedAt_IN?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>
-  updatedAt_LT?: InputMaybe<Scalars['DateTime']>
-  updatedAt_LTE?: InputMaybe<Scalars['DateTime']>
-  updatedAt_NOT?: InputMaybe<Scalars['DateTime']>
-  updatedAt_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['DateTime']>>>
+  rootElement?: InputMaybe<ElementWhere>
+  rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>
+  rootElementConnection?: InputMaybe<PageRootElementConnectionWhere>
+  rootElementConnection_NOT?: InputMaybe<PageRootElementConnectionWhere>
+  rootElement_NOT?: InputMaybe<ElementWhere>
 }
 
 export type Query = {

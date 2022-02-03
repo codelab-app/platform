@@ -2,10 +2,11 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { useAppState } from '@codelab/frontend/modules/app'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { CreatePageInput } from '@codelab/shared/abstract/codegen'
+import { PageCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { useCallback } from 'react'
 import { usePageDispatch, usePageState } from '../../hooks'
-import { useCreatePageMutation } from '../../store'
+import { useCreatePagesMutation } from '../../store'
+import { CreatePageInput } from './types'
 
 export const useCreatePageForm: UseUseCaseForm<
   CreatePageInput,
@@ -15,16 +16,36 @@ export const useCreatePageForm: UseUseCaseForm<
   const { currentApp } = useAppState()
   const { actionType } = usePageState()
 
-  const [mutate, { isLoading }] = useCreatePageMutation({
+  const [mutate, { isLoading }] = useCreatePagesMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.createPage,
+      hook: r.data?.createPages,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
   const onSubmit = useCallback(
-    (input: CreatePageInput) => mutate({ variables: { input } }).unwrap(),
+    (input: CreatePageInput) => {
+      const { name, appId } = input
+
+      const app: PageCreateInput['app'] = {
+        connect: { where: { node: { id: appId } } },
+      }
+
+      const rootElement: PageCreateInput['rootElement'] = {
+        create: {
+          node: {
+            name: 'Root Element',
+            // TODO: find out what goes in here
+            ownerId: '',
+          },
+        },
+      }
+
+      return mutate({
+        variables: { input: { name, app, rootElement } },
+      }).unwrap()
+    },
     [mutate],
   )
 
