@@ -1,13 +1,9 @@
-import {
-  AtomType,
-  IElement,
-  IPrimitiveType,
-  PrimitiveTypeKind,
-  TypeKind,
-} from '@codelab/shared/abstract/core'
+import { TypeFragment } from '@codelab/frontend/modules/type'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
+import { AtomType, IElement, TypeKind } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 
-export const primitiveType: IPrimitiveType = {
+export const primitiveType: TypeFragment = {
   id: '0x092',
   name: 'primitiveType',
   typeKind: TypeKind.PrimitiveType,

@@ -1,5 +1,0 @@
-fragment ElementType on ElementType {
-  id
-  name
-  elementKind
-}

@@ -1,4 +1,0 @@
-fragment PageType on LambdaType {
-  id
-  name
-}

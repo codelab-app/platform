@@ -16,6 +16,7 @@ export const getSchema = (driver: Driver) =>
   new Neo4jGraphQL({
     typeDefs,
     driver,
+    resolvers,
     config: {
       jwt: {
         /**
@@ -40,5 +41,4 @@ export const getSchema = (driver: Driver) =>
         noVerify: true,
       },
     },
-    resolvers,
   })

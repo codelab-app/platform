@@ -4,7 +4,7 @@ import {
   initialCrudState,
 } from '@codelab/frontend/view/components'
 import { PayloadAction } from '@reduxjs/toolkit'
-import { TypeFragment } from '../graphql/Type.fragment.graphql.gen'
+import { TypeFragment } from '../graphql'
 import { SetSelectedTypeIdsModalAction } from '.'
 
 export type TypeState = CRUDModalState<TypeFragment> & {

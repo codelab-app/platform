@@ -8,9 +8,8 @@ import {
   CreateFieldModal,
   DeleteFieldModal,
   FieldsTable,
-  InterfaceContext,
-  InterfaceQueryProvider,
   UpdateFieldModal,
+  useGetCurrentInterfaceWithFields,
 } from '@codelab/frontend/modules/type'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -20,25 +19,22 @@ import {
 import { PageHeader } from 'antd'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { useContext } from 'react'
+import React from 'react'
 
 const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = () => {
-  const {
-    interface: { name, id },
-    tree,
-  } = useContext(InterfaceContext)
+  const { type, isLoading, interfaceId } = useGetCurrentInterfaceWithFields()
 
   return (
     <>
       <Head>
-        <title>{name} | Codelab</title>
+        <title>{type?.name ? `${type.name} | ` : ''}Codelab</title>
       </Head>
 
-      <CreateFieldModal />
-      <UpdateFieldModal interfaceId={id} />
-      <DeleteFieldModal interfaceId={id} />
+      <CreateFieldModal interfaceId={interfaceId} />
+      <UpdateFieldModal interfaceId={interfaceId} />
+      <DeleteFieldModal interfaceId={interfaceId} />
       <ContentSection>
-        <FieldsTable tree={tree} />
+        <FieldsTable interfaceType={type} isLoading={isLoading} />
       </ContentSection>
     </>
   )
@@ -47,18 +43,14 @@ const InterfaceDetailPage: CodelabPage<DashboardTemplateProps> = () => {
 const Header = () => {
   const headerButtons = [<CreateFieldButton key={0} />]
   const router = useRouter()
-
-  const {
-    interface: { name },
-    tree,
-  } = useContext(InterfaceContext)
+  const { type } = useGetCurrentInterfaceWithFields()
 
   return (
     <PageHeader
       extra={headerButtons}
       ghost={false}
       onBack={() => router.back()}
-      title={name}
+      title={type?.name}
     />
   )
 }
@@ -69,10 +61,8 @@ export const getServerSideProps = withPageAuthRequired()
 
 InterfaceDetailPage.Layout = (page) => {
   return (
-    <InterfaceQueryProvider>
-      <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
-        {page.children}
-      </DashboardTemplate>
-    </InterfaceQueryProvider>
+    <DashboardTemplate Header={Header} SidebarNavigation={SidebarNavigation}>
+      {page.children}
+    </DashboardTemplate>
   )
 }

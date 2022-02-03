@@ -1,7 +1,7 @@
 import { CreateTypeInput } from '@codelab/backend/modules/type'
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen-v2'
 import {
   ElementTypeKind,
-  MonacoLanguage,
   PrimitiveTypeKind,
   TypeKind,
 } from '@codelab/shared/abstract/core'
@@ -88,35 +88,35 @@ export const baseTypes: Array<CreateTypeInput> = [
     name: BaseTypeName.MonacoCss,
     typeKind: TypeKind.MonacoType,
     monacoType: {
-      language: MonacoLanguage.CSS,
+      language: MonacoLanguage.css,
     },
   },
   {
     name: BaseTypeName.MonacoJavaScript,
     typeKind: TypeKind.MonacoType,
     monacoType: {
-      language: MonacoLanguage.JavaScript,
+      language: MonacoLanguage.javascript,
     },
   },
   {
     name: BaseTypeName.MonacoJson,
     typeKind: TypeKind.MonacoType,
     monacoType: {
-      language: MonacoLanguage.JSON,
+      language: MonacoLanguage.json,
     },
   },
   {
     name: BaseTypeName.MonacoGraphql,
     typeKind: TypeKind.MonacoType,
     monacoType: {
-      language: MonacoLanguage.Graphql,
+      language: MonacoLanguage.graphqlDev,
     },
   },
   {
     name: BaseTypeName.MonacoTypeScript,
     typeKind: TypeKind.MonacoType,
     monacoType: {
-      language: MonacoLanguage.TypeScript,
+      language: MonacoLanguage.typescript,
     },
   },
   {

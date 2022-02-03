@@ -3,6 +3,9 @@ hooks:
   afterAllFileWrite:
     - yarn prettier --write
 
+# If you're in the bind of not being able to run the app because of a codegen error
+# but you can't run codegen because you can't run the app - uncomment this, run codegen and comment it back
+#schema: schema.api.v2.graphql
 schema: http://localhost:3000/api/v2/graphql
 config:
   scalars:

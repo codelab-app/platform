@@ -5,9 +5,12 @@ import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { TypeSelect } from '../../../shared'
 import { CreateFieldInput, createFieldSchema } from './createFieldSchema'
-import { useCreateFieldForm } from './useCreateFieldForm'
+import {
+  useCreateFieldForm,
+  UseCreateFieldFormInput,
+} from './useCreateFieldForm'
 
-export const CreateFieldModal = () => {
+export const CreateFieldModal = (props: UseCreateFieldFormInput) => {
   const {
     isLoading,
     actionType,
@@ -15,7 +18,7 @@ export const CreateFieldModal = () => {
     reset,
     onSubmitError,
     onSubmit,
-  } = useCreateFieldForm()
+  } = useCreateFieldForm(props)
 
   return (
     <FormModal

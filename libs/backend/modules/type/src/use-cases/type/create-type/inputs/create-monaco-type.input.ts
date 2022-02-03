@@ -1,4 +1,4 @@
-import { MonacoLanguage } from '@codelab/shared/abstract/core'
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen-v2'
 import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()

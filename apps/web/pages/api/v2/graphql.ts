@@ -6,12 +6,13 @@ import { getDriver } from '../../../src/neo4j-graphql/getDriver'
 import { getSchema } from '../../../src/neo4j-graphql/getSchema'
 import { generateOgmTypes, User } from '../../../src/neo4j-graphql/model'
 
-const neoSchema = getSchema(getDriver())
+const driver = getDriver()
+const neoSchema = getSchema(driver)
 const path = '/api/v2/graphql'
 
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 
-console.log(neoSchema.schema)
+// console.log(neoSchema.schema)
 
 const apolloServer = new ApolloServer({
   schema: neoSchema.schema,
@@ -31,11 +32,21 @@ const apolloServer = new ApolloServer({
   // plugins: [ApolloServerPluginInlineTrace()],
 })
 
-const startServer = apolloServer.start()
+// https://neo4j.com/docs/graphql-manual/current/type-definitions/indexes-and-constraints/#type-definitions-indexes-and-constraints-asserting
+const startServer = neoSchema
+  .assertIndexesAndConstraints({ options: { create: true }, driver })
+  .then(() => apolloServer.start())
 
 /**
  * Allow local HTTPS with https://github.com/vercel/next.js/discussions/10935#discussioncomment-434842
  */
+
+if (process.env.NODE_ENV === 'development') {
+  generateOgmTypes().then()
+  // execa.commandSync(`yarn codegen-v2`, {
+  //   stdio: 'inherit',
+  // })
+}
 
 /**
  * next-auth is an open-source solution for Next.js and auth
@@ -72,8 +83,14 @@ const handler: NextApiHandler = async (req, res) => {
      */
     session = await getSession(req, res)
     accessToken = (await getAccessToken(req, res)).accessToken
-  } catch (e) {
-    console.error(e)
+  } catch (e: any) {
+    // Apollo studio polls the graphql schema every second, and it pollutes the log
+    if (
+      process.env.NODE_ENV === 'development' &&
+      !req.headers['origin']?.includes('studio.apollographql')
+    ) {
+      console.error(e)
+    }
   }
 
   // console.log(session?.user)
@@ -90,7 +107,7 @@ const handler: NextApiHandler = async (req, res) => {
   if (session?.user) {
     const user = session.user
 
-    const [existing] = await User.find({
+    const [existing] = await User().find({
       where: {
         auth0Id: user.sub,
       },
@@ -99,7 +116,7 @@ const handler: NextApiHandler = async (req, res) => {
     if (existing) {
       // console.log(`User with email ${user.email} already exists!`)
     } else {
-      const { users } = await User.create({
+      const { users } = await User().create({
         input: [
           {
             auth0Id: user.sub,
@@ -118,18 +135,7 @@ const handler: NextApiHandler = async (req, res) => {
   req.headers.authorization = `Bearer ${accessToken}`
 
   await startServer
-  await apolloServer
-    .createHandler({ path })(req, res)
-    .then(async () => {
-      console.log(process.env.NODE_ENV)
-
-      if (process.env.NODE_ENV === 'development') {
-        await generateOgmTypes()
-        // execa.commandSync(`yarn codegen-v2`, {
-        //   stdio: 'inherit',
-        // })
-      }
-    })
+  await apolloServer.createHandler({ path })(req, res)
 }
 
 export default handler

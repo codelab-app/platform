@@ -1,0 +1,18 @@
+fragment TypeEdge on TypeEdge {
+  ... on InterfaceTypeEdge {
+    ...Field
+  }
+  ... on IEdge {
+    source
+    target
+  }
+}
+
+fragment TypeGraph on TypeGraph {
+  edges {
+    ...TypeEdge
+  }
+  vertices {
+    ...TypeNonRecursive
+  }
+}

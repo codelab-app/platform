@@ -1,7 +1,5 @@
-import {
-  IPrimitiveType,
-  PrimitiveTypeKind,
-} from '@codelab/shared/abstract/core'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
+import { IPrimitiveType } from '@codelab/shared/abstract/core'
 import { TypeTransformFn } from '../shared/types'
 import { getExtraProperties } from '../shared/utils'
 
@@ -10,7 +8,7 @@ import { getExtraProperties } from '../shared/utils'
  * or throws an Error if the PrimitiveKind is not recognized
  * Handles: string, integer, number and boolean
  */
-export const primitiveKindToJsonType = (primitiveKind: PrimitiveTypeKind) => {
+export const primitiveTypeToJsonSchema = (primitiveKind: PrimitiveTypeKind) => {
   switch (primitiveKind) {
     case PrimitiveTypeKind.String:
       return 'string'
@@ -32,7 +30,7 @@ export const transformPrimitiveType: TypeTransformFn<IPrimitiveType> = (
   const extra = getExtraProperties(type, options)
 
   return {
-    type: primitiveKindToJsonType((type as IPrimitiveType).primitiveKind),
+    type: primitiveTypeToJsonSchema((type as IPrimitiveType).primitiveKind),
     ...extra,
   }
 }

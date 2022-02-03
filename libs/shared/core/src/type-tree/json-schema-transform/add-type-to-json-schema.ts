@@ -1,8 +1,8 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { AddTypeToSchemaFn } from './shared/types'
-import { addItemTypeToArray } from './transformers/transform-array-type'
-import { addPropertyToInterfaceSchema } from './transformers/transform-interface-type'
-import { addChildToUnionType } from './transformers/transform-union-type'
+import { addItemTypeToArray } from './transformers/array-type-to-json-schema'
+import { addPropertyToInterfaceSchema } from './transformers/interface-type-to-json-schema'
+import { addChildToUnionType } from './transformers/union-type-to-json-schema'
 
 export const addTypeToJsonSchema: AddTypeToSchemaFn = (
   parentSchema,

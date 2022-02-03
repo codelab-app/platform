@@ -1,23 +1,27 @@
 import { DeleteFilled, EditFilled } from '@ant-design/icons'
-import { TypeTree } from '@codelab/shared/core'
 import { Button, Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
+import {
+  InterfaceTypeFieldEdgeFragment,
+  InterfaceTypeWithFieldsFragment,
+} from '../../../graphql'
 import { useFieldDispatch } from '../../../hooks'
 import { getTypeName } from '../../../shared/getTypeName'
 
 export interface FieldsTableProps {
-  tree: TypeTree
+  interfaceType?: InterfaceTypeWithFieldsFragment
+  isLoading: boolean
 }
 
-export const FieldsTable = ({ tree }: FieldsTableProps) => {
+export const FieldsTable = ({ interfaceType, isLoading }: FieldsTableProps) => {
   const { openDeleteModal, openUpdateModal } = useFieldDispatch()
 
   const headerCellProps = () => ({
     style: tw`font-semibold text-gray-900`,
   })
 
-  const columns: Array<TableColumnProps<any>> = [
+  const columns: Array<TableColumnProps<InterfaceTypeFieldEdgeFragment>> = [
     {
       title: 'Field Name',
       dataIndex: 'name',
@@ -37,11 +41,11 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
       onHeaderCell: headerCellProps,
     },
     {
-      title: 'Type',
-      dataIndex: 'id',
-      key: 'id',
+      title: 'Kind',
+      dataIndex: 'key',
+      key: 'key',
       onHeaderCell: headerCellProps,
-      render: (id) => getTypeName(tree.getFieldType(id), tree),
+      render: (_, { node }) => getTypeName(node),
     },
     {
       title: 'Action',
@@ -54,11 +58,8 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
             icon={<EditFilled />}
             onClick={() =>
               openUpdateModal({
-                updateId: record.id,
-                entity: {
-                  ...record,
-                  typeId: tree.getFieldType(record.id)?.id,
-                },
+                updateId: record.node.id,
+                entity: { ...record, existingTypeId: record.node.id },
               })
             }
             size="small"
@@ -69,11 +70,10 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
             icon={<DeleteFilled />}
             onClick={() =>
               openDeleteModal({
-                deleteIds: [record.id],
-                entity: {
-                  ...record,
-                  typeId: tree.getFieldType(record.id)?.id,
-                },
+                // this won't delete the actual type, we just specify the id of the target type
+                // so that we know which edge (aka field) to detach.
+                deleteIds: [record.node.id],
+                entity: { ...record, existingTypeId: record.node.id },
               })
             }
             size="small"
@@ -87,9 +87,10 @@ export const FieldsTable = ({ tree }: FieldsTableProps) => {
   return (
     <Table
       columns={columns}
-      dataSource={tree.getRootFields()}
+      dataSource={interfaceType?.fieldsConnection.edges}
+      loading={isLoading}
       pagination={{ position: ['bottomCenter'], pageSize: 25 }}
-      rowKey={(atom) => atom.id}
+      rowKey={(f) => f.key}
       size="small"
     />
   )

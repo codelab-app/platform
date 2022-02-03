@@ -1,8 +1,0 @@
-fragment TypeGraph on TypeGraph {
-  edges {
-    ...TypeEdge
-  }
-  vertices {
-    ...Type
-  }
-}

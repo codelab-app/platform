@@ -1,0 +1,9 @@
+fragment TypeBase on TypeBase {
+  typeKind: __typename
+  id
+  owner {
+    id
+    auth0Id
+  }
+  name
+}

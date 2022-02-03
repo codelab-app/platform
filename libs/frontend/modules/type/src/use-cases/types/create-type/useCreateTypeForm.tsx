@@ -1,10 +1,10 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { CreateTypeInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { useTypeDispatch, useTypeState } from '../../../hooks'
-import { useCreateTypeMutation } from '../../../store'
+import { useCreateType } from '../../../hooks/useCreateType'
 import {
   CreateTypeSchema,
   mapCreateTypeSchemaToTypeInput,
@@ -16,22 +16,24 @@ export const useCreateTypeForm: UseUseCaseForm<
 > = () => {
   const { resetModal } = useTypeDispatch()
   const { actionType } = useTypeState()
-
-  const [mutate, { isLoading }] = useCreateTypeMutation({
-    selectFromResult: (r) => ({
-      element: r.data?.createType,
-      isLoading: r.isLoading,
-      error: r.error,
-    }),
-  })
+  const createMutations = useCreateType()
+  const user = useUser()
 
   const onSubmit = useCallback(
     (submitData: CreateTypeSchema) => {
-      const input = mapCreateTypeSchemaToTypeInput(submitData)
+      const [mutate] =
+        createMutations[submitData.kind as keyof typeof createMutations]
+
+      // Check if we're not making a recursive rel
+
+      const input = mapCreateTypeSchemaToTypeInput(
+        submitData,
+        user.user?.sub,
+      ) as any
 
       return mutate({ variables: { input } }).unwrap()
     },
-    [mutate],
+    [createMutations, user.user?.sub],
   )
 
   return {
@@ -43,7 +45,7 @@ export const useCreateTypeForm: UseUseCaseForm<
     ],
     model: {},
     onSubmitSuccess: [() => resetModal()],
-    isLoading,
+    isLoading: Object.values(createMutations).some((v) => v[1].isLoading),
     reset: resetModal,
     actionType,
   }

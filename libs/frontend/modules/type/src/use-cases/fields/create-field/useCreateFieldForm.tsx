@@ -1,46 +1,51 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { useCallback, useContext } from 'react'
+import { useCallback } from 'react'
 import { useFieldDispatch, useFieldState } from '../../../hooks'
 import { useCreateFieldMutation } from '../../../store'
-import { InterfaceContext } from '../../types'
 import { CreateFieldInput } from './createFieldSchema'
+
+export interface UseCreateFieldFormInput {
+  interfaceId: string
+}
 
 export const useCreateFieldForm: UseUseCaseForm<
   CreateFieldInput,
-  CRUDActionType
-> = () => {
+  CRUDActionType,
+  unknown,
+  UseCreateFieldFormInput
+> = ({ interfaceId }) => {
   const { resetModal } = useFieldDispatch()
   const { actionType } = useFieldState()
 
-  const {
-    interface: { id: interfaceId },
-  } = useContext(InterfaceContext)
-
   const [mutate, { isLoading }] = useCreateFieldMutation({
     selectFromResult: (r) => ({
-      element: r.data?.createField,
+      field: r.data?.upsertFieldEdge,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
   const handleSubmit = useCallback(
-    (formData: CreateFieldInput) => {
-      const variables = {
-        input: {
-          interfaceId,
-          type: {
-            existingTypeId: formData.existingTypeId,
-          },
-          name: formData.name,
-          key: formData.key,
-          description: formData.description,
-        },
+    async ({ key, description, name, existingTypeId }: CreateFieldInput) => {
+      if (!existingTypeId) {
+        throw new Error(
+          'Existing type id is not defined, this will update all keys',
+        )
       }
 
-      return mutate({ variables }).unwrap()
+      return mutate({
+        variables: {
+          input: {
+            key,
+            description,
+            name,
+            interfaceTypeId: interfaceId,
+            targetTypeId: existingTypeId,
+          },
+        },
+      }).unwrap()
     },
     [interfaceId, mutate],
   )

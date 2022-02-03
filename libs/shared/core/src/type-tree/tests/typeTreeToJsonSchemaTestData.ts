@@ -31,7 +31,6 @@ export const unionType = UnionTypeSchema.parse({
   id: '0x1',
   name: 'Union type',
   typeKind: TypeKind.UnionType,
-  typesOfUnionType: [{ id: stringType.id }, { id: intType.id }],
 })
 
 export const unionGraph = TypeGraphFactory.unionType(unionType, [
@@ -78,22 +77,6 @@ export const interfaceWithUnionField = InterfaceTypeSchema.parse({
   id: '0x4',
   name: 'Interface with union field',
   typeKind: TypeKind.InterfaceType,
-  fields: [
-    {
-      id: '0x6',
-      name: 'String field',
-      key: 'stringField',
-      target: stringType.id,
-      source: '0x4',
-    },
-    {
-      id: '0x5',
-      name: 'union field',
-      key: 'unionField',
-      target: unionType.id,
-      source: '0x4',
-    },
-  ],
 })
 
 export const interfaceWithUnionExpectedSchema = {
@@ -123,6 +106,23 @@ export const interfaceWithUnionExpectedSchema = {
 }
 
 export const interfaceWithUnionGraph = TypeGraphFactory.fromMultipleGraphs(
-  TypeGraphFactory.interfaceType(interfaceWithUnionField, [unionType]),
+  TypeGraphFactory.interfaceType(
+    interfaceWithUnionField,
+    [unionType],
+    [
+      {
+        name: 'String field',
+        key: 'stringField',
+        target: stringType.id,
+        source: '0x4',
+      },
+      {
+        name: 'union field',
+        key: 'unionField',
+        target: unionType.id,
+        source: '0x4',
+      },
+    ],
+  ),
   unionGraph,
 )

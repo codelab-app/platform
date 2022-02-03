@@ -1,62 +1,42 @@
-import {
-  IElementType,
-  IEnumType,
-  IMonacoType,
-  IPrimitiveType,
-  IType,
-  TypeKind,
-} from '@codelab/shared/abstract/core'
+import { IPrimitiveType, TypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { TypeTree } from '@codelab/shared/core'
-import { TypeModels } from './TypeModels'
+import { TypeFragment } from '../graphql'
 
-export const getTypeName = (
-  type: Nullish<IType>,
-  typeTree: TypeTree,
-  iteration = 0,
-): string => {
+export const getTypeName = (type: Nullish<TypeFragment>): string => {
   if (!type) {
     return ''
   }
 
-  if (iteration > 10) {
-    return ''
-  }
-
-  const kind = type.typeKind
-
-  switch (kind) {
+  switch (type.typeKind) {
     case TypeKind.RenderPropsType:
       return `Render Props Type`
     case TypeKind.ReactNodeType:
       return `React Node Type`
     case TypeKind.UnionType:
       return `Union Type`
-    case TypeModels.PrimitiveType:
+    case TypeKind.PrimitiveType:
       return (type as IPrimitiveType).primitiveKind
 
-    case TypeModels.ArrayType: {
-      const itemType = typeTree.getArrayItemType(type.id)
-
-      return `Array of ${getTypeName(itemType, typeTree, iteration + 1)}`
+    case TypeKind.ArrayType: {
+      return `Array`
     }
 
-    case TypeModels.EnumType:
-      return `Enum (${(type as IEnumType).allowedValues
-        .map((v) => v.name ?? v.value)
+    case TypeKind.EnumType:
+      return `Enum (${type.allowedValues
+        ?.map((v) => v.name ?? v.value)
         .join(',')})`
-    case TypeModels.InterfaceType:
+    case TypeKind.InterfaceType:
       return `Interface (${type.name})`
-    case TypeModels.ElementType:
-      return `Element (${(type as IElementType).elementKind})`
-    case TypeModels.LambdaType:
+    case TypeKind.ElementType:
+      return `Element (${type.elementKind})`
+    case TypeKind.LambdaType:
       return `Lambda`
-    case TypeModels.PageType:
+    case TypeKind.PageType:
       return `Page`
-    case TypeModels.AppType:
+    case TypeKind.AppType:
       return `App`
-    case TypeModels.MonacoType:
-      return `Monaco (${(type as IMonacoType).language})`
+    case TypeKind.MonacoType:
+      return `Monaco (${type.language})`
     default:
       return ''
   }

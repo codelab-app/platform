@@ -1,23 +1,23 @@
-import { useGetTypeKindsQuery } from '@codelab/frontend/modules/type'
+import {
+  TypeBaseFragment,
+  useGetAllTypesQuery,
+} from '@codelab/frontend/modules/type'
 import { notify } from '@codelab/frontend/shared/utils'
-import { IType } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { entityRecordById } from '@codelab/shared/utils'
 import { useEffect, useMemo } from 'react'
 
-export type TypeKindsById = Record<string, IType>
+export type TypeKindsById = Record<string, TypeBaseFragment>
 
 export const useTypesByIdQuery = () => {
-  const typeKindsQuery = useGetTypeKindsQuery()
+  const typeKindsQuery = useGetAllTypesQuery()
 
   const typesById = useMemo<Maybe<TypeKindsById>>(() => {
     if (!typeKindsQuery.data) {
       return undefined
     }
 
-    return entityRecordById<IType>(
-      typeKindsQuery.data.getTypes as any as Array<IType>,
-    )
+    return entityRecordById(typeKindsQuery.data.types)
   }, [typeKindsQuery])
 
   useEffect(() => {

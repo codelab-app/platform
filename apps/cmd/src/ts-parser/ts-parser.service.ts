@@ -80,7 +80,7 @@ export class TsParserService {
       const api: TestGetExport__AtomsFragment['api'] = {
         id: v4(),
         name: `${component.name} API`,
-        typeKind: TypeKind.InterfaceType,
+        typeKind: TypeKind.InterfaceType as any,
         typeGraph: {
           vertices: [],
           edges: [],
@@ -90,7 +90,7 @@ export class TsParserService {
       api.typeGraph.vertices.push({
         id: api.id,
         name: api.name,
-        typeKind: api.typeKind as any, // TODO remove after codegen
+        typeKind: api.typeKind,
         __typename: 'InterfaceType',
       })
 

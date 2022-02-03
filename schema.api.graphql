@@ -87,7 +87,7 @@ enum TypeKind {
 }
 
 """
-The ElementType allows selecting an Element in the props form. The value is stored as the elementId 
+The ElementType allows selecting an Element in the props form. The value is stored as the elementId
 """
 type ElementType implements Type {
   typeKind: TypeKind!
@@ -129,7 +129,7 @@ type InterfaceType implements Type {
 }
 
 """
-The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId 
+The LambdaType allows selecting a Lambda in the props form. The value is stored as the lambdaId
 """
 type LambdaType implements Type {
   typeKind: TypeKind!
@@ -172,7 +172,7 @@ type RenderPropsType implements Type {
 }
 
 """
-The AppType allows selecting a App in the props form. The value is stored as the appId 
+The AppType allows selecting a App in the props form. The value is stored as the appId
 """
 type AppType implements Type {
   typeKind: TypeKind!
@@ -204,7 +204,7 @@ enum MonacoLanguage {
 }
 
 """
-The PageType allows selecting a Page in the props form. The value is stored as the pageId 
+The PageType allows selecting a Page in the props form. The value is stored as the pageId
 """
 type PageType implements Type {
   typeKind: TypeKind!

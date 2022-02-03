@@ -30,6 +30,7 @@ export const DeleteFieldModal = ({ interfaceId }: DeleteFieldModalProps) => {
       className="delete-field-modal"
       okButtonProps={{
         loading: isLoading,
+        danger: true,
       }}
       okText="Delete"
       onCancel={() => reset()}
@@ -45,7 +46,7 @@ export const DeleteFieldModal = ({ interfaceId }: DeleteFieldModalProps) => {
           schema={emptyJsonSchema}
           submitRef={submitRef}
         >
-          <h4>Are you sure you want to delete field "{entity}"?</h4>
+          <h4>Are you sure you want to delete field "{entity?.name}"?</h4>
           <AutoFields />
         </Form>
       )}

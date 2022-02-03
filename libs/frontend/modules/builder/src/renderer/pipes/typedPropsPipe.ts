@@ -1,5 +1,4 @@
-import { TypeKind } from '@codelab/shared/abstract/codegen'
-import { PropsData } from '@codelab/shared/abstract/core'
+import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { mapValues, pickBy } from 'lodash'
 import { RenderContext, RenderPipeFactory } from './types'
@@ -21,7 +20,7 @@ import { RenderContext, RenderPipeFactory } from './types'
  *     }
  */
 
-const handledTypeKinds = new Set([
+const handledTypeKinds = new Set<TypeKind>([
   TypeKind.AppType,
   TypeKind.ArrayType,
   TypeKind.EnumType,

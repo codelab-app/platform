@@ -1,0 +1,13 @@
+fragment ArrayTypeWithItemType on ArrayType {
+  ...ArrayType
+  itemType {
+    ... on TypeBase {
+      ...TypeBase
+    }
+  }
+}
+
+# Array type without the reference to the item type
+fragment ArrayType on ArrayType {
+  ...TypeBase
+}

@@ -1,8 +1,5 @@
-import {
-  IMonacoType,
-  MonacoLanguage,
-  TypeKind,
-} from '@codelab/shared/abstract/core'
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen-v2'
+import { IMonacoType, TypeKind } from '@codelab/shared/abstract/core'
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql'
 import { Type } from './type.model'
 
@@ -17,7 +14,7 @@ registerEnumType(MonacoLanguage, { name: 'MonacoLanguage' })
     'The MonacoType allows inserting code using Monaco Editor in the props form.',
 })
 export class MonacoType
-  extends Type<TypeKind.MonacoType>
+  extends Type<typeof TypeKind.MonacoType>
   implements IMonacoType
 {
   @Field(() => MonacoLanguage)

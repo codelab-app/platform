@@ -4,7 +4,6 @@ import { TypeKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { typenameToTypeKind } from '../../../shared'
 import { UpdateTypeSchema, updateTypeSchema } from './updateTypeSchema'
 import { useUpdateTypeForm } from './useUpdateTypeForm'
 
@@ -36,7 +35,7 @@ export const UpdateTypeModal = () => {
           return <></>
         }
 
-        const kind = typenameToTypeKind(entity?.__typename)
+        const kind = entity.typeKind
 
         return (
           <Form<UpdateTypeSchema>

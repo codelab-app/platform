@@ -1,3 +1,16 @@
+union AnyType =
+    AppType
+  | ArrayType
+  | ElementType
+  | EnumType
+  | InterfaceType
+  | LambdaType
+  | MonacoType
+  | PageType
+  | PrimitiveType
+  | RenderPropsType
+  | UnionType
+
 type App {
   id: ID!
   name: String!
@@ -326,6 +339,175 @@ input AppSort {
   name: SortDirection
 }
 
+"""
+Allows picking a app from the list of apps
+"""
+type AppType implements TypeBase {
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): AppTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type AppTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input AppTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input AppTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input AppTypeCreateInput {
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input AppTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input AppTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+input AppTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more AppTypeSort objects to sort AppTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [AppTypeSort]
+}
+
+input AppTypeOwnerAggregateInput {
+  AND: [AppTypeOwnerAggregateInput!]
+  OR: [AppTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AppTypeOwnerNodeAggregationWhereInput
+}
+
+input AppTypeOwnerNodeAggregationWhereInput {
+  AND: [AppTypeOwnerNodeAggregationWhereInput!]
+  OR: [AppTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input AppTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort AppTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppTypeSort object.
+"""
+input AppTypeSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input AppTypeUpdateInput {
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type AppTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: AppTypeUserOwnerNodeAggregateSelection
+}
+
+type AppTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input AppTypeWhere {
+  AND: [AppTypeWhere!]
+  OR: [AppTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: AppTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
 input AppUniqueWhere {
   id: ID
 }
@@ -382,7 +564,254 @@ input AppWhere {
   pages_NOT: PageWhere
 }
 
+"""
+ArrayType Allows defining a variable number of items of a given type.
+Contains a reference to another type which is the array item type.
+"""
+type ArrayType implements TypeBase {
+  graph: TypeGraph!
+  id: ID!
+  itemType(options: QueryOptions, where: TypeBaseWhere): [TypeBase!]
+  itemTypeConnection(
+    where: ArrayTypeItemTypeConnectionWhere
+  ): ArrayTypeItemTypeConnection!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): ArrayTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type ArrayTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input ArrayTypeConnectInput {
+  itemType: [ArrayTypeItemTypeConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input ArrayTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input ArrayTypeCreateInput {
+  itemType: ArrayTypeItemTypeFieldInput
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input ArrayTypeDeleteInput {
+  itemType: [ArrayTypeItemTypeDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input ArrayTypeDisconnectInput {
+  itemType: [ArrayTypeItemTypeDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+input ArrayTypeItemTypeConnectFieldInput {
+  connect: TypeBaseConnectInput
+  where: TypeBaseConnectWhere
+}
+
+type ArrayTypeItemTypeConnection {
+  edges: [ArrayTypeItemTypeRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ArrayTypeItemTypeConnectionWhere {
+  AND: [ArrayTypeItemTypeConnectionWhere!]
+  OR: [ArrayTypeItemTypeConnectionWhere!]
+  node: TypeBaseWhere
+  node_NOT: TypeBaseWhere
+}
+
+input ArrayTypeItemTypeCreateFieldInput {
+  node: TypeBaseCreateInput!
+}
+
+input ArrayTypeItemTypeDeleteFieldInput {
+  delete: TypeBaseDeleteInput
+  where: ArrayTypeItemTypeConnectionWhere
+}
+
+input ArrayTypeItemTypeDisconnectFieldInput {
+  disconnect: TypeBaseDisconnectInput
+  where: ArrayTypeItemTypeConnectionWhere
+}
+
+input ArrayTypeItemTypeFieldInput {
+  connect: [ArrayTypeItemTypeConnectFieldInput!]
+  create: [ArrayTypeItemTypeCreateFieldInput!]
+}
+
+type ArrayTypeItemTypeRelationship {
+  cursor: String!
+  node: TypeBase!
+}
+
+input ArrayTypeItemTypeUpdateConnectionInput {
+  node: TypeBaseUpdateInput
+}
+
+input ArrayTypeItemTypeUpdateFieldInput {
+  connect: [ArrayTypeItemTypeConnectFieldInput!]
+  create: [ArrayTypeItemTypeCreateFieldInput!]
+  delete: [ArrayTypeItemTypeDeleteFieldInput!]
+  disconnect: [ArrayTypeItemTypeDisconnectFieldInput!]
+  update: ArrayTypeItemTypeUpdateConnectionInput
+  where: ArrayTypeItemTypeConnectionWhere
+}
+
+input ArrayTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ArrayTypeSort objects to sort ArrayTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ArrayTypeSort]
+}
+
+input ArrayTypeOwnerAggregateInput {
+  AND: [ArrayTypeOwnerAggregateInput!]
+  OR: [ArrayTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ArrayTypeOwnerNodeAggregationWhereInput
+}
+
+input ArrayTypeOwnerNodeAggregationWhereInput {
+  AND: [ArrayTypeOwnerNodeAggregationWhereInput!]
+  OR: [ArrayTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input ArrayTypeRelationInput {
+  itemType: [ArrayTypeItemTypeCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort ArrayTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ArrayTypeSort object.
+"""
+input ArrayTypeSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input ArrayTypeUpdateInput {
+  itemType: [ArrayTypeItemTypeUpdateFieldInput!]
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type ArrayTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: ArrayTypeUserOwnerNodeAggregateSelection
+}
+
+type ArrayTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input ArrayTypeWhere {
+  AND: [ArrayTypeWhere!]
+  OR: [ArrayTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  itemTypeConnection: ArrayTypeItemTypeConnectionWhere
+  itemTypeConnection_NOT: ArrayTypeItemTypeConnectionWhere
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: ArrayTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
 type Atom {
+  api(options: InterfaceTypeOptions, where: InterfaceTypeWhere): InterfaceType!
+  apiAggregate(
+    where: InterfaceTypeWhere
+  ): AtomInterfaceTypeApiAggregationSelection
+  apiConnection(
+    after: String
+    first: Int
+    sort: [AtomApiConnectionSort!]
+    where: AtomApiConnectionWhere
+  ): AtomApiConnection!
   id: ID!
   name: String!
   type: AtomType!
@@ -394,9 +823,151 @@ type AtomAggregateSelection {
   name: StringAggregateSelection!
 }
 
+input AtomApiAggregateInput {
+  AND: [AtomApiAggregateInput!]
+  OR: [AtomApiAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AtomApiNodeAggregationWhereInput
+}
+
+input AtomApiConnectFieldInput {
+  connect: InterfaceTypeConnectInput
+  where: InterfaceTypeConnectWhere
+}
+
+input AtomApiConnectOrCreateFieldInput {
+  onCreate: AtomApiConnectOrCreateFieldInputOnCreate!
+  where: InterfaceTypeConnectOrCreateWhere!
+}
+
+input AtomApiConnectOrCreateFieldInputOnCreate {
+  node: InterfaceTypeCreateInput!
+}
+
+type AtomApiConnection {
+  edges: [AtomApiRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AtomApiConnectionSort {
+  node: InterfaceTypeSort
+}
+
+input AtomApiConnectionWhere {
+  AND: [AtomApiConnectionWhere!]
+  OR: [AtomApiConnectionWhere!]
+  node: InterfaceTypeWhere
+  node_NOT: InterfaceTypeWhere
+}
+
+input AtomApiCreateFieldInput {
+  node: InterfaceTypeCreateInput!
+}
+
+input AtomApiDeleteFieldInput {
+  delete: InterfaceTypeDeleteInput
+  where: AtomApiConnectionWhere
+}
+
+input AtomApiDisconnectFieldInput {
+  disconnect: InterfaceTypeDisconnectInput
+  where: AtomApiConnectionWhere
+}
+
+input AtomApiFieldInput {
+  connect: AtomApiConnectFieldInput
+  connectOrCreate: AtomApiConnectOrCreateFieldInput
+  create: AtomApiCreateFieldInput
+}
+
+input AtomApiNodeAggregationWhereInput {
+  AND: [AtomApiNodeAggregationWhereInput!]
+  OR: [AtomApiNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type AtomApiRelationship {
+  cursor: String!
+  node: InterfaceType!
+}
+
+input AtomApiUpdateConnectionInput {
+  node: InterfaceTypeUpdateInput
+}
+
+input AtomApiUpdateFieldInput {
+  connect: AtomApiConnectFieldInput
+  connectOrCreate: AtomApiConnectOrCreateFieldInput
+  create: AtomApiCreateFieldInput
+  delete: AtomApiDeleteFieldInput
+  disconnect: AtomApiDisconnectFieldInput
+  update: AtomApiUpdateConnectionInput
+  where: AtomApiConnectionWhere
+}
+
+input AtomConnectInput {
+  api: AtomApiConnectFieldInput
+}
+
+input AtomConnectOrCreateInput {
+  api: AtomApiConnectOrCreateFieldInput
+}
+
+input AtomConnectOrCreateWhere {
+  node: AtomUniqueWhere!
+}
+
+input AtomConnectWhere {
+  node: AtomWhere!
+}
+
 input AtomCreateInput {
+  api: AtomApiFieldInput
   name: String!
   type: AtomType!
+}
+
+input AtomDeleteInput {
+  api: AtomApiDeleteFieldInput
+}
+
+input AtomDisconnectInput {
+  api: AtomApiDisconnectFieldInput
+}
+
+type AtomInterfaceTypeApiAggregationSelection {
+  count: Int!
+  node: AtomInterfaceTypeApiNodeAggregateSelection
+}
+
+type AtomInterfaceTypeApiNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
 }
 
 input AtomOptions {
@@ -407,6 +978,10 @@ input AtomOptions {
   Specify one or more AtomSort objects to sort Atoms by. The sorts will be applied in the order in which they are arranged in the array.
   """
   sort: [AtomSort]
+}
+
+input AtomRelationInput {
+  api: AtomApiCreateFieldInput
 }
 
 """
@@ -786,7 +1361,13 @@ enum AtomType {
   TextList
 }
 
+input AtomUniqueWhere {
+  id: ID
+  name: String
+}
+
 input AtomUpdateInput {
+  api: AtomApiUpdateFieldInput
   name: String
   type: AtomType
 }
@@ -794,6 +1375,11 @@ input AtomUpdateInput {
 input AtomWhere {
   AND: [AtomWhere!]
   OR: [AtomWhere!]
+  api: InterfaceTypeWhere
+  apiAggregate: AtomApiAggregateInput
+  apiConnection: AtomApiConnectionWhere
+  apiConnection_NOT: AtomApiConnectionWhere
+  api_NOT: InterfaceTypeWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -820,8 +1406,18 @@ input AtomWhere {
   type_NOT_IN: [AtomType]
 }
 
+type CreateAppTypesMutationResponse {
+  appTypes: [AppType!]!
+  info: CreateInfo!
+}
+
 type CreateAppsMutationResponse {
   apps: [App!]!
+  info: CreateInfo!
+}
+
+type CreateArrayTypesMutationResponse {
+  arrayTypes: [ArrayType!]!
   info: CreateInfo!
 }
 
@@ -835,8 +1431,33 @@ type CreateCreateInfosMutationResponse {
   info: CreateInfo!
 }
 
+type CreateDeleteFieldResponsesMutationResponse {
+  deleteFieldResponses: [DeleteFieldResponse!]!
+  info: CreateInfo!
+}
+
+type CreateEdgesMutationResponse {
+  edges: [Edge!]!
+  info: CreateInfo!
+}
+
+type CreateElementTypesMutationResponse {
+  elementTypes: [ElementType!]!
+  info: CreateInfo!
+}
+
 type CreateElementsMutationResponse {
   elements: [Element!]!
+  info: CreateInfo!
+}
+
+type CreateEnumTypeValuesMutationResponse {
+  enumTypeValues: [EnumTypeValue!]!
+  info: CreateInfo!
+}
+
+type CreateEnumTypesMutationResponse {
+  enumTypes: [EnumType!]!
   info: CreateInfo!
 }
 
@@ -920,9 +1541,44 @@ input CreateInfoWhere {
   relationshipsCreated_NOT_IN: [Int]
 }
 
+type CreateInterfaceTypesMutationResponse {
+  info: CreateInfo!
+  interfaceTypes: [InterfaceType!]!
+}
+
+type CreateLambdaTypesMutationResponse {
+  info: CreateInfo!
+  lambdaTypes: [LambdaType!]!
+}
+
+type CreateMonacoTypesMutationResponse {
+  info: CreateInfo!
+  monacoTypes: [MonacoType!]!
+}
+
+type CreatePageTypesMutationResponse {
+  info: CreateInfo!
+  pageTypes: [PageType!]!
+}
+
 type CreatePagesMutationResponse {
   info: CreateInfo!
   pages: [Page!]!
+}
+
+type CreatePrimitiveTypesMutationResponse {
+  info: CreateInfo!
+  primitiveTypes: [PrimitiveType!]!
+}
+
+type CreateReactNodeTypesMutationResponse {
+  info: CreateInfo!
+  reactNodeTypes: [ReactNodeType!]!
+}
+
+type CreateRenderPropsTypesMutationResponse {
+  info: CreateInfo!
+  renderPropsTypes: [RenderPropsType!]!
 }
 
 type CreateTagEdgesMutationResponse {
@@ -930,14 +1586,19 @@ type CreateTagEdgesMutationResponse {
   tagEdges: [TagEdge!]!
 }
 
-type CreateTagGraphsMutationResponse {
-  info: CreateInfo!
-  tagGraphs: [TagGraph!]!
-}
-
 type CreateTagsMutationResponse {
   info: CreateInfo!
   tags: [Tag!]!
+}
+
+type CreateTypeReferencesMutationResponse {
+  info: CreateInfo!
+  typeReferences: [TypeReference!]!
+}
+
+type CreateUnionTypesMutationResponse {
+  info: CreateInfo!
+  unionTypes: [UnionType!]!
 }
 
 """
@@ -950,10 +1611,129 @@ type DateTimeAggregateSelection {
   min: DateTime
 }
 
+input DeleteFieldInput {
+  interfaceId: ID!
+  key: String!
+}
+
+type DeleteFieldResponse {
+  deletedEdgesCount: Int!
+}
+
+type DeleteFieldResponseAggregateSelection {
+  count: Int!
+  deletedEdgesCount: IntAggregateSelection!
+}
+
+input DeleteFieldResponseCreateInput {
+  deletedEdgesCount: Int!
+}
+
+input DeleteFieldResponseOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more DeleteFieldResponseSort objects to sort DeleteFieldResponses by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [DeleteFieldResponseSort]
+}
+
+"""
+Fields to sort DeleteFieldResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one DeleteFieldResponseSort object.
+"""
+input DeleteFieldResponseSort {
+  deletedEdgesCount: SortDirection
+}
+
+input DeleteFieldResponseUpdateInput {
+  deletedEdgesCount: Int
+}
+
+input DeleteFieldResponseWhere {
+  AND: [DeleteFieldResponseWhere!]
+  OR: [DeleteFieldResponseWhere!]
+  deletedEdgesCount: Int
+  deletedEdgesCount_GT: Int
+  deletedEdgesCount_GTE: Int
+  deletedEdgesCount_IN: [Int]
+  deletedEdgesCount_LT: Int
+  deletedEdgesCount_LTE: Int
+  deletedEdgesCount_NOT: Int
+  deletedEdgesCount_NOT_IN: [Int]
+}
+
 type DeleteInfo {
   bookmark: String
   nodesDeleted: Int!
   relationshipsDeleted: Int!
+}
+
+"""
+Simplest implementation of an IEdge with no additional fields
+"""
+type Edge implements IEdge {
+  source: String!
+  target: String!
+}
+
+type EdgeAggregateSelection {
+  count: Int!
+  source: StringAggregateSelection!
+  target: StringAggregateSelection!
+}
+
+input EdgeCreateInput {
+  source: String!
+  target: String!
+}
+
+input EdgeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more EdgeSort objects to sort Edges by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [EdgeSort]
+}
+
+"""
+Fields to sort Edges by. The order in which sorts are applied is not guaranteed when specifying many fields in one EdgeSort object.
+"""
+input EdgeSort {
+  source: SortDirection
+  target: SortDirection
+}
+
+input EdgeUpdateInput {
+  source: String
+  target: String
+}
+
+input EdgeWhere {
+  AND: [EdgeWhere!]
+  OR: [EdgeWhere!]
+  source: String
+  source_CONTAINS: String
+  source_ENDS_WITH: String
+  source_IN: [String]
+  source_NOT: String
+  source_NOT_CONTAINS: String
+  source_NOT_ENDS_WITH: String
+  source_NOT_IN: [String]
+  source_NOT_STARTS_WITH: String
+  source_STARTS_WITH: String
+  target: String
+  target_CONTAINS: String
+  target_ENDS_WITH: String
+  target_IN: [String]
+  target_NOT: String
+  target_NOT_CONTAINS: String
+  target_NOT_ENDS_WITH: String
+  target_NOT_IN: [String]
+  target_NOT_STARTS_WITH: String
+  target_STARTS_WITH: String
 }
 
 type Element {
@@ -1393,6 +2173,210 @@ input ElementSort {
   updatedAt: SortDirection
 }
 
+"""
+Allows picking an element from the current tree
+Is passed to the rendered element as a React node
+Prop values for this type have the shape of TypedValue in order to
+be distinguished from other element types.
+Comparison between different element types:
+- RenderPropsType: Component select box, results it '(props) => ReactNode' value
+- ReactNodeType: Component select box, results it 'ReactNode' value
+- ElementType: Current tree element select box, results it 'ReactNod' value
+"""
+type ElementType implements TypeBase {
+  """
+  Allows scoping the type of element to only descendants, children or all elements
+  """
+  elementKind: ElementTypeKind!
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): ElementTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type ElementTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input ElementTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input ElementTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input ElementTypeCreateInput {
+  elementKind: ElementTypeKind!
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input ElementTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input ElementTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+enum ElementTypeKind {
+  """
+  Pick any element in the current tree
+  """
+  AllElements
+
+  """
+  Pick any element from the children of the current element
+  """
+  ChildrenOnly
+
+  """
+  Pick any element from the descendants of the current element
+  """
+  DescendantsOnly
+}
+
+input ElementTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ElementTypeSort objects to sort ElementTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ElementTypeSort]
+}
+
+input ElementTypeOwnerAggregateInput {
+  AND: [ElementTypeOwnerAggregateInput!]
+  OR: [ElementTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementTypeOwnerNodeAggregationWhereInput
+}
+
+input ElementTypeOwnerNodeAggregationWhereInput {
+  AND: [ElementTypeOwnerNodeAggregationWhereInput!]
+  OR: [ElementTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input ElementTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort ElementTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementTypeSort object.
+"""
+input ElementTypeSort {
+  elementKind: SortDirection
+  id: SortDirection
+  name: SortDirection
+}
+
+input ElementTypeUpdateInput {
+  elementKind: ElementTypeKind
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type ElementTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: ElementTypeUserOwnerNodeAggregateSelection
+}
+
+type ElementTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input ElementTypeWhere {
+  AND: [ElementTypeWhere!]
+  OR: [ElementTypeWhere!]
+  elementKind: ElementTypeKind
+  elementKind_IN: [ElementTypeKind]
+  elementKind_NOT: ElementTypeKind
+  elementKind_NOT_IN: [ElementTypeKind]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: ElementTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
 input ElementUniqueWhere {
   id: ID
 }
@@ -1465,9 +2449,644 @@ input ElementWhere {
   updatedAt_NOT_IN: [DateTime]
 }
 
+"""
+Allows choosing one of a set of allowed values.
+The value gets passed to the render pipe as a Enum Type Value id.
+The actual value must be de-referenced by the id.
+"""
+type EnumType implements TypeBase {
+  allowedValues(
+    options: EnumTypeValueOptions
+    where: EnumTypeValueWhere
+  ): [EnumTypeValue!]
+  allowedValuesAggregate(
+    where: EnumTypeValueWhere
+  ): EnumTypeEnumTypeValueAllowedValuesAggregationSelection
+  allowedValuesConnection(
+    after: String
+    first: Int
+    sort: [EnumTypeAllowedValuesConnectionSort!]
+    where: EnumTypeAllowedValuesConnectionWhere
+  ): EnumTypeAllowedValuesConnection!
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): EnumTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type EnumTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input EnumTypeAllowedValuesAggregateInput {
+  AND: [EnumTypeAllowedValuesAggregateInput!]
+  OR: [EnumTypeAllowedValuesAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: EnumTypeAllowedValuesNodeAggregationWhereInput
+}
+
+input EnumTypeAllowedValuesConnectFieldInput {
+  connect: [EnumTypeValueConnectInput!]
+  where: EnumTypeValueConnectWhere
+}
+
+type EnumTypeAllowedValuesConnection {
+  edges: [EnumTypeAllowedValuesRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input EnumTypeAllowedValuesConnectionSort {
+  node: EnumTypeValueSort
+}
+
+input EnumTypeAllowedValuesConnectionWhere {
+  AND: [EnumTypeAllowedValuesConnectionWhere!]
+  OR: [EnumTypeAllowedValuesConnectionWhere!]
+  node: EnumTypeValueWhere
+  node_NOT: EnumTypeValueWhere
+}
+
+input EnumTypeAllowedValuesCreateFieldInput {
+  node: EnumTypeValueCreateInput!
+}
+
+input EnumTypeAllowedValuesDeleteFieldInput {
+  delete: EnumTypeValueDeleteInput
+  where: EnumTypeAllowedValuesConnectionWhere
+}
+
+input EnumTypeAllowedValuesDisconnectFieldInput {
+  disconnect: EnumTypeValueDisconnectInput
+  where: EnumTypeAllowedValuesConnectionWhere
+}
+
+input EnumTypeAllowedValuesFieldInput {
+  connect: [EnumTypeAllowedValuesConnectFieldInput!]
+  create: [EnumTypeAllowedValuesCreateFieldInput!]
+}
+
+input EnumTypeAllowedValuesNodeAggregationWhereInput {
+  AND: [EnumTypeAllowedValuesNodeAggregationWhereInput!]
+  OR: [EnumTypeAllowedValuesNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+  value_AVERAGE_EQUAL: Float
+  value_AVERAGE_GT: Float
+  value_AVERAGE_GTE: Float
+  value_AVERAGE_LT: Float
+  value_AVERAGE_LTE: Float
+  value_EQUAL: String
+  value_GT: Int
+  value_GTE: Int
+  value_LONGEST_EQUAL: Int
+  value_LONGEST_GT: Int
+  value_LONGEST_GTE: Int
+  value_LONGEST_LT: Int
+  value_LONGEST_LTE: Int
+  value_LT: Int
+  value_LTE: Int
+  value_SHORTEST_EQUAL: Int
+  value_SHORTEST_GT: Int
+  value_SHORTEST_GTE: Int
+  value_SHORTEST_LT: Int
+  value_SHORTEST_LTE: Int
+}
+
+type EnumTypeAllowedValuesRelationship {
+  cursor: String!
+  node: EnumTypeValue!
+}
+
+input EnumTypeAllowedValuesUpdateConnectionInput {
+  node: EnumTypeValueUpdateInput
+}
+
+input EnumTypeAllowedValuesUpdateFieldInput {
+  connect: [EnumTypeAllowedValuesConnectFieldInput!]
+  create: [EnumTypeAllowedValuesCreateFieldInput!]
+  delete: [EnumTypeAllowedValuesDeleteFieldInput!]
+  disconnect: [EnumTypeAllowedValuesDisconnectFieldInput!]
+  update: EnumTypeAllowedValuesUpdateConnectionInput
+  where: EnumTypeAllowedValuesConnectionWhere
+}
+
+input EnumTypeConnectInput {
+  allowedValues: [EnumTypeAllowedValuesConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input EnumTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input EnumTypeConnectOrCreateWhere {
+  node: EnumTypeUniqueWhere!
+}
+
+input EnumTypeConnectWhere {
+  node: EnumTypeWhere!
+}
+
+input EnumTypeCreateInput {
+  allowedValues: EnumTypeAllowedValuesFieldInput
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input EnumTypeDeleteInput {
+  allowedValues: [EnumTypeAllowedValuesDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input EnumTypeDisconnectInput {
+  allowedValues: [EnumTypeAllowedValuesDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+type EnumTypeEnumTypeValueAllowedValuesAggregationSelection {
+  count: Int!
+  node: EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection
+}
+
+type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+  value: StringAggregateSelection!
+}
+
+input EnumTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more EnumTypeSort objects to sort EnumTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [EnumTypeSort]
+}
+
+input EnumTypeOwnerAggregateInput {
+  AND: [EnumTypeOwnerAggregateInput!]
+  OR: [EnumTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: EnumTypeOwnerNodeAggregationWhereInput
+}
+
+input EnumTypeOwnerNodeAggregationWhereInput {
+  AND: [EnumTypeOwnerNodeAggregationWhereInput!]
+  OR: [EnumTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input EnumTypeRelationInput {
+  allowedValues: [EnumTypeAllowedValuesCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort EnumTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeSort object.
+"""
+input EnumTypeSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input EnumTypeUniqueWhere {
+  id: ID
+}
+
+input EnumTypeUpdateInput {
+  allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type EnumTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: EnumTypeUserOwnerNodeAggregateSelection
+}
+
+type EnumTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+type EnumTypeValue {
+  enumType(options: EnumTypeOptions, where: EnumTypeWhere): EnumType
+  enumTypeAggregate(
+    where: EnumTypeWhere
+  ): EnumTypeValueEnumTypeEnumTypeAggregationSelection
+  enumTypeConnection(
+    after: String
+    first: Int
+    sort: [EnumTypeValueEnumTypeConnectionSort!]
+    where: EnumTypeValueEnumTypeConnectionWhere
+  ): EnumTypeValueEnumTypeConnection!
+  id: ID!
+  name: String
+  value: String!
+}
+
+type EnumTypeValueAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+  value: StringAggregateSelection!
+}
+
+input EnumTypeValueConnectInput {
+  enumType: EnumTypeValueEnumTypeConnectFieldInput
+}
+
+input EnumTypeValueConnectOrCreateInput {
+  enumType: EnumTypeValueEnumTypeConnectOrCreateFieldInput
+}
+
+input EnumTypeValueConnectWhere {
+  node: EnumTypeValueWhere!
+}
+
+input EnumTypeValueCreateInput {
+  enumType: EnumTypeValueEnumTypeFieldInput
+  id: ID!
+  name: String
+  value: String!
+}
+
+input EnumTypeValueDeleteInput {
+  enumType: EnumTypeValueEnumTypeDeleteFieldInput
+}
+
+input EnumTypeValueDisconnectInput {
+  enumType: EnumTypeValueEnumTypeDisconnectFieldInput
+}
+
+input EnumTypeValueEnumTypeAggregateInput {
+  AND: [EnumTypeValueEnumTypeAggregateInput!]
+  OR: [EnumTypeValueEnumTypeAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: EnumTypeValueEnumTypeNodeAggregationWhereInput
+}
+
+input EnumTypeValueEnumTypeConnectFieldInput {
+  connect: EnumTypeConnectInput
+  where: EnumTypeConnectWhere
+}
+
+input EnumTypeValueEnumTypeConnectOrCreateFieldInput {
+  onCreate: EnumTypeValueEnumTypeConnectOrCreateFieldInputOnCreate!
+  where: EnumTypeConnectOrCreateWhere!
+}
+
+input EnumTypeValueEnumTypeConnectOrCreateFieldInputOnCreate {
+  node: EnumTypeCreateInput!
+}
+
+type EnumTypeValueEnumTypeConnection {
+  edges: [EnumTypeValueEnumTypeRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input EnumTypeValueEnumTypeConnectionSort {
+  node: EnumTypeSort
+}
+
+input EnumTypeValueEnumTypeConnectionWhere {
+  AND: [EnumTypeValueEnumTypeConnectionWhere!]
+  OR: [EnumTypeValueEnumTypeConnectionWhere!]
+  node: EnumTypeWhere
+  node_NOT: EnumTypeWhere
+}
+
+input EnumTypeValueEnumTypeCreateFieldInput {
+  node: EnumTypeCreateInput!
+}
+
+input EnumTypeValueEnumTypeDeleteFieldInput {
+  delete: EnumTypeDeleteInput
+  where: EnumTypeValueEnumTypeConnectionWhere
+}
+
+input EnumTypeValueEnumTypeDisconnectFieldInput {
+  disconnect: EnumTypeDisconnectInput
+  where: EnumTypeValueEnumTypeConnectionWhere
+}
+
+type EnumTypeValueEnumTypeEnumTypeAggregationSelection {
+  count: Int!
+  node: EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection
+}
+
+type EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input EnumTypeValueEnumTypeFieldInput {
+  connect: EnumTypeValueEnumTypeConnectFieldInput
+  connectOrCreate: EnumTypeValueEnumTypeConnectOrCreateFieldInput
+  create: EnumTypeValueEnumTypeCreateFieldInput
+}
+
+input EnumTypeValueEnumTypeNodeAggregationWhereInput {
+  AND: [EnumTypeValueEnumTypeNodeAggregationWhereInput!]
+  OR: [EnumTypeValueEnumTypeNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type EnumTypeValueEnumTypeRelationship {
+  cursor: String!
+  node: EnumType!
+}
+
+input EnumTypeValueEnumTypeUpdateConnectionInput {
+  node: EnumTypeUpdateInput
+}
+
+input EnumTypeValueEnumTypeUpdateFieldInput {
+  connect: EnumTypeValueEnumTypeConnectFieldInput
+  connectOrCreate: EnumTypeValueEnumTypeConnectOrCreateFieldInput
+  create: EnumTypeValueEnumTypeCreateFieldInput
+  delete: EnumTypeValueEnumTypeDeleteFieldInput
+  disconnect: EnumTypeValueEnumTypeDisconnectFieldInput
+  update: EnumTypeValueEnumTypeUpdateConnectionInput
+  where: EnumTypeValueEnumTypeConnectionWhere
+}
+
+input EnumTypeValueOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more EnumTypeValueSort objects to sort EnumTypeValues by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [EnumTypeValueSort]
+}
+
+input EnumTypeValueRelationInput {
+  enumType: EnumTypeValueEnumTypeCreateFieldInput
+}
+
+"""
+Fields to sort EnumTypeValues by. The order in which sorts are applied is not guaranteed when specifying many fields in one EnumTypeValueSort object.
+"""
+input EnumTypeValueSort {
+  id: SortDirection
+  name: SortDirection
+  value: SortDirection
+}
+
+input EnumTypeValueUpdateInput {
+  enumType: EnumTypeValueEnumTypeUpdateFieldInput
+  id: ID
+  name: String
+  value: String
+}
+
+input EnumTypeValueWhere {
+  AND: [EnumTypeValueWhere!]
+  OR: [EnumTypeValueWhere!]
+  enumType: EnumTypeWhere
+  enumTypeAggregate: EnumTypeValueEnumTypeAggregateInput
+  enumTypeConnection: EnumTypeValueEnumTypeConnectionWhere
+  enumTypeConnection_NOT: EnumTypeValueEnumTypeConnectionWhere
+  enumType_NOT: EnumTypeWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  value: String
+  value_CONTAINS: String
+  value_ENDS_WITH: String
+  value_IN: [String]
+  value_NOT: String
+  value_NOT_CONTAINS: String
+  value_NOT_ENDS_WITH: String
+  value_NOT_IN: [String]
+  value_NOT_STARTS_WITH: String
+  value_STARTS_WITH: String
+}
+
+input EnumTypeWhere {
+  AND: [EnumTypeWhere!]
+  OR: [EnumTypeWhere!]
+  allowedValues: EnumTypeValueWhere
+  allowedValuesAggregate: EnumTypeAllowedValuesAggregateInput
+  allowedValuesConnection: EnumTypeAllowedValuesConnectionWhere
+  allowedValuesConnection_NOT: EnumTypeAllowedValuesConnectionWhere
+  allowedValues_NOT: EnumTypeValueWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: EnumTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
+interface Field {
+  description: String
+  key: String!
+  name: String
+}
+
+input FieldCreateInput {
+  description: String
+  key: String!
+  name: String
+}
+
+input FieldSort {
+  description: SortDirection
+  key: SortDirection
+  name: SortDirection
+}
+
+input FieldUpdateInput {
+  description: String
+  key: String
+  name: String
+}
+
+input FieldWhere {
+  AND: [FieldWhere!]
+  OR: [FieldWhere!]
+  description: String
+  description_CONTAINS: String
+  description_ENDS_WITH: String
+  description_IN: [String]
+  description_NOT: String
+  description_NOT_CONTAINS: String
+  description_NOT_ENDS_WITH: String
+  description_NOT_IN: [String]
+  description_NOT_STARTS_WITH: String
+  description_STARTS_WITH: String
+  key: String
+  key_CONTAINS: String
+  key_ENDS_WITH: String
+  key_IN: [String]
+  key_NOT: String
+  key_NOT_CONTAINS: String
+  key_NOT_ENDS_WITH: String
+  key_NOT_IN: [String]
+  key_NOT_STARTS_WITH: String
+  key_STARTS_WITH: String
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+}
+
 type IDAggregateSelection {
   longest: ID
   shortest: ID
+}
+
+interface IEdge {
+  source: String!
+  target: String!
 }
 
 interface IElementGraph {
@@ -1524,39 +3143,908 @@ type IntAggregateSelection {
 }
 
 """
+Represents an object type with multiple fields
+"""
+type InterfaceType implements TypeBase {
+  apiofAtoms(options: AtomOptions, where: AtomWhere): [Atom!]
+  apiofAtomsAggregate(
+    where: AtomWhere
+  ): InterfaceTypeAtomApiofAtomsAggregationSelection
+  apiofAtomsConnection(
+    after: String
+    first: Int
+    sort: [InterfaceTypeApiofAtomsConnectionSort!]
+    where: InterfaceTypeApiofAtomsConnectionWhere
+  ): InterfaceTypeApiofAtomsConnection!
+  fields(options: QueryOptions, where: TypeBaseWhere): [TypeBase!]
+  fieldsConnection(
+    sort: [InterfaceTypeFieldsConnectionSort!]
+    where: InterfaceTypeFieldsConnectionWhere
+  ): InterfaceTypeFieldsConnection!
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): InterfaceTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type InterfaceTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input InterfaceTypeApiofAtomsAggregateInput {
+  AND: [InterfaceTypeApiofAtomsAggregateInput!]
+  OR: [InterfaceTypeApiofAtomsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: InterfaceTypeApiofAtomsNodeAggregationWhereInput
+}
+
+input InterfaceTypeApiofAtomsConnectFieldInput {
+  connect: [AtomConnectInput!]
+  where: AtomConnectWhere
+}
+
+input InterfaceTypeApiofAtomsConnectOrCreateFieldInput {
+  onCreate: InterfaceTypeApiofAtomsConnectOrCreateFieldInputOnCreate!
+  where: AtomConnectOrCreateWhere!
+}
+
+input InterfaceTypeApiofAtomsConnectOrCreateFieldInputOnCreate {
+  node: AtomCreateInput!
+}
+
+type InterfaceTypeApiofAtomsConnection {
+  edges: [InterfaceTypeApiofAtomsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input InterfaceTypeApiofAtomsConnectionSort {
+  node: AtomSort
+}
+
+input InterfaceTypeApiofAtomsConnectionWhere {
+  AND: [InterfaceTypeApiofAtomsConnectionWhere!]
+  OR: [InterfaceTypeApiofAtomsConnectionWhere!]
+  node: AtomWhere
+  node_NOT: AtomWhere
+}
+
+input InterfaceTypeApiofAtomsCreateFieldInput {
+  node: AtomCreateInput!
+}
+
+input InterfaceTypeApiofAtomsDeleteFieldInput {
+  delete: AtomDeleteInput
+  where: InterfaceTypeApiofAtomsConnectionWhere
+}
+
+input InterfaceTypeApiofAtomsDisconnectFieldInput {
+  disconnect: AtomDisconnectInput
+  where: InterfaceTypeApiofAtomsConnectionWhere
+}
+
+input InterfaceTypeApiofAtomsFieldInput {
+  connect: [InterfaceTypeApiofAtomsConnectFieldInput!]
+  connectOrCreate: [InterfaceTypeApiofAtomsConnectOrCreateFieldInput!]
+  create: [InterfaceTypeApiofAtomsCreateFieldInput!]
+}
+
+input InterfaceTypeApiofAtomsNodeAggregationWhereInput {
+  AND: [InterfaceTypeApiofAtomsNodeAggregationWhereInput!]
+  OR: [InterfaceTypeApiofAtomsNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type InterfaceTypeApiofAtomsRelationship {
+  cursor: String!
+  node: Atom!
+}
+
+input InterfaceTypeApiofAtomsUpdateConnectionInput {
+  node: AtomUpdateInput
+}
+
+input InterfaceTypeApiofAtomsUpdateFieldInput {
+  connect: [InterfaceTypeApiofAtomsConnectFieldInput!]
+  connectOrCreate: [InterfaceTypeApiofAtomsConnectOrCreateFieldInput!]
+  create: [InterfaceTypeApiofAtomsCreateFieldInput!]
+  delete: [InterfaceTypeApiofAtomsDeleteFieldInput!]
+  disconnect: [InterfaceTypeApiofAtomsDisconnectFieldInput!]
+  update: InterfaceTypeApiofAtomsUpdateConnectionInput
+  where: InterfaceTypeApiofAtomsConnectionWhere
+}
+
+type InterfaceTypeAtomApiofAtomsAggregationSelection {
+  count: Int!
+  node: InterfaceTypeAtomApiofAtomsNodeAggregateSelection
+}
+
+type InterfaceTypeAtomApiofAtomsNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input InterfaceTypeConnectInput {
+  apiofAtoms: [InterfaceTypeApiofAtomsConnectFieldInput!]
+  fields: [InterfaceTypeFieldsConnectFieldInput!]
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input InterfaceTypeConnectOrCreateInput {
+  apiofAtoms: [InterfaceTypeApiofAtomsConnectOrCreateFieldInput!]
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input InterfaceTypeConnectOrCreateWhere {
+  node: InterfaceTypeUniqueWhere!
+}
+
+input InterfaceTypeConnectWhere {
+  node: InterfaceTypeWhere!
+}
+
+input InterfaceTypeCreateInput {
+  apiofAtoms: InterfaceTypeApiofAtomsFieldInput
+  fields: InterfaceTypeFieldsFieldInput
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input InterfaceTypeDeleteInput {
+  apiofAtoms: [InterfaceTypeApiofAtomsDeleteFieldInput!]
+  fields: [InterfaceTypeFieldsDeleteFieldInput!]
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input InterfaceTypeDisconnectInput {
+  apiofAtoms: [InterfaceTypeApiofAtomsDisconnectFieldInput!]
+  fields: [InterfaceTypeFieldsDisconnectFieldInput!]
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+"""
+Connection between an Interface Type and its fields types.
+The field data is stored as relationship properties and we retreive them along with the relation itself.
+"""
+type InterfaceTypeEdge implements Field & IEdge {
+  description: String
+  key: String!
+  name: String
+  source: String!
+  target: String!
+}
+
+input InterfaceTypeFieldsConnectFieldInput {
+  connect: TypeBaseConnectInput
+  edge: FieldCreateInput!
+  where: TypeBaseConnectWhere
+}
+
+type InterfaceTypeFieldsConnection {
+  edges: [InterfaceTypeFieldsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input InterfaceTypeFieldsConnectionSort {
+  edge: FieldSort
+}
+
+input InterfaceTypeFieldsConnectionWhere {
+  AND: [InterfaceTypeFieldsConnectionWhere!]
+  OR: [InterfaceTypeFieldsConnectionWhere!]
+  edge: FieldWhere
+  edge_NOT: FieldWhere
+  node: TypeBaseWhere
+  node_NOT: TypeBaseWhere
+}
+
+input InterfaceTypeFieldsCreateFieldInput {
+  edge: FieldCreateInput!
+  node: TypeBaseCreateInput!
+}
+
+input InterfaceTypeFieldsDeleteFieldInput {
+  delete: TypeBaseDeleteInput
+  where: InterfaceTypeFieldsConnectionWhere
+}
+
+input InterfaceTypeFieldsDisconnectFieldInput {
+  disconnect: TypeBaseDisconnectInput
+  where: InterfaceTypeFieldsConnectionWhere
+}
+
+input InterfaceTypeFieldsFieldInput {
+  connect: [InterfaceTypeFieldsConnectFieldInput!]
+  create: [InterfaceTypeFieldsCreateFieldInput!]
+}
+
+type InterfaceTypeFieldsRelationship implements Field {
+  cursor: String!
+  description: String
+  key: String!
+  name: String
+  node: TypeBase!
+}
+
+input InterfaceTypeFieldsUpdateConnectionInput {
+  edge: FieldUpdateInput
+  node: TypeBaseUpdateInput
+}
+
+input InterfaceTypeFieldsUpdateFieldInput {
+  connect: [InterfaceTypeFieldsConnectFieldInput!]
+  create: [InterfaceTypeFieldsCreateFieldInput!]
+  delete: [InterfaceTypeFieldsDeleteFieldInput!]
+  disconnect: [InterfaceTypeFieldsDisconnectFieldInput!]
+  update: InterfaceTypeFieldsUpdateConnectionInput
+  where: InterfaceTypeFieldsConnectionWhere
+}
+
+input InterfaceTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more InterfaceTypeSort objects to sort InterfaceTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [InterfaceTypeSort]
+}
+
+input InterfaceTypeOwnerAggregateInput {
+  AND: [InterfaceTypeOwnerAggregateInput!]
+  OR: [InterfaceTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: InterfaceTypeOwnerNodeAggregationWhereInput
+}
+
+input InterfaceTypeOwnerNodeAggregationWhereInput {
+  AND: [InterfaceTypeOwnerNodeAggregationWhereInput!]
+  OR: [InterfaceTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input InterfaceTypeRelationInput {
+  apiofAtoms: [InterfaceTypeApiofAtomsCreateFieldInput!]
+  fields: [InterfaceTypeFieldsCreateFieldInput!]
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort InterfaceTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one InterfaceTypeSort object.
+"""
+input InterfaceTypeSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input InterfaceTypeUniqueWhere {
+  id: ID
+}
+
+input InterfaceTypeUpdateInput {
+  apiofAtoms: [InterfaceTypeApiofAtomsUpdateFieldInput!]
+  fields: [InterfaceTypeFieldsUpdateFieldInput!]
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type InterfaceTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: InterfaceTypeUserOwnerNodeAggregateSelection
+}
+
+type InterfaceTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input InterfaceTypeWhere {
+  AND: [InterfaceTypeWhere!]
+  OR: [InterfaceTypeWhere!]
+  apiofAtoms: AtomWhere
+  apiofAtomsAggregate: InterfaceTypeApiofAtomsAggregateInput
+  apiofAtomsConnection: InterfaceTypeApiofAtomsConnectionWhere
+  apiofAtomsConnection_NOT: InterfaceTypeApiofAtomsConnectionWhere
+  apiofAtoms_NOT: AtomWhere
+  fieldsConnection: InterfaceTypeFieldsConnectionWhere
+  fieldsConnection_NOT: InterfaceTypeFieldsConnectionWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: InterfaceTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
+"""
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSONObject
 
+"""
+Allows picking a lambda
+"""
+type LambdaType implements TypeBase {
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): LambdaTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type LambdaTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input LambdaTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input LambdaTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input LambdaTypeCreateInput {
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input LambdaTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input LambdaTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+input LambdaTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more LambdaTypeSort objects to sort LambdaTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [LambdaTypeSort]
+}
+
+input LambdaTypeOwnerAggregateInput {
+  AND: [LambdaTypeOwnerAggregateInput!]
+  OR: [LambdaTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: LambdaTypeOwnerNodeAggregationWhereInput
+}
+
+input LambdaTypeOwnerNodeAggregationWhereInput {
+  AND: [LambdaTypeOwnerNodeAggregationWhereInput!]
+  OR: [LambdaTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input LambdaTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort LambdaTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one LambdaTypeSort object.
+"""
+input LambdaTypeSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input LambdaTypeUpdateInput {
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type LambdaTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: LambdaTypeUserOwnerNodeAggregateSelection
+}
+
+type LambdaTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input LambdaTypeWhere {
+  AND: [LambdaTypeWhere!]
+  OR: [LambdaTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: LambdaTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
+enum MonacoLanguage {
+  css
+  cssInJs
+  graphqlDev
+  javascript
+  json
+  typescript
+}
+
+"""
+Allows editing the value using a monaco editor
+"""
+type MonacoType implements TypeBase {
+  graph: TypeGraph!
+  id: ID!
+  language: MonacoLanguage!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): MonacoTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type MonacoTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input MonacoTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input MonacoTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input MonacoTypeCreateInput {
+  language: MonacoLanguage!
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input MonacoTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input MonacoTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+input MonacoTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more MonacoTypeSort objects to sort MonacoTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [MonacoTypeSort]
+}
+
+input MonacoTypeOwnerAggregateInput {
+  AND: [MonacoTypeOwnerAggregateInput!]
+  OR: [MonacoTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: MonacoTypeOwnerNodeAggregationWhereInput
+}
+
+input MonacoTypeOwnerNodeAggregationWhereInput {
+  AND: [MonacoTypeOwnerNodeAggregationWhereInput!]
+  OR: [MonacoTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input MonacoTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort MonacoTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one MonacoTypeSort object.
+"""
+input MonacoTypeSort {
+  id: SortDirection
+  language: SortDirection
+  name: SortDirection
+}
+
+input MonacoTypeUpdateInput {
+  language: MonacoLanguage
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type MonacoTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: MonacoTypeUserOwnerNodeAggregateSelection
+}
+
+type MonacoTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input MonacoTypeWhere {
+  AND: [MonacoTypeWhere!]
+  OR: [MonacoTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  language: MonacoLanguage
+  language_IN: [MonacoLanguage]
+  language_NOT: MonacoLanguage
+  language_NOT_IN: [MonacoLanguage]
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: MonacoTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
 type Mutation {
+  createAppTypes(input: [AppTypeCreateInput!]!): CreateAppTypesMutationResponse!
   createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
+  createArrayTypes(
+    input: [ArrayTypeCreateInput!]!
+  ): CreateArrayTypesMutationResponse!
   createAtoms(input: [AtomCreateInput!]!): CreateAtomsMutationResponse!
   createCreateInfos(
     input: [CreateInfoCreateInput!]!
   ): CreateCreateInfosMutationResponse!
+  createDeleteFieldResponses(
+    input: [DeleteFieldResponseCreateInput!]!
+  ): CreateDeleteFieldResponsesMutationResponse!
+  createEdges(input: [EdgeCreateInput!]!): CreateEdgesMutationResponse!
+  createElementTypes(
+    input: [ElementTypeCreateInput!]!
+  ): CreateElementTypesMutationResponse!
   createElements(input: [ElementCreateInput!]!): CreateElementsMutationResponse!
+  createEnumTypeValues(
+    input: [EnumTypeValueCreateInput!]!
+  ): CreateEnumTypeValuesMutationResponse!
+  createEnumTypes(
+    input: [EnumTypeCreateInput!]!
+  ): CreateEnumTypesMutationResponse!
   createImportAtomsMutationResponses(
     input: [ImportAtomsMutationResponseCreateInput!]!
   ): CreateImportAtomsMutationResponsesMutationResponse!
+  createInterfaceTypes(
+    input: [InterfaceTypeCreateInput!]!
+  ): CreateInterfaceTypesMutationResponse!
+  createLambdaTypes(
+    input: [LambdaTypeCreateInput!]!
+  ): CreateLambdaTypesMutationResponse!
+  createMonacoTypes(
+    input: [MonacoTypeCreateInput!]!
+  ): CreateMonacoTypesMutationResponse!
+  createPageTypes(
+    input: [PageTypeCreateInput!]!
+  ): CreatePageTypesMutationResponse!
   createPages(input: [PageCreateInput!]!): CreatePagesMutationResponse!
+  createPrimitiveTypes(
+    input: [PrimitiveTypeCreateInput!]!
+  ): CreatePrimitiveTypesMutationResponse!
+  createReactNodeTypes(
+    input: [ReactNodeTypeCreateInput!]!
+  ): CreateReactNodeTypesMutationResponse!
+  createRenderPropsTypes(
+    input: [RenderPropsTypeCreateInput!]!
+  ): CreateRenderPropsTypesMutationResponse!
   createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
-  createTagGraphs(
-    input: [TagGraphCreateInput!]!
-  ): CreateTagGraphsMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
+  createTypeReferences(
+    input: [TypeReferenceCreateInput!]!
+  ): CreateTypeReferencesMutationResponse!
+  createUnionTypes(
+    input: [UnionTypeCreateInput!]!
+  ): CreateUnionTypesMutationResponse!
+  deleteAppTypes(delete: AppTypeDeleteInput, where: AppTypeWhere): DeleteInfo!
   deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
-  deleteAtoms(where: AtomWhere): DeleteInfo!
+  deleteArrayTypes(
+    delete: ArrayTypeDeleteInput
+    where: ArrayTypeWhere
+  ): DeleteInfo!
+  deleteAtoms(delete: AtomDeleteInput, where: AtomWhere): DeleteInfo!
   deleteCreateInfos(where: CreateInfoWhere): DeleteInfo!
+  deleteDeleteFieldResponses(where: DeleteFieldResponseWhere): DeleteInfo!
+  deleteEdges(where: EdgeWhere): DeleteInfo!
+  deleteElementTypes(
+    delete: ElementTypeDeleteInput
+    where: ElementTypeWhere
+  ): DeleteInfo!
   deleteElements(delete: ElementDeleteInput, where: ElementWhere): DeleteInfo!
+  deleteEnumTypeValues(
+    delete: EnumTypeValueDeleteInput
+    where: EnumTypeValueWhere
+  ): DeleteInfo!
+  deleteEnumTypes(
+    delete: EnumTypeDeleteInput
+    where: EnumTypeWhere
+  ): DeleteInfo!
+  deleteFieldEdge(input: DeleteFieldInput!): DeleteFieldResponse!
   deleteImportAtomsMutationResponses(
     where: ImportAtomsMutationResponseWhere
   ): DeleteInfo!
+  deleteInterfaceTypes(
+    delete: InterfaceTypeDeleteInput
+    where: InterfaceTypeWhere
+  ): DeleteInfo!
+  deleteLambdaTypes(
+    delete: LambdaTypeDeleteInput
+    where: LambdaTypeWhere
+  ): DeleteInfo!
+  deleteMonacoTypes(
+    delete: MonacoTypeDeleteInput
+    where: MonacoTypeWhere
+  ): DeleteInfo!
+  deletePageTypes(
+    delete: PageTypeDeleteInput
+    where: PageTypeWhere
+  ): DeleteInfo!
   deletePages(delete: PageDeleteInput, where: PageWhere): DeleteInfo!
+  deletePrimitiveTypes(
+    delete: PrimitiveTypeDeleteInput
+    where: PrimitiveTypeWhere
+  ): DeleteInfo!
+  deleteReactNodeTypes(
+    delete: ReactNodeTypeDeleteInput
+    where: ReactNodeTypeWhere
+  ): DeleteInfo!
+  deleteRenderPropsTypes(
+    delete: RenderPropsTypeDeleteInput
+    where: RenderPropsTypeWhere
+  ): DeleteInfo!
   deleteTagEdges(where: TagEdgeWhere): DeleteInfo!
-  deleteTagGraphs(where: TagGraphWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
+  deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
+  deleteUnionTypes(
+    delete: UnionTypeDeleteInput
+    where: UnionTypeWhere
+  ): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
+  updateAppTypes(
+    connect: AppTypeConnectInput
+    connectOrCreate: AppTypeConnectOrCreateInput
+    create: AppTypeRelationInput
+    delete: AppTypeDeleteInput
+    disconnect: AppTypeDisconnectInput
+    update: AppTypeUpdateInput
+    where: AppTypeWhere
+  ): UpdateAppTypesMutationResponse!
   updateApps(
     connect: AppConnectInput
     connectOrCreate: AppConnectOrCreateInput
@@ -1566,7 +4054,21 @@ type Mutation {
     update: AppUpdateInput
     where: AppWhere
   ): UpdateAppsMutationResponse!
+  updateArrayTypes(
+    connect: ArrayTypeConnectInput
+    connectOrCreate: ArrayTypeConnectOrCreateInput
+    create: ArrayTypeRelationInput
+    delete: ArrayTypeDeleteInput
+    disconnect: ArrayTypeDisconnectInput
+    update: ArrayTypeUpdateInput
+    where: ArrayTypeWhere
+  ): UpdateArrayTypesMutationResponse!
   updateAtoms(
+    connect: AtomConnectInput
+    connectOrCreate: AtomConnectOrCreateInput
+    create: AtomRelationInput
+    delete: AtomDeleteInput
+    disconnect: AtomDisconnectInput
     update: AtomUpdateInput
     where: AtomWhere
   ): UpdateAtomsMutationResponse!
@@ -1574,6 +4076,23 @@ type Mutation {
     update: CreateInfoUpdateInput
     where: CreateInfoWhere
   ): UpdateCreateInfosMutationResponse!
+  updateDeleteFieldResponses(
+    update: DeleteFieldResponseUpdateInput
+    where: DeleteFieldResponseWhere
+  ): UpdateDeleteFieldResponsesMutationResponse!
+  updateEdges(
+    update: EdgeUpdateInput
+    where: EdgeWhere
+  ): UpdateEdgesMutationResponse!
+  updateElementTypes(
+    connect: ElementTypeConnectInput
+    connectOrCreate: ElementTypeConnectOrCreateInput
+    create: ElementTypeRelationInput
+    delete: ElementTypeDeleteInput
+    disconnect: ElementTypeDisconnectInput
+    update: ElementTypeUpdateInput
+    where: ElementTypeWhere
+  ): UpdateElementTypesMutationResponse!
   updateElements(
     connect: ElementConnectInput
     connectOrCreate: ElementConnectOrCreateInput
@@ -1583,10 +4102,64 @@ type Mutation {
     update: ElementUpdateInput
     where: ElementWhere
   ): UpdateElementsMutationResponse!
+  updateEnumTypeValues(
+    connect: EnumTypeValueConnectInput
+    connectOrCreate: EnumTypeValueConnectOrCreateInput
+    create: EnumTypeValueRelationInput
+    delete: EnumTypeValueDeleteInput
+    disconnect: EnumTypeValueDisconnectInput
+    update: EnumTypeValueUpdateInput
+    where: EnumTypeValueWhere
+  ): UpdateEnumTypeValuesMutationResponse!
+  updateEnumTypes(
+    connect: EnumTypeConnectInput
+    connectOrCreate: EnumTypeConnectOrCreateInput
+    create: EnumTypeRelationInput
+    delete: EnumTypeDeleteInput
+    disconnect: EnumTypeDisconnectInput
+    update: EnumTypeUpdateInput
+    where: EnumTypeWhere
+  ): UpdateEnumTypesMutationResponse!
   updateImportAtomsMutationResponses(
     update: ImportAtomsMutationResponseUpdateInput
     where: ImportAtomsMutationResponseWhere
   ): UpdateImportAtomsMutationResponsesMutationResponse!
+  updateInterfaceTypes(
+    connect: InterfaceTypeConnectInput
+    connectOrCreate: InterfaceTypeConnectOrCreateInput
+    create: InterfaceTypeRelationInput
+    delete: InterfaceTypeDeleteInput
+    disconnect: InterfaceTypeDisconnectInput
+    update: InterfaceTypeUpdateInput
+    where: InterfaceTypeWhere
+  ): UpdateInterfaceTypesMutationResponse!
+  updateLambdaTypes(
+    connect: LambdaTypeConnectInput
+    connectOrCreate: LambdaTypeConnectOrCreateInput
+    create: LambdaTypeRelationInput
+    delete: LambdaTypeDeleteInput
+    disconnect: LambdaTypeDisconnectInput
+    update: LambdaTypeUpdateInput
+    where: LambdaTypeWhere
+  ): UpdateLambdaTypesMutationResponse!
+  updateMonacoTypes(
+    connect: MonacoTypeConnectInput
+    connectOrCreate: MonacoTypeConnectOrCreateInput
+    create: MonacoTypeRelationInput
+    delete: MonacoTypeDeleteInput
+    disconnect: MonacoTypeDisconnectInput
+    update: MonacoTypeUpdateInput
+    where: MonacoTypeWhere
+  ): UpdateMonacoTypesMutationResponse!
+  updatePageTypes(
+    connect: PageTypeConnectInput
+    connectOrCreate: PageTypeConnectOrCreateInput
+    create: PageTypeRelationInput
+    delete: PageTypeDeleteInput
+    disconnect: PageTypeDisconnectInput
+    update: PageTypeUpdateInput
+    where: PageTypeWhere
+  ): UpdatePageTypesMutationResponse!
   updatePages(
     connect: PageConnectInput
     connectOrCreate: PageConnectOrCreateInput
@@ -1596,14 +4169,37 @@ type Mutation {
     update: PageUpdateInput
     where: PageWhere
   ): UpdatePagesMutationResponse!
+  updatePrimitiveTypes(
+    connect: PrimitiveTypeConnectInput
+    connectOrCreate: PrimitiveTypeConnectOrCreateInput
+    create: PrimitiveTypeRelationInput
+    delete: PrimitiveTypeDeleteInput
+    disconnect: PrimitiveTypeDisconnectInput
+    update: PrimitiveTypeUpdateInput
+    where: PrimitiveTypeWhere
+  ): UpdatePrimitiveTypesMutationResponse!
+  updateReactNodeTypes(
+    connect: ReactNodeTypeConnectInput
+    connectOrCreate: ReactNodeTypeConnectOrCreateInput
+    create: ReactNodeTypeRelationInput
+    delete: ReactNodeTypeDeleteInput
+    disconnect: ReactNodeTypeDisconnectInput
+    update: ReactNodeTypeUpdateInput
+    where: ReactNodeTypeWhere
+  ): UpdateReactNodeTypesMutationResponse!
+  updateRenderPropsTypes(
+    connect: RenderPropsTypeConnectInput
+    connectOrCreate: RenderPropsTypeConnectOrCreateInput
+    create: RenderPropsTypeRelationInput
+    delete: RenderPropsTypeDeleteInput
+    disconnect: RenderPropsTypeDisconnectInput
+    update: RenderPropsTypeUpdateInput
+    where: RenderPropsTypeWhere
+  ): UpdateRenderPropsTypesMutationResponse!
   updateTagEdges(
     update: TagEdgeUpdateInput
     where: TagEdgeWhere
   ): UpdateTagEdgesMutationResponse!
-  updateTagGraphs(
-    update: TagGraphUpdateInput
-    where: TagGraphWhere
-  ): UpdateTagGraphsMutationResponse!
   updateTags(
     connect: TagConnectInput
     connectOrCreate: TagConnectOrCreateInput
@@ -1613,6 +4209,23 @@ type Mutation {
     update: TagUpdateInput
     where: TagWhere
   ): UpdateTagsMutationResponse!
+  updateTypeReferences(
+    update: TypeReferenceUpdateInput
+    where: TypeReferenceWhere
+  ): UpdateTypeReferencesMutationResponse!
+  updateUnionTypes(
+    connect: UnionTypeConnectInput
+    connectOrCreate: UnionTypeConnectOrCreateInput
+    create: UnionTypeRelationInput
+    delete: UnionTypeDeleteInput
+    disconnect: UnionTypeDisconnectInput
+    update: UnionTypeUpdateInput
+    where: UnionTypeWhere
+  ): UpdateUnionTypesMutationResponse!
+  upsertFieldEdge(
+    input: UpsertFieldInput!
+    isCreating: Boolean!
+  ): InterfaceTypeEdge!
 }
 
 type Page {
@@ -1998,6 +4611,175 @@ input PageSort {
   name: SortDirection
 }
 
+"""
+Allows picking a page from the list of pages
+"""
+type PageType implements TypeBase {
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): PageTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type PageTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input PageTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input PageTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input PageTypeCreateInput {
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input PageTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input PageTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+input PageTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more PageTypeSort objects to sort PageTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [PageTypeSort]
+}
+
+input PageTypeOwnerAggregateInput {
+  AND: [PageTypeOwnerAggregateInput!]
+  OR: [PageTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: PageTypeOwnerNodeAggregationWhereInput
+}
+
+input PageTypeOwnerNodeAggregationWhereInput {
+  AND: [PageTypeOwnerNodeAggregationWhereInput!]
+  OR: [PageTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input PageTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort PageTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageTypeSort object.
+"""
+input PageTypeSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input PageTypeUpdateInput {
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type PageTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: PageTypeUserOwnerNodeAggregateSelection
+}
+
+type PageTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input PageTypeWhere {
+  AND: [PageTypeWhere!]
+  OR: [PageTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: PageTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
 input PageUniqueWhere {
   id: ID
 }
@@ -2043,10 +4825,200 @@ input PageWhere {
   rootElement_NOT: ElementWhere
 }
 
+"""
+Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
+"""
+type PrimitiveType implements TypeBase {
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): PrimitiveTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+  primitiveKind: PrimitiveTypeKind!
+}
+
+type PrimitiveTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input PrimitiveTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input PrimitiveTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input PrimitiveTypeCreateInput {
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+  primitiveKind: PrimitiveTypeKind!
+}
+
+input PrimitiveTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input PrimitiveTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+enum PrimitiveTypeKind {
+  Boolean
+  Float
+  Integer
+  String
+}
+
+input PrimitiveTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more PrimitiveTypeSort objects to sort PrimitiveTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [PrimitiveTypeSort]
+}
+
+input PrimitiveTypeOwnerAggregateInput {
+  AND: [PrimitiveTypeOwnerAggregateInput!]
+  OR: [PrimitiveTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: PrimitiveTypeOwnerNodeAggregationWhereInput
+}
+
+input PrimitiveTypeOwnerNodeAggregationWhereInput {
+  AND: [PrimitiveTypeOwnerNodeAggregationWhereInput!]
+  OR: [PrimitiveTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input PrimitiveTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort PrimitiveTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one PrimitiveTypeSort object.
+"""
+input PrimitiveTypeSort {
+  id: SortDirection
+  name: SortDirection
+  primitiveKind: SortDirection
+}
+
+input PrimitiveTypeUpdateInput {
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+  primitiveKind: PrimitiveTypeKind
+}
+
+type PrimitiveTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: PrimitiveTypeUserOwnerNodeAggregateSelection
+}
+
+type PrimitiveTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input PrimitiveTypeWhere {
+  AND: [PrimitiveTypeWhere!]
+  OR: [PrimitiveTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: PrimitiveTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+  primitiveKind: PrimitiveTypeKind
+  primitiveKind_IN: [PrimitiveTypeKind]
+  primitiveKind_NOT: PrimitiveTypeKind
+  primitiveKind_NOT_IN: [PrimitiveTypeKind]
+}
+
 type Query {
+  appTypes(options: AppTypeOptions, where: AppTypeWhere): [AppType!]!
+  appTypesAggregate(where: AppTypeWhere): AppTypeAggregateSelection!
+  appTypesCount(where: AppTypeWhere): Int!
   apps(options: AppOptions, where: AppWhere): [App!]!
   appsAggregate(where: AppWhere): AppAggregateSelection!
   appsCount(where: AppWhere): Int!
+  arrayTypes(options: ArrayTypeOptions, where: ArrayTypeWhere): [ArrayType!]!
+  arrayTypesAggregate(where: ArrayTypeWhere): ArrayTypeAggregateSelection!
+  arrayTypesCount(where: ArrayTypeWhere): Int!
   atoms(options: AtomOptions, where: AtomWhere): [Atom!]!
   atomsAggregate(where: AtomWhere): AtomAggregateSelection!
   atomsCount(where: AtomWhere): Int!
@@ -2056,9 +5028,44 @@ type Query {
   ): [CreateInfo!]!
   createInfosAggregate(where: CreateInfoWhere): CreateInfoAggregateSelection!
   createInfosCount(where: CreateInfoWhere): Int!
+  deleteFieldResponses(
+    options: DeleteFieldResponseOptions
+    where: DeleteFieldResponseWhere
+  ): [DeleteFieldResponse!]!
+  deleteFieldResponsesAggregate(
+    where: DeleteFieldResponseWhere
+  ): DeleteFieldResponseAggregateSelection!
+  deleteFieldResponsesCount(where: DeleteFieldResponseWhere): Int!
+  edges(options: EdgeOptions, where: EdgeWhere): [Edge!]!
+  edgesAggregate(where: EdgeWhere): EdgeAggregateSelection!
+  edgesCount(where: EdgeWhere): Int!
+  elementTypes(
+    options: ElementTypeOptions
+    where: ElementTypeWhere
+  ): [ElementType!]!
+  elementTypesAggregate(where: ElementTypeWhere): ElementTypeAggregateSelection!
+  elementTypesCount(where: ElementTypeWhere): Int!
   elements(options: ElementOptions, where: ElementWhere): [Element!]!
   elementsAggregate(where: ElementWhere): ElementAggregateSelection!
   elementsCount(where: ElementWhere): Int!
+  enumTypeValues(
+    options: EnumTypeValueOptions
+    where: EnumTypeValueWhere
+  ): [EnumTypeValue!]!
+  enumTypeValuesAggregate(
+    where: EnumTypeValueWhere
+  ): EnumTypeValueAggregateSelection!
+  enumTypeValuesCount(where: EnumTypeValueWhere): Int!
+  enumTypes(options: EnumTypeOptions, where: EnumTypeWhere): [EnumType!]!
+  enumTypesAggregate(where: EnumTypeWhere): EnumTypeAggregateSelection!
+  enumTypesCount(where: EnumTypeWhere): Int!
+  getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
+
+  """
+  Returns a list of all Type and Atom entities that reference the type with the given id
+  This could be different types of relationships like Atom-Api, ArrayType-itemType, InterfaceType-field, UnionType-unionTypeChild
+  """
+  getTypeReferences(typeId: ID!): [TypeReference!]
   importAtomsMutationResponses(
     options: ImportAtomsMutationResponseOptions
     where: ImportAtomsMutationResponseWhere
@@ -2069,21 +5076,440 @@ type Query {
   importAtomsMutationResponsesCount(
     where: ImportAtomsMutationResponseWhere
   ): Int!
+  interfaceTypes(
+    options: InterfaceTypeOptions
+    where: InterfaceTypeWhere
+  ): [InterfaceType!]!
+  interfaceTypesAggregate(
+    where: InterfaceTypeWhere
+  ): InterfaceTypeAggregateSelection!
+  interfaceTypesCount(where: InterfaceTypeWhere): Int!
+
+  """
+  Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion
+  """
+  isTypeDescendantOf(descendantTypeId: ID!, parentTypeId: ID!): Boolean
+  lambdaTypes(
+    options: LambdaTypeOptions
+    where: LambdaTypeWhere
+  ): [LambdaType!]!
+  lambdaTypesAggregate(where: LambdaTypeWhere): LambdaTypeAggregateSelection!
+  lambdaTypesCount(where: LambdaTypeWhere): Int!
+  monacoTypes(
+    options: MonacoTypeOptions
+    where: MonacoTypeWhere
+  ): [MonacoType!]!
+  monacoTypesAggregate(where: MonacoTypeWhere): MonacoTypeAggregateSelection!
+  monacoTypesCount(where: MonacoTypeWhere): Int!
+  pageTypes(options: PageTypeOptions, where: PageTypeWhere): [PageType!]!
+  pageTypesAggregate(where: PageTypeWhere): PageTypeAggregateSelection!
+  pageTypesCount(where: PageTypeWhere): Int!
   pages(options: PageOptions, where: PageWhere): [Page!]!
   pagesAggregate(where: PageWhere): PageAggregateSelection!
   pagesCount(where: PageWhere): Int!
+  primitiveTypes(
+    options: PrimitiveTypeOptions
+    where: PrimitiveTypeWhere
+  ): [PrimitiveType!]!
+  primitiveTypesAggregate(
+    where: PrimitiveTypeWhere
+  ): PrimitiveTypeAggregateSelection!
+  primitiveTypesCount(where: PrimitiveTypeWhere): Int!
+  reactNodeTypes(
+    options: ReactNodeTypeOptions
+    where: ReactNodeTypeWhere
+  ): [ReactNodeType!]!
+  reactNodeTypesAggregate(
+    where: ReactNodeTypeWhere
+  ): ReactNodeTypeAggregateSelection!
+  reactNodeTypesCount(where: ReactNodeTypeWhere): Int!
+  renderPropsTypes(
+    options: RenderPropsTypeOptions
+    where: RenderPropsTypeWhere
+  ): [RenderPropsType!]!
+  renderPropsTypesAggregate(
+    where: RenderPropsTypeWhere
+  ): RenderPropsTypeAggregateSelection!
+  renderPropsTypesCount(where: RenderPropsTypeWhere): Int!
   tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
   tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
   tagEdgesCount(where: TagEdgeWhere): Int!
   tagGraphs: TagGraph
-  tagGraphsAggregate(where: TagGraphWhere): TagGraphAggregateSelection!
-  tagGraphsCount(where: TagGraphWhere): Int!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
   tagsCount(where: TagWhere): Int!
+  typeReferences(
+    options: TypeReferenceOptions
+    where: TypeReferenceWhere
+  ): [TypeReference!]!
+  typeReferencesAggregate(
+    where: TypeReferenceWhere
+  ): TypeReferenceAggregateSelection!
+  typeReferencesCount(where: TypeReferenceWhere): Int!
+  unionTypes(options: UnionTypeOptions, where: UnionTypeWhere): [UnionType!]!
+  unionTypesAggregate(where: UnionTypeWhere): UnionTypeAggregateSelection!
+  unionTypesCount(where: UnionTypeWhere): Int!
   users(options: UserOptions, where: UserWhere): [User!]!
   usersAggregate(where: UserWhere): UserAggregateSelection!
   usersCount(where: UserWhere): Int!
+}
+
+input QueryOptions {
+  limit: Int
+  offset: Int
+}
+
+"""
+Allows picking a Component from the list of components.
+It is passed to the rendered element as a React node: `ReactNode`
+Prop values for this type have the shape of TypedValue in order to
+be distinguished from other element types.
+Comparison between different element types:
+- RenderPropsType: Component select box, results it '(props) => ReactNode' value
+- ReactNodeType: Component select box, results it 'ReactNode' value
+- ElementType: Current tree element select box, results it 'ReactNod' value
+"""
+type ReactNodeType implements TypeBase {
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): ReactNodeTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type ReactNodeTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input ReactNodeTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input ReactNodeTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input ReactNodeTypeCreateInput {
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input ReactNodeTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input ReactNodeTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+input ReactNodeTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ReactNodeTypeSort objects to sort ReactNodeTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ReactNodeTypeSort]
+}
+
+input ReactNodeTypeOwnerAggregateInput {
+  AND: [ReactNodeTypeOwnerAggregateInput!]
+  OR: [ReactNodeTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ReactNodeTypeOwnerNodeAggregationWhereInput
+}
+
+input ReactNodeTypeOwnerNodeAggregationWhereInput {
+  AND: [ReactNodeTypeOwnerNodeAggregationWhereInput!]
+  OR: [ReactNodeTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input ReactNodeTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort ReactNodeTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ReactNodeTypeSort object.
+"""
+input ReactNodeTypeSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input ReactNodeTypeUpdateInput {
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type ReactNodeTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: ReactNodeTypeUserOwnerNodeAggregateSelection
+}
+
+type ReactNodeTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input ReactNodeTypeWhere {
+  AND: [ReactNodeTypeWhere!]
+  OR: [ReactNodeTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: ReactNodeTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
+"""
+Allows picking a Component from the list of components.
+It is passed to the rendered element as a function that takes props as input
+and returns a React element: '(props) => ReactNode'
+Prop values for this type have the shape of TypedValue in order to
+be distinguished from other element types.
+Comparison between different element types:
+- RenderPropsType: Component select box, results it '(props) => ReactNode' value
+- ReactNodeType: Component select box, results it 'ReactNode' value
+- ElementType: Current tree element select box, results it 'ReactNod' value
+"""
+type RenderPropsType implements TypeBase {
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): RenderPropsTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+type RenderPropsTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input RenderPropsTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input RenderPropsTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input RenderPropsTypeCreateInput {
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+}
+
+input RenderPropsTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input RenderPropsTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+input RenderPropsTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more RenderPropsTypeSort objects to sort RenderPropsTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [RenderPropsTypeSort]
+}
+
+input RenderPropsTypeOwnerAggregateInput {
+  AND: [RenderPropsTypeOwnerAggregateInput!]
+  OR: [RenderPropsTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: RenderPropsTypeOwnerNodeAggregationWhereInput
+}
+
+input RenderPropsTypeOwnerNodeAggregationWhereInput {
+  AND: [RenderPropsTypeOwnerNodeAggregationWhereInput!]
+  OR: [RenderPropsTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input RenderPropsTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+}
+
+"""
+Fields to sort RenderPropsTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderPropsTypeSort object.
+"""
+input RenderPropsTypeSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input RenderPropsTypeUpdateInput {
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+type RenderPropsTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: RenderPropsTypeUserOwnerNodeAggregateSelection
+}
+
+type RenderPropsTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input RenderPropsTypeWhere {
+  AND: [RenderPropsTypeWhere!]
+  OR: [RenderPropsTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: RenderPropsTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
 }
 
 enum SortDirection {
@@ -2349,29 +5775,6 @@ type TagGraph implements IGraph {
   vertices: [Tag!]!
 }
 
-type TagGraphAggregateSelection {
-  count: Int!
-}
-
-input TagGraphCreateInput {
-  """
-  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
-  """
-  _emptyInput: Boolean
-}
-
-input TagGraphUpdateInput {
-  """
-  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
-  """
-  _emptyInput: Boolean
-}
-
-input TagGraphWhere {
-  AND: [TagGraphWhere!]
-  OR: [TagGraphWhere!]
-}
-
 input TagOptions {
   limit: Int
   offset: Int
@@ -2573,8 +5976,623 @@ input TagWhere {
   parent_NOT: TagWhere
 }
 
+interface TypeBase {
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+}
+
+input TypeBaseConnectInput {
+  _on: TypeBaseImplementationsConnectInput
+  owner: TypeBaseOwnerConnectFieldInput
+}
+
+input TypeBaseConnectWhere {
+  node: TypeBaseWhere!
+}
+
+input TypeBaseCreateInput {
+  AppType: AppTypeCreateInput
+  ArrayType: ArrayTypeCreateInput
+  ElementType: ElementTypeCreateInput
+  EnumType: EnumTypeCreateInput
+  InterfaceType: InterfaceTypeCreateInput
+  LambdaType: LambdaTypeCreateInput
+  MonacoType: MonacoTypeCreateInput
+  PageType: PageTypeCreateInput
+  PrimitiveType: PrimitiveTypeCreateInput
+  ReactNodeType: ReactNodeTypeCreateInput
+  RenderPropsType: RenderPropsTypeCreateInput
+  UnionType: UnionTypeCreateInput
+}
+
+input TypeBaseDeleteInput {
+  _on: TypeBaseImplementationsDeleteInput
+  owner: TypeBaseOwnerDeleteFieldInput
+}
+
+input TypeBaseDisconnectInput {
+  _on: TypeBaseImplementationsDisconnectInput
+  owner: TypeBaseOwnerDisconnectFieldInput
+}
+
+input TypeBaseImplementationsConnectInput {
+  AppType: [AppTypeConnectInput!]
+  ArrayType: [ArrayTypeConnectInput!]
+  ElementType: [ElementTypeConnectInput!]
+  EnumType: [EnumTypeConnectInput!]
+  InterfaceType: [InterfaceTypeConnectInput!]
+  LambdaType: [LambdaTypeConnectInput!]
+  MonacoType: [MonacoTypeConnectInput!]
+  PageType: [PageTypeConnectInput!]
+  PrimitiveType: [PrimitiveTypeConnectInput!]
+  ReactNodeType: [ReactNodeTypeConnectInput!]
+  RenderPropsType: [RenderPropsTypeConnectInput!]
+  UnionType: [UnionTypeConnectInput!]
+}
+
+input TypeBaseImplementationsDeleteInput {
+  AppType: [AppTypeDeleteInput!]
+  ArrayType: [ArrayTypeDeleteInput!]
+  ElementType: [ElementTypeDeleteInput!]
+  EnumType: [EnumTypeDeleteInput!]
+  InterfaceType: [InterfaceTypeDeleteInput!]
+  LambdaType: [LambdaTypeDeleteInput!]
+  MonacoType: [MonacoTypeDeleteInput!]
+  PageType: [PageTypeDeleteInput!]
+  PrimitiveType: [PrimitiveTypeDeleteInput!]
+  ReactNodeType: [ReactNodeTypeDeleteInput!]
+  RenderPropsType: [RenderPropsTypeDeleteInput!]
+  UnionType: [UnionTypeDeleteInput!]
+}
+
+input TypeBaseImplementationsDisconnectInput {
+  AppType: [AppTypeDisconnectInput!]
+  ArrayType: [ArrayTypeDisconnectInput!]
+  ElementType: [ElementTypeDisconnectInput!]
+  EnumType: [EnumTypeDisconnectInput!]
+  InterfaceType: [InterfaceTypeDisconnectInput!]
+  LambdaType: [LambdaTypeDisconnectInput!]
+  MonacoType: [MonacoTypeDisconnectInput!]
+  PageType: [PageTypeDisconnectInput!]
+  PrimitiveType: [PrimitiveTypeDisconnectInput!]
+  ReactNodeType: [ReactNodeTypeDisconnectInput!]
+  RenderPropsType: [RenderPropsTypeDisconnectInput!]
+  UnionType: [UnionTypeDisconnectInput!]
+}
+
+input TypeBaseImplementationsUpdateInput {
+  AppType: AppTypeUpdateInput
+  ArrayType: ArrayTypeUpdateInput
+  ElementType: ElementTypeUpdateInput
+  EnumType: EnumTypeUpdateInput
+  InterfaceType: InterfaceTypeUpdateInput
+  LambdaType: LambdaTypeUpdateInput
+  MonacoType: MonacoTypeUpdateInput
+  PageType: PageTypeUpdateInput
+  PrimitiveType: PrimitiveTypeUpdateInput
+  ReactNodeType: ReactNodeTypeUpdateInput
+  RenderPropsType: RenderPropsTypeUpdateInput
+  UnionType: UnionTypeUpdateInput
+}
+
+input TypeBaseImplementationsWhere {
+  AppType: AppTypeWhere
+  ArrayType: ArrayTypeWhere
+  ElementType: ElementTypeWhere
+  EnumType: EnumTypeWhere
+  InterfaceType: InterfaceTypeWhere
+  LambdaType: LambdaTypeWhere
+  MonacoType: MonacoTypeWhere
+  PageType: PageTypeWhere
+  PrimitiveType: PrimitiveTypeWhere
+  ReactNodeType: ReactNodeTypeWhere
+  RenderPropsType: RenderPropsTypeWhere
+  UnionType: UnionTypeWhere
+}
+
+input TypeBaseOwnerAggregateInput {
+  AND: [TypeBaseOwnerAggregateInput!]
+  OR: [TypeBaseOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: TypeBaseOwnerNodeAggregationWhereInput
+}
+
+input TypeBaseOwnerConnectFieldInput {
+  connect: UserConnectInput
+  where: UserConnectWhere
+}
+
+input TypeBaseOwnerConnectOrCreateFieldInput {
+  onCreate: TypeBaseOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input TypeBaseOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserCreateInput!
+}
+
+type TypeBaseOwnerConnection {
+  edges: [TypeBaseOwnerRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input TypeBaseOwnerConnectionSort {
+  node: UserSort
+}
+
+input TypeBaseOwnerConnectionWhere {
+  AND: [TypeBaseOwnerConnectionWhere!]
+  OR: [TypeBaseOwnerConnectionWhere!]
+  node: UserWhere
+  node_NOT: UserWhere
+}
+
+input TypeBaseOwnerCreateFieldInput {
+  node: UserCreateInput!
+}
+
+input TypeBaseOwnerDeleteFieldInput {
+  delete: UserDeleteInput
+  where: TypeBaseOwnerConnectionWhere
+}
+
+input TypeBaseOwnerDisconnectFieldInput {
+  disconnect: UserDisconnectInput
+  where: TypeBaseOwnerConnectionWhere
+}
+
+input TypeBaseOwnerFieldInput {
+  connect: TypeBaseOwnerConnectFieldInput
+  connectOrCreate: TypeBaseOwnerConnectOrCreateFieldInput
+  create: TypeBaseOwnerCreateFieldInput
+}
+
+input TypeBaseOwnerNodeAggregationWhereInput {
+  AND: [TypeBaseOwnerNodeAggregationWhereInput!]
+  OR: [TypeBaseOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+type TypeBaseOwnerRelationship {
+  cursor: String!
+  node: User!
+}
+
+input TypeBaseOwnerUpdateConnectionInput {
+  node: UserUpdateInput
+}
+
+input TypeBaseOwnerUpdateFieldInput {
+  connect: TypeBaseOwnerConnectFieldInput
+  connectOrCreate: TypeBaseOwnerConnectOrCreateFieldInput
+  create: TypeBaseOwnerCreateFieldInput
+  delete: TypeBaseOwnerDeleteFieldInput
+  disconnect: TypeBaseOwnerDisconnectFieldInput
+  update: TypeBaseOwnerUpdateConnectionInput
+  where: TypeBaseOwnerConnectionWhere
+}
+
+input TypeBaseUpdateInput {
+  _on: TypeBaseImplementationsUpdateInput
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+}
+
+input TypeBaseWhere {
+  _on: TypeBaseImplementationsWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: TypeBaseOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+}
+
+"""
+Connection between two types in a TypeGraph.
+Can be:
+Array -> ArrayItem (Edge)
+Interface -> Field type - (InterfaceTypeEdge)
+Union -> Union member (Edge)
+"""
+union TypeEdge = Edge | InterfaceTypeEdge
+
+type TypeGraph {
+  edges: [TypeEdge!]!
+  vertices: [AnyType!]!
+}
+
+type TypeReference {
+  """
+  The type of resource - Atom, InterfaceType, etc.
+  """
+  label: String!
+
+  """
+  The name of the resource referencing the type
+  """
+  name: String!
+}
+
+type TypeReferenceAggregateSelection {
+  count: Int!
+  label: StringAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input TypeReferenceCreateInput {
+  label: String!
+  name: String!
+}
+
+input TypeReferenceOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more TypeReferenceSort objects to sort TypeReferences by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [TypeReferenceSort]
+}
+
+"""
+Fields to sort TypeReferences by. The order in which sorts are applied is not guaranteed when specifying many fields in one TypeReferenceSort object.
+"""
+input TypeReferenceSort {
+  label: SortDirection
+  name: SortDirection
+}
+
+input TypeReferenceUpdateInput {
+  label: String
+  name: String
+}
+
+input TypeReferenceWhere {
+  AND: [TypeReferenceWhere!]
+  OR: [TypeReferenceWhere!]
+  label: String
+  label_CONTAINS: String
+  label_ENDS_WITH: String
+  label_IN: [String]
+  label_NOT: String
+  label_NOT_CONTAINS: String
+  label_NOT_ENDS_WITH: String
+  label_NOT_IN: [String]
+  label_NOT_STARTS_WITH: String
+  label_STARTS_WITH: String
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+}
+
+"""
+Allows picking one of a set of types
+"""
+type UnionType implements TypeBase {
+  graph: TypeGraph!
+  id: ID!
+  name: String!
+  owner(options: UserOptions, where: UserWhere): User
+  ownerAggregate(where: UserWhere): UnionTypeUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    first: Int
+    sort: [TypeBaseOwnerConnectionSort!]
+    where: TypeBaseOwnerConnectionWhere
+  ): TypeBaseOwnerConnection!
+  typesOfUnionType(options: QueryOptions, where: TypeBaseWhere): [TypeBase!]
+  typesOfUnionTypeConnection(
+    where: UnionTypeTypesOfUnionTypeConnectionWhere
+  ): UnionTypeTypesOfUnionTypeConnection!
+}
+
+type UnionTypeAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input UnionTypeConnectInput {
+  owner: TypeBaseOwnerConnectFieldInput
+  typesOfUnionType: [UnionTypeTypesOfUnionTypeConnectFieldInput!]
+}
+
+input UnionTypeConnectOrCreateInput {
+  owner: TypeBaseOwnerConnectOrCreateFieldInput
+}
+
+input UnionTypeCreateInput {
+  name: String!
+  owner: TypeBaseOwnerFieldInput
+  typesOfUnionType: UnionTypeTypesOfUnionTypeFieldInput
+}
+
+input UnionTypeDeleteInput {
+  owner: TypeBaseOwnerDeleteFieldInput
+  typesOfUnionType: [UnionTypeTypesOfUnionTypeDeleteFieldInput!]
+}
+
+input UnionTypeDisconnectInput {
+  owner: TypeBaseOwnerDisconnectFieldInput
+  typesOfUnionType: [UnionTypeTypesOfUnionTypeDisconnectFieldInput!]
+}
+
+input UnionTypeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more UnionTypeSort objects to sort UnionTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [UnionTypeSort]
+}
+
+input UnionTypeOwnerAggregateInput {
+  AND: [UnionTypeOwnerAggregateInput!]
+  OR: [UnionTypeOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: UnionTypeOwnerNodeAggregationWhereInput
+}
+
+input UnionTypeOwnerNodeAggregationWhereInput {
+  AND: [UnionTypeOwnerNodeAggregationWhereInput!]
+  OR: [UnionTypeOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_EQUAL: Float
+  auth0Id_AVERAGE_GT: Float
+  auth0Id_AVERAGE_GTE: Float
+  auth0Id_AVERAGE_LT: Float
+  auth0Id_AVERAGE_LTE: Float
+  auth0Id_EQUAL: String
+  auth0Id_GT: Int
+  auth0Id_GTE: Int
+  auth0Id_LONGEST_EQUAL: Int
+  auth0Id_LONGEST_GT: Int
+  auth0Id_LONGEST_GTE: Int
+  auth0Id_LONGEST_LT: Int
+  auth0Id_LONGEST_LTE: Int
+  auth0Id_LT: Int
+  auth0Id_LTE: Int
+  auth0Id_SHORTEST_EQUAL: Int
+  auth0Id_SHORTEST_GT: Int
+  auth0Id_SHORTEST_GTE: Int
+  auth0Id_SHORTEST_LT: Int
+  auth0Id_SHORTEST_LTE: Int
+  email_AVERAGE_EQUAL: Float
+  email_AVERAGE_GT: Float
+  email_AVERAGE_GTE: Float
+  email_AVERAGE_LT: Float
+  email_AVERAGE_LTE: Float
+  email_EQUAL: String
+  email_GT: Int
+  email_GTE: Int
+  email_LONGEST_EQUAL: Int
+  email_LONGEST_GT: Int
+  email_LONGEST_GTE: Int
+  email_LONGEST_LT: Int
+  email_LONGEST_LTE: Int
+  email_LT: Int
+  email_LTE: Int
+  email_SHORTEST_EQUAL: Int
+  email_SHORTEST_GT: Int
+  email_SHORTEST_GTE: Int
+  email_SHORTEST_LT: Int
+  email_SHORTEST_LTE: Int
+  id_EQUAL: ID
+}
+
+input UnionTypeRelationInput {
+  owner: TypeBaseOwnerCreateFieldInput
+  typesOfUnionType: [UnionTypeTypesOfUnionTypeCreateFieldInput!]
+}
+
+"""
+Fields to sort UnionTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one UnionTypeSort object.
+"""
+input UnionTypeSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input UnionTypeTypesOfUnionTypeConnectFieldInput {
+  connect: TypeBaseConnectInput
+  where: TypeBaseConnectWhere
+}
+
+type UnionTypeTypesOfUnionTypeConnection {
+  edges: [UnionTypeTypesOfUnionTypeRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input UnionTypeTypesOfUnionTypeConnectionWhere {
+  AND: [UnionTypeTypesOfUnionTypeConnectionWhere!]
+  OR: [UnionTypeTypesOfUnionTypeConnectionWhere!]
+  node: TypeBaseWhere
+  node_NOT: TypeBaseWhere
+}
+
+input UnionTypeTypesOfUnionTypeCreateFieldInput {
+  node: TypeBaseCreateInput!
+}
+
+input UnionTypeTypesOfUnionTypeDeleteFieldInput {
+  delete: TypeBaseDeleteInput
+  where: UnionTypeTypesOfUnionTypeConnectionWhere
+}
+
+input UnionTypeTypesOfUnionTypeDisconnectFieldInput {
+  disconnect: TypeBaseDisconnectInput
+  where: UnionTypeTypesOfUnionTypeConnectionWhere
+}
+
+input UnionTypeTypesOfUnionTypeFieldInput {
+  connect: [UnionTypeTypesOfUnionTypeConnectFieldInput!]
+  create: [UnionTypeTypesOfUnionTypeCreateFieldInput!]
+}
+
+type UnionTypeTypesOfUnionTypeRelationship {
+  cursor: String!
+  node: TypeBase!
+}
+
+input UnionTypeTypesOfUnionTypeUpdateConnectionInput {
+  node: TypeBaseUpdateInput
+}
+
+input UnionTypeTypesOfUnionTypeUpdateFieldInput {
+  connect: [UnionTypeTypesOfUnionTypeConnectFieldInput!]
+  create: [UnionTypeTypesOfUnionTypeCreateFieldInput!]
+  delete: [UnionTypeTypesOfUnionTypeDeleteFieldInput!]
+  disconnect: [UnionTypeTypesOfUnionTypeDisconnectFieldInput!]
+  update: UnionTypeTypesOfUnionTypeUpdateConnectionInput
+  where: UnionTypeTypesOfUnionTypeConnectionWhere
+}
+
+input UnionTypeUpdateInput {
+  name: String
+  owner: TypeBaseOwnerUpdateFieldInput
+  typesOfUnionType: [UnionTypeTypesOfUnionTypeUpdateFieldInput!]
+}
+
+type UnionTypeUserOwnerAggregationSelection {
+  count: Int!
+  node: UnionTypeUserOwnerNodeAggregateSelection
+}
+
+type UnionTypeUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelection!
+  email: StringAggregateSelection!
+  id: IDAggregateSelection!
+}
+
+input UnionTypeWhere {
+  AND: [UnionTypeWhere!]
+  OR: [UnionTypeWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: UnionTypeOwnerAggregateInput
+  ownerConnection: TypeBaseOwnerConnectionWhere
+  ownerConnection_NOT: TypeBaseOwnerConnectionWhere
+  owner_NOT: UserWhere
+  typesOfUnionTypeConnection: UnionTypeTypesOfUnionTypeConnectionWhere
+  typesOfUnionTypeConnection_NOT: UnionTypeTypesOfUnionTypeConnectionWhere
+}
+
+type UpdateAppTypesMutationResponse {
+  appTypes: [AppType!]!
+  info: UpdateInfo!
+}
+
 type UpdateAppsMutationResponse {
   apps: [App!]!
+  info: UpdateInfo!
+}
+
+type UpdateArrayTypesMutationResponse {
+  arrayTypes: [ArrayType!]!
   info: UpdateInfo!
 }
 
@@ -2588,8 +6606,33 @@ type UpdateCreateInfosMutationResponse {
   info: UpdateInfo!
 }
 
+type UpdateDeleteFieldResponsesMutationResponse {
+  deleteFieldResponses: [DeleteFieldResponse!]!
+  info: UpdateInfo!
+}
+
+type UpdateEdgesMutationResponse {
+  edges: [Edge!]!
+  info: UpdateInfo!
+}
+
+type UpdateElementTypesMutationResponse {
+  elementTypes: [ElementType!]!
+  info: UpdateInfo!
+}
+
 type UpdateElementsMutationResponse {
   elements: [Element!]!
+  info: UpdateInfo!
+}
+
+type UpdateEnumTypeValuesMutationResponse {
+  enumTypeValues: [EnumTypeValue!]!
+  info: UpdateInfo!
+}
+
+type UpdateEnumTypesMutationResponse {
+  enumTypes: [EnumType!]!
   info: UpdateInfo!
 }
 
@@ -2606,9 +6649,44 @@ type UpdateInfo {
   relationshipsDeleted: Int!
 }
 
+type UpdateInterfaceTypesMutationResponse {
+  info: UpdateInfo!
+  interfaceTypes: [InterfaceType!]!
+}
+
+type UpdateLambdaTypesMutationResponse {
+  info: UpdateInfo!
+  lambdaTypes: [LambdaType!]!
+}
+
+type UpdateMonacoTypesMutationResponse {
+  info: UpdateInfo!
+  monacoTypes: [MonacoType!]!
+}
+
+type UpdatePageTypesMutationResponse {
+  info: UpdateInfo!
+  pageTypes: [PageType!]!
+}
+
 type UpdatePagesMutationResponse {
   info: UpdateInfo!
   pages: [Page!]!
+}
+
+type UpdatePrimitiveTypesMutationResponse {
+  info: UpdateInfo!
+  primitiveTypes: [PrimitiveType!]!
+}
+
+type UpdateReactNodeTypesMutationResponse {
+  info: UpdateInfo!
+  reactNodeTypes: [ReactNodeType!]!
+}
+
+type UpdateRenderPropsTypesMutationResponse {
+  info: UpdateInfo!
+  renderPropsTypes: [RenderPropsType!]!
 }
 
 type UpdateTagEdgesMutationResponse {
@@ -2616,14 +6694,27 @@ type UpdateTagEdgesMutationResponse {
   tagEdges: [TagEdge!]!
 }
 
-type UpdateTagGraphsMutationResponse {
-  info: UpdateInfo!
-  tagGraphs: [TagGraph!]!
-}
-
 type UpdateTagsMutationResponse {
   info: UpdateInfo!
   tags: [Tag!]!
+}
+
+type UpdateTypeReferencesMutationResponse {
+  info: UpdateInfo!
+  typeReferences: [TypeReference!]!
+}
+
+type UpdateUnionTypesMutationResponse {
+  info: UpdateInfo!
+  unionTypes: [UnionType!]!
+}
+
+input UpsertFieldInput {
+  description: String
+  interfaceTypeId: ID!
+  key: String!
+  name: String
+  targetTypeId: ID!
 }
 
 type User {

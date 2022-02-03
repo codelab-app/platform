@@ -16,10 +16,11 @@ import { lambdaEndpoints, lambdaSlice } from '@codelab/frontend/modules/lambda'
 import { pageEndpoints, pageSlice } from '@codelab/frontend/modules/page'
 import { tagEndpoints, tagSlice } from '@codelab/frontend/modules/tag'
 import {
-  fieldEndpoints,
+  createTypeEndpoints,
+  deleteTypeEndpoints,
   fieldSlice,
-  typeEndpoints,
   typeSlice,
+  updateTypeEndpoints,
 } from '@codelab/frontend/modules/type'
 import { userEndpoints, userSlice } from '@codelab/frontend/modules/user'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
@@ -40,8 +41,9 @@ export const makeStore = () => {
       [tagEndpoints.reducerPath]: tagEndpoints.reducer,
       [lambdaEndpoints.reducerPath]: lambdaEndpoints.reducer,
       [userEndpoints.reducerPath]: userEndpoints.reducer,
-      [typeEndpoints.reducerPath]: typeEndpoints.reducer,
-      [fieldEndpoints.reducerPath]: fieldEndpoints.reducer,
+      [deleteTypeEndpoints.reducerPath]: deleteTypeEndpoints.reducer,
+      [updateTypeEndpoints.reducerPath]: updateTypeEndpoints.reducer,
+      [createTypeEndpoints.reducerPath]: createTypeEndpoints.reducer,
 
       // Slices:
       [appSlice.name]: appSlice.reducer,
@@ -71,8 +73,9 @@ export const makeStore = () => {
         propMapBindingEndpoints.middleware,
         atomEndpoints.middleware,
         userEndpoints.middleware,
-        typeEndpoints.middleware,
-        fieldEndpoints.middleware,
+        deleteTypeEndpoints.middleware,
+        updateTypeEndpoints.middleware,
+        createTypeEndpoints.middleware,
       ),
     devTools: process.env.NODE_ENV !== 'production',
   })

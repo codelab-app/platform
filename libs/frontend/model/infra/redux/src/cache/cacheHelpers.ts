@@ -1,8 +1,8 @@
-import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import { EntityLike, Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { WILDCARD_ID } from './cacheTags'
 
 export const providesAll = <
-  R extends Nullish<Array<{ id: string }>>,
+  R extends Nullish<Array<EntityLike>>,
   T extends string,
 >(
   resultsWithIds: R,
@@ -32,7 +32,7 @@ export const invalidatesById = <R extends Maybe<string>, T extends string>(
 ) => types.map((type) => (id ? { type, id } : { type, id: WILDCARD_ID }))
 
 export const invalidatesByIds = <
-  R extends Nullish<Array<{ id: string }>>,
+  R extends Nullish<Array<EntityLike>>,
   T extends string,
 >(
   resultsWithIds: R,

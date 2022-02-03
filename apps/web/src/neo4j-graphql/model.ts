@@ -1,14 +1,20 @@
-import { generate, OGM } from '@neo4j/graphql-ogm'
+import { generate } from '@neo4j/graphql-ogm'
 import * as path from 'path'
-import { getDriver } from './getDriver'
-import { ModelMap } from './ogm-types.gen'
-import typeDefs from './typeDefs'
+import { getOgm } from './getOgm'
+import { AtomModel, InterfaceTypeModel, UserModel } from './ogm-types.gen'
 
-const ogm = new OGM<ModelMap>({ typeDefs, driver: getDriver() })
+let userInst: UserModel
 
-export const User = ogm.model('User')
+export const User = () => (userInst ??= getOgm().model('User'))
 
-export const Atom = ogm.model('Atom')
+let atomInst: AtomModel
+
+export const Atom = () => (atomInst ??= getOgm().model('Atom'))
+
+let interfaceInst: InterfaceTypeModel
+
+export const InterfaceType = () =>
+  (interfaceInst ??= getOgm().model('InterfaceType'))
 
 export const generateOgmTypes = async () => {
   // Only generate types when you make a schema change
@@ -21,7 +27,7 @@ export const generateOgmTypes = async () => {
   console.log(outFile)
 
   await generate({
-    ogm,
+    ogm: getOgm(),
     outFile,
   })
 
