@@ -1,0 +1,32 @@
+mutation CreateAtoms($input: [AtomCreateInput!]!) {
+  createAtoms(input: $input) {
+    info {
+      nodesCreated
+      relationshipsCreated
+    }
+    atoms {
+      ...Atom
+    }
+  }
+}
+
+mutation DeleteAtoms($where: AtomWhere!) {
+  deleteAtoms(where: $where) {
+    nodesDeleted
+    relationshipsDeleted
+  }
+}
+
+query GetAtoms($where: AtomWhere, $options: AtomOptions) {
+  atoms(where: $where, options: $options) {
+    ...Atom
+  }
+}
+
+mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
+  updateAtoms(update: $update, where: $where) {
+    atoms {
+      ...Atom
+    }
+  }
+}

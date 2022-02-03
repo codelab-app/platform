@@ -1,4 +1,4 @@
-import { AtomFragment } from '../../../graphql/Atom.fragment.graphql.gen'
+import { AtomFragment } from '../../../graphql/Atom.fragment.v2.graphql.gen'
 
 export type LibraryColumnProps = {
   library: string

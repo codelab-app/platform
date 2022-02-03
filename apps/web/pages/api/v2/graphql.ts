@@ -1,14 +1,6 @@
 import { getSession } from '@auth0/nextjs-auth0'
 import { OGM } from '@neo4j/graphql-ogm'
-import { ApolloServer, gql } from 'apollo-server-micro'
-import fs from 'fs'
-import {
-  buildClientSchema,
-  getIntrospectionQuery,
-  IntrospectionQuery,
-  print,
-  printSchema,
-} from 'graphql'
+import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import { getDriver } from '../../../src/neo4j-graphql/getDriver'
 import { getSchema } from '../../../src/neo4j-graphql/getSchema'
@@ -27,27 +19,9 @@ const apolloServer = new ApolloServer({
   },
 })
 
-const ogm = new OGM({ typeDefs: print(typeDefs), driver })
+const ogm = new OGM({ typeDefs, driver })
 const User = ogm.model('User')
-
-const startServer = apolloServer.start().then(async () => {
-  /**
-   * Get schema from ApolloServer
-   *
-   * https://stackoverflow.com/a/62484577/2159920
-   */
-  const { data } = await apolloServer.executeOperation({
-    query: getIntrospectionQuery(),
-  })
-
-  const schema = buildClientSchema(data as IntrospectionQuery)
-  // console.log('server started!')
-  // console.log(printSchema(schema))
-
-  fs.writeFile('schema.v2.api.graphql', printSchema(schema), (err) => {
-    console.error(err)
-  })
-})
+const startServer = apolloServer.start()
 
 const handler: NextApiHandler = async (req, res) => {
   // Get Next.js Auth0 session
@@ -95,9 +69,7 @@ const handler: NextApiHandler = async (req, res) => {
 
   await startServer
 
-  await apolloServer.createHandler({
-    path,
-  })(req, res)
+  await apolloServer.createHandler({ path })(req, res)
 }
 
 export default handler

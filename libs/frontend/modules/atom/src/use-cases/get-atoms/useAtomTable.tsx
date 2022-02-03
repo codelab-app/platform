@@ -5,7 +5,7 @@ import {
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
-import { AtomFragment } from '../../graphql/Atom.fragment.graphql.gen'
+import { AtomFragment } from '../../graphql/Atom.fragment.v2.graphql.gen'
 import { useAtomDispatch, useAtomState } from '../../hooks'
 import { ActionColumn, LibraryColumn, PropsColumn } from './columns'
 

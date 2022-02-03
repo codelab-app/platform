@@ -1,49 +1,36 @@
 import {
   ATOMS_CACHE_TAG,
   invalidatesAll,
-  invalidatesById,
   providesAll,
-  providesById,
 } from '@codelab/frontend/model/infra/redux'
-import { api as generatedApi } from '../graphql/Atom.endpoints.graphql.gen'
+import { api as generatedApi } from '../graphql/Atom.endpoints.v2.graphql.gen'
 
 export const api = generatedApi.enhanceEndpoints({
   endpoints: {
-    ExportAtoms: {
-      providesTags: (result) => providesAll(result?.getAtoms, ATOMS_CACHE_TAG),
-    },
     GetAtoms: {
-      providesTags: (result) => providesAll(result?.getAtoms, ATOMS_CACHE_TAG),
+      providesTags: (result) => providesAll(result?.atoms, ATOMS_CACHE_TAG),
     },
-    GetAtom: {
-      providesTags: (result) =>
-        providesById(result?.getAtom?.id, ATOMS_CACHE_TAG),
-    },
-    CreateAtom: {
+    CreateAtoms: {
       invalidatesTags: () => invalidatesAll(ATOMS_CACHE_TAG),
     },
-    DeleteAtom: {
+    DeleteAtoms: {
       invalidatesTags: () => invalidatesAll(ATOMS_CACHE_TAG),
     },
-    UpdateAtom: {
+    UpdateAtoms: {
       invalidatesTags: (result) =>
-        invalidatesById(result?.updateAtom?.id, ATOMS_CACHE_TAG),
-    },
-    ImportAtoms: {
-      invalidatesTags: () => invalidatesAll(ATOMS_CACHE_TAG),
+        result?.updateAtoms?.atoms.map((r) => ({
+          type: ATOMS_CACHE_TAG,
+          id: r.id,
+        })) ?? [],
     },
   },
 })
+
 export { generatedApi as atomEndpoints }
 export const {
-  useCreateAtomMutation,
-  useDeleteAtomMutation,
-  useExportAtomsQuery,
-  useLazyExportAtomsQuery,
-  useGetAtomQuery,
-  useLazyGetAtomQuery,
+  useCreateAtomsMutation,
+  useUpdateAtomsMutation,
+  useDeleteAtomsMutation,
   useGetAtomsQuery,
   useLazyGetAtomsQuery,
-  useImportAtomsMutation,
-  useUpdateAtomMutation,
 } = generatedApi

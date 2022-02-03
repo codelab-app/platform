@@ -1,10 +1,9 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { Form, FormModal } from '@codelab/frontend/view/components'
-import { CreateAtomInput } from '@codelab/shared/abstract/codegen'
 import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
-import { createAtomSchema } from './createAtomSchema'
+import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
 import { useCreateAtomForm } from './useCreateAtomForm'
 
 const atomTypeOptions = Object.keys(AtomType)
@@ -40,7 +39,7 @@ export const CreateAtomModal = () => {
           schema={createAtomSchema}
           submitRef={submitRef}
         >
-          <AutoFields omitFields={['type', 'api']} />
+          <AutoFields omitFields={['type']} />
           <SelectField
             label="Type"
             name="type"

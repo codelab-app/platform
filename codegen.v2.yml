@@ -3,7 +3,7 @@ hooks:
   afterAllFileWrite:
     - yarn prettier --write
 
-schema: schema.v2.api.graphql
+schema: http://localhost:3000/api/v2/graphql
 config:
   scalars:
     uuid: string
@@ -15,6 +15,9 @@ config:
     Void: void
 
 generates:
+  schema.api.v2.graphql:
+    plugins:
+      - schema-ast
   # Generate Typescript types to be imported by other generators
   libs/shared/abstract/codegen-v2/src/types.api.v2.graphql.gen.ts:
     documents:
@@ -44,6 +47,10 @@ generates:
       - dist/libs/tools/rtk-query:
           importBaseApiFrom: '@codelab/frontend/model/infra/redux'
           exportHooks: true
+          extraOptions:
+            context:
+              env: 'v2'
+
     config:
       inlineFragmentTypes: combine
       documentVariableSuffix: Gql

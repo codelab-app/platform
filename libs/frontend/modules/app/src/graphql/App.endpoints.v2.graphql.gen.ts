@@ -58,7 +58,7 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (options) => ({
         document: CreateAppsGql,
-        options: options ?? undefined,
+        options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
     DeleteApps: build.mutation<
@@ -67,7 +67,7 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (options) => ({
         document: DeleteAppsGql,
-        options: options ?? undefined,
+        options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
     GetApps: build.query<
@@ -76,7 +76,7 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (options) => ({
         document: GetAppsGql,
-        options: options ?? undefined,
+        options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
   }),
