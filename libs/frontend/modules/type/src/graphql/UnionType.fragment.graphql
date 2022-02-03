@@ -1,7 +1,0 @@
-fragment UnionType on UnionType {
-  id
-  name
-  typesOfUnionType {
-    id
-  }
-}

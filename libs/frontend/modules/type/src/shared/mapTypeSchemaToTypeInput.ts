@@ -1,16 +1,15 @@
-import { MonacoLanguage } from '@codelab/shared/abstract/codegen'
 import {
-  ElementTypeKind,
-  IEnumTypeValue,
+  MonacoLanguage,
   PrimitiveTypeKind,
-} from '@codelab/shared/abstract/core'
+} from '@codelab/shared/abstract/codegen-v2'
+import { ElementTypeKind, IEnumTypeValue } from '@codelab/shared/abstract/core'
 import { TypeSelect } from './TypeSelect'
 
 export interface BaseTypeMutationSchema {
   name: string
   primitiveKind?: PrimitiveTypeKind
-  elementKind: ElementTypeKind
-  language: MonacoLanguage
+  elementKind?: ElementTypeKind
+  language?: MonacoLanguage
   allowedValues?: Array<IEnumTypeValue>
   typeIdsOfUnionType?: Array<string>
 }

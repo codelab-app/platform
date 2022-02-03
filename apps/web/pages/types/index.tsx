@@ -7,6 +7,7 @@ import {
   CreateTypeButton,
   CreateTypeModal,
   DeleteTypeModal,
+  ExportTypesButton,
   GetTypesTable,
   ImportTypesUpload,
   UpdateTypeModal,
@@ -21,7 +22,6 @@ import { PageHeader } from 'antd'
 import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
-import { ExportTypesButton } from '../../../../libs/frontend/modules/type/src/use-cases/types'
 
 const Header = () => {
   const { selectedIds } = useTypeState()

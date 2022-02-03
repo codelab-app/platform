@@ -8,6 +8,5 @@ export const LambdaTypeSchema = BaseTypeSchema.extend({
 
 /**
  * Allows picking a lambda
- * Is passed to the element as an async function
  */
 export type ILambdaType = z.infer<typeof LambdaTypeSchema>

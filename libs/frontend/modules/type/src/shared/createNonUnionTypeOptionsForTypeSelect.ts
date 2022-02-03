@@ -4,11 +4,11 @@ import { CreateTypeSelectOptions } from './TypeSelect'
 export const createNonUnionTypeOptionsForTypeSelect: CreateTypeSelectOptions = (
   getTypesResult,
 ) => {
-  const types = getTypesResult?.getTypes || []
+  const types = getTypesResult?.types || []
 
   return types
-    .filter((type) => type.typeKind !== TypeKind.UnionType)
-    .map((i) => ({
+    .filter((type: any) => type.typeKind !== TypeKind.UnionType)
+    .map((i: any) => ({
       label: i.name,
       value: i.id,
     }))

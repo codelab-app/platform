@@ -52,8 +52,6 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   const { type: selectedTypeId } = (fieldProps.value as any) ?? {}
   const selectOptions = makeSelectOptions(oneOf)
 
-  console.log(getTypeFromOneOf(oneOf, selectedTypeId))
-
   const valueSchema = {
     type: 'object',
     label: '',
@@ -67,7 +65,13 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
     if (previousSelectedTypeId !== selectedTypeId) {
       context.onChange(valueFieldName, undefined)
     }
-  }, [context.onChange, selectedTypeId, valueFieldName])
+  }, [
+    context,
+    context.onChange,
+    previousSelectedTypeId,
+    selectedTypeId,
+    valueFieldName,
+  ])
 
   return (
     <AntdForm.Item label={fieldProps.label}>
@@ -82,12 +86,9 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
           key={selectedTypeId}
           model={{ value: fieldProps.value.value }}
           onChangeModel={(formData: any) => {
-            console.log(valueFieldName, formData.value)
             context.onChange(valueFieldName, formData.value)
           }}
-          onSubmit={() => {
-            return Promise.resolve()
-          }}
+          onSubmit={() => Promise.resolve()}
           schema={valueSchema as any}
         >
           <AutoField name="value" />

@@ -1,0 +1,87 @@
+mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
+  createPrimitiveTypes(input: $input) {
+    primitiveTypes {
+      ...PrimitiveType
+    }
+  }
+}
+
+mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
+  createArrayTypes(input: $input) {
+    arrayTypes {
+      ...ArrayType
+    }
+  }
+}
+
+mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {
+  createUnionTypes(input: $input) {
+    unionTypes {
+      ...UnionType
+    }
+  }
+}
+
+mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
+  createInterfaceTypes(input: $input) {
+    interfaceTypes {
+      ...InterfaceType
+    }
+  }
+}
+
+mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {
+  createElementTypes(input: $input) {
+    elementTypes {
+      ...ElementType
+    }
+  }
+}
+
+mutation CreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
+  createRenderPropsTypes(input: $input) {
+    renderPropsTypes {
+      ...RenderPropsType
+    }
+  }
+}
+
+mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {
+  createEnumTypes(input: $input) {
+    enumTypes {
+      ...EnumType
+    }
+  }
+}
+
+mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
+  createLambdaTypes(input: $input) {
+    lambdaTypes {
+      ...LambdaType
+    }
+  }
+}
+
+mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {
+  createPageTypes(input: $input) {
+    pageTypes {
+      ...PageType
+    }
+  }
+}
+
+mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
+  createAppTypes(input: $input) {
+    appTypes {
+      ...AppType
+    }
+  }
+}
+
+mutation CreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
+  createMonacoTypes(input: $input) {
+    monacoTypes {
+      ...MonacoType
+    }
+  }
+}

@@ -12,7 +12,7 @@ export type IEnumTypeValue = z.infer<typeof EnumTypeValue>
 
 export const EnumTypeSchema = BaseTypeSchema.extend({
   typeKind: z.literal(TypeKind.EnumType).default(TypeKind.EnumType),
-  allowedValues: z.array(EnumTypeValue).default([]),
+  allowedValues: z.array(EnumTypeValue).nullish(),
 })
 
 /**

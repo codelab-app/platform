@@ -13,9 +13,5 @@ let driver: Driver
 export const getDriver = () => {
   const { uri, username, password } = defaultOptions
 
-  if (!driver) {
-    driver = neo4j.driver(uri, neo4j.auth.basic(username, password))
-  }
-
-  return driver
+  return (driver ??= neo4j.driver(uri, neo4j.auth.basic(username, password)))
 }

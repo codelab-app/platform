@@ -1,4 +1,0 @@
-fragment AppType on LambdaType {
-  id
-  name
-}

@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -12,6 +13,7 @@ export const useCreateAtomForm: UseUseCaseForm<
 > = () => {
   const { resetModal } = useAtomDispatch()
   const { actionType } = useAtomState()
+  const { user } = useUser()
 
   const [mutate, { isLoading }] = useCreateAtomsMutation({
     selectFromResult: (r) => ({
@@ -23,9 +25,28 @@ export const useCreateAtomForm: UseUseCaseForm<
 
   const onSubmit = useCallback(
     (input: CreateAtomInput) => {
-      return mutate({ variables: { input: [input] } }).unwrap()
+      return mutate({
+        variables: {
+          input: [
+            {
+              name: input.name,
+              type: input.type,
+              api: {
+                create: {
+                  node: {
+                    name: `${input.name} API`,
+                    owner: user
+                      ? { connect: { where: { node: { auth0Id: user.sub } } } }
+                      : undefined,
+                  },
+                },
+              },
+            },
+          ],
+        },
+      }).unwrap()
     },
-    [mutate],
+    [mutate, user],
   )
 
   const onSubmitError = createNotificationHandler({

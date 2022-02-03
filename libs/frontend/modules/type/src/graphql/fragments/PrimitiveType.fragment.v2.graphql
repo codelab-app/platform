@@ -1,0 +1,4 @@
+fragment PrimitiveType on PrimitiveType {
+  ...TypeBase
+  primitiveKind
+}

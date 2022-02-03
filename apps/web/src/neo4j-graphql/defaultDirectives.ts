@@ -54,4 +54,29 @@ export const defaultDirectives = gql`
   directive @exclude(
     operations: [ExcludeOperation!]! = [CREATE, READ, UPDATE, DELETE]
   ) on OBJECT
+
+  """
+  Int | Float | String | Boolean | ID | DateTime
+  """
+  scalar Scalar
+
+  """
+  Instructs @neo4j/graphql to set the specified value as the default value in the CreateInput type for the object type in which this directive is used.
+  """
+  directive @default(
+    """
+    The default value to use. Must be a scalar type and must match the type of the field with which this directive decorates.
+    """
+    value: Scalar!
+  ) on FIELD_DEFINITION
+
+  """
+  Informs @neo4j/graphql that there should be a uniqueness constraint in the database for the decorated field.
+  """
+  directive @unique(
+    """
+    The name which should be used for this constraint. By default; type name, followed by an underscore, followed by the field name.
+    """
+    constraintName: String
+  ) on FIELD_DEFINITION
 `

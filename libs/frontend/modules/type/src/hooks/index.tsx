@@ -1,5 +1,7 @@
+export * from './useDeleteType'
 export * from './useFieldDispatch'
 export * from './useFieldState'
+export * from './useGetAllTypes'
 export * from './useTypeDispatch'
 export * from './useTypeState'
 export * from './useTypeTree'
