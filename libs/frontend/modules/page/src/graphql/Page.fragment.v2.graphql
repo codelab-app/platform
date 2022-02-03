@@ -1,0 +1,8 @@
+fragment Page on Page {
+  id
+  name
+  rootElement {
+    id
+    name
+  }
+}

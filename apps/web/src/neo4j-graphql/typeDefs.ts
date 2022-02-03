@@ -1,6 +1,7 @@
 import { gql } from 'apollo-server-micro'
 import { print } from 'graphql'
 import { atomSchema } from './type-defs/atomSchema'
+import { pageSchema } from './type-defs/pageSchema'
 
 export default print(gql`
   type User @exclude(operations: [CREATE, UPDATE, DELETE]) {
@@ -21,16 +22,7 @@ export default print(gql`
 
   ${atomSchema}
 
-  type Page {
-    id: ID! @id
-    createdAt: DateTime! @readonly @timestamp(operations: [CREATE])
-    updatedAt: DateTime @readonly @timestamp(operations: [UPDATE])
-
-    name: String!
-    ownerId: String!
-
-    app: App @relationship(type: "PAGES", direction: OUT)
-  }
+  ${pageSchema}
 
   interface IElementGraph {
     root: Element

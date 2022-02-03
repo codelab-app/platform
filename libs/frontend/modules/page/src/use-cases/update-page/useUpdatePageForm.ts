@@ -1,33 +1,33 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  CreateAppInput,
-  CreatePageInput,
-} from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { usePageDispatch, usePageState } from '../../hooks'
-import { useUpdatePageMutation } from '../../store'
+import { useUpdatePagesMutation } from '../../store'
+import { UpdatePageInput } from './types'
 
 export const useUpdatePageForm: UseUseCaseForm<
-  CreatePageInput,
+  UpdatePageInput,
   CRUDActionType
 > = () => {
   const { updateId, entity, actionType } = usePageState()
   const { resetModal } = usePageDispatch()
 
-  const [mutate, { isLoading }] = useUpdatePageMutation({
+  const [mutate, { isLoading }] = useUpdatePagesMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.updatePage,
+      hook: r.data?.updatePages,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
   const onSubmit = useCallback(
-    (data: CreatePageInput) =>
+    (update: UpdatePageInput) =>
       mutate({
-        variables: { input: { updateData: data, pageId: updateId } },
+        variables: {
+          where: { id: updateId },
+          update,
+        },
       }).unwrap(),
     [mutate, updateId],
   )
