@@ -76,7 +76,11 @@ yargs(hideBin(process.argv))
     'seed',
     'Seed Antd Design props to platform',
     (_yargs) => _yargs,
-    (argv) => runCli(Env.Dev, `${argv._[0]} --env ${Env.Dev}`),
+    (argv) => {
+      const env = argv.env || Env.Dev
+
+      return runCli(env as any, `${argv._[0]} --env ${env}`)
+    },
   )
   //
   // Dgraph

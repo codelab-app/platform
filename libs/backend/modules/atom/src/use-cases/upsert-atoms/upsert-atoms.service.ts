@@ -43,7 +43,7 @@ export class UpsertAtomsService
     return this.atomRepo.upsertAtoms(
       atoms.map((a) => ({
         ...a,
-        id: '',
+        id: a.id || '',
         api: a.api ? { id: a.api } : { id: '' },
       })),
       currentUser,

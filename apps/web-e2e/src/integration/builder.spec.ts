@@ -164,7 +164,6 @@ describe('Delete atoms', () => {
   it('should be able to delete atoms', () => {
     cy.wrap(atoms).each((atom: { name: string; type: AtomType }) => {
       const atomName = atom.name
-      const atomType = atom.type
 
       findDeleteButtonByAtomName(atomName).click()
 

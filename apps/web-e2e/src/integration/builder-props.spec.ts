@@ -5,7 +5,7 @@
 const pageName = 'Home Page'
 
 const buttonComponent = {
-  name: 'Button',
+  name: 'AntDesignButton',
   atom: 'Ant Design Button',
   parentElement: 'Root element',
 }
@@ -16,7 +16,7 @@ const formTextInputs = [
   { text: 'Href', input: 'http://google.com' },
   { text: 'Html Type', input: 'Html Type' },
   { text: 'Target', input: '_blank' },
-  { text: 'Type', input: 'Type' },
+  { text: 'Type', input: 'primary' },
 ]
 
 const selectApp = () => {
@@ -33,18 +33,21 @@ const selectPage = () => {
 }
 
 const selectPropsTab = () => {
-  cy.findByText(buttonComponent.parentElement).click()
+  cy.get('.ant-dropdown-trigger')
+    .contains(buttonComponent.parentElement)
+    .click()
   cy.findByText(buttonComponent.name).should('be.visible')
+
+  cy.findByText(buttonComponent.name).click()
+
   // Event button is visible, somehow it is still unclickable without this timeout
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(1000)
-  cy.findByText(buttonComponent.name).click()
+
   cy.get('.ant-tabs-tab-btn').contains('Props').click()
 }
 
 before(() => {
-  cy.intercept('/api/graphql').as('graphql')
-
   cy.resetDgraphData().then(() => {
     cy.runSeeder().then(() => {
       cy.login().then(() => {
@@ -94,8 +97,10 @@ describe('Update props', () => {
 
     cy.findByButtonText(/Submit/).click()
 
-    // Reload page
-    cy.wait('@graphql')
+    // For some reason it gets an element right before re-rendering and then causes an error for it being detached
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
+
     selectPropsTab()
 
     cy.wrap(formToggleButtons).each((btn: string) => {
