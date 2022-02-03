@@ -5,11 +5,14 @@ import {
   OpenUpdateModalActionPayload,
 } from '@codelab/frontend/abstract/core'
 import {
+  ActionReducerMapBuilder,
+  CaseReducers,
   createSlice,
   PayloadAction,
   SliceCaseReducers,
   ValidateSliceCaseReducers,
 } from '@reduxjs/toolkit'
+import { NoInfer } from '@reduxjs/toolkit/dist/tsHelpers'
 
 export const createCrudSlice = <
   TEntity,
@@ -20,6 +23,7 @@ export const createCrudSlice = <
   name: string,
   initialState: TState,
   reducers: ValidateSliceCaseReducers<TState, Reducers>,
+  extraReducers?: CaseReducers<NoInfer<TState>, any>,
 ) => {
   return createSlice({
     name,
@@ -60,6 +64,7 @@ export const createCrudSlice = <
       },
       ...reducers,
     },
+    extraReducers,
   })
 }
 

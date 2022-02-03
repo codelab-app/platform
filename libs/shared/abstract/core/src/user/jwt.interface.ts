@@ -1,4 +1,4 @@
-import { Role } from '@codelab/shared/abstract/core'
+import { Role } from './role.enum'
 
 export interface CodelabApiClaims {
   email: string

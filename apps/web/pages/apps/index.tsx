@@ -1,10 +1,11 @@
 import { EllipsisOutlined } from '@ant-design/icons'
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { getSession, useUser, withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
 import {
+  API_ENV,
   getGraphQLClient,
   setClientAuthHeaders,
 } from '@codelab/frontend/model/infra/redux'
@@ -18,13 +19,18 @@ import {
   ImportAppModal,
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
-import { SignOutUserButton } from '@codelab/frontend/modules/user'
+import {
+  SignOutUserButton,
+  userEndpoints,
+  userSlice,
+} from '@codelab/frontend/modules/user'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { Button, Dropdown, Menu, PageHeader } from 'antd'
+import { useUserState } from 'libs/frontend/modules/user/src/hooks'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
@@ -60,6 +66,9 @@ const AppsPageHeader = () => {
 }
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
+  const user = useUserState()
+  console.log(user)
+
   return (
     <>
       <Head>
@@ -67,7 +76,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
       </Head>
 
       <CreateAppModal />
-      {/* <UpdateAppModal /> */}
+      <UpdateAppModal />
       <DeleteAppModal />
       {/* <ImportAppModal /> */}
 
@@ -80,14 +89,23 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
 
 export default AppsPage
 
+// https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: reduxStoreWrapper.getServerSideProps(
     (store) => async (context: GetServerSidePropsContext) => {
-      await setClientAuthHeaders(context)
+      const session = await setClientAuthHeaders(context, {
+        context: {
+          env: API_ENV.v2,
+        },
+      })
 
-      // store.dispatch(appEndpoints.endpoints.GetApps.initiate({}))
+      store.dispatch(appEndpoints.endpoints.GetApps.initiate())
+      store.dispatch(userSlice.actions.setAuthenticatedUser(session?.user))
 
-      // await Promise.all(appEndpoints.util.getRunningOperationPromises())
+      await Promise.all(
+        appEndpoints.util.getRunningOperationPromises(),
+        // userEndpoints.util.getRunningOperationPromises(),
+      )
 
       return {
         props: {},

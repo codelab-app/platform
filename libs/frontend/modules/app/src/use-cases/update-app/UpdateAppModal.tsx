@@ -8,10 +8,15 @@ import { updateAppSchema } from './updateAppSchema'
 import { useUpdateAppForm } from './useUpdateAppForm'
 
 export const UpdateAppModal = () => {
-  const { actionType } = useAppState()
-
-  const { onSubmit, onSubmitSuccess, model, onSubmitError, isLoading, reset } =
-    useUpdateAppForm()
+  const {
+    onSubmit,
+    onSubmitSuccess,
+    actionType,
+    model,
+    onSubmitError,
+    isLoading,
+    reset,
+  } = useUpdateAppForm()
 
   return (
     <FormModal

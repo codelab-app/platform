@@ -29,11 +29,8 @@ export const useDeleteAppForm: UseEntityUseCaseForm<
       mutate({
         variables: {
           where: {
-            id_IN: [input.appId],
+            id: input.appId,
           },
-        },
-        context: {
-          env: API_ENV.v2,
         },
       }).unwrap(),
     [mutate],

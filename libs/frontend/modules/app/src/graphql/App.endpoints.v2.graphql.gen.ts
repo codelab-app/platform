@@ -1,8 +1,11 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { AppFragment } from './App.fragment.v2.graphql.gen'
+import { AppFragment, AppBaseFragment } from './App.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
-import { AppFragmentDoc } from './App.fragment.v2.graphql.gen'
+import {
+  AppFragmentDoc,
+  AppBaseFragmentDoc,
+} from './App.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -13,9 +16,17 @@ export type CreateAppsMutationVariables = Types.Exact<{
 
 export type CreateAppsMutation = { createApps: { apps: Array<AppFragment> } }
 
+export type UpdateAppsMutationVariables = Types.Exact<{
+  where: Types.AppWhere
+  update: Types.AppUpdateInput
+}>
+
+export type UpdateAppsMutation = {
+  updateApps: { apps: Array<AppBaseFragment> }
+}
+
 export type DeleteAppsMutationVariables = Types.Exact<{
-  where?: Types.InputMaybe<Types.AppWhere>
-  delete?: Types.InputMaybe<Types.AppDeleteInput>
+  where: Types.AppWhere
 }>
 
 export type DeleteAppsMutation = { deleteApps: { nodesDeleted: number } }
@@ -37,9 +48,19 @@ export const CreateAppsGql = gql`
   }
   ${AppFragmentDoc}
 `
+export const UpdateAppsGql = gql`
+  mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
+    updateApps(where: $where, update: $update) {
+      apps {
+        ...AppBase
+      }
+    }
+  }
+  ${AppBaseFragmentDoc}
+`
 export const DeleteAppsGql = gql`
-  mutation DeleteApps($where: AppWhere, $delete: AppDeleteInput) {
-    deleteApps(where: $where, delete: $delete) {
+  mutation DeleteApps($where: AppWhere!) {
+    deleteApps(where: $where) {
       nodesDeleted
     }
   }
@@ -64,9 +85,18 @@ const injectedRtkApi = api.injectEndpoints({
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
+    UpdateApps: build.mutation<
+      UpdateAppsMutation,
+      GraphqlOperationOptions<UpdateAppsMutationVariables>
+    >({
+      query: (options) => ({
+        document: UpdateAppsGql,
+        options: options ?? undefined,
+      }),
+    }),
     DeleteApps: build.mutation<
       DeleteAppsMutation,
-      GraphqlOperationOptions<DeleteAppsMutationVariables> | void | undefined
+      GraphqlOperationOptions<DeleteAppsMutationVariables>
     >({
       query: (options) => ({
         document: DeleteAppsGql,
@@ -87,6 +117,7 @@ const injectedRtkApi = api.injectEndpoints({
 export { injectedRtkApi as api }
 export const {
   useCreateAppsMutation,
+  useUpdateAppsMutation,
   useDeleteAppsMutation,
   useGetAppsQuery,
   useLazyGetAppsQuery,

@@ -1,11 +1,12 @@
 import { AppActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
+import { API_ENV } from '@codelab/frontend/model/infra/redux'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
+import { AppFragment } from '../../graphql/App.fragment.v2.graphql.gen'
 import { useAppDispatch, useAppState } from '../../hooks'
-import { useUpdateAppMutation } from '../../store'
+import { useUpdateAppsMutation } from '../../store'
+import { CreateAppInput } from '../create-app'
 
 export const useUpdateAppForm: UseEntityUseCaseForm<
   CreateAppInput,
@@ -15,20 +16,24 @@ export const useUpdateAppForm: UseEntityUseCaseForm<
   const { updateId, entity, actionType } = useAppState()
   const { resetModal } = useAppDispatch()
 
-  const [mutate, { isLoading }] = useUpdateAppMutation({
+  const [mutate, { isLoading }] = useUpdateAppsMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.updateApp,
+      hook: r.data?.updateApps,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
   const onSubmit = useCallback(
-    (data: CreateAppInput) => {
-      return mutate({
-        variables: { input: { data, id: updateId } },
-      }).unwrap()
-    },
+    (data: CreateAppInput) =>
+      mutate({
+        variables: {
+          where: { id: updateId },
+          update: {
+            ...data,
+          },
+        },
+      }).unwrap(),
     [mutate, updateId],
   )
 

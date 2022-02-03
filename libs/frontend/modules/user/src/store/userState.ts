@@ -1,3 +1,4 @@
+import { Session } from '@auth0/nextjs-auth0'
 import {
   CRUDActionType,
   CRUDModalState,
@@ -7,14 +8,19 @@ import {
   createCrudSlice,
   initialCrudState,
 } from '@codelab/frontend/view/components'
+import { IUser, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { PayloadAction } from '@reduxjs/toolkit'
+import { HYDRATE } from 'next-redux-wrapper'
 import { DefaultRootState } from 'react-redux'
 import { __UserFragment } from '../graphql/User.fragment.graphql.gen'
+import { SetAuthenticatedUserPayload } from './types'
 
 export interface UserState extends CRUDModalState<__UserFragment> {
   deleteMetadata?: {
     userNames: string
   }
+  user: IUser
 }
 
 export interface UserStateDeletePayload
@@ -25,24 +31,55 @@ export interface UserStateDeletePayload
 const initialState: UserState = {
   ...initialCrudState,
   deleteMetadata: undefined,
+  // Current user
+  user: {
+    id: '',
+    auth0Id: '',
+    roles: [],
+  },
 }
 
-export const userSlice = createCrudSlice('user', initialState, {
-  openDeleteModal: (
-    state,
-    { payload }: PayloadAction<UserStateDeletePayload>,
-  ) => ({
-    ...state,
-    entity: payload.entity,
-    deleteIds: payload.deleteIds,
-    actionType: CRUDActionType.Delete,
-    deleteMetadata: { userNames: payload.userNames },
-  }),
-  resetModal: (s) => ({
-    ...s,
-    ...initialState,
-  }),
-})
+export const userSlice = createCrudSlice(
+  'user',
+  initialState,
+  {
+    setAuthenticatedUser: (
+      state: UserState,
+      { payload }: PayloadAction<SetAuthenticatedUserPayload>,
+    ) => {
+      return {
+        ...state,
+        user: {
+          id: '',
+          auth0Id: payload?.sub,
+          roles: payload?.[JWT_CLAIMS].roles,
+        },
+      }
+    },
+    openDeleteModal: (
+      state,
+      { payload }: PayloadAction<UserStateDeletePayload>,
+    ) => ({
+      ...state,
+      entity: payload.entity,
+      deleteIds: payload.deleteIds,
+      actionType: CRUDActionType.Delete,
+      deleteMetadata: { userNames: payload.userNames },
+    }),
+    resetModal: (s) => ({
+      ...s,
+      ...initialState,
+    }),
+  },
+  {
+    [HYDRATE]: (state, action) => {
+      const { user } = action.payload.user
+      // console.log('userState HYDRATE', state, user)
 
-export const selectUser = (rootState: DefaultRootState): UserState =>
-  rootState.user
+      return {
+        ...state,
+        user,
+      }
+    },
+  },
+)

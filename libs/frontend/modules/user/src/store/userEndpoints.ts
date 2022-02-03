@@ -8,15 +8,15 @@ import { api as generatedApi } from '../graphql/user.endpoints.graphql.gen'
 
 export const api = generatedApi.enhanceEndpoints({
   endpoints: {
-    DeleteUser: {
-      invalidatesTags: () => invalidatesAll(USER_CACHE_TAG),
-    },
-    GetMe: {
-      providesTags: (result) => providesById(result?.getMe?.id, USER_CACHE_TAG),
-    },
-    GetUsers: {
-      providesTags: (result) => providesAll(result?.users, USER_CACHE_TAG),
-    },
+    // DeleteUser: {
+    //   invalidatesTags: () => invalidatesAll(USER_CACHE_TAG),
+    // },
+    // GetMe: {
+    //   providesTags: (result) => providesById(result?.getMe?.id, USER_CACHE_TAG),
+    // },
+    // GetUsers: {
+    //   providesTags: (result) => providesAll(result?.users, USER_CACHE_TAG),
+    // },
   },
 })
 

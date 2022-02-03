@@ -9,6 +9,10 @@ export const createAppSchema: JSONSchemaType<CreateAppInput> = {
       autoFocus: true,
       type: 'string',
     },
+    // owner: {
+    //   type: 'string',
+    //   disabled: true,
+    // },
   },
   required: ['name'],
 }

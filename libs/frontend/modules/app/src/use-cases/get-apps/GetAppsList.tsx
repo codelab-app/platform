@@ -15,15 +15,8 @@ const emptyImageStyle: React.CSSProperties = {
 }
 
 export const GetAppsList = () => {
-  const { isLoading, data } = useGetAppsQuery({
-    context: {
-      env: API_ENV.v2,
-    },
-  })
-
+  const { isLoading, data } = useGetAppsQuery()
   const appList = data?.apps
-
-  console.log(appList)
 
   return (
     <SpinnerWrapper isLoading={isLoading}>

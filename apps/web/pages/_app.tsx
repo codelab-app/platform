@@ -10,30 +10,27 @@ import DateFnsAdapter from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { ConfigProvider } from 'antd'
 import { AppProps } from 'next/app'
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { QueryClient } from 'react-query'
 import { GlobalStyles } from 'twin.macro'
 import { reduxStoreWrapper } from '../src/store/reduxStoreWrapper'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 import { slickCssFix } from '../src/styles/slick/Slick'
 
-const queryClient = new QueryClient()
+const App = ({
+  pageProps: getServerSideProps,
+  Component,
+}: AppProps<unknown>) => {
+  // console.log(getServerSideProps)
 
-const App = ({ pageProps: getServerSideProps, Component }: AppProps<any>) => {
-  //
-  console.log(getServerSideProps)
-
-  const { Layout = ({ children }: any) => <>{children}</> } =
-    Component as CodelabPage<any>
-
-  const client = useApollo(getServerSideProps)
+  const {
+    Layout = ({ children }: PropsWithChildren<unknown>) => <>{children}</>,
+  } = Component as CodelabPage<unknown>
 
   return (
-    // <QueryClientProvider client={queryClient}>
     <UserProvider>
       <LocalizationProvider dateAdapter={DateFnsAdapter}>
         <ConfigProvider>
-          {/* <ApolloProvider client={client}>*/}
           <GlobalStyles />
           <Global
             styles={[
@@ -50,11 +47,9 @@ const App = ({ pageProps: getServerSideProps, Component }: AppProps<any>) => {
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <Component {...getServerSideProps} />
           </Layout>
-          {/* </ApolloProvider>*/}
         </ConfigProvider>
       </LocalizationProvider>
     </UserProvider>
-    // </QueryClientProvider>
   )
 }
 

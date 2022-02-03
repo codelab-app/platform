@@ -22,19 +22,21 @@ let v2GraphqlClient: Maybe<GraphQLClient>
  */
 export const setClientAuthHeaders = async (
   context: GetServerSidePropsContext,
+  options?: GraphQLClientOptions,
 ) => {
   const session = await getSession(context.req, context.res)
 
-  getGraphQLClient({}).setHeaders({
+  getGraphQLClient(options).setHeaders({
     authorization: session?.accessToken ? `Bearer ${session.accessToken}` : '',
   })
+
+  return session
 }
 
-export const getGraphQLClient = ({
-  context,
-  ...options
-}: RequestInit & GraphqlOperationOptions) => {
-  const env = context?.env ?? API_ENV.local
+export type GraphQLClientOptions = RequestInit & GraphqlOperationOptions
+
+export const getGraphQLClient = (options: Maybe<GraphQLClientOptions>) => {
+  const env = options?.context?.env ?? API_ENV.local
   const apiUrl = apiUrlsByEnv[env]
 
   return env === API_ENV.production

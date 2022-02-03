@@ -26,9 +26,6 @@ export const useCreateAppForm: UseUseCaseForm<
     (input: CreateAppInput) => {
       return mutate({
         variables: { input },
-        context: {
-          env: API_ENV.v2,
-        },
       }).unwrap()
     },
     [mutate],

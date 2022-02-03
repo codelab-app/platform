@@ -41,7 +41,7 @@ const handler: NextApiHandler = async (req, res) => {
     })
 
     if (existing) {
-      console.log(`User with email ${user.email} already exists!`)
+      // console.log(`User with email ${user.email} already exists!`)
     } else {
       const { users } = await User.create({
         input: [
@@ -52,7 +52,7 @@ const handler: NextApiHandler = async (req, res) => {
         ],
       })
 
-      console.log('Created', users)
+      // console.log('Created', users)
     }
   }
 

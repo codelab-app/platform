@@ -10,6 +10,8 @@ export type AppFragment = {
     | undefined
 }
 
+export type AppBaseFragment = { id: string; name: string }
+
 export const AppFragmentDoc = gql`
   fragment App on App {
     id
@@ -18,5 +20,11 @@ export const AppFragmentDoc = gql`
       id
       name
     }
+  }
+`
+export const AppBaseFragmentDoc = gql`
+  fragment AppBase on App {
+    id
+    name
   }
 `

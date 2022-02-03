@@ -1,3 +1,6 @@
 import { AppCreateInput } from '@codelab/shared/abstract/codegen-v2'
 
-export type CreateAppInput = Pick<AppCreateInput, 'name'>
+export type CreateAppInput = {
+  name: string
+  // owner: string
+}
