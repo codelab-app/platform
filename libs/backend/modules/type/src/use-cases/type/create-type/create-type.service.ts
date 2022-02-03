@@ -1,6 +1,8 @@
 import {
   CreateResponsePort,
   ITransaction,
+  ITypeNeo4jRepository,
+  ITypeNeo4jRepositoryToken,
   ITypeRepository,
   ITypeRepositoryToken,
   UseCasePort,
@@ -8,6 +10,7 @@ import {
 import { DgraphCreateUseCase } from '@codelab/backend/application'
 import { DgraphRepository } from '@codelab/backend/infra'
 import { Inject, Injectable } from '@nestjs/common'
+import { Type } from '../../../domain'
 import { TypeValidator } from '../../../domain/type.validator'
 import { createType } from './create-type'
 import { CreateTypeRequest } from './create-type.request'
@@ -22,37 +25,27 @@ import { CreateTypeInputFactory } from './create-type-input.factory'
  */
 @Injectable()
 export class CreateTypeService
-  extends DgraphCreateUseCase<CreateTypeRequest>
   implements UseCasePort<CreateTypeRequest, CreateResponsePort>
 {
-  protected override autoCommit = true
-
   constructor(
-    dgraph: DgraphRepository,
-    @Inject(ITypeRepositoryToken)
-    private typeRepository: ITypeRepository,
-    private typeValidator: TypeValidator,
-  ) {
-    super(dgraph)
+    @Inject(ITypeNeo4jRepositoryToken)
+    private typeRepository: ITypeNeo4jRepository,
+  ) {}
+
+  async execute(request: CreateTypeRequest) {
+    const type = Type.create(request.input)
+    const results = await this.typeRepository.save(type)
+
+    return {
+      id: '',
+    }
   }
 
-  protected async executeTransaction(
-    request: CreateTypeRequest,
-    txn: ITransaction,
-  ) {
-    await this.validate(request, txn)
-
-    const inputType = CreateTypeInputFactory.toType(request.input)
-    const type = createType(inputType)
-
-    return this.typeRepository.create(type, txn)
-  }
-
-  private async validate(
-    request: CreateTypeRequest,
-    txn: ITransaction,
-  ): Promise<void> {
-    await this.typeValidator.validateCreateTypeInput(request.input, txn)
-    await this.typeValidator.primitiveIsNotDuplicated(request, txn)
-  }
+  // private async validate(
+  //   request: CreateTypeRequest,
+  //   txn: ITransaction,
+  // ): Promise<void> {
+  //   await this.typeValidator.validateCreateTypeInput(request.input, txn)
+  //   await this.typeValidator.primitiveIsNotDuplicated(request, txn)
+  // }
 }

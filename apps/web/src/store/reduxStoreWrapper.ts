@@ -83,7 +83,7 @@ export type RootState = ReturnType<RootStore['getState']>
 export type RootDispatch = RootStore['dispatch']
 
 export const reduxStoreWrapper = createWrapper<RootStore>(makeStore, {
-  debug: true,
+  debug: false,
   // Solve the issue where values in Next.js SSR can't be undefined
   // https://github.com/vercel/next.js/discussions/11209#discussioncomment-1779113
   serializeState: (state) => JSON.stringify(state),

@@ -6,17 +6,17 @@ import { GraphqlOperationOptions } from './GraphqlOperationOptions'
 
 export interface GraphqlQueryInput {
   document: RequestDocument
-  options?: Nullable<GraphqlOperationOptions>
+  options?: GraphqlOperationOptions
 }
 
 export const graphqlBaseQuery = async ({
   document,
   options = {},
 }: GraphqlQueryInput) => {
-  const { variables, ...restOptions } = options ?? {}
+  const { variables } = options
 
   try {
-    const result = await getGraphQLClient(restOptions).request(
+    const result = await getGraphQLClient(options).request(
       document,
       variables,
       options?.headers,

@@ -4,7 +4,7 @@ import {
   OpenDeleteModalActionPayload,
   OpenUpdateModalActionPayload,
 } from '@codelab/frontend/abstract/core'
-import { AppFragment } from '../graphql/App.fragment.graphql.gen'
+import { AppFragment } from '../graphql/App.fragment.v2.graphql.gen'
 
 export type AppState = CRUDModalState<AppFragment, AppActionType> & {
   currentApp?: AppFragment

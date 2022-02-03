@@ -1,13 +1,11 @@
 import { PageType } from '@codelab/frontend/abstract/types'
 import { Card } from 'antd'
 import Link from 'next/link'
-import {
-  GetAppQuery,
-  GetAppsQuery,
-} from '../../graphql/App.endpoints.graphql.gen'
+import { GetAppsQuery } from '../../graphql/App.endpoints.v2.graphql.gen'
+import { AppFragment } from '../../graphql/App.fragment.v2.graphql.gen'
 import { ItemDropdown } from './ItemDropdown'
 
-export const GetAppsItem = ({ app }: GetAppQuery) => {
+export const GetAppsItem = ({ app }: { app: AppFragment }) => {
   if (!app) {
     return null
   }

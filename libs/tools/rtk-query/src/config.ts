@@ -63,7 +63,9 @@ export interface RTKConfig {
 
 export interface RTKQueryRawPluginConfig
   extends RawClientSideBasePluginConfig,
-    RTKConfig {}
+    RTKConfig {
+  extraOptions?: Record<string, any>
+}
 export interface RTKQueryPluginConfig
   extends ClientSideBasePluginConfig,
     RTKConfig {}

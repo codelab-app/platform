@@ -1,5 +1,5 @@
-import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
+import { CreateAppInput } from './types'
 
 export const createAppSchema: JSONSchemaType<CreateAppInput> = {
   title: 'Create App Input',
@@ -9,6 +9,10 @@ export const createAppSchema: JSONSchemaType<CreateAppInput> = {
       autoFocus: true,
       type: 'string',
     },
+    // owner: {
+    //   type: 'string',
+    //   disabled: true,
+    // },
   },
   required: ['name'],
 }

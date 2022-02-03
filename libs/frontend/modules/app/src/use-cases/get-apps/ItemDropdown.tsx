@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons'
 import { Button, Dropdown, Menu, Spin } from 'antd'
 import React, { CSSProperties } from 'react'
-import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
+import { AppFragment } from '../../graphql/App.fragment.v2.graphql.gen'
 import { useAppDispatch } from '../../hooks'
 import { useExportApp } from '../export-app'
 
@@ -28,7 +28,7 @@ const menuItemIconStyle: CSSProperties = {
 
 export const ItemDropdown = ({ app }: ItemMenuProps) => {
   const { openUpdateModal, openDeleteModal } = useAppDispatch()
-  const { exportApp, isExporting } = useExportApp(app)
+  // const { exportApp, isExporting } = useExportApp(app)
 
   const onClickEdit = () =>
     openUpdateModal({
@@ -44,10 +44,10 @@ export const ItemDropdown = ({ app }: ItemMenuProps) => {
 
   const actionsMenu = (
     <Menu>
-      <Menu.Item key="export" onClick={() => exportApp()} style={menuItemStyle}>
+      {/* <Menu.Item key="export" onClick={() => exportApp()} style={menuItemStyle}>
         Export
         {isExporting ? <Spin /> : <ExportOutlined style={menuItemIconStyle} />}
-      </Menu.Item>
+      </Menu.Item> */}
 
       <Menu.Item key="edit" onClick={onClickEdit} style={menuItemStyle}>
         Edit

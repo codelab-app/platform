@@ -1,5 +1,4 @@
 import { getSession } from '@auth0/nextjs-auth0'
-import { getGraphQLClient } from '@codelab/frontend/model/infra/redux'
 import express from 'express'
 import { ServerResponse } from 'http'
 import { createProxyMiddleware } from 'http-proxy-middleware'

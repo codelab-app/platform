@@ -1,0 +1,27 @@
+mutation CreateApps($input: [AppCreateInput!]!) {
+  createApps(input: $input) {
+    apps {
+      ...App
+    }
+  }
+}
+
+mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
+  updateApps(where: $where, update: $update) {
+    apps {
+      ...AppBase
+    }
+  }
+}
+
+mutation DeleteApps($where: AppWhere!) {
+  deleteApps(where: $where) {
+    nodesDeleted
+  }
+}
+
+query GetApps($options: AppOptions, $where: AppWhere) {
+  apps: apps(options: $options, where: $where) {
+    ...App
+  }
+}

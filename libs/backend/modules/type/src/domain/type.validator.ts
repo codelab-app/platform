@@ -1,5 +1,7 @@
 import {
   ITransaction,
+  ITypeNeo4jRepository,
+  ITypeNeo4jRepositoryToken,
   ITypeRepository,
   ITypeRepositoryToken,
 } from '@codelab/backend/abstract/core'
@@ -20,6 +22,8 @@ export class TypeValidator {
     @Inject(ITypeRepositoryToken)
     private typeRepository: ITypeRepository,
     @Inject(LoggerTokens.LoggerProvider) private logger: LoggerService,
+    @Inject(ITypeNeo4jRepositoryToken)
+    private typeNeo4jRepository: ITypeNeo4jRepository,
   ) {}
 
   /**
@@ -32,6 +36,14 @@ export class TypeValidator {
       throw new Error('Type does not exist')
     }
   }
+
+  // async typeExists2(typeId: TypeId) {
+  //   const type = await this.typeNeo4jRepository.getOne(typeId)
+
+  //   if (!type) {
+  //     throw new Error('Type does not exist')
+  //   }
+  // }
 
   /**
    * Require that any primitive cannot be created a second time

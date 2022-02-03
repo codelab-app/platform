@@ -1,5 +1,5 @@
-import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
+import { CreateAppInput } from '../create-app'
 
 export const updateAppSchema: JSONSchemaType<CreateAppInput> = {
   title: 'Edit App Input',

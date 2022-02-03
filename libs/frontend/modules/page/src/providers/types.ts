@@ -1,9 +1,9 @@
-import { PageBaseFragment } from '../graphql/PageBase.fragment.graphql.gen'
+import { PageFragment } from '../graphql'
 
 export type PageProviderProps = {
   pageId: string
 }
 
 export type UseProvideCurrentPage = {
-  currentPage?: PageBaseFragment
+  currentPage?: PageFragment
 }

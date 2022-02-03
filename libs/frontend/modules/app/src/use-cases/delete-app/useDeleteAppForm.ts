@@ -1,11 +1,12 @@
 import { AppActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
+import { API_ENV } from '@codelab/frontend/model/infra/redux'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeleteAppInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
 import { useAppDispatch, useAppState } from '../../hooks'
-import { useDeleteAppMutation } from '../../store'
+import { useDeleteAppsMutation } from '../../store'
 
 export const useDeleteAppForm: UseEntityUseCaseForm<
   DeleteAppInput,
@@ -15,16 +16,23 @@ export const useDeleteAppForm: UseEntityUseCaseForm<
   const { resetModal } = useAppDispatch()
   const { deleteIds, entity, actionType } = useAppState()
 
-  const [mutate, { isLoading }] = useDeleteAppMutation({
+  const [mutate, { isLoading }] = useDeleteAppsMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.deleteApp,
+      hook: r.data?.deleteApps,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
   const onSubmit = useCallback(
-    (input: DeleteAppInput) => mutate({ variables: { input } }).unwrap(),
+    (input: DeleteAppInput) =>
+      mutate({
+        variables: {
+          where: {
+            id: input.appId,
+          },
+        },
+      }).unwrap(),
     [mutate],
   )
 

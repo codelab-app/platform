@@ -12,7 +12,7 @@ export const PageDetailHeader = () => {
   const appId = router.query.appId
   const pageId = router.query.pageId
   const { currentApp } = useAppState()
-  const currentPage = currentApp?.pages.find((x) => x.id === pageId)
+  const currentPage = currentApp?.pages?.find((x) => x.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
 
   const switchPreviewMode = () => {

@@ -1,10 +1,11 @@
 import { AppActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
+import { API_ENV } from '@codelab/frontend/model/infra/redux'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { useAppDispatch, useAppState } from '../../hooks'
-import { useCreateAppMutation } from '../../store'
+import { useCreateAppsMutation } from '../../store'
+import { CreateAppInput } from './types'
 
 export const useCreateAppForm: UseUseCaseForm<
   CreateAppInput,
@@ -13,9 +14,9 @@ export const useCreateAppForm: UseUseCaseForm<
   const { resetModal } = useAppDispatch()
   const { actionType } = useAppState()
 
-  const [mutate, { isLoading }] = useCreateAppMutation({
+  const [mutate, { isLoading }] = useCreateAppsMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.createApp,
+      hook: r.data?.createApps,
       isLoading: r.isLoading,
       error: r.error,
     }),
@@ -23,7 +24,9 @@ export const useCreateAppForm: UseUseCaseForm<
 
   const onSubmit = useCallback(
     (input: CreateAppInput) => {
-      return mutate({ variables: { input } }).unwrap()
+      return mutate({
+        variables: { input },
+      }).unwrap()
     },
     [mutate],
   )

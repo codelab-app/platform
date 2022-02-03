@@ -35,10 +35,10 @@ generatedApi.enhanceEndpoints({
   },
 })
 
-export { generatedApi as appEndpoints }
+// export { generatedApi as appEndpoints }
 
 export const {
-  useGetAppsQuery,
+  // useGetAppsQuery,
   useLazyGetAppsQuery,
   useGetAppQuery,
   useLazyGetAppQuery,

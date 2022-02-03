@@ -1,10 +1,10 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { CreateAtomInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { useAtomDispatch, useAtomState } from '../../hooks'
-import { useUpdateAtomMutation } from '../../store'
+import { useUpdateAtomsMutation } from '../../store'
+import { CreateAtomInput } from '../create-atom'
 
 export const useUpdateAtomForm: UseUseCaseForm<
   CreateAtomInput,
@@ -13,9 +13,9 @@ export const useUpdateAtomForm: UseUseCaseForm<
   const { updateId, entity, actionType } = useAtomState()
   const { resetModal } = useAtomDispatch()
 
-  const [mutate, { isLoading }] = useUpdateAtomMutation({
+  const [mutate, { isLoading }] = useUpdateAtomsMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.updateAtom,
+      atom: r.data?.updateAtoms.atoms[0],
       isLoading: r.isLoading,
       error: r.error,
     }),
@@ -24,7 +24,7 @@ export const useUpdateAtomForm: UseUseCaseForm<
   const onSubmit = useCallback(
     (data: CreateAtomInput) =>
       mutate({
-        variables: { input: { data, id: updateId } },
+        variables: { where: { id: updateId }, update: data },
       }).unwrap(),
     [mutate, updateId],
   )

@@ -1199,6 +1199,99 @@ export interface LambdaPayload {
     payload: string;
 }
 
+export interface Prop {
+    id: string;
+    data: string;
+}
+
+export interface Hook {
+    id: string;
+    type: AtomType;
+    config: Prop;
+}
+
+export interface Tag {
+    id: string;
+    name: string;
+    owner?: Nullable<ObjectRef>;
+    parent?: Nullable<string>;
+    children: string[];
+    isRoot: boolean;
+}
+
+export interface TagEdge {
+    source: string;
+    target: string;
+    order?: Nullable<number>;
+}
+
+export interface TagGraph {
+    vertices: TagVertex[];
+    edges: TagEdge[];
+}
+
+export interface PropMapBinding {
+    id: string;
+    targetElementId?: Nullable<string>;
+    sourceKey: string;
+    targetKey: string;
+}
+
+export interface Element {
+    id: string;
+    name?: Nullable<string>;
+    componentTag?: Nullable<Tag>;
+    fixedId?: Nullable<string>;
+    css?: Nullable<string>;
+    atom?: Nullable<Atom>;
+    props: Prop;
+    hooks: Hook[];
+    renderForEachPropKey?: Nullable<string>;
+    renderIfPropKey?: Nullable<string>;
+    propMapBindings: PropMapBinding[];
+    propTransformationJs?: Nullable<string>;
+    instanceOfComponent?: Nullable<ObjectRef>;
+    parentElement?: Nullable<ObjectRef>;
+    owner?: Nullable<ObjectRef>;
+    graph: ElementGraph;
+}
+
+export interface ElementEdge {
+    source: string;
+    target: string;
+    order?: Nullable<number>;
+}
+
+export interface ElementGraph {
+    vertices: Element[];
+    edges: ElementEdge[];
+}
+
+export interface Page {
+    id: string;
+    name: string;
+    elements?: Nullable<ElementGraph>;
+    rootElementId: string;
+}
+
+export interface App {
+    id: string;
+    ownerId: string;
+    name: string;
+    pages: Page[];
+}
+
+export interface Lambda {
+    id: string;
+    ownerId: string;
+    name: string;
+    body: string;
+}
+
+export interface LambdaPayload {
+    payload: string;
+}
+
 export interface IQuery {
     getApp(input: GetAppInput): Nullable<App> | Promise<Nullable<App>>;
     getApps(): App[] | Promise<App[]>;

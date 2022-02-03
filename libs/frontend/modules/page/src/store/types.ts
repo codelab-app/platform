@@ -3,16 +3,16 @@ import {
   OpenDeleteModalActionPayload,
   OpenUpdateModalActionPayload,
 } from '@codelab/frontend/abstract/core'
-import { PageBaseFragment } from '../graphql/PageBase.fragment.graphql.gen'
+import { PageFragment } from '../graphql/Page.fragment.v2.graphql.gen'
 
-export type PageState = CRUDModalState<PageBaseFragment> & {
-  currentPage?: PageBaseFragment
+export type PageState = CRUDModalState<PageFragment> & {
+  currentPage?: PageFragment
 }
 
 export type OpenDeletePageModalAction =
-  OpenDeleteModalActionPayload<PageBaseFragment>
+  OpenDeleteModalActionPayload<PageFragment>
 
 export type OpenUpdatePageModalAction =
-  OpenUpdateModalActionPayload<PageBaseFragment>
+  OpenUpdateModalActionPayload<PageFragment>
 
-export type SetCurrentPageAction = { currentPage: PageBaseFragment }
+export type SetCurrentPageAction = { currentPage: PageFragment }
