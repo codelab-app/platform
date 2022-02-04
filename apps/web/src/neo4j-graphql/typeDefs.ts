@@ -1,24 +1,14 @@
 import { gql } from 'apollo-server-micro'
 import { print } from 'graphql'
+import { appSchema } from './type-defs/appSchema'
 import { atomSchema } from './type-defs/atomSchema'
 import { pageSchema } from './type-defs/pageSchema'
+import { userSchema } from './type-defs/userSchema'
 
 export default print(gql`
-  type User @exclude(operations: [CREATE, UPDATE, DELETE]) {
-    auth0Id: String!
-    email: String!
-    apps: [App] @relationship(type: "OWNED_BY", direction: IN)
-  }
+  ${userSchema}
 
-  type App {
-    id: ID! @id
-    owner: [User] @relationship(type: "OWNED_BY", direction: OUT)
-    name: String!
-    pages: [Page] @relationship(type: "PAGES", direction: IN)
-
-    # createdAt: DateTime! @readonly @timestamp(operations: [CREATE])
-    # updatedAt: DateTime @readonly @timestamp(operations: [UPDATE])
-  }
+  ${appSchema}
 
   ${atomSchema}
 

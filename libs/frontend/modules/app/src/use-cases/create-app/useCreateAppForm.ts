@@ -23,9 +23,24 @@ export const useCreateAppForm: UseUseCaseForm<
   })
 
   const onSubmit = useCallback(
-    (input: CreateAppInput) => {
+    ({ owner, ...input }: CreateAppInput) => {
       return mutate({
-        variables: { input },
+        variables: {
+          input: {
+            ...input,
+            owner: {
+              connect: [
+                {
+                  where: {
+                    node: {
+                      auth0Id: owner,
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
       }).unwrap()
     },
     [mutate],

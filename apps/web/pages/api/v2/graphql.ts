@@ -1,7 +1,10 @@
-import { getSession } from '@auth0/nextjs-auth0'
+import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
+import { cLog } from '@codelab/shared/utils'
 import { OGM } from '@neo4j/graphql-ogm'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
+import * as util from 'util'
+// import { getSession } from 'next-auth/react'
 import { getDriver } from '../../../src/neo4j-graphql/getDriver'
 import { getSchema } from '../../../src/neo4j-graphql/getSchema'
 import typeDefs from '../../../src/neo4j-graphql/typeDefs'
@@ -15,18 +18,45 @@ const apolloServer = new ApolloServer({
   context: ({ req }) => {
     // console.log(req)
 
-    return {}
+    return { req }
   },
+  formatError: (err) => {
+    console.error(util.inspect(err, false, null, true))
+
+    // Otherwise return the original error. The error can also
+    // be manipulated in other ways, as long as it's returned.
+    return err
+  },
+  introspection: true,
 })
 
 const ogm = new OGM({ typeDefs, driver })
 const User = ogm.model('User')
 const startServer = apolloServer.start()
 
+/**
+ * next-auth is an open-source solution for Next.js and auth
+ *
+ * https://next-auth.js.org/tutorials/securing-pages-and-api-routes
+ */
 const handler: NextApiHandler = async (req, res) => {
-  // Get Next.js Auth0 session
-  const session = await getSession(req, res)
-  const accessToken = session?.accessToken
+  let session
+  let accessToken
+
+  try {
+    session = await getSession(req, res)
+    accessToken = (await getAccessToken(req, res)).accessToken
+  } catch (e) {
+    console.error(e)
+  }
+
+  // console.log(session?.user)
+
+  // await User.delete({
+  //   where: {
+  //     auth0Id: 'google-oauth2|116956556863062538891',
+  //   },
+  // })
 
   /**
    * Check for upsert only when user exists
@@ -66,6 +96,11 @@ const handler: NextApiHandler = async (req, res) => {
 
     return
   }
+
+  /**
+   * Instead of appending headers to the frontend GraphQL client, we could access session here in serverless then append at the middleware level
+   */
+  req.headers.authorization = `Bearer ${accessToken}`
 
   await startServer
 

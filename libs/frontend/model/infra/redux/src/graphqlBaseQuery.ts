@@ -1,4 +1,5 @@
 import { Nullable } from '@codelab/shared/abstract/types'
+import { BaseQueryFn } from '@reduxjs/toolkit/dist/query'
 import { ClientError } from 'graphql-request'
 import { RequestDocument } from 'graphql-request/dist/types'
 import { getGraphQLClient } from './client'
@@ -9,7 +10,7 @@ export interface GraphqlQueryInput {
   options?: GraphqlOperationOptions
 }
 
-export const graphqlBaseQuery = async ({
+export const graphqlBaseQuery: BaseQueryFn = async ({
   document,
   options = {},
 }: GraphqlQueryInput) => {

@@ -8,6 +8,7 @@ interface Config {
   }
   auth0: {
     issuer_base_url: string
+    secret: string
   }
 }
 
@@ -19,5 +20,6 @@ export const Config: Config = {
   },
   auth0: {
     issuer_base_url: env.get('AUTH0_ISSUER_BASE_URL').required().asString(),
+    secret: env.get('AUTH0_SECRET').required().asString(),
   },
 }
