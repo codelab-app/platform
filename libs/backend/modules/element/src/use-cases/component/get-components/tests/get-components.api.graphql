@@ -1,6 +1,0 @@
-query TestGetComponents($input: GetComponentsInput) {
-  getComponents(input: $input) {
-    id
-    name
-  }
-}

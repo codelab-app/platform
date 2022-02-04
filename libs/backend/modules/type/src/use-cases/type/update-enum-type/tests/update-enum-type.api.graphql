@@ -1,5 +1,0 @@
-mutation TestUpdateEnumType($input: UpdateEnumTypeInput!) {
-  updateEnumType(input: $input) {
-    ...TestType
-  }
-}

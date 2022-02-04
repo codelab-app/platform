@@ -1,5 +1,0 @@
-query TestGetLambda($input: GetLambdaInput!) {
-  getLambda(input: $input) {
-    ...TestLambda
-  }
-}

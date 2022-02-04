@@ -1,5 +1,0 @@
-mutation TestUpdateAtom($input: UpdateAtomInput!) {
-  updateAtom(input: $input) {
-    ...AtomBase
-  }
-}

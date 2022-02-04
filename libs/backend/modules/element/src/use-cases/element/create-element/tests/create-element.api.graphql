@@ -1,5 +1,0 @@
-mutation TestCreateElement($input: CreateElementInput!) {
-  createElement(input: $input) {
-    ...TestElement
-  }
-}

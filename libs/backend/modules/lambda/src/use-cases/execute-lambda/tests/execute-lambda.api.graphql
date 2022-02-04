@@ -1,5 +1,0 @@
-mutation TestExecuteLambda($input: ExecuteLambdaInput!) {
-  executeLambda(input: $input) {
-    ...TestLambdaPayload
-  }
-}

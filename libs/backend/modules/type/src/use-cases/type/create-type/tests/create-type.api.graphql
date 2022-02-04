@@ -1,5 +1,0 @@
-mutation TestCreateType($input: CreateTypeInput!) {
-  createType(input: $input) {
-    ...TestType
-  }
-}

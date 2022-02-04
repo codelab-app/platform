@@ -1,5 +1,0 @@
-query TestGetUser($input: GetUserInput!) {
-  getUser(input: $input) {
-    ...TestUser
-  }
-}

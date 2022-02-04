@@ -1,5 +1,0 @@
-query TestGetLambdas {
-  getLambdas {
-    ...TestLambda
-  }
-}

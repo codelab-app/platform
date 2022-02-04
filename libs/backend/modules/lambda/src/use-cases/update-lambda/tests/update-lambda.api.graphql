@@ -1,5 +1,0 @@
-mutation TestUpdateLambda($input: UpdateLambdaInput!) {
-  updateLambda(input: $input) {
-    ...TestLambda
-  }
-}

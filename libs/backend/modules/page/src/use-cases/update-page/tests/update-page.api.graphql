@@ -1,5 +1,0 @@
-mutation TestUpdatePage($input: UpdatePageInput!) {
-  updatePage(input: $input) {
-    ...PageBase
-  }
-}

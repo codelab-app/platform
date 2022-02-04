@@ -1,6 +1,0 @@
-query TestGetPages($input: GetPagesInput!) {
-  pages: getPages(input: $input) {
-    id
-    name
-  }
-}

@@ -1,5 +1,0 @@
-mutation TestRemoveHookFromElement($input: RemoveHookFromElementInput!) {
-  removeHookFromElement(input: $input) {
-    ...Hook
-  }
-}
