@@ -1,5 +1,0 @@
-mutation TestDeleteTags($input: DeleteTagsInput!) {
-  deleteTags(input: $input) {
-    ...Tag
-  }
-}

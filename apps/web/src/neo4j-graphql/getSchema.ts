@@ -10,14 +10,22 @@ export const getSchema = (driver: Driver) =>
     driver,
     config: {
       jwt: {
+        /**
+         * Either jwks or secret
+         */
         jwksEndpoint: new URL(
           '.well-known/jwks.json',
           Config.auth0.issuer_base_url,
         ).href,
-        rolesPath: JWT_CLAIMS,
-        // jwksEndpoint: 'https://YOUR_DOMAIN/.well-known/jwks.json',
-        // rolesPath:
-        // 'https://YOUR_DOMAIN/claims\\.https://YOUR_DOMAIN/claims/roles',
+        // secret: Config.auth0.secret,
+        /**
+         * Use "dot path" since our roles path is nested
+         */
+        rolesPath: `${JWT_CLAIMS}.roles`,
+        /**
+         * This way we could access GraphQL without a valid token
+         */
+        noVerify: true,
       },
     },
   })

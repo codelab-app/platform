@@ -93,10 +93,10 @@ export default AppsPage
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: reduxStoreWrapper.getServerSideProps(
     (store) => async (context: GetServerSidePropsContext) => {
-      const session = await setClientAuthHeaders(context, {
-        context: {
-          env: API_ENV.v2,
-        },
+      const session = await getSession(context.req, context.res)
+
+      getGraphQLClient({ context: { env: API_ENV.v2 } }).setHeaders({
+        cookie: `${context.req.headers.cookie}`,
       })
 
       store.dispatch(appEndpoints.endpoints.GetApps.initiate())

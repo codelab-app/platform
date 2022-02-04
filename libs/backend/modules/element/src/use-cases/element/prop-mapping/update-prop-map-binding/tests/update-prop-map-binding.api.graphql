@@ -1,5 +1,0 @@
-mutation TestUpdatePropMapBinding($input: UpdatePropMapBindingInput!) {
-  updatePropMapBinding(input: $input) {
-    ...TestPropMapBinding
-  }
-}

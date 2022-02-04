@@ -1,5 +1,0 @@
-mutation TestDeleteType($input: DeleteTypeInput!) {
-  deleteType(input: $input) {
-    ...TestType
-  }
-}

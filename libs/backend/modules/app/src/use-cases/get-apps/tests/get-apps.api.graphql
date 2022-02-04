@@ -1,5 +1,0 @@
-query TestGetApps {
-  apps: getApps {
-    ...TestApp
-  }
-}

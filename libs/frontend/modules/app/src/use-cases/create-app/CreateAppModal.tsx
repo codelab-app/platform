@@ -1,4 +1,5 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { useUserState } from '@codelab/frontend/modules/user'
 import { Form, FormModal } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -17,6 +18,8 @@ export const CreateAppModal = () => {
     actionType,
   } = useCreateAppForm()
 
+  const { user } = useUserState()
+
   return (
     <FormModal
       okButtonProps={{ loading: isLoading }}
@@ -26,7 +29,9 @@ export const CreateAppModal = () => {
     >
       {({ submitRef }) => (
         <Form<CreateAppInput>
-          model={{}}
+          model={{
+            owner: user.auth0Id,
+          }}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={onSubmitSuccess}

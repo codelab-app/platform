@@ -1,6 +1,5 @@
 import { AppCreateInput } from '@codelab/shared/abstract/codegen-v2'
 
-export type CreateAppInput = {
+export type UpdateAppInput = {
   name: string
-  owner: string
 }

@@ -52,7 +52,7 @@ export const userSlice = createCrudSlice(
         user: {
           id: '',
           auth0Id: payload?.sub,
-          roles: payload?.[JWT_CLAIMS].roles,
+          roles: payload?.[JWT_CLAIMS]?.roles,
         },
       }
     },

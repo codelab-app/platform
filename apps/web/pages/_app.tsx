@@ -54,3 +54,11 @@ const App = ({
 }
 
 export default reduxStoreWrapper.withRedux(App)
+
+export const getServerSideProps = (context: unknown) => {
+  console.log('_app.tsx', context)
+
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+}

@@ -1,5 +1,0 @@
-mutation TestUpdateApp($input: UpdateAppInput!) {
-  updateApp(input: $input) {
-    ...AppBase
-  }
-}

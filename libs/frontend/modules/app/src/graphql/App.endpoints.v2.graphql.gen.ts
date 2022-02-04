@@ -91,7 +91,7 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (options) => ({
         document: UpdateAppsGql,
-        options: options ?? undefined,
+        options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
     DeleteApps: build.mutation<

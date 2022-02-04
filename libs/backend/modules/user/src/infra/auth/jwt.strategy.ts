@@ -1,4 +1,9 @@
-import { IUser, Role } from '@codelab/shared/abstract/core'
+import {
+  IUser,
+  JWT_CLAIMS,
+  JwtPayload,
+  Role,
+} from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { passportJwtSecret } from 'jwks-rsa'
@@ -6,7 +11,6 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 import { GetUserService } from '../../use-cases/get-user'
 import { UpsertUserService } from '../../use-cases/upsert-user'
 import { Auth0Config, auth0Config } from '../auth0'
-import { JWT_CLAIMS, JwtPayload } from './jwt.interface'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {

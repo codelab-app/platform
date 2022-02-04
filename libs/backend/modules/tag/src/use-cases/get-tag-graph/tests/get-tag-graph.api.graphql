@@ -1,5 +1,0 @@
-query TestGetTagGraph {
-  getTagGraph {
-    ...TestTagGraph
-  }
-}

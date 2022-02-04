@@ -3,10 +3,10 @@ import fileDownload from 'js-file-download'
 import { useCallback, useEffect, useState } from 'react'
 import sanitizeFilename from 'sanitize-filename'
 import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
-import { useLazyExportAppQuery } from '../../store'
 
 export const useExportApp = (app: AppFragment) => {
   const [hasExported, setHasExported] = useState(false)
+  const useLazyExportAppQuery = (): any => null
 
   const [
     mutate,

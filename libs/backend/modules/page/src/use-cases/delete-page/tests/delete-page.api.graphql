@@ -1,5 +1,0 @@
-mutation TestDeletePage($input: DeletePageInput!) {
-  deletePage(input: $input) {
-    ...PageBase
-  }
-}

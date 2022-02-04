@@ -1,5 +1,0 @@
-mutation TestDeleteAtom($input: DeleteAtomInput!) {
-  deleteAtom(input: $input) {
-    ...AtomBase
-  }
-}

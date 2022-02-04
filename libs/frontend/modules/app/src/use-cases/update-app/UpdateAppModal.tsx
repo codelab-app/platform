@@ -1,9 +1,10 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { Form, FormModal } from '@codelab/frontend/view/components'
-import { CreateAppInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { useAppState } from '../../hooks'
+import { CreateAppInput } from '../create-app'
+import { UpdateAppInput } from './types'
 import { updateAppSchema } from './updateAppSchema'
 import { useUpdateAppForm } from './useUpdateAppForm'
 
@@ -26,7 +27,7 @@ export const UpdateAppModal = () => {
       visible={actionType === CRUDActionType.Update}
     >
       {({ submitRef }) => (
-        <Form<CreateAppInput>
+        <Form<UpdateAppInput>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}

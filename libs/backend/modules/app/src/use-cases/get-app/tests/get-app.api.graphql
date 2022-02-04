@@ -1,5 +1,0 @@
-query TestGetApp($input: GetAppInput!) {
-  getApp(input: $input) {
-    ...TestApp
-  }
-}

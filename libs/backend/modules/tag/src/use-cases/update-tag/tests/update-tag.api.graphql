@@ -1,5 +1,0 @@
-mutation TestUpdateTag($input: UpdateTagInput!) {
-  updateTag(input: $input) {
-    ...Tag
-  }
-}

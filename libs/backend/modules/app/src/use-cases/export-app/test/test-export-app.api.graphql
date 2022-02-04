@@ -1,5 +1,0 @@
-query TestExportApp($input: ExportAppInput!) {
-  exportApp(input: $input) {
-    payload
-  }
-}

@@ -5,9 +5,13 @@ import { Tasks } from './tasks'
 const NX_TEST = 'npx env-cmd -f .env.test nx'
 
 const execCommand = (command: string) => {
-  execa.commandSync(command, {
-    stdio: 'inherit',
-  })
+  try {
+    execa.commandSync(command, {
+      stdio: 'inherit',
+    })
+  } catch (e) {
+    process.exit(1)
+  }
 }
 
 export const runTasks = (env: TaskEnv, task: string, args?: string) => {
@@ -16,7 +20,9 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
   switch (task) {
     case Tasks.Build:
       if (env === TaskEnv.Test) {
-        execCommand(`${NX_TEST} affected:build --configuration=test`)
+        execCommand(
+          `${NX_TEST} affected:build --configuration=test --exclude=tools-plugins-codelab`,
+        )
       }
 
       if (env === TaskEnv.Ci) {
