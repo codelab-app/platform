@@ -4,7 +4,7 @@ import { API_ENV } from '@codelab/frontend/model/infra/redux'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeleteAppInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
+import { AppFragment } from '../../graphql/App.fragment.v2.graphql.gen'
 import { useAppDispatch, useAppState } from '../../hooks'
 import { useDeleteAppsMutation } from '../../store'
 

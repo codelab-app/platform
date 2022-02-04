@@ -31,6 +31,7 @@ input AppConnectInput {
 }
 
 input AppConnectOrCreateInput {
+  owner: [AppOwnerConnectOrCreateFieldInput!]
   pages: [AppPagesConnectOrCreateFieldInput!]
 }
 
@@ -84,6 +85,15 @@ input AppOwnerConnectFieldInput {
   where: UserConnectWhere
 }
 
+input AppOwnerConnectOrCreateFieldInput {
+  onCreate: AppOwnerConnectOrCreateFieldInputOnCreate!
+  where: UserConnectOrCreateWhere!
+}
+
+input AppOwnerConnectOrCreateFieldInputOnCreate {
+  node: UserCreateInput!
+}
+
 type AppOwnerConnection {
   edges: [AppOwnerRelationship!]!
   pageInfo: PageInfo!
@@ -117,6 +127,7 @@ input AppOwnerDisconnectFieldInput {
 
 input AppOwnerFieldInput {
   connect: [AppOwnerConnectFieldInput!]
+  connectOrCreate: [AppOwnerConnectOrCreateFieldInput!]
   create: [AppOwnerCreateFieldInput!]
 }
 
@@ -163,6 +174,7 @@ input AppOwnerNodeAggregationWhereInput {
   email_SHORTEST_GTE: Int
   email_SHORTEST_LT: Int
   email_SHORTEST_LTE: Int
+  id_EQUAL: ID
 }
 
 type AppOwnerRelationship {
@@ -176,6 +188,7 @@ input AppOwnerUpdateConnectionInput {
 
 input AppOwnerUpdateFieldInput {
   connect: [AppOwnerConnectFieldInput!]
+  connectOrCreate: [AppOwnerConnectOrCreateFieldInput!]
   create: [AppOwnerCreateFieldInput!]
   delete: [AppOwnerDeleteFieldInput!]
   disconnect: [AppOwnerDisconnectFieldInput!]
@@ -331,6 +344,7 @@ type AppUserOwnerAggregationSelection {
 type AppUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelection!
   email: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 input AppWhere {
@@ -1376,6 +1390,7 @@ type Mutation {
   deleteAtoms(where: AtomWhere): DeleteInfo!
   deleteElements(delete: ElementDeleteInput, where: ElementWhere): DeleteInfo!
   deletePages(delete: PageDeleteInput, where: PageWhere): DeleteInfo!
+  deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
   updateApps(
     connect: AppConnectInput
     connectOrCreate: AppConnectOrCreateInput
@@ -1911,12 +1926,14 @@ type User {
   ): UserAppsConnection!
   auth0Id: String!
   email: String!
+  id: ID!
 }
 
 type UserAggregateSelection {
   auth0Id: StringAggregateSelection!
   count: Int!
   email: StringAggregateSelection!
+  id: IDAggregateSelection!
 }
 
 type UserAppAppsAggregationSelection {
@@ -2040,6 +2057,10 @@ input UserConnectInput {
   apps: [UserAppsConnectFieldInput!]
 }
 
+input UserConnectOrCreateWhere {
+  node: UserUniqueWhere!
+}
+
 input UserConnectWhere {
   node: UserWhere!
 }
@@ -2074,6 +2095,11 @@ Fields to sort Users by. The order in which sorts are applied is not guaranteed 
 input UserSort {
   auth0Id: SortDirection
   email: SortDirection
+  id: SortDirection
+}
+
+input UserUniqueWhere {
+  id: ID
 }
 
 input UserUpdateInput {
@@ -2110,4 +2136,14 @@ input UserWhere {
   email_NOT_IN: [String]
   email_NOT_STARTS_WITH: String
   email_STARTS_WITH: String
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
 }

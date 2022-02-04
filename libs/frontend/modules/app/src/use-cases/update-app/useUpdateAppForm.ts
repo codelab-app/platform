@@ -6,10 +6,10 @@ import { useCallback } from 'react'
 import { AppFragment } from '../../graphql/App.fragment.v2.graphql.gen'
 import { useAppDispatch, useAppState } from '../../hooks'
 import { useUpdateAppsMutation } from '../../store'
-import { CreateAppInput } from '../create-app'
+import { UpdateAppInput } from './types'
 
 export const useUpdateAppForm: UseEntityUseCaseForm<
-  CreateAppInput,
+  UpdateAppInput,
   AppActionType,
   AppFragment
 > = () => {
@@ -25,7 +25,7 @@ export const useUpdateAppForm: UseEntityUseCaseForm<
   })
 
   const onSubmit = useCallback(
-    (data: CreateAppInput) =>
+    (data: UpdateAppInput) =>
       mutate({
         variables: {
           where: { id: updateId },

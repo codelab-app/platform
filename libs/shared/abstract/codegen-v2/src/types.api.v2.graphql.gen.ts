@@ -77,6 +77,7 @@ export type AppConnectInput = {
 }
 
 export type AppConnectOrCreateInput = {
+  owner?: InputMaybe<Array<AppOwnerConnectOrCreateFieldInput>>
   pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
 }
 
@@ -127,6 +128,15 @@ export type AppOwnerConnectFieldInput = {
   where?: InputMaybe<UserConnectWhere>
 }
 
+export type AppOwnerConnectOrCreateFieldInput = {
+  onCreate: AppOwnerConnectOrCreateFieldInputOnCreate
+  where: UserConnectOrCreateWhere
+}
+
+export type AppOwnerConnectOrCreateFieldInputOnCreate = {
+  node: UserCreateInput
+}
+
 export type AppOwnerConnection = {
   __typename?: 'AppOwnerConnection'
   edges: Array<AppOwnerRelationship>
@@ -161,6 +171,7 @@ export type AppOwnerDisconnectFieldInput = {
 
 export type AppOwnerFieldInput = {
   connect?: InputMaybe<Array<AppOwnerConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AppOwnerConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AppOwnerCreateFieldInput>>
 }
 
@@ -207,6 +218,7 @@ export type AppOwnerNodeAggregationWhereInput = {
   email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
   email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
 }
 
 export type AppOwnerRelationship = {
@@ -221,6 +233,7 @@ export type AppOwnerUpdateConnectionInput = {
 
 export type AppOwnerUpdateFieldInput = {
   connect?: InputMaybe<Array<AppOwnerConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AppOwnerConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<AppOwnerCreateFieldInput>>
   delete?: InputMaybe<Array<AppOwnerDeleteFieldInput>>
   disconnect?: InputMaybe<Array<AppOwnerDisconnectFieldInput>>
@@ -380,6 +393,7 @@ export type AppUserOwnerNodeAggregateSelection = {
   __typename?: 'AppUserOwnerNodeAggregateSelection'
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
+  id: IdAggregateSelection
 }
 
 export type AppWhere = {
@@ -1451,6 +1465,7 @@ export type Mutation = {
   deleteAtoms: DeleteInfo
   deleteElements: DeleteInfo
   deletePages: DeleteInfo
+  deleteUsers: DeleteInfo
   updateApps: UpdateAppsMutationResponse
   updateAtoms: UpdateAtomsMutationResponse
   updateElements: UpdateElementsMutationResponse
@@ -1490,6 +1505,11 @@ export type MutationDeleteElementsArgs = {
 export type MutationDeletePagesArgs = {
   delete?: InputMaybe<PageDeleteInput>
   where?: InputMaybe<PageWhere>
+}
+
+export type MutationDeleteUsersArgs = {
+  delete?: InputMaybe<UserDeleteInput>
+  where?: InputMaybe<UserWhere>
 }
 
 export type MutationUpdateAppsArgs = {
@@ -2116,6 +2136,7 @@ export type User = {
   appsConnection: UserAppsConnection
   auth0Id: Scalars['String']
   email: Scalars['String']
+  id: Scalars['ID']
 }
 
 export type UserAppsArgs = {
@@ -2139,6 +2160,7 @@ export type UserAggregateSelection = {
   auth0Id: StringAggregateSelection
   count: Scalars['Int']
   email: StringAggregateSelection
+  id: IdAggregateSelection
 }
 
 export type UserAppAppsAggregationSelection = {
@@ -2266,6 +2288,10 @@ export type UserConnectInput = {
   apps?: InputMaybe<Array<UserAppsConnectFieldInput>>
 }
 
+export type UserConnectOrCreateWhere = {
+  node: UserUniqueWhere
+}
+
 export type UserConnectWhere = {
   node: UserWhere
 }
@@ -2295,6 +2321,11 @@ export type UserOptions = {
 export type UserSort = {
   auth0Id?: InputMaybe<SortDirection>
   email?: InputMaybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+}
+
+export type UserUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>
 }
 
 export type UserUpdateInput = {
@@ -2331,4 +2362,14 @@ export type UserWhere = {
   email_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   email_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   email_STARTS_WITH?: InputMaybe<Scalars['String']>
+  id?: InputMaybe<Scalars['ID']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
 }

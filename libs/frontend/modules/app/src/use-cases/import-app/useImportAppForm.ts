@@ -6,7 +6,6 @@ import {
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
 import { useAppDispatch, useAppState } from '../../hooks'
-import { useImportAppMutation } from '../../store'
 import { ImportAppSchema } from './importAppSchema'
 
 export const useImportAppForm: UseUseCaseForm<
@@ -15,14 +14,15 @@ export const useImportAppForm: UseUseCaseForm<
 > = () => {
   const { resetModal } = useAppDispatch()
   const { actionType } = useAppState()
-
-  const [mutate, { isLoading }] = useImportAppMutation({
-    selectFromResult: (r) => ({
-      hook: r.data?.importApp,
-      isLoading: r.isLoading,
-      error: r.error,
-    }),
-  })
+  const mutate: any = () => null
+  const isLoading = false
+  // const [mutate, { isLoading }] = useImportAppMutation({
+  //   selectFromResult: (r) => ({
+  //     hook: r.data?.importApp,
+  //     isLoading: r.isLoading,
+  //     error: r.error,
+  //   }),
+  // })
 
   const onSubmit = useCallback(
     async (input: ImportAppSchema) => {
