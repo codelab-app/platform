@@ -22,7 +22,7 @@ type App {
     sort: [AppOwnerConnectionSort!]
     where: AppOwnerConnectionWhere
   ): AppOwnerConnection!
-  pages(options: PageOptions, where: PageWhere): [Page]
+  pages(options: PageOptions, where: PageWhere): [Page!]
   pagesAggregate(where: PageWhere): AppPagePagesAggregationSelection
   pagesConnection(
     after: String

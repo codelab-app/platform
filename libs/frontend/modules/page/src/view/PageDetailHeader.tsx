@@ -14,6 +14,7 @@ export const PageDetailHeader = () => {
   const { currentApp } = useAppState()
   const currentPage = currentApp?.pages?.find((x) => x?.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
+  const pages = currentApp?.pages || []
 
   const switchPreviewMode = () => {
     return router.push({
@@ -31,8 +32,8 @@ export const PageDetailHeader = () => {
     >
       {currentApp && (
         <SubMenu icon={<FileOutlined />} key="sub1" title={currentPage?.name}>
-          {currentApp?.pages?.map((page) => (
-            <Menu.Item key={page?.id}>
+          {pages.map((page) => (
+            <Menu.Item key={page.id}>
               <Link
                 href={{
                   pathname: PageType.PageBuilder,

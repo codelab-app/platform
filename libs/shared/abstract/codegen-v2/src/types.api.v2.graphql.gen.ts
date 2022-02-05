@@ -42,7 +42,7 @@ export type App = {
   owner?: Maybe<Array<Maybe<User>>>
   ownerAggregate?: Maybe<AppUserOwnerAggregationSelection>
   ownerConnection: AppOwnerConnection
-  pages?: Maybe<Array<Maybe<Page>>>
+  pages?: Maybe<Array<Page>>
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>
   pagesConnection: AppPagesConnection
 }
