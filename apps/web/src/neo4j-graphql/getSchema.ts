@@ -4,6 +4,13 @@ import { Driver } from 'neo4j-driver'
 import { Config } from '../env/env'
 import typeDefs from './typeDefs'
 
+/**
+ * `.` -> `\\.`
+ */
+const escapeDotPathKeys = (key: string) => {
+  return key.replaceAll('.', '\\.')
+}
+
 export const getSchema = (driver: Driver) =>
   new Neo4jGraphQL({
     typeDefs,
@@ -20,8 +27,12 @@ export const getSchema = (driver: Driver) =>
         // secret: Config.auth0.secret,
         /**
          * Use "dot path" since our roles path is nested
+         *
+         * https://githubmemory.com/repo/neo4j/graphql/issues/241
+         *
+         * Found out that we need to `Use \\. if you have a . in the key.`
          */
-        rolesPath: `${JWT_CLAIMS}.roles`,
+        rolesPath: `${escapeDotPathKeys(JWT_CLAIMS)}.roles`,
         /**
          * This way we could access GraphQL without a valid token
          */
