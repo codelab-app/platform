@@ -1,13 +1,18 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { Form, FormModal } from '@codelab/frontend/view/components'
 import { DeleteElementInput } from '@codelab/shared/abstract/codegen'
+import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { deleteElementSchema } from './deleteElementSchema'
 import { useDeleteElementForm } from './useDeleteElementForm'
 
-export const DeleteElementModal = () => {
+type DeleteElementModalProps = {
+  tree: ElementTree
+}
+
+export const DeleteElementModal = ({ tree }: DeleteElementModalProps) => {
   const {
     isLoading,
     actionType,
@@ -17,7 +22,7 @@ export const DeleteElementModal = () => {
     onSubmitError,
     onSubmitSuccess,
     model,
-  } = useDeleteElementForm()
+  } = useDeleteElementForm(tree)
 
   return (
     <FormModal
