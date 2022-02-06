@@ -1,5 +1,5 @@
 export * from './css-editor'
-export * from './graphql/Element.fragment.graphql.gen'
+export * from './graphql/Element.fragment.v2.graphql.gen'
 export * from './hooks'
 export * from './providers'
 export * from './sections'

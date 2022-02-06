@@ -54,9 +54,9 @@ export interface MainPaneBuilderProps {
 export const MainPaneBuilder = ({
   isComponentBuilder,
 }: MainPaneBuilderProps) => {
-  const { selectedElement, resetSelection } = useBuilderSelectedElement()
   const { builderTab } = useBuilderTab()
   const { elementTree } = useElementGraphContext()
+  const { selectedElement, resetSelection } = useBuilderSelectedElement()
 
   const root = isComponentBuilder
     ? elementTree.getRootComponent()

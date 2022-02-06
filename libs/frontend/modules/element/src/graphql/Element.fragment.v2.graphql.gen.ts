@@ -46,7 +46,10 @@ export type ElementFragment = {
   renderIfPropKey?: string | null | undefined
   propTransformationJs?: string | null | undefined
   instanceOfComponent?: { id: string } | null | undefined
-  parentElement?: { id: string } | null | undefined
+  parentElement?:
+    | { id: string; name?: string | null | undefined }
+    | null
+    | undefined
   atom?: { id: string; name: string; type: Types.AtomType } | null | undefined
   graph?: ElementGraphFragment | null | undefined
   componentTag?: { id: string; name: string } | null | undefined
@@ -120,6 +123,7 @@ export const ElementFragmentDoc = gql`
     }
     parentElement {
       id
+      name
     }
     atom {
       id

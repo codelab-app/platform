@@ -1,23 +1,21 @@
-import {
-  ElementFragment,
-  useGetElementQuery,
-} from '@codelab/frontend/modules/element'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { useElementGraphContext } from '@codelab/frontend/modules/element'
+import { IElement } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { builderSelectors } from '../store'
 import { useBuilderDispatch } from './useBuilderDispatch'
 
 export interface UseBuilderSelectedElement {
-  selectedElement: Nullable<ElementFragment>
+  selectedElement: Maybe<IElement>
   selectedElementId: Maybe<string>
-  isLoading: boolean
   setSelectedElement: (elementId?: string) => void
   resetSelection: () => void
 }
 
 export const useBuilderSelectedElement = (): UseBuilderSelectedElement => {
   const selectedElementId = useSelector(builderSelectors.selectedElementId)
+  const { elementTree } = useElementGraphContext()
   const { selectElement, resetSelection } = useBuilderDispatch()
 
   const setSelectedElement = useCallback(
@@ -25,20 +23,11 @@ export const useBuilderSelectedElement = (): UseBuilderSelectedElement => {
     [selectElement],
   )
 
-  const state = useGetElementQuery(
-    { variables: { input: { where: { id: selectedElementId } } } },
-    {
-      skip: !selectedElementId,
-      selectFromResult: (r) => ({
-        selectedElement: r.data?.getElement ?? null,
-        isLoading: r.isLoading,
-        selectedElementId,
-      }),
-    },
-  )
-
   return {
-    ...state,
+    selectedElement: selectedElementId
+      ? elementTree.getVertex(selectedElementId)
+      : undefined,
+    selectedElementId,
     setSelectedElement,
     resetSelection,
   }
