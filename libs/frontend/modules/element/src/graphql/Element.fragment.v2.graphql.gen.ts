@@ -1,4 +1,4 @@
-import * as Types from '@codelab/shared/abstract/codegen-v2'
+import * as Types from '@codelab/shared/abstract/codegen-v2';
 
 import { AtomFragment } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
@@ -104,8 +104,19 @@ export const PropMapBindingFragmentDoc = gql`
   }
 `
 export const ElementFragmentDoc = gql`
-  fragment Element on Element {
-    __typename
+    fragment Element on Element {
+  __typename
+  id
+  name
+  css
+  instanceOfComponent {
+    id
+  }
+  parentElement {
+    id
+    name
+  }
+  atom {
     id
     name
     css
