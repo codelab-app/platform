@@ -1,7 +1,7 @@
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import { ElementGraphFragment } from '../graphql'
-import { useGetElementGraphQuery } from '../store'
+import { useGetElementsQuery } from '../store'
 
 export interface ElementGraphContext {
   elementGraph?: ElementGraphFragment
@@ -21,26 +21,25 @@ const ElementGraphContext = React.createContext(initialContext)
 export const useElementGraphContext = () =>
   React.useContext(ElementGraphContext)
 
-export const ElementGraphProvider = (
-  props: React.PropsWithChildren<{ elementId: string }>,
-) => {
-  const { data } = useGetElementGraphQuery({
-    variables: { input: { where: { id: props.elementId } } },
+type ElementGraphProviderProps = React.PropsWithChildren<{ elementId: string }>
+
+export const ElementGraphProvider = ({
+  elementId,
+  children,
+}: ElementGraphProviderProps) => {
+  const { data } = useGetElementsQuery({
+    variables: { where: { id: elementId } },
   })
 
-  const elementTree = data?.getElementGraph
-    ? new ElementTree(data?.getElementGraph)
-    : new ElementTree({ edges: [], vertices: [] })
+  const element = data?.elements[0]
+  const elementGraph = element?.graph || { edges: [], vertices: [] }
+  const elementTree = new ElementTree(elementGraph)
 
   return (
     <ElementGraphContext.Provider
-      value={{
-        elementId: props.elementId,
-        elementGraph: data?.getElementGraph,
-        elementTree: elementTree,
-      }}
+      value={{ elementId, elementGraph, elementTree }}
     >
-      {props.children}
+      {children}
     </ElementGraphContext.Provider>
   )
 }

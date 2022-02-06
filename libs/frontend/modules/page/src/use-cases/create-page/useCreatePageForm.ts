@@ -36,8 +36,49 @@ export const useCreatePageForm: UseUseCaseForm<
         create: {
           node: {
             name: 'Root Element',
-            // TODO: find out what goes in here
-            ownerId: '',
+            children: {
+              create: [
+                {
+                  edge: { order: 1 },
+                  node: {
+                    name: 'First Child',
+                    children: {
+                      create: [
+                        {
+                          edge: {
+                            order: 1,
+                          },
+                          node: {
+                            name: 'Second Child',
+                            hooks: [],
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+                {
+                  edge: { order: 2 },
+                  node: {
+                    name: 'First Child B',
+                    hooks: [],
+                    children: {
+                      create: [
+                        {
+                          edge: {
+                            order: 1,
+                          },
+                          node: {
+                            name: 'Second Child B',
+                            hooks: [],
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
           },
         },
       }

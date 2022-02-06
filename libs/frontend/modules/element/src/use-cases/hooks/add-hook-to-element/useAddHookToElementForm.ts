@@ -1,6 +1,5 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
-import { useAppState } from '@codelab/frontend/modules/app'
 import {
   useGetAtomsTypeHookForSelectQuery,
   useLazyGetTypeGraphQuery,

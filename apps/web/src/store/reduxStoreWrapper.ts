@@ -6,6 +6,7 @@ import {
   componentEndpoints,
   componentSlice,
   elementEndpoints,
+  elementEndpointsV2,
   elementSlice,
   hookEndpoints,
   hookSlice,
@@ -44,6 +45,7 @@ export const makeStore = () => {
       [deleteTypeEndpoints.reducerPath]: deleteTypeEndpoints.reducer,
       [updateTypeEndpoints.reducerPath]: updateTypeEndpoints.reducer,
       [createTypeEndpoints.reducerPath]: createTypeEndpoints.reducer,
+      [elementEndpointsV2.reducerPath]: elementEndpointsV2.reducer,
 
       // Slices:
       [appSlice.name]: appSlice.reducer,

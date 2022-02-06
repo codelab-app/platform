@@ -1,0 +1,27 @@
+mutation CreateElements($input: [ElementCreateInput!]!) {
+  createElements(input: $input) {
+    elements {
+      ...ElementBase
+    }
+  }
+}
+
+mutation DeleteElements($where: ElementWhere, $delete: ElementDeleteInput) {
+  deleteElements(where: $where, delete: $delete) {
+    nodesDeleted
+  }
+}
+
+mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
+  updateElements(where: $where, update: $update) {
+    elements {
+      ...Element
+    }
+  }
+}
+
+query GetElements($options: ElementOptions, $where: ElementWhere) {
+  elements: elements(options: $options, where: $where) {
+    ...Element
+  }
+}

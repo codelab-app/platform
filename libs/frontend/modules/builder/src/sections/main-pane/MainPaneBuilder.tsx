@@ -92,7 +92,7 @@ export const MainPaneBuilder = ({
       </EqualityConditionalView>
 
       <CreateElementModal parentElementId={selectedElement?.id} />
-      <DeleteElementModal />
+      <DeleteElementModal tree={elementTree} />
     </MainPaneTemplate>
   )
 }

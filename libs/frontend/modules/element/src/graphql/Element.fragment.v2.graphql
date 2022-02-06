@@ -1,0 +1,82 @@
+fragment ElementBase on Element {
+  __typename
+  id
+  name
+  css
+  instanceOfComponent {
+    id
+  }
+  parentElement {
+    id
+    name
+  }
+  atom {
+    id
+    name
+    type
+  }
+  componentTag {
+    id
+    name
+  }
+  props
+  hooks
+  renderForEachPropKey
+  renderIfPropKey
+  propMapBindings {
+    id
+    sourceKey
+    targetKey
+  }
+  propTransformationJs
+}
+
+fragment ElementEdge on ElementEdge {
+  source
+  target
+  order
+}
+
+fragment ElementGraph on ElementGraph {
+  vertices {
+    ...ElementBase
+  }
+  edges {
+    ...ElementEdge
+  }
+}
+
+fragment Element on Element {
+  __typename
+  id
+  name
+  css
+  instanceOfComponent {
+    id
+  }
+  parentElement {
+    id
+  }
+  atom {
+    id
+    name
+    type
+  }
+  graph {
+    ...ElementGraph
+  }
+  componentTag {
+    id
+    name
+  }
+  props
+  hooks
+  renderForEachPropKey
+  renderIfPropKey
+  propMapBindings {
+    id
+    sourceKey
+    targetKey
+  }
+  propTransformationJs
+}
