@@ -1,0 +1,8 @@
+fragment TagGraph on TagGraph {
+  vertices {
+    ...Tag
+  }
+  edges {
+    ...TagEdge
+  }
+}

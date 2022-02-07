@@ -1,8 +1,8 @@
 import { IGraph } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { TreeService } from '@codelab/shared/core'
-import { TagFragment } from '../graphql/Tag.fragment.graphql.gen'
-import { TagEdgeFragment } from '../graphql/TagEdge.fragment.graphql.gen'
+import { TagFragment } from '../graphql/Tag.fragment.v2.graphql.gen'
+import { TagEdgeFragment } from '../graphql/TagEdge.fragment.v2.graphql.gen'
 
 export type GraphqlTagGraph = IGraph<TagFragment, TagEdgeFragment>
 

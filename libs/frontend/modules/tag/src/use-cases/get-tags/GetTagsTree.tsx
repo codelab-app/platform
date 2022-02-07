@@ -4,10 +4,10 @@ import { useTagDispatch, useTagState, useTagTree } from '../../hooks'
 import { useGetTagGraphsQuery } from '../../store'
 
 export const GetTagsTree = () => {
-  const { data, isLoading } = useGetTagGraphsQuery()
+  const { data } = useGetTagGraphsQuery()
   const { setSelectedTag, setCheckedTags } = useTagDispatch()
   const { checkedTags } = useTagState()
-  const tagTree = useTagTree(data?.getTagGraphs)
+  const tagTree = useTagTree(data?.tagGraphs)
 
   if (!data) {
     return null

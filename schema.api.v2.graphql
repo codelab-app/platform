@@ -925,6 +925,21 @@ type CreatePagesMutationResponse {
   pages: [Page!]!
 }
 
+type CreateTagEdgesMutationResponse {
+  info: CreateInfo!
+  tagEdges: [TagEdge!]!
+}
+
+type CreateTagGraphsMutationResponse {
+  info: CreateInfo!
+  tagGraphs: [TagGraph!]!
+}
+
+type CreateTagsMutationResponse {
+  info: CreateInfo!
+  tags: [Tag!]!
+}
+
 """
 A date and time, represented as an ISO-8601 string
 """
@@ -1460,8 +1475,13 @@ interface IElementGraph {
   vertices: [Element!]
 }
 
+interface IGraph {
+  edges: [TagEdge!]!
+  vertices: [TagVertex!]!
+}
+
 input ImportAtomsInput {
-  payload: String!
+  payload: JSONObject!
 }
 
 type ImportAtomsMutationResponse {
@@ -1503,6 +1523,11 @@ type IntAggregateSelection {
   sum: Int
 }
 
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
 type Mutation {
   createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
   createAtoms(input: [AtomCreateInput!]!): CreateAtomsMutationResponse!
@@ -1514,6 +1539,11 @@ type Mutation {
     input: [ImportAtomsMutationResponseCreateInput!]!
   ): CreateImportAtomsMutationResponsesMutationResponse!
   createPages(input: [PageCreateInput!]!): CreatePagesMutationResponse!
+  createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
+  createTagGraphs(
+    input: [TagGraphCreateInput!]!
+  ): CreateTagGraphsMutationResponse!
+  createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
   deleteAtoms(where: AtomWhere): DeleteInfo!
   deleteCreateInfos(where: CreateInfoWhere): DeleteInfo!
@@ -1522,6 +1552,9 @@ type Mutation {
     where: ImportAtomsMutationResponseWhere
   ): DeleteInfo!
   deletePages(delete: PageDeleteInput, where: PageWhere): DeleteInfo!
+  deleteTagEdges(where: TagEdgeWhere): DeleteInfo!
+  deleteTagGraphs(where: TagGraphWhere): DeleteInfo!
+  deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
   updateApps(
@@ -1563,6 +1596,23 @@ type Mutation {
     update: PageUpdateInput
     where: PageWhere
   ): UpdatePagesMutationResponse!
+  updateTagEdges(
+    update: TagEdgeUpdateInput
+    where: TagEdgeWhere
+  ): UpdateTagEdgesMutationResponse!
+  updateTagGraphs(
+    update: TagGraphUpdateInput
+    where: TagGraphWhere
+  ): UpdateTagGraphsMutationResponse!
+  updateTags(
+    connect: TagConnectInput
+    connectOrCreate: TagConnectOrCreateInput
+    create: TagRelationInput
+    delete: TagDeleteInput
+    disconnect: TagDisconnectInput
+    update: TagUpdateInput
+    where: TagWhere
+  ): UpdateTagsMutationResponse!
 }
 
 type Page {
@@ -2022,6 +2072,15 @@ type Query {
   pages(options: PageOptions, where: PageWhere): [Page!]!
   pagesAggregate(where: PageWhere): PageAggregateSelection!
   pagesCount(where: PageWhere): Int!
+  tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
+  tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
+  tagEdgesCount(where: TagEdgeWhere): Int!
+  tagGraphs: TagGraph
+  tagGraphsAggregate(where: TagGraphWhere): TagGraphAggregateSelection!
+  tagGraphsCount(where: TagGraphWhere): Int!
+  tags(options: TagOptions, where: TagWhere): [Tag!]!
+  tagsAggregate(where: TagWhere): TagAggregateSelection!
+  tagsCount(where: TagWhere): Int!
   users(options: UserOptions, where: UserWhere): [User!]!
   usersAggregate(where: UserWhere): UserAggregateSelection!
   usersCount(where: UserWhere): Int!
@@ -2042,6 +2101,476 @@ enum SortDirection {
 type StringAggregateSelection {
   longest: String
   shortest: String
+}
+
+type Tag {
+  children(options: TagOptions, where: TagWhere): [Tag]
+  childrenAggregate(where: TagWhere): TagTagChildrenAggregationSelection
+  childrenConnection(
+    after: String
+    first: Int
+    sort: [TagChildrenConnectionSort!]
+    where: TagChildrenConnectionWhere
+  ): TagChildrenConnection!
+  id: ID!
+  isRoot: Boolean
+  name: String!
+  parent(options: TagOptions, where: TagWhere): Tag
+  parentAggregate(where: TagWhere): TagTagParentAggregationSelection
+  parentConnection(
+    after: String
+    first: Int
+    sort: [TagParentConnectionSort!]
+    where: TagParentConnectionWhere
+  ): TagParentConnection!
+}
+
+type TagAggregateSelection {
+  count: Int!
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input TagChildrenAggregateInput {
+  AND: [TagChildrenAggregateInput!]
+  OR: [TagChildrenAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: TagChildrenNodeAggregationWhereInput
+}
+
+input TagChildrenConnectFieldInput {
+  connect: [TagConnectInput!]
+  where: TagConnectWhere
+}
+
+input TagChildrenConnectOrCreateFieldInput {
+  onCreate: TagChildrenConnectOrCreateFieldInputOnCreate!
+  where: TagConnectOrCreateWhere!
+}
+
+input TagChildrenConnectOrCreateFieldInputOnCreate {
+  node: TagCreateInput!
+}
+
+type TagChildrenConnection {
+  edges: [TagChildrenRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input TagChildrenConnectionSort {
+  node: TagSort
+}
+
+input TagChildrenConnectionWhere {
+  AND: [TagChildrenConnectionWhere!]
+  OR: [TagChildrenConnectionWhere!]
+  node: TagWhere
+  node_NOT: TagWhere
+}
+
+input TagChildrenCreateFieldInput {
+  node: TagCreateInput!
+}
+
+input TagChildrenDeleteFieldInput {
+  delete: TagDeleteInput
+  where: TagChildrenConnectionWhere
+}
+
+input TagChildrenDisconnectFieldInput {
+  disconnect: TagDisconnectInput
+  where: TagChildrenConnectionWhere
+}
+
+input TagChildrenFieldInput {
+  connect: [TagChildrenConnectFieldInput!]
+  connectOrCreate: [TagChildrenConnectOrCreateFieldInput!]
+  create: [TagChildrenCreateFieldInput!]
+}
+
+input TagChildrenNodeAggregationWhereInput {
+  AND: [TagChildrenNodeAggregationWhereInput!]
+  OR: [TagChildrenNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type TagChildrenRelationship {
+  cursor: String!
+  node: Tag!
+}
+
+input TagChildrenUpdateConnectionInput {
+  node: TagUpdateInput
+}
+
+input TagChildrenUpdateFieldInput {
+  connect: [TagChildrenConnectFieldInput!]
+  connectOrCreate: [TagChildrenConnectOrCreateFieldInput!]
+  create: [TagChildrenCreateFieldInput!]
+  delete: [TagChildrenDeleteFieldInput!]
+  disconnect: [TagChildrenDisconnectFieldInput!]
+  update: TagChildrenUpdateConnectionInput
+  where: TagChildrenConnectionWhere
+}
+
+input TagConnectInput {
+  children: [TagChildrenConnectFieldInput!]
+  parent: TagParentConnectFieldInput
+}
+
+input TagConnectOrCreateInput {
+  children: [TagChildrenConnectOrCreateFieldInput!]
+  parent: TagParentConnectOrCreateFieldInput
+}
+
+input TagConnectOrCreateWhere {
+  node: TagUniqueWhere!
+}
+
+input TagConnectWhere {
+  node: TagWhere!
+}
+
+input TagCreateInput {
+  children: TagChildrenFieldInput
+  isRoot: Boolean
+  name: String!
+  parent: TagParentFieldInput
+}
+
+input TagDeleteInput {
+  children: [TagChildrenDeleteFieldInput!]
+  parent: TagParentDeleteFieldInput
+}
+
+input TagDisconnectInput {
+  children: [TagChildrenDisconnectFieldInput!]
+  parent: TagParentDisconnectFieldInput
+}
+
+type TagEdge {
+  source: ID!
+  target: ID!
+}
+
+type TagEdgeAggregateSelection {
+  count: Int!
+  source: IDAggregateSelection!
+  target: IDAggregateSelection!
+}
+
+input TagEdgeCreateInput {
+  source: ID!
+  target: ID!
+}
+
+input TagEdgeOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more TagEdgeSort objects to sort TagEdges by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [TagEdgeSort]
+}
+
+"""
+Fields to sort TagEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagEdgeSort object.
+"""
+input TagEdgeSort {
+  source: SortDirection
+  target: SortDirection
+}
+
+input TagEdgeUpdateInput {
+  source: ID
+  target: ID
+}
+
+input TagEdgeWhere {
+  AND: [TagEdgeWhere!]
+  OR: [TagEdgeWhere!]
+  source: ID
+  source_CONTAINS: ID
+  source_ENDS_WITH: ID
+  source_IN: [ID]
+  source_NOT: ID
+  source_NOT_CONTAINS: ID
+  source_NOT_ENDS_WITH: ID
+  source_NOT_IN: [ID]
+  source_NOT_STARTS_WITH: ID
+  source_STARTS_WITH: ID
+  target: ID
+  target_CONTAINS: ID
+  target_ENDS_WITH: ID
+  target_IN: [ID]
+  target_NOT: ID
+  target_NOT_CONTAINS: ID
+  target_NOT_ENDS_WITH: ID
+  target_NOT_IN: [ID]
+  target_NOT_STARTS_WITH: ID
+  target_STARTS_WITH: ID
+}
+
+type TagGraph implements IGraph {
+  """
+  All the links connecting the descendant elements/components
+  """
+  edges: [TagEdge!]!
+
+  """
+  All descendant Elements or Components, at any level
+  """
+  vertices: [Tag!]!
+}
+
+type TagGraphAggregateSelection {
+  count: Int!
+}
+
+input TagGraphCreateInput {
+  """
+  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
+  """
+  _emptyInput: Boolean
+}
+
+input TagGraphUpdateInput {
+  """
+  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
+  """
+  _emptyInput: Boolean
+}
+
+input TagGraphWhere {
+  AND: [TagGraphWhere!]
+  OR: [TagGraphWhere!]
+}
+
+input TagOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more TagSort objects to sort Tags by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [TagSort]
+}
+
+input TagParentAggregateInput {
+  AND: [TagParentAggregateInput!]
+  OR: [TagParentAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: TagParentNodeAggregationWhereInput
+}
+
+input TagParentConnectFieldInput {
+  connect: TagConnectInput
+  where: TagConnectWhere
+}
+
+input TagParentConnectOrCreateFieldInput {
+  onCreate: TagParentConnectOrCreateFieldInputOnCreate!
+  where: TagConnectOrCreateWhere!
+}
+
+input TagParentConnectOrCreateFieldInputOnCreate {
+  node: TagCreateInput!
+}
+
+type TagParentConnection {
+  edges: [TagParentRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input TagParentConnectionSort {
+  node: TagSort
+}
+
+input TagParentConnectionWhere {
+  AND: [TagParentConnectionWhere!]
+  OR: [TagParentConnectionWhere!]
+  node: TagWhere
+  node_NOT: TagWhere
+}
+
+input TagParentCreateFieldInput {
+  node: TagCreateInput!
+}
+
+input TagParentDeleteFieldInput {
+  delete: TagDeleteInput
+  where: TagParentConnectionWhere
+}
+
+input TagParentDisconnectFieldInput {
+  disconnect: TagDisconnectInput
+  where: TagParentConnectionWhere
+}
+
+input TagParentFieldInput {
+  connect: TagParentConnectFieldInput
+  connectOrCreate: TagParentConnectOrCreateFieldInput
+  create: TagParentCreateFieldInput
+}
+
+input TagParentNodeAggregationWhereInput {
+  AND: [TagParentNodeAggregationWhereInput!]
+  OR: [TagParentNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type TagParentRelationship {
+  cursor: String!
+  node: Tag!
+}
+
+input TagParentUpdateConnectionInput {
+  node: TagUpdateInput
+}
+
+input TagParentUpdateFieldInput {
+  connect: TagParentConnectFieldInput
+  connectOrCreate: TagParentConnectOrCreateFieldInput
+  create: TagParentCreateFieldInput
+  delete: TagParentDeleteFieldInput
+  disconnect: TagParentDisconnectFieldInput
+  update: TagParentUpdateConnectionInput
+  where: TagParentConnectionWhere
+}
+
+input TagRelationInput {
+  children: [TagChildrenCreateFieldInput!]
+  parent: TagParentCreateFieldInput
+}
+
+"""
+Fields to sort Tags by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagSort object.
+"""
+input TagSort {
+  id: SortDirection
+  isRoot: SortDirection
+  name: SortDirection
+}
+
+type TagTagChildrenAggregationSelection {
+  count: Int!
+  node: TagTagChildrenNodeAggregateSelection
+}
+
+type TagTagChildrenNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+type TagTagParentAggregationSelection {
+  count: Int!
+  node: TagTagParentNodeAggregateSelection
+}
+
+type TagTagParentNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input TagUniqueWhere {
+  id: ID
+}
+
+input TagUpdateInput {
+  children: [TagChildrenUpdateFieldInput!]
+  isRoot: Boolean
+  name: String
+  parent: TagParentUpdateFieldInput
+}
+
+union TagVertex = Tag
+
+input TagWhere {
+  AND: [TagWhere!]
+  OR: [TagWhere!]
+  children: TagWhere
+  childrenAggregate: TagChildrenAggregateInput
+  childrenConnection: TagChildrenConnectionWhere
+  childrenConnection_NOT: TagChildrenConnectionWhere
+  children_NOT: TagWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID]
+  id_NOT: ID
+  id_NOT_CONTAINS: ID
+  id_NOT_ENDS_WITH: ID
+  id_NOT_IN: [ID]
+  id_NOT_STARTS_WITH: ID
+  id_STARTS_WITH: ID
+  isRoot: Boolean
+  isRoot_NOT: Boolean
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String]
+  name_NOT: String
+  name_NOT_CONTAINS: String
+  name_NOT_ENDS_WITH: String
+  name_NOT_IN: [String]
+  name_NOT_STARTS_WITH: String
+  name_STARTS_WITH: String
+  parent: TagWhere
+  parentAggregate: TagParentAggregateInput
+  parentConnection: TagParentConnectionWhere
+  parentConnection_NOT: TagParentConnectionWhere
+  parent_NOT: TagWhere
 }
 
 type UpdateAppsMutationResponse {
@@ -2080,6 +2609,21 @@ type UpdateInfo {
 type UpdatePagesMutationResponse {
   info: UpdateInfo!
   pages: [Page!]!
+}
+
+type UpdateTagEdgesMutationResponse {
+  info: UpdateInfo!
+  tagEdges: [TagEdge!]!
+}
+
+type UpdateTagGraphsMutationResponse {
+  info: UpdateInfo!
+  tagGraphs: [TagGraph!]!
+}
+
+type UpdateTagsMutationResponse {
+  info: UpdateInfo!
+  tags: [Tag!]!
 }
 
 type User {
