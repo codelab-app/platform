@@ -1,0 +1,4 @@
+fragment TagEdge on TagEdge {
+  source
+  target
+}
