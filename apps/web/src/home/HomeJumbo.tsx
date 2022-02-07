@@ -18,7 +18,7 @@ export const HomeJumbo = () => {
 
   useEffect(() => {
     window.jQuery = $
-    window.Morphtext = require('bower_components/Morphext/dist/morphext.min.js')
+    window.Morphtext = require('node_modules/morphext/dist/morphext.min.js')
     ;($(jsRotatingRef.current!) as any).Morphext({
       // The [in] animation type. Refer to Animate.css for a list of available animations.
       animation: 'animate__animated animate__fadeIn',

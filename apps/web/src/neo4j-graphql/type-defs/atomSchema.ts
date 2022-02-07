@@ -15,5 +15,5 @@ export const atomSchema = gql`
     # api: InterfaceType  TODO: add atom api after type module
   }
 
-  extend type Atom @auth(rules: [{ operations: [CREATE], roles: ["Admin"] }])
+  extend type Atom @auth(rules: [{ roles: ["Admin"] }])
 `

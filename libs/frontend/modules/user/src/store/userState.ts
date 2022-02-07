@@ -44,8 +44,6 @@ export const userSlice = createCrudSlice(
       state: UserState,
       { payload }: PayloadAction<SetAuthenticatedUserPayload>,
     ) => {
-      console.log(payload)
-
       return {
         ...state,
         user: {
