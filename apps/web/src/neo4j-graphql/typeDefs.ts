@@ -45,7 +45,8 @@ export default print(gql`
     tagGraphs: TagGraph
       @cypher(
         statement: """
-        MATCH (t:Tag), path = (:Tag)<-[:Children]-(:Tag)
+        MATCH (t:Tag)
+        OPTIONAL MATCH path = (:Tag)<-[:Children]-(:Tag)
           WITH
           	properties(t) as vertices,
             [relation in relationships(path) |
