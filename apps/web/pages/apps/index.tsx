@@ -1,14 +1,14 @@
 import { EllipsisOutlined } from '@ant-design/icons'
-import { getSession, useUser, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import {
+  getAccessToken,
+  getSession,
+  withPageAuthRequired,
+} from '@auth0/nextjs-auth0'
 import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import {
-  API_ENV,
-  getGraphQLClient,
-  setClientAuthHeaders,
-} from '@codelab/frontend/model/infra/redux'
+import { API_ENV, getGraphQLClient } from '@codelab/frontend/model/infra/redux'
 import {
   appEndpoints,
   CreateAppButton,
@@ -16,14 +16,9 @@ import {
   DeleteAppModal,
   GetAppsList,
   ImportAppButton,
-  ImportAppModal,
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
-import {
-  SignOutUserButton,
-  userEndpoints,
-  userSlice,
-} from '@codelab/frontend/modules/user'
+import { SignOutUserButton, userSlice } from '@codelab/frontend/modules/user'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
@@ -67,7 +62,6 @@ const AppsPageHeader = () => {
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
   const user = useUserState()
-  console.log(user)
 
   return (
     <>
@@ -92,25 +86,30 @@ export default AppsPage
 // https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr
 export const getServerSideProps = withPageAuthRequired({
   getServerSideProps: reduxStoreWrapper.getServerSideProps(
-    (store) => async (context: GetServerSidePropsContext) => {
-      const session = await getSession(context.req, context.res)
+    (store) =>
+      async ({ req, res }: GetServerSidePropsContext) => {
+        const session = await getSession(req, res)
+        const { accessToken } = await getAccessToken(req, res)
 
-      getGraphQLClient({ context: { env: API_ENV.v2 } }).setHeaders({
-        cookie: `${context.req.headers.cookie}`,
-      })
+        // console.log(accessToken)
 
-      store.dispatch(appEndpoints.endpoints.GetApps.initiate())
-      store.dispatch(userSlice.actions.setAuthenticatedUser(session?.user))
+        getGraphQLClient({ context: { env: API_ENV.v2 } }).setHeaders({
+          // authorization: `Bearer ${accessToken}`,
+          cookie: `${req.headers.cookie}`,
+        })
 
-      await Promise.all(
-        appEndpoints.util.getRunningOperationPromises(),
-        // userEndpoints.util.getRunningOperationPromises(),
-      )
+        store.dispatch(appEndpoints.endpoints.GetApps.initiate())
+        store.dispatch(userSlice.actions.setAuthenticatedUser(session?.user))
 
-      return {
-        props: {},
-      }
-    },
+        await Promise.all(
+          appEndpoints.util.getRunningOperationPromises(),
+          // userEndpoints.util.getRunningOperationPromises(),
+        )
+
+        return {
+          props: {},
+        }
+      },
   ),
 })
 

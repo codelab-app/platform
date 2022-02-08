@@ -1,4 +1,3 @@
-import { Session } from '@auth0/nextjs-auth0'
 import {
   CRUDActionType,
   CRUDModalState,
@@ -9,10 +8,8 @@ import {
   initialCrudState,
 } from '@codelab/frontend/view/components'
 import { IUser, JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { HYDRATE } from 'next-redux-wrapper'
-import { DefaultRootState } from 'react-redux'
 import { __UserFragment } from '../graphql/User.fragment.graphql.gen'
 import { SetAuthenticatedUserPayload } from './types'
 

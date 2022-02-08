@@ -1,9 +1,9 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { Form, FormModal } from '@codelab/frontend/view/components'
-import { CreatePageInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { usePageState } from '../../hooks'
+import { UpdatePageInput } from './types'
 import { updatePageSchema } from './updatePageSchema'
 import { useUpdatePageForm } from './useUpdatePageForm'
 
@@ -21,7 +21,7 @@ export const UpdatePageModal = () => {
       visible={actionType === CRUDActionType.Update}
     >
       {({ submitRef }) => (
-        <Form<CreatePageInput>
+        <Form<UpdatePageInput>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}

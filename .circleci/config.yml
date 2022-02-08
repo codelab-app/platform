@@ -99,10 +99,6 @@ commands:
             nvm alias default 14.18.0
             node -v
       - run:
-          name: 'Install Bower'
-          command: |
-            npm install -g bower
-      - run:
           name: 'Setup env'
           command: |
             # git settings
@@ -144,9 +140,6 @@ commands:
       - run:
           name: 'Install NPM packages'
           command: yarn install --immutable
-      - run:
-          name: 'Install Bower packages'
-          command: bower install --no-interactive
 
   notify-failure:
     steps:

@@ -10,8 +10,10 @@ export const atomSchema = gql`
 
   type Atom {
     id: ID! @id
-    type: AtomType!
-    name: String!
+    type: AtomType! @unique
+    name: String! @unique
     # api: InterfaceType  TODO: add atom api after type module
   }
+
+  extend type Atom @auth(rules: [{ roles: ["Admin"] }])
 `

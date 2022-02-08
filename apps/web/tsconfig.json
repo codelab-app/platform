@@ -7,6 +7,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "lib": ["es2021"],
     "allowSyntheticDefaultImports": true,
     "types": ["node", "worker-loader", "window", "@fancyapps/ui"],
     "strict": true,

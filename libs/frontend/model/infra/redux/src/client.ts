@@ -1,4 +1,4 @@
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { getSession } from '@auth0/nextjs-auth0'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { GraphQLClient } from 'graphql-request'
 import { RequestInit } from 'graphql-request/dist/types.dom'
@@ -39,9 +39,14 @@ export const getGraphQLClient = (options: Maybe<GraphQLClientOptions>) => {
   const env = options?.context?.env ?? API_ENV.local
   const apiUrl = apiUrlsByEnv[env]
 
-  return env === API_ENV.production
-    ? (productionGraphqlClient ??= new GraphQLClient(apiUrl, options))
-    : env === API_ENV.v2
-    ? (v2GraphqlClient ??= new GraphQLClient(apiUrl, options))
-    : (localGraphqlClient ??= new GraphQLClient(apiUrl, options))
+  if (!v2GraphqlClient) {
+    console.log('options', options)
+  }
+
+  return (v2GraphqlClient ??= new GraphQLClient(apiUrl, options))
+  // return env === API_ENV.production
+  //   ? (productionGraphqlClient ??= new GraphQLClient(apiUrl, options))
+  //   : env === API_ENV.v2
+  //   ? (v2GraphqlClient ??= new GraphQLClient(apiUrl, options))
+  //   : (localGraphqlClient ??= new GraphQLClient(apiUrl, options))
 }

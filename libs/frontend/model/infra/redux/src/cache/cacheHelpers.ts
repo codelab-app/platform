@@ -1,5 +1,4 @@
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
-import { FullTagDescription } from '@reduxjs/toolkit/dist/query/endpointDefinitions'
 import { WILDCARD_ID } from './cacheTags'
 
 export const providesAll = <
@@ -17,7 +16,7 @@ export const providesAll = <
     : [{ type, id: WILDCARD_ID }]
 }
 
-export const providesById = <R extends string, T extends string>(
+export const providesById = <R extends Maybe<string>, T extends string>(
   id: R,
   type: T,
 ) => {
@@ -27,7 +26,7 @@ export const providesById = <R extends string, T extends string>(
 export const invalidatesAll = <T extends string>(...types: Array<T>) =>
   types.map((type) => ({ type, id: WILDCARD_ID }))
 
-export const invalidatesById = <R extends string, T extends string>(
+export const invalidatesById = <R extends Maybe<string>, T extends string>(
   id: R,
   ...types: Array<T>
 ) => types.map((type) => (id ? { type, id } : { type, id: WILDCARD_ID }))

@@ -2,4 +2,4 @@
 @import './_container.css';
 
 /* Vendor imports */
-@import 'bower_components/Morphext/dist/morphext.css';
+@import 'node_modules/morphext/dist/morphext.css';
