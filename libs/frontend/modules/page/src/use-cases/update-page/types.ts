@@ -1,3 +1,6 @@
-import { PageUpdateInput } from '@codelab/shared/abstract/codegen-v2'
+export type UpdatePageInput = CreatePageInput
 
-export type UpdatePageInput = Omit<PageUpdateInput, 'app' | 'rootElement'>
+export type CreatePageInput = {
+  name: string
+  appId: string
+}

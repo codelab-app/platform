@@ -1,6 +1,0 @@
-fragment PageFull on Page {
-  ...PageBase
-  elements {
-    ...ElementGraph
-  }
-}

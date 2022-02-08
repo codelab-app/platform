@@ -10,7 +10,7 @@ export const GetPagesList = () => {
   const currentAppId = currentApp?.id as string
 
   const { data, isLoading } = useGetPagesQuery({
-    variables: { input: { byApp: { appId: currentAppId } } },
+    variables: { where: { app: { id: currentAppId } } },
   })
 
   const pages = data?.pages

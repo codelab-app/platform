@@ -2,19 +2,18 @@ fragment App on App {
   id
   # ownerId
   name
-  # pages {
-  #   id
-  #   name
-  #   rootElementId
-  # }
+  pages {
+    id
+    name
+  }
 }
 
 fragment AppBase on App {
   id
   # ownerId
   name
-  pages {
-    id
-    name
-  }
+  # pages {
+  #   id
+  #   name
+  # }
 }

@@ -11,8 +11,8 @@ export const PageProvider = ({
   const pageId = query.pageId as string
   const { currentPage } = useProvideCurrentPage(pageId)
 
-  return currentPage ? (
-    <ElementGraphProvider elementId={currentPage.rootElementId}>
+  return currentPage?.rootElement ? (
+    <ElementGraphProvider elementId={currentPage?.rootElement?.id}>
       {children}
     </ElementGraphProvider>
   ) : null
