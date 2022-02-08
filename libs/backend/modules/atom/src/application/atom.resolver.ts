@@ -1,5 +1,9 @@
 import { Void } from '@codelab/backend/abstract/types'
-import { GqlAuthGuard, RolesGuard } from '@codelab/backend/infra'
+import {
+  GqlAllEnvAuthGuard,
+  GqlAuthGuard,
+  RolesGuard,
+} from '@codelab/backend/infra'
 import { GetTypeGraphService, TypeGraph } from '@codelab/backend/modules/type'
 import { CurrentUser, Roles } from '@codelab/backend/modules/user'
 import { IUser, Role } from '@codelab/shared/abstract/core'
@@ -85,7 +89,7 @@ export class AtomResolver {
   }
 
   @Query(() => [Atom], { nullable: true })
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAllEnvAuthGuard)
   async getAtoms(@Args('input', { nullable: true }) input?: GetAtomsInput) {
     return this.getAtomsService.execute(input)
   }

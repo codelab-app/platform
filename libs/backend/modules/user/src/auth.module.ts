@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { PassportModule } from '@nestjs/passport'
-import { JwtStrategy } from './infra/auth'
+import { JwtLocalStrategy, JwtStrategy } from './infra/auth'
 import { auth0Config, Auth0Module } from './infra/auth0'
 import { GetUserService } from './use-cases/get-user'
 import { UpsertUserService } from './use-cases/upsert-user'
@@ -14,7 +14,7 @@ import { UpsertUserService } from './use-cases/upsert-user'
     // JwtModule.register({}),
     ConfigModule.forFeature(auth0Config),
   ],
-  providers: [JwtStrategy, GetUserService, UpsertUserService],
+  providers: [JwtStrategy, JwtLocalStrategy, GetUserService, UpsertUserService],
   exports: [],
 })
 export class AuthModule {}

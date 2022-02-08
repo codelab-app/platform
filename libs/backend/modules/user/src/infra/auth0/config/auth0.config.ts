@@ -19,6 +19,10 @@ export interface Auth0Config {
     clientId: string
     clientSecret: string
   }
+  local: {
+    issuer: string
+    audience: string
+  }
   // admin: UsernamePassword
   cypress: UsernamePassword
 }
@@ -33,6 +37,10 @@ export const auth0Config = registerAs<Auth0Config>(
     clientId: get('AUTH0_CLIENT_ID').required().asString(),
     clientSecret: get('AUTH0_CLIENT_SECRET').required().asString(),
     audience: get('AUTH0_AUDIENCE').required().asString(),
+    local: {
+      issuer: get('LOCAL_AUTH0_ISSUER_BASE_URL').required().asUrlString(),
+      audience: get('LOCAL_AUTH0_AUDIENCE').required().asString(),
+    },
     api: {
       // audience: get('AUTH0_AUDIENCE').required().asString(),
       clientId: get('AUTH0_API_CLIENT_ID').required().asString(),

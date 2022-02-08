@@ -44,6 +44,12 @@ export enum MonacoLanguage {
     Graphql = "Graphql"
 }
 
+export enum Role {
+    Admin = "Admin",
+    User = "User",
+    Guest = "Guest"
+}
+
 export enum AtomType {
     HookQueryLambda = "HookQueryLambda",
     HookQueryConfig = "HookQueryConfig",
@@ -412,6 +418,41 @@ export enum AtomType {
     HtmlSup = "HtmlSup"
 }
 
+export interface GetAppInput {
+    byId?: Nullable<AppByIdFilter>;
+    byPage?: Nullable<AppByPageFilter>;
+}
+
+export interface AppByIdFilter {
+    appId: string;
+}
+
+export interface AppByPageFilter {
+    pageId: string;
+}
+
+export interface ExportAppInput {
+    appId: string;
+}
+
+export interface GetElementGraphInput {
+    where: WhereUniqueElement;
+}
+
+export interface WhereUniqueElement {
+    id?: Nullable<string>;
+    fixedId?: Nullable<string>;
+}
+
+export interface GetElementInput {
+    where: WhereUniqueElement;
+}
+
+export interface GetComponentsInput {
+    searchQuery?: Nullable<string>;
+    componentIds?: Nullable<string[]>;
+}
+
 export interface GetAtomsInput {
     where?: Nullable<AtomsWhereInput>;
 }
@@ -477,6 +518,170 @@ export interface FieldByInterfaceFilter {
 
 export interface FieldByIdFilter {
     fieldId: string;
+}
+
+export interface GetPagesInput {
+    byApp: PageByAppFilter;
+}
+
+export interface PageByAppFilter {
+    appId: string;
+}
+
+export interface GetPageInput {
+    pageId: string;
+}
+
+export interface GetUserInput {
+    id?: Nullable<string>;
+    auth0Id?: Nullable<string>;
+}
+
+export interface GetUsersInput {
+    page: number;
+    perPage: number;
+    query: string;
+    sort: string;
+}
+
+export interface GetLambdaInput {
+    lambdaId: string;
+}
+
+export interface GetTagInput {
+    where: WhereUniqueTag;
+}
+
+export interface WhereUniqueTag {
+    name?: Nullable<string>;
+    id?: Nullable<string>;
+}
+
+export interface GetTagsInput {
+    ids?: Nullable<string[]>;
+}
+
+export interface GetTagGraphsInput {
+    where?: Nullable<TagsWhereInput>;
+}
+
+export interface TagsWhereInput {
+    ids?: Nullable<string[]>;
+}
+
+export interface CreateAppInput {
+    name: string;
+}
+
+export interface UpdateAppInput {
+    id: string;
+    data: UpdateAppData;
+}
+
+export interface UpdateAppData {
+    name: string;
+}
+
+export interface DeleteAppInput {
+    appId: string;
+}
+
+export interface ImportAppInput {
+    payload: string;
+}
+
+export interface CreatePropMapBindingInput {
+    elementId: string;
+    targetElementId?: Nullable<string>;
+    sourceKey: string;
+    targetKey: string;
+}
+
+export interface UpdatePropMapBindingInput {
+    propMapBindingId: string;
+    elementId: string;
+    data: UpdatePropMapBindingData;
+}
+
+export interface UpdatePropMapBindingData {
+    targetElementId?: Nullable<string>;
+    sourceKey: string;
+    targetKey: string;
+}
+
+export interface DeletePropMapBindingInput {
+    elementId: string;
+    propMapBindingIds: string[];
+}
+
+export interface AddHookToElementInput {
+    elementId: string;
+    config: string;
+    type: AtomType;
+}
+
+export interface RemoveHookFromElementInput {
+    elementId: string;
+    hookId: string;
+}
+
+export interface CreateElementInput {
+    parentElementId?: Nullable<string>;
+    name?: Nullable<string>;
+    css?: Nullable<string>;
+    atomId?: Nullable<string>;
+    order?: Nullable<number>;
+    props?: Nullable<string>;
+    instanceOfComponentId?: Nullable<string>;
+}
+
+export interface UpdateElementInput {
+    data: UpdateElementData;
+    id: string;
+}
+
+export interface UpdateElementData {
+    name?: Nullable<string>;
+    atomId?: Nullable<string>;
+    instanceOfComponentId?: Nullable<string>;
+    css?: Nullable<string>;
+    renderForEachPropKey?: Nullable<string>;
+    renderIfPropKey?: Nullable<string>;
+    propTransformationJs?: Nullable<string>;
+}
+
+export interface MoveElementInput {
+    elementId: string;
+    moveData: MoveData;
+}
+
+export interface MoveData {
+    order: number;
+    parentElementId?: Nullable<string>;
+}
+
+export interface DuplicateElementInput {
+    elementId: string;
+}
+
+export interface UpdateElementPropsInput {
+    data: string;
+    elementId: string;
+}
+
+export interface DeleteElementInput {
+    elementId: string;
+}
+
+export interface ConvertElementToComponentInput {
+    elementId: string;
+    componentName?: Nullable<string>;
+}
+
+export interface CreateComponentInput {
+    name?: Nullable<string>;
+    props?: Nullable<string>;
+    atomId?: Nullable<string>;
 }
 
 export interface CreateAtomInput {
@@ -631,6 +836,95 @@ export interface DeleteFieldInput {
     fieldId: string;
 }
 
+export interface CreatePageInput {
+    name: string;
+    appId: string;
+}
+
+export interface DeletePageInput {
+    pageId: string;
+}
+
+export interface UpdatePageInput {
+    pageId: string;
+    updateData: UpdatePageData;
+}
+
+export interface UpdatePageData {
+    name: string;
+}
+
+export interface UpsertUserInput {
+    data: UpsertUserDataInput;
+    where?: Nullable<UserWhereUniqueInput>;
+}
+
+export interface UpsertUserDataInput {
+    auth0Id: string;
+    roles: Role[];
+}
+
+export interface UserWhereUniqueInput {
+    id?: Nullable<string>;
+    auth0Id?: Nullable<string>;
+}
+
+export interface DeleteUserInput {
+    id: string;
+}
+
+export interface CreateLambdaInput {
+    name: string;
+    body: string;
+}
+
+export interface DeleteLambdaInput {
+    lambdaId: string;
+}
+
+export interface UpdateLambdaInput {
+    name: string;
+    body: string;
+    id: string;
+}
+
+export interface ExecuteLambdaInput {
+    lambdaId: string;
+    payload?: Nullable<string>;
+}
+
+export interface CreateTagInput {
+    name: string;
+    parentTagId?: Nullable<string>;
+}
+
+export interface UpdateTagInput {
+    id: string;
+    data: UpdateTagData;
+}
+
+export interface UpdateTagData {
+    name: string;
+}
+
+export interface DeleteTagsInput {
+    ids: string[];
+}
+
+export interface UpsertTagInput {
+    data: CreateTagInput;
+    where?: Nullable<TagWhereUniqueInput>;
+}
+
+export interface TagWhereUniqueInput {
+    id?: Nullable<string>;
+    name?: Nullable<string>;
+}
+
+export interface ImportTagsInput {
+    payload: string;
+}
+
 export interface TypeEdge {
     source: string;
     target: string;
@@ -643,7 +937,7 @@ export interface Type {
     typeGraph: TypeGraph;
 }
 
-export interface CreateResponse {
+export interface ObjectRef {
     id: string;
 }
 
@@ -777,6 +1071,20 @@ export interface TypeGraph {
     edges: TypeEdge[];
 }
 
+export interface CreateResponse {
+    id: string;
+}
+
+export interface PayloadResponse {
+    payload: string;
+}
+
+export interface User {
+    id: string;
+    auth0Id: string;
+    roles: Role[];
+}
+
 export interface Atom {
     id: string;
     type: AtomType;
@@ -785,7 +1093,106 @@ export interface Atom {
     apiGraph: TypeGraph;
 }
 
+export interface Prop {
+    id: string;
+    data: string;
+}
+
+export interface Hook {
+    id: string;
+    type: AtomType;
+    config: Prop;
+}
+
+export interface Tag {
+    id: string;
+    name: string;
+    owner?: Nullable<ObjectRef>;
+    parent?: Nullable<string>;
+    children: string[];
+    isRoot: boolean;
+}
+
+export interface TagEdge {
+    source: string;
+    target: string;
+    order?: Nullable<number>;
+}
+
+export interface TagGraph {
+    vertices: TagVertex[];
+    edges: TagEdge[];
+}
+
+export interface PropMapBinding {
+    id: string;
+    targetElementId?: Nullable<string>;
+    sourceKey: string;
+    targetKey: string;
+}
+
+export interface Element {
+    id: string;
+    name?: Nullable<string>;
+    componentTag?: Nullable<Tag>;
+    fixedId?: Nullable<string>;
+    css?: Nullable<string>;
+    atom?: Nullable<Atom>;
+    props: Prop;
+    hooks: Hook[];
+    renderForEachPropKey?: Nullable<string>;
+    renderIfPropKey?: Nullable<string>;
+    propMapBindings: PropMapBinding[];
+    propTransformationJs?: Nullable<string>;
+    instanceOfComponent?: Nullable<ObjectRef>;
+    parentElement?: Nullable<ObjectRef>;
+    owner?: Nullable<ObjectRef>;
+    graph: ElementGraph;
+}
+
+export interface ElementEdge {
+    source: string;
+    target: string;
+    order?: Nullable<number>;
+}
+
+export interface ElementGraph {
+    vertices: Element[];
+    edges: ElementEdge[];
+}
+
+export interface Page {
+    id: string;
+    name: string;
+    elements?: Nullable<ElementGraph>;
+    rootElementId: string;
+}
+
+export interface App {
+    id: string;
+    ownerId: string;
+    name: string;
+    pages: Page[];
+}
+
+export interface Lambda {
+    id: string;
+    ownerId: string;
+    name: string;
+    body: string;
+}
+
+export interface LambdaPayload {
+    payload: string;
+}
+
 export interface IQuery {
+    getApp(input: GetAppInput): Nullable<App> | Promise<Nullable<App>>;
+    getApps(): App[] | Promise<App[]>;
+    exportApp(input: ExportAppInput): PayloadResponse | Promise<PayloadResponse>;
+    getElementGraph(input: GetElementGraphInput): ElementGraph | Promise<ElementGraph>;
+    getElement(input: GetElementInput): Nullable<Element> | Promise<Nullable<Element>>;
+    getComponents(input?: Nullable<GetComponentsInput>): Element[] | Promise<Element[]>;
     getAtomsTypeHook(): Nullable<Atom[]> | Promise<Nullable<Atom[]>>;
     getAtoms(input?: Nullable<GetAtomsInput>): Nullable<Atom[]> | Promise<Nullable<Atom[]>>;
     getAtom(input: GetAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
@@ -793,9 +1200,38 @@ export interface IQuery {
     getTypeGraph(input: GetTypeGraphInput): Nullable<TypeGraph> | Promise<Nullable<TypeGraph>>;
     getTypes(input?: Nullable<GetTypesInput>): Type[] | Promise<Type[]>;
     getField(input: GetFieldInput): Nullable<Field> | Promise<Nullable<Field>>;
+    getProp(): Prop | Promise<Prop>;
+    getPages(input: GetPagesInput): Page[] | Promise<Page[]>;
+    getPage(input: GetPageInput): Nullable<Page> | Promise<Nullable<Page>>;
+    getMe(): Nullable<User> | Promise<Nullable<User>>;
+    getUser(input: GetUserInput): Nullable<User> | Promise<Nullable<User>>;
+    getUsers(input?: Nullable<GetUsersInput>): User[] | Promise<User[]>;
+    getLambda(input: GetLambdaInput): Nullable<Lambda> | Promise<Nullable<Lambda>>;
+    getLambdas(): Lambda[] | Promise<Lambda[]>;
+    getTag(input: GetTagInput): Nullable<Tag> | Promise<Nullable<Tag>>;
+    getTags(input?: Nullable<GetTagsInput>): Tag[] | Promise<Tag[]>;
+    getTagGraph(): Nullable<TagGraph> | Promise<Nullable<TagGraph>>;
+    getTagGraphs(input?: Nullable<GetTagGraphsInput>): TagGraph | Promise<TagGraph>;
 }
 
 export interface IMutation {
+    createApp(input: CreateAppInput): App | Promise<App>;
+    updateApp(input: UpdateAppInput): Nullable<App> | Promise<Nullable<App>>;
+    deleteApp(input: DeleteAppInput): Nullable<App> | Promise<Nullable<App>>;
+    importApp(input: ImportAppInput): App | Promise<App>;
+    createPropMapBinding(input: CreatePropMapBindingInput): PropMapBinding | Promise<PropMapBinding>;
+    updatePropMapBinding(input: UpdatePropMapBindingInput): Nullable<PropMapBinding> | Promise<Nullable<PropMapBinding>>;
+    deletePropMapBinding(input: DeletePropMapBindingInput): Nullable<PropMapBinding[]> | Promise<Nullable<PropMapBinding[]>>;
+    addHookToElement(input: AddHookToElementInput): Hook | Promise<Hook>;
+    removeHookFromElement(input: RemoveHookFromElementInput): Nullable<Hook> | Promise<Nullable<Hook>>;
+    createElement(input: CreateElementInput): Element | Promise<Element>;
+    updateElement(input: UpdateElementInput): Element | Promise<Element>;
+    moveElement(input: MoveElementInput): Element | Promise<Element>;
+    duplicateElement(input: DuplicateElementInput): Element | Promise<Element>;
+    updateElementProps(input: UpdateElementPropsInput): Element | Promise<Element>;
+    deleteElement(input: DeleteElementInput): Element | Promise<Element>;
+    convertElementToComponent(input: ConvertElementToComponentInput): Element | Promise<Element>;
+    createComponent(input: CreateComponentInput): Element | Promise<Element>;
     createAtom(input: CreateAtomInput): Atom | Promise<Atom>;
     deleteAtom(input: DeleteAtomInput): Nullable<Atom> | Promise<Nullable<Atom>>;
     importAtoms(input: ImportAtomsInput): Nullable<Void> | Promise<Nullable<Void>>;
@@ -812,8 +1248,24 @@ export interface IMutation {
     createField(input: CreateFieldInput): Field | Promise<Field>;
     updateField(input: UpdateFieldInput): Nullable<Field> | Promise<Nullable<Field>>;
     deleteField(input: DeleteFieldInput): Nullable<Field> | Promise<Nullable<Field>>;
+    createPage(input: CreatePageInput): Page | Promise<Page>;
+    deletePage(input: DeletePageInput): Page | Promise<Page>;
+    updatePage(input: UpdatePageInput): Page | Promise<Page>;
+    upsertUser(input: UpsertUserInput): User | Promise<User>;
+    deleteUser(input: DeleteUserInput): boolean | Promise<boolean>;
+    resetData(): Nullable<Void> | Promise<Nullable<Void>>;
+    createLambda(input: CreateLambdaInput): Lambda | Promise<Lambda>;
+    deleteLambda(input: DeleteLambdaInput): Lambda | Promise<Lambda>;
+    updateLambda(input: UpdateLambdaInput): Nullable<Lambda> | Promise<Nullable<Lambda>>;
+    executeLambda(input: ExecuteLambdaInput): Nullable<LambdaPayload> | Promise<Nullable<LambdaPayload>>;
+    createTag(input: CreateTagInput): Tag | Promise<Tag>;
+    updateTag(input: UpdateTagInput): Nullable<Tag> | Promise<Nullable<Tag>>;
+    deleteTags(input: DeleteTagsInput): Nullable<Tag[]> | Promise<Nullable<Tag[]>>;
+    upsertTag(input: UpsertTagInput): Tag | Promise<Tag>;
+    importTags(input: ImportTagsInput): Nullable<Void> | Promise<Nullable<Void>>;
 }
 
 export type Void = any;
 export type TypeVertex = EnumType | PrimitiveType | ArrayType | ComponentType | ElementType | InterfaceType | LambdaType | PageType | AppType | RenderPropsType | ReactNodeType | UnionType | MonacoType;
+export type TagVertex = Tag;
 type Nullable<T> = T | null;
