@@ -1,4 +1,4 @@
-import * as Types from '@codelab/shared/abstract/codegen-v2';
+import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { AtomFragment } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'

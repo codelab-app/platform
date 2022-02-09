@@ -1744,9 +1744,9 @@ export type CreateElementTypesMutationResponse = {
   info: CreateInfo
 }
 
-export type CreateElementsMutationResponse = {
-  __typename?: 'CreateElementsMutationResponse'
-  elements: Array<Element>
+export type CreateElementGraphsMutationResponse = {
+  __typename?: 'CreateElementGraphsMutationResponse'
+  elementGraphs: Array<ElementGraph>
   info: CreateInfo
 }
 
@@ -3160,6 +3160,244 @@ export type ElementParentElementAggregateInput = {
   node?: InputMaybe<ElementParentElementNodeAggregationWhereInput>
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+/**
+ * Allows picking an element from the current tree
+ * Is passed to the rendered element as a React node
+ * Prop values for this type have the shape of TypedValue in order to
+ * be distinguished from other element types.
+ * Comparison between different element types:
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
+ * - ReactNodeType: Component select box, results it 'ReactNode' value
+ * - ElementType: Current tree element select box, results it 'ReactNod' value
+ */
+export type ElementType = TypeBase & {
+  __typename?: 'ElementType'
+  /** Allows scoping the type of element to only descendants, children or all elements */
+  elementKind: ElementTypeKind
+  graph: TypeGraph
+  id: Scalars['ID']
+  name: Scalars['String']
+  owner?: Maybe<User>
+  ownerAggregate?: Maybe<ElementTypeUserOwnerAggregationSelection>
+  ownerConnection: TypeBaseOwnerConnection
+}
+
+/**
+ * Allows picking an element from the current tree
+ * Is passed to the rendered element as a React node
+ * Prop values for this type have the shape of TypedValue in order to
+ * be distinguished from other element types.
+ * Comparison between different element types:
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
+ * - ReactNodeType: Component select box, results it 'ReactNode' value
+ * - ElementType: Current tree element select box, results it 'ReactNod' value
+ */
+export type ElementTypeOwnerArgs = {
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+/**
+ * Allows picking an element from the current tree
+ * Is passed to the rendered element as a React node
+ * Prop values for this type have the shape of TypedValue in order to
+ * be distinguished from other element types.
+ * Comparison between different element types:
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
+ * - ReactNodeType: Component select box, results it 'ReactNode' value
+ * - ElementType: Current tree element select box, results it 'ReactNod' value
+ */
+export type ElementTypeOwnerAggregateArgs = {
+  where?: InputMaybe<UserWhere>
+}
+
+/**
+ * Allows picking an element from the current tree
+ * Is passed to the rendered element as a React node
+ * Prop values for this type have the shape of TypedValue in order to
+ * be distinguished from other element types.
+ * Comparison between different element types:
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
+ * - ReactNodeType: Component select box, results it 'ReactNode' value
+ * - ElementType: Current tree element select box, results it 'ReactNod' value
+ */
+export type ElementTypeOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
+  where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+}
+
+export type ElementTypeAggregateSelection = {
+  __typename?: 'ElementTypeAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type ElementTypeConnectInput = {
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+}
+
+export type ElementTypeConnectOrCreateInput = {
+  owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
+}
+
+export type ElementTypeCreateInput = {
+  elementKind: ElementTypeKind
+  name: Scalars['String']
+  owner?: InputMaybe<TypeBaseOwnerFieldInput>
+}
+
+export type ElementTypeDeleteInput = {
+  owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
+}
+
+export type ElementTypeDisconnectInput = {
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
+}
+
+export enum ElementTypeKind {
+  /** Pick any element in the current tree */
+  AllElements = 'AllElements',
+  /** Pick any element from the children of the current element */
+  ChildrenOnly = 'ChildrenOnly',
+  /** Pick any element from the descendants of the current element */
+  DescendantsOnly = 'DescendantsOnly',
+}
+
+export type ElementTypeOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more ElementTypeSort objects to sort ElementTypes by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<InputMaybe<ElementTypeSort>>>
+}
+
+export type ElementTypeOwnerAggregateInput = {
+  AND?: InputMaybe<Array<ElementTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<ElementTypeOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<ElementTypeOwnerNodeAggregationWhereInput>
+}
+
+export type ElementTypeOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ElementTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementTypeOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  auth0Id_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  auth0Id_EQUAL?: InputMaybe<Scalars['String']>
+  auth0Id_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_LTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  auth0Id_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  email_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  email_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  email_EQUAL?: InputMaybe<Scalars['String']>
+  email_GT?: InputMaybe<Scalars['Int']>
+  email_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  email_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  email_LT?: InputMaybe<Scalars['Int']>
+  email_LTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+}
+
+export type ElementTypeRelationInput = {
+  owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
+}
+
+/** Fields to sort ElementTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementTypeSort object. */
+export type ElementTypeSort = {
+  elementKind?: InputMaybe<SortDirection>
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+}
+
+export type ElementTypeUpdateInput = {
+  elementKind?: InputMaybe<ElementTypeKind>
+  name?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
+}
+
+export type ElementTypeUserOwnerAggregationSelection = {
+  __typename?: 'ElementTypeUserOwnerAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ElementTypeUserOwnerNodeAggregateSelection>
+}
+
+export type ElementTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'ElementTypeUserOwnerNodeAggregateSelection'
+  auth0Id: StringAggregateSelection
+  email: StringAggregateSelection
+  id: IdAggregateSelection
+}
+
+export type ElementTypeWhere = {
+  AND?: InputMaybe<Array<ElementTypeWhere>>
+  OR?: InputMaybe<Array<ElementTypeWhere>>
+  elementKind?: InputMaybe<ElementTypeKind>
+  elementKind_IN?: InputMaybe<Array<InputMaybe<ElementTypeKind>>>
+  elementKind_NOT?: InputMaybe<ElementTypeKind>
+  elementKind_NOT_IN?: InputMaybe<Array<InputMaybe<ElementTypeKind>>>
+  id?: InputMaybe<Scalars['ID']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  owner?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<ElementTypeOwnerAggregateInput>
+  ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+}
+
+>>>>>>> a0ce816f (feat: update cache on element creation)
 export type ElementParentElementConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
   edge?: InputMaybe<ParentOfElementCreateInput>
@@ -3436,9 +3674,28 @@ export type ElementPropMapBindingsCreateFieldInput = {
   node: PropMapBindingCreateInput
 }
 
+<<<<<<< HEAD
 export type ElementPropMapBindingsDeleteFieldInput = {
   delete?: InputMaybe<PropMapBindingDeleteInput>
   where?: InputMaybe<ElementPropMapBindingsConnectionWhere>
+=======
+<<<<<<< HEAD
+/**
+ * Allows choosing one of a set of allowed values.
+ * The value gets passed to the render pipe as a Enum Type Value id.
+ * The actual value must be de-referenced by the id.
+ */
+export type EnumTypeOwnerAggregateArgs = {
+  where?: InputMaybe<UserWhere>
+=======
+=======
+<<<<<<< HEAD
+>>>>>>> 7936c276a (feat: update cache on element creation)
+export type IElementGraph = {
+  __typename?: 'IElementGraph'
+  edges?: Maybe<Array<ElementEdge>>
+  vertices?: Maybe<Array<Element>>
+>>>>>>> a0ce816f (feat: update cache on element creation)
 }
 
 export type ElementPropMapBindingsDisconnectFieldInput = {
@@ -3576,14 +3833,21 @@ export type ElementPropsConnectionWhere = {
   node_NOT?: InputMaybe<PropWhere>
 }
 
+<<<<<<< HEAD
 export type ElementPropsCreateFieldInput = {
   node: PropCreateInput
+=======
+<<<<<<< HEAD
+export type EnumTypeAllowedValuesCreateFieldInput = {
+  node: EnumTypeValueCreateInput
+>>>>>>> a0ce816f (feat: update cache on element creation)
 }
 
 export type ElementPropsDeleteFieldInput = {
   where?: InputMaybe<ElementPropsConnectionWhere>
 }
 
+<<<<<<< HEAD
 export type ElementPropsDisconnectFieldInput = {
   where?: InputMaybe<ElementPropsConnectionWhere>
 }
@@ -3592,6 +3856,73 @@ export type ElementPropsFieldInput = {
   connect?: InputMaybe<ElementPropsConnectFieldInput>
   connectOrCreate?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
   create?: InputMaybe<ElementPropsCreateFieldInput>
+=======
+export type EnumTypeAllowedValuesDisconnectFieldInput = {
+  disconnect?: InputMaybe<EnumTypeValueDisconnectInput>
+  where?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
+=======
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
+export type IntAggregateSelection = {
+  __typename?: 'IntAggregateSelection'
+  average?: Maybe<Scalars['Float']>
+  max?: Maybe<Scalars['Int']>
+  min?: Maybe<Scalars['Int']>
+  sum?: Maybe<Scalars['Int']>
+>>>>>>> 7936c276a (feat: update cache on element creation)
+}
+
+export type EnumTypeAllowedValuesFieldInput = {
+  connect?: InputMaybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
+  create?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
+=======
+export type Mutation = {
+  __typename?: 'Mutation'
+  createApps: CreateAppsMutationResponse
+  createAtoms: CreateAtomsMutationResponse
+  createCreateInfos: CreateCreateInfosMutationResponse
+  createElementEdges: CreateElementEdgesMutationResponse
+  createElementGraphs: CreateElementGraphsMutationResponse
+  createElements: CreateElementsMutationResponse
+<<<<<<< HEAD
+  createIElementGraphs: CreateIElementGraphsMutationResponse
+  createImportAtomsMutationResponses: CreateImportAtomsMutationResponsesMutationResponse
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
+  createPages: CreatePagesMutationResponse
+  createPropMapBindings: CreatePropMapBindingsMutationResponse
+  createTags: CreateTagsMutationResponse
+  deleteApps: DeleteInfo
+  deleteAtoms: DeleteInfo
+  deleteCreateInfos: DeleteInfo
+  deleteElementEdges: DeleteInfo
+  deleteElementGraphs: DeleteInfo
+  deleteElements: DeleteInfo
+<<<<<<< HEAD
+  deleteIElementGraphs: DeleteInfo
+  deleteImportAtomsMutationResponses: DeleteInfo
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
+  deletePages: DeleteInfo
+  deletePropMapBindings: DeleteInfo
+  deleteTags: DeleteInfo
+  deleteUsers: DeleteInfo
+  importAtoms?: Maybe<ImportAtomsMutationResponse>
+  updateApps: UpdateAppsMutationResponse
+  updateAtoms: UpdateAtomsMutationResponse
+  updateCreateInfos: UpdateCreateInfosMutationResponse
+  updateElementEdges: UpdateElementEdgesMutationResponse
+  updateElementGraphs: UpdateElementGraphsMutationResponse
+  updateElements: UpdateElementsMutationResponse
+<<<<<<< HEAD
+  updateIElementGraphs: UpdateIElementGraphsMutationResponse
+  updateImportAtomsMutationResponses: UpdateImportAtomsMutationResponsesMutationResponse
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
+  updatePages: UpdatePagesMutationResponse
+  updatePropMapBindings: UpdatePropMapBindingsMutationResponse
+  updateTags: UpdateTagsMutationResponse
+>>>>>>> a0ce816f (feat: update cache on element creation)
 }
 
 export type ElementPropsNodeAggregationWhereInput = {
@@ -3640,6 +3971,7 @@ export type ElementPropsUpdateFieldInput = {
   where?: InputMaybe<ElementPropsConnectionWhere>
 }
 
+<<<<<<< HEAD
 export type ElementRelationInput = {
   atom?: InputMaybe<ElementAtomCreateFieldInput>
   children?: InputMaybe<Array<ElementChildrenCreateFieldInput>>
@@ -3659,6 +3991,14 @@ export type ElementSort = {
   propTransformationJs?: InputMaybe<SortDirection>
   renderForEachPropKey?: InputMaybe<SortDirection>
   renderIfPropKey?: InputMaybe<SortDirection>
+=======
+export type MutationCreateElementGraphsArgs = {
+  input: Array<ElementGraphCreateInput>
+}
+
+export type MutationCreateElementsArgs = {
+  input: Array<ElementCreateInput>
+>>>>>>> a0ce816f (feat: update cache on element creation)
 }
 
 export type ElementTagComponentTagAggregationSelection = {
@@ -3767,6 +4107,7 @@ export type ElementTypeDeleteInput = {
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
+<<<<<<< HEAD
 export type ElementTypeDisconnectInput = {
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
@@ -3781,6 +4122,55 @@ export enum ElementTypeKind {
 }
 
 export type ElementTypeOptions = {
+=======
+export type MutationDeleteElementGraphsArgs = {
+  where?: InputMaybe<ElementGraphWhere>
+}
+
+export type MutationDeleteElementsArgs = {
+  delete?: InputMaybe<ElementDeleteInput>
+  where?: InputMaybe<ElementWhere>
+}
+
+<<<<<<< HEAD
+export type MutationDeleteIElementGraphsArgs = {
+  where?: InputMaybe<IElementGraphWhere>
+}
+
+export type MutationDeleteImportAtomsMutationResponsesArgs = {
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
+>>>>>>> bef585a4d (feat: get element graph and delete part of graph)
+}
+
+<<<<<<< HEAD
+export type EnumTypeDisconnectInput = {
+  allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDisconnectFieldInput>>
+  owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
+}
+
+<<<<<<< HEAD
+export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
+  __typename?: 'EnumTypeEnumTypeValueAllowedValuesAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection>
+}
+
+export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
+  __typename?: 'EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection'
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+  value: StringAggregateSelection
+=======
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
+export type MutationDeletePagesArgs = {
+  delete?: InputMaybe<PageDeleteInput>
+  where?: InputMaybe<PageWhere>
+>>>>>>> 7936c276a (feat: update cache on element creation)
+}
+
+export type EnumTypeOptions = {
+>>>>>>> a0ce816f (feat: update cache on element creation)
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
   /** Specify one or more ElementTypeSort objects to sort ElementTypes by. The sorts will be applied in the order in which they are arranged in the array. */
@@ -3864,11 +4254,51 @@ export type ElementTypeUpdateInput = {
 export type ElementTypeUserOwnerAggregationSelection = {
   __typename?: 'ElementTypeUserOwnerAggregationSelection'
   count: Scalars['Int']
+<<<<<<< HEAD
   node?: Maybe<ElementTypeUserOwnerNodeAggregateSelection>
 }
 
 export type ElementTypeUserOwnerNodeAggregateSelection = {
   __typename?: 'ElementTypeUserOwnerNodeAggregateSelection'
+=======
+  node?: Maybe<EnumTypeUserOwnerNodeAggregateSelection>
+=======
+export type MutationUpdateElementEdgesArgs = {
+  update?: InputMaybe<ElementEdgeUpdateInput>
+  where?: InputMaybe<ElementEdgeWhere>
+}
+
+export type MutationUpdateElementGraphsArgs = {
+  update?: InputMaybe<ElementGraphUpdateInput>
+  where?: InputMaybe<ElementGraphWhere>
+}
+
+export type MutationUpdateElementsArgs = {
+  connect?: InputMaybe<ElementConnectInput>
+  connectOrCreate?: InputMaybe<ElementConnectOrCreateInput>
+  create?: InputMaybe<ElementRelationInput>
+  delete?: InputMaybe<ElementDeleteInput>
+  disconnect?: InputMaybe<ElementDisconnectInput>
+  update?: InputMaybe<ElementUpdateInput>
+  where?: InputMaybe<ElementWhere>
+}
+
+<<<<<<< HEAD
+export type MutationUpdateIElementGraphsArgs = {
+  update?: InputMaybe<IElementGraphUpdateInput>
+  where?: InputMaybe<IElementGraphWhere>
+}
+
+export type MutationUpdateImportAtomsMutationResponsesArgs = {
+  update?: InputMaybe<ImportAtomsMutationResponseUpdateInput>
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
+>>>>>>> bef585a4d (feat: get element graph and delete part of graph)
+}
+
+<<<<<<< HEAD
+export type EnumTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'EnumTypeUserOwnerNodeAggregateSelection'
+>>>>>>> a0ce816f (feat: update cache on element creation)
   auth0Id: StringAggregateSelection
   email: StringAggregateSelection
   id: IdAggregateSelection
@@ -3914,9 +4344,26 @@ export type ElementParentElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
 }
 
+<<<<<<< HEAD
 export type ElementParentElementConnectOrCreateFieldInput = {
   onCreate: ElementParentElementConnectOrCreateFieldInputOnCreate
   where: ElementConnectOrCreateWhere
+=======
+export type EnumTypeValueEnumTypeAggregateArgs = {
+  where?: InputMaybe<EnumTypeWhere>
+=======
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
+export type MutationUpdatePagesArgs = {
+  connect?: InputMaybe<PageConnectInput>
+  connectOrCreate?: InputMaybe<PageConnectOrCreateInput>
+  create?: InputMaybe<PageRelationInput>
+  delete?: InputMaybe<PageDeleteInput>
+  disconnect?: InputMaybe<PageDisconnectInput>
+  update?: InputMaybe<PageUpdateInput>
+  where?: InputMaybe<PageWhere>
+>>>>>>> 7936c276a (feat: update cache on element creation)
+>>>>>>> a0ce816f (feat: update cache on element creation)
 }
 
 export type ElementParentElementConnectOrCreateFieldInputOnCreate = {
@@ -4657,10 +5104,56 @@ export type EnumTypeConnectWhere = {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export type EnumTypeCreateInput = {
   allowedValues?: InputMaybe<EnumTypeAllowedValuesFieldInput>
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
+=======
+<<<<<<< HEAD
+export type InterfaceTypeConnectOrCreateWhere = {
+  node: InterfaceTypeUniqueWhere
+=======
+=======
+export type ParentOfElement = {
+  order?: Maybe<Scalars['Int']>
+}
+
+export type ParentOfElementCreateInput = {
+  order?: InputMaybe<Scalars['Int']>
+}
+
+export type ParentOfElementSort = {
+  order?: InputMaybe<SortDirection>
+}
+
+export type ParentOfElementUpdateInput = {
+  order?: InputMaybe<Scalars['Int']>
+}
+
+export type ParentOfElementWhere = {
+  AND?: InputMaybe<Array<ParentOfElementWhere>>
+  OR?: InputMaybe<Array<ParentOfElementWhere>>
+  order?: InputMaybe<Scalars['Int']>
+  order_GT?: InputMaybe<Scalars['Int']>
+  order_GTE?: InputMaybe<Scalars['Int']>
+  order_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  order_LT?: InputMaybe<Scalars['Int']>
+  order_LTE?: InputMaybe<Scalars['Int']>
+  order_NOT?: InputMaybe<Scalars['Int']>
+  order_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+}
+
+>>>>>>> 7936c276a (feat: update cache on element creation)
+export type PropMapBinding = {
+  __typename?: 'PropMapBinding'
+  id: Scalars['ID']
+  sourceKey: Scalars['String']
+  targetElement?: Maybe<Element>
+  targetElementAggregate?: Maybe<PropMapBindingElementTargetElementAggregationSelection>
+  targetElementConnection: PropMapBindingTargetElementConnection
+  targetKey: Scalars['String']
+>>>>>>> a0ce816f (feat: update cache on element creation)
 }
 
 export type EnumTypeDeleteInput = {
@@ -5112,6 +5605,7 @@ export type EnumTypeValueWhere = {
   value_STARTS_WITH?: InputMaybe<Scalars['String']>
 }
 
+<<<<<<< HEAD
 export type EnumTypeWhere = {
   AND?: InputMaybe<Array<EnumTypeWhere>>
   OR?: InputMaybe<Array<EnumTypeWhere>>
@@ -5180,6 +5674,49 @@ export type PageElementRootElementNodeAggregateSelection = {
   props: StringAggregateSelection
   renderForEachPropKey: StringAggregateSelection
   renderIfPropKey: StringAggregateSelection
+=======
+export type Query = {
+  __typename?: 'Query'
+  apps: Array<App>
+  appsAggregate: AppAggregateSelection
+  appsCount: Scalars['Int']
+  atoms: Array<Atom>
+  atomsAggregate: AtomAggregateSelection
+  atomsCount: Scalars['Int']
+  createInfos: Array<CreateInfo>
+  createInfosAggregate: CreateInfoAggregateSelection
+  createInfosCount: Scalars['Int']
+  elementEdges: Array<ElementEdge>
+  elementEdgesAggregate: ElementEdgeAggregateSelection
+  elementEdgesCount: Scalars['Int']
+  elementGraphs: Array<ElementGraph>
+  elementGraphsAggregate: ElementGraphAggregateSelection
+  elementGraphsCount: Scalars['Int']
+  elements: Array<Element>
+  elementsAggregate: ElementAggregateSelection
+  elementsCount: Scalars['Int']
+<<<<<<< HEAD
+  iElementGraphs: Array<IElementGraph>
+  iElementGraphsAggregate: IElementGraphAggregateSelection
+  iElementGraphsCount: Scalars['Int']
+  importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
+  importAtomsMutationResponsesAggregate: ImportAtomsMutationResponseAggregateSelection
+  importAtomsMutationResponsesCount: Scalars['Int']
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
+  pages: Array<Page>
+  pagesAggregate: PageAggregateSelection
+  pagesCount: Scalars['Int']
+  propMapBindings: Array<PropMapBinding>
+  propMapBindingsAggregate: PropMapBindingAggregateSelection
+  propMapBindingsCount: Scalars['Int']
+  tags: Array<Tag>
+  tagsAggregate: TagAggregateSelection
+  tagsCount: Scalars['Int']
+  users: Array<User>
+  usersAggregate: UserAggregateSelection
+  usersCount: Scalars['Int']
+>>>>>>> a0ce816f (feat: update cache on element creation)
 >>>>>>> bef585a4d (feat: get element graph and delete part of graph)
 }
 
@@ -7352,8 +7889,26 @@ export type MutationDeleteElementTypesArgs = {
   where?: InputMaybe<ElementTypeWhere>
 }
 
+<<<<<<< HEAD
 export type MutationDeleteElementsArgs = {
   delete?: InputMaybe<ElementDeleteInput>
+=======
+export type QueryElementGraphsArgs = {
+  options?: InputMaybe<ElementGraphOptions>
+  where?: InputMaybe<ElementGraphWhere>
+}
+
+export type QueryElementGraphsAggregateArgs = {
+  where?: InputMaybe<ElementGraphWhere>
+}
+
+export type QueryElementGraphsCountArgs = {
+  where?: InputMaybe<ElementGraphWhere>
+}
+
+export type QueryElementsArgs = {
+  options?: InputMaybe<ElementOptions>
+>>>>>>> a0ce816f (feat: update cache on element creation)
   where?: InputMaybe<ElementWhere>
 }
 
@@ -7367,9 +7922,23 @@ export type MutationDeleteEnumTypeValuesArgs = {
   where?: InputMaybe<EnumTypeValueWhere>
 }
 
+<<<<<<< HEAD
 export type MutationDeleteEnumTypesArgs = {
   delete?: InputMaybe<EnumTypeDeleteInput>
   where?: InputMaybe<EnumTypeWhere>
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+export type InterfaceTypeFieldsFieldInput = {
+  connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
+  create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
+=======
+=======
+>>>>>>> 7936c276a (feat: update cache on element creation)
+export type QueryIElementGraphsArgs = {
+  options?: InputMaybe<IElementGraphOptions>
+  where?: InputMaybe<IElementGraphWhere>
+>>>>>>> a0ce816f (feat: update cache on element creation)
 }
 
 export type MutationDeleteFieldEdgeArgs = {
@@ -7385,9 +7954,48 @@ export type MutationDeleteImportAtomsMutationResponsesArgs = {
   where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
+<<<<<<< HEAD
 export type MutationDeleteInterfaceTypesArgs = {
   delete?: InputMaybe<InterfaceTypeDeleteInput>
   where?: InputMaybe<InterfaceTypeWhere>
+=======
+<<<<<<< HEAD
+export type InterfaceTypeFieldsRelationship = Field & {
+  __typename?: 'InterfaceTypeFieldsRelationship'
+  cursor: Scalars['String']
+  description?: Maybe<Scalars['String']>
+  key: Scalars['String']
+  name?: Maybe<Scalars['String']>
+  node: TypeBase
+=======
+export type QueryImportAtomsMutationResponsesAggregateArgs = {
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
+}
+
+export type QueryImportAtomsMutationResponsesCountArgs = {
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
+}
+
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
+export type QueryPagesArgs = {
+  options?: InputMaybe<PageOptions>
+  where?: InputMaybe<PageWhere>
+}
+
+export type QueryPagesAggregateArgs = {
+  where?: InputMaybe<PageWhere>
+}
+
+export type QueryPagesCountArgs = {
+  where?: InputMaybe<PageWhere>
+}
+
+export type QueryPropMapBindingsArgs = {
+  options?: InputMaybe<PropMapBindingOptions>
+  where?: InputMaybe<PropMapBindingWhere>
+>>>>>>> 7936c276a (feat: update cache on element creation)
+>>>>>>> a0ce816f (feat: update cache on element creation)
 }
 
 export type MutationDeleteLambdaTypesArgs = {
@@ -7505,6 +8113,7 @@ export type MutationUpdateAtomsArgs = {
   where?: InputMaybe<AtomWhere>
 }
 
+<<<<<<< HEAD
 export type MutationUpdateCreateInfosArgs = {
   update?: InputMaybe<CreateInfoUpdateInput>
   where?: InputMaybe<CreateInfoWhere>
@@ -7513,6 +8122,30 @@ export type MutationUpdateCreateInfosArgs = {
 export type MutationUpdateDeleteFieldResponsesArgs = {
   update?: InputMaybe<DeleteFieldResponseUpdateInput>
   where?: InputMaybe<DeleteFieldResponseWhere>
+=======
+<<<<<<< HEAD
+export type LambdaTypeAggregateSelection = {
+  __typename?: 'LambdaTypeAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type LambdaTypeConnectInput = {
+  owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
+=======
+export type UpdateElementGraphsMutationResponse = {
+  __typename?: 'UpdateElementGraphsMutationResponse'
+  elementGraphs: Array<ElementGraph>
+  info: UpdateInfo
+}
+
+export type UpdateElementsMutationResponse = {
+  __typename?: 'UpdateElementsMutationResponse'
+  elements: Array<Element>
+  info: UpdateInfo
+>>>>>>> 7936c276a (feat: update cache on element creation)
+>>>>>>> a0ce816f (feat: update cache on element creation)
 }
 
 export type MutationUpdateEdgesArgs = {
