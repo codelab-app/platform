@@ -878,9 +878,21 @@ export type CreateAtomsMutationResponse = {
   info: CreateInfo
 }
 
+export type CreateCreateInfosMutationResponse = {
+  __typename?: 'CreateCreateInfosMutationResponse'
+  createInfos: Array<CreateInfo>
+  info: CreateInfo
+}
+
 export type CreateElementsMutationResponse = {
   __typename?: 'CreateElementsMutationResponse'
   elements: Array<Element>
+  info: CreateInfo
+}
+
+export type CreateImportAtomsMutationResponsesMutationResponse = {
+  __typename?: 'CreateImportAtomsMutationResponsesMutationResponse'
+  importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
   info: CreateInfo
 }
 
@@ -889,6 +901,71 @@ export type CreateInfo = {
   bookmark?: Maybe<Scalars['String']>
   nodesCreated: Scalars['Int']
   relationshipsCreated: Scalars['Int']
+}
+
+export type CreateInfoAggregateSelection = {
+  __typename?: 'CreateInfoAggregateSelection'
+  bookmark: StringAggregateSelection
+  count: Scalars['Int']
+  nodesCreated: IntAggregateSelection
+  relationshipsCreated: IntAggregateSelection
+}
+
+export type CreateInfoCreateInput = {
+  bookmark?: InputMaybe<Scalars['String']>
+  nodesCreated: Scalars['Int']
+  relationshipsCreated: Scalars['Int']
+}
+
+export type CreateInfoOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more CreateInfoSort objects to sort CreateInfos by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<InputMaybe<CreateInfoSort>>>
+}
+
+/** Fields to sort CreateInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one CreateInfoSort object. */
+export type CreateInfoSort = {
+  bookmark?: InputMaybe<SortDirection>
+  nodesCreated?: InputMaybe<SortDirection>
+  relationshipsCreated?: InputMaybe<SortDirection>
+}
+
+export type CreateInfoUpdateInput = {
+  bookmark?: InputMaybe<Scalars['String']>
+  nodesCreated?: InputMaybe<Scalars['Int']>
+  relationshipsCreated?: InputMaybe<Scalars['Int']>
+}
+
+export type CreateInfoWhere = {
+  AND?: InputMaybe<Array<CreateInfoWhere>>
+  OR?: InputMaybe<Array<CreateInfoWhere>>
+  bookmark?: InputMaybe<Scalars['String']>
+  bookmark_CONTAINS?: InputMaybe<Scalars['String']>
+  bookmark_ENDS_WITH?: InputMaybe<Scalars['String']>
+  bookmark_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  bookmark_NOT?: InputMaybe<Scalars['String']>
+  bookmark_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  bookmark_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  bookmark_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  bookmark_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  bookmark_STARTS_WITH?: InputMaybe<Scalars['String']>
+  nodesCreated?: InputMaybe<Scalars['Int']>
+  nodesCreated_GT?: InputMaybe<Scalars['Int']>
+  nodesCreated_GTE?: InputMaybe<Scalars['Int']>
+  nodesCreated_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  nodesCreated_LT?: InputMaybe<Scalars['Int']>
+  nodesCreated_LTE?: InputMaybe<Scalars['Int']>
+  nodesCreated_NOT?: InputMaybe<Scalars['Int']>
+  nodesCreated_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  relationshipsCreated?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_GT?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_GTE?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
+  relationshipsCreated_LT?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_LTE?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_NOT?: InputMaybe<Scalars['Int']>
+  relationshipsCreated_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>
 }
 
 export type CreatePagesMutationResponse = {
@@ -1455,20 +1532,69 @@ export type IElementGraph = {
   vertices?: Maybe<Array<Element>>
 }
 
+export type ImportAtomsInput = {
+  payload: Scalars['String']
+}
+
+export type ImportAtomsMutationResponse = {
+  __typename?: 'ImportAtomsMutationResponse'
+  atoms?: Maybe<Array<Atom>>
+}
+
+export type ImportAtomsMutationResponseAggregateSelection = {
+  __typename?: 'ImportAtomsMutationResponseAggregateSelection'
+  count: Scalars['Int']
+}
+
+export type ImportAtomsMutationResponseCreateInput = {
+  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ImportAtomsMutationResponseOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+}
+
+export type ImportAtomsMutationResponseUpdateInput = {
+  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ImportAtomsMutationResponseWhere = {
+  AND?: InputMaybe<Array<ImportAtomsMutationResponseWhere>>
+  OR?: InputMaybe<Array<ImportAtomsMutationResponseWhere>>
+}
+
+export type IntAggregateSelection = {
+  __typename?: 'IntAggregateSelection'
+  average?: Maybe<Scalars['Float']>
+  max?: Maybe<Scalars['Int']>
+  min?: Maybe<Scalars['Int']>
+  sum?: Maybe<Scalars['Int']>
+}
+
 export type Mutation = {
   __typename?: 'Mutation'
   createApps: CreateAppsMutationResponse
   createAtoms: CreateAtomsMutationResponse
+  createCreateInfos: CreateCreateInfosMutationResponse
   createElements: CreateElementsMutationResponse
+  createImportAtomsMutationResponses: CreateImportAtomsMutationResponsesMutationResponse
   createPages: CreatePagesMutationResponse
   deleteApps: DeleteInfo
   deleteAtoms: DeleteInfo
+  deleteCreateInfos: DeleteInfo
   deleteElements: DeleteInfo
+  deleteImportAtomsMutationResponses: DeleteInfo
   deletePages: DeleteInfo
   deleteUsers: DeleteInfo
+  importAtoms?: Maybe<ImportAtomsMutationResponse>
   updateApps: UpdateAppsMutationResponse
   updateAtoms: UpdateAtomsMutationResponse
+  updateCreateInfos: UpdateCreateInfosMutationResponse
   updateElements: UpdateElementsMutationResponse
+  updateImportAtomsMutationResponses: UpdateImportAtomsMutationResponsesMutationResponse
   updatePages: UpdatePagesMutationResponse
 }
 
@@ -1480,8 +1606,16 @@ export type MutationCreateAtomsArgs = {
   input: Array<AtomCreateInput>
 }
 
+export type MutationCreateCreateInfosArgs = {
+  input: Array<CreateInfoCreateInput>
+}
+
 export type MutationCreateElementsArgs = {
   input: Array<ElementCreateInput>
+}
+
+export type MutationCreateImportAtomsMutationResponsesArgs = {
+  input: Array<ImportAtomsMutationResponseCreateInput>
 }
 
 export type MutationCreatePagesArgs = {
@@ -1497,9 +1631,17 @@ export type MutationDeleteAtomsArgs = {
   where?: InputMaybe<AtomWhere>
 }
 
+export type MutationDeleteCreateInfosArgs = {
+  where?: InputMaybe<CreateInfoWhere>
+}
+
 export type MutationDeleteElementsArgs = {
   delete?: InputMaybe<ElementDeleteInput>
   where?: InputMaybe<ElementWhere>
+}
+
+export type MutationDeleteImportAtomsMutationResponsesArgs = {
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
 export type MutationDeletePagesArgs = {
@@ -1510,6 +1652,10 @@ export type MutationDeletePagesArgs = {
 export type MutationDeleteUsersArgs = {
   delete?: InputMaybe<UserDeleteInput>
   where?: InputMaybe<UserWhere>
+}
+
+export type MutationImportAtomsArgs = {
+  input: ImportAtomsInput
 }
 
 export type MutationUpdateAppsArgs = {
@@ -1527,6 +1673,11 @@ export type MutationUpdateAtomsArgs = {
   where?: InputMaybe<AtomWhere>
 }
 
+export type MutationUpdateCreateInfosArgs = {
+  update?: InputMaybe<CreateInfoUpdateInput>
+  where?: InputMaybe<CreateInfoWhere>
+}
+
 export type MutationUpdateElementsArgs = {
   connect?: InputMaybe<ElementConnectInput>
   connectOrCreate?: InputMaybe<ElementConnectOrCreateInput>
@@ -1535,6 +1686,11 @@ export type MutationUpdateElementsArgs = {
   disconnect?: InputMaybe<ElementDisconnectInput>
   update?: InputMaybe<ElementUpdateInput>
   where?: InputMaybe<ElementWhere>
+}
+
+export type MutationUpdateImportAtomsMutationResponsesArgs = {
+  update?: InputMaybe<ImportAtomsMutationResponseUpdateInput>
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
 export type MutationUpdatePagesArgs = {
@@ -2007,9 +2163,15 @@ export type Query = {
   atoms: Array<Atom>
   atomsAggregate: AtomAggregateSelection
   atomsCount: Scalars['Int']
+  createInfos: Array<CreateInfo>
+  createInfosAggregate: CreateInfoAggregateSelection
+  createInfosCount: Scalars['Int']
   elements: Array<Element>
   elementsAggregate: ElementAggregateSelection
   elementsCount: Scalars['Int']
+  importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
+  importAtomsMutationResponsesAggregate: ImportAtomsMutationResponseAggregateSelection
+  importAtomsMutationResponsesCount: Scalars['Int']
   pages: Array<Page>
   pagesAggregate: PageAggregateSelection
   pagesCount: Scalars['Int']
@@ -2044,6 +2206,19 @@ export type QueryAtomsCountArgs = {
   where?: InputMaybe<AtomWhere>
 }
 
+export type QueryCreateInfosArgs = {
+  options?: InputMaybe<CreateInfoOptions>
+  where?: InputMaybe<CreateInfoWhere>
+}
+
+export type QueryCreateInfosAggregateArgs = {
+  where?: InputMaybe<CreateInfoWhere>
+}
+
+export type QueryCreateInfosCountArgs = {
+  where?: InputMaybe<CreateInfoWhere>
+}
+
 export type QueryElementsArgs = {
   options?: InputMaybe<ElementOptions>
   where?: InputMaybe<ElementWhere>
@@ -2055,6 +2230,19 @@ export type QueryElementsAggregateArgs = {
 
 export type QueryElementsCountArgs = {
   where?: InputMaybe<ElementWhere>
+}
+
+export type QueryImportAtomsMutationResponsesArgs = {
+  options?: InputMaybe<ImportAtomsMutationResponseOptions>
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
+}
+
+export type QueryImportAtomsMutationResponsesAggregateArgs = {
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
+}
+
+export type QueryImportAtomsMutationResponsesCountArgs = {
+  where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
 export type QueryPagesArgs = {
@@ -2108,9 +2296,21 @@ export type UpdateAtomsMutationResponse = {
   info: UpdateInfo
 }
 
+export type UpdateCreateInfosMutationResponse = {
+  __typename?: 'UpdateCreateInfosMutationResponse'
+  createInfos: Array<CreateInfo>
+  info: UpdateInfo
+}
+
 export type UpdateElementsMutationResponse = {
   __typename?: 'UpdateElementsMutationResponse'
   elements: Array<Element>
+  info: UpdateInfo
+}
+
+export type UpdateImportAtomsMutationResponsesMutationResponse = {
+  __typename?: 'UpdateImportAtomsMutationResponsesMutationResponse'
+  importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
   info: UpdateInfo
 }
 

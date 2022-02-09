@@ -1,11 +1,11 @@
 import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
 import { OGM } from '@neo4j/graphql-ogm'
-import { ApolloServerPluginInlineTrace } from 'apollo-server-core'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
 import { getDriver } from '../../../src/neo4j-graphql/getDriver'
 import { getSchema } from '../../../src/neo4j-graphql/getSchema'
+import { resolvers } from '../../../src/neo4j-graphql/resolvers'
 import typeDefs from '../../../src/neo4j-graphql/typeDefs'
 
 const driver = getDriver()
@@ -29,7 +29,8 @@ const apolloServer = new ApolloServer({
     return err
   },
   // introspection: true,
-  plugins: [ApolloServerPluginInlineTrace()],
+  // plugins: [ApolloServerPluginInlineTrace()],
+  resolvers,
 })
 
 const ogm = new OGM({ typeDefs, driver })

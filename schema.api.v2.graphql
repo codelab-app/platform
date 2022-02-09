@@ -830,8 +830,18 @@ type CreateAtomsMutationResponse {
   info: CreateInfo!
 }
 
+type CreateCreateInfosMutationResponse {
+  createInfos: [CreateInfo!]!
+  info: CreateInfo!
+}
+
 type CreateElementsMutationResponse {
   elements: [Element!]!
+  info: CreateInfo!
+}
+
+type CreateImportAtomsMutationResponsesMutationResponse {
+  importAtomsMutationResponses: [ImportAtomsMutationResponse!]!
   info: CreateInfo!
 }
 
@@ -839,6 +849,75 @@ type CreateInfo {
   bookmark: String
   nodesCreated: Int!
   relationshipsCreated: Int!
+}
+
+type CreateInfoAggregateSelection {
+  bookmark: StringAggregateSelection!
+  count: Int!
+  nodesCreated: IntAggregateSelection!
+  relationshipsCreated: IntAggregateSelection!
+}
+
+input CreateInfoCreateInput {
+  bookmark: String
+  nodesCreated: Int!
+  relationshipsCreated: Int!
+}
+
+input CreateInfoOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more CreateInfoSort objects to sort CreateInfos by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [CreateInfoSort]
+}
+
+"""
+Fields to sort CreateInfos by. The order in which sorts are applied is not guaranteed when specifying many fields in one CreateInfoSort object.
+"""
+input CreateInfoSort {
+  bookmark: SortDirection
+  nodesCreated: SortDirection
+  relationshipsCreated: SortDirection
+}
+
+input CreateInfoUpdateInput {
+  bookmark: String
+  nodesCreated: Int
+  relationshipsCreated: Int
+}
+
+input CreateInfoWhere {
+  AND: [CreateInfoWhere!]
+  OR: [CreateInfoWhere!]
+  bookmark: String
+  bookmark_CONTAINS: String
+  bookmark_ENDS_WITH: String
+  bookmark_IN: [String]
+  bookmark_NOT: String
+  bookmark_NOT_CONTAINS: String
+  bookmark_NOT_ENDS_WITH: String
+  bookmark_NOT_IN: [String]
+  bookmark_NOT_STARTS_WITH: String
+  bookmark_STARTS_WITH: String
+  nodesCreated: Int
+  nodesCreated_GT: Int
+  nodesCreated_GTE: Int
+  nodesCreated_IN: [Int]
+  nodesCreated_LT: Int
+  nodesCreated_LTE: Int
+  nodesCreated_NOT: Int
+  nodesCreated_NOT_IN: [Int]
+  relationshipsCreated: Int
+  relationshipsCreated_GT: Int
+  relationshipsCreated_GTE: Int
+  relationshipsCreated_IN: [Int]
+  relationshipsCreated_LT: Int
+  relationshipsCreated_LTE: Int
+  relationshipsCreated_NOT: Int
+  relationshipsCreated_NOT_IN: [Int]
 }
 
 type CreatePagesMutationResponse {
@@ -1381,16 +1460,70 @@ interface IElementGraph {
   vertices: [Element!]
 }
 
+input ImportAtomsInput {
+  payload: String!
+}
+
+type ImportAtomsMutationResponse {
+  atoms: [Atom!]
+}
+
+type ImportAtomsMutationResponseAggregateSelection {
+  count: Int!
+}
+
+input ImportAtomsMutationResponseCreateInput {
+  """
+  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
+  """
+  _emptyInput: Boolean
+}
+
+input ImportAtomsMutationResponseOptions {
+  limit: Int
+  offset: Int
+}
+
+input ImportAtomsMutationResponseUpdateInput {
+  """
+  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
+  """
+  _emptyInput: Boolean
+}
+
+input ImportAtomsMutationResponseWhere {
+  AND: [ImportAtomsMutationResponseWhere!]
+  OR: [ImportAtomsMutationResponseWhere!]
+}
+
+type IntAggregateSelection {
+  average: Float
+  max: Int
+  min: Int
+  sum: Int
+}
+
 type Mutation {
   createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
   createAtoms(input: [AtomCreateInput!]!): CreateAtomsMutationResponse!
+  createCreateInfos(
+    input: [CreateInfoCreateInput!]!
+  ): CreateCreateInfosMutationResponse!
   createElements(input: [ElementCreateInput!]!): CreateElementsMutationResponse!
+  createImportAtomsMutationResponses(
+    input: [ImportAtomsMutationResponseCreateInput!]!
+  ): CreateImportAtomsMutationResponsesMutationResponse!
   createPages(input: [PageCreateInput!]!): CreatePagesMutationResponse!
   deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
   deleteAtoms(where: AtomWhere): DeleteInfo!
+  deleteCreateInfos(where: CreateInfoWhere): DeleteInfo!
   deleteElements(delete: ElementDeleteInput, where: ElementWhere): DeleteInfo!
+  deleteImportAtomsMutationResponses(
+    where: ImportAtomsMutationResponseWhere
+  ): DeleteInfo!
   deletePages(delete: PageDeleteInput, where: PageWhere): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
+  importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
   updateApps(
     connect: AppConnectInput
     connectOrCreate: AppConnectOrCreateInput
@@ -1404,6 +1537,10 @@ type Mutation {
     update: AtomUpdateInput
     where: AtomWhere
   ): UpdateAtomsMutationResponse!
+  updateCreateInfos(
+    update: CreateInfoUpdateInput
+    where: CreateInfoWhere
+  ): UpdateCreateInfosMutationResponse!
   updateElements(
     connect: ElementConnectInput
     connectOrCreate: ElementConnectOrCreateInput
@@ -1413,6 +1550,10 @@ type Mutation {
     update: ElementUpdateInput
     where: ElementWhere
   ): UpdateElementsMutationResponse!
+  updateImportAtomsMutationResponses(
+    update: ImportAtomsMutationResponseUpdateInput
+    where: ImportAtomsMutationResponseWhere
+  ): UpdateImportAtomsMutationResponsesMutationResponse!
   updatePages(
     connect: PageConnectInput
     connectOrCreate: PageConnectOrCreateInput
@@ -1859,9 +2000,25 @@ type Query {
   atoms(options: AtomOptions, where: AtomWhere): [Atom!]!
   atomsAggregate(where: AtomWhere): AtomAggregateSelection!
   atomsCount(where: AtomWhere): Int!
+  createInfos(
+    options: CreateInfoOptions
+    where: CreateInfoWhere
+  ): [CreateInfo!]!
+  createInfosAggregate(where: CreateInfoWhere): CreateInfoAggregateSelection!
+  createInfosCount(where: CreateInfoWhere): Int!
   elements(options: ElementOptions, where: ElementWhere): [Element!]!
   elementsAggregate(where: ElementWhere): ElementAggregateSelection!
   elementsCount(where: ElementWhere): Int!
+  importAtomsMutationResponses(
+    options: ImportAtomsMutationResponseOptions
+    where: ImportAtomsMutationResponseWhere
+  ): [ImportAtomsMutationResponse!]!
+  importAtomsMutationResponsesAggregate(
+    where: ImportAtomsMutationResponseWhere
+  ): ImportAtomsMutationResponseAggregateSelection!
+  importAtomsMutationResponsesCount(
+    where: ImportAtomsMutationResponseWhere
+  ): Int!
   pages(options: PageOptions, where: PageWhere): [Page!]!
   pagesAggregate(where: PageWhere): PageAggregateSelection!
   pagesCount(where: PageWhere): Int!
@@ -1897,8 +2054,18 @@ type UpdateAtomsMutationResponse {
   info: UpdateInfo!
 }
 
+type UpdateCreateInfosMutationResponse {
+  createInfos: [CreateInfo!]!
+  info: UpdateInfo!
+}
+
 type UpdateElementsMutationResponse {
   elements: [Element!]!
+  info: UpdateInfo!
+}
+
+type UpdateImportAtomsMutationResponsesMutationResponse {
+  importAtomsMutationResponses: [ImportAtomsMutationResponse!]!
   info: UpdateInfo!
 }
 
