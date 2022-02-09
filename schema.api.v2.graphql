@@ -1556,6 +1556,7 @@ input AtomWhere {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 type CreateAppTypesMutationResponse {
   appTypes: [AppType!]!
   info: CreateInfo!
@@ -1590,6 +1591,8 @@ input ChildOfElementWhere {
 >>>>>>> bef585a4d (feat: get element graph and delete part of graph)
 }
 
+=======
+>>>>>>> 7936c276a (feat: update cache on element creation)
 type CreateAppsMutationResponse {
   apps: [App!]!
   info: CreateInfo!
@@ -1630,11 +1633,12 @@ type CreateElementEdgesMutationResponse {
   info: CreateInfo!
 }
 
-type CreateElementsMutationResponse {
-  elements: [Element!]!
+type CreateElementGraphsMutationResponse {
+  elementGraphs: [ElementGraph!]!
   info: CreateInfo!
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 type CreateEnumTypeValuesMutationResponse {
   enumTypeValues: [EnumTypeValue!]!
@@ -1647,6 +1651,10 @@ type CreateEnumTypesMutationResponse {
 type CreateIElementGraphsMutationResponse {
   iElementGraphs: [IElementGraph!]!
 >>>>>>> bef585a4d (feat: get element graph and delete part of graph)
+=======
+type CreateElementsMutationResponse {
+  elements: [Element!]!
+>>>>>>> 7936c276a (feat: update cache on element creation)
   info: CreateInfo!
 }
 
@@ -1981,7 +1989,7 @@ type Element {
     where: ElementComponentTagConnectionWhere
   ): ElementComponentTagConnection!
   css: String
-  graph: IElementGraph
+  graph: ElementGraph
   hooks: [String!]
   id: ID!
   instanceOfComponent(options: ElementOptions, where: ElementWhere): Element
@@ -2152,7 +2160,7 @@ input ElementChildrenAggregateInput {
 
 input ElementChildrenConnectFieldInput {
   connect: [ElementConnectInput!]
-  edge: ChildOfElementCreateInput!
+  edge: ParentOfElementCreateInput
   where: ElementConnectWhere
 }
 
@@ -2162,7 +2170,7 @@ input ElementChildrenConnectOrCreateFieldInput {
 }
 
 input ElementChildrenConnectOrCreateFieldInputOnCreate {
-  edge: ChildOfElementCreateInput!
+  edge: ParentOfElementCreateInput
   node: ElementCreateInput!
 }
 
@@ -2173,21 +2181,21 @@ type ElementChildrenConnection {
 }
 
 input ElementChildrenConnectionSort {
-  edge: ChildOfElementSort
+  edge: ParentOfElementSort
   node: ElementSort
 }
 
 input ElementChildrenConnectionWhere {
   AND: [ElementChildrenConnectionWhere!]
   OR: [ElementChildrenConnectionWhere!]
-  edge: ChildOfElementWhere
-  edge_NOT: ChildOfElementWhere
+  edge: ParentOfElementWhere
+  edge_NOT: ParentOfElementWhere
   node: ElementWhere
   node_NOT: ElementWhere
 }
 
 input ElementChildrenCreateFieldInput {
-  edge: ChildOfElementCreateInput!
+  edge: ParentOfElementCreateInput
   node: ElementCreateInput!
 }
 
@@ -2363,14 +2371,14 @@ input ElementChildrenNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_LTE: Int
 }
 
-type ElementChildrenRelationship implements ChildOfElement {
+type ElementChildrenRelationship implements ParentOfElement {
   cursor: String!
   node: Element!
-  order: Int!
+  order: Int
 }
 
 input ElementChildrenUpdateConnectionInput {
-  edge: ChildOfElementUpdateInput
+  edge: ParentOfElementUpdateInput
   node: ElementUpdateInput
 }
 
@@ -2544,7 +2552,7 @@ input ElementDisconnectInput {
 }
 
 type ElementEdge {
-  order: Int!
+  order: Int
   source: String!
   target: String!
 }
@@ -2557,7 +2565,7 @@ type ElementEdgeAggregateSelection {
 }
 
 input ElementEdgeCreateInput {
-  order: Int!
+  order: Int
   source: String!
   target: String!
 }
@@ -2673,6 +2681,39 @@ type ElementElementParentElementNodeAggregateSelection {
   props: StringAggregateSelection!
   renderForEachPropKey: StringAggregateSelection!
   renderIfPropKey: StringAggregateSelection!
+}
+
+type ElementGraph {
+  edges: [ElementEdge!]!
+  vertices: [Element!]!
+}
+
+type ElementGraphAggregateSelection {
+  count: Int!
+}
+
+input ElementGraphCreateInput {
+  """
+  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
+  """
+  _emptyInput: Boolean
+}
+
+input ElementGraphOptions {
+  limit: Int
+  offset: Int
+}
+
+input ElementGraphUpdateInput {
+  """
+  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
+  """
+  _emptyInput: Boolean
+}
+
+input ElementGraphWhere {
+  AND: [ElementGraphWhere!]
+  OR: [ElementGraphWhere!]
 }
 
 input ElementInstanceOfComponentAggregateInput {
@@ -2905,6 +2946,7 @@ input ElementParentElementAggregateInput {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 """
 Allows picking an element from the current tree
 Is passed to the rendered element as a React node
@@ -2931,6 +2973,12 @@ type ElementType implements TypeBase {
     sort: [TypeBaseOwnerConnectionSort!]
     where: TypeBaseOwnerConnectionWhere
   ): TypeBaseOwnerConnection!
+=======
+input ElementParentElementConnectFieldInput {
+  connect: ElementConnectInput
+  edge: ParentOfElementCreateInput
+  where: ElementConnectWhere
+>>>>>>> 7936c276a (feat: update cache on element creation)
 }
 
 type ElementTypeAggregateSelection {
@@ -2939,14 +2987,21 @@ type ElementTypeAggregateSelection {
   name: StringAggregateSelection!
 }
 
+<<<<<<< HEAD
 input ElementTypeConnectInput {
   owner: TypeBaseOwnerConnectFieldInput
+=======
+input ElementParentElementConnectOrCreateFieldInputOnCreate {
+  edge: ParentOfElementCreateInput
+  node: ElementCreateInput!
+>>>>>>> 7936c276a (feat: update cache on element creation)
 }
 
 input ElementTypeConnectOrCreateInput {
   owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
+<<<<<<< HEAD
 input ElementTypeCreateInput {
   elementKind: ElementTypeKind!
   name: String!
@@ -2959,6 +3014,25 @@ input ElementTypeDeleteInput {
 
 input ElementTypeDisconnectInput {
   owner: TypeBaseOwnerDisconnectFieldInput
+=======
+input ElementParentElementConnectionSort {
+  edge: ParentOfElementSort
+  node: ElementSort
+}
+
+input ElementParentElementConnectionWhere {
+  AND: [ElementParentElementConnectionWhere!]
+  OR: [ElementParentElementConnectionWhere!]
+  edge: ParentOfElementWhere
+  edge_NOT: ParentOfElementWhere
+  node: ElementWhere
+  node_NOT: ElementWhere
+}
+
+input ElementParentElementCreateFieldInput {
+  edge: ParentOfElementCreateInput
+  node: ElementCreateInput!
+>>>>>>> 7936c276a (feat: update cache on element creation)
 }
 
 enum ElementTypeKind {
@@ -3326,14 +3400,14 @@ input ElementParentElementNodeAggregationWhereInput {
   renderIfPropKey_SHORTEST_LTE: Int
 }
 
-type ElementParentElementRelationship implements ChildOfElement {
+type ElementParentElementRelationship implements ParentOfElement {
   cursor: String!
   node: Element!
-  order: Int!
+  order: Int
 }
 
 input ElementParentElementUpdateConnectionInput {
-  edge: ChildOfElementUpdateInput
+  edge: ParentOfElementUpdateInput
   node: ElementUpdateInput
 }
 
@@ -3540,6 +3614,7 @@ type EnumTypeAggregateSelection {
   name: StringAggregateSelection!
 }
 
+<<<<<<< HEAD
 input EnumTypeAllowedValuesAggregateInput {
   AND: [EnumTypeAllowedValuesAggregateInput!]
   OR: [EnumTypeAllowedValuesAggregateInput!]
@@ -3550,6 +3625,9 @@ input EnumTypeAllowedValuesAggregateInput {
   count_LTE: Int
   node: EnumTypeAllowedValuesNodeAggregationWhereInput
 =======
+=======
+<<<<<<< HEAD
+>>>>>>> 7936c276a (feat: update cache on element creation)
 type IElementGraph {
   edges: [ElementEdge!]
   vertices: [Element!]
@@ -3620,6 +3698,7 @@ input EnumTypeAllowedValuesDisconnectFieldInput {
   where: EnumTypeAllowedValuesConnectionWhere
 }
 
+<<<<<<< HEAD
 input EnumTypeAllowedValuesFieldInput {
   connect: [EnumTypeAllowedValuesConnectFieldInput!]
   create: [EnumTypeAllowedValuesCreateFieldInput!]
@@ -4216,6 +4295,10 @@ input ImportAtomsMutationResponseWhere {
   OR: [ImportAtomsMutationResponseWhere!]
 }
 
+=======
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
+>>>>>>> 7936c276a (feat: update cache on element creation)
 type IntAggregateSelection {
   average: Float
   max: Int
@@ -6625,13 +6708,19 @@ type Mutation {
   createElementEdges(
     input: [ElementEdgeCreateInput!]!
   ): CreateElementEdgesMutationResponse!
+  createElementGraphs(
+    input: [ElementGraphCreateInput!]!
+  ): CreateElementGraphsMutationResponse!
   createElements(input: [ElementCreateInput!]!): CreateElementsMutationResponse!
+<<<<<<< HEAD
   createIElementGraphs(
     input: [IElementGraphCreateInput!]!
   ): CreateIElementGraphsMutationResponse!
   createImportAtomsMutationResponses(
     input: [ImportAtomsMutationResponseCreateInput!]!
   ): CreateImportAtomsMutationResponsesMutationResponse!
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
   createPages(input: [PageCreateInput!]!): CreatePagesMutationResponse!
   createPropMapBindings(
     input: [PropMapBindingCreateInput!]!
@@ -6641,11 +6730,15 @@ type Mutation {
   deleteAtoms(where: AtomWhere): DeleteInfo!
   deleteCreateInfos(where: CreateInfoWhere): DeleteInfo!
   deleteElementEdges(where: ElementEdgeWhere): DeleteInfo!
+  deleteElementGraphs(where: ElementGraphWhere): DeleteInfo!
   deleteElements(delete: ElementDeleteInput, where: ElementWhere): DeleteInfo!
+<<<<<<< HEAD
   deleteIElementGraphs(where: IElementGraphWhere): DeleteInfo!
   deleteImportAtomsMutationResponses(
     where: ImportAtomsMutationResponseWhere
   ): DeleteInfo!
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
   deletePages(delete: PageDeleteInput, where: PageWhere): DeleteInfo!
   deletePropMapBindings(
     delete: PropMapBindingDeleteInput
@@ -6675,6 +6768,10 @@ type Mutation {
     update: ElementEdgeUpdateInput
     where: ElementEdgeWhere
   ): UpdateElementEdgesMutationResponse!
+  updateElementGraphs(
+    update: ElementGraphUpdateInput
+    where: ElementGraphWhere
+  ): UpdateElementGraphsMutationResponse!
   updateElements(
     connect: ElementConnectInput
     connectOrCreate: ElementConnectOrCreateInput
@@ -6684,6 +6781,7 @@ type Mutation {
     update: ElementUpdateInput
     where: ElementWhere
   ): UpdateElementsMutationResponse!
+<<<<<<< HEAD
   updateIElementGraphs(
     update: IElementGraphUpdateInput
     where: IElementGraphWhere
@@ -6692,6 +6790,8 @@ type Mutation {
     update: ImportAtomsMutationResponseUpdateInput
     where: ImportAtomsMutationResponseWhere
   ): UpdateImportAtomsMutationResponsesMutationResponse!
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
   updatePages(
     connect: PageConnectInput
     connectOrCreate: PageConnectOrCreateInput
@@ -7424,6 +7524,35 @@ input TypeBaseOwnerAggregateInput {
   rootElement_NOT: ElementWhere
 }
 
+interface ParentOfElement {
+  order: Int
+}
+
+input ParentOfElementCreateInput {
+  order: Int
+}
+
+input ParentOfElementSort {
+  order: SortDirection
+}
+
+input ParentOfElementUpdateInput {
+  order: Int
+}
+
+input ParentOfElementWhere {
+  AND: [ParentOfElementWhere!]
+  OR: [ParentOfElementWhere!]
+  order: Int
+  order_GT: Int
+  order_GTE: Int
+  order_IN: [Int]
+  order_LT: Int
+  order_LTE: Int
+  order_NOT: Int
+  order_NOT_IN: [Int]
+}
+
 type PropMapBinding {
   id: ID!
   sourceKey: String!
@@ -8070,9 +8199,18 @@ type Query {
   ): [ElementEdge!]!
   elementEdgesAggregate(where: ElementEdgeWhere): ElementEdgeAggregateSelection!
   elementEdgesCount(where: ElementEdgeWhere): Int!
+  elementGraphs(
+    options: ElementGraphOptions
+    where: ElementGraphWhere
+  ): [ElementGraph!]!
+  elementGraphsAggregate(
+    where: ElementGraphWhere
+  ): ElementGraphAggregateSelection!
+  elementGraphsCount(where: ElementGraphWhere): Int!
   elements(options: ElementOptions, where: ElementWhere): [Element!]!
   elementsAggregate(where: ElementWhere): ElementAggregateSelection!
   elementsCount(where: ElementWhere): Int!
+<<<<<<< HEAD
   iElementGraphs(
     options: IElementGraphOptions
     where: IElementGraphWhere
@@ -8091,6 +8229,8 @@ type Query {
   importAtomsMutationResponsesCount(
     where: ImportAtomsMutationResponseWhere
   ): Int!
+=======
+>>>>>>> f87ec242f (feat: update cache on element creation)
   pages(options: PageOptions, where: PageWhere): [Page!]!
   pagesAggregate(where: PageWhere): PageAggregateSelection!
   pagesCount(where: PageWhere): Int!
@@ -8405,11 +8545,12 @@ type UpdateElementEdgesMutationResponse {
   info: UpdateInfo!
 }
 
-type UpdateElementsMutationResponse {
-  elements: [Element!]!
+type UpdateElementGraphsMutationResponse {
+  elementGraphs: [ElementGraph!]!
   info: UpdateInfo!
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 type UpdateEnumTypeValuesMutationResponse {
   enumTypeValues: [EnumTypeValue!]!
@@ -8422,6 +8563,10 @@ type UpdateEnumTypesMutationResponse {
 type UpdateIElementGraphsMutationResponse {
   iElementGraphs: [IElementGraph!]!
 >>>>>>> bef585a4d (feat: get element graph and delete part of graph)
+=======
+type UpdateElementsMutationResponse {
+  elements: [Element!]!
+>>>>>>> 7936c276a (feat: update cache on element creation)
   info: UpdateInfo!
 }
 

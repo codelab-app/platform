@@ -1,15 +1,17 @@
 import { ElementTree } from '@codelab/shared/core'
+import { values } from 'lodash'
 import React from 'react'
-import { ElementGraphFragment } from '../graphql'
-import { useGetElementsQuery } from '../store'
+import { ElementWithGraphFragment } from '../graphql'
+import { useElementDispatch } from '../hooks'
+import { useGetElementsWithGraphQuery } from '../store'
 
-export interface ElementGraphContext {
-  elementGraph?: ElementGraphFragment
+export interface IElementGraphContext {
+  elementGraph?: ElementWithGraphFragment['graph']
   elementId: string
   elementTree: ElementTree
 }
 
-const initialContext: ElementGraphContext = {
+const initialContext: IElementGraphContext = {
   elementGraph: undefined,
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   elementId: undefined!,
@@ -27,12 +29,17 @@ export const ElementGraphProvider = ({
   elementId,
   children,
 }: ElementGraphProviderProps) => {
-  const { data } = useGetElementsQuery({
+  const { data } = useGetElementsWithGraphQuery({
     variables: { where: { id: elementId } },
   })
 
-  const element = data?.elements[0]
-  const elementGraph = element?.graph || { edges: [], vertices: [] }
+  const { setCurrentGraphRoot } = useElementDispatch()
+  setCurrentGraphRoot({ rootElementId: elementId })
+
+  const element = data?.elements[elementId]
+  const vertices = element?.vertices ? values(element?.vertices) : []
+  const edges = element?.edges || []
+  const elementGraph = { edges, vertices }
   const elementTree = new ElementTree(elementGraph)
 
   return (

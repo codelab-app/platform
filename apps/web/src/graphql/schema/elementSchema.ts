@@ -33,13 +33,13 @@ const graphCypher = `
 `
 
 export const elementSchema = gql`
-  type ElementEdge @exclude(operation: [CREATE, UPDATE, DELETE, READ]){
+  type ElementEdge {
     source: String!
     target: String!
     order: Int!
   }
 
-  type ElementGraph @exclude(operation: [CREATE, UPDATE, DELETE, READ]){
+  type IElementGraph {
     vertices: [Element!]
     edges: [ElementEdge!]
   }
@@ -99,6 +99,6 @@ export const elementSchema = gql`
     hooks: [String!]
     propMapBindings: [PropMapBinding!]
 
-    graph: ElementGraph @cypher(statement: """${graphCypher}""")
+    graph: IElementGraph @cypher(statement: """${graphCypher}""")
   }
 `

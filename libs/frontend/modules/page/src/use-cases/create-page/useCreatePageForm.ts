@@ -45,13 +45,8 @@ export const useCreatePageForm: UseUseCaseForm<
                     children: {
                       create: [
                         {
-                          edge: {
-                            order: 1,
-                          },
-                          node: {
-                            name: 'Second Child',
-                            hooks: [],
-                          },
+                          edge: { order: 1 },
+                          node: { name: 'Second Child' },
                         },
                       ],
                     },

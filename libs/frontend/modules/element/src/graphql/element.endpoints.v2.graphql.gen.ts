@@ -1,14 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import {
-  ElementBaseFragment,
-  ElementFragment,
-} from './Element.fragment.v2.graphql.gen'
+import { ElementFragment } from './Element.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
-import {
-  ElementBaseFragmentDoc,
-  ElementFragmentDoc,
-} from './Element.fragment.v2.graphql.gen'
+import { ElementFragmentDoc } from './Element.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,
@@ -18,7 +12,7 @@ export type CreateElementsMutationVariables = Types.Exact<{
 }>
 
 export type CreateElementsMutation = {
-  createElements: { elements: Array<ElementBaseFragment> }
+  createElements: { elements: Array<ElementFragment> }
 }
 
 export type DeleteElementsMutationVariables = Types.Exact<{
@@ -50,11 +44,11 @@ export const CreateElementsGql = gql`
   mutation CreateElements($input: [ElementCreateInput!]!) {
     createElements(input: $input) {
       elements {
-        ...ElementBase
+        ...Element
       }
     }
   }
-  ${ElementBaseFragmentDoc}
+  ${ElementFragmentDoc}
 `
 export const DeleteElementsGql = gql`
   mutation DeleteElements($where: ElementWhere, $delete: ElementDeleteInput) {

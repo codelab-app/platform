@@ -28,7 +28,7 @@ const mapVariables = (input: CreateElementInput): ElementCreateInput => {
     ? {
         connect: {
           where: { node: { id: parentElementId } },
-          edge: { order: order || 1 },
+          edge: { order },
         },
       }
     : undefined

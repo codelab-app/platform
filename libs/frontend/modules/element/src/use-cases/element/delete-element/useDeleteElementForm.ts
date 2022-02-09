@@ -4,14 +4,14 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeleteElementInput } from '@codelab/shared/abstract/codegen'
 import { ElementTree } from '@codelab/shared/core'
 import { useCallback } from 'react'
-import { ElementBaseFragment } from '../../../graphql'
+import { ElementFragment } from '../../../graphql'
 import { useElementDispatch, useElementState } from '../../../hooks'
 import { useDeleteElementsMutation } from '../../../store'
 
 export const useDeleteElementForm: UseEntityUseCaseForm<
   DeleteElementInput,
   CRUDActionType,
-  ElementBaseFragment,
+  ElementFragment,
   any,
   ElementTree
 > = (tree) => {

@@ -10,6 +10,10 @@ fragment ElementBase on Element {
     id
     name
   }
+  children {
+    id
+    name
+  }
   atom {
     id
     name
@@ -29,6 +33,15 @@ fragment ElementBase on Element {
     targetKey
   }
   propTransformationJs
+}
+
+fragment Element on Element {
+  ...ElementBase
+  parentElementConnection {
+    edges {
+      order
+    }
+  }
 }
 
 fragment ElementEdge on ElementEdge {
@@ -38,46 +51,17 @@ fragment ElementEdge on ElementEdge {
 }
 
 fragment ElementGraph on ElementGraph {
-  vertices {
-    ...ElementBase
-  }
   edges {
     ...ElementEdge
   }
+  vertices {
+    ...ElementBase
+  }
 }
 
-fragment Element on Element {
-  __typename
-  id
-  name
-  css
-  instanceOfComponent {
-    id
-  }
-  parentElement {
-    id
-    name
-  }
-  atom {
-    id
-    name
-    type
-  }
+fragment ElementWithGraph on Element {
+  ...Element
   graph {
     ...ElementGraph
   }
-  componentTag {
-    id
-    name
-  }
-  props
-  hooks
-  renderForEachPropKey
-  renderIfPropKey
-  propMapBindings {
-    id
-    sourceKey
-    targetKey
-  }
-  propTransformationJs
 }

@@ -15,7 +15,7 @@ export type IPropMapBinding = z.infer<typeof PropMapBindingSchema>
 
 export const ElementSchema = z.object({
   id: z.string().default(''),
-  fixedId: z.string().nullish(),
+  //  fixedId: z.string().nullish(),
   name: z.string().nullish(),
   css: z.string().nullish(),
   propTransformationJs: z.string().nullish(),

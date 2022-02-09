@@ -12,8 +12,14 @@ export interface ElementStateCreateMetadata {
   parentElementId?: string
 }
 
+export interface SetCurrentGraphRootActionPayload {
+  rootElementId?: string
+}
+
 export interface ElementState extends CRUDModalState<ElementFragment> {
   createMetadata?: ElementStateCreateMetadata
+  // used obtain graph cache entry in order to update it
+  currentGraphRootId?: string
 }
 
 const initialState: ElementState = {
@@ -37,6 +43,13 @@ export const elementSlice = createCrudSlice('element', initialState, {
     deleteIds: [],
     updateId: '',
     createMetadata: undefined,
+  }),
+  setCurrentGraphRootId: (
+    s,
+    { payload }: PayloadAction<Maybe<SetCurrentGraphRootActionPayload>>,
+  ) => ({
+    ...s,
+    currentGraphRootId: payload?.rootElementId,
   }),
 })
 

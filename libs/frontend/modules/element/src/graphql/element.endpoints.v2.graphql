@@ -1,7 +1,7 @@
 mutation CreateElements($input: [ElementCreateInput!]!) {
   createElements(input: $input) {
     elements {
-      ...ElementBase
+      ...Element
     }
   }
 }
