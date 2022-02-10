@@ -1,5 +1,4 @@
 import { IResolvers } from '@graphql-tools/utils'
-import GraphQLJSON, { GraphQLJSONObject } from 'graphql-type-json'
 
 export const resolvers: IResolvers = {
   Mutation: {
@@ -11,6 +10,6 @@ export const resolvers: IResolvers = {
   },
   Query: {},
   // https://github.com/taion/graphql-type-json
-  JSON: GraphQLJSON,
-  JSONObject: GraphQLJSONObject,
+  // JSON: GraphQLJSON,
+  // JSONObject: GraphQLJSONObject,
 }
