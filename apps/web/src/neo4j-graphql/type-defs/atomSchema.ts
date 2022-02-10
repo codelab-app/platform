@@ -16,4 +16,23 @@ export const atomSchema = gql`
   }
 
   extend type Atom @auth(rules: [{ roles: ["Admin"] }])
+
+  # Can't reuse from Neo4j schema
+  type CreateInfo {
+    bookmark: String
+    nodesCreated: Int!
+    relationshipsCreated: Int!
+  }
+
+  type ImportAtomsMutationResponse {
+    atoms: [Atom!]
+  }
+
+  input ImportAtomsInput {
+    payload: JSONObject!
+  }
+
+  type Mutation {
+    importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
+  }
 `

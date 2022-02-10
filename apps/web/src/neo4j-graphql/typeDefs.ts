@@ -6,6 +6,9 @@ import { pageSchema } from './type-defs/pageSchema'
 import { userSchema } from './type-defs/userSchema'
 
 export default print(gql`
+  scalar JSON
+  scalar JSONObject
+
   ${userSchema}
 
   ${appSchema}

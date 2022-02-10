@@ -1,6 +1,5 @@
 import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
 import { OGM } from '@neo4j/graphql-ogm'
-import { ApolloServerPluginInlineTrace } from 'apollo-server-core'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
@@ -13,6 +12,8 @@ const neoSchema = getSchema(driver)
 const path = '/api/v2/graphql'
 
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
+
+console.log(neoSchema.schema)
 
 const apolloServer = new ApolloServer({
   schema: neoSchema.schema,
@@ -29,7 +30,7 @@ const apolloServer = new ApolloServer({
     return err
   },
   // introspection: true,
-  plugins: [ApolloServerPluginInlineTrace()],
+  // plugins: [ApolloServerPluginInlineTrace()],
 })
 
 const ogm = new OGM({ typeDefs, driver })

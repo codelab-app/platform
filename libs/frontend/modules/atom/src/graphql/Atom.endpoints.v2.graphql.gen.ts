@@ -33,6 +33,17 @@ export type GetAtomsQueryVariables = Types.Exact<{
 
 export type GetAtomsQuery = { atoms: Array<AtomFragment> }
 
+export type ImportAtomsMutationVariables = Types.Exact<{
+  input: Types.ImportAtomsInput
+}>
+
+export type ImportAtomsMutation = {
+  importAtoms?:
+    | { atoms?: Array<{ id: string }> | null | undefined }
+    | null
+    | undefined
+}
+
 export type UpdateAtomsMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AtomWhere>
   update?: Types.InputMaybe<Types.AtomUpdateInput>
@@ -71,6 +82,15 @@ export const GetAtomsGql = gql`
     }
   }
   ${AtomFragmentDoc}
+`
+export const ImportAtomsGql = gql`
+  mutation ImportAtoms($input: ImportAtomsInput!) {
+    importAtoms(input: $input) {
+      atoms {
+        id
+      }
+    }
+  }
 `
 export const UpdateAtomsGql = gql`
   mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
@@ -112,6 +132,15 @@ const injectedRtkApi = api.injectEndpoints({
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
+    ImportAtoms: build.mutation<
+      ImportAtomsMutation,
+      GraphqlOperationOptions<ImportAtomsMutationVariables>
+    >({
+      query: (options) => ({
+        document: ImportAtomsGql,
+        options: { ...{ context: { env: 'v2' } }, ...options },
+      }),
+    }),
     UpdateAtoms: build.mutation<
       UpdateAtomsMutation,
       GraphqlOperationOptions<UpdateAtomsMutationVariables> | void | undefined
@@ -129,5 +158,6 @@ export const {
   useDeleteAtomsMutation,
   useGetAtomsQuery,
   useLazyGetAtomsQuery,
+  useImportAtomsMutation,
   useUpdateAtomsMutation,
 } = injectedRtkApi

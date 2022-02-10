@@ -35,9 +35,9 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:execute",
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "buildTarget": "api:build"
+        "command": "echo 'Nest.js api is deprecated in favor of Next.js api server with Neo4j'"
       }
     },
     "lint": {

@@ -8,8 +8,8 @@ schema: schema.api.graphql
 config:
   scalars:
     uuid: string
-    json: Record<string, any>
-    jsonb: Record<string, any>
+    JSON: Record<string, any>
+    JSONObject: Record<string, any>
     DateTime: string
     Int64: number
     _Any: any
