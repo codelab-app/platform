@@ -4,8 +4,8 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeleteTagsInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
 import { TagFragment } from '../../graphql/Tag.fragment.graphql.gen'
-import { useTagDispatch, useTagState } from '../../hooks'
-import { useDeleteTagsMutation } from '../../store'
+import { useTagDispatch, useTagState, useTagTree } from '../../hooks'
+import { useDeleteTagsMutation, useGetTagGraphsQuery } from '../../store'
 
 export const useDeleteTagForm: UseEntityUseCaseForm<
   DeleteTagsInput,
@@ -14,6 +14,8 @@ export const useDeleteTagForm: UseEntityUseCaseForm<
 > = () => {
   const { deleteIds, entity, actionType, selectedTag } = useTagState()
   const { resetModal, resetSelection } = useTagDispatch()
+  const { data } = useGetTagGraphsQuery()
+  const tagTree = useTagTree(data?.tagGraphs)
 
   const [mutate, { isLoading }] = useDeleteTagsMutation({
     selectFromResult: (r) => ({
@@ -23,11 +25,21 @@ export const useDeleteTagForm: UseEntityUseCaseForm<
     }),
   })
 
-  const handleSubmit = useCallback(
-    ({ ids }: DeleteTagsInput) =>
-      mutate({ variables: { input: { ids } } }).unwrap(),
-    [mutate],
-  )
+  const handleSubmit = useCallback(() => {
+    const delIds: Array<string> = []
+
+    if (deleteIds.length > 0) {
+      deleteIds.forEach((nId) => {
+        tagTree.getSubgraph(nId).vertices.forEach((item) => {
+          if (delIds.findIndex((x) => x === item.id) === -1) {
+            delIds.push(item.id)
+          }
+        })
+      })
+    }
+
+    return mutate({ variables: { where: { id_IN: delIds } } }).unwrap()
+  }, [mutate, deleteIds, tagTree])
 
   return {
     onSubmit: handleSubmit,

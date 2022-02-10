@@ -8,10 +8,10 @@ import {
   CreateTagModal,
   DeleteTagsButton,
   DeleteTagsModal,
-  ExportTagsButton,
+  // ExportTagsButton,
   GetTagsTree,
-  ImportTagsUpload,
-  UpdateTagModal,
+  // ImportTagsUpload,
+  // UpdateTagModal,
   useTagState,
 } from '@codelab/frontend/modules/tag'
 import {
@@ -30,7 +30,7 @@ const TagPage: CodelabPage<DashboardTemplateProps> = () => {
       </Head>
 
       <CreateTagModal />
-      <UpdateTagModal />
+      {/* <UpdateTagModal /> */}
       <DeleteTagsModal />
       <GetTagsTree />
     </>
@@ -43,8 +43,8 @@ const TagPageHeader = () => {
   const pageHeaderButtons = [
     <CreateTagButton key={0} />,
     <DeleteTagsButton ids={checkedTags.map((tag) => tag.toString())} key={1} />,
-    <ExportTagsButton key={2} />,
-    <ImportTagsUpload key={3} />,
+    // <ExportTagsButton key={2} />,
+    // <ImportTagsUpload key={3} />,
   ]
 
   return <PageHeader extra={pageHeaderButtons} ghost={false} title="Tags" />
