@@ -16,7 +16,7 @@ import {
 import { Card, Col, Row } from 'antd'
 import React from 'react'
 
-export const HomeFeatures = () => {
+export const Features = () => {
   const colProps = {
     ...threeGridCol,
     style: {

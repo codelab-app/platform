@@ -3,7 +3,7 @@ import tw from 'twin.macro'
 
 const { Text, Link, Title } = Typography
 
-export const HomeConcept = () => {
+export const Concept = () => {
   return (
     <div>
       <Title css={tw`text-center !font-extrabold`} level={2}>

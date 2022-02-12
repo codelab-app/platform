@@ -1,7 +1,7 @@
 name: 'Workflow'
 on: ['push']
 jobs:
-  build:
+  todo:
     runs-on: 'ubuntu-latest'
     steps:
       # https://github.com/marketplace/actions/todo-to-issue

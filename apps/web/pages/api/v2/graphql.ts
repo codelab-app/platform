@@ -1,14 +1,12 @@
 import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
-import { OGM } from '@neo4j/graphql-ogm'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
 import { getDriver } from '../../../src/neo4j-graphql/getDriver'
 import { getSchema } from '../../../src/neo4j-graphql/getSchema'
-import typeDefs from '../../../src/neo4j-graphql/typeDefs'
+import { generateOgmTypes, User } from '../../../src/neo4j-graphql/model'
 
-const driver = getDriver()
-const neoSchema = getSchema(driver)
+const neoSchema = getSchema(getDriver())
 const path = '/api/v2/graphql'
 
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
@@ -33,8 +31,6 @@ const apolloServer = new ApolloServer({
   // plugins: [ApolloServerPluginInlineTrace()],
 })
 
-const ogm = new OGM({ typeDefs, driver })
-const User = ogm.model('User')
 const startServer = apolloServer.start()
 
 /**
@@ -122,7 +118,18 @@ const handler: NextApiHandler = async (req, res) => {
   req.headers.authorization = `Bearer ${accessToken}`
 
   await startServer
-  await apolloServer.createHandler({ path })(req, res)
+  await apolloServer
+    .createHandler({ path })(req, res)
+    .then(async () => {
+      console.log(process.env.NODE_ENV)
+
+      if (process.env.NODE_ENV === 'development') {
+        await generateOgmTypes()
+        // execa.commandSync(`yarn codegen-v2`, {
+        //   stdio: 'inherit',
+        // })
+      }
+    })
 }
 
 export default handler
