@@ -26,33 +26,32 @@ const graphCypher = `
 `
 
 const duplicateElementCypher = `
-MATCH (parentNode:Element)-[rootLink:PARENT_OF_ELEMENT]->(element:Element {id: $elementId})
-
-CALL apoc.path.subgraphAll(
-  element, 
-  { relationshipFilter: 'PARENT_OF_ELEMENT>' }
-) YIELD nodes, relationships
-CALL apoc.refactor.cloneSubgraph(
-  nodes + [parentNode],
-  relationships + [rootLink],
-  {
-    skipProperties:['id'],
-    standinNodes:[[parentNode,parentNode]]
-  }
-)
-YIELD input, output as createdNode, error
-SET createdNode.id = apoc.create.uuid()
-WITH createdNode
-MATCH (createdNode)<-[r:PARENT_OF_ELEMENT]-(p:Element)
-WITH {order:r.order} as edge,
-  apoc.map.merge(createdNode,{
-  parentElement:{id:p.id,name:properties(p).name},
-  parentElementConnection:{
-    edges: [{order:r.order}]
-  }  
-}) as createdNode  
-RETURN  {elements: collect(createdNode)}
-
+      MATCH (parentNode:Element)-[rootLink:${PARENT_OF_ELEMENT}]->(element:Element {id: $elementId})
+      CALL apoc.path.subgraphAll(
+        element, 
+        { relationshipFilter: '${PARENT_OF_ELEMENT}>' }
+      ) YIELD nodes, relationships
+      CALL apoc.refactor.cloneSubgraph(
+        nodes + [parentNode],
+        relationships + [rootLink],
+        {
+          skipProperties:['id'],
+          standinNodes:[[parentNode,parentNode]]
+        }
+      )
+      YIELD input, output as createdNode, error
+      SET createdNode.id = apoc.create.uuid()
+      WITH createdNode
+      MATCH (createdNode)<-[r:${PARENT_OF_ELEMENT}]-(p:Element)
+      WITH {order:r.order} as edge,
+        apoc.map.merge(createdNode,{
+        parentElement:{id:p.id,name:properties(p).name},
+        parentElementConnection:{
+          edges: [{order:r.order}]
+        }  
+      }) as createdNode  
+      RETURN  {elements: collect(createdNode)}
+      
 `
 
 export const elementSchema = gql`

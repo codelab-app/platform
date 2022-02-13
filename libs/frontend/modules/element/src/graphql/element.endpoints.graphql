@@ -3,9 +3,3 @@ mutation UpdateElementProps($input: UpdateElementPropsInput!) {
     ...Element
   }
 }
-
-mutation ConvertElementToComponent($input: ConvertElementToComponentInput!) {
-  convertElementToComponent(input: $input) {
-    ...Element
-  }
-}

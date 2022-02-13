@@ -13,25 +13,9 @@ export type UpdateElementPropsMutationVariables = Types.Exact<{
 
 export type UpdateElementPropsMutation = { updateElementProps: ElementFragment }
 
-export type ConvertElementToComponentMutationVariables = Types.Exact<{
-  input: Types.ConvertElementToComponentInput
-}>
-
-export type ConvertElementToComponentMutation = {
-  convertElementToComponent: ElementFragment
-}
-
 export const UpdateElementPropsGql = gql`
   mutation UpdateElementProps($input: UpdateElementPropsInput!) {
     updateElementProps(input: $input) {
-      ...Element
-    }
-  }
-  ${ElementFragmentDoc}
-`
-export const ConvertElementToComponentGql = gql`
-  mutation ConvertElementToComponent($input: ConvertElementToComponentInput!) {
-    convertElementToComponent(input: $input) {
       ...Element
     }
   }
@@ -49,19 +33,7 @@ const injectedRtkApi = api.injectEndpoints({
         options: options ?? undefined,
       }),
     }),
-    ConvertElementToComponent: build.mutation<
-      ConvertElementToComponentMutation,
-      GraphqlOperationOptions<ConvertElementToComponentMutationVariables>
-    >({
-      query: (options) => ({
-        document: ConvertElementToComponentGql,
-        options: options ?? undefined,
-      }),
-    }),
   }),
 })
 export { injectedRtkApi as api }
-export const {
-  useUpdateElementPropsMutation,
-  useConvertElementToComponentMutation,
-} = injectedRtkApi
+export const { useUpdateElementPropsMutation } = injectedRtkApi
