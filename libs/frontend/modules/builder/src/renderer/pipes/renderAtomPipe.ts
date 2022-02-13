@@ -1,5 +1,6 @@
 import { mergeProps } from '@codelab/shared/utils'
 import { css } from '@emotion/react'
+import React from 'react'
 import { atomFactory } from '../atoms'
 import { evalCss, logRendered } from '../utils'
 import { RenderPipeFactory } from './types'
@@ -28,7 +29,7 @@ export const renderAtomPipe: RenderPipeFactory =
       console.group(element.id, element.name)
     }
 
-    const rendered = context.reactRender(ReactComponent, {
+    const rendered = React.createElement(ReactComponent, {
       ...mergedProps,
       css: element.css ? css(evalCss(element.css)) : undefined,
       children: next(element, context, mergedProps),

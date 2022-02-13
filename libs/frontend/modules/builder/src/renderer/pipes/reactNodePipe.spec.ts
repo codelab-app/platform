@@ -1,6 +1,5 @@
 import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
-import React from 'react'
 import { reactNodePipe } from './reactNodePipe'
 import { renderPipeline } from './renderPipeline'
 import {
@@ -22,7 +21,6 @@ const reactNodeType = {
 const defaultContext = {
   tree: treeToRender,
   render: renderPipeline,
-  reactRender: React.createElement,
   typesById: { [reactNodeType.id]: reactNodeType },
 } as RenderContext
 

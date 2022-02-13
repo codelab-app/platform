@@ -21,9 +21,11 @@ export const RenderContainer = ({ context, root }: RenderContainerProps) => {
       return
     }
 
-    const renderMap = getRenderedProps(rendered as ReactElement)
-    // register props into redux
-    context.onRendered(renderMap || {})
+    const renderedPropsMap = getRenderedProps(rendered as ReactElement)
+    /**
+     * Register the PropsDataByElementId to Redux so we can show props to the props inspector. These values are transformed by the props pipeline, so we can't show them directly from the database.
+     */
+    context.onRendered(renderedPropsMap || {})
   }, [rendered, context])
 
   return <>{rendered}</>

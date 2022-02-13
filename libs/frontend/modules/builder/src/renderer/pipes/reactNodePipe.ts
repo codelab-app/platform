@@ -1,6 +1,7 @@
 import { TypeKind } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { mapValues } from 'lodash'
+import React from 'react'
 import { getPropsByTypeKind, transformPropsToComponentFn } from '../utils'
 import { RenderPipeFactory } from './types'
 
@@ -22,7 +23,7 @@ export const reactNodePipe: RenderPipeFactory =
     )
 
     const components = mapValues(transformedProps, (RenderedComponent) =>
-      context.reactRender(RenderedComponent, {}),
+      React.createElement(RenderedComponent, {}),
     )
 
     return next(element, context, mergeProps(props, components))

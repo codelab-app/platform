@@ -33,8 +33,6 @@ export const Renderer = ({
     ...context,
     getHooksResponse,
     typesById,
-    // use to avoid jsx syntax
-    reactRender: React.createElement,
     render: renderPipeline,
     inspect: false,
     tree,
