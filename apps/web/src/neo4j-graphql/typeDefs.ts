@@ -3,6 +3,7 @@ import { print } from 'graphql'
 import { appSchema } from './type-defs/appSchema'
 import { atomSchema } from './type-defs/atomSchema'
 import { pageSchema } from './type-defs/pageSchema'
+import { tagEdgeSchema, tagSchema } from './type-defs/tagSchema'
 import { userSchema } from './type-defs/userSchema'
 
 export default print(gql`
@@ -16,6 +17,54 @@ export default print(gql`
   ${atomSchema}
 
   ${pageSchema}
+
+  ${tagSchema}
+
+  ${tagEdgeSchema}
+
+  union TagVertex = Tag
+
+  interface IGraph {
+    vertices: [TagVertex!]!
+    edges: [TagEdge!]!
+  }
+
+  type TagGraph implements IGraph {
+    """
+    All descendant Elements or Components, at any level
+    """
+    vertices: [Tag!]!
+
+    """
+    All the links connecting the descendant elements/components
+    """
+    edges: [TagEdge!]!
+  }
+
+  type Query {
+    tagGraphs: TagGraph
+      @cypher(
+        statement: """
+        MATCH (t:Tag)
+        OPTIONAL MATCH path = (:Tag)<-[:Children]-(:Tag)
+          WITH
+          	properties(t) as vertices,
+            [relation in relationships(path) |
+                  {
+                    source: properties(startNode(relation)).id,
+                    target: properties(endNode(relation)).id
+                  }
+            ] as edges
+          WITH
+            collect(DISTINCT vertices) as groupedVerticesArrays,
+            collect(DISTINCT edges) as groupedEdgesArrays
+          WITH
+            apoc.coll.toSet(reduce(accumulator = [], v IN groupedVerticesArrays | accumulator + v)) as mergedVertices,
+            apoc.coll.toSet(reduce(accumulator = [], e IN groupedEdgesArrays | accumulator + e)) as mergedEdges
+        RETURN {vertices:mergedVertices, edges:mergedEdges}
+        """
+      )
+  }
 
   interface IElementGraph {
     root: Element

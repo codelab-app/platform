@@ -23,7 +23,7 @@ export const DeleteTagsModal = () => {
   const { data } = useGetTagsQuery()
   const deleteIds = model?.ids
 
-  const deleteTags = data?.getTags
+  const deleteTags = data?.tags
     .filter((tag) => deleteIds?.includes(tag.id))
     .map((tag) => tag.name)
     .sort()

@@ -1,13 +1,14 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { CreateTagInput } from '@codelab/shared/abstract/codegen'
+import { TagCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { useCallback } from 'react'
 import { useTagDispatch, useTagState } from '../../hooks'
-import { useCreateTagMutation } from '../../store'
+import { useCreateTagsMutation } from '../../store'
+import { CreateTagInput } from './types'
 
 export const useCreateTagForm: UseUseCaseForm<
-  CreateTagInput,
+  TagCreateInput,
   CRUDActionType,
   unknown,
   string
@@ -15,9 +16,9 @@ export const useCreateTagForm: UseUseCaseForm<
   const { resetModal } = useTagDispatch()
   const { actionType } = useTagState()
 
-  const [mutate, { isLoading }] = useCreateTagMutation({
+  const [mutate, { isLoading }] = useCreateTagsMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.createTag,
+      hook: r.data?.createTags,
       isLoading: r.isLoading,
       error: r.error,
     }),
@@ -25,7 +26,23 @@ export const useCreateTagForm: UseUseCaseForm<
 
   const onSubmit = useCallback(
     (input: CreateTagInput) => {
-      return mutate({ variables: { input } }).unwrap()
+      const tagCreateInput: TagCreateInput = {
+        name: input.name,
+        parent: input.parentTagId
+          ? {
+              connect: {
+                where: {
+                  node: {
+                    id: input.parentTagId,
+                  },
+                },
+              },
+            }
+          : undefined,
+        isRoot: input.parentTagId ? false : true,
+      }
+
+      return mutate({ variables: { input: [tagCreateInput] } }).unwrap()
     },
     [mutate],
   )

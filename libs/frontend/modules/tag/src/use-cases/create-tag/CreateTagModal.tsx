@@ -25,7 +25,7 @@ export const CreateTagModal = () => {
 
   const { data } = useGetTagsQuery()
 
-  const options = data?.getTags.map((tag) => ({
+  const options = data?.tags.map((tag) => ({
     label: tag.name,
     value: tag.id,
   }))

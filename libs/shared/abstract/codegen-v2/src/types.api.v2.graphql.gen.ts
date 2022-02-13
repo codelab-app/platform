@@ -18,6 +18,8 @@ export type Scalars = {
   Float: number
   /** A date and time, represented as an ISO-8601 string */
   DateTime: string
+  /** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSONObject: Record<string, any>
 }
 
 export type App = {
@@ -974,6 +976,24 @@ export type CreatePagesMutationResponse = {
   pages: Array<Page>
 }
 
+export type CreateTagEdgesMutationResponse = {
+  __typename?: 'CreateTagEdgesMutationResponse'
+  info: CreateInfo
+  tagEdges: Array<TagEdge>
+}
+
+export type CreateTagGraphsMutationResponse = {
+  __typename?: 'CreateTagGraphsMutationResponse'
+  info: CreateInfo
+  tagGraphs: Array<TagGraph>
+}
+
+export type CreateTagsMutationResponse = {
+  __typename?: 'CreateTagsMutationResponse'
+  info: CreateInfo
+  tags: Array<Tag>
+}
+
 export type DateTimeAggregateSelection = {
   __typename?: 'DateTimeAggregateSelection'
   max?: Maybe<Scalars['DateTime']>
@@ -1532,8 +1552,13 @@ export type IElementGraph = {
   vertices?: Maybe<Array<Element>>
 }
 
+export type IGraph = {
+  edges: Array<TagEdge>
+  vertices: Array<TagVertex>
+}
+
 export type ImportAtomsInput = {
-  payload: Scalars['String']
+  payload: Scalars['JSONObject']
 }
 
 export type ImportAtomsMutationResponse = {
@@ -1582,12 +1607,18 @@ export type Mutation = {
   createElements: CreateElementsMutationResponse
   createImportAtomsMutationResponses: CreateImportAtomsMutationResponsesMutationResponse
   createPages: CreatePagesMutationResponse
+  createTagEdges: CreateTagEdgesMutationResponse
+  createTagGraphs: CreateTagGraphsMutationResponse
+  createTags: CreateTagsMutationResponse
   deleteApps: DeleteInfo
   deleteAtoms: DeleteInfo
   deleteCreateInfos: DeleteInfo
   deleteElements: DeleteInfo
   deleteImportAtomsMutationResponses: DeleteInfo
   deletePages: DeleteInfo
+  deleteTagEdges: DeleteInfo
+  deleteTagGraphs: DeleteInfo
+  deleteTags: DeleteInfo
   deleteUsers: DeleteInfo
   importAtoms?: Maybe<ImportAtomsMutationResponse>
   updateApps: UpdateAppsMutationResponse
@@ -1596,6 +1627,9 @@ export type Mutation = {
   updateElements: UpdateElementsMutationResponse
   updateImportAtomsMutationResponses: UpdateImportAtomsMutationResponsesMutationResponse
   updatePages: UpdatePagesMutationResponse
+  updateTagEdges: UpdateTagEdgesMutationResponse
+  updateTagGraphs: UpdateTagGraphsMutationResponse
+  updateTags: UpdateTagsMutationResponse
 }
 
 export type MutationCreateAppsArgs = {
@@ -1620,6 +1654,18 @@ export type MutationCreateImportAtomsMutationResponsesArgs = {
 
 export type MutationCreatePagesArgs = {
   input: Array<PageCreateInput>
+}
+
+export type MutationCreateTagEdgesArgs = {
+  input: Array<TagEdgeCreateInput>
+}
+
+export type MutationCreateTagGraphsArgs = {
+  input: Array<TagGraphCreateInput>
+}
+
+export type MutationCreateTagsArgs = {
+  input: Array<TagCreateInput>
 }
 
 export type MutationDeleteAppsArgs = {
@@ -1647,6 +1693,19 @@ export type MutationDeleteImportAtomsMutationResponsesArgs = {
 export type MutationDeletePagesArgs = {
   delete?: InputMaybe<PageDeleteInput>
   where?: InputMaybe<PageWhere>
+}
+
+export type MutationDeleteTagEdgesArgs = {
+  where?: InputMaybe<TagEdgeWhere>
+}
+
+export type MutationDeleteTagGraphsArgs = {
+  where?: InputMaybe<TagGraphWhere>
+}
+
+export type MutationDeleteTagsArgs = {
+  delete?: InputMaybe<TagDeleteInput>
+  where?: InputMaybe<TagWhere>
 }
 
 export type MutationDeleteUsersArgs = {
@@ -1701,6 +1760,26 @@ export type MutationUpdatePagesArgs = {
   disconnect?: InputMaybe<PageDisconnectInput>
   update?: InputMaybe<PageUpdateInput>
   where?: InputMaybe<PageWhere>
+}
+
+export type MutationUpdateTagEdgesArgs = {
+  update?: InputMaybe<TagEdgeUpdateInput>
+  where?: InputMaybe<TagEdgeWhere>
+}
+
+export type MutationUpdateTagGraphsArgs = {
+  update?: InputMaybe<TagGraphUpdateInput>
+  where?: InputMaybe<TagGraphWhere>
+}
+
+export type MutationUpdateTagsArgs = {
+  connect?: InputMaybe<TagConnectInput>
+  connectOrCreate?: InputMaybe<TagConnectOrCreateInput>
+  create?: InputMaybe<TagRelationInput>
+  delete?: InputMaybe<TagDeleteInput>
+  disconnect?: InputMaybe<TagDisconnectInput>
+  update?: InputMaybe<TagUpdateInput>
+  where?: InputMaybe<TagWhere>
 }
 
 export type Page = {
@@ -2175,6 +2254,15 @@ export type Query = {
   pages: Array<Page>
   pagesAggregate: PageAggregateSelection
   pagesCount: Scalars['Int']
+  tagEdges: Array<TagEdge>
+  tagEdgesAggregate: TagEdgeAggregateSelection
+  tagEdgesCount: Scalars['Int']
+  tagGraphs?: Maybe<TagGraph>
+  tagGraphsAggregate: TagGraphAggregateSelection
+  tagGraphsCount: Scalars['Int']
+  tags: Array<Tag>
+  tagsAggregate: TagAggregateSelection
+  tagsCount: Scalars['Int']
   users: Array<User>
   usersAggregate: UserAggregateSelection
   usersCount: Scalars['Int']
@@ -2258,6 +2346,40 @@ export type QueryPagesCountArgs = {
   where?: InputMaybe<PageWhere>
 }
 
+export type QueryTagEdgesArgs = {
+  options?: InputMaybe<TagEdgeOptions>
+  where?: InputMaybe<TagEdgeWhere>
+}
+
+export type QueryTagEdgesAggregateArgs = {
+  where?: InputMaybe<TagEdgeWhere>
+}
+
+export type QueryTagEdgesCountArgs = {
+  where?: InputMaybe<TagEdgeWhere>
+}
+
+export type QueryTagGraphsAggregateArgs = {
+  where?: InputMaybe<TagGraphWhere>
+}
+
+export type QueryTagGraphsCountArgs = {
+  where?: InputMaybe<TagGraphWhere>
+}
+
+export type QueryTagsArgs = {
+  options?: InputMaybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+}
+
+export type QueryTagsAggregateArgs = {
+  where?: InputMaybe<TagWhere>
+}
+
+export type QueryTagsCountArgs = {
+  where?: InputMaybe<TagWhere>
+}
+
 export type QueryUsersArgs = {
   options?: InputMaybe<UserOptions>
   where?: InputMaybe<UserWhere>
@@ -2282,6 +2404,493 @@ export type StringAggregateSelection = {
   __typename?: 'StringAggregateSelection'
   longest?: Maybe<Scalars['String']>
   shortest?: Maybe<Scalars['String']>
+}
+
+export type Tag = {
+  __typename?: 'Tag'
+  children?: Maybe<Array<Maybe<Tag>>>
+  childrenAggregate?: Maybe<TagTagChildrenAggregationSelection>
+  childrenConnection: TagChildrenConnection
+  id: Scalars['ID']
+  isRoot?: Maybe<Scalars['Boolean']>
+  name: Scalars['String']
+  parent?: Maybe<Tag>
+  parentAggregate?: Maybe<TagTagParentAggregationSelection>
+  parentConnection: TagParentConnection
+}
+
+export type TagChildrenArgs = {
+  options?: InputMaybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+}
+
+export type TagChildrenAggregateArgs = {
+  where?: InputMaybe<TagWhere>
+}
+
+export type TagChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TagChildrenConnectionSort>>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+}
+
+export type TagParentArgs = {
+  options?: InputMaybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+}
+
+export type TagParentAggregateArgs = {
+  where?: InputMaybe<TagWhere>
+}
+
+export type TagParentConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TagParentConnectionSort>>
+  where?: InputMaybe<TagParentConnectionWhere>
+}
+
+export type TagAggregateSelection = {
+  __typename?: 'TagAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type TagChildrenAggregateInput = {
+  AND?: InputMaybe<Array<TagChildrenAggregateInput>>
+  OR?: InputMaybe<Array<TagChildrenAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<TagChildrenNodeAggregationWhereInput>
+}
+
+export type TagChildrenConnectFieldInput = {
+  connect?: InputMaybe<Array<TagConnectInput>>
+  where?: InputMaybe<TagConnectWhere>
+}
+
+export type TagChildrenConnectOrCreateFieldInput = {
+  onCreate: TagChildrenConnectOrCreateFieldInputOnCreate
+  where: TagConnectOrCreateWhere
+}
+
+export type TagChildrenConnectOrCreateFieldInputOnCreate = {
+  node: TagCreateInput
+}
+
+export type TagChildrenConnection = {
+  __typename?: 'TagChildrenConnection'
+  edges: Array<TagChildrenRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type TagChildrenConnectionSort = {
+  node?: InputMaybe<TagSort>
+}
+
+export type TagChildrenConnectionWhere = {
+  AND?: InputMaybe<Array<TagChildrenConnectionWhere>>
+  OR?: InputMaybe<Array<TagChildrenConnectionWhere>>
+  node?: InputMaybe<TagWhere>
+  node_NOT?: InputMaybe<TagWhere>
+}
+
+export type TagChildrenCreateFieldInput = {
+  node: TagCreateInput
+}
+
+export type TagChildrenDeleteFieldInput = {
+  delete?: InputMaybe<TagDeleteInput>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+}
+
+export type TagChildrenDisconnectFieldInput = {
+  disconnect?: InputMaybe<TagDisconnectInput>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+}
+
+export type TagChildrenFieldInput = {
+  connect?: InputMaybe<Array<TagChildrenConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<TagChildrenCreateFieldInput>>
+}
+
+export type TagChildrenNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<TagChildrenNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<TagChildrenNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type TagChildrenRelationship = {
+  __typename?: 'TagChildrenRelationship'
+  cursor: Scalars['String']
+  node: Tag
+}
+
+export type TagChildrenUpdateConnectionInput = {
+  node?: InputMaybe<TagUpdateInput>
+}
+
+export type TagChildrenUpdateFieldInput = {
+  connect?: InputMaybe<Array<TagChildrenConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<TagChildrenCreateFieldInput>>
+  delete?: InputMaybe<Array<TagChildrenDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<TagChildrenDisconnectFieldInput>>
+  update?: InputMaybe<TagChildrenUpdateConnectionInput>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+}
+
+export type TagConnectInput = {
+  children?: InputMaybe<Array<TagChildrenConnectFieldInput>>
+  parent?: InputMaybe<TagParentConnectFieldInput>
+}
+
+export type TagConnectOrCreateInput = {
+  children?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
+  parent?: InputMaybe<TagParentConnectOrCreateFieldInput>
+}
+
+export type TagConnectOrCreateWhere = {
+  node: TagUniqueWhere
+}
+
+export type TagConnectWhere = {
+  node: TagWhere
+}
+
+export type TagCreateInput = {
+  children?: InputMaybe<TagChildrenFieldInput>
+  isRoot?: InputMaybe<Scalars['Boolean']>
+  name: Scalars['String']
+  parent?: InputMaybe<TagParentFieldInput>
+}
+
+export type TagDeleteInput = {
+  children?: InputMaybe<Array<TagChildrenDeleteFieldInput>>
+  parent?: InputMaybe<TagParentDeleteFieldInput>
+}
+
+export type TagDisconnectInput = {
+  children?: InputMaybe<Array<TagChildrenDisconnectFieldInput>>
+  parent?: InputMaybe<TagParentDisconnectFieldInput>
+}
+
+export type TagEdge = {
+  __typename?: 'TagEdge'
+  source: Scalars['ID']
+  target: Scalars['ID']
+}
+
+export type TagEdgeAggregateSelection = {
+  __typename?: 'TagEdgeAggregateSelection'
+  count: Scalars['Int']
+  source: IdAggregateSelection
+  target: IdAggregateSelection
+}
+
+export type TagEdgeCreateInput = {
+  source: Scalars['ID']
+  target: Scalars['ID']
+}
+
+export type TagEdgeOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more TagEdgeSort objects to sort TagEdges by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<InputMaybe<TagEdgeSort>>>
+}
+
+/** Fields to sort TagEdges by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagEdgeSort object. */
+export type TagEdgeSort = {
+  source?: InputMaybe<SortDirection>
+  target?: InputMaybe<SortDirection>
+}
+
+export type TagEdgeUpdateInput = {
+  source?: InputMaybe<Scalars['ID']>
+  target?: InputMaybe<Scalars['ID']>
+}
+
+export type TagEdgeWhere = {
+  AND?: InputMaybe<Array<TagEdgeWhere>>
+  OR?: InputMaybe<Array<TagEdgeWhere>>
+  source?: InputMaybe<Scalars['ID']>
+  source_CONTAINS?: InputMaybe<Scalars['ID']>
+  source_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  source_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  source_NOT?: InputMaybe<Scalars['ID']>
+  source_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  source_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  source_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  source_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  source_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  target?: InputMaybe<Scalars['ID']>
+  target_CONTAINS?: InputMaybe<Scalars['ID']>
+  target_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  target_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  target_NOT?: InputMaybe<Scalars['ID']>
+  target_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  target_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  target_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  target_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  target_STARTS_WITH?: InputMaybe<Scalars['ID']>
+}
+
+export type TagGraph = IGraph & {
+  __typename?: 'TagGraph'
+  /** All the links connecting the descendant elements/components */
+  edges: Array<TagEdge>
+  /** All descendant Elements or Components, at any level */
+  vertices: Array<Tag>
+}
+
+export type TagGraphAggregateSelection = {
+  __typename?: 'TagGraphAggregateSelection'
+  count: Scalars['Int']
+}
+
+export type TagGraphCreateInput = {
+  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
+}
+
+export type TagGraphUpdateInput = {
+  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
+  _emptyInput?: InputMaybe<Scalars['Boolean']>
+}
+
+export type TagGraphWhere = {
+  AND?: InputMaybe<Array<TagGraphWhere>>
+  OR?: InputMaybe<Array<TagGraphWhere>>
+}
+
+export type TagOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more TagSort objects to sort Tags by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<InputMaybe<TagSort>>>
+}
+
+export type TagParentAggregateInput = {
+  AND?: InputMaybe<Array<TagParentAggregateInput>>
+  OR?: InputMaybe<Array<TagParentAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<TagParentNodeAggregationWhereInput>
+}
+
+export type TagParentConnectFieldInput = {
+  connect?: InputMaybe<TagConnectInput>
+  where?: InputMaybe<TagConnectWhere>
+}
+
+export type TagParentConnectOrCreateFieldInput = {
+  onCreate: TagParentConnectOrCreateFieldInputOnCreate
+  where: TagConnectOrCreateWhere
+}
+
+export type TagParentConnectOrCreateFieldInputOnCreate = {
+  node: TagCreateInput
+}
+
+export type TagParentConnection = {
+  __typename?: 'TagParentConnection'
+  edges: Array<TagParentRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type TagParentConnectionSort = {
+  node?: InputMaybe<TagSort>
+}
+
+export type TagParentConnectionWhere = {
+  AND?: InputMaybe<Array<TagParentConnectionWhere>>
+  OR?: InputMaybe<Array<TagParentConnectionWhere>>
+  node?: InputMaybe<TagWhere>
+  node_NOT?: InputMaybe<TagWhere>
+}
+
+export type TagParentCreateFieldInput = {
+  node: TagCreateInput
+}
+
+export type TagParentDeleteFieldInput = {
+  delete?: InputMaybe<TagDeleteInput>
+  where?: InputMaybe<TagParentConnectionWhere>
+}
+
+export type TagParentDisconnectFieldInput = {
+  disconnect?: InputMaybe<TagDisconnectInput>
+  where?: InputMaybe<TagParentConnectionWhere>
+}
+
+export type TagParentFieldInput = {
+  connect?: InputMaybe<TagParentConnectFieldInput>
+  connectOrCreate?: InputMaybe<TagParentConnectOrCreateFieldInput>
+  create?: InputMaybe<TagParentCreateFieldInput>
+}
+
+export type TagParentNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<TagParentNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<TagParentNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type TagParentRelationship = {
+  __typename?: 'TagParentRelationship'
+  cursor: Scalars['String']
+  node: Tag
+}
+
+export type TagParentUpdateConnectionInput = {
+  node?: InputMaybe<TagUpdateInput>
+}
+
+export type TagParentUpdateFieldInput = {
+  connect?: InputMaybe<TagParentConnectFieldInput>
+  connectOrCreate?: InputMaybe<TagParentConnectOrCreateFieldInput>
+  create?: InputMaybe<TagParentCreateFieldInput>
+  delete?: InputMaybe<TagParentDeleteFieldInput>
+  disconnect?: InputMaybe<TagParentDisconnectFieldInput>
+  update?: InputMaybe<TagParentUpdateConnectionInput>
+  where?: InputMaybe<TagParentConnectionWhere>
+}
+
+export type TagRelationInput = {
+  children?: InputMaybe<Array<TagChildrenCreateFieldInput>>
+  parent?: InputMaybe<TagParentCreateFieldInput>
+}
+
+/** Fields to sort Tags by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagSort object. */
+export type TagSort = {
+  id?: InputMaybe<SortDirection>
+  isRoot?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+}
+
+export type TagTagChildrenAggregationSelection = {
+  __typename?: 'TagTagChildrenAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<TagTagChildrenNodeAggregateSelection>
+}
+
+export type TagTagChildrenNodeAggregateSelection = {
+  __typename?: 'TagTagChildrenNodeAggregateSelection'
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type TagTagParentAggregationSelection = {
+  __typename?: 'TagTagParentAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<TagTagParentNodeAggregateSelection>
+}
+
+export type TagTagParentNodeAggregateSelection = {
+  __typename?: 'TagTagParentNodeAggregateSelection'
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type TagUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>
+}
+
+export type TagUpdateInput = {
+  children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>
+  isRoot?: InputMaybe<Scalars['Boolean']>
+  name?: InputMaybe<Scalars['String']>
+  parent?: InputMaybe<TagParentUpdateFieldInput>
+}
+
+export type TagVertex = Tag
+
+export type TagWhere = {
+  AND?: InputMaybe<Array<TagWhere>>
+  OR?: InputMaybe<Array<TagWhere>>
+  children?: InputMaybe<TagWhere>
+  childrenAggregate?: InputMaybe<TagChildrenAggregateInput>
+  childrenConnection?: InputMaybe<TagChildrenConnectionWhere>
+  childrenConnection_NOT?: InputMaybe<TagChildrenConnectionWhere>
+  children_NOT?: InputMaybe<TagWhere>
+  id?: InputMaybe<Scalars['ID']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id_NOT?: InputMaybe<Scalars['ID']>
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  isRoot?: InputMaybe<Scalars['Boolean']>
+  isRoot_NOT?: InputMaybe<Scalars['Boolean']>
+  name?: InputMaybe<Scalars['String']>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT?: InputMaybe<Scalars['String']>
+  name_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  parent?: InputMaybe<TagWhere>
+  parentAggregate?: InputMaybe<TagParentAggregateInput>
+  parentConnection?: InputMaybe<TagParentConnectionWhere>
+  parentConnection_NOT?: InputMaybe<TagParentConnectionWhere>
+  parent_NOT?: InputMaybe<TagWhere>
 }
 
 export type UpdateAppsMutationResponse = {
@@ -2327,6 +2936,24 @@ export type UpdatePagesMutationResponse = {
   __typename?: 'UpdatePagesMutationResponse'
   info: UpdateInfo
   pages: Array<Page>
+}
+
+export type UpdateTagEdgesMutationResponse = {
+  __typename?: 'UpdateTagEdgesMutationResponse'
+  info: UpdateInfo
+  tagEdges: Array<TagEdge>
+}
+
+export type UpdateTagGraphsMutationResponse = {
+  __typename?: 'UpdateTagGraphsMutationResponse'
+  info: UpdateInfo
+  tagGraphs: Array<TagGraph>
+}
+
+export type UpdateTagsMutationResponse = {
+  __typename?: 'UpdateTagsMutationResponse'
+  info: UpdateInfo
+  tags: Array<Tag>
 }
 
 export type User = {

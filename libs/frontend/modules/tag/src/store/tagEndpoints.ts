@@ -31,7 +31,8 @@ export const api = generatedApi.enhanceEndpoints({
     },
   },
 })
-export { generatedApi as tagEndpoints }
+// export { generatedApi as tagEndpoints }
+
 export const {
   useCreateTagMutation,
   useDeleteTagsMutation,
@@ -41,7 +42,7 @@ export const {
   useLazyGetTagGraphQuery,
   useGetTagGraphsQuery,
   useLazyGetTagGraphsQuery,
-  useGetTagsQuery,
+  //  useGetTagsQuery,
   useLazyGetTagsQuery,
   useImportTagsMutation,
   useUpdateTagMutation,
