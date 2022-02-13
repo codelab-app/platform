@@ -8,6 +8,11 @@ export const tagSchema = gql`
     parent: Tag @relationship(type: "Children", direction: IN)
     children: [Tag] @relationship(type: "Children", direction: OUT)
   }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD:apps/web/src/graphql/schema/tag.schema.ts
+
+>>>>>>> 2b7d8cea (fix: cleanups and convert element fix)
   # Have ogm generation issue if using type
   type TagGraph @exclude {
     """
@@ -20,15 +25,18 @@ export const tagSchema = gql`
     edges: [TagEdge!]!
   }
   type TagEdge {
+=======
+`
+export const tagEdgeSchema = gql`
+  type TagEdge @exclude(operations: [CREATE, READ, UPDATE, DELETE]) {
+>>>>>>> ef6f2f4b8 (fix: cleanups and convert element fix):apps/web/src/neo4j-graphql/type-defs/tagSchema.ts
     source: ID!
     target: ID!
   }
 `
 
 export const tagGraphSchema = gql`
-  union TagVertex = Tag
-
-  type TagGraph {
+  type TagGraph @exclude(operations: [CREATE, READ, UPDATE, DELETE]) {
     vertices: [Tag!]!
     edges: [TagEdge!]!
   }

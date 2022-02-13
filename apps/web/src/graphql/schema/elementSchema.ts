@@ -6,6 +6,7 @@ export const elementSchema = gql`
     target: String!
     order: Int
   }
+`
 
   type ElementGraph @exclude {
     edges: [ElementEdge!]!
@@ -24,7 +25,9 @@ export const elementSchema = gql`
     config: Prop! @relationship(type: "CONFIG_OF_HOOK", direction: OUT)
     element: Element! @relationship(type: "HOOKS_OF_ELEMENT", direction: IN)
   }
+`
 
+export const propsMapBindingSchema = gql`
   type PropMapBinding {
     id: ID! @id
     element: Element!
@@ -33,6 +36,7 @@ export const elementSchema = gql`
     sourceKey: String! # Set to '*' to bind all incoming props
     targetKey: String! # Set to '*' to spread the incoming props to the outgoing ones
   }
+`
 
   interface ParentOfElement @relationshipProperties {
     order: Int
@@ -111,16 +115,43 @@ export const elementSchema = gql`
       where: ElementWhere
     ): DeleteElementsInfo!
   }
+`
 
-  type DuplicateElementMutationResponse @exclude(operations : [CREATE, READ, UPDATE,DELETE]) {
+export const elementMutationsSchema = gql`
+  type DuplicateElementMutationResponse
+    @exclude(operations: [CREATE, READ, UPDATE, DELETE]) {
     elements: [Element!]!
   }
 
   type Mutation {
     duplicateElement(elementId: String!): DuplicateElementMutationResponse!
-        @cypher(
-          statement: """${duplicateElementCypher}"""
+      @cypher(
+        statement: """
+        MATCH (parentNode:Element)-[rootLink:PARENT_OF_ELEMENT]->(element:Element {id: $elementId})
+        CALL apoc.path.subgraphAll(element,
+                                  {relationshipFilter: 'PARENT_OF_ELEMENT>' }
+        ) YIELD nodes, relationships
+        CALL apoc.refactor.cloneSubgraph(
+          nodes + [parentNode],
+          relationships + [rootLink],
+          {
+            skipProperties:['id'],
+            standinNodes:[[parentNode,parentNode]]
+          }
         )
+        YIELD input, output as createdNode, error
+        SET createdNode.id = apoc.create.uuid()
+        WITH createdNode
+        MATCH (createdNode)<-[r:PARENT_OF_ELEMENT]-(p:Element)
+        WITH {order:r.order} as edge,
+          apoc.map.merge(createdNode,{
+          parentElement:{id:p.id,name:properties(p).name},
+          parentElementConnection:{
+            edges: [{order:r.order}]
+          }
+        }) as createdNode
+        RETURN  {elements: collect(createdNode)}
+        """
+      )
   }
-
 `
