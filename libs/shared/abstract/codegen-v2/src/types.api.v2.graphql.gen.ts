@@ -2304,7 +2304,7 @@ export type ElementChildrenAggregateInput = {
 
 export type ElementChildrenConnectFieldInput = {
   connect?: InputMaybe<Array<ElementConnectInput>>
-  edge?: InputMaybe<ParentOfElementCreateInput>
+  edge: ParentOfElementCreateInput
   where?: InputMaybe<ElementConnectWhere>
 }
 
@@ -2314,7 +2314,7 @@ export type ElementChildrenConnectOrCreateFieldInput = {
 }
 
 export type ElementChildrenConnectOrCreateFieldInputOnCreate = {
-  edge?: InputMaybe<ParentOfElementCreateInput>
+  edge: ParentOfElementCreateInput
   node: ElementCreateInput
 }
 
@@ -2340,7 +2340,7 @@ export type ElementChildrenConnectionWhere = {
 }
 
 export type ElementChildrenCreateFieldInput = {
-  edge?: InputMaybe<ParentOfElementCreateInput>
+  edge: ParentOfElementCreateInput
   node: ElementCreateInput
 }
 
@@ -2520,7 +2520,7 @@ export type ElementChildrenRelationship = ParentOfElement & {
   __typename?: 'ElementChildrenRelationship'
   cursor: Scalars['String']
   node: Element
-  order?: Maybe<Scalars['Int']>
+  order: Scalars['Int']
 }
 
 export type ElementChildrenUpdateConnectionInput = {
@@ -2550,6 +2550,7 @@ export type ElementComponentTagAggregateInput = {
 }
 
 export type ElementComponentTagConnectFieldInput = {
+  connect?: InputMaybe<TagConnectInput>
   where?: InputMaybe<TagConnectWhere>
 }
 
@@ -2585,10 +2586,12 @@ export type ElementComponentTagCreateFieldInput = {
 }
 
 export type ElementComponentTagDeleteFieldInput = {
+  delete?: InputMaybe<TagDeleteInput>
   where?: InputMaybe<ElementComponentTagConnectionWhere>
 }
 
 export type ElementComponentTagDisconnectFieldInput = {
+  disconnect?: InputMaybe<TagDisconnectInput>
   where?: InputMaybe<ElementComponentTagConnectionWhere>
 }
 
@@ -2701,7 +2704,7 @@ export type ElementDisconnectInput = {
 
 export type ElementEdge = {
   __typename?: 'ElementEdge'
-  order?: Maybe<Scalars['Int']>
+  order: Scalars['Int']
   source: Scalars['String']
   target: Scalars['String']
 }
@@ -2715,7 +2718,7 @@ export type ElementEdgeAggregateSelection = {
 }
 
 export type ElementEdgeCreateInput = {
-  order?: InputMaybe<Scalars['Int']>
+  order: Scalars['Int']
   source: Scalars['String']
   target: Scalars['String']
 }
@@ -3332,7 +3335,7 @@ export type ElementTypeWhere = {
 
 export type ElementParentElementConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  edge?: InputMaybe<ParentOfElementCreateInput>
+  edge: ParentOfElementCreateInput
   where?: InputMaybe<ElementConnectWhere>
 }
 
@@ -3342,7 +3345,7 @@ export type ElementParentElementConnectOrCreateFieldInput = {
 }
 
 export type ElementParentElementConnectOrCreateFieldInputOnCreate = {
-  edge?: InputMaybe<ParentOfElementCreateInput>
+  edge: ParentOfElementCreateInput
   node: ElementCreateInput
 }
 
@@ -3368,7 +3371,7 @@ export type ElementParentElementConnectionWhere = {
 }
 
 export type ElementParentElementCreateFieldInput = {
-  edge?: InputMaybe<ParentOfElementCreateInput>
+  edge: ParentOfElementCreateInput
   node: ElementCreateInput
 }
 
@@ -3548,7 +3551,7 @@ export type ElementParentElementRelationship = ParentOfElement & {
   __typename?: 'ElementParentElementRelationship'
   cursor: Scalars['String']
   node: Element
-  order?: Maybe<Scalars['Int']>
+  order: Scalars['Int']
 }
 
 export type ElementParentElementUpdateConnectionInput = {
@@ -3940,6 +3943,7 @@ export type Mutation = {
   deleteUsers: DeleteInfo
   duplicateElement: DuplicateElementMutationResponse
   importAtoms?: Maybe<ImportAtomsMutationResponse>
+  resetData?: Maybe<ResetDataMutationResponse>
   updateApps: UpdateAppsMutationResponse
   updateAtoms: UpdateAtomsMutationResponse
   updateCreateInfos: UpdateCreateInfosMutationResponse
@@ -4139,6 +4143,7 @@ export type MutationDeletePropMapBindingsArgs = {
 }
 
 export type MutationDeleteTagsArgs = {
+  delete?: InputMaybe<TagDeleteInput>
   where?: InputMaybe<TagWhere>
 >>>>>>> bef585a4d (feat: get element graph and delete part of graph)
 }
@@ -4332,6 +4337,11 @@ export type MutationUpdatePropMapBindingsArgs = {
 }
 
 export type MutationUpdateTagsArgs = {
+  connect?: InputMaybe<TagConnectInput>
+  connectOrCreate?: InputMaybe<TagConnectOrCreateInput>
+  create?: InputMaybe<TagRelationInput>
+  delete?: InputMaybe<TagDeleteInput>
+  disconnect?: InputMaybe<TagDisconnectInput>
   update?: InputMaybe<TagUpdateInput>
   where?: InputMaybe<TagWhere>
 }
@@ -5061,11 +5071,11 @@ export type InterfaceTypeConnectOrCreateWhere = {
 =======
 =======
 export type ParentOfElement = {
-  order?: Maybe<Scalars['Int']>
+  order: Scalars['Int']
 }
 
 export type ParentOfElementCreateInput = {
-  order?: InputMaybe<Scalars['Int']>
+  order: Scalars['Int']
 }
 
 export type ParentOfElementSort = {
@@ -5465,6 +5475,7 @@ export type Query = {
   propMapBindings: Array<PropMapBinding>
   propMapBindingsAggregate: PropMapBindingAggregateSelection
   propMapBindingsCount: Scalars['Int']
+  tagGraphs?: Maybe<TagGraph>
   tags: Array<Tag>
   tagsAggregate: TagAggregateSelection
   tagsCount: Scalars['Int']
@@ -5745,6 +5756,7 @@ export type InterfaceTypeUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
 }
 
+<<<<<<< HEAD
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
@@ -5754,20 +5766,79 @@ export type InterfaceTypeUpdateInput = {
 export type QueryPropMapBindingsArgs = {
   options?: InputMaybe<PropMapBindingOptions>
   where?: InputMaybe<PropMapBindingWhere>
+=======
+export type ResetDataMutationResponse = {
+  __typename?: 'ResetDataMutationResponse'
+  success?: Maybe<Scalars['Boolean']>
+}
+
+export enum SortDirection {
+  /** Sort by field values in ascending order. */
+  ASC = 'ASC',
+  /** Sort by field values in descending order. */
+  DESC = 'DESC',
+>>>>>>> ef6f2f4b8 (fix: cleanups and convert element fix)
 }
 
 export type QueryPropMapBindingsAggregateArgs = {
   where?: InputMaybe<PropMapBindingWhere>
 }
 
+<<<<<<< HEAD
 export type QueryPropMapBindingsCountArgs = {
   where?: InputMaybe<PropMapBindingWhere>
 >>>>>>> bef585a4d (feat: get element graph and delete part of graph)
+=======
+export type Tag = {
+  __typename?: 'Tag'
+  children?: Maybe<Array<Maybe<Tag>>>
+  childrenAggregate?: Maybe<TagTagChildrenAggregationSelection>
+  childrenConnection: TagChildrenConnection
+  id: Scalars['ID']
+  isRoot?: Maybe<Scalars['Boolean']>
+  name: Scalars['String']
+  parent?: Maybe<Tag>
+  parentAggregate?: Maybe<TagTagParentAggregationSelection>
+  parentConnection: TagParentConnection
+}
+
+export type TagChildrenArgs = {
+  options?: InputMaybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+}
+
+export type TagChildrenAggregateArgs = {
+  where?: InputMaybe<TagWhere>
+}
+
+export type TagChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TagChildrenConnectionSort>>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+}
+
+export type TagParentArgs = {
+  options?: InputMaybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+}
+
+export type TagParentAggregateArgs = {
+  where?: InputMaybe<TagWhere>
+}
+
+export type TagParentConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<TagParentConnectionSort>>
+  where?: InputMaybe<TagParentConnectionWhere>
+>>>>>>> ef6f2f4b8 (fix: cleanups and convert element fix)
 }
 
 export type InterfaceTypeUserOwnerAggregationSelection = {
   __typename?: 'InterfaceTypeUserOwnerAggregationSelection'
   count: Scalars['Int']
+<<<<<<< HEAD
   node?: Maybe<InterfaceTypeUserOwnerNodeAggregateSelection>
 }
 
@@ -5788,6 +5859,339 @@ export type InterfaceTypeWhere = {
   apiOfAtoms_NOT?: InputMaybe<AtomWhere>
   fieldsConnection?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_NOT?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+=======
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type TagChildrenAggregateInput = {
+  AND?: InputMaybe<Array<TagChildrenAggregateInput>>
+  OR?: InputMaybe<Array<TagChildrenAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<TagChildrenNodeAggregationWhereInput>
+}
+
+export type TagChildrenConnectFieldInput = {
+  connect?: InputMaybe<Array<TagConnectInput>>
+  where?: InputMaybe<TagConnectWhere>
+}
+
+export type TagChildrenConnectOrCreateFieldInput = {
+  onCreate: TagChildrenConnectOrCreateFieldInputOnCreate
+  where: TagConnectOrCreateWhere
+}
+
+export type TagChildrenConnectOrCreateFieldInputOnCreate = {
+  node: TagCreateInput
+}
+
+export type TagChildrenConnection = {
+  __typename?: 'TagChildrenConnection'
+  edges: Array<TagChildrenRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type TagChildrenConnectionSort = {
+  node?: InputMaybe<TagSort>
+}
+
+export type TagChildrenConnectionWhere = {
+  AND?: InputMaybe<Array<TagChildrenConnectionWhere>>
+  OR?: InputMaybe<Array<TagChildrenConnectionWhere>>
+  node?: InputMaybe<TagWhere>
+  node_NOT?: InputMaybe<TagWhere>
+}
+
+export type TagChildrenCreateFieldInput = {
+  node: TagCreateInput
+}
+
+export type TagChildrenDeleteFieldInput = {
+  delete?: InputMaybe<TagDeleteInput>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+}
+
+export type TagChildrenDisconnectFieldInput = {
+  disconnect?: InputMaybe<TagDisconnectInput>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+}
+
+export type TagChildrenFieldInput = {
+  connect?: InputMaybe<Array<TagChildrenConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<TagChildrenCreateFieldInput>>
+}
+
+export type TagChildrenNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<TagChildrenNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<TagChildrenNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type TagChildrenRelationship = {
+  __typename?: 'TagChildrenRelationship'
+  cursor: Scalars['String']
+  node: Tag
+}
+
+export type TagChildrenUpdateConnectionInput = {
+  node?: InputMaybe<TagUpdateInput>
+}
+
+export type TagChildrenUpdateFieldInput = {
+  connect?: InputMaybe<Array<TagChildrenConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<TagChildrenCreateFieldInput>>
+  delete?: InputMaybe<Array<TagChildrenDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<TagChildrenDisconnectFieldInput>>
+  update?: InputMaybe<TagChildrenUpdateConnectionInput>
+  where?: InputMaybe<TagChildrenConnectionWhere>
+}
+
+export type TagConnectInput = {
+  children?: InputMaybe<Array<TagChildrenConnectFieldInput>>
+  parent?: InputMaybe<TagParentConnectFieldInput>
+}
+
+export type TagConnectOrCreateInput = {
+  children?: InputMaybe<Array<TagChildrenConnectOrCreateFieldInput>>
+  parent?: InputMaybe<TagParentConnectOrCreateFieldInput>
+}
+
+export type TagConnectOrCreateWhere = {
+  node: TagUniqueWhere
+}
+
+export type TagConnectWhere = {
+  node: TagWhere
+}
+
+export type TagCreateInput = {
+  children?: InputMaybe<TagChildrenFieldInput>
+  isRoot?: InputMaybe<Scalars['Boolean']>
+  name: Scalars['String']
+  parent?: InputMaybe<TagParentFieldInput>
+}
+
+export type TagDeleteInput = {
+  children?: InputMaybe<Array<TagChildrenDeleteFieldInput>>
+  parent?: InputMaybe<TagParentDeleteFieldInput>
+}
+
+export type TagDisconnectInput = {
+  children?: InputMaybe<Array<TagChildrenDisconnectFieldInput>>
+  parent?: InputMaybe<TagParentDisconnectFieldInput>
+}
+
+export type TagEdge = {
+  __typename?: 'TagEdge'
+  source: Scalars['ID']
+  target: Scalars['ID']
+}
+
+export type TagGraph = {
+  __typename?: 'TagGraph'
+  edges: Array<TagEdge>
+  vertices: Array<Tag>
+}
+
+export type TagOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more TagSort objects to sort Tags by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<InputMaybe<TagSort>>>
+}
+
+export type TagParentAggregateInput = {
+  AND?: InputMaybe<Array<TagParentAggregateInput>>
+  OR?: InputMaybe<Array<TagParentAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<TagParentNodeAggregationWhereInput>
+}
+
+export type TagParentConnectFieldInput = {
+  connect?: InputMaybe<TagConnectInput>
+  where?: InputMaybe<TagConnectWhere>
+}
+
+export type TagParentConnectOrCreateFieldInput = {
+  onCreate: TagParentConnectOrCreateFieldInputOnCreate
+  where: TagConnectOrCreateWhere
+}
+
+export type TagParentConnectOrCreateFieldInputOnCreate = {
+  node: TagCreateInput
+}
+
+export type TagParentConnection = {
+  __typename?: 'TagParentConnection'
+  edges: Array<TagParentRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type TagParentConnectionSort = {
+  node?: InputMaybe<TagSort>
+}
+
+export type TagParentConnectionWhere = {
+  AND?: InputMaybe<Array<TagParentConnectionWhere>>
+  OR?: InputMaybe<Array<TagParentConnectionWhere>>
+  node?: InputMaybe<TagWhere>
+  node_NOT?: InputMaybe<TagWhere>
+}
+
+export type TagParentCreateFieldInput = {
+  node: TagCreateInput
+}
+
+export type TagParentDeleteFieldInput = {
+  delete?: InputMaybe<TagDeleteInput>
+  where?: InputMaybe<TagParentConnectionWhere>
+}
+
+export type TagParentDisconnectFieldInput = {
+  disconnect?: InputMaybe<TagDisconnectInput>
+  where?: InputMaybe<TagParentConnectionWhere>
+}
+
+export type TagParentFieldInput = {
+  connect?: InputMaybe<TagParentConnectFieldInput>
+  connectOrCreate?: InputMaybe<TagParentConnectOrCreateFieldInput>
+  create?: InputMaybe<TagParentCreateFieldInput>
+}
+
+export type TagParentNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<TagParentNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<TagParentNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type TagParentRelationship = {
+  __typename?: 'TagParentRelationship'
+  cursor: Scalars['String']
+  node: Tag
+}
+
+export type TagParentUpdateConnectionInput = {
+  node?: InputMaybe<TagUpdateInput>
+}
+
+export type TagParentUpdateFieldInput = {
+  connect?: InputMaybe<TagParentConnectFieldInput>
+  connectOrCreate?: InputMaybe<TagParentConnectOrCreateFieldInput>
+  create?: InputMaybe<TagParentCreateFieldInput>
+  delete?: InputMaybe<TagParentDeleteFieldInput>
+  disconnect?: InputMaybe<TagParentDisconnectFieldInput>
+  update?: InputMaybe<TagParentUpdateConnectionInput>
+  where?: InputMaybe<TagParentConnectionWhere>
+}
+
+export type TagRelationInput = {
+  children?: InputMaybe<Array<TagChildrenCreateFieldInput>>
+  parent?: InputMaybe<TagParentCreateFieldInput>
+}
+
+/** Fields to sort Tags by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagSort object. */
+export type TagSort = {
+  id?: InputMaybe<SortDirection>
+  isRoot?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+}
+
+export type TagTagChildrenAggregationSelection = {
+  __typename?: 'TagTagChildrenAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<TagTagChildrenNodeAggregateSelection>
+}
+
+export type TagTagChildrenNodeAggregateSelection = {
+  __typename?: 'TagTagChildrenNodeAggregateSelection'
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type TagTagParentAggregationSelection = {
+  __typename?: 'TagTagParentAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<TagTagParentNodeAggregateSelection>
+}
+
+export type TagTagParentNodeAggregateSelection = {
+  __typename?: 'TagTagParentNodeAggregateSelection'
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type TagUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>
+}
+
+export type TagUpdateInput = {
+  children?: InputMaybe<Array<TagChildrenUpdateFieldInput>>
+  isRoot?: InputMaybe<Scalars['Boolean']>
+  name?: InputMaybe<Scalars['String']>
+  parent?: InputMaybe<TagParentUpdateFieldInput>
+}
+
+export type TagWhere = {
+  AND?: InputMaybe<Array<TagWhere>>
+  OR?: InputMaybe<Array<TagWhere>>
+  children?: InputMaybe<TagWhere>
+  childrenAggregate?: InputMaybe<TagChildrenAggregateInput>
+  childrenConnection?: InputMaybe<TagChildrenConnectionWhere>
+  childrenConnection_NOT?: InputMaybe<TagChildrenConnectionWhere>
+  children_NOT?: InputMaybe<TagWhere>
+>>>>>>> ef6f2f4b8 (fix: cleanups and convert element fix)
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -5798,6 +6202,8 @@ export type InterfaceTypeWhere = {
   id_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  isRoot?: InputMaybe<Scalars['Boolean']>
+  isRoot_NOT?: InputMaybe<Scalars['Boolean']>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -5808,11 +6214,19 @@ export type InterfaceTypeWhere = {
   name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+<<<<<<< HEAD
   owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<InterfaceTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
   owner_NOT?: InputMaybe<UserWhere>
+=======
+  parent?: InputMaybe<TagWhere>
+  parentAggregate?: InputMaybe<TagParentAggregateInput>
+  parentConnection?: InputMaybe<TagParentConnectionWhere>
+  parentConnection_NOT?: InputMaybe<TagParentConnectionWhere>
+  parent_NOT?: InputMaybe<TagWhere>
+>>>>>>> ef6f2f4b8 (fix: cleanups and convert element fix)
 }
 
 /** Allows picking a lambda */

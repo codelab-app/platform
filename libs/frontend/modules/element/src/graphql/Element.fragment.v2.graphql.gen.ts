@@ -29,15 +29,13 @@ export type ElementBaseFragment = {
 }
 
 export type ElementFragment = {
-  parentElementConnection: {
-    edges: Array<{ order?: number | null | undefined }>
-  }
+  parentElementConnection: { edges: Array<{ order: number }> }
 } & ElementBaseFragment
 
 export type ElementEdgeFragment = {
   source: string
   target: string
-  order?: number | null | undefined
+  order: number
 }
 
 export type ElementGraphFragment = {

@@ -3,6 +3,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import {
   useDuplicateElementMutation,
   useElementDispatch,
+  useElementGraphContext,
   useUpdateElementsMutation,
 } from '@codelab/frontend/modules/element'
 import { Key } from '@codelab/frontend/view/components'
@@ -47,6 +48,7 @@ export const ElementContextMenu = ({
   onBlur,
 }: ElementContextMenuProps) => {
   const [convertToComponent] = useUpdateElementsMutation()
+  const { elementTree } = useElementGraphContext()
   const [createElement] = useDuplicateElementMutation()
   const { openCreateModal, openDeleteModal } = useElementDispatch()
   const onAddChild = () => openCreateModal({ parentElementId: element.id })
@@ -73,7 +75,10 @@ export const ElementContextMenu = ({
     const componentTag: ElementCreateInput['componentTag'] = {
       // TODO: complete tag properties
       create: {
-        node: { name: defaultElementName(element) || 'My Component' },
+        node: {
+          name: defaultElementName(element) || 'My Component',
+          isRoot: true,
+        },
       },
     }
 
@@ -83,6 +88,13 @@ export const ElementContextMenu = ({
         node: {
           name: element.name,
           parentElement: undefined,
+          children: {
+            connect: elementTree.getChildren(element.id).map((x: IElement) => ({
+              where: { node: { id: x.id } },
+              edge: { order: x.parentElement?.order || 1 },
+            })),
+          },
+          componentTag,
         },
       },
     }
@@ -91,8 +103,8 @@ export const ElementContextMenu = ({
       variables: {
         where: { id: element.id },
         update: {
-          componentTag,
           instanceOfComponent,
+          children: [{ disconnect: [{ where: {} }] }],
         },
       },
     })
