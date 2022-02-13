@@ -3619,6 +3619,7 @@ type EnumTypeAggregateSelection {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 input EnumTypeAllowedValuesAggregateInput {
   AND: [EnumTypeAllowedValuesAggregateInput!]
   OR: [EnumTypeAllowedValuesAggregateInput!]
@@ -3669,6 +3670,10 @@ input IElementGraphWhere {
 input EnumTypeAllowedValuesConnectFieldInput {
   connect: [EnumTypeValueConnectInput!]
   where: EnumTypeValueConnectWhere
+=======
+input ImportAtomsInput {
+  payload: JSONObject!
+>>>>>>> 7d7cc85bd (fix: generated schema)
 }
 
 type EnumTypeAllowedValuesConnection {
@@ -3703,9 +3708,17 @@ input EnumTypeAllowedValuesDisconnectFieldInput {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 input EnumTypeAllowedValuesFieldInput {
   connect: [EnumTypeAllowedValuesConnectFieldInput!]
   create: [EnumTypeAllowedValuesCreateFieldInput!]
+=======
+type IntAggregateSelection {
+  average: Float
+  max: Int
+  min: Int
+  sum: Int
+>>>>>>> 7d7cc85bd (fix: generated schema)
 }
 
 input EnumTypeAllowedValuesNodeAggregationWhereInput {
@@ -3759,6 +3772,7 @@ type EnumTypeAllowedValuesRelationship {
   node: EnumTypeValue!
 }
 
+<<<<<<< HEAD
 input EnumTypeAllowedValuesUpdateConnectionInput {
   node: EnumTypeValueUpdateInput
 }
@@ -6703,6 +6717,8 @@ type Tag {
   childrenAggregate(where: TagWhere): TagTagChildrenAggregationSelection
   childrenConnection(
 =======
+=======
+>>>>>>> 7d7cc85bd (fix: generated schema)
 type Mutation {
   createApps(input: [AppCreateInput!]!): CreateAppsMutationResponse!
   createAtoms(input: [AtomCreateInput!]!): CreateAtomsMutationResponse!
@@ -6717,14 +6733,15 @@ type Mutation {
   ): CreateElementGraphsMutationResponse!
   createElements(input: [ElementCreateInput!]!): CreateElementsMutationResponse!
 <<<<<<< HEAD
+<<<<<<< HEAD
   createIElementGraphs(
     input: [IElementGraphCreateInput!]!
   ): CreateIElementGraphsMutationResponse!
+=======
+>>>>>>> 7d7cc85bd (fix: generated schema)
   createImportAtomsMutationResponses(
     input: [ImportAtomsMutationResponseCreateInput!]!
   ): CreateImportAtomsMutationResponsesMutationResponse!
-=======
->>>>>>> f87ec242f (feat: update cache on element creation)
   createPages(input: [PageCreateInput!]!): CreatePagesMutationResponse!
   createPropMapBindings(
     input: [PropMapBindingCreateInput!]!
@@ -6736,13 +6753,9 @@ type Mutation {
   deleteElementEdges(where: ElementEdgeWhere): DeleteInfo!
   deleteElementGraphs(where: ElementGraphWhere): DeleteInfo!
   deleteElements(delete: ElementDeleteInput, where: ElementWhere): DeleteInfo!
-<<<<<<< HEAD
-  deleteIElementGraphs(where: IElementGraphWhere): DeleteInfo!
   deleteImportAtomsMutationResponses(
     where: ImportAtomsMutationResponseWhere
   ): DeleteInfo!
-=======
->>>>>>> f87ec242f (feat: update cache on element creation)
   deletePages(delete: PageDeleteInput, where: PageWhere): DeleteInfo!
   deletePropMapBindings(
     delete: PropMapBindingDeleteInput
@@ -6750,11 +6763,8 @@ type Mutation {
   ): DeleteInfo!
   deleteTags(where: TagWhere): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
-<<<<<<< HEAD
-  importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
-=======
   duplicateElement(elementId: String!): DuplicateElementMutationResponse!
->>>>>>> c6a706c57 (feat: move and duplicate element)
+  importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
   updateApps(
     connect: AppConnectInput
     connectOrCreate: AppConnectOrCreateInput
@@ -6789,17 +6799,10 @@ type Mutation {
     update: ElementUpdateInput
     where: ElementWhere
   ): UpdateElementsMutationResponse!
-<<<<<<< HEAD
-  updateIElementGraphs(
-    update: IElementGraphUpdateInput
-    where: IElementGraphWhere
-  ): UpdateIElementGraphsMutationResponse!
   updateImportAtomsMutationResponses(
     update: ImportAtomsMutationResponseUpdateInput
     where: ImportAtomsMutationResponseWhere
   ): UpdateImportAtomsMutationResponsesMutationResponse!
-=======
->>>>>>> f87ec242f (feat: update cache on element creation)
   updatePages(
     connect: PageConnectInput
     connectOrCreate: PageConnectOrCreateInput
@@ -8218,15 +8221,6 @@ type Query {
   elements(options: ElementOptions, where: ElementWhere): [Element!]!
   elementsAggregate(where: ElementWhere): ElementAggregateSelection!
   elementsCount(where: ElementWhere): Int!
-<<<<<<< HEAD
-  iElementGraphs(
-    options: IElementGraphOptions
-    where: IElementGraphWhere
-  ): [IElementGraph!]!
-  iElementGraphsAggregate(
-    where: IElementGraphWhere
-  ): IElementGraphAggregateSelection!
-  iElementGraphsCount(where: IElementGraphWhere): Int!
   importAtomsMutationResponses(
     options: ImportAtomsMutationResponseOptions
     where: ImportAtomsMutationResponseWhere
@@ -8237,8 +8231,6 @@ type Query {
   importAtomsMutationResponsesCount(
     where: ImportAtomsMutationResponseWhere
   ): Int!
-=======
->>>>>>> f87ec242f (feat: update cache on element creation)
   pages(options: PageOptions, where: PageWhere): [Page!]!
   pagesAggregate(where: PageWhere): PageAggregateSelection!
   pagesCount(where: PageWhere): Int!

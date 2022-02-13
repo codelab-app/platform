@@ -3781,6 +3781,7 @@ export type EnumTypeOwnerArgs = {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * Allows choosing one of a set of allowed values.
  * The value gets passed to the render pipe as a Enum Type Value id.
@@ -3834,6 +3835,10 @@ export type EnumTypeOwnerConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<TypeBaseOwnerConnectionSort>>
   where?: InputMaybe<TypeBaseOwnerConnectionWhere>
+=======
+export type ImportAtomsInput = {
+  payload: Scalars['JSONObject']
+>>>>>>> 7d7cc85bd (fix: generated schema)
 }
 
 export type EnumTypeAggregateSelection = {
@@ -3878,6 +3883,7 @@ export type EnumTypeAllowedValuesConnectionWhere = {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export type EnumTypeAllowedValuesCreateFieldInput = {
   node: EnumTypeValueCreateInput
 }
@@ -3894,6 +3900,8 @@ export type EnumTypeAllowedValuesDisconnectFieldInput = {
 =======
 =======
 >>>>>>> f87ec242f (feat: update cache on element creation)
+=======
+>>>>>>> 7d7cc85bd (fix: generated schema)
 export type IntAggregateSelection = {
   __typename?: 'IntAggregateSelection'
   average?: Maybe<Scalars['Float']>
@@ -3915,11 +3923,7 @@ export type Mutation = {
   createElementEdges: CreateElementEdgesMutationResponse
   createElementGraphs: CreateElementGraphsMutationResponse
   createElements: CreateElementsMutationResponse
-<<<<<<< HEAD
-  createIElementGraphs: CreateIElementGraphsMutationResponse
   createImportAtomsMutationResponses: CreateImportAtomsMutationResponsesMutationResponse
-=======
->>>>>>> f87ec242f (feat: update cache on element creation)
   createPages: CreatePagesMutationResponse
   createPropMapBindings: CreatePropMapBindingsMutationResponse
   createTags: CreateTagsMutationResponse
@@ -3929,31 +3933,20 @@ export type Mutation = {
   deleteElementEdges: DeleteInfo
   deleteElementGraphs: DeleteInfo
   deleteElements: DeleteInfo
-<<<<<<< HEAD
-  deleteIElementGraphs: DeleteInfo
   deleteImportAtomsMutationResponses: DeleteInfo
-=======
->>>>>>> f87ec242f (feat: update cache on element creation)
   deletePages: DeleteInfo
   deletePropMapBindings: DeleteInfo
   deleteTags: DeleteInfo
   deleteUsers: DeleteInfo
-<<<<<<< HEAD
-  importAtoms?: Maybe<ImportAtomsMutationResponse>
-=======
   duplicateElement: DuplicateElementMutationResponse
->>>>>>> c6a706c57 (feat: move and duplicate element)
+  importAtoms?: Maybe<ImportAtomsMutationResponse>
   updateApps: UpdateAppsMutationResponse
   updateAtoms: UpdateAtomsMutationResponse
   updateCreateInfos: UpdateCreateInfosMutationResponse
   updateElementEdges: UpdateElementEdgesMutationResponse
   updateElementGraphs: UpdateElementGraphsMutationResponse
   updateElements: UpdateElementsMutationResponse
-<<<<<<< HEAD
-  updateIElementGraphs: UpdateIElementGraphsMutationResponse
   updateImportAtomsMutationResponses: UpdateImportAtomsMutationResponsesMutationResponse
-=======
->>>>>>> f87ec242f (feat: update cache on element creation)
   updatePages: UpdatePagesMutationResponse
   updatePropMapBindings: UpdatePropMapBindingsMutationResponse
   updateTags: UpdateTagsMutationResponse
@@ -4099,11 +4092,6 @@ export type MutationDeleteElementsArgs = {
   where?: InputMaybe<ElementWhere>
 }
 
-<<<<<<< HEAD
-export type MutationDeleteIElementGraphsArgs = {
-  where?: InputMaybe<IElementGraphWhere>
-}
-
 export type MutationDeleteImportAtomsMutationResponsesArgs = {
   where?: InputMaybe<ImportAtomsMutationResponseWhere>
 >>>>>>> bef585a4d (feat: get element graph and delete part of graph)
@@ -4122,6 +4110,7 @@ export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
   node?: Maybe<EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection>
 }
 
+<<<<<<< HEAD
 export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
   __typename?: 'EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection'
   id: IdAggregateSelection
@@ -4130,6 +4119,8 @@ export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
 =======
 =======
 >>>>>>> f87ec242f (feat: update cache on element creation)
+=======
+>>>>>>> 7d7cc85bd (fix: generated schema)
 export type MutationDeletePagesArgs = {
   delete?: InputMaybe<PageDeleteInput>
   where?: InputMaybe<PageWhere>
@@ -4163,6 +4154,7 @@ export type EnumTypeOwnerAggregateInput = {
   node?: InputMaybe<EnumTypeOwnerNodeAggregationWhereInput>
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 export type EnumTypeOwnerNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<EnumTypeOwnerNodeAggregationWhereInput>>
@@ -4217,6 +4209,14 @@ export type MutationDuplicateElementArgs = {
   elementId: Scalars['String']
 >>>>>>> c6a706c57 (feat: move and duplicate element)
 >>>>>>> 15dbb2723 (feat: move and duplicate element)
+=======
+export type MutationDuplicateElementArgs = {
+  elementId: Scalars['String']
+}
+
+export type MutationImportAtomsArgs = {
+  input: ImportAtomsInput
+>>>>>>> 7d7cc85bd (fix: generated schema)
 }
 
 export type EnumTypeRelationInput = {
@@ -4266,12 +4266,6 @@ export type MutationUpdateElementsArgs = {
   where?: InputMaybe<ElementWhere>
 }
 
-<<<<<<< HEAD
-export type MutationUpdateIElementGraphsArgs = {
-  update?: InputMaybe<IElementGraphUpdateInput>
-  where?: InputMaybe<IElementGraphWhere>
-}
-
 export type MutationUpdateImportAtomsMutationResponsesArgs = {
   update?: InputMaybe<ImportAtomsMutationResponseUpdateInput>
   where?: InputMaybe<ImportAtomsMutationResponseWhere>
@@ -4286,6 +4280,7 @@ export type EnumTypeUserOwnerNodeAggregateSelection = {
   id: IdAggregateSelection
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 export type EnumTypeValue = {
   __typename?: 'EnumTypeValue'
@@ -4307,6 +4302,8 @@ export type EnumTypeValueEnumTypeAggregateArgs = {
 =======
 =======
 >>>>>>> f87ec242f (feat: update cache on element creation)
+=======
+>>>>>>> 7d7cc85bd (fix: generated schema)
 export type MutationUpdatePagesArgs = {
   connect?: InputMaybe<PageConnectInput>
   connectOrCreate?: InputMaybe<PageConnectOrCreateInput>
@@ -5459,15 +5456,9 @@ export type Query = {
   elements: Array<Element>
   elementsAggregate: ElementAggregateSelection
   elementsCount: Scalars['Int']
-<<<<<<< HEAD
-  iElementGraphs: Array<IElementGraph>
-  iElementGraphsAggregate: IElementGraphAggregateSelection
-  iElementGraphsCount: Scalars['Int']
   importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
   importAtomsMutationResponsesAggregate: ImportAtomsMutationResponseAggregateSelection
   importAtomsMutationResponsesCount: Scalars['Int']
-=======
->>>>>>> f87ec242f (feat: update cache on element creation)
   pages: Array<Page>
   pagesAggregate: PageAggregateSelection
   pagesCount: Scalars['Int']
@@ -5595,6 +5586,7 @@ export type InterfaceTypeFieldsDisconnectFieldInput = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export type InterfaceTypeFieldsFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
@@ -5614,6 +5606,8 @@ export type QueryIElementGraphsCountArgs = {
   where?: InputMaybe<IElementGraphWhere>
 }
 
+=======
+>>>>>>> 7d7cc85bd (fix: generated schema)
 export type QueryImportAtomsMutationResponsesArgs = {
   options?: InputMaybe<ImportAtomsMutationResponseOptions>
   where?: InputMaybe<ImportAtomsMutationResponseWhere>
@@ -5637,8 +5631,6 @@ export type QueryImportAtomsMutationResponsesCountArgs = {
   where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
-=======
->>>>>>> f87ec242f (feat: update cache on element creation)
 export type QueryPagesArgs = {
   options?: InputMaybe<PageOptions>
   where?: InputMaybe<PageWhere>
