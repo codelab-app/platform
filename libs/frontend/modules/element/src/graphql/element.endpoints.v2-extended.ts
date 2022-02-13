@@ -16,16 +16,19 @@ export type GetElementsWithGraphQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementWhere>
 }>
 
+export type NormalizedGraph = {
+  vertices: {
+    [id: ElementFragment['id']]: ElementFragment
+  }
+  edges: Array<ElementEdgeFragment>
+}
+
 export type GetElementsWithGraphQuery = {
   elements: {
-    [id: ElementWithGraphFragment['id']]: {
-      vertices: {
-        [id: ElementFragment['id']]: ElementFragment
-      }
-      edges: Array<ElementEdgeFragment>
-    }
+    [id: ElementWithGraphFragment['id']]: NormalizedGraph
   }
 }
+
 export const GetElementsWithGraphGql = gql`
   query GetElementsWithGraph($options: ElementOptions, $where: ElementWhere) {
     elements: elements(options: $options, where: $where) {
@@ -91,6 +94,7 @@ export const {
   useCreateElementsMutation,
   useDeleteElementsMutation,
   useUpdateElementsMutation,
+  useDuplicateElementMutation,
   useGetElementsQuery,
   useLazyGetElementsQuery,
   useGetElementsWithGraphQuery,

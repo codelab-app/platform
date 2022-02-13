@@ -82,5 +82,4 @@ export const {
   useUpdateElementMutation,
   useUpdateElementPropsMutation,
   useConvertElementToComponentMutation,
-  useDuplicateElementMutation,
 } = generatedApi

@@ -1913,11 +1913,19 @@ export type CreateTypeReferencesMutationResponse = {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export type CreateUnionTypesMutationResponse = {
   __typename?: 'CreateUnionTypesMutationResponse'
   info: CreateInfo
   unionTypes: Array<UnionType>
 =======
+=======
+export type DuplicateElementMutationResponse = {
+  __typename?: 'DuplicateElementMutationResponse'
+  elements: Array<Element>
+}
+
+>>>>>>> 15dbb2723 (feat: move and duplicate element)
 export type Element = {
   __typename?: 'Element'
   atom?: Maybe<Atom>
@@ -3930,7 +3938,11 @@ export type Mutation = {
   deletePropMapBindings: DeleteInfo
   deleteTags: DeleteInfo
   deleteUsers: DeleteInfo
+<<<<<<< HEAD
   importAtoms?: Maybe<ImportAtomsMutationResponse>
+=======
+  duplicateElement: DuplicateElementMutationResponse
+>>>>>>> c6a706c57 (feat: move and duplicate element)
   updateApps: UpdateAppsMutationResponse
   updateAtoms: UpdateAtomsMutationResponse
   updateCreateInfos: UpdateCreateInfosMutationResponse
@@ -4151,6 +4163,7 @@ export type EnumTypeOwnerAggregateInput = {
   node?: InputMaybe<EnumTypeOwnerNodeAggregationWhereInput>
 }
 
+<<<<<<< HEAD
 export type EnumTypeOwnerNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<EnumTypeOwnerNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<EnumTypeOwnerNodeAggregationWhereInput>>
@@ -4195,6 +4208,15 @@ export type EnumTypeOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   id_EQUAL?: InputMaybe<Scalars['ID']>
+=======
+<<<<<<< HEAD
+export type MutationImportAtomsArgs = {
+  input: ImportAtomsInput
+=======
+export type MutationDuplicateElementArgs = {
+  elementId: Scalars['String']
+>>>>>>> c6a706c57 (feat: move and duplicate element)
+>>>>>>> 15dbb2723 (feat: move and duplicate element)
 }
 
 export type EnumTypeRelationInput = {

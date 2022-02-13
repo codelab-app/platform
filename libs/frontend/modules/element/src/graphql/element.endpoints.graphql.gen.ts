@@ -241,5 +241,4 @@ export const {
   useUpdateElementMutation,
   useUpdateElementPropsMutation,
   useConvertElementToComponentMutation,
-  useDuplicateElementMutation,
 } = injectedRtkApi

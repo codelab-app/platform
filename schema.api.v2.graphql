@@ -1948,6 +1948,10 @@ type DeleteInfo {
   relationshipsDeleted: Int!
 }
 
+type DuplicateElementMutationResponse {
+  elements: [Element!]!
+}
+
 type Element {
   atom(options: AtomOptions, where: AtomWhere): Atom
   atomAggregate(where: AtomWhere): ElementAtomAtomAggregationSelection
@@ -6746,7 +6750,11 @@ type Mutation {
   ): DeleteInfo!
   deleteTags(where: TagWhere): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
+<<<<<<< HEAD
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
+=======
+  duplicateElement(elementId: String!): DuplicateElementMutationResponse!
+>>>>>>> c6a706c57 (feat: move and duplicate element)
   updateApps(
     connect: AppConnectInput
     connectOrCreate: AppConnectOrCreateInput

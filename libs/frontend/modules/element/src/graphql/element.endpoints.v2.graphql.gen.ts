@@ -33,6 +33,14 @@ export type UpdateElementsMutation = {
   updateElements: { elements: Array<ElementFragment> }
 }
 
+export type DuplicateElementMutationVariables = Types.Exact<{
+  elementId: Types.Scalars['String']
+}>
+
+export type DuplicateElementMutation = {
+  duplicateElement: { elements: Array<ElementFragment> }
+}
+
 export type GetElementsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ElementOptions>
   where?: Types.InputMaybe<Types.ElementWhere>
@@ -60,6 +68,16 @@ export const DeleteElementsGql = gql`
 export const UpdateElementsGql = gql`
   mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
     updateElements(where: $where, update: $update) {
+      elements {
+        ...Element
+      }
+    }
+  }
+  ${ElementFragmentDoc}
+`
+export const DuplicateElementGql = gql`
+  mutation DuplicateElement($elementId: String!) {
+    duplicateElement(elementId: $elementId) {
       elements {
         ...Element
       }
@@ -109,6 +127,15 @@ const injectedRtkApi = api.injectEndpoints({
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
+    DuplicateElement: build.mutation<
+      DuplicateElementMutation,
+      GraphqlOperationOptions<DuplicateElementMutationVariables>
+    >({
+      query: (options) => ({
+        document: DuplicateElementGql,
+        options: { ...{ context: { env: 'v2' } }, ...options },
+      }),
+    }),
     GetElements: build.query<
       GetElementsQuery,
       GraphqlOperationOptions<GetElementsQueryVariables> | void | undefined
@@ -125,6 +152,7 @@ export const {
   useCreateElementsMutation,
   useDeleteElementsMutation,
   useUpdateElementsMutation,
+  useDuplicateElementMutation,
   useGetElementsQuery,
   useLazyGetElementsQuery,
 } = injectedRtkApi

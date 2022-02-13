@@ -26,7 +26,7 @@ export const ElementContextMenu = ({
   onBlur,
 }: ElementContextMenuProps) => {
   const [convertToComponent] = useConvertElementToComponentMutation()
-  const [duplicateElement] = useDuplicateElementMutation()
+  const [createElement] = useDuplicateElementMutation()
   const { openCreateModal, openDeleteModal } = useElementDispatch()
   const onAddChild = () => openCreateModal({ parentElementId: element.id })
   const { push } = useRouter()
@@ -38,7 +38,9 @@ export const ElementContextMenu = ({
     })
 
   const onDuplicate = () =>
-    duplicateElement({ variables: { input: { elementId: element.id } } })
+    createElement({
+      variables: { elementId: element.id },
+    })
 
   const onConvert = () => {
     return convertToComponent({

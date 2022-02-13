@@ -1,4 +1,4 @@
-import { useMoveElementMutation } from '@codelab/frontend/modules/element'
+import { useUpdateElementsMutation } from '@codelab/frontend/modules/element'
 import { ElementTree } from '@codelab/shared/core'
 import { TreeProps } from 'antd/lib/tree'
 
@@ -8,7 +8,7 @@ import { TreeProps } from 'antd/lib/tree'
  * It is also buggy, because it doesn't handle the case where the two nodes have the same order
  */
 export const useElementTreeDrop = (tree: ElementTree) => {
-  const [moveElement, { isLoading }] = useMoveElementMutation()
+  const [moveElement, { isLoading }] = useUpdateElementsMutation()
 
   const handleDrop: TreeProps['onDrop'] = (e) => {
     const dragNodeId = (e.dragNode as any).id
@@ -24,26 +24,19 @@ export const useElementTreeDrop = (tree: ElementTree) => {
       if (dropNodeParentId) {
         moveElement({
           variables: {
-            input: {
-              elementId: dragNodeId,
-              moveData: {
-                parentElementId: dropNodeParentId,
-                order:
-                  dropElementOrder === originalDragElementOrder
-                    ? dropElementOrder + 1
-                    : dropElementOrder,
-              },
-            },
-          },
-        }).catch(console.error)
-
-        moveElement({
-          variables: {
-            input: {
-              elementId: dropNodeId,
-              moveData: {
-                parentElementId: dropNodeParentId,
-                order: originalDragElementOrder,
+            where: { id: dragNodeId },
+            update: {
+              parentElement: {
+                disconnect: { where: {} },
+                connect: {
+                  edge: {
+                    order:
+                      dropElementOrder === originalDragElementOrder
+                        ? dropElementOrder + 1
+                        : dropElementOrder,
+                  },
+                  where: { node: { id: dropNodeParentId } },
+                },
               },
             },
           },
@@ -56,11 +49,14 @@ export const useElementTreeDrop = (tree: ElementTree) => {
       // it causes issues when moving elements up
       return moveElement({
         variables: {
-          input: {
-            elementId: dragNodeId,
-            moveData: {
-              parentElementId: dropNodeId,
-              order: e.dropPosition,
+          where: { id: dragNodeId },
+          update: {
+            parentElement: {
+              disconnect: { where: {} },
+              connect: {
+                edge: { order: e.dropPosition },
+                where: { node: { id: dropNodeId } },
+              },
             },
           },
         },

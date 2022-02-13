@@ -13,7 +13,7 @@ import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useElementGraphContext } from '../../../providers'
-import { useMoveElementMutation } from '../../../store'
+import { useUpdateElementsMutation } from '../../../store'
 import { moveElementSchema } from './moveElementSchema'
 
 export type MoveElementFormProps = Omit<
@@ -42,12 +42,21 @@ export const MoveElementForm = ({
     order: tree.getOrderInParent(elementId),
   })
 
-  const [mutate] = useMoveElementMutation()
+  const [mutate] = useUpdateElementsMutation()
 
   const onSubmit = (submitData: MoveData) => {
     const promise = mutate({
       variables: {
-        input: { elementId, moveData: { ...submitData } },
+        where: { id: elementId },
+        update: {
+          parentElement: {
+            disconnect: { where: {} },
+            connect: {
+              edge: { order: submitData.order },
+              where: { node: { id: submitData.parentElementId } },
+            },
+          },
+        },
       },
     }).unwrap()
 

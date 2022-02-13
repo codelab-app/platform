@@ -62,7 +62,7 @@
     "@neo4j/graphql": "^2.5.9",
     "@neo4j/graphql-ogm": "^2.5.9",
     "@next/bundle-analyzer": "12.0.7",
-    "@reduxjs/toolkit": "1.7.1",
+    "@reduxjs/toolkit": "1.7.2",
     "@slack/web-api": "6.5.1",
     "adm-zip": "0.5.9",
     "ajv": "8.8.2",

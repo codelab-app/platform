@@ -20,6 +20,14 @@ mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
   }
 }
 
+mutation DuplicateElement($elementId: String!) {
+  duplicateElement(elementId: $elementId) {
+    elements {
+      ...Element
+    }
+  }
+}
+
 query GetElements($options: ElementOptions, $where: ElementWhere) {
   elements: elements(options: $options, where: $where) {
     ...Element
