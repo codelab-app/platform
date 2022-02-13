@@ -47,8 +47,12 @@ export const ElementContextMenu = ({
   onClick,
   onBlur,
 }: ElementContextMenuProps) => {
+<<<<<<< HEAD
   const [convertToComponent] = useConvertElementsToComponentsMutation()
   const { elementTree } = useElementGraphContext()
+=======
+  const [convertToComponent] = useConvertElementToComponentMutation()
+>>>>>>> 651de063 (feat: move and duplicate element)
   const [createElement] = useDuplicateElementMutation()
   const { openCreateModal, openDeleteModal } = useElementDispatch()
   const onAddChild = () => openCreateModal({ parentElementId: element.id })
@@ -62,7 +66,11 @@ export const ElementContextMenu = ({
 
   const onDuplicate = () =>
     createElement({
+<<<<<<< HEAD
       variables: { input: { elementId: element.id } },
+=======
+      variables: { elementId: element.id },
+>>>>>>> 651de063 (feat: move and duplicate element)
     })
 
   const onConvert = () => {

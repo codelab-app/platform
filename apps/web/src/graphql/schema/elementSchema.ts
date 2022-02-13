@@ -111,4 +111,16 @@ export const elementSchema = gql`
       where: ElementWhere
     ): DeleteElementsInfo!
   }
+
+  type DuplicateElementMutationResponse @exclude(operations : [CREATE, READ, UPDATE,DELETE]) {
+    elements: [Element!]!
+  }
+
+  type Mutation {
+    duplicateElement(elementId: String!): DuplicateElementMutationResponse!
+        @cypher(
+          statement: """${duplicateElementCypher}"""
+        )
+  }
+
 `

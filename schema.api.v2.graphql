@@ -1957,6 +1957,10 @@ type DeleteInfo {
   relationshipsDeleted: Int!
 }
 
+type DuplicateElementMutationResponse {
+  elements: [Element!]!
+}
+
 type Element {
 >>>>>>> 1a1ed997 (feat: get element graph and delete part of graph)
   atom(options: AtomOptions, where: AtomWhere): Atom
@@ -9152,7 +9156,11 @@ type Mutation {
   ): DeleteInfo!
   deleteTags(where: TagWhere): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
+<<<<<<< HEAD
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
+=======
+  duplicateElement(elementId: String!): DuplicateElementMutationResponse!
+>>>>>>> c6a706c57 (feat: move and duplicate element)
   updateApps(
     connect: AppConnectInput
     connectOrCreate: AppConnectOrCreateInput

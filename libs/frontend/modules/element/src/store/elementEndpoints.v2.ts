@@ -1,82 +1,148 @@
-import { Maybe } from '@codelab/shared/abstract/types'
-import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit'
-import { difference, isArray, keys, mergeWith } from 'lodash'
+import { RootState } from '@reduxjs/toolkit/dist/query/core/apiState'
+import { Recipe } from '@reduxjs/toolkit/dist/query/core/buildThunks'
+import { merge, pickBy } from 'lodash'
 import { DefaultRootState } from 'react-redux'
 import {
   api as generatedApi,
+  ElementEdgeFragment,
   ElementFragment,
+  GetElementsWithGraphQuery,
   normalizeVertices,
 } from '../graphql'
-import { CreateElementsMutation } from '../graphql/element.endpoints.v2.graphql.gen'
 
-const customizer = (objValue: any, srcValue: any) =>
-  isArray(objValue) ? objValue.concat(srcValue) : undefined
+type GraphUpdateHandler = Recipe<GetElementsWithGraphQuery>
 
-const getGraphCacheArgs = (currentGraphRootId: string) => ({
+const fulfilledRequests: Array<string> = []
+
+const getGraphEntry = (currentGraphRootId: string) => ({
   variables: { where: { id: currentGraphRootId } },
 })
 
-const isCacheUpdated = (cacheIds: Array<string>, createdIds: Array<string>) =>
-  difference(createdIds, cacheIds).length === 0
+const createEdges = (
+  created: Array<ElementFragment>,
+): Array<ElementEdgeFragment> =>
+  created
+    .filter((x) => x.parentElement)
+    .map(({ id, parentElement, parentElementConnection }) => ({
+      // parentElement is defined because of filter
+      source: (parentElement as ElementFragment).id,
+      target: id,
+      order: parentElementConnection.edges[0]?.order,
+    }))
 
-const createCachePatch = (rootId: string, created: Array<ElementFragment>) => ({
-  [rootId]: {
-    vertices: normalizeVertices(created),
-    edges: createEdges(created),
-  },
-})
+const removeEdges = (edges: Array<ElementEdgeFragment>, ids: Array<string>) =>
+  edges.filter((x) => !ids.includes(x.source) && !ids.includes(x.target))
 
-const createEdges = (created: Array<ElementFragment>) =>
-  created.map((x) => ({
-    source: x.parentElement?.id,
-    target: x.id,
-    order: x.parentElement?.parentElementConnection?.edges[0]?.order,
-  }))
+const onCreate =
+  (rootId: string, created: Array<ElementFragment>): GraphUpdateHandler =>
+  (draft) => {
+    const oldGraph = draft.elements[rootId]
+    draft.elements[rootId] = {
+      vertices: merge(oldGraph.vertices, normalizeVertices(created)),
+      edges: oldGraph.edges.concat(createEdges(created)),
+    }
+  }
 
-const updateCacheAction = (rootId: string, created: Array<ElementFragment>) =>
+const onUpdate =
+  (rootId: string, updated: Array<ElementFragment>): GraphUpdateHandler =>
+  (draft) => {
+    const oldGraph = draft.elements[rootId]
+    const updatedIds = updated.map((x) => x.id)
+
+    draft.elements[rootId] = {
+      vertices: merge(oldGraph.vertices, normalizeVertices(updated)),
+      edges: removeEdges(oldGraph.edges, updatedIds).concat(
+        createEdges(updated),
+      ),
+    }
+  }
+
+const onDelete =
+  (rootId: string, deletedIds: Array<string>): GraphUpdateHandler =>
+  (draft) => {
+    const oldGraph = draft.elements[rootId]
+    draft.elements[rootId] = {
+      vertices: pickBy(
+        oldGraph.vertices,
+        (value, key) => !deletedIds.includes(key),
+      ),
+      edges: removeEdges(oldGraph.edges, deletedIds),
+    }
+  }
+
+const updateCache = (rootId: string, updateRecipe: GraphUpdateHandler) =>
   generatedApi.util.updateQueryData(
     'GetElementsWithGraph',
-    getGraphCacheArgs(rootId),
-    (draft) => {
-      const cacheVerticesIds = keys(draft.elements[rootId].vertices)
-      const createdElementsIds = created.map((x) => x.id)
-
-      if (isCacheUpdated(cacheVerticesIds, createdElementsIds)) {
-        return
-      }
-
-      const cachePatch = { elements: createCachePatch(rootId, created) }
-      mergeWith(draft, cachePatch, customizer)
-    },
+    getGraphEntry(rootId),
+    updateRecipe,
   )
 
-const updateGraphCache = (
-  rootId: Maybe<string>,
-  data: CreateElementsMutation,
-  dispatch: ThunkDispatch<any, any, AnyAction>,
+const getGraphRootId = (getState: () => RootState<any, any, 'api'>) =>
+  (getState() as unknown as DefaultRootState).element.currentGraphRootId
+
+const runGuards = (
+  requestId: string,
+  getState: () => RootState<any, any, 'api'>,
+  callback: (rootId: string) => void,
 ) => {
-  if (!rootId) {
+  if (fulfilledRequests.includes(requestId)) {
+    return
+  }
+
+  const currentGraphRootId = getGraphRootId(getState)
+
+  if (!currentGraphRootId) {
     console.log('Graph cache is not updated, Graph root is not provided')
 
     return
   }
 
-  const createdElements = data.createElements.elements
-  const updateAction = updateCacheAction(rootId, createdElements)
-
-  dispatch(updateAction)
+  callback(currentGraphRootId)
+  fulfilledRequests.push(requestId)
 }
 
 export const elementApiV2 = generatedApi.enhanceEndpoints({
   endpoints: {
     CreateElements: {
-      async onQueryStarted(_, { dispatch, queryFulfilled, getState }) {
+      async onQueryStarted(input, api) {
+        const { dispatch, queryFulfilled, getState, requestId } = api
         const { data } = await queryFulfilled
+        runGuards(requestId, getState, async (rootId) => {
+          const createdElements = data.createElements.elements
+          dispatch(updateCache(rootId, onCreate(rootId, createdElements)))
+        })
+      },
+    },
+    DuplicateElement: {
+      async onQueryStarted(input, api) {
+        const { dispatch, queryFulfilled, getState, requestId } = api
+        const { data } = await queryFulfilled
+        runGuards(requestId, getState, async (rootId) => {
+          const duplicatedElements = data.duplicateElement.elements
+          dispatch(updateCache(rootId, onCreate(rootId, duplicatedElements)))
+        })
+      },
+    },
+    UpdateElements: {
+      async onQueryStarted(input, api) {
+        const { dispatch, queryFulfilled, getState, requestId } = api
+        const { data } = await queryFulfilled
+        runGuards(requestId, getState, async (rootId) => {
+          const updatedElements = data.updateElements.elements
+          dispatch(updateCache(rootId, onUpdate(rootId, updatedElements)))
+        })
+      },
+    },
+    DeleteElements: {
+      async onQueryStarted(input, api) {
+        const { dispatch, queryFulfilled, getState, requestId } = api
+        await queryFulfilled
+        runGuards(requestId, getState, async (rootId) => {
+          const deletedIds =
+            (input?.variables?.where?.id_IN as Array<string>) || []
 
-        const currentGraphRootId = (getState() as unknown as DefaultRootState)
-          .element.currentGraphRootId
-
-        updateGraphCache(currentGraphRootId, data, dispatch)
+          dispatch(updateCache(rootId, onDelete(rootId, deletedIds)))
+        })
       },
     },
   },
@@ -92,4 +158,5 @@ export const {
   useLazyGetElementsQuery,
   useGetElementsWithGraphQuery,
   useLazyGetElementsWithGraphQuery,
+  useDuplicateElementMutation,
 } = elementApiV2
