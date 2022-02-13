@@ -15,7 +15,7 @@ import {
   useBuilderHoverHandlers,
   useOnRendered,
 } from './hooks'
-import { Renderer } from './renderer'
+import { Renderer, useTypesByIdQuery } from './renderer'
 import { BuilderClickOverlay, BuilderHoverOverlay } from './sections'
 import { builderSelectors } from './store'
 
@@ -53,6 +53,7 @@ const BuilderRenderer = ({
   const { onRendered } = useOnRendered()
   const extraElementProps = useSelector(builderSelectors.extraProps)
   const voidClick = useCallback(() => void 0, [])
+  const { typesById } = useTypesByIdQuery()
 
   return (
     <Renderer
@@ -65,6 +66,7 @@ const BuilderRenderer = ({
       }}
       isComponentRenderer={isComponentBuilder}
       tree={tree}
+      typesById={typesById}
     />
   )
 }

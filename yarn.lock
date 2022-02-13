@@ -10258,14 +10258,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:2.4.2":
-  version: 2.4.2
-  resolution: "@types/prettier@npm:2.4.2"
-  checksum: 76e230b2d11028af11fe12e09b2d5b10b03738e9abf819ae6ebb0f78cac13d39f860755ce05ac3855b608222518d956628f5d00322dc206cc6d1f2d8d1519f1e
-  languageName: node
-  linkType: hard
-
-"@types/prettier@npm:^2.1.5":
+"@types/prettier@npm:2.4.4, @types/prettier@npm:^2.1.5":
   version: 2.4.4
   resolution: "@types/prettier@npm:2.4.4"
   checksum: 2c2cc57efd49c7d8907415a72f96c84a6dd8696dd3bf8aa4ca3a667427bebf71cbfbc912673624bdfc935d272d1c008c639cf155f6449315990a4dc110f0d216
@@ -14935,7 +14928,7 @@ __metadata:
     "@types/passport-google-oauth20": 2.0.11
     "@types/passport-jwt": 3.0.6
     "@types/passport-oauth2": 1.4.11
-    "@types/prettier": 2.4.2
+    "@types/prettier": 2.4.4
     "@types/protobufjs": 6.0.0
     "@types/ramda": 0.27.62
     "@types/react": 17.0.38

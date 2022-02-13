@@ -1,3 +1,6 @@
+import { ElementTree } from '@codelab/shared/core'
+import React from 'react'
+import { demoGraphData } from '../../.storybook/demoGraphData'
 import { Renderer } from './Renderer'
 
 export default {
@@ -6,5 +9,9 @@ export default {
    * to learn how to generate automatic titles
    */
   title: 'Renderer',
-  component: Renderer,
+  // component: () => null,
 }
+
+const tree = new ElementTree(demoGraphData)
+
+export const Builder = () => <Renderer tree={tree} typesById={{}} />

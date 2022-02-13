@@ -11,8 +11,6 @@ const path = '/api/v2/graphql'
 
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 
-console.log(neoSchema.schema)
-
 const apolloServer = new ApolloServer({
   schema: neoSchema.schema,
   context: ({ req }) => {

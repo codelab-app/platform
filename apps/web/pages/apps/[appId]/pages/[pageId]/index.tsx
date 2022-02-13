@@ -4,7 +4,7 @@ import {
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
 import { AppProvider } from '@codelab/frontend/modules/app'
-import { Renderer } from '@codelab/frontend/modules/builder'
+import { Renderer, useTypesByIdQuery } from '@codelab/frontend/modules/builder'
 import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
   PageDetailHeader,
@@ -19,6 +19,7 @@ import React from 'react'
 const PageRenderer: CodelabPage<DashboardTemplateProps> = () => {
   const { currentPage } = usePageState()
   const { elementTree } = useElementGraphContext()
+  const { typesById } = useTypesByIdQuery()
 
   if (!currentPage || !elementTree) {
     return <Empty />
@@ -30,7 +31,7 @@ const PageRenderer: CodelabPage<DashboardTemplateProps> = () => {
         <title>{currentPage.name}</title>
       </Head>
 
-      <Renderer tree={elementTree} />
+      <Renderer tree={elementTree} typesById={typesById} />
     </>
   )
 }

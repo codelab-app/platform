@@ -1,4 +1,5 @@
 import { generate, OGM } from '@neo4j/graphql-ogm'
+import { ESLint } from 'eslint'
 import * as path from 'path'
 import { getDriver } from './getDriver'
 import { ModelMap } from './ogm-types.gen'
@@ -18,12 +19,15 @@ export const generateOgmTypes = async () => {
     'ogm-types.gen.ts',
   )
 
-  console.log(outFile)
-
   await generate({
     ogm,
     outFile,
   })
 
-  console.log('Types Generated')
+  const results = await getEslint().lintFiles(outFile)
+
+  await ESLint.outputFixes(results)
 }
+
+let eslint: ESLint
+const getEslint = () => (eslint ??= new ESLint({ fix: true }))

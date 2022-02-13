@@ -22,14 +22,8 @@ export default print(gql`
 
   ${tagEdgeSchema}
 
-  union TagVertex = Tag
-
-  interface IGraph {
-    vertices: [TagVertex!]!
-    edges: [TagEdge!]!
-  }
-
-  type TagGraph implements IGraph {
+  # Have ogm generation issue if using type
+  interface TagGraph @exclude {
     """
     All descendant Elements or Components, at any level
     """
