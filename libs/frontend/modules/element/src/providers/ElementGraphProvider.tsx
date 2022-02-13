@@ -34,6 +34,8 @@ export const ElementGraphProvider = ({
     variables: { input: { rootId: elementId } },
   })
 
+  console.log(data)
+
   const { setCurrentGraphRoot } = useElementDispatch()
 
   useEffect(() => {
