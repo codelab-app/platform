@@ -1,14 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  ElementFragment,
-  ElementGraphFragment,
-} from './Element.fragment.graphql.gen'
+import { ElementFragment } from './Element.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import {
-  ElementFragmentDoc,
-  ElementGraphFragmentDoc,
-} from './Element.fragment.graphql.gen'
+import { ElementFragmentDoc } from './Element.fragment.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,

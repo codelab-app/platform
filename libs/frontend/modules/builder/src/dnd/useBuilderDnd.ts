@@ -1,4 +1,4 @@
-import { useCreateElementMutation } from '@codelab/frontend/modules/element'
+import { useCreateElementsMutation } from '@codelab/frontend/modules/element'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { useCallback } from 'react'
@@ -16,7 +16,7 @@ export interface UseBuilderDnd {
 export const useBuilderDnd = (): UseBuilderDnd => {
   const { setCurrentlyDragging } = useBuilderDispatch()
   const state = useSelector((s) => s.builder.currentlyDragging)
-  const [createElement] = useCreateElementMutation()
+  const [createElement] = useCreateElementsMutation()
   const { setSelectedElement } = useBuilderSelectedElement()
 
   const onDragStart = useCallback(
@@ -35,21 +35,33 @@ export const useBuilderDnd = (): UseBuilderDnd => {
       const data = e.active.data.current as Maybe<BuilderDragData>
       const overData = e.over?.data.current as Maybe<BuilderDragData>
 
-      if (data?.type === BuilderDndType.CreateElement) {
-        if (overData?.type === BuilderDndType.CreateElement) {
-          if (data?.createElementInput || overData?.createElementInput) {
-            const createElementInput = {
-              ...(data?.createElementInput ?? {}),
-              ...(overData?.createElementInput ?? {}),
-            }
+      const shouldCreate =
+        data?.type === BuilderDndType.CreateElement &&
+        overData?.type === BuilderDndType.CreateElement &&
+        (data?.createElementInput || overData?.createElementInput)
 
-            createElement({ variables: { input: createElementInput } }).then(
-              (el: any) => {
-                setSelectedElement(el.data?.createElement.id)
-              },
-            )
-          }
+      if (shouldCreate) {
+        const createElementInput = {
+          ...(data?.createElementInput ?? {}),
+          ...(overData?.createElementInput ?? {}),
         }
+
+        const { parentElementId, order, ...rest } = createElementInput
+        createElement({
+          variables: {
+            input: {
+              parentElement: {
+                connect: {
+                  where: { node: { id: parentElementId } },
+                  edge: { order },
+                },
+              },
+              ...rest,
+            },
+          },
+        }).then((el: any) => {
+          setSelectedElement(el.data?.createElement.id)
+        })
       }
 
       setCurrentlyDragging(undefined)

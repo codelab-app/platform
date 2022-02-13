@@ -1,39 +1,3 @@
-mutation CreateElement($input: CreateElementInput!) {
-  createElement(input: $input) {
-    ...Element
-  }
-}
-
-mutation DeleteElement($input: DeleteElementInput!) {
-  deleteElement(input: $input) {
-    ...Element
-  }
-}
-
-query GetElement($input: GetElementInput!) {
-  getElement(input: $input) {
-    ...Element
-  }
-}
-
-query GetElementGraph($input: GetElementGraphInput!) {
-  getElementGraph(input: $input) {
-    ...ElementGraph
-  }
-}
-
-mutation MoveElement($input: MoveElementInput!) {
-  moveElement(input: $input) {
-    ...Element
-  }
-}
-
-mutation UpdateElement($input: UpdateElementInput!) {
-  updateElement(input: $input) {
-    ...Element
-  }
-}
-
 mutation UpdateElementProps($input: UpdateElementPropsInput!) {
   updateElementProps(input: $input) {
     ...Element
@@ -42,12 +6,6 @@ mutation UpdateElementProps($input: UpdateElementPropsInput!) {
 
 mutation ConvertElementToComponent($input: ConvertElementToComponentInput!) {
   convertElementToComponent(input: $input) {
-    ...Element
-  }
-}
-
-mutation DuplicateElement($input: DuplicateElementInput!) {
-  duplicateElement(input: $input) {
     ...Element
   }
 }

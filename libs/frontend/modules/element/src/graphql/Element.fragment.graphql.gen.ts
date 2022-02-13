@@ -1,16 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  AtomBaseFragment,
-  AtomFragment,
-} from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
+import { AtomBaseFragment } from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
 import { TagFragment } from '../../../tag/src/graphql/Tag.fragment.graphql.gen'
 import { PropFragment } from './Prop.fragment.graphql.gen'
 import { gql } from '@apollo/client'
-import {
-  AtomBaseFragmentDoc,
-  AtomFragmentDoc,
-} from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
+import { AtomBaseFragmentDoc } from '../../../atom/src/graphql/Atom.fragment.graphql.gen'
 import { TagFragmentDoc } from '../../../tag/src/graphql/Tag.fragment.graphql.gen'
 import { PropFragmentDoc } from './Prop.fragment.graphql.gen'
 export type ElementFragment = {

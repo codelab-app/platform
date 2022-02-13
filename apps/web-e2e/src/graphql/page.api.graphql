@@ -1,11 +1,15 @@
 query E2eGetPage($input: GetPageInput!) {
   page: getPage(input: $input) {
-    ...PageFull
+    id
+    name
+    rootElementId
   }
 }
 
 mutation E2eCreatePage($input: CreatePageInput!) {
   createPage(input: $input) {
-    ...PageBase
+    id
+    name
+    rootElementId
   }
 }
