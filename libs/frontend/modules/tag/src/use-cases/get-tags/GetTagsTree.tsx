@@ -1,7 +1,18 @@
 import { CheckedKeys } from '@codelab/frontend/abstract/types'
-import { Tree, TreeProps } from 'antd'
+import { css, SerializedStyles } from '@emotion/react'
+import { Tree, TreeProps, Typography } from 'antd'
+import { DataNode } from 'antd/lib/tree'
 import { useTagDispatch, useTagState, useTagTree } from '../../hooks'
 import { useGetTagGraphsQuery } from '../../store'
+import { UpdateTagIconButton } from '../update-tag/UpdateTagIconButton'
+
+const tagNodeStyle: SerializedStyles = css({
+  '&:hover': {
+    button: {
+      display: 'inline-block !important',
+    },
+  },
+})
 
 export const GetTagsTree = () => {
   const { data } = useGetTagGraphsQuery()
@@ -24,6 +35,15 @@ export const GetTagsTree = () => {
     setCheckedTags({ keys: checked })
   }
 
+  const makeCustomTag: TreeProps['titleRender'] = (node: DataNode) => {
+    return (
+      <Typography.Text css={tagNodeStyle}>
+        {node.title}
+        <UpdateTagIconButton id={node.key.toString()} />
+      </Typography.Text>
+    )
+  }
+
   return (
     <Tree
       checkStrictly
@@ -37,6 +57,7 @@ export const GetTagsTree = () => {
       /**
        * The root is a system root & shouldn't be shown
        */
+      titleRender={(node: DataNode) => makeCustomTag(node)}
       treeData={tagTreesData}
     />
   )
