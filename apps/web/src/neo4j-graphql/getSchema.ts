@@ -9,7 +9,7 @@ import typeDefs from './typeDefs'
  * `.` -> `\\.`
  */
 const escapeDotPathKeys = (key: string) => {
-  return key.replaceAll('.', '\\.')
+  return key.replace(/\./g, '\\.')
 }
 
 export const getSchema = (driver: Driver) =>

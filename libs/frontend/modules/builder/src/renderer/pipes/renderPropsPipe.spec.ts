@@ -22,7 +22,6 @@ const renderPropsType = {
 const defaultContext = {
   tree: treeToRender,
   render: renderPipeline,
-  reactRender: React.createElement,
   typesById: { [renderPropsType.id]: renderPropsType },
 } as RenderContext
 

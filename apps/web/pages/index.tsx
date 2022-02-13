@@ -2,12 +2,8 @@ import { CodelabPage } from '@codelab/frontend/abstract/types'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import React from 'react'
-import {
-  HomeClients,
-  HomeConcept,
-  HomeFeatures,
-  HomeTemplate,
-} from '../src/home'
+import { Clients, Features, HomeTemplate } from '../src/home'
+import { BestPractices } from '../src/home/BestPractices'
 
 /**
  * We are using some jQuery components, so SSR can't work because jQuery needs to be loaded first
@@ -24,9 +20,9 @@ const HomePage: CodelabPage<any> = () => {
         <title>Codelab</title>
       </Head>
       <DynamicHomeJumbo />
-      <HomeClients />
-      <HomeConcept />
-      <HomeFeatures />
+      <Clients />
+      <BestPractices />
+      <Features />
     </>
   )
 }

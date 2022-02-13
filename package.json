@@ -1,9 +1,11 @@
 {
   "name": "codelab",
-  "packageManager": "yarn@3.1.1",
   "engines": {
-    "node": ">=14.x"
+    "node": "14",
+    "npm": "please-use-yarn",
+    "pnpm": "please-use-yarn"
   },
+  "engineStrict": true,
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {

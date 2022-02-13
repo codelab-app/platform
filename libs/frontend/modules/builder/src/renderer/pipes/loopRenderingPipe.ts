@@ -25,7 +25,7 @@ export const loopingRenderPipe: RenderPipeFactory =
       return next(element, context, mergeProps(props, valueProp, { key }))
     }
 
-    return context.reactRender(React.Fragment, {
+    return React.createElement(React.Fragment, {
       children: value.map(renderProp),
     })
   }

@@ -3,7 +3,9 @@ import { attempt, isError } from 'lodash'
 import { RenderPipeFactory } from './types'
 
 /**
- * Adds in props from element.props.data
+ * Adds in props from element.props.data.
+ *
+ * In database, the `data` field holds the JSON value for the Prop model
  */
 export const persistedPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {

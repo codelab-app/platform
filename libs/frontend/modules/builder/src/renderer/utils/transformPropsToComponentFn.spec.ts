@@ -16,7 +16,6 @@ const propsToRender: PropsData = {
 const defaultContext = {
   tree: treeToRender,
   render: renderPipeline,
-  reactRender: React.createElement,
 } as RenderContext
 
 const initialProps = { text: 'text to render' }

@@ -13,7 +13,7 @@ export type RenderOutput = React.ReactNode
 export interface RendererProps {
   tree: ElementTree
   isComponentRenderer?: boolean
-  context?: Omit<RenderContext, 'tree' | 'render' | 'reactRender' | 'typesById'>
+  context?: Omit<RenderContext, 'tree' | 'render' | 'typesById'>
 }
 
 export interface RenderContext {
@@ -22,8 +22,6 @@ export interface RenderContext {
 
   /** Extra props passed to all element. They override the common props, but props from the node instance override the extraProps */
   extraProps?: PropsData
-
-  reactRender: typeof React.createElement
 
   /** Extra props keyed by element id, they override every other prop */
   extraElementProps?: PropsDataByElementId
