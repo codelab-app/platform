@@ -36,7 +36,6 @@ export type UpdateElementsMutation = {
   updateElements: { elements: Array<ElementFragment> }
 }
 
-<<<<<<< HEAD
 export type MoveElementsMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementWhere>
   update?: Types.InputMaybe<Types.ElementUpdateInput>
@@ -57,10 +56,6 @@ export type ConvertElementsToComponentsMutation = {
 
 export type DuplicateElementMutationVariables = Types.Exact<{
   input: Types.DuplicateElementInput
-=======
-export type DuplicateElementMutationVariables = Types.Exact<{
-  elementId: Types.Scalars['String']
->>>>>>> 651de063 (feat: move and duplicate element)
 }>
 
 export type DuplicateElementMutation = {
@@ -105,7 +100,6 @@ export const UpdateElementsGql = gql`
   }
   ${ElementFragmentDoc}
 `
-<<<<<<< HEAD
 export const MoveElementsGql = gql`
   mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
     updateElements(where: $where, update: $update) {
@@ -132,11 +126,6 @@ export const ConvertElementsToComponentsGql = gql`
 export const DuplicateElementGql = gql`
   mutation DuplicateElement($input: DuplicateElementInput!) {
     duplicateElement(input: $input) {
-=======
-export const DuplicateElementGql = gql`
-  mutation DuplicateElement($elementId: String!) {
-    duplicateElement(elementId: $elementId) {
->>>>>>> 651de063 (feat: move and duplicate element)
       elements {
         ...Element
       }
@@ -186,7 +175,6 @@ const injectedRtkApi = api.injectEndpoints({
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
-<<<<<<< HEAD
     MoveElements: build.mutation<
       MoveElementsMutation,
       GraphqlOperationOptions<MoveElementsMutationVariables> | void | undefined
@@ -207,8 +195,6 @@ const injectedRtkApi = api.injectEndpoints({
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
-=======
->>>>>>> 651de063 (feat: move and duplicate element)
     DuplicateElement: build.mutation<
       DuplicateElementMutation,
       GraphqlOperationOptions<DuplicateElementMutationVariables>
@@ -234,11 +220,8 @@ export const {
   useCreateElementsMutation,
   useDeleteElementsSubgraphMutation,
   useUpdateElementsMutation,
-<<<<<<< HEAD
   useMoveElementsMutation,
   useConvertElementsToComponentsMutation,
-=======
->>>>>>> 651de063 (feat: move and duplicate element)
   useDuplicateElementMutation,
   useGetElementsQuery,
   useLazyGetElementsQuery,

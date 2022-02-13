@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { useMoveElementsMutation } from '@codelab/frontend/modules/element'
-=======
-import { useUpdateElementsMutation } from '@codelab/frontend/modules/element'
->>>>>>> 651de063 (feat: move and duplicate element)
 import { ElementTree } from '@codelab/shared/core'
 import { TreeProps } from 'antd/lib/tree'
 
@@ -12,11 +8,7 @@ import { TreeProps } from 'antd/lib/tree'
  * It is also buggy, because it doesn't handle the case where the two nodes have the same order
  */
 export const useElementTreeDrop = (tree: ElementTree) => {
-<<<<<<< HEAD
   const [moveElement, { isLoading }] = useMoveElementsMutation()
-=======
-  const [moveElement, { isLoading }] = useUpdateElementsMutation()
->>>>>>> 651de063 (feat: move and duplicate element)
 
   const handleDrop: TreeProps['onDrop'] = (e) => {
     const dragNodeId = (e.dragNode as any).id
@@ -29,7 +21,6 @@ export const useElementTreeDrop = (tree: ElementTree) => {
       const originalDragElementOrder = tree.getOrderInParent(dragNodeId)
 
       if (dropNodeParentId) {
-<<<<<<< HEAD
         const order =
           dropElementOrder === originalDragElementOrder
             ? dropElementOrder + 1
@@ -37,8 +28,6 @@ export const useElementTreeDrop = (tree: ElementTree) => {
 
         console.log(order)
 
-=======
->>>>>>> 651de063 (feat: move and duplicate element)
         moveElement({
           variables: {
             where: { id: dragNodeId },
@@ -46,16 +35,7 @@ export const useElementTreeDrop = (tree: ElementTree) => {
               parentElement: {
                 disconnect: { where: {} },
                 connect: {
-<<<<<<< HEAD
                   edge: { order },
-=======
-                  edge: {
-                    order:
-                      dropElementOrder === originalDragElementOrder
-                        ? dropElementOrder + 1
-                        : dropElementOrder,
-                  },
->>>>>>> 651de063 (feat: move and duplicate element)
                   where: { node: { id: dropNodeParentId } },
                 },
               },

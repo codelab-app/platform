@@ -24,7 +24,6 @@ mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
   }
 }
 
-<<<<<<< HEAD
 # different from updateElements in the way we process element graph cache
 mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
   updateElements(where: $where, update: $update) {
@@ -48,10 +47,6 @@ mutation ConvertElementsToComponents(
 
 mutation DuplicateElement($input: DuplicateElementInput!) {
   duplicateElement(input: $input) {
-=======
-mutation DuplicateElement($elementId: String!) {
-  duplicateElement(elementId: $elementId) {
->>>>>>> 651de063 (feat: move and duplicate element)
     elements {
       ...Element
     }
