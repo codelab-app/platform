@@ -1,5 +1,5 @@
 import { EntityLike, Nullish } from '@codelab/shared/abstract/types'
-import keyBy from 'lodash/keyBy'
+import { keyBy } from 'lodash'
 
 export const entityToIdAndEntity = <T extends EntityLike>(
   entity: T,

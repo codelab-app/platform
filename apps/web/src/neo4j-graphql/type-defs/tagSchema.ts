@@ -12,8 +12,20 @@ export const tagSchema = gql`
 
     children: [Tag] @relationship(type: "Children", direction: OUT)
   }
-`
-export const tagEdgeSchema = gql`
+
+  # Have ogm generation issue if using type
+  type TagGraph @exclude {
+    """
+    All descendant Elements or Components, at any level
+    """
+    vertices: [Tag!]!
+
+    """
+    All the links connecting the descendant elements/components
+    """
+    edges: [TagEdge!]!
+  }
+
   type TagEdge {
     source: ID!
     target: ID!

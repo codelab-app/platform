@@ -982,12 +982,6 @@ export type CreateTagEdgesMutationResponse = {
   tagEdges: Array<TagEdge>
 }
 
-export type CreateTagGraphsMutationResponse = {
-  __typename?: 'CreateTagGraphsMutationResponse'
-  info: CreateInfo
-  tagGraphs: Array<TagGraph>
-}
-
 export type CreateTagsMutationResponse = {
   __typename?: 'CreateTagsMutationResponse'
   info: CreateInfo
@@ -1552,13 +1546,8 @@ export type IElementGraph = {
   vertices?: Maybe<Array<Element>>
 }
 
-export type IGraph = {
-  edges: Array<TagEdge>
-  vertices: Array<TagVertex>
-}
-
 export type ImportAtomsInput = {
-  payload: Scalars['JSONObject']
+  payload?: InputMaybe<Array<Scalars['JSONObject']>>
 }
 
 export type ImportAtomsMutationResponse = {
@@ -1608,7 +1597,6 @@ export type Mutation = {
   createImportAtomsMutationResponses: CreateImportAtomsMutationResponsesMutationResponse
   createPages: CreatePagesMutationResponse
   createTagEdges: CreateTagEdgesMutationResponse
-  createTagGraphs: CreateTagGraphsMutationResponse
   createTags: CreateTagsMutationResponse
   deleteApps: DeleteInfo
   deleteAtoms: DeleteInfo
@@ -1617,7 +1605,6 @@ export type Mutation = {
   deleteImportAtomsMutationResponses: DeleteInfo
   deletePages: DeleteInfo
   deleteTagEdges: DeleteInfo
-  deleteTagGraphs: DeleteInfo
   deleteTags: DeleteInfo
   deleteUsers: DeleteInfo
   importAtoms?: Maybe<ImportAtomsMutationResponse>
@@ -1628,7 +1615,6 @@ export type Mutation = {
   updateImportAtomsMutationResponses: UpdateImportAtomsMutationResponsesMutationResponse
   updatePages: UpdatePagesMutationResponse
   updateTagEdges: UpdateTagEdgesMutationResponse
-  updateTagGraphs: UpdateTagGraphsMutationResponse
   updateTags: UpdateTagsMutationResponse
 }
 
@@ -1658,10 +1644,6 @@ export type MutationCreatePagesArgs = {
 
 export type MutationCreateTagEdgesArgs = {
   input: Array<TagEdgeCreateInput>
-}
-
-export type MutationCreateTagGraphsArgs = {
-  input: Array<TagGraphCreateInput>
 }
 
 export type MutationCreateTagsArgs = {
@@ -1697,10 +1679,6 @@ export type MutationDeletePagesArgs = {
 
 export type MutationDeleteTagEdgesArgs = {
   where?: InputMaybe<TagEdgeWhere>
-}
-
-export type MutationDeleteTagGraphsArgs = {
-  where?: InputMaybe<TagGraphWhere>
 }
 
 export type MutationDeleteTagsArgs = {
@@ -1765,11 +1743,6 @@ export type MutationUpdatePagesArgs = {
 export type MutationUpdateTagEdgesArgs = {
   update?: InputMaybe<TagEdgeUpdateInput>
   where?: InputMaybe<TagEdgeWhere>
-}
-
-export type MutationUpdateTagGraphsArgs = {
-  update?: InputMaybe<TagGraphUpdateInput>
-  where?: InputMaybe<TagGraphWhere>
 }
 
 export type MutationUpdateTagsArgs = {
@@ -2258,8 +2231,6 @@ export type Query = {
   tagEdgesAggregate: TagEdgeAggregateSelection
   tagEdgesCount: Scalars['Int']
   tagGraphs?: Maybe<TagGraph>
-  tagGraphsAggregate: TagGraphAggregateSelection
-  tagGraphsCount: Scalars['Int']
   tags: Array<Tag>
   tagsAggregate: TagAggregateSelection
   tagsCount: Scalars['Int']
@@ -2357,14 +2328,6 @@ export type QueryTagEdgesAggregateArgs = {
 
 export type QueryTagEdgesCountArgs = {
   where?: InputMaybe<TagEdgeWhere>
-}
-
-export type QueryTagGraphsAggregateArgs = {
-  where?: InputMaybe<TagGraphWhere>
-}
-
-export type QueryTagGraphsCountArgs = {
-  where?: InputMaybe<TagGraphWhere>
 }
 
 export type QueryTagsArgs = {
@@ -2663,32 +2626,12 @@ export type TagEdgeWhere = {
   target_STARTS_WITH?: InputMaybe<Scalars['ID']>
 }
 
-export type TagGraph = IGraph & {
+export type TagGraph = {
   __typename?: 'TagGraph'
   /** All the links connecting the descendant elements/components */
   edges: Array<TagEdge>
   /** All descendant Elements or Components, at any level */
   vertices: Array<Tag>
-}
-
-export type TagGraphAggregateSelection = {
-  __typename?: 'TagGraphAggregateSelection'
-  count: Scalars['Int']
-}
-
-export type TagGraphCreateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars['Boolean']>
-}
-
-export type TagGraphUpdateInput = {
-  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
-  _emptyInput?: InputMaybe<Scalars['Boolean']>
-}
-
-export type TagGraphWhere = {
-  AND?: InputMaybe<Array<TagGraphWhere>>
-  OR?: InputMaybe<Array<TagGraphWhere>>
 }
 
 export type TagOptions = {
@@ -2854,8 +2797,6 @@ export type TagUpdateInput = {
   parent?: InputMaybe<TagParentUpdateFieldInput>
 }
 
-export type TagVertex = Tag
-
 export type TagWhere = {
   AND?: InputMaybe<Array<TagWhere>>
   OR?: InputMaybe<Array<TagWhere>>
@@ -2942,12 +2883,6 @@ export type UpdateTagEdgesMutationResponse = {
   __typename?: 'UpdateTagEdgesMutationResponse'
   info: UpdateInfo
   tagEdges: Array<TagEdge>
-}
-
-export type UpdateTagGraphsMutationResponse = {
-  __typename?: 'UpdateTagGraphsMutationResponse'
-  info: UpdateInfo
-  tagGraphs: Array<TagGraph>
 }
 
 export type UpdateTagsMutationResponse = {

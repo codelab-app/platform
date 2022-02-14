@@ -12,6 +12,8 @@ module.exports = {
       ...nxPreset.globals?.['ts-jest'],
       // Speeds up tests by turning off type checking
       isolatedModules: true,
+      // https://github.com/kentcdodds/babel-plugin-macros/issues/160 error for Wallaby.js
+      useESM: true,
     },
   },
   setupFiles: [`${JEST_CONFIG_PATH}/setupFiles.js`],

@@ -51,13 +51,15 @@ export type Query = {
   tags: Array<Tag>
   tagsCount: Scalars['Int']
   tagsAggregate: TagAggregateSelection
+  tagGraphs?: Maybe<TagGraph>
+  tagGraphsCount: Scalars['Int']
+  tagGraphsAggregate: TagGraphAggregateSelection
   tagEdges: Array<TagEdge>
   tagEdgesCount: Scalars['Int']
   tagEdgesAggregate: TagEdgeAggregateSelection
   elements: Array<Element>
   elementsCount: Scalars['Int']
   elementsAggregate: ElementAggregateSelection
-  tagGraphs?: Maybe<TagGraph>
 }
 
 export type QueryUsersArgs = {
@@ -151,6 +153,14 @@ export type QueryTagsAggregateArgs = {
   where?: Maybe<TagWhere>
 }
 
+export type QueryTagGraphsCountArgs = {
+  where?: Maybe<TagGraphWhere>
+}
+
+export type QueryTagGraphsAggregateArgs = {
+  where?: Maybe<TagGraphWhere>
+}
+
 export type QueryTagEdgesArgs = {
   where?: Maybe<TagEdgeWhere>
   options?: Maybe<TagEdgeOptions>
@@ -201,6 +211,9 @@ export type Mutation = {
   createTags: CreateTagsMutationResponse
   deleteTags: DeleteInfo
   updateTags: UpdateTagsMutationResponse
+  createTagGraphs: CreateTagGraphsMutationResponse
+  deleteTagGraphs: DeleteInfo
+  updateTagGraphs: UpdateTagGraphsMutationResponse
   createTagEdges: CreateTagEdgesMutationResponse
   deleteTagEdges: DeleteInfo
   updateTagEdges: UpdateTagEdgesMutationResponse
@@ -326,6 +339,19 @@ export type MutationUpdateTagsArgs = {
   create?: Maybe<TagRelationInput>
   delete?: Maybe<TagDeleteInput>
   connectOrCreate?: Maybe<TagConnectOrCreateInput>
+}
+
+export type MutationCreateTagGraphsArgs = {
+  input: Array<TagGraphCreateInput>
+}
+
+export type MutationDeleteTagGraphsArgs = {
+  where?: Maybe<TagGraphWhere>
+}
+
+export type MutationUpdateTagGraphsArgs = {
+  where?: Maybe<TagGraphWhere>
+  update?: Maybe<TagGraphUpdateInput>
 }
 
 export type MutationCreateTagEdgesArgs = {
@@ -740,13 +766,6 @@ export type IElementGraph = {
   vertices?: Maybe<Array<Element>>
 }
 
-export type TagGraph = {
-  /** All descendant Elements or Components, at any level */
-  vertices: Array<Tag>
-  /** All the links connecting the descendant elements/components */
-  edges: Array<TagEdge>
-}
-
 export type App = {
   __typename?: 'App'
   id: Scalars['ID']
@@ -918,6 +937,12 @@ export type CreateTagEdgesMutationResponse = {
   __typename?: 'CreateTagEdgesMutationResponse'
   info: CreateInfo
   tagEdges: Array<TagEdge>
+}
+
+export type CreateTagGraphsMutationResponse = {
+  __typename?: 'CreateTagGraphsMutationResponse'
+  info: CreateInfo
+  tagGraphs: Array<TagGraph>
 }
 
 export type CreateTagsMutationResponse = {
@@ -1280,6 +1305,19 @@ export type TagEdgeAggregateSelection = {
   target: IdAggregateSelection
 }
 
+export type TagGraph = {
+  __typename?: 'TagGraph'
+  /** All descendant Elements or Components, at any level */
+  vertices: Array<Tag>
+  /** All the links connecting the descendant elements/components */
+  edges: Array<TagEdge>
+}
+
+export type TagGraphAggregateSelection = {
+  __typename?: 'TagGraphAggregateSelection'
+  count: Scalars['Int']
+}
+
 export type TagParentConnection = {
   __typename?: 'TagParentConnection'
   edges: Array<TagParentRelationship>
@@ -1366,6 +1404,12 @@ export type UpdateTagEdgesMutationResponse = {
   __typename?: 'UpdateTagEdgesMutationResponse'
   info: UpdateInfo
   tagEdges: Array<TagEdge>
+}
+
+export type UpdateTagGraphsMutationResponse = {
+  __typename?: 'UpdateTagGraphsMutationResponse'
+  info: UpdateInfo
+  tagGraphs: Array<TagGraph>
 }
 
 export type UpdateTagsMutationResponse = {
@@ -2279,7 +2323,7 @@ export type ElementWhere = {
 }
 
 export type ImportAtomsInput = {
-  payload: Scalars['JSONObject']
+  payload?: Maybe<Array<Scalars['JSONObject']>>
 }
 
 export type ImportAtomsMutationResponseCreateInput = {
@@ -2818,6 +2862,21 @@ export type TagEdgeWhere = {
   target_NOT_STARTS_WITH?: Maybe<Scalars['ID']>
   target_ENDS_WITH?: Maybe<Scalars['ID']>
   target_NOT_ENDS_WITH?: Maybe<Scalars['ID']>
+}
+
+export type TagGraphCreateInput = {
+  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
+  _emptyInput?: Maybe<Scalars['Boolean']>
+}
+
+export type TagGraphUpdateInput = {
+  /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
+  _emptyInput?: Maybe<Scalars['Boolean']>
+}
+
+export type TagGraphWhere = {
+  OR?: Maybe<Array<TagGraphWhere>>
+  AND?: Maybe<Array<TagGraphWhere>>
 }
 
 export type TagOptions = {
@@ -3656,6 +3715,71 @@ export interface IntAggregateInput {
   average?: boolean
   sum?: boolean
 }
+export interface TagGraphAggregateInput {
+  count?: boolean
+}
+
+export declare class TagGraphModel {
+  public find(args?: {
+    where?: TagGraphWhere
+
+    options?: TagGraphOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<TagGraph>>
+
+  public count(args?: { where?: TagGraphWhere }): Promise<number>
+
+  public create(args: {
+    input: Array<TagGraphCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateTagGraphsMutationResponse>
+
+  public update(args: {
+    where?: TagGraphWhere
+    update?: TagGraphUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateTagGraphsMutationResponse>
+
+  public delete(args: {
+    where?: TagGraphWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: TagGraphWhere
+
+    aggregate: TagGraphAggregateInput
+    context?: any
+    rootValue?: any
+  }): Promise<TagGraphAggregateSelection>
+}
+
+export interface IdAggregateInput {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInput {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInput {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface TagEdgeAggregateInput {
   count?: boolean
   source?: IdAggregateInput
@@ -3794,6 +3918,7 @@ export interface ModelMap {
   ImportAtomsMutationResponse: ImportAtomsMutationResponseModel
   Page: PageModel
   Tag: TagModel
+  TagGraph: TagGraphModel
   TagEdge: TagEdgeModel
   Element: ElementModel
 }

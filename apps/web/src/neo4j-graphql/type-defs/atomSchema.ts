@@ -29,7 +29,7 @@ export const atomSchema = gql`
   }
 
   input ImportAtomsInput {
-    payload: JSONObject!
+    payload: [JSONObject!]
   }
 
   type Mutation {

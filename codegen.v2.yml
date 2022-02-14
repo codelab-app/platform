@@ -2,7 +2,6 @@ overwrite: true
 hooks:
   afterAllFileWrite:
     - yarn prettier --write
-
 schema: http://localhost:3000/api/v2/graphql
 config:
   scalars:
