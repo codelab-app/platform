@@ -1,20 +1,24 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { UpdateTagInput } from '@codelab/shared/abstract/codegen'
 import { TagUpdateInput } from '@codelab/shared/abstract/codegen-v2'
 import { useCallback } from 'react'
-import { TagFragment } from '../../graphql/Tag.fragment.graphql.gen'
-import { useTagDispatch, useTagState } from '../../hooks'
+import { useGetTagGraphsQuery } from '../../graphql/tag.endpoints.v2.graphql.gen'
+import { TagFragment } from '../../graphql/Tag.fragment.v2.graphql.gen'
+import { useTagDispatch, useTagState, useTagTree } from '../../hooks'
 import { useUpdateTagsMutation } from '../../store'
+import { UpdateTagSchema } from './updateTagSchema'
 
 export const useUpdateTagForm: UseEntityUseCaseForm<
-  UpdateTagInput,
+  UpdateTagSchema,
   CRUDActionType,
   TagFragment
 > = () => {
   const { resetModal } = useTagDispatch()
-  const { entity, actionType } = useTagState()
+  const { updateId, actionType } = useTagState()
+  const { data } = useGetTagGraphsQuery()
+  const tagTree = useTagTree(data?.tagGraphs)
+  const tagFragment: TagFragment | undefined = tagTree.getVertex(updateId)
 
   const [mutate, { isLoading }] = useUpdateTagsMutation({
     selectFromResult: (r) => ({
@@ -25,21 +29,21 @@ export const useUpdateTagForm: UseEntityUseCaseForm<
   })
 
   const handleSubmit = useCallback(
-    (input: UpdateTagInput) => {
+    (input: UpdateTagSchema) => {
       const tagUpdateInput: TagUpdateInput = {
-        name: input.data?.name,
+        name: input.name,
       }
 
       return mutate({
         variables: {
           where: {
-            id: input.id,
+            id: updateId,
           },
           update: tagUpdateInput,
         },
       }).unwrap()
     },
-    [mutate],
+    [mutate, updateId],
   )
 
   return {
@@ -50,9 +54,9 @@ export const useUpdateTagForm: UseEntityUseCaseForm<
       }),
     ],
     onSubmitSuccess: [() => resetModal()],
-    model: {},
-    entity,
+    model: { name: tagFragment?.name },
     isLoading,
+    entity: tagFragment,
     actionType,
     reset: resetModal,
   }

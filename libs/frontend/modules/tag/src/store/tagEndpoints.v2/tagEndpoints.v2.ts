@@ -1,10 +1,9 @@
 import {
   invalidatesAll,
-  invalidatesByIds,
   providesAll,
   TAG_CACHE_TAG,
 } from '@codelab/frontend/model/infra/redux'
-import { api as generatedApi } from '../graphql/tag.endpoints.v2.graphql.gen'
+import { api as generatedApi } from '../../graphql/tag.endpoints.v2.graphql.gen'
 
 generatedApi.enhanceEndpoints({
   endpoints: {
@@ -21,8 +20,11 @@ generatedApi.enhanceEndpoints({
       invalidatesTags: () => invalidatesAll(TAG_CACHE_TAG),
     },
     UpdateTags: {
-      invalidatesTags: (result) =>
-        invalidatesByIds(result?.updateTags?.tags, TAG_CACHE_TAG),
+      // invalidatesTags: (result) => invalidatesByIds(result?.updateTags?.tags, TAG_CACHE_TAG)
+      async onQueryStarted(input, api) {
+        const { dispatch, queryFulfilled, getState, requestId } = api
+        const { data } = await queryFulfilled
+      },
     },
   },
 })
