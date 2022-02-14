@@ -1,4 +1,5 @@
 // import '../src/wdyr'
+import 'reflect-metadata'
 import '../src/styles/app.css'
 import 'animate.css'
 import '../src/styles/styles.chunk.css'

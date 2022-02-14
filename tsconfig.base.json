@@ -69,7 +69,6 @@
       "@codelab/backend/shared/utils": [
         "libs/backend/shared/utils/src/index.ts"
       ],
-      "@codelab/demo": ["libs/demo/src/index.ts"],
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
       ],

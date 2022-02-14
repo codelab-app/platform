@@ -23,7 +23,6 @@
     "backend-shared-utils": "libs/backend/shared/utils",
     "cli": "apps/cli",
     "cmd": "apps/cmd",
-    "demo": "libs/demo",
     "frontend-abstract-core": "libs/frontend/abstract/core",
     "frontend-abstract-types": "libs/frontend/abstract/types",
     "frontend-model-infra-apollo": "libs/frontend/model/infra/apollo",
