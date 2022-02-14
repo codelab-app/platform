@@ -1,18 +1,9 @@
-fragment TagBase on Tag {
-  __typename
+fragment Tag on Tag {
   id
   name
-  parent {
-    id
-    name
-  }
+  isRoot
   children {
     id
     name
   }
-}
-
-fragment Tag on Tag {
-  ...TagBase
-  isRoot
 }
