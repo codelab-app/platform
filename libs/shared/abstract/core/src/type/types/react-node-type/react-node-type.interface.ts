@@ -8,7 +8,7 @@ export const ReactNodeTypeSchema = BaseTypeSchema.extend({
 
 /**
  * Allows picking a Component from the list of components.
- * It is passed to the rendered element as a React node: `ReactNode`
+ *
  *
  * Prop values for this type have the shape of {@see TypedValue} in order to
  * be distinguished from other element types.

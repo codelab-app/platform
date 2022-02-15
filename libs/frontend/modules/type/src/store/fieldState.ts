@@ -3,9 +3,9 @@ import {
   createCrudSlice,
   initialCrudState,
 } from '@codelab/frontend/view/components'
-import { FieldFragment } from '../graphql/Field.fragment.graphql.gen'
+import { InterfaceTypeFieldEdgeFragment } from '../graphql'
 
-export type FieldState = CRUDModalState<FieldFragment>
+export type FieldState = CRUDModalState<InterfaceTypeFieldEdgeFragment>
 
 const initialState: FieldState = {
   ...initialCrudState,

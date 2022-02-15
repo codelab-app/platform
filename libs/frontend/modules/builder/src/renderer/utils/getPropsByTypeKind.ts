@@ -1,10 +1,11 @@
-import { IType, PropsData, TypeKind } from '@codelab/shared/abstract/core'
+import { TypeBaseFragment } from '@codelab/frontend/modules/type'
+import { PropsData, TypeKind } from '@codelab/shared/abstract/core'
 import { pickBy } from 'lodash'
 
 export const getPropsByTypeKind = (
   props: PropsData,
   typeKind: TypeKind,
-  typesById: Record<string, IType>,
+  typesById: Record<string, TypeBaseFragment>,
 ) =>
   pickBy(props, (value: PropsData) => {
     const typeId = value?.type

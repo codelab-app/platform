@@ -4,7 +4,7 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
-import { FieldFragment } from '../../../graphql/Field.fragment.graphql.gen'
+import { FieldFragment } from '../../../graphql/fragments/Field.fragment.v2.graphql.gen'
 import { useFieldDispatch, useFieldState } from '../../../hooks'
 import { useDeleteFieldMutation } from '../../../store'
 
@@ -15,26 +15,30 @@ export const useDeleteFieldForm: UseEntityUseCaseForm<
   unknown,
   string
 > = (interfaceId) => {
-  const { deleteIds, entity, actionType } = useFieldState()
+  const { entity, actionType } = useFieldState()
   const { resetModal } = useFieldDispatch()
 
   assertIsDefined(interfaceId)
 
   const [mutate, { isLoading }] = useDeleteFieldMutation({
     selectFromResult: (r) => ({
-      element: r.data?.deleteField,
+      deletedEdgesCount: r.data?.deleteFieldEdge.deletedEdgesCount,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
   const onSubmit = useCallback(
-    (_: EmptyJsonSchemaType) => {
+    async (_: EmptyJsonSchemaType) => {
+      if (!entity?.key) {
+        throw new Error('useDeleteFieldForm: Field key is not defined')
+      }
+
       return mutate({
-        variables: { input: { fieldId: deleteIds[0], interfaceId } },
+        variables: { input: { key: entity.key, interfaceId } },
       }).unwrap()
     },
-    [deleteIds, interfaceId, mutate],
+    [entity?.key, interfaceId, mutate],
   )
 
   return {

@@ -1,7 +1,0 @@
-fragment EnumType on EnumType {
-  id
-  name
-  allowedValues {
-    ...EnumTypeValue
-  }
-}

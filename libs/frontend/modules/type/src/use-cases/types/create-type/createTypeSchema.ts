@@ -1,6 +1,8 @@
-import { CreateTypeInput } from '@codelab/shared/abstract/codegen'
+import * as cg from '@codelab/shared/abstract/codegen-v2'
 import { TypeKind } from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
+import { v4 } from 'uuid'
 import {
   BaseTypeMutationSchema,
   baseTypeMutationSchemaProperties,
@@ -17,108 +19,106 @@ export const createTypeSchema: JSONSchemaType<CreateTypeSchema> = {
   title: 'Create Type Input',
   type: 'object',
   properties: {
-    kind: {
-      type: 'string',
-      enum: Object.values(TypeKind),
-    },
-    arrayItemTypeId: {
-      type: 'string',
-      nullable: true,
-    },
+    kind: { type: 'string', enum: Object.values(TypeKind) },
+    arrayItemTypeId: { type: 'string', nullable: true },
     ...(baseTypeMutationSchemaProperties as any),
   },
   required: ['name', 'kind'],
 }
 
+type AnyTypeCreateInput =
+  | cg.AppTypeCreateInput
+  | cg.ArrayTypeCreateInput
+  | cg.ElementTypeCreateInput
+  | cg.EnumTypeCreateInput
+  | cg.InterfaceTypeCreateInput
+  | cg.LambdaTypeCreateInput
+  | cg.MonacoTypeCreateInput
+  | cg.PageTypeCreateInput
+  | cg.PrimitiveTypeCreateInput
+  | cg.ReactNodeTypeCreateInput
+  | cg.RenderPropsTypeCreateInput
+  | cg.UnionTypeCreateInput
+
 export const mapCreateTypeSchemaToTypeInput = (
   formData: CreateTypeSchema,
-): CreateTypeInput => {
-  const baseCreateTypeInput = {
+  currentUserId: Nullish<string>,
+): AnyTypeCreateInput => {
+  const common = {
     name: formData.name,
-    typeKind: formData.kind,
+    owner: { connect: { where: { node: { auth0Id: currentUserId } } } },
   }
 
   switch (formData.kind) {
     case TypeKind.UnionType:
       if (
-        formData.typeIdsOfUnionType &&
-        formData.typeIdsOfUnionType.length > 0
+        !(formData.typeIdsOfUnionType && formData.typeIdsOfUnionType.length > 0)
       ) {
-        return {
-          ...baseCreateTypeInput,
-          unionType: {
-            typeIdsOfUnionType: formData.typeIdsOfUnionType,
-          },
-        }
+        throw new Error('Union item types not set')
       }
 
-      throw new Error('Union item types not set')
-
+      return {
+        ...common,
+        typesOfUnionType: {
+          connect: formData.typeIdsOfUnionType.map((id) => ({
+            where: { node: { id } },
+          })),
+        },
+      } as cg.UnionTypeCreateInput
     case TypeKind.ArrayType:
       if (!formData.arrayItemTypeId) {
         throw new Error('Array item type not set')
       }
 
       return {
-        ...baseCreateTypeInput,
-        arrayType: {
-          itemTypeId: formData.arrayItemTypeId,
+        ...common,
+        itemType: {
+          connect: { where: { node: { id: formData.arrayItemTypeId } } },
         },
       }
     case TypeKind.InterfaceType:
-      return {
-        ...baseCreateTypeInput,
-      }
+      return { ...common }
     case TypeKind.EnumType:
       if (!formData.allowedValues) {
         throw new Error('Invalid form input')
       }
 
       return {
-        ...baseCreateTypeInput,
-        enumType: {
-          allowedValues: formData.allowedValues,
+        ...common,
+        allowedValues: {
+          create: formData.allowedValues?.map((v) => ({
+            node: { id: v4(), name: v.name, value: v.value },
+          })),
         },
       }
     case TypeKind.PrimitiveType:
       if (!formData.primitiveKind) {
-        throw new Error('Invalid form input')
+        throw new Error('Primitive kind is required')
       }
 
-      return {
-        ...baseCreateTypeInput,
-        primitiveType: {
-          primitiveKind: formData.primitiveKind,
-        },
-      }
+      return { ...common, primitiveKind: formData.primitiveKind }
     case TypeKind.LambdaType:
-      return {
-        ...baseCreateTypeInput,
-      }
+      return { ...common }
     case TypeKind.AppType:
-      return {
-        ...baseCreateTypeInput,
-      }
+      return { ...common }
+    case TypeKind.RenderPropsType:
+      return { ...common }
+    case TypeKind.ReactNodeType:
+      return { ...common }
     case TypeKind.PageType:
-      return {
-        ...baseCreateTypeInput,
-      }
+      return { ...common }
     case TypeKind.MonacoType:
-      return {
-        ...baseCreateTypeInput,
-        monacoType: {
-          ...baseCreateTypeInput,
-          language: formData.language,
-        },
+      if (!formData.language) {
+        throw new Error('Language is required')
       }
+
+      return { ...common, language: formData.language }
     case TypeKind.ElementType:
-      return {
-        ...baseCreateTypeInput,
-        elementType: {
-          ...baseCreateTypeInput,
-          kind: formData.elementKind,
-        },
+      if (!formData.elementKind) {
+        throw new Error('Element kind is required')
       }
+
+      return { ...common, elementKind: formData.elementKind }
     default:
       throw new Error('Invalid create form type')
   }

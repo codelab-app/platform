@@ -59,13 +59,16 @@ export interface RTKConfig {
    * ```
    */
   overrideExisting?: string
+
+  /**
+   * Adds default options to the baseQuery function
+   */
+  extraOptions?: Record<string, any>
 }
 
 export interface RTKQueryRawPluginConfig
   extends RawClientSideBasePluginConfig,
-    RTKConfig {
-  extraOptions?: Record<string, any>
-}
+    RTKConfig {}
 export interface RTKQueryPluginConfig
   extends ClientSideBasePluginConfig,
     RTKConfig {}

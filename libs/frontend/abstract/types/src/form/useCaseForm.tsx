@@ -53,9 +53,10 @@ export type UseUseCaseForm<
   // Additional props to return
   TResponse = unknown,
   // Optional input data into the hook
-  TInput = unknown,
-> = (props?: TInput) => //
-// Get form props without schema,
+  TInput = never,
+> = (
+  ...args: TInput extends never ? [] : [TInput]
+) => // Get form props without schema,
 Omit<FormProps<TData, TResponse>, 'schema' | 'submitRef'> &
   // and form hook state
   FormHookState<TData, TAction>

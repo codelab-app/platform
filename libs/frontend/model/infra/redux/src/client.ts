@@ -6,13 +6,11 @@ import { GetServerSidePropsContext } from 'next'
 import { API_ENV, GraphqlOperationOptions } from './GraphqlOperationOptions'
 
 const apiUrlsByEnv: Record<API_ENV, string> = {
-  local: `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/graphql`,
-  production: `${process.env.NEXT_PUBLIC_PRODUCTION_API_ORIGIN}/api/graphql`,
+  [API_ENV.local]: `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/graphql`,
+  // production: `${process.env.NEXT_PUBLIC_PRODUCTION_API_ORIGIN}/api/graphql`,
 }
 
 let localGraphqlClient: Maybe<GraphQLClient>
-let productionGraphqlClient: Maybe<GraphQLClient>
-let v2GraphqlClient: Maybe<GraphQLClient>
 
 /**
  * Help extract JWT access token from SSR session and set authorization header on our client
@@ -34,18 +32,12 @@ export const setClientAuthHeaders = async (
 
 export type GraphQLClientOptions = RequestInit & GraphqlOperationOptions
 
-export const getGraphQLClient = (options: Maybe<GraphQLClientOptions>) => {
-  const env = options?.context?.env ?? API_ENV.local
-  const apiUrl = apiUrlsByEnv[env]
+export const getGraphQLClient = (options?: Maybe<GraphQLClientOptions>) => {
+  /**
+   * Default to local
+   */
+  // const env = options?.context?.env ?? API_ENV.local
+  const apiUrl = apiUrlsByEnv[API_ENV.local]
 
-  if (!v2GraphqlClient) {
-    console.log('options', options)
-  }
-
-  return (v2GraphqlClient ??= new GraphQLClient(apiUrl, options))
-  // return env === API_ENV.production
-  //   ? (productionGraphqlClient ??= new GraphQLClient(apiUrl, options))
-  //   : env === API_ENV.v2
-  //   ? (v2GraphqlClient ??= new GraphQLClient(apiUrl, options))
-  //   : (localGraphqlClient ??= new GraphQLClient(apiUrl, options))
+  return (localGraphqlClient ??= new GraphQLClient(apiUrl, options))
 }

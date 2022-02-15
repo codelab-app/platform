@@ -1,7 +1,7 @@
 import { IElement } from '@codelab/frontend/abstract/core'
+import { TypeBaseFragment } from '@codelab/frontend/modules/type'
 import {
   IHook,
-  IType,
   PropsData,
   PropsDataByElementId,
 } from '@codelab/shared/abstract/core'
@@ -39,7 +39,7 @@ export interface RenderContext {
   /** Set to true to log rendering information */
   inspect?: boolean
 
-  typesById: Record<string, IType>
+  typesById: Record<string, TypeBaseFragment>
 }
 
 export type RenderTypes = (

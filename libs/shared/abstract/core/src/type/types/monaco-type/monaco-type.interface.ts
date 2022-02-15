@@ -1,7 +1,7 @@
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen-v2'
 import { z } from 'zod'
 import { BaseTypeSchema } from '../base-type/base-type.interface'
 import { TypeKind } from '../base-type/type-kind.enum'
-import { MonacoLanguage } from './monaco-language.enum'
 
 export const MonacoTypeSchema = BaseTypeSchema.extend({
   typeKind: z.literal(TypeKind.MonacoType).default(TypeKind.MonacoType),

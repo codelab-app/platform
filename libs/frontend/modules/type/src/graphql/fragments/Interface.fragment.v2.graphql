@@ -1,0 +1,35 @@
+fragment InterfaceType on InterfaceType {
+  ...TypeBase
+}
+
+fragment InterfaceTypeFieldEdge on InterfaceTypeFieldsRelationship {
+  # ...Field doesn't work here, I tried it
+  key
+  description
+  cursor
+  name
+  node {
+    # We can't use ...Type here because it would cause a circular dependency on InterfaceType => InterfaceType
+    ...TypeBase
+    ...ArrayType
+    ...EnumType
+    ...PrimitiveType
+    ...ElementType
+    ...LambdaType
+    ...RenderPropsType
+    ...UnionType
+    ...MonacoType
+    ...PageType
+    ...AppType
+  }
+}
+
+fragment InterfaceTypeWithFields on InterfaceType {
+  ...InterfaceType
+  fieldsConnection {
+    edges {
+      ...InterfaceTypeFieldEdge
+    }
+    totalCount
+  }
+}

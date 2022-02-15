@@ -1,9 +1,9 @@
+import { MonacoLanguage } from '@codelab/shared/abstract/codegen-v2'
 import {
   IEnumType,
   IMonacoType,
   IType,
   IUnionType,
-  MonacoLanguage,
   TypeKind,
 } from '@codelab/shared/abstract/core'
 import { entityRecordById } from '@codelab/shared/utils'
@@ -20,7 +20,7 @@ const enumType: IEnumType = {
 const monacoType: IMonacoType = {
   name: 'MonacoType',
   typeKind: TypeKind.MonacoType,
-  language: MonacoLanguage.TypeScript,
+  language: MonacoLanguage.typescript,
   owner: null,
   id: '0x124',
 }

@@ -9,9 +9,8 @@ export const RenderPropsTypeSchema = BaseTypeSchema.extend({
 })
 
 /**
- * Allows picking a Component from the list of components.
- * It is passed to the rendered element as a function that takes props as input
- * and returns a React element: `(props) => ReactNode`
+ *
+ *
  *
  * Prop values for this type have the shape of {@see TypedValue} in order to
  * be distinguished from other element types.

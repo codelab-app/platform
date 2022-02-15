@@ -1,6 +1,7 @@
 import { IEdge, IVertex } from '@codelab/shared/abstract/core'
 import cytoscape, { EdgeSingular } from 'cytoscape'
 import * as R from 'ramda'
+import { getEdgeOrder } from '../../cytoscape/edge'
 import { getCyElementData } from '../../cytoscape/element'
 import { breadthFirstTraversal } from '../breadthFirstTraversal'
 import { BfsReduceInput, NodeMapperFn } from '../types'
@@ -40,7 +41,13 @@ const getParentChildPair = (e: EdgeSingular): ParentChildPair => {
 const getAllChildEdges =
   (cy: Cy) =>
   (v: IVertex): Array<EdgeSingular> =>
-    cy.getElementById(v.id).outgoers().edges().toArray()
+    cy
+      .getElementById(v.id)
+      .outgoers()
+      .edges()
+      .sort((e1, e2) => getEdgeOrder(e1) - getEdgeOrder(e2))
+      .edges()
+      .toArray()
 
 const getAllChildPairs = (cy: Cy): ((v: IVertex) => Array<ParentChildPair>) =>
   R.pipe(getAllChildEdges(cy), R.map(getParentChildPair))

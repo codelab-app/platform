@@ -1,6 +1,6 @@
 import {
   InterfaceForm,
-  useGetTypeGraphQuery,
+  useGetInterfaceTypeGraphsQuery,
   useTypeTree,
 } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
@@ -20,7 +20,7 @@ interface UpdateElementPropsFormInternalProps {
   trackPromises?: UseTrackLoadingPromises
 }
 
-const UpdateElementPropsFormInternal = ({
+export const UpdateElementPropsFormInternal = ({
   interfaceId,
   elementId,
   existingProps,
@@ -29,13 +29,13 @@ const UpdateElementPropsFormInternal = ({
   const { trackPromise } = trackPromises ?? {}
 
   const { data: interfaceData, isLoading: interfaceLoading } =
-    useGetTypeGraphQuery({
-      variables: { input: { where: { id: interfaceId } } },
+    useGetInterfaceTypeGraphsQuery({
+      variables: { where: { id: interfaceId } },
     })
 
   const [mutate] = useUpdateElementPropsMutation()
   const initialPropsRef = useRef(JSON.parse(existingProps.data))
-  const tree = useTypeTree(interfaceData?.getTypeGraph)
+  const tree = useTypeTree(interfaceData?.types?.[0]?.graph)
 
   if (interfaceLoading) {
     return <Spin />

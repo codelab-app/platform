@@ -1,4 +1,5 @@
 import {
+  IField,
   IGraph,
   IInterfaceType,
   IType,
@@ -25,10 +26,11 @@ export const TypeGraphFactory = {
   interfaceType(
     interfaceRoot: IInterfaceType,
     fieldTypes: Array<IType>,
+    fields: Array<IField>,
   ): IGraph<IType, ITypeEdge> {
     return {
       vertices: [interfaceRoot, ...fieldTypes],
-      edges: interfaceRoot.fields,
+      edges: fields,
     }
   },
 

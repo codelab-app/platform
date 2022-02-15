@@ -7,7 +7,6 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import tw from 'twin.macro'
-import { useTypeDispatch, useTypeState } from '../../../hooks'
 import { useDeleteTypeForm } from './useDeleteTypeForm'
 
 export const DeleteTypeModal = () => {
@@ -41,7 +40,7 @@ export const DeleteTypeModal = () => {
           schema={emptyJsonSchema}
           submitRef={submitRef}
         >
-          <h4>Are you sure you want to delete type "{entity}"?</h4>
+          <h4>Are you sure you want to delete type "{entity?.name}"?</h4>
         </Form>
       )}
     </FormModal>

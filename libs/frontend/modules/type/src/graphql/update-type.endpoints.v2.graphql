@@ -1,0 +1,241 @@
+mutation UpdatePrimitiveTypes(
+  $connect: PrimitiveTypeConnectInput
+  $create: PrimitiveTypeRelationInput
+  $delete: PrimitiveTypeDeleteInput
+  $disconnect: PrimitiveTypeDisconnectInput
+  $update: PrimitiveTypeUpdateInput
+  $where: PrimitiveTypeWhere
+) {
+  updatePrimitiveTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    primitiveTypes {
+      ...PrimitiveType
+    }
+  }
+}
+
+mutation UpdateArrayTypes(
+  $connect: ArrayTypeConnectInput
+  $create: ArrayTypeRelationInput
+  $delete: ArrayTypeDeleteInput
+  $disconnect: ArrayTypeDisconnectInput
+  $update: ArrayTypeUpdateInput
+  $where: ArrayTypeWhere
+) {
+  updateArrayTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    arrayTypes {
+      ...ArrayType
+    }
+  }
+}
+
+mutation UpdateUnionTypes(
+  $connect: UnionTypeConnectInput
+  $create: UnionTypeRelationInput
+  $delete: UnionTypeDeleteInput
+  $disconnect: UnionTypeDisconnectInput
+  $update: UnionTypeUpdateInput
+  $where: UnionTypeWhere
+) {
+  updateUnionTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    unionTypes {
+      ...UnionType
+    }
+  }
+}
+
+mutation UpdateInterfaceTypes(
+  $connect: InterfaceTypeConnectInput
+  $create: InterfaceTypeRelationInput
+  $delete: InterfaceTypeDeleteInput
+  $disconnect: InterfaceTypeDisconnectInput
+  $update: InterfaceTypeUpdateInput
+  $where: InterfaceTypeWhere
+) {
+  updateInterfaceTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    interfaceTypes {
+      ...InterfaceType
+    }
+  }
+}
+
+mutation UpdateElementTypes(
+  $connect: ElementTypeConnectInput
+  $create: ElementTypeRelationInput
+  $delete: ElementTypeDeleteInput
+  $disconnect: ElementTypeDisconnectInput
+  $update: ElementTypeUpdateInput
+  $where: ElementTypeWhere
+) {
+  updateElementTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    elementTypes {
+      ...ElementType
+    }
+  }
+}
+
+mutation UpdateRenderPropsTypes(
+  $connect: RenderPropsTypeConnectInput
+  $create: RenderPropsTypeRelationInput
+  $delete: RenderPropsTypeDeleteInput
+  $disconnect: RenderPropsTypeDisconnectInput
+  $update: RenderPropsTypeUpdateInput
+  $where: RenderPropsTypeWhere
+) {
+  updateRenderPropsTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    renderPropsTypes {
+      ...RenderPropsType
+    }
+  }
+}
+
+mutation UpdateEnumTypes(
+  $connect: EnumTypeConnectInput
+  $create: EnumTypeRelationInput
+  $delete: EnumTypeDeleteInput
+  $disconnect: EnumTypeDisconnectInput
+  $update: EnumTypeUpdateInput
+  $where: EnumTypeWhere
+) {
+  updateEnumTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    enumTypes {
+      ...EnumType
+    }
+  }
+}
+
+mutation UpdateLambdaTypes(
+  $connect: LambdaTypeConnectInput
+  $create: LambdaTypeRelationInput
+  $delete: LambdaTypeDeleteInput
+  $disconnect: LambdaTypeDisconnectInput
+  $update: LambdaTypeUpdateInput
+  $where: LambdaTypeWhere
+) {
+  updateLambdaTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    lambdaTypes {
+      ...LambdaType
+    }
+  }
+}
+
+mutation UpdatePageTypes(
+  $connect: PageTypeConnectInput
+  $create: PageTypeRelationInput
+  $delete: PageTypeDeleteInput
+  $disconnect: PageTypeDisconnectInput
+  $update: PageTypeUpdateInput
+  $where: PageTypeWhere
+) {
+  updatePageTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    pageTypes {
+      ...PageType
+    }
+  }
+}
+
+mutation UpdateAppTypes(
+  $connect: AppTypeConnectInput
+  $create: AppTypeRelationInput
+  $delete: AppTypeDeleteInput
+  $disconnect: AppTypeDisconnectInput
+  $update: AppTypeUpdateInput
+  $where: AppTypeWhere
+) {
+  updateAppTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    appTypes {
+      ...AppType
+    }
+  }
+}
+
+mutation UpdateMonacoTypes(
+  $connect: MonacoTypeConnectInput
+  $create: MonacoTypeRelationInput
+  $delete: MonacoTypeDeleteInput
+  $disconnect: MonacoTypeDisconnectInput
+  $update: MonacoTypeUpdateInput
+  $where: MonacoTypeWhere
+) {
+  updateMonacoTypes(
+    connect: $connect
+    create: $create
+    delete: $delete
+    disconnect: $disconnect
+    update: $update
+    where: $where
+  ) {
+    monacoTypes {
+      ...MonacoType
+    }
+  }
+}
