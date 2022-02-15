@@ -1,5 +1,0 @@
-fragment TestLambda on Lambda {
-  id
-  name
-  body
-}

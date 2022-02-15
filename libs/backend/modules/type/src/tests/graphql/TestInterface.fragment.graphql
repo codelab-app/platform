@@ -1,5 +1,0 @@
-fragment TestInterface on InterfaceType {
-  __typename
-  id
-  name
-}

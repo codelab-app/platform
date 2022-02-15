@@ -1,5 +1,0 @@
-export * from './modules/prop-infrastructure.module'
-export * from './modules/prop-test-infrastructure.module'
-export * from './prop-mutation.factory'
-export * from './prop-query.factory'
-export * from './prop-repository'

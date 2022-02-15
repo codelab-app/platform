@@ -7,18 +7,12 @@
   },
   "version": "0.0.1",
   "license": "MIT",
-  "babelMacros": {
-    "twin": {
-      "preset": "emotion"
-    }
-  },
   "scripts": {
     "postinstall": "./scripts/postinstall.sh",
     "e2e": "env-cmd -f .env.test nx e2e web-e2e -c dev --browser firefox",
     "cli": "node dist/apps/cli/main.js",
     "docker:up": "scripts/docker/up.sh",
     "codegen": "yarn graphql-codegen",
-    "codegen-v2": "yarn graphql-codegen -c codegen.v2.yml",
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test --testPathPattern=[^i].spec.ts --parallel && nx run-many --all --target=test --testPathPattern=i.spec.ts --runInBand  --parallel=1",
     "lint": "nx workspace-lint && nx run-many --all --target=lint",
@@ -53,7 +47,6 @@
     "@aws-sdk/client-lambda": "3.46.0",
     "@aws-sdk/client-s3": "3.46.0",
     "@babel/runtime": "7.17.2",
-    "@bitnine-oss/ag-driver": "^0.1.0",
     "@dnd-kit/core": "5.0.1",
     "@emotion/react": "11.7.1",
     "@emotion/server": "11.4.0",

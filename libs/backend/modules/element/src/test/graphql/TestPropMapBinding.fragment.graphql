@@ -1,6 +1,0 @@
-fragment TestPropMapBinding on PropMapBinding {
-  id
-  sourceKey
-  targetElementId
-  targetKey
-}

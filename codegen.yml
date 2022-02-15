@@ -2,9 +2,7 @@ overwrite: true
 hooks:
   afterAllFileWrite:
     - yarn prettier --write
-    #  - yarn eslint --ext ts --fix
-
-schema: schema.api.graphql
+schema: http://localhost:3000/api/graphql
 config:
   scalars:
     uuid: string
@@ -16,66 +14,26 @@ config:
     Void: void
 
 generates:
+  schema.api.v2.graphql:
+    plugins:
+      - schema-ast
   # Generate Typescript types to be imported by other generators
-  libs/shared/abstract/codegen/src/types.api.graphql.gen.ts:
+  libs/shared/abstract/codegen-v2/src/types.api.v2.graphql.gen.ts:
     documents:
-      - '{apps,libs}/**/*.{web,api,fragment}.graphql'
+      - '{apps,libs}/**/*.v2.graphql'
     plugins:
       - typescript
     config:
       namingConvention:
         enumValues: keep
 
-  ./:
-    documents:
-      - '{apps,libs}/**/*.{web,fragment}.graphql'
-    preset: near-operation-file
-    presetConfig:
-      extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/shared/abstract/codegen
-    plugins:
-      - typescript-operations
-      - typescript-react-apollo
-    config:
-      inlineFragmentTypes: combine
-      documentVariableSuffix: Gql
-      gqlImport: '@apollo/client#gql'
-      skipTypename: true
-      strictScalars: true
-      defaultScalarType: unknown
-      withRefetchFn: true
-
-  # We allow backend to import fragments from frontend
-  ./libs/backend/:
-    documents:
-      - '**/*.{api,fragment}.graphql'
-    preset: near-operation-file
-    presetConfig:
-      extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/shared/abstract/codegen
-    plugins:
-      - typescript-operations
-      - typescript-react-apollo
-    #      - typescript-document-nodes
-    # Switch off if have deeply nested issues
-    config:
-      # namingConvention:
-      #   enumValues: keep
-      inlineFragmentTypes: combine
-      documentVariableSuffix: Gql
-      gqlImport: '@apollo/client#gql'
-      skipTypename: true
-      strictScalars: true
-      defaultScalarType: unknown
-      withRefetchFn: true
-
   ./libs/frontend/:
     documents:
-      - '**/*.{endpoints,fragment}.graphql'
+      - '**/*.{endpoints,fragment}.v2.graphql'
     preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/shared/abstract/codegen
+      baseTypesPath: ~@codelab/shared/abstract/codegen-v2
     plugins:
       - typescript-operations
       # rqk-query generates string gql only, which prevents fragments from getting resolved
@@ -88,6 +46,10 @@ generates:
       - dist/libs/tools/rtk-query:
           importBaseApiFrom: '@codelab/frontend/model/infra/redux'
           exportHooks: true
+          extraOptions:
+            context:
+              env: 'v2'
+
     config:
       inlineFragmentTypes: combine
       documentVariableSuffix: Gql

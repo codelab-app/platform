@@ -1,5 +1,0 @@
-fragment TestEnumTypeValue on EnumTypeValue {
-  id
-  name
-  value
-}

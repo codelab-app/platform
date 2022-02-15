@@ -1,5 +1,0 @@
-fragment TestElementType on ElementType {
-  id
-  name
-  elementKind
-}

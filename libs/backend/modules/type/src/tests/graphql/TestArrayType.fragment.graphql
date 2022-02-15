@@ -1,4 +1,0 @@
-fragment TestArrayType on ArrayType {
-  id
-  name
-}
