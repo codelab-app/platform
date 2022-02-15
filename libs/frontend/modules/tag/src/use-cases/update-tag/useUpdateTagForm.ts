@@ -1,49 +1,63 @@
-// import { CRUDActionType } from '@codelab/frontend/abstract/core'
-// import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
-// import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-// import { CreateTagInput } from '@codelab/shared/abstract/codegen'
-// import { useCallback } from 'react'
-// import { TagFragment } from '../../graphql/Tag.fragment.graphql.gen'
-// import { useTagDispatch, useTagState } from '../../hooks'
-// import { useUpdateTagMutation } from '../../store'
+import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { TagUpdateInput } from '@codelab/shared/abstract/codegen-v2'
+import { useCallback } from 'react'
+import { useGetTagGraphsQuery } from '../../graphql/tag.endpoints.v2.graphql.gen'
+import { TagFragment } from '../../graphql/Tag.fragment.v2.graphql.gen'
+import { useTagDispatch, useTagState, useTagTree } from '../../hooks'
+import { useUpdateTagsMutation } from '../../store'
+import { UpdateTagSchema } from './updateTagSchema'
 
-// export const useUpdateTagForm: UseEntityUseCaseForm<
-//   CreateTagInput,
-//   CRUDActionType,
-//   TagFragment
-// > = () => {
-//   const { resetModal } = useTagDispatch()
-//   const { updateId, entity, actionType } = useTagState()
+export const useUpdateTagForm: UseEntityUseCaseForm<
+  UpdateTagSchema,
+  CRUDActionType,
+  TagFragment
+> = () => {
+  const { resetModal } = useTagDispatch()
+  const { updateId, actionType } = useTagState()
+  const { data } = useGetTagGraphsQuery()
+  const tagTree = useTagTree(data?.tagGraphs)
+  const tagFragment: TagFragment | undefined = tagTree.getVertex(updateId)
 
-//   const [mutate, { isLoading }] = useUpdateTagMutation({
-//     selectFromResult: (r) => ({
-//       hook: r.data?.updateTag,
-//       isLoading: r.isLoading,
-//       error: r.error,
-//     }),
-//   })
+  const [mutate, { isLoading }] = useUpdateTagsMutation({
+    selectFromResult: (r) => ({
+      hook: r.data?.updateTags,
+      isLoading: r.isLoading,
+      error: r.error,
+    }),
+  })
 
-//   const handleSubmit = useCallback(
-//     ({ name }: CreateTagInput) => {
-//       return mutate({
-//         variables: { input: { data: { name }, id: updateId } },
-//       }).unwrap()
-//     },
-//     [mutate, updateId],
-//   )
+  const handleSubmit = useCallback(
+    (input: UpdateTagSchema) => {
+      const tagUpdateInput: TagUpdateInput = {
+        name: input.name,
+      }
 
-//   return {
-//     onSubmit: handleSubmit,
-//     onSubmitError: [
-//       createNotificationHandler({
-//         title: 'Error while updating tag',
-//       }),
-//     ],
-//     onSubmitSuccess: [() => resetModal()],
-//     model: {},
-//     entity,
-//     isLoading,
-//     actionType,
-//     reset: resetModal,
-//   }
-// }
+      return mutate({
+        variables: {
+          where: {
+            id: updateId,
+          },
+          update: tagUpdateInput,
+        },
+      }).unwrap()
+    },
+    [mutate, updateId],
+  )
+
+  return {
+    onSubmit: handleSubmit,
+    onSubmitError: [
+      createNotificationHandler({
+        title: 'Error while updating tag',
+      }),
+    ],
+    onSubmitSuccess: [() => resetModal()],
+    model: { name: tagFragment?.name },
+    isLoading,
+    entity: tagFragment,
+    actionType,
+    reset: resetModal,
+  }
+}

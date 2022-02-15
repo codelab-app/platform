@@ -11,7 +11,7 @@ import {
   // ExportTagsButton,
   GetTagsTree,
   // ImportTagsUpload,
-  // UpdateTagModal,
+  UpdateTagModal,
   useTagState,
 } from '@codelab/frontend/modules/tag'
 import {
@@ -30,7 +30,7 @@ const TagPage: CodelabPage<DashboardTemplateProps> = () => {
       </Head>
 
       <CreateTagModal />
-      {/* <UpdateTagModal /> */}
+      <UpdateTagModal />
       <DeleteTagsModal />
       <GetTagsTree />
     </>

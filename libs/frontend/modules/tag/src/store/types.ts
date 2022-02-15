@@ -1,6 +1,6 @@
 import { CRUDModalState } from '@codelab/frontend/abstract/core'
 import { Key } from 'react'
-import { TagFragment } from '../graphql/Tag.fragment.graphql.gen'
+import { TagFragment } from '../graphql/Tag.fragment.v2.graphql.gen'
 
 export interface TagState extends CRUDModalState<TagFragment> {
   selectedTag?: Key

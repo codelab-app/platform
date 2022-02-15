@@ -1,12 +1,32 @@
 import {
   invalidatesAll,
-  invalidatesByIds,
   providesAll,
   TAG_CACHE_TAG,
 } from '@codelab/frontend/model/infra/redux'
-import { api as generatedApi } from '../graphql/tag.endpoints.v2.graphql.gen'
+import {
+  api as generatedApi,
+  GetTagGraphsQuery,
+} from '../graphql/tag.endpoints.v2.graphql.gen'
+import { TagFragment } from '../graphql/Tag.fragment.v2.graphql.gen'
+
+const updateTagCache = (updatedTag: TagFragment) => {
+  return generatedApi.util.updateQueryData(
+    'GetTagGraphs',
+    undefined,
+    (draft: GetTagGraphsQuery) => {
+      const cachedTag = draft.tagGraphs?.vertices.find(
+        (el) => el.id === updatedTag.id,
+      )
+
+      if (cachedTag) {
+        cachedTag.name = updatedTag.name
+      }
+    },
+  )
+}
 
 generatedApi.enhanceEndpoints({
+  addTagTypes: [TAG_CACHE_TAG],
   endpoints: {
     GetTags: {
       providesTags: (result) => providesAll(result?.tags, TAG_CACHE_TAG),
@@ -21,8 +41,12 @@ generatedApi.enhanceEndpoints({
       invalidatesTags: () => invalidatesAll(TAG_CACHE_TAG),
     },
     UpdateTags: {
-      invalidatesTags: (result) =>
-        invalidatesByIds(result?.updateTags?.tags, TAG_CACHE_TAG),
+      async onQueryStarted(input, api) {
+        const { dispatch, queryFulfilled } = api
+        const { data } = await queryFulfilled
+        const updatedTag = data?.updateTags?.tags[0]
+        dispatch(updateTagCache(updatedTag))
+      },
     },
   },
 })
