@@ -1,8 +1,8 @@
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import { Driver } from 'neo4j-driver'
-import { Config } from '../env/env'
-import { resolvers } from './resolvers'
+import { Config } from '../../env/env'
+import { resolvers } from '../resolvers'
 import typeDefs from './typeDefs'
 
 /**

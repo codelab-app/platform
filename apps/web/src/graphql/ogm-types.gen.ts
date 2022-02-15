@@ -105,12 +105,12 @@ export type Query = {
   tags: Array<Tag>
   tagsCount: Scalars['Int']
   tagsAggregate: TagAggregateSelection
-  tagEdges: Array<TagEdge>
-  tagEdgesCount: Scalars['Int']
-  tagEdgesAggregate: TagEdgeAggregateSelection
   tagGraphs?: Maybe<TagGraph>
   tagGraphsCount: Scalars['Int']
   tagGraphsAggregate: TagGraphAggregateSelection
+  tagEdges: Array<TagEdge>
+  tagEdgesCount: Scalars['Int']
+  tagEdgesAggregate: TagEdgeAggregateSelection
   elements: Array<Element>
   elementsCount: Scalars['Int']
   elementsAggregate: ElementAggregateSelection
@@ -449,6 +449,14 @@ export type QueryTagsAggregateArgs = {
   where?: Maybe<TagWhere>
 }
 
+export type QueryTagGraphsCountArgs = {
+  where?: Maybe<TagGraphWhere>
+}
+
+export type QueryTagGraphsAggregateArgs = {
+  where?: Maybe<TagGraphWhere>
+}
+
 export type QueryTagEdgesArgs = {
   where?: Maybe<TagEdgeWhere>
   options?: Maybe<TagEdgeOptions>
@@ -460,14 +468,6 @@ export type QueryTagEdgesCountArgs = {
 
 export type QueryTagEdgesAggregateArgs = {
   where?: Maybe<TagEdgeWhere>
-}
-
-export type QueryTagGraphsCountArgs = {
-  where?: Maybe<TagGraphWhere>
-}
-
-export type QueryTagGraphsAggregateArgs = {
-  where?: Maybe<TagGraphWhere>
 }
 
 export type QueryElementsArgs = {
@@ -577,12 +577,12 @@ export type Mutation = {
   createTags: CreateTagsMutationResponse
   deleteTags: DeleteInfo
   updateTags: UpdateTagsMutationResponse
-  createTagEdges: CreateTagEdgesMutationResponse
-  deleteTagEdges: DeleteInfo
-  updateTagEdges: UpdateTagEdgesMutationResponse
   createTagGraphs: CreateTagGraphsMutationResponse
   deleteTagGraphs: DeleteInfo
   updateTagGraphs: UpdateTagGraphsMutationResponse
+  createTagEdges: CreateTagEdgesMutationResponse
+  deleteTagEdges: DeleteInfo
+  updateTagEdges: UpdateTagEdgesMutationResponse
   createElements: CreateElementsMutationResponse
   deleteElements: DeleteInfo
   updateElements: UpdateElementsMutationResponse
@@ -1034,19 +1034,6 @@ export type MutationUpdateTagsArgs = {
   connectOrCreate?: Maybe<TagConnectOrCreateInput>
 }
 
-export type MutationCreateTagEdgesArgs = {
-  input: Array<TagEdgeCreateInput>
-}
-
-export type MutationDeleteTagEdgesArgs = {
-  where?: Maybe<TagEdgeWhere>
-}
-
-export type MutationUpdateTagEdgesArgs = {
-  where?: Maybe<TagEdgeWhere>
-  update?: Maybe<TagEdgeUpdateInput>
-}
-
 export type MutationCreateTagGraphsArgs = {
   input: Array<TagGraphCreateInput>
 }
@@ -1058,6 +1045,19 @@ export type MutationDeleteTagGraphsArgs = {
 export type MutationUpdateTagGraphsArgs = {
   where?: Maybe<TagGraphWhere>
   update?: Maybe<TagGraphUpdateInput>
+}
+
+export type MutationCreateTagEdgesArgs = {
+  input: Array<TagEdgeCreateInput>
+}
+
+export type MutationDeleteTagEdgesArgs = {
+  where?: Maybe<TagEdgeWhere>
+}
+
+export type MutationUpdateTagEdgesArgs = {
+  where?: Maybe<TagEdgeWhere>
+  update?: Maybe<TagEdgeUpdateInput>
 }
 
 export type MutationCreateElementsArgs = {
@@ -1492,8 +1492,6 @@ export type AnyType =
   | PrimitiveType
   | RenderPropsType
 
-export type TagVertex = Tag
-
 /**
  * Connection between two types in a TypeGraph.
  * Can be:
@@ -1517,11 +1515,6 @@ export type IEdge = {
 export type IElementGraph = {
   root?: Maybe<Element>
   vertices?: Maybe<Array<Element>>
-}
-
-export type IGraph = {
-  vertices: Array<TagVertex>
-  edges: Array<TagEdge>
 }
 
 export type TypeBase = {
@@ -2488,11 +2481,11 @@ export type InterfaceType = TypeBase & {
   graph: TypeGraph
   owner?: Maybe<User>
   ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>
-  apiofAtoms?: Maybe<Array<Atom>>
-  apiofAtomsAggregate?: Maybe<InterfaceTypeAtomApiofAtomsAggregationSelection>
+  apiOfAtoms?: Maybe<Array<Atom>>
+  apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
   fields?: Maybe<Array<TypeBase>>
   ownerConnection: TypeBaseOwnerConnection
-  apiofAtomsConnection: InterfaceTypeApiofAtomsConnection
+  apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
   fieldsConnection: InterfaceTypeFieldsConnection
 }
 
@@ -2508,13 +2501,13 @@ export type InterfaceTypeOwnerAggregateArgs = {
 }
 
 /** Represents an object type with multiple fields */
-export type InterfaceTypeApiofAtomsArgs = {
+export type InterfaceTypeApiOfAtomsArgs = {
   where?: Maybe<AtomWhere>
   options?: Maybe<AtomOptions>
 }
 
 /** Represents an object type with multiple fields */
-export type InterfaceTypeApiofAtomsAggregateArgs = {
+export type InterfaceTypeApiOfAtomsAggregateArgs = {
   where?: Maybe<AtomWhere>
 }
 
@@ -2533,9 +2526,9 @@ export type InterfaceTypeOwnerConnectionArgs = {
 }
 
 /** Represents an object type with multiple fields */
-export type InterfaceTypeApiofAtomsConnectionArgs = {
-  where?: Maybe<InterfaceTypeApiofAtomsConnectionWhere>
-  sort?: Maybe<Array<InterfaceTypeApiofAtomsConnectionSort>>
+export type InterfaceTypeApiOfAtomsConnectionArgs = {
+  where?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  sort?: Maybe<Array<InterfaceTypeApiOfAtomsConnectionSort>>
   first?: Maybe<Scalars['Int']>
   after?: Maybe<Scalars['String']>
 }
@@ -2553,27 +2546,27 @@ export type InterfaceTypeAggregateSelection = {
   name: StringAggregateSelection
 }
 
-export type InterfaceTypeApiofAtomsConnection = {
-  __typename?: 'InterfaceTypeApiofAtomsConnection'
-  edges: Array<InterfaceTypeApiofAtomsRelationship>
+export type InterfaceTypeApiOfAtomsConnection = {
+  __typename?: 'InterfaceTypeApiOfAtomsConnection'
+  edges: Array<InterfaceTypeApiOfAtomsRelationship>
   totalCount: Scalars['Int']
   pageInfo: PageInfo
 }
 
-export type InterfaceTypeApiofAtomsRelationship = {
-  __typename?: 'InterfaceTypeApiofAtomsRelationship'
+export type InterfaceTypeApiOfAtomsRelationship = {
+  __typename?: 'InterfaceTypeApiOfAtomsRelationship'
   cursor: Scalars['String']
   node: Atom
 }
 
-export type InterfaceTypeAtomApiofAtomsAggregationSelection = {
-  __typename?: 'InterfaceTypeAtomApiofAtomsAggregationSelection'
+export type InterfaceTypeAtomApiOfAtomsAggregationSelection = {
+  __typename?: 'InterfaceTypeAtomApiOfAtomsAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<InterfaceTypeAtomApiofAtomsNodeAggregateSelection>
+  node?: Maybe<InterfaceTypeAtomApiOfAtomsNodeAggregateSelection>
 }
 
-export type InterfaceTypeAtomApiofAtomsNodeAggregateSelection = {
-  __typename?: 'InterfaceTypeAtomApiofAtomsNodeAggregateSelection'
+export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
+  __typename?: 'InterfaceTypeAtomApiOfAtomsNodeAggregateSelection'
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -3206,7 +3199,7 @@ export type TagEdgeAggregateSelection = {
   target: IdAggregateSelection
 }
 
-export type TagGraph = IGraph & {
+export type TagGraph = {
   __typename?: 'TagGraph'
   /** All descendant Elements or Components, at any level */
   vertices: Array<Tag>
@@ -5640,67 +5633,67 @@ export type ImportAtomsMutationResponseWhere = {
   AND?: Maybe<Array<ImportAtomsMutationResponseWhere>>
 }
 
-export type InterfaceTypeApiofAtomsAggregateInput = {
+export type InterfaceTypeApiOfAtomsAggregateInput = {
   count?: Maybe<Scalars['Int']>
   count_LT?: Maybe<Scalars['Int']>
   count_LTE?: Maybe<Scalars['Int']>
   count_GT?: Maybe<Scalars['Int']>
   count_GTE?: Maybe<Scalars['Int']>
-  AND?: Maybe<Array<InterfaceTypeApiofAtomsAggregateInput>>
-  OR?: Maybe<Array<InterfaceTypeApiofAtomsAggregateInput>>
-  node?: Maybe<InterfaceTypeApiofAtomsNodeAggregationWhereInput>
+  AND?: Maybe<Array<InterfaceTypeApiOfAtomsAggregateInput>>
+  OR?: Maybe<Array<InterfaceTypeApiOfAtomsAggregateInput>>
+  node?: Maybe<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>
 }
 
-export type InterfaceTypeApiofAtomsConnectFieldInput = {
+export type InterfaceTypeApiOfAtomsConnectFieldInput = {
   where?: Maybe<AtomConnectWhere>
   connect?: Maybe<Array<AtomConnectInput>>
 }
 
-export type InterfaceTypeApiofAtomsConnectionSort = {
+export type InterfaceTypeApiOfAtomsConnectionSort = {
   node?: Maybe<AtomSort>
 }
 
-export type InterfaceTypeApiofAtomsConnectionWhere = {
-  AND?: Maybe<Array<InterfaceTypeApiofAtomsConnectionWhere>>
-  OR?: Maybe<Array<InterfaceTypeApiofAtomsConnectionWhere>>
+export type InterfaceTypeApiOfAtomsConnectionWhere = {
+  AND?: Maybe<Array<InterfaceTypeApiOfAtomsConnectionWhere>>
+  OR?: Maybe<Array<InterfaceTypeApiOfAtomsConnectionWhere>>
   node?: Maybe<AtomWhere>
   node_NOT?: Maybe<AtomWhere>
 }
 
-export type InterfaceTypeApiofAtomsConnectOrCreateFieldInput = {
+export type InterfaceTypeApiOfAtomsConnectOrCreateFieldInput = {
   where: AtomConnectOrCreateWhere
-  onCreate: InterfaceTypeApiofAtomsConnectOrCreateFieldInputOnCreate
+  onCreate: InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate
 }
 
-export type InterfaceTypeApiofAtomsConnectOrCreateFieldInputOnCreate = {
+export type InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate = {
   node: AtomCreateInput
 }
 
-export type InterfaceTypeApiofAtomsCreateFieldInput = {
+export type InterfaceTypeApiOfAtomsCreateFieldInput = {
   node: AtomCreateInput
 }
 
-export type InterfaceTypeApiofAtomsDeleteFieldInput = {
-  where?: Maybe<InterfaceTypeApiofAtomsConnectionWhere>
+export type InterfaceTypeApiOfAtomsDeleteFieldInput = {
+  where?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
   delete?: Maybe<AtomDeleteInput>
 }
 
-export type InterfaceTypeApiofAtomsDisconnectFieldInput = {
-  where?: Maybe<InterfaceTypeApiofAtomsConnectionWhere>
+export type InterfaceTypeApiOfAtomsDisconnectFieldInput = {
+  where?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
   disconnect?: Maybe<AtomDisconnectInput>
 }
 
-export type InterfaceTypeApiofAtomsFieldInput = {
-  create?: Maybe<Array<InterfaceTypeApiofAtomsCreateFieldInput>>
-  connect?: Maybe<Array<InterfaceTypeApiofAtomsConnectFieldInput>>
+export type InterfaceTypeApiOfAtomsFieldInput = {
+  create?: Maybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
+  connect?: Maybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
   connectOrCreate?: Maybe<
-    Array<InterfaceTypeApiofAtomsConnectOrCreateFieldInput>
+    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
   >
 }
 
-export type InterfaceTypeApiofAtomsNodeAggregationWhereInput = {
-  AND?: Maybe<Array<InterfaceTypeApiofAtomsNodeAggregationWhereInput>>
-  OR?: Maybe<Array<InterfaceTypeApiofAtomsNodeAggregationWhereInput>>
+export type InterfaceTypeApiOfAtomsNodeAggregationWhereInput = {
+  AND?: Maybe<Array<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>>
+  OR?: Maybe<Array<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>>
   id_EQUAL?: Maybe<Scalars['ID']>
   name_EQUAL?: Maybe<Scalars['String']>
   name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
@@ -5724,31 +5717,31 @@ export type InterfaceTypeApiofAtomsNodeAggregationWhereInput = {
   name_SHORTEST_LTE?: Maybe<Scalars['Int']>
 }
 
-export type InterfaceTypeApiofAtomsUpdateConnectionInput = {
+export type InterfaceTypeApiOfAtomsUpdateConnectionInput = {
   node?: Maybe<AtomUpdateInput>
 }
 
-export type InterfaceTypeApiofAtomsUpdateFieldInput = {
-  where?: Maybe<InterfaceTypeApiofAtomsConnectionWhere>
-  update?: Maybe<InterfaceTypeApiofAtomsUpdateConnectionInput>
-  connect?: Maybe<Array<InterfaceTypeApiofAtomsConnectFieldInput>>
-  disconnect?: Maybe<Array<InterfaceTypeApiofAtomsDisconnectFieldInput>>
-  create?: Maybe<Array<InterfaceTypeApiofAtomsCreateFieldInput>>
-  delete?: Maybe<Array<InterfaceTypeApiofAtomsDeleteFieldInput>>
+export type InterfaceTypeApiOfAtomsUpdateFieldInput = {
+  where?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  update?: Maybe<InterfaceTypeApiOfAtomsUpdateConnectionInput>
+  connect?: Maybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
+  disconnect?: Maybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
+  create?: Maybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
+  delete?: Maybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
   connectOrCreate?: Maybe<
-    Array<InterfaceTypeApiofAtomsConnectOrCreateFieldInput>
+    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
   >
 }
 
 export type InterfaceTypeConnectInput = {
   owner?: Maybe<TypeBaseOwnerConnectFieldInput>
-  apiofAtoms?: Maybe<Array<InterfaceTypeApiofAtomsConnectFieldInput>>
+  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
   fields?: Maybe<Array<InterfaceTypeFieldsConnectFieldInput>>
 }
 
 export type InterfaceTypeConnectOrCreateInput = {
   owner?: Maybe<TypeBaseOwnerConnectOrCreateFieldInput>
-  apiofAtoms?: Maybe<Array<InterfaceTypeApiofAtomsConnectOrCreateFieldInput>>
+  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>>
 }
 
 export type InterfaceTypeConnectOrCreateWhere = {
@@ -5762,19 +5755,19 @@ export type InterfaceTypeConnectWhere = {
 export type InterfaceTypeCreateInput = {
   name: Scalars['String']
   owner?: Maybe<TypeBaseOwnerFieldInput>
-  apiofAtoms?: Maybe<InterfaceTypeApiofAtomsFieldInput>
+  apiOfAtoms?: Maybe<InterfaceTypeApiOfAtomsFieldInput>
   fields?: Maybe<InterfaceTypeFieldsFieldInput>
 }
 
 export type InterfaceTypeDeleteInput = {
   owner?: Maybe<TypeBaseOwnerDeleteFieldInput>
-  apiofAtoms?: Maybe<Array<InterfaceTypeApiofAtomsDeleteFieldInput>>
+  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
   fields?: Maybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
 }
 
 export type InterfaceTypeDisconnectInput = {
   owner?: Maybe<TypeBaseOwnerDisconnectFieldInput>
-  apiofAtoms?: Maybe<Array<InterfaceTypeApiofAtomsDisconnectFieldInput>>
+  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
   fields?: Maybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
 }
 
@@ -5984,7 +5977,7 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
 
 export type InterfaceTypeRelationInput = {
   owner?: Maybe<TypeBaseOwnerCreateFieldInput>
-  apiofAtoms?: Maybe<Array<InterfaceTypeApiofAtomsCreateFieldInput>>
+  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
   fields?: Maybe<Array<InterfaceTypeFieldsCreateFieldInput>>
 }
 
@@ -6001,7 +5994,7 @@ export type InterfaceTypeUniqueWhere = {
 export type InterfaceTypeUpdateInput = {
   name?: Maybe<Scalars['String']>
   owner?: Maybe<TypeBaseOwnerUpdateFieldInput>
-  apiofAtoms?: Maybe<Array<InterfaceTypeApiofAtomsUpdateFieldInput>>
+  apiOfAtoms?: Maybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
   fields?: Maybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
 }
 
@@ -6031,13 +6024,13 @@ export type InterfaceTypeWhere = {
   owner?: Maybe<UserWhere>
   owner_NOT?: Maybe<UserWhere>
   ownerAggregate?: Maybe<InterfaceTypeOwnerAggregateInput>
-  apiofAtoms?: Maybe<AtomWhere>
-  apiofAtoms_NOT?: Maybe<AtomWhere>
-  apiofAtomsAggregate?: Maybe<InterfaceTypeApiofAtomsAggregateInput>
+  apiOfAtoms?: Maybe<AtomWhere>
+  apiOfAtoms_NOT?: Maybe<AtomWhere>
+  apiOfAtomsAggregate?: Maybe<InterfaceTypeApiOfAtomsAggregateInput>
   ownerConnection?: Maybe<TypeBaseOwnerConnectionWhere>
   ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
-  apiofAtomsConnection?: Maybe<InterfaceTypeApiofAtomsConnectionWhere>
-  apiofAtomsConnection_NOT?: Maybe<InterfaceTypeApiofAtomsConnectionWhere>
+  apiOfAtomsConnection?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  apiOfAtomsConnection_NOT?: Maybe<InterfaceTypeApiOfAtomsConnectionWhere>
   fieldsConnection?: Maybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_NOT?: Maybe<InterfaceTypeFieldsConnectionWhere>
 }
@@ -9967,6 +9960,71 @@ export interface IntAggregateInput {
   average?: boolean
   sum?: boolean
 }
+export interface TagGraphAggregateInput {
+  count?: boolean
+}
+
+export declare class TagGraphModel {
+  public find(args?: {
+    where?: TagGraphWhere
+
+    options?: TagGraphOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<TagGraph>>
+
+  public count(args?: { where?: TagGraphWhere }): Promise<number>
+
+  public create(args: {
+    input: Array<TagGraphCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateTagGraphsMutationResponse>
+
+  public update(args: {
+    where?: TagGraphWhere
+    update?: TagGraphUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateTagGraphsMutationResponse>
+
+  public delete(args: {
+    where?: TagGraphWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: TagGraphWhere
+
+    aggregate: TagGraphAggregateInput
+    context?: any
+    rootValue?: any
+  }): Promise<TagGraphAggregateSelection>
+}
+
+export interface StringAggregateInput {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IdAggregateInput {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInput {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
 export interface TagEdgeAggregateInput {
   count?: boolean
   source?: IdAggregateInput
@@ -10018,71 +10076,6 @@ export declare class TagEdgeModel {
     context?: any
     rootValue?: any
   }): Promise<TagEdgeAggregateSelection>
-}
-
-export interface StringAggregateInput {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface IdAggregateInput {
-  shortest?: boolean
-  longest?: boolean
-}
-export interface IntAggregateInput {
-  max?: boolean
-  min?: boolean
-  average?: boolean
-  sum?: boolean
-}
-export interface TagGraphAggregateInput {
-  count?: boolean
-}
-
-export declare class TagGraphModel {
-  public find(args?: {
-    where?: TagGraphWhere
-
-    options?: TagGraphOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<TagGraph>>
-
-  public count(args?: { where?: TagGraphWhere }): Promise<number>
-
-  public create(args: {
-    input: Array<TagGraphCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateTagGraphsMutationResponse>
-
-  public update(args: {
-    where?: TagGraphWhere
-    update?: TagGraphUpdateInput
-
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateTagGraphsMutationResponse>
-
-  public delete(args: {
-    where?: TagGraphWhere
-
-    context?: any
-    rootValue: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
-  public aggregate(args: {
-    where?: TagGraphWhere
-
-    aggregate: TagGraphAggregateInput
-    context?: any
-    rootValue?: any
-  }): Promise<TagGraphAggregateSelection>
 }
 
 export interface StringAggregateInput {
@@ -10188,7 +10181,7 @@ export interface ModelMap {
   AppType: AppTypeModel
   MonacoType: MonacoTypeModel
   Tag: TagModel
-  TagEdge: TagEdgeModel
   TagGraph: TagGraphModel
+  TagEdge: TagEdgeModel
   Element: ElementModel
 }

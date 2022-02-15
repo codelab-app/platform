@@ -3141,16 +3141,16 @@ type IntAggregateSelection {
 Represents an object type with multiple fields
 """
 type InterfaceType implements TypeBase {
-  apiofAtoms(options: AtomOptions, where: AtomWhere): [Atom!]
-  apiofAtomsAggregate(
+  apiOfAtoms(options: AtomOptions, where: AtomWhere): [Atom!]
+  apiOfAtomsAggregate(
     where: AtomWhere
-  ): InterfaceTypeAtomApiofAtomsAggregationSelection
-  apiofAtomsConnection(
+  ): InterfaceTypeAtomApiOfAtomsAggregationSelection
+  apiOfAtomsConnection(
     after: String
     first: Int
-    sort: [InterfaceTypeApiofAtomsConnectionSort!]
-    where: InterfaceTypeApiofAtomsConnectionWhere
-  ): InterfaceTypeApiofAtomsConnection!
+    sort: [InterfaceTypeApiOfAtomsConnectionSort!]
+    where: InterfaceTypeApiOfAtomsConnectionWhere
+  ): InterfaceTypeApiOfAtomsConnection!
   fields(options: QueryOptions, where: TypeBaseWhere): [TypeBase!]
   fieldsConnection(
     sort: [InterfaceTypeFieldsConnectionSort!]
@@ -3175,71 +3175,71 @@ type InterfaceTypeAggregateSelection {
   name: StringAggregateSelection!
 }
 
-input InterfaceTypeApiofAtomsAggregateInput {
-  AND: [InterfaceTypeApiofAtomsAggregateInput!]
-  OR: [InterfaceTypeApiofAtomsAggregateInput!]
+input InterfaceTypeApiOfAtomsAggregateInput {
+  AND: [InterfaceTypeApiOfAtomsAggregateInput!]
+  OR: [InterfaceTypeApiOfAtomsAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: InterfaceTypeApiofAtomsNodeAggregationWhereInput
+  node: InterfaceTypeApiOfAtomsNodeAggregationWhereInput
 }
 
-input InterfaceTypeApiofAtomsConnectFieldInput {
+input InterfaceTypeApiOfAtomsConnectFieldInput {
   connect: [AtomConnectInput!]
   where: AtomConnectWhere
 }
 
-input InterfaceTypeApiofAtomsConnectOrCreateFieldInput {
-  onCreate: InterfaceTypeApiofAtomsConnectOrCreateFieldInputOnCreate!
+input InterfaceTypeApiOfAtomsConnectOrCreateFieldInput {
+  onCreate: InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate!
   where: AtomConnectOrCreateWhere!
 }
 
-input InterfaceTypeApiofAtomsConnectOrCreateFieldInputOnCreate {
+input InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate {
   node: AtomCreateInput!
 }
 
-type InterfaceTypeApiofAtomsConnection {
-  edges: [InterfaceTypeApiofAtomsRelationship!]!
+type InterfaceTypeApiOfAtomsConnection {
+  edges: [InterfaceTypeApiOfAtomsRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input InterfaceTypeApiofAtomsConnectionSort {
+input InterfaceTypeApiOfAtomsConnectionSort {
   node: AtomSort
 }
 
-input InterfaceTypeApiofAtomsConnectionWhere {
-  AND: [InterfaceTypeApiofAtomsConnectionWhere!]
-  OR: [InterfaceTypeApiofAtomsConnectionWhere!]
+input InterfaceTypeApiOfAtomsConnectionWhere {
+  AND: [InterfaceTypeApiOfAtomsConnectionWhere!]
+  OR: [InterfaceTypeApiOfAtomsConnectionWhere!]
   node: AtomWhere
   node_NOT: AtomWhere
 }
 
-input InterfaceTypeApiofAtomsCreateFieldInput {
+input InterfaceTypeApiOfAtomsCreateFieldInput {
   node: AtomCreateInput!
 }
 
-input InterfaceTypeApiofAtomsDeleteFieldInput {
+input InterfaceTypeApiOfAtomsDeleteFieldInput {
   delete: AtomDeleteInput
-  where: InterfaceTypeApiofAtomsConnectionWhere
+  where: InterfaceTypeApiOfAtomsConnectionWhere
 }
 
-input InterfaceTypeApiofAtomsDisconnectFieldInput {
+input InterfaceTypeApiOfAtomsDisconnectFieldInput {
   disconnect: AtomDisconnectInput
-  where: InterfaceTypeApiofAtomsConnectionWhere
+  where: InterfaceTypeApiOfAtomsConnectionWhere
 }
 
-input InterfaceTypeApiofAtomsFieldInput {
-  connect: [InterfaceTypeApiofAtomsConnectFieldInput!]
-  connectOrCreate: [InterfaceTypeApiofAtomsConnectOrCreateFieldInput!]
-  create: [InterfaceTypeApiofAtomsCreateFieldInput!]
+input InterfaceTypeApiOfAtomsFieldInput {
+  connect: [InterfaceTypeApiOfAtomsConnectFieldInput!]
+  connectOrCreate: [InterfaceTypeApiOfAtomsConnectOrCreateFieldInput!]
+  create: [InterfaceTypeApiOfAtomsCreateFieldInput!]
 }
 
-input InterfaceTypeApiofAtomsNodeAggregationWhereInput {
-  AND: [InterfaceTypeApiofAtomsNodeAggregationWhereInput!]
-  OR: [InterfaceTypeApiofAtomsNodeAggregationWhereInput!]
+input InterfaceTypeApiOfAtomsNodeAggregationWhereInput {
+  AND: [InterfaceTypeApiOfAtomsNodeAggregationWhereInput!]
+  OR: [InterfaceTypeApiOfAtomsNodeAggregationWhereInput!]
   id_EQUAL: ID
   name_AVERAGE_EQUAL: Float
   name_AVERAGE_GT: Float
@@ -3263,43 +3263,43 @@ input InterfaceTypeApiofAtomsNodeAggregationWhereInput {
   name_SHORTEST_LTE: Int
 }
 
-type InterfaceTypeApiofAtomsRelationship {
+type InterfaceTypeApiOfAtomsRelationship {
   cursor: String!
   node: Atom!
 }
 
-input InterfaceTypeApiofAtomsUpdateConnectionInput {
+input InterfaceTypeApiOfAtomsUpdateConnectionInput {
   node: AtomUpdateInput
 }
 
-input InterfaceTypeApiofAtomsUpdateFieldInput {
-  connect: [InterfaceTypeApiofAtomsConnectFieldInput!]
-  connectOrCreate: [InterfaceTypeApiofAtomsConnectOrCreateFieldInput!]
-  create: [InterfaceTypeApiofAtomsCreateFieldInput!]
-  delete: [InterfaceTypeApiofAtomsDeleteFieldInput!]
-  disconnect: [InterfaceTypeApiofAtomsDisconnectFieldInput!]
-  update: InterfaceTypeApiofAtomsUpdateConnectionInput
-  where: InterfaceTypeApiofAtomsConnectionWhere
+input InterfaceTypeApiOfAtomsUpdateFieldInput {
+  connect: [InterfaceTypeApiOfAtomsConnectFieldInput!]
+  connectOrCreate: [InterfaceTypeApiOfAtomsConnectOrCreateFieldInput!]
+  create: [InterfaceTypeApiOfAtomsCreateFieldInput!]
+  delete: [InterfaceTypeApiOfAtomsDeleteFieldInput!]
+  disconnect: [InterfaceTypeApiOfAtomsDisconnectFieldInput!]
+  update: InterfaceTypeApiOfAtomsUpdateConnectionInput
+  where: InterfaceTypeApiOfAtomsConnectionWhere
 }
 
-type InterfaceTypeAtomApiofAtomsAggregationSelection {
+type InterfaceTypeAtomApiOfAtomsAggregationSelection {
   count: Int!
-  node: InterfaceTypeAtomApiofAtomsNodeAggregateSelection
+  node: InterfaceTypeAtomApiOfAtomsNodeAggregateSelection
 }
 
-type InterfaceTypeAtomApiofAtomsNodeAggregateSelection {
+type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection {
   id: IDAggregateSelection!
   name: StringAggregateSelection!
 }
 
 input InterfaceTypeConnectInput {
-  apiofAtoms: [InterfaceTypeApiofAtomsConnectFieldInput!]
+  apiOfAtoms: [InterfaceTypeApiOfAtomsConnectFieldInput!]
   fields: [InterfaceTypeFieldsConnectFieldInput!]
   owner: TypeBaseOwnerConnectFieldInput
 }
 
 input InterfaceTypeConnectOrCreateInput {
-  apiofAtoms: [InterfaceTypeApiofAtomsConnectOrCreateFieldInput!]
+  apiOfAtoms: [InterfaceTypeApiOfAtomsConnectOrCreateFieldInput!]
   owner: TypeBaseOwnerConnectOrCreateFieldInput
 }
 
@@ -3312,20 +3312,20 @@ input InterfaceTypeConnectWhere {
 }
 
 input InterfaceTypeCreateInput {
-  apiofAtoms: InterfaceTypeApiofAtomsFieldInput
+  apiOfAtoms: InterfaceTypeApiOfAtomsFieldInput
   fields: InterfaceTypeFieldsFieldInput
   name: String!
   owner: TypeBaseOwnerFieldInput
 }
 
 input InterfaceTypeDeleteInput {
-  apiofAtoms: [InterfaceTypeApiofAtomsDeleteFieldInput!]
+  apiOfAtoms: [InterfaceTypeApiOfAtomsDeleteFieldInput!]
   fields: [InterfaceTypeFieldsDeleteFieldInput!]
   owner: TypeBaseOwnerDeleteFieldInput
 }
 
 input InterfaceTypeDisconnectInput {
-  apiofAtoms: [InterfaceTypeApiofAtomsDisconnectFieldInput!]
+  apiOfAtoms: [InterfaceTypeApiOfAtomsDisconnectFieldInput!]
   fields: [InterfaceTypeFieldsDisconnectFieldInput!]
   owner: TypeBaseOwnerDisconnectFieldInput
 }
@@ -3477,7 +3477,7 @@ input InterfaceTypeOwnerNodeAggregationWhereInput {
 }
 
 input InterfaceTypeRelationInput {
-  apiofAtoms: [InterfaceTypeApiofAtomsCreateFieldInput!]
+  apiOfAtoms: [InterfaceTypeApiOfAtomsCreateFieldInput!]
   fields: [InterfaceTypeFieldsCreateFieldInput!]
   owner: TypeBaseOwnerCreateFieldInput
 }
@@ -3495,7 +3495,7 @@ input InterfaceTypeUniqueWhere {
 }
 
 input InterfaceTypeUpdateInput {
-  apiofAtoms: [InterfaceTypeApiofAtomsUpdateFieldInput!]
+  apiOfAtoms: [InterfaceTypeApiOfAtomsUpdateFieldInput!]
   fields: [InterfaceTypeFieldsUpdateFieldInput!]
   name: String
   owner: TypeBaseOwnerUpdateFieldInput
@@ -3515,11 +3515,11 @@ type InterfaceTypeUserOwnerNodeAggregateSelection {
 input InterfaceTypeWhere {
   AND: [InterfaceTypeWhere!]
   OR: [InterfaceTypeWhere!]
-  apiofAtoms: AtomWhere
-  apiofAtomsAggregate: InterfaceTypeApiofAtomsAggregateInput
-  apiofAtomsConnection: InterfaceTypeApiofAtomsConnectionWhere
-  apiofAtomsConnection_NOT: InterfaceTypeApiofAtomsConnectionWhere
-  apiofAtoms_NOT: AtomWhere
+  apiOfAtoms: AtomWhere
+  apiOfAtomsAggregate: InterfaceTypeApiOfAtomsAggregateInput
+  apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnectionWhere
+  apiOfAtomsConnection_NOT: InterfaceTypeApiOfAtomsConnectionWhere
+  apiOfAtoms_NOT: AtomWhere
   fieldsConnection: InterfaceTypeFieldsConnectionWhere
   fieldsConnection_NOT: InterfaceTypeFieldsConnectionWhere
   id: ID

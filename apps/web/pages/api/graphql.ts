@@ -2,22 +2,22 @@ import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
-import { getDriver } from '../../src/neo4j-graphql/getDriver'
-import { getSchema } from '../../src/neo4j-graphql/getSchema'
-import { generateOgmTypes, User } from '../../src/neo4j-graphql/model'
+import { generateOgmTypes } from '../../src/graphql/generate-ogm-types'
+import { getDriver } from '../../src/graphql/infra/driver'
+import { User } from '../../src/graphql/model'
+import { getSchema } from '../../src/graphql/schema/schema'
 
-const neoSchema = getSchema(getDriver())
+const driver = getDriver()
+const neoSchema = getSchema(driver)
 const path = '/api/graphql'
 
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 
 const apolloServer = new ApolloServer({
   schema: neoSchema.schema,
-  context: ({ req }) => {
-    // console.log(req)
-
-    return { req }
-  },
+  context: ({ req }) => ({
+    req,
+  }),
   formatError: (err) => {
     console.error(util.inspect(err, false, null, true))
 
@@ -29,7 +29,9 @@ const apolloServer = new ApolloServer({
   // plugins: [ApolloServerPluginInlineTrace()],
 })
 
-const startServer = apolloServer.start()
+const startServer = neoSchema
+  .assertIndexesAndConstraints({ options: { create: true }, driver })
+  .then(() => apolloServer.start())
 
 /**
  * Allow local HTTPS with https://github.com/vercel/next.js/discussions/10935#discussioncomment-434842
@@ -41,9 +43,6 @@ const startServer = apolloServer.start()
  * https://next-auth.js.org/tutorials/securing-pages-and-api-routes
  */
 const handler: NextApiHandler = async (req, res) => {
-  // console.log(req.method)
-  // await cors(req, res)
-
   res.setHeader('Access-Control-Allow-Credentials', 'true')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', '*')
@@ -58,9 +57,6 @@ const handler: NextApiHandler = async (req, res) => {
     return
   }
 
-  // Run cors
-  // await cors(req, res)
-
   let session
   let accessToken
 
@@ -71,16 +67,14 @@ const handler: NextApiHandler = async (req, res) => {
     session = await getSession(req, res)
     accessToken = (await getAccessToken(req, res)).accessToken
   } catch (e) {
-    console.error(e)
+    // Apollo studio polls the graphql schema every second, and it pollutes the log
+    if (
+      process.env.NODE_ENV === 'development' &&
+      !req.headers['origin']?.includes('studio.apollographql')
+    ) {
+      console.error(e)
+    }
   }
-
-  // console.log(session?.user)
-
-  // await User.delete({
-  //   where: {
-  //     auth0Id: 'google-oauth2|116956556863062538891',
-  //   },
-  // })
 
   /**
    * Check for upsert only when user exists
@@ -88,7 +82,7 @@ const handler: NextApiHandler = async (req, res) => {
   if (session?.user) {
     const user = session.user
 
-    const [existing] = await User.find({
+    const [existing] = await User().find({
       where: {
         auth0Id: user.sub,
       },
@@ -97,7 +91,7 @@ const handler: NextApiHandler = async (req, res) => {
     if (existing) {
       // console.log(`User with email ${user.email} already exists!`)
     } else {
-      const { users } = await User.create({
+      const { users } = await User().create({
         input: [
           {
             auth0Id: user.sub,
@@ -116,18 +110,15 @@ const handler: NextApiHandler = async (req, res) => {
   req.headers.authorization = `Bearer ${accessToken}`
 
   await startServer
-  await apolloServer
-    .createHandler({ path })(req, res)
-    .then(async () => {
-      console.log(process.env.NODE_ENV)
+  await apolloServer.createHandler({ path })(req, res)
 
-      if (process.env.NODE_ENV === 'development') {
-        await generateOgmTypes()
-        // execa.commandSync(`yarn codegen-v2`, {
-        //   stdio: 'inherit',
-        // })
-      }
-    })
+  /**
+   * Uncomment this if you want to run codegen, but turn it off for performance
+   */
+  // if (process.env.NODE_ENV === 'development') {
+  //   console.log('Starting codegen...')
+  //   await generateOgmTypes()
+  // }
 }
 
 export default handler

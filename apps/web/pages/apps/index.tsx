@@ -89,12 +89,8 @@ export const getServerSideProps = withPageAuthRequired({
     (store) =>
       async ({ req, res }: GetServerSidePropsContext) => {
         const session = await getSession(req, res)
-        const { accessToken } = await getAccessToken(req, res)
 
-        // console.log(accessToken)
-
-        getGraphQLClient({ context: { env: API_ENV.v2 } }).setHeaders({
-          // authorization: `Bearer ${accessToken}`,
+        getGraphQLClient().setHeaders({
           cookie: `${req.headers.cookie}`,
         })
 

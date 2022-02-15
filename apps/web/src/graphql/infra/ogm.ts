@@ -1,7 +1,7 @@
 import { OGM } from '@neo4j/graphql-ogm'
-import { getDriver } from './getDriver'
-import { ModelMap } from './ogm-types.gen'
-import typeDefs from './typeDefs'
+import { ModelMap } from '../ogm-types.gen'
+import typeDefs from '../schema/typeDefs'
+import { getDriver } from './driver'
 
 // Keep a single OGM instance if possible
 let ogm: OGM<ModelMap>

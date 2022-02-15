@@ -1,5 +1,5 @@
 import neo4j, { Driver } from 'neo4j-driver'
-import { Config } from '../env/env'
+import { Config } from '../../env/env'
 
 const defaultOptions = {
   uri: Config.neo4j.uri,

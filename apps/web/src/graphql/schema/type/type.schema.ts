@@ -38,33 +38,35 @@ export const typeSchema = gql`
     deleteFieldEdge(input: DeleteFieldInput!): DeleteFieldResponse!
   }
 
-
   type Query {
     """
     Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion
     """
-    isTypeDescendantOf(parentTypeId: ID!, descendantTypeId: ID!): Boolean @cypher(statement: """${isTypeDescendantOfCypher}""")
-    getField(interfaceId: ID!, key: String!): InterfaceTypeEdge! @cypher(statement: """${getFieldCypher}""")
+    isTypeDescendantOf(parentTypeId: ID!, descendantTypeId: ID!): Boolean
+      @cypher(statement: """${isTypeDescendantOfCypher}""")
+
+    getField(interfaceId: ID!, key: String!): InterfaceTypeEdge!
+      @cypher(statement: """${getFieldCypher}""")
 
     """
     Returns a list of all Type and Atom entities that reference the type with the given id
     This could be different types of relationships like Atom-Api, ArrayType-itemType, InterfaceType-field, UnionType-unionTypeChild
     """
-    getTypeReferences(typeId: ID!): [TypeReference!]  @cypher(statement: """${getTypeReferencesCypher}""")
+    getTypeReferences(typeId: ID!): [TypeReference!]
+      @cypher(statement: """${getTypeReferencesCypher}""")
   }
 
-
-
   interface TypeBase
-  @auth(
-    # This makes sure that the the owner is assigned to the current user
-    rules: [
-      {
-        operations: [CREATE, UPDATE]
-        bind: { owner: { auth0Id: "$jwt.sub" } }
-      }
-    ]
-  ) {
+    @auth(
+      # This makes sure that the the owner is assigned to the current user
+      rules: [
+        {
+          operations: [CREATE, UPDATE]
+          bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
+      ]
+    )
+  {
     id: ID! @id
     name: String!
     owner: User @relationship(type: "OWNS_TYPE", direction: IN)
@@ -73,7 +75,8 @@ export const typeSchema = gql`
 
   # A union is needed as a reference point for the type graph
   # For some reason the custom cypher query for the graph doesn't work well if they reference TypeBase - it throws an error saying that it can't resolve the concrete type
-  union AnyType = ElementType
+  union AnyType =
+    | ElementType
     | ArrayType
     | UnionType
     | EnumType
@@ -109,8 +112,7 @@ export const typeSchema = gql`
     description: String
   }
 
-
-  type TypeGraph @exclude  {
+  type TypeGraph @exclude {
     vertices: [AnyType!]!
     edges: [TypeEdge!]!
   }
@@ -123,7 +125,6 @@ export const typeSchema = gql`
     name: String!
     owner: User
     graph: TypeGraph!
-
 
     # There seems to be an issue with the unique constrain right now https://github.com/neo4j/graphql/issues/915
     primitiveKind: PrimitiveTypeKind! @unique
@@ -162,7 +163,6 @@ export const typeSchema = gql`
     owner: User
     graph: TypeGraph!
 
-
     typesOfUnionType: [TypeBase!]
     @relationship(type: "UNION_TYPE_CHILD", direction: OUT)
   }
@@ -177,7 +177,7 @@ export const typeSchema = gql`
     graph: TypeGraph!
 
     # List of atoms that have this interface as their api type
-    apiofAtoms: [Atom!] @relationship(type: "ATOM_API", direction: IN)
+    apiOfAtoms: [Atom!] @relationship(type: "ATOM_API", direction: IN)
 
     # Fields are defined as a set of list to other types
     # The field data is stored as relationship properties
@@ -211,7 +211,6 @@ export const typeSchema = gql`
     owner: User
     graph: TypeGraph!
 
-
     """
     Allows scoping the type of element to only descendants, children or all elements
     """
@@ -234,7 +233,6 @@ export const typeSchema = gql`
     name: String!
     owner: User
     graph: TypeGraph!
-
   }
 
   """
@@ -252,7 +250,6 @@ export const typeSchema = gql`
     name: String!
     owner: User
     graph: TypeGraph!
-
   }
 
   enum ElementTypeKind {
@@ -281,7 +278,6 @@ export const typeSchema = gql`
     owner: User
     graph: TypeGraph!
 
-
     allowedValues: [EnumTypeValue!]
     @relationship(type: "ALLOWED_VALUE", direction: OUT)
   }
@@ -302,7 +298,6 @@ export const typeSchema = gql`
     name: String!
     owner: User
     graph: TypeGraph!
-
   }
 
   """
@@ -313,7 +308,6 @@ export const typeSchema = gql`
     name: String!
     owner: User
     graph: TypeGraph!
-
   }
 
   """
@@ -324,7 +318,6 @@ export const typeSchema = gql`
     name: String!
     owner: User
     graph: TypeGraph!
-
   }
 
   """
@@ -335,8 +328,6 @@ export const typeSchema = gql`
     name: String!
     owner: User
     graph: TypeGraph!
-
-
     language: MonacoLanguage!
   }
 

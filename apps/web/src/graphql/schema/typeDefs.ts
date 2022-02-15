@@ -1,11 +1,12 @@
 import { gql } from 'apollo-server-micro'
 import { print } from 'graphql'
-import { appSchema } from './type-defs/appSchema'
-import { atomSchema } from './type-defs/atomSchema'
-import { commonSchema } from './type-defs/commonSchema'
-import { pageSchema } from './type-defs/pageSchema'
-import { tagSchema } from './type-defs/tagSchema'
-import { userSchema } from './type-defs/userSchema'
+import { appSchema } from './app.schema'
+import { atomSchema } from './atom.schema'
+import { commonSchema } from './common.schema'
+import { pageSchema } from './page.schema'
+import { tagSchema } from './tag.schema'
+import { typeSchema } from './type'
+import { userSchema } from './user.schema'
 
 export default print(gql`
   ${commonSchema}

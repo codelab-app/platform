@@ -3376,9 +3376,9 @@ export type IntAggregateSelection = {
 /** Represents an object type with multiple fields */
 export type InterfaceType = TypeBase & {
   __typename?: 'InterfaceType'
-  apiofAtoms?: Maybe<Array<Atom>>
-  apiofAtomsAggregate?: Maybe<InterfaceTypeAtomApiofAtomsAggregationSelection>
-  apiofAtomsConnection: InterfaceTypeApiofAtomsConnection
+  apiOfAtoms?: Maybe<Array<Atom>>
+  apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
+  apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
   fields?: Maybe<Array<TypeBase>>
   fieldsConnection: InterfaceTypeFieldsConnection
   graph: TypeGraph
@@ -3390,22 +3390,22 @@ export type InterfaceType = TypeBase & {
 }
 
 /** Represents an object type with multiple fields */
-export type InterfaceTypeApiofAtomsArgs = {
+export type InterfaceTypeApiOfAtomsArgs = {
   options?: InputMaybe<AtomOptions>
   where?: InputMaybe<AtomWhere>
 }
 
 /** Represents an object type with multiple fields */
-export type InterfaceTypeApiofAtomsAggregateArgs = {
+export type InterfaceTypeApiOfAtomsAggregateArgs = {
   where?: InputMaybe<AtomWhere>
 }
 
 /** Represents an object type with multiple fields */
-export type InterfaceTypeApiofAtomsConnectionArgs = {
+export type InterfaceTypeApiOfAtomsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InterfaceTypeApiofAtomsConnectionSort>>
-  where?: InputMaybe<InterfaceTypeApiofAtomsConnectionWhere>
+  sort?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectionSort>>
+  where?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
 }
 
 /** Represents an object type with multiple fields */
@@ -3446,74 +3446,74 @@ export type InterfaceTypeAggregateSelection = {
   name: StringAggregateSelection
 }
 
-export type InterfaceTypeApiofAtomsAggregateInput = {
-  AND?: InputMaybe<Array<InterfaceTypeApiofAtomsAggregateInput>>
-  OR?: InputMaybe<Array<InterfaceTypeApiofAtomsAggregateInput>>
+export type InterfaceTypeApiOfAtomsAggregateInput = {
+  AND?: InputMaybe<Array<InterfaceTypeApiOfAtomsAggregateInput>>
+  OR?: InputMaybe<Array<InterfaceTypeApiOfAtomsAggregateInput>>
   count?: InputMaybe<Scalars['Int']>
   count_GT?: InputMaybe<Scalars['Int']>
   count_GTE?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
   count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<InterfaceTypeApiofAtomsNodeAggregationWhereInput>
+  node?: InputMaybe<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>
 }
 
-export type InterfaceTypeApiofAtomsConnectFieldInput = {
+export type InterfaceTypeApiOfAtomsConnectFieldInput = {
   connect?: InputMaybe<Array<AtomConnectInput>>
   where?: InputMaybe<AtomConnectWhere>
 }
 
-export type InterfaceTypeApiofAtomsConnectOrCreateFieldInput = {
-  onCreate: InterfaceTypeApiofAtomsConnectOrCreateFieldInputOnCreate
+export type InterfaceTypeApiOfAtomsConnectOrCreateFieldInput = {
+  onCreate: InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate
   where: AtomConnectOrCreateWhere
 }
 
-export type InterfaceTypeApiofAtomsConnectOrCreateFieldInputOnCreate = {
+export type InterfaceTypeApiOfAtomsConnectOrCreateFieldInputOnCreate = {
   node: AtomCreateInput
 }
 
-export type InterfaceTypeApiofAtomsConnection = {
-  __typename?: 'InterfaceTypeApiofAtomsConnection'
-  edges: Array<InterfaceTypeApiofAtomsRelationship>
+export type InterfaceTypeApiOfAtomsConnection = {
+  __typename?: 'InterfaceTypeApiOfAtomsConnection'
+  edges: Array<InterfaceTypeApiOfAtomsRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']
 }
 
-export type InterfaceTypeApiofAtomsConnectionSort = {
+export type InterfaceTypeApiOfAtomsConnectionSort = {
   node?: InputMaybe<AtomSort>
 }
 
-export type InterfaceTypeApiofAtomsConnectionWhere = {
-  AND?: InputMaybe<Array<InterfaceTypeApiofAtomsConnectionWhere>>
-  OR?: InputMaybe<Array<InterfaceTypeApiofAtomsConnectionWhere>>
+export type InterfaceTypeApiOfAtomsConnectionWhere = {
+  AND?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectionWhere>>
+  OR?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectionWhere>>
   node?: InputMaybe<AtomWhere>
   node_NOT?: InputMaybe<AtomWhere>
 }
 
-export type InterfaceTypeApiofAtomsCreateFieldInput = {
+export type InterfaceTypeApiOfAtomsCreateFieldInput = {
   node: AtomCreateInput
 }
 
-export type InterfaceTypeApiofAtomsDeleteFieldInput = {
+export type InterfaceTypeApiOfAtomsDeleteFieldInput = {
   delete?: InputMaybe<AtomDeleteInput>
-  where?: InputMaybe<InterfaceTypeApiofAtomsConnectionWhere>
+  where?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
 }
 
-export type InterfaceTypeApiofAtomsDisconnectFieldInput = {
+export type InterfaceTypeApiOfAtomsDisconnectFieldInput = {
   disconnect?: InputMaybe<AtomDisconnectInput>
-  where?: InputMaybe<InterfaceTypeApiofAtomsConnectionWhere>
+  where?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
 }
 
-export type InterfaceTypeApiofAtomsFieldInput = {
-  connect?: InputMaybe<Array<InterfaceTypeApiofAtomsConnectFieldInput>>
+export type InterfaceTypeApiOfAtomsFieldInput = {
+  connect?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
   connectOrCreate?: InputMaybe<
-    Array<InterfaceTypeApiofAtomsConnectOrCreateFieldInput>
+    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
   >
-  create?: InputMaybe<Array<InterfaceTypeApiofAtomsCreateFieldInput>>
+  create?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
 }
 
-export type InterfaceTypeApiofAtomsNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<InterfaceTypeApiofAtomsNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<InterfaceTypeApiofAtomsNodeAggregationWhereInput>>
+export type InterfaceTypeApiOfAtomsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<InterfaceTypeApiOfAtomsNodeAggregationWhereInput>>
   id_EQUAL?: InputMaybe<Scalars['ID']>
   name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
@@ -3537,49 +3537,49 @@ export type InterfaceTypeApiofAtomsNodeAggregationWhereInput = {
   name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type InterfaceTypeApiofAtomsRelationship = {
-  __typename?: 'InterfaceTypeApiofAtomsRelationship'
+export type InterfaceTypeApiOfAtomsRelationship = {
+  __typename?: 'InterfaceTypeApiOfAtomsRelationship'
   cursor: Scalars['String']
   node: Atom
 }
 
-export type InterfaceTypeApiofAtomsUpdateConnectionInput = {
+export type InterfaceTypeApiOfAtomsUpdateConnectionInput = {
   node?: InputMaybe<AtomUpdateInput>
 }
 
-export type InterfaceTypeApiofAtomsUpdateFieldInput = {
-  connect?: InputMaybe<Array<InterfaceTypeApiofAtomsConnectFieldInput>>
+export type InterfaceTypeApiOfAtomsUpdateFieldInput = {
+  connect?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
   connectOrCreate?: InputMaybe<
-    Array<InterfaceTypeApiofAtomsConnectOrCreateFieldInput>
+    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
   >
-  create?: InputMaybe<Array<InterfaceTypeApiofAtomsCreateFieldInput>>
-  delete?: InputMaybe<Array<InterfaceTypeApiofAtomsDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<InterfaceTypeApiofAtomsDisconnectFieldInput>>
-  update?: InputMaybe<InterfaceTypeApiofAtomsUpdateConnectionInput>
-  where?: InputMaybe<InterfaceTypeApiofAtomsConnectionWhere>
+  create?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
+  delete?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
+  update?: InputMaybe<InterfaceTypeApiOfAtomsUpdateConnectionInput>
+  where?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
 }
 
-export type InterfaceTypeAtomApiofAtomsAggregationSelection = {
-  __typename?: 'InterfaceTypeAtomApiofAtomsAggregationSelection'
+export type InterfaceTypeAtomApiOfAtomsAggregationSelection = {
+  __typename?: 'InterfaceTypeAtomApiOfAtomsAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<InterfaceTypeAtomApiofAtomsNodeAggregateSelection>
+  node?: Maybe<InterfaceTypeAtomApiOfAtomsNodeAggregateSelection>
 }
 
-export type InterfaceTypeAtomApiofAtomsNodeAggregateSelection = {
-  __typename?: 'InterfaceTypeAtomApiofAtomsNodeAggregateSelection'
+export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
+  __typename?: 'InterfaceTypeAtomApiOfAtomsNodeAggregateSelection'
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
 
 export type InterfaceTypeConnectInput = {
-  apiofAtoms?: InputMaybe<Array<InterfaceTypeApiofAtomsConnectFieldInput>>
+  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerConnectFieldInput>
 }
 
 export type InterfaceTypeConnectOrCreateInput = {
-  apiofAtoms?: InputMaybe<
-    Array<InterfaceTypeApiofAtomsConnectOrCreateFieldInput>
+  apiOfAtoms?: InputMaybe<
+    Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
   >
   owner?: InputMaybe<TypeBaseOwnerConnectOrCreateFieldInput>
 }
@@ -3593,20 +3593,20 @@ export type InterfaceTypeConnectWhere = {
 }
 
 export type InterfaceTypeCreateInput = {
-  apiofAtoms?: InputMaybe<InterfaceTypeApiofAtomsFieldInput>
+  apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
   name: Scalars['String']
   owner?: InputMaybe<TypeBaseOwnerFieldInput>
 }
 
 export type InterfaceTypeDeleteInput = {
-  apiofAtoms?: InputMaybe<Array<InterfaceTypeApiofAtomsDeleteFieldInput>>
+  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDeleteFieldInput>
 }
 
 export type InterfaceTypeDisconnectInput = {
-  apiofAtoms?: InputMaybe<Array<InterfaceTypeApiofAtomsDisconnectFieldInput>>
+  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerDisconnectFieldInput>
 }
@@ -3759,7 +3759,7 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type InterfaceTypeRelationInput = {
-  apiofAtoms?: InputMaybe<Array<InterfaceTypeApiofAtomsCreateFieldInput>>
+  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
   owner?: InputMaybe<TypeBaseOwnerCreateFieldInput>
 }
@@ -3775,7 +3775,7 @@ export type InterfaceTypeUniqueWhere = {
 }
 
 export type InterfaceTypeUpdateInput = {
-  apiofAtoms?: InputMaybe<Array<InterfaceTypeApiofAtomsUpdateFieldInput>>
+  apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<TypeBaseOwnerUpdateFieldInput>
@@ -3797,11 +3797,11 @@ export type InterfaceTypeUserOwnerNodeAggregateSelection = {
 export type InterfaceTypeWhere = {
   AND?: InputMaybe<Array<InterfaceTypeWhere>>
   OR?: InputMaybe<Array<InterfaceTypeWhere>>
-  apiofAtoms?: InputMaybe<AtomWhere>
-  apiofAtomsAggregate?: InputMaybe<InterfaceTypeApiofAtomsAggregateInput>
-  apiofAtomsConnection?: InputMaybe<InterfaceTypeApiofAtomsConnectionWhere>
-  apiofAtomsConnection_NOT?: InputMaybe<InterfaceTypeApiofAtomsConnectionWhere>
-  apiofAtoms_NOT?: InputMaybe<AtomWhere>
+  apiOfAtoms?: InputMaybe<AtomWhere>
+  apiOfAtomsAggregate?: InputMaybe<InterfaceTypeApiOfAtomsAggregateInput>
+  apiOfAtomsConnection?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  apiOfAtomsConnection_NOT?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
+  apiOfAtoms_NOT?: InputMaybe<AtomWhere>
   fieldsConnection?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   fieldsConnection_NOT?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
   id?: InputMaybe<Scalars['ID']>

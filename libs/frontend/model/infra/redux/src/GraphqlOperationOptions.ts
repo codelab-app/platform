@@ -2,9 +2,8 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import type { RequestInit } from 'graphql-request/dist/types.dom'
 
 export enum API_ENV {
-  production = 'production',
+  // production = 'production',
   local = 'local',
-  v2 = 'v2',
 }
 
 export interface GraphqlOperationOptions<

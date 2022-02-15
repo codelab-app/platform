@@ -2,7 +2,7 @@ import { DeleteFieldInput } from '@codelab/shared/abstract/codegen-v2'
 import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
 import { RxTransaction } from 'neo4j-driver'
 import { DisconnectFieldResponse, typeRepository } from '../../../cypher'
-import { getDriver } from '../../../getDriver'
+import { getDriver } from '../../../infra/driver'
 
 const driver = getDriver()
 
