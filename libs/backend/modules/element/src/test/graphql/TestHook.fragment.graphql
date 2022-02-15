@@ -1,7 +1,0 @@
-fragment TestHook on Hook {
-  id
-  type
-  config {
-    data
-  }
-}

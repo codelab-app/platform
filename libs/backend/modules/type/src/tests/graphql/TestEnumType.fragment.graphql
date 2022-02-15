@@ -1,7 +1,0 @@
-fragment TestEnumType on EnumType {
-  id
-  name
-  allowedValues {
-    ...TestEnumTypeValue
-  }
-}

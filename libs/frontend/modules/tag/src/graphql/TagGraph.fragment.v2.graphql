@@ -6,3 +6,8 @@ fragment TagGraph on TagGraph {
     ...TagEdge
   }
 }
+
+fragment TagEdge on TagEdge {
+  source
+  target
+}

@@ -7,3 +7,5 @@ export type DgraphEntityLike = {
 }
 
 export type EntityRecord = Record<string, unknown>
+
+export type Entity<T extends EntityLike> = Pick<T, 'id'>

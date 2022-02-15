@@ -1,8 +1,0 @@
-fragment TestTagGraph on TagGraph {
-  vertices {
-    ...TestTag
-  }
-  edges {
-    ...TestTagEdge
-  }
-}

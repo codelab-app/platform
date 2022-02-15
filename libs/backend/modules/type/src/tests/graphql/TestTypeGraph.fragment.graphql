@@ -1,8 +1,0 @@
-fragment TestTypeGraph on TypeGraph {
-  edges {
-    ...TestTypeEdge
-  }
-  vertices {
-    ...TestType
-  }
-}

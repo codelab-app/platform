@@ -5,8 +5,10 @@ import {
   PropsData,
   PropsDataByElementId,
 } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
+import { TypeKindsById } from '../utils'
 
 export type RenderOutput = React.ReactNode
 
@@ -14,6 +16,7 @@ export interface RendererProps {
   tree: ElementTree
   isComponentRenderer?: boolean
   context?: Omit<RenderContext, 'tree' | 'render' | 'typesById'>
+  typesById: Maybe<TypeKindsById>
 }
 
 export interface RenderContext {

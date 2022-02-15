@@ -6,7 +6,7 @@ import { Atom } from './model'
 export const resolvers: IResolvers = {
   Mutation: {
     importAtoms: async (_source, ctx: MutationImportAtomsArgs) => {
-      const payload: AtomsPayload = JSON.parse(ctx.input.payload)
+      const payload: AtomsPayload = ctx.input.payload as AtomsPayload
 
       const data = payload.map((atom) => ({
         name: atom.name,

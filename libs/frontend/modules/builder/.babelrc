@@ -8,5 +8,5 @@
       }
     ]
   ],
-  "plugins": []
+  "plugins": ["macros"]
 }

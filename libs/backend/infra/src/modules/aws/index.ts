@@ -1,7 +1,0 @@
-export * from './aws.module'
-export * from './aws.providers'
-export * from './config/aws.config'
-export * from './config/aws.tokens'
-export * from './lambda.interface'
-export * from './lambda/aws-lambda.service'
-export * from './s3/aws-s3.service'

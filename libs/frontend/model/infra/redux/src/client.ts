@@ -8,7 +8,6 @@ import { API_ENV, GraphqlOperationOptions } from './GraphqlOperationOptions'
 const apiUrlsByEnv: Record<API_ENV, string> = {
   local: `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/graphql`,
   production: `${process.env.NEXT_PUBLIC_PRODUCTION_API_ORIGIN}/api/graphql`,
-  v2: `${process.env.NEXT_PUBLIC_API_ORIGIN}/api/v2/graphql`,
 }
 
 let localGraphqlClient: Maybe<GraphQLClient>

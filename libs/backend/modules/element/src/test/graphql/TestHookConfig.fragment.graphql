@@ -1,4 +1,0 @@
-fragment TestHookConfig on Prop {
-  data
-  __typename
-}

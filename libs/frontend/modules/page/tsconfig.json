@@ -3,6 +3,8 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "jsxImportSource": "@emotion/react"

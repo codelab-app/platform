@@ -1,4 +1,12 @@
 {
-  "presets": ["@nrwl/react/babel"],
-  "plugins": []
+  "presets": [
+    [
+      "@nrwl/react/babel",
+      {
+        "runtime": "automatic",
+        "useBuiltIns": "usage"
+      }
+    ]
+  ],
+  "plugins": ["macros", "babel-plugin-transform-typescript-metadata"]
 }

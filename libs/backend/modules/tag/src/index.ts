@@ -1,6 +1,0 @@
-export * from './application/tag.resolver'
-export * from './domain/tag.model'
-export * from './domain/tag-edge.model'
-export * from './domain/tag-graph.model'
-export * from './domain/tag-vertex.model'
-export * from './tag.module'

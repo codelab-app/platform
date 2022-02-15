@@ -3,7 +3,7 @@ import { print } from 'graphql'
 import { appSchema } from './type-defs/appSchema'
 import { atomSchema } from './type-defs/atomSchema'
 import { pageSchema } from './type-defs/pageSchema'
-import { tagEdgeSchema, tagSchema } from './type-defs/tagSchema'
+import { tagSchema } from './type-defs/tagSchema'
 import { userSchema } from './type-defs/userSchema'
 
 export default print(gql`
@@ -19,27 +19,6 @@ export default print(gql`
   ${pageSchema}
 
   ${tagSchema}
-
-  ${tagEdgeSchema}
-
-  union TagVertex = Tag
-
-  interface IGraph {
-    vertices: [TagVertex!]!
-    edges: [TagEdge!]!
-  }
-
-  type TagGraph implements IGraph {
-    """
-    All descendant Elements or Components, at any level
-    """
-    vertices: [Tag!]!
-
-    """
-    All the links connecting the descendant elements/components
-    """
-    edges: [TagEdge!]!
-  }
 
   type Query {
     tagGraphs: TagGraph

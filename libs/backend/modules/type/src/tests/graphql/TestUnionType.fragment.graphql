@@ -1,4 +1,0 @@
-fragment TestUnionType on UnionType {
-  id
-  name
-}

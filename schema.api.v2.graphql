@@ -930,11 +930,6 @@ type CreateTagEdgesMutationResponse {
   tagEdges: [TagEdge!]!
 }
 
-type CreateTagGraphsMutationResponse {
-  info: CreateInfo!
-  tagGraphs: [TagGraph!]!
-}
-
 type CreateTagsMutationResponse {
   info: CreateInfo!
   tags: [Tag!]!
@@ -1475,13 +1470,8 @@ interface IElementGraph {
   vertices: [Element!]
 }
 
-interface IGraph {
-  edges: [TagEdge!]!
-  vertices: [TagVertex!]!
-}
-
 input ImportAtomsInput {
-  payload: JSONObject!
+  payload: [JSONObject!]
 }
 
 type ImportAtomsMutationResponse {
@@ -1540,9 +1530,6 @@ type Mutation {
   ): CreateImportAtomsMutationResponsesMutationResponse!
   createPages(input: [PageCreateInput!]!): CreatePagesMutationResponse!
   createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
-  createTagGraphs(
-    input: [TagGraphCreateInput!]!
-  ): CreateTagGraphsMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   deleteApps(delete: AppDeleteInput, where: AppWhere): DeleteInfo!
   deleteAtoms(where: AtomWhere): DeleteInfo!
@@ -1553,7 +1540,6 @@ type Mutation {
   ): DeleteInfo!
   deletePages(delete: PageDeleteInput, where: PageWhere): DeleteInfo!
   deleteTagEdges(where: TagEdgeWhere): DeleteInfo!
-  deleteTagGraphs(where: TagGraphWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
@@ -1600,10 +1586,6 @@ type Mutation {
     update: TagEdgeUpdateInput
     where: TagEdgeWhere
   ): UpdateTagEdgesMutationResponse!
-  updateTagGraphs(
-    update: TagGraphUpdateInput
-    where: TagGraphWhere
-  ): UpdateTagGraphsMutationResponse!
   updateTags(
     connect: TagConnectInput
     connectOrCreate: TagConnectOrCreateInput
@@ -2076,8 +2058,6 @@ type Query {
   tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
   tagEdgesCount(where: TagEdgeWhere): Int!
   tagGraphs: TagGraph
-  tagGraphsAggregate(where: TagGraphWhere): TagGraphAggregateSelection!
-  tagGraphsCount(where: TagGraphWhere): Int!
   tags(options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(where: TagWhere): TagAggregateSelection!
   tagsCount(where: TagWhere): Int!
@@ -2337,7 +2317,7 @@ input TagEdgeWhere {
   target_STARTS_WITH: ID
 }
 
-type TagGraph implements IGraph {
+type TagGraph {
   """
   All the links connecting the descendant elements/components
   """
@@ -2347,29 +2327,6 @@ type TagGraph implements IGraph {
   All descendant Elements or Components, at any level
   """
   vertices: [Tag!]!
-}
-
-type TagGraphAggregateSelection {
-  count: Int!
-}
-
-input TagGraphCreateInput {
-  """
-  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
-  """
-  _emptyInput: Boolean
-}
-
-input TagGraphUpdateInput {
-  """
-  Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/
-  """
-  _emptyInput: Boolean
-}
-
-input TagGraphWhere {
-  AND: [TagGraphWhere!]
-  OR: [TagGraphWhere!]
 }
 
 input TagOptions {
@@ -2534,8 +2491,6 @@ input TagUpdateInput {
   parent: TagParentUpdateFieldInput
 }
 
-union TagVertex = Tag
-
 input TagWhere {
   AND: [TagWhere!]
   OR: [TagWhere!]
@@ -2614,11 +2569,6 @@ type UpdatePagesMutationResponse {
 type UpdateTagEdgesMutationResponse {
   info: UpdateInfo!
   tagEdges: [TagEdge!]!
-}
-
-type UpdateTagGraphsMutationResponse {
-  info: UpdateInfo!
-  tagGraphs: [TagGraph!]!
 }
 
 type UpdateTagsMutationResponse {
