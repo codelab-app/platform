@@ -1,5 +1,5 @@
-import * as shell from 'shelljs'
 import { Env } from './env'
+import { execCommand } from './run-tasks'
 
 const CMD_APP_DIST_PATH = 'dist/apps/cmd'
 
@@ -25,32 +25,21 @@ export const runCli = (env?: Env, cmd = '') => {
  * @param cmd
  */
 const runTestCli = (cmd: string) => {
-  if (
-    shell.exec(
-      `npx env-cmd -f .env.test node ${CMD_APP_DIST_PATH}/main.js ${cmd}`,
-    ).code !== 0
-  ) {
-    shell.exit(1)
-  }
+  execCommand(
+    `npx env-cmd -f .env.test node ${CMD_APP_DIST_PATH}/main.js ${cmd}`,
+  )
 }
 
 /**
  * Dev loads from `.env` locally
  */
 const runDevCli = (cmd: string) => {
-  if (
-    shell.exec(`npx env-cmd -f .env node ${CMD_APP_DIST_PATH}/main.js ${cmd}`)
-      .code !== 0
-  ) {
-    shell.exit(1)
-  }
+  execCommand(`npx env-cmd -f .env node ${CMD_APP_DIST_PATH}/main.js ${cmd}`)
 }
 
 /**
  * CI assumes env are pre-injected
  */
 const runCiCli = (cmd: string) => {
-  if (shell.exec(`node ${CMD_APP_DIST_PATH}/main.js ${cmd}`).code !== 0) {
-    shell.exit(1)
-  }
+  execCommand(`node ${CMD_APP_DIST_PATH}/main.js ${cmd}`)
 }

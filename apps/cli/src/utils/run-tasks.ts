@@ -4,7 +4,7 @@ import { Tasks } from './tasks'
 
 const NX_TEST = 'npx env-cmd -f .env.test nx'
 
-const execCommand = (command: string) => {
+export const execCommand = (command: string) => {
   try {
     execa.commandSync(command, {
       stdio: 'inherit',
