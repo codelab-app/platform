@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-micro'
-import getFieldCypher from '../../cypher/type/getField.cypher'
-import isTypeDescendantOfCypher from '../../cypher/type/isTypeDescendantOf.cypher'
+import getFieldCypher from '../../repositories/type/getField.cypher'
+import isTypeDescendantOfCypher from '../../repositories/type/isTypeDescendantOf.cypher'
 import getTypeGraphCypher from './getTypeGraphCypher.cypher'
 import getTypeReferencesCypher from './getTypeReferences.cypher'
 

@@ -7,10 +7,10 @@ import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
 import { RxTransaction } from 'neo4j-driver'
 import { forkJoin, from, Observable } from 'rxjs'
 import { map, switchMap } from 'rxjs/operators'
-import { GetTypeByIdResponse, typeRepository } from '../../../../cypher'
 import { getDriver } from '../../../../infra/driver'
 import { InterfaceType as InterfaceTypeModel } from '../../../../model'
 import { InterfaceType } from '../../../../ogm-types.gen'
+import { GetTypeByIdResponse, typeRepository } from '../../../../repositories'
 import { deleteFieldEdge } from '../deleteFieldEdge'
 import {
   duplicatedKeyErrorFactory,
