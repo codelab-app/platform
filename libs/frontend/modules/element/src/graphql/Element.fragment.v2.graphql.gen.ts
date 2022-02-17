@@ -32,7 +32,7 @@ export type ElementFragment = {
 export type ElementEdgeFragment = {
   source: string
   target: string
-  order: number
+  order?: number | null | undefined
 }
 
 export type ElementGraphFragment = {

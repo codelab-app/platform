@@ -10,10 +10,6 @@ fragment Element on Element {
     id
     name
   }
-  children {
-    id
-    name
-  }
   atom {
     ...Atom
   }
@@ -48,6 +44,10 @@ fragment Element on Element {
   ...ElementBase
   parentElementConnection {
     edges {
+      node {
+        id
+        name
+      }
       order
     }
   }

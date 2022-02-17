@@ -68,6 +68,11 @@ export const makeStore = () => {
         adminEndpoints.middleware,
         pageEndpoints.middleware,
         elementEndpoints.middleware,
+<<<<<<< HEAD
+=======
+        elementEndpointsV2.middleware,
+        componentEndpoints.middleware,
+>>>>>>> 554af699 (feat: use reslovers for elements graph)
         hookEndpoints.middleware,
         propMapBindingEndpoints.middleware,
         atomEndpoints.middleware,

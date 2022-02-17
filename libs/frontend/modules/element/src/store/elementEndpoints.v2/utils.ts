@@ -1,28 +1,26 @@
 import { RootState } from '@reduxjs/toolkit/dist/query/core/apiState'
+import { Recipe } from '@reduxjs/toolkit/dist/query/core/buildThunks'
 import { merge, pickBy } from 'lodash'
 import { DefaultRootState } from 'react-redux'
 import {
   ElementEdgeFragment,
   ElementFragment,
   ElementGraphFragment,
-  ElementWithGraphFragment,
 } from '../../graphql'
-import { GraphUpdateHandler } from './types'
+import { NormalizedGetElementsGraphQuery } from './types'
 
 const fulfilledRequests: Array<string> = []
 
 export const normalizeVertices = (vertices: ElementGraphFragment['vertices']) =>
   vertices.map((v) => ({ [v.id]: v })).reduce(merge, {})
 
-export const normalizeElement = (element: ElementWithGraphFragment) => ({
-  [element.id]: {
-    vertices: normalizeVertices(element.graph?.vertices || []),
-    edges: element.graph?.edges,
-  },
+export const normalizeGraph = (graph: ElementGraphFragment) => ({
+  vertices: normalizeVertices(graph?.vertices || []),
+  edges: graph.edges,
 })
 
 export const getGraphEntry = (currentGraphRootId: string) => ({
-  variables: { where: { id: currentGraphRootId } },
+  variables: { input: { rootId: currentGraphRootId } },
 })
 
 const createEdges = (
@@ -41,40 +39,30 @@ const removeEdges = (edges: Array<ElementEdgeFragment>, ids: Array<string>) =>
   edges.filter((x) => !ids.includes(x.source) && !ids.includes(x.target))
 
 export const onCreate =
-  (rootId: string, created: Array<ElementFragment>): GraphUpdateHandler =>
+  (created: Array<ElementFragment>): Recipe<NormalizedGetElementsGraphQuery> =>
   (draft) => {
-    const oldGraph = draft.elements[rootId]
-    draft.elements[rootId] = {
-      vertices: merge(oldGraph.vertices, normalizeVertices(created)),
-      edges: oldGraph.edges.concat(createEdges(created)),
-    }
+    draft.vertices = merge(draft.vertices, normalizeVertices(created))
+    draft.edges = draft.edges.concat(createEdges(created))
   }
 
 export const onUpdate =
-  (rootId: string, updated: Array<ElementFragment>): GraphUpdateHandler =>
+  (updated: Array<ElementFragment>): Recipe<NormalizedGetElementsGraphQuery> =>
   (draft) => {
-    const oldGraph = draft.elements[rootId]
     const updatedIds = updated.map((x) => x.id)
-
-    draft.elements[rootId] = {
-      vertices: merge(oldGraph.vertices, normalizeVertices(updated)),
-      edges: removeEdges(oldGraph.edges, updatedIds).concat(
-        createEdges(updated),
-      ),
-    }
+    draft.vertices = merge(draft.vertices, normalizeVertices(updated))
+    draft.edges = removeEdges(draft.edges, updatedIds).concat(
+      createEdges(updated),
+    )
   }
 
 export const onDelete =
-  (rootId: string, deletedIds: Array<string>): GraphUpdateHandler =>
+  (deletedIds: Array<string>): Recipe<NormalizedGetElementsGraphQuery> =>
   (draft) => {
-    const oldGraph = draft.elements[rootId]
-    draft.elements[rootId] = {
-      vertices: pickBy(
-        oldGraph.vertices,
-        (value, key) => !deletedIds.includes(key),
-      ),
-      edges: removeEdges(oldGraph.edges, deletedIds),
-    }
+    draft.edges = removeEdges(draft.edges, deletedIds)
+    draft.vertices = pickBy(
+      draft.vertices,
+      (_, key) => !deletedIds.includes(key),
+    )
   }
 
 const getGraphRootId = (getState: () => RootState<any, any, 'api'>) =>

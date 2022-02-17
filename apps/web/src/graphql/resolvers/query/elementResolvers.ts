@@ -1,10 +1,17 @@
 import { IResolvers } from '@graphql-tools/utils'
 import { uniq } from 'lodash'
 import { elementRepository } from '../../cypher/element/elementRepository'
+<<<<<<< HEAD
 import { getDriver } from '../../infra/driver'
 import { Element } from '../../model'
 import { QueryElementGraphArgs } from '../../ogm-types.gen'
 import { elementSelectionSet } from '../selectionSets/elementSelectionSet'
+=======
+import { elementSelectionSet } from '../../cypher/element/elementSelectionSet'
+import { getDriver } from '../../infra/driver'
+import { Element } from '../../model'
+import { QueryElementGraphArgs } from '../../ogm-types.gen'
+>>>>>>> 554af699 (feat: use reslovers for elements graph)
 
 const driver = getDriver()
 

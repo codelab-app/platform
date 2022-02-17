@@ -14649,7 +14649,6 @@ __metadata:
     "@nrwl/devkit": 13.8.1
     "@nrwl/eslint-plugin-nx": 13.8.1
     "@nrwl/gatsby": 13.4.6
-<<<<<<< HEAD
     "@nrwl/jest": 13.8.1
     "@nrwl/linter": 13.8.1
     "@nrwl/nest": 13.8.1
@@ -14662,6 +14661,7 @@ __metadata:
     "@nrwl/tao": 13.8.1
     "@nrwl/web": 13.8.1
     "@nrwl/workspace": 13.8.1
+<<<<<<< HEAD
 <<<<<<< HEAD
     "@reduxjs/toolkit": 1.7.2
 =======
@@ -14682,6 +14682,9 @@ __metadata:
     "@reduxjs/toolkit": 1.7.2
 >>>>>>> 15dbb2723 (feat: move and duplicate element)
 >>>>>>> 651de063 (feat: move and duplicate element)
+=======
+    "@reduxjs/toolkit": 1.7.2
+>>>>>>> 554af699 (feat: use reslovers for elements graph)
     "@slack/web-api": 6.5.1
     "@storybook/addon-essentials": 6.4.19
     "@storybook/addon-knobs": 6.4.0

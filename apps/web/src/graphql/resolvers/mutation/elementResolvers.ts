@@ -1,5 +1,6 @@
 import { IResolvers } from '@graphql-tools/utils'
 import { elementRepository } from '../../cypher/element/elementRepository'
+<<<<<<< HEAD
 import { getDriver } from '../../infra/driver'
 import { Element } from '../../model'
 import {
@@ -7,6 +8,12 @@ import {
   MutationDuplicateElementArgs,
 } from '../../ogm-types.gen'
 import { elementSelectionSet } from '../selectionSets/elementSelectionSet'
+=======
+import { elementSelectionSet } from '../../cypher/element/elementSelectionSet'
+import { getDriver } from '../../infra/driver'
+import { Element } from '../../model'
+import { MutationDuplicateElementArgs } from '../../ogm-types.gen'
+>>>>>>> 554af699 (feat: use reslovers for elements graph)
 
 const driver = getDriver()
 
@@ -29,6 +36,7 @@ export const elementResolvers: IResolvers = {
 
     return { elements }
   },
+<<<<<<< HEAD
   deleteElementsSubgraph: async (_source, args: MutationDeleteElementsArgs) => {
     const session = driver.rxSession()
 
@@ -46,4 +54,6 @@ export const elementResolvers: IResolvers = {
       .toPromise()
       .finally(() => session.close())
   },
+=======
+>>>>>>> 554af699 (feat: use reslovers for elements graph)
 }
