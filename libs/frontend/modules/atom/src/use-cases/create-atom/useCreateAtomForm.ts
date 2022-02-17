@@ -31,6 +31,7 @@ export const useCreateAtomForm: UseUseCaseForm<
             {
               name: input.name,
               type: input.type,
+              tags: input.tags,
               api: {
                 create: {
                   node: {

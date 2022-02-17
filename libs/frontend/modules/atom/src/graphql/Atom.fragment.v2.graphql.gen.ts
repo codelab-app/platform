@@ -6,6 +6,7 @@ export type AtomFragment = {
   id: string
   name: string
   type: Types.AtomType
+  tags?: Array<string> | null | undefined
   api: { id: string; name: string }
 }
 
@@ -15,6 +16,7 @@ export const AtomFragmentDoc = gql`
     id
     name
     type
+    tags
     api {
       id
       name

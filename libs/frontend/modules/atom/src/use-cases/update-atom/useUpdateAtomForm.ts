@@ -22,10 +22,11 @@ export const useUpdateAtomForm: UseUseCaseForm<
   })
 
   const onSubmit = useCallback(
-    (data: CreateAtomInput) =>
-      mutate({
+    (data: CreateAtomInput) => {
+      return mutate({
         variables: { where: { id: updateId }, update: data },
-      }).unwrap(),
+      }).unwrap()
+    },
     [mutate, updateId],
   )
 
@@ -34,13 +35,15 @@ export const useUpdateAtomForm: UseUseCaseForm<
   })
 
   return {
-    onSubmit,
+    onSubmit: onSubmit,
     onSubmitError: [onSubmitError],
     onSubmitSuccess: [() => resetModal()],
     model: {
       name: entity?.name,
       type: entity?.type,
+      tags: entity?.tags || [],
     },
+    entity: entity,
     isLoading,
     actionType,
     reset: resetModal,

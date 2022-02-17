@@ -3,12 +3,9 @@ import {
   OpenDeleteModalActionPayload,
   OpenUpdateModalActionPayload,
 } from '@codelab/frontend/abstract/core'
-import {
-  AtomBaseFragment,
-  AtomFragment,
-} from '../graphql/Atom.fragment.graphql.gen'
+import { AtomFragment } from '../graphql/Atom.fragment.v2.graphql.gen'
 
-export type AtomState = CRUDModalState<AtomBaseFragment> & {
+export type AtomState = CRUDModalState<AtomFragment> & {
   selectedIds: Array<string>
 }
 
