@@ -34,7 +34,7 @@ export type UpdateElementsMutation = {
 }
 
 export type DuplicateElementMutationVariables = Types.Exact<{
-  elementId: Types.Scalars['String']
+  input: Types.DuplicateElementInput
 }>
 
 export type DuplicateElementMutation = {
@@ -76,8 +76,8 @@ export const UpdateElementsGql = gql`
   ${ElementFragmentDoc}
 `
 export const DuplicateElementGql = gql`
-  mutation DuplicateElement($elementId: String!) {
-    duplicateElement(elementId: $elementId) {
+  mutation DuplicateElement($input: DuplicateElementInput!) {
+    duplicateElement(input: $input) {
       elements {
         ...Element
       }

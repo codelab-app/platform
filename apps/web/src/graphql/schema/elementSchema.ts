@@ -1,21 +1,29 @@
 import { gql } from 'apollo-server-micro'
 
-export const elementEdgeSchema = gql`
-  type ElementEdge {
+export const elementSchema = gql`
+  type ElementEdge @exclude {
     source: String!
     target: String!
-    order: Int!
+    order: Int
   }
-`
 
-export const elementGraphSchema = gql`
-  type ElementGraph {
+  type ElementGraph @exclude {
     edges: [ElementEdge!]!
     vertices: [Element!]!
+    rootId: String
   }
-`
 
-export const propsMapBindingSchema = gql`
+  type Prop {
+    id: ID! @id
+    data: String! @default(value: "{}")
+  }
+
+  type Hook {
+    id: ID! @id
+    type: AtomType!
+    config: Prop! @relationship(type: "CONFIG_OF_HOOK", direction: OUT)
+  }
+
   type PropMapBinding {
     id: ID! @id
     targetElement: Element
@@ -23,11 +31,9 @@ export const propsMapBindingSchema = gql`
     sourceKey: String! # Set to '*' to bind all incoming props
     targetKey: String! # Set to '*' to spread the incoming props to the outgoing ones
   }
-`
 
-export const elementSchema = gql`
   interface ParentOfElement @relationshipProperties {
-    order: Int!
+    order: Int
   }
 
   type Element {
@@ -39,6 +45,8 @@ export const elementSchema = gql`
         properties: "ParentOfElement"
         direction: OUT
       )
+
+    props: Prop @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
 
     parentElement: Element
       @relationship(
@@ -63,64 +71,29 @@ export const elementSchema = gql`
 
     atom: Atom @relationship(type: "RENDER_ATOM", direction: OUT)
 
-    props: String
-    hooks: [String!]
+    hooks: [Hook!] @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
     propMapBindings: [PropMapBinding!]
-
-    graph: ElementGraph
-      @cypher(
-        statement: """
-        CALL apoc.path.subgraphAll(this, {relationshipFilter: 'PARENT_OF_ELEMENT>'}
-        ) YIELD nodes, relationships
-        RETURN {
-          vertices: [node in nodes | properties(node)],
-          edges: [rel in relationships | {
-              source: startNode(rel).id,
-              target: endNode(rel).id,
-              order: properties(rel).order
-            }
-          ]
-        }
-        """
-      )
   }
-`
 
-export const elementMutationsSchema = gql`
-  type DuplicateElementMutationResponse
-    @exclude(operations: [CREATE, READ, UPDATE, DELETE]) {
+  input ElementGraphInput {
+    rootId: String!
+  }
+
+  type Query {
+    elementGraph(input: ElementGraphInput!): ElementGraph!
+  }
+
+  input DuplicateElementInput {
+    elementId: String!
+  }
+
+  type DuplicateElementMutationResponse @exclude {
     elements: [Element!]!
   }
 
   type Mutation {
-    duplicateElement(elementId: String!): DuplicateElementMutationResponse!
-      @cypher(
-        statement: """
-        MATCH (parentNode:Element)-[rootLink:PARENT_OF_ELEMENT]->(element:Element {id: $elementId})
-        CALL apoc.path.subgraphAll(element,
-                                  {relationshipFilter: 'PARENT_OF_ELEMENT>' }
-        ) YIELD nodes, relationships
-        CALL apoc.refactor.cloneSubgraph(
-          nodes + [parentNode],
-          relationships + [rootLink],
-          {
-            skipProperties:['id'],
-            standinNodes:[[parentNode,parentNode]]
-          }
-        )
-        YIELD input, output as createdNode, error
-        SET createdNode.id = apoc.create.uuid()
-        WITH createdNode
-        MATCH (createdNode)<-[r:PARENT_OF_ELEMENT]-(p:Element)
-        WITH {order:r.order} as edge,
-          apoc.map.merge(createdNode,{
-          parentElement:{id:p.id,name:properties(p).name},
-          parentElementConnection:{
-            edges: [{order:r.order}]
-          }
-        }) as createdNode
-        RETURN  {elements: collect(createdNode)}
-        """
-      )
+    duplicateElement(
+      input: DuplicateElementInput!
+    ): DuplicateElementMutationResponse!
   }
 `

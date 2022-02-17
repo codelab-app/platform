@@ -20,8 +20,8 @@ mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
   }
 }
 
-mutation DuplicateElement($elementId: String!) {
-  duplicateElement(elementId: $elementId) {
+mutation DuplicateElement($input: DuplicateElementInput!) {
+  duplicateElement(input: $input) {
     elements {
       ...Element
     }

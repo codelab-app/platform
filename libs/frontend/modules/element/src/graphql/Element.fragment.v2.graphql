@@ -1,4 +1,4 @@
-fragment ElementBase on Element {
+fragment Element on Element {
   __typename
   id
   name
@@ -7,10 +7,6 @@ fragment ElementBase on Element {
     id
   }
   parentElement {
-    id
-    name
-  }
-  children {
     id
     name
   }
@@ -23,8 +19,12 @@ fragment ElementBase on Element {
     id
     name
   }
-  props
-  hooks
+  props {
+    ...Prop
+  }
+  hooks {
+    ...Hook
+  }
   renderForEachPropKey
   renderIfPropKey
   propMapBindings {
@@ -33,12 +33,12 @@ fragment ElementBase on Element {
     targetKey
   }
   propTransformationJs
-}
-
-fragment Element on Element {
-  ...ElementBase
   parentElementConnection {
     edges {
+      node {
+        id
+        name
+      }
       order
     }
   }
@@ -55,13 +55,20 @@ fragment ElementGraph on ElementGraph {
     ...ElementEdge
   }
   vertices {
-    ...ElementBase
+    ...Element
   }
+  rootId
 }
 
-fragment ElementWithGraph on Element {
-  ...Element
-  graph {
-    ...ElementGraph
+fragment Prop on Prop {
+  id
+  data
+}
+
+fragment Hook on Hook {
+  id
+  type
+  config {
+    ...Prop
   }
 }

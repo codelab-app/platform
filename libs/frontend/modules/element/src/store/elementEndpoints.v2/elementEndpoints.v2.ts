@@ -1,82 +1,72 @@
 import { gql } from '@apollo/client'
 import { GraphqlOperationOptions } from '@codelab/frontend/model/infra/redux'
-import { merge } from 'lodash'
+import { Maybe } from '@codelab/shared/abstract/codegen-v2'
+import { Recipe } from '@reduxjs/toolkit/dist/query/core/buildThunks'
 import {
   api as generatedApi,
-  ElementWithGraphFragment,
-  ElementWithGraphFragmentDoc,
+  ElementGraphFragment,
+  ElementGraphFragmentDoc,
 } from '../../graphql'
 import {
-  GetElementsWithGraphQuery,
-  GetElementsWithGraphQueryVariables,
+  GetElementsGraphQueryVariables,
+  NormalizedGetElementsGraphQuery,
 } from './types'
 import {
   getGraphEntry,
-  normalizeElement,
+  normalizeGraph,
   onCreate,
   onDelete,
   onUpdate,
   runGuards,
 } from './utils'
 
-export const GetElementsWithGraphGql = gql`
-  query GetElementsWithGraph($options: ElementOptions, $where: ElementWhere) {
-    elements: elements(options: $options, where: $where) {
-      ...ElementWithGraph
+export const GetElementsGraphGql = gql`
+  query GetElementsGraph($input: ElementGraphInput!) {
+    elementGraph(input: $input) {
+      ...ElementGraph
     }
   }
-  ${ElementWithGraphFragmentDoc}
+  ${ElementGraphFragmentDoc}
 `
 
-const injectedElementApi = generatedApi.injectEndpoints({
+const elementInjectedApi = generatedApi.injectEndpoints({
   endpoints: (build) => ({
-    GetElementsWithGraph: build.query<
-      GetElementsWithGraphQuery,
-      | GraphqlOperationOptions<GetElementsWithGraphQueryVariables>
-      | void
-      | undefined
+    GetElementsGraph: build.query<
+      NormalizedGetElementsGraphQuery,
+      Maybe<GraphqlOperationOptions<GetElementsGraphQueryVariables>> | void
     >({
       query: (options) => ({
-        document: GetElementsWithGraphGql,
+        document: GetElementsGraphGql,
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
-      transformResponse: (res: {
-        elements: Array<ElementWithGraphFragment>
-      }) => {
+      transformResponse: (response: { elementGraph: ElementGraphFragment }) => {
         /**
-         * reshape response @type GetElementsWithGraphQuery
-         *                to @type NormalizedGetElementsWithGraphQuery
+         * reshape graph from @type ElementGraphFragment
+         *                 to @type NormalizedGetElementsGraphQuery
          *  {
-         *    [element.id]:{
          *      edges : Array<ElementEdgeFragment>
-         *      vertices : {
-         *        [vertex.id] : ElementFragment
-         *      }
-         *    }
-         *
+         *      vertices : { [vertex.id] : ElementFragment }
          *  }
+         *
          * because accessing elements in objects is faster than arrays
          */
-        const { elements } = res
-
-        const normalizedElements = elements
-          .map(normalizeElement)
-          .reduce(merge, {})
-
-        return { elements: normalizedElements }
+        return normalizeGraph(response.elementGraph)
       },
     }),
   }),
 })
 
-export const updateCache = (rootId: string, updateRecipe: GraphUpdateHandler) =>
-  injectedElementApi.util.updateQueryData(
-    'GetElementsWithGraph',
+export const updateCache = (
+  rootId: string,
+  updateRecipe: Recipe<NormalizedGetElementsGraphQuery>,
+) =>
+  elementInjectedApi.util.updateQueryData(
+    'GetElementsGraph',
     getGraphEntry(rootId),
     updateRecipe,
   )
 
-export const elementApiV2 = injectedElementApi.enhanceEndpoints({
+export const elementApiV2 = elementInjectedApi.enhanceEndpoints({
   endpoints: {
     CreateElements: {
       async onQueryStarted(input, api) {
@@ -84,7 +74,7 @@ export const elementApiV2 = injectedElementApi.enhanceEndpoints({
         const { data } = await queryFulfilled
         runGuards(requestId, getState, async (rootId) => {
           const createdElements = data.createElements.elements
-          dispatch(updateCache(rootId, onCreate(rootId, createdElements)))
+          dispatch(updateCache(rootId, onCreate(createdElements)))
         })
       },
     },
@@ -94,7 +84,7 @@ export const elementApiV2 = injectedElementApi.enhanceEndpoints({
         const { data } = await queryFulfilled
         runGuards(requestId, getState, async (rootId) => {
           const duplicatedElements = data.duplicateElement.elements
-          dispatch(updateCache(rootId, onCreate(rootId, duplicatedElements)))
+          dispatch(updateCache(rootId, onCreate(duplicatedElements)))
         })
       },
     },
@@ -104,7 +94,7 @@ export const elementApiV2 = injectedElementApi.enhanceEndpoints({
         const { data } = await queryFulfilled
         runGuards(requestId, getState, async (rootId) => {
           const updatedElements = data.updateElements.elements
-          dispatch(updateCache(rootId, onUpdate(rootId, updatedElements)))
+          dispatch(updateCache(rootId, onUpdate(updatedElements)))
         })
       },
     },
@@ -116,22 +106,22 @@ export const elementApiV2 = injectedElementApi.enhanceEndpoints({
           const deletedIds =
             (input?.variables?.where?.id_IN as Array<string>) || []
 
-          dispatch(updateCache(rootId, onDelete(rootId, deletedIds)))
+          dispatch(updateCache(rootId, onDelete(deletedIds)))
         })
       },
     },
   },
 })
 
-export { injectedElementApi as elementEndpointsV2 }
+export { elementApiV2 as elementEndpointsV2 }
 
 export const {
-  useCreateElementsMutation,
-  useDeleteElementsMutation,
-  useUpdateElementsMutation,
   useGetElementsQuery,
   useLazyGetElementsQuery,
-  useGetElementsWithGraphQuery,
-  useLazyGetElementsWithGraphQuery,
+  useCreateElementsMutation,
+  useDeleteElementsMutation,
   useDuplicateElementMutation,
+  useGetElementsGraphQuery,
+  useLazyGetElementsGraphQuery,
+  useUpdateElementsMutation,
 } = elementApiV2

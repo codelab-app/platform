@@ -1,5 +1,10 @@
 import { getOgm } from './infra/ogm'
-import { AtomModel, InterfaceTypeModel, UserModel } from './ogm-types.gen'
+import {
+  AtomModel,
+  ElementModel,
+  InterfaceTypeModel,
+  UserModel,
+} from './ogm-types.gen'
 
 let userInst: UserModel
 
@@ -8,6 +13,10 @@ export const User = () => (userInst ??= getOgm().model('User'))
 let atomInst: AtomModel
 
 export const Atom = () => (atomInst ??= getOgm().model('Atom'))
+
+let elementInst: ElementModel
+
+export const Element = () => (elementInst ??= getOgm().model('Element'))
 
 let interfaceInst: InterfaceTypeModel
 

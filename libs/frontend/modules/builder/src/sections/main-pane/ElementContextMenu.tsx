@@ -62,7 +62,7 @@ export const ElementContextMenu = ({
 
   const onDuplicate = () =>
     createElement({
-      variables: { elementId: element.id },
+      variables: { input: { elementId: element.id } },
     })
 
   const onConvert = () => {

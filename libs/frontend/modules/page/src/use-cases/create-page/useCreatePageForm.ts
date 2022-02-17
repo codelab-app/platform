@@ -33,49 +33,7 @@ export const useCreatePageForm: UseUseCaseForm<
       }
 
       const rootElement: PageCreateInput['rootElement'] = {
-        create: {
-          node: {
-            name: 'Root Element',
-            children: {
-              create: [
-                {
-                  edge: { order: 1 },
-                  node: {
-                    name: 'First Child',
-                    children: {
-                      create: [
-                        {
-                          edge: { order: 1 },
-                          node: { name: 'Second Child' },
-                        },
-                      ],
-                    },
-                  },
-                },
-                {
-                  edge: { order: 2 },
-                  node: {
-                    name: 'First Child B',
-                    hooks: [],
-                    children: {
-                      create: [
-                        {
-                          edge: {
-                            order: 1,
-                          },
-                          node: {
-                            name: 'Second Child B',
-                            hooks: [],
-                          },
-                        },
-                      ],
-                    },
-                  },
-                },
-              ],
-            },
-          },
-        },
+        create: { node: { name: 'Root Element' } },
       }
 
       return mutate({

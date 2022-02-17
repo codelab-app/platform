@@ -70,6 +70,7 @@ export const makeStore = () => {
         adminEndpoints.middleware,
         pageEndpoints.middleware,
         elementEndpoints.middleware,
+        elementEndpointsV2.middleware,
         componentEndpoints.middleware,
         hookEndpoints.middleware,
         propMapBindingEndpoints.middleware,

@@ -1,13 +1,11 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { gql } from '@apollo/client'
-export type ElementBaseFragment = {
+export type ElementFragment = {
   __typename: 'Element'
   id: string
   name?: string | null | undefined
   css?: string | null | undefined
-  props?: string | null | undefined
-  hooks?: Array<string> | null | undefined
   renderForEachPropKey?: string | null | undefined
   renderIfPropKey?: string | null | undefined
   propTransformationJs?: string | null | undefined
@@ -16,39 +14,67 @@ export type ElementBaseFragment = {
     | { id: string; name?: string | null | undefined }
     | null
     | undefined
-  children?:
-    | Array<{ id: string; name?: string | null | undefined }>
-    | null
-    | undefined
   atom?: { id: string; name: string; type: Types.AtomType } | null | undefined
   componentTag?: { id: string; name: string } | null | undefined
+  props?: PropFragment | null | undefined
+  hooks?: Array<HookFragment> | null | undefined
   propMapBindings?:
     | Array<{ id: string; sourceKey: string; targetKey: string }>
     | null
     | undefined
+  parentElementConnection: {
+    edges: Array<{
+      order?: number | null | undefined
+      node: { id: string; name?: string | null | undefined }
+    }>
+  }
 }
-
-export type ElementFragment = {
-  parentElementConnection: { edges: Array<{ order: number }> }
-} & ElementBaseFragment
 
 export type ElementEdgeFragment = {
   source: string
   target: string
-  order: number
+  order?: number | null | undefined
 }
 
 export type ElementGraphFragment = {
+  rootId?: string | null | undefined
   edges: Array<ElementEdgeFragment>
-  vertices: Array<ElementBaseFragment>
+  vertices: Array<ElementFragment>
 }
 
-export type ElementWithGraphFragment = {
-  graph?: ElementGraphFragment | null | undefined
-} & ElementFragment
+export type PropFragment = { id: string; data: string }
 
-export const ElementBaseFragmentDoc = gql`
-  fragment ElementBase on Element {
+export type HookFragment = {
+  id: string
+  type: Types.AtomType
+  config: PropFragment
+}
+
+export const ElementEdgeFragmentDoc = gql`
+  fragment ElementEdge on ElementEdge {
+    source
+    target
+    order
+  }
+`
+export const PropFragmentDoc = gql`
+  fragment Prop on Prop {
+    id
+    data
+  }
+`
+export const HookFragmentDoc = gql`
+  fragment Hook on Hook {
+    id
+    type
+    config {
+      ...Prop
+    }
+  }
+  ${PropFragmentDoc}
+`
+export const ElementFragmentDoc = gql`
+  fragment Element on Element {
     __typename
     id
     name
@@ -57,10 +83,6 @@ export const ElementBaseFragmentDoc = gql`
       id
     }
     parentElement {
-      id
-      name
-    }
-    children {
       id
       name
     }
@@ -73,8 +95,12 @@ export const ElementBaseFragmentDoc = gql`
       id
       name
     }
-    props
-    hooks
+    props {
+      ...Prop
+    }
+    hooks {
+      ...Hook
+    }
     renderForEachPropKey
     renderIfPropKey
     propMapBindings {
@@ -83,25 +109,18 @@ export const ElementBaseFragmentDoc = gql`
       targetKey
     }
     propTransformationJs
-  }
-`
-export const ElementFragmentDoc = gql`
-  fragment Element on Element {
-    ...ElementBase
     parentElementConnection {
       edges {
+        node {
+          id
+          name
+        }
         order
       }
     }
   }
-  ${ElementBaseFragmentDoc}
-`
-export const ElementEdgeFragmentDoc = gql`
-  fragment ElementEdge on ElementEdge {
-    source
-    target
-    order
-  }
+  ${PropFragmentDoc}
+  ${HookFragmentDoc}
 `
 export const ElementGraphFragmentDoc = gql`
   fragment ElementGraph on ElementGraph {
@@ -109,19 +128,10 @@ export const ElementGraphFragmentDoc = gql`
       ...ElementEdge
     }
     vertices {
-      ...ElementBase
+      ...Element
     }
+    rootId
   }
   ${ElementEdgeFragmentDoc}
-  ${ElementBaseFragmentDoc}
-`
-export const ElementWithGraphFragmentDoc = gql`
-  fragment ElementWithGraph on Element {
-    ...Element
-    graph {
-      ...ElementGraph
-    }
-  }
   ${ElementFragmentDoc}
-  ${ElementGraphFragmentDoc}
 `
