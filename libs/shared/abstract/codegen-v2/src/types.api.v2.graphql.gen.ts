@@ -909,6 +909,7 @@ export type Atom = {
   apiConnection: AtomApiConnection
   id: Scalars['ID']
   name: Scalars['String']
+  tags?: Maybe<Array<Scalars['String']>>
   type: AtomType
 }
 
@@ -1063,6 +1064,7 @@ export type AtomConnectWhere = {
 export type AtomCreateInput = {
   api?: InputMaybe<AtomApiFieldInput>
   name: Scalars['String']
+  tags?: InputMaybe<Array<Scalars['String']>>
   type: AtomType
 }
 
@@ -1480,6 +1482,7 @@ export type AtomUniqueWhere = {
 export type AtomUpdateInput = {
   api?: InputMaybe<AtomApiUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
+  tags?: InputMaybe<Array<Scalars['String']>>
   type?: InputMaybe<AtomType>
 }
 
@@ -1511,6 +1514,10 @@ export type AtomWhere = {
   name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  tags?: InputMaybe<Array<Scalars['String']>>
+  tags_INCLUDES?: InputMaybe<Scalars['String']>
+  tags_NOT?: InputMaybe<Array<Scalars['String']>>
+  tags_NOT_INCLUDES?: InputMaybe<Scalars['String']>
   type?: InputMaybe<AtomType>
   type_IN?: InputMaybe<Array<InputMaybe<AtomType>>>
   type_NOT?: InputMaybe<AtomType>

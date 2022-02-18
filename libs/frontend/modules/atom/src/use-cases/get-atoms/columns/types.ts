@@ -11,3 +11,8 @@ export type PropsColumnProps = {
 export type ActionColumnProps = {
   atom: AtomFragment
 }
+
+export type TagsColumnProps = {
+  tags: [string]
+  tagData: Array<any>
+}

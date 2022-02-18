@@ -814,6 +814,7 @@ type Atom {
   ): AtomApiConnection!
   id: ID!
   name: String!
+  tags: [String!]
   type: AtomType!
 }
 
@@ -949,6 +950,7 @@ input AtomConnectWhere {
 input AtomCreateInput {
   api: AtomApiFieldInput
   name: String!
+  tags: [String!]
   type: AtomType!
 }
 
@@ -1369,6 +1371,7 @@ input AtomUniqueWhere {
 input AtomUpdateInput {
   api: AtomApiUpdateFieldInput
   name: String
+  tags: [String!]
   type: AtomType
 }
 
@@ -1400,6 +1403,10 @@ input AtomWhere {
   name_NOT_IN: [String]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
+  tags: [String!]
+  tags_INCLUDES: String
+  tags_NOT: [String!]
+  tags_NOT_INCLUDES: String
   type: AtomType
   type_IN: [AtomType]
   type_NOT: AtomType

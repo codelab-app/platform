@@ -1,8 +1,10 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { useGetTagGraphsQuery, useTagTree } from '@codelab/frontend/modules/tag'
 import { Form, FormModal } from '@codelab/frontend/view/components'
 import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
 import React from 'react'
-import { AutoFields, SelectField } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
+import { TreeSelectField } from '../components'
 import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
 import { useCreateAtomForm } from './useCreateAtomForm'
 
@@ -23,6 +25,10 @@ export const CreateAtomModal = () => {
     isLoading,
   } = useCreateAtomForm()
 
+  const { data } = useGetTagGraphsQuery()
+  const tagTree = useTagTree(data?.tagGraphs)
+  const tagTreeData = tagTree.getAntdTree()
+
   return (
     <FormModal
       okButtonProps={{ loading: isLoading }}
@@ -39,14 +45,8 @@ export const CreateAtomModal = () => {
           schema={createAtomSchema}
           submitRef={submitRef}
         >
-          <AutoFields omitFields={['type']} />
-          <SelectField
-            label="Type"
-            name="type"
-            optionFilterProp="label"
-            options={atomTypeOptions}
-            showSearch={true}
-          />
+          <AutoFields omitFields={['tags']} />
+          <TreeSelectField label="Tags" name="tags" treeData={tagTreeData} />
         </Form>
       )}
     </FormModal>
