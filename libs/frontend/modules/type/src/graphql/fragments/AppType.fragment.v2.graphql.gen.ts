@@ -14,7 +14,9 @@ import {
 } from './TypeBase.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
-export type AppTypeFragment = TypeBase_AppType_Fragment
+export type AppTypeFragment = {
+  ' $fragmentRefs': { TypeBase_AppType_Fragment: TypeBase_AppType_Fragment }
+}
 
 export const AppTypeFragmentDoc = gql`
   fragment AppType on AppType {

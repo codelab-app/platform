@@ -13,6 +13,5 @@ export type ActionColumnProps = {
 }
 
 export type TagsColumnProps = {
-  tags: [string]
-  tagData: Array<any>
+  tags: [object]
 }

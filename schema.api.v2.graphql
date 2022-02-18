@@ -814,7 +814,14 @@ type Atom {
   ): AtomApiConnection!
   id: ID!
   name: String!
-  tags: [String!]
+  tags(options: TagOptions, where: TagWhere): [Tag!]
+  tagsAggregate(where: TagWhere): AtomTagTagsAggregationSelection
+  tagsConnection(
+    after: String
+    first: Int
+    sort: [AtomTagsConnectionSort!]
+    where: AtomTagsConnectionWhere
+  ): AtomTagsConnection!
   type: AtomType!
 }
 
@@ -933,10 +940,12 @@ input AtomApiUpdateFieldInput {
 
 input AtomConnectInput {
   api: AtomApiConnectFieldInput
+  tags: [AtomTagsConnectFieldInput!]
 }
 
 input AtomConnectOrCreateInput {
   api: AtomApiConnectOrCreateFieldInput
+  tags: [AtomTagsConnectOrCreateFieldInput!]
 }
 
 input AtomConnectOrCreateWhere {
@@ -950,16 +959,18 @@ input AtomConnectWhere {
 input AtomCreateInput {
   api: AtomApiFieldInput
   name: String!
-  tags: [String!]
+  tags: AtomTagsFieldInput
   type: AtomType!
 }
 
 input AtomDeleteInput {
   api: AtomApiDeleteFieldInput
+  tags: [AtomTagsDeleteFieldInput!]
 }
 
 input AtomDisconnectInput {
   api: AtomApiDisconnectFieldInput
+  tags: [AtomTagsDisconnectFieldInput!]
 }
 
 type AtomInterfaceTypeApiAggregationSelection {
@@ -984,6 +995,7 @@ input AtomOptions {
 
 input AtomRelationInput {
   api: AtomApiCreateFieldInput
+  tags: [AtomTagsCreateFieldInput!]
 }
 
 """
@@ -993,6 +1005,123 @@ input AtomSort {
   id: SortDirection
   name: SortDirection
   type: SortDirection
+}
+
+type AtomTagTagsAggregationSelection {
+  count: Int!
+  node: AtomTagTagsNodeAggregateSelection
+}
+
+type AtomTagTagsNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
+input AtomTagsAggregateInput {
+  AND: [AtomTagsAggregateInput!]
+  OR: [AtomTagsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AtomTagsNodeAggregationWhereInput
+}
+
+input AtomTagsConnectFieldInput {
+  connect: [TagConnectInput!]
+  where: TagConnectWhere
+}
+
+input AtomTagsConnectOrCreateFieldInput {
+  onCreate: AtomTagsConnectOrCreateFieldInputOnCreate!
+  where: TagConnectOrCreateWhere!
+}
+
+input AtomTagsConnectOrCreateFieldInputOnCreate {
+  node: TagCreateInput!
+}
+
+type AtomTagsConnection {
+  edges: [AtomTagsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AtomTagsConnectionSort {
+  node: TagSort
+}
+
+input AtomTagsConnectionWhere {
+  AND: [AtomTagsConnectionWhere!]
+  OR: [AtomTagsConnectionWhere!]
+  node: TagWhere
+  node_NOT: TagWhere
+}
+
+input AtomTagsCreateFieldInput {
+  node: TagCreateInput!
+}
+
+input AtomTagsDeleteFieldInput {
+  delete: TagDeleteInput
+  where: AtomTagsConnectionWhere
+}
+
+input AtomTagsDisconnectFieldInput {
+  disconnect: TagDisconnectInput
+  where: AtomTagsConnectionWhere
+}
+
+input AtomTagsFieldInput {
+  connect: [AtomTagsConnectFieldInput!]
+  connectOrCreate: [AtomTagsConnectOrCreateFieldInput!]
+  create: [AtomTagsCreateFieldInput!]
+}
+
+input AtomTagsNodeAggregationWhereInput {
+  AND: [AtomTagsNodeAggregationWhereInput!]
+  OR: [AtomTagsNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type AtomTagsRelationship {
+  cursor: String!
+  node: Tag!
+}
+
+input AtomTagsUpdateConnectionInput {
+  node: TagUpdateInput
+}
+
+input AtomTagsUpdateFieldInput {
+  connect: [AtomTagsConnectFieldInput!]
+  connectOrCreate: [AtomTagsConnectOrCreateFieldInput!]
+  create: [AtomTagsCreateFieldInput!]
+  delete: [AtomTagsDeleteFieldInput!]
+  disconnect: [AtomTagsDisconnectFieldInput!]
+  update: AtomTagsUpdateConnectionInput
+  where: AtomTagsConnectionWhere
 }
 
 enum AtomType {
@@ -1371,7 +1500,7 @@ input AtomUniqueWhere {
 input AtomUpdateInput {
   api: AtomApiUpdateFieldInput
   name: String
-  tags: [String!]
+  tags: [AtomTagsUpdateFieldInput!]
   type: AtomType
 }
 
@@ -1403,10 +1532,11 @@ input AtomWhere {
   name_NOT_IN: [String]
   name_NOT_STARTS_WITH: String
   name_STARTS_WITH: String
-  tags: [String!]
-  tags_INCLUDES: String
-  tags_NOT: [String!]
-  tags_NOT_INCLUDES: String
+  tags: TagWhere
+  tagsAggregate: AtomTagsAggregateInput
+  tagsConnection: AtomTagsConnectionWhere
+  tagsConnection_NOT: AtomTagsConnectionWhere
+  tags_NOT: TagWhere
   type: AtomType
   type_IN: [AtomType]
   type_NOT: AtomType

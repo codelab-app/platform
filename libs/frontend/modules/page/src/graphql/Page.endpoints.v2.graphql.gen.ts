@@ -12,7 +12,9 @@ export type CreatePagesMutationVariables = Types.Exact<{
 }>
 
 export type CreatePagesMutation = {
-  createPages: { pages: Array<PageFragment> }
+  createPages: {
+    pages: Array<{ ' $fragmentRefs': { PageFragment: PageFragment } }>
+  }
 }
 
 export type DeletePagesMutationVariables = Types.Exact<{
@@ -28,7 +30,9 @@ export type UpdatePagesMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePagesMutation = {
-  updatePages: { pages: Array<PageFragment> }
+  updatePages: {
+    pages: Array<{ ' $fragmentRefs': { PageFragment: PageFragment } }>
+  }
 }
 
 export type GetPagesQueryVariables = Types.Exact<{
@@ -36,7 +40,9 @@ export type GetPagesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PageWhere>
 }>
 
-export type GetPagesQuery = { pages: Array<PageFragment> }
+export type GetPagesQuery = {
+  pages: Array<{ ' $fragmentRefs': { PageFragment: PageFragment } }>
+}
 
 export const CreatePagesGql = gql`
   mutation CreatePages($input: [PageCreateInput!]!) {

@@ -1,11 +1,14 @@
-import { AtomCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
 import { JSONSchemaType } from 'ajv'
 import { TreeSelectField } from '../components'
 
-export type CreateAtomInput = Pick<AtomCreateInput, 'name' | 'type' | 'tags'>
+export type CreateAtomInputSchema = {
+  name: string
+  type: AtomType
+  tags: Array<string>
+}
 
-export const createAtomSchema: JSONSchemaType<CreateAtomInput> = {
+export const createAtomSchema: JSONSchemaType<CreateAtomInputSchema> = {
   title: 'Create Atom',
   type: 'object',
   properties: {
