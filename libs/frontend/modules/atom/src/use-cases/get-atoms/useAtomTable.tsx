@@ -1,4 +1,3 @@
-import { useGetTagGraphsQuery, useTagTree } from '@codelab/frontend/modules/tag'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { TableColumnProps } from 'antd'
@@ -20,9 +19,6 @@ const onLibraryFilter = (value: any, atom: AtomFragment): boolean => {
 export const useAtomTable = () => {
   const { selectedIds } = useAtomState()
   const { setSelectedIds } = useAtomDispatch()
-  const { data } = useGetTagGraphsQuery()
-  const tagTree = useTagTree(data?.tagGraphs)
-  const tagTreeData = tagTree.getAntdTree()
 
   const columns: Array<TableColumnProps<AtomFragment>> = [
     {
@@ -45,7 +41,7 @@ export const useAtomTable = () => {
       dataIndex: 'tags',
       key: 'tags',
       onHeaderCell: headerCellProps,
-      render: (tags) => <TagsColumn tagData={tagTreeData} tags={tags} />,
+      render: (tags) => <TagsColumn tags={tags} />,
     },
     {
       title: 'Props API',

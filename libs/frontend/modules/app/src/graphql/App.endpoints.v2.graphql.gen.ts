@@ -14,7 +14,11 @@ export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>
 
-export type CreateAppsMutation = { createApps: { apps: Array<AppFragment> } }
+export type CreateAppsMutation = {
+  createApps: {
+    apps: Array<{ ' $fragmentRefs': { AppFragment: AppFragment } }>
+  }
+}
 
 export type UpdateAppsMutationVariables = Types.Exact<{
   where: Types.AppWhere
@@ -22,7 +26,9 @@ export type UpdateAppsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateAppsMutation = {
-  updateApps: { apps: Array<AppBaseFragment> }
+  updateApps: {
+    apps: Array<{ ' $fragmentRefs': { AppBaseFragment: AppBaseFragment } }>
+  }
 }
 
 export type DeleteAppsMutationVariables = Types.Exact<{
@@ -36,7 +42,9 @@ export type GetAppsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AppWhere>
 }>
 
-export type GetAppsQuery = { apps: Array<AppFragment> }
+export type GetAppsQuery = {
+  apps: Array<{ ' $fragmentRefs': { AppFragment: AppFragment } }>
+}
 
 export const CreateAppsGql = gql`
   mutation CreateApps($input: [AppCreateInput!]!) {

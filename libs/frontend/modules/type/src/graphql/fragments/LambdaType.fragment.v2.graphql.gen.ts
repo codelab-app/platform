@@ -14,7 +14,11 @@ import {
 } from './TypeBase.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
-export type LambdaTypeFragment = TypeBase_LambdaType_Fragment
+export type LambdaTypeFragment = {
+  ' $fragmentRefs': {
+    TypeBase_LambdaType_Fragment: TypeBase_LambdaType_Fragment
+  }
+}
 
 export const LambdaTypeFragmentDoc = gql`
   fragment LambdaType on LambdaType {

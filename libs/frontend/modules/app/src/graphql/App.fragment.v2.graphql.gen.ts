@@ -4,10 +4,7 @@ import { gql } from '@apollo/client'
 export type AppFragment = {
   id: string
   name: string
-  pages?:
-    | Array<{ id: string; name: string } | null | undefined>
-    | null
-    | undefined
+  pages?: Array<{ id: string; name: string } | null> | null
 }
 
 export type AppBaseFragment = { id: string; name: string }

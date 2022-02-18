@@ -5,7 +5,7 @@ import { AtomType, filterNotHookType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { TreeSelectField } from '../components'
-import { CreateAtomInput, createAtomSchema } from './createAtomSchema'
+import { CreateAtomInputSchema, createAtomSchema } from './createAtomSchema'
 import { useCreateAtomForm } from './useCreateAtomForm'
 
 const atomTypeOptions = Object.keys(AtomType)
@@ -37,7 +37,7 @@ export const CreateAtomModal = () => {
       visible={actionType === CRUDActionType.Create}
     >
       {({ submitRef }) => (
-        <Form<CreateAtomInput>
+        <Form<CreateAtomInputSchema>
           model={{}}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
