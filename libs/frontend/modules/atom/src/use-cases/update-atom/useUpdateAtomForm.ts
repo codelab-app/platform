@@ -27,10 +27,7 @@ export const useUpdateAtomForm: UseUseCaseForm<
     (data: CreateAtomInputSchema) => {
       const existingTagIds = entity?.tags?.map((tag) => tag.id) || []
       const connects = makeTagConnectData(difference(data.tags, existingTagIds))
-
-      const disconnects = makeTagConnectData(
-        difference(existingTagIds, data.tags),
-      )
+      const disconnects = makeTagConnectData(difference(existingTagIds, data.tags))
 
       return mutate({
         variables: {
