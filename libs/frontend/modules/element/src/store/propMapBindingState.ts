@@ -4,7 +4,8 @@ import {
   initialCrudState,
 } from '@codelab/frontend/view/components'
 import { DefaultRootState } from 'react-redux'
-import { HookFragment, PropMapBindingFragment } from '../graphql'
+import { HookFragment } from '../graphql'
+import { PropMapBindingFragment } from '../graphql/Element.fragment.graphql.gen'
 
 export type PropMapBindingState = CRUDModalState<PropMapBindingFragment>
 

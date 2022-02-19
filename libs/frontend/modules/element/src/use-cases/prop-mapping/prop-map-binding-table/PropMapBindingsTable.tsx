@@ -35,7 +35,7 @@ export const PropMapBindingsTable = ({
       dataIndex: 'targetElement',
       key: 'targetElement',
       onHeaderCell: headerCellProps,
-      render: (value) => tree.getVertex(value.id)?.name,
+      render: (value) => (value?.id ? tree.getVertex(value?.id)?.name : ''),
     },
     {
       title: 'Target key',

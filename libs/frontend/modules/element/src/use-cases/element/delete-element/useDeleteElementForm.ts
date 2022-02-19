@@ -34,7 +34,11 @@ export const useDeleteElementForm: UseEntityUseCaseForm<
       return mutate({
         variables: {
           where: { id_IN: [elementId, ...elementDescendantsIds] },
-          delete: { componentTag: { where: {} } },
+          delete: {
+            componentTag: { where: {} },
+            props: { where: {} },
+            propMapBindings: [{ where: {} }],
+          },
         },
       }).unwrap()
     },
