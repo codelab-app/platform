@@ -12,7 +12,11 @@ export const elementSelectionSet = `{
     atom {
         id
         name
-        type
+        type    
+        api {
+            id
+            name
+        }
     }
     componentTag {
         id

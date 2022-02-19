@@ -1,7 +1,7 @@
 MATCH (parentNode:Element)-[rootLink:PARENT_OF_ELEMENT]->(element:Element {id: $elementId})
 CALL apoc.path.subgraphAll(
     element,
-    { relationshipFilter: 'PARENT_OF_ELEMENT>|PROPS_OF_ELEMENT>|HOOKS_OF_ELEMENT>' }
+    { relationshipFilter: 'PARENT_OF_ELEMENT>|PROPS_OF_ELEMENT>|HOOKS_OF_ELEMENT>|RENDER_ATOM>|COMPONENT_TAGGED_WITH>' }
 ) YIELD nodes, relationships
 
 CALL apoc.refactor.cloneSubgraph(

@@ -8,7 +8,8 @@ import {
 import { ElementTree } from '@codelab/shared/core'
 import { isString } from 'lodash'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useGetElementQuery, useUpdateElementMutation } from '../../../store'
+import { useGetElementById } from '../../../hooks'
+import { useUpdateElementsMutation } from '../../../store'
 
 interface InternalProps {
   tree: ElementTree
@@ -31,14 +32,13 @@ const InternalForm = ({
   monacoProps,
 }: InternalProps) => {
   const { trackPromise } = trackPromises ?? {}
-  const [mutate] = useUpdateElementMutation()
+  const [mutate] = useUpdateElementsMutation()
   const [value, setValue] = useState(element.propTransformationJs || defaultFn)
   // Keep the value string value in a ref so we can access it when unmounting the component
   const valueRef = useRef(value)
   valueRef.current = value
 
   // const componentId = tree.getComponentOfElement(element.id)?.id
-  const componentId = element.id
 
   const updateValue = useCallback(
     (newValue: string) => {
@@ -48,17 +48,8 @@ const InternalForm = ({
 
       const promise = mutate({
         variables: {
-          input: {
-            id: element.id,
-            data: {
-              atomId: element.atom?.id,
-              name: element.name,
-              renderIfPropKey: element.renderIfPropKey,
-              propTransformationJs: newValue,
-              css: element.css,
-              renderForEachPropKey: element.renderForEachPropKey,
-            },
-          },
+          where: { id: element.id },
+          update: { propTransformationJs: newValue },
         },
       })
 
@@ -121,11 +112,7 @@ export const UpdateElementPropTransformationForm = ({
   monacoProps,
   tree,
 }: UpdateElementPropTransformationFormProp) => {
-  const { data } = useGetElementQuery({
-    variables: { input: { where: { id: elementId } } },
-  })
-
-  const element = data?.getElement
+  const element = useGetElementById(elementId)
 
   if (!element) {
     return null

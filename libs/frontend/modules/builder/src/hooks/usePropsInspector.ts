@@ -1,5 +1,5 @@
 import {
-  useGetElementQuery,
+  useGetElementById,
   useUpdateElementPropsMutation,
 } from '@codelab/frontend/modules/element'
 import { notify } from '@codelab/frontend/shared/utils'
@@ -15,11 +15,7 @@ export const usePropsInspector = (elementId: string) => {
   const [persistedProps, setPersistedProps] = useState<Maybe<string>>()
   const { setExtraPropsForElement } = useBuilderDispatch()
   const [mutate, { isLoading }] = useUpdateElementPropsMutation({})
-
-  const { element } = useGetElementQuery(
-    { variables: { input: { where: { id: elementId } } } },
-    { selectFromResult: (r) => ({ element: r.data?.getElement }) },
-  )
+  const element = useGetElementById(elementId)
 
   const lastRenderedProps = useSelector((s) =>
     builderSelectors.lastRenderedPropsForElement(s, elementId),

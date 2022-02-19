@@ -48,4 +48,5 @@ export const {
   useGetMonacoTypesQuery,
   useGetInterfaceTypeGraphsQuery,
   useGetInterfaceTypesWithFieldsQuery,
+  useLazyGetInterfaceTypeGraphsQuery,
 } = generatedApi

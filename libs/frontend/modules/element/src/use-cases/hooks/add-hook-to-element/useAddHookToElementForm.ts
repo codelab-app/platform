@@ -1,8 +1,9 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
+import { useAppState } from '@codelab/frontend/modules/app'
+import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
 import {
-  useGetAtomsTypeHookForSelectQuery,
-  useLazyGetTypeGraphQuery,
+  useLazyGetInterfaceTypeGraphsQuery,
   useTypeTree,
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -19,19 +20,23 @@ type UseAddHookToElementForm = (
 export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
   const { resetModal, setSelectedType, resetSelectedType } = useHookDispatch()
   const { selectedType, actionType } = useHookState()
-  const { data: atomsData } = useGetAtomsTypeHookForSelectQuery()
-  const atoms = atomsData?.getAtomsTypeHook || []
+
+  const { data: atomsData } = useGetAtomsQuery({
+    variables: { where: { name_CONTAINS: 'Hook' } },
+  })
+
+  const atoms = atomsData?.atoms || []
   const { currentApp } = useAppState()
 
   assertIsDefined(elementId)
 
   const [getTypeGraph, { data: interfaceData, isLoading: interfaceLoading }] =
-    useLazyGetTypeGraphQuery()
+    useLazyGetInterfaceTypeGraphsQuery()
 
   // create empty tree in case no type is selected
   // this is work around for cleaning interfaceData on reset
   const interfaceTree = useTypeTree(
-    selectedType ? interfaceData?.getTypeGraph : undefined,
+    selectedType ? interfaceData?.types : undefined,
   )
 
   const [mutate, { isLoading }] = useAddHookToElementMutation({
@@ -71,15 +76,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
     onChange: (key: string, value: any) => {
       if (key === 'typeId') {
         setSelectedType({ selectedType: value })
-        getTypeGraph({
-          variables: {
-            input: {
-              where: {
-                atomId: value,
-              },
-            },
-          },
-        })
+        getTypeGraph({ variables: { where: { id: value } } })
       }
     },
     interfaceTree,

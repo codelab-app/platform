@@ -1,6 +1,6 @@
 import React from 'react'
 import tw from 'twin.macro'
-import { useGetElementQuery } from '../store'
+import { useGetElementById } from '../hooks'
 import {
   AddHookToElementButton,
   AddHookToElementModal,
@@ -13,11 +13,7 @@ export interface ElementHookSectionProps {
 }
 
 export const ElementHookSection = ({ elementId }: ElementHookSectionProps) => {
-  const { data } = useGetElementQuery({
-    variables: { input: { where: { id: elementId } } },
-  })
-
-  const element = data?.getElement
+  const element = useGetElementById(elementId)
 
   if (!element) {
     return null

@@ -14,7 +14,15 @@ export type ElementFragment = {
     | { id: string; name?: string | null | undefined }
     | null
     | undefined
-  atom?: { id: string; name: string; type: Types.AtomType } | null | undefined
+  atom?:
+    | {
+        id: string
+        name: string
+        type: Types.AtomType
+        api: { id: string; name: string }
+      }
+    | null
+    | undefined
   componentTag?: { id: string; name: string } | null | undefined
   props?: PropFragment | null | undefined
   hooks?: Array<HookFragment> | null | undefined
@@ -90,6 +98,10 @@ export const ElementFragmentDoc = gql`
       id
       name
       type
+      api {
+        id
+        name
+      }
     }
     componentTag {
       id

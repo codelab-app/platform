@@ -1,11 +1,12 @@
-import { ElementFragment, HookFragment } from '../../../graphql'
+import { IElement, IHook } from '@codelab/shared/abstract/core'
+import { HookFragment } from '../../../graphql'
 
 export type HooksListItemDescriptionProps = { hook: HookFragment }
 
 export type HooksListProps = {
-  element: ElementFragment
+  element: IElement
 }
 
 export type HooksListItemProps = {
-  hook: HookFragment
+  hook: IHook
 }

@@ -14,6 +14,10 @@ fragment Element on Element {
     id
     name
     type
+    api {
+      id
+      name
+    }
   }
   componentTag {
     id
