@@ -1,12 +1,13 @@
 import { RootState } from '@reduxjs/toolkit/dist/query/core/apiState'
 import { Recipe } from '@reduxjs/toolkit/dist/query/core/buildThunks'
-import { merge, pickBy } from 'lodash'
+import { mapValues, merge, pickBy } from 'lodash'
 import { DefaultRootState } from 'react-redux'
 import {
   ElementEdgeFragment,
   ElementFragment,
   ElementGraphFragment,
 } from '../../graphql'
+import { PropMapBindingFragment } from '../../graphql/PropMapBinding.fragment.v2.graphql.gen'
 import { NormalizedGetElementsGraphQuery } from './types'
 
 const fulfilledRequests: Array<string> = []
@@ -43,6 +44,41 @@ export const onCreate =
   (draft) => {
     draft.vertices = merge(draft.vertices, normalizeVertices(created))
     draft.edges = draft.edges.concat(createEdges(created))
+  }
+
+export const onCreatePropMapBindings =
+  (
+    created: Array<PropMapBindingFragment>,
+  ): Recipe<NormalizedGetElementsGraphQuery> =>
+  (draft) => {
+    created.forEach((x) => {
+      draft.vertices[x.element.id].propMapBindings?.push(x)
+    })
+  }
+
+export const onUpdatePropMapBindings =
+  (
+    updated: Array<PropMapBindingFragment>,
+  ): Recipe<NormalizedGetElementsGraphQuery> =>
+  (draft) => {
+    updated.forEach((x) => {
+      const propMapBindings = draft.vertices[x.element.id].propMapBindings
+        ?.filter((y) => x.id !== y.id)
+        .concat([x])
+
+      draft.vertices[x.element.id].propMapBindings = propMapBindings
+    })
+  }
+
+export const onDeletedPropMapBindings =
+  (deletedIds: Array<string>): Recipe<NormalizedGetElementsGraphQuery> =>
+  (draft) => {
+    draft.vertices = mapValues(draft.vertices, (vertex, key) => ({
+      ...vertex,
+      propMapBindings: vertex.propMapBindings?.filter(
+        (binding) => !deletedIds.includes(binding.id),
+      ),
+    }))
   }
 
 export const onUpdate =
