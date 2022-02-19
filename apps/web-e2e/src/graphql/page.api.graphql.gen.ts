@@ -1,32 +1,31 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { PageFullFragment } from '../../../../libs/frontend/modules/page/src/graphql/PageFull.fragment.graphql.gen'
+import { PageBaseFragment } from '../../../../libs/frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen'
 import { gql } from '@apollo/client'
+import { PageFullFragmentDoc } from '../../../../libs/frontend/modules/page/src/graphql/PageFull.fragment.graphql.gen'
+import { PageBaseFragmentDoc } from '../../../../libs/frontend/modules/page/src/graphql/PageBase.fragment.graphql.gen'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {} as const
 export type E2eGetPageQueryVariables = Types.Exact<{
   input: Types.GetPageInput
 }>
 
-export type E2eGetPageQuery = {
-  page?: { id: string; name: string; rootElementId: string } | null | undefined
-}
+export type E2eGetPageQuery = { page?: PageFullFragment | null | undefined }
 
 export type E2eCreatePageMutationVariables = Types.Exact<{
   input: Types.CreatePageInput
 }>
 
-export type E2eCreatePageMutation = {
-  createPage: { id: string; name: string; rootElementId: string }
-}
+export type E2eCreatePageMutation = { createPage: PageBaseFragment }
 
 export const E2eGetPageGql = gql`
   query E2eGetPage($input: GetPageInput!) {
     page: getPage(input: $input) {
-      id
-      name
-      rootElementId
+      ...PageFull
     }
   }
+  ${PageFullFragmentDoc}
 `
 
 /**
@@ -83,11 +82,10 @@ export function refetchE2eGetPageQuery(variables: E2eGetPageQueryVariables) {
 export const E2eCreatePageGql = gql`
   mutation E2eCreatePage($input: CreatePageInput!) {
     createPage(input: $input) {
-      id
-      name
-      rootElementId
+      ...PageBase
     }
   }
+  ${PageBaseFragmentDoc}
 `
 export type E2eCreatePageMutationFn = Apollo.MutationFunction<
   E2eCreatePageMutation,
