@@ -1,5 +1,3 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CreatePropMapBindingInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
@@ -7,12 +5,12 @@ import {
   usePropMapBindingDispatch,
   usePropMapBindingState,
 } from '../../../hooks'
-import { useCreatePropMapBindingMutation } from '../../../store'
+import { useCreatePropMapBindingsMutation } from '../../../store'
 
 export const useCreatePropMapBindingForm = () => {
-  const [mutate, { isLoading }] = useCreatePropMapBindingMutation({
+  const [mutate, { isLoading }] = useCreatePropMapBindingsMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.createPropMapBinding,
+      hook: r.data?.createPropMapBindings,
       isLoading: r.isLoading,
       error: r.error,
     }),
@@ -33,8 +31,12 @@ export const useCreatePropMapBindingForm = () => {
           input: {
             sourceKey: sourceKey.trim(),
             targetKey: targetKey.trim(),
-            targetElementId,
-            elementId,
+            element: {
+              connect: { where: { node: { id: elementId } } },
+            },
+            targetElement: {
+              connect: { where: { node: { id: targetElementId } } },
+            },
           },
         },
       }).unwrap()

@@ -11,7 +11,7 @@ import {
 } from '../../../hooks'
 import {
   selectPropMapBinding,
-  useUpdatePropMapBindingMutation,
+  useUpdatePropMapBindingsMutation,
 } from '../../../store'
 
 export const useUpdatePropMapBindingForm: UseUseCaseForm<
@@ -26,9 +26,9 @@ export const useUpdatePropMapBindingForm: UseUseCaseForm<
 
   assertIsDefined(elementId)
 
-  const [mutate, { isLoading }] = useUpdatePropMapBindingMutation({
+  const [mutate, { isLoading }] = useUpdatePropMapBindingsMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.updatePropMapBinding,
+      hook: r.data?.updatePropMapBindings,
       isLoading: r.isLoading,
       error: r.error,
     }),
@@ -42,15 +42,14 @@ export const useUpdatePropMapBindingForm: UseUseCaseForm<
 
       return mutate({
         variables: {
-          input: {
-            elementId,
-            data: {
-              sourceKey: sourceKey.trim(),
-              targetKey: targetKey.trim(),
-              targetElementId,
+          update: {
+            sourceKey: sourceKey.trim(),
+            targetKey: targetKey.trim(),
+            targetElement: {
+              connect: { where: { node: { id: targetElementId } } },
             },
-            propMapBindingId: updateId,
           },
+          where: { id: updateId },
         },
       }).unwrap()
     },

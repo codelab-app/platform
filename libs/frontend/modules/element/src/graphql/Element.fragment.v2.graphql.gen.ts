@@ -1,6 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
+import { AtomFragment } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
+import { PropMapBindingFragment } from './PropMapBinding.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
+import { AtomFragmentDoc } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
+import { PropMapBindingFragmentDoc } from './PropMapBinding.fragment.v2.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
@@ -14,22 +18,11 @@ export type ElementFragment = {
     | { id: string; name?: string | null | undefined }
     | null
     | undefined
-  atom?:
-    | {
-        id: string
-        name: string
-        type: Types.AtomType
-        api: { id: string; name: string }
-      }
-    | null
-    | undefined
+  atom?: AtomFragment | null | undefined
   componentTag?: { id: string; name: string } | null | undefined
   props?: PropFragment | null | undefined
   hooks?: Array<HookFragment> | null | undefined
-  propMapBindings?:
-    | Array<{ id: string; sourceKey: string; targetKey: string }>
-    | null
-    | undefined
+  propMapBindings?: Array<PropMapBindingFragment> | null | undefined
   parentElementConnection: {
     edges: Array<{
       order?: number | null | undefined
@@ -95,13 +88,7 @@ export const ElementFragmentDoc = gql`
       name
     }
     atom {
-      id
-      name
-      type
-      api {
-        id
-        name
-      }
+      ...Atom
     }
     componentTag {
       id
@@ -116,9 +103,7 @@ export const ElementFragmentDoc = gql`
     renderForEachPropKey
     renderIfPropKey
     propMapBindings {
-      id
-      sourceKey
-      targetKey
+      ...PropMapBinding
     }
     propTransformationJs
     parentElementConnection {
@@ -131,8 +116,10 @@ export const ElementFragmentDoc = gql`
       }
     }
   }
+  ${AtomFragmentDoc}
   ${PropFragmentDoc}
   ${HookFragmentDoc}
+  ${PropMapBindingFragmentDoc}
 `
 export const ElementGraphFragmentDoc = gql`
   fragment ElementGraph on ElementGraph {

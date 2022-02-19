@@ -11,13 +11,7 @@ fragment Element on Element {
     name
   }
   atom {
-    id
-    name
-    type
-    api {
-      id
-      name
-    }
+    ...Atom
   }
   componentTag {
     id
@@ -32,9 +26,7 @@ fragment Element on Element {
   renderForEachPropKey
   renderIfPropKey
   propMapBindings {
-    id
-    sourceKey
-    targetKey
+    ...PropMapBinding
   }
   propTransformationJs
   parentElementConnection {

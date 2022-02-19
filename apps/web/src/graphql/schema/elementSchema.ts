@@ -26,8 +26,9 @@ export const elementSchema = gql`
 
   type PropMapBinding {
     id: ID! @id
-    targetElement: Element
-      @relationship(type: "BIND_PROPS_TO_ELEMENT", direction: OUT)
+    element: Element!
+      @relationship(type: "BIND_PROPS_TO_ELEMENT", direction: IN)
+    targetElement: Element @relationship(type: "BIND_TO_ELEMENT", direction: IN)
     sourceKey: String! # Set to '*' to bind all incoming props
     targetKey: String! # Set to '*' to spread the incoming props to the outgoing ones
   }
@@ -72,7 +73,9 @@ export const elementSchema = gql`
     atom: Atom @relationship(type: "RENDER_ATOM", direction: OUT)
 
     hooks: [Hook!] @relationship(type: "HOOKS_OF_ELEMENT", direction: OUT)
+
     propMapBindings: [PropMapBinding!]
+      @relationship(type: "BIND_PROPS_TO_ELEMENT", direction: OUT)
   }
 
   input ElementGraphInput {

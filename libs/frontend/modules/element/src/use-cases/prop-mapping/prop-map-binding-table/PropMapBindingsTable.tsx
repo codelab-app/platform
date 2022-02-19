@@ -5,10 +5,10 @@ import {
   useColumnSearchProps,
 } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
+import { IPropMapBinding } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { Space, Table, TableColumnProps } from 'antd'
 import React from 'react'
-import { PropMapBindingFragment } from '../../../graphql'
 import { usePropMapBindingDispatch } from '../../../hooks'
 
 export interface PropMapBindingsTableProps {
@@ -22,7 +22,7 @@ export const PropMapBindingsTable = ({
 }: PropMapBindingsTableProps) => {
   const { openUpdateModal, openDeleteModal } = usePropMapBindingDispatch()
 
-  const columns: Array<TableColumnProps<PropMapBindingFragment>> = [
+  const columns: Array<TableColumnProps<IPropMapBinding>> = [
     {
       title: 'Source key',
       dataIndex: 'sourceKey',
@@ -32,12 +32,10 @@ export const PropMapBindingsTable = ({
     },
     {
       title: 'Target Element',
-      dataIndex: 'targetElementId',
-      key: 'targetElementId',
+      dataIndex: 'targetElement',
+      key: 'targetElement',
       onHeaderCell: headerCellProps,
-      render: (value) => {
-        return tree.getVertex(value)?.name ?? value
-      },
+      render: (value) => tree.getVertex(value.id)?.name,
     },
     {
       title: 'Target key',
@@ -76,13 +74,13 @@ export const PropMapBindingsTable = ({
 
   return (
     <Table
+      columns={columns}
+      dataSource={element.propMapBindings}
       pagination={{
         position: ['bottomCenter'],
         defaultPageSize: 25,
         hideOnSinglePage: true,
       }}
-      dataSource={element.propMapBindings}
-      columns={columns}
       rowKey={(binding) => binding.id}
     />
   )

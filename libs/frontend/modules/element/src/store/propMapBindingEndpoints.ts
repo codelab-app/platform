@@ -1,28 +1,12 @@
-import {
-  ELEMENT_CACHE_TAG,
-  providesById,
-} from '@codelab/frontend/model/infra/redux'
-import { api as generatedApi } from '../graphql/prop-map-binding.endpoints.graphql.gen'
+import { api as generatedApi } from '../graphql/prop-map-binding.endpoints.v2.graphql.gen'
 
-export const propMapBindingApi = generatedApi.enhanceEndpoints({
-  endpoints: {
-    CreatePropMapBinding: {
-      invalidatesTags: (result, _, args) =>
-        providesById(args.variables?.input.elementId, ELEMENT_CACHE_TAG),
-    },
-    DeletePropMapBinding: {
-      invalidatesTags: () => [ELEMENT_CACHE_TAG],
-    },
-    UpdatePropMapBinding: {
-      invalidatesTags: () => [ELEMENT_CACHE_TAG],
-    },
-  },
-})
+export const propMapBindingApi = generatedApi
 
 export { generatedApi as propMapBindingEndpoints }
 
 export const {
-  useCreatePropMapBindingMutation,
-  useDeletePropMapBindingMutation,
-  useUpdatePropMapBindingMutation,
+  useCreatePropMapBindingsMutation,
+  useUpdatePropMapBindingsMutation,
+  useDeletePropMapBindingsMutation,
+  useGetPropMapBindingsQuery,
 } = generatedApi
