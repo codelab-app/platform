@@ -1,6 +1,10 @@
 import {
   useGetElementById,
+<<<<<<< HEAD
   useUpdateElementsMutation,
+=======
+  useUpdateElementPropsMutation,
+>>>>>>> 043f55ce (fix: most of error throwing)
 } from '@codelab/frontend/modules/element'
 import { notify } from '@codelab/frontend/shared/utils'
 import { PropsData } from '@codelab/shared/abstract/core'
@@ -14,7 +18,11 @@ import { useBuilderDispatch } from './useBuilderDispatch'
 export const usePropsInspector = (elementId: string) => {
   const [persistedProps, setPersistedProps] = useState<Maybe<string>>()
   const { setExtraPropsForElement } = useBuilderDispatch()
+<<<<<<< HEAD
   const [mutate, { isLoading }] = useUpdateElementsMutation()
+=======
+  const [mutate, { isLoading }] = useUpdateElementPropsMutation({})
+>>>>>>> 043f55ce (fix: most of error throwing)
   const element = useGetElementById(elementId)
 
   const lastRenderedProps = useSelector((s) =>

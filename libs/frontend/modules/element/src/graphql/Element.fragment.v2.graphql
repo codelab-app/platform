@@ -11,7 +11,17 @@ fragment Element on Element {
     name
   }
   atom {
+<<<<<<< HEAD
     ...Atom
+=======
+    id
+    name
+    type
+    api {
+      id
+      name
+    }
+>>>>>>> 043f55ce (fix: most of error throwing)
   }
   componentTag {
     id

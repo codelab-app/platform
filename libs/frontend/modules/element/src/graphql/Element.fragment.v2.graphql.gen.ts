@@ -16,7 +16,19 @@ export type ElementFragment = {
     | { id: string; name?: string | null | undefined }
     | null
     | undefined
+<<<<<<< HEAD
   atom?: AtomFragment | null | undefined
+=======
+  atom?:
+    | {
+        id: string
+        name: string
+        type: Types.AtomType
+        api: { id: string; name: string }
+      }
+    | null
+    | undefined
+>>>>>>> 043f55ce (fix: most of error throwing)
   componentTag?: { id: string; name: string } | null | undefined
   props?: PropFragment | null | undefined
   hooks?: Array<HookFragment> | null | undefined
@@ -128,7 +140,17 @@ export const ElementFragmentDoc = gql`
       name
     }
     atom {
+<<<<<<< HEAD
       ...Atom
+=======
+      id
+      name
+      type
+      api {
+        id
+        name
+      }
+>>>>>>> 043f55ce (fix: most of error throwing)
     }
     componentTag {
       id
