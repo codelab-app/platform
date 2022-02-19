@@ -36,10 +36,18 @@ export const elementSelectionSet = `{
     }
     renderForEachPropKey
     renderIfPropKey
-        propMapBindings {
+    propMapBindings {
         id
         sourceKey
         targetKey
+        element {
+            id
+            name
+        }
+        targetElement {
+            id
+            name
+        }
     }
     propTransformationJs
     parentElementConnection {
