@@ -3,10 +3,7 @@ import {
   AtomModel,
   ElementModel,
   InterfaceTypeModel,
-<<<<<<< HEAD
   PageModel,
-=======
->>>>>>> 554af699 (feat: use reslovers for elements graph)
   UserModel,
 } from './ogm-types.gen'
 
@@ -22,13 +19,10 @@ let elementInst: ElementModel
 
 export const Element = () => (elementInst ??= getOgm().model('Element'))
 
-<<<<<<< HEAD
 let pageInst: PageModel
 
 export const Page = () => (pageInst ??= getOgm().model('Page'))
 
-=======
->>>>>>> 554af699 (feat: use reslovers for elements graph)
 let interfaceInst: InterfaceTypeModel
 
 export const InterfaceType = () =>

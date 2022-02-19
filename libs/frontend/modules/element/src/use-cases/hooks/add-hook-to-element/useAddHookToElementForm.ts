@@ -35,13 +35,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
 
   // create empty tree in case no type is selected
   // this is work around for cleaning interfaceData on reset
-<<<<<<< HEAD
   const interfaceTree = useTypeTree(interfaceData?.types[0]?.graph)
-=======
-  const interfaceTree = useTypeTree(
-    selectedType ? interfaceData?.types : undefined,
-  )
->>>>>>> 043f55ce (fix: most of error throwing)
 
   const [mutate, { isLoading }] = useCreateHooksMutation({
     selectFromResult: (r) => ({
@@ -90,15 +84,11 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
     onChange: (key: string, value: any) => {
       if (key === 'typeId') {
         setSelectedType({ selectedType: value })
-<<<<<<< HEAD
         getTypeGraph({
           variables: {
             where: { apiOfAtoms: { id: value } },
           },
         })
-=======
-        getTypeGraph({ variables: { where: { id: value } } })
->>>>>>> 043f55ce (fix: most of error throwing)
       }
     },
     interfaceTree,

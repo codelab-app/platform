@@ -9,11 +9,7 @@ import { Prop } from '@codelab/shared/abstract/codegen'
 import { Spin } from 'antd'
 import { useRef } from 'react'
 import { useGetElementById } from '../../../hooks'
-<<<<<<< HEAD
 import { useUpdateElementsMutation } from '../../../store'
-=======
-import { useUpdateElementPropsMutation } from '../../../store'
->>>>>>> 043f55ce (fix: most of error throwing)
 
 interface UpdateElementPropsFormInternalProps {
   elementId: string
@@ -35,11 +31,7 @@ export const UpdateElementPropsFormInternal = ({
       variables: { where: { id: interfaceId } },
     })
 
-<<<<<<< HEAD
   const [mutate] = useUpdateElementsMutation()
-=======
-  const [mutate] = useUpdateElementPropsMutation()
->>>>>>> 043f55ce (fix: most of error throwing)
   const initialPropsRef = useRef(JSON.parse(existingProps?.data || '{}'))
   const tree = useTypeTree(interfaceData?.types?.[0]?.graph)
 
