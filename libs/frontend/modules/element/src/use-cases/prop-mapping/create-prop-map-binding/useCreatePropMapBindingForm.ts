@@ -34,9 +34,10 @@ export const useCreatePropMapBindingForm = () => {
             element: {
               connect: { where: { node: { id: elementId } } },
             },
-            targetElement: {
-              connect: { where: { node: { id: targetElementId } } },
-            },
+
+            targetElement: targetElementId
+              ? { connect: { where: { node: { id: targetElementId } } } }
+              : undefined,
           },
         },
       }).unwrap()
