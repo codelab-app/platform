@@ -1,48 +1,34 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { CRUDActionType, IElement } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeleteElementInput } from '@codelab/shared/abstract/codegen'
 import { ElementTree } from '@codelab/shared/core'
 import { useCallback } from 'react'
-import { ElementFragment } from '../../../graphql'
 import { useElementDispatch, useElementState } from '../../../hooks'
-import { useDeleteElementsMutation } from '../../../store'
+import { useDeleteElementsSubgraphMutation } from '../../../store'
 
 export const useDeleteElementForm: UseEntityUseCaseForm<
   DeleteElementInput,
   CRUDActionType,
-  ElementFragment,
+  IElement,
   any,
   ElementTree
 > = (tree) => {
   const { resetModal } = useElementDispatch()
   const { deleteIds, entity, actionType } = useElementState()
 
-  const [mutate, { isLoading }] = useDeleteElementsMutation({
+  const [mutate, { isLoading }] = useDeleteElementsSubgraphMutation({
     selectFromResult: (r) => ({
-      element: r.data?.deleteElements,
+      element: r.data?.deleteElementsSubgraph.deletedIds,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
   const onSubmit = useCallback(
-    ({ elementId }: DeleteElementInput) => {
-      const elementDescendantsIds =
-        tree?.getDescendants(elementId).map((x) => x.id) || []
-
-      return mutate({
-        variables: {
-          where: { id_IN: [elementId, ...elementDescendantsIds] },
-          delete: {
-            componentTag: { where: {} },
-            props: { where: {} },
-            propMapBindings: [{ where: {} }],
-          },
-        },
-      }).unwrap()
-    },
-    [mutate, tree],
+    ({ elementId }: DeleteElementInput) =>
+      mutate({ variables: { where: { id_IN: [elementId] } } }).unwrap(),
+    [mutate],
   )
 
   return {

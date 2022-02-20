@@ -46,7 +46,16 @@ export const useBuilderDnd = (): UseBuilderDnd => {
           ...(overData?.createElementInput ?? {}),
         }
 
-        const { parentElementId, order, ...rest } = createElementInput
+        const {
+          parentElementId,
+          order,
+          atomId,
+          css,
+          instanceOfComponentId,
+          name,
+          props,
+        } = createElementInput
+
         createElement({
           variables: {
             input: {
@@ -56,7 +65,13 @@ export const useBuilderDnd = (): UseBuilderDnd => {
                   edge: { order },
                 },
               },
-              ...rest,
+              atom: { connect: { where: { node: { id: atomId } } } },
+              css,
+              instanceOfComponent: {
+                connect: { where: { node: { id: instanceOfComponentId } } },
+              },
+              name,
+              props: { create: { node: { data: props || '{}' } } },
             },
           },
         }).then((el: any) => {

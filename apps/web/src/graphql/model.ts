@@ -3,6 +3,7 @@ import {
   AtomModel,
   ElementModel,
   InterfaceTypeModel,
+  PageModel,
   UserModel,
 } from './ogm-types.gen'
 
@@ -17,6 +18,10 @@ export const Atom = () => (atomInst ??= getOgm().model('Atom'))
 let elementInst: ElementModel
 
 export const Element = () => (elementInst ??= getOgm().model('Element'))
+
+let pageInst: PageModel
+
+export const Page = () => (pageInst ??= getOgm().model('Page'))
 
 let interfaceInst: InterfaceTypeModel
 

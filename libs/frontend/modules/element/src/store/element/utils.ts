@@ -38,7 +38,7 @@ const createEdges = (
     }))
 
 const removeEdges = (edges: Array<ElementEdgeFragment>, ids: Array<string>) =>
-  edges.filter((x) => !ids.includes(x.source) && !ids.includes(x.target))
+  edges.filter((x) => !ids.includes(x.target))
 
 export const onCreate =
   (created: Array<ElementFragment>): Recipe<NormalizedGetElementsGraphQuery> =>

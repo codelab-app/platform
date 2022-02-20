@@ -15,13 +15,16 @@ export type CreateElementsMutation = {
   createElements: { elements: Array<ElementFragment> }
 }
 
-export type DeleteElementsMutationVariables = Types.Exact<{
+export type DeleteElementsSubgraphMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementWhere>
   delete?: Types.InputMaybe<Types.ElementDeleteInput>
 }>
 
-export type DeleteElementsMutation = {
-  deleteElements: { nodesDeleted: number }
+export type DeleteElementsSubgraphMutation = {
+  deleteElementsSubgraph: {
+    nodesDeleted: number
+    deletedIds?: Array<string> | null | undefined
+  }
 }
 
 export type UpdateElementsMutationVariables = Types.Exact<{
@@ -58,10 +61,14 @@ export const CreateElementsGql = gql`
   }
   ${ElementFragmentDoc}
 `
-export const DeleteElementsGql = gql`
-  mutation DeleteElements($where: ElementWhere, $delete: ElementDeleteInput) {
-    deleteElements(where: $where, delete: $delete) {
+export const DeleteElementsSubgraphGql = gql`
+  mutation DeleteElementsSubgraph(
+    $where: ElementWhere
+    $delete: ElementDeleteInput
+  ) {
+    deleteElementsSubgraph(where: $where, delete: $delete) {
       nodesDeleted
+      deletedIds
     }
   }
 `
@@ -105,14 +112,14 @@ const injectedRtkApi = api.injectEndpoints({
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
-    DeleteElements: build.mutation<
-      DeleteElementsMutation,
-      | GraphqlOperationOptions<DeleteElementsMutationVariables>
+    DeleteElementsSubgraph: build.mutation<
+      DeleteElementsSubgraphMutation,
+      | GraphqlOperationOptions<DeleteElementsSubgraphMutationVariables>
       | void
       | undefined
     >({
       query: (options) => ({
-        document: DeleteElementsGql,
+        document: DeleteElementsSubgraphGql,
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
@@ -150,7 +157,7 @@ const injectedRtkApi = api.injectEndpoints({
 export { injectedRtkApi as api }
 export const {
   useCreateElementsMutation,
-  useDeleteElementsMutation,
+  useDeleteElementsSubgraphMutation,
   useUpdateElementsMutation,
   useDuplicateElementMutation,
   useGetElementsQuery,

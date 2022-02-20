@@ -25,12 +25,7 @@ export const useDeletePageForm: UseEntityUseCaseForm<
 
   const onSubmit = useCallback(
     ({ pageId }: DeletePageInput) =>
-      mutate({
-        variables: {
-          where: { id: pageId },
-          delete: { rootElement: { where: {} } },
-        },
-      }).unwrap(),
+      mutate({ variables: { where: { id: pageId } } }).unwrap(),
     [mutate],
   )
 

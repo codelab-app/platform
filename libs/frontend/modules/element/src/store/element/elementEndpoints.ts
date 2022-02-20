@@ -98,14 +98,12 @@ export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
         })
       },
     },
-    DeleteElements: {
+    DeleteElementsSubgraph: {
       async onQueryStarted(input, api) {
         const { dispatch, queryFulfilled, getState, requestId } = api
-        await queryFulfilled
+        const { data } = await queryFulfilled
         runGuards(requestId, getState, async (rootId) => {
-          const deletedIds =
-            (input?.variables?.where?.id_IN as Array<string>) || []
-
+          const deletedIds = data.deleteElementsSubgraph.deletedIds || []
           dispatch(updateGraphCache(rootId, onDelete(deletedIds)))
         })
       },
@@ -117,7 +115,7 @@ export const {
   useGetElementsQuery,
   useLazyGetElementsQuery,
   useCreateElementsMutation,
-  useDeleteElementsMutation,
+  useDeleteElementsSubgraphMutation,
   useDuplicateElementMutation,
   useGetElementsGraphQuery,
   useLazyGetElementsGraphQuery,

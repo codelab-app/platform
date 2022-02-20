@@ -95,9 +95,20 @@ export const elementSchema = gql`
     elements: [Element!]!
   }
 
+  type DeleteElementsInfo @exclude {
+    nodesDeleted: Int!
+    relationshipsDeleted: Int!
+    deletedIds: [String!]
+  }
+
   type Mutation {
     duplicateElement(
       input: DuplicateElementInput!
     ): DuplicateElementMutationResponse!
+
+    deleteElementsSubgraph(
+      delete: ElementDeleteInput
+      where: ElementWhere
+    ): DeleteElementsInfo!
   }
 `

@@ -1,10 +1,10 @@
 import { IResolvers } from '@graphql-tools/utils'
 import { uniq } from 'lodash'
 import { elementRepository } from '../../cypher/element/elementRepository'
-import { elementSelectionSet } from '../../cypher/element/elementSelectionSet'
 import { getDriver } from '../../infra/driver'
 import { Element } from '../../model'
 import { QueryElementGraphArgs } from '../../ogm-types.gen'
+import { elementSelectionSet } from '../selectionSets/elementSelectionSet'
 
 const driver = getDriver()
 

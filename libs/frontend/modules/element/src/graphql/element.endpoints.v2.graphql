@@ -6,9 +6,13 @@ mutation CreateElements($input: [ElementCreateInput!]!) {
   }
 }
 
-mutation DeleteElements($where: ElementWhere, $delete: ElementDeleteInput) {
-  deleteElements(where: $where, delete: $delete) {
+mutation DeleteElementsSubgraph(
+  $where: ElementWhere
+  $delete: ElementDeleteInput
+) {
+  deleteElementsSubgraph(where: $where, delete: $delete) {
     nodesDeleted
+    deletedIds
   }
 }
 
