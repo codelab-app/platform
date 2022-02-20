@@ -1788,9 +1788,21 @@ export type Atom = {
   id: Scalars['ID']
   name: Scalars['String']
   type: AtomType
+  tags?: Maybe<Array<Tag>>
+  tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
   api: InterfaceType
   apiAggregate?: Maybe<AtomInterfaceTypeApiAggregationSelection>
+  tagsConnection: AtomTagsConnection
   apiConnection: AtomApiConnection
+}
+
+export type AtomTagsArgs = {
+  where?: Maybe<TagWhere>
+  options?: Maybe<TagOptions>
+}
+
+export type AtomTagsAggregateArgs = {
+  where?: Maybe<TagWhere>
 }
 
 export type AtomApiArgs = {
@@ -1800,6 +1812,13 @@ export type AtomApiArgs = {
 
 export type AtomApiAggregateArgs = {
   where?: Maybe<InterfaceTypeWhere>
+}
+
+export type AtomTagsConnectionArgs = {
+  where?: Maybe<AtomTagsConnectionWhere>
+  sort?: Maybe<Array<AtomTagsConnectionSort>>
+  first?: Maybe<Scalars['Int']>
+  after?: Maybe<Scalars['String']>
 }
 
 export type AtomApiConnectionArgs = {
@@ -1837,6 +1856,31 @@ export type AtomInterfaceTypeApiAggregationSelection = {
 
 export type AtomInterfaceTypeApiNodeAggregateSelection = {
   __typename?: 'AtomInterfaceTypeApiNodeAggregateSelection'
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type AtomTagsConnection = {
+  __typename?: 'AtomTagsConnection'
+  edges: Array<AtomTagsRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type AtomTagsRelationship = {
+  __typename?: 'AtomTagsRelationship'
+  cursor: Scalars['String']
+  node: Tag
+}
+
+export type AtomTagTagsAggregationSelection = {
+  __typename?: 'AtomTagTagsAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<AtomTagTagsNodeAggregateSelection>
+}
+
+export type AtomTagTagsNodeAggregateSelection = {
+  __typename?: 'AtomTagTagsNodeAggregateSelection'
   id: IdAggregateSelection
   name: StringAggregateSelection
 }
@@ -4318,10 +4362,12 @@ export type AtomApiUpdateFieldInput = {
 }
 
 export type AtomConnectInput = {
+  tags?: Maybe<Array<AtomTagsConnectFieldInput>>
   api?: Maybe<AtomApiConnectFieldInput>
 }
 
 export type AtomConnectOrCreateInput = {
+  tags?: Maybe<Array<AtomTagsConnectOrCreateFieldInput>>
   api?: Maybe<AtomApiConnectOrCreateFieldInput>
 }
 
@@ -4336,14 +4382,17 @@ export type AtomConnectWhere = {
 export type AtomCreateInput = {
   name: Scalars['String']
   type: AtomType
+  tags?: Maybe<AtomTagsFieldInput>
   api?: Maybe<AtomApiFieldInput>
 }
 
 export type AtomDeleteInput = {
+  tags?: Maybe<Array<AtomTagsDeleteFieldInput>>
   api?: Maybe<AtomApiDeleteFieldInput>
 }
 
 export type AtomDisconnectInput = {
+  tags?: Maybe<Array<AtomTagsDisconnectFieldInput>>
   api?: Maybe<AtomApiDisconnectFieldInput>
 }
 
@@ -4355,6 +4404,7 @@ export type AtomOptions = {
 }
 
 export type AtomRelationInput = {
+  tags?: Maybe<Array<AtomTagsCreateFieldInput>>
   api?: Maybe<AtomApiCreateFieldInput>
 }
 
@@ -4365,6 +4415,102 @@ export type AtomSort = {
   type?: Maybe<SortDirection>
 }
 
+export type AtomTagsAggregateInput = {
+  count?: Maybe<Scalars['Int']>
+  count_LT?: Maybe<Scalars['Int']>
+  count_LTE?: Maybe<Scalars['Int']>
+  count_GT?: Maybe<Scalars['Int']>
+  count_GTE?: Maybe<Scalars['Int']>
+  AND?: Maybe<Array<AtomTagsAggregateInput>>
+  OR?: Maybe<Array<AtomTagsAggregateInput>>
+  node?: Maybe<AtomTagsNodeAggregationWhereInput>
+}
+
+export type AtomTagsConnectFieldInput = {
+  where?: Maybe<TagConnectWhere>
+  connect?: Maybe<Array<TagConnectInput>>
+}
+
+export type AtomTagsConnectionSort = {
+  node?: Maybe<TagSort>
+}
+
+export type AtomTagsConnectionWhere = {
+  AND?: Maybe<Array<AtomTagsConnectionWhere>>
+  OR?: Maybe<Array<AtomTagsConnectionWhere>>
+  node?: Maybe<TagWhere>
+  node_NOT?: Maybe<TagWhere>
+}
+
+export type AtomTagsConnectOrCreateFieldInput = {
+  where: TagConnectOrCreateWhere
+  onCreate: AtomTagsConnectOrCreateFieldInputOnCreate
+}
+
+export type AtomTagsConnectOrCreateFieldInputOnCreate = {
+  node: TagCreateInput
+}
+
+export type AtomTagsCreateFieldInput = {
+  node: TagCreateInput
+}
+
+export type AtomTagsDeleteFieldInput = {
+  where?: Maybe<AtomTagsConnectionWhere>
+  delete?: Maybe<TagDeleteInput>
+}
+
+export type AtomTagsDisconnectFieldInput = {
+  where?: Maybe<AtomTagsConnectionWhere>
+  disconnect?: Maybe<TagDisconnectInput>
+}
+
+export type AtomTagsFieldInput = {
+  create?: Maybe<Array<AtomTagsCreateFieldInput>>
+  connect?: Maybe<Array<AtomTagsConnectFieldInput>>
+  connectOrCreate?: Maybe<Array<AtomTagsConnectOrCreateFieldInput>>
+}
+
+export type AtomTagsNodeAggregationWhereInput = {
+  AND?: Maybe<Array<AtomTagsNodeAggregationWhereInput>>
+  OR?: Maybe<Array<AtomTagsNodeAggregationWhereInput>>
+  id_EQUAL?: Maybe<Scalars['ID']>
+  name_EQUAL?: Maybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
+  name_GT?: Maybe<Scalars['Int']>
+  name_AVERAGE_GT?: Maybe<Scalars['Float']>
+  name_LONGEST_GT?: Maybe<Scalars['Int']>
+  name_SHORTEST_GT?: Maybe<Scalars['Int']>
+  name_GTE?: Maybe<Scalars['Int']>
+  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
+  name_LONGEST_GTE?: Maybe<Scalars['Int']>
+  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
+  name_LT?: Maybe<Scalars['Int']>
+  name_AVERAGE_LT?: Maybe<Scalars['Float']>
+  name_LONGEST_LT?: Maybe<Scalars['Int']>
+  name_SHORTEST_LT?: Maybe<Scalars['Int']>
+  name_LTE?: Maybe<Scalars['Int']>
+  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
+  name_LONGEST_LTE?: Maybe<Scalars['Int']>
+  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+}
+
+export type AtomTagsUpdateConnectionInput = {
+  node?: Maybe<TagUpdateInput>
+}
+
+export type AtomTagsUpdateFieldInput = {
+  where?: Maybe<AtomTagsConnectionWhere>
+  update?: Maybe<AtomTagsUpdateConnectionInput>
+  connect?: Maybe<Array<AtomTagsConnectFieldInput>>
+  disconnect?: Maybe<Array<AtomTagsDisconnectFieldInput>>
+  create?: Maybe<Array<AtomTagsCreateFieldInput>>
+  delete?: Maybe<Array<AtomTagsDeleteFieldInput>>
+  connectOrCreate?: Maybe<Array<AtomTagsConnectOrCreateFieldInput>>
+}
+
 export type AtomUniqueWhere = {
   id?: Maybe<Scalars['ID']>
   name?: Maybe<Scalars['String']>
@@ -4373,6 +4519,7 @@ export type AtomUniqueWhere = {
 export type AtomUpdateInput = {
   name?: Maybe<Scalars['String']>
   type?: Maybe<AtomType>
+  tags?: Maybe<Array<AtomTagsUpdateFieldInput>>
   api?: Maybe<AtomApiUpdateFieldInput>
 }
 
@@ -4403,9 +4550,14 @@ export type AtomWhere = {
   type_NOT?: Maybe<AtomType>
   type_IN?: Maybe<Array<Maybe<AtomType>>>
   type_NOT_IN?: Maybe<Array<Maybe<AtomType>>>
+  tags?: Maybe<TagWhere>
+  tags_NOT?: Maybe<TagWhere>
+  tagsAggregate?: Maybe<AtomTagsAggregateInput>
   api?: Maybe<InterfaceTypeWhere>
   api_NOT?: Maybe<InterfaceTypeWhere>
   apiAggregate?: Maybe<AtomApiAggregateInput>
+  tagsConnection?: Maybe<AtomTagsConnectionWhere>
+  tagsConnection_NOT?: Maybe<AtomTagsConnectionWhere>
   apiConnection?: Maybe<AtomApiConnectionWhere>
   apiConnection_NOT?: Maybe<AtomApiConnectionWhere>
 }
