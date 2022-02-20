@@ -8,8 +8,8 @@ import {
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { assertIsDefined } from '@codelab/shared/utils'
+import { useCreateHooksMutation } from '../../../graphql/hook.endpoints.v2.graphql.gen'
 import { useHookDispatch, useHookState } from '../../../hooks'
-import { useAddHookToElementMutation } from '../../../store'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'
 
 type UseAddHookToElementForm = (
@@ -35,13 +35,11 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
 
   // create empty tree in case no type is selected
   // this is work around for cleaning interfaceData on reset
-  const interfaceTree = useTypeTree(
-    selectedType ? interfaceData?.types : undefined,
-  )
+  const interfaceTree = useTypeTree(interfaceData?.types[0]?.graph)
 
-  const [mutate, { isLoading }] = useAddHookToElementMutation({
+  const [mutate, { isLoading }] = useCreateHooksMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.addHookToElement,
+      hook: r.data?.createHooks,
       isLoading: r.isLoading,
       error: r.error,
     }),
@@ -64,7 +62,17 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
       return Promise.resolve()
     }
 
-    return mutate({ variables: { input } }).unwrap()
+    const { type, config } = input
+
+    return mutate({
+      variables: {
+        input: {
+          element: { connect: { where: { node: { id: input.elementId } } } },
+          config: { create: { node: { data: config } } },
+          type,
+        },
+      },
+    }).unwrap()
   }
 
   const reset = () => {
@@ -76,7 +84,11 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
     onChange: (key: string, value: any) => {
       if (key === 'typeId') {
         setSelectedType({ selectedType: value })
-        getTypeGraph({ variables: { where: { id: value } } })
+        getTypeGraph({
+          variables: {
+            where: { apiOfAtoms: { id: value } },
+          },
+        })
       }
     },
     interfaceTree,

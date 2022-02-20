@@ -1,6 +1,6 @@
 import {
   useGetElementById,
-  useUpdateElementPropsMutation,
+  useUpdateElementsMutation,
 } from '@codelab/frontend/modules/element'
 import { notify } from '@codelab/frontend/shared/utils'
 import { PropsData } from '@codelab/shared/abstract/core'
@@ -14,7 +14,7 @@ import { useBuilderDispatch } from './useBuilderDispatch'
 export const usePropsInspector = (elementId: string) => {
   const [persistedProps, setPersistedProps] = useState<Maybe<string>>()
   const { setExtraPropsForElement } = useBuilderDispatch()
-  const [mutate, { isLoading }] = useUpdateElementPropsMutation({})
+  const [mutate, { isLoading }] = useUpdateElementsMutation()
   const element = useGetElementById(elementId)
 
   const lastRenderedProps = useSelector((s) =>
@@ -34,11 +34,16 @@ export const usePropsInspector = (elementId: string) => {
     }
 
     try {
+      const createOrUpdate = element?.props ? 'update' : 'create'
       await mutate({
         variables: {
-          input: {
-            elementId,
-            data: JSON.stringify(JSON.parse(persistedProps)),
+          where: { id: elementId },
+          update: {
+            props: {
+              [createOrUpdate]: {
+                node: { data: JSON.stringify(JSON.parse(persistedProps)) },
+              },
+            },
           },
         },
       }).unwrap()

@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { PropMapBindingFragment } from './PropMapBinding.fragment.v2.graphql.gen'
+import { PropMapBindingFragment } from './Element.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
-import { PropMapBindingFragmentDoc } from './PropMapBinding.fragment.v2.graphql.gen'
+import { PropMapBindingFragmentDoc } from './Element.fragment.v2.graphql.gen'
 import {
   api,
   GraphqlOperationOptions,

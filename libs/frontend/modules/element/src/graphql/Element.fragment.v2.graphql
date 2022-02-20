@@ -67,4 +67,22 @@ fragment Hook on Hook {
   config {
     ...Prop
   }
+  element {
+    id
+    name
+  }
+}
+
+fragment PropMapBinding on PropMapBinding {
+  id
+  sourceKey
+  element {
+    id
+    name
+  }
+  targetElement {
+    id
+    name
+  }
+  targetKey
 }

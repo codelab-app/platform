@@ -3,15 +3,12 @@ import {
   createCrudSlice,
   initialCrudState,
 } from '@codelab/frontend/view/components'
+import { IPropMapBinding } from '@codelab/shared/abstract/core'
 import { DefaultRootState } from 'react-redux'
-import { HookFragment } from '../graphql'
-import { PropMapBindingFragment } from '../graphql/Element.fragment.graphql.gen'
 
-export type PropMapBindingState = CRUDModalState<PropMapBindingFragment>
+export type PropMapBindingState = CRUDModalState<IPropMapBinding>
 
-const initialState: CRUDModalState<HookFragment> = {
-  ...initialCrudState,
-}
+const initialState: CRUDModalState<IPropMapBinding> = initialCrudState
 
 export const propMapBindingSlice = createCrudSlice(
   'propMapBinding',

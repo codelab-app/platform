@@ -1,10 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { AtomFragment } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
-import { PropMapBindingFragment } from './PropMapBinding.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
 import { AtomFragmentDoc } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
-import { PropMapBindingFragmentDoc } from './PropMapBinding.fragment.v2.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
@@ -49,6 +47,18 @@ export type HookFragment = {
   id: string
   type: Types.AtomType
   config: PropFragment
+  element: { id: string; name?: string | null | undefined }
+}
+
+export type PropMapBindingFragment = {
+  id: string
+  sourceKey: string
+  targetKey: string
+  element: { id: string; name?: string | null | undefined }
+  targetElement?:
+    | { id: string; name?: string | null | undefined }
+    | null
+    | undefined
 }
 
 export const ElementEdgeFragmentDoc = gql`
@@ -71,8 +81,27 @@ export const HookFragmentDoc = gql`
     config {
       ...Prop
     }
+    element {
+      id
+      name
+    }
   }
   ${PropFragmentDoc}
+`
+export const PropMapBindingFragmentDoc = gql`
+  fragment PropMapBinding on PropMapBinding {
+    id
+    sourceKey
+    element {
+      id
+      name
+    }
+    targetElement {
+      id
+      name
+    }
+    targetKey
+  }
 `
 export const ElementFragmentDoc = gql`
   fragment Element on Element {

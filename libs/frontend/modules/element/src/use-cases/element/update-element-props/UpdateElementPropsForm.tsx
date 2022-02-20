@@ -9,7 +9,7 @@ import { Prop } from '@codelab/shared/abstract/codegen'
 import { Spin } from 'antd'
 import { useRef } from 'react'
 import { useGetElementById } from '../../../hooks'
-import { useUpdateElementPropsMutation } from '../../../store'
+import { useUpdateElementsMutation } from '../../../store'
 
 interface UpdateElementPropsFormInternalProps {
   elementId: string
@@ -31,7 +31,7 @@ export const UpdateElementPropsFormInternal = ({
       variables: { where: { id: interfaceId } },
     })
 
-  const [mutate] = useUpdateElementPropsMutation()
+  const [mutate] = useUpdateElementsMutation()
   const initialPropsRef = useRef(JSON.parse(existingProps?.data || '{}'))
   const tree = useTypeTree(interfaceData?.types?.[0]?.graph)
 
@@ -50,9 +50,16 @@ export const UpdateElementPropsFormInternal = ({
       key={elementId}
       model={initialPropsRef.current}
       onSubmit={(data: any) => {
+        const createOrUpdate = existingProps ? 'update' : 'create'
+
         const promise = mutate({
           variables: {
-            input: { elementId, data: JSON.stringify(data) },
+            where: { id: elementId },
+            update: {
+              props: {
+                [createOrUpdate]: { node: { data: JSON.stringify(data) } },
+              },
+            },
           },
         }).unwrap()
 

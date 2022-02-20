@@ -2,11 +2,11 @@ import { gql } from '@apollo/client'
 import { GraphqlOperationOptions } from '@codelab/frontend/model/infra/redux'
 import { Maybe } from '@codelab/shared/abstract/codegen-v2'
 import { Recipe } from '@reduxjs/toolkit/dist/query/core/buildThunks'
+import { api as generatedApi } from '../../graphql/element.endpoints.v2.graphql.gen'
 import {
-  api as generatedApi,
   ElementGraphFragment,
   ElementGraphFragmentDoc,
-} from '../../graphql'
+} from '../../graphql/Element.fragment.v2.graphql.gen'
 import {
   GetElementsGraphQueryVariables,
   NormalizedGetElementsGraphQuery,
@@ -56,7 +56,7 @@ const elementInjectedApi = generatedApi.injectEndpoints({
   }),
 })
 
-export const updateCache = (
+export const updateGraphCache = (
   rootId: string,
   updateRecipe: Recipe<NormalizedGetElementsGraphQuery>,
 ) =>
@@ -66,7 +66,7 @@ export const updateCache = (
     updateRecipe,
   )
 
-export const elementApiV2 = elementInjectedApi.enhanceEndpoints({
+export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
   endpoints: {
     CreateElements: {
       async onQueryStarted(input, api) {
@@ -74,7 +74,7 @@ export const elementApiV2 = elementInjectedApi.enhanceEndpoints({
         const { data } = await queryFulfilled
         runGuards(requestId, getState, async (rootId) => {
           const createdElements = data.createElements.elements
-          dispatch(updateCache(rootId, onCreate(createdElements)))
+          dispatch(updateGraphCache(rootId, onCreate(createdElements)))
         })
       },
     },
@@ -84,7 +84,7 @@ export const elementApiV2 = elementInjectedApi.enhanceEndpoints({
         const { data } = await queryFulfilled
         runGuards(requestId, getState, async (rootId) => {
           const duplicatedElements = data.duplicateElement.elements
-          dispatch(updateCache(rootId, onCreate(duplicatedElements)))
+          dispatch(updateGraphCache(rootId, onCreate(duplicatedElements)))
         })
       },
     },
@@ -94,7 +94,7 @@ export const elementApiV2 = elementInjectedApi.enhanceEndpoints({
         const { data } = await queryFulfilled
         runGuards(requestId, getState, async (rootId) => {
           const updatedElements = data.updateElements.elements
-          dispatch(updateCache(rootId, onUpdate(updatedElements)))
+          dispatch(updateGraphCache(rootId, onUpdate(updatedElements)))
         })
       },
     },
@@ -106,14 +106,12 @@ export const elementApiV2 = elementInjectedApi.enhanceEndpoints({
           const deletedIds =
             (input?.variables?.where?.id_IN as Array<string>) || []
 
-          dispatch(updateCache(rootId, onDelete(deletedIds)))
+          dispatch(updateGraphCache(rootId, onDelete(deletedIds)))
         })
       },
     },
   },
 })
-
-export { elementApiV2 as elementEndpointsV2 }
 
 export const {
   useGetElementsQuery,
@@ -124,4 +122,4 @@ export const {
   useGetElementsGraphQuery,
   useLazyGetElementsGraphQuery,
   useUpdateElementsMutation,
-} = elementApiV2
+} = elementEndpoints

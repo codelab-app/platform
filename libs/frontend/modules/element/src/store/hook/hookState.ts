@@ -4,11 +4,11 @@ import {
   initialCrudState,
 } from '@codelab/frontend/view/components'
 import { AtomType } from '@codelab/shared/abstract/codegen'
+import { IHook } from '@codelab/shared/abstract/core'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { DefaultRootState } from 'react-redux'
-import { HookFragment } from '../graphql'
 
-export type HookState = CRUDModalState<HookFragment> & {
+export type HookState = CRUDModalState<IHook> & {
   selectedType?: AtomType
 }
 
@@ -16,7 +16,7 @@ export type SetSelectedTypeAction = {
   selectedType: AtomType
 }
 
-const initialState: CRUDModalState<HookFragment> = {
+const initialState: CRUDModalState<IHook> = {
   ...initialCrudState,
 }
 

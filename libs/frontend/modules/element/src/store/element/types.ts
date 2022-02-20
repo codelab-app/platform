@@ -3,7 +3,7 @@ import {
   ElementEdgeFragment,
   ElementFragment,
   ElementGraphFragment,
-} from '../../graphql'
+} from '../../graphql/Element.fragment.v2.graphql.gen'
 
 export type NormalizedGetElementsGraphQuery = {
   vertices: { [id: string]: ElementFragment }

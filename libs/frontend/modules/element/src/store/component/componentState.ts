@@ -3,13 +3,12 @@ import {
   createCrudSlice,
   initialCrudState,
 } from '@codelab/frontend/view/components'
+import { IElement } from '@codelab/shared/abstract/core'
 import { DefaultRootState } from 'react-redux'
 
-export type ComponentState = CRUDModalState<never>
+export type ComponentState = CRUDModalState<IElement>
 
-const initialState: CRUDModalState<never> = {
-  ...initialCrudState,
-}
+const initialState: CRUDModalState<IElement> = initialCrudState
 
 export const componentSlice = createCrudSlice('component', initialState, {})
 

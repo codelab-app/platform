@@ -38,11 +38,33 @@ export const UpdateElementFormInternal = ({
 
   const [updateElement] = useUpdateElementsMutation()
 
-  const onSubmit = (submitData: UpdateElementData) => {
+  const onSubmit = ({
+    atomId,
+    renderForEachPropKey,
+    renderIfPropKey,
+    name,
+    instanceOfComponentId,
+    propTransformationJs,
+  }: UpdateElementData) => {
+    const atom = atomId
+      ? { connect: { where: { node: { id: atomId } } } }
+      : { disconnect: { where: {} } }
+
+    const instanceOfComponent = instanceOfComponentId
+      ? { connect: { where: { node: { id: instanceOfComponentId } } } }
+      : { disconnect: { where: {} } }
+
     const promise = updateElement({
       variables: {
         where: { id: element.id },
-        update: submitData,
+        update: {
+          name,
+          atom,
+          propTransformationJs,
+          renderForEachPropKey,
+          instanceOfComponent,
+          renderIfPropKey,
+        },
       },
     })
 

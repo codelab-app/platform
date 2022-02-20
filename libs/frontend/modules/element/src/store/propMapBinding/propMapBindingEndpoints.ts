@@ -1,11 +1,11 @@
-import { api as generatedApi } from '../graphql/prop-map-binding.endpoints.v2.graphql.gen'
-import { updateCache } from './elementEndpoints.v2'
+import { api as generatedApi } from '../../graphql/prop-map-binding.endpoints.v2.graphql.gen'
 import {
   onCreatePropMapBindings,
   onDeletedPropMapBindings,
   onUpdatePropMapBindings,
   runGuards,
-} from './elementEndpoints.v2/utils'
+  updateGraphCache,
+} from '../element'
 
 export const propMapBindingApi = generatedApi.enhanceEndpoints({
   endpoints: {
@@ -17,7 +17,7 @@ export const propMapBindingApi = generatedApi.enhanceEndpoints({
           const propMapBindings = data.createPropMapBindings.propMapBindings
 
           dispatch(
-            updateCache(rootId, onCreatePropMapBindings(propMapBindings)),
+            updateGraphCache(rootId, onCreatePropMapBindings(propMapBindings)),
           )
         })
       },
@@ -30,7 +30,9 @@ export const propMapBindingApi = generatedApi.enhanceEndpoints({
           const deletedIds = (input.variables?.where.id_IN ||
             []) as Array<string>
 
-          dispatch(updateCache(rootId, onDeletedPropMapBindings(deletedIds)))
+          dispatch(
+            updateGraphCache(rootId, onDeletedPropMapBindings(deletedIds)),
+          )
         })
       },
     },
@@ -42,7 +44,7 @@ export const propMapBindingApi = generatedApi.enhanceEndpoints({
           const propMapBindings = data.updatePropMapBindings.propMapBindings
 
           dispatch(
-            updateCache(rootId, onUpdatePropMapBindings(propMapBindings)),
+            updateGraphCache(rootId, onUpdatePropMapBindings(propMapBindings)),
           )
         })
       },

@@ -2,38 +2,33 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
+import { IHook } from '@codelab/shared/abstract/core'
 import { useCallback } from 'react'
-import { HookFragment } from '../../../graphql'
+import { useDeleteHooksMutation } from '../../../graphql/hook.endpoints.v2.graphql.gen'
 import { useHookDispatch, useHookState } from '../../../hooks'
-import { useRemoveHookFromElementMutation } from '../../../store'
 
 export const useRemoveHookFromElementForm: UseEntityUseCaseForm<
   EmptyJsonSchemaType,
   CRUDActionType,
-  HookFragment,
+  IHook,
   unknown,
   string
 > = (elementId) => {
   const { deleteIds, entity, actionType } = useHookState()
   const { resetModal } = useHookDispatch()
 
-  const [mutate, { isLoading }] = useRemoveHookFromElementMutation({
+  const [mutate, { isLoading }] = useDeleteHooksMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.removeHookFromElement,
+      hook: r.data?.deleteHooks,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
-  const handleSubmit = useCallback(() => {
-    if (!elementId) {
-      throw new Error('Missing elementId')
-    }
-
-    return mutate({
-      variables: { input: { elementId, hookId: deleteIds[0] } },
-    }).unwrap()
-  }, [mutate, elementId, deleteIds])
+  const handleSubmit = useCallback(
+    () => mutate({ variables: { where: { id_IN: deleteIds } } }).unwrap(),
+    [mutate, deleteIds],
+  )
 
   return {
     onSubmit: handleSubmit,

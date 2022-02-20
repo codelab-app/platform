@@ -1,5 +1,0 @@
-mutation UpdateElementProps($input: UpdateElementPropsInput!) {
-  updateElementProps(input: $input) {
-    ...Element
-  }
-}
