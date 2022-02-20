@@ -28,6 +28,7 @@ export const elementRepository = {
       .run(getElementGraphCypher, { rootId })
       .records()
       .pipe(map((response) => ({ edges: response.get('edges') }))),
+
   duplicateElement: (
     txn: RxTransaction,
     elementId: string,

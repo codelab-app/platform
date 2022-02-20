@@ -222,6 +222,13 @@ export type CreateUnionTypesMutationResponse = {
   unionTypes: Array<UnionType>
 }
 
+export type DeleteElementsInfo = {
+  __typename?: 'DeleteElementsInfo'
+  deletedIds?: Maybe<Array<Scalars['String']>>
+  nodesDeleted: Scalars['Int']
+  relationshipsDeleted: Scalars['Int']
+}
+
 export type DeleteFieldInput = {
   interfaceId: Scalars['ID']
   key: Scalars['String']
@@ -4390,6 +4397,7 @@ export type Mutation = {
   deleteEdges: DeleteInfo
   deleteElementTypes: DeleteInfo
   deleteElements: DeleteInfo
+  deleteElementsSubgraph: DeleteElementsInfo
   deleteEnumTypeValues: DeleteInfo
   deleteEnumTypes: DeleteInfo
   deleteFieldEdge: DeleteFieldResponse
@@ -4588,6 +4596,11 @@ export type MutationDeleteElementTypesArgs = {
 }
 
 export type MutationDeleteElementsArgs = {
+  delete?: InputMaybe<ElementDeleteInput>
+  where?: InputMaybe<ElementWhere>
+}
+
+export type MutationDeleteElementsSubgraphArgs = {
   delete?: InputMaybe<ElementDeleteInput>
   where?: InputMaybe<ElementWhere>
 }

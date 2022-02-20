@@ -1755,6 +1755,12 @@ type CreateUnionTypesMutationResponse {
   unionTypes: [UnionType!]!
 }
 
+type DeleteElementsInfo {
+  deletedIds: [String!]
+  nodesDeleted: Int!
+  relationshipsDeleted: Int!
+}
+
 input DeleteFieldInput {
   interfaceId: ID!
   key: String!
@@ -5672,6 +5678,10 @@ type Mutation {
     where: ElementTypeWhere
   ): DeleteInfo!
   deleteElements(delete: ElementDeleteInput, where: ElementWhere): DeleteInfo!
+  deleteElementsSubgraph(
+    delete: ElementDeleteInput
+    where: ElementWhere
+  ): DeleteElementsInfo!
   deleteEnumTypeValues(
     delete: EnumTypeValueDeleteInput
     where: EnumTypeValueWhere

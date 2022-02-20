@@ -128,5 +128,10 @@ export const elementSchema = gql`
     duplicateElement(
       input: DuplicateElementInput!
     ): DuplicateElementMutationResponse!
+
+    deleteElementsSubgraph(
+      delete: ElementDeleteInput
+      where: ElementWhere
+    ): DeleteElementsInfo!
   }
 `
