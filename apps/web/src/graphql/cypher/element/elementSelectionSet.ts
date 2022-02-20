@@ -33,6 +33,10 @@ export const elementSelectionSet = `{
             id
             data
         }
+        element {
+            id
+            name
+        }
     }
     renderForEachPropKey
     renderIfPropKey

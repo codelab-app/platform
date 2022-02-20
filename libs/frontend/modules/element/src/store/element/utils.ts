@@ -7,6 +7,7 @@ import {
   ElementFragment,
   ElementGraphFragment,
 } from '../../graphql'
+import { HookFragment } from '../../graphql/Element.fragment.v2.graphql.gen'
 import { PropMapBindingFragment } from '../../graphql/PropMapBinding.fragment.v2.graphql.gen'
 import { NormalizedGetElementsGraphQuery } from './types'
 
@@ -56,6 +57,14 @@ export const onCreatePropMapBindings =
     })
   }
 
+export const onCreateHooks =
+  (created: Array<HookFragment>): Recipe<NormalizedGetElementsGraphQuery> =>
+  (draft) => {
+    created.forEach((x) => {
+      draft.vertices[x.element.id].hooks?.push(x)
+    })
+  }
+
 export const onUpdatePropMapBindings =
   (
     updated: Array<PropMapBindingFragment>,
@@ -78,6 +87,15 @@ export const onDeletedPropMapBindings =
       propMapBindings: vertex.propMapBindings?.filter(
         (binding) => !deletedIds.includes(binding.id),
       ),
+    }))
+  }
+
+export const onDeletedHooks =
+  (deletedIds: Array<string>): Recipe<NormalizedGetElementsGraphQuery> =>
+  (draft) => {
+    draft.vertices = mapValues(draft.vertices, (vertex, key) => ({
+      ...vertex,
+      hooks: vertex.hooks?.filter((hook) => !deletedIds.includes(hook.id)),
     }))
   }
 
