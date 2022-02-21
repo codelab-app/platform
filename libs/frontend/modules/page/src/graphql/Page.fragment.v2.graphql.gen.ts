@@ -13,9 +13,7 @@ export type PageBaseFragment = {
   rootElement: { id: string; name?: string | null | undefined }
 }
 
-export type PageFullFragment = {
-  ' $fragmentRefs': { PageBaseFragment: PageBaseFragment }
-}
+export type PageFullFragment = PageBaseFragment
 
 export const PageFragmentDoc = gql`
   fragment Page on Page {

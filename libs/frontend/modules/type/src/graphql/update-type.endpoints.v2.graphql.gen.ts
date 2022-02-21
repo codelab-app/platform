@@ -49,11 +49,7 @@ export type UpdatePrimitiveTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePrimitiveTypesMutation = {
-  updatePrimitiveTypes: {
-    primitiveTypes: Array<{
-      ' $fragmentRefs': { PrimitiveTypeFragment: PrimitiveTypeFragment }
-    }>
-  }
+  updatePrimitiveTypes: { primitiveTypes: Array<PrimitiveTypeFragment> }
 }
 
 export type UpdateArrayTypesMutationVariables = Types.Exact<{
@@ -66,11 +62,7 @@ export type UpdateArrayTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateArrayTypesMutation = {
-  updateArrayTypes: {
-    arrayTypes: Array<{
-      ' $fragmentRefs': { ArrayTypeFragment: ArrayTypeFragment }
-    }>
-  }
+  updateArrayTypes: { arrayTypes: Array<ArrayTypeFragment> }
 }
 
 export type UpdateUnionTypesMutationVariables = Types.Exact<{
@@ -83,11 +75,7 @@ export type UpdateUnionTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateUnionTypesMutation = {
-  updateUnionTypes: {
-    unionTypes: Array<{
-      ' $fragmentRefs': { UnionTypeFragment: UnionTypeFragment }
-    }>
-  }
+  updateUnionTypes: { unionTypes: Array<UnionTypeFragment> }
 }
 
 export type UpdateInterfaceTypesMutationVariables = Types.Exact<{
@@ -100,11 +88,7 @@ export type UpdateInterfaceTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateInterfaceTypesMutation = {
-  updateInterfaceTypes: {
-    interfaceTypes: Array<{
-      ' $fragmentRefs': { InterfaceTypeFragment: InterfaceTypeFragment }
-    }>
-  }
+  updateInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
 }
 
 export type UpdateElementTypesMutationVariables = Types.Exact<{
@@ -117,11 +101,7 @@ export type UpdateElementTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateElementTypesMutation = {
-  updateElementTypes: {
-    elementTypes: Array<{
-      ' $fragmentRefs': { ElementTypeFragment: ElementTypeFragment }
-    }>
-  }
+  updateElementTypes: { elementTypes: Array<ElementTypeFragment> }
 }
 
 export type UpdateRenderPropsTypesMutationVariables = Types.Exact<{
@@ -134,11 +114,7 @@ export type UpdateRenderPropsTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateRenderPropsTypesMutation = {
-  updateRenderPropsTypes: {
-    renderPropsTypes: Array<{
-      ' $fragmentRefs': { RenderPropsTypeFragment: RenderPropsTypeFragment }
-    }>
-  }
+  updateRenderPropsTypes: { renderPropsTypes: Array<RenderPropsTypeFragment> }
 }
 
 export type UpdateEnumTypesMutationVariables = Types.Exact<{
@@ -151,11 +127,7 @@ export type UpdateEnumTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateEnumTypesMutation = {
-  updateEnumTypes: {
-    enumTypes: Array<{
-      ' $fragmentRefs': { EnumTypeFragment: EnumTypeFragment }
-    }>
-  }
+  updateEnumTypes: { enumTypes: Array<EnumTypeFragment> }
 }
 
 export type UpdateLambdaTypesMutationVariables = Types.Exact<{
@@ -168,11 +140,7 @@ export type UpdateLambdaTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateLambdaTypesMutation = {
-  updateLambdaTypes: {
-    lambdaTypes: Array<{
-      ' $fragmentRefs': { LambdaTypeFragment: LambdaTypeFragment }
-    }>
-  }
+  updateLambdaTypes: { lambdaTypes: Array<LambdaTypeFragment> }
 }
 
 export type UpdatePageTypesMutationVariables = Types.Exact<{
@@ -185,11 +153,7 @@ export type UpdatePageTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePageTypesMutation = {
-  updatePageTypes: {
-    pageTypes: Array<{
-      ' $fragmentRefs': { PageTypeFragment: PageTypeFragment }
-    }>
-  }
+  updatePageTypes: { pageTypes: Array<PageTypeFragment> }
 }
 
 export type UpdateAppTypesMutationVariables = Types.Exact<{
@@ -202,9 +166,7 @@ export type UpdateAppTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateAppTypesMutation = {
-  updateAppTypes: {
-    appTypes: Array<{ ' $fragmentRefs': { AppTypeFragment: AppTypeFragment } }>
-  }
+  updateAppTypes: { appTypes: Array<AppTypeFragment> }
 }
 
 export type UpdateMonacoTypesMutationVariables = Types.Exact<{
@@ -217,11 +179,7 @@ export type UpdateMonacoTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateMonacoTypesMutation = {
-  updateMonacoTypes: {
-    monacoTypes: Array<{
-      ' $fragmentRefs': { MonacoTypeFragment: MonacoTypeFragment }
-    }>
-  }
+  updateMonacoTypes: { monacoTypes: Array<MonacoTypeFragment> }
 }
 
 export const UpdatePrimitiveTypesGql = gql`

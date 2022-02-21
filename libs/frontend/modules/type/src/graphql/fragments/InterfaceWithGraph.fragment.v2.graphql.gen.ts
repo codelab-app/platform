@@ -12,8 +12,8 @@ import {
 } from './Interface.fragment.v2.graphql.gen'
 import { TypeGraphFragmentDoc } from './TypeGraph.fragment.v2.graphql.gen'
 export type InterfaceTypeWithGraphFragment = {
-  graph: { ' $fragmentRefs': { TypeGraphFragment: TypeGraphFragment } }
-} & { ' $fragmentRefs': { InterfaceTypeFragment: InterfaceTypeFragment } }
+  graph: TypeGraphFragment
+} & InterfaceTypeFragment
 
 export const InterfaceTypeWithGraphFragmentDoc = gql`
   fragment InterfaceTypeWithGraph on InterfaceType {

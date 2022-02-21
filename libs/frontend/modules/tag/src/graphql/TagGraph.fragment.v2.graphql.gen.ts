@@ -4,8 +4,8 @@ import { TagFragment } from './Tag.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
 import { TagFragmentDoc } from './Tag.fragment.v2.graphql.gen'
 export type TagGraphFragment = {
-  vertices: Array<{ ' $fragmentRefs': { TagFragment: TagFragment } }>
-  edges: Array<{ ' $fragmentRefs': { TagEdgeFragment: TagEdgeFragment } }>
+  vertices: Array<TagFragment>
+  edges: Array<TagEdgeFragment>
 }
 
 export type TagEdgeFragment = { source: string; target: string }
