@@ -1,4 +1,4 @@
-import { useUpdateElementsMutation } from '@codelab/frontend/modules/element'
+import { useMoveElementsMutation } from '@codelab/frontend/modules/element'
 import { ElementTree } from '@codelab/shared/core'
 import { TreeProps } from 'antd/lib/tree'
 
@@ -8,7 +8,7 @@ import { TreeProps } from 'antd/lib/tree'
  * It is also buggy, because it doesn't handle the case where the two nodes have the same order
  */
 export const useElementTreeDrop = (tree: ElementTree) => {
-  const [moveElement, { isLoading }] = useUpdateElementsMutation()
+  const [moveElement, { isLoading }] = useMoveElementsMutation()
 
   const handleDrop: TreeProps['onDrop'] = (e) => {
     const dragNodeId = (e.dragNode as any).id
@@ -16,12 +16,18 @@ export const useElementTreeDrop = (tree: ElementTree) => {
 
     if (e.dropToGap) {
       // Switch spots with the element next to the drop indicator
-
       const dropNodeParentId = tree.getParentOf(dropNodeId)?.id
       const dropElementOrder = tree.getOrderInParent(dropNodeId)
       const originalDragElementOrder = tree.getOrderInParent(dragNodeId)
 
       if (dropNodeParentId) {
+        const order =
+          dropElementOrder === originalDragElementOrder
+            ? dropElementOrder + 1
+            : dropElementOrder
+
+        console.log(order)
+
         moveElement({
           variables: {
             where: { id: dragNodeId },
@@ -29,12 +35,7 @@ export const useElementTreeDrop = (tree: ElementTree) => {
               parentElement: {
                 disconnect: { where: {} },
                 connect: {
-                  edge: {
-                    order:
-                      dropElementOrder === originalDragElementOrder
-                        ? dropElementOrder + 1
-                        : dropElementOrder,
-                  },
+                  edge: { order },
                   where: { node: { id: dropNodeParentId } },
                 },
               },
@@ -47,6 +48,7 @@ export const useElementTreeDrop = (tree: ElementTree) => {
       // Move the dragged element as a child to the dropped element
       // This is buggy, since e.dropPosition does not match our ordering system
       // it causes issues when moving elements up
+
       return moveElement({
         variables: {
           where: { id: dragNodeId },

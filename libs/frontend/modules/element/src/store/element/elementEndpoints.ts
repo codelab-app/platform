@@ -8,17 +8,19 @@ import {
   ElementGraphFragmentDoc,
 } from '../../graphql/Element.fragment.v2.graphql.gen'
 import {
+  getGraphEntry,
+  normalizeGraph,
+  onConvertToComponent,
+  onCreate,
+  onDelete,
+  onMove,
+  onUpdate,
+  runGuards,
+} from './elementGraphCacheUtils'
+import {
   GetElementsGraphQueryVariables,
   NormalizedGetElementsGraphQuery,
 } from './types'
-import {
-  getGraphEntry,
-  normalizeGraph,
-  onCreate,
-  onDelete,
-  onUpdate,
-  runGuards,
-} from './utils'
 
 export const GetElementsGraphGql = gql`
   query GetElementsGraph($input: ElementGraphInput!) {
@@ -98,6 +100,28 @@ export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
         })
       },
     },
+    ConvertElementsToComponents: {
+      async onQueryStarted(input, api) {
+        const { dispatch, queryFulfilled, getState, requestId } = api
+        const { data } = await queryFulfilled
+        runGuards(requestId, getState, async (rootId) => {
+          const updatedElements = data.updateElements.elements
+          dispatch(
+            updateGraphCache(rootId, onConvertToComponent(updatedElements)),
+          )
+        })
+      },
+    },
+    MoveElements: {
+      async onQueryStarted(input, api) {
+        const { dispatch, queryFulfilled, getState, requestId } = api
+        const { data } = await queryFulfilled
+        runGuards(requestId, getState, async (rootId) => {
+          const updatedElements = data.updateElements.elements
+          dispatch(updateGraphCache(rootId, onMove(updatedElements)))
+        })
+      },
+    },
     DeleteElementsSubgraph: {
       async onQueryStarted(input, api) {
         const { dispatch, queryFulfilled, getState, requestId } = api
@@ -120,4 +144,6 @@ export const {
   useGetElementsGraphQuery,
   useLazyGetElementsGraphQuery,
   useUpdateElementsMutation,
+  useConvertElementsToComponentsMutation,
+  useMoveElementsMutation,
 } = elementEndpoints

@@ -1,10 +1,10 @@
 import { IElement } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
+  useConvertElementsToComponentsMutation,
   useDuplicateElementMutation,
   useElementDispatch,
   useElementGraphContext,
-  useUpdateElementsMutation,
 } from '@codelab/frontend/modules/element'
 import { Key } from '@codelab/frontend/view/components'
 import { ElementCreateInput } from '@codelab/shared/abstract/codegen-v2'
@@ -47,7 +47,7 @@ export const ElementContextMenu = ({
   onClick,
   onBlur,
 }: ElementContextMenuProps) => {
-  const [convertToComponent] = useUpdateElementsMutation()
+  const [convertToComponent] = useConvertElementsToComponentsMutation()
   const { elementTree } = useElementGraphContext()
   const [createElement] = useDuplicateElementMutation()
   const { openCreateModal, openDeleteModal } = useElementDispatch()

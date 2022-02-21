@@ -6,9 +6,9 @@ import {
   ElementEdgeFragment,
   ElementFragment,
   ElementGraphFragment,
-} from '../../graphql'
-import { HookFragment } from '../../graphql/Element.fragment.v2.graphql.gen'
-import { PropMapBindingFragment } from '../../graphql/PropMapBinding.fragment.v2.graphql.gen'
+  HookFragment,
+  PropMapBindingFragment,
+} from '../../graphql/Element.fragment.v2.graphql.gen'
 import { NormalizedGetElementsGraphQuery } from './types'
 
 const fulfilledRequests: Array<string> = []
@@ -38,7 +38,12 @@ const createEdges = (
     }))
 
 const removeEdges = (edges: Array<ElementEdgeFragment>, ids: Array<string>) =>
-  edges.filter((x) => !ids.includes(x.target))
+  edges.filter((x) => !ids.includes(x.source) && !ids.includes(x.target))
+
+const removeEdgesFromParent = (
+  edges: Array<ElementEdgeFragment>,
+  ids: Array<string>,
+) => edges.filter((x) => !ids.includes(x.target))
 
 export const onCreate =
   (created: Array<ElementFragment>): Recipe<NormalizedGetElementsGraphQuery> =>
@@ -100,6 +105,22 @@ export const onDeletedHooks =
   }
 
 export const onUpdate =
+  (updated: Array<ElementFragment>): Recipe<NormalizedGetElementsGraphQuery> =>
+  (draft) => {
+    draft.vertices = merge(draft.vertices, normalizeVertices(updated))
+  }
+
+export const onMove =
+  (updated: Array<ElementFragment>): Recipe<NormalizedGetElementsGraphQuery> =>
+  (draft) => {
+    const updatedIds = updated.map((x) => x.id)
+    draft.vertices = merge(draft.vertices, normalizeVertices(updated))
+    draft.edges = removeEdgesFromParent(draft.edges, updatedIds).concat(
+      createEdges(updated),
+    )
+  }
+
+export const onConvertToComponent =
   (updated: Array<ElementFragment>): Recipe<NormalizedGetElementsGraphQuery> =>
   (draft) => {
     const updatedIds = updated.map((x) => x.id)

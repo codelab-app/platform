@@ -36,6 +36,24 @@ export type UpdateElementsMutation = {
   updateElements: { elements: Array<ElementFragment> }
 }
 
+export type MoveElementsMutationVariables = Types.Exact<{
+  where?: Types.InputMaybe<Types.ElementWhere>
+  update?: Types.InputMaybe<Types.ElementUpdateInput>
+}>
+
+export type MoveElementsMutation = {
+  updateElements: { elements: Array<ElementFragment> }
+}
+
+export type ConvertElementsToComponentsMutationVariables = Types.Exact<{
+  where?: Types.InputMaybe<Types.ElementWhere>
+  update?: Types.InputMaybe<Types.ElementUpdateInput>
+}>
+
+export type ConvertElementsToComponentsMutation = {
+  updateElements: { elements: Array<ElementFragment> }
+}
+
 export type DuplicateElementMutationVariables = Types.Exact<{
   input: Types.DuplicateElementInput
 }>
@@ -74,6 +92,29 @@ export const DeleteElementsSubgraphGql = gql`
 `
 export const UpdateElementsGql = gql`
   mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
+    updateElements(where: $where, update: $update) {
+      elements {
+        ...Element
+      }
+    }
+  }
+  ${ElementFragmentDoc}
+`
+export const MoveElementsGql = gql`
+  mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
+    updateElements(where: $where, update: $update) {
+      elements {
+        ...Element
+      }
+    }
+  }
+  ${ElementFragmentDoc}
+`
+export const ConvertElementsToComponentsGql = gql`
+  mutation ConvertElementsToComponents(
+    $where: ElementWhere
+    $update: ElementUpdateInput
+  ) {
     updateElements(where: $where, update: $update) {
       elements {
         ...Element
@@ -134,6 +175,26 @@ const injectedRtkApi = api.injectEndpoints({
         options: { ...{ context: { env: 'v2' } }, ...options },
       }),
     }),
+    MoveElements: build.mutation<
+      MoveElementsMutation,
+      GraphqlOperationOptions<MoveElementsMutationVariables> | void | undefined
+    >({
+      query: (options) => ({
+        document: MoveElementsGql,
+        options: { ...{ context: { env: 'v2' } }, ...options },
+      }),
+    }),
+    ConvertElementsToComponents: build.mutation<
+      ConvertElementsToComponentsMutation,
+      | GraphqlOperationOptions<ConvertElementsToComponentsMutationVariables>
+      | void
+      | undefined
+    >({
+      query: (options) => ({
+        document: ConvertElementsToComponentsGql,
+        options: { ...{ context: { env: 'v2' } }, ...options },
+      }),
+    }),
     DuplicateElement: build.mutation<
       DuplicateElementMutation,
       GraphqlOperationOptions<DuplicateElementMutationVariables>
@@ -159,6 +220,8 @@ export const {
   useCreateElementsMutation,
   useDeleteElementsSubgraphMutation,
   useUpdateElementsMutation,
+  useMoveElementsMutation,
+  useConvertElementsToComponentsMutation,
   useDuplicateElementMutation,
   useGetElementsQuery,
   useLazyGetElementsQuery,
