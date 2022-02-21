@@ -3,12 +3,12 @@ import { TagsColumnProps } from './types'
 
 const GEEK_BLUE_COLOR = 'geekblue'
 
-export const TagsColumn = ({ tags, tagData }: TagsColumnProps) => {
+export const TagsColumn = ({ tags }: TagsColumnProps) => {
   return (
     <div>
-      {tags?.map((tagId) => (
-        <Tag color={GEEK_BLUE_COLOR} key={tagId}>
-          {tagData.find((tag) => tag.id === tagId)?.name || ''}
+      {tags?.map((tag: any) => (
+        <Tag color={GEEK_BLUE_COLOR} key={tag.id}>
+          {tag.name}
         </Tag>
       ))}
     </div>

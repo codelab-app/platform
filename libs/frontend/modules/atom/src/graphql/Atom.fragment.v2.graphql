@@ -3,7 +3,10 @@ fragment Atom on Atom {
   id
   name
   type
-  tags
+  tags {
+    id
+    name
+  }
   api {
     id
     name

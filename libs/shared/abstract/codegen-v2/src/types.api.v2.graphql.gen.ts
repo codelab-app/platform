@@ -909,7 +909,9 @@ export type Atom = {
   apiConnection: AtomApiConnection
   id: Scalars['ID']
   name: Scalars['String']
-  tags?: Maybe<Array<Scalars['String']>>
+  tags?: Maybe<Array<Tag>>
+  tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
+  tagsConnection: AtomTagsConnection
   type: AtomType
 }
 
@@ -927,6 +929,22 @@ export type AtomApiConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<AtomApiConnectionSort>>
   where?: InputMaybe<AtomApiConnectionWhere>
+}
+
+export type AtomTagsArgs = {
+  options?: InputMaybe<TagOptions>
+  where?: InputMaybe<TagWhere>
+}
+
+export type AtomTagsAggregateArgs = {
+  where?: InputMaybe<TagWhere>
+}
+
+export type AtomTagsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<AtomTagsConnectionSort>>
+  where?: InputMaybe<AtomTagsConnectionWhere>
 }
 
 export type AtomAggregateSelection = {
@@ -1047,10 +1065,12 @@ export type AtomApiUpdateFieldInput = {
 
 export type AtomConnectInput = {
   api?: InputMaybe<AtomApiConnectFieldInput>
+  tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
 }
 
 export type AtomConnectOrCreateInput = {
   api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
+  tags?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
 }
 
 export type AtomConnectOrCreateWhere = {
@@ -1064,16 +1084,18 @@ export type AtomConnectWhere = {
 export type AtomCreateInput = {
   api?: InputMaybe<AtomApiFieldInput>
   name: Scalars['String']
-  tags?: InputMaybe<Array<Scalars['String']>>
+  tags?: InputMaybe<AtomTagsFieldInput>
   type: AtomType
 }
 
 export type AtomDeleteInput = {
   api?: InputMaybe<AtomApiDeleteFieldInput>
+  tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
 }
 
 export type AtomDisconnectInput = {
   api?: InputMaybe<AtomApiDisconnectFieldInput>
+  tags?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
 }
 
 export type AtomInterfaceTypeApiAggregationSelection = {
@@ -1097,6 +1119,7 @@ export type AtomOptions = {
 
 export type AtomRelationInput = {
   api?: InputMaybe<AtomApiCreateFieldInput>
+  tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
 }
 
 /** Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object. */
@@ -1104,6 +1127,127 @@ export type AtomSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
+}
+
+export type AtomTagTagsAggregationSelection = {
+  __typename?: 'AtomTagTagsAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<AtomTagTagsNodeAggregateSelection>
+}
+
+export type AtomTagTagsNodeAggregateSelection = {
+  __typename?: 'AtomTagTagsNodeAggregateSelection'
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
+export type AtomTagsAggregateInput = {
+  AND?: InputMaybe<Array<AtomTagsAggregateInput>>
+  OR?: InputMaybe<Array<AtomTagsAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<AtomTagsNodeAggregationWhereInput>
+}
+
+export type AtomTagsConnectFieldInput = {
+  connect?: InputMaybe<Array<TagConnectInput>>
+  where?: InputMaybe<TagConnectWhere>
+}
+
+export type AtomTagsConnectOrCreateFieldInput = {
+  onCreate: AtomTagsConnectOrCreateFieldInputOnCreate
+  where: TagConnectOrCreateWhere
+}
+
+export type AtomTagsConnectOrCreateFieldInputOnCreate = {
+  node: TagCreateInput
+}
+
+export type AtomTagsConnection = {
+  __typename?: 'AtomTagsConnection'
+  edges: Array<AtomTagsRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type AtomTagsConnectionSort = {
+  node?: InputMaybe<TagSort>
+}
+
+export type AtomTagsConnectionWhere = {
+  AND?: InputMaybe<Array<AtomTagsConnectionWhere>>
+  OR?: InputMaybe<Array<AtomTagsConnectionWhere>>
+  node?: InputMaybe<TagWhere>
+  node_NOT?: InputMaybe<TagWhere>
+}
+
+export type AtomTagsCreateFieldInput = {
+  node: TagCreateInput
+}
+
+export type AtomTagsDeleteFieldInput = {
+  delete?: InputMaybe<TagDeleteInput>
+  where?: InputMaybe<AtomTagsConnectionWhere>
+}
+
+export type AtomTagsDisconnectFieldInput = {
+  disconnect?: InputMaybe<TagDisconnectInput>
+  where?: InputMaybe<AtomTagsConnectionWhere>
+}
+
+export type AtomTagsFieldInput = {
+  connect?: InputMaybe<Array<AtomTagsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<AtomTagsCreateFieldInput>>
+}
+
+export type AtomTagsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AtomTagsNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AtomTagsNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type AtomTagsRelationship = {
+  __typename?: 'AtomTagsRelationship'
+  cursor: Scalars['String']
+  node: Tag
+}
+
+export type AtomTagsUpdateConnectionInput = {
+  node?: InputMaybe<TagUpdateInput>
+}
+
+export type AtomTagsUpdateFieldInput = {
+  connect?: InputMaybe<Array<AtomTagsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<AtomTagsCreateFieldInput>>
+  delete?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
+  update?: InputMaybe<AtomTagsUpdateConnectionInput>
+  where?: InputMaybe<AtomTagsConnectionWhere>
 }
 
 export enum AtomType {
@@ -1482,7 +1626,7 @@ export type AtomUniqueWhere = {
 export type AtomUpdateInput = {
   api?: InputMaybe<AtomApiUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
-  tags?: InputMaybe<Array<Scalars['String']>>
+  tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
   type?: InputMaybe<AtomType>
 }
 
@@ -1514,10 +1658,11 @@ export type AtomWhere = {
   name_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
-  tags?: InputMaybe<Array<Scalars['String']>>
-  tags_INCLUDES?: InputMaybe<Scalars['String']>
-  tags_NOT?: InputMaybe<Array<Scalars['String']>>
-  tags_NOT_INCLUDES?: InputMaybe<Scalars['String']>
+  tags?: InputMaybe<TagWhere>
+  tagsAggregate?: InputMaybe<AtomTagsAggregateInput>
+  tagsConnection?: InputMaybe<AtomTagsConnectionWhere>
+  tagsConnection_NOT?: InputMaybe<AtomTagsConnectionWhere>
+  tags_NOT?: InputMaybe<TagWhere>
   type?: InputMaybe<AtomType>
   type_IN?: InputMaybe<Array<InputMaybe<AtomType>>>
   type_NOT?: InputMaybe<AtomType>

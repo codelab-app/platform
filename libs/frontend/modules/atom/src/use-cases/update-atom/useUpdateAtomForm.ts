@@ -1,13 +1,15 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { difference } from 'lodash'
 import { useCallback } from 'react'
 import { useAtomDispatch, useAtomState } from '../../hooks'
 import { useUpdateAtomsMutation } from '../../store'
-import { CreateAtomInput } from '../create-atom'
+import { CreateAtomInputSchema } from '../create-atom'
+import { makeTagConnectData } from '../helper'
 
 export const useUpdateAtomForm: UseUseCaseForm<
-  CreateAtomInput,
+  CreateAtomInputSchema,
   CRUDActionType
 > = () => {
   const { updateId, entity, actionType } = useAtomState()
@@ -22,9 +24,24 @@ export const useUpdateAtomForm: UseUseCaseForm<
   })
 
   const onSubmit = useCallback(
-    (data: CreateAtomInput) => {
+    (data: CreateAtomInputSchema) => {
+      const existingTagIds = entity?.tags?.map((tag) => tag.id) || []
+      const connects = makeTagConnectData(difference(data.tags, existingTagIds))
+      const disconnects = makeTagConnectData(difference(existingTagIds, data.tags))
+
       return mutate({
-        variables: { where: { id: updateId }, update: data },
+        variables: {
+          where: { id: updateId },
+          update: {
+            ...data,
+            tags: [
+              {
+                connect: connects,
+                disconnect: disconnects,
+              },
+            ],
+          },
+        },
       }).unwrap()
     },
     [mutate, updateId],
@@ -41,7 +58,7 @@ export const useUpdateAtomForm: UseUseCaseForm<
     model: {
       name: entity?.name,
       type: entity?.type,
-      tags: entity?.tags || [],
+      tags: entity?.tags?.map((tag) => tag.id) || [],
     },
     entity: entity,
     isLoading,

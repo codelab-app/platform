@@ -52,28 +52,44 @@ export type GetPrimitiveTypesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PrimitiveTypeWhere>
 }>
 
-export type GetPrimitiveTypesQuery = { types: Array<PrimitiveTypeFragment> }
+export type GetPrimitiveTypesQuery = {
+  types: Array<{
+    ' $fragmentRefs': { PrimitiveTypeFragment: PrimitiveTypeFragment }
+  }>
+}
 
 export type GetArrayTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ArrayTypeOptions>
   where?: Types.InputMaybe<Types.ArrayTypeWhere>
 }>
 
-export type GetArrayTypesQuery = { types: Array<ArrayTypeWithItemTypeFragment> }
+export type GetArrayTypesQuery = {
+  types: Array<{
+    ' $fragmentRefs': {
+      ArrayTypeWithItemTypeFragment: ArrayTypeWithItemTypeFragment
+    }
+  }>
+}
 
 export type GetUnionTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.UnionTypeOptions>
   where?: Types.InputMaybe<Types.UnionTypeWhere>
 }>
 
-export type GetUnionTypesQuery = { types: Array<UnionTypeFragment> }
+export type GetUnionTypesQuery = {
+  types: Array<{ ' $fragmentRefs': { UnionTypeFragment: UnionTypeFragment } }>
+}
 
 export type GetInterfaceTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.InterfaceTypeOptions>
   where?: Types.InputMaybe<Types.InterfaceTypeWhere>
 }>
 
-export type GetInterfaceTypesQuery = { types: Array<InterfaceTypeFragment> }
+export type GetInterfaceTypesQuery = {
+  types: Array<{
+    ' $fragmentRefs': { InterfaceTypeFragment: InterfaceTypeFragment }
+  }>
+}
 
 export type GetInterfaceTypesWithFieldsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.InterfaceTypeOptions>
@@ -81,7 +97,11 @@ export type GetInterfaceTypesWithFieldsQueryVariables = Types.Exact<{
 }>
 
 export type GetInterfaceTypesWithFieldsQuery = {
-  types: Array<InterfaceTypeWithFieldsFragment>
+  types: Array<{
+    ' $fragmentRefs': {
+      InterfaceTypeWithFieldsFragment: InterfaceTypeWithFieldsFragment
+    }
+  }>
 }
 
 export type GetInterfaceTypeGraphsQueryVariables = Types.Exact<{
@@ -90,7 +110,11 @@ export type GetInterfaceTypeGraphsQueryVariables = Types.Exact<{
 }>
 
 export type GetInterfaceTypeGraphsQuery = {
-  types: Array<InterfaceTypeWithGraphFragment>
+  types: Array<{
+    ' $fragmentRefs': {
+      InterfaceTypeWithGraphFragment: InterfaceTypeWithGraphFragment
+    }
+  }>
 }
 
 export type GetElementTypesQueryVariables = Types.Exact<{
@@ -98,49 +122,67 @@ export type GetElementTypesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementTypeWhere>
 }>
 
-export type GetElementTypesQuery = { types: Array<ElementTypeFragment> }
+export type GetElementTypesQuery = {
+  types: Array<{
+    ' $fragmentRefs': { ElementTypeFragment: ElementTypeFragment }
+  }>
+}
 
 export type GetRenderPropsTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.RenderPropsTypeOptions>
   where?: Types.InputMaybe<Types.RenderPropsTypeWhere>
 }>
 
-export type GetRenderPropsTypesQuery = { types: Array<RenderPropsTypeFragment> }
+export type GetRenderPropsTypesQuery = {
+  types: Array<{
+    ' $fragmentRefs': { RenderPropsTypeFragment: RenderPropsTypeFragment }
+  }>
+}
 
 export type GetEnumTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.EnumTypeOptions>
   where?: Types.InputMaybe<Types.EnumTypeWhere>
 }>
 
-export type GetEnumTypesQuery = { types: Array<EnumTypeFragment> }
+export type GetEnumTypesQuery = {
+  types: Array<{ ' $fragmentRefs': { EnumTypeFragment: EnumTypeFragment } }>
+}
 
 export type GetLambdaTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.LambdaTypeOptions>
   where?: Types.InputMaybe<Types.LambdaTypeWhere>
 }>
 
-export type GetLambdaTypesQuery = { types: Array<LambdaTypeFragment> }
+export type GetLambdaTypesQuery = {
+  types: Array<{ ' $fragmentRefs': { LambdaTypeFragment: LambdaTypeFragment } }>
+}
 
 export type GetPageTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.PageTypeOptions>
   where?: Types.InputMaybe<Types.PageTypeWhere>
 }>
 
-export type GetPageTypesQuery = { types: Array<PageTypeFragment> }
+export type GetPageTypesQuery = {
+  types: Array<{ ' $fragmentRefs': { PageTypeFragment: PageTypeFragment } }>
+}
 
 export type GetAppTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AppTypeOptions>
   where?: Types.InputMaybe<Types.AppTypeWhere>
 }>
 
-export type GetAppTypesQuery = { types: Array<AppTypeFragment> }
+export type GetAppTypesQuery = {
+  types: Array<{ ' $fragmentRefs': { AppTypeFragment: AppTypeFragment } }>
+}
 
 export type GetMonacoTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.MonacoTypeOptions>
   where?: Types.InputMaybe<Types.MonacoTypeWhere>
 }>
 
-export type GetMonacoTypesQuery = { types: Array<MonacoTypeFragment> }
+export type GetMonacoTypesQuery = {
+  types: Array<{ ' $fragmentRefs': { MonacoTypeFragment: MonacoTypeFragment } }>
+}
 
 export const GetPrimitiveTypesGql = gql`
   query GetPrimitiveTypes(

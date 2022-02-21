@@ -4,11 +4,8 @@ import { gql } from '@apollo/client'
 export type TagFragment = {
   id: string
   name: string
-  isRoot?: boolean | null | undefined
-  children?:
-    | Array<{ id: string; name: string } | null | undefined>
-    | null
-    | undefined
+  isRoot?: boolean | null
+  children?: Array<{ id: string; name: string } | null> | null
 }
 
 export const TagFragmentDoc = gql`

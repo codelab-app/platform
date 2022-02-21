@@ -54,39 +54,88 @@ import {
 import { MonacoTypeFragmentDoc } from './MonacoType.fragment.v2.graphql.gen'
 import { PageTypeFragmentDoc } from './PageType.fragment.v2.graphql.gen'
 import { AppTypeFragmentDoc } from './AppType.fragment.v2.graphql.gen'
-export type Type_AppType_Fragment = TypeBase_AppType_Fragment & AppTypeFragment
+export type Type_AppType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_AppType_Fragment: TypeBase_AppType_Fragment
+    AppTypeFragment: AppTypeFragment
+  }
+}
 
-export type Type_ArrayType_Fragment = TypeBase_ArrayType_Fragment &
-  ArrayTypeWithItemTypeFragment
+export type Type_ArrayType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_ArrayType_Fragment: TypeBase_ArrayType_Fragment
+    ArrayTypeWithItemTypeFragment: ArrayTypeWithItemTypeFragment
+  }
+}
 
-export type Type_ElementType_Fragment = TypeBase_ElementType_Fragment &
-  ElementTypeFragment
+export type Type_ElementType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_ElementType_Fragment: TypeBase_ElementType_Fragment
+    ElementTypeFragment: ElementTypeFragment
+  }
+}
 
-export type Type_EnumType_Fragment = TypeBase_EnumType_Fragment &
-  EnumTypeFragment
+export type Type_EnumType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_EnumType_Fragment: TypeBase_EnumType_Fragment
+    EnumTypeFragment: EnumTypeFragment
+  }
+}
 
-export type Type_InterfaceType_Fragment = TypeBase_InterfaceType_Fragment &
-  InterfaceTypeWithFieldsFragment
+export type Type_InterfaceType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_InterfaceType_Fragment: TypeBase_InterfaceType_Fragment
+    InterfaceTypeWithFieldsFragment: InterfaceTypeWithFieldsFragment
+  }
+}
 
-export type Type_LambdaType_Fragment = TypeBase_LambdaType_Fragment &
-  LambdaTypeFragment
+export type Type_LambdaType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_LambdaType_Fragment: TypeBase_LambdaType_Fragment
+    LambdaTypeFragment: LambdaTypeFragment
+  }
+}
 
-export type Type_MonacoType_Fragment = TypeBase_MonacoType_Fragment &
-  MonacoTypeFragment
+export type Type_MonacoType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_MonacoType_Fragment: TypeBase_MonacoType_Fragment
+    MonacoTypeFragment: MonacoTypeFragment
+  }
+}
 
-export type Type_PageType_Fragment = TypeBase_PageType_Fragment &
-  PageTypeFragment
+export type Type_PageType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_PageType_Fragment: TypeBase_PageType_Fragment
+    PageTypeFragment: PageTypeFragment
+  }
+}
 
-export type Type_PrimitiveType_Fragment = TypeBase_PrimitiveType_Fragment &
-  PrimitiveTypeFragment
+export type Type_PrimitiveType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_PrimitiveType_Fragment: TypeBase_PrimitiveType_Fragment
+    PrimitiveTypeFragment: PrimitiveTypeFragment
+  }
+}
 
-export type Type_ReactNodeType_Fragment = TypeBase_ReactNodeType_Fragment
+export type Type_ReactNodeType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_ReactNodeType_Fragment: TypeBase_ReactNodeType_Fragment
+  }
+}
 
-export type Type_RenderPropsType_Fragment = TypeBase_RenderPropsType_Fragment &
-  RenderPropsTypeFragment
+export type Type_RenderPropsType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_RenderPropsType_Fragment: TypeBase_RenderPropsType_Fragment
+    RenderPropsTypeFragment: RenderPropsTypeFragment
+  }
+}
 
-export type Type_UnionType_Fragment = TypeBase_UnionType_Fragment &
-  UnionTypeWithInnerTypesFragment
+export type Type_UnionType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_UnionType_Fragment: TypeBase_UnionType_Fragment
+    UnionTypeWithInnerTypesFragment: UnionTypeWithInnerTypesFragment
+  }
+}
 
 export type TypeFragment =
   | Type_AppType_Fragment
@@ -102,41 +151,88 @@ export type TypeFragment =
   | Type_RenderPropsType_Fragment
   | Type_UnionType_Fragment
 
-export type TypeNonRecursive_AppType_Fragment = TypeBase_AppType_Fragment &
-  AppTypeFragment
+export type TypeNonRecursive_AppType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_AppType_Fragment: TypeBase_AppType_Fragment
+    AppTypeFragment: AppTypeFragment
+  }
+}
 
-export type TypeNonRecursive_ArrayType_Fragment = TypeBase_ArrayType_Fragment &
-  ArrayTypeFragment
+export type TypeNonRecursive_ArrayType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_ArrayType_Fragment: TypeBase_ArrayType_Fragment
+    ArrayTypeFragment: ArrayTypeFragment
+  }
+}
 
-export type TypeNonRecursive_ElementType_Fragment =
-  TypeBase_ElementType_Fragment & ElementTypeFragment
+export type TypeNonRecursive_ElementType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_ElementType_Fragment: TypeBase_ElementType_Fragment
+    ElementTypeFragment: ElementTypeFragment
+  }
+}
 
-export type TypeNonRecursive_EnumType_Fragment = TypeBase_EnumType_Fragment &
-  EnumTypeFragment
+export type TypeNonRecursive_EnumType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_EnumType_Fragment: TypeBase_EnumType_Fragment
+    EnumTypeFragment: EnumTypeFragment
+  }
+}
 
-export type TypeNonRecursive_InterfaceType_Fragment =
-  TypeBase_InterfaceType_Fragment & InterfaceTypeFragment
+export type TypeNonRecursive_InterfaceType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_InterfaceType_Fragment: TypeBase_InterfaceType_Fragment
+    InterfaceTypeFragment: InterfaceTypeFragment
+  }
+}
 
-export type TypeNonRecursive_LambdaType_Fragment =
-  TypeBase_LambdaType_Fragment & LambdaTypeFragment
+export type TypeNonRecursive_LambdaType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_LambdaType_Fragment: TypeBase_LambdaType_Fragment
+    LambdaTypeFragment: LambdaTypeFragment
+  }
+}
 
-export type TypeNonRecursive_MonacoType_Fragment =
-  TypeBase_MonacoType_Fragment & MonacoTypeFragment
+export type TypeNonRecursive_MonacoType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_MonacoType_Fragment: TypeBase_MonacoType_Fragment
+    MonacoTypeFragment: MonacoTypeFragment
+  }
+}
 
-export type TypeNonRecursive_PageType_Fragment = TypeBase_PageType_Fragment &
-  PageTypeFragment
+export type TypeNonRecursive_PageType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_PageType_Fragment: TypeBase_PageType_Fragment
+    PageTypeFragment: PageTypeFragment
+  }
+}
 
-export type TypeNonRecursive_PrimitiveType_Fragment =
-  TypeBase_PrimitiveType_Fragment & PrimitiveTypeFragment
+export type TypeNonRecursive_PrimitiveType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_PrimitiveType_Fragment: TypeBase_PrimitiveType_Fragment
+    PrimitiveTypeFragment: PrimitiveTypeFragment
+  }
+}
 
-export type TypeNonRecursive_ReactNodeType_Fragment =
-  TypeBase_ReactNodeType_Fragment
+export type TypeNonRecursive_ReactNodeType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_ReactNodeType_Fragment: TypeBase_ReactNodeType_Fragment
+  }
+}
 
-export type TypeNonRecursive_RenderPropsType_Fragment =
-  TypeBase_RenderPropsType_Fragment & RenderPropsTypeFragment
+export type TypeNonRecursive_RenderPropsType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_RenderPropsType_Fragment: TypeBase_RenderPropsType_Fragment
+    RenderPropsTypeFragment: RenderPropsTypeFragment
+  }
+}
 
-export type TypeNonRecursive_UnionType_Fragment = TypeBase_UnionType_Fragment &
-  UnionTypeFragment
+export type TypeNonRecursive_UnionType_Fragment = {
+  ' $fragmentRefs': {
+    TypeBase_UnionType_Fragment: TypeBase_UnionType_Fragment
+    UnionTypeFragment: UnionTypeFragment
+  }
+}
 
 export type TypeNonRecursiveFragment =
   | TypeNonRecursive_AppType_Fragment

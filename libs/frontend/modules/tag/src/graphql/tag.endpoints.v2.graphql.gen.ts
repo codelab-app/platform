@@ -13,14 +13,22 @@ export type CreateTagsMutationVariables = Types.Exact<{
   input: Array<Types.TagCreateInput> | Types.TagCreateInput
 }>
 
-export type CreateTagsMutation = { createTags: { tags: Array<TagFragment> } }
+export type CreateTagsMutation = {
+  createTags: {
+    tags: Array<{ ' $fragmentRefs': { TagFragment: TagFragment } }>
+  }
+}
 
 export type UpdateTagsMutationVariables = Types.Exact<{
   where: Types.TagWhere
   update: Types.TagUpdateInput
 }>
 
-export type UpdateTagsMutation = { updateTags: { tags: Array<TagFragment> } }
+export type UpdateTagsMutation = {
+  updateTags: {
+    tags: Array<{ ' $fragmentRefs': { TagFragment: TagFragment } }>
+  }
+}
 
 export type DeleteTagsMutationVariables = Types.Exact<{
   where: Types.TagWhere
@@ -33,12 +41,16 @@ export type GetTagsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.TagWhere>
 }>
 
-export type GetTagsQuery = { tags: Array<TagFragment> }
+export type GetTagsQuery = {
+  tags: Array<{ ' $fragmentRefs': { TagFragment: TagFragment } }>
+}
 
 export type GetTagGraphsQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetTagGraphsQuery = {
-  tagGraphs?: TagGraphFragment | null | undefined
+  tagGraphs?: {
+    ' $fragmentRefs': { TagGraphFragment: TagGraphFragment }
+  } | null
 }
 
 export const CreateTagsGql = gql`

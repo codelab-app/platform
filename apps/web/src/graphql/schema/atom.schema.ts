@@ -12,7 +12,7 @@ export const atomSchema = gql`
     id: ID! @id
     type: AtomType! @unique
     name: String! @unique
-    tags: [String!]
+    tags: [Tag!] @relationship(type: "TAGS_WITH", direction: OUT)
     api: InterfaceType! @relationship(type: "ATOM_API", direction: OUT)
   }
 

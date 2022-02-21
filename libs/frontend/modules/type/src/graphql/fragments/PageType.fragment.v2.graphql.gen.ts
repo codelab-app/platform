@@ -14,7 +14,9 @@ import {
 } from './TypeBase.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
-export type PageTypeFragment = TypeBase_PageType_Fragment
+export type PageTypeFragment = {
+  ' $fragmentRefs': { TypeBase_PageType_Fragment: TypeBase_PageType_Fragment }
+}
 
 export const PageTypeFragmentDoc = gql`
   fragment PageType on PageType {
