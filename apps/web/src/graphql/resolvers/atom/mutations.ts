@@ -3,9 +3,10 @@ import { IResolvers } from '@graphql-tools/utils'
 import { Atom } from '../../model'
 import { MutationImportAtomsArgs } from '../../ogm-types.gen'
 
-export const atomResolvers: IResolvers = {
+export const atomMutationResolvers: IResolvers = {
   importAtoms: async (_source, args: MutationImportAtomsArgs) => {
-    const payload: AtomsPayload = JSON.parse(args.input.payload)
+    const payload: AtomsPayload =
+      args.input.payload?.map((i) => JSON.parse(i)) ?? []
 
     const data = payload.map((atom) => ({
       name: atom.name,

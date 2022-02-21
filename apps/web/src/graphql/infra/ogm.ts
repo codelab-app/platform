@@ -1,6 +1,6 @@
 import { OGM } from '@neo4j/graphql-ogm'
 import { ModelMap } from '../ogm-types.gen'
-import typeDefs from '../schema/typeDefs'
+import typeDefs from '../schema/schema'
 import { getDriver } from './driver'
 
 // Since we're running in a serverless environment, we don't want to instantiate the ogm
