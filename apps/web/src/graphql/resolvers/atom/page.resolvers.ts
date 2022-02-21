@@ -1,8 +1,8 @@
 import { IResolvers } from '@graphql-tools/utils'
-import { elementRepository } from '../../cypher/element/elementRepository'
 import { getDriver } from '../../infra/driver'
 import { Page } from '../../model'
 import { MutationDeletePagesArgs, PageWhere } from '../../ogm-types.gen'
+import { elementRepository } from '../../repositories'
 import { pageSelectionSet } from '../selectionSets/pageSelectionSet'
 
 const driver = getDriver()

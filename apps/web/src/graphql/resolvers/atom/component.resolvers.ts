@@ -1,11 +1,11 @@
 import { IResolvers } from '@graphql-tools/utils'
-import { elementRepository } from '../../cypher/element/elementRepository'
 import { getDriver } from '../../infra/driver'
 import { Component } from '../../model'
 import {
   ComponentWhere,
   MutationDeleteComponentsArgs,
 } from '../../ogm-types.gen'
+import { elementRepository } from '../../repositories'
 import { componentSelectionSet } from '../selectionSets/componentSelectionSet'
 
 const driver = getDriver()

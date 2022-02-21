@@ -2,10 +2,9 @@ import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
 import { ApolloServer } from 'apollo-server-micro'
 import { NextApiHandler } from 'next'
 import * as util from 'util'
-import { generateOgmTypes } from '../../src/graphql/generate-ogm-types'
 import { getDriver } from '../../src/graphql/infra/driver'
 import { User } from '../../src/graphql/model'
-import { getSchema } from '../../src/graphql/schema/schema'
+import { getSchema } from '../../src/graphql/schema/neoSchema'
 
 const driver = getDriver()
 const neoSchema = getSchema(driver)

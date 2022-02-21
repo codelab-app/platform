@@ -3,23 +3,23 @@ import {
   UpsertFieldInput,
 } from '@codelab/shared/abstract/codegen-v2'
 import { throwIfNullish, throwIfTruthy } from '@codelab/shared/utils'
-import { IFieldResolver } from '@graphql-tools/utils/Interfaces'
+import { InterfaceType } from 'apps/web/src/graphql/ogm-types.gen'
 import { RxTransaction } from 'neo4j-driver'
 import { forkJoin, from, Observable } from 'rxjs'
 import { map, switchMap } from 'rxjs/operators'
-import { GetTypeByIdResponse, typeRepository } from '../../../../cypher'
-import { getDriver } from '../../../../infra/driver'
 import { InterfaceType as InterfaceTypeModel } from '../../../../model'
-import { InterfaceType } from '../../../../ogm-types.gen'
-import { deleteFieldEdge } from '../deleteFieldEdge'
+import { GetTypeByIdResponse, typeRepository } from '../../../../repositories'
+import {
+  IRxTxnResolver,
+  withRxTransaction,
+} from '../../../abstract/withRxTransaction'
+import { deleteFieldEdge } from '../deleteFieldEdgeResolver'
 import {
   duplicatedKeyErrorFactory,
   interfaceNotExistingErrorFactory,
   recursiveTypeErrorFactory,
   targetTypeNotExistingErrorFactory,
 } from './errorFactories'
-
-const driver = getDriver()
 
 const validateInterfaceExists = (input: UpsertFieldInput) => {
   const promise = InterfaceTypeModel().find({
@@ -96,11 +96,17 @@ const createEdgeConnection = (
   })
 
 // Main upsert pipeline
-export const upsertFieldEdge =
-  (input: UpsertFieldInput, isCreating: boolean) => (txn: RxTransaction) => {
+export const upsertFieldEdge: IRxTxnResolver<
+  UpsertFieldResolverArgs,
+  InterfaceTypeEdge
+> =
+  ({ input, isCreating }) =>
+  (txn) => {
     const deleteInput = {
-      key: input.key,
-      interfaceId: input.interfaceTypeId,
+      input: {
+        key: input.key,
+        interfaceId: input.interfaceTypeId,
+      },
     }
 
     const validateExist$ = validateInterfaceAndTargetExist(txn, input)
@@ -147,20 +153,9 @@ export interface UpsertFieldResolverArgs {
 //
 // There is no need for an update resolver since we can just delete any existing relationships with that key
 // and recreate them, which effectively is updating them.
-export const upsertFieldEdgeResolver: IFieldResolver<
-  any,
-  any,
+export const upsertFieldEdgeResolver = withRxTransaction<
   UpsertFieldResolverArgs,
-  Promise<InterfaceTypeEdge>
-> = async (_, { input, isCreating }) => {
-  const session = driver.rxSession()
+  InterfaceTypeEdge
+>(upsertFieldEdge)
 
-  return session
-    .writeTransaction(upsertFieldEdge(input, isCreating))
-    .toPromise()
-    .catch((error) => {
-      console.error(`upsertFieldEdgeResolver:`, error)
-      throw error
-    })
-    .finally(() => session.close())
-}
+export default upsertFieldEdgeResolver
