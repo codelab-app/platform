@@ -1,3 +1,4 @@
+import { useGetTagGraphsQuery, useTagTree } from '@codelab/frontend/modules/tag'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { TableColumnProps } from 'antd'
@@ -7,18 +8,24 @@ import {
 } from 'antd/lib/table/interface'
 import { AtomFragment } from '../../graphql/Atom.fragment.v2.graphql.gen'
 import { useAtomDispatch, useAtomState } from '../../hooks'
+import { makeFilterData } from '../helper'
 import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 
 const onLibraryFilter = (value: any, atom: AtomFragment): boolean => {
   const list = [atom.name, atom.type].map((x) => x.toLowerCase())
   const search = value.toString().toLowerCase()
-
   return list.some((x) => x.startsWith(search))
 }
 
 export const useAtomTable = () => {
   const { selectedIds } = useAtomState()
   const { setSelectedIds } = useAtomDispatch()
+  const { data } = useGetTagGraphsQuery()
+  const tagTree = useTagTree(data?.tagGraphs)
+  const tagTreeData = tagTree.getAntdTree()
+
+  const filterTreeData = makeFilterData(tagTreeData)
+
 
   const columns: Array<TableColumnProps<AtomFragment>> = [
     {
@@ -40,6 +47,13 @@ export const useAtomTable = () => {
       title: 'Tags',
       dataIndex: 'tags',
       key: 'tags',
+      filters: filterTreeData,
+      filterMode: 'tree',
+      filterSearch: true,
+      onFilter: (value: string|number|boolean, atom: AtomFragment) => {
+        const tagIds = atom.tags?.map(tag=>tag.id)
+        return !!tagIds?.includes(value.toString())
+      },
       onHeaderCell: headerCellProps,
       render: (tags) => <TagsColumn tags={tags} />,
     },
