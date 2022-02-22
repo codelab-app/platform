@@ -111,27 +111,4 @@ export const elementSchema = gql`
       where: ElementWhere
     ): DeleteElementsInfo!
   }
-
-  type Query {
-    elementGraph(input: ElementGraphInput!): ElementGraph!
-  }
-
-  input DuplicateElementInput {
-    elementId: String!
-  }
-
-  type DuplicateElementMutationResponse @exclude {
-    elements: [Element!]!
-  }
-
-  type Mutation {
-    duplicateElement(
-      input: DuplicateElementInput!
-    ): DuplicateElementMutationResponse!
-
-    deleteElementsSubgraph(
-      delete: ElementDeleteInput
-      where: ElementWhere
-    ): DeleteElementsInfo!
-  }
 `
