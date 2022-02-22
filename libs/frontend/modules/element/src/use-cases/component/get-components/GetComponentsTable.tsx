@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import tw from 'twin.macro'
 import { useElementDispatch } from '../../../hooks'
+import { useGetElementsQuery } from '../../../store'
 
 export const GetComponentsTable = () => {
   const router = useRouter()
@@ -80,8 +81,11 @@ export const GetComponentsTable = () => {
     },
   ]
 
-  const { data, isLoading } = useGetComponentsQuery()
-  const components = data?.getComponents
+  const { data, isLoading } = useGetElementsQuery({
+    variables: { where: { componentTagAggregate: { count_GTE: 1 } } },
+  })
+
+  const components = data?.elements
 
   if (isLoading) {
     return <Spin />

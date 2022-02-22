@@ -6,10 +6,16 @@ import { TagSchema } from '../tag'
 
 export const PropMapBindingSchema = z.object({
   id: z.string().default(''),
-  targetElement: z.object({
+  element: z.object({
     id: z.string().default(''),
-    name: z.string().nullable(),
+    name: z.string().nullish(),
   }),
+  targetElement: z
+    .object({
+      id: z.string().default(''),
+      name: z.string().nullish(),
+    })
+    .nullish(),
   sourceKey: z.string(), // Set to '*' to bind all incoming props
   targetKey: z.string(), // Set to '*' to spread the incoming props to the outgoing ones
 })
@@ -31,9 +37,9 @@ export const ElementSchema = z.object({
   instanceOfComponent: z.object({ id: z.string() }).nullish(), // Marks the element as an instance of a specific component
   componentTag: TagSchema.nullish(), // Marks this element as a component
   atom: z.optional(AtomSchema).nullish(),
-  props: PropSchema,
-  hooks: z.array(HookSchema).default([]),
-  propMapBindings: z.array(PropMapBindingSchema).default([]),
+  props: PropSchema.nullish(),
+  hooks: z.array(HookSchema).nullish(),
+  propMapBindings: z.array(PropMapBindingSchema).nullish(),
 })
 
 export type IElement = z.infer<typeof ElementSchema>

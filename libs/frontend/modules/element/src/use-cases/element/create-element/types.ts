@@ -1,11 +1,9 @@
-import { ElementCreateInput } from '@codelab/shared/abstract/codegen-v2'
+import { Nullable } from '@codelab/shared/abstract/types'
 
-export type CreateElementInput = Omit<
-  ElementCreateInput,
-  'instanceOfComponent' | 'atom' | 'parentElement'
-> & {
+export type CreateElementInput = {
+  name: Nullable<string>
   order: number
-  instanceOfComponentId: string
-  atomId: string
+  instanceOfComponentId: Nullable<string>
+  atomId: Nullable<string>
   parentElementId: string
 }

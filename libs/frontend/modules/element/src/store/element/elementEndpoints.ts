@@ -1,5 +1,10 @@
 import { gql } from '@apollo/client'
-import { GraphqlOperationOptions } from '@codelab/frontend/model/infra/redux'
+import {
+  ELEMENT_CACHE_TAG,
+  GraphqlOperationOptions,
+  invalidatesAll,
+  providesAll,
+} from '@codelab/frontend/model/infra/redux'
 import { Maybe } from '@codelab/shared/abstract/codegen-v2'
 import { Recipe } from '@reduxjs/toolkit/dist/query/core/buildThunks'
 import { api as generatedApi } from '../../graphql/element.endpoints.v2.graphql.gen'
@@ -71,6 +76,7 @@ export const updateGraphCache = (
 export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
   endpoints: {
     CreateElements: {
+      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
       async onQueryStarted(input, api) {
         const { dispatch, queryFulfilled, getState, requestId } = api
         const { data } = await queryFulfilled
@@ -81,6 +87,7 @@ export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
       },
     },
     DuplicateElement: {
+      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
       async onQueryStarted(input, api) {
         const { dispatch, queryFulfilled, getState, requestId } = api
         const { data } = await queryFulfilled
@@ -91,6 +98,7 @@ export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
       },
     },
     UpdateElements: {
+      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
       async onQueryStarted(input, api) {
         const { dispatch, queryFulfilled, getState, requestId } = api
         const { data } = await queryFulfilled
@@ -101,6 +109,7 @@ export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
       },
     },
     ConvertElementsToComponents: {
+      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
       async onQueryStarted(input, api) {
         const { dispatch, queryFulfilled, getState, requestId } = api
         const { data } = await queryFulfilled
@@ -113,6 +122,7 @@ export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
       },
     },
     MoveElements: {
+      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
       async onQueryStarted(input, api) {
         const { dispatch, queryFulfilled, getState, requestId } = api
         const { data } = await queryFulfilled
@@ -123,6 +133,7 @@ export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
       },
     },
     DeleteElementsSubgraph: {
+      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
       async onQueryStarted(input, api) {
         const { dispatch, queryFulfilled, getState, requestId } = api
         const { data } = await queryFulfilled
@@ -131,6 +142,10 @@ export const elementEndpoints = elementInjectedApi.enhanceEndpoints({
           dispatch(updateGraphCache(rootId, onDelete(deletedIds)))
         })
       },
+    },
+    GetElements: {
+      providesTags: (result) =>
+        providesAll(result?.elements, ELEMENT_CACHE_TAG),
     },
   },
 })

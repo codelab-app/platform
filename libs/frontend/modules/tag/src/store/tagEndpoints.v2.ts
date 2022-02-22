@@ -1,4 +1,5 @@
 import {
+  ELEMENT_CACHE_TAG,
   invalidatesAll,
   providesAll,
   TAG_CACHE_TAG,
@@ -41,6 +42,7 @@ generatedApi.enhanceEndpoints({
       invalidatesTags: () => invalidatesAll(TAG_CACHE_TAG),
     },
     UpdateTags: {
+      invalidatesTags: () => invalidatesAll(ELEMENT_CACHE_TAG),
       async onQueryStarted(input, api) {
         const { dispatch, queryFulfilled } = api
         const { data } = await queryFulfilled

@@ -8,13 +8,13 @@ import {
   Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { MoveData } from '@codelab/shared/abstract/codegen'
 import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useElementGraphContext } from '../../../providers'
 import { useUpdateElementsMutation } from '../../../store'
 import { moveElementSchema } from './moveElementSchema'
+import { MoveData } from './types'
 
 export type MoveElementFormProps = Omit<
   UseCaseFormWithRef<MoveData>,

@@ -7415,7 +7415,7 @@ export type StringAggregateSelection = {
 
 export type Tag = {
   __typename?: 'Tag'
-  children?: Maybe<Array<Maybe<Tag>>>
+  children?: Maybe<Array<Tag>>
   childrenAggregate?: Maybe<TagTagChildrenAggregationSelection>
   childrenConnection: TagChildrenConnection
   id: Scalars['ID']

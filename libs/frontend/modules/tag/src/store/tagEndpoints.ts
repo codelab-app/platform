@@ -1,5 +1,5 @@
 import {
-  COMPONENT_CACHE_TAG,
+  ELEMENT_CACHE_TAG,
   invalidatesAll,
   providesAll,
   TAG_CACHE_TAG,
@@ -18,7 +18,7 @@ export const api = generatedApi.enhanceEndpoints({
       providesTags: (result) => providesAll([], TAG_CACHE_TAG),
     },
     CreateTag: {
-      invalidatesTags: () => [TAG_CACHE_TAG, COMPONENT_CACHE_TAG],
+      invalidatesTags: () => [TAG_CACHE_TAG, ELEMENT_CACHE_TAG],
     },
     DeleteTags: {
       invalidatesTags: () => invalidatesAll(TAG_CACHE_TAG),
@@ -26,7 +26,7 @@ export const api = generatedApi.enhanceEndpoints({
     UpdateTag: {
       invalidatesTags: (result) => [
         { type: TAG_CACHE_TAG, id: result?.updateTag?.id },
-        COMPONENT_CACHE_TAG,
+        ELEMENT_CACHE_TAG,
       ],
     },
   },

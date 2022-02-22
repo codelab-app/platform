@@ -1,5 +1,5 @@
-import { CreateElementInput } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
+import { CreateElementInput } from './types'
 
 export const createElementSchema: JSONSchemaType<CreateElementInput> = {
   title: 'Create Element Input',
@@ -28,15 +28,6 @@ export const createElementSchema: JSONSchemaType<CreateElementInput> = {
       type: 'string',
       nullable: true,
       label: 'Component',
-    },
-    // Added only to satisfy interface
-    css: {
-      type: 'string',
-      nullable: true,
-    },
-    props: {
-      type: 'string',
-      nullable: true,
     },
   },
   required: [],

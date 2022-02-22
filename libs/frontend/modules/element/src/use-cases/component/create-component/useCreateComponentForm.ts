@@ -1,13 +1,23 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  CreateComponentInput,
-  CreateElementInput,
-} from '@codelab/shared/abstract/codegen'
+import { ElementCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { useCallback } from 'react'
 import { useComponentDispatch, useComponentState } from '../../../hooks'
-import { useCreateComponentMutation } from '../../../store'
+import { useCreateElementsMutation } from '../../../store'
+import { CreateComponentInput } from './types'
+
+const mapVariables = (input: CreateComponentInput): ElementCreateInput => {
+  const { name } = input
+
+  const componentTag: ElementCreateInput['componentTag'] = {
+    create: {
+      node: { name, isRoot: true },
+    },
+  }
+
+  return { componentTag, name }
+}
 
 export const useCreateComponentForm: UseUseCaseForm<
   CreateComponentInput,
@@ -16,9 +26,9 @@ export const useCreateComponentForm: UseUseCaseForm<
   const { resetModal } = useComponentDispatch()
   const { actionType } = useComponentState()
 
-  const [mutate, { isLoading }] = useCreateComponentMutation({
+  const [mutate, { isLoading }] = useCreateElementsMutation({
     selectFromResult: (r) => ({
-      component: r.data?.createComponent,
+      component: r.data?.createElements,
       isLoading: r.isLoading,
       error: r.error,
     }),
@@ -26,7 +36,13 @@ export const useCreateComponentForm: UseUseCaseForm<
 
   const handleSubmit = useCallback(
     (input: CreateComponentInput) => {
-      return mutate({ variables: { input } }).unwrap()
+      const createComponentInput = mapVariables(input)
+
+      return mutate({
+        variables: {
+          input: createComponentInput,
+        },
+      }).unwrap()
     },
     [mutate],
   )
