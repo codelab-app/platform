@@ -6,8 +6,9 @@ export const tagSchema = gql`
     name: String!
     isRoot: Boolean
     parent: Tag @relationship(type: "Children", direction: IN)
-    children: [Tag] @relationship(type: "Children", direction: OUT)
+    children: [Tag!] @relationship(type: "Children", direction: OUT)
   }
+
   # Have ogm generation issue if using type
   type TagGraph @exclude {
     """

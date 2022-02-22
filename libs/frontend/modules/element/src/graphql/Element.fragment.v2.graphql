@@ -16,6 +16,17 @@ fragment Element on Element {
   componentTag {
     id
     name
+    isRoot
+    children {
+      id
+      name
+      isRoot
+    }
+    parent {
+      id
+      name
+      isRoot
+    }
   }
   props {
     ...Prop

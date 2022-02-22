@@ -5,10 +5,7 @@ export type TagFragment = {
   id: string
   name: string
   isRoot?: boolean | null | undefined
-  children?:
-    | Array<{ id: string; name: string } | null | undefined>
-    | null
-    | undefined
+  children?: Array<{ id: string; name: string }> | null | undefined
 }
 
 export const TagFragmentDoc = gql`

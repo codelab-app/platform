@@ -7954,7 +7954,7 @@ type StringAggregateSelection {
 }
 
 type Tag {
-  children(options: TagOptions, where: TagWhere): [Tag]
+  children(options: TagOptions, where: TagWhere): [Tag!]
   childrenAggregate(where: TagWhere): TagTagChildrenAggregationSelection
   childrenConnection(
     after: String

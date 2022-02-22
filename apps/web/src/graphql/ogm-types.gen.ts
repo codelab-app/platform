@@ -618,7 +618,7 @@ export type Mutation = {
   upsertFieldEdge: InterfaceTypeEdge
   deleteFieldEdge: DeleteFieldResponse
   duplicateElement: DuplicateElementMutationResponse
-  deleteElements: DeleteInfo
+  deleteElementsSubgraph: DeleteElementsInfo
   createEdges: CreateEdgesMutationResponse
   deleteEdges: DeleteInfo
   updateEdges: UpdateEdgesMutationResponse
@@ -716,6 +716,7 @@ export type Mutation = {
   deletePropMapBindings: DeleteInfo
   updatePropMapBindings: UpdatePropMapBindingsMutationResponse
   createElements: CreateElementsMutationResponse
+  deleteElements: DeleteInfo
   updateElements: UpdateElementsMutationResponse
   createDuplicateElementMutationResponses: CreateDuplicateElementMutationResponsesMutationResponse
   deleteDuplicateElementMutationResponses: DeleteInfo
@@ -742,9 +743,9 @@ export type MutationDuplicateElementArgs = {
   input: DuplicateElementInput
 }
 
-export type MutationDeleteElementsArgs = {
-  where?: Maybe<ElementWhere>
+export type MutationDeleteElementsSubgraphArgs = {
   delete?: Maybe<ElementDeleteInput>
+  where?: Maybe<ElementWhere>
 }
 
 export type MutationCreateEdgesArgs = {
@@ -1285,6 +1286,11 @@ export type MutationUpdatePropMapBindingsArgs = {
 
 export type MutationCreateElementsArgs = {
   input: Array<ElementCreateInput>
+}
+
+export type MutationDeleteElementsArgs = {
+  where?: Maybe<ElementWhere>
+  delete?: Maybe<ElementDeleteInput>
 }
 
 export type MutationUpdateElementsArgs = {
@@ -2030,7 +2036,6 @@ export type Atom = {
   __typename?: 'Atom'
   id: Scalars['ID']
   name: Scalars['String']
-  tags?: Maybe<Array<Scalars['String']>>
   type: AtomType
   tags?: Maybe<Array<Tag>>
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
@@ -4018,7 +4023,7 @@ export type Tag = {
   isRoot?: Maybe<Scalars['Boolean']>
   parent?: Maybe<Tag>
   parentAggregate?: Maybe<TagTagParentAggregationSelection>
-  children?: Maybe<Array<Maybe<Tag>>>
+  children?: Maybe<Array<Tag>>
   childrenAggregate?: Maybe<TagTagChildrenAggregationSelection>
   parentConnection: TagParentConnection
   childrenConnection: TagChildrenConnection
@@ -5269,7 +5274,6 @@ export type AtomConnectWhere = {
 
 export type AtomCreateInput = {
   name: Scalars['String']
-  tags?: Maybe<Array<Scalars['String']>>
   type: AtomType
   tags?: Maybe<AtomTagsFieldInput>
   api?: Maybe<AtomApiFieldInput>
@@ -5407,7 +5411,6 @@ export type AtomUniqueWhere = {
 
 export type AtomUpdateInput = {
   name?: Maybe<Scalars['String']>
-  tags?: Maybe<Array<Scalars['String']>>
   type?: Maybe<AtomType>
   tags?: Maybe<Array<AtomTagsUpdateFieldInput>>
   api?: Maybe<AtomApiUpdateFieldInput>
@@ -5436,10 +5439,6 @@ export type AtomWhere = {
   name_NOT_STARTS_WITH?: Maybe<Scalars['String']>
   name_ENDS_WITH?: Maybe<Scalars['String']>
   name_NOT_ENDS_WITH?: Maybe<Scalars['String']>
-  tags?: Maybe<Array<Scalars['String']>>
-  tags_NOT?: Maybe<Array<Scalars['String']>>
-  tags_INCLUDES?: Maybe<Scalars['String']>
-  tags_NOT_INCLUDES?: Maybe<Scalars['String']>
   type?: Maybe<AtomType>
   type_NOT?: Maybe<AtomType>
   type_IN?: Maybe<Array<Maybe<AtomType>>>

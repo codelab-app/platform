@@ -1,12 +1,14 @@
 import { z } from 'zod'
 
-export const TagSchema = z.object({
+const TagBase = z.object({
   id: z.string().default(''),
   name: z.string(),
-  parent: z.string().nullish(),
-  children: z.array(z.string()).optional().default([]),
-  isRoot: z.boolean(),
-  owner: z.object({ id: z.string() }).nullish(),
+  isRoot: z.boolean().nullish(),
+})
+
+export const TagSchema = TagBase.extend({
+  parent: TagBase.nullish(),
+  children: z.array(TagBase).nullish(),
 })
 
 export type ITag = z.infer<typeof TagSchema>

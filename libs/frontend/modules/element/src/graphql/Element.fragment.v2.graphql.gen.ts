@@ -17,7 +17,26 @@ export type ElementFragment = {
     | null
     | undefined
   atom?: AtomFragment | null | undefined
-  componentTag?: { id: string; name: string } | null | undefined
+  componentTag?:
+    | {
+        id: string
+        name: string
+        isRoot?: boolean | null | undefined
+        children?:
+          | Array<{
+              id: string
+              name: string
+              isRoot?: boolean | null | undefined
+            }>
+          | null
+          | undefined
+        parent?:
+          | { id: string; name: string; isRoot?: boolean | null | undefined }
+          | null
+          | undefined
+      }
+    | null
+    | undefined
   props?: PropFragment | null | undefined
   hooks?: Array<HookFragment> | null | undefined
   propMapBindings?: Array<PropMapBindingFragment> | null | undefined
@@ -122,6 +141,17 @@ export const ElementFragmentDoc = gql`
     componentTag {
       id
       name
+      isRoot
+      children {
+        id
+        name
+        isRoot
+      }
+      parent {
+        id
+        name
+        isRoot
+      }
     }
     props {
       ...Prop

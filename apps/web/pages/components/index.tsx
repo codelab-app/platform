@@ -10,6 +10,7 @@ import {
   GetComponentsTable,
   useComponentDispatch,
 } from '@codelab/frontend/modules/element'
+import { UpdateTagModal } from '@codelab/frontend/modules/tag'
 // import { UpdateTagModal } from '@codelab/frontend/modules/tag'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -28,7 +29,7 @@ const Components: CodelabPage<DashboardTemplateProps> = () => {
       </Head>
 
       <CreateComponentModal />
-      {/* <UpdateTagModal /> */}
+      <UpdateTagModal />
       <DeleteElementModal />
       <ContentSection>
         <GetComponentsTable />
