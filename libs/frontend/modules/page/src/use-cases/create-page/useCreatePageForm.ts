@@ -33,13 +33,7 @@ export const useCreatePageForm: UseUseCaseForm<
       }
 
       const rootElement: PageCreateInput['rootElement'] = {
-        create: {
-          node: {
-            name: 'Root Element',
-            // TODO: find out what goes in here
-            ownerId: '',
-          },
-        },
+        create: { node: { name: 'Root Element' } },
       }
 
       return mutate({

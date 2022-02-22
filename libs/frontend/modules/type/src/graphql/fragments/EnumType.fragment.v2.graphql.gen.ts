@@ -19,12 +19,8 @@ import { gql } from '@apollo/client'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
 import { EnumTypeValueFragmentDoc } from './EnumTypeValue.fragment.v2.graphql.gen'
 export type EnumTypeFragment = {
-  allowedValues?: Array<{
-    ' $fragmentRefs': { EnumTypeValueFragment: EnumTypeValueFragment }
-  }> | null
-} & {
-  ' $fragmentRefs': { TypeBase_EnumType_Fragment: TypeBase_EnumType_Fragment }
-}
+  allowedValues?: Array<EnumTypeValueFragment> | null | undefined
+} & TypeBase_EnumType_Fragment
 
 export const EnumTypeFragmentDoc = gql`
   fragment EnumType on EnumType {

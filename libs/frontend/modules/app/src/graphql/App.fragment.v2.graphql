@@ -5,6 +5,10 @@ fragment App on App {
   pages {
     id
     name
+    rootElement {
+      id
+      name
+    }
   }
 }
 

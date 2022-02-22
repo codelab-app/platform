@@ -1,11 +1,14 @@
 import { IElement } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
-  useConvertElementToComponentMutation,
+  useConvertElementsToComponentsMutation,
   useDuplicateElementMutation,
   useElementDispatch,
+  useElementGraphContext,
 } from '@codelab/frontend/modules/element'
 import { Key } from '@codelab/frontend/view/components'
+import { ElementCreateInput } from '@codelab/shared/abstract/codegen-v2'
+import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Menu } from 'antd'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -18,6 +21,25 @@ export interface ElementContextMenuProps {
 }
 
 /**
+ * Generates a default element name based on the element's name or atom
+ */
+export const defaultElementName = (element: IElement) => {
+  if (element.name) {
+    return element.name
+  }
+
+  if (element.atom?.name) {
+    return element.atom.name
+  }
+
+  if (element.atom?.type) {
+    return pascalCaseToWords(element.atom.type)
+  }
+
+  return undefined
+}
+
+/**
  * The right-click menu in the element tree
  */
 export const ElementContextMenu = ({
@@ -25,8 +47,9 @@ export const ElementContextMenu = ({
   onClick,
   onBlur,
 }: ElementContextMenuProps) => {
-  const [convertToComponent] = useConvertElementToComponentMutation()
-  const [duplicateElement] = useDuplicateElementMutation()
+  const [convertToComponent] = useConvertElementsToComponentsMutation()
+  const { elementTree } = useElementGraphContext()
+  const [createElement] = useDuplicateElementMutation()
   const { openCreateModal, openDeleteModal } = useElementDispatch()
   const onAddChild = () => openCreateModal({ parentElementId: element.id })
   const { push } = useRouter()
@@ -38,11 +61,52 @@ export const ElementContextMenu = ({
     })
 
   const onDuplicate = () =>
-    duplicateElement({ variables: { input: { elementId: element.id } } })
+    createElement({
+      variables: { input: { elementId: element.id } },
+    })
 
   const onConvert = () => {
+    if (element.instanceOfComponent) {
+      throw new Error(
+        `Element with id ${element.id} is a component instance, can't turn it into a component`,
+      )
+    }
+
+    const componentTag: ElementCreateInput['componentTag'] = {
+      // TODO: complete tag properties
+      create: {
+        node: {
+          name: defaultElementName(element) || 'My Component',
+          isRoot: true,
+        },
+      },
+    }
+
+    const instanceOfComponent: ElementCreateInput['instanceOfComponent'] = {
+      // TODO: complete tag properties
+      create: {
+        node: {
+          name: element.name,
+          parentElement: undefined,
+          children: {
+            connect: elementTree.getChildren(element.id).map((x: IElement) => ({
+              where: { node: { id: x.id } },
+              edge: { order: x.parentElement?.order || 1 },
+            })),
+          },
+          componentTag,
+        },
+      },
+    }
+
     return convertToComponent({
-      variables: { input: { elementId: element.id } },
+      variables: {
+        where: { id: element.id },
+        update: {
+          instanceOfComponent,
+          children: [{ disconnect: [{ where: {} }] }],
+        },
+      },
     })
   }
 

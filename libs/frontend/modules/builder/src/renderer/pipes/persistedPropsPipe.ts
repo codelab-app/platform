@@ -9,7 +9,7 @@ import { RenderPipeFactory } from './types'
  */
 export const persistedPropsPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    const persistedProps = attempt(JSON.parse, element.props.data)
+    const persistedProps = attempt(JSON.parse, element?.props?.data || '{}')
 
     if (isError(persistedProps)) {
       // TODO: should notify user via notification

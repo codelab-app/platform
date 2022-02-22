@@ -18,11 +18,7 @@ import { gql } from '@apollo/client'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
 export type PrimitiveTypeFragment = {
   primitiveKind: Types.PrimitiveTypeKind
-} & {
-  ' $fragmentRefs': {
-    TypeBase_PrimitiveType_Fragment: TypeBase_PrimitiveType_Fragment
-  }
-}
+} & TypeBase_PrimitiveType_Fragment
 
 export const PrimitiveTypeFragmentDoc = gql`
   fragment PrimitiveType on PrimitiveType {

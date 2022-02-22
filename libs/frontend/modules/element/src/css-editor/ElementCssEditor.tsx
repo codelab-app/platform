@@ -3,16 +3,14 @@ import {
   EmotionCssEditor,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import { IElement } from '@codelab/shared/abstract/core'
 import { isString } from 'lodash'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import {
-  ElementFragment,
-  useGetElementQuery,
-  useUpdateElementMutation,
-} from '../graphql'
+import { useGetElementById } from '../hooks'
+import { useUpdateElementsMutation } from '../store'
 
 export interface ElementCssEditorInternalProps {
-  element: ElementFragment
+  element: IElement
   trackPromises?: UseTrackLoadingPromises
 }
 
@@ -21,7 +19,7 @@ const ElementCssEditorInternal = ({
   trackPromises,
 }: ElementCssEditorInternalProps) => {
   const { trackPromise } = trackPromises ?? {}
-  const [mutate] = useUpdateElementMutation()
+  const [mutate] = useUpdateElementsMutation()
   const [cssString, setCssString] = useState(element.css || '')
   // Keep the css string value in a ref so we can access it when unmounting the component
   const cssStringRef = useRef(cssString)
@@ -30,24 +28,12 @@ const ElementCssEditorInternal = ({
   const updateCss = useCallback(
     (newCss: string) => {
       const promise = mutate({
-        variables: {
-          input: {
-            id: element.id,
-            data: {
-              atomId: element.atom?.id,
-              name: element.name,
-              css: newCss,
-              renderIfPropKey: element.renderIfPropKey,
-              // propTransformationJs: element.propTransformationJs,
-              renderForEachPropKey: element.renderForEachPropKey,
-            },
-          },
-        },
+        variables: { where: { id: element.id }, update: { css: newCss } },
       })
 
       return trackPromise?.(promise) ?? promise
     },
-    [element.atom?.id, element.id, element.name, mutate, trackPromise],
+    [element.id, mutate, trackPromise],
   )
 
   useEffect(() => {
@@ -78,8 +64,8 @@ const ElementCssEditorInternal = ({
 
   return (
     <EmotionCssEditor
-      value={cssString}
       onChange={(v) => setCssString(v || '')}
+      value={cssString}
     />
   )
 }
@@ -93,11 +79,7 @@ export const ElementCssEditor = ({
   elementId,
   trackPromises,
 }: ElementCssEditorProps) => {
-  const { data } = useGetElementQuery({
-    variables: { input: { where: { id: elementId } } },
-  })
-
-  const element = data?.getElement
+  const element = useGetElementById(elementId)
 
   if (!element) {
     return null

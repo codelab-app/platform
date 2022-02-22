@@ -3,6 +3,7 @@ import { print } from 'graphql'
 import { appSchema } from './app.schema'
 import { atomSchema } from './atom.schema'
 import { commonSchema } from './common.schema'
+import { elementSchema } from './elementSchema'
 import { pageSchema } from './page.schema'
 import { tagSchema } from './tag.schema'
 import { typeSchema } from './type'
@@ -22,6 +23,8 @@ export default print(gql`
   ${typeSchema}
 
   ${tagSchema}
+
+  ${elementSchema}
 
   type Query {
     tagGraphs: TagGraph
@@ -44,32 +47,6 @@ export default print(gql`
         apoc.coll.toSet(reduce(accumulator = [], v IN groupedVerticesArrays | accumulator + v)) as mergedVertices,
         apoc.coll.toSet(reduce(accumulator = [], e IN groupedEdgesArrays | accumulator + e)) as mergedEdges
         RETURN {vertices:mergedVertices, edges:mergedEdges}
-        """
-      )
-  }
-
-  interface IElementGraph {
-    root: Element
-    vertices: [Element!]
-  }
-
-  type Element {
-    id: ID! @id
-    createdAt: DateTime! @readonly @timestamp(operations: [CREATE])
-    updatedAt: DateTime @readonly @timestamp(operations: [UPDATE])
-
-    name: String!
-    ownerId: String!
-    parent: Element @relationship(type: "PARENT", direction: IN)
-    children: [Element!] @relationship(type: "PARENT", direction: OUT)
-
-    # Experimental, does not work
-    graph: IElementGraph!
-      @cypher(
-        statement: """
-        MATCH p = (this)-[r:PARENT 0..]->(x)
-        WITH collect(DISTINCT id(x)) as vertices, [r in collect(distinct last(r)) | [id(startNode(r)),id(endNode(r))]] as edges
-        RETURN vertices, edges
         """
       )
   }

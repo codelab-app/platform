@@ -14,11 +14,9 @@ import {
 } from '../../../hooks'
 import { ElementContextMenu } from '../ElementContextMenu'
 
-export const MainPaneBuilderTreeTab = ({
-  isComponentBuilder,
-}: {
-  isComponentBuilder?: boolean
-}) => {
+type MainPaneBuilderTreeTabProps = { isComponentBuilder?: boolean }
+
+export const MainPaneBuilderTreeTab = (props: MainPaneBuilderTreeTabProps) => {
   const { elementTree } = useElementGraphContext()
   const { setExpandedNodeIds, expandedNodeIds } = useExpandedNodes(elementTree)
   const [antdTree] = elementTree.getAntdTree()

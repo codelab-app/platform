@@ -1,17 +1,4 @@
-import { IElement } from '@codelab/frontend/abstract/core'
-import { UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
-import { SelectAtom, SelectComponent } from '@codelab/frontend/modules/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  AutoCompleteField,
-  Form,
-  UseTrackLoadingPromises,
-} from '@codelab/frontend/view/components'
-import { UpdateElementData } from '@codelab/shared/abstract/codegen'
-import { ElementTree } from '@codelab/shared/core'
-import React, { useRef, useState } from 'react'
-import { AutoField, AutoFields } from 'uniforms-antd'
-import { useGetElementQuery, useUpdateElementMutation } from '../../../store'
+import React from 'react'
 import {
   UpdateElementFormInternal,
   UpdateElementFormInternalProps,
@@ -33,11 +20,7 @@ export const UpdateElementForm = ({
   trackPromises,
   providePropCompletion,
 }: UpdateElementFormProps) => {
-  const { data: getElementData } = useGetElementQuery({
-    variables: { input: { where: { id: elementId } } },
-  })
-
-  const element = getElementData?.getElement
+  const element = tree.getVertex(elementId)
 
   if (!element) {
     return null

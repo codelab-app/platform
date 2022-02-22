@@ -1,33 +1,33 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import { CRUDActionType, IElement } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeleteElementInput } from '@codelab/shared/abstract/codegen'
 import { useCallback } from 'react'
-import { ElementFragment } from '../../../graphql'
 import { useElementDispatch, useElementState } from '../../../hooks'
-import { useDeleteElementMutation } from '../../../store'
+import { useDeleteElementsSubgraphMutation } from '../../../store'
 
 export const useDeleteElementForm: UseEntityUseCaseForm<
   DeleteElementInput,
   CRUDActionType,
-  ElementFragment
+  IElement,
+  any
 > = () => {
   const { resetModal } = useElementDispatch()
   const { deleteIds, entity, actionType } = useElementState()
 
-  const [mutate, { isLoading }] = useDeleteElementMutation({
+  const [mutate, { isLoading }] = useDeleteElementsSubgraphMutation({
     selectFromResult: (r) => ({
-      element: r.data?.deleteElement,
+      element: r.data?.deleteElementsSubgraph.deletedIds,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
-  const onSubmit = useCallback(() => {
-    return mutate({
-      variables: { input: { elementId: deleteIds[0] } },
-    }).unwrap()
-  }, [mutate, deleteIds])
+  const onSubmit = useCallback(
+    ({ elementId }: DeleteElementInput) =>
+      mutate({ variables: { where: { id_IN: [elementId] } } }).unwrap(),
+    [mutate],
+  )
 
   return {
     onSubmit,
@@ -39,7 +39,7 @@ export const useDeleteElementForm: UseEntityUseCaseForm<
     onSubmitSuccess: [() => resetModal()],
     isLoading,
     entity,
-    model: {},
+    model: { elementId: deleteIds[0] },
     actionType,
     reset: resetModal,
   }

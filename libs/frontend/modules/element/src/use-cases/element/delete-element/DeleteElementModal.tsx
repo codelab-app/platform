@@ -1,11 +1,9 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { DeleteUseCaseFormWithRef } from '@codelab/frontend/abstract/types'
 import { Form, FormModal } from '@codelab/frontend/view/components'
 import { DeleteElementInput } from '@codelab/shared/abstract/codegen'
 import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { useElementDispatch, useElementState } from '../../../hooks'
 import { deleteElementSchema } from './deleteElementSchema'
 import { useDeleteElementForm } from './useDeleteElementForm'
 

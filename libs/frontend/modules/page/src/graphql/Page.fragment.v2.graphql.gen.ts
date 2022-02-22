@@ -4,18 +4,16 @@ import { gql } from '@apollo/client'
 export type PageFragment = {
   id: string
   name: string
-  rootElement?: { id: string; name: string } | null
+  rootElement: { id: string; name?: string | null | undefined }
 }
 
 export type PageBaseFragment = {
   id: string
   name: string
-  rootElement?: { id: string; name: string } | null
+  rootElement: { id: string; name?: string | null | undefined }
 }
 
-export type PageFullFragment = {
-  ' $fragmentRefs': { PageBaseFragment: PageBaseFragment }
-}
+export type PageFullFragment = PageBaseFragment
 
 export const PageFragmentDoc = gql`
   fragment Page on Page {

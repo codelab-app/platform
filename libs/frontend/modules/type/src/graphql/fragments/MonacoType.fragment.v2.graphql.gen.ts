@@ -16,11 +16,9 @@ import {
 } from './TypeBase.fragment.v2.graphql.gen'
 import { gql } from '@apollo/client'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
-export type MonacoTypeFragment = { language: Types.MonacoLanguage } & {
-  ' $fragmentRefs': {
-    TypeBase_MonacoType_Fragment: TypeBase_MonacoType_Fragment
-  }
-}
+export type MonacoTypeFragment = {
+  language: Types.MonacoLanguage
+} & TypeBase_MonacoType_Fragment
 
 export const MonacoTypeFragmentDoc = gql`
   fragment MonacoType on MonacoType {

@@ -1,4 +1,4 @@
-import { generate, OGM } from '@neo4j/graphql-ogm'
+import { generate } from '@neo4j/graphql-ogm'
 import { ESLint } from 'eslint'
 import * as path from 'path'
 import { getOgm } from './infra/ogm'

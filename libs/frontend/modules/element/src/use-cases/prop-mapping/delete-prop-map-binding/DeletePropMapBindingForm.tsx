@@ -9,8 +9,7 @@ import {
 } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { PropMapBindingFragment } from '../../../graphql'
-import { usePropMapBindingState } from '../../../hooks'
+import { PropMapBindingFragment } from '../../../graphql/PropMapBinding.fragment.v2.graphql.gen'
 
 export type DeletePropMapBindingFormProps = Omit<
   FormProps<EmptyJsonSchemaType>,

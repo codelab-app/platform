@@ -1,27 +1,43 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { CreateElementInput } from '@codelab/shared/abstract/codegen'
+import { ElementCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { useCallback, useRef } from 'react'
-import { CreateElementMutationVariables } from '../../../graphql'
 import { useElementDispatch, useElementState } from '../../../hooks'
-import { useCreateElementMutation } from '../../../store'
+import { useCreateElementsMutation } from '../../../store'
+import { CreateElementInput } from './types'
 
 export type ParentElementId = Partial<
   Pick<CreateElementInput, 'parentElementId'>
 >
 
-const mapVariables = ({
-  instanceOfComponentId,
-  atomId,
-  ...data
-}: CreateElementInput): CreateElementMutationVariables => {
+const mapVariables = (input: CreateElementInput): ElementCreateInput => {
+  const { parentElementId, instanceOfComponentId, atomId, order, ...data } =
+    input
+
+  const instanceOfComponent: ElementCreateInput['instanceOfComponent'] =
+    instanceOfComponentId
+      ? { connect: { where: { node: { id: instanceOfComponentId } } } }
+      : undefined
+
+  const atom: ElementCreateInput['atom'] = atomId
+    ? { connect: { where: { node: { id: atomId } } } }
+    : undefined
+
+  const parentElement: ElementCreateInput['parentElement'] = parentElementId
+    ? {
+        connect: {
+          where: { node: { id: parentElementId } },
+          edge: { order },
+        },
+      }
+    : undefined
+
   return {
-    input: {
-      ...data,
-      atomId,
-      instanceOfComponentId,
-    },
+    instanceOfComponent,
+    atom,
+    parentElement,
+    ...data,
   }
 }
 
@@ -35,9 +51,9 @@ export const useCreateElementForm: UseUseCaseForm<
   const initialDataRef = useRef(initialData)
   const { resetModal } = useElementDispatch()
 
-  const [mutate, { isLoading }] = useCreateElementMutation({
+  const [mutate, { isLoading }] = useCreateElementsMutation({
     selectFromResult: (r) => ({
-      element: r.data?.createElement,
+      element: r.data?.createElements,
       isLoading: r.isLoading,
       error: r.error,
     }),
@@ -45,9 +61,9 @@ export const useCreateElementForm: UseUseCaseForm<
 
   const handleSubmit = useCallback(
     (submitData: CreateElementInput) => {
-      const variables = mapVariables(submitData)
+      const input = mapVariables(submitData)
 
-      return mutate({ variables }).unwrap()
+      return mutate({ variables: { input } }).unwrap()
     },
     [mutate],
   )

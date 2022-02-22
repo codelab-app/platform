@@ -1,7 +1,7 @@
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import tw from 'twin.macro'
-import { useGetElementQuery } from '../store'
+import { useGetElementById } from '../hooks'
 import {
   CreatePropMapBindingButton,
   CreatePropMapBindingModal,
@@ -21,11 +21,7 @@ export const PropMapBindingSection = ({
   tree,
   providePropCompletion,
 }: PropMapBindingSectionProps) => {
-  const { data } = useGetElementQuery({
-    variables: { input: { where: { id: elementId } } },
-  })
-
-  const element = data?.getElement
+  const element = useGetElementById(elementId)
 
   if (!element) {
     return null

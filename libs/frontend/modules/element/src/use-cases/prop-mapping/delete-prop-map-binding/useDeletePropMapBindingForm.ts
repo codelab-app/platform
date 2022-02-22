@@ -4,12 +4,12 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
-import { PropMapBindingFragment } from '../../../graphql'
+import { PropMapBindingFragment } from '../../../graphql/Element.fragment.graphql.gen'
 import {
   usePropMapBindingDispatch,
   usePropMapBindingState,
 } from '../../../hooks'
-import { useDeletePropMapBindingMutation } from '../../../store'
+import { useDeletePropMapBindingsMutation } from '../../../store'
 
 export const useDeletePropMapBindingForm: UseEntityUseCaseForm<
   EmptyJsonSchemaType,
@@ -23,20 +23,16 @@ export const useDeletePropMapBindingForm: UseEntityUseCaseForm<
 
   assertIsDefined(elementId)
 
-  const [mutate, { isLoading }] = useDeletePropMapBindingMutation({
+  const [mutate, { isLoading }] = useDeletePropMapBindingsMutation({
     selectFromResult: (r) => ({
-      hook: r.data?.deletePropMapBinding,
+      hook: r.data?.deletePropMapBindings,
       isLoading: r.isLoading,
       error: r.error,
     }),
   })
 
   const handleSubmit = useCallback(() => {
-    return mutate({
-      variables: {
-        input: { elementId, propMapBindingIds: deleteIds },
-      },
-    }).unwrap()
+    return mutate({ variables: { where: { id_IN: deleteIds } } }).unwrap()
   }, [mutate, deleteIds])
 
   return {

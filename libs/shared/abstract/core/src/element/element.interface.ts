@@ -6,7 +6,10 @@ import { TagSchema } from '../tag'
 
 export const PropMapBindingSchema = z.object({
   id: z.string().default(''),
-  targetElementId: z.string().nullish(),
+  targetElement: z.object({
+    id: z.string().default(''),
+    name: z.string().nullable(),
+  }),
   sourceKey: z.string(), // Set to '*' to bind all incoming props
   targetKey: z.string(), // Set to '*' to spread the incoming props to the outgoing ones
 })
@@ -15,7 +18,7 @@ export type IPropMapBinding = z.infer<typeof PropMapBindingSchema>
 
 export const ElementSchema = z.object({
   id: z.string().default(''),
-  fixedId: z.string().nullish(),
+  //  fixedId: z.string().nullish(),
   name: z.string().nullish(),
   css: z.string().nullish(),
   propTransformationJs: z.string().nullish(),

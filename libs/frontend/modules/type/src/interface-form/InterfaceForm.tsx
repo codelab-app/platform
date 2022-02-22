@@ -19,11 +19,10 @@ export const InterfaceForm = <TData,>({
   onSubmitSuccess,
 }: React.PropsWithChildren<InterfaceFormProps<TData>>) => {
   const formSchema = useMemo(() => {
-    const typeTreeSchema = interfaceTree.toJsonSchema({
-      extraProperties: getUiProperties,
-    })
-
-    console.log(typeTreeSchema)
+    const typeTreeSchema =
+      interfaceTree.toJsonSchema({
+        extraProperties: getUiProperties,
+      }) || {}
 
     const schemaOverride = schema || {}
 
@@ -37,6 +36,7 @@ export const InterfaceForm = <TData,>({
   return (
     <Form
       model={model}
+      onChange={onChange}
       onSubmit={onSubmit}
       onSubmitError={onSubmitError}
       onSubmitSuccess={onSubmitSuccess}

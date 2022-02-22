@@ -5,7 +5,7 @@ export const appSchema = gql`
     id: ID! @id
     owner: [User] @relationship(type: "OWNED_BY", direction: OUT)
     name: String!
-    pages: [Page] @relationship(type: "PAGES", direction: IN)
+    pages: [Page!] @relationship(type: "PAGES", direction: IN)
   }
 
   # extend type App

@@ -1,4 +1,4 @@
-import { useLazyGetTypeGraphQuery } from '@codelab/frontend/modules/type'
+import { useLazyGetInterfaceTypeGraphsQuery } from '@codelab/frontend/modules/type'
 import { usePrevious } from '@codelab/frontend/shared/utils'
 import { ITypeGraph } from '@codelab/shared/abstract/core'
 import { ElementTree, TypeTree } from '@codelab/shared/core'
@@ -45,7 +45,7 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
     Array<{ value: string; label: string }>
   >([])
 
-  const [getType, { data }] = useLazyGetTypeGraphQuery()
+  const [getType, { data }] = useLazyGetInterfaceTypeGraphsQuery()
 
   // Every time the targetElementId changes, fetch the targetElement's api
   useEffect(() => {
@@ -56,7 +56,7 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
     const api = targetElement?.atom?.api
 
     if (api) {
-      getType({ variables: { input: { where: { id: api.id } } } })
+      getType({ variables: { where: { id: api.id } } })
     } else {
       setOptions([])
     }
@@ -64,10 +64,15 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
 
   // Everytime we get an Api result, update the options
   useEffect(() => {
-    if (!data?.getTypeGraph) {
+    if (!data?.types) {
       setOptions([])
     } else {
-      const typeTree = new TypeTree(data.getTypeGraph as ITypeGraph)
+      const typeGraph = (data?.types?.[0]?.graph || {
+        vertices: [],
+        edges: [],
+      }) as ITypeGraph
+
+      const typeTree = new TypeTree(typeGraph)
       setOptions(
         typeTree.getRootFields().map((f) => ({ label: f.key, value: f.key })),
       )

@@ -11,7 +11,7 @@ import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
-import { useUpdateElementMutation } from '../../../store'
+import { useUpdateElementsMutation } from '../../../store'
 import { updateElementSchema } from './updateElementSchema'
 
 export type UpdateElementFormInternalProps = Omit<
@@ -26,7 +26,6 @@ export type UpdateElementFormInternalProps = Omit<
 
 export const UpdateElementFormInternal = ({
   element: elementProp,
-  tree,
   providePropCompletion,
   trackPromises,
 }: React.PropsWithChildren<UpdateElementFormInternalProps>) => {
@@ -37,12 +36,35 @@ export const UpdateElementFormInternal = ({
     Array<{ label: string; value: string }>
   >([])
 
-  const [updateElement] = useUpdateElementMutation()
+  const [updateElement] = useUpdateElementsMutation()
 
-  const onSubmit = (submitData: UpdateElementData) => {
+  const onSubmit = ({
+    atomId,
+    renderForEachPropKey,
+    renderIfPropKey,
+    name,
+    instanceOfComponentId,
+    propTransformationJs,
+  }: UpdateElementData) => {
+    const atom = atomId
+      ? { connect: { where: { node: { id: atomId } } } }
+      : { disconnect: { where: {} } }
+
+    const instanceOfComponent = instanceOfComponentId
+      ? { connect: { where: { node: { id: instanceOfComponentId } } } }
+      : { disconnect: { where: {} } }
+
     const promise = updateElement({
       variables: {
-        input: { id: element.id, data: { ...submitData } },
+        where: { id: element.id },
+        update: {
+          name,
+          atom,
+          propTransformationJs,
+          renderForEachPropKey,
+          instanceOfComponent,
+          renderIfPropKey,
+        },
       },
     })
 

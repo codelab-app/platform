@@ -1,16 +1,16 @@
+import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
 import { filterNotHookType } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
-import { useGetAtomsForSelectQuery } from '../../../store'
 
 export type SelectAtomProps = HTMLFieldProps<string, SelectFieldProps>
 
 export const SelectAtom = ({ name }: SelectAtomProps) => {
-  const { data: atoms, isLoading } = useGetAtomsForSelectQuery()
+  const { data: atoms, isLoading } = useGetAtomsQuery()
 
   const componentOptions =
-    atoms?.getAtoms
+    atoms?.atoms
       ?.filter((x) => filterNotHookType(x.type))
       .map((atom) => ({
         label: atom.name,

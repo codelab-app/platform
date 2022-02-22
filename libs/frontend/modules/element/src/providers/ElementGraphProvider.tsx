@@ -1,15 +1,18 @@
 import { ElementTree } from '@codelab/shared/core'
-import React from 'react'
+import { values } from 'lodash'
+import React, { useEffect } from 'react'
 import { ElementGraphFragment } from '../graphql'
-import { useGetElementGraphQuery } from '../store'
+import { useElementDispatch } from '../hooks'
+import { useGetElementsGraphQuery } from '../store'
+import { useElementTree } from '../tree'
 
-export interface ElementGraphContext {
+export interface IElementGraphContext {
   elementGraph?: ElementGraphFragment
   elementId: string
   elementTree: ElementTree
 }
 
-const initialContext: ElementGraphContext = {
+const initialContext: IElementGraphContext = {
   elementGraph: undefined,
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   elementId: undefined!,
@@ -21,26 +24,32 @@ const ElementGraphContext = React.createContext(initialContext)
 export const useElementGraphContext = () =>
   React.useContext(ElementGraphContext)
 
-export const ElementGraphProvider = (
-  props: React.PropsWithChildren<{ elementId: string }>,
-) => {
-  const { data } = useGetElementGraphQuery({
-    variables: { input: { where: { id: props.elementId } } },
+type ElementGraphProviderProps = React.PropsWithChildren<{ elementId: string }>
+
+export const ElementGraphProvider = ({
+  elementId,
+  children,
+}: ElementGraphProviderProps) => {
+  const { data } = useGetElementsGraphQuery({
+    variables: { input: { rootId: elementId } },
   })
 
-  const elementTree = data?.getElementGraph
-    ? new ElementTree(data?.getElementGraph)
-    : new ElementTree({ edges: [], vertices: [] })
+  const { setCurrentGraphRoot } = useElementDispatch()
+
+  useEffect(() => {
+    setCurrentGraphRoot({ rootElementId: elementId })
+  }, [elementId, setCurrentGraphRoot])
+
+  const edges = data?.edges || []
+  const vertices = data?.vertices ? values(data?.vertices) : []
+  const elementGraph = { edges, vertices }
+  const elementTree = useElementTree(elementGraph)
 
   return (
     <ElementGraphContext.Provider
-      value={{
-        elementId: props.elementId,
-        elementGraph: data?.getElementGraph,
-        elementTree: elementTree,
-      }}
+      value={{ elementId, elementGraph, elementTree }}
     >
-      {props.children}
+      {children}
     </ElementGraphContext.Provider>
   )
 }

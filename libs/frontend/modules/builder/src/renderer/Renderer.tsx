@@ -16,8 +16,11 @@ export const Renderer = ({
   typesById,
 }: RendererProps) => {
   const { getHooksResponse } = useHookResponse()
+
   // calculate number of hooks attached to the tree
-  const hooksCount = sum(tree.getAllVertices().map((v) => v.hooks.length))
+  const hooksCount = sum(
+    tree.getAllVertices().map((v) => (v.hooks ? v.hooks.length : 0)),
+  )
 
   const root = isComponentRenderer
     ? tree.getRootComponent()

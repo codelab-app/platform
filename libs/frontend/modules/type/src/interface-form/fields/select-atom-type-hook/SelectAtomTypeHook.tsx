@@ -1,13 +1,15 @@
+import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
-import { useGetAtomsTypeHookForSelectQuery } from '../../../store'
 import { SelectAtomProps } from '../types'
 
 export const SelectAtomTypeHook = ({ name }: SelectAtomProps) => {
-  const { data: atoms, isLoading } = useGetAtomsTypeHookForSelectQuery()
+  const { data: atoms, isLoading } = useGetAtomsQuery({
+    variables: { where: { name_CONTAINS: 'Hook' } },
+  })
 
   const componentOptions =
-    atoms?.getAtomsTypeHook?.map((atom) => ({
+    atoms?.atoms?.map((atom) => ({
       label: atom.name,
       value: atom.id,
     })) ?? []

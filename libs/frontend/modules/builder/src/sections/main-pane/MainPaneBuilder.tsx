@@ -54,9 +54,9 @@ export interface MainPaneBuilderProps {
 export const MainPaneBuilder = ({
   isComponentBuilder,
 }: MainPaneBuilderProps) => {
-  const { selectedElement, resetSelection } = useBuilderSelectedElement()
   const { builderTab } = useBuilderTab()
   const { elementTree } = useElementGraphContext()
+  const { selectedElement, resetSelection } = useBuilderSelectedElement()
 
   const root = isComponentBuilder
     ? elementTree.getRootComponent()
@@ -92,7 +92,7 @@ export const MainPaneBuilder = ({
       </EqualityConditionalView>
 
       <CreateElementModal parentElementId={selectedElement?.id} />
-      <DeleteElementModal />
+      <DeleteElementModal tree={elementTree} />
     </MainPaneTemplate>
   )
 }

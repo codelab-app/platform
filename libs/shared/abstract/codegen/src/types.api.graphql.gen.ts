@@ -65,7 +65,6 @@ export type ArrayType = Type & {
 
 export type Atom = {
   __typename?: 'Atom'
-  /** Similar to props for a React component, it tells us which kind of configurations it can take */
   api: InterfaceType
   apiGraph: TypeGraph
   id: Scalars['ID']
@@ -933,7 +932,7 @@ export type Mutation = {
   createTag: Tag
   createType: Type
   deleteApp?: Maybe<App>
-  deleteAtom?: Maybe<Atom>
+  deleteAtom: Atom
   /** Deletes an element and all the descending elements */
   deleteElement: Element
   deleteField?: Maybe<Field>
