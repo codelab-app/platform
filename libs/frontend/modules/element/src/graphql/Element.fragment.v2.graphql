@@ -51,19 +51,6 @@ fragment Element on Element {
   }
 }
 
-fragment Element on Element {
-  ...ElementBase
-  parentElementConnection {
-    edges {
-      node {
-        id
-        name
-      }
-      order
-    }
-  }
-}
-
 fragment ElementEdge on ElementEdge {
   source
   target

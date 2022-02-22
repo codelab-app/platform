@@ -115,10 +115,10 @@ const handler: NextApiHandler = async (req, res) => {
   /**
    * Uncomment this if you want to run codegen, but turn it off for performance
    */
-  // if (process.env.NODE_ENV === 'development') {
-  //   console.log('Starting codegen...')
-  //   await generateOgmTypes()
-  // }
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Starting codegen...')
+    await generateOgmTypes()
+  }
 }
 
 export default handler

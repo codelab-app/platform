@@ -123,19 +123,8 @@ export const PropMapBindingFragmentDoc = gql`
   }
 `
 export const ElementFragmentDoc = gql`
-    fragment Element on Element {
-  __typename
-  id
-  name
-  css
-  instanceOfComponent {
-    id
-  }
-  parentElement {
-    id
-    name
-  }
-  atom {
+  fragment Element on Element {
+    __typename
     id
     name
     css
