@@ -1,4 +1,7 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
+import {
+  CRUDActionType,
+  ROOT_ELEMENT_NAME,
+} from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { useAppState } from '@codelab/frontend/modules/app'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -33,7 +36,7 @@ export const useCreatePageForm: UseUseCaseForm<
       }
 
       const rootElement: PageCreateInput['rootElement'] = {
-        create: { node: { name: 'Root Element' } },
+        create: { node: { name: ROOT_ELEMENT_NAME } },
       }
 
       return mutate({

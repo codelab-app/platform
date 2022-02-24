@@ -24,7 +24,7 @@ export const createElementSchema: JSONSchemaType<CreateElementInput> = {
       nullable: true,
       label: 'Atom',
     },
-    instanceOfComponentId: {
+    componentId: {
       type: 'string',
       nullable: true,
       label: 'Component',

@@ -1,3 +1,4 @@
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { TypeFragment } from '@codelab/frontend/modules/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
 import { AtomType, IElement, TypeKind } from '@codelab/shared/abstract/core'
@@ -13,9 +14,9 @@ export const primitiveType: TypeFragment = {
 
 export const elementToRender: IElement = {
   id: '0x2786a',
-  name: 'Root element',
+  name: ROOT_ELEMENT_NAME,
   css: '',
-  instanceOfComponent: null,
+  component: null,
   fixedId: null,
   atom: {
     id: '0x27254',
@@ -23,7 +24,6 @@ export const elementToRender: IElement = {
     type: AtomType.HtmlDiv,
     api: { id: '0x27182' },
   },
-  componentTag: null,
   props: {
     id: '0x27868',
     data: `{"prop01":"prop01Value","prop02":"prop02Value", "prop03":{"type":"${primitiveType.id}","value": "prop03Value"}}`,
@@ -76,10 +76,8 @@ export const elementToRender02: IElement = {
   id: '0x3a986',
   name: '02',
   css: null,
-  instanceOfComponent: null,
-  fixedId: null,
+  component: null,
   atom: null,
-  componentTag: null,
   props: {
     id: '0x3a987',
     data: '{}',
@@ -95,19 +93,13 @@ export const componentToRender: IElement = {
   id: '0x3a981',
   name: '01',
   css: '',
-  instanceOfComponent: null,
+  component: null,
   fixedId: null,
   atom: {
     id: '0x27150',
     name: 'Text',
     type: AtomType.Text,
     api: { id: '0x27145' },
-  },
-  componentTag: {
-    id: '0x3a983',
-    name: '01',
-    isRoot: true,
-    children: [],
   },
   props: {
     id: '0x3a982',
@@ -124,17 +116,15 @@ export const elementToRender03: IElement = {
   id: '0x3a985',
   name: '01',
   css: null,
-  instanceOfComponent: {
+  component: {
     id: '0x3a981',
   },
-  fixedId: null,
   atom: {
     id: '0x27150',
     name: 'Text',
     type: AtomType.Text,
     api: { id: '0x27145' },
   },
-  componentTag: null,
   props: {
     id: '0x3a984',
     data: '{}',

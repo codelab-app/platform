@@ -15,9 +15,7 @@ export const CreateComponentModal = () => {
 
   return (
     <FormModal
-      okButtonProps={{
-        loading: isLoading,
-      }}
+      okButtonProps={{ loading: isLoading }}
       okText="Create"
       onCancel={() => reset()}
       title={<span css={tw`font-semibold`}>Create component</span>}

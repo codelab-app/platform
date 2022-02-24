@@ -1,13 +1,13 @@
+import { IElementGraph } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { values } from 'lodash'
 import React, { useEffect } from 'react'
-import { ElementGraphFragment } from '../graphql'
 import { useElementDispatch } from '../hooks'
 import { useGetElementsGraphQuery } from '../store'
 import { useElementTree } from '../tree'
 
 export interface IElementGraphContext {
-  elementGraph?: ElementGraphFragment
+  elementGraph?: IElementGraph
   elementId: string
   elementTree: ElementTree
 }

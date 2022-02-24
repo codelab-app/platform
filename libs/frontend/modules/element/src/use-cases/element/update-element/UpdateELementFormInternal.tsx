@@ -43,15 +43,15 @@ export const UpdateElementFormInternal = ({
     renderForEachPropKey,
     renderIfPropKey,
     name,
-    instanceOfComponentId,
+    componentId,
     propTransformationJs,
   }: UpdateElementData) => {
     const atom = atomId
       ? { connect: { where: { node: { id: atomId } } } }
       : { disconnect: { where: {} } }
 
-    const instanceOfComponent = instanceOfComponentId
-      ? { connect: { where: { node: { id: instanceOfComponentId } } } }
+    const component = componentId
+      ? { connect: { where: { node: { id: componentId } } } }
       : { disconnect: { where: {} } }
 
     const promise = updateElement({
@@ -62,7 +62,7 @@ export const UpdateElementFormInternal = ({
           atom,
           propTransformationJs,
           renderForEachPropKey,
-          instanceOfComponent,
+          component,
           renderIfPropKey,
         },
       },
@@ -114,11 +114,11 @@ export const UpdateElementFormInternal = ({
             'renderIfPropKey',
             'renderForEachPropKey',
             'propTransformationJs',
-            'instanceOfComponentId',
+            'componentId',
             'css', // We edit it in the css tab
           ]}
         />
-        <AutoField component={SelectComponent} name="instanceOfComponentId" />
+        <AutoField component={SelectComponent} name="componentId" />
         <AutoField component={SelectAtom} name="atomId" />
         <AutoCompleteField
           name="renderIfPropKey"

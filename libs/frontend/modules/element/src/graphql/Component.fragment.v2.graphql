@@ -1,0 +1,8 @@
+fragment Component on Component {
+  id
+  name
+  rootElement {
+    id
+    name
+  }
+}

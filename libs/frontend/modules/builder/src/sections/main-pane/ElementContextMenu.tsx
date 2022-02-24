@@ -6,8 +6,12 @@ import {
   useElementDispatch,
   useElementGraphContext,
 } from '@codelab/frontend/modules/element'
+import { useUserState } from '@codelab/frontend/modules/user'
 import { Key } from '@codelab/frontend/view/components'
-import { ElementCreateInput } from '@codelab/shared/abstract/codegen-v2'
+import {
+  ComponentCreateInput,
+  ElementCreateInput,
+} from '@codelab/shared/abstract/codegen-v2'
 import { pascalCaseToWords } from '@codelab/shared/utils'
 import { Menu } from 'antd'
 import { useRouter } from 'next/router'
@@ -49,6 +53,7 @@ export const ElementContextMenu = ({
 }: ElementContextMenuProps) => {
   const [convertToComponent] = useConvertElementsToComponentsMutation()
   const { elementTree } = useElementGraphContext()
+  const { user } = useUserState()
   const [createElement] = useDuplicateElementMutation()
   const { openCreateModal, openDeleteModal } = useElementDispatch()
   const onAddChild = () => openCreateModal({ parentElementId: element.id })
@@ -66,35 +71,53 @@ export const ElementContextMenu = ({
     })
 
   const onConvert = () => {
-    if (element.instanceOfComponent) {
+    if (element.component) {
       throw new Error(
         `Element with id ${element.id} is a component instance, can't turn it into a component`,
       )
     }
 
-    const componentTag: ElementCreateInput['componentTag'] = {
-      // TODO: complete tag properties
+    const rootElement: ComponentCreateInput['rootElement'] = {
       create: {
         node: {
-          name: defaultElementName(element) || 'My Component',
-          isRoot: true,
+          css: element.css,
+          propTransformationJs: element.propTransformationJs,
+          renderForEachPropKey: element.renderForEachPropKey,
+          renderIfPropKey: element.renderIfPropKey,
+          component: undefined,
+          parentElement: undefined,
+          name: element.name || element.atom?.name || element.id,
+          children: {
+            connect: elementTree
+              .getChildren(element.id)
+              .map((x) => ({ where: { node: { id: x.id } } })),
+          },
+          atom: element.atom?.id
+            ? { connect: { where: { node: { id: element.atom?.id } } } }
+            : undefined,
+          props: element.props?.id
+            ? { connect: { where: { node: { id: element.props?.id } } } }
+            : undefined,
+          hooks: {
+            connect: element?.hooks?.map((x) => ({
+              where: { node: { id: x.id } },
+            })),
+          },
+          propMapBindings: {
+            connect: element?.propMapBindings?.map((x) => ({
+              where: { node: { id: x.id } },
+            })),
+          },
         },
       },
     }
 
-    const instanceOfComponent: ElementCreateInput['instanceOfComponent'] = {
-      // TODO: complete tag properties
+    const component: ElementCreateInput['component'] = {
       create: {
         node: {
-          name: element.name,
-          parentElement: undefined,
-          children: {
-            connect: elementTree.getChildren(element.id).map((x: IElement) => ({
-              where: { node: { id: x.id } },
-              edge: { order: x.parentElement?.order || 1 },
-            })),
-          },
-          componentTag,
+          owner: { connect: { where: { node: { auth0Id: user.auth0Id } } } },
+          name: element.name || element.atom?.name || element.id,
+          rootElement,
         },
       },
     }
@@ -103,8 +126,12 @@ export const ElementContextMenu = ({
       variables: {
         where: { id: element.id },
         update: {
-          instanceOfComponent,
+          component,
           children: [{ disconnect: [{ where: {} }] }],
+          hooks: [{ disconnect: [{ where: {} }] }],
+          propMapBindings: [{ disconnect: [{ where: {} }] }],
+          atom: { disconnect: { where: {} } },
+          props: { disconnect: { where: {} } },
         },
       },
     })
@@ -122,13 +149,13 @@ export const ElementContextMenu = ({
       <Menu.Item key="duplicate" onClick={() => onDuplicate()}>
         Duplicate
       </Menu.Item>
-      {element.instanceOfComponent ? (
+      {element.component ? (
         <Menu.Item
           key="1"
           onClick={() =>
             push({
               pathname: PageType.ComponentDetail,
-              query: { componentId: element.instanceOfComponent?.id },
+              query: { componentId: element.component?.id },
             })
           }
         >

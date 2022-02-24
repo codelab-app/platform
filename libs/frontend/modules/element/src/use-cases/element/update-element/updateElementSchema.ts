@@ -25,7 +25,7 @@ export const updateElementSchema: JSONSchemaType<UpdateElementData> = {
       nullable: true,
       label: 'Render for each',
     },
-    instanceOfComponentId: {
+    componentId: {
       type: 'string',
       nullable: true,
       label: 'Component',

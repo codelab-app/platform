@@ -20,7 +20,7 @@ mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
 }
 
 query GetPages($options: PageOptions, $where: PageWhere) {
-  pages: pages(options: $options, where: $where) {
+  pages(options: $options, where: $where) {
     ...Page
   }
 }

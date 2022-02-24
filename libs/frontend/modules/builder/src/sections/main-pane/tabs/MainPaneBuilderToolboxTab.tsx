@@ -39,14 +39,14 @@ const atomToolboxItemFactory = (atom: AtomForSelectFragment): ToolboxItem => ({
 const componentToolboxItemFactory = (
   component: ComponentForSelectFragment,
 ): ToolboxItem => {
-  const name = component.name ?? component.componentTag?.name ?? '' // componentTag should be defined, the '?? ""' is for type safety
+  const { name, id } = component
 
   return {
     name,
-    id: component.id,
+    id,
     createElementInputFactory: () => ({
       name,
-      instanceOfComponentId: component.id,
+      componentId: id,
     }),
   }
 }

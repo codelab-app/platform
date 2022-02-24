@@ -63,7 +63,7 @@ export const CreateElementModal = ({
               omitFields={[
                 'parentElementId',
                 'atomId',
-                'instanceOfComponentId',
+                'componentId',
                 'order',
                 'css',
                 'props',
@@ -72,10 +72,7 @@ export const CreateElementModal = ({
             <AutoField component={SelectAnyElement} name="parentElementId" />
             <AutoField name="order" />
             <AutoField component={SelectAtom} name="atomId" />
-            <AutoField
-              component={SelectComponent}
-              name="instanceOfComponentId"
-            />
+            <AutoField component={SelectComponent} name="componentId" />
           </Form>
         </SelectElementProvider>
       )}

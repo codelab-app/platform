@@ -2,12 +2,14 @@
 // Ignored because of a cypress issue https://github.com/codelab-ai/codelab.ai/issues/1172
 //
 
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+
 const pageName = 'Home Page'
 
 const buttonComponent = {
   name: 'AntDesignButton',
   atom: 'Ant Design Button',
-  parentElement: 'Root element',
+  parentElement: ROOT_ELEMENT_NAME,
 }
 
 const formToggleButtons = ['Block', 'Danger', 'Disabled', 'Ghost']

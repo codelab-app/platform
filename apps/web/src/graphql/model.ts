@@ -1,6 +1,7 @@
 import { getOgm } from './infra/ogm'
 import {
   AtomModel,
+  ComponentModel,
   ElementModel,
   InterfaceTypeModel,
   PageModel,
@@ -22,6 +23,10 @@ export const Element = () => (elementInst ??= getOgm().model('Element'))
 let pageInst: PageModel
 
 export const Page = () => (pageInst ??= getOgm().model('Page'))
+
+let componentInst: ComponentModel
+
+export const Component = () => (componentInst ??= getOgm().model('Component'))
 
 let interfaceInst: InterfaceTypeModel
 

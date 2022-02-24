@@ -3,6 +3,7 @@ import { appEndpoints, appSlice } from '@codelab/frontend/modules/app'
 import { atomEndpoints, atomSlice } from '@codelab/frontend/modules/atom'
 import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
+  componentEndpoints,
   componentSlice,
   elementEndpoints,
   elementSlice,
@@ -42,7 +43,7 @@ export const makeStore = () => {
       [deleteTypeEndpoints.reducerPath]: deleteTypeEndpoints.reducer,
       [updateTypeEndpoints.reducerPath]: updateTypeEndpoints.reducer,
       [createTypeEndpoints.reducerPath]: createTypeEndpoints.reducer,
-      [elementEndpoints.reducerPath]: elementEndpoints.reducer,
+      [componentEndpoints.reducerPath]: componentEndpoints.reducer,
 
       // Slices:
       [appSlice.name]: appSlice.reducer,
@@ -67,6 +68,7 @@ export const makeStore = () => {
         adminEndpoints.middleware,
         pageEndpoints.middleware,
         elementEndpoints.middleware,
+        componentEndpoints.middleware,
         hookEndpoints.middleware,
         propMapBindingEndpoints.middleware,
         atomEndpoints.middleware,

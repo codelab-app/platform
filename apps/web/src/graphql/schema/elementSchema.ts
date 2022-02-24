@@ -64,12 +64,7 @@ export const elementSchema = gql`
     renderForEachPropKey: String
     renderIfPropKey: String
 
-    instanceOfComponent: Element
-      @relationship(type: "INSTANCE_OF_COMPONENT", direction: OUT)
-
-    # Marks this element as a component
-    componentTag: Tag
-      @relationship(type: "COMPONENT_TAGGED_WITH", direction: OUT)
+    component: Component @relationship(type: "COMPONENT", direction: OUT)
 
     atom: Atom @relationship(type: "RENDER_ATOM", direction: OUT)
 

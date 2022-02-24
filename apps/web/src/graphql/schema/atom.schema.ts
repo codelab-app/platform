@@ -16,7 +16,8 @@ export const atomSchema = gql`
     api: InterfaceType! @relationship(type: "ATOM_API", direction: OUT)
   }
 
-  extend type Atom @auth(rules: [{ roles: ["Admin"] }])
+  extend type Atom
+    @auth(rules: [{ operations: [CREATE, UPDATE, DELETE], roles: ["Admin"] }])
 
   # Can't reuse from Neo4j schema
   type CreateInfo {

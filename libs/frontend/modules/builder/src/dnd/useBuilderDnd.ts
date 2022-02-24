@@ -51,7 +51,7 @@ export const useBuilderDnd = (): UseBuilderDnd => {
           order,
           atomId,
           css,
-          instanceOfComponentId,
+          componentId,
           name,
           props,
         } = createElementInput
@@ -67,8 +67,8 @@ export const useBuilderDnd = (): UseBuilderDnd => {
               },
               atom: { connect: { where: { node: { id: atomId } } } },
               css,
-              instanceOfComponent: {
-                connect: { where: { node: { id: instanceOfComponentId } } },
+              component: {
+                connect: { where: { node: { id: componentId } } },
               },
               name,
               props: { create: { node: { data: props || '{}' } } },

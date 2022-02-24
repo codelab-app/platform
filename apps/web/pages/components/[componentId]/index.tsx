@@ -13,8 +13,9 @@ import {
 import {
   ElementGraphProvider,
   useElementGraphContext,
+  useGetComponentsQuery,
 } from '@codelab/frontend/modules/element'
-import { ElementTree } from '@codelab/shared/core'
+import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { Empty } from 'antd'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -27,12 +28,12 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = () => {
     return <Empty />
   }
 
-  const root = elementTree.getRootVertex(ElementTree.isComponent)
+  const root = elementTree.getRootVertex()
 
   return (
     <>
       <Head>
-        <title>{root?.componentTag?.name} | Codelab</title>
+        <title>{root?.name} | Codelab</title>
       </Head>
 
       <Builder isComponentBuilder tree={elementTree} />
@@ -46,10 +47,22 @@ const ComponentElementGraphProvider = ({
   const { query } = useRouter()
   const componentId = query.componentId as string
 
+  const { data, isLoading } = useGetComponentsQuery({
+    variables: { where: { id: componentId } },
+  })
+
+  const rootElementId = data?.components[0]?.rootElement.id
+
+  if (!rootElementId) {
+    return null
+  }
+
   return (
-    <ElementGraphProvider elementId={componentId}>
-      {children}
-    </ElementGraphProvider>
+    <SpinnerWrapper isLoading={isLoading}>
+      <ElementGraphProvider elementId={rootElementId}>
+        {children}
+      </ElementGraphProvider>
+    </SpinnerWrapper>
   )
 }
 
