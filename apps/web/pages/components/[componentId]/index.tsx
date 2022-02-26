@@ -16,6 +16,7 @@ import {
   useGetComponentsQuery,
 } from '@codelab/frontend/modules/element'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
+import { ElementTree } from '@codelab/shared/core'
 import { Empty } from 'antd'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -28,12 +29,12 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = () => {
     return <Empty />
   }
 
-  const root = elementTree.getRootVertex()
+  const root = elementTree.getRootVertex(ElementTree.isComponent)
 
   return (
     <>
       <Head>
-        <title>{root?.name} | Codelab</title>
+        <title>{root?.component?.name} | Codelab</title>
       </Head>
 
       <Builder isComponentBuilder tree={elementTree} />

@@ -16,6 +16,7 @@ export const elementToRender: IElement = {
   id: '0x2786a',
   name: ROOT_ELEMENT_NAME,
   css: '',
+  instanceOfComponent: null,
   component: null,
   fixedId: null,
   atom: {
@@ -76,6 +77,7 @@ export const elementToRender02: IElement = {
   id: '0x3a986',
   name: '02',
   css: null,
+  instanceOfComponent: null,
   component: null,
   atom: null,
   props: {
@@ -94,7 +96,7 @@ export const componentToRender: IElement = {
   name: '01',
   css: '',
   component: null,
-  fixedId: null,
+  // fixedId: null,
   atom: {
     id: '0x27150',
     name: 'Text',
@@ -116,7 +118,7 @@ export const elementToRender03: IElement = {
   id: '0x3a985',
   name: '01',
   css: null,
-  component: {
+  instanceOfComponent: {
     id: '0x3a981',
   },
   atom: {

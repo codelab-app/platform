@@ -150,7 +150,7 @@ export const ElementContextMenu = ({
       <Menu.Item key="duplicate" onClick={() => onDuplicate()}>
         Duplicate
       </Menu.Item>
-      {element.instanceOfComponent?.id ? (
+      {element.instanceOfComponent ? (
         <Menu.Item
           key="1"
           onClick={() =>

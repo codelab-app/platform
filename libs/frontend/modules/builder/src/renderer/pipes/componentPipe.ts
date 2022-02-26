@@ -6,7 +6,7 @@ import { RenderPipeFactory } from './types'
 /** If the element is a component add ${DATA_COMPONENT_ID} to the extra props */
 export const componentPipe: RenderPipeFactory =
   (next) => (element, context, props) => {
-    const isComponent = !!element.instanceOfComponent?.id
+    const isComponent = !!element.component
 
     if (!isComponent) {
       return next(element, context, props)
