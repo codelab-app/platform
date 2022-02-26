@@ -61,13 +61,13 @@ export const elementRepository = {
           )
 
           /**
-           * x.source is Component.id
-           * x.target is Element2.id
+           * x.source is Element2.id
+           * x.target is Component.id
            *
            * @returns { [componentId]: rootElementId }
            * */
           const componentRootsMap = componentRootEdges
-            .map((x) => ({ [x.source]: x.target }))
+            .map((x) => ({ [x.target]: x.source }))
             .reduce(merge, {})
 
           /**
@@ -81,8 +81,6 @@ export const elementRepository = {
             target: componentRootsMap[x.target], // Element2.id
             order: 0,
           }))
-
-          console.log(response.get('edges'))
 
           return { edges: elementComponentEdges.concat(parentOfElementEdges) }
         }),

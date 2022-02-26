@@ -71,7 +71,7 @@ export const ElementContextMenu = ({
     })
 
   const onConvert = () => {
-    if (element.instanceOfComponent) {
+    if (element.instanceOfComponent?.id) {
       throw new Error(
         `Element with id ${element.id} is a component instance, can't turn it into a component`,
       )
@@ -150,7 +150,7 @@ export const ElementContextMenu = ({
       <Menu.Item key="duplicate" onClick={() => onDuplicate()}>
         Duplicate
       </Menu.Item>
-      {element.component ? (
+      {element.instanceOfComponent?.id ? (
         <Menu.Item
           key="1"
           onClick={() =>
