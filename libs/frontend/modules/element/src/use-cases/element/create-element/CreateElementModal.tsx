@@ -6,7 +6,6 @@ import {
   SelectElementProvider,
 } from '@codelab/frontend/modules/type'
 import { Form, FormModal } from '@codelab/frontend/view/components'
-import { CreateElementInput } from '@codelab/shared/abstract/codegen'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import tw from 'twin.macro'
@@ -14,6 +13,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { useElementDispatch } from '../../../hooks'
 import { useElementGraphContext } from '../../../providers'
 import { createElementSchema } from './createElementSchema'
+import { CreateElementInput } from './types'
 import { useCreateElementForm } from './useCreateElementForm'
 
 /**
@@ -63,7 +63,7 @@ export const CreateElementModal = ({
               omitFields={[
                 'parentElementId',
                 'atomId',
-                'componentId',
+                'instanceOfComponentId',
                 'order',
                 'css',
                 'props',
@@ -72,7 +72,10 @@ export const CreateElementModal = ({
             <AutoField component={SelectAnyElement} name="parentElementId" />
             <AutoField name="order" />
             <AutoField component={SelectAtom} name="atomId" />
-            <AutoField component={SelectComponent} name="componentId" />
+            <AutoField
+              component={SelectComponent}
+              name="instanceOfComponentId"
+            />
           </Form>
         </SelectElementProvider>
       )}

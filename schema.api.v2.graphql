@@ -2406,6 +2406,19 @@ type Element {
     where: ElementHooksConnectionWhere
   ): ElementHooksConnection!
   id: ID!
+  instanceOfComponent(
+    options: ComponentOptions
+    where: ComponentWhere
+  ): Component
+  instanceOfComponentAggregate(
+    where: ComponentWhere
+  ): ElementComponentInstanceOfComponentAggregationSelection
+  instanceOfComponentConnection(
+    after: String
+    first: Int
+    sort: [ElementInstanceOfComponentConnectionSort!]
+    where: ElementInstanceOfComponentConnectionWhere
+  ): ElementInstanceOfComponentConnection!
   name: String
   parentElement(options: ElementOptions, where: ElementWhere): Element
   parentElementAggregate(
@@ -2868,6 +2881,16 @@ input ElementComponentFieldInput {
   create: ElementComponentCreateFieldInput
 }
 
+type ElementComponentInstanceOfComponentAggregationSelection {
+  count: Int!
+  node: ElementComponentInstanceOfComponentNodeAggregateSelection
+}
+
+type ElementComponentInstanceOfComponentNodeAggregateSelection {
+  id: IDAggregateSelection!
+  name: StringAggregateSelection!
+}
+
 input ElementComponentNodeAggregationWhereInput {
   AND: [ElementComponentNodeAggregationWhereInput!]
   OR: [ElementComponentNodeAggregationWhereInput!]
@@ -2918,6 +2941,7 @@ input ElementConnectInput {
   children: [ElementChildrenConnectFieldInput!]
   component: ElementComponentConnectFieldInput
   hooks: [ElementHooksConnectFieldInput!]
+  instanceOfComponent: ElementInstanceOfComponentConnectFieldInput
   parentElement: ElementParentElementConnectFieldInput
   propMapBindings: [ElementPropMapBindingsConnectFieldInput!]
   props: ElementPropsConnectFieldInput
@@ -2928,6 +2952,7 @@ input ElementConnectOrCreateInput {
   children: [ElementChildrenConnectOrCreateFieldInput!]
   component: ElementComponentConnectOrCreateFieldInput
   hooks: [ElementHooksConnectOrCreateFieldInput!]
+  instanceOfComponent: ElementInstanceOfComponentConnectOrCreateFieldInput
   parentElement: ElementParentElementConnectOrCreateFieldInput
   propMapBindings: [ElementPropMapBindingsConnectOrCreateFieldInput!]
   props: ElementPropsConnectOrCreateFieldInput
@@ -2947,6 +2972,7 @@ input ElementCreateInput {
   component: ElementComponentFieldInput
   css: String
   hooks: ElementHooksFieldInput
+  instanceOfComponent: ElementInstanceOfComponentFieldInput
   name: String
   parentElement: ElementParentElementFieldInput
   propMapBindings: ElementPropMapBindingsFieldInput
@@ -2961,6 +2987,7 @@ input ElementDeleteInput {
   children: [ElementChildrenDeleteFieldInput!]
   component: ElementComponentDeleteFieldInput
   hooks: [ElementHooksDeleteFieldInput!]
+  instanceOfComponent: ElementInstanceOfComponentDeleteFieldInput
   parentElement: ElementParentElementDeleteFieldInput
   propMapBindings: [ElementPropMapBindingsDeleteFieldInput!]
   props: ElementPropsDeleteFieldInput
@@ -2971,6 +2998,7 @@ input ElementDisconnectInput {
   children: [ElementChildrenDisconnectFieldInput!]
   component: ElementComponentDisconnectFieldInput
   hooks: [ElementHooksDisconnectFieldInput!]
+  instanceOfComponent: ElementInstanceOfComponentDisconnectFieldInput
   parentElement: ElementParentElementDisconnectFieldInput
   propMapBindings: [ElementPropMapBindingsDisconnectFieldInput!]
   props: ElementPropsDisconnectFieldInput
@@ -3124,6 +3152,113 @@ input ElementHooksUpdateFieldInput {
   disconnect: [ElementHooksDisconnectFieldInput!]
   update: ElementHooksUpdateConnectionInput
   where: ElementHooksConnectionWhere
+}
+
+input ElementInstanceOfComponentAggregateInput {
+  AND: [ElementInstanceOfComponentAggregateInput!]
+  OR: [ElementInstanceOfComponentAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementInstanceOfComponentNodeAggregationWhereInput
+}
+
+input ElementInstanceOfComponentConnectFieldInput {
+  connect: ComponentConnectInput
+  where: ComponentConnectWhere
+}
+
+input ElementInstanceOfComponentConnectOrCreateFieldInput {
+  onCreate: ElementInstanceOfComponentConnectOrCreateFieldInputOnCreate!
+  where: ComponentConnectOrCreateWhere!
+}
+
+input ElementInstanceOfComponentConnectOrCreateFieldInputOnCreate {
+  node: ComponentCreateInput!
+}
+
+type ElementInstanceOfComponentConnection {
+  edges: [ElementInstanceOfComponentRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementInstanceOfComponentConnectionSort {
+  node: ComponentSort
+}
+
+input ElementInstanceOfComponentConnectionWhere {
+  AND: [ElementInstanceOfComponentConnectionWhere!]
+  OR: [ElementInstanceOfComponentConnectionWhere!]
+  node: ComponentWhere
+  node_NOT: ComponentWhere
+}
+
+input ElementInstanceOfComponentCreateFieldInput {
+  node: ComponentCreateInput!
+}
+
+input ElementInstanceOfComponentDeleteFieldInput {
+  delete: ComponentDeleteInput
+  where: ElementInstanceOfComponentConnectionWhere
+}
+
+input ElementInstanceOfComponentDisconnectFieldInput {
+  disconnect: ComponentDisconnectInput
+  where: ElementInstanceOfComponentConnectionWhere
+}
+
+input ElementInstanceOfComponentFieldInput {
+  connect: ElementInstanceOfComponentConnectFieldInput
+  connectOrCreate: ElementInstanceOfComponentConnectOrCreateFieldInput
+  create: ElementInstanceOfComponentCreateFieldInput
+}
+
+input ElementInstanceOfComponentNodeAggregationWhereInput {
+  AND: [ElementInstanceOfComponentNodeAggregationWhereInput!]
+  OR: [ElementInstanceOfComponentNodeAggregationWhereInput!]
+  id_EQUAL: ID
+  name_AVERAGE_EQUAL: Float
+  name_AVERAGE_GT: Float
+  name_AVERAGE_GTE: Float
+  name_AVERAGE_LT: Float
+  name_AVERAGE_LTE: Float
+  name_EQUAL: String
+  name_GT: Int
+  name_GTE: Int
+  name_LONGEST_EQUAL: Int
+  name_LONGEST_GT: Int
+  name_LONGEST_GTE: Int
+  name_LONGEST_LT: Int
+  name_LONGEST_LTE: Int
+  name_LT: Int
+  name_LTE: Int
+  name_SHORTEST_EQUAL: Int
+  name_SHORTEST_GT: Int
+  name_SHORTEST_GTE: Int
+  name_SHORTEST_LT: Int
+  name_SHORTEST_LTE: Int
+}
+
+type ElementInstanceOfComponentRelationship {
+  cursor: String!
+  node: Component!
+}
+
+input ElementInstanceOfComponentUpdateConnectionInput {
+  node: ComponentUpdateInput
+}
+
+input ElementInstanceOfComponentUpdateFieldInput {
+  connect: ElementInstanceOfComponentConnectFieldInput
+  connectOrCreate: ElementInstanceOfComponentConnectOrCreateFieldInput
+  create: ElementInstanceOfComponentCreateFieldInput
+  delete: ElementInstanceOfComponentDeleteFieldInput
+  disconnect: ElementInstanceOfComponentDisconnectFieldInput
+  update: ElementInstanceOfComponentUpdateConnectionInput
+  where: ElementInstanceOfComponentConnectionWhere
 }
 
 input ElementOptions {
@@ -3619,6 +3754,7 @@ input ElementRelationInput {
   children: [ElementChildrenCreateFieldInput!]
   component: ElementComponentCreateFieldInput
   hooks: [ElementHooksCreateFieldInput!]
+  instanceOfComponent: ElementInstanceOfComponentCreateFieldInput
   parentElement: ElementParentElementCreateFieldInput
   propMapBindings: [ElementPropMapBindingsCreateFieldInput!]
   props: ElementPropsCreateFieldInput
@@ -3850,6 +3986,7 @@ input ElementUpdateInput {
   component: ElementComponentUpdateFieldInput
   css: String
   hooks: [ElementHooksUpdateFieldInput!]
+  instanceOfComponent: ElementInstanceOfComponentUpdateFieldInput
   name: String
   parentElement: ElementParentElementUpdateFieldInput
   propMapBindings: [ElementPropMapBindingsUpdateFieldInput!]
@@ -3902,6 +4039,11 @@ input ElementWhere {
   id_NOT_IN: [ID]
   id_NOT_STARTS_WITH: ID
   id_STARTS_WITH: ID
+  instanceOfComponent: ComponentWhere
+  instanceOfComponentAggregate: ElementInstanceOfComponentAggregateInput
+  instanceOfComponentConnection: ElementInstanceOfComponentConnectionWhere
+  instanceOfComponentConnection_NOT: ElementInstanceOfComponentConnectionWhere
+  instanceOfComponent_NOT: ComponentWhere
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String

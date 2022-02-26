@@ -80,9 +80,7 @@ const TreeItemTitle = ({
     />
   )
 
-  const componentInstanceName = element.instanceOfComponent
-    ? tree.getComponentById(element.instanceOfComponent.id)?.name
-    : undefined
+  const componentInstanceName = element.instanceOfComponent?.name
 
   return (
     <div>

@@ -2552,6 +2552,9 @@ export type Element = {
   hooksAggregate?: Maybe<ElementHookHooksAggregationSelection>
   hooksConnection: ElementHooksConnection
   id: Scalars['ID']
+  instanceOfComponent?: Maybe<Component>
+  instanceOfComponentAggregate?: Maybe<ElementComponentInstanceOfComponentAggregationSelection>
+  instanceOfComponentConnection: ElementInstanceOfComponentConnection
   name?: Maybe<Scalars['String']>
   parentElement?: Maybe<Element>
   parentElementAggregate?: Maybe<ElementElementParentElementAggregationSelection>
@@ -2629,6 +2632,22 @@ export type ElementHooksConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<ElementHooksConnectionSort>>
   where?: InputMaybe<ElementHooksConnectionWhere>
+}
+
+export type ElementInstanceOfComponentArgs = {
+  options?: InputMaybe<ComponentOptions>
+  where?: InputMaybe<ComponentWhere>
+}
+
+export type ElementInstanceOfComponentAggregateArgs = {
+  where?: InputMaybe<ComponentWhere>
+}
+
+export type ElementInstanceOfComponentConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ElementInstanceOfComponentConnectionSort>>
+  where?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
 }
 
 export type ElementParentElementArgs = {
@@ -3114,6 +3133,18 @@ export type ElementComponentFieldInput = {
   create?: InputMaybe<ElementComponentCreateFieldInput>
 }
 
+export type ElementComponentInstanceOfComponentAggregationSelection = {
+  __typename?: 'ElementComponentInstanceOfComponentAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ElementComponentInstanceOfComponentNodeAggregateSelection>
+}
+
+export type ElementComponentInstanceOfComponentNodeAggregateSelection = {
+  __typename?: 'ElementComponentInstanceOfComponentNodeAggregateSelection'
+  id: IdAggregateSelection
+  name: StringAggregateSelection
+}
+
 export type ElementComponentNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementComponentNodeAggregationWhereInput>>
   OR?: InputMaybe<Array<ElementComponentNodeAggregationWhereInput>>
@@ -3165,6 +3196,7 @@ export type ElementConnectInput = {
   children?: InputMaybe<Array<ElementChildrenConnectFieldInput>>
   component?: InputMaybe<ElementComponentConnectFieldInput>
   hooks?: InputMaybe<Array<ElementHooksConnectFieldInput>>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentConnectFieldInput>
   parentElement?: InputMaybe<ElementParentElementConnectFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsConnectFieldInput>>
   props?: InputMaybe<ElementPropsConnectFieldInput>
@@ -3175,6 +3207,7 @@ export type ElementConnectOrCreateInput = {
   children?: InputMaybe<Array<ElementChildrenConnectOrCreateFieldInput>>
   component?: InputMaybe<ElementComponentConnectOrCreateFieldInput>
   hooks?: InputMaybe<Array<ElementHooksConnectOrCreateFieldInput>>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
   parentElement?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
   propMapBindings?: InputMaybe<
     Array<ElementPropMapBindingsConnectOrCreateFieldInput>
@@ -3196,6 +3229,7 @@ export type ElementCreateInput = {
   component?: InputMaybe<ElementComponentFieldInput>
   css?: InputMaybe<Scalars['String']>
   hooks?: InputMaybe<ElementHooksFieldInput>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentFieldInput>
   name?: InputMaybe<Scalars['String']>
   parentElement?: InputMaybe<ElementParentElementFieldInput>
   propMapBindings?: InputMaybe<ElementPropMapBindingsFieldInput>
@@ -3210,6 +3244,7 @@ export type ElementDeleteInput = {
   children?: InputMaybe<Array<ElementChildrenDeleteFieldInput>>
   component?: InputMaybe<ElementComponentDeleteFieldInput>
   hooks?: InputMaybe<Array<ElementHooksDeleteFieldInput>>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentDeleteFieldInput>
   parentElement?: InputMaybe<ElementParentElementDeleteFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsDeleteFieldInput>>
   props?: InputMaybe<ElementPropsDeleteFieldInput>
@@ -3220,6 +3255,7 @@ export type ElementDisconnectInput = {
   children?: InputMaybe<Array<ElementChildrenDisconnectFieldInput>>
   component?: InputMaybe<ElementComponentDisconnectFieldInput>
   hooks?: InputMaybe<Array<ElementHooksDisconnectFieldInput>>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentDisconnectFieldInput>
   parentElement?: InputMaybe<ElementParentElementDisconnectFieldInput>
   propMapBindings?: InputMaybe<
     Array<ElementPropMapBindingsDisconnectFieldInput>
@@ -3387,6 +3423,115 @@ export type ElementHooksUpdateFieldInput = {
   disconnect?: InputMaybe<Array<ElementHooksDisconnectFieldInput>>
   update?: InputMaybe<ElementHooksUpdateConnectionInput>
   where?: InputMaybe<ElementHooksConnectionWhere>
+}
+
+export type ElementInstanceOfComponentAggregateInput = {
+  AND?: InputMaybe<Array<ElementInstanceOfComponentAggregateInput>>
+  OR?: InputMaybe<Array<ElementInstanceOfComponentAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<ElementInstanceOfComponentNodeAggregationWhereInput>
+}
+
+export type ElementInstanceOfComponentConnectFieldInput = {
+  connect?: InputMaybe<ComponentConnectInput>
+  where?: InputMaybe<ComponentConnectWhere>
+}
+
+export type ElementInstanceOfComponentConnectOrCreateFieldInput = {
+  onCreate: ElementInstanceOfComponentConnectOrCreateFieldInputOnCreate
+  where: ComponentConnectOrCreateWhere
+}
+
+export type ElementInstanceOfComponentConnectOrCreateFieldInputOnCreate = {
+  node: ComponentCreateInput
+}
+
+export type ElementInstanceOfComponentConnection = {
+  __typename?: 'ElementInstanceOfComponentConnection'
+  edges: Array<ElementInstanceOfComponentRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type ElementInstanceOfComponentConnectionSort = {
+  node?: InputMaybe<ComponentSort>
+}
+
+export type ElementInstanceOfComponentConnectionWhere = {
+  AND?: InputMaybe<Array<ElementInstanceOfComponentConnectionWhere>>
+  OR?: InputMaybe<Array<ElementInstanceOfComponentConnectionWhere>>
+  node?: InputMaybe<ComponentWhere>
+  node_NOT?: InputMaybe<ComponentWhere>
+}
+
+export type ElementInstanceOfComponentCreateFieldInput = {
+  node: ComponentCreateInput
+}
+
+export type ElementInstanceOfComponentDeleteFieldInput = {
+  delete?: InputMaybe<ComponentDeleteInput>
+  where?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
+}
+
+export type ElementInstanceOfComponentDisconnectFieldInput = {
+  disconnect?: InputMaybe<ComponentDisconnectInput>
+  where?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
+}
+
+export type ElementInstanceOfComponentFieldInput = {
+  connect?: InputMaybe<ElementInstanceOfComponentConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementInstanceOfComponentCreateFieldInput>
+}
+
+export type ElementInstanceOfComponentNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ElementInstanceOfComponentNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementInstanceOfComponentNodeAggregationWhereInput>>
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  name_GT?: InputMaybe<Scalars['Int']>
+  name_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  name_LT?: InputMaybe<Scalars['Int']>
+  name_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type ElementInstanceOfComponentRelationship = {
+  __typename?: 'ElementInstanceOfComponentRelationship'
+  cursor: Scalars['String']
+  node: Component
+}
+
+export type ElementInstanceOfComponentUpdateConnectionInput = {
+  node?: InputMaybe<ComponentUpdateInput>
+}
+
+export type ElementInstanceOfComponentUpdateFieldInput = {
+  connect?: InputMaybe<ElementInstanceOfComponentConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementInstanceOfComponentCreateFieldInput>
+  delete?: InputMaybe<ElementInstanceOfComponentDeleteFieldInput>
+  disconnect?: InputMaybe<ElementInstanceOfComponentDisconnectFieldInput>
+  update?: InputMaybe<ElementInstanceOfComponentUpdateConnectionInput>
+  where?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
 }
 
 export type ElementOptions = {
@@ -3893,6 +4038,7 @@ export type ElementRelationInput = {
   children?: InputMaybe<Array<ElementChildrenCreateFieldInput>>
   component?: InputMaybe<ElementComponentCreateFieldInput>
   hooks?: InputMaybe<Array<ElementHooksCreateFieldInput>>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentCreateFieldInput>
   parentElement?: InputMaybe<ElementParentElementCreateFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsCreateFieldInput>>
   props?: InputMaybe<ElementPropsCreateFieldInput>
@@ -4152,6 +4298,7 @@ export type ElementUpdateInput = {
   component?: InputMaybe<ElementComponentUpdateFieldInput>
   css?: InputMaybe<Scalars['String']>
   hooks?: InputMaybe<Array<ElementHooksUpdateFieldInput>>
+  instanceOfComponent?: InputMaybe<ElementInstanceOfComponentUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
   parentElement?: InputMaybe<ElementParentElementUpdateFieldInput>
   propMapBindings?: InputMaybe<Array<ElementPropMapBindingsUpdateFieldInput>>
@@ -4204,6 +4351,11 @@ export type ElementWhere = {
   id_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['ID']>>>
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  instanceOfComponent?: InputMaybe<ComponentWhere>
+  instanceOfComponentAggregate?: InputMaybe<ElementInstanceOfComponentAggregateInput>
+  instanceOfComponentConnection?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
+  instanceOfComponentConnection_NOT?: InputMaybe<ElementInstanceOfComponentConnectionWhere>
+  instanceOfComponent_NOT?: InputMaybe<ComponentWhere>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>

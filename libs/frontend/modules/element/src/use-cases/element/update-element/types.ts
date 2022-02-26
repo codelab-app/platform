@@ -1,9 +1,9 @@
 import { Nullable } from '@codelab/shared/abstract/types'
 
-export type CreateElementInput = {
+export type UpdateElementInput = {
   name: Nullable<string>
-  order: number
   instanceOfComponentId: Nullable<string>
   atomId: Nullable<string>
-  parentElementId: string
+  renderForEachPropKey: Nullable<string>
+  renderIfPropKey: Nullable<string>
 }

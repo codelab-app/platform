@@ -33,7 +33,8 @@ export const ElementSchema = z.object({
     .object({ id: z.string(), order: z.number().nullish() })
     .nullish(),
   owner: z.object({ id: z.string() }).nullish(),
-  component: z.object({ id: z.string() }).nullish(), // Marks the element as an instance of a specific component
+  component: z.object({ id: z.string(), name: z.string() }).nullish(), // component which has this element as rootElement
+  instanceOfComponent: z.object({ id: z.string(), name: z.string() }).nullish(), // Marks the element as an instance of a specific component
   atom: z.optional(AtomSchema).nullish(),
   props: PropSchema.nullish(),
   hooks: z.array(HookSchema).nullish(),

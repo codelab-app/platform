@@ -71,7 +71,7 @@ export const ElementContextMenu = ({
     })
 
   const onConvert = () => {
-    if (element.component) {
+    if (element.instanceOfComponent) {
       throw new Error(
         `Element with id ${element.id} is a component instance, can't turn it into a component`,
       )
@@ -85,6 +85,7 @@ export const ElementContextMenu = ({
           renderForEachPropKey: element.renderForEachPropKey,
           renderIfPropKey: element.renderIfPropKey,
           component: undefined,
+          instanceOfComponent: undefined,
           parentElement: undefined,
           name: element.name || element.atom?.name || element.id,
           children: {
@@ -112,7 +113,7 @@ export const ElementContextMenu = ({
       },
     }
 
-    const component: ElementCreateInput['component'] = {
+    const instanceOfComponent: ElementCreateInput['instanceOfComponent'] = {
       create: {
         node: {
           owner: { connect: { where: { node: { auth0Id: user.auth0Id } } } },
@@ -126,7 +127,7 @@ export const ElementContextMenu = ({
       variables: {
         where: { id: element.id },
         update: {
-          component,
+          instanceOfComponent,
           children: [{ disconnect: [{ where: {} }] }],
           hooks: [{ disconnect: [{ where: {} }] }],
           propMapBindings: [{ disconnect: [{ where: {} }] }],
@@ -155,7 +156,7 @@ export const ElementContextMenu = ({
           onClick={() =>
             push({
               pathname: PageType.ComponentDetail,
-              query: { componentId: element.component?.id },
+              query: { componentId: element.instanceOfComponent?.id },
             })
           }
         >

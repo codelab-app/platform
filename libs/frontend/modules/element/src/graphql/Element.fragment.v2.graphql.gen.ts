@@ -12,6 +12,7 @@ export type ElementFragment = {
   renderIfPropKey?: string | null | undefined
   propTransformationJs?: string | null | undefined
   component?: { id: string; name: string } | null | undefined
+  instanceOfComponent?: { id: string; name: string } | null | undefined
   parentElement?:
     | { id: string; name?: string | null | undefined }
     | null
@@ -109,6 +110,10 @@ export const ElementFragmentDoc = gql`
     name
     css
     component {
+      id
+      name
+    }
+    instanceOfComponent {
       id
       name
     }

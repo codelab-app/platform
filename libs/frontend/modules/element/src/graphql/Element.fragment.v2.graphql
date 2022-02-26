@@ -7,6 +7,10 @@ fragment Element on Element {
     id
     name
   }
+  instanceOfComponent {
+    id
+    name
+  }
   parentElement {
     id
     name

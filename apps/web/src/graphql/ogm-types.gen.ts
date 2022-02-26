@@ -2579,6 +2579,8 @@ export type Element = {
   propsAggregate?: Maybe<ElementPropPropsAggregationSelection>
   parentElement?: Maybe<Element>
   parentElementAggregate?: Maybe<ElementElementParentElementAggregationSelection>
+  instanceOfComponent?: Maybe<Component>
+  instanceOfComponentAggregate?: Maybe<ElementComponentInstanceOfComponentAggregationSelection>
   component?: Maybe<Component>
   componentAggregate?: Maybe<ElementComponentComponentAggregationSelection>
   atom?: Maybe<Atom>
@@ -2590,6 +2592,7 @@ export type Element = {
   childrenConnection: ElementChildrenConnection
   propsConnection: ElementPropsConnection
   parentElementConnection: ElementParentElementConnection
+  instanceOfComponentConnection: ElementInstanceOfComponentConnection
   componentConnection: ElementComponentConnection
   atomConnection: ElementAtomConnection
   hooksConnection: ElementHooksConnection
@@ -2621,6 +2624,15 @@ export type ElementParentElementArgs = {
 
 export type ElementParentElementAggregateArgs = {
   where?: Maybe<ElementWhere>
+}
+
+export type ElementInstanceOfComponentArgs = {
+  where?: Maybe<ComponentWhere>
+  options?: Maybe<ComponentOptions>
+}
+
+export type ElementInstanceOfComponentAggregateArgs = {
+  where?: Maybe<ComponentWhere>
 }
 
 export type ElementComponentArgs = {
@@ -2676,6 +2688,13 @@ export type ElementPropsConnectionArgs = {
 export type ElementParentElementConnectionArgs = {
   where?: Maybe<ElementParentElementConnectionWhere>
   sort?: Maybe<Array<ElementParentElementConnectionSort>>
+  first?: Maybe<Scalars['Int']>
+  after?: Maybe<Scalars['String']>
+}
+
+export type ElementInstanceOfComponentConnectionArgs = {
+  where?: Maybe<ElementInstanceOfComponentConnectionWhere>
+  sort?: Maybe<Array<ElementInstanceOfComponentConnectionSort>>
   first?: Maybe<Scalars['Int']>
   after?: Maybe<Scalars['String']>
 }
@@ -2775,6 +2794,18 @@ export type ElementComponentConnection = {
   edges: Array<ElementComponentRelationship>
   totalCount: Scalars['Int']
   pageInfo: PageInfo
+}
+
+export type ElementComponentInstanceOfComponentAggregationSelection = {
+  __typename?: 'ElementComponentInstanceOfComponentAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ElementComponentInstanceOfComponentNodeAggregateSelection>
+}
+
+export type ElementComponentInstanceOfComponentNodeAggregateSelection = {
+  __typename?: 'ElementComponentInstanceOfComponentNodeAggregateSelection'
+  id: IdAggregateSelection
+  name: StringAggregateSelection
 }
 
 export type ElementComponentRelationship = {
@@ -2877,6 +2908,19 @@ export type ElementHooksRelationship = {
   __typename?: 'ElementHooksRelationship'
   cursor: Scalars['String']
   node: Hook
+}
+
+export type ElementInstanceOfComponentConnection = {
+  __typename?: 'ElementInstanceOfComponentConnection'
+  edges: Array<ElementInstanceOfComponentRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type ElementInstanceOfComponentRelationship = {
+  __typename?: 'ElementInstanceOfComponentRelationship'
+  cursor: Scalars['String']
+  node: Component
 }
 
 export type ElementParentElementConnection = {
@@ -6623,6 +6667,7 @@ export type ElementConnectInput = {
   children?: Maybe<Array<ElementChildrenConnectFieldInput>>
   props?: Maybe<ElementPropsConnectFieldInput>
   parentElement?: Maybe<ElementParentElementConnectFieldInput>
+  instanceOfComponent?: Maybe<ElementInstanceOfComponentConnectFieldInput>
   component?: Maybe<ElementComponentConnectFieldInput>
   atom?: Maybe<ElementAtomConnectFieldInput>
   hooks?: Maybe<Array<ElementHooksConnectFieldInput>>
@@ -6633,6 +6678,7 @@ export type ElementConnectOrCreateInput = {
   children?: Maybe<Array<ElementChildrenConnectOrCreateFieldInput>>
   props?: Maybe<ElementPropsConnectOrCreateFieldInput>
   parentElement?: Maybe<ElementParentElementConnectOrCreateFieldInput>
+  instanceOfComponent?: Maybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
   component?: Maybe<ElementComponentConnectOrCreateFieldInput>
   atom?: Maybe<ElementAtomConnectOrCreateFieldInput>
   hooks?: Maybe<Array<ElementHooksConnectOrCreateFieldInput>>
@@ -6658,6 +6704,7 @@ export type ElementCreateInput = {
   children?: Maybe<ElementChildrenFieldInput>
   props?: Maybe<ElementPropsFieldInput>
   parentElement?: Maybe<ElementParentElementFieldInput>
+  instanceOfComponent?: Maybe<ElementInstanceOfComponentFieldInput>
   component?: Maybe<ElementComponentFieldInput>
   atom?: Maybe<ElementAtomFieldInput>
   hooks?: Maybe<ElementHooksFieldInput>
@@ -6668,6 +6715,7 @@ export type ElementDeleteInput = {
   children?: Maybe<Array<ElementChildrenDeleteFieldInput>>
   props?: Maybe<ElementPropsDeleteFieldInput>
   parentElement?: Maybe<ElementParentElementDeleteFieldInput>
+  instanceOfComponent?: Maybe<ElementInstanceOfComponentDeleteFieldInput>
   component?: Maybe<ElementComponentDeleteFieldInput>
   atom?: Maybe<ElementAtomDeleteFieldInput>
   hooks?: Maybe<Array<ElementHooksDeleteFieldInput>>
@@ -6678,6 +6726,7 @@ export type ElementDisconnectInput = {
   children?: Maybe<Array<ElementChildrenDisconnectFieldInput>>
   props?: Maybe<ElementPropsDisconnectFieldInput>
   parentElement?: Maybe<ElementParentElementDisconnectFieldInput>
+  instanceOfComponent?: Maybe<ElementInstanceOfComponentDisconnectFieldInput>
   component?: Maybe<ElementComponentDisconnectFieldInput>
   atom?: Maybe<ElementAtomDisconnectFieldInput>
   hooks?: Maybe<Array<ElementHooksDisconnectFieldInput>>
@@ -6856,6 +6905,102 @@ export type ElementHooksUpdateFieldInput = {
   create?: Maybe<Array<ElementHooksCreateFieldInput>>
   delete?: Maybe<Array<ElementHooksDeleteFieldInput>>
   connectOrCreate?: Maybe<Array<ElementHooksConnectOrCreateFieldInput>>
+}
+
+export type ElementInstanceOfComponentAggregateInput = {
+  count?: Maybe<Scalars['Int']>
+  count_LT?: Maybe<Scalars['Int']>
+  count_LTE?: Maybe<Scalars['Int']>
+  count_GT?: Maybe<Scalars['Int']>
+  count_GTE?: Maybe<Scalars['Int']>
+  AND?: Maybe<Array<ElementInstanceOfComponentAggregateInput>>
+  OR?: Maybe<Array<ElementInstanceOfComponentAggregateInput>>
+  node?: Maybe<ElementInstanceOfComponentNodeAggregationWhereInput>
+}
+
+export type ElementInstanceOfComponentConnectFieldInput = {
+  where?: Maybe<ComponentConnectWhere>
+  connect?: Maybe<ComponentConnectInput>
+}
+
+export type ElementInstanceOfComponentConnectionSort = {
+  node?: Maybe<ComponentSort>
+}
+
+export type ElementInstanceOfComponentConnectionWhere = {
+  AND?: Maybe<Array<ElementInstanceOfComponentConnectionWhere>>
+  OR?: Maybe<Array<ElementInstanceOfComponentConnectionWhere>>
+  node?: Maybe<ComponentWhere>
+  node_NOT?: Maybe<ComponentWhere>
+}
+
+export type ElementInstanceOfComponentConnectOrCreateFieldInput = {
+  where: ComponentConnectOrCreateWhere
+  onCreate: ElementInstanceOfComponentConnectOrCreateFieldInputOnCreate
+}
+
+export type ElementInstanceOfComponentConnectOrCreateFieldInputOnCreate = {
+  node: ComponentCreateInput
+}
+
+export type ElementInstanceOfComponentCreateFieldInput = {
+  node: ComponentCreateInput
+}
+
+export type ElementInstanceOfComponentDeleteFieldInput = {
+  where?: Maybe<ElementInstanceOfComponentConnectionWhere>
+  delete?: Maybe<ComponentDeleteInput>
+}
+
+export type ElementInstanceOfComponentDisconnectFieldInput = {
+  where?: Maybe<ElementInstanceOfComponentConnectionWhere>
+  disconnect?: Maybe<ComponentDisconnectInput>
+}
+
+export type ElementInstanceOfComponentFieldInput = {
+  create?: Maybe<ElementInstanceOfComponentCreateFieldInput>
+  connect?: Maybe<ElementInstanceOfComponentConnectFieldInput>
+  connectOrCreate?: Maybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
+}
+
+export type ElementInstanceOfComponentNodeAggregationWhereInput = {
+  AND?: Maybe<Array<ElementInstanceOfComponentNodeAggregationWhereInput>>
+  OR?: Maybe<Array<ElementInstanceOfComponentNodeAggregationWhereInput>>
+  id_EQUAL?: Maybe<Scalars['ID']>
+  name_EQUAL?: Maybe<Scalars['String']>
+  name_AVERAGE_EQUAL?: Maybe<Scalars['Float']>
+  name_LONGEST_EQUAL?: Maybe<Scalars['Int']>
+  name_SHORTEST_EQUAL?: Maybe<Scalars['Int']>
+  name_GT?: Maybe<Scalars['Int']>
+  name_AVERAGE_GT?: Maybe<Scalars['Float']>
+  name_LONGEST_GT?: Maybe<Scalars['Int']>
+  name_SHORTEST_GT?: Maybe<Scalars['Int']>
+  name_GTE?: Maybe<Scalars['Int']>
+  name_AVERAGE_GTE?: Maybe<Scalars['Float']>
+  name_LONGEST_GTE?: Maybe<Scalars['Int']>
+  name_SHORTEST_GTE?: Maybe<Scalars['Int']>
+  name_LT?: Maybe<Scalars['Int']>
+  name_AVERAGE_LT?: Maybe<Scalars['Float']>
+  name_LONGEST_LT?: Maybe<Scalars['Int']>
+  name_SHORTEST_LT?: Maybe<Scalars['Int']>
+  name_LTE?: Maybe<Scalars['Int']>
+  name_AVERAGE_LTE?: Maybe<Scalars['Float']>
+  name_LONGEST_LTE?: Maybe<Scalars['Int']>
+  name_SHORTEST_LTE?: Maybe<Scalars['Int']>
+}
+
+export type ElementInstanceOfComponentUpdateConnectionInput = {
+  node?: Maybe<ComponentUpdateInput>
+}
+
+export type ElementInstanceOfComponentUpdateFieldInput = {
+  where?: Maybe<ElementInstanceOfComponentConnectionWhere>
+  update?: Maybe<ElementInstanceOfComponentUpdateConnectionInput>
+  connect?: Maybe<ElementInstanceOfComponentConnectFieldInput>
+  disconnect?: Maybe<ElementInstanceOfComponentDisconnectFieldInput>
+  create?: Maybe<ElementInstanceOfComponentCreateFieldInput>
+  delete?: Maybe<ElementInstanceOfComponentDeleteFieldInput>
+  connectOrCreate?: Maybe<ElementInstanceOfComponentConnectOrCreateFieldInput>
 }
 
 export type ElementOptions = {
@@ -7296,6 +7441,7 @@ export type ElementRelationInput = {
   children?: Maybe<Array<ElementChildrenCreateFieldInput>>
   props?: Maybe<ElementPropsCreateFieldInput>
   parentElement?: Maybe<ElementParentElementCreateFieldInput>
+  instanceOfComponent?: Maybe<ElementInstanceOfComponentCreateFieldInput>
   component?: Maybe<ElementComponentCreateFieldInput>
   atom?: Maybe<ElementAtomCreateFieldInput>
   hooks?: Maybe<Array<ElementHooksCreateFieldInput>>
@@ -7462,6 +7608,7 @@ export type ElementUpdateInput = {
   children?: Maybe<Array<ElementChildrenUpdateFieldInput>>
   props?: Maybe<ElementPropsUpdateFieldInput>
   parentElement?: Maybe<ElementParentElementUpdateFieldInput>
+  instanceOfComponent?: Maybe<ElementInstanceOfComponentUpdateFieldInput>
   component?: Maybe<ElementComponentUpdateFieldInput>
   atom?: Maybe<ElementAtomUpdateFieldInput>
   hooks?: Maybe<Array<ElementHooksUpdateFieldInput>>
@@ -7540,6 +7687,9 @@ export type ElementWhere = {
   parentElement?: Maybe<ElementWhere>
   parentElement_NOT?: Maybe<ElementWhere>
   parentElementAggregate?: Maybe<ElementParentElementAggregateInput>
+  instanceOfComponent?: Maybe<ComponentWhere>
+  instanceOfComponent_NOT?: Maybe<ComponentWhere>
+  instanceOfComponentAggregate?: Maybe<ElementInstanceOfComponentAggregateInput>
   component?: Maybe<ComponentWhere>
   component_NOT?: Maybe<ComponentWhere>
   componentAggregate?: Maybe<ElementComponentAggregateInput>
@@ -7558,6 +7708,8 @@ export type ElementWhere = {
   propsConnection_NOT?: Maybe<ElementPropsConnectionWhere>
   parentElementConnection?: Maybe<ElementParentElementConnectionWhere>
   parentElementConnection_NOT?: Maybe<ElementParentElementConnectionWhere>
+  instanceOfComponentConnection?: Maybe<ElementInstanceOfComponentConnectionWhere>
+  instanceOfComponentConnection_NOT?: Maybe<ElementInstanceOfComponentConnectionWhere>
   componentConnection?: Maybe<ElementComponentConnectionWhere>
   componentConnection_NOT?: Maybe<ElementComponentConnectionWhere>
   atomConnection?: Maybe<ElementAtomConnectionWhere>

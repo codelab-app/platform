@@ -34,6 +34,8 @@ export const elementResolvers: IResolvers = {
       selectionSet: elementSelectionSet,
     })
 
+    vertices.filter((x) => x.component).map((x) => x.component?.rootElement.id)
+
     return { edges, vertices, rootId }
   },
 }

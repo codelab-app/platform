@@ -6,6 +6,10 @@ export const elementSelectionSet = `{
         id
         name
     }
+    instanceOfComponent {
+        id
+        name
+    }
     parentElement {
         id
         name

@@ -1,6 +1,7 @@
 import { IElement, IElementEdge, IGraph } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { TreeService } from '../tree'
+import { getCyElementData } from '../cytoscape/element'
+import { filterPredicate, TreeService } from '../tree'
 import { isComponent, isElement } from './guards'
 
 export class ElementTree extends TreeService<IElement, IElementEdge> {
@@ -24,12 +25,19 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
     return {
       ...element,
       key: element.id,
-      name: element.name || (element as IElement)?.atom?.type,
+      name:
+        element.name ||
+        (element as IElement)?.atom?.type ||
+        (element as IElement)?.component?.name,
     }
   }
 
   getRootElement(): Maybe<IElement> {
     return this.getRootVertex(ElementTree.isElement)
+  }
+
+  getRootComponent(): Maybe<IElement> {
+    return this.getRootVertex(ElementTree.isComponent)
   }
 
   /** Returns the root element of a component */
@@ -43,7 +51,6 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
   /**
    * componentId is the root elementId of the element tree
    */
-  /* 
   getComponentById(componentId: string): Maybe<IElement> {
     return this.cy
       .nodes()
@@ -56,7 +63,6 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
   getAllComponents(): Array<IElement> {
     return this.getAllVertices(ElementTree.isComponent)
   }
- */
   // getComponentOfElement(elementId: string) {
   //   return this.cy
   //     .getElementById(elementId)
