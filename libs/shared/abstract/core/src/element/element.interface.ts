@@ -30,7 +30,7 @@ export const ElementSchema = z.object({
   renderForEachPropKey: z.string().nullish(),
   renderIfPropKey: z.string().nullish(),
   parentElement: z
-    .object({ id: z.string(), order: z.number().nullish() })
+    .object({ id: z.string(), name: z.string().nullish() })
     .nullish(),
   owner: z.object({ id: z.string() }).nullish(),
   component: z.object({ id: z.string(), name: z.string() }).nullish(), // component which has this element as rootElement

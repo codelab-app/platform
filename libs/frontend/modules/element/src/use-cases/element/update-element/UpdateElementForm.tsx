@@ -7,14 +7,10 @@ import {
 export type UpdateElementFormProps = Omit<
   UpdateElementFormInternalProps,
   'element'
-> & {
-  elementId: string
-  key: React.Key
-}
+> & { elementId: string }
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = ({
-  key,
   elementId,
   tree,
   trackPromises,
@@ -29,7 +25,7 @@ export const UpdateElementForm = ({
   return (
     <UpdateElementFormInternal
       element={element}
-      key={key}
+      key={`${elementId}-UpdateElementFormInternal`}
       model={{}}
       providePropCompletion={providePropCompletion}
       submitRef={undefined}

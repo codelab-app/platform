@@ -1,5 +1,6 @@
 import { IElement, IElementEdge, IGraph } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
+import { DataNode } from 'antd/lib/tree'
 import { getCyElementData } from '../cytoscape/element'
 import { filterPredicate, TreeService } from '../tree'
 import { isComponent, isElement } from './guards'
@@ -22,6 +23,31 @@ export class ElementTree extends TreeService<IElement, IElementEdge> {
    * Overrides the mapper for ant tree
    */
   protected antdNodeMapper(element: any) {
+    return {
+      ...element,
+      key: element.id,
+      name:
+        element.name ||
+        (element as IElement)?.atom?.type ||
+        (element as IElement)?.component?.name,
+    }
+  }
+
+  /**
+   * Overrides the add child to node for ant tree
+   */
+  protected antdChildToNode(parent: DataNode, child: DataNode) {
+    if ((child as any)?.component) {
+      return
+    }
+
+    return super.antdChildToNode(parent, child)
+  }
+
+  /**
+   * Overrides the mapper for ant tree
+   */
+  protected(element: any) {
     return {
       ...element,
       key: element.id,

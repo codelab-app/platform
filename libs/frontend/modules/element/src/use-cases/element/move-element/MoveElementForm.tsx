@@ -1,8 +1,9 @@
 import { UseCaseFormWithRef } from '@codelab/frontend/abstract/types'
 import {
-  SelectAnyElement,
   SelectElementProvider,
+  SelectExcludeDescendantsElements,
 } from '@codelab/frontend/modules/type'
+import { ElementIdProvider } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   Form,
@@ -12,7 +13,7 @@ import { ElementTree } from '@codelab/shared/core'
 import React, { useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useElementGraphContext } from '../../../providers'
-import { useUpdateElementsMutation } from '../../../store'
+import { useMoveElementsMutation } from '../../../store'
 import { moveElementSchema } from './moveElementSchema'
 import { MoveData } from './types'
 
@@ -42,7 +43,7 @@ export const MoveElementForm = ({
     order: tree.getOrderInParent(elementId),
   })
 
-  const [mutate] = useUpdateElementsMutation()
+  const [mutate] = useMoveElementsMutation()
 
   const onSubmit = (submitData: MoveData) => {
     const promise = mutate({
@@ -71,26 +72,28 @@ export const MoveElementForm = ({
     <SelectElementProvider
       tree={elementTree ?? new ElementTree({ edges: [], vertices: [] })}
     >
-      <Form<MoveData>
-        autosave
-        key={elementId}
-        model={{
-          parentElementId,
-          order,
-        }}
-        onSubmit={onSubmit}
-        onSubmitError={[
-          createNotificationHandler({
-            title: 'Error while moving element',
-          }),
-        ]}
-        onSubmitSuccess={[]}
-        schema={moveElementSchema}
-        submitRef={undefined}
-      >
-        <AutoFields omitFields={['parentElementId']} />
-        <AutoField component={SelectAnyElement} name="parentElementId" />
-      </Form>
+      <ElementIdProvider elementId={elementId}>
+        <Form<MoveData>
+          autosave
+          key={elementId}
+          model={{ parentElementId, order }}
+          onSubmit={onSubmit}
+          onSubmitError={[
+            createNotificationHandler({
+              title: 'Error while moving element',
+            }),
+          ]}
+          onSubmitSuccess={[]}
+          schema={moveElementSchema}
+          submitRef={undefined}
+        >
+          <AutoFields omitFields={['parentElementId']} />
+          <AutoField
+            component={SelectExcludeDescendantsElements}
+            name="parentElementId"
+          />
+        </Form>
+      </ElementIdProvider>
     </SelectElementProvider>
   )
 }
