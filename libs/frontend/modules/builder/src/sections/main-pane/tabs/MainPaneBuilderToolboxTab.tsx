@@ -1,16 +1,12 @@
 import { DragOutlined } from '@ant-design/icons'
-import {
-  AtomForSelectFragment,
-  ComponentForSelectFragment,
-  useGetAtomsForSelectQuery,
-  useGetComponentsForSelectQuery,
-} from '@codelab/frontend/modules/type'
-import { ConditionalView } from '@codelab/frontend/view/components'
+import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
+import { useGetComponentsQuery } from '@codelab/frontend/modules/element'
+import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { CreateElementInput } from '@codelab/shared/abstract/codegen'
+import { IAtom, IComponent } from '@codelab/shared/abstract/core'
 import { useDroppable } from '@dnd-kit/core'
 import { css } from '@emotion/react'
 import { Button } from 'antd'
-import Spin from 'antd/lib/spin'
 import React from 'react'
 import tw from 'twin.macro'
 import { BuilderDropId } from '../../../dnd/BuilderDropId'
@@ -25,7 +21,7 @@ export interface ToolboxItem {
   >
 }
 
-const atomToolboxItemFactory = (atom: AtomForSelectFragment): ToolboxItem => ({
+const atomToolboxItemFactory = (atom: IAtom): ToolboxItem => ({
   name: atom.name,
   id: atom.id,
   createElementInputFactory: () => ({
@@ -36,9 +32,7 @@ const atomToolboxItemFactory = (atom: AtomForSelectFragment): ToolboxItem => ({
   }),
 })
 
-const componentToolboxItemFactory = (
-  component: ComponentForSelectFragment,
-): ToolboxItem => {
+const componentToolboxItemFactory = (component: IComponent): ToolboxItem => {
   const { name, id } = component
 
   return {
@@ -58,27 +52,20 @@ export interface MainPaneBuilderToolboxTabProps {
 export const MainPaneBuilderToolboxTab = ({
   searchQuery,
 }: MainPaneBuilderToolboxTabProps) => {
-  const atomsResponse = useGetAtomsForSelectQuery(
-    searchQuery ? { variables: { input: { where: { searchQuery } } } } : {},
-  )
+  const { setNodeRef } = useDroppable({ id: BuilderDropId.Toolbox })
 
-  const { setNodeRef } = useDroppable({
-    id: BuilderDropId.Toolbox,
-  })
+  const search = searchQuery
+    ? { variables: { where: { name_CONTAINS: searchQuery } } }
+    : {}
 
-  const componentsResponse = useGetComponentsForSelectQuery(
-    searchQuery
-      ? {
-          variables: { input: { searchQuery } },
-        }
-      : {},
-  )
+  const atomsResponse = useGetAtomsQuery(search)
+  const atoms = atomsResponse.data?.atoms || []
+  const componentsResponse = useGetComponentsQuery(search)
+  const components = componentsResponse.data?.components || []
 
   const toolboxItems: Array<ToolboxItem> = [
-    ...(atomsResponse?.data?.getAtoms?.map(atomToolboxItemFactory) ?? []),
-    ...(componentsResponse?.data?.getComponents?.map(
-      componentToolboxItemFactory,
-    ) ?? []),
+    ...atoms.map(atomToolboxItemFactory),
+    ...components.map(componentToolboxItemFactory),
   ]
 
   return (
@@ -93,14 +80,13 @@ export const MainPaneBuilderToolboxTab = ({
       `}
       ref={setNodeRef}
     >
-      <ConditionalView
-        condition={!atomsResponse.isLoading && !componentsResponse.isLoading}
-        falseView={<Spin />}
+      <SpinnerWrapper
+        isLoading={atomsResponse.isLoading || componentsResponse.isLoading}
       >
         {toolboxItems.map((item) => (
           <ToolboxItemView key={item.id} toolboxItem={item} />
         ))}
-      </ConditionalView>
+      </SpinnerWrapper>
     </div>
   )
 }

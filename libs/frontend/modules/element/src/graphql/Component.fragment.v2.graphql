@@ -5,4 +5,8 @@ fragment Component on Component {
     id
     name
   }
+  owner {
+    id
+    auth0Id
+  }
 }
