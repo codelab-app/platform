@@ -10,10 +10,12 @@ import {
   MainPaneBuilder,
   MetaPaneBuilderComponent,
 } from '@codelab/frontend/modules/builder'
+import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
 import {
   ElementGraphProvider,
   useElementGraphContext,
 } from '@codelab/frontend/modules/element'
+import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'
 import { Empty } from 'antd'
 import Head from 'next/head'
@@ -32,7 +34,7 @@ const ComponentDetail: CodelabPage<DashboardTemplateProps> = () => {
   return (
     <>
       <Head>
-        <title>{root?.componentTag?.name} | Codelab</title>
+        <title>{root?.component?.name} | Codelab</title>
       </Head>
 
       <Builder isComponentBuilder tree={elementTree} />
@@ -46,10 +48,22 @@ const ComponentElementGraphProvider = ({
   const { query } = useRouter()
   const componentId = query.componentId as string
 
+  const { data, isLoading } = useGetComponentsQuery({
+    variables: { where: { id: componentId } },
+  })
+
+  const rootElementId = data?.components[0]?.rootElement.id
+
+  if (!rootElementId) {
+    return null
+  }
+
   return (
-    <ElementGraphProvider elementId={componentId}>
-      {children}
-    </ElementGraphProvider>
+    <SpinnerWrapper isLoading={isLoading}>
+      <ElementGraphProvider elementId={rootElementId}>
+        {children}
+      </ElementGraphProvider>
+    </SpinnerWrapper>
   )
 }
 

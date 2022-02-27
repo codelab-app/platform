@@ -1,6 +1,7 @@
 export * from './app'
 export * from './atom'
 export * from './base'
+export * from './component'
 export * from './element'
 export * from './graph'
 export * from './hook'

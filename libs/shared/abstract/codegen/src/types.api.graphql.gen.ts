@@ -492,8 +492,8 @@ export type CreateComponentInput = {
 export type CreateElementInput = {
   atomId?: InputMaybe<Scalars['String']>
   css?: InputMaybe<Scalars['String']>
-  /** Set to a elementId with component tag, which will be used as a component template for this element. isComponent and instanceOfComponentId are mutually exclusive */
-  instanceOfComponentId?: InputMaybe<Scalars['String']>
+  /** Set to a elementId with component tag, which will be used as a component template for this element. isComponent and componentId are mutually exclusive */
+  componentId?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   /** The order in parent. Leave it out to automatically set it as the last order of all the children */
   order?: InputMaybe<Scalars['Int']>
@@ -641,7 +641,7 @@ export type Element = {
   hooks: Array<Hook>
   id: Scalars['ID']
   /** Tells what type of Component this Element is using */
-  instanceOfComponent?: Maybe<ObjectRef>
+  component?: Maybe<ObjectRef>
   /** We default the Element name to the Atom type */
   name?: Maybe<Scalars['String']>
   owner?: Maybe<ObjectRef>
@@ -1490,7 +1490,7 @@ export type UpdateAtomInput = {
 export type UpdateElementData = {
   atomId?: InputMaybe<Scalars['String']>
   css?: InputMaybe<Scalars['String']>
-  instanceOfComponentId?: InputMaybe<Scalars['String']>
+  componentId?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   propTransformationJs?: InputMaybe<Scalars['String']>
   /** If set, the element will get rendered for each item in the array found in its props by the given key, if it exists */

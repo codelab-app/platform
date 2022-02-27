@@ -3,6 +3,7 @@ import { print } from 'graphql'
 import { appSchema } from './app.schema'
 import { atomSchema } from './atom.schema'
 import { commonSchema } from './common.schema'
+import { componentSchema } from './componentSchema'
 import { elementSchema } from './elementSchema'
 import { pageSchema } from './page.schema'
 import { tagSchema } from './tag.schema'
@@ -25,6 +26,8 @@ export default print(gql`
   ${tagSchema}
 
   ${elementSchema}
+
+  ${componentSchema}
 
   type Query {
     tagGraphs: TagGraph

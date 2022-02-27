@@ -1,5 +1,3 @@
-export * from './useComponentDispatch'
-export * from './useComponentState'
 export * from './useElementDispatch'
 export * from './useElementState'
 export * from './useGetElementById'

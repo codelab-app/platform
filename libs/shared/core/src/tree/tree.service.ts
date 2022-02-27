@@ -11,7 +11,7 @@ import { getCyElementData } from '../cytoscape/element'
 import { edgeId } from '../graph/edgeId'
 import { reduceToNested } from './reduce-to-nested/reduce-to-nested'
 import { filterPredicate, InstancePredicate, Predicate } from './treePredicate'
-import { AddChildToNodeFn, BfsReduceInput } from './types'
+import { BfsReduceInput } from './types'
 
 /**
  * Builds up a Tree from a flattened and normalized representation ({@link IGraph})
@@ -106,6 +106,17 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
   }
 
   /**
+   * Override to customize antd tree adding child behavior
+   */
+  protected antdChildToNode(parent: DataNode, child: DataNode): void {
+    const existingChildren = parent.children
+
+    parent.children = Array.isArray(existingChildren)
+      ? [...existingChildren, child]
+      : [child]
+  }
+
+  /**
    * Wrapper around bfs visit function
    */
   bfsVisit(visit: SearchVisitFunction, rootId?: string) {
@@ -176,16 +187,8 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
   getAntdTree(): Array<DataNode> {
     const nodeMapper = (node: TVertex) => this.antdNodeMapper(node)
 
-    const addChildToNode: AddChildToNodeFn<TVertex, TEdge, DataNode> = (
-      parent,
-      child,
-    ) => {
-      const existingChildren = parent.children
-
-      parent.children = Array.isArray(existingChildren)
-        ? [...existingChildren, child]
-        : [child]
-    }
+    const addChildToNode = (parent: DataNode, child: DataNode) =>
+      this.antdChildToNode(parent, child)
 
     const root = this.reduceToNested({
       nodeMapper,
@@ -281,8 +284,6 @@ export class TreeService<TVertex extends IVertex, TEdge extends IEdge> {
   }
 
   getDescendants(vertexId: string, predicate?: Predicate<TVertex>) {
-    console.log(this.cy.getElementById(vertexId).map(this.getCyVertexData))
-
     return this.cy
       .getElementById(vertexId)
       .descendants()

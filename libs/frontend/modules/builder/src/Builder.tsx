@@ -98,8 +98,6 @@ export const Builder = ({
   tree,
   isComponentBuilder,
 }: React.PropsWithChildren<BuilderProps>) => {
-  console.log('builder')
-
   const { selectElement, resetSelection } = useBuilderDispatch()
   const { handleMouseOver, handleMouseLeave } = useBuilderHoverHandlers(tree)
 

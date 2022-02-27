@@ -1,6 +1,8 @@
 import { IElement } from '@codelab/frontend/abstract/core'
 import { useElementIdContext } from '@codelab/frontend/presenter/container'
 import { ElementTypeKind } from '@codelab/shared/abstract/core'
+import { ElementTree } from '@codelab/shared/core'
+import { difference } from 'lodash'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
@@ -29,13 +31,19 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
   } else {
     switch (kind) {
       case ElementTypeKind.AllElements:
-        elements = tree.getAllVertices()
+        elements = tree.getAllVertices(ElementTree.isElement)
         break
       case ElementTypeKind.ChildrenOnly:
         elements = tree.getChildren(elementIdContext.elementId)
         break
       case ElementTypeKind.DescendantsOnly:
         elements = tree.getDescendants(elementIdContext.elementId)
+        break
+      case ElementTypeKind.ExcludeDescendantsElements:
+        elements = difference(
+          tree.getAllVertices(ElementTree.isElement),
+          tree.getDescendants(elementIdContext.elementId),
+        ).filter((x) => x.id !== elementIdContext.elementId) // remove the element itself
         break
       default:
         elements = []
@@ -49,6 +57,7 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
 
   return (
     <SelectField
+      disabled={elementOptions.length === 1 || !elementOptions.length}
       name={name}
       optionFilterProp="label"
       options={elementOptions}
@@ -60,6 +69,13 @@ export const SelectElement = ({ name, kind }: SelectElementProps) => {
 export const SelectChildElement = (props: Omit<SelectElementProps, 'kind'>) => (
   // eslint-disable-next-line react/jsx-props-no-spreading
   <SelectElement kind={ElementTypeKind.ChildrenOnly} {...props} />
+)
+
+export const SelectExcludeDescendantsElements = (
+  props: Omit<SelectElementProps, 'kind'>,
+) => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  <SelectElement kind={ElementTypeKind.ExcludeDescendantsElements} {...props} />
 )
 
 export const SelectDescendantElement = (
@@ -82,7 +98,9 @@ export const getSelectElementComponent = (kind: ElementTypeKind) => {
       return SelectDescendantElement
     case ElementTypeKind.ChildrenOnly:
       return SelectChildElement
+    case ElementTypeKind.ExcludeDescendantsElements:
+      return SelectExcludeDescendantsElements
+    default:
+      throw new Error(`ElementTypeKind ${kind} not recognized`)
   }
-
-  throw new Error(`ElementTypeKind ${kind} not recognized`)
 }

@@ -2,7 +2,7 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { Form, FormModal } from '@codelab/frontend/view/components'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
-import { useComponentState } from '../../../hooks'
+import { useComponentState } from '../../hooks'
 import { createComponentSchema } from './createComponentSchema'
 import { CreateComponentInput } from './types'
 import { useCreateComponentForm } from './useCreateComponentForm'
@@ -15,9 +15,7 @@ export const CreateComponentModal = () => {
 
   return (
     <FormModal
-      okButtonProps={{
-        loading: isLoading,
-      }}
+      okButtonProps={{ loading: isLoading }}
       okText="Create"
       onCancel={() => reset()}
       title={<span css={tw`font-semibold`}>Create component</span>}

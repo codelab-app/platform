@@ -67,7 +67,7 @@ export const UpdatePagesGql = gql`
 `
 export const GetPagesGql = gql`
   query GetPages($options: PageOptions, $where: PageWhere) {
-    pages: pages(options: $options, where: $where) {
+    pages(options: $options, where: $where) {
       ...Page
     }
   }

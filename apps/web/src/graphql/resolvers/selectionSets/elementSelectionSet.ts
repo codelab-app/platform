@@ -2,8 +2,13 @@ export const elementSelectionSet = `{
     id
     name
     css
+    component {
+        id
+        name
+    }
     instanceOfComponent {
         id
+        name
     }
     parentElement {
         id
@@ -17,10 +22,6 @@ export const elementSelectionSet = `{
             id
             name
         }
-    }
-    componentTag {
-        id
-        name
     }
     props {
         id

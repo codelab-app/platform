@@ -11,32 +11,13 @@ export type ElementFragment = {
   renderForEachPropKey?: string | null | undefined
   renderIfPropKey?: string | null | undefined
   propTransformationJs?: string | null | undefined
-  instanceOfComponent?: { id: string } | null | undefined
+  component?: { id: string; name: string } | null | undefined
+  instanceOfComponent?: { id: string; name: string } | null | undefined
   parentElement?:
     | { id: string; name?: string | null | undefined }
     | null
     | undefined
   atom?: AtomFragment | null | undefined
-  componentTag?:
-    | {
-        id: string
-        name: string
-        isRoot?: boolean | null | undefined
-        children?:
-          | Array<{
-              id: string
-              name: string
-              isRoot?: boolean | null | undefined
-            }>
-          | null
-          | undefined
-        parent?:
-          | { id: string; name: string; isRoot?: boolean | null | undefined }
-          | null
-          | undefined
-      }
-    | null
-    | undefined
   props?: PropFragment | null | undefined
   hooks?: Array<HookFragment> | null | undefined
   propMapBindings?: Array<PropMapBindingFragment> | null | undefined
@@ -128,8 +109,13 @@ export const ElementFragmentDoc = gql`
     id
     name
     css
+    component {
+      id
+      name
+    }
     instanceOfComponent {
       id
+      name
     }
     parentElement {
       id
@@ -137,21 +123,6 @@ export const ElementFragmentDoc = gql`
     }
     atom {
       ...Atom
-    }
-    componentTag {
-      id
-      name
-      isRoot
-      children {
-        id
-        name
-        isRoot
-      }
-      parent {
-        id
-        name
-        isRoot
-      }
     }
     props {
       ...Prop

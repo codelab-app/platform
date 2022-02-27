@@ -6,16 +6,16 @@ import {
   Form,
   UseTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
-import { UpdateElementData } from '@codelab/shared/abstract/codegen'
 import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import { useRef, useState } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useUpdateElementsMutation } from '../../../store'
+import { UpdateElementInput } from './types'
 import { updateElementSchema } from './updateElementSchema'
 
 export type UpdateElementFormInternalProps = Omit<
-  UseCaseFormWithRef<UpdateElementData>,
+  UseCaseFormWithRef<UpdateElementInput>,
   'onSubmit'
 > & {
   tree: ElementTree
@@ -44,8 +44,7 @@ export const UpdateElementFormInternal = ({
     renderIfPropKey,
     name,
     instanceOfComponentId,
-    propTransformationJs,
-  }: UpdateElementData) => {
+  }: UpdateElementInput) => {
     const atom = atomId
       ? { connect: { where: { node: { id: atomId } } } }
       : { disconnect: { where: {} } }
@@ -60,7 +59,6 @@ export const UpdateElementFormInternal = ({
         update: {
           name,
           atom,
-          propTransformationJs,
           renderForEachPropKey,
           instanceOfComponent,
           renderIfPropKey,
@@ -88,7 +86,7 @@ export const UpdateElementFormInternal = ({
 
   return (
     <div>
-      <Form<UpdateElementData>
+      <Form<UpdateElementInput>
         autosave
         key={element.id}
         model={{
@@ -96,8 +94,6 @@ export const UpdateElementFormInternal = ({
           name: element.name,
           renderForEachPropKey: element.renderForEachPropKey,
           renderIfPropKey: element.renderIfPropKey,
-          propTransformationJs: element.propTransformationJs,
-          css: element.css,
         }}
         onSubmit={onSubmit}
         onSubmitError={[

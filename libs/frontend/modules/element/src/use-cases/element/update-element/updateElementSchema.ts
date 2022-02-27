@@ -1,7 +1,7 @@
-import { UpdateElementData } from '@codelab/shared/abstract/codegen'
 import { JSONSchemaType } from 'ajv'
+import { UpdateElementInput } from './types'
 
-export const updateElementSchema: JSONSchemaType<UpdateElementData> = {
+export const updateElementSchema: JSONSchemaType<UpdateElementInput> = {
   title: 'Update Element Input',
   type: 'object',
   properties: {
@@ -29,15 +29,6 @@ export const updateElementSchema: JSONSchemaType<UpdateElementData> = {
       type: 'string',
       nullable: true,
       label: 'Component',
-    },
-    // css property is handled by the CSS tab
-    css: {
-      type: 'string',
-      nullable: true,
-    },
-    propTransformationJs: {
-      type: 'string',
-      nullable: true,
     },
   },
   required: [],

@@ -3,8 +3,13 @@ fragment Element on Element {
   id
   name
   css
+  component {
+    id
+    name
+  }
   instanceOfComponent {
     id
+    name
   }
   parentElement {
     id
@@ -12,21 +17,6 @@ fragment Element on Element {
   }
   atom {
     ...Atom
-  }
-  componentTag {
-    id
-    name
-    isRoot
-    children {
-      id
-      name
-      isRoot
-    }
-    parent {
-      id
-      name
-      isRoot
-    }
   }
   props {
     ...Prop

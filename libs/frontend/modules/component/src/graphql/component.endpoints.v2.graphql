@@ -1,0 +1,32 @@
+mutation CreateComponents($input: [ComponentCreateInput!]!) {
+  createComponents(input: $input) {
+    components {
+      ...Component
+    }
+  }
+}
+
+mutation DeleteComponents(
+  $where: ComponentWhere
+  $delete: ComponentDeleteInput
+) {
+  deleteComponents(where: $where, delete: $delete) {
+    nodesDeleted
+  }
+}
+mutation UpdateComponents(
+  $where: ComponentWhere
+  $update: ComponentUpdateInput
+) {
+  updateComponents(where: $where, update: $update) {
+    components {
+      ...Component
+    }
+  }
+}
+
+query GetComponents($options: ComponentOptions, $where: ComponentWhere) {
+  components(options: $options, where: $where) {
+    ...Component
+  }
+}

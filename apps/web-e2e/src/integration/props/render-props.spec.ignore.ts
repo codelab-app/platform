@@ -1,3 +1,4 @@
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { CreateResponse, Element } from '@codelab/shared/abstract/codegen'
 import { AtomType, BaseTypeKind, TypeKind } from '@codelab/shared/abstract/core'
 
@@ -168,7 +169,7 @@ describe('render props', () => {
 
     it('bind  render props prop correctly', () => {
       // Go to List component
-      cy.findByText('Root element').click()
+      cy.findByText(ROOT_ELEMENT_NAME).click()
 
       // For some reason it gets an element right before re-rendering and then causes an error for it being detached
       // eslint-disable-next-line cypress/no-unnecessary-waiting

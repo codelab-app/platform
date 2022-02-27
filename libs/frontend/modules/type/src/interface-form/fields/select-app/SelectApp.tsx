@@ -1,5 +1,4 @@
 import { useGetAppsQuery } from '@codelab/frontend/modules/app'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
@@ -7,8 +6,7 @@ import { SelectField, SelectFieldProps } from 'uniforms-antd'
 export type SelectAppProps = HTMLFieldProps<string, SelectFieldProps>
 
 export const SelectApp = ({ name }: SelectAppProps) => {
-  const router = useRouter()
-  const { data, isLoading } = useGetAppsQuery({})
+  const { data, isLoading } = useGetAppsQuery()
 
   const appOptions =
     data?.apps.map((app) => ({

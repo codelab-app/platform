@@ -114,7 +114,6 @@ export const onMove =
   (updated: Array<ElementFragment>): Recipe<NormalizedGetElementsGraphQuery> =>
   (draft) => {
     const updatedIds = updated.map((x) => x.id)
-    draft.vertices = merge(draft.vertices, normalizeVertices(updated))
     draft.edges = removeEdgesFromParent(draft.edges, updatedIds).concat(
       createEdges(updated),
     )

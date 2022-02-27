@@ -6,7 +6,6 @@ import {
   SelectElementProvider,
 } from '@codelab/frontend/modules/type'
 import { Form, FormModal } from '@codelab/frontend/view/components'
-import { CreateElementInput } from '@codelab/shared/abstract/codegen'
 import { ElementTree } from '@codelab/shared/core'
 import React from 'react'
 import tw from 'twin.macro'
@@ -14,6 +13,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { useElementDispatch } from '../../../hooks'
 import { useElementGraphContext } from '../../../providers'
 import { createElementSchema } from './createElementSchema'
+import { CreateElementInput } from './types'
 import { useCreateElementForm } from './useCreateElementForm'
 
 /**

@@ -3,7 +3,6 @@ import { useUserState } from '@codelab/frontend/modules/user'
 import { Form, FormModal } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useAppState } from '../../hooks'
 import { createAppSchema } from './createAppSchema'
 import { CreateAppInput } from './types'
 import { useCreateAppForm } from './useCreateAppForm'
@@ -29,9 +28,7 @@ export const CreateAppModal = () => {
     >
       {({ submitRef }) => (
         <Form<CreateAppInput>
-          model={{
-            owner: user.auth0Id,
-          }}
+          model={{ owner: user.auth0Id }}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}
           onSubmitSuccess={onSubmitSuccess}

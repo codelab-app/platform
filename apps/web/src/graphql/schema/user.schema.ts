@@ -6,6 +6,7 @@ export const userSchema = gql`
     auth0Id: String!
     email: String!
     apps: [App] @relationship(type: "OWNED_BY", direction: IN)
+    components: [Component] @relationship(type: "OWNED_BY", direction: IN)
   }
 
   extend type User

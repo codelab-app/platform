@@ -1,3 +1,5 @@
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+
 /**
  * We first build a page using the web builder, then we copy the data for the renderer.
  */
@@ -21,7 +23,7 @@ export const demoGraphData = {
       atom: null,
       css: null,
       id: '0x249f2',
-      name: 'Root element',
+      name: ROOT_ELEMENT_NAME,
       props: '{}',
       hooks: [],
       propMapBindings: [],

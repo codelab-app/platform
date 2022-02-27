@@ -1,0 +1,12 @@
+fragment Component on Component {
+  id
+  name
+  rootElement {
+    id
+    name
+  }
+  owner {
+    id
+    auth0Id
+  }
+}

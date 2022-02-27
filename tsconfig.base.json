@@ -45,6 +45,9 @@
       "@codelab/frontend/modules/builder": [
         "libs/frontend/modules/builder/src/index.ts"
       ],
+      "@codelab/frontend/modules/component": [
+        "libs/frontend/modules/component/src/index.ts"
+      ],
       "@codelab/frontend/modules/element": [
         "libs/frontend/modules/element/src/index.ts"
       ],
