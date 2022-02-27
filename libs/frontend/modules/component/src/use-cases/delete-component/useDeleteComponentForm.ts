@@ -3,8 +3,8 @@ import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { IComponent } from '@codelab/shared/abstract/core'
 import { useCallback } from 'react'
-import { useComponentDispatch, useComponentState } from '../../../hooks'
-import { useDeleteComponentsMutation } from '../../../store'
+import { useComponentDispatch, useComponentState } from '../../hooks'
+import { useDeleteComponentsMutation } from '../../store'
 import { DeleteComponentInput } from './types'
 
 export const useDeleteComponentForm: UseEntityUseCaseForm<

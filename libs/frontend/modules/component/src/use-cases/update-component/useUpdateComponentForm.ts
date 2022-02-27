@@ -2,8 +2,8 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useComponentDispatch, useComponentState } from '../../../hooks'
-import { useUpdateComponentsMutation } from '../../../store'
+import { useComponentDispatch, useComponentState } from '../../hooks'
+import { useUpdateComponentsMutation } from '../../store'
 import { UpdateComponentInput } from './types'
 
 export const useUpdateComponentForm: UseUseCaseForm<

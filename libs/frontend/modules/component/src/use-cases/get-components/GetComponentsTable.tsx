@@ -1,6 +1,6 @@
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { Table } from 'antd'
-import { useGetComponentsQuery } from '../../../store'
+import { useGetComponentsQuery } from '../../store'
 import { getComponentsTableColumns } from './columns'
 
 export const GetComponentsTable = () => {

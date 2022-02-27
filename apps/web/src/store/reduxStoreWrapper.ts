@@ -5,6 +5,8 @@ import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
   componentEndpoints,
   componentSlice,
+} from '@codelab/frontend/modules/component'
+import {
   elementEndpoints,
   elementSlice,
   hookEndpoints,

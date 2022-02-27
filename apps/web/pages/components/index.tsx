@@ -12,7 +12,7 @@ import {
   GetComponentsTable,
   UpdateComponentModal,
   useComponentDispatch,
-} from '@codelab/frontend/modules/element'
+} from '@codelab/frontend/modules/component'
 import { userSlice } from '@codelab/frontend/modules/user'
 // import { UpdateTagModal } from '@codelab/frontend/modules/tag'
 import { ContentSection } from '@codelab/frontend/view/sections'

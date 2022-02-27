@@ -7,8 +7,8 @@ import { useUserState } from '@codelab/frontend/modules/user'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { useCallback } from 'react'
-import { useComponentDispatch, useComponentState } from '../../../hooks'
-import { useCreateComponentsMutation } from '../../../store'
+import { useComponentDispatch, useComponentState } from '../../hooks'
+import { useCreateComponentsMutation } from '../../store'
 import { CreateComponentInput } from './types'
 
 const mapVariables = (

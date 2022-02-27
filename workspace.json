@@ -10,6 +10,7 @@
     "frontend-modules-app": "libs/frontend/modules/app",
     "frontend-modules-atom": "libs/frontend/modules/atom",
     "frontend-modules-builder": "libs/frontend/modules/builder",
+    "frontend-modules-component": "libs/frontend/modules/component",
     "frontend-modules-element": "libs/frontend/modules/element",
     "frontend-modules-lambda": "libs/frontend/modules/lambda",
     "frontend-modules-page": "libs/frontend/modules/page",

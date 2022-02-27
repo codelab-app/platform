@@ -10,10 +10,10 @@ import {
   MainPaneBuilder,
   MetaPaneBuilderComponent,
 } from '@codelab/frontend/modules/builder'
+import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
 import {
   ElementGraphProvider,
   useElementGraphContext,
-  useGetComponentsQuery,
 } from '@codelab/frontend/modules/element'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { ElementTree } from '@codelab/shared/core'

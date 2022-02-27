@@ -1,6 +1,6 @@
 import { DragOutlined } from '@ant-design/icons'
 import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
-import { useGetComponentsQuery } from '@codelab/frontend/modules/element'
+import { useGetComponentsQuery } from '@codelab/frontend/modules/component'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { CreateElementInput } from '@codelab/shared/abstract/codegen'
 import { IAtom, IComponent } from '@codelab/shared/abstract/core'

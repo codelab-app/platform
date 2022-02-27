@@ -8,7 +8,7 @@ import {
 import { IComponent } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { useRouter } from 'next/router'
-import { useComponentDispatch } from '../../../../hooks'
+import { useComponentDispatch } from '../../../hooks'
 
 export type ActionColumnProps = {
   component: IComponent

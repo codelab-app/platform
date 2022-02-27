@@ -3,7 +3,7 @@ import {
   invalidatesAll,
   providesAll,
 } from '@codelab/frontend/model/infra/redux'
-import { api as generatedApi } from '../../graphql/component.endpoints.v2.graphql.gen'
+import { api as generatedApi } from '../graphql/component.endpoints.v2.graphql.gen'
 
 generatedApi.enhanceEndpoints({
   endpoints: {
