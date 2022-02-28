@@ -48,19 +48,11 @@
         "dev": {
           "commands": [
             {
-              "command": "yarn cli dgraph update-schema --env test && yarn cli dgraph reset-data --env test",
-              "forwardAllArgs": false
-            },
-            {
-              "command": "nx serve api",
-              "forwardAllArgs": false
-            },
-            {
               "command": "nx serve web --configuration test",
               "forwardAllArgs": false
             },
             {
-              "command": "npx wait-on 'http://127.0.0.1:3001' 'http://127.0.0.1:3334' && echo 'READY'"
+              "command": "npx wait-on 'http://127.0.0.1:3001' && echo 'READY'"
             }
           ]
         },
