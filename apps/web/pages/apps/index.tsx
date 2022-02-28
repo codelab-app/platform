@@ -1,16 +1,12 @@
 import { EllipsisOutlined } from '@ant-design/icons'
-import {
-  getAccessToken,
-  getSession,
-  withPageAuthRequired,
-} from '@auth0/nextjs-auth0'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { API_ENV, getGraphQLClient } from '@codelab/frontend/model/infra/redux'
+import { setClientAuthHeaders } from '@codelab/frontend/model/infra/graphql'
+import { initializeStore, useStore } from '@codelab/frontend/model/infra/mobx'
 import {
-  appEndpoints,
   CreateAppButton,
   CreateAppModal,
   DeleteAppModal,
@@ -18,18 +14,18 @@ import {
   ImportAppButton,
   UpdateAppModal,
 } from '@codelab/frontend/modules/app'
-import { SignOutUserButton, userSlice } from '@codelab/frontend/modules/user'
+import { SignOutUserButton } from '@codelab/frontend/modules/user'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { Button, Dropdown, Menu, PageHeader } from 'antd'
-import { useUserState } from 'libs/frontend/modules/user/src/hooks'
+import { observer } from 'mobx-react-lite'
+import { getSnapshot } from 'mobx-state-tree'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
-import { reduxStoreWrapper } from '../../src/store/reduxStoreWrapper'
 
 const menu = (
   <Menu>
@@ -42,9 +38,11 @@ const menu = (
   </Menu>
 )
 
-const AppsPageHeader = () => {
+const AppsPageHeader = observer(() => {
+  const store = useStore()
+
   const pageHeaderButtons = [
-    <CreateAppButton key={0} />,
+    <CreateAppButton apps={store.apps} key={0} />,
     <Dropdown key={1} overlay={menu} trigger={['click']}>
       <Button icon={<EllipsisOutlined />} />
     </Dropdown>,
@@ -58,10 +56,10 @@ const AppsPageHeader = () => {
       title="Apps"
     />
   )
-}
+})
 
-const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
-  const user = useUserState()
+const AppsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+  const store = useStore()
 
   return (
     <>
@@ -69,44 +67,33 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = () => {
         <title>Apps | Codelab</title>
       </Head>
 
-      <CreateAppModal />
-      <UpdateAppModal />
-      <DeleteAppModal />
+      <CreateAppModal apps={store.apps} />
+      <UpdateAppModal apps={store.apps} />
+      <DeleteAppModal apps={store.apps} />
       {/* <ImportAppModal /> */}
 
       <ContentSection>
-        <GetAppsList />
+        <GetAppsList apps={store.apps} />
       </ContentSection>
     </>
   )
-}
+})
 
 export default AppsPage
 
 // https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr
 export const getServerSideProps = withPageAuthRequired({
-  getServerSideProps: reduxStoreWrapper.getServerSideProps(
-    (store) =>
-      async ({ req, res }: GetServerSidePropsContext) => {
-        const session = await getSession(req, res)
+  getServerSideProps: async (context: GetServerSidePropsContext) => {
+    await setClientAuthHeaders(context)
 
-        getGraphQLClient().setHeaders({
-          cookie: `${req.headers.cookie}`,
-        })
+    const store = initializeStore()
 
-        store.dispatch(appEndpoints.endpoints.GetApps.initiate())
-        store.dispatch(userSlice.actions.setAuthenticatedUser(session?.user))
+    await store.apps.getAll()
 
-        await Promise.all(
-          appEndpoints.util.getRunningOperationPromises(),
-          // userEndpoints.util.getRunningOperationPromises(),
-        )
-
-        return {
-          props: {},
-        }
-      },
-  ),
+    return {
+      props: { initialState: getSnapshot(store) },
+    }
+  },
 })
 
 AppsPage.Layout = (page) => {

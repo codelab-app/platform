@@ -1,7 +1,9 @@
 overwrite: true
 hooks:
   afterAllFileWrite:
+    - yarn lint --fix
     - yarn prettier --write
+
 # If you're in the bind of not being able to run the app because of a codegen error
 # but you can't run codegen because you can't run the app - uncomment this, run codegen and comment it back
 # schema: schema.api.v2.graphql
@@ -30,35 +32,36 @@ generates:
       namingConvention:
         enumValues: keep
 
-  libs/shared/abstract/codegen-v2/src/operations.api.v2.graphql.gen.ts:
+  ./libs/:
     documents:
-      - '**/*.{endpoints,fragment}.v2.graphql'
-    #    preset: near-operation-file
+      - '**/*.{endpoints,fragment}.v2.1.graphql'
+    preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
-      baseTypesPath: ./types.api.v2.graphql.gen
-    #      baseTypesPath: ~@codelab/shared/abstract/codegen-v2
+      baseTypesPath: ~@codelab/shared/abstract/codegen-v2
     plugins:
       - typescript-operations
       - typescript-graphql-request
-      # rqk-query generates string gql only, which prevents fragments from getting resolved
-      # this custom packages wraps the generated query with gql
-      # gql`
-      #  mutation query {
-      #    ...App
-      #   }
-      #`
-    #      - dist/libs/tools/rtk-query:
-    #          importBaseApiFrom: '@codelab/frontend/model/infra/redux'
-    #          exportHooks: true
-    #          extraOptions:
-    #            context:
-    #              env: 'v2'
 
+  ./libs/frontend/:
+    documents:
+      - '**/*.{endpoints,fragment}.v2.graphql'
+    preset: near-operation-file
+    presetConfig:
+      extension: .graphql.gen.ts
+      baseTypesPath: ~@codelab/shared/abstract/codegen-v2
+    plugins:
+      - typescript-operations
+      - dist/libs/tools/rtk-query:
+          importBaseApiFrom: '@codelab/frontend/model/infra/redux'
+          exportHooks: true
+          extraOptions:
+            context:
+              env: 'v2'
     config:
       inlineFragmentTypes: combine
       documentVariableSuffix: Gql
-      gqlImport: '@apollo/client#gql'
+      gqlImport: 'graphql-request#gql'
       skipTypename: true
       strictScalars: true
       defaultScalarType: unknown

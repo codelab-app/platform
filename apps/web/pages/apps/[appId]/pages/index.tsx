@@ -3,26 +3,29 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { AppProvider, useAppState } from '@codelab/frontend/modules/app'
+import { useStore } from '@codelab/frontend/model/infra/mobx'
+import { useCurrentApp } from '@codelab/frontend/modules/app'
 import { PageMainPane } from '@codelab/frontend/modules/page'
 import {
   DashboardTemplate,
   SidebarNavigation,
 } from '@codelab/frontend/view/templates'
+import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const Pages: CodelabPage<DashboardTemplateProps> = () => {
-  const { currentApp } = useAppState()
+const Pages: CodelabPage<DashboardTemplateProps> = observer(() => {
+  const store = useStore()
+  const { app } = useCurrentApp(store.apps)
 
   return (
     <>
       <Head>
-        <title>Pages | {currentApp?.name} | Codelab</title>
+        <title>Pages | {app?.name} | Codelab</title>
       </Head>
     </>
   )
-}
+})
 
 export default Pages
 
@@ -30,13 +33,11 @@ export const getServerSideProps = withPageAuthRequired()
 
 Pages.Layout = (page) => {
   return (
-    <AppProvider>
-      <DashboardTemplate
-        MainPane={PageMainPane}
-        SidebarNavigation={SidebarNavigation}
-      >
-        {page.children}
-      </DashboardTemplate>
-    </AppProvider>
+    <DashboardTemplate
+      MainPane={PageMainPane}
+      SidebarNavigation={SidebarNavigation}
+    >
+      {page.children}
+    </DashboardTemplate>
   )
 }

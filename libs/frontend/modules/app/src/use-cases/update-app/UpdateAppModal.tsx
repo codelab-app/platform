@@ -1,43 +1,50 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { useAppState } from '../../hooks'
-import { CreateAppInput } from '../create-app'
-import { UpdateAppInput } from './types'
-import { updateAppSchema } from './updateAppSchema'
-import { useUpdateAppForm } from './useUpdateAppForm'
+import { AppStore } from '../../store'
+import { UpdateAppInput, updateAppSchema } from './updateAppSchema'
 
-export const UpdateAppModal = () => {
-  const {
-    onSubmit,
-    onSubmitSuccess,
-    actionType,
-    model,
-    onSubmitError,
-    isLoading,
-    reset,
-  } = useUpdateAppForm()
+export interface UpdateAppModalProps {
+  apps: AppStore
+}
+
+export const UpdateAppModal = observer(({ apps }: UpdateAppModalProps) => {
+  const app = apps.updateModal.app
+
+  const onSubmit = (input: UpdateAppInput) => {
+    const promise = app?.update(input) ?? Promise.reject()
+    closeModal()
+
+    return promise
+  }
+
+  const onSubmitError = createNotificationHandler({
+    title: 'Error while updating app',
+  })
+
+  const closeModal = () => apps.updateModal.close()
+
+  const model = {
+    name: app?.name,
+  }
 
   return (
-    <FormModal
-      okButtonProps={{ loading: isLoading }}
+    <ModalForm.Modal
       okText="Update App"
-      onCancel={() => reset()}
-      visible={actionType === CRUDActionType.Update}
+      onCancel={closeModal}
+      visible={apps.updateModal.isOpen}
     >
-      {({ submitRef }) => (
-        <Form<UpdateAppInput>
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={onSubmitError}
-          onSubmitSuccess={onSubmitSuccess}
-          schema={updateAppSchema}
-          submitRef={submitRef}
-        >
-          <AutoFields />
-        </Form>
-      )}
-    </FormModal>
+      <ModalForm.Form
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={onSubmitError}
+        onSubmitSuccess={closeModal}
+        schema={updateAppSchema}
+      >
+        <AutoFields />
+      </ModalForm.Form>
+    </ModalForm.Modal>
   )
-}
+})

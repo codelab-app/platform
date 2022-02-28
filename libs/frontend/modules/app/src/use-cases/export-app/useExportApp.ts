@@ -2,7 +2,7 @@ import { notify } from '@codelab/frontend/shared/utils'
 import fileDownload from 'js-file-download'
 import { useCallback, useEffect, useState } from 'react'
 import sanitizeFilename from 'sanitize-filename'
-import { AppFragment } from '../../graphql/App.fragment.graphql.gen'
+import { AppFragment } from '../../graphql/App.fragment.v2.graphql.gen'
 
 export const useExportApp = (app: AppFragment) => {
   const [hasExported, setHasExported] = useState(false)

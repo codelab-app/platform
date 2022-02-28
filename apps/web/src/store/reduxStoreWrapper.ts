@@ -1,5 +1,4 @@
 import { adminEndpoints, adminSlice } from '@codelab/frontend/modules/admin'
-import { appEndpoints, appSlice } from '@codelab/frontend/modules/app'
 import { atomEndpoints, atomSlice } from '@codelab/frontend/modules/atom'
 import { builderSlice } from '@codelab/frontend/modules/builder'
 import {
@@ -32,7 +31,6 @@ export const makeStore = () => {
   return configureStore({
     reducer: combineReducers({
       // APIs:
-      [appEndpoints.reducerPath]: appEndpoints.reducer,
       [adminEndpoints.reducerPath]: adminEndpoints.reducer,
       [pageEndpoints.reducerPath]: pageEndpoints.reducer,
       [elementEndpoints.reducerPath]: elementEndpoints.reducer,
@@ -48,7 +46,6 @@ export const makeStore = () => {
       [componentEndpoints.reducerPath]: componentEndpoints.reducer,
 
       // Slices:
-      [appSlice.name]: appSlice.reducer,
       [adminSlice.name]: adminSlice.reducer,
       [atomSlice.name]: atomSlice.reducer,
       [elementSlice.name]: elementSlice.reducer,
@@ -66,7 +63,6 @@ export const makeStore = () => {
     }),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
-        appEndpoints.middleware,
         adminEndpoints.middleware,
         pageEndpoints.middleware,
         elementEndpoints.middleware,
@@ -92,5 +88,7 @@ export const reduxStoreWrapper = createWrapper<RootStore>(makeStore, {
   // Solve the issue where values in Next.js SSR can't be undefined
   // https://github.com/vercel/next.js/discussions/11209#discussioncomment-1779113
   serializeState: (state) => JSON.stringify(state),
-  deserializeState: (state) => JSON.parse(state),
+  deserializeState: (state) => {
+    return typeof state === 'string' ? JSON.parse(state) : state
+  },
 })

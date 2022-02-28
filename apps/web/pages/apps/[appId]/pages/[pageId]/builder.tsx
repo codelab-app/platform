@@ -1,7 +1,6 @@
 import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
 import { getGraphQLClient } from '@codelab/frontend/model/infra/redux'
-import { AppProvider } from '@codelab/frontend/modules/app'
 import {
   Builder,
   BuilderContext,
@@ -63,19 +62,17 @@ export const getServerSideProps = withPageAuthRequired({
 PageBuilder.Layout = (page) => {
   return (
     <BuilderContext>
-      <AppProvider>
-        <PageProvider>
-          <BuilderDashboardTemplate
-            Header={PageDetailHeader}
-            MainPane={MainPaneBuilder}
-            MetaPane={MetaPaneBuilderPage}
-            SidebarNavigation={BuilderSidebarNavigation}
-            headerHeight={38}
-          >
-            {page.children}
-          </BuilderDashboardTemplate>
-        </PageProvider>
-      </AppProvider>
+      <PageProvider>
+        <BuilderDashboardTemplate
+          Header={PageDetailHeader}
+          MainPane={MainPaneBuilder}
+          MetaPane={MetaPaneBuilderPage}
+          SidebarNavigation={BuilderSidebarNavigation}
+          headerHeight={38}
+        >
+          {page.children}
+        </BuilderDashboardTemplate>
+      </PageProvider>
     </BuilderContext>
   )
 }

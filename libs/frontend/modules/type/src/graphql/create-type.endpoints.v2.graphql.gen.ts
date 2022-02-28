@@ -1,359 +1,244 @@
-import * as Types from '@codelab/shared/abstract/codegen-v2'
+import * as Types from '@codelab/shared/abstract/codegen-v2';
 
-import { PrimitiveTypeFragment } from './fragments/PrimitiveType.fragment.v2.graphql.gen'
-import { ArrayTypeFragment } from './fragments/ArrayType.fragment.v2.graphql.gen'
-import {
-  UnionTypeFragment,
-  UnionTypeWithInnerTypesFragment,
-} from './fragments/UnionType.fragment.v2.graphql.gen'
-import {
-  InterfaceTypeFragment,
-  InterfaceTypeWithFieldsFragment,
-} from './fragments/Interface.fragment.v2.graphql.gen'
-import { ElementTypeFragment } from './fragments/ElementType.fragment.v2.graphql.gen'
-import { RenderPropsTypeFragment } from './fragments/RenderProps.fragment.v2.graphql.gen'
-import { EnumTypeFragment } from './fragments/EnumType.fragment.v2.graphql.gen'
-import { LambdaTypeFragment } from './fragments/LambdaType.fragment.v2.graphql.gen'
-import { PageTypeFragment } from './fragments/PageType.fragment.v2.graphql.gen'
-import { AppTypeFragment } from './fragments/AppType.fragment.v2.graphql.gen'
-import { MonacoTypeFragment } from './fragments/MonacoType.fragment.v2.graphql.gen'
-import { gql } from '@apollo/client'
-import { PrimitiveTypeFragmentDoc } from './fragments/PrimitiveType.fragment.v2.graphql.gen'
-import { ArrayTypeFragmentDoc } from './fragments/ArrayType.fragment.v2.graphql.gen'
-import {
-  UnionTypeFragmentDoc,
-  UnionTypeWithInnerTypesFragmentDoc,
-} from './fragments/UnionType.fragment.v2.graphql.gen'
-import {
-  InterfaceTypeFragmentDoc,
-  InterfaceTypeWithFieldsFragmentDoc,
-} from './fragments/Interface.fragment.v2.graphql.gen'
-import { ElementTypeFragmentDoc } from './fragments/ElementType.fragment.v2.graphql.gen'
-import { RenderPropsTypeFragmentDoc } from './fragments/RenderProps.fragment.v2.graphql.gen'
-import { EnumTypeFragmentDoc } from './fragments/EnumType.fragment.v2.graphql.gen'
-import { LambdaTypeFragmentDoc } from './fragments/LambdaType.fragment.v2.graphql.gen'
-import { PageTypeFragmentDoc } from './fragments/PageType.fragment.v2.graphql.gen'
-import { AppTypeFragmentDoc } from './fragments/AppType.fragment.v2.graphql.gen'
-import { MonacoTypeFragmentDoc } from './fragments/MonacoType.fragment.v2.graphql.gen'
-import {
-  api,
-  GraphqlOperationOptions,
-} from '@codelab/frontend/model/infra/redux'
+import { PrimitiveTypeFragment } from './fragments/PrimitiveType.fragment.v2.graphql.gen';
+import { ArrayTypeFragment } from './fragments/ArrayType.fragment.v2.graphql.gen';
+import { UnionTypeFragment, UnionTypeWithInnerTypesFragment } from './fragments/UnionType.fragment.v2.graphql.gen';
+import { InterfaceTypeFragment, InterfaceTypeWithFieldsFragment } from './fragments/Interface.fragment.v2.graphql.gen';
+import { ElementTypeFragment } from './fragments/ElementType.fragment.v2.graphql.gen';
+import { RenderPropsTypeFragment } from './fragments/RenderProps.fragment.v2.graphql.gen';
+import { EnumTypeFragment } from './fragments/EnumType.fragment.v2.graphql.gen';
+import { LambdaTypeFragment } from './fragments/LambdaType.fragment.v2.graphql.gen';
+import { PageTypeFragment } from './fragments/PageType.fragment.v2.graphql.gen';
+import { AppTypeFragment } from './fragments/AppType.fragment.v2.graphql.gen';
+import { MonacoTypeFragment } from './fragments/MonacoType.fragment.v2.graphql.gen';
+import { gql } from 'graphql-request';
+import { PrimitiveTypeFragmentDoc } from './fragments/PrimitiveType.fragment.v2.graphql.gen';
+import { ArrayTypeFragmentDoc } from './fragments/ArrayType.fragment.v2.graphql.gen';
+import { UnionTypeFragmentDoc, UnionTypeWithInnerTypesFragmentDoc } from './fragments/UnionType.fragment.v2.graphql.gen';
+import { InterfaceTypeFragmentDoc, InterfaceTypeWithFieldsFragmentDoc } from './fragments/Interface.fragment.v2.graphql.gen';
+import { ElementTypeFragmentDoc } from './fragments/ElementType.fragment.v2.graphql.gen';
+import { RenderPropsTypeFragmentDoc } from './fragments/RenderProps.fragment.v2.graphql.gen';
+import { EnumTypeFragmentDoc } from './fragments/EnumType.fragment.v2.graphql.gen';
+import { LambdaTypeFragmentDoc } from './fragments/LambdaType.fragment.v2.graphql.gen';
+import { PageTypeFragmentDoc } from './fragments/PageType.fragment.v2.graphql.gen';
+import { AppTypeFragmentDoc } from './fragments/AppType.fragment.v2.graphql.gen';
+import { MonacoTypeFragmentDoc } from './fragments/MonacoType.fragment.v2.graphql.gen';
+import { api, GraphqlOperationOptions } from '@codelab/frontend/model/infra/redux';
 export type CreatePrimitiveTypesMutationVariables = Types.Exact<{
-  input: Array<Types.PrimitiveTypeCreateInput> | Types.PrimitiveTypeCreateInput
-}>
+  input: Array<Types.PrimitiveTypeCreateInput> | Types.PrimitiveTypeCreateInput;
+}>;
 
-export type CreatePrimitiveTypesMutation = {
-  createPrimitiveTypes: { primitiveTypes: Array<PrimitiveTypeFragment> }
-}
+
+export type CreatePrimitiveTypesMutation = { createPrimitiveTypes: { primitiveTypes: Array<PrimitiveTypeFragment> } };
 
 export type CreateArrayTypesMutationVariables = Types.Exact<{
-  input: Array<Types.ArrayTypeCreateInput> | Types.ArrayTypeCreateInput
-}>
+  input: Array<Types.ArrayTypeCreateInput> | Types.ArrayTypeCreateInput;
+}>;
 
-export type CreateArrayTypesMutation = {
-  createArrayTypes: { arrayTypes: Array<ArrayTypeFragment> }
-}
+
+export type CreateArrayTypesMutation = { createArrayTypes: { arrayTypes: Array<ArrayTypeFragment> } };
 
 export type CreateUnionTypesMutationVariables = Types.Exact<{
-  input: Array<Types.UnionTypeCreateInput> | Types.UnionTypeCreateInput
-}>
+  input: Array<Types.UnionTypeCreateInput> | Types.UnionTypeCreateInput;
+}>;
 
-export type CreateUnionTypesMutation = {
-  createUnionTypes: { unionTypes: Array<UnionTypeFragment> }
-}
+
+export type CreateUnionTypesMutation = { createUnionTypes: { unionTypes: Array<UnionTypeFragment> } };
 
 export type CreateInterfaceTypesMutationVariables = Types.Exact<{
-  input: Array<Types.InterfaceTypeCreateInput> | Types.InterfaceTypeCreateInput
-}>
+  input: Array<Types.InterfaceTypeCreateInput> | Types.InterfaceTypeCreateInput;
+}>;
 
-export type CreateInterfaceTypesMutation = {
-  createInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> }
-}
+
+export type CreateInterfaceTypesMutation = { createInterfaceTypes: { interfaceTypes: Array<InterfaceTypeFragment> } };
 
 export type CreateElementTypesMutationVariables = Types.Exact<{
-  input: Array<Types.ElementTypeCreateInput> | Types.ElementTypeCreateInput
-}>
+  input: Array<Types.ElementTypeCreateInput> | Types.ElementTypeCreateInput;
+}>;
 
-export type CreateElementTypesMutation = {
-  createElementTypes: { elementTypes: Array<ElementTypeFragment> }
-}
+
+export type CreateElementTypesMutation = { createElementTypes: { elementTypes: Array<ElementTypeFragment> } };
 
 export type CreateRenderPropsTypesMutationVariables = Types.Exact<{
-  input:
-    | Array<Types.RenderPropsTypeCreateInput>
-    | Types.RenderPropsTypeCreateInput
-}>
+  input: Array<Types.RenderPropsTypeCreateInput> | Types.RenderPropsTypeCreateInput;
+}>;
 
-export type CreateRenderPropsTypesMutation = {
-  createRenderPropsTypes: { renderPropsTypes: Array<RenderPropsTypeFragment> }
-}
+
+export type CreateRenderPropsTypesMutation = { createRenderPropsTypes: { renderPropsTypes: Array<RenderPropsTypeFragment> } };
 
 export type CreateEnumTypesMutationVariables = Types.Exact<{
-  input: Array<Types.EnumTypeCreateInput> | Types.EnumTypeCreateInput
-}>
+  input: Array<Types.EnumTypeCreateInput> | Types.EnumTypeCreateInput;
+}>;
 
-export type CreateEnumTypesMutation = {
-  createEnumTypes: { enumTypes: Array<EnumTypeFragment> }
-}
+
+export type CreateEnumTypesMutation = { createEnumTypes: { enumTypes: Array<EnumTypeFragment> } };
 
 export type CreateLambdaTypesMutationVariables = Types.Exact<{
-  input: Array<Types.LambdaTypeCreateInput> | Types.LambdaTypeCreateInput
-}>
+  input: Array<Types.LambdaTypeCreateInput> | Types.LambdaTypeCreateInput;
+}>;
 
-export type CreateLambdaTypesMutation = {
-  createLambdaTypes: { lambdaTypes: Array<LambdaTypeFragment> }
-}
+
+export type CreateLambdaTypesMutation = { createLambdaTypes: { lambdaTypes: Array<LambdaTypeFragment> } };
 
 export type CreatePageTypesMutationVariables = Types.Exact<{
-  input: Array<Types.PageTypeCreateInput> | Types.PageTypeCreateInput
-}>
+  input: Array<Types.PageTypeCreateInput> | Types.PageTypeCreateInput;
+}>;
 
-export type CreatePageTypesMutation = {
-  createPageTypes: { pageTypes: Array<PageTypeFragment> }
-}
+
+export type CreatePageTypesMutation = { createPageTypes: { pageTypes: Array<PageTypeFragment> } };
 
 export type CreateAppTypesMutationVariables = Types.Exact<{
-  input: Array<Types.AppTypeCreateInput> | Types.AppTypeCreateInput
-}>
+  input: Array<Types.AppTypeCreateInput> | Types.AppTypeCreateInput;
+}>;
 
-export type CreateAppTypesMutation = {
-  createAppTypes: { appTypes: Array<AppTypeFragment> }
-}
+
+export type CreateAppTypesMutation = { createAppTypes: { appTypes: Array<AppTypeFragment> } };
 
 export type CreateMonacoTypesMutationVariables = Types.Exact<{
-  input: Array<Types.MonacoTypeCreateInput> | Types.MonacoTypeCreateInput
-}>
+  input: Array<Types.MonacoTypeCreateInput> | Types.MonacoTypeCreateInput;
+}>;
 
-export type CreateMonacoTypesMutation = {
-  createMonacoTypes: { monacoTypes: Array<MonacoTypeFragment> }
-}
+
+export type CreateMonacoTypesMutation = { createMonacoTypes: { monacoTypes: Array<MonacoTypeFragment> } };
+
 
 export const CreatePrimitiveTypesGql = gql`
-  mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
-    createPrimitiveTypes(input: $input) {
-      primitiveTypes {
-        ...PrimitiveType
-      }
+    mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
+  createPrimitiveTypes(input: $input) {
+    primitiveTypes {
+      ...PrimitiveType
     }
   }
-  ${PrimitiveTypeFragmentDoc}
-`
+}
+    ${PrimitiveTypeFragmentDoc}`;
 export const CreateArrayTypesGql = gql`
-  mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
-    createArrayTypes(input: $input) {
-      arrayTypes {
-        ...ArrayType
-      }
+    mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
+  createArrayTypes(input: $input) {
+    arrayTypes {
+      ...ArrayType
     }
   }
-  ${ArrayTypeFragmentDoc}
-`
+}
+    ${ArrayTypeFragmentDoc}`;
 export const CreateUnionTypesGql = gql`
-  mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {
-    createUnionTypes(input: $input) {
-      unionTypes {
-        ...UnionType
-      }
+    mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {
+  createUnionTypes(input: $input) {
+    unionTypes {
+      ...UnionType
     }
   }
-  ${UnionTypeFragmentDoc}
-`
+}
+    ${UnionTypeFragmentDoc}`;
 export const CreateInterfaceTypesGql = gql`
-  mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
-    createInterfaceTypes(input: $input) {
-      interfaceTypes {
-        ...InterfaceType
-      }
+    mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
+  createInterfaceTypes(input: $input) {
+    interfaceTypes {
+      ...InterfaceType
     }
   }
-  ${InterfaceTypeFragmentDoc}
-`
+}
+    ${InterfaceTypeFragmentDoc}`;
 export const CreateElementTypesGql = gql`
-  mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {
-    createElementTypes(input: $input) {
-      elementTypes {
-        ...ElementType
-      }
+    mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {
+  createElementTypes(input: $input) {
+    elementTypes {
+      ...ElementType
     }
   }
-  ${ElementTypeFragmentDoc}
-`
+}
+    ${ElementTypeFragmentDoc}`;
 export const CreateRenderPropsTypesGql = gql`
-  mutation CreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
-    createRenderPropsTypes(input: $input) {
-      renderPropsTypes {
-        ...RenderPropsType
-      }
+    mutation CreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
+  createRenderPropsTypes(input: $input) {
+    renderPropsTypes {
+      ...RenderPropsType
     }
   }
-  ${RenderPropsTypeFragmentDoc}
-`
+}
+    ${RenderPropsTypeFragmentDoc}`;
 export const CreateEnumTypesGql = gql`
-  mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {
-    createEnumTypes(input: $input) {
-      enumTypes {
-        ...EnumType
-      }
+    mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {
+  createEnumTypes(input: $input) {
+    enumTypes {
+      ...EnumType
     }
   }
-  ${EnumTypeFragmentDoc}
-`
+}
+    ${EnumTypeFragmentDoc}`;
 export const CreateLambdaTypesGql = gql`
-  mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
-    createLambdaTypes(input: $input) {
-      lambdaTypes {
-        ...LambdaType
-      }
+    mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
+  createLambdaTypes(input: $input) {
+    lambdaTypes {
+      ...LambdaType
     }
   }
-  ${LambdaTypeFragmentDoc}
-`
+}
+    ${LambdaTypeFragmentDoc}`;
 export const CreatePageTypesGql = gql`
-  mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {
-    createPageTypes(input: $input) {
-      pageTypes {
-        ...PageType
-      }
+    mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {
+  createPageTypes(input: $input) {
+    pageTypes {
+      ...PageType
     }
   }
-  ${PageTypeFragmentDoc}
-`
+}
+    ${PageTypeFragmentDoc}`;
 export const CreateAppTypesGql = gql`
-  mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
-    createAppTypes(input: $input) {
-      appTypes {
-        ...AppType
-      }
+    mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
+  createAppTypes(input: $input) {
+    appTypes {
+      ...AppType
     }
   }
-  ${AppTypeFragmentDoc}
-`
+}
+    ${AppTypeFragmentDoc}`;
 export const CreateMonacoTypesGql = gql`
-  mutation CreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
-    createMonacoTypes(input: $input) {
-      monacoTypes {
-        ...MonacoType
-      }
+    mutation CreateMonacoTypes($input: [MonacoTypeCreateInput!]!) {
+  createMonacoTypes(input: $input) {
+    monacoTypes {
+      ...MonacoType
     }
   }
-  ${MonacoTypeFragmentDoc}
-`
+}
+    ${MonacoTypeFragmentDoc}`;
 
-const injectedRtkApi = api.injectEndpoints({
-  endpoints: (build) => ({
-    CreatePrimitiveTypes: build.mutation<
-      CreatePrimitiveTypesMutation,
-      GraphqlOperationOptions<CreatePrimitiveTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreatePrimitiveTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
+  const injectedRtkApi = api.injectEndpoints({
+    endpoints: (build) => ({
+      CreatePrimitiveTypes: build.mutation<CreatePrimitiveTypesMutation, GraphqlOperationOptions<CreatePrimitiveTypesMutationVariables>>({
+        query: (options) => ({ document: CreatePrimitiveTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
+      }),
+      CreateArrayTypes: build.mutation<CreateArrayTypesMutation, GraphqlOperationOptions<CreateArrayTypesMutationVariables>>({
+        query: (options) => ({ document: CreateArrayTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
+      }),
+      CreateUnionTypes: build.mutation<CreateUnionTypesMutation, GraphqlOperationOptions<CreateUnionTypesMutationVariables>>({
+        query: (options) => ({ document: CreateUnionTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
+      }),
+      CreateInterfaceTypes: build.mutation<CreateInterfaceTypesMutation, GraphqlOperationOptions<CreateInterfaceTypesMutationVariables>>({
+        query: (options) => ({ document: CreateInterfaceTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
+      }),
+      CreateElementTypes: build.mutation<CreateElementTypesMutation, GraphqlOperationOptions<CreateElementTypesMutationVariables>>({
+        query: (options) => ({ document: CreateElementTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
+      }),
+      CreateRenderPropsTypes: build.mutation<CreateRenderPropsTypesMutation, GraphqlOperationOptions<CreateRenderPropsTypesMutationVariables>>({
+        query: (options) => ({ document: CreateRenderPropsTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
+      }),
+      CreateEnumTypes: build.mutation<CreateEnumTypesMutation, GraphqlOperationOptions<CreateEnumTypesMutationVariables>>({
+        query: (options) => ({ document: CreateEnumTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
+      }),
+      CreateLambdaTypes: build.mutation<CreateLambdaTypesMutation, GraphqlOperationOptions<CreateLambdaTypesMutationVariables>>({
+        query: (options) => ({ document: CreateLambdaTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
+      }),
+      CreatePageTypes: build.mutation<CreatePageTypesMutation, GraphqlOperationOptions<CreatePageTypesMutationVariables>>({
+        query: (options) => ({ document: CreatePageTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
+      }),
+      CreateAppTypes: build.mutation<CreateAppTypesMutation, GraphqlOperationOptions<CreateAppTypesMutationVariables>>({
+        query: (options) => ({ document: CreateAppTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
+      }),
+      CreateMonacoTypes: build.mutation<CreateMonacoTypesMutation, GraphqlOperationOptions<CreateMonacoTypesMutationVariables>>({
+        query: (options) => ({ document: CreateMonacoTypesGql, options: {...{"context":{"env":"v2"}}, ...options}, })
       }),
     }),
-    CreateArrayTypes: build.mutation<
-      CreateArrayTypesMutation,
-      GraphqlOperationOptions<CreateArrayTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreateArrayTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    CreateUnionTypes: build.mutation<
-      CreateUnionTypesMutation,
-      GraphqlOperationOptions<CreateUnionTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreateUnionTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    CreateInterfaceTypes: build.mutation<
-      CreateInterfaceTypesMutation,
-      GraphqlOperationOptions<CreateInterfaceTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreateInterfaceTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    CreateElementTypes: build.mutation<
-      CreateElementTypesMutation,
-      GraphqlOperationOptions<CreateElementTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreateElementTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    CreateRenderPropsTypes: build.mutation<
-      CreateRenderPropsTypesMutation,
-      GraphqlOperationOptions<CreateRenderPropsTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreateRenderPropsTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    CreateEnumTypes: build.mutation<
-      CreateEnumTypesMutation,
-      GraphqlOperationOptions<CreateEnumTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreateEnumTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    CreateLambdaTypes: build.mutation<
-      CreateLambdaTypesMutation,
-      GraphqlOperationOptions<CreateLambdaTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreateLambdaTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    CreatePageTypes: build.mutation<
-      CreatePageTypesMutation,
-      GraphqlOperationOptions<CreatePageTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreatePageTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    CreateAppTypes: build.mutation<
-      CreateAppTypesMutation,
-      GraphqlOperationOptions<CreateAppTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreateAppTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-    CreateMonacoTypes: build.mutation<
-      CreateMonacoTypesMutation,
-      GraphqlOperationOptions<CreateMonacoTypesMutationVariables>
-    >({
-      query: (options) => ({
-        document: CreateMonacoTypesGql,
-        options: { ...{ context: { env: 'v2' } }, ...options },
-      }),
-    }),
-  }),
-})
-export { injectedRtkApi as api }
-export const {
-  useCreatePrimitiveTypesMutation,
-  useCreateArrayTypesMutation,
-  useCreateUnionTypesMutation,
-  useCreateInterfaceTypesMutation,
-  useCreateElementTypesMutation,
-  useCreateRenderPropsTypesMutation,
-  useCreateEnumTypesMutation,
-  useCreateLambdaTypesMutation,
-  useCreatePageTypesMutation,
-  useCreateAppTypesMutation,
-  useCreateMonacoTypesMutation,
-} = injectedRtkApi
+  });
+  export { injectedRtkApi as api };
+  export const { useCreatePrimitiveTypesMutation, useCreateArrayTypesMutation, useCreateUnionTypesMutation, useCreateInterfaceTypesMutation, useCreateElementTypesMutation, useCreateRenderPropsTypesMutation, useCreateEnumTypesMutation, useCreateLambdaTypesMutation, useCreatePageTypesMutation, useCreateAppTypesMutation, useCreateMonacoTypesMutation } = injectedRtkApi;
+

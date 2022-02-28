@@ -1,20 +1,24 @@
 import { EyeOutlined, FileOutlined, ToolOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useAppState } from '@codelab/frontend/modules/app'
+import { useCurrentAppId } from '@codelab/frontend/modules/app'
 import { Menu } from 'antd'
 import SubMenu from 'antd/lib/menu/SubMenu'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useGetPagesQuery } from '../store/pageEndpoints'
 
 export const PageDetailHeader = () => {
   const router = useRouter()
-  const appId = router.query.appId
+  const appId = useCurrentAppId()
   const pageId = router.query.pageId
-  const { currentApp } = useAppState()
-  const currentPage = currentApp?.pages?.find((x) => x?.id === pageId)
+
+  const { data: pages } = useGetPagesQuery({
+    variables: { input: { byApp: { appId } } },
+  })
+
+  const currentPage = pages?.pages.find((x) => x?.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
-  const pages = currentApp?.pages || []
 
   const switchPreviewMode = () => {
     return router.push({
@@ -30,22 +34,20 @@ export const PageDetailHeader = () => {
       theme="light"
       triggerSubMenuAction="click"
     >
-      {currentApp && (
-        <SubMenu icon={<FileOutlined />} key="sub1" title={currentPage?.name}>
-          {pages.map((page) => (
-            <Menu.Item key={page.id}>
-              <Link
-                href={{
-                  pathname: PageType.PageBuilder,
-                  query: { appId, pageId: page?.id },
-                }}
-              >
-                <a>{page?.name}</a>
-              </Link>
-            </Menu.Item>
-          ))}
-        </SubMenu>
-      )}
+      <SubMenu icon={<FileOutlined />} key="sub1" title={currentPage?.name}>
+        {pages.map((page) => (
+          <Menu.Item key={page.id}>
+            <Link
+              href={{
+                pathname: PageType.PageBuilder,
+                query: { appId, pageId: page?.id },
+              }}
+            >
+              <a>{page?.name}</a>
+            </Link>
+          </Menu.Item>
+        ))}
+      </SubMenu>
       <Menu.Item
         icon={isBuilder ? <EyeOutlined /> : <ToolOutlined />}
         key="1"

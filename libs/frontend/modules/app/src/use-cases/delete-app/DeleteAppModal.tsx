@@ -1,45 +1,51 @@
-import { CRUDActionType } from '@codelab/frontend/abstract/core'
-import { Form, FormModal } from '@codelab/frontend/view/components'
-import { DeleteAppInput } from '@codelab/shared/abstract/codegen'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { deleteAppSchema } from './deleteAppSchema'
-import { useDeleteAppForm } from './useDeleteAppForm'
+import { AppStore } from '../../store'
 
-export const DeleteAppModal = () => {
-  const {
-    model,
-    onSubmit,
-    entity,
-    onSubmitSuccess,
-    onSubmitError,
-    reset,
-    isLoading,
-    actionType,
-  } = useDeleteAppForm()
+export interface DeleteAppModalProps {
+  apps: AppStore
+}
+
+export const DeleteAppModal = observer<DeleteAppModalProps>(({ apps }) => {
+  const app = apps.deleteModal.app
+
+  const onSubmitError = createNotificationHandler({
+    title: 'Error while deleting app',
+  })
+
+  const closeModal = () => apps.deleteModal.close()
+
+  const onSubmit = () => {
+    if (!app) {
+      return Promise.reject('App not defined in DeleteAppModal')
+    }
+
+    const promise = apps.deleteApp(app.id)
+    closeModal()
+
+    return promise
+  }
 
   return (
-    <FormModal
-      okButtonProps={{ loading: isLoading }}
+    <ModalForm.Modal
       okText="Delete App"
-      onCancel={reset}
-      visible={actionType === CRUDActionType.Delete}
+      onCancel={closeModal}
+      visible={apps.deleteModal.isOpen}
     >
-      {({ submitRef }) => {
-        return (
-          <Form<DeleteAppInput>
-            model={model}
-            onSubmit={onSubmit}
-            onSubmitError={onSubmitError}
-            onSubmitSuccess={onSubmitSuccess}
-            schema={deleteAppSchema}
-            submitRef={submitRef}
-          >
-            <h4>Are you sure you want to delete app "{entity?.name}"?</h4>
-            <AutoFields omitFields={['appId']} />
-          </Form>
-        )
-      }}
-    </FormModal>
+      <ModalForm.Form
+        model={{}}
+        onSubmit={onSubmit}
+        onSubmitError={onSubmitError}
+        onSubmitSuccess={closeModal}
+        schema={emptyJsonSchema}
+      >
+        {' '}
+        <h4>Are you sure you want to delete app "{app?.name}"?</h4>
+        <AutoFields omitFields={['appId']} />
+      </ModalForm.Form>
+    </ModalForm.Modal>
   )
-}
+})

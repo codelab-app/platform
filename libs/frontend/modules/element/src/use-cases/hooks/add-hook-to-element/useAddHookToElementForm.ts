@@ -1,6 +1,6 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
-import { useAppState } from '@codelab/frontend/modules/app'
+import { useCurrentAppId } from '@codelab/frontend/modules/app'
 import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
 import {
   useLazyGetInterfaceTypeGraphsQuery,
@@ -26,7 +26,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
   })
 
   const atoms = atomsData?.atoms || []
-  const { currentApp } = useAppState()
+  const appId = useCurrentAppId()
 
   assertIsDefined(elementId)
 
@@ -100,10 +100,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
         title: 'Error while creating hook',
       }),
     ],
-    model: {
-      typeId: selectedType,
-      appId: currentApp?.id,
-    },
+    model: { typeId: selectedType, appId },
     actionType,
     isLoading,
     interfaceLoading,

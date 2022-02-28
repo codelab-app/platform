@@ -1,19 +1,15 @@
 import { AppActionType } from '@codelab/frontend/abstract/core'
-import {
-  UseCaseFormWithRef,
-  UseUseCaseForm,
-} from '@codelab/frontend/abstract/types'
+import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { useAppDispatch, useAppState } from '../../hooks'
 import { ImportAppSchema } from './importAppSchema'
 
 export const useImportAppForm: UseUseCaseForm<
   ImportAppSchema,
   AppActionType
 > = () => {
-  const { resetModal } = useAppDispatch()
-  const { actionType } = useAppState()
+  // const { resetModal } = useAppActions()
+  // const { actionType } = useAppState()
   const mutate: any = () => null
   const isLoading = false
   // const [mutate, { isLoading }] = useImportAppMutation({
@@ -45,10 +41,12 @@ export const useImportAppForm: UseUseCaseForm<
   return {
     onSubmit,
     onSubmitError: [onSubmitError],
-    onSubmitSuccess: [() => resetModal()],
-    reset: resetModal,
+    onSubmitSuccess: [],
+    reset: () => {
+      //
+    },
     isLoading,
-    actionType,
+    actionType: '' as any,
     model: {},
   }
 }
