@@ -21,7 +21,7 @@ export const CreateTagModal = () => {
     actionType,
     reset,
     isLoading,
-  } = useCreateTagForm(selectedTag?.toString())
+  } = useCreateTagForm(selectedTag?.toString() as string)
 
   const { data } = useGetTagsQuery()
 

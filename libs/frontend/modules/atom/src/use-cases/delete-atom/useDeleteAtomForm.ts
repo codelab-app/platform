@@ -2,15 +2,15 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeleteAtomInput } from '@codelab/shared/abstract/codegen'
+import { IAtom } from '@codelab/shared/abstract/core'
 import { useCallback } from 'react'
-import { AtomBaseFragment } from '../../graphql/Atom.fragment.graphql.gen'
 import { useAtomDispatch, useAtomState } from '../../hooks'
 import { useDeleteAtomsMutation } from '../../store'
 
 export const useDeleteAtomForm: UseEntityUseCaseForm<
   DeleteAtomInput,
   CRUDActionType,
-  AtomBaseFragment
+  IAtom
 > = () => {
   const { deleteIds, entity, actionType } = useAtomState()
   const { resetModal } = useAtomDispatch()

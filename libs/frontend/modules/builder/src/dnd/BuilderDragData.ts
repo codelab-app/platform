@@ -1,4 +1,4 @@
-import { CreateElementInput } from '@codelab/shared/abstract/codegen'
+import { CreateElementInput } from '@codelab/frontend/modules/element'
 import { BuilderDndType } from './BuilderDndType'
 
 export type BuilderDragData = {

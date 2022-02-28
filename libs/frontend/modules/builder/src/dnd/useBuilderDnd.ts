@@ -53,7 +53,7 @@ export const useBuilderDnd = (): UseBuilderDnd => {
           css,
           instanceOfComponentId,
           name,
-          props,
+          propsData,
         } = createElementInput
 
         createElement({
@@ -71,7 +71,7 @@ export const useBuilderDnd = (): UseBuilderDnd => {
                 connect: { where: { node: { id: instanceOfComponentId } } },
               },
               name,
-              props: { create: { node: { data: props || '{}' } } },
+              props: { create: { node: { data: propsData || '{}' } } },
             },
           },
         }).then((el: any) => {

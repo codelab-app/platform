@@ -1,13 +1,12 @@
 import { useLazyGetInterfaceTypeGraphsQuery } from '@codelab/frontend/modules/type'
 import { usePrevious } from '@codelab/frontend/shared/utils'
-import { ITypeGraph } from '@codelab/shared/abstract/core'
+import { IElement, ITypeGraph } from '@codelab/shared/abstract/core'
 import { ElementTree, TypeTree } from '@codelab/shared/core'
 import AutoComplete, { AutoCompleteProps } from 'antd/lib/auto-complete'
 import { RefSelectProps } from 'antd/lib/select'
 import React, { Ref, useEffect, useState } from 'react'
 import { connectField, FieldProps, filterDOMProps, useField } from 'uniforms'
 import { wrapField } from 'uniforms-antd'
-import { ElementFragment } from '../../../graphql'
 
 type InnerProps = Omit<AutoCompleteProps, 'onSearch' | 'options'> & {
   tree: ElementTree
@@ -50,7 +49,7 @@ const TargetKeyFieldInternal = ({ tree, ...props }: TargetKeyFieldProps) => {
   // Every time the targetElementId changes, fetch the targetElement's api
   useEffect(() => {
     const targetElement = targetElementId
-      ? (tree.getVertex(targetElementId as string) as ElementFragment)
+      ? (tree.getVertex(targetElementId as string) as IElement)
       : null
 
     const api = targetElement?.atom?.api

@@ -1,11 +1,11 @@
-import { Button, ButtonProps } from 'antd'
-import React, { PropsWithChildren } from 'react'
-import { ElementFragment } from '../../../graphql'
+import { IElement } from '@codelab/shared/abstract/core'
+import { Button } from 'antd'
+import React from 'react'
 import { useElementDispatch } from '../../../hooks'
 
 interface DeleteElementProps {
   elementId: string
-  entity?: ElementFragment
+  entity?: IElement
 }
 
 export const DeleteElementButton = ({
@@ -13,12 +13,10 @@ export const DeleteElementButton = ({
   entity,
 }: DeleteElementProps) => {
   const { openDeleteModal } = useElementDispatch()
+  const onClick = () => openDeleteModal({ deleteIds: [elementId], entity })
 
   return (
-    <Button
-      danger
-      onClick={() => openDeleteModal({ deleteIds: [elementId], entity })}
-    >
+    <Button danger onClick={onClick}>
       Delete
     </Button>
   )

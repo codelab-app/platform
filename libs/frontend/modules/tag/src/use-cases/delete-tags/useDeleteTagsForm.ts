@@ -2,15 +2,15 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DeleteTagsInput } from '@codelab/shared/abstract/codegen'
+import { ITag } from '@codelab/shared/abstract/core'
 import { useCallback } from 'react'
-import { TagFragment } from '../../graphql/Tag.fragment.graphql.gen'
 import { useTagDispatch, useTagState, useTagTree } from '../../hooks'
 import { useDeleteTagsMutation, useGetTagGraphsQuery } from '../../store'
 
 export const useDeleteTagForm: UseEntityUseCaseForm<
   DeleteTagsInput,
   CRUDActionType,
-  TagFragment
+  ITag
 > = () => {
   const { deleteIds, entity, actionType, selectedTag } = useTagState()
   const { resetModal, resetSelection } = useTagDispatch()

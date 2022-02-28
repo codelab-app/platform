@@ -9,13 +9,7 @@
     "emitDecoratorMetadata": true,
     "lib": ["es2021"],
     "allowSyntheticDefaultImports": true,
-    "types": [
-      "node",
-      "worker-loader",
-      "window",
-      "@fancyapps/ui",
-      "custom.d.ts"
-    ],
+    "types": ["node", "worker-loader", "window", "@fancyapps/ui"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": false,
@@ -29,6 +23,7 @@
     "**/*.tsx",
     "**/*.graphql",
     "next-env.d.ts",
+    "custom.d.ts",
     "**/*.js",
     "**/*.jsx"
   ],

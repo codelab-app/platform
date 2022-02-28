@@ -29,6 +29,14 @@ export const createElementSchema: JSONSchemaType<CreateElementInput> = {
       nullable: true,
       label: 'Component',
     },
+    css: {
+      type: 'string',
+      nullable: true,
+    },
+    propsData: {
+      type: 'string',
+      nullable: true,
+    },
   },
   required: [],
 }

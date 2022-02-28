@@ -13,11 +13,11 @@ export const propMapBindingsPipe: RenderPipeFactory =
 
     const [childBindings, localBindings] = partition(
       propMapBindings,
-      (x) => x.targetElementId,
+      (x) => x.targetElement?.id,
     )
 
     const toTargetElements = childBindings.reduce((all, current) => {
-      const targetElementId = current.targetElementId as string
+      const targetElementId = current.targetElement?.id as string
       const previousBinding = all[targetElementId] ?? {}
       const newBindings = applyBinding(previousBinding, props, current)
 

@@ -75,7 +75,7 @@ const BuilderRenderer = ({
 // the dnd position is changed, it causes massive lag
 const BuilderDropHandler = ({ root }: { root?: IElement }) => {
   const { setNodeRef } = useCreateElementDroppable(BuilderDropId.BuilderRoot, {
-    parentElementId: root?.id,
+    parentElementId: root?.id as string,
   })
 
   return (

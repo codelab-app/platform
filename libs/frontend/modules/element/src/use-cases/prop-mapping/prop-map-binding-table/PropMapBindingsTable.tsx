@@ -75,7 +75,7 @@ export const PropMapBindingsTable = ({
   return (
     <Table
       columns={columns}
-      dataSource={element.propMapBindings}
+      dataSource={element.propMapBindings || []}
       pagination={{
         position: ['bottomCenter'],
         defaultPageSize: 25,

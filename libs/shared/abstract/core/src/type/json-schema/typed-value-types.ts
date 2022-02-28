@@ -3,7 +3,7 @@ import { TypeKind } from '../types/base-type/type-kind.enum'
 /**
  * All types that result in a value with shape of {@see TypedValue}
  */
-export const typedValueTypes = new Set([
+export const typedValueTypes: Set<TypeKind> = new Set([
   TypeKind.ElementType,
   TypeKind.RenderPropsType,
   TypeKind.ReactNodeType,

@@ -1,5 +1,5 @@
 import { EntityLike } from '@codelab/shared/abstract/types'
-import R from 'ramda'
+import * as R from 'ramda'
 import { entityIdSet, entityMapById } from '../entity'
 
 interface ItemsByArrayDiff<T> {

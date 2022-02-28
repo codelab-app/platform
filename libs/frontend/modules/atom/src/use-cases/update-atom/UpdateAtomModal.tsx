@@ -4,7 +4,7 @@ import { Form, FormModal } from '@codelab/frontend/view/components'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { TreeSelectField } from '../components'
-import { CreateAtomInput } from '../create-atom'
+import { CreateAtomInputSchema } from '../create-atom'
 import { updateAtomSchema } from './updateAtomSchema'
 import { useUpdateAtomForm } from './useUpdateAtomForm'
 
@@ -19,7 +19,7 @@ export const UpdateAtomModal = () => {
     reset,
   } = useUpdateAtomForm()
 
-  const tagModel = model.tags || []
+  const tagModel = model.tags as Array<string>
   const { data } = useGetTagGraphsQuery()
   const tagTree = useTagTree(data?.tagGraphs)
   const tagTreeData = tagTree.getAntdTree()
@@ -32,7 +32,7 @@ export const UpdateAtomModal = () => {
       visible={actionType === CRUDActionType.Update}
     >
       {({ submitRef }) => (
-        <Form<CreateAtomInput>
+        <Form<CreateAtomInputSchema>
           model={model}
           onSubmit={onSubmit}
           onSubmitError={onSubmitError}

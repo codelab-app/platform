@@ -2,9 +2,9 @@ import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseEntityUseCaseForm } from '@codelab/frontend/abstract/types'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { EmptyJsonSchemaType } from '@codelab/frontend/view/components'
+import { IPropMapBinding } from '@codelab/shared/abstract/core'
 import { assertIsDefined } from '@codelab/shared/utils'
 import { useCallback } from 'react'
-import { PropMapBindingFragment } from '../../../graphql/Element.fragment.graphql.gen'
 import {
   usePropMapBindingDispatch,
   usePropMapBindingState,
@@ -14,7 +14,7 @@ import { useDeletePropMapBindingsMutation } from '../../../store'
 export const useDeletePropMapBindingForm: UseEntityUseCaseForm<
   EmptyJsonSchemaType,
   CRUDActionType,
-  PropMapBindingFragment,
+  IPropMapBinding,
   unknown,
   string
 > = (elementId) => {

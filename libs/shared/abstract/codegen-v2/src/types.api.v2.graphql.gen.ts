@@ -4158,6 +4158,8 @@ export enum ElementTypeKind {
   ChildrenOnly = 'ChildrenOnly',
   /** Pick any element from the descendants of the current element */
   DescendantsOnly = 'DescendantsOnly',
+  /** Pick parents and siblings of parents of elements (used to move element) */
+  ExcludeDescendantsElements = 'ExcludeDescendantsElements',
 }
 
 export type ElementTypeOptions = {
