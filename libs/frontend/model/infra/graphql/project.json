@@ -1,0 +1,15 @@
+{
+  "root": "libs/frontend/model/infra/graphql",
+  "sourceRoot": "libs/frontend/model/infra/graphql/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/frontend/model/infra/graphql/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["layer:infra", "scope:frontend"]
+}

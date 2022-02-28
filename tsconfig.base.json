@@ -27,6 +27,9 @@
         "libs/frontend/abstract/types/src/index.ts"
       ],
       "@codelab/frontend/cytoscape": ["libs/frontend/cytoscape/src/index.ts"],
+      "@codelab/frontend/model/infra//graphql": [
+        "libs/frontend/model/infra/graphql/src/index.ts"
+      ],
       "@codelab/frontend/model/infra/apollo": [
         "libs/frontend/model/infra/apollo/src/index.ts"
       ],
