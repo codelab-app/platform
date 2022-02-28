@@ -4016,6 +4016,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-codegen/typescript-graphql-request@npm:^4.3.7":
+  version: 4.3.7
+  resolution: "@graphql-codegen/typescript-graphql-request@npm:4.3.7"
+  dependencies:
+    "@graphql-codegen/plugin-helpers": ^2.4.0
+    "@graphql-codegen/visitor-plugin-common": 2.7.1
+    auto-bind: ~4.0.0
+    tslib: ~2.3.0
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    graphql-request: ^3.4.0 || ^4.0.0
+    graphql-tag: ^2.0.0
+  checksum: c2dd3d845a023654dc6e27fcca6e6dd1b1c7d78e860cc9f1c57c6424124e7499517c719269b813b8919583a27c054bfe6e13d6ba0853e723e70d55192bf674c8
+  languageName: node
+  linkType: hard
+
 "@graphql-codegen/typescript-operations@npm:2.2.2":
   version: 2.2.2
   resolution: "@graphql-codegen/typescript-operations@npm:2.2.2"
@@ -14369,6 +14385,7 @@ __metadata:
     "@graphql-codegen/schema-ast": 2.4.1
     "@graphql-codegen/typescript": 2.4.4
     "@graphql-codegen/typescript-document-nodes": 2.2.4
+    "@graphql-codegen/typescript-graphql-request": ^4.3.7
     "@graphql-codegen/typescript-operations": 2.2.2
     "@graphql-codegen/typescript-react-apollo": 3.2.7
     "@graphql-codegen/typescript-rtk-query": 2.2.5
@@ -14544,7 +14561,7 @@ __metadata:
     glob: 7.2.0
     graphql: 15.7.2
     graphql-iso-date: 3.6.1
-    graphql-request: 3.7.0
+    graphql-request: ^4.0.0
     graphql-tools: 8.2.0
     graphql-type-json: 0.3.2
     husky: 7.0.4
@@ -14560,6 +14577,9 @@ __metadata:
     madge: 5.0.1
     micro: ^9.3.4
     micro-cors: ^0.1.1
+    mobx: ^6.4.2
+    mobx-react-lite: ^3.3.0
+    mobx-state-tree: ^5.1.3
     monaco-editor: 0.30.1
     monaco-graphql: 0.5.1
     morphext: ^2.4.7
@@ -20591,7 +20611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-request@npm:3.7.0, graphql-request@npm:^3.3.0":
+"graphql-request@npm:^3.3.0":
   version: 3.7.0
   resolution: "graphql-request@npm:3.7.0"
   dependencies:
@@ -20601,6 +20621,19 @@ __metadata:
   peerDependencies:
     graphql: 14 - 16
   checksum: db3800cc4ee884cd1514d7d5eafafb9ed27694278fdddd7402345754a7d25e7d713246c72aa510b439b6df2633b74f2cf74fb36864a22a857d5fb2de1cf0b4d8
+  languageName: node
+  linkType: hard
+
+"graphql-request@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "graphql-request@npm:4.0.0"
+  dependencies:
+    cross-fetch: ^3.0.6
+    extract-files: ^9.0.0
+    form-data: ^3.0.0
+  peerDependencies:
+    graphql: 14 - 16
+  checksum: 0d16c7f06360679c022faaa19554c2693e200263beae0dec920b0668f6c48b0d08de6e1155a50a050283a58a878b29b04db129a2d932a645bfadbe8d55530243
   languageName: node
   linkType: hard
 
@@ -25662,6 +25695,37 @@ __metadata:
   bin:
     mkdirp: bin/cmd.js
   checksum: a96865108c6c3b1b8e1d5e9f11843de1e077e57737602de1b82030815f311be11f96f09cce59bd5b903d0b29834733e5313f9301e3ed6d6f6fba2eae0df4298f
+  languageName: node
+  linkType: hard
+
+"mobx-react-lite@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "mobx-react-lite@npm:3.3.0"
+  peerDependencies:
+    mobx: ^6.1.0
+    react: ^16.8.0 || ^17
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 0f55bd2009a9cedc6b81d70b88b57dc4161362a16ba6ae0af341e673ca1c627bc3c4088c0cb13133e57e6fa6748b09b4c26aff7fab26c60ed95d27e939846fa3
+  languageName: node
+  linkType: hard
+
+"mobx-state-tree@npm:^5.1.3":
+  version: 5.1.3
+  resolution: "mobx-state-tree@npm:5.1.3"
+  peerDependencies:
+    mobx: ^6.3.0
+  checksum: 8bf429465905e97f100d782a482beff14c2c0570a1a02448ee34dd077add2ed2db3cc1e3982733d491e0fd81af9297ed8bc34fe694cc2e8f89410c94874c5239
+  languageName: node
+  linkType: hard
+
+"mobx@npm:^6.4.2":
+  version: 6.4.2
+  resolution: "mobx@npm:6.4.2"
+  checksum: 2cdb0b81ab7fa6209d29a57af0c8c1c4635756f4b93a872be8686d58abcc562a4172f3bd8551c3432322f02cc5a6434daced10e5665d73a533e4099416dd3435
   languageName: node
   linkType: hard
 

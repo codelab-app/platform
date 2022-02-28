@@ -30,15 +30,17 @@ generates:
       namingConvention:
         enumValues: keep
 
-  ./libs/frontend/:
+  libs/shared/abstract/codegen-v2/src/operations.api.v2.graphql.gen.ts:
     documents:
       - '**/*.{endpoints,fragment}.v2.graphql'
-    preset: near-operation-file
+    #    preset: near-operation-file
     presetConfig:
       extension: .graphql.gen.ts
-      baseTypesPath: ~@codelab/shared/abstract/codegen-v2
+      baseTypesPath: ./types.api.v2.graphql.gen
+    #      baseTypesPath: ~@codelab/shared/abstract/codegen-v2
     plugins:
       - typescript-operations
+      - typescript-graphql-request
       # rqk-query generates string gql only, which prevents fragments from getting resolved
       # this custom packages wraps the generated query with gql
       # gql`
@@ -46,12 +48,12 @@ generates:
       #    ...App
       #   }
       #`
-      - dist/libs/tools/rtk-query:
-          importBaseApiFrom: '@codelab/frontend/model/infra/redux'
-          exportHooks: true
-          extraOptions:
-            context:
-              env: 'v2'
+    #      - dist/libs/tools/rtk-query:
+    #          importBaseApiFrom: '@codelab/frontend/model/infra/redux'
+    #          exportHooks: true
+    #          extraOptions:
+    #            context:
+    #              env: 'v2'
 
     config:
       inlineFragmentTypes: combine
