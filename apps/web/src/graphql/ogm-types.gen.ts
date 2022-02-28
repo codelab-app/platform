@@ -104,12 +104,15 @@ export type Query = {
   tags: Array<Tag>
   tagsCount: Scalars['Int']
   tagsAggregate: TagAggregateSelection
-  tagGraphs?: Maybe<TagGraph>
-  tagGraphsCount: Scalars['Int']
-  tagGraphsAggregate: TagGraphAggregateSelection
+  tagGraphOptions: Array<TagGraphOptions>
+  tagGraphOptionsCount: Scalars['Int']
+  tagGraphOptionsAggregate: TagGraphOptionsAggregateSelection
   tagEdges: Array<TagEdge>
   tagEdgesCount: Scalars['Int']
   tagEdgesAggregate: TagEdgeAggregateSelection
+  tagGraphs?: Maybe<TagGraph>
+  tagGraphsCount: Scalars['Int']
+  tagGraphsAggregate: TagGraphAggregateSelection
   elementEdges: Array<ElementEdge>
   elementEdgesCount: Scalars['Int']
   elementEdgesAggregate: ElementEdgeAggregateSelection
@@ -476,12 +479,17 @@ export type QueryTagsAggregateArgs = {
   where?: Maybe<TagWhere>
 }
 
-export type QueryTagGraphsCountArgs = {
-  where?: Maybe<TagGraphWhere>
+export type QueryTagGraphOptionsArgs = {
+  where?: Maybe<TagGraphOptionsWhere>
+  options?: Maybe<TagGraphOptionsOptions>
 }
 
-export type QueryTagGraphsAggregateArgs = {
-  where?: Maybe<TagGraphWhere>
+export type QueryTagGraphOptionsCountArgs = {
+  where?: Maybe<TagGraphOptionsWhere>
+}
+
+export type QueryTagGraphOptionsAggregateArgs = {
+  where?: Maybe<TagGraphOptionsWhere>
 }
 
 export type QueryTagEdgesArgs = {
@@ -495,6 +503,14 @@ export type QueryTagEdgesCountArgs = {
 
 export type QueryTagEdgesAggregateArgs = {
   where?: Maybe<TagEdgeWhere>
+}
+
+export type QueryTagGraphsCountArgs = {
+  where?: Maybe<TagGraphWhere>
+}
+
+export type QueryTagGraphsAggregateArgs = {
+  where?: Maybe<TagGraphWhere>
 }
 
 export type QueryElementEdgesArgs = {
@@ -710,12 +726,15 @@ export type Mutation = {
   createTags: CreateTagsMutationResponse
   deleteTags: DeleteInfo
   updateTags: UpdateTagsMutationResponse
-  createTagGraphs: CreateTagGraphsMutationResponse
-  deleteTagGraphs: DeleteInfo
-  updateTagGraphs: UpdateTagGraphsMutationResponse
+  createTagGraphOptions: CreateTagGraphOptionsMutationResponse
+  deleteTagGraphOptions: DeleteInfo
+  updateTagGraphOptions: UpdateTagGraphOptionsMutationResponse
   createTagEdges: CreateTagEdgesMutationResponse
   deleteTagEdges: DeleteInfo
   updateTagEdges: UpdateTagEdgesMutationResponse
+  createTagGraphs: CreateTagGraphsMutationResponse
+  deleteTagGraphs: DeleteInfo
+  updateTagGraphs: UpdateTagGraphsMutationResponse
   createElementEdges: CreateElementEdgesMutationResponse
   deleteElementEdges: DeleteInfo
   updateElementEdges: UpdateElementEdgesMutationResponse
@@ -1200,17 +1219,17 @@ export type MutationUpdateTagsArgs = {
   connectOrCreate?: Maybe<TagConnectOrCreateInput>
 }
 
-export type MutationCreateTagGraphsArgs = {
-  input: Array<TagGraphCreateInput>
+export type MutationCreateTagGraphOptionsArgs = {
+  input: Array<TagGraphOptionsCreateInput>
 }
 
-export type MutationDeleteTagGraphsArgs = {
-  where?: Maybe<TagGraphWhere>
+export type MutationDeleteTagGraphOptionsArgs = {
+  where?: Maybe<TagGraphOptionsWhere>
 }
 
-export type MutationUpdateTagGraphsArgs = {
-  where?: Maybe<TagGraphWhere>
-  update?: Maybe<TagGraphUpdateInput>
+export type MutationUpdateTagGraphOptionsArgs = {
+  where?: Maybe<TagGraphOptionsWhere>
+  update?: Maybe<TagGraphOptionsUpdateInput>
 }
 
 export type MutationCreateTagEdgesArgs = {
@@ -1224,6 +1243,19 @@ export type MutationDeleteTagEdgesArgs = {
 export type MutationUpdateTagEdgesArgs = {
   where?: Maybe<TagEdgeWhere>
   update?: Maybe<TagEdgeUpdateInput>
+}
+
+export type MutationCreateTagGraphsArgs = {
+  input: Array<TagGraphCreateInput>
+}
+
+export type MutationDeleteTagGraphsArgs = {
+  where?: Maybe<TagGraphWhere>
+}
+
+export type MutationUpdateTagGraphsArgs = {
+  where?: Maybe<TagGraphWhere>
+  update?: Maybe<TagGraphUpdateInput>
 }
 
 export type MutationCreateElementEdgesArgs = {
@@ -2471,6 +2503,12 @@ export type CreateTagEdgesMutationResponse = {
   __typename?: 'CreateTagEdgesMutationResponse'
   info: CreateInfo
   tagEdges: Array<TagEdge>
+}
+
+export type CreateTagGraphOptionsMutationResponse = {
+  __typename?: 'CreateTagGraphOptionsMutationResponse'
+  info: CreateInfo
+  tagGraphOptions: Array<TagGraphOptions>
 }
 
 export type CreateTagGraphsMutationResponse = {
@@ -4253,6 +4291,19 @@ export type TagGraphAggregateSelection = {
   count: Scalars['Int']
 }
 
+export type TagGraphOptions = {
+  __typename?: 'TagGraphOptions'
+  sort?: Maybe<Scalars['Int']>
+  limit?: Maybe<Scalars['Int']>
+}
+
+export type TagGraphOptionsAggregateSelection = {
+  __typename?: 'TagGraphOptionsAggregateSelection'
+  count: Scalars['Int']
+  sort: IntAggregateSelection
+  limit: IntAggregateSelection
+}
+
 export type TagParentConnection = {
   __typename?: 'TagParentConnection'
   edges: Array<TagParentRelationship>
@@ -4592,6 +4643,12 @@ export type UpdateTagEdgesMutationResponse = {
   __typename?: 'UpdateTagEdgesMutationResponse'
   info: UpdateInfo
   tagEdges: Array<TagEdge>
+}
+
+export type UpdateTagGraphOptionsMutationResponse = {
+  __typename?: 'UpdateTagGraphOptionsMutationResponse'
+  info: UpdateInfo
+  tagGraphOptions: Array<TagGraphOptions>
 }
 
 export type UpdateTagGraphsMutationResponse = {
@@ -10902,6 +10959,50 @@ export type TagGraphCreateInput = {
   _emptyInput?: Maybe<Scalars['Boolean']>
 }
 
+export type TagGraphOptionsCreateInput = {
+  sort?: Maybe<Scalars['Int']>
+  limit?: Maybe<Scalars['Int']>
+}
+
+export type TagGraphOptionsOptions = {
+  /** Specify one or more TagGraphOptionsSort objects to sort TagGraphOptions by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: Maybe<Array<Maybe<TagGraphOptionsSort>>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+/** Fields to sort TagGraphOptions by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagGraphOptionsSort object. */
+export type TagGraphOptionsSort = {
+  sort?: Maybe<SortDirection>
+  limit?: Maybe<SortDirection>
+}
+
+export type TagGraphOptionsUpdateInput = {
+  sort?: Maybe<Scalars['Int']>
+  limit?: Maybe<Scalars['Int']>
+}
+
+export type TagGraphOptionsWhere = {
+  OR?: Maybe<Array<TagGraphOptionsWhere>>
+  AND?: Maybe<Array<TagGraphOptionsWhere>>
+  sort?: Maybe<Scalars['Int']>
+  sort_NOT?: Maybe<Scalars['Int']>
+  sort_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
+  sort_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
+  sort_LT?: Maybe<Scalars['Int']>
+  sort_LTE?: Maybe<Scalars['Int']>
+  sort_GT?: Maybe<Scalars['Int']>
+  sort_GTE?: Maybe<Scalars['Int']>
+  limit?: Maybe<Scalars['Int']>
+  limit_NOT?: Maybe<Scalars['Int']>
+  limit_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
+  limit_NOT_IN?: Maybe<Array<Maybe<Scalars['Int']>>>
+  limit_LT?: Maybe<Scalars['Int']>
+  limit_LTE?: Maybe<Scalars['Int']>
+  limit_GT?: Maybe<Scalars['Int']>
+  limit_GTE?: Maybe<Scalars['Int']>
+}
+
 export type TagGraphUpdateInput = {
   /** Appears because this input type would be empty otherwise because this type is composed of just generated and/or relationship properties. See https://neo4j.com/docs/graphql-manual/current/troubleshooting/faqs/ */
   _emptyInput?: Maybe<Scalars['Boolean']>
@@ -13613,55 +13714,57 @@ export interface IntAggregateInput {
   average?: boolean
   sum?: boolean
 }
-export interface TagGraphAggregateInput {
+export interface TagGraphOptionsAggregateInput {
   count?: boolean
+  sort?: IntAggregateInput
+  limit?: IntAggregateInput
 }
 
-export declare class TagGraphModel {
+export declare class TagGraphOptionsModel {
   public find(args?: {
-    where?: TagGraphWhere
+    where?: TagGraphOptionsWhere
 
-    options?: TagGraphOptions
+    options?: TagGraphOptionsOptions
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<Array<TagGraph>>
+  }): Promise<Array<TagGraphOptions>>
 
-  public count(args?: { where?: TagGraphWhere }): Promise<number>
+  public count(args?: { where?: TagGraphOptionsWhere }): Promise<number>
 
   public create(args: {
-    input: Array<TagGraphCreateInput>
+    input: Array<TagGraphOptionsCreateInput>
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<CreateTagGraphsMutationResponse>
+  }): Promise<CreateTagGraphOptionsMutationResponse>
 
   public update(args: {
-    where?: TagGraphWhere
-    update?: TagGraphUpdateInput
+    where?: TagGraphOptionsWhere
+    update?: TagGraphOptionsUpdateInput
 
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<UpdateTagGraphsMutationResponse>
+  }): Promise<UpdateTagGraphOptionsMutationResponse>
 
   public delete(args: {
-    where?: TagGraphWhere
+    where?: TagGraphOptionsWhere
 
     context?: any
     rootValue: any
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
 
   public aggregate(args: {
-    where?: TagGraphWhere
+    where?: TagGraphOptionsWhere
 
-    aggregate: TagGraphAggregateInput
+    aggregate: TagGraphOptionsAggregateInput
     context?: any
     rootValue?: any
-  }): Promise<TagGraphAggregateSelection>
+  }): Promise<TagGraphOptionsAggregateSelection>
 }
 
 export interface StringAggregateInput {
@@ -13729,6 +13832,71 @@ export declare class TagEdgeModel {
     context?: any
     rootValue?: any
   }): Promise<TagEdgeAggregateSelection>
+}
+
+export interface StringAggregateInput {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IdAggregateInput {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInput {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface TagGraphAggregateInput {
+  count?: boolean
+}
+
+export declare class TagGraphModel {
+  public find(args?: {
+    where?: TagGraphWhere
+
+    options?: TagGraphOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<TagGraph>>
+
+  public count(args?: { where?: TagGraphWhere }): Promise<number>
+
+  public create(args: {
+    input: Array<TagGraphCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateTagGraphsMutationResponse>
+
+  public update(args: {
+    where?: TagGraphWhere
+    update?: TagGraphUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateTagGraphsMutationResponse>
+
+  public delete(args: {
+    where?: TagGraphWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: TagGraphWhere
+
+    aggregate: TagGraphAggregateInput
+    context?: any
+    rootValue?: any
+  }): Promise<TagGraphAggregateSelection>
 }
 
 export interface StringAggregateInput {
@@ -14376,8 +14544,9 @@ export interface ModelMap {
   AppType: AppTypeModel
   MonacoType: MonacoTypeModel
   Tag: TagModel
-  TagGraph: TagGraphModel
+  TagGraphOptions: TagGraphOptionsModel
   TagEdge: TagEdgeModel
+  TagGraph: TagGraphModel
   ElementEdge: ElementEdgeModel
   ElementGraph: ElementGraphModel
   Prop: PropModel

@@ -1,13 +1,13 @@
 import { ListItemDeleteButton } from '@codelab/frontend/view/components'
+import { IHook } from '@codelab/shared/abstract/core'
 import { ButtonProps } from 'antd'
 import { PropsWithChildren } from 'react'
-import { HookFragment } from '../../../graphql'
 import { useHookDispatch } from '../../../hooks'
 
 export type RemoveHookFromElementButtonProps = PropsWithChildren<
   ButtonProps & {
     hookId: string
-    entity?: HookFragment
+    entity?: IHook
   }
 >
 

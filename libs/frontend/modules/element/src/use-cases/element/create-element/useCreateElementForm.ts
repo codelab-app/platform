@@ -12,8 +12,14 @@ export type ParentElementId = Partial<
 >
 
 const mapVariables = (input: CreateElementInput): ElementCreateInput => {
-  const { parentElementId, instanceOfComponentId, atomId, order, ...data } =
-    input
+  const {
+    parentElementId,
+    instanceOfComponentId,
+    atomId,
+    order,
+    propsData,
+    ...data
+  } = input
 
   const instanceOfComponent: ElementCreateInput['instanceOfComponent'] =
     instanceOfComponentId
@@ -33,10 +39,15 @@ const mapVariables = (input: CreateElementInput): ElementCreateInput => {
       }
     : undefined
 
+  const props: ElementCreateInput['props'] = propsData
+    ? { create: { node: { data: propsData } } }
+    : undefined
+
   return {
     instanceOfComponent,
     atom,
     parentElement,
+    props,
     ...data,
   }
 }

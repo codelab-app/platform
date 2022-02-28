@@ -1,6 +1,5 @@
 import {
   ElementCssEditor,
-  ElementFragment,
   ElementHookSection,
   PropMapBindingSection,
   UpdateElementPropsForm,
@@ -11,6 +10,7 @@ import {
   UseTrackLoadingPromises,
   useTrackLoadingPromises,
 } from '@codelab/frontend/view/components'
+import { IElement } from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 import styled from '@emotion/styled'
 import { Tabs } from 'antd'
@@ -61,7 +61,7 @@ const TabContainer = styled.div`
 
 export interface MetaPaneBuilderProps {
   renderUpdateElementContent: (
-    element: ElementFragment,
+    element: IElement,
     trackPromises: UseTrackLoadingPromises,
   ) => React.ReactNode
   tree: ElementTree

@@ -18,7 +18,6 @@ export const elementToRender: IElement = {
   css: '',
   instanceOfComponent: null,
   component: null,
-  fixedId: null,
   atom: {
     id: '0x27254',
     name: 'Html Div',
@@ -53,19 +52,22 @@ export const elementToRender: IElement = {
     {
       id: '0x2bf22',
       sourceKey: 'test.source.01',
-      targetElementId: null,
+      element: { id: '0x2786a' },
+      targetElement: null,
       targetKey: 'testTarget01',
     },
     {
       id: '0x2bf23',
       sourceKey: 'test.source.02',
-      targetElementId: '0x2786f',
+      element: { id: '0x2786a' },
+      targetElement: { id: '0x2786f' },
       targetKey: 'testTarget02',
     },
     {
       id: '0x2bf24',
       sourceKey: 'test.source.03',
-      targetElementId: '0x2786h',
+      element: { id: '0x2786a' },
+      targetElement: { id: '0x2786h' },
       targetKey: 'testTarget03',
     },
   ],
@@ -120,6 +122,7 @@ export const elementToRender03: IElement = {
   css: null,
   instanceOfComponent: {
     id: '0x3a981',
+    name: '01',
   },
   atom: {
     id: '0x27150',

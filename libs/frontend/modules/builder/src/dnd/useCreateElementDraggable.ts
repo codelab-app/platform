@@ -1,4 +1,4 @@
-import { CreateElementInput } from '@codelab/shared/abstract/codegen'
+import { CreateElementInput } from '@codelab/frontend/modules/element'
 import { useDraggable } from '@dnd-kit/core'
 import { BuilderDndType } from './BuilderDndType'
 

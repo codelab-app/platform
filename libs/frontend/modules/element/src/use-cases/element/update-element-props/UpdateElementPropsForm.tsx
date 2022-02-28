@@ -4,9 +4,13 @@ import {
   useTypeTree,
 } from '@codelab/frontend/modules/type'
 import { ElementIdProvider } from '@codelab/frontend/presenter/container'
-import { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
-import { Prop } from '@codelab/shared/abstract/codegen'
-import { Spin } from 'antd'
+import {
+  ConditionalView,
+  SpinnerWrapper,
+  UseTrackLoadingPromises,
+} from '@codelab/frontend/view/components'
+import { IProp } from '@codelab/shared/abstract/core'
+import { Nullish } from '@codelab/shared/abstract/types'
 import { useRef } from 'react'
 import { useGetElementById } from '../../../hooks'
 import { useUpdateElementsMutation } from '../../../store'
@@ -14,7 +18,7 @@ import { useUpdateElementsMutation } from '../../../store'
 interface UpdateElementPropsFormInternalProps {
   elementId: string
   interfaceId: string
-  existingProps: Prop
+  existingProps: Nullish<IProp>
   trackPromises?: UseTrackLoadingPromises
 }
 
@@ -35,38 +39,34 @@ export const UpdateElementPropsFormInternal = ({
   const initialPropsRef = useRef(JSON.parse(existingProps?.data || '{}'))
   const tree = useTypeTree(interfaceData?.types?.[0]?.graph)
 
-  if (interfaceLoading) {
-    return <Spin />
-  }
+  const onSubmit = (data: any) => {
+    const createOrUpdate = existingProps ? 'update' : 'create'
 
-  if (!interfaceData) {
-    return null
+    const promise = mutate({
+      variables: {
+        where: { id: elementId },
+        update: {
+          props: { [createOrUpdate]: { node: { data: JSON.stringify(data) } } },
+        },
+      },
+    }).unwrap()
+
+    return trackPromise?.(promise) ?? promise
   }
 
   return (
-    <InterfaceForm
-      autosave
-      interfaceTree={tree}
-      key={elementId}
-      model={initialPropsRef.current}
-      onSubmit={(data: any) => {
-        const createOrUpdate = existingProps ? 'update' : 'create'
-
-        const promise = mutate({
-          variables: {
-            where: { id: elementId },
-            update: {
-              props: {
-                [createOrUpdate]: { node: { data: JSON.stringify(data) } },
-              },
-            },
-          },
-        }).unwrap()
-
-        return trackPromise?.(promise) ?? promise
-      }}
-      submitRef={undefined}
-    />
+    <ConditionalView condition={Boolean(interfaceData)}>
+      <SpinnerWrapper isLoading={interfaceLoading}>
+        <InterfaceForm
+          autosave
+          interfaceTree={tree}
+          key={elementId}
+          model={initialPropsRef.current}
+          onSubmit={onSubmit}
+          submitRef={undefined}
+        />
+      </SpinnerWrapper>
+    </ConditionalView>
   )
 }
 

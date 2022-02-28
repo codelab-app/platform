@@ -1,8 +1,11 @@
 import { IPrimitiveType, TypeKind } from '@codelab/shared/abstract/core'
 import { Nullish } from '@codelab/shared/abstract/types'
-import { TypeFragment } from '../graphql'
+import { InterfaceTypeFieldEdgeFragment } from '../graphql'
 
-export const getTypeName = (type: Nullish<TypeFragment>): string => {
+export const getTypeName = (
+  // FIXME: Changed this to overcome build issue should check the correct typing
+  type: Nullish<InterfaceTypeFieldEdgeFragment['node']>,
+): string => {
   if (!type) {
     return ''
   }

@@ -3,9 +3,7 @@ import { ElementGraphSchema } from '../../element'
 import { PageSchema } from '../../page'
 import { AppSchema } from '../app.interface'
 
-export const ExportPageSchema = PageSchema.omit({
-  elements: true,
-}).extend({
+export const ExportPageSchema = PageSchema.extend({
   id: z.string(),
   elements: ElementGraphSchema, // make it non-optional
 })

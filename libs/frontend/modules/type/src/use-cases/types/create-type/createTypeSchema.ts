@@ -73,7 +73,7 @@ export const mapCreateTypeSchemaToTypeInput = (
       return {
         ...common,
         itemType: {
-          connect: { where: { node: { id: formData.arrayItemTypeId } } },
+          connect: [{ where: { node: { id: formData.arrayItemTypeId } } }],
         },
       }
     case TypeKind.InterfaceType:

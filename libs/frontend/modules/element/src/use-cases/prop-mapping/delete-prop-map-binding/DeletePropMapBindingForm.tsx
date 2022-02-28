@@ -7,9 +7,9 @@ import {
   EmptyJsonSchemaType,
   Form,
 } from '@codelab/frontend/view/components'
+import { IPropMapBinding } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { PropMapBindingFragment } from '../../../graphql/PropMapBinding.fragment.v2.graphql.gen'
 
 export type DeletePropMapBindingFormProps = Omit<
   FormProps<EmptyJsonSchemaType>,
@@ -21,7 +21,7 @@ export interface ElementId {
 }
 
 export const DeletePropMapBindingForm = (
-  props: DeleteUseCaseFormWithRef<EmptyJsonSchemaType, PropMapBindingFragment>,
+  props: DeleteUseCaseFormWithRef<EmptyJsonSchemaType, IPropMapBinding>,
 ) => {
   return (
     <Form<EmptyJsonSchemaType>

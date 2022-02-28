@@ -265,6 +265,10 @@ export const typeSchema = gql`
     Pick any element from the children of the current element
     """
     ChildrenOnly
+    """
+    Pick parents and siblings of parents of elements (used to move element) 
+    """
+    ExcludeDescendantsElements
   }
 
   """

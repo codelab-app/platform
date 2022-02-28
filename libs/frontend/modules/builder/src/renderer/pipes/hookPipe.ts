@@ -12,7 +12,7 @@ export const hookPipe: RenderPipeFactory =
 
     const { getHooksResponse } = context
     const { hooks } = element
-    const hooksResponse = getHooksResponse(hooks, props)
+    const hooksResponse = hooks ? getHooksResponse(hooks, props) : {}
 
     return next(element, context, mergeProps(props, hooksResponse))
   }

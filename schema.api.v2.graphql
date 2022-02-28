@@ -3843,6 +3843,11 @@ enum ElementTypeKind {
   Pick any element from the descendants of the current element
   """
   DescendantsOnly
+
+  """
+  Pick parents and siblings of parents of elements (used to move element)
+  """
+  ExcludeDescendantsElements
 }
 
 input ElementTypeOptions {

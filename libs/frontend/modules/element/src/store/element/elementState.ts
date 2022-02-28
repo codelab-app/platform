@@ -1,4 +1,8 @@
-import { CRUDActionType, CRUDModalState } from '@codelab/frontend/abstract/core'
+import {
+  CRUDActionType,
+  CRUDModalState,
+  IElement,
+} from '@codelab/frontend/abstract/core'
 import {
   createCrudSlice,
   initialCrudState,
@@ -6,7 +10,6 @@ import {
 import { Maybe } from '@codelab/shared/abstract/types'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { DefaultRootState } from 'react-redux'
-import { ElementFragment } from '../graphql'
 
 export interface ElementStateCreateMetadata {
   parentElementId?: string
@@ -16,7 +19,7 @@ export interface SetCurrentGraphRootActionPayload {
   rootElementId?: string
 }
 
-export interface ElementState extends CRUDModalState<ElementFragment> {
+export interface ElementState extends CRUDModalState<IElement> {
   createMetadata?: ElementStateCreateMetadata
   // used obtain graph cache entry in order to update it
   currentGraphRootId?: string
