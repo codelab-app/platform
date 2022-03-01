@@ -4,6 +4,8 @@
     "cli": "apps/cli",
     "frontend-abstract-core": "libs/frontend/abstract/core",
     "frontend-abstract-types": "libs/frontend/abstract/types",
+    "frontend-model-infra--graphql": "libs/frontend/model/infra/graphql",
+    "frontend-model-infra--mobx": "libs/frontend/model/infra/mobx",
     "frontend-model-infra-apollo": "libs/frontend/model/infra/apollo",
     "frontend-model-infra-redux": "libs/frontend/model/infra/redux",
     "frontend-modules-admin": "libs/frontend/modules/admin",

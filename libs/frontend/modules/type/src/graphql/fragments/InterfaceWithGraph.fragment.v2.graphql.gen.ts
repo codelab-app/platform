@@ -5,7 +5,7 @@ import {
   InterfaceTypeWithFieldsFragment,
 } from './Interface.fragment.v2.graphql.gen'
 import { TypeGraphFragment } from './TypeGraph.fragment.v2.graphql.gen'
-import { gql } from '@apollo/client'
+import { gql } from 'graphql-request'
 import {
   InterfaceTypeFragmentDoc,
   InterfaceTypeWithFieldsFragmentDoc,

@@ -1,6 +1,8 @@
 fragment App on App {
   id
-  # ownerId
+  owner {
+    id
+  }
   name
   pages {
     id
@@ -14,7 +16,9 @@ fragment App on App {
 
 fragment AppBase on App {
   id
-  # ownerId
+  owner {
+    id
+  }
   name
   # pages {
   #   id

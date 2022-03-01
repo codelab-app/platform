@@ -1,6 +1,7 @@
 import { Maybe } from '@codelab/shared/abstract/types'
 import { JSONSchemaType } from 'ajv'
 import React from 'react'
+import { ArrayOrSingle } from 'ts-essentials'
 import { AutoFormProps, Bridge } from 'uniforms'
 import { Callback } from '../utils'
 
@@ -8,12 +9,12 @@ export type FormProps<TData, TResponse = unknown> = {
   /**
    * Called after a successful submit
    */
-  onSubmitSuccess?: Array<Callback<TResponse, void>>
+  onSubmitSuccess?: ArrayOrSingle<Callback<TResponse, void>>
 
   /**
    * Called after a failed submit
    */
-  onSubmitError?: Array<Callback<TResponse, void>>
+  onSubmitError?: ArrayOrSingle<Callback<TResponse, void>>
 
   onSubmit: (model: TData) => Promise<TResponse | void>
 

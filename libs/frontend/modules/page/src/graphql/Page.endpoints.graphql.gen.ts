@@ -1,10 +1,14 @@
-import * as Types from '@codelab/shared/abstract/codegen'
-
 import { gql } from '@apollo/client'
 import {
   api,
   GraphqlOperationOptions,
 } from '@codelab/frontend/model/infra/redux'
+import * as Types from '@codelab/shared/abstract/codegen'
+import {
+  PageBaseFragmentDoc,
+  PageFullFragmentDoc,
+} from './Page.fragment.v2.graphql.gen'
+
 export type CreatePageMutationVariables = Types.Exact<{
   input: Types.CreatePageInput
 }>
@@ -165,6 +169,7 @@ const injectedRtkApi = api.injectEndpoints({
     }),
   }),
 })
+
 export { injectedRtkApi as api }
 export const {
   useCreatePageMutation,

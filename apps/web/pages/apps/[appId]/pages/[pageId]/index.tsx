@@ -3,7 +3,6 @@ import {
   CodelabPage,
   DashboardTemplateProps,
 } from '@codelab/frontend/abstract/types'
-import { AppProvider } from '@codelab/frontend/modules/app'
 import { Renderer, useTypesByIdQuery } from '@codelab/frontend/modules/builder'
 import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
@@ -42,12 +41,10 @@ export const getServerSideProps = withPageAuthRequired()
 
 PageRenderer.Layout = (page) => {
   return (
-    <AppProvider>
-      <PageProvider>
-        <DashboardTemplate Header={PageDetailHeader} headerHeight={38}>
-          {page.children}
-        </DashboardTemplate>
-      </PageProvider>
-    </AppProvider>
+    <PageProvider>
+      <DashboardTemplate Header={PageDetailHeader} headerHeight={38}>
+        {page.children}
+      </DashboardTemplate>
+    </PageProvider>
   )
 }

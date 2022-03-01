@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { AtomFragment } from './Atom.fragment.v2.graphql.gen'
-import { gql } from '@apollo/client'
+import { gql } from 'graphql-request'
 import { AtomFragmentDoc } from './Atom.fragment.v2.graphql.gen'
 import {
   api,

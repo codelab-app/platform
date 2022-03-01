@@ -3,7 +3,7 @@ import {
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
-import { useAppState } from '@codelab/frontend/modules/app'
+import { useCurrentAppId } from '@codelab/frontend/modules/app'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { PageCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { useCallback } from 'react'
@@ -16,7 +16,7 @@ export const useCreatePageForm: UseUseCaseForm<
   CRUDActionType
 > = () => {
   const { resetModal } = usePageDispatch()
-  const { currentApp } = useAppState()
+  const currentAppId = useCurrentAppId()
   const { actionType } = usePageState()
 
   const [mutate, { isLoading }] = useCreatePagesMutation({
@@ -54,7 +54,7 @@ export const useCreatePageForm: UseUseCaseForm<
       }),
     ],
     onSubmitSuccess: [() => resetModal()],
-    model: { appId: currentApp?.id },
+    model: { appId: currentAppId },
     isLoading,
     actionType,
     reset: resetModal,

@@ -1,6 +1,8 @@
 import { JSONSchemaType } from 'ajv'
-import { CreateAppInput } from '../create-app'
-import { UpdateAppInput } from './types'
+
+export type UpdateAppInput = {
+  name: string
+}
 
 export const updateAppSchema: JSONSchemaType<UpdateAppInput> = {
   title: 'Edit App Input',

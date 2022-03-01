@@ -2,16 +2,15 @@ import {
   DeleteOutlined,
   EditOutlined,
   EllipsisOutlined,
-  ExportOutlined,
 } from '@ant-design/icons'
-import { Button, Dropdown, Menu, Spin } from 'antd'
+import { Button, Dropdown, Menu } from 'antd'
+import { observer } from 'mobx-react-lite'
 import React, { CSSProperties } from 'react'
-import { AppFragment } from '../../graphql/App.fragment.v2.graphql.gen'
-import { useAppDispatch } from '../../hooks'
-import { useExportApp } from '../export-app'
+import { AppModel, AppStore } from '../../store'
 
 export type ItemMenuProps = {
-  app: AppFragment
+  apps: AppStore
+  app: AppModel
 }
 
 const menuItemStyle: CSSProperties = {
@@ -26,21 +25,14 @@ const menuItemIconStyle: CSSProperties = {
   marginLeft: '1rem',
 }
 
-export const ItemDropdown = ({ app }: ItemMenuProps) => {
-  const { openUpdateModal, openDeleteModal } = useAppDispatch()
-  // const { exportApp, isExporting } = useExportApp(app)
+export const ItemDropdown = observer(({ app, apps }: ItemMenuProps) => {
+  const onEditClick = () => {
+    apps.updateModal.open(app.id)
+  }
 
-  const onClickEdit = () =>
-    openUpdateModal({
-      updateId: app.id,
-      entity: app,
-    })
-
-  const onClickDelete = () =>
-    openDeleteModal({
-      deleteIds: [app.id],
-      entity: app,
-    })
+  const onDeleteClick = () => {
+    apps.deleteModal.open(app.id)
+  }
 
   const actionsMenu = (
     <Menu>
@@ -49,12 +41,12 @@ export const ItemDropdown = ({ app }: ItemMenuProps) => {
         {isExporting ? <Spin /> : <ExportOutlined style={menuItemIconStyle} />}
       </Menu.Item> */}
 
-      <Menu.Item key="edit" onClick={onClickEdit} style={menuItemStyle}>
+      <Menu.Item key="edit" onClick={onEditClick} style={menuItemStyle}>
         Edit
         <EditOutlined style={menuItemIconStyle} />
       </Menu.Item>
 
-      <Menu.Item key="delete" onClick={onClickDelete} style={menuItemStyle}>
+      <Menu.Item key="delete" onClick={onDeleteClick} style={menuItemStyle}>
         Delete
         <DeleteOutlined style={menuItemIconStyle} />
       </Menu.Item>
@@ -66,4 +58,4 @@ export const ItemDropdown = ({ app }: ItemMenuProps) => {
       <Button icon={<EllipsisOutlined />} shape="circle" type="text" />
     </Dropdown>
   )
-}
+})

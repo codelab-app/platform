@@ -70,6 +70,10 @@ export const userSlice = createCrudSlice(
   },
   {
     [HYDRATE]: (state, action) => {
+      if (!action.payload.user) {
+        return state
+      }
+
       const { user } = action.payload.user
       // console.log('userState HYDRATE', state, user)
 

@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
 import { PageFragment } from './Page.fragment.v2.graphql.gen'
-import { gql } from '@apollo/client'
+import { gql } from 'graphql-request'
 import { PageFragmentDoc } from './Page.fragment.v2.graphql.gen'
 import {
   api,
