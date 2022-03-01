@@ -1,12 +1,12 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
+
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import gql from 'graphql-tag'
 import {
-  AppBaseFragmentDoc,
   AppFragmentDoc,
+  AppBaseFragmentDoc,
 } from './App.fragment.v2.1.graphql.gen'
-
 export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>
@@ -175,7 +175,6 @@ export function getSdk(
         'UpdateApps',
       )
     },
-
     DeleteApps(
       variables: DeleteAppsMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
@@ -204,5 +203,4 @@ export function getSdk(
     },
   }
 }
-
 export type Sdk = ReturnType<typeof getSdk>

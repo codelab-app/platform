@@ -1,7 +1,7 @@
 overwrite: true
 hooks:
   afterAllFileWrite:
-    - yarn lint --fix
+    # - yarn eslint --fix
     - yarn prettier --write
 
 # If you're in the bind of not being able to run the app because of a codegen error

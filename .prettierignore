@@ -2,11 +2,4 @@ node_modules
 dist
 yarn-error.log
 yarn.lock
-**/*.tf
-schema.api.graphql
 .yarn
-build
-
-# Graphql codegen files
-# **/*.graphql.gen.ts
-

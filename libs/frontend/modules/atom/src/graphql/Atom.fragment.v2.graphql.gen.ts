@@ -1,21 +1,28 @@
-import * as Types from '@codelab/shared/abstract/codegen-v2';
+import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { gql } from 'graphql-request';
-export type AtomFragment = { __typename: 'Atom', id: string, name: string, type: Types.AtomType, tags?: Array<{ id: string, name: string }> | null | undefined, api: { id: string, name: string } };
+import { gql } from 'graphql-request'
+export type AtomFragment = {
+  __typename: 'Atom'
+  id: string
+  name: string
+  type: Types.AtomType
+  tags?: Array<{ id: string; name: string }> | null | undefined
+  api: { id: string; name: string }
+}
 
 export const AtomFragmentDoc = gql`
-    fragment Atom on Atom {
-  __typename
-  id
-  name
-  type
-  tags {
+  fragment Atom on Atom {
+    __typename
     id
     name
+    type
+    tags {
+      id
+      name
+    }
+    api {
+      id
+      name
+    }
   }
-  api {
-    id
-    name
-  }
-}
-    `;
+`
