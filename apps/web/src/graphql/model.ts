@@ -16,7 +16,8 @@ import {
   ReactNodeTypeModel, 
   PageTypeModel, 
   MonacoTypeModel, 
-  ElementTypeModel 
+  ElementTypeModel, 
+  EnumTypeValueModel
 } from './ogm-types.gen'
 
 let userInst: UserModel
@@ -101,3 +102,8 @@ let elementTypeInst: ElementTypeModel
 
 export const ElementType = () =>
   (elementTypeInst ??= getOgm().model('ElementType'))
+
+let enumTypeValuesInst: EnumTypeValueModel
+
+export const EnumTypeValue = () =>
+  (enumTypeValuesInst ??= getOgm().model('EnumTypeValue'))

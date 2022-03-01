@@ -12,7 +12,11 @@ export type CreateComponentsMutationVariables = Types.Exact<{
 }>
 
 export type CreateComponentsMutation = {
-  createComponents: { components: Array<ComponentFragment> }
+  createComponents: {
+    components: Array<{
+      ' $fragmentRefs': { ComponentFragment: ComponentFragment }
+    }>
+  }
 }
 
 export type DeleteComponentsMutationVariables = Types.Exact<{
@@ -30,7 +34,11 @@ export type UpdateComponentsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateComponentsMutation = {
-  updateComponents: { components: Array<ComponentFragment> }
+  updateComponents: {
+    components: Array<{
+      ' $fragmentRefs': { ComponentFragment: ComponentFragment }
+    }>
+  }
 }
 
 export type GetComponentsQueryVariables = Types.Exact<{
@@ -38,7 +46,11 @@ export type GetComponentsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ComponentWhere>
 }>
 
-export type GetComponentsQuery = { components: Array<ComponentFragment> }
+export type GetComponentsQuery = {
+  components: Array<{
+    ' $fragmentRefs': { ComponentFragment: ComponentFragment }
+  }>
+}
 
 export const CreateComponentsGql = gql`
   mutation CreateComponents($input: [ComponentCreateInput!]!) {

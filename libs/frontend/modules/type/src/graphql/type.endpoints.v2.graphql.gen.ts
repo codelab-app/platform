@@ -11,13 +11,21 @@ export type CreateFieldMutationVariables = Types.Exact<{
   input: Types.UpsertFieldInput
 }>
 
-export type CreateFieldMutation = { upsertFieldEdge: InterfaceTypeEdgeFragment }
+export type CreateFieldMutation = {
+  upsertFieldEdge: {
+    ' $fragmentRefs': { InterfaceTypeEdgeFragment: InterfaceTypeEdgeFragment }
+  }
+}
 
 export type UpdateFieldMutationVariables = Types.Exact<{
   input: Types.UpsertFieldInput
 }>
 
-export type UpdateFieldMutation = { upsertFieldEdge: InterfaceTypeEdgeFragment }
+export type UpdateFieldMutation = {
+  upsertFieldEdge: {
+    ' $fragmentRefs': { InterfaceTypeEdgeFragment: InterfaceTypeEdgeFragment }
+  }
+}
 
 export type DeleteFieldMutationVariables = Types.Exact<{
   input: Types.DeleteFieldInput
@@ -32,16 +40,14 @@ export type IsTypeDescendantOfQueryVariables = Types.Exact<{
   parentTypeId: Types.Scalars['ID']
 }>
 
-export type IsTypeDescendantOfQuery = {
-  isTypeDescendantOf?: boolean | null | undefined
-}
+export type IsTypeDescendantOfQuery = { isTypeDescendantOf?: boolean | null }
 
 export type GetTypeReferencesQueryVariables = Types.Exact<{
   typeId: Types.Scalars['ID']
 }>
 
 export type GetTypeReferencesQuery = {
-  getTypeReferences?: Array<{ name: string; label: string }> | null | undefined
+  getTypeReferences?: Array<{ name: string; label: string }> | null
 }
 
 export const CreateFieldGql = gql`

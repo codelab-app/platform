@@ -1742,19 +1742,6 @@ export type ComponentCreateInput = {
   rootElement?: InputMaybe<ComponentRootElementFieldInput>
 }
 
-export type CreateImportDataMutationResponsesMutationResponse = {
-  __typename?: 'CreateImportDataMutationResponsesMutationResponse'
-  importDataMutationResponses: Array<ImportDataMutationResponse>
-  info: CreateInfo
-}
-
-export type CreateInfo = {
-  __typename?: 'CreateInfo'
-  bookmark?: Maybe<Scalars['String']>
-  nodesCreated: Scalars['Int']
-  relationshipsCreated: Scalars['Int']
-}
-
 export type ComponentDeleteInput = {
   owner?: InputMaybe<ComponentOwnerDeleteFieldInput>
   rootElement?: InputMaybe<ComponentRootElementDeleteFieldInput>
@@ -1895,12 +1882,6 @@ export type ComponentOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   id_EQUAL?: InputMaybe<Scalars['ID']>
-}
-
-export type CreateResetDataMutationResponsesMutationResponse = {
-  __typename?: 'CreateResetDataMutationResponsesMutationResponse'
-  info: CreateInfo
-  resetDataMutationResponses: Array<ResetDataMutationResponse>
 }
 
 export type ComponentOwnerRelationship = {
@@ -2263,6 +2244,19 @@ export type CreateImportAtomsMutationResponsesMutationResponse = {
   __typename?: 'CreateImportAtomsMutationResponsesMutationResponse'
   importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
   info: CreateInfo
+}
+
+export type CreateImportDataMutationResponsesMutationResponse = {
+  __typename?: 'CreateImportDataMutationResponsesMutationResponse'
+  importDataMutationResponses: Array<ImportDataMutationResponse>
+  info: CreateInfo
+}
+
+export type CreateInfo = {
+  __typename?: 'CreateInfo'
+  bookmark?: Maybe<Scalars['String']>
+  nodesCreated: Scalars['Int']
+  relationshipsCreated: Scalars['Int']
 }
 
 export type CreateInfoAggregateSelection = {
@@ -5596,11 +5590,6 @@ export type IdAggregateSelection = {
 export type IEdge = {
   source: Scalars['String']
   target: Scalars['String']
-}
-
-export type IElementGraph = {
-  root?: Maybe<Element>
-  vertices?: Maybe<Array<Element>>
 }
 
 export type ImportAdminDataInput = {

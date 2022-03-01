@@ -6,25 +6,24 @@ import { AtomFragmentDoc } from '../../../atom/src/graphql/Atom.fragment.v2.grap
 export type ElementFragment = {
   __typename: 'Element'
   id: string
-  name?: string | null | undefined
-  css?: string | null | undefined
-  renderForEachPropKey?: string | null | undefined
-  renderIfPropKey?: string | null | undefined
-  propTransformationJs?: string | null | undefined
-  component?: { id: string; name: string } | null | undefined
-  instanceOfComponent?: { id: string; name: string } | null | undefined
-  parentElement?:
-    | { id: string; name?: string | null | undefined }
-    | null
-    | undefined
-  atom?: AtomFragment | null | undefined
-  props?: PropFragment | null | undefined
-  hooks?: Array<HookFragment> | null | undefined
-  propMapBindings?: Array<PropMapBindingFragment> | null | undefined
+  name?: string | null
+  css?: string | null
+  renderForEachPropKey?: string | null
+  renderIfPropKey?: string | null
+  propTransformationJs?: string | null
+  component?: { id: string; name: string } | null
+  instanceOfComponent?: { id: string; name: string } | null
+  parentElement?: { id: string; name?: string | null } | null
+  atom?: { ' $fragmentRefs': { AtomFragment: AtomFragment } } | null
+  props?: { ' $fragmentRefs': { PropFragment: PropFragment } } | null
+  hooks?: Array<{ ' $fragmentRefs': { HookFragment: HookFragment } }> | null
+  propMapBindings?: Array<{
+    ' $fragmentRefs': { PropMapBindingFragment: PropMapBindingFragment }
+  }> | null
   parentElementConnection: {
     edges: Array<{
-      order?: number | null | undefined
-      node: { id: string; name?: string | null | undefined }
+      order?: number | null
+      node: { id: string; name?: string | null }
     }>
   }
 }
@@ -32,13 +31,15 @@ export type ElementFragment = {
 export type ElementEdgeFragment = {
   source: string
   target: string
-  order?: number | null | undefined
+  order?: number | null
 }
 
 export type ElementGraphFragment = {
-  rootId?: string | null | undefined
-  edges: Array<ElementEdgeFragment>
-  vertices: Array<ElementFragment>
+  rootId?: string | null
+  edges: Array<{
+    ' $fragmentRefs': { ElementEdgeFragment: ElementEdgeFragment }
+  }>
+  vertices: Array<{ ' $fragmentRefs': { ElementFragment: ElementFragment } }>
 }
 
 export type PropFragment = { id: string; data: string }
@@ -46,19 +47,16 @@ export type PropFragment = { id: string; data: string }
 export type HookFragment = {
   id: string
   type: Types.AtomType
-  config: PropFragment
-  element: { id: string; name?: string | null | undefined }
+  config: { ' $fragmentRefs': { PropFragment: PropFragment } }
+  element: { id: string; name?: string | null }
 }
 
 export type PropMapBindingFragment = {
   id: string
   sourceKey: string
   targetKey: string
-  element: { id: string; name?: string | null | undefined }
-  targetElement?:
-    | { id: string; name?: string | null | undefined }
-    | null
-    | undefined
+  element: { id: string; name?: string | null }
+  targetElement?: { id: string; name?: string | null } | null
 }
 
 export const ElementEdgeFragmentDoc = gql`

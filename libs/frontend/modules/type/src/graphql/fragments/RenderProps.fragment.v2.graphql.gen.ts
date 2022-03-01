@@ -14,7 +14,11 @@ import {
 } from './TypeBase.fragment.v2.graphql.gen'
 import { gql } from 'graphql-request'
 import { TypeBaseFragmentDoc } from './TypeBase.fragment.v2.graphql.gen'
-export type RenderPropsTypeFragment = TypeBase_RenderPropsType_Fragment
+export type RenderPropsTypeFragment = {
+  ' $fragmentRefs': {
+    TypeBase_RenderPropsType_Fragment: TypeBase_RenderPropsType_Fragment
+  }
+}
 
 export const RenderPropsTypeFragmentDoc = gql`
   fragment RenderPropsType on RenderPropsType {

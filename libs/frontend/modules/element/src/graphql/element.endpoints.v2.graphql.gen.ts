@@ -12,7 +12,9 @@ export type CreateElementsMutationVariables = Types.Exact<{
 }>
 
 export type CreateElementsMutation = {
-  createElements: { elements: Array<ElementFragment> }
+  createElements: {
+    elements: Array<{ ' $fragmentRefs': { ElementFragment: ElementFragment } }>
+  }
 }
 
 export type DeleteElementsSubgraphMutationVariables = Types.Exact<{
@@ -23,7 +25,7 @@ export type DeleteElementsSubgraphMutationVariables = Types.Exact<{
 export type DeleteElementsSubgraphMutation = {
   deleteElementsSubgraph: {
     nodesDeleted: number
-    deletedIds?: Array<string> | null | undefined
+    deletedIds?: Array<string> | null
   }
 }
 
@@ -33,7 +35,9 @@ export type UpdateElementsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateElementsMutation = {
-  updateElements: { elements: Array<ElementFragment> }
+  updateElements: {
+    elements: Array<{ ' $fragmentRefs': { ElementFragment: ElementFragment } }>
+  }
 }
 
 export type MoveElementsMutationVariables = Types.Exact<{
@@ -42,7 +46,9 @@ export type MoveElementsMutationVariables = Types.Exact<{
 }>
 
 export type MoveElementsMutation = {
-  updateElements: { elements: Array<ElementFragment> }
+  updateElements: {
+    elements: Array<{ ' $fragmentRefs': { ElementFragment: ElementFragment } }>
+  }
 }
 
 export type ConvertElementsToComponentsMutationVariables = Types.Exact<{
@@ -51,7 +57,9 @@ export type ConvertElementsToComponentsMutationVariables = Types.Exact<{
 }>
 
 export type ConvertElementsToComponentsMutation = {
-  updateElements: { elements: Array<ElementFragment> }
+  updateElements: {
+    elements: Array<{ ' $fragmentRefs': { ElementFragment: ElementFragment } }>
+  }
 }
 
 export type DuplicateElementMutationVariables = Types.Exact<{
@@ -59,7 +67,9 @@ export type DuplicateElementMutationVariables = Types.Exact<{
 }>
 
 export type DuplicateElementMutation = {
-  duplicateElement: { elements: Array<ElementFragment> }
+  duplicateElement: {
+    elements: Array<{ ' $fragmentRefs': { ElementFragment: ElementFragment } }>
+  }
 }
 
 export type GetElementsQueryVariables = Types.Exact<{
@@ -67,7 +77,9 @@ export type GetElementsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementWhere>
 }>
 
-export type GetElementsQuery = { elements: Array<ElementFragment> }
+export type GetElementsQuery = {
+  elements: Array<{ ' $fragmentRefs': { ElementFragment: ElementFragment } }>
+}
 
 export const CreateElementsGql = gql`
   mutation CreateElements($input: [ElementCreateInput!]!) {

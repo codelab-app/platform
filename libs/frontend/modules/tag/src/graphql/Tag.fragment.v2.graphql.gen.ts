@@ -4,8 +4,8 @@ import { gql } from 'graphql-request'
 export type TagFragment = {
   id: string
   name: string
-  isRoot?: boolean | null | undefined
-  children?: Array<{ id: string; name: string }> | null | undefined
+  isRoot?: boolean | null
+  children?: Array<{ id: string; name: string }> | null
 }
 
 export const TagFragmentDoc = gql`

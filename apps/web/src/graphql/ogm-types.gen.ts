@@ -1844,6 +1844,8 @@ export enum ElementTypeKind {
   DescendantsOnly = 'DescendantsOnly',
   /** Pick any element from the children of the current element */
   ChildrenOnly = 'ChildrenOnly',
+  /** Pick parents and siblings of parents of elements (used to move element) */
+  ExcludeDescendantsElements = 'ExcludeDescendantsElements',
 }
 
 export enum MonacoLanguage {
@@ -6930,10 +6932,6 @@ export type ElementEdgeUpdateInput = {
   order?: Maybe<Scalars['Int']>
 }
 
-export type ImportAdminDataInput = {
-  payload?: Maybe<Array<Scalars['JSONObject']>>
-}
-
 export type ElementEdgeWhere = {
   OR?: Maybe<Array<ElementEdgeWhere>>
   AND?: Maybe<Array<ElementEdgeWhere>>
@@ -7015,33 +7013,6 @@ export type ElementHooksAggregateInput = {
   AND?: Maybe<Array<ElementHooksAggregateInput>>
   OR?: Maybe<Array<ElementHooksAggregateInput>>
   node?: Maybe<ElementHooksNodeAggregationWhereInput>
-}
-
-export type ImportDataMutationResponseCreateInput = {
-  result: Scalars['Boolean']
-}
-
-export type ImportDataMutationResponseOptions = {
-  /** Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ImportDataMutationResponseSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-/** Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object. */
-export type ImportDataMutationResponseSort = {
-  result?: Maybe<SortDirection>
-}
-
-export type ImportDataMutationResponseUpdateInput = {
-  result?: Maybe<Scalars['Boolean']>
-}
-
-export type ImportDataMutationResponseWhere = {
-  OR?: Maybe<Array<ImportDataMutationResponseWhere>>
-  AND?: Maybe<Array<ImportDataMutationResponseWhere>>
-  result?: Maybe<Scalars['Boolean']>
-  result_NOT?: Maybe<Scalars['Boolean']>
 }
 
 export type ElementHooksConnectFieldInput = {
@@ -8432,33 +8403,6 @@ export type HookConfigAggregateInput = {
   node?: Maybe<HookConfigNodeAggregationWhereInput>
 }
 
-export type ResetDataMutationResponseCreateInput = {
-  success?: Maybe<Scalars['Boolean']>
-}
-
-export type ResetDataMutationResponseOptions = {
-  /** Specify one or more ResetDataMutationResponseSort objects to sort ResetDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: Maybe<Array<Maybe<ResetDataMutationResponseSort>>>
-  limit?: Maybe<Scalars['Int']>
-  offset?: Maybe<Scalars['Int']>
-}
-
-/** Fields to sort ResetDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResetDataMutationResponseSort object. */
-export type ResetDataMutationResponseSort = {
-  success?: Maybe<SortDirection>
-}
-
-export type ResetDataMutationResponseUpdateInput = {
-  success?: Maybe<Scalars['Boolean']>
-}
-
-export type ResetDataMutationResponseWhere = {
-  OR?: Maybe<Array<ResetDataMutationResponseWhere>>
-  AND?: Maybe<Array<ResetDataMutationResponseWhere>>
-  success?: Maybe<Scalars['Boolean']>
-  success_NOT?: Maybe<Scalars['Boolean']>
-}
-
 export type HookConfigConnectFieldInput = {
   where?: Maybe<PropConnectWhere>
 }
@@ -8808,6 +8752,10 @@ export type HookWhere = {
   elementConnection_NOT?: Maybe<HookElementConnectionWhere>
 }
 
+export type ImportAdminDataInput = {
+  payload?: Maybe<Array<Scalars['JSONObject']>>
+}
+
 export type ImportAtomsInput = {
   payload?: Maybe<Array<Scalars['JSONObject']>>
 }
@@ -8830,6 +8778,33 @@ export type ImportAtomsMutationResponseUpdateInput = {
 export type ImportAtomsMutationResponseWhere = {
   OR?: Maybe<Array<ImportAtomsMutationResponseWhere>>
   AND?: Maybe<Array<ImportAtomsMutationResponseWhere>>
+}
+
+export type ImportDataMutationResponseCreateInput = {
+  result: Scalars['Boolean']
+}
+
+export type ImportDataMutationResponseOptions = {
+  /** Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: Maybe<Array<Maybe<ImportDataMutationResponseSort>>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+/** Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object. */
+export type ImportDataMutationResponseSort = {
+  result?: Maybe<SortDirection>
+}
+
+export type ImportDataMutationResponseUpdateInput = {
+  result?: Maybe<Scalars['Boolean']>
+}
+
+export type ImportDataMutationResponseWhere = {
+  OR?: Maybe<Array<ImportDataMutationResponseWhere>>
+  AND?: Maybe<Array<ImportDataMutationResponseWhere>>
+  result?: Maybe<Scalars['Boolean']>
+  result_NOT?: Maybe<Scalars['Boolean']>
 }
 
 export type InterfaceTypeApiOfAtomsAggregateInput = {
@@ -10947,6 +10922,33 @@ export type RenderPropsTypeWhere = {
   ownerConnection_NOT?: Maybe<TypeBaseOwnerConnectionWhere>
 }
 
+export type ResetDataMutationResponseCreateInput = {
+  success?: Maybe<Scalars['Boolean']>
+}
+
+export type ResetDataMutationResponseOptions = {
+  /** Specify one or more ResetDataMutationResponseSort objects to sort ResetDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: Maybe<Array<Maybe<ResetDataMutationResponseSort>>>
+  limit?: Maybe<Scalars['Int']>
+  offset?: Maybe<Scalars['Int']>
+}
+
+/** Fields to sort ResetDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResetDataMutationResponseSort object. */
+export type ResetDataMutationResponseSort = {
+  success?: Maybe<SortDirection>
+}
+
+export type ResetDataMutationResponseUpdateInput = {
+  success?: Maybe<Scalars['Boolean']>
+}
+
+export type ResetDataMutationResponseWhere = {
+  OR?: Maybe<Array<ResetDataMutationResponseWhere>>
+  AND?: Maybe<Array<ResetDataMutationResponseWhere>>
+  success?: Maybe<Scalars['Boolean']>
+  success_NOT?: Maybe<Scalars['Boolean']>
+}
+
 export type TagChildrenAggregateInput = {
   count?: Maybe<Scalars['Int']>
   count_LT?: Maybe<Scalars['Int']>
@@ -12168,6 +12170,112 @@ export type UserWhere = {
   componentsConnection_NOT?: Maybe<UserComponentsConnectionWhere>
 }
 
+export interface ResetDataMutationResponseAggregateInput {
+  count?: boolean
+}
+
+export declare class ResetDataMutationResponseModel {
+  public find(args?: {
+    where?: ResetDataMutationResponseWhere
+
+    options?: ResetDataMutationResponseOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<ResetDataMutationResponse>>
+
+  public count(args?: {
+    where?: ResetDataMutationResponseWhere
+  }): Promise<number>
+
+  public create(args: {
+    input: Array<ResetDataMutationResponseCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateResetDataMutationResponsesMutationResponse>
+
+  public update(args: {
+    where?: ResetDataMutationResponseWhere
+    update?: ResetDataMutationResponseUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateResetDataMutationResponsesMutationResponse>
+
+  public delete(args: {
+    where?: ResetDataMutationResponseWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: ResetDataMutationResponseWhere
+
+    aggregate: ResetDataMutationResponseAggregateInput
+    context?: any
+    rootValue?: any
+  }): Promise<ResetDataMutationResponseAggregateSelection>
+}
+
+export interface ImportDataMutationResponseAggregateInput {
+  count?: boolean
+}
+
+export declare class ImportDataMutationResponseModel {
+  public find(args?: {
+    where?: ImportDataMutationResponseWhere
+
+    options?: ImportDataMutationResponseOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<Array<ImportDataMutationResponse>>
+
+  public count(args?: {
+    where?: ImportDataMutationResponseWhere
+  }): Promise<number>
+
+  public create(args: {
+    input: Array<ImportDataMutationResponseCreateInput>
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateImportDataMutationResponsesMutationResponse>
+
+  public update(args: {
+    where?: ImportDataMutationResponseWhere
+    update?: ImportDataMutationResponseUpdateInput
+
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateImportDataMutationResponsesMutationResponse>
+
+  public delete(args: {
+    where?: ImportDataMutationResponseWhere
+
+    context?: any
+    rootValue: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+
+  public aggregate(args: {
+    where?: ImportDataMutationResponseWhere
+
+    aggregate: ImportDataMutationResponseAggregateInput
+    context?: any
+    rootValue?: any
+  }): Promise<ImportDataMutationResponseAggregateSelection>
+}
+
 export interface StringAggregateInput {
   shortest?: boolean
   longest?: boolean
@@ -12754,112 +12862,6 @@ export declare class TypeReferenceModel {
     context?: any
     rootValue?: any
   }): Promise<TypeReferenceAggregateSelection>
-}
-
-export interface ResetDataMutationResponseAggregateInput {
-  count?: boolean
-}
-
-export declare class ResetDataMutationResponseModel {
-  public find(args?: {
-    where?: ResetDataMutationResponseWhere
-
-    options?: ResetDataMutationResponseOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<ResetDataMutationResponse>>
-
-  public count(args?: {
-    where?: ResetDataMutationResponseWhere
-  }): Promise<number>
-
-  public create(args: {
-    input: Array<ResetDataMutationResponseCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateResetDataMutationResponsesMutationResponse>
-
-  public update(args: {
-    where?: ResetDataMutationResponseWhere
-    update?: ResetDataMutationResponseUpdateInput
-
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateResetDataMutationResponsesMutationResponse>
-
-  public delete(args: {
-    where?: ResetDataMutationResponseWhere
-
-    context?: any
-    rootValue: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
-  public aggregate(args: {
-    where?: ResetDataMutationResponseWhere
-
-    aggregate: ResetDataMutationResponseAggregateInput
-    context?: any
-    rootValue?: any
-  }): Promise<ResetDataMutationResponseAggregateSelection>
-}
-
-export interface ImportDataMutationResponseAggregateInput {
-  count?: boolean
-}
-
-export declare class ImportDataMutationResponseModel {
-  public find(args?: {
-    where?: ImportDataMutationResponseWhere
-
-    options?: ImportDataMutationResponseOptions
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<Array<ImportDataMutationResponse>>
-
-  public count(args?: {
-    where?: ImportDataMutationResponseWhere
-  }): Promise<number>
-
-  public create(args: {
-    input: Array<ImportDataMutationResponseCreateInput>
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<CreateImportDataMutationResponsesMutationResponse>
-
-  public update(args: {
-    where?: ImportDataMutationResponseWhere
-    update?: ImportDataMutationResponseUpdateInput
-
-    selectionSet?: string | DocumentNode | SelectionSetNode
-    args?: any
-    context?: any
-    rootValue?: any
-  }): Promise<UpdateImportDataMutationResponsesMutationResponse>
-
-  public delete(args: {
-    where?: ImportDataMutationResponseWhere
-
-    context?: any
-    rootValue: any
-  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
-
-  public aggregate(args: {
-    where?: ImportDataMutationResponseWhere
-
-    aggregate: ImportDataMutationResponseAggregateInput
-    context?: any
-    rootValue?: any
-  }): Promise<ImportDataMutationResponseAggregateSelection>
 }
 
 export interface StringAggregateInput {

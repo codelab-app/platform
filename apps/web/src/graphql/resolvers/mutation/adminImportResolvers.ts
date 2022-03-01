@@ -1,8 +1,24 @@
 import { IResolvers } from '@graphql-tools/utils'
-import { Tag } from '../../model'
+import { TypeKind } from '@codelab/shared/abstract/core'
+import _ from 'lodash'
+import { 
+  Tag,
+  Atom,
+  InterfaceType,
+  PrimitiveType,
+  LambdaType,
+  ArrayType,
+  EnumType,
+  UnionType,
+  ElementType,
+  ReactNodeType,
+  RenderPropsType,
+  MonacoType,
+  AppType,
+  PageType
+ } from '../../model'
 import {
-  MutationImportAdminDataArgs,
-  Tag as TagFragment,
+  MutationImportAdminDataArgs
 } from '../../ogm-types.gen'
 
 export const adminImportResolvers: IResolvers = {
@@ -13,179 +29,155 @@ export const adminImportResolvers: IResolvers = {
   ) => {
     const currentUserId = req.jwt?.sub
     const payload: any = JSON.parse(args.input.payload as any)
-    const createdTagInfo: Record<string, TagFragment> = {} // define record variable for search performance.
-
-    payload.tags?.map(async (tag: any) => {
-      if (createdTagInfo[tag.name]) {
-        return
-      } // continue if tag name was recorded already
-
-      const common = { name: tag.name, isRoot: tag.isRoot }
-      let tagCreateInput: any = { ...common }
-
-      if (tag.parent) {
-        // if tag has parent element, check whether parent is imported or not
-
-        console.log('start to find tag.......')
-
-        const tagFound: Array<TagFragment> = await Tag().find({
-          where: { name: tag.parent.name },
-        })
-
-        console.log('end find tag with.......', tagFound[0])
-
-        let parentTag = tagFound[0]
-
-        if (!parentTag && !createdTagInfo[parentTag?.name]) {
-          console.log('start to create parent tag if not exist.......')
-
-          const createdTag = await Tag().create({
-            input: [{ name: tag.parent.name, isRoot: tag.parent.isRoot }],
-          })
-
-          console.log('end to create parent tag if not exist.......', parentTag)
-          parentTag = createdTag.tags[0]
+    
+    // 1. Import tags......
+    let tagImportOperations: any[] = []
+    payload.tags?.map((tag: any) => {
+      tagImportOperations.push(async (createdTagsMap: Map<string, any>)=> {
+        const tagFound = createdTagsMap.get(tag.name)
+        if(!tagFound) {
+          let common: any = {name: tag.name, isRoot: tag.isRoot}
+          if(tag.parent) {
+            common = {...common, parent: {connect: {where: {node: {name: tag.parent.name} } } } }
+          }
+          const tagCreated = await Tag().create({input: [common]})
+          createdTagsMap.set(tag.name, tagCreated.tags[0])
         }
-
-        createdTagInfo[parentTag.name] = parentTag
-        tagCreateInput = {
-          ...tagCreateInput,
-          parent: { connect: { where: { node: { id: parentTag.id } } } },
-        }
-      }
-
-      console.log('start to create tag in main')
-
-      const tagCreated = await Tag().create({ input: [tagCreateInput] })
-      createdTagInfo[tagCreated.tags[0]?.name] = tagCreated.tags[0]
-      console.log('end to create tag in main')
+        return createdTagsMap
+      })
     })
 
-    // const tagsInput = payload?.tags?.map((tag: any)=> {
-    //   return {
-    //     name: tag.name,
-    //     parent: tag.parentTagId
-    //       ? {
-    //           connect: {
-    //             where: {
-    //               node: {
-    //                 id: tag.parentTagId,
-    //               },
-    //             },
-    //           },
-    //         }
-    //       : undefined,
-    //     isRoot: tag.isRoot,
-    //   }
-    // })
+    await tagImportOperations.reduce(async(createdTagsMap, operation) => {
+      return await operation(await createdTagsMap)
+    }, Promise.resolve(new Map<string, any>()))
 
-    // const atomsInput = payload?.atoms?.map((atom: any) => {
-    //   const tagIds = atom?.tags?.map((tag: any)=>tag.id) || []
-    //   const tagConnects = tagIds.map((id: string) => {
-    //     return { where: { node: { id } } } }
-    //   )
 
-    //   return {
-    //     name: atom.name,
-    //     type: atom.type,
-    //     tags: {
-    //       connect: tagConnects
-    //     },
-    //     api: {
-    //       connect: {
-    //         where: {
-    //           node: {
-    //             id: atom.api?.id
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // })
+    // 2. Import types......
+    const createdTypesMap: Map<string, any> = new Map<string, any>()
+    const interfaceTypes = payload.interfaceTypes
+    const allTypes = payload.allTypes
 
-    // await Tag().create({input: tagsInput})
-    // await Promise.all(payload?.types?.map((typeInput: any) => {
-    //   const common = {
-    //     name: typeInput.name,
-    //     owner: { connect: { where: { node: { auth0Id: payload.currentUserId } } } },
-    //   }
+    const createdTypes = await Promise.all(allTypes.map(async(typeInput: any) => {
+      const common = {
+        name: typeInput.name,
+        owner: { connect: { where: { node: { auth0Id: currentUserId } } } },
+      }
 
-    //   switch (typeInput.typeKind) {
-    //     case TypeKind.UnionType:
-    //       if (!typeInput.typesOfUnionType?.length) {
-    //         throw new Error('Union item types not set')
-    //       }
-    //       const unionTypeInput = {
-    //         ...common,
-    //         typesOfUnionType: {
-    //           connect: typeInput.typesOfUnionType.map((subType: any)=> ({where: {node: {id: subType.id}}}))
-    //         }
-    //       }
-    //       UnionType().create({input: [unionTypeInput]})
-    //     case TypeKind.ArrayType:
-    //       if (!typeInput.arrayItemTypeId) {
-    //         throw new Error('Array item type not set')
-    //       }
+      switch(typeInput.typeKind) {        
+        case TypeKind.UnionType:
+          // for now, ignore this type
+          break;
+        case TypeKind.ArrayType:
+          // for now, ignore this type
+          break;
+        case TypeKind.InterfaceType:
+          return await InterfaceType().create({input: [common]})
+        case TypeKind.EnumType:
+          if (!typeInput.allowedValues) {
+            throw new Error('Invalid form input')
+          }
+          const enumTypeValues = typeInput.allowedValues.map((el: any)=>{
+            return {node: {id: el.id, name: el.name, value: el.value}}
+          })
+          return await EnumType().create({input: [{...common, allowedValues: {create: enumTypeValues}}]})
+        case TypeKind.PrimitiveType:
+          if (!typeInput.primitiveKind) {
+            throw new Error('Primitive kind is required')
+          }
+          const primitiveInput = { ...common, primitiveKind: typeInput.primitiveKind }
+          return await PrimitiveType().create({input: [primitiveInput]})
+        case TypeKind.LambdaType:
+          return await LambdaType().create({input: [common]})
+        case TypeKind.AppType:
+          return await AppType().create({input: [common]})
+        case TypeKind.RenderPropsType:
+          return await RenderPropsType().create({input: [common]})
+        case TypeKind.ReactNodeType:
+          return await ReactNodeType().create({input: [common]})
+        case TypeKind.PageType:
+          return await PageType().create({input: [common]})
+        case TypeKind.MonacoType:
+          if (!typeInput.language) {
+            throw new Error('Language is required')
+          }
+          const monacoInput = { ...common, language: typeInput.language }
+          return await MonacoType().create({input: [monacoInput]})
+        case TypeKind.ElementType:
+          if (!typeInput.elementKind) {
+            throw new Error('Element kind is required')
+          }
+          const elementInput = { ...common, elementKind: typeInput.elementKind }
+          return await ElementType().create({input: [elementInput] })
+        default:
+          throw new Error('Invalid create form type')
+      }
+    }))
+    
+    createdTypes.map((el: any) => {
+      const typeCreatedKeys = Object.keys(el)
+      const typeKey = _.difference(typeCreatedKeys, ['__typename', 'info'])[0] || ''  // get the object key from create() response
+      const typeObject = el[typeKey] || []
+      const tyeKind = typeKey.charAt(0).toLocaleUpperCase() + typeKey.slice(1)
+      const key = `${tyeKind}-${typeObject[0]?.name}`
+      createdTypesMap.set(key, typeObject[0])
+    })
 
-    //       const arrayTypeInput = {
-    //         ...common,
-    //         itemType: {
-    //           connect: typeInput.itemType?.map(((subType: any)=> ({where: { node: { id: subType.id}}})))
-    //         },
-    //       }
-    //       ArrayType().create({input: [arrayTypeInput]})
-    //     case TypeKind.InterfaceType:
-    //       InterfaceType().create({input: [common]})
-    //     case TypeKind.EnumType:
-    //       if (!typeInput.allowedValues) {
-    //         throw new Error('Invalid form input')
-    //       }
 
-    //       const enumInput = {
-    //         ...common,
-    //         allowedValues: {
-    //           create: typeInput.allowedValues?.map((v: any) => ({
-    //             node: { id: v4(), name: v.name, value: v.value },
-    //           })),
-    //         },
-    //       }
-    //       ArrayType().create({input: [enumInput]})
-    //     case TypeKind.PrimitiveType:
-    //       if (!typeInput.primitiveKind) {
-    //         throw new Error('Primitive kind is required')
-    //       }
-
-    //       const primitiveInput = { ...common, primitiveKind: typeInput.primitiveKind }
-    //       PrimitiveType().create({input: [primitiveInput]})
-    //     case TypeKind.LambdaType:
-    //       LambdaType().create({input: [common]})
-    //     case TypeKind.AppType:
-    //       AppType().create({input: [common]})
-    //     case TypeKind.RenderPropsType:
-    //       RenderPropsType().create({input: [common]})
-    //     case TypeKind.ReactNodeType:
-    //       ReactNodeType().create({input: [common]})
-    //     case TypeKind.PageType:
-    //       PageType().create({input: [common]})
-    //     case TypeKind.MonacoType:
-    //       if (!typeInput.language) {
-    //         throw new Error('Language is required')
-    //       }
-
-    //       const monacoInput = { ...common, language: typeInput.language }
-    //       MonacoType().create({input: [monacoInput]})
-    //     case TypeKind.ElementType:
-    //       if (!typeInput.elementKind) {
-    //         throw new Error('Element kind is required')
-    //       }
-
-    //       const elementInput = { ...common, elementKind: typeInput.elementKind }
-    //       ElementType().create({input: [elementInput] })
-    //     default:
-    //       throw new Error('Invalid create form type')
-    //   }
-    // }))
-    // await Atom().create({ input: atomsInput })
+    // 3. Import atoms......
+    let atomOperations: any[] = []
+    payload.atoms?.map((atom: any) => {
+      atomOperations.push(async (createdAtomsMap: Map<string, any>) => {
+        const atomFound = createdAtomsMap.get(atom.name)
+        if(!atomFound) {
+          let apiTypeFound = await InterfaceType().find({where: {name: atom.api?.name}})
+          if(!apiTypeFound?.length) {
+            let atomApiInput: any = {
+              name: atom.api?.name,
+              owner: { connect: { where: { node: { auth0Id: currentUserId } } } },
+            }
+            
+            const interfaceTypeFound = interfaceTypes?.find((el: any) => el.name == atom.api?.name)
+            let fieldConnect: any = {
+              fields: {connect: []}
+            }
+            
+            if(interfaceTypeFound?.fieldsConnection.totalCount) {
+              interfaceTypeFound.fieldsConnection.edges.map((el: any)=> {
+                fieldConnect.fields.connect.push({where: {node: {name: el.node.name} }, edge: {key:el.key, name:el.name, description:el.description} })
+              })
+            }
+            
+            atomApiInput = {...atomApiInput, ...fieldConnect }
+            apiTypeFound = await (await InterfaceType().create({input: [atomApiInput]})).interfaceTypes
+          }
+          const tagConnects = atom.tags?.map((tag: any)=>{
+            return { where: { node: { name: tag.name } } } 
+          })
+        
+          const atomCreateInput = {
+            name: atom.name,
+            type: atom.type,
+            tags: {
+              connect: tagConnects
+            },
+            api: {
+              connect: {
+                where: {
+                  node: {id: apiTypeFound[0]?.id}
+                }
+              }
+            }
+          }  
+          const atomCreated = await (await Atom().create({input: [atomCreateInput]})).atoms[0]
+          createdAtomsMap.set(atomCreated?.name, atomCreated)
+        }
+        return createdAtomsMap
+      })
+    })
+    
+    await atomOperations.reduce(async (_createdAtomsMap: Map<string, any>, operation: any)=> {
+      return await operation(await _createdAtomsMap)
+    }, Promise.resolve(new Map<string, any>()))
 
     return Promise.resolve({ result: true })
   },

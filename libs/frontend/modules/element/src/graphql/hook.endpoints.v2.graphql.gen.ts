@@ -12,7 +12,9 @@ export type CreateHooksMutationVariables = Types.Exact<{
 }>
 
 export type CreateHooksMutation = {
-  createHooks: { hooks: Array<HookFragment> }
+  createHooks: {
+    hooks: Array<{ ' $fragmentRefs': { HookFragment: HookFragment } }>
+  }
 }
 
 export type DeleteHooksMutationVariables = Types.Exact<{
