@@ -6,6 +6,8 @@ import {
 import {
   ExecuteCommandButton,
   ExecuteCommandModal,
+  ExportButton,
+  ImportButton,
   ResetDataButton,
   SeedBaseTypesButton,
   SyncAtomsButton,
@@ -32,9 +34,11 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = () => {
       <ContentSection css={tw`p-4 bg-white`}>
         <Space>
           <ResetDataButton />
-          <SeedBaseTypesButton />
-          <SyncAtomsButton />
+          {/* <SeedBaseTypesButton /> */}
+          {/* <SyncAtomsButton /> */}
           <ExecuteCommandButton />
+          <ExportButton />
+          <ImportButton />
         </Space>
       </ContentSection>
     </>

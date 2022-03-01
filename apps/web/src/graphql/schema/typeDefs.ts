@@ -12,6 +12,8 @@ import { typeSchema } from './type'
 import { userSchema } from './user.schema'
 
 export default print(gql`
+  ${adminSchema}
+
   ${commonSchema}
 
   ${adminSchema}

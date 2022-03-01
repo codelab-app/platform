@@ -5,10 +5,7 @@ import {
   ArrayTypeWithItemTypeFragment,
   ArrayTypeFragment,
 } from './fragments/ArrayType.fragment.v2.graphql.gen'
-import {
-  UnionTypeFragment,
-  UnionTypeWithInnerTypesFragment,
-} from './fragments/UnionType.fragment.v2.graphql.gen'
+import { UnionTypeWithInnerTypesFragment } from './fragments/UnionType.fragment.v2.graphql.gen'
 import {
   InterfaceTypeFragment,
   InterfaceTypeWithFieldsFragment,
@@ -27,10 +24,7 @@ import {
   ArrayTypeWithItemTypeFragmentDoc,
   ArrayTypeFragmentDoc,
 } from './fragments/ArrayType.fragment.v2.graphql.gen'
-import {
-  UnionTypeFragmentDoc,
-  UnionTypeWithInnerTypesFragmentDoc,
-} from './fragments/UnionType.fragment.v2.graphql.gen'
+import { UnionTypeWithInnerTypesFragmentDoc } from './fragments/UnionType.fragment.v2.graphql.gen'
 import {
   InterfaceTypeFragmentDoc,
   InterfaceTypeWithFieldsFragmentDoc,
@@ -164,10 +158,10 @@ export const GetArrayTypesGql = gql`
 export const GetUnionTypesGql = gql`
   query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {
     types: unionTypes(where: $where, options: $options) {
-      ...UnionType
+      ...UnionTypeWithInnerTypes
     }
   }
-  ${UnionTypeFragmentDoc}
+  ${UnionTypeWithInnerTypesFragmentDoc}
 `
 export const GetInterfaceTypesGql = gql`
   query GetInterfaceTypes(

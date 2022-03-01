@@ -1742,6 +1742,19 @@ export type ComponentCreateInput = {
   rootElement?: InputMaybe<ComponentRootElementFieldInput>
 }
 
+export type CreateImportDataMutationResponsesMutationResponse = {
+  __typename?: 'CreateImportDataMutationResponsesMutationResponse'
+  importDataMutationResponses: Array<ImportDataMutationResponse>
+  info: CreateInfo
+}
+
+export type CreateInfo = {
+  __typename?: 'CreateInfo'
+  bookmark?: Maybe<Scalars['String']>
+  nodesCreated: Scalars['Int']
+  relationshipsCreated: Scalars['Int']
+}
+
 export type ComponentDeleteInput = {
   owner?: InputMaybe<ComponentOwnerDeleteFieldInput>
   rootElement?: InputMaybe<ComponentRootElementDeleteFieldInput>
@@ -1882,6 +1895,12 @@ export type ComponentOwnerNodeAggregationWhereInput = {
   email_SHORTEST_LT?: InputMaybe<Scalars['Int']>
   email_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
   id_EQUAL?: InputMaybe<Scalars['ID']>
+}
+
+export type CreateResetDataMutationResponsesMutationResponse = {
+  __typename?: 'CreateResetDataMutationResponsesMutationResponse'
+  info: CreateInfo
+  resetDataMutationResponses: Array<ResetDataMutationResponse>
 }
 
 export type ComponentOwnerRelationship = {
@@ -2244,13 +2263,6 @@ export type CreateImportAtomsMutationResponsesMutationResponse = {
   __typename?: 'CreateImportAtomsMutationResponsesMutationResponse'
   importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
   info: CreateInfo
-}
-
-export type CreateInfo = {
-  __typename?: 'CreateInfo'
-  bookmark?: Maybe<Scalars['String']>
-  nodesCreated: Scalars['Int']
-  relationshipsCreated: Scalars['Int']
 }
 
 export type CreateInfoAggregateSelection = {
@@ -5586,6 +5598,15 @@ export type IEdge = {
   target: Scalars['String']
 }
 
+export type IElementGraph = {
+  root?: Maybe<Element>
+  vertices?: Maybe<Array<Element>>
+}
+
+export type ImportAdminDataInput = {
+  payload?: InputMaybe<Array<Scalars['JSONObject']>>
+}
+
 export type ImportAtomsInput = {
   payload?: InputMaybe<Array<Scalars['JSONObject']>>
 }
@@ -5618,6 +5639,43 @@ export type ImportAtomsMutationResponseUpdateInput = {
 export type ImportAtomsMutationResponseWhere = {
   AND?: InputMaybe<Array<ImportAtomsMutationResponseWhere>>
   OR?: InputMaybe<Array<ImportAtomsMutationResponseWhere>>
+}
+
+export type ImportDataMutationResponse = {
+  __typename?: 'ImportDataMutationResponse'
+  result: Scalars['Boolean']
+}
+
+export type ImportDataMutationResponseAggregateSelection = {
+  __typename?: 'ImportDataMutationResponseAggregateSelection'
+  count: Scalars['Int']
+}
+
+export type ImportDataMutationResponseCreateInput = {
+  result: Scalars['Boolean']
+}
+
+export type ImportDataMutationResponseOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<InputMaybe<ImportDataMutationResponseSort>>>
+}
+
+/** Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object. */
+export type ImportDataMutationResponseSort = {
+  result?: InputMaybe<SortDirection>
+}
+
+export type ImportDataMutationResponseUpdateInput = {
+  result?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ImportDataMutationResponseWhere = {
+  AND?: InputMaybe<Array<ImportDataMutationResponseWhere>>
+  OR?: InputMaybe<Array<ImportDataMutationResponseWhere>>
+  result?: InputMaybe<Scalars['Boolean']>
+  result_NOT?: InputMaybe<Scalars['Boolean']>
 }
 
 export type IntAggregateSelection = {
@@ -6479,6 +6537,7 @@ export type Mutation = {
   createEnumTypes: CreateEnumTypesMutationResponse
   createHooks: CreateHooksMutationResponse
   createImportAtomsMutationResponses: CreateImportAtomsMutationResponsesMutationResponse
+  createImportDataMutationResponses: CreateImportDataMutationResponsesMutationResponse
   createInterfaceTypes: CreateInterfaceTypesMutationResponse
   createLambdaTypes: CreateLambdaTypesMutationResponse
   createMonacoTypes: CreateMonacoTypesMutationResponse
@@ -6510,6 +6569,7 @@ export type Mutation = {
   deleteFieldEdge: DeleteFieldResponse
   deleteHooks: DeleteInfo
   deleteImportAtomsMutationResponses: DeleteInfo
+  deleteImportDataMutationResponses: DeleteInfo
   deleteInterfaceTypes: DeleteInfo
   deleteLambdaTypes: DeleteInfo
   deleteMonacoTypes: DeleteInfo
@@ -6527,6 +6587,7 @@ export type Mutation = {
   deleteUnionTypes: DeleteInfo
   deleteUsers: DeleteInfo
   duplicateElement: DuplicateElementMutationResponse
+  importAdminData?: Maybe<ImportDataMutationResponse>
   importAtoms?: Maybe<ImportAtomsMutationResponse>
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>
   updateAppTypes: UpdateAppTypesMutationResponse
@@ -6543,6 +6604,7 @@ export type Mutation = {
   updateEnumTypes: UpdateEnumTypesMutationResponse
   updateHooks: UpdateHooksMutationResponse
   updateImportAtomsMutationResponses: UpdateImportAtomsMutationResponsesMutationResponse
+  updateImportDataMutationResponses: UpdateImportDataMutationResponsesMutationResponse
   updateInterfaceTypes: UpdateInterfaceTypesMutationResponse
   updateLambdaTypes: UpdateLambdaTypesMutationResponse
   updateMonacoTypes: UpdateMonacoTypesMutationResponse
@@ -6615,6 +6677,10 @@ export type MutationCreateHooksArgs = {
 
 export type MutationCreateImportAtomsMutationResponsesArgs = {
   input: Array<ImportAtomsMutationResponseCreateInput>
+}
+
+export type MutationCreateImportDataMutationResponsesArgs = {
+  input: Array<ImportDataMutationResponseCreateInput>
 }
 
 export type MutationCreateInterfaceTypesArgs = {
@@ -6752,6 +6818,10 @@ export type MutationDeleteImportAtomsMutationResponsesArgs = {
   where?: InputMaybe<ImportAtomsMutationResponseWhere>
 }
 
+export type MutationDeleteImportDataMutationResponsesArgs = {
+  where?: InputMaybe<ImportDataMutationResponseWhere>
+}
+
 export type MutationDeleteInterfaceTypesArgs = {
   delete?: InputMaybe<InterfaceTypeDeleteInput>
   where?: InputMaybe<InterfaceTypeWhere>
@@ -6830,6 +6900,10 @@ export type MutationDeleteUsersArgs = {
 
 export type MutationDuplicateElementArgs = {
   input: DuplicateElementInput
+}
+
+export type MutationImportAdminDataArgs = {
+  input: ImportAdminDataInput
 }
 
 export type MutationImportAtomsArgs = {
@@ -6954,6 +7028,11 @@ export type MutationUpdateHooksArgs = {
 export type MutationUpdateImportAtomsMutationResponsesArgs = {
   update?: InputMaybe<ImportAtomsMutationResponseUpdateInput>
   where?: InputMaybe<ImportAtomsMutationResponseWhere>
+}
+
+export type MutationUpdateImportDataMutationResponsesArgs = {
+  update?: InputMaybe<ImportDataMutationResponseUpdateInput>
+  where?: InputMaybe<ImportDataMutationResponseWhere>
 }
 
 export type MutationUpdateInterfaceTypesArgs = {
@@ -8673,6 +8752,9 @@ export type Query = {
   importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
   importAtomsMutationResponsesAggregate: ImportAtomsMutationResponseAggregateSelection
   importAtomsMutationResponsesCount: Scalars['Int']
+  importDataMutationResponses: Array<ImportDataMutationResponse>
+  importDataMutationResponsesAggregate: ImportDataMutationResponseAggregateSelection
+  importDataMutationResponsesCount: Scalars['Int']
   interfaceTypes: Array<InterfaceType>
   interfaceTypesAggregate: InterfaceTypeAggregateSelection
   interfaceTypesCount: Scalars['Int']
@@ -8919,6 +9001,19 @@ export type QueryImportAtomsMutationResponsesAggregateArgs = {
 
 export type QueryImportAtomsMutationResponsesCountArgs = {
   where?: InputMaybe<ImportAtomsMutationResponseWhere>
+}
+
+export type QueryImportDataMutationResponsesArgs = {
+  options?: InputMaybe<ImportDataMutationResponseOptions>
+  where?: InputMaybe<ImportDataMutationResponseWhere>
+}
+
+export type QueryImportDataMutationResponsesAggregateArgs = {
+  where?: InputMaybe<ImportDataMutationResponseWhere>
+}
+
+export type QueryImportDataMutationResponsesCountArgs = {
+  where?: InputMaybe<ImportDataMutationResponseWhere>
 }
 
 export type QueryInterfaceTypesArgs = {
@@ -10810,6 +10905,12 @@ export type UpdateHooksMutationResponse = {
 export type UpdateImportAtomsMutationResponsesMutationResponse = {
   __typename?: 'UpdateImportAtomsMutationResponsesMutationResponse'
   importAtomsMutationResponses: Array<ImportAtomsMutationResponse>
+  info: UpdateInfo
+}
+
+export type UpdateImportDataMutationResponsesMutationResponse = {
+  __typename?: 'UpdateImportDataMutationResponsesMutationResponse'
+  importDataMutationResponses: Array<ImportDataMutationResponse>
   info: UpdateInfo
 }
 

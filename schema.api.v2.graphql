@@ -2083,6 +2083,11 @@ type CreateImportAtomsMutationResponsesMutationResponse {
   info: CreateInfo!
 }
 
+type CreateImportDataMutationResponsesMutationResponse {
+  importDataMutationResponses: [ImportDataMutationResponse!]!
+  info: CreateInfo!
+}
+
 type CreateInfo {
   bookmark: String
   nodesCreated: Int!
@@ -5188,6 +5193,10 @@ interface IEdge {
   target: String!
 }
 
+input ImportAdminDataInput {
+  payload: [JSONObject!]
+}
+
 input ImportAtomsInput {
   payload: [JSONObject!]
 }
@@ -5222,6 +5231,46 @@ input ImportAtomsMutationResponseUpdateInput {
 input ImportAtomsMutationResponseWhere {
   AND: [ImportAtomsMutationResponseWhere!]
   OR: [ImportAtomsMutationResponseWhere!]
+}
+
+type ImportDataMutationResponse {
+  result: Boolean!
+}
+
+type ImportDataMutationResponseAggregateSelection {
+  count: Int!
+}
+
+input ImportDataMutationResponseCreateInput {
+  result: Boolean!
+}
+
+input ImportDataMutationResponseOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ImportDataMutationResponseSort objects to sort ImportDataMutationResponses by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ImportDataMutationResponseSort]
+}
+
+"""
+Fields to sort ImportDataMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ImportDataMutationResponseSort object.
+"""
+input ImportDataMutationResponseSort {
+  result: SortDirection
+}
+
+input ImportDataMutationResponseUpdateInput {
+  result: Boolean
+}
+
+input ImportDataMutationResponseWhere {
+  AND: [ImportDataMutationResponseWhere!]
+  OR: [ImportDataMutationResponseWhere!]
+  result: Boolean
+  result_NOT: Boolean
 }
 
 type IntAggregateSelection {
@@ -6034,6 +6083,9 @@ type Mutation {
   createImportAtomsMutationResponses(
     input: [ImportAtomsMutationResponseCreateInput!]!
   ): CreateImportAtomsMutationResponsesMutationResponse!
+  createImportDataMutationResponses(
+    input: [ImportDataMutationResponseCreateInput!]!
+  ): CreateImportDataMutationResponsesMutationResponse!
   createInterfaceTypes(
     input: [InterfaceTypeCreateInput!]!
   ): CreateInterfaceTypesMutationResponse!
@@ -6107,6 +6159,9 @@ type Mutation {
   deleteImportAtomsMutationResponses(
     where: ImportAtomsMutationResponseWhere
   ): DeleteInfo!
+  deleteImportDataMutationResponses(
+    where: ImportDataMutationResponseWhere
+  ): DeleteInfo!
   deleteInterfaceTypes(
     delete: InterfaceTypeDeleteInput
     where: InterfaceTypeWhere
@@ -6155,6 +6210,7 @@ type Mutation {
   duplicateElement(
     input: DuplicateElementInput!
   ): DuplicateElementMutationResponse!
+  importAdminData(input: ImportAdminDataInput!): ImportDataMutationResponse
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
   resetDatabase: ResetDatabaseMutationResponse
   updateAppTypes(
@@ -6263,6 +6319,10 @@ type Mutation {
     update: ImportAtomsMutationResponseUpdateInput
     where: ImportAtomsMutationResponseWhere
   ): UpdateImportAtomsMutationResponsesMutationResponse!
+  updateImportDataMutationResponses(
+    update: ImportDataMutationResponseUpdateInput
+    where: ImportDataMutationResponseWhere
+  ): UpdateImportDataMutationResponsesMutationResponse!
   updateInterfaceTypes(
     connect: InterfaceTypeConnectInput
     connectOrCreate: InterfaceTypeConnectOrCreateInput
@@ -7923,6 +7983,14 @@ type Query {
   importAtomsMutationResponsesCount(
     where: ImportAtomsMutationResponseWhere
   ): Int!
+  importDataMutationResponses(
+    options: ImportDataMutationResponseOptions
+    where: ImportDataMutationResponseWhere
+  ): [ImportDataMutationResponse!]!
+  importDataMutationResponsesAggregate(
+    where: ImportDataMutationResponseWhere
+  ): ImportDataMutationResponseAggregateSelection!
+  importDataMutationResponsesCount(where: ImportDataMutationResponseWhere): Int!
   interfaceTypes(
     options: InterfaceTypeOptions
     where: InterfaceTypeWhere
@@ -9554,6 +9622,11 @@ type UpdateHooksMutationResponse {
 
 type UpdateImportAtomsMutationResponsesMutationResponse {
   importAtomsMutationResponses: [ImportAtomsMutationResponse!]!
+  info: UpdateInfo!
+}
+
+type UpdateImportDataMutationResponsesMutationResponse {
+  importDataMutationResponses: [ImportDataMutationResponse!]!
   info: UpdateInfo!
 }
 
