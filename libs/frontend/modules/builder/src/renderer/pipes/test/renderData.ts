@@ -1,10 +1,15 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { TypeFragment } from '@codelab/frontend/modules/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen-v2'
-import { AtomType, IElement, TypeKind } from '@codelab/shared/abstract/core'
+import {
+  AtomType,
+  IComponent,
+  IElement,
+  IType,
+  TypeKind,
+} from '@codelab/shared/abstract/core'
 import { ElementTree } from '@codelab/shared/core'
 
-export const primitiveType: TypeFragment = {
+export const primitiveType: IType = {
   id: '0x092',
   name: 'primitiveType',
   typeKind: TypeKind.PrimitiveType,
@@ -93,11 +98,27 @@ export const elementToRender02: IElement = {
   propTransformationJs: null,
 }
 
-export const componentToRender: IElement = {
+export const componentToRender: IComponent = {
+  id: '0x5bf5f',
+  name: 'My Component',
+  rootElement: {
+    id: '0x3a981',
+    name: 'Text',
+  },
+  owner: {
+    auth0Id: '',
+    id: '',
+  },
+}
+
+export const componentRootElement: IElement = {
   id: '0x3a981',
   name: '01',
   css: '',
-  component: null,
+  component: {
+    id: '0x5bf5f',
+    name: 'My Component',
+  },
   // fixedId: null,
   atom: {
     id: '0x27150',
@@ -144,7 +165,7 @@ export const elementToRender03: IElement = {
 export const elementGraph = {
   vertices: [
     elementToRender,
-    componentToRender,
+    componentRootElement,
     elementToRender03,
     elementToRender02,
   ],

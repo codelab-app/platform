@@ -2,7 +2,7 @@ import { PropsData } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import React from 'react'
 import {
-  componentToRender,
+  componentRootElement,
   RenderContext,
   renderPipeline,
   treeToRender,
@@ -10,7 +10,7 @@ import {
 import { transformPropsToComponentFn } from './transformPropsToComponentFn'
 
 const propsToRender: PropsData = {
-  renderText: { id: componentToRender.id },
+  renderText: { id: componentRootElement.id },
 }
 
 const defaultContext = {

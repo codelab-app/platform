@@ -4,7 +4,7 @@ import React from 'react'
 import { renderPipeline } from './renderPipeline'
 import { renderPropsPipe } from './renderPropsPipe'
 import {
-  componentToRender,
+  componentRootElement,
   elementToRender,
   endPipe,
   EndPipeOutput,
@@ -28,7 +28,7 @@ const defaultContext = {
 const initialProps: PropsData = {
   renderText: {
     type: renderPropsType.id,
-    id: componentToRender.id,
+    id: componentRootElement.id,
   },
   text: 'a random text to render',
 }

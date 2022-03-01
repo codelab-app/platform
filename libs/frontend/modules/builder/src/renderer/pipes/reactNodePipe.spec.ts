@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import { reactNodePipe } from './reactNodePipe'
 import { renderPipeline } from './renderPipeline'
 import {
-  componentToRender,
+  componentRootElement,
   elementToRender,
   endPipe,
   EndPipeOutput,
@@ -25,7 +25,7 @@ const defaultContext = {
 } as RenderContext
 
 const initialProps: PropsData = {
-  renderText: { type: reactNodeType.id, id: componentToRender.id },
+  renderText: { type: reactNodeType.id, id: componentRootElement.id },
   text: 'a random text to render',
 }
 
