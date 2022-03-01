@@ -14575,6 +14575,7 @@ __metadata:
     loader-utils: 3.2.0
     lodash: 4.17.21
     madge: 5.0.1
+    material-ui-colors: ^1.0.0
     micro: ^9.3.4
     micro-cors: ^0.1.1
     mobx: ^6.4.2
@@ -25121,6 +25122,13 @@ __metadata:
     "@babel/runtime": ^7.12.5
     remove-accents: 0.4.2
   checksum: a4b02b676ac4ce64a89a091539ee4a70a802684713bcf06f2b70787927f510fe8a2adc849f9288857a90906083ad303467e530e8723b4a9756df9994fc164550
+  languageName: node
+  linkType: hard
+
+"material-ui-colors@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "material-ui-colors@npm:1.0.0"
+  checksum: 0b687220ff39e891ced4d72961a5400851bbed17afbb131f5000ee7c14c106782837cb6f47430d3fc1cb35fb922d7c5019e1839325b161a3587d5805c3f22090
   languageName: node
   linkType: hard
 
