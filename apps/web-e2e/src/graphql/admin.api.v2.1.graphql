@@ -1,4 +1,4 @@
-mutation E2eResetData {
+mutation E2eResetDatabase {
   resetDatabase {
     success
   }

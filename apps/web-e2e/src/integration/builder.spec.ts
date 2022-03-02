@@ -37,7 +37,7 @@ const findDeleteButtonByAtomName = (text: string) =>
 let appId: string
 
 before(() => {
-  cy.resetData().then(() => {
+  cy.resetDatabase().then(() => {
     cy.login().then(() => {
       cy.createApp().then((app: any) => {
         appId = app.id

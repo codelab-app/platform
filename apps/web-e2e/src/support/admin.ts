@@ -1,13 +1,13 @@
 import { print } from 'graphql'
-import { E2eResetDataDocument } from '../graphql/admin.api.v2.1.graphql.gen'
+import { E2eResetDatabaseDocument } from '../graphql/admin.api.v2.1.graphql.gen'
 
-export const resetData = () => {
+export const resetDatabase = () => {
   return cy
     .graphqlRequest({
-      query: print(E2eResetDataDocument),
+      query: print(E2eResetDatabaseDocument),
       variables: {},
     })
     .then((r) => r.body.data?.success)
 }
 
-Cypress.Commands.add('resetData', resetData)
+Cypress.Commands.add('resetData', resetDatabase)

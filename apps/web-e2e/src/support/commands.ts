@@ -1,7 +1,7 @@
 import '@testing-library/cypress/add-commands'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
-import { resetData } from './admin'
+import { resetDatabase } from './admin'
 import { createApp, deleteApp } from './app'
 import { createAtom, getAtoms } from './atom'
 import { createComponent } from './component'
@@ -42,7 +42,7 @@ declare global {
       getCurrentUserId: typeof getCurrentUserId
       goToPageByAliasId: typeof goToPageByAliasId
       getByTestId: typeof getByTestId
-      resetData: typeof resetData
+      resetDatabase: typeof resetDatabase
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
       graphqlRequest: typeof graphqlRequest
       /** Creates an app for the current logged in user */
