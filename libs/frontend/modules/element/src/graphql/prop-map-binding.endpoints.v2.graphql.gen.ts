@@ -14,11 +14,7 @@ export type CreatePropMapBindingsMutationVariables = Types.Exact<{
 }>
 
 export type CreatePropMapBindingsMutation = {
-  createPropMapBindings: {
-    propMapBindings: Array<{
-      ' $fragmentRefs': { PropMapBindingFragment: PropMapBindingFragment }
-    }>
-  }
+  createPropMapBindings: { propMapBindings: Array<PropMapBindingFragment> }
 }
 
 export type UpdatePropMapBindingsMutationVariables = Types.Exact<{
@@ -27,11 +23,7 @@ export type UpdatePropMapBindingsMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePropMapBindingsMutation = {
-  updatePropMapBindings: {
-    propMapBindings: Array<{
-      ' $fragmentRefs': { PropMapBindingFragment: PropMapBindingFragment }
-    }>
-  }
+  updatePropMapBindings: { propMapBindings: Array<PropMapBindingFragment> }
 }
 
 export type DeletePropMapBindingsMutationVariables = Types.Exact<{
@@ -48,9 +40,7 @@ export type GetPropMapBindingsQueryVariables = Types.Exact<{
 }>
 
 export type GetPropMapBindingsQuery = {
-  propMapBindings: Array<{
-    ' $fragmentRefs': { PropMapBindingFragment: PropMapBindingFragment }
-  }>
+  propMapBindings: Array<PropMapBindingFragment>
 }
 
 export const CreatePropMapBindingsGql = gql`

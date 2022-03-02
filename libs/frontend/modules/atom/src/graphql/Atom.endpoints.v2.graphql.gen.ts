@@ -14,7 +14,7 @@ export type CreateAtomsMutationVariables = Types.Exact<{
 export type CreateAtomsMutation = {
   createAtoms: {
     info: { nodesCreated: number; relationshipsCreated: number }
-    atoms: Array<{ ' $fragmentRefs': { AtomFragment: AtomFragment } }>
+    atoms: Array<AtomFragment>
   }
 }
 
@@ -31,16 +31,17 @@ export type GetAtomsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AtomOptions>
 }>
 
-export type GetAtomsQuery = {
-  atoms: Array<{ ' $fragmentRefs': { AtomFragment: AtomFragment } }>
-}
+export type GetAtomsQuery = { atoms: Array<AtomFragment> }
 
 export type ImportAtomsMutationVariables = Types.Exact<{
   input: Types.ImportAtomsInput
 }>
 
 export type ImportAtomsMutation = {
-  importAtoms?: { atoms?: Array<{ id: string }> | null } | null
+  importAtoms?:
+    | { atoms?: Array<{ id: string }> | null | undefined }
+    | null
+    | undefined
 }
 
 export type UpdateAtomsMutationVariables = Types.Exact<{
@@ -49,9 +50,7 @@ export type UpdateAtomsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateAtomsMutation = {
-  updateAtoms: {
-    atoms: Array<{ ' $fragmentRefs': { AtomFragment: AtomFragment } }>
-  }
+  updateAtoms: { atoms: Array<AtomFragment> }
 }
 
 export const CreateAtomsGql = gql`

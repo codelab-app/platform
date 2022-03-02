@@ -18,7 +18,7 @@ export type ImportAdminDataMutationVariables = Types.Exact<{
 }>
 
 export type ImportAdminDataMutation = {
-  importAdminData?: { result: boolean } | null
+  importAdminData?: { result: boolean } | null | undefined
 }
 
 export const ResetDatabaseGql = gql`
@@ -59,5 +59,5 @@ const injectedRtkApi = api.injectEndpoints({
   }),
 })
 export { injectedRtkApi as api }
-
-export const { useResetDatabaseMutation, useImportAdminDataMutation } = injectedRtkApi
+export const { useResetDatabaseMutation, useImportAdminDataMutation } =
+  injectedRtkApi
