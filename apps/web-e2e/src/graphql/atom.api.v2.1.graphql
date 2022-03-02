@@ -1,0 +1,28 @@
+mutation E2eCreateAtom($input: AtomCreateInput!) {
+  createAtoms(input: $input) {
+    atoms {
+      ...E2eAtom
+    }
+  }
+}
+
+query E2eGetAtoms($where: AtomWhere, $options: AtomOptions) {
+  atoms(where: $where, options: $options) {
+    ...E2eAtom
+  }
+}
+
+fragment E2eAtom on Atom {
+  __typename
+  id
+  name
+  type
+  tags {
+    id
+    name
+  }
+  api {
+    id
+    name
+  }
+}

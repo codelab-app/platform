@@ -20,7 +20,7 @@ describe('Atoms', () => {
       .closest('button')
 
   before(() => {
-    cy.resetDgraphData().then(() => {
+    cy.resetData().then(() => {
       cy.login()
     })
   })

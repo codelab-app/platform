@@ -1,31 +1,26 @@
-import type {
-  AtomBaseFragment,
-  AtomFragment,
-} from '@codelab/frontend/modules/atom'
-import { CreateAtomInput, GetAtomInput } from '@codelab/shared/abstract/codegen'
+import { AtomCreateInput, AtomWhere } from '@codelab/shared/abstract/codegen-v2'
+import { IAtom } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
-import {
-  E2eCreateAtomGql,
-  E2eGetAtomGql,
-} from '../graphql/atom.api.graphql.gen'
+import { E2eGetAtomsDocument } from '../graphql/atom.api.v2.1.graphql.gen'
+import { E2eCreateElementDocument } from '../graphql/element.api.v2.1.graphql.gen'
 
-export const createAtom = (input: CreateAtomInput) => {
+export const createAtom = (input: AtomCreateInput) => {
   return cy
     .graphqlRequest({
-      query: print(E2eCreateAtomGql),
+      query: print(E2eCreateElementDocument),
       variables: { input },
     })
-    .then((r) => r.body.data?.createAtom as AtomBaseFragment)
+    .then((r) => r.body.data?.createAtoms as Array<IAtom>)
 }
 
-export const getAtom = (input: GetAtomInput) => {
+export const getAtoms = (where: AtomWhere) => {
   return cy
     .graphqlRequest({
-      query: print(E2eGetAtomGql),
-      variables: { input },
+      query: print(E2eGetAtomsDocument),
+      variables: { where },
     })
-    .then((r) => r.body.data?.getAtom as AtomFragment)
+    .then((r) => r.body.data?.atoms as Array<IAtom>)
 }
 
 Cypress.Commands.add('createAtom', createAtom)
-Cypress.Commands.add('getAtom', getAtom)
+Cypress.Commands.add('getAtom', getAtoms)

@@ -1,0 +1,22 @@
+mutation E2eCreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
+  createPrimitiveTypes(input: $input) {
+    primitiveTypes {
+      ...E2ePrimitiveType
+    }
+  }
+}
+
+fragment E2eTypeBase on TypeBase {
+  typeKind: __typename
+  id
+  owner {
+    id
+    auth0Id
+  }
+  name
+}
+
+fragment E2ePrimitiveType on PrimitiveType {
+  ...E2eTypeBase
+  primitiveKind
+}

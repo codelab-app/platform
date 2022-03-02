@@ -17,7 +17,7 @@ describe('render props', () => {
     before(() => {
       cy.intercept('POST', '**/graphql').as('graphql')
 
-      cy.resetDgraphData()
+      cy.resetData()
 
       cy.login().then(async () => {
         cy.createType({

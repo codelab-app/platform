@@ -1,20 +1,16 @@
 import '@testing-library/cypress/add-commands'
 import { SelectorMatcherOptions } from '@testing-library/cypress'
 import { ByRoleOptions, Matcher } from '@testing-library/dom'
+import { resetData } from './admin'
 import { createApp, deleteApp } from './app'
-import { createAtom, getAtom } from './atom'
-import { createComponent, getElementGraph } from './component'
-import {
-  createElement,
-  createPropBinding,
-  updateElement,
-  updateElementProps,
-} from './element'
+import { createAtom, getAtoms } from './atom'
+import { createComponent } from './component'
+import { createElement, getElementGraph, updateElement } from './element'
 import { createField } from './field'
 import {
   createPage,
   createPageFromScratch,
-  getPage,
+  getPages,
   goToPageByAliasId,
 } from './page'
 import { createType } from './type'
@@ -36,18 +32,17 @@ import { getCurrentUserId } from './user'
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
-    interface Chainable<Subject = any> {
-      updateElementProps: typeof updateElementProps
+    interface Chainable<Subject> {
       updateElement: typeof updateElement
       createType: typeof createType
       getElementGraph: typeof getElementGraph
-      getAtom: typeof getAtom
+      getAtom: typeof getAtoms
       createField: typeof createField
       createPageFromScratch: typeof createPageFromScratch
       getCurrentUserId: typeof getCurrentUserId
       goToPageByAliasId: typeof goToPageByAliasId
       getByTestId: typeof getByTestId
-      resetNeo4jDatabase: typeof resetNeo4jDatabase
+      resetData: typeof resetData
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
       graphqlRequest: typeof graphqlRequest
       /** Creates an app for the current logged in user */
@@ -59,8 +54,7 @@ declare global {
       /** Creates an app for the current logged in user */
       // createLibrary: typeof createLibrary
       createPage: typeof createPage
-      createPropBinding: typeof createPropBinding
-      getPage: typeof getPage
+      getPage: typeof getPages
       findByButtonText: (
         text: Matcher,
         options?: SelectorMatcherOptions,
@@ -149,17 +143,6 @@ const graphqlRequest = (body: string | Record<string, any>, config?: any) =>
   })
 
 Cypress.Commands.add('graphqlRequest', graphqlRequest)
-
-const resetNeo4jDatabase = () => {
-  // return cy.exec(`yarn cli dgraph reset-data --env ${Cypress.env('env')}`)
-
-  return cy.request({
-    method: 'POST',
-    url: `${Cypress.env('codelabApiEndpoint')}/dgraph/reset-data`,
-  })
-}
-
-Cypress.Commands.add('resetNeo4jDatabase', resetNeo4jDatabase)
 
 const getByTestId = (testId: string, selectorAddon?: string) => {
   return cy.get(`[data-testid=${testId}]${selectorAddon || ''}`)

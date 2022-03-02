@@ -1,11 +1,11 @@
-import { CreateTypeInput } from '@codelab/shared/abstract/codegen'
+import { PrimitiveTypeCreateInput } from '@codelab/shared/abstract/codegen-v2'
 import { print } from 'graphql'
-import { E2eCreateTypeGql } from '../graphql/type.api.graphql.gen'
+import { E2eCreatePrimitiveTypesDocument } from '../graphql/type.api.v2.1.graphql.gen'
 
-export const createType = (input: CreateTypeInput) => {
+export const createType = (input: PrimitiveTypeCreateInput) => {
   return cy
     .graphqlRequest({
-      query: print(E2eCreateTypeGql),
+      query: print(E2eCreatePrimitiveTypesDocument),
       variables: { input },
     })
     .then((r) => r.body.data?.createType)

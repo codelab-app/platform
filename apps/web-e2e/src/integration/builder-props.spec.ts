@@ -50,7 +50,7 @@ const selectPropsTab = () => {
 }
 
 before(() => {
-  cy.resetDgraphData().then(() => {
+  cy.resetData().then(() => {
     cy.runSeeder().then(() => {
       cy.login().then(() => {
         cy.createApp().then((app: any) => {

@@ -6,7 +6,7 @@ describe('Pages', () => {
   const updatedPageName = 'updated page'
 
   before(() => {
-    cy.resetDgraphData().then(() => {
+    cy.resetData().then(() => {
       cy.login().then(() => {
         cy.createApp().then((app: any) => {
           appId = app.id

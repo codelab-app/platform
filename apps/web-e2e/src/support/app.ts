@@ -1,32 +1,29 @@
 import {
-  CreateAppInput,
-  DeleteAppInput,
-} from '@codelab/shared/abstract/codegen'
+  AppCreateInput,
+  AppDeleteInput,
+} from '@codelab/shared/abstract/codegen-v2'
 import { print } from 'graphql'
-import {
-  E2eCreateAppGql,
-  E2eDeleteAppGql,
-} from '../graphql/app.api.graphql.gen'
+import { E2eDeleteAppDocument } from '../graphql/app.api.v2.1.graphql.gen'
 
-const defaultCreateAppInput: CreateAppInput = {
+const defaultCreateAppInput: AppCreateInput = {
   name: 'Test app',
 }
 
-export const createApp = (input: CreateAppInput = defaultCreateAppInput) => {
+export const createApp = (input: AppCreateInput = defaultCreateAppInput) => {
   return cy
     .graphqlRequest({
-      query: print(E2eCreateAppGql),
+      query: print(E2eDeleteAppDocument),
       variables: { input },
     })
-    .then((r) => r.body.data?.createApp)
+    .then((r) => r.body.data?.apps)
 }
 
 Cypress.Commands.add('createApp', createApp)
 
-export const deleteApp = (input: DeleteAppInput) => {
+export const deleteApp = (input: AppDeleteInput) => {
   return cy
     .graphqlRequest({
-      query: print(E2eDeleteAppGql),
+      query: print(E2eDeleteAppDocument),
       variables: { input },
     })
     .then((r) => r.body.data)

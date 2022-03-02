@@ -1,35 +1,29 @@
-import type { PageFullFragment } from '@codelab/frontend/modules/page'
-import {
-  CreatePageInput,
-  CreateResponse,
-  GetPageInput,
-} from '@codelab/shared/abstract/codegen'
+import { PageCreateInput, PageWhere } from '@codelab/shared/abstract/codegen-v2'
+import { IApp, IPage } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
 import {
-  E2eCreatePageGql,
-  E2eGetPageGql,
-} from '../graphql/page.api.graphql.gen'
+  E2eCreatePageDocument,
+  E2eGetPageDocument,
+} from '../graphql/page.api.v2.1.graphql.gen'
 
-export const getPage = (input: GetPageInput) => {
+export const getPages = (input: PageWhere) => {
   return cy
     .graphqlRequest({
-      query: print(E2eGetPageGql),
+      query: print(E2eGetPageDocument),
       variables: { input },
     })
-    .then((r) => r.body.data?.page as PageFullFragment)
+    .then((r) => r.body.data?.pages as Array<IPage>)
 }
 
-export const defaultAppName = 'test'
-
-export const createPage = (input: Partial<CreatePageInput>) => {
+export const createPage = (input: Partial<PageCreateInput>) => {
   return cy
     .graphqlRequest({
-      query: print(E2eCreatePageGql),
+      query: print(E2eCreatePageDocument),
       variables: {
-        input: { appId: input.appId, name: input.name || defaultAppName },
+        input,
       },
     })
-    .then((r) => r.body.data?.createPage)
+    .then((r) => r.body.data?.pages as Array<IPage>)
 }
 
 // should be use with createPageFromScratch
@@ -54,23 +48,26 @@ export const goToPageByAliasId = () => {
 export const createPageFromScratch = () => {
   return cy
     .createApp()
-    .then((app: CreateResponse) => {
-      console.log('app', app)
+    .then((apps: Array<IApp>) => {
+      console.log('app', apps[0])
 
-      const appId = app.id
+      const appId = apps[0]?.id
       cy.wrap(appId).as('appId')
 
-      return cy.createPage({ appId })
+      return cy.createPage({
+        app: { connect: { where: { node: { id: appId } } } },
+        name: 'test',
+      })
     })
-    .then((page: CreateResponse) => {
-      const pageId = page.id
+    .then((page: Array<IPage>) => {
+      const pageId = page[0]?.id
       cy.wrap(pageId).as('pageId')
 
-      return cy.getPage({ pageId })
+      return cy.getPage({ id: pageId })
     })
 }
 
 Cypress.Commands.add('createPageFromScratch', createPageFromScratch)
 Cypress.Commands.add('goToPageByAliasId', goToPageByAliasId)
 Cypress.Commands.add('createPage', createPage)
-Cypress.Commands.add('getPage', getPage)
+Cypress.Commands.add('getPage', getPages)

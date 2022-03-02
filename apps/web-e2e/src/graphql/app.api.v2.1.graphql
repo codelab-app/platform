@@ -1,0 +1,29 @@
+mutation E2eCreateApp($input: [AppCreateInput!]!) {
+  createApps(input: $input) {
+    apps {
+      ...E2eApp
+    }
+  }
+}
+
+mutation E2eDeleteApp($where: AppWhere!) {
+  deleteApps(where: $where) {
+    nodesDeleted
+  }
+}
+
+fragment E2eApp on App {
+  id
+  owner {
+    id
+  }
+  name
+  pages {
+    id
+    name
+    rootElement {
+      id
+      name
+    }
+  }
+}

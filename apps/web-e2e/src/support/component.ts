@@ -1,34 +1,15 @@
-import {
-  TestElementFragment,
-  TestElementGraphFragment,
-} from '@codelab/backend/modules/element'
-import {
-  CreateComponentInput,
-  GetElementGraphInput,
-} from '@codelab/shared/abstract/codegen'
+import { ComponentCreateInput } from '@codelab/shared/abstract/codegen-v2'
+import { IComponent } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
-import { E2eCreateComponentGql } from '../graphql/component.api.graphql.gen'
-import { E2eGetElementGraphGql } from '../graphql/element.api.graphql.gen'
+import { E2eCreateAppDocument } from '../graphql/app.api.v2.1.graphql.gen'
 
-export const createComponent = (input: CreateComponentInput) => {
+export const createComponent = (input: ComponentCreateInput) => {
   return cy
     .graphqlRequest({
-      query: print(E2eCreateComponentGql),
+      query: print(E2eCreateAppDocument),
       variables: { input },
     })
-    .then((r) => r.body.data?.createComponent as TestElementFragment)
+    .then((r) => r.body.data?.createComponents as Array<IComponent>)
 }
 
-export const getElementGraph = (input: GetElementGraphInput) => {
-  return cy
-    .graphqlRequest({
-      query: print(E2eGetElementGraphGql),
-      variables: { input },
-    })
-    .then((r) => {
-      return r.body.data?.getElementGraph as TestElementGraphFragment
-    })
-}
-
-Cypress.Commands.add('getElementGraph', getElementGraph)
 Cypress.Commands.add('createComponent', createComponent)

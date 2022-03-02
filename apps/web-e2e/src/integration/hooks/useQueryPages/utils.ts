@@ -58,7 +58,7 @@ export const beforeHook = ({
   pageName,
   sourceKey,
 }: beforeHookParams) => {
-  cy.resetDgraphData()
+  cy.resetData()
   // seed hooks
   cy.runSeeder()
 
