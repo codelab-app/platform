@@ -20,6 +20,7 @@ import {
 import {
   MutationImportAdminDataArgs
 } from '../../ogm-types.gen'
+import { TreeService } from '@codelab/shared/core'
 
 export const adminImportResolvers: IResolvers = {
   importAdminData: async (
@@ -31,8 +32,24 @@ export const adminImportResolvers: IResolvers = {
     const payload: any = JSON.parse(args.input.payload as any)
     
     // 1. Import tags......
+    let tags: any[] = []
+    const tagTree = new TreeService(payload.tags)
+    const rootTagId = tagTree.getRootVertex()?.id
+    if(rootTagId) {
+      tagTree.bfsVisit((v)=> {
+        const parent = v.parent(v.data().id)[0]
+        tags.push({
+          id: v.data().id,
+          name: v.data().name,
+          isRoot: v.data().isRoot,
+          parent: parent ? {id: parent.data().id, name: parent.data().name, isRoot: parent.data().isRoot} : undefined
+        })
+      }, rootTagId)
+    }
+    
+    
     let tagImportOperations: any[] = []
-    payload.tags?.map((tag: any) => {
+    tags.map((tag: any) => {
       tagImportOperations.push(async (createdTagsMap: Map<string, any>)=> {
         const tagFound = createdTagsMap.get(tag.name)
         if(!tagFound) {
@@ -71,7 +88,9 @@ export const adminImportResolvers: IResolvers = {
           // for now, ignore this type
           break;
         case TypeKind.InterfaceType:
-          return await InterfaceType().create({input: [common]})
+          if(typeInput.fieldsConnection.totalCount == 0)  // if interfacetype has fields, will handle it in atom creation with fields
+            return await InterfaceType().create({input: [common]})
+          break;
         case TypeKind.EnumType:
           if (!typeInput.allowedValues) {
             throw new Error('Invalid form input')
@@ -114,6 +133,7 @@ export const adminImportResolvers: IResolvers = {
     }))
     
     createdTypes.map((el: any) => {
+      if(!el) return
       const typeCreatedKeys = Object.keys(el)
       const typeKey = _.difference(typeCreatedKeys, ['__typename', 'info'])[0] || ''  // get the object key from create() response
       const typeObject = el[typeKey] || []
@@ -178,7 +198,7 @@ export const adminImportResolvers: IResolvers = {
     await atomOperations.reduce(async (_createdAtomsMap: Map<string, any>, operation: any)=> {
       return await operation(await _createdAtomsMap)
     }, Promise.resolve(new Map<string, any>()))
-
+    
     return Promise.resolve({ result: true })
   },
 }

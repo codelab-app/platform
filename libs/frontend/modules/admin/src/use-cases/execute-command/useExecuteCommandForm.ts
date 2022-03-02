@@ -7,11 +7,8 @@ import { useAdminDispatch, useAdminState } from '../../hooks'
 // import { useExecuteCommandMutation } from '../../store'
 import { ExecuteCommandResponse } from './types'
 
-export const useExecuteCommandForm: UseUseCaseForm<
-  ExecuteCommandInput,
-  AdminActionType,
-  ExecuteCommandResponse
-> = () => {
+export const useExecuteCommandForm = () => {
+  return {}
   // const { openExecuteCommandModal, resetModal } = useAdminDispatch()
   // const { actionType } = useAdminState()
 
@@ -36,7 +33,7 @@ export const useExecuteCommandForm: UseUseCaseForm<
   //   [mutate],
   // )
 
-  return {
+  // return {
     // onSubmit,
     // onSubmitError: [
     //   createNotificationHandler({
@@ -59,5 +56,5 @@ export const useExecuteCommandForm: UseUseCaseForm<
     // isLoading: false,
     // reset: resetModal,
     // actionType,
-  }
+  // }
 }
