@@ -1,6 +1,7 @@
 import { EntityLike, Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { WILDCARD_ID } from './cacheTags'
 
+//
 export const providesAll = <
   R extends Nullish<Array<EntityLike>>,
   T extends string,

@@ -1,6 +1,6 @@
 describe('Apps CRUD', () => {
   before(() => {
-    cy.resetDgraphData().then(() => {
+    cy.resetNeo4jDatabase().then(() => {
       cy.login().then(() => {
         cy.visit('/apps')
 

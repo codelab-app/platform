@@ -36,7 +36,7 @@ import { getCurrentUserId } from './user'
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
-    interface Chainable<Subject> {
+    interface Chainable<Subject = any> {
       updateElementProps: typeof updateElementProps
       updateElement: typeof updateElement
       createType: typeof createType
@@ -47,7 +47,7 @@ declare global {
       getCurrentUserId: typeof getCurrentUserId
       goToPageByAliasId: typeof goToPageByAliasId
       getByTestId: typeof getByTestId
-      resetDgraphData: typeof resetDgraphData
+      resetNeo4jDatabase: typeof resetNeo4jDatabase
       /** Makes an post request to the next.js proxy graphql api endpoint as the logged in user */
       graphqlRequest: typeof graphqlRequest
       /** Creates an app for the current logged in user */
@@ -103,6 +103,39 @@ declare global {
         options?: SelectorMatcherOptions,
       ) => Cypress.Chainable<JQuery<HTMLButtonElement>>
       runSeeder: typeof runSeeder
+      // Copied from https://github.com/sir-dunxalot/cypress-nextjs-auth0/blob/main/types/index.d.ts
+      // declaration merging not working
+      /**
+       * Logs in a user with the given credentials (via Cypress.env)
+       * or overwrite the credentials with new credentials.
+       */
+      login(options?: {
+        username?: string
+        password?: string
+      }): Chainable<Element>
+
+      /**
+       * Logs the logged in user out. One can add a custom returnTo URL.
+       */
+      logout(returnTo?: string): Chainable<Element>
+
+      /**
+       * Clears all existing (splitted or not) Auth0 cookies
+       *
+       * ## Docs
+       * @see https://docs.cypress.io/api/commands/clearcookie
+       * @see https://docs.cypress.io/api/commands/clearcookies
+       */
+      clearAuth0Cookies(): Chainable<Element>
+
+      /**
+       * Preserves cookies through multiple tests. It's best used in the
+       * `beforeEach` hook.
+       *
+       * ## Docs
+       * @see https://docs.cypress.io/api/cypress-api/cookies#Preserve-Once
+       */
+      preserveAuth0Cookies(): Chainable<Element>
     }
   }
 }
@@ -117,16 +150,16 @@ const graphqlRequest = (body: string | Record<string, any>, config?: any) =>
 
 Cypress.Commands.add('graphqlRequest', graphqlRequest)
 
-const resetDgraphData = () => {
-  return cy.exec(`yarn cli dgraph reset-data --env ${Cypress.env('env')}`)
+const resetNeo4jDatabase = () => {
+  // return cy.exec(`yarn cli dgraph reset-data --env ${Cypress.env('env')}`)
 
-  // return cy.request({
-  //   method: 'POST',
-  //   url: `${Cypress.env('codelabApiEndpoint')}/dgraph/reset-data`,
-  // })
+  return cy.request({
+    method: 'POST',
+    url: `${Cypress.env('codelabApiEndpoint')}/dgraph/reset-data`,
+  })
 }
 
-Cypress.Commands.add('resetDgraphData', resetDgraphData)
+Cypress.Commands.add('resetNeo4jDatabase', resetNeo4jDatabase)
 
 const getByTestId = (testId: string, selectorAddon?: string) => {
   return cy.get(`[data-testid=${testId}]${selectorAddon || ''}`)

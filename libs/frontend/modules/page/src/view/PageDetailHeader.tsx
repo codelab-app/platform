@@ -6,7 +6,7 @@ import SubMenu from 'antd/lib/menu/SubMenu'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useGetPagesQuery } from '../store/pageEndpoints'
+import { useGetPagesQuery } from '../store/pageEndpoints.v2'
 
 export const PageDetailHeader = () => {
   const router = useRouter()
@@ -14,7 +14,7 @@ export const PageDetailHeader = () => {
   const pageId = router.query.pageId
 
   const { data: pages } = useGetPagesQuery({
-    variables: { input: { byApp: { appId } } },
+    variables: { where: { app: { id: appId } } },
   })
 
   const currentPage = pages?.pages.find((x) => x?.id === pageId)
@@ -35,7 +35,7 @@ export const PageDetailHeader = () => {
       triggerSubMenuAction="click"
     >
       <SubMenu icon={<FileOutlined />} key="sub1" title={currentPage?.name}>
-        {pages.map((page) => (
+        {pages?.pages.map((page) => (
           <Menu.Item key={page.id}>
             <Link
               href={{

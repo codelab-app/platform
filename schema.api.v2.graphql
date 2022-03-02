@@ -2208,6 +2208,11 @@ type CreateRenderPropsTypesMutationResponse {
   renderPropsTypes: [RenderPropsType!]!
 }
 
+type CreateResetDatabaseMutationResponsesMutationResponse {
+  info: CreateInfo!
+  resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
+}
+
 type CreateTagEdgesMutationResponse {
   info: CreateInfo!
   tagEdges: [TagEdge!]!
@@ -6055,6 +6060,9 @@ type Mutation {
   createRenderPropsTypes(
     input: [RenderPropsTypeCreateInput!]!
   ): CreateRenderPropsTypesMutationResponse!
+  createResetDatabaseMutationResponses(
+    input: [ResetDatabaseMutationResponseCreateInput!]!
+  ): CreateResetDatabaseMutationResponsesMutationResponse!
   createTagEdges(input: [TagEdgeCreateInput!]!): CreateTagEdgesMutationResponse!
   createTags(input: [TagCreateInput!]!): CreateTagsMutationResponse!
   createTypeReferences(
@@ -6133,6 +6141,9 @@ type Mutation {
     delete: RenderPropsTypeDeleteInput
     where: RenderPropsTypeWhere
   ): DeleteInfo!
+  deleteResetDatabaseMutationResponses(
+    where: ResetDatabaseMutationResponseWhere
+  ): DeleteInfo!
   deleteTagEdges(where: TagEdgeWhere): DeleteInfo!
   deleteTags(delete: TagDeleteInput, where: TagWhere): DeleteInfo!
   deleteTypeReferences(where: TypeReferenceWhere): DeleteInfo!
@@ -6145,6 +6156,7 @@ type Mutation {
     input: DuplicateElementInput!
   ): DuplicateElementMutationResponse!
   importAtoms(input: ImportAtomsInput!): ImportAtomsMutationResponse
+  resetDatabase: ResetDatabaseMutationResponse
   updateAppTypes(
     connect: AppTypeConnectInput
     connectOrCreate: AppTypeConnectOrCreateInput
@@ -6336,6 +6348,10 @@ type Mutation {
     update: RenderPropsTypeUpdateInput
     where: RenderPropsTypeWhere
   ): UpdateRenderPropsTypesMutationResponse!
+  updateResetDatabaseMutationResponses(
+    update: ResetDatabaseMutationResponseUpdateInput
+    where: ResetDatabaseMutationResponseWhere
+  ): UpdateResetDatabaseMutationResponsesMutationResponse!
   updateTagEdges(
     update: TagEdgeUpdateInput
     where: TagEdgeWhere
@@ -7973,6 +7989,16 @@ type Query {
     where: RenderPropsTypeWhere
   ): RenderPropsTypeAggregateSelection!
   renderPropsTypesCount(where: RenderPropsTypeWhere): Int!
+  resetDatabaseMutationResponses(
+    options: ResetDatabaseMutationResponseOptions
+    where: ResetDatabaseMutationResponseWhere
+  ): [ResetDatabaseMutationResponse!]!
+  resetDatabaseMutationResponsesAggregate(
+    where: ResetDatabaseMutationResponseWhere
+  ): ResetDatabaseMutationResponseAggregateSelection!
+  resetDatabaseMutationResponsesCount(
+    where: ResetDatabaseMutationResponseWhere
+  ): Int!
   tagEdges(options: TagEdgeOptions, where: TagEdgeWhere): [TagEdge!]!
   tagEdgesAggregate(where: TagEdgeWhere): TagEdgeAggregateSelection!
   tagEdgesCount(where: TagEdgeWhere): Int!
@@ -8352,6 +8378,46 @@ input RenderPropsTypeWhere {
   ownerConnection: TypeBaseOwnerConnectionWhere
   ownerConnection_NOT: TypeBaseOwnerConnectionWhere
   owner_NOT: UserWhere
+}
+
+type ResetDatabaseMutationResponse {
+  success: Boolean
+}
+
+type ResetDatabaseMutationResponseAggregateSelection {
+  count: Int!
+}
+
+input ResetDatabaseMutationResponseCreateInput {
+  success: Boolean
+}
+
+input ResetDatabaseMutationResponseOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ResetDatabaseMutationResponseSort objects to sort ResetDatabaseMutationResponses by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ResetDatabaseMutationResponseSort]
+}
+
+"""
+Fields to sort ResetDatabaseMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResetDatabaseMutationResponseSort object.
+"""
+input ResetDatabaseMutationResponseSort {
+  success: SortDirection
+}
+
+input ResetDatabaseMutationResponseUpdateInput {
+  success: Boolean
+}
+
+input ResetDatabaseMutationResponseWhere {
+  AND: [ResetDatabaseMutationResponseWhere!]
+  OR: [ResetDatabaseMutationResponseWhere!]
+  success: Boolean
+  success_NOT: Boolean
 }
 
 enum SortDirection {
@@ -9547,6 +9613,11 @@ type UpdateReactNodeTypesMutationResponse {
 type UpdateRenderPropsTypesMutationResponse {
   info: UpdateInfo!
   renderPropsTypes: [RenderPropsType!]!
+}
+
+type UpdateResetDatabaseMutationResponsesMutationResponse {
+  info: UpdateInfo!
+  resetDatabaseMutationResponses: [ResetDatabaseMutationResponse!]!
 }
 
 type UpdateTagEdgesMutationResponse {

@@ -2378,6 +2378,12 @@ export type CreateRenderPropsTypesMutationResponse = {
   renderPropsTypes: Array<RenderPropsType>
 }
 
+export type CreateResetDatabaseMutationResponsesMutationResponse = {
+  __typename?: 'CreateResetDatabaseMutationResponsesMutationResponse'
+  info: CreateInfo
+  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
+}
+
 export type CreateTagEdgesMutationResponse = {
   __typename?: 'CreateTagEdgesMutationResponse'
   info: CreateInfo
@@ -6483,6 +6489,7 @@ export type Mutation = {
   createProps: CreatePropsMutationResponse
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
   createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
+  createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
   createTagEdges: CreateTagEdgesMutationResponse
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
@@ -6513,6 +6520,7 @@ export type Mutation = {
   deleteProps: DeleteInfo
   deleteReactNodeTypes: DeleteInfo
   deleteRenderPropsTypes: DeleteInfo
+  deleteResetDatabaseMutationResponses: DeleteInfo
   deleteTagEdges: DeleteInfo
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
@@ -6520,6 +6528,7 @@ export type Mutation = {
   deleteUsers: DeleteInfo
   duplicateElement: DuplicateElementMutationResponse
   importAtoms?: Maybe<ImportAtomsMutationResponse>
+  resetDatabase?: Maybe<ResetDatabaseMutationResponse>
   updateAppTypes: UpdateAppTypesMutationResponse
   updateApps: UpdateAppsMutationResponse
   updateArrayTypes: UpdateArrayTypesMutationResponse
@@ -6544,6 +6553,7 @@ export type Mutation = {
   updateProps: UpdatePropsMutationResponse
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
   updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
+  updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
   updateTagEdges: UpdateTagEdgesMutationResponse
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
@@ -6645,6 +6655,10 @@ export type MutationCreateReactNodeTypesArgs = {
 
 export type MutationCreateRenderPropsTypesArgs = {
   input: Array<RenderPropsTypeCreateInput>
+}
+
+export type MutationCreateResetDatabaseMutationResponsesArgs = {
+  input: Array<ResetDatabaseMutationResponseCreateInput>
 }
 
 export type MutationCreateTagEdgesArgs = {
@@ -6785,6 +6799,10 @@ export type MutationDeleteReactNodeTypesArgs = {
 export type MutationDeleteRenderPropsTypesArgs = {
   delete?: InputMaybe<RenderPropsTypeDeleteInput>
   where?: InputMaybe<RenderPropsTypeWhere>
+}
+
+export type MutationDeleteResetDatabaseMutationResponsesArgs = {
+  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
 }
 
 export type MutationDeleteTagEdgesArgs = {
@@ -7031,6 +7049,11 @@ export type MutationUpdateRenderPropsTypesArgs = {
   disconnect?: InputMaybe<RenderPropsTypeDisconnectInput>
   update?: InputMaybe<RenderPropsTypeUpdateInput>
   where?: InputMaybe<RenderPropsTypeWhere>
+}
+
+export type MutationUpdateResetDatabaseMutationResponsesArgs = {
+  update?: InputMaybe<ResetDatabaseMutationResponseUpdateInput>
+  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
 }
 
 export type MutationUpdateTagEdgesArgs = {
@@ -8682,6 +8705,9 @@ export type Query = {
   renderPropsTypes: Array<RenderPropsType>
   renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
   renderPropsTypesCount: Scalars['Int']
+  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
+  resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
+  resetDatabaseMutationResponsesCount: Scalars['Int']
   tagEdges: Array<TagEdge>
   tagEdgesAggregate: TagEdgeAggregateSelection
   tagEdgesCount: Scalars['Int']
@@ -9028,6 +9054,19 @@ export type QueryRenderPropsTypesAggregateArgs = {
 
 export type QueryRenderPropsTypesCountArgs = {
   where?: InputMaybe<RenderPropsTypeWhere>
+}
+
+export type QueryResetDatabaseMutationResponsesArgs = {
+  options?: InputMaybe<ResetDatabaseMutationResponseOptions>
+  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type QueryResetDatabaseMutationResponsesAggregateArgs = {
+  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
+}
+
+export type QueryResetDatabaseMutationResponsesCountArgs = {
+  where?: InputMaybe<ResetDatabaseMutationResponseWhere>
 }
 
 export type QueryTagEdgesArgs = {
@@ -9534,6 +9573,43 @@ export type RenderPropsTypeWhere = {
   ownerConnection?: InputMaybe<TypeBaseOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<TypeBaseOwnerConnectionWhere>
   owner_NOT?: InputMaybe<UserWhere>
+}
+
+export type ResetDatabaseMutationResponse = {
+  __typename?: 'ResetDatabaseMutationResponse'
+  success?: Maybe<Scalars['Boolean']>
+}
+
+export type ResetDatabaseMutationResponseAggregateSelection = {
+  __typename?: 'ResetDatabaseMutationResponseAggregateSelection'
+  count: Scalars['Int']
+}
+
+export type ResetDatabaseMutationResponseCreateInput = {
+  success?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ResetDatabaseMutationResponseOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more ResetDatabaseMutationResponseSort objects to sort ResetDatabaseMutationResponses by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<InputMaybe<ResetDatabaseMutationResponseSort>>>
+}
+
+/** Fields to sort ResetDatabaseMutationResponses by. The order in which sorts are applied is not guaranteed when specifying many fields in one ResetDatabaseMutationResponseSort object. */
+export type ResetDatabaseMutationResponseSort = {
+  success?: InputMaybe<SortDirection>
+}
+
+export type ResetDatabaseMutationResponseUpdateInput = {
+  success?: InputMaybe<Scalars['Boolean']>
+}
+
+export type ResetDatabaseMutationResponseWhere = {
+  AND?: InputMaybe<Array<ResetDatabaseMutationResponseWhere>>
+  OR?: InputMaybe<Array<ResetDatabaseMutationResponseWhere>>
+  success?: InputMaybe<Scalars['Boolean']>
+  success_NOT?: InputMaybe<Scalars['Boolean']>
 }
 
 export enum SortDirection {
@@ -10804,6 +10880,12 @@ export type UpdateRenderPropsTypesMutationResponse = {
   __typename?: 'UpdateRenderPropsTypesMutationResponse'
   info: UpdateInfo
   renderPropsTypes: Array<RenderPropsType>
+}
+
+export type UpdateResetDatabaseMutationResponsesMutationResponse = {
+  __typename?: 'UpdateResetDatabaseMutationResponsesMutationResponse'
+  info: UpdateInfo
+  resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
 }
 
 export type UpdateTagEdgesMutationResponse = {

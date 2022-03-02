@@ -6,7 +6,7 @@ import {
 } from '@codelab/frontend/view/components'
 import { List, Space } from 'antd'
 import Link from 'next/link'
-import { PageBaseFragment } from '../../graphql'
+import { PageBaseFragment } from '../../graphql/Page.fragment.v2.graphql.gen'
 import { usePageDispatch } from '../../hooks'
 
 export type GetPagesItemProps = {

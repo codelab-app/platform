@@ -1,3 +1,18 @@
 {
-  "extends": "./tsconfig.e2e.json"
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "sourceMap": false,
+    "esModuleInterop": true,
+    "strict": true,
+    "outDir": "../../dist/out-tsc",
+    "allowJs": true,
+    "types": [
+      "cypress",
+      "node",
+      "worker-loader",
+      "@testing-library/express",
+      "cypress-nextjs-auth0"
+    ]
+  },
+  "include": ["src/**/*.ts", "src/**/*.js"]
 }

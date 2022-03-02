@@ -1,4 +1,3 @@
-import { useGetAppsQuery } from '@codelab/frontend/modules/app'
 import React from 'react'
 import { HTMLFieldProps } from 'uniforms'
 import { SelectField, SelectFieldProps } from 'uniforms-antd'
@@ -6,17 +5,23 @@ import { SelectField, SelectFieldProps } from 'uniforms-antd'
 export type SelectAppProps = HTMLFieldProps<string, SelectFieldProps>
 
 export const SelectApp = ({ name }: SelectAppProps) => {
-  const { data, isLoading } = useGetAppsQuery()
+  // const { data, isLoading } = useGetAppsQuery()
+  const apps = [
+    {
+      name: 'Demo',
+      id: 'demo',
+    },
+  ]
 
   const appOptions =
-    data?.apps.map((app) => ({
+    apps.map((app) => ({
       label: app.name,
       value: app.id,
     })) ?? []
 
   return (
     <SelectField
-      loading={isLoading}
+      // loading={isLoading}
       name={name}
       optionFilterProp="label"
       options={appOptions}
