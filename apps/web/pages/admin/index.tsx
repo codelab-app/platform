@@ -9,8 +9,6 @@ import {
   ExportButton,
   ImportButton,
   ResetDataButton,
-  SeedBaseTypesButton,
-  SyncAtomsButton,
 } from '@codelab/frontend/modules/admin'
 import { ContentSection } from '@codelab/frontend/view/sections'
 import {
@@ -34,8 +32,6 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = () => {
       <ContentSection css={tw`p-4 bg-white`}>
         <Space>
           <ResetDataButton />
-          {/* <SeedBaseTypesButton /> */}
-          {/* <SyncAtomsButton /> */}
           <ExecuteCommandButton />
           <ExportButton />
           <ImportButton />
