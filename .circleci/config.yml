@@ -29,10 +29,8 @@ executor-config: &executor-config
     SLACK_ASSIM: <@U02GJN72TKR>
     GITHUB_NGHIA: phmngocnghia
     SLACK_NGHIA: <@U02DX6U7YGP>
-    GITHUB_HARRY: harryjin
-    SLACK_HARRY: <@U02TVECJA8Z>
-    GITHUB_MING: rihnoo
-    SLACK_MING: <@U02TU52M0HZ>
+    GITHUB_HAN: railway17
+    SLACK_HAN: <@U032DCE59SB>
     SLACK_CHANNEL_UPDATE: CQVPNKS8K
     COLOR_SUCCESS: '#b7eb8f'
     COLOR_FAILURE: '#ffccc7'
@@ -114,11 +112,8 @@ commands:
             elif [ $CIRCLE_USERNAME == $GITHUB_NGHIA ]; then
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_NGHIA}' >> $BASH_ENV
 
-            elif [ $CIRCLE_USERNAME == $GITHUB_HARRY ]; then
-              echo 'export SLACK_PARAM_MENTIONS=${SLACK_HARRY}' >> $BASH_ENV
-
-            elif [ $CIRCLE_USERNAME == $GITHUB_MING ]; then
-              echo 'export SLACK_PARAM_MENTIONS=${SLACK_MING}' >> $BASH_ENV
+            elif [ $CIRCLE_USERNAME == $GITHUB_HAN ]; then
+              echo 'export SLACK_PARAM_MENTIONS=${SLACK_HAN}' >> $BASH_ENV
 
             else
               echo 'export SLACK_PARAM_MENTIONS=${SLACK_WEBBER}' >> $BASH_ENV
@@ -188,12 +183,6 @@ jobs:
       - setup-workspace
       - package-install-dev
       - run:
-          name: 'NX_BASE'
-          command: echo $NX_BASE
-      - run:
-          name: 'NX_HEAD'
-          command: echo $NX_HEAD
-      - run:
           name: 'Clear Cache'
           command: |
             rm -rf ~/project/node_modules/nx/.cache
@@ -226,9 +215,9 @@ jobs:
       - setup-workspace
       - run: yarn cli tasks eslint --env ci
       # Check to see if codegen works, all files should be committed locally
-      - run:
-          name: 'GraphQL Codegen'
-          command: yarn codegen
+      # - run:
+      #     name: 'GraphQL Codegen'
+      #     command: yarn codegen
       - run:
           name: 'Circular Dependencies Check'
           command: yarn cli tasks circular-lint --env ci
