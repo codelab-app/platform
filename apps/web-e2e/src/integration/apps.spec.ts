@@ -3,7 +3,6 @@ describe('Apps CRUD', () => {
     cy.resetData().then(() => {
       cy.login().then(() => {
         cy.visit('/apps')
-
         cy.getSpinner().should('not.exist')
       })
     })

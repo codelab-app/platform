@@ -7,7 +7,7 @@ export const resetData = () => {
       query: print(E2eResetDataDocument),
       variables: {},
     })
-    .then((r) => r.body.data?.apps)
+    .then((r) => r.body.data?.success)
 }
 
 Cypress.Commands.add('resetData', resetData)

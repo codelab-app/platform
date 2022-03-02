@@ -23,6 +23,7 @@ import './app'
 import './component'
 import './type'
 import './field'
+import './admin'
 
 Cypress.on('uncaught:exception', (err) => {
   const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/
