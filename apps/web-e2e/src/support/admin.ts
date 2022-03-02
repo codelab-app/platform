@@ -10,4 +10,4 @@ export const resetDatabase = () => {
     .then((r) => r.body.data?.success)
 }
 
-Cypress.Commands.add('resetData', resetDatabase)
+Cypress.Commands.add('resetDatabase', resetDatabase)

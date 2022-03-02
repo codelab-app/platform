@@ -124,13 +124,6 @@ const Modal = ({
           loading: isLoading,
         }}
         onOk={(e) => {
-          if (!submitRef.current) {
-            throw new Error('Submit controller ref not initialized')
-          }
-
-          // Submits the form
-          submitRef.current.submit()
-
           // Call the callback from the modalProps prop, if defined
           if (onOk) {
             onOk(e)
