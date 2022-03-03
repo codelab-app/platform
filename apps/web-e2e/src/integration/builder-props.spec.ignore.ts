@@ -1,5 +1,5 @@
 //
-// Ignored because of a cypress issue https://github.com/codelab-ai/codelab.ai/issues/1172
+// Ignored because of seeder
 //
 
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
@@ -51,15 +51,14 @@ const selectPropsTab = () => {
 
 before(() => {
   cy.resetDatabase().then(() => {
-    cy.runSeeder().then(() => {
-      cy.login().then(() => {
-        cy.createApp().then((app: any) => {
-          cy.wrap(app.id).as('appId')
-          cy.createPage({
-            appId: app.id,
-            name: pageName,
-          })
-
+    cy.login().then(() => {
+      cy.createApp().then((app: any) => {
+        cy.wrap(app.id).as('appId')
+        cy.createPage({
+          app: { connect: { where: { node: { id: app.id } } } },
+          rootElement: { create: { node: { name: ROOT_ELEMENT_NAME } } },
+          name: pageName,
+        }).then(() => {
           selectApp()
           selectPage()
 

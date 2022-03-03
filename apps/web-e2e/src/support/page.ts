@@ -1,3 +1,4 @@
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { PageCreateInput, PageWhere } from '@codelab/shared/abstract/codegen-v2'
 import { IApp, IPage } from '@codelab/shared/abstract/core'
 import { print } from 'graphql'
@@ -15,15 +16,20 @@ export const getPages = (input: PageWhere) => {
     .then((r) => r.body.data?.pages as Array<IPage>)
 }
 
-export const createPage = (input: Partial<PageCreateInput>) => {
+const defaultPageInput: PageCreateInput = {
+  name: 'Test Page',
+  rootElement: { create: { node: { name: ROOT_ELEMENT_NAME } } },
+}
+
+export const createPage = (
+  input: Partial<PageCreateInput> = defaultPageInput,
+) => {
   return cy
     .graphqlRequest({
       query: print(E2eCreatePageDocument),
-      variables: {
-        input,
-      },
+      variables: { input },
     })
-    .then((r) => r.body.data?.pages as Array<IPage>)
+    .then((r) => r.body.data?.pages[0] as IPage)
 }
 
 // should be use with createPageFromScratch

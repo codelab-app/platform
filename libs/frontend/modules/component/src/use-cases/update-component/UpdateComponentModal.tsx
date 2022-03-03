@@ -16,7 +16,7 @@ export const UpdateComponentModal = () => {
   return (
     <FormModal
       okButtonProps={{ loading: isLoading }}
-      okText="Update"
+      okText="Update Component"
       onCancel={() => reset()}
       title={<span css={tw`font-semibold`}>Update component</span>}
       visible={actionType === CRUDActionType.Update}
