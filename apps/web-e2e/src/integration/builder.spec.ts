@@ -1,7 +1,3 @@
-//
-// Ignored because of a cypress issue https://github.com/codelab-ai/codelab.ai/issues/1172
-//
-
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { AtomType } from '@codelab/shared/abstract/core'
 import { TIMEOUT } from '../support/timeout'

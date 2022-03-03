@@ -16,7 +16,17 @@ fragment Element on Element {
     name
   }
   atom {
-    ...Atom
+    id
+    type
+    name
+    tags {
+      id
+      name
+    }
+    api {
+      id
+      name
+    }
   }
   props {
     ...Prop

@@ -1,8 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen-v2'
 
-import { AtomFragment } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
 import { gql } from 'graphql-request'
-import { AtomFragmentDoc } from '../../../atom/src/graphql/Atom.fragment.v2.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
@@ -17,7 +15,16 @@ export type ElementFragment = {
     | { id: string; name?: string | null | undefined }
     | null
     | undefined
-  atom?: AtomFragment | null | undefined
+  atom?:
+    | {
+        id: string
+        type: Types.AtomType
+        name: string
+        tags?: Array<{ id: string; name: string }> | null | undefined
+        api: { id: string; name: string }
+      }
+    | null
+    | undefined
   props?: PropFragment | null | undefined
   hooks?: Array<HookFragment> | null | undefined
   propMapBindings?: Array<PropMapBindingFragment> | null | undefined
@@ -121,7 +128,17 @@ export const ElementFragmentDoc = gql`
       name
     }
     atom {
-      ...Atom
+      id
+      type
+      name
+      tags {
+        id
+        name
+      }
+      api {
+        id
+        name
+      }
     }
     props {
       ...Prop
