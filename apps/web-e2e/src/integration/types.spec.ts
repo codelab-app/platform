@@ -38,7 +38,7 @@ const findDeleteButtonByTypeName = (text: string) =>
 
 describe('Types', () => {
   before(() => {
-    cy.resetData().then(() => {
+    cy.resetDatabase().then(() => {
       cy.login().then(() => {
         cy.visit(`/types`)
       })
