@@ -1,4 +1,2 @@
-// export * from './pageEndpoints'
-export * from './pageEndpoints.v2'
-export * from './pageState'
-export * from './types'
+export * from './pageApi'
+export * from './pageStore'

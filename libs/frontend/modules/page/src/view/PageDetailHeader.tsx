@@ -1,29 +1,45 @@
 import { EyeOutlined, FileOutlined, ToolOutlined } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useCurrentAppId } from '@codelab/frontend/modules/app'
-import { Menu } from 'antd'
+import {
+  useCurrentAppId,
+  useCurrentPageId,
+} from '@codelab/frontend/presenter/container'
+import { useAsyncState } from '@codelab/frontend/shared/utils'
+import { Menu, Spin } from 'antd'
 import SubMenu from 'antd/lib/menu/SubMenu'
+import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
-import { useGetPagesQuery } from '../store/pageEndpoints.v2'
+import React, { useEffect } from 'react'
+import { PageModel, PageStore } from '../store'
 
-export const PageDetailHeader = () => {
+export interface PageDetailHeaderProps {
+  pages: PageStore
+}
+
+export const PageDetailHeader = observer(({ pages }: PageDetailHeaderProps) => {
   const router = useRouter()
   const appId = useCurrentAppId()
-  const pageId = router.query.pageId
+  const pageId = useCurrentPageId()
 
-  const { data: pages } = useGetPagesQuery({
-    variables: { where: { app: { id: appId } } },
-  })
+  const [getPages, { isLoading }] = useAsyncState(() =>
+    pages.getAll({ app: { id: appId } }),
+  )
 
-  const currentPage = pages?.pages.find((x) => x?.id === pageId)
+  const pagesList = pages.pagesList
+
+  useEffect(() => {
+    getPages()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const currentPage = pagesList?.find((x) => x?.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
 
   const switchPreviewMode = () => {
     return router.push({
       pathname: isBuilder ? PageType.PageDetail : PageType.PageBuilder,
-      query: { appId, pageId },
+      query: router.query,
     })
   }
 
@@ -35,17 +51,9 @@ export const PageDetailHeader = () => {
       triggerSubMenuAction="click"
     >
       <SubMenu icon={<FileOutlined />} key="sub1" title={currentPage?.name}>
-        {pages?.pages.map((page) => (
-          <Menu.Item key={page.id}>
-            <Link
-              href={{
-                pathname: PageType.PageBuilder,
-                query: { appId, pageId: page?.id },
-              }}
-            >
-              <a>{page?.name}</a>
-            </Link>
-          </Menu.Item>
+        {isLoading && <Spin />}
+        {pagesList?.map((page) => (
+          <PageListItem key={page.id} page={page} />
         ))}
       </SubMenu>
       <Menu.Item
@@ -58,4 +66,25 @@ export const PageDetailHeader = () => {
       />
     </Menu>
   )
+})
+
+interface PageListItemProps {
+  page: PageModel
 }
+
+const PageListItem = observer<PageListItemProps>(({ page }) => {
+  const router = useRouter()
+
+  return (
+    <Menu.Item key={page.id}>
+      <Link
+        href={{
+          pathname: PageType.PageBuilder,
+          query: { ...router.query, pageId: page?.id },
+        }}
+      >
+        <a>{page?.name}</a>
+      </Link>
+    </Menu.Item>
+  )
+})

@@ -1,5 +1,6 @@
 import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { CodelabPage } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/model/infra/mobx'
 import { getGraphQLClient } from '@codelab/frontend/model/infra/redux'
 import {
   Builder,
@@ -13,32 +14,36 @@ import { useElementGraphContext } from '@codelab/frontend/modules/element'
 import {
   PageDetailHeader,
   PageProvider,
-  usePageState,
+  usePage,
 } from '@codelab/frontend/modules/page'
 import { userSlice } from '@codelab/frontend/modules/user'
+import { useCurrentPageId } from '@codelab/frontend/presenter/container'
 import { Empty } from 'antd'
 import { reduxStoreWrapper } from 'apps/web/src/store/reduxStoreWrapper'
+import { observer } from 'mobx-react-lite'
 import { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
-const PageBuilder: CodelabPage<any> = () => {
-  const { currentPage } = usePageState()
+const PageBuilder: CodelabPage<any> = observer(() => {
+  const store = useStore()
+  const currentPageId = useCurrentPageId()
+  const { page } = usePage(currentPageId, store.pages)
   const { elementTree } = useElementGraphContext()
 
-  if (!currentPage || !elementTree) {
+  if (!page || !elementTree) {
     return <Empty />
   }
 
   return (
     <>
       <Head>
-        <title>{currentPage.name} | Builder | Codelab</title>
+        <title>{page.name} | Builder | Codelab</title>
       </Head>
       <Builder tree={elementTree} />
     </>
   )
-}
+})
 
 export default PageBuilder
 
@@ -59,12 +64,14 @@ export const getServerSideProps = withPageAuthRequired({
   ),
 })
 
-PageBuilder.Layout = (page) => {
+PageBuilder.Layout = observer((page) => {
+  const store = useStore()
+
   return (
     <BuilderContext>
-      <PageProvider>
+      <PageProvider pages={store.pages}>
         <BuilderDashboardTemplate
-          Header={PageDetailHeader}
+          Header={() => <PageDetailHeader pages={store.pages} />}
           MainPane={MainPaneBuilder}
           MetaPane={MetaPaneBuilderPage}
           SidebarNavigation={BuilderSidebarNavigation}
@@ -75,4 +82,4 @@ PageBuilder.Layout = (page) => {
       </PageProvider>
     </BuilderContext>
   )
-}
+})

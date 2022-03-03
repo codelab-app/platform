@@ -10,7 +10,7 @@ export const useAtomDispatch = () => {
   const setSelectedIds = (payload: SetSelectedAtomIdsModalAction) => {
     dispatch(actions.setSelectedIds(payload))
   }
-  
+
   return {
     setSelectedIds,
     ...crudDispatch,

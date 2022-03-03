@@ -1,8 +1,10 @@
 import { AppStore } from '@codelab/frontend/modules/app'
+import { PageStore } from '@codelab/frontend/modules/page'
 import { applySnapshot, Instance, SnapshotIn, types } from 'mobx-state-tree'
 
 const RootStore = types.model({
   apps: AppStore,
+  pages: PageStore,
 })
 
 export type RootStore = Instance<typeof RootStore>
@@ -16,6 +18,7 @@ export const initializeStore = (
     store ??
     RootStore.create({
       apps: { apps: {}, createModal: {}, deleteModal: {}, updateModal: {} },
+      pages: { pages: {}, createModal: {}, deleteModal: {}, updateModal: {} },
     })
 
   // If your page has Next.js data fetching methods that use a Mobx store, it will

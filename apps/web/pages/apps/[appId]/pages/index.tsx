@@ -31,13 +31,15 @@ export default Pages
 
 export const getServerSideProps = withPageAuthRequired()
 
-Pages.Layout = (page) => {
+Pages.Layout = observer((page) => {
+  const store = useStore()
+
   return (
     <DashboardTemplate
-      MainPane={PageMainPane}
+      MainPane={() => <PageMainPane pages={store.pages} />}
       SidebarNavigation={SidebarNavigation}
     >
       {page.children}
     </DashboardTemplate>
   )
-}
+})

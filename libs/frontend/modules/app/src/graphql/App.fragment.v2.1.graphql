@@ -6,22 +6,5 @@ fragment App on App {
   name
   pages {
     id
-    name
-    rootElement {
-      id
-      name
-    }
   }
-}
-
-fragment AppBase on App {
-  id
-  owner {
-    id
-  }
-  name
-  # pages {
-  #   id
-  #   name
-  # }
 }

@@ -14,7 +14,6 @@ import {
   propMapBindingSlice,
 } from '@codelab/frontend/modules/element'
 import { lambdaEndpoints, lambdaSlice } from '@codelab/frontend/modules/lambda'
-import { pageEndpoints, pageSlice } from '@codelab/frontend/modules/page'
 import { tagEndpoints, tagSlice } from '@codelab/frontend/modules/tag'
 import {
   createTypeEndpoints,
@@ -32,7 +31,6 @@ export const makeStore = () => {
     reducer: combineReducers({
       // APIs:
       [adminEndpoints.reducerPath]: adminEndpoints.reducer,
-      [pageEndpoints.reducerPath]: pageEndpoints.reducer,
       [elementEndpoints.reducerPath]: elementEndpoints.reducer,
       [hookEndpoints.reducerPath]: hookEndpoints.reducer,
       [propMapBindingEndpoints.reducerPath]: propMapBindingEndpoints.reducer,
@@ -53,7 +51,6 @@ export const makeStore = () => {
       [componentSlice.name]: componentSlice.reducer,
       [elementSlice.name]: elementSlice.reducer,
       [hookSlice.name]: hookSlice.reducer,
-      [pageSlice.name]: pageSlice.reducer,
       [lambdaSlice.name]: lambdaSlice.reducer,
       [propMapBindingSlice.name]: propMapBindingSlice.reducer,
       [tagSlice.name]: tagSlice.reducer,
@@ -64,7 +61,6 @@ export const makeStore = () => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(
         adminEndpoints.middleware,
-        pageEndpoints.middleware,
         elementEndpoints.middleware,
         componentEndpoints.middleware,
         hookEndpoints.middleware,

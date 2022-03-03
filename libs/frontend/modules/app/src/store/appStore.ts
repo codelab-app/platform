@@ -9,7 +9,6 @@ import {
   types,
 } from 'mobx-state-tree'
 import { atomic } from 'mst-middlewares'
-import { v4 } from 'uuid'
 import type { CreateAppInput } from '../use-cases/create-app/createAppSchema'
 import type { UpdateAppInput } from '../use-cases/update-app/updateAppSchema'
 import { appApi } from './appApi'
@@ -125,15 +124,6 @@ export const AppStore = types
       input: CreateAppInput,
       ownerId: Nullish<string>,
     ) {
-      // Optimistically add the app
-      const app = AppModel.create({
-        id: v4(),
-        name: input.name,
-        ownerId,
-      })
-
-      self.apps.put(app)
-
       // Store it in the database
       const {
         createApps: { apps },
@@ -148,12 +138,18 @@ export const AppStore = types
         }),
       )
 
-      if (!apps[0]) {
+      const app = apps[0]
+
+      if (!app) {
         // Throw an error so that the atomic middleware rolls back the changes
         throw new Error('App was not created')
       }
 
-      return app
+      const appModel = AppModel.create(app)
+
+      self.apps.put(appModel)
+
+      return appModel
     }),
 
     deleteApp: flow(function* (id: string) {

@@ -9,7 +9,7 @@ mutation CreateApps($input: [AppCreateInput!]!) {
 mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
   updateApps(where: $where, update: $update) {
     apps {
-      ...AppBase
+      ...App
     }
   }
 }

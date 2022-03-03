@@ -1,2 +1,1 @@
-export * from './usePageDispatch'
-export * from './usePageState'
+export * from './usePage'

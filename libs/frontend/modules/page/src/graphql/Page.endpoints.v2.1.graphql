@@ -11,6 +11,7 @@ mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
     nodesDeleted
   }
 }
+
 mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
   updatePages(where: $where, update: $update) {
     pages {

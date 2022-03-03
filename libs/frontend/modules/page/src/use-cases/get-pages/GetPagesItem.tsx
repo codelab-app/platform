@@ -5,34 +5,26 @@ import {
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
 import { List, Space } from 'antd'
+import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
-import { PageBaseFragment } from '../../graphql/Page.fragment.v2.graphql.gen'
-import { usePageDispatch } from '../../hooks'
+import { useRouter } from 'next/router'
+import { PageModel, PageStore } from '../../store'
 
 export type GetPagesItemProps = {
-  page: PageBaseFragment
-  appId: string
+  page: PageModel
+  pages: PageStore
 }
 
-export const GetPagesItem = ({ page, appId }: GetPagesItemProps) => {
-  const { openDeleteModal, openUpdateModal } = usePageDispatch()
+export const GetPagesItem = observer(({ page, pages }: GetPagesItemProps) => {
+  const router = useRouter()
 
   const href = {
     pathname: PageType.PageBuilder,
-    query: { appId, pageId: page.id },
+    query: { ...router.query, pageId: page.id },
   }
 
-  const onClickDelete = () =>
-    openDeleteModal({
-      deleteIds: [page.id],
-      entity: page,
-    })
-
-  const onClickEdit = () =>
-    openUpdateModal({
-      updateId: page.id,
-      entity: page,
-    })
+  const onClickDelete = () => pages.deleteModal.open(page.id)
+  const onClickEdit = () => pages.updateModal.open(page.id)
 
   return (
     <List.Item style={{ paddingLeft: 0 }}>
@@ -48,4 +40,4 @@ export const GetPagesItem = ({ page, appId }: GetPagesItemProps) => {
       </Space>
     </List.Item>
   )
-}
+})
