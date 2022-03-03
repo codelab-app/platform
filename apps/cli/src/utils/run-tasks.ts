@@ -27,7 +27,7 @@ export const runTasks = (env: TaskEnv, task: string, args?: string) => {
 
       if (env === TaskEnv.Ci) {
         execCommand(
-          'npx nx run-many --target=build --projects=api,web,cmd,cli,tools-rtk-query --configuration=ci --verbose',
+          'npx nx run-many --target=build --projects=web,cli,tools-rtk-query --configuration=ci --verbose',
         )
       }
 
