@@ -14,6 +14,7 @@ import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 const onLibraryFilter = (value: any, atom: AtomFragment): boolean => {
   const list = [atom.name, atom.type].map((x) => x.toLowerCase())
   const search = value.toString().toLowerCase()
+
   return list.some((x) => x.startsWith(search))
 }
 
@@ -23,9 +24,7 @@ export const useAtomTable = () => {
   const { data } = useGetTagGraphsQuery()
   const tagTree = useTagTree(data?.tagGraphs)
   const tagTreeData = tagTree.getAntdTree()
-
   const filterTreeData = makeFilterData(tagTreeData)
-
 
   const columns: Array<TableColumnProps<AtomFragment>> = [
     {
@@ -50,8 +49,9 @@ export const useAtomTable = () => {
       filters: filterTreeData,
       filterMode: 'tree',
       filterSearch: true,
-      onFilter: (value: string|number|boolean, atom: AtomFragment) => {
-        const tagIds = atom.tags?.map(tag=>tag.id)
+      onFilter: (value: string | number | boolean, atom: AtomFragment) => {
+        const tagIds = atom.tags?.map((tag) => tag.id)
+
         return !!tagIds?.includes(value.toString())
       },
       onHeaderCell: headerCellProps,

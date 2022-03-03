@@ -18,12 +18,8 @@ export const CreateAppModal = observer(({ apps }: CreateAppModalProps) => {
     title: 'Error while creating app',
   })
 
-  const onSubmit = (input: CreateAppInput) => {
-    const promise = apps.createApp({ ...input }, user?.sub)
-    closeModal()
-
-    return promise
-  }
+  const onSubmit = async (input: CreateAppInput) =>
+    apps.createApp({ ...input }, user?.sub)
 
   const closeModal = () => apps.createModal.close()
 

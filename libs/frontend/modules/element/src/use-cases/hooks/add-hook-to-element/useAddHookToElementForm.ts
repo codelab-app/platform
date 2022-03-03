@@ -1,6 +1,5 @@
 import { CRUDActionType } from '@codelab/frontend/abstract/core'
 import { UseUseCaseForm } from '@codelab/frontend/abstract/types'
-import { useCurrentAppId } from '@codelab/frontend/modules/app'
 import { useGetAtomsQuery } from '@codelab/frontend/modules/atom'
 import {
   useLazyGetInterfaceTypeGraphsQuery,
@@ -8,6 +7,7 @@ import {
 } from '@codelab/frontend/modules/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { assertIsDefined } from '@codelab/shared/utils'
+import { useRouter } from 'next/router'
 import { useCreateHooksMutation } from '../../../graphql/hook.endpoints.v2.graphql.gen'
 import { useHookDispatch, useHookState } from '../../../hooks'
 import { AddHookToElementMutationInput, InterfaceProps } from './types'
@@ -26,7 +26,8 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
   })
 
   const atoms = atomsData?.atoms || []
-  const appId = useCurrentAppId()
+  const { query } = useRouter()
+  const appId = query.appId as string
 
   assertIsDefined(elementId)
 

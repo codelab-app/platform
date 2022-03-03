@@ -1,4 +1,3 @@
-import { Nullable } from '@codelab/shared/abstract/types'
 import { BaseQueryFn } from '@reduxjs/toolkit/dist/query'
 import { ClientError } from 'graphql-request'
 import { RequestDocument } from 'graphql-request/dist/types'

@@ -3,28 +3,48 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import gql from 'graphql-tag'
-export type AppFragment = {
-  __typename?: 'App'
+export type PageFragment = {
+  __typename?: 'Page'
   id: string
   name: string
-  owner?:
-    | Array<{ __typename?: 'User'; id: string } | null | undefined>
-    | null
-    | undefined
-  pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
+  app: { __typename?: 'App'; id: string }
+  rootElement: {
+    __typename?: 'Element'
+    id: string
+    name?: string | null | undefined
+  }
 }
 
-export const AppFragmentDoc = gql`
-  fragment App on App {
+export type PageFullFragment = {
+  __typename?: 'Page'
+  id: string
+  name: string
+  app: { __typename?: 'App'; id: string }
+  rootElement: {
+    __typename?: 'Element'
+    id: string
+    name?: string | null | undefined
+  }
+}
+
+export const PageFragmentDoc = gql`
+  fragment Page on Page {
     id
-    owner {
+    name
+    app {
       id
     }
-    name
-    pages {
+    rootElement {
       id
+      name
     }
   }
+`
+export const PageFullFragmentDoc = gql`
+  fragment PageFull on Page {
+    ...Page
+  }
+  ${PageFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

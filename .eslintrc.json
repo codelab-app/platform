@@ -233,23 +233,10 @@
         "simple-import-sort/exports": "error",
         "import/newline-after-import": "error",
         "import/first": "error",
-        "import/no-cycle": [
-          "error",
-          {
-            "ignoreExternal": true
-          }
-        ],
+        "import/no-cycle": "error",
         "import/no-duplicates": "error",
         "prettier/prettier": "error",
         "func-style": "error",
-        "@typescript-eslint/no-shadow": ["error"],
-        "@typescript-eslint/array-type": [
-          "error",
-          {
-            "default": "generic"
-          }
-        ],
-        "@typescript-eslint/no-dynamic-delete": "error",
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {
@@ -366,7 +353,6 @@
       "rules": {
         "curly": "error",
         "@typescript-eslint/no-explicit-any": "off",
-        "import/no-cycle": "error",
         "@typescript-eslint/ban-types": [
           "error",
           {
@@ -389,7 +375,15 @@
               }
             }
           }
-        ]
+        ],
+        "@typescript-eslint/no-shadow": ["error"],
+        "@typescript-eslint/array-type": [
+          "error",
+          {
+            "default": "generic"
+          }
+        ],
+        "@typescript-eslint/no-dynamic-delete": "error"
       }
     },
     {

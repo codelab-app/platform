@@ -201,7 +201,7 @@ jobs:
           # npx jest --clearCache
       - run:
           name: 'Build CI'
-          command: npx nx run-many --target=build --projects=api,web,cmd,cli,tools-rtk-query --configuration=ci --verbose
+          command: npx nx run-many --target=build --projects=web,cli,tools-rtk-query --configuration=ci --verbose
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-staging-{{ checksum "yarn.lock" }}

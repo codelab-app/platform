@@ -1,5 +1,7 @@
 import { JSONSchemaType } from 'ajv'
-import { UpdatePageInput } from './types'
+import { CreatePageInput } from '../create-page/createPageSchema'
+
+export type UpdatePageInput = CreatePageInput
 
 export const updatePageSchema: JSONSchemaType<UpdatePageInput> = {
   title: 'Update Page Input',

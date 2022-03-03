@@ -3,10 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen-v2'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import gql from 'graphql-tag'
-import {
-  AppFragmentDoc,
-  AppBaseFragmentDoc,
-} from './App.fragment.v2.1.graphql.gen'
+import { AppFragmentDoc } from './App.fragment.v2.1.graphql.gen'
 export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>
@@ -23,19 +20,7 @@ export type CreateAppsMutation = {
         | Array<{ __typename?: 'User'; id: string } | null | undefined>
         | null
         | undefined
-      pages?:
-        | Array<{
-            __typename?: 'Page'
-            id: string
-            name: string
-            rootElement: {
-              __typename?: 'Element'
-              id: string
-              name?: string | null | undefined
-            }
-          }>
-        | null
-        | undefined
+      pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
     }>
   }
 }
@@ -57,6 +42,7 @@ export type UpdateAppsMutation = {
         | Array<{ __typename?: 'User'; id: string } | null | undefined>
         | null
         | undefined
+      pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
     }>
   }
 }
@@ -85,19 +71,7 @@ export type GetAppsQuery = {
       | Array<{ __typename?: 'User'; id: string } | null | undefined>
       | null
       | undefined
-    pages?:
-      | Array<{
-          __typename?: 'Page'
-          id: string
-          name: string
-          rootElement: {
-            __typename?: 'Element'
-            id: string
-            name?: string | null | undefined
-          }
-        }>
-      | null
-      | undefined
+    pages?: Array<{ __typename?: 'Page'; id: string }> | null | undefined
   }>
 }
 
@@ -115,11 +89,11 @@ export const UpdateAppsDocument = gql`
   mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
     updateApps(where: $where, update: $update) {
       apps {
-        ...AppBase
+        ...App
       }
     }
   }
-  ${AppBaseFragmentDoc}
+  ${AppFragmentDoc}
 `
 export const DeleteAppsDocument = gql`
   mutation DeleteApps($where: AppWhere!) {

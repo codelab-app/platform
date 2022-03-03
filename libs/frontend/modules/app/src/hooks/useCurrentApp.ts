@@ -1,7 +1,7 @@
+import { useCurrentAppId } from '@codelab/frontend/presenter/container'
 import { useAsyncState } from '@codelab/frontend/shared/utils'
 import { useEffect } from 'react'
 import { AppStore } from '../store'
-import { useCurrentAppId } from './useCurrentAppId'
 
 export const useCurrentApp = (apps: AppStore) => {
   const appId = useCurrentAppId()

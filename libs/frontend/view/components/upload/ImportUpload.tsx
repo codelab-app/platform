@@ -38,7 +38,7 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
       }
     },
     defaultFileList: [],
-    showUploadList: false
+    showUploadList: false,
   }
 
   return (

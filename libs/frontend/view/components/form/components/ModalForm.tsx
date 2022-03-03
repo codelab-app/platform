@@ -60,7 +60,6 @@ const Form = <TData, TResponse = unknown>({
     <AutoForm<TData>
       autosave={autosave}
       autosaveDelay={500}
-      id="formid"
       model={model}
       onChange={onChange}
       onChangeModel={onChangeModel}
@@ -121,10 +120,8 @@ const Modal = ({
         okButtonProps={{
           // Pass down any button props we get from the modalProps prop
           ...okButtonProps,
-          htmlType: 'submit',
           disabled: isLoading,
           loading: isLoading,
-          form: 'formid',
         }}
         onOk={(e) => {
           if (!submitRef.current) {

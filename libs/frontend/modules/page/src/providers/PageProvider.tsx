@@ -1,21 +1,24 @@
 import { ElementGraphProvider } from '@codelab/frontend/modules/element'
-import { withProvider } from '@codelab/frontend/presenter/container'
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import { useProvideCurrentPage } from './useProvideCurrentPage'
+import { usePage } from '../hooks'
+import { PageStore } from '../store'
+
+export interface PageProviderProps {
+  pages: PageStore
+}
 
 export const PageProvider = ({
   children,
-}: React.PropsWithChildren<unknown>) => {
+  pages,
+}: React.PropsWithChildren<PageProviderProps>) => {
   const { query } = useRouter()
   const pageId = query.pageId as string
-  const { currentPage } = useProvideCurrentPage(pageId)
+  const { page } = usePage(pageId, pages)
 
-  return currentPage?.rootElement ? (
-    <ElementGraphProvider elementId={currentPage?.rootElement?.id}>
+  return page?.rootElementId ? (
+    <ElementGraphProvider elementId={page.rootElementId}>
       {children}
     </ElementGraphProvider>
   ) : null
 }
-
-export const withPageProvider = withProvider(PageProvider)

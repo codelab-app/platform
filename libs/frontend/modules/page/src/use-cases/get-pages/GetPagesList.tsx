@@ -1,28 +1,39 @@
-import { useCurrentAppId } from '@codelab/frontend/modules/app'
+import { useCurrentAppId } from '@codelab/frontend/presenter/container'
+import { useAsyncState } from '@codelab/frontend/shared/utils'
 import { SpinnerWrapper } from '@codelab/frontend/view/components'
 import { List } from 'antd'
-import React from 'react'
-import { useGetPagesQuery } from '../../store'
+import { observer } from 'mobx-react-lite'
+import React, { useEffect } from 'react'
+import { PageStore } from '../../store'
 import { GetPagesItem } from './GetPagesItem'
 
-export const GetPagesList = () => {
-  const currentAppId = useCurrentAppId()
+export interface GetPagesListProps {
+  pages: PageStore
+}
 
-  const { data, isLoading } = useGetPagesQuery({
-    variables: { where: { app: { id: currentAppId } } },
-  })
+export const GetPagesList = observer<GetPagesListProps>(({ pages }) => {
+  const appId = useCurrentAppId()
 
-  const pages = data?.pages
+  const [getPages, { isLoading }] = useAsyncState(() =>
+    pages.getAll({ app: { id: appId } }),
+  )
+
+  const pagesList = pages.pagesList
+
+  useEffect(() => {
+    getPages()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <SpinnerWrapper isLoading={isLoading}>
       <List
-        dataSource={pages}
+        dataSource={pagesList}
         renderItem={(page) => (
-          <GetPagesItem appId={currentAppId} key={page.id} page={page} />
+          <GetPagesItem key={page.id} page={page} pages={pages} />
         )}
         size="small"
       />
     </SpinnerWrapper>
   )
-}
+})
