@@ -20,7 +20,7 @@ describe('Atoms', () => {
       .closest('button')
 
   before(() => {
-    cy.resetData().then(() => {
+    cy.resetDatabase().then(() => {
       cy.login()
     })
   })

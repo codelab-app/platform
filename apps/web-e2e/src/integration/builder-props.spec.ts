@@ -50,7 +50,7 @@ const selectPropsTab = () => {
 }
 
 before(() => {
-  cy.resetData().then(() => {
+  cy.resetDatabase().then(() => {
     cy.runSeeder().then(() => {
       cy.login().then(() => {
         cy.createApp().then((app: any) => {

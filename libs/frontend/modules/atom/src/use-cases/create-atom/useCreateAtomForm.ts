@@ -26,7 +26,7 @@ export const useCreateAtomForm: UseUseCaseForm<
 
   const onSubmit = useCallback(
     (input: CreateAtomInputSchema) => {
-      const connects = makeTagConnectData(input.tags)
+      const connects = makeTagConnectData(input.tags || [])
 
       return mutate({
         variables: {

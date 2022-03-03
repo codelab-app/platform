@@ -6,9 +6,16 @@ describe('Pages', () => {
   const updatedPageName = 'updated page'
 
   before(() => {
-    cy.resetData().then(() => {
+    cy.resetDatabase().then(() => {
       cy.login().then(() => {
         cy.createApp().then((app: any) => {
+          console.log('55555555555555555')
+          console.log('55555555555555555')
+          console.log('55555555555555555')
+          console.log(app)
+          console.log('55555555555555555')
+          console.log('55555555555555555')
+          console.log('55555555555555555')
           appId = app.id
         })
       })

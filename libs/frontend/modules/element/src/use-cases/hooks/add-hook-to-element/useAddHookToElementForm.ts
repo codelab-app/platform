@@ -101,7 +101,7 @@ export const useAddHookToElementForm: UseAddHookToElementForm = (elementId) => {
         title: 'Error while creating hook',
       }),
     ],
-    model: { typeId: selectedType, appId },
+    model: { typeId: selectedType },
     actionType,
     isLoading,
     interfaceLoading,
